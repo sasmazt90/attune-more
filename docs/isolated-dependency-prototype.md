@@ -20,7 +20,7 @@ Kalan: eslint-config-next15.5.27 → @next/eslint-plugin-next15.5.27 → fast-gl
 
 ## Lint kapsamı / destek sınırı
 
-Next15'in önerdiği FlatCompat + next/core-web-vitals yaklaşımıyla CLI ayarlandı. Dört temsilci TS/TSX dosyada52/52 kural, severity ve option semantiği aynı; 34/34 source dosyası lint edildi, aynı üç warning,0error. "warn"/1 gibi serializer farkları normalize edildi; hiçbir kural kaldırılmadı. Build sırasında lint korunur; ignoreDuringBuilds/continue-on-error/seviye düşürme yok. [Next15 ESLint belgesi](https://nextjs.org/docs/15/app/api-reference/config/eslint).
+Next15'in önerdiği FlatCompat + next/core-web-vitals yaklaşımıyla CLI ayarlandı. 34 gerçek TS/TSX kaynak dosyasının tamamında52/52 kural, severity ve option semantiği aynı; 34/34 source dosyası lint edildi, aynı üç warning,0error. "warn"/1 gibi serializer farkları normalize edildi; hiçbir kural kaldırılmadı. Build sırasında lint korunur; ignoreDuringBuilds/continue-on-error/seviye düşürme yok. [Next15 ESLint belgesi](https://nextjs.org/docs/15/app/api-reference/config/eslint).
 
 Peer uyumu bakım desteği demek değildir: config15 peer ESLint7/8/9 kabul eder. ESLint9 resmî EOL2026-08-06; ESLint8 de EOL. Güncel10.12.0 + config15.5.27 izole metadata çözümü **ERESOLVE** verdi; force/legacy-peer-deps kullanılmadı. ESLint10'u desteklenmiş gibi override etmedik. Doğrudan standalone Next plugin yaklaşımı da aynı fast-glob yolunu taşır; config paketini çıkarmak advisory'nin kökünü kapatmaz. [ESLint support](https://eslint.org/version-support/).
 
