@@ -1,0 +1,74 @@
+{
+  "checkedAt": "2026-10-03T19:29:02.566466+00:00",
+  "sources": {
+    "audit-results/live-provider/results.json": "1eb4e9bffbd4b9be60fa8c611de797d6be0e910e3e1826c37718bfcac87a41c0",
+    "audit-results/incident-source-metadata.json": "383190b5195e9e3b819f41e198eb147dc5d2f4ebf19d4c4fc1c406b1f2dfc5f2",
+    "docs/live-provider-incident-review.md": "002140aac3ac11ce2a15f828dcf4cd6de7261d22e3d630d87d78a6dd7050f4c9",
+    "audit-results/uat-closure-20261003/admin-evidence-needed.json": "aa3a80aa4f0075486b5e39074b8d4aa946115c8e542a7cdcb2a44d66fab6e161"
+  },
+  "incident": {
+    "status": "INVALID_TEST_SOURCE",
+    "retainedConversationCount": 3,
+    "providerTypes": [
+      "LIVE_OPENAI",
+      "LIVE_OPENAI",
+      "LIVE_OPENAI"
+    ],
+    "ttsCount": 3,
+    "ttsCountSource": "existing incident-review document; not a complete transport ledger",
+    "summaryCount": null,
+    "totalProviderRequests": null,
+    "utcInterval": null,
+    "organizationId": null,
+    "projectId": null,
+    "requestIds": [],
+    "timeEvidence": "No preserved event timestamp; artifact filesystem dates are not event timestamps",
+    "endpoints": [
+      "/v1/chat/completions",
+      "/v1/audio/speech"
+    ],
+    "absoluteHostAtIncident": null,
+    "endpointEvidence": "Existing incident-review document and API implementation; complete event request ledger missing",
+    "rawTranscriptRetained": false
+  },
+  "eventTimeControls": {
+    "dataSharing": null,
+    "zeroDataRetention": null,
+    "modifiedAbuseMonitoring": null,
+    "residency": null
+  },
+  "providerDeletionRecord": null,
+  "providerSupportRecord": null,
+  "nativeSpeechService": {
+    "providerIdentity": null,
+    "endpoint": null,
+    "retentionOrDeletionEvidence": null,
+    "scope": "Browser-native STT audio egress is distinct from OpenAI transcript/TTS requests; no preserved transport ledger identifies its provider"
+  },
+  "accountReadOnlyAccess": {
+    "dashboardOpened": true,
+    "browserReadAttempts": 2,
+    "browserReadResult": "trusted Node process exited unexpectedly; kernel reset",
+    "adminCredentialAvailable": false,
+    "ordinaryModelsGETDoesNotGrantAdministration": true
+  },
+  "providerSideStatus": "UNVERIFIED",
+  "localDeletionIsProviderDeletion": false,
+  "rawContentRead": false,
+  "rawContentReuploaded": false,
+  "providerMessagesSent": 0,
+  "accountSettingsChanged": false,
+  "providerDeletionRequested": false,
+  "laterRunEvidenceExcluded": [
+    "20261003-approved-02",
+    "20261003-approved-03",
+    "controlled-text",
+    "20261003-uat-01"
+  ],
+  "laterRunExclusionReason": "These are separate authorized runs; their request IDs/timing do not identify the invalid microphone incident",
+  "currentReadonlyRequestExcluded": "c464a52b-f229-4786-84b2-8eb857807a52 identifies current GET /v1/models only",
+  "oldKeyRevocation": "USER_REPORTED_NOT_ADMIN_VERIFIED",
+  "currentKeyId": null,
+  "oldKeyId": null,
+  "oldVersusCurrentKeyMetadataLink": null
+}

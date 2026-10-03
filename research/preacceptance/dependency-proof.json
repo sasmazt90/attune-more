@@ -1,0 +1,43 @@
+{
+  "checkedAt": "2026-10-03T19:07:15.194385+00:00",
+  "sourceHead": "f8f08d98cf23eb23c5a171b5b50411364d79adf6",
+  "installPerformed": false,
+  "candidateApplied": false,
+  "runs": {
+    "fullAudit": {
+      "exitCode": 1,
+      "sha256": "265e080031629700b49fa361f69fe34ac4f626ff2bb392ece4b3999eb8f05332"
+    },
+    "productionAudit": {
+      "exitCode": 0,
+      "sha256": "7be64fe5255a7b0fcde524c584e6c9688a8fe5d0d6225ba29ab9f2e02dc5dffa"
+    },
+    "installedProductTree": {
+      "exitCode": 0,
+      "sha256": "ad9370e05964b6f1f550c11a183ec05c172c88a38fb82f0d039935be36921b1b"
+    },
+    "affectedPaths": {
+      "exitCode": 0,
+      "sha256": "760323e3b7d25d8ca467d4fcc26ab9e335ebb589e58a34997ba4e7fa7feb068c"
+    }
+  },
+  "fullAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 7,
+    "critical": 0,
+    "total": 7
+  },
+  "productionAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "patchedVersions": [
+    null
+  ]
+}

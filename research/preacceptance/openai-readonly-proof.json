@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-10-03T19:09:27.906291+00:00",
+  "sourceHead": "f8f08d98cf23eb23c5a171b5b50411364d79adf6",
+  "method": "GET",
+  "endpoint": "https://api.openai.com/v1/models",
+  "maxRequests": 1,
+  "maxRetries": 0,
+  "modelGenerationRequests": 0,
+  "ttsRequests": 0,
+  "summaryRequests": 0,
+  "keyValueRecorded": false,
+  "configuration": {
+    "keyPresent": true,
+    "file": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test\\.env.local",
+    "loader": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test\\services\\core-api\\main.py",
+    "inheritedOpenAIConfigurationCleared": true,
+    "providerType": "LIVE_OPENAI (gpt-4o-mini)",
+    "model": "gpt-4o-mini",
+    "ttsModel": "gpt-4o-mini-tts",
+    "baseUrlOverridePresent": false,
+    "freshProviderUsesLoadedKey": true
+  },
+  "httpStatus": 200,
+  "authentication": "PASS",
+  "configuredModelsListed": {
+    "gpt-4o-mini": true,
+    "gpt-4o-mini-tts": true
+  },
+  "headers": {
+    "x-request-id": "c464a52b-f229-4786-84b2-8eb857807a52"
+  },
+  "keyId": null,
+  "keyName": null,
+  "oldKeyDifference": "UNVERIFIED_NO_METADATA_LINK",
+  "oldKeyRevocation": "USER_REPORTED_NOT_ADMIN_VERIFIED"
+}

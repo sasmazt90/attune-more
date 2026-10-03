@@ -1,0 +1,37 @@
+{
+  "checkedAt": "2026-10-03T19:41:52.233718+00:00",
+  "productSource": "f8f08d98cf23eb23c5a171b5b50411364d79adf6",
+  "freshUIBoundaryChecksPassed": 7,
+  "imagesOpenedAndReviewed": [
+    {
+      "file": "ui-consent-local-only.png",
+      "sha256": "b8eb05f0c9d96318650492b7faeb352afcbabfe8606a6eb648cc12d09cf6000c",
+      "openedForReview": true,
+      "review": "Actual local demo/provider label and denied microphone boundary; synthetic book text only"
+    },
+    {
+      "file": "ui-microphone-off.png",
+      "sha256": "6fff6e16293ac604c55cba766c5b563030003c8c46d42e360564c8d88d31269a",
+      "openedForReview": true,
+      "review": "Actual local demo/provider label and denied microphone boundary; synthetic book text only"
+    }
+  ],
+  "readOnlyProviderAuthentication": "PASS",
+  "keyMetadataDistinction": "UNVERIFIED",
+  "keyRevocation": "USER_REPORTED_NOT_ADMIN_VERIFIED",
+  "candidateApplied": false,
+  "newExperimentCI": null,
+  "providerIncidentRetentionDeletion": "UNVERIFIED",
+  "newPaidRequests": 0,
+  "physicalMicrophoneCapture": 0,
+  "providerMessagesSent": 0,
+  "leakScan": {
+    "newEvidenceAndScriptsFiles": 46,
+    "existingFrontendBuildFiles": 207,
+    "currentKeyValueMatches": 0,
+    "newEvidenceKeyPatternMatches": 0,
+    "plaintextRecorded": false
+  },
+  "preservation": "PASS",
+  "productPromotionReady": false
+}

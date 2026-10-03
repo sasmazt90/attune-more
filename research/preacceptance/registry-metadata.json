@@ -1,0 +1,720 @@
+{
+  "braces": {
+    "source": "https://registry.npmjs.org/braces",
+    "distTags": {
+      "latest": "3.0.3"
+    },
+    "versions": {
+      "3.0.3": {
+        "version": "3.0.3",
+        "dependencies": {
+          "fill-range": "^7.1.1"
+        },
+        "peerDependencies": null,
+        "peerDependenciesMeta": null,
+        "engines": {
+          "node": ">=8"
+        },
+        "deprecated": null,
+        "publishedAt": "2024-05-21T08:59:11.390Z"
+      }
+    }
+  },
+  "micromatch": {
+    "source": "https://registry.npmjs.org/micromatch",
+    "distTags": {
+      "latest": "4.0.8"
+    },
+    "versions": {
+      "4.0.8": {
+        "version": "4.0.8",
+        "dependencies": {
+          "braces": "^3.0.3",
+          "picomatch": "^2.3.1"
+        },
+        "peerDependencies": null,
+        "peerDependenciesMeta": null,
+        "engines": {
+          "node": ">=8.6"
+        },
+        "deprecated": null,
+        "publishedAt": "2024-08-23T16:31:18.748Z"
+      }
+    }
+  },
+  "fast-glob": {
+    "source": "https://registry.npmjs.org/fast-glob",
+    "distTags": {
+      "next": "2.0.2",
+      "beta": "3.2.1-beta.1",
+      "latest": "3.3.3"
+    },
+    "versions": {
+      "3.3.3": {
+        "version": "3.3.3",
+        "dependencies": {
+          "@nodelib/fs.stat": "^2.0.2",
+          "@nodelib/fs.walk": "^1.2.3",
+          "glob-parent": "^5.1.2",
+          "merge2": "^1.3.0",
+          "micromatch": "^4.0.8"
+        },
+        "peerDependencies": null,
+        "peerDependenciesMeta": null,
+        "engines": {
+          "node": ">=8.6.0"
+        },
+        "deprecated": null,
+        "publishedAt": "2025-01-05T10:38:42.236Z"
+      }
+    }
+  },
+  "chokidar": {
+    "source": "https://registry.npmjs.org/chokidar",
+    "distTags": {
+      "latest": "5.0.0"
+    },
+    "versions": {
+      "5.0.0": {
+        "version": "5.0.0",
+        "dependencies": {
+          "readdirp": "^5.0.0"
+        },
+        "peerDependencies": null,
+        "peerDependenciesMeta": null,
+        "engines": {
+          "node": ">= 20.19.0"
+        },
+        "deprecated": null,
+        "publishedAt": "2025-11-25T23:28:06.854Z"
+      }
+    }
+  },
+  "tailwindcss": {
+    "source": "https://registry.npmjs.org/tailwindcss",
+    "distTags": {
+      "next": "4.0.0",
+      "v3-lts": "3.4.19",
+      "latest": "4.3.3",
+      "insiders": "0.0.0-insiders.fa81d69"
+    },
+    "versions": {
+      "3.4.19": {
+        "version": "3.4.19",
+        "dependencies": {
+          "arg": "^5.0.2",
+          "dlv": "^1.1.3",
+          "jiti": "^1.21.7",
+          "is-glob": "^4.0.3",
+          "postcss": "^8.4.47",
+          "resolve": "^1.22.8",
+          "sucrase": "^3.35.0",
+          "chokidar": "^3.6.0",
+          "fast-glob": "^3.3.2",
+          "lilconfig": "^3.1.3",
+          "didyoumean": "^1.2.2",
+          "micromatch": "^4.0.8",
+          "picocolors": "^1.1.1",
+          "postcss-js": "^4.0.1",
+          "glob-parent": "^6.0.2",
+          "object-hash": "^3.0.0",
+          "normalize-path": "^3.0.0",
+          "postcss-import": "^15.1.0",
+          "postcss-nested": "^6.2.0",
+          "@alloc/quick-lru": "^5.2.0",
+          "postcss-load-config": "^4.0.2 || ^5.0 || ^6.0",
+          "postcss-selector-parser": "^6.1.2"
+        },
+        "peerDependencies": null,
+        "peerDependenciesMeta": null,
+        "engines": {
+          "node": ">=14.0.0"
+        },
+        "deprecated": null,
+        "publishedAt": "2025-12-10T18:40:42.410Z"
+      },
+      "4.3.3": {
+        "version": "4.3.3",
+        "dependencies": null,
+        "peerDependencies": null,
+        "peerDependenciesMeta": null,
+        "engines": null,
+        "deprecated": null,
+        "publishedAt": "2026-07-16T12:03:35.267Z"
+      }
+    }
+  },
+  "eslint": {
+    "source": "https://registry.npmjs.org/eslint",
+    "distTags": {
+      "es6jsx": "0.11.0-alpha.0",
+      "next": "10.0.0-rc.2",
+      "maintenance": "9.39.5",
+      "latest": "10.12.0"
+    },
+    "versions": {
+      "10.12.0": {
+        "version": "10.12.0",
+        "dependencies": {
+          "ajv": "^6.14.0",
+          "debug": "^4.3.2",
+          "espree": "^11.2.0",
+          "ignore": "^5.2.0",
+          "esquery": "^1.7.0",
+          "esutils": "^2.0.2",
+          "find-up": "^5.0.0",
+          "is-glob": "^4.0.0",
+          "minimatch": "^10.2.5",
+          "optionator": "^0.9.3",
+          "cross-spawn": "^7.0.6",
+          "glob-parent": "^6.0.2",
+          "imurmurhash": "^0.1.4",
+          "@eslint/core": "^1.2.1",
+          "eslint-scope": "^9.1.2",
+          "@humanfs/node": "^0.16.6",
+          "@types/estree": "^1.0.6",
+          "fast-deep-equal": "^3.1.3",
+          "natural-compare": "^1.4.0",
+          "file-entry-cache": "11.1.5 || >11.1.6 <12",
+          "@eslint/plugin-kit": "^0.7.3",
+          "eslint-visitor-keys": "^5.0.1",
+          "@eslint/config-array": "^0.23.5",
+          "@humanwhocodes/retry": "^0.4.2",
+          "escape-string-regexp": "^4.0.0",
+          "@eslint/config-helpers": "^0.7.0",
+          "@eslint-community/regexpp": "^4.12.2",
+          "@eslint-community/eslint-utils": "^4.8.0",
+          "@humanwhocodes/module-importer": "^1.0.1",
+          "json-stable-stringify-without-jsonify": "^1.0.1"
+        },
+        "peerDependencies": {
+          "jiti": "*"
+        },
+        "peerDependenciesMeta": {
+          "jiti": {
+            "optional": true
+          }
+        },
+        "engines": {
+          "node": "^20.19.0 || ^22.13.0 || >=24"
+        },
+        "deprecated": null,
+        "publishedAt": "2026-10-02T20:08:19.213Z"
+      },
+      "8.57.1": {
+        "version": "8.57.1",
+        "dependencies": {
+          "ajv": "^6.12.4",
+          "levn": "^0.4.1",
+          "chalk": "^4.0.0",
+          "debug": "^4.3.2",
+          "espree": "^9.6.1",
+          "ignore": "^5.2.0",
+          "esquery": "^1.4.2",
+          "esutils": "^2.0.2",
+          "find-up": "^5.0.0",
+          "globals": "^13.19.0",
+          "is-glob": "^4.0.0",
+          "js-yaml": "^4.1.0",
+          "doctrine": "^3.0.0",
+          "graphemer": "^1.4.0",
+          "minimatch": "^3.1.2",
+          "@eslint/js": "8.57.1",
+          "optionator": "^0.9.3",
+          "strip-ansi": "^6.0.1",
+          "text-table": "^0.2.0",
+          "cross-spawn": "^7.0.2",
+          "glob-parent": "^6.0.2",
+          "imurmurhash": "^0.1.4",
+          "eslint-scope": "^7.2.2",
+          "lodash.merge": "^4.6.2",
+          "is-path-inside": "^3.0.3",
+          "fast-deep-equal": "^3.1.3",
+          "natural-compare": "^1.4.0",
+          "@eslint/eslintrc": "^2.1.4",
+          "@nodelib/fs.walk": "^1.2.8",
+          "file-entry-cache": "^6.0.1",
+          "eslint-visitor-keys": "^3.4.3",
+          "escape-string-regexp": "^4.0.0",
+          "@ungap/structured-clone": "^1.2.0",
+          "@eslint-community/regexpp": "^4.6.1",
+          "@humanwhocodes/config-array": "^0.13.0",
+          "@eslint-community/eslint-utils": "^4.2.0",
+          "@humanwhocodes/module-importer": "^1.0.1",
+          "json-stable-stringify-without-jsonify": "^1.0.1"
+        },
+        "peerDependencies": null,
+        "peerDependenciesMeta": null,
+        "engines": {
+          "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
+        },
+        "deprecated": "This version is no longer supported. Please see https://eslint.org/version-support for other options.",
+        "publishedAt": "2024-09-16T15:20:44.208Z"
+      },
+      "9.39.5": {
+        "version": "9.39.5",
+        "dependencies": {
+          "ajv": "^6.14.0",
+          "chalk": "^4.0.0",
+          "debug": "^4.3.2",
+          "espree": "^10.4.0",
+          "ignore": "^5.2.0",
+          "esquery": "^1.5.0",
+          "esutils": "^2.0.2",
+          "find-up": "^5.0.0",
+          "is-glob": "^4.0.0",
+          "minimatch": "^3.1.5",
+          "@eslint/js": "9.39.5",
+          "optionator": "^0.9.3",
+          "cross-spawn": "^7.0.6",
+          "glob-parent": "^6.0.2",
+          "imurmurhash": "^0.1.4",
+          "@eslint/core": "^0.17.0",
+          "eslint-scope": "^8.4.0",
+          "lodash.merge": "^4.6.2",
+          "@humanfs/node": "^0.16.6",
+          "@types/estree": "^1.0.6",
+          "fast-deep-equal": "^3.1.3",
+          "natural-compare": "^1.4.0",
+          "@eslint/eslintrc": "^3.3.6",
+          "file-entry-cache": "^8.0.0",
+          "@eslint/plugin-kit": "^0.4.1",
+          "eslint-visitor-keys": "^4.2.1",
+          "@eslint/config-array": "^0.21.2",
+          "@humanwhocodes/retry": "^0.4.2",
+          "escape-string-regexp": "^4.0.0",
+          "@eslint/config-helpers": "^0.4.2",
+          "@eslint-community/regexpp": "^4.12.1",
+          "@eslint-community/eslint-utils": "^4.8.0",
+          "@humanwhocodes/module-importer": "^1.0.1",
+          "json-stable-stringify-without-jsonify": "^1.0.1"
+        },
+        "peerDependencies": {
+          "jiti": "*"
+        },
+        "peerDependenciesMeta": {
+          "jiti": {
+            "optional": true
+          }
+        },
+        "engines": {
+          "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+        },
+        "deprecated": "This version is no longer supported. Please see https://eslint.org/version-support for other options.",
+        "publishedAt": "2026-07-10T20:41:47.507Z"
+      }
+    }
+  },
+  "eslint-config-next": {
+    "source": "https://registry.npmjs.org/eslint-config-next",
+    "distTags": {
+      "next-11": "11.1.4",
+      "next-12-2-6": "12.2.6",
+      "next-14-1": "14.1.1",
+      "rc": "15.0.0-rc.1",
+      "next-13": "13.5.11",
+      "next-12-3-2": "12.3.7",
+      "beta": "16.0.0-beta.0",
+      "next-14": "14.2.35",
+      "next-15-3": "15.3.9",
+      "next-15-2": "15.2.9",
+      "next-15-0": "15.1.12",
+      "next-15-0-0": "15.0.8",
+      "preview": "16.3.0-preview.10",
+      "latest": "16.3.8",
+      "backport": "15.5.27",
+      "canary": "16.4.0-canary.58"
+    },
+    "versions": {
+      "15.5.27": {
+        "version": "15.5.27",
+        "dependencies": {
+          "eslint-plugin-react": "^7.37.0",
+          "eslint-plugin-import": "^2.31.0",
+          "eslint-plugin-jsx-a11y": "^6.10.0",
+          "@rushstack/eslint-patch": "^1.10.3",
+          "@next/eslint-plugin-next": "15.5.27",
+          "@typescript-eslint/parser": "^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+          "eslint-plugin-react-hooks": "^5.0.0",
+          "eslint-import-resolver-node": "^0.3.6",
+          "@typescript-eslint/eslint-plugin": "^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+          "eslint-import-resolver-typescript": "^3.5.2"
+        },
+        "peerDependencies": {
+          "eslint": "^7.23.0 || ^8.0.0 || ^9.0.0",
+          "typescript": ">=3.3.1"
+        },
+        "peerDependenciesMeta": {
+          "typescript": {
+            "optional": true
+          }
+        },
+        "engines": null,
+        "deprecated": null,
+        "publishedAt": "2026-09-30T16:06:01.420Z"
+      },
+      "16.3.8": {
+        "version": "16.3.8",
+        "dependencies": {
+          "globals": "16.4.0",
+          "typescript-eslint": "^8.46.0",
+          "eslint-plugin-react": "^7.37.0",
+          "eslint-plugin-import": "^2.32.0",
+          "eslint-plugin-jsx-a11y": "^6.10.0",
+          "@next/eslint-plugin-next": "16.3.8",
+          "eslint-plugin-react-hooks": "^7.0.0",
+          "eslint-import-resolver-node": "^0.3.6",
+          "eslint-import-resolver-typescript": "^3.5.2"
+        },
+        "peerDependencies": {
+          "eslint": ">=9.0.0",
+          "typescript": ">=3.3.1"
+        },
+        "peerDependenciesMeta": {
+          "typescript": {
+            "optional": true
+          }
+        },
+        "engines": null,
+        "deprecated": null,
+        "publishedAt": "2026-09-30T15:59:39.390Z"
+      }
+    }
+  },
+  "@next/eslint-plugin-next": {
+    "source": "https://registry.npmjs.org/@next/eslint-plugin-next",
+    "distTags": {
+      "next-11": "11.1.4",
+      "next-12-2-6": "12.2.6",
+      "next-14-1": "14.1.1",
+      "rc": "15.0.0-rc.1",
+      "next-13": "13.5.11",
+      "next-12-3-2": "12.3.7",
+      "beta": "16.0.0-beta.0",
+      "next-14": "14.2.35",
+      "next-15-3": "15.3.9",
+      "next-15-2": "15.2.9",
+      "next-15-0": "15.1.12",
+      "next-15-0-0": "15.0.8",
+      "preview": "16.3.0-preview.10",
+      "latest": "16.3.8",
+      "backport": "15.5.27",
+      "canary": "16.4.0-canary.58"
+    },
+    "versions": {
+      "15.5.27": {
+        "version": "15.5.27",
+        "dependencies": {
+          "fast-glob": "3.3.1"
+        },
+        "peerDependencies": null,
+        "peerDependenciesMeta": null,
+        "engines": null,
+        "deprecated": null,
+        "publishedAt": "2026-09-30T16:04:54.105Z"
+      },
+      "16.3.8": {
+        "version": "16.3.8",
+        "dependencies": {
+          "fast-glob": "3.3.1",
+          "@eslint-community/eslint-utils": "4.9.1"
+        },
+        "peerDependencies": null,
+        "peerDependenciesMeta": null,
+        "engines": null,
+        "deprecated": null,
+        "publishedAt": "2026-09-30T15:56:48.503Z"
+      }
+    }
+  },
+  "eslint-plugin-react": {
+    "source": "https://registry.npmjs.org/eslint-plugin-react",
+    "distTags": {
+      "next": "7.8.0-rc.0",
+      "latest": "7.37.5"
+    },
+    "versions": {
+      "7.37.5": {
+        "version": "7.37.5",
+        "dependencies": {
+          "array-includes": "^3.1.8",
+          "array.prototype.findlast": "^1.2.5",
+          "array.prototype.flatmap": "^1.3.3",
+          "array.prototype.tosorted": "^1.1.4",
+          "doctrine": "^2.1.0",
+          "es-iterator-helpers": "^1.2.1",
+          "estraverse": "^5.3.0",
+          "hasown": "^2.0.2",
+          "jsx-ast-utils": "^2.4.1 || ^3.0.0",
+          "minimatch": "^3.1.2",
+          "object.entries": "^1.1.9",
+          "object.fromentries": "^2.0.8",
+          "object.values": "^1.2.1",
+          "prop-types": "^15.8.1",
+          "resolve": "^2.0.0-next.5",
+          "semver": "^6.3.1",
+          "string.prototype.matchall": "^4.0.12",
+          "string.prototype.repeat": "^1.0.0"
+        },
+        "peerDependencies": {
+          "eslint": "^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7"
+        },
+        "peerDependenciesMeta": null,
+        "engines": {
+          "node": ">=4"
+        },
+        "deprecated": null,
+        "publishedAt": "2025-04-03T20:01:15.958Z"
+      }
+    }
+  },
+  "eslint-plugin-import": {
+    "source": "https://registry.npmjs.org/eslint-plugin-import",
+    "distTags": {
+      "next": "2.0.0-beta.1",
+      "latest": "2.32.0"
+    },
+    "versions": {
+      "2.32.0": {
+        "version": "2.32.0",
+        "dependencies": {
+          "@rtsao/scc": "^1.1.0",
+          "array-includes": "^3.1.9",
+          "array.prototype.findlastindex": "^1.2.6",
+          "array.prototype.flat": "^1.3.3",
+          "array.prototype.flatmap": "^1.3.3",
+          "debug": "^3.2.7",
+          "doctrine": "^2.1.0",
+          "eslint-import-resolver-node": "^0.3.9",
+          "eslint-module-utils": "^2.12.1",
+          "hasown": "^2.0.2",
+          "is-core-module": "^2.16.1",
+          "is-glob": "^4.0.3",
+          "minimatch": "^3.1.2",
+          "object.fromentries": "^2.0.8",
+          "object.groupby": "^1.0.3",
+          "object.values": "^1.2.1",
+          "semver": "^6.3.1",
+          "string.prototype.trimend": "^1.0.9",
+          "tsconfig-paths": "^3.15.0"
+        },
+        "peerDependencies": {
+          "eslint": "^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8 || ^9"
+        },
+        "peerDependenciesMeta": null,
+        "engines": {
+          "node": ">=4"
+        },
+        "deprecated": null,
+        "publishedAt": "2025-06-20T21:59:09.822Z"
+      }
+    }
+  },
+  "eslint-plugin-jsx-a11y": {
+    "source": "https://registry.npmjs.org/eslint-plugin-jsx-a11y",
+    "distTags": {
+      "v5-backport": "5.1.1",
+      "latest": "6.10.2"
+    },
+    "versions": {
+      "6.10.2": {
+        "version": "6.10.2",
+        "dependencies": {
+          "aria-query": "^5.3.2",
+          "array-includes": "^3.1.8",
+          "array.prototype.flatmap": "^1.3.2",
+          "ast-types-flow": "^0.0.8",
+          "axe-core": "^4.10.0",
+          "axobject-query": "^4.1.0",
+          "damerau-levenshtein": "^1.0.8",
+          "emoji-regex": "^9.2.2",
+          "hasown": "^2.0.2",
+          "jsx-ast-utils": "^3.3.5",
+          "language-tags": "^1.0.9",
+          "minimatch": "^3.1.2",
+          "object.fromentries": "^2.0.8",
+          "safe-regex-test": "^1.0.3",
+          "string.prototype.includes": "^2.0.1"
+        },
+        "peerDependencies": {
+          "eslint": "^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9"
+        },
+        "peerDependenciesMeta": null,
+        "engines": {
+          "node": ">=4.0"
+        },
+        "deprecated": null,
+        "publishedAt": "2024-10-26T04:45:18.067Z"
+      }
+    }
+  },
+  "eslint-plugin-react-hooks": {
+    "source": "https://registry.npmjs.org/eslint-plugin-react-hooks",
+    "distTags": {
+      "beta": "5.1.0-beta-26f2496093-20240514",
+      "rc": "6.0.0-rc.2",
+      "latest": "7.1.1",
+      "next": "7.1.1-canary-d5736f09-20260507",
+      "experimental": "0.0.0-experimental-278794d7-20261002",
+      "canary": "7.1.1-canary-278794d7-20261002"
+    },
+    "versions": {
+      "7.1.1": {
+        "version": "7.1.1",
+        "dependencies": {
+          "zod": "^3.25.0 || ^4.0.0",
+          "@babel/core": "^7.24.4",
+          "@babel/parser": "^7.24.4",
+          "hermes-parser": "^0.25.1",
+          "zod-validation-error": "^3.5.0 || ^4.0.0"
+        },
+        "peerDependencies": {
+          "eslint": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0 || ^10.0.0"
+        },
+        "peerDependenciesMeta": null,
+        "engines": {
+          "node": ">=18"
+        },
+        "deprecated": null,
+        "publishedAt": "2026-04-17T18:03:19.591Z"
+      }
+    }
+  },
+  "@typescript-eslint/eslint-plugin": {
+    "source": "https://registry.npmjs.org/@typescript-eslint/eslint-plugin",
+    "distTags": {
+      "rc-v3": "3.0.0-alpha.27",
+      "rc-v4": "4.0.0-alpha.16",
+      "rc-v5": "5.0.0-alpha.42",
+      "rc-v": "6.0.0-alpha.58",
+      "rc-v6": "7.0.0-alpha.0",
+      "rc-v8": "8.0.0-alpha.62",
+      "latest": "8.71.0",
+      "canary": "8.71.1-alpha.8"
+    },
+    "versions": {
+      "8.71.0": {
+        "version": "8.71.0",
+        "dependencies": {
+          "ignore": "^7.0.5",
+          "ts-api-utils": "^2.5.0",
+          "natural-compare": "^1.4.0",
+          "@typescript-eslint/utils": "8.71.0",
+          "@eslint-community/regexpp": "^4.12.2",
+          "@typescript-eslint/type-utils": "8.71.0",
+          "@typescript-eslint/visitor-keys": "8.71.0",
+          "@typescript-eslint/scope-manager": "8.71.0"
+        },
+        "peerDependencies": {
+          "eslint": "^8.57.0 || ^9.0.0 || ^10.0.0",
+          "typescript": ">=4.8.4 <6.1.0",
+          "@typescript-eslint/parser": "^8.71.0"
+        },
+        "peerDependenciesMeta": null,
+        "engines": {
+          "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+        },
+        "deprecated": null,
+        "publishedAt": "2026-09-28T17:13:54.998Z"
+      }
+    }
+  },
+  "next": {
+    "source": "https://registry.npmjs.org/next",
+    "distTags": {
+      "next-11": "11.1.4",
+      "next-12-2-6": "12.2.6",
+      "next-14-1": "14.1.1",
+      "rc": "15.0.0-rc.1",
+      "next-13": "13.5.11",
+      "next-12-3-2": "12.3.7",
+      "beta": "16.0.0-beta.0",
+      "next-14": "14.2.35",
+      "next-15-3": "15.3.9",
+      "next-15-2": "15.2.9",
+      "next-15-0": "15.1.12",
+      "next-15-0-0": "15.0.8",
+      "preview": "16.3.0-preview.10",
+      "latest": "16.3.8",
+      "backport": "15.5.27",
+      "canary": "16.4.0-canary.58"
+    },
+    "versions": {
+      "15.5.27": {
+        "version": "15.5.27",
+        "dependencies": {
+          "postcss": "8.4.31",
+          "@next/env": "15.5.27",
+          "styled-jsx": "5.1.6",
+          "@swc/helpers": "0.5.15",
+          "caniuse-lite": "^1.0.30001579"
+        },
+        "peerDependencies": {
+          "sass": "^1.3.0",
+          "react": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0",
+          "react-dom": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0",
+          "@playwright/test": "^1.51.1",
+          "@opentelemetry/api": "^1.1.0",
+          "babel-plugin-react-compiler": "*"
+        },
+        "peerDependenciesMeta": {
+          "sass": {
+            "optional": true
+          },
+          "@playwright/test": {
+            "optional": true
+          },
+          "@opentelemetry/api": {
+            "optional": true
+          },
+          "babel-plugin-react-compiler": {
+            "optional": true
+          }
+        },
+        "engines": {
+          "node": "^18.18.0 || ^19.8.0 || >= 20.0.0"
+        },
+        "deprecated": null,
+        "publishedAt": "2026-09-30T16:19:50.862Z"
+      },
+      "16.3.8": {
+        "version": "16.3.8",
+        "dependencies": {
+          "postcss": "8.5.23",
+          "@next/env": "16.3.8",
+          "styled-jsx": "5.1.6",
+          "@swc/helpers": "0.5.23",
+          "caniuse-lite": "^1.0.30001579",
+          "baseline-browser-mapping": "^2.9.19"
+        },
+        "peerDependencies": {
+          "sass": "^1.3.0",
+          "react": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0",
+          "react-dom": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0",
+          "@playwright/test": "^1.51.1",
+          "@opentelemetry/api": "^1.1.0",
+          "babel-plugin-react-compiler": "*"
+        },
+        "peerDependenciesMeta": {
+          "sass": {
+            "optional": true
+          },
+          "@playwright/test": {
+            "optional": true
+          },
+          "@opentelemetry/api": {
+            "optional": true
+          },
+          "babel-plugin-react-compiler": {
+            "optional": true
+          }
+        },
+        "engines": {
+          "node": ">=20.9.0"
+        },
+        "deprecated": null,
+        "publishedAt": "2026-09-30T16:07:21.198Z"
+      }
+    }
+  }
+}
