@@ -1,0 +1,1620 @@
+{
+  "braces": [
+    {
+      "name": "braces",
+      "version": "3.0.3",
+      "location": "node_modules/braces",
+      "isWorkspace": false,
+      "dependents": [
+        {
+          "type": "prod",
+          "name": "braces",
+          "spec": "~3.0.2",
+          "from": {
+            "name": "chokidar",
+            "version": "3.6.0",
+            "location": "node_modules/chokidar",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "prod",
+                "name": "chokidar",
+                "spec": "^3.6.0",
+                "from": {
+                  "name": "tailwindcss",
+                  "version": "3.4.19",
+                  "location": "node_modules/tailwindcss",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "dev",
+                      "name": "tailwindcss",
+                      "spec": "^3.4.12",
+                      "from": {
+                        "name": "vehicle-app",
+                        "version": "0.1.0",
+                        "location": "apps/vehicle-app",
+                        "isWorkspace": true,
+                        "dependents": [],
+                        "linksIn": [
+                          {
+                            "name": "vehicle-app",
+                            "version": "0.1.0",
+                            "location": "node_modules/vehicle-app",
+                            "isWorkspace": true,
+                            "dependents": [
+                              {
+                                "type": "workspace",
+                                "name": "vehicle-app",
+                                "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                "from": {
+                                  "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "prod",
+          "name": "braces",
+          "spec": "^3.0.3",
+          "from": {
+            "name": "micromatch",
+            "version": "4.0.8",
+            "location": "node_modules/micromatch",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "prod",
+                "name": "micromatch",
+                "spec": "^4.0.8",
+                "from": {
+                  "name": "fast-glob",
+                  "version": "3.3.3",
+                  "location": "node_modules/fast-glob",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "prod",
+                      "name": "fast-glob",
+                      "spec": "^3.3.2",
+                      "from": {
+                        "name": "tailwindcss",
+                        "version": "3.4.19",
+                        "location": "node_modules/tailwindcss",
+                        "isWorkspace": false,
+                        "dependents": [
+                          {
+                            "type": "dev",
+                            "name": "tailwindcss",
+                            "spec": "^3.4.12",
+                            "from": {
+                              "name": "vehicle-app",
+                              "version": "0.1.0",
+                              "location": "apps/vehicle-app",
+                              "isWorkspace": true,
+                              "dependents": [],
+                              "linksIn": [
+                                {
+                                  "name": "vehicle-app",
+                                  "version": "0.1.0",
+                                  "location": "node_modules/vehicle-app",
+                                  "isWorkspace": true,
+                                  "dependents": [
+                                    {
+                                      "type": "workspace",
+                                      "name": "vehicle-app",
+                                      "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                      "from": {
+                                        "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "prod",
+                "name": "micromatch",
+                "spec": "^4.0.8",
+                "from": {
+                  "name": "tailwindcss",
+                  "version": "3.4.19",
+                  "location": "node_modules/tailwindcss",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "dev",
+                      "name": "tailwindcss",
+                      "spec": "^3.4.12",
+                      "from": {
+                        "name": "vehicle-app",
+                        "version": "0.1.0",
+                        "location": "apps/vehicle-app",
+                        "isWorkspace": true,
+                        "dependents": [],
+                        "linksIn": [
+                          {
+                            "name": "vehicle-app",
+                            "version": "0.1.0",
+                            "location": "node_modules/vehicle-app",
+                            "isWorkspace": true,
+                            "dependents": [
+                              {
+                                "type": "workspace",
+                                "name": "vehicle-app",
+                                "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                "from": {
+                                  "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "prod",
+                "name": "micromatch",
+                "spec": "^4.0.4",
+                "from": {
+                  "name": "fast-glob",
+                  "version": "3.3.1",
+                  "location": "node_modules/@next/eslint-plugin-next/node_modules/fast-glob",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "prod",
+                      "name": "fast-glob",
+                      "spec": "3.3.1",
+                      "from": {
+                        "name": "@next/eslint-plugin-next",
+                        "version": "15.5.27",
+                        "location": "node_modules/@next/eslint-plugin-next",
+                        "isWorkspace": false,
+                        "dependents": [
+                          {
+                            "type": "prod",
+                            "name": "@next/eslint-plugin-next",
+                            "spec": "15.5.27",
+                            "from": {
+                              "name": "eslint-config-next",
+                              "version": "15.5.27",
+                              "location": "node_modules/eslint-config-next",
+                              "isWorkspace": false,
+                              "dependents": [
+                                {
+                                  "type": "dev",
+                                  "name": "eslint-config-next",
+                                  "spec": "15.5.27",
+                                  "from": {
+                                    "name": "vehicle-app",
+                                    "version": "0.1.0",
+                                    "location": "apps/vehicle-app",
+                                    "isWorkspace": true,
+                                    "dependents": [],
+                                    "linksIn": [
+                                      {
+                                        "name": "vehicle-app",
+                                        "version": "0.1.0",
+                                        "location": "node_modules/vehicle-app",
+                                        "isWorkspace": true,
+                                        "dependents": [
+                                          {
+                                            "type": "workspace",
+                                            "name": "vehicle-app",
+                                            "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                            "from": {
+                                              "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "dev": true,
+      "optional": false,
+      "devOptional": true,
+      "peer": false,
+      "bundled": false,
+      "overridden": false
+    }
+  ],
+  "micromatch": [
+    {
+      "name": "micromatch",
+      "version": "4.0.8",
+      "location": "node_modules/micromatch",
+      "isWorkspace": false,
+      "dependents": [
+        {
+          "type": "prod",
+          "name": "micromatch",
+          "spec": "^4.0.8",
+          "from": {
+            "name": "fast-glob",
+            "version": "3.3.3",
+            "location": "node_modules/fast-glob",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "prod",
+                "name": "fast-glob",
+                "spec": "^3.3.2",
+                "from": {
+                  "name": "tailwindcss",
+                  "version": "3.4.19",
+                  "location": "node_modules/tailwindcss",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "dev",
+                      "name": "tailwindcss",
+                      "spec": "^3.4.12",
+                      "from": {
+                        "name": "vehicle-app",
+                        "version": "0.1.0",
+                        "location": "apps/vehicle-app",
+                        "isWorkspace": true,
+                        "dependents": [],
+                        "linksIn": [
+                          {
+                            "name": "vehicle-app",
+                            "version": "0.1.0",
+                            "location": "node_modules/vehicle-app",
+                            "isWorkspace": true,
+                            "dependents": [
+                              {
+                                "type": "workspace",
+                                "name": "vehicle-app",
+                                "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                "from": {
+                                  "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "prod",
+          "name": "micromatch",
+          "spec": "^4.0.8",
+          "from": {
+            "name": "tailwindcss",
+            "version": "3.4.19",
+            "location": "node_modules/tailwindcss",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "dev",
+                "name": "tailwindcss",
+                "spec": "^3.4.12",
+                "from": {
+                  "name": "vehicle-app",
+                  "version": "0.1.0",
+                  "location": "apps/vehicle-app",
+                  "isWorkspace": true,
+                  "dependents": [],
+                  "linksIn": [
+                    {
+                      "name": "vehicle-app",
+                      "version": "0.1.0",
+                      "location": "node_modules/vehicle-app",
+                      "isWorkspace": true,
+                      "dependents": [
+                        {
+                          "type": "workspace",
+                          "name": "vehicle-app",
+                          "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                          "from": {
+                            "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "prod",
+          "name": "micromatch",
+          "spec": "^4.0.4",
+          "from": {
+            "name": "fast-glob",
+            "version": "3.3.1",
+            "location": "node_modules/@next/eslint-plugin-next/node_modules/fast-glob",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "prod",
+                "name": "fast-glob",
+                "spec": "3.3.1",
+                "from": {
+                  "name": "@next/eslint-plugin-next",
+                  "version": "15.5.27",
+                  "location": "node_modules/@next/eslint-plugin-next",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "prod",
+                      "name": "@next/eslint-plugin-next",
+                      "spec": "15.5.27",
+                      "from": {
+                        "name": "eslint-config-next",
+                        "version": "15.5.27",
+                        "location": "node_modules/eslint-config-next",
+                        "isWorkspace": false,
+                        "dependents": [
+                          {
+                            "type": "dev",
+                            "name": "eslint-config-next",
+                            "spec": "15.5.27",
+                            "from": {
+                              "name": "vehicle-app",
+                              "version": "0.1.0",
+                              "location": "apps/vehicle-app",
+                              "isWorkspace": true,
+                              "dependents": [],
+                              "linksIn": [
+                                {
+                                  "name": "vehicle-app",
+                                  "version": "0.1.0",
+                                  "location": "node_modules/vehicle-app",
+                                  "isWorkspace": true,
+                                  "dependents": [
+                                    {
+                                      "type": "workspace",
+                                      "name": "vehicle-app",
+                                      "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                      "from": {
+                                        "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "dev": true,
+      "optional": false,
+      "devOptional": true,
+      "peer": false,
+      "bundled": false,
+      "overridden": false
+    }
+  ],
+  "fast-glob": [
+    {
+      "name": "fast-glob",
+      "version": "3.3.3",
+      "location": "node_modules/fast-glob",
+      "isWorkspace": false,
+      "dependents": [
+        {
+          "type": "prod",
+          "name": "fast-glob",
+          "spec": "^3.3.2",
+          "from": {
+            "name": "tailwindcss",
+            "version": "3.4.19",
+            "location": "node_modules/tailwindcss",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "dev",
+                "name": "tailwindcss",
+                "spec": "^3.4.12",
+                "from": {
+                  "name": "vehicle-app",
+                  "version": "0.1.0",
+                  "location": "apps/vehicle-app",
+                  "isWorkspace": true,
+                  "dependents": [],
+                  "linksIn": [
+                    {
+                      "name": "vehicle-app",
+                      "version": "0.1.0",
+                      "location": "node_modules/vehicle-app",
+                      "isWorkspace": true,
+                      "dependents": [
+                        {
+                          "type": "workspace",
+                          "name": "vehicle-app",
+                          "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                          "from": {
+                            "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "dev": true,
+      "optional": false,
+      "devOptional": true,
+      "peer": false,
+      "bundled": false,
+      "overridden": false
+    },
+    {
+      "name": "fast-glob",
+      "version": "3.3.1",
+      "location": "node_modules/@next/eslint-plugin-next/node_modules/fast-glob",
+      "isWorkspace": false,
+      "dependents": [
+        {
+          "type": "prod",
+          "name": "fast-glob",
+          "spec": "3.3.1",
+          "from": {
+            "name": "@next/eslint-plugin-next",
+            "version": "15.5.27",
+            "location": "node_modules/@next/eslint-plugin-next",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "prod",
+                "name": "@next/eslint-plugin-next",
+                "spec": "15.5.27",
+                "from": {
+                  "name": "eslint-config-next",
+                  "version": "15.5.27",
+                  "location": "node_modules/eslint-config-next",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "dev",
+                      "name": "eslint-config-next",
+                      "spec": "15.5.27",
+                      "from": {
+                        "name": "vehicle-app",
+                        "version": "0.1.0",
+                        "location": "apps/vehicle-app",
+                        "isWorkspace": true,
+                        "dependents": [],
+                        "linksIn": [
+                          {
+                            "name": "vehicle-app",
+                            "version": "0.1.0",
+                            "location": "node_modules/vehicle-app",
+                            "isWorkspace": true,
+                            "dependents": [
+                              {
+                                "type": "workspace",
+                                "name": "vehicle-app",
+                                "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                "from": {
+                                  "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "dev": true,
+      "optional": false,
+      "devOptional": true,
+      "peer": false,
+      "bundled": false,
+      "overridden": false
+    }
+  ],
+  "eslint": [
+    {
+      "name": "eslint",
+      "version": "8.57.1",
+      "location": "node_modules/eslint",
+      "isWorkspace": false,
+      "dependents": [
+        {
+          "type": "peer",
+          "name": "eslint",
+          "spec": "^7.23.0 || ^8.0.0 || ^9.0.0",
+          "from": {
+            "name": "eslint-config-next",
+            "version": "15.5.27",
+            "location": "node_modules/eslint-config-next",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "dev",
+                "name": "eslint-config-next",
+                "spec": "15.5.27",
+                "from": {
+                  "name": "vehicle-app",
+                  "version": "0.1.0",
+                  "location": "apps/vehicle-app",
+                  "isWorkspace": true,
+                  "dependents": [],
+                  "linksIn": [
+                    {
+                      "name": "vehicle-app",
+                      "version": "0.1.0",
+                      "location": "node_modules/vehicle-app",
+                      "isWorkspace": true,
+                      "dependents": [
+                        {
+                          "type": "workspace",
+                          "name": "vehicle-app",
+                          "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                          "from": {
+                            "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "peer",
+          "name": "eslint",
+          "spec": "*",
+          "from": {
+            "name": "eslint-import-resolver-typescript",
+            "version": "3.10.1",
+            "location": "node_modules/eslint-import-resolver-typescript",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "prod",
+                "name": "eslint-import-resolver-typescript",
+                "spec": "^3.5.2",
+                "from": {
+                  "name": "eslint-config-next",
+                  "version": "15.5.27",
+                  "location": "node_modules/eslint-config-next",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "dev",
+                      "name": "eslint-config-next",
+                      "spec": "15.5.27",
+                      "from": {
+                        "name": "vehicle-app",
+                        "version": "0.1.0",
+                        "location": "apps/vehicle-app",
+                        "isWorkspace": true,
+                        "dependents": [],
+                        "linksIn": [
+                          {
+                            "name": "vehicle-app",
+                            "version": "0.1.0",
+                            "location": "node_modules/vehicle-app",
+                            "isWorkspace": true,
+                            "dependents": [
+                              {
+                                "type": "workspace",
+                                "name": "vehicle-app",
+                                "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                "from": {
+                                  "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "peer",
+          "name": "eslint",
+          "spec": "^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8 || ^9",
+          "from": {
+            "name": "eslint-plugin-import",
+            "version": "2.32.0",
+            "location": "node_modules/eslint-plugin-import",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "prod",
+                "name": "eslint-plugin-import",
+                "spec": "^2.31.0",
+                "from": {
+                  "name": "eslint-config-next",
+                  "version": "15.5.27",
+                  "location": "node_modules/eslint-config-next",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "dev",
+                      "name": "eslint-config-next",
+                      "spec": "15.5.27",
+                      "from": {
+                        "name": "vehicle-app",
+                        "version": "0.1.0",
+                        "location": "apps/vehicle-app",
+                        "isWorkspace": true,
+                        "dependents": [],
+                        "linksIn": [
+                          {
+                            "name": "vehicle-app",
+                            "version": "0.1.0",
+                            "location": "node_modules/vehicle-app",
+                            "isWorkspace": true,
+                            "dependents": [
+                              {
+                                "type": "workspace",
+                                "name": "vehicle-app",
+                                "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                "from": {
+                                  "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "peerOptional",
+                "name": "eslint-plugin-import",
+                "spec": "*",
+                "from": {
+                  "name": "eslint-import-resolver-typescript",
+                  "version": "3.10.1",
+                  "location": "node_modules/eslint-import-resolver-typescript",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "prod",
+                      "name": "eslint-import-resolver-typescript",
+                      "spec": "^3.5.2",
+                      "from": {
+                        "name": "eslint-config-next",
+                        "version": "15.5.27",
+                        "location": "node_modules/eslint-config-next",
+                        "isWorkspace": false,
+                        "dependents": [
+                          {
+                            "type": "dev",
+                            "name": "eslint-config-next",
+                            "spec": "15.5.27",
+                            "from": {
+                              "name": "vehicle-app",
+                              "version": "0.1.0",
+                              "location": "apps/vehicle-app",
+                              "isWorkspace": true,
+                              "dependents": [],
+                              "linksIn": [
+                                {
+                                  "name": "vehicle-app",
+                                  "version": "0.1.0",
+                                  "location": "node_modules/vehicle-app",
+                                  "isWorkspace": true,
+                                  "dependents": [
+                                    {
+                                      "type": "workspace",
+                                      "name": "vehicle-app",
+                                      "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                      "from": {
+                                        "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "peer",
+          "name": "eslint",
+          "spec": "^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9",
+          "from": {
+            "name": "eslint-plugin-jsx-a11y",
+            "version": "6.10.2",
+            "location": "node_modules/eslint-plugin-jsx-a11y",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "prod",
+                "name": "eslint-plugin-jsx-a11y",
+                "spec": "^6.10.0",
+                "from": {
+                  "name": "eslint-config-next",
+                  "version": "15.5.27",
+                  "location": "node_modules/eslint-config-next",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "dev",
+                      "name": "eslint-config-next",
+                      "spec": "15.5.27",
+                      "from": {
+                        "name": "vehicle-app",
+                        "version": "0.1.0",
+                        "location": "apps/vehicle-app",
+                        "isWorkspace": true,
+                        "dependents": [],
+                        "linksIn": [
+                          {
+                            "name": "vehicle-app",
+                            "version": "0.1.0",
+                            "location": "node_modules/vehicle-app",
+                            "isWorkspace": true,
+                            "dependents": [
+                              {
+                                "type": "workspace",
+                                "name": "vehicle-app",
+                                "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                "from": {
+                                  "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "peer",
+          "name": "eslint",
+          "spec": "^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7",
+          "from": {
+            "name": "eslint-plugin-react",
+            "version": "7.37.5",
+            "location": "node_modules/eslint-plugin-react",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "prod",
+                "name": "eslint-plugin-react",
+                "spec": "^7.37.0",
+                "from": {
+                  "name": "eslint-config-next",
+                  "version": "15.5.27",
+                  "location": "node_modules/eslint-config-next",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "dev",
+                      "name": "eslint-config-next",
+                      "spec": "15.5.27",
+                      "from": {
+                        "name": "vehicle-app",
+                        "version": "0.1.0",
+                        "location": "apps/vehicle-app",
+                        "isWorkspace": true,
+                        "dependents": [],
+                        "linksIn": [
+                          {
+                            "name": "vehicle-app",
+                            "version": "0.1.0",
+                            "location": "node_modules/vehicle-app",
+                            "isWorkspace": true,
+                            "dependents": [
+                              {
+                                "type": "workspace",
+                                "name": "vehicle-app",
+                                "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                "from": {
+                                  "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "peer",
+          "name": "eslint",
+          "spec": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0",
+          "from": {
+            "name": "eslint-plugin-react-hooks",
+            "version": "5.2.0",
+            "location": "node_modules/eslint-plugin-react-hooks",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "prod",
+                "name": "eslint-plugin-react-hooks",
+                "spec": "^5.0.0",
+                "from": {
+                  "name": "eslint-config-next",
+                  "version": "15.5.27",
+                  "location": "node_modules/eslint-config-next",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "dev",
+                      "name": "eslint-config-next",
+                      "spec": "15.5.27",
+                      "from": {
+                        "name": "vehicle-app",
+                        "version": "0.1.0",
+                        "location": "apps/vehicle-app",
+                        "isWorkspace": true,
+                        "dependents": [],
+                        "linksIn": [
+                          {
+                            "name": "vehicle-app",
+                            "version": "0.1.0",
+                            "location": "node_modules/vehicle-app",
+                            "isWorkspace": true,
+                            "dependents": [
+                              {
+                                "type": "workspace",
+                                "name": "vehicle-app",
+                                "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                "from": {
+                                  "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "peer",
+          "name": "eslint",
+          "spec": "^6.0.0 || ^7.0.0 || >=8.0.0",
+          "from": {
+            "name": "@eslint-community/eslint-utils",
+            "version": "4.10.1",
+            "location": "node_modules/@eslint-community/eslint-utils",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "prod",
+                "name": "@eslint-community/eslint-utils",
+                "spec": "^4.2.0",
+                "from": {
+                  "name": "eslint",
+                  "version": "8.57.1"
+                }
+              },
+              {
+                "type": "prod",
+                "name": "@eslint-community/eslint-utils",
+                "spec": "^4.9.1",
+                "from": {
+                  "name": "@typescript-eslint/utils",
+                  "version": "8.71.0",
+                  "location": "node_modules/@typescript-eslint/utils",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "prod",
+                      "name": "@typescript-eslint/utils",
+                      "spec": "8.71.0",
+                      "from": {
+                        "name": "@typescript-eslint/eslint-plugin",
+                        "version": "8.71.0",
+                        "location": "node_modules/@typescript-eslint/eslint-plugin",
+                        "isWorkspace": false,
+                        "dependents": [
+                          {
+                            "type": "prod",
+                            "name": "@typescript-eslint/eslint-plugin",
+                            "spec": "^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+                            "from": {
+                              "name": "eslint-config-next",
+                              "version": "15.5.27",
+                              "location": "node_modules/eslint-config-next",
+                              "isWorkspace": false,
+                              "dependents": [
+                                {
+                                  "type": "dev",
+                                  "name": "eslint-config-next",
+                                  "spec": "15.5.27",
+                                  "from": {
+                                    "name": "vehicle-app",
+                                    "version": "0.1.0",
+                                    "location": "apps/vehicle-app",
+                                    "isWorkspace": true,
+                                    "dependents": [],
+                                    "linksIn": [
+                                      {
+                                        "name": "vehicle-app",
+                                        "version": "0.1.0",
+                                        "location": "node_modules/vehicle-app",
+                                        "isWorkspace": true,
+                                        "dependents": [
+                                          {
+                                            "type": "workspace",
+                                            "name": "vehicle-app",
+                                            "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                            "from": {
+                                              "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "prod",
+                      "name": "@typescript-eslint/utils",
+                      "spec": "8.71.0",
+                      "from": {
+                        "name": "@typescript-eslint/type-utils",
+                        "version": "8.71.0",
+                        "location": "node_modules/@typescript-eslint/type-utils",
+                        "isWorkspace": false,
+                        "dependents": [
+                          {
+                            "type": "prod",
+                            "name": "@typescript-eslint/type-utils",
+                            "spec": "8.71.0",
+                            "from": {
+                              "name": "@typescript-eslint/eslint-plugin",
+                              "version": "8.71.0",
+                              "location": "node_modules/@typescript-eslint/eslint-plugin",
+                              "isWorkspace": false,
+                              "dependents": [
+                                {
+                                  "type": "prod",
+                                  "name": "@typescript-eslint/eslint-plugin",
+                                  "spec": "^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+                                  "from": {
+                                    "name": "eslint-config-next",
+                                    "version": "15.5.27",
+                                    "location": "node_modules/eslint-config-next",
+                                    "isWorkspace": false,
+                                    "dependents": [
+                                      {
+                                        "type": "dev",
+                                        "name": "eslint-config-next",
+                                        "spec": "15.5.27",
+                                        "from": {
+                                          "name": "vehicle-app",
+                                          "version": "0.1.0",
+                                          "location": "apps/vehicle-app",
+                                          "isWorkspace": true,
+                                          "dependents": [],
+                                          "linksIn": [
+                                            {
+                                              "name": "vehicle-app",
+                                              "version": "0.1.0",
+                                              "location": "node_modules/vehicle-app",
+                                              "isWorkspace": true,
+                                              "dependents": [
+                                                {
+                                                  "type": "workspace",
+                                                  "name": "vehicle-app",
+                                                  "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                                  "from": {
+                                                    "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "peer",
+          "name": "eslint",
+          "spec": "^8.57.0 || ^9.0.0 || ^10.0.0",
+          "from": {
+            "name": "@typescript-eslint/eslint-plugin",
+            "version": "8.71.0",
+            "location": "node_modules/@typescript-eslint/eslint-plugin",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "prod",
+                "name": "@typescript-eslint/eslint-plugin",
+                "spec": "^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+                "from": {
+                  "name": "eslint-config-next",
+                  "version": "15.5.27",
+                  "location": "node_modules/eslint-config-next",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "dev",
+                      "name": "eslint-config-next",
+                      "spec": "15.5.27",
+                      "from": {
+                        "name": "vehicle-app",
+                        "version": "0.1.0",
+                        "location": "apps/vehicle-app",
+                        "isWorkspace": true,
+                        "dependents": [],
+                        "linksIn": [
+                          {
+                            "name": "vehicle-app",
+                            "version": "0.1.0",
+                            "location": "node_modules/vehicle-app",
+                            "isWorkspace": true,
+                            "dependents": [
+                              {
+                                "type": "workspace",
+                                "name": "vehicle-app",
+                                "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                "from": {
+                                  "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "peer",
+          "name": "eslint",
+          "spec": "^8.57.0 || ^9.0.0 || ^10.0.0",
+          "from": {
+            "name": "@typescript-eslint/parser",
+            "version": "8.71.0",
+            "location": "node_modules/@typescript-eslint/parser",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "prod",
+                "name": "@typescript-eslint/parser",
+                "spec": "^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+                "from": {
+                  "name": "eslint-config-next",
+                  "version": "15.5.27",
+                  "location": "node_modules/eslint-config-next",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "dev",
+                      "name": "eslint-config-next",
+                      "spec": "15.5.27",
+                      "from": {
+                        "name": "vehicle-app",
+                        "version": "0.1.0",
+                        "location": "apps/vehicle-app",
+                        "isWorkspace": true,
+                        "dependents": [],
+                        "linksIn": [
+                          {
+                            "name": "vehicle-app",
+                            "version": "0.1.0",
+                            "location": "node_modules/vehicle-app",
+                            "isWorkspace": true,
+                            "dependents": [
+                              {
+                                "type": "workspace",
+                                "name": "vehicle-app",
+                                "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                "from": {
+                                  "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "peer",
+                "name": "@typescript-eslint/parser",
+                "spec": "^8.71.0",
+                "from": {
+                  "name": "@typescript-eslint/eslint-plugin",
+                  "version": "8.71.0",
+                  "location": "node_modules/@typescript-eslint/eslint-plugin",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "prod",
+                      "name": "@typescript-eslint/eslint-plugin",
+                      "spec": "^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+                      "from": {
+                        "name": "eslint-config-next",
+                        "version": "15.5.27",
+                        "location": "node_modules/eslint-config-next",
+                        "isWorkspace": false,
+                        "dependents": [
+                          {
+                            "type": "dev",
+                            "name": "eslint-config-next",
+                            "spec": "15.5.27",
+                            "from": {
+                              "name": "vehicle-app",
+                              "version": "0.1.0",
+                              "location": "apps/vehicle-app",
+                              "isWorkspace": true,
+                              "dependents": [],
+                              "linksIn": [
+                                {
+                                  "name": "vehicle-app",
+                                  "version": "0.1.0",
+                                  "location": "node_modules/vehicle-app",
+                                  "isWorkspace": true,
+                                  "dependents": [
+                                    {
+                                      "type": "workspace",
+                                      "name": "vehicle-app",
+                                      "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                      "from": {
+                                        "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "peer",
+          "name": "eslint",
+          "spec": "^8.57.0 || ^9.0.0 || ^10.0.0",
+          "from": {
+            "name": "@typescript-eslint/type-utils",
+            "version": "8.71.0",
+            "location": "node_modules/@typescript-eslint/type-utils",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "prod",
+                "name": "@typescript-eslint/type-utils",
+                "spec": "8.71.0",
+                "from": {
+                  "name": "@typescript-eslint/eslint-plugin",
+                  "version": "8.71.0",
+                  "location": "node_modules/@typescript-eslint/eslint-plugin",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "prod",
+                      "name": "@typescript-eslint/eslint-plugin",
+                      "spec": "^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+                      "from": {
+                        "name": "eslint-config-next",
+                        "version": "15.5.27",
+                        "location": "node_modules/eslint-config-next",
+                        "isWorkspace": false,
+                        "dependents": [
+                          {
+                            "type": "dev",
+                            "name": "eslint-config-next",
+                            "spec": "15.5.27",
+                            "from": {
+                              "name": "vehicle-app",
+                              "version": "0.1.0",
+                              "location": "apps/vehicle-app",
+                              "isWorkspace": true,
+                              "dependents": [],
+                              "linksIn": [
+                                {
+                                  "name": "vehicle-app",
+                                  "version": "0.1.0",
+                                  "location": "node_modules/vehicle-app",
+                                  "isWorkspace": true,
+                                  "dependents": [
+                                    {
+                                      "type": "workspace",
+                                      "name": "vehicle-app",
+                                      "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                      "from": {
+                                        "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "peer",
+          "name": "eslint",
+          "spec": "^8.57.0 || ^9.0.0 || ^10.0.0",
+          "from": {
+            "name": "@typescript-eslint/utils",
+            "version": "8.71.0",
+            "location": "node_modules/@typescript-eslint/utils",
+            "isWorkspace": false,
+            "dependents": [
+              {
+                "type": "prod",
+                "name": "@typescript-eslint/utils",
+                "spec": "8.71.0",
+                "from": {
+                  "name": "@typescript-eslint/eslint-plugin",
+                  "version": "8.71.0",
+                  "location": "node_modules/@typescript-eslint/eslint-plugin",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "prod",
+                      "name": "@typescript-eslint/eslint-plugin",
+                      "spec": "^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+                      "from": {
+                        "name": "eslint-config-next",
+                        "version": "15.5.27",
+                        "location": "node_modules/eslint-config-next",
+                        "isWorkspace": false,
+                        "dependents": [
+                          {
+                            "type": "dev",
+                            "name": "eslint-config-next",
+                            "spec": "15.5.27",
+                            "from": {
+                              "name": "vehicle-app",
+                              "version": "0.1.0",
+                              "location": "apps/vehicle-app",
+                              "isWorkspace": true,
+                              "dependents": [],
+                              "linksIn": [
+                                {
+                                  "name": "vehicle-app",
+                                  "version": "0.1.0",
+                                  "location": "node_modules/vehicle-app",
+                                  "isWorkspace": true,
+                                  "dependents": [
+                                    {
+                                      "type": "workspace",
+                                      "name": "vehicle-app",
+                                      "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                      "from": {
+                                        "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "prod",
+                "name": "@typescript-eslint/utils",
+                "spec": "8.71.0",
+                "from": {
+                  "name": "@typescript-eslint/type-utils",
+                  "version": "8.71.0",
+                  "location": "node_modules/@typescript-eslint/type-utils",
+                  "isWorkspace": false,
+                  "dependents": [
+                    {
+                      "type": "prod",
+                      "name": "@typescript-eslint/type-utils",
+                      "spec": "8.71.0",
+                      "from": {
+                        "name": "@typescript-eslint/eslint-plugin",
+                        "version": "8.71.0",
+                        "location": "node_modules/@typescript-eslint/eslint-plugin",
+                        "isWorkspace": false,
+                        "dependents": [
+                          {
+                            "type": "prod",
+                            "name": "@typescript-eslint/eslint-plugin",
+                            "spec": "^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+                            "from": {
+                              "name": "eslint-config-next",
+                              "version": "15.5.27",
+                              "location": "node_modules/eslint-config-next",
+                              "isWorkspace": false,
+                              "dependents": [
+                                {
+                                  "type": "dev",
+                                  "name": "eslint-config-next",
+                                  "spec": "15.5.27",
+                                  "from": {
+                                    "name": "vehicle-app",
+                                    "version": "0.1.0",
+                                    "location": "apps/vehicle-app",
+                                    "isWorkspace": true,
+                                    "dependents": [],
+                                    "linksIn": [
+                                      {
+                                        "name": "vehicle-app",
+                                        "version": "0.1.0",
+                                        "location": "node_modules/vehicle-app",
+                                        "isWorkspace": true,
+                                        "dependents": [
+                                          {
+                                            "type": "workspace",
+                                            "name": "vehicle-app",
+                                            "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                                            "from": {
+                                              "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "dev",
+          "name": "eslint",
+          "spec": "8.57.1",
+          "from": {
+            "name": "vehicle-app",
+            "version": "0.1.0",
+            "location": "apps/vehicle-app",
+            "isWorkspace": true,
+            "dependents": [],
+            "linksIn": [
+              {
+                "name": "vehicle-app",
+                "version": "0.1.0",
+                "location": "node_modules/vehicle-app",
+                "isWorkspace": true,
+                "dependents": [
+                  {
+                    "type": "workspace",
+                    "name": "vehicle-app",
+                    "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                    "from": {
+                      "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "dev": true,
+      "optional": false,
+      "devOptional": true,
+      "peer": false,
+      "bundled": false,
+      "overridden": false
+    }
+  ],
+  "eslint-config-next": [
+    {
+      "name": "eslint-config-next",
+      "version": "15.5.27",
+      "location": "node_modules/eslint-config-next",
+      "isWorkspace": false,
+      "dependents": [
+        {
+          "type": "dev",
+          "name": "eslint-config-next",
+          "spec": "15.5.27",
+          "from": {
+            "name": "vehicle-app",
+            "version": "0.1.0",
+            "location": "apps/vehicle-app",
+            "isWorkspace": true,
+            "dependents": [],
+            "linksIn": [
+              {
+                "name": "vehicle-app",
+                "version": "0.1.0",
+                "location": "node_modules/vehicle-app",
+                "isWorkspace": true,
+                "dependents": [
+                  {
+                    "type": "workspace",
+                    "name": "vehicle-app",
+                    "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                    "from": {
+                      "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "dev": true,
+      "optional": false,
+      "devOptional": true,
+      "peer": false,
+      "bundled": false,
+      "overridden": false
+    }
+  ],
+  "tailwindcss": [
+    {
+      "name": "tailwindcss",
+      "version": "3.4.19",
+      "location": "node_modules/tailwindcss",
+      "isWorkspace": false,
+      "dependents": [
+        {
+          "type": "dev",
+          "name": "tailwindcss",
+          "spec": "^3.4.12",
+          "from": {
+            "name": "vehicle-app",
+            "version": "0.1.0",
+            "location": "apps/vehicle-app",
+            "isWorkspace": true,
+            "dependents": [],
+            "linksIn": [
+              {
+                "name": "vehicle-app",
+                "version": "0.1.0",
+                "location": "node_modules/vehicle-app",
+                "isWorkspace": true,
+                "dependents": [
+                  {
+                    "type": "workspace",
+                    "name": "vehicle-app",
+                    "spec": "file:C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\apps\\vehicle-app",
+                    "from": {
+                      "location": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "dev": true,
+      "optional": false,
+      "devOptional": true,
+      "peer": false,
+      "bundled": false,
+      "overridden": false
+    }
+  ]
+}

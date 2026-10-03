@@ -1,0 +1,810 @@
+[
+  {
+    "id": "00-positive",
+    "rule": "@next/next/google-font-display",
+    "native": "useGoogleFontDisplay",
+    "kind": "positive",
+    "source": "<link href=\"https://fonts.googleapis.com/css2?family=Roboto&display=swap\" />",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "00-negative",
+    "rule": "@next/next/google-font-display",
+    "native": "useGoogleFontDisplay",
+    "kind": "negative",
+    "source": "<link href=\"https://fonts.googleapis.com/css2?family=Roboto\" />",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "01-positive",
+    "rule": "@next/next/google-font-preconnect",
+    "native": "useGoogleFontPreconnect",
+    "kind": "positive",
+    "source": "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossOrigin=\"anonymous\" />",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "01-negative",
+    "rule": "@next/next/google-font-preconnect",
+    "native": "useGoogleFontPreconnect",
+    "kind": "negative",
+    "source": "<link href=\"https://fonts.gstatic.com\" />",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "02-positive",
+    "rule": "@next/next/inline-script-id",
+    "native": "useInlineScriptId",
+    "kind": "positive",
+    "source": "import Script from \"next/script\"; export default function C(){return <Script id=\"ok\">{\"ok()\"}</Script>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "02-negative",
+    "rule": "@next/next/inline-script-id",
+    "native": "useInlineScriptId",
+    "kind": "negative",
+    "source": "import Script from \"next/script\"; export default function C(){return <Script>{\"ok()\"}</Script>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "03-positive",
+    "rule": "@next/next/next-script-for-ga",
+    "native": null,
+    "kind": "positive",
+    "source": "<div />",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "03-negative",
+    "rule": "@next/next/next-script-for-ga",
+    "native": null,
+    "kind": "negative",
+    "source": "<script src=\"https://www.google-analytics.com/analytics.js\" />",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "04-positive",
+    "rule": "@next/next/no-assign-module-variable",
+    "native": null,
+    "kind": "positive",
+    "source": "const moduleName = {};",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "04-negative",
+    "rule": "@next/next/no-assign-module-variable",
+    "native": null,
+    "kind": "negative",
+    "source": "const module = {};",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "05-positive",
+    "rule": "@next/next/no-async-client-component",
+    "native": "noNextAsyncClientComponent",
+    "kind": "positive",
+    "source": "\"use client\"; export default function C(){return <div/>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "05-negative",
+    "rule": "@next/next/no-async-client-component",
+    "native": "noNextAsyncClientComponent",
+    "kind": "negative",
+    "source": "\"use client\"; export default async function C(){return <div/>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "06-positive",
+    "rule": "@next/next/no-before-interactive-script-outside-document",
+    "native": "noBeforeInteractiveScriptOutsideDocument",
+    "kind": "positive",
+    "source": "import Script from \"next/script\"; export default function C(){return <Script src=\"https://example.com/a.js\" strategy=\"afterInteractive\"/>}",
+    "virtualPath": "pages/index.tsx"
+  },
+  {
+    "id": "06-negative",
+    "rule": "@next/next/no-before-interactive-script-outside-document",
+    "native": "noBeforeInteractiveScriptOutsideDocument",
+    "kind": "negative",
+    "source": "import Script from \"next/script\"; export default function C(){return <Script src=\"https://example.com/a.js\" strategy=\"beforeInteractive\"/>}",
+    "virtualPath": "pages/index.tsx"
+  },
+  {
+    "id": "07-positive",
+    "rule": "@next/next/no-css-tags",
+    "native": null,
+    "kind": "positive",
+    "source": "<div/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "07-negative",
+    "rule": "@next/next/no-css-tags",
+    "native": null,
+    "kind": "negative",
+    "source": "<link rel=\"stylesheet\" href=\"/theme.css\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "08-positive",
+    "rule": "@next/next/no-document-import-in-page",
+    "native": "noDocumentImportInPage",
+    "kind": "positive",
+    "source": "import Head from \"next/head\"; export default function C(){return <Head/>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "08-negative",
+    "rule": "@next/next/no-document-import-in-page",
+    "native": "noDocumentImportInPage",
+    "kind": "negative",
+    "source": "import Document from \"next/document\"; export default function C(){return <Document/>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "09-positive",
+    "rule": "@next/next/no-duplicate-head",
+    "native": null,
+    "kind": "positive",
+    "source": "import Document,{Head} from \"next/document\"; export default class C extends Document{render(){return <div><Head/></div>}}",
+    "virtualPath": "pages/_document.tsx"
+  },
+  {
+    "id": "09-negative",
+    "rule": "@next/next/no-duplicate-head",
+    "native": null,
+    "kind": "negative",
+    "source": "import Document,{Head} from \"next/document\"; export default class C extends Document{render(){return <div><Head/><Head/></div>}}",
+    "virtualPath": "pages/_document.tsx"
+  },
+  {
+    "id": "10-positive",
+    "rule": "@next/next/no-head-element",
+    "native": "noHeadElement",
+    "kind": "positive",
+    "source": "<header/>",
+    "virtualPath": "pages/index.tsx"
+  },
+  {
+    "id": "10-negative",
+    "rule": "@next/next/no-head-element",
+    "native": "noHeadElement",
+    "kind": "negative",
+    "source": "<head/>",
+    "virtualPath": "pages/index.tsx"
+  },
+  {
+    "id": "11-positive",
+    "rule": "@next/next/no-head-import-in-document",
+    "native": "noHeadImportInDocument",
+    "kind": "positive",
+    "source": "import { Head } from \"next/document\"; export default function C(){return <Head/>}",
+    "virtualPath": "pages/_document.tsx"
+  },
+  {
+    "id": "11-negative",
+    "rule": "@next/next/no-head-import-in-document",
+    "native": "noHeadImportInDocument",
+    "kind": "negative",
+    "source": "import Head from \"next/head\"; export default function C(){return <Head/>}",
+    "virtualPath": "pages/_document.tsx"
+  },
+  {
+    "id": "12-positive",
+    "rule": "@next/next/no-html-link-for-pages",
+    "native": null,
+    "kind": "positive",
+    "source": "import Link from \"next/link\"; export default function C(){return <Link href=\"/\">Home</Link>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "12-negative",
+    "rule": "@next/next/no-html-link-for-pages",
+    "native": null,
+    "kind": "negative",
+    "source": "export default function C(){return <a href=\"/\">Home</a>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "13-positive",
+    "rule": "@next/next/no-img-element",
+    "native": "noImgElement",
+    "kind": "positive",
+    "source": "<span/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "13-negative",
+    "rule": "@next/next/no-img-element",
+    "native": "noImgElement",
+    "kind": "negative",
+    "source": "<img alt=\"sample\" src=\"/image.png\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "14-positive",
+    "rule": "@next/next/no-page-custom-font",
+    "native": null,
+    "kind": "positive",
+    "source": "<div/>",
+    "virtualPath": "pages/index.tsx"
+  },
+  {
+    "id": "14-negative",
+    "rule": "@next/next/no-page-custom-font",
+    "native": null,
+    "kind": "negative",
+    "source": "<link href=\"https://fonts.googleapis.com/css2?family=Roboto&display=swap\" rel=\"stylesheet\"/>",
+    "virtualPath": "pages/index.tsx"
+  },
+  {
+    "id": "15-positive",
+    "rule": "@next/next/no-script-component-in-head",
+    "native": null,
+    "kind": "positive",
+    "source": "import Head from \"next/head\"; export default function C(){return <Head><title>ok</title></Head>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "15-negative",
+    "rule": "@next/next/no-script-component-in-head",
+    "native": null,
+    "kind": "negative",
+    "source": "import Head from \"next/head\"; import Script from \"next/script\"; export default function C(){return <Head><Script src=\"/a.js\"/></Head>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "16-positive",
+    "rule": "@next/next/no-styled-jsx-in-document",
+    "native": null,
+    "kind": "positive",
+    "source": "<div/>",
+    "virtualPath": "pages/_document.tsx"
+  },
+  {
+    "id": "16-negative",
+    "rule": "@next/next/no-styled-jsx-in-document",
+    "native": null,
+    "kind": "negative",
+    "source": "<style jsx>{\"body { color: red }\"}</style>",
+    "virtualPath": "pages/_document.tsx"
+  },
+  {
+    "id": "17-positive",
+    "rule": "@next/next/no-sync-scripts",
+    "native": "noSyncScripts",
+    "kind": "positive",
+    "source": "<script async src=\"/a.js\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "17-negative",
+    "rule": "@next/next/no-sync-scripts",
+    "native": "noSyncScripts",
+    "kind": "negative",
+    "source": "<script src=\"/a.js\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "18-positive",
+    "rule": "@next/next/no-title-in-document-head",
+    "native": null,
+    "kind": "positive",
+    "source": "import { Head } from \"next/document\"; export default function C(){return <Head/>}",
+    "virtualPath": "pages/_document.tsx"
+  },
+  {
+    "id": "18-negative",
+    "rule": "@next/next/no-title-in-document-head",
+    "native": null,
+    "kind": "negative",
+    "source": "import { Head } from \"next/document\"; export default function C(){return <Head><title>bad</title></Head>}",
+    "virtualPath": "pages/_document.tsx"
+  },
+  {
+    "id": "19-positive",
+    "rule": "@next/next/no-typos",
+    "native": null,
+    "kind": "positive",
+    "source": "export const getServerSideProps = async () => ({props:{}});",
+    "virtualPath": "pages/index.tsx"
+  },
+  {
+    "id": "19-negative",
+    "rule": "@next/next/no-typos",
+    "native": null,
+    "kind": "negative",
+    "source": "export const getServerSideProp = async () => ({props:{}});",
+    "virtualPath": "pages/index.tsx"
+  },
+  {
+    "id": "20-positive",
+    "rule": "@next/next/no-unwanted-polyfillio",
+    "native": "noUnwantedPolyfillio",
+    "kind": "positive",
+    "source": "<script async src=\"https://example.com/s.js\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "20-negative",
+    "rule": "@next/next/no-unwanted-polyfillio",
+    "native": "noUnwantedPolyfillio",
+    "kind": "negative",
+    "source": "<script async src=\"https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.copyWithin\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "21-positive",
+    "rule": "import/no-anonymous-default-export",
+    "native": "noDefaultExport",
+    "kind": "positive",
+    "source": "const config={}; export default config;",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "21-negative",
+    "rule": "import/no-anonymous-default-export",
+    "native": "noDefaultExport",
+    "kind": "negative",
+    "source": "export default {};",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "22-positive",
+    "rule": "jsx-a11y/alt-text",
+    "native": "useAltText",
+    "kind": "positive",
+    "source": "<img alt=\"sample\" src=\"/a.png\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "22-negative",
+    "rule": "jsx-a11y/alt-text",
+    "native": "useAltText",
+    "kind": "negative",
+    "source": "<img src=\"/a.png\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "23-positive",
+    "rule": "jsx-a11y/aria-props",
+    "native": "useValidAriaProps",
+    "kind": "positive",
+    "source": "<div aria-label=\"ok\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "23-negative",
+    "rule": "jsx-a11y/aria-props",
+    "native": "useValidAriaProps",
+    "kind": "negative",
+    "source": "<div aria-labl=\"bad\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "24-positive",
+    "rule": "jsx-a11y/aria-proptypes",
+    "native": "useValidAriaValues",
+    "kind": "positive",
+    "source": "<div aria-hidden=\"true\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "24-negative",
+    "rule": "jsx-a11y/aria-proptypes",
+    "native": "useValidAriaValues",
+    "kind": "negative",
+    "source": "<div aria-hidden=\"sometimes\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "25-positive",
+    "rule": "jsx-a11y/aria-unsupported-elements",
+    "native": "noAriaUnsupportedElements",
+    "kind": "positive",
+    "source": "<meta name=\"ok\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "25-negative",
+    "rule": "jsx-a11y/aria-unsupported-elements",
+    "native": "noAriaUnsupportedElements",
+    "kind": "negative",
+    "source": "<meta aria-label=\"bad\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "26-positive",
+    "rule": "jsx-a11y/role-has-required-aria-props",
+    "native": "useAriaPropsForRole",
+    "kind": "positive",
+    "source": "<div role=\"checkbox\" aria-checked=\"false\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "26-negative",
+    "rule": "jsx-a11y/role-has-required-aria-props",
+    "native": "useAriaPropsForRole",
+    "kind": "negative",
+    "source": "<div role=\"checkbox\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "27-positive",
+    "rule": "jsx-a11y/role-supports-aria-props",
+    "native": "useAriaPropsSupportedByRole",
+    "kind": "positive",
+    "source": "<div role=\"button\" aria-label=\"ok\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "27-negative",
+    "rule": "jsx-a11y/role-supports-aria-props",
+    "native": "useAriaPropsSupportedByRole",
+    "kind": "negative",
+    "source": "<div role=\"button\" aria-checked=\"true\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "28-positive",
+    "rule": "react-hooks/exhaustive-deps",
+    "native": "useExhaustiveDependencies",
+    "kind": "positive",
+    "source": "import {useEffect} from \"react\"; export function C({value}){useEffect(()=>{console.log(value)},[value]);return null;}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "28-negative",
+    "rule": "react-hooks/exhaustive-deps",
+    "native": "useExhaustiveDependencies",
+    "kind": "negative",
+    "source": "import {useEffect} from \"react\"; export function C({value}){useEffect(()=>{console.log(value)},[]);return null;}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "29-positive",
+    "rule": "react-hooks/rules-of-hooks",
+    "native": "useHookAtTopLevel",
+    "kind": "positive",
+    "source": "import {useState} from \"react\"; export function C({flag}){const [n]=useState(0);return <div>{n}</div>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "29-negative",
+    "rule": "react-hooks/rules-of-hooks",
+    "native": "useHookAtTopLevel",
+    "kind": "negative",
+    "source": "import {useState} from \"react\"; export function C({flag}){if(flag){useState(0)}return null;}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "30-positive",
+    "rule": "react/display-name",
+    "native": null,
+    "kind": "positive",
+    "source": "import React from \"react\"; const C=React.memo(function C(){return <div/>});",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "30-negative",
+    "rule": "react/display-name",
+    "native": null,
+    "kind": "negative",
+    "source": "import React from \"react\"; const C=React.memo(()=> <div/>);",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "31-positive",
+    "rule": "react/jsx-key",
+    "native": "useJsxKeyInIterable",
+    "kind": "positive",
+    "source": "export function C(){return [1,2].map(n=><span key={n}>{n}</span>)}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "31-negative",
+    "rule": "react/jsx-key",
+    "native": "useJsxKeyInIterable",
+    "kind": "negative",
+    "source": "export function C(){return [1,2].map(n=><span>{n}</span>)}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "32-positive",
+    "rule": "react/jsx-no-comment-textnodes",
+    "native": "noCommentText",
+    "kind": "positive",
+    "source": "<div>{/* okay */}</div>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "32-negative",
+    "rule": "react/jsx-no-comment-textnodes",
+    "native": "noCommentText",
+    "kind": "negative",
+    "source": "<div>// bad comment</div>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "33-positive",
+    "rule": "react/jsx-no-duplicate-props",
+    "native": "noDuplicateJsxProps",
+    "kind": "positive",
+    "source": "<div id=\"a\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "33-negative",
+    "rule": "react/jsx-no-duplicate-props",
+    "native": "noDuplicateJsxProps",
+    "kind": "negative",
+    "source": "<div id=\"a\" id=\"b\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "34-positive",
+    "rule": "react/jsx-no-undef",
+    "native": "noUndeclaredVariables",
+    "kind": "positive",
+    "source": "function C(){return <div/>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "34-negative",
+    "rule": "react/jsx-no-undef",
+    "native": "noUndeclaredVariables",
+    "kind": "negative",
+    "source": "function C(){return <UndefinedComponent/>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "35-positive",
+    "rule": "react/jsx-uses-react",
+    "native": null,
+    "kind": "positive",
+    "source": "import React from \"react\"; export function C(){return <div/>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "35-negative",
+    "rule": "react/jsx-uses-react",
+    "native": null,
+    "kind": "negative",
+    "source": "import React from \"react\"; export function C(){return <div/>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "36-positive",
+    "rule": "react/jsx-uses-vars",
+    "native": null,
+    "kind": "positive",
+    "source": "function Child(){return <div/>} export function C(){return <Child/>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "36-negative",
+    "rule": "react/jsx-uses-vars",
+    "native": null,
+    "kind": "negative",
+    "source": "function Child(){return <div/>} export function C(){return <Child/>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "37-positive",
+    "rule": "react/no-children-prop",
+    "native": "noChildrenProp",
+    "kind": "positive",
+    "source": "<div>ok</div>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "37-negative",
+    "rule": "react/no-children-prop",
+    "native": "noChildrenProp",
+    "kind": "negative",
+    "source": "<div children=\"bad\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "38-positive",
+    "rule": "react/no-danger-with-children",
+    "native": "noDangerouslySetInnerHtmlWithChildren",
+    "kind": "positive",
+    "source": "<div dangerouslySetInnerHTML={{__html:\"ok\"}}/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "38-negative",
+    "rule": "react/no-danger-with-children",
+    "native": "noDangerouslySetInnerHtmlWithChildren",
+    "kind": "negative",
+    "source": "<div dangerouslySetInnerHTML={{__html:\"bad\"}}>child</div>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "39-positive",
+    "rule": "react/no-deprecated",
+    "native": "noDeprecatedImports",
+    "kind": "positive",
+    "source": "import React from \"react\"; class C extends React.Component{componentDidMount(){} render(){return <div/>}}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "39-negative",
+    "rule": "react/no-deprecated",
+    "native": "noDeprecatedImports",
+    "kind": "negative",
+    "source": "import React from \"react\"; class C extends React.Component{componentWillMount(){} render(){return <div/>}}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "40-positive",
+    "rule": "react/no-direct-mutation-state",
+    "native": null,
+    "kind": "positive",
+    "source": "import React from \"react\"; class C extends React.Component{update(){this.setState({n:1})} render(){return <div/>}}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "40-negative",
+    "rule": "react/no-direct-mutation-state",
+    "native": null,
+    "kind": "negative",
+    "source": "import React from \"react\"; class C extends React.Component{update(){this.state.n=1} render(){return <div/>}}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "41-positive",
+    "rule": "react/no-find-dom-node",
+    "native": null,
+    "kind": "positive",
+    "source": "import ReactDOM from \"react-dom\"; const n=document.getElementById(\"x\");",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "41-negative",
+    "rule": "react/no-find-dom-node",
+    "native": null,
+    "kind": "negative",
+    "source": "import ReactDOM from \"react-dom\"; const n=ReactDOM.findDOMNode(this);",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "42-positive",
+    "rule": "react/no-is-mounted",
+    "native": null,
+    "kind": "positive",
+    "source": "import React from \"react\"; class C extends React.Component{check(){return true} render(){return <div/>}}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "42-negative",
+    "rule": "react/no-is-mounted",
+    "native": null,
+    "kind": "negative",
+    "source": "import React from \"react\"; class C extends React.Component{check(){return this.isMounted()} render(){return <div/>}}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "43-positive",
+    "rule": "react/no-render-return-value",
+    "native": "noRenderReturnValue",
+    "kind": "positive",
+    "source": "import ReactDOM from \"react-dom\"; ReactDOM.render(<div/>,document.body);",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "43-negative",
+    "rule": "react/no-render-return-value",
+    "native": "noRenderReturnValue",
+    "kind": "negative",
+    "source": "import ReactDOM from \"react-dom\"; const result=ReactDOM.render(<div/>,document.body);",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "44-positive",
+    "rule": "react/no-string-refs",
+    "native": "noReactStringRefs",
+    "kind": "positive",
+    "source": "<div/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "44-negative",
+    "rule": "react/no-string-refs",
+    "native": "noReactStringRefs",
+    "kind": "negative",
+    "source": "<div ref=\"legacy\"/>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "45-positive",
+    "rule": "react/no-unescaped-entities",
+    "native": null,
+    "kind": "positive",
+    "source": "<div>don&apos;t</div>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "45-negative",
+    "rule": "react/no-unescaped-entities",
+    "native": null,
+    "kind": "negative",
+    "source": "<div>don't</div>",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "46-positive",
+    "rule": "react/require-render-return",
+    "native": null,
+    "kind": "positive",
+    "source": "import React from \"react\"; class C extends React.Component{render(){return <div/>}}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "46-negative",
+    "rule": "react/require-render-return",
+    "native": null,
+    "kind": "negative",
+    "source": "import React from \"react\"; class C extends React.Component{render(){<div/>}}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "extension-ts",
+    "rule": "react-hooks/rules-of-hooks",
+    "native": "useHookAtTopLevel",
+    "kind": "negative",
+    "source": "import {useState} from \"react\"; export function C({flag}){if(flag){useState(0)}return null;}",
+    "virtualPath": "src/utils/parity-probe.ts"
+  },
+  {
+    "id": "extension-tsx",
+    "rule": "react-hooks/rules-of-hooks",
+    "native": "useHookAtTopLevel",
+    "kind": "negative",
+    "source": "import {useState} from \"react\"; export function C({flag}){if(flag){useState(0)}return null;}",
+    "virtualPath": "src/utils/parity-probe.tsx"
+  },
+  {
+    "id": "extension-js",
+    "rule": "react-hooks/rules-of-hooks",
+    "native": "useHookAtTopLevel",
+    "kind": "negative",
+    "source": "import {useState} from \"react\"; export function C({flag}){if(flag){useState(0)}return null;}",
+    "virtualPath": "src/utils/parity-probe.js"
+  },
+  {
+    "id": "extension-cjs",
+    "rule": "react-hooks/rules-of-hooks",
+    "native": "useHookAtTopLevel",
+    "kind": "negative",
+    "source": "const {useState}=require(\"react\"); function C({flag}){if(flag){useState(0)}return null;} module.exports=C;",
+    "virtualPath": "src/utils/parity-probe.cjs"
+  },
+  {
+    "id": "extension-mjs",
+    "rule": "react-hooks/rules-of-hooks",
+    "native": "useHookAtTopLevel",
+    "kind": "negative",
+    "source": "import {useState} from \"react\"; export function C({flag}){if(flag){useState(0)}return null;}",
+    "virtualPath": "src/utils/parity-probe.mjs"
+  },
+  {
+    "id": "custom-image-negative",
+    "rule": "jsx-a11y/alt-text",
+    "native": "useAltText",
+    "kind": "negative",
+    "source": "import Image from \"next/image\"; export function C(){return <Image src=\"/a.png\" width={10} height={10}/>}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  },
+  {
+    "id": "effect-extra-dependency-positive",
+    "rule": "react-hooks/exhaustive-deps",
+    "native": "useExhaustiveDependencies",
+    "kind": "positive",
+    "source": "import {useEffect} from \"react\"; export function C({value}){useEffect(()=>{console.log(\"mounted\")},[value]);return null;}",
+    "virtualPath": "src/app/parity-probe.tsx"
+  }
+]

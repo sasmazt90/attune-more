@@ -1,0 +1,25 @@
+{
+  "version": "0.0.0",
+  "name": "attune-lint-parity-probe",
+  "dependencies": {
+    "@biomejs/biome": {
+      "version": "2.5.15",
+      "resolved": "https://registry.npmjs.org/@biomejs/biome/-/biome-2.5.15.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@biomejs/cli-darwin-arm64": {},
+        "@biomejs/cli-darwin-x64": {},
+        "@biomejs/cli-linux-arm64-musl": {},
+        "@biomejs/cli-linux-arm64": {},
+        "@biomejs/cli-linux-x64-musl": {},
+        "@biomejs/cli-linux-x64": {},
+        "@biomejs/cli-win32-arm64": {},
+        "@biomejs/cli-win32-x64": {
+          "version": "2.5.15",
+          "resolved": "https://registry.npmjs.org/@biomejs/cli-win32-x64/-/cli-win32-x64-2.5.15.tgz",
+          "overridden": false
+        }
+      }
+    }
+  }
+}

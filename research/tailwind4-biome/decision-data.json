@@ -1,0 +1,1491 @@
+{
+  "decision": "NO-GO",
+  "baseHead": "f8f08d98cf23eb23c5a171b5b50411364d79adf6",
+  "activeRules": 47,
+  "nextRules": 21,
+  "nativeNextMigrationMappings": 11,
+  "unmappedNextControls": 10,
+  "pairedCases": 101,
+  "toolExecutions": 202,
+  "originalNegativeControlsTriggered": 45,
+  "bookkeepingControlsNotIndependentlyDiagnostic": 2,
+  "resultCounts": {
+    "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY": 23,
+    "NO_NATIVE_EQUIVALENT": 16,
+    "NEGATIVE_MISSED": 3,
+    "BEHAVIOR_OPTIONS_DIFFERENCE": 3,
+    "BOOKKEEPING_NOT_PROVEN": 2
+  },
+  "rows": [
+    {
+      "rule": "@next/next/google-font-display",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "useGoogleFontDisplay",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "00-positive",
+      "negativeCase": "00-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "@next/next/google-font-preconnect",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "useGoogleFontPreconnect",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "01-positive",
+      "negativeCase": "01-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "@next/next/inline-script-id",
+      "severity": "error",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "useInlineScriptId",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "02-positive",
+      "negativeCase": "02-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "@next/next/next-script-for-ga",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "No native candidate found in pinned schema/migration; original control retained. Global candidate exit 1 comes from the distinct noSyncScripts check, not GA-specific coverage.",
+      "positiveCase": "03-positive",
+      "negativeCase": "03-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 1
+        }
+      },
+      "result": "NO_NATIVE_EQUIVALENT"
+    },
+    {
+      "rule": "@next/next/no-assign-module-variable",
+      "severity": "error",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "No native candidate found in pinned schema/migration; original control retained.",
+      "positiveCase": "04-positive",
+      "negativeCase": "04-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NO_NATIVE_EQUIVALENT"
+    },
+    {
+      "rule": "@next/next/no-async-client-component",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noNextAsyncClientComponent",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "05-positive",
+      "negativeCase": "05-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "@next/next/no-before-interactive-script-outside-document",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noBeforeInteractiveScriptOutsideDocument",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "06-positive",
+      "negativeCase": "06-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "@next/next/no-css-tags",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "No native candidate found in pinned schema/migration; original control retained.",
+      "positiveCase": "07-positive",
+      "negativeCase": "07-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NO_NATIVE_EQUIVALENT"
+    },
+    {
+      "rule": "@next/next/no-document-import-in-page",
+      "severity": "error",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noDocumentImportInPage",
+      "difference": "Native rule exists; App Router-shaped test is missed. A separate rooted research project catches pages/test.tsx but misses src/app/page.tsx. Scope parity not proven.",
+      "positiveCase": "08-positive",
+      "negativeCase": "08-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NEGATIVE_MISSED"
+    },
+    {
+      "rule": "@next/next/no-duplicate-head",
+      "severity": "error",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "No native candidate found in pinned schema/migration; original control retained.",
+      "positiveCase": "09-positive",
+      "negativeCase": "09-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NO_NATIVE_EQUIVALENT"
+    },
+    {
+      "rule": "@next/next/no-head-element",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noHeadElement",
+      "difference": "Native rule exists but Windows pages-shaped negative is missed, including rooted path control. Filename/project-root behavior remains unresolved; no Linux equivalence claim.",
+      "positiveCase": "10-positive",
+      "negativeCase": "10-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NEGATIVE_MISSED"
+    },
+    {
+      "rule": "@next/next/no-head-import-in-document",
+      "severity": "error",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noHeadImportInDocument",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "11-positive",
+      "negativeCase": "11-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "@next/next/no-html-link-for-pages",
+      "severity": "error",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "No native candidate found in pinned schema/migration; original control retained.",
+      "positiveCase": "12-positive",
+      "negativeCase": "12-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NO_NATIVE_EQUIVALENT"
+    },
+    {
+      "rule": "@next/next/no-img-element",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noImgElement",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "13-positive",
+      "negativeCase": "13-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "@next/next/no-page-custom-font",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "No native candidate found in pinned schema/migration; original control retained.",
+      "positiveCase": "14-positive",
+      "negativeCase": "14-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NO_NATIVE_EQUIVALENT"
+    },
+    {
+      "rule": "@next/next/no-script-component-in-head",
+      "severity": "error",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "No native candidate found in pinned schema/migration; original control retained.",
+      "positiveCase": "15-positive",
+      "negativeCase": "15-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NO_NATIVE_EQUIVALENT"
+    },
+    {
+      "rule": "@next/next/no-styled-jsx-in-document",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "No native candidate found in pinned schema/migration; original control retained.",
+      "positiveCase": "16-positive",
+      "negativeCase": "16-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NO_NATIVE_EQUIVALENT"
+    },
+    {
+      "rule": "@next/next/no-sync-scripts",
+      "severity": "error",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noSyncScripts",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "17-positive",
+      "negativeCase": "17-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "@next/next/no-title-in-document-head",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "No native candidate found in pinned schema/migration; original control retained.",
+      "positiveCase": "18-positive",
+      "negativeCase": "18-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NO_NATIVE_EQUIVALENT"
+    },
+    {
+      "rule": "@next/next/no-typos",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "No native candidate found in pinned schema/migration; original control retained.",
+      "positiveCase": "19-positive",
+      "negativeCase": "19-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NO_NATIVE_EQUIVALENT"
+    },
+    {
+      "rule": "@next/next/no-unwanted-polyfillio",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noUnwantedPolyfillio",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "20-positive",
+      "negativeCase": "20-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "import/no-anonymous-default-export",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noDefaultExport",
+      "difference": "noDefaultExport forbids even a named default export. Positive old target 0 / candidate 1; no anonymous-only option in pinned schema.",
+      "positiveCase": "21-positive",
+      "negativeCase": "21-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        }
+      },
+      "result": "BEHAVIOR_OPTIONS_DIFFERENCE"
+    },
+    {
+      "rule": "jsx-a11y/alt-text",
+      "severity": "warn",
+      "options": [
+        {
+          "elements": [
+            "img"
+          ],
+          "img": [
+            "Image"
+          ]
+        }
+      ],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "useAltText",
+      "difference": "Builtin img sample matches. Original options elements=[img], img=[Image] are not expressible in pinned UseAltTextOptions (empty object); custom Next Image negative old=1 / candidate=0.",
+      "positiveCase": "22-positive",
+      "negativeCase": "22-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        }
+      },
+      "result": "BEHAVIOR_OPTIONS_DIFFERENCE"
+    },
+    {
+      "rule": "jsx-a11y/aria-props",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "useValidAriaProps",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "23-positive",
+      "negativeCase": "23-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "jsx-a11y/aria-proptypes",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "useValidAriaValues",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "24-positive",
+      "negativeCase": "24-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "jsx-a11y/aria-unsupported-elements",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noAriaUnsupportedElements",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "25-positive",
+      "negativeCase": "25-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "jsx-a11y/role-has-required-aria-props",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "useAriaPropsForRole",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "26-positive",
+      "negativeCase": "26-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "jsx-a11y/role-supports-aria-props",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "useAriaPropsSupportedByRole",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "27-positive",
+      "negativeCase": "27-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "react-hooks/exhaustive-deps",
+      "severity": "warn",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "useExhaustiveDependencies",
+      "difference": "Missing dependency sample matches. Extra useEffect dependency is valid under original but candidate reports it. Pinned candidate reportUnnecessaryDependencies default and hook-specific semantics require further parity; not accepted.",
+      "positiveCase": "28-positive",
+      "negativeCase": "28-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 0
+        }
+      },
+      "result": "BEHAVIOR_OPTIONS_DIFFERENCE"
+    },
+    {
+      "rule": "react-hooks/rules-of-hooks",
+      "severity": "error",
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "useHookAtTopLevel",
+      "difference": "Conditional hook negative matches for TS/TSX/JS/CJS/MJS, with equal error severity/exit. Limited samples do not prove all hook order/alias/async behavior.",
+      "positiveCase": "29-positive",
+      "negativeCase": "29-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "react/display-name",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "No native candidate found in pinned schema/migration; original control retained.",
+      "positiveCase": "30-positive",
+      "negativeCase": "30-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NO_NATIVE_EQUIVALENT"
+    },
+    {
+      "rule": "react/jsx-key",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "useJsxKeyInIterable",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "31-positive",
+      "negativeCase": "31-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "react/jsx-no-comment-textnodes",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noCommentText",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "32-positive",
+      "negativeCase": "32-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "react/jsx-no-duplicate-props",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noDuplicateJsxProps",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "33-positive",
+      "negativeCase": "33-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "react/jsx-no-undef",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noUndeclaredVariables",
+      "difference": "noUndeclaredVariables detects the sample but has a broader symbol/type scope; full JSX resolution parity not proven.",
+      "positiveCase": "34-positive",
+      "negativeCase": "34-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "react/jsx-uses-react",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "ESLint bookkeeping marks React references; it does not independently emit an invalid-source diagnostic. Candidate equivalence is not proven and this active rule is not waived.",
+      "positiveCase": "35-positive",
+      "negativeCase": "35-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "BOOKKEEPING_NOT_PROVEN"
+    },
+    {
+      "rule": "react/jsx-uses-vars",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "ESLint bookkeeping marks JSX component references; it does not independently emit an invalid-source diagnostic. Candidate equivalence is not proven and this active rule is not waived.",
+      "positiveCase": "36-positive",
+      "negativeCase": "36-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "BOOKKEEPING_NOT_PROVEN"
+    },
+    {
+      "rule": "react/no-children-prop",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noChildrenProp",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "37-positive",
+      "negativeCase": "37-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "react/no-danger-with-children",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noDangerouslySetInnerHtmlWithChildren",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "38-positive",
+      "negativeCase": "38-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "react/no-deprecated",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noDeprecatedImports",
+      "difference": "noDeprecatedImports checks imports, not React class lifecycle deprecation; componentWillMount negative old=1 / candidate=0.",
+      "positiveCase": "39-positive",
+      "negativeCase": "39-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NEGATIVE_MISSED"
+    },
+    {
+      "rule": "react/no-direct-mutation-state",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "No native candidate found in pinned schema/migration; original control retained.",
+      "positiveCase": "40-positive",
+      "negativeCase": "40-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NO_NATIVE_EQUIVALENT"
+    },
+    {
+      "rule": "react/no-find-dom-node",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "No native candidate found in pinned schema/migration; original control retained.",
+      "positiveCase": "41-positive",
+      "negativeCase": "41-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NO_NATIVE_EQUIVALENT"
+    },
+    {
+      "rule": "react/no-is-mounted",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "No native candidate found in pinned schema/migration; original control retained.",
+      "positiveCase": "42-positive",
+      "negativeCase": "42-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NO_NATIVE_EQUIVALENT"
+    },
+    {
+      "rule": "react/no-render-return-value",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noRenderReturnValue",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "43-positive",
+      "negativeCase": "43-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "react/no-string-refs",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": "noReactStringRefs",
+      "difference": "Positive/negative sample and severity match only; complete options/path/edge-case equivalence not demonstrated.",
+      "positiveCase": "44-positive",
+      "negativeCase": "44-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        }
+      },
+      "result": "SAMPLE_MATCH_ONLY_NOT_FULL_PARITY"
+    },
+    {
+      "rule": "react/no-unescaped-entities",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "No native candidate found in pinned schema/migration; original control retained.",
+      "positiveCase": "45-positive",
+      "negativeCase": "45-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NO_NATIVE_EQUIVALENT"
+    },
+    {
+      "rule": "react/require-render-return",
+      "severity": 2,
+      "options": [],
+      "scope": "S1-S5; original configured app files and exact extension config probes; path-sensitive cases listed individually",
+      "nativeCandidate": null,
+      "difference": "No native candidate found in pinned schema/migration; original control retained.",
+      "positiveCase": "46-positive",
+      "negativeCase": "46-negative",
+      "positive": {
+        "eslint": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "negative": {
+        "eslint": {
+          "targetDiagnostics": 1,
+          "exitCode": 1
+        },
+        "biome": {
+          "targetDiagnostics": 0,
+          "exitCode": 0
+        }
+      },
+      "result": "NO_NATIVE_EQUIVALENT"
+    }
+  ],
+  "skippedGateReason": "Mandatory lint parity failed; no Tailwind migration/removal of original lint/full regression/CSS visual acceptance.",
+  "newPaidCalls": 0,
+  "physicalMicrophoneCapture": 0,
+  "adminStatus": "PENDING_ADMIN_EVIDENCE"
+}

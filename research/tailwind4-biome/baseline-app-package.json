@@ -1,0 +1,30 @@
+{
+  "name": "vehicle-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1 -p 3000",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1 -p 3000",
+    "typecheck": "next typegen && tsc --noEmit",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "1.0.1",
+    "lucide-react": "^0.446.0",
+    "next": "15.5.27",
+    "react": "19.0.8",
+    "react-dom": "19.0.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.5",
+    "@types/react": "19.0.14",
+    "@types/react-dom": "19.0.6",
+    "autoprefixer": "^10.4.20",
+    "eslint": "8.57.1",
+    "eslint-config-next": "15.5.27",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.12",
+    "typescript": "^5.6.2"
+  }
+}

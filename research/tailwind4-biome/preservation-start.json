@@ -1,0 +1,24 @@
+{
+  "attune-live-test": {
+    "head": "f8f08d98cf23eb23c5a171b5b50411364d79adf6",
+    "status": ""
+  },
+  "attune-dependency-prototype": {
+    "head": "a617a675b4b8dad10aea8896364a4d34e66a3079",
+    "status": ""
+  },
+  "togg-health-mvp": {
+    "head": "4ff5b2641ab6d026057d13494db70d46cd31d781",
+    "status": " M .gitignore\n M apps/vehicle-app/next-env.d.ts\n M apps/vehicle-app/package.json\n M apps/vehicle-app/src/app/care/page.tsx\n M apps/vehicle-app/src/app/mental/page.tsx\n M apps/vehicle-app/src/app/page.tsx\n M apps/vehicle-app/src/app/privacy/page.tsx\n M apps/vehicle-app/src/app/profile/page.tsx\n M apps/vehicle-app/src/app/skin/page.tsx\n M apps/vehicle-app/src/app/vision/page.tsx\n M apps/vehicle-app/src/components/CockpitHeader.tsx\n M apps/vehicle-app/src/components/skin/SkinActionsModal.tsx\n M apps/vehicle-app/src/components/skin/SkinActiveScan.tsx\n M apps/vehicle-app/src/components/skin/SkinFacePanel.tsx\n M apps/vehicle-app/src/components/skin/SkinObservationModal.tsx\n M apps/vehicle-app/src/components/skin/SkinRegionNavigator.tsx\n M apps/vehicle-app/src/components/skin/SkinRegionOverlay.tsx\n M apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx\n M apps/vehicle-app/src/components/skin/SkinResultView.tsx\n M apps/vehicle-app/src/components/skin/SkinStartView.tsx\n M apps/vehicle-app/src/components/skin/SkinTrendModal.tsx\n M apps/vehicle-app/src/context/VehicleContext.tsx\n M apps/vehicle-app/src/data/skinDemoFixture.ts\n M apps/vehicle-app/src/utils/attuneMode.ts\n M apps/vehicle-app/src/utils/healthSelectors.ts\n M apps/vehicle-app/src/utils/skinAnalyzer.ts\n M apps/vehicle-app/src/utils/visionEngine.ts\n M package-lock.json\n M package.json\n M packages/safety/crisisDetector.ts\n M scripts/reset-demo.ps1\n M scripts/start-demo.ps1\n M services/core-api/care_provider.py\n M services/core-api/main.py\n M services/core-api/mental_provider.py\n M services/core-api/session_memory.py\n M tests/unit/test_documentation_guard.py\n M tests/unit/test_functional_integrity.py\n M tests/unit/test_mental_engine.py\n M tests/unit/test_vision_integration.py\n?? apps/vehicle-app/eslint.config.mjs\n?? apps/vehicle-app/next.config.js\n?? apps/vehicle-app/src/utils/api.ts\n?? apps/vehicle-app/src/utils/healthStorage.ts\n?? apps/vehicle-app/src/utils/mediaLifecycle.ts\n?? apps/vehicle-app/src/utils/useLocalSpeech.ts\n?? docs/remediation/\n?? scripts/audio_diagnostic.py\n?? scripts/baseline_browser.py\n?? scripts/baseline_check.py\n?? scripts/check_local.py\n?? scripts/create_test_voice.ps1\n?? scripts/make_test_fixtures.py\n?? scripts/media_preflight.py\n?? scripts/package_remediation.py\n?? scripts/run_local.py\n?? scripts/setup_fixtures.py\n?? scripts/setup_local.py\n?? scripts/setup_speech_model.py\n?? scripts/skin_diagnostic.py\n?? scripts/source_snapshot.py\n?? scripts/windows_startup_smoke.py\n?? services/core-api/local_speech.py\n?? services/core-api/requirements-lock.txt\n?? services/core-api/secure_api.py\n?? services/core-api/session_store.py\n?? tests/baseline_vision_replay.cjs\n?? tests/conftest.py\n?? tests/e2e/\n?? tests/test_audit_regressions.py\n?? tests/vision_behavior.cjs\n"
+  },
+  "remote": "f8f08d98cf23eb23c5a171b5b50411364d79adf6\trefs/heads/fix/live-test-followup\n7b3010ca5f03a55f0faa906296520d8097974acb\trefs/heads/main\n",
+  "pr": {
+    "headRefOid": "f8f08d98cf23eb23c5a171b5b50411364d79adf6",
+    "isDraft": true,
+    "mergedAt": null,
+    "state": "OPEN",
+    "url": "https://github.com/sasmazt90/togg-health-mvp/pull/2"
+  },
+  "shortcutSha256": "a4cb1540482ab12e9c036c41a9414243d52488b97026e79d99c74a83b86359d8",
+  "protectedEnvSha256": "c4b877a6c1457d54275571a0eb0a384ea637b12b4cc1b1cc81b1f0031825189b"
+}

@@ -1,0 +1,39 @@
+{
+  "exitCode": 1,
+  "stdout": {
+    "summary": {
+      "changed": 0,
+      "unchanged": 6,
+      "matches": 0,
+      "duration": 4562900,
+      "errors": 1,
+      "warnings": 0,
+      "infos": 0,
+      "skipped": 0,
+      "suggestedFixesSkipped": 0,
+      "diagnosticsNotPrinted": 0,
+      "scannerDuration": 22626400
+    },
+    "diagnostics": [
+      {
+        "severity": "error",
+        "message": "Don't use next/document outside of pages/_document.jsx to avoid unexpected behaviors.",
+        "category": "lint/suspicious/noDocumentImportInPage",
+        "location": {
+          "path": "pages\\test.tsx",
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 38
+          }
+        },
+        "advices": []
+      }
+    ],
+    "command": "lint"
+  },
+  "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n"
+}

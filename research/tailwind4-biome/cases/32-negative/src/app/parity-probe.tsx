@@ -1,0 +1,1 @@
+<div>// bad comment</div>

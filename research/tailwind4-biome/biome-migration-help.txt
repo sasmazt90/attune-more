@@ -1,0 +1,9 @@
+Imports an ESLint configuration and ignore settings from the current working directory into the
+Biome configuration.
+
+Usage: biome.exe migrate eslint [--include-inspired] [--include-nursery]
+
+Available options:
+        --include-inspired  Includes Biome rules inspired by ESLint rules in the migration.
+        --include-nursery   Includes nursery rules in the migration.
+    -h, --help              Prints help information

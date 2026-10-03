@@ -1,0 +1,58 @@
+{
+  "@tailwindcss/node@4.3.3": {
+    "version": "4.3.3",
+    "dependencies": {
+      "jiti": "^2.7.0",
+      "tailwindcss": "4.3.3",
+      "lightningcss": "1.32.0",
+      "magic-string": "^0.30.21",
+      "source-map-js": "^1.2.1",
+      "enhanced-resolve": "^5.24.1",
+      "@jridgewell/remapping": "^2.3.5"
+    }
+  },
+  "@tailwindcss/oxide@4.3.3": {
+    "version": "4.3.3",
+    "engines": {
+      "node": ">= 20"
+    },
+    "optionalDependencies": {
+      "@tailwindcss/oxide-darwin-x64": "4.3.3",
+      "@tailwindcss/oxide-freebsd-x64": "4.3.3",
+      "@tailwindcss/oxide-wasm32-wasi": "4.3.3",
+      "@tailwindcss/oxide-darwin-arm64": "4.3.3",
+      "@tailwindcss/oxide-android-arm64": "4.3.3",
+      "@tailwindcss/oxide-linux-x64-gnu": "4.3.3",
+      "@tailwindcss/oxide-linux-x64-musl": "4.3.3",
+      "@tailwindcss/oxide-win32-x64-msvc": "4.3.3",
+      "@tailwindcss/oxide-linux-arm64-gnu": "4.3.3",
+      "@tailwindcss/oxide-linux-arm64-musl": "4.3.3",
+      "@tailwindcss/oxide-win32-arm64-msvc": "4.3.3",
+      "@tailwindcss/oxide-linux-arm-gnueabihf": "4.3.3"
+    }
+  },
+  "@tailwindcss/oxide-win32-x64-msvc@4.3.3": {
+    "version": "4.3.3",
+    "engines": {
+      "node": ">= 20"
+    },
+    "os": [
+      "win32"
+    ],
+    "cpu": [
+      "x64"
+    ]
+  },
+  "@tailwindcss/oxide-linux-x64-gnu@4.3.3": {
+    "version": "4.3.3",
+    "engines": {
+      "node": ">= 20"
+    },
+    "os": [
+      "linux"
+    ],
+    "cpu": [
+      "x64"
+    ]
+  }
+}

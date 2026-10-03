@@ -1,0 +1,5690 @@
+[
+  {
+    "id": "00-negative",
+    "rule": "@next/next/google-font-display",
+    "native": "useGoogleFontDisplay",
+    "kind": "negative",
+    "source": "<link href=\"https://fonts.googleapis.com/css2?family=Roboto\" />",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 4.141,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/google-font-display",
+            "severity": 1,
+            "message": "A font-display parameter is missing (adding `&display=optional` is recommended). See: https://nextjs.org/docs/messages/google-font-display",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 64
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/google-font-display",
+            "severity": 1,
+            "message": "A font-display parameter is missing (adding `&display=optional` is recommended). See: https://nextjs.org/docs/messages/google-font-display",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 64
+          },
+          {
+            "ruleId": "@next/next/no-page-custom-font",
+            "severity": 1,
+            "message": "Custom fonts not added in `pages/_document.js` will only load for a single page. This is discouraged. See: https://nextjs.org/docs/messages/no-page-custom-font",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 64
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.422,
+        "targetDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "The Google Font link is missing the display parameter.",
+            "category": "lint/suspicious/useGoogleFontDisplay",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\00-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 12
+              },
+              "end": {
+                "line": 1,
+                "column": 61
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "The Google Font link is missing the display parameter.",
+            "category": "lint/suspicious/useGoogleFontDisplay",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\00-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 12
+              },
+              "end": {
+                "line": 1,
+                "column": 61
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "00-positive",
+    "rule": "@next/next/google-font-display",
+    "native": "useGoogleFontDisplay",
+    "kind": "positive",
+    "source": "<link href=\"https://fonts.googleapis.com/css2?family=Roboto&display=swap\" />",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 4.11,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-page-custom-font",
+            "severity": 1,
+            "message": "Custom fonts not added in `pages/_document.js` will only load for a single page. This is discouraged. See: https://nextjs.org/docs/messages/no-page-custom-font",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 77
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.437,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "01-negative",
+    "rule": "@next/next/google-font-preconnect",
+    "native": "useGoogleFontPreconnect",
+    "kind": "negative",
+    "source": "<link href=\"https://fonts.gstatic.com\" />",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 4.032,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/google-font-preconnect",
+            "severity": 1,
+            "message": "`rel=\"preconnect\"` is missing from Google Font. See: https://nextjs.org/docs/messages/google-font-preconnect",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 42
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/google-font-preconnect",
+            "severity": 1,
+            "message": "`rel=\"preconnect\"` is missing from Google Font. See: https://nextjs.org/docs/messages/google-font-preconnect",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 42
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.515,
+        "targetDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "The attribute rel=\"preconnect\" is missing from the Google Font.",
+            "category": "lint/performance/useGoogleFontPreconnect",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\01-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 42
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "The attribute rel=\"preconnect\" is missing from the Google Font.",
+            "category": "lint/performance/useGoogleFontPreconnect",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\01-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 42
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "01-positive",
+    "rule": "@next/next/google-font-preconnect",
+    "native": "useGoogleFontPreconnect",
+    "kind": "positive",
+    "source": "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossOrigin=\"anonymous\" />",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 4.11,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.453,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "02-negative",
+    "rule": "@next/next/inline-script-id",
+    "native": "useInlineScriptId",
+    "kind": "negative",
+    "source": "import Script from \"next/script\"; export default function C(){return <Script>{\"ok()\"}</Script>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 5.016,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/inline-script-id",
+            "severity": 2,
+            "message": "`next/script` components with inline content must specify an `id` attribute. See: https://nextjs.org/docs/messages/inline-script-id",
+            "line": 1,
+            "column": 70,
+            "nodeType": "JSXElement",
+            "endLine": 1,
+            "endColumn": 95
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/inline-script-id",
+            "severity": 2,
+            "message": "`next/script` components with inline content must specify an `id` attribute. See: https://nextjs.org/docs/messages/inline-script-id",
+            "line": 1,
+            "column": 70,
+            "nodeType": "JSXElement",
+            "endLine": 1,
+            "endColumn": 95
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.484,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "next/script components have inline content or `dangerouslySetInnerHTML` without id attribute.",
+            "category": "lint/correctness/useInlineScriptId",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\02-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 70
+              },
+              "end": {
+                "line": 1,
+                "column": 78
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\02-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 42
+              },
+              "end": {
+                "line": 1,
+                "column": 49
+              }
+            },
+            "advices": []
+          },
+          {
+            "severity": "error",
+            "message": "next/script components have inline content or `dangerouslySetInnerHTML` without id attribute.",
+            "category": "lint/correctness/useInlineScriptId",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\02-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 70
+              },
+              "end": {
+                "line": 1,
+                "column": 78
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "02-positive",
+    "rule": "@next/next/inline-script-id",
+    "native": "useInlineScriptId",
+    "kind": "positive",
+    "source": "import Script from \"next/script\"; export default function C(){return <Script id=\"ok\">{\"ok()\"}</Script>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.141,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.453,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\02-positive\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 42
+              },
+              "end": {
+                "line": 1,
+                "column": 49
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "03-negative",
+    "rule": "@next/next/next-script-for-ga",
+    "native": null,
+    "kind": "negative",
+    "source": "<script src=\"https://www.google-analytics.com/analytics.js\" />",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 5.0,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/next-script-for-ga",
+            "severity": 1,
+            "message": "Prefer `next/script` component when using the inline script for Google Analytics. See: https://nextjs.org/docs/messages/next-script-for-ga",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 63
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-sync-scripts",
+            "severity": 2,
+            "message": "Synchronous scripts should not be used. See: https://nextjs.org/docs/messages/no-sync-scripts",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 63
+          },
+          {
+            "ruleId": "@next/next/next-script-for-ga",
+            "severity": 1,
+            "message": "Prefer `next/script` component when using the inline script for Google Analytics. See: https://nextjs.org/docs/messages/next-script-for-ga",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 63
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.484,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "error",
+            "message": "Unexpected synchronous script.",
+            "category": "lint/performance/noSyncScripts",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\03-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 63
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "03-positive",
+    "rule": "@next/next/next-script-for-ga",
+    "native": null,
+    "kind": "positive",
+    "source": "<div />",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.016,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "04-negative",
+    "rule": "@next/next/no-assign-module-variable",
+    "native": null,
+    "kind": "negative",
+    "source": "const module = {};",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 5.703,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-assign-module-variable",
+            "severity": 2,
+            "message": "Do not assign to the variable `module`. See: https://nextjs.org/docs/messages/no-assign-module-variable",
+            "line": 1,
+            "column": 1,
+            "nodeType": "VariableDeclaration",
+            "endLine": 1,
+            "endColumn": 19
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-assign-module-variable",
+            "severity": 2,
+            "message": "Do not assign to the variable `module`. See: https://nextjs.org/docs/messages/no-assign-module-variable",
+            "line": 1,
+            "column": 1,
+            "nodeType": "VariableDeclaration",
+            "endLine": 1,
+            "endColumn": 19
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "04-positive",
+    "rule": "@next/next/no-assign-module-variable",
+    "native": null,
+    "kind": "positive",
+    "source": "const moduleName = {};",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.782,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.484,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "05-negative",
+    "rule": "@next/next/no-async-client-component",
+    "native": "noNextAsyncClientComponent",
+    "kind": "negative",
+    "source": "\"use client\"; export default async function C(){return <div/>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.75,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-async-client-component",
+            "severity": 1,
+            "message": "Prevent Client Components from being async functions. See: https://nextjs.org/docs/messages/no-async-client-component",
+            "line": 1,
+            "column": 15,
+            "nodeType": "ExportDefaultDeclaration",
+            "endLine": 1,
+            "endColumn": 63
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-async-client-component",
+            "severity": 1,
+            "message": "Prevent Client Components from being async functions. See: https://nextjs.org/docs/messages/no-async-client-component",
+            "line": 1,
+            "column": 15,
+            "nodeType": "ExportDefaultDeclaration",
+            "endLine": 1,
+            "endColumn": 63
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.453,
+        "targetDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "The component C is an async client component, which is not allowed.",
+            "category": "lint/correctness/noNextAsyncClientComponent",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\05-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 30
+              },
+              "end": {
+                "line": 1,
+                "column": 63
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\05-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 22
+              },
+              "end": {
+                "line": 1,
+                "column": 29
+              }
+            },
+            "advices": []
+          },
+          {
+            "severity": "warning",
+            "message": "The component C is an async client component, which is not allowed.",
+            "category": "lint/correctness/noNextAsyncClientComponent",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\05-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 30
+              },
+              "end": {
+                "line": 1,
+                "column": 63
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "05-positive",
+    "rule": "@next/next/no-async-client-component",
+    "native": "noNextAsyncClientComponent",
+    "kind": "positive",
+    "source": "\"use client\"; export default function C(){return <div/>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.734,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.453,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\05-positive\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 22
+              },
+              "end": {
+                "line": 1,
+                "column": 29
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "06-negative",
+    "rule": "@next/next/no-before-interactive-script-outside-document",
+    "native": "noBeforeInteractiveScriptOutsideDocument",
+    "kind": "negative",
+    "source": "import Script from \"next/script\"; export default function C(){return <Script src=\"https://example.com/a.js\" strategy=\"beforeInteractive\"/>}",
+    "virtualPath": "pages/index.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.547,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-before-interactive-script-outside-document",
+            "severity": 1,
+            "message": "`next/script`'s `beforeInteractive` strategy should not be used outside of `pages/_document.js`. See: https://nextjs.org/docs/messages/no-before-interactive-script-outside-document",
+            "line": 1,
+            "column": 70,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 139
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-before-interactive-script-outside-document",
+            "severity": 1,
+            "message": "`next/script`'s `beforeInteractive` strategy should not be used outside of `pages/_document.js`. See: https://nextjs.org/docs/messages/no-before-interactive-script-outside-document",
+            "line": 1,
+            "column": 70,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 139
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.516,
+        "targetDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Don't use next/script component with the `beforeInteractive` strategy outside of pages/_document.js.",
+            "category": "lint/correctness/noBeforeInteractiveScriptOutsideDocument",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\06-negative\\pages\\index.tsx",
+              "start": {
+                "line": 1,
+                "column": 70
+              },
+              "end": {
+                "line": 1,
+                "column": 139
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\06-negative\\pages\\index.tsx",
+              "start": {
+                "line": 1,
+                "column": 42
+              },
+              "end": {
+                "line": 1,
+                "column": 49
+              }
+            },
+            "advices": []
+          },
+          {
+            "severity": "warning",
+            "message": "Don't use next/script component with the `beforeInteractive` strategy outside of pages/_document.js.",
+            "category": "lint/correctness/noBeforeInteractiveScriptOutsideDocument",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\06-negative\\pages\\index.tsx",
+              "start": {
+                "line": 1,
+                "column": 70
+              },
+              "end": {
+                "line": 1,
+                "column": 139
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "06-positive",
+    "rule": "@next/next/no-before-interactive-script-outside-document",
+    "native": "noBeforeInteractiveScriptOutsideDocument",
+    "kind": "positive",
+    "source": "import Script from \"next/script\"; export default function C(){return <Script src=\"https://example.com/a.js\" strategy=\"afterInteractive\"/>}",
+    "virtualPath": "pages/index.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.485,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\06-positive\\pages\\index.tsx",
+              "start": {
+                "line": 1,
+                "column": 42
+              },
+              "end": {
+                "line": 1,
+                "column": 49
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "07-negative",
+    "rule": "@next/next/no-css-tags",
+    "native": null,
+    "kind": "negative",
+    "source": "<link rel=\"stylesheet\" href=\"/theme.css\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.36,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-css-tags",
+            "severity": 1,
+            "message": "Do not include stylesheets manually. See: https://nextjs.org/docs/messages/no-css-tags",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 43
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-css-tags",
+            "severity": 1,
+            "message": "Do not include stylesheets manually. See: https://nextjs.org/docs/messages/no-css-tags",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 43
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.515,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "07-positive",
+    "rule": "@next/next/no-css-tags",
+    "native": null,
+    "kind": "positive",
+    "source": "<div/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.422,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "08-negative",
+    "rule": "@next/next/no-document-import-in-page",
+    "native": "noDocumentImportInPage",
+    "kind": "negative",
+    "source": "import Document from \"next/document\"; export default function C(){return <Document/>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.39,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-document-import-in-page",
+            "severity": 2,
+            "message": "`<Document />` from `next/document` should not be imported outside of `pages/_document.js`. See: https://nextjs.org/docs/messages/no-document-import-in-page",
+            "line": 1,
+            "column": 1,
+            "nodeType": "ImportDeclaration",
+            "endLine": 1,
+            "endColumn": 38
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-document-import-in-page",
+            "severity": 2,
+            "message": "`<Document />` from `next/document` should not be imported outside of `pages/_document.js`. See: https://nextjs.org/docs/messages/no-document-import-in-page",
+            "line": 1,
+            "column": 1,
+            "nodeType": "ImportDeclaration",
+            "endLine": 1,
+            "endColumn": 38
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\08-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 46
+              },
+              "end": {
+                "line": 1,
+                "column": 53
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "08-positive",
+    "rule": "@next/next/no-document-import-in-page",
+    "native": "noDocumentImportInPage",
+    "kind": "positive",
+    "source": "import Head from \"next/head\"; export default function C(){return <Head/>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.406,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.469,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\08-positive\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 38
+              },
+              "end": {
+                "line": 1,
+                "column": 45
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "09-negative",
+    "rule": "@next/next/no-duplicate-head",
+    "native": null,
+    "kind": "negative",
+    "source": "import Document,{Head} from \"next/document\"; export default class C extends Document{render(){return <div><Head/><Head/></div>}}",
+    "virtualPath": "pages/_document.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.531,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-duplicate-head",
+            "severity": 2,
+            "message": "Do not include multiple instances of `<Head/>`. See: https://nextjs.org/docs/messages/no-duplicate-head",
+            "line": 1,
+            "column": 114,
+            "nodeType": "JSXElement",
+            "endLine": 1,
+            "endColumn": 121
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-duplicate-head",
+            "severity": 2,
+            "message": "Do not include multiple instances of `<Head/>`. See: https://nextjs.org/docs/messages/no-duplicate-head",
+            "line": 1,
+            "column": 114,
+            "nodeType": "JSXElement",
+            "endLine": 1,
+            "endColumn": 121
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.484,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\09-negative\\pages\\_document.tsx",
+              "start": {
+                "line": 1,
+                "column": 53
+              },
+              "end": {
+                "line": 1,
+                "column": 60
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "09-positive",
+    "rule": "@next/next/no-duplicate-head",
+    "native": null,
+    "kind": "positive",
+    "source": "import Document,{Head} from \"next/document\"; export default class C extends Document{render(){return <div><Head/></div>}}",
+    "virtualPath": "pages/_document.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.406,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\09-positive\\pages\\_document.tsx",
+              "start": {
+                "line": 1,
+                "column": 53
+              },
+              "end": {
+                "line": 1,
+                "column": 60
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "10-negative",
+    "rule": "@next/next/no-head-element",
+    "native": "noHeadElement",
+    "kind": "negative",
+    "source": "<head/>",
+    "virtualPath": "pages/index.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.266,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-head-element",
+            "severity": 1,
+            "message": "Do not use `<head>` element. Use `<Head />` from `next/head` instead. See: https://nextjs.org/docs/messages/no-head-element",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 8
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-head-element",
+            "severity": 1,
+            "message": "Do not use `<head>` element. Use `<Head />` from `next/head` instead. See: https://nextjs.org/docs/messages/no-head-element",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 8
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.578,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "10-positive",
+    "rule": "@next/next/no-head-element",
+    "native": "noHeadElement",
+    "kind": "positive",
+    "source": "<header/>",
+    "virtualPath": "pages/index.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.188,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.578,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "11-negative",
+    "rule": "@next/next/no-head-import-in-document",
+    "native": "noHeadImportInDocument",
+    "kind": "negative",
+    "source": "import Head from \"next/head\"; export default function C(){return <Head/>}",
+    "virtualPath": "pages/_document.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.281,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-head-import-in-document",
+            "severity": 2,
+            "message": "`next/head` should not be imported in `pages\\_document.tsx`. Use `<Head />` from `next/document` instead. See: https://nextjs.org/docs/messages/no-head-import-in-document",
+            "line": 1,
+            "column": 1,
+            "nodeType": "ImportDeclaration",
+            "endLine": 1,
+            "endColumn": 30
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-head-import-in-document",
+            "severity": 2,
+            "message": "`next/head` should not be imported in `pages\\_document.tsx`. Use `<Head />` from `next/document` instead. See: https://nextjs.org/docs/messages/no-head-import-in-document",
+            "line": 1,
+            "column": 1,
+            "nodeType": "ImportDeclaration",
+            "endLine": 1,
+            "endColumn": 30
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.594,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "Don't use next/head in pages\\_document.tsx",
+            "category": "lint/suspicious/noHeadImportInDocument",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\11-negative\\pages\\_document.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 30
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\11-negative\\pages\\_document.tsx",
+              "start": {
+                "line": 1,
+                "column": 38
+              },
+              "end": {
+                "line": 1,
+                "column": 45
+              }
+            },
+            "advices": []
+          },
+          {
+            "severity": "error",
+            "message": "Don't use next/head in pages\\_document.tsx",
+            "category": "lint/suspicious/noHeadImportInDocument",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\11-negative\\pages\\_document.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 30
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "11-positive",
+    "rule": "@next/next/no-head-import-in-document",
+    "native": "noHeadImportInDocument",
+    "kind": "positive",
+    "source": "import { Head } from \"next/document\"; export default function C(){return <Head/>}",
+    "virtualPath": "pages/_document.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.219,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.594,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\11-positive\\pages\\_document.tsx",
+              "start": {
+                "line": 1,
+                "column": 46
+              },
+              "end": {
+                "line": 1,
+                "column": 53
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "12-negative",
+    "rule": "@next/next/no-html-link-for-pages",
+    "native": null,
+    "kind": "negative",
+    "source": "export default function C(){return <a href=\"/\">Home</a>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.281,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-html-link-for-pages",
+            "severity": 2,
+            "message": "Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages",
+            "line": 1,
+            "column": 36,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 48
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-html-link-for-pages",
+            "severity": 2,
+            "message": "Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages",
+            "line": 1,
+            "column": 36,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 48
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\12-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 8
+              },
+              "end": {
+                "line": 1,
+                "column": 15
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "12-positive",
+    "rule": "@next/next/no-html-link-for-pages",
+    "native": null,
+    "kind": "positive",
+    "source": "import Link from \"next/link\"; export default function C(){return <Link href=\"/\">Home</Link>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.344,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\12-positive\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 38
+              },
+              "end": {
+                "line": 1,
+                "column": 45
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "13-negative",
+    "rule": "@next/next/no-img-element",
+    "native": "noImgElement",
+    "kind": "negative",
+    "source": "<img alt=\"sample\" src=\"/image.png\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.188,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-img-element",
+            "severity": 1,
+            "message": "Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 37
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-img-element",
+            "severity": 1,
+            "message": "Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 37
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.468,
+        "targetDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Don't use <img> element.",
+            "category": "lint/performance/noImgElement",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\13-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 37
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Don't use <img> element.",
+            "category": "lint/performance/noImgElement",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\13-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 37
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "13-positive",
+    "rule": "@next/next/no-img-element",
+    "native": "noImgElement",
+    "kind": "positive",
+    "source": "<span/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.188,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.468,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "14-negative",
+    "rule": "@next/next/no-page-custom-font",
+    "native": null,
+    "kind": "negative",
+    "source": "<link href=\"https://fonts.googleapis.com/css2?family=Roboto&display=swap\" rel=\"stylesheet\"/>",
+    "virtualPath": "pages/index.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.828,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-page-custom-font",
+            "severity": 1,
+            "message": "Custom fonts not added in `pages/_document.js` will only load for a single page. This is discouraged. See: https://nextjs.org/docs/messages/no-page-custom-font",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 93
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-page-custom-font",
+            "severity": 1,
+            "message": "Custom fonts not added in `pages/_document.js` will only load for a single page. This is discouraged. See: https://nextjs.org/docs/messages/no-page-custom-font",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 93
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.484,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "14-positive",
+    "rule": "@next/next/no-page-custom-font",
+    "native": null,
+    "kind": "positive",
+    "source": "<div/>",
+    "virtualPath": "pages/index.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.907,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "15-negative",
+    "rule": "@next/next/no-script-component-in-head",
+    "native": null,
+    "kind": "negative",
+    "source": "import Head from \"next/head\"; import Script from \"next/script\"; export default function C(){return <Head><Script src=\"/a.js\"/></Head>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 5.891,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-script-component-in-head",
+            "severity": 2,
+            "message": "`next/script` should not be used in `next/head` component. Move `<Script />` outside of `<Head>` instead. See: https://nextjs.org/docs/messages/no-script-component-in-head",
+            "line": 1,
+            "column": 100,
+            "nodeType": "JSXElement",
+            "endLine": 1,
+            "endColumn": 134
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-script-component-in-head",
+            "severity": 2,
+            "message": "`next/script` should not be used in `next/head` component. Move `<Script />` outside of `<Head>` instead. See: https://nextjs.org/docs/messages/no-script-component-in-head",
+            "line": 1,
+            "column": 100,
+            "nodeType": "JSXElement",
+            "endLine": 1,
+            "endColumn": 134
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.484,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\15-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 72
+              },
+              "end": {
+                "line": 1,
+                "column": 79
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "15-positive",
+    "rule": "@next/next/no-script-component-in-head",
+    "native": null,
+    "kind": "positive",
+    "source": "import Head from \"next/head\"; export default function C(){return <Head><title>ok</title></Head>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.937,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.485,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\15-positive\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 38
+              },
+              "end": {
+                "line": 1,
+                "column": 45
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "16-negative",
+    "rule": "@next/next/no-styled-jsx-in-document",
+    "native": null,
+    "kind": "negative",
+    "source": "<style jsx>{\"body { color: red }\"}</style>",
+    "virtualPath": "pages/_document.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.734,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-styled-jsx-in-document",
+            "severity": 1,
+            "message": "`styled-jsx` should not be used in `pages/_document.js`. See: https://nextjs.org/docs/messages/no-styled-jsx-in-document",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 12
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-styled-jsx-in-document",
+            "severity": 1,
+            "message": "`styled-jsx` should not be used in `pages/_document.js`. See: https://nextjs.org/docs/messages/no-styled-jsx-in-document",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 12
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.438,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "16-positive",
+    "rule": "@next/next/no-styled-jsx-in-document",
+    "native": null,
+    "kind": "positive",
+    "source": "<div/>",
+    "virtualPath": "pages/_document.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.703,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.438,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "17-negative",
+    "rule": "@next/next/no-sync-scripts",
+    "native": "noSyncScripts",
+    "kind": "negative",
+    "source": "<script src=\"/a.js\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 5.641,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-sync-scripts",
+            "severity": 2,
+            "message": "Synchronous scripts should not be used. See: https://nextjs.org/docs/messages/no-sync-scripts",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 22
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-sync-scripts",
+            "severity": 2,
+            "message": "Synchronous scripts should not be used. See: https://nextjs.org/docs/messages/no-sync-scripts",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 22
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.453,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "Unexpected synchronous script.",
+            "category": "lint/performance/noSyncScripts",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\17-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 22
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "error",
+            "message": "Unexpected synchronous script.",
+            "category": "lint/performance/noSyncScripts",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\17-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 22
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "17-positive",
+    "rule": "@next/next/no-sync-scripts",
+    "native": "noSyncScripts",
+    "kind": "positive",
+    "source": "<script async src=\"/a.js\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.625,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.422,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "18-negative",
+    "rule": "@next/next/no-title-in-document-head",
+    "native": null,
+    "kind": "negative",
+    "source": "import { Head } from \"next/document\"; export default function C(){return <Head><title>bad</title></Head>}",
+    "virtualPath": "pages/_document.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.75,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-title-in-document-head",
+            "severity": 1,
+            "message": "Do not use `<title>` element with `<Head />` component from `next/document`. Titles should defined at the page-level using `<Head />` from `next/head` instead. See: https://nextjs.org/docs/messages/no-title-in-document-head",
+            "line": 1,
+            "column": 80,
+            "nodeType": "JSXElement",
+            "endLine": 1,
+            "endColumn": 98
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-title-in-document-head",
+            "severity": 1,
+            "message": "Do not use `<title>` element with `<Head />` component from `next/document`. Titles should defined at the page-level using `<Head />` from `next/head` instead. See: https://nextjs.org/docs/messages/no-title-in-document-head",
+            "line": 1,
+            "column": 80,
+            "nodeType": "JSXElement",
+            "endLine": 1,
+            "endColumn": 98
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.484,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\18-negative\\pages\\_document.tsx",
+              "start": {
+                "line": 1,
+                "column": 46
+              },
+              "end": {
+                "line": 1,
+                "column": 53
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "18-positive",
+    "rule": "@next/next/no-title-in-document-head",
+    "native": null,
+    "kind": "positive",
+    "source": "import { Head } from \"next/document\"; export default function C(){return <Head/>}",
+    "virtualPath": "pages/_document.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.797,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.484,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\18-positive\\pages\\_document.tsx",
+              "start": {
+                "line": 1,
+                "column": 46
+              },
+              "end": {
+                "line": 1,
+                "column": 53
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "19-negative",
+    "rule": "@next/next/no-typos",
+    "native": null,
+    "kind": "negative",
+    "source": "export const getServerSideProp = async () => ({props:{}});",
+    "virtualPath": "pages/index.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.735,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-typos",
+            "severity": 1,
+            "message": "getServerSideProp may be a typo. Did you mean getServerSideProps?",
+            "line": 1,
+            "column": 1,
+            "nodeType": "ExportNamedDeclaration",
+            "endLine": 1,
+            "endColumn": 59
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-typos",
+            "severity": 1,
+            "message": "getServerSideProp may be a typo. Did you mean getServerSideProps?",
+            "line": 1,
+            "column": 1,
+            "nodeType": "ExportNamedDeclaration",
+            "endLine": 1,
+            "endColumn": 59
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.437,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "19-positive",
+    "rule": "@next/next/no-typos",
+    "native": null,
+    "kind": "positive",
+    "source": "export const getServerSideProps = async () => ({props:{}});",
+    "virtualPath": "pages/index.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.734,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.469,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "20-negative",
+    "rule": "@next/next/no-unwanted-polyfillio",
+    "native": "noUnwantedPolyfillio",
+    "kind": "negative",
+    "source": "<script async src=\"https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.copyWithin\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.969,
+        "targetDiagnostics": [
+          {
+            "ruleId": "@next/next/no-unwanted-polyfillio",
+            "severity": 1,
+            "message": "No duplicate polyfills from Polyfill.io are allowed. Array.prototype.copyWithin is already shipped with Next.js. See: https://nextjs.org/docs/messages/no-unwanted-polyfillio",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 97
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-unwanted-polyfillio",
+            "severity": 1,
+            "message": "No duplicate polyfills from Polyfill.io are allowed. Array.prototype.copyWithin is already shipped with Next.js. See: https://nextjs.org/docs/messages/no-unwanted-polyfillio",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 97
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.422,
+        "targetDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Prevent duplicate polyfills from Polyfill.io",
+            "category": "lint/performance/noUnwantedPolyfillio",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\20-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 19
+              },
+              "end": {
+                "line": 1,
+                "column": 95
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Prevent duplicate polyfills from Polyfill.io",
+            "category": "lint/performance/noUnwantedPolyfillio",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\20-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 19
+              },
+              "end": {
+                "line": 1,
+                "column": 95
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "20-positive",
+    "rule": "@next/next/no-unwanted-polyfillio",
+    "native": "noUnwantedPolyfillio",
+    "kind": "positive",
+    "source": "<script async src=\"https://example.com/s.js\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.953,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.453,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "21-negative",
+    "rule": "import/no-anonymous-default-export",
+    "native": "noDefaultExport",
+    "kind": "negative",
+    "source": "export default {};",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 5.953,
+        "targetDiagnostics": [
+          {
+            "ruleId": "import/no-anonymous-default-export",
+            "severity": 1,
+            "message": "Assign object to a variable before exporting as module default",
+            "line": 1,
+            "column": 1,
+            "nodeType": "ExportDefaultDeclaration",
+            "endLine": 1,
+            "endColumn": 19
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "import/no-anonymous-default-export",
+            "severity": 1,
+            "message": "Assign object to a variable before exporting as module default",
+            "line": 1,
+            "column": 1,
+            "nodeType": "ExportDefaultDeclaration",
+            "endLine": 1,
+            "endColumn": 19
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.422,
+        "targetDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\21-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 8
+              },
+              "end": {
+                "line": 1,
+                "column": 15
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\21-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 8
+              },
+              "end": {
+                "line": 1,
+                "column": 15
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "21-positive",
+    "rule": "import/no-anonymous-default-export",
+    "native": "noDefaultExport",
+    "kind": "positive",
+    "source": "const config={}; export default config;",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.0,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.422,
+        "targetDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\21-positive\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 25
+              },
+              "end": {
+                "line": 1,
+                "column": 32
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid default exports.",
+            "category": "lint/style/noDefaultExport",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\21-positive\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 25
+              },
+              "end": {
+                "line": 1,
+                "column": 32
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "22-negative",
+    "rule": "jsx-a11y/alt-text",
+    "native": "useAltText",
+    "kind": "negative",
+    "source": "<img src=\"/a.png\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.687,
+        "targetDiagnostics": [
+          {
+            "ruleId": "jsx-a11y/alt-text",
+            "severity": 1,
+            "message": "img elements must have an alt prop, either with meaningful text, or an empty string for decorative images.",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 20
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-img-element",
+            "severity": 1,
+            "message": "Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 20
+          },
+          {
+            "ruleId": "jsx-a11y/alt-text",
+            "severity": 1,
+            "message": "img elements must have an alt prop, either with meaningful text, or an empty string for decorative images.",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 20
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.531,
+        "targetDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Provide a text alternative through the alt, aria-label or aria-labelledby attribute",
+            "category": "lint/a11y/useAltText",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\22-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 20
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Provide a text alternative through the alt, aria-label or aria-labelledby attribute",
+            "category": "lint/a11y/useAltText",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\22-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 20
+              }
+            },
+            "advices": []
+          },
+          {
+            "severity": "warning",
+            "message": "Don't use <img> element.",
+            "category": "lint/performance/noImgElement",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\22-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 20
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "22-positive",
+    "rule": "jsx-a11y/alt-text",
+    "native": "useAltText",
+    "kind": "positive",
+    "source": "<img alt=\"sample\" src=\"/a.png\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.703,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "ruleId": "@next/next/no-img-element",
+            "severity": 1,
+            "message": "Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 33
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.484,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Don't use <img> element.",
+            "category": "lint/performance/noImgElement",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\22-positive\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 33
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "23-negative",
+    "rule": "jsx-a11y/aria-props",
+    "native": "useValidAriaProps",
+    "kind": "negative",
+    "source": "<div aria-labl=\"bad\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.672,
+        "targetDiagnostics": [
+          {
+            "ruleId": "jsx-a11y/aria-props",
+            "severity": 1,
+            "message": "aria-labl: This attribute is an invalid ARIA attribute. Did you mean to use aria-label?",
+            "line": 1,
+            "column": 6,
+            "nodeType": "JSXAttribute",
+            "endLine": 1,
+            "endColumn": 21
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "jsx-a11y/aria-props",
+            "severity": 1,
+            "message": "aria-labl: This attribute is an invalid ARIA attribute. Did you mean to use aria-label?",
+            "line": 1,
+            "column": 6,
+            "nodeType": "JSXAttribute",
+            "endLine": 1,
+            "endColumn": 21
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.453,
+        "targetDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "The element contains invalid ARIA attribute(s)",
+            "category": "lint/a11y/useValidAriaProps",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\23-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 23
+              }
+            },
+            "advices": [
+              {
+                "start": {
+                  "line": 1,
+                  "column": 6
+                },
+                "end": {
+                  "line": 1,
+                  "column": 21
+                },
+                "text": "Unsafe fix: Remove the invalid aria-* attribute.\n                Check the list of all valid aria-* attributes."
+              }
+            ]
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "The element contains invalid ARIA attribute(s)",
+            "category": "lint/a11y/useValidAriaProps",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\23-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 23
+              }
+            },
+            "advices": [
+              {
+                "start": {
+                  "line": 1,
+                  "column": 6
+                },
+                "end": {
+                  "line": 1,
+                  "column": 21
+                },
+                "text": "Unsafe fix: Remove the invalid aria-* attribute.\n                Check the list of all valid aria-* attributes."
+              }
+            ]
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "23-positive",
+    "rule": "jsx-a11y/aria-props",
+    "native": "useValidAriaProps",
+    "kind": "positive",
+    "source": "<div aria-label=\"ok\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.64,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.516,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "The ARIA attribute 'aria-label' is not supported by this element.",
+            "category": "lint/a11y/useAriaPropsSupportedByRole",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\23-positive\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 23
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "24-negative",
+    "rule": "jsx-a11y/aria-proptypes",
+    "native": "useValidAriaValues",
+    "kind": "negative",
+    "source": "<div aria-hidden=\"sometimes\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.422,
+        "targetDiagnostics": [
+          {
+            "ruleId": "jsx-a11y/aria-proptypes",
+            "severity": 1,
+            "message": "The value for aria-hidden must be a boolean.",
+            "line": 1,
+            "column": 6,
+            "nodeType": "JSXAttribute",
+            "endLine": 1,
+            "endColumn": 29
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "jsx-a11y/aria-proptypes",
+            "severity": 1,
+            "message": "The value for aria-hidden must be a boolean.",
+            "line": 1,
+            "column": 6,
+            "nodeType": "JSXAttribute",
+            "endLine": 1,
+            "endColumn": 29
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.469,
+        "targetDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "The value of the ARIA attribute aria-hidden is not correct.",
+            "category": "lint/a11y/useValidAriaValues",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\24-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 6
+              },
+              "end": {
+                "line": 1,
+                "column": 29
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "The value of the ARIA attribute aria-hidden is not correct.",
+            "category": "lint/a11y/useValidAriaValues",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\24-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 6
+              },
+              "end": {
+                "line": 1,
+                "column": 29
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "24-positive",
+    "rule": "jsx-a11y/aria-proptypes",
+    "native": "useValidAriaValues",
+    "kind": "positive",
+    "source": "<div aria-hidden=\"true\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.391,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.469,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "25-negative",
+    "rule": "jsx-a11y/aria-unsupported-elements",
+    "native": "noAriaUnsupportedElements",
+    "kind": "negative",
+    "source": "<meta aria-label=\"bad\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.407,
+        "targetDiagnostics": [
+          {
+            "ruleId": "jsx-a11y/aria-unsupported-elements",
+            "severity": 1,
+            "message": "This element does not support ARIA roles, states and properties. Try removing the prop 'aria-label'.",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 25
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "jsx-a11y/aria-unsupported-elements",
+            "severity": 1,
+            "message": "This element does not support ARIA roles, states and properties. Try removing the prop 'aria-label'.",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 25
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.515,
+        "targetDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid the role attribute and aria-* attributes when using meta, html, script, and style elements.",
+            "category": "lint/a11y/noAriaUnsupportedElements",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\25-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 25
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "Avoid the role attribute and aria-* attributes when using meta, html, script, and style elements.",
+            "category": "lint/a11y/noAriaUnsupportedElements",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\25-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 25
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "25-positive",
+    "rule": "jsx-a11y/aria-unsupported-elements",
+    "native": "noAriaUnsupportedElements",
+    "kind": "positive",
+    "source": "<meta name=\"ok\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.391,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.515,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "26-negative",
+    "rule": "jsx-a11y/role-has-required-aria-props",
+    "native": "useAriaPropsForRole",
+    "kind": "negative",
+    "source": "<div role=\"checkbox\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 7.0,
+        "targetDiagnostics": [
+          {
+            "ruleId": "jsx-a11y/role-has-required-aria-props",
+            "severity": 1,
+            "message": "Elements with the ARIA role \"checkbox\" must have the following attributes defined: aria-checked",
+            "line": 1,
+            "column": 6,
+            "nodeType": "JSXAttribute",
+            "endLine": 1,
+            "endColumn": 21
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "jsx-a11y/role-has-required-aria-props",
+            "severity": 1,
+            "message": "Elements with the ARIA role \"checkbox\" must have the following attributes defined: aria-checked",
+            "line": 1,
+            "column": 6,
+            "nodeType": "JSXAttribute",
+            "endLine": 1,
+            "endColumn": 21
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.625,
+        "targetDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "The element with the checkbox ARIA role does not have the required ARIA attributes.",
+            "category": "lint/a11y/useAriaPropsForRole",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\26-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 6
+              },
+              "end": {
+                "line": 1,
+                "column": 21
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "The element with the checkbox ARIA role does not have the required ARIA attributes.",
+            "category": "lint/a11y/useAriaPropsForRole",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\26-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 6
+              },
+              "end": {
+                "line": 1,
+                "column": 21
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "26-positive",
+    "rule": "jsx-a11y/role-has-required-aria-props",
+    "native": "useAriaPropsForRole",
+    "kind": "positive",
+    "source": "<div role=\"checkbox\" aria-checked=\"false\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 7.0,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.64,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "27-negative",
+    "rule": "jsx-a11y/role-supports-aria-props",
+    "native": "useAriaPropsSupportedByRole",
+    "kind": "negative",
+    "source": "<div role=\"button\" aria-checked=\"true\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.781,
+        "targetDiagnostics": [
+          {
+            "ruleId": "jsx-a11y/role-supports-aria-props",
+            "severity": 1,
+            "message": "The attribute aria-checked is not supported by the role button.",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 41
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "jsx-a11y/role-supports-aria-props",
+            "severity": 1,
+            "message": "The attribute aria-checked is not supported by the role button.",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 41
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.735,
+        "targetDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "The ARIA attribute 'aria-checked' is not supported by this element.",
+            "category": "lint/a11y/useAriaPropsSupportedByRole",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\27-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 41
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "The ARIA attribute 'aria-checked' is not supported by this element.",
+            "category": "lint/a11y/useAriaPropsSupportedByRole",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\27-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 1
+              },
+              "end": {
+                "line": 1,
+                "column": 41
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "27-positive",
+    "rule": "jsx-a11y/role-supports-aria-props",
+    "native": "useAriaPropsSupportedByRole",
+    "kind": "positive",
+    "source": "<div role=\"button\" aria-label=\"ok\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.953,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.672,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "28-negative",
+    "rule": "react-hooks/exhaustive-deps",
+    "native": "useExhaustiveDependencies",
+    "kind": "negative",
+    "source": "import {useEffect} from \"react\"; export function C({value}){useEffect(()=>{console.log(value)},[]);return null;}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 7.36,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react-hooks/exhaustive-deps",
+            "severity": 1,
+            "message": "React Hook useEffect has a missing dependency: 'value'. Either include it or remove the dependency array.",
+            "line": 1,
+            "column": 96,
+            "nodeType": "ArrayExpression",
+            "endLine": 1,
+            "endColumn": 98,
+            "suggestions": [
+              {
+                "desc": "Update the dependencies array to be: [value]",
+                "fix": {
+                  "range": [
+                    95,
+                    97
+                  ],
+                  "text": "[value]"
+                }
+              }
+            ]
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react-hooks/exhaustive-deps",
+            "severity": 1,
+            "message": "React Hook useEffect has a missing dependency: 'value'. Either include it or remove the dependency array.",
+            "line": 1,
+            "column": 96,
+            "nodeType": "ArrayExpression",
+            "endLine": 1,
+            "endColumn": 98,
+            "suggestions": [
+              {
+                "desc": "Update the dependencies array to be: [value]",
+                "fix": {
+                  "range": [
+                    95,
+                    97
+                  ],
+                  "text": "[value]"
+                }
+              }
+            ]
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.515,
+        "targetDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "This hook does not specify its dependency on value.",
+            "category": "lint/correctness/useExhaustiveDependencies",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\28-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 61
+              },
+              "end": {
+                "line": 1,
+                "column": 70
+              }
+            },
+            "advices": [
+              {
+                "start": {
+                  "line": 1,
+                  "column": 88
+                },
+                "end": {
+                  "line": 1,
+                  "column": 93
+                },
+                "text": "Unsafe fix: Add the missing dependency value to the list."
+              }
+            ]
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "This hook does not specify its dependency on value.",
+            "category": "lint/correctness/useExhaustiveDependencies",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\28-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 61
+              },
+              "end": {
+                "line": 1,
+                "column": 70
+              }
+            },
+            "advices": [
+              {
+                "start": {
+                  "line": 1,
+                  "column": 88
+                },
+                "end": {
+                  "line": 1,
+                  "column": 93
+                },
+                "text": "Unsafe fix: Add the missing dependency value to the list."
+              }
+            ]
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "28-positive",
+    "rule": "react-hooks/exhaustive-deps",
+    "native": "useExhaustiveDependencies",
+    "kind": "positive",
+    "source": "import {useEffect} from \"react\"; export function C({value}){useEffect(()=>{console.log(value)},[value]);return null;}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 7.344,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.546,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "29-negative",
+    "rule": "react-hooks/rules-of-hooks",
+    "native": "useHookAtTopLevel",
+    "kind": "negative",
+    "source": "import {useState} from \"react\"; export function C({flag}){if(flag){useState(0)}return null;}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 7.36,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react-hooks/rules-of-hooks",
+            "severity": 2,
+            "message": "React Hook \"useState\" is called conditionally. React Hooks must be called in the exact same order in every component render.",
+            "line": 1,
+            "column": 68,
+            "nodeType": "Identifier",
+            "endLine": 1,
+            "endColumn": 76
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react-hooks/rules-of-hooks",
+            "severity": 2,
+            "message": "React Hook \"useState\" is called conditionally. React Hooks must be called in the exact same order in every component render.",
+            "line": 1,
+            "column": 68,
+            "nodeType": "Identifier",
+            "endLine": 1,
+            "endColumn": 76
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.547,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "This hook is being called conditionally, but all hooks must be called in the exact same order in every component render.",
+            "category": "lint/correctness/useHookAtTopLevel",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\29-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 68
+              },
+              "end": {
+                "line": 1,
+                "column": 76
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "error",
+            "message": "This hook is being called conditionally, but all hooks must be called in the exact same order in every component render.",
+            "category": "lint/correctness/useHookAtTopLevel",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\29-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 68
+              },
+              "end": {
+                "line": 1,
+                "column": 76
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "29-positive",
+    "rule": "react-hooks/rules-of-hooks",
+    "native": "useHookAtTopLevel",
+    "kind": "positive",
+    "source": "import {useState} from \"react\"; export function C({flag}){const [n]=useState(0);return <div>{n}</div>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 7.359,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "30-negative",
+    "rule": "react/display-name",
+    "native": null,
+    "kind": "negative",
+    "source": "import React from \"react\"; const C=React.memo(()=> <div/>);",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.297,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react/display-name",
+            "severity": 2,
+            "message": "Component definition is missing display name",
+            "line": 1,
+            "column": 36,
+            "nodeType": "CallExpression",
+            "messageId": "noDisplayName",
+            "endLine": 1,
+            "endColumn": 59
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react/display-name",
+            "severity": 2,
+            "message": "Component definition is missing display name",
+            "line": 1,
+            "column": 36,
+            "nodeType": "CallExpression",
+            "messageId": "noDisplayName",
+            "endLine": 1,
+            "endColumn": 59
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.516,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "30-positive",
+    "rule": "react/display-name",
+    "native": null,
+    "kind": "positive",
+    "source": "import React from \"react\"; const C=React.memo(function C(){return <div/>});",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.157,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.562,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "31-negative",
+    "rule": "react/jsx-key",
+    "native": "useJsxKeyInIterable",
+    "kind": "negative",
+    "source": "export function C(){return [1,2].map(n=><span>{n}</span>)}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.156,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react/jsx-key",
+            "severity": 2,
+            "message": "Missing \"key\" prop for element in iterator",
+            "line": 1,
+            "column": 41,
+            "nodeType": "JSXElement",
+            "messageId": "missingIterKey",
+            "endLine": 1,
+            "endColumn": 57
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react/jsx-key",
+            "severity": 2,
+            "message": "Missing \"key\" prop for element in iterator",
+            "line": 1,
+            "column": 41,
+            "nodeType": "JSXElement",
+            "messageId": "missingIterKey",
+            "endLine": 1,
+            "endColumn": 57
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.531,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "Missing key property for this element in iterable.",
+            "category": "lint/correctness/useJsxKeyInIterable",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\31-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 41
+              },
+              "end": {
+                "line": 1,
+                "column": 47
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "error",
+            "message": "Missing key property for this element in iterable.",
+            "category": "lint/correctness/useJsxKeyInIterable",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\31-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 41
+              },
+              "end": {
+                "line": 1,
+                "column": 47
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "31-positive",
+    "rule": "react/jsx-key",
+    "native": "useJsxKeyInIterable",
+    "kind": "positive",
+    "source": "export function C(){return [1,2].map(n=><span key={n}>{n}</span>)}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.141,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "32-negative",
+    "rule": "react/jsx-no-comment-textnodes",
+    "native": "noCommentText",
+    "kind": "negative",
+    "source": "<div>// bad comment</div>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.594,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react/jsx-no-comment-textnodes",
+            "severity": 2,
+            "message": "Comments inside children section of tag should be placed inside braces",
+            "line": 1,
+            "column": 6,
+            "nodeType": "JSXText",
+            "messageId": "putCommentInBraces",
+            "endLine": 1,
+            "endColumn": 20
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react/jsx-no-comment-textnodes",
+            "severity": 2,
+            "message": "Comments inside children section of tag should be placed inside braces",
+            "line": 1,
+            "column": 6,
+            "nodeType": "JSXText",
+            "messageId": "putCommentInBraces",
+            "endLine": 1,
+            "endColumn": 20
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.531,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "Wrap comments inside children within braces.",
+            "category": "lint/suspicious/noCommentText",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\32-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 6
+              },
+              "end": {
+                "line": 1,
+                "column": 20
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "error",
+            "message": "Wrap comments inside children within braces.",
+            "category": "lint/suspicious/noCommentText",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\32-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 6
+              },
+              "end": {
+                "line": 1,
+                "column": 20
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "32-positive",
+    "rule": "react/jsx-no-comment-textnodes",
+    "native": "noCommentText",
+    "kind": "positive",
+    "source": "<div>{/* okay */}</div>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.672,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.531,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "33-negative",
+    "rule": "react/jsx-no-duplicate-props",
+    "native": "noDuplicateJsxProps",
+    "kind": "negative",
+    "source": "<div id=\"a\" id=\"b\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.516,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react/jsx-no-duplicate-props",
+            "severity": 2,
+            "message": "No duplicate props allowed",
+            "line": 1,
+            "column": 13,
+            "nodeType": "JSXAttribute",
+            "messageId": "noDuplicateProps",
+            "endLine": 1,
+            "endColumn": 19
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react/jsx-no-duplicate-props",
+            "severity": 2,
+            "message": "No duplicate props allowed",
+            "line": 1,
+            "column": 13,
+            "nodeType": "JSXAttribute",
+            "messageId": "noDuplicateProps",
+            "endLine": 1,
+            "endColumn": 19
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "This JSX property is assigned multiple times.",
+            "category": "lint/suspicious/noDuplicateJsxProps",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\33-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 6
+              },
+              "end": {
+                "line": 1,
+                "column": 12
+              }
+            },
+            "advices": [
+              {
+                "start": {
+                  "line": 1,
+                  "column": 13
+                },
+                "end": {
+                  "line": 1,
+                  "column": 19
+                },
+                "text": "This attribute is assigned again here."
+              }
+            ]
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "error",
+            "message": "This JSX property is assigned multiple times.",
+            "category": "lint/suspicious/noDuplicateJsxProps",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\33-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 6
+              },
+              "end": {
+                "line": 1,
+                "column": 12
+              }
+            },
+            "advices": [
+              {
+                "start": {
+                  "line": 1,
+                  "column": 13
+                },
+                "end": {
+                  "line": 1,
+                  "column": 19
+                },
+                "text": "This attribute is assigned again here."
+              }
+            ]
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "33-positive",
+    "rule": "react/jsx-no-duplicate-props",
+    "native": "noDuplicateJsxProps",
+    "kind": "positive",
+    "source": "<div id=\"a\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.641,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.547,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "34-negative",
+    "rule": "react/jsx-no-undef",
+    "native": "noUndeclaredVariables",
+    "kind": "negative",
+    "source": "function C(){return <UndefinedComponent/>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.281,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react/jsx-no-undef",
+            "severity": 2,
+            "message": "'UndefinedComponent' is not defined.",
+            "line": 1,
+            "column": 22,
+            "nodeType": "JSXIdentifier",
+            "messageId": "undefined",
+            "endLine": 1,
+            "endColumn": 40
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react/jsx-no-undef",
+            "severity": 2,
+            "message": "'UndefinedComponent' is not defined.",
+            "line": 1,
+            "column": 22,
+            "nodeType": "JSXIdentifier",
+            "messageId": "undefined",
+            "endLine": 1,
+            "endColumn": 40
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.532,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "The UndefinedComponent variable is undeclared.",
+            "category": "lint/correctness/noUndeclaredVariables",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\34-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 22
+              },
+              "end": {
+                "line": 1,
+                "column": 40
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "error",
+            "message": "The UndefinedComponent variable is undeclared.",
+            "category": "lint/correctness/noUndeclaredVariables",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\34-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 22
+              },
+              "end": {
+                "line": 1,
+                "column": 40
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "34-positive",
+    "rule": "react/jsx-no-undef",
+    "native": "noUndeclaredVariables",
+    "kind": "positive",
+    "source": "function C(){return <div/>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.25,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.546,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "35-negative",
+    "rule": "react/jsx-uses-react",
+    "native": null,
+    "kind": "negative",
+    "source": "import React from \"react\"; export function C(){return <div/>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.203,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.547,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "35-positive",
+    "rule": "react/jsx-uses-react",
+    "native": null,
+    "kind": "positive",
+    "source": "import React from \"react\"; export function C(){return <div/>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.297,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.531,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "36-negative",
+    "rule": "react/jsx-uses-vars",
+    "native": null,
+    "kind": "negative",
+    "source": "function Child(){return <div/>} export function C(){return <Child/>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.359,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "36-positive",
+    "rule": "react/jsx-uses-vars",
+    "native": null,
+    "kind": "positive",
+    "source": "function Child(){return <div/>} export function C(){return <Child/>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.391,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "37-negative",
+    "rule": "react/no-children-prop",
+    "native": "noChildrenProp",
+    "kind": "negative",
+    "source": "<div children=\"bad\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.421,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react/no-children-prop",
+            "severity": 2,
+            "message": "Do not pass children as props. Instead, nest children between the opening and closing tags.",
+            "line": 1,
+            "column": 6,
+            "nodeType": "JSXAttribute",
+            "messageId": "nestChildren",
+            "endLine": 1,
+            "endColumn": 20
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react/no-children-prop",
+            "severity": 2,
+            "message": "Do not pass children as props. Instead, nest children between the opening and closing tags.",
+            "line": 1,
+            "column": 6,
+            "nodeType": "JSXAttribute",
+            "messageId": "nestChildren",
+            "endLine": 1,
+            "endColumn": 20
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "Avoid passing children using a prop",
+            "category": "lint/correctness/noChildrenProp",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\37-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 6
+              },
+              "end": {
+                "line": 1,
+                "column": 14
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "error",
+            "message": "Avoid passing children using a prop",
+            "category": "lint/correctness/noChildrenProp",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\37-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 6
+              },
+              "end": {
+                "line": 1,
+                "column": 14
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "37-positive",
+    "rule": "react/no-children-prop",
+    "native": "noChildrenProp",
+    "kind": "positive",
+    "source": "<div>ok</div>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.375,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.468,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "38-negative",
+    "rule": "react/no-danger-with-children",
+    "native": "noDangerouslySetInnerHtmlWithChildren",
+    "kind": "negative",
+    "source": "<div dangerouslySetInnerHTML={{__html:\"bad\"}}>child</div>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.062,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react/no-danger-with-children",
+            "severity": 2,
+            "message": "Only set one of `children` or `props.dangerouslySetInnerHTML`",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXElement",
+            "messageId": "dangerWithChildren",
+            "endLine": 1,
+            "endColumn": 58
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react/no-danger-with-children",
+            "severity": 2,
+            "message": "Only set one of `children` or `props.dangerouslySetInnerHTML`",
+            "line": 1,
+            "column": 1,
+            "nodeType": "JSXElement",
+            "messageId": "dangerWithChildren",
+            "endLine": 1,
+            "endColumn": 58
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.485,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "Avoid passing both children and the dangerouslySetInnerHTML prop.",
+            "category": "lint/security/noDangerouslySetInnerHtmlWithChildren",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\38-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 6
+              },
+              "end": {
+                "line": 1,
+                "column": 46
+              }
+            },
+            "advices": [
+              {
+                "start": {
+                  "line": 1,
+                  "column": 47
+                },
+                "end": {
+                  "line": 1,
+                  "column": 52
+                },
+                "text": "Setting HTML content will inadvertently override any passed children in React"
+              }
+            ]
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "error",
+            "message": "Avoid passing both children and the dangerouslySetInnerHTML prop.",
+            "category": "lint/security/noDangerouslySetInnerHtmlWithChildren",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\38-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 6
+              },
+              "end": {
+                "line": 1,
+                "column": 46
+              }
+            },
+            "advices": [
+              {
+                "start": {
+                  "line": 1,
+                  "column": 47
+                },
+                "end": {
+                  "line": 1,
+                  "column": 52
+                },
+                "text": "Setting HTML content will inadvertently override any passed children in React"
+              }
+            ]
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "38-positive",
+    "rule": "react/no-danger-with-children",
+    "native": "noDangerouslySetInnerHtmlWithChildren",
+    "kind": "positive",
+    "source": "<div dangerouslySetInnerHTML={{__html:\"ok\"}}/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.016,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "39-negative",
+    "rule": "react/no-deprecated",
+    "native": "noDeprecatedImports",
+    "kind": "negative",
+    "source": "import React from \"react\"; class C extends React.Component{componentWillMount(){} render(){return <div/>}}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 5.969,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react/no-deprecated",
+            "severity": 2,
+            "message": "componentWillMount is deprecated since React 16.9.0, use UNSAFE_componentWillMount instead, see https://reactjs.org/docs/react-component.html#unsafe_componentwillmount. Use https://github.com/reactjs/react-codemod#rename-unsafe-lifecycles to automatically update your components.",
+            "line": 1,
+            "column": 60,
+            "nodeType": "Identifier",
+            "messageId": "deprecated",
+            "endLine": 1,
+            "endColumn": 78
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react/no-deprecated",
+            "severity": 2,
+            "message": "componentWillMount is deprecated since React 16.9.0, use UNSAFE_componentWillMount instead, see https://reactjs.org/docs/react-component.html#unsafe_componentwillmount. Use https://github.com/reactjs/react-codemod#rename-unsafe-lifecycles to automatically update your components.",
+            "line": 1,
+            "column": 60,
+            "nodeType": "Identifier",
+            "messageId": "deprecated",
+            "endLine": 1,
+            "endColumn": 78
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.485,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "39-positive",
+    "rule": "react/no-deprecated",
+    "native": "noDeprecatedImports",
+    "kind": "positive",
+    "source": "import React from \"react\"; class C extends React.Component{componentDidMount(){} render(){return <div/>}}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.078,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.516,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "40-negative",
+    "rule": "react/no-direct-mutation-state",
+    "native": null,
+    "kind": "negative",
+    "source": "import React from \"react\"; class C extends React.Component{update(){this.state.n=1} render(){return <div/>}}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.093,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react/no-direct-mutation-state",
+            "severity": 2,
+            "message": "Do not mutate state directly. Use setState().",
+            "line": 1,
+            "column": 69,
+            "nodeType": "MemberExpression",
+            "messageId": "noDirectMutation",
+            "endLine": 1,
+            "endColumn": 79
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react/no-direct-mutation-state",
+            "severity": 2,
+            "message": "Do not mutate state directly. Use setState().",
+            "line": 1,
+            "column": 69,
+            "nodeType": "MemberExpression",
+            "messageId": "noDirectMutation",
+            "endLine": 1,
+            "endColumn": 79
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.532,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "40-positive",
+    "rule": "react/no-direct-mutation-state",
+    "native": null,
+    "kind": "positive",
+    "source": "import React from \"react\"; class C extends React.Component{update(){this.setState({n:1})} render(){return <div/>}}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.187,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.485,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "41-negative",
+    "rule": "react/no-find-dom-node",
+    "native": null,
+    "kind": "negative",
+    "source": "import ReactDOM from \"react-dom\"; const n=ReactDOM.findDOMNode(this);",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.188,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react/no-find-dom-node",
+            "severity": 2,
+            "message": "Do not use findDOMNode. It doesn’t work with function components and is deprecated in StrictMode. See https://reactjs.org/docs/react-dom.html#finddomnode",
+            "line": 1,
+            "column": 43,
+            "nodeType": "MemberExpression",
+            "messageId": "noFindDOMNode",
+            "endLine": 1,
+            "endColumn": 63
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react/no-find-dom-node",
+            "severity": 2,
+            "message": "Do not use findDOMNode. It doesn’t work with function components and is deprecated in StrictMode. See https://reactjs.org/docs/react-dom.html#finddomnode",
+            "line": 1,
+            "column": 43,
+            "nodeType": "MemberExpression",
+            "messageId": "noFindDOMNode",
+            "endLine": 1,
+            "endColumn": 63
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.531,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "41-positive",
+    "rule": "react/no-find-dom-node",
+    "native": null,
+    "kind": "positive",
+    "source": "import ReactDOM from \"react-dom\"; const n=document.getElementById(\"x\");",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.078,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.547,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "42-negative",
+    "rule": "react/no-is-mounted",
+    "native": null,
+    "kind": "negative",
+    "source": "import React from \"react\"; class C extends React.Component{check(){return this.isMounted()} render(){return <div/>}}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.828,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react/no-is-mounted",
+            "severity": 2,
+            "message": "Do not use isMounted",
+            "line": 1,
+            "column": 75,
+            "nodeType": "MemberExpression",
+            "messageId": "noIsMounted",
+            "endLine": 1,
+            "endColumn": 89
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react/no-is-mounted",
+            "severity": 2,
+            "message": "Do not use isMounted",
+            "line": 1,
+            "column": 75,
+            "nodeType": "MemberExpression",
+            "messageId": "noIsMounted",
+            "endLine": 1,
+            "endColumn": 89
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.593,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "42-positive",
+    "rule": "react/no-is-mounted",
+    "native": null,
+    "kind": "positive",
+    "source": "import React from \"react\"; class C extends React.Component{check(){return true} render(){return <div/>}}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.781,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.562,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "43-negative",
+    "rule": "react/no-render-return-value",
+    "native": "noRenderReturnValue",
+    "kind": "negative",
+    "source": "import ReactDOM from \"react-dom\"; const result=ReactDOM.render(<div/>,document.body);",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.812,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react/no-render-return-value",
+            "severity": 2,
+            "message": "Do not depend on the return value from ReactDOM.render",
+            "line": 1,
+            "column": 48,
+            "nodeType": "MemberExpression",
+            "messageId": "noReturnValue",
+            "endLine": 1,
+            "endColumn": 63
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react/no-render-return-value",
+            "severity": 2,
+            "message": "Do not depend on the return value from ReactDOM.render",
+            "line": 1,
+            "column": 48,
+            "nodeType": "MemberExpression",
+            "messageId": "noReturnValue",
+            "endLine": 1,
+            "endColumn": 63
+          },
+          {
+            "ruleId": "react/no-deprecated",
+            "severity": 2,
+            "message": "ReactDOM.render is deprecated since React 18.0.0, use createRoot instead, see https://reactjs.org/link/switch-to-createroot",
+            "line": 1,
+            "column": 48,
+            "nodeType": "MemberExpression",
+            "messageId": "deprecated",
+            "endLine": 1,
+            "endColumn": 63
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.547,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "Do not depend on the value returned by the function ReactDOM.render().",
+            "category": "lint/correctness/noRenderReturnValue",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\43-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 48
+              },
+              "end": {
+                "line": 1,
+                "column": 85
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "error",
+            "message": "Do not depend on the value returned by the function ReactDOM.render().",
+            "category": "lint/correctness/noRenderReturnValue",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\43-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 48
+              },
+              "end": {
+                "line": 1,
+                "column": 85
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "43-positive",
+    "rule": "react/no-render-return-value",
+    "native": "noRenderReturnValue",
+    "kind": "positive",
+    "source": "import ReactDOM from \"react-dom\"; ReactDOM.render(<div/>,document.body);",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.703,
+        "targetDiagnostics": [],
+        "allDiagnostics": [
+          {
+            "ruleId": "react/no-deprecated",
+            "severity": 2,
+            "message": "ReactDOM.render is deprecated since React 18.0.0, use createRoot instead, see https://reactjs.org/link/switch-to-createroot",
+            "line": 1,
+            "column": 35,
+            "nodeType": "MemberExpression",
+            "messageId": "deprecated",
+            "endLine": 1,
+            "endColumn": 50
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.593,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "44-negative",
+    "rule": "react/no-string-refs",
+    "native": "noReactStringRefs",
+    "kind": "negative",
+    "source": "<div ref=\"legacy\"/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.063,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react/no-string-refs",
+            "severity": 2,
+            "message": "Using string literals in ref attributes is deprecated.",
+            "line": 1,
+            "column": 6,
+            "nodeType": "JSXAttribute",
+            "messageId": "stringInRefDeprecated",
+            "endLine": 1,
+            "endColumn": 18
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react/no-string-refs",
+            "severity": 2,
+            "message": "Using string literals in ref attributes is deprecated.",
+            "line": 1,
+            "column": 6,
+            "nodeType": "JSXAttribute",
+            "messageId": "stringInRefDeprecated",
+            "endLine": 1,
+            "endColumn": 18
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.484,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "String refs are deprecated.",
+            "category": "lint/nursery/noReactStringRefs",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\44-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 10
+              },
+              "end": {
+                "line": 1,
+                "column": 18
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "error",
+            "message": "String refs are deprecated.",
+            "category": "lint/nursery/noReactStringRefs",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\44-negative\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 10
+              },
+              "end": {
+                "line": 1,
+                "column": 18
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "44-positive",
+    "rule": "react/no-string-refs",
+    "native": "noReactStringRefs",
+    "kind": "positive",
+    "source": "<div/>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.047,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "45-negative",
+    "rule": "react/no-unescaped-entities",
+    "native": null,
+    "kind": "negative",
+    "source": "<div>don't</div>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 5.875,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react/no-unescaped-entities",
+            "severity": 2,
+            "message": "`'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.",
+            "line": 1,
+            "column": 9,
+            "nodeType": "JSXText",
+            "messageId": "unescapedEntityAlts",
+            "suggestions": [
+              {
+                "messageId": "replaceWithAlt",
+                "data": {
+                  "alt": "&apos;"
+                },
+                "fix": {
+                  "range": [
+                    5,
+                    10
+                  ],
+                  "text": "don&apos;t"
+                },
+                "desc": "Replace with `&apos;`."
+              },
+              {
+                "messageId": "replaceWithAlt",
+                "data": {
+                  "alt": "&lsquo;"
+                },
+                "fix": {
+                  "range": [
+                    5,
+                    10
+                  ],
+                  "text": "don&lsquo;t"
+                },
+                "desc": "Replace with `&lsquo;`."
+              },
+              {
+                "messageId": "replaceWithAlt",
+                "data": {
+                  "alt": "&#39;"
+                },
+                "fix": {
+                  "range": [
+                    5,
+                    10
+                  ],
+                  "text": "don&#39;t"
+                },
+                "desc": "Replace with `&#39;`."
+              },
+              {
+                "messageId": "replaceWithAlt",
+                "data": {
+                  "alt": "&rsquo;"
+                },
+                "fix": {
+                  "range": [
+                    5,
+                    10
+                  ],
+                  "text": "don&rsquo;t"
+                },
+                "desc": "Replace with `&rsquo;`."
+              }
+            ]
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react/no-unescaped-entities",
+            "severity": 2,
+            "message": "`'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.",
+            "line": 1,
+            "column": 9,
+            "nodeType": "JSXText",
+            "messageId": "unescapedEntityAlts",
+            "suggestions": [
+              {
+                "messageId": "replaceWithAlt",
+                "data": {
+                  "alt": "&apos;"
+                },
+                "fix": {
+                  "range": [
+                    5,
+                    10
+                  ],
+                  "text": "don&apos;t"
+                },
+                "desc": "Replace with `&apos;`."
+              },
+              {
+                "messageId": "replaceWithAlt",
+                "data": {
+                  "alt": "&lsquo;"
+                },
+                "fix": {
+                  "range": [
+                    5,
+                    10
+                  ],
+                  "text": "don&lsquo;t"
+                },
+                "desc": "Replace with `&lsquo;`."
+              },
+              {
+                "messageId": "replaceWithAlt",
+                "data": {
+                  "alt": "&#39;"
+                },
+                "fix": {
+                  "range": [
+                    5,
+                    10
+                  ],
+                  "text": "don&#39;t"
+                },
+                "desc": "Replace with `&#39;`."
+              },
+              {
+                "messageId": "replaceWithAlt",
+                "data": {
+                  "alt": "&rsquo;"
+                },
+                "fix": {
+                  "range": [
+                    5,
+                    10
+                  ],
+                  "text": "don&rsquo;t"
+                },
+                "desc": "Replace with `&rsquo;`."
+              }
+            ]
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "45-positive",
+    "rule": "react/no-unescaped-entities",
+    "native": null,
+    "kind": "positive",
+    "source": "<div>don&apos;t</div>",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.047,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.5,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "46-negative",
+    "rule": "react/require-render-return",
+    "native": null,
+    "kind": "negative",
+    "source": "import React from \"react\"; class C extends React.Component{render(){<div/>}}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.266,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react/require-render-return",
+            "severity": 2,
+            "message": "Your render method should have a return statement",
+            "line": 1,
+            "column": 60,
+            "nodeType": "MethodDefinition",
+            "messageId": "noRenderReturn",
+            "endLine": 1,
+            "endColumn": 76
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react/require-render-return",
+            "severity": 2,
+            "message": "Your render method should have a return statement",
+            "line": 1,
+            "column": 60,
+            "nodeType": "MethodDefinition",
+            "messageId": "noRenderReturn",
+            "endLine": 1,
+            "endColumn": 76
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.515,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "46-positive",
+    "rule": "react/require-render-return",
+    "native": null,
+    "kind": "positive",
+    "source": "import React from \"react\"; class C extends React.Component{render(){return <div/>}}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.344,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.516,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "custom-image-negative",
+    "rule": "jsx-a11y/alt-text",
+    "native": "useAltText",
+    "kind": "negative",
+    "source": "import Image from \"next/image\"; export function C(){return <Image src=\"/a.png\" width={10} height={10}/>}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 6.125,
+        "targetDiagnostics": [
+          {
+            "ruleId": "jsx-a11y/alt-text",
+            "severity": 1,
+            "message": "Image elements must have an alt prop, either with meaningful text, or an empty string for decorative images.",
+            "line": 1,
+            "column": 60,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 104
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "jsx-a11y/alt-text",
+            "severity": 1,
+            "message": "Image elements must have an alt prop, either with meaningful text, or an empty string for decorative images.",
+            "line": 1,
+            "column": 60,
+            "nodeType": "JSXOpeningElement",
+            "endLine": 1,
+            "endColumn": 104
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.438,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "effect-extra-dependency-positive",
+    "rule": "react-hooks/exhaustive-deps",
+    "native": "useExhaustiveDependencies",
+    "kind": "positive",
+    "source": "import {useEffect} from \"react\"; export function C({value}){useEffect(()=>{console.log(\"mounted\")},[value]);return null;}",
+    "virtualPath": "src/app/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 0,
+        "durationSeconds": 2.969,
+        "targetDiagnostics": [],
+        "allDiagnostics": [],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 0,
+        "durationSeconds": 0.234,
+        "targetDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "This hook specifies more dependencies than necessary: value.",
+            "category": "lint/correctness/useExhaustiveDependencies",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\effect-extra-dependency-positive\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 61
+              },
+              "end": {
+                "line": 1,
+                "column": 70
+              }
+            },
+            "advices": [
+              {
+                "start": {
+                  "line": 1,
+                  "column": 101
+                },
+                "end": {
+                  "line": 1,
+                  "column": 106
+                },
+                "text": "Unsafe fix: Remove the extra dependencies from the list."
+              }
+            ]
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "warning",
+            "message": "This hook specifies more dependencies than necessary: value.",
+            "category": "lint/correctness/useExhaustiveDependencies",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\effect-extra-dependency-positive\\src\\app\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 61
+              },
+              "end": {
+                "line": 1,
+                "column": 70
+              }
+            },
+            "advices": [
+              {
+                "start": {
+                  "line": 1,
+                  "column": 101
+                },
+                "end": {
+                  "line": 1,
+                  "column": 106
+                },
+                "text": "Unsafe fix: Remove the extra dependencies from the list."
+              }
+            ]
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "extension-cjs",
+    "rule": "react-hooks/rules-of-hooks",
+    "native": "useHookAtTopLevel",
+    "kind": "negative",
+    "source": "const {useState}=require(\"react\"); function C({flag}){if(flag){useState(0)}return null;} module.exports=C;",
+    "virtualPath": "src/utils/parity-probe.cjs",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 3.484,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react-hooks/rules-of-hooks",
+            "severity": 2,
+            "message": "React Hook \"useState\" is called conditionally. React Hooks must be called in the exact same order in every component render.",
+            "line": 1,
+            "column": 64,
+            "nodeType": "Identifier",
+            "endLine": 1,
+            "endColumn": 72
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react-hooks/rules-of-hooks",
+            "severity": 2,
+            "message": "React Hook \"useState\" is called conditionally. React Hooks must be called in the exact same order in every component render.",
+            "line": 1,
+            "column": 64,
+            "nodeType": "Identifier",
+            "endLine": 1,
+            "endColumn": 72
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.203,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "This hook is being called conditionally, but all hooks must be called in the exact same order in every component render.",
+            "category": "lint/correctness/useHookAtTopLevel",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\extension-cjs\\src\\utils\\parity-probe.cjs",
+              "start": {
+                "line": 1,
+                "column": 64
+              },
+              "end": {
+                "line": 1,
+                "column": 72
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "error",
+            "message": "This hook is being called conditionally, but all hooks must be called in the exact same order in every component render.",
+            "category": "lint/correctness/useHookAtTopLevel",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\extension-cjs\\src\\utils\\parity-probe.cjs",
+              "start": {
+                "line": 1,
+                "column": 64
+              },
+              "end": {
+                "line": 1,
+                "column": 72
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "extension-js",
+    "rule": "react-hooks/rules-of-hooks",
+    "native": "useHookAtTopLevel",
+    "kind": "negative",
+    "source": "import {useState} from \"react\"; export function C({flag}){if(flag){useState(0)}return null;}",
+    "virtualPath": "src/utils/parity-probe.js",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.079,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react-hooks/rules-of-hooks",
+            "severity": 2,
+            "message": "React Hook \"useState\" is called conditionally. React Hooks must be called in the exact same order in every component render.",
+            "line": 1,
+            "column": 68,
+            "nodeType": "Identifier",
+            "endLine": 1,
+            "endColumn": 76
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react-hooks/rules-of-hooks",
+            "severity": 2,
+            "message": "React Hook \"useState\" is called conditionally. React Hooks must be called in the exact same order in every component render.",
+            "line": 1,
+            "column": 68,
+            "nodeType": "Identifier",
+            "endLine": 1,
+            "endColumn": 76
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.515,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "This hook is being called conditionally, but all hooks must be called in the exact same order in every component render.",
+            "category": "lint/correctness/useHookAtTopLevel",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\extension-js\\src\\utils\\parity-probe.js",
+              "start": {
+                "line": 1,
+                "column": 68
+              },
+              "end": {
+                "line": 1,
+                "column": 76
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "error",
+            "message": "This hook is being called conditionally, but all hooks must be called in the exact same order in every component render.",
+            "category": "lint/correctness/useHookAtTopLevel",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\extension-js\\src\\utils\\parity-probe.js",
+              "start": {
+                "line": 1,
+                "column": 68
+              },
+              "end": {
+                "line": 1,
+                "column": 76
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "extension-mjs",
+    "rule": "react-hooks/rules-of-hooks",
+    "native": "useHookAtTopLevel",
+    "kind": "negative",
+    "source": "import {useState} from \"react\"; export function C({flag}){if(flag){useState(0)}return null;}",
+    "virtualPath": "src/utils/parity-probe.mjs",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.187,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react-hooks/rules-of-hooks",
+            "severity": 2,
+            "message": "React Hook \"useState\" is called conditionally. React Hooks must be called in the exact same order in every component render.",
+            "line": 1,
+            "column": 68,
+            "nodeType": "Identifier",
+            "endLine": 1,
+            "endColumn": 76
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react-hooks/rules-of-hooks",
+            "severity": 2,
+            "message": "React Hook \"useState\" is called conditionally. React Hooks must be called in the exact same order in every component render.",
+            "line": 1,
+            "column": 68,
+            "nodeType": "Identifier",
+            "endLine": 1,
+            "endColumn": 76
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.422,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "This hook is being called conditionally, but all hooks must be called in the exact same order in every component render.",
+            "category": "lint/correctness/useHookAtTopLevel",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\extension-mjs\\src\\utils\\parity-probe.mjs",
+              "start": {
+                "line": 1,
+                "column": 68
+              },
+              "end": {
+                "line": 1,
+                "column": 76
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "error",
+            "message": "This hook is being called conditionally, but all hooks must be called in the exact same order in every component render.",
+            "category": "lint/correctness/useHookAtTopLevel",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\extension-mjs\\src\\utils\\parity-probe.mjs",
+              "start": {
+                "line": 1,
+                "column": 68
+              },
+              "end": {
+                "line": 1,
+                "column": 76
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "extension-ts",
+    "rule": "react-hooks/rules-of-hooks",
+    "native": "useHookAtTopLevel",
+    "kind": "negative",
+    "source": "import {useState} from \"react\"; export function C({flag}){if(flag){useState(0)}return null;}",
+    "virtualPath": "src/utils/parity-probe.ts",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.312,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react-hooks/rules-of-hooks",
+            "severity": 2,
+            "message": "React Hook \"useState\" is called conditionally. React Hooks must be called in the exact same order in every component render.",
+            "line": 1,
+            "column": 68,
+            "nodeType": "Identifier",
+            "endLine": 1,
+            "endColumn": 76
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react-hooks/rules-of-hooks",
+            "severity": 2,
+            "message": "React Hook \"useState\" is called conditionally. React Hooks must be called in the exact same order in every component render.",
+            "line": 1,
+            "column": 68,
+            "nodeType": "Identifier",
+            "endLine": 1,
+            "endColumn": 76
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.469,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "This hook is being called conditionally, but all hooks must be called in the exact same order in every component render.",
+            "category": "lint/correctness/useHookAtTopLevel",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\extension-ts\\src\\utils\\parity-probe.ts",
+              "start": {
+                "line": 1,
+                "column": 68
+              },
+              "end": {
+                "line": 1,
+                "column": 76
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "error",
+            "message": "This hook is being called conditionally, but all hooks must be called in the exact same order in every component render.",
+            "category": "lint/correctness/useHookAtTopLevel",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\extension-ts\\src\\utils\\parity-probe.ts",
+              "start": {
+                "line": 1,
+                "column": 68
+              },
+              "end": {
+                "line": 1,
+                "column": 76
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  },
+  {
+    "id": "extension-tsx",
+    "rule": "react-hooks/rules-of-hooks",
+    "native": "useHookAtTopLevel",
+    "kind": "negative",
+    "source": "import {useState} from \"react\"; export function C({flag}){if(flag){useState(0)}return null;}",
+    "virtualPath": "src/utils/parity-probe.tsx",
+    "results": {
+      "eslint": {
+        "exitCode": 1,
+        "durationSeconds": 6.328,
+        "targetDiagnostics": [
+          {
+            "ruleId": "react-hooks/rules-of-hooks",
+            "severity": 2,
+            "message": "React Hook \"useState\" is called conditionally. React Hooks must be called in the exact same order in every component render.",
+            "line": 1,
+            "column": 68,
+            "nodeType": "Identifier",
+            "endLine": 1,
+            "endColumn": 76
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "ruleId": "react-hooks/rules-of-hooks",
+            "severity": 2,
+            "message": "React Hook \"useState\" is called conditionally. React Hooks must be called in the exact same order in every component render.",
+            "line": 1,
+            "column": 68,
+            "nodeType": "Identifier",
+            "endLine": 1,
+            "endColumn": 76
+          }
+        ],
+        "stderr": "",
+        "rawStdout": null
+      },
+      "biome": {
+        "exitCode": 1,
+        "durationSeconds": 0.516,
+        "targetDiagnostics": [
+          {
+            "severity": "error",
+            "message": "This hook is being called conditionally, but all hooks must be called in the exact same order in every component render.",
+            "category": "lint/correctness/useHookAtTopLevel",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\extension-tsx\\src\\utils\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 68
+              },
+              "end": {
+                "line": 1,
+                "column": 76
+              }
+            },
+            "advices": []
+          }
+        ],
+        "allDiagnostics": [
+          {
+            "severity": "error",
+            "message": "This hook is being called conditionally, but all hooks must be called in the exact same order in every component render.",
+            "category": "lint/correctness/useHookAtTopLevel",
+            "location": {
+              "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-biome-feasibility\\research\\tailwind4-biome\\cases\\extension-tsx\\src\\utils\\parity-probe.tsx",
+              "start": {
+                "line": 1,
+                "column": 68
+              },
+              "end": {
+                "line": 1,
+                "column": 76
+              }
+            },
+            "advices": []
+          }
+        ],
+        "stderr": "The `json` and `json-pretty` reporters are experimental and may change in patch releases.\nlint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n  × Some errors were emitted while running checks.\n  \n\n",
+        "rawStdout": null
+      }
+    }
+  }
+]

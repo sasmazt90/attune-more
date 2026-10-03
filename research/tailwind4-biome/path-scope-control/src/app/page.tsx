@@ -1,0 +1,1 @@
+import Document from "next/document"; export function C(){return <Document/>}
