@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start --hostname 127.0.0.1 -p 3000",
     "typecheck": "next typegen && tsc --noEmit",
-    "lint": "next lint"
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx,.mjs,.cjs"
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "1.0.1",
@@ -21,10 +21,12 @@
     "@types/react": "19.0.14",
     "@types/react-dom": "19.0.6",
     "autoprefixer": "^10.4.20",
-    "eslint": "8.57.1",
+    "eslint": "9.39.5",
     "eslint-config-next": "15.5.27",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.12",
-    "typescript": "^5.6.2"
+    "postcss": "8.5.28",
+    "tailwindcss": "4.3.3",
+    "typescript": "^5.6.2",
+    "@tailwindcss/postcss": "4.3.3",
+    "@eslint/eslintrc": "3.3.5"
   }
 }
