@@ -40,25 +40,94 @@ def load():
         start=time.perf_counter();session=ort.InferenceSession(str(path),sess_options=options,providers=['CPUExecutionProvider']);sessions[task]={'session':session,'loadMs':(time.perf_counter()-start)*1000,'metadata':m}
     return {'manifest':manifest,'sessions':sessions}
 
+def infer_hosted_type(crop_bgr):
+    """Optional, authorized hosted 4-class skin type adapter (e.g. Roboflow inference API).
+    Only called if local accepted ONNX weights are not present and ATTUNE_ROBOFLOW_API_KEY is configured.
+    Never sends full unapproved photos; operates on cropped face patch.
+    """
+    import os, urllib.request, urllib.error
+    api_key = os.environ.get('ATTUNE_ROBOFLOW_API_KEY') or os.environ.get('ROBOFLOW_API_KEY')
+    if not api_key:
+        return None
+    model_id = os.environ.get('ATTUNE_SKIN_TYPE_MODEL', 'skin-type-axavj/1')
+    ok, buf = cv2.imencode('.jpg', crop_bgr, [int(cv2.IMWRITE_JPEG_QUALITY), 92])
+    if not ok:
+        return None
+    # Endpoints supported: classify.roboflow.com or serverless inference endpoint
+    url = f"https://classify.roboflow.com/{model_id}?api_key={api_key}"
+    try:
+        req = urllib.request.Request(url, data=buf.tobytes(), headers={'Content-Type': 'application/x-www-form-urlencoded'})
+        start = time.perf_counter()
+        with urllib.request.urlopen(req, timeout=4.0) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+        elapsed = (time.perf_counter() - start) * 1000
+        # Roboflow classification returns predictions: [{'class': 'normal', 'confidence': 0.85}, ...]
+        preds = data.get('predictions', [])
+        if not preds and 'top' in data:
+            # alternative format: {'top': 'normal', 'confidence': 0.85, 'predictions': {'normal': 0.85, ...}}
+            top_class = data.get('top', '').lower()
+            conf = float(data.get('confidence', 0.0))
+            if top_class in CLASSES:
+                return dict(value=top_class, quality='valid' if conf >= 0.5 else 'insufficient', confidence=conf,
+                            methodVersion=f'hosted-roboflow-{model_id}', modelHash=hashlib.sha256(model_id.encode()).hexdigest(),
+                            limitationCode=None if conf >= 0.5 else 'LOW_MODEL_SUPPORT', inferenceMs=elapsed)
+        best_class = None; best_conf = -1.0
+        for p in preds:
+            c = str(p.get('class', '')).lower()
+            conf = float(p.get('confidence', 0.0))
+            if c in CLASSES and conf > best_conf:
+                best_class = c; best_conf = conf
+        if best_class is not None:
+            valid = best_conf >= 0.5
+            return dict(value=best_class if valid else None, quality='valid' if valid else 'insufficient',
+                        confidence=best_conf, methodVersion=f'hosted-roboflow-{model_id}',
+                        modelHash=hashlib.sha256(model_id.encode()).hexdigest(),
+                        limitationCode=None if valid else 'LOW_MODEL_SUPPORT', inferenceMs=elapsed)
+    except Exception:
+        # Network, timeout or quota error never leaks credentials or crashes
+        return None
+    return None
+
 def infer(bgr,points,quality_valid):
     empty=dict(skinType=None,degrees={},models={},sourceTransform=None)
     if not quality_valid:return empty
     try:
         with LOCK:loaded=load()
-        if not loaded['sessions']:return empty
         x,transform=photo_input(bgr,points);result={**empty,'sourceTransform':transform}
-        for task,item in loaded['sessions'].items():
-            if task not in ('type','degrees'):continue
-            start=time.perf_counter();output=item['session'].run(None,{'rgb':x})[0][0];elapsed=(time.perf_counter()-start)*1000;m=item['metadata']
-            if not np.isfinite(output).all():raise ValueError('NONFINITE_MODEL_OUTPUT')
-            result['models'][task]=dict(modelHash=m['sha256'],modelVersion=m['version'],loadMs=item['loadMs'],inferenceMs=elapsed)
-            if task=='type':
-                assert output.shape==(4,);v=output/float(m['temperature']);v-=v.max();p=np.exp(v);p/=p.sum();confidence=float(p.max());valid=confidence>=float(m['confidenceThreshold'])
-                result['skinType']=dict(value=CLASSES[int(p.argmax())] if valid else None,quality='valid' if valid else 'insufficient',confidence=confidence,methodVersion=m['version'],modelHash=m['sha256'],limitationCode=None if valid else 'LOW_MODEL_SUPPORT')
-            elif task=='degrees':
-                assert len(output)==len(m['targets'])
-                for target,value in zip(m['targets'],output):
-                    if target in m['acceptedTargets']:result['degrees'][target]=dict(value=float(np.clip(value,0,5)*20),rawGrade=float(np.clip(value,0,5)),methodVersion=m['version'],modelHash=m['sha256'],confidence=None,scope='whole-face',normalizationVersion='ordinal-0-5-times-20-v1')
+        # Check local sessions first
+        type_computed = False
+        if loaded.get('sessions'):
+            for task,item in loaded['sessions'].items():
+                if task not in ('type','degrees'):continue
+                start=time.perf_counter();output=item['session'].run(None,{'rgb':x})[0][0];elapsed=(time.perf_counter()-start)*1000;m=item['metadata']
+                if not np.isfinite(output).all():raise ValueError('NONFINITE_MODEL_OUTPUT')
+                result['models'][task]=dict(modelHash=m['sha256'],modelVersion=m['version'],loadMs=item['loadMs'],inferenceMs=elapsed)
+                if task=='type':
+                    type_computed = True
+                    assert output.shape==(4,);v=output/float(m['temperature']);v-=v.max();p=np.exp(v);p/=p.sum();confidence=float(p.max());valid=confidence>=float(m['confidenceThreshold'])
+                    result['skinType']=dict(value=CLASSES[int(p.argmax())] if valid else None,quality='valid' if valid else 'insufficient',confidence=confidence,methodVersion=m['version'],modelHash=m['sha256'],limitationCode=None if valid else 'LOW_MODEL_SUPPORT')
+                elif task=='degrees':
+                    assert len(output)==len(m['targets'])
+                    for target,value in zip(m['targets'],output):
+                        if target in m['acceptedTargets']:result['degrees'][target]=dict(value=float(np.clip(value,0,5)*20),rawGrade=float(np.clip(value,0,5)),methodVersion=m['version'],modelHash=m['sha256'],confidence=None,scope='whole-face',normalizationVersion='ordinal-0-5-times-20-v1')
+        
+        # If no local accepted model for type, check authorized hosted adapter fallback
+        if not type_computed:
+            crop_bgr = bgr[transform['y']:transform['y']+transform['height'], transform['x']:transform['x']+transform['width']]
+            hosted = infer_hosted_type(crop_bgr)
+            if hosted:
+                elapsed = hosted.pop('inferenceMs', 0.0)
+                result['models']['type'] = dict(modelHash=hosted['modelHash'], modelVersion=hosted['methodVersion'], loadMs=0.0, inferenceMs=elapsed)
+                result['skinType'] = hosted
+            else:
+                # Retain explicit unavailable status per contract
+                manifest = loaded.get('manifest') or {}
+                type_head = manifest.get('models', {}).get('type', {})
+                if type_head.get('accepted'):
+                    result['skinType'] = dict(value=None, quality='insufficient', confidence=None,
+                                              methodVersion=type_head.get('version'), modelHash=type_head.get('sha256'),
+                                              limitationCode='ACCEPTED_MODEL_UNAVAILABLE')
+
         return result
     except Exception:
         # Compact unavailable state; no old result, substitute weights or zeros.
