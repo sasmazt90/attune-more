@@ -7,6 +7,7 @@ from prepare_continuation_masks import TARGETS as DATA_TARGETS
 from selected_mask_model import SkinUNet,masked_loss
 from selected_sources import TARGETS
 from training_checkpoint import checkpoint,resume
+from storage_guard import checkpoint_storage_pause
 MEAN=torch.tensor([.485,.456,.406])[:,None,None];STD=torch.tensor([.229,.224,.225])[:,None,None]
 
 def main(seconds, parent_checkpoint=None, refined_support=False, negative_phase=False, until_epoch=None):
@@ -104,6 +105,8 @@ def main(seconds, parent_checkpoint=None, refined_support=False, negative_phase=
   if not tiles:tiles.extend(random.sample(groups[group],len(groups[group])))
   return tiles.pop()
  write(folder_name+'/sampling.json',dict(positiveTiles={t:len(v) for t,v in pos.items()},knownNegativeTiles={t:len(v) for t,v in neg.items()},maximumPositiveGroupsPerTargetPerEpoch=128,cycleThroughEveryGroupAndNativeTileBeforeReshuffling=True,areaBalancedLoss=True,targetWeights={t:1 for t in TARGETS},selectionUsesDevelopmentOnly=True))
+ resume_proof=dict(checkpoint=(folder/'CURRENT').read_text('utf8').strip(),epoch=state['epoch'],cursor=state['cursor'],step=state['step'],protocolSHA256=state['identity'],dataSHA256=protocol['dataSHA256'],modelSHA256=state.get('modelSHA256'),optimizerSHA256=state.get('optimizerSHA256'),optimizerSchedulerRNGPreserved=True) if negative_phase else None
+ resume_proof_written=False
  while state['epoch']<(20 if negative_phase else 30) and (state['epoch']<12 or state['bad']<8 or until_epoch is not None and state['epoch']<until_epoch):
   start=time.monotonic();last=time.monotonic()
   if not state['order']:
@@ -128,11 +131,14 @@ def main(seconds, parent_checkpoint=None, refined_support=False, negative_phase=
     if not pos[t]:order.extend([[i,i] for i in v])
    state.update(order=order,cursor=0,losses=[])
   while state['cursor']<len(state['order']):
-   if negative_phase and __import__('shutil').disk_usage(folder).free<650*1024**2:
-    save();write(folder_name+'/stop.json',dict(reason='RESUMABLE_DISK_RESERVE',trainingComplete=False,partialEpochPreserved=True,epoch=state['epoch'],cursor=state['cursor'],noCheckpointDeleted=True));print('Saved resumable disk reserve',flush=True);return
+   storage_pause=checkpoint_storage_pause(folder) if negative_phase else None
+   if storage_pause:
+    save();write(folder_name+'/stop.json',dict(reason='RESUMABLE_DISK_RESERVE',trainingComplete=False,partialEpochPreserved=True,epoch=state['epoch'],cursor=state['cursor'],noCheckpointDeleted=True,**storage_pause));print('Saved resumable disk reserve',flush=True);return
    if time.monotonic()-started>=seconds:
     save();write(folder_name+'/stop.json',dict(reason='RESUMABLE_INVOCATION_TIME_SLICE',validatedEpochs=state['epoch'],partialEpochPreserved=True,trainingComplete=False));return
    ids=state['order'][state['cursor']];state['actualConsumedTileIDs']=sorted(set(state.get('actualConsumedTileIDs',[]))|set(ids));state['losses'].append(advance(ids));state['cursor']+=1;state['step']+=1
+   if negative_phase and not resume_proof_written:
+    write(folder_name+'/storage-resume-first-update.json',dict(**resume_proof,pid=__import__('os').getpid(),afterStep=state['step'],afterCursor=state['cursor'],actualFirstGradientUpdateCompleted=True));resume_proof_written=True
    if time.monotonic()-last>(1800 if negative_phase or until_epoch is not None else 60):save();last=time.monotonic();print('expanded mask',state['epoch']+1,state['cursor'],len(state['order']),flush=True)
   metrics=evaluate();available=[v['Dice']-v['negativeFPR'] for v in metrics.values() if v['Dice'] is not None];score=float(np.mean(available));state['epoch']+=1;elapsed=time.monotonic()-start;entry=dict(dataScopeVersion=protocol['version'],dataSHA256=protocol['dataSHA256'],phase=folder_name,epoch=state['epoch'],loss=float(np.mean(state['losses'])),validation=metrics,epochSeconds=elapsed);state['history'].append(entry)
   changed_targets=[]

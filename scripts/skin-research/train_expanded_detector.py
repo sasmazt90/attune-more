@@ -8,6 +8,7 @@ from train_focused_local import yolo_model,acne_tiles,yolo_batch,predict
 from fast_detection_metrics import detection_metrics
 from selected_yolox_loss import KnownObjectnessBCE,known_cells
 from training_checkpoint import checkpoint,resume
+from storage_guard import checkpoint_storage_pause
 from yolox_numeric import install_bounds
 from source_skin_support import known_skin_scope
 
@@ -119,6 +120,8 @@ def main(seconds, negative_phase=False, parent_checkpoint=None, until_epoch=None
   assert passed,'REAL_NATIVE_LEARNING_CHAIN_FAILED'
   net.load_state_dict(startweights);opt=torch.optim.AdamW([p for p in net.parameters() if p.requires_grad],lr=protocol['learningRate'],weight_decay=.001);sched=torch.optim.lr_scheduler.CosineAnnealingLR(opt,protocol['maximumEpochs']);state['gradients']={};save()
  before=load_file(str(folder/'feature-initial.safetensors'))
+ resume_proof=dict(checkpoint=(folder/'CURRENT').read_text('utf8').strip(),epoch=state['epoch'],cursor=state['cursor'],step=state['step'],protocolSHA256=state['identity'],dataSHA256=protocol['dataSHA256'],modelSHA256=state.get('modelSHA256'),optimizerSHA256=state.get('optimizerSHA256'),optimizerSchedulerRNGPreserved=True) if negative_phase else None
+ resume_proof_written=False
  while state['epoch']<protocol['maximumEpochs'] and (state['epoch']<protocol['minimumEpochs'] or state['bad']<protocol['patience'] or until_epoch is not None and state['epoch']<until_epoch):
   epochstart=time.monotonic();lastsave=time.monotonic()
   if not state['order']:
@@ -135,11 +138,14 @@ def main(seconds, negative_phase=False, parent_checkpoint=None, until_epoch=None
    else:negatives=random.choices(neg,k=max(len(neg),len(pos)//2))
    order=pos+negatives;random.shuffle(order);state.update(order=order,cursor=0,losses=[])
   while state['cursor']<len(state['order']):
-   if negative_phase and __import__('shutil').disk_usage(folder).free<650*1024**2:
-    save();write(folder_name+'/stop.json',dict(reason='RESUMABLE_DISK_RESERVE',trainingComplete=False,partialEpochPreserved=True,epoch=state['epoch'],cursor=state['cursor'],noCheckpointDeleted=True));print('Saved resumable disk reserve',flush=True);return
+   storage_pause=checkpoint_storage_pause(folder) if negative_phase else None
+   if storage_pause:
+    save();write(folder_name+'/stop.json',dict(reason='RESUMABLE_DISK_RESERVE',trainingComplete=False,partialEpochPreserved=True,epoch=state['epoch'],cursor=state['cursor'],noCheckpointDeleted=True,**storage_pause));print('Saved resumable disk reserve',flush=True);return
    if time.monotonic()-started>=seconds:
     save();write(folder_name+'/stop.json',dict(reason='RESUMABLE_INVOCATION_TIME_SLICE',validatedEpochs=state['epoch'],partialEpochPreserved=True,trainingComplete=False,totalSeconds=state['seconds']));print('Saved resumable slice',state['epoch'],state['cursor'],flush=True);return
    ids=state['order'][state['cursor']:state['cursor']+2];state['actualConsumedTileIDs']=sorted(set(state.get('actualConsumedTileIDs',[]))|set(ids));state['losses'].append(advance([items[i] for i in ids]));state['cursor']+=len(ids);state['step']+=1
+   if negative_phase and not resume_proof_written:
+    write(folder_name+'/storage-resume-first-update.json',dict(**resume_proof,pid=__import__('os').getpid(),afterStep=state['step'],afterCursor=state['cursor'],actualFirstGradientUpdateCompleted=True));resume_proof_written=True
    if time.monotonic()-lastsave>(1800 if negative_phase or until_epoch is not None else 60):save();lastsave=time.monotonic();print('expanded YOLOX',state['epoch']+1,state['cursor'],len(state['order']),flush=True)
   metrics=evaluate(va);state['epoch']+=1;elapsed=time.monotonic()-epochstart;entry=dict(dataScopeVersion=protocol['version'],dataSHA256=protocol['dataSHA256'],phase=folder_name,epoch=state['epoch'],loss=float(np.mean(state['losses'])),validation=metrics,epochSeconds=elapsed,totalSeconds=prior+time.monotonic()-started);state['history'].append(entry)
   if metrics['F1']>state['best']+1e-5:state['best']=metrics['F1'];state['bad']=0;save_file(net.state_dict(),str(folder/'selected.safetensors'))
