@@ -1,4 +1,12 @@
-# Selected skin execution and normal-shortcut delivery — 2026-10-11
+# Historical selected skin execution — 2026-10-11
+
+This is the earlier small-pool execution snapshot, not the current expanded
+training or label-function acceptance result. See
+[skin-expanded-progress-20261011.md](skin-expanded-progress-20261011.md) for the
+expanded source pools, active continuation phases, current API/build evidence
+and separate detection/localization/scale/product/readiness decisions.
+The blanket matched-grade gates described below are superseded by
+`scripts/skin-research/label-function-acceptance-v2.json`.
 
 The requested complete ten-criterion acceptance is **not achieved**. Actual EfficientNet-B0 feature fine tuning, shared ResNet18 U-Net training and YOLOX-S training were executed locally. Rejected candidates remain research artifacts; no candidate replaces the installed accepted model. The prior failures in `skin-followup-20261011.md` are not reclassified as successes.
 

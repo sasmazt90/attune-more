@@ -1,6 +1,10 @@
+param([string]$BuildName = 'skin-selected-build-20261011-v2', [string]$BackupName = 'skin-selected-previous-next-20261011')
 $ErrorActionPreference = 'Stop'
+foreach ($name in @($BuildName, $BackupName)) {
+    if ($name -notmatch '^skin-[a-z0-9-]+$') { throw 'Invalid workspace build directory name.' }
+}
 $taskRoot = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
-$stageRoot = Join-Path $taskRoot '.runtime/skin-selected-build-20261011-v2'
+$stageRoot = Join-Path $taskRoot ('.runtime/' + $BuildName)
 $receipt = Get-Content -LiteralPath (Join-Path $stageRoot 'source-receipt.json') -Raw | ConvertFrom-Json
 foreach ($entry in $receipt.PSObject.Properties) {
     if ((Get-FileHash -LiteralPath (Join-Path $taskRoot $entry.Name) -Algorithm SHA256).Hash.ToLowerInvariant() -ne $entry.Value) { throw "Source drift: $($entry.Name)" }
@@ -32,7 +36,7 @@ public class SelectedWindowClose {
 }
 $liveBuild = [IO.Path]::GetFullPath((Join-Path $taskRoot 'apps/vehicle-app/.next'))
 $stagedBuild = [IO.Path]::GetFullPath((Join-Path $stageRoot 'apps/vehicle-app/.next'))
-$backupBuild = [IO.Path]::GetFullPath((Join-Path $taskRoot '.runtime/skin-selected-previous-next-20261011'))
+$backupBuild = [IO.Path]::GetFullPath((Join-Path $taskRoot ('.runtime/' + $BackupName)))
 foreach ($targetPath in @($liveBuild,$stagedBuild,$backupBuild)) {
     if (-not $targetPath.StartsWith($taskRoot + [IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)) { throw 'Move path escapes workspace.' }
 }

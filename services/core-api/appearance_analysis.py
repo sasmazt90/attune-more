@@ -20,7 +20,7 @@ from skin_scan_baseline.blemishes import blemish_map
 
 VERSION = 'appearance-cv-6'
 LIMITS = {'minFacePixels': 180, 'analysisFacePixels': 320, 'maxClippedFraction': .03}
-NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-area-fixed-v1','acne':'unique-detection-box-area-fixed-v1','lines':'outer-canthus-gabor-fixed-v1','dark':'lower-lid-relative-contrast-fixed-v1','sag':'contour-fold-fixed-v2','bags':'contour-fold-fixed-v2'}
+NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-area-fixed-v1','acne':'unique-detection-box-area-fixed-v1','lines':'outer-canthus-gabor-local-quality-v2','dark':'lower-lid-relative-contrast-local-quality-v2','sag':'contour-fold-lower-face-local-support-v5','bags':'contour-fold-local-support-v4'}
 
 
 def decode_photo(data):
@@ -128,7 +128,7 @@ def local_color_signals(image,valid):
     return tone,redness,dict(colorSpace='CIELAB a*,b*',observedReference=center.tolist(),redReferenceA=reference,redDeadbandA=2.,redScale=2.,toneMeaning='mean chromatic Delta-ab to observed regional median',redMeaning='positive local a* difference; uniform color cast not erythema severity')
 
 
-def eye_skin_bands(points, shape, scale, origin, source_shape):
+def eye_skin_bands(points, shape, scale, origin, source_shape, by_side=False):
     """Distinct lower-lid skin and outer-canthus supports in source coordinates.
     These masks restrict measurement; the approved presentation mesh is unchanged.
     """
@@ -139,16 +139,20 @@ def eye_skin_bands(points, shape, scale, origin, source_shape):
     if down[1]<0:down=-down
     face_width=max(float(abs((p[454]-p[234])@axis)),1.)
     result={k:np.zeros(shape,np.uint8) for k in ('dark','bags','lines')}
-    for lower,corner,sign in [([33,163,144,145,153,154,155,133],33,-1),([263,390,373,374,380,381,382,362],263,1)]:
+    sides={}
+    for side,lower,corner,sign in [('right',[33,163,144,145,153,154,155,133],33,-1),('left',[263,390,373,374,380,381,382,362],263,1)]:
+        local={k:np.zeros(shape,np.uint8) for k in result}
         line=p[lower]
         for criterion,top,bottom in [('dark',.012,.065),('bags',.022,.095)]:
             polygon=np.concatenate([line+down*face_width*top,(line+down*face_width*bottom)[::-1]])
-            cv2.fillPoly(result[criterion],[np.rint(polygon).astype(np.int32)],255)
+            cv2.fillPoly(local[criterion],[np.rint(polygon).astype(np.int32)],255)
         c=p[corner];out=axis*sign*face_width
         polygon=np.asarray([c+out*.012-down*face_width*.012,c+out*.085-down*face_width*.025,
                             c+out*.09+down*face_width*.05,c+out*.012+down*face_width*.06])
-        cv2.fillPoly(result['lines'],[np.rint(polygon).astype(np.int32)],255)
-    return {k:v>0 for k,v in result.items()}
+        cv2.fillPoly(local['lines'],[np.rint(polygon).astype(np.int32)],255)
+        sides[side]={k:v>0 for k,v in local.items()}
+        for k,v in local.items():result[k]|=v
+    return sides if by_side else {k:v>0 for k,v in result.items()}
 
 
 def acne_candidates(red, gray, saturation, high, local_contrast, baseline, eligible):
@@ -274,6 +278,7 @@ def analyze_skin(payload, include_research_features=False):
     baseline_blemish=blemish_map(image,baseline_masks) if include_research_features else None
     shine*=baseline_oil>0
     bands=eye_skin_bands(points,gray.shape,scale,origin,bgr.shape)
+    band_sides=eye_skin_bands(points,gray.shape,scale,origin,bgr.shape,by_side=True)
     overall=np.logical_or.reduce(list(masks.values()))&(exclusion==0)&~hair&~clipping&(gray>.12)
     detections,red_center=acne_candidates(red,gray,saturation,high,local_contrast,baseline_blemish,overall) if include_research_features else ([],np.zeros(gray.shape,np.float32))
     # A component has one owning anatomical region in this source. T-zone overlap
@@ -311,10 +316,16 @@ def analyze_skin(payload, include_research_features=False):
             area.update(foreheadSourcePixels=float((valid&masks.get('forehead',np.zeros_like(valid))).sum()/scale**2),
                         noseSourcePixels=float((valid&display_anatomical).sum()/scale**2),
                         chinSourcePixels=0.)
+        def target_quality(target, minimum_pixels):
+            observed=exposure_support & target
+            usable=valid & target
+            limitation='CAPTURE_QUALITY' if not payload.get('qualityValid') else 'GLARE_OR_EXPOSURE' if observed.any() and float(clipping[observed].mean())>.03 else 'INSUFFICIENT_VISIBLE_AREA' if int(usable.sum())<minimum_pixels else None
+            target_area=dict(sourcePixels=float(usable.sum()/scale**2),analysisPixels=int(usable.sum()),anatomicalSourcePixels=float((anatomical&target).sum()/scale**2),sourceFacePixels=float(face_pixels),scope='criterion-specific-anatomical-band')
+            return limitation,target_area
         items = []
-        def add(criterion, value, unit, signal=None, ceiling=1., limitation=reason, components=None, signal_mask=None):
+        def add(criterion, value, unit, signal=None, ceiling=1., limitation=reason, components=None, signal_mask=None,measurement_area=None):
             usable = limitation is None
-            item = row(region, criterion, float(value) if usable else None, unit, area, conditions, limitation, components)
+            item = row(region, criterion, float(value) if usable else None, unit, measurement_area if measurement_area is not None else area, conditions, limitation, components)
             items.append(item)
             if usable and signal is not None:
                 layer = map_result(signal, valid & display_anatomical & (signal_mask if signal_mask is not None else True), region, criterion, source_hash, payload['pose'], bgr.shape, scale, unit, ceiling, origin)
@@ -356,27 +367,50 @@ def analyze_skin(payload, include_research_features=False):
             'lbpNonUniformFraction':float(np.mean(lbp[valid] == 9)) if valid.any() else None,
             'meaning':'fine-bright-flaking-candidates; roughness alone is not dryness'})
         if region == 'periorbital':
-            under=valid&bands['dark']
-            adjacent = cv2.dilate(under.astype(np.uint8), np.ones((25,25),np.uint8)).astype(bool) & ~under & (exclusion == 0) & ~clipping & ~hair & (face_support>0) & (gray>.12)
-            if adjacent.sum() >= 100 and under.sum()>=100:
-                # Local relative contrast; global exposure cancels approximately.
-                dark = np.maximum(0,(np.median(gray[adjacent])-gray)/max(float(np.median(gray[adjacent])), .1))*100
-                add('dark', np.mean(dark[under]), 'relative-color-index-0-100', dark, 100,signal_mask=bands['dark'],components={'band':'lower-lid-skin','analysisPixels':int(under.sum())})
-            else: add('dark', 0, 'relative-color-index-0-100', limitation='ADJACENT_SKIN_MISSING')
-            lines = np.zeros(gray.shape, np.float32)
+            # Each eye owns its target quality and adjacent skin reference.
+            # An occluded/clipped side stays unknown while the other can measure.
+            def eye_measurement(criterion,minimum_pixels,field):
+                signal=np.zeros(gray.shape,np.float32);observed=np.zeros(gray.shape,bool);sides=[]
+                for side,local_bands in band_sides.items():
+                    target=local_bands[criterion];under=valid&target
+                    limitation,_=target_quality(target,minimum_pixels)
+                    local=None
+                    if limitation is None:
+                        local,limitation=field(under)
+                    value=None if limitation is not None else float(np.mean(local[under]))
+                    sides.append(dict(side=side,value=value,limitationCode=limitation,analysisPixels=int(under.sum())))
+                    if value is not None:signal[under]=local[under];observed|=under
+                measured=[v for v in sides if v['value'] is not None]
+                value=float(np.mean(signal[observed])) if measured else 0.
+                limitation=None if measured else next((v['limitationCode'] for v in sides if v['limitationCode']),'ANATOMICAL_BAND_NOT_VISIBLE')
+                target_area=dict(scope='measured-local-eye-target-bands',sourcePixels=float(observed.sum()/scale**2),analysisPixels=int(observed.sum()),anatomicalSourcePixels=float((anatomical&bands[criterion]).sum()/scale**2),sourceFacePixels=float(face_pixels),unknownSides=[v['side'] for v in sides if v['value'] is None])
+                return value,signal,observed,limitation,target_area,dict(sides=sides,partialCoverage=len(measured)<len(sides),band=criterion)
+            def dark_field(under):
+                adjacent=cv2.dilate(under.astype(np.uint8),np.ones((25,25),np.uint8)).astype(bool)&~bands['dark']&(exclusion==0)&~clipping&~hair&(face_support>0)&(gray>.12)
+                if adjacent.sum()<100:return None,'ADJACENT_SKIN_MISSING'
+                reference=float(np.median(gray[adjacent]))
+                return np.maximum(0,(reference-gray)/max(reference,.1))*100,None
+            value,dark,known,dark_reason,dark_area,dark_components=eye_measurement('dark',100,dark_field)
+            add('dark',value,'relative-color-index-0-100',dark,100,limitation=dark_reason,signal_mask=known,measurement_area=dark_area,components=dark_components)
+            lines=np.zeros(gray.shape,np.float32)
             for frequency in (.18,.28):
                 for theta in (0,np.pi/4,np.pi/2,3*np.pi/4):
-                    real, imaginary = gabor(gray, frequency=frequency, theta=theta)
-                    lines = np.maximum(lines, np.clip((np.hypot(real,imaginary)-.015)/.06,0,1))
-            # Outer canthi only; don't report lower-eye texture as crow's feet.
-            outer=valid&bands['lines'];lines*=outer
-            add('lines', np.mean(lines[outer])*100 if outer.any() else 0, 'directional-line-index-0-100', lines, limitation=detail_reason or (None if outer.sum()>=30 else 'OUTER_CORNER_NOT_VISIBLE'),signal_mask=bands['lines'])
+                    real,imaginary=gabor(gray,frequency=frequency,theta=theta)
+                    lines=np.maximum(lines,np.clip((np.hypot(real,imaginary)-.015)/.06,0,1))
+            def line_field(under):
+                return (None,'INSUFFICIENT_SOURCE_DETAIL') if face_pixels<LIMITS['minFacePixels'] else (lines*100,None)
+            value,line_signal,known,lines_reason,lines_area,line_components=eye_measurement('lines',30,line_field)
+            add('lines',value,'directional-line-index-0-100',line_signal/100,limitation=lines_reason,signal_mask=known,measurement_area=lines_area,components=line_components)
         if region != 'nose':
             contour_support=base&~clipping&(gray>.12)
             if region=='periorbital':contour_support&=bands['bags']
-            value,components,signal,lines,limitation=instant_proxy(gray,contour_support,points,region,conditions,scale,origin,bgr.shape,hair,(face_support>0)&(exclusion==0)&~clipping&(gray>.12))
+            value,components,signal,lines,limitation=instant_proxy(gray,contour_support,points,region,conditions,scale,origin,bgr.shape,hair,(face_support>0)&(exclusion==0)&~clipping&(gray>.12),clipping,(face_support>0)&(exclusion==0)&~hair&(gray>.12))
             criterion = 'bags' if region == 'periorbital' else 'sag'
             used_bag_mask=False
+            if region=='periorbital' and trained_bags and not trained_bags.get('valid'):
+                value=None;signal=None;lines=[]
+                limitation=trained_bags.get('reason','ACCEPTED_MODEL_UNAVAILABLE')
+                components={'acceptedModelFailed':True,'analyticSubstitutionBlocked':True}
             if region=='periorbital' and trained_bags and trained_bags.get('valid') and reason is None and detail_reason is None:
                 used_bag_mask=True
                 signal=np.zeros(gray.shape,np.float32);sides=[]
@@ -389,11 +423,14 @@ def analyze_skin(payload, include_research_features=False):
                 under=valid&bands['bags'];value=float(np.mean(signal[under])*100) if under.sum()>=100 else None
                 components={'sides':sides,'meaning':'predicted visible bag-presence area; not tissue volume or pixel severity','confidenceNotSeverity':True};lines=[];limitation=None if value is not None else 'INSUFFICIENT_VISIBLE_AREA'
             # Contours already carry measured coordinates; no region-wide sag fill.
-            add(criterion,value or 0,INSTANT_UNIT,signal,limitation=reason or limitation,components=components)
+            # Sag has its own lower-face sampling-corridor quality. Capture
+            # validity is still required; exposure/visibility stay local per side.
+            contour_reason=(('CAPTURE_QUALITY' if not payload.get('qualityValid') else None) or limitation) if criterion in ['sag','bags'] else reason or limitation
+            add(criterion,value or 0,INSTANT_UNIT,signal,limitation=contour_reason,components=components,measurement_area=components.get('measurementROI',area))
             if used_bag_mask and value is not None:
                 items[-1].update(modelVersion=trained_bags['modelVersion'],modelHash=trained_bags['modelHash'],unit='appearance-score-0-100',normalizationVersion='predicted-lower-lid-mask-area-v1')
                 if 'periorbital:bags' in maps:maps['periorbital:bags'].update(mapType='predicted-presence-mask',unit='appearance-score-0-100',method=trained_bags['modelVersion'],modelHash=trained_bags['modelHash'])
-            if value is not None and reason is None and lines:
+            if value is not None and contour_reason is None and lines:
                 contours[region]=dict(points=lines[0],lines=lines,features=[])
         response[region]=items
     result=dict(methodVersion=VERSION,photoId=source_hash,measurements=response,maps=maps,contours=contours,
@@ -413,7 +450,7 @@ def analyze_skin(payload, include_research_features=False):
                 for box in values:
                     a=max(0,int((box['x']-x0)*scale));b=max(0,int((box['y']-y0)*scale));c=min(gray.shape[1],int(math.ceil((box['x']+box['width']-x0)*scale)));d=min(gray.shape[0],int(math.ceil((box['y']+box['height']-y0)*scale)));global_candidates[b:d,a:c]=True
         result['general']=general_result(response,masks,union,general_tone,general_redness,shine,general_flakes,
-            general_area,conditions,payload.get('qualityValid',False),candidate_coverage=float(np.mean(global_candidates[union])*100) if union.any() else None)
+            general_area,conditions,payload.get('qualityValid',False),candidate_coverage=float(np.mean(global_candidates[union])*100) if union.any() else None,normalizations=NORMALIZATION)
         for item in result['general']['measurements']:
             item['scoreDirection']='higher-is-more-visible'
             item['normalizationVersion']=NORMALIZATION[item['id']]
@@ -425,12 +462,15 @@ def analyze_skin(payload, include_research_features=False):
             result['general']['modelInputTransform']=learned.get('sourceTransform')
             for item in result['general']['measurements']:
                 degree=learned['degrees'].get(item['id'])
+                if item['id'] in learned.get('unavailableTargets',[]):
+                    item.update(value=None,quality='insufficient',limitationCode=learned['failure'],localMap=None)
+                    item['components'].update(acceptedModelFailed=True,analyticSubstitutionBlocked=True)
                 # Acne card and source marks remain the same accepted detector
                 # candidates. A whole-photo acne grade is not a calibrated
                 # fusion with detection-box coverage and cannot replace it.
                 if degree and item['id']!='acne':
                     item.update(value=degree['value'],type='trained_prediction',methodVersion=degree['methodVersion'],modelVersion=degree['methodVersion'],modelHash=degree['modelHash'],quality='valid',limitationCode=None,normalizationVersion=degree['normalizationVersion'],uncertainty=['source-label-protocol-unverified','camera-domain-shift'])
-                    item['components'].update(rawGrade=degree['rawGrade'],normalizationVersion=degree['normalizationVersion'],modelScope='whole-face',localMapIsSeparateAnalyticSignal=True)
+                    item['components'].update(rawGrade=degree['rawGrade'],normalizationVersion=degree['normalizationVersion'],modelScope='whole-face',pixelLocalizationAvailable=False)
         if include_research_features:
             # Offline train/validation comparison only. The normal API never
             # requests or persists these alternatives or uses them as scores.
@@ -438,7 +478,9 @@ def analyze_skin(payload, include_research_features=False):
             result['researchFeatures']={'oil-baseline':float(np.mean((baseline_oil>0)[union])*100) if union.any() and oil_usable else None}
         for criterion,signal,ceiling in [('tone',general_tone,100),('redness',general_redness,100),('oil',shine,1),('dry',general_flakes,1)]:
             measurement=next(r for r in result['general']['measurements'] if r['id']==criterion)
-            if measurement['value'] is not None:
+            # A whole-photo ordinal grade has no pixel severity localization.
+            # Do not attach an analytic field under that grade's calibration.
+            if measurement['value'] is not None and measurement['components'].get('modelScope')!='whole-face':
                 layer=map_result(signal,union,'overview',criterion,source_hash,'FRONT',bgr.shape,scale,measurement['unit'],ceiling,origin)
                 if layer:
                     maps['overview:'+criterion]=layer

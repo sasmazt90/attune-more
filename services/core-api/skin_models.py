@@ -60,9 +60,20 @@ def infer(bgr,points,quality_valid):
                 for target,value in zip(m['targets'],output):
                     if target in m['acceptedTargets']:result['degrees'][target]=dict(value=float(np.clip(value,0,5)*20),rawGrade=float(np.clip(value,0,5)),methodVersion=m['version'],modelHash=m['sha256'],confidence=None,scope='whole-face',normalizationVersion='ordinal-0-5-times-20-v1')
         return result
-    except (ValueError,AssertionError,OSError,RuntimeError):
+    except Exception:
         # Compact unavailable state; no old result, substitute weights or zeros.
-        return {**empty,'failure':'ACCEPTED_MODEL_UNAVAILABLE'}
+        # Preserve the expected accepted targets so the product can make them
+        # unavailable instead of silently substituting an analytic score.
+        targets=[];unavailable_type=None
+        try:
+            manifest=json.loads(MANIFEST.read_text('utf8'))
+            head=manifest.get('models',{}).get('degrees',{})
+            if head.get('accepted'):targets=list(head.get('acceptedTargets',[]))
+            type_head=manifest.get('models',{}).get('type',{})
+            if type_head.get('accepted'):
+                unavailable_type=dict(value=None,quality='insufficient',confidence=None,methodVersion=type_head.get('version'),modelHash=type_head.get('sha256'),limitationCode='ACCEPTED_MODEL_UNAVAILABLE')
+        except (OSError,ValueError):pass
+        return {**empty,'skinType':unavailable_type,'failure':'ACCEPTED_MODEL_UNAVAILABLE','unavailableTargets':targets}
 
 def _nms(boxes,threshold=.3):
     if not boxes:return []
@@ -94,7 +105,7 @@ def infer_acne(bgr,points,quality_valid):
                     bx=max(a,float(cx-w/2+a));by=max(b,float(cy-h/2+b));ex=min(c,float(cx+w/2+a));ey=min(d,float(cy+h/2+b))
                     if ex>bx and ey>by:boxes.append([bx,by,ex,ey,score])
         return dict(valid=True,boxes=_nms(boxes),modelHash=meta['sha256'],modelVersion=meta['version'],tileCount=len(xs)*len(ys),loadMs=item['loadMs'],inferenceMs=(time.perf_counter()-started)*1000,coordinateSpace='source-pixels',mapType='detection-boxes')
-    except (ValueError,AssertionError,OSError,RuntimeError):return {'valid':False,'reason':'ACCEPTED_MODEL_UNAVAILABLE'}
+    except Exception:return {'valid':False,'reason':'ACCEPTED_MODEL_UNAVAILABLE'}
 
 def eye_rois(points,width,height):
     rois=[]
@@ -115,4 +126,4 @@ def infer_bags(bgr,points,quality_valid):
             assert logits.shape==(128,128) and np.isfinite(logits).all();probability=1/(1+np.exp(-np.clip(logits,-50,50)))
             layers.append({**roi,'mask':(probability>=m['probabilityThreshold']).astype(np.uint8),'mapType':'predicted-presence-mask','confidenceNotSeverity':True})
         return dict(valid=len(layers)==2,layers=layers,modelHash=m['sha256'],modelVersion=m['version'],loadMs=item['loadMs'],inferenceMs=(time.perf_counter()-start)*1000)
-    except (ValueError,AssertionError,OSError,RuntimeError):return {'valid':False,'reason':'ACCEPTED_MODEL_UNAVAILABLE'}
+    except Exception:return {'valid':False,'reason':'ACCEPTED_MODEL_UNAVAILABLE'}

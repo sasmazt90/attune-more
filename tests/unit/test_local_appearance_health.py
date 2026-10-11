@@ -211,7 +211,7 @@ def test_dark_freckles_moles_beard_and_linear_scar_are_not_acne_candidates():
   cv2.circle(image,(x,95),3,(20,40,60),-1)
   cv2.line(image,(x,80),(x+3,108),(20,25,30),1)
  cv2.line(image,(175,85),(305,85),(70,100,180),2)
- result=analyze_skin(skin_input(image))
+ result=analyze_skin(skin_input(image),include_research_features=True)
  rows={r['id']:r for r in result['measurements']['forehead']}
  assert rows['acne']['value']==0 and rows['oil']['value']==0
  assert rows['dry']['value']==0
@@ -229,7 +229,7 @@ def test_jpeg_noise_pores_and_dark_hair_halos_are_not_flaking(jpeg_quality):
  image=np.clip(image.astype(float)+np.random.default_rng(8102026).normal(0,2,image.shape),0,255).astype(np.uint8)
  ok,encoded=cv2.imencode('.jpg',image,[cv2.IMWRITE_JPEG_QUALITY,jpeg_quality]);assert ok
  compressed=cv2.imdecode(encoded,cv2.IMREAD_COLOR);before=compressed.copy()
- result=analyze_skin(skin_input(compressed));rows={row['id']:row for row in result['measurements']['forehead']}
+ result=analyze_skin(skin_input(compressed),include_research_features=True);rows={row['id']:row for row in result['measurements']['forehead']}
  assert rows['dry']['quality']=='valid' and rows['dry']['value']==0
  assert rows['acne']['value']==0 and rows['oil']['value']==0 and np.array_equal(before,compressed)
 
@@ -245,17 +245,21 @@ def test_controlled_positive_local_signals_execute_without_painting_source(crite
   for x in (190,220,250,280,310):
    for y in (85,102):cv2.circle(image,(x,y),2,(190,200,220),-1)
  else:cv2.circle(image,(250,95),4,(100,130,230),-1)
- before=image.copy();payload=skin_input(image);result=analyze_skin(payload)
+ before=image.copy();payload=skin_input(image);result=analyze_skin(payload,include_research_features=criterion=='acne')
  measurement=next(r for r in result['measurements']['forehead'] if r['id']==criterion)
  assert measurement['quality']=='valid' and measurement['value']>0
  assert measurement['type']=='appearance_proxy' and result['photoId']==payload['photoId']
  if criterion=='acne':
-  assert result['maps']['forehead:acne']['photoId']==payload['photoId'] and measurement['localMap']['key']=='forehead:acne'
-  assert measurement['value']==1 and len(measurement['components']['bounds'])==1
+  # Offline feature controls check localization, not an accepted detector or
+  # a lesion segmentation. The ordinary API keeps rejected acne unavailable.
+  assert 'forehead:acne' not in result['maps'] and measurement['localMap'] is None
+  assert measurement['components']['candidateCount']==1 and len(measurement['components']['bounds'])==1
   box=measurement['components']['bounds'][0];assert 240<box['x']<260 and 85<box['y']<105
   # Overlapping region supports cannot report the same candidate twice.
-  assert sum(r['value'] or 0 for rows in result['measurements'].values() for r in rows if r['id']=='acne')==1
-  assert measurement['components']['candidateAreaPercent']>0
+  assert sum(r['components'].get('candidateCount',0) for rows in result['measurements'].values() for r in rows if r['id']=='acne')==1
+  assert measurement['components']['candidateBoxCoveragePercent']>0
+  normal=analyze_skin(payload);unavailable=next(r for r in normal['measurements']['forehead'] if r['id']=='acne')
+  assert unavailable['value'] is None and unavailable['status']=='unavailable'
  else:
   layer=result['maps']['forehead:'+criterion];overlay,_=decode_photo(layer['dataUrl'])
   assert layer['photoId']==payload['photoId'] and layer['colorMapping']=='cyan-fixed-100-v1'

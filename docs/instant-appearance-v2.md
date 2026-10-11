@@ -1,6 +1,11 @@
-# Current-photo appearance v2
+# Historical current-photo appearance v2
 
-## Contract
+This document records the earlier v2 arithmetic. The current local-joint support,
+guide-relative tracking quality and lower-face-only SAG definitions are in
+[skin-appearance-indices-20261011.md](skin-appearance-indices-20261011.md).
+The former forehead/brow SAG path is unavailable in the current product.
+
+## Historical contract
 
 `appearance-cv-2`, `appearance_proxy`, unit `contour-fold-index-0-100`.
 The active path never calls historical `contour_geometry`, reads a personal reference, initializes one, or relabels old measurements. First and later scans have `analysisMode=instant-appearance-v2`, `isBaseline=false`. Optional historical methods and their record versions remain separate.

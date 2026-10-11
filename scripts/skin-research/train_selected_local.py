@@ -20,10 +20,10 @@ STD=np.array([.229,.224,.225],np.float32)[:,None,None]
 def reviewed():
  candidates=json.loads((OUT/'review/candidates.json').read_text('utf8'))
  assert candidates['manifestSHA256']==sha(OUT/'manifest.json')
- decisions=json.loads((OUT/'review/decisions.json').read_text('utf8'));by={d['sha256']:d for d in decisions['rows']}
+ decisions=json.loads((OUT/'review/decisions.json').read_text('utf8'));by={(d['reviewIndex'],d['sha256']):d for d in decisions['rows']}
  rows=[]
  for r in candidates['rows']:
-  d=by.get(r['sha256'])
+  d=by.get((r['reviewIndex'],r['sha256']))
   if d and d.get('naturalEligible') and d.get('rightsEligible'):
    rows.append({**r,'reviewDecision':d})
  assert all(r['split']!='test' for r in rows)

@@ -28,3 +28,28 @@ def test_rejected_manifest_cannot_load_model_or_make_zero_scores(tmp_path,monkey
 def test_cross_tile_nms_deduplicates_same_source_focus():
     boxes=M._nms([[100,100,110,110,.8],[101,100,111,110,.7],[180,180,191,191,.6]])
     assert len(boxes)==2 and boxes[0][:4]==[100,100,110,110]
+
+def test_accepted_degree_load_failure_preserves_unavailable_target(tmp_path,monkeypatch):
+    file=tmp_path/'skin-focused.json'
+    file.write_text(json.dumps(dict(models={'degrees':dict(accepted=True,acceptedTargets=['redness'])})))
+    monkeypatch.setattr(M,'MANIFEST',file)
+    def broken_load():raise RuntimeError('accepted session unavailable')
+    monkeypatch.setattr(M,'load',broken_load)
+    result=M.infer(np.zeros((20,20,3),np.uint8),[],True)
+    assert result['degrees']=={} and result['unavailableTargets']==['redness']
+    assert result['failure']=='ACCEPTED_MODEL_UNAVAILABLE'
+
+
+def test_ort_exception_and_accepted_type_cannot_substitute_analytic_type(tmp_path,monkeypatch):
+    # ORT pybind exceptions inherit Exception, not Python RuntimeError.
+    from onnxruntime.capi.onnxruntime_pybind11_state import InvalidArgument
+    file=tmp_path/'skin-focused.json'
+    file.write_text(json.dumps(dict(models={'type':dict(accepted=True,version='accepted-test-v1',sha256='expected-hash')})))
+    monkeypatch.setattr(M,'MANIFEST',file)
+    def broken_load():raise InvalidArgument('bad accepted ONNX input')
+    monkeypatch.setattr(M,'load',broken_load)
+    result=M.infer(np.zeros((20,20,3),np.uint8),[],True)
+    assert result['skinType']['value'] is None
+    assert result['skinType']['limitationCode']=='ACCEPTED_MODEL_UNAVAILABLE'
+    assert result['skinType']['methodVersion']=='accepted-test-v1'
+    assert M.infer_bags(np.zeros((20,20,3),np.uint8),[],True)['valid'] is False

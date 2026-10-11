@@ -1,6 +1,8 @@
+param([string]$BuildName = 'skin-selected-build-20261011-v2')
 $ErrorActionPreference = 'Stop'
+if ($BuildName -notmatch '^skin-[a-z0-9-]+$') { throw 'Invalid staging directory name.' }
 $taskRoot = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
-$stageRoot = Join-Path $taskRoot '.runtime/skin-selected-build-20261011-v2'
+$stageRoot = Join-Path $taskRoot ('.runtime/' + $BuildName)
 if (Test-Path -LiteralPath $stageRoot) { throw 'Existing staging build is preserved; inspect it instead of replacing it.' }
 New-Item -ItemType Directory -Path $stageRoot | Out-Null
 $files = @(& git -C $taskRoot ls-files apps/vehicle-app packages shared package.json package-lock.json)

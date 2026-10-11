@@ -37,7 +37,12 @@ def test_exif_same_oriented_pixels_and_limits(monkeypatch):
 def test_actual_current_skin_determinism_quality_not_historical_refs():
  im=np.full((400,500,3),(100,130,175),np.uint8);payload=skin_input(im)
  first=analyze_skin(payload);second=analyze_skin({**payload,'historicalReference':{'corrupt':'ignored'}})
- assert first==second and first['methodVersion']=='appearance-cv-6'
+ # Runtime timings describe execution, not deterministic appearance values.
+ def without_timings(value):
+  if isinstance(value,dict):return {k:without_timings(v) for k,v in value.items() if k not in {'loadMs','inferenceMs'}}
+  if isinstance(value,list):return [without_timings(v) for v in value]
+  return value
+ assert without_timings(first)==without_timings(second) and first['methodVersion']=='appearance-cv-6'
  for rows in first['measurements'].values():
   assert all(r['referenceId'] is None and r['type']=='appearance_proxy' for r in rows)
  invalid=analyze_skin({**payload,'qualityValid':False})
@@ -124,7 +129,10 @@ def test_complete_current_proxy_positive_and_independent_negative_support():
  beard=np.ones_like(mask)
  assert instant_proxy(both,*args,hair=beard)[0] is None
  shade=np.tile(np.linspace(.15,.9,320,dtype=np.float32),(280,1))
- assert instant_proxy(shade,*args)[-1]=='HARD_DIRECTIONAL_SHADOW'
+ # The broad photo slope is small across this local jaw/fold ROI.
+ assert instant_proxy(shade,*args)[-1] is None
+ local_shade=np.tile(np.clip(.15+.75*(np.arange(320)-20)/145,.15,.9).astype(np.float32),(280,1))
+ assert instant_proxy(local_shade,*args)[-1]=='HARD_DIRECTIONAL_SHADOW'
 
 
 def test_provider_date_is_read_not_invented_or_user_timezone():

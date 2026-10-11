@@ -25,14 +25,10 @@ def checkpoint(folder,net,opt,state):
     state['optimizerSHA256']=_sha(generation/'optimizer.safetensors')
     (generation/'state.json').write_text(json.dumps(state,indent=2),'utf8')
     pointer=folder/'CURRENT.tmp';pointer.write_text(generation.name,'utf8');pointer.replace(folder/'CURRENT')
-    # Keep the current and previous complete transaction. Only named files
-    # inside this checked research folder are unlinked; no recursive delete.
-    for old in sorted(folder.glob('checkpoint-*'))[:-2]:
-        assert old.resolve().parent==folder.resolve()
-        for file in old.iterdir():
-            assert file.name in ['model.safetensors','optimizer.safetensors','state.json'];file.unlink()
-        old.rmdir()
+    # Persistent training history is never pruned. Time/space limits stop a
+    # resumable invocation; they do not authorize deleting earlier checkpoints.
     return state
+
 def resume(folder,net,opt,identity):
     generation=folder/(folder/'CURRENT').read_text('utf8');assert generation.resolve().parent==folder.resolve()
     state=json.loads((generation/'state.json').read_text());assert state['identity']==identity,'DATA_OR_FREEZE_CHANGED'

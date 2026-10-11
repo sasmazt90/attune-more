@@ -35,3 +35,43 @@ general.indicators[0].score=NaN;assert(!v.validSkinOverview(general,'analysis-a'
 '''
     result=subprocess.run(['node','-e',script],cwd=ROOT,text=True,capture_output=True,timeout=30)
     assert result.returncode==0,result.stdout+result.stderr
+
+def test_eye_only_coverage_and_failed_accepted_method_are_not_whole_face_fallbacks():
+    valid=np.ones((20,20),bool);signal=np.ones((20,20),np.float32)
+    eye=dict(id='dark',value=19.,quality='valid',methodVersion='relative-eye-v1',components={},evaluatedArea={'sourcePixels':400})
+    failed=dict(id='bags',value=None,quality='insufficient',methodVersion='accepted-mask-v1',components={'analyticSubstitutionBlocked':True},limitationCode='ACCEPTED_MODEL_UNAVAILABLE')
+    value=general_result({'periorbital':[eye,failed]},{'periorbital':valid},valid,signal,signal,signal,signal,{'sourcePixels':400},{},True)
+    rows={r['id']:r for r in value['measurements']}
+    assert rows['dark']['value']==19 and rows['dark']['evaluatedArea']['sourcePixels']==400
+    assert rows['bags']['value'] is None and rows['bags']['limitationCode']=='ACCEPTED_MODEL_UNAVAILABLE'
+    assert all(rows[k]['value'] is None for k in ['tone','oil','redness','sag','dry','acne'])
+
+
+def test_whole_photo_grade_cannot_inherit_a_different_pixel_calibration(monkeypatch):
+    import appearance_analysis as A
+    from test_local_appearance_health import skin_input
+    def degree(*args):return dict(skinType=None,degrees={'redness':dict(value=60.,rawGrade=3.,methodVersion='accepted-photo-grade-v1',modelHash='a'*64,normalizationVersion='ordinal-0-5-times-20-v1')},models={},sourceTransform=None)
+    monkeypatch.setattr(A,'infer_skin_models',degree)
+    result=A.analyze_skin(skin_input(np.full((400,500,3),(100,130,175),np.uint8)))
+    red=next(r for r in result['general']['measurements'] if r['id']=='redness')
+    assert red['value']==60 and red['localMap'] is None
+    assert 'overview:redness' not in result['maps']
+    assert result['activeCriterionMethods']['criteria']['redness']['overview']['methodVersion']=='accepted-photo-grade-v1'
+    for layer in result['maps'].values():
+        owner=next(r for r in result['measurements'].get(layer['region'],result['general']['measurements']) if r['id']==layer['criterion'])
+        assert layer['calibrationVersion']==owner['calibrationVersion']
+
+
+def test_partial_lower_face_is_measured_without_inventing_hidden_side_or_duplicating_folds():
+ valid=np.ones((20,20),bool);signal=np.zeros((20,20),np.float32)
+ def row(region,value,sides,quality='valid'):
+  return dict(id='sag',region=region,value=value,quality=quality,methodVersion='target-roi-v3',components={'sides':sides},evaluatedArea={'sourcePixels':40},limitationCode=None if quality=='valid' else 'ANATOMICAL_BAND_NOT_VISIBLE')
+ right=row('rightCheek',12,[{'side':'right','value':8},{'side':'lower-right','value':16}])
+ chin=row('chin',16,[{'side':'lower-right','value':16},{'side':'lower-left','value':None}])
+ left=row('leftCheek',None,[],'insufficient')
+ result=general_result({'rightCheek':[right],'leftCheek':[left],'chin':[chin]},{'rightCheek':valid},valid,signal,signal,signal,signal,{}, {},True)
+ sag=next(r for r in result['measurements'] if r['id']=='sag')
+ assert sag['value']==12 and sag['components']['partialCoverage']
+ assert sag['components']['missingRegions']=={'leftCheek':'ANATOMICAL_BAND_NOT_VISIBLE'}
+ assert sag['components']['measuredSides']=={'right':8,'lower-right':16}
+ assert sag['components']['wholeFaceInference'] is False

@@ -1,5 +1,5 @@
 """Fixed-scale, current-photo contour + fold appearance indices (not tissue volume).
-See docs/instant-appearance-v2.md. Historical contour_geometry is not called here.
+See docs/skin-appearance-indices-20261011.md. Historical contour_geometry is not called here.
 """
 import cv2
 import numpy as np
@@ -10,6 +10,11 @@ UNIT='contour-fold-index-0-100'
 CONSTANTS=dict(edgeFloor=.018,edgeCeiling=.12,foldFloor=.012,foldCeiling=.08,
                contrastCeiling=.14,minimumCoverage=.55,minimumFacePixels=180,
                maxYaw=.65,maxPitch=.22,maxMouthOpening=.10,minEyeAspect=.12)
+
+def tracking_residual(selected,guide_line,width):
+    """Quality of tracked displacement; expected anatomical bends are not noise."""
+    displacement=np.asarray(selected)-np.asarray(guide_line)
+    return float(np.mean(np.linalg.norm(displacement-gaussian_filter1d(displacement,2,axis=0),axis=1)))/(width/320)
 
 def curve_profile(gray,eligible,guide,normal,offsets,width):
     """Track actual image support near an anatomical guide, never draw the guide as evidence."""
@@ -38,15 +43,14 @@ def curve_profile(gray,eligible,guide,normal,offsets,width):
         run=run+1 if item else 0;longest=max(longest,run)
     coverage=float(usable.any(axis=1).mean())
     continuity=longest/64
-    smooth=gaussian_filter1d(selected,2,axis=0)
-    curvature=float(np.mean(np.linalg.norm(selected-smooth,axis=1)))/(width/320)
+    curvature=tracking_residual(selected,line,width)
     edges=edge[np.arange(64),best]
     folds=np.clip((contrast-.012)/.08,0,1)
     strength=float(np.mean(folds))
     pairedEdge=float(np.mean(np.clip((edges-.018)/.12,0,1)))
     points=selected[support] if continuity>=.20 else np.empty((0,2))
     return dict(strength=strength,edge=pairedEdge,continuity=continuity,coverage=coverage,
-                trackingResidual=curvature,points=points,tracked=selected,values=folds,support=support)
+                trackingResidual=curvature,trackingQualityVersion='guide-relative-displacement-v1',points=points,tracked=selected,values=folds,edgeValues=np.clip((edges-.018)/.12,0,1),support=support)
 
 def boundary_support(gray,skin,guide,face_width):
     """Actual boundary tracking and local non-smoothness, independent of the fold detector."""
@@ -67,13 +71,15 @@ def boundary_support(gray,skin,guide,face_width):
     coverage=float((visible.any(axis=1)).mean())
     return dict(value=float(deflection.mean()),coverage=coverage,edgeMean=float(strength.mean()),localDeflectionMean=float(np.abs(local).mean()),points=tracked.tolist(),supported=(strength>.04).tolist())
 
-def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_shape,hair=None,context_skin=None):
+def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_shape,hair=None,context_skin=None,clipping=None,exposure_skin=None):
     """Returns an index, component metadata, actual pixel evidence, and a failure code."""
     h,w=source_shape[:2]
     p=np.array([[(v['x']*w-origin[0])*scale,(v['y']*h-origin[1])*scale] for v in points],float)
     eye=p[263]-p[33];eye_width=float(np.linalg.norm(eye))
     empty=np.zeros(gray.shape,np.float32)
-    fail=lambda code:(None,dict(formulaVersion='contour-fold-current-v2'),empty,[],code)
+    formula='contour-fold-target-roi-local-support-v5' if region!='periorbital' else 'contour-fold-local-support-v4'
+    fail=lambda code:(None,dict(formulaVersion=formula),empty,[],code)
+    if region=='forehead':return fail('BROW_FOLD_IS_NOT_LOWER_FACE_SAGGING')
     if eye_width<35:return fail('INSUFFICIENT_NATIVE_DETAIL')
     if abs(conditions.get('yaw',99))>.65 or abs(conditions.get('pitch',99))>.22:return fail('HEAD_ANGLE_UNSUPPORTED')
     horizontal=eye/eye_width;vertical=np.array([-horizontal[1],horizontal[0]])
@@ -87,6 +93,28 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
     eye_aspects=[float(np.linalg.norm(p[a]-p[b]))/max(float(np.linalg.norm(p[c]-p[d])),1) for a,b,c,d in [(159,145,33,133),(386,374,263,362)]]
     if region in ('periorbital','forehead') and min(eye_aspects)<.12:return fail('SQUINT_OR_EYE_OCCLUSION')
     if eligible.sum()<100:return fail('INSUFFICIENT_SKIN_SUPPORT')
+    paths=[]
+    if region=='periorbital':
+        # Anatomical right/left are not display-side aliases.
+        paths=[('right',[144,145,153,154,133]),('left',[373,374,380,381,362])]
+        offsets=np.arange(3,25);direction=vertical
+    elif region=='rightCheek':paths=[('right',[98,205,206,216,61]),('lower-right',[61,186,172,136])];offsets=np.arange(-10,11);direction=horizontal
+    elif region=='leftCheek':paths=[('left',[327,425,426,436,291]),('lower-left',[291,410,397,365])];offsets=np.arange(-10,11);direction=horizontal
+    elif region=='chin':paths=[('lower-right',[61,186,172,136]),('lower-left',[291,410,397,365])];offsets=np.arange(-10,11);direction=horizontal
+    elif region=='forehead':
+        # Brow-adjacent fold + actual brow boundary support; no copied cheek/jaw metric.
+        paths=[('right-brow',[70,63,105,66,107]),('left-brow',[300,293,334,296,336])];offsets=np.arange(-24,-2);direction=vertical
+        brow_ratio=np.mean([((p[105]-p[159])@vertical)/eye_width,((p[334]-p[386])@vertical)/eye_width])
+        if brow_ratio<-.30:return fail('RAISED_BROW')
+    else:return fail('ANATOMY_NOT_APPLICABLE')
+    if region in ('rightCheek','leftCheek','chin'):
+        target_corridor=np.zeros(gray.shape,np.uint8)
+        thickness=max(1,int(np.ceil(21*face*scale/320)))
+        for _,indices in paths:cv2.polylines(target_corridor,[np.rint(p[indices]).astype(np.int32)],False,1,thickness)
+        jaw_indices={'rightCheek':[132,58,172,136,150],'leftCheek':[361,288,397,365,379],'chin':[172,136,150,152,379,365,397]}[region]
+        cv2.polylines(target_corridor,[np.rint(p[jaw_indices]).astype(np.int32)],False,1,thickness)
+        eligible=eligible&(target_corridor>0)
+        if eligible.sum()<100:return fail('INSUFFICIENT_SKIN_SUPPORT')
     smooth=cv2.GaussianBlur(gray,(0,0),8)
     ys,xs=np.where(eligible)
     # Fit the change across the observed skin area, not an extrapolation across
@@ -103,24 +131,25 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
         dark=((gray<.18)&eligible).astype('uint8')*255
         frame=cv2.HoughLinesP(dark,1,np.pi/180,20,minLineLength=max(15,int(eye_width*.30)),maxLineGap=3)
         if frame is not None:return fail('EYEWEAR_OR_COSMETIC_EDGE')
-    paths=[]
-    if region=='periorbital':
-        # Anatomical right/left are not display-side aliases.
-        paths=[('right',[144,145,153,154,133]),('left',[373,374,380,381,362])]
-        offsets=np.arange(3,25);direction=vertical
-    elif region=='rightCheek':paths=[('right',[98,205,206,216,61]),('lower-right',[61,186,172,136])];offsets=np.arange(-10,11);direction=horizontal
-    elif region=='leftCheek':paths=[('left',[327,425,426,436,291]),('lower-left',[291,410,397,365])];offsets=np.arange(-10,11);direction=horizontal
-    elif region=='chin':paths=[('lower-right',[61,186,172,136]),('lower-left',[291,410,397,365])];offsets=np.arange(-10,11);direction=horizontal
-    elif region=='forehead':
-        # Brow-adjacent fold + actual brow boundary support; no copied cheek/jaw metric.
-        paths=[('right-brow',[70,63,105,66,107]),('left-brow',[300,293,334,296,336])];offsets=np.arange(-24,-2);direction=vertical
-        brow_ratio=np.mean([((p[105]-p[159])@vertical)/eye_width,((p[334]-p[386])@vertical)/eye_width])
-        if brow_ratio<-.30:return fail('RAISED_BROW')
-    else:return fail('ANATOMY_NOT_APPLICABLE')
-    boundary=None
+    # Only the actual anatomical sampling corridors participate in exposure
+    # quality. Clipped upper-cheek pixels cannot reject a visible jaw corridor.
+    exposure_masks={};exposure_corridors={}
+    def exposure(guide,offsets):
+        corridor=np.zeros(gray.shape,np.uint8)
+        thickness=max(1,int(np.ceil(2*max(abs(float(v)) for v in offsets)*native_width/320+1)))
+        cv2.polylines(corridor,[np.rint(guide).astype(np.int32)],False,1,thickness)
+        observed=(corridor>0)&(exposure_skin if exposure_skin is not None else eligible)
+        fraction=float(clipping[observed].mean()) if clipping is not None and observed.any() else 0.
+        receipt=dict(clippedFraction=fraction,observedPixels=int(observed.sum()),maximumClippedFraction=.03)
+        exposure_masks[id(receipt)]=observed
+        exposure_corridors[id(receipt)]=corridor>0
+        return receipt
+    boundary=None;boundary_exposure=None
     if region in ('rightCheek','leftCheek','chin'):
         jaw={'rightCheek':[132,58,172,136,150],'leftCheek':[361,288,397,365,379],'chin':[172,136,150,152,379,365,397]}[region]
         boundary=boundary_support(gray,context_skin if context_skin is not None else eligible,p[jaw],native_width)
+        boundary_exposure=exposure(p[jaw],np.arange(-10,11))
+        boundary['exposure']=boundary_exposure
     elif region=='forehead':
         # Separate actual brow-boundary deviations from the above-brow skin fold signal.
         boundaries=[boundary_support(gray,context_skin if context_skin is not None else eligible,p[ii],native_width) for ii in ([70,63,105,66,107],[300,293,334,296,336])]
@@ -129,21 +158,26 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
     for side,indices in paths:
         profile=curve_profile(gray,skin,p[indices],direction,offsets,native_width)
         if profile is None:continue
-        q=profile
+        q=profile;local_exposure=exposure(p[indices],offsets)
         # Joint support: no contour/paired-edge => no fold-derived sag/bag signal.
-        joint=q['strength']*np.sqrt(q['edge'])*min(1,q['continuity']/.6)
+        joint=float(np.mean(q['values']*np.sqrt(q['edgeValues'])))*min(1,q['continuity']/.6)
         if boundary is not None:joint*=np.sqrt(boundary['value'])
-        if q['coverage']<.55 or q['trackingResidual']>2.5 or boundary is not None and boundary['coverage']<.55:side_value=None
-        else:side_value=float(np.clip(joint*100,0,100))
-        sides.append(dict(side=side,value=side_value,fold=q['strength'],pairedEdge=q['edge'],continuity=q['continuity'],coverage=q['coverage'],trackingResidual=q['trackingResidual']))
+        limitation=None
+        if local_exposure['clippedFraction']>.03 or boundary_exposure is not None and boundary_exposure['clippedFraction']>.03:limitation='GLARE_OR_EXPOSURE'
+        elif q['coverage']<.55 or boundary is not None and boundary['coverage']<.55:limitation='ANATOMICAL_BAND_NOT_VISIBLE'
+        elif q['trackingResidual']>2.5:limitation='CONTOUR_TRACKING_UNSTABLE'
+        side_value=None if limitation else float(np.clip(joint*100,0,100))
+        sides.append(dict(side=side,value=side_value,fold=q['strength'],pairedEdge=q['edge'],continuity=q['continuity'],coverage=q['coverage'],trackingResidual=q['trackingResidual'],trackingQualityVersion=q['trackingQualityVersion'],exposure=local_exposure,limitationCode=limitation))
         if side_value is not None and side_value>0:
             pts=q['tracked']
             # Only measured source coordinates, never synthesize hidden skin surfaces.
             line=[]
-            for xy,supported in zip(pts,q['support']):
+            local_values=q['values']*np.sqrt(q['edgeValues'])*min(1,q['continuity']/.6)
+            if boundary is not None:local_values*=np.sqrt(boundary['value'])
+            for xy,supported,intensity in zip(pts,q['support'],local_values):
                 x,y=np.rint(xy).astype(int)
                 if supported and 0<=x<gray.shape[1] and 0<=y<gray.shape[0] and eligible[y,x]:
-                    cv2.circle(signal,(x,y),2,float(joint),-1)
+                    cv2.circle(signal,(x,y),2,float(intensity),-1)
                     line.append(dict(x=float((xy[0]/scale+origin[0])/w),y=float((xy[1]/scale+origin[1])/h)))
                 elif line:
                     if len(line)>1:evidence.append(line)
@@ -164,11 +198,17 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
             if len(line)>1:evidence.append(line)
     elif boundary is not None:
         for b in boundary.get('sides',[boundary]):b.pop('points',None);b.pop('supported',None)
-    components=dict(formulaVersion='contour-fold-current-v2',sides=sides,fixedConstants=CONSTANTS,
+    measured_roi=np.zeros(gray.shape,bool)
+    for side in sides:
+        if side['value'] is not None:measured_roi|=exposure_masks[id(side['exposure'])]
+    if valid and boundary_exposure is not None:measured_roi|=exposure_masks[id(boundary_exposure)]
+    measured_roi&=eligible
+    measurement_roi=dict(scope='measured-anatomical-sampling-corridors',analysisPixels=int(measured_roi.sum()),sourcePixels=float(measured_roi.sum()/scale**2),anatomicalSourcePixels=float(np.logical_or.reduce(list(exposure_corridors.values())).sum()/scale**2) if exposure_corridors else 0.,sourceFacePixels=face,unknownSides=[side['side'] for side in sides if side['value'] is None])
+    components=dict(formulaVersion=formula,measurementROI=measurement_roi,sides=sides,fixedConstants=CONSTANTS,indexAggregation='mean of measured local fold * sqrt(local paired edge), times supported continuity and independent jaw boundary where applicable',localMapMeaning='measured local support intensity; no confidence or pixel disease severity',
                     meaning='visible-supported-contour-fold; not probability, volume or clinical severity',boundary=boundary,weights=dict(fold=1,pairedEdge=.5,continuity=1,boundary=.5),
                     rollRadians=float(np.arctan2(horizontal[1],horizontal[0])),normalization='2D eye axis and face width; no z/depth',
                     mouthOpening=opening,eyeAspects=eye_aspects,shadowPlaneSlope=slope[:2].tolist())
-    if not valid:return None,components,empty,[],'ANATOMICAL_BAND_NOT_VISIBLE'
+    if not valid:return None,components,empty,[],next((v['limitationCode'] for v in sides if v.get('limitationCode')), 'ANATOMICAL_BAND_NOT_VISIBLE')
     signal*=eligible
     # Mean only measured local subregions; missing side stays null, never copied.
     return float(np.mean(valid)),components,signal,evidence,None
