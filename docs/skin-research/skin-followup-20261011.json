@@ -1,0 +1,462 @@
+{
+  "scope": "diagnosis and finite development stages; overall analysis request remains incomplete",
+  "frontendSourceCommit": "81127319b1015f53dbbb8e3321b6cb9349ef1faa",
+  "buildId": "_YWFLetSYj_oTN7LuFj4H",
+  "productRuntimeChanged": false,
+  "productCandidatesPromoted": false,
+  "normalShortcutVerified": true,
+  "normalHistoryWritten": false,
+  "physicalUserAcceptance": false,
+  "independentFinalAvailable": false,
+  "manifestSHA256": "de43cdaf2a17d741081daa535d6c69d498ea3d0244df19958ef9ec3b4d7caccf",
+  "typeCounts": {
+    "train": 879,
+    "validation": 187
+  },
+  "degreeCounts": {
+    "validation": 13,
+    "train": 93
+  },
+  "typeResults": [
+    {
+      "tag": "resnet18-imagenet",
+      "epochs": 20,
+      "macroF1": 0.2943590314913844,
+      "classes": [
+        {
+          "label": "normal",
+          "precision": 0.28,
+          "recall": 0.2857142857142857,
+          "F1": 0.2828282828282828,
+          "support": 49
+        },
+        {
+          "label": "dry",
+          "precision": 0.42857142857142855,
+          "recall": 0.3,
+          "F1": 0.3529411764705882,
+          "support": 70
+        },
+        {
+          "label": "oily",
+          "precision": 0.42857142857142855,
+          "recall": 0.3333333333333333,
+          "F1": 0.375,
+          "support": 54
+        },
+        {
+          "label": "combination",
+          "precision": 0.10869565217391304,
+          "recall": 0.35714285714285715,
+          "F1": 0.16666666666666666,
+          "support": 14
+        }
+      ],
+      "complete": true
+    },
+    {
+      "tag": "resnet18-type-finetuned",
+      "epochs": 14,
+      "macroF1": 0.32213686440162315,
+      "classes": [
+        {
+          "label": "normal",
+          "precision": 0.3064516129032258,
+          "recall": 0.3877551020408163,
+          "F1": 0.3423423423423424,
+          "support": 49
+        },
+        {
+          "label": "dry",
+          "precision": 0.43478260869565216,
+          "recall": 0.2857142857142857,
+          "F1": 0.3448275862068965,
+          "support": 70
+        },
+        {
+          "label": "oily",
+          "precision": 0.3191489361702128,
+          "recall": 0.2777777777777778,
+          "F1": 0.297029702970297,
+          "support": 54
+        },
+        {
+          "label": "combination",
+          "precision": 0.21875,
+          "recall": 0.5,
+          "F1": 0.30434782608695654,
+          "support": 14
+        }
+      ],
+      "complete": true
+    },
+    {
+      "tag": "efficientnet_b0-imagenet",
+      "epochs": 21,
+      "macroF1": 0.3209749161662875,
+      "classes": [
+        {
+          "label": "normal",
+          "precision": 0.3673469387755102,
+          "recall": 0.3673469387755102,
+          "F1": 0.36734693877551017,
+          "support": 49
+        },
+        {
+          "label": "dry",
+          "precision": 0.44642857142857145,
+          "recall": 0.35714285714285715,
+          "F1": 0.39682539682539686,
+          "support": 70
+        },
+        {
+          "label": "oily",
+          "precision": 0.3673469387755102,
+          "recall": 0.3333333333333333,
+          "F1": 0.34951456310679613,
+          "support": 54
+        },
+        {
+          "label": "combination",
+          "precision": 0.12121212121212122,
+          "recall": 0.2857142857142857,
+          "F1": 0.1702127659574468,
+          "support": 14
+        }
+      ],
+      "complete": true
+    },
+    {
+      "tag": "efficientnet_b0-type-finetuned",
+      "epochs": 21,
+      "macroF1": 0.32495329970567305,
+      "classes": [
+        {
+          "label": "normal",
+          "precision": 0.3125,
+          "recall": 0.40816326530612246,
+          "F1": 0.35398230088495575,
+          "support": 49
+        },
+        {
+          "label": "dry",
+          "precision": 0.5106382978723404,
+          "recall": 0.34285714285714286,
+          "F1": 0.41025641025641024,
+          "support": 70
+        },
+        {
+          "label": "oily",
+          "precision": 0.425531914893617,
+          "recall": 0.37037037037037035,
+          "F1": 0.39603960396039606,
+          "support": 54
+        },
+        {
+          "label": "combination",
+          "precision": 0.10344827586206896,
+          "recall": 0.21428571428571427,
+          "F1": 0.1395348837209302,
+          "support": 14
+        }
+      ],
+      "complete": true
+    }
+  ],
+  "bags": {
+    "developmentPolygonDice": 0.8407111612378358,
+    "developmentPolygonIoU": 0.7297890325902212,
+    "wholeROIFPR": null
+  },
+  "criteria": [
+    {
+      "criterion": "skinType",
+      "workingMethod": "No accepted classifier",
+      "value": null,
+      "unit": null,
+      "quality": "insufficient",
+      "newCandidateBestDevelopmentMacroF1": 0.32495329970567305
+    },
+    {
+      "criterion": "acne",
+      "workingMethod": "no accepted detector; old rejected centre-surround candidate remains research-only",
+      "value": null,
+      "unit": "appearance-score-0-100",
+      "quality": "insufficient",
+      "methodVersion": "front-appearance-union-v1",
+      "limitationCode": "INSUFFICIENT_FRONT_COVERAGE"
+    },
+    {
+      "criterion": "oil",
+      "workingMethod": "local bright low-saturation/specular area / appearance proxy",
+      "value": 0.0,
+      "unit": "appearance-score-0-100",
+      "quality": "valid",
+      "methodVersion": "front-appearance-union-v1",
+      "limitationCode": null
+    },
+    {
+      "criterion": "dry",
+      "workingMethod": "eligible fine bright flake area / appearance proxy",
+      "value": 0.0,
+      "unit": "appearance-score-0-100",
+      "quality": "valid",
+      "methodVersion": "front-appearance-union-v1",
+      "limitationCode": null
+    },
+    {
+      "criterion": "sag",
+      "workingMethod": "expression-gated contour/fold appearance proxy; no absolute anatomical sagging model",
+      "value": 0.007195167407474563,
+      "unit": "appearance-score-0-100",
+      "quality": "valid",
+      "methodVersion": "front-appearance-union-v1",
+      "limitationCode": null
+    },
+    {
+      "criterion": "redness",
+      "workingMethod": "preserved accepted EfficientNet-B0 ordinal ridge photo head; regional analytic colour maps are separate",
+      "value": 42.517822265625,
+      "unit": "appearance-score-0-100",
+      "quality": "valid",
+      "methodVersion": "skin-appearance-photo-ridge-20261010-v1",
+      "limitationCode": null
+    },
+    {
+      "criterion": "tone",
+      "workingMethod": "LAB local colour variation / visible-surface proxy",
+      "value": 4.301154613494873,
+      "unit": "appearance-score-0-100",
+      "quality": "valid",
+      "methodVersion": "front-appearance-union-v1",
+      "limitationCode": null
+    },
+    {
+      "criterion": "lines",
+      "workingMethod": "outer-canthus Gabor line appearance proxy",
+      "value": 0.40655517578125,
+      "unit": "appearance-score-0-100",
+      "quality": "valid",
+      "methodVersion": "front-appearance-union-v1",
+      "limitationCode": null
+    },
+    {
+      "criterion": "dark",
+      "workingMethod": "lower-lid relative colour/contrast appearance proxy",
+      "value": 23.337844848632812,
+      "unit": "appearance-score-0-100",
+      "quality": "valid",
+      "methodVersion": "front-appearance-union-v1",
+      "limitationCode": null
+    },
+    {
+      "criterion": "bags",
+      "workingMethod": "expression-gated contour/fold appearance proxy; candidate segmentation not installed",
+      "value": 0.06665439559147542,
+      "unit": "appearance-score-0-100",
+      "quality": "valid",
+      "methodVersion": "front-appearance-union-v1",
+      "limitationCode": null
+    }
+  ],
+  "oldFinalOpened": false,
+  "paidCalls": 0,
+  "remaining": [
+    "No accepted type/acne candidate",
+    "No fully converged detector backbone/RPN training claimed",
+    "No independent unused final sources available; public unused source returned HTTP 403",
+    "Bags need expert complete normal/dark/shadow/bag lower-lid annotations",
+    "Working appearance proxies are not validated clinical oil/dry/sagging measurements"
+  ],
+  "security": "Previous production high finding fixed at preserved baseline; previous 7 high and 2 moderate development findings remain open; no new security campaign/dependency changes",
+  "detectors": {
+    "yolox": {
+      "complete": true,
+      "finiteEpochCap": 4,
+      "stop": "finite-epoch-cap",
+      "fullBackboneConverged": false,
+      "independentFinalAvailable": false,
+      "productAccepted": false,
+      "requiresNewIndependentSources": true,
+      "totalSeconds": 2671.562000000151,
+      "history": [
+        {
+          "epoch": 1,
+          "loss": 5.705233496886033,
+          "componentMeans": {
+            "iouWeighted": 3.0949480872887833,
+            "objectness": 1.940413930782905,
+            "classification": 0.6698715024269544,
+            "l1": 0.0,
+            "foregroundPerGT": 3.387604000445686
+          },
+          "development": {
+            "precision": 0.4958801498127341,
+            "recall": 0.3551502145922747,
+            "F1": 0.41387933729290405,
+            "truePositive": 662,
+            "falsePositive": 673,
+            "falseNegative": 1202,
+            "annotationRelativeFalseCandidatesPerPhoto": 7.159574468085107,
+            "images": 94,
+            "sourceGroups": 83,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.30193868881453184,
+            "mAP50to95": 0.077815588974072,
+            "threshold": 0.25
+          },
+          "totalSeconds": 1489.1870000000345
+        },
+        {
+          "epoch": 2,
+          "loss": 5.645417859004094,
+          "componentMeans": {
+            "iouWeighted": 3.081476064828726,
+            "objectness": 1.8950734991293687,
+            "classification": 0.6688682847298109,
+            "l1": 0.0,
+            "foregroundPerGT": 3.4224937369998267
+          },
+          "development": {
+            "precision": 0.503982621288921,
+            "recall": 0.37339055793991416,
+            "F1": 0.42896764252696457,
+            "truePositive": 696,
+            "falsePositive": 685,
+            "falseNegative": 1168,
+            "annotationRelativeFalseCandidatesPerPhoto": 7.287234042553192,
+            "images": 94,
+            "sourceGroups": 83,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.3184444554733077,
+            "mAP50to95": 0.08052712598063513,
+            "threshold": 0.25
+          },
+          "totalSeconds": 1905.25
+        },
+        {
+          "epoch": 3,
+          "loss": 5.637757000556359,
+          "componentMeans": {
+            "iouWeighted": 3.083208081355462,
+            "objectness": 1.8854610530229716,
+            "classification": 0.6690878648024339,
+            "l1": 0.0,
+            "foregroundPerGT": 3.4278324364390222
+          },
+          "development": {
+            "precision": 0.5003673769287289,
+            "recall": 0.365343347639485,
+            "F1": 0.42232558139534887,
+            "truePositive": 681,
+            "falsePositive": 680,
+            "falseNegative": 1183,
+            "annotationRelativeFalseCandidatesPerPhoto": 7.23404255319149,
+            "images": 94,
+            "sourceGroups": 83,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.3110478780250642,
+            "mAP50to95": 0.07992243311307672,
+            "threshold": 0.25
+          },
+          "totalSeconds": 2257.078000000096
+        },
+        {
+          "epoch": 4,
+          "loss": 5.643306886232816,
+          "componentMeans": {
+            "iouWeighted": 3.0841003940655636,
+            "objectness": 1.8899764698285324,
+            "classification": 0.6692300393031194,
+            "l1": 0.0,
+            "foregroundPerGT": 3.4146172259661363
+          },
+          "development": {
+            "precision": 0.4908321579689704,
+            "recall": 0.37339055793991416,
+            "F1": 0.4241316270566728,
+            "truePositive": 696,
+            "falsePositive": 722,
+            "falseNegative": 1168,
+            "annotationRelativeFalseCandidatesPerPhoto": 7.680851063829787,
+            "images": 94,
+            "sourceGroups": 83,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.30867185263553604,
+            "mAP50to95": 0.08065238541416345,
+            "threshold": 0.25
+          },
+          "totalSeconds": 2670.96800000011
+        }
+      ]
+    },
+    "fasterrcnn": {
+      "complete": true,
+      "finiteEpochCap": 2,
+      "stop": "finite-epoch-cap",
+      "fullBackboneConverged": false,
+      "independentFinalAvailable": false,
+      "productAccepted": false,
+      "requiresNewIndependentSources": true,
+      "totalSeconds": 4596.079000000027,
+      "completionBudgetPlan": {
+        "initialTotalSeconds": 3600,
+        "totalLimitSeconds": 4800,
+        "additionalMaximumSeconds": 1200,
+        "finiteEpochCap": 2,
+        "reason": "Measured preparation consumed most initial wall budget; reserve bounded time for completing predictor validation, preserving optimizer/RNG/cursor. No additional full-backbone epochs or acceptance change."
+      },
+      "totalWallSecondsLimit": 4800,
+      "history": [
+        {
+          "epoch": 1,
+          "loss": 0.1545733452702944,
+          "componentMeans": {
+            "classification": 0.14349173937852566,
+            "boxRegression": 0.011081606171165522
+          },
+          "development": {
+            "precision": 0.0034698126301179735,
+            "recall": 0.002682403433476395,
+            "F1": 0.0030257186081694403,
+            "truePositive": 5,
+            "falsePositive": 1436,
+            "falseNegative": 1859,
+            "annotationRelativeFalseCandidatesPerPhoto": 15.27659574468085,
+            "images": 94,
+            "sourceGroups": 83,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.00165016501650165,
+            "mAP50to95": 0.00019177593435019174,
+            "threshold": 0.1
+          },
+          "totalSeconds": 4021.969000000041
+        },
+        {
+          "epoch": 2,
+          "loss": 0.08768379837274551,
+          "componentMeans": {
+            "classification": 0.08372362587027825,
+            "boxRegression": 0.003960172345306581
+          },
+          "development": {
+            "precision": 0.022988505747126436,
+            "recall": 0.001072961373390558,
+            "F1": 0.0020502306509482316,
+            "truePositive": 2,
+            "falsePositive": 85,
+            "falseNegative": 1862,
+            "annotationRelativeFalseCandidatesPerPhoto": 0.9042553191489362,
+            "images": 94,
+            "sourceGroups": 83,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.0024752475247524753,
+            "mAP50to95": 0.00027798933739527803,
+            "threshold": 0.4
+          },
+          "totalSeconds": 4595.189000000013
+        }
+      ]
+    }
+  }
+}
