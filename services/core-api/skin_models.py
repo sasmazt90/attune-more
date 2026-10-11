@@ -44,8 +44,9 @@ def infer_hosted_type(crop_bgr):
     """Optional, authorized hosted 4-class skin type adapter (e.g. Roboflow inference API).
     Only called if local accepted ONNX weights are not present and ATTUNE_ROBOFLOW_API_KEY is configured.
     Never sends full unapproved photos; operates on cropped face patch.
+    Uses documented base64 payload and Authorization header (never leaks credentials in URL or logs).
     """
-    import os, urllib.request, urllib.error
+    import os, urllib.request, urllib.error, base64, math
     api_key = os.environ.get('ATTUNE_ROBOFLOW_API_KEY') or os.environ.get('ROBOFLOW_API_KEY')
     if not api_key:
         return None
@@ -53,40 +54,86 @@ def infer_hosted_type(crop_bgr):
     ok, buf = cv2.imencode('.jpg', crop_bgr, [int(cv2.IMWRITE_JPEG_QUALITY), 92])
     if not ok:
         return None
-    # Endpoints supported: classify.roboflow.com or serverless inference endpoint
-    url = f"https://classify.roboflow.com/{model_id}?api_key={api_key}"
+    b64_image = base64.b64encode(buf.tobytes()).decode('ascii')
+    
+    # Official classification hosted endpoint using base64 payload
+    url = f"https://classify.roboflow.com/{model_id}"
+    req_body = b64_image.encode('ascii')
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': f'Bearer {api_key}'
+    }
+    
     try:
-        req = urllib.request.Request(url, data=buf.tobytes(), headers={'Content-Type': 'application/x-www-form-urlencoded'})
+        req = urllib.request.Request(url, data=req_body, headers=headers)
         start = time.perf_counter()
         with urllib.request.urlopen(req, timeout=4.0) as resp:
-            data = json.loads(resp.read().decode('utf-8'))
+            raw_data = resp.read().decode('utf-8')
+            data = json.loads(raw_data)
         elapsed = (time.perf_counter() - start) * 1000
-        # Roboflow classification returns predictions: [{'class': 'normal', 'confidence': 0.85}, ...]
-        preds = data.get('predictions', [])
-        if not preds and 'top' in data:
-            # alternative format: {'top': 'normal', 'confidence': 0.85, 'predictions': {'normal': 0.85, ...}}
-            top_class = data.get('top', '').lower()
-            conf = float(data.get('confidence', 0.0))
-            if top_class in CLASSES:
-                return dict(value=top_class, quality='valid' if conf >= 0.5 else 'insufficient', confidence=conf,
-                            methodVersion=f'hosted-roboflow-{model_id}', modelHash=hashlib.sha256(model_id.encode()).hexdigest(),
-                            limitationCode=None if conf >= 0.5 else 'LOW_MODEL_SUPPORT', inferenceMs=elapsed)
-        best_class = None; best_conf = -1.0
-        for p in preds:
-            c = str(p.get('class', '')).lower()
-            conf = float(p.get('confidence', 0.0))
-            if c in CLASSES and conf > best_conf:
-                best_class = c; best_conf = conf
-        if best_class is not None:
-            valid = best_conf >= 0.5
-            return dict(value=best_class if valid else None, quality='valid' if valid else 'insufficient',
-                        confidence=best_conf, methodVersion=f'hosted-roboflow-{model_id}',
-                        modelHash=hashlib.sha256(model_id.encode()).hexdigest(),
-                        limitationCode=None if valid else 'LOW_MODEL_SUPPORT', inferenceMs=elapsed)
+        
+        # Robust response parser:
+        # 1. Predictions as list of dicts: [{'class': '...', 'confidence': ...}]
+        # 2. Predictions as dictionary mapping class -> confidence: {'normal': 0.85, ...}
+        # 3. Top / confidence top-level keys
+        candidates = {}
+        preds = data.get('predictions')
+        if isinstance(preds, list):
+            for p in preds:
+                if isinstance(p, dict):
+                    c = str(p.get('class', '')).lower()
+                    conf = p.get('confidence')
+                    if c in CLASSES and conf is not None:
+                        try:
+                            f_conf = float(conf)
+                            if math.isfinite(f_conf) and 0.0 <= f_conf <= 1.0:
+                                candidates[c] = f_conf
+                        except (TypeError, ValueError):
+                            pass
+        elif isinstance(preds, dict):
+            for c, conf in preds.items():
+                c_clean = str(c).lower()
+                if c_clean in CLASSES and conf is not None:
+                    try:
+                        f_conf = float(conf)
+                        if math.isfinite(f_conf) and 0.0 <= f_conf <= 1.0:
+                            candidates[c_clean] = f_conf
+                    except (TypeError, ValueError):
+                        pass
+        
+        # Check top-level 'top' and 'confidence'
+        top_c = str(data.get('top', '')).lower()
+        top_conf = data.get('confidence')
+        if top_c in CLASSES and top_conf is not None:
+            try:
+                f_top_conf = float(top_conf)
+                if math.isfinite(f_top_conf) and 0.0 <= f_top_conf <= 1.0:
+                    candidates.setdefault(top_c, f_top_conf)
+            except (TypeError, ValueError):
+                pass
+        
+        if not candidates:
+            return None
+        
+        # Find single-label top class
+        best_class = max(candidates, key=candidates.get)
+        best_conf = candidates[best_class]
+        
+        # Quality threshold: requires confidence >= 0.50
+        valid = best_conf >= 0.50
+        return dict(
+            value=best_class if valid else None,
+            quality='valid' if valid else 'insufficient',
+            confidence=best_conf,
+            methodVersion=f'hosted-roboflow-{model_id}',
+            providerModelId=model_id,
+            modelHash=None,  # Hosted weights SHA cannot be known; never fake weight hash
+            limitationCode=None if valid else 'LOW_MODEL_SUPPORT',
+            inferenceMs=elapsed
+        )
     except Exception:
         # Network, timeout or quota error never leaks credentials or crashes
         return None
-    return None
 
 def infer(bgr,points,quality_valid):
     empty=dict(skinType=None,degrees={},models={},sourceTransform=None)
@@ -117,7 +164,13 @@ def infer(bgr,points,quality_valid):
             hosted = infer_hosted_type(crop_bgr)
             if hosted:
                 elapsed = hosted.pop('inferenceMs', 0.0)
-                result['models']['type'] = dict(modelHash=hosted['modelHash'], modelVersion=hosted['methodVersion'], loadMs=0.0, inferenceMs=elapsed)
+                result['models']['type'] = dict(
+                    modelHash=hosted.get('modelHash'),
+                    modelVersion=hosted.get('methodVersion'),
+                    providerModelId=hosted.get('providerModelId'),
+                    loadMs=0.0,
+                    inferenceMs=elapsed
+                )
                 result['skinType'] = hosted
             else:
                 # Retain explicit unavailable status per contract

@@ -160,8 +160,15 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
         if profile is None:continue
         q=profile;local_exposure=exposure(p[indices],offsets)
         # Joint support: no contour/paired-edge => no fold-derived sag/bag signal.
-        joint=float(np.mean(q['values']*np.sqrt(q['edgeValues'])))*min(1,q['continuity']/.6)
-        if boundary is not None:joint*=np.sqrt(boundary['value'])
+        # Normalize confirmation factors (edge and boundary) against their expected full-support reference scales
+        # so confirmation gates don't over-dampen visible anatomical folds into sub-percent fractions (< 0.5% => 0% UI).
+        edge_gate = np.minimum(1.0, np.sqrt(q['edgeValues'] / 0.04))
+        continuity_gate = min(1.0, q['continuity'] / 0.6)
+        if boundary is not None:
+            boundary_gate = min(1.0, np.sqrt(max(0.0, boundary['value']) / 0.08))
+            joint = float(np.mean(q['values'] * edge_gate)) * continuity_gate * boundary_gate
+        else:
+            joint = float(np.mean(q['values'] * np.sqrt(q['edgeValues']))) * continuity_gate
         limitation=None
         if local_exposure['clippedFraction']>.03 or boundary_exposure is not None and boundary_exposure['clippedFraction']>.03:limitation='GLARE_OR_EXPOSURE'
         elif q['coverage']<.55 or boundary is not None and boundary['coverage']<.55:limitation='ANATOMICAL_BAND_NOT_VISIBLE'
@@ -172,8 +179,10 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
             pts=q['tracked']
             # Only measured source coordinates, never synthesize hidden skin surfaces.
             line=[]
-            local_values=q['values']*np.sqrt(q['edgeValues'])*min(1,q['continuity']/.6)
-            if boundary is not None:local_values*=np.sqrt(boundary['value'])
+            if boundary is not None:
+                local_values = q['values'] * edge_gate * continuity_gate * boundary_gate
+            else:
+                local_values = q['values'] * np.sqrt(q['edgeValues']) * continuity_gate
             for xy,supported,intensity in zip(pts,q['support'],local_values):
                 x,y=np.rint(xy).astype(int)
                 if supported and 0<=x<gray.shape[1] and 0<=y<gray.shape[0] and eligible[y,x]:

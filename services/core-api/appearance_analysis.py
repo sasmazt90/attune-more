@@ -456,7 +456,8 @@ def analyze_skin(payload, include_research_features=False):
             item['normalizationVersion']=NORMALIZATION[item['id']]
             if item['id']=='bags' and trained_bags and trained_bags.get('valid') and item['modelHash']==trained_bags['modelHash']:item['normalizationVersion']='predicted-lower-lid-mask-area-v1'
         if not include_research_features:
-            learned=infer_skin_models(bgr,points,result['general']['measurements'][0]['quality']=='valid' and face_pixels>=180)
+            type_capture_valid = payload.get('qualityValid', False) and face_pixels >= 180 and abs(conditions.get('yaw', 99)) <= 0.65
+            learned = infer_skin_models(bgr, points, type_capture_valid)
             if learned['skinType']:result['general']['skinType']=learned['skinType']
             result['general']['modelInference']=learned.get('models',{})
             result['general']['modelInputTransform']=learned.get('sourceTransform')
