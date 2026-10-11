@@ -30,3 +30,10 @@ An initial supervisor attempt stopped at the ownership guard because Windows PID
 Production model hashes and BUILD_ID `sUqjoY1oyQXF6lvSRvtff` were unchanged; the normal shortcut remains present. The product had naturally closed at 18:14 and was not relaunched solely for storage checks. UI, voices, user records and other approved health modules were not edited.
 
 Focused verification: exact checkpoint restoration, all active data paths present on C:, cloud full-byte hashes, native removal scope guards, current/last-two/selected/best/in-flight archive protections, storage reserve/pause-marker boundary checks, Python compilation and Git whitespace checks. No unrelated product test campaign was run. Detailed private operational receipts are under `.runtime/storage-20261011/`, including `archive-manifest.json`, `archive-manifest-cloud-proof.json`, `storage-status.json` and `monitor-procedure.md`. Training/evaluation/export/product acceptance remain separate ongoing work.
+
+
+## Resumed mask validation correction
+
+The negative mask ledger also contains 51 complete development validation tiles for `dry`, while the frozen model has seven output channels and no dry channel. The validation loop previously indexed this unsupported channel and failed at the first resumed epoch boundary. It now selects only rows belonging to the existing model targets. All 241 supported validation rows, their labels, source groups, tensor contents and splits remain unchanged; the original continuation validation pool is unchanged as well. Dry coverage remains pending and cannot be reported as passing. Model architecture, training sampling, protocol hashes, acceptance thresholds and final-test gates are unchanged.
+
+The failed process retained its previous complete checkpoint. The other trainer was paused through its native transactional checkpoint path so the existing two-phase supervisor could restart without duplicate ownership. Exact model, optimizer, scheduler and RNG loading is checked before continuation. Development validation and acceptance still need to finish; no candidate is promoted by this repair.
