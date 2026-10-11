@@ -88,10 +88,71 @@ def test_skin_type_hosted_adapter_contracts():
             res = skin_models.infer_hosted_type(crop)
             assert res is None
 
+def test_skin_type_parser_edge_cases_and_multilabel():
+    # 1. Nested dictionary predictions format: {'dry': {'confidence': 0.84}, 'normal': {'confidence': 0.16}}
+    nested_data = {
+        'predictions': {
+            'dry': {'confidence': 0.84},
+            'normal': {'confidence': 0.16}
+        }
+    }
+    parsed = skin_models.parse_hosted_type_response(nested_data, 'test-model', 45)
+    assert parsed is not None
+    assert parsed['value'] == 'dry'
+    assert parsed['quality'] == 'valid'
+    assert parsed['confidence'] == 0.84
+    assert parsed['limitationCode'] is None
+
+    # 2. Top and predictions contradiction (top='normal' but predictions max is 'oily') -> must return None
+    contradicting_data = {
+        'top': 'normal',
+        'confidence': 0.88,
+        'predictions': [
+            {'class': 'oily', 'confidence': 0.90},
+            {'class': 'normal', 'confidence': 0.10}
+        ]
+    }
+    assert skin_models.parse_hosted_type_response(contradicting_data, 'test-model', 30) is None
+
+    # 3. Top confidence contradicts predictions confidence by > 0.05 -> must return None
+    contradicting_conf = {
+        'top': 'oily',
+        'confidence': 0.55,
+        'predictions': [
+            {'class': 'oily', 'confidence': 0.90},
+            {'class': 'normal', 'confidence': 0.10}
+        ]
+    }
+    assert skin_models.parse_hosted_type_response(contradicting_conf, 'test-model', 30) is None
+
+    # 4. Multi-label response (multi_label=True or sum > 1.35 or multiple high confidences) -> MULTI_LABEL_CONFLICT
+    multilabel_data_flag = {
+        'multi_label': True,
+        'predictions': [
+            {'class': 'dry', 'confidence': 0.85},
+            {'class': 'oily', 'confidence': 0.80}
+        ]
+    }
+    parsed_multi = skin_models.parse_hosted_type_response(multilabel_data_flag, 'test-model', 25)
+    assert parsed_multi is not None
+    assert parsed_multi['value'] is None
+    assert parsed_multi['quality'] == 'insufficient'
+    assert parsed_multi['limitationCode'] == 'MULTI_LABEL_CONFLICT'
+
+    multilabel_data_sum = {
+        'predictions': {
+            'dry': 0.82,
+            'oily': 0.79
+        }
+    }
+    parsed_sum = skin_models.parse_hosted_type_response(multilabel_data_sum, 'test-model', 25)
+    assert parsed_sum is not None
+    assert parsed_sum['value'] is None
+    assert parsed_sum['limitationCode'] == 'MULTI_LABEL_CONFLICT'
+
 def test_dry_appearance_benchmark_and_ringing_protection():
-    # Synthetic flat skin
+    # 1. Synthetic flat skin JPEG ringing test
     flat = np.full((120, 120, 3), 160, np.uint8)
-    # JPEG compression ringing test
     for q in (40, 75, 95):
         ok, enc = cv2.imencode('.jpg', flat, [int(cv2.IMWRITE_JPEG_QUALITY), q])
         assert ok
@@ -102,6 +163,31 @@ def test_dry_appearance_benchmark_and_ringing_protection():
         flakes = np.clip((high - .025) / .10, 0, 1) * np.clip((broad - .018) / .10, 0, 1)
         # Ringing alone must produce 0 flakes on smooth skin
         assert np.mean(flakes > 0.04) == 0.0
+
+    # 2. Synthetic skin with realistic natural edges and gradient texture (not flat color)
+    h, w = 200, 200
+    img = np.full((h, w, 3), 160, np.uint8)
+    img[:, 100:] = 120  # Sharp anatomical step / boundary
+    img = cv2.GaussianBlur(img, (5, 5), 1.0)
+    np.random.seed(42)
+    fine_texture = np.random.normal(0, 3, (h, w)).astype(np.int16)
+    textured = np.clip(img.astype(np.int16) + fine_texture[:, :, None], 0, 255).astype(np.uint8)
+
+    for q in (40, 75, 95):
+        ok, enc = cv2.imencode('.jpg', textured, [int(cv2.IMWRITE_JPEG_QUALITY), q])
+        assert ok
+        dec = cv2.imdecode(enc, cv2.IMREAD_COLOR)
+        gray8 = cv2.cvtColor(dec, cv2.COLOR_BGR2GRAY)
+        gray = gray8.astype(np.float32) / 255.0
+        high = gray - cv2.GaussianBlur(gray, (0, 0), 1.2)
+        broad = cv2.GaussianBlur(gray, (0, 0), 0.7) - cv2.GaussianBlur(gray, (0, 0), 2.3)
+        flakes = np.clip((high - 0.025) / 0.10, 0, 1) * np.clip((broad - 0.018) / 0.10, 0, 1)
+        dark_ringing = cv2.dilate((cv2.morphologyEx(gray8, cv2.MORPH_BLACKHAT, np.ones((7,7), np.uint8)) > 35).astype(np.uint8), np.ones((7,7), np.uint8)) > 0
+        valid = np.ones(gray.shape, bool)
+        regional_flakes = A.eligible_flake_components(flakes, valid & ~dark_ringing)
+        # Ringing filter + eligible flake component size gating must strictly yield 0% false positive flaking
+        dry_score = float(np.mean(regional_flakes > 0.04) * 100)
+        assert dry_score == 0.0
 
 def test_sag_expression_rejection_and_isolation():
     from test_local_appearance_health import skin_input

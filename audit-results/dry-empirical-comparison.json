@@ -1,0 +1,502 @@
+{
+  "benchmarkScope": "negative-dry-presence expanded validation set (150 total patches, 41 validation patches, 26 unique validation groups)",
+  "groupsTotal": 26,
+  "positiveGroups": 7,
+  "negativeGroups": 19,
+  "textureNet": {
+    "model": "audit-results/skin-expanded-20261011/negative-dry-presence/candidate.onnx",
+    "weightsSHA256": "9cea44f4c4e9b948657331467c5f49ff3e5d8789e5b52a5000370f793f9dc852",
+    "thresholdProb": 0.5,
+    "confusionMatrix": [
+      [
+        18,
+        1
+      ],
+      [
+        2,
+        5
+      ]
+    ],
+    "precision": 0.8333333333333334,
+    "recall": 0.7142857142857143,
+    "F1": 0.7692307692307692,
+    "FPR": 0.05263157894736842,
+    "errorGroups": [
+      {
+        "group": "263deee8d1bba1cfe4ac6172f8abc2d37f9bb9a7439085954b97b680301b8032",
+        "label": 1,
+        "meanProb": 0.4140072564284007,
+        "reason": "false_negative"
+      },
+      {
+        "group": "315284d89d071a2c43b878617ce59db2a411484c0d6c0f3faf765a1502469ce0",
+        "label": 1,
+        "meanProb": 0.3749118149280548,
+        "reason": "false_negative"
+      },
+      {
+        "group": "224d754fa19c48c9b8d57449595a406792eed7c439b35fdd23da950d21373226",
+        "label": 0,
+        "meanProb": 0.7792229056358337,
+        "reason": "false_positive"
+      }
+    ]
+  },
+  "productionAnalytic": {
+    "method": "appearance_analysis.eligible_flake_components (multi-scale DoG + LBP + black-hat ringing dilation)",
+    "thresholdAreaPercent": 0.05,
+    "confusionMatrix": [
+      [
+        16,
+        3
+      ],
+      [
+        1,
+        6
+      ]
+    ],
+    "precision": 0.6666666666666666,
+    "recall": 0.8571428571428571,
+    "F1": 0.75,
+    "FPR": 0.15789473684210525,
+    "errorGroups": [
+      {
+        "group": "1da386f72a0961f5c7ddbe421b6ea33a5d22b7261a3826ed1c4b98fd3544d576",
+        "label": 1,
+        "meanScore": 0.0,
+        "reason": "false_negative"
+      },
+      {
+        "group": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "label": 0,
+        "meanScore": 0.1220703125,
+        "reason": "false_positive"
+      },
+      {
+        "group": "224d754fa19c48c9b8d57449595a406792eed7c439b35fdd23da950d21373226",
+        "label": 0,
+        "meanScore": 0.0732421875,
+        "reason": "false_positive"
+      },
+      {
+        "group": "4356a5dca83db9002a8b9201cd0ff798a86202324952fd8560d9e7e7e2ac6441",
+        "label": 0,
+        "meanScore": 0.0732421875,
+        "reason": "false_positive"
+      }
+    ]
+  },
+  "unreadableOrUnmeasurableSamples": [],
+  "validationPatches": [
+    {
+      "index": 15,
+      "sha256": "8172863a759a1209c0cadd8eee26e92af8bc0a1143d4afd79ae3550a4118581e",
+      "group": "73860d6db3098422abbe0babe56d8f09d84bef986d04aa3cbbd43fce51d50519",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.5904792547225952,
+      "analyticScorePercent": 0.634765625
+    },
+    {
+      "index": 23,
+      "sha256": "6bf550aa4a54457795be93091dc81be84db2b6064d7af38a9d6fd885677d2283",
+      "group": "263deee8d1bba1cfe4ac6172f8abc2d37f9bb9a7439085954b97b680301b8032",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.736014723777771,
+      "analyticScorePercent": 0.2197265625
+    },
+    {
+      "index": 24,
+      "sha256": "6bf550aa4a54457795be93091dc81be84db2b6064d7af38a9d6fd885677d2283",
+      "group": "263deee8d1bba1cfe4ac6172f8abc2d37f9bb9a7439085954b97b680301b8032",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.24017629027366638,
+      "analyticScorePercent": 0.0732421875
+    },
+    {
+      "index": 25,
+      "sha256": "6bf550aa4a54457795be93091dc81be84db2b6064d7af38a9d6fd885677d2283",
+      "group": "263deee8d1bba1cfe4ac6172f8abc2d37f9bb9a7439085954b97b680301b8032",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.5134797096252441,
+      "analyticScorePercent": 0.732421875
+    },
+    {
+      "index": 26,
+      "sha256": "6bf550aa4a54457795be93091dc81be84db2b6064d7af38a9d6fd885677d2283",
+      "group": "263deee8d1bba1cfe4ac6172f8abc2d37f9bb9a7439085954b97b680301b8032",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.34788778424263,
+      "analyticScorePercent": 0.4638671875
+    },
+    {
+      "index": 27,
+      "sha256": "6bf550aa4a54457795be93091dc81be84db2b6064d7af38a9d6fd885677d2283",
+      "group": "263deee8d1bba1cfe4ac6172f8abc2d37f9bb9a7439085954b97b680301b8032",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.26559847593307495,
+      "analyticScorePercent": 0.0732421875
+    },
+    {
+      "index": 28,
+      "sha256": "6bf550aa4a54457795be93091dc81be84db2b6064d7af38a9d6fd885677d2283",
+      "group": "263deee8d1bba1cfe4ac6172f8abc2d37f9bb9a7439085954b97b680301b8032",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.3808865547180176,
+      "analyticScorePercent": 0.3173828125
+    },
+    {
+      "index": 31,
+      "sha256": "dab7627e24df712f71dd879be4a6c580a091cde90e32ebaea4e1ad4892ffe9a7",
+      "group": "8073e31700750799b1dfbdb7adbe84cd4b578b699351df2d44223d8a19f5a67c",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.44414040446281433,
+      "analyticScorePercent": 0.87890625
+    },
+    {
+      "index": 32,
+      "sha256": "dab7627e24df712f71dd879be4a6c580a091cde90e32ebaea4e1ad4892ffe9a7",
+      "group": "8073e31700750799b1dfbdb7adbe84cd4b578b699351df2d44223d8a19f5a67c",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.5570483803749084,
+      "analyticScorePercent": 0.732421875
+    },
+    {
+      "index": 33,
+      "sha256": "dab7627e24df712f71dd879be4a6c580a091cde90e32ebaea4e1ad4892ffe9a7",
+      "group": "8073e31700750799b1dfbdb7adbe84cd4b578b699351df2d44223d8a19f5a67c",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.6501340866088867,
+      "analyticScorePercent": 0.4638671875
+    },
+    {
+      "index": 34,
+      "sha256": "35a97497768ceb1eb9c5e8a7ddfcbf66a3e1e15c164d4d6b5e01c875d5715c0c",
+      "group": "35a97497768ceb1eb9c5e8a7ddfcbf66a3e1e15c164d4d6b5e01c875d5715c0c",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.6424540877342224,
+      "analyticScorePercent": 1.025390625
+    },
+    {
+      "index": 35,
+      "sha256": "35a97497768ceb1eb9c5e8a7ddfcbf66a3e1e15c164d4d6b5e01c875d5715c0c",
+      "group": "35a97497768ceb1eb9c5e8a7ddfcbf66a3e1e15c164d4d6b5e01c875d5715c0c",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.7286462187767029,
+      "analyticScorePercent": 0.4150390625
+    },
+    {
+      "index": 36,
+      "sha256": "35a97497768ceb1eb9c5e8a7ddfcbf66a3e1e15c164d4d6b5e01c875d5715c0c",
+      "group": "35a97497768ceb1eb9c5e8a7ddfcbf66a3e1e15c164d4d6b5e01c875d5715c0c",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.758797824382782,
+      "analyticScorePercent": 0.1220703125
+    },
+    {
+      "index": 37,
+      "sha256": "35a97497768ceb1eb9c5e8a7ddfcbf66a3e1e15c164d4d6b5e01c875d5715c0c",
+      "group": "35a97497768ceb1eb9c5e8a7ddfcbf66a3e1e15c164d4d6b5e01c875d5715c0c",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.803702712059021,
+      "analyticScorePercent": 0.244140625
+    },
+    {
+      "index": 38,
+      "sha256": "315284d89d071a2c43b878617ce59db2a411484c0d6c0f3faf765a1502469ce0",
+      "group": "315284d89d071a2c43b878617ce59db2a411484c0d6c0f3faf765a1502469ce0",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.3749118149280548,
+      "analyticScorePercent": 0.3662109375
+    },
+    {
+      "index": 49,
+      "sha256": "3a1d48b890bb54d38bac640f48c04bb6825ba7ad260d9904e0231742ee80dc06",
+      "group": "3a1d48b890bb54d38bac640f48c04bb6825ba7ad260d9904e0231742ee80dc06",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.52541583776474,
+      "analyticScorePercent": 0.78125
+    },
+    {
+      "index": 50,
+      "sha256": "3a1d48b890bb54d38bac640f48c04bb6825ba7ad260d9904e0231742ee80dc06",
+      "group": "3a1d48b890bb54d38bac640f48c04bb6825ba7ad260d9904e0231742ee80dc06",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.5752801895141602,
+      "analyticScorePercent": 0.9521484375
+    },
+    {
+      "index": 51,
+      "sha256": "3a1d48b890bb54d38bac640f48c04bb6825ba7ad260d9904e0231742ee80dc06",
+      "group": "3a1d48b890bb54d38bac640f48c04bb6825ba7ad260d9904e0231742ee80dc06",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.4687638580799103,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 52,
+      "sha256": "fb752c9444a0ea02b59c5cfb2250b47aaf6901531094d640536e5753a31ef19a",
+      "group": "1da386f72a0961f5c7ddbe421b6ea33a5d22b7261a3826ed1c4b98fd3544d576",
+      "trueLabel": 1,
+      "source": "merve",
+      "labelOrigin": "reviewed source PUL box, weak texture presence only",
+      "textureNetProb": 0.6781427264213562,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 65,
+      "sha256": "188be4bffac44e14e52fc699b3e491c11e17704edd1344f574ce98c19e948c5c",
+      "group": "01f2b4b3fd4df1206accae8fbc800ee7f77fbf456a8a62dcfa77a1af68e615aa",
+      "trueLabel": 0,
+      "source": "v11",
+      "labelOrigin": "visually reviewed no-visible-flaking photo; local observed skin presence control, no pixel mask",
+      "textureNetProb": 0.4651636481285095,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 66,
+      "sha256": "1b5eea525120009a164fb020336a30389a44725a1235908ef2438058d328e1c2",
+      "group": "1b5eea525120009a164fb020336a30389a44725a1235908ef2438058d328e1c2",
+      "trueLabel": 0,
+      "source": "v11",
+      "labelOrigin": "visually reviewed no-visible-flaking photo; local observed skin presence control, no pixel mask",
+      "textureNetProb": 0.38509008288383484,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 67,
+      "sha256": "1b5eea525120009a164fb020336a30389a44725a1235908ef2438058d328e1c2",
+      "group": "1b5eea525120009a164fb020336a30389a44725a1235908ef2438058d328e1c2",
+      "trueLabel": 0,
+      "source": "v11",
+      "labelOrigin": "visually reviewed no-visible-flaking photo; local observed skin presence control, no pixel mask",
+      "textureNetProb": 0.21623164415359497,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 68,
+      "sha256": "234122275bf78b890e1dc6ed9ea4a2c98619c46aa289b80bea3f7dce807d7e9f",
+      "group": "234122275bf78b890e1dc6ed9ea4a2c98619c46aa289b80bea3f7dce807d7e9f",
+      "trueLabel": 0,
+      "source": "v11",
+      "labelOrigin": "visually reviewed no-visible-flaking photo; local observed skin presence control, no pixel mask",
+      "textureNetProb": 0.5333142876625061,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 69,
+      "sha256": "234122275bf78b890e1dc6ed9ea4a2c98619c46aa289b80bea3f7dce807d7e9f",
+      "group": "234122275bf78b890e1dc6ed9ea4a2c98619c46aa289b80bea3f7dce807d7e9f",
+      "trueLabel": 0,
+      "source": "v11",
+      "labelOrigin": "visually reviewed no-visible-flaking photo; local observed skin presence control, no pixel mask",
+      "textureNetProb": 0.40320903062820435,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 70,
+      "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+      "group": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+      "trueLabel": 0,
+      "source": "v11",
+      "labelOrigin": "visually reviewed no-visible-flaking photo; local observed skin presence control, no pixel mask",
+      "textureNetProb": 0.37816378474235535,
+      "analyticScorePercent": 0.244140625
+    },
+    {
+      "index": 71,
+      "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+      "group": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+      "trueLabel": 0,
+      "source": "v11",
+      "labelOrigin": "visually reviewed no-visible-flaking photo; local observed skin presence control, no pixel mask",
+      "textureNetProb": 0.30882924795150757,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 72,
+      "sha256": "3740a94a3d594e9425d59fc44d96709f7874a93406e4a9fda1a7a644ea8982b1",
+      "group": "224d754fa19c48c9b8d57449595a406792eed7c439b35fdd23da950d21373226",
+      "trueLabel": 0,
+      "source": "v11",
+      "labelOrigin": "visually reviewed no-visible-flaking photo; local observed skin presence control, no pixel mask",
+      "textureNetProb": 0.7792229056358337,
+      "analyticScorePercent": 0.0732421875
+    },
+    {
+      "index": 73,
+      "sha256": "37b8ce483584b53937799680c67640029d08a04295bc5da586228017d95ea87e",
+      "group": "37b8ce483584b53937799680c67640029d08a04295bc5da586228017d95ea87e",
+      "trueLabel": 0,
+      "source": "v11",
+      "labelOrigin": "visually reviewed no-visible-flaking photo; local observed skin presence control, no pixel mask",
+      "textureNetProb": 0.35895225405693054,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 75,
+      "sha256": "017ecce2be3f42fa78801ad17073f92fc94c5cd55b4b5de7cf4fcb6805a46f23",
+      "group": "017ecce2be3f42fa78801ad17073f92fc94c5cd55b4b5de7cf4fcb6805a46f23",
+      "trueLabel": 0,
+      "source": "smart",
+      "labelOrigin": "visually reviewed no-visible-flaking photo; local observed skin presence control, no pixel mask",
+      "textureNetProb": 0.36070773005485535,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 82,
+      "sha256": "140e8b2f62c8b9eda3ff35248e0a23e985d40772d51f94ad412ea2bdc71b9a3e",
+      "group": "140e8b2f62c8b9eda3ff35248e0a23e985d40772d51f94ad412ea2bdc71b9a3e",
+      "trueLabel": 0,
+      "source": "smart",
+      "labelOrigin": "visually reviewed no-visible-flaking photo; local observed skin presence control, no pixel mask",
+      "textureNetProb": 0.30447351932525635,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 83,
+      "sha256": "159fb3f0a0faab1809b9087e63f688d67dc16028d3c1b4c72313e5dd71d1694d",
+      "group": "159fb3f0a0faab1809b9087e63f688d67dc16028d3c1b4c72313e5dd71d1694d",
+      "trueLabel": 0,
+      "source": "smart",
+      "labelOrigin": "visually reviewed no-visible-flaking photo; local observed skin presence control, no pixel mask",
+      "textureNetProb": 0.15636005997657776,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 84,
+      "sha256": "1aaba5c6a61aa4c29cc8eb72def8ea5513c4d0be0b7dd53270d36a064a15d0f2",
+      "group": "1aaba5c6a61aa4c29cc8eb72def8ea5513c4d0be0b7dd53270d36a064a15d0f2",
+      "trueLabel": 0,
+      "source": "smart",
+      "labelOrigin": "visually reviewed no-visible-flaking photo; local observed skin presence control, no pixel mask",
+      "textureNetProb": 0.16579018533229828,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 88,
+      "sha256": "04ba76757a9c9466e1e9aab48d2fe5fe56a0e98269f088deec7d835a595e984a",
+      "group": "04ba76757a9c9466e1e9aab48d2fe5fe56a0e98269f088deec7d835a595e984a",
+      "trueLabel": 0,
+      "source": "clean3",
+      "labelOrigin": "visually reviewed no-visible-flaking photo; local observed skin presence control, no pixel mask",
+      "textureNetProb": 0.40521544218063354,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 89,
+      "sha256": "07457e3b17d21ae379ed03844a3e8af8ebcf919cb583c2db15518d0322ebcf59",
+      "group": "07457e3b17d21ae379ed03844a3e8af8ebcf919cb583c2db15518d0322ebcf59",
+      "trueLabel": 0,
+      "source": "clean3",
+      "labelOrigin": "visually reviewed no-visible-flaking photo; local observed skin presence control, no pixel mask",
+      "textureNetProb": 0.16836784780025482,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 94,
+      "sha256": "00291df8f7ccb0adb8c7195277c63523f45a4e06651ed7ceadfc6a82d79b9fe7",
+      "group": "00291df8f7ccb0adb8c7195277c63523f45a4e06651ed7ceadfc6a82d79b9fe7",
+      "trueLabel": 0,
+      "source": "csv",
+      "labelOrigin": "visually reviewed no-visible-flaking photo; local observed skin presence control, no pixel mask",
+      "textureNetProb": 0.4490845799446106,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 114,
+      "sha256": "4356a5dca83db9002a8b9201cd0ff798a86202324952fd8560d9e7e7e2ac6441",
+      "group": "4356a5dca83db9002a8b9201cd0ff798a86202324952fd8560d9e7e7e2ac6441",
+      "trueLabel": 0,
+      "source": "old-skin",
+      "labelOrigin": "hash-bound visually reviewed no-visible-flaking natural photo / observed skin ROI; presence only",
+      "textureNetProb": 0.27097874879837036,
+      "analyticScorePercent": 0.0732421875
+    },
+    {
+      "index": 116,
+      "sha256": "5bd42346304d791a394f98717ae1b38614688cead8dbb9ac2e09cc4ecf6c0905",
+      "group": "027e2f34cdc7aab9a3f2b39804f91728b32c1452a3317da5342713ce62c5f40c",
+      "trueLabel": 0,
+      "source": "old-skin",
+      "labelOrigin": "hash-bound visually reviewed no-visible-flaking natural photo / observed skin ROI; presence only",
+      "textureNetProb": 0.3528851270675659,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 118,
+      "sha256": "beda02904d704cba3e6f417892442a8c2fa1650f765a761957c3285a4d55cbf5",
+      "group": "beda02904d704cba3e6f417892442a8c2fa1650f765a761957c3285a4d55cbf5",
+      "trueLabel": 0,
+      "source": "old-skin",
+      "labelOrigin": "hash-bound visually reviewed no-visible-flaking natural photo / observed skin ROI; presence only",
+      "textureNetProb": 0.49235931038856506,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 122,
+      "sha256": "f1f899d456ed64c60722d8b25c318a581fc8ed5dae05c59c05605713a3e8d441",
+      "group": "f1f899d456ed64c60722d8b25c318a581fc8ed5dae05c59c05605713a3e8d441",
+      "trueLabel": 0,
+      "source": "old-eye",
+      "labelOrigin": "hash-bound visually reviewed no-visible-flaking natural photo / observed skin ROI; presence only",
+      "textureNetProb": 0.23344631493091583,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 131,
+      "sha256": "25363c622980ae784fea00dcb6d66a32e827bd77a38690fb1cf51d8a9b2a49ac",
+      "group": "25363c622980ae784fea00dcb6d66a32e827bd77a38690fb1cf51d8a9b2a49ac",
+      "trueLabel": 0,
+      "source": "old-eye",
+      "labelOrigin": "hash-bound visually reviewed no-visible-flaking natural photo / observed skin ROI; presence only",
+      "textureNetProb": 0.17733895778656006,
+      "analyticScorePercent": 0.0
+    },
+    {
+      "index": 148,
+      "sha256": "007451aeb7c7553179fb55771c0c284a91f3fd83a23f2d498c01391a0052015d",
+      "group": "007451aeb7c7553179fb55771c0c284a91f3fd83a23f2d498c01391a0052015d",
+      "trueLabel": 0,
+      "source": "old-eye",
+      "labelOrigin": "hash-bound visually reviewed no-visible-flaking natural photo / observed skin ROI; presence only",
+      "textureNetProb": 0.19669555127620697,
+      "analyticScorePercent": 0.0
+    }
+  ]
+}

@@ -40,13 +40,125 @@ def load():
         start=time.perf_counter();session=ort.InferenceSession(str(path),sess_options=options,providers=['CPUExecutionProvider']);sessions[task]={'session':session,'loadMs':(time.perf_counter()-start)*1000,'metadata':m}
     return {'manifest':manifest,'sessions':sessions}
 
+def parse_hosted_type_response(data, model_id, elapsed=0.0):
+    """Robust, tested parser for Roboflow classification responses.
+    Handles:
+    - predictions as list of dicts: [{'class': 'dry', 'confidence': 0.84}, ...]
+    - predictions as flat dict: {'dry': 0.84, 'normal': 0.16}
+    - predictions as nested dict: {'dry': {'confidence': 0.84}, 'normal': {'confidence': 0.16}}
+    - Top/confidence consistency checking against predictions
+    - Multi-label vs single-label separation (rejects multi-label multi-active classifications)
+    - Rejection of unknown classes, non-finite/out-of-range confidences, inconsistent outputs
+    """
+    import math
+    if not isinstance(data, dict):
+        return None
+    
+    # Check multi-label declaration if present
+    multi_label = data.get('multi_label') or data.get('multilabel') or False
+    
+    candidates = {}
+    preds = data.get('predictions')
+    
+    if isinstance(preds, list):
+        for p in preds:
+            if isinstance(p, dict):
+                c = str(p.get('class', '')).strip().lower()
+                conf = p.get('confidence')
+                # Handle nested confidence inside dict item if needed
+                if isinstance(conf, dict):
+                    conf = conf.get('confidence')
+                if c in CLASSES and conf is not None:
+                    try:
+                        f_conf = float(conf)
+                        if math.isfinite(f_conf) and 0.0 <= f_conf <= 1.0:
+                            candidates[c] = f_conf
+                    except (TypeError, ValueError):
+                        pass
+    elif isinstance(preds, dict):
+        for c, val in preds.items():
+            c_clean = str(c).strip().lower()
+            if c_clean not in CLASSES:
+                continue
+            conf = val
+            if isinstance(val, dict):
+                conf = val.get('confidence')
+            if conf is not None:
+                try:
+                    f_conf = float(conf)
+                    if math.isfinite(f_conf) and 0.0 <= f_conf <= 1.0:
+                        candidates[c_clean] = f_conf
+                except (TypeError, ValueError):
+                    pass
+
+    # Top-level 'top' and 'confidence'
+    top_c = str(data.get('top', '')).strip().lower() if 'top' in data and data.get('top') is not None else None
+    top_conf = None
+    if 'confidence' in data and data.get('confidence') is not None:
+        try:
+            f_top_conf = float(data['confidence'])
+            if math.isfinite(f_top_conf) and 0.0 <= f_top_conf <= 1.0:
+                top_conf = f_top_conf
+        except (TypeError, ValueError):
+            pass
+
+    # Consistency check: If both top and predictions exist, top must match argmax of predictions
+    if candidates:
+        best_pred_class = max(candidates, key=candidates.get)
+        best_pred_conf = candidates[best_pred_class]
+        
+        # Check for multi-label conflict:
+        # If explicitly multi-label or multiple classes have high independent confidence (e.g. >0.65 each)
+        # whose sum significantly exceeds 1.05, single-label 4-class classification contract is violated.
+        high_conf_classes = [c for c, conf in candidates.items() if conf >= 0.60]
+        if multi_label or len(high_conf_classes) > 1 or sum(candidates.values()) > 1.35:
+            # Multi-label output cannot be blindly argmaxed into a single skin type
+            return dict(
+                value=None,
+                quality='insufficient',
+                confidence=best_pred_conf,
+                methodVersion=f'hosted-roboflow-{model_id}',
+                providerModelId=model_id,
+                modelHash=None,
+                limitationCode='MULTI_LABEL_CONFLICT',
+                inferenceMs=elapsed
+            )
+
+        if top_c is not None:
+            if top_c != best_pred_class:
+                # Top declaration contradicts predictions list
+                return None
+            if top_conf is not None and abs(top_conf - best_pred_conf) > 0.05:
+                # Top confidence contradicts predictions confidence
+                return None
+
+        best_class = best_pred_class
+        best_conf = best_pred_conf
+    elif top_c in CLASSES and top_conf is not None:
+        best_class = top_c
+        best_conf = top_conf
+    else:
+        return None
+
+    valid = best_conf >= 0.50
+    return dict(
+        value=best_class if valid else None,
+        quality='valid' if valid else 'insufficient',
+        confidence=best_conf,
+        methodVersion=f'hosted-roboflow-{model_id}',
+        providerModelId=model_id,
+        modelHash=None,  # Hosted weights SHA cannot be known; never fake weight hash
+        limitationCode=None if valid else 'LOW_MODEL_SUPPORT',
+        inferenceMs=elapsed
+    )
+
 def infer_hosted_type(crop_bgr):
     """Optional, authorized hosted 4-class skin type adapter (e.g. Roboflow inference API).
     Only called if local accepted ONNX weights are not present and ATTUNE_ROBOFLOW_API_KEY is configured.
     Never sends full unapproved photos; operates on cropped face patch.
     Uses documented base64 payload and Authorization header (never leaks credentials in URL or logs).
     """
-    import os, urllib.request, urllib.error, base64, math
+    import os, urllib.request, urllib.error, base64
     api_key = os.environ.get('ATTUNE_ROBOFLOW_API_KEY') or os.environ.get('ROBOFLOW_API_KEY')
     if not api_key:
         return None
@@ -56,7 +168,6 @@ def infer_hosted_type(crop_bgr):
         return None
     b64_image = base64.b64encode(buf.tobytes()).decode('ascii')
     
-    # Official classification hosted endpoint using base64 payload
     url = f"https://classify.roboflow.com/{model_id}"
     req_body = b64_image.encode('ascii')
     headers = {
@@ -71,66 +182,7 @@ def infer_hosted_type(crop_bgr):
             raw_data = resp.read().decode('utf-8')
             data = json.loads(raw_data)
         elapsed = (time.perf_counter() - start) * 1000
-        
-        # Robust response parser:
-        # 1. Predictions as list of dicts: [{'class': '...', 'confidence': ...}]
-        # 2. Predictions as dictionary mapping class -> confidence: {'normal': 0.85, ...}
-        # 3. Top / confidence top-level keys
-        candidates = {}
-        preds = data.get('predictions')
-        if isinstance(preds, list):
-            for p in preds:
-                if isinstance(p, dict):
-                    c = str(p.get('class', '')).lower()
-                    conf = p.get('confidence')
-                    if c in CLASSES and conf is not None:
-                        try:
-                            f_conf = float(conf)
-                            if math.isfinite(f_conf) and 0.0 <= f_conf <= 1.0:
-                                candidates[c] = f_conf
-                        except (TypeError, ValueError):
-                            pass
-        elif isinstance(preds, dict):
-            for c, conf in preds.items():
-                c_clean = str(c).lower()
-                if c_clean in CLASSES and conf is not None:
-                    try:
-                        f_conf = float(conf)
-                        if math.isfinite(f_conf) and 0.0 <= f_conf <= 1.0:
-                            candidates[c_clean] = f_conf
-                    except (TypeError, ValueError):
-                        pass
-        
-        # Check top-level 'top' and 'confidence'
-        top_c = str(data.get('top', '')).lower()
-        top_conf = data.get('confidence')
-        if top_c in CLASSES and top_conf is not None:
-            try:
-                f_top_conf = float(top_conf)
-                if math.isfinite(f_top_conf) and 0.0 <= f_top_conf <= 1.0:
-                    candidates.setdefault(top_c, f_top_conf)
-            except (TypeError, ValueError):
-                pass
-        
-        if not candidates:
-            return None
-        
-        # Find single-label top class
-        best_class = max(candidates, key=candidates.get)
-        best_conf = candidates[best_class]
-        
-        # Quality threshold: requires confidence >= 0.50
-        valid = best_conf >= 0.50
-        return dict(
-            value=best_class if valid else None,
-            quality='valid' if valid else 'insufficient',
-            confidence=best_conf,
-            methodVersion=f'hosted-roboflow-{model_id}',
-            providerModelId=model_id,
-            modelHash=None,  # Hosted weights SHA cannot be known; never fake weight hash
-            limitationCode=None if valid else 'LOW_MODEL_SUPPORT',
-            inferenceMs=elapsed
-        )
+        return parse_hosted_type_response(data, model_id, elapsed)
     except Exception:
         # Network, timeout or quota error never leaks credentials or crashes
         return None

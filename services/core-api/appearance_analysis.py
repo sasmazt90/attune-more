@@ -20,7 +20,7 @@ from skin_scan_baseline.blemishes import blemish_map
 
 VERSION = 'appearance-cv-6'
 LIMITS = {'minFacePixels': 180, 'analysisFacePixels': 320, 'maxClippedFraction': .03}
-NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-area-fixed-v1','acne':'unique-detection-box-area-fixed-v1','lines':'outer-canthus-gabor-local-quality-v2','dark':'lower-lid-relative-contrast-local-quality-v2','sag':'contour-fold-lower-face-local-support-v5','bags':'contour-fold-local-support-v4'}
+NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-area-fixed-v1','acne':'unique-detection-box-area-fixed-v1','lines':'outer-canthus-gabor-local-quality-v2','dark':'lower-lid-relative-contrast-local-quality-v2','sag':'contour-fold-lower-face-local-support-v6','bags':'contour-fold-local-support-v4'}
 
 
 def decode_photo(data):
