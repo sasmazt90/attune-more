@@ -2,7 +2,8 @@ import type { SkinSnapshot } from './skinSnapshot';
 import type { SkinIndicators, SkinMeasurement } from './skinIndicators';
 import type { SkinLocalMap } from './skinLocalMaps';
 export type MeasurementKind='appearance_proxy'|'trained_prediction'|'longitudinal_measurement';
-export type AppearanceMeasurement={id:string;type:MeasurementKind;value:number|null;unit:string;methodVersion:string;modelVersion:string|null;modelHash:string|null;scoreDirection?:'higher-is-more-visible';normalizationVersion?:string;quality:'valid'|'invalid'|'insufficient';uncertainty:string[];region:string;evaluatedArea:Record<string,number>;captureConditions:Record<string,number|string>;limitationCode:string|null;referenceId:string|null;localMap:{key:string;photoId:string;region:string;criterion:string;coordinateSpace:'source-pixels'}|null;components:Record<string,any>};
+export type MeasurementReceipt={status?:'measured'|'unavailable';reason?:string|null;coverage?:number|null;calibrationVersion?:string|null;localConfidence?:number|null};
+export type AppearanceMeasurement=MeasurementReceipt & {id:string;type:MeasurementKind;value:number|null;unit:string;methodVersion:string;modelVersion:string|null;modelHash:string|null;scoreDirection?:'higher-is-more-visible';normalizationVersion?:string;quality:'valid'|'invalid'|'insufficient';uncertainty:string[];region:string;evaluatedArea:Record<string,number>;captureConditions:Record<string,number|string>;limitationCode:string|null;referenceId:string|null;localMap:{key:string;photoId:string;region:string;criterion:string;coordinateSpace:'source-pixels'}|null;components:Record<string,any>};
 export type AppearanceResponse={general?:{skinType:import('./skinOverview').SkinOverview['skinType'];measurements:AppearanceMeasurement[];normalizationVersion:string;modelInputTransform?:Record<string,number|string|boolean>|null;modelInference?:Record<string,Record<string,number|string>>};photoId:string;sourceWidth:number;sourceHeight:number;measurements:Record<string,AppearanceMeasurement[]>;maps:Record<string,SkinLocalMap>;contours:Record<string,{points:{x:number;y:number}[];lines?:{x:number;y:number}[][];features:number[]}>};
 export const APPEARANCE_UNITS:Record<string,string>={'appearance-score-0-100':'%','percent-visible-area':'% görünür alan','candidate-count':'aday','relative-color-index-0-100':'/ 100 · renk farkı','directional-line-index-0-100':'/ 100 · çizgi indeksi','normalized-contour-ratio':'kontur oranı','contour-fold-index-0-100':'/ 100 · görünüm indeksi'};
 export async function analyzeAppearance(snapshot:SkinSnapshot,qualityValid:boolean,conditions:Record<string,number>,temporal:unknown[],current:()=>boolean):Promise<AppearanceResponse>{
@@ -31,7 +32,7 @@ export function compareAppearance(row:import('./skinIndicators').SkinIndicator,p
  const value=row.appearance,base=prior?.appearance;if(!value)return;
  delete row.referenceDelta;
  if(value.value===null)return; // Preserve the actual quality failure.
- if(!compatible||!base||base.methodVersion!==value.methodVersion||base.unit!==value.unit||base.value===null){
+ if(!compatible||!base||base.methodVersion!==value.methodVersion||base.unit!==value.unit||base.normalizationVersion!==value.normalizationVersion||base.calibrationVersion!==value.calibrationVersion||base.value===null){
   if(value.type==='longitudinal_measurement'){
    value.referenceId=null;
    value.limitationCode=compatible?'REFERENCE_NOT_AVAILABLE':'CAPTURE_CONDITIONS_INCOMPATIBLE';

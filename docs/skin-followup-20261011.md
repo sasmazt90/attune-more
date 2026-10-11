@@ -1,5 +1,7 @@
 # TOGG Attune skin follow-up — 2026-10-11
 
+Later selected-source execution and current delivery are documented in [skin-selected-completion-20261011.md](skin-selected-completion-20261011.md) with [numeric evidence](skin-selected-evidence-20261011.json). The measurements/build below remain the earlier historical run; its rejected candidates were not promoted.
+
 Overall analysis completion: **OPEN**. Diagnosis, objective source corrections, finite predictor experiments and exact resume are complete. No failed candidate was promoted, and UI-only delivery is not represented as analysis completion.
 
 ## Preserved real product

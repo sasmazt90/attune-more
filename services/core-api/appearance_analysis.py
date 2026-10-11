@@ -12,6 +12,7 @@ import cv2
 import numpy as np
 from skin_general import general_result
 from skin_models import infer as infer_skin_models, infer_acne, infer_bags
+from skin_measurement_contract import attach_result_receipts
 from skimage.feature import local_binary_pattern
 from skimage.filters import gabor
 from skin_scan_baseline.oiliness import oiliness_map
@@ -303,6 +304,7 @@ def analyze_skin(payload, include_research_features=False):
         clipped = float(np.mean(clipping[exposure_support])) if exposure_support.any() else 1.
         valid = base & ~hair & ~clipping & (gray > .12)
         area = dict(sourcePixels=float(valid.sum()/scale**2), analysisPixels=int(valid.sum()),
+                    anatomicalSourcePixels=float(anatomical.sum()/scale**2),
                     sourceFacePixels=float(face_pixels), excludedPixels=float((base.sum()-valid.sum())/scale**2))
         reason = 'CAPTURE_QUALITY' if not payload.get('qualityValid') else 'GLARE_OR_EXPOSURE' if clipped > .03 else 'INSUFFICIENT_VISIBLE_AREA' if valid.sum() < 100 else None
         if region=='nose':
@@ -399,7 +401,7 @@ def analyze_skin(payload, include_research_features=False):
     if payload['pose']=='FRONT':
         union=np.logical_or.reduce(list(masks.values()))&(exclusion==0)&~hair&~clipping&(gray>.12)
         general_tone,general_redness,_=local_color_signals(image,union)
-        general_area=dict(sourcePixels=float(union.sum()/scale**2),analysisPixels=int(union.sum()),sourceFacePixels=float(face_pixels))
+        general_area=dict(sourcePixels=float(union.sum()/scale**2),anatomicalSourcePixels=float(np.logical_or.reduce(list(masks.values())).sum()/scale**2),analysisPixels=int(union.sum()),sourceFacePixels=float(face_pixels))
         # Whole-face dryness uses the same valid bright-island support as the
         # regional rows. Compression ringing is never restored by unioning ROIs.
         general_flakes=eligible_flake_components(flakes,union & ~dark_ringing)
@@ -444,4 +446,4 @@ def analyze_skin(payload, include_research_features=False):
         for criterion in ['dark','lines','bags']:
             layer=maps.get('periorbital:'+criterion)
             if layer:maps['overview:'+criterion]={**layer,'region':'overview'}
-    return result
+    return attach_result_receipts(result)

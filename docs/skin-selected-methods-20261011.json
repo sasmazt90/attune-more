@@ -1,0 +1,20 @@
+{
+  "version": "selected-skin-method-plan-v1",
+  "acceptance": "scripts/skin-research/selected-acceptance.json",
+  "productionStatus": "Acceptance pending; this plan is not an installed model manifest",
+  "criteria": {
+    "skinType": {"sources": ["skin-18criteria-v1"], "method": "EfficientNet-B0, real upper-feature fine tuning", "meaning": "four source-label class probabilities, never severity"},
+    "acne": {"sources": ["Smart Pimple", "reviewed Clean3/eye boxes", "v11 Acne polygons"], "method": "YOLOX-S native384 tiled BGR plus separate shared-U-Net support", "countPolicy": "active Pimple/individually reviewed active lesion only; scars, moles, freckles, whiteheads and blackheads retain their own semantics; source-coordinate NMS IoU0.3; no diffuse acne-area to count conversion"},
+    "oil": {"sources": ["v11 Oily mask", "natural Clean3 Oily", "reviewed CSV"], "method": "local mask support plus real specular area/intensity", "meaning": "visible shine area/intensity, not biological sebum"},
+    "dry": {"sources": ["Merve pul boxes", "natural Clean3 Dry-Skin", "reviewed CSV", "matched grades only"], "method": "native multiscale flake evidence; hair/dark-ringing/JPEG controls; no box-to-mask", "meaning": "visible flake appearance, not hydration"},
+    "redness": {"sources": ["preserved matched grade head", "v11 Redness", "Skin care redness"], "method": "preserved global ridge head plus independent local natural LAB/chroma support", "meaning": "global appearance grade and separate pixel color signal"},
+    "tone": {"sources": ["v11 Dark-Spots", "Skin care pigmentation"], "method": "within-image illumination-controlled natural LAB variation, localized appearance support", "meaning": "color variation, not a merged pigment disease class"},
+    "lines": {"sources": ["skin_face_detection crows_feet", "Wrinkles Detector", "Skin v5 valid lines"], "method": "shared sigmoid U-Net and Gabor support restricted to outer canthi", "meaning": "visible outer-eye lines, not brow/lash/forehead lines"},
+    "dark": {"sources": ["DC EB darkcircle", "Skin v5", "Wrinkles Detector", "reviewed Arnold"], "method": "independent sigmoid mask and same-image adjacent-skin LAB/contrast", "meaning": "relative lower-lid color appearance"},
+    "bags": {"sources": ["DC EB eyebag", "v11 Eyebags", "real eye-training polygons"], "method": "independent shared-U-Net channel plus actual contour/fold support, whole lower-lid engineering ROI review", "meaning": "visible bag contour appearance distinct from pigment or dark pixels"},
+    "sag": {"sources": ["engineering-reviewed natural visible face contours"], "method": "pose/scale normalized MediaPipe 2D geometry plus real contour/fold image evidence and neutral-expression gates", "meaning": "instant contour appearance proxy, no age/elasticity/mm or personal-reference ground truth"}
+  },
+  "scorePolicy": "Keep existing versioned fixed appearance scales until matched-grade or disclosed engineering appearance calibration passes. Never turn probability, attention, or presence boxes into pixel severity. Unavailable stays null.",
+  "rightsPolicy": "Publisher README attribution retained; undocumented stock imagery excluded; other individual image rights unresolved until review. No automatic license grant from archive name.",
+  "trainingPolicy": "Real required feature gradients/weight changes, finite epochs/time and plateau, safe transactional optimizer/scheduler/RNG/cursor state; validation selects and protected test stays closed until model/threshold frozen."
+}

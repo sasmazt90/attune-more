@@ -12,6 +12,7 @@ def general_result(response,masks,valid,tone,redness,shine,flakes,area,condition
         coverage=coverage and all(any(r['id']=='tone' and r['quality']=='valid' for r in response.get(name,[])) for name in required)
     result=[]
     for criterion in IDS:
+        evaluated_area=area
         value=None;limitation='INSUFFICIENT_FRONT_COVERAGE';components={}
         if quality_valid and coverage:
             signal={'tone':tone,'redness':redness,'oil':shine,'dry':flakes}.get(criterion)
@@ -22,6 +23,7 @@ def general_result(response,masks,valid,tone,redness,shine,flakes,area,condition
                 row=next((r for r in response.get('periorbital',[]) if r['id']==criterion),None)
                 if row and row['quality']=='valid':
                     value=row['value'];limitation=None;components={'sourceRegion':'periorbital','sourceMethod':row['methodVersion'],'sourceComponents':copy.deepcopy(row['components'])}
+                    evaluated_area=copy.deepcopy(row.get('evaluatedArea',area))
             elif criterion=='sag':
                 rows=[next((r for r in response.get(region,[]) if r['id']=='sag' and r['quality']=='valid'),None) for region in ['rightCheek','leftCheek','chin']]
                 if all(rows):
@@ -39,7 +41,7 @@ def general_result(response,masks,valid,tone,redness,shine,flakes,area,condition
         result.append(dict(id=criterion,type='appearance_proxy',value=value,unit='appearance-score-0-100',
           methodVersion=VERSION,modelVersion=None,modelHash=None,quality='valid' if value is not None else 'insufficient',
           uncertainty=['illumination','visible-surface-only','unvalidated-cosmetic-proxy'],region='overview',
-          evaluatedArea=area,captureConditions=conditions,limitationCode=limitation,referenceId=None,
+          evaluatedArea=evaluated_area,captureConditions=conditions,limitationCode=limitation,referenceId=None,
           localMap=None,components=components))
         if value is not None and source_model:
             result[-1].update(modelVersion=source_model['modelVersion'],modelHash=source_model['modelHash'])
