@@ -23,10 +23,26 @@ class SkinUNet(nn.Module):
   up=lambda u,v:nn.functional.interpolate(u,size=v.shape[-2:],mode='bilinear',align_corners=False)
   z=self.d4(torch.cat([up(f,d),d],1));z=self.d3(torch.cat([up(z,c),c],1));z=self.d2(torch.cat([up(z,b),b],1));z=self.d1(torch.cat([up(z,a),a],1));return nn.functional.interpolate(self.head(z),size=x.shape[-2:],mode='bilinear',align_corners=False)
 
-def masked_loss(logits,truth,support,balanced=False,target_weights=None):
+def masked_loss(logits,truth,support,balanced=False,target_weights=None,image_balanced=False):
  """Unobserved channel/pixel has exactly zero contribution and gradient."""
  if not bool(support.any()):return logits.sum()*0
  bce=nn.functional.binary_cross_entropy_with_logits(logits,truth,reduction='none');den=support.sum().clamp_min(1)
+ if image_balanced:
+  values=[];weights=[]
+  for j in range(logits.shape[1]):
+   images=[]
+   for i in range(logits.shape[0]):
+    known=support[i,j]>0;positive=known&(truth[i,j]>0);negative=known&~positive
+    if not bool(known.any()):continue
+    parts=[bce[i,j][m].mean() for m in (positive,negative) if bool(m.any())]
+    value=torch.stack(parts).mean()
+    if bool(positive.any()):
+     p=logits[i,j].sigmoid();y=truth[i,j];s=support[i,j]
+     value=value+1-(2*(p*y*s).sum()+1)/((p*s).sum()+(y*s).sum()+1)
+    images.append(value)
+   if images:
+    weight=1. if target_weights is None else float(target_weights[j]);values.append(torch.stack(images).mean()*weight);weights.append(weight)
+  return torch.stack(values).sum()/sum(weights)
  if balanced:
   # Equal target contribution, then equal reviewed positive/negative
   # contribution within each target. Area is not a target's loss weight.

@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 from expanded_sources import OUT,ROOT,write,sha
 from skin_acceptance import decide
+from acceptance_data_evidence import final_data as read_final_data
 
 def read(path,default=None):return json.loads(path.read_text('utf8')) if path.exists() else default
 
@@ -25,8 +26,17 @@ def analytic_product(target,normalization):
  return dict(activeMethodVersion='appearance-cv-6' if matched else None,activeCriterionMethodMatched=matched,captureApiResultMapHistory=captured,cancelRescanLateResponse=cancelled,sourceBuildServedJavaScriptMatch=source_ok,evidenceScope='licensed real-pixel camera fixture; physical personal acceptance pending',proofSHA256=sha(ui/'proof.json'),normalDeliverySHA256=sha(delivery))
 
 
-def final_data():return dict(sourceReviewComplete=False,rightsReviewComplete=False,labelSemanticsMatched=False,splitRelationsResolved=True,unusedHoldout=False,naturalCameraDomainReviewed=False,engineeringLabelsDisclosed=True)
+def final_data(target=None):return read_final_data(OUT,target)
 
+def current_mask_export_plan():
+ index=read(OUT/'interim-diagnosis/selected-full-export-current.json')
+ if not index:return read(OUT/'interim-diagnosis/selected-full-export-v4/plan.json',{})
+ path=Path(index['planPath']).resolve()
+ if not path.is_relative_to((OUT/'interim-diagnosis').resolve()):raise ValueError('EXPORT_PLAN_PATH_ESCAPE')
+ if not path.is_file() or sha(path)!=index['planSHA256']:return {}
+ selection=OUT/'interim-diagnosis/corrected-selection-v4.json'
+ if selection.exists() and sha(selection)!=index['selectionSHA256']:return {}
+ return read(path,{})
 def main():
  results={}
  evidence=read(OUT/'type/label-function-evidence-v2.json')
@@ -45,20 +55,25 @@ def main():
  if state and state['history']:
   best=max(state['history'],key=lambda r:r['validation']['F1']);metrics={**best['validation'],'matchingIoU':.5,'scope':'source-group-development'}
   export=read(OUT/'yolox/decoder-parity/receipt.json',{}) if detector.name=='yolox' else {}
-  evidence=dict(method=dict(functions=['detection','localization','appearanceIndex']),data=final_data(),metrics=metrics,appearance={},export={**export,'sha256':export.get('modelSHA256')},product={},training=dict(folder=detector.name,validatedEpochs=state['epoch'],partialCursor=state['cursor'],selectionFinal=(detector/'selection.json').exists()))
+  evidence=dict(method=dict(functions=['detection','localization','appearanceIndex']),data=final_data('acne'),metrics=metrics,appearance={},export={**export,'sha256':export.get('modelSHA256')},product={},training=dict(folder=detector.name,validatedEpochs=state['epoch'],partialCursor=state['cursor'],selectionFinal=(detector/'selection.json').exists()))
   results['acneDetector']=dict(evidence=evidence,decision=decide('detector',evidence))
  mask=OUT/('negative-mask-continuation' if (OUT/'negative-mask-continuation/CURRENT').exists() else 'mask-continuation');state=snapshot(mask)
+ corrected=read(OUT/'interim-diagnosis/corrected-selection-v4.json') or read(OUT/'interim-diagnosis/scope-v4/selection.json',{})
  if state:
-  for target,selected in state.get('targetBest',{}).items():
-   metrics={**selected['metrics'],'wholeVisibleROI':selected['metrics'].get('wholeVisibleROI'),'scope':'source-group-development'}
-   evidence=dict(method=dict(functions=['localization','appearanceIndex']),data=final_data(),metrics=metrics,appearance={},export={},product={},training=dict(folder=mask.name,validatedEpochs=state['epoch'],selectedEpoch=selected['epoch'],partialCursor=state['cursor'],selectionFinal=(mask/'selection.json').exists()))
+  for target in ['acne','oil','redness','tone','lines','dark','bags']:
+   selected=corrected.get('targets',{}).get(target,{});m=selected.get('metrics') or {}
+   metrics={**m,'positiveROIs':m.get('reviewedFullPositiveSources'),'negativeROIs':m.get('reviewedNegativeSupportSources'),'wholeVisibleROI':True if m.get('reviewedFullPositiveSources',0)>0 else None,'scope':'source-group-development'}
+   plan=current_mask_export_plan();export=plan.get('targets',{}).get(target,{}).get('export') or {};model=selected.get('selectedFullModel') or {}
+   if export.get('weightsSHA256')!=model.get('sha256'):export={}
+   if export.get('onnxPath') and (not Path(export['onnxPath']).exists() or sha(Path(export['onnxPath']))!=export['modelSHA256']):export={}
+   evidence=dict(method=dict(functions=['localization','appearanceIndex']),data=final_data(target),metrics=metrics,appearance={},export={**export,'sha256':export.get('modelSHA256')},product={},training=dict(folder=mask.name,validatedEpochs=state['epoch'],selectedFullModel=model or None,partialCursor=state['cursor'],selectionFinal=False,legacyTargetBestInvalidated=True,correctedEvaluationComplete=bool(corrected)))
    results[target+'Mask']=dict(evidence=evidence,decision=decide('mask',evidence))
  controls=read(OUT/'current-proxy-controls-v3/receipt.json')
  if controls:
   for target,summary in controls['summary'].items():
    if target=='acne':continue
    separated=False if summary['positiveMedian'] is not None and summary['negativeMedian'] is not None and summary['positiveMedian']<=summary['negativeMedian'] else None
-   evidence=dict(method=dict(functions=['appearanceIndex'],implementation='analytic',version='appearance-cv-6'),data=final_data(),metrics=dict(scope='source-group-development'),appearance=dict(indexVersion=summary['normalizationVersion'],meaning=summary['photoStatistic'],limits='visible photographic index; different criteria are not one physical quantity',measuredSignalNotConfidence=True,naturalPositiveNegativeSeparation=separated,sameInputRepeatability=controls['sameInputRepeatabilityPassed'],confounderSensitivityReviewed=None,anatomicalLocalityVerified=True,scaleFitOnDevelopmentOnly=True,gradientMatchesLocalSignal=True,finalTestReuse=False),product=analytic_product(target,summary['normalizationVersion']),controlSummary=summary)
+   evidence=dict(method=dict(functions=['appearanceIndex'],implementation='analytic',version='appearance-cv-6'),data=final_data(target),metrics=dict(scope='source-group-development'),appearance=dict(indexVersion=summary['normalizationVersion'],meaning=summary['photoStatistic'],limits='visible photographic index; different criteria are not one physical quantity',measuredSignalNotConfidence=True,naturalPositiveNegativeSeparation=separated,sameInputRepeatability=controls['sameInputRepeatabilityPassed'],confounderSensitivityReviewed=None,anatomicalLocalityVerified=True,scaleFitOnDevelopmentOnly=True,gradientMatchesLocalSignal=True,finalTestReuse=False),product=analytic_product(target,summary['normalizationVersion']),controlSummary=summary)
    results[target+'Analytic']=dict(evidence=evidence,decision=decide('appearance',evidence))
  sag=read(OUT/'sag-controls/actual-results.json')
  if sag:

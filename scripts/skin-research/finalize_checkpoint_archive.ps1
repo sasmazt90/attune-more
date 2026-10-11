@@ -13,7 +13,7 @@ $taskCandidate=@($taskPlan.candidates | Where-Object {$_.phase -eq $taskReceipt.
 if ($taskCandidate.Count -ne 1) {throw 'Checkpoint now protected, incomplete, or not eligible'}
 $taskFolder=(Resolve-Path -LiteralPath $taskCandidate[0].sourceFolder).Path
 $taskExpectedParent=Join-Path (Join-Path $taskRoot 'audit-results/skin-expanded-20261011') $taskReceipt.phase
-if ($taskReceipt.phase -notin @('negative-yolox','negative-mask-continuation') -or [IO.Path]::GetDirectoryName($taskFolder) -ne $taskExpectedParent -or [IO.Path]::GetFileName($taskFolder) -cne $taskReceipt.generation) {throw 'Checkpoint path escaped scope'}
+if ($taskReceipt.phase -notin @('negative-yolox','negative-mask-continuation','corrected-scope-yolox-v2','corrected-scope-mask-v4') -or [IO.Path]::GetDirectoryName($taskFolder) -ne $taskExpectedParent -or [IO.Path]::GetFileName($taskFolder) -cne $taskReceipt.generation) {throw 'Checkpoint path escaped scope'}
 if (@($taskReceipt.files).Count -ne 3) {throw 'Incomplete cloud checkpoint'}
 foreach ($taskFile in $taskCandidate[0].files) {
  $taskCloud=@($taskReceipt.files | Where-Object name -CEQ $taskFile.name)
