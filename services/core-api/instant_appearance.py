@@ -77,7 +77,7 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
     p=np.array([[(v['x']*w-origin[0])*scale,(v['y']*h-origin[1])*scale] for v in points],float)
     eye=p[263]-p[33];eye_width=float(np.linalg.norm(eye))
     empty=np.zeros(gray.shape,np.float32)
-    formula='contour-fold-target-roi-local-support-v6' if region!='periorbital' else 'contour-fold-local-support-v4'
+    formula='contour-fold-target-roi-local-support-v6' if region!='periorbital' else 'contour-fold-local-support-v5'
     fail=lambda code:(None,dict(formulaVersion=formula),empty,[],code)
     if region=='forehead':return fail('BROW_FOLD_IS_NOT_LOWER_FACE_SAGGING')
     if eye_width<35:return fail('INSUFFICIENT_NATIVE_DETAIL')
@@ -99,8 +99,10 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
     paths=[]
     if region=='periorbital':
         # Anatomical right/left are not display-side aliases.
+        # Offsets start at 7 to exclude normal pretarsal lower eyelid margin (<7 px)
+        # and stay within anatomical infraorbital bag band (<28 px).
         paths=[('right',[144,145,153,154,133]),('left',[373,374,380,381,362])]
-        offsets=np.arange(3,25);direction=vertical
+        offsets=np.arange(7,28);direction=vertical
     elif region=='rightCheek':paths=[('right',[98,205,206,216,61]),('lower-right',[61,186,172,136])];offsets=np.arange(-10,11);direction=horizontal
     elif region=='leftCheek':paths=[('left',[327,425,426,436,291]),('lower-left',[291,410,397,365])];offsets=np.arange(-10,11);direction=horizontal
     elif region=='chin':paths=[('lower-right',[61,186,172,136]),('lower-left',[291,410,397,365])];offsets=np.arange(-10,11);direction=horizontal
@@ -167,7 +169,7 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
         # Normalize confirmation factors (edge and boundary) against their expected full-support reference scales
         # so confirmation gates don't over-dampen visible anatomical folds into sub-percent fractions (< 0.5% => 0% UI).
         edge_gate = np.minimum(1.0, np.sqrt(q['edgeValues'] / 0.04))
-        continuity_gate = min(1.0, q['continuity'] / 0.6)
+        continuity_gate = 0.0 if q['continuity'] < 0.20 else min(1.0, q['continuity'] / 0.6)
         if boundary is not None:
             boundary_gate = min(1.0, np.sqrt(max(0.0, boundary['value']) / 0.08))
             joint = float(np.mean(q['values'] * edge_gate)) * continuity_gate * boundary_gate
@@ -218,7 +220,7 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
     measured_roi&=eligible
     measurement_roi=dict(scope='measured-anatomical-sampling-corridors',analysisPixels=int(measured_roi.sum()),sourcePixels=float(measured_roi.sum()/scale**2),anatomicalSourcePixels=float(np.logical_or.reduce(list(exposure_corridors.values())).sum()/scale**2) if exposure_corridors else 0.,sourceFacePixels=face,unknownSides=[side['side'] for side in sides if side['value'] is None])
     components=dict(formulaVersion=formula,measurementROI=measurement_roi,sides=sides,fixedConstants=CONSTANTS,
-                    indexAggregation='mean of measured local fold * min(1, sqrt(pairedEdge/0.04)), times continuity/0.6 and min(1, sqrt(jaw boundary/0.08)) where applicable' if region!='periorbital' else 'mean of measured local fold * sqrt(local paired edge), times supported continuity',
+                    indexAggregation='mean of measured local fold * min(1, sqrt(pairedEdge/0.04)), times continuity/0.6 and min(1, sqrt(jaw boundary/0.08)) where applicable' if region!='periorbital' else 'mean of measured local fold * sqrt(local paired edge), times supported continuity (minimum 0.20)',
                     localMapMeaning='measured local support intensity; no confidence or pixel disease severity',
                     meaning='visible-supported-contour-fold; not probability, volume or clinical severity',boundary=boundary,
                     weights=dict(fold=1,pairedEdgeRef=.04,continuityRef=.60,boundaryRef=.08) if region!='periorbital' else dict(fold=1,pairedEdge=.5,continuity=1,boundary=.5),

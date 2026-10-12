@@ -59,10 +59,10 @@ def build_production_payload(bgr, sha256_val, landmarks, alignment, meshes):
     
     blur_score = float(cv2.Laplacian(gray, cv2.CV_32F).var())
     avg_lum = float(gray.mean())
-    yaw = float(alignment.get('yaw', 0.))
-    pitch = float(alignment.get('pitch', 0.))
-    roll = float(alignment.get('roll', 0.))
-    scale_ratio = float(alignment.get('scaleRatio', 0.6))
+    yaw = float(alignment.get('yaw') if alignment.get('yaw') is not None else 0.)
+    pitch = float(alignment.get('pitch') if alignment.get('pitch') is not None else 0.)
+    roll = float(alignment.get('roll') if alignment.get('roll') is not None else 0.)
+    scale_ratio = float(alignment.get('scaleRatio') if alignment.get('scaleRatio') is not None else 0.6)
     
     quality_valid = (40 <= avg_lum <= 220) and (blur_score >= 4.0) and (abs(yaw) < 0.35)
     
@@ -176,7 +176,7 @@ def main():
             'acne_box_support': compute_sha256(str(LIVE_TEST / 'services/core-api/acne_box_support.py')),
         },
         'candidate': {
-            'commit': '6782a41',
+            'commit': subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD'], cwd=str(ROOT)).decode().strip(),
             'appearance_analysis': compute_sha256(str(ROOT / 'services/core-api/appearance_analysis.py')),
             'instant_appearance': compute_sha256(str(ROOT / 'services/core-api/instant_appearance.py')),
             'skin_models': compute_sha256(str(ROOT / 'services/core-api/skin_models.py')),

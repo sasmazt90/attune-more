@@ -148,6 +148,41 @@ def test_target_c_dark_circles_and_eye_bags_masks_remain_distinct():
     assert not bands['bags'][:208].any()
 
 
+def test_target_c_eye_bags_version_and_eyelid_margin_separation():
+    """Target C: Method version is contour-fold-local-support-v5.
+    Lower eyelid margin (offsets < 7) is excluded, and discontinuous valley noise (< 0.20 continuity)
+    produces score 0.0, eliminating false positives on normal lower lids.
+    """
+    import instant_appearance as IA
+    assert A.NORMALIZATION['bags'] == 'contour-fold-local-support-v5'
+    
+    h, w = 280, 320
+    p = [dict(x=.5, y=.5, z=0.) for _ in range(478)]
+    oval = [10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288, 397, 365, 379, 378, 400, 377, 152, 148, 176, 149, 150, 136, 172, 58, 132, 93, 234, 127, 162, 21, 54, 103, 67, 109]
+    for i, angle in zip(oval, np.linspace(-np.pi/2, 3*np.pi/2, len(oval), endpoint=False)):
+        p[i].update(x=.5+.49*np.cos(angle), y=.5+.48*np.sin(angle))
+    locations = {234: (0, 150), 454: (320, 150), 33: (40, 70), 133: (110, 70), 159: (75, 64), 163: (50, 76),
+                 144: (60, 80), 145: (75, 82), 153: (90, 83), 154: (100, 80), 155: (105, 76),
+                 263: (280, 70), 362: (210, 70), 386: (245, 64), 390: (270, 76), 373: (260, 80),
+                 374: (245, 82), 380: (230, 83), 381: (220, 80), 382: (215, 76), 61: (110, 165), 291: (210, 165),
+                 13: (160, 165), 14: (160, 168)}
+    for i, (x, y) in locations.items():
+        p[i].update(x=x/w, y=y/h)
+        
+    mesh = {'points': [{'x': 0, 'y': 40}, {'x': 320, 'y': 40}, {'x': 320, 'y': 130}, {'x': 0, 'y': 130}], 'edges': [[0, 1], [1, 2], [2, 3], [3, 0], [0, 2]]}
+    
+    # Normal image with subtle lower eyelid margin dip at offset 4-5
+    img = np.full((h, w, 3), 150, np.uint8)
+    img[84:86, 50:110] = 142  # 5% dip near eyelid margin
+    url, digest = photo(img)
+    
+    res = A.analyze_skin(dict(photo=url, photoId=digest, landmarks=p, meshes={'periorbital': mesh}, exclusions=[], pose='FRONT', qualityValid=True, conditions=dict(yaw=0., pitch=0., roll=0., scaleRatio=.6, avgLuminance=150., blurScore=50.)))
+    bags = next(v for v in res['measurements']['periorbital'] if v['id'] == 'bags')
+    assert bags['normalizationVersion'] == 'contour-fold-local-support-v5'
+    assert bags['components']['formulaVersion'] == 'contour-fold-local-support-v5'
+    assert bags['value'] == 0.0, f"Normal lower eyelid margin dip must produce score 0.0, got {bags['value']}"
+
+
 def test_target_d_lines_radiating_angles_exclude_vertical_lash_and_hair():
     """Target D: Crow's feet Gabor filter uses radiating orientations (-30, 0, 30 deg).
     Vertical lines (theta = 90 deg) representing eyelashes, lid contours, and hair are excluded.

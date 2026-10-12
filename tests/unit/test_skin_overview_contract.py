@@ -33,7 +33,10 @@ assert(v.validSkinOverview(general,'analysis-a'));assert(!v.validSkinOverview(ge
 general.skinType.value='oily';assert(!v.validSkinOverview(general,'analysis-a'));general.skinType.value=null;
 general.indicators[0].score=NaN;assert(!v.validSkinOverview(general,'analysis-a'));
 '''
-    result=subprocess.run(['node','-e',script],cwd=ROOT,text=True,capture_output=True,timeout=30)
+    import os
+    env = os.environ.copy()
+    env['NODE_PATH'] = f"{ROOT.parent / 'attune-live-test/apps/vehicle-app/node_modules'};{ROOT / 'apps/vehicle-app/node_modules'};{ROOT.parent / 'attune-live-test/node_modules'};{ROOT / 'node_modules'}"
+    result=subprocess.run(['node','-e',script],cwd=ROOT,text=True,capture_output=True,timeout=30,env=env)
     assert result.returncode==0,result.stdout+result.stderr
 
 def test_eye_only_coverage_and_failed_accepted_method_are_not_whole_face_fallbacks():

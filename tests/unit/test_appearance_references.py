@@ -27,4 +27,7 @@ row=make(.65);A.compareAppearance(row,added.indicators.chin[0],true,'baseline');
  const dependent=H.readHealthRecords('skin').find(r=>r.id==='dependent').indicators.chin[0];a.equal(dependent.referenceDelta,undefined);a.equal(dependent.appearance.referenceId,null);a.equal(dependent.appearance.limitationCode,'REFERENCE_DELETED');
 })().catch(e=>{console.error(e);process.exitCode=1;});
 '''
- r=subprocess.run(['node','-e',"require('./tests/unit/ts_loader.js');require('./tests/unit/skin_photo_numeric_stub.cjs');\n"+script],cwd=ROOT,input=json.dumps({'dir':str(tmp_path).replace('\\','/')}),text=True,capture_output=True,encoding='utf8');assert r.returncode==0,r.stdout+r.stderr
+ import os
+ env = os.environ.copy()
+ env['NODE_PATH'] = f"{ROOT.parent / 'attune-live-test/apps/vehicle-app/node_modules'};{ROOT / 'apps/vehicle-app/node_modules'};{ROOT.parent / 'attune-live-test/node_modules'};{ROOT / 'node_modules'}"
+ r=subprocess.run(['node','-e',"require('./tests/unit/ts_loader.js');require('./tests/unit/skin_photo_numeric_stub.cjs');\n"+script],cwd=ROOT,input=json.dumps({'dir':str(tmp_path).replace('\\','/')}),text=True,capture_output=True,encoding='utf8',env=env);assert r.returncode==0,r.stdout+r.stderr
