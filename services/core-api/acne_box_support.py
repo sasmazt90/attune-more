@@ -2,7 +2,7 @@
 import hashlib,math
 import cv2,numpy as np
 
-VERSION='source-box-anatomical-support-v2'
+VERSION='source-box-anatomical-support-v3'
 REGIONS=('forehead','rightCheek','leftCheek','nose','chin')
 
 def region_envelopes(meshes,shape,scale,origin):
@@ -19,10 +19,14 @@ def accepted_boxes(boxes,envelopes,skin_support,hair,exclusion,photo,scale,origi
   a=max(0,int((bx-x0)*scale));b=max(0,int((by-y0)*scale));c=min(w,int(math.ceil((ex-x0)*scale)));d=min(h,int(math.ceil((ey-y0)*scale)))
   if c<=a or d<=b:rejected.append(dict(reason='OUTSIDE_SOURCE_SUPPORT'));continue
   cx=min(w-1,max(0,int(((bx+ex)/2-x0)*scale)));cy=min(h-1,max(0,int(((by+ey)/2-y0)*scale)))
-  if exclusion[cy,cx] or hair[cy,cx] or float((exclusion[b:d,a:c]>0).mean())>.05:rejected.append(dict(reason='ANATOMICAL_HOLE_OR_HAIR'));continue
-  owners=[k for k in REGIONS if k in envelopes and float((envelopes[k]&skin_support)[b:d,a:c].mean())>=.65]
-  if not owners:rejected.append(dict(reason='INSUFFICIENT_ANATOMICAL_SKIN_SUPPORT'));continue
-  assigned[owners[0]].append(dict(x=bx,y=by,width=ex-bx,height=ey-by,confidence=confidence,candidateId=hashlib.sha256(f'{photo}:{bx:.3f}:{by:.3f}:{ex:.3f}:{ey:.3f}'.encode()).hexdigest()[:24],coordinateSpace='source-pixels',localization='detection-box'))
+  if exclusion[cy,cx] or hair[cy,cx] or float((exclusion[b:d,a:c]>0).mean())>.25:rejected.append(dict(reason='ANATOMICAL_HOLE_OR_HAIR'));continue
+  box_skin=float(skin_support[b:d,a:c].mean())
+  if box_skin<.50 or not skin_support[cy,cx]:rejected.append(dict(reason='INSUFFICIENT_SKIN_SUPPORT'));continue
+  reg_overlaps=[(float((envelopes[k]&skin_support)[b:d,a:c].mean()),k) for k in REGIONS if k in envelopes]
+  reg_overlaps.sort(reverse=True)
+  if not reg_overlaps or reg_overlaps[0][0]<.15:rejected.append(dict(reason='INSUFFICIENT_ANATOMICAL_SKIN_SUPPORT'));continue
+  owner=reg_overlaps[0][1]
+  assigned[owner].append(dict(x=bx,y=by,width=ex-bx,height=ey-by,confidence=confidence,candidateId=hashlib.sha256(f'{photo}:{bx:.3f}:{by:.3f}:{ex:.3f}:{ey:.3f}'.encode()).hexdigest()[:24],coordinateSpace='source-pixels',localization='detection-box'))
  return assigned,rejected
 
 def box_area(boxes,shape,scale,origin):

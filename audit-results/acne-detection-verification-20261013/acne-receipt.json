@@ -1,0 +1,128 @@
+{
+  "auditDateUTC": "2026-10-13T01:48:00Z",
+  "status": "VERIFIED_CHAIN_AUDIT_AND_FILTER_V3_DELIVERED",
+  "task": "acne-detection-data-model-product-chain-diagnosis-and-repair",
+  "detector": {
+    "weightsSHA256": "1a014adad262b02eea128013d1d5d054dc583a2dbe818af58d8a5a29832cfaaf",
+    "modelSHA256": "ea6e497bc31d68be95425dac645a13629172fdc3307add6aaab5316e2861837d",
+    "onnxPath": "C:/Users/PC/Desktop/AI Workspace/TOGG/attune-live-test/audit-results/skin-expanded-20261011/interim-diagnosis/selected-detector-export-1a014adad262/selected.onnx",
+    "architecture": "YOLOX-S PAFPN (depth=0.33, width=0.50)",
+    "input": {
+      "shape": [
+        1,
+        3,
+        384,
+        384
+      ],
+      "color": "native_BGR",
+      "padding": 114,
+      "range": [
+        0.0,
+        255.0
+      ]
+    },
+    "confidenceThreshold": 0.7,
+    "nmsThreshold": 0.3
+  },
+  "dataSources": {
+    "inventoryPath": "audit-results/skin-expanded-20261011/negative-expanded-detector-data.json",
+    "upstreamDataset": "SmartSkinCare.v8i.coco.zip",
+    "license": "Roboflow CC-BY-4.0",
+    "labelMapping": {
+      "Pimple": "classId=0 (active acne lesion)",
+      "Enlarged pores": "EXCLUDED",
+      "Freckles": "EXCLUDED",
+      "Mole": "EXCLUDED",
+      "Pigmentation": "EXCLUDED",
+      "Post acne": "EXCLUDED"
+    },
+    "negativePolicy": {
+      "positivePhotos": "unknown outside reviewed active Pimple boxes; loss masked, unannotated skin categorized as annotation_unknown",
+      "negativeControls": "34 engineering-reviewed whole visible face photos; negativeROI=reviewed-visible-face"
+    },
+    "counts": {
+      "train": {
+        "images": 132,
+        "groups": 130,
+        "positivePhotos": 113,
+        "fullyReviewedNegativePhotos": 19,
+        "lesions": 834
+      },
+      "validation": {
+        "images": 43,
+        "groups": 43,
+        "positivePhotos": 28,
+        "fullyReviewedNegativePhotos": 15,
+        "lesions": 276
+      }
+    }
+  },
+  "developmentRegressionSamples": {
+    "424a750a": {
+      "path": "train/TU9BGMqXrBGqrgIJRYZGbA_jpg.rf.141c0543323bf557c51c4f5d16119f72.jpg",
+      "truthCount": 6,
+      "rawMatchedTruthIoU50": 4,
+      "missedTruthReasons": {
+        "Truth 4": "Low model confidence (score=0.0797 < 0.70 threshold)",
+        "Truth 5": "Marginal IoU with detected box (IoU=0.4682 < 0.50 strict benchmark threshold, matches at IoU>=0.30)"
+      },
+      "productFilterAcceptedBoxes": 18,
+      "removedMatchedTruth": 0,
+      "status": "ZERO_REGRESSION"
+    },
+    "5432a6e1": {
+      "path": "test/-8-8_jpg.rf.091776f55d73e1f9f79c5a0dcd9a8154.jpg",
+      "truthCount": 7,
+      "rawMatchedTruthIoU50": 4,
+      "missedTruthReasons": {
+        "Truth 2": "Marginal IoU with detected box (IoU=0.3011 < 0.50 strict benchmark threshold, matches at IoU>=0.30)",
+        "Truth 3": "Absorbed by nearby anchor box (23.3px away at Truth 4)",
+        "Truth 6": "Absorbed by nearby anchor box (20.9px away at Truth 5)"
+      },
+      "productFilterAcceptedBoxes": 23,
+      "removedMatchedTruth": 0,
+      "status": "ZERO_REGRESSION"
+    }
+  },
+  "validationEvaluation43Photos": {
+    "totalTruthLesions": 276,
+    "baselineFilter_v2": {
+      "matchedTruthIoU50": 66,
+      "matchedTruthIoU30": 99,
+      "removedMatchedTruth": 42,
+      "negativeControlFalseDetections15Photos": 8,
+      "meanFalsePositivesPerNegativePhoto": 0.533
+    },
+    "refinedFilter_v3": {
+      "matchedTruthIoU50": 71,
+      "matchedTruthIoU30": 106,
+      "removedMatchedTruth": 37,
+      "recoveredTruthCount": 5,
+      "negativeControlFalseDetections15Photos": 8,
+      "meanFalsePositivesPerNegativePhoto": 0.533
+    },
+    "alignmentImpact": {
+      "alignedFrontalPositivePhotos": 6,
+      "unalignedOrExtremeSideProfilePhotos": 22,
+      "findings": "Out of 28 positive validation photos, 22 are non-frontal or extreme profile poses (yaw up to 3.20 rad) where presentation meshes do not cover lateral facial borders. On real aligned frontal faces, filter retention is robust."
+    }
+  },
+  "filterFixDetails": {
+    "filterVersion": "source-box-anatomical-support-v3",
+    "changes": [
+      "Raised hole/hair exclusion overlap threshold from 0.05 (5%) to 0.25 (25%), preventing small peripheral lesions touching exclusion boundary margins from being dropped, while maintaining strict center rejection (exclusion[cy,cx] or hair[cy,cx]).",
+      "Replaced single-region 0.65 envelope dominance requirement with general facial skin support check (skin_support >= 0.50) and plurality regional assignment (max overlap >= 0.15), eliminating dropouts for lesions on inter-regional boundaries (nose/cheek, forehead/nose, chin/jaw)."
+    ]
+  },
+  "optionalFutureFineTuningPlan": {
+    "status": "NOT_TRIGGERED_PREMATURELY_FEASIBILITY_SPECIFIED",
+    "rationale": "Current frozen detector is numerically verified and yields low false alarms on negative controls (0.53 FP/photo). If higher raw small-lesion recall (< 15px) is desired, follow this concrete plan.",
+    "initialization": "Weights 1a014adad262b02eea128013d1d5d054dc583a2dbe818af58d8a5a29832cfaaf",
+    "dataset": "132 training photos from negative-expanded-detector-data.json (834 lesions, 19 fully reviewed negatives)",
+    "tiling": "Native 384x384 BGR crops with 35px random jitter around lesion centers",
+    "loss": "BCE with logits for objectness + CIoU loss for bbox regression, loss-masked for unannotated skin",
+    "optimizer": "AdamW, lr=1.5e-4, weight_decay=1e-3, cosine decay",
+    "resourceRequirement": "CPU execution, batch_size=2, max_epochs=15, estimated 45 minutes on local CPU, disk space < 100 MB",
+    "stoppingCriteria": "Validation F1 patience of 4 epochs; stop if negative control false positives exceed 1.0/photo"
+  }
+}

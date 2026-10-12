@@ -67,6 +67,46 @@ def test_target_a_acne_clipping_preserves_pustule_with_specular_highlight():
     assert not new_clipped.any()
 
 
+def test_target_a_acne_borderline_lesion_retention_and_support_v3():
+    """Target A: Lesions straddling regional boundaries or peripheral skin envelopes
+    are retained if total skin support is valid (>= 50%) and center is not in holes/hair.
+    Deep hole/hair overlaps (> 25% or center in exclusion) are strictly rejected.
+    """
+    h, w = 100, 100
+    skin_support = np.ones((h, w), bool)
+    hair = np.zeros((h, w), bool)
+    exclusion = np.zeros((h, w), np.uint8)
+    
+    # 2 envelopes: region1 covers x in [0, 50], region2 covers x in [50, 100]
+    env1 = np.zeros((h, w), bool); env1[:, :50] = True
+    env2 = np.zeros((h, w), bool); env2[:, 50:] = True
+    envelopes = {'rightCheek': env1, 'nose': env2}
+    
+    # Box 1: straddles boundary at x=50, from x=45 to 55 (w=10, h=10).
+    # Overlap with rightCheek is 50%, overlap with nose is 50%.
+    # In v2 (>= 65%), this was rejected! In v3 (max overlap >= 15%), it is accepted!
+    box_straddle = [45, 45, 55, 55, 0.85]
+    assigned, rejected = filter_acne_boxes([box_straddle], envelopes, skin_support, hair, exclusion, 'test_photo', 1.0, (0, 0))
+    assert len(rejected) == 0, f"Expected box to be accepted, got rejections: {rejected}"
+    assert len(assigned['rightCheek']) + len(assigned['nose']) == 1
+    
+    # Box 2: Center is in hair -> strictly rejected
+    hair[50, 50] = True
+    assigned, rejected = filter_acne_boxes([box_straddle], envelopes, skin_support, hair, exclusion, 'test_photo', 1.0, (0, 0))
+    assert len(rejected) == 1 and rejected[0]['reason'] == 'ANATOMICAL_HOLE_OR_HAIR'
+    hair[50, 50] = False
+    
+    # Box 3: Overlap with exclusion exceeds 25% -> strictly rejected
+    exclusion[45:55, 45:48] = 255  # 30% overlap
+    assigned, rejected = filter_acne_boxes([box_straddle], envelopes, skin_support, hair, exclusion, 'test_photo', 1.0, (0, 0))
+    assert len(rejected) == 1 and rejected[0]['reason'] == 'ANATOMICAL_HOLE_OR_HAIR'
+
+
+def test_target_a_acne_support_v3_version_contract():
+    """Target A: acne_box_support VERSION contract is source-box-anatomical-support-v3."""
+    assert ACNE_SUPPORT_VERSION == 'source-box-anatomical-support-v3'
+
+
 def test_target_b_dark_circles_normal_skin_deadband():
     """Target B: Normal skin with subtle contrast variation (< 5%) produces 0 dark circle score."""
     h, w = 280, 320
