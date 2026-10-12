@@ -239,3 +239,25 @@ def test_sag_calibrated_positive_control_separation():
     joint_neg = 0.0459 * edge_gate_neg * cont_gate_neg * bound_gate_neg * 100
     assert joint_neg < 0.5  # Rounds strictly to 0% in UI
     assert round(joint_neg) == 0
+
+def test_skin_type_inference_sdk_path():
+    crop = np.zeros((120, 120, 3), np.uint8)
+    mock_client = MagicMock()
+    mock_client.infer.return_value = {
+        'top': 'combination',
+        'confidence': 0.9986,
+        'predictions': [{'class': 'combination', 'confidence': 0.9986}]
+    }
+    
+    with patch.dict(os.environ, {'ATTUNE_ROBOFLOW_API_KEY': 'rf_live_key', 'ATTUNE_SKIN_TYPE_MODEL': 'skin-type-axavj/1'}):
+        with patch('inference_sdk.InferenceHTTPClient', return_value=mock_client) as mock_cls:
+            res = skin_models.infer_hosted_type(crop)
+            assert res is not None
+            assert res['value'] == 'combination'
+            assert res['quality'] == 'valid'
+            assert res['confidence'] == 0.9986
+            assert res['providerModelId'] == 'skin-type-axavj/1'
+            mock_cls.assert_called_once_with(api_url="https://serverless.roboflow.com", api_key="rf_live_key")
+            mock_client.configure.assert_called_once()
+            mock_client.infer.assert_called_once_with(crop, model_id='skin-type-axavj/1')
+

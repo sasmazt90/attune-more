@@ -1,0 +1,45 @@
+{
+  "timestamp": "2026-10-12T03:33:05Z",
+  "image": "combination_-_0bc5ca1194a13cfd7b9a_jpg.rf.0c21ccb4c6c58bf8aacd4d27c5042db9.jpg",
+  "true_class": "combination",
+  "pipeline_latency_ms": 6749.44,
+  "general_skin_type": {
+    "value": "combination",
+    "quality": "valid",
+    "confidence": 0.9985,
+    "methodVersion": "hosted-roboflow-skin-type-axavj/1",
+    "providerModelId": "skin-type-axavj/1",
+    "modelHash": null,
+    "limitationCode": null,
+    "status": "measured",
+    "reason": null,
+    "modelVersion": null,
+    "calibrationVersion": null,
+    "coverage": null
+  },
+  "overview_criteria_count": 9,
+  "regions_present": [
+    "forehead",
+    "rightCheek",
+    "leftCheek",
+    "nose",
+    "chin",
+    "periorbital"
+  ],
+  "models_metadata": {
+    "degrees": {
+      "modelHash": "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3",
+      "modelVersion": "skin-appearance-photo-ridge-20261010-v1",
+      "loadMs": 267.1938000712544,
+      "inferenceMs": 50.68020010367036
+    },
+    "type": {
+      "modelHash": null,
+      "modelVersion": "hosted-roboflow-skin-type-axavj/1",
+      "providerModelId": "skin-type-axavj/1",
+      "loadMs": 0.0,
+      "inferenceMs": 1766.97860006243
+    }
+  },
+  "status": "SUCCESS"
+}

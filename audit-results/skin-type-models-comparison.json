@@ -1,0 +1,500 @@
+{
+  "timestamp": "2026-10-12T03:29:27Z",
+  "dataset": {
+    "name": "facial-skin-analysis-and-type-classification (skin-18criteria-v1)",
+    "license": "Apache-2.0",
+    "split": "test (deduplicated by source image prefix)",
+    "sample_count": 20,
+    "samples_per_class": 5,
+    "classes": [
+      "normal",
+      "dry",
+      "oily",
+      "combination"
+    ],
+    "turkish_names": {
+      "normal": "Normal",
+      "dry": "Kuru",
+      "oily": "Ya\u011fl\u0131",
+      "combination": "Karma"
+    }
+  },
+  "comparison": {
+    "skin-type-axavj/1": {
+      "confusion_matrix": {
+        "normal": {
+          "normal": 5,
+          "dry": 0,
+          "oily": 0,
+          "combination": 0
+        },
+        "dry": {
+          "normal": 1,
+          "dry": 4,
+          "oily": 0,
+          "combination": 0
+        },
+        "oily": {
+          "normal": 0,
+          "dry": 0,
+          "oily": 5,
+          "combination": 0
+        },
+        "combination": {
+          "normal": 0,
+          "dry": 0,
+          "oily": 0,
+          "combination": 5
+        }
+      },
+      "per_class": {
+        "normal": {
+          "turkish_name": "Normal",
+          "tp": 5,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.8333,
+          "recall": 1.0,
+          "f1": 0.9091
+        },
+        "dry": {
+          "turkish_name": "Kuru",
+          "tp": 4,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8889
+        },
+        "oily": {
+          "turkish_name": "Ya\u011fl\u0131",
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "combination": {
+          "turkish_name": "Karma",
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "macro_f1": 0.9495,
+      "accuracy": 0.95,
+      "karma_recall": 1.0,
+      "total_evaluated": 20,
+      "correct": 19,
+      "latency_ms_mean": 354.93,
+      "latency_ms_min": 210.4,
+      "latency_ms_max": 1527.33,
+      "detailed_records": [
+        {
+          "image": "normal_037d2ca54ba52d645ffd_jpg.rf.016f29e4a2114b6ad3b15a0d0b356850.jpg",
+          "true_class": "normal",
+          "pred_class": "normal",
+          "confidence": 0.9894,
+          "latency_ms": 1527.33,
+          "correct": true
+        },
+        {
+          "image": "normal_03a5c2383f7f20ed8cc5_jpg.rf.6650914cd4b17394178f74bbeda3b69f.jpg",
+          "true_class": "normal",
+          "pred_class": "normal",
+          "confidence": 0.999,
+          "latency_ms": 313.43,
+          "correct": true
+        },
+        {
+          "image": "normal_059cf2165bd4da06cc0f_jpg.rf.3a94f4a0db8f9dc36629a1cadc707d80.jpg",
+          "true_class": "normal",
+          "pred_class": "normal",
+          "confidence": 0.9993,
+          "latency_ms": 333.03,
+          "correct": true
+        },
+        {
+          "image": "normal_0888964738abf72c4e5f_jpg.rf.43bece44a0817282c4e0a490ae3a47fe.jpg",
+          "true_class": "normal",
+          "pred_class": "normal",
+          "confidence": 0.9867,
+          "latency_ms": 317.17,
+          "correct": true
+        },
+        {
+          "image": "normal_0a973116bdfa8386999e_jpg.rf.055f373b54a8c6e998b484f9b351ea35.jpg",
+          "true_class": "normal",
+          "pred_class": "normal",
+          "confidence": 0.999,
+          "latency_ms": 310.11,
+          "correct": true
+        },
+        {
+          "image": "dry_00f1189752d6631b2b22_jpg.rf.7baa779a64867cadde0a202baeeed00f.jpg",
+          "true_class": "dry",
+          "pred_class": "dry",
+          "confidence": 0.9988,
+          "latency_ms": 356.72,
+          "correct": true
+        },
+        {
+          "image": "dry_058306bb9c7116981e12_jpg.rf.35d466d8229e3ef9d30e33ba454a7b52.jpg",
+          "true_class": "dry",
+          "pred_class": "dry",
+          "confidence": 0.999,
+          "latency_ms": 239.22,
+          "correct": true
+        },
+        {
+          "image": "dry_0efaf2018714dec95f67_jpg.rf.5685824a8a04919ac03afbeaa826a2ef.jpg",
+          "true_class": "dry",
+          "pred_class": "dry",
+          "confidence": 0.9942,
+          "latency_ms": 210.4,
+          "correct": true
+        },
+        {
+          "image": "dry_1b746573a6a4d2e6e0f8_jpg.rf.7860cc3477862c4c1340a70dfad30087.jpg",
+          "true_class": "dry",
+          "pred_class": "dry",
+          "confidence": 0.9783,
+          "latency_ms": 367.95,
+          "correct": true
+        },
+        {
+          "image": "dry_1ba1c0dbc35fd9281ee8_jpg.rf.40e017962fce84f796bd0ff2ff7e2a03.jpg",
+          "true_class": "dry",
+          "pred_class": "normal",
+          "confidence": 0.9879,
+          "latency_ms": 248.37,
+          "correct": false
+        },
+        {
+          "image": "oily_021e826dd8fd78c2e8f5-Copy_jpg.rf.233c9ee4e5e1910fd22e32bc70475f9d.jpg",
+          "true_class": "oily",
+          "pred_class": "oily",
+          "confidence": 0.9958,
+          "latency_ms": 293.38,
+          "correct": true
+        },
+        {
+          "image": "oily_03010ea3e69097b6b2a2-Copy_jpg.rf.c9ae09012912855a4702db2d5f321e70.jpg",
+          "true_class": "oily",
+          "pred_class": "oily",
+          "confidence": 0.999,
+          "latency_ms": 320.62,
+          "correct": true
+        },
+        {
+          "image": "oily_1914936ec86a6078e6e4_jpg.rf.1f027bdf0635ae1ac667dfd44bc38467.jpg",
+          "true_class": "oily",
+          "pred_class": "oily",
+          "confidence": 0.8208,
+          "latency_ms": 310.85,
+          "correct": true
+        },
+        {
+          "image": "oily_19f6a71befdac4bcfcbb-Copy_jpg.rf.079fc992e251fdac32376fe67ed85447.jpg",
+          "true_class": "oily",
+          "pred_class": "oily",
+          "confidence": 0.9989,
+          "latency_ms": 276.45,
+          "correct": true
+        },
+        {
+          "image": "oily_1ce986274b5d6037a4f2-Copy_jpg.rf.30f027d2ec9311291a52d8ab9790b559.jpg",
+          "true_class": "oily",
+          "pred_class": "oily",
+          "confidence": 0.9767,
+          "latency_ms": 291.43,
+          "correct": true
+        },
+        {
+          "image": "combination_-_0bc5ca1194a13cfd7b9a_jpg.rf.0c21ccb4c6c58bf8aacd4d27c5042db9.jpg",
+          "true_class": "combination",
+          "pred_class": "combination",
+          "confidence": 0.9986,
+          "latency_ms": 240.53,
+          "correct": true
+        },
+        {
+          "image": "combination_-_11440a5ed72a53bd47cd_jpg.rf.c9c3f4ea4fbbdeaf47524e2b06fa5cdf.jpg",
+          "true_class": "combination",
+          "pred_class": "combination",
+          "confidence": 0.8637,
+          "latency_ms": 223.9,
+          "correct": true
+        },
+        {
+          "image": "combination_-_12208686f5f85f0cd00a_jpg.rf.04203201548d4dcc4faef08c727d39f0.jpg",
+          "true_class": "combination",
+          "pred_class": "combination",
+          "confidence": 0.9976,
+          "latency_ms": 259.6,
+          "correct": true
+        },
+        {
+          "image": "combination_-_13badfac4ab6c7b1b4e0_jpg.rf.782489fd9b255532d676060813e8fc2e.jpg",
+          "true_class": "combination",
+          "pred_class": "combination",
+          "confidence": 0.9966,
+          "latency_ms": 353.16,
+          "correct": true
+        },
+        {
+          "image": "combination_-_201b7e7150236e27420c_jpg.rf.dbe404bbe17afc268a8ce0f90aec6078.jpg",
+          "true_class": "combination",
+          "pred_class": "combination",
+          "confidence": 0.9945,
+          "latency_ms": 305.01,
+          "correct": true
+        }
+      ]
+    },
+    "skin-type-ng2uj/1": {
+      "confusion_matrix": {
+        "normal": {
+          "normal": 4,
+          "dry": 1,
+          "oily": 0,
+          "combination": 0
+        },
+        "dry": {
+          "normal": 0,
+          "dry": 5,
+          "oily": 0,
+          "combination": 0
+        },
+        "oily": {
+          "normal": 0,
+          "dry": 0,
+          "oily": 5,
+          "combination": 0
+        },
+        "combination": {
+          "normal": 0,
+          "dry": 0,
+          "oily": 1,
+          "combination": 4
+        }
+      },
+      "per_class": {
+        "normal": {
+          "turkish_name": "Normal",
+          "tp": 4,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8889
+        },
+        "dry": {
+          "turkish_name": "Kuru",
+          "tp": 5,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.8333,
+          "recall": 1.0,
+          "f1": 0.9091
+        },
+        "oily": {
+          "turkish_name": "Ya\u011fl\u0131",
+          "tp": 5,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.8333,
+          "recall": 1.0,
+          "f1": 0.9091
+        },
+        "combination": {
+          "turkish_name": "Karma",
+          "tp": 4,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8889
+        }
+      },
+      "macro_f1": 0.899,
+      "accuracy": 0.9,
+      "karma_recall": 0.8,
+      "total_evaluated": 20,
+      "correct": 18,
+      "latency_ms_mean": 276.9,
+      "latency_ms_min": 224.79,
+      "latency_ms_max": 366.85,
+      "detailed_records": [
+        {
+          "image": "normal_037d2ca54ba52d645ffd_jpg.rf.016f29e4a2114b6ad3b15a0d0b356850.jpg",
+          "true_class": "normal",
+          "pred_class": "normal",
+          "confidence": 0.9914,
+          "latency_ms": 256.42,
+          "correct": true
+        },
+        {
+          "image": "normal_03a5c2383f7f20ed8cc5_jpg.rf.6650914cd4b17394178f74bbeda3b69f.jpg",
+          "true_class": "normal",
+          "pred_class": "normal",
+          "confidence": 0.9022,
+          "latency_ms": 251.09,
+          "correct": true
+        },
+        {
+          "image": "normal_059cf2165bd4da06cc0f_jpg.rf.3a94f4a0db8f9dc36629a1cadc707d80.jpg",
+          "true_class": "normal",
+          "pred_class": "normal",
+          "confidence": 1.0,
+          "latency_ms": 366.85,
+          "correct": true
+        },
+        {
+          "image": "normal_0888964738abf72c4e5f_jpg.rf.43bece44a0817282c4e0a490ae3a47fe.jpg",
+          "true_class": "normal",
+          "pred_class": "dry",
+          "confidence": 0.5857,
+          "latency_ms": 316.67,
+          "correct": false
+        },
+        {
+          "image": "normal_0a973116bdfa8386999e_jpg.rf.055f373b54a8c6e998b484f9b351ea35.jpg",
+          "true_class": "normal",
+          "pred_class": "normal",
+          "confidence": 0.9163,
+          "latency_ms": 249.05,
+          "correct": true
+        },
+        {
+          "image": "dry_00f1189752d6631b2b22_jpg.rf.7baa779a64867cadde0a202baeeed00f.jpg",
+          "true_class": "dry",
+          "pred_class": "dry",
+          "confidence": 0.9908,
+          "latency_ms": 295.69,
+          "correct": true
+        },
+        {
+          "image": "dry_058306bb9c7116981e12_jpg.rf.35d466d8229e3ef9d30e33ba454a7b52.jpg",
+          "true_class": "dry",
+          "pred_class": "dry",
+          "confidence": 0.9994,
+          "latency_ms": 266.96,
+          "correct": true
+        },
+        {
+          "image": "dry_0efaf2018714dec95f67_jpg.rf.5685824a8a04919ac03afbeaa826a2ef.jpg",
+          "true_class": "dry",
+          "pred_class": "dry",
+          "confidence": 0.9936,
+          "latency_ms": 224.79,
+          "correct": true
+        },
+        {
+          "image": "dry_1b746573a6a4d2e6e0f8_jpg.rf.7860cc3477862c4c1340a70dfad30087.jpg",
+          "true_class": "dry",
+          "pred_class": "dry",
+          "confidence": 0.9974,
+          "latency_ms": 313.0,
+          "correct": true
+        },
+        {
+          "image": "dry_1ba1c0dbc35fd9281ee8_jpg.rf.40e017962fce84f796bd0ff2ff7e2a03.jpg",
+          "true_class": "dry",
+          "pred_class": "dry",
+          "confidence": 0.9997,
+          "latency_ms": 228.97,
+          "correct": true
+        },
+        {
+          "image": "oily_021e826dd8fd78c2e8f5-Copy_jpg.rf.233c9ee4e5e1910fd22e32bc70475f9d.jpg",
+          "true_class": "oily",
+          "pred_class": "oily",
+          "confidence": 0.9684,
+          "latency_ms": 285.03,
+          "correct": true
+        },
+        {
+          "image": "oily_03010ea3e69097b6b2a2-Copy_jpg.rf.c9ae09012912855a4702db2d5f321e70.jpg",
+          "true_class": "oily",
+          "pred_class": "oily",
+          "confidence": 1.0,
+          "latency_ms": 311.94,
+          "correct": true
+        },
+        {
+          "image": "oily_1914936ec86a6078e6e4_jpg.rf.1f027bdf0635ae1ac667dfd44bc38467.jpg",
+          "true_class": "oily",
+          "pred_class": "oily",
+          "confidence": 0.9978,
+          "latency_ms": 303.25,
+          "correct": true
+        },
+        {
+          "image": "oily_19f6a71befdac4bcfcbb-Copy_jpg.rf.079fc992e251fdac32376fe67ed85447.jpg",
+          "true_class": "oily",
+          "pred_class": "oily",
+          "confidence": 1.0,
+          "latency_ms": 289.87,
+          "correct": true
+        },
+        {
+          "image": "oily_1ce986274b5d6037a4f2-Copy_jpg.rf.30f027d2ec9311291a52d8ab9790b559.jpg",
+          "true_class": "oily",
+          "pred_class": "oily",
+          "confidence": 0.5769,
+          "latency_ms": 291.11,
+          "correct": true
+        },
+        {
+          "image": "combination_-_0bc5ca1194a13cfd7b9a_jpg.rf.0c21ccb4c6c58bf8aacd4d27c5042db9.jpg",
+          "true_class": "combination",
+          "pred_class": "oily",
+          "confidence": 0.997,
+          "latency_ms": 237.53,
+          "correct": false
+        },
+        {
+          "image": "combination_-_11440a5ed72a53bd47cd_jpg.rf.c9c3f4ea4fbbdeaf47524e2b06fa5cdf.jpg",
+          "true_class": "combination",
+          "pred_class": "combination",
+          "confidence": 0.9982,
+          "latency_ms": 228.46,
+          "correct": true
+        },
+        {
+          "image": "combination_-_12208686f5f85f0cd00a_jpg.rf.04203201548d4dcc4faef08c727d39f0.jpg",
+          "true_class": "combination",
+          "pred_class": "combination",
+          "confidence": 0.9996,
+          "latency_ms": 282.31,
+          "correct": true
+        },
+        {
+          "image": "combination_-_13badfac4ab6c7b1b4e0_jpg.rf.782489fd9b255532d676060813e8fc2e.jpg",
+          "true_class": "combination",
+          "pred_class": "combination",
+          "confidence": 0.9999,
+          "latency_ms": 273.97,
+          "correct": true
+        },
+        {
+          "image": "combination_-_201b7e7150236e27420c_jpg.rf.dbe404bbe17afc268a8ce0f90aec6078.jpg",
+          "true_class": "combination",
+          "pred_class": "combination",
+          "confidence": 0.9994,
+          "latency_ms": 265.07,
+          "correct": true
+        }
+      ]
+    }
+  },
+  "selection": {
+    "chosen_model_id": "skin-type-axavj/1",
+    "rationale": "Macro-F1: 0.9495 vs 0.899; Karma Recall: 1.0 vs 0.8."
+  }
+}

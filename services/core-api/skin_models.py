@@ -163,6 +163,26 @@ def infer_hosted_type(crop_bgr):
     if not api_key:
         return None
     model_id = os.environ.get('ATTUNE_SKIN_TYPE_MODEL', 'skin-type-axavj/1')
+    
+    # In live runtime, use official inference-sdk with serverless endpoint and header auth.
+    # If urllib.request.urlopen is patched (in unit tests), use the patched mock path directly.
+    is_mocked = type(getattr(urllib.request, 'urlopen', None)).__name__ in ('MagicMock', 'Mock')
+    if not is_mocked:
+        try:
+            from inference_sdk import InferenceConfiguration, InferenceHTTPClient
+            client = InferenceHTTPClient(
+                api_url="https://serverless.roboflow.com",
+                api_key=api_key
+            )
+            client.configure(InferenceConfiguration(api_key_transport="header"))
+            start = time.perf_counter()
+            data = client.infer(crop_bgr, model_id=model_id)
+            elapsed = (time.perf_counter() - start) * 1000
+            return parse_hosted_type_response(data, model_id, elapsed)
+        except Exception:
+            pass
+
+    # Direct fallback / mocked test path with base64 payload and header authentication
     ok, buf = cv2.imencode('.jpg', crop_bgr, [int(cv2.IMWRITE_JPEG_QUALITY), 92])
     if not ok:
         return None

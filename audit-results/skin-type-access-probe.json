@@ -1,0 +1,274 @@
+[
+  {
+    "model_id": "skin-type-axavj/1",
+    "true_class": "normal",
+    "image_name": "normal_037d2ca54ba52d645ffd_jpg.rf.016f29e4a2114b6ad3b15a0d0b356850.jpg",
+    "timestamp": "2026-10-12T03:25:47Z",
+    "success": true,
+    "status_code": 200,
+    "latency_ms": 6535.49,
+    "raw_response": {
+      "inference_id": "b15b08f5-15a2-4ab9-abde-2e4d3b119e31",
+      "time": 0.010486174374818802,
+      "resolved_model": {
+        "model_id": "skin-type-axavj/1",
+        "model_package_id": "5362b72bfb9f01d2e0b8cba2048d932c",
+        "backend": "onnx",
+        "quantization": "fp32"
+      },
+      "image": {
+        "width": 640,
+        "height": 640
+      },
+      "predictions": [
+        {
+          "class": "normal",
+          "class_id": 0,
+          "confidence": 0.9894
+        }
+      ],
+      "top": "normal",
+      "confidence": 0.9894
+    },
+    "predicted_class": "normal",
+    "confidence": 0.9894
+  },
+  {
+    "model_id": "skin-type-axavj/1",
+    "true_class": "dry",
+    "image_name": "dry_00f1189752d6631b2b22_jpg.rf.7baa779a64867cadde0a202baeeed00f.jpg",
+    "timestamp": "2026-10-12T03:25:54Z",
+    "success": true,
+    "status_code": 200,
+    "latency_ms": 301.75,
+    "raw_response": {
+      "inference_id": "f7c6ad99-89d9-4da0-9c1a-1d450e1f7c72",
+      "time": 0.005504061002284288,
+      "resolved_model": {
+        "model_id": "skin-type-axavj/1",
+        "model_package_id": "5362b72bfb9f01d2e0b8cba2048d932c",
+        "backend": "onnx",
+        "quantization": "fp32"
+      },
+      "image": {
+        "width": 640,
+        "height": 640
+      },
+      "predictions": [
+        {
+          "class": "dry",
+          "class_id": 3,
+          "confidence": 0.9988
+        }
+      ],
+      "top": "dry",
+      "confidence": 0.9988
+    },
+    "predicted_class": "dry",
+    "confidence": 0.9988
+  },
+  {
+    "model_id": "skin-type-axavj/1",
+    "true_class": "oily",
+    "image_name": "oily_021e826dd8fd78c2e8f5-Copy_jpg.rf.233c9ee4e5e1910fd22e32bc70475f9d.jpg",
+    "timestamp": "2026-10-12T03:25:54Z",
+    "success": true,
+    "status_code": 200,
+    "latency_ms": 232.01,
+    "raw_response": {
+      "inference_id": "6e3354c7-3cfe-4800-af71-16b8152f94fe",
+      "time": 0.00621618190780282,
+      "resolved_model": {
+        "model_id": "skin-type-axavj/1",
+        "model_package_id": "5362b72bfb9f01d2e0b8cba2048d932c",
+        "backend": "onnx",
+        "quantization": "fp32"
+      },
+      "image": {
+        "width": 640,
+        "height": 640
+      },
+      "predictions": [
+        {
+          "class": "oily",
+          "class_id": 2,
+          "confidence": 0.9958
+        }
+      ],
+      "top": "oily",
+      "confidence": 0.9958
+    },
+    "predicted_class": "oily",
+    "confidence": 0.9958
+  },
+  {
+    "model_id": "skin-type-axavj/1",
+    "true_class": "combination",
+    "image_name": "combination_-_0bc5ca1194a13cfd7b9a_jpg.rf.0c21ccb4c6c58bf8aacd4d27c5042db9.jpg",
+    "timestamp": "2026-10-12T03:25:54Z",
+    "success": true,
+    "status_code": 200,
+    "latency_ms": 278.57,
+    "raw_response": {
+      "inference_id": "58fa3a6b-b355-4ee5-b44a-b25583f98eb6",
+      "time": 0.005553011782467365,
+      "resolved_model": {
+        "model_id": "skin-type-axavj/1",
+        "model_package_id": "5362b72bfb9f01d2e0b8cba2048d932c",
+        "backend": "onnx",
+        "quantization": "fp32"
+      },
+      "image": {
+        "width": 640,
+        "height": 640
+      },
+      "predictions": [
+        {
+          "class": "combination",
+          "class_id": 1,
+          "confidence": 0.9986
+        }
+      ],
+      "top": "combination",
+      "confidence": 0.9986
+    },
+    "predicted_class": "combination",
+    "confidence": 0.9986
+  },
+  {
+    "model_id": "skin-type-ng2uj/1",
+    "true_class": "normal",
+    "image_name": "normal_037d2ca54ba52d645ffd_jpg.rf.016f29e4a2114b6ad3b15a0d0b356850.jpg",
+    "timestamp": "2026-10-12T03:25:55Z",
+    "success": true,
+    "status_code": 200,
+    "latency_ms": 3883.78,
+    "raw_response": {
+      "inference_id": "e55d5f09-b2e7-401b-8ae0-074c1a56cedc",
+      "time": 0.06673635076731443,
+      "resolved_model": {
+        "model_id": "skin-type-ng2uj/1",
+        "model_package_id": "5362b72bfb9f01d2e0b8cba2048d932c",
+        "backend": "onnx",
+        "quantization": "fp32"
+      },
+      "image": {
+        "width": 640,
+        "height": 640
+      },
+      "predictions": [
+        {
+          "class": "normal",
+          "class_id": 3,
+          "confidence": 0.9914
+        }
+      ],
+      "top": "normal",
+      "confidence": 0.9914
+    },
+    "predicted_class": "normal",
+    "confidence": 0.9914
+  },
+  {
+    "model_id": "skin-type-ng2uj/1",
+    "true_class": "dry",
+    "image_name": "dry_00f1189752d6631b2b22_jpg.rf.7baa779a64867cadde0a202baeeed00f.jpg",
+    "timestamp": "2026-10-12T03:25:59Z",
+    "success": true,
+    "status_code": 200,
+    "latency_ms": 246.66,
+    "raw_response": {
+      "inference_id": "a231ec4e-4d60-4458-a007-95b740a2c9eb",
+      "time": 0.005640482064336538,
+      "resolved_model": {
+        "model_id": "skin-type-ng2uj/1",
+        "model_package_id": "5362b72bfb9f01d2e0b8cba2048d932c",
+        "backend": "onnx",
+        "quantization": "fp32"
+      },
+      "image": {
+        "width": 640,
+        "height": 640
+      },
+      "predictions": [
+        {
+          "class": "dry",
+          "class_id": 2,
+          "confidence": 0.9908
+        }
+      ],
+      "top": "dry",
+      "confidence": 0.9908
+    },
+    "predicted_class": "dry",
+    "confidence": 0.9908
+  },
+  {
+    "model_id": "skin-type-ng2uj/1",
+    "true_class": "oily",
+    "image_name": "oily_021e826dd8fd78c2e8f5-Copy_jpg.rf.233c9ee4e5e1910fd22e32bc70475f9d.jpg",
+    "timestamp": "2026-10-12T03:25:59Z",
+    "success": true,
+    "status_code": 200,
+    "latency_ms": 283.94,
+    "raw_response": {
+      "inference_id": "5d153114-97d5-426f-adc7-21f159c94f53",
+      "time": 0.005448400042951107,
+      "resolved_model": {
+        "model_id": "skin-type-ng2uj/1",
+        "model_package_id": "5362b72bfb9f01d2e0b8cba2048d932c",
+        "backend": "onnx",
+        "quantization": "fp32"
+      },
+      "image": {
+        "width": 640,
+        "height": 640
+      },
+      "predictions": [
+        {
+          "class": "oily",
+          "class_id": 1,
+          "confidence": 0.9684
+        }
+      ],
+      "top": "oily",
+      "confidence": 0.9684
+    },
+    "predicted_class": "oily",
+    "confidence": 0.9684
+  },
+  {
+    "model_id": "skin-type-ng2uj/1",
+    "true_class": "combination",
+    "image_name": "combination_-_0bc5ca1194a13cfd7b9a_jpg.rf.0c21ccb4c6c58bf8aacd4d27c5042db9.jpg",
+    "timestamp": "2026-10-12T03:25:59Z",
+    "success": true,
+    "status_code": 200,
+    "latency_ms": 230.27,
+    "raw_response": {
+      "inference_id": "2d6984d4-b90a-49a7-94bd-c4e84edccaa2",
+      "time": 0.005532081238925457,
+      "resolved_model": {
+        "model_id": "skin-type-ng2uj/1",
+        "model_package_id": "5362b72bfb9f01d2e0b8cba2048d932c",
+        "backend": "onnx",
+        "quantization": "fp32"
+      },
+      "image": {
+        "width": 640,
+        "height": 640
+      },
+      "predictions": [
+        {
+          "class": "oily",
+          "class_id": 1,
+          "confidence": 0.997
+        }
+      ],
+      "top": "oily",
+      "confidence": 0.997
+    },
+    "predicted_class": "oily",
+    "confidence": 0.997
+  }
+]
