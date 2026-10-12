@@ -1,0 +1,1518 @@
+{
+  "executedAt": "2026-10-12T18:37:29.826952+00:00",
+  "frozenAGCommit": "ff0b161bd807fe81d2ba5ee6283d4f5b26f6a102",
+  "baselineCommit": "d596873c363a57324d38dc974e5ad65186ea9866",
+  "sourceInventorySHA256": "3607b875ddc21d3ee8e6b7cc7c20bee2042612b3b184114746c06263fcf00086",
+  "scopeLedgerSHA256": "b54aa69b95b362aa8f4a53d51be9d417981b063c56ef483fc2994634b14b9836",
+  "mediapipeModelSHA256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+  "backendHashes": {
+    "appearance_analysis.py": "55d91d1fa5d713458a45bdec3834fd0cbfe073fc9918bc8412c7f12e0af359e5",
+    "instant_appearance.py": "c5529c140d0f27cf3a2d9c8949b13f72d29370e6d3f9dd58afba31111f91432a",
+    "skin_general.py": "9eb06e042333d538c99a3e9f5f78af56ecbc32c6f53f1a331e8c0a7e772c98bf",
+    "skin_models.py": "1d3a1dc6df6fc8e7d60048f368f2d0099065c1755a7df513a0ea362ad72da976",
+    "hosted_skin_type.py": "eaa4eb6228406c53a88475ccc661ed61d1f26e901009fe9ff95b8335faf36406"
+  },
+  "samplingSupportVersion": "tracked-center-eligible-v1",
+  "rows": [
+    {
+      "source": {
+        "source": "dc",
+        "path": "train/3879bc8f-24_5_jpg.rf.8219ef285adb926de2639d05630d45d8.jpg",
+        "sha256": "20031f3502cc294041fe4d5cb9995b6961ba44b6cae7b8b44e01daeafaa752b2",
+        "split": "validation",
+        "sampleCategory": "development_positive_polygon",
+        "selectionRationale": "Previously exposed development positive; source partial polygon, outside remains unknown",
+        "negativeTruthScope": "Only bags reviewed support; outside and other criteria unknown without separate annotation"
+      },
+      "quality": {
+        "isValid": true,
+        "avgLuminance": 79.42232467181425,
+        "blurScore": 12.106392363397731,
+        "status": "OPTIMAL"
+      },
+      "qualityValid": true,
+      "conditions": {
+        "yaw": 0.15,
+        "pitch": -0.11,
+        "roll": 0.08,
+        "scaleRatio": 0.75,
+        "avgLuminance": 79.42232467181425,
+        "blurScore": 12.106392363397731
+      },
+      "sourcePhotoId": "c7013e521e71f8c552be3c6bab4c8cccb5dac0a256c9f04a2c2f56247eec1221",
+      "targets": {
+        "bags": {
+          "product": {
+            "value": 0,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "contour-fold-local-support-v5"
+          },
+          "uiScore": 0,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 0,
+            "weightedRGB8bitVisibleAnalysisPixels": 0,
+            "insideEyeBandAnalysisPixels": 0,
+            "outsideEyeBandAnalysisPixels": 0,
+            "insideSelectedRegionAnalysisPixels": 0,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 0,
+            "insideEyeBandSourcePixels": 0,
+            "outsideEyeBandSourcePixels": 0,
+            "insideSelectedRegionSourcePixels": 0,
+            "outsideSelectedRegionSourcePixels": 0,
+            "sourceStep": 1.4641941338777542,
+            "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+            "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": null,
+            "quality": "insufficient",
+            "limitationCode": "HAIR_OR_SHARP_LINE_CONFOUNDER",
+            "normalizationVersion": "contour-fold-local-support-v4"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 13.891280442476273,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "contour-fold-local-support-v5"
+          }
+        },
+        "dark": {
+          "product": {
+            "value": 20.922380447387695,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-contrast-chroma-local-v4"
+          },
+          "uiScore": 21,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 537,
+            "weightedRGB8bitVisibleAnalysisPixels": 525,
+            "insideEyeBandAnalysisPixels": 537,
+            "outsideEyeBandAnalysisPixels": 0,
+            "insideSelectedRegionAnalysisPixels": 537,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 1151,
+            "insideEyeBandSourcePixels": 1139,
+            "outsideEyeBandSourcePixels": 12,
+            "insideSelectedRegionSourcePixels": 1123,
+            "outsideSelectedRegionSourcePixels": 28,
+            "sourceStep": 1.4641941338777542,
+            "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+            "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": 32.77342224121094,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-relative-contrast-local-quality-v2"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 16.847490310668945,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-contrast-chroma-local-v4"
+          }
+        },
+        "lines": {
+          "product": {
+            "value": 6.608452320098877,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3"
+          },
+          "uiScore": 7,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 200,
+            "weightedRGB8bitVisibleAnalysisPixels": 193,
+            "insideEyeBandAnalysisPixels": 200,
+            "outsideEyeBandAnalysisPixels": 0,
+            "insideSelectedRegionAnalysisPixels": 200,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 413,
+            "insideEyeBandSourcePixels": 405,
+            "outsideEyeBandSourcePixels": 8,
+            "insideSelectedRegionSourcePixels": 374,
+            "outsideSelectedRegionSourcePixels": 39,
+            "sourceStep": 1.4641941338777542,
+            "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+            "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": 7.978459358215332,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-local-quality-v2"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 11.529605865478516,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3"
+          }
+        }
+      },
+      "api": "actual browser MediaPipe -> production crop -> analyzeAppearance -> normal shortcut backend",
+      "hostedProcessingConsent": false,
+      "labelScope": {
+        "target": "bags",
+        "kind": "partial-positive-source-polygon",
+        "reviewedSourcePixels": 1224,
+        "activeWithinReviewedPixels": 0,
+        "unknownOutsidePixels": 408376,
+        "unknownOutsideIsNegative": false,
+        "fullROIDiceMeasured": false,
+        "severityTruthAvailable": false
+      }
+    },
+    {
+      "source": {
+        "source": "v11",
+        "path": "train/175_jpg.rf.57a8127a6f466c452008c27eda194a5d.jpg",
+        "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "split": "validation",
+        "sampleCategory": "development_positive_polygon",
+        "selectionRationale": "Previously exposed development positive; source partial polygon, outside remains unknown",
+        "negativeTruthScope": "Only bags reviewed support; outside and other criteria unknown without separate annotation"
+      },
+      "quality": {
+        "isValid": true,
+        "avgLuminance": 145.81479901961092,
+        "blurScore": 7.490669074647453,
+        "status": "OPTIMAL"
+      },
+      "qualityValid": true,
+      "conditions": {
+        "yaw": -0.19,
+        "pitch": -0.02,
+        "roll": 0.06,
+        "scaleRatio": 0.48,
+        "avgLuminance": 145.81479901961092,
+        "blurScore": 7.490669074647453
+      },
+      "sourcePhotoId": "2956907a115a075b13a62df258a146c0cb0fe184ad0d7774d9645c0593553290",
+      "targets": {
+        "bags": {
+          "product": {
+            "value": 1.0132577493398762,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "contour-fold-local-support-v5"
+          },
+          "uiScore": 1,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 52,
+            "weightedRGB8bitVisibleAnalysisPixels": 37,
+            "insideEyeBandAnalysisPixels": 52,
+            "outsideEyeBandAnalysisPixels": 0,
+            "insideSelectedRegionAnalysisPixels": 52,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 52,
+            "insideEyeBandSourcePixels": 52,
+            "outsideEyeBandSourcePixels": 0,
+            "insideSelectedRegionSourcePixels": 52,
+            "outsideSelectedRegionSourcePixels": 0,
+            "sourceStep": 1,
+            "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+            "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": 1.6824197215707197,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "contour-fold-local-support-v4"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 0.6685940315946937,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "contour-fold-local-support-v5"
+          }
+        },
+        "dark": {
+          "product": {
+            "value": 3.7993884086608887,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-contrast-chroma-local-v4"
+          },
+          "uiScore": 4,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 449,
+            "weightedRGB8bitVisibleAnalysisPixels": 417,
+            "insideEyeBandAnalysisPixels": 449,
+            "outsideEyeBandAnalysisPixels": 0,
+            "insideSelectedRegionAnalysisPixels": 449,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 449,
+            "insideEyeBandSourcePixels": 449,
+            "outsideEyeBandSourcePixels": 0,
+            "insideSelectedRegionSourcePixels": 449,
+            "outsideSelectedRegionSourcePixels": 0,
+            "sourceStep": 1,
+            "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+            "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": 8.12366771697998,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-relative-contrast-local-quality-v2"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 2.544227123260498,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-contrast-chroma-local-v4"
+          }
+        },
+        "lines": {
+          "product": {
+            "value": 0,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3"
+          },
+          "uiScore": 0,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 0,
+            "weightedRGB8bitVisibleAnalysisPixels": 0,
+            "insideEyeBandAnalysisPixels": 0,
+            "outsideEyeBandAnalysisPixels": 0,
+            "insideSelectedRegionAnalysisPixels": 0,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 0,
+            "insideEyeBandSourcePixels": 0,
+            "outsideEyeBandSourcePixels": 0,
+            "insideSelectedRegionSourcePixels": 0,
+            "outsideSelectedRegionSourcePixels": 0,
+            "sourceStep": 1,
+            "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+            "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": 0.04112066328525543,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-local-quality-v2"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 0.0,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3"
+          }
+        }
+      },
+      "api": "actual browser MediaPipe -> production crop -> analyzeAppearance -> normal shortcut backend",
+      "hostedProcessingConsent": false,
+      "labelScope": {
+        "target": "bags",
+        "kind": "partial-positive-source-polygon",
+        "reviewedSourcePixels": 4170,
+        "activeWithinReviewedPixels": 52,
+        "unknownOutsidePixels": 405430,
+        "unknownOutsideIsNegative": false,
+        "fullROIDiceMeasured": false,
+        "severityTruthAvailable": false
+      }
+    },
+    {
+      "source": {
+        "source": "old-skin",
+        "path": "skin_type_classification_dataset/test/normal/normal_new_75ecf7ec1f1edea59589_jpg.rf.d745f9da8b5c8096b2525bcc06c83d54.jpg",
+        "sha256": "beda02904d704cba3e6f417892442a8c2fa1650f765a761957c3285a4d55cbf5",
+        "split": "validation",
+        "sampleCategory": "natural_reviewed_negative",
+        "selectionRationale": "Existing bags-specific engineering-reviewed negative support only; unreviewed pixels remain unknown",
+        "negativeTruthScope": "Only bags reviewed support; outside and other criteria unknown without separate annotation"
+      },
+      "quality": {
+        "isValid": true,
+        "avgLuminance": 113.58706074987714,
+        "blurScore": 5.652710594315207,
+        "status": "OPTIMAL"
+      },
+      "qualityValid": true,
+      "conditions": {
+        "yaw": 0.06,
+        "pitch": 0.04,
+        "roll": -0.44,
+        "scaleRatio": 0.41,
+        "avgLuminance": 113.58706074987714,
+        "blurScore": 5.652710594315207
+      },
+      "sourcePhotoId": "0ad80a104a24b47b76e9c6c3cadd894b7b0c91c3e5fb7090a32c3ad711688cea",
+      "targets": {
+        "bags": {
+          "product": {
+            "value": null,
+            "quality": "insufficient",
+            "limitationCode": "HARD_DIRECTIONAL_SHADOW",
+            "normalizationVersion": "contour-fold-local-support-v5"
+          },
+          "uiScore": null,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 0,
+            "outsideEyeBandAnalysisPixels": 0,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 0,
+            "outsideEyeBandSourcePixels": 0,
+            "outsideSelectedRegionSourcePixels": 0
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": null,
+            "quality": "insufficient",
+            "limitationCode": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+            "normalizationVersion": "contour-fold-local-support-v4"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 0.0,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "contour-fold-local-support-v5"
+          }
+        },
+        "dark": {
+          "product": {
+            "value": 2.045248508453369,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-contrast-chroma-local-v4"
+          },
+          "uiScore": 2,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 315,
+            "weightedRGB8bitVisibleAnalysisPixels": 220,
+            "insideEyeBandAnalysisPixels": 315,
+            "outsideEyeBandAnalysisPixels": 0,
+            "insideSelectedRegionAnalysisPixels": 315,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 315,
+            "insideEyeBandSourcePixels": 315,
+            "outsideEyeBandSourcePixels": 0,
+            "insideSelectedRegionSourcePixels": 315,
+            "outsideSelectedRegionSourcePixels": 0,
+            "sourceStep": 1,
+            "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+            "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": 10.189140319824219,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-relative-contrast-local-quality-v2"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 1.716963291168213,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-contrast-chroma-local-v4"
+          }
+        },
+        "lines": {
+          "product": {
+            "value": 0.725189745426178,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3"
+          },
+          "uiScore": 1,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 8,
+            "weightedRGB8bitVisibleAnalysisPixels": 8,
+            "insideEyeBandAnalysisPixels": 8,
+            "outsideEyeBandAnalysisPixels": 0,
+            "insideSelectedRegionAnalysisPixels": 8,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 8,
+            "insideEyeBandSourcePixels": 8,
+            "outsideEyeBandSourcePixels": 0,
+            "insideSelectedRegionSourcePixels": 8,
+            "outsideSelectedRegionSourcePixels": 0,
+            "sourceStep": 1,
+            "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+            "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": 0.5386239886283875,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-local-quality-v2"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 0.4012039601802826,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3"
+          }
+        }
+      },
+      "api": "actual browser MediaPipe -> production crop -> analyzeAppearance -> normal shortcut backend",
+      "hostedProcessingConsent": false,
+      "labelScope": {
+        "target": "bags",
+        "kind": "engineering-reviewed-negative-ROI",
+        "reviewedSourcePixels": 6035,
+        "activeWithinReviewedPixels": 0,
+        "unknownOutsidePixels": 403565,
+        "unknownOutsideIsNegative": false,
+        "fullROIDiceMeasured": false,
+        "severityTruthAvailable": false
+      }
+    },
+    {
+      "source": {
+        "source": "old-skin",
+        "path": "skin_type_classification_dataset/test/dry/dry_new_b727e769596e165e55c9_jpg.rf.a2a883cd47a0a4d4d91b55554e1ac742.jpg",
+        "sha256": "4b13b16a33d4c2d72dbae196aa83a21d0ffb738969f80c0394c7941beb24c9db",
+        "split": "train",
+        "sampleCategory": "natural_reviewed_negative",
+        "selectionRationale": "Existing bags-specific engineering-reviewed negative support only; unreviewed pixels remain unknown",
+        "negativeTruthScope": "Only bags reviewed support; outside and other criteria unknown without separate annotation"
+      },
+      "quality": {
+        "isValid": true,
+        "avgLuminance": 95.31989309302224,
+        "blurScore": 4.717094811808571,
+        "status": "OPTIMAL"
+      },
+      "qualityValid": true,
+      "conditions": {
+        "yaw": -0.13,
+        "pitch": -0.04,
+        "roll": 0.14,
+        "scaleRatio": 0.45,
+        "avgLuminance": 95.31989309302224,
+        "blurScore": 4.717094811808571
+      },
+      "sourcePhotoId": "175a3e1bd4466fec844805d8c999fdd0e0b9bb82157373cbff246da593a11335",
+      "targets": {
+        "bags": {
+          "product": {
+            "value": null,
+            "quality": "insufficient",
+            "limitationCode": "ANATOMICAL_BAND_NOT_VISIBLE",
+            "normalizationVersion": "contour-fold-local-support-v5"
+          },
+          "uiScore": null,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 0,
+            "outsideEyeBandAnalysisPixels": 0,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 0,
+            "outsideEyeBandSourcePixels": 0,
+            "outsideSelectedRegionSourcePixels": 0
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": null,
+            "quality": "insufficient",
+            "limitationCode": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+            "normalizationVersion": "contour-fold-local-support-v4"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 0.0,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "contour-fold-local-support-v5"
+          }
+        },
+        "dark": {
+          "product": {
+            "value": 11.642267227172852,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-contrast-chroma-local-v4"
+          },
+          "uiScore": 12,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 570,
+            "weightedRGB8bitVisibleAnalysisPixels": 513,
+            "insideEyeBandAnalysisPixels": 570,
+            "outsideEyeBandAnalysisPixels": 0,
+            "insideSelectedRegionAnalysisPixels": 570,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 570,
+            "insideEyeBandSourcePixels": 570,
+            "outsideEyeBandSourcePixels": 0,
+            "insideSelectedRegionSourcePixels": 570,
+            "outsideSelectedRegionSourcePixels": 0,
+            "sourceStep": 1,
+            "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+            "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": 20.328596115112305,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-relative-contrast-local-quality-v2"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 15.117681503295898,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-contrast-chroma-local-v4"
+          }
+        },
+        "lines": {
+          "product": {
+            "value": 0.1444261372089386,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3"
+          },
+          "uiScore": 0,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 4,
+            "weightedRGB8bitVisibleAnalysisPixels": 4,
+            "insideEyeBandAnalysisPixels": 4,
+            "outsideEyeBandAnalysisPixels": 0,
+            "insideSelectedRegionAnalysisPixels": 4,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 4,
+            "insideEyeBandSourcePixels": 4,
+            "outsideEyeBandSourcePixels": 0,
+            "insideSelectedRegionSourcePixels": 4,
+            "outsideSelectedRegionSourcePixels": 0,
+            "sourceStep": 1,
+            "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+            "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": 1.3311020135879517,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-local-quality-v2"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 0.411264032125473,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3"
+          }
+        }
+      },
+      "api": "actual browser MediaPipe -> production crop -> analyzeAppearance -> normal shortcut backend",
+      "hostedProcessingConsent": false,
+      "labelScope": {
+        "target": "bags",
+        "kind": "engineering-reviewed-negative-ROI",
+        "reviewedSourcePixels": 10451,
+        "activeWithinReviewedPixels": 0,
+        "unknownOutsidePixels": 399149,
+        "unknownOutsideIsNegative": false,
+        "fullROIDiceMeasured": false,
+        "severityTruthAvailable": false
+      }
+    },
+    {
+      "source": {
+        "source": "old-skin",
+        "path": "skin_type_classification_dataset/train/dry/dry_new_71fba445f94eaf92601f_jpg.rf.303f6973acafc1b6e6bd60cf1c892bf7.jpg",
+        "sha256": "e0ee9f0c2241dabc06b72a5780c39d96de795da1be1be69e8c9becd1b597b3d5",
+        "split": "train",
+        "sampleCategory": "natural_reviewed_negative",
+        "selectionRationale": "Existing bags-specific engineering-reviewed negative support only; unreviewed pixels remain unknown",
+        "negativeTruthScope": "Only bags reviewed support; outside and other criteria unknown without separate annotation"
+      },
+      "quality": {
+        "isValid": true,
+        "avgLuminance": 160.025451746325,
+        "blurScore": 5.856555376838218,
+        "status": "OPTIMAL"
+      },
+      "qualityValid": true,
+      "conditions": {
+        "yaw": -0.08,
+        "pitch": 0.16,
+        "roll": 0.11,
+        "scaleRatio": 0.32,
+        "avgLuminance": 160.025451746325,
+        "blurScore": 5.856555376838218
+      },
+      "sourcePhotoId": "5abc01218f0efc9c56929ce8de0e6687debca45c282c1f1cd83a2ce834ad2a73",
+      "targets": {
+        "bags": {
+          "product": {
+            "value": 0,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "contour-fold-local-support-v5"
+          },
+          "uiScore": 0,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 0,
+            "weightedRGB8bitVisibleAnalysisPixels": 0,
+            "insideEyeBandAnalysisPixels": 0,
+            "outsideEyeBandAnalysisPixels": 0,
+            "insideSelectedRegionAnalysisPixels": 0,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 0,
+            "insideEyeBandSourcePixels": 0,
+            "outsideEyeBandSourcePixels": 0,
+            "insideSelectedRegionSourcePixels": 0,
+            "outsideSelectedRegionSourcePixels": 0,
+            "sourceStep": 1,
+            "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+            "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": null,
+            "quality": "insufficient",
+            "limitationCode": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+            "normalizationVersion": "contour-fold-local-support-v4"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 0.0,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "contour-fold-local-support-v5"
+          }
+        },
+        "dark": {
+          "product": {
+            "value": 0.34257975220680237,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-contrast-chroma-local-v4"
+          },
+          "uiScore": 0,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 89,
+            "weightedRGB8bitVisibleAnalysisPixels": 39,
+            "insideEyeBandAnalysisPixels": 89,
+            "outsideEyeBandAnalysisPixels": 0,
+            "insideSelectedRegionAnalysisPixels": 89,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 89,
+            "insideEyeBandSourcePixels": 89,
+            "outsideEyeBandSourcePixels": 0,
+            "insideSelectedRegionSourcePixels": 89,
+            "outsideSelectedRegionSourcePixels": 0,
+            "sourceStep": 1,
+            "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+            "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": 3.135977029800415,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-relative-contrast-local-quality-v2"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 0.231621652841568,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-contrast-chroma-local-v4"
+          }
+        },
+        "lines": {
+          "product": {
+            "value": 0,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3"
+          },
+          "uiScore": 0,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 0,
+            "weightedRGB8bitVisibleAnalysisPixels": 0,
+            "insideEyeBandAnalysisPixels": 0,
+            "outsideEyeBandAnalysisPixels": 0,
+            "insideSelectedRegionAnalysisPixels": 0,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 0,
+            "insideEyeBandSourcePixels": 0,
+            "outsideEyeBandSourcePixels": 0,
+            "insideSelectedRegionSourcePixels": 0,
+            "outsideSelectedRegionSourcePixels": 0,
+            "sourceStep": 1,
+            "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+            "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": 0.0,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-local-quality-v2"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 0.0,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3"
+          }
+        }
+      },
+      "api": "actual browser MediaPipe -> production crop -> analyzeAppearance -> normal shortcut backend",
+      "hostedProcessingConsent": false,
+      "labelScope": {
+        "target": "bags",
+        "kind": "engineering-reviewed-negative-ROI",
+        "reviewedSourcePixels": 5306,
+        "activeWithinReviewedPixels": 0,
+        "unknownOutsidePixels": 404294,
+        "unknownOutsideIsNegative": false,
+        "fullROIDiceMeasured": false,
+        "severityTruthAvailable": false
+      }
+    },
+    {
+      "source": {
+        "source": "old-skin",
+        "path": "skin_type_classification_dataset/valid/dry/dry_3af68a1937218e391938_jpg.rf.2c41f296ce4ba60e263c920073dead27.jpg",
+        "sha256": "5bd42346304d791a394f98717ae1b38614688cead8dbb9ac2e09cc4ecf6c0905",
+        "split": "validation",
+        "sampleCategory": "transformed_noisy_regression",
+        "selectionRationale": "Transformed/rotated/noisy regression only; excluded from natural-negative claims",
+        "negativeTruthScope": "Only bags reviewed support; outside and other criteria unknown without separate annotation"
+      },
+      "quality": {
+        "isValid": true,
+        "avgLuminance": 117.13688942005194,
+        "blurScore": 5.4506792518669895,
+        "status": "OPTIMAL"
+      },
+      "qualityValid": true,
+      "conditions": {
+        "yaw": 0.15,
+        "pitch": -0.21,
+        "roll": 0.36,
+        "scaleRatio": 0.5,
+        "avgLuminance": 117.13688942005194,
+        "blurScore": 5.4506792518669895
+      },
+      "sourcePhotoId": "48b05c824b4a27cbc3c508a177105b8f599040e5263986de2e294c3dfdbe7dc8",
+      "targets": {
+        "bags": {
+          "product": {
+            "value": 0,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "contour-fold-local-support-v5"
+          },
+          "uiScore": 0,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 0,
+            "weightedRGB8bitVisibleAnalysisPixels": 0,
+            "insideEyeBandAnalysisPixels": 0,
+            "outsideEyeBandAnalysisPixels": 0,
+            "insideSelectedRegionAnalysisPixels": 0,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 0,
+            "insideEyeBandSourcePixels": 0,
+            "outsideEyeBandSourcePixels": 0,
+            "insideSelectedRegionSourcePixels": 0,
+            "outsideSelectedRegionSourcePixels": 0,
+            "sourceStep": 1,
+            "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+            "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": null,
+            "quality": "insufficient",
+            "limitationCode": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+            "normalizationVersion": "contour-fold-local-support-v4"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 0.0,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "contour-fold-local-support-v5"
+          }
+        },
+        "dark": {
+          "product": {
+            "value": 1.538581371307373,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-contrast-chroma-local-v4"
+          },
+          "uiScore": 2,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 279,
+            "weightedRGB8bitVisibleAnalysisPixels": 202,
+            "insideEyeBandAnalysisPixels": 279,
+            "outsideEyeBandAnalysisPixels": 0,
+            "insideSelectedRegionAnalysisPixels": 279,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 279,
+            "insideEyeBandSourcePixels": 279,
+            "outsideEyeBandSourcePixels": 0,
+            "insideSelectedRegionSourcePixels": 279,
+            "outsideSelectedRegionSourcePixels": 0,
+            "sourceStep": 1,
+            "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+            "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": 5.7655439376831055,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-relative-contrast-local-quality-v2"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 1.095200777053833,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "lower-lid-contrast-chroma-local-v4"
+          }
+        },
+        "lines": {
+          "product": {
+            "value": 0.5044631958007812,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3"
+          },
+          "uiScore": 1,
+          "mapAnatomy": {
+            "activeAnalysisPixels": 34,
+            "weightedRGB8bitVisibleAnalysisPixels": 30,
+            "insideEyeBandAnalysisPixels": 34,
+            "outsideEyeBandAnalysisPixels": 0,
+            "insideSelectedRegionAnalysisPixels": 34,
+            "outsideSelectedRegionAnalysisPixels": 0,
+            "activeSourcePixels": 34,
+            "insideEyeBandSourcePixels": 34,
+            "outsideEyeBandSourcePixels": 0,
+            "insideSelectedRegionSourcePixels": 34,
+            "outsideSelectedRegionSourcePixels": 0,
+            "sourceStep": 1,
+            "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+            "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+          },
+          "overviewSameValueAndVersion": true,
+          "baselineSameProductInput": {
+            "value": 0.059486400336027145,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-local-quality-v2"
+          },
+          "AGCompatibleCPUInputReference": {
+            "value": 0.3334846496582031,
+            "quality": "valid",
+            "limitationCode": null,
+            "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3"
+          }
+        }
+      },
+      "api": "actual browser MediaPipe -> production crop -> analyzeAppearance -> normal shortcut backend",
+      "hostedProcessingConsent": false,
+      "labelScope": {
+        "target": "bags",
+        "kind": "transformed-regression-only",
+        "reviewedSourcePixels": 8567,
+        "activeWithinReviewedPixels": 0,
+        "unknownOutsidePixels": 401033,
+        "unknownOutsideIsNegative": false,
+        "fullROIDiceMeasured": false,
+        "severityTruthAvailable": false
+      }
+    }
+  ],
+  "preSupportFixIdenticalInputFrozenAGParity": {
+    "rows": [
+      {
+        "source": "20031f35",
+        "pairs": {
+          "bags": {
+            "product": 11.357824861382445,
+            "frozenAGSameInput": 11.357824861382445,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          },
+          "dark": {
+            "product": 20.922380447387695,
+            "frozenAGSameInput": 20.922380447387695,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          },
+          "lines": {
+            "product": 6.608452320098877,
+            "frozenAGSameInput": 6.608452320098877,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          }
+        },
+        "maximumLandmarkDifferenceSourcePixels": 13.335704604472916,
+        "meanLandmarkDifferenceSourcePixels": 5.771624335198746,
+        "samePhotoId": true,
+        "sameThresholdAndFormula": true,
+        "productRectangleCount": 3,
+        "AGReferenceRectangleCount": 0
+      },
+      {
+        "source": "36e4010b",
+        "pairs": {
+          "bags": {
+            "product": 0.9763584615332851,
+            "frozenAGSameInput": 0.9763584615332851,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          },
+          "dark": {
+            "product": 3.7993884086608887,
+            "frozenAGSameInput": 3.7993884086608887,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          },
+          "lines": {
+            "product": 0,
+            "frozenAGSameInput": 0.0,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          }
+        },
+        "maximumLandmarkDifferenceSourcePixels": 3.0188875613980257,
+        "meanLandmarkDifferenceSourcePixels": 1.3870638357414462,
+        "samePhotoId": true,
+        "sameThresholdAndFormula": true,
+        "productRectangleCount": 3,
+        "AGReferenceRectangleCount": 0
+      },
+      {
+        "source": "beda0290",
+        "pairs": {
+          "bags": {
+            "product": null,
+            "frozenAGSameInput": null,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          },
+          "dark": {
+            "product": 2.045248508453369,
+            "frozenAGSameInput": 2.045248508453369,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          },
+          "lines": {
+            "product": 0.725189745426178,
+            "frozenAGSameInput": 0.725189745426178,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          }
+        },
+        "maximumLandmarkDifferenceSourcePixels": 4.286511678319608,
+        "meanLandmarkDifferenceSourcePixels": 1.071236650740713,
+        "samePhotoId": true,
+        "sameThresholdAndFormula": true,
+        "productRectangleCount": 3,
+        "AGReferenceRectangleCount": 0
+      },
+      {
+        "source": "4b13b16a",
+        "pairs": {
+          "bags": {
+            "product": 0,
+            "frozenAGSameInput": 0.0,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          },
+          "dark": {
+            "product": 11.642267227172852,
+            "frozenAGSameInput": 11.642267227172852,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          },
+          "lines": {
+            "product": 0.1444261372089386,
+            "frozenAGSameInput": 0.1444261372089386,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          }
+        },
+        "maximumLandmarkDifferenceSourcePixels": 3.082980971320815,
+        "meanLandmarkDifferenceSourcePixels": 1.336331442160906,
+        "samePhotoId": true,
+        "sameThresholdAndFormula": true,
+        "productRectangleCount": 3,
+        "AGReferenceRectangleCount": 0
+      },
+      {
+        "source": "e0ee9f0c",
+        "pairs": {
+          "bags": {
+            "product": 0,
+            "frozenAGSameInput": 0.0,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          },
+          "dark": {
+            "product": 0.34257975220680237,
+            "frozenAGSameInput": 0.34257975220680237,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          },
+          "lines": {
+            "product": 0,
+            "frozenAGSameInput": 0.0,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          }
+        },
+        "maximumLandmarkDifferenceSourcePixels": 1.9942540377856384,
+        "meanLandmarkDifferenceSourcePixels": 0.9732914081818912,
+        "samePhotoId": true,
+        "sameThresholdAndFormula": true,
+        "productRectangleCount": 3,
+        "AGReferenceRectangleCount": 0
+      },
+      {
+        "source": "5bd42346",
+        "pairs": {
+          "bags": {
+            "product": 0.5142880642476182,
+            "frozenAGSameInput": 0.5142880642476182,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          },
+          "dark": {
+            "product": 1.538581371307373,
+            "frozenAGSameInput": 1.538581371307373,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          },
+          "lines": {
+            "product": 0.5044631958007812,
+            "frozenAGSameInput": 0.5044631958007812,
+            "sameValue": true,
+            "sameQuality": true,
+            "sameLimitation": true
+          }
+        },
+        "maximumLandmarkDifferenceSourcePixels": 4.193562571916492,
+        "meanLandmarkDifferenceSourcePixels": 1.7546210380051679,
+        "samePhotoId": true,
+        "sameThresholdAndFormula": true,
+        "productRectangleCount": 3,
+        "AGReferenceRectangleCount": 0
+      }
+    ],
+    "pythonMediaPipeVersion": "0.10.32",
+    "frontendMediaPipeVersion": "1.0.1",
+    "noNewTraining": true,
+    "noThresholdTuning": true,
+    "frozenAGCommit": "ff0b161bd807fe81d2ba5ee6283d4f5b26f6a102",
+    "phase": "Before CD tracked-center support correction; retained diagnosis only, not final production equivalence"
+  },
+  "scoreMapSupportDiagnosis": [
+    {
+      "source": "20031f35",
+      "observedBag": 0.0,
+      "samples": [
+        {
+          "rawFoldStrength": 0.7750824689865112,
+          "rawContinuity": 0.984375,
+          "positiveSampleCenters": 63,
+          "positiveInsideTarget": 8,
+          "positiveOutsideBand": 0,
+          "positiveOutsideRegion": 41,
+          "positiveHairMasked": 21
+        },
+        {
+          "rawFoldStrength": 0.6009790897369385,
+          "rawContinuity": 0.484375,
+          "positiveSampleCenters": 60,
+          "positiveInsideTarget": 8,
+          "positiveOutsideBand": 0,
+          "positiveOutsideRegion": 52,
+          "positiveHairMasked": 0
+        }
+      ]
+    },
+    {
+      "source": "36e4010b",
+      "observedBag": 1.0132577493398762,
+      "samples": [
+        {
+          "rawFoldStrength": 0.2622711956501007,
+          "rawContinuity": 0.265625,
+          "positiveSampleCenters": 54,
+          "positiveInsideTarget": 22,
+          "positiveOutsideBand": 0,
+          "positiveOutsideRegion": 32,
+          "positiveHairMasked": 0
+        },
+        {
+          "rawFoldStrength": 0.08702325075864792,
+          "rawContinuity": 0.28125,
+          "positiveSampleCenters": 41,
+          "positiveInsideTarget": 18,
+          "positiveOutsideBand": 0,
+          "positiveOutsideRegion": 23,
+          "positiveHairMasked": 0
+        }
+      ]
+    },
+    {
+      "source": "5bd42346",
+      "observedBag": 0.0,
+      "samples": [
+        {
+          "rawFoldStrength": 0.022097153589129448,
+          "rawContinuity": 0.078125,
+          "positiveSampleCenters": 11,
+          "positiveInsideTarget": 7,
+          "positiveOutsideBand": 0,
+          "positiveOutsideRegion": 4,
+          "positiveHairMasked": 0
+        },
+        {
+          "rawFoldStrength": 0.0823851078748703,
+          "rawContinuity": 0.34375,
+          "positiveSampleCenters": 32,
+          "positiveInsideTarget": 9,
+          "positiveOutsideBand": 0,
+          "positiveOutsideRegion": 23,
+          "positiveHairMasked": 0
+        }
+      ]
+    }
+  ],
+  "nonEyePreservation": {
+    "status": "PASS",
+    "baselineCommit": "d596873c363a57324d38dc974e5ad65186ea9866",
+    "rows": [
+      {
+        "source": "20031f35",
+        "unchangedMeasurementsAndMaps": [
+          "forehead:tone",
+          "forehead:redness",
+          "forehead:oil",
+          "forehead:acne",
+          "forehead:dry",
+          "forehead:sag",
+          "nose:tone",
+          "nose:redness",
+          "nose:oil",
+          "nose:acne",
+          "nose:dry",
+          "chin:tone",
+          "chin:redness",
+          "chin:oil",
+          "chin:acne",
+          "chin:dry",
+          "chin:sag",
+          "periorbital:dry",
+          "rightCheek:tone",
+          "rightCheek:redness",
+          "rightCheek:oil",
+          "rightCheek:acne",
+          "rightCheek:dry",
+          "rightCheek:sag",
+          "leftCheek:tone",
+          "leftCheek:redness",
+          "leftCheek:oil",
+          "leftCheek:acne",
+          "leftCheek:dry",
+          "leftCheek:sag"
+        ]
+      },
+      {
+        "source": "36e4010b",
+        "unchangedMeasurementsAndMaps": [
+          "forehead:tone",
+          "forehead:redness",
+          "forehead:oil",
+          "forehead:acne",
+          "forehead:dry",
+          "forehead:sag",
+          "nose:tone",
+          "nose:redness",
+          "nose:oil",
+          "nose:acne",
+          "nose:dry",
+          "chin:tone",
+          "chin:redness",
+          "chin:oil",
+          "chin:acne",
+          "chin:dry",
+          "chin:sag",
+          "periorbital:dry",
+          "rightCheek:tone",
+          "rightCheek:redness",
+          "rightCheek:oil",
+          "rightCheek:acne",
+          "rightCheek:dry",
+          "rightCheek:sag",
+          "leftCheek:tone",
+          "leftCheek:redness",
+          "leftCheek:oil",
+          "leftCheek:acne",
+          "leftCheek:dry",
+          "leftCheek:sag"
+        ]
+      },
+      {
+        "source": "beda0290",
+        "unchangedMeasurementsAndMaps": [
+          "forehead:tone",
+          "forehead:redness",
+          "forehead:oil",
+          "forehead:acne",
+          "forehead:dry",
+          "forehead:sag",
+          "nose:tone",
+          "nose:redness",
+          "nose:oil",
+          "nose:acne",
+          "nose:dry",
+          "chin:tone",
+          "chin:redness",
+          "chin:oil",
+          "chin:acne",
+          "chin:dry",
+          "chin:sag",
+          "periorbital:dry",
+          "rightCheek:tone",
+          "rightCheek:redness",
+          "rightCheek:oil",
+          "rightCheek:acne",
+          "rightCheek:dry",
+          "rightCheek:sag",
+          "leftCheek:tone",
+          "leftCheek:redness",
+          "leftCheek:oil",
+          "leftCheek:acne",
+          "leftCheek:dry",
+          "leftCheek:sag"
+        ]
+      },
+      {
+        "source": "4b13b16a",
+        "unchangedMeasurementsAndMaps": [
+          "forehead:tone",
+          "forehead:redness",
+          "forehead:oil",
+          "forehead:acne",
+          "forehead:dry",
+          "forehead:sag",
+          "nose:tone",
+          "nose:redness",
+          "nose:oil",
+          "nose:acne",
+          "nose:dry",
+          "chin:tone",
+          "chin:redness",
+          "chin:oil",
+          "chin:acne",
+          "chin:dry",
+          "chin:sag",
+          "periorbital:dry",
+          "rightCheek:tone",
+          "rightCheek:redness",
+          "rightCheek:oil",
+          "rightCheek:acne",
+          "rightCheek:dry",
+          "rightCheek:sag",
+          "leftCheek:tone",
+          "leftCheek:redness",
+          "leftCheek:oil",
+          "leftCheek:acne",
+          "leftCheek:dry",
+          "leftCheek:sag"
+        ]
+      },
+      {
+        "source": "e0ee9f0c",
+        "unchangedMeasurementsAndMaps": [
+          "forehead:tone",
+          "forehead:redness",
+          "forehead:oil",
+          "forehead:acne",
+          "forehead:dry",
+          "forehead:sag",
+          "nose:tone",
+          "nose:redness",
+          "nose:oil",
+          "nose:acne",
+          "nose:dry",
+          "chin:tone",
+          "chin:redness",
+          "chin:oil",
+          "chin:acne",
+          "chin:dry",
+          "chin:sag",
+          "periorbital:dry",
+          "rightCheek:tone",
+          "rightCheek:redness",
+          "rightCheek:oil",
+          "rightCheek:acne",
+          "rightCheek:dry",
+          "rightCheek:sag",
+          "leftCheek:tone",
+          "leftCheek:redness",
+          "leftCheek:oil",
+          "leftCheek:acne",
+          "leftCheek:dry",
+          "leftCheek:sag"
+        ]
+      },
+      {
+        "source": "5bd42346",
+        "unchangedMeasurementsAndMaps": [
+          "forehead:tone",
+          "forehead:redness",
+          "forehead:oil",
+          "forehead:acne",
+          "forehead:dry",
+          "forehead:sag",
+          "nose:tone",
+          "nose:redness",
+          "nose:oil",
+          "nose:acne",
+          "nose:dry",
+          "chin:tone",
+          "chin:redness",
+          "chin:oil",
+          "chin:acne",
+          "chin:dry",
+          "chin:sag",
+          "periorbital:dry",
+          "rightCheek:tone",
+          "rightCheek:redness",
+          "rightCheek:oil",
+          "rightCheek:acne",
+          "rightCheek:dry",
+          "rightCheek:sag",
+          "leftCheek:tone",
+          "leftCheek:redness",
+          "leftCheek:oil",
+          "leftCheek:acne",
+          "leftCheek:dry",
+          "leftCheek:sag"
+        ]
+      }
+    ],
+    "hostedCalls": 0,
+    "training": false,
+    "userRecordsTouched": false
+  },
+  "delivery": {
+    "normalShortcut": true,
+    "normalBackend": true,
+    "buildId": "dxFr1OhOItAcorPw-G3Yp",
+    "branch": "fix/live-test-followup",
+    "headAtVerification": "d596873c363a57324d38dc974e5ad65186ea9866",
+    "frontendSourceFileCount": 213,
+    "frontendSourceReceiptSHA256": "80c75dd83a7e3a7ddd65b92ca68f010587adf999b339d79ff852e6ec8899171d",
+    "servedJavaScriptHashes": {
+      "/_next/static/chunks/polyfills-42372ed130431b0a.js": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+      "/_next/static/chunks/948-47aab13468c15ad4.js": "7e9b826f0794e640c1774ea8aee773bd0f163e00ec449113b08fff68e097f197",
+      "/_next/static/chunks/app/page-8a95e4a42b012dfa.js": "56ba7ac3c9fd4f7330881924040997fa17da6e14e759b2cc669233d0662be66a",
+      "/_next/static/chunks/main-app-a840178321886cc8.js": "b5b7a6a18ee7f8fe0d0fa097ccf76c3fd48ec9a33395e4c9a750baa6e550e99e",
+      "/_next/static/chunks/987-e7efaa2e25847fed.js": "dd2830cddc3d1cecb34ea22e6831df6db876fe17320a06b71eab72c6417e51ca",
+      "/_next/static/chunks/app/layout-a65668dc77cf1f59.js": "806a833006430b1152656e785dd99cd778efbe757ce22c3c0da87197d6085693",
+      "/_next/static/chunks/webpack-dc23c7fb2c69ce1c.js": "b2f3a7e7fa9961dbd2c123b7a881ed581766c58b192313dc84b10a40bfebd575",
+      "/_next/static/chunks/e898b764-724e4596a1050f58.js": "fef6a31acbe42cb772fbbca3f7eaf3ecd01ab51e1db99c4d0445205eafb6214b",
+      "/_next/static/chunks/850-03d460badcc90bec.js": "fe19aab65e4b99652e82702538aef87e95e949da65e3a5d8ab24c4a77740cf5b",
+      "/_next/static/chunks/484-c7854e143b14531c.js": "e70f3d1076cd8ad18884284e5196bf030e5c613dbcde77befaf6484a7dae9646",
+      "/_next/static/chunks/656-012d3387edef90f5.js": "a48c56ee67c628c04af078afb6204fe5e24dc3f02b5820aee463f65f52e7c582",
+      "/_next/static/chunks/330-5160c0eea4e0b3c4.js": "0517448997182fe9e71379276258ca5a8273d3443375de03a7108525ef8f73df",
+      "/_next/static/chunks/app/skin/page-80076763f40430e9.js": "bbdbb0d795859605b4c8d0ca949d3a773ae30b85746deb74a0e0c7493d32e5db",
+      "/_next/static/chunks/745-3a66d274e9dd6600.js": "1bd80a20953b0298f93510d946aa2cd8d204001d13e6f6bcaceaffc19705acb2",
+      "/_next/static/chunks/876-970751e242594177.js": "d84eca37ec1994232b2c9c66cdb454332f337757e3c7884b8d82d7dc504a1421",
+      "/_next/static/chunks/852-4206d2ffa53479b5.js": "75c09a83752a0fa304ec64bf2b638383532cf1e29af9d568eec3d17251b95f7f",
+      "/_next/static/chunks/app/profile/page-0f7b850d415908b2.js": "4e2660d36ee1097dbdce2d8e63a535d308202d8181c9be11894a28293c734301",
+      "/_next/static/chunks/503-68c18768f0108a30.js": "0e1d8598daa607fd93a397321999d450c799fd3e63a8b62ba94020fca019d2eb"
+    },
+    "backendSourceHashes": {
+      "appearance_analysis.py": "55d91d1fa5d713458a45bdec3834fd0cbfe073fc9918bc8412c7f12e0af359e5",
+      "instant_appearance.py": "c5529c140d0f27cf3a2d9c8949b13f72d29370e6d3f9dd58afba31111f91432a",
+      "skin_general.py": "9eb06e042333d538c99a3e9f5f78af56ecbc32c6f53f1a331e8c0a7e772c98bf",
+      "skin_models.py": "1d3a1dc6df6fc8e7d60048f368f2d0099065c1755a7df513a0ea362ad72da976",
+      "hosted_skin_type.py": "eaa4eb6228406c53a88475ccc661ed61d1f26e901009fe9ff95b8335faf36406"
+    },
+    "manifestSHA256": "accc9ff193030bccde572ded39b1878fc7919e33daf62f2ac560c3357a83abfb",
+    "acceptedModelFileSHA256": "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3",
+    "loadedModelHashes": [
+      "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3"
+    ],
+    "actualProductBagValue": 1.0132577493398762,
+    "formula": "contour-fold-local-support-v5",
+    "samplingSupportVersion": "tracked-center-eligible-v1",
+    "hostedPhotoCalls": 0,
+    "normalUserRecordsTouched": false,
+    "AGWorkingFilesTouched": false
+  },
+  "remainingIssues": [
+    "20031f35 positive is missed after enforcing actual selected-region fold centers; do not call decreased marking improved positive detection. Most unrestricted centers were outside selected mesh/hair support.",
+    "beda0290 is unavailable: HARD_DIRECTIONAL_SHADOW.",
+    "4b13b16a is unavailable: ANATOMICAL_BAND_NOT_VISIBLE. Neither missing measurement is healthy zero.",
+    "Only two previously exposed partial-positive polygons and three bags-reviewed natural-negative ROIs; no general accuracy or full ROI Dice claim."
+  ],
+  "newTraining": false,
+  "newHostedCalls": false,
+  "rejectedModelsEnabled": false,
+  "AGWorkingFilesTouched": false,
+  "browserAcceptance": {
+    "status": "PASS",
+    "buildId": "dxFr1OhOItAcorPw-G3Yp",
+    "actualNormalAPI": true,
+    "actualBrowserMediaPipe": true,
+    "actualProductionCropAndQuality": true,
+    "qualityOverride": false,
+    "userProfileTouched": false,
+    "hostedPhotoCalls": 0,
+    "legacyV4Preserved": true,
+    "v4V5ComparisonBlocked": true,
+    "sourceMapRecordAssociation": true,
+    "staleCriterionAndRegionMapCleared": true,
+    "sixRegions": [
+      "forehead",
+      "rightCheek",
+      "leftCheek",
+      "nose",
+      "chin",
+      "periorbital"
+    ],
+    "real200Percent": {
+      "innerWidth": 641,
+      "outerWidth": 1298,
+      "dpr": 3,
+      "zoom": "1",
+      "scroll": 641,
+      "selectedPeriorbitalBagMap": true,
+      "regionTransitionClearsMap": true,
+      "viewportScreenshot": "native200-cdp-False.png",
+      "photoScreenshot": "native200-photo.png"
+    },
+    "pageErrors": []
+  }
+}
