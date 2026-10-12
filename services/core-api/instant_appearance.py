@@ -7,8 +7,8 @@ from scipy.ndimage import gaussian_filter1d
 
 UNIT='contour-fold-index-0-100'
 # All intensities are 0..1; offsets are face-width-normalized pixels.
-CONSTANTS=dict(edgeFloor=.018,edgeCeiling=.12,foldFloor=.012,foldCeiling=.08,
-               contrastCeiling=.14,minimumCoverage=.55,minimumFacePixels=180,
+CONSTANTS=dict(edgeFloor=.018,edgeCeiling=.12,edgeRef=.04,foldFloor=.012,foldCeiling=.08,
+               boundaryRef=.08,contrastCeiling=.14,minimumCoverage=.55,minimumFacePixels=180,
                maxYaw=.65,maxPitch=.22,maxMouthOpening=.10,minEyeAspect=.12)
 
 def tracking_residual(selected,guide_line,width):
@@ -77,7 +77,7 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
     p=np.array([[(v['x']*w-origin[0])*scale,(v['y']*h-origin[1])*scale] for v in points],float)
     eye=p[263]-p[33];eye_width=float(np.linalg.norm(eye))
     empty=np.zeros(gray.shape,np.float32)
-    formula='contour-fold-target-roi-local-support-v5' if region!='periorbital' else 'contour-fold-local-support-v4'
+    formula='contour-fold-target-roi-local-support-v6' if region!='periorbital' else 'contour-fold-local-support-v4'
     fail=lambda code:(None,dict(formulaVersion=formula),empty,[],code)
     if region=='forehead':return fail('BROW_FOLD_IS_NOT_LOWER_FACE_SAGGING')
     if eye_width<35:return fail('INSUFFICIENT_NATIVE_DETAIL')
@@ -160,8 +160,15 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
         if profile is None:continue
         q=profile;local_exposure=exposure(p[indices],offsets)
         # Joint support: no contour/paired-edge => no fold-derived sag/bag signal.
-        joint=float(np.mean(q['values']*np.sqrt(q['edgeValues'])))*min(1,q['continuity']/.6)
-        if boundary is not None:joint*=np.sqrt(boundary['value'])
+        # Normalize confirmation factors (edge and boundary) against their expected full-support reference scales
+        # so confirmation gates don't over-dampen visible anatomical folds into sub-percent fractions (< 0.5% => 0% UI).
+        edge_gate = np.minimum(1.0, np.sqrt(q['edgeValues'] / 0.04))
+        continuity_gate = min(1.0, q['continuity'] / 0.6)
+        if boundary is not None:
+            boundary_gate = min(1.0, np.sqrt(max(0.0, boundary['value']) / 0.08))
+            joint = float(np.mean(q['values'] * edge_gate)) * continuity_gate * boundary_gate
+        else:
+            joint = float(np.mean(q['values'] * np.sqrt(q['edgeValues']))) * continuity_gate
         limitation=None
         if local_exposure['clippedFraction']>.03 or boundary_exposure is not None and boundary_exposure['clippedFraction']>.03:limitation='GLARE_OR_EXPOSURE'
         elif q['coverage']<.55 or boundary is not None and boundary['coverage']<.55:limitation='ANATOMICAL_BAND_NOT_VISIBLE'
@@ -172,8 +179,10 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
             pts=q['tracked']
             # Only measured source coordinates, never synthesize hidden skin surfaces.
             line=[]
-            local_values=q['values']*np.sqrt(q['edgeValues'])*min(1,q['continuity']/.6)
-            if boundary is not None:local_values*=np.sqrt(boundary['value'])
+            if boundary is not None:
+                local_values = q['values'] * edge_gate * continuity_gate * boundary_gate
+            else:
+                local_values = q['values'] * np.sqrt(q['edgeValues']) * continuity_gate
             for xy,supported,intensity in zip(pts,q['support'],local_values):
                 x,y=np.rint(xy).astype(int)
                 if supported and 0<=x<gray.shape[1] and 0<=y<gray.shape[0] and eligible[y,x]:
@@ -204,8 +213,11 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
     if valid and boundary_exposure is not None:measured_roi|=exposure_masks[id(boundary_exposure)]
     measured_roi&=eligible
     measurement_roi=dict(scope='measured-anatomical-sampling-corridors',analysisPixels=int(measured_roi.sum()),sourcePixels=float(measured_roi.sum()/scale**2),anatomicalSourcePixels=float(np.logical_or.reduce(list(exposure_corridors.values())).sum()/scale**2) if exposure_corridors else 0.,sourceFacePixels=face,unknownSides=[side['side'] for side in sides if side['value'] is None])
-    components=dict(formulaVersion=formula,measurementROI=measurement_roi,sides=sides,fixedConstants=CONSTANTS,indexAggregation='mean of measured local fold * sqrt(local paired edge), times supported continuity and independent jaw boundary where applicable',localMapMeaning='measured local support intensity; no confidence or pixel disease severity',
-                    meaning='visible-supported-contour-fold; not probability, volume or clinical severity',boundary=boundary,weights=dict(fold=1,pairedEdge=.5,continuity=1,boundary=.5),
+    components=dict(formulaVersion=formula,measurementROI=measurement_roi,sides=sides,fixedConstants=CONSTANTS,
+                    indexAggregation='mean of measured local fold * min(1, sqrt(pairedEdge/0.04)), times continuity/0.6 and min(1, sqrt(jaw boundary/0.08)) where applicable' if region!='periorbital' else 'mean of measured local fold * sqrt(local paired edge), times supported continuity',
+                    localMapMeaning='measured local support intensity; no confidence or pixel disease severity',
+                    meaning='visible-supported-contour-fold; not probability, volume or clinical severity',boundary=boundary,
+                    weights=dict(fold=1,pairedEdgeRef=.04,continuityRef=.60,boundaryRef=.08) if region!='periorbital' else dict(fold=1,pairedEdge=.5,continuity=1,boundary=.5),
                     rollRadians=float(np.arctan2(horizontal[1],horizontal[0])),normalization='2D eye axis and face width; no z/depth',
                     mouthOpening=opening,eyeAspects=eye_aspects,shadowPlaneSlope=slope[:2].tolist())
     if not valid:return None,components,empty,[],next((v['limitationCode'] for v in sides if v.get('limitationCode')), 'ANATOMICAL_BAND_NOT_VISIBLE')

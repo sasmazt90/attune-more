@@ -15,12 +15,13 @@ from skin_models import infer as infer_skin_models, infer_acne, infer_bags
 from skin_measurement_contract import attach_result_receipts
 from skimage.feature import local_binary_pattern
 from skimage.filters import gabor
+from acne_box_support import region_envelopes,accepted_boxes as filter_acne_boxes,box_area,VERSION as ACNE_SUPPORT_VERSION
 from skin_scan_baseline.oiliness import oiliness_map
 from skin_scan_baseline.blemishes import blemish_map
 
 VERSION = 'appearance-cv-6'
 LIMITS = {'minFacePixels': 180, 'analysisFacePixels': 320, 'maxClippedFraction': .03}
-NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-area-fixed-v1','acne':'unique-detection-box-area-fixed-v1','lines':'outer-canthus-gabor-local-quality-v2','dark':'lower-lid-relative-contrast-local-quality-v2','sag':'contour-fold-lower-face-local-support-v5','bags':'contour-fold-local-support-v4'}
+NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-area-fixed-v2-shared','acne':'unique-detection-box-anatomical-area-v2','lines':'outer-canthus-gabor-local-quality-v2','dark':'lower-lid-relative-contrast-local-quality-v2','sag':'contour-fold-lower-face-local-support-v6','bags':'contour-fold-local-support-v4'}
 
 
 def decode_photo(data):
@@ -98,6 +99,27 @@ def eligible_flake_components(signal,eligible):
             islands|=labels==label
     return signal*eligible*islands
 
+
+def compute_dryness_signal(gray8, support_mask=None):
+    """Shared, production dryness/flaking signal pipeline.
+    Applies multi-scale DoG, uniform LBP filtering, local contrast gating,
+    black-hat dark pore/filament ringing exclusion, and eligible bright island component filtering.
+    Used identically by full-face analyze_skin and local ROI / patch benchmark evaluation.
+    """
+    gray = gray8.astype(np.float32) / 255.0
+    high = gray - cv2.GaussianBlur(gray, (0, 0), 1.2)
+    broad = cv2.GaussianBlur(gray, (0, 0), 0.7) - cv2.GaussianBlur(gray, (0, 0), 2.3)
+    flakes = np.clip((high - 0.025) / 0.10, 0, 1) * np.clip((broad - 0.018) / 0.10, 0, 1)
+    lbp = local_binary_pattern(gray8, 8, 1, 'uniform')
+    flakes *= (lbp < 8)
+    local_contrast = np.sqrt(np.maximum(0, cv2.GaussianBlur(gray * gray, (0, 0), 2) - cv2.GaussianBlur(gray, (0, 0), 2)**2))
+    flakes *= ((local_contrast > 0.015) & (local_contrast < 0.14))
+
+    # Exclude bright ringing around dark pores/hairs
+    dark_ringing = cv2.dilate((cv2.morphologyEx(gray8, cv2.MORPH_BLACKHAT, np.ones((7, 7), np.uint8)) > 35).astype(np.uint8), np.ones((7, 7), np.uint8)) > 0
+    valid_support = np.ones(gray8.shape, bool) if support_mask is None else support_mask
+    regional_flakes = eligible_flake_components(flakes, valid_support & ~dark_ringing)
+    return regional_flakes, flakes, local_contrast, lbp, dark_ringing, high
 
 def elongated_dark_mask(gray8):
     """Exclude long dark filaments, not every round dark focus as hair."""
@@ -242,15 +264,7 @@ def analyze_skin(payload, include_research_features=False):
     # Skin-scan oiliness starts with bright, low-saturation pixels; here require
     # local contrast AND saturation drop. Bright matte skin alone is insufficient.
     shine = np.clip((v/np.maximum(local_v, .05)-1.08)/.24, 0, 1) * np.clip((local_s-saturation)/.18, 0, 1)
-    high = gray-cv2.GaussianBlur(gray, (0, 0), 1.2)
-    broad = cv2.GaussianBlur(gray, (0, 0), .7)-cv2.GaussianBlur(gray, (0, 0), 2.3)
-    # Bright fine islands at both scales; long dark hairs/creases excluded later.
-    flakes = np.clip((high-.025)/.10, 0, 1)*np.clip((broad-.018)/.10, 0, 1)
-    lbp = local_binary_pattern(gray8, 8, 1, 'uniform')
-    flakes*=lbp<8
-    local_contrast = np.sqrt(np.maximum(0, cv2.GaussianBlur(gray*gray, (0, 0), 2)-cv2.GaussianBlur(gray, (0, 0), 2)**2))
-    flakes*=(local_contrast>.015)&(local_contrast<.14)
-    flakes=eligible_flake_components(flakes,np.ones(gray.shape,bool))
+    _, flakes, local_contrast, lbp, dark_ringing, high = compute_dryness_signal(gray8)
     hair = elongated_dark_mask(gray8)
     clipping = (v > .975)  # Darkness/hair is an exclusion, not specular glare.
     masks = {k: polygon_mask(gray.shape, m, scale, origin) for k, m in payload['meshes'].items()}
@@ -292,13 +306,29 @@ def analyze_skin(payload, include_research_features=False):
     # baseline experiment. Normal results require a pinned accepted detector.
     trained_acne=None if include_research_features else infer_acne(bgr,points,payload.get('qualityValid',False))
     trained_bags=None if include_research_features else infer_bags(bgr,points,payload.get('qualityValid',False))
+    # A saturated red channel still carries green/blue skin detail. Only loss
+    # of every colour channel is detector clipping; other criteria keep their gates.
+    acne_clipping=np.min(rgb,axis=2)>.975
+    acne_envelopes=region_envelopes(payload['meshes'],gray.shape,scale,origin)
+    # Eye corners, lashes and brow boundaries are not lesion support. Include
+    # their source-detail margin independently of gaps in the presentation mesh.
+    ocular=np.zeros(gray.shape,np.uint8)
+    for indices in [[33,7,163,144,145,153,154,155,133,173,157,158,159,160,161,246], [263,249,390,373,374,380,381,382,362,398,384,385,386,387,388,466]]:
+        poly=np.asarray([[(points[i]['x']*width-x0)*scale,(points[i]['y']*bgr.shape[0]-y0)*scale] for i in indices],np.int32)
+        cv2.fillPoly(ocular,[poly],255)
+    eye_span=max(math.hypot((points[a]['x']-points[b]['x'])*width,(points[a]['y']-points[b]['y'])*bgr.shape[0]) for a,b in [(33,133),(263,362)])
+    margin=max(1,int(round(eye_span*scale*.12)))
+    acne_exclusion=exclusion|cv2.dilate(ocular,cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(margin*2+1,margin*2+1)))
+    # Brow landmark order is not a polygon contour. A crossing path leaves
+    # gaps in actual brow tissue; its convex envelope needs no forehead margin.
+    for indices in holes[4:]:
+        poly=np.asarray([[(points[i]['x']*width-x0)*scale,(points[i]['y']*bgr.shape[0]-y0)*scale] for i in indices],np.float32)
+        cv2.fillConvexPoly(acne_exclusion,cv2.convexHull(poly).astype(np.int32),255)
+    acne_skin=(face_support>0)&(acne_exclusion==0)&~hair&~acne_clipping&(gray>.12)
     accepted_boxes={k:[] for k in masks}
     if trained_acne and trained_acne.get('valid'):
-        for bx,by,ex,ey,confidence in trained_acne['boxes']:
-            a=max(0,int((bx-x0)*scale));b=max(0,int((by-y0)*scale));c=min(gray.shape[1],int(math.ceil((ex-x0)*scale)));d=min(gray.shape[0],int(math.ceil((ey-y0)*scale)))
-            if c<=a or d<=b:continue
-            owners=[k for k in ('forehead','rightCheek','leftCheek','nose','chin') if k in masks and np.mean(masks[k][b:d,a:c]&overall[b:d,a:c])>=.65]
-            if owners:accepted_boxes[owners[0]].append(dict(x=bx,y=by,width=ex-bx,height=ey-by,confidence=confidence,candidateId=hashlib.sha256(f'{source_hash}:{bx:.3f}:{by:.3f}:{ex:.3f}:{ey:.3f}'.encode()).hexdigest()[:24],coordinateSpace='source-pixels',localization='detection-box'))
+        assigned_boxes,_=filter_acne_boxes(trained_acne['boxes'],acne_envelopes,acne_skin,hair,acne_exclusion,source_hash,scale,origin)
+        accepted_boxes.update(assigned_boxes)
     response, maps, contours = {}, {}, {}
     conditions = {**payload['conditions'],'sourceWidth':bgr.shape[1],'sourceHeight':bgr.shape[0]}
     for region, anatomical in masks.items():
@@ -348,12 +378,23 @@ def analyze_skin(payload, include_research_features=False):
                 for x,y,w,h,count,blob in assigned[region]:
                     candidate_area|=blob;boxes.append(dict(x=float(x/scale+x0),y=float(y/scale+y0),width=float(w/scale),height=float(h/scale),areaPixels=float(count/scale**2)))
             elif trained_acne and trained_acne.get('valid'):
-                boxes=accepted_boxes[region]+(accepted_boxes.get('forehead',[]) if region=='nose' else [])
+                boxes=accepted_boxes[region]
                 for box in boxes:
                     a=max(0,int((box['x']-x0)*scale));b=max(0,int((box['y']-y0)*scale));c=min(gray.shape[1],int(math.ceil((box['x']+box['width']-x0)*scale)));d=min(gray.shape[0],int(math.ceil((box['y']+box['height']-y0)*scale)));candidate_area[b:d,a:c]=True
-            acne_reason=reason or (None if include_research_features or trained_acne and trained_acne.get('valid') else (trained_acne or {}).get('reason','ACNE_MODEL_NOT_ACCEPTED'))
-            coverage=float(np.mean(candidate_area[valid])*100) if valid.any() else 0.
-            add('acne',coverage,'appearance-score-0-100',limitation=acne_reason,components={'bounds':boxes,'candidateCount':len(boxes),'evaluatedArea':area,'candidateBoxCoveragePercent':coverage,'normalization':'unique accepted detection-box pixels / visible anatomical source pixels *100','pixelSegmentation':False})
+            acne_valid=acne_envelopes.get(region,np.zeros_like(valid))&acne_skin if not include_research_features else valid
+            observed=acne_envelopes.get(region,np.zeros_like(valid))&(face_support>0)&(exclusion==0)&~hair
+            acne_reason=('CAPTURE_QUALITY' if not payload.get('qualityValid') else 'GLARE_OR_EXPOSURE' if observed.any() and acne_clipping[observed].mean()>.03 else 'INSUFFICIENT_VISIBLE_AREA' if acne_valid.sum()<100 else None) if not include_research_features else reason
+            acne_reason=acne_reason or (None if include_research_features or trained_acne and trained_acne.get('valid') else (trained_acne or {}).get('reason','ACNE_MODEL_NOT_ACCEPTED'))
+            if acne_reason:boxes=[];candidate_area[:]=False
+            coverage=float(candidate_area[acne_valid].mean()*100) if acne_valid.any() else 0.
+            acne_area={**area,'sourcePixels':float(acne_valid.sum()/scale**2),'analysisPixels':int(acne_valid.sum()),'anatomicalSourcePixels':float(acne_envelopes.get(region,anatomical).sum()/scale**2),'scope':ACNE_SUPPORT_VERSION}
+            add('acne',coverage,'appearance-score-0-100',limitation=acne_reason,measurement_area=acne_area,components={'bounds':boxes,'candidateCount':len(boxes),'evaluatedArea':acne_area,'candidateBoxCoveragePercent':coverage,'normalization':'unique accepted detection-box pixels / visible anatomical source pixels *100','pixelSegmentation':False,'filterVersion':ACNE_SUPPORT_VERSION,'clinicalSeverity':False})
+            if acne_reason is None and not include_research_features:
+                signal=cv2.GaussianBlur(candidate_area.astype(np.float32),(0,0),2)*acne_valid
+                layer=map_result(signal,acne_valid,region,'acne',source_hash,payload['pose'],bgr.shape,scale,'percent-visible-area',1.,origin)
+                if layer:
+                    layer.update(mapType='detection-box-support',method=ACNE_SUPPORT_VERSION,clinicalSeverity=False)
+                    maps[region+':acne']=layer;items[-1]['localMap']=dict(key=region+':acne',photoId=source_hash,region=region,criterion='acne',coordinateSpace='source-pixels')
             if trained_acne and trained_acne.get('valid'):
                 items[-1].update(modelVersion=trained_acne['modelVersion'],modelHash=trained_acne['modelHash']);items[-1]['components']['inference']= {k:trained_acne[k] for k in ('tileCount','loadMs','inferenceMs')}
         detail_reason = reason or ('INSUFFICIENT_SOURCE_DETAIL' if face_pixels < LIMITS['minFacePixels'] else None)
@@ -446,14 +487,23 @@ def analyze_skin(payload, include_research_features=False):
         if include_research_features:
             for detection in detections:global_candidates|=detection[-1]
         elif trained_acne and trained_acne.get('valid'):
-            for values in accepted_boxes.values():
-                for box in values:
-                    a=max(0,int((box['x']-x0)*scale));b=max(0,int((box['y']-y0)*scale));c=min(gray.shape[1],int(math.ceil((box['x']+box['width']-x0)*scale)));d=min(gray.shape[0],int(math.ceil((box['y']+box['height']-y0)*scale)));global_candidates[b:d,a:c]=True
+            final_boxes=[box for items in response.values() for item in items if item['id']=='acne' and item['quality']=='valid' for box in item['components']['bounds']]
+            global_candidates=box_area(final_boxes,gray.shape,scale,origin)
         result['general']=general_result(response,masks,union,general_tone,general_redness,shine,general_flakes,
             general_area,conditions,payload.get('qualityValid',False),candidate_coverage=float(np.mean(global_candidates[union])*100) if union.any() else None,normalizations=NORMALIZATION)
         for item in result['general']['measurements']:
             item['scoreDirection']='higher-is-more-visible'
             item['normalizationVersion']=NORMALIZATION[item['id']]
+            if item['id']=='acne' and item['value'] is not None and not include_research_features:
+                measured=[name for name,rows in response.items() if any(r['id']=='acne' and r['quality']=='valid' for r in rows)]
+                support=np.logical_or.reduce([acne_envelopes[name]&acne_skin for name in measured])
+                item['value']=float(global_candidates[support].mean()*100) if support.any() else None
+                item['evaluatedArea']={'scope':ACNE_SUPPORT_VERSION,'sourcePixels':float(support.sum()/scale**2),'analysisPixels':int(support.sum())}
+                item['components'].update(visibleCandidateAreaPercent=item['value'],filterVersion=ACNE_SUPPORT_VERSION,clinicalSeverity=False,pixelSegmentation=False)
+                layer=map_result(cv2.GaussianBlur(global_candidates.astype(np.float32),(0,0),2)*support,support,'overview','acne',source_hash,'FRONT',bgr.shape,scale,'percent-visible-area',1.,origin)
+                if layer:
+                    layer.update(mapType='detection-box-support',method=ACNE_SUPPORT_VERSION,clinicalSeverity=False)
+                    maps['overview:acne']=layer;item['localMap']=dict(key='overview:acne',photoId=source_hash,region='overview',criterion='acne',coordinateSpace='source-pixels')
             if item['id']=='bags' and trained_bags and trained_bags.get('valid') and item['modelHash']==trained_bags['modelHash']:item['normalizationVersion']='predicted-lower-lid-mask-area-v1'
         if not include_research_features:
             learned=infer_skin_models(bgr,points,result['general']['measurements'][0]['quality']=='valid' and face_pixels>=180)

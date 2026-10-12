@@ -12,7 +12,7 @@ def snapshot(folder):
  return read(folder/(folder/'CURRENT').read_text('utf8')/'state.json')
 
 def analytic_product(target,normalization):
- ui=OUT/'product-ui-v4';delivery=ROOT/'audit-results/skin-selected-20261011/product-expanded-v4/delivery.json'
+ ui=OUT/'product-ui-completion-v1';delivery=ROOT/'audit-results/skin-selected-20261011/product-completion-v1/delivery.json'
  proof=read(ui/'proof.json',{});cancel=read(ui/'cancel-late-real-response.json',{});served=read(delivery,{})
  source_ok=bool(served) and all((ROOT/path).exists() and sha(ROOT/path)==digest for path,digest in {**served.get('frontendSourceHashes',{}),**served.get('backendSourceHashes',{})}.items())
  source_ok=source_ok and served.get('appearanceSourceSHA256')==sha(ROOT/'services/core-api/appearance_analysis.py') and served.get('instantAppearanceSourceSHA256')==sha(ROOT/'services/core-api/instant_appearance.py') and bool(served.get('servedJavaScriptHashes'))
@@ -55,6 +55,12 @@ def main():
  if state and state['history']:
   best=max(state['history'],key=lambda r:r['validation']['F1']);metrics={**best['validation'],'matchingIoU':.5,'scope':'source-group-development'}
   export=read(OUT/'yolox/decoder-parity/receipt.json',{}) if detector.name=='yolox' else {}
+  frozen=read(OUT/'interim-diagnosis/frozen-detector-selection.json');pointer=read(OUT/'interim-diagnosis/selected-detector-export-current.json')
+  if frozen and pointer:
+   path=Path(pointer['receiptPath']).resolve()
+   if path.is_relative_to((OUT/'interim-diagnosis').resolve()) and path.exists() and sha(path)==pointer['receiptSHA256']:
+    candidate=read(path);selected=frozen['selected'];metrics={**selected['metrics'],'matchingIoU':.5,'scope':'source-group-development'}
+    if candidate.get('weightsSHA256')==selected['model']['sha256']:export=candidate
   evidence=dict(method=dict(functions=['detection','localization','appearanceIndex']),data=final_data('acne'),metrics=metrics,appearance={},export={**export,'sha256':export.get('modelSHA256')},product={},training=dict(folder=detector.name,validatedEpochs=state['epoch'],partialCursor=state['cursor'],selectionFinal=(detector/'selection.json').exists()))
   new=OUT/'corrected-scope-yolox-v2';history=read(new/'history.json',[])
   if history:evidence['separateCorrectedPhase']=dict(folder=new.name,protocolSHA256=sha(new/'protocol.json'),validationHistory=history,selectionFinal=(new/'selection.json').exists(),oldAndNewLearningCurvesMerged=False,latestValidationIsNotAutomaticSelection=True)
@@ -82,6 +88,17 @@ def main():
  if sag:
   evidence=dict(method=dict(functions=['appearanceIndex'],implementation='analytic',version='appearance-cv-6'),data=final_data(),metrics=dict(scope='source-group-development'),appearance=dict(indexVersion='contour-fold-lower-face-local-support-v5',meaning='mean measured local fold/paired-edge support with independent lower-jaw contour support',limits='not tissue displacement, elasticity, age or disease probability',measuredSignalNotConfidence=True,naturalPositiveNegativeSeparation=(False if sag['positiveMedian'] is not None and sag['negativeMedian'] is not None and sag['positiveMedian']<=sag['negativeMedian'] else None),sameInputRepeatability=sag.get('sameInputRepeatabilityPassed'),confounderSensitivityReviewed=None,anatomicalLocalityVerified=True,scaleFitOnDevelopmentOnly=True,gradientMatchesLocalSignal=True,finalTestReuse=False),product=analytic_product('sag','contour-fold-lower-face-local-support-v5'),controls=dict(gradablePositivePhotos=sag['gradablePositivePhotos'],gradableNegativePhotos=sag['gradableNegativePhotos'],positiveMedian=sag['positiveMedian'],negativeMedian=sag['negativeMedian']))
   results['sagAnalytic']=dict(evidence=evidence,decision=decide('appearance',evidence))
+ current=read(OUT/'interim-diagnosis/ag-selected-delivery-review.json')
+ if current:
+  # New function versions get their own actual scope; old control receipts and
+  # score histories remain unchanged. A tiny appearance benchmark is not a grade.
+  for key,target,normalization in [('dryAnalytic','dry','eligible-flake-area-fixed-v2-shared'),('sagAnalytic','sag','contour-fold-lower-face-local-support-v6')]:
+   old=results.get(key,{});evidence=old.get('evidence',{}).copy();appearance=evidence.get('appearance',{}).copy()
+   appearance.update(indexVersion=normalization,naturalPositiveNegativeSeparation=None,scaleFitOnDevelopmentOnly=None,confounderSensitivityReviewed=None)
+   evidence.update(appearance=appearance,product=analytic_product(target,normalization),currentProductionReviewSHA256=sha(OUT/'interim-diagnosis/ag-selected-delivery-review.json'),previousControlVersionNotMerged=True)
+   if target=='dry':evidence['controls']=current['dryPatchBenchmark']['productionAnalytic'];evidence['controlsScope']='41 patches / 26 weak texture presence groups; no severity/hydration labels'
+   else:evidence['controls']=current['sagSummary'];evidence['controlsScope']='two declared positives including missed Photo57; five measured negatives; no clinical labels'
+   results[key]=dict(evidence=evidence,decision=decide('appearance',evidence))
  write('label-function-current-decisions.json',dict(version='actual-label-function-progress-v2',rows=results,independentFinalOpened=False))
  print(json.dumps({k:{stage:s['status'] for stage,s in v['decision']['stages'].items()} for k,v in results.items()}),flush=True)
 if __name__=='__main__':main()
