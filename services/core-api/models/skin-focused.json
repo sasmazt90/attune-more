@@ -26,146 +26,122 @@
   },
   "models": {
     "type": {
-      "temperature": 1.0,
-      "confidenceThreshold": 0.36,
       "version": "skin-type-glamour-vit-v1",
-      "validation": {
-        "macroF1": 0.3574917810116325,
-        "balancedAccuracy": 0.36199077962506654,
-        "accuracy": 0.3896457765667575,
-        "classes": [
-          {
-            "label": "normal",
-            "precision": 0.375,
-            "recall": 0.54,
-            "F1": 0.4426229508196721,
-            "support": 100
-          },
-          {
-            "label": "dry",
-            "precision": 0.48514851485148514,
-            "recall": 0.4336283185840708,
-            "F1": 0.45794392523364486,
-            "support": 113
-          },
-          {
-            "label": "oily",
-            "precision": 0.36363636363636365,
-            "recall": 0.2882882882882883,
-            "F1": 0.32160804020100503,
-            "support": 111
-          },
-          {
-            "label": "combination",
-            "precision": 0.23529411764705882,
-            "recall": 0.18604651162790697,
-            "F1": 0.2077922077922078,
-            "support": 43
-          }
-        ],
-        "confusionMatrix": [
-          [
-            54,
-            19,
-            25,
-            2
-          ],
-          [
-            33,
-            49,
-            19,
-            12
-          ],
-          [
-            39,
-            28,
-            32,
-            12
-          ],
-          [
-            18,
-            5,
-            12,
-            8
-          ]
-        ],
-        "images": 367
-      },
-      "finalTest": {
-        "macroF1": 0.2938911661867228,
-        "balancedAccuracy": 0.29797968972589317,
-        "accuracy": 0.32456140350877194,
-        "classes": [
-          {
-            "label": "normal",
-            "precision": 0.3445378151260504,
-            "recall": 0.43617021276595747,
-            "F1": 0.3849765258215962,
-            "support": 94
-          },
-          {
-            "label": "dry",
-            "precision": 0.25961538461538464,
-            "recall": 0.3176470588235294,
-            "F1": 0.28571428571428575,
-            "support": 85
-          },
-          {
-            "label": "oily",
-            "precision": 0.4175824175824176,
-            "recall": 0.2992125984251969,
-            "F1": 0.3486238532110092,
-            "support": 127
-          },
-          {
-            "label": "combination",
-            "precision": 0.17857142857142858,
-            "recall": 0.1388888888888889,
-            "F1": 0.15625000000000003,
-            "support": 36
-          }
-        ],
-        "confusionMatrix": [
-          [
-            41,
-            29,
-            18,
-            6
-          ],
-          [
-            20,
-            27,
-            27,
-            11
-          ],
-          [
-            49,
-            34,
-            38,
-            6
-          ],
-          [
-            9,
-            14,
-            8,
-            5
-          ]
-        ],
-        "images": 342
-      },
-      "sourceQualityAccepted": true,
-      "accepted": true,
+      "modelId": "AishaBaliyan/glamour-ai-skin-model",
+      "revision": "4f232d45e5ba59664205f552c4f450a1a741470a",
+      "architecture": "ViTForImageClassification",
+      "license": "MIT",
+      "weightsFile": "model.safetensors",
+      "weightsSha256": "46f59b660f856c867c00289fa0ec4337a935d07a758e81175290580fb2733b8c",
       "file": "skin-type-glamour-vit.onnx",
       "sha256": "ffdac2fc496a23dc27e60e08299b2496a0702a1d49f81f288d4d54da686213a0",
-      "rejectedWeightsDistributed": false,
-      "sourceLabelProtocolVerified": true,
-      "cameraDomainAccepted": true,
+      "temperature": 1.0,
+      "confidenceThreshold": 0.36,
       "classes": [
         "dry",
         "normal",
         "oily"
       ],
-      "offlineExecution": true
+      "preprocessing": {
+        "RGB": true,
+        "size": [
+          224,
+          224
+        ],
+        "mean": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "std": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "resampling": "PIL.Image.Resampling.BILINEAR",
+        "cropVersion": "camera-crop-v1"
+      },
+      "decisionVersion": "regional-combination-v2-deadband-support",
+      "deadbandThreshold": 0.40,
+      "accepted": false,
+      "candidateAccepted": true,
+      "sourceQualityAccepted": false,
+      "sourceLabelProtocolVerified": false,
+      "cameraDomainAccepted": false,
+      "rejectedWeightsDistributed": false,
+      "offlineExecution": true,
+      "evaluationCriteria": {
+        "sourceDataset": "killa92/facial-skin-analysis-and-type-classification (Kaggle)",
+        "splitStatistics": {
+          "totalTestFiles": 409,
+          "totalValidFiles": 812,
+          "crossSplitLeakingPrefixes": 113,
+          "disjointValidPrefixes": 569
+        },
+        "developmentSet": {
+          "splitName": "test (deduplicated base images)",
+          "sampleCount": 100,
+          "coverageRate": 0.72,
+          "rejectedCount": 28,
+          "rejectionsBreakdown": {
+            "GLARE_OR_EXPOSURE": 20,
+            "LANDMARKS_MISSING": 6,
+            "LOW_MODEL_SUPPORT": 2
+          },
+          "fourClass": {
+            "macroF1": 0.3751,
+            "accuracy": 0.4028,
+            "balancedAccuracy": 0.3879,
+            "classes": [
+              { "label": "dry", "precision": 0.2222, "recall": 0.1176, "F1": 0.1538, "support": 17 },
+              { "label": "normal", "precision": 0.6316, "recall": 0.6667, "F1": 0.6486, "support": 18 },
+              { "label": "oily", "precision": 0.3929, "recall": 0.5000, "F1": 0.4400, "support": 22 },
+              { "label": "combination", "precision": 0.2500, "recall": 0.2667, "F1": 0.2581, "support": 15 }
+            ]
+          },
+          "threeClass": {
+            "macroF1": 0.4782,
+            "balancedAccuracy": 0.4976
+          }
+        },
+        "holdoutSet": {
+          "splitName": "valid (disjoint from test prefixes)",
+          "sampleCount": 100,
+          "coverageRate": 0.66,
+          "rejectedCount": 34,
+          "rejectionsBreakdown": {
+            "GLARE_OR_EXPOSURE": 25,
+            "LANDMARKS_MISSING": 7,
+            "LOW_MODEL_SUPPORT": 2
+          },
+          "fourClass": {
+            "macroF1": 0.2734,
+            "accuracy": 0.3030,
+            "balancedAccuracy": 0.2968,
+            "classes": [
+              { "label": "dry", "precision": 0.6667, "recall": 0.2500, "F1": 0.3636, "support": 16 },
+              { "label": "normal", "precision": 0.2308, "recall": 0.2143, "F1": 0.2222, "support": 14 },
+              { "label": "oily", "precision": 0.3235, "recall": 0.6667, "F1": 0.4356, "support": 18 },
+              { "label": "combination", "precision": 0.1000, "recall": 0.0556, "F1": 0.0714, "support": 18 }
+            ]
+          },
+          "threeClass": {
+            "macroF1": 0.3426,
+            "balancedAccuracy": 0.3801
+          }
+        },
+        "benchmarking": {
+          "pytorchWarmMeanMs": 1290.95,
+          "onnxRuntimeWarmMeanMs": 893.75,
+          "measuredSpeedupRatio": 1.44,
+          "rssMemoryMb": 1734.80
+        },
+        "parityCheck": {
+          "realFaceCropMaxLogitDiff": 7.152557e-07,
+          "threshold": 0.0001,
+          "status": "VERIFIED"
+        }
+      }
     },
     "degrees": {
       "version": "skin-appearance-photo-ridge-20261010-v1",
@@ -248,6 +224,15 @@
       "declaredLicense": "apache-2.0",
       "sha256": "7f5810bc96def8f7552d5b7e68d53c4786f81167d28291b21c0d90e1fca14934",
       "safeSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a"
+    },
+    {
+      "file": "model.safetensors",
+      "modelId": "AishaBaliyan/glamour-ai-skin-model",
+      "source": "https://huggingface.co/AishaBaliyan/glamour-ai-skin-model",
+      "card": "https://huggingface.co/AishaBaliyan/glamour-ai-skin-model/blob/main/README.md",
+      "declaredLicense": "mit",
+      "sha256": "46f59b660f856c867c00289fa0ec4337a935d07a758e81175290580fb2733b8c",
+      "safeSHA256": "46f59b660f856c867c00289fa0ec4337a935d07a758e81175290580fb2733b8c"
     }
   ]
 }

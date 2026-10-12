@@ -1,22 +1,16 @@
-"""Comprehensive, fully reproducible offline evaluation of local skin type models:
-- Primary: AishaBaliyan/glamour-ai-skin-model (MIT License, ViT)
-- Backup/Comparison: Raveem/SkinSight (MIT License, ResNet50)
+"""Comprehensive, fully reproducible offline evaluation of local skin type model (ViT)
+and explainable Regional Combination (Karma) Rule v2.
 
-Evaluates on deduplicated test samples from approved development dataset:
-C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test\\audit-results\\focused-skin-20261010\\sources\\skin-18criteria-v1\\skin_type_classification_dataset\\test
-
-Evaluates:
-1. Model metadata, license, hash verification (safetensors, bin, onnx)
-2. Input formats: Full photo vs Product crop vs Regional crops (T-zone vs Cheeks)
-3. 3-class metrics (Dry, Normal, Oily): Precision, Recall, F1, Macro-F1, Confusion Matrix
-4. 4-class Regional Combination (Karma) Rule: Explainable spatial divergence
-5. Numerical parity: PyTorch vs ONNX Runtime (max absolute diff < 1e-4)
-6. Latency (cold/warm ms) and memory footprint on CPU
-7. Saves comprehensive audit receipt to audit-results/skin-type-local-evaluation-20261012.json
+Directly evaluates via production runtime: services/core-api/skin_models.infer()
+Evaluates on:
+1. Development / Calibration Set: 100 deduplicated samples from 'test' split (25/class).
+2. Independent Holdout Set: 100 disjoint samples from 'valid' split (25/class),
+   strictly excluding the 113 cross-split leaking prefixes in Kaggle dataset.
 
 100% offline; zero network calls; zero external API keys.
+Saves comprehensive audit receipt to audit-results/skin-type-local-evaluation-20261012.json
 """
-import sys, os, time, json, hashlib
+import sys, os, time, json, hashlib, socket, gc
 from pathlib import Path
 from collections import defaultdict
 import numpy as np, cv2, torch
@@ -39,14 +33,16 @@ import torchvision.models as models
 import torch.nn as nn
 
 import skin_models
-from verify_e2e_skin_type_pipeline import REGIONS_INDICES
 
-# Model Checkpoints
+# Model Checkpoints and Dataset Paths
 GLAMOUR_DIR = Path(r'C:\Users\PC\.cache\huggingface\hub\models--AishaBaliyan--glamour-ai-skin-model\snapshots\4f232d45e5ba59664205f552c4f450a1a741470a')
 SKINSIGHT_DIR = Path(r'C:\Users\PC\.cache\huggingface\hub\models--Raveem--SkinSight\snapshots\6e7b2dfaa9062b274ac308f66a85a43eff8f0eae')
 ONNX_PATH = Path('services/core-api/models/skin-type-glamour-vit.onnx')
-DATASET_ROOT = Path(r'C:\Users\PC\Desktop\AI Workspace\TOGG\attune-live-test\audit-results\focused-skin-20261010\sources\skin-18criteria-v1\skin_type_classification_dataset\test')
+DATASET_BASE = Path(r'C:\Users\PC\Desktop\AI Workspace\TOGG\attune-live-test\audit-results\focused-skin-20261010\sources\skin-18criteria-v1\skin_type_classification_dataset')
+TEST_ROOT = DATASET_BASE / 'test'
+VALID_ROOT = DATASET_BASE / 'valid'
 RECEIPT_PATH = Path('audit-results/skin-type-local-evaluation-20261012.json')
+LANDMARKER_MODEL = Path('apps/vehicle-app/public/mediapipe/models/face_landmarker.task')
 
 CLASSES_3 = ['dry', 'normal', 'oily']
 CLASSES_4 = ['dry', 'normal', 'oily', 'combination']
@@ -59,97 +55,79 @@ def compute_sha256(filepath):
             h.update(chunk)
     return h.hexdigest()
 
-def select_deduplicated_samples(max_per_class=25):
-    selected = {}
+def get_image_prefix(filename):
+    return filename.split('_jpg.rf.')[0].split('.rf.')[0].replace('-Copy', '')
+
+def select_dataset_splits(max_per_class=25):
+    """Selects:
+    1. Development set from 'test' folder (deduplicated by base image prefix).
+    2. Holdout set from 'valid' folder (100% disjoint from test prefixes, accounting for 113 leakages).
+    """
+    test_files_by_class = {}
+    test_prefixes = set()
+
     for cls in CLASSES_4:
-        folder = DATASET_ROOT / cls
-        files = sorted(folder.iterdir())
+        folder = TEST_ROOT / cls
+        files = sorted(folder.glob('*.jpg'))
         chosen = []
         seen = set()
         for f in files:
-            if not f.name.endswith('.jpg'):
-                continue
-            pfx = f.name.split('_jpg.rf.')[0].split('.rf.')[0].replace('-Copy', '')
+            pfx = get_image_prefix(f.name)
             if pfx not in seen:
+                seen.add(pfx)
+                chosen.append(f)
+                test_prefixes.add(pfx)
+                if len(chosen) >= max_per_class:
+                    break
+        test_files_by_class[cls] = chosen
+
+    # Also collect all test prefixes in the entire test directory
+    all_test_prefixes = set(get_image_prefix(f.name) for f in TEST_ROOT.glob('*/*.jpg'))
+
+    holdout_files_by_class = {}
+    all_valid_prefixes = set(get_image_prefix(f.name) for f in VALID_ROOT.glob('*/*.jpg'))
+    leaking_prefixes = all_valid_prefixes.intersection(all_test_prefixes)
+    disjoint_valid_prefixes = all_valid_prefixes - all_test_prefixes
+
+    for cls in CLASSES_4:
+        folder = VALID_ROOT / cls
+        files = sorted(folder.glob('*.jpg'))
+        chosen = []
+        seen = set()
+        for f in files:
+            pfx = get_image_prefix(f.name)
+            # Strictly disjoint: not in any test image, not already chosen
+            if pfx not in all_test_prefixes and pfx not in seen:
                 seen.add(pfx)
                 chosen.append(f)
                 if len(chosen) >= max_per_class:
                     break
-        selected[cls] = chosen
-    return selected
+        holdout_files_by_class[cls] = chosen
 
-def build_crops_and_geometry(bgr, landmarker):
-    h, w = bgr.shape[:2]
-    rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
-    res = landmarker.detect(mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb))
-    if not res.face_landmarks:
-        pil_full = Image.fromarray(rgb)
-        return pil_full, pil_full, pil_full, pil_full, None, None, None
-    
-    lms = res.face_landmarks[0]
-    points = [{'x': p.x, 'y': p.y, 'z': p.z} for p in lms]
-    
-    # 1. Product crop via photo_input
-    try:
-        _, transform = skin_models.photo_input(bgr, points)
-        fx, fy, fw, fh = transform['x'], transform['y'], transform['width'], transform['height']
-        face_bgr = bgr[fy:fy+fh, fx:fx+fw]
-        pil_face = Image.fromarray(cv2.cvtColor(face_bgr, cv2.COLOR_BGR2RGB))
-    except Exception:
-        pil_face = Image.fromarray(rgb)
-        transform = None
-        
-    # 2. Regional masks
-    masks = {}
-    for rname in ['forehead', 'nose', 'leftCheek', 'rightCheek']:
-        poly = np.array([[int(lms[i].x * w), int(lms[i].y * h)] for i in REGIONS_INDICES[rname]], np.int32)
-        m = np.zeros((h, w), np.uint8)
-        cv2.fillConvexPoly(m, cv2.convexHull(poly), 255)
-        masks[rname] = m > 0
-        
-    t_mask = masks['forehead'] | masks['nose']
-    u_mask = masks['leftCheek'] | masks['rightCheek']
-    
-    # 3. Regional crops
-    t_indices = REGIONS_INDICES['forehead'] + REGIONS_INDICES['nose']
-    tx = [lms[i].x * w for i in t_indices]; ty = [lms[i].y * h for i in t_indices]
-    t_crop = bgr[max(0, int(min(ty)-10)):min(h, int(max(ty)+10)), max(0, int(min(tx)-10)):min(w, int(max(tx)+10))]
-    pil_t = Image.fromarray(cv2.cvtColor(t_crop, cv2.COLOR_BGR2RGB)) if t_crop.size else pil_face
-    
-    u_indices = REGIONS_INDICES['leftCheek'] + REGIONS_INDICES['rightCheek']
-    ux = [lms[i].x * w for i in u_indices]; uy = [lms[i].y * h for i in u_indices]
-    u_crop = bgr[max(0, int(min(uy)-10)):min(h, int(max(uy)+10)), max(0, int(min(ux)-10)):min(w, int(max(ux)+10))]
-    pil_u = Image.fromarray(cv2.cvtColor(u_crop, cv2.COLOR_BGR2RGB)) if u_crop.size else pil_face
-    
-    pil_full = Image.fromarray(rgb)
-    return pil_full, pil_face, pil_t, pil_u, points, t_mask, u_mask
+    split_stats = {
+        'total_test_files': len(list(TEST_ROOT.glob('*/*.jpg'))),
+        'unique_test_prefixes': len(all_test_prefixes),
+        'total_valid_files': len(list(VALID_ROOT.glob('*/*.jpg'))),
+        'unique_valid_prefixes': len(all_valid_prefixes),
+        'cross_split_leaking_prefixes': len(leaking_prefixes),
+        'disjoint_valid_prefixes': len(disjoint_valid_prefixes),
+        'dev_set_size': sum(len(v) for v in test_files_by_class.values()),
+        'holdout_set_size': sum(len(v) for v in holdout_files_by_class.values())
+    }
+    return test_files_by_class, holdout_files_by_class, split_stats
 
-def compute_photometric_divergence(bgr, t_mask, u_mask):
-    if t_mask is None or u_mask is None:
-        return 0.0, 0.0, 0.0, 0.0
-    hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV).astype(np.float32)
-    v = hsv[:, :, 2] / 255.0
-    sat = hsv[:, :, 1] / 255.0
-    
-    # Clipping detection
-    clipping = float(np.mean(v > 0.975))
-    
-    local_v = cv2.GaussianBlur(v, (0, 0), 15)
-    spec = np.clip(v - local_v * 0.96, 0, 1) * np.clip(1.0 - sat, 0, 1)
-    
-    t_spec = float(np.mean(spec[t_mask]) * 100) if t_mask.any() else 0.0
-    u_spec = float(np.mean(spec[u_mask]) * 100) if u_mask.any() else 0.0
-    diff = t_spec - u_spec
-    return t_spec, u_spec, diff, clipping
-
-def evaluate_metrics(true_labels, pred_labels, classes):
+def evaluate_predictions(records, classes):
+    """Computes comprehensive metrics: confusion matrix, precision, recall, F1, balanced accuracy, accuracy."""
     cm = {t: defaultdict(int) for t in classes}
-    for t, p in zip(true_labels, pred_labels):
-        if t in cm:
-            cm[t][p] += 1
-            
+    evaluated_records = [r for r in records if r['pred'] is not None and r['true'] in classes]
+    rejected_records = [r for r in records if r['pred'] is None]
+
+    for r in evaluated_records:
+        cm[r['true']][r['pred']] += 1
+
     per_class = {}
     f1_list = []
+    recall_list = []
     for c in classes:
         tp = cm[c][c]
         fp = sum(cm[oc][c] for oc in classes if oc != c)
@@ -158,6 +136,7 @@ def evaluate_metrics(true_labels, pred_labels, classes):
         rec = tp / (tp + fn) if (tp + fn) > 0 else 0.0
         f1 = 2 * prec * rec / (prec + rec) if (prec + rec) > 0 else 0.0
         f1_list.append(f1)
+        recall_list.append(rec)
         per_class[c] = {
             'turkish_name': TURKISH_NAMES.get(c, c),
             'tp': tp, 'fp': fp, 'fn': fn,
@@ -166,250 +145,292 @@ def evaluate_metrics(true_labels, pred_labels, classes):
             'f1': round(f1, 4),
             'support': sum(cm[c].values())
         }
+
     macro_f1 = sum(f1_list) / len(f1_list) if f1_list else 0.0
-    total = sum(per_class[c]['support'] for c in classes)
+    balanced_acc = sum(recall_list) / len(recall_list) if recall_list else 0.0
+    total_valid = len(evaluated_records)
     correct = sum(cm[c][c] for c in classes)
-    accuracy = correct / total if total > 0 else 0.0
-    
+    accuracy = correct / total_valid if total_valid > 0 else 0.0
+
+    # Limitation code counts
+    rejections = defaultdict(int)
+    for r in rejected_records:
+        code = r.get('limitationCode') or 'UNKNOWN_REJECTION'
+        rejections[code] += 1
+
     return {
-        'confusion_matrix': {t: dict(cm[t]) for t in classes},
+        'confusion_matrix': {t: {p: cm[t][p] for p in classes} for t in classes},
         'per_class': per_class,
         'macro_f1': round(macro_f1, 4),
+        'balanced_accuracy': round(balanced_acc, 4),
         'accuracy': round(accuracy, 4),
-        'total': total,
-        'correct': correct
+        'total_samples': len(records),
+        'valid_evaluated': total_valid,
+        'rejected_count': len(rejected_records),
+        'coverage_rate': round(total_valid / len(records), 4) if records else 0.0,
+        'rejections_breakdown': dict(rejections)
     }
 
-def run_evaluation():
-    print("=" * 70)
-    print("TOGG ATTUNE - LOCAL SKIN TYPE MODEL & REGIONAL COMBINATION EVALUATION")
-    print("=" * 70)
-    
-    # 1. Model Metadata & Hash Verification
-    glamour_weights = GLAMOUR_DIR / 'model.safetensors'
-    glamour_hash = compute_sha256(glamour_weights)
-    print(f"Primary Model: AishaBaliyan/glamour-ai-skin-model")
-    print(f"  Architecture: ViTForImageClassification (ViT-Base)")
-    print(f"  License: MIT (declared on Hugging Face)")
-    print(f"  Snapshot: 4f232d45e5ba59664205f552c4f450a1a741470a")
-    print(f"  model.safetensors SHA-256: {glamour_hash}")
-    assert glamour_hash == "46f59b660f856c867c00289fa0ec4337a935d07a758e81175290580fb2733b8c", "Glamour SHA mismatch!"
-    
-    skinsight_weights = SKINSIGHT_DIR / 'pytorch_model.bin'
-    skinsight_hash = compute_sha256(skinsight_weights)
-    print(f"\nBackup Model: Raveem/SkinSight")
-    print(f"  Architecture: ResNet50 (fc Linear(2048, 3))")
-    print(f"  License: MIT (declared on Hugging Face)")
-    print(f"  Snapshot: 6e7b2dfaa9062b274ac308f66a85a43eff8f0eae")
-    print(f"  pytorch_model.bin SHA-256: {skinsight_hash}")
-    assert skinsight_hash == "bad9a4873f7079a544a4328c4b6233fe1887648b665dadf8a78da704c40d4601", "SkinSight SHA mismatch!"
-    
-    onnx_hash = compute_sha256(ONNX_PATH)
-    print(f"\nExported ONNX Model: {ONNX_PATH}")
-    print(f"  File size: {ONNX_PATH.stat().st_size:,} bytes")
-    print(f"  SHA-256: {onnx_hash}")
-    
-    # 2. Initialize Models
-    print("\nLoading models for evaluation...")
+def benchmark_resources_and_latency(dummy_tensor_np):
+    """Measures genuine cold and warm CPU inference latency and memory footprint."""
+    import psutil
+    process = psutil.Process(os.getpid())
+    mem_before_mb = process.memory_info().rss / (1024 * 1024)
+
+    # 1. PyTorch ViT CPU Benchmark
     t0 = time.perf_counter()
-    glamour_proc = AutoImageProcessor.from_pretrained(str(GLAMOUR_DIR))
-    glamour_pt = AutoModelForImageClassification.from_pretrained(str(GLAMOUR_DIR))
+    glamour_pt = AutoModelForImageClassification.from_pretrained(str(GLAMOUR_DIR), local_files_only=True)
     glamour_pt.eval()
-    glamour_pt_load_ms = (time.perf_counter() - t0) * 1000
-    
+    pt_load_ms = (time.perf_counter() - t0) * 1000
+
+    dummy_torch = torch.from_numpy(dummy_tensor_np)
+    # Cold PyTorch
     t0 = time.perf_counter()
-    skinsight_pt = models.resnet50()
-    skinsight_pt.fc = nn.Linear(2048, 3)
-    sd = torch.load(skinsight_weights, map_location='cpu', weights_only=True)
-    skinsight_pt.load_state_dict(sd)
-    skinsight_pt.eval()
-    skinsight_pt_load_ms = (time.perf_counter() - t0) * 1000
-    
-    # ONNX Runtime Session
+    with torch.no_grad(): glamour_pt(dummy_torch)
+    pt_cold_ms = (time.perf_counter() - t0) * 1000
+
+    # Warm PyTorch (20 iterations)
+    pt_warm_times = []
+    for _ in range(20):
+        t0 = time.perf_counter()
+        with torch.no_grad(): glamour_pt(dummy_torch)
+        pt_warm_times.append((time.perf_counter() - t0) * 1000)
+
+    # 2. ONNX Runtime CPU Benchmark
     opts = ort.SessionOptions()
     opts.intra_op_num_threads = 2
     opts.inter_op_num_threads = 1
     t0 = time.perf_counter()
     ort_session = ort.InferenceSession(str(ONNX_PATH), sess_options=opts, providers=['CPUExecutionProvider'])
-    onnx_load_ms = (time.perf_counter() - t0) * 1000
-    
-    # MediaPipe FaceLandmarker
+    ort_load_ms = (time.perf_counter() - t0) * 1000
+
+    # Cold ORT
+    t0 = time.perf_counter()
+    ort_session.run(None, {'rgb': dummy_tensor_np})
+    ort_cold_ms = (time.perf_counter() - t0) * 1000
+
+    # Warm ORT (20 iterations)
+    ort_warm_times = []
+    for _ in range(20):
+        t0 = time.perf_counter()
+        ort_session.run(None, {'rgb': dummy_tensor_np})
+        ort_warm_times.append((time.perf_counter() - t0) * 1000)
+
+    mem_after_mb = process.memory_info().rss / (1024 * 1024)
+
+    pt_warm_mean = float(np.mean(pt_warm_times))
+    ort_warm_mean = float(np.mean(ort_warm_times))
+    speedup = pt_warm_mean / ort_warm_mean if ort_warm_mean > 0 else 1.0
+
+    return {
+        'pytorch': {
+            'load_ms': round(pt_load_ms, 2),
+            'cold_ms': round(pt_cold_ms, 2),
+            'warm_mean_ms': round(pt_warm_mean, 2),
+            'warm_std_ms': round(float(np.std(pt_warm_times)), 2),
+            'warm_min_ms': round(float(np.min(pt_warm_times)), 2),
+            'warm_max_ms': round(float(np.max(pt_warm_times)), 2)
+        },
+        'onnxruntime': {
+            'load_ms': round(ort_load_ms, 2),
+            'cold_ms': round(ort_cold_ms, 2),
+            'warm_mean_ms': round(ort_warm_mean, 2),
+            'warm_std_ms': round(float(np.std(ort_warm_times)), 2),
+            'warm_min_ms': round(float(np.min(ort_warm_times)), 2),
+            'warm_max_ms': round(float(np.max(ort_warm_times)), 2)
+        },
+        'speedup_ratio': round(speedup, 2),
+        'rss_memory_mb': round(mem_after_mb, 2),
+        'memory_delta_mb': round(mem_after_mb - mem_before_mb, 2)
+    }
+
+def run_evaluation():
+    print("=" * 75)
+    print("TOGG ATTUNE - LOCAL SKIN TYPE MODEL & REGIONAL COMBINATION EVALUATION v2")
+    print("Direct runtime evaluation via services/core-api/skin_models.infer()")
+    print("=" * 75)
+
+    # 1. Model Checksums & Metadata
+    glamour_weights = GLAMOUR_DIR / 'model.safetensors'
+    glamour_hash = compute_sha256(glamour_weights)
+    onnx_hash = compute_sha256(ONNX_PATH)
+    assert glamour_hash == "46f59b660f856c867c00289fa0ec4337a935d07a758e81175290580fb2733b8c"
+    assert onnx_hash == "ffdac2fc496a23dc27e60e08299b2496a0702a1d49f81f288d4d54da686213a0"
+    print(f"Primary Model ViT: {glamour_weights.name} SHA-256 = {glamour_hash[:16]}... (OK)")
+    print(f"Exported ONNX: {ONNX_PATH.name} SHA-256 = {onnx_hash[:16]}... (OK)")
+
+    # 2. Select Splits
+    print("\nSelecting Dataset Splits...")
+    dev_files, holdout_files, split_stats = select_dataset_splits(max_per_class=25)
+    print(f"  Test split total files: {split_stats['total_test_files']} (unique prefixes: {split_stats['unique_test_prefixes']})")
+    print(f"  Valid split total files: {split_stats['total_valid_files']} (unique prefixes: {split_stats['unique_valid_prefixes']})")
+    print(f"  Cross-split leaking prefixes: {split_stats['cross_split_leaking_prefixes']}")
+    print(f"  Disjoint valid prefixes: {split_stats['disjoint_valid_prefixes']}")
+    print(f"  Development / Calibration set: {split_stats['dev_set_size']} samples (25 per class)")
+    print(f"  Independent Holdout set: {split_stats['holdout_set_size']} samples (25 per class, 0% test leakage)")
+
+    # 3. Initialize Face Landmarker
     landmarker = mp.tasks.vision.FaceLandmarker.create_from_options(
         mp.tasks.vision.FaceLandmarkerOptions(
-            base_options=mp.tasks.BaseOptions(model_asset_path='apps/vehicle-app/public/mediapipe/models/face_landmarker.task'),
+            base_options=mp.tasks.BaseOptions(model_asset_path=str(LANDMARKER_MODEL)),
             running_mode=mp.tasks.vision.RunningMode.IMAGE,
             num_faces=1
         )
     )
-    
-    # 3. Numerical Parity Check (PyTorch vs ONNX)
-    dummy_input = torch.randn(1, 3, 224, 224)
+
+    # 4. Numerical Parity Verification on Real Image
+    sample_file = dev_files['normal'][0]
+    sample_bgr = cv2.imread(str(sample_file))
+    sample_rgb = cv2.cvtColor(sample_bgr, cv2.COLOR_BGR2RGB)
+    res = landmarker.detect(mp.Image(image_format=mp.ImageFormat.SRGB, data=sample_rgb))
+    sample_lms = [{'x': p.x, 'y': p.y, 'z': p.z} for p in res.face_landmarks[0]]
+    _, sample_transform = skin_models.photo_input(sample_bgr, sample_lms)
+
+    # Use unified preprocess_vit_face
+    vit_x = skin_models.preprocess_vit_face(sample_bgr, sample_transform)
+
+    # Run PyTorch with local_files_only
+    glamour_pt = AutoModelForImageClassification.from_pretrained(str(GLAMOUR_DIR), local_files_only=True)
+    glamour_pt.eval()
     with torch.no_grad():
-        pt_logits = glamour_pt(dummy_input).logits.numpy()
-    ort_logits = ort_session.run(None, {'rgb': dummy_input.numpy()})[0]
-    max_parity_diff = float(np.max(np.abs(pt_logits - ort_logits)))
-    print(f"\nNumerical Parity (PyTorch vs ONNX Runtime):")
-    print(f"  Max absolute difference: {max_parity_diff:.4e}")
-    assert max_parity_diff < 1e-4, "Numerical parity exceeded 1e-4 threshold!"
-    print("  -> Parity VERIFIED (< 1e-4)")
-    
-    # Latency Benchmark
-    times_pt = []
-    times_ort = []
-    for _ in range(7):
-        t = time.perf_counter()
-        with torch.no_grad(): glamour_pt(dummy_input)
-        times_pt.append((time.perf_counter() - t) * 1000)
-        
-        t = time.perf_counter()
-        ort_session.run(None, {'rgb': dummy_input.numpy()})
-        times_ort.append((time.perf_counter() - t) * 1000)
-    
-    print(f"  PyTorch CPU Latency: cold={times_pt[0]:.1f}ms, warm mean={np.mean(times_pt[1:]):.1f}ms")
-    print(f"  ONNX Runtime CPU Latency: cold={times_ort[0]:.1f}ms, warm mean={np.mean(times_ort[1:]):.1f}ms")
-    
-    # 4. Evaluation Dataset Processing
-    print("\nSelecting deduplicated test samples...")
-    dataset_samples = select_deduplicated_samples(max_per_class=25)
-    for c, flist in dataset_samples.items():
-        print(f"  {c:12s}: {len(flist)} unique test images")
-        
-    records = []
-    print("\nRunning inference across all samples...")
-    
-    for true_cls, files in dataset_samples.items():
-        for f in files:
-            bgr = cv2.imread(str(f))
-            if bgr is None: continue
-            
-            pil_full, pil_face, pil_t, pil_u, points, t_mask, u_mask = build_crops_and_geometry(bgr, landmarker)
-            t_spec, u_spec, spec_diff, clipping = compute_photometric_divergence(bgr, t_mask, u_mask)
-            
-            # Predict Glamour AI (ViT) on all crops
-            # A. Full photo
-            inp_full = glamour_proc(pil_full, return_tensors='pt')
-            with torch.no_grad():
-                probs_g_full = torch.softmax(glamour_pt(**inp_full).logits, dim=-1)[0].numpy()
-            pred_g_full = CLASSES_3[int(probs_g_full.argmax())]
-            
-            # B. Face crop (using ONNX runtime for product parity)
-            img_face_224 = pil_face.resize((224, 224), Image.BILINEAR)
-            arr_face = (np.array(img_face_224, dtype=np.float32) / 255.0 - 0.5) / 0.5
-            logits_ort = ort_session.run(None, {'rgb': arr_face.transpose(2,0,1)[None].astype(np.float32)})[0][0]
-            e = np.exp(logits_ort - np.max(logits_ort))
-            probs_g_face = e / np.sum(e)
-            pred_g_face = CLASSES_3[int(probs_g_face.argmax())]
-            
-            # C. Regional crops
-            inp_t = glamour_proc(pil_t, return_tensors='pt')
-            inp_u = glamour_proc(pil_u, return_tensors='pt')
-            with torch.no_grad():
-                probs_g_t = torch.softmax(glamour_pt(**inp_t).logits, dim=-1)[0].numpy()
-                probs_g_u = torch.softmax(glamour_pt(**inp_u).logits, dim=-1)[0].numpy()
-            pred_g_t = CLASSES_3[int(probs_g_t.argmax())]
-            pred_g_u = CLASSES_3[int(probs_g_u.argmax())]
-            
-            # Predict SkinSight (ResNet50) on face crop
-            arr_ss = (np.array(img_face_224, dtype=np.float32) / 255.0 - np.array([0.485, 0.456, 0.406])) / np.array([0.229, 0.224, 0.225])
-            with torch.no_grad():
-                logits_ss = skinsight_pt(torch.from_numpy(arr_ss.transpose(2,0,1)[None].astype(np.float32)))
-                probs_ss = torch.softmax(logits_ss, dim=-1)[0].numpy()
-            pred_ss_face = CLASSES_3[int(probs_ss.argmax())]
-            
-            # Regional Combination (Karma) Rule:
-            # - T-zone sebum/oiliness presence (p_oily >= 0.35)
-            # - Spatial divergence: T-zone significantly shinier than cheeks (spec_diff > 0.0)
-            # - Cheeks remain normal or dry (p_dry + p_normal >= 0.52)
-            # - Anti-confounder: clipping < 0.15 (not pure flash glare)
-            is_karma = False
-            karma_basis = 'FULL_FACE_MODEL_CLASSIFICATION'
-            p_dry, p_norm, p_oil = probs_g_face
-            
-            if clipping < 0.15:
-                if p_oil >= 0.35 and (p_dry + p_norm) >= 0.52 and spec_diff > 0.0:
-                    is_karma = True
-                    karma_basis = 'SPATIAL_DIVERGENCE_T_OILY_CHEEK_BALANCED'
-                elif pred_g_face == 'oily' and spec_diff > 0.20 and (p_dry + p_norm) >= 0.48:
-                    is_karma = True
-                    karma_basis = 'SPATIAL_DIVERGENCE_CHEEKS_BELOW_T_ZONE'
-                elif pred_g_face == 'normal' and p_oil >= 0.33 and spec_diff > 0.15:
-                    is_karma = True
-                    karma_basis = 'SPATIAL_DIVERGENCE_T_ZONE_ELEVATED'
-            
-            final_pred_4 = 'combination' if is_karma else pred_g_face
-            
-            records.append({
-                'file': f.name,
-                'true_cls': true_cls,
-                'glamour': {
-                    'full_pred': pred_g_full,
-                    'face_pred': pred_g_face,
-                    'tzone_pred': pred_g_t,
-                    'uzone_pred': pred_g_u,
-                    'probs_face': [round(float(p), 4) for p in probs_g_face],
-                },
-                'skinsight': {
-                    'face_pred': pred_ss_face,
-                    'probs_face': [round(float(p), 4) for p in probs_ss],
-                },
-                'photometrics': {
-                    't_spec': round(t_spec, 2),
-                    'u_spec': round(u_spec, 2),
-                    'spec_diff': round(spec_diff, 2),
-                    'clipping': round(clipping, 4)
-                },
-                'karma_rule': {
-                    'is_karma': is_karma,
-                    'basis': karma_basis,
-                    'final_pred_4': final_pred_4
+        pt_logits = glamour_pt(torch.from_numpy(vit_x)).logits.numpy()[0]
+
+    # Run ONNX Runtime
+    loaded = skin_models.load()
+    type_session = loaded['sessions']['type']['session']
+    ort_logits = type_session.run(None, {'rgb': vit_x})[0][0]
+
+    parity_diff = float(np.max(np.abs(pt_logits - ort_logits)))
+    print(f"\nReal Face Crop Parity Check (PyTorch vs ONNX Runtime):")
+    print(f"  Max absolute logit difference: {parity_diff:.6e}")
+    assert parity_diff < 1e-4, f"Parity check failed: {parity_diff}"
+    print("  -> Numerical Parity VERIFIED (< 1e-4)")
+
+    # 5. Resource & Latency Benchmark
+    print("\nBenchmarking CPU Inference Timings & Memory...")
+    perf_metrics = benchmark_resources_and_latency(vit_x)
+    print(f"  PyTorch CPU: cold={perf_metrics['pytorch']['cold_ms']}ms, warm mean={perf_metrics['pytorch']['warm_mean_ms']}ms (std={perf_metrics['pytorch']['warm_std_ms']}ms)")
+    print(f"  ONNX Runtime CPU: cold={perf_metrics['onnxruntime']['cold_ms']}ms, warm mean={perf_metrics['onnxruntime']['warm_mean_ms']}ms (std={perf_metrics['onnxruntime']['warm_std_ms']}ms)")
+    print(f"  Measured Speedup: {perf_metrics['speedup_ratio']}x (honest measured ratio)")
+    print(f"  Process RSS Memory: {perf_metrics['rss_memory_mb']} MB (delta: {perf_metrics['memory_delta_mb']} MB)")
+
+    # 6. Evaluate Splits via direct skin_models.infer()
+    def evaluate_split_files(split_files_dict, split_name):
+        print(f"\nRunning evaluation on {split_name} ({sum(len(v) for v in split_files_dict.values())} samples)...")
+        all_records = []
+        records_4class = []
+        records_3class = []
+
+        for true_cls, files in split_files_dict.items():
+            for f in files:
+                bgr = cv2.imread(str(f))
+                if bgr is None:
+                    continue
+
+                rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
+                det = landmarker.detect(mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb))
+
+                if not det.face_landmarks:
+                    all_records.append({
+                        'file': f.name,
+                        'true_cls': true_cls,
+                        'pred_4': None,
+                        'pred_3': None,
+                        'quality': 'insufficient',
+                        'limitationCode': 'LANDMARKS_MISSING',
+                        'confidence': None,
+                        'probs': None,
+                        'photometrics': None,
+                        'karma_rule': None
+                    })
+                    records_4class.append({'true': true_cls, 'pred': None, 'limitationCode': 'LANDMARKS_MISSING'})
+                    if true_cls in CLASSES_3:
+                        records_3class.append({'true': true_cls, 'pred': None, 'limitationCode': 'LANDMARKS_MISSING'})
+                    continue
+
+                points = [{'x': p.x, 'y': p.y, 'z': p.z} for p in det.face_landmarks[0]]
+
+                # Direct runtime production inference call
+                res = skin_models.infer(bgr, points, quality_valid=True, type_quality_valid=True)
+                st = res.get('skinType') or {}
+
+                val_4 = st.get('value')
+                quality = st.get('quality')
+                lim_code = st.get('limitationCode')
+                conf = st.get('confidence')
+                reg_div = st.get('regionalDivergence') or {}
+                probs = reg_div.get('modelProbs') or {}
+
+                # Base 3-class prediction from raw model probabilities
+                val_3 = max(probs, key=probs.get) if probs else None
+
+                record = {
+                    'file': f.name,
+                    'true_cls': true_cls,
+                    'pred_4': val_4,
+                    'pred_3': val_3,
+                    'quality': quality,
+                    'limitationCode': lim_code,
+                    'confidence': conf,
+                    'probs': probs,
+                    'photometrics': {
+                        't_spec': reg_div.get('tZoneSpecularity'),
+                        'u_spec': reg_div.get('cheekSpecularity'),
+                        'spec_diff': reg_div.get('specularDivergence'),
+                        'clipping': reg_div.get('clipping')
+                    },
+                    'karma_rule': {
+                        'is_karma': reg_div.get('isKarma'),
+                        'basis': reg_div.get('basis'),
+                        'deadbandMet': reg_div.get('deadbandMet'),
+                        'tZoneSupported': reg_div.get('tZoneSupported'),
+                        'cheeksMatte': reg_div.get('cheeksMatte'),
+                        'combinationConfidence': reg_div.get('combinationConfidence')
+                    }
                 }
-            })
-            
-    print(f"Processed {len(records)} test samples.")
-    
-    # 5. Compute Comparative Metrics
-    # Filter 3-class samples (dry, normal, oily)
-    records_3 = [r for r in records if r['true_cls'] in CLASSES_3]
-    y_true_3 = [r['true_cls'] for r in records_3]
-    
-    # Glamour AI Face Crop (3-class)
-    m_glamour_face_3 = evaluate_metrics(y_true_3, [r['glamour']['face_pred'] for r in records_3], CLASSES_3)
-    # Glamour AI Full Photo (3-class)
-    m_glamour_full_3 = evaluate_metrics(y_true_3, [r['glamour']['full_pred'] for r in records_3], CLASSES_3)
-    # Glamour AI T-Zone Crop (3-class)
-    m_glamour_tzone_3 = evaluate_metrics(y_true_3, [r['glamour']['tzone_pred'] for r in records_3], CLASSES_3)
-    # Glamour AI U-Zone Crop (3-class)
-    m_glamour_uzone_3 = evaluate_metrics(y_true_3, [r['glamour']['uzone_pred'] for r in records_3], CLASSES_3)
-    # SkinSight Face Crop (3-class)
-    m_skinsight_face_3 = evaluate_metrics(y_true_3, [r['skinsight']['face_pred'] for r in records_3], CLASSES_3)
-    
-    # 4-class evaluation with Regional Combination Rule (across all samples)
-    y_true_4 = [r['true_cls'] for r in records]
-    y_pred_4 = [r['karma_rule']['final_pred_4'] for r in records]
-    m_glamour_karma_4 = evaluate_metrics(y_true_4, y_pred_4, CLASSES_4)
-    
-    # Baseline 4-class without Karma rule (raw 3-class mapped directly)
-    m_glamour_nokarma_4 = evaluate_metrics(y_true_4, [r['glamour']['face_pred'] for r in records], CLASSES_4)
-    
-    print("\n" + "=" * 50)
-    print("3-CLASS COMPARATIVE SUMMARY (Dry, Normal, Oily):")
-    print(f"Glamour AI (ViT) Face Crop:  Acc={m_glamour_face_3['accuracy']*100:.1f}%, Macro-F1={m_glamour_face_3['macro_f1']:.4f}")
-    print(f"Glamour AI (ViT) Full Photo: Acc={m_glamour_full_3['accuracy']*100:.1f}%, Macro-F1={m_glamour_full_3['macro_f1']:.4f}")
-    print(f"Glamour AI (ViT) T-Zone Crop: Acc={m_glamour_tzone_3['accuracy']*100:.1f}%, Macro-F1={m_glamour_tzone_3['macro_f1']:.4f}")
-    print(f"Glamour AI (ViT) U-Zone Crop: Acc={m_glamour_uzone_3['accuracy']*100:.1f}%, Macro-F1={m_glamour_uzone_3['macro_f1']:.4f}")
-    print(f"SkinSight (ResNet50) Face:   Acc={m_skinsight_face_3['accuracy']*100:.1f}%, Macro-F1={m_skinsight_face_3['macro_f1']:.4f}")
-    
-    print("\n" + "=" * 50)
-    print("4-CLASS EVALUATION WITH REGIONAL COMBINATION RULE:")
-    print(f"With Regional Combination Rule:    Acc={m_glamour_karma_4['accuracy']*100:.1f}%, Macro-F1={m_glamour_karma_4['macro_f1']:.4f}")
-    print(f"Without Regional Combination Rule: Acc={m_glamour_nokarma_4['accuracy']*100:.1f}%, Macro-F1={m_glamour_nokarma_4['macro_f1']:.4f}")
-    print(f"Combination (Karma) Recall:        {m_glamour_karma_4['per_class']['combination']['recall']*100:.1f}%")
-    print("=" * 50)
-    
-    # 6. Save Audit Receipt
+                all_records.append(record)
+                records_4class.append({'true': true_cls, 'pred': val_4, 'limitationCode': lim_code})
+                if true_cls in CLASSES_3:
+                    records_3class.append({'true': true_cls, 'pred': val_3, 'limitationCode': lim_code})
+
+        metrics_4 = evaluate_predictions(records_4class, CLASSES_4)
+        metrics_3 = evaluate_predictions(records_3class, CLASSES_3)
+        return all_records, metrics_4, metrics_3
+
+    dev_records, dev_metrics_4, dev_metrics_3 = evaluate_split_files(dev_files, "Development Set (test)")
+    holdout_records, holdout_metrics_4, holdout_metrics_3 = evaluate_split_files(holdout_files, "Independent Holdout Set (valid)")
+
+    # Print summary tables
+    print("\n--- DEVELOPMENT SET (100 samples) METRICS ---")
+    print(f"4-Class Macro-F1: {dev_metrics_4['macro_f1']} | Accuracy: {dev_metrics_4['accuracy']} | Coverage: {dev_metrics_4['coverage_rate']}")
+    for c, d in dev_metrics_4['per_class'].items():
+        print(f"  {c:12s} ({d['turkish_name']}): Prec={d['precision']:.3f}, Rec={d['recall']:.3f}, F1={d['f1']:.3f} (support={d['support']})")
+    print(f"3-Class (Dry/Norm/Oily) Macro-F1: {dev_metrics_3['macro_f1']} | Balanced Acc: {dev_metrics_3['balanced_accuracy']}")
+
+    print("\n--- INDEPENDENT HOLDOUT SET (100 samples) METRICS ---")
+    print(f"4-Class Macro-F1: {holdout_metrics_4['macro_f1']} | Accuracy: {holdout_metrics_4['accuracy']} | Coverage: {holdout_metrics_4['coverage_rate']}")
+    for c, d in holdout_metrics_4['per_class'].items():
+        print(f"  {c:12s} ({d['turkish_name']}): Prec={d['precision']:.3f}, Rec={d['recall']:.3f}, F1={d['f1']:.3f} (support={d['support']})")
+    print(f"3-Class (Dry/Norm/Oily) Macro-F1: {holdout_metrics_3['macro_f1']} | Balanced Acc: {holdout_metrics_3['balanced_accuracy']}")
+
+    # 7. Network Isolation Test
+    print("\nVerifying 100% Offline Execution (Blocked Sockets)...")
+    real_connect = socket.socket.connect
+    def blocked_connect(self, address):
+        raise OSError("Network call forbidden in offline evaluation")
+    socket.socket.connect = blocked_connect
+    try:
+        offline_res = skin_models.infer(sample_bgr, sample_lms, quality_valid=True, type_quality_valid=True)
+        assert offline_res['skinType']['quality'] in ('valid', 'insufficient')
+        print("  -> Offline execution VERIFIED (infer completed with blocked socket)")
+    finally:
+        socket.socket.connect = real_connect
+
+    # 8. Save Audit Receipt
     receipt = {
         'timestamp': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
-        'purpose': 'Offline evaluation and selection of local skin type model with regional Combination rule',
+        'purpose': 'Direct runtime evaluation of local skin type model (ViT) and Regional Combination Rule v2',
+        'runtime_entrypoint': 'services/core-api/skin_models.infer',
         'selected_model': {
             'model_id': 'AishaBaliyan/glamour-ai-skin-model',
             'architecture': 'ViTForImageClassification',
@@ -419,67 +440,64 @@ def run_evaluation():
             'weights_sha256': glamour_hash,
             'onnx_file': 'skin-type-glamour-vit.onnx',
             'onnx_sha256': onnx_hash,
-            'input_preprocessing': {
+            'classes': CLASSES_3,
+            'preprocessing': {
                 'RGB': True,
                 'size': [224, 224],
                 'mean': [0.5, 0.5, 0.5],
                 'std': [0.5, 0.5, 0.5],
+                'resampling': 'PIL.Image.Resampling.BILINEAR',
                 'cropVersion': 'camera-crop-v1'
             },
-            'output_classes': {
-                '0': 'dry',
-                '1': 'normal',
-                '2': 'oily'
+            'acceptance_status': {
+                'accepted': False,
+                'candidateAccepted': True,
+                'sourceQualityAccepted': False,
+                'sourceLabelProtocolVerified': False,
+                'cameraDomainAccepted': False,
+                'offlineExecution': True
             }
         },
         'backup_model': {
             'model_id': 'Raveem/SkinSight',
             'architecture': 'ResNet50',
             'license': 'MIT',
-            'snapshot': '6e7b2dfaa9062b274ac308f66a85a43eff8f0eae',
-            'weights_file': 'pytorch_model.bin',
-            'weights_sha256': skinsight_hash,
             'status': 'REJECTED_LOW_ACCURACY_AND_COLLAPSE_TO_OILY'
         },
         'dataset_provenance': {
-            'source_path': str(DATASET_ROOT),
             'upstream_origin': 'killa92/facial-skin-analysis-and-type-classification (Kaggle)',
             'license': 'Apache-2.0',
             'expert_protocol_verified': False,
             'person_independent': False,
-            'evaluation_split': 'test (deduplicated base images)'
+            'split_statistics': split_stats
         },
-        'crop_comparison': {
-            'glamour_face_crop_3class': m_glamour_face_3,
-            'glamour_full_photo_3class': m_glamour_full_3,
-            'glamour_tzone_crop_3class': m_glamour_tzone_3,
-            'glamour_uzone_crop_3class': m_glamour_uzone_3,
-            'skinsight_face_crop_3class': m_skinsight_face_3
+        'parity_verification': {
+            'real_face_crop_max_logit_diff': parity_diff,
+            'threshold': 1e-4,
+            'status': 'VERIFIED'
         },
-        'regional_combination_evaluation': {
-            'rule_formulation': 'Spatial sebum divergence: T-zone specularity elevated relative to cheeks, cheeks normal/dry, anti-glare clipping gate',
-            'with_combination_rule': m_glamour_karma_4,
-            'without_combination_rule': m_glamour_nokarma_4,
-            'contribution': 'Enables explainable 4-class classification on device without requiring 4th class synthetic training'
+        'resource_benchmarking': perf_metrics,
+        'offline_network_blocked_test': 'PASSED',
+        'development_evaluation': {
+            'split_name': 'test (deduplicated base images)',
+            'sample_count': len(dev_records),
+            'metrics_4class': dev_metrics_4,
+            'metrics_3class': dev_metrics_3,
+            'samples_detail': dev_records
         },
-        'runtime_performance': {
-            'numerical_parity_max_abs_diff': max_parity_diff,
-            'numerical_parity_verified': max_parity_diff < 1e-4,
-            'pytorch_cold_load_ms': round(glamour_pt_load_ms, 2),
-            'pytorch_inference_ms_warm_mean': round(float(np.mean(times_pt[1:])), 2),
-            'onnx_cold_load_ms': round(onnx_load_ms, 2),
-            'onnx_inference_ms_warm_mean': round(float(np.mean(times_ort[1:])), 2),
-            'speedup_ratio': round(float(np.mean(times_pt[1:]) / max(1e-3, np.mean(times_ort[1:]))), 2),
-            'cpu_threads': 2,
-            'zero_network_calls': True,
-            'zero_external_api_keys': True
-        },
-        'sample_records': records[:12]
+        'holdout_evaluation': {
+            'split_name': 'valid (disjoint from test prefixes)',
+            'sample_count': len(holdout_records),
+            'metrics_4class': holdout_metrics_4,
+            'metrics_3class': holdout_metrics_3,
+            'samples_detail': holdout_records
+        }
     }
-    
+
     RECEIPT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    RECEIPT_PATH.write_text(json.dumps(receipt, indent=2, ensure_ascii=False), encoding='utf-8')
-    print(f"\nAudit receipt written to {RECEIPT_PATH}")
+    with open(RECEIPT_PATH, 'w', encoding='utf-8') as f:
+        json.dump(receipt, f, indent=2, ensure_ascii=False)
+    print(f"\nAudit receipt saved to {RECEIPT_PATH} ({len(dev_records) + len(holdout_records)} complete sample records)")
 
 if __name__ == '__main__':
     run_evaluation()
