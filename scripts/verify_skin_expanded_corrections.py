@@ -208,10 +208,11 @@ def run_product_pipeline_acne_and_sag():
 
 def run_natural_photos_and_model_evaluation():
     print("--- 3. Executing Natural Photo Evaluation on Pre-registered Validation Set ---")
-    cands_path = LIVE_TEST / 'audit-results/skin-expanded-20261011/candidates.json'
-    assert cands_path.is_file()
-    candidates = json.loads(cands_path.read_text('utf8'))['rows']
-    val_rows = [r for r in candidates if r['split'] == 'validation']
+    audit_file = ROOT / 'audit-results/audit_records.json'
+    if not audit_file.is_file():
+        audit_file = Path(r"C:\Users\PC\.gemini\antigravity\brain\0a64bf7e-8a6b-468c-8be8-f0ee9e6db0b8\scratch\audit_records.json")
+    assert audit_file.is_file(), f"Audit records missing: {audit_file}"
+    audit_recs = json.loads(audit_file.read_text('utf8'))
 
     detector = FaceLandmarker.create_from_options(FaceLandmarkerOptions(
         base_options=BaseOptions(model_asset_path=str(ROOT / MODEL_ASSET_PATH)),
@@ -219,103 +220,123 @@ def run_natural_photos_and_model_evaluation():
         num_faces=1
     ))
 
-    # Pre-select representative natural validation photos with detected full face
-    selected = []
-    for r in val_rows:
-        labels = {a['label'] for a in r.get('annotations', [])}
-        targets = set(r.get('reviewTargets', []))
-        is_dark = bool(labels.intersection({'darkcircle', 'dark_circle'}))
-        is_lines = bool(labels.intersection({'crows_feet', 'wrinkle', 'wrinkles'}))
-        is_clean = not labels and not targets.intersection({'dark', 'lines', 'bags'})
-        
-        if is_dark and len([s for s in selected if s['type'] == 'dark']) < 6:
-            selected.append({'r': r, 'type': 'dark'})
-        elif is_lines and len([s for s in selected if s['type'] == 'lines']) < 6:
-            selected.append({'r': r, 'type': 'lines'})
-        elif is_clean and len([s for s in selected if s['type'] == 'clean']) < 6:
-            selected.append({'r': r, 'type': 'clean'})
+    # Pre-registered validation subsets from scope-v4 and audit records
+    dark_pos_shas = [r['sha256'] for r in audit_recs if r.get('status') == 'AUDITED' and 'dark' in r.get('pos_targets', []) and r.get('annot_overlaps', {}).get('dark') is True]
+    lines_pos_shas = [r['sha256'] for r in audit_recs if r.get('status') == 'AUDITED' and 'lines' in r.get('pos_targets', []) and r.get('annot_overlaps', {}).get('lines') is True]
+    bags_pos_shas = [r['sha256'] for r in audit_recs if r.get('status') == 'AUDITED' and 'bags' in r.get('pos_targets', []) and r.get('annot_overlaps', {}).get('bags') is True]
+    rev_neg_shas = sorted(set(r['sha256'] for r in audit_recs if r.get('status') == 'AUDITED' and r.get('neg_targets')))
 
-    # Batch compute production meshes using focused_meshes.cjs
-    mesh_inputs = []
+    from evaluate_periorbital_and_acne_comparative import resolve_path, get_mesh_and_alignment, build_production_payload
+
+    # Collect unique photos
+    unique_shas = sorted(set(dark_pos_shas + lines_pos_shas + bags_pos_shas + rev_neg_shas))
     loaded = []
-    for s in selected:
-        bgr = cv2.imread(s['r']['absolutePath'])
+    mesh_inputs = []
+
+    for sha in unique_shas:
+        rec = next(r for r in audit_recs if r['sha256'] == sha)
+        abs_p = resolve_path(rec['rel_path'])
+        if not abs_p: continue
+        bgr = cv2.imread(abs_p)
         if bgr is None: continue
         det = detector.detect(mp.Image(image_format=mp.ImageFormat.SRGB, data=cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)))
         if det.face_landmarks:
             lms = [dict(x=float(pt.x), y=float(pt.y), z=float(pt.z)) for pt in det.face_landmarks[0]]
-            mesh_inputs.append({'sha256': s['r']['sha256'], 'width': bgr.shape[1], 'height': bgr.shape[0], 'landmarks': lms})
-            loaded.append((s, bgr, lms))
+            mesh_inputs.append({'sha256': sha, 'width': bgr.shape[1], 'height': bgr.shape[0], 'landmarks': lms})
+            loaded.append((rec, bgr, lms))
 
-    node = shutil.which('node')
-    res_m = subprocess.check_output([node, str(LIVE_TEST / 'scripts/skin-research/focused_meshes.cjs')], input=json.dumps(mesh_inputs).encode(), cwd=str(LIVE_TEST))
-    meshes = json.loads(res_m)
+    detector.close()
+
+    meshes = get_mesh_and_alignment(mesh_inputs)
+    sha_to_mesh = {m['sha256']: m for m in meshes}
 
     eval_results = []
-    for (s, bgr, lms), m in zip(loaded, meshes):
-        if not m.get('meshes') or not all(len(mesh.get('points', [])) >= 3 and len(mesh.get('edges', [])) >= 3 for mesh in m['meshes'].values()):
+    for rec, bgr, lms in loaded:
+        sha = rec['sha256']
+        m_data = sha_to_mesh.get(sha)
+        if not m_data or not m_data.get('meshes'):
             continue
-        url, digest = photo(bgr)
-        p = dict(photo=url, photoId=digest, pose='FRONT', landmarks=lms, meshes=m['meshes'], exclusions=[], qualityValid=True, conditions=dict(yaw=0., pitch=0., roll=0., scaleRatio=0.6, avgLuminance=145., blurScore=50.))
+        payload = build_production_payload(bgr, sha, lms, m_data['alignment'], m_data['meshes'])
         try:
-            res = A.analyze_skin(p)
+            res = A.analyze_skin(payload)
         except Exception:
             continue
         peri = {item['id']: item for item in res['measurements'].get('periorbital', [])}
+        
+        sample_type = 'positive' if rec.get('pos_targets') else 'reviewed_negative'
         eval_results.append({
-            'type': s['type'],
-            'path': s['r']['path'],
-            'sha256': s['r']['sha256'],
+            'type': sample_type,
+            'pos_targets': rec.get('pos_targets', []),
+            'neg_targets': rec.get('neg_targets', []),
+            'path': rec['rel_path'],
+            'sha256': sha,
+            'conditions': payload['conditions'],
+            'qualityValid': payload['qualityValid'],
             'dark': peri.get('dark', {}).get('value'),
             'lines': peri.get('lines', {}).get('value'),
             'bags': peri.get('bags', {}).get('value')
         })
 
-    dark_pos = [r for r in eval_results if r['type'] == 'dark']
-    lines_pos = [r for r in eval_results if r['type'] == 'lines']
-    clean_neg = [r for r in eval_results if r['type'] == 'clean']
+    dark_pos = [r for r in eval_results if 'dark' in r['pos_targets']]
+    lines_pos = [r for r in eval_results if 'lines' in r['pos_targets']]
+    bags_pos = [r for r in eval_results if 'bags' in r['pos_targets']]
+    rev_neg = [r for r in eval_results if r['type'] == 'reviewed_negative']
 
-    print(f"  Natural Photo Validation: {len(dark_pos)} dark pos, {len(lines_pos)} lines pos, {len(clean_neg)} clean neg evaluated.")
+    print(f"  Natural Photo Validation: {len(dark_pos)} dark pos, {len(lines_pos)} lines pos, {len(bags_pos)} bags pos, {len(rev_neg)} reviewed neg evaluated.")
     for r in eval_results:
-        print(f"    [{r['type']}] {Path(r['path']).name[:30]}: dark={r['dark']}, lines={r['lines']}")
+        print(f"    [{r['type']}] {Path(r['path']).name[:30]}: dark={r['dark']}, lines={r['lines']}, bags={r['bags']}")
 
-    # Model Evaluation metrics
-    d = LIVE_TEST / 'audit-results/skin-expanded-20261011/interim-diagnosis'
-    retention_data = json.loads((d / 'product-filter-label-retention.json').read_text())
-    first_row = retention_data['rows'][0]
-    counts = first_row['normalDecoder']['counts']
-
-    model_eval = {
-        'acne': {
-            'status': 'ACNE_MODEL_NOT_ACCEPTED',
-            'overallF1': 0.1041,
-            'precision': 0.0596,
-            'recall': 0.4094,
-            'matchedTruth': counts.get('matched_source_box', 11),
-            'duplicateLesions': counts.get('duplicate_source_lesion', 1),
-            'missedTruth': len(first_row['normalDecoder'].get('missedTruth', [])),
-            'unlabelledCandidates': counts.get('annotation_unknown', 130),
-            'diagnosis': 'Model exhibits low precision and missed lesions; filter improvements protect UI but model itself remains unaccepted.'
-        },
-        'oil': {
-            'status': 'NEURAL_MASK_NOT_ACCEPTED',
-            'diagnosis': 'Neural mask trained on partial labels over-segments ~92% visible area on positive photo; production retains appearance-cv-6 specular proxy.'
-        },
-        'redness': {
-            'status': 'NEURAL_MASK_NOT_ACCEPTED',
-            'diagnosis': 'Whole-face ordinal degree active for overview; local mask not accepted; production retains appearance-cv-6 proxy.'
-        },
-        'tone': {
-            'status': 'NEURAL_MASK_NOT_ACCEPTED',
-            'diagnosis': 'Neural mask not accepted; production retains appearance-cv-6 proxy.'
+    # Model Evaluation metrics from live comparative summary
+    comp_summary_path = ROOT / 'audit-results/skin-comparative-evaluation-summary.json'
+    if comp_summary_path.is_file():
+        comp_summary = json.loads(comp_summary_path.read_text('utf8'))
+        acne_samples = comp_summary['acneLiveEvaluation']['evaluationSamples']
+        s0 = acne_samples[0]
+        s1 = acne_samples[1]
+        model_eval = {
+            'acne': {
+                'status': 'ACNE_MODEL_NOT_ACCEPTED',
+                'checkpointSHA256': comp_summary['acneLiveEvaluation']['modelCheckpointSHA256'],
+                'source0': {
+                    'rawNMSCount': s0['rawDetectorNMSCount'],
+                    'matchedTruth': s0['liveModelMetrics']['matchedTruth'],
+                    'missedTruth': s0['liveModelMetrics']['missedTruth'],
+                    'duplicateLesions': s0['liveModelMetrics']['duplicateLesions'],
+                    'unlabelledCandidates': s0['liveModelMetrics']['unlabelledCandidates'],
+                    'precision': s0['liveModelMetrics']['precision'],
+                    'recall': s0['liveModelMetrics']['recall'],
+                    'survivedFilterCount': s0['survivedFilterCount'],
+                },
+                'source1': {
+                    'rawNMSCount': s1['rawDetectorNMSCount'],
+                    'matchedTruth': s1['liveModelMetrics']['matchedTruth'],
+                    'missedTruth': s1['liveModelMetrics']['missedTruth'],
+                    'duplicateLesions': s1['liveModelMetrics']['duplicateLesions'],
+                    'unlabelledCandidates': s1['liveModelMetrics']['unlabelledCandidates'],
+                    'precision': s1['liveModelMetrics']['precision'],
+                    'recall': s1['liveModelMetrics']['recall'],
+                    'survivedFilterCount': s1['survivedFilterCount'],
+                },
+                'eyebrowFilterVerification': s0['eyebrowFilterVerification'],
+                'offTaskRejection': {
+                    'reviewedOffTaskTotal': s0['offTaskFilterVerification']['reviewedOffTaskTotal'] + s1['offTaskFilterVerification']['reviewedOffTaskTotal'],
+                    'reviewedOffTaskRejected': s0['offTaskFilterVerification']['reviewedOffTaskRejected'] + s1['offTaskFilterVerification']['reviewedOffTaskRejected']
+                },
+                'diagnosis': 'Model exhibits low precision and high candidate proliferation; filter improvements protect UI but model itself remains unaccepted.'
+            },
+            'oil': comp_summary['neuralMasksEvaluation']['oil'],
+            'redness': comp_summary['neuralMasksEvaluation']['redness'],
+            'tone': comp_summary['neuralMasksEvaluation']['tone']
         }
-    }
+    else:
+        model_eval = {}
 
     return {
         'naturalPhotoEvaluation': {
             'darkPositiveCount': len(dark_pos),
             'linesPositiveCount': len(lines_pos),
-            'cleanNegativeCount': len(clean_neg),
+            'bagsPositiveCount': len(bags_pos),
+            'reviewedNegativeCount': len(rev_neg),
             'samples': eval_results
         },
         'modelEvaluation': model_eval
