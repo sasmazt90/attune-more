@@ -5,9 +5,9 @@ from playwright.sync_api import sync_playwright,expect
 ROOT=Path(__file__).resolve().parents[2];DATA=ROOT/'audit-results/periorbital-v5-integration-20261012';OUT=ROOT/'output/playwright/periorbital-v5-20261012';OUT.mkdir(parents=True,exist_ok=True);PROFILE=OUT/'profile-observed-centers'
 sys.path.insert(0,str(ROOT/'tests/e2e'))
 bundle=(ROOT/'.runtime/periorbital-v5-browser-support/utilities.js').read_text('utf8')
-sources=json.loads((DATA/'sources.json').read_text())['sources']
+sources=json.loads((DATA/'sources.json').read_text('utf8'))['sources']
 errors=[];proof=[]
-BUILD_ID=(ROOT/'apps/vehicle-app/.next/BUILD_ID').read_text().strip()
+BUILD_ID=(ROOT/'apps/vehicle-app/.next/BUILD_ID').read_text('utf8').strip()
 with sync_playwright() as pw:
  def launch(headed=True):return pw.chromium.launch_persistent_context(str(PROFILE),channel='chrome',headless=not headed,viewport=None if headed else dict(width=1600,height=1000),no_viewport=headed,args=['--window-size=1600,1000','--enable-unsafe-swiftshader'])
  context=launch();context.route('**/__audit/vision_bundle.mjs',lambda r:r.fulfill(path=str(ROOT/'node_modules/@mediapipe/tasks-vision/vision_bundle.mjs'),content_type='text/javascript'))
@@ -21,7 +21,7 @@ with sync_playwright() as pw:
  page.evaluate("async()=>{window.__auditMediaPipe=await import('/__audit/vision_bundle.mjs');return true;}")
  assert page.evaluate("async()=>!!await __auditRequire('apps/vehicle-app/src/utils/skinAnalyzer.ts').SkinAnalyzer.getFaceLandmarker()")
  for source in sources:
-  prefix=source['sha256'][:8];payload=json.loads((DATA/(prefix+'-payload.json')).read_text());legacy=json.loads((DATA/(prefix+'-baseline.json')).read_text())
+  prefix=source['sha256'][:8];payload=json.loads((DATA/(prefix+'-payload.json')).read_text('utf8'));legacy=json.loads((DATA/(prefix+'-baseline.json')).read_text('utf8'))
   result=page.evaluate('''async({payload,prefix,legacy})=>{
    const R=n=>__auditRequire('apps/vehicle-app/src/utils/'+n+'.ts');const analyzer=R('skinAnalyzer').SkinAnalyzer;
    const im=new Image();im.src=payload.photo;await im.decode();const canvas=document.createElement('canvas');canvas.width=im.naturalWidth;canvas.height=im.naturalHeight;const ctx=canvas.getContext('2d');ctx.drawImage(im,0,0);
@@ -73,7 +73,7 @@ with sync_playwright() as pw:
  old=open_record('audit-v4-20031f35');assert old.locator('[data-skin-snapshot]').get_attribute('data-snapshot-photoid')==proof[0]['sourcePhotoId'];page.keyboard.press('Escape')
  page.set_viewport_size(dict(width=720,height=900));check_record(chosen['recordId'],chosen['sourcePhotoId'],'narrow.png');assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
  history_before=page.evaluate('localStorage.getItem("togg_health_skin_history")');context.close()
- preferences=PROFILE/'Default/Preferences';prefs=json.loads(preferences.read_text());prefs.setdefault('partition',{})['default_zoom_level']={'x':math.log(2)/math.log(1.2)};preferences.write_text(json.dumps(prefs),'utf8')
+ preferences=PROFILE/'Default/Preferences';prefs=json.loads(preferences.read_text('utf8'));prefs.setdefault('partition',{})['default_zoom_level']={'x':math.log(2)/math.log(1.2)};preferences.write_text(json.dumps(prefs),'utf8')
  context=launch();page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)));dialog=open_record(chosen['recordId']);geometry=page.evaluate('({innerWidth,outerWidth,dpr:devicePixelRatio,zoom:getComputedStyle(document.documentElement).zoom,scroll:document.documentElement.scrollWidth})');assert geometry['dpr']>=2 and geometry['innerWidth']<geometry['outerWidth']*.65 and geometry['zoom']=='1' and geometry['scroll']<=geometry['innerWidth'],geometry
  assert page.evaluate('localStorage.getItem("togg_health_skin_history")')==history_before
  dialog.locator('[data-skin-record-indicator="bags"]').click();expect(dialog.locator('[data-skin-local-fill="bags"]')).to_be_visible();expect(dialog.get_by_role('heading',name='Göz altı torbaları',exact=True)).to_be_visible()
@@ -88,5 +88,5 @@ with sync_playwright() as pw:
  dialog.evaluate("el=>{const b=el.querySelector('[data-skin-snapshot]').getBoundingClientRect();el.scrollTop+=b.top+b.height*.4-el.getBoundingClientRect().top-90}")
  (OUT/'native200-photo.png').write_bytes(base64.b64decode(cdp.send('Page.captureScreenshot',{'format':'png','fromSurface':False,'captureBeyondViewport':False})['data']));page.keyboard.press('Escape')
  assert not errors,errors
- receipt=dict(status='PASS',buildId=BUILD_ID,actualNormalAPI=True,actualBrowserMediaPipe=True,actualProductionCropAndQuality=True,qualityOverride=False,photoSpecificRules=False,userProfileTouched=False,hostedPhotoCalls=0,normalUserRecordsRecalculated=False,legacyV4Preserved=True,v4V5ComparisonBlocked=True,sourceMapRecordAssociation=True,staleCriterionAndRegionMapCleared=True,sixRegions=regions,photoProofs=proof,real200Percent=geometry,pageErrors=errors,utilitySourceHashes=json.loads((ROOT/'.runtime/periorbital-v5-browser-support/source-hashes.json').read_text()))
+ receipt=dict(status='PASS',buildId=BUILD_ID,actualNormalAPI=True,actualBrowserMediaPipe=True,actualProductionCropAndQuality=True,qualityOverride=False,photoSpecificRules=False,userProfileTouched=False,hostedPhotoCalls=0,normalUserRecordsRecalculated=False,legacyV4Preserved=True,v4V5ComparisonBlocked=True,sourceMapRecordAssociation=True,staleCriterionAndRegionMapCleared=True,sixRegions=regions,photoProofs=proof,real200Percent=geometry,pageErrors=errors,utilitySourceHashes=json.loads((ROOT/'.runtime/periorbital-v5-browser-support/source-hashes.json').read_text('utf8')))
  (OUT/'proof.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),'utf8');context.close();print(json.dumps(dict(status='PASS',buildId=BUILD_ID,real200Percent=geometry)))

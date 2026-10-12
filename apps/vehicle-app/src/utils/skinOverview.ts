@@ -1,12 +1,18 @@
 import { REGION_ORDER, SKIN_REGIONS, buildSkinRegionViewModel, type SkinRegionData, type SkinRegionId } from '../data/skinDemoFixture';
 import type { SkinIndicator } from './skinIndicators';
-import { skinCriterionLabel } from './skinIndicators';
+import { skinCriterionLabel, SIGN_LABELS } from './skinIndicators';
 import type { AppearanceResponse } from './appearanceMeasurements';
 
 export const SKIN_TYPE_LABELS = { normal: 'Normal', dry: 'Kuru', oily: 'Yağlı', combination: 'Karma' } as const;
 export type SkinTypeId = keyof typeof SKIN_TYPE_LABELS;
 export type SkinViewId = 'overview' | SkinRegionId;
 export const SKIN_VIEW_ORDER: SkinViewId[] = ['overview', ...REGION_ORDER];
+/** Display known criteria from the current UTF-8 dictionary. Never rewrite a
+ * historical row or attempt a blanket encoding conversion of unknown text. */
+function displayLabels(rows: SkinIndicator[], scope: 'regional'|'whole-face'): SkinIndicator[] {
+  return rows.map(row => Object.prototype.hasOwnProperty.call(SIGN_LABELS,row.id)
+    ? {...row,label:skinCriterionLabel(row.id,scope)} : row);
+}
 export type SkinOverview = {
   schemaVersion: 1; analysisId?: string; captureId: string; pose: 'FRONT';
   skinType: { value: SkinTypeId | null; quality: 'valid' | 'invalid' | 'insufficient'; confidence: number | null; methodVersion: string; modelHash: string | null; limitationCode: string | null; provider?:string;providerModelId?:string;inferenceKind?:'hosted' };
@@ -47,11 +53,11 @@ export function buildSkinViewModel(id: SkinViewId, result: any, demo = false): S
     const region = buildSkinRegionViewModel(id, result, demo);
     // Historical numeric records can predate schemaVersion 3. Preserve their
     // actual regional rows without inventing an overview or changing units.
-    return { ...region, ...(Array.isArray(result?.indicators?.[id]) ? { indicators: result.indicators[id] } : {}),
+    return { ...region, ...(Array.isArray(result?.indicators?.[id]) ? { indicators: displayLabels(result.indicators[id],'regional') } : {}),
       index: region.index + (result?.general ? 1 : 0), viewTotal: result?.general ? 7 : 6 };
   }
   return { ...SKIN_REGIONS.forehead, id: 'overview', index: 1, viewTotal: 7,
-    nameTr: 'Genel Bakış', indicators: result?.general?.indicators || [], skinType: result?.general?.skinType,
+    nameTr: 'Genel Bakış', indicators: displayLabels(result?.general?.indicators || [],'whole-face'), skinType: result?.general?.skinType,
     badgeText: '', changePct: 0, isAttentionRequired: false, trend: [],
     observation: { headline: 'Genel Bakış', details: 'Bu oturumun ön pozundaki genel cilt görünümü.' } };
 }

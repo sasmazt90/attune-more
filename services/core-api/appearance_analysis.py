@@ -57,6 +57,26 @@ def polygon_mask(shape, mesh, scale, origin=(0,0)):
     return mask > 0
 
 
+def bag_support_mask(shape, mesh, scale, origin=(0,0)):
+    """Fill only closed, supported eye cells; no visible diagonal is required.
+
+    Other criteria still use the original explicit triangle union. Old photos
+    without cells retain their original region support.
+    """
+    mask=polygon_mask(shape,mesh,scale,origin).astype(np.uint8)
+    cells=mesh.get('bagCells',[])
+    if not isinstance(cells,list) or len(cells)>32:raise ValueError('INVALID_BAG_CELLS')
+    p=(np.asarray([[v['x'],v['y']] for v in mesh['points']],np.float32)-origin)*scale
+    edges={tuple(sorted(e)) for e in mesh['edges']}
+    for cell in cells:
+        if len(cell)!=4 or len(set(cell))!=4 or any(not isinstance(i,int) or i<0 or i>=len(p) for i in cell):raise ValueError('INVALID_BAG_CELLS')
+        if any(tuple(sorted((a,cell[(j+1)%4]))) not in edges for j,a in enumerate(cell)):raise ValueError('UNSUPPORTED_BAG_CELL')
+        if not cv2.isContourConvex(p[cell].astype(np.float32)):continue
+        a,b,c,d=cell
+        for triangle in ((a,b,c),(a,c,d)):cv2.fillConvexPoly(mask,p[list(triangle)].astype(np.int32),1)
+    return mask>0
+
+
 def png(array):
     ok, data = cv2.imencode('.png', array)
     if not ok:
@@ -354,12 +374,12 @@ def analyze_skin(payload, include_research_features=False):
             target_area=dict(sourcePixels=float(usable.sum()/scale**2),analysisPixels=int(usable.sum()),anatomicalSourcePixels=float((anatomical&target).sum()/scale**2),sourceFacePixels=float(face_pixels),scope='criterion-specific-anatomical-band')
             return limitation,target_area
         items = []
-        def add(criterion, value, unit, signal=None, ceiling=1., limitation=reason, components=None, signal_mask=None,measurement_area=None):
+        def add(criterion, value, unit, signal=None, ceiling=1., limitation=reason, components=None, signal_mask=None,measurement_area=None,map_support=None):
             usable = limitation is None
             item = row(region, criterion, float(value) if usable else None, unit, measurement_area if measurement_area is not None else area, conditions, limitation, components)
             items.append(item)
             if usable and signal is not None:
-                layer = map_result(signal, valid & display_anatomical & (signal_mask if signal_mask is not None else True), region, criterion, source_hash, payload['pose'], bgr.shape, scale, unit, ceiling, origin)
+                layer = map_result(signal, (valid & display_anatomical if map_support is None else map_support) & (signal_mask if signal_mask is not None else True), region, criterion, source_hash, payload['pose'], bgr.shape, scale, unit, ceiling, origin)
                 if layer:
                     key=f'{region}:{criterion}';maps[key]=layer
                     # Descriptor only: the pixel/mask payload remains ephemeral
@@ -475,8 +495,12 @@ def analyze_skin(payload, include_research_features=False):
             add('lines',value,'directional-line-index-0-100',line_signal/100,limitation=lines_reason,signal_mask=known,measurement_area=lines_area,components=line_components)
         if region != 'nose':
             contour_support=base&~clipping&(gray>.12)
-            if region=='periorbital':contour_support&=bands['bags']&~hair
+            if region=='periorbital':
+                bag_anatomical=bag_support_mask(gray.shape,payload['meshes'][region],scale,origin)
+                contour_support=bag_anatomical&(exclusion==0)&~clipping&(gray>.12)&bands['bags']&~hair
             value,components,signal,lines,limitation=instant_proxy(gray,contour_support,points,region,conditions,scale,origin,bgr.shape,hair,(face_support>0)&(exclusion==0)&~clipping&(gray>.12),clipping,(face_support>0)&(exclusion==0)&~hair&(gray>.12))
+            if region=='periorbital' and payload['meshes'][region].get('bagCells'):
+                components['samplingSupportVersion']='tracked-center-closed-cells-v2'
             criterion = 'bags' if region == 'periorbital' else 'sag'
             used_bag_mask=False
             if region=='periorbital' and trained_bags and not trained_bags.get('valid'):
@@ -498,7 +522,7 @@ def analyze_skin(payload, include_research_features=False):
             # Sag has its own lower-face sampling-corridor quality. Capture
             # validity is still required; exposure/visibility stay local per side.
             contour_reason=(('CAPTURE_QUALITY' if not payload.get('qualityValid') else None) or limitation) if criterion in ['sag','bags'] else reason or limitation
-            add(criterion,value or 0,INSTANT_UNIT,signal,limitation=contour_reason,components=components,measurement_area=components.get('measurementROI',area))
+            add(criterion,value or 0,INSTANT_UNIT,signal,limitation=contour_reason,components=components,measurement_area=components.get('measurementROI',area),map_support=contour_support if region=='periorbital' and not used_bag_mask else None)
             if used_bag_mask and value is not None:
                 items[-1].update(modelVersion=trained_bags['modelVersion'],modelHash=trained_bags['modelHash'],unit='appearance-score-0-100',normalizationVersion='predicted-lower-lid-mask-area-v1')
                 if 'periorbital:bags' in maps:maps['periorbital:bags'].update(mapType='predicted-presence-mask',unit='appearance-score-0-100',method=trained_bags['modelVersion'],modelHash=trained_bags['modelHash'])

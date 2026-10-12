@@ -1,0 +1,3523 @@
+{
+  "baselineCommit": "32ac20e3b724202094a9b9934b69cb06b7abd268",
+  "formula": "contour-fold-local-support-v5",
+  "samplingSupportVersion": "tracked-center-closed-cells-v2",
+  "apiComparisons": {
+    "rows": [
+      {
+        "sourceSHA256": "20031f3502cc294041fe4d5cb9995b6961ba44b6cae7b8b44e01daeafaa752b2",
+        "category": "development_positive_polygon",
+        "before": 0,
+        "after": 9.359849888520937,
+        "beforeReason": null,
+        "afterReason": null,
+        "samplingVersion": "tracked-center-closed-cells-v2",
+        "matchesOffline": true,
+        "anatomy": {
+          "activeAnalysisPixels": 312,
+          "weightedRGB8bitVisibleAnalysisPixels": 312,
+          "insideEyeBandAnalysisPixels": 312,
+          "outsideEyeBandAnalysisPixels": 0,
+          "insideSelectedRegionAnalysisPixels": 312,
+          "outsideSelectedRegionAnalysisPixels": 0,
+          "activeSourcePixels": 653,
+          "insideEyeBandSourcePixels": 653,
+          "outsideEyeBandSourcePixels": 0,
+          "insideSelectedRegionSourcePixels": 632,
+          "outsideSelectedRegionSourcePixels": 21,
+          "sourceStep": 1.4641941338777542,
+          "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+          "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+        },
+        "insideBandAndSelectedClosedCells": true,
+        "labelScope": {
+          "kind": "partial-positive",
+          "knownPixels": 1224,
+          "activeWithinKnownPixels": 0,
+          "unknownOutsidePixels": 408376
+        },
+        "nonBagPreservation": [
+          {
+            "key": "forehead:tone",
+            "same": true
+          },
+          {
+            "key": "forehead:redness",
+            "same": true
+          },
+          {
+            "key": "forehead:oil",
+            "same": true
+          },
+          {
+            "key": "forehead:acne",
+            "same": true
+          },
+          {
+            "key": "forehead:dry",
+            "same": true
+          },
+          {
+            "key": "forehead:sag",
+            "same": true
+          },
+          {
+            "key": "nose:tone",
+            "same": true
+          },
+          {
+            "key": "nose:redness",
+            "same": true
+          },
+          {
+            "key": "nose:oil",
+            "same": true
+          },
+          {
+            "key": "nose:acne",
+            "same": true
+          },
+          {
+            "key": "nose:dry",
+            "same": true
+          },
+          {
+            "key": "chin:tone",
+            "same": true
+          },
+          {
+            "key": "chin:redness",
+            "same": true
+          },
+          {
+            "key": "chin:oil",
+            "same": true
+          },
+          {
+            "key": "chin:acne",
+            "same": true
+          },
+          {
+            "key": "chin:dry",
+            "same": true
+          },
+          {
+            "key": "chin:sag",
+            "same": true
+          },
+          {
+            "key": "periorbital:dry",
+            "same": true
+          },
+          {
+            "key": "periorbital:dark",
+            "same": true
+          },
+          {
+            "key": "periorbital:lines",
+            "same": true
+          },
+          {
+            "key": "rightCheek:tone",
+            "same": true
+          },
+          {
+            "key": "rightCheek:redness",
+            "same": true
+          },
+          {
+            "key": "rightCheek:oil",
+            "same": true
+          },
+          {
+            "key": "rightCheek:acne",
+            "same": true
+          },
+          {
+            "key": "rightCheek:dry",
+            "same": true
+          },
+          {
+            "key": "rightCheek:sag",
+            "same": true
+          },
+          {
+            "key": "leftCheek:tone",
+            "same": true
+          },
+          {
+            "key": "leftCheek:redness",
+            "same": true
+          },
+          {
+            "key": "leftCheek:oil",
+            "same": true
+          },
+          {
+            "key": "leftCheek:acne",
+            "same": true
+          },
+          {
+            "key": "leftCheek:dry",
+            "same": true
+          },
+          {
+            "key": "leftCheek:sag",
+            "same": true
+          }
+        ]
+      },
+      {
+        "sourceSHA256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "category": "development_positive_polygon",
+        "before": 1.0132577493398762,
+        "after": 0.9763584615332851,
+        "beforeReason": null,
+        "afterReason": null,
+        "samplingVersion": "tracked-center-closed-cells-v2",
+        "matchesOffline": true,
+        "anatomy": {
+          "activeAnalysisPixels": 113,
+          "weightedRGB8bitVisibleAnalysisPixels": 77,
+          "insideEyeBandAnalysisPixels": 113,
+          "outsideEyeBandAnalysisPixels": 0,
+          "insideSelectedRegionAnalysisPixels": 113,
+          "outsideSelectedRegionAnalysisPixels": 0,
+          "activeSourcePixels": 113,
+          "insideEyeBandSourcePixels": 113,
+          "outsideEyeBandSourcePixels": 0,
+          "insideSelectedRegionSourcePixels": 113,
+          "outsideSelectedRegionSourcePixels": 0,
+          "sourceStep": 1.0,
+          "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+          "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+        },
+        "insideBandAndSelectedClosedCells": true,
+        "labelScope": {
+          "kind": "partial-positive",
+          "knownPixels": 4170,
+          "activeWithinKnownPixels": 113,
+          "unknownOutsidePixels": 405430
+        },
+        "nonBagPreservation": [
+          {
+            "key": "forehead:tone",
+            "same": true
+          },
+          {
+            "key": "forehead:redness",
+            "same": true
+          },
+          {
+            "key": "forehead:oil",
+            "same": true
+          },
+          {
+            "key": "forehead:acne",
+            "same": true
+          },
+          {
+            "key": "forehead:dry",
+            "same": true
+          },
+          {
+            "key": "forehead:sag",
+            "same": true
+          },
+          {
+            "key": "nose:tone",
+            "same": true
+          },
+          {
+            "key": "nose:redness",
+            "same": true
+          },
+          {
+            "key": "nose:oil",
+            "same": true
+          },
+          {
+            "key": "nose:acne",
+            "same": true
+          },
+          {
+            "key": "nose:dry",
+            "same": true
+          },
+          {
+            "key": "chin:tone",
+            "same": true
+          },
+          {
+            "key": "chin:redness",
+            "same": true
+          },
+          {
+            "key": "chin:oil",
+            "same": true
+          },
+          {
+            "key": "chin:acne",
+            "same": true
+          },
+          {
+            "key": "chin:dry",
+            "same": true
+          },
+          {
+            "key": "chin:sag",
+            "same": true
+          },
+          {
+            "key": "periorbital:dry",
+            "same": true
+          },
+          {
+            "key": "periorbital:dark",
+            "same": true
+          },
+          {
+            "key": "periorbital:lines",
+            "same": true
+          },
+          {
+            "key": "rightCheek:tone",
+            "same": true
+          },
+          {
+            "key": "rightCheek:redness",
+            "same": true
+          },
+          {
+            "key": "rightCheek:oil",
+            "same": true
+          },
+          {
+            "key": "rightCheek:acne",
+            "same": true
+          },
+          {
+            "key": "rightCheek:dry",
+            "same": true
+          },
+          {
+            "key": "rightCheek:sag",
+            "same": true
+          },
+          {
+            "key": "leftCheek:tone",
+            "same": true
+          },
+          {
+            "key": "leftCheek:redness",
+            "same": true
+          },
+          {
+            "key": "leftCheek:oil",
+            "same": true
+          },
+          {
+            "key": "leftCheek:acne",
+            "same": true
+          },
+          {
+            "key": "leftCheek:dry",
+            "same": true
+          },
+          {
+            "key": "leftCheek:sag",
+            "same": true
+          }
+        ]
+      },
+      {
+        "sourceSHA256": "beda02904d704cba3e6f417892442a8c2fa1650f765a761957c3285a4d55cbf5",
+        "category": "natural_reviewed_negative",
+        "before": null,
+        "after": 0.0,
+        "beforeReason": "HARD_DIRECTIONAL_SHADOW",
+        "afterReason": null,
+        "samplingVersion": "tracked-center-closed-cells-v2",
+        "matchesOffline": true,
+        "anatomy": {
+          "activeAnalysisPixels": 0,
+          "weightedRGB8bitVisibleAnalysisPixels": 0,
+          "insideEyeBandAnalysisPixels": 0,
+          "outsideEyeBandAnalysisPixels": 0,
+          "insideSelectedRegionAnalysisPixels": 0,
+          "outsideSelectedRegionAnalysisPixels": 0,
+          "activeSourcePixels": 0,
+          "insideEyeBandSourcePixels": 0,
+          "outsideEyeBandSourcePixels": 0,
+          "insideSelectedRegionSourcePixels": 0,
+          "outsideSelectedRegionSourcePixels": 0,
+          "sourceStep": 1.0,
+          "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+          "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+        },
+        "insideBandAndSelectedClosedCells": true,
+        "labelScope": {
+          "kind": "reviewed-negative",
+          "knownPixels": 6035,
+          "activeWithinKnownPixels": 0,
+          "unknownOutsidePixels": 403565
+        },
+        "nonBagPreservation": [
+          {
+            "key": "forehead:tone",
+            "same": true
+          },
+          {
+            "key": "forehead:redness",
+            "same": true
+          },
+          {
+            "key": "forehead:oil",
+            "same": true
+          },
+          {
+            "key": "forehead:acne",
+            "same": true
+          },
+          {
+            "key": "forehead:dry",
+            "same": true
+          },
+          {
+            "key": "forehead:sag",
+            "same": true
+          },
+          {
+            "key": "nose:tone",
+            "same": true
+          },
+          {
+            "key": "nose:redness",
+            "same": true
+          },
+          {
+            "key": "nose:oil",
+            "same": true
+          },
+          {
+            "key": "nose:acne",
+            "same": true
+          },
+          {
+            "key": "nose:dry",
+            "same": true
+          },
+          {
+            "key": "chin:tone",
+            "same": true
+          },
+          {
+            "key": "chin:redness",
+            "same": true
+          },
+          {
+            "key": "chin:oil",
+            "same": true
+          },
+          {
+            "key": "chin:acne",
+            "same": true
+          },
+          {
+            "key": "chin:dry",
+            "same": true
+          },
+          {
+            "key": "chin:sag",
+            "same": true
+          },
+          {
+            "key": "periorbital:dry",
+            "same": true
+          },
+          {
+            "key": "periorbital:dark",
+            "same": true
+          },
+          {
+            "key": "periorbital:lines",
+            "same": true
+          },
+          {
+            "key": "rightCheek:tone",
+            "same": true
+          },
+          {
+            "key": "rightCheek:redness",
+            "same": true
+          },
+          {
+            "key": "rightCheek:oil",
+            "same": true
+          },
+          {
+            "key": "rightCheek:acne",
+            "same": true
+          },
+          {
+            "key": "rightCheek:dry",
+            "same": true
+          },
+          {
+            "key": "rightCheek:sag",
+            "same": true
+          },
+          {
+            "key": "leftCheek:tone",
+            "same": true
+          },
+          {
+            "key": "leftCheek:redness",
+            "same": true
+          },
+          {
+            "key": "leftCheek:oil",
+            "same": true
+          },
+          {
+            "key": "leftCheek:acne",
+            "same": true
+          },
+          {
+            "key": "leftCheek:dry",
+            "same": true
+          },
+          {
+            "key": "leftCheek:sag",
+            "same": true
+          }
+        ]
+      },
+      {
+        "sourceSHA256": "4b13b16a33d4c2d72dbae196aa83a21d0ffb738969f80c0394c7941beb24c9db",
+        "category": "natural_reviewed_negative",
+        "before": null,
+        "after": 0.0,
+        "beforeReason": "ANATOMICAL_BAND_NOT_VISIBLE",
+        "afterReason": null,
+        "samplingVersion": "tracked-center-closed-cells-v2",
+        "matchesOffline": true,
+        "anatomy": {
+          "activeAnalysisPixels": 0,
+          "weightedRGB8bitVisibleAnalysisPixels": 0,
+          "insideEyeBandAnalysisPixels": 0,
+          "outsideEyeBandAnalysisPixels": 0,
+          "insideSelectedRegionAnalysisPixels": 0,
+          "outsideSelectedRegionAnalysisPixels": 0,
+          "activeSourcePixels": 0,
+          "insideEyeBandSourcePixels": 0,
+          "outsideEyeBandSourcePixels": 0,
+          "insideSelectedRegionSourcePixels": 0,
+          "outsideSelectedRegionSourcePixels": 0,
+          "sourceStep": 1.0,
+          "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+          "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+        },
+        "insideBandAndSelectedClosedCells": true,
+        "labelScope": {
+          "kind": "reviewed-negative",
+          "knownPixels": 10451,
+          "activeWithinKnownPixels": 0,
+          "unknownOutsidePixels": 399149
+        },
+        "nonBagPreservation": [
+          {
+            "key": "forehead:tone",
+            "same": true
+          },
+          {
+            "key": "forehead:redness",
+            "same": true
+          },
+          {
+            "key": "forehead:oil",
+            "same": true
+          },
+          {
+            "key": "forehead:acne",
+            "same": true
+          },
+          {
+            "key": "forehead:dry",
+            "same": true
+          },
+          {
+            "key": "forehead:sag",
+            "same": true
+          },
+          {
+            "key": "nose:tone",
+            "same": true
+          },
+          {
+            "key": "nose:redness",
+            "same": true
+          },
+          {
+            "key": "nose:oil",
+            "same": true
+          },
+          {
+            "key": "nose:acne",
+            "same": true
+          },
+          {
+            "key": "nose:dry",
+            "same": true
+          },
+          {
+            "key": "chin:tone",
+            "same": true
+          },
+          {
+            "key": "chin:redness",
+            "same": true
+          },
+          {
+            "key": "chin:oil",
+            "same": true
+          },
+          {
+            "key": "chin:acne",
+            "same": true
+          },
+          {
+            "key": "chin:dry",
+            "same": true
+          },
+          {
+            "key": "chin:sag",
+            "same": true
+          },
+          {
+            "key": "periorbital:dry",
+            "same": true
+          },
+          {
+            "key": "periorbital:dark",
+            "same": true
+          },
+          {
+            "key": "periorbital:lines",
+            "same": true
+          },
+          {
+            "key": "rightCheek:tone",
+            "same": true
+          },
+          {
+            "key": "rightCheek:redness",
+            "same": true
+          },
+          {
+            "key": "rightCheek:oil",
+            "same": true
+          },
+          {
+            "key": "rightCheek:acne",
+            "same": true
+          },
+          {
+            "key": "rightCheek:dry",
+            "same": true
+          },
+          {
+            "key": "rightCheek:sag",
+            "same": true
+          },
+          {
+            "key": "leftCheek:tone",
+            "same": true
+          },
+          {
+            "key": "leftCheek:redness",
+            "same": true
+          },
+          {
+            "key": "leftCheek:oil",
+            "same": true
+          },
+          {
+            "key": "leftCheek:acne",
+            "same": true
+          },
+          {
+            "key": "leftCheek:dry",
+            "same": true
+          },
+          {
+            "key": "leftCheek:sag",
+            "same": true
+          }
+        ]
+      },
+      {
+        "sourceSHA256": "e0ee9f0c2241dabc06b72a5780c39d96de795da1be1be69e8c9becd1b597b3d5",
+        "category": "natural_reviewed_negative",
+        "before": 0,
+        "after": 0.0,
+        "beforeReason": null,
+        "afterReason": null,
+        "samplingVersion": "tracked-center-closed-cells-v2",
+        "matchesOffline": true,
+        "anatomy": {
+          "activeAnalysisPixels": 0,
+          "weightedRGB8bitVisibleAnalysisPixels": 0,
+          "insideEyeBandAnalysisPixels": 0,
+          "outsideEyeBandAnalysisPixels": 0,
+          "insideSelectedRegionAnalysisPixels": 0,
+          "outsideSelectedRegionAnalysisPixels": 0,
+          "activeSourcePixels": 0,
+          "insideEyeBandSourcePixels": 0,
+          "outsideEyeBandSourcePixels": 0,
+          "insideSelectedRegionSourcePixels": 0,
+          "outsideSelectedRegionSourcePixels": 0,
+          "sourceStep": 1.0,
+          "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+          "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+        },
+        "insideBandAndSelectedClosedCells": true,
+        "labelScope": {
+          "kind": "reviewed-negative",
+          "knownPixels": 5306,
+          "activeWithinKnownPixels": 0,
+          "unknownOutsidePixels": 404294
+        },
+        "nonBagPreservation": [
+          {
+            "key": "forehead:tone",
+            "same": true
+          },
+          {
+            "key": "forehead:redness",
+            "same": true
+          },
+          {
+            "key": "forehead:oil",
+            "same": true
+          },
+          {
+            "key": "forehead:acne",
+            "same": true
+          },
+          {
+            "key": "forehead:dry",
+            "same": true
+          },
+          {
+            "key": "forehead:sag",
+            "same": true
+          },
+          {
+            "key": "nose:tone",
+            "same": true
+          },
+          {
+            "key": "nose:redness",
+            "same": true
+          },
+          {
+            "key": "nose:oil",
+            "same": true
+          },
+          {
+            "key": "nose:acne",
+            "same": true
+          },
+          {
+            "key": "nose:dry",
+            "same": true
+          },
+          {
+            "key": "chin:tone",
+            "same": true
+          },
+          {
+            "key": "chin:redness",
+            "same": true
+          },
+          {
+            "key": "chin:oil",
+            "same": true
+          },
+          {
+            "key": "chin:acne",
+            "same": true
+          },
+          {
+            "key": "chin:dry",
+            "same": true
+          },
+          {
+            "key": "chin:sag",
+            "same": true
+          },
+          {
+            "key": "periorbital:dry",
+            "same": true
+          },
+          {
+            "key": "periorbital:dark",
+            "same": true
+          },
+          {
+            "key": "periorbital:lines",
+            "same": true
+          },
+          {
+            "key": "rightCheek:tone",
+            "same": true
+          },
+          {
+            "key": "rightCheek:redness",
+            "same": true
+          },
+          {
+            "key": "rightCheek:oil",
+            "same": true
+          },
+          {
+            "key": "rightCheek:acne",
+            "same": true
+          },
+          {
+            "key": "rightCheek:dry",
+            "same": true
+          },
+          {
+            "key": "rightCheek:sag",
+            "same": true
+          },
+          {
+            "key": "leftCheek:tone",
+            "same": true
+          },
+          {
+            "key": "leftCheek:redness",
+            "same": true
+          },
+          {
+            "key": "leftCheek:oil",
+            "same": true
+          },
+          {
+            "key": "leftCheek:acne",
+            "same": true
+          },
+          {
+            "key": "leftCheek:dry",
+            "same": true
+          },
+          {
+            "key": "leftCheek:sag",
+            "same": true
+          }
+        ]
+      },
+      {
+        "sourceSHA256": "5bd42346304d791a394f98717ae1b38614688cead8dbb9ac2e09cc4ecf6c0905",
+        "category": "transformed_noisy_regression",
+        "before": 0,
+        "after": 0.5098559098162999,
+        "beforeReason": null,
+        "afterReason": null,
+        "samplingVersion": "tracked-center-closed-cells-v2",
+        "matchesOffline": true,
+        "anatomy": {
+          "activeAnalysisPixels": 16,
+          "weightedRGB8bitVisibleAnalysisPixels": 14,
+          "insideEyeBandAnalysisPixels": 16,
+          "outsideEyeBandAnalysisPixels": 0,
+          "insideSelectedRegionAnalysisPixels": 16,
+          "outsideSelectedRegionAnalysisPixels": 0,
+          "activeSourcePixels": 16,
+          "insideEyeBandSourcePixels": 16,
+          "outsideEyeBandSourcePixels": 0,
+          "insideSelectedRegionSourcePixels": 16,
+          "outsideSelectedRegionSourcePixels": 0,
+          "sourceStep": 1.0,
+          "sourceGridMeaning": "Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0",
+          "verification": "Actual eye_skin_bands and production mesh triangle union; no y-only heuristic"
+        },
+        "insideBandAndSelectedClosedCells": true,
+        "labelScope": {
+          "kind": "transformed-regression",
+          "knownPixels": 8567,
+          "activeWithinKnownPixels": 16,
+          "unknownOutsidePixels": 401033
+        },
+        "nonBagPreservation": [
+          {
+            "key": "forehead:tone",
+            "same": true
+          },
+          {
+            "key": "forehead:redness",
+            "same": true
+          },
+          {
+            "key": "forehead:oil",
+            "same": true
+          },
+          {
+            "key": "forehead:acne",
+            "same": true
+          },
+          {
+            "key": "forehead:dry",
+            "same": true
+          },
+          {
+            "key": "forehead:sag",
+            "same": true
+          },
+          {
+            "key": "nose:tone",
+            "same": true
+          },
+          {
+            "key": "nose:redness",
+            "same": true
+          },
+          {
+            "key": "nose:oil",
+            "same": true
+          },
+          {
+            "key": "nose:acne",
+            "same": true
+          },
+          {
+            "key": "nose:dry",
+            "same": true
+          },
+          {
+            "key": "chin:tone",
+            "same": true
+          },
+          {
+            "key": "chin:redness",
+            "same": true
+          },
+          {
+            "key": "chin:oil",
+            "same": true
+          },
+          {
+            "key": "chin:acne",
+            "same": true
+          },
+          {
+            "key": "chin:dry",
+            "same": true
+          },
+          {
+            "key": "chin:sag",
+            "same": true
+          },
+          {
+            "key": "periorbital:dry",
+            "same": true
+          },
+          {
+            "key": "periorbital:dark",
+            "same": true
+          },
+          {
+            "key": "periorbital:lines",
+            "same": true
+          },
+          {
+            "key": "rightCheek:tone",
+            "same": true
+          },
+          {
+            "key": "rightCheek:redness",
+            "same": true
+          },
+          {
+            "key": "rightCheek:oil",
+            "same": true
+          },
+          {
+            "key": "rightCheek:acne",
+            "same": true
+          },
+          {
+            "key": "rightCheek:dry",
+            "same": true
+          },
+          {
+            "key": "rightCheek:sag",
+            "same": true
+          },
+          {
+            "key": "leftCheek:tone",
+            "same": true
+          },
+          {
+            "key": "leftCheek:redness",
+            "same": true
+          },
+          {
+            "key": "leftCheek:oil",
+            "same": true
+          },
+          {
+            "key": "leftCheek:acne",
+            "same": true
+          },
+          {
+            "key": "leftCheek:dry",
+            "same": true
+          },
+          {
+            "key": "leftCheek:sag",
+            "same": true
+          }
+        ]
+      }
+    ],
+    "acceptance": {
+      "visible20031BagSignal": true,
+      "annotated20031PolygonCaptured": false,
+      "positive36Preserved": true,
+      "reviewedE0NoSignal": true,
+      "allNonBagPreserved": true,
+      "allMapsAnatomical": true
+    }
+  },
+  "geometryBefore": [
+    {
+      "source": "20031f35",
+      "origin": [
+        37,
+        135
+      ],
+      "scale": 0.6829695440396363,
+      "analysisShape": [
+        345,
+        376
+      ],
+      "missingDiagonalClosedCells": [
+        [
+          0,
+          1,
+          7,
+          6
+        ],
+        [
+          2,
+          3,
+          11,
+          10
+        ],
+        [
+          4,
+          24,
+          23,
+          27
+        ],
+        [
+          5,
+          17,
+          21,
+          22
+        ],
+        [
+          8,
+          26,
+          28,
+          29
+        ],
+        [
+          9,
+          25,
+          30,
+          31
+        ],
+        [
+          12,
+          15,
+          16,
+          18
+        ],
+        [
+          13,
+          14,
+          19,
+          20
+        ]
+      ],
+      "oldUnionPixels": 4262,
+      "closedCellGapPixels": 2896,
+      "positivePixels": 568,
+      "positiveInsideTriangleUnion": 95,
+      "positiveInsideClosedCellGap": 28,
+      "positiveInsideBand": 39,
+      "profiles": [
+        {
+          "local": {
+            "strength": 0.3436855673789978,
+            "continuity": 0.15625,
+            "coverage": 0.65625,
+            "trackingResidual": 0.9943516176967868
+          },
+          "broad": {
+            "strength": 0.7750824689865112,
+            "continuity": 0.984375,
+            "coverage": 1.0,
+            "trackingResidual": 2.814915091748938
+          }
+        },
+        {
+          "local": {
+            "strength": 0.17491067945957184,
+            "continuity": 0.109375,
+            "coverage": 0.609375,
+            "trackingResidual": 0.7555708292130858
+          },
+          "broad": {
+            "strength": 0.6009790897369385,
+            "continuity": 0.484375,
+            "coverage": 1.0,
+            "trackingResidual": 2.0749640691114535
+          }
+        }
+      ],
+      "labelScope": "partial-positive-polygon",
+      "labelSupportBreakdown": {
+        "knownPixels": 568,
+        "outsideBand": 529,
+        "inBand": 39,
+        "insideEligible": 17,
+        "hairInBand": 12,
+        "clippedInBand": 0,
+        "outsideOldTriangleUnionInBand": 10
+      },
+      "shadowPlaneSlopeNorm": 0.2791325802509638
+    },
+    {
+      "source": "36e4010b",
+      "origin": [
+        138,
+        93
+      ],
+      "scale": 1.0,
+      "analysisShape": [
+        367,
+        357
+      ],
+      "missingDiagonalClosedCells": [
+        [
+          0,
+          1,
+          14,
+          15
+        ],
+        [
+          2,
+          3,
+          13,
+          12
+        ],
+        [
+          4,
+          16,
+          26,
+          27
+        ],
+        [
+          5,
+          22,
+          28,
+          31
+        ],
+        [
+          6,
+          17,
+          29,
+          30
+        ],
+        [
+          7,
+          21,
+          20,
+          23
+        ],
+        [
+          8,
+          11,
+          18,
+          19
+        ],
+        [
+          9,
+          10,
+          24,
+          25
+        ]
+      ],
+      "oldUnionPixels": 4334,
+      "closedCellGapPixels": 3785,
+      "positivePixels": 4170,
+      "positiveInsideTriangleUnion": 1686,
+      "positiveInsideClosedCellGap": 1033,
+      "positiveInsideBand": 2704,
+      "profiles": [
+        {
+          "local": {
+            "strength": 0.2711244523525238,
+            "continuity": 0.25,
+            "coverage": 0.5625,
+            "trackingResidual": 0.8858350931569446
+          },
+          "broad": {
+            "strength": 0.2622711956501007,
+            "continuity": 0.265625,
+            "coverage": 1.0,
+            "trackingResidual": 1.7970791732573979
+          }
+        },
+        {
+          "local": {
+            "strength": 0.09066282957792282,
+            "continuity": 0.28125,
+            "coverage": 0.625,
+            "trackingResidual": 1.5131059019320825
+          },
+          "broad": {
+            "strength": 0.08702325075864792,
+            "continuity": 0.28125,
+            "coverage": 1.0,
+            "trackingResidual": 1.6886178319149325
+          }
+        }
+      ],
+      "labelScope": "partial-positive-polygon",
+      "labelSupportBreakdown": {
+        "knownPixels": 4170,
+        "outsideBand": 1466,
+        "inBand": 2704,
+        "insideEligible": 1235,
+        "hairInBand": 36,
+        "clippedInBand": 0,
+        "outsideOldTriangleUnionInBand": 1434
+      },
+      "shadowPlaneSlopeNorm": 0.4098738392931926
+    },
+    {
+      "source": "beda0290",
+      "origin": [
+        177,
+        0
+      ],
+      "scale": 1.0,
+      "analysisShape": [
+        329,
+        302
+      ],
+      "missingDiagonalClosedCells": [
+        [
+          0,
+          1,
+          4,
+          16
+        ],
+        [
+          2,
+          3,
+          15,
+          14
+        ],
+        [
+          5,
+          6,
+          22,
+          21
+        ],
+        [
+          7,
+          8,
+          12,
+          11
+        ],
+        [
+          9,
+          24,
+          29,
+          30
+        ],
+        [
+          10,
+          20,
+          25,
+          26
+        ],
+        [
+          13,
+          18,
+          17,
+          23
+        ],
+        [
+          19,
+          28,
+          27,
+          31
+        ]
+      ],
+      "oldUnionPixels": 3269,
+      "closedCellGapPixels": 2789,
+      "positivePixels": 6035,
+      "positiveInsideTriangleUnion": 1003,
+      "positiveInsideClosedCellGap": 692,
+      "positiveInsideBand": 1589,
+      "profiles": [],
+      "labelScope": "reviewed-negative-support-only",
+      "labelSupportBreakdown": {
+        "knownPixels": 6035,
+        "outsideBand": 4446,
+        "inBand": 1589,
+        "insideEligible": 642,
+        "hairInBand": 0,
+        "clippedInBand": 0,
+        "outsideOldTriangleUnionInBand": 927
+      },
+      "shadowPlaneSlopeNorm": 0.7525550452134268
+    },
+    {
+      "source": "4b13b16a",
+      "origin": [
+        121,
+        101
+      ],
+      "scale": 1.0,
+      "analysisShape": [
+        411,
+        335
+      ],
+      "missingDiagonalClosedCells": [
+        [
+          0,
+          1,
+          11,
+          14
+        ],
+        [
+          2,
+          3,
+          16,
+          15
+        ],
+        [
+          4,
+          19,
+          27,
+          28
+        ],
+        [
+          5,
+          8,
+          30,
+          24
+        ],
+        [
+          6,
+          18,
+          25,
+          26
+        ],
+        [
+          7,
+          13,
+          31,
+          29
+        ],
+        [
+          9,
+          10,
+          21,
+          20
+        ],
+        [
+          12,
+          17,
+          22,
+          23
+        ]
+      ],
+      "oldUnionPixels": 4370,
+      "closedCellGapPixels": 3761,
+      "positivePixels": 10451,
+      "positiveInsideTriangleUnion": 2243,
+      "positiveInsideClosedCellGap": 1412,
+      "positiveInsideBand": 2534,
+      "profiles": [
+        {
+          "local": {
+            "strength": 0.04068524017930031,
+            "continuity": 0.21875,
+            "coverage": 0.5,
+            "trackingResidual": 0.42556668739818615
+          },
+          "broad": {
+            "strength": 0.09664230048656464,
+            "continuity": 0.6875,
+            "coverage": 1.0,
+            "trackingResidual": 0.7760889717556257
+          }
+        },
+        {
+          "local": {
+            "strength": 0.028657881543040276,
+            "continuity": 0.140625,
+            "coverage": 0.53125,
+            "trackingResidual": 0.5656514693856611
+          },
+          "broad": {
+            "strength": 0.0631689578294754,
+            "continuity": 0.25,
+            "coverage": 1.0,
+            "trackingResidual": 0.9103056295401316
+          }
+        }
+      ],
+      "labelScope": "reviewed-negative-support-only",
+      "labelSupportBreakdown": {
+        "knownPixels": 10451,
+        "outsideBand": 7917,
+        "inBand": 2534,
+        "insideEligible": 1486,
+        "hairInBand": 0,
+        "clippedInBand": 0,
+        "outsideOldTriangleUnionInBand": 1048
+      },
+      "shadowPlaneSlopeNorm": 0.39648874873890083
+    },
+    {
+      "source": "e0ee9f0c",
+      "origin": [
+        207,
+        156
+      ],
+      "scale": 1.0,
+      "analysisShape": [
+        299,
+        240
+      ],
+      "missingDiagonalClosedCells": [
+        [
+          0,
+          1,
+          10,
+          26
+        ],
+        [
+          2,
+          22,
+          27,
+          28
+        ],
+        [
+          3,
+          23,
+          30,
+          25
+        ],
+        [
+          4,
+          5,
+          11,
+          24
+        ],
+        [
+          6,
+          18,
+          19,
+          20
+        ],
+        [
+          7,
+          12,
+          31,
+          29
+        ],
+        [
+          8,
+          15,
+          16,
+          17
+        ],
+        [
+          9,
+          14,
+          13,
+          21
+        ]
+      ],
+      "oldUnionPixels": 2630,
+      "closedCellGapPixels": 2038,
+      "positivePixels": 5306,
+      "positiveInsideTriangleUnion": 1514,
+      "positiveInsideClosedCellGap": 879,
+      "positiveInsideBand": 1373,
+      "profiles": [
+        {
+          "local": {
+            "strength": 0.08123884350061417,
+            "continuity": 0.125,
+            "coverage": 0.5625,
+            "trackingResidual": 1.2762683750266817
+          },
+          "broad": {
+            "strength": 0.04569685086607933,
+            "continuity": 0.125,
+            "coverage": 1.0,
+            "trackingResidual": 0.9491129729586868
+          }
+        },
+        {
+          "local": {
+            "strength": 0.0,
+            "continuity": 0.0,
+            "coverage": 0.546875,
+            "trackingResidual": 1.6641969104095473
+          },
+          "broad": {
+            "strength": 0.0,
+            "continuity": 0.0,
+            "coverage": 1.0,
+            "trackingResidual": 2.7526419909685216
+          }
+        }
+      ],
+      "labelScope": "reviewed-negative-support-only",
+      "labelSupportBreakdown": {
+        "knownPixels": 5306,
+        "outsideBand": 3933,
+        "inBand": 1373,
+        "insideEligible": 787,
+        "hairInBand": 0,
+        "clippedInBand": 0,
+        "outsideOldTriangleUnionInBand": 553
+      },
+      "shadowPlaneSlopeNorm": 0.39060223437986835
+    }
+  ],
+  "geometryAfter": [
+    {
+      "source": "20031f35",
+      "origin": [
+        37,
+        135
+      ],
+      "scale": 0.6829695440396363,
+      "analysisShape": [
+        345,
+        376
+      ],
+      "missingDiagonalClosedCells": [
+        [
+          0,
+          1,
+          7,
+          6
+        ],
+        [
+          2,
+          3,
+          11,
+          10
+        ],
+        [
+          4,
+          24,
+          23,
+          27
+        ],
+        [
+          5,
+          17,
+          21,
+          22
+        ],
+        [
+          8,
+          26,
+          28,
+          29
+        ],
+        [
+          9,
+          25,
+          30,
+          31
+        ],
+        [
+          12,
+          15,
+          16,
+          18
+        ],
+        [
+          13,
+          14,
+          19,
+          20
+        ]
+      ],
+      "oldUnionPixels": 4262,
+      "closedCellGapPixels": 2896,
+      "positivePixels": 568,
+      "positiveInsideTriangleUnion": 95,
+      "positiveInsideClosedCellGap": 28,
+      "positiveInsideBand": 39,
+      "profiles": [
+        {
+          "local": {
+            "strength": 0.504875659942627,
+            "continuity": 0.4375,
+            "coverage": 1.0,
+            "trackingResidual": 1.9928128428026646
+          },
+          "broad": {
+            "strength": 0.7750824689865112,
+            "continuity": 0.984375,
+            "coverage": 1.0,
+            "trackingResidual": 2.814915091748938
+          }
+        },
+        {
+          "local": {
+            "strength": 0.495449960231781,
+            "continuity": 0.453125,
+            "coverage": 1.0,
+            "trackingResidual": 1.234737676218958
+          },
+          "broad": {
+            "strength": 0.6009790897369385,
+            "continuity": 0.484375,
+            "coverage": 1.0,
+            "trackingResidual": 2.0749640691114535
+          }
+        }
+      ],
+      "labelScope": "partial-positive-polygon",
+      "labelSupportBreakdown": {
+        "knownPixels": 568,
+        "outsideBand": 529,
+        "inBand": 39,
+        "insideEligible": 27,
+        "hairInBand": 12,
+        "clippedInBand": 0,
+        "outsideOldTriangleUnionInBand": 10
+      },
+      "shadowPlaneSlopeNorm": 0.24603588574537227
+    },
+    {
+      "source": "36e4010b",
+      "origin": [
+        138,
+        93
+      ],
+      "scale": 1.0,
+      "analysisShape": [
+        367,
+        357
+      ],
+      "missingDiagonalClosedCells": [
+        [
+          0,
+          1,
+          14,
+          15
+        ],
+        [
+          2,
+          3,
+          13,
+          12
+        ],
+        [
+          4,
+          16,
+          26,
+          27
+        ],
+        [
+          5,
+          22,
+          28,
+          31
+        ],
+        [
+          6,
+          17,
+          29,
+          30
+        ],
+        [
+          7,
+          21,
+          20,
+          23
+        ],
+        [
+          8,
+          11,
+          18,
+          19
+        ],
+        [
+          9,
+          10,
+          24,
+          25
+        ]
+      ],
+      "oldUnionPixels": 4334,
+      "closedCellGapPixels": 3785,
+      "positivePixels": 4170,
+      "positiveInsideTriangleUnion": 1686,
+      "positiveInsideClosedCellGap": 1033,
+      "positiveInsideBand": 2704,
+      "profiles": [
+        {
+          "local": {
+            "strength": 0.2622711956501007,
+            "continuity": 0.265625,
+            "coverage": 1.0,
+            "trackingResidual": 1.7970791732573979
+          },
+          "broad": {
+            "strength": 0.2622711956501007,
+            "continuity": 0.265625,
+            "coverage": 1.0,
+            "trackingResidual": 1.7970791732573979
+          }
+        },
+        {
+          "local": {
+            "strength": 0.08686202019453049,
+            "continuity": 0.28125,
+            "coverage": 1.0,
+            "trackingResidual": 2.1763773673199793
+          },
+          "broad": {
+            "strength": 0.08702325075864792,
+            "continuity": 0.28125,
+            "coverage": 1.0,
+            "trackingResidual": 1.6886178319149325
+          }
+        }
+      ],
+      "labelScope": "partial-positive-polygon",
+      "labelSupportBreakdown": {
+        "knownPixels": 4170,
+        "outsideBand": 1466,
+        "inBand": 2704,
+        "insideEligible": 1993,
+        "hairInBand": 36,
+        "clippedInBand": 0,
+        "outsideOldTriangleUnionInBand": 1434
+      },
+      "shadowPlaneSlopeNorm": 0.41022995474584656
+    },
+    {
+      "source": "beda0290",
+      "origin": [
+        177,
+        0
+      ],
+      "scale": 1.0,
+      "analysisShape": [
+        329,
+        302
+      ],
+      "missingDiagonalClosedCells": [
+        [
+          0,
+          1,
+          4,
+          16
+        ],
+        [
+          2,
+          3,
+          15,
+          14
+        ],
+        [
+          5,
+          6,
+          22,
+          21
+        ],
+        [
+          7,
+          8,
+          12,
+          11
+        ],
+        [
+          9,
+          24,
+          29,
+          30
+        ],
+        [
+          10,
+          20,
+          25,
+          26
+        ],
+        [
+          13,
+          18,
+          17,
+          23
+        ],
+        [
+          19,
+          28,
+          27,
+          31
+        ]
+      ],
+      "oldUnionPixels": 3269,
+      "closedCellGapPixels": 2789,
+      "positivePixels": 6035,
+      "positiveInsideTriangleUnion": 1003,
+      "positiveInsideClosedCellGap": 692,
+      "positiveInsideBand": 1589,
+      "profiles": [
+        {
+          "local": {
+            "strength": 0.0004327197093516588,
+            "continuity": 0.015625,
+            "coverage": 0.921875,
+            "trackingResidual": 0.899134446482385
+          },
+          "broad": {
+            "strength": 0.0003989134856965393,
+            "continuity": 0.015625,
+            "coverage": 1.0,
+            "trackingResidual": 2.008161471391598
+          }
+        },
+        {
+          "local": {
+            "strength": 0.013462651520967484,
+            "continuity": 0.09375,
+            "coverage": 1.0,
+            "trackingResidual": 0.8542767071787639
+          },
+          "broad": {
+            "strength": 0.013462651520967484,
+            "continuity": 0.09375,
+            "coverage": 1.0,
+            "trackingResidual": 1.415629703092685
+          }
+        }
+      ],
+      "labelScope": "reviewed-negative-support-only",
+      "labelSupportBreakdown": {
+        "knownPixels": 6035,
+        "outsideBand": 4446,
+        "inBand": 1589,
+        "insideEligible": 1068,
+        "hairInBand": 0,
+        "clippedInBand": 0,
+        "outsideOldTriangleUnionInBand": 927
+      },
+      "shadowPlaneSlopeNorm": 0.7171194129496853
+    },
+    {
+      "source": "4b13b16a",
+      "origin": [
+        121,
+        101
+      ],
+      "scale": 1.0,
+      "analysisShape": [
+        411,
+        335
+      ],
+      "missingDiagonalClosedCells": [
+        [
+          0,
+          1,
+          11,
+          14
+        ],
+        [
+          2,
+          3,
+          16,
+          15
+        ],
+        [
+          4,
+          19,
+          27,
+          28
+        ],
+        [
+          5,
+          8,
+          30,
+          24
+        ],
+        [
+          6,
+          18,
+          25,
+          26
+        ],
+        [
+          7,
+          13,
+          31,
+          29
+        ],
+        [
+          9,
+          10,
+          21,
+          20
+        ],
+        [
+          12,
+          17,
+          22,
+          23
+        ]
+      ],
+      "oldUnionPixels": 4370,
+      "closedCellGapPixels": 3761,
+      "positivePixels": 10451,
+      "positiveInsideTriangleUnion": 2243,
+      "positiveInsideClosedCellGap": 1412,
+      "positiveInsideBand": 2534,
+      "profiles": [
+        {
+          "local": {
+            "strength": 0.09664230048656464,
+            "continuity": 0.6875,
+            "coverage": 1.0,
+            "trackingResidual": 0.5663274053810652
+          },
+          "broad": {
+            "strength": 0.09664230048656464,
+            "continuity": 0.6875,
+            "coverage": 1.0,
+            "trackingResidual": 0.7760889717556257
+          }
+        },
+        {
+          "local": {
+            "strength": 0.0631689578294754,
+            "continuity": 0.25,
+            "coverage": 1.0,
+            "trackingResidual": 0.8132326425485031
+          },
+          "broad": {
+            "strength": 0.0631689578294754,
+            "continuity": 0.25,
+            "coverage": 1.0,
+            "trackingResidual": 0.9103056295401316
+          }
+        }
+      ],
+      "labelScope": "reviewed-negative-support-only",
+      "labelSupportBreakdown": {
+        "knownPixels": 10451,
+        "outsideBand": 7917,
+        "inBand": 2534,
+        "insideEligible": 2224,
+        "hairInBand": 0,
+        "clippedInBand": 0,
+        "outsideOldTriangleUnionInBand": 1048
+      },
+      "shadowPlaneSlopeNorm": 0.41214132320175434
+    },
+    {
+      "source": "e0ee9f0c",
+      "origin": [
+        207,
+        156
+      ],
+      "scale": 1.0,
+      "analysisShape": [
+        299,
+        240
+      ],
+      "missingDiagonalClosedCells": [
+        [
+          0,
+          1,
+          10,
+          26
+        ],
+        [
+          2,
+          22,
+          27,
+          28
+        ],
+        [
+          3,
+          23,
+          30,
+          25
+        ],
+        [
+          4,
+          5,
+          11,
+          24
+        ],
+        [
+          6,
+          18,
+          19,
+          20
+        ],
+        [
+          7,
+          12,
+          31,
+          29
+        ],
+        [
+          8,
+          15,
+          16,
+          17
+        ],
+        [
+          9,
+          14,
+          13,
+          21
+        ]
+      ],
+      "oldUnionPixels": 2630,
+      "closedCellGapPixels": 2038,
+      "positivePixels": 5306,
+      "positiveInsideTriangleUnion": 1514,
+      "positiveInsideClosedCellGap": 879,
+      "positiveInsideBand": 1373,
+      "profiles": [
+        {
+          "local": {
+            "strength": 0.04569685086607933,
+            "continuity": 0.125,
+            "coverage": 1.0,
+            "trackingResidual": 0.9572177915264467
+          },
+          "broad": {
+            "strength": 0.04569685086607933,
+            "continuity": 0.125,
+            "coverage": 1.0,
+            "trackingResidual": 0.9491129729586868
+          }
+        },
+        {
+          "local": {
+            "strength": 0.0,
+            "continuity": 0.0,
+            "coverage": 1.0,
+            "trackingResidual": 2.063541932816928
+          },
+          "broad": {
+            "strength": 0.0,
+            "continuity": 0.0,
+            "coverage": 1.0,
+            "trackingResidual": 2.7526419909685216
+          }
+        }
+      ],
+      "labelScope": "reviewed-negative-support-only",
+      "labelSupportBreakdown": {
+        "knownPixels": 5306,
+        "outsideBand": 3933,
+        "inBand": 1373,
+        "insideEligible": 1097,
+        "hairInBand": 0,
+        "clippedInBand": 0,
+        "outsideOldTriangleUnionInBand": 553
+      },
+      "shadowPlaneSlopeNorm": 0.3755093723715146
+    }
+  ],
+  "encodingOrigin": {
+    "ownedFixtureProfile": "output\\playwright\\periorbital-v5-20261012\\profile",
+    "legacyRecord": {
+      "id": "audit-v5-20031f35",
+      "date": "2026-10-12T17:36:57.030Z",
+      "labels": {
+        "tone": "Ton eÅŸitsizliÄŸi",
+        "oil": "YaÄŸlÄ± gÃ¶rÃ¼nÃ¼m",
+        "redness": "KÄ±zarÄ±klÄ±k eÄŸilimi",
+        "acne": "Sivilce gÃ¶rÃ¼nÃ¼mÃ¼",
+        "sag": "Sarkma gÃ¶rÃ¼nÃ¼mÃ¼",
+        "dry": "Cilt kuruluÄŸu gÃ¶rÃ¼nÃ¼mÃ¼",
+        "lines": "Kaz ayaklarÄ±",
+        "dark": "GÃ¶z altÄ± morluÄŸu",
+        "bags": "GÃ¶z altÄ± torbalarÄ±"
+      }
+    },
+    "UTF8BytesMisreadAsCP1252Matches": {
+      "tone": true,
+      "oil": true,
+      "redness": true,
+      "acne": true,
+      "sag": true,
+      "dry": true,
+      "dark": true,
+      "bags": true,
+      "lines": true
+    },
+    "legacyFixtureHistoryUnchanged": true
+  },
+  "browser": {
+    "buildId": "yPTHcZKu38hukOVtSWnPV",
+    "views": [
+      {
+        "case": "new-result",
+        "views": [
+          {
+            "view": "overview",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma görünümü",
+                "expected": "Sarkma görünümü",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu görünümü",
+                "expected": "Cilt kuruluğu görünümü",
+                "matches": true
+              },
+              {
+                "id": "lines",
+                "actual": "Kaz ayakları",
+                "expected": "Kaz ayakları",
+                "matches": true
+              },
+              {
+                "id": "dark",
+                "actual": "Göz altı morluğu",
+                "expected": "Göz altı morluğu",
+                "matches": true
+              },
+              {
+                "id": "bags",
+                "actual": "Göz altı torbaları",
+                "expected": "Göz altı torbaları",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "forehead",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma",
+                "expected": "Sarkma",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "rightCheek",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma",
+                "expected": "Sarkma",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "leftCheek",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma",
+                "expected": "Sarkma",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "nose",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "chin",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma",
+                "expected": "Sarkma",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "periorbital",
+            "labels": [
+              {
+                "id": "dark",
+                "actual": "Göz altı morluğu",
+                "expected": "Göz altı morluğu",
+                "matches": true
+              },
+              {
+                "id": "bags",
+                "actual": "Göz altı torbaları",
+                "expected": "Göz altı torbaları",
+                "matches": true
+              },
+              {
+                "id": "lines",
+                "actual": "Kaz ayakları",
+                "expected": "Kaz ayakları",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          }
+        ]
+      },
+      {
+        "case": "history-bb40e85d-8251-48cf-aba4-aa84bce20d37",
+        "views": [
+          {
+            "view": "overview",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma görünümü",
+                "expected": "Sarkma görünümü",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu görünümü",
+                "expected": "Cilt kuruluğu görünümü",
+                "matches": true
+              },
+              {
+                "id": "lines",
+                "actual": "Kaz ayakları",
+                "expected": "Kaz ayakları",
+                "matches": true
+              },
+              {
+                "id": "dark",
+                "actual": "Göz altı morluğu",
+                "expected": "Göz altı morluğu",
+                "matches": true
+              },
+              {
+                "id": "bags",
+                "actual": "Göz altı torbaları",
+                "expected": "Göz altı torbaları",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "forehead",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma",
+                "expected": "Sarkma",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "rightCheek",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma",
+                "expected": "Sarkma",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "leftCheek",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma",
+                "expected": "Sarkma",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "nose",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "chin",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma",
+                "expected": "Sarkma",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "periorbital",
+            "labels": [
+              {
+                "id": "dark",
+                "actual": "Göz altı morluğu",
+                "expected": "Göz altı morluğu",
+                "matches": true
+              },
+              {
+                "id": "bags",
+                "actual": "Göz altı torbaları",
+                "expected": "Göz altı torbaları",
+                "matches": true
+              },
+              {
+                "id": "lines",
+                "actual": "Kaz ayakları",
+                "expected": "Kaz ayakları",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          }
+        ]
+      },
+      {
+        "case": "history-label-replay-correct",
+        "views": [
+          {
+            "view": "overview",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma görünümü",
+                "expected": "Sarkma görünümü",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu görünümü",
+                "expected": "Cilt kuruluğu görünümü",
+                "matches": true
+              },
+              {
+                "id": "lines",
+                "actual": "Kaz ayakları",
+                "expected": "Kaz ayakları",
+                "matches": true
+              },
+              {
+                "id": "dark",
+                "actual": "Göz altı morluğu",
+                "expected": "Göz altı morluğu",
+                "matches": true
+              },
+              {
+                "id": "bags",
+                "actual": "Göz altı torbaları",
+                "expected": "Göz altı torbaları",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "forehead",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma",
+                "expected": "Sarkma",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "rightCheek",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma",
+                "expected": "Sarkma",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "leftCheek",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma",
+                "expected": "Sarkma",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "nose",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "chin",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma",
+                "expected": "Sarkma",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "periorbital",
+            "labels": [
+              {
+                "id": "dark",
+                "actual": "Göz altı morluğu",
+                "expected": "Göz altı morluğu",
+                "matches": true
+              },
+              {
+                "id": "bags",
+                "actual": "Göz altı torbaları",
+                "expected": "Göz altı torbaları",
+                "matches": true
+              },
+              {
+                "id": "lines",
+                "actual": "Kaz ayakları",
+                "expected": "Kaz ayakları",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          }
+        ]
+      },
+      {
+        "case": "history-label-replay-corrupt",
+        "views": [
+          {
+            "view": "overview",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma görünümü",
+                "expected": "Sarkma görünümü",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu görünümü",
+                "expected": "Cilt kuruluğu görünümü",
+                "matches": true
+              },
+              {
+                "id": "lines",
+                "actual": "Kaz ayakları",
+                "expected": "Kaz ayakları",
+                "matches": true
+              },
+              {
+                "id": "dark",
+                "actual": "Göz altı morluğu",
+                "expected": "Göz altı morluğu",
+                "matches": true
+              },
+              {
+                "id": "bags",
+                "actual": "Göz altı torbaları",
+                "expected": "Göz altı torbaları",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "forehead",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma",
+                "expected": "Sarkma",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "rightCheek",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma",
+                "expected": "Sarkma",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "leftCheek",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma",
+                "expected": "Sarkma",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "nose",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "chin",
+            "labels": [
+              {
+                "id": "tone",
+                "actual": "Ton eşitsizliği",
+                "expected": "Ton eşitsizliği",
+                "matches": true
+              },
+              {
+                "id": "oil",
+                "actual": "Yağlı görünüm",
+                "expected": "Yağlı görünüm",
+                "matches": true
+              },
+              {
+                "id": "redness",
+                "actual": "Kızarıklık eğilimi",
+                "expected": "Kızarıklık eğilimi",
+                "matches": true
+              },
+              {
+                "id": "acne",
+                "actual": "Sivilce görünümü",
+                "expected": "Sivilce görünümü",
+                "matches": true
+              },
+              {
+                "id": "sag",
+                "actual": "Sarkma",
+                "expected": "Sarkma",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          },
+          {
+            "view": "periorbital",
+            "labels": [
+              {
+                "id": "dark",
+                "actual": "Göz altı morluğu",
+                "expected": "Göz altı morluğu",
+                "matches": true
+              },
+              {
+                "id": "bags",
+                "actual": "Göz altı torbaları",
+                "expected": "Göz altı torbaları",
+                "matches": true
+              },
+              {
+                "id": "lines",
+                "actual": "Kaz ayakları",
+                "expected": "Kaz ayakları",
+                "matches": true
+              },
+              {
+                "id": "dry",
+                "actual": "Cilt kuruluğu",
+                "expected": "Cilt kuruluğu",
+                "matches": true
+              }
+            ],
+            "allMatch": true
+          }
+        ]
+      }
+    ],
+    "allKnownLabelsCorrect": true,
+    "historyBytesPreserved": true,
+    "hostedConsentRequestCount": 0,
+    "realMediaPipe": true,
+    "actualAPISourceMatches": true,
+    "real200Percent": {
+      "innerWidth": 641,
+      "outerWidth": 1298,
+      "dpr": 3,
+      "zoom": "1",
+      "scroll": 641
+    },
+    "real200Accepted": true,
+    "isolatedProfileWithinOutput": true,
+    "pageErrors": [],
+    "samplingComparisonControls": [
+      {
+        "scope": "overview",
+        "oldSampling": "tracked-center-eligible-v1",
+        "newSampling": "tracked-center-closed-cells-v2",
+        "sameNormalization": true,
+        "comparable": false,
+        "deltaBlocked": true,
+        "seriesCount": 2
+      },
+      {
+        "scope": "periorbital",
+        "oldSampling": "tracked-center-eligible-v1",
+        "newSampling": "tracked-center-closed-cells-v2",
+        "sameNormalization": true,
+        "comparable": false,
+        "deltaBlocked": true,
+        "seriesCount": 2
+      }
+    ],
+    "renderedMapControls": [
+      {
+        "case": "new-result",
+        "sourceStep": 1.4520658552646635,
+        "sourceCoordinateFieldsMatch": {
+          "x": true,
+          "y": true,
+          "width": true,
+          "height": true
+        },
+        "renderedClipTriangles": 48,
+        "expectedClipTriangles": {
+          "old": 16,
+          "current": 48
+        },
+        "sourcePhotoMatches": true,
+        "criterionSwitchClearsBag": true,
+        "regionSwitchClearsMaps": true
+      },
+      {
+        "case": "history-bb40e85d-8251-48cf-aba4-aa84bce20d37",
+        "sourceStep": 1.4520658552646635,
+        "sourceCoordinateFieldsMatch": {
+          "x": true,
+          "y": true,
+          "width": true,
+          "height": true
+        },
+        "renderedClipTriangles": 48,
+        "expectedClipTriangles": {
+          "old": 16,
+          "current": 48
+        },
+        "sourcePhotoMatches": true,
+        "criterionSwitchClearsBag": true,
+        "regionSwitchClearsMaps": true
+      }
+    ],
+    "newScanBag": {
+      "value": 12.928160652518272,
+      "quality": "valid",
+      "normalizationVersion": "contour-fold-local-support-v5",
+      "limitationCode": null
+    }
+  },
+  "delivery": {
+    "headAtVerification": "32ac20e3b724202094a9b9934b69cb06b7abd268",
+    "buildId": "yPTHcZKu38hukOVtSWnPV",
+    "buildMatchesBrowser": true,
+    "normalShortcutMatch": true,
+    "normalSession": true,
+    "frontendOwned": true,
+    "backendOwned": true,
+    "servedJavaScript": {
+      "/_next/static/chunks/330-cf0255e3c13607b5.js": {
+        "servedSHA256": "e69699a7f77c9c194f9ffdb3856b0c67dd30d4372bdc4866b2666b596fd06cbe",
+        "localSHA256": "e69699a7f77c9c194f9ffdb3856b0c67dd30d4372bdc4866b2666b596fd06cbe",
+        "matches": true
+      },
+      "/_next/static/chunks/main-app-a840178321886cc8.js": {
+        "servedSHA256": "b5b7a6a18ee7f8fe0d0fa097ccf76c3fd48ec9a33395e4c9a750baa6e550e99e",
+        "localSHA256": "b5b7a6a18ee7f8fe0d0fa097ccf76c3fd48ec9a33395e4c9a750baa6e550e99e",
+        "matches": true
+      },
+      "/_next/static/chunks/e898b764-724e4596a1050f58.js": {
+        "servedSHA256": "fef6a31acbe42cb772fbbca3f7eaf3ecd01ab51e1db99c4d0445205eafb6214b",
+        "localSHA256": "fef6a31acbe42cb772fbbca3f7eaf3ecd01ab51e1db99c4d0445205eafb6214b",
+        "matches": true
+      },
+      "/_next/static/chunks/656-012d3387edef90f5.js": {
+        "servedSHA256": "a48c56ee67c628c04af078afb6204fe5e24dc3f02b5820aee463f65f52e7c582",
+        "localSHA256": "a48c56ee67c628c04af078afb6204fe5e24dc3f02b5820aee463f65f52e7c582",
+        "matches": true
+      },
+      "/_next/static/chunks/app/layout-3df20787427d7c01.js": {
+        "servedSHA256": "8d45d1d80260bd6b93ed124270dee8de7b1ed5010eb5f6bbf8860afcdfe3a8c4",
+        "localSHA256": "8d45d1d80260bd6b93ed124270dee8de7b1ed5010eb5f6bbf8860afcdfe3a8c4",
+        "matches": true
+      },
+      "/_next/static/chunks/app/page-9c3427f81a655781.js": {
+        "servedSHA256": "40a2b1fa2251dfc735c251f29d25b33c4f48100c61bbd200450ac342327d81b7",
+        "localSHA256": "40a2b1fa2251dfc735c251f29d25b33c4f48100c61bbd200450ac342327d81b7",
+        "matches": true
+      },
+      "/_next/static/chunks/948-85266d567c3bae8b.js": {
+        "servedSHA256": "4e807c0317858631a1831c7a30c82fe5932dec40da12fc8aeffb6d1aebb43a2e",
+        "localSHA256": "4e807c0317858631a1831c7a30c82fe5932dec40da12fc8aeffb6d1aebb43a2e",
+        "matches": true
+      },
+      "/_next/static/chunks/987-e7efaa2e25847fed.js": {
+        "servedSHA256": "dd2830cddc3d1cecb34ea22e6831df6db876fe17320a06b71eab72c6417e51ca",
+        "localSHA256": "dd2830cddc3d1cecb34ea22e6831df6db876fe17320a06b71eab72c6417e51ca",
+        "matches": true
+      },
+      "/_next/static/chunks/484-c7854e143b14531c.js": {
+        "servedSHA256": "e70f3d1076cd8ad18884284e5196bf030e5c613dbcde77befaf6484a7dae9646",
+        "localSHA256": "e70f3d1076cd8ad18884284e5196bf030e5c613dbcde77befaf6484a7dae9646",
+        "matches": true
+      },
+      "/_next/static/chunks/850-03d460badcc90bec.js": {
+        "servedSHA256": "fe19aab65e4b99652e82702538aef87e95e949da65e3a5d8ab24c4a77740cf5b",
+        "localSHA256": "fe19aab65e4b99652e82702538aef87e95e949da65e3a5d8ab24c4a77740cf5b",
+        "matches": true
+      },
+      "/_next/static/chunks/webpack-f45bdbd2929ac7d6.js": {
+        "servedSHA256": "47827b6a8224b8b4b0afc72acded8b218a415cdf7b78a7f6f93c13d75e600fea",
+        "localSHA256": "47827b6a8224b8b4b0afc72acded8b218a415cdf7b78a7f6f93c13d75e600fea",
+        "matches": true
+      },
+      "/_next/static/chunks/polyfills-42372ed130431b0a.js": {
+        "servedSHA256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+        "localSHA256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+        "matches": true
+      },
+      "/_next/static/chunks/745-aa0d667c55f9b302.js": {
+        "servedSHA256": "77965bf8d83e15819ff9e5934221f3af44f5fe337c17a9d15ee1061a97981d0a",
+        "localSHA256": "77965bf8d83e15819ff9e5934221f3af44f5fe337c17a9d15ee1061a97981d0a",
+        "matches": true
+      },
+      "/_next/static/chunks/876-970751e242594177.js": {
+        "servedSHA256": "d84eca37ec1994232b2c9c66cdb454332f337757e3c7884b8d82d7dc504a1421",
+        "localSHA256": "d84eca37ec1994232b2c9c66cdb454332f337757e3c7884b8d82d7dc504a1421",
+        "matches": true
+      },
+      "/_next/static/chunks/app/skin/page-b133fc8be49d79d1.js": {
+        "servedSHA256": "e9ad9215873e35549c32ee8f933c821958342f5f44f2c4c16b230469aa01f50e",
+        "localSHA256": "e9ad9215873e35549c32ee8f933c821958342f5f44f2c4c16b230469aa01f50e",
+        "matches": true
+      },
+      "/_next/static/chunks/852-4206d2ffa53479b5.js": {
+        "servedSHA256": "75c09a83752a0fa304ec64bf2b638383532cf1e29af9d568eec3d17251b95f7f",
+        "localSHA256": "75c09a83752a0fa304ec64bf2b638383532cf1e29af9d568eec3d17251b95f7f",
+        "matches": true
+      },
+      "/_next/static/chunks/app/profile/page-91fda70ac9ff1a87.js": {
+        "servedSHA256": "cc47e7a5b9e85a0f320150f18b21be60574fb5761d9e9d15aad8984716742a9c",
+        "localSHA256": "cc47e7a5b9e85a0f320150f18b21be60574fb5761d9e9d15aad8984716742a9c",
+        "matches": true
+      },
+      "/_next/static/chunks/503-68c18768f0108a30.js": {
+        "servedSHA256": "0e1d8598daa607fd93a397321999d450c799fd3e63a8b62ba94020fca019d2eb",
+        "localSHA256": "0e1d8598daa607fd93a397321999d450c799fd3e63a8b62ba94020fca019d2eb",
+        "matches": true
+      }
+    },
+    "actualAPIEqualsCaptured": true,
+    "samplingScopeMatch": true,
+    "backendSourceSHA256": {
+      "appearance_analysis.py": "b6c53638e57fe04ff851c66dbe66f320d3d64ad930d8c291e34070e9b111c61e",
+      "instant_appearance.py": "c5529c140d0f27cf3a2d9c8949b13f72d29370e6d3f9dd58afba31111f91432a",
+      "skin_general.py": "9eb06e042333d538c99a3e9f5f78af56ecbc32c6f53f1a331e8c0a7e772c98bf",
+      "skin_models.py": "1d3a1dc6df6fc8e7d60048f368f2d0099065c1755a7df513a0ea362ad72da976",
+      "hosted_skin_type.py": "eaa4eb6228406c53a88475ccc661ed61d1f26e901009fe9ff95b8335faf36406"
+    },
+    "modelFileSHA256": "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3",
+    "loadedModelSHA256": [
+      "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3"
+    ],
+    "modelMatch": true,
+    "modelManifestSHA256": "accc9ff193030bccde572ded39b1878fc7919e33daf62f2ac560c3357a83abfb",
+    "indexedSource": {
+      "services/core-api/appearance_analysis.py": {
+        "gitIndexSHA256": "adf05ccc1d8582272ee39c2a37b554b4a06789b8d592e0db56b2fe0c8e7cabdb",
+        "workingSHA256": "b6c53638e57fe04ff851c66dbe66f320d3d64ad930d8c291e34070e9b111c61e",
+        "canonicalLFMatch": true
+      },
+      "services/core-api/instant_appearance.py": {
+        "gitIndexSHA256": "6795501cee8f1f7cf3b41645e456065e890168b3c1da8a2c7cce33ee856ad09d",
+        "workingSHA256": "c5529c140d0f27cf3a2d9c8949b13f72d29370e6d3f9dd58afba31111f91432a",
+        "canonicalLFMatch": true
+      },
+      "services/core-api/skin_general.py": {
+        "gitIndexSHA256": "74cc8cb132431d6d45a55807113afce7dc983e7c582a0dd9838b67be4afe9660",
+        "workingSHA256": "9eb06e042333d538c99a3e9f5f78af56ecbc32c6f53f1a331e8c0a7e772c98bf",
+        "canonicalLFMatch": true
+      },
+      "services/core-api/skin_models.py": {
+        "gitIndexSHA256": "1d3a1dc6df6fc8e7d60048f368f2d0099065c1755a7df513a0ea362ad72da976",
+        "workingSHA256": "1d3a1dc6df6fc8e7d60048f368f2d0099065c1755a7df513a0ea362ad72da976",
+        "canonicalLFMatch": true
+      },
+      "services/core-api/hosted_skin_type.py": {
+        "gitIndexSHA256": "eaa4eb6228406c53a88475ccc661ed61d1f26e901009fe9ff95b8335faf36406",
+        "workingSHA256": "eaa4eb6228406c53a88475ccc661ed61d1f26e901009fe9ff95b8335faf36406",
+        "canonicalLFMatch": true
+      }
+    },
+    "frontendMatchedFileCount": 213
+  },
+  "counts": {
+    "views": 28,
+    "labelChecks": 168,
+    "exactNonBagMeasurementMapPairs": 192
+  },
+  "limitations": [
+    "20031f35 annotated polygon has zero active overlap. 529/568 annotation analysis pixels lie outside the fixed v5 band; do not count the new visible fold signal as annotation recall success.",
+    "Transformed/noisy 5bd42346 is 0.509856 (UI1), 16 active source pixels in its known support. This is an open regression, not natural-negative evidence."
+  ]
+}

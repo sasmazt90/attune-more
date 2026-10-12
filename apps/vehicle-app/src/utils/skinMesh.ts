@@ -1,7 +1,7 @@
 /** Presentation graph only. Numerical ROIs are deliberately independent. */
 export type MeshPoint={x:number;y:number};
-export type SkinMesh={points:MeshPoint[];edges:[number,number][];major:number[];boundary:number[][];excluded:string[]};
-type Graph={indices:number[];edges:[number,number][];major:number[];boundary:number[][];excluded:string[]};
+export type SkinMesh={points:MeshPoint[];edges:[number,number][];major:number[];boundary:number[][];excluded:string[];bagCells?:number[][]};
+type Graph={indices:number[];edges:[number,number][];major:number[];boundary:number[][];excluded:string[];bagCells?:number[][]};
 // Every edge is explicit and anatomical; indices refer to actual MediaPipe
 // landmarks in the accepted unmirrored frame, never screen-side mirroring.
 // Adjacent anatomical rows; connections never skip a row or form a fan.
@@ -15,7 +15,11 @@ function eyeBands():Graph {
  const leftOuter=[265,276,295,285,417,357,349,340],leftInner=[359,260,257,286,463,256,253,255];
  const indices=[...rightOuter,...rightInner,...leftOuter,...leftInner],edges:[number,number][]=[];
  for(const base of [0,16])for(let i=0;i<8;i++){const j=(i+1)%8;edges.push([base+i,base+j],[base+8+i,base+8+j],[base+i,base+8+i]);if(i%2===0)edges.push([base+i,base+8+j]);}
- return {indices,edges,major:[0,4,16,20],boundary:[],excluded:['iris','eye-opening','nose-bridge']};
+ // The approved sparse visible diagonals do not define holes in a closed
+ // anatomical cell. Keep its four boundaries for bag support triangulation.
+ const bagCells:number[][]=[];
+ for(const base of [0,16])for(let i=0;i<8;i++){const j=(i+1)%8;bagCells.push([base+i,base+j,base+8+j,base+8+i]);}
+ return {indices,edges,major:[0,4,16,20],boundary:[],excluded:['iris','eye-opening','nose-bridge'],bagCells};
 }
 export const SKIN_GRAPHS:Record<string,Graph>={
  forehead:rowsGraph([[103,67,109,10,338,297,332],[54,104,108,151,337,333,284],[21,63,66,9,296,293,251]],[10,151,9],['eyes','nose','hair']),
@@ -31,7 +35,7 @@ export function buildSkinMesh(id:string,landmarks:MeshPoint[],width:number,heigh
  const points=graph.indices.map(i=>({x:landmarks[i].x*width,y:landmarks[i].y*height}));
  const edges:[number,number][]=[...graph.edges];
  for(const path of graph.boundary)for(let i=1;i<path.length;i++)edges.push([path[i-1],path[i]]);
- return {points,edges,major:graph.major,boundary:graph.boundary,excluded:graph.excluded};
+ return {points,edges,major:graph.major,boundary:graph.boundary,excluded:graph.excluded,...(graph.bagCells?{bagCells:graph.bagCells}:{})};
 }
 
 export const MESH_HOLES={rightEye:[33,160,158,133,153,145,163],leftEye:[263,387,385,362,380,374,390],lips:[61,40,37,0,267,270,291,321,314,17,84,91],rightNostril:[48,1,19,97,98,64],leftNostril:[278,1,19,326,327,294]};
@@ -59,5 +63,18 @@ export function supportedSkinMesh(mesh:SkinMesh,landmarks:MeshPoint[],width:numb
    edges.splice(0,edges.length,...accepted);
  }
  const used=[...new Set(edges.flat())],mapping=new Map(used.map((v,i)=>[v,i]));
- return {...mesh,points:used.map(i=>mesh.points[i]),edges:edges.map(([a,b])=>[mapping.get(a)!,mapping.get(b)!]),major:mesh.major.filter(i=>mapping.has(i)).map(i=>mapping.get(i)!),boundary:[]};
+ const boundaryEdges=new Set(edges.map(([a,b])=>[Math.min(a,b),Math.max(a,b)].join(':')));
+ const bagCells=mesh.bagCells?.filter(cell=>cell.every((a,i)=>boundaryEdges.has([Math.min(a,cell[(i+1)%4]),Math.max(a,cell[(i+1)%4])].join(':')))).map(cell=>cell.map(i=>mapping.get(i)!));
+ return {...mesh,points:used.map(i=>mesh.points[i]),edges:edges.map(([a,b])=>[mapping.get(a)!,mapping.get(b)!]),major:mesh.major.filter(i=>mapping.has(i)).map(i=>mapping.get(i)!),boundary:[],...(bagCells?{bagCells}:{})};
+}
+
+/** Bag-only fill cells; visible mesh edges and other criterion ROIs stay exact. */
+export function bagCellTriangles(mesh:SkinMesh):number[][] {
+ const edges=new Set(mesh.edges.map(([a,b])=>[Math.min(a,b),Math.max(a,b)].join(':')));
+ return (mesh.bagCells||[]).flatMap(cell=>{
+  if(cell.length!==4||new Set(cell).size!==4||cell.some((a,i)=>!mesh.points[a]||!edges.has([Math.min(a,cell[(i+1)%4]),Math.max(a,cell[(i+1)%4])].join(':'))))return [];
+  const cross=cell.map((a,i)=>{const p=mesh.points[a],q=mesh.points[cell[(i+1)%4]],r=mesh.points[cell[(i+2)%4]];return (q.x-p.x)*(r.y-q.y)-(q.y-p.y)*(r.x-q.x);});
+  if(!cross.every(v=>v>0)&&!cross.every(v=>v<0))return [];
+  const [a,b,c,d]=cell;return [[a,b,c],[a,c,d]];
+ });
 }

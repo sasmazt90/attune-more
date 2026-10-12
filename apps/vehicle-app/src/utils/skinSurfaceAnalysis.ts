@@ -1,14 +1,15 @@
 import type { SkinMesh } from './skinMesh';
+import { bagCellTriangles } from './skinMesh';
 
 export const SHINE_METHOD='surface-specular-candidate-v1';
 export const SHINE_PARAMETERS={minValue:.60,maxSaturation:.42,minLocalContrast:.04,contrastSpan:.16,candidateThreshold:.15,maxClippedFraction:.03,maxSamples:128} as const;
 export type SurfaceInput={width:number;height:number;pixels:Uint8ClampedArray;region:string;mesh:SkinMesh;exclusions:{x:number;y:number;w:number;h:number}[];qualityValid:boolean};
 export type SurfaceGrid={x:number;y:number;step:number;width:number;height:number;valid:Uint8Array;redness:Float32Array;shine:Float32Array;validSamples:number;shineSamples:number;clippedFraction:number;shineAreaPercent:number|null;shineUnavailable:string|null;allocatedBytes:number};
 
-export function meshTriangles(mesh:SkinMesh):number[][] {
+export function meshTriangles(mesh:SkinMesh,bagSupport=false):number[][] {
  const edges=new Set(mesh.edges.flatMap(([a,b])=>[`${a}:${b}`,`${b}:${a}`])),triangles:number[][]=[];
  for(let a=0;a<mesh.points.length;a++)for(let b=a+1;b<mesh.points.length;b++)if(edges.has(`${a}:${b}`))for(let c=b+1;c<mesh.points.length;c++)if(edges.has(`${a}:${c}`)&&edges.has(`${b}:${c}`))triangles.push([a,b,c]);
- return triangles;
+ return bagSupport ? [...triangles,...bagCellTriangles(mesh)] : triangles;
 }
 export function inTriangle(x:number,y:number,mesh:SkinMesh,tri:number[]) {
  const [a,b,c]=tri.map(i=>mesh.points[i]);const d=(v:typeof a,w:typeof a)=>(x-w.x)*(v.y-w.y)-(v.x-w.x)*(y-w.y);const u=d(a,b),v=d(b,c),w=d(c,a);

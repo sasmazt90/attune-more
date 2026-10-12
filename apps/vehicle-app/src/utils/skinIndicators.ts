@@ -10,6 +10,10 @@ export function skinCriterionLabel(id:string,scope:'regional'|'whole-face'='regi
  return scope==='whole-face'&&id==='sag'?'Sarkma görünümü':scope==='whole-face'&&id==='dry'?'Cilt kuruluğu görünümü':SIGN_LABELS[id]||id;
 }
 export function indicatorIds(region:string){return region==='periorbital'?['dark','bags','lines','dry']:region==='nose'?['tone','oil','redness','acne','dry']:['tone','oil','redness','acne','sag','dry'];}
+/** Overview carries the real regional components inside sourceComponents. */
+export function samplingSupportVersion(value?:import('./appearanceMeasurements').AppearanceMeasurement):string|null {
+ return value?.components?.samplingSupportVersion || value?.components?.sourceComponents?.samplingSupportVersion || null;
+}
 export function validSkinIndicators(value:unknown):value is SkinIndicators {
  if(!value||typeof value!=='object')return false;
  return ['forehead','rightCheek','leftCheek','nose','chin','periorbital'].every(region=>{
@@ -51,6 +55,7 @@ export function validMeasurement(row:SkinIndicator,region:string) {
 export function canCompareIndicator(a:SkinIndicator,b:SkinIndicator) {
  if(a.id!==b.id||a.method!==b.method||a.unit!==b.unit)return false;
  if(a.appearance?.normalizationVersion!==b.appearance?.normalizationVersion||a.appearance?.calibrationVersion!==b.appearance?.calibrationVersion)return false;
+ if(samplingSupportVersion(a.appearance)!==samplingSupportVersion(b.appearance))return false;
  const x=a.measurement,y=b.measurement;
  if(x&&y)return x.scope===y.scope&&x.region===y.region&&x.methodVersion===y.methodVersion&&x.modelHash===y.modelHash&&x.datasetHash===y.datasetHash&&x.evidenceHash===y.evidenceHash&&x.target===y.target&&x.unit===y.unit&&x.validation===y.validation;
  // Only the exact pre-existing color formula is compatible with legacy V3.

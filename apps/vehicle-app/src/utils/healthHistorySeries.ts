@@ -2,7 +2,7 @@
 import type { HealthRecord } from './healthRecords';
 import { HEALTH_MODULE_IDS, type HealthModule } from './healthModules';
 import { performanceBySize, isLetterProtocol, type LetterTrial } from './spokenVision';
-import { SIGN_LABELS, skinCriterionLabel } from './skinIndicators';
+import { SIGN_LABELS, skinCriterionLabel, samplingSupportVersion } from './skinIndicators';
 import { skinDisplayKind } from './skinPresentation';
 
 export type HistoryRecords = Record<HealthModule, HealthRecord[]>;
@@ -72,7 +72,7 @@ export function buildHistorySeries(module: HealthModule, records: HealthRecord[]
         const unit = longitudinal ? 'kontur farkı' : kind === 'percent' ? '%' : kind === 'count' ? 'aday' : m?.unit || entry.unit || '';
         const raw = longitudinal ? entry.referenceDelta : a ? a.value : m ? m.rawValue : entry.score;
         const valid = (!a || a.quality === 'valid') && (!m || m.quality === 'valid') && a?.limitationCode !== 'REFERENCE_CREATED';
-        add(r, { criterion: entry.id, label: skinCriterionLabel(entry.id,region==="overview"?"whole-face":"regional"), region, regionLabel: REGION_LABELS[region] || region, unit, method: `${a?.methodVersion || m?.methodVersion || entry.method || 'Eski yöntem'}${longitudinal ? ' · kişisel referans farkı' : ' · mevcut görünüm'}`, source: '' }, [a?.methodVersion || m?.methodVersion || entry.method, a?.type || m?.validation || 'legacy', a?.unit || m?.unit || entry.unit, m?.modelHash || a?.modelHash || null, a?.normalizationVersion || null, m?.datasetHash || null, m?.evidenceHash || null, longitudinal ? a?.referenceId || r.referenceId || r.id : null], valid ? number(raw) : null, region + entry.id, valid ? '' : entry.reason || 'Bu kayıtta ölçülemiyor');
+        add(r, { criterion: entry.id, label: skinCriterionLabel(entry.id,region==="overview"?"whole-face":"regional"), region, regionLabel: REGION_LABELS[region] || region, unit, method: `${a?.methodVersion || m?.methodVersion || entry.method || 'Eski yöntem'}${longitudinal ? ' · kişisel referans farkı' : ' · mevcut görünüm'}`, source: '' }, [a?.methodVersion || m?.methodVersion || entry.method, a?.type || m?.validation || 'legacy', a?.unit || m?.unit || entry.unit, m?.modelHash || a?.modelHash || null, a?.normalizationVersion || null, samplingSupportVersion(a), m?.datasetHash || null, m?.evidenceHash || null, longitudinal ? a?.referenceId || r.referenceId || r.id : null], valid ? number(raw) : null, region + entry.id, valid ? '' : entry.reason || 'Bu kayıtta ölçülemiyor');
       }
     } else if (module === 'dental' && Array.isArray(r.measurements)) {
       const source = r.sourceType === 'upload' ? 'Yüklenen fotoğraf' : r.sourceType === 'camera' ? 'Kamera' : 'Kaynak kaydedilmemiş';

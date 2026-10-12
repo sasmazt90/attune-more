@@ -101,8 +101,9 @@ def anatomy(layer,payload,source_shape,criterion):
  pad=max(20,face*.1);x0=max(0,int(points[:,0].min()-pad));y0=max(0,int(points[:,1].min()-pad));x1=min(source_shape[1],int(points[:,0].max()+pad+1));y1=min(source_shape[0],int(points[:,1].max()+pad+1))
  whole_shape=(round((y1-y0)*scale),round((x1-x0)*scale));mx=round((layer['x']-x0)*scale);my=round((layer['y']-y0)*scale)
  band=A.eye_skin_bands(payload['landmarks'],whole_shape,scale,(x0,y0),source_shape)[criterion][my:my+active.shape[0],mx:mx+active.shape[1]]
- region=A.polygon_mask(whole_shape,payload['meshes']['periorbital'],scale,(x0,y0))[my:my+active.shape[0],mx:mx+active.shape[1]]
- native=project_map_alpha(layer,source_shape)>0;native_band=A.eye_skin_bands(payload['landmarks'],source_shape[:2],1,(0,0),source_shape)[criterion];native_region=A.polygon_mask(source_shape[:2],payload['meshes']['periorbital'],1)
+ region_mask=A.bag_support_mask if criterion=='bags' else A.polygon_mask
+ region=region_mask(whole_shape,payload['meshes']['periorbital'],scale,(x0,y0))[my:my+active.shape[0],mx:mx+active.shape[1]]
+ native=project_map_alpha(layer,source_shape)>0;native_band=A.eye_skin_bands(payload['landmarks'],source_shape[:2],1,(0,0),source_shape)[criterion];native_region=region_mask(source_shape[:2],payload['meshes']['periorbital'],1)
  legacy_visible=((rgba[:,:,:3]*(rgba[:,:,3:4]/255)).astype(np.uint8).sum(axis=2)>0)
  return dict(activeAnalysisPixels=int(active.sum()),weightedRGB8bitVisibleAnalysisPixels=int(legacy_visible.sum()),insideEyeBandAnalysisPixels=int((active&band).sum()),outsideEyeBandAnalysisPixels=int((active&~band).sum()),insideSelectedRegionAnalysisPixels=int((active&region).sum()),outsideSelectedRegionAnalysisPixels=int((active&~region).sum()),activeSourcePixels=int(native.sum()),insideEyeBandSourcePixels=int((native&native_band).sum()),outsideEyeBandSourcePixels=int((native&~native_band).sum()),insideSelectedRegionSourcePixels=int((native&native_region).sum()),outsideSelectedRegionSourcePixels=int((native&~native_region).sum()),sourceStep=layer['step'],sourceGridMeaning='Analysis-cell native projection uses nearest-neighbor; strict native edge counts include cell rasterization boundaries; active means PNG alpha >0',verification='Actual eye_skin_bands and production mesh triangle union; no y-only heuristic')
 

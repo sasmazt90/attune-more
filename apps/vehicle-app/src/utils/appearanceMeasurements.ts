@@ -1,5 +1,6 @@
 import type { SkinSnapshot } from './skinSnapshot';
 import type { SkinIndicators, SkinMeasurement } from './skinIndicators';
+import { samplingSupportVersion } from './skinIndicators';
 import type { SkinLocalMap } from './skinLocalMaps';
 import {isSkinHostedProcessingAllowed} from './attuneMode';
 export type MeasurementKind='appearance_proxy'|'trained_prediction'|'longitudinal_measurement';
@@ -34,7 +35,7 @@ export function compareAppearance(row:import('./skinIndicators').SkinIndicator,p
  const value=row.appearance,base=prior?.appearance;if(!value)return;
  delete row.referenceDelta;
  if(value.value===null)return; // Preserve the actual quality failure.
- if(!compatible||!base||base.methodVersion!==value.methodVersion||base.unit!==value.unit||base.normalizationVersion!==value.normalizationVersion||base.calibrationVersion!==value.calibrationVersion||base.value===null){
+ if(!compatible||!base||base.methodVersion!==value.methodVersion||base.unit!==value.unit||base.normalizationVersion!==value.normalizationVersion||base.calibrationVersion!==value.calibrationVersion||samplingSupportVersion(base)!==samplingSupportVersion(value)||base.value===null){
   if(value.type==='longitudinal_measurement'){
    value.referenceId=null;
    value.limitationCode=compatible?'REFERENCE_NOT_AVAILABLE':'CAPTURE_CONDITIONS_INCOMPATIBLE';
