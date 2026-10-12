@@ -1,14 +1,17 @@
 """Owned shortcut, staged UTF-8 source bytes, served JS and actual lines v4 / bag sampling v3 API."""
-import hashlib,json,re,subprocess,urllib.request
+import hashlib,json,re,subprocess,sys,urllib.request
 from pathlib import Path
 import psutil,pythoncom
 from win32com.shell import shell
-ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'audit-results/lines-bags-followup-20261012';HOME=Path('C:/Users/PC/Desktop/YENİ İŞ/Applications/7. TOGG/.launcher')
+IMPULSE='--lines-impulse' in sys.argv
+NAME='lines-impulse-20261012' if IMPULSE else 'lines-bags-followup-20261012'
+STAGE='skin-lines-impulse-20261013' if IMPULSE else 'skin-lines-bags-20261012'
+ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'audit-results'/NAME;HOME=Path('C:/Users/PC/Desktop/YENİ İŞ/Applications/7. TOGG/.launcher')
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def get(url):
  with urllib.request.urlopen(url,timeout=15) as r:return r.read()
-receipt=json.loads((ROOT/'.runtime/skin-lines-bags-20261012/source-receipt.json').read_text('utf-8-sig'));matches={name:sha(ROOT/name)==digest for name,digest in receipt.items()};assert all(matches.values())
-build=(ROOT/'apps/vehicle-app/.next/BUILD_ID').read_text('utf8').strip();browser=json.loads((ROOT/'output/playwright/lines-bags-followup-20261012/proof.json').read_text('utf8'));buildMatch=build==browser['buildId'];assert buildMatch
+receipt=json.loads((ROOT/'.runtime'/STAGE/'source-receipt.json').read_text('utf-8-sig'));matches={name:sha(ROOT/name)==digest for name,digest in receipt.items()};assert all(matches.values())
+build=(ROOT/'apps/vehicle-app/.next/BUILD_ID').read_text('utf8').strip();browser=json.loads((ROOT/'output/playwright'/NAME/'proof.json').read_text('utf8'));buildMatch=build==browser['buildId'];assert buildMatch
 link=pythoncom.CoCreateInstance(shell.CLSID_ShellLink,None,pythoncom.CLSCTX_INPROC_SERVER,shell.IID_IShellLink);link.QueryInterface(pythoncom.IID_IPersistFile).Load(str(HOME.parent/'TOGG Başlat.lnk'));shortcutMatch=Path(link.GetArguments().strip('"')).samefile(HOME/'start_togg.pyw');assert shortcutMatch
 session=json.loads((HOME/'session.json').read_text('utf8'));normal=session['status']=='running' and not session['verification'];assert normal
 frontendOwned=Path(psutil.Process(session['frontend_pid']).cwd()).resolve()==ROOT/'apps/vehicle-app';backendOwned=str(ROOT/'services/core-api').lower() in ' '.join(psutil.Process(session['backend_pid']).cmdline()).lower();assert frontendOwned and backendOwned
@@ -23,6 +26,7 @@ p=json.loads((ROOT/'audit-results/bag-label-followup-20261012/36e4010b-v2-payloa
 with urllib.request.urlopen(request,timeout=90) as r:actual=json.loads(r.read())
 apiMatch=actual['measurements']==expected['measurements'] and actual['maps']==expected['maps'];assert apiMatch
 bag=next(v for v in actual['measurements']['periorbital'] if v['id']=='bags');scopeMatch=bag['components']['samplingSupportVersion']=='tracked-center-closed-cells-impulse-v3';assert scopeMatch
+if IMPULSE:assert next(v for v in actual['measurements']['periorbital'] if v['id']=='lines')['components']['samplingSupportVersion']=='native-impulse-one-cycle-lines-v1'
 model=ROOT/'services/core-api/models/skin-focused-degrees.onnx';loaded=[v['modelHash'] for v in actual['general'].get('modelInference',{}).values() if v.get('modelHash')];modelMatch=bool(loaded) and all(v==sha(model) for v in loaded);assert modelMatch
 files=['appearance_analysis.py','instant_appearance.py','skin_general.py','skin_models.py','hosted_skin_type.py'];sourceHashes={n:sha(ROOT/'services/core-api'/n) for n in files}
 committed={}

@@ -2,7 +2,8 @@
 import base64,copy,json,sys,time,urllib.request
 from pathlib import Path
 from playwright.sync_api import sync_playwright,expect
-ROOT=Path(__file__).resolve().parents[2];DATA=ROOT/'audit-results/lines-bags-followup-20261012';OUT=ROOT/'output/playwright/lines-bags-followup-20261012';OUT.mkdir(parents=True,exist_ok=True);PROFILE=OUT/'product-profile-2'
+IMPULSE='--lines-impulse' in sys.argv
+ROOT=Path(__file__).resolve().parents[2];NAME='lines-impulse-20261012' if IMPULSE else 'lines-bags-followup-20261012';DATA=ROOT/'audit-results'/NAME;OUT=ROOT/'output/playwright'/NAME;OUT.mkdir(parents=True,exist_ok=True);PROFILE=OUT/'product-profile-1'
 LABELS=dict(tone='Ton eşitsizliği',oil='Yağlı görünüm',redness='Kızarıklık eğilimi',acne='Sivilce görünümü',sag='Sarkma',dry='Cilt kuruluğu',dark='Göz altı morluğu',bags='Göz altı torbaları',lines='Kaz ayakları')
 OVERVIEW={**LABELS,'sag':'Sarkma görünümü','dry':'Cilt kuruluğu görünümü'}
 VIEWS=['overview','forehead','rightCheek','leftCheek','nose','chin','periorbital']
@@ -11,6 +12,7 @@ bundle=(ROOT/'.runtime/periorbital-v5-browser-support/utilities.js').read_text('
 captured=json.loads((ROOT/'audit-results/periorbital-v5-integration-20261012/20031f35-browser-api.json').read_text('utf8'))
 captured['productPayload']=json.loads((ROOT/'audit-results/bag-label-followup-20261012/20031f35-v2-payload.json').read_text('utf8'))
 captured['response']=json.loads((ROOT/'audit-results/bag-label-followup-20261012/20031f35-normal-api.json').read_text('utf8'))
+if IMPULSE:captured['response']=json.loads((ROOT/'audit-results/lines-bags-followup-20261012/20031f35-normal-api.json').read_text('utf8'))
 errors=[];results=[];map_controls=[]
 # The normal shortcut starts asynchronously; do not race its listening socket.
 deadline=time.monotonic()+45
@@ -87,7 +89,10 @@ with sync_playwright() as pw:
   const R=n=>__auditRequire('apps/vehicle-app/src/utils/'+n+'.ts'),I=R('skinIndicators'),A=R('appearanceMeasurements'),H=R('healthHistorySeries'),rows=JSON.parse(localStorage.getItem('togg_health_skin_history')),old=rows.find(r=>r.id==='label-replay-correct'),now=rows.find(r=>r.id===currentId);
   return ['bags','lines'].flatMap(criterion=>['overview','periorbital'].map(scope=>{const get=r=>(scope==='overview'?r.general.indicators:r.indicators[scope]).find(v=>v.id===criterion),a=get(now),b=get(old),comparable=I.canCompareIndicator(a,b);A.compareAppearance(a,b,true,old.id);return {scope,criterion,oldSampling:I.samplingSupportVersion(b.appearance),newSampling:I.samplingSupportVersion(a.appearance),sameNormalization:a.appearance.normalizationVersion===b.appearance.normalizationVersion,comparable,deltaBlocked:a.referenceDelta===undefined,seriesCount:H.buildHistorySeries('skin',[old,now]).filter(s=>s.region===scope&&s.criterion===criterion).length};}));
  }''',dict(currentId=new_record['id']))
- assert all((v['sameNormalization'] if v['criterion']=='bags' else not v['sameNormalization']) and not v['comparable'] and v['deltaBlocked'] and v['seriesCount']==2 for v in scope_controls),scope_controls
+ if IMPULSE:
+  assert all(v['sameNormalization'] and v['comparable']==(v['criterion']=='bags') and v['deltaBlocked']==(v['criterion']=='lines') and v['seriesCount']==(2 if v['criterion']=='lines' else 1) for v in scope_controls),scope_controls
+ else:
+  assert all((v['sameNormalization'] if v['criterion']=='bags' else not v['sameNormalization']) and not v['comparable'] and v['deltaBlocked'] and v['seriesCount']==2 for v in scope_controls),scope_controls
  for ident in [new_record['id'],*fixture_ids]:
   page.goto('http://127.0.0.1:3000/profile');page.locator('[data-record-id="'+ident+'"]').get_by_role('button',name='Sonucu Aç',exact=True).click();dialog=page.get_by_role('dialog',name='Cilt Sağlığı sonucu',exact=True);expect(dialog.locator('[data-skin-snapshot]')).to_be_visible(timeout=15000)
   results.append(dict(case='history-'+ident,views=inspect_views(dialog,'history-'+ident)));page.keyboard.press('Escape')

@@ -20,6 +20,7 @@ from skin_scan_baseline.oiliness import oiliness_map
 from skin_scan_baseline.blemishes import blemish_map
 
 VERSION = 'appearance-cv-6'
+LINE_FREQUENCIES=(.13,.18,.26)
 LIMITS = {'minFacePixels': 180, 'analysisFacePixels': 320, 'maxClippedFraction': .03}
 NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-area-fixed-v2-shared','acne':'unique-detection-box-anatomical-area-v2','lines':'outer-canthus-gabor-radiating-hair-excluded-v4','dark':'lower-lid-contrast-chroma-local-v4','sag':'contour-fold-lower-face-local-support-v6','bags':'contour-fold-local-support-v5'}
 
@@ -152,6 +153,19 @@ def elongated_dark_mask(gray8):
         if max(w,h)>=8 and max(w,h)/max(min(w,h),1)>=3:
             hair|=labels==i
     return cv2.dilate(hair.astype(np.uint8),np.ones((5,5),np.uint8))>0
+
+
+def coherent_line_signal(signal,eligible):
+    """Accept a connected local line spanning one coarsest Gabor period.
+
+    The minimum span follows the configured filter wavelength, not a photo or
+    score threshold. ROI/occlusion clipping precedes this check, so hidden
+    eye/hair responses cannot supply the visible line's continuity.
+    """
+    count,labels,stats,_=cv2.connectedComponentsWithStats(((signal>0)&eligible).astype(np.uint8),8)
+    minimum_span=int(np.ceil(1/min(LINE_FREQUENCIES)))
+    ids=np.where((np.maximum(stats[:,cv2.CC_STAT_WIDTH],stats[:,cv2.CC_STAT_HEIGHT])>=minimum_span)&(np.arange(count)>0))[0]
+    return np.where(np.isin(labels,ids),signal,0)
 
 
 def isolated_impulse_sampling(source):
@@ -497,18 +511,21 @@ def analyze_skin(payload, include_research_features=False):
                 return signal,None
             value,dark,known,dark_reason,dark_area,dark_components=eye_measurement('dark',100,dark_field)
             add('dark',value,'relative-color-index-0-100',dark,100,limitation=dark_reason,signal_mask=known,measurement_area=dark_area,components=dark_components)
+            lines_source,_=isolated_impulse_sampling(bgr)
+            lines_image=cv2.resize(lines_source[y0:y1,x0:x1],None,fx=scale,fy=scale,interpolation=cv2.INTER_AREA)
+            lines_gray=cv2.cvtColor(lines_image,cv2.COLOR_BGR2GRAY).astype(np.float32)/255
             eye_axis=np.array([(points[263]['x']-points[33]['x'])*width,(points[263]['y']-points[33]['y'])*bgr.shape[0]])
             roll_rad=float(np.arctan2(eye_axis[1],eye_axis[0])) if np.linalg.norm(eye_axis)>1e-5 else 0.
             radiating_thetas=(np.pi/2+roll_rad-np.pi/6,np.pi/2+roll_rad,np.pi/2+roll_rad+np.pi/6)
             ortho_thetas=(roll_rad-np.pi/6,roll_rad,roll_rad+np.pi/6)
             rad_sig=np.zeros(gray.shape,np.float32)
             ortho_sig=np.zeros(gray.shape,np.float32)
-            for frequency in (.13,.18,.26):
+            for frequency in LINE_FREQUENCIES:
                 for theta in radiating_thetas:
-                    real,imaginary=gabor(gray,frequency=frequency,theta=theta)
+                    real,imaginary=gabor(lines_gray,frequency=frequency,theta=theta)
                     rad_sig=np.maximum(rad_sig,np.hypot(real,imaginary))
                 for theta in ortho_thetas:
-                    real,imaginary=gabor(gray,frequency=frequency,theta=theta)
+                    real,imaginary=gabor(lines_gray,frequency=frequency,theta=theta)
                     ortho_sig=np.maximum(ortho_sig,np.hypot(real,imaginary))
             ratio=rad_sig/np.maximum(ortho_sig,0.005)
             dir_gate=np.clip((ratio-1.22)/0.35,0.,1.)
@@ -520,8 +537,11 @@ def analyze_skin(payload, include_research_features=False):
                 med_l=float(np.median(gray[valid_line]))
                 skin_support=valid_line & (gray>=med_l*0.50)
                 if skin_support.sum()<20:return None,'HAIR_OR_OCCLUSION_IN_LINE_BAND',skin_support
-                return (None,'INSUFFICIENT_SOURCE_DETAIL',skin_support) if face_pixels<LIMITS['minFacePixels'] else (lines*100,None,skin_support)
+                return (None,'INSUFFICIENT_SOURCE_DETAIL',skin_support) if face_pixels<LIMITS['minFacePixels'] else (coherent_line_signal(lines,skin_support)*100,None,skin_support)
             value,line_signal,known,lines_reason,lines_area,line_components=eye_measurement('lines',75,line_field)
+            line_components['samplingSupportVersion']='native-impulse-one-cycle-lines-v1'
+            line_components['photometricSamplingVersion']='native-isolated-impulse-median-v1'
+            line_components['lineSupportVersion']='connected-local-one-coarsest-period-v1'
             add('lines',value,'directional-line-index-0-100',line_signal/100,limitation=lines_reason,signal_mask=known,measurement_area=lines_area,components=line_components)
         if region != 'nose':
             contour_support=base&~clipping&(gray>.12)

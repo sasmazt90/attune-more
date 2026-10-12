@@ -5,12 +5,14 @@ import cv2,numpy as np
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'scripts'))
 import evaluate_periorbital_and_acne_comparative as audit
 import appearance_analysis as A
-OUT=ROOT/'audit-results/lines-bags-followup-20261012'
+IMPULSE='--lines-impulse' in sys.argv
+OUT=ROOT/'audit-results'/('lines-impulse-20261012' if IMPULSE else 'lines-bags-followup-20261012')
+INPUT=ROOT/'audit-results/lines-bags-followup-20261012'
 rows=json.loads((OUT/'same-input-comparison.json').read_text('utf8'))
 audit.request('http://127.0.0.1:8000/api/vehicle/speed',{'speedKmH':0})
 proof=[]
 for row in rows:
- prefix=row['sourceSHA256'][:8];f=OUT/(prefix+'-payload.json')
+ prefix=row['sourceSHA256'][:8];f=INPUT/(prefix+'-payload.json')
  if not f.exists():f=ROOT/'audit-results/bag-label-followup-20261012'/(prefix+'-v2-payload.json')
  p=json.loads(f.read_text('utf8'));actual=audit.request('http://127.0.0.1:8000/api/local-health/skin',p)
  expected=json.loads((OUT/(prefix+'-offline.json')).read_text('utf8'))
@@ -27,6 +29,7 @@ for row in rows:
  assert all(g['outsideEyeBandAnalysisPixels']==0 and g['outsideSelectedRegionAnalysisPixels']==0 for g in geometry.values())
  lines=next(v for v in actual['measurements']['periorbital'] if v['id']=='lines');bag=next(v for v in actual['measurements']['periorbital'] if v['id']=='bags')
  assert lines['normalizationVersion']=='outer-canthus-gabor-radiating-hair-excluded-v4'
+ if IMPULSE:assert lines['components']['samplingSupportVersion']=='native-impulse-one-cycle-lines-v1'
  assert bag['components']['samplingSupportVersion']=='tracked-center-closed-cells-impulse-v3'
  bgr=A.decode_photo(p['photo'])[0]
  for criterion in ('lines','bags'):
