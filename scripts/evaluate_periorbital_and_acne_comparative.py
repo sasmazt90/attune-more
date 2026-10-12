@@ -214,6 +214,7 @@ def main():
         audit_file = Path(r"C:\Users\PC\.gemini\antigravity\brain\0a64bf7e-8a6b-468c-8be8-f0ee9e6db0b8\scratch\audit_records.json")
     assert audit_file.is_file(), f"Audit records missing: {audit_file}"
     audit_recs = json.loads(audit_file.read_text('utf8'))
+    audit_by_sha = {r['sha256']: r for r in audit_recs}
     
     subsets = {}
     for target in ['dark', 'bags', 'lines']:
@@ -301,6 +302,8 @@ def main():
                 'path': sha_to_path[sha],
                 'type': 'positive',
                 'target': target,
+                'sampleCategory': audit_by_sha.get(sha, {}).get('sample_category', 'development_control'),
+                'selectionRationale': audit_by_sha.get(sha, {}).get('selection_rationale', 'Training split development control; not unseen test set.'),
                 'conditions': payload['conditions'],
                 'qualityValid': payload['qualityValid'],
                 'baseline': {
@@ -385,6 +388,8 @@ def main():
                 'path': sha_to_path[sha],
                 'type': 'reviewed_negative',
                 'target': target,
+                'sampleCategory': audit_by_sha.get(sha, {}).get('sample_category', 'reviewed_negative'),
+                'selectionRationale': audit_by_sha.get(sha, {}).get('selection_rationale', 'scope-v4 reviewed engineering negative ROI.'),
                 'conditions': payload['conditions'],
                 'qualityValid': payload['qualityValid'],
                 'baseline': {
@@ -415,7 +420,18 @@ def main():
             overlay_c = decode_map_overlay(res_c.get('maps', {}).get(map_key), bgr.shape)
             
             p_truth = bgr.copy()
-            cv2.putText(p_truth, "REVIEWED NEGATIVE ROI (Scope-v4)", (15, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 200, 255), 2)
+            cat = audit_by_sha.get(sha, {}).get('sample_category', 'reviewed_negative')
+            if cat == 'transformed_regression_sample':
+                truth_label = "TRANSFORMED REGRESSION TEST (20deg rot, black corners)"
+                triptych_title = f"TRANSFORMED REGRESSION: {target.upper()} ({sha[:8]})"
+            elif cat == 'natural_reviewed_negative':
+                truth_label = "NATURAL REVIEWED NEGATIVE (Upright, no padding)"
+                triptych_title = f"NATURAL REVIEWED NEGATIVE: {target.upper()} ({sha[:8]})"
+            else:
+                truth_label = "REVIEWED NEGATIVE ROI (Scope-v4)"
+                triptych_title = f"GROUND TRUTH: {target.upper()} REVIEWED NEGATIVE ({sha[:8]})"
+
+            cv2.putText(p_truth, truth_label, (15, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 200, 255), 2)
             p_base = blend_overlay(bgr.copy(), overlay_b)
             p_cand = blend_overlay(bgr.copy(), overlay_c)
             
@@ -428,7 +444,7 @@ def main():
             b_txt = f"Baseline: raw={b_val:.2f} UI={b_ui}%" if b_val is not None else f"Baseline: None ({b_item.get('limitationCode')})"
             c_txt = f"Candidate: raw={c_val:.2f} UI={c_ui}%" if c_val is not None else f"Candidate: None ({c_item.get('limitationCode')})"
             
-            cv2.putText(triptych, f"GROUND TRUTH: {target.upper()} REVIEWED NEGATIVE", (10, 24), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 165, 255), 2)
+            cv2.putText(triptych, triptych_title, (10, 24), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 165, 255), 2)
             cv2.putText(triptych, b_txt, (bgr.shape[1] + 10, 24), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 255, 255), 2)
             cv2.putText(triptych, c_txt, (bgr.shape[1]*2 + 10, 24), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (255, 200, 0), 2)
             
@@ -716,10 +732,10 @@ def main():
             html_lines.extend([
                 f'  <div class="card" data-target="{t}">',
                 '    <div class="card-header">',
-                f'      <div><span class="badge pos">{t.upper()} positive</span><strong style="margin-left: 8px; font-size: 15px;">SHA: {sha[:16]}</strong></div>',
+                f'      <div><span class="badge pos">{rec.get("sampleCategory", "positive").replace("_", " ").upper()}</span><strong style="margin-left: 8px; font-size: 15px;">SHA: {sha[:16]}</strong></div>',
                 f'      <div><span style="color: #facc15; font-size: 13px;">{b_str}</span> &rarr; <span style="color: #38bdf8; font-size: 13px; font-weight: 600;">{c_str}</span></div>',
                 '    </div>',
-                f'    <div class="meta">{rec["path"]}</div>',
+                f'    <div class="meta">{rec["path"]}<br><span style="color: #94a3b8; font-size: 12px;">Rationale: {rec.get("selectionRationale", "")}</span></div>',
                 '    <div class="columns-legend">',
                 '      <span class="legend-truth">Ground Truth Labels</span>',
                 '      <span class="legend-base">Baseline (d596873) Local Map</span>',
@@ -738,15 +754,18 @@ def main():
             c_val = rec['candidate']['rawValue']
             b_str = f"Base: raw={b_val:.2f} (UI: {rec['baseline']['uiScore']}%)" if b_val is not None else f"Base: None ({rec['baseline']['limitationCode']})"
             c_str = f"Cand: raw={c_val:.2f} (UI: {rec['candidate']['uiScore']}%)" if c_val is not None else f"Cand: None ({rec['candidate']['limitationCode']})"
+            cat = rec.get('sampleCategory', 'reviewed_negative')
+            badge_class = "pos" if cat == 'natural_reviewed_negative' else "neg"
+            badge_text = cat.replace('_', ' ').upper()
             html_lines.extend([
                 f'  <div class="card" data-target="{t}">',
                 '    <div class="card-header">',
-                f'      <div><span class="badge neg">{t.upper()} reviewed negative</span><strong style="margin-left: 8px; font-size: 15px;">SHA: {sha[:16]}</strong></div>',
+                f'      <div><span class="badge {badge_class}">{badge_text}</span><strong style="margin-left: 8px; font-size: 15px;">SHA: {sha[:16]}</strong></div>',
                 f'      <div><span style="color: #facc15; font-size: 13px;">{b_str}</span> &rarr; <span style="color: #38bdf8; font-size: 13px; font-weight: 600;">{c_str}</span></div>',
                 '    </div>',
-                f'    <div class="meta">{rec["path"]}</div>',
+                f'    <div class="meta">{rec["path"]}<br><span style="color: #94a3b8; font-size: 12px;">Rationale: {rec.get("selectionRationale", "")}</span></div>',
                 '    <div class="columns-legend">',
-                '      <span class="legend-truth">Reviewed Negative (Scope-v4)</span>',
+                '      <span class="legend-truth">Control ROI / Rationale</span>',
                 '      <span class="legend-base">Baseline (d596873) Local Map</span>',
                 '      <span class="legend-cand">Candidate Local Map</span>',
                 '    </div>',

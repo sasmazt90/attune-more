@@ -12,6 +12,7 @@ import cv2
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'services/core-api'))
+sys.path.insert(0, str(ROOT / 'scripts'))
 import appearance_analysis as A
 from acne_box_support import region_envelopes, accepted_boxes as filter_acne_boxes, box_area, VERSION as ACNE_SUPPORT_VERSION
 from test_local_appearance_health import photo
@@ -181,6 +182,21 @@ def test_target_c_eye_bags_version_and_eyelid_margin_separation():
     assert bags['normalizationVersion'] == 'contour-fold-local-support-v5'
     assert bags['components']['formulaVersion'] == 'contour-fold-local-support-v5'
     assert bags['value'] == 0.0, f"Normal lower eyelid margin dip must produce score 0.0, got {bags['value']}"
+    
+    # Map consistency: zero score must have zero active pixels on map
+    from evaluate_periorbital_and_acne_comparative import decode_map_overlay
+    overlay = decode_map_overlay(res.get('maps', {}).get('periorbital:bags'), (h, w, 3))
+    assert (overlay.sum(axis=2) > 0).sum() == 0, "Zero card score must produce 0 active map pixels"
+    
+    # Cheek / chin sag preservation: continuity gate < 0.20 zeroing must be strictly isolated to periorbital
+    # In cheek/chin, continuity_gate = min(1.0, continuity / 0.6) and is NOT zeroed
+    gray = np.full((h, w), 150, np.uint8)
+    eligible = np.ones((h, w), bool)
+    cond = dict(yaw=0., pitch=0., roll=0., scaleRatio=.6, avgLuminance=150., blurScore=50.)
+    # Call instant_proxy for rightCheek and periorbital with synthetic flat input
+    v_cheek, comp_cheek, sig_cheek, _, _ = IA.instant_proxy(gray, eligible, p, 'rightCheek', cond, 1.0, (0, 0), (h, w))
+    assert 'times continuity/0.6' in comp_cheek['indexAggregation'], "Cheek must retain previous continuity/0.6 aggregation"
+    assert comp_cheek['formulaVersion'] == 'contour-fold-target-roi-local-support-v6'
 
 
 def test_target_d_lines_radiating_angles_exclude_vertical_lash_and_hair():

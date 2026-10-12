@@ -169,7 +169,10 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
         # Normalize confirmation factors (edge and boundary) against their expected full-support reference scales
         # so confirmation gates don't over-dampen visible anatomical folds into sub-percent fractions (< 0.5% => 0% UI).
         edge_gate = np.minimum(1.0, np.sqrt(q['edgeValues'] / 0.04))
-        continuity_gate = 0.0 if q['continuity'] < 0.20 else min(1.0, q['continuity'] / 0.6)
+        if region == 'periorbital':
+            continuity_gate = 0.0 if q['continuity'] < 0.20 else min(1.0, q['continuity'] / 0.6)
+        else:
+            continuity_gate = min(1.0, q['continuity'] / 0.6)
         if boundary is not None:
             boundary_gate = min(1.0, np.sqrt(max(0.0, boundary['value']) / 0.08))
             joint = float(np.mean(q['values'] * edge_gate)) * continuity_gate * boundary_gate
