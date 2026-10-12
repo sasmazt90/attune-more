@@ -21,7 +21,7 @@ from skin_scan_baseline.blemishes import blemish_map
 
 VERSION = 'appearance-cv-6'
 LIMITS = {'minFacePixels': 180, 'analysisFacePixels': 320, 'maxClippedFraction': .03}
-NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-area-fixed-v2-shared','acne':'unique-detection-box-anatomical-area-v2','lines':'outer-canthus-gabor-radiating-hair-excluded-v3','dark':'lower-lid-contrast-chroma-local-v3','sag':'contour-fold-lower-face-local-support-v6','bags':'contour-fold-local-support-v4'}
+NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-area-fixed-v2-shared','acne':'unique-detection-box-anatomical-area-v2','lines':'outer-canthus-gabor-radiating-hair-excluded-v3','dark':'lower-lid-contrast-chroma-local-v4','sag':'contour-fold-lower-face-local-support-v6','bags':'contour-fold-local-support-v4'}
 
 
 def decode_photo(data):
@@ -440,7 +440,7 @@ def analyze_skin(payload, include_research_features=False):
                 target_area=dict(scope='measured-local-eye-target-bands',sourcePixels=float(observed.sum()/scale**2),analysisPixels=int(observed.sum()),anatomicalSourcePixels=float((anatomical&bands[criterion]).sum()/scale**2),sourceFacePixels=float(face_pixels),unknownSides=[v['side'] for v in sides if v['value'] is None])
                 return value,signal,observed,limitation,target_area,dict(sides=sides,partialCoverage=len(measured)<len(sides),band=criterion)
             def dark_field(under):
-                adjacent=cv2.dilate(under.astype(np.uint8),np.ones((25,25),np.uint8)).astype(bool)&~bands['dark']&~bands['bags']&(exclusion==0)&~clipping&~hair&(face_support>0)&(gray>.12)
+                adjacent=cv2.dilate(under.astype(np.uint8),np.ones((25,25),np.uint8)).astype(bool)&~bands['dark']&(exclusion==0)&~clipping&~hair&(face_support>0)&(gray>.12)
                 if adjacent.sum()<100:return None,'ADJACENT_SKIN_MISSING'
                 ref_l=float(np.median(gray[adjacent]))
                 rel_contrast=np.maximum(0.,(ref_l-gray)/max(ref_l,.1))

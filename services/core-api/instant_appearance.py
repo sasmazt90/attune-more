@@ -124,7 +124,8 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
     # the full photograph from a tiny regional mask.
     A=np.column_stack([(xs-xs.min())/max(np.ptp(xs),1),(ys-ys.min())/max(np.ptp(ys),1),np.ones(len(xs))])
     slope=np.linalg.lstsq(A,smooth[eligible],rcond=None)[0]
-    if np.linalg.norm(slope[:2])>.55:return fail('HARD_DIRECTIONAL_SHADOW')
+    shadow_threshold=.75 if region=='periorbital' else .55
+    if np.linalg.norm(slope[:2])>shadow_threshold:return fail('HARD_DIRECTIONAL_SHADOW')
     native_width=face*scale
     skin=context_skin if context_skin is not None else eligible
     if hair is not None and np.mean(hair[eligible])>.22:return fail('HAIR_OR_SHARP_LINE_CONFOUNDER')
@@ -175,7 +176,7 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
         limitation=None
         if local_exposure['clippedFraction']>.03 or boundary_exposure is not None and boundary_exposure['clippedFraction']>.03:limitation='GLARE_OR_EXPOSURE'
         elif q['coverage']<.55 or boundary is not None and boundary['coverage']<.55:limitation='ANATOMICAL_BAND_NOT_VISIBLE'
-        elif q['trackingResidual']>2.5:limitation='CONTOUR_TRACKING_UNSTABLE'
+        elif q['trackingResidual']>(2.8 if region=='periorbital' else 2.5):limitation='CONTOUR_TRACKING_UNSTABLE'
         side_value=None if limitation else float(np.clip(joint*100,0,100))
         sides.append(dict(side=side,value=side_value,fold=q['strength'],pairedEdge=q['edge'],continuity=q['continuity'],coverage=q['coverage'],trackingResidual=q['trackingResidual'],trackingQualityVersion=q['trackingQualityVersion'],exposure=local_exposure,limitationCode=limitation))
         if side_value is not None and side_value>0:
