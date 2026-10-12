@@ -46,8 +46,12 @@
 | **`beda0290`** | **Development Kontrolü**<br>(Eyeliner & -24.5° Roll Negatifi) | `0.4012` / %0 / 5 px / 5 px | **`0.0009`** / **%0** / **0 px** / **0 px** | **TEMİZ SIFIR NEGATİF**<br>Siyah eyeliner ucu bağıl parlaklık tabanıyla dışlandı; aşırı açılı sağ göz `INSUFFICIENT_VISIBLE_AREA` ile korundu. |
 | **`4b13b16a`** | **Development Kontrolü**<br>(Doğal Dik Negatif Kontrol) | `0.4113` / %0 / 10 px / 10 px | **`0.3322`** / **%0** / **10 px** / **10 px** | **TEMİZ SIFIR UI (Düşük Taban)**<br>Göz yarığı bileşkesindeki 10 piksellik mikro-katlantı taban altında; UI %0, sahte alarm üretmiyor. |
 | **`5bd42346`** | **Development Kontrolü**<br>(Dönüştürülmüş Regresyon) | `0.3335` / %0 / 25 px / 25 px | **`0.4156`** / **%0** / **72 px** / **72 px** | **TEMİZ SIFIR UI (Gürültü Kontrolü)**<br>20.5° dönme ve köşe üçgeni yapaylığına rağmen skor taban altında tutuldu. |
-| **`01955323`** | **Bağımsız Doğal Negatif**<br>(Daha Önce Kullanılmamış) | `0.0000` / %0 / 0 px / 0 px | **`0.0000`** / **%0** / **0 px** / **0 px** | **KUSURSUZ DOĞAL NEGATİF**<br>Dik doğal çekim (yaw: 0.31, roll: 0.08); göz dış köşelerinde sıfır çizgi, sıfır aktif piksel. |
+| **`01955323`** | **Keşif Amaçlı Doğal Kontrol**<br>(Görsel Negatif İnceleme) | `0.0000` / %0 / 0 px / 0 px | **`0.0000`** / **%0** / **0 px** / **0 px** | **GÖRSEL İNCELEME NEGATİFİ**<br>Dik doğal çekim (yaw: 0.31, roll: 0.08); göz dış köşelerinde sıfır çizgi, sıfır aktif piksel. Görsel olarak pürüzsüz teyit edilmiş olup, bağımsız görülmemiş test kümesi genellemesi iddia edilmez. |
 | **`7a8f4488`** | **Kalite Reddi Kontrolü**<br>(Üretim Kapısı Elenmesi) | `None` (`CAPTURE_QUALITY`) | `None` (`CAPTURE_QUALITY`) | **GÜVENLİ KALİTE REDDİ**<br>Etiketli kırışıklık mevcut ancak aşırı baş açısı (`yaw: -1.02 < -0.35`) nedeniyle üretim kalite kapısınca güvenle elendi. |
+
+> [!NOTE]
+> **Negatif Seçim ve Genelleme İlkesi:** Etiketsiz alanlar otomatik negatif kanıtı kabul edilmez. Negatif kontroller için yalnız doğrulanmış negatif ROI (`beda0290`, `4b13b16a`), dönüştürülmüş regresyon (`5bd42346`) veya görsel olarak incelenmiş pürüzsüz anatomik alan (`01955323`) dayanak alınmıştır.
+
 
 ---
 

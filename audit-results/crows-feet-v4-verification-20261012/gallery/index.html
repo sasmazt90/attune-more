@@ -18,6 +18,7 @@
     .badge-pos { background: #065f46; color: #34d399; }
     .badge-neg { background: #1e3a8a; color: #60a5fa; }
     .badge-qual { background: #78350f; color: #f59e0b; }
+    .badge-exp { background: #4c1d95; color: #c084fc; }
     .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
     .img-box { background: #0b0f19; border-radius: 6px; padding: 8px; text-align: center; border: 1px solid #1e293b; }
     .img-box img { max-width: 100%; height: auto; border-radius: 4px; display: block; margin: 0 auto; }
@@ -29,22 +30,27 @@
     .status-preserved { color: #38bdf8; font-weight: 600; }
     .status-clean { color: #60a5fa; font-weight: 600; }
     .status-rejected { color: #f59e0b; font-weight: 600; }
+    .notice { background: #1e293b; border-left: 4px solid #38bdf8; padding: 12px; margin-bottom: 24px; font-size: 13px; color: #cbd5e1; }
   </style>
 </head>
 <body>
   <h1>TOGG Attune — Hedef D: Kaz Ayakları (Lines v4) Doğrulama Raporu</h1>
-  <div class="subtitle">outer-canthus-gabor-radiating-hair-excluded-v4 Canlı Karşılaştırmalı Doğrulama Kanıtı</div>
+  <div class="subtitle">outer-canthus-gabor-radiating-hair-excluded-v4 Canlı Karşılaştırmalı Doğrulama Kanıtı (İzole Süreç Yürütümü)</div>
+
+  <div class="notice">
+    <strong>Önemli Doğrulama Beyanı:</strong> Etiketsiz alanlar otomatik negatif kanıtı sayılmaz. Bu raporda negatif kontroller için incelenmiş negatif ROI veya görsel inceleme dayanağı belirtilmiştir. 01955323 örneği bağımsız bir test kümesi değil, keşif amaçlı görsel inceleme yapılmış doğal örnektir.
+  </div>
 
   <div class="meta-box">
     <div class="meta-grid">
       <div class="meta-item"><div class="label">Toplam Değerlendirilen</div><div class="val">7 Örnek</div></div>
       <div class="meta-item"><div class="label">Kurtarılan Pozitif (Fine)</div><div class="val" style="color:#34d399;">1 / 1</div></div>
       <div class="meta-item"><div class="label">Korunan Pozitif (Deep)</div><div class="val" style="color:#38bdf8;">1 / 1</div></div>
-      <div class="meta-item"><div class="label">Sahte Pozitif Negatif Alarm</div><div class="val" style="color:#60a5fa;">0</div></div>
+      <div class="meta-item"><div class="label">UI > %0 Gösterilen Negatif Sayısı</div><div class="val" style="color:#60a5fa;">0</div></div>
       <div class="meta-item"><div class="label">Non-Regression (Dark/Bags/Dry/Sag)</div><div class="val">EVET (100% Korundu)</div></div>
       <div class="meta-item"><div class="label">Harita-Kart Tutarlılığı</div><div class="val">EVET (Doğrulandı)</div></div>
-      <div class="meta-item"><div class="label">Çalışma Süresi</div><div class="val">63.86s</div></div>
-      <div class="meta-item"><div class="label">Zaman Damgası</div><div class="val">2026-10-12T18:48:01Z</div></div>
+      <div class="meta-item"><div class="label">Çalışma Süresi</div><div class="val">82.15s</div></div>
+      <div class="meta-item"><div class="label">Zaman Damgası</div><div class="val">2026-10-12T19:04:25Z</div></div>
     </div>
   </div>
 
@@ -55,7 +61,8 @@
       <div class="card-title">a94f1646 — POSITIVE_FINE_LINES_DEV</div>
       <span class="badge badge-pos">development_control</span>
     </div>
-    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Development control: Fine crow's feet wrinkles on lateral canthus band (failing in v3 with raw=0.0, rescued in v4)</p>
+    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Development control: Fine crow's feet wrinkles in outer canthus band (failing in v3 with raw=0.0, rescued in v4)</p>
+    <p style="font-size:12px; color:#38bdf8; margin-top:-6px;"><strong>ROI İnceleme Durumu:</strong> <code>positive_fine_wrinkles_verified</code></p>
     
     <div class="comparison-grid">
       <div class="img-box">
@@ -113,6 +120,7 @@
       <span class="badge badge-pos">development_control</span>
     </div>
     <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Development control: Prominent deep crow's feet folds fanning from outer eye corners (preserved and strengthened in v4)</p>
+    <p style="font-size:12px; color:#38bdf8; margin-top:-6px;"><strong>ROI İnceleme Durumu:</strong> <code>positive_deep_folds_verified</code></p>
     
     <div class="comparison-grid">
       <div class="img-box">
@@ -169,7 +177,8 @@
       <div class="card-title">beda0290 — NEGATIVE_CONTROL_EYELINER_DEV</div>
       <span class="badge badge-neg">development_control</span>
     </div>
-    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Development control: Clean smooth under-eye/temple skin with dark eyeliner flick, roll = -24.5 deg</p>
+    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Development control: Clean smooth under-eye/temple skin with dark eyeliner flick, roll = -24.5 deg (eyeliner and roll occlusion test)</p>
+    <p style="font-size:12px; color:#38bdf8; margin-top:-6px;"><strong>ROI İnceleme Durumu:</strong> <code>reviewed_negative_roi_verified</code></p>
     
     <div class="comparison-grid">
       <div class="img-box">
@@ -226,7 +235,8 @@
       <div class="card-title">4b13b16a — NEGATIVE_CONTROL_NATURAL_DEV</div>
       <span class="badge badge-neg">development_control</span>
     </div>
-    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Development control: Natural upright capture with smooth eye corners; evaluated inside reviewed negative ROI</p>
+    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Development control: Natural upright capture with smooth eye corners; evaluated inside reviewed negative ROI. Faint junction micro-texture yields raw 0.3322 (UI: %0).</p>
+    <p style="font-size:12px; color:#38bdf8; margin-top:-6px;"><strong>ROI İnceleme Durumu:</strong> <code>reviewed_negative_roi_with_crease_residual</code></p>
     
     <div class="comparison-grid">
       <div class="img-box">
@@ -283,7 +293,8 @@
       <div class="card-title">5bd42346 — NEGATIVE_REGRESSION_TRANSFORMED_DEV</div>
       <span class="badge badge-neg">development_control</span>
     </div>
-    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Development control: Transformed regression sample (20.5 deg rotation, corner triangles, noise)</p>
+    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Development control: Transformed regression sample (20.5 deg rotation, corner triangles, noise). Border padding artifact yields raw 0.4156 (UI: %0).</p>
+    <p style="font-size:12px; color:#38bdf8; margin-top:-6px;"><strong>ROI İnceleme Durumu:</strong> <code>transformed_regression_sample</code></p>
     
     <div class="comparison-grid">
       <div class="img-box">
@@ -337,10 +348,11 @@
 
   <div class="card">
     <div class="card-header">
-      <div class="card-title">01955323 — NEGATIVE_CONTROL_NATURAL_INDEPENDENT</div>
-      <span class="badge badge-neg">independent_natural_control</span>
+      <div class="card-title">01955323 — EXPLORATORY_NATURAL_NEGATIVE_REVIEW</div>
+      <span class="badge badge-exp">exploratory_natural_sample</span>
     </div>
-    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Independent natural test control: Upright natural capture (yaw 0.31, roll 0.08) with smooth temples and zero line annotations</p>
+    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Exploratory natural control: Upright natural capture (yaw 0.31, roll 0.08) with dark circles under eyes and smooth outer corners. Visual negative review confirmed; not an unseen benchmark test set.</p>
+    <p style="font-size:12px; color:#38bdf8; margin-top:-6px;"><strong>ROI İnceleme Durumu:</strong> <code>exploratory_natural_with_visual_negative_review</code></p>
     
     <div class="comparison-grid">
       <div class="img-box">
@@ -382,7 +394,7 @@
           <td><strong>0</strong></td>
           <td><strong>0</strong></td>
           <td><code>outer-canthus-gabor-radiating-hair-excluded-v4</code></td>
-          <td class="status-clean">TEMİZ NEGATİF (UI: %0, Sahte Alarm Yok)</td>
+          <td class="status-clean">GÖRSEL İNCELEME NEGATİFİ (UI: %0, 0 Harita Pikseli)</td>
         </tr>
       </tbody>
     </table>
@@ -397,7 +409,8 @@
       <div class="card-title">7a8f4488 — POSITIVE_LINES_QUALITY_REJECTED</div>
       <span class="badge badge-qual">quality_gate_control</span>
     </div>
-    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Quality gate control: Labeled outer canthus wrinkle present, but extreme head yaw (-1.02) correctly rejected by production quality gate</p>
+    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Quality gate control: Labeled outer canthus wrinkle present, but extreme head yaw (-1.02 < -0.35) correctly rejected by production quality gate.</p>
+    <p style="font-size:12px; color:#38bdf8; margin-top:-6px;"><strong>ROI İnceleme Durumu:</strong> <code>quality_gate_rejected</code></p>
     
     <div class="comparison-grid">
       <div class="img-box">

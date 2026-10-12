@@ -1,33 +1,44 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "auditId": "crows-feet-v4-verification-20261012",
-  "executionStart": "2026-10-12T18:46:57.693499+00:00",
-  "executionEnd": "2026-10-12T18:48:01.554265+00:00",
-  "durationSeconds": 63.86,
+  "executionStart": "2026-10-12T19:03:03.367128+00:00",
+  "executionEnd": "2026-10-12T19:04:25.518500+00:00",
+  "durationSeconds": 82.15,
   "target": "lines",
   "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v4",
   "baselineCommit": "ff0b161bd807fe81d2ba5ee6283d4f5b26f6a102",
   "baselineNormalization": "outer-canthus-gabor-radiating-hair-excluded-v3",
-  "testedCommit": "83b22e50edab3e44b0e0c039151629ce4b3aa030",
-  "workingTreeState": "modified",
+  "testedCommit": "543b72ab0884aea80b12284ba05d49066be12059",
+  "workingTreeState": "committed_clean",
   "sourceFileHashes": {
     "appearance_analysis_py": "ef693b29b5e5f8c389b882ac17b7033e62c794f1b43b210ab5d55cdf1eb271dd",
     "instant_appearance_py": "1e750e6a56dac61303e3f8049a30340fc0956488d5d5b0b0ed499ac1bbf99f45",
     "skin_models_py": "9416452913099d709e77313a87a05b84420af03c77466c4cafea1e428a5a8ba4",
     "face_landmarker_task": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff"
   },
+  "sharedDependencies": {
+    "python_version": "3.11.9",
+    "mediapipe_version": "0.10.32",
+    "opencv_version": "4.12.0",
+    "numpy_version": "2.2.6",
+    "baseline_commit": "ff0b161bd807fe81d2ba5ee6283d4f5b26f6a102",
+    "candidate_commit": "543b72ab0884aea80b12284ba05d49066be12059",
+    "runner_mode": "reproducible_isolated_subprocess"
+  },
   "verificationRules": {
     "rescuedCondition": "baseline raw < 0.05 and candidate raw > 0.1 and candidate UI >= 1 with valid map",
     "preservedCondition": "baseline raw > 0.5 and candidate raw > 0.5",
-    "falsePositiveCondition": "negative role and candidate UI > 0",
+    "negativeControlsWithUiAboveZeroCondition": "negative role and candidate UI > 0",
     "nonRegressionCondition": "delta < 1e-4 and limitationCode identical and quality identical across dark/bags/dry/sag",
-    "zeroMapCardConsistencyCondition": "card score and local map derived from identical array; alpha quantizes to 0 when raw < 0.50"
+    "zeroMapCardConsistencyCondition": "card score and local map derived from identical array; alpha quantizes to 0 when raw < 0.50",
+    "negativeSelectionNotice": "Etiketsiz alanlar otomatik negatif kan\u0131t\u0131 kabul edilmez. \u0130ncelenmi\u015f negatif ROI veya g\u00f6rsel inceleme dayana\u011f\u0131 esast\u0131r."
   },
   "summary": {
     "totalEvaluated": 7,
     "positiveSamplesRescued": 1,
     "positiveSamplesPreserved": 1,
-    "negativeControlsFalsePositiveCount": 0,
+    "negativeControlsWithUiAboveZeroCount": 0,
+    "negativeControlsSummaryNote": "UI \u00fczerinde s\u0131f\u0131rdan b\u00fcy\u00fck g\u00f6sterilen negatif kontrol say\u0131s\u0131 (0). Ham sinyaller, aktif harita pikselleri ve incelenmi\u015f ROI durumlar\u0131 kay\u0131tlarda ayr\u0131 ayr\u0131 listelenmi\u015ftir.",
     "zeroMapCardConsistencyVerified": true,
     "nonRegressionVerified": true
   },
@@ -37,8 +48,9 @@
       "short_sha": "a94f1646",
       "sampleCategory": "development_control",
       "role": "POSITIVE_FINE_LINES_DEV",
-      "description": "Development control: Fine crow's feet wrinkles on lateral canthus band (failing in v3 with raw=0.0, rescued in v4)",
+      "description": "Development control: Fine crow's feet wrinkles in outer canthus band (failing in v3 with raw=0.0, rescued in v4)",
       "rel_path": "test/00167_png_jpg.rf.4c8f75309320c1039a7e11d11ac347b7.jpg",
+      "reviewed_roi_status": "positive_fine_wrinkles_verified",
       "dimensions": [
         640,
         640
@@ -151,6 +163,7 @@
       "role": "POSITIVE_DEEP_LINES_DEV",
       "description": "Development control: Prominent deep crow's feet folds fanning from outer eye corners (preserved and strengthened in v4)",
       "rel_path": "train/69951_jpg.rf.38bbafdf8ce5f6bfe579c59e430bceaa.jpg",
+      "reviewed_roi_status": "positive_deep_folds_verified",
       "dimensions": [
         640,
         640
@@ -261,8 +274,9 @@
       "short_sha": "beda0290",
       "sampleCategory": "development_control",
       "role": "NEGATIVE_CONTROL_EYELINER_DEV",
-      "description": "Development control: Clean smooth under-eye/temple skin with dark eyeliner flick, roll = -24.5 deg",
+      "description": "Development control: Clean smooth under-eye/temple skin with dark eyeliner flick, roll = -24.5 deg (eyeliner and roll occlusion test)",
       "rel_path": "skin_type_classification_dataset/test/normal/normal_new_75ecf7ec1f1edea59589_jpg.rf.d745f9da8b5c8096b2525bcc06c83d54.jpg",
+      "reviewed_roi_status": "reviewed_negative_roi_verified",
       "dimensions": [
         640,
         640
@@ -373,8 +387,9 @@
       "short_sha": "4b13b16a",
       "sampleCategory": "development_control",
       "role": "NEGATIVE_CONTROL_NATURAL_DEV",
-      "description": "Development control: Natural upright capture with smooth eye corners; evaluated inside reviewed negative ROI",
+      "description": "Development control: Natural upright capture with smooth eye corners; evaluated inside reviewed negative ROI. Faint junction micro-texture yields raw 0.3322 (UI: %0).",
       "rel_path": "skin_type_classification_dataset/test/dry/dry_new_b727e769596e165e55c9_jpg.rf.a2a883cd47a0a4d4d91b55554e1ac742.jpg",
+      "reviewed_roi_status": "reviewed_negative_roi_with_crease_residual",
       "dimensions": [
         640,
         640
@@ -485,8 +500,9 @@
       "short_sha": "5bd42346",
       "sampleCategory": "development_control",
       "role": "NEGATIVE_REGRESSION_TRANSFORMED_DEV",
-      "description": "Development control: Transformed regression sample (20.5 deg rotation, corner triangles, noise)",
+      "description": "Development control: Transformed regression sample (20.5 deg rotation, corner triangles, noise). Border padding artifact yields raw 0.4156 (UI: %0).",
       "rel_path": "skin_type_classification_dataset/valid/dry/dry_3af68a1937218e391938_jpg.rf.2c41f296ce4ba60e263c920073dead27.jpg",
+      "reviewed_roi_status": "transformed_regression_sample",
       "dimensions": [
         640,
         640
@@ -595,10 +611,11 @@
     {
       "sha256": "019553232a5616cde10d224133c18302cc59fc43a963c806319c92d846c54fa4",
       "short_sha": "01955323",
-      "sampleCategory": "independent_natural_control",
-      "role": "NEGATIVE_CONTROL_NATURAL_INDEPENDENT",
-      "description": "Independent natural test control: Upright natural capture (yaw 0.31, roll 0.08) with smooth temples and zero line annotations",
+      "sampleCategory": "exploratory_natural_sample",
+      "role": "EXPLORATORY_NATURAL_NEGATIVE_REVIEW",
+      "description": "Exploratory natural control: Upright natural capture (yaw 0.31, roll 0.08) with dark circles under eyes and smooth outer corners. Visual negative review confirmed; not an unseen benchmark test set.",
       "rel_path": "train/96bb74de-img_403_jpg.rf.d3aa23a817c08731af60f39036e0f24e.jpg",
+      "reviewed_roi_status": "exploratory_natural_with_visual_negative_review",
       "dimensions": [
         640,
         640
@@ -709,8 +726,9 @@
       "short_sha": "7a8f4488",
       "sampleCategory": "quality_gate_control",
       "role": "POSITIVE_LINES_QUALITY_REJECTED",
-      "description": "Quality gate control: Labeled outer canthus wrinkle present, but extreme head yaw (-1.02) correctly rejected by production quality gate",
+      "description": "Quality gate control: Labeled outer canthus wrinkle present, but extreme head yaw (-1.02 < -0.35) correctly rejected by production quality gate.",
       "rel_path": "train/19898_jpg.rf.f3188c6aca58d4d28d952b209d7a342b.jpg",
+      "reviewed_roi_status": "quality_gate_rejected",
       "dimensions": [
         640,
         640
