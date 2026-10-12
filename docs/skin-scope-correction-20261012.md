@@ -1,5 +1,5 @@
 TOGG Attune — yedi hedef ara teslimi
-Ölçüm: 2026-10-12T02:30:28.257368+02:00
+Ölçüm: 2026-10-12T02:33:56.091820+02:00
 
 Beş korunmuş tam checkpoint, tüm uygun development validation kayıtları üzerinde karşılaştırıldı. Eski completeROI filtresinin 241 karosuna karşı yeni kapsam 1019 karodur. Çakışan karolar kaynak koordinatında birleştirilir; sayılar kişi sayısı değildir. Pozitif ve negatif ROI aynı fotoğrafta ayrı olabilir.
 
@@ -47,7 +47,7 @@ Doğrulanan düzeltmeler:
 - Üç adet 12 güncellemeli, seri küçük kontrol öğrenme başarısı kanıtlamadı: dark negatif FPR yaklaşık .960 → .980/.990/.991 oldu. Loss düşüşü ürün başarısı sayılmadı; yeni ana fazda orijinal balanced loss korunur.
 
 YOLOX ve ürün zinciri:
-- Güncel korunmuş validation: 6 tur, F1 .075535, precision .041605, recall .409420; 113 etiket eşleşmesi, 2603 annotation-relative fazla aday, 163 kaçırma. En iyi eski development F1 .104099 (3. tur); son model yaşından dolayı tercih edilmedi.
+- Korunmuş eski faz validation: 6 tur, F1 .075535, precision .041605, recall .409420; 113 etiket eşleşmesi, 2603 annotation-relative fazla aday, 163 kaçırma. En iyi eski development F1 .104099 (3. tur); son model yaşından dolayı tercih edilmedi.
 - Bitmiş dört kaynak teşhisi: 228 kaynak adayı; 11 eşleşme, 1 duplicate, 6 incelenmiş negatif yanlış aday, 210 etiket/anatomik sınır kapsamı belirsiz aday; 21/32 etiket kaçırıldı. Beş yakın plan göz/kirpik/burun deliği/dudak/kıyafet yönünden görev dışı görüldü; belirsiz 210 adayın tamamı klinik yanlış veya eksik etiket sayılmadı.
 - Native tensor/etiket, BGR, pad114, bounded regression, objectness×class, decode, source offset ve NMS zincirinde somut decode/koordinat/class mapping hatası bulunmadı. Ham ONNX regression strict toleransında bir değer başarısız; gerçek kaynak kutuları .000123 piksel içinde eşleşse de export geçer olarak sunulmadı.
 - Ek önden hizalanmış kaynaktaki 5 etiket eşleşmesi normal ürün filtresinde 1 kaldı. İki kutu >%53/%58 clipped piksellerle elendi; iki kutunun mevcut bölgesel mesh kapsamı %36/%7 idi. Filtrenin tüm geçerli lezyonları koruduğu kanıtlanmadı. Bu adayın ürün kabulü bloke; canlı görüntü/grafik tasarımı ve AG uygulamaları değiştirilmedi.
@@ -74,7 +74,7 @@ Devam ve depolama:
 - Mask checkpoint-0013045-01791755252897174600: epoch4/cursor291 → corrected-scope-mask-v4; YOLOX checkpoint-0008716-01791755253264409500: epoch6/cursor8 → corrected-scope-yolox-v2. Model, tüm optimizer tensorları/scalar/param groups, Torch/NumPy/Python RNG, scheduler ve kalan order/cursor birebir doğrulandı. İlk gerçek gradient güncellemeleri kaydedildi; eski fazların pause marker’ları korunur.
 - Kör min12/max20 kuralı kaldırıldı. Önce kalan sıra, sonra yeni negatif havuzlu bir tam sıra; en fazla iki validation sonucu. Sonuçta doğal sınırda review gerekir. Miras cosine T_max=32, last_epoch mask16/YOLOX18; ufuk sonrası LR artışı bloke.
 - Önceki gerçek epoch süreleri CPU/yük durumuna göre mask40–58 dakika ve YOLOX41–99 dakika değişti. Yeni mask validation kapsamı daha büyük; maske tamamlandığında kalan maske eğitimi 0 olur; YOLOX’ın kalan süresi gerçek cursor ve sonraki validation’a bağlıdır, teslim taahhüdü değildir. Dört saatlik invocation sonlanırsa tüm checkpoint ile devam edilir.
-- Düzeltme fazı başlangıcı: 8.26 GiB. Güncel C: 6.180 GiB. Arşiv penceresi: 5.466 → 5.602 GiB, gerçek +146075648 bayt. Toplam alan azalması yeni tensor/export/checkpoint’ler ve Windows paging ile birlikte ölçülür; upload boyutu boş alan diye sayılmaz.
+- Düzeltme fazı başlangıcı: 8.26 GiB. Güncel C: 6.173 GiB. Arşiv penceresi: 5.466 → 5.602 GiB, gerçek +146075648 bayt. Toplam alan azalması yeni tensor/export/checkpoint’ler ve Windows paging ile birlikte ölçülür; upload boyutu boş alan diye sayılmaz.
 - Kalan rolling peak hesabı 4.415 GiB; ölçüm anında yeterli. Yalnız C: çalışma diski. Drive streaming; cache C: üzerinde 4 dosya/45112 bayt. Ek fiziksel disk yok. 60 saniye disk gözetimi, <3GiB iki native güvenli pause, resume için >=6GiB ve doğrulanmış sahiplik/CURRENT gerekir.
 - checkpoint0011332: üç cloud dosyanın tüm bayt SHA-256’ları doğrulandı, yalnız soğuk tensorları kaldırıldı; state ve makbuz yerel. checkpoint0012387: model kopyası var, optimizer aktarımı başarısız; tüm yerel kaynaklar korundu ve otomatik retry listesi dışında. checkpoint8546: üç yükleme var, optimizer doğrulama stdout kaydı eksik; tüm yerel kaynaklar ve otomatik tekrar engeli korunur. Ek cloud-archive.json yükleme otomatik incelemede kapsam dışı metadata/yerel yollar nedeniyle reddedildi; makbuz yerelde.
 
@@ -83,3 +83,7 @@ AG devir notu: type/dry/sag teslim edilmiş sayılmadı ve onların worktree dos
 Üretim manifest/model hash’leri değişmedi; mevcut build sUqjoY1oyQXF6lvSRvtff. Kısayol dosyası korundu; bu turda yeni adayla launcher/API testi yapılmış değil. On yedi odaklı regresyon ve gerçek tensor/source kontrolleri uygulandı; ilgisiz genel test kampanyası yapılmadı.
 
 Ayrıntılı, hash bağlı yerel JSON kanıtı: seven-target-delivery.json; source seçimleri, scope-v2/v4, actual-loss-v2, finite-learning-v2, selected-full-export-v4, product-filter-label-retention, product-box-support-attribution, corrected-resume-integrity ve runtime arşiv makbuzları.
+
+Düzeltilmiş YOLOX fazının güncel ayrı sonucu:
+- 1 validation: precision 0.022956, recall 0.445652, F1 0.043663; 123 kaynak etiketi eşleşmesi, 5235 annotation-relative fazla aday, 153 kaçırma; 43 fotoğraf/43 kaynak grubu. Threshold 0.7 development üzerinde önceden sabit; final açılmadı. Etiketsiz alan sağlıklı negatif sayılmıyor.
+- Bu sonuç eski korunmuş fazın eğrisine karıştırılmadı ve eski en iyi F1 .104099’dan daha iyi değil. Maske fazı tamamlandı; YOLOX yalnız kendi sonlu ikinci validation sırasını tamamlıyor. Ek üçüncü tur yok.

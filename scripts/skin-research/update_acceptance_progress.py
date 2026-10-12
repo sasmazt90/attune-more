@@ -56,6 +56,8 @@ def main():
   best=max(state['history'],key=lambda r:r['validation']['F1']);metrics={**best['validation'],'matchingIoU':.5,'scope':'source-group-development'}
   export=read(OUT/'yolox/decoder-parity/receipt.json',{}) if detector.name=='yolox' else {}
   evidence=dict(method=dict(functions=['detection','localization','appearanceIndex']),data=final_data('acne'),metrics=metrics,appearance={},export={**export,'sha256':export.get('modelSHA256')},product={},training=dict(folder=detector.name,validatedEpochs=state['epoch'],partialCursor=state['cursor'],selectionFinal=(detector/'selection.json').exists()))
+  new=OUT/'corrected-scope-yolox-v2';history=read(new/'history.json',[])
+  if history:evidence['separateCorrectedPhase']=dict(folder=new.name,protocolSHA256=sha(new/'protocol.json'),validationHistory=history,selectionFinal=(new/'selection.json').exists(),oldAndNewLearningCurvesMerged=False,latestValidationIsNotAutomaticSelection=True)
   results['acneDetector']=dict(evidence=evidence,decision=decide('detector',evidence))
  mask=OUT/('negative-mask-continuation' if (OUT/'negative-mask-continuation/CURRENT').exists() else 'mask-continuation');state=snapshot(mask)
  corrected=read(OUT/'interim-diagnosis/corrected-selection-v4.json') or read(OUT/'interim-diagnosis/scope-v4/selection.json',{})
@@ -67,6 +69,7 @@ def main():
    if export.get('weightsSHA256')!=model.get('sha256'):export={}
    if export.get('onnxPath') and (not Path(export['onnxPath']).exists() or sha(Path(export['onnxPath']))!=export['modelSHA256']):export={}
    evidence=dict(method=dict(functions=['localization','appearanceIndex']),data=final_data(target),metrics=metrics,appearance={},export={**export,'sha256':export.get('modelSHA256')},product={},training=dict(folder=mask.name,validatedEpochs=state['epoch'],selectedFullModel=model or None,partialCursor=state['cursor'],selectionFinal=False,legacyTargetBestInvalidated=True,correctedEvaluationComplete=bool(corrected)))
+   new=OUT/'corrected-scope-mask-v4';evidence['training']['correctedPhase']=dict(folder=new.name,protocolSHA256=sha(new/'protocol.json') if (new/'protocol.json').exists() else None,validationCount=len(read(new/'history.json',[])),selectionFinal=(new/'selection.json').exists(),selectedMetricPhase=selected.get('phase'),noAutomaticExtraEpochs=True)
    results[target+'Mask']=dict(evidence=evidence,decision=decide('mask',evidence))
  controls=read(OUT/'current-proxy-controls-v3/receipt.json')
  if controls:
