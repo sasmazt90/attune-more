@@ -1,5 +1,5 @@
 {
-  "executedAt": "2026-10-12T18:37:29.826952+00:00",
+  "executedAt": "2026-10-12T18:40:01.744093+00:00",
   "frozenAGCommit": "ff0b161bd807fe81d2ba5ee6283d4f5b26f6a102",
   "baselineCommit": "d596873c363a57324d38dc974e5ad65186ea9866",
   "sourceInventorySHA256": "3607b875ddc21d3ee8e6b7cc7c20bee2042612b3b184114746c06263fcf00086",
@@ -1429,27 +1429,27 @@
     "normalBackend": true,
     "buildId": "dxFr1OhOItAcorPw-G3Yp",
     "branch": "fix/live-test-followup",
-    "headAtVerification": "d596873c363a57324d38dc974e5ad65186ea9866",
+    "headAtVerification": "c3f6e085aff682091bc8aa4c9a4bf4e76e1d3d11",
     "frontendSourceFileCount": 213,
     "frontendSourceReceiptSHA256": "80c75dd83a7e3a7ddd65b92ca68f010587adf999b339d79ff852e6ec8899171d",
     "servedJavaScriptHashes": {
-      "/_next/static/chunks/polyfills-42372ed130431b0a.js": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
-      "/_next/static/chunks/948-47aab13468c15ad4.js": "7e9b826f0794e640c1774ea8aee773bd0f163e00ec449113b08fff68e097f197",
-      "/_next/static/chunks/app/page-8a95e4a42b012dfa.js": "56ba7ac3c9fd4f7330881924040997fa17da6e14e759b2cc669233d0662be66a",
-      "/_next/static/chunks/main-app-a840178321886cc8.js": "b5b7a6a18ee7f8fe0d0fa097ccf76c3fd48ec9a33395e4c9a750baa6e550e99e",
-      "/_next/static/chunks/987-e7efaa2e25847fed.js": "dd2830cddc3d1cecb34ea22e6831df6db876fe17320a06b71eab72c6417e51ca",
-      "/_next/static/chunks/app/layout-a65668dc77cf1f59.js": "806a833006430b1152656e785dd99cd778efbe757ce22c3c0da87197d6085693",
-      "/_next/static/chunks/webpack-dc23c7fb2c69ce1c.js": "b2f3a7e7fa9961dbd2c123b7a881ed581766c58b192313dc84b10a40bfebd575",
-      "/_next/static/chunks/e898b764-724e4596a1050f58.js": "fef6a31acbe42cb772fbbca3f7eaf3ecd01ab51e1db99c4d0445205eafb6214b",
-      "/_next/static/chunks/850-03d460badcc90bec.js": "fe19aab65e4b99652e82702538aef87e95e949da65e3a5d8ab24c4a77740cf5b",
-      "/_next/static/chunks/484-c7854e143b14531c.js": "e70f3d1076cd8ad18884284e5196bf030e5c613dbcde77befaf6484a7dae9646",
       "/_next/static/chunks/656-012d3387edef90f5.js": "a48c56ee67c628c04af078afb6204fe5e24dc3f02b5820aee463f65f52e7c582",
       "/_next/static/chunks/330-5160c0eea4e0b3c4.js": "0517448997182fe9e71379276258ca5a8273d3443375de03a7108525ef8f73df",
+      "/_next/static/chunks/850-03d460badcc90bec.js": "fe19aab65e4b99652e82702538aef87e95e949da65e3a5d8ab24c4a77740cf5b",
+      "/_next/static/chunks/webpack-dc23c7fb2c69ce1c.js": "b2f3a7e7fa9961dbd2c123b7a881ed581766c58b192313dc84b10a40bfebd575",
+      "/_next/static/chunks/app/layout-a65668dc77cf1f59.js": "806a833006430b1152656e785dd99cd778efbe757ce22c3c0da87197d6085693",
+      "/_next/static/chunks/e898b764-724e4596a1050f58.js": "fef6a31acbe42cb772fbbca3f7eaf3ecd01ab51e1db99c4d0445205eafb6214b",
+      "/_next/static/chunks/main-app-a840178321886cc8.js": "b5b7a6a18ee7f8fe0d0fa097ccf76c3fd48ec9a33395e4c9a750baa6e550e99e",
+      "/_next/static/chunks/app/page-8a95e4a42b012dfa.js": "56ba7ac3c9fd4f7330881924040997fa17da6e14e759b2cc669233d0662be66a",
+      "/_next/static/chunks/484-c7854e143b14531c.js": "e70f3d1076cd8ad18884284e5196bf030e5c613dbcde77befaf6484a7dae9646",
+      "/_next/static/chunks/987-e7efaa2e25847fed.js": "dd2830cddc3d1cecb34ea22e6831df6db876fe17320a06b71eab72c6417e51ca",
+      "/_next/static/chunks/948-47aab13468c15ad4.js": "7e9b826f0794e640c1774ea8aee773bd0f163e00ec449113b08fff68e097f197",
+      "/_next/static/chunks/polyfills-42372ed130431b0a.js": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
       "/_next/static/chunks/app/skin/page-80076763f40430e9.js": "bbdbb0d795859605b4c8d0ca949d3a773ae30b85746deb74a0e0c7493d32e5db",
-      "/_next/static/chunks/745-3a66d274e9dd6600.js": "1bd80a20953b0298f93510d946aa2cd8d204001d13e6f6bcaceaffc19705acb2",
       "/_next/static/chunks/876-970751e242594177.js": "d84eca37ec1994232b2c9c66cdb454332f337757e3c7884b8d82d7dc504a1421",
-      "/_next/static/chunks/852-4206d2ffa53479b5.js": "75c09a83752a0fa304ec64bf2b638383532cf1e29af9d568eec3d17251b95f7f",
+      "/_next/static/chunks/745-3a66d274e9dd6600.js": "1bd80a20953b0298f93510d946aa2cd8d204001d13e6f6bcaceaffc19705acb2",
       "/_next/static/chunks/app/profile/page-0f7b850d415908b2.js": "4e2660d36ee1097dbdce2d8e63a535d308202d8181c9be11894a28293c734301",
+      "/_next/static/chunks/852-4206d2ffa53479b5.js": "75c09a83752a0fa304ec64bf2b638383532cf1e29af9d568eec3d17251b95f7f",
       "/_next/static/chunks/503-68c18768f0108a30.js": "0e1d8598daa607fd93a397321999d450c799fd3e63a8b62ba94020fca019d2eb"
     },
     "backendSourceHashes": {
@@ -1469,7 +1469,19 @@
     "samplingSupportVersion": "tracked-center-eligible-v1",
     "hostedPhotoCalls": 0,
     "normalUserRecordsTouched": false,
-    "AGWorkingFilesTouched": false
+    "AGWorkingFilesTouched": false,
+    "committedSourceByteProof": {
+      "appearance_analysis.py": {
+        "workingSHA256": "55d91d1fa5d713458a45bdec3834fd0cbfe073fc9918bc8412c7f12e0af359e5",
+        "gitBlobSHA256": "48e43c9d7776eaa46a43b0ab737136b3102772fe0484f10664293b29c50361b5",
+        "canonicalLFMatch": true
+      },
+      "instant_appearance.py": {
+        "workingSHA256": "c5529c140d0f27cf3a2d9c8949b13f72d29370e6d3f9dd58afba31111f91432a",
+        "gitBlobSHA256": "6795501cee8f1f7cf3b41645e456065e890168b3c1da8a2c7cce33ee856ad09d",
+        "canonicalLFMatch": true
+      }
+    }
   },
   "remainingIssues": [
     "20031f35 positive is missed after enforcing actual selected-region fold centers; do not call decreased marking improved positive detection. Most unrestricted centers were outside selected mesh/hair support.",

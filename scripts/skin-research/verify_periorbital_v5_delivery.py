@@ -45,6 +45,14 @@ assert loaded and all(v==sha(model) for v in loaded)
 for region,rows in response['measurements'].items():
     assert all(v.get('modelHash') is None for v in rows if v['id'] in ('acne','bags','dark','lines'))
 files=['appearance_analysis.py','instant_appearance.py','skin_general.py','skin_models.py','hosted_skin_type.py']
+committed={}
+for name in ('appearance_analysis.py','instant_appearance.py'):
+    path='services/core-api/'+name
+    blob=subprocess.check_output(['git','show','HEAD:'+path],cwd=ROOT)
+    working=(ROOT/path).read_bytes()
+    assert blob==working.replace(b'\r\n',b'\n'),'Committed source content drift'
+    committed[name]=dict(workingSHA256=hashlib.sha256(working).hexdigest(),gitBlobSHA256=hashlib.sha256(blob).hexdigest(),canonicalLFMatch=True)
 receipt=dict(normalShortcut=True,normalBackend=True,buildId=build,branch=subprocess.check_output(['git','branch','--show-current'],cwd=ROOT,text=True).strip(),headAtVerification=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),frontendSourceFileCount=len(sources),frontendSourceReceiptSHA256=sha(ROOT/'.runtime/skin-periorbital-v5-20261012-v1/source-receipt.json'),servedJavaScriptHashes=chunks,backendSourceHashes={n:sha(ROOT/'services/core-api'/n) for n in files},manifestSHA256=sha(ROOT/'services/core-api/models/skin-focused.json'),acceptedModelFileSHA256=sha(model),loadedModelHashes=sorted(set(loaded)),actualProductBagValue=bags['value'],formula=bags['normalizationVersion'],samplingSupportVersion=bags['components']['samplingSupportVersion'],hostedPhotoCalls=0,normalUserRecordsTouched=False,AGWorkingFilesTouched=False)
+receipt['committedSourceByteProof']=committed
 (OUT/'delivery.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),'utf8')
 print(json.dumps(dict(buildId=build,normalShortcut=True,frontendSources=len(sources),servedJSChunks=len(chunks),backendSourceHashes=receipt['backendSourceHashes'],loadedModelHashes=receipt['loadedModelHashes'])))
