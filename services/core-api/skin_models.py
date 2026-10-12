@@ -245,7 +245,7 @@ def infer_hosted_type(crop_bgr):
             inferenceMs=0.0
         )
 
-def infer(bgr,points,quality_valid):
+def infer(bgr,points,quality_valid,hosted_consent=True,type_quality_valid=None):
     empty=dict(skinType=None,degrees={},models={},sourceTransform=None)
     if not quality_valid:return empty
     try:
@@ -269,7 +269,7 @@ def infer(bgr,points,quality_valid):
                         if target in m['acceptedTargets']:result['degrees'][target]=dict(value=float(np.clip(value,0,5)*20),rawGrade=float(np.clip(value,0,5)),methodVersion=m['version'],modelHash=m['sha256'],confidence=None,scope='whole-face',normalizationVersion='ordinal-0-5-times-20-v1')
         
         # If no local accepted model for type, check authorized hosted adapter fallback
-        if not type_computed:
+        if not type_computed and hosted_consent is True and (type_quality_valid is None or type_quality_valid is True):
             crop_bgr = bgr[transform['y']:transform['y']+transform['height'], transform['x']:transform['x']+transform['width']]
             hosted = infer_hosted_type(crop_bgr)
             if hosted:
