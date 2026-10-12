@@ -99,6 +99,28 @@ def eligible_flake_components(signal,eligible):
     return signal*eligible*islands
 
 
+def compute_dryness_signal(gray8, support_mask=None):
+    """Shared, production dryness/flaking signal pipeline.
+    Applies multi-scale DoG, uniform LBP filtering, local contrast gating,
+    black-hat dark pore/filament ringing exclusion, and eligible bright island component filtering.
+    Used identically by full-face analyze_skin and local ROI / patch benchmark evaluation.
+    """
+    gray = gray8.astype(np.float32) / 255.0
+    high = gray - cv2.GaussianBlur(gray, (0, 0), 1.2)
+    broad = cv2.GaussianBlur(gray, (0, 0), 0.7) - cv2.GaussianBlur(gray, (0, 0), 2.3)
+    flakes = np.clip((high - 0.025) / 0.10, 0, 1) * np.clip((broad - 0.018) / 0.10, 0, 1)
+    lbp = local_binary_pattern(gray8, 8, 1, 'uniform')
+    flakes *= (lbp < 8)
+    local_contrast = np.sqrt(np.maximum(0, cv2.GaussianBlur(gray * gray, (0, 0), 2) - cv2.GaussianBlur(gray, (0, 0), 2)**2))
+    flakes *= ((local_contrast > 0.015) & (local_contrast < 0.14))
+    
+    # Exclude bright ringing around dark pores/hairs
+    dark_ringing = cv2.dilate((cv2.morphologyEx(gray8, cv2.MORPH_BLACKHAT, np.ones((7, 7), np.uint8)) > 35).astype(np.uint8), np.ones((7, 7), np.uint8)) > 0
+    valid_support = np.ones(gray8.shape, bool) if support_mask is None else support_mask
+    regional_flakes = eligible_flake_components(flakes, valid_support & ~dark_ringing)
+    return regional_flakes, flakes, local_contrast, lbp, dark_ringing, high
+
+
 def elongated_dark_mask(gray8):
     """Exclude long dark filaments, not every round dark focus as hair."""
     dark=cv2.morphologyEx(gray8,cv2.MORPH_BLACKHAT,np.ones((7,7),np.uint8))>35
@@ -242,15 +264,7 @@ def analyze_skin(payload, include_research_features=False):
     # Skin-scan oiliness starts with bright, low-saturation pixels; here require
     # local contrast AND saturation drop. Bright matte skin alone is insufficient.
     shine = np.clip((v/np.maximum(local_v, .05)-1.08)/.24, 0, 1) * np.clip((local_s-saturation)/.18, 0, 1)
-    high = gray-cv2.GaussianBlur(gray, (0, 0), 1.2)
-    broad = cv2.GaussianBlur(gray, (0, 0), .7)-cv2.GaussianBlur(gray, (0, 0), 2.3)
-    # Bright fine islands at both scales; long dark hairs/creases excluded later.
-    flakes = np.clip((high-.025)/.10, 0, 1)*np.clip((broad-.018)/.10, 0, 1)
-    lbp = local_binary_pattern(gray8, 8, 1, 'uniform')
-    flakes*=lbp<8
-    local_contrast = np.sqrt(np.maximum(0, cv2.GaussianBlur(gray*gray, (0, 0), 2)-cv2.GaussianBlur(gray, (0, 0), 2)**2))
-    flakes*=(local_contrast>.015)&(local_contrast<.14)
-    flakes=eligible_flake_components(flakes,np.ones(gray.shape,bool))
+    _, flakes, local_contrast, lbp, dark_ringing, high = compute_dryness_signal(gray8)
     hair = elongated_dark_mask(gray8)
     clipping = (v > .975)  # Darkness/hair is an exclusion, not specular glare.
     masks = {k: polygon_mask(gray.shape, m, scale, origin) for k, m in payload['meshes'].items()}
