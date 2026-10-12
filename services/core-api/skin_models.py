@@ -26,15 +26,18 @@ def photo_input(bgr,points):
     value=((rgb.transpose(2,0,1).astype(np.float32)/255-MEAN)/STD)[None].copy()
     return value,dict(x=int(x),y=int(y),width=int(x1-x),height=int(y1-y),inputWidth=224,inputHeight=224,RGB=True,cropVersion='camera-crop-v1',coordinateSpace='source-pixels')
 
-@lru_cache(maxsize=1)
-def load():
+@lru_cache(maxsize=2)
+def load(allow_candidates=False):
     if not MANIFEST.exists():return {'manifest':None,'sessions':{}}
     import onnxruntime as ort
     manifest=json.loads(MANIFEST.read_text('utf8'));assert manifest['classOrder']==CLASSES
     assert manifest['preprocessing']=={'RGB':True,'size':[224,224],'mean':[.485,.456,.406],'std':[.229,.224,.225],'cropVersion':'camera-crop-v1'}
     sessions={};options=ort.SessionOptions();options.intra_op_num_threads=2;options.inter_op_num_threads=1
     for task,m in manifest.get('models',{}).items():
-        if not (m.get('accepted') or m.get('candidateAccepted')):continue
+        is_accepted = bool(m.get('accepted'))
+        is_candidate = bool(allow_candidates and task == 'type' and m.get('candidateAccepted'))
+        if not (is_accepted or is_candidate):continue
+        if not m.get('file'):continue
         path=FOLDER/m['file'];assert path.resolve().parent==FOLDER.resolve() and path.suffix=='.onnx'
         assert hashlib.sha256(path.read_bytes()).hexdigest()==m['sha256'],'MODEL_HASH_MISMATCH'
         start=time.perf_counter();session=ort.InferenceSession(str(path),sess_options=options,providers=['CPUExecutionProvider']);sessions[task]={'session':session,'loadMs':(time.perf_counter()-start)*1000,'metadata':m}
@@ -415,10 +418,13 @@ def regional_combination_rule(bgr, points, p_vit, clipping_gate=0.15):
         final_class = 'combination'
         contrast = min(1.0, spec_diff / 1.5)
         matte = max(0.0, 1.0 - u_spec / max(t_spec, 1e-3))
-        final_conf = round(float(np.clip(p_oil * 0.40 + contrast * 0.35 + matte * 0.25, 0.40, 0.88)), 4)
+        support_val = round(float(np.clip(p_oil * 0.40 + contrast * 0.35 + matte * 0.25, 0.40, 0.88)), 4)
+        # The heuristic Karma score is a hand-weighted support index [0.40, 0.88], NOT a calibrated probability.
+        final_conf = None
     else:
         final_class = base_class
         final_conf = base_conf
+        support_val = None
 
     div_info = {
         'isKarma': is_karma,
@@ -431,17 +437,19 @@ def regional_combination_rule(bgr, points, p_vit, clipping_gate=0.15):
         'tZoneSupported': t_zone_supported,
         'cheeksMatte': cheeks_matte,
         'modelProbs': {'dry': round(p_dry, 4), 'normal': round(p_norm, 4), 'oily': round(p_oil, 4)},
-        'combinationConfidence': final_conf if is_karma else None
+        'combinationConfidence': None,
+        'heuristicSupport': support_val,
+        'ruleSupport': support_val
     }
     return final_class, final_conf, True, None, div_info
 
-def infer(bgr,points,quality_valid,hosted_consent=True,type_quality_valid=None):
+def infer(bgr,points,quality_valid,hosted_consent=True,type_quality_valid=None,allow_candidates=False):
     empty=dict(skinType=None,degrees={},models={},sourceTransform=None)
     can_run_degrees = bool(quality_valid)
     can_run_type = bool(type_quality_valid) if type_quality_valid is not None else bool(quality_valid)
     if not can_run_degrees and not can_run_type:return empty
     try:
-        with LOCK:loaded=load()
+        with LOCK:loaded=load(allow_candidates=allow_candidates)
         x,transform=photo_input(bgr,points);result={**empty,'sourceTransform':transform}
         # Check local sessions first
         type_computed = False
@@ -488,7 +496,7 @@ def infer(bgr,points,quality_valid,hosted_consent=True,type_quality_valid=None):
             else:
                 manifest = loaded.get('manifest') or {}
                 type_head = manifest.get('models', {}).get('type', {})
-                if type_head.get('accepted') or type_head.get('candidateAccepted'):
+                if type_head.get('accepted') or (allow_candidates and type_head.get('candidateAccepted')):
                     result['skinType'] = dict(value=None, quality='insufficient', confidence=None,
                                               methodVersion=type_head.get('version'), modelHash=type_head.get('sha256'),
                                               limitationCode='ACCEPTED_MODEL_UNAVAILABLE')
@@ -504,7 +512,7 @@ def infer(bgr,points,quality_valid,hosted_consent=True,type_quality_valid=None):
             head=manifest.get('models',{}).get('degrees',{})
             if head.get('accepted'):targets=list(head.get('acceptedTargets',[]))
             type_head=manifest.get('models',{}).get('type',{})
-            if type_head.get('accepted') or type_head.get('candidateAccepted'):
+            if type_head.get('accepted') or (allow_candidates and type_head.get('candidateAccepted')):
                 unavailable_type=dict(value=None,quality='insufficient',confidence=None,methodVersion=type_head.get('version'),modelHash=type_head.get('sha256'),limitationCode='ACCEPTED_MODEL_UNAVAILABLE')
         except (OSError,ValueError):pass
         return {**empty,'skinType':unavailable_type,'failure':'ACCEPTED_MODEL_UNAVAILABLE','unavailableTargets':targets}

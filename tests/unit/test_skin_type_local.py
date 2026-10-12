@@ -58,12 +58,24 @@ def test_onnx_file_integrity():
     assert h == 'ffdac2fc496a23dc27e60e08299b2496a0702a1d49f81f288d4d54da686213a0', f"Hash mismatch: {h}"
 
 def test_local_sessions_load_offline():
-    loaded = skin_models.load()
-    assert loaded['manifest'] is not None
-    assert 'type' in loaded['sessions']
-    type_session = loaded['sessions']['type']
+    # Product path (default: allow_candidates=False):
+    # Only accepted models (e.g. degrees) are loaded; unaccepted candidate type model is NOT loaded
+    product_loaded = skin_models.load(allow_candidates=False)
+    assert product_loaded['manifest'] is not None
+    assert 'degrees' in product_loaded['sessions']
+    assert 'type' not in product_loaded['sessions'], "Product path must not load candidate models (accepted=False)"
+    assert 'acne' not in product_loaded['sessions']
+    assert 'bags' not in product_loaded['sessions']
+
+    # Candidate evaluation path (allow_candidates=True):
+    # Loads candidateAccepted type model, but NEVER re-opens rejected tasks (acne, bags)
+    candidate_loaded = skin_models.load(allow_candidates=True)
+    assert 'type' in candidate_loaded['sessions']
+    type_session = candidate_loaded['sessions']['type']
     assert type_session['metadata']['candidateAccepted'] is True
     assert type_session['loadMs'] > 0
+    assert 'acne' not in candidate_loaded['sessions']
+    assert 'bags' not in candidate_loaded['sessions']
 
 def test_numerical_parity_onnx_vs_pytorch():
     import onnxruntime as ort
@@ -199,8 +211,12 @@ def test_regional_combination_deadband_and_decisions():
     assert div_k['isKarma'] is True
     assert div_k['deadbandMet'] is True
     assert div_k['specularDivergence'] >= 0.40
-    assert 0.40 <= conf_k <= 0.88, "Combination confidence must be bounded and explainable"
-    assert conf_k != max(p_karma), "Combination confidence must not blindly copy 3-class max probability"
+    # Karma heuristic score is a hand-weighted support index [0.40, 0.88], NOT a calibrated probability.
+    # Therefore, confidence must be None, and support must be recorded in heuristicSupport / ruleSupport.
+    assert conf_k is None, "Heuristic Karma rule must return confidence=None (uncalibrated heuristic index)"
+    assert div_k['heuristicSupport'] is not None
+    assert 0.40 <= div_k['heuristicSupport'] <= 0.88, "Heuristic support must be bounded [0.40, 0.88]"
+    assert div_k['ruleSupport'] == div_k['heuristicSupport']
 
     # 2. Deadband Rejection: spec_diff < 0.40 (e.g. uniform skin tone) must NOT trigger Karma
     # Even if model has uncertainty (e.g. p_oil=0.35, p_norm=0.35)
@@ -237,9 +253,16 @@ def test_offline_infer_with_blocked_sockets():
 
     socket.socket.connect = blocked_connect
     try:
-        res = skin_models.infer(bgr, points, quality_valid=True, type_quality_valid=True)
-        assert 'skinType' in res
-        assert res['skinType']['quality'] in ('valid', 'insufficient')
+        # Default product path (allow_candidates=False): skinType is not run via local candidate
+        res_prod = skin_models.infer(bgr, points, quality_valid=True, type_quality_valid=True, allow_candidates=False)
+        assert res_prod['skinType'] is None, "Product path must leave skinType None when no accepted local model exists"
+        assert 'degrees' in res_prod and 'redness' in res_prod['degrees']
+
+        # Candidate path (allow_candidates=True): offline local candidate ViT session executes
+        res_cand = skin_models.infer(bgr, points, quality_valid=True, type_quality_valid=True, allow_candidates=True)
+        assert 'skinType' in res_cand
+        assert res_cand['skinType']['quality'] in ('valid', 'insufficient')
+        assert res_cand['skinType']['methodVersion'] == 'skin-type-glamour-vit-v1'
     finally:
         socket.socket.connect = real_connect
 

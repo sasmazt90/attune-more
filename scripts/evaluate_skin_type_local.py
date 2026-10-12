@@ -296,7 +296,7 @@ def run_evaluation():
         pt_logits = glamour_pt(torch.from_numpy(vit_x)).logits.numpy()[0]
 
     # Run ONNX Runtime
-    loaded = skin_models.load()
+    loaded = skin_models.load(allow_candidates=True)
     type_session = loaded['sessions']['type']['session']
     ort_logits = type_session.run(None, {'rgb': vit_x})[0][0]
 
@@ -350,8 +350,8 @@ def run_evaluation():
 
                 points = [{'x': p.x, 'y': p.y, 'z': p.z} for p in det.face_landmarks[0]]
 
-                # Direct runtime production inference call
-                res = skin_models.infer(bgr, points, quality_valid=True, type_quality_valid=True)
+                # Direct runtime production inference call with candidate flag enabled
+                res = skin_models.infer(bgr, points, quality_valid=True, type_quality_valid=True, allow_candidates=True)
                 st = res.get('skinType') or {}
 
                 val_4 = st.get('value')
@@ -420,7 +420,7 @@ def run_evaluation():
         raise OSError("Network call forbidden in offline evaluation")
     socket.socket.connect = blocked_connect
     try:
-        offline_res = skin_models.infer(sample_bgr, sample_lms, quality_valid=True, type_quality_valid=True)
+        offline_res = skin_models.infer(sample_bgr, sample_lms, quality_valid=True, type_quality_valid=True, allow_candidates=True)
         assert offline_res['skinType']['quality'] in ('valid', 'insufficient')
         print("  -> Offline execution VERIFIED (infer completed with blocked socket)")
     finally:
