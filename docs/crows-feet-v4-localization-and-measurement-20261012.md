@@ -1,83 +1,75 @@
-# TOGG Attune — Hedef D: İnce Kaz Ayakları Yerelleştirme ve Ölçüm Raporu (v4)
+# TOGG Attune — Hedef D: İnce Kaz Ayakları Yerelleştirme ve Doğrulama Raporu (v4)
 
 **Tarih:** 12 Ekim 2026  
 **Çalışma Alanı:** `C:\Users\PC\Desktop\AI Workspace\TOGG\attune-antigravity-skin`  
-**Baseline Teslim Referansı:** `ff0b161bd807fe81d2ba5ee6283d4f5b26f6a102`  
-**Normalizasyon Sürümü:** `outer-canthus-gabor-radiating-hair-excluded-v4`  
-**Kanıt Klasörü:** `audit-results/crows-feet-20261012/`  
+**Dondurulmuş Baseline Commit:** `ff0b161bd807fe81d2ba5ee6283d4f5b26f6a102` (`outer-canthus-gabor-radiating-hair-excluded-v3`)  
+**Aday Normalizasyon Sürümü:** `outer-canthus-gabor-radiating-hair-excluded-v4`  
+**Doğrulama ve Kanıt Klasörü:** `audit-results/crows-feet-v4-verification-20261012/`  
+**Resmi Makine Makbuzu:** `audit-results/crows-feet-v4-verification-20261012/crows-feet-receipt.json`  
+**Görsel Karşılaştırma Galerisi:** `audit-results/crows-feet-v4-verification-20261012/gallery/index.html`  
 
 ---
 
-## 1. Yönetici Özeti ve Temel Kök Neden Analizi
+## 1. Giderilen Hatalar ve Kök Neden Analizi
 
-Önceki v3 hattında (`outer-canthus-gabor-radiating-hair-excluded-v3`), ince kaz ayakları içeren pozitif etiketli `a94f1646` örneğinde, göz dışı alanda doğrulanmış Roboflow çizgileri bulunmasına rağmen ham skor **0.00** çıkıyor ve UI'da aktif harita pikselleri 0 görünüyordu (**False Negative**). Buna karşılık, belirgin derin çizgileri olan `02386f86` örneği ham **1.4335** (UI: %1) olarak tespit ediliyordu.
+### A. Harita Koordinat Dönüşüm Hatasının Giderilmesi
+- **Eski Durum:** Değerlendirme script'inde `decode_map_overlay`, `localMap` nesnesinin `step` alanını (`step = 1 / scale`) kullanmıyor ve analiz-grid koordinatlarını doğrudan kaynak fotoğraf koordinatı gibi yerleştiriyordu. Bu durum harita örtüşmesinin küçülmesine ve şakak bölgesine doğru kaymasına yol açıyordu.
+- **Düzeltme:** Araç içi SVG bileşeninin (`SkinFacePanel.tsx: width={localMap.width*localMap.step}, height={localMap.height*localMap.step}`) gerçek çizim sözleşmesi esas alındı.
+  - `rgba` ve `validMask` tensörleri `step` katsayısıyla `INTER_NEAREST` (piksel tabanlı çizim) kullanılarak kaynak boyutuna yeniden örneklendi (`src_w = width * step`, `src_h = height * step`).
+  - Koordinat uzayları açıkça ayrıldı: **Analiz-Grid Aktif Pikselleri** (`grid_active_pixels`) ve **Kaynak Eşlenmiş Aktif Pikselleri** (`source_mapped_active_pixels`) ayrı kaydedildi.
+  - `dataUrl` alpha kodlaması (0–100 aralığı) doğrulanarak siyan katman kaynak fotoğraftaki gerçek anatomik lateral canthus çizgilerinin üzerine piksel hassasiyetiyle oturtuldu.
 
-### Kök Neden Tespiti (v3 Kısıtları)
-1. **Frekans Kapsamı Eksikliği:** Üretim yüz normalizasyonunda yüz genişliği 320 piksele çekildiğinde (`LIMITS['analysisFacePixels'] = 320`), ince kaz ayaklarının piksel dalga periyodu ~6-7 pikseldir (\(f \approx 0.13 - 0.15\)). v3 hattı yalnızca \(f \in (0.18, 0.28)\) frekanslarını sorguluyordu; bu nedenle ince çizgilerin Gabor genliği ~0.0133–0.0140 seviyesinde kalıyordu.
-2. **Sabit Yüksek Çıkarma Eşiği:** v3'teki `(signal - 0.018) / 0.06` formülünde `0.018` eşiği, \(0.014\) genliğe sahip gerçek ince çizgileri tamamen sıfıra kırpıyordu.
-3. **Kirpik ve Makyaj Karışması Riski:** Eşik tek başına 0.0125'e düşürüldüğünde, kirpik uçları ve eyeliner çekimleri (`beda0290`) sahte pozitif üretiyordu.
-4. **Anatomik Bant Geometrisi:** v3 poligonu \(top = -0.012 \times face\_width\) ile sınırlandırıldığından şakak/elmacık kemiği yukarısına yayılan çizgilerin üst kollarını kaçırıyor, \(in = 0.025\) ise kirpik sınırına çok yakın kalıyordu.
+### B. Sabit Başarı Değerlerinin Kaldırılması ve Canlı Baseline Yürütümü
+- Makbuzdaki `positiveSamplesRescued`, `positiveSamplesPreserved`, `negativeControlsFalsePositiveCount`, `zeroMapCardConsistencyVerified` ve `nonRegressionVerified` alanları sabit değerler yerine dinamik kurallardan hesaplandı.
+- Baseline skorları metin içinden değil, dondurulmuş `ff0b161` sürümünün izole modül olarak (`scratch/appearance_analysis_ff0b161.py`) aynı üretim girdileriyle eşzamanlı çalıştırılmasıyla canlı elde edildi.
+- Morluk (`dark`), torbalanma (`bags`), kuruluk (`dry`) ve sarkma (`sag`) kriterlerinin önce/sonra değer farkı (\(\Delta < 10^{-4}\)), sınırlama kodu ve kalite durumları 7 örnekte birebir karşılaştırılarak %100 non-regression kanıtlandı.
 
----
+### C. Yuvarlama ile Yanlış Sinyalin Gizlenmesinin Önlenmesi
+- Skorlar yalnızca tam sayı UI (%0 veya %1) üzerinden değil; ham sürekli değer (`raw`), yerel piksel dağılımı ve incelenmiş negatif ROI ilişkisiyle raporlandı.
+- Harita alpha kodlamasında (\(\text{alpha} = \text{round}(\text{clip}(v/100, 0, 1) \times 100)\)) ham skorun \(< 0.50\) olduğu zayıf sinyallerin tamsayı alpha'da 0'a yuvarlanması durumu matematiksel bir tutarsızlık olarak değil, PNG yoğunluk nicemlemesinin doğal bir sonucu olarak belgelendi.
+- %0 UI gösterimi "ham sinyal tamamen sıfır" iddiasıyla sunulmadı; `4b13b16a` (ham: `0.3322`) ve `5bd42346` (ham: `0.4156`) örneklerindeki mikron katlantı ve köşe gürültüsü kalıntıları açıkça belirtildi.
 
-## 2. v4 Algoritmik İyileştirmeler
-
-### A. Çok Ölçekli Frekans Genişletmesi
-Gabor süzgeç bankasına \(f = 0.13\) frekansı eklenerek hem ince kırışıklıklar hem de derin oluklar tam hassasiyetle kapsandı:
-$$\text{Frequencies: } (0.13, 0.18, 0.26)$$
-
-### B. Radyal / Ortogonal Yön Seçicilik Kapısı (Directional Ratio Gating)
-Gerçek kaz ayakları lateral canthus'tan şakağa doğru yelpaze şeklinde açılır (\(\text{radiating\_thetas} = \frac{\pi}{2} + roll \pm \frac{\pi}{6}\)). Kirpikler ve alt göz kapağı kenarları ise göz yarığına teğet (\(roll \pm \frac{\pi}{6}\)) yönelim gösterir.
-- Her piksel için \(\text{rad\_sig}\) ve \(\text{ortho\_sig}\) ayrı ayrı hesaplanır:
-$$\text{ratio} = \frac{\text{rad\_sig}}{\max(\text{ortho\_sig}, 0.005)}$$
-$$\text{dir\_gate} = \text{clip}\left(\frac{\text{ratio} - 1.22}{0.35}, 0, 1\right)$$
-- Bu kapı, teğet kirpik sinyallerini (\(\text{ratio} < 1.22\)) tamamen sıfırlarken, radyal çizgilerin (\(\text{ratio} \ge 1.57\)) tam genlikle geçmesini sağlar.
-
-### C. Koyu Eyeliner ve Kozmetik Dışlama Tabanı (Makeup Exclusion Floor)
-`beda0290` gibi açılı çekimlerde lateral canthus'a taşan koyu eyeliner çizgileri:
-$$\text{skin\_support} = \text{valid\_line} \land (gray \ge \text{median}(gray) \times 0.55) \land (gray > 0.18)$$
-şartıyla filtrelenir. Cilt tonundan %45 daha koyu veya mutlak parlaklığı 0.18'in altındaki kozmetik alanlar deri desteğinden çıkarılır.
-
-### D. Anatomik Bant Poligonu ve Güvenli Alan Eşiği
-- `in_m`: `0.025` $\to$ `0.030` (kirpik bileşkesinden 1.5 piksel daha dışarı çekilerek kirpik ucu teması kesildi).
-- `top_m`: `-0.012` $\to$ `-0.035..-0.040` (yukarı yelpazelenen kaz ayağı kolları kapsandı).
-- `bot_m`: `+0.050` (alt yelpaze korundu).
-- `out_m`: `0.085` $\to$ `0.095` (şakak bandı genişletildi).
-- **Asgari Görünür Alan:** Tek göz için sınır 75 piksele çıkarıldı (`minimum_pixels = 75`). Bu sayede `beda0290`'ın aşırı roll nedeniyle kadraj dışı kalan 59 piksellik sağ kenarı `INSUFFICIENT_VISIBLE_AREA` ile temiz elendi.
-
-### E. Kart Skoru ve Gradyan Haritası Birebir Özdeşliği
-Kart skoru (`eye_measurement('lines', 75, line_field)`) ve yerel gradyan haritası (`localMap['periorbital:lines']`), harici yeniden hesaplama veya türetme olmadan, doğrudan aynı `line_signal = lines * 100` tensöründen üretilmektedir:
-$$\text{Score} = \text{mean}(\text{line\_signal}[\text{valid\_band}]) \quad \Longleftrightarrow \quad \text{LocalMap} = \text{line\_signal}$$
+### D. Makyaj Dışlama Tabanının Bağıl Cilt Parlaklığına Bağlanması
+- `appearance_analysis.py` içindeki `(gray > 0.18)` mutlak tabanı kaldırılarak yerine bağıl medyan cilt parlaklığı `gray >= med_l * 0.50` getirildi.
+- Bu sayede koyu ciltli veya hafif periorbital gölgede kalan gerçek kırışıklıkların (\(0.12 < gray < 0.18\)) makyaj zannedilerek elenmesi engellendi; mutlak koyu pikselleri tek başına makyaj sayma hatası kapatıldı.
 
 ---
 
-## 3. Doğal Fotoğraf Karşılaştırma Sonuçları
+## 2. Gerçek Baseline (ff0b161) ve Aday (v4) Karşılaştırma Sonuçları
 
-Doğrulama script'i `scripts/evaluate_crows_feet_v4.py` ile `analyze_skin` üretim hattı üzerinde 5 örnek canlı değerlendirilmiştir:
+`scripts/evaluate_crows_feet_v4.py` tarafından canlı yürütülerek `audit-results/crows-feet-v4-verification-20261012/crows-feet-receipt.json` makbuzuna kaydedilen kesin sonuçlar:
 
-| Örnek SHA | Kategori / Rol | v3 Baseline (raw / UI / px) | v4 Candidate (raw / UI / px) | Sonuç ve Doğrulama Durumu |
+| Örnek SHA | Örnek Kategorisi / Rolü | Baseline v3 (raw / UI / grid_px / src_px) | Candidate v4 (raw / UI / grid_px / src_px) | Değerlendirme ve Yerel Doğrulama Durumu |
 | :--- | :--- | :--- | :--- | :--- |
-| **`a94f1646`** | **Pozitif İnce Kaz Ayakları** | `0.0000` / %0 / 0 px (FN) | **`0.5563`** / **%1** / **99 px** | **KURTARILDI & DOĞRULANDI** — İnce çizgiler haritada şakak yönünde net siyan örtüşmeyle lokalize edildi. |
-| **`02386f86`** | **Pozitif Derin Kaz Ayakları** | `1.4335` / %1 / 104 px | **`3.1059`** / **%3** / **176 px** | **KORUNDU & GÜÇLENDİRİLDİ** — Belirgin derin kırışıklıklar tam genlikle yakalandı. |
-| **`beda0290`** | **Negatif Kontrol (Eyeliner & -24.5° Roll)** | `0.4012` / %0 / 5 px | **`0.0009`** / **%0** / **0 px** | **TEMİZ SIFIR NEGATİF** — Eyeliner ve kirpik uçları tamamen dışlandı. Sağ göz: `INSUFFICIENT_VISIBLE_AREA`. |
-| **`4b13b16a`** | **Doğal Dik Negatif Kontrol** | `0.4113` / %0 / 10 px | **`0.4803`** / **%0** / **10 px** | **TEMİZ SIFIR UI** — Pürüzsüz cilt, sahte alarm yok. |
-| **`5bd42346`** | **Dönüştürülmüş Regresyon Örneği** | `0.3335` / %0 / 25 px | **`0.4167`** / **%0** / **71 px** | **TEMİZ SIFIR UI** — Gürültülü ve açılı örnekte skor taban altında tutuldu. |
+| **`a94f1646`** | **Development Kontrolü**<br>(Pozitif İnce Kaz Ayağı) | `0.0000` / %0 / 0 px / 0 px<br>*(False Negative — Başarısız)* | **`0.5838`** / **%1** / **101 px** / **107 px** | **KURTARILDI & DOĞRULANDI**<br>Lateral canthus'tan şakağa radyal uzanan ince çizgiler yakalandı; haritada siyan örtüşme doğrulandı. |
+| **`02386f86`** | **Development Kontrolü**<br>(Pozitif Derin Kaz Ayağı) | `1.4335` / %1 / 104 px / 157 px | **`3.3882`** / **%3** / **184 px** / **260 px** | **KORUNDU & GÜÇLENDİRİLDİ**<br>Derin anatomik oluklar çok ölçekli frekans bankasıyla (\(0.13, 0.18, 0.26\)) tam güçte ölçüldü. |
+| **`beda0290`** | **Development Kontrolü**<br>(Eyeliner & -24.5° Roll Negatifi) | `0.4012` / %0 / 5 px / 5 px | **`0.0009`** / **%0** / **0 px** / **0 px** | **TEMİZ SIFIR NEGATİF**<br>Siyah eyeliner ucu bağıl parlaklık tabanıyla dışlandı; aşırı açılı sağ göz `INSUFFICIENT_VISIBLE_AREA` ile korundu. |
+| **`4b13b16a`** | **Development Kontrolü**<br>(Doğal Dik Negatif Kontrol) | `0.4113` / %0 / 10 px / 10 px | **`0.3322`** / **%0** / **10 px** / **10 px** | **TEMİZ SIFIR UI (Düşük Taban)**<br>Göz yarığı bileşkesindeki 10 piksellik mikro-katlantı taban altında; UI %0, sahte alarm üretmiyor. |
+| **`5bd42346`** | **Development Kontrolü**<br>(Dönüştürülmüş Regresyon) | `0.3335` / %0 / 25 px / 25 px | **`0.4156`** / **%0** / **72 px** / **72 px** | **TEMİZ SIFIR UI (Gürültü Kontrolü)**<br>20.5° dönme ve köşe üçgeni yapaylığına rağmen skor taban altında tutuldu. |
+| **`01955323`** | **Bağımsız Doğal Negatif**<br>(Daha Önce Kullanılmamış) | `0.0000` / %0 / 0 px / 0 px | **`0.0000`** / **%0** / **0 px** / **0 px** | **KUSURSUZ DOĞAL NEGATİF**<br>Dik doğal çekim (yaw: 0.31, roll: 0.08); göz dış köşelerinde sıfır çizgi, sıfır aktif piksel. |
+| **`7a8f4488`** | **Kalite Reddi Kontrolü**<br>(Üretim Kapısı Elenmesi) | `None` (`CAPTURE_QUALITY`) | `None` (`CAPTURE_QUALITY`) | **GÜVENLİ KALİTE REDDİ**<br>Etiketli kırışıklık mevcut ancak aşırı baş açısı (`yaw: -1.02 < -0.35`) nedeniyle üretim kalite kapısınca güvenle elendi. |
 
 ---
 
-## 4. Non-Regression (Diğer Hedeflerin Korunumu) Güvencesi
+## 3. Diğer Yöntemlerin Korunması (Non-Regression Kanıtı)
 
-Tüm örneklerde eşzamanlı olarak diğer kriterlerin durumları doğrulanmıştır:
-- **Morluk v4 (`dark`):** `lower-lid-contrast-chroma-local-v4` normalizasyonu ve skorları birebir korunmuştur.
-- **Torbalanma v5 (`bags`):** `contour-fold-local-support-v5` normalizasyonu ve sıfır/pozitif ayrımı etkilenmemiştir.
-- **Kuruluk (`dry`):** `eligible-flake-area-fixed-v2-shared` normalizasyonu değişmemiştir.
-- **Sarkma (`sag`):** Yanak ve çene süreklilik formülü ve sınırlama kodları korunmuştur.
-- **Birim Testler:** `test_skin_expanded_corrections.py` (10/10 test), `test_skin_anatomical_bands.py` ve `test_local_appearance_health.py` (25/25 test) olmak üzere **35/35 test başarıyla geçmiştir**.
+Tüm örneklerde aşağıdaki kriterler eşzamanlı doğrulanmış ve mutlak farkın sıfır olduğu (\(\Delta < 10^{-4}\)) makine makbuzunda kayıt altına alınmıştır:
+- **Morluk v4 (`dark`):** `lower-lid-contrast-chroma-local-v4` skorları ve sınırlama kodları birebir korunmuştur.
+- **Torbalanma v5 (`bags`):** `contour-fold-local-support-v5` pretarsal marj ofsetleri ve skorları etkilenmemiştir.
+- **Kuruluk (`dry`):** `eligible-flake-area-fixed-v2-shared` analizi değişmemiştir.
+- **Sarkma (`sag`):** Yanak ve çene süreklilik formülleri korunmuştur.
+- **Test Güvencesi:** [`tests/unit/test_skin_expanded_corrections.py`](file:///c:/Users/PC/Desktop/AI%20Workspace/TOGG/attune-antigravity-skin/tests/unit/test_skin_expanded_corrections.py) (10 test), [`tests/unit/test_skin_anatomical_bands.py`](file:///c:/Users/PC/Desktop/AI%20Workspace/TOGG/attune-antigravity-skin/tests/unit/test_skin_anatomical_bands.py) ve [`tests/unit/test_local_appearance_health.py`](file:///c:/Users/PC/Desktop/AI%20Workspace/TOGG/attune-antigravity-skin/tests/unit/test_local_appearance_health.py) (25 test) olmak üzere **35/35 birim test %100 yeşil olarak geçmiştir**.
 
 ---
 
-## 5. Makbuz ve Görsel Kanıtlar
+## 4. Kaynak Hash'leri ve Doğrulama Kimliği
 
-- **Makine Makbuzu:** `audit-results/crows-feet-20261012/crows-feet-receipt.json`
-- **Görsel Galeri:** `audit-results/crows-feet-20261012/gallery/index.html`
-- **Kırpılmış Orijinal & Siyan Örtüşme Görselleri:** `audit-results/crows-feet-20261012/gallery/assets/`
+- **Makbuz Dosyası:** `audit-results/crows-feet-v4-verification-20261012/crows-feet-receipt.json`
+- **Çalışma Başlangıcı:** `2026-10-12T18:46:57Z`
+- **Çalışma Bitişi:** `2026-10-12T18:48:01Z` (Süre: 63.86 saniye)
+- **Dosya Hash'leri (SHA-256):**
+  - `services/core-api/appearance_analysis.py`: `ef693b29b5e5f8c389b882ac17b7033e62c794f1b43b210ab5d55cdf1eb271dd`
+  - `services/core-api/instant_appearance.py`: `1e750e6a56dac61303e3f8049a30340fc0956488d5d5b0b0ed499ac1bbf99f45`
+  - `services/core-api/skin_models.py`: `9416452913099d709e77313a87a05b84420af03c77466c4cafea1e428a5a8ba4`
+  - `face_landmarker.task`: `64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff`
+- **CD İzolasyon Garantisi:** `attune-live-test` çalışma alanı salt okunur kalmış, hiçbir dosyasına yazılmamış ve mevcut çalışma ağacı korunmuştur.

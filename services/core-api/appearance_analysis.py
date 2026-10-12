@@ -479,7 +479,7 @@ def analyze_skin(payload, include_research_features=False):
                 valid_line=under & ~hair_margin
                 if valid_line.sum()<20:return None,'HAIR_OR_OCCLUSION_IN_LINE_BAND',valid_line
                 med_l=float(np.median(gray[valid_line]))
-                skin_support=valid_line & (gray>=med_l*0.55) & (gray>0.18)
+                skin_support=valid_line & (gray>=med_l*0.50)
                 if skin_support.sum()<20:return None,'HAIR_OR_OCCLUSION_IN_LINE_BAND',skin_support
                 return (None,'INSUFFICIENT_SOURCE_DETAIL',skin_support) if face_pixels<LIMITS['minFacePixels'] else (lines*100,None,skin_support)
             value,line_signal,known,lines_reason,lines_area,line_components=eye_measurement('lines',75,line_field)

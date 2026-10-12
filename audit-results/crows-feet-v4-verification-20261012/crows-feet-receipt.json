@@ -1,0 +1,812 @@
+{
+  "schemaVersion": 2,
+  "auditId": "crows-feet-v4-verification-20261012",
+  "executionStart": "2026-10-12T18:46:57.693499+00:00",
+  "executionEnd": "2026-10-12T18:48:01.554265+00:00",
+  "durationSeconds": 63.86,
+  "target": "lines",
+  "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v4",
+  "baselineCommit": "ff0b161bd807fe81d2ba5ee6283d4f5b26f6a102",
+  "baselineNormalization": "outer-canthus-gabor-radiating-hair-excluded-v3",
+  "testedCommit": "83b22e50edab3e44b0e0c039151629ce4b3aa030",
+  "workingTreeState": "modified",
+  "sourceFileHashes": {
+    "appearance_analysis_py": "ef693b29b5e5f8c389b882ac17b7033e62c794f1b43b210ab5d55cdf1eb271dd",
+    "instant_appearance_py": "1e750e6a56dac61303e3f8049a30340fc0956488d5d5b0b0ed499ac1bbf99f45",
+    "skin_models_py": "9416452913099d709e77313a87a05b84420af03c77466c4cafea1e428a5a8ba4",
+    "face_landmarker_task": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff"
+  },
+  "verificationRules": {
+    "rescuedCondition": "baseline raw < 0.05 and candidate raw > 0.1 and candidate UI >= 1 with valid map",
+    "preservedCondition": "baseline raw > 0.5 and candidate raw > 0.5",
+    "falsePositiveCondition": "negative role and candidate UI > 0",
+    "nonRegressionCondition": "delta < 1e-4 and limitationCode identical and quality identical across dark/bags/dry/sag",
+    "zeroMapCardConsistencyCondition": "card score and local map derived from identical array; alpha quantizes to 0 when raw < 0.50"
+  },
+  "summary": {
+    "totalEvaluated": 7,
+    "positiveSamplesRescued": 1,
+    "positiveSamplesPreserved": 1,
+    "negativeControlsFalsePositiveCount": 0,
+    "zeroMapCardConsistencyVerified": true,
+    "nonRegressionVerified": true
+  },
+  "records": [
+    {
+      "sha256": "a94f1646c29f6c624f233ba1c9e0ee21a4b6f6b72a54bb3c9a5dfce9c510dc61",
+      "short_sha": "a94f1646",
+      "sampleCategory": "development_control",
+      "role": "POSITIVE_FINE_LINES_DEV",
+      "description": "Development control: Fine crow's feet wrinkles on lateral canthus band (failing in v3 with raw=0.0, rescued in v4)",
+      "rel_path": "test/00167_png_jpg.rf.4c8f75309320c1039a7e11d11ac347b7.jpg",
+      "dimensions": [
+        640,
+        640
+      ],
+      "conditions": {
+        "yaw": -0.2,
+        "pitch": -0.12,
+        "roll": 0.02,
+        "avgLuminance": 80.6312158203125,
+        "blurScore": 88.97496069428918,
+        "qualityValid": true
+      },
+      "baseline_v3": {
+        "raw": 0.0,
+        "ui_score": 0,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3",
+        "limitationCode": null,
+        "quality": "valid",
+        "active_pixels_analysis_grid": 0,
+        "active_pixels_source_mapped": 0
+      },
+      "candidate_v4": {
+        "raw": 0.5838235020637512,
+        "ui_score": 1,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v4",
+        "limitationCode": null,
+        "quality": "valid",
+        "sides": [
+          {
+            "side": "right",
+            "value": 0.44487258791923523,
+            "limitationCode": null,
+            "analysisPixels": 311
+          },
+          {
+            "side": "left",
+            "value": 0.7058961987495422,
+            "limitationCode": null,
+            "analysisPixels": 354
+          }
+        ],
+        "partialCoverage": false,
+        "active_pixels_analysis_grid": 101,
+        "active_pixels_source_mapped": 107,
+        "has_local_map": true,
+        "map_descriptor": {
+          "criterion": "lines",
+          "region": "periorbital",
+          "step": 1.0757497549057007,
+          "width": 262,
+          "height": 29,
+          "x": 181.63598823547363,
+          "y": 292.9989676475525
+        }
+      },
+      "consistency_check": {
+        "passed": true,
+        "explanation": "Local map and card score derived from identical line_signal array; alpha quantizes to 0 when raw < 0.50"
+      },
+      "non_regression_checks": {
+        "all_passed": true,
+        "components": {
+          "dark": {
+            "baseline_val": 5.027421474456787,
+            "candidate_val": 5.027421474456787,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "lower-lid-contrast-chroma-local-v4"
+          },
+          "bags": {
+            "baseline_val": 0.0,
+            "candidate_val": 0.0,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "contour-fold-local-support-v5"
+          },
+          "dry": {
+            "baseline_val": 0.0,
+            "candidate_val": 0.0,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "eligible-flake-area-fixed-v2-shared"
+          },
+          "sag": {
+            "baseline_val": null,
+            "candidate_val": null,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "contour-fold-lower-face-local-support-v6"
+          }
+        }
+      },
+      "visuals": {
+        "crop_orig": "assets/a94f1646_orig.jpg",
+        "crop_overlay": "assets/a94f1646_v4_map.jpg"
+      }
+    },
+    {
+      "sha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+      "short_sha": "02386f86",
+      "sampleCategory": "development_control",
+      "role": "POSITIVE_DEEP_LINES_DEV",
+      "description": "Development control: Prominent deep crow's feet folds fanning from outer eye corners (preserved and strengthened in v4)",
+      "rel_path": "train/69951_jpg.rf.38bbafdf8ce5f6bfe579c59e430bceaa.jpg",
+      "dimensions": [
+        640,
+        640
+      ],
+      "conditions": {
+        "yaw": 0.0,
+        "pitch": -0.03,
+        "roll": -0.01,
+        "avgLuminance": 111.39900390625,
+        "blurScore": 264.0938720541954,
+        "qualityValid": true
+      },
+      "baseline_v3": {
+        "raw": 1.4335190057754517,
+        "ui_score": 1,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3",
+        "limitationCode": null,
+        "quality": "valid",
+        "active_pixels_analysis_grid": 104,
+        "active_pixels_source_mapped": 157
+      },
+      "candidate_v4": {
+        "raw": 3.388190984725952,
+        "ui_score": 3,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v4",
+        "limitationCode": null,
+        "quality": "valid",
+        "sides": [
+          {
+            "side": "right",
+            "value": 3.8124876022338867,
+            "limitationCode": null,
+            "analysisPixels": 336
+          },
+          {
+            "side": "left",
+            "value": 2.887967586517334,
+            "limitationCode": null,
+            "analysisPixels": 285
+          }
+        ],
+        "partialCoverage": false,
+        "active_pixels_analysis_grid": 184,
+        "active_pixels_source_mapped": 260,
+        "has_local_map": true,
+        "map_descriptor": {
+          "criterion": "lines",
+          "region": "periorbital",
+          "step": 1.2175234258174896,
+          "width": 250,
+          "height": 29,
+          "x": 168.70397582650185,
+          "y": 286.8429985046387
+        }
+      },
+      "consistency_check": {
+        "passed": true,
+        "explanation": "Local map and card score derived from identical line_signal array; alpha quantizes to 0 when raw < 0.50"
+      },
+      "non_regression_checks": {
+        "all_passed": true,
+        "components": {
+          "dark": {
+            "baseline_val": 0.9793508052825928,
+            "candidate_val": 0.9793508052825928,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "lower-lid-contrast-chroma-local-v4"
+          },
+          "bags": {
+            "baseline_val": 3.835072021865926,
+            "candidate_val": 3.835072021865926,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "contour-fold-local-support-v5"
+          },
+          "dry": {
+            "baseline_val": 0.2280790674100355,
+            "candidate_val": 0.2280790674100355,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "eligible-flake-area-fixed-v2-shared"
+          },
+          "sag": {
+            "baseline_val": null,
+            "candidate_val": null,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "contour-fold-lower-face-local-support-v6"
+          }
+        }
+      },
+      "visuals": {
+        "crop_orig": "assets/02386f86_orig.jpg",
+        "crop_overlay": "assets/02386f86_v4_map.jpg"
+      }
+    },
+    {
+      "sha256": "beda02904d704cba3e6f417892442a8c2fa1650f765a761957c3285a4d55cbf5",
+      "short_sha": "beda0290",
+      "sampleCategory": "development_control",
+      "role": "NEGATIVE_CONTROL_EYELINER_DEV",
+      "description": "Development control: Clean smooth under-eye/temple skin with dark eyeliner flick, roll = -24.5 deg",
+      "rel_path": "skin_type_classification_dataset/test/normal/normal_new_75ecf7ec1f1edea59589_jpg.rf.d745f9da8b5c8096b2525bcc06c83d54.jpg",
+      "dimensions": [
+        640,
+        640
+      ],
+      "conditions": {
+        "yaw": 0.03,
+        "pitch": 0.03,
+        "roll": -0.44,
+        "avgLuminance": 43.50466064453125,
+        "blurScore": 183.67251909027098,
+        "qualityValid": true
+      },
+      "baseline_v3": {
+        "raw": 0.4012039601802826,
+        "ui_score": 0,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3",
+        "limitationCode": null,
+        "quality": "valid",
+        "active_pixels_analysis_grid": 5,
+        "active_pixels_source_mapped": 5
+      },
+      "candidate_v4": {
+        "raw": 0.0009146624361164868,
+        "ui_score": 0,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v4",
+        "limitationCode": null,
+        "quality": "valid",
+        "sides": [
+          {
+            "side": "right",
+            "value": null,
+            "limitationCode": "INSUFFICIENT_VISIBLE_AREA",
+            "analysisPixels": 59
+          },
+          {
+            "side": "left",
+            "value": 0.0009146624361164868,
+            "limitationCode": null,
+            "analysisPixels": 139
+          }
+        ],
+        "partialCoverage": true,
+        "active_pixels_analysis_grid": 0,
+        "active_pixels_source_mapped": 0,
+        "has_local_map": true,
+        "map_descriptor": {
+          "criterion": "lines",
+          "region": "periorbital",
+          "step": 1.0,
+          "width": 17,
+          "height": 14,
+          "x": 379.0,
+          "y": 74.0
+        }
+      },
+      "consistency_check": {
+        "passed": true,
+        "explanation": "Local map and card score derived from identical line_signal array; alpha quantizes to 0 when raw < 0.50"
+      },
+      "non_regression_checks": {
+        "all_passed": true,
+        "components": {
+          "dark": {
+            "baseline_val": 1.716963291168213,
+            "candidate_val": 1.716963291168213,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "lower-lid-contrast-chroma-local-v4"
+          },
+          "bags": {
+            "baseline_val": 0.0,
+            "candidate_val": 0.0,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "contour-fold-local-support-v5"
+          },
+          "dry": {
+            "baseline_val": 0.0,
+            "candidate_val": 0.0,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "eligible-flake-area-fixed-v2-shared"
+          },
+          "sag": {
+            "baseline_val": null,
+            "candidate_val": null,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "contour-fold-lower-face-local-support-v6"
+          }
+        }
+      },
+      "visuals": {
+        "crop_orig": "assets/beda0290_orig.jpg",
+        "crop_overlay": "assets/beda0290_v4_map.jpg"
+      }
+    },
+    {
+      "sha256": "4b13b16a33d4c2d72dbae196aa83a21d0ffb738969f80c0394c7941beb24c9db",
+      "short_sha": "4b13b16a",
+      "sampleCategory": "development_control",
+      "role": "NEGATIVE_CONTROL_NATURAL_DEV",
+      "description": "Development control: Natural upright capture with smooth eye corners; evaluated inside reviewed negative ROI",
+      "rel_path": "skin_type_classification_dataset/test/dry/dry_new_b727e769596e165e55c9_jpg.rf.a2a883cd47a0a4d4d91b55554e1ac742.jpg",
+      "dimensions": [
+        640,
+        640
+      ],
+      "conditions": {
+        "yaw": -0.14,
+        "pitch": -0.04,
+        "roll": 0.14,
+        "avgLuminance": 130.14166015625,
+        "blurScore": 423.876012698406,
+        "qualityValid": true
+      },
+      "baseline_v3": {
+        "raw": 0.411264032125473,
+        "ui_score": 0,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3",
+        "limitationCode": null,
+        "quality": "valid",
+        "active_pixels_analysis_grid": 10,
+        "active_pixels_source_mapped": 10
+      },
+      "candidate_v4": {
+        "raw": 0.3322451412677765,
+        "ui_score": 0,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v4",
+        "limitationCode": null,
+        "quality": "valid",
+        "sides": [
+          {
+            "side": "right",
+            "value": 0.4802922010421753,
+            "limitationCode": null,
+            "analysisPixels": 193
+          },
+          {
+            "side": "left",
+            "value": 0.0,
+            "limitationCode": null,
+            "analysisPixels": 86
+          }
+        ],
+        "partialCoverage": false,
+        "active_pixels_analysis_grid": 10,
+        "active_pixels_source_mapped": 10,
+        "has_local_map": true,
+        "map_descriptor": {
+          "criterion": "lines",
+          "region": "periorbital",
+          "step": 1.0,
+          "width": 236,
+          "height": 45,
+          "x": 178.0,
+          "y": 216.0
+        }
+      },
+      "consistency_check": {
+        "passed": true,
+        "explanation": "Local map and card score derived from identical line_signal array; alpha quantizes to 0 when raw < 0.50"
+      },
+      "non_regression_checks": {
+        "all_passed": true,
+        "components": {
+          "dark": {
+            "baseline_val": 15.117681503295898,
+            "candidate_val": 15.117681503295898,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "lower-lid-contrast-chroma-local-v4"
+          },
+          "bags": {
+            "baseline_val": 0.0,
+            "candidate_val": 0.0,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "contour-fold-local-support-v5"
+          },
+          "dry": {
+            "baseline_val": 0.0,
+            "candidate_val": 0.0,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "eligible-flake-area-fixed-v2-shared"
+          },
+          "sag": {
+            "baseline_val": null,
+            "candidate_val": null,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "contour-fold-lower-face-local-support-v6"
+          }
+        }
+      },
+      "visuals": {
+        "crop_orig": "assets/4b13b16a_orig.jpg",
+        "crop_overlay": "assets/4b13b16a_v4_map.jpg"
+      }
+    },
+    {
+      "sha256": "5bd42346304d791a394f98717ae1b38614688cead8dbb9ac2e09cc4ecf6c0905",
+      "short_sha": "5bd42346",
+      "sampleCategory": "development_control",
+      "role": "NEGATIVE_REGRESSION_TRANSFORMED_DEV",
+      "description": "Development control: Transformed regression sample (20.5 deg rotation, corner triangles, noise)",
+      "rel_path": "skin_type_classification_dataset/valid/dry/dry_3af68a1937218e391938_jpg.rf.2c41f296ce4ba60e263c920073dead27.jpg",
+      "dimensions": [
+        640,
+        640
+      ],
+      "conditions": {
+        "yaw": 0.2,
+        "pitch": -0.21,
+        "roll": 0.36,
+        "avgLuminance": 88.9771044921875,
+        "blurScore": 865.4083439462422,
+        "qualityValid": true
+      },
+      "baseline_v3": {
+        "raw": 0.3334846496582031,
+        "ui_score": 0,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3",
+        "limitationCode": null,
+        "quality": "valid",
+        "active_pixels_analysis_grid": 25,
+        "active_pixels_source_mapped": 25
+      },
+      "candidate_v4": {
+        "raw": 0.4156438410282135,
+        "ui_score": 0,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v4",
+        "limitationCode": null,
+        "quality": "valid",
+        "sides": [
+          {
+            "side": "right",
+            "value": 0.3313685953617096,
+            "limitationCode": null,
+            "analysisPixels": 310
+          },
+          {
+            "side": "left",
+            "value": 0.5531455874443054,
+            "limitationCode": null,
+            "analysisPixels": 190
+          }
+        ],
+        "partialCoverage": false,
+        "active_pixels_analysis_grid": 72,
+        "active_pixels_source_mapped": 72,
+        "has_local_map": true,
+        "map_descriptor": {
+          "criterion": "lines",
+          "region": "periorbital",
+          "step": 1.0,
+          "width": 231,
+          "height": 104,
+          "x": 259.0,
+          "y": 155.0
+        }
+      },
+      "consistency_check": {
+        "passed": true,
+        "explanation": "Local map and card score derived from identical line_signal array; alpha quantizes to 0 when raw < 0.50"
+      },
+      "non_regression_checks": {
+        "all_passed": true,
+        "components": {
+          "dark": {
+            "baseline_val": 1.095200777053833,
+            "candidate_val": 1.095200777053833,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "lower-lid-contrast-chroma-local-v4"
+          },
+          "bags": {
+            "baseline_val": 0.0,
+            "candidate_val": 0.0,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "contour-fold-local-support-v5"
+          },
+          "dry": {
+            "baseline_val": 0.05765904285988853,
+            "candidate_val": 0.05765904285988853,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "eligible-flake-area-fixed-v2-shared"
+          },
+          "sag": {
+            "baseline_val": null,
+            "candidate_val": null,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "contour-fold-lower-face-local-support-v6"
+          }
+        }
+      },
+      "visuals": {
+        "crop_orig": "assets/5bd42346_orig.jpg",
+        "crop_overlay": "assets/5bd42346_v4_map.jpg"
+      }
+    },
+    {
+      "sha256": "019553232a5616cde10d224133c18302cc59fc43a963c806319c92d846c54fa4",
+      "short_sha": "01955323",
+      "sampleCategory": "independent_natural_control",
+      "role": "NEGATIVE_CONTROL_NATURAL_INDEPENDENT",
+      "description": "Independent natural test control: Upright natural capture (yaw 0.31, roll 0.08) with smooth temples and zero line annotations",
+      "rel_path": "train/96bb74de-img_403_jpg.rf.d3aa23a817c08731af60f39036e0f24e.jpg",
+      "dimensions": [
+        640,
+        640
+      ],
+      "conditions": {
+        "yaw": 0.31,
+        "pitch": -0.05,
+        "roll": 0.08,
+        "avgLuminance": 47.18563232421875,
+        "blurScore": 391.0086808669029,
+        "qualityValid": true
+      },
+      "baseline_v3": {
+        "raw": 0.0,
+        "ui_score": 0,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3",
+        "limitationCode": null,
+        "quality": "valid",
+        "active_pixels_analysis_grid": 0,
+        "active_pixels_source_mapped": 0
+      },
+      "candidate_v4": {
+        "raw": 0.0,
+        "ui_score": 0,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v4",
+        "limitationCode": null,
+        "quality": "valid",
+        "sides": [
+          {
+            "side": "right",
+            "value": 0.0,
+            "limitationCode": null,
+            "analysisPixels": 120
+          },
+          {
+            "side": "left",
+            "value": null,
+            "limitationCode": "INSUFFICIENT_VISIBLE_AREA",
+            "analysisPixels": 0
+          }
+        ],
+        "partialCoverage": true,
+        "active_pixels_analysis_grid": 0,
+        "active_pixels_source_mapped": 0,
+        "has_local_map": true,
+        "map_descriptor": {
+          "criterion": "lines",
+          "region": "periorbital",
+          "step": 1.213941216468811,
+          "width": 18,
+          "height": 14,
+          "x": 213.18500339984894,
+          "y": 206.03594529628754
+        }
+      },
+      "consistency_check": {
+        "passed": true,
+        "explanation": "Local map and card score derived from identical line_signal array; alpha quantizes to 0 when raw < 0.50"
+      },
+      "non_regression_checks": {
+        "all_passed": true,
+        "components": {
+          "dark": {
+            "baseline_val": 18.469831466674805,
+            "candidate_val": 18.469831466674805,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "lower-lid-contrast-chroma-local-v4"
+          },
+          "bags": {
+            "baseline_val": null,
+            "candidate_val": null,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "contour-fold-local-support-v5"
+          },
+          "dry": {
+            "baseline_val": 0.578642819568648,
+            "candidate_val": 0.578642819568648,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "eligible-flake-area-fixed-v2-shared"
+          },
+          "sag": {
+            "baseline_val": null,
+            "candidate_val": null,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "contour-fold-lower-face-local-support-v6"
+          }
+        }
+      },
+      "visuals": {
+        "crop_orig": "assets/01955323_orig.jpg",
+        "crop_overlay": "assets/01955323_v4_map.jpg"
+      }
+    },
+    {
+      "sha256": "7a8f448884a31b4521d85301c6b1ae3e5d0741e87126a07b5762a4bb87884da9",
+      "short_sha": "7a8f4488",
+      "sampleCategory": "quality_gate_control",
+      "role": "POSITIVE_LINES_QUALITY_REJECTED",
+      "description": "Quality gate control: Labeled outer canthus wrinkle present, but extreme head yaw (-1.02) correctly rejected by production quality gate",
+      "rel_path": "train/19898_jpg.rf.f3188c6aca58d4d28d952b209d7a342b.jpg",
+      "dimensions": [
+        640,
+        640
+      ],
+      "conditions": {
+        "yaw": -1.02,
+        "pitch": -0.06,
+        "roll": 0.06,
+        "avgLuminance": 87.53764892578126,
+        "blurScore": 84.74619307088257,
+        "qualityValid": false
+      },
+      "baseline_v3": {
+        "raw": null,
+        "ui_score": null,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v3",
+        "limitationCode": "CAPTURE_QUALITY",
+        "quality": "insufficient",
+        "active_pixels_analysis_grid": 0,
+        "active_pixels_source_mapped": 0
+      },
+      "candidate_v4": {
+        "raw": null,
+        "ui_score": null,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v4",
+        "limitationCode": "CAPTURE_QUALITY",
+        "quality": "insufficient",
+        "sides": [
+          {
+            "side": "right",
+            "value": null,
+            "limitationCode": "CAPTURE_QUALITY",
+            "analysisPixels": 106
+          },
+          {
+            "side": "left",
+            "value": null,
+            "limitationCode": "CAPTURE_QUALITY",
+            "analysisPixels": 288
+          }
+        ],
+        "partialCoverage": true,
+        "active_pixels_analysis_grid": 0,
+        "active_pixels_source_mapped": 0,
+        "has_local_map": false,
+        "map_descriptor": null
+      },
+      "consistency_check": {
+        "passed": true,
+        "explanation": "Local map and card score derived from identical line_signal array; alpha quantizes to 0 when raw < 0.50"
+      },
+      "non_regression_checks": {
+        "all_passed": true,
+        "components": {
+          "dark": {
+            "baseline_val": null,
+            "candidate_val": null,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "lower-lid-contrast-chroma-local-v4"
+          },
+          "bags": {
+            "baseline_val": null,
+            "candidate_val": null,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "contour-fold-local-support-v5"
+          },
+          "dry": {
+            "baseline_val": null,
+            "candidate_val": null,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "eligible-flake-area-fixed-v2-shared"
+          },
+          "sag": {
+            "baseline_val": null,
+            "candidate_val": null,
+            "delta": 0.0,
+            "val_identical": true,
+            "limitation_identical": true,
+            "quality_identical": true,
+            "normalization": "contour-fold-lower-face-local-support-v6"
+          }
+        }
+      },
+      "visuals": {
+        "crop_orig": "assets/7a8f4488_orig.jpg",
+        "crop_overlay": "assets/7a8f4488_v4_map.jpg"
+      }
+    }
+  ]
+}
