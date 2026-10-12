@@ -21,7 +21,7 @@ from skin_scan_baseline.blemishes import blemish_map
 
 VERSION = 'appearance-cv-6'
 LIMITS = {'minFacePixels': 180, 'analysisFacePixels': 320, 'maxClippedFraction': .03}
-NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-area-fixed-v2-shared','acne':'unique-detection-box-anatomical-area-v2','lines':'outer-canthus-gabor-local-quality-v2','dark':'lower-lid-relative-contrast-local-quality-v2','sag':'contour-fold-lower-face-local-support-v6','bags':'contour-fold-local-support-v4'}
+NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-area-fixed-v2-shared','acne':'unique-detection-box-anatomical-area-v2','lines':'outer-canthus-gabor-radiating-hair-excluded-v3','dark':'lower-lid-contrast-chroma-local-v3','sag':'contour-fold-lower-face-local-support-v6','bags':'contour-fold-local-support-v4'}
 
 
 def decode_photo(data):
@@ -417,13 +417,25 @@ def analyze_skin(payload, include_research_features=False):
                     target=local_bands[criterion];under=valid&target
                     limitation,_=target_quality(target,minimum_pixels)
                     local=None
+                    active_support=under
                     if limitation is None:
-                        local,limitation=field(under)
-                    value=None if limitation is not None else float(np.mean(local[under]))
-                    sides.append(dict(side=side,value=value,limitationCode=limitation,analysisPixels=int(under.sum())))
-                    if value is not None:signal[under]=local[under];observed|=under
+                        field_res=field(under)
+                        if len(field_res)==3:
+                            local,limitation,active_support=field_res
+                        else:
+                            local,limitation=field_res
+                            active_support=under
+                    if limitation is not None or active_support is None or not active_support.any():
+                        value=None
+                        analysis_pixels=int(active_support.sum()) if active_support is not None else 0
+                    else:
+                        value=float(np.mean(local[active_support]))
+                        analysis_pixels=int(active_support.sum())
+                        signal[active_support]=local[active_support]
+                        observed|=active_support
+                    sides.append(dict(side=side,value=value,limitationCode=limitation,analysisPixels=analysis_pixels))
                 measured=[v for v in sides if v['value'] is not None]
-                value=float(np.mean(signal[observed])) if measured else 0.
+                value=float(np.mean(signal[observed])) if (measured and observed.any()) else 0.
                 limitation=None if measured else next((v['limitationCode'] for v in sides if v['limitationCode']),'ANATOMICAL_BAND_NOT_VISIBLE')
                 target_area=dict(scope='measured-local-eye-target-bands',sourcePixels=float(observed.sum()/scale**2),analysisPixels=int(observed.sum()),anatomicalSourcePixels=float((anatomical&bands[criterion]).sum()/scale**2),sourceFacePixels=float(face_pixels),unknownSides=[v['side'] for v in sides if v['value'] is None])
                 return value,signal,observed,limitation,target_area,dict(sides=sides,partialCoverage=len(measured)<len(sides),band=criterion)
@@ -450,16 +462,19 @@ def analyze_skin(payload, include_research_features=False):
                 return signal,None
             value,dark,known,dark_reason,dark_area,dark_components=eye_measurement('dark',100,dark_field)
             add('dark',value,'relative-color-index-0-100',dark,100,limitation=dark_reason,signal_mask=known,measurement_area=dark_area,components=dark_components)
+            eye_axis=np.array([(points[263]['x']-points[33]['x'])*width,(points[263]['y']-points[33]['y'])*bgr.shape[0]])
+            roll_rad=float(np.arctan2(eye_axis[1],eye_axis[0])) if np.linalg.norm(eye_axis)>1e-5 else 0.
+            radiating_thetas=(np.pi/2+roll_rad-np.pi/6,np.pi/2+roll_rad,np.pi/2+roll_rad+np.pi/6)
             lines=np.zeros(gray.shape,np.float32)
             for frequency in (.18,.28):
-                for theta in (np.pi/3, np.pi/2, 2*np.pi/3):
+                for theta in radiating_thetas:
                     real,imaginary=gabor(gray,frequency=frequency,theta=theta)
                     lines=np.maximum(lines,np.clip((np.hypot(real,imaginary)-.018)/.06,0,1))
             hair_margin=cv2.dilate(hair.astype(np.uint8),np.ones((5,5),np.uint8))>0
             def line_field(under):
                 valid_line=under & ~hair_margin
-                if valid_line.sum()<20:return None,'HAIR_OR_OCCLUSION_IN_LINE_BAND'
-                return (None,'INSUFFICIENT_SOURCE_DETAIL') if face_pixels<LIMITS['minFacePixels'] else (lines*100,None)
+                if valid_line.sum()<20:return None,'HAIR_OR_OCCLUSION_IN_LINE_BAND',valid_line
+                return (None,'INSUFFICIENT_SOURCE_DETAIL',valid_line) if face_pixels<LIMITS['minFacePixels'] else (lines*100,None,valid_line)
             value,line_signal,known,lines_reason,lines_area,line_components=eye_measurement('lines',30,line_field)
             add('lines',value,'directional-line-index-0-100',line_signal/100,limitation=lines_reason,signal_mask=known,measurement_area=lines_area,components=line_components)
         if region != 'nose':

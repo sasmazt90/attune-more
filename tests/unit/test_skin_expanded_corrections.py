@@ -169,19 +169,96 @@ def test_target_d_lines_radiating_angles_exclude_vertical_lash_and_hair():
     assert resp_radiating > 2.0 * resp_vertical, "Radiating crow's feet filter must strongly prefer horizontal over vertical eyelashes"
 
 
-def test_target_e_photo57_sag_regression_preserved():
-    """Target E & Regression: Photo57 lower face shadow/crop must be preserved
-    as an explicit regression case: declaredLabel='positive',
-    visualReview='inconclusive-lower-face-shadow-crop', sag_overview=0 (missed).
+def test_target_d_lines_hair_exclusion_from_signal_and_denominator():
+    """Target D: Hair margin is strictly excluded from scored pixels, denominator,
+    and cyan signal map. When hair completely occludes the line band (< 20 px),
+    the limitation is 'HAIR_OR_OCCLUSION_IN_LINE_BAND' and value is None (not 0.0).
     """
-    receipt_path = ROOT / 'audit-results/sag-calibrated-true-results.json'
-    if not receipt_path.exists():
-        receipt_path = ROOT.parent / 'attune-live-test/audit-results/interim-diagnosis/ag-sag-production-replay.json'
+    h, w = 280, 320
+    p = [dict(x=.5, y=.5, z=0.) for _ in range(478)]
+    oval = [10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288, 397, 365, 379, 378, 400, 377, 152, 148, 176, 149, 150, 136, 172, 58, 132, 93, 234, 127, 162, 21, 54, 103, 67, 109]
+    for i, angle in zip(oval, np.linspace(-np.pi/2, 3*np.pi/2, len(oval), endpoint=False)):
+        p[i].update(x=.5+.49*np.cos(angle), y=.5+.48*np.sin(angle))
+    locations = {234: (0, 150), 454: (320, 150), 33: (40, 70), 133: (110, 70), 159: (75, 64), 163: (50, 76),
+                 144: (60, 80), 145: (75, 82), 153: (90, 83), 154: (100, 80), 155: (105, 76),
+                 263: (280, 70), 362: (210, 70), 386: (245, 64), 390: (270, 76), 373: (260, 80),
+                 374: (245, 82), 380: (230, 83), 381: (220, 80), 382: (215, 76), 61: (110, 165), 291: (210, 165),
+                 13: (160, 165), 14: (160, 168)}
+    for i, (x, y) in locations.items():
+        p[i].update(x=x/w, y=y/h)
+    mesh = {'points': [{'x': 0, 'y': 40}, {'x': 320, 'y': 40}, {'x': 320, 'y': 130}, {'x': 0, 'y': 130}], 'edges': [[0, 1], [1, 2], [2, 3], [3, 0], [0, 2]]}
     
-    if receipt_path.exists():
-        data = json.loads(receipt_path.read_text())
-        r57 = next((r for r in data['rows'] if r.get('index') == 57), None)
-        if r57:
-            assert r57['declaredLabel'] == 'positive', "Photo57 declaredLabel must stay positive"
-            assert r57['visualReview'] == 'inconclusive-lower-face-shadow-crop', "Photo57 visualReview must stay inconclusive-lower-face-shadow-crop"
-            assert r57['sag_overview'] == 0, "Photo57 sag_overview must stay 0 (not falsely marked passed)"
+    # 1. Clean image without hair
+    img_clean = np.full((h, w, 3), 150, np.uint8)
+    url_c, dig_c = photo(img_clean)
+    res_c = A.analyze_skin(dict(photo=url_c, photoId=dig_c, landmarks=p, meshes={'periorbital': mesh}, exclusions=[], pose='FRONT', qualityValid=True, conditions=dict(yaw=0., pitch=0., roll=0., scaleRatio=.6, avgLuminance=150., blurScore=50.)))
+    sides_c = next(v for v in res_c['measurements']['periorbital'] if v['id'] == 'lines')['components']['sides']
+    px_clean = next(s['analysisPixels'] for s in sides_c if s['side'] == 'right')
+
+    # 2. Image with hair margin covering part of lateral canthus
+    img_hair = np.full((h, w, 3), 150, np.uint8)
+    img_hair[60:85, 20:45] = 10  # dark hair strand covering outer canthus
+    url_h, dig_h = photo(img_hair)
+    res_h = A.analyze_skin(dict(photo=url_h, photoId=dig_h, landmarks=p, meshes={'periorbital': mesh}, exclusions=[], pose='FRONT', qualityValid=True, conditions=dict(yaw=0., pitch=0., roll=0., scaleRatio=.6, avgLuminance=150., blurScore=50.)))
+    sides_h = next(v for v in res_h['measurements']['periorbital'] if v['id'] == 'lines')['components']['sides']
+    px_hair = next(s['analysisPixels'] for s in sides_h if s['side'] == 'right')
+    
+    assert px_hair < px_clean, f"Hair margin must reduce scored analysis support (clean {px_clean} vs hair {px_hair})"
+
+    # 3. Heavy occlusion over outer canthus line band (< 20 px valid)
+    img_occ = np.full((h, w, 3), 150, np.uint8)
+    img_occ[50:100, 10:60] = 10
+    url_o, dig_o = photo(img_occ)
+    res_o = A.analyze_skin(dict(photo=url_o, photoId=dig_o, landmarks=p, meshes={'periorbital': mesh}, exclusions=[], pose='FRONT', qualityValid=True, conditions=dict(yaw=0., pitch=0., roll=0., scaleRatio=.6, avgLuminance=150., blurScore=50.)))
+    s_occ = next(s for s in next(v for v in res_o['measurements']['periorbital'] if v['id'] == 'lines')['components']['sides'] if s['side'] == 'right')
+    assert s_occ['value'] is None, "Occluded band must return value=None (not 0.0)"
+    assert s_occ['limitationCode'] in ('HAIR_OR_OCCLUSION_IN_LINE_BAND', 'INSUFFICIENT_VISIBLE_AREA')
+
+
+def test_target_e_photo57_sag_regression_preserved():
+    """Target E & Regression: Photo57 lower face shadow/crop must be executed LIVE
+    through analyze_skin. Asserts hard failure if image is missing.
+    Verifies declaredLabel='positive', visualReview='inconclusive-lower-face-shadow-crop',
+    and sag_overview is NOT falsely marked detected (value is None / 0.0 with insufficient quality).
+    """
+    img_path = ROOT.parent / 'attune-live-test/audit-results/focused-skin-20261010/sources/eye-training-v2/train/images/01321_png_jpg.rf.733bb7917f2fb814339eef418db2b31c.jpg'
+    assert img_path.is_file(), f"Photo 57 image MUST exist on disk: {img_path}"
+    
+    receipt_path = ROOT / 'audit-results/sag-calibrated-true-results.json'
+    assert receipt_path.is_file(), f"Calibrated sag receipt MUST exist on disk: {receipt_path}"
+    
+    data = json.loads(receipt_path.read_text('utf8'))
+    r57 = next((r for r in data['rows'] if r.get('index') == 57), None)
+    assert r57 is not None, "Photo 57 must exist in calibrated results"
+    assert r57['declaredLabel'] == 'positive', "Photo57 declaredLabel must stay positive"
+    assert r57['visualReview'] == 'inconclusive-lower-face-shadow-crop', "Photo57 visualReview must stay inconclusive-lower-face-shadow-crop"
+    
+    # Live execution with real image through analyze_skin
+    bgr = cv2.imread(str(img_path))
+    assert bgr is not None
+    
+    sys.path.insert(0, str(ROOT / 'scripts'))
+    sys.path.append(str(ROOT.parent / 'attune-live-test/.runtime/python-packages'))
+    import mediapipe as mp
+    from mediapipe.tasks.python import BaseOptions
+    from mediapipe.tasks.python.vision import FaceLandmarker, FaceLandmarkerOptions, RunningMode
+    from verify_e2e_skin_type_pipeline import MODEL_ASSET_PATH, build_payload_with_real_landmarks
+    
+    detector = FaceLandmarker.create_from_options(FaceLandmarkerOptions(
+        base_options=BaseOptions(model_asset_path=str(ROOT / MODEL_ASSET_PATH)),
+        running_mode=RunningMode.IMAGE,
+        num_faces=1
+    ))
+    det = detector.detect(mp.Image(image_format=mp.ImageFormat.SRGB, data=cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)))
+    assert det.face_landmarks, "Photo 57 landmarks must be detectable"
+    landmarks = [dict(x=float(pt.x), y=float(pt.y), z=float(pt.z)) for pt in det.face_landmarks[0]]
+    
+    payload = build_payload_with_real_landmarks(bgr, landmarks)
+    res = A.analyze_skin(payload)
+    sag = next(m for m in res['general']['measurements'] if m['id'] == 'sag')
+    
+    # Verify live result: lower face shadow and crop result in insufficient skin support / 0.0
+    assert sag['value'] in (0.0, None), f"Expected 0.0 or None for Photo 57, got {sag['value']}"
+    assert sag['quality'] == 'insufficient', f"Expected insufficient quality for Photo 57, got {sag['quality']}"
+    assert sag['limitationCode'] in ('INSUFFICIENT_SKIN_SUPPORT', 'CONTOUR_TRACKING_UNSTABLE', 'ANATOMICAL_BAND_NOT_VISIBLE')
+
