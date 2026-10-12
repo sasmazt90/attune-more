@@ -4,7 +4,7 @@ on both:
 1. Local ROI / patch dataset: 150 patches (26 validation groups, 19 negative, 7 positive)
 2. Real whole-face control photos: full analyze_skin -> regional dryness -> overview -> local maps
 """
-import sys, os, json, subprocess, base64, hashlib
+import sys, os, json, subprocess, base64, hashlib, datetime
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'services/core-api'))
@@ -14,6 +14,16 @@ sys.path.insert(0, str(ROOT / '../attune-live-test/.runtime/python-packages'))
 import cv2, numpy as np, onnxruntime as ort
 import appearance_analysis as A
 from appearance_analysis import compute_dryness_signal, eligible_flake_components
+
+def compute_file_sha256(filepath):
+    p = Path(filepath)
+    if not p.exists():
+        return None
+    h = hashlib.sha256()
+    with open(p, 'rb') as f:
+        while chunk := f.read(65536):
+            h.update(chunk)
+    return h.hexdigest()
 
 def evaluate_patches():
     p_pixels = ROOT / '../attune-live-test/audit-results/skin-expanded-20261011/negative-dry-presence/pixels.npy'
@@ -48,7 +58,7 @@ def evaluate_patches():
 
         # Production Analytic Dryness Pipeline:
         # Calls the exact shared compute_dryness_signal function used by analyze_skin
-        regional_flakes, flakes, local_contrast, lbp, dark_ringing = compute_dryness_signal(gray8)
+        regional_flakes, flakes, local_contrast, lbp, dark_ringing, high = compute_dryness_signal(gray8)
         sc = float(np.mean(regional_flakes > 0.04) * 100)
         all_analytic_scores.append(sc)
 
@@ -82,7 +92,7 @@ def evaluate_patches():
             'analyticScorePercent': all_analytic_scores[idx]
         })
 
-    # TextureNet Group Metrics (threshold = 0.50 probability)
+    # TextureNet Group Metrics (fixed threshold = 0.50 probability)
     tn_cm = [[0, 0], [0, 0]]
     for g, probs in tn_group_probs.items():
         lbl = group_labels[g]
@@ -116,12 +126,18 @@ def evaluate_patches():
 
     return {
         'benchmarkScope': 'negative-dry-presence expanded validation set (150 total patches, 41 validation patches, 26 unique validation groups)',
+        'datasetFiles': {
+            'dataJsonPath': str(p_data),
+            'dataJsonSHA256': compute_file_sha256(p_data),
+            'pixelsNpyPath': str(p_pixels),
+            'pixelsNpySHA256': compute_file_sha256(p_pixels)
+        },
         'groupsTotal': len(group_labels),
         'positiveGroups': sum(1 for v in group_labels.values() if v == 1),
         'negativeGroups': sum(1 for v in group_labels.values() if v == 0),
         'textureNet': {
-            'model': 'audit-results/skin-expanded-20261011/negative-dry-presence/candidate.onnx',
-            'weightsSHA256': '9cea44f4c4e9b948657331467c5f49ff3e5d8789e5b52a5000370f793f9dc852',
+            'modelPath': str(p_onnx),
+            'modelSHA256': compute_file_sha256(p_onnx),
             'thresholdProb': 0.50,
             'confusionMatrix': tn_cm,
             'precision': tn_precision,
@@ -208,10 +224,24 @@ def evaluate_full_photos():
     return photo_results
 
 def main():
+    start_time = datetime.datetime.now(datetime.timezone.utc).isoformat()
     patch_eval = evaluate_patches()
     photo_eval = evaluate_full_photos()
+    end_time = datetime.datetime.now(datetime.timezone.utc).isoformat()
+
+    code_files = {
+        'appearance_analysis.py': compute_file_sha256(ROOT / 'services/core-api/appearance_analysis.py'),
+        'skin_general.py': compute_file_sha256(ROOT / 'services/core-api/skin_general.py'),
+        'run_dry_evaluation.py': compute_file_sha256(__file__)
+    }
 
     output = {
+        'executionMetadata': {
+            'startTimeUTC': start_time,
+            'endTimeUTC': end_time,
+            'pythonVersion': sys.version,
+            'codeSHA256': code_files
+        },
         'patchLevelBenchmark': patch_eval,
         'fullPhotoPipelineEvaluation': photo_eval
     }

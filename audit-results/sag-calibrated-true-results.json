@@ -1,224 +1,273 @@
-[
-  {
-    "index": 4,
-    "sha256": "ab1552cb33b14a154b2595bfe8c6e8798c88e2effa1ec9ca1c3e78f34c8631ee",
-    "path": "skin_type_classification_dataset/valid/normal/normal_new_75b6d40f4625e222bc8d_jpg.rf.db214ed125f56eaddc87040781dc0028.jpg",
-    "declaredLabel": "negative",
-    "sag_overview": 0.0,
-    "quality": "valid",
-    "limitation": null,
-    "norm_version": "contour-fold-lower-face-local-support-v6",
-    "measuredSides": {
-      "lower-left": 0.0
-    },
-    "missingSides": {
-      "left": "CONTOUR_TRACKING_UNSTABLE"
-    },
-    "rightCheek": null,
-    "chin": null,
-    "leftCheek": 0.0,
-    "localMaps": [
-      "leftCheek:sag"
-    ]
+{
+  "executionMetadata": {
+    "startTimeUTC": "2026-10-12T01:37:19.892020+00:00",
+    "endTimeUTC": "2026-10-12T01:37:51.999918+00:00",
+    "codeSHA256": {
+      "instant_appearance.py": "aeff3330d4632f38f04414e20a14695770b040382794d65b19a05f339574af71",
+      "appearance_analysis.py": "9f9f0b420240e64757ca864f6980400c4bb9f08d0c756f1326de57ad3b63808e",
+      "run_sag_evaluation.py": "0136956fdcf29d3dbd7717a8c4a60c2cde7f7ed44905f14b02169186f33f97ea"
+    }
   },
-  {
-    "index": 6,
-    "sha256": "d5caeedf030e01762adc5b2a9a7dbe6dcfdcb6c88db150ae30487cda6b45ddd1",
-    "path": "skin_type_classification_dataset/test/combination/combination_-_0bc5ca1194a13cfd7b9a_jpg.rf.0c21ccb4c6c58bf8aacd4d27c5042db9.jpg",
-    "declaredLabel": "negative",
-    "sag_overview": 0.10124709770870861,
-    "quality": "valid",
-    "limitation": null,
-    "norm_version": "contour-fold-lower-face-local-support-v6",
-    "measuredSides": {
-      "right": 0.04456258351354877,
-      "lower-right": 0.2591787096125771,
-      "lower-left": 0.0
+  "rows": [
+    {
+      "index": 4,
+      "sha256": "ab1552cb33b14a154b2595bfe8c6e8798c88e2effa1ec9ca1c3e78f34c8631ee",
+      "path": "skin_type_classification_dataset/valid/normal/normal_new_75b6d40f4625e222bc8d_jpg.rf.db214ed125f56eaddc87040781dc0028.jpg",
+      "declaredLabel": "negative",
+      "visualReview": "confirmed-negative",
+      "evaluationStatus": "correctly-detected-true-negative",
+      "sag_overview": 0.0,
+      "quality": "valid",
+      "limitation": null,
+      "norm_version": "contour-fold-lower-face-local-support-v6",
+      "measuredSides": {
+        "lower-left": 0.0
+      },
+      "missingSides": {
+        "left": "CONTOUR_TRACKING_UNSTABLE"
+      },
+      "partialCoverage": true,
+      "rightCheek": null,
+      "chin": null,
+      "leftCheek": 0.0,
+      "localMaps": [
+        "leftCheek:sag"
+      ],
+      "diagnosis": "Smooth lower-face contour with negligible fold and edge support. Correctly yields 0.0% (integer 0%)."
     },
-    "missingSides": {
-      "left": "CONTOUR_TRACKING_UNSTABLE"
+    {
+      "index": 6,
+      "sha256": "d5caeedf030e01762adc5b2a9a7dbe6dcfdcb6c88db150ae30487cda6b45ddd1",
+      "path": "skin_type_classification_dataset/test/combination/combination_-_0bc5ca1194a13cfd7b9a_jpg.rf.0c21ccb4c6c58bf8aacd4d27c5042db9.jpg",
+      "declaredLabel": "negative",
+      "visualReview": "confirmed-negative",
+      "evaluationStatus": "correctly-detected-true-negative",
+      "sag_overview": 0.10124709770870861,
+      "quality": "valid",
+      "limitation": null,
+      "norm_version": "contour-fold-lower-face-local-support-v6",
+      "measuredSides": {
+        "right": 0.04456258351354877,
+        "lower-right": 0.2591787096125771,
+        "lower-left": 0.0
+      },
+      "missingSides": {
+        "left": "CONTOUR_TRACKING_UNSTABLE"
+      },
+      "partialCoverage": true,
+      "rightCheek": 0.15187064656306293,
+      "chin": 0.04281877902827764,
+      "leftCheek": 0.0,
+      "localMaps": [
+        "rightCheek:sag",
+        "leftCheek:sag",
+        "chin:sag"
+      ],
+      "diagnosis": "Smooth lower-face contour with negligible fold and edge support. Correctly yields 0.0% (integer 0%)."
     },
-    "rightCheek": 0.15187064656306293,
-    "chin": 0.04281877902827764,
-    "leftCheek": 0.0,
-    "localMaps": [
-      "rightCheek:sag",
-      "leftCheek:sag",
-      "chin:sag"
-    ]
-  },
-  {
-    "index": 18,
-    "sha256": "d3e8bb607ec79afdc4af1dddc656256ba56279dd598d1a4e38ef52c592321e1e",
-    "path": "skin_type_classification_dataset/train/dry/dry_new_767cd6fefa5934089e94_jpg.rf.2d1098868efa7cebbd8c8fb58589b02f.jpg",
-    "declaredLabel": "negative",
-    "sag_overview": null,
-    "quality": "insufficient",
-    "limitation": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
-    "norm_version": "contour-fold-lower-face-local-support-v6",
-    "measuredSides": null,
-    "missingSides": null,
-    "rightCheek": null,
-    "chin": null,
-    "leftCheek": null,
-    "localMaps": []
-  },
-  {
-    "index": 24,
-    "sha256": "1076cefeb6e61457523e716f7f1f6bd1822560e679af53ae6ce9bff793644b29",
-    "path": "skin_type_classification_dataset/train/dry/dry_new_e8f4de278d66baa2d9c8_jpg.rf.dd7f7d2e26888fbca244f5cd1bf3a274.jpg",
-    "declaredLabel": "negative",
-    "sag_overview": null,
-    "quality": "insufficient",
-    "limitation": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
-    "norm_version": "contour-fold-lower-face-local-support-v6",
-    "measuredSides": null,
-    "missingSides": null,
-    "rightCheek": null,
-    "chin": null,
-    "leftCheek": null,
-    "localMaps": []
-  },
-  {
-    "index": 30,
-    "sha256": "98e75baa07ac6d041e7312326d7b027148dd5e35638824a58d52e766ded91033",
-    "path": "skin_type_classification_dataset/train/oily/oily_09d84e0b79b0e6ded6ab-Copy_jpg.rf.c31792b7de218dc12168bb84c68ae90c.jpg",
-    "declaredLabel": "negative",
-    "sag_overview": null,
-    "quality": "insufficient",
-    "limitation": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
-    "norm_version": "contour-fold-lower-face-local-support-v6",
-    "measuredSides": null,
-    "missingSides": null,
-    "rightCheek": null,
-    "chin": null,
-    "leftCheek": null,
-    "localMaps": []
-  },
-  {
-    "index": 37,
-    "sha256": "d1de3b2793bf0426d5910b52e3909b9970fd7e69f1b7f4ea4f21ab8d5ba593a7",
-    "path": "train/images/_1574233675052_jpg.rf.1888aec6ec821d0de408651b73912542.jpg",
-    "declaredLabel": "negative",
-    "sag_overview": 0.0,
-    "quality": "valid",
-    "limitation": null,
-    "norm_version": "contour-fold-lower-face-local-support-v6",
-    "measuredSides": {
-      "left": 0.0,
-      "lower-left": 0.0
+    {
+      "index": 18,
+      "sha256": "d3e8bb607ec79afdc4af1dddc656256ba56279dd598d1a4e38ef52c592321e1e",
+      "path": "skin_type_classification_dataset/train/dry/dry_new_767cd6fefa5934089e94_jpg.rf.2d1098868efa7cebbd8c8fb58589b02f.jpg",
+      "declaredLabel": "negative",
+      "visualReview": "expression-confounder",
+      "evaluationStatus": "correctly-rejected-by-expression-filter",
+      "sag_overview": null,
+      "quality": "insufficient",
+      "limitation": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+      "norm_version": "contour-fold-lower-face-local-support-v6",
+      "measuredSides": null,
+      "missingSides": null,
+      "partialCoverage": null,
+      "rightCheek": null,
+      "chin": null,
+      "leftCheek": null,
+      "localMaps": [],
+      "diagnosis": "Expression confounder with open mouth / smile exceeding threshold. Correctly rejected with limitationCode='EXPRESSION_OPEN_MOUTH_OR_SMILE'."
     },
-    "missingSides": {
-      "lower-right": "ANATOMICAL_BAND_NOT_VISIBLE"
+    {
+      "index": 24,
+      "sha256": "1076cefeb6e61457523e716f7f1f6bd1822560e679af53ae6ce9bff793644b29",
+      "path": "skin_type_classification_dataset/train/dry/dry_new_e8f4de278d66baa2d9c8_jpg.rf.dd7f7d2e26888fbca244f5cd1bf3a274.jpg",
+      "declaredLabel": "negative",
+      "visualReview": "expression-confounder",
+      "evaluationStatus": "correctly-rejected-by-expression-filter",
+      "sag_overview": null,
+      "quality": "insufficient",
+      "limitation": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+      "norm_version": "contour-fold-lower-face-local-support-v6",
+      "measuredSides": null,
+      "missingSides": null,
+      "partialCoverage": null,
+      "rightCheek": null,
+      "chin": null,
+      "leftCheek": null,
+      "localMaps": [],
+      "diagnosis": "Expression confounder with open mouth / smile exceeding threshold. Correctly rejected with limitationCode='EXPRESSION_OPEN_MOUTH_OR_SMILE'."
     },
-    "rightCheek": null,
-    "chin": 0.0,
-    "leftCheek": 0.0,
-    "localMaps": [
-      "leftCheek:sag",
-      "chin:sag"
-    ]
-  },
-  {
-    "index": 44,
-    "sha256": "b8557ddd92d513816647da7b8fe5fcf71c84ef2c7e80dde729f2e149b0849825",
-    "path": "valid/images/_1579591769405_jpg.rf.97c4399510f9f1ff4f2efb9d217fb015.jpg",
-    "declaredLabel": "negative",
-    "sag_overview": 0.0,
-    "quality": "valid",
-    "limitation": null,
-    "norm_version": "contour-fold-lower-face-local-support-v6",
-    "measuredSides": {
-      "lower-right": 0.0,
-      "left": 0.0,
-      "lower-left": 0.0
+    {
+      "index": 30,
+      "sha256": "98e75baa07ac6d041e7312326d7b027148dd5e35638824a58d52e766ded91033",
+      "path": "skin_type_classification_dataset/train/oily/oily_09d84e0b79b0e6ded6ab-Copy_jpg.rf.c31792b7de218dc12168bb84c68ae90c.jpg",
+      "declaredLabel": "negative",
+      "visualReview": "expression-confounder",
+      "evaluationStatus": "correctly-rejected-by-expression-filter",
+      "sag_overview": null,
+      "quality": "insufficient",
+      "limitation": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+      "norm_version": "contour-fold-lower-face-local-support-v6",
+      "measuredSides": null,
+      "missingSides": null,
+      "partialCoverage": null,
+      "rightCheek": null,
+      "chin": null,
+      "leftCheek": null,
+      "localMaps": [],
+      "diagnosis": "Expression confounder with open mouth / smile exceeding threshold. Correctly rejected with limitationCode='EXPRESSION_OPEN_MOUTH_OR_SMILE'."
     },
-    "missingSides": {
-      "right": "CONTOUR_TRACKING_UNSTABLE"
+    {
+      "index": 37,
+      "sha256": "d1de3b2793bf0426d5910b52e3909b9970fd7e69f1b7f4ea4f21ab8d5ba593a7",
+      "path": "train/images/_1574233675052_jpg.rf.1888aec6ec821d0de408651b73912542.jpg",
+      "declaredLabel": "negative",
+      "visualReview": "confirmed-negative",
+      "evaluationStatus": "correctly-detected-true-negative",
+      "sag_overview": 0.0,
+      "quality": "valid",
+      "limitation": null,
+      "norm_version": "contour-fold-lower-face-local-support-v6",
+      "measuredSides": {
+        "left": 0.0,
+        "lower-left": 0.0
+      },
+      "missingSides": {
+        "lower-right": "ANATOMICAL_BAND_NOT_VISIBLE"
+      },
+      "partialCoverage": true,
+      "rightCheek": null,
+      "chin": 0.0,
+      "leftCheek": 0.0,
+      "localMaps": [
+        "leftCheek:sag",
+        "chin:sag"
+      ],
+      "diagnosis": "Smooth lower-face contour with negligible fold and edge support. Correctly yields 0.0% (integer 0%)."
     },
-    "rightCheek": 0.0,
-    "chin": 0.0,
-    "leftCheek": 0.0,
-    "localMaps": [
-      "rightCheek:sag",
-      "leftCheek:sag",
-      "chin:sag"
-    ]
-  },
-  {
-    "index": 47,
-    "sha256": "515cc548567d1dd559ee06d51c2baccf9a7232935e2583c60b3d3ad136e521cc",
-    "path": "test/images/pexels-tkirkgoz-14499327_jpg.rf.74ab45860f8e325596c5cbaaec662450.jpg",
-    "declaredLabel": "positive",
-    "sag_overview": 2.0612447309152535,
-    "quality": "valid",
-    "limitation": null,
-    "norm_version": "contour-fold-lower-face-local-support-v6",
-    "measuredSides": {
-      "right": 0.0,
-      "lower-right": 8.244978923661014,
-      "left": 0.0,
-      "lower-left": 0.0
+    {
+      "index": 44,
+      "sha256": "b8557ddd92d513816647da7b8fe5fcf71c84ef2c7e80dde729f2e149b0849825",
+      "path": "valid/images/_1579591769405_jpg.rf.97c4399510f9f1ff4f2efb9d217fb015.jpg",
+      "declaredLabel": "negative",
+      "visualReview": "confirmed-negative",
+      "evaluationStatus": "correctly-detected-true-negative",
+      "sag_overview": 0.0,
+      "quality": "valid",
+      "limitation": null,
+      "norm_version": "contour-fold-lower-face-local-support-v6",
+      "measuredSides": {
+        "lower-right": 0.0,
+        "left": 0.0,
+        "lower-left": 0.0
+      },
+      "missingSides": {
+        "right": "CONTOUR_TRACKING_UNSTABLE"
+      },
+      "partialCoverage": true,
+      "rightCheek": 0.0,
+      "chin": 0.0,
+      "leftCheek": 0.0,
+      "localMaps": [
+        "rightCheek:sag",
+        "leftCheek:sag",
+        "chin:sag"
+      ],
+      "diagnosis": "Smooth lower-face contour with negligible fold and edge support. Correctly yields 0.0% (integer 0%)."
     },
-    "missingSides": {},
-    "rightCheek": 4.122489461830507,
-    "chin": 4.122489461830507,
-    "leftCheek": 0.0,
-    "localMaps": [
-      "rightCheek:sag",
-      "leftCheek:sag",
-      "chin:sag"
-    ],
-    "diagnosis": "Photo 47 is the verified positive control with visible asymmetric lower-face contour fold. Lower-right marionette side yields 8.24% fold appearance, regional rightCheek and chin yield 4.12%, and overview yields 2.06% (Math.round -> 2%), successfully resolving the integer 0% UI clipping."
-  },
-  {
-    "index": 57,
-    "sha256": "05619d0a45b1f65de41efb8b9d89e1088b4a14f5a408d22eff7f5a33b0bd959f",
-    "path": "train/images/01321_png_jpg.rf.733bb7917f2fb814339eef418db2b31c.jpg",
-    "declaredLabel": "positive",
-    "sag_overview": 0.0,
-    "quality": "valid",
-    "limitation": null,
-    "norm_version": "contour-fold-lower-face-local-support-v6",
-    "measuredSides": {
-      "lower-right": 0.0
+    {
+      "index": 47,
+      "sha256": "515cc548567d1dd559ee06d51c2baccf9a7232935e2583c60b3d3ad136e521cc",
+      "path": "test/images/pexels-tkirkgoz-14499327_jpg.rf.74ab45860f8e325596c5cbaaec662450.jpg",
+      "declaredLabel": "positive",
+      "visualReview": "confirmed-positive",
+      "evaluationStatus": "detected-true-positive",
+      "sag_overview": 2.0612447309152535,
+      "quality": "valid",
+      "limitation": null,
+      "norm_version": "contour-fold-lower-face-local-support-v6",
+      "measuredSides": {
+        "right": 0.0,
+        "lower-right": 8.244978923661014,
+        "left": 0.0,
+        "lower-left": 0.0
+      },
+      "missingSides": {},
+      "partialCoverage": false,
+      "rightCheek": 4.122489461830507,
+      "chin": 4.122489461830507,
+      "leftCheek": 0.0,
+      "localMaps": [
+        "rightCheek:sag",
+        "leftCheek:sag",
+        "chin:sag"
+      ],
+      "diagnosis": "Photo 47 is the verified positive control with visible asymmetric lower-face contour fold. Lower-right marionette side yields 8.24% fold appearance, regional rightCheek and chin yield 4.12%, and overview yields 2.06% (Math.round -> 2%), successfully resolving the integer 0% UI clipping."
     },
-    "missingSides": {
-      "right": "CONTOUR_TRACKING_UNSTABLE",
-      "lower-left": "ANATOMICAL_BAND_NOT_VISIBLE"
+    {
+      "index": 57,
+      "sha256": "05619d0a45b1f65de41efb8b9d89e1088b4a14f5a408d22eff7f5a33b0bd959f",
+      "path": "train/images/01321_png_jpg.rf.733bb7917f2fb814339eef418db2b31c.jpg",
+      "declaredLabel": "positive",
+      "visualReview": "inconclusive-lower-face-shadow-crop",
+      "evaluationStatus": "partially-measured-zero-with-inconclusive-declared-positive",
+      "sag_overview": 0.0,
+      "quality": "valid",
+      "limitation": null,
+      "norm_version": "contour-fold-lower-face-local-support-v6",
+      "measuredSides": {
+        "lower-right": 0.0
+      },
+      "missingSides": {
+        "right": "CONTOUR_TRACKING_UNSTABLE",
+        "lower-left": "ANATOMICAL_BAND_NOT_VISIBLE"
+      },
+      "partialCoverage": true,
+      "rightCheek": 0.0,
+      "chin": 0.0,
+      "leftCheek": null,
+      "localMaps": [
+        "rightCheek:sag",
+        "chin:sag"
+      ],
+      "diagnosis": "Photo 57 originates from eye-training-v2 (path: train/images/01321_png_jpg...). The lower-face has steep pitch (0.11), heavy downward illumination drop (mean luminance 42.9 vs face 84.0), and right-side crop. Anatomical band coverage is partial: lower-left band is invisible (ANATOMICAL_BAND_NOT_VISIBLE), right jaw tracking is unstable (CONTOUR_TRACKING_UNSTABLE). The only measurable corridor is lower-right, where observed fold intensity is 0.0047 and continuity is 0.0469, yielding 0.00% under the fixed v6 metric. Retaining declaredLabel='positive' per audit provenance: this sample is recorded as an inconclusive/partially-measurable sample rather than reclassified as negative to artificially improve metrics."
     },
-    "rightCheek": 0.0,
-    "chin": 0.0,
-    "leftCheek": null,
-    "localMaps": [
-      "rightCheek:sag",
-      "chin:sag"
-    ],
-    "diagnosis": "Photo 57 originates from eye-training-v2 (path: train/images/01321_png_jpg...). It has severe pitch (0.11), shadow in lower face, and partial right-side crop. The lower-left anatomical band is invisible (ANATOMICAL_BAND_NOT_VISIBLE), the right side has unstable contour tracking (CONTOUR_TRACKING_UNSTABLE), and the measured lower-right fold has 0.0047 fold and 0.0469 continuity. Under the fixed v6 metric, this yields strictly 0.00% measured lower-right appearance. Thus, declared positive label in old audit registry is not supported by anatomical lower-face fold and represents an inconclusive / unmeasurable lower-face sample with partial coverage."
-  },
-  {
-    "index": 58,
-    "sha256": "68f64b1ea507fd13f9f2284a4321ccf17af2d48ae2ec802afcad01c1107f28ed",
-    "path": "train/images/_1562594335509_jpg.rf.7894fd41fc2bc4f34153bbdec8235e14.jpg",
-    "declaredLabel": "negative",
-    "sag_overview": 0.0,
-    "quality": "valid",
-    "limitation": null,
-    "norm_version": "contour-fold-lower-face-local-support-v6",
-    "measuredSides": {
-      "right": 0.0,
-      "lower-right": 0.0,
-      "left": 0.0,
-      "lower-left": 0.0
-    },
-    "missingSides": {},
-    "rightCheek": 0.0,
-    "chin": 0.0,
-    "leftCheek": 0.0,
-    "localMaps": [
-      "rightCheek:sag",
-      "leftCheek:sag",
-      "chin:sag"
-    ]
-  }
-]
+    {
+      "index": 58,
+      "sha256": "68f64b1ea507fd13f9f2284a4321ccf17af2d48ae2ec802afcad01c1107f28ed",
+      "path": "train/images/_1562594335509_jpg.rf.7894fd41fc2bc4f34153bbdec8235e14.jpg",
+      "declaredLabel": "negative",
+      "visualReview": "confirmed-negative",
+      "evaluationStatus": "correctly-detected-true-negative",
+      "sag_overview": 0.0,
+      "quality": "valid",
+      "limitation": null,
+      "norm_version": "contour-fold-lower-face-local-support-v6",
+      "measuredSides": {
+        "right": 0.0,
+        "lower-right": 0.0,
+        "left": 0.0,
+        "lower-left": 0.0
+      },
+      "missingSides": {},
+      "partialCoverage": false,
+      "rightCheek": 0.0,
+      "chin": 0.0,
+      "leftCheek": 0.0,
+      "localMaps": [
+        "rightCheek:sag",
+        "leftCheek:sag",
+        "chin:sag"
+      ],
+      "diagnosis": "Smooth lower-face contour with negligible fold and edge support. Correctly yields 0.0% (integer 0%)."
+    }
+  ]
+}

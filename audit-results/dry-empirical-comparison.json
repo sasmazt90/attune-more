@@ -1,12 +1,28 @@
 {
+  "executionMetadata": {
+    "startTimeUTC": "2026-10-12T01:36:13.032302+00:00",
+    "endTimeUTC": "2026-10-12T01:36:49.864775+00:00",
+    "pythonVersion": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "codeSHA256": {
+      "appearance_analysis.py": "9f9f0b420240e64757ca864f6980400c4bb9f08d0c756f1326de57ad3b63808e",
+      "skin_general.py": "9eb06e042333d538c99a3e9f5f78af56ecbc32c6f53f1a331e8c0a7e772c98bf",
+      "run_dry_evaluation.py": "4d975960c5fb43085786b5d6c42f18e8bf4f65e09e425cd8ba0d40c4e16cbbf2"
+    }
+  },
   "patchLevelBenchmark": {
     "benchmarkScope": "negative-dry-presence expanded validation set (150 total patches, 41 validation patches, 26 unique validation groups)",
+    "datasetFiles": {
+      "dataJsonPath": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-antigravity-skin\\..\\attune-live-test\\audit-results\\skin-expanded-20261011\\negative-dry-presence\\data.json",
+      "dataJsonSHA256": "95848c2710fb3a12f87e32638ffec61129e8f92a68aa3ba2cc207a3a790e4344",
+      "pixelsNpyPath": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-antigravity-skin\\..\\attune-live-test\\audit-results\\skin-expanded-20261011\\negative-dry-presence\\pixels.npy",
+      "pixelsNpySHA256": "b82b5da2729cc3ca28c6387f7dd3d4a373dbda136457e5ac46bd7bde93c4a57a"
+    },
     "groupsTotal": 26,
     "positiveGroups": 7,
     "negativeGroups": 19,
     "textureNet": {
-      "model": "audit-results/skin-expanded-20261011/negative-dry-presence/candidate.onnx",
-      "weightsSHA256": "9cea44f4c4e9b948657331467c5f49ff3e5d8789e5b52a5000370f793f9dc852",
+      "modelPath": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-antigravity-skin\\..\\attune-live-test\\audit-results\\skin-expanded-20261011\\negative-dry-presence\\candidate.onnx",
+      "modelSHA256": "0a243ea69e7bfee1e172d41b21cdec6f2ebfea0a2c42f51dd86fcc3693fcd62d",
       "thresholdProb": 0.5,
       "confusionMatrix": [
         [
