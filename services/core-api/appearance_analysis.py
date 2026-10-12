@@ -446,19 +446,15 @@ def analyze_skin(payload, include_research_features=False):
                 rel_contrast=np.maximum(0.,(ref_l-gray)/max(ref_l,.1))
                 # Deadband: normal healthy skin variance is 0-5%
                 deadband=.05
-                excess=np.clip((rel_contrast-deadband)/(0.35-deadband),0.,1.)
+                excess=np.maximum(0.,rel_contrast-deadband)
                 # Chromatic verification: pigment/vascular dark circles shift CIELAB chroma (Delta-ab)
                 lab_img=cv2.cvtColor(image,cv2.COLOR_BGR2LAB).astype(np.float32)
                 chroma=lab_img[:,:,1:3]
                 ref_chroma=np.median(chroma[adjacent],axis=0)
                 delta_chroma=np.linalg.norm(chroma-ref_chroma,axis=2)
                 # Pure shadow has minimal chroma shift; true pigment has elevated Delta-ab
-                chroma_gate=np.clip((delta_chroma-1.2)/2.3,0.15,1.)
-                # Local illumination trend detrending cancels unilateral / directional light
-                local_bg=cv2.GaussianBlur(gray,(0,0),12)
-                local_contrast=np.maximum(0.,(local_bg-gray)/max(ref_l,.1))
-                ridge=np.clip((local_contrast-.02)/.15,0.20,1.)
-                signal=excess*chroma_gate*ridge*100.
+                chroma_gate=np.clip((delta_chroma-1.0)/3.0,0.15,1.)
+                signal=excess*chroma_gate*100.
                 return signal,None
             value,dark,known,dark_reason,dark_area,dark_components=eye_measurement('dark',100,dark_field)
             add('dark',value,'relative-color-index-0-100',dark,100,limitation=dark_reason,signal_mask=known,measurement_area=dark_area,components=dark_components)
@@ -478,7 +474,7 @@ def analyze_skin(payload, include_research_features=False):
             value,line_signal,known,lines_reason,lines_area,line_components=eye_measurement('lines',30,line_field)
             add('lines',value,'directional-line-index-0-100',line_signal/100,limitation=lines_reason,signal_mask=known,measurement_area=lines_area,components=line_components)
         if region != 'nose':
-            contour_support=base&~clipping&(gray>.12)
+            contour_support=base&~hair&~clipping&(gray>.12)
             if region=='periorbital':contour_support&=bands['bags']
             value,components,signal,lines,limitation=instant_proxy(gray,contour_support,points,region,conditions,scale,origin,bgr.shape,hair,(face_support>0)&(exclusion==0)&~clipping&(gray>.12),clipping,(face_support>0)&(exclusion==0)&~hair&(gray>.12))
             criterion = 'bags' if region == 'periorbital' else 'sag'

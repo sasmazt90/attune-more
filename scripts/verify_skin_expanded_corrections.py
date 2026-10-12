@@ -290,43 +290,41 @@ def run_natural_photos_and_model_evaluation():
     comp_summary_path = ROOT / 'audit-results/skin-comparative-evaluation-summary.json'
     if comp_summary_path.is_file():
         comp_summary = json.loads(comp_summary_path.read_text('utf8'))
-        acne_samples = comp_summary['acneLiveEvaluation']['evaluationSamples']
-        s0 = acne_samples[0]
-        s1 = acne_samples[1]
+        acne_eval = comp_summary.get('acneEvaluation', {})
+        live_samples = acne_eval.get('liveSelectedModelInference', [])
+        s0 = live_samples[0] if len(live_samples) > 0 else {}
+        s1 = live_samples[1] if len(live_samples) > 1 else {}
+        det_reg = acne_eval.get('deterministicFilterRegression', [])
+        d0 = det_reg[0] if len(det_reg) > 0 else {}
+        d1 = det_reg[1] if len(det_reg) > 1 else {}
         model_eval = {
             'acne': {
                 'status': 'ACNE_MODEL_NOT_ACCEPTED',
-                'checkpointSHA256': comp_summary['acneLiveEvaluation']['modelCheckpointSHA256'],
+                'checkpointSHA256': acne_eval.get('selectedDetectorExport', {}).get('modelWeightsSHA256'),
+                'onnxSHA256': acne_eval.get('selectedDetectorExport', {}).get('onnxSHA256'),
+                'deterministicFilterRegression': det_reg,
                 'source0': {
-                    'rawNMSCount': s0['rawDetectorNMSCount'],
-                    'matchedTruth': s0['liveModelMetrics']['matchedTruth'],
-                    'missedTruth': s0['liveModelMetrics']['missedTruth'],
-                    'duplicateLesions': s0['liveModelMetrics']['duplicateLesions'],
-                    'unlabelledCandidates': s0['liveModelMetrics']['unlabelledCandidates'],
-                    'precision': s0['liveModelMetrics']['precision'],
-                    'recall': s0['liveModelMetrics']['recall'],
-                    'survivedFilterCount': s0['survivedFilterCount'],
+                    'sha256': s0.get('sha256'),
+                    'rawNMSCount': s0.get('rawDetectorNMSBoxes'),
+                    'acceptedProductBoxes': s0.get('acceptedProductBoxes'),
+                    'truthCount': s0.get('truthCount'),
+                    'truthDistanceToBrowPixels': s0.get('minimumTruthDistanceToBrowPixels'),
+                    'truthRemoved': s0.get('truthLesionsRemovedByProductFilter')
                 },
                 'source1': {
-                    'rawNMSCount': s1['rawDetectorNMSCount'],
-                    'matchedTruth': s1['liveModelMetrics']['matchedTruth'],
-                    'missedTruth': s1['liveModelMetrics']['missedTruth'],
-                    'duplicateLesions': s1['liveModelMetrics']['duplicateLesions'],
-                    'unlabelledCandidates': s1['liveModelMetrics']['unlabelledCandidates'],
-                    'precision': s1['liveModelMetrics']['precision'],
-                    'recall': s1['liveModelMetrics']['recall'],
-                    'survivedFilterCount': s1['survivedFilterCount'],
+                    'sha256': s1.get('sha256'),
+                    'rawNMSCount': s1.get('rawDetectorNMSBoxes'),
+                    'acceptedProductBoxes': s1.get('acceptedProductBoxes'),
+                    'truthCount': s1.get('truthCount'),
+                    'truthDistanceToBrowPixels': s1.get('minimumTruthDistanceToBrowPixels'),
+                    'truthRemoved': s1.get('truthLesionsRemovedByProductFilter')
                 },
-                'eyebrowFilterVerification': s0['eyebrowFilterVerification'],
-                'offTaskRejection': {
-                    'reviewedOffTaskTotal': s0['offTaskFilterVerification']['reviewedOffTaskTotal'] + s1['offTaskFilterVerification']['reviewedOffTaskTotal'],
-                    'reviewedOffTaskRejected': s0['offTaskFilterVerification']['reviewedOffTaskRejected'] + s1['offTaskFilterVerification']['reviewedOffTaskRejected']
-                },
-                'diagnosis': 'Model exhibits low precision and high candidate proliferation; filter improvements protect UI but model itself remains unaccepted.'
+                'thresholdSensitivityStudy': acne_eval.get('thresholdSensitivityStudy', []),
+                'diagnosis': acne_eval.get('diagnosis', '')
             },
-            'oil': comp_summary['neuralMasksEvaluation']['oil'],
-            'redness': comp_summary['neuralMasksEvaluation']['redness'],
-            'tone': comp_summary['neuralMasksEvaluation']['tone']
+            'oil': comp_summary.get('neuralMasksEvaluation', {}).get('oil', {}),
+            'redness': comp_summary.get('neuralMasksEvaluation', {}).get('redness', {}),
+            'tone': comp_summary.get('neuralMasksEvaluation', {}).get('tone', {})
         }
     else:
         model_eval = {}

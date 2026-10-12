@@ -83,15 +83,18 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
     if eye_width<35:return fail('INSUFFICIENT_NATIVE_DETAIL')
     if abs(conditions.get('yaw',99))>.65 or abs(conditions.get('pitch',99))>.22:return fail('HEAD_ANGLE_UNSUPPORTED')
     horizontal=eye/eye_width;vertical=np.array([-horizontal[1],horizontal[0]])
+    if vertical[1]<0:vertical=-vertical
     face=float(abs((p[454]-p[234])@horizontal)/scale)
     if face<180:return fail('INSUFFICIENT_NATIVE_DETAIL')
-    if vertical[1]<0:vertical=-vertical
     mouth_width=max(float(np.linalg.norm(p[61]-p[291])),1)
     opening=float(np.linalg.norm(p[13]-p[14]))/mouth_width
     smile=float(((p[61]+p[291])/2-(p[13]+p[14])/2)@vertical)/mouth_width
-    if opening>.10 or smile<-.07:return fail('EXPRESSION_OPEN_MOUTH_OR_SMILE')
     eye_aspects=[float(np.linalg.norm(p[a]-p[b]))/max(float(np.linalg.norm(p[c]-p[d])),1) for a,b,c,d in [(159,145,33,133),(386,374,263,362)]]
-    if region in ('periorbital','forehead') and min(eye_aspects)<.12:return fail('SQUINT_OR_EYE_OCCLUSION')
+    if region in ('rightCheek','leftCheek','chin'):
+        if opening>.10 or smile<-.07:return fail('EXPRESSION_OPEN_MOUTH_OR_SMILE')
+    elif region in ('periorbital','forehead'):
+        if min(eye_aspects)<.12:return fail('SQUINT_OR_EYE_OCCLUSION')
+        if region=='periorbital' and smile<-.18:return fail('EXPRESSION_OPEN_MOUTH_OR_SMILE')
     if eligible.sum()<100:return fail('INSUFFICIENT_SKIN_SUPPORT')
     paths=[]
     if region=='periorbital':
