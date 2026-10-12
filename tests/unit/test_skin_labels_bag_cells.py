@@ -55,5 +55,5 @@ def test_closed_cells_do_not_turn_capture_failure_into_healthy_zero():
     result=A.analyze_skin(dict(photo=url,photoId=digest,landmarks=landmarks(),meshes={'periorbital':mesh},exclusions=[],pose='FRONT',qualityValid=False,conditions=dict(yaw=0.,pitch=0.)))
     bag=next(v for v in result['measurements']['periorbital'] if v['id']=='bags')
     assert bag['value'] is None and bag['limitationCode']=='CAPTURE_QUALITY'
-    assert bag['components']['samplingSupportVersion']=='tracked-center-closed-cells-v2'
+    assert bag['components']['samplingSupportVersion']=='tracked-center-closed-cells-impulse-v3'
     assert 'periorbital:bags' not in result['maps']
