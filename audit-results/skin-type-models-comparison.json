@@ -496,5 +496,21 @@
   "selection": {
     "chosen_model_id": "skin-type-axavj/1",
     "rationale": "Macro-F1: 0.9495 vs 0.899; Karma Recall: 1.0 vs 0.8."
+  },
+  "reporting_disclaimers": {
+    "sample_accuracy_scope": "The 19/20 (95%) result on 20 development samples is an internal model selection metric, not a general product accuracy benchmark across diverse demographic or clinical populations.",
+    "probe_overlap_disclosure": "The 4 representative photos evaluated during the initial access probe (1 per class) were part of the 20 test photos evaluated in this comparison.",
+    "sampling_independence_scope": "Filename prefix deduplication (stripping _jpg.rf., .rf., -Copy) eliminates augmentation duplicates and crop variants within the benchmark test split, but does not prove person independence or disjointness from the upstream Roboflow model's training data. Training data overlap with the upstream model is classified as bilinmiyor (unknown).",
+    "contract_preservation_scope": "Verification of 9 whole-face overview criteria and 6 anatomical regions validates system contract, schema, and API view integrity, not individual criteria measurement accuracy."
+  },
+  "quota_tracking": {
+    "probe_requests": 8,
+    "comparison_requests": 40,
+    "pipeline_e2e_requests": 2,
+    "crop_impact_requests": 4,
+    "total_requests_made": 54,
+    "quota_limit": 10000,
+    "remaining_quota": 9946,
+    "unnecessary_bulk_calls_avoided": true
   }
 }

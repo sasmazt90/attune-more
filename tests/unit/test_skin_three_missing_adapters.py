@@ -19,17 +19,31 @@ import instant_appearance as IA
 def test_skin_type_hosted_adapter_contracts():
     crop = np.zeros((120, 120, 3), np.uint8)
     
-    # 1. No key -> returns None, never crashes
+    # 1. No permission flag -> HOSTED_INFERENCE_PERMISSION_DENIED
     with patch.dict(os.environ, {}, clear=True):
-        assert skin_models.infer_hosted_type(crop) is None
+        res = skin_models.infer_hosted_type(crop)
+        assert res is not None
+        assert res['value'] is None
+        assert res['quality'] == 'insufficient'
+        assert res['limitationCode'] == 'HOSTED_INFERENCE_PERMISSION_DENIED'
 
-    # 2. Key set, valid classification response (list format)
-    mock_payload = json.dumps({'predictions': [{'class': 'dry', 'confidence': 0.84}, {'class': 'normal', 'confidence': 0.16}]}).encode()
-    mock_resp = MagicMock()
-    mock_resp.read.return_value = mock_payload
-    with patch.dict(os.environ, {'ATTUNE_ROBOFLOW_API_KEY': 'rf_test_123', 'ATTUNE_SKIN_TYPE_MODEL': 'skin-type-axavj/1'}):
-        with patch('urllib.request.urlopen') as mock_url:
-            mock_url.return_value.__enter__.return_value = mock_resp
+    # 2. Permission set, but no API key -> HOSTED_CREDENTIALS_MISSING
+    with patch.dict(os.environ, {'ATTUNE_ALLOW_HOSTED_INFERENCE': '1'}, clear=True):
+        res = skin_models.infer_hosted_type(crop)
+        assert res is not None
+        assert res['value'] is None
+        assert res['quality'] == 'insufficient'
+        assert res['limitationCode'] == 'HOSTED_CREDENTIALS_MISSING'
+
+    # 3. Permission and key set, valid classification response (list format)
+    mock_client = MagicMock()
+    mock_client.infer.return_value = {
+        'top': 'dry',
+        'confidence': 0.84,
+        'predictions': [{'class': 'dry', 'confidence': 0.84}, {'class': 'normal', 'confidence': 0.16}]
+    }
+    with patch.dict(os.environ, {'ATTUNE_ALLOW_HOSTED_INFERENCE': '1', 'ATTUNE_ROBOFLOW_API_KEY': 'rf_test_123', 'ATTUNE_SKIN_TYPE_MODEL': 'skin-type-axavj/1'}):
+        with patch('skin_models.get_inference_client', return_value=mock_client) as mock_get_client:
             res = skin_models.infer_hosted_type(crop)
             assert res is not None
             assert res['value'] == 'dry'
@@ -37,22 +51,20 @@ def test_skin_type_hosted_adapter_contracts():
             assert res['confidence'] == 0.84
             assert res['methodVersion'] == 'hosted-roboflow-skin-type-axavj/1'
             assert res['providerModelId'] == 'skin-type-axavj/1'
-            assert res['modelHash'] is None  # Hosted weights SHA cannot be faked
+            assert res['modelHash'] is None
             assert res['limitationCode'] is None
-            
-            # Verify request headers and URL: key must NOT be in URL
-            call_args = mock_url.call_args[0][0]
-            assert 'api_key' not in call_args.full_url
-            assert call_args.headers.get('Authorization') == 'Bearer rf_test_123'
-            assert call_args.headers.get('Content-type') == 'application/x-www-form-urlencoded'
+            mock_get_client.assert_called_once_with('rf_test_123')
+            mock_client.infer.assert_called_once_with(crop, model_id='skin-type-axavj/1')
 
-    # 3. Key set, valid classification response (dict format)
-    mock_dict_payload = json.dumps({'top': 'oily', 'confidence': 0.91, 'predictions': {'oily': 0.91, 'normal': 0.05, 'dry': 0.02, 'combination': 0.02}}).encode()
-    mock_dict_resp = MagicMock()
-    mock_dict_resp.read.return_value = mock_dict_payload
-    with patch.dict(os.environ, {'ATTUNE_ROBOFLOW_API_KEY': 'rf_test_123', 'ATTUNE_SKIN_TYPE_MODEL': 'skin-type-ng2uj/1'}):
-        with patch('urllib.request.urlopen') as mock_url:
-            mock_url.return_value.__enter__.return_value = mock_dict_resp
+    # 4. Valid classification response (dict format)
+    mock_client_dict = MagicMock()
+    mock_client_dict.infer.return_value = {
+        'top': 'oily',
+        'confidence': 0.91,
+        'predictions': {'oily': 0.91, 'normal': 0.05, 'dry': 0.02, 'combination': 0.02}
+    }
+    with patch.dict(os.environ, {'ATTUNE_ALLOW_HOSTED_INFERENCE': '1', 'ATTUNE_ROBOFLOW_API_KEY': 'rf_test_123', 'ATTUNE_SKIN_TYPE_MODEL': 'skin-type-ng2uj/1'}):
+        with patch('skin_models.get_inference_client', return_value=mock_client_dict):
             res = skin_models.infer_hosted_type(crop)
             assert res is not None
             assert res['value'] == 'oily'
@@ -60,33 +72,48 @@ def test_skin_type_hosted_adapter_contracts():
             assert res['confidence'] == 0.91
             assert res['providerModelId'] == 'skin-type-ng2uj/1'
 
-    # 4. Low confidence -> value=None, limitationCode='LOW_MODEL_SUPPORT'
-    mock_low_payload = json.dumps({'predictions': [{'class': 'normal', 'confidence': 0.35}, {'class': 'dry', 'confidence': 0.30}]}).encode()
-    mock_low_resp = MagicMock()
-    mock_low_resp.read.return_value = mock_low_payload
-    with patch.dict(os.environ, {'ATTUNE_ROBOFLOW_API_KEY': 'rf_test_123'}):
-        with patch('urllib.request.urlopen') as mock_url:
-            mock_url.return_value.__enter__.return_value = mock_low_resp
+    # 5. Low confidence -> value=None, limitationCode='LOW_MODEL_SUPPORT'
+    mock_client_low = MagicMock()
+    mock_client_low.infer.return_value = {
+        'top': 'normal',
+        'confidence': 0.35,
+        'predictions': [{'class': 'normal', 'confidence': 0.35}, {'class': 'dry', 'confidence': 0.30}]
+    }
+    with patch.dict(os.environ, {'ATTUNE_ALLOW_HOSTED_INFERENCE': '1', 'ATTUNE_ROBOFLOW_API_KEY': 'rf_test_123'}):
+        with patch('skin_models.get_inference_client', return_value=mock_client_low):
             res = skin_models.infer_hosted_type(crop)
             assert res is not None
             assert res['value'] is None
             assert res['quality'] == 'insufficient'
             assert res['limitationCode'] == 'LOW_MODEL_SUPPORT'
 
-    # 5. Non-finite / NaN / corrupt response -> returns None without leaking or crashing
-    mock_nan_payload = json.dumps({'predictions': [{'class': 'normal', 'confidence': 'NaN'}]}).encode()
-    mock_nan_resp = MagicMock()
-    mock_nan_resp.read.return_value = mock_nan_payload
-    with patch.dict(os.environ, {'ATTUNE_ROBOFLOW_API_KEY': 'rf_test_123'}):
-        with patch('urllib.request.urlopen') as mock_url:
-            mock_url.return_value.__enter__.return_value = mock_nan_resp
-            assert skin_models.infer_hosted_type(crop) is None
-
-    # 6. Timeout or HTTP error -> returns None without leaking or crashing
-    with patch.dict(os.environ, {'ATTUNE_ROBOFLOW_API_KEY': 'rf_test_123'}):
-        with patch('urllib.request.urlopen', side_effect=Exception('Connection timed out')):
-            res = skin_models.infer_hosted_type(crop)
-            assert res is None
+    # 6. Differentiated error codes: Auth error (401), Quota (429), Model not found (404), Timeout, Network
+    from inference_sdk.http.errors import HTTPCallErrorError
+    err_401 = HTTPCallErrorError("Unauthorized", status_code=401, api_message="Invalid key")
+    err_429 = HTTPCallErrorError("Rate limit", status_code=429, api_message="Quota exceeded")
+    err_404 = HTTPCallErrorError("Not found", status_code=404, api_message="Model not found")
+    
+    with patch.dict(os.environ, {'ATTUNE_ALLOW_HOSTED_INFERENCE': '1', 'ATTUNE_ROBOFLOW_API_KEY': 'rf_test_123'}):
+        # 401 Auth
+        with patch('skin_models.get_inference_client', side_effect=err_401):
+            assert skin_models.infer_hosted_type(crop)['limitationCode'] == 'HOSTED_AUTH_FAILED'
+        # 429 Quota
+        with patch('skin_models.get_inference_client', side_effect=err_429):
+            assert skin_models.infer_hosted_type(crop)['limitationCode'] == 'HOSTED_RATE_LIMIT_EXCEEDED'
+        # 404 Model
+        with patch('skin_models.get_inference_client', side_effect=err_404):
+            assert skin_models.infer_hosted_type(crop)['limitationCode'] == 'HOSTED_MODEL_NOT_FOUND'
+        # Timeout
+        with patch('skin_models.get_inference_client', side_effect=Exception('Read timed out')):
+            assert skin_models.infer_hosted_type(crop)['limitationCode'] == 'HOSTED_TIMEOUT'
+        # Network
+        with patch('skin_models.get_inference_client', side_effect=Exception('Connection refused')):
+            assert skin_models.infer_hosted_type(crop)['limitationCode'] == 'HOSTED_NETWORK_ERROR'
+        # Corrupt response
+        mock_client_corrupt = MagicMock()
+        mock_client_corrupt.infer.return_value = {'predictions': [{'class': 'normal', 'confidence': 'NaN'}]}
+        with patch('skin_models.get_inference_client', return_value=mock_client_corrupt):
+            assert skin_models.infer_hosted_type(crop)['limitationCode'] == 'HOSTED_INVALID_RESPONSE'
 
 def test_skin_type_parser_edge_cases_and_multilabel():
     # 1. Nested dictionary predictions format: {'dry': {'confidence': 0.84}, 'normal': {'confidence': 0.16}}
@@ -249,7 +276,7 @@ def test_skin_type_inference_sdk_path():
         'predictions': [{'class': 'combination', 'confidence': 0.9986}]
     }
     
-    with patch.dict(os.environ, {'ATTUNE_ROBOFLOW_API_KEY': 'rf_live_key', 'ATTUNE_SKIN_TYPE_MODEL': 'skin-type-axavj/1'}):
+    with patch.dict(os.environ, {'ATTUNE_ALLOW_HOSTED_INFERENCE': '1', 'ATTUNE_ROBOFLOW_API_KEY': 'rf_live_key', 'ATTUNE_SKIN_TYPE_MODEL': 'skin-type-axavj/1'}):
         with patch('inference_sdk.InferenceHTTPClient', return_value=mock_client) as mock_cls:
             res = skin_models.infer_hosted_type(crop)
             assert res is not None

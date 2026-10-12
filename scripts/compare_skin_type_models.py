@@ -65,18 +65,17 @@ def select_independent_samples(per_class=5):
 
 def compute_metrics(true_labels, pred_labels):
     # Confusion matrix: rows=true, cols=pred
-    cm = {t: {p: 0 for p in CLASSES} for t in CLASSES}
+    cm = {t: defaultdict(int) for t in CLASSES}
     for t, p in zip(true_labels, pred_labels):
-        if t in cm and p in cm[t]:
+        if t in cm:
             cm[t][p] += 1
-        elif t in cm:
-            cm[t]['other'] = cm[t].get('other', 0) + 1
 
     per_class = {}
     f1_list = []
     for cls in CLASSES:
         tp = cm[cls][cls]
-        fn = sum(cm[cls][p] for p in CLASSES if p != cls)
+        # Any prediction that is not cls (other class, error, unknown) is a false negative
+        fn = sum(v for k, v in cm[cls].items() if k != cls)
         fp = sum(cm[t][cls] for t in CLASSES if t != cls)
         precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
         recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
@@ -96,7 +95,7 @@ def compute_metrics(true_labels, pred_labels):
     accuracy = correct / total if total > 0 else 0.0
 
     return {
-        'confusion_matrix': cm,
+        'confusion_matrix': {t: dict(cm[t]) for t in CLASSES},
         'per_class': per_class,
         'macro_f1': round(macro_f1, 4),
         'accuracy': round(accuracy, 4),

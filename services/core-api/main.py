@@ -23,7 +23,7 @@ _local_env = Path(__file__).resolve().parents[2] / '.env.local'
 if os.getenv('ATTUNE_LOAD_LOCAL_ENV') == '1' and _local_env.is_file():
     for _line in _local_env.read_text(encoding='utf-8').splitlines():
         _name, _separator, _value = _line.partition('=')
-        if _separator and _name.strip() in ('OPENAI_API_KEY', 'OPENAI_MODEL', 'OPENAI_TTS_MODEL', 'ATTUNE_ROBOFLOW_API_KEY', 'ROBOFLOW_API_KEY', 'ATTUNE_SKIN_TYPE_MODEL'):
+        if _separator and _name.strip() in ('OPENAI_API_KEY', 'OPENAI_MODEL', 'OPENAI_TTS_MODEL', 'ATTUNE_ROBOFLOW_API_KEY', 'ROBOFLOW_API_KEY', 'ATTUNE_SKIN_TYPE_MODEL', 'ATTUNE_ALLOW_HOSTED_INFERENCE'):
             os.environ[_name.strip()] = _value.strip().strip('\"').strip("'")
 
 from mental_provider import (get_active_mental_provider, check_mental_crisis, get_active_session_analyzer,

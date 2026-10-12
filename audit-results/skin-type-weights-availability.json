@@ -1,25 +1,60 @@
 {
-  "face-detection-beautysense/skin-type-axavj/1": {
-    "workspace": "face-detection-beautysense",
-    "project": "skin-type-axavj",
-    "version": "1",
-    "version_metadata": {
-      "exports": [
-        "folder"
-      ],
-      "weights": null
+  "timestamp": "2026-10-12T04:47:00Z",
+  "official_documentation": {
+    "url": "https://docs.roboflow.com/models/model-weights/download-roboflow-model-weights",
+    "clause": "Classification weights require separate workspace access, and SAM3 and RF-DETR NAS weights cannot be downloaded.",
+    "policy_summary": "Roboflow restricts classification model weights download strictly to authenticated workspace members/owners."
+  },
+  "candidate_models": {
+    "face-detection-beautysense/skin-type-axavj/1": {
+      "workspace": "face-detection-beautysense",
+      "project": "skin-type-axavj",
+      "version": "1",
+      "version_metadata": {
+        "exports": [
+          "folder"
+        ],
+        "weights": null
+      },
+      "sdk_attempt": {
+        "method": "Roboflow(api_key=...).workspace('face-detection-beautysense').project('skin-type-axavj').version(1).download('onnx')",
+        "endpoint_called": "GET /face-detection-beautysense/skin-type-axavj/1/v2/trainings",
+        "error_class": "GraphMethodException",
+        "raw_response": {
+          "error": {
+            "message": "Unsupported request. 'GET /face-detection-beautysense/skin-type-axavj/1/v2/trainings' does not exist or cannot be loaded due to missing permissions.",
+            "type": "GraphMethodException",
+            "hint": "You can see your active workspace by issuing a GET request to '/' with your 'api_key'."
+          }
+        },
+        "constraint": "WORKSPACE_PERMISSION_REQUIRED"
+      }
+    },
+    "fyp-symvg/skin-type-ng2uj/1": {
+      "workspace": "fyp-symvg",
+      "project": "skin-type-ng2uj",
+      "version": "1",
+      "version_metadata": {
+        "exports": [
+          "folder",
+          "openai"
+        ],
+        "weights": null
+      },
+      "sdk_attempt": {
+        "method": "Roboflow(api_key=...).workspace('fyp-symvg').project('skin-type-ng2uj').version(1).download('onnx')",
+        "endpoint_called": "GET /fyp-symvg/skin-type-ng2uj/1/v2/trainings",
+        "error_class": "GraphMethodException",
+        "raw_response": {
+          "error": {
+            "message": "Unsupported request. 'GET /fyp-symvg/skin-type-ng2uj/1/v2/trainings' does not exist or cannot be loaded due to missing permissions.",
+            "type": "GraphMethodException",
+            "hint": "You can see your active workspace by issuing a GET request to '/' with your 'api_key'."
+          }
+        },
+        "constraint": "WORKSPACE_PERMISSION_REQUIRED"
+      }
     }
   },
-  "fyp-symvg/skin-type-ng2uj/1": {
-    "workspace": "fyp-symvg",
-    "project": "skin-type-ng2uj",
-    "version": "1",
-    "version_metadata": {
-      "exports": [
-        "folder",
-        "openai"
-      ],
-      "weights": null
-    }
-  }
+  "conclusion": "Classification weights require workspace owner or explicit workspace member permissions to download. Under the current authorized API credentials, weights download is barred by Roboflow's access control policy (GraphMethodException). Consequently, the production-grade hosted adapter via InferenceHTTPClient (serverless.roboflow.com) with header authentication, permission guards (ATTUNE_ALLOW_HOSTED_INFERENCE=1), and differentiated error codes is the active, verified integration path for 4-class skin type."
 }

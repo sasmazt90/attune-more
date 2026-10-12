@@ -1,12 +1,25 @@
 {
-  "timestamp": "2026-10-12T03:33:05Z",
+  "timestamp": "2026-10-12T04:47:03Z",
   "image": "combination_-_0bc5ca1194a13cfd7b9a_jpg.rf.0c21ccb4c6c58bf8aacd4d27c5042db9.jpg",
   "true_class": "combination",
-  "pipeline_latency_ms": 6749.44,
+  "pipeline_latency_ms": 5838.21,
+  "landmark_source": "MediaPipe FaceLandmarker (face_landmarker.task)",
+  "landmark_count": 478,
+  "crop_transform": {
+    "x": 51,
+    "y": 0,
+    "width": 547,
+    "height": 582,
+    "inputWidth": 224,
+    "inputHeight": 224,
+    "RGB": true,
+    "cropVersion": "camera-crop-v1",
+    "coordinateSpace": "source-pixels"
+  },
   "general_skin_type": {
     "value": "combination",
     "quality": "valid",
-    "confidence": 0.9985,
+    "confidence": 0.9983,
     "methodVersion": "hosted-roboflow-skin-type-axavj/1",
     "providerModelId": "skin-type-axavj/1",
     "modelHash": null,
@@ -18,27 +31,38 @@
     "coverage": null
   },
   "overview_criteria_count": 9,
+  "overview_criteria_ids": [
+    "tone",
+    "oil",
+    "redness",
+    "acne",
+    "sag",
+    "dry",
+    "lines",
+    "dark",
+    "bags"
+  ],
   "regions_present": [
     "forehead",
     "rightCheek",
     "leftCheek",
     "nose",
-    "chin",
-    "periorbital"
+    "periorbital",
+    "chin"
   ],
   "models_metadata": {
     "degrees": {
       "modelHash": "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3",
       "modelVersion": "skin-appearance-photo-ridge-20261010-v1",
-      "loadMs": 267.1938000712544,
-      "inferenceMs": 50.68020010367036
+      "loadMs": 378.2814000733197,
+      "inferenceMs": 39.14649994112551
     },
     "type": {
       "modelHash": null,
       "modelVersion": "hosted-roboflow-skin-type-axavj/1",
       "providerModelId": "skin-type-axavj/1",
       "loadMs": 0.0,
-      "inferenceMs": 1766.97860006243
+      "inferenceMs": 271.7985000927001
     }
   },
   "status": "SUCCESS"

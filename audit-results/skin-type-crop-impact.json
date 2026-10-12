@@ -1,0 +1,108 @@
+{
+  "timestamp": "2026-10-12T04:47:03Z",
+  "model_id": "skin-type-axavj/1",
+  "sample_count": 4,
+  "comparison": [
+    {
+      "true_class": "normal",
+      "image": "normal_037d2ca54ba52d645ffd_jpg.rf.016f29e4a2114b6ad3b15a0d0b356850.jpg",
+      "image_size": [
+        640,
+        640
+      ],
+      "crop_transform": {
+        "x": 121,
+        "y": 47,
+        "width": 393,
+        "height": 451,
+        "inputWidth": 224,
+        "inputHeight": 224,
+        "RGB": true,
+        "cropVersion": "camera-crop-v1",
+        "coordinateSpace": "source-pixels"
+      },
+      "full_photo_pred": "normal",
+      "full_photo_conf": 0.9894,
+      "crop_pred": "normal",
+      "crop_conf": 0.9637,
+      "crop_matches_ground_truth": true,
+      "crop_matches_full_photo": true
+    },
+    {
+      "true_class": "dry",
+      "image": "dry_00f1189752d6631b2b22_jpg.rf.7baa779a64867cadde0a202baeeed00f.jpg",
+      "image_size": [
+        640,
+        640
+      ],
+      "crop_transform": {
+        "x": 0,
+        "y": 75,
+        "width": 640,
+        "height": 565,
+        "inputWidth": 224,
+        "inputHeight": 224,
+        "RGB": true,
+        "cropVersion": "camera-crop-v1",
+        "coordinateSpace": "source-pixels"
+      },
+      "full_photo_pred": "dry",
+      "full_photo_conf": 0.9988,
+      "crop_pred": "dry",
+      "crop_conf": 0.9991,
+      "crop_matches_ground_truth": true,
+      "crop_matches_full_photo": true
+    },
+    {
+      "true_class": "oily",
+      "image": "oily_021e826dd8fd78c2e8f5-Copy_jpg.rf.233c9ee4e5e1910fd22e32bc70475f9d.jpg",
+      "image_size": [
+        640,
+        640
+      ],
+      "crop_transform": {
+        "x": 303,
+        "y": 159,
+        "width": 191,
+        "height": 190,
+        "inputWidth": 224,
+        "inputHeight": 224,
+        "RGB": true,
+        "cropVersion": "camera-crop-v1",
+        "coordinateSpace": "source-pixels"
+      },
+      "full_photo_pred": "oily",
+      "full_photo_conf": 0.9958,
+      "crop_pred": "oily",
+      "crop_conf": 0.9833,
+      "crop_matches_ground_truth": true,
+      "crop_matches_full_photo": true
+    },
+    {
+      "true_class": "combination",
+      "image": "combination_-_0bc5ca1194a13cfd7b9a_jpg.rf.0c21ccb4c6c58bf8aacd4d27c5042db9.jpg",
+      "image_size": [
+        640,
+        640
+      ],
+      "crop_transform": {
+        "x": 51,
+        "y": 0,
+        "width": 547,
+        "height": 582,
+        "inputWidth": 224,
+        "inputHeight": 224,
+        "RGB": true,
+        "cropVersion": "camera-crop-v1",
+        "coordinateSpace": "source-pixels"
+      },
+      "full_photo_pred": "combination",
+      "full_photo_conf": 0.9986,
+      "crop_pred": "combination",
+      "crop_conf": 0.9983,
+      "crop_matches_ground_truth": true,
+      "crop_matches_full_photo": true
+    }
+  ],
+  "findings": "Facial cropping isolates relevant skin and facial features while preserving classification accuracy across representative samples."
+}

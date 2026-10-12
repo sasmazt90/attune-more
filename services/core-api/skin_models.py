@@ -152,60 +152,98 @@ def parse_hosted_type_response(data, model_id, elapsed=0.0):
         inferenceMs=elapsed
     )
 
+def get_inference_client(api_key):
+    """Factory for official Roboflow InferenceHTTPClient with header authentication and disabled uncontrolled retries."""
+    from inference_sdk import InferenceConfiguration, InferenceHTTPClient
+    client = InferenceHTTPClient(
+        api_url="https://serverless.roboflow.com",
+        api_key=api_key
+    )
+    client.configure(InferenceConfiguration(api_key_transport="header", workflow_run_retries_enabled=False))
+    return client
+
 def infer_hosted_type(crop_bgr):
-    """Optional, authorized hosted 4-class skin type adapter (e.g. Roboflow inference API).
-    Only called if local accepted ONNX weights are not present and ATTUNE_ROBOFLOW_API_KEY is configured.
-    Never sends full unapproved photos; operates on cropped face patch.
-    Uses documented base64 payload and Authorization header (never leaks credentials in URL or logs).
+    """Authorized hosted 4-class skin type adapter via official Roboflow Serverless Inference SDK.
+    Only called if local accepted ONNX weights are not present and ATTUNE_ALLOW_HOSTED_INFERENCE=1 is explicitly set.
+    Never sends full unapproved photos; operates solely on cropped face patch.
+    Uses official inference-sdk with header authentication (never leaks credentials in URL, logs or errors).
     """
-    import os, urllib.request, urllib.error, base64
+    import os
+    model_id = os.environ.get('ATTUNE_SKIN_TYPE_MODEL', 'skin-type-axavj/1')
+
+    # 1. Explicit permission guard: Key presence alone is NOT consent to transmit face data
+    if os.environ.get('ATTUNE_ALLOW_HOSTED_INFERENCE') != '1':
+        return dict(
+            value=None,
+            quality='insufficient',
+            confidence=None,
+            methodVersion=f'hosted-roboflow-{model_id}',
+            providerModelId=model_id,
+            modelHash=None,
+            limitationCode='HOSTED_INFERENCE_PERMISSION_DENIED',
+            inferenceMs=0.0
+        )
+
+    # 2. Check credentials
     api_key = os.environ.get('ATTUNE_ROBOFLOW_API_KEY') or os.environ.get('ROBOFLOW_API_KEY')
     if not api_key:
-        return None
-    model_id = os.environ.get('ATTUNE_SKIN_TYPE_MODEL', 'skin-type-axavj/1')
-    
-    # In live runtime, use official inference-sdk with serverless endpoint and header auth.
-    # If urllib.request.urlopen is patched (in unit tests), use the patched mock path directly.
-    is_mocked = type(getattr(urllib.request, 'urlopen', None)).__name__ in ('MagicMock', 'Mock')
-    if not is_mocked:
-        try:
-            from inference_sdk import InferenceConfiguration, InferenceHTTPClient
-            client = InferenceHTTPClient(
-                api_url="https://serverless.roboflow.com",
-                api_key=api_key
-            )
-            client.configure(InferenceConfiguration(api_key_transport="header"))
-            start = time.perf_counter()
-            data = client.infer(crop_bgr, model_id=model_id)
-            elapsed = (time.perf_counter() - start) * 1000
-            return parse_hosted_type_response(data, model_id, elapsed)
-        except Exception:
-            pass
+        return dict(
+            value=None,
+            quality='insufficient',
+            confidence=None,
+            methodVersion=f'hosted-roboflow-{model_id}',
+            providerModelId=model_id,
+            modelHash=None,
+            limitationCode='HOSTED_CREDENTIALS_MISSING',
+            inferenceMs=0.0
+        )
 
-    # Direct fallback / mocked test path with base64 payload and header authentication
-    ok, buf = cv2.imencode('.jpg', crop_bgr, [int(cv2.IMWRITE_JPEG_QUALITY), 92])
-    if not ok:
-        return None
-    b64_image = base64.b64encode(buf.tobytes()).decode('ascii')
-    
-    url = f"https://classify.roboflow.com/{model_id}"
-    req_body = b64_image.encode('ascii')
-    headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': f'Bearer {api_key}'
-    }
-    
+    # 3. Call official SDK with controlled timeout and error differentiation
     try:
-        req = urllib.request.Request(url, data=req_body, headers=headers)
+        from inference_sdk.http.errors import HTTPCallErrorError, HTTPClientError
+        client = get_inference_client(api_key)
         start = time.perf_counter()
-        with urllib.request.urlopen(req, timeout=4.0) as resp:
-            raw_data = resp.read().decode('utf-8')
-            data = json.loads(raw_data)
+        data = client.infer(crop_bgr, model_id=model_id)
         elapsed = (time.perf_counter() - start) * 1000
-        return parse_hosted_type_response(data, model_id, elapsed)
-    except Exception:
-        # Network, timeout or quota error never leaks credentials or crashes
-        return None
+        parsed = parse_hosted_type_response(data, model_id, elapsed)
+        if parsed is None:
+            return dict(
+                value=None,
+                quality='insufficient',
+                confidence=None,
+                methodVersion=f'hosted-roboflow-{model_id}',
+                providerModelId=model_id,
+                modelHash=None,
+                limitationCode='HOSTED_INVALID_RESPONSE',
+                inferenceMs=elapsed
+            )
+        return parsed
+    except Exception as e:
+        # Categorize errors safely without leaking credentials
+        limitation = 'HOSTED_CALL_FAILED'
+        err_str = str(e).lower()
+        status_code = getattr(e, 'status_code', None)
+        if status_code in (401, 403):
+            limitation = 'HOSTED_AUTH_FAILED'
+        elif status_code == 429:
+            limitation = 'HOSTED_RATE_LIMIT_EXCEEDED'
+        elif status_code == 404:
+            limitation = 'HOSTED_MODEL_NOT_FOUND'
+        elif 'timeout' in err_str or 'timed out' in err_str:
+            limitation = 'HOSTED_TIMEOUT'
+        elif 'connection' in err_str or 'network' in err_str or 'connect' in err_str:
+            limitation = 'HOSTED_NETWORK_ERROR'
+            
+        return dict(
+            value=None,
+            quality='insufficient',
+            confidence=None,
+            methodVersion=f'hosted-roboflow-{model_id}',
+            providerModelId=model_id,
+            modelHash=None,
+            limitationCode=limitation,
+            inferenceMs=0.0
+        )
 
 def infer(bgr,points,quality_valid):
     empty=dict(skinType=None,degrees={},models={},sourceTransform=None)
