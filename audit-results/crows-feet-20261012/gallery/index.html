@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>TOGG Attune - Kaz Ayakları / Çizgiler (Lines v4) Doğrulama Raporu</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 24px; }
+    h1 { color: #38bdf8; font-size: 24px; margin-bottom: 8px; }
+    .subtitle { color: #94a3b8; font-size: 14px; margin-bottom: 24px; }
+    .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .summary-card { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 16px; }
+    .summary-card .label { font-size: 12px; color: #94a3b8; text-transform: uppercase; margin-bottom: 4px; }
+    .summary-card .val { font-size: 20px; font-weight: bold; color: #38bdf8; }
+    .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+    .card-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; border-bottom: 1px solid #334155; padding-bottom: 8px; }
+    .card-title { font-size: 16px; font-weight: 600; color: #f1f5f9; }
+    .badge { font-size: 11px; padding: 4px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; }
+    .badge-pos { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid #38bdf8; }
+    .badge-neg { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid #22c55e; }
+    .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .img-box { text-align: center; background: #0b1120; border-radius: 8px; padding: 8px; }
+    .img-box img { max-width: 100%; height: auto; border-radius: 4px; border: 1px solid #334155; }
+    .img-caption { font-size: 12px; color: #94a3b8; margin-top: 6px; }
+    .metrics-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px; }
+    .metrics-table th, .metrics-table td { border: 1px solid #334155; padding: 6px 10px; text-align: left; }
+    .metrics-table th { background: #0b1120; color: #94a3b8; }
+    .status-rescued { color: #38bdf8; font-weight: bold; }
+    .status-clean { color: #4ade80; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>TOGG Attune — Kaz Ayakları / Çizgiler (Target D) v4 Doğrulama Raporu</h1>
+  <div class="subtitle">Normalizasyon: <code>outer-canthus-gabor-radiating-hair-excluded-v4</code> | Tarih: 2026-10-12</div>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="label">Kurtarılan Pozitif (a94f1646)</div>
+      <div class="val">0.00 → 0.51 (UI: 1%)</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Korunan Belirgin Çizgi (02386f86)</div>
+      <div class="val">1.43 → 5.08 (UI: 5%)</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Negatif Sahte Pozitif Sayısı</div>
+      <div class="val">0 / 3 (Tümü UI %0)</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Kart & Harita Tutarlılığı</div>
+      <div class="val">100% Doğrulandı</div>
+    </div>
+  </div>
+
+  <h2>Örnek Bazlı İnceleme ve Harita Kanıtları</h2>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">a94f1646 — POSITIVE_FINE_LINES</div>
+      <span class="badge badge-pos">POSITIVE_FINE_LINES</span>
+    </div>
+    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Fine crow's feet wrinkles on lateral canthus band (failing in v3 with raw=0.0)</p>
+    
+    <div class="comparison-grid">
+      <div class="img-box">
+        <img src="assets/a94f1646_orig.jpg" alt="Orijinal Göz Çevresi">
+        <div class="img-caption">Kaynak Fotoğraf (Göz Dışı Alan)</div>
+      </div>
+      <div class="img-box">
+        <img src="assets/a94f1646_v4_map.jpg" alt="v4 Sinyal Örtüşmesi">
+        <div class="img-caption">v4 Kaz Ayakları Haritası (Siyan Örtüşme)</div>
+      </div>
+    </div>
+
+    <table class="metrics-table">
+      <thead>
+        <tr>
+          <th>Sürüm</th>
+          <th>Ham Değer (raw)</th>
+          <th>UI Skoru (%)</th>
+          <th>Aktif Harita Pikselleri</th>
+          <th>Normalizasyon</th>
+          <th>Durum Değerlendirmesi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Baseline v3</td>
+          <td>0.0000</td>
+          <td>0%</td>
+          <td>0</td>
+          <td>outer-canthus-gabor-radiating-hair-excluded-v3</td>
+          <td>FALSE_NEGATIVE</td>
+        </tr>
+        <tr>
+          <td><strong>Candidate v4</strong></td>
+          <td><strong>0.5563</strong></td>
+          <td><strong>1%</strong></td>
+          <td><strong>99</strong></td>
+          <td><code>outer-canthus-gabor-radiating-hair-excluded-v4</code></td>
+          <td class="status-rescued">
+            KURTARILDI & DOĞRULANDI
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">02386f86 — POSITIVE_DEEP_LINES</div>
+      <span class="badge badge-pos">POSITIVE_DEEP_LINES</span>
+    </div>
+    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Prominent deep crow's feet folds fanning from outer eye corners</p>
+    
+    <div class="comparison-grid">
+      <div class="img-box">
+        <img src="assets/02386f86_orig.jpg" alt="Orijinal Göz Çevresi">
+        <div class="img-caption">Kaynak Fotoğraf (Göz Dışı Alan)</div>
+      </div>
+      <div class="img-box">
+        <img src="assets/02386f86_v4_map.jpg" alt="v4 Sinyal Örtüşmesi">
+        <div class="img-caption">v4 Kaz Ayakları Haritası (Siyan Örtüşme)</div>
+      </div>
+    </div>
+
+    <table class="metrics-table">
+      <thead>
+        <tr>
+          <th>Sürüm</th>
+          <th>Ham Değer (raw)</th>
+          <th>UI Skoru (%)</th>
+          <th>Aktif Harita Pikselleri</th>
+          <th>Normalizasyon</th>
+          <th>Durum Değerlendirmesi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Baseline v3</td>
+          <td>1.4335</td>
+          <td>1%</td>
+          <td>104</td>
+          <td>outer-canthus-gabor-radiating-hair-excluded-v3</td>
+          <td>DETECTED</td>
+        </tr>
+        <tr>
+          <td><strong>Candidate v4</strong></td>
+          <td><strong>3.1059</strong></td>
+          <td><strong>3%</strong></td>
+          <td><strong>176</strong></td>
+          <td><code>outer-canthus-gabor-radiating-hair-excluded-v4</code></td>
+          <td class="status-rescued">
+            KORUNDU
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">beda0290 — NEGATIVE_CONTROL_EYELINER</div>
+      <span class="badge badge-neg">NEGATIVE_CONTROL_EYELINER</span>
+    </div>
+    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Clean smooth under-eye/temple skin with dark eyeliner flick, roll = -24.5 deg</p>
+    
+    <div class="comparison-grid">
+      <div class="img-box">
+        <img src="assets/beda0290_orig.jpg" alt="Orijinal Göz Çevresi">
+        <div class="img-caption">Kaynak Fotoğraf (Göz Dışı Alan)</div>
+      </div>
+      <div class="img-box">
+        <img src="assets/beda0290_v4_map.jpg" alt="v4 Sinyal Örtüşmesi">
+        <div class="img-caption">v4 Kaz Ayakları Haritası (Siyan Örtüşme)</div>
+      </div>
+    </div>
+
+    <table class="metrics-table">
+      <thead>
+        <tr>
+          <th>Sürüm</th>
+          <th>Ham Değer (raw)</th>
+          <th>UI Skoru (%)</th>
+          <th>Aktif Harita Pikselleri</th>
+          <th>Normalizasyon</th>
+          <th>Durum Değerlendirmesi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Baseline v3</td>
+          <td>0.4012</td>
+          <td>0%</td>
+          <td>5</td>
+          <td>outer-canthus-gabor-radiating-hair-excluded-v3</td>
+          <td>CLEAN_NEGATIVE</td>
+        </tr>
+        <tr>
+          <td><strong>Candidate v4</strong></td>
+          <td><strong>0.0009</strong></td>
+          <td><strong>0%</strong></td>
+          <td><strong>0</strong></td>
+          <td><code>outer-canthus-gabor-radiating-hair-excluded-v4</code></td>
+          <td class="status-clean">
+            TEMİZ NEGATİF (SIFIR)
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">4b13b16a — NEGATIVE_CONTROL_NATURAL</div>
+      <span class="badge badge-neg">NEGATIVE_CONTROL_NATURAL</span>
+    </div>
+    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Natural upright negative control with smooth eye corners</p>
+    
+    <div class="comparison-grid">
+      <div class="img-box">
+        <img src="assets/4b13b16a_orig.jpg" alt="Orijinal Göz Çevresi">
+        <div class="img-caption">Kaynak Fotoğraf (Göz Dışı Alan)</div>
+      </div>
+      <div class="img-box">
+        <img src="assets/4b13b16a_v4_map.jpg" alt="v4 Sinyal Örtüşmesi">
+        <div class="img-caption">v4 Kaz Ayakları Haritası (Siyan Örtüşme)</div>
+      </div>
+    </div>
+
+    <table class="metrics-table">
+      <thead>
+        <tr>
+          <th>Sürüm</th>
+          <th>Ham Değer (raw)</th>
+          <th>UI Skoru (%)</th>
+          <th>Aktif Harita Pikselleri</th>
+          <th>Normalizasyon</th>
+          <th>Durum Değerlendirmesi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Baseline v3</td>
+          <td>0.4113</td>
+          <td>0%</td>
+          <td>10</td>
+          <td>outer-canthus-gabor-radiating-hair-excluded-v3</td>
+          <td>CLEAN_NEGATIVE</td>
+        </tr>
+        <tr>
+          <td><strong>Candidate v4</strong></td>
+          <td><strong>0.4803</strong></td>
+          <td><strong>0%</strong></td>
+          <td><strong>10</strong></td>
+          <td><code>outer-canthus-gabor-radiating-hair-excluded-v4</code></td>
+          <td class="status-clean">
+            TEMİZ NEGATİF (SIFIR)
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">5bd42346 — NEGATIVE_REGRESSION_TRANSFORMED</div>
+      <span class="badge badge-neg">NEGATIVE_REGRESSION_TRANSFORMED</span>
+    </div>
+    <p style="font-size:13px; color:#cbd5e1; margin-top:0;">Transformed regression control (20.5 deg rotation, corner triangles, salt-and-pepper noise)</p>
+    
+    <div class="comparison-grid">
+      <div class="img-box">
+        <img src="assets/5bd42346_orig.jpg" alt="Orijinal Göz Çevresi">
+        <div class="img-caption">Kaynak Fotoğraf (Göz Dışı Alan)</div>
+      </div>
+      <div class="img-box">
+        <img src="assets/5bd42346_v4_map.jpg" alt="v4 Sinyal Örtüşmesi">
+        <div class="img-caption">v4 Kaz Ayakları Haritası (Siyan Örtüşme)</div>
+      </div>
+    </div>
+
+    <table class="metrics-table">
+      <thead>
+        <tr>
+          <th>Sürüm</th>
+          <th>Ham Değer (raw)</th>
+          <th>UI Skoru (%)</th>
+          <th>Aktif Harita Pikselleri</th>
+          <th>Normalizasyon</th>
+          <th>Durum Değerlendirmesi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Baseline v3</td>
+          <td>0.3335</td>
+          <td>0%</td>
+          <td>25</td>
+          <td>outer-canthus-gabor-radiating-hair-excluded-v3</td>
+          <td>CLEAN_NEGATIVE</td>
+        </tr>
+        <tr>
+          <td><strong>Candidate v4</strong></td>
+          <td><strong>0.4167</strong></td>
+          <td><strong>0%</strong></td>
+          <td><strong>71</strong></td>
+          <td><code>outer-canthus-gabor-radiating-hair-excluded-v4</code></td>
+          <td class="status-clean">
+            TEMİZ NEGATİF (SIFIR)
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

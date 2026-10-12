@@ -1,0 +1,364 @@
+{
+  "schemaVersion": 1,
+  "auditId": "crows-feet-v4-evaluation-20261012",
+  "timestamp": "2026-10-12T20:18:00+02:00",
+  "target": "lines",
+  "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v4",
+  "baselineReceipt": "skin-comparative-evaluation-summary.json",
+  "preservedDeliveryCommit": "ff0b161bd807fe81d2ba5ee6283d4f5b26f6a102",
+  "summary": {
+    "totalEvaluated": 5,
+    "positiveSamplesRescued": 1,
+    "positiveSamplesPreserved": 1,
+    "negativeControlsFalsePositiveCount": 0,
+    "zeroMapCardConsistencyVerified": true,
+    "nonRegressionVerified": true
+  },
+  "records": [
+    {
+      "sha256": "a94f1646c29f6c624f233ba1c9e0ee21a4b6f6b72a54bb3c9a5dfce9c510dc61",
+      "short_sha": "a94f1646",
+      "role": "POSITIVE_FINE_LINES",
+      "description": "Fine crow's feet wrinkles on lateral canthus band (failing in v3 with raw=0.0)",
+      "rel_path": "test/00167_png_jpg.rf.4c8f75309320c1039a7e11d11ac347b7.jpg",
+      "dimensions": [
+        640,
+        640
+      ],
+      "baseline_v3": {
+        "raw": 0.0,
+        "ui": 0,
+        "active_px": 0,
+        "status": "FALSE_NEGATIVE"
+      },
+      "candidate_v4": {
+        "value": 0.5562636256217957,
+        "ui_score": 1,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v4",
+        "limitationCode": null,
+        "quality": "valid",
+        "sides": [
+          {
+            "side": "right",
+            "value": 0.3812393844127655,
+            "limitationCode": null,
+            "analysisPixels": 309
+          },
+          {
+            "side": "left",
+            "value": 0.7099069952964783,
+            "limitationCode": null,
+            "analysisPixels": 352
+          }
+        ],
+        "partialCoverage": false,
+        "active_map_pixels_source": 99,
+        "has_local_map": true,
+        "map_descriptor": {
+          "key": "periorbital:lines",
+          "photoId": "d0d7053ee59f6fcfe45db206e7e823379ffb2250cb057d32a09333f4103ec504",
+          "region": "periorbital",
+          "criterion": "lines",
+          "coordinateSpace": "source-pixels"
+        }
+      },
+      "non_regression_checks": {
+        "dark": {
+          "value": 5.027421474456787,
+          "norm": "lower-lid-contrast-chroma-local-v4",
+          "limitation": null
+        },
+        "bags": {
+          "value": 0.0,
+          "norm": "contour-fold-local-support-v5",
+          "limitation": null
+        },
+        "dry": {
+          "value": 0.0,
+          "norm": "eligible-flake-area-fixed-v2-shared",
+          "limitation": null
+        }
+      },
+      "visuals": {
+        "crop_orig": "assets/a94f1646_orig.jpg",
+        "crop_overlay": "assets/a94f1646_v4_map.jpg"
+      }
+    },
+    {
+      "sha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+      "short_sha": "02386f86",
+      "role": "POSITIVE_DEEP_LINES",
+      "description": "Prominent deep crow's feet folds fanning from outer eye corners",
+      "rel_path": "train/69951_jpg.rf.38bbafdf8ce5f6bfe579c59e430bceaa.jpg",
+      "dimensions": [
+        640,
+        640
+      ],
+      "baseline_v3": {
+        "raw": 1.4335,
+        "ui": 1,
+        "active_px": 104,
+        "status": "DETECTED"
+      },
+      "candidate_v4": {
+        "value": 3.105858325958252,
+        "ui_score": 3,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v4",
+        "limitationCode": null,
+        "quality": "valid",
+        "sides": [
+          {
+            "side": "right",
+            "value": 3.2951838970184326,
+            "limitationCode": null,
+            "analysisPixels": 328
+          },
+          {
+            "side": "left",
+            "value": 2.887967586517334,
+            "limitationCode": null,
+            "analysisPixels": 285
+          }
+        ],
+        "partialCoverage": false,
+        "active_map_pixels_source": 176,
+        "has_local_map": true,
+        "map_descriptor": {
+          "key": "periorbital:lines",
+          "photoId": "d3e5bc22c1f17530ab52e973912b3f234cc45707f079d4ab761f76b2c001e57a",
+          "region": "periorbital",
+          "criterion": "lines",
+          "coordinateSpace": "source-pixels"
+        }
+      },
+      "non_regression_checks": {
+        "dark": {
+          "value": 0.9793508052825928,
+          "norm": "lower-lid-contrast-chroma-local-v4",
+          "limitation": null
+        },
+        "bags": {
+          "value": 3.835072021865926,
+          "norm": "contour-fold-local-support-v5",
+          "limitation": null
+        },
+        "dry": {
+          "value": 0.2280790674100355,
+          "norm": "eligible-flake-area-fixed-v2-shared",
+          "limitation": null
+        }
+      },
+      "visuals": {
+        "crop_orig": "assets/02386f86_orig.jpg",
+        "crop_overlay": "assets/02386f86_v4_map.jpg"
+      }
+    },
+    {
+      "sha256": "beda02904d704cba3e6f417892442a8c2fa1650f765a761957c3285a4d55cbf5",
+      "short_sha": "beda0290",
+      "role": "NEGATIVE_CONTROL_EYELINER",
+      "description": "Clean smooth under-eye/temple skin with dark eyeliner flick, roll = -24.5 deg",
+      "rel_path": "skin_type_classification_dataset/test/normal/normal_new_75ecf7ec1f1edea59589_jpg.rf.d745f9da8b5c8096b2525bcc06c83d54.jpg",
+      "dimensions": [
+        640,
+        640
+      ],
+      "baseline_v3": {
+        "raw": 0.4012,
+        "ui": 0,
+        "active_px": 5,
+        "status": "CLEAN_NEGATIVE"
+      },
+      "candidate_v4": {
+        "value": 0.0009212904260493815,
+        "ui_score": 0,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v4",
+        "limitationCode": null,
+        "quality": "valid",
+        "sides": [
+          {
+            "side": "right",
+            "value": null,
+            "limitationCode": "INSUFFICIENT_VISIBLE_AREA",
+            "analysisPixels": 59
+          },
+          {
+            "side": "left",
+            "value": 0.0009212904260493815,
+            "limitationCode": null,
+            "analysisPixels": 138
+          }
+        ],
+        "partialCoverage": true,
+        "active_map_pixels_source": 0,
+        "has_local_map": true,
+        "map_descriptor": {
+          "key": "periorbital:lines",
+          "photoId": "0ad80a104a24b47b76e9c6c3cadd894b7b0c91c3e5fb7090a32c3ad711688cea",
+          "region": "periorbital",
+          "criterion": "lines",
+          "coordinateSpace": "source-pixels"
+        }
+      },
+      "non_regression_checks": {
+        "dark": {
+          "value": 1.716963291168213,
+          "norm": "lower-lid-contrast-chroma-local-v4",
+          "limitation": null
+        },
+        "bags": {
+          "value": 0.0,
+          "norm": "contour-fold-local-support-v5",
+          "limitation": null
+        },
+        "dry": {
+          "value": 0.0,
+          "norm": "eligible-flake-area-fixed-v2-shared",
+          "limitation": null
+        }
+      },
+      "visuals": {
+        "crop_orig": "assets/beda0290_orig.jpg",
+        "crop_overlay": "assets/beda0290_v4_map.jpg"
+      }
+    },
+    {
+      "sha256": "4b13b16a33d4c2d72dbae196aa83a21d0ffb738969f80c0394c7941beb24c9db",
+      "short_sha": "4b13b16a",
+      "role": "NEGATIVE_CONTROL_NATURAL",
+      "description": "Natural upright negative control with smooth eye corners",
+      "rel_path": "skin_type_classification_dataset/test/dry/dry_new_b727e769596e165e55c9_jpg.rf.a2a883cd47a0a4d4d91b55554e1ac742.jpg",
+      "dimensions": [
+        640,
+        640
+      ],
+      "baseline_v3": {
+        "raw": 0.4113,
+        "ui": 0,
+        "active_px": 10,
+        "status": "CLEAN_NEGATIVE"
+      },
+      "candidate_v4": {
+        "value": 0.4802922010421753,
+        "ui_score": 0,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v4",
+        "limitationCode": null,
+        "quality": "valid",
+        "sides": [
+          {
+            "side": "right",
+            "value": 0.4802922010421753,
+            "limitationCode": null,
+            "analysisPixels": 193
+          },
+          {
+            "side": "left",
+            "value": null,
+            "limitationCode": "HAIR_OR_OCCLUSION_IN_LINE_BAND",
+            "analysisPixels": 0
+          }
+        ],
+        "partialCoverage": true,
+        "active_map_pixels_source": 10,
+        "has_local_map": true,
+        "map_descriptor": {
+          "key": "periorbital:lines",
+          "photoId": "175a3e1bd4466fec844805d8c999fdd0e0b9bb82157373cbff246da593a11335",
+          "region": "periorbital",
+          "criterion": "lines",
+          "coordinateSpace": "source-pixels"
+        }
+      },
+      "non_regression_checks": {
+        "dark": {
+          "value": 15.117681503295898,
+          "norm": "lower-lid-contrast-chroma-local-v4",
+          "limitation": null
+        },
+        "bags": {
+          "value": 0.0,
+          "norm": "contour-fold-local-support-v5",
+          "limitation": null
+        },
+        "dry": {
+          "value": 0.0,
+          "norm": "eligible-flake-area-fixed-v2-shared",
+          "limitation": null
+        }
+      },
+      "visuals": {
+        "crop_orig": "assets/4b13b16a_orig.jpg",
+        "crop_overlay": "assets/4b13b16a_v4_map.jpg"
+      }
+    },
+    {
+      "sha256": "5bd42346304d791a394f98717ae1b38614688cead8dbb9ac2e09cc4ecf6c0905",
+      "short_sha": "5bd42346",
+      "role": "NEGATIVE_REGRESSION_TRANSFORMED",
+      "description": "Transformed regression control (20.5 deg rotation, corner triangles, salt-and-pepper noise)",
+      "rel_path": "skin_type_classification_dataset/valid/dry/dry_3af68a1937218e391938_jpg.rf.2c41f296ce4ba60e263c920073dead27.jpg",
+      "dimensions": [
+        640,
+        640
+      ],
+      "baseline_v3": {
+        "raw": 0.3335,
+        "ui": 0,
+        "active_px": 25,
+        "status": "CLEAN_NEGATIVE"
+      },
+      "candidate_v4": {
+        "value": 0.4166838526725769,
+        "ui_score": 0,
+        "normalizationVersion": "outer-canthus-gabor-radiating-hair-excluded-v4",
+        "limitationCode": null,
+        "quality": "valid",
+        "sides": [
+          {
+            "side": "right",
+            "value": 0.331694632768631,
+            "limitationCode": null,
+            "analysisPixels": 309
+          },
+          {
+            "side": "left",
+            "value": 0.5571205615997314,
+            "limitationCode": null,
+            "analysisPixels": 187
+          }
+        ],
+        "partialCoverage": false,
+        "active_map_pixels_source": 71,
+        "has_local_map": true,
+        "map_descriptor": {
+          "key": "periorbital:lines",
+          "photoId": "48b05c824b4a27cbc3c508a177105b8f599040e5263986de2e294c3dfdbe7dc8",
+          "region": "periorbital",
+          "criterion": "lines",
+          "coordinateSpace": "source-pixels"
+        }
+      },
+      "non_regression_checks": {
+        "dark": {
+          "value": 1.095200777053833,
+          "norm": "lower-lid-contrast-chroma-local-v4",
+          "limitation": null
+        },
+        "bags": {
+          "value": 0.0,
+          "norm": "contour-fold-local-support-v5",
+          "limitation": null
+        },
+        "dry": {
+          "value": 0.05765904285988853,
+          "norm": "eligible-flake-area-fixed-v2-shared",
+          "limitation": null
+        }
+      },
+      "visuals": {
+        "crop_orig": "assets/5bd42346_orig.jpg",
+        "crop_overlay": "assets/5bd42346_v4_map.jpg"
+      }
+    }
+  ]
+}

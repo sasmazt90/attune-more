@@ -21,7 +21,7 @@ from skin_scan_baseline.blemishes import blemish_map
 
 VERSION = 'appearance-cv-6'
 LIMITS = {'minFacePixels': 180, 'analysisFacePixels': 320, 'maxClippedFraction': .03}
-NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-area-fixed-v2-shared','acne':'unique-detection-box-anatomical-area-v2','lines':'outer-canthus-gabor-radiating-hair-excluded-v3','dark':'lower-lid-contrast-chroma-local-v4','sag':'contour-fold-lower-face-local-support-v6','bags':'contour-fold-local-support-v5'}
+NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-area-fixed-v2-shared','acne':'unique-detection-box-anatomical-area-v2','lines':'outer-canthus-gabor-radiating-hair-excluded-v4','dark':'lower-lid-contrast-chroma-local-v4','sag':'contour-fold-lower-face-local-support-v6','bags':'contour-fold-local-support-v5'}
 
 
 def decode_photo(data):
@@ -170,8 +170,8 @@ def eye_skin_bands(points, shape, scale, origin, source_shape, by_side=False):
             polygon=np.concatenate([line+down*face_width*top,(line+down*face_width*bottom)[::-1]])
             cv2.fillPoly(local[criterion],[np.rint(polygon).astype(np.int32)],255)
         c=p[corner];out=axis*sign*face_width
-        polygon=np.asarray([c+out*.025-down*face_width*.012,c+out*.085-down*face_width*.025,
-                            c+out*.09+down*face_width*.05,c+out*.025+down*face_width*.06])
+        polygon=np.asarray([c+out*.030-down*face_width*.035,c+out*.095-down*face_width*.040,
+                            c+out*.095+down*face_width*.050,c+out*.030+down*face_width*.035])
         cv2.fillPoly(local['lines'],[np.rint(polygon).astype(np.int32)],255)
         sides[side]={k:v>0 for k,v in local.items()}
         for k,v in local.items():result[k]|=v
@@ -461,17 +461,28 @@ def analyze_skin(payload, include_research_features=False):
             eye_axis=np.array([(points[263]['x']-points[33]['x'])*width,(points[263]['y']-points[33]['y'])*bgr.shape[0]])
             roll_rad=float(np.arctan2(eye_axis[1],eye_axis[0])) if np.linalg.norm(eye_axis)>1e-5 else 0.
             radiating_thetas=(np.pi/2+roll_rad-np.pi/6,np.pi/2+roll_rad,np.pi/2+roll_rad+np.pi/6)
-            lines=np.zeros(gray.shape,np.float32)
-            for frequency in (.18,.28):
+            ortho_thetas=(roll_rad-np.pi/6,roll_rad,roll_rad+np.pi/6)
+            rad_sig=np.zeros(gray.shape,np.float32)
+            ortho_sig=np.zeros(gray.shape,np.float32)
+            for frequency in (.13,.18,.26):
                 for theta in radiating_thetas:
                     real,imaginary=gabor(gray,frequency=frequency,theta=theta)
-                    lines=np.maximum(lines,np.clip((np.hypot(real,imaginary)-.018)/.06,0,1))
+                    rad_sig=np.maximum(rad_sig,np.hypot(real,imaginary))
+                for theta in ortho_thetas:
+                    real,imaginary=gabor(gray,frequency=frequency,theta=theta)
+                    ortho_sig=np.maximum(ortho_sig,np.hypot(real,imaginary))
+            ratio=rad_sig/np.maximum(ortho_sig,0.005)
+            dir_gate=np.clip((ratio-1.22)/0.35,0.,1.)
+            lines=np.clip((rad_sig-0.0125)/0.055,0.,1.)*dir_gate
             hair_margin=cv2.dilate(hair.astype(np.uint8),np.ones((5,5),np.uint8))>0
             def line_field(under):
                 valid_line=under & ~hair_margin
                 if valid_line.sum()<20:return None,'HAIR_OR_OCCLUSION_IN_LINE_BAND',valid_line
-                return (None,'INSUFFICIENT_SOURCE_DETAIL',valid_line) if face_pixels<LIMITS['minFacePixels'] else (lines*100,None,valid_line)
-            value,line_signal,known,lines_reason,lines_area,line_components=eye_measurement('lines',30,line_field)
+                med_l=float(np.median(gray[valid_line]))
+                skin_support=valid_line & (gray>=med_l*0.55) & (gray>0.18)
+                if skin_support.sum()<20:return None,'HAIR_OR_OCCLUSION_IN_LINE_BAND',skin_support
+                return (None,'INSUFFICIENT_SOURCE_DETAIL',skin_support) if face_pixels<LIMITS['minFacePixels'] else (lines*100,None,skin_support)
+            value,line_signal,known,lines_reason,lines_area,line_components=eye_measurement('lines',75,line_field)
             add('lines',value,'directional-line-index-0-100',line_signal/100,limitation=lines_reason,signal_mask=known,measurement_area=lines_area,components=line_components)
         if region != 'nose':
             contour_support=base&~hair&~clipping&(gray>.12)
