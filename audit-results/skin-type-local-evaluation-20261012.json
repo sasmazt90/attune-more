@@ -1,0 +1,905 @@
+{
+  "timestamp": "2026-10-12T19:49:07Z",
+  "purpose": "Offline evaluation and selection of local skin type model with regional Combination rule",
+  "selected_model": {
+    "model_id": "AishaBaliyan/glamour-ai-skin-model",
+    "architecture": "ViTForImageClassification",
+    "license": "MIT",
+    "snapshot": "4f232d45e5ba59664205f552c4f450a1a741470a",
+    "weights_file": "model.safetensors",
+    "weights_sha256": "46f59b660f856c867c00289fa0ec4337a935d07a758e81175290580fb2733b8c",
+    "onnx_file": "skin-type-glamour-vit.onnx",
+    "onnx_sha256": "ffdac2fc496a23dc27e60e08299b2496a0702a1d49f81f288d4d54da686213a0",
+    "input_preprocessing": {
+      "RGB": true,
+      "size": [
+        224,
+        224
+      ],
+      "mean": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "std": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "cropVersion": "camera-crop-v1"
+    },
+    "output_classes": {
+      "0": "dry",
+      "1": "normal",
+      "2": "oily"
+    }
+  },
+  "backup_model": {
+    "model_id": "Raveem/SkinSight",
+    "architecture": "ResNet50",
+    "license": "MIT",
+    "snapshot": "6e7b2dfaa9062b274ac308f66a85a43eff8f0eae",
+    "weights_file": "pytorch_model.bin",
+    "weights_sha256": "bad9a4873f7079a544a4328c4b6233fe1887648b665dadf8a78da704c40d4601",
+    "status": "REJECTED_LOW_ACCURACY_AND_COLLAPSE_TO_OILY"
+  },
+  "dataset_provenance": {
+    "source_path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test\\audit-results\\focused-skin-20261010\\sources\\skin-18criteria-v1\\skin_type_classification_dataset\\test",
+    "upstream_origin": "killa92/facial-skin-analysis-and-type-classification (Kaggle)",
+    "license": "Apache-2.0",
+    "expert_protocol_verified": false,
+    "person_independent": false,
+    "evaluation_split": "test (deduplicated base images)"
+  },
+  "crop_comparison": {
+    "glamour_face_crop_3class": {
+      "confusion_matrix": {
+        "dry": {
+          "oily": 13,
+          "dry": 7,
+          "normal": 5
+        },
+        "normal": {
+          "normal": 15,
+          "oily": 10,
+          "dry": 0
+        },
+        "oily": {
+          "oily": 16,
+          "normal": 6,
+          "dry": 3
+        }
+      },
+      "per_class": {
+        "dry": {
+          "turkish_name": "Kuru",
+          "tp": 7,
+          "fp": 3,
+          "fn": 18,
+          "precision": 0.7,
+          "recall": 0.28,
+          "f1": 0.4,
+          "support": 25
+        },
+        "normal": {
+          "turkish_name": "Normal",
+          "tp": 15,
+          "fp": 11,
+          "fn": 10,
+          "precision": 0.5769,
+          "recall": 0.6,
+          "f1": 0.5882,
+          "support": 25
+        },
+        "oily": {
+          "turkish_name": "Yağlı",
+          "tp": 16,
+          "fp": 23,
+          "fn": 9,
+          "precision": 0.4103,
+          "recall": 0.64,
+          "f1": 0.5,
+          "support": 25
+        }
+      },
+      "macro_f1": 0.4961,
+      "accuracy": 0.5067,
+      "total": 75,
+      "correct": 38
+    },
+    "glamour_full_photo_3class": {
+      "confusion_matrix": {
+        "dry": {
+          "oily": 7,
+          "dry": 6,
+          "normal": 12
+        },
+        "normal": {
+          "normal": 18,
+          "oily": 7,
+          "dry": 0
+        },
+        "oily": {
+          "oily": 14,
+          "normal": 9,
+          "dry": 2
+        }
+      },
+      "per_class": {
+        "dry": {
+          "turkish_name": "Kuru",
+          "tp": 6,
+          "fp": 2,
+          "fn": 19,
+          "precision": 0.75,
+          "recall": 0.24,
+          "f1": 0.3636,
+          "support": 25
+        },
+        "normal": {
+          "turkish_name": "Normal",
+          "tp": 18,
+          "fp": 21,
+          "fn": 7,
+          "precision": 0.4615,
+          "recall": 0.72,
+          "f1": 0.5625,
+          "support": 25
+        },
+        "oily": {
+          "turkish_name": "Yağlı",
+          "tp": 14,
+          "fp": 14,
+          "fn": 11,
+          "precision": 0.5,
+          "recall": 0.56,
+          "f1": 0.5283,
+          "support": 25
+        }
+      },
+      "macro_f1": 0.4848,
+      "accuracy": 0.5067,
+      "total": 75,
+      "correct": 38
+    },
+    "glamour_tzone_crop_3class": {
+      "confusion_matrix": {
+        "dry": {
+          "dry": 8,
+          "oily": 11,
+          "normal": 6
+        },
+        "normal": {
+          "normal": 11,
+          "oily": 10,
+          "dry": 4
+        },
+        "oily": {
+          "oily": 18,
+          "normal": 3,
+          "dry": 4
+        }
+      },
+      "per_class": {
+        "dry": {
+          "turkish_name": "Kuru",
+          "tp": 8,
+          "fp": 8,
+          "fn": 17,
+          "precision": 0.5,
+          "recall": 0.32,
+          "f1": 0.3902,
+          "support": 25
+        },
+        "normal": {
+          "turkish_name": "Normal",
+          "tp": 11,
+          "fp": 9,
+          "fn": 14,
+          "precision": 0.55,
+          "recall": 0.44,
+          "f1": 0.4889,
+          "support": 25
+        },
+        "oily": {
+          "turkish_name": "Yağlı",
+          "tp": 18,
+          "fp": 21,
+          "fn": 7,
+          "precision": 0.4615,
+          "recall": 0.72,
+          "f1": 0.5625,
+          "support": 25
+        }
+      },
+      "macro_f1": 0.4805,
+      "accuracy": 0.4933,
+      "total": 75,
+      "correct": 37
+    },
+    "glamour_uzone_crop_3class": {
+      "confusion_matrix": {
+        "dry": {
+          "normal": 7,
+          "dry": 8,
+          "oily": 10
+        },
+        "normal": {
+          "oily": 14,
+          "dry": 4,
+          "normal": 7
+        },
+        "oily": {
+          "oily": 16,
+          "dry": 5,
+          "normal": 4
+        }
+      },
+      "per_class": {
+        "dry": {
+          "turkish_name": "Kuru",
+          "tp": 8,
+          "fp": 9,
+          "fn": 17,
+          "precision": 0.4706,
+          "recall": 0.32,
+          "f1": 0.381,
+          "support": 25
+        },
+        "normal": {
+          "turkish_name": "Normal",
+          "tp": 7,
+          "fp": 11,
+          "fn": 18,
+          "precision": 0.3889,
+          "recall": 0.28,
+          "f1": 0.3256,
+          "support": 25
+        },
+        "oily": {
+          "turkish_name": "Yağlı",
+          "tp": 16,
+          "fp": 24,
+          "fn": 9,
+          "precision": 0.4,
+          "recall": 0.64,
+          "f1": 0.4923,
+          "support": 25
+        }
+      },
+      "macro_f1": 0.3996,
+      "accuracy": 0.4133,
+      "total": 75,
+      "correct": 31
+    },
+    "skinsight_face_crop_3class": {
+      "confusion_matrix": {
+        "dry": {
+          "dry": 8,
+          "oily": 15,
+          "normal": 2
+        },
+        "normal": {
+          "dry": 5,
+          "normal": 3,
+          "oily": 17
+        },
+        "oily": {
+          "dry": 2,
+          "normal": 6,
+          "oily": 17
+        }
+      },
+      "per_class": {
+        "dry": {
+          "turkish_name": "Kuru",
+          "tp": 8,
+          "fp": 7,
+          "fn": 17,
+          "precision": 0.5333,
+          "recall": 0.32,
+          "f1": 0.4,
+          "support": 25
+        },
+        "normal": {
+          "turkish_name": "Normal",
+          "tp": 3,
+          "fp": 8,
+          "fn": 22,
+          "precision": 0.2727,
+          "recall": 0.12,
+          "f1": 0.1667,
+          "support": 25
+        },
+        "oily": {
+          "turkish_name": "Yağlı",
+          "tp": 17,
+          "fp": 32,
+          "fn": 8,
+          "precision": 0.3469,
+          "recall": 0.68,
+          "f1": 0.4595,
+          "support": 25
+        }
+      },
+      "macro_f1": 0.342,
+      "accuracy": 0.3733,
+      "total": 75,
+      "correct": 28
+    }
+  },
+  "regional_combination_evaluation": {
+    "rule_formulation": "Spatial sebum divergence: T-zone specularity elevated relative to cheeks, cheeks normal/dry, anti-glare clipping gate",
+    "with_combination_rule": {
+      "confusion_matrix": {
+        "dry": {
+          "oily": 8,
+          "dry": 7,
+          "combination": 5,
+          "normal": 5
+        },
+        "normal": {
+          "combination": 5,
+          "oily": 6,
+          "normal": 14,
+          "dry": 0
+        },
+        "oily": {
+          "oily": 11,
+          "combination": 7,
+          "normal": 4,
+          "dry": 3
+        },
+        "combination": {
+          "oily": 8,
+          "normal": 6,
+          "combination": 5,
+          "dry": 6
+        }
+      },
+      "per_class": {
+        "dry": {
+          "turkish_name": "Kuru",
+          "tp": 7,
+          "fp": 9,
+          "fn": 18,
+          "precision": 0.4375,
+          "recall": 0.28,
+          "f1": 0.3415,
+          "support": 25
+        },
+        "normal": {
+          "turkish_name": "Normal",
+          "tp": 14,
+          "fp": 15,
+          "fn": 11,
+          "precision": 0.4828,
+          "recall": 0.56,
+          "f1": 0.5185,
+          "support": 25
+        },
+        "oily": {
+          "turkish_name": "Yağlı",
+          "tp": 11,
+          "fp": 22,
+          "fn": 14,
+          "precision": 0.3333,
+          "recall": 0.44,
+          "f1": 0.3793,
+          "support": 25
+        },
+        "combination": {
+          "turkish_name": "Karma",
+          "tp": 5,
+          "fp": 17,
+          "fn": 20,
+          "precision": 0.2273,
+          "recall": 0.2,
+          "f1": 0.2128,
+          "support": 25
+        }
+      },
+      "macro_f1": 0.363,
+      "accuracy": 0.37,
+      "total": 100,
+      "correct": 37
+    },
+    "without_combination_rule": {
+      "confusion_matrix": {
+        "dry": {
+          "oily": 13,
+          "dry": 7,
+          "normal": 5,
+          "combination": 0
+        },
+        "normal": {
+          "normal": 15,
+          "oily": 10,
+          "dry": 0,
+          "combination": 0
+        },
+        "oily": {
+          "oily": 16,
+          "normal": 6,
+          "dry": 3,
+          "combination": 0
+        },
+        "combination": {
+          "oily": 12,
+          "normal": 7,
+          "dry": 6,
+          "combination": 0
+        }
+      },
+      "per_class": {
+        "dry": {
+          "turkish_name": "Kuru",
+          "tp": 7,
+          "fp": 9,
+          "fn": 18,
+          "precision": 0.4375,
+          "recall": 0.28,
+          "f1": 0.3415,
+          "support": 25
+        },
+        "normal": {
+          "turkish_name": "Normal",
+          "tp": 15,
+          "fp": 18,
+          "fn": 10,
+          "precision": 0.4545,
+          "recall": 0.6,
+          "f1": 0.5172,
+          "support": 25
+        },
+        "oily": {
+          "turkish_name": "Yağlı",
+          "tp": 16,
+          "fp": 35,
+          "fn": 9,
+          "precision": 0.3137,
+          "recall": 0.64,
+          "f1": 0.4211,
+          "support": 25
+        },
+        "combination": {
+          "turkish_name": "Karma",
+          "tp": 0,
+          "fp": 0,
+          "fn": 25,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 25
+        }
+      },
+      "macro_f1": 0.3199,
+      "accuracy": 0.38,
+      "total": 100,
+      "correct": 38
+    },
+    "contribution": "Enables explainable 4-class classification on device without requiring 4th class synthetic training"
+  },
+  "runtime_performance": {
+    "numerical_parity_max_abs_diff": 6.258487701416016e-07,
+    "numerical_parity_verified": true,
+    "pytorch_cold_load_ms": 642.42,
+    "pytorch_inference_ms_warm_mean": 630.44,
+    "onnx_cold_load_ms": 1822.7,
+    "onnx_inference_ms_warm_mean": 672.79,
+    "speedup_ratio": 0.94,
+    "cpu_threads": 2,
+    "zero_network_calls": true,
+    "zero_external_api_keys": true
+  },
+  "sample_records": [
+    {
+      "file": "dry_00f1189752d6631b2b22_jpg.rf.7baa779a64867cadde0a202baeeed00f.jpg",
+      "true_cls": "dry",
+      "glamour": {
+        "full_pred": "oily",
+        "face_pred": "oily",
+        "tzone_pred": "dry",
+        "uzone_pred": "normal",
+        "probs_face": [
+          0.3011,
+          0.3321,
+          0.3668
+        ]
+      },
+      "skinsight": {
+        "face_pred": "dry",
+        "probs_face": [
+          0.3781,
+          0.2466,
+          0.3752
+        ]
+      },
+      "photometrics": {
+        "t_spec": 3.73,
+        "u_spec": 6.02,
+        "spec_diff": -2.29,
+        "clipping": 0.0062
+      },
+      "karma_rule": {
+        "is_karma": false,
+        "basis": "FULL_FACE_MODEL_CLASSIFICATION",
+        "final_pred_4": "oily"
+      }
+    },
+    {
+      "file": "dry_058306bb9c7116981e12_jpg.rf.35d466d8229e3ef9d30e33ba454a7b52.jpg",
+      "true_cls": "dry",
+      "glamour": {
+        "full_pred": "dry",
+        "face_pred": "dry",
+        "tzone_pred": "dry",
+        "uzone_pred": "dry",
+        "probs_face": [
+          0.5631,
+          0.2677,
+          0.1692
+        ]
+      },
+      "skinsight": {
+        "face_pred": "oily",
+        "probs_face": [
+          0.3026,
+          0.2841,
+          0.4133
+        ]
+      },
+      "photometrics": {
+        "t_spec": 4.01,
+        "u_spec": 7.18,
+        "spec_diff": -3.17,
+        "clipping": 0.3371
+      },
+      "karma_rule": {
+        "is_karma": false,
+        "basis": "FULL_FACE_MODEL_CLASSIFICATION",
+        "final_pred_4": "dry"
+      }
+    },
+    {
+      "file": "dry_0efaf2018714dec95f67_jpg.rf.5685824a8a04919ac03afbeaa826a2ef.jpg",
+      "true_cls": "dry",
+      "glamour": {
+        "full_pred": "oily",
+        "face_pred": "oily",
+        "tzone_pred": "oily",
+        "uzone_pred": "oily",
+        "probs_face": [
+          0.252,
+          0.2431,
+          0.5049
+        ]
+      },
+      "skinsight": {
+        "face_pred": "dry",
+        "probs_face": [
+          0.4119,
+          0.3355,
+          0.2526
+        ]
+      },
+      "photometrics": {
+        "t_spec": 3.05,
+        "u_spec": 1.32,
+        "spec_diff": 1.72,
+        "clipping": 0.0
+      },
+      "karma_rule": {
+        "is_karma": true,
+        "basis": "SPATIAL_DIVERGENCE_CHEEKS_BELOW_T_ZONE",
+        "final_pred_4": "combination"
+      }
+    },
+    {
+      "file": "dry_1b746573a6a4d2e6e0f8_jpg.rf.7860cc3477862c4c1340a70dfad30087.jpg",
+      "true_cls": "dry",
+      "glamour": {
+        "full_pred": "normal",
+        "face_pred": "oily",
+        "tzone_pred": "oily",
+        "uzone_pred": "oily",
+        "probs_face": [
+          0.3043,
+          0.2579,
+          0.4379
+        ]
+      },
+      "skinsight": {
+        "face_pred": "dry",
+        "probs_face": [
+          0.3454,
+          0.3245,
+          0.3301
+        ]
+      },
+      "photometrics": {
+        "t_spec": 5.1,
+        "u_spec": 7.5,
+        "spec_diff": -2.4,
+        "clipping": 0.0386
+      },
+      "karma_rule": {
+        "is_karma": false,
+        "basis": "FULL_FACE_MODEL_CLASSIFICATION",
+        "final_pred_4": "oily"
+      }
+    },
+    {
+      "file": "dry_1ba1c0dbc35fd9281ee8_jpg.rf.40e017962fce84f796bd0ff2ff7e2a03.jpg",
+      "true_cls": "dry",
+      "glamour": {
+        "full_pred": "normal",
+        "face_pred": "oily",
+        "tzone_pred": "normal",
+        "uzone_pred": "oily",
+        "probs_face": [
+          0.2631,
+          0.3205,
+          0.4164
+        ]
+      },
+      "skinsight": {
+        "face_pred": "normal",
+        "probs_face": [
+          0.3151,
+          0.3702,
+          0.3146
+        ]
+      },
+      "photometrics": {
+        "t_spec": 5.89,
+        "u_spec": 7.11,
+        "spec_diff": -1.21,
+        "clipping": 0.2079
+      },
+      "karma_rule": {
+        "is_karma": false,
+        "basis": "FULL_FACE_MODEL_CLASSIFICATION",
+        "final_pred_4": "oily"
+      }
+    },
+    {
+      "file": "dry_1f7d8c0aeed1b8fb91af_jpg.rf.2bafc2a6c5f8f52d2f77a0c51ddc8607.jpg",
+      "true_cls": "dry",
+      "glamour": {
+        "full_pred": "dry",
+        "face_pred": "dry",
+        "tzone_pred": "oily",
+        "uzone_pred": "oily",
+        "probs_face": [
+          0.4405,
+          0.2803,
+          0.2792
+        ]
+      },
+      "skinsight": {
+        "face_pred": "oily",
+        "probs_face": [
+          0.3377,
+          0.26,
+          0.4024
+        ]
+      },
+      "photometrics": {
+        "t_spec": 4.12,
+        "u_spec": 5.45,
+        "spec_diff": -1.33,
+        "clipping": 0.0598
+      },
+      "karma_rule": {
+        "is_karma": false,
+        "basis": "FULL_FACE_MODEL_CLASSIFICATION",
+        "final_pred_4": "dry"
+      }
+    },
+    {
+      "file": "dry_1fb55f4933e9e43d9ab9_jpg.rf.539a8feeed08417dd6d6000ed21b4a90.jpg",
+      "true_cls": "dry",
+      "glamour": {
+        "full_pred": "normal",
+        "face_pred": "oily",
+        "tzone_pred": "oily",
+        "uzone_pred": "oily",
+        "probs_face": [
+          0.2815,
+          0.2251,
+          0.4935
+        ]
+      },
+      "skinsight": {
+        "face_pred": "normal",
+        "probs_face": [
+          0.3031,
+          0.3697,
+          0.3272
+        ]
+      },
+      "photometrics": {
+        "t_spec": 6.22,
+        "u_spec": 5.24,
+        "spec_diff": 0.98,
+        "clipping": 0.008
+      },
+      "karma_rule": {
+        "is_karma": true,
+        "basis": "SPATIAL_DIVERGENCE_CHEEKS_BELOW_T_ZONE",
+        "final_pred_4": "combination"
+      }
+    },
+    {
+      "file": "dry_26175c7d05e99f703b8c_jpg.rf.0d0599ff2f6f76e288cb078147edb52c.jpg",
+      "true_cls": "dry",
+      "glamour": {
+        "full_pred": "dry",
+        "face_pred": "dry",
+        "tzone_pred": "dry",
+        "uzone_pred": "dry",
+        "probs_face": [
+          0.5325,
+          0.22,
+          0.2474
+        ]
+      },
+      "skinsight": {
+        "face_pred": "oily",
+        "probs_face": [
+          0.315,
+          0.2325,
+          0.4524
+        ]
+      },
+      "photometrics": {
+        "t_spec": 0.0,
+        "u_spec": 0.0,
+        "spec_diff": 0.0,
+        "clipping": 0.0
+      },
+      "karma_rule": {
+        "is_karma": false,
+        "basis": "FULL_FACE_MODEL_CLASSIFICATION",
+        "final_pred_4": "dry"
+      }
+    },
+    {
+      "file": "dry_2fd3aad955e9092d3960_jpg.rf.92d37117f5252580d3c6c6550012ddf5.jpg",
+      "true_cls": "dry",
+      "glamour": {
+        "full_pred": "normal",
+        "face_pred": "normal",
+        "tzone_pred": "normal",
+        "uzone_pred": "dry",
+        "probs_face": [
+          0.2576,
+          0.4738,
+          0.2687
+        ]
+      },
+      "skinsight": {
+        "face_pred": "oily",
+        "probs_face": [
+          0.3133,
+          0.3064,
+          0.3803
+        ]
+      },
+      "photometrics": {
+        "t_spec": 3.94,
+        "u_spec": 5.43,
+        "spec_diff": -1.49,
+        "clipping": 0.0004
+      },
+      "karma_rule": {
+        "is_karma": false,
+        "basis": "FULL_FACE_MODEL_CLASSIFICATION",
+        "final_pred_4": "normal"
+      }
+    },
+    {
+      "file": "dry_30864bfb2652861394ad_jpg.rf.8d6e19e88d3ece2e589e92bb497493bc.jpg",
+      "true_cls": "dry",
+      "glamour": {
+        "full_pred": "oily",
+        "face_pred": "oily",
+        "tzone_pred": "normal",
+        "uzone_pred": "normal",
+        "probs_face": [
+          0.15,
+          0.3549,
+          0.4951
+        ]
+      },
+      "skinsight": {
+        "face_pred": "oily",
+        "probs_face": [
+          0.3681,
+          0.2438,
+          0.3881
+        ]
+      },
+      "photometrics": {
+        "t_spec": 4.98,
+        "u_spec": 4.98,
+        "spec_diff": -0.0,
+        "clipping": 0.0157
+      },
+      "karma_rule": {
+        "is_karma": false,
+        "basis": "FULL_FACE_MODEL_CLASSIFICATION",
+        "final_pred_4": "oily"
+      }
+    },
+    {
+      "file": "dry_31dc5805e43b23d34f97_jpg.rf.a8851fd407f8e1c84620c7a3cb92388c.jpg",
+      "true_cls": "dry",
+      "glamour": {
+        "full_pred": "oily",
+        "face_pred": "oily",
+        "tzone_pred": "oily",
+        "uzone_pred": "oily",
+        "probs_face": [
+          0.3776,
+          0.2094,
+          0.413
+        ]
+      },
+      "skinsight": {
+        "face_pred": "oily",
+        "probs_face": [
+          0.3732,
+          0.1883,
+          0.4385
+        ]
+      },
+      "photometrics": {
+        "t_spec": 4.5,
+        "u_spec": 2.93,
+        "spec_diff": 1.57,
+        "clipping": 0.0498
+      },
+      "karma_rule": {
+        "is_karma": true,
+        "basis": "SPATIAL_DIVERGENCE_T_OILY_CHEEK_BALANCED",
+        "final_pred_4": "combination"
+      }
+    },
+    {
+      "file": "dry_33a58be539d3b2bc367c_jpg.rf.84292a34be1578dbcb443a6fa51e3498.jpg",
+      "true_cls": "dry",
+      "glamour": {
+        "full_pred": "normal",
+        "face_pred": "normal",
+        "tzone_pred": "oily",
+        "uzone_pred": "normal",
+        "probs_face": [
+          0.2435,
+          0.4112,
+          0.3453
+        ]
+      },
+      "skinsight": {
+        "face_pred": "oily",
+        "probs_face": [
+          0.3334,
+          0.301,
+          0.3656
+        ]
+      },
+      "photometrics": {
+        "t_spec": 5.4,
+        "u_spec": 4.33,
+        "spec_diff": 1.07,
+        "clipping": 0.6623
+      },
+      "karma_rule": {
+        "is_karma": false,
+        "basis": "FULL_FACE_MODEL_CLASSIFICATION",
+        "final_pred_4": "normal"
+      }
+    }
+  ]
+}

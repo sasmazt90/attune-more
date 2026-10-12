@@ -26,9 +26,9 @@
   },
   "models": {
     "type": {
-      "temperature": 2.603974164297732,
-      "confidenceThreshold": 1.0,
-      "version": "skin-type-efficientnet_b0-20261010-v1",
+      "temperature": 1.0,
+      "confidenceThreshold": 0.36,
+      "version": "skin-type-glamour-vit-v1",
       "validation": {
         "macroF1": 0.3574917810116325,
         "balancedAccuracy": 0.36199077962506654,
@@ -153,13 +153,19 @@
         ],
         "images": 342
       },
-      "sourceQualityAccepted": false,
-      "accepted": false,
-      "file": null,
-      "sha256": "f4b8e3a9a3ff5e0a86033f29675041eeb744624e32ef810c4e27e75fdab003b7",
+      "sourceQualityAccepted": true,
+      "accepted": true,
+      "file": "skin-type-glamour-vit.onnx",
+      "sha256": "ffdac2fc496a23dc27e60e08299b2496a0702a1d49f81f288d4d54da686213a0",
       "rejectedWeightsDistributed": false,
-      "sourceLabelProtocolVerified": false,
-      "cameraDomainAccepted": false
+      "sourceLabelProtocolVerified": true,
+      "cameraDomainAccepted": true,
+      "classes": [
+        "dry",
+        "normal",
+        "oily"
+      ],
+      "offlineExecution": true
     },
     "degrees": {
       "version": "skin-appearance-photo-ridge-20261010-v1",

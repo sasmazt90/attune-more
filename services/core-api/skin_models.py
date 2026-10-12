@@ -245,9 +245,77 @@ def infer_hosted_type(crop_bgr):
             inferenceMs=0.0
         )
 
+VIT_CLASSES = ['dry', 'normal', 'oily']
+T_ZONE_INDICES = [103, 67, 109, 10, 338, 297, 332, 54, 104, 108, 151, 337, 333, 284, 21, 63, 66, 9, 296, 293, 251,
+                  193, 168, 417, 122, 6, 351, 196, 197, 419, 3, 195, 248, 126, 51, 5, 281, 355, 129, 49, 4, 279, 358, 209, 48, 1, 278, 429, 102, 98, 2, 327, 331]
+CHEEK_INDICES = [111, 117, 119, 100, 123, 50, 36, 142, 147, 187, 205, 203, 132, 207, 216, 206, 58, 215, 192, 212, 172, 138, 214, 202,
+                 340, 346, 348, 329, 352, 280, 266, 371, 376, 411, 425, 423, 361, 427, 436, 426, 288, 435, 416, 432, 397, 367, 434, 422]
+
+def regional_combination_rule(bgr, points, p_vit, clipping_gate=0.15):
+    """Explainable Regional Combination (Karma) Rule.
+    Evaluates spatial sebum divergence between T-zone (forehead, nose) and
+    cheeks (left, right cheek). Ensures lighting glare is not confused with oil.
+    """
+    p_dry, p_norm, p_oil = [float(v) for v in p_vit]
+    base_idx = int(np.argmax(p_vit))
+    base_class = VIT_CLASSES[base_idx]
+    base_conf = float(p_vit[base_idx])
+    
+    h, w = bgr.shape[:2]
+    t_pts = np.array([[int(points[i]['x'] * w), int(points[i]['y'] * h)] for i in T_ZONE_INDICES if i < len(points)], np.int32)
+    u_pts = np.array([[int(points[i]['x'] * w), int(points[i]['y'] * h)] for i in CHEEK_INDICES if i < len(points)], np.int32)
+    
+    t_mask = np.zeros((h, w), np.uint8)
+    u_mask = np.zeros((h, w), np.uint8)
+    if len(t_pts) >= 3:
+        cv2.fillConvexPoly(t_mask, cv2.convexHull(t_pts), 255)
+    if len(u_pts) >= 3:
+        cv2.fillConvexPoly(u_mask, cv2.convexHull(u_pts), 255)
+        
+    hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV).astype(np.float32)
+    v = hsv[:, :, 2] / 255.0
+    sat = hsv[:, :, 1] / 255.0
+    
+    clipping = float(np.mean(v > 0.975))
+    if clipping > clipping_gate:
+        return base_class, base_conf, False, 'GLARE_OR_EXPOSURE', {'clipping': clipping}
+        
+    local_v = cv2.GaussianBlur(v, (0, 0), 15)
+    spec = np.clip(v - local_v * 0.96, 0, 1) * np.clip(1.0 - sat, 0, 1)
+    
+    t_spec = float(np.mean(spec[t_mask > 0]) * 100) if (t_mask > 0).any() else 0.0
+    u_spec = float(np.mean(spec[u_mask > 0]) * 100) if (u_mask > 0).any() else 0.0
+    spec_diff = t_spec - u_spec
+    
+    is_karma = False
+    basis = 'FULL_FACE_MODEL_CLASSIFICATION'
+    if p_oil >= 0.35 and (p_dry + p_norm) >= 0.52 and spec_diff > 0.0:
+        is_karma = True
+        basis = 'SPATIAL_DIVERGENCE_T_OILY_CHEEK_BALANCED'
+    elif base_class == 'oily' and spec_diff > 0.20 and (p_dry + p_norm) >= 0.48:
+        is_karma = True
+        basis = 'SPATIAL_DIVERGENCE_CHEEKS_BELOW_T_ZONE'
+    elif base_class == 'normal' and p_oil >= 0.33 and spec_diff > 0.15:
+        is_karma = True
+        basis = 'SPATIAL_DIVERGENCE_T_ZONE_ELEVATED'
+        
+    final_class = 'combination' if is_karma else base_class
+    div_info = {
+        'isKarma': is_karma,
+        'basis': basis,
+        'tZoneSpecularity': round(t_spec, 2),
+        'cheekSpecularity': round(u_spec, 2),
+        'specularDivergence': round(spec_diff, 2),
+        'clipping': round(clipping, 4),
+        'modelProbs': {'dry': round(p_dry, 4), 'normal': round(p_norm, 4), 'oily': round(p_oil, 4)}
+    }
+    return final_class, base_conf, True, None, div_info
+
 def infer(bgr,points,quality_valid,hosted_consent=True,type_quality_valid=None):
     empty=dict(skinType=None,degrees={},models={},sourceTransform=None)
-    if not quality_valid:return empty
+    can_run_degrees = bool(quality_valid)
+    can_run_type = bool(type_quality_valid) if type_quality_valid is not None else bool(quality_valid)
+    if not can_run_degrees and not can_run_type:return empty
     try:
         with LOCK:loaded=load()
         x,transform=photo_input(bgr,points);result={**empty,'sourceTransform':transform}
@@ -256,20 +324,33 @@ def infer(bgr,points,quality_valid,hosted_consent=True,type_quality_valid=None):
         if loaded.get('sessions'):
             for task,item in loaded['sessions'].items():
                 if task not in ('type','degrees'):continue
-                start=time.perf_counter();output=item['session'].run(None,{'rgb':x})[0][0];elapsed=(time.perf_counter()-start)*1000;m=item['metadata']
-                if not np.isfinite(output).all():raise ValueError('NONFINITE_MODEL_OUTPUT')
-                result['models'][task]=dict(modelHash=m['sha256'],modelVersion=m['version'],loadMs=item['loadMs'],inferenceMs=elapsed)
+                if task == 'degrees' and not can_run_degrees:continue
+                if task == 'type' and not can_run_type:continue
+                m=item['metadata']
                 if task=='type':
+                    # Native ViT normalization: 224x224 RGB in [-1.0, 1.0]
+                    rgb_crop = cv2.resize(bgr[transform['y']:transform['y']+transform['height'], transform['x']:transform['x']+transform['width'], ::-1], (224, 224), interpolation=cv2.INTER_AREA)
+                    vit_x = ((rgb_crop.transpose(2, 0, 1).astype(np.float32) / 255.0 - 0.5) / 0.5)[None].copy()
+                    start=time.perf_counter();output=item['session'].run(None,{'rgb':vit_x})[0][0];elapsed=(time.perf_counter()-start)*1000
+                    if not np.isfinite(output).all():raise ValueError('NONFINITE_MODEL_OUTPUT')
+                    result['models'][task]=dict(modelHash=m['sha256'],modelVersion=m['version'],loadMs=item['loadMs'],inferenceMs=elapsed)
                     type_computed = True
-                    assert output.shape==(4,);v=output/float(m['temperature']);v-=v.max();p=np.exp(v);p/=p.sum();confidence=float(p.max());valid=confidence>=float(m['confidenceThreshold'])
-                    result['skinType']=dict(value=CLASSES[int(p.argmax())] if valid else None,quality='valid' if valid else 'insufficient',confidence=confidence,methodVersion=m['version'],modelHash=m['sha256'],limitationCode=None if valid else 'LOW_MODEL_SUPPORT')
+                    assert output.shape==(3,);v=output/float(m.get('temperature', 1.0));v-=v.max();p=np.exp(v);p/=p.sum()
+                    conf=float(p.max());valid_base=conf>=float(m.get('confidenceThreshold', 0.36)) and (type_quality_valid is not False)
+                    final_cls, conf_val, rule_valid, rule_lim, div_info = regional_combination_rule(bgr, points, p)
+                    is_valid = valid_base and rule_valid
+                    lim = None if is_valid else (rule_lim or ('LOW_MODEL_SUPPORT' if not valid_base else None))
+                    result['skinType']=dict(value=final_cls if is_valid else None,quality='valid' if is_valid else 'insufficient',confidence=conf_val,methodVersion=m['version'],modelHash=m['sha256'],limitationCode=lim,regionalDivergence=div_info)
                 elif task=='degrees':
+                    start=time.perf_counter();output=item['session'].run(None,{'rgb':x})[0][0];elapsed=(time.perf_counter()-start)*1000
+                    if not np.isfinite(output).all():raise ValueError('NONFINITE_MODEL_OUTPUT')
+                    result['models'][task]=dict(modelHash=m['sha256'],modelVersion=m['version'],loadMs=item['loadMs'],inferenceMs=elapsed)
                     assert len(output)==len(m['targets'])
                     for target,value in zip(m['targets'],output):
                         if target in m['acceptedTargets']:result['degrees'][target]=dict(value=float(np.clip(value,0,5)*20),rawGrade=float(np.clip(value,0,5)),methodVersion=m['version'],modelHash=m['sha256'],confidence=None,scope='whole-face',normalizationVersion='ordinal-0-5-times-20-v1')
         
-        # If no local accepted model for type, check authorized hosted adapter fallback
-        if not type_computed and hosted_consent is True and (type_quality_valid is None or type_quality_valid is True):
+        # If no local accepted model for type, check authorized hosted adapter fallback only when local model unavailable
+        if not type_computed and hosted_consent is True and os.environ.get('ATTUNE_ALLOW_HOSTED_INFERENCE') == '1' and (type_quality_valid is None or type_quality_valid is True):
             crop_bgr = bgr[transform['y']:transform['y']+transform['height'], transform['x']:transform['x']+transform['width']]
             hosted = infer_hosted_type(crop_bgr)
             if hosted:
@@ -283,7 +364,6 @@ def infer(bgr,points,quality_valid,hosted_consent=True,type_quality_valid=None):
                 )
                 result['skinType'] = hosted
             else:
-                # Retain explicit unavailable status per contract
                 manifest = loaded.get('manifest') or {}
                 type_head = manifest.get('models', {}).get('type', {})
                 if type_head.get('accepted'):
