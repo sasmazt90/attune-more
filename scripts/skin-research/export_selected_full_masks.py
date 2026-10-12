@@ -12,6 +12,13 @@ sys.path.insert(0,str(ROOT/'services/core-api'))
 from skin_native_mask import CONTRACT,tensor,infer_native_mask
 
 def read(p):return json.loads(p.read_text('utf8'))
+def reusable_receipt(record,protocol,digest,targets):
+ path=Path(record['onnxPath']).resolve();pp=path.parent/'protocol.json'
+ if not path.is_relative_to((OUT/'interim-diagnosis').resolve()) or not pp.is_file():return False
+ if record.get('weightsSHA256')!=digest or sha(pp)!=record.get('protocolSHA256'):return False
+ previous=read(pp);keys=['dataSHA256','adapterSHA256','contract','threshold','atol','rtol']
+ covered={(r['target'],r['positive']) for r in record.get('checks',[])}
+ return all(previous.get(k)==protocol[k] for k in keys) and all((t,p) in covered for t in targets for p in [True,False]) and path.is_file() and sha(path)==record['modelSHA256']
 class Session:
  def __init__(self,n):self.n=n
  def run(self,names,inputs):
@@ -26,22 +33,27 @@ def main():
  for r in read(OUT/'negative-expanded-detector-data.json')['rows']:sources.setdefault(r['sha256'],r)
  groups={}
  for t,v in selection['targets'].items():
+  assert v['channel']==TARGETS.index(t),'SELECTED_CHANNEL_MAPPING_MISMATCH'
   if v['selectedFullModel']:groups.setdefault(v['selectedFullModel']['sha256'],dict(model=v['selectedFullModel'],targets=[]))['targets'].append(t)
  protocol=dict(selectionSHA256=selection_digest,dataSHA256=sha(OUT/'scope-v4-mask-data.json'),adapterSHA256=sha(ROOT/'services/core-api/skin_native_mask.py'),contract=CONTRACT,models=groups,threshold=.5,atol=.003,rtol=.0001,fullModelWeightsNeverMixed=True,finalOpened=False)
  pp=d/'protocol.json'
  if pp.exists():assert read(pp)==protocol
  else:write('interim-diagnosis/'+output_name+'/protocol.json',protocol)
+ prior={};index_path=base/'selected-full-export-current.json'
+ if index_path.exists():
+  index=read(index_path);path=Path(index['planPath']).resolve();assert path.is_relative_to(base.resolve()) and sha(path)==index['planSHA256'],'CURRENT_EXPORT_PLAN_INTEGRITY'
+  for v in read(path)['targets'].values():
+   if v.get('export'):prior[v['export']['weightsSHA256']]=v['export']
  exports={};opt=ort.SessionOptions();opt.intra_op_num_threads=2;opt.inter_op_num_threads=1
  for digest,v in groups.items():
+  weights=Path(v['model']['folder'])/'model.safetensors';assert sha(weights)==digest
   rp=d/(digest+'.receipt.json')
-  if rp.exists():record=read(rp);assert sha(Path(record['onnxPath']))==record['modelSHA256'];exports[digest]=record;continue
+  if rp.exists():record=read(rp);assert reusable_receipt(record,protocol,digest,v['targets']);exports[digest]=record;continue
   previous=base/'selected-full-export-v4'/(digest+'.receipt.json')
-  if previous.exists():
-   old_protocol=read(previous.parent/'protocol.json');record=read(previous)
-   covered={(r['target'],r['positive']) for r in record['checks']}
-   if all(old_protocol[k]==protocol[k] for k in ['dataSHA256','adapterSHA256','contract','threshold','atol','rtol']) and all((t,p) in covered for t in v['targets'] for p in [True,False]):
-    assert record['weightsSHA256']==digest and sha(Path(record['onnxPath']))==record['modelSHA256'];exports[digest]=record;continue
-  weights=Path(v['model']['folder'])/'model.safetensors';assert sha(weights)==digest;net=SkinUNet();net.load_state_dict(load_file(str(weights)));net.eval();pt=Session(net);onnx=d/(digest+'.onnx')
+  record=prior.get(digest) or (read(previous) if previous.exists() else None)
+  if record and reusable_receipt(record,protocol,digest,v['targets']):
+   exports[digest]=record;print('REUSED VERIFIED FULL EXPORT',digest[:16],v['targets'],flush=True);continue
+  net=SkinUNet();net.load_state_dict(load_file(str(weights)));net.eval();pt=Session(net);onnx=d/(digest+'.onnx')
   if not onnx.exists():torch.onnx.export(net,torch.zeros(1,3,256,256),str(onnx),input_names=['native_rgb_tile'],output_names=['shared_mask_logits'],opset_version=17,dynamo=False)
   session=ort.InferenceSession(str(onnx),opt,providers=['CPUExecutionProvider']);checks=[];passed=True
   for t in v['targets']:

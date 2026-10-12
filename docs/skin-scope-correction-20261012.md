@@ -1,5 +1,5 @@
 TOGG Attune — yedi hedef ara teslimi
-Ölçüm: 2026-10-12T01:48:02.594699+02:00
+Ölçüm: 2026-10-12T02:30:28.257368+02:00
 
 Beş korunmuş tam checkpoint, tüm uygun development validation kayıtları üzerinde karşılaştırıldı. Eski completeROI filtresinin 241 karosuna karşı yeni kapsam 1019 karodur. Çakışan karolar kaynak koordinatında birleştirilir; sayılar kişi sayısı değildir. Pozitif ve negatif ROI aynı fotoğrafta ayrı olabilir.
 
@@ -27,14 +27,15 @@ Bu native ROI sayıları çakışan eğitim karolarıdır; bağımsız kaynak de
 Seçim beş eski TAM model ve tamamlanmış yeni validation checkpoint’lerini aynı sabit development kuralıyla karşılaştırır. En yeni model otomatik tercih edilmez.
 | Hedef | Seçilen TAM model | Yeni faz son validation recall / negatif FPR |
 |---|---|---|
-| acne | negative-mask-continuation / checkpoint-0012043-01791750474685901500 | 99.999% / 58.858% |
-| oil | negative-mask-continuation / checkpoint-0012043-01791750474685901500 | 99.973% / 37.768% |
-| redness | negative-mask-continuation / checkpoint-0012043-01791750474685901500 | 99.090% / 45.866% |
-| tone | negative-mask-continuation / checkpoint-0012043-01791750474685901500 | 99.252% / 33.045% |
-| lines | negative-mask-continuation / checkpoint-0012043-01791750474685901500 | 54.139% / 8.836% |
-| dark | negative-mask-continuation / checkpoint-0010621-01791745272486029600 | 99.917% / 100.000% |
-| bags | corrected-scope-mask-v4 / checkpoint-0013465-01791761677808960300 | 94.674% / 21.036% |
-Yeni fazın 1 validation sonucu var. Son yedi hedef ortak skor 0.488051; baseline en iyi TAM model ortak skor 0.607676. Torbalanma development adayı değişti; yeni checkpoint negatif FPR sınırını hâlâ geçiyor. Öğrenme eğrileri ayrı tutuldu.
+| acne | negative-mask-continuation / checkpoint-0012043-01791750474685901500 | 99.979% / 100.000% |
+| oil | negative-mask-continuation / checkpoint-0012043-01791750474685901500 | 99.944% / 14.137% |
+| redness | negative-mask-continuation / checkpoint-0012043-01791750474685901500 | 99.484% / 16.477% |
+| tone | negative-mask-continuation / checkpoint-0012043-01791750474685901500 | 99.845% / 9.962% |
+| lines | negative-mask-continuation / checkpoint-0012043-01791750474685901500 | 36.775% / 0.000% |
+| dark | negative-mask-continuation / checkpoint-0010621-01791745272486029600 | 100.000% / 100.000% |
+| bags | corrected-scope-mask-v4 / checkpoint-0013465-01791761677808960300 | 47.587% / 2.332% |
+Maske fazı iki validation sonunda tam checkpoint14176/epoch6/cursor0 ile doğal durdu. Yeniden başlatılmadı; ek tur yok. YOLOX fazı ayrı devam ediyor. Yeni maskeler ürün kabulünü sağlamadı.
+Yeni fazın 2 validation sonucu var. Son yedi hedef ortak skor 0.486721; baseline en iyi TAM model ortak skor 0.607676. Torbalanma development adayı değişti; yeni checkpoint negatif FPR sınırını hâlâ geçiyor. Öğrenme eğrileri ayrı tutuldu.
 
 Kutular piksel maskesi değildir. Kısmi poligon/RLE dışı bilinmeyendir; oralardan precision/Dice/FP üretilmez. Tablodaki yüksek pozitif recall, fazla boyanmış bir maskenin doğru lokalizasyonu olduğunu göstermez. Negatifler sadece gerçekten incelenmiş anatomik alt alanlardır; fotoğrafın bütünü sağlıklı sayılmaz. Final holdout açılmadı. Kaynak aile/split ve haklar için eksik bağımsız final incelemeleri True yapılmadı.
 
@@ -72,13 +73,13 @@ Kalite kapıları/fotoğraf başına ölçülememe sebepleri analytic-scope-asse
 Devam ve depolama:
 - Mask checkpoint-0013045-01791755252897174600: epoch4/cursor291 → corrected-scope-mask-v4; YOLOX checkpoint-0008716-01791755253264409500: epoch6/cursor8 → corrected-scope-yolox-v2. Model, tüm optimizer tensorları/scalar/param groups, Torch/NumPy/Python RNG, scheduler ve kalan order/cursor birebir doğrulandı. İlk gerçek gradient güncellemeleri kaydedildi; eski fazların pause marker’ları korunur.
 - Kör min12/max20 kuralı kaldırıldı. Önce kalan sıra, sonra yeni negatif havuzlu bir tam sıra; en fazla iki validation sonucu. Sonuçta doğal sınırda review gerekir. Miras cosine T_max=32, last_epoch mask16/YOLOX18; ufuk sonrası LR artışı bloke.
-- Önceki gerçek epoch süreleri CPU/yük durumuna göre mask40–58 dakika ve YOLOX41–99 dakika değişti. Yeni mask validation kapsamı daha büyük; kalan yaklaşık 1–2.5 saat maske, 2–4 saat YOLOX bütçesidir, teslim taahhüdü değildir. Dört saatlik invocation sonlanırsa tüm checkpoint ile devam edilir.
-- Düzeltme fazı başlangıcı: 8.26 GiB. Güncel C: 5.014 GiB. Arşiv penceresi: 5.466 → 5.602 GiB, gerçek +146075648 bayt. Toplam alan azalması yeni tensor/export/checkpoint’ler ve Windows paging ile birlikte ölçülür; upload boyutu boş alan diye sayılmaz.
-- Kalan rolling peak hesabı 4.787 GiB; ölçüm anında yeterli. Yalnız C: çalışma diski. Drive streaming; cache C: üzerinde 4 dosya/45112 bayt. Ek fiziksel disk yok. 60 saniye disk gözetimi, <3GiB iki native güvenli pause, resume için >=6GiB ve doğrulanmış sahiplik/CURRENT gerekir.
-- checkpoint0011332: üç cloud dosyanın tüm bayt SHA-256’ları doğrulandı, yalnız soğuk tensorları kaldırıldı; state ve makbuz yerel. checkpoint0012387: model kopyası var, optimizer aktarımı başarısız; tüm yerel kaynaklar korundu ve otomatik retry listesi dışında. Ek cloud-archive.json yükleme otomatik incelemede kapsam dışı metadata/yerel yollar nedeniyle reddedildi; makbuz yerelde.
+- Önceki gerçek epoch süreleri CPU/yük durumuna göre mask40–58 dakika ve YOLOX41–99 dakika değişti. Yeni mask validation kapsamı daha büyük; maske tamamlandığında kalan maske eğitimi 0 olur; YOLOX’ın kalan süresi gerçek cursor ve sonraki validation’a bağlıdır, teslim taahhüdü değildir. Dört saatlik invocation sonlanırsa tüm checkpoint ile devam edilir.
+- Düzeltme fazı başlangıcı: 8.26 GiB. Güncel C: 6.180 GiB. Arşiv penceresi: 5.466 → 5.602 GiB, gerçek +146075648 bayt. Toplam alan azalması yeni tensor/export/checkpoint’ler ve Windows paging ile birlikte ölçülür; upload boyutu boş alan diye sayılmaz.
+- Kalan rolling peak hesabı 4.415 GiB; ölçüm anında yeterli. Yalnız C: çalışma diski. Drive streaming; cache C: üzerinde 4 dosya/45112 bayt. Ek fiziksel disk yok. 60 saniye disk gözetimi, <3GiB iki native güvenli pause, resume için >=6GiB ve doğrulanmış sahiplik/CURRENT gerekir.
+- checkpoint0011332: üç cloud dosyanın tüm bayt SHA-256’ları doğrulandı, yalnız soğuk tensorları kaldırıldı; state ve makbuz yerel. checkpoint0012387: model kopyası var, optimizer aktarımı başarısız; tüm yerel kaynaklar korundu ve otomatik retry listesi dışında. checkpoint8546: üç yükleme var, optimizer doğrulama stdout kaydı eksik; tüm yerel kaynaklar ve otomatik tekrar engeli korunur. Ek cloud-archive.json yükleme otomatik incelemede kapsam dışı metadata/yerel yollar nedeniyle reddedildi; makbuz yerelde.
 
 AG devir notu: type/dry/sag teslim edilmiş sayılmadı ve onların worktree dosyaları değiştirilmedi. Native 256 maske helper eski 128 eye-ROI adaptörüyle aynı sözleşme değildir. AG normal API method/hash, kalite/visibility, bölgesel scope ve render-gate kanıtını kendi adayları için sağlamalı; appearance alanı confidence/clinical severity olarak adlandırılmamalı.
 
-Üretim manifest/model hash’leri değişmedi; mevcut build sUqjoY1oyQXF6lvSRvtff. Kısayol dosyası korundu; bu turda yeni adayla launcher/API testi yapılmış değil. On üç odaklı regresyon ve gerçek tensor/source kontrolleri uygulandı; ilgisiz genel test kampanyası yapılmadı.
+Üretim manifest/model hash’leri değişmedi; mevcut build sUqjoY1oyQXF6lvSRvtff. Kısayol dosyası korundu; bu turda yeni adayla launcher/API testi yapılmış değil. On yedi odaklı regresyon ve gerçek tensor/source kontrolleri uygulandı; ilgisiz genel test kampanyası yapılmadı.
 
 Ayrıntılı, hash bağlı yerel JSON kanıtı: seven-target-delivery.json; source seçimleri, scope-v2/v4, actual-loss-v2, finite-learning-v2, selected-full-export-v4, product-filter-label-retention, product-box-support-attribution, corrected-resume-integrity ve runtime arşiv makbuzları.
