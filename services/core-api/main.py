@@ -17,6 +17,8 @@ import os
 from time import perf_counter
 from openai_client import get_openai_client, close_openai_client
 from pathlib import Path
+from hosted_skin_credentials import load_existing_backend_key
+load_existing_backend_key()
 
 # Backend-only local configuration. CI has no local file and remains keyless.
 _local_env = Path(__file__).resolve().parents[2] / '.env.local'

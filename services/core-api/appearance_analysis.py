@@ -506,7 +506,8 @@ def analyze_skin(payload, include_research_features=False):
                     maps['overview:acne']=layer;item['localMap']=dict(key='overview:acne',photoId=source_hash,region='overview',criterion='acne',coordinateSpace='source-pixels')
             if item['id']=='bags' and trained_bags and trained_bags.get('valid') and item['modelHash']==trained_bags['modelHash']:item['normalizationVersion']='predicted-lower-lid-mask-area-v1'
         if not include_research_features:
-            learned=infer_skin_models(bgr,points,result['general']['measurements'][0]['quality']=='valid' and face_pixels>=180)
+            type_quality=payload.get('qualityValid') is True and face_pixels>=180 and abs(conditions.get('yaw',99))<=.65
+            learned=infer_skin_models(bgr,points,result['general']['measurements'][0]['quality']=='valid' and face_pixels>=180,hosted_consent=payload.get('hostedProcessingConsent') is True,type_quality_valid=type_quality)
             if learned['skinType']:result['general']['skinType']=learned['skinType']
             result['general']['modelInference']=learned.get('models',{})
             result['general']['modelInputTransform']=learned.get('sourceTransform')

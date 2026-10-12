@@ -1,4 +1,5 @@
 # TOGG Attune: tamamlanan fazlar ve ürün entegrasyonu
+Sonraki cilt tipi entegrasyonu ve güncel build durumu: [dört sınıflı hosted teslim](skin-type-integration-20261012.md). Aşağıdaki cilt tipi erişimi/build notları bu önceki teslimin tarihli durumudur; eğitim ve yedi hedefin değerlendirmeleri korunur.
 Kanıt zamanı: 2026-10-12T04:39:36.905168+02:00
 
 İki düzeltme fazı iki validation sonunda tamamlandı. Maske CURRENT14176/epoch6, YOLOX CURRENT9680/epoch8; optimizer/RNG/scheduler ve son checkpoint’ler C: üzerinde korundu. Kalan eğitim süresi 0; üçüncü validation/uzun eğitim yok. Ürün mühendisliği ve modellerin kabulü aşağıda ayrı gösterilir.

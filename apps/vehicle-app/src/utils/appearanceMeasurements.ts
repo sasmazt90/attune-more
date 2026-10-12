@@ -1,19 +1,21 @@
 import type { SkinSnapshot } from './skinSnapshot';
 import type { SkinIndicators, SkinMeasurement } from './skinIndicators';
 import type { SkinLocalMap } from './skinLocalMaps';
+import {isSkinHostedProcessingAllowed} from './attuneMode';
 export type MeasurementKind='appearance_proxy'|'trained_prediction'|'longitudinal_measurement';
 export type MeasurementReceipt={status?:'measured'|'unavailable';reason?:string|null;coverage?:number|null;calibrationVersion?:string|null;localConfidence?:number|null};
 export type AppearanceMeasurement=MeasurementReceipt & {id:string;type:MeasurementKind;value:number|null;unit:string;methodVersion:string;modelVersion:string|null;modelHash:string|null;scoreDirection?:'higher-is-more-visible';normalizationVersion?:string;quality:'valid'|'invalid'|'insufficient';uncertainty:string[];region:string;evaluatedArea:Record<string,number>;captureConditions:Record<string,number|string>;limitationCode:string|null;referenceId:string|null;localMap:{key:string;photoId:string;region:string;criterion:string;coordinateSpace:'source-pixels'}|null;components:Record<string,any>};
 export type AppearanceResponse={general?:{skinType:import('./skinOverview').SkinOverview['skinType'];measurements:AppearanceMeasurement[];normalizationVersion:string;modelInputTransform?:Record<string,number|string|boolean>|null;modelInference?:Record<string,Record<string,number|string>>};photoId:string;sourceWidth:number;sourceHeight:number;measurements:Record<string,AppearanceMeasurement[]>;maps:Record<string,SkinLocalMap>;contours:Record<string,{points:{x:number;y:number}[];lines?:{x:number;y:number}[][];features:number[]}>};
 export const APPEARANCE_UNITS:Record<string,string>={'appearance-score-0-100':'%','percent-visible-area':'% görünür alan','candidate-count':'aday','relative-color-index-0-100':'/ 100 · renk farkı','directional-line-index-0-100':'/ 100 · çizgi indeksi','normalized-contour-ratio':'kontur oranı','contour-fold-index-0-100':'/ 100 · görünüm indeksi'};
 export async function analyzeAppearance(snapshot:SkinSnapshot,qualityValid:boolean,conditions:Record<string,number>,temporal:unknown[],current:()=>boolean):Promise<AppearanceResponse>{
- const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),20000);
- const stale=setInterval(()=>{if(!current())controller.abort();},100);
+ const hostedConsent=isSkinHostedProcessingAllowed();
+ const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),45000);
+ const stale=setInterval(()=>{if(!current()||isSkinHostedProcessingAllowed()!==hostedConsent)controller.abort();},100);
  try {
-  const response=await fetch('http://localhost:8000/api/local-health/skin',{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:true,photo:snapshot.dataUrl,photoId:snapshot.photoId,pose:snapshot.angle,meshes:snapshot.meshes,exclusions:snapshot.exclusions,landmarks:snapshot.landmarks,qualityValid,conditions,temporal})});
+  const response=await fetch('http://localhost:8000/api/local-health/skin',{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:true,hostedProcessingConsent:hostedConsent,photo:snapshot.dataUrl,photoId:snapshot.photoId,pose:snapshot.angle,meshes:snapshot.meshes,exclusions:snapshot.exclusions,landmarks:snapshot.landmarks,qualityValid,conditions,temporal})});
   if(!response.ok)throw Error('Yerel görünüm analizi tamamlanamadı.');
   const result:AppearanceResponse=await response.json();
-  if(!current()||result.photoId!==snapshot.photoId||result.sourceWidth!==snapshot.width||result.sourceHeight!==snapshot.height)throw Error('STALE_SOURCE');
+  if(!current()||isSkinHostedProcessingAllowed()!==hostedConsent||result.photoId!==snapshot.photoId||result.sourceWidth!==snapshot.width||result.sourceHeight!==snapshot.height)throw Error('STALE_SOURCE');
   return result;
  } finally {clearTimeout(timer);clearInterval(stale);}
 }

@@ -20,7 +20,7 @@ import {
   getRegionData,
   buildSkinRegionViewModel
 } from '../../data/skinDemoFixture';
-import { isDemoMode, STORAGE_KEYS, isCameraAllowed } from '../../utils/attuneMode';
+import { isDemoMode, STORAGE_KEYS, isCameraAllowed,isSkinHostedProcessingAllowed } from '../../utils/attuneMode';
 import { appendHealthRecord,withRecordsLock } from '../../utils/healthRecords';
 import {saveSkinPhotos} from '../../utils/skinPhotoHistory';
 import { rememberSkinSnapshots } from '../../utils/skinVolatileHistory';
@@ -63,6 +63,7 @@ export default function SkinPage() {
 
   const [scanState, setScanState] = useState<'READY' | 'CAMERA_ACTIVE' | 'COMPLETED' | 'ERROR'>('READY');
   const activeScanRef=useRef(false);activeScanRef.current=scanState==='CAMERA_ACTIVE';
+  const hostedConsentRef=useRef(isSkinHostedProcessingAllowed());
   const [preparationPhase,setPreparationPhase]=useState<string|null>(null);
   const [preparationSeconds,setPreparationSeconds]=useState(0);
   useEffect(()=>{if(!preparationPhase || scanState!=='CAMERA_ACTIVE'){setPreparationSeconds(0);if(scanState!=='CAMERA_ACTIVE')setPreparationPhase(null);return;}setPreparationSeconds(0);const started=performance.now();const timer=setInterval(()=>setPreparationSeconds(Math.floor((performance.now()-started)/1000)),1000);return()=>clearInterval(timer);},[preparationPhase,scanState]);
@@ -213,7 +214,8 @@ export default function SkinPage() {
   // Cancel pending acquisition/demo work when driving or privacy permission is revoked.
   useEffect(() => {
     const revoke = () => {
-      if (!parkedRef.current || !isCameraAllowed()) {
+      const changed=hostedConsentRef.current!==isSkinHostedProcessingAllowed();hostedConsentRef.current=isSkinHostedProcessingAllowed();
+      if (!parkedRef.current || !isCameraAllowed() || changed&&activeScanRef.current) {
         acquisitionRef.current += 1;
         snapshotFrames.current = {}; snapshotRecord.current = null; setSnapshots({});
         if (demoTimerRef.current) clearInterval(demoTimerRef.current);
@@ -458,6 +460,11 @@ export default function SkinPage() {
     setAnalysisResult(finalResult);
     // En yüksek değişimin olduğu bölgeye odaklan veya varsayılan sağ yanak
     setScanState('COMPLETED');
+    } catch {
+      if (validCapture()) {
+        setErrorMessage('Yerel görünüm analizi tamamlanamadı.');
+        setScanState('ERROR');
+      }
     } finally { persistingRef.current = false; }
   };
 
@@ -492,6 +499,7 @@ export default function SkinPage() {
       setMediaStream(null); setIsLiveVideo(false);
       setAnalysisResult(finalResult); setScanProgress(100); setScanState('COMPLETED');
     } catch {
+      if (!validCapture()) return;
       setErrorMessage('Üç açılı ölçüm veya geçmiş kaydı doğrulanamadı.'); setScanState('ERROR');
     } finally { persistingRef.current = false; }
   };
@@ -643,6 +651,7 @@ export default function SkinPage() {
                     if (captureState.index === 2) { finishMultiRef.current(captureState.captures as Record<SkinAngle, AngleCapture>); return; }
                     temporalSupport.current=[];captureState.index++; setAngleIndex(captureState.index); consecutiveValidFramesRef.current = 0;
                   } catch (error) {
+                    if (cancelled || !parkedRef.current || !isCameraAllowed()) return;
                     if(error instanceof Error&&error.message==='Yerel görünüm analizi tamamlanamadı.'){setErrorMessage(error.message);setScanState('ERROR');return;}
                     consecutiveValidFramesRef.current = 0;
                     setScanProgress(Math.round(captureState.index * 100 / 3));
@@ -861,7 +870,7 @@ export default function SkinPage() {
       {/* SCREEN 1: SKIN START VIEW (REFERANS 1 & 2)                  */}
       {/* ============================================================ */}
       {scanState === 'READY' && (
-        <><div className="flex items-center justify-between gap-3 mb-3"><p className="text-sm text-slate-300">{multiAngle ? "Ön ve iki yan pozda kısa bir tarama." : "Yalnız ön pozda kısa bir tarama."}</p><InformationButton title="Cilt taraması"><p>Görüntü bu cihazda işlenir; sonuçta kamera kapanır. Sayısal kayıt ve fotoğraf saklama tercihleri Gizlilik & İzinler alanından ayrı yönetilir. Fotoğraf saklama kapalıysa görüntü yalnız açık oturumda kalır. Fotoğrafı saklanmamış eski kayıtlar sayısal olarak gösterilir. Sonuç klinik tanı değildir.</p><label className="flex min-h-11 items-center gap-3"><input type="checkbox" aria-label="Üç açılı tarama" checked={multiAngle} onChange={e => setMultiAngle(e.target.checked)} />Ön, sağ ve sol pozlarda tara. Kapalıyken yalnız ön poz kullanılır.</label></InformationButton></div><SkinStartView onStart={startCamera} /></>
+        <><div className="flex items-center justify-between gap-3 mb-3"><p className="text-sm text-slate-300">{multiAngle ? "Ön ve iki yan pozda kısa bir tarama." : "Yalnız ön pozda kısa bir tarama."}</p><InformationButton title="Cilt taraması"><p>Yüz noktaları ve bölgesel görünüm bu cihazda işlenir; sonuçta kamera kapanır. Cilt tipi için Gizlilik & İzinler alanında ayrıca izin verirseniz yüz fotoğrafınızın ilgili kısmı Roboflow tarafından işlenir; internet gerekir. Sayısal kayıt ve fotoğraf saklama tercihleri ayrıdır. Fotoğraf saklama kapalıysa görüntü yalnız açık oturumda kalır. Fotoğrafı saklanmamış eski kayıtlar sayısal olarak gösterilir. Sonuç klinik tanı değildir.</p><label className="flex min-h-11 items-center gap-3"><input type="checkbox" aria-label="Üç açılı tarama" checked={multiAngle} onChange={e => setMultiAngle(e.target.checked)} />Ön, sağ ve sol pozlarda tara. Kapalıyken yalnız ön poz kullanılır.</label></InformationButton></div><SkinStartView onStart={startCamera} /></>
       )}
 
       {/* ============================================================ */}

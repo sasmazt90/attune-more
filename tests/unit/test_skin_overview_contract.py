@@ -50,7 +50,7 @@ def test_eye_only_coverage_and_failed_accepted_method_are_not_whole_face_fallbac
 def test_whole_photo_grade_cannot_inherit_a_different_pixel_calibration(monkeypatch):
     import appearance_analysis as A
     from test_local_appearance_health import skin_input
-    def degree(*args):return dict(skinType=None,degrees={'redness':dict(value=60.,rawGrade=3.,methodVersion='accepted-photo-grade-v1',modelHash='a'*64,normalizationVersion='ordinal-0-5-times-20-v1')},models={},sourceTransform=None)
+    def degree(*args,**kwargs):return dict(skinType=None,degrees={'redness':dict(value=60.,rawGrade=3.,methodVersion='accepted-photo-grade-v1',modelHash='a'*64,normalizationVersion='ordinal-0-5-times-20-v1')},models={},sourceTransform=None)
     monkeypatch.setattr(A,'infer_skin_models',degree)
     result=A.analyze_skin(skin_input(np.full((400,500,3),(100,130,175),np.uint8)))
     red=next(r for r in result['general']['measurements'] if r['id']=='redness')

@@ -19,7 +19,7 @@ def attach_result_receipts(result):
  if skin_type:
   skin_type['status']='measured' if skin_type.get('quality')=='valid' and skin_type.get('value') is not None else 'unavailable'
   skin_type['reason']=None if skin_type['status']=='measured' else skin_type.get('limitationCode','MODEL_NOT_ACCEPTED')
-  skin_type['modelVersion']=skin_type.get('methodVersion') if skin_type.get('modelHash') else None
+  skin_type['modelVersion']=skin_type.get('methodVersion') if skin_type.get('modelHash') or skin_type.get('providerModelId') else None
   skin_type['calibrationVersion']=None;skin_type['coverage']=None
  # The map and its owning score share an explicit calibration receipt. A
  # missing score never leaves a selectable stale layer in this response.

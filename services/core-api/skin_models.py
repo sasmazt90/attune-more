@@ -7,6 +7,7 @@ from functools import lru_cache
 from pathlib import Path
 import hashlib,json,threading,time
 import cv2,numpy as np
+from hosted_skin_type import infer_hosted_type,parse_hosted_type_response,get_inference_client
 
 FOLDER=Path(__file__).parent/'models'
 MANIFEST=FOLDER/'skin-focused.json'
@@ -40,25 +41,33 @@ def load():
         start=time.perf_counter();session=ort.InferenceSession(str(path),sess_options=options,providers=['CPUExecutionProvider']);sessions[task]={'session':session,'loadMs':(time.perf_counter()-start)*1000,'metadata':m}
     return {'manifest':manifest,'sessions':sessions}
 
-def infer(bgr,points,quality_valid):
+def infer(bgr,points,quality_valid,hosted_consent=False,type_quality_valid=None):
     empty=dict(skinType=None,degrees={},models={},sourceTransform=None)
-    if not quality_valid:return empty
+    type_quality=quality_valid if type_quality_valid is None else type_quality_valid
+    if not quality_valid and not type_quality:return empty
     try:
         with LOCK:loaded=load()
-        if not loaded['sessions']:return empty
         x,transform=photo_input(bgr,points);result={**empty,'sourceTransform':transform}
+        type_computed=False
         for task,item in loaded['sessions'].items():
             if task not in ('type','degrees'):continue
+            if task=='degrees' and not quality_valid or task=='type' and not type_quality:continue
             start=time.perf_counter();output=item['session'].run(None,{'rgb':x})[0][0];elapsed=(time.perf_counter()-start)*1000;m=item['metadata']
             if not np.isfinite(output).all():raise ValueError('NONFINITE_MODEL_OUTPUT')
             result['models'][task]=dict(modelHash=m['sha256'],modelVersion=m['version'],loadMs=item['loadMs'],inferenceMs=elapsed)
             if task=='type':
+                type_computed=True
                 assert output.shape==(4,);v=output/float(m['temperature']);v-=v.max();p=np.exp(v);p/=p.sum();confidence=float(p.max());valid=confidence>=float(m['confidenceThreshold'])
                 result['skinType']=dict(value=CLASSES[int(p.argmax())] if valid else None,quality='valid' if valid else 'insufficient',confidence=confidence,methodVersion=m['version'],modelHash=m['sha256'],limitationCode=None if valid else 'LOW_MODEL_SUPPORT')
             elif task=='degrees':
                 assert len(output)==len(m['targets'])
                 for target,value in zip(m['targets'],output):
                     if target in m['acceptedTargets']:result['degrees'][target]=dict(value=float(np.clip(value,0,5)*20),rawGrade=float(np.clip(value,0,5)),methodVersion=m['version'],modelHash=m['sha256'],confidence=None,scope='whole-face',normalizationVersion='ordinal-0-5-times-20-v1')
+        if type_quality and not type_computed:
+            a,b=transform['x'],transform['y'];crop=bgr[b:b+transform['height'],a:a+transform['width']]
+            hosted=infer_hosted_type(crop,hosted_consent)
+            result['models']['type']=dict(modelHash=None,modelVersion=hosted['methodVersion'],providerModelId=hosted['providerModelId'],inferenceKind='hosted',loadMs=0.,inferenceMs=hosted.pop('inferenceMs'))
+            result['skinType']=hosted
         return result
     except Exception:
         # Compact unavailable state; no old result, substitute weights or zeros.

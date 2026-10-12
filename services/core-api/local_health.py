@@ -1,4 +1,6 @@
-"""Bounded local-only analysis routes; personal frames never logged or stored."""
+"""Bounded local analysis; hosted skin type requires separate per-frame consent.
+Personal frames are never logged or stored by this API.
+"""
 import asyncio
 import json
 import math
@@ -44,6 +46,7 @@ def landmarks(points):
 
 
 def skin_geometry(value):
+    if not isinstance(value.get('hostedProcessingConsent',False),bool):raise ValueError()
     landmarks(value.get('landmarks'))
     meshes=value.get('meshes')
     if not isinstance(meshes,dict) or not 1<=len(meshes)<=6:raise ValueError()

@@ -34,6 +34,11 @@ export const STORAGE_KEYS = {
   PRIVACY_VISION_SAVE_ALLOWED: 'attune_privacy_vision_save_allowed'
 } as const;
 
+export const SKIN_HOSTED_PROCESSING_PERMISSION='attune_privacy_skin_hosted_processing_allowed';
+export function isSkinHostedProcessingAllowed():boolean {
+  try{return typeof window!=='undefined'&&localStorage.getItem(SKIN_HOSTED_PROCESSING_PERMISSION)==='true';}catch{return false;}
+}
+
 export function isDemoMode(): boolean {
   if (typeof window === 'undefined') {
     return process.env.NEXT_PUBLIC_ATTUNE_DEMO_MODE === 'true';

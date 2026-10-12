@@ -20,7 +20,7 @@ import {
   Info
 } from 'lucide-react';
 import { readMentalHistory } from '../../utils/mentalHistory';
-import { STORAGE_KEYS, isDemoMode } from '../../utils/attuneMode';
+import { STORAGE_KEYS, isDemoMode,SKIN_HOSTED_PROCESSING_PERMISSION,isSkinHostedProcessingAllowed } from '../../utils/attuneMode';
 
   const deriveEffectiveStatus = (
     appAllowed: boolean,
@@ -48,6 +48,7 @@ export default function PrivacyPage() {
   const [micStatus, setMicStatus] = useState<'GRANTED' | 'DENIED' | 'PROMPT'>('PROMPT');
   const [saveTranscript, setSaveTranscript] = useState(false);
   const [saveSkin,setSaveSkin]=useState(false);
+  const [hostedSkin,setHostedSkin]=useState(false);
   const [saveSkinPhotos,setSaveSkinPhotos]=useState(false);
   const [photoBusy,setPhotoBusy]=useState(false);
   const [saveHearing,setSaveHearing]=useState(true);
@@ -107,6 +108,7 @@ export default function PrivacyPage() {
 
       setSaveTranscript(localStorage.getItem(STORAGE_KEYS.PRIVACY_MENTAL_TRANSCRIPT_ALLOWED) === 'true');
       setSaveSkin(localStorage.getItem('attune_privacy_skin_save_allowed')==='true');
+      setHostedSkin(isSkinHostedProcessingAllowed());
       setSaveSkinPhotos(localStorage.getItem(SKIN_PHOTO_PERMISSION)==='true');
       setSaveHearing(localStorage.getItem('attune_privacy_hearing_save_allowed')!=='false');
       setSaveVision(localStorage.getItem(STORAGE_KEYS.PRIVACY_VISION_SAVE_ALLOWED) === 'true');
@@ -364,6 +366,7 @@ export default function PrivacyPage() {
         <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveSkinPhotos} disabled={photoBusy} onChange={async e=>{const enabled=e.target.checked;setPhotoBusy(true);try{await withRecordsLock(async()=>{localStorage.setItem(SKIN_PHOTO_PERMISSION,String(enabled));setSaveSkinPhotos(enabled);window.dispatchEvent(new Event('attune-privacy'));if(!enabled){clearSkinSnapshots();await clearSkinPhotos();}});setSaveSkinPhotos(enabled);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);setSaveSkinPhotos(localStorage.getItem(SKIN_PHOTO_PERMISSION)==='true');}finally{setPhotoBusy(false);}}}/>Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla</label>
         <p className="text-xs text-slate-400">Varsayılan kapalıdır. Sayısal kayıt izni de açıksa yeni taramaların fotoğraf ve seçilebilir görüntü katmanları uygulama yeniden açıldığında korunur. Kapatınca saklanan cilt fotoğrafları silinir; sayısal kayıtlar kalır. En fazla 128 MB saklanır; dolunca eski kayıtlar silinmez, yeni fotoğraf kaydedilemez.</p>
         <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveSkin} onChange={e=>{try{localStorage.setItem('attune_privacy_skin_save_allowed',String(e.target.checked));setSaveSkin(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla</label>
+        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={hostedSkin} onChange={e=>{try{localStorage.setItem(SKIN_HOSTED_PROCESSING_PERMISSION,String(e.target.checked));setHostedSkin(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>Cilt tipi için yüz fotoğrafımın Roboflow tarafından işlenmesine izin ver</label>
         <p className="text-xs text-slate-400">Varsayılan kapalıdır; çekim izninden ayrıdır. Fotoğraf saklama tercihi aşağıda ayrıca yönetilir. Diş sonuçlarında ayrıca Kaydet onayı verilir. Kapatmak eski kayıtları silmez; kayıt Sil veya Tüm Yerel Verileri Sil ile kaldırılır.</p>
       </section>
 

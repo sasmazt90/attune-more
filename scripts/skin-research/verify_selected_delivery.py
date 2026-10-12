@@ -36,7 +36,7 @@ def main(build_name, expected_build, output_prefix):
  assert chunk_checks
  samples=[]
  for index in [0,1,3,5]:
-  payload=json.loads((ROOT/f'audit-results/all-health-20261010/natural-skin/{index}-payload-private.json').read_text('utf8'));payload['processingConsent']=True
+  payload=json.loads((ROOT/f'audit-results/all-health-20261010/natural-skin/{index}-payload-private.json').read_text('utf8'));payload['processingConsent']=True;payload['hostedProcessingConsent']=False
   request=urllib.request.Request('http://127.0.0.1:8000/api/local-health/skin',data=json.dumps(payload).encode(),headers={'Content-Type':'application/json'},method='POST')
   with urllib.request.urlopen(request,timeout=90) as response:result=json.loads(response.read())
   assert all('status' in v and 'calibrationVersion' in v and 'coverage' in v for v in result['general']['measurements'])
@@ -45,7 +45,7 @@ def main(build_name, expected_build, output_prefix):
  manifest=ROOT/'services/core-api/models/skin-focused.json'
  loaded=[v['modelHash'] for sample in samples for v in (sample['modelInference'] or {}).values() if v.get('modelHash')]
  assert loaded and all(value==sha(ROOT/'services/core-api/models/skin-focused-degrees.onnx') for value in loaded),'ACTUAL_LOADED_MODEL_HASH_MISMATCH'
- evidence=dict(buildId=build,frontendSourceHashes=sources,frontendSourceFiles=len(sources),backendSourceHashes={str(p.relative_to(ROOT)):sha(p) for p in list((ROOT/'services/core-api').glob('skin*.py'))+[ROOT/'services/core-api/acne_box_support.py']},appearanceSourceSHA256=sha(ROOT/'services/core-api/appearance_analysis.py'),instantAppearanceSourceSHA256=sha(ROOT/'services/core-api/instant_appearance.py'),headAtVerification=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),branch=subprocess.check_output(['git','branch','--show-current'],cwd=ROOT,text=True).strip(),servedJavaScriptHashes=chunk_checks,normalShortcut=True,normalBackend=True,manifestSHA256=sha(manifest),acceptedModelFileSHA256=sha(ROOT/'services/core-api/models/skin-focused-degrees.onnx'),samples=samples,normalHistoryWritten=False,personalPhysicalAcceptance=False,userPhotoTraining=False,paidCalls=0)
+ evidence=dict(buildId=build,frontendSourceHashes=sources,frontendSourceFiles=len(sources),backendSourceHashes={str(p.relative_to(ROOT)):sha(p) for p in list((ROOT/'services/core-api').glob('skin*.py'))+list((ROOT/'services/core-api').glob('hosted_skin*.py'))+[ROOT/'services/core-api/acne_box_support.py']},appearanceSourceSHA256=sha(ROOT/'services/core-api/appearance_analysis.py'),instantAppearanceSourceSHA256=sha(ROOT/'services/core-api/instant_appearance.py'),headAtVerification=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),branch=subprocess.check_output(['git','branch','--show-current'],cwd=ROOT,text=True).strip(),servedJavaScriptHashes=chunk_checks,normalShortcut=True,normalBackend=True,manifestSHA256=sha(manifest),acceptedModelFileSHA256=sha(ROOT/'services/core-api/models/skin-focused-degrees.onnx'),samples=samples,normalHistoryWritten=False,personalPhysicalAcceptance=False,userPhotoTraining=False,hostedProcessingConsent=False,paidCalls=0)
  write(f'{output_prefix}/delivery.json',evidence)
  print(json.dumps(dict(buildId=build,normalShortcut=True,sourceFiles=len(sources),servedJavaScriptChunks=len(chunk_checks),manifestSHA256=evidence['manifestSHA256'],modelFileSHA256=evidence['acceptedModelFileSHA256'],loadedModelHashes=sorted(set(loaded))),indent=2))
 if __name__=='__main__':

@@ -9,7 +9,7 @@ export type SkinViewId = 'overview' | SkinRegionId;
 export const SKIN_VIEW_ORDER: SkinViewId[] = ['overview', ...REGION_ORDER];
 export type SkinOverview = {
   schemaVersion: 1; analysisId?: string; captureId: string; pose: 'FRONT';
-  skinType: { value: SkinTypeId | null; quality: 'valid' | 'invalid' | 'insufficient'; confidence: number | null; methodVersion: string; modelHash: string | null; limitationCode: string | null };
+  skinType: { value: SkinTypeId | null; quality: 'valid' | 'invalid' | 'insufficient'; confidence: number | null; methodVersion: string; modelHash: string | null; limitationCode: string | null; provider?:string;providerModelId?:string;inferenceKind?:'hosted' };
   indicators: SkinIndicator[]; normalizationVersion: string;
   modelInputTransform?:Record<string,number|string|boolean>|null;modelInference?:Record<string,Record<string,number|string>>;
   sourceTransform: { sourceWidth: number; sourceHeight: number; coordinateSpace: 'source-pixels' };
@@ -28,7 +28,8 @@ export function validSkinOverview(value: SkinOverview | undefined, analysisId:st
   if (!value || value.schemaVersion!==1 || value.analysisId!==analysisId || value.pose!=='FRONT' || !/^[a-f0-9]{64}$/.test(value.captureId)) return false;
   const type=value.skinType,ids=['tone','oil','redness','acne','sag','dry','lines','dark','bags'];
   if(!type||!['valid','invalid','insufficient'].includes(type.quality)||type.value!==null&&!(type.value in SKIN_TYPE_LABELS)||type.confidence!==null&&(!Number.isFinite(type.confidence)||type.confidence<0||type.confidence>1))return false;
-  if(type.quality==='valid'?(type.value===null||!type.modelHash):type.value!==null)return false;
+  const hosted=type.inferenceKind==='hosted'&&type.provider==='roboflow'&&type.providerModelId==='skin-type-axavj/1'&&type.methodVersion==='hosted-roboflow-skin-type-axavj/1'&&type.modelHash===null;
+  if(type.quality==='valid'?(type.value===null||!type.modelHash&&!hosted):type.value!==null)return false;
   return !!value.normalizationVersion && value.sourceTransform.coordinateSpace==='source-pixels' && value.sourceTransform.sourceWidth>=16 && value.sourceTransform.sourceHeight>=16 &&
     value.indicators.length===ids.length && ids.every(id=>{
       const rows=value.indicators.filter(r=>r.id===id);if(rows.length!==1)return false;
