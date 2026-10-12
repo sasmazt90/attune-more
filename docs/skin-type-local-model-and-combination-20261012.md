@@ -46,11 +46,15 @@ TOGG Attune araç içi sağlık ve cilt analizi sisteminde, harici bulut bağım
    - 768 boyutlu CLS öznitelikleri önbelleğe alınmış ve 3 düzenlileştirme ayarı ($C \in \{0.01, 0.1, 1.0\}$) taranmıştır.
    - Validasyon kümesinde en iyi ayar olarak **$C = 0.10$** (Val Macro-F1 = 0.2781) seçilmiştir ($C=1.00$ eğitim kümesinde 0.9728 F1 verirken validasyonda aşırı uyuma düşmüştür).
 
-5. **99 Bağımsız Test Örneğinde 3 Yönlü Karşılaştırma Sonucu:**
+5. **99 Bağımsız Test Örneğinde 3 Yönlü Karşılaştırma ve Görev Durumu:**
    - **(A) Temel 3 Sınıflı ViT:** Macro-F1 = 0.2962 | Yanıtlanan Doğruluk = %38.38 | Tüm Örnekler Doğruluğu = %38.38 | Karma F1 = 0.000
    - **(B) Bölgesel Karma v2:** Macro-F1 = **0.3723** | Yanıtlanan Doğruluk = **%41.24** | Tüm Örnekler Doğruluğu = **%40.40** | Karma F1 = 0.1905
    - **(C) Öğrenilmiş 4 Sınıflı Başlık:** Macro-F1 = 0.2459 | Yanıtlanan Doğruluk = %24.24 | Tüm Örnekler Doğruluğu = %24.24 | Karma F1 = 0.2857
-   - **Sonuç:** İnternet/Kaggle veri setindeki Karma etiketlerinin gürültülü ve öznel olması sebebiyle, 3 sınıflı öznitelikler üzerine eğitilen doğrusal başlık 4 sınıfta rastgele tahmin seviyesine (%24.24) gerilemiştir. **Bölgesel Karma v2** kuralı ise fotometrik sebum ayrımı ve $\ge 0.40$ ölü bölgesiyle hem en yüksek Macro-F1'i (0.3723) hem de en yüksek doğruluğu (%40.40) sağlamaktadır.
+   - **Karar ve Durum:** Yeni 4 sınıflı başlık 24/99 doğru ile rastgele seviyede (%24.24) kaldığı için **ürüne alınmamıştır (`accepted: false`)**. Mevcut ViT/Karma kuralı adayı da nihai başarılı çözüm olarak ilan edilmemiştir; **Cilt tipi görevi açık (unresolved araştırma konusu) olarak kalmaya devam etmektedir**.
+   - **Kanıtlanmış Bulgular vs. Olası Nedenler (Hipotezler):**
+     - *Kanıtlanmış Bulgu:* 3 sınıflı dondurulmuş ViT omurgası üzerine oturtulan doğrusal 4 sınıflı başlık, 99 bağımsız test örneğinde 4 sınıflı rastgele tahmin (%25) seviyesini aşamamıştır.
+     - *Olası Nedenler (Hipotezler):* Bu başarısızlıktan tekil olarak "etiketler kesinlikle aşırı gürültülü" sonucu çıkarılamaz; (1) 3 sınıfa göre önceden eğitilmiş omurganın 768-boyutlu CLS temsilinin Karma (Combination) için ayrım gücünün sınırlı olması, (2) Web/Kaggle kaynaklı veri/etiket tutarlılığı, (3) Train/Val/Test bölümleri arasındaki dağılım kayması, (4) Tek katmanlı doğrusal sınıflandırıcının karmaşık çok modlu yüz özelliklerini çözmedeki kapasite/optimizasyon kısıtları olası faktörlerdir.
+   - **Öznitelik Önbelleği Makbuzu:** `features_cache.npz` içindeki her satır (402 train, 99 val, 99 test), kaynak dosya SHA-256'sı, önek, etiket, kırpma koordinatları ve omurga öznitelik denkliği ile [`features_manifest.json`](file:///c:/Users/PC/Desktop/AI%20Workspace/TOGG/attune-antigravity-skin/audit-results/skin-type-head-experiment-20261012/features_manifest.json) içinde doğrulanarak mühürlenmiştir.
 
 ---
 

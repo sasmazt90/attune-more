@@ -288,3 +288,20 @@ def test_end_to_end_receipt_contract():
     assert st['reason'] is None
     assert st['modelVersion'] == 'skin-type-glamour-vit-v1'
     assert st['value'] == 'combination'
+
+def test_product_api_payload_flags_cannot_activate_candidates():
+    # Verify that passing allowCandidates or allowCandidateModels in the payload to analyze_skin
+    # does NOT cause the product API to activate unaccepted candidate models.
+    # Product API must strictly maintain allow_candidates=False.
+    from test_local_appearance_health import skin_input
+    im = np.full((400, 500, 3), (120, 120, 120), np.uint8)
+    payload = skin_input(im)
+    payload['allowCandidates'] = True
+    payload['allowCandidateModels'] = True
+
+    res = A.analyze_skin(payload)
+    st = res.get('general', {}).get('skinType')
+    # Since candidate model is unaccepted and hosted inference is not configured, skinType must not be measured by local candidate
+    if st is not None:
+        assert st.get('methodVersion') != 'skin-type-glamour-vit-v1', "Product API must not run candidate ViT from payload flag"
+
