@@ -1,9 +1,11 @@
 """Two independently reviewed native side photos; never a fabricated three-angle scan."""
-import base64,hashlib,json
+import argparse,base64,hashlib,json
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'audit-results/dry-sag-source-census-20261013'
-sources=json.loads((OUT/'contour-selection.json').read_text('utf8'))
+parser=argparse.ArgumentParser();parser.add_argument('--selection',type=Path);parser.add_argument('--out',type=Path);parser.add_argument('--indices',type=int,nargs='+',default=[111,225]);args=parser.parse_args()
+OUT=args.out or OUT;assert OUT.resolve().is_relative_to((ROOT/'audit-results').resolve());OUT.mkdir(parents=True,exist_ok=True)
+sources=json.loads((args.selection or OUT/'contour-selection.json').read_text('utf8'))
 with sync_playwright() as pw:
  c=pw.chromium.launch_persistent_context(str(ROOT/'output/playwright'/OUT.name/'side-runtime-profile'),channel='chrome',headless=False,args=['--enable-unsafe-swiftshader'])
  c.route('**/__audit/vision_bundle.mjs',lambda r:r.fulfill(path=str(ROOT/'node_modules/@mediapipe/tasks-vision/vision_bundle.mjs'),content_type='text/javascript'))
@@ -12,7 +14,7 @@ with sync_playwright() as pw:
  p.add_script_tag(content=(ROOT/'.runtime/periorbital-v5-browser-support/utilities.js').read_text('utf8'))
  p.evaluate("async()=>{window.__auditMediaPipe=await import('/__audit/vision_bundle.mjs');return !!await __auditRequire('apps/vehicle-app/src/utils/skinAnalyzer.ts').SkinAnalyzer.getFaceLandmarker()}")
  results=[]
- for index in (111,225):
+ for index in args.indices:
   row=sources[index];data=Path(row['absolutePath']).read_bytes();assert hashlib.sha256(data).hexdigest()==row['sha256']
   result=p.evaluate('''async(photo)=>{
    const R=n=>__auditRequire('apps/vehicle-app/src/utils/'+n+'.ts'),A=R('skinAnalyzer').SkinAnalyzer;
