@@ -15,6 +15,10 @@ from contextlib import contextmanager
 import psutil
 
 LOCK_FILE = Path(r"C:\Users\PC\Desktop\AI Workspace\TOGG\heavy_job.lock")
+CDC_LOCK_FILE = Path(r"C:\Users\PC\Desktop\AI Workspace\TOGG\coordination-notes\heavy-compute.lock.json")
+
+# Note: Historically, heavy_job.lock (used by skin-research) and CDC's heavy-compute.lock.json
+# were not automatically shared. Both are now explicitly verified to prevent mutual compute collisions.
 
 
 def is_pid_alive(pid: int) -> bool:
@@ -26,8 +30,32 @@ def is_pid_alive(pid: int) -> bool:
         return False
 
 
+def check_cdc_lock(timeout_sec: float = 0.0) -> None:
+    """Check CDC coordination lock and prevent colliding with active CDC compute jobs."""
+    t_start = time.time()
+    while CDC_LOCK_FILE.exists():
+        try:
+            cdc_data = json.loads(CDC_LOCK_FILE.read_text(encoding="utf-8"))
+            cdc_pid = cdc_data.get("pid")
+            if cdc_pid and is_pid_alive(cdc_pid):
+                if time.time() - t_start < timeout_sec:
+                    time.sleep(2.0)
+                    continue
+                raise RuntimeError(
+                    f"CDC heavy computation lock is currently held by active PID {cdc_pid} "
+                    f"at {CDC_LOCK_FILE}. Cannot collide with CDC heavy task."
+                )
+            else:
+                # Stale CDC lock from dead process; note without deleting CDC file directly
+                print(f"[heavy_job_lock] Note: Stale CDC lock detected (PID {cdc_pid} not alive).", flush=True)
+                break
+        except (json.JSONDecodeError, Exception) as e:
+            print(f"[heavy_job_lock] Note: Could not parse CDC lock ({e}).", flush=True)
+            break
+
+
 def acquire_heavy_lock(job_id: str, timeout_sec: float = 0.0) -> dict:
-    """Atomically acquire the heavy-job lock.
+    """Atomically acquire the heavy-job lock after verifying CDC lock.
     
     If held by an active process, raises RuntimeError.
     If held by a dead process, safely recovers the stale lock.
@@ -35,6 +63,10 @@ def acquire_heavy_lock(job_id: str, timeout_sec: float = 0.0) -> dict:
     my_pid = os.getpid()
     t_start = time.time()
 
+    # 1. First check CDC lock
+    check_cdc_lock(timeout_sec=timeout_sec)
+
+    # 2. Acquire workspace heavy_job.lock
     while True:
         if LOCK_FILE.exists():
             try:
@@ -110,7 +142,15 @@ def heavy_job_guard(job_id: str):
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "status":
+        print("=== Heavy Job Coordination Status ===")
+        print(f"1. Workspace Lock ({LOCK_FILE}):")
         if LOCK_FILE.exists():
-            print(f"Lock active: {LOCK_FILE.read_text('utf-8')}")
+            print(f"   ACTIVE:\n{LOCK_FILE.read_text('utf-8')}")
         else:
-            print("No active heavy job lock.")
+            print("   FREE (No active lock)")
+
+        print(f"\n2. CDC Coordination Lock ({CDC_LOCK_FILE}):")
+        if CDC_LOCK_FILE.exists():
+            print(f"   ACTIVE:\n{CDC_LOCK_FILE.read_text('utf-8')}")
+        else:
+            print("   FREE (No active lock)")
