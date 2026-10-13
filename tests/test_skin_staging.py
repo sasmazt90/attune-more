@@ -291,3 +291,35 @@ def test_real_onnx_inference_integration_with_analyze_skin():
     assert eval_area['analysisPixels'] >= 0
     assert eval_area['sourcePixels'] >= 0
     assert eval_area['scope'] == 'source-box-anatomical-support-v5'
+
+
+def test_model_selection_policy_and_production_release_gate():
+    """Verify that multi-criteria selection policy strictly rejects production deployment."""
+    decision_file = ROOT / 'audit-results/acne-detection-verification-20261013/model-selection-decision.json'
+    assert decision_file.exists(), f"Missing decision ledger: {decision_file}"
+
+    with open(decision_file, 'r', encoding='utf-8') as f:
+        decision = json.load(f)
+
+    gate = decision['productionReleaseGate']
+    assert gate['productionDeploymentStatus'] == 'STRICTLY_REJECTED'
+    assert gate['requiredConfig']['accepted'] is False
+    assert gate['requiredConfig']['file'] is None
+    assert 'RETRACTED' in gate['retractionNotice']
+
+
+def test_real_browser_e2e_staging_proof():
+    """Verify that real Playwright Chromium browser execution passed all product contracts."""
+    proof_file = ROOT / 'audit-results/acne-detection-verification-20261013/real-browser-e2e-staging-proof.json'
+    assert proof_file.exists(), f"Missing browser staging proof: {proof_file}"
+
+    with open(proof_file, 'r', encoding='utf-8') as f:
+        proof = json.load(f)
+
+    cert = proof['stagingCertification']
+    assert cert['allPassed'] is True
+    assert cert['frontTruePositiveCapturable'] is True
+    assert cert['sideRightCapturable'] is True
+    assert cert['negativeControlCapturable'] is True
+    assert cert['onnxExecutionVerified'] is True
+    assert proof['candidateOnnxSha256'] == EXPECTED_ONNX_SHA

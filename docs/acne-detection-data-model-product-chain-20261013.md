@@ -95,9 +95,93 @@ Faz 2'de negatif kontrollerde yanlış alarmlar Faz 1'deki 1 adetten (`0.07/foto
 - **Export Makbuzu:** `audit-results/acne-candidate-training-20261013/export-receipt.json`
 
 ### B. Staging Test Doğrulaması (Fake Fonksiyon Yok):
-`tests/test_skin_staging.py` oluşturulmuş ve `pytest` ile 5/5 test başarıyla geçmiştir:
+`tests/test_skin_staging.py` güncellenmiş ve `pytest` ile 7/7 test başarıyla geçmiştir:
 - `test_frozen_candidate_artifacts_integrity`: PASSED
 - `test_real_onnx_runtime_input_output_contract`: PASSED
 - `test_real_onnx_staging_inference_e2e_pipeline`: PASSED
 - `test_production_default_isolation`: PASSED
 - `test_real_onnx_inference_integration_with_analyze_skin`: PASSED
+- `test_model_selection_policy_and_production_release_gate`: PASSED
+- `test_real_browser_e2e_staging_proof`: PASSED
+
+---
+
+## 6. Üretime Uygunluk Kararı ve Geri Çekilme Bildirisi (Retraction Notice)
+
+> [!CAUTION]
+> **GERİ ÇEKİLME BİLDİRİSİ (RETRACTION NOTICE):**
+> Önceki raporda yer alan *"CD accepted=true ile doğrudan açabilir"* şeklindeki öneri **KESİN VE KALICI OLARAK GERİ ÇEKİLMİŞTİR**.
+> Teknik entegrasyonun ve ONNX oturumunun çalışması, klinik / ürün kalite kanıtı değildir.
+> 
+> **Gerekçe:**
+> 1. Mevcut hiçbir model, kabin içi otomatik tanı için gerekli olan **%60+ kapsam içi IoU50 yakalama (recall)** eşiğini karşılamamaktadır.
+>    - Taban Model: %26.4 (14/53 yakalanan odak) - 39 sivilce kaçırılıyor.
+>    - Faz 1 Adayı: %20.8 (11/53 yakalanan odak) - 42 sivilce kaçırılıyor.
+> 2. Bu yakalama seviyesindeki bir modelin araç içi kullanıcıya canlı sivilce/akne uyarısı olarak sunulması ciddi klinik yanıltma riski doğurur.
+> 3. Bu nedenle, CD üretim çalışma alanında (`attune-live-test`) `services/core-api/models/skin-focused.json` dosyası **kesinlikle `accepted: false, file: null` olarak kapalı tutulmalıdır**.
+
+---
+
+## 7. Çok Kriterli Model Seçim Protokolü ve Araştırma Kararı
+
+Model seçimi iki bağımsız kapıya ayrılmıştır:
+
+1. **Kapı 1 (Üretim Dağıtım Kapısı - Production Release Gate):**
+   - Eşikler: Kapsam İçi Rec50 >= 0.60 ve Doğrulanmış Negatif Kontrol FP <= 0.20 FP/foto.
+   - **Karar:** **STRICTLY_REJECTED (Tüm modeller reddedildi)**. Üretim dağıtımı kapalı.
+
+2. **Kapı 2 (Geliştirme/Staging Adayı Seçimi - Staging Candidate Gate):**
+   - Kriter: Doğrulanmış negatif kontrol bütçesini (<= 0.20 FP/foto) sağlayan adaylar arasında en yüksek yakalamayı öncelemek.
+   - Faz 1 Adayı (`388297d9...`), **0.07 FP/foto (1/15 yanlış alarm)** ile negatif alarm bütçesini açık ara sağlayan tek modeldir.
+   - Taban Model (`1a014adad2...`), 3 adet daha fazla odak yakalamasına karşın (14 vs 11), temiz ciltlerde 8 yanlış alarm (`0.53 FP/foto`) üretmektedir.
+   - **Geliştirme Seçimi:** Faz 1 adayı (`candidate.onnx`, SHA `006927cd14...`) araştırma ve staging entegrasyon paketi olarak dondurulmuştur.
+
+---
+
+## 8. Ampirik Loss, Normalizasyon Paydası ve Gradyan Profil Kanıtı
+
+`scripts/skin-research/profile_training_batches_and_loss.py` çalıştırılarak pozitif, negatif ve karışık batch'lerde kayıp, payda ve gradyan akışı ölçülmüştür:
+
+| Batch Türü | Ortalama GT Kutusu | Bilinen Negatif Anchor | Maskelenen Bilinmeyen Anchor | Normalizasyon Paydası (`num_fg`) | Toplam Loss | Regresyon Başlığı Gradyan Normu |
+|---|---|---|---|---|---|---|
+| **Saf Pozitif (4 karo)** | 4.3 | 0.0 (Kısmi etiket korundu) | ~12,096 | 4.3 | 1.2772 | 22.1991 |
+| **Saf Negatif (4 karo)** | 0.0 | 3966.3 | ~8,130 | 1.0 (min bound) | 0.0000 | 0.0001 |
+| **Karışık Dengeli (2P + 2N)** | 2.3 | 2022.0 | ~10,074 | 2.3 | 1.5096 | 23.0922 |
+
+**Teşhis Bulgusu:**
+- Kısmi etiketleme ilkesi (`KnownObjectnessBCE`) gereği pozitif fotoğraflardaki etiketsiz cilt alanlarına hiçbir negatif ceza verilmemektedir.
+- Saf negatif batch'lerde kayıp 0.0000 ve gradyanlar 0.0001 mertebesindedir.
+- Faz 2'deki yanlış alarm patlaması algoritma/normalizasyon hatasından değil, **veri kümesindeki etiket azlığından** kaynaklanmaktadır: Pozitif görsellerde sadece 1-2 lezyon etiketli olup kalan tüm yüz maskelendiği için, çok epoch'lu eğitim ağı gözenek ve yüksek frekanslı dokuları lezyon sanmaya yöneltmiştir.
+- **Karar:** Körlemesine yeni eğitim başlatılmamış; eksik eğitim vakaları ve negatif ROI'ler `training-limitation-diagnosis.json` içinde kaynak SHA'ları ile belgelenmiştir.
+
+---
+
+## 9. Gerçek Tarayıcı Motoru (Chromium) ve HTTP API Staging Kanıtı
+
+Mock canvas ve sentetik testler yerine, **gerçek Playwright Chromium tarayıcısı**, **araç içi HTTP API (`POST /api/local-health/skin`)** ve **gerçek ONNX Runtime adayı** uçtan uca çalıştırılmıştır (`scripts/skin-research/run_browser_e2e_staging.py`):
+
+1. **Ön Profil (FRONT) - `695ed248` (Pozitif Odak):**
+   - Tarayıcı Hizalama: Yaw=-0.07, Pitch=-0.05, Roll=-0.06 (`AngleMatched=True`, `sourceFramed=True`).
+   - Tarayıcı Kalite: Valid=True, Status=OPTIMAL, Blur=5.03, Lum=142.71.
+   - HTTP Roundtrip: 9427 ms | Gerçek ONNX İnferansı: `006927cd14...`
+   - UI Kartları: Sağ yanak (2.14%), Sol yanak (0.53%), Burun (0.94%), Çene (0.55%) lezyon skorları üretildi.
+
+2. **Yan Profil (RIGHT) - `55d380f7` (Pozitif Odak):**
+   - Tarayıcı Hizalama: Yaw=-0.49, Pitch=-0.13, Roll=0.12 (`AngleMatched=True`, `sourceFramed=True`).
+   - Tarayıcı Kalite: Valid=True, Status=OPTIMAL, Blur=4.61, Lum=159.33.
+   - HTTP Roundtrip: 7184 ms | Gerçek ONNX İnferansı: `006927cd14...`
+   - UI Kartları: Yalnız kameraya bakan açık yanak (`leftCheek`: 2.47%) hesaplandı; kapalı bölgeler maskelendi.
+
+3. **Negatif Kontrol - `36e4010b` (Temiz Yüz Kontrolü):**
+   - Tarayıcı Hizalama: Yaw=-0.17, Pitch=-0.02, Roll=0.06 (`AngleMatched=True`, `sourceFramed=True`).
+   - Tarayıcı Kalite: Valid=True, Status=OPTIMAL, Blur=7.52, Lum=146.25.
+   - HTTP Roundtrip: 5450 ms | Gerçek ONNX İnferansı: `006927cd14...`
+   - Temiz yüz kontrolü başarıyla tamamlandı.
+
+---
+
+## 10. Sonuç ve Teslim Durumu
+
+| Gerçek düzeltme | Yakalanan/değerlendirilebilir odak | Negatif FP/fotoğraf | Üretime uygunluk | Kalan somut engel |
+|---|---|---|---|---|
+| Frontend poz ve çoklu açı sözleşmesi doğrulandı, koordinat/maske ayrımı yapıldı, kısmi etiketleme korundu, gerçek Playwright Chromium + HTTP API + ONNX Runtime staging hattı kanıtlandı, dürüst model seçimi ve üretime geçiş kapısı ayrıldı. | **11 / 53** (%20.8 IoU50 yakalama; tüm validation odaklarında 69/276) | **0.07 FP/fotoğraf** (15 doğrulanmış negatif kontrolde yalnız 1 yanlış alarm) | **UYGUN DEĞİL (`accepted: false`)** — Geri çekilme bildirisi yürürlükte; teknik staging çalışıyor fakat klinik yakalama oranı yetersiz. | Pozitif eğitim fotoğraflarındaki yoğun etiket eksikliği (lezyonların çoğunun etiketlenmeyip maskelenmesi) ve temiz kontrol havuzunun darlığı; model %60+ yakalama seviyesine ulaşmadan üretime açılamaz. |
