@@ -102,9 +102,32 @@ def test_target_a_acne_borderline_lesion_retention_and_support_v3():
     assert len(rejected) == 1 and rejected[0]['reason'] == 'ANATOMICAL_HOLE_OR_HAIR'
 
 
-def test_target_a_acne_support_v3_version_contract():
-    """Target A: acne_box_support VERSION contract is source-box-anatomical-support-v3."""
-    assert ACNE_SUPPORT_VERSION == 'source-box-anatomical-support-v3'
+def test_target_a_acne_peripheral_visible_skin_fallback_v4():
+    """Target A (v4): Lesions on visible facial skin (skin_support >= 50%) outside narrow
+    mesh presentation envelopes (overlap < 15%) are retained and assigned to nearest region
+    via Euclidean distance transform fallback.
+    """
+    h, w = 100, 100
+    skin_support = np.ones((h, w), bool)
+    hair = np.zeros((h, w), bool)
+    exclusion = np.zeros((h, w), np.uint8)
+    
+    # Envelope covers x in [50, 100]
+    env = np.zeros((h, w), bool); env[:, 50:] = True
+    envelopes = {'rightCheek': env}
+    
+    # Box is at x in [10, 20], completely outside envelope (overlap = 0.0)
+    # But skin_support is 100%, center is skin, no hair/exclusion.
+    box_peripheral = [10, 10, 20, 20, 0.90]
+    assigned, rejected = filter_acne_boxes([box_peripheral], envelopes, skin_support, hair, exclusion, 'test_photo', 1.0, (0, 0))
+    assert len(rejected) == 0
+    assert len(assigned['rightCheek']) == 1
+    assert assigned['rightCheek'][0]['confidence'] == 0.90
+
+
+def test_target_a_acne_support_v4_version_contract():
+    """Target A: acne_box_support VERSION contract is source-box-anatomical-support-v4."""
+    assert ACNE_SUPPORT_VERSION == 'source-box-anatomical-support-v4'
 
 
 def test_target_b_dark_circles_normal_skin_deadband():

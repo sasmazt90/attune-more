@@ -2,7 +2,7 @@
 import hashlib,math
 import cv2,numpy as np
 
-VERSION='source-box-anatomical-support-v3'
+VERSION='source-box-anatomical-support-v4'
 REGIONS=('forehead','rightCheek','leftCheek','nose','chin')
 
 def region_envelopes(meshes,shape,scale,origin):
@@ -15,6 +15,7 @@ def region_envelopes(meshes,shape,scale,origin):
 
 def accepted_boxes(boxes,envelopes,skin_support,hair,exclusion,photo,scale,origin):
  assigned={k:[] for k in envelopes};rejected=[];h,w=skin_support.shape;x0,y0=origin
+ dist_maps={}
  for bx,by,ex,ey,confidence in boxes:
   a=max(0,int((bx-x0)*scale));b=max(0,int((by-y0)*scale));c=min(w,int(math.ceil((ex-x0)*scale)));d=min(h,int(math.ceil((ey-y0)*scale)))
   if c<=a or d<=b:rejected.append(dict(reason='OUTSIDE_SOURCE_SUPPORT'));continue
@@ -24,8 +25,19 @@ def accepted_boxes(boxes,envelopes,skin_support,hair,exclusion,photo,scale,origi
   if box_skin<.50 or not skin_support[cy,cx]:rejected.append(dict(reason='INSUFFICIENT_SKIN_SUPPORT'));continue
   reg_overlaps=[(float((envelopes[k]&skin_support)[b:d,a:c].mean()),k) for k in REGIONS if k in envelopes]
   reg_overlaps.sort(reverse=True)
-  if not reg_overlaps or reg_overlaps[0][0]<.15:rejected.append(dict(reason='INSUFFICIENT_ANATOMICAL_SKIN_SUPPORT'));continue
-  owner=reg_overlaps[0][1]
+  if not reg_overlaps or reg_overlaps[0][0]<.15:
+   best_dist=float('inf');owner=None
+   for k in REGIONS:
+    if k not in envelopes:continue
+    if k not in dist_maps:
+     dist_maps[k]=cv2.distanceTransform((~envelopes[k]).astype(np.uint8),cv2.DIST_L2,3)
+    d_val=float(dist_maps[k][cy,cx])
+    if d_val<best_dist:
+     best_dist=d_val;owner=k
+   if owner is None:
+    rejected.append(dict(reason='INSUFFICIENT_ANATOMICAL_SKIN_SUPPORT'));continue
+  else:
+   owner=reg_overlaps[0][1]
   assigned[owner].append(dict(x=bx,y=by,width=ex-bx,height=ey-by,confidence=confidence,candidateId=hashlib.sha256(f'{photo}:{bx:.3f}:{by:.3f}:{ex:.3f}:{ey:.3f}'.encode()).hexdigest()[:24],coordinateSpace='source-pixels',localization='detection-box'))
  return assigned,rejected
 

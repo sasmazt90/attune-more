@@ -1,10 +1,213 @@
 {
-  "timestamp": "2026-10-12T22:26:16Z",
-  "version": "features-cache-manifest-20261013-v1",
+  "timestamp": "2026-10-13T00:10:11Z",
+  "version": "features-cache-manifest-20261013-v2",
   "cache_file": "features_cache.npz",
   "cache_sha256": "b7246351b8342bf9e4621f6aa578b99322d4d586fbf6757778844ee6415f9354",
-  "verification_status": "VERIFIED",
-  "numerical_parity_max_diff": 0.0,
+  "verification": {
+    "structural_scope": "All 600 rows (train: 402, val: 99, test: 99) structurally verified for exact row count, class sequence, file SHA-256, base prefix, crop transform, and clipping bounds",
+    "structural_status": "VERIFIED_ALL_600_ROWS",
+    "numerical_scope": "24 deterministic samples spanning all 3 splits (train, val, test) and all 4 classes (dry, normal, oily, combination) numerically forward-passed through frozen ViT backbone",
+    "numerical_status": "VERIFIED_SAMPLED_24_ROWS",
+    "numerical_sample_count": 24,
+    "numerical_max_absolute_difference": 0.0,
+    "unverified_numerical_scope": "Remaining 576 rows in features_cache.npz were verified structurally only; full forward-pass numerical verification was not executed to conserve CPU compute budget",
+    "local_skin_type_task_status": "OPEN",
+    "four_class_head_status": "REJECTED_UNACCEPTED"
+  },
+  "verified_numerical_samples": [
+    {
+      "split": "train",
+      "row_index": 0,
+      "class": "dry",
+      "filename": "dry_96ff193747223bf72c04_jpg.rf.45e49182cf42d822d859d4e7a4831a43.jpg",
+      "base_prefix": "dry_96ff193747223bf72c04",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "train",
+      "row_index": 50,
+      "class": "dry",
+      "filename": "dry_new_692c8857eb07ddf8876d_jpg.rf.6a7d62a8922104f68317bd41e4e8dd97.jpg",
+      "base_prefix": "dry_new_692c8857eb07ddf8876d",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "train",
+      "row_index": 100,
+      "class": "normal",
+      "filename": "normal_7c46ae7d0bf7f41e3e04_jpg.rf.786d5a90a271d2bafb35909bf233abe6.jpg",
+      "base_prefix": "normal_7c46ae7d0bf7f41e3e04",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "train",
+      "row_index": 150,
+      "class": "normal",
+      "filename": "normal_e037471ab033b32e9b5b_jpg.rf.ef9f83f24806280404614c250c03a6d0.jpg",
+      "base_prefix": "normal_e037471ab033b32e9b5b",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "train",
+      "row_index": 200,
+      "class": "oily",
+      "filename": "oily_a8cac3505a92ed80a1b3_jpg.rf.f5e7d0388665ff87a87b37e45c7a447c.jpg",
+      "base_prefix": "oily_a8cac3505a92ed80a1b3",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "train",
+      "row_index": 250,
+      "class": "oily",
+      "filename": "oily_new_59f64909de30d162371d_jpg.rf.af1cb06ccfb695b2f216a9346c215a21.jpg",
+      "base_prefix": "oily_new_59f64909de30d162371d",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "train",
+      "row_index": 300,
+      "class": "combination",
+      "filename": "combination_-_52ade210840c93222309_jpg.rf.0aff79dc5ac86b53b91550c2142a745c.jpg",
+      "base_prefix": "combination_-_52ade210840c93222309",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "train",
+      "row_index": 350,
+      "class": "combination",
+      "filename": "combination_-_a0dbfdfbd029aa111976_jpg.rf.195ac5a79f3cb1cc8dbc01f919066779.jpg",
+      "base_prefix": "combination_-_a0dbfdfbd029aa111976",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "val",
+      "row_index": 0,
+      "class": "dry",
+      "filename": "dry_4eaec6aa6dfd1ccf56fb_jpg.rf.543691193e9d209078f5da8e38dc70a2.jpg",
+      "base_prefix": "dry_4eaec6aa6dfd1ccf56fb",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "val",
+      "row_index": 12,
+      "class": "dry",
+      "filename": "dry_726025675a80fd7e7b97_jpg.rf.afaf4b315f43bf3885f038f0f3224c45.jpg",
+      "base_prefix": "dry_726025675a80fd7e7b97",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "val",
+      "row_index": 25,
+      "class": "normal",
+      "filename": "normal_3bda8303158246844aeb_jpg.rf.8a87c34c8f4c1bc0ebdedfe04962cf36.jpg",
+      "base_prefix": "normal_3bda8303158246844aeb",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "val",
+      "row_index": 37,
+      "class": "normal",
+      "filename": "normal_55c9d11b3d38c037f970_jpg.rf.bf1750c00c16d747fa44115084296270.jpg",
+      "base_prefix": "normal_55c9d11b3d38c037f970",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "val",
+      "row_index": 50,
+      "class": "oily",
+      "filename": "oily_58af23ce352206a200e7-Copy_jpg.rf.d91df8d5289d73a88a6305a3331f6f60.jpg",
+      "base_prefix": "oily_58af23ce352206a200e7",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "val",
+      "row_index": 62,
+      "class": "oily",
+      "filename": "oily_7803e20751c3a1302e55-Copy_jpg.rf.e4d573c33a580a89b99c0096e36e9675.jpg",
+      "base_prefix": "oily_7803e20751c3a1302e55",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "val",
+      "row_index": 75,
+      "class": "combination",
+      "filename": "combination_-_232d032397ded0ada729_jpg.rf.8dc5ad5436345ac550810e6b9875a934.jpg",
+      "base_prefix": "combination_-_232d032397ded0ada729",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "val",
+      "row_index": 87,
+      "class": "combination",
+      "filename": "combination_-_3b8da74ffcff4f91461f_jpg.rf.0dd8f6c26f6cc0dbfc179a430992eb40.jpg",
+      "base_prefix": "combination_-_3b8da74ffcff4f91461f",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "test",
+      "row_index": 0,
+      "class": "dry",
+      "filename": "dry_06946fe226d34e9e6666_jpg.rf.12d94f57ef195567e7ed655d63fb957f.jpg",
+      "base_prefix": "dry_06946fe226d34e9e6666",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "test",
+      "row_index": 12,
+      "class": "dry",
+      "filename": "dry_2d8e355df5d83c144fb5_jpg.rf.2bcdaa1cf949f363c1974ad27a78b602.jpg",
+      "base_prefix": "dry_2d8e355df5d83c144fb5",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "test",
+      "row_index": 25,
+      "class": "normal",
+      "filename": "normal_037d2ca54ba52d645ffd_jpg.rf.60df415f6acb1893209f5ae1cd0f2345.jpg",
+      "base_prefix": "normal_037d2ca54ba52d645ffd",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "test",
+      "row_index": 37,
+      "class": "normal",
+      "filename": "normal_212fabdde59ac31c5abc_jpg.rf.d85d83e3c69a1298be24d018956d1c47.jpg",
+      "base_prefix": "normal_212fabdde59ac31c5abc",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "test",
+      "row_index": 50,
+      "class": "oily",
+      "filename": "oily_0033afe2a6242dbbf7b4-Copy_jpg.rf.ed8970638ac4da70186743b43da08f08.jpg",
+      "base_prefix": "oily_0033afe2a6242dbbf7b4",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "test",
+      "row_index": 62,
+      "class": "oily",
+      "filename": "oily_2b3033454fa19bade3e4-Copy_jpg.rf.9b40c204a581b209b0db107dd8b82737.jpg",
+      "base_prefix": "oily_2b3033454fa19bade3e4",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "test",
+      "row_index": 75,
+      "class": "combination",
+      "filename": "combination_-_00554fe9c8655bcc80a2_jpg.rf.2284dd601a32f7d25eb8ceed3e42e140.jpg",
+      "base_prefix": "combination_-_00554fe9c8655bcc80a2",
+      "max_absolute_difference": 0.0
+    },
+    {
+      "split": "test",
+      "row_index": 87,
+      "class": "combination",
+      "filename": "combination_-_12208686f5f85f0cd00a_jpg.rf.21696e0c781d92c209bb502ef4e13eb3.jpg",
+      "base_prefix": "combination_-_12208686f5f85f0cd00a",
+      "max_absolute_difference": 0.0
+    }
+  ],
   "backbone": {
     "modelId": "AishaBaliyan/glamour-ai-skin-model",
     "revision": "4f232d45e5ba59664205f552c4f450a1a741470a",

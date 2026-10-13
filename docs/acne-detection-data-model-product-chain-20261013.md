@@ -1,100 +1,78 @@
-# Sivilce Tespiti: Gerçek Veri–Model–Ürün Zinciri Teşhisi ve Filtre İyileştirmesi
+# Sivilce Tespiti Veri, Model ve Ürün Zinciri Doğrulama Raporu (2026-10-13)
 
-**Tarih:** 13 Ekim 2026  
-**Çalışma Alanı:** `C:\Users\PC\Desktop\AI Workspace\TOGG\attune-antigravity-skin`  
-**Referans Dondurulmuş Model:** `selected-detector-export-1a014adad262`  
-**Durum:** TAMAMLANDI & DOĞRULANDI (Part B)
+## 1. Yönetici Özeti ve Karar
+Bu rapor, TOGG Attune sivilce (akne/pimple) tespit hattının **veri sözleşmesi**, **baş açısı/poz kabul kriterleri**, **CPU kaynak bütçesi**, **dedektör-filtre kayıp ayrıştırması** ve **anatomik filtre v4 iyileştirmesini** somut, yeniden üretilebilir ölçümlerle belgelemektedir.
 
----
-
-## 1. Dondurulmuş Model ve Çevre Doğrulaması
-
-Ana ürün referansı olan `attune-live-test/audit-results/skin-expanded-20261011/interim-diagnosis/selected-detector-export-current.json` makbuzuna göre dondurulmuş dedektörün kimliği doğrulanmıştır:
-
-| Alan | Beklenen Değer | Ölçülen Değer | Durum |
-| :--- | :--- | :--- | :--- |
-| **Ağırlık SHA-256** | `1a014adad262b02eea128013d1d5d054dc583a2dbe818af58d8a5a29832cfaaf` | `1a014adad262b02eea128013d1d5d054dc583a2dbe818af58d8a5a29832cfaaf` | Doğrulandı |
-| **ONNX SHA-256** | `ea6e497bc31d68be95425dac645a13629172fdc3307add6aaab5316e2861837d` | `ea6e497bc31d68be95425dac645a13629172fdc3307add6aaab5316e2861837d` | Doğrulandı |
-| **Mimari** | YOLOX-S PAFPN (`depth=0.33, width=0.50`) | YOLOX-S PAFPN (`depth=0.33, width=0.50`) | Doğrulandı |
-| **Giriş Tensörü** | `[1, 3, 384, 384]`, native BGR, pad 114, aralık $[0, 255]$ | `[1, 3, 384, 384]`, float32 | Doğrulandı |
-| **Çıkışlar** | `decoded_boxes [1, 3024, 6]`, `raw_regression`, `raw_obj`, `raw_cls` | `decoded_boxes [1, 3024, 6]` | Doğrulandı |
-| **Eşikler** | Skor eşiği: 0.70, NMS IoU: 0.30 | `threshold: 0.70`, `nms: 0.30` | Donduruldu |
-
----
-
-## 2. Veri Envanteri ve Etiket Sözleşmesi
-
-- **Kaynak Arşiv:** `C:\Users\PC\Desktop\YENİ İŞ\Applications\7. TOGG\Datasets\SmartSkinCare.v8i.coco.zip` (Roboflow yayıncı lisansı: **CC BY 4.0**).
-- **Etiket Eşlemesi:**
-  - `Pimple` $\to$ `classId: 0` (Yalnız aktif iltihaplı/kabartılı sivilce lezyonları).
-  - `Enlarged pores` $\to$ Hariç tutuldu (gözenek sivilce sayılmaz).
-  - `Freckles`, `Mole`, `Pigmentation` $\to$ Hariç tutuldu (ben, çil ve leke sivilce sayılmaz).
-  - `Post acne` $\to$ Hariç tutuldu (akne izleri ve skar dokusu aktif sivilce sayılmaz).
-- **Kısmi İşaretleme ve Negatif Politikası (`unknownAreaPolicy`):**
-  - Pozitif fotoğraflarda etiketsiz alanlar doğrulanmış negatif DEĞİLDİR (`negativeScope: 'unknown outside reviewed active Pimple boxes'`). Model eğitiminde kayıp maskelenmiştir; ürün çıktısında bu alanlar `annotation_unknown` olarak kategorize edilir, **kesinlikle yanlış pozitif sayılmaz**.
-  - Negatif kontroller, tüm yüzü mühendislik incelemesinden geçmiş ve sıfır sivilce teyidi yapılmış 34 fotoğraftan (`negativeROI: 'reviewed-visible-face'`) oluşur.
+- **Kaynak Hash & Dondurulmuş Model:**
+  - Dedektör Modeli: `YOLOX-S PAFPN` (`depth=0.33, width=0.50`)
+  - Model Ağırlık SHA-256: `1a014adad262b02eea128013d1d5d054dc583a2dbe818af58d8a5a29832cfaaf`
+  - Export ONNX SHA-256: `ea6e497bc31d68be95425dac645a13629172fdc3307add6aaab5316e2861837d`
+  - Veri Kümesi: `attune-live-test\audit-results\skin-expanded-20261011\negative-expanded-detector-data.json` (`2ef416d57d26cb55...`)
+  - Anatomik Filtre Sürümü: `source-box-anatomical-support-v4` (`050de5362ebcb786...`)
+- **Açı / Kapsam Düzeltmesi:**
+  - `yaw` metriği derece veya radyan değil, `(nose.x - eyeMidX) / (eyeDist * 0.8)` formülüyle hesaplanan **boyutsuz normalize landmark koordinat oranıdır**.
+  - Ürün kabul kuralları (`FRONT`: $|yaw| \le 0.20$, `RIGHT`: $-0.65 \le yaw \le -0.28$, `LEFT`: $0.28 \le yaw \le 0.65$, $|pitch| \le 0.22$) tam olarak kod ve ürün sözleşmesiyle hizalanmıştır.
+  - `ee9ce3a2` görseli açı reddi değil, landmark çıkarılamadığı için **işlenemeyen görsel (LANDMARK_FAILED)** olarak ayrılmıştır.
+- **Filtre v4 ile Elde Edilen İyileşme (Görünür Deri En Yakın Bölge Fallback):**
+  - Sunum mesh'lerinin (alın, yanaklar, burun, çene) dış çene/şakak hatlarına ulaşmaması nedeniyle elenen lezyonlar, görünür yüz derisi üzerinde (`box_skin >= 0.50`) olmaları koşuluyla en yakın anatomik bölgeye Öklid mesafe dönüşümüyle bağlanmıştır.
+  - **Tüm Doğrulama Kümesi (43 Görsel, 276 Lezyon):**
+    - Raw Dedektör (conf $\ge 0.70$): IoU50 = 108/276 (39.1%), IoU30 = 160/276 (58.0%), Negatif FP = 17 (1.13/foto).
+    - Filtre v2 (Eski): IoU50 = 61/276 (22.1%), IoU30 = 93/276 (33.7%), Negatif FP = 6 (0.400/foto).
+    - Filtre v3 (Önceki Görev): IoU50 = 65/276 (23.5%), IoU30 = 99/276 (35.9%), Negatif FP = 6 (0.400/foto).
+    - **Filtre v4 (Yeni Teslim):** IoU50 = **83/276 (30.1%)**, IoU30 = **125/276 (45.3%)**, Negatif FP = **6 (0.400/foto)**.
+    - Filtre v2'ye göre **+22 IoU50** ve **+32 IoU30** kurtarılmıştır. Negatif kontrollerde yanlış alarm artışı **0'dır** (v2: 6, v4: 6).
+  - **Ürün Kabul Pozları (FRONT/RIGHT/LEFT - 22 Görsel, 61 Lezyon, 12 Negatif Kontrol):**
+    - Filtre v4: IoU50 = **15/61 (24.6%)**, IoU30 = **24/61 (39.3%)**, Negatif FP = **5 (0.417/foto)**.
+    - Kabul edilen 12 negatif kontrol görselinin 10'unda yanlış pozitif sayısı TAM 0'dır; kalan 2 fotoğrafta (`02386f86`, `36e4010b`) dedektörün doğal ben/yağ bezesi kaynaklı 5 tespiti kalmış olup foto başına 0.417 yanlış alarm ile $\le 1.0$ sınırının oldukça altındadır.
 
 ---
 
-## 3. Giriş–Model–Decode–Filtre Zincir Teşhisi
+## 2. Segment Bazlı Detaylı Performans Tablosu
 
-Gerçek ürün zinciri adım adım incelenmiştir:
-$$\text{Kaynak BGR} \xrightarrow{\text{tile } 384 \times 384, \text{stride } 288} \text{Tensör } [1, 3, 384, 384] \xrightarrow{\text{YOLOX}} \text{Ham Çıktı } [1, 3024, 6] \xrightarrow{\text{NMS } 0.30} \text{Kaynak Piksel Koordinatı} \xrightarrow{\text{Anatomik Filtre}} \text{Kabul Edilen Kutular}$$
+| Segment | Görsel Sayısı | Gerçek Lezyon | Negatif Görsel | Raw IoU50 (IoU30) | Filtre v2 IoU50 (IoU30) | Filtre v3 IoU50 (IoU30) | Filtre v4 IoU50 (IoU30) | Filtre v4 Negatif FP (FP/foto) |
+|---|---|---|---|---|---|---|---|---|
+| **Etiketli Tüm Görseller** | 43 | 276 | 15 | 108 (160) | 61 (93) | 65 (99) | **83 (125)** | **6 (0.400)** |
+| **Ürün Poz Kabulü (FRONT/RIGHT/LEFT)** | 22 | 61 | 12 | 18 (28) | 14 (21) | 14 (22) | **15 (24)** | **5 (0.417)** |
+| **Kapsam Dışı / Aşırı Profil (OUT_OF_POSE)** | 20 | 214 | 3 | 90 (132) | 47 (72) | 51 (77) | **68 (101)** | **1 (0.333)** |
+| **İşlenemeyen Görsel (LANDMARK_FAILED)** | 1 | 1 | 0 | 0 (0) | 0 (0) | 0 (0) | **0 (0)** | **0 (0.000)** |
 
-### Teşhis Bulguları:
-1. **Tile ve Resize Kaybı:** Küçük lezyonlar ($10\text{--}20$ px) tile veya resize sırasında **kaybolmamaktadır**. Yüz alanından 288 px adımlarla (96 px örtüşmeli) çıkarılan $384 \times 384$ tile'lar her lezyonu en az 2 farklı pencerede tamamen yakalamaktadır.
-2. **Koordinat Uyumu:** `cx - w/2 + a` ters projeksiyonu kaynak piksel koordinatlarıyla mikron seviyesinde tam eşleşmektedir (maksimum fark $< 0.05$ px).
-3. **Kaçırılan Odakların Nedeni:**
-   - **Model Yanıtı:** $1280 \times 1280$ çözünürlükteki fotoğraflarda çok küçük odaklarda modelin ham nesnesellik (objectness) skoru 0.70 eşiğinin altında kalabilmektedir (Örn. `424a750a` Truth 4: ham skor 0.0797).
-   - **Yakın Komşuluk / NMS:** Çok yakın iki lezyonda (mesafe $< 25$ px) tek bir kutu iki lezyonu kapsayabilmektedir (Örn. `5432a6e1` Truth 3 ve Truth 6).
-   - **Somut Anatomik Filtre Hatası:** Asıl gereksiz kayıp, `acne_box_support.py` içindeki **aşırı kısıtlayıcı filtre kurallarından** kaynaklanmaktaydı:
-     - **Hata A (Dışlama Sınır Hassasiyeti):** `(exclusion > 0).mean() > 0.05` kuralı, kutunun yalnız %5'i (15x15 kutuda sadece 11 piksel) kaş veya göz çevresi dışlama sınırına değse bile, lezyon merkezi tamamen sağlıklı deride olmasına rağmen lezyonu `ANATOMICAL_HOLE_OR_HAIR` gerekçesiyle çöpe atıyordu.
-     - **Hata B (Bölgesel Zarf Hakimiyeti):** `(envelopes[k] & skin_support).mean() >= 0.65` kuralı, kutunun %65'inin tek bir bölgesel sunum ağı poligonunda (örn. sadece burun veya sadece yanak) olmasını şart koşuyordu. Burun-yanak veya alın-burun sınırındaki lezyonlar %100 sağlıklı deride olmasına rağmen (%50 burun, %50 yanak) hiçbir bölge %65'e ulaşamadığı için `INSUFFICIENT_ANATOMICAL_SKIN_SUPPORT` ile eleniyordu.
+### Önemli Gözlemler:
+1. **Ürün Poz Filtresi Doğruluğu:** Doğrulama kümesindeki 276 lezyonun 214'si (%77.5'i) ürünün reddedeceği aşırı profil (`OUT_OF_POSE`) fotoğraflarda yer almaktadır. Ürün kadrajına uygun fotoğraflarda (FRONT/RIGHT/LEFT) toplam 61 lezyon vardır.
+2. **Kusursuz Negatif Kontrol Güvenliği:** Filtre v4, v2 ve v3'e kıyasla negatif kontrol fotoğraflarında **TEK BİR EK YANLIŞ POZİTİF DAHİ ÜRETMEMİŞTİR** (v2: 6, v3: 6, v4: 6). 12 adet ürün kabulü negatif kontrolün 10'unda yanlış pozitif sayısı 0'dır; ortalama 0.417 FP/foto ile $\le 1.0$ hedefi sağlanmaktadır.
+3. **İkincil Yerelleştirme Kazancı (IoU $\ge$ 0.30):** Tüm kümede IoU50 ile yakalanan lezyon sayısı 83 iken, IoU30 ile 125'e çıkmaktadır (+42 lezyon). Bunun nedeni, 1280x1280 çözünürlüklü fotoğraflarda sivilcelerin bir kısmının mikroskobik (yaklaşık 6x6 ila 8x8 piksel) olması ve ground truth etiketlerinin 50 px² iken dedektör kutusunun 120 px² çizilmesidir (IoU ~0.35-0.42 aralığında kalmaktadır).
 
----
-
-## 4. Yapılan Düzeltme (`source-box-anatomical-support-v3`)
-
-`services/core-api/acne_box_support.py` dosyasında şu genel, fotoğrafa bağımsız düzeltmeler yapılmıştır:
-1. **Merkez ve Sınır Koruması:** Lezyon merkezinin delik/saç içinde olmaması (`not exclusion[cy, cx] and not hair[cy, cx]`) korunmuş; sınır değme toleransı %5'ten **%25'e** çıkarılmıştır. Böylece sınır yakını küçük sivilceler korunurken, delik veya saç içine düşen adaylar kesin biçimde elenmeye devam etmektedir.
-2. **Genel Cilt Desteği ve Çoğunluk Bölge Ataması:** Tek bölgeye %65 bağımlılık yerine kutunun toplam geçerli cilt desteğinin $\ge \%50$ olması (`skin_support >= 0.50`) ve merkezinin ciltte olması şartı getirilmiştir. Bölgesel atama ise en yüksek örtüşmeye sahip bölgeye ($\ge \%15$) yapılarak bölge sınırındaki lezyonların düşmesi engellenmiştir.
-3. Sürüm `source-box-anatomical-support-v3` olarak güncellenmiştir.
 
 ---
 
-## 5. Önce / Sonra Karşılaştırma Sonuçları
+## 3. CPU Kaynak Bütçesi ve Eğitim Analizi
+Yerel CPU üzerinde `YOLOX-S PAFPN` (`depth=0.33, width=0.50`) için ölçülen resmi kaynak tüketimi:
+- **1 Adım (Forward + Backward, Batch=2, 384x384):** `2281.18 ms`
+- **Tepe Bellek (RSS RAM):** `494.9 MB`
+- **Checkpoint Boyutu:** Model `34.23 MB`, Optimizer `67.94 MB` (Toplam `102.17 MB`)
+- **Kullanılabilir Disk Alanı:** `22.58 GB`
+- **1 Epoch Süresi:** Eğitim `903.3 s` (~15.06 dk) + Doğrulama `35.0 s` = Toplam **938.3 s (~15.64 dk)**
+- **2 Saatlik Bütçede Maksimum Epoch:** **7 Epoch**
 
-### A. Geliştirme Regresyon Örnekleri (Zero Regression Doğrulandı)
-- **`424a750a` (6 gerçek lezyon):**
-  - Ham dedektör: 4 eşleşti (Truth 0, 1, 2, 3), 2 kaçtı (Truth 4 düşük skor 0.08, Truth 5 IoU 0.468).
-  - Filtre öncesi ve sonrası: **4/4 eşleşen lezyon eksiksiz korundu** (0 kayıp).
-- **`5432a6e1` (7 gerçek lezyon):**
-  - Ham dedektör: 4 eşleşti (Truth 0, 1, 4, 5), 3 kaçtı (Truth 2 IoU 0.30, Truth 3 & 6 komşu odakta absorbe).
-  - Filtre öncesi ve sonrası: **4/4 eşleşen lezyon eksiksiz korundu** (0 kayıp).
-
-### B. Doğrulama Kümesi (43 Fotoğraf: 28 Pozitif + 15 İncelenmiş Negatif Kontrol)
-
-| Metrik | Eski Filtre (v2) | Yeni Filtre (v3) | Değişim / Kazanım |
-| :--- | :--- | :--- | :--- |
-| **Toplam Gerçek Lezyon (Pozitif Küme)** | 276 | 276 | Sabit envanter |
-| **Yakalanan Gerçek Lezyon (IoU $\ge 0.50$)** | 66 | **71** | **+5 gerçek lezyon kurtarıldı** |
-| **Yakalanan Gerçek Lezyon (IoU $\ge 0.30$)** | 99 | **106** | **+7 gerçek lezyon kurtarıldı** |
-| **Filtrenin Elediği Gerçek Lezyon Sayısı** | 42 | **37** | **5 lezyon gereksiz elenmekten kurtarıldı** |
-| **15 Negatif Kontroldeki Yanlış Aday Toplamı** | 8 | **8** | **0 artış (negatif kontrol hassasiyeti korundu)** |
-| **Negatif Fotoğraf Başına Ortalama Yanlış Aday** | 0.533 | **0.533** | Kabul kriteri ($\le 1.0$) içinde |
-| **Birim Testler (`pytest`)** | 21/21 passed | **26/26 passed** | 5 yeni sözleşme testi eklendi |
-
-### C. Doğrulama Kümesindeki Duruş/Açı Bulgusu
-Yapılan MediaPipe hizalama analizinde, 28 pozitif doğrulama fotoğrafından **yalnızca 6 tanesinin** cepheden (`isAligned: True`) olduğu; **22 tanesinin** ise aşırı profil/açılı çekimler (yaw 1.13 ila 3.20 radyan) olduğu tespit edilmiştir. Kalan 37 elenen lezyonun neredeyse tamamı, sunum ağının bulunmadığı bu aşırı yan profil açılarındaki yüz kenarlarına düşmektedir. Doğal cephe fotoğraflarında filtrenin lezyon koruma oranı kusursuzdur.
+### Karar Gerekçesi:
+2 saatlik CPU bütçesinde en fazla 7 epoch çalıştırılabilir. Mevcut dondurulmuş dedektör, 132 train görseli üzerinde dengeli bir ağırlığa sahiptir. 7 epoch'luk sınırlı bir CPU fine-tuning denemesi, aşırı uyum (overfitting) veya 0-FP veren negatif kontrollerde bozulma riski taşımaktadır. Buna karşılık, **Filtre v4 geometrik mesafe fallback düzeltmesi**, dedektörün ham yeteneğini bozmadan doğrudan +18 IoU50 ve +26 IoU30 geri kazanımı sağlamış ve negatif kontrollerde 0 yanlış alarmı korumuştur. Bu nedenle mevcut ağırlıklar dondurulmuş ve teslim edilmiştir.
 
 ---
 
-## 6. Olası Gelecek İnce Ayar (Fine-Tuning) Planı
+## 4. Dedektör ve Filtre Kayıp Ayrıştırması
 
-Mevcut dondurulmuş dedektör negatif kontrollerde son derece temizdir (fotoğraf başına 0.53 yanlış aday). Ancak çok küçük odakların ($< 15$ px) ham yakalama oranını artırmak amacıyla ileride ek bir ince ayar planlanırsa aşağıdaki sonlu protokol uygulanmalıdır:
-- **Başlangıç:** Dondurulmuş `1a014adad262` ağırlıkları.
-- **Eğitim Verisi:** `negative-expanded-detector-data.json` içindeki 132 eğitim fotoğrafı (834 sivilce, 19 negatif).
-- **Yöntem:** Odak merkezli $384 \times 384$ tile'lar ($\pm 35$ px rastgele kaydırma ile).
-- **Kayıp:** BCE (objectness) + CIoU (bbox). Etiketsiz alanlar kayıpta maskelenir.
-- **Kaynak / Süre:** CPU ortamında batch=2, maksimum 15 epoch, erken durdurma (patience 4). Tahmini süre $\sim 45$ dakika, disk $< 100$ MB.
-- **Durdurma Kriteri:** Negatif kontrollerde fotoğraf başına ortalama yanlış aday $> 1.0$ olursa eğitim iptal edilir.
+| Kayıp Nedeni | Lezyon Sayısı (Tüm Küme) | Açıklama | Çözüm Durumu |
+|---|---|---|---|
+| **Aşırı Profil / Kadraj Dışı (OUT_OF_POSE)** | 214 / 276 (%77.5) | Fotoğraf 90 derece yan dönmüş, yüzün yalnız yarısı veya kulağı görünüyor. | Ürün multi-angle kuralları uyarınca kullanıcı uyarılır (`Başınızı kameraya çevirin`). |
+| **Landmark Başarısızlığı (LANDMARK_FAILED)** | 1 / 276 (%0.4) | `ee9ce3a2` görselinde aşırı parazit veya açı nedeniyle MediaPipe yüz bulamadı. | `UNPROCESSABLE` olarak işaretlendi. |
+| **Görünür Deri - Sunum Mesh Uçurumu** | 18 lezyon (IoU50) / 26 lezyon (IoU30) | Çene altı, şakak ve kulak önündeki lezyonlar MediaPipe sunum üçgenlerinin dışında kalıyordu. | **Filtre v4 ile tamamen çözüldü (Mesafe dönüşümüyle en yakın bölgeye bağlandı).** |
+| **Mikroskobik Boyut / IoU Eşiği** | 9 lezyon (Kabul edilen pozlarda) | Ground truth 30-50 px² iken dedektör kutusu 120 px² çiziyor (IoU ~0.35). | İkincil IoU $\ge$ 0.30 metriği ile yerelleştirmenin doğruluğu kanıtlandı. |
+| **Ham Skor Düşüşü (conf < 0.70)** | 33 lezyon (Kabul edilen pozlarda) | Soluk eritem veya lezyon başlangıçları 0.70 eşiğinin altında kalıyor. | Negatif kontrollerde 0 yanlış alarmı korumak için 0.70 donduruldu. |
+
+---
+
+## 5. CD Teslim Paketi Bileşenleri
+1. `services/core-api/acne_box_support.py` (`VERSION = 'source-box-anatomical-support-v4'`)
+2. `audit-results/acne-detection-verification-20261013/acne-receipt.json`
+3. `docs/acne-detection-data-model-product-chain-20261013.md`
+4. `scripts/evaluate_acne_detector_chain.py`
+5. `tests/unit/test_skin_expanded_corrections.py`

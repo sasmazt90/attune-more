@@ -144,26 +144,48 @@ def main():
     assert np.array_equal(test_labels, y_test), "Test labels do NOT match cache!"
     print("Label sequence parity: 100% MATCHED across all 600 samples.")
     
-    # 5. Numerical Feature Verification on sample 0
-    print("Verifying numerical feature parity against ViT model...")
+    # 5. Multi-Sample Deterministic Numerical Feature Verification
+    print("Verifying numerical feature parity across splits and classes against ViT model...")
     glamour_pt = AutoModelForImageClassification.from_pretrained(str(GLAMOUR_DIR), local_files_only=True)
     glamour_pt.eval()
-    
-    sample_it = test_items[0]
-    bgr = cv2.imread(sample_it['file'])
-    vit_x = skin_models.preprocess_vit_face(bgr, sample_it['transform'])
+
+    # Select deterministic samples: 2 per class per split (total 24 samples)
+    sampled_checks = [
+        # (split_name, items_list, X_cache, row_indices)
+        ('train', train_items, X_train, [0, 50, 100, 150, 200, 250, 300, 350]),
+        ('val', val_items, X_val, [0, 12, 25, 37, 50, 62, 75, 87]),
+        ('test', test_items, X_test, [0, 12, 25, 37, 50, 62, 75, 87])
+    ]
+
+    verified_samples = []
+    overall_max_diff = 0.0
+
     with torch.no_grad():
-        out = glamour_pt.vit(torch.from_numpy(vit_x))
-        feat = out.last_hidden_state[:, 0, :].cpu().numpy()[0]
-        
-    max_feat_diff = float(np.max(np.abs(feat - X_test[0])))
-    print(f"Test item 0 ({sample_it['filename']}) CLS max absolute diff: {max_feat_diff:.6e}")
-    assert max_feat_diff < 1e-4, f"Feature mismatch: {max_feat_diff}"
-    print("Numerical feature parity: 100% VERIFIED (< 1e-4).")
-    
+        for split_name, items_list, X_cache, row_indices in sampled_checks:
+            for r_idx in row_indices:
+                it = items_list[r_idx]
+                bgr = cv2.imread(it['file'])
+                vit_x = skin_models.preprocess_vit_face(bgr, it['transform'])
+                out = glamour_pt.vit(torch.from_numpy(vit_x))
+                feat = out.last_hidden_state[:, 0, :].cpu().numpy()[0]
+                diff = float(np.max(np.abs(feat - X_cache[r_idx])))
+                overall_max_diff = max(overall_max_diff, diff)
+                assert diff < 1e-4, f"Feature mismatch in {split_name} row {r_idx}: {diff}"
+                verified_samples.append({
+                    'split': split_name,
+                    'row_index': r_idx,
+                    'class': it['class'],
+                    'filename': it['filename'],
+                    'base_prefix': it['prefix'],
+                    'max_absolute_difference': diff
+                })
+                print(f"Verified [{split_name}:{r_idx}] {it['class']:11s} {it['filename'][:30]} diff={diff:.6e}")
+
+    print(f"Sampled numerical verification complete: {len(verified_samples)} rows verified, max diff: {overall_max_diff:.6e}")
+
     # 6. Compute file SHA-256 for all items and assemble manifest
     print("Computing file SHAs for all 600 items...")
-    
+
     def assemble_split_records(items, split_name):
         records = []
         for i, it in enumerate(items):
@@ -180,21 +202,31 @@ def main():
                 'skin_clipping': it['clipping']
             })
         return records
-        
+
     train_records = assemble_split_records(train_items, 'train')
     val_records = assemble_split_records(val_items, 'val')
     test_records = assemble_split_records(test_items, 'test')
-    
+
     glamour_weights_sha = compute_sha256(GLAMOUR_DIR / 'model.safetensors')
     cache_sha = compute_sha256(CACHE_FILE)
-    
+
     manifest = {
         'timestamp': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
-        'version': 'features-cache-manifest-20261013-v1',
+        'version': 'features-cache-manifest-20261013-v2',
         'cache_file': 'features_cache.npz',
         'cache_sha256': cache_sha,
-        'verification_status': 'VERIFIED',
-        'numerical_parity_max_diff': max_feat_diff,
+        'verification': {
+            'structural_scope': "All 600 rows (train: 402, val: 99, test: 99) structurally verified for exact row count, class sequence, file SHA-256, base prefix, crop transform, and clipping bounds",
+            'structural_status': "VERIFIED_ALL_600_ROWS",
+            'numerical_scope': "24 deterministic samples spanning all 3 splits (train, val, test) and all 4 classes (dry, normal, oily, combination) numerically forward-passed through frozen ViT backbone",
+            'numerical_status': "VERIFIED_SAMPLED_24_ROWS",
+            'numerical_sample_count': len(verified_samples),
+            'numerical_max_absolute_difference': overall_max_diff,
+            'unverified_numerical_scope': "Remaining 576 rows in features_cache.npz were verified structurally only; full forward-pass numerical verification was not executed to conserve CPU compute budget",
+            'local_skin_type_task_status': "OPEN",
+            'four_class_head_status': "REJECTED_UNACCEPTED"
+        },
+        'verified_numerical_samples': verified_samples,
         'backbone': {
             'modelId': 'AishaBaliyan/glamour-ai-skin-model',
             'revision': '4f232d45e5ba59664205f552c4f450a1a741470a',
@@ -228,10 +260,10 @@ def main():
         'val_samples': val_records,
         'test_samples': test_records
     }
-    
+
     with open(MANIFEST_OUT, 'w', encoding='utf-8') as f:
         json.dump(manifest, f, indent=2, ensure_ascii=False)
-        
+
     print(f"Features manifest written to: {MANIFEST_OUT} (Total items: {len(train_records) + len(val_records) + len(test_records)})")
 
 if __name__ == '__main__':
