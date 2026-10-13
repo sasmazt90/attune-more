@@ -1,0 +1,5125 @@
+{
+  "manifestVersion": "acne-scope-manifest-20261013-v1",
+  "generatedAt": "2026-10-13T10:00:00Z",
+  "datasetSha256": "2ef416d57d26cb552ad3aff081a62ae63384e32d7a6decfc1c8a34ece1d158c9",
+  "summary": {
+    "totalValidationImages": 43,
+    "positiveImages": 28,
+    "negativeImages": 15,
+    "productPoseImages": 19,
+    "productPosePositiveImages": 9,
+    "productPoseNegativeImages": 10,
+    "capturableImages": 13,
+    "capturablePositiveImages": 3,
+    "capturableNegativeImages": 10,
+    "totalTruthPimples": 276,
+    "productPoseTruthPimples": 60,
+    "productPoseInScopePimples": 53,
+    "capturableInScopePimples": 14,
+    "scopeBreakdown": {
+      "OUT_OF_SCOPE_EXTREME_POSE": 215,
+      "OUT_OF_SCOPE_OCCLUDED_SIDE": 7,
+      "IN_SCOPE_VISIBLE_REGION": 53,
+      "OUT_OF_SCOPE_LANDMARK_FAILED": 1
+    }
+  },
+  "scopeDefinitions": {
+    "IN_SCOPE_VISIBLE_REGION": "Pimple is located on an exposed facial ROI within the product-accepted pose (FRONT, RIGHT, or LEFT) and within the analysis bounding crop.",
+    "OUT_OF_SCOPE_EXTREME_POSE": "Image does not satisfy product pose contracts (roll > 0.15, extreme pitch, or yaw outside FRONT/RIGHT/LEFT boundaries).",
+    "OUT_OF_SCOPE_OCCLUDED_SIDE": "Image is taken at a side profile angle (RIGHT or LEFT), and the lesion is on the occluded opposite cheek or non-exposed facial region.",
+    "OUT_OF_SCOPE_OUTSIDE_CROP": "Lesion center lies outside the adaptive facial analysis crop bounds.",
+    "OUT_OF_SCOPE_NON_FACIAL": "Lesion center lies outside the facial oval mask (e.g. neck, ear, hairline margin).",
+    "OUT_OF_SCOPE_LANDMARK_FAILED": "MediaPipe failed to extract 468 facial landmarks."
+  },
+  "images": [
+    {
+      "sha256": "1aaba5c6a61aa4c29cc8eb72def8ea5513c4d0be0b7dd53270d36a064a15d0f2",
+      "fileSha256": "1aaba5c6a61aa4c29cc8eb72def8ea5513c4d0be0b7dd53270d36a064a15d0f2",
+      "fileName": "1aaba5c6",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 129.06,
+        "blurScore": 3.34
+      },
+      "alignment": {
+        "yaw": 1.61,
+        "pitch": -0.24,
+        "roll": 0.29,
+        "scaleRatio": 0.29,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 1,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            781.0,
+            757.0,
+            795.5,
+            767.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "a4f0453dc767d1e7f9740871657651247768d6217d2f02bc4ed5d8c535b25d17",
+      "fileSha256": "a4f0453dc767d1e7f9740871657651247768d6217d2f02bc4ed5d8c535b25d17",
+      "fileName": "a4f0453d",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 143.83,
+        "blurScore": 3.94
+      },
+      "alignment": {
+        "yaw": 1.13,
+        "pitch": 0.32,
+        "roll": -0.97,
+        "scaleRatio": 0.77,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 7,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            852.0,
+            1027.0,
+            874.5,
+            1039.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            668.0,
+            991.0,
+            679.5,
+            1000.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            493.0,
+            496.0,
+            507.0,
+            504.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 3,
+          "classId": 0,
+          "box": [
+            715.0,
+            513.0,
+            729.0,
+            521.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 4,
+          "classId": 0,
+          "box": [
+            798.0,
+            820.0,
+            810.5,
+            830.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 5,
+          "classId": 0,
+          "box": [
+            905.0,
+            895.0,
+            918.0,
+            907.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 6,
+          "classId": 0,
+          "box": [
+            970.0,
+            838.0,
+            984.0,
+            850.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "f20a014ae13e71efa4bd4bac2c5778e01d898d1bb4589782122d559ea8aa516d",
+      "fileSha256": "f20a014ae13e71efa4bd4bac2c5778e01d898d1bb4589782122d559ea8aa516d",
+      "fileName": "f20a014a",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 147.0,
+        "blurScore": 1.31
+      },
+      "alignment": {
+        "yaw": -1.03,
+        "pitch": 0.02,
+        "roll": 0.02,
+        "scaleRatio": 0.88,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 7,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            408.0,
+            463.0,
+            431.0,
+            480.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            376.0,
+            230.0,
+            391.5,
+            241.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            742.0,
+            1039.0,
+            762.5,
+            1058.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 3,
+          "classId": 0,
+          "box": [
+            765.0,
+            866.0,
+            791.5,
+            885.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 4,
+          "classId": 0,
+          "box": [
+            876.0,
+            899.0,
+            905.0,
+            921.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 5,
+          "classId": 0,
+          "box": [
+            650.0,
+            913.0,
+            673.5,
+            928.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 6,
+          "classId": 0,
+          "box": [
+            345.0,
+            258.0,
+            362.0,
+            273.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "5de574a82a5d5e6f87a67888fd8722b01fdb3e0144eac917d1f7fe9bfb0432ab",
+      "fileSha256": "5de574a82a5d5e6f87a67888fd8722b01fdb3e0144eac917d1f7fe9bfb0432ab",
+      "fileName": "5de574a8",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": "RIGHT",
+      "isProductPose": true,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 133.25,
+        "blurScore": 3.69
+      },
+      "alignment": {
+        "yaw": -0.54,
+        "pitch": 0.02,
+        "roll": -0.06,
+        "scaleRatio": 0.59,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 4,
+      "inScopeTruthCount": 3,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            354.0,
+            570.0,
+            363.0,
+            576.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_OCCLUDED_SIDE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Sa\u011fa d\u00f6n\u00fc\u015f pozunda kapanan yanak b\u00f6lgesindedir"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            615.0,
+            538.0,
+            624.5,
+            545.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            727.0,
+            588.0,
+            736.0,
+            594.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 3,
+          "classId": 0,
+          "box": [
+            828.0,
+            485.0,
+            836.0,
+            492.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        }
+      ]
+    },
+    {
+      "sha256": "2d271d2b64f1f5fcb4f4181ae76005f73cffc72657075cf6c85d4e510fb73660",
+      "fileSha256": "2d271d2b64f1f5fcb4f4181ae76005f73cffc72657075cf6c85d4e510fb73660",
+      "fileName": "2d271d2b",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": "FRONT",
+      "isProductPose": true,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 126.52,
+        "blurScore": 2.73
+      },
+      "alignment": {
+        "yaw": -0.14,
+        "pitch": -0.09,
+        "roll": -0.01,
+        "scaleRatio": 0.5,
+        "isAligned": true,
+        "sourceFramed": true
+      },
+      "truthCount": 12,
+      "inScopeTruthCount": 12,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            852.0,
+            447.0,
+            872.5,
+            465.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            903.0,
+            561.0,
+            912.0,
+            568.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            882.0,
+            553.0,
+            890.5,
+            559.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 3,
+          "classId": 0,
+          "box": [
+            898.0,
+            520.0,
+            904.5,
+            525.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 4,
+          "classId": 0,
+          "box": [
+            925.0,
+            512.0,
+            931.0,
+            518.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 5,
+          "classId": 0,
+          "box": [
+            912.0,
+            512.0,
+            920.0,
+            518.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 6,
+          "classId": 0,
+          "box": [
+            864.0,
+            543.0,
+            869.5,
+            548.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 7,
+          "classId": 0,
+          "box": [
+            897.0,
+            554.0,
+            904.5,
+            560.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 8,
+          "classId": 0,
+          "box": [
+            915.0,
+            490.0,
+            922.0,
+            497.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 9,
+          "classId": 0,
+          "box": [
+            908.0,
+            409.0,
+            916.5,
+            416.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 10,
+          "classId": 0,
+          "box": [
+            931.0,
+            375.0,
+            938.5,
+            382.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 11,
+          "classId": 0,
+          "box": [
+            371.0,
+            385.0,
+            379.0,
+            390.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        }
+      ]
+    },
+    {
+      "sha256": "47c3cdee72424257dc3a9166d530cc24b96b735c0897cfb633d85c8f59572233",
+      "fileSha256": "47c3cdee72424257dc3a9166d530cc24b96b735c0897cfb633d85c8f59572233",
+      "fileName": "47c3cdee",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 165.26,
+        "blurScore": 3.36
+      },
+      "alignment": {
+        "yaw": 0.76,
+        "pitch": 0.06,
+        "roll": 0.37,
+        "scaleRatio": 0.6,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 1,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            924.0,
+            684.0,
+            939.5,
+            691.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "55d380f724bc6b0612f878ee1b70997493edf1c1aecb8cf9d447c050af90f43a",
+      "fileSha256": "55d380f724bc6b0612f878ee1b70997493edf1c1aecb8cf9d447c050af90f43a",
+      "fileName": "55d380f7",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": "RIGHT",
+      "isProductPose": true,
+      "capturable": true,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 159.24,
+        "blurScore": 4.62
+      },
+      "alignment": {
+        "yaw": -0.49,
+        "pitch": -0.13,
+        "roll": 0.12,
+        "scaleRatio": 0.6,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 10,
+      "inScopeTruthCount": 7,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            711.0,
+            817.0,
+            729.0,
+            833.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": true,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            707.0,
+            437.0,
+            714.0,
+            445.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_OCCLUDED_SIDE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Yan profil \u00e7ekiminde desteklenmeyen (yanak d\u0131\u015f\u0131) b\u00f6lgededir"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            644.0,
+            618.0,
+            653.0,
+            626.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": true,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 3,
+          "classId": 0,
+          "box": [
+            636.0,
+            620.0,
+            645.5,
+            626.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": true,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 4,
+          "classId": 0,
+          "box": [
+            556.0,
+            612.0,
+            567.5,
+            619.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_OCCLUDED_SIDE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Yan profil \u00e7ekiminde desteklenmeyen (yanak d\u0131\u015f\u0131) b\u00f6lgededir"
+        },
+        {
+          "annotationIndex": 5,
+          "classId": 0,
+          "box": [
+            646.0,
+            603.0,
+            654.5,
+            613.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": true,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 6,
+          "classId": 0,
+          "box": [
+            630.0,
+            607.0,
+            639.0,
+            614.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": true,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 7,
+          "classId": 0,
+          "box": [
+            548.0,
+            601.0,
+            558.5,
+            606.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_OCCLUDED_SIDE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Sa\u011fa d\u00f6n\u00fc\u015f pozunda kapanan yanak b\u00f6lgesindedir"
+        },
+        {
+          "annotationIndex": 8,
+          "classId": 0,
+          "box": [
+            835.0,
+            644.0,
+            849.5,
+            653.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": true,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 9,
+          "classId": 0,
+          "box": [
+            676.0,
+            867.0,
+            685.5,
+            874.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": true,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        }
+      ]
+    },
+    {
+      "sha256": "a10aa13a1930df1c9d72d91b0bcdc6a743f4b4f67279a3392d46ba7b639a3259",
+      "fileSha256": "a10aa13a1930df1c9d72d91b0bcdc6a743f4b4f67279a3392d46ba7b639a3259",
+      "fileName": "a10aa13a",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 132.66,
+        "blurScore": 2.99
+      },
+      "alignment": {
+        "yaw": -0.26,
+        "pitch": 0.0,
+        "roll": -0.02,
+        "scaleRatio": 0.95,
+        "isAligned": false,
+        "sourceFramed": false
+      },
+      "truthCount": 68,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            433.0,
+            88.0,
+            459.5,
+            102.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            565.0,
+            201.0,
+            575.0,
+            218.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            474.0,
+            160.0,
+            488.5,
+            170.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 3,
+          "classId": 0,
+          "box": [
+            442.0,
+            152.0,
+            457.5,
+            163.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 4,
+          "classId": 0,
+          "box": [
+            395.0,
+            143.0,
+            411.5,
+            154.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 5,
+          "classId": 0,
+          "box": [
+            417.0,
+            111.0,
+            429.0,
+            122.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 6,
+          "classId": 0,
+          "box": [
+            474.0,
+            124.0,
+            489.5,
+            133.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 7,
+          "classId": 0,
+          "box": [
+            475.0,
+            99.0,
+            491.0,
+            107.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 8,
+          "classId": 0,
+          "box": [
+            568.0,
+            109.0,
+            580.0,
+            119.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 9,
+          "classId": 0,
+          "box": [
+            538.0,
+            198.0,
+            555.0,
+            211.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 10,
+          "classId": 0,
+          "box": [
+            536.0,
+            144.0,
+            550.5,
+            153.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 11,
+          "classId": 0,
+          "box": [
+            574.0,
+            158.0,
+            587.0,
+            167.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 12,
+          "classId": 0,
+          "box": [
+            479.0,
+            233.0,
+            489.0,
+            243.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 13,
+          "classId": 0,
+          "box": [
+            325.0,
+            297.0,
+            337.5,
+            308.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 14,
+          "classId": 0,
+          "box": [
+            627.0,
+            247.0,
+            640.0,
+            260.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 15,
+          "classId": 0,
+          "box": [
+            626.0,
+            222.0,
+            634.5,
+            232.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 16,
+          "classId": 0,
+          "box": [
+            499.0,
+            91.0,
+            514.0,
+            101.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 17,
+          "classId": 0,
+          "box": [
+            509.0,
+            73.0,
+            527.0,
+            83.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 18,
+          "classId": 0,
+          "box": [
+            558.0,
+            183.0,
+            572.5,
+            193.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 19,
+          "classId": 0,
+          "box": [
+            642.0,
+            124.0,
+            657.5,
+            136.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 20,
+          "classId": 0,
+          "box": [
+            669.0,
+            53.0,
+            685.0,
+            66.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 21,
+          "classId": 0,
+          "box": [
+            748.0,
+            79.0,
+            764.0,
+            89.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 22,
+          "classId": 0,
+          "box": [
+            769.0,
+            58.0,
+            786.5,
+            68.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 23,
+          "classId": 0,
+          "box": [
+            694.0,
+            63.0,
+            709.5,
+            74.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 24,
+          "classId": 0,
+          "box": [
+            693.0,
+            163.0,
+            707.5,
+            170.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 25,
+          "classId": 0,
+          "box": [
+            642.0,
+            160.0,
+            653.5,
+            170.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 26,
+          "classId": 0,
+          "box": [
+            665.0,
+            234.0,
+            681.5,
+            246.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 27,
+          "classId": 0,
+          "box": [
+            772.0,
+            172.0,
+            789.0,
+            184.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 28,
+          "classId": 0,
+          "box": [
+            811.0,
+            126.0,
+            822.0,
+            136.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 29,
+          "classId": 0,
+          "box": [
+            808.0,
+            70.0,
+            823.5,
+            79.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 30,
+          "classId": 0,
+          "box": [
+            718.0,
+            156.0,
+            733.0,
+            167.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 31,
+          "classId": 0,
+          "box": [
+            711.0,
+            144.0,
+            728.0,
+            155.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 32,
+          "classId": 0,
+          "box": [
+            1022.0,
+            210.0,
+            1038.5,
+            221.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 33,
+          "classId": 0,
+          "box": [
+            1038.0,
+            140.0,
+            1051.5,
+            153.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 34,
+          "classId": 0,
+          "box": [
+            968.0,
+            161.0,
+            982.5,
+            171.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 35,
+          "classId": 0,
+          "box": [
+            936.0,
+            281.0,
+            954.0,
+            292.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 36,
+          "classId": 0,
+          "box": [
+            745.0,
+            233.0,
+            761.5,
+            244.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 37,
+          "classId": 0,
+          "box": [
+            1054.0,
+            102.0,
+            1071.0,
+            113.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 38,
+          "classId": 0,
+          "box": [
+            1093.0,
+            186.0,
+            1108.5,
+            196.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 39,
+          "classId": 0,
+          "box": [
+            1065.0,
+            171.0,
+            1080.0,
+            181.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 40,
+          "classId": 0,
+          "box": [
+            592.0,
+            338.0,
+            605.0,
+            350.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 41,
+          "classId": 0,
+          "box": [
+            571.0,
+            311.0,
+            591.0,
+            325.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 42,
+          "classId": 0,
+          "box": [
+            671.0,
+            452.0,
+            687.0,
+            464.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 43,
+          "classId": 0,
+          "box": [
+            703.0,
+            419.0,
+            716.5,
+            430.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 44,
+          "classId": 0,
+          "box": [
+            678.0,
+            396.0,
+            696.5,
+            409.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 45,
+          "classId": 0,
+          "box": [
+            854.0,
+            223.0,
+            865.5,
+            233.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 46,
+          "classId": 0,
+          "box": [
+            743.0,
+            703.0,
+            762.5,
+            715.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 47,
+          "classId": 0,
+          "box": [
+            744.0,
+            617.0,
+            756.5,
+            626.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 48,
+          "classId": 0,
+          "box": [
+            651.0,
+            698.0,
+            665.0,
+            710.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 49,
+          "classId": 0,
+          "box": [
+            790.0,
+            958.0,
+            808.0,
+            971.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 50,
+          "classId": 0,
+          "box": [
+            690.0,
+            972.0,
+            703.5,
+            983.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 51,
+          "classId": 0,
+          "box": [
+            690.0,
+            934.0,
+            702.5,
+            949.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 52,
+          "classId": 0,
+          "box": [
+            695.0,
+            1276.0,
+            711.5,
+            1280.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 53,
+          "classId": 0,
+          "box": [
+            283.0,
+            1168.0,
+            301.5,
+            1180.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 54,
+          "classId": 0,
+          "box": [
+            415.0,
+            877.0,
+            432.0,
+            888.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 55,
+          "classId": 0,
+          "box": [
+            285.0,
+            746.0,
+            305.0,
+            760.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 56,
+          "classId": 0,
+          "box": [
+            348.0,
+            676.0,
+            362.0,
+            685.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 57,
+          "classId": 0,
+          "box": [
+            363.0,
+            664.0,
+            376.0,
+            672.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 58,
+          "classId": 0,
+          "box": [
+            369.0,
+            702.0,
+            385.0,
+            709.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 59,
+          "classId": 0,
+          "box": [
+            475.0,
+            783.0,
+            487.0,
+            791.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 60,
+          "classId": 0,
+          "box": [
+            598.0,
+            461.0,
+            609.5,
+            470.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 61,
+          "classId": 0,
+          "box": [
+            567.0,
+            438.0,
+            580.0,
+            449.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 62,
+          "classId": 0,
+          "box": [
+            867.0,
+            709.0,
+            883.0,
+            719.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 63,
+          "classId": 0,
+          "box": [
+            819.0,
+            721.0,
+            831.5,
+            729.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 64,
+          "classId": 0,
+          "box": [
+            807.0,
+            756.0,
+            822.5,
+            768.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 65,
+          "classId": 0,
+          "box": [
+            812.0,
+            684.0,
+            831.5,
+            694.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 66,
+          "classId": 0,
+          "box": [
+            791.0,
+            702.0,
+            803.5,
+            710.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 67,
+          "classId": 0,
+          "box": [
+            832.0,
+            762.0,
+            849.5,
+            771.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "cd9a76935c32bb38669c17b95570ca4e732553cae0b93b5fb27104851d412185",
+      "fileSha256": "cd9a76935c32bb38669c17b95570ca4e732553cae0b93b5fb27104851d412185",
+      "fileName": "cd9a7693",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 143.42,
+        "blurScore": 2.12
+      },
+      "alignment": {
+        "yaw": -2.06,
+        "pitch": -0.04,
+        "roll": -0.04,
+        "scaleRatio": 0.42,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 1,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            485.0,
+            472.0,
+            501.0,
+            482.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "695ed248b9f9d226db5d127b6e2b9f67ddb06a61ddb7dd6d3883ce469b79cfe4",
+      "fileSha256": "695ed248b9f9d226db5d127b6e2b9f67ddb06a61ddb7dd6d3883ce469b79cfe4",
+      "fileName": "695ed248",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": "FRONT",
+      "isProductPose": true,
+      "capturable": true,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 142.54,
+        "blurScore": 5.04
+      },
+      "alignment": {
+        "yaw": -0.07,
+        "pitch": -0.05,
+        "roll": -0.06,
+        "scaleRatio": 0.38,
+        "isAligned": true,
+        "sourceFramed": true
+      },
+      "truthCount": 5,
+      "inScopeTruthCount": 5,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            633.0,
+            352.0,
+            641.5,
+            360.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": true,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            628.0,
+            779.0,
+            637.0,
+            790.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": true,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            551.0,
+            662.0,
+            558.0,
+            670.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": true,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 3,
+          "classId": 0,
+          "box": [
+            705.0,
+            599.0,
+            711.5,
+            607.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": true,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 4,
+          "classId": 0,
+          "box": [
+            645.0,
+            361.0,
+            650.5,
+            367.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": true,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        }
+      ]
+    },
+    {
+      "sha256": "34653f7886bac74db6c67902ebf2c67bb7d122ab5c3fd44adff2aeb160c9a423",
+      "fileSha256": "34653f7886bac74db6c67902ebf2c67bb7d122ab5c3fd44adff2aeb160c9a423",
+      "fileName": "34653f78",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 140.47,
+        "blurScore": 5.34
+      },
+      "alignment": {
+        "yaw": 0.0,
+        "pitch": 0.11,
+        "roll": 0.03,
+        "scaleRatio": 0.7,
+        "isAligned": false,
+        "sourceFramed": false
+      },
+      "truthCount": 1,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            329.0,
+            657.0,
+            342.0,
+            671.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "1477b5b942e7c0e3a73e7d9e27e6642cc715a8673364b249cc51b295e1055b73",
+      "fileSha256": "1477b5b942e7c0e3a73e7d9e27e6642cc715a8673364b249cc51b295e1055b73",
+      "fileName": "1477b5b9",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 187.42,
+        "blurScore": 2.28
+      },
+      "alignment": {
+        "yaw": 2.11,
+        "pitch": 0.79,
+        "roll": -0.94,
+        "scaleRatio": 0.76,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 20,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            887.0,
+            539.0,
+            913.5,
+            556.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            867.0,
+            537.0,
+            886.0,
+            552.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            813.0,
+            595.0,
+            829.5,
+            610.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 3,
+          "classId": 0,
+          "box": [
+            969.0,
+            590.0,
+            988.0,
+            603.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 4,
+          "classId": 0,
+          "box": [
+            1087.0,
+            593.0,
+            1115.0,
+            610.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 5,
+          "classId": 0,
+          "box": [
+            1059.0,
+            630.0,
+            1083.0,
+            647.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 6,
+          "classId": 0,
+          "box": [
+            1081.0,
+            663.0,
+            1114.0,
+            679.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 7,
+          "classId": 0,
+          "box": [
+            1041.0,
+            714.0,
+            1065.0,
+            728.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 8,
+          "classId": 0,
+          "box": [
+            1114.0,
+            734.0,
+            1138.0,
+            751.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 9,
+          "classId": 0,
+          "box": [
+            971.0,
+            756.0,
+            998.0,
+            774.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 10,
+          "classId": 0,
+          "box": [
+            938.0,
+            691.0,
+            969.5,
+            711.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 11,
+          "classId": 0,
+          "box": [
+            908.0,
+            649.0,
+            934.5,
+            664.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 12,
+          "classId": 0,
+          "box": [
+            968.0,
+            615.0,
+            996.5,
+            631.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 13,
+          "classId": 0,
+          "box": [
+            841.0,
+            484.0,
+            870.0,
+            503.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 14,
+          "classId": 0,
+          "box": [
+            729.0,
+            351.0,
+            752.5,
+            364.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 15,
+          "classId": 0,
+          "box": [
+            630.0,
+            299.0,
+            652.0,
+            311.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 16,
+          "classId": 0,
+          "box": [
+            696.0,
+            333.0,
+            725.0,
+            353.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 17,
+          "classId": 0,
+          "box": [
+            932.0,
+            910.0,
+            962.0,
+            928.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 18,
+          "classId": 0,
+          "box": [
+            1070.0,
+            994.0,
+            1094.0,
+            1010.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 19,
+          "classId": 0,
+          "box": [
+            61.0,
+            623.0,
+            82.0,
+            636.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "4a1762ee136ff6c5e096ba6914063cf6d81fccb9fe492823cb4477d1e244462d",
+      "fileSha256": "4a1762ee136ff6c5e096ba6914063cf6d81fccb9fe492823cb4477d1e244462d",
+      "fileName": "4a1762ee",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": "FRONT",
+      "isProductPose": true,
+      "capturable": true,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 136.17,
+        "blurScore": 5.05
+      },
+      "alignment": {
+        "yaw": 0.02,
+        "pitch": -0.1,
+        "roll": 0.05,
+        "scaleRatio": 0.42,
+        "isAligned": true,
+        "sourceFramed": true
+      },
+      "truthCount": 2,
+      "inScopeTruthCount": 2,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            555.0,
+            651.0,
+            567.5,
+            673.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": true,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            891.0,
+            588.0,
+            902.5,
+            607.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": true,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        }
+      ]
+    },
+    {
+      "sha256": "fbc0cf2a30d99fec7b0708411bb25cecc5ac72864691dd576fdc4e409f046930",
+      "fileSha256": "fbc0cf2a30d99fec7b0708411bb25cecc5ac72864691dd576fdc4e409f046930",
+      "fileName": "fbc0cf2a",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 147.59,
+        "blurScore": 3.17
+      },
+      "alignment": {
+        "yaw": 1.67,
+        "pitch": -0.18,
+        "roll": 0.1,
+        "scaleRatio": 0.59,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 6,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            637.0,
+            949.0,
+            657.0,
+            963.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            968.0,
+            904.0,
+            985.0,
+            919.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            901.0,
+            898.0,
+            920.5,
+            914.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 3,
+          "classId": 0,
+          "box": [
+            1018.0,
+            998.0,
+            1040.0,
+            1016.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 4,
+          "classId": 0,
+          "box": [
+            882.0,
+            927.0,
+            898.5,
+            941.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 5,
+          "classId": 0,
+          "box": [
+            872.0,
+            951.0,
+            895.5,
+            965.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "934da30030fbd4a0ae9eb629ccbe2a37b0eb755aa4d8f81b442899a7270ffcbf",
+      "fileSha256": "934da30030fbd4a0ae9eb629ccbe2a37b0eb755aa4d8f81b442899a7270ffcbf",
+      "fileName": "934da300",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 155.19,
+        "blurScore": 2.67
+      },
+      "alignment": {
+        "yaw": 1.49,
+        "pitch": -0.06,
+        "roll": 0.16,
+        "scaleRatio": 0.52,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 2,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            747.0,
+            564.0,
+            758.0,
+            571.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            775.0,
+            573.0,
+            784.5,
+            579.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "82c79dcd31d4390c239f6e01b213a5f17a861a83974e24afbc2f82bafb8bf989",
+      "fileSha256": "82c79dcd31d4390c239f6e01b213a5f17a861a83974e24afbc2f82bafb8bf989",
+      "fileName": "82c79dcd",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 154.46,
+        "blurScore": 3.47
+      },
+      "alignment": {
+        "yaw": -2.6,
+        "pitch": -0.15,
+        "roll": 0.56,
+        "scaleRatio": 0.55,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 8,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            877.0,
+            730.0,
+            899.0,
+            763.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            732.0,
+            927.0,
+            748.0,
+            953.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            749.0,
+            820.0,
+            766.5,
+            847.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 3,
+          "classId": 0,
+          "box": [
+            814.0,
+            801.0,
+            832.0,
+            835.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 4,
+          "classId": 0,
+          "box": [
+            817.0,
+            913.0,
+            836.0,
+            934.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 5,
+          "classId": 0,
+          "box": [
+            893.0,
+            825.0,
+            906.0,
+            850.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 6,
+          "classId": 0,
+          "box": [
+            878.0,
+            809.0,
+            891.5,
+            827.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 7,
+          "classId": 0,
+          "box": [
+            861.0,
+            646.0,
+            874.5,
+            674.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "fa950ac5c13378d95f80526816876fa5f0940bfef813f7c2e7964ba32868a07b",
+      "fileSha256": "fa950ac5c13378d95f80526816876fa5f0940bfef813f7c2e7964ba32868a07b",
+      "fileName": "fa950ac5",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 172.37,
+        "blurScore": 2.35
+      },
+      "alignment": {
+        "yaw": 0.11,
+        "pitch": -0.24,
+        "roll": 0.17,
+        "scaleRatio": 0.4,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 49,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            599.0,
+            953.0,
+            612.5,
+            965.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            609.0,
+            824.0,
+            624.5,
+            836.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            662.0,
+            739.0,
+            685.0,
+            753.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 3,
+          "classId": 0,
+          "box": [
+            578.0,
+            733.0,
+            594.0,
+            749.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 4,
+          "classId": 0,
+          "box": [
+            546.0,
+            784.0,
+            564.5,
+            798.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 5,
+          "classId": 0,
+          "box": [
+            497.0,
+            900.0,
+            509.5,
+            909.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 6,
+          "classId": 0,
+          "box": [
+            829.0,
+            985.0,
+            840.5,
+            997.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 7,
+          "classId": 0,
+          "box": [
+            788.0,
+            1002.0,
+            804.5,
+            1014.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 8,
+          "classId": 0,
+          "box": [
+            814.0,
+            1132.0,
+            833.0,
+            1146.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 9,
+          "classId": 0,
+          "box": [
+            558.0,
+            665.0,
+            568.5,
+            675.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 10,
+          "classId": 0,
+          "box": [
+            750.0,
+            733.0,
+            763.0,
+            745.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 11,
+          "classId": 0,
+          "box": [
+            759.0,
+            796.0,
+            779.0,
+            816.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 12,
+          "classId": 0,
+          "box": [
+            801.0,
+            779.0,
+            817.0,
+            791.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 13,
+          "classId": 0,
+          "box": [
+            631.0,
+            889.0,
+            644.5,
+            901.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 14,
+          "classId": 0,
+          "box": [
+            411.0,
+            982.0,
+            424.5,
+            994.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 15,
+          "classId": 0,
+          "box": [
+            454.0,
+            982.0,
+            467.5,
+            993.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 16,
+          "classId": 0,
+          "box": [
+            691.0,
+            826.0,
+            704.0,
+            839.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 17,
+          "classId": 0,
+          "box": [
+            692.0,
+            932.0,
+            710.0,
+            942.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 18,
+          "classId": 0,
+          "box": [
+            776.0,
+            943.0,
+            789.0,
+            954.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 19,
+          "classId": 0,
+          "box": [
+            690.0,
+            995.0,
+            712.0,
+            1016.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 20,
+          "classId": 0,
+          "box": [
+            524.0,
+            840.0,
+            553.0,
+            854.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 21,
+          "classId": 0,
+          "box": [
+            430.0,
+            863.0,
+            477.5,
+            892.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 22,
+          "classId": 0,
+          "box": [
+            397.0,
+            876.0,
+            422.0,
+            897.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 23,
+          "classId": 0,
+          "box": [
+            497.0,
+            710.0,
+            514.5,
+            726.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 24,
+          "classId": 0,
+          "box": [
+            522.0,
+            688.0,
+            537.0,
+            703.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 25,
+          "classId": 0,
+          "box": [
+            513.0,
+            795.0,
+            523.0,
+            804.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 26,
+          "classId": 0,
+          "box": [
+            746.0,
+            536.0,
+            758.5,
+            544.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 27,
+          "classId": 0,
+          "box": [
+            606.0,
+            635.0,
+            620.5,
+            649.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 28,
+          "classId": 0,
+          "box": [
+            556.0,
+            651.0,
+            573.0,
+            663.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 29,
+          "classId": 0,
+          "box": [
+            812.0,
+            825.0,
+            827.5,
+            839.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 30,
+          "classId": 0,
+          "box": [
+            824.0,
+            942.0,
+            840.5,
+            953.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 31,
+          "classId": 0,
+          "box": [
+            296.0,
+            997.0,
+            309.5,
+            1006.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 32,
+          "classId": 0,
+          "box": [
+            292.0,
+            1012.0,
+            303.5,
+            1021.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 33,
+          "classId": 0,
+          "box": [
+            803.0,
+            1115.0,
+            817.5,
+            1124.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 34,
+          "classId": 0,
+          "box": [
+            834.0,
+            1124.0,
+            845.0,
+            1134.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 35,
+          "classId": 0,
+          "box": [
+            855.0,
+            1139.0,
+            868.5,
+            1148.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 36,
+          "classId": 0,
+          "box": [
+            623.0,
+            840.0,
+            636.5,
+            849.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 37,
+          "classId": 0,
+          "box": [
+            617.0,
+            832.0,
+            628.0,
+            842.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 38,
+          "classId": 0,
+          "box": [
+            673.0,
+            764.0,
+            695.5,
+            782.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 39,
+          "classId": 0,
+          "box": [
+            568.0,
+            661.0,
+            580.5,
+            673.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 40,
+          "classId": 0,
+          "box": [
+            552.0,
+            627.0,
+            570.0,
+            642.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 41,
+          "classId": 0,
+          "box": [
+            549.0,
+            602.0,
+            561.5,
+            615.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 42,
+          "classId": 0,
+          "box": [
+            577.0,
+            589.0,
+            587.5,
+            600.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 43,
+          "classId": 0,
+          "box": [
+            592.0,
+            577.0,
+            604.5,
+            589.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 44,
+          "classId": 0,
+          "box": [
+            604.0,
+            566.0,
+            620.5,
+            578.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 45,
+          "classId": 0,
+          "box": [
+            618.0,
+            588.0,
+            631.5,
+            599.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 46,
+          "classId": 0,
+          "box": [
+            777.0,
+            538.0,
+            793.5,
+            548.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 47,
+          "classId": 0,
+          "box": [
+            781.0,
+            920.0,
+            791.5,
+            930.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 48,
+          "classId": 0,
+          "box": [
+            838.0,
+            973.0,
+            849.0,
+            983.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "a0a05aa0e494b84a2c928227a4b8ccc88e1debe0ee4174c647bcf70f95c9beaa",
+      "fileSha256": "a0a05aa0e494b84a2c928227a4b8ccc88e1debe0ee4174c647bcf70f95c9beaa",
+      "fileName": "a0a05aa0",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": "FRONT",
+      "isProductPose": true,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 169.71,
+        "blurScore": 2.12
+      },
+      "alignment": {
+        "yaw": -0.09,
+        "pitch": -0.1,
+        "roll": 0.03,
+        "scaleRatio": 0.65,
+        "isAligned": true,
+        "sourceFramed": true
+      },
+      "truthCount": 1,
+      "inScopeTruthCount": 1,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            501.0,
+            518.0,
+            521.0,
+            536.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        }
+      ]
+    },
+    {
+      "sha256": "aefad60238f6062b4223c3e203d14419e182133cbe5cc45703fa19eea2774e7c",
+      "fileSha256": "aefad60238f6062b4223c3e203d14419e182133cbe5cc45703fa19eea2774e7c",
+      "fileName": "aefad602",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": "FRONT",
+      "isProductPose": true,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 149.79,
+        "blurScore": 2.47
+      },
+      "alignment": {
+        "yaw": 0.05,
+        "pitch": -0.02,
+        "roll": 0.06,
+        "scaleRatio": 0.47,
+        "isAligned": true,
+        "sourceFramed": true
+      },
+      "truthCount": 13,
+      "inScopeTruthCount": 13,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            888.0,
+            748.0,
+            909.0,
+            763.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            646.0,
+            841.0,
+            655.5,
+            849.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            611.0,
+            835.0,
+            618.0,
+            843.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 3,
+          "classId": 0,
+          "box": [
+            618.0,
+            820.0,
+            627.0,
+            828.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 4,
+          "classId": 0,
+          "box": [
+            519.0,
+            562.0,
+            531.0,
+            573.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 5,
+          "classId": 0,
+          "box": [
+            492.0,
+            558.0,
+            503.5,
+            569.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 6,
+          "classId": 0,
+          "box": [
+            465.0,
+            487.0,
+            480.5,
+            503.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 7,
+          "classId": 0,
+          "box": [
+            485.0,
+            586.0,
+            494.5,
+            595.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 8,
+          "classId": 0,
+          "box": [
+            479.0,
+            640.0,
+            487.5,
+            651.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 9,
+          "classId": 0,
+          "box": [
+            504.0,
+            622.0,
+            511.5,
+            630.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 10,
+          "classId": 0,
+          "box": [
+            515.0,
+            612.0,
+            524.0,
+            622.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 11,
+          "classId": 0,
+          "box": [
+            523.0,
+            512.0,
+            529.0,
+            520.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 12,
+          "classId": 0,
+          "box": [
+            542.0,
+            476.0,
+            550.0,
+            484.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        }
+      ]
+    },
+    {
+      "sha256": "5432a6e1c9306d7dba8d8f57dbec87b1983ec151b73ce9d6e2c9c1242ce3698d",
+      "fileSha256": "5432a6e1c9306d7dba8d8f57dbec87b1983ec151b73ce9d6e2c9c1242ce3698d",
+      "fileName": "5432a6e1",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": "LEFT",
+      "isProductPose": true,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 144.19,
+        "blurScore": 3.14
+      },
+      "alignment": {
+        "yaw": 0.52,
+        "pitch": 0.0,
+        "roll": 0.05,
+        "scaleRatio": 0.37,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 7,
+      "inScopeTruthCount": 4,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            637.0,
+            630.0,
+            651.5,
+            648.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            684.0,
+            587.0,
+            702.0,
+            601.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            655.0,
+            700.0,
+            666.0,
+            708.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 3,
+          "classId": 0,
+          "box": [
+            630.0,
+            818.0,
+            647.0,
+            833.0
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 4,
+          "classId": 0,
+          "box": [
+            641.0,
+            840.0,
+            652.5,
+            853.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_OCCLUDED_SIDE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Yan profil \u00e7ekiminde desteklenmeyen (yanak d\u0131\u015f\u0131) b\u00f6lgededir"
+        },
+        {
+          "annotationIndex": 5,
+          "classId": 0,
+          "box": [
+            727.0,
+            297.0,
+            739.5,
+            310.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_OCCLUDED_SIDE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Yan profil \u00e7ekiminde desteklenmeyen (yanak d\u0131\u015f\u0131) b\u00f6lgededir"
+        },
+        {
+          "annotationIndex": 6,
+          "classId": 0,
+          "box": [
+            726.0,
+            318.0,
+            740.0,
+            332.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_OCCLUDED_SIDE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Yan profil \u00e7ekiminde desteklenmeyen (yanak d\u0131\u015f\u0131) b\u00f6lgededir"
+        }
+      ]
+    },
+    {
+      "sha256": "e5e1245d6bc2b35ae47c7824f11244b1f4a0d9f85bca647e9dc35cac0fa96c6e",
+      "fileSha256": "e5e1245d6bc2b35ae47c7824f11244b1f4a0d9f85bca647e9dc35cac0fa96c6e",
+      "fileName": "e5e1245d",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 163.36,
+        "blurScore": 7.23
+      },
+      "alignment": {
+        "yaw": 3.2,
+        "pitch": -0.17,
+        "roll": -0.36,
+        "scaleRatio": 0.57,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 18,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            470.0,
+            383.0,
+            497.0,
+            423.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            410.0,
+            408.0,
+            433.0,
+            433.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            509.0,
+            286.0,
+            527.5,
+            301.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 3,
+          "classId": 0,
+          "box": [
+            602.0,
+            49.0,
+            637.5,
+            86.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 4,
+          "classId": 0,
+          "box": [
+            523.0,
+            1097.0,
+            544.0,
+            1119.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 5,
+          "classId": 0,
+          "box": [
+            749.0,
+            866.0,
+            766.5,
+            894.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 6,
+          "classId": 0,
+          "box": [
+            594.0,
+            1274.0,
+            602.0,
+            1280.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 7,
+          "classId": 0,
+          "box": [
+            637.0,
+            1265.0,
+            651.0,
+            1278.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 8,
+          "classId": 0,
+          "box": [
+            649.0,
+            1231.0,
+            660.5,
+            1247.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 9,
+          "classId": 0,
+          "box": [
+            592.0,
+            1199.0,
+            601.0,
+            1213.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 10,
+          "classId": 0,
+          "box": [
+            692.0,
+            1114.0,
+            701.5,
+            1130.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 11,
+          "classId": 0,
+          "box": [
+            610.0,
+            1029.0,
+            622.0,
+            1042.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 12,
+          "classId": 0,
+          "box": [
+            528.0,
+            1154.0,
+            534.5,
+            1169.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 13,
+          "classId": 0,
+          "box": [
+            472.0,
+            1222.0,
+            479.5,
+            1235.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 14,
+          "classId": 0,
+          "box": [
+            487.0,
+            1207.0,
+            496.0,
+            1220.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 15,
+          "classId": 0,
+          "box": [
+            535.0,
+            1236.0,
+            547.5,
+            1253.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 16,
+          "classId": 0,
+          "box": [
+            775.0,
+            977.0,
+            786.0,
+            988.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 17,
+          "classId": 0,
+          "box": [
+            824.0,
+            1253.0,
+            837.5,
+            1264.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "d9734b8f835ca82280e0c2df1a2813087d1487a081f8764822510cdd103bbd75",
+      "fileSha256": "d9734b8f835ca82280e0c2df1a2813087d1487a081f8764822510cdd103bbd75",
+      "fileName": "d9734b8f",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 117.69,
+        "blurScore": 2.37
+      },
+      "alignment": {
+        "yaw": 0.67,
+        "pitch": 0.1,
+        "roll": 0.18,
+        "scaleRatio": 1.02,
+        "isAligned": false,
+        "sourceFramed": false
+      },
+      "truthCount": 17,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            431.0,
+            433.0,
+            460.5,
+            449.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            986.0,
+            226.0,
+            1015.0,
+            240.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            855.0,
+            266.0,
+            891.5,
+            282.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 3,
+          "classId": 0,
+          "box": [
+            890.0,
+            224.0,
+            904.0,
+            234.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 4,
+          "classId": 0,
+          "box": [
+            1086.0,
+            401.0,
+            1110.0,
+            415.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 5,
+          "classId": 0,
+          "box": [
+            1242.0,
+            528.0,
+            1264.5,
+            542.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 6,
+          "classId": 0,
+          "box": [
+            483.0,
+            856.0,
+            507.5,
+            871.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 7,
+          "classId": 0,
+          "box": [
+            467.0,
+            879.0,
+            489.5,
+            899.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 8,
+          "classId": 0,
+          "box": [
+            586.0,
+            1024.0,
+            613.0,
+            1040.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 9,
+          "classId": 0,
+          "box": [
+            397.0,
+            961.0,
+            423.0,
+            980.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 10,
+          "classId": 0,
+          "box": [
+            918.0,
+            835.0,
+            937.5,
+            847.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 11,
+          "classId": 0,
+          "box": [
+            567.0,
+            796.0,
+            595.5,
+            820.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 12,
+          "classId": 0,
+          "box": [
+            776.0,
+            1050.0,
+            789.0,
+            1058.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 13,
+          "classId": 0,
+          "box": [
+            754.0,
+            1021.0,
+            765.0,
+            1029.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 14,
+          "classId": 0,
+          "box": [
+            587.0,
+            1109.0,
+            597.0,
+            1116.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 15,
+          "classId": 0,
+          "box": [
+            334.0,
+            800.0,
+            350.5,
+            811.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 16,
+          "classId": 0,
+          "box": [
+            823.0,
+            368.0,
+            832.5,
+            374.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "21c2b92e0679be0305c5fbd7f8a87de521346ee2d37d3cebba68fe3a98470f4b",
+      "fileSha256": "21c2b92e0679be0305c5fbd7f8a87de521346ee2d37d3cebba68fe3a98470f4b",
+      "fileName": "21c2b92e",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 145.96,
+        "blurScore": 2.99
+      },
+      "alignment": {
+        "yaw": 1.4,
+        "pitch": 0.0,
+        "roll": 0.15,
+        "scaleRatio": 0.76,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 3,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            1040.0,
+            211.0,
+            1060.5,
+            227.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            450.0,
+            1038.0,
+            465.5,
+            1050.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            233.0,
+            978.0,
+            245.0,
+            989.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "82d41fbcbefb6f9198c3c0eb09d94825f9689ad30a6550ece74546bab46798d6",
+      "fileSha256": "82d41fbcbefb6f9198c3c0eb09d94825f9689ad30a6550ece74546bab46798d6",
+      "fileName": "82d41fbc",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 162.91,
+        "blurScore": 1.71
+      },
+      "alignment": {
+        "yaw": 2.29,
+        "pitch": -0.04,
+        "roll": 0.04,
+        "scaleRatio": 0.74,
+        "isAligned": false,
+        "sourceFramed": false
+      },
+      "truthCount": 1,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            1121.0,
+            797.0,
+            1145.0,
+            814.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "29ba4815826eba7f48b6a6ddeda487e88be7b1a021e9974f50da5c00870df95b",
+      "fileSha256": "29ba4815826eba7f48b6a6ddeda487e88be7b1a021e9974f50da5c00870df95b",
+      "fileName": "29ba4815",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 157.33,
+        "blurScore": 3.64
+      },
+      "alignment": {
+        "yaw": 0.8,
+        "pitch": -0.06,
+        "roll": -0.08,
+        "scaleRatio": 0.44,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 3,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            655.0,
+            652.0,
+            678.0,
+            666.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            493.0,
+            729.0,
+            510.0,
+            740.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            455.0,
+            759.0,
+            469.5,
+            769.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "ee9ce3a27309bba1e776b2327fc792420c79fc918a21ea2bd7034a1d957d0c2f",
+      "fileSha256": "ee9ce3a27309bba1e776b2327fc792420c79fc918a21ea2bd7034a1d957d0c2f",
+      "fileName": "ee9ce3a2",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "NO_FACE",
+        "avgLuminance": 0.0,
+        "blurScore": 0.0
+      },
+      "alignment": null,
+      "truthCount": 1,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            405.0,
+            870.0,
+            423.0,
+            883.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_LANDMARK_FAILED",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Landmark tespiti ba\u015far\u0131s\u0131z oldu"
+        }
+      ]
+    },
+    {
+      "sha256": "424a750ad4f4c1613510f5c3e3cf3d06eca6394add8764e969d398bcf39ab3c2",
+      "fileSha256": "424a750ad4f4c1613510f5c3e3cf3d06eca6394add8764e969d398bcf39ab3c2",
+      "fileName": "424a750a",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": "FRONT",
+      "isProductPose": true,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 164.11,
+        "blurScore": 3.76
+      },
+      "alignment": {
+        "yaw": 0.19,
+        "pitch": -0.02,
+        "roll": 0.07,
+        "scaleRatio": 0.42,
+        "isAligned": true,
+        "sourceFramed": true
+      },
+      "truthCount": 6,
+      "inScopeTruthCount": 6,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            803.0,
+            169.0,
+            818.5,
+            182.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            629.0,
+            554.0,
+            644.0,
+            570.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 2,
+          "classId": 0,
+          "box": [
+            650.0,
+            567.0,
+            671.5,
+            580.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 3,
+          "classId": 0,
+          "box": [
+            493.0,
+            397.0,
+            511.0,
+            409.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 4,
+          "classId": 0,
+          "box": [
+            700.0,
+            547.0,
+            719.0,
+            562.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        },
+        {
+          "annotationIndex": 5,
+          "classId": 0,
+          "box": [
+            761.0,
+            588.0,
+            780.0,
+            599.5
+          ],
+          "scopeCategory": "IN_SCOPE_VISIBLE_REGION",
+          "isProductPoseInScope": true,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Desteklenen \u00fcr\u00fcn pozunda, g\u00f6r\u00fcn\u00fcr b\u00f6lgede ve analiz alan\u0131ndad\u0131r"
+        }
+      ]
+    },
+    {
+      "sha256": "140e8b2f62c8b9eda3ff35248e0a23e985d40772d51f94ad412ea2bdc71b9a3e",
+      "fileSha256": "140e8b2f62c8b9eda3ff35248e0a23e985d40772d51f94ad412ea2bdc71b9a3e",
+      "fileName": "140e8b2f",
+      "isNegative": false,
+      "width": 1280,
+      "height": 1280,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 128.47,
+        "blurScore": 2.41
+      },
+      "alignment": {
+        "yaw": -1.13,
+        "pitch": -0.04,
+        "roll": 0.06,
+        "scaleRatio": 0.48,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 2,
+      "inScopeTruthCount": 0,
+      "annotations": [
+        {
+          "annotationIndex": 0,
+          "classId": 0,
+          "box": [
+            453.0,
+            673.0,
+            460.0,
+            679.5
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        },
+        {
+          "annotationIndex": 1,
+          "classId": 0,
+          "box": [
+            516.0,
+            903.0,
+            523.0,
+            909.0
+          ],
+          "scopeCategory": "OUT_OF_SCOPE_EXTREME_POSE",
+          "isProductPoseInScope": false,
+          "isSnapshotCapturable": false,
+          "measurabilityReason": "Ba\u015f a\u00e7\u0131s\u0131 \u00fcr\u00fcn s\u00f6zle\u015fmesi d\u0131\u015f\u0131ndad\u0131r (FRONT, RIGHT veya LEFT de\u011fil)"
+        }
+      ]
+    },
+    {
+      "sha256": "234122275bf78b890e1dc6ed9ea4a2c98619c46aa289b80bea3f7dce807d7e9f",
+      "fileSha256": "234122275bf78b890e1dc6ed9ea4a2c98619c46aa289b80bea3f7dce807d7e9f",
+      "fileName": "23412227",
+      "isNegative": true,
+      "width": 640,
+      "height": 640,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 129.91,
+        "blurScore": 6.26
+      },
+      "alignment": {
+        "yaw": -0.64,
+        "pitch": -0.11,
+        "roll": -0.06,
+        "scaleRatio": 0.55,
+        "isAligned": false,
+        "sourceFramed": false
+      },
+      "truthCount": 0,
+      "inScopeTruthCount": 0,
+      "annotations": []
+    },
+    {
+      "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+      "fileSha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+      "fileName": "36e4010b",
+      "isNegative": true,
+      "width": 640,
+      "height": 640,
+      "productAngle": "FRONT",
+      "isProductPose": true,
+      "capturable": true,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 146.25,
+        "blurScore": 7.52
+      },
+      "alignment": {
+        "yaw": -0.17,
+        "pitch": -0.02,
+        "roll": 0.06,
+        "scaleRatio": 0.48,
+        "isAligned": true,
+        "sourceFramed": true
+      },
+      "truthCount": 0,
+      "inScopeTruthCount": 0,
+      "annotations": []
+    },
+    {
+      "sha256": "37b8ce483584b53937799680c67640029d08a04295bc5da586228017d95ea87e",
+      "fileSha256": "37b8ce483584b53937799680c67640029d08a04295bc5da586228017d95ea87e",
+      "fileName": "37b8ce48",
+      "isNegative": true,
+      "width": 640,
+      "height": 640,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 131.23,
+        "blurScore": 7.15
+      },
+      "alignment": {
+        "yaw": -1.0,
+        "pitch": -0.05,
+        "roll": -0.01,
+        "scaleRatio": 0.45,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 0,
+      "inScopeTruthCount": 0,
+      "annotations": []
+    },
+    {
+      "sha256": "20031f3502cc294041fe4d5cb9995b6961ba44b6cae7b8b44e01daeafaa752b2",
+      "fileSha256": "20031f3502cc294041fe4d5cb9995b6961ba44b6cae7b8b44e01daeafaa752b2",
+      "fileName": "20031f35",
+      "isNegative": true,
+      "width": 640,
+      "height": 640,
+      "productAngle": "FRONT",
+      "isProductPose": true,
+      "capturable": true,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 79.74,
+        "blurScore": 12.21
+      },
+      "alignment": {
+        "yaw": 0.15,
+        "pitch": -0.14,
+        "roll": 0.04,
+        "scaleRatio": 0.74,
+        "isAligned": true,
+        "sourceFramed": true
+      },
+      "truthCount": 0,
+      "inScopeTruthCount": 0,
+      "annotations": []
+    },
+    {
+      "sha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+      "fileSha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+      "fileName": "02386f86",
+      "isNegative": true,
+      "width": 640,
+      "height": 640,
+      "productAngle": "FRONT",
+      "isProductPose": true,
+      "capturable": true,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 147.41,
+        "blurScore": 4.66
+      },
+      "alignment": {
+        "yaw": 0.0,
+        "pitch": -0.03,
+        "roll": -0.01,
+        "scaleRatio": 0.61,
+        "isAligned": true,
+        "sourceFramed": true
+      },
+      "truthCount": 0,
+      "inScopeTruthCount": 0,
+      "annotations": []
+    },
+    {
+      "sha256": "0597e8113444b558862cdc20574b2386e091bfc14fad55e8ea2e3532a02fa552",
+      "fileSha256": "0597e8113444b558862cdc20574b2386e091bfc14fad55e8ea2e3532a02fa552",
+      "fileName": "0597e811",
+      "isNegative": true,
+      "width": 640,
+      "height": 640,
+      "productAngle": "LEFT",
+      "isProductPose": true,
+      "capturable": true,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 146.46,
+        "blurScore": 4.81
+      },
+      "alignment": {
+        "yaw": 0.48,
+        "pitch": -0.02,
+        "roll": -0.04,
+        "scaleRatio": 0.54,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 0,
+      "inScopeTruthCount": 0,
+      "annotations": []
+    },
+    {
+      "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+      "fileSha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+      "fileName": "0560bfd8",
+      "isNegative": true,
+      "width": 1024,
+      "height": 1024,
+      "productAngle": "FRONT",
+      "isProductPose": true,
+      "capturable": true,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 155.91,
+        "blurScore": 4.51
+      },
+      "alignment": {
+        "yaw": -0.04,
+        "pitch": -0.16,
+        "roll": -0.01,
+        "scaleRatio": 0.57,
+        "isAligned": true,
+        "sourceFramed": true
+      },
+      "truthCount": 0,
+      "inScopeTruthCount": 0,
+      "annotations": []
+    },
+    {
+      "sha256": "0f3354ae440284287476130b110bf1d6e941102732d9205f7aa52c74fb1b7926",
+      "fileSha256": "0f3354ae440284287476130b110bf1d6e941102732d9205f7aa52c74fb1b7926",
+      "fileName": "0f3354ae",
+      "isNegative": true,
+      "width": 1024,
+      "height": 1024,
+      "productAngle": "RIGHT",
+      "isProductPose": true,
+      "capturable": true,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 110.85,
+        "blurScore": 4.27
+      },
+      "alignment": {
+        "yaw": -0.36,
+        "pitch": -0.09,
+        "roll": -0.01,
+        "scaleRatio": 0.56,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 0,
+      "inScopeTruthCount": 0,
+      "annotations": []
+    },
+    {
+      "sha256": "0a153e08c43751a2a4d15b9b6b7c048a627a587b5b55d24c6582d71e10cbfd35",
+      "fileSha256": "0a153e08c43751a2a4d15b9b6b7c048a627a587b5b55d24c6582d71e10cbfd35",
+      "fileName": "0a153e08",
+      "isNegative": true,
+      "width": 640,
+      "height": 640,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 144.83,
+        "blurScore": 6.45
+      },
+      "alignment": {
+        "yaw": 0.27,
+        "pitch": -0.1,
+        "roll": 0.04,
+        "scaleRatio": 0.55,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 0,
+      "inScopeTruthCount": 0,
+      "annotations": []
+    },
+    {
+      "sha256": "0d891a034eeac482c96c7dec9f7e89e5fa45219bd429171c6d3da62856733963",
+      "fileSha256": "0d891a034eeac482c96c7dec9f7e89e5fa45219bd429171c6d3da62856733963",
+      "fileName": "0d891a03",
+      "isNegative": true,
+      "width": 640,
+      "height": 640,
+      "productAngle": "RIGHT",
+      "isProductPose": true,
+      "capturable": true,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 131.38,
+        "blurScore": 9.58
+      },
+      "alignment": {
+        "yaw": -0.39,
+        "pitch": -0.1,
+        "roll": 0.0,
+        "scaleRatio": 0.62,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 0,
+      "inScopeTruthCount": 0,
+      "annotations": []
+    },
+    {
+      "sha256": "0583917f562cb97543c70d88072941faeaa9a551ad20f91fee796eb7c2444560",
+      "fileSha256": "0583917f562cb97543c70d88072941faeaa9a551ad20f91fee796eb7c2444560",
+      "fileName": "0583917f",
+      "isNegative": true,
+      "width": 640,
+      "height": 640,
+      "productAngle": "RIGHT",
+      "isProductPose": true,
+      "capturable": true,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 121.26,
+        "blurScore": 6.86
+      },
+      "alignment": {
+        "yaw": -0.55,
+        "pitch": -0.06,
+        "roll": 0.02,
+        "scaleRatio": 0.56,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 0,
+      "inScopeTruthCount": 0,
+      "annotations": []
+    },
+    {
+      "sha256": "11b8f6a4d42600a768f00055df9e0ab80840b8756059366473bdf7c9c183f558",
+      "fileSha256": "11b8f6a4d42600a768f00055df9e0ab80840b8756059366473bdf7c9c183f558",
+      "fileName": "11b8f6a4",
+      "isNegative": true,
+      "width": 640,
+      "height": 640,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 148.96,
+        "blurScore": 6.19
+      },
+      "alignment": {
+        "yaw": -0.07,
+        "pitch": -0.27,
+        "roll": 0.01,
+        "scaleRatio": 0.62,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 0,
+      "inScopeTruthCount": 0,
+      "annotations": []
+    },
+    {
+      "sha256": "33da7a527931d29e23b6ab093093c0c4416938e8c0b17a5b2b6ad7af3112c1e0",
+      "fileSha256": "33da7a527931d29e23b6ab093093c0c4416938e8c0b17a5b2b6ad7af3112c1e0",
+      "fileName": "33da7a52",
+      "isNegative": true,
+      "width": 640,
+      "height": 640,
+      "productAngle": "FRONT",
+      "isProductPose": true,
+      "capturable": true,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 153.23,
+        "blurScore": 7.71
+      },
+      "alignment": {
+        "yaw": -0.05,
+        "pitch": -0.09,
+        "roll": 0.03,
+        "scaleRatio": 0.25,
+        "isAligned": true,
+        "sourceFramed": true
+      },
+      "truthCount": 0,
+      "inScopeTruthCount": 0,
+      "annotations": []
+    },
+    {
+      "sha256": "6a4ef17685f47b842d04dc14c4e7a825d8a3cff69ed5670d9ce9b7f2fbf623a8",
+      "fileSha256": "6a4ef17685f47b842d04dc14c4e7a825d8a3cff69ed5670d9ce9b7f2fbf623a8",
+      "fileName": "6a4ef176",
+      "isNegative": true,
+      "width": 640,
+      "height": 640,
+      "productAngle": null,
+      "isProductPose": false,
+      "capturable": false,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 83.25,
+        "blurScore": 7.32
+      },
+      "alignment": {
+        "yaw": -0.4,
+        "pitch": 0.06,
+        "roll": -0.17,
+        "scaleRatio": 0.39,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "truthCount": 0,
+      "inScopeTruthCount": 0,
+      "annotations": []
+    },
+    {
+      "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+      "fileSha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+      "fileName": "02413bf9",
+      "isNegative": true,
+      "width": 640,
+      "height": 640,
+      "productAngle": "FRONT",
+      "isProductPose": true,
+      "capturable": true,
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 100.94,
+        "blurScore": 8.65
+      },
+      "alignment": {
+        "yaw": 0.03,
+        "pitch": -0.05,
+        "roll": -0.03,
+        "scaleRatio": 0.32,
+        "isAligned": true,
+        "sourceFramed": true
+      },
+      "truthCount": 0,
+      "inScopeTruthCount": 0,
+      "annotations": []
+    }
+  ]
+}

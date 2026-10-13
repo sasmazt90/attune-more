@@ -300,22 +300,37 @@ def predict_val_fast(net, val_rows, tile_size=384, stride=288):
     return results
 
 
-def evaluate_validation_epoch(net, val_rows, threshold=0.70, nms_threshold=0.30):
+MANIFEST_PATH = ROOT / 'audit-results/acne-detection-verification-20261013/annotation-scope-manifest.json'
+
+
+def evaluate_validation_epoch(net, val_rows, manifest=None, threshold=0.70, nms_threshold=0.30):
     """Evaluates detector on validation set using product contract:
-    - In-scope IoU50 recall (same scope for numerator and denominator)
+    - In-scope IoU50 recall (product pose in-scope, 53 truth pimples)
     - In-scope IoU30 recall
-    - Verified negative control FP / image
-    - Annotation unknown candidates (on positive images)
+    - Capturable IoU50 recall (capturable in-scope, 14 truth pimples)
+    - Capturable IoU30 recall
+    - All-data IoU50/IoU30 recall (total 276 pimples)
+    - Verified negative control FP / image (15 negative images)
+    - Never defaults missing scopeCategory to IN_SCOPE_VISIBLE_REGION.
     - Global F1 is None (PARTIAL_ANNOTATION_UNKNOWN_SKIN)
     """
+    if manifest is None and MANIFEST_PATH.exists():
+        with open(MANIFEST_PATH, 'r', encoding='utf-8') as f:
+            manifest = json.load(f)
+
+    manifest_lookup = {im['sha256']: im for im in manifest.get('images', [])} if manifest else {}
+
     val_preds = predict_val_fast(net, val_rows, tile_size=384, stride=288)
 
     total_truth = 0
     in_scope_truth = 0
+    capturable_truth = 0
     matched_50 = 0
     matched_30 = 0
     in_scope_tp50 = 0
     in_scope_tp30 = 0
+    capturable_tp50 = 0
+    capturable_tp30 = 0
     verified_neg_fp = 0
     neg_images = 0
     annotation_unknown = 0
@@ -323,7 +338,14 @@ def evaluate_validation_epoch(net, val_rows, threshold=0.70, nms_threshold=0.30)
     for r, p_boxes in zip(val_rows, val_preds):
         is_neg = bool(r.get('isNegative') or not r.get('annotations'))
         truth_boxes = [a['box'] for a in r.get('annotations', []) if a.get('classId') == 0]
-        truth_categories = [a.get('scopeCategory', 'IN_SCOPE_VISIBLE_REGION') for a in r.get('annotations', []) if a.get('classId') == 0]
+        
+        m_entry = manifest_lookup.get(r['sha256'])
+        if m_entry:
+            truth_categories = [ann['scopeCategory'] for ann in m_entry['annotations']]
+            is_capturable_img = bool(m_entry.get('capturable'))
+        else:
+            truth_categories = [a.get('scopeCategory', 'OUT_OF_SCOPE_UNKNOWN') for a in r.get('annotations', []) if a.get('classId') == 0]
+            is_capturable_img = False
 
         # Filter boxes by confidence threshold
         kept = [b for b in p_boxes if b[4] >= threshold]
@@ -335,12 +357,19 @@ def evaluate_validation_epoch(net, val_rows, threshold=0.70, nms_threshold=0.30)
         in_s_tp50 = len(set(matched_t50).intersection(set(in_scope_indices)))
         in_s_tp30 = len(set(matched_t30).intersection(set(in_scope_indices)))
 
+        cap_indices = [i for i in in_scope_indices if is_capturable_img]
+        c_tp50 = len(set(matched_t50).intersection(set(cap_indices)))
+        c_tp30 = len(set(matched_t30).intersection(set(cap_indices)))
+
         total_truth += len(truth_boxes)
         in_scope_truth += len(in_scope_indices)
+        capturable_truth += len(cap_indices)
         matched_50 += len(matched_t50)
         matched_30 += len(matched_t30)
         in_scope_tp50 += in_s_tp50
         in_scope_tp30 += in_s_tp30
+        capturable_tp50 += c_tp50
+        capturable_tp30 += c_tp30
 
         if is_neg:
             verified_neg_fp += len(kept)
@@ -350,6 +379,8 @@ def evaluate_validation_epoch(net, val_rows, threshold=0.70, nms_threshold=0.30)
 
     in_scope_rec50 = compute_scope_recall(in_scope_tp50, in_scope_truth)
     in_scope_rec30 = compute_scope_recall(in_scope_tp30, in_scope_truth)
+    cap_rec50 = compute_scope_recall(capturable_tp50, capturable_truth)
+    cap_rec30 = compute_scope_recall(capturable_tp30, capturable_truth)
     all_rec50 = compute_scope_recall(matched_50, total_truth)
     all_rec30 = compute_scope_recall(matched_30, total_truth)
     mean_neg_fp = round(verified_neg_fp / max(1, neg_images), 4) if neg_images > 0 else 0.0
@@ -360,6 +391,11 @@ def evaluate_validation_epoch(net, val_rows, threshold=0.70, nms_threshold=0.30)
         'inScopeTp50': in_scope_tp50,
         'inScopeTp30': in_scope_tp30,
         'inScopeTruth': in_scope_truth,
+        'capturableRec50': cap_rec50,
+        'capturableRec30': cap_rec30,
+        'capturableTp50': capturable_tp50,
+        'capturableTp30': capturable_tp30,
+        'capturableTruth': capturable_truth,
         'allRec50': all_rec50,
         'allRec30': all_rec30,
         'allTp50': matched_50,
@@ -651,6 +687,16 @@ def main():
             'val_in_scope_tp50': val_eval['inScopeTp50'],
             'val_in_scope_tp30': val_eval['inScopeTp30'],
             'val_in_scope_truth': val_eval['inScopeTruth'],
+            'val_capturable_rec50': val_eval['capturableRec50'],
+            'val_capturable_rec30': val_eval['capturableRec30'],
+            'val_capturable_tp50': val_eval['capturableTp50'],
+            'val_capturable_tp30': val_eval['capturableTp30'],
+            'val_capturable_truth': val_eval['capturableTruth'],
+            'val_all_rec50': val_eval['allRec50'],
+            'val_all_rec30': val_eval['allRec30'],
+            'val_all_tp50': val_eval['allTp50'],
+            'val_all_tp30': val_eval['allTp30'],
+            'val_all_truth': val_eval['allTruth'],
             'val_verified_neg_fp': val_eval['verifiedNegFp'],
             'val_mean_neg_fp': val_eval['meanNegFp'],
             'val_annotation_unknown': val_eval['annotationUnknown'],

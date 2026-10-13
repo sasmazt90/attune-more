@@ -1,0 +1,145 @@
+{
+  "proofVersion": "multi-angle-pipeline-proof-20261013-v1",
+  "timestamp": "2026-10-13T08:03:42.227Z",
+  "conclusion": "The vehicle-app codebase explicitly routes multi-angle alignment through matchesSkinAngle(curAlign, target), completely bypassing frontal isAligned. RIGHT side capture 55d380f7 successfully passes all product gates. LEFT side capture 5432a6e1 matches LEFT angle but is rejected solely by checkQuality (blurScore 3.14 < 4.0 threshold).",
+  "cases": [
+    {
+      "targetAngle": "FRONT",
+      "sha256": "695ed248b9f9d226db5d127b6e2b9f67ddb06a61ddb7dd6d3883ce469b79cfe4",
+      "fileName": "695ed248",
+      "alignment": {
+        "yaw": -0.07,
+        "pitch": -0.05,
+        "roll": -0.06,
+        "scaleRatio": 0.38,
+        "isAligned": true,
+        "sourceFramed": true
+      },
+      "poseChecks": {
+        "matchesFront": true,
+        "matchesRight": false,
+        "matchesLeft": false,
+        "matchesTarget": true
+      },
+      "workflowGating": {
+        "singleAngleMode_aligned": true,
+        "multiAngleMode_aligned": true,
+        "sideCapturesRequireFrontalIsAligned": false,
+        "contractNote": "In page.tsx (line 618), multi-angle mode uses matchesSkinAngle(curAlign, target) directly, so side profiles are NEVER evaluated against curAlign.isAligned."
+      },
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 142.54,
+        "blurScore": 5.04
+      },
+      "completeFaceCheck": {
+        "passed": true,
+        "error": null
+      },
+      "snapshot": {
+        "generated": true,
+        "allowedRois": [
+          "forehead",
+          "rightCheek",
+          "leftCheek",
+          "nose",
+          "chin",
+          "periorbital"
+        ],
+        "error": null
+      },
+      "finalCapturableStatus": true,
+      "rejectionReason": "ACCEPTED_CAPTURABLE"
+    },
+    {
+      "targetAngle": "RIGHT",
+      "sha256": "55d380f724bc6b0612f878ee1b70997493edf1c1aecb8cf9d447c050af90f43a",
+      "fileName": "55d380f7",
+      "alignment": {
+        "yaw": -0.49,
+        "pitch": -0.13,
+        "roll": 0.12,
+        "scaleRatio": 0.6,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "poseChecks": {
+        "matchesFront": false,
+        "matchesRight": true,
+        "matchesLeft": false,
+        "matchesTarget": true
+      },
+      "workflowGating": {
+        "singleAngleMode_aligned": false,
+        "multiAngleMode_aligned": true,
+        "sideCapturesRequireFrontalIsAligned": false,
+        "contractNote": "In page.tsx (line 618), multi-angle mode uses matchesSkinAngle(curAlign, target) directly, so side profiles are NEVER evaluated against curAlign.isAligned."
+      },
+      "quality": {
+        "isValid": true,
+        "status": "OPTIMAL",
+        "avgLuminance": 159.24,
+        "blurScore": 4.62
+      },
+      "completeFaceCheck": {
+        "passed": true,
+        "error": null
+      },
+      "snapshot": {
+        "generated": true,
+        "allowedRois": [
+          "leftCheek"
+        ],
+        "error": null
+      },
+      "finalCapturableStatus": true,
+      "rejectionReason": "ACCEPTED_CAPTURABLE"
+    },
+    {
+      "targetAngle": "LEFT",
+      "sha256": "5432a6e1c9306d7dba8d8f57dbec87b1983ec151b73ce9d6e2c9c1242ce3698d",
+      "fileName": "5432a6e1",
+      "alignment": {
+        "yaw": 0.52,
+        "pitch": 0,
+        "roll": 0.05,
+        "scaleRatio": 0.37,
+        "isAligned": false,
+        "sourceFramed": true
+      },
+      "poseChecks": {
+        "matchesFront": false,
+        "matchesRight": false,
+        "matchesLeft": true,
+        "matchesTarget": true
+      },
+      "workflowGating": {
+        "singleAngleMode_aligned": false,
+        "multiAngleMode_aligned": true,
+        "sideCapturesRequireFrontalIsAligned": false,
+        "contractNote": "In page.tsx (line 618), multi-angle mode uses matchesSkinAngle(curAlign, target) directly, so side profiles are NEVER evaluated against curAlign.isAligned."
+      },
+      "quality": {
+        "isValid": false,
+        "status": "BLURRY",
+        "avgLuminance": 144.19,
+        "blurScore": 3.14,
+        "warningMessageTr": "Görüntü ayrıntısı yetersiz. Kamera netliğini ve yüz aydınlatmasını kontrol edin."
+      },
+      "completeFaceCheck": {
+        "passed": true,
+        "error": null
+      },
+      "snapshot": {
+        "generated": true,
+        "allowedRois": [
+          "rightCheek"
+        ],
+        "error": null
+      },
+      "finalCapturableStatus": false,
+      "rejectionReason": "QUALITY_REJECTED_BLURRY_BLUR_3.14"
+    }
+  ]
+}

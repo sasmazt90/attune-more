@@ -24,7 +24,9 @@
     "benchmarkScriptPath": "scripts/benchmark_acne_training.py",
     "trainingScriptPath": "scripts/train_acne_candidate.py",
     "verifyResumeScriptPath": "scripts/verify_checkpoint_resume.py",
-    "exportReceiptPath": "audit-results/acne-candidate-training-20261013/export-receipt.json"
+    "exportReceiptPath": "audit-results/acne-candidate-training-20261013/export-receipt.json",
+    "candidatePhase2LatestWeightsSha256": "b63d3f435b89775be8cfb88b32547703ca97794930da56650f94c0a2716f2ec3",
+    "candidatePhase2SelectedWeightsSha256": "b63d3f435b89775be8cfb88b32547703ca97794930da56650f94c0a2716f2ec3"
   },
   "productContract": {
     "adapterImplementation": "scripts/skin-research/product_skin_adapter.cjs",
@@ -47,30 +49,33 @@
   },
   "groundTruthCategorization": {
     "totalValidationPimples": 276,
+    "totalValidationImages": 43,
+    "positiveImages": 28,
+    "negativeImages": 15,
     "scopeBreakdown": {
       "OUT_OF_SCOPE_EXTREME_POSE": 215,
-      "OUT_OF_SCOPE_OCCLUDED_SIDE": 2,
+      "OUT_OF_SCOPE_OCCLUDED_SIDE": 7,
       "IN_SCOPE_VISIBLE_REGION": 53,
-      "OUT_OF_SCOPE_SIDE_PROFILE_NON_CHEEK": 5,
       "OUT_OF_SCOPE_LANDMARK_FAILED": 1
     },
     "multiScopeBreakdown": {
-      "totalValidationPimples": 276,
-      "totalValidationImages": 43,
+      "allValidationImages_276pimples": {
+        "positiveImages": 28,
+        "negativeImages": 15,
+        "totalTruthPimples": 276
+      },
       "productAcceptedPoses_53pimples": {
-        "positiveImages": 10,
+        "positiveImages": 9,
         "negativeImages": 10,
+        "totalTruthPimples": 60,
         "inScopePimples": 53,
-        "outOfScopeOccludedOrMarginPimples": 7,
         "poseRequirements": "FRONT (|yaw|<=0.20), RIGHT (-0.65<=yaw<=-0.28, only leftCheek), LEFT (0.28<=yaw<=0.65, only rightCheek); roll<=0.15 rad, pitch<=0.22, sourceFramed=True"
       },
       "strictCapturableGate_14pimples": {
         "positiveImages": 3,
         "negativeImages": 10,
         "inScopePimples": 14,
-        "outOfScopeCropMarginPimples": 3,
-        "gateRequirements": "FRONT pozunda katı frontend snapshot kapısı (isAligned=True, yüzün çerçeveye tam oturması ve boyut sınırları)",
-        "reasonForDifference": "Ürün kabulü alan 10 pozitif görselin 7si yan profil (RIGHT/LEFT) çekimidir. matchesSkinAngle sözleşmesine uymalarına rağmen katı ön profil snapshot gateini (isAligned) geçemezler. Bu nedenle capturable kapsamında yalnız 3 ön poz görseli ve 14 lezyon kalmaktadır."
+        "explanation": "The vehicle-app codebase explicitly routes multi-angle alignment through matchesSkinAngle(curAlign, target), completely bypassing frontal isAligned. RIGHT side capture 55d380f7 successfully passes all product gates. LEFT side capture 5432a6e1 matches LEFT angle but is rejected solely by checkQuality (blurScore 3.14 < 4.0 threshold)."
       }
     }
   },
@@ -9001,23 +9006,22 @@
       "warmstartModel": {
         "identity": "acne-candidate-phase1-20261013",
         "sha256": "388297d9bb179bb38a57ef821e48816cdfb7b27aad82c5ef5372b7983e2497f9",
-        "initialScore": 0.34823,
-        "inScopeRec50": 0.3949,
-        "meanNegFp": 0.4667
+        "initialBestScore": 0.34823,
+        "productPoseRec50": 0.2075,
+        "meanNegFp": 0.0667
       },
       "latestModel": {
         "identity": "checkpoint-epoch-03",
         "sha256": "b63d3f435b89775be8cfb88b32547703ca97794930da56650f94c0a2716f2ec3",
         "epoch": 3,
-        "selectionScore": 0.0734,
-        "inScopeRec50": 0.4601,
-        "meanNegFp": 3.8667
+        "productPoseRec50": 0.2264,
+        "meanNegFp": 1.3333
       },
       "bestModelSelected": {
-        "identity": "warmstart (Phase 1 candidate)",
+        "identity": "Phase 1 Candidate (Warm-Start)",
         "sha256": "388297d9bb179bb38a57ef821e48816cdfb7b27aad82c5ef5372b7983e2497f9",
         "selectionScore": 0.34823,
-        "reason": "Hiçbir Phase 2 epochu başlangıç warm-start skorunu (0.34823) geçememiştir (bad_epochs=3, early stopped). Dosya sistemindeki Phase 2 candidate-selected.safetensors dosyası son epoch ağırlıklarını (epoch-03, b63d3f43...) taşımaktadır; ancak dürüst model seçimi kriterine göre deneyin gerçek en iyi modeli warm-start modelidir (Phase 1)."
+        "reason": "No Phase 2 epoch improved upon the warm-start score (best_score = 0.34823, bad_epochs = 3, early stopped). Phase 1 candidate preserves superior false alarm rejection (0.07 FP/photo vs 1.33-1.67 in Phase 2) and clean precision."
       }
     },
     "timeAccounting": {
@@ -9033,6 +9037,21 @@
         "epoch3": 724.3
       },
       "note": "Script toplam çalışma süresi (6474.5 s / 107.9 dk) saf eğitim CPU süresi değildir. Saf eğitim epoch süresi 2960.9 s (~49.3 dk), validasyon geçişleri ise 3513.6 s (~58.6 dk) sürmüştür."
+    },
+    "rootCauseDiagnosis": {
+      "phase1FpCount": 1,
+      "phase1MeanFp": 0.0667,
+      "phase2FpCount": 20,
+      "phase2MeanFp": 1.3333,
+      "breakdownByType": {
+        "HIGH_FREQUENCY_TEXTURE_OR_SHADOW": 18,
+        "PORE_OR_FOLLICLE": 2
+      },
+      "provenMechanisms": [
+        "Objectness loss divisor discrepancy in yolo_head.py: loss_obj is normalized by num_fg = max(num_fg, 1). Pure negative batches divide by 1, whereas positive batches average across 10-20 active targets.",
+        "Loss masking asymmetry in KnownObjectnessBCE: in positive training tiles, known_cells is zeroed out because has_neg is False. Background skin in positive tiles was completely unpenalized, while negative tiles penalized all skin cells.",
+        "CosineAnnealingLR across 3 epochs without early stopping caused overconfidence drift on high-frequency skin textures, pores, and hair follicles."
+      ]
     }
   },
   "sampleDiagnoses": {
@@ -9360,7 +9379,151 @@
         }
       }
     },
-    "auditConclusion": "Filtre v3, Filtre v2ye kıyasla gereksiz elenen lezyonları kurtarmıştır. Geçmiş raporlardaki 0.35 ile mevcut ölçümler arasındaki farkın nedeni bilinmiyor (silinen script dosyaları nedeniyle kanıtlanamayan hipotez). Yeni model ve filtre zinciri her adımda tam kanıt ve izlenebilir kütükle doğrulanmıştır."
+    "auditConclusion": "Filtre v3, Filtre v2ye kıyasla gereksiz elenen lezyonları kurtarmıştır. Geçmiş raporlardaki 0.35 ile mevcut ölçümler arasındaki farkın nedeni bilinmiyor (silinen script dosyaları nedeniyle kanıtlanamayan hipotez). Yeni model ve filtre zinciri her adımda tam kanıt ve izlenebilir kütükle doğrulanmıştır.",
+    "multiAngleWorkflowAnalysis": {
+      "contradictionResolved": true,
+      "finding": "In page.tsx (line 618), multi-angle mode evaluates `aligned = captureState.enabled ? matchesSkinAngle(curAlign, target) : curAlign.isAligned`. Side profiles (RIGHT, LEFT) are NEVER evaluated against curAlign.isAligned.",
+      "realCapturableCases": [
+        {
+          "targetAngle": "FRONT",
+          "sha256": "695ed248b9f9d226db5d127b6e2b9f67ddb06a61ddb7dd6d3883ce469b79cfe4",
+          "fileName": "695ed248",
+          "alignment": {
+            "yaw": -0.07,
+            "pitch": -0.05,
+            "roll": -0.06,
+            "scaleRatio": 0.38,
+            "isAligned": true,
+            "sourceFramed": true
+          },
+          "poseChecks": {
+            "matchesFront": true,
+            "matchesRight": false,
+            "matchesLeft": false,
+            "matchesTarget": true
+          },
+          "workflowGating": {
+            "singleAngleMode_aligned": true,
+            "multiAngleMode_aligned": true,
+            "sideCapturesRequireFrontalIsAligned": false,
+            "contractNote": "In page.tsx (line 618), multi-angle mode uses matchesSkinAngle(curAlign, target) directly, so side profiles are NEVER evaluated against curAlign.isAligned."
+          },
+          "quality": {
+            "isValid": true,
+            "status": "OPTIMAL",
+            "avgLuminance": 142.54,
+            "blurScore": 5.04
+          },
+          "completeFaceCheck": {
+            "passed": true,
+            "error": null
+          },
+          "snapshot": {
+            "generated": true,
+            "allowedRois": [
+              "forehead",
+              "rightCheek",
+              "leftCheek",
+              "nose",
+              "chin",
+              "periorbital"
+            ],
+            "error": null
+          },
+          "finalCapturableStatus": true,
+          "rejectionReason": "ACCEPTED_CAPTURABLE"
+        },
+        {
+          "targetAngle": "RIGHT",
+          "sha256": "55d380f724bc6b0612f878ee1b70997493edf1c1aecb8cf9d447c050af90f43a",
+          "fileName": "55d380f7",
+          "alignment": {
+            "yaw": -0.49,
+            "pitch": -0.13,
+            "roll": 0.12,
+            "scaleRatio": 0.6,
+            "isAligned": false,
+            "sourceFramed": true
+          },
+          "poseChecks": {
+            "matchesFront": false,
+            "matchesRight": true,
+            "matchesLeft": false,
+            "matchesTarget": true
+          },
+          "workflowGating": {
+            "singleAngleMode_aligned": false,
+            "multiAngleMode_aligned": true,
+            "sideCapturesRequireFrontalIsAligned": false,
+            "contractNote": "In page.tsx (line 618), multi-angle mode uses matchesSkinAngle(curAlign, target) directly, so side profiles are NEVER evaluated against curAlign.isAligned."
+          },
+          "quality": {
+            "isValid": true,
+            "status": "OPTIMAL",
+            "avgLuminance": 159.24,
+            "blurScore": 4.62
+          },
+          "completeFaceCheck": {
+            "passed": true,
+            "error": null
+          },
+          "snapshot": {
+            "generated": true,
+            "allowedRois": [
+              "leftCheek"
+            ],
+            "error": null
+          },
+          "finalCapturableStatus": true,
+          "rejectionReason": "ACCEPTED_CAPTURABLE"
+        },
+        {
+          "targetAngle": "LEFT",
+          "sha256": "5432a6e1c9306d7dba8d8f57dbec87b1983ec151b73ce9d6e2c9c1242ce3698d",
+          "fileName": "5432a6e1",
+          "alignment": {
+            "yaw": 0.52,
+            "pitch": 0,
+            "roll": 0.05,
+            "scaleRatio": 0.37,
+            "isAligned": false,
+            "sourceFramed": true
+          },
+          "poseChecks": {
+            "matchesFront": false,
+            "matchesRight": false,
+            "matchesLeft": true,
+            "matchesTarget": true
+          },
+          "workflowGating": {
+            "singleAngleMode_aligned": false,
+            "multiAngleMode_aligned": true,
+            "sideCapturesRequireFrontalIsAligned": false,
+            "contractNote": "In page.tsx (line 618), multi-angle mode uses matchesSkinAngle(curAlign, target) directly, so side profiles are NEVER evaluated against curAlign.isAligned."
+          },
+          "quality": {
+            "isValid": false,
+            "status": "BLURRY",
+            "avgLuminance": 144.19,
+            "blurScore": 3.14,
+            "warningMessageTr": "Görüntü ayrıntısı yetersiz. Kamera netliğini ve yüz aydınlatmasını kontrol edin."
+          },
+          "completeFaceCheck": {
+            "passed": true,
+            "error": null
+          },
+          "snapshot": {
+            "generated": true,
+            "allowedRois": [
+              "rightCheek"
+            ],
+            "error": null
+          },
+          "finalCapturableStatus": false,
+          "rejectionReason": "QUALITY_REJECTED_BLURRY_BLUR_3.14"
+        }
+      ]
+    }
   },
   "rootCauseBreakdown": {
     "totalValidationPimples": 276,
@@ -1465039,5 +1465202,104 @@
       "postNmsDiscrepancyCount": 0
     },
     "certificationNote": "Çevrimdışı ONNX Runtime Python paritesi araç içi veya tarayıcı çalışma zamanı sertifikasyonu anlamına gelmez; yalnızca model export sayısal doğruluğunu kanıtlar."
+  },
+  "checkpointComparisonSideBySide": {
+    "models": {
+      "baseline": {
+        "weightsSha256": "1a014adad262b02eea128013d1d5d054dc583a2dbe818af58d8a5a29832cfaaf",
+        "inScopeRec50": 0.2642,
+        "inScopeRec30": 0.4151,
+        "capturableRec50": 0.2857,
+        "capturableRec30": 0.5,
+        "allRec50": 0.2935,
+        "allRec30": 0.4457,
+        "negFpPerPhoto": 0.5333,
+        "totalNegFp": 8,
+        "regionalDistribution": {
+          "forehead": 59,
+          "rightCheek": 386,
+          "leftCheek": 278,
+          "nose": 228,
+          "chin": 137,
+          "total": 1088
+        }
+      },
+      "phase1_candidate": {
+        "weightsSha256": "388297d9bb179bb38a57ef821e48816cdfb7b27aad82c5ef5372b7983e2497f9",
+        "inScopeRec50": 0.2075,
+        "inScopeRec30": 0.3962,
+        "capturableRec50": 0.1429,
+        "capturableRec30": 0.4286,
+        "allRec50": 0.25,
+        "allRec30": 0.4094,
+        "negFpPerPhoto": 0.0667,
+        "totalNegFp": 1,
+        "regionalDistribution": {
+          "forehead": 46,
+          "rightCheek": 360,
+          "leftCheek": 257,
+          "nose": 187,
+          "chin": 147,
+          "total": 997
+        }
+      },
+      "phase2_epoch1": {
+        "weightsSha256": "2d3ba0052b1ca8adca4e1ef33b31401a0095e31511c777098bebb5a637c45a1a",
+        "inScopeRec50": 0.2642,
+        "inScopeRec30": 0.434,
+        "capturableRec50": 0.2857,
+        "capturableRec30": 0.5,
+        "allRec50": 0.3152,
+        "allRec30": 0.4746,
+        "negFpPerPhoto": 1.6667,
+        "totalNegFp": 25,
+        "regionalDistribution": {
+          "forehead": 70,
+          "rightCheek": 527,
+          "leftCheek": 356,
+          "nose": 283,
+          "chin": 202,
+          "total": 1438
+        }
+      },
+      "phase2_epoch2": {
+        "weightsSha256": "dac04d031155d6f4b07b012d267e8ea5dcd8c0ff864234d4d9cc5a785dcb2a57",
+        "inScopeRec50": 0.2642,
+        "inScopeRec30": 0.4528,
+        "capturableRec50": 0.2857,
+        "capturableRec30": 0.5,
+        "allRec50": 0.3043,
+        "allRec30": 0.4746,
+        "negFpPerPhoto": 1.6667,
+        "totalNegFp": 25,
+        "regionalDistribution": {
+          "forehead": 105,
+          "rightCheek": 840,
+          "leftCheek": 521,
+          "nose": 408,
+          "chin": 314,
+          "total": 2188
+        }
+      },
+      "phase2_epoch3": {
+        "weightsSha256": "b63d3f435b89775be8cfb88b32547703ca97794930da56650f94c0a2716f2ec3",
+        "inScopeRec50": 0.2264,
+        "inScopeRec30": 0.4528,
+        "capturableRec50": 0.2857,
+        "capturableRec30": 0.5,
+        "allRec50": 0.3116,
+        "allRec30": 0.4964,
+        "negFpPerPhoto": 1.3333,
+        "totalNegFp": 20,
+        "regionalDistribution": {
+          "forehead": 87,
+          "rightCheek": 733,
+          "leftCheek": 473,
+          "nose": 350,
+          "chin": 257,
+          "total": 1900
+        }
+      }
+    }
   }
 }
