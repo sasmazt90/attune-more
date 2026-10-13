@@ -32,7 +32,7 @@ def test_native_anatomical_score_map_and_overview_share_unique_source(monkeypatc
     image=np.full((800,1000,3),140,np.uint8);payload=skin_input(image);original=A.analyze_skin(payload);source_before=image.copy()
     # A real one-source-pixel proposal intentionally straddles overlapping
     # region ownership. Plumbing must preserve it once, without score flooring.
-    def proposal(crop,metric,eligible):
+    def proposal(crop,metric,eligible,check=None):
         field=np.zeros(crop.shape[:2],np.float32);yy,xx=np.where(eligible);field[yy[len(yy)//2],xx[len(xx)//2]]=.5
         return field,dict(analysisResize=False,tileCore=512)
     monkeypatch.setattr(N,'native_field',proposal)
@@ -61,7 +61,7 @@ def test_unmeasurable_native_quality_never_becomes_healthy_zero(case,monkeypatch
     if case=='detail':image=cv2.resize(image,(160,128))
     payload=skin_input(image)
     if case=='quality':payload['qualityValid']=False
-    monkeypatch.setattr(N,'native_field',lambda crop,metric,eligible:(np.zeros(crop.shape[:2],np.float32),{}))
+    monkeypatch.setattr(N,'native_field',lambda crop,metric,eligible,check=None:(np.zeros(crop.shape[:2],np.float32),{}))
     result=N.analyze_native_dry(payload)
     assert all(r['value'] is None for r in result['measurements'].values()) and not result['maps']
 

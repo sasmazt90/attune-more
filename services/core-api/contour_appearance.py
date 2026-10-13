@@ -13,6 +13,20 @@ PARAMETERS=dict(samples=96,offsetFaceFraction=.025,offsetSamples=41,edgeContrast
                 minimumFacePixels=180,maxYaw=.65,maxPitch=.22,maxMouthOpening=.10,maxTrackingResidual=2.5,
                 inwardReferenceFaceFraction=.04,exteriorReferenceFaceFraction=.009375,skinEnvelopeSigma=3.)
 
+def expression_reason(payload,opening,corner):
+    """Static lip shape is not expression truth. Research observations must be
+    bound to this bitmap; absent observations retain the established gate.
+    These local blendshape coefficients are rejection support, never severity.
+    """
+    observation=payload.get('expressionObservation')
+    if observation is None:return 'EXPRESSION_OPEN_MOUTH_OR_SMILE' if opening>.10 or corner<-.07 else None
+    if observation.get('photoId')!=payload['photoId'] or observation.get('version')!='local-mediapipe-expression-support-v1':raise ValueError('EXPRESSION_PHOTO_MISMATCH')
+    names=['mouthSmileLeft','mouthSmileRight','mouthFrownLeft','mouthFrownRight','mouthPucker','mouthPressLeft','mouthPressRight','cheekPuff','jawOpen']
+    scores=observation.get('scores',{})
+    if any(k not in scores or not np.isfinite(scores[k]) or not 0<=scores[k]<=1 for k in names):raise ValueError('INVALID_EXPRESSION_SUPPORT')
+    if opening>.10 or max(scores[k] for k in names)>.5:return 'EXPRESSION_OPEN_MOUTH_OR_SMILE'
+    return None
+
 def exterior_support(image,line,normal,coords,face_width):
     """Reject a skin-to-skin illumination edge masquerading as a silhouette.
 
@@ -111,7 +125,7 @@ def analyze_contour(payload):
     image,digest=decode_photo(payload['photo']);assert digest==payload['photoId']
     h,w=image.shape[:2];p=np.asarray([[v['x']*w,v['y']*h] for v in payload['landmarks']]);axis=p[263]-p[33];axis/=np.linalg.norm(axis);vertical=np.array([-axis[1],axis[0]]);vertical*=1 if vertical[1]>=0 else -1
     face=abs((p[454]-p[234])@axis);mouth=np.linalg.norm(p[13]-p[14])/max(1,np.linalg.norm(p[61]-p[291]));smile=((p[61]+p[291]-p[13]-p[14])/2)@vertical/max(1,np.linalg.norm(p[61]-p[291]));conditions=payload['conditions']
-    quality_reason='CAPTURE_QUALITY' if not payload['qualityValid'] else 'INSUFFICIENT_NATIVE_DETAIL' if face<180 else 'HEAD_ANGLE_UNSUPPORTED' if abs(conditions.get('yaw',99))>.65 or abs(conditions.get('pitch',99))>.22 else 'EXPRESSION_OPEN_MOUTH_OR_SMILE' if mouth>.10 or smile<-.07 else None
+    quality_reason='CAPTURE_QUALITY' if not payload['qualityValid'] else 'INSUFFICIENT_NATIVE_DETAIL' if face<180 else 'HEAD_ANGLE_UNSUPPORTED' if abs(conditions.get('yaw',99))>.65 or abs(conditions.get('pitch',99))>.22 else expression_reason(payload,mouth,smile)
     gray=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY);g=gray.astype(np.float32)/255;metric=max(.125,face/320)
     # Keep the established exposure/exclusion gates. This native hair mask is
     # only an exclusion; its input is not substituted into other criteria.
@@ -147,8 +161,14 @@ def analyze_contour(payload):
             value=float(100*len(accepted_slots)/max(1,len(observed_slots)))
             maps[region]=map_result(field,eligible,region,'sag',digest,payload['pose'],image.shape,1.,'percent-observed-boundary-support',1.)
         row=dict(value=value,reason=reason,version=VERSION,unit='percent-observed-boundary-support',observedAnatomicalSamples=int(q['visible'].sum()) if q else 0,uniqueObservedSlots=len(observed_slots),acceptedBoundarySlots=len(accepted_slots),trackedImageSamples=int(q['observed'].sum()) if q else 0,acceptedSamples=len(accepted_centers),activeSourcePixels=int((field>0).sum()),quality='valid' if value is not None else 'insufficient')
+        if payload.get('expressionObservation'):
+            row['version']='image-contour-neighbor-excursion-exterior-expression-v3-staging'
+            row['expressionSupportVersion']='local-mediapipe-expression-support-v1'
+        if region in maps and maps[region]:
+            maps[region].update(method='appearance-contour-staging-1',normalizationVersion=row['version'],samplingSupportVersion='image-boundary-observed-neighbor-slots-v2-staging')
         if q:
             row['trace']={k:(v.tolist() if isinstance(v,np.ndarray) else v) for k,v in q.items()};row['trace']['tracked']=[xy.tolist() if np.isfinite(xy).all() else None for xy in q['tracked']]
+            row['trace']['version']=row['version']
             for k in ['excursion','localizationUncertainty']:row['trace'][k]=[float(v) if np.isfinite(v) else None for v in q[k]]
         rows[region]=row
     return dict(photoId=digest,measurements=rows,maps=maps,normalProductEnabled=False,formula='fraction of anatomically visible boundary samples with image-tracked local outward excursion beyond neighbor localization uncertainty; not tissue volume or clinical sag grade')

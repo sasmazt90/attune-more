@@ -5,7 +5,7 @@ not a claim of recovered source detail. This module is research-only until a
 separate admission receipt authorizes a normal product selector.
 """
 from pathlib import Path
-import hashlib,json
+import hashlib,json,time
 import cv2,numpy as np
 
 ENCODER_SHA='e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a'
@@ -64,11 +64,14 @@ class FrozenMaterialEncoder:
                 t=self.torch.from_numpy(np.stack(crops[start:start+batch]));result.append(self.net(t).cpu().numpy().copy())
         return np.concatenate(result) if result else np.empty((0,1280),np.float32)
 
-def fit_classifier(features,labels,groups,regularization=1.):
+def fit_classifier(features,labels,groups,regularization=1.,feature_group_sizes=None):
     """Call with TRAIN rows only. No PCA or validation-fitted normalization."""
     from scipy.optimize import minimize
     from scipy.special import expit
     X=np.asarray(features,float);y=np.asarray(labels,int);mean=X.mean(0);std=np.maximum(X.std(0),1e-6)
+    if feature_group_sizes is not None:
+        if sum(feature_group_sizes)!=X.shape[1] or any(v<=0 for v in feature_group_sizes):raise ValueError('INVALID_FEATURE_GROUPS')
+        std*=np.concatenate([np.full(n,np.sqrt(n)) for n in feature_group_sizes])
     z=(X-mean)/std;weights=np.array([len(y)/(2*np.sum(y==v)) for v in y]);penalty=1/regularization
     def objective(beta):
         logits=z@beta[:-1]+beta[-1];p=expit(logits);error=weights*(p-y)
@@ -95,3 +98,53 @@ def filter_material_support(image,field,metric,encoder,head):
         probability=predict(features,head)
         for row,p in zip(current,probability):allowed[row['componentId']]=p>=head['threshold']
     return field*allowed[labels],dict(classifierVersion='frozen-imagenet-two-crop-material-v1-staging',encoderSHA256=ENCODER_SHA,candidateComponents=len(rows),acceptedComponents=int(allowed.sum()),threshold=head['threshold'],confidenceNotSeverity=True,sourceLabelsAsInferenceInput=False)
+
+class OnnxMaterialEncoder:
+    """Locally exported frozen encoder, admitted only by its parity receipt."""
+    def __init__(self,path,receipt):
+        import onnxruntime as ort
+        path=Path(path);verified=json.loads(Path(receipt).read_text('utf8'))
+        if (verified['sourceEncoderSHA256']!=ENCODER_SHA or not verified['featureParity'] or
+            hashlib.sha256(path.read_bytes()).hexdigest()!=verified['onnxSHA256']):
+            raise ValueError('UNVERIFIED_MATERIAL_ENCODER')
+        options=ort.SessionOptions();options.intra_op_num_threads=1;options.inter_op_num_threads=1
+        self.session=ort.InferenceSession(str(path),options,providers=['CPUExecutionProvider'])
+        self.hash=verified['onnxSHA256']
+    def extract(self,crops,batch=16):
+        parts=[]
+        for start in range(0,len(crops),batch):
+            parts.append(self.session.run(['features'],{'crops':np.stack(crops[start:start+batch])})[0])
+        return np.concatenate(parts) if parts else np.empty((0,1280),np.float32)
+
+def filter_material_support_streamed(image,field,metric,encoder,head,check=None,details=None):
+    """Exact crop reuse within one request; no persistent photo feature cache.
+
+    Features are reusable only for identical source crop boxes, never merely
+    overlapping boxes. Interpolation, padding and RGB contract stay unchanged.
+    A stop check runs before each bounded encoder batch; no worker is orphaned.
+    """
+    check=check or (lambda:None);check();start=time.monotonic();labels,rows=describe(image,field,metric)
+    times={'describe':time.monotonic()-start,'crop':0.,'encoder':0.,'classifier':0.};features={};allowed=np.zeros(int(labels.max())+1,bool);encoded=0;reused=0
+    for offset in range(0,len(rows),16):
+        check();current=rows[offset:offset+16];pending={};keys=[];t=time.monotonic()
+        for row in current:
+            crops,boxes=component_crops(image,row,metric);pair=[]
+            for crop,box in zip(crops,boxes):
+                key=tuple(box[k] for k in ('x','y','width','height'));pair.append(key)
+                if key not in features and key not in pending:pending[key]=crop
+                else:reused+=1
+            keys.append(pair)
+        times['crop']+=time.monotonic()-t
+        pending_keys=list(pending)
+        for batch_start in range(0,len(pending_keys),16):
+            check();batch_keys=pending_keys[batch_start:batch_start+16];t=time.monotonic()
+            output=encoder.extract([pending[k] for k in batch_keys],16);times['encoder']+=time.monotonic()-t
+            features.update(zip(batch_keys,output));encoded+=len(batch_keys)
+        check();visual=np.asarray([np.r_[features[a],features[b]] for a,b in keys]);t=time.monotonic()
+        probability=predict(np.c_[visual,np.array([r['geometry'] for r in current])],head);times['classifier']+=time.monotonic()-t
+        for row,p in zip(current,probability):
+            allowed[row['componentId']]=p>=head['threshold']
+            if details is not None:details.append({**row,'probability':float(p),'accepted':bool(p>=head['threshold'])})
+    check()
+    version='frozen-imagenet-two-crop-material-block-balanced-v2-staging' if head.get('featureGroupSizes') else 'frozen-imagenet-two-crop-material-v1-staging'
+    return field*allowed[labels],dict(classifierVersion=version,encoderSHA256=ENCODER_SHA,candidateComponents=len(rows),acceptedComponents=int(allowed.sum()),threshold=head['threshold'],confidenceNotSeverity=True,sourceLabelsAsInferenceInput=False,timings=times,uniqueEncodedCrops=encoded,identicalCropsReused=reused,maximumResidentCropTensors=32,persistentPhotoCache=False,transport='onnx-cpu' if isinstance(encoder,OnnxMaterialEncoder) else 'torch')

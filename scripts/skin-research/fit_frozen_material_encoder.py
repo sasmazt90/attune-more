@@ -18,8 +18,10 @@ cv2.setNumThreads(1)
 old_root=ROOT/'audit-results/native-dry-scale-20261013'
 
 def main():
+    balanced='--balanced-modalities' in sys.argv
     replay='--replay-scale-correction' in sys.argv
-    target=OUT/'encoder-material-head.json';assert target.exists() if replay else not target.exists(),'Completed frozen fit must not be repeated'
+    target=OUT/('encoder-material-balanced-head.json' if balanced else 'encoder-material-head.json');assert target.exists() if replay else not target.exists(),'Completed frozen fit must not be repeated'
+    if balanced:replay=True;assert not target.exists(),'Only one group-balanced trial allowed'
     protocol=json.loads((OUT/'material-protocol.json').read_text('utf8'));review=json.loads((OUT/'added-components-reviewed.json').read_text('utf8'));assert review['reviewedBeforeFit']
     assert hashlib.sha256((OUT/'added-components-reviewed.json').read_bytes()).hexdigest()==protocol['addedReviewSHA256']
     sources=json.loads((OUT/'added-train-source-selection.json').read_text('utf8'));controls=json.loads((ROOT/'audit-results/dry-sag-component-followup-20261013/object-labels.json').read_text('utf8'))['controls']
@@ -72,7 +74,10 @@ def main():
     train=[i for i,r in enumerate(records) if r['label'] is not None and r['split']=='train' and r['factor']==1.];val=[i for i,r in enumerate(records) if r['label'] is not None and r['split']=='validation' and r['factor']==1.]
     train_groups={records[i]['group'] for i in train};assert not train_groups&{records[i]['group'] for i in val}
     y=[records[i]['label'] for i in train];groups=[records[i]['group'] for i in train]
-    if replay:
+    if balanced:
+        head=fit_classifier(X[train],y,groups,feature_group_sizes=[1280,1280,12]);eight=json.loads((OUT/'expanded-eight-feature-head.json').read_text('utf8'))
+        target.write_text(json.dumps(dict(**head,encoderSHA256=ENCODER_SHA,accepted=False,fitCount=1,normalProductEnabled=False,featureGroupSizes=[1280,1280,12],changedVariable='equal L2 regularization per standardized feature block; original 63 TRAIN, proposal, crops and threshold unchanged')),'utf8')
+    elif replay:
         head=json.loads(target.read_text('utf8'));eight=json.loads((OUT/'expanded-eight-feature-head.json').read_text('utf8'))
         first=json.loads((OUT/'material-encoder-comparison.json').read_text('utf8'));previous_features=np.load(OUT/first['cacheFile'])['features'];assert np.max(np.abs(features[train]-previous_features[train]))<1e-6,'All native TRAIN features must remain unchanged; no second fit permitted'
     else:
@@ -96,7 +101,7 @@ def main():
         fields={'proposal':case['field'],'encoder':case['field']*allowed[ids],'eightExpanded':case['field']*a8[ids],'tenPreserved':case['field']*old[ids]}
         obj=[dict(index=o['index'],label=o['label'],fields={k:measure(f,local(o['mask']),factor) for k,f in fields.items()}) for o in objects]
         neg={k:measure(f,local(known['reviewed-non-flake']),factor) for k,f in fields.items()};results.append(dict(**meta,objects=obj,negative=neg))
-        np.savez_compressed(OUT/f'C{control["controlIndex"]:02d}-scale{factor}-gated-field{"-crop-v2" if replay else ""}.npz',field=fields['encoder'],geometryField=fields['eightExpanded'])
+        np.savez_compressed(OUT/f'C{control["controlIndex"]:02d}-scale{factor}-gated-field{"-balanced" if balanced else "-crop-v2" if replay else ""}.npz',field=fields['encoder'],geometryField=fields['eightExpanded'])
     summary=[]
     for factor in [1.,.5]:
         for split in ['train','validation']:
@@ -105,6 +110,7 @@ def main():
     counts=collections.Counter(records[i]['class'] for i in train);group_counts={c:len({records[i]['group'] for i in train if records[i]['class']==c}) for c in counts}
     receipt=dict(trainRows=len(train),trainGroups=len(train_groups),trainClassCounts=dict(counts),classGroupCounts=group_counts,validationRows=len(val),validationIndependentFinal=False,threshold=.5,encoderFrozen=True,featuresShape=list(X.shape),cacheFile=cache.name,featureSeconds=time.monotonic()-start,summary=summary,validationComponents=classified,rows=results,normalProductEnabled=False,computeScope='human-reviewed training components and post-proposal components intersecting existing partial observation regions; out-of-scope field is not a normal product result')
     receipt.update(headRefitted=False if replay else True,trainFeaturesUnchanged=True if replay else None,cropSamplingVersion='density-scaled-native-margins-v2' if replay else 'fixed-native-minimum-context-v1')
-    (OUT/('material-encoder-scale-corrected.json' if replay else 'material-encoder-comparison.json')).write_text(json.dumps(receipt,indent=2),'utf8');print(json.dumps({k:v for k,v in receipt.items() if k not in ['rows','validationComponents']}),flush=True)
+    if balanced:receipt.update(headRefitted=True,headFitCount=1,changedVariable='feature-block balanced regularization',originalHeadUnchanged=True)
+    (OUT/('material-encoder-balanced-comparison.json' if balanced else 'material-encoder-scale-corrected.json' if replay else 'material-encoder-comparison.json')).write_text(json.dumps(receipt,indent=2),'utf8');print(json.dumps({k:v for k,v in receipt.items() if k not in ['rows','validationComponents']}),flush=True)
 
 if __name__=='__main__':main()

@@ -14,7 +14,7 @@ PARAMETERS=dict(radii=[1,2,3],seedContrast=.025,growthContrast=.018,
 
 def odd(value):return max(3,2*int(round(value))+1)
 
-def proposal_tile(bgr,coordinate_scale=1.,return_stages=False,pixel_density=1.):
+def proposal_tile(bgr,coordinate_scale=1.,return_stages=False,pixel_density=1.,check=None):
     """Geometric units scale with the supplied source-coordinate metric.
 
     source resize by k -> coordinate_scale by k. Contrast remains photometric;
@@ -26,6 +26,7 @@ def proposal_tile(bgr,coordinate_scale=1.,return_stages=False,pixel_density=1.):
     scales=sorted(set([max(.125,float(pixel_density)),s]));response=np.zeros(g.shape,np.float32)
     region_envelope=np.zeros(g.shape,bool);candidate_regions=[]
     for metric in scales:
+        if check is not None:check()
         # The fine-source scale is the observed pixel grid, not an upsample.
         regions,_=cv2.MSER_create(5,max(1,int(round(4*metric*metric))),max(4,int(round(1500*metric*metric))),.25,.2).detectRegions(255-luma)
         for pts in regions:
@@ -57,7 +58,8 @@ def proposal_tile(bgr,coordinate_scale=1.,return_stages=False,pixel_density=1.):
             pore_centers[i]=dark_centers[i]
     stages={name:np.zeros(g.shape,np.float32) for name in ['envelope','seeded','geometry','ring','edge','pore-separated']}
     stages['envelope'][envelope|region_envelope]=1;details=[]
-    for pts,branch,metric in candidate_regions:
+    for region_index,(pts,branch,metric) in enumerate(candidate_regions):
+        if check is not None and region_index%32==0:check()
         x,y,w,h=cv2.boundingRect(pts);area=len(pts);local=np.zeros((h,w),bool);local[pts[:,1]-y,pts[:,0]-x]=True
         seed_count=int((seed[y:y+h,x:x+w]&local).sum())
         stages['seeded'][y:y+h,x:x+w][local]=1
@@ -101,16 +103,17 @@ def proposal_tile(bgr,coordinate_scale=1.,return_stages=False,pixel_density=1.):
     field=stages['pore-separated'];field[field<=.04]=0
     return (field,stages,details) if return_stages else field
 
-def native_field(bgr,coordinate_scale=1.,eligible=None,core=512,pixel_density=1.):
+def native_field(bgr,coordinate_scale=1.,eligible=None,core=512,pixel_density=1.,check=None):
     """Overlapping source tiles with context, max union and bounded working arrays."""
     h,w=bgr.shape[:2];output=np.zeros((h,w),np.float32)
     halo=max(48,int(np.ceil(40*coordinate_scale)));stride=max(1,core//2);peak_pixels=0;tiles=0
     xs=sorted(set([*range(0,max(1,w-core+1),stride),max(0,w-core)]));ys=sorted(set([*range(0,max(1,h-core+1),stride),max(0,h-core)]))
     for y in ys:
         for x in xs:
+            if check is not None:check()
             if eligible is not None and not eligible[y:min(h,y+core),x:min(w,x+core)].any():continue
             a=max(0,x-halo);b=max(0,y-halo);c=min(w,x+core+halo);d=min(h,y+core+halo)
-            field=proposal_tile(bgr[b:d,a:c],coordinate_scale,pixel_density=pixel_density)
+            field=proposal_tile(bgr[b:d,a:c],coordinate_scale,pixel_density=pixel_density,check=check)
             local=field[y-b:min(h,y+core)-b,x-a:min(w,x+core)-a]
             np.maximum(output[y:min(h,y+core),x:min(w,x+core)],local,out=output[y:min(h,y+core),x:min(w,x+core)])
             tiles+=1;peak_pixels=max(peak_pixels,(d-b)*(c-a))

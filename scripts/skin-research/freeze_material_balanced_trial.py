@@ -1,0 +1,6 @@
+"""Declare one bounded change before fit; preserve original labels and head."""
+import hashlib,json
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'audit-results/material-runtime-followup-20261013';old=ROOT/'audit-results/native-material-contour-20261013'
+target=OUT/'balanced-trial-protocol.json';assert not target.exists();assert not (old/'encoder-material-balanced-head.json').exists()
+target.write_text(json.dumps(dict(changedVariable='divide standardized near/context/geometric blocks by sqrt(1280),sqrt(1280),sqrt(12) before fixed L2 fitting; raw features and crop contract unchanged',rationale='failure logits show geometry contribution near 0.01 while 2560 visual coordinates dominate; check one balanced block penalty, not new CNN or threshold search',trainRows=63,trainGroups=15,fitCount=1,regularizationC=1,threshold=.5,proposalFrozen=True,validationNotInFit=True,validationIndependentFinal=False,originalHeadSHA256=hashlib.sha256((old/'encoder-material-head.json').read_bytes()).hexdigest(),acceptance=dict(nativeHitsAtLeast=11,validationHitsAtLeast=5,naturalHalfHitsAtLeast=4,reviewedNativeNegativePixelsAtMost=0,eyewearPixelsLessThan=440,oldHitsRetainedAtLeast=3,actualMaterialPositionsAccepted=True,runtimeWithin45Seconds=True),automaticProductAdmission=False),indent=2),'utf8')

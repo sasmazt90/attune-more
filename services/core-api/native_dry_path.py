@@ -5,15 +5,17 @@ lossless native PNG by default. Display pooling is an independent utility.
 """
 import cv2
 import numpy as np
+import time
 from native_flake_support import native_field,VERSION as PROPOSAL_VERSION
 
 NORMALIZATION='native-material-visible-source-area-v4-staging'
 SAMPLING='native-source-closed-cells-max-union-v4-staging'
 
-def analyze_native_dry(payload,material_filter=None):
+def analyze_native_dry(payload,material_filter=None,check=None,profile=None):
     # Reuse geometry/encoding contracts, not the resized photometric fields.
     from appearance_analysis import decode_photo,closed_surface_mask,map_result,LIMITS
-    bgr,digest=decode_photo(payload['photo'])
+    check=check or (lambda:None);check();t=time.monotonic();timings={}
+    bgr,digest=decode_photo(payload['photo']);timings['decode']=time.monotonic()-t;t=time.monotonic()
     if digest!=payload['photoId']:raise ValueError('SOURCE_HASH_MISMATCH')
     h,w=bgr.shape[:2];points=payload['landmarks'];face=abs(points[454]['x']-points[234]['x'])*w
     source_points=np.array([[p['x'],p['y']] for m in payload['meshes'].values() for p in m['points']],float)
@@ -40,13 +42,17 @@ def analyze_native_dry(payload,material_filter=None):
     hair=cv2.dilate(keep[ids].astype(np.uint8),np.ones((max(3,2*int(round(2*metric))+1),)*2,np.uint8))>0
     exposed=(excluded==0)&~hair&(g>.12);clipped=g>.975;visible=exposed&~clipped
     union=np.logical_or.reduce(list(masks.values()))&visible
-    field,metadata=native_field(crop,metric,union)
+    timings['geometry']=time.monotonic()-t;check();t=time.monotonic()
+    field,metadata=native_field(crop,metric,union,check=check)
+    timings['proposal']=time.monotonic()-t;check();t=time.monotonic()
     if material_filter is not None:
         field,classification=material_filter(crop,field,metric)
         field*=union;metadata.update(classification)
+    timings['material']=time.monotonic()-t;check();t=time.monotonic()
     rows={};maps={};measured=[]
     minimum_area=100/max(min(1,320/max(face,1))**2,1e-8)
     def item(region,mask,reason):
+        check()
         eligible=mask&visible;active=(field>0)&eligible
         value=None if reason else float(100*active.sum()/max(1,eligible.sum()))
         row=dict(id='dry',type='appearance_proxy',region=region,value=value,unit='percent-visible-area',methodVersion='appearance-native-dry-1',normalizationVersion=NORMALIZATION,
@@ -54,7 +60,8 @@ def analyze_native_dry(payload,material_filter=None):
             scoreDirection='higher-is-more-visible',captureConditions=payload['conditions'],uncertainty=['applied-products','illumination','visible-material-only','unvalidated-cosmetic-proxy'],
             evaluatedArea=dict(scope='native-visible-anatomical-source',sourcePixels=int(eligible.sum()),analysisPixels=int(eligible.sum()),anatomicalSourcePixels=int(mask.sum()),sourceFacePixels=face),
             components=dict(samplingSupportVersion=SAMPLING,proposalVersion=PROPOSAL_VERSION,acceptedMaterialSourcePixels=int(active.sum()),uniqueVisibleSourcePixels=int(eligible.sum()),overlapCountedOnce=True,confidenceNotSeverity=True,nativeAnalysisResize=False,meaning='local visible material support; not moisture or clinical severity',**({'classifierVersion':metadata['classifierVersion']} if material_filter is not None else {})))
-        if material_filter is not None:row['normalizationVersion']='native-encoder-material-source-area-v4-staging'
+        if material_filter is not None:
+            row['normalizationVersion']='native-encoder-material-source-area-v5-staging' if 'block-balanced' in metadata['classifierVersion'] else 'native-encoder-material-source-area-v4-staging'
         if reason is None:
             # Step=1 retains every accepted tiny native component. Existing SVG
             # mesh clipping is still required by any caller that displays it.
@@ -73,5 +80,8 @@ def analyze_native_dry(payload,material_filter=None):
         required=['forehead','rightCheek','leftCheek','chin'];complete=all(name in rows and rows[name]['value'] is not None for name in required)
         mask=np.logical_or.reduce(measured) if measured else np.zeros(shape,bool)
         general=item('overview',mask,None if complete else 'INSUFFICIENT_FRONT_COVERAGE')
+    timings['mapsAndResults']=time.monotonic()-t
+    if profile is not None:profile.update(timings)
+    check()
     return dict(photoId=digest,sourceWidth=w,sourceHeight=h,measurements=rows,general=general,maps=maps,
         nativeMetadata={**metadata,'cropOrigin':list(origin),'cropShape':[crop.shape[1],crop.shape[0]],'sourceImageSize':[w,h],'normalProductEnabled':False})
