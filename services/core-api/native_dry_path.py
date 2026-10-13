@@ -10,7 +10,7 @@ from native_flake_support import native_field,VERSION as PROPOSAL_VERSION
 NORMALIZATION='native-material-visible-source-area-v4-staging'
 SAMPLING='native-source-closed-cells-max-union-v4-staging'
 
-def analyze_native_dry(payload):
+def analyze_native_dry(payload,material_filter=None):
     # Reuse geometry/encoding contracts, not the resized photometric fields.
     from appearance_analysis import decode_photo,closed_surface_mask,map_result,LIMITS
     bgr,digest=decode_photo(payload['photo'])
@@ -41,6 +41,9 @@ def analyze_native_dry(payload):
     exposed=(excluded==0)&~hair&(g>.12);clipped=g>.975;visible=exposed&~clipped
     union=np.logical_or.reduce(list(masks.values()))&visible
     field,metadata=native_field(crop,metric,union)
+    if material_filter is not None:
+        field,classification=material_filter(crop,field,metric)
+        field*=union;metadata.update(classification)
     rows={};maps={};measured=[]
     minimum_area=100/max(min(1,320/max(face,1))**2,1e-8)
     def item(region,mask,reason):
@@ -50,13 +53,14 @@ def analyze_native_dry(payload):
             modelVersion=None,modelHash=None,quality='insufficient' if reason else 'valid',limitationCode=reason,referenceId=None,localMap=None,
             scoreDirection='higher-is-more-visible',captureConditions=payload['conditions'],uncertainty=['applied-products','illumination','visible-material-only','unvalidated-cosmetic-proxy'],
             evaluatedArea=dict(scope='native-visible-anatomical-source',sourcePixels=int(eligible.sum()),analysisPixels=int(eligible.sum()),anatomicalSourcePixels=int(mask.sum()),sourceFacePixels=face),
-            components=dict(samplingSupportVersion=SAMPLING,proposalVersion=PROPOSAL_VERSION,acceptedMaterialSourcePixels=int(active.sum()),uniqueVisibleSourcePixels=int(eligible.sum()),overlapCountedOnce=True,confidenceNotSeverity=True,nativeAnalysisResize=False,meaning='local visible material support; not moisture or clinical severity'))
+            components=dict(samplingSupportVersion=SAMPLING,proposalVersion=PROPOSAL_VERSION,acceptedMaterialSourcePixels=int(active.sum()),uniqueVisibleSourcePixels=int(eligible.sum()),overlapCountedOnce=True,confidenceNotSeverity=True,nativeAnalysisResize=False,meaning='local visible material support; not moisture or clinical severity',**({'classifierVersion':metadata['classifierVersion']} if material_filter is not None else {})))
+        if material_filter is not None:row['normalizationVersion']='native-encoder-material-source-area-v4-staging'
         if reason is None:
             # Step=1 retains every accepted tiny native component. Existing SVG
             # mesh clipping is still required by any caller that displays it.
             layer=map_result(field,eligible,region,'dry',digest,payload['pose'],bgr.shape,1.,'percent-visible-area',1.,origin)
             if layer:
-                layer.update(method='appearance-native-dry-1',normalizationVersion=NORMALIZATION,nativeScoreSourcePixels=int(active.sum()),displayAggregation='lossless-native-grid')
+                layer.update(method='appearance-native-dry-1',normalizationVersion=row['normalizationVersion'],nativeScoreSourcePixels=int(active.sum()),displayAggregation='lossless-native-grid')
                 maps[region+':dry']=layer;row['localMap']=dict(key=region+':dry',photoId=digest,region=region,criterion='dry',coordinateSpace='source-pixels')
         return row
     for region,mask in masks.items():

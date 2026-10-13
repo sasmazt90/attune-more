@@ -1,0 +1,97 @@
+"""Frozen ImageNet material-crop features; never a skin-type prediction head.
+
+The proposal pixels are unchanged. Crop resizing is encoder input sampling,
+not a claim of recovered source detail. This module is research-only until a
+separate admission receipt authorizes a normal product selector.
+"""
+from pathlib import Path
+import hashlib,json
+import cv2,numpy as np
+
+ENCODER_SHA='e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a'
+GEOMETRY=['logReferenceArea','elongation','fill','circularity','solidity','ringContrast','gradientDirectionCoherence','darkAdjacentFraction','poreCoreFraction','poreCoreReferenceArea','ringChromaDelta','interiorLumaVariation']
+MEAN=np.array([.485,.456,.406],np.float32)[None,None,:]
+STD=np.array([.229,.224,.225],np.float32)[None,None,:]
+
+def describe(image,field,metric):
+    """Scale-aware geometry and non-self ring statistics of unchanged proposals."""
+    s=max(.125,float(metric));gray=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY);g=gray.astype(np.float32)/255;active=field>.04
+    n,labels,stats,centroids=cv2.connectedComponentsWithStats(active.astype(np.uint8),8)
+    k=max(3,2*int(round(3*s))+1);dark=cv2.morphologyEx(gray,cv2.MORPH_BLACKHAT,np.ones((k,k),np.uint8))>35
+    dn,di,ds,_=cv2.connectedComponentsWithStats(dark.astype(np.uint8),8);core_ids=[i for i in range(1,dn) if ds[i,4]<=20*s*s and max(ds[i,2],ds[i,3])/max(1,min(ds[i,2],ds[i,3]))<=3.3]
+    cores=np.isin(di,core_ids);adjacent=cv2.dilate(dark.astype(np.uint8),np.ones((k,k),np.uint8))>0
+    lab=cv2.cvtColor(image.astype(np.float32)/255,cv2.COLOR_BGR2LAB);gx=cv2.Sobel(g,cv2.CV_32F,1,0,3);gy=cv2.Sobel(g,cv2.CV_32F,0,1,3);rows=[]
+    for i in range(1,n):
+        x,y,w,h,area=map(int,stats[i]);pad=max(3,int(np.ceil(5*s)));a=max(0,x-pad);b=max(0,y-pad);c=min(image.shape[1],x+w+pad);d=min(image.shape[0],y+h+pad)
+        mask=labels[b:d,a:c]==i;ring=(cv2.dilate(mask.astype(np.uint8),np.ones((k,k),np.uint8))>0)&~active[b:d,a:c]
+        if area<3 or ring.sum()<3:continue
+        contour=max(cv2.findContours(mask.astype(np.uint8),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)[0],key=cv2.contourArea);perimeter=cv2.arcLength(contour,True);ca=cv2.contourArea(contour);hull=cv2.contourArea(cv2.convexHull(contour))
+        dx=gx[b:d,a:c][mask];dy=gy[b:d,a:c][mask];aa=np.mean(dx*dx);bb=np.mean(dy*dy);cc=np.mean(dx*dy);coherence=np.sqrt((aa-bb)**2+4*cc*cc)/max(aa+bb,1e-8)
+        near=cv2.dilate(mask.astype(np.uint8),np.ones((k,k),np.uint8))>0;core_area=(cores[b:d,a:c]&near).sum();l=lab[b:d,a:c]
+        values=[np.log1p(area/(s*s)),max(w,h)/max(1,min(w,h)),area/(w*h),4*np.pi*area/max(perimeter*perimeter,1),ca/max(hull,1),g[b:d,a:c][mask].mean()-np.median(g[b:d,a:c][ring]),coherence,adjacent[b:d,a:c][mask].mean(),(cores[b:d,a:c]&near).sum()/max(1,near.sum()),core_area/(s*s),np.linalg.norm(l[:,:,1:][mask].mean(0)-np.median(l[:,:,1:][ring],axis=0))/100,g[b:d,a:c][mask].std()]
+        rows.append(dict(componentId=i,rect=[x,y,w,h],area=area,centroid=centroids[i].tolist(),geometry=np.asarray(values,float).tolist()))
+    return labels,rows
+
+def component_crops(image,row,metric,pixel_density=1.):
+    """Two square crops with real context, preserving aspect and source bounds."""
+    x,y,w,h=row['rect'];cx=x+w/2;cy=y+h/2;s=max(.125,float(metric));result=[];boxes=[]
+    # During a controlled source downsample, native minimum context and close
+    # margins downsample as well. Otherwise a half-resolution crop silently
+    # covers twice as much source background. Actual native callers use 1.
+    density=max(.125,float(pixel_density))
+    for span in [max(w,h)+max(8*density,16*s),max(3*max(w,h),64*s,48*density)]:
+        span=int(np.ceil(span));x0=int(np.floor(cx-span/2));y0=int(np.floor(cy-span/2));x1=x0+span;y1=y0+span
+        crop=np.full((span,span,3),114,np.uint8);a=max(0,x0);b=max(0,y0);c=min(image.shape[1],x1);d=min(image.shape[0],y1)
+        if c>a and d>b:crop[b-y0:d-y0,a-x0:c-x0]=image[b:d,a:c]
+        rgb=cv2.cvtColor(crop,cv2.COLOR_BGR2RGB);resized=cv2.resize(rgb,(224,224),interpolation=cv2.INTER_AREA if span>=224 else cv2.INTER_LINEAR)
+        result.append(((resized.astype(np.float32)/255-MEAN)/STD).transpose(2,0,1).copy());boxes.append(dict(x=x0,y=y0,width=span,height=span,sourcePixelsNotAdded=True))
+    return result,boxes
+
+class FrozenMaterialEncoder:
+    def __init__(self,path):
+        path=Path(path);assert hashlib.sha256(path.read_bytes()).hexdigest()==ENCODER_SHA,'Original ImageNet encoder identity mismatch'
+        import torch
+        from torchvision.models import efficientnet_b0
+        from safetensors.torch import load_file
+        torch.set_num_threads(1);self.torch=torch
+        self.net=efficientnet_b0(weights=None);self.net.load_state_dict(load_file(str(path)),strict=True)
+        self.net.classifier=torch.nn.Identity();self.net.eval()
+        for p in self.net.parameters():p.requires_grad_(False)
+    def extract(self,crops,batch=4):
+        result=[]
+        with self.torch.inference_mode():
+            for start in range(0,len(crops),batch):
+                t=self.torch.from_numpy(np.stack(crops[start:start+batch]));result.append(self.net(t).cpu().numpy().copy())
+        return np.concatenate(result) if result else np.empty((0,1280),np.float32)
+
+def fit_classifier(features,labels,groups,regularization=1.):
+    """Call with TRAIN rows only. No PCA or validation-fitted normalization."""
+    from scipy.optimize import minimize
+    from scipy.special import expit
+    X=np.asarray(features,float);y=np.asarray(labels,int);mean=X.mean(0);std=np.maximum(X.std(0),1e-6)
+    z=(X-mean)/std;weights=np.array([len(y)/(2*np.sum(y==v)) for v in y]);penalty=1/regularization
+    def objective(beta):
+        logits=z@beta[:-1]+beta[-1];p=expit(logits);error=weights*(p-y)
+        loss=np.sum(weights*(np.logaddexp(0,logits)-y*logits))+.5*penalty*np.sum(beta[:-1]**2)
+        return float(loss),np.r_[z.T@error+penalty*beta[:-1],error.sum()]
+    result=minimize(objective,np.zeros(z.shape[1]+1),jac=True,method='L-BFGS-B',options=dict(maxiter=300,ftol=1e-10,gtol=1e-6))
+    if not result.success:raise RuntimeError('Frozen L2 fit did not converge: '+result.message)
+    return dict(mean=mean.tolist(),std=std.tolist(),coefficients=result.x[:-1].tolist(),intercept=float(result.x[-1]),threshold=.5,trainGroups=sorted(set(groups)),trainRows=len(y),regularizationC=regularization,solver='scipy-L-BFGS-B',iterations=int(result.nit))
+
+def predict(X,model):
+    z=(np.asarray(X)-model['mean'])/model['std'];return 1/(1+np.exp(-np.clip(z@np.asarray(model['coefficients'])+model['intercept'],-40,40)))
+
+def filter_material_support(image,field,metric,encoder,head):
+    """Label-blind full-image acceptance of existing proposal pixels.
+
+    No source name, annotation or confidence value enters the score. At most
+    sixteen components' crop tensors are resident; encoder batches stay four.
+    """
+    labels,rows=describe(image,field,metric);allowed=np.zeros(int(labels.max())+1,bool)
+    for start in range(0,len(rows),16):
+        current=rows[start:start+16];crops=[]
+        for row in current:views,_=component_crops(image,row,metric);crops.extend(views)
+        visual=encoder.extract(crops,4).reshape(len(current),2560);features=np.c_[visual,np.array([r['geometry'] for r in current])]
+        probability=predict(features,head)
+        for row,p in zip(current,probability):allowed[row['componentId']]=p>=head['threshold']
+    return field*allowed[labels],dict(classifierVersion='frozen-imagenet-two-crop-material-v1-staging',encoderSHA256=ENCODER_SHA,candidateComponents=len(rows),acceptedComponents=int(allowed.sum()),threshold=head['threshold'],confidenceNotSeverity=True,sourceLabelsAsInferenceInput=False)

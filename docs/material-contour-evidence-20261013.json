@@ -1,0 +1,1951 @@
+{
+  "baselineSHA": "085a20395c009199c5924ed9683d3f98ce771bb1",
+  "BUILD_ID": "JO0Xyvupv72uoBiX42mWq",
+  "productionChanged": false,
+  "dataReview": {
+    "selectedAddedSourceGroups": 22,
+    "reviewedComponents": 264,
+    "classCounts": {
+      "UNKNOWN": 211,
+      "material": 15,
+      "pore-texture": 19,
+      "reflection": 2,
+      "filament-ringing": 17
+    },
+    "includedAddedGroups": 9,
+    "sourceExclusions": {
+      "14": "possible near-copy of preserved validation C11; visible source attribution",
+      "16": "visible stock notice; no rights promotion",
+      "17": "visible stock notice; no rights promotion",
+      "19": "mixed garment/background and visible watermark"
+    },
+    "oldLabelsSHA256": "f0cec2daf46fd2f745dccf21e20c0f22c2bf59e1ff28b4039352091f984d7e34",
+    "outsideKnownLabels": "UNKNOWN",
+    "personIndependentClaim": false
+  },
+  "trainScope": {
+    "trainRows": 63,
+    "trainGroups": 15,
+    "trainClassCounts": {
+      "material": 19,
+      "pore-texture": 23,
+      "reflection": 4,
+      "filament-ringing": 17
+    },
+    "classGroupCounts": {
+      "material": 6,
+      "pore-texture": 7,
+      "reflection": 3,
+      "filament-ringing": 3
+    },
+    "validationRows": 28,
+    "validationIndependentFinal": false
+  },
+  "encoder": {
+    "source": "local original ImageNet safe weights, not skin-type head",
+    "sha256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+    "frozen": true,
+    "threads": 1,
+    "batch": 4,
+    "maximumResidentCropTensors": 32,
+    "headFitCount": 1
+  },
+  "proposalChanged": false,
+  "originalNativeComparison": [
+    {
+      "factor": 1.0,
+      "split": "train",
+      "objects": 13,
+      "methods": {
+        "proposal": {
+          "hits": 10,
+          "negativeSourcePixels": 755.0
+        },
+        "encoder": {
+          "hits": 6,
+          "negativeSourcePixels": 0.0
+        },
+        "eightExpanded": {
+          "hits": 6,
+          "negativeSourcePixels": 582.0
+        },
+        "tenPreserved": {
+          "hits": 5,
+          "negativeSourcePixels": 17.0
+        }
+      }
+    },
+    {
+      "factor": 1.0,
+      "split": "validation",
+      "objects": 8,
+      "methods": {
+        "proposal": {
+          "hits": 7,
+          "negativeSourcePixels": 398.0
+        },
+        "encoder": {
+          "hits": 5,
+          "negativeSourcePixels": 0.0
+        },
+        "eightExpanded": {
+          "hits": 7,
+          "negativeSourcePixels": 152.0
+        },
+        "tenPreserved": {
+          "hits": 1,
+          "negativeSourcePixels": 187.0
+        }
+      }
+    },
+    {
+      "factor": 0.5,
+      "split": "train",
+      "objects": 13,
+      "methods": {
+        "proposal": {
+          "hits": 11,
+          "negativeSourcePixels": 396.0
+        },
+        "encoder": {
+          "hits": 9,
+          "negativeSourcePixels": 0.0
+        },
+        "eightExpanded": {
+          "hits": 7,
+          "negativeSourcePixels": 112.0
+        },
+        "tenPreserved": {
+          "hits": 7,
+          "negativeSourcePixels": 16.0
+        }
+      }
+    },
+    {
+      "factor": 0.5,
+      "split": "validation",
+      "objects": 8,
+      "methods": {
+        "proposal": {
+          "hits": 6,
+          "negativeSourcePixels": 1292.0
+        },
+        "encoder": {
+          "hits": 3,
+          "negativeSourcePixels": 0.0
+        },
+        "eightExpanded": {
+          "hits": 3,
+          "negativeSourcePixels": 372.0
+        },
+        "tenPreserved": {
+          "hits": 2,
+          "negativeSourcePixels": 368.0
+        }
+      }
+    }
+  ],
+  "scaleCorrectedComparison": [
+    {
+      "factor": 1.0,
+      "split": "train",
+      "objects": 13,
+      "methods": {
+        "proposal": {
+          "hits": 10,
+          "negativeSourcePixels": 755.0
+        },
+        "encoder": {
+          "hits": 6,
+          "negativeSourcePixels": 0.0
+        },
+        "eightExpanded": {
+          "hits": 6,
+          "negativeSourcePixels": 582.0
+        },
+        "tenPreserved": {
+          "hits": 5,
+          "negativeSourcePixels": 17.0
+        }
+      }
+    },
+    {
+      "factor": 1.0,
+      "split": "validation",
+      "objects": 8,
+      "methods": {
+        "proposal": {
+          "hits": 7,
+          "negativeSourcePixels": 398.0
+        },
+        "encoder": {
+          "hits": 5,
+          "negativeSourcePixels": 0.0
+        },
+        "eightExpanded": {
+          "hits": 7,
+          "negativeSourcePixels": 152.0
+        },
+        "tenPreserved": {
+          "hits": 1,
+          "negativeSourcePixels": 187.0
+        }
+      }
+    },
+    {
+      "factor": 0.5,
+      "split": "train",
+      "objects": 13,
+      "methods": {
+        "proposal": {
+          "hits": 11,
+          "negativeSourcePixels": 396.0
+        },
+        "encoder": {
+          "hits": 7,
+          "negativeSourcePixels": 0.0
+        },
+        "eightExpanded": {
+          "hits": 7,
+          "negativeSourcePixels": 112.0
+        },
+        "tenPreserved": {
+          "hits": 7,
+          "negativeSourcePixels": 16.0
+        }
+      }
+    },
+    {
+      "factor": 0.5,
+      "split": "validation",
+      "objects": 8,
+      "methods": {
+        "proposal": {
+          "hits": 6,
+          "negativeSourcePixels": 1292.0
+        },
+        "encoder": {
+          "hits": 2,
+          "negativeSourcePixels": 0.0
+        },
+        "eightExpanded": {
+          "hits": 3,
+          "negativeSourcePixels": 372.0
+        },
+        "tenPreserved": {
+          "hits": 2,
+          "negativeSourcePixels": 368.0
+        }
+      }
+    }
+  ],
+  "domainComparisons": [
+    {
+      "factor": 1.0,
+      "kind": "pul",
+      "objects": 12,
+      "methods": {
+        "proposal": {
+          "hits": 10,
+          "negativeSourcePixels": 444.0
+        },
+        "encoder": {
+          "hits": 4,
+          "negativeSourcePixels": 0.0
+        },
+        "eightExpanded": {
+          "hits": 7,
+          "negativeSourcePixels": 279.0
+        },
+        "tenPreserved": {
+          "hits": 4,
+          "negativeSourcePixels": 18.0
+        }
+      }
+    },
+    {
+      "factor": 1.0,
+      "kind": "raw",
+      "objects": 9,
+      "methods": {
+        "proposal": {
+          "hits": 7,
+          "negativeSourcePixels": 498.0
+        },
+        "encoder": {
+          "hits": 7,
+          "negativeSourcePixels": 0.0
+        },
+        "eightExpanded": {
+          "hits": 6,
+          "negativeSourcePixels": 455.0
+        },
+        "tenPreserved": {
+          "hits": 2,
+          "negativeSourcePixels": 36.0
+        }
+      }
+    },
+    {
+      "factor": 1.0,
+      "kind": "old",
+      "objects": 0,
+      "methods": {
+        "proposal": {
+          "hits": 0,
+          "negativeSourcePixels": 211.0
+        },
+        "encoder": {
+          "hits": 0,
+          "negativeSourcePixels": 0.0
+        },
+        "eightExpanded": {
+          "hits": 0,
+          "negativeSourcePixels": 0.0
+        },
+        "tenPreserved": {
+          "hits": 0,
+          "negativeSourcePixels": 150.0
+        }
+      }
+    },
+    {
+      "factor": 0.5,
+      "kind": "pul",
+      "objects": 12,
+      "methods": {
+        "proposal": {
+          "hits": 11,
+          "negativeSourcePixels": 408.0
+        },
+        "encoder": {
+          "hits": 5,
+          "negativeSourcePixels": 0.0
+        },
+        "eightExpanded": {
+          "hits": 7,
+          "negativeSourcePixels": 188.0
+        },
+        "tenPreserved": {
+          "hits": 6,
+          "negativeSourcePixels": 16.0
+        }
+      }
+    },
+    {
+      "factor": 0.5,
+      "kind": "raw",
+      "objects": 9,
+      "methods": {
+        "proposal": {
+          "hits": 6,
+          "negativeSourcePixels": 624.0
+        },
+        "encoder": {
+          "hits": 4,
+          "negativeSourcePixels": 0.0
+        },
+        "eightExpanded": {
+          "hits": 3,
+          "negativeSourcePixels": 188.0
+        },
+        "tenPreserved": {
+          "hits": 3,
+          "negativeSourcePixels": 236.0
+        }
+      }
+    },
+    {
+      "factor": 0.5,
+      "kind": "old",
+      "objects": 0,
+      "methods": {
+        "proposal": {
+          "hits": 0,
+          "negativeSourcePixels": 656.0
+        },
+        "encoder": {
+          "hits": 0,
+          "negativeSourcePixels": 0.0
+        },
+        "eightExpanded": {
+          "hits": 0,
+          "negativeSourcePixels": 108.0
+        },
+        "tenPreserved": {
+          "hits": 0,
+          "negativeSourcePixels": 132.0
+        }
+      }
+    }
+  ],
+  "componentValidationConfusion": {
+    "encoderAccepted": [
+      [
+        23,
+        0
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "geometryAccepted": [
+      [
+        20,
+        3
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "preservedTenAccepted": [
+      [
+        5,
+        18
+      ],
+      [
+        3,
+        2
+      ]
+    ]
+  },
+  "classifierMaterialMisses": [
+    {
+      "controlIndex": 0,
+      "sourceSHA256": "009503e805a81559bd7d3d024515d67200d4727d7647eaedea87c1139784b663",
+      "factor": 1.0,
+      "objectIndex": 0,
+      "proposal": {
+        "activeSourcePixels": 185.0,
+        "reviewedSourcePixels": 207.0,
+        "activeOpticalAreaPercent": 89.3719806763285,
+        "components": 1,
+        "largestSourceComponent": 185.0,
+        "objectHit": true
+      },
+      "encoder": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 207.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      }
+    },
+    {
+      "controlIndex": 0,
+      "sourceSHA256": "009503e805a81559bd7d3d024515d67200d4727d7647eaedea87c1139784b663",
+      "factor": 1.0,
+      "objectIndex": 1,
+      "proposal": {
+        "activeSourcePixels": 192.0,
+        "reviewedSourcePixels": 235.0,
+        "activeOpticalAreaPercent": 81.70212765957447,
+        "components": 2,
+        "largestSourceComponent": 191.0,
+        "objectHit": true
+      },
+      "encoder": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 235.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      }
+    },
+    {
+      "controlIndex": 0,
+      "sourceSHA256": "009503e805a81559bd7d3d024515d67200d4727d7647eaedea87c1139784b663",
+      "factor": 1.0,
+      "objectIndex": 3,
+      "proposal": {
+        "activeSourcePixels": 145.0,
+        "reviewedSourcePixels": 224.0,
+        "activeOpticalAreaPercent": 64.73214285714286,
+        "components": 3,
+        "largestSourceComponent": 141.0,
+        "objectHit": true
+      },
+      "encoder": {
+        "activeSourcePixels": 3.0,
+        "reviewedSourcePixels": 224.0,
+        "activeOpticalAreaPercent": 1.3392857142857142,
+        "components": 1,
+        "largestSourceComponent": 3.0,
+        "objectHit": false
+      }
+    },
+    {
+      "controlIndex": 0,
+      "sourceSHA256": "009503e805a81559bd7d3d024515d67200d4727d7647eaedea87c1139784b663",
+      "factor": 0.5,
+      "objectIndex": 2,
+      "proposal": {
+        "activeSourcePixels": 92.0,
+        "reviewedSourcePixels": 220.0,
+        "activeOpticalAreaPercent": 41.81818181818182,
+        "components": 2,
+        "largestSourceComponent": 56.0,
+        "objectHit": true
+      },
+      "encoder": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 220.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      }
+    },
+    {
+      "controlIndex": 0,
+      "sourceSHA256": "009503e805a81559bd7d3d024515d67200d4727d7647eaedea87c1139784b663",
+      "factor": 0.5,
+      "objectIndex": 3,
+      "proposal": {
+        "activeSourcePixels": 64.0,
+        "reviewedSourcePixels": 236.0,
+        "activeOpticalAreaPercent": 27.11864406779661,
+        "components": 3,
+        "largestSourceComponent": 52.0,
+        "objectHit": true
+      },
+      "encoder": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 236.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      }
+    },
+    {
+      "controlIndex": 1,
+      "sourceSHA256": "d6844b4eaf61b55f2b1140d3b05ff864400260a923677576b381c5fc8f10804f",
+      "factor": 1.0,
+      "objectIndex": 0,
+      "proposal": {
+        "activeSourcePixels": 62.0,
+        "reviewedSourcePixels": 116.0,
+        "activeOpticalAreaPercent": 53.44827586206897,
+        "components": 2,
+        "largestSourceComponent": 59.0,
+        "objectHit": true
+      },
+      "encoder": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 116.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      }
+    },
+    {
+      "controlIndex": 1,
+      "sourceSHA256": "d6844b4eaf61b55f2b1140d3b05ff864400260a923677576b381c5fc8f10804f",
+      "factor": 0.5,
+      "objectIndex": 0,
+      "proposal": {
+        "activeSourcePixels": 56.0,
+        "reviewedSourcePixels": 124.0,
+        "activeOpticalAreaPercent": 45.16129032258065,
+        "components": 1,
+        "largestSourceComponent": 56.0,
+        "objectHit": true
+      },
+      "encoder": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 124.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      }
+    },
+    {
+      "controlIndex": 3,
+      "sourceSHA256": "0b9cd5340ff12eaf845002e43e7424d2ac47e4e508b45adf30520760be4ec0aa",
+      "factor": 0.5,
+      "objectIndex": 1,
+      "proposal": {
+        "activeSourcePixels": 8.0,
+        "reviewedSourcePixels": 44.0,
+        "activeOpticalAreaPercent": 18.181818181818183,
+        "components": 2,
+        "largestSourceComponent": 4.0,
+        "objectHit": true
+      },
+      "encoder": {
+        "activeSourcePixels": 4.0,
+        "reviewedSourcePixels": 44.0,
+        "activeOpticalAreaPercent": 9.090909090909092,
+        "components": 1,
+        "largestSourceComponent": 4.0,
+        "objectHit": false
+      }
+    },
+    {
+      "controlIndex": 8,
+      "sourceSHA256": "3aa067f4055d716d6867b984259136d3c98d52668b6ada095da3caf3d08fff85",
+      "factor": 1.0,
+      "objectIndex": 0,
+      "proposal": {
+        "activeSourcePixels": 71.0,
+        "reviewedSourcePixels": 307.0,
+        "activeOpticalAreaPercent": 23.127035830618894,
+        "components": 1,
+        "largestSourceComponent": 71.0,
+        "objectHit": true
+      },
+      "encoder": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 307.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      }
+    },
+    {
+      "controlIndex": 8,
+      "sourceSHA256": "3aa067f4055d716d6867b984259136d3c98d52668b6ada095da3caf3d08fff85",
+      "factor": 0.5,
+      "objectIndex": 0,
+      "proposal": {
+        "activeSourcePixels": 68.0,
+        "reviewedSourcePixels": 308.0,
+        "activeOpticalAreaPercent": 22.07792207792208,
+        "components": 1,
+        "largestSourceComponent": 68.0,
+        "objectHit": true
+      },
+      "encoder": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 308.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      }
+    },
+    {
+      "controlIndex": 9,
+      "sourceSHA256": "67405a875460aa7106b0c6264ea6c74d22e71e8cf079df035163eca648e78307",
+      "factor": 1.0,
+      "objectIndex": 1,
+      "proposal": {
+        "activeSourcePixels": 99.0,
+        "reviewedSourcePixels": 197.0,
+        "activeOpticalAreaPercent": 50.253807106598984,
+        "components": 4,
+        "largestSourceComponent": 72.0,
+        "objectHit": true
+      },
+      "encoder": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 197.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      }
+    },
+    {
+      "controlIndex": 9,
+      "sourceSHA256": "67405a875460aa7106b0c6264ea6c74d22e71e8cf079df035163eca648e78307",
+      "factor": 0.5,
+      "objectIndex": 1,
+      "proposal": {
+        "activeSourcePixels": 88.0,
+        "reviewedSourcePixels": 200.0,
+        "activeOpticalAreaPercent": 44.0,
+        "components": 2,
+        "largestSourceComponent": 76.0,
+        "objectHit": true
+      },
+      "encoder": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 200.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      }
+    },
+    {
+      "controlIndex": 9,
+      "sourceSHA256": "67405a875460aa7106b0c6264ea6c74d22e71e8cf079df035163eca648e78307",
+      "factor": 0.5,
+      "objectIndex": 2,
+      "proposal": {
+        "activeSourcePixels": 68.0,
+        "reviewedSourcePixels": 164.0,
+        "activeOpticalAreaPercent": 41.46341463414634,
+        "components": 1,
+        "largestSourceComponent": 68.0,
+        "objectHit": true
+      },
+      "encoder": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 164.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      }
+    },
+    {
+      "controlIndex": 11,
+      "sourceSHA256": "6862fdacd333fd0e94e1cd554b65bbfba347bb38240d3264ec536c747825c092",
+      "factor": 0.5,
+      "objectIndex": 0,
+      "proposal": {
+        "activeSourcePixels": 20.0,
+        "reviewedSourcePixels": 168.0,
+        "activeOpticalAreaPercent": 11.904761904761905,
+        "components": 4,
+        "largestSourceComponent": 8.0,
+        "objectHit": true
+      },
+      "encoder": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 168.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      }
+    }
+  ],
+  "cropCorrection": {
+    "reason": "native minimum context/margins did not shrink with a controlled half-source sampling; physical context silently doubled",
+    "version": "density-scaled-native-margins-v2",
+    "same63TrainFeatures": true,
+    "headRefitted": false,
+    "actualNativeProductInputChanged": false
+  },
+  "fullNativeProduct": {
+    "rows": [
+      {
+        "source": "9bab7ab2",
+        "payloadSHA256": "c9d6adb1e8613bf0662cb35c9b05af2d336478b7305931b9d2bc001e8d84af1e",
+        "scores": [
+          {
+            "region": "forehead",
+            "normalV3": 0.09196811771919068,
+            "proposalOnly": 5.915089839402131,
+            "encoder": 0.0,
+            "reason": null,
+            "acceptedSourcePixels": 0,
+            "visibleSourcePixels": 25156
+          },
+          {
+            "region": "nose",
+            "normalV3": 0.042833431493280505,
+            "proposalOnly": 6.555809602993141,
+            "encoder": 0.0,
+            "reason": null,
+            "acceptedSourcePixels": 0,
+            "visibleSourcePixels": 24055
+          },
+          {
+            "region": "chin",
+            "normalV3": 0.0,
+            "proposalOnly": 2.527713055143684,
+            "encoder": 0.0,
+            "reason": null,
+            "acceptedSourcePixels": 0,
+            "visibleSourcePixels": 14163
+          },
+          {
+            "region": "periorbital",
+            "normalV3": 0.11992461881103307,
+            "proposalOnly": 6.276321152017389,
+            "encoder": 5.977448716207037,
+            "reason": null,
+            "acceptedSourcePixels": 440,
+            "visibleSourcePixels": 7361
+          },
+          {
+            "region": "rightCheek",
+            "normalV3": 0.0,
+            "proposalOnly": 1.1031047059870118,
+            "encoder": 0.0,
+            "reason": null,
+            "acceptedSourcePixels": 0,
+            "visibleSourcePixels": 11241
+          },
+          {
+            "region": "leftCheek",
+            "normalV3": 0.0,
+            "proposalOnly": 2.8977006100422336,
+            "encoder": 1.1966213045518537,
+            "reason": null,
+            "acceptedSourcePixels": 102,
+            "visibleSourcePixels": 8524
+          }
+        ],
+        "maps": [
+          {
+            "region": "forehead",
+            "activePixels": 0,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              138.0,
+              179.0
+            ]
+          },
+          {
+            "region": "nose",
+            "activePixels": 0,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              191.0,
+              179.0
+            ]
+          },
+          {
+            "region": "chin",
+            "activePixels": 0,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              209.0,
+              495.0
+            ]
+          },
+          {
+            "region": "periorbital",
+            "activePixels": 440,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              170.0,
+              279.0
+            ]
+          },
+          {
+            "region": "rightCheek",
+            "activePixels": 0,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              129.0,
+              335.0
+            ]
+          },
+          {
+            "region": "leftCheek",
+            "activePixels": 102,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              373.0,
+              327.0
+            ]
+          }
+        ],
+        "metadata": {
+          "version": "native-independent-stable-region-ridge-v3",
+          "sourceGrid": [
+            443,
+            509
+          ],
+          "analysisResize": false,
+          "coordinateScale": 0.5637257397174835,
+          "tileCore": 512,
+          "tileStride": 256,
+          "halo": 48,
+          "tiles": 1,
+          "peakTilePixels": 225487,
+          "overlapCountedOnce": true,
+          "classifierVersion": "frozen-imagenet-two-crop-material-v1-staging",
+          "encoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+          "candidateComponents": 74,
+          "acceptedComponents": 3,
+          "threshold": 0.5,
+          "confidenceNotSeverity": true,
+          "sourceLabelsAsInferenceInput": false,
+          "cropOrigin": [
+            81,
+            131
+          ],
+          "cropShape": [
+            443,
+            509
+          ],
+          "sourceImageSize": [
+            640,
+            640
+          ],
+          "normalProductEnabled": false
+        },
+        "seconds": 44.765000000130385,
+        "normalProductEnabled": false
+      },
+      {
+        "source": "bffa2b0b",
+        "payloadSHA256": "1901d70dd2067f1a93cf2e305ecb2bf9d8ba3cd0ea2fa1e3b625a121eaab41d5",
+        "scores": [
+          {
+            "region": "forehead",
+            "normalV3": 0.0,
+            "proposalOnly": 0.7728453072832941,
+            "encoder": 0.0,
+            "reason": null,
+            "acceptedSourcePixels": 0,
+            "visibleSourcePixels": 16174
+          },
+          {
+            "region": "nose",
+            "normalV3": 0.0,
+            "proposalOnly": 0.03553028957186001,
+            "encoder": 0.0,
+            "reason": null,
+            "acceptedSourcePixels": 0,
+            "visibleSourcePixels": 16887
+          },
+          {
+            "region": "chin",
+            "normalV3": 0.0,
+            "proposalOnly": 0.0,
+            "encoder": 0.0,
+            "reason": null,
+            "acceptedSourcePixels": 0,
+            "visibleSourcePixels": 6620
+          },
+          {
+            "region": "periorbital",
+            "normalV3": 0.0,
+            "proposalOnly": 0.206940464820121,
+            "encoder": 0.0,
+            "reason": null,
+            "acceptedSourcePixels": 0,
+            "visibleSourcePixels": 6282
+          },
+          {
+            "region": "rightCheek",
+            "normalV3": 0.0,
+            "proposalOnly": 0.0,
+            "encoder": 0.0,
+            "reason": null,
+            "acceptedSourcePixels": 0,
+            "visibleSourcePixels": 5690
+          },
+          {
+            "region": "leftCheek",
+            "normalV3": 0.0,
+            "proposalOnly": 4.34610825760569,
+            "encoder": 0.0,
+            "reason": null,
+            "acceptedSourcePixels": 0,
+            "visibleSourcePixels": 5062
+          }
+        ],
+        "maps": [
+          {
+            "region": "forehead",
+            "activePixels": 0,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              117.0,
+              143.0
+            ]
+          },
+          {
+            "region": "nose",
+            "activePixels": 0,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              151.0,
+              143.0
+            ]
+          },
+          {
+            "region": "chin",
+            "activePixels": 0,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              182.0,
+              376.0
+            ]
+          },
+          {
+            "region": "periorbital",
+            "activePixels": 0,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              140.0,
+              214.0
+            ]
+          },
+          {
+            "region": "rightCheek",
+            "activePixels": 0,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              124.0,
+              264.0
+            ]
+          },
+          {
+            "region": "leftCheek",
+            "activePixels": 0,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              321.0,
+              270.0
+            ]
+          }
+        ],
+        "metadata": {
+          "version": "native-independent-stable-region-ridge-v3",
+          "sourceGrid": [
+            403,
+            389
+          ],
+          "analysisResize": false,
+          "coordinateScale": 0.4792865812778473,
+          "tileCore": 512,
+          "tileStride": 256,
+          "halo": 48,
+          "tiles": 1,
+          "peakTilePixels": 156767,
+          "overlapCountedOnce": true,
+          "classifierVersion": "frozen-imagenet-two-crop-material-v1-staging",
+          "encoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+          "candidateComponents": 11,
+          "acceptedComponents": 0,
+          "threshold": 0.5,
+          "confidenceNotSeverity": true,
+          "sourceLabelsAsInferenceInput": false,
+          "cropOrigin": [
+            69,
+            95
+          ],
+          "cropShape": [
+            403,
+            389
+          ],
+          "sourceImageSize": [
+            640,
+            640
+          ],
+          "normalProductEnabled": false
+        },
+        "seconds": 17.280999999959022,
+        "normalProductEnabled": false
+      },
+      {
+        "source": "24031977",
+        "payloadSHA256": "88a9ad48048d12f21e8fb929aa663402f433e7099234bacb754cb8d79ecd7602",
+        "scores": [
+          {
+            "region": "forehead",
+            "normalV3": 0.0,
+            "proposalOnly": 0.8440599282549061,
+            "encoder": 0.0,
+            "reason": null,
+            "acceptedSourcePixels": 0,
+            "visibleSourcePixels": 14217
+          },
+          {
+            "region": "nose",
+            "normalV3": 0.0,
+            "proposalOnly": 1.0287267080745341,
+            "encoder": 0.23938923395445136,
+            "reason": null,
+            "acceptedSourcePixels": 37,
+            "visibleSourcePixels": 15456
+          },
+          {
+            "region": "chin",
+            "normalV3": 0.13607125185551705,
+            "proposalOnly": 3.525482434438397,
+            "encoder": 0.0,
+            "reason": null,
+            "acceptedSourcePixels": 0,
+            "visibleSourcePixels": 8084
+          },
+          {
+            "region": "periorbital",
+            "normalV3": 0.0,
+            "proposalOnly": 1.4861703591578368,
+            "encoder": 0.6605201596257052,
+            "reason": null,
+            "acceptedSourcePixels": 48,
+            "visibleSourcePixels": 7267
+          },
+          {
+            "region": "rightCheek",
+            "normalV3": 0.0,
+            "proposalOnly": 3.3909014321819715,
+            "encoder": 0.0,
+            "reason": null,
+            "acceptedSourcePixels": 0,
+            "visibleSourcePixels": 4748
+          },
+          {
+            "region": "leftCheek",
+            "normalV3": 0.0,
+            "proposalOnly": 1.3822434875066454,
+            "encoder": 0.0,
+            "reason": null,
+            "acceptedSourcePixels": 0,
+            "visibleSourcePixels": 7524
+          }
+        ],
+        "maps": [
+          {
+            "region": "forehead",
+            "activePixels": 0,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              95.0,
+              112.0
+            ]
+          },
+          {
+            "region": "nose",
+            "activePixels": 37,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              111.0,
+              112.0
+            ]
+          },
+          {
+            "region": "chin",
+            "activePixels": 0,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              162.0,
+              378.0
+            ]
+          },
+          {
+            "region": "periorbital",
+            "activePixels": 48,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              110.0,
+              183.0
+            ]
+          },
+          {
+            "region": "rightCheek",
+            "activePixels": 0,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              111.0,
+              263.0
+            ]
+          },
+          {
+            "region": "leftCheek",
+            "activePixels": 0,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              275.0,
+              241.0
+            ]
+          }
+        ],
+        "metadata": {
+          "version": "native-independent-stable-region-ridge-v3",
+          "sourceGrid": [
+            361,
+            436
+          ],
+          "analysisResize": false,
+          "coordinateScale": 0.4424502722918987,
+          "tileCore": 512,
+          "tileStride": 256,
+          "halo": 48,
+          "tiles": 1,
+          "peakTilePixels": 157396,
+          "overlapCountedOnce": true,
+          "classifierVersion": "frozen-imagenet-two-crop-material-v1-staging",
+          "encoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+          "candidateComponents": 29,
+          "acceptedComponents": 1,
+          "threshold": 0.5,
+          "confidenceNotSeverity": true,
+          "sourceLabelsAsInferenceInput": false,
+          "cropOrigin": [
+            47,
+            64
+          ],
+          "cropShape": [
+            361,
+            436
+          ],
+          "sourceImageSize": [
+            408,
+            612
+          ],
+          "normalProductEnabled": false
+        },
+        "seconds": 21.375,
+        "normalProductEnabled": false
+      },
+      {
+        "source": "e1646fda",
+        "payloadSHA256": "c746ef657691d1798b693c1cf7524c0e734be90fbef171e8aae021b027f8ac9f",
+        "scores": [
+          {
+            "region": "forehead",
+            "normalV3": 0.015808610423143805,
+            "proposalOnly": 7.92583262105058,
+            "encoder": 1.3240961506740445,
+            "reason": null,
+            "acceptedSourcePixels": 1766,
+            "visibleSourcePixels": 133374
+          },
+          {
+            "region": "nose",
+            "normalV3": 0.04072398190045249,
+            "proposalOnly": 9.677866708930978,
+            "encoder": 1.8886863724014054,
+            "reason": null,
+            "acceptedSourcePixels": 2860,
+            "visibleSourcePixels": 151428
+          },
+          {
+            "region": "chin",
+            "normalV3": 0.0,
+            "proposalOnly": 10.51539510722888,
+            "encoder": 0.06529498824690212,
+            "reason": null,
+            "acceptedSourcePixels": 45,
+            "visibleSourcePixels": 68918
+          },
+          {
+            "region": "periorbital",
+            "normalV3": 0.1811922449719152,
+            "proposalOnly": 10.453737909252418,
+            "encoder": 1.5453596909280618,
+            "reason": null,
+            "acceptedSourcePixels": 1096,
+            "visibleSourcePixels": 70922
+          },
+          {
+            "region": "rightCheek",
+            "normalV3": 0.18654039316975177,
+            "proposalOnly": 3.551971636112072,
+            "encoder": 0.6182981667243168,
+            "reason": null,
+            "acceptedSourcePixels": 286,
+            "visibleSourcePixels": 46256
+          },
+          {
+            "region": "leftCheek",
+            "normalV3": 0.16742406122937098,
+            "proposalOnly": 8.966903199416672,
+            "encoder": 0.9816998346049192,
+            "reason": null,
+            "acceptedSourcePixels": 552,
+            "visibleSourcePixels": 56229
+          }
+        ],
+        "maps": [
+          {
+            "region": "forehead",
+            "activePixels": 1766,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              622.0,
+              884.0
+            ]
+          },
+          {
+            "region": "nose",
+            "activePixels": 2860,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              684.0,
+              884.0
+            ]
+          },
+          {
+            "region": "chin",
+            "activePixels": 45,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              720.0,
+              1769.0
+            ]
+          },
+          {
+            "region": "periorbital",
+            "activePixels": 1096,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              634.0,
+              1106.0
+            ]
+          },
+          {
+            "region": "rightCheek",
+            "activePixels": 286,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              602.0,
+              1316.0
+            ]
+          },
+          {
+            "region": "leftCheek",
+            "activePixels": 552,
+            "outsideMesh": 0,
+            "step": 1.0,
+            "origin": [
+              1156.0,
+              1377.0
+            ]
+          }
+        ],
+        "metadata": {
+          "version": "native-independent-stable-region-ridge-v3",
+          "sourceGrid": [
+            956,
+            1256
+          ],
+          "analysisResize": false,
+          "coordinateScale": 1.3211410537362098,
+          "tileCore": 512,
+          "tileStride": 256,
+          "halo": 53,
+          "tiles": 12,
+          "peakTilePixels": 381924,
+          "overlapCountedOnce": true,
+          "classifierVersion": "frozen-imagenet-two-crop-material-v1-staging",
+          "encoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+          "candidateComponents": 1236,
+          "acceptedComponents": 370,
+          "threshold": 0.5,
+          "confidenceNotSeverity": true,
+          "sourceLabelsAsInferenceInput": false,
+          "cropOrigin": [
+            549,
+            831
+          ],
+          "cropShape": [
+            956,
+            1256
+          ],
+          "sourceImageSize": [
+            1944,
+            2592
+          ],
+          "normalProductEnabled": false
+        },
+        "seconds": 508.46899999980815,
+        "normalProductEnabled": false
+      }
+    ],
+    "photoSpecificRules": false,
+    "labelsAsInferenceInput": false,
+    "normalProductEnabled": false
+  },
+  "fullSourceSupportReview": [
+    {
+      "source": "9bab7ab2",
+      "activeUniqueSourcePixels": 542,
+      "reviewedFailureClass": "eyewear-rim mistaken for material",
+      "reviewRectangle": [
+        212,
+        326,
+        69,
+        24
+      ],
+      "falseMaterialPixelsInReviewedRim": 440,
+      "wholeEyeNegative": false
+    },
+    {
+      "source": "bffa2b0b",
+      "activeUniqueSourcePixels": 0
+    },
+    {
+      "source": "24031977",
+      "activeUniqueSourcePixels": 48,
+      "materialLocationReview": [
+        {
+          "polygon": [
+            [
+              58,
+              243
+            ],
+            [
+              70,
+              244
+            ],
+            [
+              87,
+              258
+            ],
+            [
+              93,
+              285
+            ],
+            [
+              83,
+              306
+            ],
+            [
+              71,
+              286
+            ]
+          ],
+          "markedSupportInside": 0,
+          "scope": "visible peeling/film location; etiology UNKNOWN; not pixel precision truth"
+        },
+        {
+          "polygon": [
+            [
+              254,
+              242
+            ],
+            [
+              279,
+              245
+            ],
+            [
+              295,
+              265
+            ],
+            [
+              306,
+              292
+            ],
+            [
+              286,
+              297
+            ],
+            [
+              267,
+              272
+            ]
+          ],
+          "markedSupportInside": 0,
+          "scope": "visible peeling/film location; etiology UNKNOWN; not pixel precision truth"
+        }
+      ]
+    },
+    {
+      "source": "e1646fda",
+      "activeUniqueSourcePixels": 5285,
+      "existingControlIndex": 15,
+      "reviewedNegativePixels": 6750,
+      "actualProductNegativeActivePixels": 0
+    }
+  ],
+  "dryAdmission": {
+    "oldGateHits": 6,
+    "newGateHits": 11,
+    "oldHitsRetained": 3,
+    "allOldHitsRetained": false,
+    "reviewedNegativeNativePixels": 0.0,
+    "reviewedEyewearFailurePixels": 440,
+    "maxNativeObservedSeconds": 508.46899999980815,
+    "apiDeadlineSeconds": 45,
+    "withinAPIDeadline": false,
+    "normalProductEnabled": false,
+    "reasons": [
+      "native material retention is incomplete and half-resolution capture degrades",
+      "actual eyewear edge is accepted as material",
+      "full high-resolution inference exceeds normal API time budget"
+    ]
+  },
+  "contourMechanism": "observed exterior boundary tracking, roll/face-width normalization, central-excluded neighbor curvature/excursion; branch independent of fold; no history reference",
+  "contourChanges": [
+    {
+      "source": "f90e68f8",
+      "region": "rightCheek",
+      "before": null,
+      "after": null,
+      "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+      "rawBrightnessEdgeRows": 48,
+      "exteriorConfirmedRows": 12,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "f90e68f8",
+      "region": "leftCheek",
+      "before": null,
+      "after": null,
+      "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+      "rawBrightnessEdgeRows": 51,
+      "exteriorConfirmedRows": 49,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "f90e68f8",
+      "region": "chin",
+      "before": 0.0,
+      "after": null,
+      "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+      "rawBrightnessEdgeRows": 78,
+      "exteriorConfirmedRows": 47,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "64b02ede",
+      "region": "rightCheek",
+      "before": null,
+      "after": null,
+      "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+      "rawBrightnessEdgeRows": 54,
+      "exteriorConfirmedRows": 53,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "64b02ede",
+      "region": "leftCheek",
+      "before": null,
+      "after": null,
+      "afterReason": "ANATOMICAL_BOUNDARY_NOT_VISIBLE",
+      "rawBrightnessEdgeRows": 39,
+      "exteriorConfirmedRows": 39,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "64b02ede",
+      "region": "chin",
+      "before": 6.25,
+      "after": null,
+      "afterReason": "NEIGHBOR_CONTOUR_NOT_OBSERVED",
+      "rawBrightnessEdgeRows": 75,
+      "exteriorConfirmedRows": 58,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "e35b68b8",
+      "region": "rightCheek",
+      "before": null,
+      "after": null,
+      "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+      "rawBrightnessEdgeRows": 11,
+      "exteriorConfirmedRows": 6,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "e35b68b8",
+      "region": "leftCheek",
+      "before": null,
+      "after": null,
+      "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+      "rawBrightnessEdgeRows": 0,
+      "exteriorConfirmedRows": 0,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "e35b68b8",
+      "region": "chin",
+      "before": 0.0,
+      "after": null,
+      "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+      "rawBrightnessEdgeRows": 66,
+      "exteriorConfirmedRows": 36,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "40c7edda",
+      "region": "rightCheek",
+      "before": 0.0,
+      "after": 0.0,
+      "afterReason": null,
+      "rawBrightnessEdgeRows": 66,
+      "exteriorConfirmedRows": 64,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "40c7edda",
+      "region": "leftCheek",
+      "before": null,
+      "after": null,
+      "afterReason": "HARD_DIRECTIONAL_SHADOW",
+      "rawBrightnessEdgeRows": null,
+      "exteriorConfirmedRows": null,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "40c7edda",
+      "region": "chin",
+      "before": null,
+      "after": null,
+      "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+      "rawBrightnessEdgeRows": 24,
+      "exteriorConfirmedRows": 0,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "dedbb492",
+      "region": "rightCheek",
+      "before": null,
+      "after": null,
+      "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+      "rawBrightnessEdgeRows": 38,
+      "exteriorConfirmedRows": 38,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "dedbb492",
+      "region": "leftCheek",
+      "before": null,
+      "after": null,
+      "afterReason": "HARD_DIRECTIONAL_SHADOW",
+      "rawBrightnessEdgeRows": null,
+      "exteriorConfirmedRows": null,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "dedbb492",
+      "region": "chin",
+      "before": null,
+      "after": null,
+      "afterReason": "HARD_DIRECTIONAL_SHADOW",
+      "rawBrightnessEdgeRows": null,
+      "exteriorConfirmedRows": null,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "05619d0a",
+      "region": "rightCheek",
+      "before": 0.0,
+      "after": 0.0,
+      "afterReason": null,
+      "rawBrightnessEdgeRows": 69,
+      "exteriorConfirmedRows": 67,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "05619d0a",
+      "region": "leftCheek",
+      "before": null,
+      "after": null,
+      "afterReason": "ANATOMICAL_BOUNDARY_NOT_VISIBLE",
+      "rawBrightnessEdgeRows": 0,
+      "exteriorConfirmedRows": 0,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "05619d0a",
+      "region": "chin",
+      "before": 0.0,
+      "after": null,
+      "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+      "rawBrightnessEdgeRows": 85,
+      "exteriorConfirmedRows": 64,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "515cc548",
+      "region": "rightCheek",
+      "before": null,
+      "after": null,
+      "afterReason": "CAPTURE_QUALITY",
+      "rawBrightnessEdgeRows": null,
+      "exteriorConfirmedRows": null,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "515cc548",
+      "region": "leftCheek",
+      "before": null,
+      "after": null,
+      "afterReason": "CAPTURE_QUALITY",
+      "rawBrightnessEdgeRows": null,
+      "exteriorConfirmedRows": null,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "515cc548",
+      "region": "chin",
+      "before": null,
+      "after": null,
+      "afterReason": "CAPTURE_QUALITY",
+      "rawBrightnessEdgeRows": null,
+      "exteriorConfirmedRows": null,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "ab1552cb",
+      "region": "rightCheek",
+      "before": null,
+      "after": null,
+      "afterReason": "ANATOMICAL_BOUNDARY_NOT_VISIBLE",
+      "rawBrightnessEdgeRows": 0,
+      "exteriorConfirmedRows": 0,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "ab1552cb",
+      "region": "leftCheek",
+      "before": null,
+      "after": null,
+      "afterReason": "HARD_DIRECTIONAL_SHADOW",
+      "rawBrightnessEdgeRows": null,
+      "exteriorConfirmedRows": null,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    },
+    {
+      "source": "ab1552cb",
+      "region": "chin",
+      "before": null,
+      "after": null,
+      "afterReason": "ANATOMICAL_BOUNDARY_NOT_VISIBLE",
+      "rawBrightnessEdgeRows": 7,
+      "exteriorConfirmedRows": 7,
+      "activeMapPixels": 0,
+      "outsideMesh": 0
+    }
+  ],
+  "contourVisibleTargets": {
+    "rows": [
+      {
+        "source": "99f82af5",
+        "pose": "FRONT",
+        "conditions": {
+          "yaw": -0.05,
+          "pitch": 0.02,
+          "roll": 0,
+          "scaleRatio": 0.57,
+          "avgLuminance": 138.15419316977625,
+          "blurScore": 5.266114247273318
+        },
+        "target": {
+          "index": 468,
+          "source": "99f82af512a76900cf489e6395dbba3c07d7137291ca425deee8b4098c909597",
+          "region": "leftCheek",
+          "polygon": [
+            [
+              447,
+              414
+            ],
+            [
+              465,
+              438
+            ],
+            [
+              461,
+              470
+            ],
+            [
+              445,
+              493
+            ],
+            [
+              429,
+              500
+            ],
+            [
+              428,
+              490
+            ],
+            [
+              447,
+              466
+            ],
+            [
+              453,
+              440
+            ],
+            [
+              439,
+              421
+            ]
+          ],
+          "label": "visible local lower-cheek outline lobule; cause/clinical sag unknown"
+        },
+        "branchValue": null,
+        "reason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+        "overlap": null,
+        "localDeviations": null
+      },
+      {
+        "source": "fc3a6b13",
+        "pose": "LEFT",
+        "conditions": {
+          "yaw": 0.54,
+          "pitch": 0.05,
+          "roll": -0.0,
+          "scaleRatio": 0.53,
+          "avgLuminance": 116.44972425788224,
+          "blurScore": 14.56052027932402
+        },
+        "target": {
+          "index": 111,
+          "source": "fc3a6b137156db2b0541ca475b9f353716ec1459fe17992b79bce858a6c61605",
+          "region": "rightCheek",
+          "polygon": [
+            [
+              126,
+              354
+            ],
+            [
+              145,
+              387
+            ],
+            [
+              158,
+              420
+            ],
+            [
+              170,
+              460
+            ],
+            [
+              158,
+              473
+            ],
+            [
+              146,
+              444
+            ],
+            [
+              135,
+              410
+            ],
+            [
+              120,
+              367
+            ]
+          ],
+          "label": "visible lateral lower-face edge; not age/fold truth; contrast/context review"
+        },
+        "branchValue": null,
+        "reason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+        "overlap": null,
+        "localDeviations": null
+      }
+    ],
+    "normalProductEnabled": false,
+    "clinicalDetectionAccuracyNotComputed": true
+  },
+  "contourAdmission": {
+    "normalProductEnabled": false,
+    "realPositiveCaptureDemonstrated": false,
+    "reason": "image/neighbor contour observation and capture-expression gates remain limiting; a conservative null or normal contour zero is not positive sag success"
+  },
+  "preservation": {
+    "normalAPIEqualsSource": true,
+    "normalAPIPhotoId": "4077d040e2c1b5205a55b98e98f13d815ca3f3fb75fe741bdb0a423237f9720d",
+    "frontendMatchedFiles": 115,
+    "normalSourcePathsUnchanged": true,
+    "newBuild": false,
+    "userRecordsRewritten": false,
+    "AGTouched": false,
+    "normalDry": "eligible-flake-luma-union-v3",
+    "normalChin": "contour-fold-lower-chin-observed-runs-v9",
+    "normalCheek": "contour-fold-visible-region-unique-centers-v7"
+  },
+  "focusedTests": {
+    "firstRunPassed": 33,
+    "finalAffectedFilePassed": 11,
+    "coverage": "crop RGB/scale, train-only scaler, real edge versus guide, no unseen continuity, source roll/scale, skin-shadow rejection, same accepted pixel support regardless of confidence; prior native/v9/history regressions retained"
+  },
+  "artifactInventory": [
+    {
+      "path": "audit-results\\native-material-contour-20261013\\added-components-reviewed.json",
+      "bytes": 388867,
+      "sha256": "1b1172e57064a82599963a30af9e89078827ffb219f68253614f685d068936b4"
+    },
+    {
+      "path": "audit-results\\native-material-contour-20261013\\material-protocol.json",
+      "bytes": 1260,
+      "sha256": "4ef3af60e9808ff244b3a40a3b69806fe6231cd42a6e03dba6203f355df5b4df"
+    },
+    {
+      "path": "audit-results\\native-material-contour-20261013\\source-nearcopy-check.json",
+      "bytes": 149,
+      "sha256": "db6d4e3b35aafc5b207c446e60794c19a4fca7b7f1b9860204226d39b8ac547b"
+    },
+    {
+      "path": "audit-results\\native-material-contour-20261013\\encoder-material-head.json",
+      "bytes": 167792,
+      "sha256": "d4aeb0688c7c4918bb66374ea7901eef3a004104e5f56ab7627231f7cfaf11f9"
+    },
+    {
+      "path": "audit-results\\native-material-contour-20261013\\material-encoder-comparison.json",
+      "bytes": 192546,
+      "sha256": "8d76164f812698f99124bb2089b1fa1ef5235e0de00b9ce18ab54075df1d9cec"
+    },
+    {
+      "path": "audit-results\\native-material-contour-20261013\\material-encoder-scale-corrected.json",
+      "bytes": 192619,
+      "sha256": "a2ae855d38a95e2710b59329d2fca2e7d76662a2b68a39c215d4ead830567f43"
+    },
+    {
+      "path": "audit-results\\native-material-contour-20261013\\encoder-native-product-comparison.json",
+      "bytes": 16968,
+      "sha256": "29e73d0c0c9da6fd27250e4e96896d21bb752dd92557acca0fe269267ab7e81c"
+    },
+    {
+      "path": "audit-results\\native-material-contour-20261013\\contour-branch-comparison.json",
+      "bytes": 15410,
+      "sha256": "fb0108191d68ced88b048aded725a2198fd4039208ddd191367f7381312b23cf"
+    },
+    {
+      "path": "audit-results\\native-material-contour-20261013\\contour-branch-comparison-v2.json",
+      "bytes": 17562,
+      "sha256": "5389dad94ec3a90b5abff6e1aff3c97dfc0fbce650e5b78fd2e33d873c68eb91"
+    },
+    {
+      "path": "audit-results\\native-material-contour-20261013\\contour-visible-target-labels.json",
+      "bytes": 1627,
+      "sha256": "a5fb73c1e7e04807293ee30cc526ed2356cfadac985c7493f6e1e998a9104e73"
+    },
+    {
+      "path": "audit-results\\native-material-contour-20261013\\contour-visible-target-comparison.json",
+      "bytes": 2586,
+      "sha256": "53ff3b1a64aa9764aeb5d59d7106717f9404a64130a7470422d0556c72c40fed"
+    }
+  ]
+}
