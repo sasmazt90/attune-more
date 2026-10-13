@@ -18,14 +18,15 @@ PARAMETERS=dict(delta=5,minArea=4,maxArea=1500,maxVariation=.25,minDiversity=.2,
 def region_proposal(bgr):
  """No annotation, ROI label, person ID or source name is an inference input."""
  gray=cv2.cvtColor(bgr,cv2.COLOR_BGR2GRAY);lab=cv2.cvtColor(bgr,cv2.COLOR_BGR2LAB);luma=lab[:,:,0]
- regions,_=cv2.MSER_create(5,4,1500,.25,.2).detectRegions(255-luma)
+ p=PARAMETERS
+ regions,_=cv2.MSER_create(p['delta'],p['minArea'],p['maxArea'],p['maxVariation'],p['minDiversity']).detectRegions(255-luma)
  dark=cv2.dilate((cv2.morphologyEx(gray,cv2.MORPH_BLACKHAT,np.ones((7,7),np.uint8))>35).astype('uint8'),np.ones((7,7),np.uint8))>0
  g=gray.astype('float32')/255;gradient=np.hypot(cv2.Sobel(g,cv2.CV_32F,1,0,3),cv2.Sobel(g,cv2.CV_32F,0,1,3))
  stages={k:np.zeros(gray.shape,np.float32) for k in ['stableRegions','geometry','ringContrast','boundaryEdges','poreSeparated']};details=[]
  for points in regions:
   x,y,w,h=cv2.boundingRect(points);area=len(points)
   stages['stableRegions'][points[:,1],points[:,0]]=1
-  if max(w,h)/max(1,min(w,h))>8 or area/(w*h)<.15:continue
+  if max(w,h)/max(1,min(w,h))>p['maxElongation'] or area/(w*h)<p['minFill']:continue
   stages['geometry'][points[:,1],points[:,0]]=1
   a=max(0,x-4);b=max(0,y-4);c=min(gray.shape[1],x+w+4);d=min(gray.shape[0],y+h+4)
   mask=np.zeros((d-b,c-a),np.uint8);mask[points[:,1]-b,points[:,0]-a]=1
@@ -33,14 +34,14 @@ def region_proposal(bgr):
   if ring.sum()<8:continue
   # The actual candidate pixels are excluded from every background statistic.
   reference=float(np.median(luma[b:d,a:c][ring]));contrast=float(np.median(luma[points[:,1],points[:,0]])-reference)
-  if contrast<=3:continue
-  intensity=float(np.clip((contrast-3)/32,0,1));stages['ringContrast'][points[:,1],points[:,0]]=np.maximum(stages['ringContrast'][points[:,1],points[:,0]],intensity)
+  if contrast<=p['minRingLumaDifference']:continue
+  intensity=float(np.clip((contrast-p['minRingLumaDifference'])/p['contrastSpan'],0,1));stages['ringContrast'][points[:,1],points[:,0]]=np.maximum(stages['ringContrast'][points[:,1],points[:,0]],intensity)
   border=(mask>0)&~(cv2.erode(mask,np.ones((3,3),np.uint8))>0)
-  edge_fraction=float((gradient[b:d,a:c][border]>4/255).mean())
-  if edge_fraction<.35:continue
+  edge_fraction=float((gradient[b:d,a:c][border]>p['minBoundaryEdge']).mean())
+  if edge_fraction<p['minBoundaryEdgeFraction']:continue
   stages['boundaryEdges'][points[:,1],points[:,0]]=np.maximum(stages['boundaryEdges'][points[:,1],points[:,0]],intensity)
   dark_fraction=float(dark[points[:,1],points[:,0]].mean())
-  if area<=20 and dark_fraction>.25:continue
+  if area<=p['smallPoreMaxArea'] and dark_fraction>p['maxSmallPoreDarkAdjacency']:continue
   stages['poreSeparated'][points[:,1],points[:,0]]=np.maximum(stages['poreSeparated'][points[:,1],points[:,0]],intensity)
   if intensity>.04:
    details.append(dict(rect=[x,y,w,h],area=area,ringLuma=reference,contrast=contrast,edgeFraction=edge_fraction,darkAdjacentFraction=dark_fraction))
