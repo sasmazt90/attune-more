@@ -14,15 +14,17 @@ PARAMETERS=dict(radii=[1,2,3],seedContrast=.025,growthContrast=.018,
 
 def odd(value):return max(3,2*int(round(value))+1)
 
-def proposal_tile(bgr,coordinate_scale=1.,return_stages=False,pixel_density=1.,check=None):
+def proposal_tile(bgr,coordinate_scale=1.,return_stages=False,pixel_density=1.,check=None,interest=None,photometry=None,work=None):
     """Geometric units scale with the supplied source-coordinate metric.
 
     source resize by k -> coordinate_scale by k. Contrast remains photometric;
     derivative magnitude is expressed per reference-coordinate distance.
     """
     s=max(.125,float(coordinate_scale));p=PARAMETERS
-    gray=cv2.cvtColor(bgr,cv2.COLOR_BGR2GRAY);g=gray.astype(np.float32)/255
-    lab=cv2.cvtColor(bgr,cv2.COLOR_BGR2LAB);luma=lab[:,:,0]
+    if photometry is None:
+        gray=cv2.cvtColor(bgr,cv2.COLOR_BGR2GRAY);luma=cv2.cvtColor(bgr,cv2.COLOR_BGR2LAB)[:,:,0]
+    else:gray,luma=photometry
+    g=gray.astype(np.float32)/255
     scales=sorted(set([max(.125,float(pixel_density)),s]));response=np.zeros(g.shape,np.float32)
     region_envelope=np.zeros(g.shape,bool);candidate_regions=[]
     for metric in scales:
@@ -56,17 +58,23 @@ def proposal_tile(bgr,coordinate_scale=1.,return_stages=False,pixel_density=1.,c
         x,y,w,h,area=dark_stats[i]
         if area<=p['poreMaximumCoreArea']*s*s and max(w,h)/max(1,min(w,h))<=3.3:
             pore_centers[i]=dark_centers[i]
-    stages={name:np.zeros(g.shape,np.float32) for name in ['envelope','seeded','geometry','ring','edge','pore-separated']}
-    stages['envelope'][envelope|region_envelope]=1;details=[]
+    # Intermediate stage rasters are debug output only; the normal source field
+    # needs one accumulator. Candidate rings/contrast remain independent.
+    names=['envelope','seeded','geometry','ring','edge','pore-separated'] if return_stages else ['pore-separated']
+    stages={name:np.zeros(g.shape,np.float32) for name in names}
+    if return_stages:stages['envelope'][envelope|region_envelope]=1
+    details=[];processed=0;skipped=0
     for region_index,(pts,branch,metric) in enumerate(candidate_regions):
         if check is not None and region_index%32==0:check()
+        if interest is not None and not interest[pts[:,1],pts[:,0]].any():skipped+=1;continue
+        processed+=1
         x,y,w,h=cv2.boundingRect(pts);area=len(pts);local=np.zeros((h,w),bool);local[pts[:,1]-y,pts[:,0]-x]=True
-        seed_count=int((seed[y:y+h,x:x+w]&local).sum())
-        stages['seeded'][y:y+h,x:x+w][local]=1
+        seed_count=int((seed[y:y+h,x:x+w]&local).sum()) if return_stages else 0
+        if return_stages:stages['seeded'][y:y+h,x:x+w][local]=1
         if area<max(1,int(round(p['minArea']*pixel_density**2))) or area>max(4,int(round(p['maxArea']*metric**2))) or area/(w*h)<p['minFill'] or max(w,h)/max(1,min(w,h))>p['maxElongation']:continue
         # An open region at the tile boundary has insufficient ring context.
         if x==0 or y==0 or x+w==g.shape[1] or y+h==g.shape[0]:continue
-        stages['geometry'][y:y+h,x:x+w][local]=1
+        if return_stages:stages['geometry'][y:y+h,x:x+w][local]=1
         pad=max(2,int(np.ceil(4*metric)));a=max(0,x-pad);b=max(0,y-pad);c=min(g.shape[1],x+w+pad);d=min(g.shape[0],y+h+pad)
         mask=np.zeros((d-b,c-a),bool);mask[pts[:,1]-b,pts[:,0]-a]=True
         ring=(cv2.dilate(mask.astype(np.uint8),np.ones((odd(3*metric),)*2,np.uint8))>0)&~mask
@@ -74,11 +82,11 @@ def proposal_tile(bgr,coordinate_scale=1.,return_stages=False,pixel_density=1.,c
         reference=float(np.median(luma[b:d,a:c][ring]));contrast=float(np.median(luma[b:d,a:c][mask])-reference)
         if contrast<=p['ringLumaDifference']:continue
         intensity=float(np.clip((contrast-p['ringLumaDifference'])/32,0,1))
-        stages['ring'][y:y+h,x:x+w][local]=np.maximum(stages['ring'][y:y+h,x:x+w][local],intensity)
+        if return_stages:stages['ring'][y:y+h,x:x+w][local]=np.maximum(stages['ring'][y:y+h,x:x+w][local],intensity)
         border=mask&~(cv2.erode(mask.astype(np.uint8),np.ones((odd(metric),)*2,np.uint8))>0)
         edge_fraction=float((gradient[b:d,a:c][border]*metric>p['boundaryEdge']).mean())
         if edge_fraction<p['boundaryFraction']:continue
-        stages['edge'][y:y+h,x:x+w][local]=np.maximum(stages['edge'][y:y+h,x:x+w][local],intensity)
+        if return_stages:stages['edge'][y:y+h,x:x+w][local]=np.maximum(stages['edge'][y:y+h,x:x+w][local],intensity)
         # Only an actual compact dark core with surrounding angular bright
         # support is pore ringing. Mere proximity to a dark lip/shadow is not.
         ys,xs=np.where(mask);xy=np.c_[xs+a,ys+b]
@@ -98,14 +106,17 @@ def proposal_tile(bgr,coordinate_scale=1.,return_stages=False,pixel_density=1.,c
             yy_grid,xx_grid=np.mgrid[y:y+h,x:x+w]
             accepted&=np.hypot(xx_grid-center[0],yy_grid-center[1])>max(3,5*metric)
         stages['pore-separated'][y:y+h,x:x+w][accepted]=np.maximum(stages['pore-separated'][y:y+h,x:x+w][accepted],intensity)
-        details.append(dict(rect=[x,y,w,h],area=area,seedPixels=seed_count,contrast=contrast,edgeFraction=edge_fraction,branch=branch))
+        if return_stages:details.append(dict(rect=[x,y,w,h],area=area,seedPixels=seed_count,contrast=contrast,edgeFraction=edge_fraction,branch=branch))
     # No weak photometric tail contributes to density or map support.
     field=stages['pore-separated'];field[field<=.04]=0
+    if work is not None:work.update(candidateRegions=len(candidate_regions),processedCandidateRegions=processed,skippedOutsideCoreEligibility=skipped)
     return (field,stages,details) if return_stages else field
 
-def native_field(bgr,coordinate_scale=1.,eligible=None,core=512,pixel_density=1.,check=None):
+def native_field(bgr,coordinate_scale=1.,eligible=None,core=512,pixel_density=1.,check=None,reference=False):
     """Overlapping source tiles with context, max union and bounded working arrays."""
     h,w=bgr.shape[:2];output=np.zeros((h,w),np.float32)
+    gray=cv2.cvtColor(bgr,cv2.COLOR_BGR2GRAY);luma=cv2.cvtColor(bgr,cv2.COLOR_BGR2LAB)[:,:,0]
+    counters=dict(candidateRegions=0,processedCandidateRegions=0,skippedOutsideCoreEligibility=0)
     halo=max(48,int(np.ceil(40*coordinate_scale)));stride=max(1,core//2);peak_pixels=0;tiles=0
     xs=sorted(set([*range(0,max(1,w-core+1),stride),max(0,w-core)]));ys=sorted(set([*range(0,max(1,h-core+1),stride),max(0,h-core)]))
     for y in ys:
@@ -113,12 +124,20 @@ def native_field(bgr,coordinate_scale=1.,eligible=None,core=512,pixel_density=1.
             if check is not None:check()
             if eligible is not None and not eligible[y:min(h,y+core),x:min(w,x+core)].any():continue
             a=max(0,x-halo);b=max(0,y-halo);c=min(w,x+core+halo);d=min(h,y+core+halo)
-            field=proposal_tile(bgr[b:d,a:c],coordinate_scale,pixel_density=pixel_density,check=check)
+            interest=np.zeros((d-b,c-a),bool);interest[y-b:min(h,y+core)-b,x-a:min(w,x+core)-a]=True
+            if eligible is not None:interest&=eligible[b:d,a:c]
+            if reference:interest=cv2.dilate(interest.astype(np.uint8),np.ones((odd(5*coordinate_scale),)*2,np.uint8))>0
+            work={}
+            field=proposal_tile(bgr[b:d,a:c],coordinate_scale,pixel_density=pixel_density,check=check,interest=interest,photometry=(gray[b:d,a:c],luma[b:d,a:c]),work=work)
+            for name in counters:counters[name]+=work.get(name,0)
             local=field[y-b:min(h,y+core)-b,x-a:min(w,x+core)-a]
             np.maximum(output[y:min(h,y+core),x:min(w,x+core)],local,out=output[y:min(h,y+core),x:min(w,x+core)])
             tiles+=1;peak_pixels=max(peak_pixels,(d-b)*(c-a))
+    reference_support=(output>.04) if reference else None
     if eligible is not None:output*=eligible
-    return output,dict(version=VERSION,sourceGrid=[w,h],analysisResize=False,coordinateScale=coordinate_scale,tileCore=core,tileStride=stride,halo=halo,tiles=tiles,peakTilePixels=peak_pixels,overlapCountedOnce=True)
+    metadata=dict(version=VERSION,sourceGrid=[w,h],analysisResize=False,coordinateScale=coordinate_scale,tileCore=core,tileStride=stride,halo=halo,tiles=tiles,peakTilePixels=peak_pixels,overlapCountedOnce=True,sharedSourceGrayLab=True,**counters)
+    if reference:metadata['_referenceSupport']=reference_support
+    return output,metadata
 
 def pool_for_display(field,valid,max_dimension=512):
     """Max pooling retains tiny material; source score never depends on this grid."""

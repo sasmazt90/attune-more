@@ -11,7 +11,7 @@ from native_flake_support import native_field,VERSION as PROPOSAL_VERSION
 NORMALIZATION='native-material-visible-source-area-v4-staging'
 SAMPLING='native-source-closed-cells-max-union-v4-staging'
 
-def analyze_native_dry(payload,material_filter=None,check=None,profile=None):
+def analyze_native_dry(payload,material_filter=None,check=None,profile=None,material_filter_reference=False):
     # Reuse geometry/encoding contracts, not the resized photometric fields.
     from appearance_analysis import decode_photo,closed_surface_mask,map_result,LIMITS
     check=check or (lambda:None);check();t=time.monotonic();timings={}
@@ -43,10 +43,11 @@ def analyze_native_dry(payload,material_filter=None,check=None,profile=None):
     exposed=(excluded==0)&~hair&(g>.12);clipped=g>.975;visible=exposed&~clipped
     union=np.logical_or.reduce(list(masks.values()))&visible
     timings['geometry']=time.monotonic()-t;check();t=time.monotonic()
-    field,metadata=native_field(crop,metric,union,check=check)
+    field,metadata=native_field(crop,metric,union,check=check,**({'reference':True} if material_filter_reference else {}))
+    reference_support=metadata.pop('_referenceSupport',None)
     timings['proposal']=time.monotonic()-t;check();t=time.monotonic()
     if material_filter is not None:
-        field,classification=material_filter(crop,field,metric)
+        field,classification=material_filter(crop,field,metric,reference_support) if material_filter_reference else material_filter(crop,field,metric)
         field*=union;metadata.update(classification)
     timings['material']=time.monotonic()-t;check();t=time.monotonic()
     rows={};maps={};measured=[]
@@ -61,7 +62,7 @@ def analyze_native_dry(payload,material_filter=None,check=None,profile=None):
             evaluatedArea=dict(scope='native-visible-anatomical-source',sourcePixels=int(eligible.sum()),analysisPixels=int(eligible.sum()),anatomicalSourcePixels=int(mask.sum()),sourceFacePixels=face),
             components=dict(samplingSupportVersion=SAMPLING,proposalVersion=PROPOSAL_VERSION,acceptedMaterialSourcePixels=int(active.sum()),uniqueVisibleSourcePixels=int(eligible.sum()),overlapCountedOnce=True,confidenceNotSeverity=True,nativeAnalysisResize=False,meaning='local visible material support; not moisture or clinical severity',**({'classifierVersion':metadata['classifierVersion']} if material_filter is not None else {})))
         if material_filter is not None:
-            row['normalizationVersion']='native-encoder-material-source-area-v5-staging' if 'block-balanced' in metadata['classifierVersion'] else 'native-encoder-material-source-area-v4-staging'
+            row['normalizationVersion']='native-encoder-material-source-area-v6-staging' if 'ring-conditioned' in metadata['classifierVersion'] else 'native-encoder-material-source-area-v5-staging' if 'block-balanced' in metadata['classifierVersion'] else 'native-encoder-material-source-area-v4-staging'
         if reason is None:
             # Step=1 retains every accepted tiny native component. Existing SVG
             # mesh clipping is still required by any caller that displays it.

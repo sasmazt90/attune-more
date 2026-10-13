@@ -13,22 +13,27 @@ GEOMETRY=['logReferenceArea','elongation','fill','circularity','solidity','ringC
 MEAN=np.array([.485,.456,.406],np.float32)[None,None,:]
 STD=np.array([.229,.224,.225],np.float32)[None,None,:]
 
-def describe(image,field,metric):
+def describe(image,field,metric,reference_support=None):
     """Scale-aware geometry and non-self ring statistics of unchanged proposals."""
     s=max(.125,float(metric));gray=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY);g=gray.astype(np.float32)/255;active=field>.04
+    background_excluded=active if reference_support is None else np.asarray(reference_support,bool)
+    if background_excluded.shape!=active.shape:raise ValueError('INVALID_REFERENCE_SUPPORT')
     n,labels,stats,centroids=cv2.connectedComponentsWithStats(active.astype(np.uint8),8)
     k=max(3,2*int(round(3*s))+1);dark=cv2.morphologyEx(gray,cv2.MORPH_BLACKHAT,np.ones((k,k),np.uint8))>35
     dn,di,ds,_=cv2.connectedComponentsWithStats(dark.astype(np.uint8),8);core_ids=[i for i in range(1,dn) if ds[i,4]<=20*s*s and max(ds[i,2],ds[i,3])/max(1,min(ds[i,2],ds[i,3]))<=3.3]
-    cores=np.isin(di,core_ids);adjacent=cv2.dilate(dark.astype(np.uint8),np.ones((k,k),np.uint8))>0
+    core_lookup=np.zeros(dn,bool);core_lookup[core_ids]=True;cores=core_lookup[di];adjacent=cv2.dilate(dark.astype(np.uint8),np.ones((k,k),np.uint8))>0
     lab=cv2.cvtColor(image.astype(np.float32)/255,cv2.COLOR_BGR2LAB);gx=cv2.Sobel(g,cv2.CV_32F,1,0,3);gy=cv2.Sobel(g,cv2.CV_32F,0,1,3);rows=[]
     for i in range(1,n):
         x,y,w,h,area=map(int,stats[i]);pad=max(3,int(np.ceil(5*s)));a=max(0,x-pad);b=max(0,y-pad);c=min(image.shape[1],x+w+pad);d=min(image.shape[0],y+h+pad)
-        mask=labels[b:d,a:c]==i;ring=(cv2.dilate(mask.astype(np.uint8),np.ones((k,k),np.uint8))>0)&~active[b:d,a:c]
-        if area<3 or ring.sum()<3:continue
+        if area<3:continue
+        mask=labels[b:d,a:c]==i;ring=(cv2.dilate(mask.astype(np.uint8),np.ones((k,k),np.uint8))>0)&~background_excluded[b:d,a:c]
+        if ring.sum()<3:
+            if reference_support is not None:raise ValueError('INSUFFICIENT_COMPONENT_RING')
+            continue
         contour=max(cv2.findContours(mask.astype(np.uint8),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)[0],key=cv2.contourArea);perimeter=cv2.arcLength(contour,True);ca=cv2.contourArea(contour);hull=cv2.contourArea(cv2.convexHull(contour))
         dx=gx[b:d,a:c][mask];dy=gy[b:d,a:c][mask];aa=np.mean(dx*dx);bb=np.mean(dy*dy);cc=np.mean(dx*dy);coherence=np.sqrt((aa-bb)**2+4*cc*cc)/max(aa+bb,1e-8)
         near=cv2.dilate(mask.astype(np.uint8),np.ones((k,k),np.uint8))>0;core_area=(cores[b:d,a:c]&near).sum();l=lab[b:d,a:c]
-        values=[np.log1p(area/(s*s)),max(w,h)/max(1,min(w,h)),area/(w*h),4*np.pi*area/max(perimeter*perimeter,1),ca/max(hull,1),g[b:d,a:c][mask].mean()-np.median(g[b:d,a:c][ring]),coherence,adjacent[b:d,a:c][mask].mean(),(cores[b:d,a:c]&near).sum()/max(1,near.sum()),core_area/(s*s),np.linalg.norm(l[:,:,1:][mask].mean(0)-np.median(l[:,:,1:][ring],axis=0))/100,g[b:d,a:c][mask].std()]
+        values=[np.log1p(area/(s*s)),max(w,h)/max(1,min(w,h)),area/(w*h),4*np.pi*area/max(perimeter*perimeter,1),ca/max(hull,1),g[b:d,a:c][mask].mean()-np.median(g[b:d,a:c][ring]),coherence,adjacent[b:d,a:c][mask].mean(),core_area/max(1,near.sum()),core_area/(s*s),np.linalg.norm(l[:,:,1:][mask].mean(0)-np.median(l[:,:,1:][ring],axis=0))/100,g[b:d,a:c][mask].std()]
         rows.append(dict(componentId=i,rect=[x,y,w,h],area=area,centroid=centroids[i].tolist(),geometry=np.asarray(values,float).tolist()))
     return labels,rows
 
@@ -46,6 +51,42 @@ def component_crops(image,row,metric,pixel_density=1.):
         rgb=cv2.cvtColor(crop,cv2.COLOR_BGR2RGB);resized=cv2.resize(rgb,(224,224),interpolation=cv2.INTER_AREA if span>=224 else cv2.INTER_LINEAR)
         result.append(((resized.astype(np.float32)/255-MEAN)/STD).transpose(2,0,1).copy());boxes.append(dict(x=x0,y=y0,width=span,height=span,sourcePixelsNotAdded=True))
     return result,boxes
+
+def support_conditioned_crop(image,labels,row,metric,pixel_density=1.,reference_support=None):
+    """One source-scaled context crop, proposed component foreground only.
+
+    The encoder background is its non-self, non-proposal ring median. This is
+    a classifier representation, never a replacement photo or new pixel label.
+    No source name, object annotation or predicted score enters the crop.
+    """
+    s=max(.125,float(metric));density=max(.125,float(pixel_density));x,y,w,h=row['rect'];cx=x+w/2;cy=y+h/2
+    span=int(np.ceil(max(3*max(w,h),64*s,48*density)));x0=cx-span/2;y0=cy-span/2;pad=max(3,int(np.ceil(5*s)))
+    a=max(0,x-pad);b=max(0,y-pad);c=min(image.shape[1],x+w+pad);d=min(image.shape[0],y+h+pad);mask=labels[b:d,a:c]==row['componentId']
+    excluded=(labels>0) if reference_support is None else np.asarray(reference_support,bool)
+    if excluded.shape!=labels.shape:raise ValueError('INVALID_REFERENCE_SUPPORT')
+    ring=(cv2.dilate(mask.astype(np.uint8),np.ones((max(3,2*int(round(3*s))+1),)*2,np.uint8))>0)&~excluded[b:d,a:c]
+    if ring.sum()<3:raise ValueError('INSUFFICIENT_COMPONENT_RING')
+    reference=np.rint(np.median(image[b:d,a:c][ring],axis=0)).astype(np.uint8)
+    # Integer flooring moved the half-source window by one original pixel for
+    # odd component centers. Keep the continuous source-edge interval; only
+    # the classifier raster is interpolated, never the original photo/map.
+    left=int(np.floor(x0))-1;top=int(np.floor(y0))-1;window=np.empty((span+4,span+4,3),np.uint8);window[:]=reference
+    a=max(0,left);b=max(0,top);c=min(image.shape[1],left+span+4);d=min(image.shape[0],top+span+4)
+    local=labels[b:d,a:c]==row['componentId'];view=window[b-top:d-top,a-left:c-left];view[local]=image[b:d,a:c][local]
+    crop=cv2.getRectSubPix(window,(span,span),(cx-left-.5,cy-top-.5))
+    rgb=cv2.cvtColor(crop,cv2.COLOR_BGR2RGB);resized=cv2.resize(rgb,(224,224),interpolation=cv2.INTER_AREA if span>=224 else cv2.INTER_LINEAR)
+    return ((resized.astype(np.float32)/255-MEAN)/STD).transpose(2,0,1).copy(),dict(x=x0,y=y0,width=span,height=span,ringBGR=reference.tolist(),backgroundIncludesCandidate=False,representation='proposal-component-on-non-self-ring-v1',cropSampling='continuous-source-edge-window-v3')
+
+def filter_conditioned_material_support(image,field,metric,encoder,head,check=None,details=None,reference_support=None):
+    """Research single-crop head: half the encoder work, same source support."""
+    check=check or (lambda:None);check();start=time.monotonic();labels,rows=describe(image,field,metric,reference_support);timings={'describe':time.monotonic()-start,'crop':0.,'encoder':0.,'classifier':0.};allowed=np.zeros(int(labels.max())+1,bool)
+    for offset in range(0,len(rows),16):
+        check();current=rows[offset:offset+16];start=time.monotonic();crops=[support_conditioned_crop(image,labels,r,metric,reference_support=reference_support)[0] for r in current];timings['crop']+=time.monotonic()-start
+        start=time.monotonic();visual=encoder.extract(crops,16);timings['encoder']+=time.monotonic()-start;check();start=time.monotonic();p=predict(np.c_[visual,np.array([r['geometry'] for r in current])],head);timings['classifier']+=time.monotonic()-start
+        for row,probability in zip(current,p):
+            allowed[row['componentId']]=probability>=head['threshold']
+            if details is not None:details.append({**row,'probability':float(probability),'accepted':bool(allowed[row['componentId']])})
+    check();return field*allowed[labels],dict(classifierVersion='frozen-imagenet-ring-conditioned-single-crop-v3-staging',encoderSHA256=ENCODER_SHA,candidateComponents=len(rows),acceptedComponents=int(allowed.sum()),uniqueEncodedCrops=len(rows),maximumResidentCropTensors=16,persistentPhotoCache=False,confidenceNotSeverity=True,sourceLabelsAsInferenceInput=False,timings=timings)
 
 class FrozenMaterialEncoder:
     def __init__(self,path):

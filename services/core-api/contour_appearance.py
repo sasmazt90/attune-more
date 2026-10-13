@@ -119,10 +119,11 @@ def trace_boundary(image,guide,eligible,face_width,face_center):
     return dict(value=None if reason else value,reason=reason,unit='percent-observed-boundary-support',version=VERSION,tracked=track,guide=line,normal=normal,edgeStrength=strength,visible=visible,observed=observed,accepted=accepted,
                 trackingResidual=residual,rawBrightnessEdgeRows=int(raw_supported.any(1).sum()),exteriorConfirmedRows=int(found.sum()),**{k:v for k,v in prominence.items() if k!='accepted'},sourceCoordinates=True,confidenceNotSeverity=True)
 
-def analyze_contour(payload):
+def analyze_contour(payload,check=None):
     """Native photometric branch; source-field and score share accepted centers."""
     from appearance_analysis import decode_photo,closed_surface_mask,elongated_dark_mask,map_result
-    image,digest=decode_photo(payload['photo']);assert digest==payload['photoId']
+    check=check or (lambda:None);check()
+    image,digest=decode_photo(payload['photo']);assert digest==payload['photoId'];check()
     h,w=image.shape[:2];p=np.asarray([[v['x']*w,v['y']*h] for v in payload['landmarks']]);axis=p[263]-p[33];axis/=np.linalg.norm(axis);vertical=np.array([-axis[1],axis[0]]);vertical*=1 if vertical[1]>=0 else -1
     face=abs((p[454]-p[234])@axis);mouth=np.linalg.norm(p[13]-p[14])/max(1,np.linalg.norm(p[61]-p[291]));smile=((p[61]+p[291]-p[13]-p[14])/2)@vertical/max(1,np.linalg.norm(p[61]-p[291]));conditions=payload['conditions']
     quality_reason='CAPTURE_QUALITY' if not payload['qualityValid'] else 'INSUFFICIENT_NATIVE_DETAIL' if face<180 else 'HEAD_ANGLE_UNSUPPORTED' if abs(conditions.get('yaw',99))>.65 or abs(conditions.get('pitch',99))>.22 else expression_reason(payload,mouth,smile)
@@ -136,6 +137,7 @@ def analyze_contour(payload):
     # Cheek guides must not continue onto jaw/chin anchors outside that mesh.
     indices={'rightCheek':[132,58,172],'leftCheek':[361,288,397],'chin':[149,176,148,152,377,400,378]};rows={};maps={}
     for region,guide in indices.items():
+        check()
         if region not in payload['meshes']:continue
         anatomy=closed_surface_mask((h,w),payload['meshes'][region],1)
         corridor=np.zeros((h,w),np.uint8);cv2.polylines(corridor,[np.rint(p[guide]).astype(np.int32)],False,1,max(1,int(np.ceil(.05*face))))
@@ -171,4 +173,5 @@ def analyze_contour(payload):
             row['trace']['version']=row['version']
             for k in ['excursion','localizationUncertainty']:row['trace'][k]=[float(v) if np.isfinite(v) else None for v in q[k]]
         rows[region]=row
+    check()
     return dict(photoId=digest,measurements=rows,maps=maps,normalProductEnabled=False,formula='fraction of anatomically visible boundary samples with image-tracked local outward excursion beyond neighbor localization uncertainty; not tissue volume or clinical sag grade')
