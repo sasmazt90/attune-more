@@ -5,6 +5,7 @@ presentation zoom; all learned degrees are global, never local severity masks.
 """
 from functools import lru_cache
 from pathlib import Path
+from types import MappingProxyType
 import hashlib,json,threading,time
 import cv2,numpy as np
 from hosted_skin_type import infer_hosted_type,parse_hosted_type_response,get_inference_client
@@ -15,6 +16,29 @@ CLASSES=['normal','dry','oily','combination']
 MEAN=np.array([.485,.456,.406],np.float32)[:,None,None]
 STD=np.array([.229,.224,.225],np.float32)[:,None,None]
 LOCK=threading.Lock()
+_SESSION_STATE={}
+
+
+def session_status(used=(), reason=None):
+    """Backend-only runtime provenance; configured, loaded and used are distinct."""
+    try:models=json.loads(MANIFEST.read_text('utf8')).get('models',{})
+    except (OSError,ValueError):return {}
+    result={}
+    for task,model in models.items():
+        accepted=model.get('accepted') is True
+        row=dict(fileHashVerified=False,sessionLoaded=False,loadedModelHash=None,
+                 usedInResponse=False,status='not-loaded' if accepted else 'not-accepted',
+                 inferenceKind='local-onnx',modelId=f"{task}:{model.get('version','unknown')}")
+        cached=_SESSION_STATE.get(task,{})
+        if cached.get('_manifest')==str(MANIFEST.resolve()):
+            row.update({k:v for k,v in cached.items() if not k.startswith('_')})
+        row['matchesConfiguredHash']=row['loadedModelHash']==model.get('sha256') if row['sessionLoaded'] else None
+        row['usedInResponse']=task in used and row['sessionLoaded']
+        if row['usedInResponse']:row['status']='used'
+        elif row['sessionLoaded']:row['status']='not-used'
+        if reason and not row['usedInResponse']:row['usageReason']=reason
+        result[task]=row
+    return result
 
 def photo_input(bgr,points):
     p=np.array([[v['x'],v['y']] for v in points[:468]],np.float64)
@@ -33,41 +57,57 @@ def load():
     import onnxruntime as ort
     manifest=json.loads(MANIFEST.read_text('utf8'));assert manifest['classOrder']==CLASSES
     assert manifest['preprocessing']=={'RGB':True,'size':[224,224],'mean':[.485,.456,.406],'std':[.229,.224,.225],'cropVersion':'camera-crop-v1'}
-    sessions={};options=ort.SessionOptions();options.intra_op_num_threads=2;options.inter_op_num_threads=1
+    sessions={};_SESSION_STATE.clear();options=ort.SessionOptions();options.intra_op_num_threads=2;options.inter_op_num_threads=1
     for task,m in manifest.get('models',{}).items():
         if not m.get('accepted'):continue
         path=FOLDER/m['file'];assert path.resolve().parent==FOLDER.resolve() and path.suffix=='.onnx'
-        assert hashlib.sha256(path.read_bytes()).hexdigest()==m['sha256'],'MODEL_HASH_MISMATCH'
-        start=time.perf_counter();session=ort.InferenceSession(str(path),sess_options=options,providers=['CPUExecutionProvider']);sessions[task]={'session':session,'loadMs':(time.perf_counter()-start)*1000,'metadata':m}
+        state=dict(_manifest=str(MANIFEST.resolve()),_expectedHash=m.get('sha256'),
+                   fileHashVerified=False,sessionLoaded=False,loadedModelHash=None,
+                   usedInResponse=False,status='load-failed',modelId=f"{task}:{m['version']}")
+        _SESSION_STATE[task]=state
+        model_bytes=path.read_bytes();actual_hash=hashlib.sha256(model_bytes).hexdigest()
+        state['fileHashVerified']=actual_hash==m['sha256']
+        assert state['fileHashVerified'],'MODEL_HASH_MISMATCH'
+        # ORT receives the exact bytes hashed here, avoiding a path replacement
+        # between verification and session creation. No site-package mutation.
+        start=time.perf_counter();session=ort.InferenceSession(model_bytes,sess_options=options,providers=['CPUExecutionProvider'])
+        metadata=MappingProxyType(dict(modelHash=actual_hash,modelVersion=m['version'],
+                                      modelId=state['modelId'],fileHashVerified=True,sessionLoaded=True))
+        state.update(sessionLoaded=True,loadedModelHash=actual_hash,status='not-used')
+        sessions[task]={'session':session,'loadMs':(time.perf_counter()-start)*1000,'metadata':dict(m),'sessionMetadata':metadata}
     return {'manifest':manifest,'sessions':sessions}
 
 def infer(bgr,points,quality_valid,hosted_consent=False,type_quality_valid=None):
-    empty=dict(skinType=None,degrees={},models={},sourceTransform=None)
+    empty=dict(skinType=None,degrees={},models={},sourceTransform=None,modelRuntime=session_status(reason='not-used'))
     type_quality=quality_valid if type_quality_valid is None else type_quality_valid
-    if not quality_valid and not type_quality:return empty
+    if not quality_valid and not type_quality:return {**empty,'modelRuntime':session_status(reason='QUALITY_NOT_ELIGIBLE')}
     try:
         with LOCK:loaded=load()
         x,transform=photo_input(bgr,points);result={**empty,'sourceTransform':transform}
-        type_computed=False
+        type_computed=False;used=set()
         for task,item in loaded['sessions'].items():
             if task not in ('type','degrees'):continue
             if task=='degrees' and not quality_valid or task=='type' and not type_quality:continue
             start=time.perf_counter();output=item['session'].run(None,{'rgb':x})[0][0];elapsed=(time.perf_counter()-start)*1000;m=item['metadata']
             if not np.isfinite(output).all():raise ValueError('NONFINITE_MODEL_OUTPUT')
-            result['models'][task]=dict(modelHash=m['sha256'],modelVersion=m['version'],loadMs=item['loadMs'],inferenceMs=elapsed)
+            identity=item['sessionMetadata']
+            result['models'][task]=dict(identity,loadedModelHash=identity['modelHash'],usedInResponse=True,loadMs=item['loadMs'],inferenceMs=elapsed)
             if task=='type':
                 type_computed=True
                 assert output.shape==(4,);v=output/float(m['temperature']);v-=v.max();p=np.exp(v);p/=p.sum();confidence=float(p.max());valid=confidence>=float(m['confidenceThreshold'])
-                result['skinType']=dict(value=CLASSES[int(p.argmax())] if valid else None,quality='valid' if valid else 'insufficient',confidence=confidence,methodVersion=m['version'],modelHash=m['sha256'],limitationCode=None if valid else 'LOW_MODEL_SUPPORT')
+                result['skinType']=dict(value=CLASSES[int(p.argmax())] if valid else None,quality='valid' if valid else 'insufficient',confidence=confidence,methodVersion=identity['modelVersion'],modelHash=identity['modelHash'],limitationCode=None if valid else 'LOW_MODEL_SUPPORT')
+                used.add(task)
             elif task=='degrees':
                 assert len(output)==len(m['targets'])
                 for target,value in zip(m['targets'],output):
-                    if target in m['acceptedTargets']:result['degrees'][target]=dict(value=float(np.clip(value,0,5)*20),rawGrade=float(np.clip(value,0,5)),methodVersion=m['version'],modelHash=m['sha256'],confidence=None,scope='whole-face',normalizationVersion='ordinal-0-5-times-20-v1')
+                    if target in m['acceptedTargets']:result['degrees'][target]=dict(value=float(np.clip(value,0,5)*20),rawGrade=float(np.clip(value,0,5)),methodVersion=identity['modelVersion'],modelHash=identity['modelHash'],confidence=None,scope='whole-face',normalizationVersion='ordinal-0-5-times-20-v1')
+                if result['degrees']:used.add(task)
         if type_quality and not type_computed:
             a,b=transform['x'],transform['y'];crop=bgr[b:b+transform['height'],a:a+transform['width']]
             hosted=infer_hosted_type(crop,hosted_consent)
             result['models']['type']=dict(modelHash=None,modelVersion=hosted['methodVersion'],providerModelId=hosted['providerModelId'],inferenceKind='hosted',loadMs=0.,inferenceMs=hosted.pop('inferenceMs'))
             result['skinType']=hosted
+        result['modelRuntime']=session_status(used)
         return result
     except Exception:
         # Compact unavailable state; no old result, substitute weights or zeros.
@@ -80,9 +120,9 @@ def infer(bgr,points,quality_valid,hosted_consent=False,type_quality_valid=None)
             if head.get('accepted'):targets=list(head.get('acceptedTargets',[]))
             type_head=manifest.get('models',{}).get('type',{})
             if type_head.get('accepted'):
-                unavailable_type=dict(value=None,quality='insufficient',confidence=None,methodVersion=type_head.get('version'),modelHash=type_head.get('sha256'),limitationCode='ACCEPTED_MODEL_UNAVAILABLE')
+                unavailable_type=dict(value=None,quality='insufficient',confidence=None,methodVersion=type_head.get('version'),modelHash=None,limitationCode='ACCEPTED_MODEL_UNAVAILABLE')
         except (OSError,ValueError):pass
-        return {**empty,'skinType':unavailable_type,'failure':'ACCEPTED_MODEL_UNAVAILABLE','unavailableTargets':targets}
+        return {**empty,'skinType':unavailable_type,'failure':'ACCEPTED_MODEL_UNAVAILABLE','unavailableTargets':targets,'modelRuntime':session_status(reason='ACCEPTED_MODEL_UNAVAILABLE')}
 
 def _nms(boxes,threshold=.3):
     if not boxes:return []
@@ -113,7 +153,8 @@ def infer_acne(bgr,points,quality_valid):
                     if score<meta['confidenceThreshold']:continue
                     bx=max(a,float(cx-w/2+a));by=max(b,float(cy-h/2+b));ex=min(c,float(cx+w/2+a));ey=min(d,float(cy+h/2+b))
                     if ex>bx and ey>by:boxes.append([bx,by,ex,ey,score])
-        return dict(valid=True,boxes=_nms(boxes),modelHash=meta['sha256'],modelVersion=meta['version'],tileCount=len(xs)*len(ys),loadMs=item['loadMs'],inferenceMs=(time.perf_counter()-started)*1000,coordinateSpace='source-pixels',mapType='detection-boxes')
+        identity=item['sessionMetadata']
+        return dict(valid=True,boxes=_nms(boxes),modelHash=identity['modelHash'],modelVersion=identity['modelVersion'],tileCount=len(xs)*len(ys),loadMs=item['loadMs'],inferenceMs=(time.perf_counter()-started)*1000,coordinateSpace='source-pixels',mapType='detection-boxes')
     except Exception:return {'valid':False,'reason':'ACCEPTED_MODEL_UNAVAILABLE'}
 
 def eye_rois(points,width,height):
@@ -134,5 +175,6 @@ def infer_bags(bgr,points,quality_valid):
             a,b,c,d=roi['rect'];rgb=cv2.resize(bgr[b:d,a:c,::-1],(128,128),interpolation=cv2.INTER_AREA);x=((rgb.transpose(2,0,1).astype(np.float32)/255-MEAN)/STD)[None].copy();logits=item['session'].run(None,{'rgb_eye_roi':x})[0][0,0]
             assert logits.shape==(128,128) and np.isfinite(logits).all();probability=1/(1+np.exp(-np.clip(logits,-50,50)))
             layers.append({**roi,'mask':(probability>=m['probabilityThreshold']).astype(np.uint8),'mapType':'predicted-presence-mask','confidenceNotSeverity':True})
-        return dict(valid=len(layers)==2,layers=layers,modelHash=m['sha256'],modelVersion=m['version'],loadMs=item['loadMs'],inferenceMs=(time.perf_counter()-start)*1000)
+        identity=item['sessionMetadata']
+        return dict(valid=len(layers)==2,layers=layers,modelHash=identity['modelHash'],modelVersion=identity['modelVersion'],loadMs=item['loadMs'],inferenceMs=(time.perf_counter()-start)*1000)
     except Exception:return {'valid':False,'reason':'ACCEPTED_MODEL_UNAVAILABLE'}

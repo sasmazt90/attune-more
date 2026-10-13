@@ -11,7 +11,7 @@ import math
 import cv2
 import numpy as np
 from skin_general import general_result
-from skin_models import infer as infer_skin_models, infer_acne, infer_bags
+from skin_models import infer as infer_skin_models, infer_acne, infer_bags, session_status
 from skin_measurement_contract import attach_result_receipts
 from skimage.feature import local_binary_pattern
 from skimage.filters import gabor
@@ -672,6 +672,7 @@ def analyze_skin(payload, include_research_features=False):
             learned=infer_skin_models(bgr,points,result['general']['measurements'][0]['quality']=='valid' and face_pixels>=180,hosted_consent=payload.get('hostedProcessingConsent') is True,type_quality_valid=type_quality)
             if learned['skinType']:result['general']['skinType']=learned['skinType']
             result['general']['modelInference']=learned.get('models',{})
+            result['general']['modelRuntime']=learned.get('modelRuntime',{})
             result['general']['modelInputTransform']=learned.get('sourceTransform')
             for item in result['general']['measurements']:
                 degree=learned['degrees'].get(item['id'])
@@ -707,4 +708,5 @@ def analyze_skin(payload, include_research_features=False):
         for criterion in ['dark','lines','bags']:
             layer=maps.get('periorbital:'+criterion)
             if layer:maps['overview:'+criterion]={**layer,'region':'overview'}
+    result['modelRuntime']=result.get('general',{}).get('modelRuntime') or session_status(reason='NON_FRONT_PAYLOAD' if payload.get('pose')!='FRONT' else 'not-used')
     return attach_result_receipts(result)

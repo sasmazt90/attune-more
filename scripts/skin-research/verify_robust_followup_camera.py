@@ -3,19 +3,31 @@
 Local camera encoding only; no pose transform, mocked SDK, fake API or hosted call.
 The isolated profile owns its records; normal user records are never read/written.
 """
-import base64, hashlib, json, math, time
+import argparse, base64, hashlib, json, math, time, urllib.request
 from pathlib import Path
 import cv2
 from playwright.sync_api import sync_playwright, expect
 
 ROOT=Path(__file__).resolve().parents[2]
+parser=argparse.ArgumentParser();choice=parser.add_mutually_exclusive_group();choice.add_argument('--census-index',type=int);choice.add_argument('--flaking-index',type=int);parser.add_argument('--attempt',type=int,default=1);args=parser.parse_args()
 DATA=ROOT/'audit-results/dry-sag-robust-followup-20261013'
 OUT=ROOT/'output/playwright/dry-sag-robust-followup-20261013';OUT.mkdir(parents=True,exist_ok=True)
 PROFILE=OUT/'automatic-front-profile'
 row=next(r for r in json.loads((DATA/'additional-sag-selection.json').read_text('utf-8-sig')) if r['sha256'].startswith('55ec00b8'))
+if args.census_index is not None or args.flaking_index is not None:
+    census=ROOT/'audit-results/dry-sag-source-census-20261013'
+    row=json.loads((census/('contour-selection.json' if args.census_index is not None else 'dry-label-selection.json')).read_text('utf8'))[args.census_index if args.census_index is not None else args.flaking_index]
+    DATA=census/'product'/row['sha256'][:8];DATA.mkdir(parents=True,exist_ok=True)
+    OUT=ROOT/'output/playwright/dry-sag-source-census-20261013'/row['sha256'][:8];OUT.mkdir(parents=True,exist_ok=True)
+    PROFILE=OUT/'automatic-front-profile'
+if args.attempt>1:
+    DATA=DATA/('attempt-'+str(args.attempt));DATA.mkdir(parents=True,exist_ok=True)
+    OUT=OUT/('attempt-'+str(args.attempt));OUT.mkdir(parents=True,exist_ok=True)
+    PROFILE=OUT/'automatic-front-profile'
+prefix=row['sha256'][:8]
 source=Path(row['absolutePath']);assert hashlib.sha256(source.read_bytes()).hexdigest()==row['sha256']
 image=cv2.imread(str(source));height,width=image.shape[:2];assert width%2==0 and height%2==0
-camera=DATA/'55ec00b8-camera.y4m'
+camera=DATA/(prefix+'-camera.y4m')
 with camera.open('wb') as stream:
     stream.write(f'YUV4MPEG2 W{width} H{height} F5:1 Ip A1:1 C420jpeg\n'.encode())
     yuv=cv2.cvtColor(image,cv2.COLOR_BGR2YUV_I420).tobytes()
@@ -25,6 +37,15 @@ labels=dict(tone='Ton eşitsizliği',oil='Yağlı görünüm',redness='Kızarık
 overview={**labels,'sag':'Sarkma görünümü','dry':'Cilt kuruluğu görünümü'}
 views=['overview','forehead','rightCheek','leftCheek','nose','chin','periorbital']
 errors=[];trace=[]
+deadline=time.monotonic()+45
+while True:
+    try:
+        for port,path in [(3000,'/privacy'),(8000,'/api/vehicle/state')]:
+            with urllib.request.urlopen(f'http://127.0.0.1:{port}'+path,timeout=3) as r:assert r.status==200
+        break
+    except (OSError,AssertionError):
+        if time.monotonic()>deadline:raise
+        time.sleep(.5)
 with sync_playwright() as pw:
     context=pw.chromium.launch_persistent_context(str(PROFILE),channel='chrome',headless=False,viewport=dict(width=1600,height=1000),permissions=['camera'],args=['--window-size=1600,1000','--use-fake-device-for-media-stream','--use-file-for-fake-video-capture='+str(camera),'--enable-unsafe-swiftshader'])
     context.add_init_script("window.__skinRequests=[];window.__skinResponses=[];const orig=window.fetch;window.fetch=async(...a)=>{const skin=String(a[0]).endsWith('/api/local-health/skin');if(skin)window.__skinRequests.push(JSON.parse(a[1].body));const r=await orig(...a);if(skin&&r.ok)window.__skinResponses.push(await r.clone().json());return r;};")
@@ -33,6 +54,8 @@ with sync_playwright() as pw:
     for text in ['Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla','Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla']:
         control=page.get_by_label(text,exact=True)
         if not control.is_checked():control.click()
+        expect(control).to_be_enabled();expect(control).to_be_checked()
+    page.wait_for_function("localStorage.getItem('attune_privacy_skin_photos_allowed')==='true' && localStorage.getItem('attune_privacy_skin_save_allowed')==='true'")
     page.goto('http://127.0.0.1:3000/skin');page.bring_to_front()
     page.get_by_role('button',name='Cilt taraması hakkında bilgi',exact=True).click();page.get_by_label('Üç açılı tarama',exact=True).uncheck();page.get_by_role('button',name='Bilgi penceresini kapat',exact=True).click()
     page.get_by_role('button',name='Analizi Başlat',exact=True).click();started=time.monotonic()
@@ -49,8 +72,8 @@ with sync_playwright() as pw:
     assert len(requests)==len(responses)==1 and record['usedMediaPipe']
     assert not any(r.get('hostedProcessingConsent') for r in requests)
     p=requests[0];response=responses[0]
-    (DATA/'55ec00b8-automatic-payload.json').write_text(json.dumps(p,ensure_ascii=False),'utf8')
-    (DATA/'55ec00b8-automatic-api.json').write_text(json.dumps(response,ensure_ascii=False),'utf8')
+    (DATA/(prefix+'-automatic-payload.json')).write_text(json.dumps(p,ensure_ascii=False),'utf8')
+    (DATA/(prefix+'-automatic-api.json')).write_text(json.dumps(response,ensure_ascii=False),'utf8')
     def check_views(root,history):
         receipts=[]
         for view in views:

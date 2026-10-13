@@ -51,5 +51,6 @@ def test_ort_exception_and_accepted_type_cannot_substitute_analytic_type(tmp_pat
     result=M.infer(np.zeros((20,20,3),np.uint8),[],True)
     assert result['skinType']['value'] is None
     assert result['skinType']['limitationCode']=='ACCEPTED_MODEL_UNAVAILABLE'
+    assert result['skinType']['modelHash'] is None
     assert result['skinType']['methodVersion']=='accepted-test-v1'
     assert M.infer_bags(np.zeros((20,20,3),np.uint8),[],True)['valid'] is False
