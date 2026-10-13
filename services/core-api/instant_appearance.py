@@ -63,7 +63,7 @@ def curve_profile(gray,eligible,guide,normal,offsets,width,center_support=None):
     return dict(strength=strength,edge=pairedEdge,continuity=continuity,coverage=coverage,
                 trackingResidual=curvature,trackingQualityVersion='guide-relative-displacement-v1',points=points,tracked=selected,values=folds,edgeValues=np.clip((edges-.018)/.12,0,1),support=support,observedSamples=usable.any(axis=1))
 
-def boundary_support(gray,skin,guide,face_width):
+def boundary_support(gray,skin,guide,face_width,contour_support=None):
     """Actual boundary tracking and local non-smoothness, independent of the fold detector."""
     guide=np.asarray(guide,np.float32);distance=np.r_[0,np.cumsum(np.linalg.norm(np.diff(guide,axis=0),axis=1))]
     if distance[-1]<10:return dict(value=0,coverage=0,points=[])
@@ -73,22 +73,28 @@ def boundary_support(gray,skin,guide,face_width):
     coords=line[:,None,:]+normal[:,None,:]*offsets[None,:,None]
     values=cv2.remap(gray,coords[:,:,0].astype('float32'),coords[:,:,1].astype('float32'),cv2.INTER_LINEAR)
     visible=cv2.remap(skin.astype('uint8'),coords[:,:,0].astype('float32'),coords[:,:,1].astype('float32'),cv2.INTER_NEAREST)>0
-    edges=np.abs(values[:,2:]-values[:,:-2]);edges=np.where(visible[:,1:-1]|visible[:,:-2]|visible[:,2:],edges,0)
+    edge_eligible=visible[:,1:-1]|visible[:,:-2]|visible[:,2:]
+    if contour_support is not None:
+        geometry=cv2.remap(contour_support.astype('uint8'),coords[:,:,0].astype('float32'),coords[:,:,1].astype('float32'),cv2.INTER_NEAREST)>0
+        # Interior pores/creases are not an independent jaw silhouette. Require
+        # the actual sampled image edge to cross the face contour support.
+        edge_eligible&=geometry[:,:-2]!=geometry[:,2:]
+    edges=np.abs(values[:,2:]-values[:,:-2]);edges=np.where(edge_eligible,edges,0)
     index=edges.argmax(axis=1)+1;tracked=coords[np.arange(64),index];strength=edges[np.arange(64),index-1]
     offset=(tracked-line)*normal;shift=offset.sum(axis=1)/(face_width/320)
     # Remove the expected anatomical guide and its broad smooth perspective curvature.
     local=shift-gaussian_filter1d(shift,8)
     deflection=np.clip((np.abs(local)-1.0)/4,0,1)*np.clip((strength-.04)/.18,0,1)
-    coverage=float((visible.any(axis=1)).mean())
-    return dict(value=float(deflection.mean()),coverage=coverage,edgeMean=float(strength.mean()),localDeflectionMean=float(np.abs(local).mean()),points=tracked.tolist(),supported=(strength>.04).tolist())
+    coverage=float(edge_eligible.any(axis=1).mean()) if contour_support is not None else float(visible.any(axis=1).mean())
+    return dict(value=float(deflection.mean()),coverage=coverage,edgeMean=float(strength.mean()),localDeflectionMean=float(np.abs(local).mean()),points=tracked.tolist(),supported=(strength>.04).tolist(),**({'trackingSupportVersion':'anatomical-silhouette-crossing-v1','_localSupport':deflection.tolist()} if contour_support is not None else {}))
 
-def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_shape,hair=None,context_skin=None,clipping=None,exposure_skin=None):
+def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_shape,hair=None,context_skin=None,clipping=None,exposure_skin=None,boundary_geometry=None):
     """Returns an index, component metadata, actual pixel evidence, and a failure code."""
     h,w=source_shape[:2]
     p=np.array([[(v['x']*w-origin[0])*scale,(v['y']*h-origin[1])*scale] for v in points],float)
     eye=p[263]-p[33];eye_width=float(np.linalg.norm(eye))
     empty=np.zeros(gray.shape,np.float32)
-    formula='contour-fold-visible-region-unique-centers-v7' if region!='periorbital' else 'contour-fold-local-support-v5'
+    formula='contour-fold-lower-chin-visible-region-v8' if region=='chin' else 'contour-fold-local-support-v5' if region=='periorbital' else 'contour-fold-visible-region-unique-centers-v7'
     fail=lambda code:(None,dict(formulaVersion=formula,**({'samplingSupportVersion':'tracked-center-eligible-v1'} if region=='periorbital' else {})),empty,[],code)
     if region=='forehead':return fail('BROW_FOLD_IS_NOT_LOWER_FACE_SAGGING')
     if eye_width<35:return fail('INSUFFICIENT_NATIVE_DETAIL')
@@ -116,7 +122,11 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
         offsets=np.arange(7,28);direction=vertical
     elif region=='rightCheek':paths=[('right',[100,142,203,206]),('lower-right',[206,212,202])];offsets=np.arange(-10,11);direction=horizontal
     elif region=='leftCheek':paths=[('left',[329,371,423,426]),('lower-left',[426,432,422])];offsets=np.arange(-10,11);direction=horizontal
-    elif region=='chin':paths=[('mental',[201,200,421])];offsets=np.arange(-10,11);direction=vertical
+    elif region=='chin':
+        # The ordinary mentolabial crease is not a lower-jaw descent target.
+        # Track the lower interior chin row, separately from both mouth-side
+        # cheek folds. Actual jaw-boundary confirmation remains mandatory.
+        paths=[('lower-chin',[170,208,199,428,395])];offsets=np.arange(-10,11);direction=vertical
     elif region=='forehead':
         # Brow-adjacent fold + actual brow boundary support; no copied cheek/jaw metric.
         paths=[('right-brow',[70,63,105,66,107]),('left-brow',[300,293,334,296,336])];offsets=np.arange(-24,-2);direction=vertical
@@ -163,8 +173,14 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
         return receipt
     boundary=None;boundary_exposure=None
     if region in ('rightCheek','leftCheek','chin'):
+        if region=='chin' and boundary_geometry is None:
+            # Direct/offline callers must use the same v8 contour contract as
+            # the normal API, rather than silently falling back to a v7 gate.
+            oval=[10,338,297,332,284,251,389,356,454,323,361,288,397,365,379,378,400,377,152,148,176,149,150,136,172,58,132,93,234,127,162,21,54,103,67,109]
+            boundary_geometry=np.zeros(gray.shape,np.uint8)
+            cv2.fillPoly(boundary_geometry,[p[oval].astype(np.int32)],1)
         jaw={'rightCheek':[132,58,172,136,150],'leftCheek':[361,288,397,365,379],'chin':[172,136,150,152,379,365,397]}[region]
-        boundary=boundary_support(gray,context_skin if context_skin is not None else eligible,p[jaw],native_width)
+        boundary=boundary_support(gray,context_skin if context_skin is not None else eligible,p[jaw],native_width,boundary_geometry)
         boundary_exposure=exposure(p[jaw],np.arange(-10,11))
         boundary['exposure']=boundary_exposure
     elif region=='forehead':
@@ -186,8 +202,16 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
             continuity_gate = min(1.0, q['continuity'] / 0.6)
         if boundary is not None:
             boundary_gate = min(1.0, np.sqrt(max(0.0, boundary['value']) / 0.08))
+            if boundary.get('_localSupport') is not None:
+                boundary_points=np.asarray(boundary['points'],np.float32)
+                nearest=np.linalg.norm(q['tracked'][:,None,:]-boundary_points[None,:,:],axis=2).argmin(axis=1)
+                boundary_gate=np.minimum(1.,np.sqrt(np.asarray(boundary['_localSupport'])[nearest]/.08))
+                boundary['foldConfirmationVersion']='nearest-contour-local-support-v1'
             visible=q['observedSamples']
-            joint = float(np.mean((q['values'] * edge_gate)[visible])) * continuity_gate * boundary_gate if visible.any() else 0.
+            if boundary.get('_localSupport') is not None:
+                joint = float(np.mean((q['values'] * edge_gate * boundary_gate)[visible])) * continuity_gate if visible.any() else 0.
+            else:
+                joint = float(np.mean((q['values'] * edge_gate)[visible])) * continuity_gate * boundary_gate if visible.any() else 0.
         else:
             visible=q.get('observedSamples',np.ones(len(q['values']),bool))
             joint = float(np.mean((q['values'] * np.sqrt(q['edgeValues']))[visible])) * continuity_gate if visible.any() else 0.
@@ -242,9 +266,10 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
         if side['value'] is not None:measured_roi|=exposure_masks[id(side['exposure'])]
     if valid and boundary_exposure is not None:measured_roi|=exposure_masks[id(boundary_exposure)]
     measured_roi&=eligible
+    if boundary is not None:boundary.pop('_localSupport',None)
     measurement_roi=dict(scope='measured-anatomical-sampling-corridors',analysisPixels=int(measured_roi.sum()),sourcePixels=float(measured_roi.sum()/scale**2),anatomicalSourcePixels=float(np.logical_or.reduce(list(exposure_corridors.values())).sum()/scale**2) if exposure_corridors else 0.,sourceFacePixels=face,unknownSides=[side['side'] for side in sides if side['value'] is None])
     components=dict(formulaVersion=formula,measurementROI=measurement_roi,sides=sides,fixedConstants=CONSTANTS,
-                    indexAggregation='mean of measured local fold * min(1, sqrt(pairedEdge/0.04)), times continuity/0.6 and min(1, sqrt(jaw boundary/0.08)) where applicable' if region!='periorbital' else 'mean of measured local fold * sqrt(local paired edge), times supported continuity (minimum 0.20)',
+                    indexAggregation='mean of measured local fold * min(1, sqrt(pairedEdge/0.04)), times continuity/0.6 and min(1, sqrt(nearest supported jaw boundary/0.08)) where applicable' if region=='chin' else 'mean of measured local fold * min(1, sqrt(pairedEdge/0.04)), times continuity/0.6 and min(1, sqrt(jaw boundary/0.08)) where applicable' if region!='periorbital' else 'mean of measured local fold * sqrt(local paired edge), times supported continuity (minimum 0.20)',
                     localMapMeaning='measured local support intensity; no confidence or pixel disease severity',
                     meaning='visible-supported-contour-fold; not probability, volume or clinical severity',boundary=boundary,
                     weights=dict(fold=1,pairedEdgeRef=.04,continuityRef=.60,boundaryRef=.08) if region!='periorbital' else dict(fold=1,pairedEdge=.5,continuity=1,boundary=.5),
@@ -252,7 +277,7 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
                     mouthOpening=opening,eyeAspects=eye_aspects,shadowPlaneSlope=slope[:2].tolist())
     if region=='periorbital':components['samplingSupportVersion']='tracked-center-eligible-v1'
     else:
-        components.update(samplingSupportVersion='visible-region-unique-centers-v7',uniqueObservedCenters=len(sampling_centers),overlapCountedOnce=True,partialCoverage=any(side['value'] is None for side in sides))
+        components.update(samplingSupportVersion='lower-chin-visible-region-unique-centers-v8' if region=='chin' else 'visible-region-unique-centers-v7',uniqueObservedCenters=len(sampling_centers),overlapCountedOnce=True,partialCoverage=any(side['value'] is None for side in sides))
         # Ephemeral raster/coordinates are consumed by the overview aggregator;
         # appearance_analysis removes them before returning or storing JSON.
         components['_samplingCenters']=[[x,y,v] for (x,y),v in sampling_centers.items()]

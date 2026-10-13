@@ -58,3 +58,44 @@ def test_fold_edge_and_independent_boundary_are_all_required(monkeypatch,fold,ed
  gray=np.full((320,320),.5,np.float32)
  value,components,field,_,reason=IA.instant_proxy(gray,np.ones_like(gray,bool),landmarks(),'chin',dict(yaw=0.,pitch=0.),1,(0,0),gray.shape)
  assert reason is None and value==0 and not field.any()
+
+def test_ordinary_mentolabial_crease_cannot_supply_lower_chin_index(monkeypatch):
+ import instant_appearance as IA
+ points=landmarks()
+ for i,x,y in [(33,.3,.3),(263,.7,.3),(234,.1,.5),(454,.9,.5),(61,.38,.55),(291,.62,.55),(13,.5,.545),(14,.5,.555),
+               (201,.42,.65),(200,.5,.65),(421,.58,.65),(170,.35,.78),(208,.43,.78),(199,.5,.78),(428,.57,.78),(395,.65,.78)]:
+  points[i]={'x':x,'y':y,'z':0.}
+ # Independent contour confirmation alone must not turn a normal lip/chin
+ # separation into sag. Real photometric profiles are used for both fields.
+ monkeypatch.setattr(IA,'boundary_support',lambda *args:dict(value=.08,coverage=1.,points=[],supported=[]))
+ ys=np.arange(320)[:,None];mental=np.broadcast_to(.6-.18*np.exp(-((ys-208)/1.2)**2),(320,320)).astype('float32')
+ lower=np.broadcast_to(.6-.18*np.exp(-((ys-249)/1.2)**2),(320,320)).astype('float32')
+ def run(gray):return IA.instant_proxy(gray,np.ones_like(gray,bool),points,'chin',dict(yaw=0.,pitch=0.),1.,(0,0),gray.shape)
+ old_crease=run(mental);actual_lower=run(lower)
+ assert old_crease[4] is None and old_crease[0]==0 and not old_crease[2].any()
+ assert actual_lower[4] is None and actual_lower[0]>0 and actual_lower[2].any()
+ assert actual_lower[1]['samplingSupportVersion']=='lower-chin-visible-region-unique-centers-v8'
+
+def test_v7_and_v8_history_and_render_support_remain_distinct():
+ script=r'''
+require('./tests/unit/ts_loader.js');const assert=require('assert/strict'),I=require('./apps/vehicle-app/src/utils/skinIndicators.ts'),H=require('./apps/vehicle-app/src/utils/healthHistorySeries.ts'),S=require('./apps/vehicle-app/src/utils/skinSurfaceAnalysis.ts');
+for(const scope of ['overview','chin']){
+ const row=(normalization,sampling)=>({id:'sag',score:8,method:'appearance-cv-6',unit:'%',appearance:{type:'appearance_proxy',methodVersion:'appearance-cv-6',normalizationVersion:normalization,region:scope,unit:'appearance-score-0-100',value:8,quality:'valid',components:{samplingSupportVersion:sampling}},measurement:{scope:scope==='overview'?'whole-face':'regional',region:scope,methodVersion:'appearance-cv-6',unit:'appearance-score-0-100',rawValue:8,quality:'valid',modelHash:null,validation:'appearance-proxy'}});
+ const a=row('contour-fold-visible-region-unique-centers-v7','visible-region-unique-centers-v7'),b=row('contour-fold-lower-chin-visible-region-v8','lower-chin-visible-region-unique-centers-v8');assert(!I.canCompareIndicator(a,b));
+ const record=(id,r)=>({id,date:'2026-10-13T00:00:00Z',indicators:scope==='overview'?{}:{chin:[r]},...(scope==='overview'?{general:{indicators:[r]}}:{})});const old=record('old',a),now=record('new',b),before=JSON.stringify(old);assert.equal(H.buildHistorySeries('skin',[old,now]).filter(r=>r.region===scope&&r.criterion==='sag').length,2);assert.equal(JSON.stringify(old),before);
+ assert(S.closedSurfaceSupportEnabled('sag',a.appearance.normalizationVersion));assert(S.closedSurfaceSupportEnabled('sag',b.appearance.normalizationVersion));
+}'''
+ subprocess.run(['node','-e',script],cwd=ROOT,check=True,timeout=30)
+
+@pytest.mark.parametrize('nearby_support,expected',[(0.,0.),(.08,50.)])
+def test_remote_jaw_edge_cannot_confirm_unrelated_chin_fold(monkeypatch,nearby_support,expected):
+ import instant_appearance as IA
+ def profile(*args,**kwargs):
+  return dict(strength=.5,edge=.04,continuity=1.,coverage=1.,trackingResidual=0.,trackingQualityVersion='controlled-local-pair',tracked=np.tile([160.,160.],(64,1)),values=np.full(64,.5),edgeValues=np.full(64,.04),support=np.ones(64,bool),observedSamples=np.ones(64,bool))
+ monkeypatch.setattr(IA,'curve_profile',profile)
+ monkeypatch.setattr(IA,'boundary_support',lambda *args:dict(value=.08,coverage=1.,points=[[160.,220.],[0.,220.]],supported=[True,True],_localSupport=[nearby_support,.08]))
+ gray=np.full((320,320),.5,np.float32);visible=np.ones_like(gray,bool)
+ value,components,field,_,reason=IA.instant_proxy(gray,visible,landmarks(),'chin',dict(yaw=0.,pitch=0.),1.,(0,0),gray.shape,boundary_geometry=visible)
+ assert reason is None and value==pytest.approx(expected)
+ assert bool(field.any())==(nearby_support>0)
+ assert '_localSupport' not in components['boundary']

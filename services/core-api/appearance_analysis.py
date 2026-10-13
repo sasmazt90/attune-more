@@ -22,7 +22,7 @@ from skin_scan_baseline.blemishes import blemish_map
 VERSION = 'appearance-cv-6'
 LINE_FREQUENCIES=(.13,.18,.26)
 LIMITS = {'minFacePixels': 180, 'analysisFacePixels': 320, 'maxClippedFraction': .03}
-NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-luma-union-v3','acne':'unique-detection-box-anatomical-area-v2','lines':'outer-canthus-gabor-radiating-hair-excluded-v4','dark':'lower-lid-contrast-chroma-local-v4','sag':'contour-fold-visible-region-unique-centers-v7','bags':'contour-fold-local-support-v5'}
+NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-luma-union-v3','acne':'unique-detection-box-anatomical-area-v2','lines':'outer-canthus-gabor-radiating-hair-excluded-v4','dark':'lower-lid-contrast-chroma-local-v4','sag':'contour-fold-lower-chin-visible-region-v8','bags':'contour-fold-local-support-v5'}
 
 
 def decode_photo(data):
@@ -442,6 +442,8 @@ def analyze_skin(payload, include_research_features=False):
         def add(criterion, value, unit, signal=None, ceiling=1., limitation=reason, components=None, signal_mask=None,measurement_area=None,map_support=None):
             usable = limitation is None
             item = row(region, criterion, float(value) if usable else None, unit, measurement_area if measurement_area is not None else area, conditions, limitation, components)
+            if criterion=='sag' and components and components.get('formulaVersion'):
+                item['normalizationVersion']=components['formulaVersion']
             items.append(item)
             if usable and signal is not None:
                 layer = map_result(signal, (valid & display_anatomical if map_support is None else map_support) & (signal_mask if signal_mask is not None else True), region, criterion, source_hash, payload['pose'], bgr.shape, scale, unit, ceiling, origin)
@@ -594,7 +596,7 @@ def analyze_skin(payload, include_research_features=False):
                 sampled,impulses=isolated_impulse_sampling(bgr)
                 bag_image=cv2.resize(sampled[y0:y1,x0:x1],None,fx=scale,fy=scale,interpolation=cv2.INTER_AREA)
                 contour_gray=cv2.cvtColor(bag_image,cv2.COLOR_BGR2GRAY).astype(np.float32)/255
-            value,components,signal,lines,limitation=instant_proxy(contour_gray,contour_support,points,region,conditions,scale,origin,bgr.shape,hair,contour_context,contour_clipping,contour_exposure)
+            value,components,signal,lines,limitation=instant_proxy(contour_gray,contour_support,points,region,conditions,scale,origin,bgr.shape,hair,contour_context,contour_clipping,contour_exposure,boundary_geometry=(face_support>0) if region=='chin' else None)
             local_samples=components.pop('_samplingCenters',[])
             local_measured=components.pop('_measuredSupport',None)
             if region in ('rightCheek','leftCheek','chin') and value is not None and payload.get('qualityValid'):
