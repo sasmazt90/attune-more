@@ -35,14 +35,20 @@ def exterior_support(image,line,normal,coords,face_width):
     A skin-colored background cannot establish a reliable silhouette here;
     failure remains unmeasurable, never a healthy zero or a landmark fallback.
     """
-    rgb=image.astype(np.float32)/255
-    remap=lambda xy:cv2.remap(rgb,xy[:,:,0].astype(np.float32),xy[:,:,1].astype(np.float32),cv2.INTER_LINEAR,borderMode=cv2.BORDER_CONSTANT)
     inward=line[:,None,:]-normal[:,None,:]*(.04*face_width)
+    exterior=coords+normal[:,None,:]*(.009375*face_width)
+    # Keep the absolute float32 interpolation phase before integer-origin
+    # subtraction. Only the sampled corridor plus a two-pixel halo needs RGB.
+    inward=inward.astype(np.float32);exterior=exterior.astype(np.float32)
+    xy=np.concatenate([inward.reshape(-1,2),exterior.reshape(-1,2)])
+    h,w=image.shape[:2];a=max(0,min(w-1,int(np.floor(xy[:,0].min()))-2));b=max(0,min(h-1,int(np.floor(xy[:,1].min()))-2));c=max(a+1,min(w,int(np.ceil(xy[:,0].max()))+3));d=max(b+1,min(h,int(np.ceil(xy[:,1].max()))+3))
+    rgb=image[b:d,a:c].astype(np.float32)/255
+    remap=lambda xy:cv2.remap(rgb,xy[:,:,0]-np.float32(a),xy[:,:,1]-np.float32(b),cv2.INTER_LINEAR,borderMode=cv2.BORDER_CONSTANT)
     sampled=remap(inward)[:,0,:];totals=sampled.sum(1);good=totals>.36
     if good.sum()<12:return np.zeros(coords.shape[:2],bool)
     ref=sampled[good,:2]/totals[good,None];median=np.median(ref,axis=0);mad=1.4826*np.median(np.abs(ref-median),axis=0)
     noise=np.maximum(mad,2/255/max(float(np.median(totals[good])),.36))
-    outside=remap(coords+normal[:,None,:]*(.009375*face_width));chroma=outside[:,:,:2]/np.maximum(outside.sum(2)[:,:,None],1e-6)
+    outside=remap(exterior);chroma=outside[:,:,:2]/np.maximum(outside.sum(2)[:,:,None],1e-6)
     distance=np.linalg.norm((chroma-median)/noise,axis=2)
     return distance>PARAMETERS['skinEnvelopeSigma']
 

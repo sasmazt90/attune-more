@@ -37,7 +37,7 @@ export interface ImageQuality {
   isValid: boolean;
   avgLuminance: number; // 0-255
   blurScore: number; // Piksel gradyan varyansı proxy'si
-  status: 'OPTIMAL' | 'TOO_DARK' | 'TOO_BRIGHT' | 'BLURRY' | 'NO_FACE';
+  status: 'OPTIMAL' | 'TOO_DARK' | 'TOO_BRIGHT' | 'BLURRY' | 'NO_FACE' | 'EYEWEAR' | 'EYEWEAR_PENDING' | 'EYEWEAR_UNCERTAIN';
   warningMessageTr?: string;
 }
 

@@ -30,7 +30,7 @@ export const SkinStartView: React.FC<SkinStartViewProps> = ({ onStart }) => {
               Cilt Analizi
             </h1>
             <p className="text-sm text-slate-300 leading-relaxed">
-              Kameraya doğru bakın ve başınızı sabit tutun.
+              Gözlüğünüzü çıkarın. Kameraya doğru bakın ve başınızı sabit tutun.
             </p>
           </div>
 

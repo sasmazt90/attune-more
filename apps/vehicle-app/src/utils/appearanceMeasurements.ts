@@ -14,7 +14,10 @@ export async function analyzeAppearance(snapshot:SkinSnapshot,qualityValid:boole
  const stale=setInterval(()=>{if(!current()||isSkinHostedProcessingAllowed()!==hostedConsent)controller.abort();},100);
  try {
   const response=await fetch('http://localhost:8000/api/local-health/skin',{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:true,hostedProcessingConsent:hostedConsent,photo:snapshot.dataUrl,photoId:snapshot.photoId,pose:snapshot.angle,meshes:snapshot.meshes,exclusions:snapshot.exclusions,landmarks:snapshot.landmarks,qualityValid,conditions,temporal})});
-  if(!response.ok)throw Error('Yerel görünüm analizi tamamlanamadı.');
+  if(!response.ok){
+   const detail=await response.json().catch(()=>({}));
+   throw Error(detail.detail==='SKIN_EYEWEAR_PRESENT'?'Cilt analizi için gözlüğünüzü çıkarın.':detail.detail==='SKIN_EYEWEAR_CHECK_UNCERTAIN'?'Göz çevresi yeterince doğrulanamadı; yeniden çekin.':'Yerel görünüm analizi tamamlanamadı.');
+  }
   const result:AppearanceResponse=await response.json();
   if(!current()||isSkinHostedProcessingAllowed()!==hostedConsent||result.photoId!==snapshot.photoId||result.sourceWidth!==snapshot.width||result.sourceHeight!==snapshot.height)throw Error('STALE_SOURCE');
   return result;

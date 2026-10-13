@@ -16,15 +16,21 @@ def test_cancel_and_deadline_stop_real_proposal_work():
 def test_request_crop_reuse_never_reuses_a_different_source(monkeypatch):
     ids=np.zeros((60,60),np.int32);ids[10:13,10:13]=1;ids[40:43,40:43]=2
     rows=[dict(componentId=i,rect=[10,10,3,3],geometry=[0.]*12) for i in [1,2]]
-    monkeypatch.setattr(M,'describe',lambda *args:(ids,rows));calls=[]
+    monkeypatch.setattr(M,'describe',lambda *args:(ids,rows));calls=[];transforms=[]
+    original=M.material_crop
+    def crop(image,box):
+        transforms.append(tuple(box[k] for k in ['x','y','width','height']))
+        return original(image,box)
+    monkeypatch.setattr(M,'material_crop',crop)
     class Encoder:
         def extract(self,crops,batch):calls.append(len(crops));return np.zeros((len(crops),1280),np.float32)
     head=dict(mean=np.zeros(2572),std=np.ones(2572),coefficients=np.zeros(2572),intercept=1.,threshold=.5)
     image=np.full((60,60,3),120,np.uint8);field=(ids>0).astype(np.float32)*.5
     output,receipt=M.filter_material_support_streamed(image,field,1.,Encoder(),head)
     assert np.array_equal(output,field) and sum(calls)==2 and receipt['identicalCropsReused']==2
+    assert len(transforms)==2 and receipt['uniqueCropTransforms']==2
     M.filter_material_support_streamed(image,field,1.,Encoder(),head)
-    assert sum(calls)==4 # A new request recomputes; no photo cache.
+    assert sum(calls)==4 and len(transforms)==4 # A new request recomputes; no photo cache.
 
 def test_feature_blocks_are_scaled_after_standardization():
     X=np.array([[1,2,3],[2,3,5],[3,4,7],[4,5,9]],float)

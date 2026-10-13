@@ -37,19 +37,26 @@ def describe(image,field,metric,reference_support=None):
         rows.append(dict(componentId=i,rect=[x,y,w,h],area=area,centroid=centroids[i].tolist(),geometry=np.asarray(values,float).tolist()))
     return labels,rows
 
+def component_crop_boxes(row,metric,pixel_density=1.):
+    x,y,w,h=row['rect'];cx=x+w/2;cy=y+h/2;s=max(.125,float(metric));density=max(.125,float(pixel_density));boxes=[]
+    for span in [max(w,h)+max(8*density,16*s),max(3*max(w,h),64*s,48*density)]:
+        span=int(np.ceil(span));boxes.append(dict(x=int(np.floor(cx-span/2)),y=int(np.floor(cy-span/2)),width=span,height=span,sourcePixelsNotAdded=True))
+    return boxes
+
+def material_crop(image,box):
+    x0,y0,span=box['x'],box['y'],box['width'];x1=x0+span;y1=y0+span
+    crop=np.full((span,span,3),114,np.uint8);a=max(0,x0);b=max(0,y0);c=min(image.shape[1],x1);d=min(image.shape[0],y1)
+    if c>a and d>b:crop[b-y0:d-y0,a-x0:c-x0]=image[b:d,a:c]
+    rgb=cv2.cvtColor(crop,cv2.COLOR_BGR2RGB);resized=cv2.resize(rgb,(224,224),interpolation=cv2.INTER_AREA if span>=224 else cv2.INTER_LINEAR)
+    return ((resized.astype(np.float32)/255-MEAN)/STD).transpose(2,0,1).copy()
+
 def component_crops(image,row,metric,pixel_density=1.):
     """Two square crops with real context, preserving aspect and source bounds."""
-    x,y,w,h=row['rect'];cx=x+w/2;cy=y+h/2;s=max(.125,float(metric));result=[];boxes=[]
+    result=[];boxes=component_crop_boxes(row,metric,pixel_density)
     # During a controlled source downsample, native minimum context and close
     # margins downsample as well. Otherwise a half-resolution crop silently
     # covers twice as much source background. Actual native callers use 1.
-    density=max(.125,float(pixel_density))
-    for span in [max(w,h)+max(8*density,16*s),max(3*max(w,h),64*s,48*density)]:
-        span=int(np.ceil(span));x0=int(np.floor(cx-span/2));y0=int(np.floor(cy-span/2));x1=x0+span;y1=y0+span
-        crop=np.full((span,span,3),114,np.uint8);a=max(0,x0);b=max(0,y0);c=min(image.shape[1],x1);d=min(image.shape[0],y1)
-        if c>a and d>b:crop[b-y0:d-y0,a-x0:c-x0]=image[b:d,a:c]
-        rgb=cv2.cvtColor(crop,cv2.COLOR_BGR2RGB);resized=cv2.resize(rgb,(224,224),interpolation=cv2.INTER_AREA if span>=224 else cv2.INTER_LINEAR)
-        result.append(((resized.astype(np.float32)/255-MEAN)/STD).transpose(2,0,1).copy());boxes.append(dict(x=x0,y=y0,width=span,height=span,sourcePixelsNotAdded=True))
+    for box in boxes:result.append(material_crop(image,box))
     return result,boxes
 
 def support_conditioned_crop(image,labels,row,metric,pixel_density=1.,reference_support=None):
@@ -105,7 +112,7 @@ class FrozenMaterialEncoder:
                 t=self.torch.from_numpy(np.stack(crops[start:start+batch]));result.append(self.net(t).cpu().numpy().copy())
         return np.concatenate(result) if result else np.empty((0,1280),np.float32)
 
-def fit_classifier(features,labels,groups,regularization=1.,feature_group_sizes=None):
+def fit_classifier(features,labels,groups,regularization=1.,feature_group_sizes=None,group_balanced_loss=False):
     """Call with TRAIN rows only. No PCA or validation-fitted normalization."""
     from scipy.optimize import minimize
     from scipy.special import expit
@@ -114,6 +121,8 @@ def fit_classifier(features,labels,groups,regularization=1.,feature_group_sizes=
         if sum(feature_group_sizes)!=X.shape[1] or any(v<=0 for v in feature_group_sizes):raise ValueError('INVALID_FEATURE_GROUPS')
         std*=np.concatenate([np.full(n,np.sqrt(n)) for n in feature_group_sizes])
     z=(X-mean)/std;weights=np.array([len(y)/(2*np.sum(y==v)) for v in y]);penalty=1/regularization
+    if group_balanced_loss:
+        g=np.asarray(groups);weights=np.array([len(y)/(2*len(set(g[y==v]))*np.sum((g==group)&(y==v))) for group,v in zip(g,y)],float)
     def objective(beta):
         logits=z@beta[:-1]+beta[-1];p=expit(logits);error=weights*(p-y)
         loss=np.sum(weights*(np.logaddexp(0,logits)-y*logits))+.5*penalty*np.sum(beta[:-1]**2)
@@ -142,19 +151,21 @@ def filter_material_support(image,field,metric,encoder,head):
 
 class OnnxMaterialEncoder:
     """Locally exported frozen encoder, admitted only by its parity receipt."""
-    def __init__(self,path,receipt):
+    def __init__(self,path,receipt,intra_op_threads=1,batch_limit=16,cpu_mem_arena=True):
         import onnxruntime as ort
         path=Path(path);verified=json.loads(Path(receipt).read_text('utf8'))
         if (verified['sourceEncoderSHA256']!=ENCODER_SHA or not verified['featureParity'] or
             hashlib.sha256(path.read_bytes()).hexdigest()!=verified['onnxSHA256']):
             raise ValueError('UNVERIFIED_MATERIAL_ENCODER')
-        options=ort.SessionOptions();options.intra_op_num_threads=1;options.inter_op_num_threads=1
+        if intra_op_threads not in [1,2,4] or batch_limit not in [1,4,8,16]:raise ValueError('UNBOUNDED_ENCODER_EXECUTION')
+        options=ort.SessionOptions();options.intra_op_num_threads=intra_op_threads;options.inter_op_num_threads=1;options.enable_cpu_mem_arena=cpu_mem_arena
         self.session=ort.InferenceSession(str(path),options,providers=['CPUExecutionProvider'])
-        self.hash=verified['onnxSHA256']
+        self.hash=verified['onnxSHA256'];self.batch_limit=batch_limit;self.execution=dict(intraOpThreads=intra_op_threads,batchLimit=batch_limit,cpuMemoryArena=cpu_mem_arena);self.calls=0;self.encoded_crops=0
     def extract(self,crops,batch=16):
         parts=[]
+        batch=min(batch,self.batch_limit)
         for start in range(0,len(crops),batch):
-            parts.append(self.session.run(['features'],{'crops':np.stack(crops[start:start+batch])})[0])
+            parts.append(self.session.run(['features'],{'crops':np.stack(crops[start:start+batch])})[0]);self.calls+=1;self.encoded_crops+=min(batch,len(crops)-start)
         return np.concatenate(parts) if parts else np.empty((0,1280),np.float32)
 
 def filter_material_support_streamed(image,field,metric,encoder,head,check=None,details=None):
@@ -165,14 +176,14 @@ def filter_material_support_streamed(image,field,metric,encoder,head,check=None,
     A stop check runs before each bounded encoder batch; no worker is orphaned.
     """
     check=check or (lambda:None);check();start=time.monotonic();labels,rows=describe(image,field,metric)
-    times={'describe':time.monotonic()-start,'crop':0.,'encoder':0.,'classifier':0.};features={};allowed=np.zeros(int(labels.max())+1,bool);encoded=0;reused=0
+    times={'describe':time.monotonic()-start,'crop':0.,'encoder':0.,'classifier':0.};features={};allowed=np.zeros(int(labels.max())+1,bool);encoded=0;reused=0;transforms=0;calls_before=getattr(encoder,'calls',0)
     for offset in range(0,len(rows),16):
         check();current=rows[offset:offset+16];pending={};keys=[];t=time.monotonic()
         for row in current:
-            crops,boxes=component_crops(image,row,metric);pair=[]
-            for crop,box in zip(crops,boxes):
+            boxes=component_crop_boxes(row,metric);pair=[]
+            for box in boxes:
                 key=tuple(box[k] for k in ('x','y','width','height'));pair.append(key)
-                if key not in features and key not in pending:pending[key]=crop
+                if key not in features and key not in pending:pending[key]=material_crop(image,box);transforms+=1
                 else:reused+=1
             keys.append(pair)
         times['crop']+=time.monotonic()-t
@@ -187,5 +198,5 @@ def filter_material_support_streamed(image,field,metric,encoder,head,check=None,
             allowed[row['componentId']]=p>=head['threshold']
             if details is not None:details.append({**row,'probability':float(p),'accepted':bool(p>=head['threshold'])})
     check()
-    version='frozen-imagenet-two-crop-material-block-balanced-v2-staging' if head.get('featureGroupSizes') else 'frozen-imagenet-two-crop-material-v1-staging'
-    return field*allowed[labels],dict(classifierVersion=version,encoderSHA256=ENCODER_SHA,candidateComponents=len(rows),acceptedComponents=int(allowed.sum()),threshold=head['threshold'],confidenceNotSeverity=True,sourceLabelsAsInferenceInput=False,timings=times,uniqueEncodedCrops=encoded,identicalCropsReused=reused,maximumResidentCropTensors=32,persistentPhotoCache=False,transport='onnx-cpu' if isinstance(encoder,OnnxMaterialEncoder) else 'torch')
+    version='frozen-imagenet-two-crop-material-source-group-balanced-v3-staging' if head.get('lossVersion')=='source-group-balanced-v1' else 'frozen-imagenet-two-crop-material-block-balanced-v2-staging' if head.get('featureGroupSizes') else 'frozen-imagenet-two-crop-material-v1-staging'
+    return field*allowed[labels],dict(classifierVersion=version,encoderSHA256=ENCODER_SHA,candidateComponents=len(rows),acceptedComponents=int(allowed.sum()),threshold=head['threshold'],confidenceNotSeverity=True,sourceLabelsAsInferenceInput=False,timings=times,uniqueEncodedCrops=encoded,uniqueCropTransforms=transforms,identicalCropsReused=reused,encoderCalls=getattr(encoder,'calls',0)-calls_before,encoderExecution=getattr(encoder,'execution',None),maximumResidentCropTensors=32,persistentPhotoCache=False,transport='onnx-cpu' if isinstance(encoder,OnnxMaterialEncoder) else 'torch')

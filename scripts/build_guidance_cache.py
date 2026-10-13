@@ -13,7 +13,7 @@ TEXTS={
  'care-entry':'Sağlık alanını ve branşı seçin. Uzmanı ve uygun saati sağlayıcının sayfasında doğrulayın.',
  'care-select':'Seçtiğiniz uzmanı ve saati kontrol edin. Bu adım randevu oluşturmaz.',
  'skin-entry':N['skin']['name']+'. Başınızı rahat tutun; ön, sağ ve sol görüntüyü ekrandaki yönergeyle alacağız.',
- 'skin-front':'Başınız karşıda. Yüzünüz ekranda görünürken kısa süre sabit durun.',
+ 'skin-front':'Gözlüğünüzü çıkarın. Başınız karşıda. Yüzünüz ekranda görünürken kısa süre sabit durun.',
  'skin-right':'Başınızı kendi sağınıza hafifçe çevirin; kısa süre sabit tutun.',
  'skin-left':'Başınızı kendi solunuza hafifçe çevirin; kısa süre sabit tutun.',
  'skin-complete':'Tarama tamamlandı. Bölge ve kriter kartını seçerek mevcut görünüm sonucunu inceleyin.',
@@ -40,12 +40,14 @@ TEXTS={
  'mental-complete':'Görüşme tamamlandı. Özeti inceleyebilir ve uzman seçeneklerine geçebilirsiniz.'
 }
 async def main():
- OUT.mkdir(parents=True,exist_ok=True);entries={}
+ import sys
+ selected={'skin-front':TEXTS['skin-front']} if '--skin-glasses-only' in sys.argv else TEXTS
+ OUT.mkdir(parents=True,exist_ok=True);entries=json.loads((OUT/'manifest.json').read_text('utf8'))['entries'] if '--skin-glasses-only' in sys.argv else {}
  voices=await edge_tts.list_voices()
  for name in ['tr-TR-AhmetNeural','tr-TR-EmelNeural']:
   if not any(v['ShortName']==name for v in voices):raise RuntimeError('EXACT_VOICE_UNAVAILABLE')
  # Sequential, no paid provider or personal text. Content-addressed artifacts cannot reuse a stale profile.
- for key,text in TEXTS.items():
+ for key,text in selected.items():
   voice='tr-TR-EmelNeural' if key.startswith('mental-') else 'tr-TR-AhmetNeural'
   contract=dict(text=text,voice=voice,rate='-10%',pitch='-10Hz',textVersion='guidance-20261009-v1')
   digest=hashlib.sha256(json.dumps(contract,sort_keys=True,ensure_ascii=False).encode()).hexdigest()

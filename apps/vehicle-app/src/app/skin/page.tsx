@@ -1,6 +1,7 @@
 'use client';
 import {careHref} from '../../utils/healthModules';
 import { useGuidance,qualityGuidance } from '../../utils/audioGuidance';
+import {SkinEyewearCheck,SkinEyewearGate,SKIN_CAPTURE_POLICY,type EyewearStatus} from '../../utils/skinEyewear';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
@@ -116,9 +117,22 @@ export default function SkinPage() {
     status: 'NO_FACE'
   });
   const [guidanceText, setGuidanceText] = useState<string>('Lütfen başınızı sabit tutun.');
+  const [eyewearStatus,setEyewearStatus]=useState<EyewearStatus|'PENDING'>('PENDING');
   const voice=useGuidance('skin',isParked);
-  useEffect(()=>{if(isParked)voice.phase(scanState+':'+angleIndex,scanState==='CAMERA_ACTIVE'?(['skin-front','skin-right','skin-left'] as const)[angleIndex]:undefined);},[voice,isParked,scanState,angleIndex]);
-  useEffect(()=>{const id=scanState==='CAMERA_ACTIVE'&&!preparationPhase&&!guidanceText.startsWith('Hizalama uygun')?qualityGuidance(guidanceText):undefined;voice.issue(id||'',id);},[voice,guidanceText,scanState,preparationPhase]);
+  const introPendingRef=useRef(false);
+  const [introPending,setIntroPending]=useState(false);
+  useEffect(()=>{
+    const ended=(event:Event)=>{const detail=(event as CustomEvent<{id:string;event:string}>).detail;if(detail?.event==='ended'&&['skin-front','skin-right','skin-left'].includes(detail.id)){introPendingRef.current=false;setIntroPending(false);}};
+    window.addEventListener('attune-guidance-event',ended);return()=>window.removeEventListener('attune-guidance-event',ended);
+  },[]);
+  useEffect(()=>{
+    const id=isParked&&scanState==='CAMERA_ACTIVE'?(['skin-front','skin-right','skin-left'] as const)[angleIndex]:undefined;
+    // The same render's initial quality text must not cancel the phase clip
+    // before its fetch/play starts. Keep all visual capture gates independent.
+    introPendingRef.current=!!id;setIntroPending(!!id);
+    if(isParked)voice.phase(scanState+':'+angleIndex,id);
+  },[voice,isParked,scanState,angleIndex]);
+  useEffect(()=>{const id=scanState==='CAMERA_ACTIVE'&&!introPendingRef.current&&!preparationPhase&&!quality.status.startsWith('EYEWEAR')&&!guidanceText.startsWith('Hizalama uygun')?qualityGuidance(guidanceText):undefined;voice.issue(id||'',id);},[voice,guidanceText,scanState,preparationPhase,quality.status,introPending]);
 
   const snapshotFrames = useRef<Partial<Record<SkinAngle, SkinSnapshot>>>({});
   const snapshotRecord = useRef<string | null>(null);
@@ -410,7 +424,12 @@ export default function SkinPage() {
     if (!validCapture()) return;
     const acceptedSnapshot = snapshotSkinFrame(canvas, alignToUse, 'FRONT');
     const indicators=measureSkinIndicators(ctx,acceptedSnapshot,qualToUse);
-    await addLocalMaps(acceptedSnapshot,ctx,qualToUse.isValid,validCapture,undefined,indicators,{yaw:alignToUse.yaw,pitch:alignToUse.pitch,roll:alignToUse.roll,scaleRatio:alignToUse.scaleRatio,avgLuminance:qualToUse.avgLuminance,blurScore:qualToUse.blurScore});
+    try{
+      await addLocalMaps(acceptedSnapshot,ctx,qualToUse.isValid,validCapture,undefined,indicators,{yaw:alignToUse.yaw,pitch:alignToUse.pitch,roll:alignToUse.roll,scaleRatio:alignToUse.scaleRatio,avgLuminance:qualToUse.avgLuminance,blurScore:qualToUse.blurScore});
+    }catch(error){
+      if(!validCapture())return;
+      setErrorMessage(error instanceof Error?error.message:'Yerel görünüm analizi tamamlanamadı.');setScanState('ERROR');return;
+    }
     if(!validCapture())return;
 
     const capturePose = { yaw: alignToUse.yaw, pitch: alignToUse.pitch, roll: alignToUse.roll, scaleRatio: alignToUse.scaleRatio };
@@ -532,6 +551,8 @@ export default function SkinPage() {
     // Match the working 640-wide acquisition scale without degrading the
     // accepted native photo or using any display crop/zoom in measurement.
     const analysisCanvas=document.createElement('canvas');
+    const eyewearCheck=new SkinEyewearCheck(),eyewearGate=new SkinEyewearGate();
+    setEyewearStatus('PENDING');
     const loop = async () => {
       if (cancelled) return;
       if (!isCameraAllowed() || !parkedRef.current || mediaStream.getVideoTracks().every(t => t.readyState === 'ended')) {
@@ -593,7 +614,21 @@ export default function SkinPage() {
           // Driving/privacy/unmount may cancel while a real frame is being inferred.
           if (cancelled || !parkedRef.current || !isCameraAllowed()) return;
           const analysisCtx=analysisCanvas.getContext('2d',{willReadFrequently:true})!;
-          const curQual = SkinAnalyzer.checkQuality(analysisCtx, analysisCanvas.width, analysisCanvas.height, curAlign.faceDetected, curAlign.box);
+          let curQual = SkinAnalyzer.checkQuality(analysisCtx, analysisCanvas.width, analysisCanvas.height, curAlign.faceDetected, curAlign.box);
+          if(!isDemo&&curQual.avgLuminance>=40&&curQual.avgLuminance<=220&&curAlign.faceDetected&&curAlign.isMediaPipeActive){
+            try{
+              const status=await eyewearCheck.assess(canvas,curAlign,()=>!cancelled&&parkedRef.current&&isCameraAllowed());
+              if(cancelled||!parkedRef.current||!isCameraAllowed())return;
+              setEyewearStatus(status);
+              const stable=curQual.isValid&&eyewearGate.observe(status,performance.now());
+              if(!curQual.isValid)eyewearGate.reset();
+              if(status!=='CLEAR'||curQual.isValid&&!stable)curQual={...curQual,isValid:false,status:status==='EYEWEAR_PRESENT'?'EYEWEAR':status==='CLEAR'?'EYEWEAR_PENDING':'EYEWEAR_UNCERTAIN',warningMessageTr:status==='EYEWEAR_PRESENT'?'Cilt analizi için gözlüğünüzü çıkarın':status==='CLEAR'?'Göz çevreniz doğrulanıyor; kısa süre sabit durun.':'Göz çevrenizi net gösterin; kısa süre sabit durun.'};
+            }catch{
+              if(cancelled)return;
+              eyewearGate.reset();setEyewearStatus('UNCERTAIN');
+              curQual={...curQual,isValid:false,status:'EYEWEAR_UNCERTAIN',warningMessageTr:'Göz çevresi doğrulanamadı. Kameraya doğru bakın ve yeniden deneyin.'};
+            }
+          }else if(!isDemo){eyewearGate.reset();setEyewearStatus('PENDING');}
           // Landmarks stay normalized to the complete decoded source. Only
           // pixel-space bounds must return to native coordinates for capture ROI.
           if(curAlign.box){const sx=canvas.width/analysisCanvas.width,sy=canvas.height/analysisCanvas.height;curAlign={...curAlign,box:{x:curAlign.box.x*sx,y:curAlign.box.y*sy,width:curAlign.box.width*sx,height:curAlign.box.height*sy}};}
@@ -664,8 +699,10 @@ export default function SkinPage() {
               }
             } else {
               // Koşullar bozulursa ilerlemeyi durdur veya geriye al
-              consecutiveValidFramesRef.current = captureState.enabled ? 0 : Math.max(0, consecutiveValidFramesRef.current - 1);
-              if (!curAlign.faceDetected) {
+              consecutiveValidFramesRef.current = captureState.enabled || curQual.status.startsWith('EYEWEAR') ? 0 : Math.max(0, consecutiveValidFramesRef.current - 1);
+              if (curQual.status.startsWith('EYEWEAR')) {
+                setGuidanceText(curQual.warningMessageTr || 'Göz çevrenizi net gösterin.');
+              } else if (!curAlign.faceDetected) {
                 setGuidanceText('Yüz algılanamadı. Kameranın karşısına geçin.');
               } else if (!aligned) {
                 setGuidanceText(captureState.enabled ? angleGuidance(curAlign, target) : curAlign.guidanceTextTr || 'Yüzünüzü kılavuz alana ortalayın.');
@@ -682,6 +719,7 @@ export default function SkinPage() {
 
     schedule();
     return () => {
+      eyewearCheck.cancel();eyewearGate.reset();
       cancelled = true; localAnalysis.current?.cancel();
       if (frameId !== null) cancelAnimationFrame(frameId);
       video.srcObject = null;
@@ -825,7 +863,7 @@ export default function SkinPage() {
   return (
     <div className="space-y-4 max-w-5xl mx-auto select-none">
       {/* Gizli kanvas (MediaPipe piksel analizi) */}
-      <canvas ref={canvasRef} className="hidden" data-mediapipe-ready={isMediaPipeLoaded} data-mediapipe-active={alignment.isMediaPipeActive} data-face-detected={alignment.faceDetected} data-landmark-count={alignment.landmarks?.length || 0} data-quality-status={quality.status} data-yaw={alignment.yaw} data-angle={SKIN_ANGLES[angleIndex]} data-completed-angles={completedAngles.join(',')} />
+      <canvas ref={canvasRef} className="hidden" data-skin-capture-policy={SKIN_CAPTURE_POLICY} data-skin-eyewear-state={eyewearStatus} data-mediapipe-ready={isMediaPipeLoaded} data-mediapipe-active={alignment.isMediaPipeActive} data-face-detected={alignment.faceDetected} data-landmark-count={alignment.landmarks?.length || 0} data-quality-status={quality.status} data-yaw={alignment.yaw} data-angle={SKIN_ANGLES[angleIndex]} data-completed-angles={completedAngles.join(',')} />
       {scanState === 'READY' && errorMessage && <p role="alert" className="text-amber-200">{errorMessage}</p>}
 
       {/* ============================================================ */}

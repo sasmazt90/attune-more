@@ -56,6 +56,8 @@ export function canCompareIndicator(a:SkinIndicator,b:SkinIndicator) {
  if(a.id!==b.id||a.method!==b.method||a.unit!==b.unit)return false;
  if(a.appearance?.normalizationVersion!==b.appearance?.normalizationVersion||a.appearance?.calibrationVersion!==b.appearance?.calibrationVersion)return false;
  if(samplingSupportVersion(a.appearance)!==samplingSupportVersion(b.appearance))return false;
+ if(a.appearance?.captureConditions?.skinCapturePolicy!==b.appearance?.captureConditions?.skinCapturePolicy)return false;
+ if(a.appearance?.captureConditions?.skinEyewearModelHash!==b.appearance?.captureConditions?.skinEyewearModelHash)return false;
  const x=a.measurement,y=b.measurement;
  if(x&&y)return x.scope===y.scope&&x.region===y.region&&x.methodVersion===y.methodVersion&&x.modelHash===y.modelHash&&x.datasetHash===y.datasetHash&&x.evidenceHash===y.evidenceHash&&x.target===y.target&&x.unit===y.unit&&x.validation===y.validation;
  // Only the exact pre-existing color formula is compatible with legacy V3.

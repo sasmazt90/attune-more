@@ -27,7 +27,11 @@ def test_no_cubic_mesh_work_or_dark_hair_glare():
  from appearance_analysis import analyze_skin
  import numpy as np
  image=np.full((400,500,3),(100,130,175),np.uint8);image[:55]=0;result=analyze_skin(skin_input(image))
- assert all(v['value'] is not None for v in result['measurements']['forehead'] if v['id'] in ('tone','redness','oil','acne','dry'))
+ assert all(v['value'] is not None for v in result['measurements']['forehead'] if v['id'] in ('tone','redness','oil','dry'))
+ # This deliberately synthetic mesh has no supported acne search area. It
+ # must remain unavailable rather than manufacture a healthy zero.
+ acne=next(v for v in result['measurements']['forehead'] if v['id']=='acne')
+ assert acne['value'] is None and acne['limitationCode']=='INSUFFICIENT_VISIBLE_AREA'
 
 
 def test_dental_model_failure_is_503_without_payload_echo(monkeypatch):

@@ -13,6 +13,42 @@ _busy = asyncio.Lock()
 parked = lambda: False
 
 
+@router.post('/skin/capture-check')
+async def skin_capture_check(request: Request):
+    # Reuses local consent/park/disconnect boundaries. No frame storage/logging.
+    value=await payload(request)
+    from skin_eyewear import classify_roi,VERSION
+    from appearance_analysis import decode_photo
+    try:
+        token=value.get('frameToken')
+        if not isinstance(token,str) or len(token)>64 or not token or value.get('policy')!=VERSION:raise ValueError()
+        photo=value.get('eyePhoto')
+        if not isinstance(photo,str) or len(photo)>100000:raise ValueError()
+        import base64
+        raw=base64.b64decode(photo.split(',',1)[1],validate=True)
+        if raw[:8]!=b'\x89PNG\r\n\x1a\n' or len(raw)<24 or int.from_bytes(raw[16:20],'big')!=112 or int.from_bytes(raw[20:24],'big')!=112:raise ValueError()
+        image,_=decode_photo(photo)
+        if image.shape!=(112,112,3):raise ValueError()
+        import cv2
+        if _busy.locked():raise HTTPException(429,'LOCAL_ANALYSIS_BUSY')
+        async with _busy:result=await run_in_threadpool(classify_roi,cv2.cvtColor(image,cv2.COLOR_BGR2RGB))
+        if not parked() or await request.is_disconnected():raise HTTPException(409,'CANCELLED')
+        return {**result,'frameToken':token}
+    except (KeyError,ValueError,TypeError,IndexError):raise HTTPException(422,'INVALID_SKIN_CAPTURE_CHECK')
+    except (OSError,RuntimeError):raise HTTPException(503,'SKIN_CAPTURE_CHECK_UNAVAILABLE')
+
+
+def skin_capture_preflight(value):
+    from skin_eyewear import classify_source
+    from appearance_analysis import decode_photo
+    image,identity=decode_photo(value.get('photo'))
+    if identity!=value.get('photoId'):raise ValueError('SOURCE_MISMATCH')
+    result=classify_source(image,value['landmarks'])
+    if result['status']=='EYEWEAR_PRESENT':raise HTTPException(409,'SKIN_EYEWEAR_PRESENT')
+    if result['status']!='CLEAR':raise HTTPException(422,'SKIN_EYEWEAR_CHECK_UNCERTAIN')
+    return result
+
+
 async def payload(request):
     if not parked():
         raise HTTPException(409, 'PARK_REQUIRED')
@@ -76,7 +112,13 @@ async def skin(request: Request):
     try:
         skin_geometry(value)
         async with _busy:
+            eyewear=await run_in_threadpool(skin_capture_preflight,value)
             result = await run_in_threadpool(analyze_skin, value)
+        result['captureScopeVersion']=eyewear['version']
+        for rows in [*result.get('measurements',{}).values(),result.get('general',{}).get('measurements',[])]:
+            for row in rows:
+                row.setdefault('captureConditions',{})['skinCapturePolicy']=eyewear['version']
+                row['captureConditions']['skinEyewearModelHash']=eyewear['modelHash']
         if not parked() or await request.is_disconnected():
             raise HTTPException(409, 'CANCELLED')
         return result

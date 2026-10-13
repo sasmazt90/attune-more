@@ -29,15 +29,15 @@ def test_single_crop_excludes_its_foreground_from_ring_reference():
 def test_atomic_lease_never_removes_foreign_pid_start_job(tmp_path,monkeypatch):
     path=tmp_path/'shared.json';original=json.dumps({'owner':'AG','pid':123,'processStarted':5,'jobId':'foreign'});path.write_text(original)
     monkeypatch.setattr(H,'LOCK',path);monkeypatch.setattr(H,'ag_workers',lambda:[])
-    with pytest.raises(H.HeavyJobUnavailable,match='Existing shared lease'):
+    with pytest.raises(H.HeavyJobUnavailable,match='Unverifiable lease'):
         with H.HeavyJobLease('CD-test',minimum_available_mib=0):pass
     assert path.read_text()==original
 
 def test_lease_rechecks_pid_start_job_and_only_removes_own_nonce(tmp_path,monkeypatch):
-    path=tmp_path/'shared.json';monkeypatch.setattr(H,'LOCK',path);monkeypatch.setattr(H,'ag_workers',lambda:[])
+    path=tmp_path/'shared.json';monkeypatch.setattr(H,'LOCK',path);monkeypatch.setattr(H,'AG_LOCK',tmp_path/'ag.lock');monkeypatch.setattr(H,'ag_workers',lambda:[])
     with H.HeavyJobLease('CD-small-unit',peak_mib=2000,minimum_available_mib=0) as lease:
         row=json.loads(path.read_text());assert row['pid']==os.getpid() and row['jobId']=='CD-small-unit'
-        row['nonce']='other';path.write_text(json.dumps(row));lease.last_check=0
+        row['nonce']='other-job-lease-nonce';path.write_text(json.dumps(row));lease.last_check=0
         with pytest.raises(H.HeavyJobUnavailable,match='identity'):lease.check()
     assert path.exists()
 

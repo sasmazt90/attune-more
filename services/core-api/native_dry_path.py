@@ -62,7 +62,7 @@ def analyze_native_dry(payload,material_filter=None,check=None,profile=None,mate
             evaluatedArea=dict(scope='native-visible-anatomical-source',sourcePixels=int(eligible.sum()),analysisPixels=int(eligible.sum()),anatomicalSourcePixels=int(mask.sum()),sourceFacePixels=face),
             components=dict(samplingSupportVersion=SAMPLING,proposalVersion=PROPOSAL_VERSION,acceptedMaterialSourcePixels=int(active.sum()),uniqueVisibleSourcePixels=int(eligible.sum()),overlapCountedOnce=True,confidenceNotSeverity=True,nativeAnalysisResize=False,meaning='local visible material support; not moisture or clinical severity',**({'classifierVersion':metadata['classifierVersion']} if material_filter is not None else {})))
         if material_filter is not None:
-            row['normalizationVersion']='native-encoder-material-source-area-v6-staging' if 'ring-conditioned' in metadata['classifierVersion'] else 'native-encoder-material-source-area-v5-staging' if 'block-balanced' in metadata['classifierVersion'] else 'native-encoder-material-source-area-v4-staging'
+            row['normalizationVersion']='native-encoder-material-source-area-v7-staging' if 'source-group-balanced' in metadata['classifierVersion'] else 'native-encoder-material-source-area-v6-staging' if 'ring-conditioned' in metadata['classifierVersion'] else 'native-encoder-material-source-area-v5-staging' if 'block-balanced' in metadata['classifierVersion'] else 'native-encoder-material-source-area-v4-staging'
         if reason is None:
             # Step=1 retains every accepted tiny native component. Existing SVG
             # mesh clipping is still required by any caller that displays it.
