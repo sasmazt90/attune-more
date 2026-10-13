@@ -53,6 +53,25 @@
       "IN_SCOPE_VISIBLE_REGION": 53,
       "OUT_OF_SCOPE_SIDE_PROFILE_NON_CHEEK": 5,
       "OUT_OF_SCOPE_LANDMARK_FAILED": 1
+    },
+    "multiScopeBreakdown": {
+      "totalValidationPimples": 276,
+      "totalValidationImages": 43,
+      "productAcceptedPoses_53pimples": {
+        "positiveImages": 10,
+        "negativeImages": 10,
+        "inScopePimples": 53,
+        "outOfScopeOccludedOrMarginPimples": 7,
+        "poseRequirements": "FRONT (|yaw|<=0.20), RIGHT (-0.65<=yaw<=-0.28, only leftCheek), LEFT (0.28<=yaw<=0.65, only rightCheek); roll<=0.15 rad, pitch<=0.22, sourceFramed=True"
+      },
+      "strictCapturableGate_14pimples": {
+        "positiveImages": 3,
+        "negativeImages": 10,
+        "inScopePimples": 14,
+        "outOfScopeCropMarginPimples": 3,
+        "gateRequirements": "FRONT pozunda katı frontend snapshot kapısı (isAligned=True, yüzün çerçeveye tam oturması ve boyut sınırları)",
+        "reasonForDifference": "Ürün kabulü alan 10 pozitif görselin 7si yan profil (RIGHT/LEFT) çekimidir. matchesSkinAngle sözleşmesine uymalarına rağmen katı ön profil snapshot gateini (isAligned) geçemezler. Bu nedenle capturable kapsamında yalnız 3 ön poz görseli ve 14 lezyon kalmaktadır."
+      }
     }
   },
   "filterComparisonSummary": {
@@ -8977,7 +8996,44 @@
         "gradientObserved": true
       }
     },
-    "total_accumulated_seconds": 6474.5
+    "total_accumulated_seconds": 6474.5,
+    "modelSelectionAnalysis": {
+      "warmstartModel": {
+        "identity": "acne-candidate-phase1-20261013",
+        "sha256": "388297d9bb179bb38a57ef821e48816cdfb7b27aad82c5ef5372b7983e2497f9",
+        "initialScore": 0.34823,
+        "inScopeRec50": 0.3949,
+        "meanNegFp": 0.4667
+      },
+      "latestModel": {
+        "identity": "checkpoint-epoch-03",
+        "sha256": "b63d3f435b89775be8cfb88b32547703ca97794930da56650f94c0a2716f2ec3",
+        "epoch": 3,
+        "selectionScore": 0.0734,
+        "inScopeRec50": 0.4601,
+        "meanNegFp": 3.8667
+      },
+      "bestModelSelected": {
+        "identity": "warmstart (Phase 1 candidate)",
+        "sha256": "388297d9bb179bb38a57ef821e48816cdfb7b27aad82c5ef5372b7983e2497f9",
+        "selectionScore": 0.34823,
+        "reason": "Hiçbir Phase 2 epochu başlangıç warm-start skorunu (0.34823) geçememiştir (bad_epochs=3, early stopped). Dosya sistemindeki Phase 2 candidate-selected.safetensors dosyası son epoch ağırlıklarını (epoch-03, b63d3f43...) taşımaktadır; ancak dürüst model seçimi kriterine göre deneyin gerçek en iyi modeli warm-start modelidir (Phase 1)."
+      }
+    },
+    "timeAccounting": {
+      "totalScriptWallSeconds": 6474.5,
+      "totalScriptWallMinutes": 107.9,
+      "pureTrainingEpochCpuSeconds": 2960.9,
+      "pureTrainingEpochCpuMinutes": 49.34,
+      "validationPassesSeconds": 3513.6,
+      "validationPassesMinutes": 58.56,
+      "epochBreakdownSeconds": {
+        "epoch1": 1097.1,
+        "epoch2": 1139.5,
+        "epoch3": 724.3
+      },
+      "note": "Script toplam çalışma süresi (6474.5 s / 107.9 dk) saf eğitim CPU süresi değildir. Saf eğitim epoch süresi 2960.9 s (~49.3 dk), validasyon geçişleri ise 3513.6 s (~58.6 dk) sürmüştür."
+    }
   },
   "sampleDiagnoses": {
     "424a750a": {
@@ -1464967,5 +1465023,21 @@
       "unmatchedTruthIndices30": [],
       "unmatchedPredIndices50": []
     }
-  ]
+  ],
+  "onnxParityScope": {
+    "evaluationScope": "4 gerçek fotoğraf tileı, 3 farklı kaynak fotoğraf (2 pozitif, 1 negatif kontrol)",
+    "scoreThreshold": 0.4,
+    "rawTensorErrors": {
+      "maxRegressionError": 0.025391,
+      "maxObjectnessError": 4.6e-05,
+      "maxClassError": 2.4e-05,
+      "meanAbsTensorError": 9.1e-05
+    },
+    "postNmsDifferences": {
+      "boxDecoderMaxCoordDiff": 9.2e-05,
+      "boxDecoderMaxScoreDiff": 1.4e-05,
+      "postNmsDiscrepancyCount": 0
+    },
+    "certificationNote": "Çevrimdışı ONNX Runtime Python paritesi araç içi veya tarayıcı çalışma zamanı sertifikasyonu anlamına gelmez; yalnızca model export sayısal doğruluğunu kanıtlar."
+  }
 }

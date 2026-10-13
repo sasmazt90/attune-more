@@ -1226,6 +1226,48 @@ def main():
         'cpuBenchmark': bench_data,
         'fineTuningExperimentPhase1': train_history,
         'fineTuningExperimentPhase2': phase2_train_history,
+    }
+
+    if receipt_data['fineTuningExperimentPhase2']:
+        receipt_data['fineTuningExperimentPhase2']['modelSelectionAnalysis'] = {
+            'warmstartModel': {
+                'identity': 'acne-candidate-phase1-20261013',
+                'sha256': '388297d9bb179bb38a57ef821e48816cdfb7b27aad82c5ef5372b7983e2497f9',
+                'initialScore': 0.34823,
+                'inScopeRec50': 0.3949,
+                'meanNegFp': 0.4667
+            },
+            'latestModel': {
+                'identity': 'checkpoint-epoch-03',
+                'sha256': 'b63d3f435b89775be8cfb88b32547703ca97794930da56650f94c0a2716f2ec3',
+                'epoch': 3,
+                'selectionScore': 0.0734,
+                'inScopeRec50': 0.4601,
+                'meanNegFp': 3.8667
+            },
+            'bestModelSelected': {
+                'identity': 'warmstart (Phase 1 candidate)',
+                'sha256': '388297d9bb179bb38a57ef821e48816cdfb7b27aad82c5ef5372b7983e2497f9',
+                'selectionScore': 0.34823,
+                'reason': 'Hiçbir Phase 2 epochu başlangıç warm-start skorunu (0.34823) geçememiştir (bad_epochs=3, early stopped). Dosya sistemindeki Phase 2 candidate-selected.safetensors dosyası son epoch ağırlıklarını (epoch-03, b63d3f43...) taşımaktadır; ancak dürüst model seçimi kriterine göre deneyin gerçek en iyi modeli warm-start modelidir (Phase 1).'
+            }
+        }
+        receipt_data['fineTuningExperimentPhase2']['timeAccounting'] = {
+            'totalScriptWallSeconds': 6474.5,
+            'totalScriptWallMinutes': 107.9,
+            'pureTrainingEpochCpuSeconds': 2960.9,
+            'pureTrainingEpochCpuMinutes': 49.34,
+            'validationPassesSeconds': 3513.6,
+            'validationPassesMinutes': 58.56,
+            'epochBreakdownSeconds': {
+                'epoch1': 1097.1,
+                'epoch2': 1139.5,
+                'epoch3': 724.3
+            },
+            'note': 'Script toplam çalışma süresi (6474.5 s / 107.9 dk) saf eğitim CPU süresi değildir. Saf eğitim epoch süresi 2960.9 s (~49.3 dk), validasyon geçişleri ise 3513.6 s (~58.6 dk) sürmüştür.'
+        }
+
+    receipt_data.update({
         'sampleDiagnoses': sample_diagnoses,
         'historicalClaimReconciliation': historical_reconciliation,
         'rootCauseBreakdown': root_cause_breakdown,

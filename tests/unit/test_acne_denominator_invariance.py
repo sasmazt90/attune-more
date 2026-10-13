@@ -103,3 +103,83 @@ def test_acne_denominator_invariance_across_candidate_counts(monkeypatch):
     assert zero_d['anatomicalSourcePixels'] == one_d['anatomicalSourcePixels'] == multi_d['anatomicalSourcePixels'], \
         f"Denominator anatomicalSourcePixels mismatch: zero={zero_d['anatomicalSourcePixels']}, one={one_d['anatomicalSourcePixels']}, multi={multi_d['anatomicalSourcePixels']}"
     assert zero_d['normalizationVersion'] == 'unique-detection-box-anatomical-area-v3'
+
+
+def test_regional_acne_boxes_to_card_and_map_layer(monkeypatch):
+    """Verifies that regional accepted candidate boxes map correctly to:
+    1. Regional card metrics (candidateCount, bounds)
+    2. Local map layer (res['maps']['<region>:acne']) with valid coverage.
+    """
+    w, h = 400, 400
+    points = [{'x': 0.5, 'y': 0.5, 'z': 0.0} for _ in range(468)]
+    oval = [10,338,297,332,284,251,389,356,454,323,361,288,397,365,379,378,400,377,152,148,176,149,150,136,172,58,132,93,234,127,162,21,54,103,67,109]
+    for i, idx in enumerate(oval):
+        theta = 2 * np.pi * i / len(oval)
+        points[idx] = {'x': 0.5 + 0.35 * np.cos(theta), 'y': 0.5 + 0.35 * np.sin(theta), 'z': 0.0}
+    points[1] = {'x': 0.5, 'y': 0.5, 'z': 0.0}
+    points[234] = {'x': 0.2, 'y': 0.5, 'z': 0.0}
+    points[454] = {'x': 0.8, 'y': 0.5, 'z': 0.0}
+
+    meshes = {
+        'forehead': {'points': [{'x': 120.0, 'y': 80.0}, {'x': 280.0, 'y': 80.0}, {'x': 200.0, 'y': 140.0}], 'edges': [[0, 1], [1, 2], [2, 0]]},
+        'rightCheek': {'points': [{'x': 80.0, 'y': 160.0}, {'x': 160.0, 'y': 160.0}, {'x': 120.0, 'y': 240.0}], 'edges': [[0, 1], [1, 2], [2, 0]]},
+        'leftCheek': {'points': [{'x': 240.0, 'y': 160.0}, {'x': 320.0, 'y': 160.0}, {'x': 280.0, 'y': 240.0}], 'edges': [[0, 1], [1, 2], [2, 0]]},
+        'nose': {'points': [{'x': 180.0, 'y': 140.0}, {'x': 220.0, 'y': 140.0}, {'x': 200.0, 'y': 200.0}], 'edges': [[0, 1], [1, 2], [2, 0]]},
+        'chin': {'points': [{'x': 160.0, 'y': 260.0}, {'x': 240.0, 'y': 260.0}, {'x': 200.0, 'y': 320.0}], 'edges': [[0, 1], [1, 2], [2, 0]]},
+    }
+
+    import cv2
+    import base64
+    import hashlib
+    img = np.full((h, w, 3), 160, dtype=np.uint8)
+    _, buf = cv2.imencode('.png', img)
+    photo_b64 = 'data:image/png;base64,' + base64.b64encode(buf.tobytes()).decode('ascii')
+    rgba = cv2.cvtColor(img, cv2.COLOR_BGR2RGBA)
+    photo_hash = hashlib.sha256(rgba.tobytes()).hexdigest()
+
+    base_payload = {
+        'photo': photo_b64,
+        'photoId': photo_hash,
+        'landmarks': points,
+        'meshes': meshes,
+        'conditions': {'yaw': 0.0, 'pitch': 0.0, 'roll': 0.0},
+        'pose': 'FRONT',
+        'qualityValid': True,
+    }
+
+    # Bounded candidate in rightCheek area
+    test_boxes = [[100.0, 180.0, 130.0, 210.0, 0.92]]
+
+    def fake_infer_acne(bgr, points, quality_valid):
+        return {
+            'valid': True,
+            'boxes': test_boxes,
+            'modelVersion': 'candidate-v2',
+            'modelHash': 'test-hash-123',
+            'tileCount': 4,
+            'loadMs': 5,
+            'inferenceMs': 15
+        }
+
+    monkeypatch.setattr(appearance_analysis, 'infer_acne', fake_infer_acne)
+    res = analyze_skin(base_payload)
+
+    # 1. Verify card metrics
+    right_cheek_items = [it for it in res['measurements'].get('rightCheek', []) if it['id'] == 'acne']
+    assert len(right_cheek_items) == 1
+    acne_item = right_cheek_items[0]
+    assert acne_item['components']['candidateCount'] == 1
+    assert len(acne_item['components']['bounds']) == 1
+    assert acne_item['components']['bounds'][0]['confidence'] == 0.92
+    assert acne_item['localMap'] is not None
+    assert acne_item['localMap']['key'] == 'rightCheek:acne'
+
+    # 2. Verify map layer in res['maps']
+    assert 'rightCheek:acne' in res['maps']
+    map_layer = res['maps']['rightCheek:acne']
+    assert map_layer['region'] == 'rightCheek'
+    assert map_layer['criterion'] == 'acne'
+    assert map_layer['dataUrl'].startswith('data:image/png;base64,')
+    assert map_layer['validMaskUrl'].startswith('data:image/png;base64,')
+    assert map_layer['sampleCount'] > 0
+

@@ -40,6 +40,20 @@ def test_match_predictions_to_truth_1to1():
     assert unmatched_t == [1]
 
 
+def test_match_predictions_regression_two_overlapping_boxes():
+    # User-specified regression: two distinct truth boxes, both matchable
+    truth = [[0, 0, 10, 10], [2, 0, 12, 10]]
+    pred = [[0, 0, 10, 10, 0.95], [1, 0, 11, 10, 0.85]]
+    matched_t, matches, dups, unmatched_p, unmatched_t = match_predictions_to_truth(truth, pred, 0.50)
+    assert matched_t == [0, 1]
+    assert len(matches) == 2
+    assert matches[0] == (0, 0, 1.0)
+    assert matches[1][0] == 1 and matches[1][1] == 1
+    assert dups == []
+    assert unmatched_p == []
+    assert unmatched_t == []
+
+
 def test_compute_scope_recall_strict_rules():
     assert compute_scope_recall(10, 50) == 0.2000
     assert compute_scope_recall(0, 50) == 0.0000
@@ -52,3 +66,21 @@ def test_compute_scope_recall_strict_rules():
 
     with pytest.raises(ValueError, match="outside \\[0.0, 1.0\\]"):
         compute_scope_recall(60, 50)
+
+
+def test_match_predictions_with_dict_formats():
+    truth = [
+        {'box': [10.0, 10.0, 20.0, 20.0]},
+        {'x': 50.0, 'y': 50.0, 'width': 10.0, 'height': 10.0}
+    ]
+    preds = [
+        {'box': [10.0, 10.0, 20.0, 20.0], 'confidence': 0.99},
+        {'x': 50.0, 'y': 50.0, 'width': 10.0, 'height': 10.0, 'confidence': 0.88}
+    ]
+    matched_t, matches, dups, unmatched_p, unmatched_t = match_predictions_to_truth(truth, preds, 0.50)
+    assert matched_t == [0, 1]
+    assert len(matches) == 2
+    assert len(dups) == 0
+    assert len(unmatched_p) == 0
+    assert len(unmatched_t) == 0
+

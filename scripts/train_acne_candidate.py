@@ -19,6 +19,8 @@ import json
 import time
 import math
 import random
+import hashlib
+import shutil
 import argparse
 from pathlib import Path
 from collections import defaultdict
@@ -58,21 +60,34 @@ def save_full_checkpoint(
     scheduler,
     state: dict,
     epoch: int,
-    b_idx: int,
-    rng_state: dict,
+    next_batch_idx: int = 0,
+    rng_state: dict = None,
     sampler_order: list = None,
-    accumulated_seconds: float = 0.0
+    accumulated_seconds: float = 0.0,
+    b_idx: int = None
 ):
-    """Atomically saves full checkpoint including weights, optimizer, scheduler, RNG, and sampler cursor."""
+    """Atomically saves full checkpoint including weights, optimizer, scheduler, RNG, and nextBatchIndex cursor."""
+    if b_idx is not None and next_batch_idx == 0 and b_idx > 0:
+        next_batch_idx = b_idx + 1
+
     checkpoint_path = Path(checkpoint_path)
     checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
     tmp_path = checkpoint_path.with_suffix('.pt.tmp')
     tmp_weights = checkpoint_path.parent / f'{checkpoint_path.stem}.safetensors.tmp'
     final_weights = checkpoint_path.parent / f'{checkpoint_path.stem}.safetensors'
 
+    if rng_state is None:
+        rng_state = {
+            'torch': torch.get_rng_state(),
+            'numpy': np.random.get_state(),
+            'random': random.getstate()
+        }
+
     checkpoint_data = {
         'epoch': epoch,
-        'b_idx': b_idx,
+        'nextBatchIndex': next_batch_idx,
+        'next_batch_idx': next_batch_idx,
+        'b_idx': next_batch_idx - 1 if next_batch_idx > 0 else 0,
         'step': state.get('step', 0),
         'completed_epochs': state.get('completed_epochs', 0),
         'accumulated_seconds': accumulated_seconds,
@@ -83,31 +98,53 @@ def save_full_checkpoint(
         'rng_torch': rng_state['torch'],
         'rng_numpy': rng_state['numpy'],
         'rng_random': rng_state['random'],
-        'protocol_identity': state.get('identity', 'acne-candidate-finetune-20261013'),
+        'protocol_identity': state.get('identity', 'acne-candidate-phase2-20261013'),
         'dataset_sha256': state.get('dataset_sha256', ''),
     }
 
-    # Atomic write of torch checkpoint
-    torch.save(checkpoint_data, str(tmp_path))
-    if tmp_path.exists():
-        os.replace(str(tmp_path), str(checkpoint_path))
-
-    # Atomic write of safetensors
+    # 1. Atomic write of safetensors
     save_file({k: v.contiguous() for k, v in net.state_dict().items()}, str(tmp_weights))
     if tmp_weights.exists():
         os.replace(str(tmp_weights), str(final_weights))
 
-    # Write solid checkpoint indicator atomically
+    # 2. Atomic write of torch checkpoint
+    torch.save(checkpoint_data, str(tmp_path))
+    if tmp_path.exists():
+        os.replace(str(tmp_path), str(checkpoint_path))
+
+    # Ensure both files exist and are non-empty
+    if not checkpoint_path.exists() or checkpoint_path.stat().st_size == 0:
+        raise RuntimeError(f"Failed to atomically write checkpoint file: {checkpoint_path}")
+    if not final_weights.exists() or final_weights.stat().st_size == 0:
+        raise RuntimeError(f"Failed to atomically write weights file: {final_weights}")
+
+    # Compute SHA256 hashes to bind generation in indicator
+    def calc_sha(p: Path) -> str:
+        h = hashlib.sha256()
+        with open(p, 'rb') as f:
+            for chunk in iter(lambda: f.read(65536), b''):
+                h.update(chunk)
+        return h.hexdigest()
+
+    ckpt_sha = calc_sha(checkpoint_path)
+    w_sha = calc_sha(final_weights)
+
+    # 3. Write solid checkpoint indicator atomically (binding exact generation pair)
     indicator_path = checkpoint_path.parent / 'checkpoint_indicator.json'
     tmp_indicator = checkpoint_path.parent / 'checkpoint_indicator.json.tmp'
     indicator_data = {
         'latestCheckpoint': str(checkpoint_path.name),
         'latestWeights': str(final_weights.name),
+        'checkpointSha256': ckpt_sha,
+        'weightsSha256': w_sha,
         'epoch': epoch,
-        'b_idx': b_idx,
+        'nextBatchIndex': next_batch_idx,
+        'next_batch_idx': next_batch_idx,
         'step': state.get('step', 0),
         'completedEpochs': state.get('completed_epochs', 0),
         'accumulatedSeconds': round(accumulated_seconds, 1),
+        'protocolIdentity': state.get('identity', 'acne-candidate-phase2-20261013'),
+        'datasetSha256': state.get('dataset_sha256', ''),
         'status': state.get('status', 'IN_PROGRESS'),
         'timestamp': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
     }
@@ -117,26 +154,74 @@ def save_full_checkpoint(
         os.replace(str(tmp_indicator), str(indicator_path))
 
 
-def load_full_checkpoint(checkpoint_path: Path, net, optimizer, scheduler):
-    """Loads full checkpoint and restores weights, optimizer, scheduler, RNG, and sampler cursor."""
+def load_full_checkpoint(
+    checkpoint_path: Path,
+    net,
+    optimizer,
+    scheduler,
+    expected_dataset_sha256: str = None,
+    expected_protocol: str = None
+):
+    """Loads full checkpoint and restores weights, optimizer, scheduler, RNG, and sampler cursor with strict validation."""
     checkpoint_path = Path(checkpoint_path)
+    if not checkpoint_path.exists():
+        raise FileNotFoundError(f"Checkpoint file does not exist: {checkpoint_path}")
+
+    # Validate generation against indicator if present
+    indicator_path = checkpoint_path.parent / 'checkpoint_indicator.json'
+    if indicator_path.exists():
+        try:
+            with open(indicator_path, 'r', encoding='utf-8') as f:
+                ind = json.load(f)
+            if ind.get('latestCheckpoint') == checkpoint_path.name:
+                w_name = ind.get('latestWeights')
+                if w_name:
+                    w_file = checkpoint_path.parent / w_name
+                    if not w_file.exists() or w_file.stat().st_size == 0:
+                        raise FileNotFoundError(f"Checkpoint generation broken: missing or empty weights {w_file}")
+        except FileNotFoundError:
+            raise
+        except Exception:
+            pass
+
     checkpoint_data = torch.load(str(checkpoint_path), map_location='cpu', weights_only=False)
+
+    # Check protocol and dataset hash
+    ckpt_dataset = checkpoint_data.get('dataset_sha256')
+    if expected_dataset_sha256 and ckpt_dataset and ckpt_dataset != expected_dataset_sha256:
+        raise ValueError(f"Checkpoint dataset SHA mismatch: {ckpt_dataset} != expected {expected_dataset_sha256}")
+
+    ckpt_protocol = checkpoint_data.get('protocol_identity')
+    if expected_protocol and ckpt_protocol and ckpt_protocol != expected_protocol:
+        raise ValueError(f"Checkpoint protocol identity mismatch: {ckpt_protocol} != expected {expected_protocol}")
+
     weights_path = checkpoint_path.parent / f'{checkpoint_path.stem}.safetensors'
-    if weights_path.exists():
+    if weights_path.exists() and weights_path.stat().st_size > 0:
         weights = load_file(str(weights_path))
         net.load_state_dict(weights)
     elif 'model_state' in checkpoint_data:
         net.load_state_dict(checkpoint_data['model_state'])
+    else:
+        raise FileNotFoundError(f"Missing weights file {weights_path} and no embedded model_state in {checkpoint_path}")
 
-    optimizer.load_state_dict(checkpoint_data['optimizer_state'])
-    scheduler.load_state_dict(checkpoint_data['scheduler_state'])
-    torch.set_rng_state(checkpoint_data['rng_torch'])
-    np.random.set_state(checkpoint_data['rng_numpy'])
-    random.setstate(checkpoint_data['rng_random'])
+    if 'optimizer_state' in checkpoint_data:
+        optimizer.load_state_dict(checkpoint_data['optimizer_state'])
+    if 'scheduler_state' in checkpoint_data:
+        scheduler.load_state_dict(checkpoint_data['scheduler_state'])
+    if 'rng_torch' in checkpoint_data:
+        torch.set_rng_state(checkpoint_data['rng_torch'])
+    if 'rng_numpy' in checkpoint_data:
+        np.random.set_state(checkpoint_data['rng_numpy'])
+    if 'rng_random' in checkpoint_data:
+        random.setstate(checkpoint_data['rng_random'])
+
+    next_batch_idx = checkpoint_data.get('nextBatchIndex', checkpoint_data.get('next_batch_idx', checkpoint_data.get('b_idx', 0)))
 
     return {
         'epoch': checkpoint_data.get('epoch', 0),
-        'b_idx': checkpoint_data.get('b_idx', 0),
+        'nextBatchIndex': next_batch_idx,
+        'next_batch_idx': next_batch_idx,
+        'b_idx': next_batch_idx,
         'step': checkpoint_data.get('step', 0),
         'completed_epochs': checkpoint_data.get('completed_epochs', 0),
         'accumulated_seconds': checkpoint_data.get('accumulated_seconds', 0.0),
@@ -398,19 +483,27 @@ def main():
         'status': 'IN_PROGRESS'
     }
 
-    if args.resume and Path(args.resume).exists():
-        print(f"Resuming training from checkpoint: {args.resume}")
-        resumed = load_full_checkpoint(Path(args.resume), net, optimizer, scheduler)
+    if args.resume:
+        resume_path = Path(args.resume)
+        if not resume_path.exists():
+            raise FileNotFoundError(f"CLI --resume path does not exist: {resume_path}")
+        print(f"Resuming training from checkpoint: {resume_path}")
+        resumed = load_full_checkpoint(
+            resume_path, net, optimizer, scheduler,
+            expected_dataset_sha256=dataset_sha256,
+            expected_protocol=protocol_identity
+        )
         start_epoch = resumed['epoch']
-        start_b_idx = resumed['b_idx']
+        start_b_idx = resumed['nextBatchIndex']
         state = resumed['state']
         accumulated_seconds = resumed['accumulated_seconds']
         saved_order_indices = resumed.get('sampler_order', [])
-        print(f"  -> Resumed at Epoch {start_epoch + 1}, Batch {start_b_idx + 1}, Step {state.get('step', 0)}, Elapsed: {accumulated_seconds:.1f} s")
+        print(f"  -> Resumed at Epoch {start_epoch + 1}, Next Batch Index {start_b_idx}, Step {state.get('step', 0)}, Elapsed: {accumulated_seconds:.1f} s")
     else:
         init_weights_path = Path(args.initial_weights)
         print(f"Warm-starting from initial weights: {init_weights_path}")
-        assert init_weights_path.exists(), f"Initial weights file not found: {init_weights_path}"
+        if not init_weights_path.exists():
+            raise FileNotFoundError(f"Initial weights file not found: {init_weights_path}")
         weights = load_file(str(init_weights_path))
         net.load_state_dict(weights)
         # Baseline snapshot in output dir
@@ -442,13 +535,16 @@ def main():
         print("Dry run completed successfully.", flush=True)
         return
 
-    # Initial validation evaluation
-    print("\nEvaluating initial model on validation set with product contract...", flush=True)
-    init_eval = evaluate_validation_epoch(net, va, threshold=0.70, nms_threshold=0.30)
-    print(f"Initial Validation (conf=0.70): InScope IoU50 Rec = {init_eval['inScopeRec50']} (TP={init_eval['inScopeTp50']}/{init_eval['inScopeTruth']}) | Verified Neg FP = {init_eval['verifiedNegFp']} ({init_eval['meanNegFp']}/img)", flush=True)
-    state['initial_val'] = init_eval
-    init_score = (init_eval['inScopeRec50'] or 0.0) - 0.1 * init_eval['meanNegFp']
-    state['best_score'] = init_score
+    # Initial validation evaluation only if not resuming
+    if not args.resume:
+        print("\nEvaluating initial model on validation set with product contract...", flush=True)
+        init_eval = evaluate_validation_epoch(net, va, threshold=0.70, nms_threshold=0.30)
+        print(f"Initial Validation (conf=0.70): InScope IoU50 Rec = {init_eval['inScopeRec50']} (TP={init_eval['inScopeTp50']}/{init_eval['inScopeTruth']}) | Verified Neg FP = {init_eval['verifiedNegFp']} ({init_eval['meanNegFp']}/img)", flush=True)
+        state['initial_val'] = init_eval
+        init_score = (init_eval['inScopeRec50'] or 0.0) - 0.1 * init_eval['meanNegFp']
+        state['best_score'] = init_score
+    else:
+        print(f"\nResumed training state preserved: best_score = {state.get('best_score')}, bad_epochs = {state.get('bad_epochs')}, step = {state.get('step')}", flush=True)
 
     # Training loop across max_epochs
     max_epochs = args.max_epochs
@@ -489,7 +585,7 @@ def main():
                 }
                 save_full_checkpoint(
                     ckpt_path, net, optimizer, scheduler, state,
-                    epoch=epoch, b_idx=b_idx, rng_state=rng_state,
+                    epoch=epoch, next_batch_idx=b_idx, rng_state=rng_state,
                     sampler_order=order_indices, accumulated_seconds=total_elapsed
                 )
                 break
@@ -518,7 +614,7 @@ def main():
             state['step'] += 1
 
             if b_idx % 50 == 0 or b_idx == num_batches - 1:
-                cur_elapsed = accumulated_seconds + (time.monotonic() - start_time)
+                cur_elapsed = accumulated_seconds + (time.monotonic() - epoch_start)
                 print(f"  Step {b_idx + 1}/{num_batches} - Batch Loss: {loss_val:.4f} (Elapsed: {cur_elapsed:.1f} s)", flush=True)
 
         if state['status'] == 'STOPPED_TIME_LIMIT':
@@ -573,7 +669,7 @@ def main():
         }
         save_full_checkpoint(
             ckpt_path, net, optimizer, scheduler, state,
-            epoch=epoch + 1, b_idx=0, rng_state=rng_state,
+            epoch=epoch + 1, next_batch_idx=0, rng_state=rng_state,
             sampler_order=[], accumulated_seconds=accumulated_seconds
         )
 
@@ -581,6 +677,7 @@ def main():
         if epoch_score > state['best_score'] + 1e-4:
             state['best_score'] = epoch_score
             state['bad_epochs'] = 0
+            state['selected_best_model'] = f'epoch_{epoch + 1}'
             save_file({k: v.contiguous() for k, v in net.state_dict().items()}, str(out_dir / 'candidate-selected.safetensors'))
             print(f"  --> New best candidate model saved! (Score = {epoch_score:.4f})")
         else:
@@ -598,12 +695,19 @@ def main():
     if state['status'] == 'IN_PROGRESS':
         state['status'] = 'COMPLETED'
 
-    total_training_seconds = accumulated_seconds + (time.monotonic() - start_time)
+    total_training_seconds = accumulated_seconds
 
-    # Ensure candidate-selected.safetensors exists
+    # Save latest weights explicitly
+    save_file({k: v.contiguous() for k, v in net.state_dict().items()}, str(out_dir / 'candidate-latest.safetensors'))
+
+    # If candidate-selected does not exist or was not improved
     if not (out_dir / 'candidate-selected.safetensors').exists():
-        candidate_weights = {k: v.clone() for k, v in net.state_dict().items()}
-        save_file({k: v.contiguous() for k, v in candidate_weights.items()}, str(out_dir / 'candidate-selected.safetensors'))
+        if (out_dir / 'warmstart-initial-weights.safetensors').exists() and state.get('best_score', -999) <= state.get('initial_val', {}).get('selection_score', -999):
+            shutil.copy(str(out_dir / 'warmstart-initial-weights.safetensors'), str(out_dir / 'candidate-selected.safetensors'))
+            state['selected_best_model'] = 'warmstart'
+        else:
+            save_file({k: v.contiguous() for k, v in net.state_dict().items()}, str(out_dir / 'candidate-selected.safetensors'))
+            state['selected_best_model'] = 'latest_fallback'
 
     candidate_weights = load_file(str(out_dir / 'candidate-selected.safetensors'))
 

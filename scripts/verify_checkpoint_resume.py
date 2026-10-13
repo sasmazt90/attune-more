@@ -97,7 +97,7 @@ def test_real_sampler_checkpoint_resume():
 
     print(f"  -> Executed Step 1 and Step 2 with real data sampler.")
 
-    # Save full checkpoint after Step 2 (cursor b_idx=1, next batch will be b_idx=2)
+    # Save full checkpoint after Step 2 (next batch to execute is index 2)
     rng_state = {
         'torch': torch.get_rng_state(),
         'numpy': np.random.get_state(),
@@ -105,16 +105,18 @@ def test_real_sampler_checkpoint_resume():
     }
     TAC.save_full_checkpoint(
         ckpt_file, net1, optimizer1, scheduler1, state1,
-        epoch=0, b_idx=1, rng_state=rng_state,
+        epoch=0, next_batch_idx=2, rng_state=rng_state,
         sampler_order=order_indices, accumulated_seconds=12.5
     )
     assert ckpt_file.exists(), "Checkpoint file not saved"
     assert indicator_file.exists(), "Checkpoint indicator file not saved"
     with open(indicator_file, 'r', encoding='utf-8') as f:
         ind_data = json.load(f)
-    assert ind_data['b_idx'] == 1
+    assert ind_data['nextBatchIndex'] == 2, f"Indicator nextBatchIndex mismatch: {ind_data['nextBatchIndex']}"
     assert ind_data['step'] == 2
-    print("  -> Saved full checkpoint with atomic write & solid indicator.")
+    assert 'checkpointSha256' in ind_data and len(ind_data['checkpointSha256']) == 64
+    assert 'weightsSha256' in ind_data and len(ind_data['weightsSha256']) == 64
+    print("  -> Saved full checkpoint with atomic write & solid indicator (nextBatchIndex=2).")
 
     # Continue Step 3 directly on net1
     b_idx_3 = 2
@@ -141,14 +143,18 @@ def test_real_sampler_checkpoint_resume():
     optimizer2 = torch.optim.AdamW(trainable_params2, lr=1e-4)
     scheduler2 = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer2, T_max=10)
 
-    resumed = TAC.load_full_checkpoint(ckpt_file, net2, optimizer2, scheduler2)
-    assert resumed['b_idx'] == 1, f"Resumed b_idx mismatch: {resumed['b_idx']}"
+    resumed = TAC.load_full_checkpoint(
+        ckpt_file, net2, optimizer2, scheduler2,
+        expected_dataset_sha256='test-dataset-sha',
+        expected_protocol='resume-verification-test'
+    )
+    assert resumed['nextBatchIndex'] == 2, f"Resumed nextBatchIndex mismatch: {resumed['nextBatchIndex']}"
     assert resumed['step'] == 2, f"Resumed step mismatch: {resumed['step']}"
     assert len(resumed['sampler_order']) == len(order_indices), "Resumed sampler order mismatch"
 
     # Reconstruct sampler order from resumed indices
     order2 = [active_tiles[i] for i in resumed['sampler_order']]
-    next_b_idx = resumed['b_idx'] + 1  # next batch is 2
+    next_b_idx = resumed['nextBatchIndex']  # single nextBatchIndex contract: 2
     assert next_b_idx == 2
 
     # Run Step 3 on resumed Model 2
@@ -179,11 +185,52 @@ def test_real_sampler_checkpoint_resume():
     assert max_weight_diff == 0.0, f"Weight mismatch on resume: {max_weight_diff} != 0.0"
 
     print("=== EXACT BIT-FOR-BIT RESUME VERIFIED SUCCESSFULLY ===")
+
+    # Test epoch boundary transition
+    print("\n--- Verifying Epoch Boundary Resume ---")
+    boundary_ckpt = TEST_DIR / 'epoch_boundary_checkpoint.pt'
+    state_bound = copy.deepcopy(state1)
+    state_bound['completed_epochs'] = 1
+    TAC.save_full_checkpoint(
+        boundary_ckpt, net1, optimizer1, scheduler1, state_bound,
+        epoch=1, next_batch_idx=0, rng_state=rng_state,
+        sampler_order=[], accumulated_seconds=45.0
+    )
+    res_bound = TAC.load_full_checkpoint(boundary_ckpt, net2, optimizer2, scheduler2)
+    assert res_bound['epoch'] == 1, "Boundary epoch mismatch"
+    assert res_bound['nextBatchIndex'] == 0, "Boundary nextBatchIndex should be 0"
+    print("  -> Epoch boundary nextBatchIndex=0 cleanly verified.")
+
+    # Test strict error handling
+    print("\n--- Verifying Strict Error Handling ---")
+    non_existent = TEST_DIR / 'non_existent_checkpoint.pt'
+    try:
+        TAC.load_full_checkpoint(non_existent, net2, optimizer2, scheduler2)
+        assert False, "Should have raised FileNotFoundError for missing checkpoint"
+    except FileNotFoundError:
+        print("  -> Correctly raised FileNotFoundError for missing checkpoint.")
+
+    try:
+        TAC.load_full_checkpoint(ckpt_file, net2, optimizer2, scheduler2, expected_dataset_sha256='wrong-sha')
+        assert False, "Should have raised ValueError for mismatched dataset SHA"
+    except ValueError:
+        print("  -> Correctly raised ValueError for mismatched dataset SHA.")
+
+    try:
+        TAC.load_full_checkpoint(ckpt_file, net2, optimizer2, scheduler2, expected_protocol='wrong-protocol')
+        assert False, "Should have raised ValueError for mismatched protocol identity"
+    except ValueError:
+        print("  -> Correctly raised ValueError for mismatched protocol identity.")
+
     return {
         'loss_direct': loss3_direct_val,
         'loss_resumed': loss3_res_val,
         'loss_diff': loss_diff,
         'max_weight_diff': max_weight_diff,
+        'nextBatchIndex': 2,
+        'contract': 'single_nextBatchIndex_contract_v2',
+        'epoch_boundary_verified': True,
+        'strict_error_handling_verified': True,
         'verified': True
     }
 
