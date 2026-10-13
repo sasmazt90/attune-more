@@ -16,7 +16,29 @@ def tracking_residual(selected,guide_line,width):
     displacement=np.asarray(selected)-np.asarray(guide_line)
     return float(np.mean(np.linalg.norm(displacement-gaussian_filter1d(displacement,2,axis=0),axis=1)))/(width/320)
 
-def curve_profile(gray,eligible,guide,normal,offsets,width,center_support=None):
+def observed_fold_tracking(selected,guide_line,width,observed,support):
+    """Residual on observed contiguous fold runs; never smooth across a gap.
+
+    Five samples cover the existing sigma=2 smoothing scale (2*sigma+1).
+    A short run cannot establish tracking quality. A visible corridor without
+    any fold is measured zero, while fragmented fold evidence stays unresolved.
+    """
+    finite=np.isfinite(selected).all(axis=1)&np.isfinite(guide_line).all(axis=1)
+    fold=np.asarray(observed,bool)&np.asarray(support,bool)&finite
+    edges=np.diff(np.r_[False,fold,False].astype(int))
+    runs=[(int(a),int(b)) for a,b in zip(np.flatnonzero(edges==1),np.flatnonzero(edges==-1))]
+    accepted=np.zeros(len(fold),bool);errors=[];segments=[]
+    for a,b in runs:
+        if b-a<5:continue
+        accepted[a:b]=True
+        displacement=selected[a:b]-guide_line[a:b]
+        local=np.linalg.norm(displacement-gaussian_filter1d(displacement,2,axis=0),axis=1)/(width/320)
+        errors.extend(local.tolist());segments.append(dict(start=a,endExclusive=b,residual=float(local.mean())))
+    status='observed-fold-runs' if errors else 'fragmented-fold-support' if fold.any() else 'no-fold-observed' if np.asarray(observed).any() else 'unobserved'
+    return dict(residual=float(np.mean(errors)) if errors else None,accepted=accepted,status=status,
+                rawFoldSamples=int(fold.sum()),trackedFoldSamples=int(accepted.sum()),segments=segments,minimumRunSamples=5)
+
+def curve_profile(gray,eligible,guide,normal,offsets,width,center_support=None,observed_fold_runs=False):
     """Track actual image support near an anatomical guide, never draw the guide as evidence."""
     guide=np.asarray(guide,np.float32)
     distance=np.r_[0,np.cumsum(np.linalg.norm(np.diff(guide,axis=0),axis=1))]
@@ -50,9 +72,16 @@ def curve_profile(gray,eligible,guide,normal,offsets,width,center_support=None):
         run=run+1 if item else 0;longest=max(longest,run)
     coverage=float(usable.any(axis=1).mean())
     continuity=longest/64
-    curvature=tracking_residual(selected,line,width)
+    tracking=observed_fold_tracking(selected,line,width,usable.any(axis=1),support) if observed_fold_runs else None
+    curvature=tracking['residual'] if tracking is not None else tracking_residual(selected,line,width)
     edges=edge[np.arange(64),best]
     folds=np.clip((contrast-.012)/.08,0,1)
+    if tracking is not None:
+        support=tracking['accepted']
+        folds*=support
+        # An invalid argmax is not a source coordinate or a measured sample.
+        selected=selected.copy();selected[~usable.any(axis=1)]=np.nan
+        edges=np.where(support,edges,0)
     strength=float(np.mean(folds))
     pairedEdge=float(np.mean(np.clip((edges-.018)/.12,0,1)))
     if center_support is not None and usable.any():
@@ -60,8 +89,10 @@ def curve_profile(gray,eligible,guide,normal,offsets,width,center_support=None):
         strength=float(np.mean(folds[observed]))
         pairedEdge=float(np.mean(np.clip((edges-.018)/.12,0,1)[observed]))
     points=selected[support] if continuity>=.20 else np.empty((0,2))
-    return dict(strength=strength,edge=pairedEdge,continuity=continuity,coverage=coverage,
-                trackingResidual=curvature,trackingQualityVersion='guide-relative-displacement-v1',points=points,tracked=selected,values=folds,edgeValues=np.clip((edges-.018)/.12,0,1),support=support,observedSamples=usable.any(axis=1))
+    result=dict(strength=strength,edge=pairedEdge,continuity=continuity,coverage=coverage,
+                trackingResidual=curvature,trackingQualityVersion='observed-fold-runs-v2' if tracking is not None else 'guide-relative-displacement-v1',points=points,tracked=selected,values=folds,edgeValues=np.clip((edges-.018)/.12,0,1),support=support,observedSamples=usable.any(axis=1))
+    if tracking is not None:result.update(trackingStatus=tracking['status'],trackingSegments=tracking['segments'],rawFoldSamples=tracking['rawFoldSamples'],trackedFoldSamples=tracking['trackedFoldSamples'],minimumTrackingRunSamples=tracking['minimumRunSamples'])
+    return result
 
 def boundary_support(gray,skin,guide,face_width,contour_support=None):
     """Actual boundary tracking and local non-smoothness, independent of the fold detector."""
@@ -94,7 +125,7 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
     p=np.array([[(v['x']*w-origin[0])*scale,(v['y']*h-origin[1])*scale] for v in points],float)
     eye=p[263]-p[33];eye_width=float(np.linalg.norm(eye))
     empty=np.zeros(gray.shape,np.float32)
-    formula='contour-fold-lower-chin-visible-region-v8' if region=='chin' else 'contour-fold-local-support-v5' if region=='periorbital' else 'contour-fold-visible-region-unique-centers-v7'
+    formula='contour-fold-lower-chin-observed-runs-v9' if region=='chin' else 'contour-fold-local-support-v5' if region=='periorbital' else 'contour-fold-visible-region-unique-centers-v7'
     fail=lambda code:(None,dict(formulaVersion=formula,**({'samplingSupportVersion':'tracked-center-eligible-v1'} if region=='periorbital' else {})),empty,[],code)
     if region=='forehead':return fail('BROW_FOLD_IS_NOT_LOWER_FACE_SAGGING')
     if eye_width<35:return fail('INSUFFICIENT_NATIVE_DETAIL')
@@ -189,7 +220,7 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
         boundary=dict(value=float(np.mean([v['value'] for v in boundaries])),coverage=float(np.mean([v['coverage'] for v in boundaries])),sides=boundaries)
     sides=[];evidence=[];signal=empty.copy();sampling_centers={}
     for side,indices in paths:
-        profile=curve_profile(gray,skin,p[indices],direction,offsets,native_width,center_support=eligible)
+        profile=curve_profile(gray,skin,p[indices],direction,offsets,native_width,center_support=eligible,**({'observed_fold_runs':True} if region=='chin' else {}))
         if profile is None:continue
         q=profile;local_exposure=exposure(p[indices],offsets)
         # Joint support: no contour/paired-edge => no fold-derived sag/bag signal.
@@ -204,8 +235,10 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
             boundary_gate = min(1.0, np.sqrt(max(0.0, boundary['value']) / 0.08))
             if boundary.get('_localSupport') is not None:
                 boundary_points=np.asarray(boundary['points'],np.float32)
-                nearest=np.linalg.norm(q['tracked'][:,None,:]-boundary_points[None,:,:],axis=2).argmin(axis=1)
-                boundary_gate=np.minimum(1.,np.sqrt(np.asarray(boundary['_localSupport'])[nearest]/.08))
+                finite=np.isfinite(q['tracked']).all(axis=1)
+                nearest=np.zeros(len(q['tracked']),int)
+                nearest[finite]=np.linalg.norm(q['tracked'][finite,None,:]-boundary_points[None,:,:],axis=2).argmin(axis=1)
+                boundary_gate=np.where(finite,np.minimum(1.,np.sqrt(np.asarray(boundary['_localSupport'])[nearest]/.08)),0.)
                 boundary['foldConfirmationVersion']='nearest-contour-local-support-v1'
             visible=q['observedSamples']
             if boundary.get('_localSupport') is not None:
@@ -218,12 +251,15 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
         limitation=None
         if local_exposure['clippedFraction']>.03 or boundary_exposure is not None and boundary_exposure['clippedFraction']>.03:limitation='GLARE_OR_EXPOSURE'
         elif q['coverage']<.55 or boundary is not None and boundary['coverage']<.55:limitation='ANATOMICAL_BAND_NOT_VISIBLE'
-        elif q['trackingResidual']>(2.8 if region=='periorbital' else 2.5):limitation='CONTOUR_TRACKING_UNSTABLE'
+        elif q.get('trackingStatus')=='fragmented-fold-support':limitation='CONTOUR_TRACKING_INSUFFICIENT_SUPPORT'
+        elif q['trackingResidual'] is not None and q['trackingResidual']>(2.8 if region=='periorbital' else 2.5):limitation='CONTOUR_TRACKING_UNSTABLE'
         side_value=None if limitation else float(np.clip(joint*100,0,100))
         sides.append(dict(side=side,value=side_value,fold=q['strength'],pairedEdge=q['edge'],continuity=q['continuity'],coverage=q['coverage'],trackingResidual=q['trackingResidual'],trackingQualityVersion=q['trackingQualityVersion'],exposure=local_exposure,limitationCode=limitation))
+        if region=='chin':sides[-1].update({k:q[k] for k in ['trackingStatus','trackingSegments','rawFoldSamples','trackedFoldSamples','minimumTrackingRunSamples'] if k in q})
         if side_value is not None and region!='periorbital':
             local_values=q['values']*edge_gate*continuity_gate*boundary_gate
             for xy,observed,intensity in zip(q['tracked'],q['observedSamples'],local_values):
+                if not observed or not np.isfinite(xy).all():continue
                 x,y=np.rint(xy).astype(int)
                 if observed and 0<=x<gray.shape[1] and 0<=y<gray.shape[0] and eligible[y,x]:
                     sampling_centers[(int(x),int(y))]=max(sampling_centers.get((int(x),int(y)),0.),float(intensity))
@@ -236,6 +272,9 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
             else:
                 local_values = q['values'] * np.sqrt(q['edgeValues']) * continuity_gate
             for xy,supported,intensity in zip(pts,q['support'],local_values):
+                if not np.isfinite(xy).all():
+                    if len(line)>1:evidence.append(line)
+                    line=[];continue
                 x,y=np.rint(xy).astype(int)
                 if supported and 0<=x<gray.shape[1] and 0<=y<gray.shape[0] and eligible[y,x]:
                     if region=='periorbital':cv2.circle(signal,(x,y),2,float(intensity),-1)
@@ -277,7 +316,7 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
                     mouthOpening=opening,eyeAspects=eye_aspects,shadowPlaneSlope=slope[:2].tolist())
     if region=='periorbital':components['samplingSupportVersion']='tracked-center-eligible-v1'
     else:
-        components.update(samplingSupportVersion='lower-chin-visible-region-unique-centers-v8' if region=='chin' else 'visible-region-unique-centers-v7',uniqueObservedCenters=len(sampling_centers),overlapCountedOnce=True,partialCoverage=any(side['value'] is None for side in sides))
+        components.update(samplingSupportVersion='lower-chin-observed-fold-runs-unique-centers-v9' if region=='chin' else 'visible-region-unique-centers-v7',uniqueObservedCenters=len(sampling_centers),overlapCountedOnce=True,partialCoverage=any(side['value'] is None for side in sides))
         # Ephemeral raster/coordinates are consumed by the overview aggregator;
         # appearance_analysis removes them before returning or storing JSON.
         components['_samplingCenters']=[[x,y,v] for (x,y),v in sampling_centers.items()]

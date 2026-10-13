@@ -56,7 +56,7 @@ def general_result(response,masks,valid,tone,redness,shine,flakes,area,condition
                         centers,support,scale=sag_support
                         if centers:
                             value=float(100*np.mean(list(centers.values())))
-                            components.update(samplingSupportVersion='lower-chin-visible-region-unique-centers-v8',uniqueObservedCenters=len(centers),overlapCountedOnce=True,indexAggregation='mean of unique observed eligible centers; unmeasurable sides omitted')
+                            components.update(samplingSupportVersion='lower-chin-observed-fold-runs-unique-centers-v9',uniqueObservedCenters=len(centers),overlapCountedOnce=True,indexAggregation='mean of unique observed eligible centers; unmeasurable sides omitted')
                             evaluated_area.update(analysisPixels=int(support.sum()),sourcePixels=float(support.sum()/scale**2),overlapCountedOnce=True)
                         else:value=None;limitation='ANATOMICAL_BAND_NOT_VISIBLE'
                 else:

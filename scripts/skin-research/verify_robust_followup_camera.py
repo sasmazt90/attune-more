@@ -9,7 +9,7 @@ import cv2
 from playwright.sync_api import sync_playwright, expect
 
 ROOT=Path(__file__).resolve().parents[2]
-parser=argparse.ArgumentParser();choice=parser.add_mutually_exclusive_group();choice.add_argument('--census-index',type=int);choice.add_argument('--flaking-index',type=int);choice.add_argument('--unseen-index',type=int);parser.add_argument('--attempt',type=int,default=1);args=parser.parse_args()
+parser=argparse.ArgumentParser();choice=parser.add_mutually_exclusive_group();choice.add_argument('--census-index',type=int);choice.add_argument('--flaking-index',type=int);choice.add_argument('--unseen-index',type=int);choice.add_argument('--tracking-source',choices=['f90e68f8','40d781eb','64b02ede']);parser.add_argument('--attempt',type=int,default=1);args=parser.parse_args()
 DATA=ROOT/'audit-results/dry-sag-robust-followup-20261013'
 OUT=ROOT/'output/playwright/dry-sag-robust-followup-20261013';OUT.mkdir(parents=True,exist_ok=True)
 PROFILE=OUT/'automatic-front-profile'
@@ -25,6 +25,11 @@ if args.unseen_index is not None:
     row=json.loads((census/'unseen-face-selection.json').read_text('utf8'))[args.unseen_index]
     DATA=census/'product'/row['sha256'][:8];DATA.mkdir(parents=True,exist_ok=True)
     OUT=ROOT/'output/playwright'/census.name/row['sha256'][:8];OUT.mkdir(parents=True,exist_ok=True)
+    PROFILE=OUT/'automatic-front-profile'
+if args.tracking_source is not None:
+    row=next(r for r in json.loads((ROOT/'audit-results/dry-sag-source-census-20261013/contour-selection.json').read_text('utf8')) if r['sha256'].startswith(args.tracking_source))
+    DATA=ROOT/'audit-results/dry-sag-proposal-tracking-20261013/product'/row['sha256'][:8];DATA.mkdir(parents=True,exist_ok=True)
+    OUT=ROOT/'output/playwright/dry-sag-proposal-tracking-20261013'/row['sha256'][:8];OUT.mkdir(parents=True,exist_ok=True)
     PROFILE=OUT/'automatic-front-profile'
 if args.attempt>1:
     DATA=DATA/('attempt-'+str(args.attempt));DATA.mkdir(parents=True,exist_ok=True)

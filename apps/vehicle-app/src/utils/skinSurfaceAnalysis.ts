@@ -8,7 +8,7 @@ export type SurfaceGrid={x:number;y:number;step:number;width:number;height:numbe
 
 /** Historical maps/contours retain their original triangle support. */
 export function closedSurfaceSupportEnabled(criterion?:string|null,calibrationVersion?:string|null):boolean {
- return criterion==='dry'&&calibrationVersion==='eligible-flake-luma-union-v3'||criterion==='sag'&&['contour-fold-visible-region-unique-centers-v7','contour-fold-lower-chin-visible-region-v8'].includes(calibrationVersion||'');
+ return criterion==='dry'&&calibrationVersion==='eligible-flake-luma-union-v3'||criterion==='sag'&&['contour-fold-visible-region-unique-centers-v7','contour-fold-lower-chin-visible-region-v8','contour-fold-lower-chin-observed-runs-v9'].includes(calibrationVersion||'');
 }
 
 export function meshTriangles(mesh:SkinMesh,bagSupport=false,surfaceSupport=false):number[][] {

@@ -40,7 +40,7 @@ def test_low_continuity_zero_gate_is_eye_only_and_failure_stays_unknown(monkeypa
     for region in ('rightCheek','leftCheek','chin'):
         lower=IA.instant_proxy(gray,eligible,p,region,cond,1,(0,0),gray.shape)
         assert lower[0]==pytest.approx(100*.5*.1/.6)
-        assert lower[1]['formulaVersion']==('contour-fold-lower-chin-visible-region-v8' if region=='chin' else 'contour-fold-visible-region-unique-centers-v7')
+        assert lower[1]['formulaVersion']==('contour-fold-lower-chin-observed-runs-v9' if region=='chin' else 'contour-fold-visible-region-unique-centers-v7')
     unavailable=IA.instant_proxy(gray,eligible,p,'periorbital',dict(yaw=0.,pitch=.3),1,(0,0),gray.shape)
     assert unavailable[0] is None and unavailable[4]=='HEAD_ANGLE_UNSUPPORTED'
     assert not unavailable[2].any()

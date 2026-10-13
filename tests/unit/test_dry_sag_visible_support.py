@@ -74,7 +74,7 @@ def test_ordinary_mentolabial_crease_cannot_supply_lower_chin_index(monkeypatch)
  old_crease=run(mental);actual_lower=run(lower)
  assert old_crease[4] is None and old_crease[0]==0 and not old_crease[2].any()
  assert actual_lower[4] is None and actual_lower[0]>0 and actual_lower[2].any()
- assert actual_lower[1]['samplingSupportVersion']=='lower-chin-visible-region-unique-centers-v8'
+ assert actual_lower[1]['samplingSupportVersion']=='lower-chin-observed-fold-runs-unique-centers-v9'
 
 def test_v7_and_v8_history_and_render_support_remain_distinct():
  script=r'''
