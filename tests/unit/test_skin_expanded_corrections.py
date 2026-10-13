@@ -116,13 +116,20 @@ def test_target_a_acne_peripheral_visible_skin_fallback_v4():
     env = np.zeros((h, w), bool); env[:, 50:] = True
     envelopes = {'rightCheek': env}
     
-    # Box is at x in [10, 20], completely outside envelope (overlap = 0.0)
-    # But skin_support is 100%, center is skin, no hair/exclusion.
-    box_peripheral = [10, 10, 20, 20, 0.90]
-    assigned, rejected = filter_acne_boxes([box_peripheral], envelopes, skin_support, hair, exclusion, 'test_photo', 1.0, (0, 0))
+    # Box 1: adjacent to envelope (x in [42, 48], overlap=0.0 with [50, 100], norm_dist <= 0.15)
+    # On visible skin, within normalized upper bound -> retained via anatomical distance fallback!
+    box_adjacent = [42, 42, 48, 48, 0.90]
+    assigned, rejected = filter_acne_boxes([box_adjacent], envelopes, skin_support, hair, exclusion, 'test_photo', 1.0, (0, 0))
     assert len(rejected) == 0
     assert len(assigned['rightCheek']) == 1
     assert assigned['rightCheek'][0]['confidence'] == 0.90
+
+    # Box 2: distant from envelope (x in [5, 15], norm_dist > 0.15)
+    # Outside anatomical proximity upper bound -> rejected as UNCERTAIN_ANATOMICAL_REGION!
+    box_far = [5, 5, 15, 15, 0.90]
+    assigned_far, rejected_far = filter_acne_boxes([box_far], envelopes, skin_support, hair, exclusion, 'test_photo', 1.0, (0, 0))
+    assert len(rejected_far) == 1
+    assert rejected_far[0]['reason'] == 'UNCERTAIN_ANATOMICAL_REGION'
 
 
 def test_target_a_acne_support_v4_version_contract():
