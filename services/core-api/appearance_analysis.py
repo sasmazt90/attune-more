@@ -22,7 +22,7 @@ from skin_scan_baseline.blemishes import blemish_map
 VERSION = 'appearance-cv-6'
 LINE_FREQUENCIES=(.13,.18,.26)
 LIMITS = {'minFacePixels': 180, 'analysisFacePixels': 320, 'maxClippedFraction': .03}
-NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-area-fixed-v2-shared','acne':'unique-detection-box-anatomical-area-v2','lines':'outer-canthus-gabor-radiating-hair-excluded-v4','dark':'lower-lid-contrast-chroma-local-v4','sag':'contour-fold-lower-face-local-support-v6','bags':'contour-fold-local-support-v5'}
+NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-luma-union-v3','acne':'unique-detection-box-anatomical-area-v2','lines':'outer-canthus-gabor-radiating-hair-excluded-v4','dark':'lower-lid-contrast-chroma-local-v4','sag':'contour-fold-visible-region-unique-centers-v7','bags':'contour-fold-local-support-v5'}
 
 
 def decode_photo(data):
@@ -75,6 +75,32 @@ def bag_support_mask(shape, mesh, scale, origin=(0,0)):
         if not cv2.isContourConvex(p[cell].astype(np.float32)):continue
         a,b,c,d=cell
         for triangle in ((a,b,c),(a,c,d)):cv2.fillConvexPoly(mask,p[list(triangle)].astype(np.int32),1)
+    return mask>0
+
+
+def closed_surface_mask(shape,mesh,scale,origin=(0,0)):
+    """Dry/sag-only closed convex cells, bounded by four actual safe edges.
+
+    Sparse visible diagonals are drawing detail, not holes in closed skin cells.
+    No hull, open edge, concave shortcut or unsupported point is filled.
+    """
+    import itertools
+    mask=polygon_mask(shape,mesh,scale,origin).astype(np.uint8)
+    edges={tuple(sorted(e)) for e in mesh['edges']}
+    neighbors={i:set() for i in range(len(mesh['points']))}
+    for a,b in edges:neighbors[a].add(b);neighbors[b].add(a)
+    points=np.asarray([[p['x'],p['y']] for p in mesh['points']],np.float32)
+    cells={}
+    for a,b in itertools.combinations(neighbors,2):
+        if (a,b) in edges:continue
+        for c,d in itertools.combinations(sorted(neighbors[a]&neighbors[b]),2):
+            if tuple(sorted((c,d))) in edges:continue
+            cell=[a,c,b,d]
+            if cv2.isContourConvex(points[cell]):cells[tuple(sorted(cell))]=cell
+    if len(cells)>64:raise ValueError('INVALID_SURFACE_CELLS')
+    for cell in cells.values():
+        projected=((points[cell]-np.asarray(origin))*scale).astype(np.int32)
+        cv2.fillPoly(mask,[projected],1)
     return mask>0
 
 
@@ -384,6 +410,12 @@ def analyze_skin(payload, include_research_features=False):
         assigned_boxes,_=filter_acne_boxes(trained_acne['boxes'],acne_envelopes,acne_skin,hair,acne_exclusion,source_hash,scale,origin)
         accepted_boxes.update(assigned_boxes)
     response, maps, contours = {}, {}, {}
+    surface_masks={k:closed_surface_mask(gray.shape,m,scale,origin) for k,m in payload['meshes'].items()}
+    luma_clipping=gray>.975  # Dry/sag use luminance detail, not color-channel fidelity.
+    texture_visible=(exclusion==0)&~hair&~luma_clipping&(gray>.12)
+    dry_union=np.logical_or.reduce(list(surface_masks.values()))&texture_visible
+    shared_flakes=eligible_flake_components(flakes,dry_union&~dark_ringing)
+    sag_samples={};sag_measured=np.zeros(gray.shape,bool);sag_field=np.zeros(gray.shape,np.float32)
     conditions = {**payload['conditions'],'sourceWidth':bgr.shape[1],'sourceHeight':bgr.shape[0]}
     for region, anatomical in masks.items():
         display_anatomical=anatomical
@@ -455,11 +487,13 @@ def analyze_skin(payload, include_research_features=False):
         # Compression around dark pores/hairs can create bright ringing. This
         # exclusion is specific to white flake evidence: round dark foci remain
         # available to the independent acne candidate detector.
-        dark_ringing=cv2.dilate((cv2.morphologyEx(gray8,cv2.MORPH_BLACKHAT,np.ones((7,7),np.uint8))>35).astype(np.uint8),np.ones((7,7),np.uint8))>0
-        regional_flakes=eligible_flake_components(flakes,valid & ~dark_ringing)
-        add('dry', np.mean(regional_flakes[valid] > .04)*100 if valid.any() else 0, 'percent-visible-area', regional_flakes,
-            limitation=detail_reason, components={'roughnessIndex':float(np.clip(np.mean(local_contrast[valid])/.12*100,0,100)) if valid.any() else None,
-            'lbpNonUniformFraction':float(np.mean(lbp[valid] == 9)) if valid.any() else None,
+        dry_valid=surface_masks[region]&texture_visible
+        dry_exposed=surface_masks[region]&(exclusion==0)&~hair&(gray>.12)
+        dry_reason='CAPTURE_QUALITY' if not payload.get('qualityValid') else 'GLARE_OR_EXPOSURE' if dry_exposed.any() and float(luma_clipping[dry_exposed].mean())>.03 else 'INSUFFICIENT_VISIBLE_AREA' if dry_valid.sum()<100 else 'INSUFFICIENT_SOURCE_DETAIL' if face_pixels<LIMITS['minFacePixels'] else None
+        dry_area=dict(scope='shared-luma-visible-flake-support',sourcePixels=float(dry_valid.sum()/scale**2),analysisPixels=int(dry_valid.sum()),anatomicalSourcePixels=float(surface_masks[region].sum()/scale**2),sourceFacePixels=float(face_pixels))
+        add('dry', np.mean(shared_flakes[dry_valid] > .04)*100 if dry_valid.any() else 0, 'percent-visible-area', shared_flakes,
+            limitation=dry_reason, signal_mask=dry_valid,map_support=dry_valid,measurement_area=dry_area,components={'samplingSupportVersion':'shared-luma-closed-cell-flakes-v3','roughnessIndex':float(np.clip(np.mean(local_contrast[dry_valid])/.12*100,0,100)) if dry_valid.any() else None,
+            'lbpNonUniformFraction':float(np.mean(lbp[dry_valid] == 9)) if dry_valid.any() else None,
             'meaning':'fine-bright-flaking-candidates; roughness alone is not dryness'})
         if region == 'periorbital':
             # Each eye owns its target quality and adjacent skin reference.
@@ -546,13 +580,27 @@ def analyze_skin(payload, include_research_features=False):
         if region != 'nose':
             contour_support=base&~clipping&(gray>.12)
             contour_gray=gray
+            contour_clipping=clipping
+            contour_context=(face_support>0)&(exclusion==0)&~clipping&(gray>.12)
+            contour_exposure=(face_support>0)&(exclusion==0)&~hair&(gray>.12)
+            if region in ('rightCheek','leftCheek','chin'):
+                contour_support=surface_masks[region]&texture_visible
+                contour_clipping=luma_clipping
+                contour_context=(face_support>0)&texture_visible
+                contour_exposure=(face_support>0)&(exclusion==0)&~hair&(gray>.12)
             if region=='periorbital':
                 bag_anatomical=bag_support_mask(gray.shape,payload['meshes'][region],scale,origin)
                 contour_support=bag_anatomical&(exclusion==0)&~clipping&(gray>.12)&bands['bags']&~hair
                 sampled,impulses=isolated_impulse_sampling(bgr)
                 bag_image=cv2.resize(sampled[y0:y1,x0:x1],None,fx=scale,fy=scale,interpolation=cv2.INTER_AREA)
                 contour_gray=cv2.cvtColor(bag_image,cv2.COLOR_BGR2GRAY).astype(np.float32)/255
-            value,components,signal,lines,limitation=instant_proxy(contour_gray,contour_support,points,region,conditions,scale,origin,bgr.shape,hair,(face_support>0)&(exclusion==0)&~clipping&(gray>.12),clipping,(face_support>0)&(exclusion==0)&~hair&(gray>.12))
+            value,components,signal,lines,limitation=instant_proxy(contour_gray,contour_support,points,region,conditions,scale,origin,bgr.shape,hair,contour_context,contour_clipping,contour_exposure)
+            local_samples=components.pop('_samplingCenters',[])
+            local_measured=components.pop('_measuredSupport',None)
+            if region in ('rightCheek','leftCheek','chin') and value is not None and payload.get('qualityValid'):
+                for x,y,intensity in local_samples:sag_samples[(x,y)]=max(sag_samples.get((x,y),0),intensity)
+                if local_measured is not None:sag_measured|=local_measured
+                sag_field=np.maximum(sag_field,signal)
             if region=='periorbital':
                 components['samplingSupportVersion']='tracked-center-closed-cells-impulse-v3' if payload['meshes'][region].get('bagCells') else 'tracked-center-eligible-impulse-v3'
                 components['photometricSamplingVersion']='native-isolated-impulse-median-v1'
@@ -577,7 +625,7 @@ def analyze_skin(payload, include_research_features=False):
             # Sag has its own lower-face sampling-corridor quality. Capture
             # validity is still required; exposure/visibility stay local per side.
             contour_reason=(('CAPTURE_QUALITY' if not payload.get('qualityValid') else None) or limitation) if criterion in ['sag','bags'] else reason or limitation
-            add(criterion,value or 0,INSTANT_UNIT,signal,limitation=contour_reason,components=components,measurement_area=components.get('measurementROI',area),map_support=contour_support if region=='periorbital' and not used_bag_mask else None)
+            add(criterion,value or 0,INSTANT_UNIT,signal,limitation=contour_reason,components=components,measurement_area=components.get('measurementROI',area),map_support=contour_support if region in ('rightCheek','leftCheek','chin','periorbital') and not used_bag_mask else None)
             if used_bag_mask and value is not None:
                 items[-1].update(modelVersion=trained_bags['modelVersion'],modelHash=trained_bags['modelHash'],unit='appearance-score-0-100',normalizationVersion='predicted-lower-lid-mask-area-v1')
                 if 'periorbital:bags' in maps:maps['periorbital:bags'].update(mapType='predicted-presence-mask',unit='appearance-score-0-100',method=trained_bags['modelVersion'],modelHash=trained_bags['modelHash'])
@@ -592,7 +640,9 @@ def analyze_skin(payload, include_research_features=False):
         general_area=dict(sourcePixels=float(union.sum()/scale**2),anatomicalSourcePixels=float(np.logical_or.reduce(list(masks.values())).sum()/scale**2),analysisPixels=int(union.sum()),sourceFacePixels=float(face_pixels))
         # Whole-face dryness uses the same valid bright-island support as the
         # regional rows. Compression ringing is never restored by unioning ROIs.
-        general_flakes=eligible_flake_components(flakes,union & ~dark_ringing)
+        general_flakes=shared_flakes
+        measured_dry=[surface_masks[name] for name,rows in response.items() if any(r['id']=='dry' and r['quality']=='valid' for r in rows)]
+        dry_union=(np.logical_or.reduce(measured_dry) if measured_dry else np.zeros_like(dry_union))&texture_visible
         global_candidates=np.zeros(gray.shape,bool)
         if include_research_features:
             for detection in detections:global_candidates|=detection[-1]
@@ -600,7 +650,7 @@ def analyze_skin(payload, include_research_features=False):
             final_boxes=[box for items in response.values() for item in items if item['id']=='acne' and item['quality']=='valid' for box in item['components']['bounds']]
             global_candidates=box_area(final_boxes,gray.shape,scale,origin)
         result['general']=general_result(response,masks,union,general_tone,general_redness,shine,general_flakes,
-            general_area,conditions,payload.get('qualityValid',False),candidate_coverage=float(np.mean(global_candidates[union])*100) if union.any() else None,normalizations=NORMALIZATION)
+            general_area,conditions,payload.get('qualityValid',False),candidate_coverage=float(np.mean(global_candidates[union])*100) if union.any() else None,normalizations=NORMALIZATION,dry_support=dry_union,sag_support=(sag_samples,sag_measured,scale))
         for item in result['general']['measurements']:
             item['scoreDirection']='higher-is-more-visible'
             item['normalizationVersion']=NORMALIZATION[item['id']]
@@ -642,10 +692,16 @@ def analyze_skin(payload, include_research_features=False):
             # A whole-photo ordinal grade has no pixel severity localization.
             # Do not attach an analytic field under that grade's calibration.
             if measurement['value'] is not None and measurement['components'].get('modelScope')!='whole-face':
-                layer=map_result(signal,union,'overview',criterion,source_hash,'FRONT',bgr.shape,scale,measurement['unit'],ceiling,origin)
+                layer=map_result(signal,dry_union if criterion=='dry' else union,'overview',criterion,source_hash,'FRONT',bgr.shape,scale,measurement['unit'],ceiling,origin)
                 if layer:
                     maps['overview:'+criterion]=layer
                     measurement['localMap']=dict(key='overview:'+criterion,photoId=source_hash,region='overview',criterion=criterion,coordinateSpace='source-pixels')
+        sag_overview=next(r for r in result['general']['measurements'] if r['id']=='sag')
+        if sag_overview['value'] is not None and sag_measured.any():
+            layer=map_result(sag_field,sag_measured,'overview','sag',source_hash,'FRONT',bgr.shape,scale,INSTANT_UNIT,1.,origin)
+            if layer:
+                maps['overview:sag']=layer
+                sag_overview['localMap']=dict(key='overview:sag',photoId=source_hash,region='overview',criterion='sag',coordinateSpace='source-pixels')
         for criterion in ['dark','lines','bags']:
             layer=maps.get('periorbital:'+criterion)
             if layer:maps['overview:'+criterion]={**layer,'region':'overview'}

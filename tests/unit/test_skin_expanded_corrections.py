@@ -31,7 +31,7 @@ def test_low_continuity_zero_gate_is_eye_only_and_failure_stays_unknown(monkeypa
     for i,x,y in [(133,.45,.4),(159,.375,.35),(145,.375,.45),(362,.55,.4),(386,.625,.35),(374,.625,.45)]:
         p[i]=dict(x=x,y=y,z=0.)
     def profile(*args,**kwargs):
-        return dict(strength=.5,edge=.04,continuity=.1,coverage=1.,trackingResidual=0.,trackingQualityVersion='unit-controlled-continuity',points=np.array([[160.,160.]]),tracked=np.tile([160.,160.],(64,1)),values=np.full(64,.5),edgeValues=np.full(64,.04),support=np.ones(64,bool))
+        return dict(strength=.5,edge=.04,continuity=.1,coverage=1.,trackingResidual=0.,trackingQualityVersion='unit-controlled-continuity',points=np.array([[160.,160.]]),tracked=np.tile([160.,160.],(64,1)),values=np.full(64,.5),edgeValues=np.full(64,.04),support=np.ones(64,bool),observedSamples=np.ones(64,bool))
     monkeypatch.setattr(IA,'curve_profile',profile)
     monkeypatch.setattr(IA,'boundary_support',lambda *args:dict(value=.08,coverage=1.,points=[],supported=[]))
     gray=np.full((320,320),.5,np.float32);eligible=np.ones(gray.shape,bool);cond=dict(yaw=0.,pitch=0.)
@@ -40,7 +40,7 @@ def test_low_continuity_zero_gate_is_eye_only_and_failure_stays_unknown(monkeypa
     for region in ('rightCheek','leftCheek','chin'):
         lower=IA.instant_proxy(gray,eligible,p,region,cond,1,(0,0),gray.shape)
         assert lower[0]==pytest.approx(100*.5*.1/.6)
-        assert lower[1]['formulaVersion']=='contour-fold-target-roi-local-support-v6'
+        assert lower[1]['formulaVersion']=='contour-fold-visible-region-unique-centers-v7'
     unavailable=IA.instant_proxy(gray,eligible,p,'periorbital',dict(yaw=0.,pitch=.3),1,(0,0),gray.shape)
     assert unavailable[0] is None and unavailable[4]=='HEAD_ANGLE_UNSUPPORTED'
     assert not unavailable[2].any()
@@ -185,7 +185,7 @@ def test_target_c_eye_bags_version_and_eyelid_margin_separation():
     # Call instant_proxy for rightCheek and periorbital with synthetic flat input
     v_cheek, comp_cheek, sig_cheek, _, _ = IA.instant_proxy(gray, eligible, p, 'rightCheek', cond, 1.0, (0, 0), (h, w))
     assert 'times continuity/0.6' in comp_cheek['indexAggregation'], "Cheek must retain previous continuity/0.6 aggregation"
-    assert comp_cheek['formulaVersion'] == 'contour-fold-target-roi-local-support-v6'
+    assert comp_cheek['formulaVersion'] == 'contour-fold-visible-region-unique-centers-v7'
 
 
 def test_target_d_lines_radiating_angles_exclude_vertical_lash_and_hair():

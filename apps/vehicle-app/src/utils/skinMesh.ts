@@ -78,3 +78,20 @@ export function bagCellTriangles(mesh:SkinMesh):number[][] {
   const [a,b,c,d]=cell;return [[a,b,c],[a,c,d]];
  });
 }
+
+/** Only convex cells bounded by four actual supported mesh edges. */
+export function closedSurfaceCellTriangles(mesh:SkinMesh):number[][] {
+ const neighbors=mesh.points.map(()=>new Set<number>()),edges=new Set<string>();
+ for(const [a,b] of mesh.edges){neighbors[a].add(b);neighbors[b].add(a);edges.add([Math.min(a,b),Math.max(a,b)].join(':'));}
+ const cells=new Map<string,number[]>();
+ for(let a=0;a<neighbors.length;a++)for(let b=a+1;b<neighbors.length;b++){
+  if(edges.has(`${a}:${b}`))continue;
+  const common=[...neighbors[a]].filter(c=>neighbors[b].has(c)).sort((x,y)=>x-y);
+  for(let i=0;i<common.length;i++)for(let j=i+1;j<common.length;j++){
+   const c=common[i],d=common[j];if(edges.has(`${c}:${d}`))continue;
+   const cell=[a,c,b,d],cross=cell.map((v,k)=>{const p=mesh.points[v],q=mesh.points[cell[(k+1)%4]],r=mesh.points[cell[(k+2)%4]];return (q.x-p.x)*(r.y-q.y)-(q.y-p.y)*(r.x-q.x);});
+   if(cross.every(v=>v>0)||cross.every(v=>v<0))cells.set([...cell].sort((x,y)=>x-y).join(':'),cell);
+  }
+ }
+ return [...cells.values()].slice(0,64).flatMap(([a,b,c,d])=>[[a,b,c],[a,c,d]]);
+}

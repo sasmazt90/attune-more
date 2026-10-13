@@ -88,7 +88,7 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
     p=np.array([[(v['x']*w-origin[0])*scale,(v['y']*h-origin[1])*scale] for v in points],float)
     eye=p[263]-p[33];eye_width=float(np.linalg.norm(eye))
     empty=np.zeros(gray.shape,np.float32)
-    formula='contour-fold-target-roi-local-support-v6' if region!='periorbital' else 'contour-fold-local-support-v5'
+    formula='contour-fold-visible-region-unique-centers-v7' if region!='periorbital' else 'contour-fold-local-support-v5'
     fail=lambda code:(None,dict(formulaVersion=formula,**({'samplingSupportVersion':'tracked-center-eligible-v1'} if region=='periorbital' else {})),empty,[],code)
     if region=='forehead':return fail('BROW_FOLD_IS_NOT_LOWER_FACE_SAGGING')
     if eye_width<35:return fail('INSUFFICIENT_NATIVE_DETAIL')
@@ -114,9 +114,9 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
         # and stay within anatomical infraorbital bag band (<28 px).
         paths=[('right',[144,145,153,154,133]),('left',[373,374,380,381,362])]
         offsets=np.arange(7,28);direction=vertical
-    elif region=='rightCheek':paths=[('right',[98,205,206,216,61]),('lower-right',[61,186,172,136])];offsets=np.arange(-10,11);direction=horizontal
-    elif region=='leftCheek':paths=[('left',[327,425,426,436,291]),('lower-left',[291,410,397,365])];offsets=np.arange(-10,11);direction=horizontal
-    elif region=='chin':paths=[('lower-right',[61,186,172,136]),('lower-left',[291,410,397,365])];offsets=np.arange(-10,11);direction=horizontal
+    elif region=='rightCheek':paths=[('right',[100,142,203,206]),('lower-right',[206,212,202])];offsets=np.arange(-10,11);direction=horizontal
+    elif region=='leftCheek':paths=[('left',[329,371,423,426]),('lower-left',[426,432,422])];offsets=np.arange(-10,11);direction=horizontal
+    elif region=='chin':paths=[('mental',[201,200,421])];offsets=np.arange(-10,11);direction=vertical
     elif region=='forehead':
         # Brow-adjacent fold + actual brow boundary support; no copied cheek/jaw metric.
         paths=[('right-brow',[70,63,105,66,107]),('left-brow',[300,293,334,296,336])];offsets=np.arange(-24,-2);direction=vertical
@@ -171,9 +171,9 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
         # Separate actual brow-boundary deviations from the above-brow skin fold signal.
         boundaries=[boundary_support(gray,context_skin if context_skin is not None else eligible,p[ii],native_width) for ii in ([70,63,105,66,107],[300,293,334,296,336])]
         boundary=dict(value=float(np.mean([v['value'] for v in boundaries])),coverage=float(np.mean([v['coverage'] for v in boundaries])),sides=boundaries)
-    sides=[];evidence=[];signal=empty.copy()
+    sides=[];evidence=[];signal=empty.copy();sampling_centers={}
     for side,indices in paths:
-        profile=curve_profile(gray,skin,p[indices],direction,offsets,native_width,center_support=eligible) if region=='periorbital' else curve_profile(gray,skin,p[indices],direction,offsets,native_width)
+        profile=curve_profile(gray,skin,p[indices],direction,offsets,native_width,center_support=eligible)
         if profile is None:continue
         q=profile;local_exposure=exposure(p[indices],offsets)
         # Joint support: no contour/paired-edge => no fold-derived sag/bag signal.
@@ -186,7 +186,8 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
             continuity_gate = min(1.0, q['continuity'] / 0.6)
         if boundary is not None:
             boundary_gate = min(1.0, np.sqrt(max(0.0, boundary['value']) / 0.08))
-            joint = float(np.mean(q['values'] * edge_gate)) * continuity_gate * boundary_gate
+            visible=q['observedSamples']
+            joint = float(np.mean((q['values'] * edge_gate)[visible])) * continuity_gate * boundary_gate if visible.any() else 0.
         else:
             visible=q.get('observedSamples',np.ones(len(q['values']),bool))
             joint = float(np.mean((q['values'] * np.sqrt(q['edgeValues']))[visible])) * continuity_gate if visible.any() else 0.
@@ -196,6 +197,12 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
         elif q['trackingResidual']>(2.8 if region=='periorbital' else 2.5):limitation='CONTOUR_TRACKING_UNSTABLE'
         side_value=None if limitation else float(np.clip(joint*100,0,100))
         sides.append(dict(side=side,value=side_value,fold=q['strength'],pairedEdge=q['edge'],continuity=q['continuity'],coverage=q['coverage'],trackingResidual=q['trackingResidual'],trackingQualityVersion=q['trackingQualityVersion'],exposure=local_exposure,limitationCode=limitation))
+        if side_value is not None and region!='periorbital':
+            local_values=q['values']*edge_gate*continuity_gate*boundary_gate
+            for xy,observed,intensity in zip(q['tracked'],q['observedSamples'],local_values):
+                x,y=np.rint(xy).astype(int)
+                if observed and 0<=x<gray.shape[1] and 0<=y<gray.shape[0] and eligible[y,x]:
+                    sampling_centers[(int(x),int(y))]=max(sampling_centers.get((int(x),int(y)),0.),float(intensity))
         if side_value is not None and side_value>0:
             pts=q['tracked']
             # Only measured source coordinates, never synthesize hidden skin surfaces.
@@ -207,7 +214,9 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
             for xy,supported,intensity in zip(pts,q['support'],local_values):
                 x,y=np.rint(xy).astype(int)
                 if supported and 0<=x<gray.shape[1] and 0<=y<gray.shape[0] and eligible[y,x]:
-                    cv2.circle(signal,(x,y),2,float(intensity),-1)
+                    if region=='periorbital':cv2.circle(signal,(x,y),2,float(intensity),-1)
+                    else:
+                        local=np.zeros_like(signal);cv2.circle(local,(x,y),2,float(intensity),-1);np.maximum(signal,local,out=signal)
                     line.append(dict(x=float((xy[0]/scale+origin[0])/w),y=float((xy[1]/scale+origin[1])/h)))
                 elif line:
                     if len(line)>1:evidence.append(line)
@@ -242,7 +251,16 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
                     rollRadians=float(np.arctan2(horizontal[1],horizontal[0])),normalization='2D eye axis and face width; no z/depth',
                     mouthOpening=opening,eyeAspects=eye_aspects,shadowPlaneSlope=slope[:2].tolist())
     if region=='periorbital':components['samplingSupportVersion']='tracked-center-eligible-v1'
+    else:
+        components.update(samplingSupportVersion='visible-region-unique-centers-v7',uniqueObservedCenters=len(sampling_centers),overlapCountedOnce=True,partialCoverage=any(side['value'] is None for side in sides))
+        # Ephemeral raster/coordinates are consumed by the overview aggregator;
+        # appearance_analysis removes them before returning or storing JSON.
+        components['_samplingCenters']=[[x,y,v] for (x,y),v in sampling_centers.items()]
+        components['_measuredSupport']=measured_roi
     if not valid:return None,components,empty,[],next((v['limitationCode'] for v in sides if v.get('limitationCode')), 'ANATOMICAL_BAND_NOT_VISIBLE')
     signal*=eligible
     # Mean only measured local subregions; missing side stays null, never copied.
+    if region!='periorbital':
+        if not sampling_centers:return None,components,empty,[],'ANATOMICAL_BAND_NOT_VISIBLE'
+        return float(100*np.mean(list(sampling_centers.values()))),components,signal,evidence,None
     return float(np.mean(valid)),components,signal,evidence,None
