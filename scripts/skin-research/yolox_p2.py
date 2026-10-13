@@ -100,6 +100,9 @@ class YOLOPAFPN_P2(nn.Module):
         self.bu_conv1 = Conv(c4, c4, 3, 2, act=act)  # stride 2, 256 -> 256
         self.C3_n4 = CSPLayer(c4 * 2, c5, round(3 * depth), False, depthwise=depthwise, act=act)  # 512 -> 512
 
+        # Zero-initialized residual gate for P2 injection: preserves pre-trained P3/P4/P5 at step 0
+        self.p2_gate = nn.Parameter(torch.zeros(1))
+
     def forward(self, input_tensor):
         # 1. CSPDarknet Backbone
         out_features = self.backbone(input_tensor)
@@ -117,17 +120,19 @@ class YOLOPAFPN_P2(nn.Module):
         fpn_out1 = self.reduce_conv1(f_out0)         # stride 16, 128ch
         f_out1 = self.upsample(fpn_out1)             # stride 8, 128ch
         f_out1 = torch.cat([f_out1, x2], 1)          # 256ch
-        f_out1 = self.C3_p3(f_out1)                  # stride 8, 128ch
+        base_p3 = self.C3_p3(f_out1)                 # stride 8, 128ch (Exact baseline P3 output!)
 
-        fpn_out2 = self.reduce_conv2(f_out1)         # stride 8, 64ch
+        # P2 Top-Down
+        fpn_out2 = self.reduce_conv2(base_p3)        # stride 8, 64ch
         f_out2 = self.upsample(fpn_out2)             # stride 4, 64ch
         f_out2 = torch.cat([f_out2, x3], 1)          # 128ch
         pan_out3 = self.C3_p2(f_out2)                # stride 4, 64ch (P2 Output)
 
-        # 3. Bottom-Up PANet
+        # 3. Bottom-Up PANet with Zero-Init Gate preserving baseline P3 at step 0
         p_out2 = self.bu_conv3(pan_out3)             # stride 8, 64ch
         p_out2 = torch.cat([p_out2, fpn_out2], 1)    # 128ch
-        pan_out2 = self.C3_n2(p_out2)                # stride 8, 128ch (P3 Output)
+        p2_inj = self.C3_n2(p_out2)                  # stride 8, 128ch
+        pan_out2 = base_p3 + self.p2_gate * p2_inj   # stride 8, 128ch (P3 Output)
 
         p_out1 = self.bu_conv2(pan_out2)             # stride 16, 128ch
         p_out1 = torch.cat([p_out1, fpn_out1], 1)    # 256ch
@@ -141,12 +146,174 @@ class YOLOPAFPN_P2(nn.Module):
         return (pan_out3, pan_out2, pan_out1, pan_out0)
 
 
+class YOLOXHead_P2(YOLOXHead):
+    """YOLOX Head with explicit Focal Objectness Loss separation and UNKNOWN mask enforcement."""
+
+    def __init__(
+        self,
+        num_classes,
+        width=1.0,
+        strides=[4, 8, 16, 32],
+        in_channels=[128, 256, 512, 1024],
+        act="silu",
+        depthwise=False,
+    ):
+        super().__init__(num_classes, width, strides=strides, in_channels=in_channels, act=act, depthwise=depthwise)
+        self.cls_bce_loss = nn.BCEWithLogitsLoss(reduction="none")
+        self.obj_focal_loss = None
+
+    def get_losses(
+        self,
+        imgs,
+        x_shifts,
+        y_shifts,
+        expanded_strides,
+        labels,
+        outputs,
+        origin_preds,
+        dtype,
+    ):
+        import torch.nn.functional as F
+        bbox_preds = outputs[:, :, :4]  # [batch, n_anchors_all, 4]
+        obj_preds = outputs[:, :, 4:5]  # [batch, n_anchors_all, 1]
+        cls_preds = outputs[:, :, 5:]  # [batch, n_anchors_all, n_cls]
+
+        nlabel = (labels.sum(dim=2) > 0).sum(dim=1)  # number of objects
+
+        total_num_anchors = outputs.shape[1]
+        x_shifts = torch.cat(x_shifts, 1)  # [1, n_anchors_all]
+        y_shifts = torch.cat(y_shifts, 1)  # [1, n_anchors_all]
+        expanded_strides = torch.cat(expanded_strides, 1)
+        if self.use_l1:
+            origin_preds = torch.cat(origin_preds, 1)
+
+        cls_targets = []
+        reg_targets = []
+        l1_targets = []
+        obj_targets = []
+        fg_masks = []
+
+        num_fg = 0.0
+        num_gts = 0.0
+
+        for batch_idx in range(outputs.shape[0]):
+            num_gt = int(nlabel[batch_idx])
+            num_gts += num_gt
+            if num_gt == 0:
+                cls_target = outputs.new_zeros((0, self.num_classes))
+                reg_target = outputs.new_zeros((0, 4))
+                l1_target = outputs.new_zeros((0, 4))
+                obj_target = outputs.new_zeros((total_num_anchors, 1))
+                fg_mask = outputs.new_zeros(total_num_anchors).bool()
+            else:
+                gt_bboxes_per_image = labels[batch_idx, :num_gt, 1:5]
+                gt_classes = labels[batch_idx, :num_gt, 0]
+                bboxes_preds_per_image = bbox_preds[batch_idx]
+
+                (
+                    gt_matched_classes,
+                    fg_mask,
+                    pred_ious_this_matching,
+                    matched_gt_inds,
+                    num_fg_img,
+                ) = self.get_assignments(
+                    batch_idx,
+                    num_gt,
+                    gt_bboxes_per_image,
+                    gt_classes,
+                    bboxes_preds_per_image,
+                    expanded_strides,
+                    x_shifts,
+                    y_shifts,
+                    cls_preds,
+                    obj_preds,
+                )
+
+                num_fg += num_fg_img
+
+                cls_target = F.one_hot(
+                    gt_matched_classes.to(torch.int64), self.num_classes
+                ) * pred_ious_this_matching.unsqueeze(-1)
+                obj_target = fg_mask.unsqueeze(-1)
+                reg_target = gt_bboxes_per_image[matched_gt_inds]
+                if self.use_l1:
+                    l1_target = self.get_l1_target(
+                        outputs.new_zeros((num_fg_img, 4)),
+                        gt_bboxes_per_image[matched_gt_inds],
+                        expanded_strides[0][fg_mask],
+                        x_shifts=x_shifts[0][fg_mask],
+                        y_shifts=y_shifts[0][fg_mask],
+                    )
+
+            cls_targets.append(cls_target)
+            reg_targets.append(reg_target)
+            obj_targets.append(obj_target.to(dtype))
+            fg_masks.append(fg_mask)
+            if self.use_l1:
+                l1_targets.append(l1_target)
+
+        cls_targets = torch.cat(cls_targets, 0)
+        reg_targets = torch.cat(reg_targets, 0)
+        obj_targets = torch.cat(obj_targets, 0)
+        fg_masks = torch.cat(fg_masks, 0)
+        if self.use_l1:
+            l1_targets = torch.cat(l1_targets, 0)
+
+        num_fg = max(num_fg, 1)
+        loss_iou = (
+            self.iou_loss(bbox_preds.view(-1, 4)[fg_masks], reg_targets)
+        ).sum() / num_fg
+
+        # Dedicated Objectness Loss: Focal Objectness Loss with strict unknown masking
+        if self.obj_focal_loss is not None:
+            raw_obj_loss = self.obj_focal_loss(obj_preds.view(-1, 1), obj_targets)
+            loss_obj = raw_obj_loss.sum() / num_fg
+            if hasattr(self.obj_focal_loss, 'last_metrics') and hasattr(self.obj_focal_loss, 'record_normalized'):
+                raw_pos = self.obj_focal_loss.last_metrics.get('raw_pos_obj_loss', 0.0)
+                raw_neg = self.obj_focal_loss.last_metrics.get('raw_neg_obj_loss', 0.0)
+                self.obj_focal_loss.record_normalized(
+                    num_fg=num_fg,
+                    norm_pos=raw_pos / num_fg,
+                    norm_neg=raw_neg / num_fg
+                )
+        else:
+            loss_obj = (
+                self.bcewithlog_loss(obj_preds.view(-1, 1), obj_targets)
+            ).sum() / num_fg
+
+        # Dedicated Classification Loss: strictly standard BCE
+        loss_cls = (
+            self.cls_bce_loss(
+                cls_preds.view(-1, self.num_classes)[fg_masks], cls_targets
+            )
+        ).sum() / num_fg
+
+        if self.use_l1:
+            loss_l1 = (
+                self.l1_loss(origin_preds.view(-1, 4)[fg_masks], l1_targets)
+            ).sum() / num_fg
+        else:
+            loss_l1 = 0.0
+
+        reg_weight = 5.0
+        loss = reg_weight * loss_iou + loss_obj + loss_cls + loss_l1
+
+        return (
+            loss,
+            reg_weight * loss_iou,
+            loss_obj,
+            loss_cls,
+            loss_l1,
+            num_fg / max(num_gts, 1),
+        )
+
+
 def build_yolox_p2_model(num_classes=1, depth=0.33, width=0.5) -> YOLOX:
     """Build complete YOLOX-S detector equipped with P2 small-object head."""
     in_channels = [128, 256, 512, 1024]
     strides = [4, 8, 16, 32]
     backbone = YOLOPAFPN_P2(depth=depth, width=width, in_channels=in_channels)
-    head = YOLOXHead(
+    head = YOLOXHead_P2(
         num_classes=num_classes,
         width=width,
         strides=strides,
@@ -167,13 +334,14 @@ def load_baseline_weights_to_p2_model(
     - Backbone:
       * All CSPDarknet weights (stem, dark2, dark3, dark4, dark5) transfer directly.
       * PAFPN layers (lateral_conv0, C3_p4, reduce_conv1, C3_p3, bu_conv2, C3_n3, bu_conv1, C3_n4) transfer directly.
-      * New P2 PAFPN layers (reduce_conv2, C3_p2, bu_conv3, C3_n2) are initialized explicitly.
+      * New P2 PAFPN layers (reduce_conv2, C3_p2, bu_conv3, C3_n2, p2_gate) are initialized explicitly.
     - Head:
       * Baseline index 0 (P3, stride 8)  -> P2-Model index 1 (P3, stride 8).
       * Baseline index 1 (P4, stride 16) -> P2-Model index 2 (P4, stride 16).
       * Baseline index 2 (P5, stride 32) -> P2-Model index 3 (P5, stride 32).
       * P2-Model index 0 (P2, stride 4) is NEW and initialized explicitly.
     """
+    baseline_weights_path = Path(baseline_weights_path)
     assert baseline_weights_path.exists(), f"Baseline weights not found: {baseline_weights_path}"
     baseline_state = load_file(str(baseline_weights_path))
     p2_state = p2_net.state_dict()
@@ -222,8 +390,31 @@ def load_baseline_weights_to_p2_model(
                     nn.init.zeros_(param)
                 new_initialized.append(full_param_name)
 
-    # 4. Load transferred parameters into state dict
+    # 4. Explicit zero/prior initialization for new P2 prediction heads and residual gate
+    with torch.no_grad():
+        p2_net.backbone.p2_gate.zero_()
+        prior_bias = -math.log((1.0 - 0.01) / 0.01)
+        nn.init.zeros_(p2_net.head.obj_preds[0].weight)
+        p2_net.head.obj_preds[0].bias.fill_(prior_bias)
+        nn.init.zeros_(p2_net.head.cls_preds[0].weight)
+        p2_net.head.cls_preds[0].bias.fill_(prior_bias)
+        nn.init.zeros_(p2_net.head.reg_preds[0].weight)
+        p2_net.head.reg_preds[0].bias.zero_()
+
+    # 5. Load transferred parameters into state dict
     msg = p2_net.load_state_dict(transferred, strict=False)
+
+    # Strict contract validation: only predefined new P2 layers can be missing
+    new_prefixes = (
+        'backbone.reduce_conv2', 'backbone.C3_p2', 'backbone.bu_conv3',
+        'backbone.C3_n2', 'backbone.p2_gate', 'head.stems.0',
+        'head.cls_convs.0', 'head.reg_convs.0', 'head.cls_preds.0',
+        'head.reg_preds.0', 'head.obj_preds.0'
+    )
+    for k in msg.missing_keys:
+        assert k.startswith(new_prefixes), f"Unexpected missing key outside P2 branch: {k}"
+    assert len(msg.missing_keys) == 92, f"Expected exactly 92 new P2 parameters, got {len(msg.missing_keys)}"
+    assert len(msg.unexpected_keys) == 0, f"Unexpected keys in transfer: {msg.unexpected_keys}"
     
     report = {
         'baselineWeightsPath': str(baseline_weights_path),

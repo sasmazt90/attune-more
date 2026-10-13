@@ -45,16 +45,28 @@ class SigmoidFocalObjectnessLoss(nn.Module):
 
         # 1. Mask unknown background anchors
         is_pos = (truth > 0)
-        if self.known is not None and self.known.shape == logits.shape:
+        if self.known is not None:
+            if self.known.shape != logits.shape:
+                raise ValueError(
+                    f"Shape mismatch in SigmoidFocalObjectnessLoss: known mask {tuple(self.known.shape)} "
+                    f"does not match logits {tuple(logits.shape)}. Silent fallback is forbidden."
+                )
             is_known_neg = self.known & (~is_pos)
             valid_mask = is_pos | is_known_neg
         else:
-            is_known_neg = (~is_pos)
-            valid_mask = torch.ones_like(truth, dtype=torch.bool)
+            raise ValueError(
+                "SigmoidFocalObjectnessLoss requires self.known to be set to prevent unverified skin/lesions "
+                "from being trained as negative background. Silent fallback is forbidden."
+            )
 
         # 2. Apply boundary weights only to known negatives
         weights = torch.ones_like(focal_loss)
-        if self.boundary_weights is not None and self.boundary_weights.shape == logits.shape:
+        if self.boundary_weights is not None:
+            if self.boundary_weights.shape != logits.shape:
+                raise ValueError(
+                    f"Shape mismatch in SigmoidFocalObjectnessLoss: boundary_weights {tuple(self.boundary_weights.shape)} "
+                    f"does not match logits {tuple(logits.shape)}. Silent fallback is forbidden."
+                )
             weights = torch.where(is_pos, torch.ones_like(weights), self.boundary_weights)
 
         # 3. Final active loss
@@ -62,23 +74,48 @@ class SigmoidFocalObjectnessLoss(nn.Module):
 
         # 4. Metric logging for transparent inspection
         with torch.no_grad():
-            num_pos = is_pos.sum().item()
-            num_known_neg = is_known_neg.sum().item()
-            pos_loss_val = (active_loss * is_pos.to(active_loss.dtype)).sum().item()
-            neg_loss_val = (active_loss * is_known_neg.to(active_loss.dtype)).sum().item()
+            num_pos = int(is_pos.sum().item())
+            num_known_neg = int(is_known_neg.sum().item())
+            num_unknown = int((~valid_mask).sum().item())
+            raw_pos_val = float((active_loss * is_pos.to(active_loss.dtype)).sum().item())
+            raw_neg_val = float((active_loss * is_known_neg.to(active_loss.dtype)).sum().item())
             self.last_metrics = {
                 'alpha': self.alpha,
                 'gamma': self.gamma,
+                'raw_pos_obj_loss': raw_pos_val,
+                'raw_neg_obj_loss': raw_neg_val,
+                'norm_pos_obj_loss': raw_pos_val,
+                'norm_neg_obj_loss': raw_neg_val,
+                'pos_obj_loss': raw_pos_val,
+                'neg_obj_loss': raw_neg_val,
+                'posObjLoss': raw_pos_val,
+                'negObjLoss': raw_neg_val,
+                'num_fg': float(num_pos),
+                'num_pos_anchors': num_pos,
+                'num_known_neg_anchors': num_known_neg,
+                'num_unknown_anchors': num_unknown,
                 'numPosAnchors': num_pos,
                 'numKnownNegAnchors': num_known_neg,
-                'numUnknownMaskedAnchors': (~valid_mask).sum().item(),
-                'posObjLoss': pos_loss_val,
-                'negObjLoss': neg_loss_val,
-                'meanPosLoss': (pos_loss_val / max(num_pos, 1)),
-                'meanNegLoss': (neg_loss_val / max(num_known_neg, 1))
+                'numUnknownMaskedAnchors': num_unknown,
+                'meanPosLoss': (raw_pos_val / max(num_pos, 1)),
+                'meanNegLoss': (raw_neg_val / max(num_known_neg, 1))
             }
 
         return active_loss
+
+    def record_normalized(self, num_fg: float, norm_pos: float, norm_neg: float):
+        """Update metrics with normalized losses when num_fg is applied by the head."""
+        if hasattr(self, 'last_metrics') and isinstance(self.last_metrics, dict):
+            self.last_metrics['num_fg'] = float(num_fg)
+            self.last_metrics['norm_pos_obj_loss'] = float(norm_pos)
+            self.last_metrics['norm_neg_obj_loss'] = float(norm_neg)
+            self.last_metrics['pos_obj_loss'] = float(norm_pos)
+            self.last_metrics['neg_obj_loss'] = float(norm_neg)
+
+    @property
+    def last_stats(self) -> dict:
+        """Alias property matching training script expectations."""
+        return self.last_metrics
 
 
 if __name__ == '__main__':

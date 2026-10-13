@@ -46,6 +46,7 @@ from negative_mask_builder import build_hole_preserved_negative_masks, acne_tile
 from focal_objectness_loss import SigmoidFocalObjectnessLoss
 from train_focused_local import yolo_batch
 from acne_metrics import match_predictions_to_truth
+from heavy_job_lock import heavy_job_guard
 
 # Canonical validation dependencies
 from evaluate_all_checkpoints_side_by_side import (
@@ -100,6 +101,7 @@ def save_transactional_checkpoint(
             else:
                 scalars[f"{k}.{sub_k}"] = sub_v
     save_file(opt_tensors, str(gen_dir / 'optimizer.safetensors'))
+    torch.save(opt_dict, str(gen_dir / 'optimizer.pt'))
 
     # 3. Full metadata ledger
     full_state = {
@@ -205,21 +207,18 @@ def evaluate_canonical_validation(
 
     results = {}
     for conf_thre in conf_thresholds:
-        summary = {
-            'confThreshold': conf_thre,
-            'inScopeTruth': 53,
-            'inScopeTp50': 0,
-            'inScopeTp30': 0,
-            'rec50': 0.0,
-            'rec30': 0.0,
-            'negTotalFp': 0,
-            'negPhotosWithFp': 0,
-            'negFpBreakdown': [],
-            'smallLesionRecall': {
-                'tiny_less_8px': {'total': 7, 'tp50': 0, 'rec50': 0.0},
-                'small_8_to_16px': {'total': 31, 'tp50': 0, 'rec50': 0.0},
-                'medium_16_to_32px': {'total': 15, 'tp50': 0, 'rec50': 0.0}
-            }
+        # Dynamically calculate in-scope truth and small lesion totals from live images
+        total_in_scope = 0
+        total_neg_photos = 0
+        in_scope_tp50 = 0
+        in_scope_tp30 = 0
+        neg_total_fp = 0
+        neg_photos_with_fp = 0
+        neg_fp_breakdown = []
+        small_rec = {
+            'tiny_less_8px': {'total': 0, 'tp50': 0},
+            'small_8_to_16px': {'total': 0, 'tp50': 0},
+            'medium_16_to_32px': {'total': 0, 'tp50': 0}
         }
 
         for item, raw_cands in zip(cached_images, per_image_cands):
@@ -228,6 +227,9 @@ def evaluate_canonical_validation(
             is_prod_pose = item['isProductPose']
             truth_boxes = item['truth']
             truth_categories = item['truthCategories']
+
+            if is_neg:
+                total_neg_photos += 1
 
             if not points or not raw_cands:
                 accepted_boxes = []
@@ -266,8 +268,9 @@ def evaluate_canonical_validation(
             matched_in_scope30 = set(matched_indices30).intersection(set(in_scope_indices))
 
             if is_prod_pose:
-                summary['inScopeTp50'] += len(matched_in_scope50)
-                summary['inScopeTp30'] += len(matched_in_scope30)
+                total_in_scope += len(in_scope_indices)
+                in_scope_tp50 += len(matched_in_scope50)
+                in_scope_tp30 += len(matched_in_scope30)
 
                 for idx in in_scope_indices:
                     bx = truth_boxes[idx]
@@ -278,21 +281,38 @@ def evaluate_canonical_validation(
                         grp = 'small_8_to_16px'
                     else:
                         grp = 'medium_16_to_32px'
+                    small_rec[grp]['total'] += 1
                     if idx in matched_in_scope50:
-                        summary['smallLesionRecall'][grp]['tp50'] += 1
+                        small_rec[grp]['tp50'] += 1
 
             if is_neg:
                 fp_count = len(accepted_boxes)
-                summary['negTotalFp'] += fp_count
+                neg_total_fp += fp_count
                 if fp_count > 0:
-                    summary['negPhotosWithFp'] += 1
-                    summary['negFpBreakdown'].append(fp_count)
+                    neg_photos_with_fp += 1
+                    neg_fp_breakdown.append(fp_count)
 
-        summary['rec50'] = round(summary['inScopeTp50'] / 53.0, 4)
-        summary['rec30'] = round(summary['inScopeTp30'] / 53.0, 4)
-        summary['fpPerPhoto'] = round(summary['negTotalFp'] / 15.0, 3)
-        for grp_k, grp_v in summary['smallLesionRecall'].items():
-            grp_v['rec50'] = round(grp_v['tp50'] / grp_v['total'], 4)
+        summary = {
+            'confThreshold': conf_thre,
+            'inScopeTruth': total_in_scope,
+            'inScopeTp50': in_scope_tp50,
+            'inScopeTp30': in_scope_tp30,
+            'rec50': round(in_scope_tp50 / max(total_in_scope, 1), 4) if total_in_scope > 0 else 0.0,
+            'rec30': round(in_scope_tp30 / max(total_in_scope, 1), 4) if total_in_scope > 0 else 0.0,
+            'negTotalFp': neg_total_fp,
+            'negPhotosWithFp': neg_photos_with_fp,
+            'totalNegPhotos': total_neg_photos,
+            'fpPerPhoto': round(neg_total_fp / max(total_neg_photos, 1), 3) if total_neg_photos > 0 else 0.0,
+            'negFpBreakdown': neg_fp_breakdown,
+            'smallLesionRecall': {
+                k: {
+                    'total': v['total'],
+                    'tp50': v['tp50'],
+                    'rec50': round(v['tp50'] / max(v['total'], 1), 4) if v['total'] > 0 else 0.0
+                }
+                for k, v in small_rec.items()
+            }
+        }
 
         results[str(conf_thre)] = summary
 
@@ -333,9 +353,9 @@ def main():
     print(f"Transferred {transfer_rep['transferredParamCount']} parameters from Baseline (SHA: {baseline_sha[:8]}).")
     print(f"Initialized {transfer_rep['newInitializedCount']} parameters in new P2 branches.")
 
-    # 4. Focal Objectness Loss
-    focal_loss = SigmoidFocalObjectnessLoss(alpha=0.25, gamma=2.0)
-    net.head.bcewithlog_loss = focal_loss
+    # 4. Focal Objectness Loss (strictly assigned to objectness, keeping BCE for classification)
+    focal_loss = SigmoidFocalObjectnessLoss(alpha=0.50, gamma=2.0)
+    net.head.obj_focal_loss = focal_loss
 
     # 5. Freeze stem and dark2, train lateral and head
     for k, p in net.named_parameters():
@@ -357,7 +377,7 @@ def main():
 
     # State tracking
     state = {
-        'identity': f"p2-focal-trial-{baseline_sha[:8]}",
+        'identity': f"p2-focal-v2-{baseline_sha[:8]}",
         'step': 0,
         'epoch': 0,
         'cursor': 0,
@@ -365,7 +385,7 @@ def main():
         'bestCheckpoint': None,
         'startingWeightsSha256': baseline_sha,
         'architecture': 'YOLOX-S + Real P2 Branch (Strides [4,8,16,32])',
-        'lossConfig': {'type': 'SigmoidFocalObjectnessLoss', 'alpha': 0.25, 'gamma': 2.0, 'softBoundaryWeights': True}
+        'lossConfig': {'type': 'SigmoidFocalObjectnessLoss', 'alpha': 0.50, 'gamma': 2.0, 'softBoundaryWeights': True}
     }
 
     batch_size = 4
@@ -427,8 +447,8 @@ def main():
 
             epoch_histories.append({
                 'epoch': state['epoch'],
-                'durationSeconds': 1501.9,
-                'avgTrainLoss': 4.8438,
+                'durationSeconds': chk_state.get('durationSeconds', 'kayıt eksik'),
+                'avgTrainLoss': chk_state.get('avgTrainLoss', 'kayıt eksik'),
                 'valResults': val_results,
                 'checkpointName': chk_name
             })
@@ -443,6 +463,8 @@ def main():
                 m.eval()
 
         total_loss_accum = 0.0
+        pos_obj_accum = 0.0
+        neg_obj_accum = 0.0
         step_in_epoch = 0
 
         for i in range(0, num_tiles, batch_size):
@@ -465,6 +487,10 @@ def main():
             total_loss = loss_dict['total_loss']
             total_loss.backward()
 
+            if hasattr(focal_loss, 'last_stats') and focal_loss.last_stats:
+                pos_obj_accum += focal_loss.last_stats.get('pos_obj_loss', 0.0)
+                neg_obj_accum += focal_loss.last_stats.get('neg_obj_loss', 0.0)
+
             torch.nn.utils.clip_grad_norm_(trainable_params, max_norm=5.0)
             opt.step()
             sched.step()
@@ -476,7 +502,7 @@ def main():
 
             if step_in_epoch % 30 == 0 or state['cursor'] == num_tiles:
                 elapsed = time.time() - start_time
-                print(f"  Epoch {epoch}/{num_epochs} | Batch {step_in_epoch}/{(num_tiles + batch_size - 1)//batch_size} (cursor {state['cursor']}/{num_tiles}) | loss={total_loss.item():.4f} (avg={total_loss_accum/step_in_epoch:.4f}) | elapsed={elapsed:.1f}s", flush=True)
+                print(f"  Epoch {epoch}/{num_epochs} | Batch {step_in_epoch}/{(num_tiles + batch_size - 1)//batch_size} (cursor {state['cursor']}/{num_tiles}) | loss={total_loss.item():.4f} (avg={total_loss_accum/step_in_epoch:.4f}) | pos_obj={pos_obj_accum/step_in_epoch:.4f} neg_obj={neg_obj_accum/step_in_epoch:.4f} | elapsed={elapsed:.1f}s", flush=True)
 
         state['epoch'] = epoch
         epoch_checkpoint_dir = save_transactional_checkpoint(TRIAL_DIR, net, opt, sched, state)
@@ -485,8 +511,8 @@ def main():
         print(f"\n--- Running Canonical Validation at End of Epoch {epoch} ---", flush=True)
         val_results = evaluate_canonical_validation(net, cached_val_images, conf_thresholds=[0.30, 0.50, 0.70])
         for thresh_k, thresh_v in val_results.items():
-            print(f"  conf={thresh_k} -> In-Scope IoU50: {thresh_v['inScopeTp50']}/53 (rec50={thresh_v['rec50']:.1%}) | Neg FP: {thresh_v['negTotalFp']} across {thresh_v['negPhotosWithFp']}/15 photos ({thresh_v['fpPerPhoto']} FP/photo)")
-            print(f"    Small Lesion Recall (<8px: {thresh_v['smallLesionRecall']['tiny_less_8px']['tp50']}/7, 8-16px: {thresh_v['smallLesionRecall']['small_8_to_16px']['tp50']}/31, 16-32px: {thresh_v['smallLesionRecall']['medium_16_to_32px']['tp50']}/15)")
+            print(f"  conf={thresh_k} -> In-Scope IoU50: {thresh_v['inScopeTp50']}/{thresh_v['inScopeTruth']} (rec50={thresh_v['rec50']:.1%}) | Neg FP: {thresh_v['negTotalFp']} across {thresh_v['negPhotosWithFp']}/{thresh_v['totalNegPhotos']} photos ({thresh_v['fpPerPhoto']} FP/photo)")
+            print(f"    Small Lesion Recall (<8px: {thresh_v['smallLesionRecall']['tiny_less_8px']['tp50']}/{thresh_v['smallLesionRecall']['tiny_less_8px']['total']}, 8-16px: {thresh_v['smallLesionRecall']['small_8_to_16px']['tp50']}/{thresh_v['smallLesionRecall']['small_8_to_16px']['total']}, 16-32px: {thresh_v['smallLesionRecall']['medium_16_to_32px']['tp50']}/{thresh_v['smallLesionRecall']['medium_16_to_32px']['total']})")
 
         # Determine if this epoch is the best checkpoint under <= 1.00 FP budget
         rec_70 = val_results['0.7']['rec50']
@@ -503,6 +529,8 @@ def main():
             'epoch': epoch,
             'durationSeconds': round(time.time() - epoch_start_time, 1),
             'avgTrainLoss': round(total_loss_accum / step_in_epoch, 4),
+            'avgPosObjLoss': round(pos_obj_accum / step_in_epoch, 4),
+            'avgNegObjLoss': round(neg_obj_accum / step_in_epoch, 4),
             'valResults': val_results,
             'checkpointName': epoch_checkpoint_dir.name
         })
@@ -514,7 +542,7 @@ def main():
     best_weights_path = TRIAL_DIR / 'candidate-selected.safetensors'
     if not best_weights_path.exists():
         best_weights_path = TRIAL_DIR / 'candidate-latest.safetensors'
-    net.load_state_dict(load_file(str(best_weights_path)))
+    net.load_state_dict(load_file(str(best_weights_path)), strict=True)
     net.eval()
 
     selected_weights_sha = sha256_file(best_weights_path)
@@ -554,37 +582,19 @@ def main():
     assert max_norm_diff < 1e-3, f"Normalized parity mismatch: {max_norm_diff}"
     print("Numerical parity confirmed: PyTorch and ONNX match bit-for-bit within float32 tolerance.")
 
-    total_duration_sec = 4292.9  # Total training & evaluation across both epochs
+    total_duration_sec = time.time() - start_time
     print(f"\nTotal training and evaluation completed in {total_duration_sec:.1f}s ({total_duration_sec/60.0:.2f} min).", flush=True)
 
-    if len(epoch_histories) < 2:
-        epoch_histories = [
-            {
-                'epoch': 1,
-                'durationSeconds': 1501.9,
-                'avgTrainLoss': 4.8438,
-                'valResults': {
-                    '0.3': {'confThreshold': 0.3, 'inScopeTruth': 53, 'inScopeTp50': 0, 'inScopeTp30': 0, 'rec50': 0.0, 'rec30': 0.0, 'negTotalFp': 0, 'negPhotosWithFp': 0, 'negFpBreakdown': [], 'smallLesionRecall': {'tiny_less_8px': {'total': 7, 'tp50': 0, 'rec50': 0.0}, 'small_8_to_16px': {'total': 31, 'tp50': 0, 'rec50': 0.0}, 'medium_16_to_32px': {'total': 15, 'tp50': 0, 'rec50': 0.0}}, 'fpPerPhoto': 0.0},
-                    '0.5': {'confThreshold': 0.5, 'inScopeTruth': 53, 'inScopeTp50': 0, 'inScopeTp30': 0, 'rec50': 0.0, 'rec30': 0.0, 'negTotalFp': 0, 'negPhotosWithFp': 0, 'negFpBreakdown': [], 'smallLesionRecall': {'tiny_less_8px': {'total': 7, 'tp50': 0, 'rec50': 0.0}, 'small_8_to_16px': {'total': 31, 'tp50': 0, 'rec50': 0.0}, 'medium_16_to_32px': {'total': 15, 'tp50': 0, 'rec50': 0.0}}, 'fpPerPhoto': 0.0},
-                    '0.7': {'confThreshold': 0.7, 'inScopeTruth': 53, 'inScopeTp50': 0, 'inScopeTp30': 0, 'rec50': 0.0, 'rec30': 0.0, 'negTotalFp': 0, 'negPhotosWithFp': 0, 'negFpBreakdown': [], 'smallLesionRecall': {'tiny_less_8px': {'total': 7, 'tp50': 0, 'rec50': 0.0}, 'small_8_to_16px': {'total': 31, 'tp50': 0, 'rec50': 0.0}, 'medium_16_to_32px': {'total': 15, 'tp50': 0, 'rec50': 0.0}}, 'fpPerPhoto': 0.0}
-                },
-                'checkpointName': 'checkpoint-epoch-01-step-000248-1791893135864784800'
-            },
-            {
-                'epoch': 2,
-                'durationSeconds': 2356.7,
-                'avgTrainLoss': 3.9134,
-                'valResults': {
-                    '0.3': {'confThreshold': 0.3, 'inScopeTruth': 53, 'inScopeTp50': 1, 'inScopeTp30': 1, 'rec50': 0.0189, 'rec30': 0.0189, 'negTotalFp': 0, 'negPhotosWithFp': 0, 'negFpBreakdown': [], 'smallLesionRecall': {'tiny_less_8px': {'total': 7, 'tp50': 0, 'rec50': 0.0}, 'small_8_to_16px': {'total': 31, 'tp50': 0, 'rec50': 0.0}, 'medium_16_to_32px': {'total': 15, 'tp50': 1, 'rec50': 0.0667}}, 'fpPerPhoto': 0.0},
-                    '0.5': {'confThreshold': 0.5, 'inScopeTruth': 53, 'inScopeTp50': 0, 'inScopeTp30': 0, 'rec50': 0.0, 'rec30': 0.0, 'negTotalFp': 0, 'negPhotosWithFp': 0, 'negFpBreakdown': [], 'smallLesionRecall': {'tiny_less_8px': {'total': 7, 'tp50': 0, 'rec50': 0.0}, 'small_8_to_16px': {'total': 31, 'tp50': 0, 'rec50': 0.0}, 'medium_16_to_32px': {'total': 15, 'tp50': 0, 'rec50': 0.0}}, 'fpPerPhoto': 0.0},
-                    '0.7': {'confThreshold': 0.7, 'inScopeTruth': 53, 'inScopeTp50': 0, 'inScopeTp30': 0, 'rec50': 0.0, 'rec30': 0.0, 'negTotalFp': 0, 'negPhotosWithFp': 0, 'negFpBreakdown': [], 'smallLesionRecall': {'tiny_less_8px': {'total': 7, 'tp50': 0, 'rec50': 0.0}, 'small_8_to_16px': {'total': 31, 'tp50': 0, 'rec50': 0.0}, 'medium_16_to_32px': {'total': 15, 'tp50': 0, 'rec50': 0.0}}, 'fpPerPhoto': 0.0}
-                },
-                'checkpointName': 'checkpoint-epoch-02-step-000496-1791896207482816200'
-            }
-        ]
-        state['bestCheckpoint'] = 'checkpoint-epoch-02-step-000496-1791896207482816200'
+    if not epoch_histories:
+        epoch_histories = [{
+            'epoch': state.get('epoch', 0),
+            'durationSeconds': 'kayıt eksik',
+            'avgTrainLoss': 'kayıt eksik',
+            'valResults': val_results if 'val_results' in locals() else 'kayıt eksik',
+            'checkpointName': state.get('bestCheckpoint', 'kayıt eksik')
+        }]
 
-    selected_val_metrics = next((h['valResults'] for h in epoch_histories if h['checkpointName'] == state['bestCheckpoint']), epoch_histories[-1]['valResults'])
+    selected_val_metrics = next((h['valResults'] for h in epoch_histories if h.get('checkpointName') == state.get('bestCheckpoint')), epoch_histories[-1]['valResults'])
 
     # 9. Save full history and evaluation report
     eval_report = {
@@ -623,4 +633,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    with heavy_job_guard("train_p2_focal_trial"):
+        main()
