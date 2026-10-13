@@ -132,9 +132,41 @@ def test_target_a_acne_peripheral_visible_skin_fallback_v4():
     assert rejected_far[0]['reason'] == 'UNCERTAIN_ANATOMICAL_REGION'
 
 
-def test_target_a_acne_support_v4_version_contract():
-    """Target A: acne_box_support VERSION contract is source-box-anatomical-support-v4."""
-    assert ACNE_SUPPORT_VERSION == 'source-box-anatomical-support-v4'
+def test_target_a_acne_support_v5_version_contract():
+    """Target A: acne_box_support VERSION contract is source-box-anatomical-support-v5."""
+    assert ACNE_SUPPORT_VERSION == 'source-box-anatomical-support-v5'
+
+
+def test_target_a_acne_normalized_landmarks_source_shape():
+    """Target A (v5): Normalized landmarks utilize source_shape[1] rather than crop width,
+    preventing distorted midline_x and face_width calculations under non-origin crops.
+    """
+    h, w = 100, 100
+    skin_support = np.ones((h, w), bool)
+    hair = np.zeros((h, w), bool)
+    exclusion = np.zeros((h, w), np.uint8)
+    env = np.zeros((h, w), bool); env[:, 50:] = True
+    envelopes = {'rightCheek': env}
+    
+    # Source photo is 1000x1000, cropped to [x0=200, y0=200, x1=300, y1=300], scale=1.0
+    # Nose tip (landmark 1) is at normalized x=0.5 (source x=500).
+    # In analysis crop, midline_x should be (500 - 200) * 1.0 = 300!
+    # A box at analysis x=45 (source x=245) is to the right of midline in raw coords (source x < 500),
+    # matching leftCheek / rightCheek lateralization correctly.
+    landmarks = [{'x': 0.5, 'y': 0.5} for _ in range(468)]
+    landmarks[1] = {'x': 0.5, 'y': 0.5}  # Nose tip
+    landmarks[234] = {'x': 0.2, 'y': 0.5} # Right tragion
+    landmarks[454] = {'x': 0.8, 'y': 0.5} # Left tragion
+    
+    # Analysis x is 42..48, so source x is 200 + 42 = 242 .. 248.
+    box = [242, 242, 248, 248, 0.90]
+    assigned, rejected = filter_acne_boxes(
+        [box], envelopes, skin_support, hair, exclusion, 'test_photo', 1.0, (200, 200),
+        landmarks=landmarks, source_shape=(1000, 1000)
+    )
+    # Box should be assigned without error
+    assert len(rejected) == 0
+    assert len(assigned['rightCheek']) == 1
 
 
 def test_target_b_dark_circles_normal_skin_deadband():

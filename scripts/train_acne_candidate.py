@@ -49,6 +49,42 @@ PROOF_KEYS = [
 ]
 
 
+def save_full_checkpoint(checkpoint_path: Path, net, optimizer, scheduler, state, epoch: int, b_idx: int, rng_state: dict):
+    checkpoint_path = Path(checkpoint_path)
+    checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
+    checkpoint_data = {
+        'epoch': epoch,
+        'b_idx': b_idx,
+        'step': state.get('step', 0),
+        'state': state,
+        'optimizer_state': optimizer.state_dict(),
+        'scheduler_state': scheduler.state_dict(),
+        'rng_torch': rng_state['torch'],
+        'rng_numpy': rng_state['numpy'],
+        'rng_random': rng_state['random'],
+    }
+    torch.save(checkpoint_data, str(checkpoint_path))
+    weights_path = checkpoint_path.parent / f'{checkpoint_path.stem}.safetensors'
+    save_file({k: v.contiguous() for k, v in net.state_dict().items()}, str(weights_path))
+
+
+def load_full_checkpoint(checkpoint_path: Path, net, optimizer, scheduler):
+    checkpoint_path = Path(checkpoint_path)
+    checkpoint_data = torch.load(str(checkpoint_path), map_location='cpu', weights_only=False)
+    weights_path = checkpoint_path.parent / f'{checkpoint_path.stem}.safetensors'
+    if weights_path.exists():
+        weights = load_file(str(weights_path))
+        net.load_state_dict(weights)
+    elif 'model_state' in checkpoint_data:
+        net.load_state_dict(checkpoint_data['model_state'])
+    optimizer.load_state_dict(checkpoint_data['optimizer_state'])
+    scheduler.load_state_dict(checkpoint_data['scheduler_state'])
+    torch.set_rng_state(checkpoint_data['rng_torch'])
+    np.random.set_state(checkpoint_data['rng_numpy'])
+    random.setstate(checkpoint_data['rng_random'])
+    return checkpoint_data['epoch'], checkpoint_data['b_idx'], checkpoint_data['state']
+
+
 def calc_f1_score(rows, preds, threshold=0.50, iou_thresh=0.50):
     total_tp = 0
     total_fp = 0

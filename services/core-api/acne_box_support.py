@@ -2,7 +2,7 @@
 import hashlib,math
 import cv2,numpy as np
 
-VERSION='source-box-anatomical-support-v4'
+VERSION='source-box-anatomical-support-v5'
 REGIONS=('forehead','rightCheek','leftCheek','nose','chin')
 
 def region_envelopes(meshes,shape,scale,origin):
@@ -13,13 +13,22 @@ def region_envelopes(meshes,shape,scale,origin):
   mask=np.zeros(shape,np.uint8);cv2.fillConvexPoly(mask,cv2.convexHull(points).astype(np.int32),255);result[name]=mask>0
  return result
 
-def accepted_boxes(boxes,envelopes,skin_support,hair,exclusion,photo,scale,origin,visible_regions=None,landmarks=None):
+def accepted_boxes(boxes,envelopes,skin_support,hair,exclusion,photo,scale,origin,visible_regions=None,landmarks=None,source_shape=None):
  assigned={k:[] for k in envelopes};rejected=[];h,w=skin_support.shape;x0,y0=origin
  candidate_regions=[k for k in REGIONS if k in envelopes and (visible_regions is None or k in visible_regions)]
- skin_pts=np.where(skin_support)
- face_width=float(skin_pts[1].max()-skin_pts[1].min()) if len(skin_pts[0])>0 else float(w)
- face_width=max(10.0,face_width)
- midline_x=float(landmarks[1]['x']*(w/scale)-x0)*scale if (landmarks and len(landmarks)>=2 and isinstance(landmarks[1],dict) and 'x' in landmarks[1]) else float(w/2)
+ source_w=float(source_shape[1]) if source_shape is not None and len(source_shape)>=2 else (float(w/scale+x0) if scale>0 else float(w))
+ if landmarks and len(landmarks)>454 and isinstance(landmarks[454],dict) and isinstance(landmarks[234],dict):
+  source_face_width=abs(landmarks[454]['x']-landmarks[234]['x'])*source_w
+  face_width=max(10.0,float(source_face_width*scale))
+ else:
+  skin_pts=np.where(skin_support)
+  face_width=float(skin_pts[1].max()-skin_pts[1].min()) if len(skin_pts[0])>0 else float(w)
+  face_width=max(10.0,face_width)
+ if landmarks and len(landmarks)>=2 and isinstance(landmarks[1],dict) and 'x' in landmarks[1]:
+  source_midline_x=float(landmarks[1]['x']*source_w)
+  midline_x=float((source_midline_x-x0)*scale)
+ else:
+  midline_x=float(w/2)
  dist_maps={}
  for bx,by,ex,ey,confidence in boxes:
   a=max(0,int((bx-x0)*scale));b=max(0,int((by-y0)*scale));c=min(w,int(math.ceil((ex-x0)*scale)));d=min(h,int(math.ceil((ey-y0)*scale)))

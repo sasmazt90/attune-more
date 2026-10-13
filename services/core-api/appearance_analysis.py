@@ -328,7 +328,11 @@ def analyze_skin(payload, include_research_features=False):
     acne_skin=(face_support>0)&(acne_exclusion==0)&~hair&~acne_clipping&(gray>.12)
     accepted_boxes={k:[] for k in masks}
     if trained_acne and trained_acne.get('valid'):
-        assigned_boxes,_=filter_acne_boxes(trained_acne['boxes'],acne_envelopes,acne_skin,hair,acne_exclusion,source_hash,scale,origin)
+        pose=payload.get('pose','FRONT')
+        if pose=='RIGHT':allowed_regions=['leftCheek']
+        elif pose=='LEFT':allowed_regions=['rightCheek']
+        else:allowed_regions=['forehead','rightCheek','leftCheek','nose','chin']
+        assigned_boxes,_=filter_acne_boxes(trained_acne['boxes'],acne_envelopes,acne_skin,hair,acne_exclusion,source_hash,scale,origin,visible_regions=allowed_regions,landmarks=points,source_shape=bgr.shape[:2])
         accepted_boxes.update(assigned_boxes)
     response, maps, contours = {}, {}, {}
     conditions = {**payload['conditions'],'sourceWidth':bgr.shape[1],'sourceHeight':bgr.shape[0]}
@@ -382,13 +386,13 @@ def analyze_skin(payload, include_research_features=False):
                 boxes=accepted_boxes[region]
                 for box in boxes:
                     a=max(0,int((box['x']-x0)*scale));b=max(0,int((box['y']-y0)*scale));c=min(gray.shape[1],int(math.ceil((box['x']+box['width']-x0)*scale)));d=min(gray.shape[0],int(math.ceil((box['y']+box['height']-y0)*scale)));candidate_area[b:d,a:c]=True
-            acne_valid=acne_envelopes.get(region,np.zeros_like(valid))&acne_skin if not include_research_features else valid
-            observed=acne_envelopes.get(region,np.zeros_like(valid))&(face_support>0)&(exclusion==0)&~hair
+            acne_valid=(acne_envelopes.get(region,np.zeros_like(valid))|candidate_area)&acne_skin if not include_research_features else valid
+            observed=(acne_envelopes.get(region,np.zeros_like(valid))|candidate_area)&(face_support>0)&(exclusion==0)&~hair
             acne_reason=('CAPTURE_QUALITY' if not payload.get('qualityValid') else 'GLARE_OR_EXPOSURE' if observed.any() and acne_clipping[observed].mean()>.03 else 'INSUFFICIENT_VISIBLE_AREA' if acne_valid.sum()<100 else None) if not include_research_features else reason
             acne_reason=acne_reason or (None if include_research_features or trained_acne and trained_acne.get('valid') else (trained_acne or {}).get('reason','ACNE_MODEL_NOT_ACCEPTED'))
             if acne_reason:boxes=[];candidate_area[:]=False
             coverage=float(candidate_area[acne_valid].mean()*100) if acne_valid.any() else 0.
-            acne_area={**area,'sourcePixels':float(acne_valid.sum()/scale**2),'analysisPixels':int(acne_valid.sum()),'anatomicalSourcePixels':float(acne_envelopes.get(region,anatomical).sum()/scale**2),'scope':ACNE_SUPPORT_VERSION}
+            acne_area={**area,'sourcePixels':float(acne_valid.sum()/scale**2),'analysisPixels':int(acne_valid.sum()),'anatomicalSourcePixels':float((acne_envelopes.get(region,anatomical)|candidate_area).sum()/scale**2),'scope':ACNE_SUPPORT_VERSION}
             add('acne',coverage,'appearance-score-0-100',limitation=acne_reason,measurement_area=acne_area,components={'bounds':boxes,'candidateCount':len(boxes),'evaluatedArea':acne_area,'candidateBoxCoveragePercent':coverage,'normalization':'unique accepted detection-box pixels / visible anatomical source pixels *100','pixelSegmentation':False,'filterVersion':ACNE_SUPPORT_VERSION,'clinicalSeverity':False})
             if acne_reason is None and not include_research_features:
                 signal=cv2.GaussianBlur(candidate_area.astype(np.float32),(0,0),2)*acne_valid

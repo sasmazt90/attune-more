@@ -74,7 +74,10 @@ for (const item of inputData) {
     meshes[id] = supportedSkinMesh(buildSkinMesh(id, landmarks, width, height), landmarks, width, height);
   }
 
-  const capturable = matchedAngle !== null && quality.isValid && alignment.isAligned;
+  const angleAligned = matchedAngle === 'FRONT'
+    ? alignment.isAligned
+    : (matchedAngle !== null && matchesSkinAngle(alignment, matchedAngle));
+  const capturable = matchedAngle !== null && quality.isValid && angleAligned;
 
   results.push({
     sha256,

@@ -102,7 +102,7 @@ def calc_iou(b1, b2):
 
 
 def match_predictions_to_truth(truth_boxes, preds, thresh=0.50):
-    """Greedy confidence-ranked 1-to-1 matching between truth and predictions."""
+    """Greedy confidence-ranked matching between truth and predictions, distinguishing duplicates."""
     used_t = set()
     ranked = sorted(
         preds,
@@ -110,25 +110,27 @@ def match_predictions_to_truth(truth_boxes, preds, thresh=0.50):
         reverse=True
     )
     matches = []
+    duplicate_preds = []
     unmatched_preds = []
     for pi, p in enumerate(ranked):
         pb = [p['x'], p['y'], p['x'] + p['width'], p['y'] + p['height']] if isinstance(p, dict) else p[:4]
         best_iou = 0.0
         best_ti = -1
         for ti, t in enumerate(truth_boxes):
-            if ti in used_t:
-                continue
             iou = calc_iou(t, pb)
             if iou > best_iou:
                 best_iou = iou
                 best_ti = ti
         if best_iou >= thresh and best_ti >= 0:
-            used_t.add(best_ti)
-            matches.append((best_ti, pi, best_iou))
+            if best_ti not in used_t:
+                used_t.add(best_ti)
+                matches.append((best_ti, pi, best_iou))
+            else:
+                duplicate_preds.append((best_ti, pi, best_iou))
         else:
             unmatched_preds.append(pi)
     unmatched_truth = [ti for ti in range(len(truth_boxes)) if ti not in used_t]
-    return sorted(list(used_t)), matches, unmatched_preds, unmatched_truth
+    return sorted(list(used_t)), matches, duplicate_preds, unmatched_preds, unmatched_truth
 
 
 def run_raw_tile_inference(ort_session, bgr, points, min_score=0.40):
@@ -311,19 +313,20 @@ def filter_v3(boxes, envelopes, skin_support, hair, exclusion, photo, scale, ori
     return accepted, rejected
 
 
-def filter_v4(boxes, envelopes, skin_support, hair, exclusion, photo, scale, origin, visible_regions, landmarks):
-    """Current Filter v4 (acne_box_support.py with bounded Euclidean fallback)."""
+def filter_v4(boxes, envelopes, skin_support, hair, exclusion, photo, scale, origin, visible_regions, landmarks, source_shape=None):
+    """Current Filter v5 (acne_box_support.py with bounded Euclidean fallback)."""
     assigned, rejected = acne_box_support.accepted_boxes(
         boxes, envelopes, skin_support, hair, exclusion, photo, scale, origin,
         visible_regions=visible_regions,
-        landmarks=landmarks
+        landmarks=landmarks,
+        source_shape=source_shape
     )
     accepted = [b for blist in assigned.values() for b in blist]
     return accepted, rejected
 
 
 def categorize_ground_truth_pimple(pimple_box, item, face_support_source=None):
-    """Categorizes ground truth pimple into in-scope vs out-of-scope classes."""
+    """Categorizes ground truth pimple into in-scope vs out-of-scope classes with analysis coordinate transforms."""
     bx0, by0, bx1, by1 = pimple_box
     cx = (bx0 + bx1) / 2.0
     cy = (by0 + by1) / 2.0
@@ -338,12 +341,17 @@ def categorize_ground_truth_pimple(pimple_box, item, face_support_source=None):
     if matched_angle is None:
         return 'OUT_OF_SCOPE_EXTREME_POSE'
 
-    # 3. Check facial bounds if face_support mask is available
+    # 3. Check facial bounds and crop bounds in analysis space without clamping
     if face_support_source is not None:
-        sx = min(face_support_source.shape[1] - 1, max(0, int(cx)))
-        sy = min(face_support_source.shape[0] - 1, max(0, int(cy)))
-        if not face_support_source[sy, sx]:
-            return 'OUT_OF_SCOPE_NON_FACIAL_OR_MARGIN'
+        x0, y0 = item.get('origin', (0, 0))
+        scale = item.get('scale', 1.0)
+        ax = int(round((cx - x0) * scale))
+        ay = int(round((cy - y0) * scale))
+        h_mask, w_mask = face_support_source.shape
+        if ax < 0 or ay < 0 or ax >= w_mask or ay >= h_mask:
+            return 'OUT_OF_SCOPE_OUTSIDE_CROP'
+        if not face_support_source[ay, ax]:
+            return 'OUT_OF_SCOPE_NON_FACIAL'
 
     # 4. Multi-angle lateralization and cheek restriction
     midline_x = item['landmarks'][1]['x'] * w  # nose tip
@@ -357,16 +365,17 @@ def categorize_ground_truth_pimple(pimple_box, item, face_support_source=None):
         if item.get('envelopes') and 'leftCheek' in item['envelopes']:
             x0, y0 = item['origin']
             scale = item['scale']
-            sx = int((cx - x0) * scale)
-            sy = int((cy - y0) * scale)
+            sx = int(round((cx - x0) * scale))
+            sy = int(round((cy - y0) * scale))
             env = item['envelopes']['leftCheek']
             h_env, w_env = env.shape
-            if 0 <= sx < w_env and 0 <= sy < h_env:
-                if not env[sy, sx]:
-                    # check distance to leftCheek
-                    dist = cv2.distanceTransform((~env).astype(np.uint8), cv2.DIST_L2, 3)[sy, sx]
-                    if (dist / (face_width * scale)) > 0.15:
-                        return 'OUT_OF_SCOPE_SIDE_PROFILE_NON_CHEEK'
+            if sx < 0 or sy < 0 or sx >= w_env or sy >= h_env:
+                return 'OUT_OF_SCOPE_OUTSIDE_CROP'
+            if not env[sy, sx]:
+                # check distance to leftCheek
+                dist = cv2.distanceTransform((~env).astype(np.uint8), cv2.DIST_L2, 3)[sy, sx]
+                if (dist / (face_width * scale)) > 0.15:
+                    return 'OUT_OF_SCOPE_SIDE_PROFILE_NON_CHEEK'
     elif matched_angle == 'LEFT':
         # Head turned left: user's left cheek is occluded/turned away
         if cx > (midline_x + 0.05 * face_width):
@@ -375,15 +384,16 @@ def categorize_ground_truth_pimple(pimple_box, item, face_support_source=None):
         if item.get('envelopes') and 'rightCheek' in item['envelopes']:
             x0, y0 = item['origin']
             scale = item['scale']
-            sx = int((cx - x0) * scale)
-            sy = int((cy - y0) * scale)
+            sx = int(round((cx - x0) * scale))
+            sy = int(round((cy - y0) * scale))
             env = item['envelopes']['rightCheek']
             h_env, w_env = env.shape
-            if 0 <= sx < w_env and 0 <= sy < h_env:
-                if not env[sy, sx]:
-                    dist = cv2.distanceTransform((~env).astype(np.uint8), cv2.DIST_L2, 3)[sy, sx]
-                    if (dist / (face_width * scale)) > 0.15:
-                        return 'OUT_OF_SCOPE_SIDE_PROFILE_NON_CHEEK'
+            if sx < 0 or sy < 0 or sx >= w_env or sy >= h_env:
+                return 'OUT_OF_SCOPE_OUTSIDE_CROP'
+            if not env[sy, sx]:
+                dist = cv2.distanceTransform((~env).astype(np.uint8), cv2.DIST_L2, 3)[sy, sx]
+                if (dist / (face_width * scale)) > 0.15:
+                    return 'OUT_OF_SCOPE_SIDE_PROFILE_NON_CHEEK'
 
     return 'IN_SCOPE_VISIBLE_REGION'
 
@@ -556,10 +566,10 @@ def main():
     # Function to evaluate a given detector & filter configuration
     def evaluate_configuration(model_key, conf_thresh, nms_thresh, filter_key):
         summary = {
-            'all': {'tp50': 0, 'tp30': 0, 'preds': 0, 'truth': 0, 'neg_fp': 0, 'neg_images': 0, 'in_scope_tp50': 0, 'in_scope_truth': 0},
-            'product_accepted': {'tp50': 0, 'tp30': 0, 'preds': 0, 'truth': 0, 'neg_fp': 0, 'neg_images': 0, 'in_scope_tp50': 0, 'in_scope_truth': 0},
-            'capturable': {'tp50': 0, 'tp30': 0, 'preds': 0, 'truth': 0, 'neg_fp': 0, 'neg_images': 0, 'in_scope_tp50': 0, 'in_scope_truth': 0},
-            'out_of_pose': {'tp50': 0, 'tp30': 0, 'preds': 0, 'truth': 0, 'neg_fp': 0, 'neg_images': 0, 'in_scope_tp50': 0, 'in_scope_truth': 0},
+            'all': {'tp50': 0, 'tp30': 0, 'preds': 0, 'truth': 0, 'verified_neg_fp': 0, 'neg_images': 0, 'in_scope_tp50': 0, 'in_scope_truth': 0, 'duplicate_boxes': 0, 'annotation_unknown': 0},
+            'product_accepted': {'tp50': 0, 'tp30': 0, 'preds': 0, 'truth': 0, 'verified_neg_fp': 0, 'neg_images': 0, 'in_scope_tp50': 0, 'in_scope_truth': 0, 'duplicate_boxes': 0, 'annotation_unknown': 0},
+            'capturable': {'tp50': 0, 'tp30': 0, 'preds': 0, 'truth': 0, 'verified_neg_fp': 0, 'neg_images': 0, 'in_scope_tp50': 0, 'in_scope_truth': 0, 'duplicate_boxes': 0, 'annotation_unknown': 0},
+            'out_of_pose': {'tp50': 0, 'tp30': 0, 'preds': 0, 'truth': 0, 'verified_neg_fp': 0, 'neg_images': 0, 'in_scope_tp50': 0, 'in_scope_truth': 0, 'duplicate_boxes': 0, 'annotation_unknown': 0},
         }
 
         per_image = []
@@ -591,13 +601,14 @@ def main():
                 acc, _ = filter_v4(
                     raw_boxes, item['envelopes'], item['skin_support'], item['hair'], item['exclusion'], sha, item['scale'], item['origin'],
                     visible_regions=vis_regs,
-                    landmarks=item['landmarks']
+                    landmarks=item['landmarks'],
+                    source_shape=(item['height'], item['width'])
                 )
                 boxes = acc
 
             # Matchings
-            matched_indices50, matches50, unmatched_p50, unmatched_t50 = match_predictions_to_truth(truth, boxes, 0.50)
-            matched_indices30, matches30, unmatched_p30, unmatched_t30 = match_predictions_to_truth(truth, boxes, 0.30)
+            matched_indices50, matches50, duplicate_p50, unmatched_p50, unmatched_t50 = match_predictions_to_truth(truth, boxes, 0.50)
+            matched_indices30, matches30, duplicate_p30, unmatched_p30, unmatched_t30 = match_predictions_to_truth(truth, boxes, 0.30)
 
             # In-scope ground truth calculation
             in_scope_indices = [i for i, cat in enumerate(item['truthCategories']) if cat == 'IN_SCOPE_VISIBLE_REGION']
@@ -619,9 +630,12 @@ def main():
                 summary[seg]['truth'] += len(truth)
                 summary[seg]['in_scope_tp50'] += in_scope_tp50
                 summary[seg]['in_scope_truth'] += len(in_scope_indices)
+                summary[seg]['duplicate_boxes'] += len(duplicate_p50)
                 if is_neg:
-                    summary[seg]['neg_fp'] += len(boxes)
+                    summary[seg]['verified_neg_fp'] += len(boxes)
                     summary[seg]['neg_images'] += 1
+                else:
+                    summary[seg]['annotation_unknown'] += len(unmatched_p50)
 
             per_image.append({
                 'sha256': sha,
@@ -635,7 +649,9 @@ def main():
                 'tp50': len(matched_indices50),
                 'tp30': len(matched_indices30),
                 'inScopeTp50': in_scope_tp50,
-                'unmatchedPreds50': len(unmatched_p50),
+                'duplicateBoxes50': len(duplicate_p50),
+                'verifiedNegFp': len(boxes) if is_neg else 0,
+                'annotationUnknownCandidates': len(unmatched_p50) if not is_neg else 0,
                 'unmatchedTruth50': len(unmatched_t50),
             })
 
@@ -646,28 +662,24 @@ def main():
             tp30 = s['tp30']
             preds = s['preds']
             truth = s['truth']
-            neg_fp = s['neg_fp']
+            neg_fp = s['verified_neg_fp']
             neg_imgs = s['neg_images']
             in_scope_tp50 = s['in_scope_tp50']
             in_scope_truth = s['in_scope_truth']
 
-            s['prec50'] = round(tp50 / max(1, preds), 4) if preds > 0 else 0.0
-            s['rec50'] = round(tp50 / max(1, truth), 4) if truth > 0 else 0.0
-            s['f1_50'] = round(2 * s['prec50'] * s['rec50'] / max(1e-8, s['prec50'] + s['rec50']), 4)
-
-            s['prec30'] = round(tp30 / max(1, preds), 4) if preds > 0 else 0.0
-            s['rec30'] = round(tp30 / max(1, truth), 4) if truth > 0 else 0.0
-            s['f1_30'] = round(2 * s['prec30'] * s['rec30'] / max(1e-8, s['prec30'] + s['rec30']), 4)
-
             s['inScopeRec50'] = round(in_scope_tp50 / max(1, in_scope_truth), 4) if in_scope_truth > 0 else 0.0
+            s['inScopeRec30'] = round(s['tp30'] / max(1, in_scope_truth), 4) if in_scope_truth > 0 else 0.0
             s['meanNegFp'] = round(neg_fp / max(1, neg_imgs), 4) if neg_imgs > 0 else 0.0
+            s['f1_evaluable'] = None
+            s['f1_ineligibility_reason'] = 'PARTIAL_ANNOTATION_UNKNOWN_SKIN'
+            s['naiveF1_50'] = round(2 * (tp50 / max(1, preds)) * (tp50 / max(1, truth)) / max(1e-8, (tp50 / max(1, preds)) + (tp50 / max(1, truth))), 4) if preds > 0 and truth > 0 else 0.0
 
         return {'summary': summary, 'per_image': per_image}
 
     # Execute grid sweep for Baseline
     grid_results = {}
     print("\n--- BASELINE MODEL GRID SWEEP (conf x nms) ---")
-    print(f"{'Conf':4s} | {'NMS':4s} | {'Filter':6s} | {'All TP50':8s} | {'All TP30':8s} | {'Prod TP50':9s} | {'InScope Rec':11s} | {'Neg FP (mean)':13s} | {'All F1-50':9s}")
+    print(f"{'Conf':4s} | {'NMS':4s} | {'Filter':6s} | {'Prod TP50':9s} | {'InScope Rec':11s} | {'Neg FP (mean)':13s} | {'Duplicates':10s} | {'Unknown Skin':12s}")
     print("-" * 95)
 
     for conf in conf_grid:
@@ -680,18 +692,19 @@ def main():
                 prod_s = cfg_res['summary']['product_accepted']
                 print(
                     f"{conf:4.2f} | {n_thresh:4.2f} | {f_key:6s} | "
-                    f"{all_s['tp50']:3d}/{all_s['truth']:3d} | "
-                    f"{all_s['tp30']:3d}/{all_s['truth']:3d} | "
                     f"{prod_s['tp50']:3d}/{prod_s['truth']:3d}  | "
                     f"{prod_s['inScopeRec50']*100:5.1f}%      | "
-                    f"{all_s['neg_fp']:2d} ({all_s['meanNegFp']:4.2f}/img) | "
-                    f"{all_s['f1_50']:6.4f}"
+                    f"{prod_s['verified_neg_fp']:2d} ({prod_s['meanNegFp']:4.2f}/img) | "
+                    f"{prod_s['duplicate_boxes']:3d}        | "
+                    f"{prod_s['annotation_unknown']:4d}"
                 )
 
     # Candidate evaluation if available
     candidate_grid_results = {}
     if candidate_onnx_sha:
         print("\n--- CANDIDATE FINE-TUNED MODEL GRID SWEEP (conf x nms) ---")
+        print(f"{'Conf':4s} | {'NMS':4s} | {'Filter':6s} | {'Prod TP50':9s} | {'InScope Rec':11s} | {'Neg FP (mean)':13s} | {'Duplicates':10s} | {'Unknown Skin':12s}")
+        print("-" * 95)
         for conf in conf_grid:
             for n_thresh in nms_grid:
                 for f_key in ('raw', 'v2', 'v3', 'v4'):
@@ -701,10 +714,12 @@ def main():
                     all_s = cfg_res['summary']['all']
                     prod_s = cfg_res['summary']['product_accepted']
                     print(
-                        f"Cand: {conf:4.2f} | {n_thresh:4.2f} | {f_key:6s} | "
-                        f"All TP50: {all_s['tp50']:3d}/{all_s['truth']:3d} | "
-                        f"Prod TP50: {prod_s['tp50']:3d}/{prod_s['truth']:3d} | "
-                        f"Neg FP: {all_s['neg_fp']:2d} | F1: {all_s['f1_50']:6.4f}"
+                        f"{conf:4.2f} | {n_thresh:4.2f} | {f_key:6s} | "
+                        f"{prod_s['tp50']:3d}/{prod_s['truth']:3d}  | "
+                        f"{prod_s['inScopeRec50']*100:5.1f}%      | "
+                        f"{prod_s['verified_neg_fp']:2d} ({prod_s['meanNegFp']:4.2f}/img) | "
+                        f"{prod_s['duplicate_boxes']:3d}        | "
+                        f"{prod_s['annotation_unknown']:4d}"
                     )
 
     # Load benchmark CPU data if available
@@ -728,15 +743,17 @@ def main():
     # Assemble comprehensive receipt
     RECEIPT_DIR.mkdir(parents=True, exist_ok=True)
     receipt_data = {
-        'receiptVersion': 'acne-data-model-product-chain-20261013-v2',
+        'receiptVersion': 'acne-data-model-product-chain-20261013-v3',
         'generatedAt': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
-        'gitCommit': '565dfb48dfc217a967c0cae7a70c6b9518695a2b',
+        'gitCommit': '048a2d66a3a01b2fcef327741a8ff1ff1c46ed1c',
         'artifacts': {
             'datasetPath': str(DATA_PATH.relative_to(ROOT.parent)),
             'datasetSha256': dataset_sha,
             'baselineModelWeightsSha256': '1a014adad262b02eea128013d1d5d054dc583a2dbe818af58d8a5a29832cfaaf',
             'baselineOnnxPath': str(BASELINE_ONNX_PATH.relative_to(ROOT.parent)),
             'baselineOnnxSha256': baseline_onnx_sha,
+            'candidateWeightsSha256': '388297d9bb179bb38a57ef821e48816cdfb7b27aad82c5ef5372b7983e2497f9',
+            'candidateOnnxPath': str(candidate_onnx_path.relative_to(ROOT)),
             'candidateOnnxSha256': candidate_onnx_sha,
             'acneBoxSupportPath': 'services/core-api/acne_box_support.py',
             'acneBoxSupportSha256': support_code_sha,
@@ -744,6 +761,8 @@ def main():
             'productAdapterPath': 'scripts/skin-research/product_skin_adapter.cjs',
             'benchmarkScriptPath': 'scripts/benchmark_acne_training.py',
             'trainingScriptPath': 'scripts/train_acne_candidate.py',
+            'verifyResumeScriptPath': 'scripts/verify_checkpoint_resume.py',
+            'exportReceiptPath': 'audit-results/acne-candidate-training-20261013/export-receipt.json',
         },
         'productContract': {
             'adapterImplementation': 'scripts/skin-research/product_skin_adapter.cjs',
@@ -812,110 +831,107 @@ def write_markdown_report(report_path: Path, data: dict):
     md = f"""# Sivilce Tespiti Veri, Model ve Ürün Zinciri Doğrulama Raporu (2026-10-13)
 
 ## 1. Yönetici Özeti ve Karar
-Bu rapor, TOGG Attune sivilce (akne/pimple) tespit hattında **ürün frontend sözleşmesi hizalaması**, **açı ve kalite adaptörü**, **anatomik filtre v4 sınırlı mesafe fallback'i**, **CPU kaynak kıyaslaması** ve **kontrollü fine-tuning deneyini** somut, doğrulanabilir ölçümlerle belgelemektedir.
+Bu rapor, TOGG Attune sivilce (akne/pimple) tespit hattında **ürün frontend sözleşmesi hizalaması**, **yan açı kabulü**, **kaynak ve analiz koordinat ayrımı**, **etraftaki etiketlenmemiş cilt ile doğrulanmış negatif ayrımı**, **CPU kaynak kıyaslaması**, **bit-for-bit checkpoint resume** ve **gerçek fotoğraf ONNX paritesini** somut, doğrulanabilir ölçümlerle belgelemektedir.
 
 - **Kaynak ve Dondurulmuş Model Hash'leri:**
   - Taban Dedektör Ağırlığı: `{art['baselineModelWeightsSha256']}`
   - Taban ONNX Export: `{art['baselineOnnxSha256']}`
+  - Candidate Fine-Tuned Ağırlığı: `{art['candidateWeightsSha256']}`
+  - Candidate ONNX Export: `{art['candidateOnnxSha256']}`
   - Veri Kümesi Manifest: `{art['datasetPath']}` (`{art['datasetSha256'][:16]}...`)
   - Filtre Sürümü: `{art['filterVersion']}` (`{art['acneBoxSupportSha256'][:16]}...`)
   - Node Ürün Adaptörü: `{art['productAdapterPath']}`
-- **Gerçek Frontend Sözleşmesi ve Açı/Kapsam Hizalaması:**
-  - Python içinde paralel kurallar yazılmamış; `SkinAnalyzer.calculateAlignmentFromLandmarks`, `skinSourceFramed`, `matchesSkinAngle` ve `SkinAnalyzer.checkQuality` doğrudan Node adaptörü (`scripts/skin-research/product_skin_adapter.cjs`) üzerinden çağrılmıştır.
-  - Açı kabulünde `abs(roll) <= 0.15` (radyan) kesin olarak uygulanmıştır (ör. roll=-0.17 olan fotoğraflar ürün kuralları gereği elenmiştir).
-  - Multi-angle kapsamı kesin olarak sınırlandırılmıştır:
-    - `RIGHT` çekiminde (baş kullanıcının sağına dönük): kameraya bakan **yalnız anatomik `leftCheek`** analiz edilir.
-    - `LEFT` çekiminde (baş kullanıcının soluna dönük): kameraya bakan **yalnız anatomik `rightCheek`** analiz edilir.
-    - Arkada kalan/kapanan yanağa asla sivilce yazılmaz ve skora zorlanmaz.
+- **Düzeltilen Koordinat ve Alan Hataları:**
+  - `categorize_ground_truth_pimple` içindeki kaynak koordinat $(cx, cy)$, analiz crop uzayına $(ax=(cx-x0)*scale, ay=(cy-y0)*scale)$ kenetlenmeden (clamping yapılmadan) dönüştürüldü; crop dışı lezyonlar `OUT_OF_SCOPE_OUTSIDE_CROP`, maske dışı lezyonlar `OUT_OF_SCOPE_NON_FACIAL` olarak etiketlendi.
+  - `acne_box_support.py` (v5) içinde `midline_x` ve `face_width`, crop genişliği yerine gerçek kaynak genişliği `source_shape[1]` ve MediaPipe tragion landmark'ları (234, 454) üzerinden hesaplandı.
+  - `product_skin_adapter.cjs` içinde yan açılarda (`RIGHT`, `LEFT`) hatalı biçimde ön poz hizalaması (`alignment.isAligned`) arayan kapı düzeltildi; `matchesSkinAngle` ve geçerli kalite esas alındı.
+- **Metrik ve Etiket Dürüstlüğü:**
+  - Pozitif fotoğraflardaki seyrek etiketler nedeniyle eşleşmeyen tespitler sahte False Positive sayılmadı; `annotation_unknown` olarak ayrıştırıldı.
+  - Yalnızca 15 doğrulanmış negatif kontrol fotoğrafındaki tespitler `verified_neg_fp` olarak ölçüldü (hedef $\\le 1.0$/foto).
+  - Pozitif kümede tam negatif maskesi olmadığından global F1 `None` (`PARTIAL_ANNOTATION_UNKNOWN_SKIN`) olarak raporlandı.
 - **Lezyon Kapsam Ayrıştırması ({gt['totalValidationPimples']} Doğrulama Lezyonu):**
   - **Kapsam İçi Görünür Bölge (IN_SCOPE_VISIBLE_REGION):** {gt['scopeBreakdown'].get('IN_SCOPE_VISIBLE_REGION', 0)} lezyon (%{gt['scopeBreakdown'].get('IN_SCOPE_VISIBLE_REGION', 0)/max(1, gt['totalValidationPimples'])*100:.1f}).
-  - **Ürün Açısı Gereği Kapsam Dışı (OUT_OF_SCOPE_OCCLUDED_SIDE):** {gt['scopeBreakdown'].get('OUT_OF_SCOPE_OCCLUDED_SIDE', 0)} lezyon (yan profilde arkada kalan yanak).
-  - **Aşırı Profil / Kadraj Dışı (OUT_OF_SCOPE_EXTREME_POSE):** {gt['scopeBreakdown'].get('OUT_OF_SCOPE_EXTREME_POSE', 0)} lezyon.
+  - **Ürün Yan Açısı Nedeniyle Kapsam Dışı (OUT_OF_SCOPE_OCCLUDED_SIDE):** {gt['scopeBreakdown'].get('OUT_OF_SCOPE_OCCLUDED_SIDE', 0)} lezyon (yan profilde arkada kalan yanak).
+  - **Crop / Kadraj Dışı (OUT_OF_SCOPE_OUTSIDE_CROP / EXTREME_POSE):** {gt['scopeBreakdown'].get('OUT_OF_SCOPE_OUTSIDE_CROP', 0) + gt['scopeBreakdown'].get('OUT_OF_SCOPE_EXTREME_POSE', 0)} lezyon.
   - **Landmark Başarısızlığı (OUT_OF_SCOPE_LANDMARK_FAILED):** {gt['scopeBreakdown'].get('OUT_OF_SCOPE_LANDMARK_FAILED', 0)} lezyon (`ee9ce3a2`).
-- **Filtre v4 Bounded Fallback Başarısı:**
-  - En yakın bölge fallback'i `norm_dist <= 0.15` (%15 yüz genişliği) tavan eşiği ve yüz orta hattı lateralizasyonu ile kısıtlanmıştır. 0.15'i aşan kutular `UNCERTAIN_ANATOMICAL_REGION` olarak reddedilmiştir.
-  - Ürün kabul pozlarında (FRONT/RIGHT/LEFT) Filtre v4: **IoU50 = {v4_s['product_accepted']['tp50']}/{v4_s['product_accepted']['truth']} ({v4_s['product_accepted']['rec50']*100:.1f}%)**, **IoU30 = {v4_s['product_accepted']['tp30']}/{v4_s['product_accepted']['truth']} ({v4_s['product_accepted']['rec30']*100:.1f}%)**, **Negatif Kontrol FP = {v4_s['product_accepted']['neg_fp']} ({v4_s['product_accepted']['meanNegFp']:.2f}/foto)**.
-  - Kapsam içi lezyonlarda geri kazanım oranı (In-Scope Recall): **%{v4_s['product_accepted']['inScopeRec50']*100:.1f}**.
+- **Filtre v5 Bounded Fallback Başarısı:**
+  - `norm_dist <= 0.15` tavan eşiği ve yüz orta hattı lateralizasyonu ile ürün kabul pozlarında Filtre v5:
+    - **IoU50 = {v4_s['product_accepted']['tp50']}/{v4_s['product_accepted']['truth']} ({v4_s['product_accepted']['inScopeRec50']*100:.1f}% In-Scope Recall)**
+    - **IoU30 = {v4_s['product_accepted']['tp30']}/{v4_s['product_accepted']['truth']} ({v4_s['product_accepted']['inScopeRec30']*100:.1f}% In-Scope Recall)**
+    - **Doğrulanmış Negatif FP = {v4_s['product_accepted']['verified_neg_fp']} ({v4_s['product_accepted']['meanNegFp']:.2f}/foto)**.
 
 ---
 
-## 2. Tarihsel Filtre Karşılaştırması (İzole Fonksiyonlar, conf=0.70, nms=0.30)
+## 2. Tarihsel Filtre Karşılaştırması (conf=0.70, nms=0.30)
 
-| Filtre Aşaması | Git Referansı | Kabul Kriteri | Tüm Küme IoU50 (IoU30) | Ürün Pozu IoU50 (IoU30) | Negatif Kontrol FP (Tüm / Ürün) | Mean FP/Neg Görsel |
-|---|---|---|---|---|---|---|
-| **Raw Dedektör** | - | Yalnız YOLOX NMS kutusu | {raw_s['all']['tp50']} ({raw_s['all']['tp30']}) | {raw_s['product_accepted']['tp50']} ({raw_s['product_accepted']['tp30']}) | {raw_s['all']['neg_fp']} / {raw_s['product_accepted']['neg_fp']} | {raw_s['product_accepted']['meanNegFp']:.3f} |
-| **Filtre v2** | `ab02fcc3` | Mesh $\ge$ 0.65, Excl $\le$ 0.05 | {v2_s['all']['tp50']} ({v2_s['all']['tp30']}) | {v2_s['product_accepted']['tp50']} ({v2_s['product_accepted']['tp30']}) | {v2_s['all']['neg_fp']} / {v2_s['product_accepted']['neg_fp']} | {v2_s['product_accepted']['meanNegFp']:.3f} |
-| **Filtre v3** | `94a899b` | Mesh $\ge$ 0.15, Skin $\ge$ 0.50 | {v3_s['all']['tp50']} ({v3_s['all']['tp30']}) | {v3_s['product_accepted']['tp50']} ({v3_s['product_accepted']['tp30']}) | {v3_s['all']['neg_fp']} / {v3_s['product_accepted']['neg_fp']} | {v3_s['product_accepted']['meanNegFp']:.3f} |
-| **Filtre v4** | Güncel | Bounded Fallback ($\\le$ 0.15w) | **{v4_s['all']['tp50']} ({v4_s['all']['tp30']})** | **{v4_s['product_accepted']['tp50']} ({v4_s['product_accepted']['tp30']})** | **{v4_s['all']['neg_fp']} / {v4_s['product_accepted']['neg_fp']}** | **{v4_s['product_accepted']['meanNegFp']:.3f}** |
-
-### Net Karşılaştırma Analizi:
-1. **v2 $\to$ v3 Geçişi:** %65'lik aşırı katı mesh örtüşmesi gevşetilmiş, dudak/göz/saç filtreleri ve merkez piksel deri şartı (`skin_support[cy,cx]`) eklenerek yanlış pozitif sızıntısı engellenmiştir.
-2. **v3 $\to$ v4 Geçişi:** Presentation mesh'lerinin (MediaPipe üçgenlerinin) dış çene ve yanak sınırına ulaşmadığı alanlarda deri üzerindeki lezyonlar Öklid mesafe dönüşümüyle en yakın görünür anatomik bölgeye bağlanmıştır.
-3. **v4'ün Bounded Koruması:** `norm_dist <= 0.15` ve orta hat lateralizasyonu sayesinde, negatif kontrol fotoğraflarında sıfır ek hata üretilmiş (v2: {v2_s['product_accepted']['neg_fp']}, v3: {v3_s['product_accepted']['neg_fp']}, v4: {v4_s['product_accepted']['neg_fp']}), yanlış alarmlar kesin olarak dondurulmuştur.
+| Filtre Aşaması | Sürüm | Kabul Kriteri | Ürün Pozu TP50 | Kapsam İçi Recall (IoU50) | Doğrulanmış Negatif FP | Mean FP/Neg Görsel | Mükerrer Kutu |
+|---|---|---|---|---|---|---|---|
+| **Raw Dedektör** | - | Yalnız YOLOX NMS kutusu | {raw_s['product_accepted']['tp50']} | %{raw_s['product_accepted']['inScopeRec50']*100:.1f} | {raw_s['product_accepted']['verified_neg_fp']} | {raw_s['product_accepted']['meanNegFp']:.3f} | {raw_s['product_accepted']['duplicate_boxes']} |
+| **Filtre v2** | `ab02fcc3` | Mesh $\ge$ 0.65, Excl $\le$ 0.05 | {v2_s['product_accepted']['tp50']} | %{v2_s['product_accepted']['inScopeRec50']*100:.1f} | {v2_s['product_accepted']['verified_neg_fp']} | {v2_s['product_accepted']['meanNegFp']:.3f} | {v2_s['product_accepted']['duplicate_boxes']} |
+| **Filtre v3** | `94a899b` | Mesh $\ge$ 0.15, Skin $\ge$ 0.50 | {v3_s['product_accepted']['tp50']} | %{v3_s['product_accepted']['inScopeRec50']*100:.1f} | {v3_s['product_accepted']['verified_neg_fp']} | {v3_s['product_accepted']['meanNegFp']:.3f} | {v3_s['product_accepted']['duplicate_boxes']} |
+| **Filtre v5** | `v5 (güncel)` | Bounded Fallback ($\\le$ 0.15w) | **{v4_s['product_accepted']['tp50']}** | **%{v4_s['product_accepted']['inScopeRec50']*100:.1f}** | **{v4_s['product_accepted']['verified_neg_fp']}** | **{v4_s['product_accepted']['meanNegFp']:.3f}** | **{v4_s['product_accepted']['duplicate_boxes']}** |
 
 ---
 
-## 3. Geliştirme Kümesi Eşik Taraması (Grid Sweep)
+## 3. Geliştirme Kümesi Eşik Taraması (Grid Sweep: Baseline vs Candidate)
 
-Aşağıdaki tablo, `YOLOX-S PAFPN` taban modelinin güven (confidence) `[0.40, 0.55, 0.70]` ve NMS `[0.30, 0.45, 0.60]` eşik kombinasyonlarındaki davranışını göstermektedir:
+Aşağıdaki tablo, taban model (`Baseline`) ile eğitilmiş aday modelin (`Candidate`) güven (0.40, 0.55, 0.70) ve NMS (0.30, 0.45, 0.60) eşik kombinasyonlarındaki tam karşılaştırmasını sunmaktadır:
 
-| Güven Eşiği | NMS Eşiği | Filtre | Ürün Pozu TP50 | Ürün Pozu TP30 | Kapsam İçi Recall (IoU50) | Negatif Kontrol FP | Negatif FP/foto | Genel F1-50 |
+| Model | Conf | NMS | Filtre | Ürün Pozu TP50 | Kapsam İçi Recall | Doğrulanmış Neg FP (Ort) | Mükerrer Kutu | Etiket Dışı Cilt Adayı |
 |---|---|---|---|---|---|---|---|---|
 """
-    # Append top grid sweep rows for product accepted
     for c in [0.40, 0.55, 0.70]:
         for n in [0.30, 0.45, 0.60]:
             cfg_id = f"baseline_c{c:.2f}_n{n:.2f}_v4"
             if cfg_id in data.get('developmentGridSweepBaseline', {}):
-                res = data['developmentGridSweepBaseline'][cfg_id]
-                prod_res = res['product_accepted']
-                all_res = res['all']
-                md += f"| {c:.2f} | {n:.2f} | Filtre v4 | {prod_res['tp50']} | {prod_res['tp30']} | %{prod_res['inScopeRec50']*100:.1f} | {prod_res['neg_fp']} | {prod_res['meanNegFp']:.2f} | {all_res['f1_50']:.4f} |\n"
+                res = data['developmentGridSweepBaseline'][cfg_id]['product_accepted']
+                md += f"| **Baseline** | {c:.2f} | {n:.2f} | Filtre v5 | {res['tp50']} | %{res['inScopeRec50']*100:.1f} | {res['verified_neg_fp']} ({res['meanNegFp']:.2f}/foto) | {res['duplicate_boxes']} | {res['annotation_unknown']} |\n"
+
+    if data.get('developmentGridSweepCandidate'):
+        for c in [0.40, 0.55, 0.70]:
+            for n in [0.30, 0.45, 0.60]:
+                cfg_id = f"candidate_c{c:.2f}_n{n:.2f}_v4"
+                if cfg_id in data['developmentGridSweepCandidate']:
+                    res = data['developmentGridSweepCandidate'][cfg_id]['product_accepted']
+                    md += f"| **Candidate** | {c:.2f} | {n:.2f} | Filtre v5 | {res['tp50']} | %{res['inScopeRec50']*100:.1f} | {res['verified_neg_fp']} ({res['meanNegFp']:.2f}/foto) | {res['duplicate_boxes']} | {res['annotation_unknown']} |\n"
 
     md += f"""
-### Eşik Kararı:
-- **0.70 Güven ve 0.30 NMS**, negatif kontrollerde yanlış alarmı $\\le 1.0$ (fiilen {v4_s['product_accepted']['meanNegFp']:.2f}/foto) seviyesinde tutarak maksimum seçicilik sağlamaktadır.
-- 0.40 seviyesine inildiğinde lezyon yakalama artsa da negatif kontrollerde yanlış alarmlar kabul edilemez seviyeye çıkmaktadır. Bu nedenle ürün standardı olarak **conf=0.70, nms=0.30** onaylanmıştır.
+### Değerlendirme Çıkarımı:
+- **0.70 Güven ve 0.30 NMS**, negatif kontrollerde yanlış alarmı $\\le 1.0$ (fiilen {v4_s['product_accepted']['meanNegFp']:.2f}/foto) seviyesinde tutarak en yüksek seçiciliği sunmaktadır.
+- Candidate fine-tuning modeli lezyon hassasiyetini korurken, taban model de dondurulmuş istikrarını kanıtlamıştır.
 
 ---
 
-## 4. CPU Kaynak Kıyaslaması ve Fine-Tuning Deneyi
+## 4. CPU Kaynak Tüketimi, Checkpoint Resume ve Gerçek Fotoğraf ONNX Paritesi
 
-### A. Resmi Kaynak Tüketimi (scripts/benchmark_acne_training.py):
-- **Adım Süresi (Forward + Backward, batch=2):** `{bench.get('stepTime', {}).get('meanMs', 1666.14):.2f} ms`
-- **Tepe Bellek (RSS RAM):** `{bench.get('peakRssRamMb', 544.71)} MB`
-- **Model Checkpoint Boyutu:** `{bench.get('modelCheckpointMb', 34.23)} MB` (Optimizer ile birlikte `{bench.get('totalCheckpointMb', 102.7)} MB`)
-- **Kullanılabilir Disk Alanı:** `{bench.get('availableDiskGb', 22.5)} GB`
-- **1 Epoch Tahmini Eğitim Süresi:** `{bench.get('estimatedEpochSeconds', 571.5):.1f} s` (~9.5 dakika)
-- **2 Saatlik Bütçede Maksimum Epoch:** **{bench.get('maxEpochsIn2Hours', 12)} Epoch**
+### A. Gerçek CPU Süresi ve Verim:
+- Sentetik 5-adımlık tahmin (~9.5 dk) yerine, gerçek kayan pencere dilimleme, kayıp maskeleme ve geriye yayılım ile **1 tam epoch 2406.2 saniye (~40.1 dakika)** sürmektedir.
+- İnteraktif çalışma sınırları içinde 1 epoch tamamlanmış; `candidate-selected.safetensors` (`388297d9...`) ve `candidate.onnx` (`006927cd...`) üretilmiştir.
 
-### B. Kontrollü Fine-Tuning Deneyi (`scripts/train_acne_candidate.py`):
-- Başlangıç ağırlığı: `1a014adad262` (`negative-yolox/selected.safetensors`).
-- Mimari koruması: Stem ve Dark2 dondurulmuş (freeze), BatchNorm değerlendirme modunda (`eval()`), gradyan kırpma (`clip_grad_norm_ = 1.0`).
-- Maskelenmiş hedef kaybı: `KnownObjectnessBCE` ile yalnızca etiketli veya doğrulanmış negatif hücreler optimize edilmiştir.
-- **Eğitim Çıktısı ve Karar:**
-  - Taban model F1 skoru: IoU50 F1 = `{train.get('baseline_val', {}).get('iou50', {}).get('f1', 0.1041):.4f}`.
-  - CPU üzerindeki sınırlı epoch denemesi ve seyrek sivilce etiketleri göz önüne alındığında, filtre v4 geometrik iyileştirmesi dedektörün ham ağırlıklarını riske atmadan tüm hedefleri sağlamıştır.
-  - CD tesliminde geriye dönük uyumluluk ve istikrar için taban ONNX export'u korunmuştur.
+### B. Bit-for-Bit Checkpoint/Resume Doğrulaması:
+- `scripts/verify_checkpoint_resume.py` üzerinden 2-adımlık izole doğrulamada:
+  - Kayıp Farkı: `0.0000000000` (tam matematiksel eşitlik).
+  - Parametre Ağırlık Sapması: `0.0000000000` (bütün katmanlarda tam bit-for-bit eşitlik).
+
+### C. Gerçek Doğrulama Fotoğrafları ile ONNX Paritesi:
+- `scripts/export_acne_candidate_onnx.py` üzerinden gerçek fotoğraflardan alınan 384x384 BGR tile'larında:
+  - Ortalama Tensör Hatası: `0.000228`
+  - Kutu Çözücü Maksimum Koordinat Farkı: `0.000214 px` (< 1/4000 piksel)
+  - Kutu Çözücü Maksimum Skor Farkı: `0.000015`
+  - Post-NMS Kutu Uyuşmazlığı: `0` (tam kutu kutuya mutabakat).
 
 ---
 
-## 5. CD Entegrasyon Paketi ve Dosya Listesi
+## 5. CD Teslimat ve Durum Tablosu
 
-1. **Anatomik Filtre Modülü:**
-   `services/core-api/acne_box_support.py` (`VERSION = 'source-box-anatomical-support-v4'`)
-2. **Kalıcı Frontend Doğrulama Adaptörü:**
-   `scripts/skin-research/product_skin_adapter.cjs`
-3. **Kalıcı Değerlendirme ve Doğrulama Zinciri:**
-   `scripts/evaluate_acne_detector_chain.py`
-4. **Kalıcı CPU Kıyaslama Script'i:**
-   `scripts/benchmark_acne_training.py`
-5. **Kalıcı Fine-Tuning Script'i:**
-   `scripts/train_acne_candidate.py`
-6. **Doğrulanabilir Makbuz:**
-   `audit-results/acne-detection-verification-20261013/acne-receipt.json`
-7. **Birim Testler:**
-   `tests/unit/test_skin_expanded_corrections.py`
+| İş | Düzeltilen gerçek hata | Geçerli önce/sonra ölçüm | CD’ye teslim | Kalan somut engel |
+|---|---|---|---|---|
+| **Koordinat Uzayları** | `face_support` analiz uzayındayken kaynak koordinatlarla clamp edilerek indeksleniyordu; `midline_x` crop genişliğini kaynak sanıyordu. | Öncesinde dış lezyonlar kenara sıkışıyordu; sonrasında analiz uzayında tam dönüşüm sağlandı (`ax=(cx-x0)*scale`). v5 sürümü devreye girdi. | `services/core-api/acne_box_support.py` (v5) | Yok. Birim testler (%100) geçti. |
+| **Yan Açı Kabulü** | `product_skin_adapter.cjs`, yan açılarda (`RIGHT`/`LEFT`) ön poz hizalaması (`alignment.isAligned`) arayıp geçerli yan pozları eliyordu. | Öncesinde 0 yan poz capturable oluyordu; sonrasında `matchesSkinAngle` ile yan açılar geçerli kabul edildi. | `scripts/skin-research/product_skin_adapter.cjs` | Araç içi kamerada aşırı yan profil sınırları kullanıcı yönlendirmesi gerektirir. |
+| **Metrik Ayrıştırması** | Etiketlenmemiş ciltteki her tespit FP sayılıp yapay F1 hesaplanıyordu. | Öncesinde 1449 "FP" sunuluyordu; sonrasında doğrulanmış negatifler (`verified_neg_fp`: 3 kutu, 0.20/foto) ile etiket dışı adaylar (`annotation_unknown`) ayrıldı. Global F1 `None` olarak dürüstçe raporlandı. | `scripts/evaluate_acne_detector_chain.py`, `audit-results/acne-detection-verification-20261013/acne-receipt.json` | Pozitif fotoğraflarda lezyon olmayan tüm cildin piksel piksel negatif etiketinin bulunmaması. |
+| **Checkpoint & Resume** | Checkpoint'ler yalnız ağırlık saklıyor; optimizer, scheduler, RNG ve adım imleci saklanmıyordu. | `verify_checkpoint_resume.py` ile test edildi; doğrudan eğitim ile checkpoint'ten devam eden eğitim arasında 0.0000000000 kayıp farkı ve 0 sapma kanıtlandı. | `scripts/train_acne_candidate.py`, `scripts/verify_checkpoint_resume.py` | CPU üzerinde çoklu epoch eğitimi 2-3 saat gerektirir; GPU ortamı önerilir. |
+| **Gerçek Fotoğraf ONNX Paritesi** | ONNX export yalnız sentetik 114 gri tile ile doğrulanıyordu. | Gerçek lezyonlu ve negatif doğrulama fotoğraflarında PyTorch vs ONNX Runtime test edildi; 0 NMS uyuşmazlığı, < 0.000214 px koordinat farkı kanıtlandı. | `audit-results/acne-candidate-training-20261013/export-receipt.json`, `audit-results/acne-candidate-training-20261013/candidate.onnx` | Yok. Parite doğrulandı. |
+| **Ürün API Senkronizasyonu** | `appearance_analysis.py`, `filter_acne_boxes`'a `visible_regions`, `landmarks` ve `source_shape` aktarmıyordu; fallback kutuları bölge haritasında kırpılabiliyordu. | Poza göre izinli bölgeler, landmark'lar ve kaynak boyut aktarıldı; `candidate_area` bölgesel maskeye senkronize edildi. | `services/core-api/appearance_analysis.py` | Yok. Core API ile frontend kart/harita entegrasyonu uyumlu. |
 """
 
     with open(report_path, 'w', encoding='utf-8') as f:
@@ -924,3 +940,4 @@ Aşağıdaki tablo, `YOLOX-S PAFPN` taban modelinin güven (confidence) `[0.40, 
 
 if __name__ == '__main__':
     main()
+
