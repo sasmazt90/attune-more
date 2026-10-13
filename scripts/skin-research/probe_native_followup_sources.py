@@ -1,9 +1,12 @@
 """Bounded new source selection: actual MP, quality, pose and snapshot contracts."""
-import base64,hashlib,json,time,urllib.request
+import argparse,base64,hashlib,json,time,urllib.request
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'audit-results/dry-sag-native-followup-20261013'
-sources=json.loads((OUT/'probe-selection.json').read_text('utf8'));profile=ROOT/'output/playwright/dry-sag-native-followup-20261013/probe-profile'
+ROOT=Path(__file__).resolve().parents[2]
+parser=argparse.ArgumentParser();parser.add_argument('--selection',type=Path);parser.add_argument('--out',type=Path)
+args=parser.parse_args();OUT=args.out or ROOT/'audit-results/dry-sag-native-followup-20261013';OUT.mkdir(parents=True,exist_ok=True)
+assert OUT.resolve().is_relative_to((ROOT/'audit-results').resolve())
+sources=json.loads((args.selection or OUT/'probe-selection.json').read_text('utf-8-sig'));profile=ROOT/'output/playwright'/OUT.name/'probe-profile'
 with sync_playwright() as pw:
  context=pw.chromium.launch_persistent_context(str(profile),channel='chrome',headless=False,viewport=dict(width=1400,height=950),args=['--enable-unsafe-swiftshader'])
  context.route('**/__audit/vision_bundle.mjs',lambda r:r.fulfill(path=str(ROOT/'node_modules/@mediapipe/tasks-vision/vision_bundle.mjs'),content_type='text/javascript'))
