@@ -21,7 +21,7 @@ from skin_scan_baseline.blemishes import blemish_map
 
 VERSION = 'appearance-cv-6'
 LIMITS = {'minFacePixels': 180, 'analysisFacePixels': 320, 'maxClippedFraction': .03}
-NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-area-fixed-v2-shared','acne':'unique-detection-box-anatomical-area-v2','lines':'outer-canthus-gabor-radiating-hair-excluded-v4','dark':'lower-lid-contrast-chroma-local-v4','sag':'contour-fold-lower-face-local-support-v6','bags':'contour-fold-local-support-v5'}
+NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-area-fixed-v2-shared','acne':'unique-detection-box-anatomical-area-v3','lines':'outer-canthus-gabor-radiating-hair-excluded-v4','dark':'lower-lid-contrast-chroma-local-v4','sag':'contour-fold-lower-face-local-support-v6','bags':'contour-fold-local-support-v5'}
 
 
 def decode_photo(data):
@@ -379,26 +379,36 @@ def analyze_skin(payload, include_research_features=False):
             # Small red center-surround candidates need circularity, texture and
             # multi-scale agreement. Dark moles/freckles and hair aren't acne evidence.
             boxes=[];candidate_area=np.zeros(gray.shape,bool)
+            # Regional measurement area (denominator) is strictly precomputed from source anatomy, visibility, and pose.
+            # Candidate boxes MUST NOT alter this denominator!
+            acne_valid=acne_envelopes.get(region,np.zeros_like(valid))&acne_skin if not include_research_features else valid
+            observed=acne_envelopes.get(region,np.zeros_like(valid))&(face_support>0)&(exclusion==0)&~hair
+            acne_reason=('CAPTURE_QUALITY' if not payload.get('qualityValid') else 'GLARE_OR_EXPOSURE' if observed.any() and acne_clipping[observed].mean()>.03 else 'INSUFFICIENT_VISIBLE_AREA' if acne_valid.sum()<100 else None) if not include_research_features else reason
+            acne_reason=acne_reason or (None if include_research_features or trained_acne and trained_acne.get('valid') else (trained_acne or {}).get('reason','ACNE_MODEL_NOT_ACCEPTED'))
+
             if include_research_features:
                 for x,y,w,h,count,blob in assigned[region]:
                     candidate_area|=blob;boxes.append(dict(x=float(x/scale+x0),y=float(y/scale+y0),width=float(w/scale),height=float(h/scale),areaPixels=float(count/scale**2)))
-            elif trained_acne and trained_acne.get('valid'):
-                boxes=accepted_boxes[region]
-                for box in boxes:
-                    a=max(0,int((box['x']-x0)*scale));b=max(0,int((box['y']-y0)*scale));c=min(gray.shape[1],int(math.ceil((box['x']+box['width']-x0)*scale)));d=min(gray.shape[0],int(math.ceil((box['y']+box['height']-y0)*scale)));candidate_area[b:d,a:c]=True
-            acne_valid=(acne_envelopes.get(region,np.zeros_like(valid))|candidate_area)&acne_skin if not include_research_features else valid
-            observed=(acne_envelopes.get(region,np.zeros_like(valid))|candidate_area)&(face_support>0)&(exclusion==0)&~hair
-            acne_reason=('CAPTURE_QUALITY' if not payload.get('qualityValid') else 'GLARE_OR_EXPOSURE' if observed.any() and acne_clipping[observed].mean()>.03 else 'INSUFFICIENT_VISIBLE_AREA' if acne_valid.sum()<100 else None) if not include_research_features else reason
-            acne_reason=acne_reason or (None if include_research_features or trained_acne and trained_acne.get('valid') else (trained_acne or {}).get('reason','ACNE_MODEL_NOT_ACCEPTED'))
+            elif trained_acne and trained_acne.get('valid') and acne_reason is None:
+                # Card, count, circle bounds, and map derive from the SAME regional candidate scope.
+                # A candidate must have visible intersection with the region's evaluated area (acne_valid).
+                # Boxes with no overlap in acne_valid are not assigned to this region's card/map.
+                for box in accepted_boxes.get(region,[]):
+                    a=max(0,int((box['x']-x0)*scale));b=max(0,int((box['y']-y0)*scale));c=min(gray.shape[1],int(math.ceil((box['x']+box['width']-x0)*scale)));d=min(gray.shape[0],int(math.ceil((box['y']+box['height']-y0)*scale)))
+                    if c>a and d>b and acne_valid[b:d,a:c].any():
+                        boxes.append(box)
+                        candidate_area[b:d,a:c]=True
+
             if acne_reason:boxes=[];candidate_area[:]=False
             coverage=float(candidate_area[acne_valid].mean()*100) if acne_valid.any() else 0.
-            acne_area={**area,'sourcePixels':float(acne_valid.sum()/scale**2),'analysisPixels':int(acne_valid.sum()),'anatomicalSourcePixels':float((acne_envelopes.get(region,anatomical)|candidate_area).sum()/scale**2),'scope':ACNE_SUPPORT_VERSION}
-            add('acne',coverage,'appearance-score-0-100',limitation=acne_reason,measurement_area=acne_area,components={'bounds':boxes,'candidateCount':len(boxes),'evaluatedArea':acne_area,'candidateBoxCoveragePercent':coverage,'normalization':'unique accepted detection-box pixels / visible anatomical source pixels *100','pixelSegmentation':False,'filterVersion':ACNE_SUPPORT_VERSION,'clinicalSeverity':False})
+            acne_norm_version=NORMALIZATION.get('acne','unique-detection-box-anatomical-area-v3')
+            acne_area={**area,'sourcePixels':float(acne_valid.sum()/scale**2),'analysisPixels':int(acne_valid.sum()),'anatomicalSourcePixels':float(acne_envelopes.get(region,anatomical).sum()/scale**2),'scope':ACNE_SUPPORT_VERSION,'normalizationVersion':acne_norm_version}
+            add('acne',coverage,'appearance-score-0-100',limitation=acne_reason,measurement_area=acne_area,components={'bounds':boxes,'candidateCount':len(boxes),'evaluatedArea':acne_area,'candidateBoxCoveragePercent':coverage,'normalization':'unique accepted detection-box pixels / visible anatomical source pixels *100','normalizationVersion':acne_norm_version,'pixelSegmentation':False,'filterVersion':ACNE_SUPPORT_VERSION,'clinicalSeverity':False})
             if acne_reason is None and not include_research_features:
                 signal=cv2.GaussianBlur(candidate_area.astype(np.float32),(0,0),2)*acne_valid
                 layer=map_result(signal,acne_valid,region,'acne',source_hash,payload['pose'],bgr.shape,scale,'percent-visible-area',1.,origin)
                 if layer:
-                    layer.update(mapType='detection-box-support',method=ACNE_SUPPORT_VERSION,clinicalSeverity=False)
+                    layer.update(mapType='detection-box-support',method=ACNE_SUPPORT_VERSION,clinicalSeverity=False,normalizationVersion=acne_norm_version)
                     maps[region+':acne']=layer;items[-1]['localMap']=dict(key=region+':acne',photoId=source_hash,region=region,criterion='acne',coordinateSpace='source-pixels')
             if trained_acne and trained_acne.get('valid'):
                 items[-1].update(modelVersion=trained_acne['modelVersion'],modelHash=trained_acne['modelHash']);items[-1]['components']['inference']= {k:trained_acne[k] for k in ('tileCount','loadMs','inferenceMs')}

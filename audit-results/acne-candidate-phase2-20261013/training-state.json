@@ -1,0 +1,98 @@
+{
+  "identity": "acne-candidate-phase2-20261013",
+  "dataset_sha256": "2ef416d57d26cb552ad3aff081a62ae63384e32d7a6decfc1c8a34ece1d158c9",
+  "step": 1290,
+  "epoch": 3,
+  "completed_epochs": 3,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.8762,
+      "val_in_scope_rec50": 0.4638,
+      "val_in_scope_rec30": 0.663,
+      "val_in_scope_tp50": 128,
+      "val_in_scope_tp30": 183,
+      "val_in_scope_truth": 276,
+      "val_verified_neg_fp": 72,
+      "val_mean_neg_fp": 4.8,
+      "val_annotation_unknown": 2492,
+      "selection_score": -0.0162,
+      "epoch_seconds": 1097.1
+    },
+    {
+      "epoch": 2,
+      "train_loss": 6.9758,
+      "val_in_scope_rec50": 0.4312,
+      "val_in_scope_rec30": 0.6775,
+      "val_in_scope_tp50": 119,
+      "val_in_scope_tp30": 187,
+      "val_in_scope_truth": 276,
+      "val_verified_neg_fp": 76,
+      "val_mean_neg_fp": 5.0667,
+      "val_annotation_unknown": 3727,
+      "selection_score": -0.0755,
+      "epoch_seconds": 1139.5
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.2145,
+      "val_in_scope_rec50": 0.4601,
+      "val_in_scope_rec30": 0.6812,
+      "val_in_scope_tp50": 127,
+      "val_in_scope_tp30": 188,
+      "val_in_scope_truth": 276,
+      "val_verified_neg_fp": 58,
+      "val_mean_neg_fp": 3.8667,
+      "val_annotation_unknown": 3075,
+      "selection_score": 0.0734,
+      "epoch_seconds": 724.3
+    }
+  ],
+  "best_score": 0.34823,
+  "bad_epochs": 3,
+  "max_gradients": {
+    "backbone.backbone.dark3.0.conv.weight": 1628.626220703125,
+    "backbone.lateral_conv0.conv.weight": 9567.728515625,
+    "head.reg_convs.0.0.conv.weight": 104.0377197265625
+  },
+  "status": "EARLY_STOPPED_PATIENCE",
+  "initial_val": {
+    "inScopeRec50": 0.3949,
+    "inScopeRec30": 0.6051,
+    "inScopeTp50": 109,
+    "inScopeTp30": 167,
+    "inScopeTruth": 276,
+    "allRec50": 0.3949,
+    "allRec30": 0.6051,
+    "allTp50": 109,
+    "allTp30": 167,
+    "allTruth": 276,
+    "verifiedNegFp": 7,
+    "meanNegFp": 0.4667,
+    "negImages": 15,
+    "annotationUnknown": 1456,
+    "f1_evaluable": null,
+    "f1_ineligibility_reason": "PARTIAL_ANNOTATION_UNKNOWN_SKIN"
+  },
+  "proof_evidence": {
+    "backbone.backbone.dark3.0.conv.weight": {
+      "maxWeightDiff": 0.008349,
+      "maxGradient": 1628.626221,
+      "weightsUpdated": true,
+      "gradientObserved": true
+    },
+    "backbone.lateral_conv0.conv.weight": {
+      "maxWeightDiff": 0.012898,
+      "maxGradient": 9567.728516,
+      "weightsUpdated": true,
+      "gradientObserved": true
+    },
+    "head.reg_convs.0.0.conv.weight": {
+      "maxWeightDiff": 0.011823,
+      "maxGradient": 104.03772,
+      "weightsUpdated": true,
+      "gradientObserved": true
+    }
+  },
+  "total_accumulated_seconds": 6474.5
+}
