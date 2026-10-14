@@ -12,3 +12,5 @@ apps/vehicle-app/public/mediapipe/wasm/*.js whitespace=cr-at-eol,-blank-at-eol,-
 third-party/skin-focused/*.txt -text whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof
 apps/vehicle-app/public/audio/vision-speech/** -text
 apps/vehicle-app/public/audio/vision-speech/manifest.json whitespace=cr-at-eol
+# User-pinned model/head/parity hashes identify exact package bytes on every OS.
+services/core-api/models/dryness-calibrated-v3/** -text whitespace=cr-at-eol

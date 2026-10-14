@@ -1,0 +1,182 @@
+{
+  "productionActivated": false,
+  "preservedSourceCommit": "72b90172084711cd200637cedab831f80e3fb973",
+  "preservedBuildId": "9DheD3msEFSOMhjMp-kK8",
+  "transfer": {
+    "createdUTC": "2026-10-14T09:51:00.969416+00:00",
+    "sourceCommit": "1db3cfdddbdcb0846b9219865d31cc5547413296",
+    "manifestAgHeadCommit": "0d59361ee4500d0113739e983d73edf1034a6ad1",
+    "manifestMetadataPath": "workspaceContext.agHeadCommit",
+    "metadataMismatch": true,
+    "note": "Package artifacts absent from Git tree are pinned by explicit user SHA-256, not represented as Git blobs. No moving AG code is imported.",
+    "files": [
+      {
+        "file": "dryness/calibrated-source-group-head.json",
+        "sha256": "a668840c2cd568bf91a03ad274a0def97c1185bb22f7856a9c504eeb01571c72",
+        "bytes": 204718,
+        "inFrozenGitTree": false,
+        "identityAuthority": "explicit-user-pinned-package-sha256"
+      },
+      {
+        "file": "dryness/dryness-head-comparison.json",
+        "sha256": "a946e65c2a10d8d5e1d374296cb19239e806029167c440cf0e00ec4a6939b75b",
+        "bytes": 1051,
+        "inFrozenGitTree": false,
+        "identityAuthority": "explicit-user-pinned-package-sha256"
+      },
+      {
+        "file": "cdc_skin_adapters.py",
+        "sha256": "711e8e8695cb89a89a2de45cc2d684798599106421e443a31625f0f94e75154a",
+        "bytes": 12998,
+        "inFrozenGitTree": false,
+        "identityAuthority": "explicit-user-pinned-package-sha256"
+      }
+    ]
+  },
+  "summary": [
+    {
+      "factor": 1.0,
+      "hits": 14,
+      "reviewedNegativeSourcePixels": 151.0
+    },
+    {
+      "factor": 0.5,
+      "hits": 13,
+      "reviewedNegativeSourcePixels": 0.0
+    }
+  ],
+  "summaryBySplit": [
+    {
+      "factor": 1.0,
+      "split": "train",
+      "hits": 7,
+      "reviewedNegativeSourcePixels": 151.0
+    },
+    {
+      "factor": 1.0,
+      "split": "validation",
+      "hits": 7,
+      "reviewedNegativeSourcePixels": 0.0
+    },
+    {
+      "factor": 0.5,
+      "split": "train",
+      "hits": 9,
+      "reviewedNegativeSourcePixels": 0.0
+    },
+    {
+      "factor": 0.5,
+      "split": "validation",
+      "hits": 4,
+      "reviewedNegativeSourcePixels": 0.0
+    }
+  ],
+  "c08Object0": {
+    "index": 0,
+    "label": "visible-material",
+    "measure": {
+      "activeSourcePixels": 71.0,
+      "reviewedSourcePixels": 307.0,
+      "activeOpticalAreaPercent": 23.127035830618894,
+      "components": 1,
+      "largestSourceComponent": 71.0,
+      "objectHit": true
+    }
+  },
+  "freshEncoder": {
+    "headSHA256": "a668840c2cd568bf91a03ad274a0def97c1185bb22f7856a9c504eeb01571c72",
+    "sourceEncoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+    "onnxSHA256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987",
+    "encoderLoadSeconds": 0.4220000000204891,
+    "rows": [
+      {
+        "control": 4,
+        "sourceSHA256": "1d6c1b3cfd5fa2e22a85604bf20ae1b8ce35a0bf8c31abfa91851f4b9ff2a39a",
+        "split": "train",
+        "sourceKind": "processed-clahe",
+        "target": "reviewed-non-flake",
+        "componentId": 29,
+        "componentSourceBox": [
+          392,
+          347,
+          58,
+          41
+        ],
+        "reviewedActiveSourcePixels": 151,
+        "freshProbability": 0.5270068566849205,
+        "cachedProbability": 0.5270082591258642,
+        "freshFeatureMaxAbsDifference": 2.9712915420532227e-05,
+        "encoderSeconds": 0.07899999991059303,
+        "sourceCropOrigin": [
+          346,
+          246
+        ],
+        "cropBoxes": [
+          {
+            "x": 38,
+            "y": 84,
+            "width": 74,
+            "height": 74,
+            "sourcePixelsNotAdded": true
+          },
+          {
+            "x": -12,
+            "y": 34,
+            "width": 174,
+            "height": 174,
+            "sourcePixelsNotAdded": true
+          }
+        ],
+        "accepted": true
+      },
+      {
+        "control": 8,
+        "sourceSHA256": "3aa067f4055d716d6867b984259136d3c98d52668b6ada095da3caf3d08fff85",
+        "split": "validation",
+        "sourceKind": "processed-clahe",
+        "target": "visible-material-object-0",
+        "componentId": 50,
+        "componentSourceBox": [
+          35,
+          292,
+          21,
+          17
+        ],
+        "reviewedActiveSourcePixels": 71,
+        "freshProbability": 0.590495023608335,
+        "cachedProbability": 0.5905046085701356,
+        "freshFeatureMaxAbsDifference": 4.8995018005371094e-05,
+        "encoderSeconds": 0.0470000000204891,
+        "sourceCropOrigin": [
+          0,
+          156
+        ],
+        "cropBoxes": [
+          {
+            "x": 27,
+            "y": 126,
+            "width": 37,
+            "height": 37,
+            "sourcePixelsNotAdded": true
+          },
+          {
+            "x": 13,
+            "y": 112,
+            "width": 64,
+            "height": 64,
+            "sourcePixelsNotAdded": true
+          }
+        ],
+        "accepted": true
+      }
+    ],
+    "threshold": 0.5,
+    "freshEncoderParityPassed": true,
+    "sourceCoordinatesVerified": true,
+    "newFit": false,
+    "normalSelectorChanged": false
+  },
+  "acceptancePassed": false,
+  "normalAPIFirstWarmTimingMeasured": false,
+  "oldProductionFilesChanged": false
+}

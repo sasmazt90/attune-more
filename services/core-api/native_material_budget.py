@@ -1,4 +1,4 @@
-"""Cooperative request scope for research native inference; no detached work."""
+"""Cooperative request scope for local native inference; no detached work."""
 import threading,time
 
 class NativeRequestStopped(RuntimeError):

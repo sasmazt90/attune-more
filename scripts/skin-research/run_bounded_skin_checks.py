@@ -4,15 +4,20 @@ from pathlib import Path
 from heavy_job_lease import HeavyJobLease
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'audit-results/material-closeout-20261013'
 phase=sys.argv[1];env=os.environ.copy()
+if '--output' in sys.argv:OUT=ROOT/sys.argv[sys.argv.index('--output')+1]
+OUT.mkdir(parents=True,exist_ok=True)
+BUILD=sys.argv[sys.argv.index('--build-name')+1] if '--build-name' in sys.argv else 'skin-eyewear-camera-final-20261013'
 env.update(OMP_NUM_THREADS='1',MKL_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',RAYON_NUM_THREADS='1',SWC_THREADS='1',NODE_OPTIONS='--max-old-space-size=512')
 tests=['test_skin_eyewear_capture.py','test_dual_compute_lease.py','test_contour_source_roi.py','test_native_roi_compute_contract.py','test_native_material_runtime.py','test_native_dry_path.py','test_material_contour_branches.py','test_local_health_boundary.py']
-if phase in ['tests','tests-core','tests-eye']:
+if phase=='tests-admission':
+    commands=[([sys.executable,'-m','pytest',*[str(ROOT/'tests/unit'/n) for n in ['test_product_dryness_admission.py','test_local_health_boundary.py','test_native_material_runtime.py','test_native_dry_path.py','test_contour_source_roi.py']],'-q'],ROOT)];limit=450;reserve=900
+elif phase in ['tests','tests-core','tests-eye']:
     selected=tests[1:] if phase=='tests-core' else tests[:1] if phase=='tests-eye' else tests
     commands=[([sys.executable,'-m','pytest',*[str(ROOT/'tests/unit'/n) for n in selected],'-q'],ROOT)]
     limit,reserve=(350,750) if phase=='tests-core' else (500,900) if phase=='tests-eye' else (700,1100)
 elif phase=='typecheck':commands=[(['C:/nvm4w/nodejs/node.exe',str(ROOT/'node_modules/next/dist/bin/next'),'typegen'],ROOT/'apps/vehicle-app'),(['C:/nvm4w/nodejs/node.exe',str(ROOT/'node_modules/typescript/bin/tsc'),'--noEmit'],ROOT/'apps/vehicle-app')];limit=650;reserve=1000
 elif phase=='lint':
-    files=['src/app/skin/page.tsx','src/components/skin/SkinStartView.tsx','src/utils/skinEyewear.ts','src/utils/skinIndicators.ts','src/utils/skinAnalyzer.ts','src/utils/appearanceMeasurements.ts','src/utils/healthHistorySeries.ts']
+    files=['src/app/skin/page.tsx','src/components/skin/SkinStartView.tsx','src/utils/skinEyewear.ts','src/utils/skinIndicators.ts','src/utils/skinAnalyzer.ts','src/utils/appearanceMeasurements.ts','src/utils/healthHistorySeries.ts','src/utils/skinExpression.ts','src/utils/skinSnapshot.ts']
     commands=[(['C:/nvm4w/nodejs/node.exe',str(ROOT/'node_modules/eslint/bin/eslint.js'),*files],ROOT/'apps/vehicle-app')];limit=250;reserve=650
 elif phase=='build':
     # Typecheck's measured owned peak was 347.5 MiB. One build worker and
@@ -20,19 +25,27 @@ elif phase=='build':
     env['NODE_OPTIONS']='--max-old-space-size=256'
     shell=shutil.which('pwsh')
     if not shell:raise RuntimeError('Verified PowerShell Core runtime unavailable')
-    commands=[([shell,'-NoProfile','-File',str(ROOT/'scripts/skin-research/prepare_selected_build.ps1'),'-BuildName','skin-eyewear-camera-final-20261013'],ROOT)];limit=600;reserve=1050
+    commands=[([shell,'-NoProfile','-File',str(ROOT/'scripts/skin-research/prepare_selected_build.ps1'),'-BuildName',BUILD],ROOT)];limit=850;reserve=1300
 elif phase=='build-existing':
-    stage=ROOT/'.runtime/skin-eyewear-camera-final-20261013'
+    stage=ROOT/'.runtime'/BUILD
     receipt=json.loads((stage/'source-receipt.json').read_text('utf-8-sig'))
     import hashlib
     if not all(hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest and hashlib.sha256((stage/name).read_bytes()).hexdigest()==digest for name,digest in receipt.items()):raise RuntimeError('Frozen build source drift')
     if not (OUT/'lint-receipt.json').exists():raise RuntimeError('Run focused lint before serial build verification')
     lint=json.loads((OUT/'lint-receipt.json').read_text('utf8'))
     lint_log=ROOT/lint['rows'][0]['log']
-    lint_paths=['app/skin/page.tsx','components/skin/SkinStartView.tsx','utils/skinEyewear.ts','utils/skinIndicators.ts','utils/skinAnalyzer.ts','utils/appearanceMeasurements.ts','utils/healthHistorySeries.ts']
+    lint_paths=['app/skin/page.tsx','components/skin/SkinStartView.tsx','utils/skinEyewear.ts','utils/skinIndicators.ts','utils/skinAnalyzer.ts','utils/appearanceMeasurements.ts','utils/healthHistorySeries.ts','utils/skinExpression.ts','utils/skinSnapshot.ts']
     if lint['rows'][0]['exitCode']!=0 or any((ROOT/'apps/vehicle-app/src'/p).stat().st_mtime>lint_log.stat().st_mtime for p in lint_paths):raise RuntimeError('Focused lint source coverage changed; no build claim')
     commands=[(['C:/nvm4w/nodejs/node.exe',str(ROOT/'node_modules/next/dist/bin/next'),'build','.','--no-lint'],stage/'apps/vehicle-app')];limit=850;reserve=1300
 else:raise ValueError('Unknown bounded check')
+if '--measured-build-profile' in sys.argv:
+    if phase!='build-existing':raise ValueError('Measured profile only supports the identical no-lint build command')
+    import hashlib,math
+    previous=ROOT/sys.argv[sys.argv.index('--measured-build-profile')+1]
+    old=json.loads(previous.read_text('utf8'));measured=old['resource']['peakMeasuredPrivateMiB']
+    if not old['resource']['childRSSIncluded'] or old['resource']['memoryBudgetMetric']!='private' or any(r['exitCode'] for r in old['rows']):raise ValueError('Unverified previous build profile')
+    limit=math.ceil(measured*1.22);reserve=limit+425
+    (OUT/'build-budget-derivation.json').write_text(json.dumps(dict(previousProfile=str(previous.relative_to(ROOT)),profileSHA256=hashlib.sha256(previous.read_bytes()).hexdigest(),measuredPreviousPrivateMiB=measured,marginFactor=1.22,newPeakBudgetMiB=limit,minimumStartAvailableMiB=reserve,hardAvailableReserveMiB=400,observerMaxAgeSeconds=1),indent=2),'utf8')
 if '--wait-resource' in sys.argv:
     # Wait after runtime imports, not in a second parent/spawn race. The real
     # lease still rechecks both owners, available RAM and the AG inventory.

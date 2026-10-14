@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "enabled": true,
+  "head": "head.json",
+  "headSHA256": "7f13c7cb4eb65a3fb44abf062563ee3aff605a6ef9ff3271c5e32e206fedb8e1",
+  "encoder": "encoder.onnx",
+  "encoderSHA256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987",
+  "parity": "encoder-parity.json",
+  "paritySHA256": "3f1bd96bb44041a80916168fa36c7ccc032598b1211f308b6e2dc081a5085490",
+  "sourceEncoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+  "lossVersion": "source-group-balanced-calibrated-v3-c04-clean",
+  "threshold": 0.5
+}

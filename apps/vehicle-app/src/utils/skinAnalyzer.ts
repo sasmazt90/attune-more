@@ -16,7 +16,10 @@
 
 import { FilesetResolver, FaceLandmarker, NormalizedLandmark } from '@mediapipe/tasks-vision';
 
+import { expressionScores } from './skinExpression';
+
 export interface FaceAlignment {
+  expressionScores?:Record<string,number>;
   /** Optional canonical-to-camera pose, column-major MediaPipe matrix. Dental only. */
   faceTransform?:number[];
   faceDetected: boolean;
@@ -151,7 +154,8 @@ export class SkinAnalyzer {
         runningMode: 'IMAGE',
         ...(typeof document === 'undefined' ? { canvas: new OffscreenCanvas(1, 1) } : {}),
         numFaces: 2,
-        outputFacialTransformationMatrixes:true
+        outputFacialTransformationMatrixes:true,
+        outputFaceBlendshapes:true
       });
       return this.landmarkerInstance;
     } catch (err) {
@@ -199,7 +203,7 @@ export class SkinAnalyzer {
 
         const lms = result.faceLandmarks[0];
         const alignment = this.calculateAlignmentFromLandmarks(lms, width, height);
-        return { ...alignment, faceTransform:result.facialTransformationMatrixes[0]?.data, faceCount: result.faceLandmarks.length,
+        return { ...alignment, expressionScores:expressionScores(result.faceBlendshapes[0]?.categories), faceTransform:result.facialTransformationMatrixes[0]?.data, faceCount: result.faceLandmarks.length,
           ...(result.faceLandmarks.length !== 1 ? { faceDetected: false, isAligned: false, guidanceTextTr: 'Kadrajda yalnız bir yüz bulunmalı.' } : {}) };
 
       } catch (e) {

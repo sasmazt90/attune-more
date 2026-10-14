@@ -1,0 +1,921 @@
+{
+  "baselineSHA": "72b90172084711cd200637cedab831f80e3fb973",
+  "AGFrozenCommit": "1b2ee037d1d835fcd29a8f5bf78eb99d034632dd",
+  "packageTransfer": {
+    "createdUTC": "2026-10-14T10:57:53.525989+00:00",
+    "sourceCommit": "1b2ee037d1d835fcd29a8f5bf78eb99d034632dd",
+    "manifestAgHeadCommit": "1b2ee037d1d835fcd29a8f5bf78eb99d034632dd",
+    "manifestMetadataPath": "workspaceContext.agHeadCommit",
+    "metadataMismatch": false,
+    "note": "Package artifacts absent from Git tree are pinned by explicit user SHA-256, not represented as Git blobs. No moving AG code is imported.",
+    "files": [
+      {
+        "file": "dryness/calibrated-source-group-head.json",
+        "sha256": "7f13c7cb4eb65a3fb44abf062563ee3aff605a6ef9ff3271c5e32e206fedb8e1",
+        "bytes": 204818,
+        "inFrozenGitTree": false,
+        "identityAuthority": "explicit-user-pinned-package-sha256"
+      },
+      {
+        "file": "dryness/dryness-head-comparison.json",
+        "sha256": "58bf9b425a0cf1c496d845abfa1d4f1916996a61122b135c5142b98c7938a3ea",
+        "bytes": 968,
+        "inFrozenGitTree": false,
+        "identityAuthority": "explicit-user-pinned-package-sha256"
+      },
+      {
+        "file": "cdc_skin_adapters.py",
+        "sha256": "7804e14be721717966a3efa05b90c40d7f7bd7d9cce5a865c10476f812613cf1",
+        "bytes": 13508,
+        "inFrozenGitTree": false,
+        "identityAuthority": "explicit-user-pinned-package-sha256"
+      },
+      {
+        "file": "sagging/instant_appearance.py",
+        "sha256": "ff888ce2793df6cb867c314ca3f940c0979219271a9be79acf18bfcaac14cb76",
+        "bytes": 19057,
+        "inFrozenGitTree": false,
+        "identityAuthority": "explicit-user-pinned-package-sha256"
+      }
+    ]
+  },
+  "optical": {
+    "summary": [
+      {
+        "factor": 1.0,
+        "hits": 14,
+        "reviewedNegativeSourcePixels": 0.0
+      },
+      {
+        "factor": 0.5,
+        "hits": 13,
+        "reviewedNegativeSourcePixels": 0.0
+      }
+    ],
+    "split": [
+      {
+        "factor": 1.0,
+        "split": "train",
+        "hits": 7,
+        "targets": 13,
+        "reviewedNegativeSourcePixels": 0.0
+      },
+      {
+        "factor": 1.0,
+        "split": "validation",
+        "hits": 7,
+        "targets": 8,
+        "reviewedNegativeSourcePixels": 0.0
+      },
+      {
+        "factor": 0.5,
+        "split": "train",
+        "hits": 9,
+        "targets": 13,
+        "reviewedNegativeSourcePixels": 0.0
+      },
+      {
+        "factor": 0.5,
+        "split": "validation",
+        "hits": 4,
+        "targets": 8,
+        "reviewedNegativeSourcePixels": 0.0
+      }
+    ],
+    "seenDevelopmentOnly": true,
+    "unknownOutsideReviewedMasks": true,
+    "independentFinalTest": false
+  },
+  "freshEncoder": {
+    "headSHA256": "7f13c7cb4eb65a3fb44abf062563ee3aff605a6ef9ff3271c5e32e206fedb8e1",
+    "sourceEncoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+    "onnxSHA256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987",
+    "rows": [
+      {
+        "control": 4,
+        "sourceSHA256": "1d6c1b3cfd5fa2e22a85604bf20ae1b8ce35a0bf8c31abfa91851f4b9ff2a39a",
+        "split": "train",
+        "sourceKind": "processed-clahe",
+        "target": "reviewed-non-flake",
+        "componentId": 29,
+        "componentSourceBox": [
+          392,
+          347,
+          58,
+          41
+        ],
+        "reviewedProposalSourcePixels": 151,
+        "reviewedActiveSourcePixels": 0,
+        "freshProbability": 0.01631246790859919,
+        "cachedProbability": 0.016312443217110104,
+        "freshFeatureMaxAbsDifference": 2.9712915420532227e-05,
+        "encoderSeconds": 0.2660000000614673,
+        "sourceCropOrigin": [
+          346,
+          246
+        ],
+        "cropBoxes": [
+          {
+            "x": 38,
+            "y": 84,
+            "width": 74,
+            "height": 74,
+            "sourcePixelsNotAdded": true
+          },
+          {
+            "x": -12,
+            "y": 34,
+            "width": 174,
+            "height": 174,
+            "sourcePixelsNotAdded": true
+          }
+        ],
+        "accepted": false
+      },
+      {
+        "control": 8,
+        "sourceSHA256": "3aa067f4055d716d6867b984259136d3c98d52668b6ada095da3caf3d08fff85",
+        "split": "validation",
+        "sourceKind": "processed-clahe",
+        "target": "visible-material-object-0",
+        "componentId": 50,
+        "componentSourceBox": [
+          35,
+          292,
+          21,
+          17
+        ],
+        "reviewedProposalSourcePixels": 71,
+        "reviewedActiveSourcePixels": 71,
+        "freshProbability": 0.5554522246800165,
+        "cachedProbability": 0.5554620840139619,
+        "freshFeatureMaxAbsDifference": 4.8995018005371094e-05,
+        "encoderSeconds": 0.1720000000204891,
+        "sourceCropOrigin": [
+          0,
+          156
+        ],
+        "cropBoxes": [
+          {
+            "x": 27,
+            "y": 126,
+            "width": 37,
+            "height": 37,
+            "sourcePixelsNotAdded": true
+          },
+          {
+            "x": 13,
+            "y": 112,
+            "width": 64,
+            "height": 64,
+            "sourcePixelsNotAdded": true
+          }
+        ],
+        "accepted": true
+      }
+    ],
+    "freshEncoderParityPassed": true
+  },
+  "API": {
+    "isolatedProductionRouterColdSeconds": 5.640999999828637,
+    "isolatedProductionRouterWarmSeconds": 5.2189999998081475,
+    "normalShortcut": {
+      "rows": [
+        {
+          "phase": "cold",
+          "status": 200,
+          "seconds": 6.625,
+          "backendRSSBeforeMiB": 96.05859375,
+          "backendRSSAfterMiB": 209.25390625,
+          "backendPID": 184924,
+          "backendStarted": 1791978221.4375415,
+          "firstColdIncludesDryEncoderLoad": true,
+          "persistentPhotoCache": false
+        },
+        {
+          "phase": "warm",
+          "status": 200,
+          "seconds": 5.437999999849126,
+          "backendRSSBeforeMiB": 209.25390625,
+          "backendRSSAfterMiB": 217.63671875,
+          "backendPID": 184924,
+          "backendStarted": 1791978221.4375415,
+          "firstColdIncludesDryEncoderLoad": false,
+          "persistentPhotoCache": false
+        }
+      ],
+      "normalShortcut": true,
+      "userRecordsWritten": false,
+      "sourcePayloadSHA256": "6e1d1bb9b5be00375a9ec8b9c100ba25bf03eecbd671f0c6560068c6015b25d6"
+    },
+    "additional": [
+      {
+        "source": "camera-1280x960",
+        "sourceSize": [
+          1280,
+          960
+        ],
+        "seconds": 12.327999999979511,
+        "overviewValue": 1.6864676905244858,
+        "overviewReason": null
+      },
+      {
+        "source": "24031977",
+        "sourceSize": [
+          408,
+          612
+        ],
+        "seconds": 6.266000000061467,
+        "overviewValue": 0.21098452039887178,
+        "overviewReason": null
+      }
+    ],
+    "highResolution": {
+      "source": "29cc4ba7",
+      "dimensions": [
+        2316,
+        3088
+      ],
+      "status": 504,
+      "detail": "LOCAL_ANALYSIS_TIMEOUT",
+      "seconds": 45.188
+    }
+  },
+  "nativeMaps": {
+    "checked": 35,
+    "passed": true,
+    "checks": [
+      {
+        "source": "cold-normal-camera",
+        "region": "forehead",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 12052,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "cold-normal-camera",
+        "region": "nose",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 14022,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "cold-normal-camera",
+        "region": "chin",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 6381,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "cold-normal-camera",
+        "region": "periorbital",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 6846,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "cold-normal-camera",
+        "region": "rightCheek",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 4734,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "cold-normal-camera",
+        "region": "leftCheek",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 4668,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "cold-normal-camera",
+        "region": "overview",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 37983,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "warm-normal-camera",
+        "region": "forehead",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 12052,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "warm-normal-camera",
+        "region": "nose",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 14022,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "warm-normal-camera",
+        "region": "chin",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 6381,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "warm-normal-camera",
+        "region": "periorbital",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 6846,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "warm-normal-camera",
+        "region": "rightCheek",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 4734,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "warm-normal-camera",
+        "region": "leftCheek",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 4668,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "warm-normal-camera",
+        "region": "overview",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 37983,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "camera-1280x960",
+        "region": "forehead",
+        "activeSourcePixels": 1333,
+        "visibleSourcePixels": 26341,
+        "value": 5.060551991192438,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "camera-1280x960",
+        "region": "nose",
+        "activeSourcePixels": 1333,
+        "visibleSourcePixels": 29371,
+        "value": 4.538490347621804,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "camera-1280x960",
+        "region": "chin",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 17792,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "camera-1280x960",
+        "region": "periorbital",
+        "activeSourcePixels": 106,
+        "visibleSourcePixels": 12643,
+        "value": 0.8384086055524796,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "camera-1280x960",
+        "region": "rightCheek",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 10876,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "camera-1280x960",
+        "region": "leftCheek",
+        "activeSourcePixels": 16,
+        "visibleSourcePixels": 11957,
+        "value": 0.13381282930500962,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "camera-1280x960",
+        "region": "overview",
+        "activeSourcePixels": 1455,
+        "visibleSourcePixels": 86275,
+        "value": 1.6864676905244858,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "24031977",
+        "region": "forehead",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 14217,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "24031977",
+        "region": "nose",
+        "activeSourcePixels": 37,
+        "visibleSourcePixels": 15456,
+        "value": 0.23938923395445136,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "24031977",
+        "region": "chin",
+        "activeSourcePixels": 11,
+        "visibleSourcePixels": 8084,
+        "value": 0.13607125185551708,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "24031977",
+        "region": "periorbital",
+        "activeSourcePixels": 48,
+        "visibleSourcePixels": 7267,
+        "value": 0.6605201596257052,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "24031977",
+        "region": "rightCheek",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 4748,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "24031977",
+        "region": "leftCheek",
+        "activeSourcePixels": 36,
+        "visibleSourcePixels": 7524,
+        "value": 0.4784688995215311,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "24031977",
+        "region": "overview",
+        "activeSourcePixels": 95,
+        "visibleSourcePixels": 45027,
+        "value": 0.21098452039887178,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "dedbb492",
+        "region": "forehead",
+        "activeSourcePixels": 400,
+        "visibleSourcePixels": 10847,
+        "value": 3.6876555729694847,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "dedbb492",
+        "region": "nose",
+        "activeSourcePixels": 343,
+        "visibleSourcePixels": 10018,
+        "value": 3.423837093232182,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "dedbb492",
+        "region": "chin",
+        "activeSourcePixels": 191,
+        "visibleSourcePixels": 5793,
+        "value": 3.297082686000345,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "dedbb492",
+        "region": "periorbital",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 1497,
+        "value": 0.0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "dedbb492",
+        "region": "rightCheek",
+        "activeSourcePixels": 36,
+        "visibleSourcePixels": 3505,
+        "value": 1.0271041369472182,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "dedbb492",
+        "region": "leftCheek",
+        "activeSourcePixels": 54,
+        "visibleSourcePixels": 2658,
+        "value": 2.0316027088036117,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "dedbb492",
+        "region": "overview",
+        "activeSourcePixels": 681,
+        "visibleSourcePixels": 25778,
+        "value": 2.6417875707968035,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      }
+    ]
+  },
+  "sag": [
+    {
+      "fullAPI": false,
+      "scope": "same original native product payload; fold analyzer only for high-resolution stress sources",
+      "source": "29cc4ba7",
+      "photoId": "5f1caaf77f86b0d60d80aec147a5c541a0dd732628edabe159de1e8bf6187720",
+      "payloadSHA256": "61f758ae66a37cbd2073e6a9f16bc7022e738c47ddb1101d1341bc23abfccb04",
+      "rows": [
+        {
+          "region": "forehead",
+          "before": null,
+          "beforeReason": "BROW_FOLD_IS_NOT_LOWER_FACE_SAGGING",
+          "after": null,
+          "afterReason": "BROW_FOLD_IS_NOT_LOWER_FACE_SAGGING"
+        },
+        {
+          "region": "chin",
+          "before": null,
+          "beforeReason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+          "after": null,
+          "afterReason": "CONTOUR_TRACKING_INSUFFICIENT_SUPPORT"
+        },
+        {
+          "region": "rightCheek",
+          "before": null,
+          "beforeReason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+          "after": 0.028181514320414016,
+          "afterReason": null
+        },
+        {
+          "region": "leftCheek",
+          "before": null,
+          "beforeReason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+          "after": 0.24375337176017708,
+          "afterReason": null
+        }
+      ],
+      "seconds": 5.077999999979511,
+      "otherCriteriaAndMapsExact": true
+    },
+    {
+      "fullAPI": false,
+      "scope": "same original native product payload; fold analyzer only for high-resolution stress sources",
+      "source": "4d05d72b",
+      "photoId": "cfb2031a422257831e9d5ca313268a4a133b488f760f42f489b1558da6e1d204",
+      "payloadSHA256": "38db4747fda9c6fc96fe08e8245bba081aa6f30088b77f432bf58ec4d138b977",
+      "rows": [
+        {
+          "region": "forehead",
+          "before": null,
+          "beforeReason": "BROW_FOLD_IS_NOT_LOWER_FACE_SAGGING",
+          "after": null,
+          "afterReason": "BROW_FOLD_IS_NOT_LOWER_FACE_SAGGING"
+        },
+        {
+          "region": "chin",
+          "before": 0.0,
+          "beforeReason": null,
+          "after": 0.0,
+          "afterReason": null
+        },
+        {
+          "region": "rightCheek",
+          "before": 0.0,
+          "beforeReason": null,
+          "after": 0.0,
+          "afterReason": null
+        },
+        {
+          "region": "leftCheek",
+          "before": 0.0,
+          "beforeReason": null,
+          "after": 0.0,
+          "afterReason": null
+        }
+      ],
+      "seconds": 5.890000000130385,
+      "otherCriteriaAndMapsExact": true
+    },
+    {
+      "fullAPI": true,
+      "scope": "normal full router",
+      "source": "dedbb492",
+      "photoId": "e5622aba5124c4238ae11a760e0d96265b7e4bab70884d08cb7d2a4b555eab91",
+      "payloadSHA256": "9750a26f8a4687d981e97004580e5ebd8f6878a539a6f4f70222efe486664b81",
+      "rows": [
+        {
+          "region": "forehead",
+          "before": null,
+          "beforeReason": "BROW_FOLD_IS_NOT_LOWER_FACE_SAGGING",
+          "after": null,
+          "afterReason": "BROW_FOLD_IS_NOT_LOWER_FACE_SAGGING"
+        },
+        {
+          "region": "chin",
+          "before": null,
+          "beforeReason": "HARD_DIRECTIONAL_SHADOW",
+          "after": null,
+          "afterReason": "HARD_DIRECTIONAL_SHADOW"
+        },
+        {
+          "region": "rightCheek",
+          "before": 0.0,
+          "beforeReason": null,
+          "after": 0.0,
+          "afterReason": null
+        },
+        {
+          "region": "leftCheek",
+          "before": 3.0337918933261845,
+          "beforeReason": null,
+          "after": 3.0337918933261845,
+          "afterReason": null
+        }
+      ],
+      "seconds": 8.485000000102445,
+      "otherCriteriaAndMapsExact": true
+    }
+  ],
+  "expressionCoverage": {
+    "rows": [
+      {
+        "source": "99f82af5",
+        "photoId": "bedcdcf4a7199dff07fffe800216ce03cfd553911b61b4c1c07a0c5aaeae4729",
+        "observationFromExistingRealBrowser": true,
+        "mouthOpening": 0.002187449058461211,
+        "smileCurve": -0.08340818123266659,
+        "reason": null
+      },
+      {
+        "source": "fc3a6b13",
+        "photoId": "29972700d25671291298294a035779a4b3eba742b807eba425efa3ad3f84522e",
+        "observationFromExistingRealBrowser": true,
+        "mouthOpening": 0.01859928887973381,
+        "smileCurve": -0.12002236247827032,
+        "reason": "EXPRESSION_OPEN_MOUTH"
+      },
+      {
+        "source": "05619d0a",
+        "photoId": "8d4439dfa107349221f175344eb9714c4622379f1f8d82009f0df4c0fdcb71f5",
+        "observationFromExistingRealBrowser": true,
+        "mouthOpening": 0.004422193463369601,
+        "smileCurve": -0.04836984549817652,
+        "reason": null
+      },
+      {
+        "source": "f90e68f8",
+        "photoId": "4077d040e2c1b5205a55b98e98f13d815ca3f3fb75fe741bdb0a423237f9720d",
+        "observationFromExistingRealBrowser": true,
+        "mouthOpening": 0.00284828048510128,
+        "smileCurve": -0.03806425812835745,
+        "reason": null
+      },
+      {
+        "source": "64b02ede",
+        "photoId": "ab8c841702f74522ce82e8b26905a97a151ecd5ebd20f0a184f8bd79796aa368",
+        "observationFromExistingRealBrowser": true,
+        "mouthOpening": 0.00442601257083269,
+        "smileCurve": -0.004239435109050355,
+        "reason": null
+      },
+      {
+        "source": "40c7edda",
+        "photoId": "42729e4b0915f24dd66fac864bae59bf9f710857e3d9b4b08c922e54c13c4e8e",
+        "observationFromExistingRealBrowser": true,
+        "mouthOpening": 0.008109387990454369,
+        "smileCurve": -0.02098965080857432,
+        "reason": null
+      }
+    ],
+    "realPuckerLabelAvailable": false,
+    "syntheticPuckerContractCoveredInUnitTests": true
+  },
+  "frontendUnit": {
+    "passed": true,
+    "sourceBoundExpression": true,
+    "missingNotNeutral": true,
+    "rawPrecisionPreserved": true,
+    "onlyDryMethodAdmitted": true,
+    "oldNormalizationSeparate": true,
+    "actualBrowser": false
+  },
+  "checks": {
+    "focusedTestsPassed": true,
+    "focusedTestCount": 23,
+    "lintPassed": true,
+    "productionBuildAndTypesPassed": true,
+    "buildResource": {
+      "schema": "attune-dual-atomic-lease-v2",
+      "owner": "CDC",
+      "pid": 48816,
+      "processStarted": 1791976483.8697293,
+      "startTime": 1791976483.8697293,
+      "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+      "jobId": "CDC-skin-build-existing",
+      "nonce": "450541a567454b1180e421f2388998fe",
+      "commandSHA256": "d0be573372631f3a9a549e2d1004f9912b0272a716851bd4f60f8bf049365bd3",
+      "peakBudgetMiB": 524,
+      "memoryBudgetMetric": "private",
+      "minimumAvailableMiB": 949,
+      "leasePaths": [
+        "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+        "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+      ],
+      "bothLeasesOwned": true,
+      "ownershipObservationMaxAgeSeconds": 1,
+      "observerPid": 15952,
+      "observerProcessStarted": 1791976490.8594418,
+      "peakMeasuredRSSMiB": 556.4765625,
+      "peakMeasuredPrivateMiB": 455.4296875,
+      "childRSSIncluded": true,
+      "elapsedSeconds": 127.48399999993853,
+      "foreignProcessesStopped": false
+    }
+  },
+  "normalShortcut": {
+    "buildId": "YShP4ZdJdKL34lP_ALnmW",
+    "sourceHashes": {
+      "services/core-api/requirements.txt": "b4b34012dd723c047b69df571a041c91a6fbf7bfffb0affa3ebd1f34c34f0610",
+      "services/core-api/product_dryness.py": "034dcafc4eaf474dff1ebbe61bc1d7263f5db5397dd445a0942eda239cec6506",
+      "services/core-api/material_component_features.py": "9ced63e2095b27230d4812a7e1b3ee720227856fbf111f1bc80bd9aa012ad3a4",
+      "services/core-api/native_dry_path.py": "fb7aaf057891971f02e1556b5a3c05c73ca7c8aba16c8b09b456792f1f463fdb",
+      "services/core-api/native_flake_support.py": "9fcf4702a669cadd1e5e2edbe17512507c4ac9e17bf39c7eb86721084c24e107",
+      "services/core-api/skin_expression.py": "b18668084fecc64ca401515e37e05bb04f73ad2ba8204bce2414081fbeca0769",
+      "services/core-api/models/dryness-calibrated-v3/config.json": "e62bba10919d4e51b1d0ce09b8c1ae7cdb107510f69b95570d196fda5c915e3d",
+      "services/core-api/models/dryness-calibrated-v3/head.json": "7f13c7cb4eb65a3fb44abf062563ee3aff605a6ef9ff3271c5e32e206fedb8e1",
+      "services/core-api/models/dryness-calibrated-v3/encoder.onnx": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987",
+      "services/core-api/models/dryness-calibrated-v3/encoder-parity.json": "3f1bd96bb44041a80916168fa36c7ccc032598b1211f308b6e2dc081a5085490",
+      "services/core-api/local_health.py": "b061bf2968507d0c03f4d877dc836919c1984459ad7b7e458d7e68d98829285f",
+      "services/core-api/appearance_analysis.py": "05062cbcdd67f3009ba96a429033615a5a8d60f632a094dcbee2354e0b604297",
+      "services/core-api/instant_appearance.py": "5c9a65b59f60b205cf0d5392d6f64f85ad863a47487057f3538411427a8eb9a8",
+      "services/core-api/contour_appearance.py": "abd12cec15e03723df5894274ea3707b0432e46223ebad1adf54e7a3bcd06fce",
+      "services/core-api/skin_eyewear.py": "9c3c0a36b7757e64819775a40495b7d5c6549376c515f889c0890d924b0ce3cf",
+      "services/core-api/models/skin-eyewear-framefind-v1.onnx": "66f75c686974a04bf956d0ed6411315309afcabd36c400edec743953adafccb9",
+      "services/core-api/models/skin-focused.json": "accc9ff193030bccde572ded39b1878fc7919e33daf62f2ac560c3357a83abfb"
+    },
+    "frontendSourceFiles": 217,
+    "servedJavascriptSHA256": {
+      "/_next/static/chunks/656-012d3387edef90f5.js": "a48c56ee67c628c04af078afb6204fe5e24dc3f02b5820aee463f65f52e7c582",
+      "/_next/static/chunks/webpack-7b9d34dd5216e73a.js": "1ae40b055fba44ac3bf10a935b842b3dd1f4a9bcad0bf4d437e60fa663fcd584",
+      "/_next/static/chunks/484-4eeac57d85dbea9b.js": "190904445c729dacc500b4baf5f62ce89c6b89322a5b6aabe7298d314c115b2d",
+      "/_next/static/chunks/330-67f6fe29b65810ce.js": "e8db9771c4367eef515d9f6c0c8b3c37575b45f701e811e3fa5636db0517d766",
+      "/_next/static/chunks/main-app-a840178321886cc8.js": "b5b7a6a18ee7f8fe0d0fa097ccf76c3fd48ec9a33395e4c9a750baa6e550e99e",
+      "/_next/static/chunks/987-e7efaa2e25847fed.js": "dd2830cddc3d1cecb34ea22e6831df6db876fe17320a06b71eab72c6417e51ca",
+      "/_next/static/chunks/e898b764-724e4596a1050f58.js": "fef6a31acbe42cb772fbbca3f7eaf3ecd01ab51e1db99c4d0445205eafb6214b",
+      "/_next/static/chunks/app/page-07e73ba348379f03.js": "09c5d9e2276a851e5f1d68da708fe8cb7e7b561a8492cc653ac0cd66ff36aa23",
+      "/_next/static/chunks/948-85266d567c3bae8b.js": "4e807c0317858631a1831c7a30c82fe5932dec40da12fc8aeffb6d1aebb43a2e",
+      "/_next/static/chunks/850-03d460badcc90bec.js": "fe19aab65e4b99652e82702538aef87e95e949da65e3a5d8ab24c4a77740cf5b",
+      "/_next/static/chunks/app/layout-a27304a7b4ebe1dc.js": "d7be79e859df1c1791610040d70bdaa07db619cf700e18531c2e2e02127da730",
+      "/_next/static/chunks/polyfills-42372ed130431b0a.js": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+      "/_next/static/chunks/876-970751e242594177.js": "d84eca37ec1994232b2c9c66cdb454332f337757e3c7884b8d82d7dc504a1421",
+      "/_next/static/chunks/745-02bafa16d39bc729.js": "eaa9b4de430e0d9d0732f3a428b005b2d739f95d19d996637575b0308855ab14",
+      "/_next/static/chunks/app/skin/page-62f70770e1adcf04.js": "70d415db22504150174e308dd60605558d90b1128097d12ea4b91622c5f35c26",
+      "/_next/static/chunks/852-4206d2ffa53479b5.js": "75c09a83752a0fa304ec64bf2b638383532cf1e29af9d568eec3d17251b95f7f",
+      "/_next/static/chunks/app/profile/page-993660244bf06044.js": "608d15a410ce90039c519ba8b549c5508d678a7fe26a45a5d27a04cc1bd6cea8",
+      "/_next/static/chunks/503-68c18768f0108a30.js": "0e1d8598daa607fd93a397321999d450c799fd3e63a8b62ba94020fca019d2eb"
+    },
+    "shortcutSHA256": "a4cb1540482ab12e9c036c41a9414243d52488b97026e79d99c74a83b86359d8",
+    "launcherScriptSHA256": "65d8210a0cd4a5f773f2e35de920ca77f55099d2c49eef88ac1c108e5890e428",
+    "skinStartAudioSHA256": "46767d988f4712377ef3ea3bf42cbf3b82be28d35c0a37e5dd93225e6c73410a",
+    "normalLoadedRuntime": {
+      "version": "native-independent-stable-region-ridge-v3",
+      "sourceGrid": [
+        362,
+        405
+      ],
+      "analysisResize": false,
+      "coordinateScale": 0.417533203959465,
+      "tileCore": 512,
+      "tileStride": 256,
+      "halo": 48,
+      "tiles": 1,
+      "peakTilePixels": 146610,
+      "overlapCountedOnce": true,
+      "sharedSourceGrayLab": true,
+      "candidateRegions": 1110,
+      "processedCandidateRegions": 138,
+      "skippedOutsideCoreEligibility": 972,
+      "classifierVersion": "frozen-imagenet-two-crop-material-calibrated-v3",
+      "encoderSHA256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987",
+      "candidateComponents": 18,
+      "acceptedComponents": 0,
+      "threshold": 0.5,
+      "confidenceNotSeverity": true,
+      "sourceLabelsAsInferenceInput": false,
+      "timings": {
+        "describe": 0.01600000006146729,
+        "crop": 0.06299999984912574,
+        "encoder": 1.125,
+        "classifier": 0.0
+      },
+      "uniqueEncodedCrops": 36,
+      "uniqueCropTransforms": 36,
+      "identicalCropsReused": 0,
+      "encoderCalls": 9,
+      "encoderExecution": {
+        "intraOpThreads": 4,
+        "batchLimit": 4,
+        "cpuMemoryArena": false
+      },
+      "maximumResidentCropTensors": 32,
+      "persistentPhotoCache": false,
+      "transport": "onnx-cpu",
+      "cropOrigin": [
+        109,
+        126
+      ],
+      "cropShape": [
+        362,
+        405
+      ],
+      "sourceImageSize": [
+        640,
+        640
+      ],
+      "normalProductEnabled": true,
+      "headSHA256": "7f13c7cb4eb65a3fb44abf062563ee3aff605a6ef9ff3271c5e32e206fedb8e1",
+      "sourceEncoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+      "profile": {
+        "decode": 0.015999999828636646,
+        "geometry": 0.01600000006146729,
+        "proposal": 0.9689999998081475,
+        "material": 1.4369999999180436,
+        "mapsAndResults": 0.1720000000204891
+      },
+      "fullAnalysisSeconds": 6.2969999997876585
+    }
+  },
+  "browserAcceptance": {
+    "passed": false,
+    "receiptSHA256": null,
+    "pendingReason": "Available system RAM fell to 153.47 MiB during the single owned verification browser; job closed. Full fresh camera/history/desktop/narrow/actual-200 acceptance not claimed.",
+    "failedPrivatePeakMiB": 729.46875,
+    "failedAvailableSystemMiB": 153.46875,
+    "hardSystemStopReserveMiB": 400,
+    "nextMinimumStartMiB": 1600
+  },
+  "preserved": {
+    "acneConfig": {
+      "version": "skin-acne-yolox-20261010-v1",
+      "confidenceThreshold": 0.1,
+      "probabilityThreshold": null,
+      "pixelSegmentation": false,
+      "sourceCoordinateSpace": "source-pixels",
+      "accepted": false,
+      "file": null,
+      "sha256": "3073b196b8e8fe469399f4c3f3e1472f98e4b54840434ded18139c40cbb9c8cc",
+      "rejectedWeightsDistributed": false,
+      "sourceLabelProtocolVerified": false,
+      "cameraDomainAccepted": false
+    },
+    "AGFilesModified": false,
+    "userRecordsRewritten": false,
+    "paidOrHostedCalls": false,
+    "trainingStarted": false
+  }
+}

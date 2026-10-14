@@ -84,6 +84,8 @@ def landmarks(points):
 def skin_geometry(value):
     if not isinstance(value.get('hostedProcessingConsent',False),bool):raise ValueError()
     landmarks(value.get('landmarks'))
+    from skin_expression import validate
+    validate(value.get('expressionObservation'),value.get('photoId'))
     meshes=value.get('meshes')
     if not isinstance(meshes,dict) or not 1<=len(meshes)<=6:raise ValueError()
     if not isinstance(value.get('exclusions',[]),list) or not isinstance(value.get('temporal',[]),list):raise ValueError()
@@ -112,8 +114,27 @@ async def skin(request: Request):
     try:
         skin_geometry(value)
         async with _busy:
-            eyewear=await run_in_threadpool(skin_capture_preflight,value)
-            result = await run_in_threadpool(analyze_skin, value)
+            from native_material_budget import NativeRequestBudget,NativeRequestStopped
+            from product_dryness import analyze_product,DrynessModelUnavailable
+            scope=NativeRequestBudget()
+            def work():
+                scope.check();eyewear=skin_capture_preflight(value);scope.check()
+                return eyewear,analyze_product(value,analyze_skin,scope.check)
+            worker=asyncio.create_task(run_in_threadpool(work))
+            try:
+                while not worker.done():
+                    if not parked() or await request.is_disconnected():scope.cancel()
+                    await asyncio.wait({worker},timeout=.05)
+                eyewear,result=await worker
+            except asyncio.CancelledError:
+                scope.cancel()
+                try:await asyncio.shield(worker)
+                except (NativeRequestStopped,DrynessModelUnavailable):pass
+                raise
+            except NativeRequestStopped as error:
+                raise HTTPException(504 if str(error)=='LOCAL_ANALYSIS_TIMEOUT' else 409,str(error)) from None
+            except DrynessModelUnavailable:
+                raise HTTPException(503,'LOCAL_MODEL_OR_RESOURCE_UNAVAILABLE') from None
         result['captureScopeVersion']=eyewear['version']
         for rows in [*result.get('measurements',{}).values(),result.get('general',{}).get('measurements',[])]:
             for row in rows:

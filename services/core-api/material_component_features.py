@@ -161,11 +161,13 @@ class OnnxMaterialEncoder:
         options=ort.SessionOptions();options.intra_op_num_threads=intra_op_threads;options.inter_op_num_threads=1;options.enable_cpu_mem_arena=cpu_mem_arena
         self.session=ort.InferenceSession(str(path),options,providers=['CPUExecutionProvider'])
         self.hash=verified['onnxSHA256'];self.batch_limit=batch_limit;self.execution=dict(intraOpThreads=intra_op_threads,batchLimit=batch_limit,cpuMemoryArena=cpu_mem_arena);self.calls=0;self.encoded_crops=0
-    def extract(self,crops,batch=16):
-        parts=[]
+    def extract(self,crops,batch=16,check=None):
+        check=check or (lambda:None);parts=[]
         batch=min(batch,self.batch_limit)
         for start in range(0,len(crops),batch):
+            check()
             parts.append(self.session.run(['features'],{'crops':np.stack(crops[start:start+batch])})[0]);self.calls+=1;self.encoded_crops+=min(batch,len(crops)-start)
+        check()
         return np.concatenate(parts) if parts else np.empty((0,1280),np.float32)
 
 def filter_material_support_streamed(image,field,metric,encoder,head,check=None,details=None):
@@ -190,7 +192,7 @@ def filter_material_support_streamed(image,field,metric,encoder,head,check=None,
         pending_keys=list(pending)
         for batch_start in range(0,len(pending_keys),16):
             check();batch_keys=pending_keys[batch_start:batch_start+16];t=time.monotonic()
-            output=encoder.extract([pending[k] for k in batch_keys],16);times['encoder']+=time.monotonic()-t
+            output=encoder.extract([pending[k] for k in batch_keys],16,check=check) if isinstance(encoder,OnnxMaterialEncoder) else encoder.extract([pending[k] for k in batch_keys],16);times['encoder']+=time.monotonic()-t
             features.update(zip(batch_keys,output));encoded+=len(batch_keys)
         check();visual=np.asarray([np.r_[features[a],features[b]] for a,b in keys]);t=time.monotonic()
         probability=predict(np.c_[visual,np.array([r['geometry'] for r in current])],head);times['classifier']+=time.monotonic()-t
@@ -198,5 +200,5 @@ def filter_material_support_streamed(image,field,metric,encoder,head,check=None,
             allowed[row['componentId']]=p>=head['threshold']
             if details is not None:details.append({**row,'probability':float(p),'accepted':bool(p>=head['threshold'])})
     check()
-    version='frozen-imagenet-two-crop-material-source-group-balanced-v3-staging' if head.get('lossVersion')=='source-group-balanced-v1' else 'frozen-imagenet-two-crop-material-block-balanced-v2-staging' if head.get('featureGroupSizes') else 'frozen-imagenet-two-crop-material-v1-staging'
+    version='frozen-imagenet-two-crop-material-calibrated-v3' if head.get('lossVersion')=='source-group-balanced-calibrated-v3-c04-clean' else 'frozen-imagenet-two-crop-material-source-group-balanced-v3-staging' if head.get('lossVersion')=='source-group-balanced-v1' else 'frozen-imagenet-two-crop-material-block-balanced-v2-staging' if head.get('featureGroupSizes') else 'frozen-imagenet-two-crop-material-v1-staging'
     return field*allowed[labels],dict(classifierVersion=version,encoderSHA256=ENCODER_SHA,candidateComponents=len(rows),acceptedComponents=int(allowed.sum()),threshold=head['threshold'],confidenceNotSeverity=True,sourceLabelsAsInferenceInput=False,timings=times,uniqueEncodedCrops=encoded,uniqueCropTransforms=transforms,identicalCropsReused=reused,encoderCalls=getattr(encoder,'calls',0)-calls_before,encoderExecution=getattr(encoder,'execution',None),maximumResidentCropTensors=32,persistentPhotoCache=False,transport='onnx-cpu' if isinstance(encoder,OnnxMaterialEncoder) else 'torch')

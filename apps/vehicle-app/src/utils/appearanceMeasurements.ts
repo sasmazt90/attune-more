@@ -1,3 +1,4 @@
+import {expressionObservation} from './skinExpression';
 import type { SkinSnapshot } from './skinSnapshot';
 import type { SkinIndicators, SkinMeasurement } from './skinIndicators';
 import { samplingSupportVersion } from './skinIndicators';
@@ -13,7 +14,7 @@ export async function analyzeAppearance(snapshot:SkinSnapshot,qualityValid:boole
  const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),45000);
  const stale=setInterval(()=>{if(!current()||isSkinHostedProcessingAllowed()!==hostedConsent)controller.abort();},100);
  try {
-  const response=await fetch('http://localhost:8000/api/local-health/skin',{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:true,hostedProcessingConsent:hostedConsent,photo:snapshot.dataUrl,photoId:snapshot.photoId,pose:snapshot.angle,meshes:snapshot.meshes,exclusions:snapshot.exclusions,landmarks:snapshot.landmarks,qualityValid,conditions,temporal})});
+  const response=await fetch('http://localhost:8000/api/local-health/skin',{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:true,hostedProcessingConsent:hostedConsent,photo:snapshot.dataUrl,photoId:snapshot.photoId,pose:snapshot.angle,meshes:snapshot.meshes,exclusions:snapshot.exclusions,landmarks:snapshot.landmarks,expressionObservation:expressionObservation(snapshot.expressionScores,snapshot.photoId),qualityValid,conditions,temporal})});
   if(!response.ok){
    const detail=await response.json().catch(()=>({}));
    throw Error(detail.detail==='SKIN_EYEWEAR_PRESENT'?'Cilt analizi için gözlüğünüzü çıkarın.':detail.detail==='SKIN_EYEWEAR_CHECK_UNCERTAIN'?'Göz çevresi yeterince doğrulanamadı; yeniden çekin.':'Yerel görünüm analizi tamamlanamadı.');
@@ -27,7 +28,7 @@ export async function analyzeAppearance(snapshot:SkinSnapshot,qualityValid:boole
 export function attachAppearance(indicators:SkinIndicators,result:AppearanceResponse){
  for(const [region,values] of Object.entries(result.measurements))for(const value of values){
   const target=indicators[region]?.find(row=>row.id===value.id);if(!target)continue;
-  if(value.region!==region||!['appearance-cv-1','appearance-cv-2','appearance-cv-3','appearance-cv-4','appearance-cv-5','appearance-cv-6'].includes(value.methodVersion)||value.value!==null&&!Number.isFinite(value.value))throw Error('INVALID_MEASUREMENT');
+  if(value.region!==region||!(value.id==='dry'&&value.methodVersion==='appearance-native-dry-2')&&!['appearance-cv-1','appearance-cv-2','appearance-cv-3','appearance-cv-4','appearance-cv-5','appearance-cv-6'].includes(value.methodVersion)||value.value!==null&&!Number.isFinite(value.value))throw Error('INVALID_MEASUREMENT');
   target.score=value.value;target.unit=APPEARANCE_UNITS[value.unit]||value.unit;target.method=value.methodVersion;
   target.reason=value.limitationCode==='REFERENCE_CREATED'?'Kişisel kontur referansı oluşturuldu; sonraki uyumlu taramada değişim karşılaştırılır.':value.value===null?`Bu karede yeterli güvenilir ölçüm yok (${value.limitationCode}).`:'Görünür yüzeyin kozmetik görünüm vekili; hastalık, nem veya klinik şiddet ölçümü değildir.';
   target.appearance=value;

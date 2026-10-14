@@ -1,4 +1,4 @@
-param([string]$BuildName = 'skin-selected-build-20261011-v2')
+param([string]$BuildName = 'skin-selected-build-20261011-v2', [switch]$SnapshotOnly)
 $ErrorActionPreference = 'Stop'
 if ($BuildName -notmatch '^skin-[a-z0-9-]+$') { throw 'Invalid staging directory name.' }
 $taskRoot = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
@@ -21,6 +21,7 @@ New-Item -ItemType Junction -Path (Join-Path $stageRoot 'node_modules') -Target 
 $appDependencies = Join-Path $taskRoot 'apps/vehicle-app/node_modules'
 if (-not (Test-Path -LiteralPath $appDependencies)) { $appDependencies = $rootDependencies }
 New-Item -ItemType Junction -Path (Join-Path $stageRoot 'apps/vehicle-app/node_modules') -Target $appDependencies | Out-Null
+if ($SnapshotOnly) { Write-Output 'Frozen build source prepared; compilation has not run.'; return }
 Push-Location -LiteralPath (Join-Path $stageRoot 'apps/vehicle-app')
 try {
     & node (Join-Path $taskRoot 'node_modules/next/dist/bin/next') build .
