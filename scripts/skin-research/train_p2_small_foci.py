@@ -107,12 +107,9 @@ def main():
         micro_indices = sorted(set(micro_indices))
         print(f"Base training tiles: {len(base_train_tiles)} total ({len(micro_indices)} contain <8px micro-foci)", flush=True)
 
-        # Build augmented tile list: duplicate micro-foci tiles 2 extra times (3x total)
+        # Build balanced tile list: preserve all 991 natural tiles without 3x skew that starves medium lesions
         train_tiles = list(base_train_tiles)
-        for idx in micro_indices:
-            train_tiles.append(base_train_tiles[idx])
-            train_tiles.append(base_train_tiles[idx])
-        print(f"Augmented training tiles per epoch: {len(train_tiles)} (added {len(micro_indices)*2} micro-foci tiles)", flush=True)
+        print(f"Balanced training tiles per epoch: {len(train_tiles)} (micro={len(micro_indices)}, total={len(base_train_tiles)})", flush=True)
 
         # 2. Build Model & Load Epoch 2 weights strictly
         net = build_yolox_p2_model(num_classes=1, depth=0.33, width=0.5)
@@ -275,11 +272,41 @@ def main():
                 print(f"  conf={thresh_k} -> In-Scope IoU50: {thresh_v['inScopeTp50']}/{thresh_v['inScopeTruth']} (rec50={thresh_v['rec50']:.1%}) | Neg FP: {thresh_v['negTotalFp']} across {thresh_v['negPhotosWithFp']}/{thresh_v['totalNegPhotos']} photos ({thresh_v['fpPerPhoto']:.2f} FP/photo)")
                 print(f"    Small Recall: <8px: {thresh_v['smallLesionRecall']['tiny_less_8px']['tp50']}/{thresh_v['smallLesionRecall']['tiny_less_8px']['total']}, 8-16px: {thresh_v['smallLesionRecall']['small_8_to_16px']['tp50']}/{thresh_v['smallLesionRecall']['small_8_to_16px']['total']}, 16-32px: {thresh_v['smallLesionRecall']['medium_16_to_32px']['tp50']}/{thresh_v['smallLesionRecall']['medium_16_to_32px']['total']}")
 
-            # Save Epoch Checkpoint
+            # Save Transactional Epoch Checkpoint
             chk_name = f"checkpoint-epoch-{epoch:02d}-step-{global_step:06d}"
             chk_dir = OUTPUT_DIR / chk_name
             chk_dir.mkdir(parents=True, exist_ok=True)
             save_file({k: v.contiguous() for k, v in net.state_dict().items()}, str(chk_dir / 'model.safetensors'))
+
+            # Optimizer state
+            opt_dict = optimizer.state_dict()
+            opt_tensors = {}
+            scalars = {}
+            for k, v in opt_dict['state'].items():
+                for sub_k, sub_v in v.items():
+                    if torch.is_tensor(sub_v):
+                        opt_tensors[f"{k}.{sub_k}"] = sub_v.contiguous()
+                    else:
+                        scalars[f"{k}.{sub_k}"] = sub_v
+            save_file(opt_tensors, str(chk_dir / 'optimizer.safetensors'))
+            torch.save(opt_dict, str(chk_dir / 'optimizer.pt'))
+
+            chk_state = {
+                'epoch': epoch,
+                'globalStep': global_step,
+                'avgLoss': epoch_loss_accum / step_in_epoch,
+                'modelSha256': sha256_file(chk_dir / 'model.safetensors'),
+                'optimizerSha256': sha256_file(chk_dir / 'optimizer.safetensors'),
+                'p2GateValue': float(net.backbone.p2_gate.item()),
+                'validation': val_results,
+                'optimizerScalars': scalars,
+                'paramGroups': opt_dict['param_groups'],
+                'numpyRNG': [np.random.get_state()[0], np.random.get_state()[1].tolist(), *np.random.get_state()[2:]],
+                'pythonRNG': random.getstate(),
+                'torchRNG': torch.get_rng_state().tolist()
+            }
+            with open(chk_dir / 'state.json', 'w', encoding='utf-8') as f:
+                json.dump(chk_state, f, indent=2)
 
             epoch_record = {
                 'epoch': epoch,
