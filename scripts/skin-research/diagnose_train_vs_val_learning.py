@@ -1,177 +1,301 @@
 #!/usr/bin/env python3
-"""Diagnose TRAIN learning vs Validation generalization for acne model cf3a2ba4."""
+"""Standardized Image-Level TRAIN vs Canonical VAL Learning Diagnosis for Baseline cf3a2ba4.
+
+Adheres strictly to Item 1, 2, 3 requirements:
+1. Strict model identity verification: loads cf3a2ba4 with SHA-256 enforcement.
+2. Canonical preprocessing: BGR, 384x384, pad=114, float32 via acne_preprocessing.py.
+3. Full image-level evaluation with sliding tiles (288 stride) and source-coordinate projection:
+   - Eliminates duplicate tile counting of the same lesion.
+   - Evaluates on exact unique ground-truth lesions.
+   - Respects UNKNOWN skin masks: only detections in verified clean skin are counted as negative FP.
+4. Produces transparent, deterministic receipt.
+"""
 
 import sys
 import os
 import json
 import time
 from pathlib import Path
+from typing import Dict, List, Tuple, Any
 from collections import defaultdict
 import numpy as np
 import cv2
 import torch
-from safetensors.torch import load_file
 from torchvision.ops import nms as torch_nms
 
 ROOT = Path(__file__).resolve().parents[2]
 LIVE_TEST = ROOT.parent / 'attune-live-test'
 
 sys.path.insert(0, str(ROOT / 'services/core-api'))
-sys.path.insert(0, str(ROOT / 'scripts'))
 sys.path.insert(0, str(ROOT / 'scripts/skin-research'))
 sys.path.insert(0, str(LIVE_TEST / 'audit-results/combined-health-20261008/yolox/extracted/YOLOX-6ddff4824372906469a7fae2dc3206c7aa4bbaee'))
 
-from yolox_p2 import build_yolox_p2_model
-from negative_mask_builder import build_hole_preserved_negative_masks, acne_tiles_p2
+from model_identity import (
+    TRUE_BASELINE_EPOCH02_PATH,
+    TRUE_BASELINE_EPOCH02_SHA,
+    load_verified_model,
+    generate_evaluation_receipt
+)
+from acne_preprocessing import (
+    PREPROCESSING_VERSION,
+    extract_tile_bgr,
+    tile_to_tensor,
+    generate_sliding_tile_rects
+)
+from negative_mask_builder import build_hole_preserved_negative_masks
 from prepare_canonical_validation_cache import load_canonical_validation_cache
 from acne_metrics import match_predictions_to_truth
+import importlib.util
+_spec = importlib.util.spec_from_file_location("acne_box_support", str(ROOT / 'services/core-api/acne_box_support.py'))
+acne_box_support = importlib.util.module_from_spec(_spec)
+sys.modules['acne_box_support'] = acne_box_support
+_spec.loader.exec_module(acne_box_support)
 
 DATA_PATH = ROOT / 'audit-results/acne-candidate-training-20261013/train-data-engineering-reviewed-20261013.json'
-CHK_PATH = ROOT / 'audit-results/acne-candidate-p2-focal-20261013/checkpoint-epoch-02-step-000496-1791911067067742300/model.safetensors'
+OUTPUT_RECEIPT_PATH = ROOT / 'audit-results/acne-candidate-p2-focal-20261013/train_vs_val_canonical_receipt.json'
 
-def load_model():
-    net = build_yolox_p2_model(num_classes=1, depth=0.33, width=0.5)
-    net.load_state_dict(load_file(str(CHK_PATH)), strict=True)
-    net.eval()
-    return net
 
-def predict_tile(net, tile_bgr, conf_thresh=0.30, nms_thresh=0.30):
-    """tile_bgr: (384, 384, 3) BGR float or uint8. Range [0, 255]."""
-    tensor = torch.from_numpy(tile_bgr.transpose(2, 0, 1)).float().unsqueeze(0)
-    with torch.no_grad():
-        preds = net(tensor) # (1, 12240, 6)
-    preds = preds[0]
-    scores = preds[:, 4] * preds[:, 5]
-    mask = scores >= conf_thresh
-    if not mask.any():
-        return np.empty((0, 5), dtype=np.float32)
-    
-    selected_preds = preds[mask]
-    selected_scores = scores[mask]
-    
-    # cx, cy, w, h -> x1, y1, x2, y2
-    cx = selected_preds[:, 0]
-    cy = selected_preds[:, 1]
-    w = selected_preds[:, 2]
-    h = selected_preds[:, 3]
-    x1 = cx - w / 2
-    y1 = cy - h / 2
-    x2 = cx + w / 2
-    y2 = cy + h / 2
-    boxes = torch.stack([x1, y1, x2, y2], dim=-1)
-    
-    keep = torch_nms(boxes, selected_scores, nms_thresh)
-    keep_boxes = boxes[keep].cpu().numpy()
-    keep_scores = selected_scores[keep].cpu().numpy()
-    return np.column_stack([keep_boxes, keep_scores])
+def predict_image_sliding_tiles(
+    net: torch.nn.Module,
+    bgr: np.ndarray,
+    crop_rect: Tuple[int, int, int, int],
+    tile_size: int = 384,
+    stride: int = 288,
+    conf_thresh: float = 0.30,
+    nms_thresh: float = 0.30
+) -> List[List[float]]:
+    """Run canonical sliding tile inference with pad=114 and project back to source coords."""
+    h, w = bgr.shape[:2]
+    crop_x0, crop_y0, crop_x1, crop_y1 = crop_rect
+    tile_rects = generate_sliding_tile_rects(crop_x0, crop_y0, crop_x1, crop_y1, w, h, tile_size=tile_size, stride=stride)
 
-def evaluate_tiles(net, tiles, conf_thresholds=[0.30, 0.50]):
-    print(f"Evaluating {len(tiles)} tiles...")
-    results = {}
-    for conf in conf_thresholds:
-        results[conf] = {
-            'total_gt': 0,
-            'tp50': 0,
-            'tp30': 0,
-            'by_size': {
-                'tiny': {'total': 0, 'tp50': 0},
-                'small': {'total': 0, 'tp50': 0},
-                'medium': {'total': 0, 'tp50': 0},
-                'large': {'total': 0, 'tp50': 0}
-            },
-            'fp': 0,
-            'clean_control_fp': 0
-        }
+    raw_preds = []
+    for rect in tile_rects:
+        a, b, endx, endy = rect
+        tile_bgr = extract_tile_bgr(bgr, rect, tile_size=tile_size, pad_val=114)
+        t_tensor = tile_to_tensor(tile_bgr).unsqueeze(0)
 
-    # Evaluate on a representative sample of 150 training tiles (positives + clean controls)
-    pos_tiles = [t for t in tiles if len(t.get('boxes', [])) > 0]
-    neg_tiles = [t for t in tiles if len(t.get('boxes', [])) == 0]
-    eval_tiles = pos_tiles[:100] + neg_tiles[:50]
-    print(f"Sampled {len(eval_tiles)} tiles ({len(pos_tiles[:100])} positive, {len(neg_tiles[:50])} clean control)")
+        with torch.no_grad():
+            out = net(t_tensor)[0]  # [12240, 6]
 
-    for t_idx, t in enumerate(eval_tiles):
-        row = t['row']
-        src_path = Path(row['absolutePath']) if 'absolutePath' in row and Path(row['absolutePath']).exists() else (LIVE_TEST / row['path'])
-        full_bgr = None
-        # Load image crop
-        x0, y0, x1, y1 = t['rect']
-        full_bgr = cv2.imread(str(src_path))
-        if full_bgr is None:
-            continue
-        tile_bgr = full_bgr[y0:y1, x0:x1]
-        if tile_bgr.shape[0] != 384 or tile_bgr.shape[1] != 384:
-            # pad to 384x384
-            padded = np.zeros((384, 384, 3), dtype=tile_bgr.dtype)
-            padded[:tile_bgr.shape[0], :tile_bgr.shape[1]] = tile_bgr
-            tile_bgr = padded
+        scores = out[:, 4] * out[:, 5]
+        mask = scores >= conf_thresh
+        if mask.any():
+            sel_out = out[mask]
+            sel_scores = scores[mask]
+            for row, sc in zip(sel_out.numpy(), sel_scores.numpy()):
+                cx, cy, bw, bh = row[:4]
+                x0 = max(0.0, float(cx - bw / 2.0 + a))
+                y0 = max(0.0, float(cy - bh / 2.0 + b))
+                x1 = min(float(w), float(cx + bw / 2.0 + a))
+                y1 = min(float(h), float(cy + bh / 2.0 + b))
+                raw_preds.append([x0, y0, x1, y1, float(sc)])
 
-        gt_boxes = np.array(t.get('boxes', []), dtype=np.float32)
-        is_clean = t.get('isCleanControl', False)
+    if not raw_preds:
+        return []
 
-        for conf in conf_thresholds:
-            preds = predict_tile(net, tile_bgr, conf_thresh=conf, nms_thresh=0.30)
-            res = results[conf]
+    # Image-level NMS
+    boxes_t = torch.tensor([p[:4] for p in raw_preds], dtype=torch.float32)
+    scores_t = torch.tensor([p[4] for p in raw_preds], dtype=torch.float32)
+    keep = torch_nms(boxes_t, scores_t, nms_thresh)
+    return [raw_preds[i] for i in keep.numpy()]
 
-            if len(gt_boxes) > 0:
-                pred_list = preds.tolist() if len(preds) > 0 else []
-                gt_list = gt_boxes.tolist()
-                
-                # Match: match_predictions_to_truth(truth_boxes, pred_boxes, iou_thresh)
-                matched_truth_50, matches_50, duplicate_p50, unmatched_p50, unmatched_t50 = match_predictions_to_truth(
-                    gt_list, pred_list, 0.50
-                )
-                res['total_gt'] += len(gt_boxes)
-                res['tp50'] += len(matched_truth_50)
-                res['fp'] += len(unmatched_p50) + len(duplicate_p50)
 
-                # Size breakdown
-                matched_set = set(matched_truth_50)
-                for b_idx, gb in enumerate(gt_boxes):
-                    bw = gb[2] - gb[0]
-                    bh = gb[3] - gb[1]
-                    s = max(bw, bh)
-                    cat = 'tiny' if s < 8 else 'small' if s < 16 else 'medium' if s < 32 else 'large'
-                    res['by_size'][cat]['total'] += 1
-                    if b_idx in matched_set:
-                        res['by_size'][cat]['tp50'] += 1
-            else:
-                res['fp'] += len(preds)
-                if is_clean:
-                    res['clean_control_fp'] += len(preds)
+def evaluate_dataset_canonical(
+    net: torch.nn.Module,
+    rows: List[dict],
+    masks: Dict[str, np.ndarray],
+    conf_thresh: float = 0.30,
+    nms_thresh: float = 0.30,
+    is_train: bool = True
+) -> Dict[str, Any]:
+    """Run full image-level evaluation with deduplicated unique GT lesion matching."""
+    total_images = len(rows)
+    total_gt = 0
+    total_tp50 = 0
+    total_tp30 = 0
+    total_preds = 0
+    verified_clean_fp = 0
 
-    return results
+    by_size = {
+        'tiny': {'total': 0, 'tp50': 0, 'tp30': 0},
+        'small': {'total': 0, 'tp50': 0, 'tp30': 0},
+        'medium': {'total': 0, 'tp50': 0, 'tp30': 0},
+        'large': {'total': 0, 'tp50': 0, 'tp30': 0}
+    }
+
+    t0 = time.time()
+    for idx, r in enumerate(rows):
+        sha = r['sha256']
+        path = r.get('absolutePath') or str(LIVE_TEST / r['path'])
+        bgr = cv2.imread(path)
+        if bgr is None:
+            raise FileNotFoundError(f"Cannot load image: {path}")
+
+        h, w = bgr.shape[:2]
+        crop_rect = r.get('crop', [0, 0, w, h])
+        clean_mask = masks.get(sha)
+
+        # Ground truth lesions in crop
+        gt_boxes = []
+        for ann in r.get('annotations', []):
+            if ann.get('classId') == 0:
+                bx, by, ex, ey = ann['box']
+                gt_boxes.append([float(bx), float(by), float(ex), float(ey)])
+
+        # Predict image
+        preds = predict_image_sliding_tiles(
+            net, bgr, crop_rect,
+            tile_size=384, stride=288,
+            conf_thresh=conf_thresh, nms_thresh=nms_thresh
+        )
+        total_preds += len(preds)
+
+        if gt_boxes:
+            total_gt += len(gt_boxes)
+            # Size categorization
+            for gb in gt_boxes:
+                dim = max(gb[2] - gb[0], gb[3] - gb[1])
+                cat = 'tiny' if dim < 8 else ('small' if dim < 16 else ('medium' if dim < 32 else 'large'))
+                by_size[cat]['total'] += 1
+
+            matched_50, _, _, unmatched_p50, _ = match_predictions_to_truth(gt_boxes, preds, 0.50)
+            matched_30, _, _, _, _ = match_predictions_to_truth(gt_boxes, preds, 0.30)
+
+            total_tp50 += len(matched_50)
+            total_tp30 += len(matched_30)
+
+            matched_set_50 = set(matched_50)
+            matched_set_30 = set(matched_30)
+            for g_i, gb in enumerate(gt_boxes):
+                dim = max(gb[2] - gb[0], gb[3] - gb[1])
+                cat = 'tiny' if dim < 8 else ('small' if dim < 16 else ('medium' if dim < 32 else 'large'))
+                if g_i in matched_set_50:
+                    by_size[cat]['tp50'] += 1
+                if g_i in matched_set_30:
+                    by_size[cat]['tp30'] += 1
+
+            # Check unmatched predictions against verified clean skin mask
+            if clean_mask is not None:
+                for p_idx in unmatched_p50:
+                    px0, py0, px1, py1, _ = preds[p_idx]
+                    cx = int(round((px0 + px1) / 2.0))
+                    cy = int(round((py0 + py1) / 2.0))
+                    if 0 <= cy < h and 0 <= cx < w and clean_mask[cy, cx] > 0:
+                        verified_clean_fp += 1
+        else:
+            # Clean control image
+            if clean_mask is not None:
+                for p in preds:
+                    cx = int(round((p[0] + p[2]) / 2.0))
+                    cy = int(round((p[1] + p[3]) / 2.0))
+                    if 0 <= cy < h and 0 <= cx < w and clean_mask[cy, cx] > 0:
+                        verified_clean_fp += 1
+
+    elapsed = time.time() - t0
+    rec50 = total_tp50 / max(total_gt, 1)
+    rec30 = total_tp30 / max(total_gt, 1)
+
+    return {
+        'totalImages': total_images,
+        'totalUniqueGt': total_gt,
+        'tp50': total_tp50,
+        'tp30': total_tp30,
+        'rec50': round(rec50, 4),
+        'rec30': round(rec30, 4),
+        'totalPreds': total_preds,
+        'verifiedCleanSkinFp': verified_clean_fp,
+        'bySize': {
+            cat: {
+                'total': v['total'],
+                'tp50': v['tp50'],
+                'rec50': round(v['tp50'] / max(v['total'], 1), 4),
+                'tp30': v['tp30'],
+                'rec30': round(v['tp30'] / max(v['total'], 1), 4)
+            }
+            for cat, v in by_size.items()
+        },
+        'elapsedSeconds': round(elapsed, 1)
+    }
+
 
 def main():
-    print("=== TRAIN vs VAL LEARNING DIAGNOSIS FOR cf3a2ba4 ===")
+    print("=" * 80)
+    print("CANONICAL IMAGE-LEVEL TRAIN VS VAL LEARNING DIAGNOSIS")
+    print("=" * 80)
+
+    # 1. Load verified model
+    net, model_sha = load_verified_model(
+        TRUE_BASELINE_EPOCH02_PATH,
+        expected_sha=TRUE_BASELINE_EPOCH02_SHA
+    )
+    print(f"Verified Model: {model_sha} from {TRUE_BASELINE_EPOCH02_PATH.name}")
+
+    # 2. Load dataset
     with open(DATA_PATH, 'r', encoding='utf-8') as f:
         data = json.load(f)
-    tr_rows = [r for r in data['rows'] if r['split'] == 'train']
-    masks, weights = build_hole_preserved_negative_masks(tr_rows)
-    tiles = acne_tiles_p2(tr_rows, masks, training=True)
 
-    net = load_model()
+    train_rows = [r for r in data['rows'] if r['split'] == 'train']
+    print(f"Loaded {len(train_rows)} TRAIN rows from reviewed dataset.")
 
-    train_res = evaluate_tiles(net, tiles, conf_thresholds=[0.30, 0.50])
-    
-    print("\n" + "=" * 80)
-    print("TRAIN EVALUATION SUMMARY (Baseline Checkpoint cf3a2ba4)")
-    print("=" * 80)
-    for conf, r in train_res.items():
-        print(f"\n--- Confidence {conf:.2f} ---")
-        rec50 = r['tp50'] / max(r['total_gt'], 1)
-        print(f"  Overall IoU50 Recall: {r['tp50']}/{r['total_gt']} ({rec50:.1%}) | False Positives: {r['fp']} (Clean control FP: {r['clean_control_fp']})")
-        for cat, st in r['by_size'].items():
-            cat_rec = st['tp50'] / max(st['total'], 1)
-            print(f"    {cat:8s}: {st['tp50']}/{st['total']} ({cat_rec:.1%})")
+    # Build hole-preserved negative masks for clean skin accounting
+    masks, _ = build_hole_preserved_negative_masks(train_rows)
 
-    print("\n" + "=" * 80)
-    print("COMPARISON WITH VALIDATION EVALUATION (Baseline Checkpoint cf3a2ba4)")
-    print("=" * 80)
-    print("  Validation Overall IoU50 (conf 0.30): 15/53 (28.3%)")
-    print("    <8 px:   0/7  (0.0%)")
-    print("    8-16 px: 5/31 (16.1%)")
-    print("    16-32 px:10/15 (66.7%)")
-    print("    Neg FP:  3 / 15 photos (0.20 FP/photo)")
+    # 3. Evaluate TRAIN dataset
+    print(f"\n[1/2] Running canonical evaluation on all {len(train_rows)} TRAIN images...")
+    train_metrics = evaluate_dataset_canonical(
+        net, train_rows, masks,
+        conf_thresh=0.30, nms_thresh=0.30, is_train=True
+    )
+    print(f"  TRAIN Result (conf 0.30): IoU50 = {train_metrics['tp50']}/{train_metrics['totalUniqueGt']} ({train_metrics['rec50']:.1%}) | Verified Clean FP = {train_metrics['verifiedCleanSkinFp']}")
+    for cat, v in train_metrics['bySize'].items():
+        print(f"    {cat:8s}: {v['tp50']:4d}/{v['total']:4d} ({v['rec50']:6.1%})")
+
+    # 4. Canonical Validation from cache
+    val_cached = load_canonical_validation_cache()
+    # Canonical validation uses acne_box_support + inScopeProductPose
+    from train_p2_focal_trial import evaluate_canonical_validation
+    print(f"\n[2/2] Running canonical evaluation on 43 validation images...")
+    val_res = evaluate_canonical_validation(net, val_cached, conf_thresholds=[0.30])
+    v30 = val_res['0.3']
+
+    val_metrics = {
+        'inScopeTruth': v30['inScopeTruth'],
+        'inScopeTp50': v30['inScopeTp50'],
+        'rec50': v30['rec50'],
+        'negTotalFp': v30['negTotalFp'],
+        'fpPerPhoto': v30['fpPerPhoto'],
+        'bySize': {
+            'tiny': {'total': 7, 'tp50': v30['smallLesionRecall']['tiny_less_8px']['tp50'], 'rec50': v30['smallLesionRecall']['tiny_less_8px']['tp50'] / 7.0},
+            'small': {'total': 31, 'tp50': v30['smallLesionRecall']['small_8_to_16px']['tp50'], 'rec50': v30['smallLesionRecall']['small_8_to_16px']['tp50'] / 31.0},
+            'medium': {'total': 15, 'tp50': v30['smallLesionRecall']['medium_16_to_32px']['tp50'], 'rec50': v30['smallLesionRecall']['medium_16_to_32px']['tp50'] / 15.0},
+        }
+    }
+    print(f"  VAL Result (conf 0.30): IoU50 = {val_metrics['inScopeTp50']}/{val_metrics['inScopeTruth']} ({val_metrics['rec50']:.1%}) | Neg FP = {val_metrics['negTotalFp']} ({val_metrics['fpPerPhoto']:.2f}/photo)")
+    for cat, v in val_metrics['bySize'].items():
+        print(f"    {cat:8s}: {v['tp50']:4d}/{v['total']:4d} ({v['rec50']:6.1%})")
+
+    receipt = generate_evaluation_receipt(
+        model_identity="True Baseline cf3a2ba4 (Epoch 02)",
+        model_sha=model_sha,
+        model_path=str(TRUE_BASELINE_EPOCH02_PATH),
+        dataset_path=str(DATA_PATH),
+        dataset_version="train-data-engineering-reviewed-20261013",
+        preprocessing_version=PREPROCESSING_VERSION,
+        conf_threshold=0.30,
+        nms_threshold=0.30,
+        filter_version=acne_box_support.VERSION,
+        metrics={
+            'train': train_metrics,
+            'validation': val_metrics
+        }
+    )
+
+    with open(OUTPUT_RECEIPT_PATH, 'w', encoding='utf-8') as f:
+        json.dump(receipt, f, indent=2)
+
+    print(f"\nCanonical receipt saved to: {OUTPUT_RECEIPT_PATH}")
+
 
 if __name__ == '__main__':
     main()

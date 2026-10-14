@@ -162,6 +162,50 @@ class YOLOXHead_P2(YOLOXHead):
         self.cls_bce_loss = nn.BCEWithLogitsLoss(reduction="none")
         self.obj_focal_loss = None
 
+    def get_geometry_constraint(
+        self, gt_bboxes_per_image, expanded_strides, x_shifts, y_shifts,
+    ):
+        """Scale-guided geometry constraint matching physical lesion size to pyramid stride.
+        
+        Rules:
+        - Stride 4 (P2): s < 14 px (crucial for micro/tiny lesions where stride 8 cannot achieve IoU 0.50).
+        - Stride 8 (P3): 12 <= s < 36 px (preserves baseline acne representation for small-med & med).
+        - Stride 16 (P4): 24 <= s < 72 px.
+        - Stride 32 (P5): s >= 48 px.
+        """
+        expanded_strides_per_image = expanded_strides[0]
+        x_centers_per_image = ((x_shifts[0] + 0.5) * expanded_strides_per_image).unsqueeze(0)
+        y_centers_per_image = ((y_shifts[0] + 0.5) * expanded_strides_per_image).unsqueeze(0)
+
+        center_radius = 1.5
+        center_dist = expanded_strides_per_image.unsqueeze(0) * center_radius
+        gt_bboxes_per_image_l = (gt_bboxes_per_image[:, 0:1]) - center_dist
+        gt_bboxes_per_image_r = (gt_bboxes_per_image[:, 0:1]) + center_dist
+        gt_bboxes_per_image_t = (gt_bboxes_per_image[:, 1:2]) - center_dist
+        gt_bboxes_per_image_b = (gt_bboxes_per_image[:, 1:2]) + center_dist
+
+        c_l = x_centers_per_image - gt_bboxes_per_image_l
+        c_r = gt_bboxes_per_image_r - x_centers_per_image
+        c_t = y_centers_per_image - gt_bboxes_per_image_t
+        c_b = gt_bboxes_per_image_b - y_centers_per_image
+        center_deltas = torch.stack([c_l, c_t, c_r, c_b], 2)
+        is_in_centers = center_deltas.min(dim=-1).values > 0.0
+
+        gt_max_dim = torch.max(gt_bboxes_per_image[:, 2:4], dim=-1).values.unsqueeze(1)
+        stride_row = expanded_strides_per_image.unsqueeze(0)
+
+        scale_ok = torch.zeros_like(is_in_centers, dtype=torch.bool)
+        scale_ok |= (stride_row == 4) & (gt_max_dim < 14.0)
+        scale_ok |= (stride_row == 8) & (gt_max_dim >= 12.0) & (gt_max_dim < 36.0)
+        scale_ok |= (stride_row == 16) & (gt_max_dim >= 24.0) & (gt_max_dim < 72.0)
+        scale_ok |= (stride_row == 32) & (gt_max_dim >= 48.0)
+
+        is_valid = is_in_centers & scale_ok
+        anchor_filter = is_valid.sum(dim=0) > 0
+        geometry_relation = is_valid[:, anchor_filter]
+
+        return anchor_filter, geometry_relation
+
     def get_losses(
         self,
         imgs,
@@ -264,17 +308,28 @@ class YOLOXHead_P2(YOLOXHead):
             self.iou_loss(bbox_preds.view(-1, 4)[fg_masks], reg_targets)
         ).sum() / num_fg
 
-        # Dedicated Objectness Loss: Focal Objectness Loss with strict unknown masking
+        # Dedicated Objectness Loss: Focal Objectness Loss with balanced pos/neg normalization
         if self.obj_focal_loss is not None:
             raw_obj_loss = self.obj_focal_loss(obj_preds.view(-1, 1), obj_targets)
-            loss_obj = raw_obj_loss.sum() / num_fg
+            is_pos = (obj_targets > 0)
+            is_neg = (obj_targets == 0)
+            if self.obj_focal_loss.known is not None:
+                is_neg = is_neg & self.obj_focal_loss.known
+            
+            raw_pos = (raw_obj_loss * is_pos.to(raw_obj_loss.dtype)).sum()
+            raw_neg = (raw_obj_loss * is_neg.to(raw_obj_loss.dtype)).sum()
+            
+            norm_pos = raw_pos / num_fg
+            num_known_neg = max(float(is_neg.sum().item()), 1.0)
+            w_neg = 20.0
+            norm_neg = (raw_neg / num_known_neg) * w_neg
+            loss_obj = norm_pos + norm_neg
+
             if hasattr(self.obj_focal_loss, 'last_metrics') and hasattr(self.obj_focal_loss, 'record_normalized'):
-                raw_pos = self.obj_focal_loss.last_metrics.get('raw_pos_obj_loss', 0.0)
-                raw_neg = self.obj_focal_loss.last_metrics.get('raw_neg_obj_loss', 0.0)
                 self.obj_focal_loss.record_normalized(
                     num_fg=num_fg,
-                    norm_pos=raw_pos / num_fg,
-                    norm_neg=raw_neg / num_fg
+                    norm_pos=norm_pos.item() if isinstance(norm_pos, torch.Tensor) else float(norm_pos),
+                    norm_neg=norm_neg.item() if isinstance(norm_neg, torch.Tensor) else float(norm_neg),
                 )
         else:
             loss_obj = (
@@ -400,6 +455,8 @@ def load_baseline_weights_to_p2_model(
         p2_net.head.cls_preds[0].bias.fill_(prior_bias)
         nn.init.zeros_(p2_net.head.reg_preds[0].weight)
         p2_net.head.reg_preds[0].bias.zero_()
+        # Set prior box size to 8px: exp(log(2)) * 4 = 8px
+        p2_net.head.reg_preds[0].bias[2:4].fill_(math.log(2.0))
 
     # 5. Load transferred parameters into state dict
     msg = p2_net.load_state_dict(transferred, strict=False)
@@ -536,6 +593,74 @@ def build_p2_param_groups(
             'parameterCount': sum(p.numel() for _, p in frozen_params)
         },
         'totalTrainableParams': sum(p.numel() for p in trainable_all),
+        'totalModelParams': sum(p.numel() for p in net.parameters())
+    }
+
+    return param_groups, receipt
+
+
+def build_independent_p2_param_groups(
+    net: nn.Module,
+    lr_p2: float = 2e-4,
+    weight_decay: float = 0.0001
+) -> Tuple[List[Dict[str, any]], Dict[str, any]]:
+    """Build parameter groups where ONLY Level 0 (P2 stride 4) is trainable.
+    
+    Strict Zero-Drift Preservation:
+    - 100% of CSPDarknet backbone is FROZEN (requires_grad = False).
+    - 100% of upper PAFPN levels (P3, P4, P5) are FROZEN (requires_grad = False).
+    - p2_gate is strictly 0.0 and FROZEN, completely decoupling P3 features.
+    - 100% of pre-trained heads (P3, P4, P5 at indices 1, 2, 3) are FROZEN.
+    - Only Level 0 branch and head receive gradients.
+    """
+    trainable_prefixes = (
+        'backbone.reduce_conv2.',
+        'backbone.C3_p2.',
+        'head.stems.0.',
+        'head.cls_convs.0.',
+        'head.reg_convs.0.',
+        'head.cls_preds.0.',
+        'head.reg_preds.0.',
+        'head.obj_preds.0.'
+    )
+
+    trainable_params = []
+    trainable_names = []
+    frozen_params = []
+    frozen_names = []
+
+    # Strictly ensure p2_gate is 0.0
+    with torch.no_grad():
+        net.backbone.p2_gate.zero_()
+
+    for k, p in net.named_parameters():
+        if any(k.startswith(pfx) for pfx in trainable_prefixes):
+            p.requires_grad = True
+            trainable_params.append(p)
+            trainable_names.append(k)
+        else:
+            p.requires_grad = False
+            frozen_params.append(p)
+            frozen_names.append(k)
+
+    param_groups = [
+        {'params': trainable_params, 'lr': lr_p2, 'weight_decay': weight_decay, 'name': 'level0_p2_independent'}
+    ]
+
+    receipt = {
+        'trainableLevel0': {
+            'tensorCount': len(trainable_params),
+            'parameterCount': sum(p.numel() for p in trainable_params),
+            'lr': lr_p2,
+            'weight_decay': weight_decay,
+            'sampleNames': trainable_names[:5] + trainable_names[-5:]
+        },
+        'frozenBaseline': {
+            'tensorCount': len(frozen_params),
+            'parameterCount': sum(p.numel() for p in frozen_params),
+            'sampleNames': frozen_names[:5] + frozen_names[-5:]
+        },
+        'p2GateValue': net.backbone.p2_gate.item(),
         'totalModelParams': sum(p.numel() for p in net.parameters())
     }
 
