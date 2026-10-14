@@ -427,6 +427,121 @@ def load_baseline_weights_to_p2_model(
     return report
 
 
+def build_p2_param_groups(
+    net: nn.Module,
+    lr_p2: float = 1e-4,
+    lr_backbone: float = 1e-5,
+    weight_decay: float = 0.0005
+) -> Tuple[List[Dict[str, any]], Dict[str, any]]:
+    """Build unified parameter groups for YOLOX-S P2 small-foci training.
+    
+    Groups:
+    1. Frozen: stem and dark2 in CSPDarknet (requires_grad = False).
+    2. P2 Head and FPN/PANet Branch (lr = lr_p2):
+       - backbone.reduce_conv2
+       - backbone.C3_p2
+       - backbone.bu_conv3
+       - backbone.C3_n2
+       - backbone.p2_gate
+       - head.stems.0
+       - head.cls_convs.0
+       - head.reg_convs.0
+       - head.cls_preds.0
+       - head.reg_preds.0
+       - head.obj_preds.0
+       Must contain exactly 58 tensors and 742,791 parameters.
+    3. Pretrained Backbone & Heads (lr = lr_backbone):
+       - Remaining PAFPN and head levels (1, 2, 3 -> P3, P4, P5) and dark3, dark4, dark5.
+       Must contain exactly 219 tensors and 8,896,786 parameters.
+    """
+    frozen_count = 0
+    frozen_params = []
+    for k, p in net.named_parameters():
+        if k.startswith(('backbone.backbone.stem.', 'backbone.backbone.dark2.')):
+            p.requires_grad = False
+            frozen_count += 1
+            frozen_params.append((k, p))
+        else:
+            p.requires_grad = True
+
+    p2_prefixes = (
+        'backbone.reduce_conv2.', 'backbone.C3_p2.', 'backbone.bu_conv3.',
+        'backbone.C3_n2.', 'backbone.p2_gate', 'head.stems.0.',
+        'head.cls_convs.0.', 'head.reg_convs.0.', 'head.cls_preds.0.',
+        'head.reg_preds.0.', 'head.obj_preds.0.'
+    )
+
+    p2_params = []
+    p2_names = []
+    backbone_params = []
+    backbone_names = []
+
+    for k, p in net.named_parameters():
+        if not p.requires_grad:
+            continue
+        if k == 'backbone.p2_gate' or any(k.startswith(pfx) for pfx in p2_prefixes):
+            p2_params.append(p)
+            p2_names.append(k)
+        else:
+            backbone_params.append(p)
+            backbone_names.append(k)
+
+    # Assertions
+    assert len(p2_params) > 0, "P2 parameter group is empty!"
+    assert len(backbone_params) > 0, "Backbone parameter group is empty!"
+    
+    # Check no overlap
+    p2_set = set(id(p) for p in p2_params)
+    bb_set = set(id(p) for p in backbone_params)
+    overlap = p2_set & bb_set
+    assert len(overlap) == 0, f"Overlapping parameters between P2 and Backbone groups: {len(overlap)}"
+
+    # Check complete partition of trainable parameters
+    trainable_all = [p for p in net.parameters() if p.requires_grad]
+    assert len(p2_params) + len(backbone_params) == len(trainable_all), (
+        f"Partition mismatch: {len(p2_params)} + {len(backbone_params)} != {len(trainable_all)}"
+    )
+
+    # Check exact counts
+    assert len(p2_params) == 58, f"Expected 58 P2 parameter tensors, got {len(p2_params)}"
+    assert sum(p.numel() for p in p2_params) == 742791, (
+        f"Expected 742,791 P2 parameters, got {sum(p.numel() for p in p2_params)}"
+    )
+    assert len(backbone_params) == 219, f"Expected 219 backbone tensors, got {len(backbone_params)}"
+    assert sum(p.numel() for p in backbone_params) == 8896786, (
+        f"Expected 8,896,786 backbone parameters, got {sum(p.numel() for p in backbone_params)}"
+    )
+
+    param_groups = [
+        {'params': p2_params, 'lr': lr_p2, 'weight_decay': weight_decay, 'name': 'p2_branch_and_head'},
+        {'params': backbone_params, 'lr': lr_backbone, 'weight_decay': weight_decay, 'name': 'backbone_and_other_heads'}
+    ]
+
+    receipt = {
+        'p2Group': {
+            'tensorCount': len(p2_params),
+            'parameterCount': sum(p.numel() for p in p2_params),
+            'lr': lr_p2,
+            'prefixes': list(p2_prefixes),
+            'sampleNames': p2_names[:5] + p2_names[-5:]
+        },
+        'backboneGroup': {
+            'tensorCount': len(backbone_params),
+            'parameterCount': sum(p.numel() for p in backbone_params),
+            'lr': lr_backbone,
+            'sampleNames': backbone_names[:5] + backbone_names[-5:]
+        },
+        'frozenGroup': {
+            'tensorCount': frozen_count,
+            'parameterCount': sum(p.numel() for _, p in frozen_params)
+        },
+        'totalTrainableParams': sum(p.numel() for p in trainable_all),
+        'totalModelParams': sum(p.numel() for p in net.parameters())
+    }
+
+    return param_groups, receipt
+
+
 if __name__ == '__main__':
     print("=== Testing YOLOX-S with P2 Branch Architecture ===")
     model = build_yolox_p2_model(num_classes=1, depth=0.33, width=0.5)
