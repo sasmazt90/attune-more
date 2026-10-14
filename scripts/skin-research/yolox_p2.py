@@ -26,7 +26,7 @@ Architecture & Contract:
 import sys
 import math
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Any
 import torch
 import torch.nn as nn
 from safetensors.torch import load_file
@@ -661,6 +661,108 @@ def build_independent_p2_param_groups(
             'sampleNames': frozen_names[:5] + frozen_names[-5:]
         },
         'p2GateValue': net.backbone.p2_gate.item(),
+        'totalModelParams': sum(p.numel() for p in net.parameters())
+    }
+
+    return param_groups, receipt
+
+
+def build_finetune_param_groups(
+    net: YOLOX,
+    lr_p2: float = 1.5e-4,
+    lr_heads: float = 3.0e-5,
+    lr_pafpn: float = 1.5e-5,
+    lr_backbone: float = 5.0e-6,
+    weight_decay: float = 1e-4,
+    unfreeze_backbone: bool = True
+) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    """Build multi-tier differential learning rate parameter groups for full skin fine-tuning.
+    
+    Tiers:
+    1. Level 0 (P2 branch + head + p2_gate): lr_p2 (~1.5e-4)
+    2. Upper detection heads (P3, P4, P5 stems, convs, preds): lr_heads (~3.0e-5)
+    3. Upper PAFPN fusion (lateral_conv0, reduce_conv1, C3_p3/p4/n3/n4, bu_conv1/2): lr_pafpn (~1.5e-5)
+    4. Backbone feature adaptation (dark2, dark3, dark4, dark5): lr_backbone (~5.0e-6)
+    """
+    p2_prefixes = (
+        'backbone.reduce_conv2.', 'backbone.C3_p2.', 'backbone.bu_conv3.', 'backbone.C3_n2.', 'backbone.p2_gate',
+        'head.stems.0.', 'head.cls_convs.0.', 'head.reg_convs.0.', 'head.cls_preds.0.', 'head.reg_preds.0.', 'head.obj_preds.0.'
+    )
+    head_prefixes = ('head.stems.', 'head.cls_convs.', 'head.reg_convs.', 'head.cls_preds.', 'head.reg_preds.', 'head.obj_preds.')
+    pafpn_prefixes = (
+        'backbone.lateral_conv0.', 'backbone.C3_p4.', 'backbone.reduce_conv1.', 'backbone.C3_p3.',
+        'backbone.bu_conv2.', 'backbone.C3_n3.', 'backbone.bu_conv1.', 'backbone.C3_n4.'
+    )
+    backbone_prefixes = ('backbone.backbone.dark3.', 'backbone.backbone.dark4.', 'backbone.backbone.dark5.', 'backbone.backbone.dark2.')
+
+    g_p2, g_heads, g_pafpn, g_backbone, g_stem = [], [], [], [], []
+    n_p2, n_heads, n_pafpn, n_backbone, n_stem = [], [], [], [], []
+
+    for name, p in net.named_parameters():
+        if any(name.startswith(pfx) for pfx in p2_prefixes):
+            p.requires_grad = True
+            g_p2.append(p)
+            n_p2.append(name)
+        elif any(name.startswith(pfx) for pfx in head_prefixes):
+            p.requires_grad = True
+            g_heads.append(p)
+            n_heads.append(name)
+        elif any(name.startswith(pfx) for pfx in pafpn_prefixes):
+            p.requires_grad = True
+            g_pafpn.append(p)
+            n_pafpn.append(name)
+        elif any(name.startswith(pfx) for pfx in backbone_prefixes):
+            p.requires_grad = unfreeze_backbone
+            if unfreeze_backbone:
+                g_backbone.append(p)
+                n_backbone.append(name)
+            else:
+                g_stem.append(p)
+                n_stem.append(name)
+        else:
+            # Stem kept frozen to preserve low-level primitive filters
+            p.requires_grad = False
+            g_stem.append(p)
+            n_stem.append(name)
+
+    param_groups = [
+        {'params': g_p2, 'lr': lr_p2, 'weight_decay': weight_decay, 'name': 'level0_p2_task'},
+        {'params': g_heads, 'lr': lr_heads, 'weight_decay': weight_decay, 'name': 'pretrained_heads'},
+        {'params': g_pafpn, 'lr': lr_pafpn, 'weight_decay': weight_decay, 'name': 'pafpn_fusion'},
+    ]
+    if unfreeze_backbone and g_backbone:
+        param_groups.append(
+            {'params': g_backbone, 'lr': lr_backbone, 'weight_decay': weight_decay, 'name': 'backbone_adaptation'}
+        )
+
+    receipt = {
+        'level0_p2_task': {
+            'tensorCount': len(g_p2),
+            'paramCount': sum(p.numel() for p in g_p2),
+            'lr': lr_p2
+        },
+        'pretrained_heads': {
+            'tensorCount': len(g_heads),
+            'paramCount': sum(p.numel() for p in g_heads),
+            'lr': lr_heads
+        },
+        'pafpn_fusion': {
+            'tensorCount': len(g_pafpn),
+            'paramCount': sum(p.numel() for p in g_pafpn),
+            'lr': lr_pafpn
+        },
+        'backbone_adaptation': {
+            'tensorCount': len(g_backbone),
+            'paramCount': sum(p.numel() for p in g_backbone),
+            'lr': lr_backbone if unfreeze_backbone else 0.0,
+            'unfrozen': unfreeze_backbone
+        },
+        'frozen_stem': {
+            'tensorCount': len(g_stem),
+            'paramCount': sum(p.numel() for p in g_stem)
+        },
+        'totalTrainableTensors': sum(len(g['params']) for g in param_groups),
+        'totalTrainableParams': sum(sum(p.numel() for p in g['params']) for g in param_groups),
         'totalModelParams': sum(p.numel() for p in net.parameters())
     }
 
