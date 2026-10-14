@@ -17,7 +17,7 @@ elif phase in ['tests','tests-core','tests-eye']:
     limit,reserve=(350,750) if phase=='tests-core' else (500,900) if phase=='tests-eye' else (700,1100)
 elif phase=='typecheck':commands=[(['C:/nvm4w/nodejs/node.exe',str(ROOT/'node_modules/next/dist/bin/next'),'typegen'],ROOT/'apps/vehicle-app'),(['C:/nvm4w/nodejs/node.exe',str(ROOT/'node_modules/typescript/bin/tsc'),'--noEmit'],ROOT/'apps/vehicle-app')];limit=650;reserve=1000
 elif phase=='lint':
-    files=['src/app/skin/page.tsx','src/components/skin/SkinStartView.tsx','src/utils/skinEyewear.ts','src/utils/skinIndicators.ts','src/utils/skinAnalyzer.ts','src/utils/appearanceMeasurements.ts','src/utils/healthHistorySeries.ts','src/utils/skinExpression.ts','src/utils/skinSnapshot.ts']
+    files=['src/app/skin/page.tsx','src/components/skin/SkinStartView.tsx','src/utils/skinEyewear.ts','src/utils/skinIndicators.ts','src/utils/skinAnalyzer.ts','src/utils/appearanceMeasurements.ts','src/utils/healthHistorySeries.ts','src/utils/skinExpression.ts','src/utils/skinSnapshot.ts','src/utils/skinSurfaceAnalysis.ts']
     commands=[(['C:/nvm4w/nodejs/node.exe',str(ROOT/'node_modules/eslint/bin/eslint.js'),*files],ROOT/'apps/vehicle-app')];limit=250;reserve=650
 elif phase=='build':
     # Typecheck's measured owned peak was 347.5 MiB. One build worker and
@@ -34,7 +34,7 @@ elif phase=='build-existing':
     if not (OUT/'lint-receipt.json').exists():raise RuntimeError('Run focused lint before serial build verification')
     lint=json.loads((OUT/'lint-receipt.json').read_text('utf8'))
     lint_log=ROOT/lint['rows'][0]['log']
-    lint_paths=['app/skin/page.tsx','components/skin/SkinStartView.tsx','utils/skinEyewear.ts','utils/skinIndicators.ts','utils/skinAnalyzer.ts','utils/appearanceMeasurements.ts','utils/healthHistorySeries.ts','utils/skinExpression.ts','utils/skinSnapshot.ts']
+    lint_paths=['app/skin/page.tsx','components/skin/SkinStartView.tsx','utils/skinEyewear.ts','utils/skinIndicators.ts','utils/skinAnalyzer.ts','utils/appearanceMeasurements.ts','utils/healthHistorySeries.ts','utils/skinExpression.ts','utils/skinSnapshot.ts','utils/skinSurfaceAnalysis.ts']
     if lint['rows'][0]['exitCode']!=0 or any((ROOT/'apps/vehicle-app/src'/p).stat().st_mtime>lint_log.stat().st_mtime for p in lint_paths):raise RuntimeError('Focused lint source coverage changed; no build claim')
     commands=[(['C:/nvm4w/nodejs/node.exe',str(ROOT/'node_modules/next/dist/bin/next'),'build','.','--no-lint'],stage/'apps/vehicle-app')];limit=850;reserve=1300
 else:raise ValueError('Unknown bounded check')

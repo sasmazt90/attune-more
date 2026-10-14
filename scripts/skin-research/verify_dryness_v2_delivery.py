@@ -13,7 +13,7 @@ def get(path):
     with urllib.request.urlopen('http://127.0.0.1:3000'+path,timeout=20) as r:return r.read()
 state=json.loads((LAUNCH/'session.json').read_text('utf8'))
 assert state['status']=='running' and state['verification'] is False
-build_receipt=OUT/'build-existing-receipt.json';frozen_receipt=ROOT/'.runtime/skin-dry-calibrated-v2-20261014/source-receipt.json'
+build_receipt=OUT/'build-existing-receipt.json';frozen_receipt=ROOT/'.runtime/skin-dry-calibrated-v2-clips-20261014/source-receipt.json'
 assert build_receipt.stat().st_mtime>=frozen_receipt.stat().st_mtime
 assert all(r['exitCode']==0 for r in json.loads(build_receipt.read_text('utf8'))['rows'])
 processes={}
@@ -22,7 +22,7 @@ for name in ['launcher','frontend','backend','browser']:
     if name in ['frontend','backend']:assert cwd.is_relative_to(ROOT)
     if name=='browser':assert any(str(Path(state['profile'])).lower() in a.lower() for a in args)
     processes[name]=dict(pid=p.pid,processStarted=p.create_time(),workspace=str(cwd),executable=p.exe())
-snapshot=json.loads((ROOT/'.runtime/skin-dry-calibrated-v2-20261014/source-receipt.json').read_text('utf-8-sig'))
+snapshot=json.loads((ROOT/'.runtime/skin-dry-calibrated-v2-clips-20261014/source-receipt.json').read_text('utf-8-sig'))
 assert all(sha(ROOT/p)==h for p,h in snapshot.items())
 build_id=(ROOT/'apps/vehicle-app/.next/BUILD_ID').read_text('utf8').strip()
 assert build_id!='9DheD3msEFSOMhjMp-kK8'

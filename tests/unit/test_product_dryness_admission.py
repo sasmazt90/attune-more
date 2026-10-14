@@ -19,6 +19,12 @@ def test_expression_requires_complete_source_bound_finite_support():
   o=observation();o['scores'][name]=.8
   assert E.reason(o,'a',.01,-.12,.3)=='EXPRESSION_'+expected
  assert E.reason(observation(),'a',.11,0,.4)=='EXPRESSION_OPEN_MOUTH'
+ broad=observation();broad['scores']['mouthSmileLeft']=.8
+ assert E.reason(broad,'a',.01,-.12,.42)=='EXPRESSION_SMILE'
+ broad=observation();broad['scores'].update(mouthPucker=.8,mouthFunnel=.3)
+ assert E.reason(broad,'a',.01,-.12,.42)=='EXPRESSION_PUCKER'
+ broad['scores']['mouthFunnel']=.07
+ assert E.reason(broad,'a',.01,-.12,.42) is None
 
 def test_head_asset_tampering_fails_without_fallback(tmp_path,monkeypatch):
  import shutil

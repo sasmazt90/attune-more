@@ -204,7 +204,7 @@ class HeavyJobLease:
         now=time.monotonic()
         if now-self.last_check<.25:return
         self.last_check=now;self.peak=max(self.peak,self.rss_mib())
-        if self.monitor_error:raise HeavyJobUnavailable('Memory monitor failed; own work stopped')
+        if self.monitor_error:raise HeavyJobUnavailable('Memory monitor failed; own work stopped: '+str(self.monitor_error))
         if self.memory_metric=='private':self.private_peak=max(self.private_peak,self.private_mib())
         self.verify_owned()
         available=psutil.virtual_memory().available/2**20
@@ -232,4 +232,4 @@ class HeavyJobLease:
                 row=read_lease(path)
                 if row is not None and row.get('nonce')==self.nonce and row.get('pid')==os.getpid() and row.get('processStarted')==self.process.create_time() and row.get('jobId')==self.job and Path(row['workspace']).resolve()==Path(self.process.cwd()).resolve():path.unlink()
             except (OSError,HeavyJobUnavailable,psutil.AccessDenied):pass
-    def receipt(self):return dict(**self.identity,leasePaths=[str(p) for p in self.owned_paths],bothLeasesOwned=True,ownershipObservationMaxAgeSeconds=1,observerPid=getattr(getattr(self,'observer',None),'pid',None),observerProcessStarted=getattr(self,'observer_birth',None),peakMeasuredRSSMiB=self.peak,peakMeasuredPrivateMiB=self.private_peak if self.memory_metric=='private' else None,childRSSIncluded=self.include_children,elapsedSeconds=time.monotonic()-self.started,foreignProcessesStopped=False)
+    def receipt(self):return dict(**self.identity,leasePaths=[str(p) for p in self.owned_paths],bothLeasesOwned=True,ownershipObservationMaxAgeSeconds=1,observerPid=getattr(getattr(self,'observer',None),'pid',None),observerProcessStarted=getattr(self,'observer_birth',None),peakMeasuredRSSMiB=self.peak,peakMeasuredPrivateMiB=self.private_peak if self.memory_metric=='private' else None,childRSSIncluded=self.include_children,elapsedSeconds=time.monotonic()-self.started,foreignProcessesStopped=False,monitorError=self.monitor_error)

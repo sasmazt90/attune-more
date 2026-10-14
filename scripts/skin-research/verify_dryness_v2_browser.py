@@ -9,15 +9,28 @@ from pathlib import Path
 from heavy_job_lease import HeavyJobLease
 ROOT=Path(__file__).resolve().parents[2];DATA=ROOT/'audit-results/dryness-integration-v2-20261014';OUT=ROOT/'output/playwright/dryness-integration-v2-20261014';OUT.mkdir(parents=True,exist_ok=True)
 LAUNCH=Path('C:/Users/PC/Desktop/YENİ İŞ/Applications/7. TOGG/.launcher')
-PROFILE=LAUNCH/'chrome-verification-profile'
-# One browser/job replaces two simultaneous browser trees. The 1100 MiB
+PROFILE=OUT/('isolated-'+str(time.time_ns()))
+# A lifecycle camera attempt measured 1123.01 MiB private. This run uses
+# the actual normal shortcut servers and a separate isolated test browser.
+# Only one analysis runs; both leases and the global reserve apply. The 1450 MiB
 # process cap and 400 MiB system reserve independently abort the owned job.
 # Start admission does not promise the entire peak allocation is available;
 # every phase rechecks the unchanged hard system reserve and both owners.
 import psutil
 resource_wait_started=time.monotonic()
-while psutil.virtual_memory().available/2**20<1700 and time.monotonic()-resource_wait_started<60:time.sleep(1)
-with HeavyJobLease('CDC-eyewear-product-browser',peak_mib=1100,minimum_available_mib=1600,include_children=True,memory_metric='private') as lease:
+while psutil.virtual_memory().available/2**20<2200 and time.monotonic()-resource_wait_started<60:time.sleep(1)
+import urllib.request
+ready_deadline=time.monotonic()+45
+while True:
+    try:
+        with urllib.request.urlopen('http://127.0.0.1:8000/api/health',timeout=1) as response:assert response.status==200
+        with urllib.request.urlopen('http://127.0.0.1:3000/privacy',timeout=1) as response:assert response.status==200
+        state=json.loads((LAUNCH/'session.json').read_text('utf8'));assert state['status']=='running' and state['verification'] is False
+        break
+    except (OSError,ValueError,AssertionError):
+        if time.monotonic()>ready_deadline:raise RuntimeError('Normal shortcut services did not become ready')
+        time.sleep(.1)
+with HeavyJobLease('CDC-eyewear-product-browser',peak_mib=1450,minimum_available_mib=2100,include_children=True,memory_metric='private') as lease:
     from playwright.sync_api import sync_playwright,expect
     subprocess.run(['C:/nvm4w/nodejs/node.exe','scripts/skin-research/bundle_periorbital_browser.cjs'],cwd=ROOT,check=True,capture_output=True)
     bundle=(ROOT/'.runtime/periorbital-v5-browser-support/utilities.js').read_text('utf8')
@@ -42,42 +55,8 @@ function draw(){x.drawImage(im[selected],0,0);if(stream.getVideoTracks()[0].read
     def progress(phase):
         (DATA/'eyewear-browser-progress.json').write_text(json.dumps(dict(phase=phase,time=time.time(),profile=str(PROFILE),proof=proof,pageErrors=errors),ensure_ascii=False,indent=2),'utf8')
         print(json.dumps(dict(phase=phase)),flush=True)
-    def launch_owned(pw):
-        import psutil
-        state=json.loads((LAUNCH/'session.json').read_text('utf8'))
-        assert state['status']=='stopped','Existing launcher preserved; no second copy'
-        process=subprocess.Popen(['C:/Users/PC/AppData/Local/Programs/Python/Python311/pythonw.exe',str(LAUNCH/'start_togg.pyw'),'--verify-lifecycle'],creationflags=subprocess.CREATE_NO_WINDOW)
-        deadline=time.monotonic()+45
-        try:
-            while True:
-                lease.check()
-                state=json.loads((LAUNCH/'session.json').read_text('utf8'))
-                if state.get('launcher_pid')==process.pid and state.get('status')=='running':break
-                if process.poll() is not None or time.monotonic()>deadline:raise RuntimeError('Own lifecycle host failed')
-                time.sleep(.1)
-            assert state['verification'] is True and Path(state['profile'])==PROFILE
-            assert psutil.Process(state['browser_pid']).ppid()==process.pid
-            deadline=time.monotonic()+20
-            while True:
-                lease.check()
-                try:
-                    port=(PROFILE/'DevToolsActivePort').read_text('utf8').splitlines()[0]
-                    browser=pw.chromium.connect_over_cdp('http://127.0.0.1:'+port,timeout=2000)
-                    return browser.contexts[0],browser,process
-                except Exception:
-                    if process.poll() is not None or time.monotonic()>deadline:raise
-                    time.sleep(.1)
-        except BaseException:
-            if process.poll() is None:process.terminate();process.wait(10)
-            raise
-    def close_owned(browser,process):
-        # This is only the dedicated verified lifecycle browser/job we launched.
-        try:browser.new_browser_cdp_session().send('Browser.close')
-        except Exception:pass
-        process.wait(35)
-        assert json.loads((LAUNCH/'session.json').read_text('utf8'))['status']=='stopped'
     with sync_playwright() as pw:
-        context,browser,owned=launch_owned(pw)
+        context=pw.chromium.launch_persistent_context(str(PROFILE),channel='chrome',headless=False,viewport=dict(width=1600,height=1000),args=['--window-size=1600,1000','--enable-unsafe-swiftshader'])
         try:
             context.add_init_script(injection);page=context.pages[0] if context.pages else context.new_page();page.set_viewport_size(dict(width=1600,height=1000));page.on('pageerror',lambda e:errors.append(str(e)))
             page.goto('http://127.0.0.1:3000/privacy')
@@ -121,6 +100,10 @@ function draw(){x.drawImage(im[selected],0,0);if(stream.getVideoTracks()[0].read
             import httpx
             warm=httpx.post('http://127.0.0.1:8000/api/local-health/skin',json=actual['requests'][0],timeout=46);assert warm.status_code==200
             proof['warmFullHTTPSeconds']=time.monotonic()-warm_start
+            (DATA/'normal-shortcut-cold-result.json').write_text(json.dumps(response),'utf8')
+            state=json.loads((LAUNCH/'session.json').read_text('utf8'));assert state['status']=='running' and state['verification'] is False
+            proof['normalShortcutBackendPID']=state['backend_pid']
+            (DATA/'normal-shortcut-api.json').write_text(json.dumps(dict(rows=[dict(phase='cold',status=actual['timing'][0]['status'],seconds=actual['timing'][0]['seconds'],firstColdIncludesDryEncoderLoad=True,backendPID=state['backend_pid'],persistentPhotoCache=False),dict(phase='warm',status=warm.status_code,seconds=proof['warmFullHTTPSeconds'],firstColdIncludesDryEncoderLoad=False,backendPID=state['backend_pid'],persistentPhotoCache=False)],normalShortcut=True,actualFreshBrowserCapture=True,userRecordsWritten=False),indent=2),'utf8')
             assert warm.json()['maps']==response['maps'] and warm.json()['measurements']==response['measurements']
             from PIL import Image,ImageChops
             import io
@@ -160,9 +143,9 @@ function draw(){x.drawImage(im[selected],0,0);if(stream.getVideoTracks()[0].read
             assert all(not r['comparable'] and r['series']==2 for r in comparisons)
             proof.update(historyUnchanged=before==page.evaluate('localStorage.getItem("togg_health_skin_history")'),historySHA256=hashlib.sha256(before.encode()).hexdigest(),scopeComparisons=comparisons,mapClearedOnRegionChange=dialog.locator('[data-skin-local-fill="dry"]').count()==0)
         finally:
-            progress('first-browser-closed');close_owned(browser,owned)
+            progress('first-browser-closed');context.close()
         pref=PROFILE/'Default/Preferences';settings=json.loads(pref.read_text('utf8'));settings.setdefault('partition',{})['default_zoom_level']={'x':math.log(2)/math.log(1.2)};pref.write_text(json.dumps(settings),'utf8')
-        context,browser,owned=launch_owned(pw)
+        context=pw.chromium.launch_persistent_context(str(PROFILE),channel='chrome',headless=False,viewport=None,no_viewport=True,args=['--window-size=1600,1000','--enable-unsafe-swiftshader'])
         try:
             page=context.pages[0] if context.pages else context.new_page();page.goto('http://127.0.0.1:3000/profile');page.locator('[data-record-id="'+proof['newRecordId']+'"]').get_by_role('button',name='Sonucu Aç',exact=True).click();expect(page.get_by_role('dialog',name='Cilt Sağlığı sonucu',exact=True).locator('[data-skin-snapshot]')).to_be_visible()
             geometry=page.evaluate('({innerWidth,outerWidth,dpr:devicePixelRatio,zoom:getComputedStyle(document.documentElement).zoom,scroll:document.documentElement.scrollWidth})')
@@ -179,7 +162,7 @@ function draw(){x.drawImage(im[selected],0,0);if(stream.getVideoTracks()[0].read
             captured=cdp.send('Page.captureScreenshot',dict(format='png',fromSurface=False));(OUT/'history-native200-browser-surface.png').write_bytes(base64.b64decode(captured['data']))
             proof['native200']=geometry
             (DATA/'history-source-geometry.json').write_text(json.dumps(dict(geometry=geometry200,actualMapSourceCoordinates=actual,expectedAPISourceCoordinates=wanted,mapStep=expected['step'],photoId=proof['actualPhotoId'],historyUnchanged=True),indent=2),'utf8')
-        finally:close_owned(browser,owned)
-    proof.update(firstNormalRequestIncludesEncoderLoad=True,expressionObservationFromSameFrame=True,buildId=(ROOT/'apps/vehicle-app/.next/BUILD_ID').read_text('utf8').strip(),profile=str(PROFILE),resource=lease.receipt(),pageErrors=errors,normalUserProfileTouched=False,physicalCameraAccuracyTest=False)
+        finally:context.close()
+    proof.update(firstNormalRequestIncludesEncoderLoad=True,expressionObservationFromSameFrame=True,buildId=(ROOT/'apps/vehicle-app/.next/BUILD_ID').read_text('utf8').strip(),profile=str(PROFILE.relative_to(ROOT)),resource=lease.receipt(),pageErrors=errors,normalUserProfileTouched=False,physicalCameraAccuracyTest=False)
     assert not errors
     (DATA/'eyewear-product-browser.json').write_text(json.dumps(proof,ensure_ascii=False,indent=2),'utf8');print(json.dumps(dict(buildId=proof['buildId'],blockedRequests=proof['blocked']['requests'],blockedRecords=proof['blocked']['records'],newRecordId=proof['newRecordId'],voiceStartCount=proof['voiceStartCount'],scopeComparisons=proof['scopeComparisons'])),flush=True)

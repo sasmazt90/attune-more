@@ -184,29 +184,23 @@
         {
           "phase": "cold",
           "status": 200,
-          "seconds": 6.625,
-          "backendRSSBeforeMiB": 96.05859375,
-          "backendRSSAfterMiB": 209.25390625,
-          "backendPID": 184924,
-          "backendStarted": 1791978221.4375415,
+          "seconds": 9.939900000095367,
           "firstColdIncludesDryEncoderLoad": true,
+          "backendPID": 122396,
           "persistentPhotoCache": false
         },
         {
           "phase": "warm",
           "status": 200,
-          "seconds": 5.437999999849126,
-          "backendRSSBeforeMiB": 209.25390625,
-          "backendRSSAfterMiB": 217.63671875,
-          "backendPID": 184924,
-          "backendStarted": 1791978221.4375415,
+          "seconds": 7.921000000089407,
           "firstColdIncludesDryEncoderLoad": false,
+          "backendPID": 122396,
           "persistentPhotoCache": false
         }
       ],
       "normalShortcut": true,
-      "userRecordsWritten": false,
-      "sourcePayloadSHA256": "6e1d1bb9b5be00375a9ec8b9c100ba25bf03eecbd671f0c6560068c6015b25d6"
+      "actualFreshBrowserCapture": true,
+      "userRecordsWritten": false
     },
     "additional": [
       {
@@ -242,7 +236,7 @@
     }
   },
   "nativeMaps": {
-    "checked": 35,
+    "checked": 49,
     "passed": true,
     "checks": [
       {
@@ -559,6 +553,169 @@
         "value": 2.6417875707968035,
         "outsideEligibleActivePixels": 0,
         "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "new-camera-normal-result",
+        "region": "forehead",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 12052,
+        "value": 0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "new-camera-normal-result",
+        "region": "nose",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 14022,
+        "value": 0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "new-camera-normal-result",
+        "region": "chin",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 6381,
+        "value": 0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "new-camera-normal-result",
+        "region": "periorbital",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 6846,
+        "value": 0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "new-camera-normal-result",
+        "region": "rightCheek",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 4734,
+        "value": 0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "new-camera-normal-result",
+        "region": "leftCheek",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 4668,
+        "value": 0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "new-camera-normal-result",
+        "region": "overview",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 37983,
+        "value": 0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "nonzero-camera-result",
+        "region": "forehead",
+        "activeSourcePixels": 1298,
+        "visibleSourcePixels": 25073,
+        "value": 5.176883500179476,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "nonzero-camera-result",
+        "region": "nose",
+        "activeSourcePixels": 1298,
+        "visibleSourcePixels": 28376,
+        "value": 4.574288130814773,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "nonzero-camera-result",
+        "region": "chin",
+        "activeSourcePixels": 0,
+        "visibleSourcePixels": 18718,
+        "value": 0,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "nonzero-camera-result",
+        "region": "periorbital",
+        "activeSourcePixels": 106,
+        "visibleSourcePixels": 13125,
+        "value": 0.8076190476190476,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "nonzero-camera-result",
+        "region": "rightCheek",
+        "activeSourcePixels": 16,
+        "visibleSourcePixels": 10930,
+        "value": 0.1463860933211345,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "nonzero-camera-result",
+        "region": "leftCheek",
+        "activeSourcePixels": 16,
+        "visibleSourcePixels": 12028,
+        "value": 0.13302294645826404,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      },
+      {
+        "source": "nonzero-camera-result",
+        "region": "overview",
+        "activeSourcePixels": 1436,
+        "visibleSourcePixels": 86300,
+        "value": 1.66396292004635,
+        "outsideEligibleActivePixels": 0,
+        "sourceCoordinatesWithinFrame": true
+      }
+    ],
+    "unions": [
+      {
+        "source": "cold-normal-camera",
+        "acceptedUnionEqualsOverview": true,
+        "visibleDenominatorUnionEqualsOverview": true
+      },
+      {
+        "source": "warm-normal-camera",
+        "acceptedUnionEqualsOverview": true,
+        "visibleDenominatorUnionEqualsOverview": true
+      },
+      {
+        "source": "camera-1280x960",
+        "acceptedUnionEqualsOverview": true,
+        "visibleDenominatorUnionEqualsOverview": true
+      },
+      {
+        "source": "24031977",
+        "acceptedUnionEqualsOverview": true,
+        "visibleDenominatorUnionEqualsOverview": true
+      },
+      {
+        "source": "dedbb492",
+        "acceptedUnionEqualsOverview": true,
+        "visibleDenominatorUnionEqualsOverview": true
+      },
+      {
+        "source": "new-camera-normal-result",
+        "acceptedUnionEqualsOverview": true,
+        "visibleDenominatorUnionEqualsOverview": true
+      },
+      {
+        "source": "nonzero-camera-result",
+        "acceptedUnionEqualsOverview": true,
+        "visibleDenominatorUnionEqualsOverview": true
       }
     ]
   },
@@ -741,6 +898,9 @@
     "missingNotNeutral": true,
     "rawPrecisionPreserved": true,
     "onlyDryMethodAdmitted": true,
+    "normalPersistValidationPassed": true,
+    "overviewPersistValidationPassed": true,
+    "newClosedAnatomicalClipsRetainQuadSupport": true,
     "oldNormalizationSeparate": true,
     "actualBrowser": false
   },
@@ -752,13 +912,13 @@
     "buildResource": {
       "schema": "attune-dual-atomic-lease-v2",
       "owner": "CDC",
-      "pid": 48816,
-      "processStarted": 1791976483.8697293,
-      "startTime": 1791976483.8697293,
+      "pid": 104816,
+      "processStarted": 1791980835.040701,
+      "startTime": 1791980835.040701,
       "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
       "jobId": "CDC-skin-build-existing",
-      "nonce": "450541a567454b1180e421f2388998fe",
-      "commandSHA256": "d0be573372631f3a9a549e2d1004f9912b0272a716851bd4f60f8bf049365bd3",
+      "nonce": "7efd5554a8954dcdb29e1557793328d4",
+      "commandSHA256": "53c847de7b18ded9983a3627c5555008cf9fcbf5a5e0057cd1f4a60cfdd5420e",
       "peakBudgetMiB": 524,
       "memoryBudgetMetric": "private",
       "minimumAvailableMiB": 949,
@@ -768,17 +928,18 @@
       ],
       "bothLeasesOwned": true,
       "ownershipObservationMaxAgeSeconds": 1,
-      "observerPid": 15952,
-      "observerProcessStarted": 1791976490.8594418,
-      "peakMeasuredRSSMiB": 556.4765625,
-      "peakMeasuredPrivateMiB": 455.4296875,
+      "observerPid": 27388,
+      "observerProcessStarted": 1791980835.8919065,
+      "peakMeasuredRSSMiB": 530.6953125,
+      "peakMeasuredPrivateMiB": 421.6796875,
       "childRSSIncluded": true,
-      "elapsedSeconds": 127.48399999993853,
-      "foreignProcessesStopped": false
+      "elapsedSeconds": 45.64099999982864,
+      "foreignProcessesStopped": false,
+      "monitorError": null
     }
   },
   "normalShortcut": {
-    "buildId": "YShP4ZdJdKL34lP_ALnmW",
+    "buildId": "mlOb9YC5JKNnbE_1xzdjD",
     "sourceHashes": {
       "services/core-api/requirements.txt": "b4b34012dd723c047b69df571a041c91a6fbf7bfffb0affa3ebd1f34c34f0610",
       "services/core-api/product_dryness.py": "034dcafc4eaf474dff1ebbe61bc1d7263f5db5397dd445a0942eda239cec6506",
@@ -800,24 +961,24 @@
     },
     "frontendSourceFiles": 217,
     "servedJavascriptSHA256": {
-      "/_next/static/chunks/656-012d3387edef90f5.js": "a48c56ee67c628c04af078afb6204fe5e24dc3f02b5820aee463f65f52e7c582",
-      "/_next/static/chunks/webpack-7b9d34dd5216e73a.js": "1ae40b055fba44ac3bf10a935b842b3dd1f4a9bcad0bf4d437e60fa663fcd584",
-      "/_next/static/chunks/484-4eeac57d85dbea9b.js": "190904445c729dacc500b4baf5f62ce89c6b89322a5b6aabe7298d314c115b2d",
-      "/_next/static/chunks/330-67f6fe29b65810ce.js": "e8db9771c4367eef515d9f6c0c8b3c37575b45f701e811e3fa5636db0517d766",
-      "/_next/static/chunks/main-app-a840178321886cc8.js": "b5b7a6a18ee7f8fe0d0fa097ccf76c3fd48ec9a33395e4c9a750baa6e550e99e",
       "/_next/static/chunks/987-e7efaa2e25847fed.js": "dd2830cddc3d1cecb34ea22e6831df6db876fe17320a06b71eab72c6417e51ca",
-      "/_next/static/chunks/e898b764-724e4596a1050f58.js": "fef6a31acbe42cb772fbbca3f7eaf3ecd01ab51e1db99c4d0445205eafb6214b",
-      "/_next/static/chunks/app/page-07e73ba348379f03.js": "09c5d9e2276a851e5f1d68da708fe8cb7e7b561a8492cc653ac0cd66ff36aa23",
-      "/_next/static/chunks/948-85266d567c3bae8b.js": "4e807c0317858631a1831c7a30c82fe5932dec40da12fc8aeffb6d1aebb43a2e",
       "/_next/static/chunks/850-03d460badcc90bec.js": "fe19aab65e4b99652e82702538aef87e95e949da65e3a5d8ab24c4a77740cf5b",
-      "/_next/static/chunks/app/layout-a27304a7b4ebe1dc.js": "d7be79e859df1c1791610040d70bdaa07db619cf700e18531c2e2e02127da730",
+      "/_next/static/chunks/e898b764-724e4596a1050f58.js": "fef6a31acbe42cb772fbbca3f7eaf3ecd01ab51e1db99c4d0445205eafb6214b",
+      "/_next/static/chunks/484-4eeac57d85dbea9b.js": "190904445c729dacc500b4baf5f62ce89c6b89322a5b6aabe7298d314c115b2d",
+      "/_next/static/chunks/app/page-e6ff225c864318c3.js": "a6ca3b5f36b54e878dfa0ec190a577efcd17196dbf10fe9d42f6f803d48e5d7b",
+      "/_next/static/chunks/main-app-a840178321886cc8.js": "b5b7a6a18ee7f8fe0d0fa097ccf76c3fd48ec9a33395e4c9a750baa6e550e99e",
+      "/_next/static/chunks/656-012d3387edef90f5.js": "a48c56ee67c628c04af078afb6204fe5e24dc3f02b5820aee463f65f52e7c582",
+      "/_next/static/chunks/webpack-a16af259e7c34888.js": "9f36aa7fba7cb0397baf72aac19fd6f6dd58ad49b155fe2ef52c325c0b040913",
       "/_next/static/chunks/polyfills-42372ed130431b0a.js": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+      "/_next/static/chunks/330-67f6fe29b65810ce.js": "e8db9771c4367eef515d9f6c0c8b3c37575b45f701e811e3fa5636db0517d766",
+      "/_next/static/chunks/948-e19732eb842385bf.js": "fdf18461297d98fbe350e01605c4e84e9d7a877421711de4ccb711f833c66d49",
+      "/_next/static/chunks/app/layout-7a50f9f8fa101b89.js": "24afbcb8ae7232453943123cc9df03541accffa1d00a924d5d69db85e35253a7",
       "/_next/static/chunks/876-970751e242594177.js": "d84eca37ec1994232b2c9c66cdb454332f337757e3c7884b8d82d7dc504a1421",
-      "/_next/static/chunks/745-02bafa16d39bc729.js": "eaa9b4de430e0d9d0732f3a428b005b2d739f95d19d996637575b0308855ab14",
-      "/_next/static/chunks/app/skin/page-62f70770e1adcf04.js": "70d415db22504150174e308dd60605558d90b1128097d12ea4b91622c5f35c26",
+      "/_next/static/chunks/app/skin/page-be321cb79ff34cd2.js": "bba96a68b03d08dc1de812e376d451bb04e27ecb5092833aaca6c1348764bfea",
+      "/_next/static/chunks/745-d2dd59cf665dce15.js": "941aa36dea66f47f8a6af65f533badb22d3c9187394215b8242c99ed8516f925",
       "/_next/static/chunks/852-4206d2ffa53479b5.js": "75c09a83752a0fa304ec64bf2b638383532cf1e29af9d568eec3d17251b95f7f",
-      "/_next/static/chunks/app/profile/page-993660244bf06044.js": "608d15a410ce90039c519ba8b549c5508d678a7fe26a45a5d27a04cc1bd6cea8",
-      "/_next/static/chunks/503-68c18768f0108a30.js": "0e1d8598daa607fd93a397321999d450c799fd3e63a8b62ba94020fca019d2eb"
+      "/_next/static/chunks/503-68c18768f0108a30.js": "0e1d8598daa607fd93a397321999d450c799fd3e63a8b62ba94020fca019d2eb",
+      "/_next/static/chunks/app/profile/page-06472f47ee6f6fe1.js": "f0f503e1fb6877821fe7d514c5328db69ad38e0248229173661649d4b20f00a5"
     },
     "shortcutSHA256": "a4cb1540482ab12e9c036c41a9414243d52488b97026e79d99c74a83b86359d8",
     "launcherScriptSHA256": "65d8210a0cd4a5f773f2e35de920ca77f55099d2c49eef88ac1c108e5890e428",
@@ -848,10 +1009,10 @@
       "confidenceNotSeverity": true,
       "sourceLabelsAsInferenceInput": false,
       "timings": {
-        "describe": 0.01600000006146729,
-        "crop": 0.06299999984912574,
-        "encoder": 1.125,
-        "classifier": 0.0
+        "describe": 0.030999999959021807,
+        "crop": 0.09399999980814755,
+        "encoder": 1.6870000001508743,
+        "classifier": 0
       },
       "uniqueEncodedCrops": 36,
       "uniqueCropTransforms": 36,
@@ -881,23 +1042,294 @@
       "headSHA256": "7f13c7cb4eb65a3fb44abf062563ee3aff605a6ef9ff3271c5e32e206fedb8e1",
       "sourceEncoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
       "profile": {
-        "decode": 0.015999999828636646,
-        "geometry": 0.01600000006146729,
-        "proposal": 0.9689999998081475,
-        "material": 1.4369999999180436,
-        "mapsAndResults": 0.1720000000204891
+        "decode": 0.03100000019185245,
+        "geometry": 0.015999999828636646,
+        "proposal": 1.452999999979511,
+        "material": 2.2810000001918525,
+        "mapsAndResults": 0.2649999998975545
       },
-      "fullAnalysisSeconds": 6.2969999997876585
+      "fullAnalysisSeconds": 9.641000000061467
     }
   },
   "browserAcceptance": {
-    "passed": false,
-    "receiptSHA256": null,
-    "pendingReason": "Available system RAM fell to 153.47 MiB during the single owned verification browser; job closed. Full fresh camera/history/desktop/narrow/actual-200 acceptance not claimed.",
+    "passed": true,
+    "actualCamera": {
+      "normalSkinHTTP": [
+        {
+          "seconds": 9.939900000095367,
+          "status": 200
+        }
+      ],
+      "warmFullHTTPSeconds": 7.921000000089407,
+      "sourceSize": [
+        640,
+        640
+      ],
+      "voiceStartCount": 1,
+      "scopeComparisons": [
+        {
+          "scope": "overview",
+          "comparable": false,
+          "series": 2
+        },
+        {
+          "scope": "chin",
+          "comparable": false,
+          "series": 2
+        }
+      ],
+      "historyUnchanged": true,
+      "mapClearedOnRegionChange": true,
+      "native200": {
+        "innerWidth": 641,
+        "outerWidth": 1298,
+        "dpr": 3,
+        "zoom": "1",
+        "scroll": 641
+      },
+      "firstNormalRequestIncludesEncoderLoad": true,
+      "expressionObservationFromSameFrame": true
+    },
+    "nonzeroCamera": {
+      "normalProductAPI": true,
+      "actualBrowserMediaPipe": true,
+      "physicalCameraAccuracyClaim": false,
+      "source": "existing NASA controlled camera source; no semantic dryness ground truth",
+      "photoId": "8048b7620ac9d7af1c210c1044746682ee48ba8edc1a897248fcab66a308f2e6",
+      "recordId": "031c804c-e48d-4621-9547-5a1e9646b37c",
+      "normalHTTP": {
+        "status": 200,
+        "seconds": 13.952199999809265
+      },
+      "track": {
+        "aspectRatio": 1.3333333333333333,
+        "deviceId": "KNwFeeNVPEkhRqXn5ddILD+8JkQZWEbgk0gwDHypnTPfS819BRie+W9H+FFrpYEDYcKvsKPqsexKdiZcBHLBYA==",
+        "frameRate": 30,
+        "height": 960,
+        "resizeMode": "none",
+        "width": 1280
+      },
+      "video": {
+        "width": 1280,
+        "height": 960
+      },
+      "requested": {
+        "width": {
+          "ideal": 1920
+        },
+        "height": {
+          "ideal": 1080
+        },
+        "resizeMode": {
+          "ideal": "none"
+        },
+        "facingMode": "user"
+      },
+      "sourceFacePixels": 398.16539764404297,
+      "overviewValue": 1.66396292004635,
+      "acceptedSourcePixels": 1436,
+      "eligibleSourcePixels": 86300,
+      "nativeMetadata": {
+        "version": "native-independent-stable-region-ridge-v3",
+        "sourceGrid": [
+          484,
+          567
+        ],
+        "analysisResize": false,
+        "coordinateScale": 0.6221334338188171,
+        "tileCore": 512,
+        "tileStride": 256,
+        "halo": 48,
+        "tiles": 2,
+        "peakTilePixels": 271040,
+        "overlapCountedOnce": true,
+        "sharedSourceGrayLab": true,
+        "candidateRegions": 2462,
+        "processedCandidateRegions": 557,
+        "skippedOutsideCoreEligibility": 1905,
+        "classifierVersion": "frozen-imagenet-two-crop-material-calibrated-v3",
+        "encoderSHA256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987",
+        "candidateComponents": 78,
+        "acceptedComponents": 23,
+        "threshold": 0.5,
+        "confidenceNotSeverity": true,
+        "sourceLabelsAsInferenceInput": false,
+        "timings": {
+          "describe": 0.030999999959021807,
+          "crop": 0.31299999984912574,
+          "encoder": 5.141000000061467,
+          "classifier": 0
+        },
+        "uniqueEncodedCrops": 156,
+        "uniqueCropTransforms": 156,
+        "identicalCropsReused": 0,
+        "encoderCalls": 39,
+        "encoderExecution": {
+          "intraOpThreads": 4,
+          "batchLimit": 4,
+          "cpuMemoryArena": false
+        },
+        "maximumResidentCropTensors": 32,
+        "persistentPhotoCache": false,
+        "transport": "onnx-cpu",
+        "cropOrigin": [
+          363,
+          267
+        ],
+        "cropShape": [
+          484,
+          567
+        ],
+        "sourceImageSize": [
+          1280,
+          960
+        ],
+        "normalProductEnabled": true,
+        "headSHA256": "7f13c7cb4eb65a3fb44abf062563ee3aff605a6ef9ff3271c5e32e206fedb8e1",
+        "sourceEncoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+        "profile": {
+          "decode": 0.0779999999795109,
+          "geometry": 0.015999999828636646,
+          "proposal": 2.75,
+          "material": 6.2189999998081475,
+          "mapsAndResults": 0.26599999982863665
+        },
+        "fullAnalysisSeconds": 13.702999999979511
+      },
+      "mapPhotoIdMatched": true,
+      "actualMapSourceCoordinates": {
+        "x": 411,
+        "y": 315,
+        "width": 387,
+        "height": 470
+      },
+      "expectedAPISourceCoordinates": {
+        "x": 411,
+        "y": 315,
+        "width": 387,
+        "height": 470
+      },
+      "actualMapImageBytesMatched": true,
+      "actualSVGClip": {
+        "actualSVGClipPaths": 179,
+        "activeNativePixels": 1436,
+        "centerRetained": 1430,
+        "pixelsWithInteriorClipSample": 1436,
+        "fullyClipped": 0,
+        "lostSourceCenters": []
+      },
+      "oldRecordsPreserved": true,
+      "oldClearRecordId": "fd79cdd5-ba97-43d2-87c1-f451543be432",
+      "mapClearedOnCriterionChange": true,
+      "buildId": "mlOb9YC5JKNnbE_1xzdjD",
+      "resource": {
+        "schema": "attune-dual-atomic-lease-v2",
+        "owner": "CDC",
+        "pid": 3428,
+        "processStarted": 1791981628.2937956,
+        "startTime": 1791981628.2937956,
+        "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+        "jobId": "CDC-dry-nonzero-camera-map-history",
+        "nonce": "570298f710454421b273f2592b499452",
+        "commandSHA256": "b35ac435345aa7520399b44a5b90385cd55c650ccfdeec0588f962ff51346726",
+        "peakBudgetMiB": 1450,
+        "memoryBudgetMetric": "private",
+        "minimumAvailableMiB": 2100,
+        "leasePaths": [
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+        ],
+        "bothLeasesOwned": true,
+        "ownershipObservationMaxAgeSeconds": 1,
+        "observerPid": 176092,
+        "observerProcessStarted": 1791981628.6345222,
+        "peakMeasuredRSSMiB": 1871.00390625,
+        "peakMeasuredPrivateMiB": 1045.19921875,
+        "childRSSIncluded": true,
+        "elapsedSeconds": 27.781999999890104,
+        "foreignProcessesStopped": false,
+        "monitorError": null
+      },
+      "realSmilingOpenMouthControl": {
+        "chin": {
+          "value": null,
+          "reason": "EXPRESSION_OPEN_MOUTH"
+        },
+        "rightCheek": {
+          "value": null,
+          "reason": "EXPRESSION_OPEN_MOUTH"
+        },
+        "leftCheek": {
+          "value": null,
+          "reason": "EXPRESSION_OPEN_MOUTH"
+        }
+      }
+    },
+    "actualPaint": {
+      "actualViewportScreenshot": true,
+      "emulatedViewport": false,
+      "cssZoom": "1",
+      "photoSourceUnchanged": true,
+      "photoBounds": {
+        "x": 278.3333435058594,
+        "y": 93.33333587646484,
+        "width": 350.3333435058594,
+        "height": 378.00000762939453
+      },
+      "viewport": {
+        "width": 1283,
+        "height": 591,
+        "dpr": 1.5
+      },
+      "changedPhotoPixels": 1195,
+      "maximumChannelDifference": 61,
+      "nonzeroLocalSupportActuallyPainted": true,
+      "historyUnchanged": true,
+      "actualNarrowWindow": {
+        "innerWidth": 706,
+        "outerWidth": 720,
+        "scrollWidth": 706,
+        "left": 16,
+        "right": 690,
+        "emulatedViewport": false
+      },
+      "recordId": "031c804c-e48d-4621-9547-5a1e9646b37c",
+      "photoId": "8048b7620ac9d7af1c210c1044746682ee48ba8edc1a897248fcab66a308f2e6",
+      "resource": {
+        "schema": "attune-dual-atomic-lease-v2",
+        "owner": "CDC",
+        "pid": 29584,
+        "processStarted": 1791982109.1832476,
+        "startTime": 1791982109.1832476,
+        "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+        "jobId": "CDC-dry-actual-browser-paint",
+        "nonce": "c57860f74c304429ba64dd43f122ffc5",
+        "commandSHA256": "58fefe1a8d9ce9e8d0dfd8ac8ec9ed1dc70bf7fbcc6c0f29277cb218174c0f8d",
+        "peakBudgetMiB": 600,
+        "memoryBudgetMetric": "private",
+        "minimumAvailableMiB": 1200,
+        "leasePaths": [
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+        ],
+        "bothLeasesOwned": true,
+        "ownershipObservationMaxAgeSeconds": 1,
+        "observerPid": 154904,
+        "observerProcessStarted": 1791982109.5125935,
+        "peakMeasuredRSSMiB": 773.1796875,
+        "peakMeasuredPrivateMiB": 331.61328125,
+        "childRSSIncluded": true,
+        "elapsedSeconds": 6.937999999849126,
+        "foreignProcessesStopped": false,
+        "monitorError": null
+      }
+    },
+    "receiptSHA256": "d0bc642d715b94214ab610e03c23232efc5792d39932a46c40c6a2037a73aa39",
+    "pendingReason": null,
     "failedPrivatePeakMiB": 729.46875,
     "failedAvailableSystemMiB": 153.46875,
     "hardSystemStopReserveMiB": 400,
-    "nextMinimumStartMiB": 1600
+    "nextMinimumStartMiB": 2100
   },
   "preserved": {
     "acneConfig": {

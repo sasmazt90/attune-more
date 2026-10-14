@@ -1,6 +1,6 @@
 # Calibrated native dryness v2 admission and selective lower-face expression gate — 2026-10-14
 
-Protected baseline: `72b90172084711cd200637cedab831f80e3fb973`, build `9DheD3msEFSOMhjMp-kK8`. New production build: `YShP4ZdJdKL34lP_ALnmW`. PR #2 stays Draft; no merge.
+Protected baseline: `72b90172084711cd200637cedab831f80e3fb973`, build `9DheD3msEFSOMhjMp-kK8`. Accepted production build: `mlOb9YC5JKNnbE_1xzdjD`. PR #2 stays Draft; no merge.
 
 ## Frozen identity and scope
 
@@ -44,10 +44,30 @@ Only the existing `instant_proxy` lower-face gate changes. Chin v9 / cheek v7 tr
 
 Other criterion rows and non-dry/non-sag maps match before/after on these three payloads. Regional formula identities and General normalization distinguish the new expression scope from legacy history. The existing real browser observation for fc3a6b13 still yields `EXPRESSION_OPEN_MOUTH`. Unit checks cover smile, open mouth, frown, puff, press and pucker, invalid/missing/mismatched observations and conservative geometric fallback. The stored control set does not contain a separately reviewed true pucker photo; that optical coverage is explicitly incomplete. No general sag-detection success is claimed.
 
-## Delivery checks
+## Product boundary defects found and corrected
 
-23 focused regressions passed, including atomic rejection of a missing General scope. A separate frontend unit check confirms raw precision, the dry-only method allowlist and history-version separation; it is not browser acceptance. Native PNG checks match score numerators and visible denominators on 35 actual API maps, with zero active pixels outside their eligible masks. Focused ESLint passed; production build completed including TypeScript validation. Frozen frontend source receipt matches the promoted build. The old build remains in `.runtime/skin-pre-dry-calibrated-v2-20261014`.
+The API returned the new method correctly, but `validMeasurement` still rejected it at persistence after `attachAppearance` accepted it. Both now use one criterion-specific allowlist. A real API response passes regional and General validation; other criteria cannot claim the native-dry method.
 
-The normal shortcut launched the new build. Its own actual backend completed a cold full request (dry encoder initialization included) in 6.625 s and a warm full request in 5.438 s. 217 frozen frontend source files, 18 served JavaScript assets, the loaded model identities and the approved audio match. Exact pinned model bytes are protected from Git line-ending conversion. Full fresh camera→result→history visual acceptance is still pending resource availability: a single owned verification browser/job stopped when system available RAM reached 153.47 MiB (private process peak 729.47 MiB). Its own lifecycle drained; no user application was closed. The hard reserve was not lowered. Desktop/narrow/native-200% claims must not be made until a successful final receipt exists. New full checks require at least 1600 MiB start availability, with an 1100 MiB owned-process cap and the unchanged 400 MiB stop reserve.
+The new dry calibration and lower-face expression identities were also missing from the renderer's closed-cell compatibility mapping. The backend used closed anatomical cells while the SVG could fall back to sparse edge triangles. Only the exact admitted versions now reuse their underlying closed-cell geometry; legacy and unrelated methods keep their prior supports. Numerical methods, thresholds, source pixels and scores were not changed to make the rendering pass.
 
-Protected: production skin-type/hosted consent configuration, eyewear policy, Turkish labels, all other health modules, natural photos, design, audio, user permissions and records. Acne remains `accepted=false`, `file=null`.
+On the actual normal 1280×960 camera payload, the General dryness value is 1.66396292004635 = 1436/86300 visible source pixels. The DOM uses the actual API PNG and source coordinates. Its real SVG clip contains 179 paths: 1430 accepted pixel centers are inside, all 1436 pixel footprints intersect the clip, and none is fully discarded. In the real, non-emulated browser viewport, switching the map on/off changes 1195 photo pixels (maximum channel difference 61), while the original photo URI and history remain unchanged. This source is a rendering/performance control, not a semantic dryness ground-truth label.
+
+## Final delivery checks
+
+23 focused backend regressions passed. The frontend contract test covers actual API attachment, regional/General persistence validation, precision, criterion-specific admission, legacy comparison and closed-cell support. Focused ESLint and the final production build including TypeScript validation passed.
+
+The normal Windows shortcut runs the accepted build and actual normal API (verification=false). A fresh real browser MediaPipe/canvas-camera scan completes a cold full API request including dry encoder loading in 9.9399 s; its warm full request takes 7.921 s. The separate 1280×960 camera case completes in 13.9522 s. Capture snapshots keep actual source dimensions; no complete photo is silently reduced for the native path. These controlled-stream checks do not claim physical phone/vehicle-camera accuracy.
+
+Fresh result and the same-record history use matching photoId, dimensions, model/method identities and map. Both General and regional legacy/new comparisons separate into two method series without persisting/recalculating the legacy clone. Appending the second source preserves the existing isolated records exactly. Region and criterion changes clear the prior map. The approved introductory voice plays once; the glasses control creates zero analysis requests and zero records.
+
+Desktop and actual narrow-window checks passed (706 CSS px, no horizontal overflow). Native Chrome 200% checks passed without CSS zoom/emulated viewport (DPR 3, innerWidth 641, outerWidth 1298); positive-map history geometry matches the API. Natural source pixels/background, existing layout, labels, integer bars, meshes and audio are retained.
+
+49 maps across seven real saved API outputs have exact active/eligible pixel counts, no active pixels outside their eligible masks, and source coordinates within the original frame. Reconstructing regional source-space unions equals the General numerator and visible denominator exactly. These are integrity checks, not 49 independent labeled photographs.
+
+217 frozen frontend files and 18 served JavaScript assets match. Actual loaded head/encoder identities and approved audio match local/committed assets. Pinned model/head/parity bytes are protected from Git line-ending conversion. The original protected build remains in `.runtime/skin-pre-dry-calibrated-v2-20261014`; subsequent builds are also retained.
+
+Early resource/monitor stops failed closed and were resolved before final acceptance. The 400 MiB system stop reserve, one-second ownership observation, dual leases and AG exclusion remain intact. No guard was disabled. No user application was closed; only owned delivery/test sessions were managed.
+
+Remaining scope: seven native optical targets remain missed; half-source seen validation is 4/8. Source 29cc4ba7 chin tracking remains unavailable. A separately reviewed true-pucker photograph is not in the fixed control set; pucker branches are tested as contracts, not advertised as broad optical validation. The real smiling/open-mouth camera control is rejected by the lower-face expression gate (`EXPRESSION_OPEN_MOUTH` takes priority), and the existing real open-mouth observation remains rejected. No general sag-detection success is claimed.
+
+Protected: skin-type/hosted consent configuration, eyewear policy, Turkish labels, other health modules, natural photos, design, audio, permissions and user records. Acne remains `accepted=false`, `file=null`. No training, export, download or hosted call was introduced.

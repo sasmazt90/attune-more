@@ -1,7 +1,7 @@
 import {expressionObservation} from './skinExpression';
 import type { SkinSnapshot } from './skinSnapshot';
 import type { SkinIndicators, SkinMeasurement } from './skinIndicators';
-import { samplingSupportVersion } from './skinIndicators';
+import { samplingSupportVersion,supportedAppearanceMethod } from './skinIndicators';
 import type { SkinLocalMap } from './skinLocalMaps';
 import {isSkinHostedProcessingAllowed} from './attuneMode';
 export type MeasurementKind='appearance_proxy'|'trained_prediction'|'longitudinal_measurement';
@@ -28,7 +28,7 @@ export async function analyzeAppearance(snapshot:SkinSnapshot,qualityValid:boole
 export function attachAppearance(indicators:SkinIndicators,result:AppearanceResponse){
  for(const [region,values] of Object.entries(result.measurements))for(const value of values){
   const target=indicators[region]?.find(row=>row.id===value.id);if(!target)continue;
-  if(value.region!==region||!(value.id==='dry'&&value.methodVersion==='appearance-native-dry-2')&&!['appearance-cv-1','appearance-cv-2','appearance-cv-3','appearance-cv-4','appearance-cv-5','appearance-cv-6'].includes(value.methodVersion)||value.value!==null&&!Number.isFinite(value.value))throw Error('INVALID_MEASUREMENT');
+  if(value.region!==region||!supportedAppearanceMethod(value.id,value.methodVersion)||value.value!==null&&!Number.isFinite(value.value))throw Error('INVALID_MEASUREMENT');
   target.score=value.value;target.unit=APPEARANCE_UNITS[value.unit]||value.unit;target.method=value.methodVersion;
   target.reason=value.limitationCode==='REFERENCE_CREATED'?'Kişisel kontur referansı oluşturuldu; sonraki uyumlu taramada değişim karşılaştırılır.':value.value===null?`Bu karede yeterli güvenilir ölçüm yok (${value.limitationCode}).`:'Görünür yüzeyin kozmetik görünüm vekili; hastalık, nem veya klinik şiddet ölçümü değildir.';
   target.appearance=value;
