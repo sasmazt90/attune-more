@@ -57,6 +57,28 @@ def polygon_mask(shape, mesh, scale, origin=(0,0)):
     return mask > 0
 
 
+def closed_surface_mask(shape,mesh,scale,origin=(0,0)):
+    """Dry/sag-only closed convex cells, bounded by four actual safe edges."""
+    import itertools
+    mask=polygon_mask(shape,mesh,scale,origin).astype(np.uint8)
+    edges={tuple(sorted(e)) for e in mesh['edges']}
+    neighbors={i:set() for i in range(len(mesh['points']))}
+    for a,b in edges:neighbors[a].add(b);neighbors[b].add(a)
+    points=np.asarray([[p['x'],p['y']] for p in mesh['points']],np.float32)
+    cells={}
+    for a,b in itertools.combinations(neighbors,2):
+        if (a,b) in edges:continue
+        for c,d in itertools.combinations(sorted(neighbors[a]&neighbors[b]),2):
+            if tuple(sorted((c,d))) in edges:continue
+            cell=[a,c,b,d]
+            if cv2.isContourConvex(points[cell]):cells[tuple(sorted(cell))]=cell
+    if len(cells)>64:raise ValueError('INVALID_SURFACE_CELLS')
+    for cell in cells.values():
+        projected=((points[cell]-np.asarray(origin))*scale).astype(np.int32)
+        cv2.fillPoly(mask,[projected],1)
+    return mask>0
+
+
 def png(array):
     ok, data = cv2.imencode('.png', array)
     if not ok:
@@ -335,7 +357,7 @@ def analyze_skin(payload, include_research_features=False):
         assigned_boxes,_=filter_acne_boxes(trained_acne['boxes'],acne_envelopes,acne_skin,hair,acne_exclusion,source_hash,scale,origin,visible_regions=allowed_regions,landmarks=points,source_shape=bgr.shape[:2])
         accepted_boxes.update(assigned_boxes)
     response, maps, contours = {}, {}, {}
-    conditions = {**payload['conditions'],'sourceWidth':bgr.shape[1],'sourceHeight':bgr.shape[0]}
+    conditions = {**payload['conditions'],'sourceWidth':bgr.shape[1],'sourceHeight':bgr.shape[0],'expressionObservation':payload.get('expressionObservation')}
     for region, anatomical in masks.items():
         display_anatomical=anatomical
         if region=='nose':anatomical=anatomical|masks.get('forehead',np.zeros_like(anatomical))

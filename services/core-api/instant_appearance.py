@@ -86,16 +86,47 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
     if vertical[1]<0:vertical=-vertical
     face=float(abs((p[454]-p[234])@horizontal)/scale)
     if face<180:return fail('INSUFFICIENT_NATIVE_DETAIL')
-    mouth_width=max(float(np.linalg.norm(p[61]-p[291])),1)
-    opening=float(np.linalg.norm(p[13]-p[14]))/mouth_width
-    smile=float(((p[61]+p[291])/2-(p[13]+p[14])/2)@vertical)/mouth_width
-    eye_aspects=[float(np.linalg.norm(p[a]-p[b]))/max(float(np.linalg.norm(p[c]-p[d])),1) for a,b,c,d in [(159,145,33,133),(386,374,263,362)]]
-    if region in ('rightCheek','leftCheek','chin'):
-        if opening>.10 or smile<-.07:return fail('EXPRESSION_OPEN_MOUTH_OR_SMILE')
-    elif region in ('periorbital','forehead'):
-        if min(eye_aspects)<.12:return fail('SQUINT_OR_EYE_OCCLUSION')
-        if region=='periorbital' and smile<-.18:return fail('EXPRESSION_OPEN_MOUTH_OR_SMILE')
-    if eligible.sum()<100:return fail('INSUFFICIENT_SKIN_SUPPORT')
+    face_span = float(abs((p[454] - p[234]) @ horizontal))
+    mouth_width = max(float(np.linalg.norm(p[61] - p[291])), 1)
+    opening = float(np.linalg.norm(p[13] - p[14])) / mouth_width
+    smile = float(((p[61] + p[291]) / 2 - (p[13] + p[14]) / 2) @ vertical) / mouth_width
+    lip_width_ratio = mouth_width / max(1.0, face_span)
+    eye_aspects = [float(np.linalg.norm(p[a] - p[b])) / max(float(np.linalg.norm(p[c] - p[d])), 1) for a, b, c, d in [(159, 145, 33, 133), (386, 374, 263, 362)]]
+
+    obs = conditions.get('expressionObservation') or conditions.get('observation')
+    expr_reason = None
+    if obs and isinstance(obs, dict) and 'scores' in obs:
+        scores = obs['scores']
+        if opening > 0.10 or scores.get('jawOpen', 0.0) > 0.15:
+            expr_reason = 'EXPRESSION_OPEN_MOUTH'
+        elif max(scores.get('mouthSmileLeft', 0.0), scores.get('mouthSmileRight', 0.0)) > 0.50:
+            expr_reason = 'EXPRESSION_SMILE'
+        elif max(scores.get('mouthFrownLeft', 0.0), scores.get('mouthFrownRight', 0.0)) > 0.50:
+            expr_reason = 'EXPRESSION_FROWN'
+        elif scores.get('cheekPuff', 0.0) > 0.50:
+            expr_reason = 'EXPRESSION_CHEEK_PUFF'
+        elif max(scores.get('mouthPressLeft', 0.0), scores.get('mouthPressRight', 0.0)) > 0.50:
+            expr_reason = 'EXPRESSION_MOUTH_PRESS'
+        elif scores.get('mouthPucker', 0.0) > 0.50:
+            is_narrowed = (lip_width_ratio < 0.35) or (scores.get('mouthFunnel', 0.0) > 0.25)
+            if is_narrowed:
+                expr_reason = 'EXPRESSION_PUCKER'
+    else:
+        if opening > 0.10:
+            expr_reason = 'EXPRESSION_OPEN_MOUTH'
+        elif smile < -0.07 and lip_width_ratio < 0.35:
+            expr_reason = 'EXPRESSION_SMILE'
+
+    if region in ('rightCheek', 'leftCheek', 'chin'):
+        if expr_reason is not None:
+            return fail(expr_reason)
+    elif region in ('periorbital', 'forehead'):
+        if min(eye_aspects) < 0.12:
+            return fail('SQUINT_OR_EYE_OCCLUSION')
+        if region == 'periorbital' and expr_reason is not None:
+            return fail(expr_reason)
+    if eligible.sum() < 100:
+        return fail('INSUFFICIENT_SKIN_SUPPORT')
     paths=[]
     if region=='periorbital':
         # Anatomical right/left are not display-side aliases.

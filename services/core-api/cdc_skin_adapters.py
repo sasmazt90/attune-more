@@ -36,6 +36,7 @@ class CalibratedDrynessAdapter:
         if head_path is None:
             # Look in standard delivery or calibration artifacts
             candidates = [
+                repo_root / 'audit-results' / 'cdc-delivery-20261014-v2' / 'dryness' / 'calibrated-source-group-head.json',
                 repo_root / 'audit-results' / 'cdc-delivery-20261014' / 'dryness' / 'calibrated-source-group-head.json',
                 repo_root / 'audit-results' / 'material-calibrated-20261014' / 'calibrated-source-group-head.json'
             ]
@@ -161,6 +162,11 @@ class ContourSaggingAdapter:
         import contour_appearance
         return contour_appearance.expression_reason(payload, mouth, smile, lip_width_ratio)
 
+    def analyze_fold(self, payload):
+        """Full native fold appearance analysis via instant_proxy with calibrated expression gate."""
+        import appearance_analysis
+        return appearance_analysis.analyze_skin(payload)
+
     def analyze(self, payload, check=None):
         """Full native contour appearance analysis."""
         import contour_appearance
@@ -187,6 +193,7 @@ class AcneSmallFociAdapter:
         if self.model_path is None:
             repo_root = Path(__file__).resolve().parents[2]
             candidates = [
+                repo_root / 'audit-results' / 'cdc-delivery-20261014-v2' / ('onnx/model.onnx' if use_onnx else 'weights/candidate-selected.safetensors'),
                 repo_root / 'audit-results' / 'cdc-delivery-20261014' / ('onnx/model.onnx' if use_onnx else 'weights/candidate-selected.safetensors'),
                 repo_root / 'audit-results' / 'acne-candidate-p2-small-foci-20261014' / ('model.onnx' if use_onnx else 'candidate-selected.safetensors'),
             ]
