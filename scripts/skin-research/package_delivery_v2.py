@@ -101,6 +101,7 @@ def main():
         "createdAt": "2026-10-14T12:28:00+02:00",
         "workspaceContext": {
             "agRepo": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-antigravity-skin",
+            "agHeadCommit": "eeb68b692475b6cf383fae09d3bebfd16ab6e0f2",
             "cdcRepo": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
             "cdcHeadCommit": "72b90172084711cd200637cedab831f80e3fb973",
             "notes": "Delivery package for CDC integration. CDC workspace remains strictly read-only."
