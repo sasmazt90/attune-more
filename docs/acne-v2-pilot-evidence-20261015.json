@@ -1,0 +1,551 @@
+{
+ "preregistrationSHA256": "6dc2535978f474a9ed06ed8cb2cbc13725e212b41e5ee3ae7a2049f632549d05",
+ "manifestSHA256": "7d1b161e305844b736726238148550254b2e3587d51dd8fb9a0df6cafcdb7e92",
+ "step0": {
+  "scopeB": {
+   "photos": 12,
+   "targets": 14,
+   "matched": 4,
+   "cleanFP": 3,
+   "unknownCandidates": 19,
+   "bands": {
+    "micro": {
+     "targets": 1,
+     "matched": 0
+    },
+    "small": {
+     "targets": 10,
+     "matched": 1
+    },
+    "medium": {
+     "targets": 3,
+     "matched": 3
+    }
+   }
+  },
+  "controls": {
+   "photos": 3,
+   "targets": 29,
+   "matched": 16,
+   "cleanFP": 0,
+   "unknownCandidates": 81,
+   "bands": {
+    "micro": {
+     "targets": 3,
+     "matched": 0
+    },
+    "small": {
+     "targets": 17,
+     "matched": 14
+    },
+    "medium": {
+     "targets": 9,
+     "matched": 2
+    }
+   }
+  },
+  "unusedEval": {
+   "photos": 20,
+   "targets": 95,
+   "matched": 39,
+   "cleanFP": 0,
+   "unknownCandidates": 254,
+   "bands": {
+    "micro": {
+     "targets": 10,
+     "matched": 0
+    },
+    "small": {
+     "targets": 48,
+     "matched": 19
+    },
+    "medium": {
+     "targets": 37,
+     "matched": 20
+    }
+   }
+  },
+  "trainProbe": {
+   "photos": 40,
+   "targets": 321,
+   "matched": 145,
+   "cleanFP": 0,
+   "unknownCandidates": 661,
+   "bands": {
+    "micro": {
+     "targets": 15,
+     "matched": 0
+    },
+    "small": {
+     "targets": 157,
+     "matched": 69
+    },
+    "medium": {
+     "targets": 149,
+     "matched": 76
+    }
+   }
+  }
+ },
+ "pilot": {
+  "scopeB": {
+   "photos": 12,
+   "targets": 14,
+   "matched": 4,
+   "cleanFP": 628,
+   "unknownCandidates": 1459,
+   "bands": {
+    "micro": {
+     "targets": 1,
+     "matched": 0
+    },
+    "small": {
+     "targets": 10,
+     "matched": 1
+    },
+    "medium": {
+     "targets": 3,
+     "matched": 3
+    }
+   }
+  },
+  "controls": {
+   "photos": 3,
+   "targets": 29,
+   "matched": 14,
+   "cleanFP": 0,
+   "unknownCandidates": 2471,
+   "bands": {
+    "micro": {
+     "targets": 3,
+     "matched": 0
+    },
+    "small": {
+     "targets": 17,
+     "matched": 11
+    },
+    "medium": {
+     "targets": 9,
+     "matched": 3
+    }
+   }
+  },
+  "unusedEval": {
+   "photos": 20,
+   "targets": 95,
+   "matched": 37,
+   "cleanFP": 0,
+   "unknownCandidates": 15611,
+   "bands": {
+    "micro": {
+     "targets": 10,
+     "matched": 0
+    },
+    "small": {
+     "targets": 48,
+     "matched": 14
+    },
+    "medium": {
+     "targets": 37,
+     "matched": 23
+    }
+   }
+  },
+  "trainProbe": {
+   "photos": 40,
+   "targets": 321,
+   "matched": 158,
+   "cleanFP": 0,
+   "unknownCandidates": 40051,
+   "bands": {
+    "micro": {
+     "targets": 15,
+     "matched": 0
+    },
+    "small": {
+     "targets": 157,
+     "matched": 64
+    },
+    "medium": {
+     "targets": 149,
+     "matched": 94
+    }
+   }
+  }
+ },
+ "perTarget": {
+  "development": {
+   "gained": [
+    [
+     "f2ed24a9",
+     1
+    ],
+    [
+     "f2ed24a9",
+     15
+    ]
+   ],
+   "lost": [
+    [
+     "f2ed24a9",
+     2
+    ],
+    [
+     "f2ed24a9",
+     6
+    ],
+    [
+     "f2ed24a9",
+     7
+    ],
+    [
+     "f2ed24a9",
+     17
+    ]
+   ]
+  },
+  "unusedEval": {
+   "gained": [
+    [
+     "2cbbcb51",
+     1
+    ],
+    [
+     "5c74ac85",
+     1
+    ],
+    [
+     "693c4f4c",
+     2
+    ],
+    [
+     "c739064b",
+     3
+    ],
+    [
+     "e67dc50f",
+     2
+    ],
+    [
+     "e67dc50f",
+     3
+    ],
+    [
+     "e7f8db3d",
+     4
+    ],
+    [
+     "f859de12",
+     6
+    ],
+    [
+     "f859de12",
+     7
+    ]
+   ],
+   "lost": [
+    [
+     "693c4f4c",
+     3
+    ],
+    [
+     "7a238049",
+     0
+    ],
+    [
+     "bc63081a",
+     0
+    ],
+    [
+     "bc63081a",
+     2
+    ],
+    [
+     "bc63081a",
+     3
+    ],
+    [
+     "bc63081a",
+     8
+    ],
+    [
+     "bcfc47ee",
+     1
+    ],
+    [
+     "c739064b",
+     2
+    ],
+    [
+     "e7f8db3d",
+     5
+    ],
+    [
+     "fc2fc6a1",
+     1
+    ],
+    [
+     "fc2fc6a1",
+     2
+    ]
+   ]
+  },
+  "trainProbe": {
+   "gained": [
+    [
+     "0784b763",
+     3
+    ],
+    [
+     "18680bd3",
+     8
+    ],
+    [
+     "31344875",
+     8
+    ],
+    [
+     "320b1bf9",
+     0
+    ],
+    [
+     "320b1bf9",
+     4
+    ],
+    [
+     "3ac2d816",
+     2
+    ],
+    [
+     "431c54b4",
+     8
+    ],
+    [
+     "45e7aea4",
+     8
+    ],
+    [
+     "45e7aea4",
+     22
+    ],
+    [
+     "4835dd89",
+     1
+    ],
+    [
+     "5054348e",
+     9
+    ],
+    [
+     "5054348e",
+     19
+    ],
+    [
+     "5054348e",
+     22
+    ],
+    [
+     "5054348e",
+     26
+    ],
+    [
+     "5884eb93",
+     1
+    ],
+    [
+     "5884eb93",
+     4
+    ],
+    [
+     "5bd84d54",
+     4
+    ],
+    [
+     "5bd84d54",
+     11
+    ],
+    [
+     "5bd84d54",
+     12
+    ],
+    [
+     "5bd84d54",
+     15
+    ],
+    [
+     "a8e2373a",
+     1
+    ],
+    [
+     "a8e2373a",
+     3
+    ],
+    [
+     "a8e2373a",
+     5
+    ],
+    [
+     "b42be0dc",
+     0
+    ],
+    [
+     "b42be0dc",
+     2
+    ],
+    [
+     "b9a17ae6",
+     3
+    ],
+    [
+     "b9a17ae6",
+     4
+    ],
+    [
+     "c2508041",
+     1
+    ],
+    [
+     "dc60da18",
+     1
+    ],
+    [
+     "dc60da18",
+     8
+    ],
+    [
+     "dc60da18",
+     12
+    ],
+    [
+     "e2c64c62",
+     4
+    ],
+    [
+     "e2c64c62",
+     7
+    ],
+    [
+     "e54c6945",
+     9
+    ],
+    [
+     "e8bda31a",
+     3
+    ]
+   ],
+   "lost": [
+    [
+     "0784b763",
+     1
+    ],
+    [
+     "18680bd3",
+     7
+    ],
+    [
+     "286cb319",
+     4
+    ],
+    [
+     "286cb319",
+     7
+    ],
+    [
+     "5054348e",
+     2
+    ],
+    [
+     "5054348e",
+     4
+    ],
+    [
+     "5054348e",
+     16
+    ],
+    [
+     "5054348e",
+     21
+    ],
+    [
+     "5054348e",
+     27
+    ],
+    [
+     "5884eb93",
+     2
+    ],
+    [
+     "5bd84d54",
+     18
+    ],
+    [
+     "6bbe6804",
+     0
+    ],
+    [
+     "7ed4e31b",
+     0
+    ],
+    [
+     "7ed4e31b",
+     12
+    ],
+    [
+     "8e3e1073",
+     1
+    ],
+    [
+     "8e3e1073",
+     5
+    ],
+    [
+     "933e40d7",
+     8
+    ],
+    [
+     "dc60da18",
+     9
+    ],
+    [
+     "e2c64c62",
+     0
+    ],
+    [
+     "e2c64c62",
+     1
+    ],
+    [
+     "e54c6945",
+     4
+    ],
+    [
+     "e54c6945",
+     10
+    ]
+   ]
+  }
+ },
+ "decisionInputs": {
+  "developmentGained": 2,
+  "developmentLost": 4,
+  "reviewedNegativeFPNotHigher": false,
+  "unusedGained": 9,
+  "unusedLost": 11,
+  "trainProbeNotLower": true
+ },
+ "outcome": "B",
+ "pilotRun": {
+  "modelSHA256": "7df7c9a2476843e7153370efd0ddc6d4f82ab99e59d8fd71c1ad8f8f6836bdb3",
+  "steps": 150,
+  "trainable": 44,
+  "frozenUnchanged": true,
+  "lossFirst": 4.834673702716827,
+  "lossLast": 1.7818867042660713,
+  "seconds": 80.30795540000008
+ },
+ "productActivation": false,
+ "productionAcne": {
+  "accepted": false,
+  "file": null
+ }
+}
