@@ -1,0 +1,44 @@
+{
+ "model": {
+  "start": "CDC Step0 (takeover models/step0.safetensors)",
+  "sha256": "18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655",
+  "architecture": "existing YOLOX-S P2 (scripts/skin-research/yolox_p2.py), 1 class"
+ },
+ "trainable": "every head.* parameter except BatchNorm (stems, cls/reg/obj convs and preds); backbone/FPN frozen; all BatchNorm in eval mode",
+ "optimizer": {
+  "type": "AdamW",
+  "lr": 0.0001,
+  "weightDecay": 0.01,
+  "warmupSteps": 30,
+  "schedule": "cosine to step 150",
+  "clipNorm": 5.0,
+  "microbatch": 1,
+  "accumulation": 4,
+  "steps": 150,
+  "seed": 20261015
+ },
+ "loss": "existing YOLOX P2 loss (IoU box, BCE cls) with the existing SigmoidFocalObjectnessLoss: assigned positives always supervised; known negatives ONLY inside reviewed clean negative support; every other anchor UNKNOWN (zero gradient)",
+ "data": "docs/acne-data-v2-manifest-20261015.json pilotOrder: 540 TRAIN positive product tiles + 60 reviewed-negative tiles (every 10th), fixed seed order",
+ "evaluation": {
+  "rule": "one fixed product evaluator for Step0 and pilot: product photo_input tiles, conf obj*cls>=.30, hard NMS .30, current staging anatomical filter, IoU>=.50 one-to-one",
+  "sets": {
+   "trainProbe": "first 40 distinct TRAIN photos of the pilot order that have a replay snapshot (learning on training examples, NOT generalisation)",
+   "development": "Scope B 12 photos/14 fixed targets + 9 reviewed negative photos FP, and the 3 product-pass controls/29 targets (browser preflight; exposed development/regression)",
+   "unusedEval": "UNUSED_EVAL_CANDIDATE photos that pass the replayed product gates (eyewear UNKNOWN): pre-registered by rule before any model output; candidates outside labels are UNKNOWN, not FP"
+  }
+ },
+ "decision": {
+  "A": "development: >=2 targets gained and 0 lost vs Step0 over Scope B+controls, reviewed-negative FP <= Step0; unused eval: >=3 targets gained and lost <= gained/3; train probe recall not lower",
+  "B": "otherwise (including any development target lost or FP increase)",
+  "frozen": "no threshold, denominator or rule change after seeing results; no automatic longer training"
+ },
+ "budget": {
+  "process": "single heavy process under HeavyJobLease (1350 MiB private peak / 1600 MiB available, the CDC training precedent); the desktop VM ends every call after <=180 s, so training resumes from the 25-step checkpoints and evaluation resumes per photo",
+  "torchThreads": 2,
+  "environment": "python 3.10, torch 1.12.1 CPU, numpy 1.26.4, opencv-headless 4.12.0, scikit-image 0.25.2 (only CPU torch reachable here)",
+  "checkpoints": "every 25 steps: model, optimizer moments, scheduler, torch/python/numpy RNG, CURRENT pointer"
+ },
+ "manifestSHA256": "7d1b161e305844b736726238148550254b2e3587d51dd8fb9a0df6cafcdb7e92",
+ "pilotOrderSHA256": "4ab46be87cc0ee23d4551aefcf294ab4edd8719521c0eaf2d3377d5514ee0c59",
+ "codeSHA256": "1aa674d16c004b2417790534de48e1b71b0de4fa7c0138945cde7c103e9510b2"
+}
