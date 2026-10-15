@@ -1,0 +1,5256 @@
+{
+ "version": "acne-closed-support-ab-v1",
+ "kind": "geometry-only comparison of frozen classical A/B; post-hoc development data; NOT product acceptance",
+ "productDecisionChanged": false,
+ "productionAcneAtInputRoot": {
+  "accepted": false,
+  "file": null
+ },
+ "manifest": {
+  "path": "acne-closed-support-manifest-20261015.json",
+  "sha256": "e77ac5f15ce3b0aeca1ed0855478bf8974a3b444a3cfcef9e7fdc4fff0104214"
+ },
+ "comparisonSHA256": "6968851241fded3b28a70b8c830666e4e574d16fbd387738106f2f7b05784238",
+ "codeIdentities": {
+  "scripts/skin-research/audit_acne_measurement_scope.py": {
+   "normalizedSHA256": "be2aae12443e42315eeb034809ca21829861e8a57722cc9a9a9d9cf364dc189b"
+  },
+  "scripts/skin-research/evaluate_acne_classical.py": {
+   "normalizedSHA256": "b20887b8e219298d1c2685c14812d3d2c5a1dc0a0848d8d0b7e28b11a7ac72a1"
+  },
+  "scripts/skin-research/prepare_acne_classical_comparison.py": {
+   "normalizedSHA256": "ab744eb890ad2b8717a5093c10674608001b2f28dbac1383efbce38d72aeba5f"
+  },
+  "scripts/skin-research/acne_lab_dog.py": {
+   "normalizedSHA256": "5bc824456badcd329b78951f2274e8ddd7f3bf09e34c7cf5183c454239c235e9"
+  },
+  "scripts/skin-research/heavy_job_lease.py": {
+   "normalizedSHA256": "348da8dc40ae3c6b5d159d0f6a37bada0f54dbdec75e7d7eebf7f86c72ed7137"
+  },
+  "scripts/skin-research/compute_owner_observer.py": {
+   "normalizedSHA256": "e857b4ea671c913ba06a616ec115d8934526de88783130627ec57f19670ecf56"
+  },
+  "services/core-api/appearance_analysis.py": {
+   "normalizedSHA256": "1102117b3a5d13599c647566d39620768eb8d15ed1a13c0fd34aabb03e91b8ce"
+  },
+  "services/core-api/skin_models.py": {
+   "normalizedSHA256": "a0eb52a01c07b445109fa328aa73994a93f20169db17c4aae1ae48c1230a4c28"
+  },
+  "services/core-api/acne_box_support.py": {
+   "normalizedSHA256": "a6271443b2c583aa7795dcab7100a2ba2ab98adeaa7fcc656bc8ce279f4c9b49"
+  },
+  "services/core-api/skin_scan_baseline/blemishes.py": {
+   "normalizedSHA256": "2e0eb60ab52c5767acd236641cbc7997bece0df74a525877341fcd70e2701bde"
+  },
+  "services/core-api/skin_scan_baseline/oiliness.py": {
+   "normalizedSHA256": "b80d78c6e0701a70052b3e5a6a5866c4427e9a70a868cf4aa7031dbb8597e814"
+  },
+  "services/core-api/acne_surface_support.py": {
+   "normalizedSHA256": "c1b61ebc5c6873eb031c0e64336027da4845bc53ea899e8a5c21e99e48403f20"
+  },
+  "scripts/skin-research/compare_acne_closed_support.py": {
+   "normalizedSHA256": "6b7420e4900e451d17163854376b0661d85b5bb9a3acda291692c112f68f48e6"
+  },
+  "scripts/skin-research/source_skin_support.py": {
+   "normalizedSHA256": "5cb9bc1f042b067b6dc125d37e8fa26a1f67eeba88ef2641de36d38c9876c932"
+  }
+ },
+ "inputIdentities": {
+  "audit-results/acne-takeover-20261015/browser-preflight.json": {
+   "sha256": "b1824d06a816359ba134cf981b2e5c988be9d9819688cd4b04394ac9c1cf08fd"
+  },
+  "audit-results/acne-takeover-20261015/inputs/original-reviewed-detector-data.json": {
+   "sha256": "2ef416d57d26cb552ad3aff081a62ae63384e32d7a6decfc1c8a34ece1d158c9"
+  },
+  "audit-results/acne-takeover-20261015/inputs/annotation-scope-manifest.json": {
+   "sha256": "562358f6f39b62bff9fbebfe095f641260ea1a206f0bed192e01bf83b4af64a5"
+  },
+  "audit-results/acne-takeover-20261015/evaluation-step0/summary.json": {
+   "sha256": "f3fef17739b38e58ac98a28d2de0a2b54fcb4cc359dac949a2ea35ac0527beef"
+  },
+  "audit-results/acne-classical-comparison-20261015/preregistered-manifest.json": {
+   "sha256": "719218a1c818ee637d442c06c8ef9318fa2da18ec550ed9d9e3b7fe16f2da55d"
+  },
+  "audit-results/acne-classical-comparison-20261015/A/results.json": {
+   "sha256": "987af8f2498bd803caf44a7ec76afacff0ed89e7efe1108dfd14948d6ba22bc4"
+  },
+  "audit-results/acne-classical-comparison-20261015/B/results.json": {
+   "sha256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+  },
+  "audit-results/acne-classical-comparison-20261015/negative-visibility-adjudication.json": {
+   "sha256": "2fa0a1bdb4626272eab1ed1f89b4e7a400e75dec4158af8bbe0240c0445a59ab"
+  }
+ },
+ "priorAudit": {
+  "docs/acne-measurement-audit-evidence-20261015.json": "e2a9fd32b8cfcac0f0c0da54722bfc936342ec1cf8cd4130b1c6f8c74bf51f01",
+  "docs/acne-measurement-audit-manifest-20261015-amendment1.json": "af0ee3f5ffb980c9cf9960ffc70953c9904f56ef88932a4da468aa47a9eae778"
+ },
+ "summary": {
+  "scopeB": {
+   "targets": 14,
+   "old": {
+    "centerInSupport": 4,
+    "anyBoxAreaInSupport": 4,
+    "firstLoss": {
+     "ANATOMICAL_REGION": 10,
+     "IN_SUPPORT": 4
+    },
+    "A": {
+     "iou050": 0,
+     "center": 1,
+     "anyOverlap": 1
+    },
+    "B": {
+     "iou050": 0,
+     "center": 0,
+     "anyOverlap": 0
+    }
+   },
+   "new": {
+    "centerInSupport": 5,
+    "anyBoxAreaInSupport": 5,
+    "firstLoss": {
+     "ANATOMICAL_REGION": 9,
+     "IN_SUPPORT": 5
+    },
+    "A": {
+     "iou050": 1,
+     "center": 2,
+     "anyOverlap": 2
+    },
+    "B": {
+     "iou050": 1,
+     "center": 1,
+     "anyOverlap": 1
+    }
+   },
+   "recoveredIntoSupport": [
+    "695ed248#1"
+   ],
+   "stillOutsideSupport": [
+    "55d380f7#0",
+    "55d380f7#1",
+    "55d380f7#2",
+    "55d380f7#3",
+    "55d380f7#4",
+    "55d380f7#6",
+    "695ed248#2",
+    "695ed248#3",
+    "4a1762ee#0"
+   ]
+  },
+  "controlsMeasured": {
+   "targets": 29,
+   "old": {
+    "centerInSupport": 10,
+    "anyBoxAreaInSupport": 12,
+    "firstLoss": {
+     "IN_SUPPORT": 10,
+     "ANATOMICAL_REGION": 19
+    },
+    "A": {
+     "iou050": 0,
+     "center": 1,
+     "anyOverlap": 1
+    },
+    "B": {
+     "iou050": 0,
+     "center": 1,
+     "anyOverlap": 1
+    }
+   },
+   "new": {
+    "centerInSupport": 15,
+    "anyBoxAreaInSupport": 15,
+    "firstLoss": {
+     "IN_SUPPORT": 15,
+     "ANATOMICAL_REGION": 14
+    },
+    "A": {
+     "iou050": 0,
+     "center": 3,
+     "anyOverlap": 4
+    },
+    "B": {
+     "iou050": 0,
+     "center": 4,
+     "anyOverlap": 10
+    }
+   },
+   "recoveredIntoSupport": [
+    "f2ed24a9#11",
+    "f2ed24a9#14",
+    "f2ed24a9#15",
+    "f2ed24a9#16",
+    "f2ed24a9#17"
+   ],
+   "stillOutsideSupport": [
+    "26ebdde4#2",
+    "2ed3716e#0",
+    "2ed3716e#1",
+    "2ed3716e#2",
+    "2ed3716e#3",
+    "2ed3716e#4",
+    "f2ed24a9#2",
+    "f2ed24a9#4",
+    "f2ed24a9#5",
+    "f2ed24a9#6",
+    "f2ed24a9#10",
+    "f2ed24a9#12",
+    "f2ed24a9#18",
+    "f2ed24a9#20"
+   ]
+  },
+  "negatives": {
+   "A-old": {
+    "photos": 7,
+    "candidates": 10,
+    "automaticProjection": 10,
+    "status": {
+     "PRIOR:UNKNOWN-hair-or-border-support": 2,
+     "PRIOR:reviewed-non-pimple-visible-skin-support": 8
+    }
+   },
+   "A-new": {
+    "photos": 7,
+    "candidates": 17,
+    "automaticProjection": 17,
+    "status": {
+     "PRIOR:UNKNOWN-hair-or-border-support": 2,
+     "NEW_IN_NEGATIVE_LABEL_SCOPE": 7,
+     "PRIOR:reviewed-non-pimple-visible-skin-support": 8
+    }
+   },
+   "B-old": {
+    "photos": 7,
+    "candidates": 49,
+    "automaticProjection": 49,
+    "status": {
+     "PRIOR:UNKNOWN-hair-or-border-support": 21,
+     "PRIOR:reviewed-non-pimple-visible-skin-support": 28
+    }
+   },
+   "B-new": {
+    "photos": 7,
+    "candidates": 91,
+    "automaticProjection": 91,
+    "status": {
+     "NEW_IN_NEGATIVE_LABEL_SCOPE": 42,
+     "PRIOR:UNKNOWN-hair-or-border-support": 21,
+     "PRIOR:reviewed-non-pimple-visible-skin-support": 28
+    }
+   }
+  }
+ },
+ "outcomeStages": {
+  "scope-B-development": {
+   "before": {
+    "A": {
+     "ANATOMICAL_REGION": 10,
+     "COMPONENT_FILTERS": 1,
+     "CANDIDATE_GENERATION": 2,
+     "LOCALIZATION_IOU_BELOW_050": 1
+    },
+    "B": {
+     "ANATOMICAL_REGION": 10,
+     "COMPONENT_FILTERS": 2,
+     "CANDIDATE_GENERATION": 2
+    }
+   },
+   "after": {
+    "A": {
+     "ANATOMICAL_REGION": 9,
+     "IOU_050_HIT": 1,
+     "CANDIDATE_GENERATION": 3,
+     "LOCALIZATION_IOU_BELOW_050": 1
+    },
+    "B": {
+     "ANATOMICAL_REGION": 9,
+     "IOU_050_HIT": 1,
+     "CANDIDATE_GENERATION": 3,
+     "COMPONENT_FILTERS": 1
+    }
+   }
+  },
+  "heldout-train": {
+   "before": {
+    "A": {
+     "COMPONENT_FILTERS": 8,
+     "ANATOMICAL_REGION": 19,
+     "LOCALIZATION_IOU_BELOW_050": 1,
+     "CANDIDATE_GENERATION": 1
+    },
+    "B": {
+     "COMPONENT_FILTERS": 9,
+     "ANATOMICAL_REGION": 19,
+     "LOCALIZATION_IOU_BELOW_050": 1
+    }
+   },
+   "after": {
+    "A": {
+     "COMPONENT_FILTERS": 10,
+     "LOCALIZATION_IOU_BELOW_050": 4,
+     "ANATOMICAL_REGION": 14,
+     "CANDIDATE_GENERATION": 1
+    },
+    "B": {
+     "COMPONENT_FILTERS": 5,
+     "LOCALIZATION_IOU_BELOW_050": 10,
+     "ANATOMICAL_REGION": 14
+    }
+   }
+  }
+ },
+ "bFilterRejectionTotals": {
+  "old": {
+   "BOUNDARY_OR_EXCLUSION": 129,
+   "SHAPE": 63,
+   "SIZE": 138,
+   "DARK": 2
+  },
+  "new": {
+   "SIZE": 178,
+   "BOUNDARY_OR_EXCLUSION": 131,
+   "SHAPE": 75,
+   "DARK": 1
+  }
+ },
+ "newSupportReplayVerified": {
+  "26ebdde4": {
+   "A": true,
+   "B": true
+  },
+  "2ed3716e": {
+   "A": true,
+   "B": true
+  },
+  "f2ed24a9": {
+   "A": true,
+   "B": true
+  },
+  "55d380f7": {
+   "A": true,
+   "B": true
+  },
+  "695ed248": {
+   "A": true,
+   "B": true
+  },
+  "4a1762ee": {
+   "A": true,
+   "B": true
+  }
+ },
+ "targets": [
+  {
+   "targetId": "26ebdde4#0",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    773.0,
+    336.0,
+    781.5,
+    344.5
+   ],
+   "regionCategoryBefore": "FACE_OVAL_OR_ALL_MESH_SUPPORT",
+   "before": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [
+      "SHAPE"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [
+      "SHAPE"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "26ebdde4#1",
+   "cohort": "heldout-train",
+   "scaleBand": "medium",
+   "sourceBox": [
+    820.0,
+    581.0,
+    838.5,
+    594.5
+   ],
+   "regionCategoryBefore": "FACE_OVAL_OR_ALL_MESH_SUPPORT",
+   "before": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 0.9285714285714286,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.34771946941094195,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED"
+     ],
+     "iou050Hit": false,
+     "centerHit": true
+    },
+    "B": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.25,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED"
+     ],
+     "iou050Hit": false,
+     "centerHit": true
+    }
+   }
+  },
+  {
+   "targetId": "26ebdde4#2",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    680.0,
+    678.0,
+    689.0,
+    685.5
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGION_ENVELOPES",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "2ed3716e#0",
+   "cohort": "heldout-train",
+   "scaleBand": "medium",
+   "sourceBox": [
+    810.0,
+    239.0,
+    830.0,
+    252.0
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGIONS_SIDE_POSE",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "2ed3716e#1",
+   "cohort": "heldout-train",
+   "scaleBand": "medium",
+   "sourceBox": [
+    825.0,
+    336.0,
+    850.5,
+    352.5
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGIONS_SIDE_POSE",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "2ed3716e#2",
+   "cohort": "heldout-train",
+   "scaleBand": "medium",
+   "sourceBox": [
+    715.0,
+    299.0,
+    757.0,
+    319.0
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGIONS_SIDE_POSE",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "2ed3716e#3",
+   "cohort": "heldout-train",
+   "scaleBand": "medium",
+   "sourceBox": [
+    726.0,
+    342.0,
+    746.5,
+    353.5
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGIONS_SIDE_POSE",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "2ed3716e#4",
+   "cohort": "heldout-train",
+   "scaleBand": "medium",
+   "sourceBox": [
+    740.0,
+    354.0,
+    762.5,
+    364.0
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGIONS_SIDE_POSE",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#0",
+   "cohort": "heldout-train",
+   "scaleBand": "medium",
+   "sourceBox": [
+    621.0,
+    173.0,
+    638.5,
+    187.5
+   ],
+   "regionCategoryBefore": "FACE_OVAL_OR_ALL_MESH_SUPPORT",
+   "before": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.408630559225011,
+     "iou050Hit": false,
+     "centerHit": true
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [
+      "SHAPE"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.39101123595505616,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED"
+     ],
+     "iou050Hit": false,
+     "centerHit": true
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#1",
+   "cohort": "heldout-train",
+   "scaleBand": "medium",
+   "sourceBox": [
+    761.0,
+    110.0,
+    778.0,
+    126.5
+   ],
+   "regionCategoryBefore": "FACE_OVAL_OR_ALL_MESH_SUPPORT",
+   "before": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.34815198695476235,
+     "iou050Hit": false,
+     "centerHit": true
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.34815198695476235,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED"
+     ],
+     "iou050Hit": false,
+     "centerHit": true
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [
+      "SIZE"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#2",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    691.0,
+    254.0,
+    702.0,
+    261.0
+   ],
+   "regionCategoryBefore": "PRESENTATION_MESH_CELL_GAP",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#3",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    746.0,
+    239.0,
+    755.5,
+    245.5
+   ],
+   "regionCategoryBefore": "FACE_OVAL_OR_ALL_MESH_SUPPORT",
+   "before": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "CANDIDATE_GENERATION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "CANDIDATE_GENERATION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.057926829268292686,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#4",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    676.0,
+    566.0,
+    686.0,
+    577.0
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGION_ENVELOPES",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#5",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    648.0,
+    563.0,
+    661.5,
+    573.5
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGION_ENVELOPES",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#6",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    842.0,
+    577.0,
+    853.5,
+    584.5
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGION_ENVELOPES",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#7",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    723.0,
+    224.0,
+    731.5,
+    229.5
+   ],
+   "regionCategoryBefore": "FACE_OVAL_OR_ALL_MESH_SUPPORT",
+   "before": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED",
+      "SIZE"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.04385553470919325,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#8",
+   "cohort": "heldout-train",
+   "scaleBand": "medium",
+   "sourceBox": [
+    690.0,
+    275.0,
+    738.0,
+    294.5
+   ],
+   "regionCategoryBefore": "FACE_OVAL_OR_ALL_MESH_SUPPORT",
+   "before": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 0.34375,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 0.7645833333333333,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [
+      "SHAPE",
+      "SIZE"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [
+      "SIZE"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#9",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    922.0,
+    673.0,
+    933.5,
+    684.0
+   ],
+   "regionCategoryBefore": "FACE_OVAL_OR_ALL_MESH_SUPPORT",
+   "before": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [
+      "SUPPORT_EROSION"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [
+      "BOUNDARY_OR_EXCLUSION"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#10",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    915.0,
+    563.0,
+    924.0,
+    570.5
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGION_ENVELOPES",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#11",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    1036.0,
+    687.0,
+    1045.0,
+    695.0
+   ],
+   "regionCategoryBefore": "PRESENTATION_MESH_CELL_GAP",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [
+      "SHAPE"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.04390243902439024,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#12",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    1058.0,
+    679.0,
+    1067.5,
+    685.5
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGION_ENVELOPES",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#13",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    983.0,
+    730.0,
+    994.0,
+    744.5
+   ],
+   "regionCategoryBefore": "FACE_OVAL_OR_ALL_MESH_SUPPORT",
+   "before": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 0.7393939393939394,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.4916928361757882,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED"
+     ],
+     "iou050Hit": false,
+     "centerHit": true
+    },
+    "B": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.12083333333333333,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED"
+     ],
+     "iou050Hit": false,
+     "centerHit": true
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#14",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    938.0,
+    701.0,
+    952.0,
+    710.0
+   ],
+   "regionCategoryBefore": "PRESENTATION_MESH_CELL_GAP",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.023809523809523808,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [
+      "SHAPE"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.08057851239669421,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#15",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    956.0,
+    705.0,
+    963.5,
+    713.0
+   ],
+   "regionCategoryBefore": "PRESENTATION_MESH_CELL_GAP",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [
+      "SHAPE"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.04158004158004158,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#16",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    955.0,
+    689.0,
+    966.0,
+    701.5
+   ],
+   "regionCategoryBefore": "PRESENTATION_MESH_CELL_GAP",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.36363636363636365,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [
+      "SHAPE"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.09528759528759528,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED"
+     ],
+     "iou050Hit": false,
+     "centerHit": true
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#17",
+   "cohort": "heldout-train",
+   "scaleBand": "small",
+   "sourceBox": [
+    1085.0,
+    518.0,
+    1093.5,
+    525.0
+   ],
+   "regionCategoryBefore": "PRESENTATION_MESH_CELL_GAP",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 0.873015873015873,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [
+      "SUPPORT_EROSION"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [
+      "BOUNDARY_OR_EXCLUSION"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#18",
+   "cohort": "heldout-train",
+   "scaleBand": "micro",
+   "sourceBox": [
+    916.0,
+    555.0,
+    923.5,
+    560.5
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGION_ENVELOPES",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#19",
+   "cohort": "heldout-train",
+   "scaleBand": "micro",
+   "sourceBox": [
+    999.0,
+    747.0,
+    1006.0,
+    752.5
+   ],
+   "regionCategoryBefore": "FACE_OVAL_OR_ALL_MESH_SUPPORT",
+   "before": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 0.9523809523809523,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.006453207794853302,
+     "componentReasonsTouchingBox": [
+      "SIZE"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.029166666666666667,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "f2ed24a9#20",
+   "cohort": "heldout-train",
+   "scaleBand": "micro",
+   "sourceBox": [
+    846.0,
+    573.0,
+    852.5,
+    578.0
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGION_ENVELOPES",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "55d380f7#0",
+   "cohort": "scope-B-development",
+   "scaleBand": "medium",
+   "sourceBox": [
+    711.0,
+    817.0,
+    729.0,
+    833.0
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGIONS_SIDE_POSE",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "55d380f7#1",
+   "cohort": "scope-B-development",
+   "scaleBand": "small",
+   "sourceBox": [
+    644.0,
+    618.0,
+    653.0,
+    626.0
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGIONS_SIDE_POSE",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "55d380f7#2",
+   "cohort": "scope-B-development",
+   "scaleBand": "small",
+   "sourceBox": [
+    636.0,
+    620.0,
+    645.5,
+    626.0
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGIONS_SIDE_POSE",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "55d380f7#3",
+   "cohort": "scope-B-development",
+   "scaleBand": "small",
+   "sourceBox": [
+    646.0,
+    603.0,
+    654.5,
+    613.0
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGIONS_SIDE_POSE",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "55d380f7#4",
+   "cohort": "scope-B-development",
+   "scaleBand": "small",
+   "sourceBox": [
+    630.0,
+    607.0,
+    639.0,
+    614.5
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGIONS_SIDE_POSE",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "55d380f7#5",
+   "cohort": "scope-B-development",
+   "scaleBand": "small",
+   "sourceBox": [
+    835.0,
+    644.0,
+    849.5,
+    653.5
+   ],
+   "regionCategoryBefore": "FACE_OVAL_OR_ALL_MESH_SUPPORT",
+   "before": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 0.7333333333333333,
+    "A": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "IOU_050_HIT",
+     "bestIoU": 0.6002462410153121,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED"
+     ],
+     "iou050Hit": true,
+     "centerHit": true
+    },
+    "B": {
+     "outcome": "IOU_050_HIT",
+     "bestIoU": 0.7212020033388982,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED"
+     ],
+     "iou050Hit": true,
+     "centerHit": true
+    }
+   }
+  },
+  {
+   "targetId": "55d380f7#6",
+   "cohort": "scope-B-development",
+   "scaleBand": "small",
+   "sourceBox": [
+    676.0,
+    867.0,
+    685.5,
+    874.5
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGIONS_SIDE_POSE",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "695ed248#0",
+   "cohort": "scope-B-development",
+   "scaleBand": "small",
+   "sourceBox": [
+    633.0,
+    352.0,
+    641.5,
+    360.0
+   ],
+   "regionCategoryBefore": "FACE_OVAL_OR_ALL_MESH_SUPPORT",
+   "before": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "CANDIDATE_GENERATION",
+     "bestIoU": null,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "CANDIDATE_GENERATION",
+     "bestIoU": null,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "CANDIDATE_GENERATION",
+     "bestIoU": null,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "CANDIDATE_GENERATION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "695ed248#1",
+   "cohort": "scope-B-development",
+   "scaleBand": "small",
+   "sourceBox": [
+    628.0,
+    779.0,
+    637.0,
+    790.5
+   ],
+   "regionCategoryBefore": "PRESENTATION_MESH_CELL_GAP",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "CANDIDATE_GENERATION",
+     "bestIoU": null,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "CANDIDATE_GENERATION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "695ed248#2",
+   "cohort": "scope-B-development",
+   "scaleBand": "small",
+   "sourceBox": [
+    551.0,
+    662.0,
+    558.0,
+    670.5
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGION_ENVELOPES",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "695ed248#3",
+   "cohort": "scope-B-development",
+   "scaleBand": "small",
+   "sourceBox": [
+    705.0,
+    599.0,
+    711.5,
+    607.5
+   ],
+   "regionCategoryBefore": "OUTSIDE_EXPORTED_REGION_ENVELOPES",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": null,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "695ed248#4",
+   "cohort": "scope-B-development",
+   "scaleBand": "micro",
+   "sourceBox": [
+    645.0,
+    361.0,
+    650.5,
+    367.5
+   ],
+   "regionCategoryBefore": "FACE_OVAL_OR_ALL_MESH_SUPPORT",
+   "before": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "CANDIDATE_GENERATION",
+     "bestIoU": null,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "CANDIDATE_GENERATION",
+     "bestIoU": null,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 1.0,
+    "A": {
+     "outcome": "CANDIDATE_GENERATION",
+     "bestIoU": null,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "CANDIDATE_GENERATION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "4a1762ee#0",
+   "cohort": "scope-B-development",
+   "scaleBand": "medium",
+   "sourceBox": [
+    555.0,
+    651.0,
+    567.5,
+    673.0
+   ],
+   "regionCategoryBefore": "PRESENTATION_MESH_CELL_GAP",
+   "before": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": "ANATOMICAL_REGION",
+    "boxFractionEligible": 0.0,
+    "A": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    },
+    "B": {
+     "outcome": "ANATOMICAL_REGION",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  },
+  {
+   "targetId": "4a1762ee#1",
+   "cohort": "scope-B-development",
+   "scaleBand": "medium",
+   "sourceBox": [
+    891.0,
+    588.0,
+    902.5,
+    607.5
+   ],
+   "regionCategoryBefore": "FACE_OVAL_OR_ALL_MESH_SUPPORT",
+   "before": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 0.8708333333333333,
+    "A": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.10951230608197479,
+     "iou050Hit": false,
+     "centerHit": true
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   },
+   "after": {
+    "centerFirstLoss": null,
+    "boxFractionEligible": 0.9291666666666667,
+    "A": {
+     "outcome": "LOCALIZATION_IOU_BELOW_050",
+     "bestIoU": 0.10951230608197479,
+     "componentReasonsTouchingBox": [
+      "ACCEPTED",
+      "SUPPORT_EROSION"
+     ],
+     "iou050Hit": false,
+     "centerHit": true
+    },
+    "B": {
+     "outcome": "COMPONENT_FILTERS",
+     "bestIoU": 0.0,
+     "componentReasonsTouchingBox": [
+      "BOUNDARY_OR_EXCLUSION"
+     ],
+     "iou050Hit": false,
+     "centerHit": false
+    }
+   }
+  }
+ ],
+ "negatives": {
+  "A": {
+   "photos": 7,
+   "before": {
+    "candidates": 10,
+    "automaticProjection": 10,
+    "reviewedVisibleSkin": 8,
+    "unknown": 2,
+    "reviewedPerPhoto": 1.1428571428571428
+   },
+   "after": {
+    "candidates": 17,
+    "automaticProjection": 17,
+    "reviewedVisibleSkin": 15,
+    "unknown": 2,
+    "reviewedPerPhoto": 2.142857142857143,
+    "outsideNegativeLabelScope": 0
+   }
+  },
+  "B": {
+   "photos": 7,
+   "before": {
+    "candidates": 49,
+    "automaticProjection": 49,
+    "reviewedVisibleSkin": 28,
+    "unknown": 21,
+    "reviewedPerPhoto": 4.0
+   },
+   "after": {
+    "candidates": 91,
+    "automaticProjection": 91,
+    "reviewedVisibleSkin": 64,
+    "unknown": 27,
+    "reviewedPerPhoto": 9.142857142857142,
+    "outsideNegativeLabelScope": 0
+   }
+  }
+ },
+ "newNegativeCandidateReview": {
+  "reviewer": "Claude (this session), post-hoc overlay review",
+  "blinded": false,
+  "clinicalOrHumanAdjudication": false,
+  "rule": "prior negative-face label scope only; hair/beard/brow/ambiguous stays UNKNOWN",
+  "rows": [
+   {
+    "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+    "method": "A",
+    "newCandidateIndex": 1,
+    "sourceBox": [
+     284.0,
+     269.0,
+     289.0,
+     272.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible nose skin"
+   },
+   {
+    "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+    "method": "B",
+    "newCandidateIndex": 0,
+    "sourceBox": [
+     222.0,
+     134.0,
+     247.0,
+     149.0
+    ],
+    "verdict": "UNKNOWN-hair-or-border-support",
+    "note": "blond fringe over forehead"
+   },
+   {
+    "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+    "method": "B",
+    "newCandidateIndex": 14,
+    "sourceBox": [
+     397.0,
+     328.0,
+     406.0,
+     336.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible cheek skin"
+   },
+   {
+    "sha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+    "method": "B",
+    "newCandidateIndex": 0,
+    "sourceBox": [
+     176.0,
+     395.0,
+     185.0,
+     404.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible cheek skin"
+   },
+   {
+    "sha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+    "method": "B",
+    "newCandidateIndex": 2,
+    "sourceBox": [
+     366.0,
+     572.0,
+     373.0,
+     580.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible cheek skin"
+   },
+   {
+    "sha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+    "method": "B",
+    "newCandidateIndex": 3,
+    "sourceBox": [
+     243.0,
+     577.0,
+     248.0,
+     582.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible cheek skin"
+   },
+   {
+    "sha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+    "method": "B",
+    "newCandidateIndex": 5,
+    "sourceBox": [
+     351.0,
+     589.0,
+     359.0,
+     598.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible cheek skin"
+   },
+   {
+    "sha256": "0597e8113444b558862cdc20574b2386e091bfc14fad55e8ea2e3532a02fa552",
+    "method": "A",
+    "newCandidateIndex": 0,
+    "sourceBox": [
+     240.43572807312012,
+     395.9663600921631,
+     244.52216148376465,
+     400.0527935028076
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible cheek skin"
+   },
+   {
+    "sha256": "0597e8113444b558862cdc20574b2386e091bfc14fad55e8ea2e3532a02fa552",
+    "method": "B",
+    "newCandidateIndex": 0,
+    "sourceBox": [
+     240.0,
+     395.0,
+     245.0,
+     400.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible cheek skin"
+   },
+   {
+    "sha256": "0597e8113444b558862cdc20574b2386e091bfc14fad55e8ea2e3532a02fa552",
+    "method": "B",
+    "newCandidateIndex": 1,
+    "sourceBox": [
+     235.0,
+     405.0,
+     239.0,
+     411.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible cheek skin"
+   },
+   {
+    "sha256": "0597e8113444b558862cdc20574b2386e091bfc14fad55e8ea2e3532a02fa552",
+    "method": "B",
+    "newCandidateIndex": 2,
+    "sourceBox": [
+     225.0,
+     492.0,
+     227.0,
+     494.0
+    ],
+    "verdict": "UNKNOWN-hair-or-border-support",
+    "note": "grey textured patch; hair/shadow cannot be excluded"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "A",
+    "newCandidateIndex": 7,
+    "sourceBox": [
+     296.0680341720581,
+     716.8640683174133,
+     303.44335041046145,
+     726.0832136154174
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "A",
+    "newCandidateIndex": 8,
+    "sourceBox": [
+     320.0378119468689,
+     762.959794807434,
+     327.4131281852722,
+     768.4912819862366
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "A",
+    "newCandidateIndex": 9,
+    "sourceBox": [
+     367.9773674964905,
+     820.1184956550599,
+     380.8841709136963,
+     831.1814700126648
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "A",
+    "newCandidateIndex": 10,
+    "sourceBox": [
+     655.61470079422,
+     821.9623247146607,
+     661.1461879730225,
+     829.337640953064
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "A",
+    "newCandidateIndex": 11,
+    "sourceBox": [
+     662.9900170326232,
+     833.0252990722656,
+     668.5215042114257,
+     836.7129571914672
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 4,
+    "sourceBox": [
+     322.0,
+     346.0,
+     327.0,
+     350.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 8,
+    "sourceBox": [
+     311.0,
+     353.0,
+     317.0,
+     359.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 12,
+    "sourceBox": [
+     298.0,
+     371.0,
+     303.0,
+     377.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 22,
+    "sourceBox": [
+     605.0,
+     443.0,
+     609.0,
+     446.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 23,
+    "sourceBox": [
+     527.0,
+     461.0,
+     536.0,
+     471.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 24,
+    "sourceBox": [
+     505.0,
+     498.0,
+     512.0,
+     512.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 25,
+    "sourceBox": [
+     507.0,
+     523.0,
+     513.0,
+     536.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 26,
+    "sourceBox": [
+     503.0,
+     538.0,
+     508.0,
+     544.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 27,
+    "sourceBox": [
+     291.0,
+     573.0,
+     318.0,
+     588.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 29,
+    "sourceBox": [
+     301.0,
+     592.0,
+     307.0,
+     596.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 30,
+    "sourceBox": [
+     390.0,
+     592.0,
+     394.0,
+     597.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 31,
+    "sourceBox": [
+     301.0,
+     606.0,
+     304.0,
+     610.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 32,
+    "sourceBox": [
+     286.0,
+     613.0,
+     296.0,
+     622.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 33,
+    "sourceBox": [
+     299.0,
+     634.0,
+     304.0,
+     639.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 34,
+    "sourceBox": [
+     312.0,
+     642.0,
+     318.0,
+     654.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 35,
+    "sourceBox": [
+     343.0,
+     641.0,
+     353.0,
+     654.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 37,
+    "sourceBox": [
+     718.0,
+     651.0,
+     726.0,
+     657.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 39,
+    "sourceBox": [
+     324.0,
+     702.0,
+     328.0,
+     706.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 40,
+    "sourceBox": [
+     291.0,
+     717.0,
+     303.0,
+     733.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 41,
+    "sourceBox": [
+     266.0,
+     737.0,
+     271.0,
+     741.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 43,
+    "sourceBox": [
+     397.0,
+     812.0,
+     422.0,
+     836.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 44,
+    "sourceBox": [
+     356.0,
+     815.0,
+     383.0,
+     836.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 46,
+    "sourceBox": [
+     614.0,
+     833.0,
+     618.0,
+     836.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 47,
+    "sourceBox": [
+     542.0,
+     841.0,
+     551.0,
+     847.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 48,
+    "sourceBox": [
+     394.0,
+     849.0,
+     407.0,
+     860.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 50,
+    "sourceBox": [
+     363.0,
+     864.0,
+     366.0,
+     869.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 51,
+    "sourceBox": [
+     500.0,
+     878.0,
+     508.0,
+     889.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+    "method": "B",
+    "newCandidateIndex": 52,
+    "sourceBox": [
+     463.0,
+     880.0,
+     470.0,
+     890.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "visible facial skin texture/wrinkle; no hair over box"
+   },
+   {
+    "sha256": "33da7a527931d29e23b6ab093093c0c4416938e8c0b17a5b2b6ad7af3112c1e0",
+    "method": "B",
+    "newCandidateIndex": 1,
+    "sourceBox": [
+     284.0,
+     273.0,
+     287.0,
+     276.0
+    ],
+    "verdict": "reviewed-non-pimple-visible-skin-support",
+    "note": "bright nasal-bridge skin, not clipped, no hair"
+   },
+   {
+    "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+    "method": "B",
+    "newCandidateIndex": 3,
+    "sourceBox": [
+     321.0,
+     172.0,
+     327.0,
+     179.0
+    ],
+    "verdict": "UNKNOWN-hair-or-border-support",
+    "note": "box touches the eyebrow edge"
+   },
+   {
+    "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+    "method": "B",
+    "newCandidateIndex": 6,
+    "sourceBox": [
+     286.0,
+     286.0,
+     289.0,
+     289.0
+    ],
+    "verdict": "UNKNOWN-hair-or-border-support",
+    "note": "beard over or around the box"
+   },
+   {
+    "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+    "method": "B",
+    "newCandidateIndex": 7,
+    "sourceBox": [
+     369.0,
+     288.0,
+     372.0,
+     292.0
+    ],
+    "verdict": "UNKNOWN-hair-or-border-support",
+    "note": "beard over or around the box"
+   },
+   {
+    "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+    "method": "B",
+    "newCandidateIndex": 8,
+    "sourceBox": [
+     333.0,
+     294.0,
+     335.0,
+     296.0
+    ],
+    "verdict": "UNKNOWN-hair-or-border-support",
+    "note": "beard over or around the box"
+   }
+  ]
+ },
+ "photos": [
+  {
+   "sha256": "26ebdde4a718478d320492b7bec8ae0d5cb9c4f4b3279fadfdc93ad95a1b8aaf",
+   "closedCellsPerRegion": {
+    "forehead": 6,
+    "rightCheek": 7,
+    "leftCheek": 7,
+    "nose": 10,
+    "chin": 9
+   },
+   "addedEligiblePixels": 55091,
+   "addedPixelsOutsideRegionEnvelopes": 0,
+   "bFilterRejections": {
+    "old": {
+     "BOUNDARY_OR_EXCLUSION": 16,
+     "SHAPE": 5,
+     "SIZE": 10
+    },
+    "new": {
+     "SIZE": 16,
+     "BOUNDARY_OR_EXCLUSION": 16,
+     "SHAPE": 5
+    }
+   },
+   "aSharedScopeRejected": {
+    "old": 0,
+    "new": 0
+   },
+   "matching": {
+    "old": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    },
+    "new": {
+     "A": {
+      "iou050": [],
+      "centerHits": [
+       [
+        1,
+        3
+       ]
+      ]
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": [
+       [
+        1,
+        6
+       ]
+      ]
+     }
+    }
+   },
+   "cohort": "heldout-train",
+   "kinds": {
+    "old": {
+     "eligiblePixels": 126974,
+     "methods": {
+      "A": {
+       "candidateCount": 1,
+       "seconds": {
+        "preprocessing": 1.1159543000003396,
+        "detectionMapSerialization": 0.2275497999999061,
+        "full": 1.3435041000002457
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.3987149999993562,
+        "detectionMapSerialization": 0.03127370000038354,
+        "full": 0.42998869999973977
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 1,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 7,
+       "seconds": {
+        "preprocessing": 0.3027220000003581,
+        "detectionMapSerialization": 0.45219769999948767,
+        "full": 0.7549196999998458
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.2343602999999348,
+        "detectionMapSerialization": 0.3852473999995709,
+        "full": 0.6196076999995057
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.08324480056762695,
+        "mad": 0.08324480056762695,
+        "threshold": 0.8,
+        "rawComponents": 38,
+        "rejections": {
+         "BOUNDARY_OR_EXCLUSION": 16,
+         "SHAPE": 5,
+         "SIZE": 10
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 126974
+       }
+      }
+     }
+    },
+    "new": {
+     "eligiblePixels": 182065,
+     "methods": {
+      "A": {
+       "candidateCount": 5,
+       "seconds": {
+        "preprocessing": 0.20885049999924377,
+        "detectionMapSerialization": 0.06001820000074076,
+        "full": 0.26886869999998453
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.2708960999998453,
+        "detectionMapSerialization": 0.038820599999780825,
+        "full": 0.30971669999962614
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 5,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 17,
+       "seconds": {
+        "preprocessing": 0.2660919999998441,
+        "detectionMapSerialization": 0.277029599999878,
+        "full": 0.5431215999997221
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.22375470000042696,
+        "detectionMapSerialization": 0.2286785999995118,
+        "full": 0.45243329999993875
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.09279537200927734,
+        "mad": 0.09279537200927734,
+        "threshold": 0.8,
+        "rawComponents": 54,
+        "rejections": {
+         "SIZE": 16,
+         "BOUNDARY_OR_EXCLUSION": 16,
+         "SHAPE": 5
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 182065
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "sha256": "2ed3716e0b87f3253ced680a6ddad44f4983a010dedd48457c551e6c28c16738",
+   "closedCellsPerRegion": {
+    "rightCheek": 7
+   },
+   "addedEligiblePixels": 7409,
+   "addedPixelsOutsideRegionEnvelopes": 0,
+   "bFilterRejections": {
+    "old": {
+     "SIZE": 1,
+     "BOUNDARY_OR_EXCLUSION": 1,
+     "SHAPE": 1
+    },
+    "new": {
+     "SIZE": 1,
+     "BOUNDARY_OR_EXCLUSION": 1,
+     "SHAPE": 1
+    }
+   },
+   "aSharedScopeRejected": {
+    "old": 0,
+    "new": 0
+   },
+   "matching": {
+    "old": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    },
+    "new": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    }
+   },
+   "cohort": "heldout-train",
+   "kinds": {
+    "old": {
+     "eligiblePixels": 7823,
+     "methods": {
+      "A": {
+       "candidateCount": 0,
+       "seconds": {
+        "preprocessing": 0.18558960000063962,
+        "detectionMapSerialization": 0.016570799999499286,
+        "full": 0.2021604000001389
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.16974049999953422,
+        "detectionMapSerialization": 0.015999400000509922,
+        "full": 0.18573990000004414
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 0,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 1,
+       "seconds": {
+        "preprocessing": 0.17827680000027613,
+        "detectionMapSerialization": 0.080448300000171,
+        "full": 0.25872510000044713
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.18638889999965613,
+        "detectionMapSerialization": 0.07907900000009249,
+        "full": 0.2654678999997486
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.03932380676269531,
+        "mad": 0.03932380676269531,
+        "threshold": 0.8,
+        "rawComponents": 4,
+        "rejections": {
+         "SIZE": 1,
+         "BOUNDARY_OR_EXCLUSION": 1,
+         "SHAPE": 1
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 7823
+       }
+      }
+     }
+    },
+    "new": {
+     "eligiblePixels": 15232,
+     "methods": {
+      "A": {
+       "candidateCount": 0,
+       "seconds": {
+        "preprocessing": 0.16803060000074765,
+        "detectionMapSerialization": 0.01868679999915912,
+        "full": 0.18671739999990677
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.16748009999992064,
+        "detectionMapSerialization": 0.01587019999988115,
+        "full": 0.1833502999998018
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 0,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 3,
+       "seconds": {
+        "preprocessing": 0.17392370000015944,
+        "detectionMapSerialization": 0.07873209999979736,
+        "full": 0.2526557999999568
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.1750502000004417,
+        "detectionMapSerialization": 0.08432259999972302,
+        "full": 0.2593728000001647
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.053841590881347656,
+        "mad": 0.053841590881347656,
+        "threshold": 0.8,
+        "rawComponents": 6,
+        "rejections": {
+         "SIZE": 1,
+         "BOUNDARY_OR_EXCLUSION": 1,
+         "SHAPE": 1
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 15232
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "sha256": "f2ed24a9b9a72b0be113a5a28fb4beaa76706765e9775cf10dae2c257f82f639",
+   "closedCellsPerRegion": {
+    "forehead": 6,
+    "rightCheek": 4,
+    "leftCheek": 7,
+    "nose": 10,
+    "chin": 9
+   },
+   "addedEligiblePixels": 71043,
+   "addedPixelsOutsideRegionEnvelopes": 0,
+   "bFilterRejections": {
+    "old": {
+     "BOUNDARY_OR_EXCLUSION": 26,
+     "SIZE": 34,
+     "SHAPE": 9,
+     "DARK": 1
+    },
+    "new": {
+     "SIZE": 46,
+     "BOUNDARY_OR_EXCLUSION": 16,
+     "SHAPE": 8
+    }
+   },
+   "aSharedScopeRejected": {
+    "old": 0,
+    "new": 0
+   },
+   "matching": {
+    "old": {
+     "A": {
+      "iou050": [],
+      "centerHits": [
+       [
+        1,
+        1
+       ]
+      ]
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": [
+       [
+        0,
+        13
+       ]
+      ]
+     }
+    },
+    "new": {
+     "A": {
+      "iou050": [],
+      "centerHits": [
+       [
+        1,
+        1
+       ],
+       [
+        13,
+        32
+       ]
+      ]
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": [
+       [
+        0,
+        8
+       ],
+       [
+        13,
+        29
+       ],
+       [
+        16,
+        22
+       ]
+      ]
+     }
+    }
+   },
+   "cohort": "heldout-train",
+   "kinds": {
+    "old": {
+     "eligiblePixels": 151450,
+     "methods": {
+      "A": {
+       "candidateCount": 18,
+       "seconds": {
+        "preprocessing": 0.2584329000001162,
+        "detectionMapSerialization": 0.05420569999932923,
+        "full": 0.31263859999944543
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.24665679999998247,
+        "detectionMapSerialization": 0.05100799999945593,
+        "full": 0.2976647999994384
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 18,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 23,
+       "seconds": {
+        "preprocessing": 0.2631971999999223,
+        "detectionMapSerialization": 0.24179610000010143,
+        "full": 0.5049933000000237
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.2723565999995117,
+        "detectionMapSerialization": 0.2178624000007403,
+        "full": 0.490219000000252
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.14473533630371094,
+        "mad": 0.14473533630371094,
+        "threshold": 0.8957814699172973,
+        "rawComponents": 93,
+        "rejections": {
+         "BOUNDARY_OR_EXCLUSION": 26,
+         "SIZE": 34,
+         "SHAPE": 9,
+         "DARK": 1
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 151450
+       }
+      }
+     }
+    },
+    "new": {
+     "eligiblePixels": 222493,
+     "methods": {
+      "A": {
+       "candidateCount": 38,
+       "seconds": {
+        "preprocessing": 0.24144499999965774,
+        "detectionMapSerialization": 0.08631839999998192,
+        "full": 0.32776339999963966
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.24993519999952696,
+        "detectionMapSerialization": 0.08146770000075776,
+        "full": 0.3314029000002847
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 38,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 36,
+       "seconds": {
+        "preprocessing": 0.25486259999979666,
+        "detectionMapSerialization": 0.2115748000005624,
+        "full": 0.46643740000035905
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.2414797000001272,
+        "detectionMapSerialization": 0.21947309999995923,
+        "full": 0.4609528000000864
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.1557769775390625,
+        "mad": 0.1557769775390625,
+        "threshold": 0.9641192916870117,
+        "rawComponents": 106,
+        "rejections": {
+         "SIZE": 46,
+         "BOUNDARY_OR_EXCLUSION": 16,
+         "SHAPE": 8
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 222493
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "sha256": "55d380f724bc6b0612f878ee1b70997493edf1c1aecb8cf9d447c050af90f43a",
+   "closedCellsPerRegion": {
+    "leftCheek": 7
+   },
+   "addedEligiblePixels": 22368,
+   "addedPixelsOutsideRegionEnvelopes": 0,
+   "bFilterRejections": {
+    "old": {
+     "SHAPE": 2,
+     "BOUNDARY_OR_EXCLUSION": 7,
+     "SIZE": 3
+    },
+    "new": {
+     "SHAPE": 3,
+     "BOUNDARY_OR_EXCLUSION": 4,
+     "SIZE": 3
+    }
+   },
+   "aSharedScopeRejected": {
+    "old": 0,
+    "new": 0
+   },
+   "matching": {
+    "old": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    },
+    "new": {
+     "A": {
+      "iou050": [
+       [
+        5,
+        3,
+        0.6002462410153121
+       ]
+      ],
+      "centerHits": [
+       [
+        5,
+        3
+       ]
+      ]
+     },
+     "B": {
+      "iou050": [
+       [
+        5,
+        2,
+        0.7212020033388982
+       ]
+      ],
+      "centerHits": [
+       [
+        5,
+        2
+       ]
+      ]
+     }
+    }
+   },
+   "cohort": "scope-B-development",
+   "kinds": {
+    "old": {
+     "eligiblePixels": 23030,
+     "methods": {
+      "A": {
+       "candidateCount": 2,
+       "seconds": {
+        "preprocessing": 0.1751137999999628,
+        "detectionMapSerialization": 0.022713399999702233,
+        "full": 0.19782719999966503
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.16444729999966512,
+        "detectionMapSerialization": 0.021627799999805575,
+        "full": 0.1860750999994707
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 2,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 3,
+       "seconds": {
+        "preprocessing": 0.16220090000024356,
+        "detectionMapSerialization": 0.24941690000014205,
+        "full": 0.4116178000003856
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.18526759999986098,
+        "detectionMapSerialization": 0.25474279999980354,
+        "full": 0.4400103999996645
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.03526735305786133,
+        "mad": 0.03526735305786133,
+        "threshold": 0.8,
+        "rawComponents": 15,
+        "rejections": {
+         "SHAPE": 2,
+         "BOUNDARY_OR_EXCLUSION": 7,
+         "SIZE": 3
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 23030
+       }
+      }
+     }
+    },
+    "new": {
+     "eligiblePixels": 45398,
+     "methods": {
+      "A": {
+       "candidateCount": 5,
+       "seconds": {
+        "preprocessing": 0.18375269999978627,
+        "detectionMapSerialization": 0.02495320000070933,
+        "full": 0.2087059000004956
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.1815007000004698,
+        "detectionMapSerialization": 0.027632100000118953,
+        "full": 0.20913280000058876
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 5,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 9,
+       "seconds": {
+        "preprocessing": 0.1789667000002737,
+        "detectionMapSerialization": 0.24492730000019947,
+        "full": 0.42389400000047317
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.15783300000020972,
+        "detectionMapSerialization": 0.23512490000030084,
+        "full": 0.39295790000051056
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.06844592094421387,
+        "mad": 0.06844592094421387,
+        "threshold": 0.8,
+        "rawComponents": 19,
+        "rejections": {
+         "SHAPE": 3,
+         "BOUNDARY_OR_EXCLUSION": 4,
+         "SIZE": 3
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 45398
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "sha256": "695ed248b9f9d226db5d127b6e2b9f67ddb06a61ddb7dd6d3883ce469b79cfe4",
+   "closedCellsPerRegion": {
+    "forehead": 6,
+    "rightCheek": 6,
+    "leftCheek": 7,
+    "nose": 10,
+    "chin": 9
+   },
+   "addedEligiblePixels": 35163,
+   "addedPixelsOutsideRegionEnvelopes": 0,
+   "bFilterRejections": {
+    "old": {
+     "BOUNDARY_OR_EXCLUSION": 2,
+     "SIZE": 2
+    },
+    "new": {
+     "BOUNDARY_OR_EXCLUSION": 1,
+     "SIZE": 2
+    }
+   },
+   "aSharedScopeRejected": {
+    "old": 0,
+    "new": 0
+   },
+   "matching": {
+    "old": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    },
+    "new": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    }
+   },
+   "cohort": "scope-B-development",
+   "kinds": {
+    "old": {
+     "eligiblePixels": 74688,
+     "methods": {
+      "A": {
+       "candidateCount": 0,
+       "seconds": {
+        "preprocessing": 0.27803190000031464,
+        "detectionMapSerialization": 0.0263001000002987,
+        "full": 0.30433200000061333
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.24083770000015647,
+        "detectionMapSerialization": 0.02803109999968001,
+        "full": 0.2688687999998365
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 0,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 0,
+       "seconds": {
+        "preprocessing": 0.22928310000042984,
+        "detectionMapSerialization": 0.09940610000012384,
+        "full": 0.3286892000005537
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.22707220000029338,
+        "detectionMapSerialization": 0.10715600000003178,
+        "full": 0.33422820000032516
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.04107522964477539,
+        "mad": 0.04107522964477539,
+        "threshold": 0.8,
+        "rawComponents": 4,
+        "rejections": {
+         "BOUNDARY_OR_EXCLUSION": 2,
+         "SIZE": 2
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 74688
+       }
+      }
+     }
+    },
+    "new": {
+     "eligiblePixels": 109851,
+     "methods": {
+      "A": {
+       "candidateCount": 0,
+       "seconds": {
+        "preprocessing": 0.2995061000001442,
+        "detectionMapSerialization": 0.044183500000144704,
+        "full": 0.3436896000002889
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.2899219999999332,
+        "detectionMapSerialization": 0.035960800000793824,
+        "full": 0.325882800000727
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 0,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 1,
+       "seconds": {
+        "preprocessing": 0.3417460000000574,
+        "detectionMapSerialization": 0.15419099999962782,
+        "full": 0.4959369999996852
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.2923265999997966,
+        "detectionMapSerialization": 0.11418250000042462,
+        "full": 0.4065091000002212
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.037776947021484375,
+        "mad": 0.037776947021484375,
+        "threshold": 0.8,
+        "rawComponents": 4,
+        "rejections": {
+         "BOUNDARY_OR_EXCLUSION": 1,
+         "SIZE": 2
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 109851
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "sha256": "4a1762ee136ff6c5e096ba6914063cf6d81fccb9fe492823cb4477d1e244462d",
+   "closedCellsPerRegion": {
+    "forehead": 6,
+    "rightCheek": 7,
+    "leftCheek": 7,
+    "nose": 10,
+    "chin": 9
+   },
+   "addedEligiblePixels": 38971,
+   "addedPixelsOutsideRegionEnvelopes": 0,
+   "bFilterRejections": {
+    "old": {
+     "SIZE": 17,
+     "DARK": 1,
+     "SHAPE": 4,
+     "BOUNDARY_OR_EXCLUSION": 9
+    },
+    "new": {
+     "SIZE": 20,
+     "DARK": 1,
+     "SHAPE": 6,
+     "BOUNDARY_OR_EXCLUSION": 20
+    }
+   },
+   "aSharedScopeRejected": {
+    "old": 0,
+    "new": 0
+   },
+   "matching": {
+    "old": {
+     "A": {
+      "iou050": [],
+      "centerHits": [
+       [
+        1,
+        0
+       ]
+      ]
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    },
+    "new": {
+     "A": {
+      "iou050": [],
+      "centerHits": [
+       [
+        1,
+        1
+       ]
+      ]
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    }
+   },
+   "cohort": "scope-B-development",
+   "kinds": {
+    "old": {
+     "eligiblePixels": 64700,
+     "methods": {
+      "A": {
+       "candidateCount": 1,
+       "seconds": {
+        "preprocessing": 0.27679640000042127,
+        "detectionMapSerialization": 0.03945229999953881,
+        "full": 0.3162486999999601
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.24964129999989382,
+        "detectionMapSerialization": 0.03844889999982115,
+        "full": 0.28809019999971497
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 1,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 5,
+       "seconds": {
+        "preprocessing": 0.25839170000017475,
+        "detectionMapSerialization": 0.15323179999995773,
+        "full": 0.4116235000001325
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.25983699999960663,
+        "detectionMapSerialization": 0.140314600000238,
+        "full": 0.4001515999998446
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.1033015251159668,
+        "mad": 0.1033015251159668,
+        "threshold": 0.8,
+        "rawComponents": 36,
+        "rejections": {
+         "SIZE": 17,
+         "DARK": 1,
+         "SHAPE": 4,
+         "BOUNDARY_OR_EXCLUSION": 9
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 64700
+       }
+      }
+     }
+    },
+    "new": {
+     "eligiblePixels": 103671,
+     "methods": {
+      "A": {
+       "candidateCount": 3,
+       "seconds": {
+        "preprocessing": 0.23269939999954659,
+        "detectionMapSerialization": 0.04653210000014951,
+        "full": 0.2792314999996961
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.25290940000013507,
+        "detectionMapSerialization": 0.04533449999962613,
+        "full": 0.2982438999997612
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 3,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 9,
+       "seconds": {
+        "preprocessing": 0.2575558999997156,
+        "detectionMapSerialization": 0.15560850000019855,
+        "full": 0.41316439999991417
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.25342169999930775,
+        "detectionMapSerialization": 0.15698920000068028,
+        "full": 0.41041089999998803
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.1161237359046936,
+        "mad": 0.1161237359046936,
+        "threshold": 0.8,
+        "rawComponents": 56,
+        "rejections": {
+         "SIZE": 20,
+         "DARK": 1,
+         "SHAPE": 6,
+         "BOUNDARY_OR_EXCLUSION": 20
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 103671
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+   "closedCellsPerRegion": {
+    "forehead": 6,
+    "rightCheek": 6,
+    "leftCheek": 7,
+    "nose": 10,
+    "chin": 9
+   },
+   "addedEligiblePixels": 10404,
+   "addedPixelsOutsideRegionEnvelopes": 0,
+   "bFilterRejections": {
+    "old": {
+     "BOUNDARY_OR_EXCLUSION": 9,
+     "SIZE": 3,
+     "SHAPE": 2
+    },
+    "new": {
+     "BOUNDARY_OR_EXCLUSION": 11,
+     "SIZE": 2,
+     "SHAPE": 4
+    }
+   },
+   "aSharedScopeRejected": {
+    "old": 0,
+    "new": 0
+   },
+   "matching": {
+    "old": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    },
+    "new": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    }
+   },
+   "cohort": "scope-B-development",
+   "kinds": {
+    "old": {
+     "eligiblePixels": 23846,
+     "methods": {
+      "A": {
+       "candidateCount": 1,
+       "seconds": {
+        "preprocessing": 0.13065169999936188,
+        "detectionMapSerialization": 0.017338000000563625,
+        "full": 0.1479896999999255
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.12924960000054853,
+        "detectionMapSerialization": 0.018280000000231666,
+        "full": 0.1475296000007802
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 1,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 13,
+       "seconds": {
+        "preprocessing": 0.13408159999926283,
+        "detectionMapSerialization": 0.033405900000616384,
+        "full": 0.16748749999987922
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.1249641000003976,
+        "detectionMapSerialization": 0.02848459999950137,
+        "full": 0.15344869999989896
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.07816076278686523,
+        "mad": 0.07816076278686523,
+        "threshold": 0.8,
+        "rawComponents": 27,
+        "rejections": {
+         "BOUNDARY_OR_EXCLUSION": 9,
+         "SIZE": 3,
+         "SHAPE": 2
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 23846
+       }
+      }
+     }
+    },
+    "new": {
+     "eligiblePixels": 34250,
+     "methods": {
+      "A": {
+       "candidateCount": 2,
+       "seconds": {
+        "preprocessing": 0.12572350000027654,
+        "detectionMapSerialization": 0.021910099999331578,
+        "full": 0.14763359999960812
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.11699450000014622,
+        "detectionMapSerialization": 0.021432999999888125,
+        "full": 0.13842750000003434
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 2,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 15,
+       "seconds": {
+        "preprocessing": 0.12443469999925583,
+        "detectionMapSerialization": 0.033973100000366685,
+        "full": 0.1584077999996225
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.13452389999929437,
+        "detectionMapSerialization": 0.03719600000022183,
+        "full": 0.1717198999995162
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.0761728286743164,
+        "mad": 0.0761728286743164,
+        "threshold": 0.8,
+        "rawComponents": 32,
+        "rejections": {
+         "BOUNDARY_OR_EXCLUSION": 11,
+         "SIZE": 2,
+         "SHAPE": 4
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 34250
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "sha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+   "closedCellsPerRegion": {
+    "forehead": 6,
+    "rightCheek": 7,
+    "leftCheek": 7,
+    "nose": 9,
+    "chin": 9
+   },
+   "addedEligiblePixels": 18650,
+   "addedPixelsOutsideRegionEnvelopes": 0,
+   "bFilterRejections": {
+    "old": {
+     "BOUNDARY_OR_EXCLUSION": 19,
+     "SHAPE": 11,
+     "SIZE": 4
+    },
+    "new": {
+     "BOUNDARY_OR_EXCLUSION": 24,
+     "SHAPE": 12,
+     "SIZE": 4
+    }
+   },
+   "aSharedScopeRejected": {
+    "old": 0,
+    "new": 0
+   },
+   "matching": {
+    "old": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    },
+    "new": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    }
+   },
+   "cohort": "scope-B-development",
+   "kinds": {
+    "old": {
+     "eligiblePixels": 25835,
+     "methods": {
+      "A": {
+       "candidateCount": 0,
+       "seconds": {
+        "preprocessing": 0.12273800000002666,
+        "detectionMapSerialization": 0.024303900000631984,
+        "full": 0.14704190000065864
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.14685039999949367,
+        "detectionMapSerialization": 0.020761900000252353,
+        "full": 0.16761229999974603
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 0,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 3,
+       "seconds": {
+        "preprocessing": 0.14797950000047422,
+        "detectionMapSerialization": 0.050050499999997555,
+        "full": 0.19803000000047177
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.13541410000016185,
+        "detectionMapSerialization": 0.051123700000061945,
+        "full": 0.1865378000002238
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.12786293029785156,
+        "mad": 0.12786293029785156,
+        "threshold": 0.8,
+        "rawComponents": 37,
+        "rejections": {
+         "BOUNDARY_OR_EXCLUSION": 19,
+         "SHAPE": 11,
+         "SIZE": 4
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 25835
+       }
+      }
+     }
+    },
+    "new": {
+     "eligiblePixels": 44485,
+     "methods": {
+      "A": {
+       "candidateCount": 0,
+       "seconds": {
+        "preprocessing": 0.12829099999999016,
+        "detectionMapSerialization": 0.024231699999290868,
+        "full": 0.15252269999928103
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.13125190000027942,
+        "detectionMapSerialization": 0.02280460000019957,
+        "full": 0.154056500000479
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 0,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 7,
+       "seconds": {
+        "preprocessing": 0.12404590000005555,
+        "detectionMapSerialization": 0.058612700000594486,
+        "full": 0.18265860000065004
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.14227819999996427,
+        "detectionMapSerialization": 0.05596830000013142,
+        "full": 0.1982465000000957
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.122802734375,
+        "mad": 0.122802734375,
+        "threshold": 0.8,
+        "rawComponents": 47,
+        "rejections": {
+         "BOUNDARY_OR_EXCLUSION": 24,
+         "SHAPE": 12,
+         "SIZE": 4
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 44485
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "sha256": "0597e8113444b558862cdc20574b2386e091bfc14fad55e8ea2e3532a02fa552",
+   "closedCellsPerRegion": {
+    "rightCheek": 7
+   },
+   "addedEligiblePixels": 6723,
+   "addedPixelsOutsideRegionEnvelopes": 0,
+   "bFilterRejections": {
+    "old": {
+     "SIZE": 1
+    },
+    "new": {}
+   },
+   "aSharedScopeRejected": {
+    "old": 0,
+    "new": 0
+   },
+   "matching": {
+    "old": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    },
+    "new": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    }
+   },
+   "cohort": "scope-B-development",
+   "kinds": {
+    "old": {
+     "eligiblePixels": 6848,
+     "methods": {
+      "A": {
+       "candidateCount": 0,
+       "seconds": {
+        "preprocessing": 0.08450340000035794,
+        "detectionMapSerialization": 0.010483199999725912,
+        "full": 0.09498660000008385
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.0753060999995796,
+        "detectionMapSerialization": 0.009859400000095775,
+        "full": 0.08516549999967538
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 0,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 0,
+       "seconds": {
+        "preprocessing": 0.07249289999981556,
+        "detectionMapSerialization": 0.03375119999964227,
+        "full": 0.10624409999945783
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.07858370000030845,
+        "detectionMapSerialization": 0.033946499999728985,
+        "full": 0.11253020000003744
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.022646665573120117,
+        "mad": 0.022646665573120117,
+        "threshold": 0.8,
+        "rawComponents": 1,
+        "rejections": {
+         "SIZE": 1
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 6848
+       }
+      }
+     }
+    },
+    "new": {
+     "eligiblePixels": 13571,
+     "methods": {
+      "A": {
+       "candidateCount": 1,
+       "seconds": {
+        "preprocessing": 0.09137150000060501,
+        "detectionMapSerialization": 0.013213100000029954,
+        "full": 0.10458460000063496
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.0792912000006254,
+        "detectionMapSerialization": 0.01204299999972136,
+        "full": 0.09133420000034675
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 1,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 3,
+       "seconds": {
+        "preprocessing": 0.0814924999995128,
+        "detectionMapSerialization": 0.038377500000024156,
+        "full": 0.11986999999953696
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.08970330000011018,
+        "detectionMapSerialization": 0.03589410000040516,
+        "full": 0.12559740000051534
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.022444725036621094,
+        "mad": 0.022444725036621094,
+        "threshold": 0.8,
+        "rawComponents": 3,
+        "rejections": {},
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 13571
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+   "closedCellsPerRegion": {
+    "forehead": 6,
+    "rightCheek": 7,
+    "leftCheek": 7,
+    "nose": 10,
+    "chin": 9
+   },
+   "addedEligiblePixels": 54644,
+   "addedPixelsOutsideRegionEnvelopes": 0,
+   "bFilterRejections": {
+    "old": {
+     "SIZE": 54,
+     "BOUNDARY_OR_EXCLUSION": 27,
+     "SHAPE": 23
+    },
+    "new": {
+     "SIZE": 71,
+     "BOUNDARY_OR_EXCLUSION": 24,
+     "SHAPE": 28
+    }
+   },
+   "aSharedScopeRejected": {
+    "old": 3,
+    "new": 3
+   },
+   "matching": {
+    "old": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    },
+    "new": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    }
+   },
+   "cohort": "scope-B-development",
+   "kinds": {
+    "old": {
+     "eligiblePixels": 93758,
+     "methods": {
+      "A": {
+       "candidateCount": 7,
+       "seconds": {
+        "preprocessing": 0.21945309999955498,
+        "detectionMapSerialization": 0.061480399999709334,
+        "full": 0.2809334999992643
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.2151627000002918,
+        "detectionMapSerialization": 0.0434943000000203,
+        "full": 0.2586570000003121
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 10,
+        "sharedScopeRejected": 3
+       }
+      },
+      "B": {
+       "candidateCount": 25,
+       "seconds": {
+        "preprocessing": 0.19514100000014878,
+        "detectionMapSerialization": 0.16329560000031051,
+        "full": 0.3584366000004593
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.18097239999951853,
+        "detectionMapSerialization": 0.16456410000046162,
+        "full": 0.34553649999998015
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.12670373916625977,
+        "mad": 0.12670373916625977,
+        "threshold": 0.8,
+        "rawComponents": 129,
+        "rejections": {
+         "SIZE": 54,
+         "BOUNDARY_OR_EXCLUSION": 27,
+         "SHAPE": 23
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 93758
+       }
+      }
+     }
+    },
+    "new": {
+     "eligiblePixels": 148402,
+     "methods": {
+      "A": {
+       "candidateCount": 12,
+       "seconds": {
+        "preprocessing": 0.19986040000003413,
+        "detectionMapSerialization": 0.04927580000003218,
+        "full": 0.2491362000000663
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.18071719999989,
+        "detectionMapSerialization": 0.04704700000002049,
+        "full": 0.2277641999999105
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 15,
+        "sharedScopeRejected": 3
+       }
+      },
+      "B": {
+       "candidateCount": 53,
+       "seconds": {
+        "preprocessing": 0.18686060000072757,
+        "detectionMapSerialization": 0.16373099999964325,
+        "full": 0.3505916000003708
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.19949019999967277,
+        "detectionMapSerialization": 0.17980340000030992,
+        "full": 0.3792935999999827
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.12918472290039062,
+        "mad": 0.12918472290039062,
+        "threshold": 0.8,
+        "rawComponents": 176,
+        "rejections": {
+         "SIZE": 71,
+         "BOUNDARY_OR_EXCLUSION": 24,
+         "SHAPE": 28
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 148402
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "sha256": "0f3354ae440284287476130b110bf1d6e941102732d9205f7aa52c74fb1b7926",
+   "closedCellsPerRegion": {
+    "leftCheek": 7
+   },
+   "addedEligiblePixels": 15196,
+   "addedPixelsOutsideRegionEnvelopes": 0,
+   "bFilterRejections": {
+    "old": {
+     "SHAPE": 1,
+     "BOUNDARY_OR_EXCLUSION": 1
+    },
+    "new": {
+     "SHAPE": 1,
+     "BOUNDARY_OR_EXCLUSION": 2
+    }
+   },
+   "aSharedScopeRejected": {
+    "old": 0,
+    "new": 0
+   },
+   "matching": {
+    "old": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    },
+    "new": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    }
+   },
+   "cohort": "scope-B-development",
+   "kinds": {
+    "old": {
+     "eligiblePixels": 15598,
+     "methods": {
+      "A": {
+       "candidateCount": 0,
+       "seconds": {
+        "preprocessing": 0.14523470000040106,
+        "detectionMapSerialization": 0.01994219999960478,
+        "full": 0.16517690000000584
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.1318412000000535,
+        "detectionMapSerialization": 0.017914299999574723,
+        "full": 0.14975549999962823
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 0,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 1,
+       "seconds": {
+        "preprocessing": 0.1462292999995043,
+        "detectionMapSerialization": 0.1286589000001186,
+        "full": 0.2748881999996229
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.14840790000016568,
+        "detectionMapSerialization": 0.12465119999978924,
+        "full": 0.2730590999999549
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.11832046508789062,
+        "mad": 0.11832046508789062,
+        "threshold": 0.8,
+        "rawComponents": 3,
+        "rejections": {
+         "SHAPE": 1,
+         "BOUNDARY_OR_EXCLUSION": 1
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 15598
+       }
+      }
+     }
+    },
+    "new": {
+     "eligiblePixels": 30794,
+     "methods": {
+      "A": {
+       "candidateCount": 0,
+       "seconds": {
+        "preprocessing": 0.12945289999970555,
+        "detectionMapSerialization": 0.018850299999940034,
+        "full": 0.14830319999964559
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.14431650000005902,
+        "detectionMapSerialization": 0.022271799999543873,
+        "full": 0.1665882999996029
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 0,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 1,
+       "seconds": {
+        "preprocessing": 0.13286799999968935,
+        "detectionMapSerialization": 0.13521420000051876,
+        "full": 0.2680822000002081
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.13345250000020314,
+        "detectionMapSerialization": 0.12897979999979725,
+        "full": 0.2624323000000004
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.09209918975830078,
+        "mad": 0.09209918975830078,
+        "threshold": 0.8,
+        "rawComponents": 4,
+        "rejections": {
+         "SHAPE": 1,
+         "BOUNDARY_OR_EXCLUSION": 2
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 30794
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "sha256": "33da7a527931d29e23b6ab093093c0c4416938e8c0b17a5b2b6ad7af3112c1e0",
+   "closedCellsPerRegion": {
+    "forehead": 6,
+    "rightCheek": 7,
+    "leftCheek": 7,
+    "nose": 10,
+    "chin": 9
+   },
+   "addedEligiblePixels": 3508,
+   "addedPixelsOutsideRegionEnvelopes": 0,
+   "bFilterRejections": {
+    "old": {
+     "SIZE": 4,
+     "SHAPE": 1,
+     "BOUNDARY_OR_EXCLUSION": 3
+    },
+    "new": {
+     "SIZE": 4,
+     "SHAPE": 2,
+     "BOUNDARY_OR_EXCLUSION": 4
+    }
+   },
+   "aSharedScopeRejected": {
+    "old": 1,
+    "new": 1
+   },
+   "matching": {
+    "old": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    },
+    "new": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    }
+   },
+   "cohort": "scope-B-development",
+   "kinds": {
+    "old": {
+     "eligiblePixels": 7561,
+     "methods": {
+      "A": {
+       "candidateCount": 1,
+       "seconds": {
+        "preprocessing": 0.12699179999981425,
+        "detectionMapSerialization": 0.011962800000219431,
+        "full": 0.13895460000003368
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.11120770000070479,
+        "detectionMapSerialization": 0.01124809999964782,
+        "full": 0.12245580000035261
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 2,
+        "sharedScopeRejected": 1
+       }
+      },
+      "B": {
+       "candidateCount": 2,
+       "seconds": {
+        "preprocessing": 0.10273529999994935,
+        "detectionMapSerialization": 0.014753400000699912,
+        "full": 0.11748870000064926
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.1072015999998257,
+        "detectionMapSerialization": 0.013051400000222202,
+        "full": 0.1202530000000479
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.04675149917602539,
+        "mad": 0.04675149917602539,
+        "threshold": 0.8,
+        "rawComponents": 10,
+        "rejections": {
+         "SIZE": 4,
+         "SHAPE": 1,
+         "BOUNDARY_OR_EXCLUSION": 3
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 7561
+       }
+      }
+     }
+    },
+    "new": {
+     "eligiblePixels": 11069,
+     "methods": {
+      "A": {
+       "candidateCount": 1,
+       "seconds": {
+        "preprocessing": 0.09426880000046367,
+        "detectionMapSerialization": 0.014233099999728438,
+        "full": 0.10850190000019211
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.09291350000057719,
+        "detectionMapSerialization": 0.016333399999894027,
+        "full": 0.10924690000047121
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 2,
+        "sharedScopeRejected": 1
+       }
+      },
+      "B": {
+       "candidateCount": 3,
+       "seconds": {
+        "preprocessing": 0.09254689999943366,
+        "detectionMapSerialization": 0.01668710000012652,
+        "full": 0.10923399999956018
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.09099419999984093,
+        "detectionMapSerialization": 0.024214099999881,
+        "full": 0.11520829999972193
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.0466771125793457,
+        "mad": 0.0466771125793457,
+        "threshold": 0.8,
+        "rawComponents": 13,
+        "rejections": {
+         "SIZE": 4,
+         "SHAPE": 2,
+         "BOUNDARY_OR_EXCLUSION": 4
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 11069
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+   "closedCellsPerRegion": {
+    "forehead": 6,
+    "rightCheek": 7,
+    "leftCheek": 7,
+    "nose": 10,
+    "chin": 9
+   },
+   "addedEligiblePixels": 4897,
+   "addedPixelsOutsideRegionEnvelopes": 0,
+   "bFilterRejections": {
+    "old": {
+     "SIZE": 5,
+     "BOUNDARY_OR_EXCLUSION": 9,
+     "SHAPE": 4
+    },
+    "new": {
+     "SIZE": 9,
+     "BOUNDARY_OR_EXCLUSION": 8,
+     "SHAPE": 5
+    }
+   },
+   "aSharedScopeRejected": {
+    "old": 0,
+    "new": 0
+   },
+   "matching": {
+    "old": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    },
+    "new": {
+     "A": {
+      "iou050": [],
+      "centerHits": []
+     },
+     "B": {
+      "iou050": [],
+      "centerHits": []
+     }
+    }
+   },
+   "cohort": "scope-B-development",
+   "kinds": {
+    "old": {
+     "eligiblePixels": 11693,
+     "methods": {
+      "A": {
+       "candidateCount": 1,
+       "seconds": {
+        "preprocessing": 0.11536319999959233,
+        "detectionMapSerialization": 0.013920299999881536,
+        "full": 0.12928349999947386
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.09745449999991251,
+        "detectionMapSerialization": 0.012254800000846444,
+        "full": 0.10970930000075896
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 1,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 5,
+       "seconds": {
+        "preprocessing": 0.08852270000079443,
+        "detectionMapSerialization": 0.015434399999321613,
+        "full": 0.10395710000011604
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.09128389999932551,
+        "detectionMapSerialization": 0.01604680000036751,
+        "full": 0.10733069999969302
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.08023834228515625,
+        "mad": 0.08023834228515625,
+        "threshold": 0.8,
+        "rawComponents": 23,
+        "rejections": {
+         "SIZE": 5,
+         "BOUNDARY_OR_EXCLUSION": 9,
+         "SHAPE": 4
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 11693
+       }
+      }
+     }
+    },
+    "new": {
+     "eligiblePixels": 16590,
+     "methods": {
+      "A": {
+       "candidateCount": 1,
+       "seconds": {
+        "preprocessing": 0.08284100000037142,
+        "detectionMapSerialization": 0.015081599999575701,
+        "full": 0.09792259999994712
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.08577119999972638,
+        "detectionMapSerialization": 0.016517000000021653,
+        "full": 0.10228819999974803
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "originalComponents": 1,
+        "sharedScopeRejected": 0
+       }
+      },
+      "B": {
+       "candidateCount": 9,
+       "seconds": {
+        "preprocessing": 0.09050800000022718,
+        "detectionMapSerialization": 0.02045799999996234,
+        "full": 0.11096600000018952
+       },
+       "repeatSeconds": {
+        "preprocessing": 0.09332159999939904,
+        "detectionMapSerialization": 0.030557199999748264,
+        "full": 0.1238787999991473
+       },
+       "staticRepeatIdentical": true,
+       "diagnostics": {
+        "valid": true,
+        "median": 0.08689260482788086,
+        "mad": 0.08689260482788086,
+        "threshold": 0.8,
+        "rawComponents": 31,
+        "rejections": {
+         "SIZE": 9,
+         "BOUNDARY_OR_EXCLUSION": 8,
+         "SHAPE": 5
+        },
+        "channelContract": "float32 BGR/255 -> Lab L0..100,a/b signed",
+        "madZeroBehavior": "fixed physical a* floor",
+        "roiPixels": 16590
+       }
+      }
+     }
+    }
+   }
+  }
+ ],
+ "resource": {
+  "comparison": {
+   "schema": "attune-dual-atomic-lease-v2",
+   "owner": "CDC",
+   "pid": 10,
+   "processStarted": 1792072532.02,
+   "startTime": 1792072532.02,
+   "workspace": "/sessions/rcw-01shstvlqok7bcuehmrvzizy/mnt/TOGG/attune-claude-acne-audit",
+   "jobId": "CLAUDE-acne-closed-support-ab",
+   "nonce": "04367173564142b5b75490508d840f18",
+   "commandSHA256": "dca07a71106213c12d5305f4b769d9ed4b6c2c2d84ee977a167efe0b8b5a9156",
+   "peakBudgetMiB": 700,
+   "memoryBudgetMetric": "private",
+   "minimumAvailableMiB": 1200,
+   "leasePaths": [
+    "/sessions/rcw-01shstvlqok7bcuehmrvzizy/mnt/TOGG/coordination-notes/heavy-compute.lock.json",
+    "/sessions/rcw-01shstvlqok7bcuehmrvzizy/mnt/TOGG/heavy_job.lock"
+   ],
+   "bothLeasesOwned": true,
+   "ownershipObservationMaxAgeSeconds": 1,
+   "observerPid": 12,
+   "observerProcessStarted": 1792072533.63,
+   "peakMeasuredRSSMiB": 366.99609375,
+   "peakMeasuredPrivateMiB": 345.95703125,
+   "childRSSIncluded": false,
+   "elapsedSeconds": 37.767700200000036,
+   "foreignProcessesStopped": false,
+   "monitorError": null,
+   "scopeNote": "process/RAM census ran inside the desktop Linux VM; it cannot see Windows-host processes"
+  },
+  "finalize": {
+   "schema": "attune-dual-atomic-lease-v2",
+   "owner": "CDC",
+   "pid": 10,
+   "processStarted": 1792072716.02,
+   "startTime": 1792072716.02,
+   "workspace": "/sessions/rcw-01shstvlqok7bcuehmrvzizy/mnt/TOGG/attune-claude-acne-audit",
+   "jobId": "CLAUDE-acne-closed-support-finalize",
+   "nonce": "3e7097cfb61741099d1bb601caab2ad1",
+   "commandSHA256": "706c3123e81d84a9276c2be4663236b1bd60650ef9b60be3091e788627096503",
+   "peakBudgetMiB": 700,
+   "memoryBudgetMetric": "private",
+   "minimumAvailableMiB": 1200,
+   "leasePaths": [
+    "/sessions/rcw-01shstvlqok7bcuehmrvzizy/mnt/TOGG/coordination-notes/heavy-compute.lock.json",
+    "/sessions/rcw-01shstvlqok7bcuehmrvzizy/mnt/TOGG/heavy_job.lock"
+   ],
+   "bothLeasesOwned": true,
+   "ownershipObservationMaxAgeSeconds": 1,
+   "observerPid": 12,
+   "observerProcessStarted": 1792072716.71,
+   "peakMeasuredRSSMiB": 248.97265625,
+   "peakMeasuredPrivateMiB": 227.921875,
+   "childRSSIncluded": false,
+   "elapsedSeconds": 5.1355522000003475,
+   "foreignProcessesStopped": false,
+   "monitorError": null
+  }
+ },
+ "elapsedSeconds": 38.043138799999724,
+ "environment": {
+  "python": "3.12.15",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0",
+  "skimage": "0.26.0"
+ },
+ "excludedFromGit": "photos, overlays, maps and pixel arrays stay in the local output-root only"
+}
