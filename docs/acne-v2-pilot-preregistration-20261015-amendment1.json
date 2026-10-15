@@ -1,0 +1,8 @@
+{
+ "amends": "acne-v2-pilot-preregistration-20261015.json",
+ "codeSHA256": "734aa2916b8888c95cd3704d19bce94d55b49f7b214d91caa926c786fa5328c5",
+ "reason": "Crash fix only: the Step0 development evaluation stopped on a Scope B photo whose browser preflight has no snapshot (no snapshot.png). As in the CDC evaluator, such rows now read the source file; an image/size assertion was added. No model was trained yet; the 12 partial Step0 rows written before the crash were discarded unread and the Step0 evaluation restarts from zero.",
+ "changesDecisionRules": false,
+ "changesData": false,
+ "changesTrainingConfiguration": false
+}

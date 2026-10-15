@@ -202,7 +202,10 @@ def evaluate(model_name, man, out, togg, code_root, lease, max_seconds):
     for s, a in pre.items():
         cohort = 'scopeB' if s[:8] in SCOPE_POS + SCOPE_NEG else 'controls' if a['cohort'] == 'heldout-train' and ev[s]['fullStaticProductPass'] else None
         if not cohort or ('development', s) in done: continue
-        lease.check(); snap = a.get('snapshot'); image = cv2.imread(str(live / 'product-inputs' / s / 'snapshot.png'))
+        lease.check(); snap = a.get('snapshot')
+        # As the CDC evaluator: snapshot pixels when the product produced a snapshot, else the source file.
+        image = cv2.imread(str(live / 'product-inputs' / s / 'snapshot.png')) if snap else cv2.imread(str(map_windows(a['path'], togg)))
+        if image is None or image.shape[1] != a['width'] or image.shape[0] != a['height']: raise RuntimeError('DEV_IMAGE:' + s[:8])
         r = ledger[s]; anns = [v for v in scope[s]['annotations'] if v['scopeCategory'] == 'IN_SCOPE_VISIBLE_REGION'] if s in scope else r.get('annotations', [])
         truth = [v['box'] for v in anns]; clean = None
         if r.get('negativeROI') and not r.get('annotations') and a['alignment'].get('landmarks'):
@@ -279,8 +282,10 @@ def main():
         if pre.exists(): raise RuntimeError('PREREGISTRATION_FROZEN')
         pre.write_text(json.dumps(dict(**PREREGISTRATION, manifestSHA256=sha_file(a.manifest), pilotOrderSHA256=man['pilotOrderSHA256'],
                                        codeSHA256=sha_file(Path(__file__))), indent=1) + '\n', 'utf8'); print(sha_file(pre)); return
-    reg = read_json(pre)
-    if reg['manifestSHA256'] != sha_file(a.manifest) or reg['codeSHA256'] != sha_file(Path(__file__)): raise RuntimeError('PREREGISTRATION_MISMATCH')
+    reg = read_json(pre); code_sha = sha_file(Path(__file__))
+    amendments = [read_json(p) for p in sorted(pre.parent.glob(pre.stem + '-amendment*.json'))]
+    allowed = {reg['codeSHA256']} | {m['codeSHA256'] for m in amendments if m.get('reason') and m.get('changesDecisionRules') is False}
+    if reg['manifestSHA256'] != sha_file(a.manifest) or code_sha not in allowed: raise RuntimeError('PREREGISTRATION_MISMATCH')
     if a.phase == 'compare': compare(out, a.evidence, pre, a.manifest); return
     from heavy_job_lease import HeavyJobLease
     with HeavyJobLease('CLAUDE-acne-v2-' + a.phase + '-' + (a.model or 'pilot'), peak_mib=1350, minimum_available_mib=1600, memory_metric='private') as lease:
