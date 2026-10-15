@@ -106,7 +106,7 @@ Karşılaştırma aracı `compare_acne_closed_support.py` ve `finalize_acne_clos
 ## Kalan engeller
 
 1. Kalan bölge kayıpları kapsam kararıdır (yan poz tek bölge, perioral/üst dudak/glabella); geometri hatası değildir.
-2. Destek içindeki hedeflerde kayıp artık aday üretimi (Scope B 3), dondurulmuş filtreler ve yerelleştirmede (küçük B çekirdekleri IoU 0,03–0,12). FP artışıyla birlikte, bu filtrelerle yeni destek kabul edilebilir değil; filtreler bu görevde ayarlanmadı.
+2. Destek içindeki hedeflerde kayıp artık aday üretimi (Scope B 3), dondurulmuş filtreler ve yerelleştirmede (B'nin örtüşen adayları çoğunlukla IoU 0,03–0,12, en yüksek 0,39). FP artışıyla birlikte, bu filtrelerle yeni destek kabul edilebilir değil; filtreler bu görevde ayarlanmadı.
 3. Kıl maskesi açık/sarı perçemi ve sakal sınırını kaldırmıyor; yeni alan bu riski büyütüyor.
 4. Veri: destek içinde 5 Scope B / 15 kontrol hedefi; kişi ayrımı, bağımsız test, alt tür etiketleri ve haklar doğrulaması yok.
 
