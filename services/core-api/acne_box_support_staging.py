@@ -1,6 +1,10 @@
 """Principled anatomical support filter staging candidate for acne detection.
 
-Calibrated on 1,511 ground truth training lesions:
+Calibrated on strict TRAIN split (132 photos, 1,235 ground truth lesions):
+- 49 micro (<8px, 4.0%), 543 small (8-16px, 44.0%), 643 medium (16-32px, 52.1%).
+- Hair mask contact on native 384x384 tiles: 198 / 2,391 (8.3%) lesion instances touch blackhat center.
+- Diagnostic origin: Parameters were derived during Scope B root-cause triage (Target T01 rescue)
+  and evaluated here strictly as a staging candidate.
 - Replaces brittle binary single-pixel center tests (hair[cy,cx], skin_support[cy,cx]).
 - Validates dense hair coverage (box_hair > 0.25) and tissue support (box_skin >= 0.50).
 - Distinguishes central lesion pores/crusts/shadows on skin from hair filaments by validating

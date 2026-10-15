@@ -325,6 +325,13 @@ class YOLOXHead_P2(YOLOXHead):
             norm_neg = (raw_neg / num_known_neg) * w_neg
             loss_obj = norm_pos + norm_neg
 
+            self.last_norm_pos = norm_pos
+            self.last_norm_neg = norm_neg
+            self.last_obj_preds = obj_preds
+            self.last_cls_preds = cls_preds
+            self.last_is_pos = is_pos
+            self.last_is_neg = is_neg
+
             if hasattr(self.obj_focal_loss, 'last_metrics') and hasattr(self.obj_focal_loss, 'record_normalized'):
                 self.obj_focal_loss.record_normalized(
                     num_fg=num_fg,
