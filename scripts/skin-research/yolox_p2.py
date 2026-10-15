@@ -41,6 +41,7 @@ from yolox.models.darknet import CSPDarknet
 from yolox.models.network_blocks import BaseConv, CSPLayer, DWConv
 from yolox.models.yolo_head import YOLOXHead
 from yolox.models.yolox import YOLOX
+from yolox.models.losses import IOUloss
 from yolox_numeric import install_bounds
 
 
@@ -157,8 +158,11 @@ class YOLOXHead_P2(YOLOXHead):
         in_channels=[128, 256, 512, 1024],
         act="silu",
         depthwise=False,
+        loss_type="iou",
     ):
         super().__init__(num_classes, width, strides=strides, in_channels=in_channels, act=act, depthwise=depthwise)
+        self.loss_type = loss_type
+        self.iou_loss = IOUloss(reduction="none", loss_type=loss_type)
         self.cls_bce_loss = nn.BCEWithLogitsLoss(reduction="none")
         self.obj_focal_loss = None
 
@@ -307,6 +311,7 @@ class YOLOXHead_P2(YOLOXHead):
         loss_iou = (
             self.iou_loss(bbox_preds.view(-1, 4)[fg_masks], reg_targets)
         ).sum() / num_fg
+        self.last_raw_loc_loss = loss_iou
 
         # Dedicated Objectness Loss: Focal Objectness Loss with balanced pos/neg normalization
         if self.obj_focal_loss is not None:
@@ -358,11 +363,13 @@ class YOLOXHead_P2(YOLOXHead):
             loss_l1 = 0.0
 
         reg_weight = 5.0
-        loss = reg_weight * loss_iou + loss_obj + loss_cls + loss_l1
+        weighted_loc_loss = reg_weight * loss_iou
+        self.last_weighted_loc_loss = weighted_loc_loss
+        loss = weighted_loc_loss + loss_obj + loss_cls + loss_l1
 
         return (
             loss,
-            reg_weight * loss_iou,
+            weighted_loc_loss,
             loss_obj,
             loss_cls,
             loss_l1,
@@ -370,7 +377,7 @@ class YOLOXHead_P2(YOLOXHead):
         )
 
 
-def build_yolox_p2_model(num_classes=1, depth=0.33, width=0.5) -> YOLOX:
+def build_yolox_p2_model(num_classes=1, depth=0.33, width=0.5, loss_type="iou") -> YOLOX:
     """Build complete YOLOX-S detector equipped with P2 small-object head."""
     in_channels = [128, 256, 512, 1024]
     strides = [4, 8, 16, 32]
@@ -379,7 +386,8 @@ def build_yolox_p2_model(num_classes=1, depth=0.33, width=0.5) -> YOLOX:
         num_classes=num_classes,
         width=width,
         strides=strides,
-        in_channels=in_channels
+        in_channels=in_channels,
+        loss_type=loss_type,
     )
     net = YOLOX(backbone, head)
     install_bounds(net)
