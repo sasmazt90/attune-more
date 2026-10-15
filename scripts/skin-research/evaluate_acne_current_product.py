@@ -18,8 +18,10 @@ def aggregate(rows):
     return result
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--model',choices=[*MODELS,'control','hard-negative'],required=True);parser.add_argument('--scope-and-train-only',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--model',choices=[*MODELS,'control','hard-negative','objectness-features'],required=True);parser.add_argument('--scope-and-train-only',action='store_true');args=parser.parse_args()
     if args.model in MODELS:path,expected=MODELS[args.model]
+    elif args.model=='objectness-features':
+        path=OUT.parent/'acne-learnability-20261015/model.safetensors';feature_receipt=read(path.parent/'receipt.json');expected=feature_receipt['modelSHA256']
     else:path=OUT/('clean-pilot-'+args.model)/'model.safetensors';expected=read(path.parent/'receipt.json')['checkpointSHA256']
     assert digest(path)==expected
     pre=read(OUT/'browser-preflight.json');original=read(OUT/'inputs/original-reviewed-detector-data.json');bysha={r['sha256']:r for r in original['rows']}
@@ -32,7 +34,13 @@ def main():
         from skin_eyewear import classify_source,classify_roi
         from acne_box_support_staging import principled_accepted_boxes
         from acne_box_support import accepted_boxes
-        torch.set_num_threads(4);net=build_yolox_p2_model();net.load_state_dict(load_file(str(path)),strict=True);net.eval();results=[];start=time.monotonic()
+        torch.set_num_threads(4)
+        if args.model=='objectness-features':
+            from acne_objectness_features import build_feature_model,VERSION
+            assert feature_receipt['graphVersion']==VERSION
+            net=build_feature_model()
+        else:net=build_yolox_p2_model()
+        net.load_state_dict(load_file(str(path)),strict=True);net.eval();results=[];start=time.monotonic()
         for a in pre['rows']:
             if args.scope_and_train_only and a['cohort']=='heldout-train':continue
             if a['cohort']=='scope-B-development' and a['sha256'][:8] not in SCOPE_POS+SCOPE_NEG:continue
