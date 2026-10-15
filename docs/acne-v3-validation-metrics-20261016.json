@@ -1,0 +1,122 @@
+{
+ "step0": {
+  "0.3": {
+   "photos": 150,
+   "tp": 307,
+   "fp": 791,
+   "fn": 938,
+   "precision": 0.2796,
+   "recall": 0.2466,
+   "f1": 0.2621,
+   "confounderHits": 87,
+   "fpPerPhoto": 5.27
+  },
+  "0.5": {
+   "photos": 150,
+   "tp": 203,
+   "fp": 889,
+   "fn": 1042,
+   "precision": 0.1859,
+   "recall": 0.1631,
+   "f1": 0.1737,
+   "confounderHits": 87,
+   "fpPerPhoto": 5.93
+  }
+ },
+ "step-000300": {
+  "0.3": {
+   "photos": 150,
+   "tp": 613,
+   "fp": 3726,
+   "fn": 632,
+   "precision": 0.1413,
+   "recall": 0.4924,
+   "f1": 0.2196,
+   "confounderHits": 244,
+   "fpPerPhoto": 24.84
+  },
+  "0.5": {
+   "photos": 150,
+   "tp": 414,
+   "fp": 3915,
+   "fn": 831,
+   "precision": 0.0956,
+   "recall": 0.3325,
+   "f1": 0.1485,
+   "confounderHits": 244,
+   "fpPerPhoto": 26.1
+  }
+ },
+ "step-000600": {
+  "0.3": {
+   "photos": 150,
+   "tp": 626,
+   "fp": 4204,
+   "fn": 619,
+   "precision": 0.1296,
+   "recall": 0.5028,
+   "f1": 0.2061,
+   "confounderHits": 293,
+   "fpPerPhoto": 28.03
+  },
+  "0.5": {
+   "photos": 150,
+   "tp": 406,
+   "fp": 4406,
+   "fn": 839,
+   "precision": 0.0844,
+   "recall": 0.3261,
+   "f1": 0.1341,
+   "confounderHits": 293,
+   "fpPerPhoto": 29.37
+  }
+ },
+ "step-000900": {
+  "0.3": {
+   "photos": 150,
+   "tp": 610,
+   "fp": 3064,
+   "fn": 635,
+   "precision": 0.166,
+   "recall": 0.49,
+   "f1": 0.248,
+   "confounderHits": 228,
+   "fpPerPhoto": 20.43
+  },
+  "0.5": {
+   "photos": 150,
+   "tp": 439,
+   "fp": 3224,
+   "fn": 806,
+   "precision": 0.1198,
+   "recall": 0.3526,
+   "f1": 0.1789,
+   "confounderHits": 228,
+   "fpPerPhoto": 21.49
+  }
+ },
+ "step-001200": {
+  "0.3": {
+   "photos": 150,
+   "tp": 635,
+   "fp": 3658,
+   "fn": 610,
+   "precision": 0.1479,
+   "recall": 0.51,
+   "f1": 0.2293,
+   "confounderHits": 287,
+   "fpPerPhoto": 24.39
+  },
+  "0.5": {
+   "photos": 150,
+   "tp": 440,
+   "fp": 3847,
+   "fn": 805,
+   "precision": 0.1026,
+   "recall": 0.3534,
+   "f1": 0.1591,
+   "confounderHits": 287,
+   "fpPerPhoto": 25.65
+  }
+ }
+}
