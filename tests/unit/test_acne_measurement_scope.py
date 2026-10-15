@@ -166,3 +166,17 @@ def test_identity_drift_and_root_overlap_fail_closed(tmp_path):
     with pytest.raises(audit.AuditError, match='OUTPUT_ROOT_INSIDE_INPUT_ROOT'):
         audit.check_roots(inp, inp / 'audit-results' / 'x')
     assert audit.map_path('C:\\A B\\x\\y.jpg', [('C:\\A B', '/mnt/t')]) == Path('/mnt/t/x/y.jpg')
+
+
+def test_unevaluated_stage_flag_is_unknown_not_rejected_and_region_split():
+    canvas = full(); canvas[:, 20:] = False  # analysis canvas ends at column 20
+    gray = canvas.copy()                      # outside canvas the gray stage cannot pass
+    st = [(n, m, canvas) if n == 'GRAY_THRESHOLD' else (n, m) for n, m in stages_with(GRAY_THRESHOLD=gray)]
+    masks, _ = audit.attribute_masks(st, [28, 8, 32, 12])
+    assert masks['independent']['GRAY_THRESHOLD']['centerRejected'] is None
+    assert masks['independent']['GRAY_THRESHOLD']['boxFractionPassing'] is None
+    assert masks['centerFirstLoss'] == 'GRAY_THRESHOLD'  # sequential support loss is still recorded once
+    assert audit.region_category(True, True, False, 'FRONT') == 'PRESENTATION_MESH_CELL_GAP'
+    assert audit.region_category(False, False, False, 'RIGHT') == 'OUTSIDE_EXPORTED_REGIONS_SIDE_POSE'
+    assert audit.region_category(True, False, False, 'FRONT') == 'OUTSIDE_EXPORTED_REGION_ENVELOPES'
+    assert audit.region_category(None, None, None, 'FRONT') == 'UNKNOWN'

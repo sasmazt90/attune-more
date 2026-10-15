@@ -39,6 +39,7 @@ CODE_FILES = ('scripts/skin-research/audit_acne_measurement_scope.py',
               'scripts/skin-research/compute_owner_observer.py',
               'services/core-api/appearance_analysis.py',
               'services/core-api/skin_models.py',
+              'services/core-api/acne_box_support.py',
               'services/core-api/skin_scan_baseline/blemishes.py',
               'services/core-api/skin_scan_baseline/oiliness.py')
 INPUT_FILES = (TAKEOVER + '/browser-preflight.json',
@@ -175,9 +176,11 @@ def gate_attribution(pre, ev):
 
 
 def attribute_masks(stage_masks, box):
-    """stage_masks: ordered [(stage, pass_mask)]. Returns independent and
-    sequential (cumulative) centre/area attribution. Each target receives
-    exactly one centre first-loss; overlapping reasons stay as flags."""
+    """stage_masks: ordered [(stage, pass_mask[, known_mask])]. Returns
+    independent and sequential (cumulative) centre/area attribution. Each target
+    receives exactly one centre first-loss; overlapping reasons stay as flags.
+    An independent flag is UNKNOWN (None) where its stage was not evaluated
+    (known_mask False, e.g. outside the analysis canvas) - never pass/reject."""
     if not stage_masks:
         raise AuditError('NO_STAGE_MASKS')
     shape = stage_masks[0][1].shape
@@ -185,10 +188,16 @@ def attribute_masks(stage_masks, box):
     independent, sequential = {}, []
     first_center, full_area_loss = None, None
     center_known = center_value(cumulative, box) is not None
-    for stage, mask in stage_masks:
+    for entry in stage_masks:
+        stage, mask = entry[0], entry[1]
+        known = entry[2] if len(entry) > 2 else None
         c = center_value(mask, box)
+        if known is not None and center_value(known, box) is False:
+            c = None
         independent[stage] = dict(centerRejected=None if c is None else not c,
-                                  boxFractionPassing=window_fraction(mask, box))
+                                  boxFractionPassing=window_fraction(mask, box) if known is None else
+                                  (None if not window_fraction(known, box) else window_fraction(mask & known, box) / window_fraction(known, box)),
+                                  boxFractionEvaluated=None if known is None else window_fraction(known, box))
         cumulative = cumulative & mask
         cc = center_value(cumulative, box)
         frac = window_fraction(cumulative, box)
@@ -450,12 +459,40 @@ def stage_masks_for(ctx, payload_exclusions, crop, shape):
     crop_mask = np.zeros(shape, bool); crop_mask[crop['y']:crop['y'] + crop['height'], crop['x']:crop['x'] + crop['width']] = True
     stages = [('PHOTO_INPUT_CROP', crop_mask),
               ('ANATOMICAL_REGION', canvas & native['region5'] & native['allMeshUnion'] & native['faceOval']),
-              ('AUTO_EXCLUSION', ~(native['autoRectangles'] | native['frameEdge'])),
-              ('ANATOMICAL_EXCLUSION', ~(native['landmarkHoles'] | native['ocularMargin'] | native['browHull'])),
-              ('HAIR', ~native['hair']),
-              ('GLARE_EXPOSURE', ~(native['valueClipping'] | native['allChannelClipping'])),
-              ('GRAY_THRESHOLD', canvas & ~native['grayAtOrBelow012'])]
+              ('AUTO_EXCLUSION', ~(native['autoRectangles'] | native['frameEdge']), canvas),
+              ('ANATOMICAL_EXCLUSION', ~(native['landmarkHoles'] | native['ocularMargin'] | native['browHull']), canvas),
+              ('HAIR', ~native['hair'], canvas),
+              ('GLARE_EXPOSURE', ~(native['valueClipping'] | native['allChannelClipping']), canvas),
+              ('GRAY_THRESHOLD', canvas & ~native['grayAtOrBelow012'], canvas)]
     return stages, native, canvas
+
+
+def region_detail(ctx, angle, shape):
+    """Post-hoc (amendment 1) objective split of ANATOMICAL_REGION support:
+    analysis canvas, face oval, exported five-region triangle-union and the
+    production convex envelopes (acne_box_support.region_envelopes) of the
+    SAME exported meshes. Geometry only; no lesion or visibility judgement."""
+    from acne_box_support import region_envelopes
+    gshape, scale, origin = ctx['gray'].shape, ctx['scale'], ctx['origin']
+    exported = [k for k in REGIONS if k in ctx['masks']]
+    env = region_envelopes(ctx['payload']['meshes'], gshape, scale, origin)
+    tri = {k: ctx['masks'][k] for k in exported}
+    per_region = {k: dict(triangleUnionPixels=int(tri[k].sum()), envelopePixels=int(env[k].sum()),
+                          triangleUnionOverEnvelope=float(tri[k].sum() / max(1, env[k].sum()))) for k in exported}
+    native = dict(triangleUnion5=to_native(np.logical_or.reduce([tri[k] for k in exported]) if exported else np.zeros(gshape, bool), origin, scale, shape),
+                  envelope5=to_native(np.logical_or.reduce([env[k] for k in exported]) if exported else np.zeros(gshape, bool), origin, scale, shape))
+    return dict(angle=angle, exportedRegions=exported, perRegion=per_region), native
+
+
+def region_category(in_canvas, in_envelope, in_triangles, angle):
+    """Pre-stated amendment-1 rule; applied only to describe ANATOMICAL_REGION losses."""
+    if in_canvas is None:
+        return 'UNKNOWN'
+    if in_triangles:
+        return 'FACE_OVAL_OR_ALL_MESH_SUPPORT'
+    if in_envelope:
+        return 'PRESENTATION_MESH_CELL_GAP'
+    return 'OUTSIDE_EXPORTED_REGIONS_SIDE_POSE' if angle in ('LEFT', 'RIGHT') else 'OUTSIDE_EXPORTED_REGION_ENVELOPES'
 
 
 # ------------------------------------------------------------------- inputs
@@ -478,7 +515,7 @@ def targets_for(sha, cohort, orig, scope):
     return [dict(box=list(map(float, v['box'])), annotationIndex=k) for k, v in enumerate(orig[sha].get('annotations', []))]
 
 
-def build_manifest(code_root, input_root, path_maps):
+def build_manifest(code_root, input_root, path_maps, amends=None):
     code_root, input_root = Path(code_root), Path(input_root)
     pre, orig, scope, ev, man, res = load_frozen(input_root)
     if sha_file(input_root / COMPARISON / 'preregistered-manifest.json') != FROZEN_MANIFEST_SHA256:
@@ -499,7 +536,7 @@ def build_manifest(code_root, input_root, path_maps):
     def count(f): return sum(1 for t in targets if f(t))
     measured = {p['sha256'] for p in photos if p['staticProductPass']}
     return dict(
-        version=VERSION, kind='post-hoc diagnostic re-evaluation of frozen outputs; NOT a product acceptance input',
+        version=VERSION, kind='post-hoc diagnostic re-evaluation of frozen outputs; NOT a product acceptance input', amends=amends,
         productDecisionChanged=False, productionAcne=dict(accepted=False, file=None),
         frozenCommit=FROZEN_COMMIT, frozenManifestSHA256=FROZEN_MANIFEST_SHA256, aFunctionSHA256=A_FUNCTION_SHA256,
         code={p: dict(normalizedSHA256=normalized_text_sha(code_root / p)) for p in CODE_FILES},
@@ -584,7 +621,8 @@ def audit_photo(s, input_root, entry, targets, frozen, lease=None):
     regions = {k: v for k, v in ctx['masks'].items() if k in REGIONS}
     eligible = ctx['overall'] & ctx['acne_skin'] & np.logical_or.reduce(list(regions.values()))
     stages, native, canvas = stage_masks_for(ctx, entry['snapshot']['exclusions'], crop, shape)
-    final = np.logical_and.reduce([m for _, m in stages])
+    final = np.logical_and.reduce([v[1] for v in stages])
+    rdetail, rnative = region_detail(ctx, entry.get('matchedAngle'), shape)
     frozen_eligible = to_native(eligible, origin, scale, shape)
     frozen_eligible[:crop['y'], :] = False; frozen_eligible[crop['y'] + crop['height']:, :] = False
     frozen_eligible[:, :crop['x']] = False; frozen_eligible[:, crop['x'] + crop['width']:] = False
@@ -675,8 +713,18 @@ def audit_photo(s, input_root, entry, targets, frozen, lease=None):
                    analysisResolution=[ctx['gray'].shape[1], ctx['gray'].shape[0]], origin=list(origin), scale=scale,
                    analysisBox=[*source_to_analysis(box[0], box[1], origin, scale), *source_to_analysis(box[2], box[3], origin, scale)],
                    photoInputCrop=crop, scaleBand=t['scaleBand'], targetArea=box_area(box),
-                   masks=masks, partsCenter={k2: center_value(v, box) for k2, v in native.items()},
+                   masks=masks, partsCenter={k2: (center_value(v, box) if center_value(canvas, box) else None) for k2, v in native.items()},
                    partsBoxFraction={k2: window_fraction(v, box) for k2, v in native.items()}, methods={})
+        in_canvas = center_value(canvas, box)
+        row['regionDetail'] = dict(centerInAnalysisCanvas=in_canvas,
+                                   centerInFaceOval=row['partsCenter']['faceOval'],
+                                   centerInExportedTriangleUnion5=center_value(rnative['triangleUnion5'], box),
+                                   centerInExportedEnvelope5=center_value(rnative['envelope5'], box),
+                                   boxFractionTriangleUnion5=window_fraction(rnative['triangleUnion5'], box),
+                                   boxFractionEnvelope5=window_fraction(rnative['envelope5'], box),
+                                   matchedAngle=rdetail['angle'], exportedRegions=rdetail['exportedRegions'])
+        row['regionDetail']['category'] = region_category(in_canvas, row['regionDetail']['centerInExportedEnvelope5'],
+                                                          row['regionDetail']['centerInExportedTriangleUnion5'], rdetail['angle'])
         w = box_window(box, shape)
         for m in 'AB':
             rp = replays[m]; ok = bool(verified.get(m)) and 'rawNative' in rp
@@ -705,6 +753,7 @@ def audit_photo(s, input_root, entry, targets, frozen, lease=None):
         rows.append(row)
     overlay = dict(image=image, stages=stages, crop=crop, preds=preds, flips=flips)
     return dict(rows=rows, reproduction=repro, cropDiagnostics=crop_diag, replayVerified=verified, eligiblePNGEqual=png_check,
+                regionSupport=rdetail,
                 faceSourcePixels=face_pixels, sourceTransform=dict(origin=list(origin), scale=scale),
                 replayComponentReasons={m: (sorted({c['reason'] for c in replays[m].get('components', [])})) for m in 'AB'},
                 frozenCandidateCounts={m: len(preds[m]) for m in 'AB'}), overlay
@@ -717,8 +766,8 @@ STAGE_COLORS = {'PHOTO_INPUT_CROP': (90, 90, 90), 'ANATOMICAL_REGION': (40, 40, 
 
 def first_loss_map(stages):
     shape = stages[0][1].shape; out = np.full(shape, -1, np.int8); alive = np.ones(shape, bool)
-    for k, (_, m) in enumerate(stages):
-        lost = alive & ~m; out[lost] = k; alive &= m
+    for k, entry in enumerate(stages):
+        m = entry[1]; lost = alive & ~m; out[lost] = k; alive &= m
     return out
 
 
@@ -726,7 +775,8 @@ def render_overlays(s, overlay, rows, out_dir):
     import cv2
     img, stages = overlay['image'], overlay['stages']; fl = first_loss_map(stages)
     tint = img.copy()
-    for k, (name, _) in enumerate(stages):
+    for k, entry in enumerate(stages):
+        name = entry[0]
         tint[fl == k] = (tint[fl == k] * .45 + np.array(STAGE_COLORS[name]) * .55).astype(np.uint8)
     out_dir.mkdir(parents=True, exist_ok=True); tiles = []
     for r in rows:
@@ -764,6 +814,13 @@ def render_overlays(s, overlay, rows, out_dir):
 
 
 # --------------------------------------------------------------------- main
+def _count(values):
+    out = {}
+    for v in values:
+        out[v] = out.get(v, 0) + 1
+    return out
+
+
 def summarize(target_rows):
     def group(rows):
         out = dict(targets=len(rows), centerFirstLoss=tally([dict(k=r['primary']) for r in rows], 'k') if rows else {})
@@ -778,6 +835,7 @@ def summarize(target_rows):
         for m in 'AB':
             res[name][m] = dict(primary=tally([dict(k=r['outcome'][m]['primary']) for r in sub], 'k'),
                                 area=tally([dict(k=r['outcome'][m]['area']) for r in sub], 'k'),
+                                regionCategoryOfAnatomicalRegionLosses=_count([r['regionCategory'] for r in sub if r['outcome'][m]['primary'] == 'ANATOMICAL_REGION']),
                                 byScale={b: tally([dict(k=r['outcome'][m]['primary']) for r in sub if r['scaleBand'] == b], 'k') for b in ('micro', 'small', 'medium')})
     return res
 
@@ -790,6 +848,8 @@ def main(argv=None):
     ap.add_argument('--code-root', default=str(Path(__file__).resolve().parents[2]))
     ap.add_argument('--manifest', required=True, help='pre-registered audit manifest path')
     ap.add_argument('--path-map', action='append', default=[], help='WINDOWS_PREFIX=LOCAL_PREFIX (read-only source mapping)')
+    ap.add_argument('--amends', help='earlier audit manifest this one amends (its results were already seen)')
+    ap.add_argument('--amendment-reason', help='why the amendment exists; required with --amends')
     args = ap.parse_args(argv)
     input_root, output_root = check_roots(args.input_root, args.output_root)
     code_root = Path(args.code_root).resolve(); manifest_path = Path(args.manifest)
@@ -798,7 +858,16 @@ def main(argv=None):
     if args.phase == 'manifest':
         if manifest_path.exists():
             raise AuditError('AUDIT_MANIFEST_ALREADY_FROZEN')
-        m = build_manifest(code_root, input_root, maps)
+        amends = None
+        if args.amends:
+            if not args.amendment_reason:
+                raise AuditError('AMENDMENT_REASON_REQUIRED')
+            prior = read_json(args.amends)
+            amends = dict(manifest=Path(args.amends).name, sha256=sha_file(args.amends), firstRunResultsSeen=True,
+                          reason=args.amendment_reason)
+        m = build_manifest(code_root, input_root, maps, amends)
+        if amends and [t['box'] for t in m['targets']] != [t['box'] for t in prior['targets']]:
+            raise AuditError('AMENDMENT_MAY_NOT_CHANGE_TARGETS')
         manifest_path.parent.mkdir(parents=True, exist_ok=True)
         manifest_path.write_text(json.dumps(m, indent=1, ensure_ascii=False) + '\n', 'utf8')
         print(json.dumps(dict(manifest=str(manifest_path), sha256=sha_file(manifest_path), targets=len(m['targets']), expected=m['expectedCounts'])))
@@ -847,6 +916,7 @@ def main(argv=None):
                 target_rows.append(dict(targetId=r['targetId'], sha256=s, cohort=r['cohort'], scaleBand=r['scaleBand'], sourceBox=r['sourceBox'],
                                         gatePassed=True, gateFirstLoss=None, centerFirstLoss=r['masks']['centerFirstLoss'],
                                         areaFullLossStage=r['masks']['areaFullLossStage'], boxFractionEligible=r['masks']['boxFractionEligible'],
+                                        regionCategory=r['regionDetail']['category'],
                                         outcome={m: dict(primary=r['methods'][m]['primaryOutcome'], area=r['methods'][m]['areaOutcome']) for m in 'AB'}))
             print(json.dumps(dict(sha=s[:8], targets=len(targets), verified=result['replayVerified'], png=result['eligiblePNGEqual'])), flush=True)
         receipt = lease.receipt()
