@@ -1,0 +1,2393 @@
+{
+  "schema": "acne-takeover-measured-evidence-v3",
+  "sourceHEAD": "a836000a77034c330fec808c911d8fa8de00247d",
+  "frozenAGCommit": "d90ff95434c44b4e73ae77a7f1d5d6b2e167c987",
+  "BUILD_ID": "mlOb9YC5JKNnbE_1xzdjD",
+  "productActivation": {
+    "accepted": false,
+    "file": null,
+    "normalAPIChanged": false,
+    "newBuildRequired": false
+  },
+  "results": {
+    "step0": {
+      "modelSHA256": "18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655",
+      "scopeB": {
+        "photos": 12,
+        "targets": 14,
+        "matched": 4,
+        "reviewedNegativePhotos": 9,
+        "cleanCenterFP": 3,
+        "cleanArea80FP": 3,
+        "scale": {
+          "micro": {
+            "targets": 1,
+            "matched": 0
+          },
+          "small": {
+            "targets": 10,
+            "matched": 1
+          },
+          "medium": {
+            "targets": 3,
+            "matched": 3
+          }
+        }
+      },
+      "scopeBAnatomicalEnvelopeCenter": {
+        "targets": 6,
+        "matched": 3
+      },
+      "scopeBStaticAdmissible": {
+        "photos": 10,
+        "targets": 14,
+        "matched": 4,
+        "reviewedNegativePhotos": 7,
+        "cleanCenterFP": 3,
+        "cleanArea80FP": 3,
+        "scale": {
+          "micro": {
+            "targets": 1,
+            "matched": 0
+          },
+          "small": {
+            "targets": 10,
+            "matched": 1
+          },
+          "medium": {
+            "targets": 3,
+            "matched": 3
+          }
+        }
+      },
+      "heldoutStaticAdmissible": {
+        "photos": 3,
+        "targets": 29,
+        "matched": 16,
+        "reviewedNegativePhotos": 0,
+        "cleanCenterFP": 0,
+        "cleanArea80FP": 0,
+        "scale": {
+          "micro": {
+            "targets": 3,
+            "matched": 0
+          },
+          "small": {
+            "targets": 17,
+            "matched": 14
+          },
+          "medium": {
+            "targets": 9,
+            "matched": 2
+          }
+        }
+      },
+      "heldoutAllRobustnessOnly": {
+        "photos": 28,
+        "targets": 155,
+        "matched": 84,
+        "reviewedNegativePhotos": 0,
+        "cleanCenterFP": 0,
+        "cleanArea80FP": 0,
+        "scale": {
+          "micro": {
+            "targets": 6,
+            "matched": 0
+          },
+          "small": {
+            "targets": 59,
+            "matched": 35
+          },
+          "medium": {
+            "targets": 90,
+            "matched": 49
+          }
+        }
+      },
+      "resource": {
+        "schema": "attune-dual-atomic-lease-v2",
+        "owner": "CDC",
+        "pid": 185880,
+        "processStarted": 1792040202.1675575,
+        "startTime": 1792040202.1675575,
+        "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+        "jobId": "CDC-acne-current-product-eval-step0",
+        "nonce": "38a82955555f437fb2955ed049369ae9",
+        "commandSHA256": "9a89394dac1cf7760595f84f0300b384efee071052b50cd14a891c89eab333cc",
+        "peakBudgetMiB": 1350,
+        "memoryBudgetMetric": "private",
+        "minimumAvailableMiB": 1600,
+        "leasePaths": [
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+        ],
+        "bothLeasesOwned": true,
+        "ownershipObservationMaxAgeSeconds": 1,
+        "observerPid": 23024,
+        "observerProcessStarted": 1792040202.8962908,
+        "peakMeasuredRSSMiB": 596.1796875,
+        "peakMeasuredPrivateMiB": 518.96875,
+        "childRSSIncluded": false,
+        "elapsedSeconds": 375.094000000041,
+        "foreignProcessesStopped": false,
+        "monitorError": null
+      },
+      "evaluationSHA256": "f3fef17739b38e58ac98a28d2de0a2b54fcb4cc359dac949a2ea35ac0527beef"
+    },
+    "control_iou": {
+      "modelSHA256": "d7085eb29cbee913f5e1fd9c267f6525f13cce2566e8d38a2fc31b6c1df9d75c",
+      "scopeB": {
+        "photos": 12,
+        "targets": 14,
+        "matched": 3,
+        "reviewedNegativePhotos": 9,
+        "cleanCenterFP": 9,
+        "cleanArea80FP": 9,
+        "scale": {
+          "micro": {
+            "targets": 1,
+            "matched": 0
+          },
+          "small": {
+            "targets": 10,
+            "matched": 1
+          },
+          "medium": {
+            "targets": 3,
+            "matched": 2
+          }
+        }
+      },
+      "scopeBAnatomicalEnvelopeCenter": {
+        "targets": 6,
+        "matched": 2
+      },
+      "scopeBStaticAdmissible": {
+        "photos": 10,
+        "targets": 14,
+        "matched": 3,
+        "reviewedNegativePhotos": 7,
+        "cleanCenterFP": 9,
+        "cleanArea80FP": 9,
+        "scale": {
+          "micro": {
+            "targets": 1,
+            "matched": 0
+          },
+          "small": {
+            "targets": 10,
+            "matched": 1
+          },
+          "medium": {
+            "targets": 3,
+            "matched": 2
+          }
+        }
+      },
+      "heldoutStaticAdmissible": {
+        "photos": 0,
+        "targets": 0,
+        "matched": 0,
+        "reviewedNegativePhotos": 0,
+        "cleanCenterFP": 0,
+        "cleanArea80FP": 0,
+        "scale": {
+          "micro": {
+            "targets": 0,
+            "matched": 0
+          },
+          "small": {
+            "targets": 0,
+            "matched": 0
+          },
+          "medium": {
+            "targets": 0,
+            "matched": 0
+          }
+        }
+      },
+      "heldoutAllRobustnessOnly": {
+        "photos": 0,
+        "targets": 0,
+        "matched": 0,
+        "reviewedNegativePhotos": 0,
+        "cleanCenterFP": 0,
+        "cleanArea80FP": 0,
+        "scale": {
+          "micro": {
+            "targets": 0,
+            "matched": 0
+          },
+          "small": {
+            "targets": 0,
+            "matched": 0
+          },
+          "medium": {
+            "targets": 0,
+            "matched": 0
+          }
+        }
+      },
+      "resource": {
+        "schema": "attune-dual-atomic-lease-v2",
+        "owner": "CDC",
+        "pid": 128160,
+        "processStarted": 1792040637.748917,
+        "startTime": 1792040637.748917,
+        "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+        "jobId": "CDC-acne-current-product-eval-control_iou",
+        "nonce": "b4dac431faa14e8c884e1b443656e9fa",
+        "commandSHA256": "e13bddfb6e58870d7cf9b8ad5e68499ff0832727c8cea4340e213cbec4009ec1",
+        "peakBudgetMiB": 1350,
+        "memoryBudgetMetric": "private",
+        "minimumAvailableMiB": 1600,
+        "leasePaths": [
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+        ],
+        "bothLeasesOwned": true,
+        "ownershipObservationMaxAgeSeconds": 1,
+        "observerPid": 70440,
+        "observerProcessStarted": 1792040638.8052962,
+        "peakMeasuredRSSMiB": 546.10546875,
+        "peakMeasuredPrivateMiB": 469.0703125,
+        "childRSSIncluded": false,
+        "elapsedSeconds": 109.42200000002049,
+        "foreignProcessesStopped": false,
+        "monitorError": null
+      },
+      "evaluationSHA256": "72ffd577bda075efbc22303ca64fd6a704739d854c3df04577885e283fff6bae"
+    },
+    "candidate_giou": {
+      "modelSHA256": "825d2956bc37495746a94113816ba16c7236caa1e028844ded89d76bee8472e2",
+      "scopeB": {
+        "photos": 12,
+        "targets": 14,
+        "matched": 3,
+        "reviewedNegativePhotos": 9,
+        "cleanCenterFP": 10,
+        "cleanArea80FP": 10,
+        "scale": {
+          "micro": {
+            "targets": 1,
+            "matched": 0
+          },
+          "small": {
+            "targets": 10,
+            "matched": 1
+          },
+          "medium": {
+            "targets": 3,
+            "matched": 2
+          }
+        }
+      },
+      "scopeBAnatomicalEnvelopeCenter": {
+        "targets": 6,
+        "matched": 2
+      },
+      "scopeBStaticAdmissible": {
+        "photos": 10,
+        "targets": 14,
+        "matched": 3,
+        "reviewedNegativePhotos": 7,
+        "cleanCenterFP": 10,
+        "cleanArea80FP": 10,
+        "scale": {
+          "micro": {
+            "targets": 1,
+            "matched": 0
+          },
+          "small": {
+            "targets": 10,
+            "matched": 1
+          },
+          "medium": {
+            "targets": 3,
+            "matched": 2
+          }
+        }
+      },
+      "heldoutStaticAdmissible": {
+        "photos": 0,
+        "targets": 0,
+        "matched": 0,
+        "reviewedNegativePhotos": 0,
+        "cleanCenterFP": 0,
+        "cleanArea80FP": 0,
+        "scale": {
+          "micro": {
+            "targets": 0,
+            "matched": 0
+          },
+          "small": {
+            "targets": 0,
+            "matched": 0
+          },
+          "medium": {
+            "targets": 0,
+            "matched": 0
+          }
+        }
+      },
+      "heldoutAllRobustnessOnly": {
+        "photos": 0,
+        "targets": 0,
+        "matched": 0,
+        "reviewedNegativePhotos": 0,
+        "cleanCenterFP": 0,
+        "cleanArea80FP": 0,
+        "scale": {
+          "micro": {
+            "targets": 0,
+            "matched": 0
+          },
+          "small": {
+            "targets": 0,
+            "matched": 0
+          },
+          "medium": {
+            "targets": 0,
+            "matched": 0
+          }
+        }
+      },
+      "resource": {
+        "schema": "attune-dual-atomic-lease-v2",
+        "owner": "CDC",
+        "pid": 143200,
+        "processStarted": 1792040880.5058124,
+        "startTime": 1792040880.5058124,
+        "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+        "jobId": "CDC-acne-current-product-eval-candidate_giou",
+        "nonce": "8326d9eee8c543eaae74c7bf9f5f8ed8",
+        "commandSHA256": "559c7c344fca792fe30880473aca0564d9643bc8dc461de1664912ab2bc0a0d5",
+        "peakBudgetMiB": 1350,
+        "memoryBudgetMetric": "private",
+        "minimumAvailableMiB": 1600,
+        "leasePaths": [
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+        ],
+        "bothLeasesOwned": true,
+        "ownershipObservationMaxAgeSeconds": 1,
+        "observerPid": 124028,
+        "observerProcessStarted": 1792040881.4198244,
+        "peakMeasuredRSSMiB": 564.87109375,
+        "peakMeasuredPrivateMiB": 486.50390625,
+        "childRSSIncluded": false,
+        "elapsedSeconds": 97.6710000000894,
+        "foreignProcessesStopped": false,
+        "monitorError": null
+      },
+      "evaluationSHA256": "beab037dcd51ed80b531d0f6edf2a511e589234a3cf04d2a81c063cc5fac9221"
+    },
+    "control": {
+      "modelSHA256": "b7cbf5f1dd242c1d4efc5b7a665d91b21ad24a26199290e45691193ec5ec3f2a",
+      "scopeB": {
+        "photos": 12,
+        "targets": 14,
+        "matched": 4,
+        "reviewedNegativePhotos": 9,
+        "cleanCenterFP": 4,
+        "cleanArea80FP": 4,
+        "scale": {
+          "micro": {
+            "targets": 1,
+            "matched": 0
+          },
+          "small": {
+            "targets": 10,
+            "matched": 1
+          },
+          "medium": {
+            "targets": 3,
+            "matched": 3
+          }
+        }
+      },
+      "scopeBAnatomicalEnvelopeCenter": {
+        "targets": 6,
+        "matched": 3
+      },
+      "scopeBStaticAdmissible": {
+        "photos": 10,
+        "targets": 14,
+        "matched": 4,
+        "reviewedNegativePhotos": 7,
+        "cleanCenterFP": 4,
+        "cleanArea80FP": 4,
+        "scale": {
+          "micro": {
+            "targets": 1,
+            "matched": 0
+          },
+          "small": {
+            "targets": 10,
+            "matched": 1
+          },
+          "medium": {
+            "targets": 3,
+            "matched": 3
+          }
+        }
+      },
+      "heldoutStaticAdmissible": {
+        "photos": 3,
+        "targets": 29,
+        "matched": 16,
+        "reviewedNegativePhotos": 0,
+        "cleanCenterFP": 0,
+        "cleanArea80FP": 0,
+        "scale": {
+          "micro": {
+            "targets": 3,
+            "matched": 0
+          },
+          "small": {
+            "targets": 17,
+            "matched": 14
+          },
+          "medium": {
+            "targets": 9,
+            "matched": 2
+          }
+        }
+      },
+      "heldoutAllRobustnessOnly": {
+        "photos": 28,
+        "targets": 155,
+        "matched": 84,
+        "reviewedNegativePhotos": 0,
+        "cleanCenterFP": 0,
+        "cleanArea80FP": 0,
+        "scale": {
+          "micro": {
+            "targets": 6,
+            "matched": 0
+          },
+          "small": {
+            "targets": 59,
+            "matched": 35
+          },
+          "medium": {
+            "targets": 90,
+            "matched": 49
+          }
+        }
+      },
+      "resource": {
+        "schema": "attune-dual-atomic-lease-v2",
+        "owner": "CDC",
+        "pid": 145936,
+        "processStarted": 1792043478.5793679,
+        "startTime": 1792043478.5793679,
+        "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+        "jobId": "CDC-acne-current-product-eval-control",
+        "nonce": "66a812f3779f4c6cbdc46bfdeaf72cb2",
+        "commandSHA256": "81f06a2e929ddf20038491ec7185aa80276d4771a709e8f7bd5de35cd8ed31b7",
+        "peakBudgetMiB": 1350,
+        "memoryBudgetMetric": "private",
+        "minimumAvailableMiB": 1600,
+        "leasePaths": [
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+        ],
+        "bothLeasesOwned": true,
+        "ownershipObservationMaxAgeSeconds": 1,
+        "observerPid": 39260,
+        "observerProcessStarted": 1792043479.3316667,
+        "peakMeasuredRSSMiB": 582.38671875,
+        "peakMeasuredPrivateMiB": 505.796875,
+        "childRSSIncluded": false,
+        "elapsedSeconds": 319.0620000001509,
+        "foreignProcessesStopped": false,
+        "monitorError": null
+      },
+      "evaluationSHA256": "544bb86350dfd02bee19fb5e78bc69c854dc901a03688a120da9577e9d94ae49"
+    },
+    "hard-negative": {
+      "modelSHA256": "e53c01c2c9e117ccb403bfecac0d58d24bb493bd7c0e2ac6159b2c57df252abc",
+      "scopeB": {
+        "photos": 12,
+        "targets": 14,
+        "matched": 4,
+        "reviewedNegativePhotos": 9,
+        "cleanCenterFP": 3,
+        "cleanArea80FP": 3,
+        "scale": {
+          "micro": {
+            "targets": 1,
+            "matched": 0
+          },
+          "small": {
+            "targets": 10,
+            "matched": 1
+          },
+          "medium": {
+            "targets": 3,
+            "matched": 3
+          }
+        }
+      },
+      "scopeBAnatomicalEnvelopeCenter": {
+        "targets": 6,
+        "matched": 3
+      },
+      "scopeBStaticAdmissible": {
+        "photos": 10,
+        "targets": 14,
+        "matched": 4,
+        "reviewedNegativePhotos": 7,
+        "cleanCenterFP": 3,
+        "cleanArea80FP": 3,
+        "scale": {
+          "micro": {
+            "targets": 1,
+            "matched": 0
+          },
+          "small": {
+            "targets": 10,
+            "matched": 1
+          },
+          "medium": {
+            "targets": 3,
+            "matched": 3
+          }
+        }
+      },
+      "heldoutStaticAdmissible": {
+        "photos": 3,
+        "targets": 29,
+        "matched": 16,
+        "reviewedNegativePhotos": 0,
+        "cleanCenterFP": 0,
+        "cleanArea80FP": 0,
+        "scale": {
+          "micro": {
+            "targets": 3,
+            "matched": 0
+          },
+          "small": {
+            "targets": 17,
+            "matched": 14
+          },
+          "medium": {
+            "targets": 9,
+            "matched": 2
+          }
+        }
+      },
+      "heldoutAllRobustnessOnly": {
+        "photos": 28,
+        "targets": 155,
+        "matched": 84,
+        "reviewedNegativePhotos": 0,
+        "cleanCenterFP": 0,
+        "cleanArea80FP": 0,
+        "scale": {
+          "micro": {
+            "targets": 6,
+            "matched": 0
+          },
+          "small": {
+            "targets": 59,
+            "matched": 35
+          },
+          "medium": {
+            "targets": 90,
+            "matched": 49
+          }
+        }
+      },
+      "resource": {
+        "schema": "attune-dual-atomic-lease-v2",
+        "owner": "CDC",
+        "pid": 131332,
+        "processStarted": 1792043816.260059,
+        "startTime": 1792043816.260059,
+        "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+        "jobId": "CDC-acne-current-product-eval-hard-negative",
+        "nonce": "46d5a443561847c8a0b1c3dd0eea2992",
+        "commandSHA256": "b32e9c474261ed5b65c8ab990567201568a63b7e05a026ac80518ae6f5fc84de",
+        "peakBudgetMiB": 1350,
+        "memoryBudgetMetric": "private",
+        "minimumAvailableMiB": 1600,
+        "leasePaths": [
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+        ],
+        "bothLeasesOwned": true,
+        "ownershipObservationMaxAgeSeconds": 1,
+        "observerPid": 181984,
+        "observerProcessStarted": 1792043817.0234396,
+        "peakMeasuredRSSMiB": 603.83203125,
+        "peakMeasuredPrivateMiB": 526.640625,
+        "childRSSIncluded": false,
+        "elapsedSeconds": 294.3279999999795,
+        "foreignProcessesStopped": false,
+        "monitorError": null
+      },
+      "evaluationSHA256": "4c08844336837989399f6b9593db40eb1e1c360503fb964de3857d9554c6772c"
+    }
+  },
+  "matchedSourceTargetComparisons": {
+    "step0": {
+      "scopeB": {
+        "lostSourceTargets": [],
+        "gainedSourceTargets": [],
+        "allPreviousMatchesPreserved": true,
+        "cleanFPDelta": 0
+      },
+      "heldoutStaticAdmissible": {
+        "lostSourceTargets": [],
+        "gainedSourceTargets": [],
+        "allPreviousMatchesPreserved": true,
+        "cleanFPDelta": 0
+      },
+      "heldoutAllRobustnessOnly": {
+        "lostSourceTargets": [],
+        "gainedSourceTargets": [],
+        "allPreviousMatchesPreserved": true,
+        "cleanFPDelta": 0
+      }
+    },
+    "control": {
+      "scopeB": {
+        "lostSourceTargets": [],
+        "gainedSourceTargets": [],
+        "allPreviousMatchesPreserved": true,
+        "cleanFPDelta": -1
+      },
+      "heldoutStaticAdmissible": {
+        "lostSourceTargets": [],
+        "gainedSourceTargets": [],
+        "allPreviousMatchesPreserved": true,
+        "cleanFPDelta": 0
+      },
+      "heldoutAllRobustnessOnly": {
+        "lostSourceTargets": [],
+        "gainedSourceTargets": [],
+        "allPreviousMatchesPreserved": true,
+        "cleanFPDelta": 0
+      }
+    }
+  },
+  "shortExperimentAcceptance": {
+    "passed": false,
+    "rule": "preserve every matched source target in both held-out scopes and robustness; reduce reviewed-negative Scope B FP vs Step0 and paired control",
+    "longTrainingAuthorizedByEvidence": false
+  },
+  "pilot": {
+    "control": {
+      "arm": "control",
+      "method": "reviewed-source-nonpimple-object-supervision-repair-v3",
+      "steps": 150,
+      "initialWeightsSHA256": "18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655",
+      "checkpointSHA256": "b7cbf5f1dd242c1d4efc5b7a665d91b21ad24a26199290e45691193ec5ec3f2a",
+      "sampleSequenceSHA256": "2d0c2732a9649ef5a0fde30649c4b6ba32a6af18f955750a52b9b5307fd52515",
+      "onlyTrainableParameters": [
+        "head.obj_preds.0.weight",
+        "head.obj_preds.0.bias",
+        "head.obj_preds.1.weight",
+        "head.obj_preds.1.bias",
+        "head.obj_preds.2.weight",
+        "head.obj_preds.2.bias",
+        "head.obj_preds.3.weight",
+        "head.obj_preds.3.bias"
+      ],
+      "frozenGeometryClassBackboneSHA256": "20618a5bb491aedbadba1151e56b5cbe129d1138ac550ea3057e7f0146011af1",
+      "frozenStateUnchanged": true,
+      "unknownGradientZeroVerified": true,
+      "knownNegativeAnchorExposures": 75994,
+      "repairedNegativeAnchorExposures": 0,
+      "resource": {
+        "schema": "attune-dual-atomic-lease-v2",
+        "owner": "CDC",
+        "pid": 183076,
+        "processStarted": 1792042262.6385307,
+        "startTime": 1792042262.6385307,
+        "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+        "jobId": "CDC-acne-clean-control",
+        "nonce": "320911ea25164c38895be58d5295b5c9",
+        "commandSHA256": "fd4c59a51afe929ffb767218fa418152a6c892614674575e7e8a19258933c616",
+        "peakBudgetMiB": 1350,
+        "memoryBudgetMetric": "private",
+        "minimumAvailableMiB": 1600,
+        "leasePaths": [
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+        ],
+        "bothLeasesOwned": true,
+        "ownershipObservationMaxAgeSeconds": 1,
+        "observerPid": 143380,
+        "observerProcessStarted": 1792042263.72899,
+        "peakMeasuredRSSMiB": 547.84375,
+        "peakMeasuredPrivateMiB": 476.90234375,
+        "childRSSIncluded": false,
+        "elapsedSeconds": 468.15600000019185,
+        "foreignProcessesStopped": false,
+        "monitorError": null
+      },
+      "productionActivation": false
+    },
+    "candidate": {
+      "arm": "hard-negative",
+      "method": "reviewed-source-nonpimple-object-supervision-repair-v3",
+      "steps": 150,
+      "initialWeightsSHA256": "18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655",
+      "checkpointSHA256": "e53c01c2c9e117ccb403bfecac0d58d24bb493bd7c0e2ac6159b2c57df252abc",
+      "sampleSequenceSHA256": "2d0c2732a9649ef5a0fde30649c4b6ba32a6af18f955750a52b9b5307fd52515",
+      "onlyTrainableParameters": [
+        "head.obj_preds.0.weight",
+        "head.obj_preds.0.bias",
+        "head.obj_preds.1.weight",
+        "head.obj_preds.1.bias",
+        "head.obj_preds.2.weight",
+        "head.obj_preds.2.bias",
+        "head.obj_preds.3.weight",
+        "head.obj_preds.3.bias"
+      ],
+      "frozenGeometryClassBackboneSHA256": "20618a5bb491aedbadba1151e56b5cbe129d1138ac550ea3057e7f0146011af1",
+      "frozenStateUnchanged": true,
+      "unknownGradientZeroVerified": true,
+      "knownNegativeAnchorExposures": 75994,
+      "repairedNegativeAnchorExposures": 909,
+      "resource": {
+        "schema": "attune-dual-atomic-lease-v2",
+        "owner": "CDC",
+        "pid": 46744,
+        "processStarted": 1792042882.0361047,
+        "startTime": 1792042882.0361047,
+        "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+        "jobId": "CDC-acne-clean-hard-negative",
+        "nonce": "2efa830731dc474c9ea56dbc9d36ded3",
+        "commandSHA256": "42e48501a0c37479f1cb4ac8b8ebfae4fd46d460235777d57af61432a9a59921",
+        "peakBudgetMiB": 1350,
+        "memoryBudgetMetric": "private",
+        "minimumAvailableMiB": 1600,
+        "leasePaths": [
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+        ],
+        "bothLeasesOwned": true,
+        "ownershipObservationMaxAgeSeconds": 1,
+        "observerPid": 186748,
+        "observerProcessStarted": 1792042883.1674702,
+        "peakMeasuredRSSMiB": 562.47265625,
+        "peakMeasuredPrivateMiB": 491.56640625,
+        "childRSSIncluded": false,
+        "elapsedSeconds": 566.8279999999795,
+        "foreignProcessesStopped": false,
+        "monitorError": null
+      },
+      "productionActivation": false
+    },
+    "checkpoints": {
+      "control": {
+        "pointer": {
+          "directory": "checkpoint-step-000150",
+          "step": 150,
+          "hashes": {
+            "model.safetensors": "b7cbf5f1dd242c1d4efc5b7a665d91b21ad24a26199290e45691193ec5ec3f2a",
+            "optimizer-rng.safetensors": "cc4d828bda96380912b263531542a61c7b43a28dad1534dc7c1512ab3e622b74",
+            "state.json": "844ab45c6e3235b12585cef7abdf8445ef7050663ac3b8c171b627f9da36fd81"
+          }
+        },
+        "preservedGenerations": [
+          "checkpoint-step-000025",
+          "checkpoint-step-000050",
+          "checkpoint-step-000075",
+          "checkpoint-step-000100",
+          "checkpoint-step-000125",
+          "checkpoint-step-000150"
+        ],
+        "stateKeys": [
+          "numpyRNG",
+          "optimizerState",
+          "paramGroups",
+          "pythonRNG",
+          "sampleSequenceSHA256",
+          "scheduler",
+          "seed",
+          "step"
+        ],
+        "receiptSHA256": "9a8636baaa999eefd3349a5930e96eaeafadeb338e92273aab666c109ae36a33"
+      },
+      "hard-negative": {
+        "pointer": {
+          "directory": "checkpoint-step-000150",
+          "step": 150,
+          "hashes": {
+            "model.safetensors": "e53c01c2c9e117ccb403bfecac0d58d24bb493bd7c0e2ac6159b2c57df252abc",
+            "optimizer-rng.safetensors": "5718b51b5e03ea3e17c4a9daeaa9f5ed2cb9f7e2bf047b6ec800f7f1e38dd823",
+            "state.json": "844ab45c6e3235b12585cef7abdf8445ef7050663ac3b8c171b627f9da36fd81"
+          }
+        },
+        "preservedGenerations": [
+          "checkpoint-step-000025",
+          "checkpoint-step-000050",
+          "checkpoint-step-000075",
+          "checkpoint-step-000100",
+          "checkpoint-step-000125",
+          "checkpoint-step-000150"
+        ],
+        "stateKeys": [
+          "numpyRNG",
+          "optimizerState",
+          "paramGroups",
+          "pythonRNG",
+          "sampleSequenceSHA256",
+          "scheduler",
+          "seed",
+          "step"
+        ],
+        "receiptSHA256": "2d75eae2abc484021d1e4e71f614ffc5cd7b616e812a5f6a5e69f33347e3b290"
+      }
+    }
+  },
+  "sourceConflicts": [
+    {
+      "sha256": "349b1a1dae8f20586d3b428bedc71f60ede742584ec18c265ee313258a068e84",
+      "annotationId": 6510,
+      "sourceCategory": "Mole",
+      "sourceBox": [
+        364,
+        590,
+        388.5,
+        610
+      ],
+      "maxConfidence": 0.7657977342605591,
+      "oldTrainingTiles": [
+        {
+          "tileIndex": 52,
+          "oldPositiveTargetsOverSourceMole": [
+            [
+              367.3,
+              594.8,
+              382.1,
+              608.6
+            ]
+          ],
+          "selectedInOld150": true
+        }
+      ],
+      "oldTrainingTileListed": true
+    },
+    {
+      "sha256": "349b1a1dae8f20586d3b428bedc71f60ede742584ec18c265ee313258a068e84",
+      "annotationId": 6513,
+      "sourceCategory": "Mole",
+      "sourceBox": [
+        348,
+        187,
+        368.5,
+        197
+      ],
+      "maxConfidence": 0.6237806677818298,
+      "oldTrainingTiles": [],
+      "oldTrainingTileListed": false
+    },
+    {
+      "sha256": "c41f8bfe30b3c88cf58c5943f8035484e69096dcb5ca2ca770201e639b91157c",
+      "annotationId": 12627,
+      "sourceCategory": "Mole",
+      "sourceBox": [
+        793,
+        536,
+        809,
+        544.5
+      ],
+      "maxConfidence": 0.759344756603241,
+      "oldTrainingTiles": [
+        {
+          "tileIndex": 70,
+          "oldPositiveTargetsOverSourceMole": [
+            [
+              794.1,
+              534.8,
+              806.1,
+              543.2
+            ]
+          ],
+          "selectedInOld150": true
+        }
+      ],
+      "oldTrainingTileListed": true
+    },
+    {
+      "sha256": "690689ae062bdf9d0bc63f6f4f2a0079fa2e419bb8e8c14374687b91b98c6518",
+      "annotationId": 21821,
+      "sourceCategory": "Mole",
+      "sourceBox": [
+        368,
+        714,
+        388,
+        736
+      ],
+      "maxConfidence": 0.8577414751052856,
+      "oldTrainingTiles": [
+        {
+          "tileIndex": 107,
+          "oldPositiveTargetsOverSourceMole": [
+            [
+              365.5,
+              714.5,
+              384,
+              733.4
+            ]
+          ],
+          "selectedInOld150": true
+        }
+      ],
+      "oldTrainingTileListed": true
+    },
+    {
+      "sha256": "91cb7dfee2699b3ba1b29f935b2dcff15a165533ee1127bbbde1447470fa319b",
+      "annotationId": 23600,
+      "sourceCategory": "Mole",
+      "sourceBox": [
+        802,
+        945,
+        824,
+        965.5
+      ],
+      "maxConfidence": 0.5833455920219421,
+      "oldTrainingTiles": [],
+      "oldTrainingTileListed": false
+    }
+  ],
+  "fixedTRAINReplay": {
+    "control": {
+      "model": "control",
+      "modelSHA256": "b7cbf5f1dd242c1d4efc5b7a665d91b21ad24a26199290e45691193ec5ec3f2a",
+      "baselineProbeSHA256": "42dd6c7508e841b578196130b9a3df33b66b671841955932186f2d169727c468",
+      "fixedThreshold": 0.3,
+      "trainOnly": true,
+      "rows": [
+        {
+          "sha256": "349b1a1dae8f20586d3b428bedc71f60ede742584ec18c265ee313258a068e84",
+          "sourceAnnotationId": 6510,
+          "fixedTile": [
+            288,
+            576,
+            672,
+            960
+          ],
+          "matchingAnchors": 16,
+          "aboveThresholdAnchors": 13,
+          "maxConfidence": 0.7692158818244934,
+          "step0": {
+            "rect": [
+              288,
+              576,
+              672,
+              960
+            ],
+            "matchingAnchors": 16,
+            "aboveThresholdAnchors": 13,
+            "maxConfidence": 0.7657977342605591,
+            "oldTrainingTileListed": true
+          },
+          "interpretation": "raw matched TRAIN anchors, not unique product false detections or held-out success"
+        },
+        {
+          "sha256": "349b1a1dae8f20586d3b428bedc71f60ede742584ec18c265ee313258a068e84",
+          "sourceAnnotationId": 6513,
+          "fixedTile": [
+            288,
+            0,
+            672,
+            384
+          ],
+          "matchingAnchors": 17,
+          "aboveThresholdAnchors": 7,
+          "maxConfidence": 0.630870521068573,
+          "step0": {
+            "rect": [
+              288,
+              0,
+              672,
+              384
+            ],
+            "matchingAnchors": 17,
+            "aboveThresholdAnchors": 7,
+            "maxConfidence": 0.6237806677818298,
+            "oldTrainingTileListed": false
+          },
+          "interpretation": "raw matched TRAIN anchors, not unique product false detections or held-out success"
+        },
+        {
+          "sha256": "c41f8bfe30b3c88cf58c5943f8035484e69096dcb5ca2ca770201e639b91157c",
+          "sourceAnnotationId": 12627,
+          "fixedTile": [
+            576,
+            288,
+            960,
+            672
+          ],
+          "matchingAnchors": 13,
+          "aboveThresholdAnchors": 11,
+          "maxConfidence": 0.7618497014045715,
+          "step0": {
+            "rect": [
+              576,
+              288,
+              960,
+              672
+            ],
+            "matchingAnchors": 13,
+            "aboveThresholdAnchors": 11,
+            "maxConfidence": 0.759344756603241,
+            "oldTrainingTileListed": true
+          },
+          "interpretation": "raw matched TRAIN anchors, not unique product false detections or held-out success"
+        },
+        {
+          "sha256": "690689ae062bdf9d0bc63f6f4f2a0079fa2e419bb8e8c14374687b91b98c6518",
+          "sourceAnnotationId": 21821,
+          "fixedTile": [
+            288,
+            576,
+            672,
+            960
+          ],
+          "matchingAnchors": 15,
+          "aboveThresholdAnchors": 15,
+          "maxConfidence": 0.8594195246696472,
+          "step0": {
+            "rect": [
+              288,
+              576,
+              672,
+              960
+            ],
+            "matchingAnchors": 15,
+            "aboveThresholdAnchors": 15,
+            "maxConfidence": 0.8577414751052856,
+            "oldTrainingTileListed": true
+          },
+          "interpretation": "raw matched TRAIN anchors, not unique product false detections or held-out success"
+        },
+        {
+          "sha256": "91cb7dfee2699b3ba1b29f935b2dcff15a165533ee1127bbbde1447470fa319b",
+          "sourceAnnotationId": 23600,
+          "fixedTile": [
+            576,
+            864,
+            960,
+            1248
+          ],
+          "matchingAnchors": 10,
+          "aboveThresholdAnchors": 9,
+          "maxConfidence": 0.5897639393806458,
+          "step0": {
+            "rect": [
+              576,
+              864,
+              960,
+              1248
+            ],
+            "matchingAnchors": 10,
+            "aboveThresholdAnchors": 9,
+            "maxConfidence": 0.5833455920219421,
+            "oldTrainingTileListed": false
+          },
+          "interpretation": "raw matched TRAIN anchors, not unique product false detections or held-out success"
+        }
+      ],
+      "resource": {
+        "schema": "attune-dual-atomic-lease-v2",
+        "owner": "CDC",
+        "pid": 16992,
+        "processStarted": 1792044131.1094172,
+        "startTime": 1792044131.1094172,
+        "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+        "jobId": "CDC-acne-fixed-TRAIN-replay-control",
+        "nonce": "0188283267f84f3fbb6b42df009de8d5",
+        "commandSHA256": "d597e57bf93baa1333826845e4c11b53edba1aae68b08050c6bc0006faa925f8",
+        "peakBudgetMiB": 1350,
+        "memoryBudgetMetric": "private",
+        "minimumAvailableMiB": 1600,
+        "leasePaths": [
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+        ],
+        "bothLeasesOwned": true,
+        "ownershipObservationMaxAgeSeconds": 1,
+        "observerPid": 86096,
+        "observerProcessStarted": 1792044132.0000632,
+        "peakMeasuredRSSMiB": 458.01953125,
+        "peakMeasuredPrivateMiB": 394.3515625,
+        "childRSSIncluded": false,
+        "elapsedSeconds": 10.077999999979511,
+        "foreignProcessesStopped": false,
+        "monitorError": null
+      }
+    },
+    "hard-negative": {
+      "model": "hard-negative",
+      "modelSHA256": "e53c01c2c9e117ccb403bfecac0d58d24bb493bd7c0e2ac6159b2c57df252abc",
+      "baselineProbeSHA256": "42dd6c7508e841b578196130b9a3df33b66b671841955932186f2d169727c468",
+      "fixedThreshold": 0.3,
+      "trainOnly": true,
+      "rows": [
+        {
+          "sha256": "349b1a1dae8f20586d3b428bedc71f60ede742584ec18c265ee313258a068e84",
+          "sourceAnnotationId": 6510,
+          "fixedTile": [
+            288,
+            576,
+            672,
+            960
+          ],
+          "matchingAnchors": 16,
+          "aboveThresholdAnchors": 13,
+          "maxConfidence": 0.7623463869094849,
+          "step0": {
+            "rect": [
+              288,
+              576,
+              672,
+              960
+            ],
+            "matchingAnchors": 16,
+            "aboveThresholdAnchors": 13,
+            "maxConfidence": 0.7657977342605591,
+            "oldTrainingTileListed": true
+          },
+          "interpretation": "raw matched TRAIN anchors, not unique product false detections or held-out success"
+        },
+        {
+          "sha256": "349b1a1dae8f20586d3b428bedc71f60ede742584ec18c265ee313258a068e84",
+          "sourceAnnotationId": 6513,
+          "fixedTile": [
+            288,
+            0,
+            672,
+            384
+          ],
+          "matchingAnchors": 17,
+          "aboveThresholdAnchors": 7,
+          "maxConfidence": 0.616855800151825,
+          "step0": {
+            "rect": [
+              288,
+              0,
+              672,
+              384
+            ],
+            "matchingAnchors": 17,
+            "aboveThresholdAnchors": 7,
+            "maxConfidence": 0.6237806677818298,
+            "oldTrainingTileListed": false
+          },
+          "interpretation": "raw matched TRAIN anchors, not unique product false detections or held-out success"
+        },
+        {
+          "sha256": "c41f8bfe30b3c88cf58c5943f8035484e69096dcb5ca2ca770201e639b91157c",
+          "sourceAnnotationId": 12627,
+          "fixedTile": [
+            576,
+            288,
+            960,
+            672
+          ],
+          "matchingAnchors": 13,
+          "aboveThresholdAnchors": 11,
+          "maxConfidence": 0.756848931312561,
+          "step0": {
+            "rect": [
+              576,
+              288,
+              960,
+              672
+            ],
+            "matchingAnchors": 13,
+            "aboveThresholdAnchors": 11,
+            "maxConfidence": 0.759344756603241,
+            "oldTrainingTileListed": true
+          },
+          "interpretation": "raw matched TRAIN anchors, not unique product false detections or held-out success"
+        },
+        {
+          "sha256": "690689ae062bdf9d0bc63f6f4f2a0079fa2e419bb8e8c14374687b91b98c6518",
+          "sourceAnnotationId": 21821,
+          "fixedTile": [
+            288,
+            576,
+            672,
+            960
+          ],
+          "matchingAnchors": 15,
+          "aboveThresholdAnchors": 15,
+          "maxConfidence": 0.8558788299560547,
+          "step0": {
+            "rect": [
+              288,
+              576,
+              672,
+              960
+            ],
+            "matchingAnchors": 15,
+            "aboveThresholdAnchors": 15,
+            "maxConfidence": 0.8577414751052856,
+            "oldTrainingTileListed": true
+          },
+          "interpretation": "raw matched TRAIN anchors, not unique product false detections or held-out success"
+        },
+        {
+          "sha256": "91cb7dfee2699b3ba1b29f935b2dcff15a165533ee1127bbbde1447470fa319b",
+          "sourceAnnotationId": 23600,
+          "fixedTile": [
+            576,
+            864,
+            960,
+            1248
+          ],
+          "matchingAnchors": 10,
+          "aboveThresholdAnchors": 9,
+          "maxConfidence": 0.5769065618515015,
+          "step0": {
+            "rect": [
+              576,
+              864,
+              960,
+              1248
+            ],
+            "matchingAnchors": 10,
+            "aboveThresholdAnchors": 9,
+            "maxConfidence": 0.5833455920219421,
+            "oldTrainingTileListed": false
+          },
+          "interpretation": "raw matched TRAIN anchors, not unique product false detections or held-out success"
+        }
+      ],
+      "resource": {
+        "schema": "attune-dual-atomic-lease-v2",
+        "owner": "CDC",
+        "pid": 19512,
+        "processStarted": 1792044142.9078069,
+        "startTime": 1792044142.9078069,
+        "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+        "jobId": "CDC-acne-fixed-TRAIN-replay-hard-negative",
+        "nonce": "c12e4997355a4983a383f2ed8e8646a8",
+        "commandSHA256": "426173f9550593cd663666f53384231b6e531d4a0164a8431b3e61652f1223c4",
+        "peakBudgetMiB": 1350,
+        "memoryBudgetMetric": "private",
+        "minimumAvailableMiB": 1600,
+        "leasePaths": [
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+        ],
+        "bothLeasesOwned": true,
+        "ownershipObservationMaxAgeSeconds": 1,
+        "observerPid": 53976,
+        "observerProcessStarted": 1792044143.9439616,
+        "peakMeasuredRSSMiB": 463.33984375,
+        "peakMeasuredPrivateMiB": 399.26171875,
+        "childRSSIncluded": false,
+        "elapsedSeconds": 10.563000000081956,
+        "foreignProcessesStopped": false,
+        "monitorError": null
+      }
+    }
+  },
+  "groupIsolation": {
+    "exactOverlap": {
+      "group": [],
+      "family": [],
+      "personIdentity": [],
+      "decodedSHA256": [],
+      "dhash": []
+    },
+    "nearCopyPairsDistanceLE6": [],
+    "knownPersonIdentityRows": 0,
+    "personDisjointnessClaim": "not established when identity is unknown; recorded source/family groups only"
+  },
+  "protectedProduction": [
+    {
+      "path": "services/core-api/appearance_analysis.py",
+      "sha256": "05062cbcdd67f3009ba96a429033615a5a8d60f632a094dcbee2354e0b604297",
+      "unchangedVsHEAD": true,
+      "currentSHA256": "05062cbcdd67f3009ba96a429033615a5a8d60f632a094dcbee2354e0b604297",
+      "preserved": true
+    },
+    {
+      "path": "services/core-api/instant_appearance.py",
+      "sha256": "5c9a65b59f60b205cf0d5392d6f64f85ad863a47487057f3538411427a8eb9a8",
+      "unchangedVsHEAD": true,
+      "currentSHA256": "5c9a65b59f60b205cf0d5392d6f64f85ad863a47487057f3538411427a8eb9a8",
+      "preserved": true
+    },
+    {
+      "path": "services/core-api/product_dryness.py",
+      "sha256": "034dcafc4eaf474dff1ebbe61bc1d7263f5db5397dd445a0942eda239cec6506",
+      "unchangedVsHEAD": true,
+      "currentSHA256": "034dcafc4eaf474dff1ebbe61bc1d7263f5db5397dd445a0942eda239cec6506",
+      "preserved": true
+    },
+    {
+      "path": "services/core-api/skin_models.py",
+      "sha256": "a0eb52a01c07b445109fa328aa73994a93f20169db17c4aae1ae48c1230a4c28",
+      "unchangedVsHEAD": true,
+      "currentSHA256": "a0eb52a01c07b445109fa328aa73994a93f20169db17c4aae1ae48c1230a4c28",
+      "preserved": true
+    },
+    {
+      "path": "services/core-api/models/skin-focused.json",
+      "sha256": "accc9ff193030bccde572ded39b1878fc7919e33daf62f2ac560c3357a83abfb",
+      "unchangedVsHEAD": true,
+      "currentSHA256": "accc9ff193030bccde572ded39b1878fc7919e33daf62f2ac560c3357a83abfb",
+      "preserved": true
+    },
+    {
+      "path": "apps/vehicle-app/.next/BUILD_ID",
+      "sha256": "cdd7707d9f05d3d9c95ab664049e54669e1f5678d946dd74cd5802c108b58563",
+      "unchangedVsHEAD": null,
+      "currentSHA256": "cdd7707d9f05d3d9c95ab664049e54669e1f5678d946dd74cd5802c108b58563",
+      "preserved": true
+    }
+  ],
+  "limitations": [
+    "Scope B is repeatedly exposed development/regression, not final test",
+    "28 controls have source/family separation; person identities unknown",
+    "3/28 static camera gates passed; physical camera temporal stability not tested",
+    "Positive partial labels do not define clean negatives; held-out positive photos have no reviewed-negative denominator",
+    "No claim that source Mole category is a medical diagnosis or that bounding boxes are pixel masks",
+    "Normal product remains acne disabled; research native inference is not an activated normal API/ONNX integration"
+  ],
+  "browserContract": {
+    "sourceHashes": {
+      "apps/vehicle-app/src/utils/skinSnapshot.ts": "f31c9a7d48c56731ea9c28979e53283fdf355a841f537dfb6e24b83f7e3cbf6e",
+      "apps/vehicle-app/src/utils/skinAnalyzer.ts": "c64c81cfeef0c8b805aedc64b2cd55d26fd80e7f55508a30889387e377d24e56",
+      "apps/vehicle-app/src/utils/skinExpression.ts": "eb0da0620635c31e47b995a15e5d8383f4c333d046f5822e9e5fe4e0ddc1abfd",
+      "apps/vehicle-app/src/utils/skinMesh.ts": "e0df3bb73fdba4f9ac1f0f079bd9856f10cd8027097f74b91f567367593ade46",
+      "apps/vehicle-app/src/utils/cameraStability.ts": "dbea92b037a03d6ae9c98e89fa0c5c24373c23d335236856548e04e6cf9ca8c8",
+      "apps/vehicle-app/src/utils/skinIndicators.ts": "33fe15ccf2f0b2f4ab1c18ea36517aa7250e32a2967a1cb97b13a19b426f0b75",
+      "apps/vehicle-app/src/utils/skinResearchAdapter.ts": "4928010770958781a048cffa8e1b6921a4de7fada702d10aa35c446081d31f2f",
+      "apps/vehicle-app/src/utils/appearanceMeasurements.ts": "0e8ed9d9b91e421c0220cb580eda46b7424d0902a43ea3e427012a1fd84f18aa",
+      "apps/vehicle-app/src/utils/attuneMode.ts": "a1055fa7719bc2f46643713154304da3f0de2d72f59a0d64aef52986c70c27c8",
+      "apps/vehicle-app/src/utils/skinOverview.ts": "b33f2a1d70b665ab56554c338a015df08bbe0c25dc1a6b75d58be036e50dd009",
+      "apps/vehicle-app/src/data/skinDemoFixture.ts": "e2d6f48341bb7967636b65b44b11ba001f87d738934e725b08cb0df94d3b57ee",
+      "apps/vehicle-app/src/utils/skinPhotoHistory.ts": "1ed96f708ad207a8360e08fe65289de1c1bfe70ea0b9f1a6661f4e30f5d57a43",
+      "apps/vehicle-app/src/utils/healthRecords.ts": "ecb61e8559252920fe79289248defaeac8dd324c1f5c0ea8332e88b1f23cfa40",
+      "apps/vehicle-app/src/utils/healthModules.ts": "cf8c02ed126f250cb0bf796ed46711b37d3e59389afca3b7e09d918d417caafd",
+      "shared/healthModules.json": "448db276469738a0e4c59ec2bfd0eb13d13a099ce155db05f3902523480899dc",
+      "apps/vehicle-app/src/utils/healthHistorySeries.ts": "f27e10263f51be2391141a0318eaab333fba47e8945f054257c2d9aa52ef3139",
+      "apps/vehicle-app/src/utils/spokenVision.ts": "b2b458a97ca48141563f09a5c8f5491f7cd61f9ae6cd61640c47e913c68fa561",
+      "apps/vehicle-app/src/utils/skinPresentation.ts": "ff47b9549a9ab239affbebedce5ea4253f5256115402cdcd65f4b1f80f6ee456",
+      "apps/vehicle-app/src/utils/skinSurfaceAnalysis.ts": "1de72c76fe2f206fc34b54698812f4e608aad7ab7503eafd523dd92dbc54396a",
+      "apps/vehicle-app/src/utils/skinMultiAngle.ts": "d089f32938f27e52997d83ecc83e83a90d7f54bb88f07c53ed2e2d55563f2b40",
+      "apps/vehicle-app/src/utils/skinEyewear.ts": "9f89d6ff1d1b4b84cb626c979910d0bf07b06065dd4a564f3acec3e74a2eca32"
+    },
+    "actualBrowserMediaPipe": true,
+    "physicalCameraStabilityVerified": false,
+    "controlCount": 28,
+    "staticPass": 3,
+    "poseRejected": 23,
+    "blurryRejected": 10,
+    "noFace": 2,
+    "gateRejectionsCanOverlap": true,
+    "passedSources": [
+      "26ebdde4a718478d320492b7bec8ae0d5cb9c4f4b3279fadfdc93ad95a1b8aaf",
+      "2ed3716e0b87f3253ced680a6ddad44f4983a010dedd48457c551e6c28c16738",
+      "f2ed24a9b9a72b0be113a5a28fb4beaa76706765e9775cf10dae2c257f82f639"
+    ]
+  },
+  "step0ProductFilterTrace": [
+    {
+      "sha256": "55d380f724bc6b0612f878ee1b70997493edf1c1aecb8cf9d447c050af90f43a",
+      "targets": 7,
+      "productAdmissible": true,
+      "beforeNMS": 427,
+      "afterNMS": 32,
+      "confidenceSourcePairs": [
+        [
+          0,
+          388,
+          0.8303102617079217
+        ],
+        [
+          5,
+          304,
+          0.7620744298983951
+        ]
+      ],
+      "nmsSourcePairs": [
+        [
+          0,
+          4,
+          0.8106201937270021
+        ],
+        [
+          5,
+          20,
+          0.7533850361587152
+        ]
+      ],
+      "oldFilterPairs": [
+        [
+          5,
+          3,
+          0.7533850361587152
+        ]
+      ],
+      "stagingPairs": [
+        [
+          0,
+          1,
+          0.8106201887130737
+        ],
+        [
+          5,
+          6,
+          0.7533870339393616
+        ]
+      ],
+      "cleanFalseCandidates": [],
+      "rejectedByReason": {
+        "ANATOMICAL_HOLE": 1,
+        "OUTSIDE_SOURCE_SUPPORT": 19
+      },
+      "sourceTransform": {
+        "origin": [
+          662,
+          504
+        ],
+        "scale": 0.43093095607648235,
+        "maskShape": [
+          197,
+          184
+        ]
+      }
+    },
+    {
+      "sha256": "695ed248b9f9d226db5d127b6e2b9f67ddb06a61ddb7dd6d3883ce469b79cfe4",
+      "targets": 5,
+      "productAdmissible": true,
+      "beforeNMS": 4,
+      "afterNMS": 2,
+      "confidenceSourcePairs": [],
+      "nmsSourcePairs": [],
+      "oldFilterPairs": [],
+      "stagingPairs": [],
+      "cleanFalseCandidates": [],
+      "rejectedByReason": {},
+      "sourceTransform": {
+        "origin": [
+          362,
+          226
+        ],
+        "scale": 0.6690493774973879,
+        "maskShape": [
+          460,
+          384
+        ]
+      }
+    },
+    {
+      "sha256": "4a1762ee136ff6c5e096ba6914063cf6d81fccb9fe492823cb4477d1e244462d",
+      "targets": 2,
+      "productAdmissible": true,
+      "beforeNMS": 104,
+      "afterNMS": 9,
+      "confidenceSourcePairs": [
+        [
+          0,
+          47,
+          0.7261066321767187
+        ],
+        [
+          1,
+          87,
+          0.5327075622687866
+        ]
+      ],
+      "nmsSourcePairs": [
+        [
+          0,
+          1,
+          0.5718904706327754
+        ],
+        [
+          1,
+          7,
+          0.5327075622687866
+        ]
+      ],
+      "oldFilterPairs": [
+        [
+          0,
+          0,
+          0.5718904706327754
+        ],
+        [
+          1,
+          8,
+          0.5327075622687866
+        ]
+      ],
+      "stagingPairs": [
+        [
+          0,
+          0,
+          0.5718918442726135
+        ],
+        [
+          1,
+          7,
+          0.532708466053009
+        ]
+      ],
+      "cleanFalseCandidates": [],
+      "rejectedByReason": {},
+      "sourceTransform": {
+        "origin": [
+          385,
+          151
+        ],
+        "scale": 0.6053737240660038,
+        "maskShape": [
+          532,
+          371
+        ]
+      }
+    },
+    {
+      "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+      "targets": 0,
+      "productAdmissible": true,
+      "beforeNMS": 54,
+      "afterNMS": 3,
+      "confidenceSourcePairs": [],
+      "nmsSourcePairs": [],
+      "oldFilterPairs": [],
+      "stagingPairs": [],
+      "cleanFalseCandidates": [
+        {
+          "index": 0,
+          "box": [
+            223.06867027282715,
+            310.46519470214844,
+            245.01897621154785,
+            324.6735382080078
+          ],
+          "cleanAreaFraction": 1.0,
+          "confidence": 0.3752059042453766
+        },
+        {
+          "index": 1,
+          "box": [
+            359.56248474121094,
+            285.60312938690186,
+            374.5883331298828,
+            295.1435136795044
+          ],
+          "cleanAreaFraction": 1.0,
+          "confidence": 0.8437950611114502
+        },
+        {
+          "index": 2,
+          "box": [
+            380.5612015724182,
+            289.4476845264435,
+            388.7839217185974,
+            296.60266947746277
+          ],
+          "cleanAreaFraction": 1.0,
+          "confidence": 0.31725290417671204
+        }
+      ],
+      "rejectedByReason": {},
+      "sourceTransform": {
+        "origin": [
+          138,
+          93
+        ],
+        "scale": 1.0,
+        "maskShape": [
+          367,
+          358
+        ]
+      }
+    },
+    {
+      "sha256": "20031f3502cc294041fe4d5cb9995b6961ba44b6cae7b8b44e01daeafaa752b2",
+      "targets": 0,
+      "productAdmissible": false,
+      "beforeNMS": 0,
+      "afterNMS": 0,
+      "confidenceSourcePairs": [],
+      "nmsSourcePairs": [],
+      "oldFilterPairs": [],
+      "stagingPairs": [],
+      "cleanFalseCandidates": [],
+      "rejectedByReason": {},
+      "sourceTransform": {
+        "origin": [
+          37,
+          136
+        ],
+        "scale": 0.6857109178980977,
+        "maskShape": [
+          346,
+          375
+        ]
+      }
+    },
+    {
+      "sha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+      "targets": 0,
+      "productAdmissible": true,
+      "beforeNMS": 0,
+      "afterNMS": 0,
+      "confidenceSourcePairs": [],
+      "nmsSourcePairs": [],
+      "oldFilterPairs": [],
+      "stagingPairs": [],
+      "cleanFalseCandidates": [],
+      "rejectedByReason": {},
+      "sourceTransform": {
+        "origin": [
+          90,
+          131
+        ],
+        "scale": 0.819431925642431,
+        "maskShape": [
+          417,
+          370
+        ]
+      }
+    },
+    {
+      "sha256": "0597e8113444b558862cdc20574b2386e091bfc14fad55e8ea2e3532a02fa552",
+      "targets": 0,
+      "productAdmissible": true,
+      "beforeNMS": 0,
+      "afterNMS": 0,
+      "confidenceSourcePairs": [],
+      "nmsSourcePairs": [],
+      "oldFilterPairs": [],
+      "stagingPairs": [],
+      "cleanFalseCandidates": [],
+      "rejectedByReason": {},
+      "sourceTransform": {
+        "origin": [
+          78,
+          303
+        ],
+        "scale": 0.978848692255847,
+        "maskShape": [
+          229,
+          229
+        ]
+      }
+    },
+    {
+      "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+      "targets": 0,
+      "productAdmissible": true,
+      "beforeNMS": 8,
+      "afterNMS": 2,
+      "confidenceSourcePairs": [],
+      "nmsSourcePairs": [],
+      "oldFilterPairs": [],
+      "stagingPairs": [],
+      "cleanFalseCandidates": [],
+      "rejectedByReason": {
+        "ANATOMICAL_HAIR_OR_NOT_SKIN": 2
+      },
+      "sourceTransform": {
+        "origin": [
+          167,
+          243
+        ],
+        "scale": 0.542349625521408,
+        "maskShape": [
+          410,
+          379
+        ]
+      }
+    },
+    {
+      "sha256": "0f3354ae440284287476130b110bf1d6e941102732d9205f7aa52c74fb1b7926",
+      "targets": 0,
+      "productAdmissible": true,
+      "beforeNMS": 24,
+      "afterNMS": 4,
+      "confidenceSourcePairs": [],
+      "nmsSourcePairs": [],
+      "oldFilterPairs": [],
+      "stagingPairs": [],
+      "cleanFalseCandidates": [],
+      "rejectedByReason": {
+        "OUTSIDE_SOURCE_SUPPORT": 4
+      },
+      "sourceTransform": {
+        "origin": [
+          546,
+          478
+        ],
+        "scale": 0.5892363067558225,
+        "maskShape": [
+          227,
+          203
+        ]
+      }
+    },
+    {
+      "sha256": "0d891a034eeac482c96c7dec9f7e89e5fa45219bd429171c6d3da62856733963",
+      "targets": 0,
+      "productAdmissible": false,
+      "beforeNMS": 14,
+      "afterNMS": 2,
+      "confidenceSourcePairs": [],
+      "nmsSourcePairs": [],
+      "oldFilterPairs": [],
+      "stagingPairs": [],
+      "cleanFalseCandidates": [],
+      "rejectedByReason": {},
+      "sourceTransform": null
+    },
+    {
+      "sha256": "33da7a527931d29e23b6ab093093c0c4416938e8c0b17a5b2b6ad7af3112c1e0",
+      "targets": 0,
+      "productAdmissible": true,
+      "beforeNMS": 0,
+      "afterNMS": 0,
+      "confidenceSourcePairs": [],
+      "nmsSourcePairs": [],
+      "oldFilterPairs": [],
+      "stagingPairs": [],
+      "cleanFalseCandidates": [],
+      "rejectedByReason": {},
+      "sourceTransform": {
+        "origin": [
+          191,
+          180
+        ],
+        "scale": 1.0,
+        "maskShape": [
+          228,
+          195
+        ]
+      }
+    },
+    {
+      "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+      "targets": 0,
+      "productAdmissible": true,
+      "beforeNMS": 0,
+      "afterNMS": 0,
+      "confidenceSourcePairs": [],
+      "nmsSourcePairs": [],
+      "oldFilterPairs": [],
+      "stagingPairs": [],
+      "cleanFalseCandidates": [],
+      "rejectedByReason": {},
+      "sourceTransform": {
+        "origin": [
+          201,
+          96
+        ],
+        "scale": 1.0,
+        "maskShape": [
+          251,
+          239
+        ]
+      }
+    }
+  ],
+  "scopeBTrainIsolation": {
+    "exactOverlap": {
+      "sha256": [],
+      "group": [],
+      "family": [],
+      "decodedSHA256": [],
+      "dhash": []
+    },
+    "nearCopyDistanceLE6": [],
+    "personIdentityNotEstablished": true
+  },
+  "focusedVerification": {
+    "checkpoints": [
+      {
+        "arm": "control",
+        "step": 150,
+        "strictModelLoad": true,
+        "optimizerTensorShapesVerified": true,
+        "schedulerRestored": true,
+        "torchPythonNumpyRNGRestored": true,
+        "generation": "checkpoint-step-000150",
+        "modelSHA256": "b7cbf5f1dd242c1d4efc5b7a665d91b21ad24a26199290e45691193ec5ec3f2a"
+      },
+      {
+        "arm": "hard-negative",
+        "step": 150,
+        "strictModelLoad": true,
+        "optimizerTensorShapesVerified": true,
+        "schedulerRestored": true,
+        "torchPythonNumpyRNGRestored": true,
+        "generation": "checkpoint-step-000150",
+        "modelSHA256": "e53c01c2c9e117ccb403bfecac0d58d24bb493bd7c0e2ac6159b2c57df252abc"
+      }
+    ],
+    "pythonTests": 19,
+    "failures": 0,
+    "errors": 0,
+    "resource": {
+      "schema": "attune-dual-atomic-lease-v2",
+      "owner": "CDC",
+      "pid": 123104,
+      "processStarted": 1792043458.4726188,
+      "startTime": 1792043458.4726188,
+      "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+      "jobId": "CDC-acne-checkpoint-and-focused-regressions",
+      "nonce": "8c1ba0bb89c74caa9d9247a3c1f3c61b",
+      "commandSHA256": "4fe72e5126b7aa385774f5bbd8a0f1dea4bc8deddd13ef1aadacd5b65eadab29",
+      "peakBudgetMiB": 1350,
+      "memoryBudgetMetric": "private",
+      "minimumAvailableMiB": 1600,
+      "leasePaths": [
+        "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+        "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+      ],
+      "bothLeasesOwned": true,
+      "ownershipObservationMaxAgeSeconds": 1,
+      "observerPid": 186080,
+      "observerProcessStarted": 1792043458.853883,
+      "peakMeasuredRSSMiB": 360.6328125,
+      "peakMeasuredPrivateMiB": 297.578125,
+      "childRSSIncluded": false,
+      "elapsedSeconds": 11.625,
+      "foreignProcessesStopped": false,
+      "monitorError": null
+    }
+  },
+  "legacyReviewSupportMetadata": [
+    {
+      "model": "step0",
+      "sha256": "0061c8b0f852afda82f94bc5cb5b9a35af335749fec85af1affc01b9c1352278",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "00fde83450940e20723bd4f20a3fa9f07eeb8abbe9860faedbc1b12ab44eb95f",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "04635b38ef2171cce22fa2bdf75ef7b8ddf06be4717c2f63b6f43df4524eff42",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "1240c105770667c1d7f945a6dbec8f5057584b026e1f3669e95de4b4f7d52544",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "26ebdde4a718478d320492b7bec8ae0d5cb9c4f4b3279fadfdc93ad95a1b8aaf",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "274997f44e521b7c02bb466ec2ab883a37117e3ed7192383ef06a5d3465e791c",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "2ed3716e0b87f3253ced680a6ddad44f4983a010dedd48457c551e6c28c16738",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "400162a584688a912a81daf0ec333d069e8e3fa384c5c5293c18ef6c1947f8e9",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "40aea27704707070f941e36223af20815401e832f079c6396fe45c0b62973a4d",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "45261e547ec0b6a5d39b6644950727e7da029c33116ee4b381e1afbba4927bb3",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "4637b7627c8c601643c97e653c8627f796051166f7b0573b892666f4b41ff7f9",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "46d81b6037133b21a87a9129f08d34bbf8fe79d8551d453613c20d399ace03cf",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "489011db026964ee20860d13ddf332a28c912b2a4aed75f29f47216af7c9f70a",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "5519ac874035059527299a5de826bf8de95a002b626c61f7641cad9977f006fc",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "5eae369ab6491b68992a26859cfccd97594a7d93cb942d419dd7f0b060625995",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "6328af8b1a793983ce395526b1098f2c8b9b2abc8a5c78c8f3f27d93f899ab00",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "66b8dcb2fe949c6726db96e2282b26f959ae4ba14bfec476bc19d3b1334a1df7",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "6a41d852172835aa0036c5f04a881e2e72454d33832cc5055b12486f693b8367",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "7d6cbcdd1843308b9ea1d452f04947e731601bf8800d99d93acad51c5d85babd",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "86a937047cc23f090c3f296dec2ee30916182c8f30f28955c7f7fdfaec471ad3",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "98090215183b1133712496370bbe19303bd42a11045773ae8130645524ae7e4c",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "a0cc1c4184cef7544d7224fadf26a109560a3dd0e55947336cae8fc8b3180917",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "aa5389b6e5113ab56c96559f0f2737be817969b13c3143a34c55cc3fbbcbf4d1",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "dc911cc9ec6cec549685b4e7948585581e13c43715edcffc5fb50dedf384c715",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "ddd91506b4076403bddf52019cd4eb494d09206213795b26ef3c0ea86d613efc",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "e26f3ffd50ec8f7d4f25fce0834648d92aae25f7de0a4e7f378f1e2cbdce674b",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "f172c4a53637e72cfd11e5d1d4076c8775c072c6aac99a2727b13bc663e5e630",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "f2ed24a9b9a72b0be113a5a28fb4beaa76706765e9775cf10dae2c257f82f639",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "55d380f724bc6b0612f878ee1b70997493edf1c1aecb8cf9d447c050af90f43a",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "695ed248b9f9d226db5d127b6e2b9f67ddb06a61ddb7dd6d3883ce469b79cfe4",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "4a1762ee136ff6c5e096ba6914063cf6d81fccb9fe492823cb4477d1e244462d",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "20031f3502cc294041fe4d5cb9995b6961ba44b6cae7b8b44e01daeafaa752b2",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "0597e8113444b558862cdc20574b2386e091bfc14fad55e8ea2e3532a02fa552",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "0f3354ae440284287476130b110bf1d6e941102732d9205f7aa52c74fb1b7926",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "0d891a034eeac482c96c7dec9f7e89e5fa45219bd429171c6d3da62856733963",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "33da7a527931d29e23b6ab093093c0c4416938e8c0b17a5b2b6ad7af3112c1e0",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "step0",
+      "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "control_iou",
+      "sha256": "55d380f724bc6b0612f878ee1b70997493edf1c1aecb8cf9d447c050af90f43a",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "control_iou",
+      "sha256": "695ed248b9f9d226db5d127b6e2b9f67ddb06a61ddb7dd6d3883ce469b79cfe4",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "control_iou",
+      "sha256": "4a1762ee136ff6c5e096ba6914063cf6d81fccb9fe492823cb4477d1e244462d",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "control_iou",
+      "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "control_iou",
+      "sha256": "20031f3502cc294041fe4d5cb9995b6961ba44b6cae7b8b44e01daeafaa752b2",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "control_iou",
+      "sha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "control_iou",
+      "sha256": "0597e8113444b558862cdc20574b2386e091bfc14fad55e8ea2e3532a02fa552",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "control_iou",
+      "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "control_iou",
+      "sha256": "0f3354ae440284287476130b110bf1d6e941102732d9205f7aa52c74fb1b7926",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "control_iou",
+      "sha256": "0d891a034eeac482c96c7dec9f7e89e5fa45219bd429171c6d3da62856733963",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "control_iou",
+      "sha256": "33da7a527931d29e23b6ab093093c0c4416938e8c0b17a5b2b6ad7af3112c1e0",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "control_iou",
+      "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "candidate_giou",
+      "sha256": "55d380f724bc6b0612f878ee1b70997493edf1c1aecb8cf9d447c050af90f43a",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "candidate_giou",
+      "sha256": "695ed248b9f9d226db5d127b6e2b9f67ddb06a61ddb7dd6d3883ce469b79cfe4",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "candidate_giou",
+      "sha256": "4a1762ee136ff6c5e096ba6914063cf6d81fccb9fe492823cb4477d1e244462d",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "candidate_giou",
+      "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "candidate_giou",
+      "sha256": "20031f3502cc294041fe4d5cb9995b6961ba44b6cae7b8b44e01daeafaa752b2",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "candidate_giou",
+      "sha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "candidate_giou",
+      "sha256": "0597e8113444b558862cdc20574b2386e091bfc14fad55e8ea2e3532a02fa552",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "candidate_giou",
+      "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "candidate_giou",
+      "sha256": "0f3354ae440284287476130b110bf1d6e941102732d9205f7aa52c74fb1b7926",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "candidate_giou",
+      "sha256": "0d891a034eeac482c96c7dec9f7e89e5fa45219bd429171c6d3da62856733963",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "candidate_giou",
+      "sha256": "33da7a527931d29e23b6ab093093c0c4416938e8c0b17a5b2b6ad7af3112c1e0",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    },
+    {
+      "model": "candidate_giou",
+      "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+      "metadata": "model-independent same-payload reviewed support pixel count",
+      "source": "evaluation-control; FP/predictions unchanged"
+    }
+  ],
+  "productTraceRendering": [
+    {
+      "sha256": "2ed3716e0b87f3253ced680a6ddad44f4983a010dedd48457c551e6c28c16738",
+      "displayFile": "product-trace-2ed3716e.png",
+      "sourceShape": [
+        1280,
+        1280
+      ],
+      "sourceOrigin": [
+        442,
+        428
+      ],
+      "sourceScale": 0.6850953318481966,
+      "actualSnapshotMeshes": true,
+      "exactProductMasks": true,
+      "pixelPhotoId": "f7ea2ad3e38d923d77aef80a5f5e2030563816fbaa91bfa4faf76d3c80d0d96e",
+      "displayOnlyResize": true,
+      "originalSourceUnchanged": true
+    },
+    {
+      "sha256": "55d380f724bc6b0612f878ee1b70997493edf1c1aecb8cf9d447c050af90f43a",
+      "displayFile": "product-trace-55d380f7.png",
+      "sourceShape": [
+        1280,
+        1280
+      ],
+      "sourceOrigin": [
+        662,
+        504
+      ],
+      "sourceScale": 0.43093095607648235,
+      "actualSnapshotMeshes": true,
+      "exactProductMasks": true,
+      "pixelPhotoId": "3bef0893e093266ed4a73690c0a75e78552486a31199fc42ab05dd459003f203",
+      "displayOnlyResize": true,
+      "originalSourceUnchanged": true
+    },
+    {
+      "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+      "displayFile": "product-trace-36e4010b.png",
+      "sourceShape": [
+        640,
+        640
+      ],
+      "sourceOrigin": [
+        138,
+        93
+      ],
+      "sourceScale": 1.0,
+      "actualSnapshotMeshes": true,
+      "exactProductMasks": true,
+      "pixelPhotoId": "2d522c344b93287a1f8174f2910dc6e34c29308f4cd84042095763a9803708f6",
+      "displayOnlyResize": true,
+      "originalSourceUnchanged": true
+    }
+  ],
+  "inputProvenance": [
+    {
+      "source": "audit-results/acne-candidate-training-20261013/train-data-engineering-reviewed-20261013.json",
+      "sha256": "aa9cffc890ae2964e1849baf4424f4165fe739d2781690dc86936930729cc6d9",
+      "bytes": 30124721
+    },
+    {
+      "source": "audit-results/acne-pilot-giou-comparison-20261015/controlled_train_cohort.json",
+      "sha256": "8e19ce55885d77b42ccae161733d69e8e8becf586f70ee433b82db5702529405",
+      "bytes": 582371
+    },
+    {
+      "source": "audit-results/acne-pilot-giou-comparison-20261015/canonical_pilot_comparison_evaluation.json",
+      "sha256": "48ee0efa0921891dfa49d460cede44c6119c7a040397c74ffddb1549811372d7",
+      "bytes": 195606
+    },
+    {
+      "source": "audit-results/acne-detection-verification-20261013/annotation-scope-manifest.json",
+      "sha256": "562358f6f39b62bff9fbebfe095f641260ea1a206f0bed192e01bf83b4af64a5",
+      "bytes": 173151
+    }
+  ],
+  "frozenCodeProvenance": {
+    "commit": "d90ff95434c44b4e73ae77a7f1d5d6b2e167c987",
+    "files": [
+      {
+        "path": "scripts/skin-research/evaluate_canonical_pilot_comparison.py",
+        "sha256": "68f286de15e52e64a3d2028d5d9263720baec39c76297718b0ac59919c13e266"
+      },
+      {
+        "path": "scripts/skin-research/product_skin_adapter.cjs",
+        "sha256": "24e84b5e0b873299c506b5358302e359e464a5f8d74fb89f923d2cb409d920fc"
+      },
+      {
+        "path": "scripts/skin-research/negative_mask_builder.py",
+        "sha256": "f9d0c5f78c03dffd6ea24468ef25a5606e99df16c529c91116e75fb5e16b1f37"
+      },
+      {
+        "path": "scripts/skin-research/focal_objectness_loss.py",
+        "sha256": "abf2b3b1af7909b6b82000bbf034a7db604b01584f496d9a53b01bdec8005f9a"
+      },
+      {
+        "path": "scripts/skin-research/yolox_p2.py",
+        "sha256": "c1a33b302adffc7f10b3f9123d4b7ebd44af59132200d1d38aaa49d6e7e8c8f8"
+      },
+      {
+        "path": "scripts/skin-research/yolox_numeric.py",
+        "sha256": "200841ff0aeb8a2abb0c7021950f04725fbd22531e4fc2dc6b633328b0286402"
+      },
+      {
+        "path": "scripts/skin-research/evaluate_all_checkpoints_side_by_side.py",
+        "sha256": "6d858da8fb5fd89b22cb2377651b398ea96220865bbcc6a30e27ecf1a44f29b9"
+      },
+      {
+        "path": "scripts/skin-research/run_controlled_pilot_comparison.py",
+        "sha256": "290b7e2ccd31fe6c7bf4c5556beca65285abdeb81fbeff8ad5aa4117041c896c"
+      },
+      {
+        "path": "scripts/skin-research/source_skin_support.py",
+        "sha256": "5d1a2e9ac209f328878b707c41b03fd9416dcaecf70096142d90523550fca16a"
+      },
+      {
+        "path": "services/core-api/acne_box_support_staging.py",
+        "sha256": "ffd3c8a697a08d6197a01b585d3872e86a434ad2feeec76e9428a9eb1ceabfb5"
+      },
+      {
+        "path": "scripts/skin-research/curate_train_engineering_annotations.py",
+        "sha256": "4a278904fc50f8821bcc1eaad4504ce29af4ea37dfdd54093ddf5fb560dc6f3d"
+      }
+    ]
+  },
+  "reproducibility": {
+    "source-selection.json": "5efabe7c67a7d18e783205bc20af98274ae7f7b19f2e17bbecd124f65ee4a603",
+    "browser-preflight.json": "b1824d06a816359ba134cf981b2e5c988be9d9819688cd4b04394ac9c1cf08fd",
+    "pilot-preregistration.json": "141d7d9f88a7732ead5f2c3d3a6beeae31e3d4b9923c53e6bb29e9b872d02684",
+    "train-mole-label-review.json": "ae318c1ea9c6b41b82e5e8ff291b4356b7c3010b2fb17466fb0ffd847af7aa35",
+    "source-negative-repair-probe.json": "42dd6c7508e841b578196130b9a3df33b66b671841955932186f2d169727c468",
+    "train-clean-support/manifest.json": "fe8a55fedd3f90618a647d8072989594646a73b84eb9f9e504e10ee77c9b104d",
+    "inputs/original-reviewed-detector-data.json": "2ef416d57d26cb552ad3aff081a62ae63384e32d7a6decfc1c8a34ece1d158c9",
+    "inputs/train-data-engineering-reviewed-20261013.json": "aa9cffc890ae2964e1849baf4424f4165fe739d2781690dc86936930729cc6d9",
+    "inputs/controlled_train_cohort.json": "8e19ce55885d77b42ccae161733d69e8e8becf586f70ee433b82db5702529405",
+    "inputs/annotation-scope-manifest.json": "562358f6f39b62bff9fbebfe095f641260ea1a206f0bed192e01bf83b4af64a5"
+  }
+}

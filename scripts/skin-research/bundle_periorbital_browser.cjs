@@ -1,7 +1,7 @@
 // Verification-only CommonJS bundle of the actual frontend utility sources.
 const fs=require('fs'),path=require('path'),ts=require('typescript'),crypto=require('crypto');
 const root=path.resolve(__dirname,'../..'),modules={},hashes={};
-const entries=['skinSnapshot','skinAnalyzer','skinIndicators','appearanceMeasurements','skinOverview','skinPhotoHistory','healthRecords','healthHistorySeries','skinSurfaceAnalysis','skinMultiAngle'].map(n=>'apps/vehicle-app/src/utils/'+n+'.ts');
+const entries=['skinSnapshot','skinAnalyzer','skinIndicators','appearanceMeasurements','skinOverview','skinPhotoHistory','healthRecords','healthHistorySeries','skinSurfaceAnalysis','skinMultiAngle','skinEyewear'].map(n=>'apps/vehicle-app/src/utils/'+n+'.ts');
 function visit(id){
  if(modules[id])return;const file=path.join(root,id),source=fs.readFileSync(file,'utf8');hashes[id]=crypto.createHash('sha256').update(source).digest('hex');
  if(id.endsWith('.json')){modules[id]={code:'module.exports='+source,dependencies:{}};return;}
