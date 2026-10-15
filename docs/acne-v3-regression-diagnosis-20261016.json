@@ -1,0 +1,226 @@
+{
+ "reviewedNegatives": {
+  "photos": 7,
+  "persisting": 2,
+  "new": 39,
+  "vanished": 1,
+  "perPhoto": [
+   {
+    "sha": "36e4010b",
+    "step0": {
+     "cand": 3,
+     "cleanFP": 3,
+     "unknown": 0
+    },
+    "s900": {
+     "cand": 6,
+     "cleanFP": 6,
+     "unknown": 0
+    }
+   },
+   {
+    "sha": "02386f86",
+    "step0": {
+     "cand": 0,
+     "cleanFP": 0,
+     "unknown": 0
+    },
+    "s900": {
+     "cand": 4,
+     "cleanFP": 4,
+     "unknown": 0
+    }
+   },
+   {
+    "sha": "0597e811",
+    "step0": {
+     "cand": 0,
+     "cleanFP": 0,
+     "unknown": 0
+    },
+    "s900": {
+     "cand": 5,
+     "cleanFP": 5,
+     "unknown": 0
+    }
+   },
+   {
+    "sha": "0560bfd8",
+    "step0": {
+     "cand": 0,
+     "cleanFP": 0,
+     "unknown": 0
+    },
+    "s900": {
+     "cand": 24,
+     "cleanFP": 24,
+     "unknown": 0
+    }
+   },
+   {
+    "sha": "0f3354ae",
+    "step0": {
+     "cand": 0,
+     "cleanFP": 0,
+     "unknown": 0
+    },
+    "s900": {
+     "cand": 2,
+     "cleanFP": 2,
+     "unknown": 0
+    }
+   },
+   {
+    "sha": "33da7a52",
+    "step0": {
+     "cand": 0,
+     "cleanFP": 0,
+     "unknown": 0
+    },
+    "s900": {
+     "cand": 0,
+     "cleanFP": 0,
+     "unknown": 0
+    }
+   },
+   {
+    "sha": "02413bf9",
+    "step0": {
+     "cand": 0,
+     "cleanFP": 0,
+     "unknown": 0
+    },
+    "s900": {
+     "cand": 0,
+     "cleanFP": 0,
+     "unknown": 0
+    }
+   }
+  ],
+  "newBoxSidePx": {
+   "median": 16.29469871520996,
+   "min": 10.208244323730469,
+   "max": 38.91200256347656
+  },
+  "step0BoxSidePx": [
+   8.2,
+   15.0,
+   22.0
+  ],
+  "note": "cleanFP = candidate centre inside the reviewed known-negative mask (unchanged v2 evaluator); unknown = outside it, never counted as FP"
+ },
+ "lostControlTargets": {
+  "total": 12,
+  "byCause": {
+   "box-present-IoU.30-.50 (localization)": 7,
+   "final box overlaps but IoU<.30": 5
+  },
+  "detail": [
+   {
+    "sha": "26ebdde4",
+    "target": 0,
+    "truthSide": 8.5,
+    "bestIoU900": 0.33,
+    "cause": "box-present-IoU.30-.50 (localization)"
+   },
+   {
+    "sha": "f2ed24a9",
+    "target": 2,
+    "truthSide": 11,
+    "bestIoU900": 0.364,
+    "cause": "box-present-IoU.30-.50 (localization)"
+   },
+   {
+    "sha": "f2ed24a9",
+    "target": 4,
+    "truthSide": 11,
+    "bestIoU900": 0.409,
+    "cause": "box-present-IoU.30-.50 (localization)"
+   },
+   {
+    "sha": "f2ed24a9",
+    "target": 5,
+    "truthSide": 13.5,
+    "bestIoU900": 0.441,
+    "cause": "box-present-IoU.30-.50 (localization)"
+   },
+   {
+    "sha": "f2ed24a9",
+    "target": 6,
+    "truthSide": 11.5,
+    "bestIoU900": 0.362,
+    "cause": "box-present-IoU.30-.50 (localization)"
+   },
+   {
+    "sha": "f2ed24a9",
+    "target": 7,
+    "truthSide": 8.5,
+    "bestIoU900": 0.187,
+    "cause": "final box overlaps but IoU<.30"
+   },
+   {
+    "sha": "f2ed24a9",
+    "target": 10,
+    "truthSide": 9,
+    "bestIoU900": 0.3,
+    "cause": "final box overlaps but IoU<.30"
+   },
+   {
+    "sha": "f2ed24a9",
+    "target": 11,
+    "truthSide": 9,
+    "bestIoU900": 0.254,
+    "cause": "final box overlaps but IoU<.30"
+   },
+   {
+    "sha": "f2ed24a9",
+    "target": 12,
+    "truthSide": 9.5,
+    "bestIoU900": 0.235,
+    "cause": "final box overlaps but IoU<.30"
+   },
+   {
+    "sha": "f2ed24a9",
+    "target": 14,
+    "truthSide": 14,
+    "bestIoU900": 0.42,
+    "cause": "box-present-IoU.30-.50 (localization)"
+   },
+   {
+    "sha": "f2ed24a9",
+    "target": 16,
+    "truthSide": 12.5,
+    "bestIoU900": 0.439,
+    "cause": "box-present-IoU.30-.50 (localization)"
+   },
+   {
+    "sha": "f2ed24a9",
+    "target": 17,
+    "truthSide": 8.5,
+    "bestIoU900": 0.236,
+    "cause": "final box overlaps but IoU<.30"
+   }
+  ],
+  "rawCauseResolution": "UNKNOWN for targets without a final box: raw pre-NMS candidates, scores and filter decisions were not saved, so raw-absence vs low score vs NMS vs anatomical filter cannot be separated without new inference"
+ },
+ "matchedBoxAreaRatioPredOverTruth": {
+  "step0": {
+   "n": 72,
+   "median": 1.109,
+   "p25": 0.884,
+   "p75": 1.485
+  },
+  "s900": {
+   "n": 73,
+   "median": 1.569,
+   "p25": 1.146,
+   "p75": 2.269
+  }
+ },
+ "productTruthSidePx": {
+  "n": 138,
+  "median": 13.0,
+  "p25": 9.0,
+  "p75": 18.5
+ }
+}

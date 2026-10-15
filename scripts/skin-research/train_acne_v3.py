@@ -24,6 +24,13 @@ STEPS, ACCUM, CKPT_EVERY = 1800, 8, 50
 SELECT_EVERY, VAL_PHOTOS = 300, 150
 LR, WARMUP = 2e-4, 100
 GUARD = .50
+# Objectness background term. The owner approved "standard method": unlabeled skin is background as in public detectors,
+# i.e. YOLOX objectness BCE summed over positive AND background anchors / num_fg. The 2026-10-15 run (code 688301e7...)
+# instead reused the shared head's sparse-negative normalisation (mean over known negatives x 20 + focal). With ~12k known
+# anchors per tile that made the push on a hard background anchor ~0.6% of the standard YOLOX value (measured median
+# 0.0056 on step-900 training tiles). 'standard-yolox-bce' implements the declared rule; 'shared-head-mean-x20' reproduces
+# the failed run for audit only.
+OBJ_LOSS = 'standard-yolox-bce'
 TILE = 384
 TEST_ARCHIVE = 'Skin care.v5i.coco.zip'
 TRAIN_ARCHIVES = ['SmartSkinCare.v8i.coco.zip', 'Skin-Problem-Detection-Relabel-Clean3.v1-skin-disease-detection-.coco.zip',
@@ -147,6 +154,37 @@ def make_tile(img, it, s, rng, focus=True, aug=True):
     return x, known, targets
 
 
+def standard_background_loss_class():
+    import torch
+    import torch.nn.functional as F
+    from focal_objectness_loss import SigmoidFocalObjectnessLoss
+
+    class StandardBackgroundObjLoss(SigmoidFocalObjectnessLoss):
+        """Per-anchor BCE pre-scaled so the shared head's normalisation
+        (pos: sum/num_fg; known neg: mean x 20) equals standard YOLOX: sum BCE over positives + known negatives / num_fg.
+        Batch size 1 only (num_fg of the head == positives in this tensor). UNKNOWN anchors still get zero loss."""
+        W_NEG_IN_HEAD = 20.0
+
+        def forward(self, logits, truth):
+            if self.known is None or self.known.shape != logits.shape: raise ValueError('KNOWN_MASK_REQUIRED')
+            is_pos = truth > 0; is_neg = self.known & ~is_pos
+            n_pos = max(float(is_pos.sum()), 1.0); n_neg = max(float(is_neg.sum()), 1.0)
+            bce = F.binary_cross_entropy_with_logits(logits, truth, reduction='none')
+            scale = torch.where(is_pos, torch.ones_like(bce), torch.full_like(bce, n_neg / (self.W_NEG_IN_HEAD * n_pos)))
+            self.last_metrics = dict(num_pos=int(n_pos), num_known_neg=int(n_neg), mode='standard-yolox-bce')
+            return bce * scale * (is_pos | is_neg).to(bce.dtype)
+
+        def record_normalized(self, **k): pass
+    return StandardBackgroundObjLoss
+
+
+def make_obj_loss(mode):
+    from focal_objectness_loss import SigmoidFocalObjectnessLoss
+    if mode == 'standard-yolox-bce': return standard_background_loss_class()()
+    if mode == 'shared-head-mean-x20': return SigmoidFocalObjectnessLoss(alpha=.25, gamma=2)
+    raise ValueError(mode)
+
+
 def known_cells_tile(known, targets):
     import torch
     out = []
@@ -213,7 +251,7 @@ def train(plan_p, out, togg, lease, max_seconds):
     tnames = [n for n, p in net.named_parameters() if p.requires_grad]
     for m in net.modules():
         if isinstance(m, torch.nn.BatchNorm2d): m.eval()
-    focal = SigmoidFocalObjectnessLoss(alpha=.25, gamma=2); net.head.obj_focal_loss = focal
+    focal = make_obj_loss(OBJ_LOSS); net.head.obj_focal_loss = focal
     params = [p for p in net.parameters() if p.requires_grad]
     opt = torch.optim.AdamW(params, lr=LR, weight_decay=.01)
     lam = lambda s: (s + 1) / WARMUP if s < WARMUP else .05 + .95 * .5 * (1 + math.cos(math.pi * (s - WARMUP) / (STEPS - WARMUP)))
@@ -393,7 +431,7 @@ if __name__ == '__main__':
         pre = Path(a.prereg)
         if (out / 'v3').exists(): raise SystemExit('TRAINING_ALREADY_STARTED')
         if pre.exists(): raise SystemExit('PREREGISTRATION_FROZEN')
-        pre.write_text(json.dumps(dict(decision=DECISION, steps=STEPS, selectEvery=SELECT_EVERY, valPhotos=VAL_PHOTOS, accum=ACCUM, lr=LR, warmup=WARMUP, guard=GUARD, seed=SEED, trainArchives=TRAIN_ARCHIVES,
+        pre.write_text(json.dumps(dict(decision=DECISION, steps=STEPS, selectEvery=SELECT_EVERY, valPhotos=VAL_PHOTOS, accum=ACCUM, lr=LR, warmup=WARMUP, guard=GUARD, objLoss=OBJ_LOSS, seed=SEED, trainArchives=TRAIN_ARCHIVES,
                                        testArchive=TEST_ARCHIVE, planSHA256=sha_file(out / 'plan-v3.json'), codeSHA256=sha_file(Path(__file__)),
                                        trainable='YOLOX head + PAFPN neck convs (BatchNorm frozen, eval mode); backbone frozen; start = CDC Step0'), indent=1)); print(sha_file(pre)); sys.exit()
     if a.phase == 'metrics':

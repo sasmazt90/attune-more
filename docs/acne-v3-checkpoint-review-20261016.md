@@ -2,6 +2,8 @@
 
 **Result:** the pre-registered selection rule picks **Step0**. No v3 checkpoint beats Step0 on validation F1. The best trained checkpoint is step 900; on the real product chain it is worse than Step0. Acne stays `accepted:false, file:null`. No new training was started, and the independent test set is still sealed.
 
+**Step0 is not an accepted, working product model either.** It is only the comparison baseline. The owner accepted this experiment as failed (2026-10-16); the remaining 550 steps will not be run. Diagnosis: `acne-v3-regression-diagnosis-20261016.md`.
+
 ## Preserved state
 
 - Training stopped at step 1,250 of 1,800. This happened because the automated permission classifier blocked further training calls; the training itself did not fail.
