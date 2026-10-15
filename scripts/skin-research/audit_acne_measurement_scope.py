@@ -489,7 +489,7 @@ def build_manifest(code_root, input_root, path_maps):
         snap = input_root / TAKEOVER / 'product-inputs' / s / 'snapshot.png'
         photos.append(dict(sha256=s, cohort=row['cohort'], staticProductPass=row['staticProductPass'],
                            snapshotSHA256=row['snapshotSHA256'], sourceFileSHA256=row['sourceFileSHA256'],
-                           sourcePathMapped=str(map_path(row['sourcePath'], path_maps)), targetCount=len(t),
+                           sourcePath=row['sourcePath'], targetCount=len(t),
                            frozenResultSHA256={m: sha_file(input_root / COMPARISON / m / (s + '.json')) for m in 'AB'
                                                if (input_root / COMPARISON / m / (s + '.json')).exists()},
                            snapshotPresent=snap.exists()))
