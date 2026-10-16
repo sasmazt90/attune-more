@@ -7,10 +7,16 @@ import math
 from fastapi import APIRouter, HTTPException, Request
 from starlette.concurrency import run_in_threadpool
 from appearance_analysis import analyze_skin
+from experimental_acne_v5 import analyze as analyze_acne_preview,configuration as acne_preview_configuration,PreviewUnavailable,PreviewRejected
 
 router = APIRouter(prefix='/api/local-health')
 _busy = asyncio.Lock()
 parked = lambda: False
+
+
+@router.get('/skin/acne-v5-config')
+async def acne_v5_config():
+    return acne_preview_configuration()
 
 
 @router.post('/skin/capture-check')
@@ -119,7 +125,7 @@ async def skin(request: Request):
             scope=NativeRequestBudget()
             def work():
                 scope.check();eyewear=skin_capture_preflight(value);scope.check()
-                return eyewear,analyze_product(value,analyze_skin,scope.check)
+                return eyewear,(analyze_acne_preview(value,scope.check) if value.get('experimentalAcneV5') is True else analyze_product(value,analyze_skin,scope.check))
             worker=asyncio.create_task(run_in_threadpool(work))
             try:
                 while not worker.done():
@@ -133,6 +139,10 @@ async def skin(request: Request):
                 raise
             except NativeRequestStopped as error:
                 raise HTTPException(504 if str(error)=='LOCAL_ANALYSIS_TIMEOUT' else 409,str(error)) from None
+            except PreviewUnavailable as error:
+                raise HTTPException(503,str(error)) from None
+            except PreviewRejected as error:
+                raise HTTPException(422,str(error)) from None
             except DrynessModelUnavailable:
                 raise HTTPException(503,'LOCAL_MODEL_OR_RESOURCE_UNAVAILABLE') from None
         result['captureScopeVersion']=eyewear['version']

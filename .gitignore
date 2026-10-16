@@ -129,3 +129,8 @@ services/core-api/models/*.npz
 
 !apps/vehicle-app/public/audio/guidance/*.mp3
 !apps/vehicle-app/public/audio/vision-speech/*.mp3
+
+# Local experimental export and browser fixtures (hash-indexed separately).
+services/core-api/models/acne-v5-preview/*.onnx
+
+.playwright-cli/

@@ -1,3 +1,4 @@
+import {LOCAL_API_BASE} from './previewLocalApi';
 import type {FaceAlignment} from './skinAnalyzer';
 export const SKIN_CAPTURE_POLICY='glasses-free-skin-capture-v1';
 export const SKIN_EYEWEAR_MODEL_HASH='66f75c686974a04bf956d0ed6411315309afcabd36c400edec743953adafccb9';
@@ -36,7 +37,7 @@ export class SkinEyewearCheck {
    // Model-only eye tensor; the accepted source canvas/photo is never resized.
    ctx.drawImage(canvas,box.x,box.y,box.width,box.height,0,0,112,112);
    const frameToken=crypto.randomUUID();
-   const response=await fetch('http://localhost:8000/api/local-health/skin/capture-check',{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:true,frameToken,policy:SKIN_CAPTURE_POLICY,eyePhoto:roi.toDataURL('image/png')})});
+   const response=await fetch(`${LOCAL_API_BASE}/api/local-health/skin/capture-check`,{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:true,frameToken,policy:SKIN_CAPTURE_POLICY,eyePhoto:roi.toDataURL('image/png')})});
    if(!response.ok)throw Error('SKIN_EYEWEAR_CHECK_UNAVAILABLE');
    const result=await response.json();
    if(epoch!==this.epoch||!current()||result.frameToken!==frameToken||result.version!==SKIN_CAPTURE_POLICY||result.modelHash!==SKIN_EYEWEAR_MODEL_HASH||!['CLEAR','EYEWEAR_PRESENT','UNCERTAIN'].includes(result.status))throw Error('STALE_EYEWEAR_FRAME');

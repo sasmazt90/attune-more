@@ -1,0 +1,42 @@
+{
+  "version": "experimental-step0-verifier-v5-local-preview-v1",
+  "accepted": false,
+  "coordinateSpace": "source-pixels",
+  "detector": {
+    "file": "step0-with-features-stable-silu.onnx",
+    "sha256": "9c87475d9302aed16f09abedc109211c2ac1b49f22f465f86aab408a5244d0be",
+    "sourceStep0SHA256": "18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655",
+    "input": "native_bgr_tile",
+    "outputs": [
+      "decoded_boxes",
+      "p2",
+      "p3",
+      "p4",
+      "p5"
+    ],
+    "strides": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "channels": [
+      64,
+      128,
+      256,
+      512
+    ],
+    "confidenceThreshold": 0.3,
+    "nms": 0.3
+  },
+  "verifier": {
+    "file": "verifier-v5.json",
+    "sha256": "0d7bf03ca4d9898ef1b2e78c6d54d61be6aff580329b20b78a9232f79cfd43bb",
+    "threshold": 0.15628215094908582,
+    "features": 1920,
+    "featureVersion": "acne-candidate-verifier-features-v1"
+  },
+  "runtime": "numpy and onnxruntime only",
+  "ortOptimization": "disabled-preserve-unfused-BN",
+  "activationExport": "Sigmoid uses 1/(1+exp(-x)), preserving negative SiLU tails instead of ORT saturated sigmoid approximation"
+}

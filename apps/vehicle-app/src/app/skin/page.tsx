@@ -1,4 +1,6 @@
 'use client';
+import {ACNE_V5_PREVIEW} from '../../utils/previewLocalApi';
+import {ExperimentalAcnePhoto} from '../../components/skin/ExperimentalAcnePhoto';
 import {careHref} from '../../utils/healthModules';
 import { useGuidance,qualityGuidance } from '../../utils/audioGuidance';
 import {SkinEyewearCheck,SkinEyewearGate,SKIN_CAPTURE_POLICY,type EyewearStatus} from '../../utils/skinEyewear';
@@ -43,7 +45,8 @@ import { SkinObservationModal } from '../../components/skin/SkinObservationModal
 import { SkinActionsModal } from '../../components/skin/SkinActionsModal';
 import { AlertTriangle, RefreshCw, ShieldAlert } from 'lucide-react';
 
-export default function SkinPage() {
+export default function SkinPage(){return ACNE_V5_PREVIEW?<ExperimentalAcnePhoto/>:<StandardSkinPage/>;}
+function StandardSkinPage() {
   const resultPersisted=useRef(false);
   const storageAllowed=()=>localStorage.getItem('attune_privacy_skin_save_allowed')==='true';
   const temporalSupport=useRef<ReturnType<typeof skinTemporalSupport>[]>([]);
