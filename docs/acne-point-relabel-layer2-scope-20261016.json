@@ -1,0 +1,4018 @@
+{
+ "name": "acne-point-relabel-layer2-scope",
+ "note": "fixed before any layer-2 sheet is viewed; layer 1 unchanged",
+ "r": "0.03 x face width",
+ "categories": [
+  "TARGET_MISSED (would have been a layer-1 TARGET)",
+  "UNCERTAIN",
+  "SCAR_PIGMENT",
+  "MOLE",
+  "BLACKHEAD",
+  "NOT_LESION (texture, pore, hair, shadow, specular, edge, nothing visible)",
+  "REGION (B only: box covers an area, not one lesion)"
+ ],
+ "items": [
+  {
+   "kind": "A",
+   "photo": "77176e51db41",
+   "x": 835.6,
+   "y": 864.8,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     835.6,
+     864.8
+    ]
+   ],
+   "id": "A001"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 377.1,
+   "y": 506.7,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     377.1,
+     506.7
+    ]
+   ],
+   "id": "A002"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1538,
+    2284.5,
+    1595,
+    2352.5
+   ],
+   "sourceBox": 37,
+   "id": "B001"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 725.8,
+   "y": 696.2,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     725.8,
+     696.2
+    ]
+   ],
+   "id": "A003"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1589,
+    2591,
+    1629,
+    2644
+   ],
+   "sourceBox": 32,
+   "id": "B002"
+  },
+  {
+   "kind": "A",
+   "photo": "b9dd30fde312",
+   "x": 340.6,
+   "y": 270.7,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     340.8,
+     270.7
+    ],
+    [
+     "tristan-gray/tiles",
+     340.5,
+     270.7
+    ]
+   ],
+   "id": "A004"
+  },
+  {
+   "kind": "A",
+   "photo": "77176e51db41",
+   "x": 448.1,
+   "y": 967.4,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     448.1,
+     967.4
+    ]
+   ],
+   "id": "A005"
+  },
+  {
+   "kind": "A",
+   "photo": "46a79ef8d7a8",
+   "x": 472.2,
+   "y": 1067.5,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     472.2,
+     1067.5
+    ]
+   ],
+   "id": "A006"
+  },
+  {
+   "kind": "A",
+   "photo": "46a79ef8d7a8",
+   "x": 371.7,
+   "y": 706.8,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     371.7,
+     706.8
+    ]
+   ],
+   "id": "A007"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 753.6,
+   "y": 2331.1,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     753.4,
+     2330.7
+    ],
+    [
+     "tristan-gray/tiles",
+     753.8,
+     2331.5
+    ]
+   ],
+   "id": "A008"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 759.4,
+   "y": 2194.9,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     759.4,
+     2194.9
+    ]
+   ],
+   "id": "A009"
+  },
+  {
+   "kind": "A",
+   "photo": "453d2656c394",
+   "x": 528.9,
+   "y": 1072.7,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     528.9,
+     1072.7
+    ]
+   ],
+   "id": "A010"
+  },
+  {
+   "kind": "B",
+   "photo": "5aa51f53f86c",
+   "box": [
+    912.5,
+    762,
+    951.5,
+    796
+   ],
+   "sourceBox": 1,
+   "id": "B003"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1659,
+    2220,
+    1739,
+    2338
+   ],
+   "sourceBox": 29,
+   "id": "B004"
+  },
+  {
+   "kind": "A",
+   "photo": "33e42c603f10",
+   "x": 731.6,
+   "y": 651.3,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     731.6,
+     651.3
+    ]
+   ],
+   "id": "A011"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 524.4,
+   "y": 807.2,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     524.4,
+     807.2
+    ]
+   ],
+   "id": "A012"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1178.9,
+   "y": 2770.7,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     1178.9,
+     2770.7
+    ]
+   ],
+   "id": "A013"
+  },
+  {
+   "kind": "A",
+   "photo": "5aa51f53f86c",
+   "x": 708.1,
+   "y": 1226.4,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     708.1,
+     1226.4
+    ]
+   ],
+   "id": "A014"
+  },
+  {
+   "kind": "A",
+   "photo": "453d2656c394",
+   "x": 1331.8,
+   "y": 1049.8,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     1331.8,
+     1049.8
+    ]
+   ],
+   "id": "A015"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 605.5,
+   "y": 738.2,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     605.5,
+     738.2
+    ]
+   ],
+   "id": "A016"
+  },
+  {
+   "kind": "A",
+   "photo": "8a78e9d6efd5",
+   "x": 856.5,
+   "y": 612.6,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     858.9,
+     614.1
+    ],
+    [
+     "step0/product-chain",
+     854.1,
+     611.1
+    ]
+   ],
+   "id": "A017"
+  },
+  {
+   "kind": "A",
+   "photo": "0a8a14a662a5",
+   "x": 1027.6,
+   "y": 148.3,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     1027.6,
+     148.3
+    ]
+   ],
+   "id": "A018"
+  },
+  {
+   "kind": "A",
+   "photo": "453d2656c394",
+   "x": 668.4,
+   "y": 1574.1,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     668.4,
+     1574.1
+    ]
+   ],
+   "id": "A019"
+  },
+  {
+   "kind": "A",
+   "photo": "77176e51db41",
+   "x": 497.6,
+   "y": 933.3,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     497.6,
+     933.3
+    ]
+   ],
+   "id": "A020"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 804.9,
+   "y": 763.5,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     804.9,
+     763.5
+    ]
+   ],
+   "id": "A021"
+  },
+  {
+   "kind": "B",
+   "photo": "5aa51f53f86c",
+   "box": [
+    1108.5,
+    1406.5,
+    1145.5,
+    1443.5
+   ],
+   "sourceBox": 2,
+   "id": "B005"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1089.5,
+    2668,
+    1135.5,
+    2711
+   ],
+   "sourceBox": 34,
+   "id": "B006"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    990,
+    2699.5,
+    1074,
+    2777.5
+   ],
+   "sourceBox": 14,
+   "id": "B007"
+  },
+  {
+   "kind": "A",
+   "photo": "c412587e8b7f",
+   "x": 851.0,
+   "y": 591.0,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     851.0,
+     591.0
+    ]
+   ],
+   "id": "A022"
+  },
+  {
+   "kind": "A",
+   "photo": "5aa51f53f86c",
+   "x": 640.1,
+   "y": 1345.7,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     640.1,
+     1345.7
+    ]
+   ],
+   "id": "A023"
+  },
+  {
+   "kind": "A",
+   "photo": "33e42c603f10",
+   "x": 862.9,
+   "y": 635.8,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     862.9,
+     635.8
+    ]
+   ],
+   "id": "A024"
+  },
+  {
+   "kind": "B",
+   "photo": "0a8a14a662a5",
+   "box": [
+    786,
+    172,
+    799,
+    182
+   ],
+   "sourceBox": 8,
+   "id": "B008"
+  },
+  {
+   "kind": "A",
+   "photo": "b9dd30fde312",
+   "x": 480.4,
+   "y": 222.2,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     480.4,
+     222.2
+    ]
+   ],
+   "id": "A025"
+  },
+  {
+   "kind": "A",
+   "photo": "e643059207e1",
+   "x": 636.7,
+   "y": 750.5,
+   "models": [
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     637.7,
+     752.5
+    ],
+    [
+     "tristan-gray/tiles",
+     635.6,
+     748.5
+    ]
+   ],
+   "id": "A026"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1460.6,
+   "y": 2788.8,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     1463.5,
+     2789.9
+    ],
+    [
+     "tristan-gray/tiles",
+     1457.6,
+     2787.6
+    ]
+   ],
+   "id": "A027"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 883.7,
+   "y": 2244.6,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     883.7,
+     2244.6
+    ]
+   ],
+   "id": "A028"
+  },
+  {
+   "kind": "A",
+   "photo": "a2cd98ca9566",
+   "x": 568.6,
+   "y": 593.3,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     568.6,
+     593.3
+    ]
+   ],
+   "id": "A029"
+  },
+  {
+   "kind": "B",
+   "photo": "a2cd98ca9566",
+   "box": [
+    712,
+    732,
+    725,
+    740.5
+   ],
+   "sourceBox": 0,
+   "id": "B009"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1620.7,
+   "y": 2103.1,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     1621.4,
+     2102.9
+    ],
+    [
+     "tristan-gray/tiles",
+     1620.0,
+     2103.3
+    ]
+   ],
+   "id": "A030"
+  },
+  {
+   "kind": "A",
+   "photo": "33e42c603f10",
+   "x": 549.4,
+   "y": 774.0,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     549.4,
+     774.0
+    ]
+   ],
+   "id": "A031"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 274.3,
+   "y": 748.3,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     274.3,
+     748.3
+    ]
+   ],
+   "id": "A032"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1055.5,
+    1429.5,
+    1126.5,
+    1505.5
+   ],
+   "sourceBox": 24,
+   "id": "B010"
+  },
+  {
+   "kind": "B",
+   "photo": "e643059207e1",
+   "box": [
+    654,
+    597,
+    658,
+    605.5
+   ],
+   "sourceBox": 1,
+   "id": "B011"
+  },
+  {
+   "kind": "A",
+   "photo": "8a78e9d6efd5",
+   "x": 879.1,
+   "y": 1042.1,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     879.1,
+     1042.1
+    ]
+   ],
+   "id": "A033"
+  },
+  {
+   "kind": "A",
+   "photo": "b4ec4968102b",
+   "x": 857.3,
+   "y": 866.4,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     857.3,
+     866.4
+    ]
+   ],
+   "id": "A034"
+  },
+  {
+   "kind": "B",
+   "photo": "0a8a14a662a5",
+   "box": [
+    667,
+    622,
+    676.5,
+    630.5
+   ],
+   "sourceBox": 19,
+   "id": "B012"
+  },
+  {
+   "kind": "A",
+   "photo": "8ad2e156eef7",
+   "x": 302.7,
+   "y": 655.3,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     302.7,
+     655.3
+    ]
+   ],
+   "id": "A035"
+  },
+  {
+   "kind": "B",
+   "photo": "933e40d730e0",
+   "box": [
+    382,
+    665,
+    393,
+    681.5
+   ],
+   "sourceBox": 1,
+   "id": "B013"
+  },
+  {
+   "kind": "A",
+   "photo": "77176e51db41",
+   "x": 393.3,
+   "y": 825.6,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     393.3,
+     825.6
+    ]
+   ],
+   "id": "A036"
+  },
+  {
+   "kind": "A",
+   "photo": "33e42c603f10",
+   "x": 710.3,
+   "y": 798.9,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     710.3,
+     798.9
+    ]
+   ],
+   "id": "A037"
+  },
+  {
+   "kind": "B",
+   "photo": "dc089b3f7c38",
+   "box": [
+    1020.5,
+    1142,
+    1048.5,
+    1175
+   ],
+   "sourceBox": 6,
+   "id": "B014"
+  },
+  {
+   "kind": "B",
+   "photo": "9334509b3ae3",
+   "box": [
+    285,
+    590,
+    300,
+    603.5
+   ],
+   "sourceBox": 0,
+   "id": "B015"
+  },
+  {
+   "kind": "A",
+   "photo": "2ad92b5eb9de",
+   "x": 1211.7,
+   "y": 2298.3,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     1211.7,
+     2298.3
+    ]
+   ],
+   "id": "A038"
+  },
+  {
+   "kind": "B",
+   "photo": "cb5ca5ca9a33",
+   "box": [
+    167.9,
+    211.5,
+    182.5,
+    230.0
+   ],
+   "sourceBox": 6,
+   "id": "B016"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 374.2,
+   "y": 589.0,
+   "models": [
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     375.5,
+     588.6
+    ],
+    [
+     "tristan-gray/tiles",
+     373.0,
+     589.5
+    ]
+   ],
+   "id": "A039"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1611.3,
+   "y": 1895.7,
+   "models": [
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     1604.2,
+     1889.7
+    ],
+    [
+     "step0/product-chain",
+     1628.5,
+     1909.9
+    ],
+    [
+     "tristan-gray/tiles",
+     1601.3,
+     1887.6
+    ]
+   ],
+   "id": "A040"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 702.0,
+   "y": 617.0,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     701.5,
+     617.3
+    ],
+    [
+     "tristan-gray/tiles",
+     702.6,
+     616.8
+    ]
+   ],
+   "id": "A041"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 376.5,
+   "y": 699.6,
+   "models": [
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     377.0,
+     699.8
+    ],
+    [
+     "tristan-gray/tiles",
+     375.9,
+     699.4
+    ]
+   ],
+   "id": "A042"
+  },
+  {
+   "kind": "A",
+   "photo": "77176e51db41",
+   "x": 667.3,
+   "y": 1063.6,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     667.3,
+     1063.6
+    ]
+   ],
+   "id": "A043"
+  },
+  {
+   "kind": "A",
+   "photo": "453d2656c394",
+   "x": 572.1,
+   "y": 1062.1,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     572.1,
+     1062.1
+    ]
+   ],
+   "id": "A044"
+  },
+  {
+   "kind": "A",
+   "photo": "c412587e8b7f",
+   "x": 555.6,
+   "y": 748.0,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     555.6,
+     748.0
+    ]
+   ],
+   "id": "A045"
+  },
+  {
+   "kind": "B",
+   "photo": "453d2656c394",
+   "box": [
+    1229.5,
+    1841,
+    1306.5,
+    1898
+   ],
+   "sourceBox": 20,
+   "id": "B017"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 511.1,
+   "y": 514.7,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     511.1,
+     514.7
+    ]
+   ],
+   "id": "A046"
+  },
+  {
+   "kind": "A",
+   "photo": "453d2656c394",
+   "x": 645.5,
+   "y": 1940.5,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     645.5,
+     1940.5
+    ]
+   ],
+   "id": "A047"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 770.1,
+   "y": 767.3,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     770.1,
+     767.3
+    ]
+   ],
+   "id": "A048"
+  },
+  {
+   "kind": "A",
+   "photo": "dc089b3f7c38",
+   "x": 623.3,
+   "y": 1489.4,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     623.3,
+     1489.4
+    ]
+   ],
+   "id": "A049"
+  },
+  {
+   "kind": "A",
+   "photo": "8a78e9d6efd5",
+   "x": 897.9,
+   "y": 1037.8,
+   "models": [
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     897.9,
+     1042.1
+    ],
+    [
+     "step0/product-chain",
+     900.1,
+     1031.3
+    ],
+    [
+     "step0/product-chain",
+     893.0,
+     1038.2
+    ],
+    [
+     "tristan-gray/tiles",
+     900.4,
+     1039.5
+    ]
+   ],
+   "id": "A050"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 418.8,
+   "y": 598.5,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     418.8,
+     598.5
+    ]
+   ],
+   "id": "A051"
+  },
+  {
+   "kind": "A",
+   "photo": "e643059207e1",
+   "x": 672.2,
+   "y": 915.4,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     674.0,
+     914.7
+    ],
+    [
+     "dewiin-anyacne/tiles",
+     671.9,
+     916.2
+    ],
+    [
+     "tristan-gray/tiles",
+     670.6,
+     915.2
+    ]
+   ],
+   "id": "A052"
+  },
+  {
+   "kind": "A",
+   "photo": "b4ec4968102b",
+   "x": 787.3,
+   "y": 704.7,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     787.3,
+     704.7
+    ]
+   ],
+   "id": "A053"
+  },
+  {
+   "kind": "A",
+   "photo": "0a8a14a662a5",
+   "x": 659.8,
+   "y": 510.5,
+   "models": [
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     661.7,
+     509.5
+    ],
+    [
+     "tristan-gray/tiles",
+     657.9,
+     511.5
+    ]
+   ],
+   "id": "A054"
+  },
+  {
+   "kind": "B",
+   "photo": "453d2656c394",
+   "box": [
+    1034,
+    1722.5,
+    1096,
+    1767.5
+   ],
+   "sourceBox": 21,
+   "id": "B018"
+  },
+  {
+   "kind": "B",
+   "photo": "0a8a14a662a5",
+   "box": [
+    677,
+    653,
+    688.5,
+    662
+   ],
+   "sourceBox": 28,
+   "id": "B019"
+  },
+  {
+   "kind": "B",
+   "photo": "dc089b3f7c38",
+   "box": [
+    744,
+    1836.5,
+    795,
+    1917.5
+   ],
+   "sourceBox": 4,
+   "id": "B020"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1774.5,
+    1926,
+    1835.5,
+    2023
+   ],
+   "sourceBox": 25,
+   "id": "B021"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 860.7,
+   "y": 542.9,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     860.7,
+     542.9
+    ]
+   ],
+   "id": "A055"
+  },
+  {
+   "kind": "B",
+   "photo": "453d2656c394",
+   "box": [
+    650,
+    968,
+    839,
+    1022
+   ],
+   "sourceBox": 18,
+   "id": "B022"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1612.0,
+   "y": 2213.2,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     1611.8,
+     2211.0
+    ],
+    [
+     "tristan-gray/tiles",
+     1612.2,
+     2215.5
+    ]
+   ],
+   "id": "A056"
+  },
+  {
+   "kind": "B",
+   "photo": "0a8a14a662a5",
+   "box": [
+    656,
+    632,
+    665,
+    639.5
+   ],
+   "sourceBox": 20,
+   "id": "B023"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 403.3,
+   "y": 587.2,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     410.4,
+     585.6
+    ],
+    [
+     "step0/product-chain",
+     396.1,
+     588.9
+    ]
+   ],
+   "id": "A057"
+  },
+  {
+   "kind": "A",
+   "photo": "c412587e8b7f",
+   "x": 793.8,
+   "y": 307.6,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     793.8,
+     307.6
+    ]
+   ],
+   "id": "A058"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 465.6,
+   "y": 388.9,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     465.6,
+     388.9
+    ]
+   ],
+   "id": "A059"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1264,
+    2531,
+    1315,
+    2577
+   ],
+   "sourceBox": 16,
+   "id": "B024"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 949.4,
+   "y": 2145.9,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     949.4,
+     2145.9
+    ]
+   ],
+   "id": "A060"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 350.0,
+   "y": 307.0,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     350.0,
+     307.0
+    ]
+   ],
+   "id": "A061"
+  },
+  {
+   "kind": "B",
+   "photo": "dc089b3f7c38",
+   "box": [
+    1004,
+    1452.5,
+    1044,
+    1537.5
+   ],
+   "sourceBox": 9,
+   "id": "B025"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1025.5,
+    2537,
+    1166.5,
+    2615
+   ],
+   "sourceBox": 7,
+   "id": "B026"
+  },
+  {
+   "kind": "A",
+   "photo": "46a79ef8d7a8",
+   "x": 503.3,
+   "y": 642.4,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     503.3,
+     642.4
+    ]
+   ],
+   "id": "A062"
+  },
+  {
+   "kind": "B",
+   "photo": "0a8a14a662a5",
+   "box": [
+    721,
+    650,
+    729.5,
+    656
+   ],
+   "sourceBox": 21,
+   "id": "B027"
+  },
+  {
+   "kind": "A",
+   "photo": "8a78e9d6efd5",
+   "x": 960.9,
+   "y": 828.2,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     960.9,
+     828.2
+    ]
+   ],
+   "id": "A063"
+  },
+  {
+   "kind": "A",
+   "photo": "0a8a14a662a5",
+   "x": 642.9,
+   "y": 519.0,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     642.9,
+     519.0
+    ]
+   ],
+   "id": "A064"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1626.5,
+    2355.5,
+    1714.5,
+    2442.5
+   ],
+   "sourceBox": 31,
+   "id": "B028"
+  },
+  {
+   "kind": "B",
+   "photo": "0a8a14a662a5",
+   "box": [
+    697,
+    656,
+    707.5,
+    664.5
+   ],
+   "sourceBox": 26,
+   "id": "B029"
+  },
+  {
+   "kind": "A",
+   "photo": "b9dd30fde312",
+   "x": 336.9,
+   "y": 241.6,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     334.6,
+     240.2
+    ],
+    [
+     "tristan-gray/tiles",
+     339.3,
+     243.0
+    ]
+   ],
+   "id": "A065"
+  },
+  {
+   "kind": "A",
+   "photo": "46a79ef8d7a8",
+   "x": 637.6,
+   "y": 286.4,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     638.5,
+     285.4
+    ],
+    [
+     "dewiin-anyacne/tiles",
+     637.4,
+     287.1
+    ],
+    [
+     "tristan-gray/tiles",
+     636.9,
+     286.9
+    ]
+   ],
+   "id": "A066"
+  },
+  {
+   "kind": "B",
+   "photo": "77176e51db41",
+   "box": [
+    791,
+    521,
+    800,
+    530.5
+   ],
+   "sourceBox": 0,
+   "id": "B030"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1705.8,
+   "y": 2287.6,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     1705.8,
+     2287.6
+    ]
+   ],
+   "id": "A067"
+  },
+  {
+   "kind": "B",
+   "photo": "0a8a14a662a5",
+   "box": [
+    666,
+    637,
+    675,
+    644.5
+   ],
+   "sourceBox": 25,
+   "id": "B031"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 613.7,
+   "y": 931.4,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     613.7,
+     931.4
+    ]
+   ],
+   "id": "A068"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    682,
+    1881.5,
+    753,
+    2007.5
+   ],
+   "sourceBox": 39,
+   "id": "B032"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 260.3,
+   "y": 701.8,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     258.7,
+     702.3
+    ],
+    [
+     "dewiin-anyacne/tiles",
+     260.9,
+     701.5
+    ],
+    [
+     "tristan-gray/tiles",
+     261.5,
+     701.5
+    ]
+   ],
+   "id": "A069"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1376.1,
+   "y": 1929.8,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     1376.1,
+     1929.8
+    ]
+   ],
+   "id": "A070"
+  },
+  {
+   "kind": "B",
+   "photo": "0a8a14a662a5",
+   "box": [
+    616,
+    471,
+    627,
+    480
+   ],
+   "sourceBox": 11,
+   "id": "B033"
+  },
+  {
+   "kind": "B",
+   "photo": "453d2656c394",
+   "box": [
+    498.5,
+    957,
+    613.5,
+    1025
+   ],
+   "sourceBox": 12,
+   "id": "B034"
+  },
+  {
+   "kind": "A",
+   "photo": "8a78e9d6efd5",
+   "x": 576.3,
+   "y": 820.6,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     576.3,
+     820.6
+    ]
+   ],
+   "id": "A071"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 848.8,
+   "y": 607.2,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     848.1,
+     605.8
+    ],
+    [
+     "tristan-gray/tiles",
+     849.5,
+     608.6
+    ]
+   ],
+   "id": "A072"
+  },
+  {
+   "kind": "A",
+   "photo": "8ad2e156eef7",
+   "x": 348.0,
+   "y": 658.3,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     348.0,
+     658.3
+    ]
+   ],
+   "id": "A073"
+  },
+  {
+   "kind": "A",
+   "photo": "33e42c603f10",
+   "x": 746.4,
+   "y": 792.4,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     746.4,
+     792.4
+    ]
+   ],
+   "id": "A074"
+  },
+  {
+   "kind": "B",
+   "photo": "453d2656c394",
+   "box": [
+    1089,
+    1702,
+    1136,
+    1756
+   ],
+   "sourceBox": 22,
+   "id": "B035"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 415.8,
+   "y": 148.6,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     416.7,
+     145.8
+    ],
+    [
+     "step0/product-chain",
+     416.3,
+     156.0
+    ],
+    [
+     "dewiin-anyacne/tiles",
+     415.1,
+     146.5
+    ],
+    [
+     "tristan-gray/tiles",
+     415.2,
+     146.0
+    ]
+   ],
+   "id": "A075"
+  },
+  {
+   "kind": "A",
+   "photo": "dc089b3f7c38",
+   "x": 757.7,
+   "y": 1896.4,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     757.7,
+     1896.4
+    ]
+   ],
+   "id": "A076"
+  },
+  {
+   "kind": "A",
+   "photo": "5aa51f53f86c",
+   "x": 1144.9,
+   "y": 1819.2,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     1144.9,
+     1819.2
+    ]
+   ],
+   "id": "A077"
+  },
+  {
+   "kind": "B",
+   "photo": "2ad92b5eb9de",
+   "box": [
+    1667,
+    2242.5,
+    1702,
+    2308.5
+   ],
+   "sourceBox": 1,
+   "id": "B036"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1299.4,
+   "y": 1461.7,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     1299.4,
+     1461.7
+    ]
+   ],
+   "id": "A078"
+  },
+  {
+   "kind": "A",
+   "photo": "e643059207e1",
+   "x": 706.8,
+   "y": 922.4,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     713.2,
+     922.4
+    ],
+    [
+     "step0/product-chain",
+     700.5,
+     922.5
+    ]
+   ],
+   "id": "A079"
+  },
+  {
+   "kind": "A",
+   "photo": "0a8a14a662a5",
+   "x": 698.1,
+   "y": 173.8,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     698.1,
+     173.8
+    ]
+   ],
+   "id": "A080"
+  },
+  {
+   "kind": "A",
+   "photo": "8a78e9d6efd5",
+   "x": 745.5,
+   "y": 596.7,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     745.5,
+     596.7
+    ]
+   ],
+   "id": "A081"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 866.4,
+   "y": 1929.3,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     866.4,
+     1929.3
+    ]
+   ],
+   "id": "A082"
+  },
+  {
+   "kind": "A",
+   "photo": "8a78e9d6efd5",
+   "x": 903.5,
+   "y": 594.1,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     909.7,
+     597.9
+    ],
+    [
+     "step0/product-chain",
+     897.3,
+     590.2
+    ]
+   ],
+   "id": "A083"
+  },
+  {
+   "kind": "A",
+   "photo": "2ad92b5eb9de",
+   "x": 1221.3,
+   "y": 2397.9,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     1221.3,
+     2397.9
+    ]
+   ],
+   "id": "A084"
+  },
+  {
+   "kind": "B",
+   "photo": "0a8a14a662a5",
+   "box": [
+    723,
+    663,
+    732.5,
+    670
+   ],
+   "sourceBox": 27,
+   "id": "B037"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 292.4,
+   "y": 751.9,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     292.4,
+     751.9
+    ]
+   ],
+   "id": "A085"
+  },
+  {
+   "kind": "B",
+   "photo": "453d2656c394",
+   "box": [
+    1432.5,
+    1110,
+    1480.5,
+    1198
+   ],
+   "sourceBox": 13,
+   "id": "B038"
+  },
+  {
+   "kind": "A",
+   "photo": "0a8a14a662a5",
+   "x": 701.2,
+   "y": 130.7,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     701.6,
+     130.6
+    ],
+    [
+     "tristan-gray/tiles",
+     700.8,
+     130.8
+    ]
+   ],
+   "id": "A086"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 843.0,
+   "y": 2224.2,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     843.6,
+     2223.5
+    ],
+    [
+     "tristan-gray/tiles",
+     842.4,
+     2224.9
+    ]
+   ],
+   "id": "A087"
+  },
+  {
+   "kind": "B",
+   "photo": "0a8a14a662a5",
+   "box": [
+    627,
+    518,
+    640,
+    531.5
+   ],
+   "sourceBox": 12,
+   "id": "B039"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1268.7,
+   "y": 1677.1,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     1268.7,
+     1677.1
+    ]
+   ],
+   "id": "A088"
+  },
+  {
+   "kind": "B",
+   "photo": "933e40d730e0",
+   "box": [
+    560,
+    601,
+    568,
+    612
+   ],
+   "sourceBox": 6,
+   "id": "B040"
+  },
+  {
+   "kind": "A",
+   "photo": "8a78e9d6efd5",
+   "x": 915.6,
+   "y": 946.1,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     915.6,
+     946.1
+    ]
+   ],
+   "id": "A089"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 387.1,
+   "y": 673.0,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     387.1,
+     673.0
+    ]
+   ],
+   "id": "A090"
+  },
+  {
+   "kind": "B",
+   "photo": "0a8a14a662a5",
+   "box": [
+    750,
+    643,
+    759,
+    652
+   ],
+   "sourceBox": 17,
+   "id": "B041"
+  },
+  {
+   "kind": "B",
+   "photo": "453d2656c394",
+   "box": [
+    833.5,
+    1134,
+    878.5,
+    1191
+   ],
+   "sourceBox": 7,
+   "id": "B042"
+  },
+  {
+   "kind": "B",
+   "photo": "b9dd30fde312",
+   "box": [
+    332,
+    265,
+    346,
+    278
+   ],
+   "sourceBox": 0,
+   "id": "B043"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1130,
+    1554,
+    1187,
+    1614
+   ],
+   "sourceBox": 23,
+   "id": "B044"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 960.6,
+   "y": 2658.2,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     960.6,
+     2658.2
+    ]
+   ],
+   "id": "A091"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    863,
+    2547,
+    904,
+    2641
+   ],
+   "sourceBox": 10,
+   "id": "B045"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 365.2,
+   "y": 740.4,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     365.2,
+     740.4
+    ]
+   ],
+   "id": "A092"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 293.9,
+   "y": 595.3,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     294.9,
+     595.8
+    ],
+    [
+     "dewiin-anyacne/tiles",
+     296.7,
+     595.3
+    ],
+    [
+     "tristan-gray/tiles",
+     290.2,
+     595.0
+    ]
+   ],
+   "id": "A093"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 229.6,
+   "y": 685.2,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     229.5,
+     685.1
+    ],
+    [
+     "tristan-gray/tiles",
+     229.8,
+     685.3
+    ]
+   ],
+   "id": "A094"
+  },
+  {
+   "kind": "A",
+   "photo": "77176e51db41",
+   "x": 879.3,
+   "y": 830.6,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     878.4,
+     830.6
+    ],
+    [
+     "tristan-gray/tiles",
+     880.2,
+     830.5
+    ]
+   ],
+   "id": "A095"
+  },
+  {
+   "kind": "A",
+   "photo": "46a79ef8d7a8",
+   "x": 789.5,
+   "y": 363.6,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     789.5,
+     363.6
+    ]
+   ],
+   "id": "A096"
+  },
+  {
+   "kind": "A",
+   "photo": "a2cd98ca9566",
+   "x": 829.1,
+   "y": 655.3,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     829.1,
+     655.3
+    ]
+   ],
+   "id": "A097"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1264,
+    1478.5,
+    1325,
+    1536.5
+   ],
+   "sourceBox": 22,
+   "id": "B046"
+  },
+  {
+   "kind": "A",
+   "photo": "46a79ef8d7a8",
+   "x": 777.5,
+   "y": 977.2,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     777.5,
+     977.2
+    ]
+   ],
+   "id": "A098"
+  },
+  {
+   "kind": "A",
+   "photo": "c412587e8b7f",
+   "x": 791.7,
+   "y": 647.7,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     791.7,
+     647.7
+    ]
+   ],
+   "id": "A099"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 389.9,
+   "y": 602.5,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     389.9,
+     602.5
+    ]
+   ],
+   "id": "A100"
+  },
+  {
+   "kind": "A",
+   "photo": "c412587e8b7f",
+   "x": 773.0,
+   "y": 293.1,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     773.0,
+     293.1
+    ]
+   ],
+   "id": "A101"
+  },
+  {
+   "kind": "B",
+   "photo": "0a8a14a662a5",
+   "box": [
+    640,
+    606,
+    648,
+    613
+   ],
+   "sourceBox": 30,
+   "id": "B047"
+  },
+  {
+   "kind": "A",
+   "photo": "cb5ca5ca9a33",
+   "x": 135.4,
+   "y": 185.8,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     135.4,
+     185.8
+    ]
+   ],
+   "id": "A102"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 738.9,
+   "y": 800.1,
+   "models": [
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     739.3,
+     801.2
+    ],
+    [
+     "tristan-gray/tiles",
+     738.5,
+     799.1
+    ]
+   ],
+   "id": "A103"
+  },
+  {
+   "kind": "B",
+   "photo": "2ad92b5eb9de",
+   "box": [
+    1528.5,
+    1419.5,
+    1556.5,
+    1447.5
+   ],
+   "sourceBox": 5,
+   "id": "B048"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 656.4,
+   "y": 612.1,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     656.4,
+     612.1
+    ]
+   ],
+   "id": "A104"
+  },
+  {
+   "kind": "A",
+   "photo": "453d2656c394",
+   "x": 930.2,
+   "y": 1543.6,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     930.2,
+     1543.6
+    ]
+   ],
+   "id": "A105"
+  },
+  {
+   "kind": "B",
+   "photo": "0a8a14a662a5",
+   "box": [
+    605,
+    476,
+    615.5,
+    484.5
+   ],
+   "sourceBox": 10,
+   "id": "B049"
+  },
+  {
+   "kind": "A",
+   "photo": "dc089b3f7c38",
+   "x": 929.3,
+   "y": 1425.6,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     929.3,
+     1425.6
+    ]
+   ],
+   "id": "A106"
+  },
+  {
+   "kind": "B",
+   "photo": "dc089b3f7c38",
+   "box": [
+    971,
+    2061.5,
+    1037,
+    2132.5
+   ],
+   "sourceBox": 3,
+   "id": "B050"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    742,
+    2307,
+    766,
+    2354
+   ],
+   "sourceBox": 6,
+   "id": "B051"
+  },
+  {
+   "kind": "A",
+   "photo": "46a79ef8d7a8",
+   "x": 587.9,
+   "y": 342.6,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     587.9,
+     342.6
+    ]
+   ],
+   "id": "A107"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 395.6,
+   "y": 649.4,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     395.6,
+     649.4
+    ]
+   ],
+   "id": "A108"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 537.9,
+   "y": 656.0,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     537.9,
+     656.0
+    ]
+   ],
+   "id": "A109"
+  },
+  {
+   "kind": "A",
+   "photo": "5aa51f53f86c",
+   "x": 1141.2,
+   "y": 663.8,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     1141.0,
+     664.4
+    ],
+    [
+     "tristan-gray/tiles",
+     1141.4,
+     663.2
+    ]
+   ],
+   "id": "A110"
+  },
+  {
+   "kind": "A",
+   "photo": "46a79ef8d7a8",
+   "x": 704.3,
+   "y": 1004.9,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     704.3,
+     1004.9
+    ]
+   ],
+   "id": "A111"
+  },
+  {
+   "kind": "B",
+   "photo": "e643059207e1",
+   "box": [
+    658,
+    591,
+    664.5,
+    601
+   ],
+   "sourceBox": 3,
+   "id": "B052"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 528.9,
+   "y": 373.2,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     528.9,
+     373.2
+    ]
+   ],
+   "id": "A112"
+  },
+  {
+   "kind": "A",
+   "photo": "453d2656c394",
+   "x": 823.8,
+   "y": 1861.5,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     823.8,
+     1861.5
+    ]
+   ],
+   "id": "A113"
+  },
+  {
+   "kind": "B",
+   "photo": "453d2656c394",
+   "box": [
+    961,
+    1249,
+    1005,
+    1306
+   ],
+   "sourceBox": 15,
+   "id": "B053"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1156.3,
+   "y": 1577.3,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     1156.3,
+     1575.5
+    ],
+    [
+     "tristan-gray/tiles",
+     1156.4,
+     1579.1
+    ]
+   ],
+   "id": "A114"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1572.8,
+   "y": 1988.6,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     1572.8,
+     1988.6
+    ]
+   ],
+   "id": "A115"
+  },
+  {
+   "kind": "A",
+   "photo": "46a79ef8d7a8",
+   "x": 428.4,
+   "y": 842.1,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     428.4,
+     842.1
+    ]
+   ],
+   "id": "A116"
+  },
+  {
+   "kind": "A",
+   "photo": "5aa51f53f86c",
+   "x": 908.3,
+   "y": 1813.1,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     908.6,
+     1813.6
+    ],
+    [
+     "tristan-gray/tiles",
+     908.0,
+     1812.6
+    ]
+   ],
+   "id": "A117"
+  },
+  {
+   "kind": "A",
+   "photo": "b9dd30fde312",
+   "x": 460.2,
+   "y": 209.9,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     459.8,
+     209.8
+    ],
+    [
+     "tristan-gray/tiles",
+     460.6,
+     210.0
+    ]
+   ],
+   "id": "A118"
+  },
+  {
+   "kind": "A",
+   "photo": "b4ec4968102b",
+   "x": 507.4,
+   "y": 735.3,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     507.4,
+     735.3
+    ]
+   ],
+   "id": "A119"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 223.5,
+   "y": 621.9,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     222.6,
+     622.5
+    ],
+    [
+     "dewiin-anyacne/tiles",
+     224.4,
+     622.0
+    ],
+    [
+     "tristan-gray/tiles",
+     223.4,
+     621.1
+    ]
+   ],
+   "id": "A120"
+  },
+  {
+   "kind": "A",
+   "photo": "46a79ef8d7a8",
+   "x": 352.6,
+   "y": 330.6,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     352.6,
+     330.6
+    ]
+   ],
+   "id": "A121"
+  },
+  {
+   "kind": "A",
+   "photo": "5aa51f53f86c",
+   "x": 931.9,
+   "y": 781.9,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     931.9,
+     781.9
+    ]
+   ],
+   "id": "A122"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 359.5,
+   "y": 720.7,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     359.5,
+     720.7
+    ]
+   ],
+   "id": "A123"
+  },
+  {
+   "kind": "A",
+   "photo": "a2cd98ca9566",
+   "x": 525.4,
+   "y": 645.9,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     525.4,
+     645.9
+    ]
+   ],
+   "id": "A124"
+  },
+  {
+   "kind": "A",
+   "photo": "b9dd30fde312",
+   "x": 287.1,
+   "y": 286.0,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     287.1,
+     286.5
+    ],
+    [
+     "tristan-gray/tiles",
+     287.1,
+     285.5
+    ]
+   ],
+   "id": "A125"
+  },
+  {
+   "kind": "A",
+   "photo": "8a78e9d6efd5",
+   "x": 872.7,
+   "y": 1019.5,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     872.7,
+     1019.5
+    ]
+   ],
+   "id": "A126"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 844.9,
+   "y": 2293.8,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     844.9,
+     2293.8
+    ]
+   ],
+   "id": "A127"
+  },
+  {
+   "kind": "A",
+   "photo": "2ad92b5eb9de",
+   "x": 857.4,
+   "y": 1934.2,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     857.4,
+     1934.2
+    ]
+   ],
+   "id": "A128"
+  },
+  {
+   "kind": "B",
+   "photo": "453d2656c394",
+   "box": [
+    1067.5,
+    1204,
+    1114.5,
+    1242
+   ],
+   "sourceBox": 16,
+   "id": "B054"
+  },
+  {
+   "kind": "B",
+   "photo": "5aa51f53f86c",
+   "box": [
+    527.5,
+    1463,
+    561.5,
+    1501
+   ],
+   "sourceBox": 4,
+   "id": "B055"
+  },
+  {
+   "kind": "B",
+   "photo": "0a8a14a662a5",
+   "box": [
+    881,
+    621,
+    890,
+    629
+   ],
+   "sourceBox": 15,
+   "id": "B056"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1745,
+    2041.5,
+    1803,
+    2138.5
+   ],
+   "sourceBox": 26,
+   "id": "B057"
+  },
+  {
+   "kind": "A",
+   "photo": "a2cd98ca9566",
+   "x": 736.3,
+   "y": 490.1,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     736.3,
+     490.1
+    ]
+   ],
+   "id": "A129"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    663.5,
+    2019,
+    790.5,
+    2062
+   ],
+   "sourceBox": 40,
+   "id": "B058"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 406.7,
+   "y": 679.6,
+   "models": [
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     405.2,
+     679.9
+    ],
+    [
+     "tristan-gray/tiles",
+     408.2,
+     679.3
+    ]
+   ],
+   "id": "A130"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1580.3,
+   "y": 2301.1,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     1580.3,
+     2301.1
+    ]
+   ],
+   "id": "A131"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1141,
+    2732,
+    1201,
+    2782
+   ],
+   "sourceBox": 13,
+   "id": "B059"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1035.9,
+   "y": 2746.2,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     1035.9,
+     2746.2
+    ]
+   ],
+   "id": "A132"
+  },
+  {
+   "kind": "A",
+   "photo": "46a79ef8d7a8",
+   "x": 792.7,
+   "y": 987.9,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     799.6,
+     993.1
+    ],
+    [
+     "step0/product-chain",
+     796.8,
+     989.5
+    ],
+    [
+     "step0/product-chain",
+     792.1,
+     989.2
+    ],
+    [
+     "step0/product-chain",
+     782.4,
+     979.8
+    ]
+   ],
+   "id": "A133"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1094.0,
+   "y": 2583.5,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     1094.0,
+     2583.5
+    ]
+   ],
+   "id": "A134"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 810.5,
+   "y": 710.3,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     810.5,
+     710.3
+    ]
+   ],
+   "id": "A135"
+  },
+  {
+   "kind": "A",
+   "photo": "cb5ca5ca9a33",
+   "x": 108.8,
+   "y": 183.3,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     108.8,
+     183.3
+    ]
+   ],
+   "id": "A136"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 655.8,
+   "y": 190.8,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     656.0,
+     191.2
+    ],
+    [
+     "dewiin-anyacne/tiles",
+     655.6,
+     190.4
+    ]
+   ],
+   "id": "A137"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1304,
+    2564,
+    1392,
+    2641
+   ],
+   "sourceBox": 36,
+   "id": "B060"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1155.5,
+    2646.5,
+    1198.5,
+    2695.5
+   ],
+   "sourceBox": 35,
+   "id": "B061"
+  },
+  {
+   "kind": "B",
+   "photo": "2ad92b5eb9de",
+   "box": [
+    1338,
+    1364,
+    1375,
+    1405
+   ],
+   "sourceBox": 8,
+   "id": "B062"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1708.5,
+   "y": 2171.8,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     1711.2,
+     2172.5
+    ],
+    [
+     "dewiin-anyacne/tiles",
+     1706.8,
+     2171.6
+    ],
+    [
+     "tristan-gray/tiles",
+     1707.4,
+     2171.2
+    ]
+   ],
+   "id": "A138"
+  },
+  {
+   "kind": "A",
+   "photo": "b9dd30fde312",
+   "x": 403.2,
+   "y": 239.4,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     403.2,
+     239.4
+    ]
+   ],
+   "id": "A139"
+  },
+  {
+   "kind": "A",
+   "photo": "933e40d730e0",
+   "x": 743.4,
+   "y": 187.9,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     743.4,
+     187.9
+    ]
+   ],
+   "id": "A140"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1783.8,
+   "y": 2104.5,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     1783.8,
+     2104.5
+    ]
+   ],
+   "id": "A141"
+  },
+  {
+   "kind": "A",
+   "photo": "dc089b3f7c38",
+   "x": 783.5,
+   "y": 1851.9,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     783.5,
+     1851.9
+    ]
+   ],
+   "id": "A142"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1334,
+    1872,
+    1395,
+    1966
+   ],
+   "sourceBox": 38,
+   "id": "B063"
+  },
+  {
+   "kind": "A",
+   "photo": "0a8a14a662a5",
+   "x": 613.1,
+   "y": 479.5,
+   "models": [
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     610.8,
+     481.2
+    ],
+    [
+     "step0/product-chain",
+     615.1,
+     478.3
+    ],
+    [
+     "tristan-gray/tiles",
+     613.3,
+     479.0
+    ]
+   ],
+   "id": "A143"
+  },
+  {
+   "kind": "B",
+   "photo": "453d2656c394",
+   "box": [
+    472.5,
+    1035,
+    654.5,
+    1137
+   ],
+   "sourceBox": 0,
+   "id": "B064"
+  },
+  {
+   "kind": "A",
+   "photo": "33e42c603f10",
+   "x": 697.4,
+   "y": 685.1,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     697.4,
+     685.1
+    ]
+   ],
+   "id": "A144"
+  },
+  {
+   "kind": "B",
+   "photo": "2ad92b5eb9de",
+   "box": [
+    1086,
+    1356,
+    1146,
+    1413
+   ],
+   "sourceBox": 4,
+   "id": "B065"
+  },
+  {
+   "kind": "B",
+   "photo": "933e40d730e0",
+   "box": [
+    411,
+    138,
+    422,
+    153.5
+   ],
+   "sourceBox": 3,
+   "id": "B066"
+  },
+  {
+   "kind": "B",
+   "photo": "a007c24408ff",
+   "box": [
+    632,
+    927,
+    643,
+    934.5
+   ],
+   "sourceBox": 0,
+   "id": "B067"
+  },
+  {
+   "kind": "B",
+   "photo": "0a8a14a662a5",
+   "box": [
+    695,
+    126,
+    707.5,
+    137
+   ],
+   "sourceBox": 3,
+   "id": "B068"
+  },
+  {
+   "kind": "B",
+   "photo": "dc089b3f7c38",
+   "box": [
+    1107,
+    1241,
+    1159,
+    1290
+   ],
+   "sourceBox": 8,
+   "id": "B069"
+  },
+  {
+   "kind": "A",
+   "photo": "e643059207e1",
+   "x": 753.6,
+   "y": 918.2,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     753.6,
+     918.2
+    ]
+   ],
+   "id": "A145"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    1515,
+    2645,
+    1566,
+    2715
+   ],
+   "sourceBox": 33,
+   "id": "B070"
+  },
+  {
+   "kind": "B",
+   "photo": "a19346a0887a",
+   "box": [
+    913,
+    2634,
+    990,
+    2732
+   ],
+   "sourceBox": 11,
+   "id": "B071"
+  },
+  {
+   "kind": "B",
+   "photo": "cb5ca5ca9a33",
+   "box": [
+    160.5,
+    174.8,
+    179.3,
+    188.8
+   ],
+   "sourceBox": 2,
+   "id": "B072"
+  },
+  {
+   "kind": "A",
+   "photo": "77176e51db41",
+   "x": 893.9,
+   "y": 639.3,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     893.9,
+     639.3
+    ]
+   ],
+   "id": "A146"
+  },
+  {
+   "kind": "A",
+   "photo": "33e42c603f10",
+   "x": 574.1,
+   "y": 783.0,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     574.1,
+     783.0
+    ]
+   ],
+   "id": "A147"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 268.7,
+   "y": 723.1,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     268.7,
+     723.1
+    ]
+   ],
+   "id": "A148"
+  },
+  {
+   "kind": "A",
+   "photo": "b4ec4968102b",
+   "x": 741.4,
+   "y": 615.3,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     741.4,
+     615.3
+    ]
+   ],
+   "id": "A149"
+  },
+  {
+   "kind": "A",
+   "photo": "8ad2e156eef7",
+   "x": 715.6,
+   "y": 758.1,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     715.6,
+     758.1
+    ]
+   ],
+   "id": "A150"
+  },
+  {
+   "kind": "A",
+   "photo": "b4ec4968102b",
+   "x": 961.6,
+   "y": 724.7,
+   "models": [
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "tristan-gray/tiles",
+     961.6,
+     724.7
+    ]
+   ],
+   "id": "A151"
+  },
+  {
+   "kind": "B",
+   "photo": "0a8a14a662a5",
+   "box": [
+    1019,
+    140,
+    1028,
+    149
+   ],
+   "sourceBox": 9,
+   "id": "B073"
+  },
+  {
+   "kind": "A",
+   "photo": "c412587e8b7f",
+   "x": 784.1,
+   "y": 778.5,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     784.1,
+     778.5
+    ]
+   ],
+   "id": "A152"
+  },
+  {
+   "kind": "B",
+   "photo": "453d2656c394",
+   "box": [
+    993.5,
+    996.5,
+    1060.5,
+    1050.5
+   ],
+   "sourceBox": 17,
+   "id": "B074"
+  },
+  {
+   "kind": "A",
+   "photo": "46a79ef8d7a8",
+   "x": 960.5,
+   "y": 721.0,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     963.4,
+     721.7
+    ],
+    [
+     "step0/product-chain",
+     955.0,
+     720.5
+    ],
+    [
+     "dewiin-anyacne/tiles",
+     961.8,
+     720.8
+    ],
+    [
+     "tristan-gray/tiles",
+     961.6,
+     720.9
+    ]
+   ],
+   "id": "A153"
+  },
+  {
+   "kind": "A",
+   "photo": "77176e51db41",
+   "x": 628.2,
+   "y": 598.7,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "step0/product-chain",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     629.1,
+     599.1
+    ],
+    [
+     "dewiin-anyacne/tiles",
+     628.5,
+     598.7
+    ],
+    [
+     "tristan-gray/tiles",
+     627.1,
+     598.4
+    ]
+   ],
+   "id": "A154"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1407.9,
+   "y": 1687.3,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     1407.9,
+     1687.3
+    ]
+   ],
+   "id": "A155"
+  },
+  {
+   "kind": "A",
+   "photo": "9334509b3ae3",
+   "x": 515.1,
+   "y": 570.4,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     515.1,
+     570.4
+    ]
+   ],
+   "id": "A156"
+  },
+  {
+   "kind": "A",
+   "photo": "b9dd30fde312",
+   "x": 366.1,
+   "y": 247.7,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     366.1,
+     247.7
+    ]
+   ],
+   "id": "A157"
+  },
+  {
+   "kind": "A",
+   "photo": "a19346a0887a",
+   "x": 1730.2,
+   "y": 1956.6,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     1730.2,
+     1956.6
+    ]
+   ],
+   "id": "A158"
+  },
+  {
+   "kind": "B",
+   "photo": "8a78e9d6efd5",
+   "box": [
+    642,
+    948,
+    652.5,
+    956.5
+   ],
+   "sourceBox": 0,
+   "id": "B075"
+  },
+  {
+   "kind": "B",
+   "photo": "2ad92b5eb9de",
+   "box": [
+    1548,
+    1442,
+    1617,
+    1478
+   ],
+   "sourceBox": 6,
+   "id": "B076"
+  },
+  {
+   "kind": "A",
+   "photo": "b4ec4968102b",
+   "x": 446.5,
+   "y": 772.2,
+   "models": [
+    "step0/product-chain"
+   ],
+   "members": [
+    [
+     "step0/product-chain",
+     446.5,
+     772.2
+    ]
+   ],
+   "id": "A159"
+  },
+  {
+   "kind": "A",
+   "photo": "b9dd30fde312",
+   "x": 362.2,
+   "y": 222.5,
+   "models": [
+    "dewiin-anyacne/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     362.2,
+     222.5
+    ]
+   ],
+   "id": "A160"
+  },
+  {
+   "kind": "B",
+   "photo": "33e42c603f10",
+   "box": [
+    644,
+    756,
+    651.5,
+    760.5
+   ],
+   "sourceBox": 0,
+   "id": "B077"
+  },
+  {
+   "kind": "A",
+   "photo": "46a79ef8d7a8",
+   "x": 338.6,
+   "y": 359.3,
+   "models": [
+    "dewiin-anyacne/tiles",
+    "tristan-gray/tiles"
+   ],
+   "members": [
+    [
+     "dewiin-anyacne/tiles",
+     339.2,
+     358.9
+    ],
+    [
+     "tristan-gray/tiles",
+     338.0,
+     359.6
+    ]
+   ],
+   "id": "A161"
+  }
+ ]
+}
