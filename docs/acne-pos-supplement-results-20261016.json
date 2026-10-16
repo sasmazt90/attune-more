@@ -1,0 +1,543 @@
+{
+ "set": "A positive supplement (15 photos; all inferred by Step0 on 2026-10-15; not an independent test)",
+ "table": {
+  "Step0": {
+   "photos": 5,
+   "targets": 30,
+   "found": 13,
+   "rate": 0.433,
+   "points": 31,
+   "false": 9,
+   "falseMeanPerPhoto": 1.8,
+   "falseMedianPerPhoto": 2.0,
+   "duplicate": 3,
+   "onUncertain": 6,
+   "onOther": 0,
+   "nearOutOfScopeTarget": 0,
+   "unreviewedInOval": 0,
+   "nonSkin": 0,
+   "unreviewedPhoto": 0
+  },
+  "v1": {
+   "photos": 5,
+   "targets": 30,
+   "found": 13,
+   "rate": 0.433,
+   "points": 31,
+   "false": 9,
+   "falseMeanPerPhoto": 1.8,
+   "falseMedianPerPhoto": 2.0,
+   "duplicate": 3,
+   "onUncertain": 6,
+   "onOther": 0,
+   "nearOutOfScopeTarget": 0,
+   "unreviewedInOval": 0,
+   "nonSkin": 0,
+   "unreviewedPhoto": 0
+  },
+  "v3": {
+   "photos": 5,
+   "targets": 30,
+   "found": 13,
+   "rate": 0.433,
+   "points": 30,
+   "false": 8,
+   "falseMeanPerPhoto": 1.6,
+   "falseMedianPerPhoto": 2.0,
+   "duplicate": 3,
+   "onUncertain": 6,
+   "onOther": 0,
+   "nearOutOfScopeTarget": 0,
+   "unreviewedInOval": 0,
+   "nonSkin": 0,
+   "unreviewedPhoto": 0
+  }
+ },
+ "targets": {
+  "v3vsV1": {
+   "lost": [],
+   "gained": []
+  },
+  "v1vsStep0": {
+   "lost": []
+  },
+  "v3vsStep0": {
+   "lost": []
+  }
+ },
+ "CI95": {
+  "v1-Step0 false": {
+   "delta": 0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "v1-Step0 found": {
+   "delta": 0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "v1-Step0 points": {
+   "delta": 0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "v3-Step0 false": {
+   "delta": -1,
+   "ci95": [
+    -3.0,
+    0.0
+   ]
+  },
+  "v3-Step0 found": {
+   "delta": 0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "v3-Step0 points": {
+   "delta": -1,
+   "ci95": [
+    -3.0,
+    0.0
+   ]
+  },
+  "v3-v1 false": {
+   "delta": -1,
+   "ci95": [
+    -3.0,
+    0.0
+   ]
+  },
+  "v3-v1 found": {
+   "delta": 0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "v3-v1 points": {
+   "delta": -1,
+   "ci95": [
+    -3.0,
+    0.0
+   ]
+  }
+ },
+ "removed": {
+  "v1": [],
+  "v3": [
+   {
+    "photo": "P069",
+    "box": [
+     262.017,
+     337.76,
+     274.583,
+     345.088
+    ],
+    "proba": 0.043,
+    "classUnderStep0": "false"
+   }
+  ]
+ },
+ "subgroups": {
+  "FRONT": {
+   "photos": 3,
+   "targets": 22,
+   "Step0": {
+    "found": 8,
+    "false": 5
+   },
+   "v1": {
+    "found": 8,
+    "false": 5
+   },
+   "v3": {
+    "found": 8,
+    "false": 5
+   }
+  },
+  "side": {
+   "photos": 2,
+   "targets": 8,
+   "Step0": {
+    "found": 5,
+    "false": 4
+   },
+   "v1": {
+    "found": 5,
+    "false": 4
+   },
+   "v3": {
+    "found": 5,
+    "false": 3
+   }
+  }
+ },
+ "perPhoto": {
+  "P003": {
+   "pose": "LEFT",
+   "targetsInScope": 2,
+   "targetsOutOfMask": 0,
+   "Step0": {
+    "points": 1,
+    "found": 1,
+    "hitIds": [
+     "P1"
+    ],
+    "matched": 1,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0
+   },
+   "v1": {
+    "points": 1,
+    "found": 1,
+    "hitIds": [
+     "P1"
+    ],
+    "matched": 1,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0
+   },
+   "v3": {
+    "points": 1,
+    "found": 1,
+    "hitIds": [
+     "P1"
+    ],
+    "matched": 1,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0
+   }
+  },
+  "P025": {
+   "pose": "FRONT",
+   "targetsInScope": 8,
+   "targetsOutOfMask": 0,
+   "Step0": {
+    "points": 5,
+    "found": 3,
+    "hitIds": [
+     "P2",
+     "P4",
+     "P6"
+    ],
+    "matched": 3,
+    "false": 2,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0
+   },
+   "v1": {
+    "points": 5,
+    "found": 3,
+    "hitIds": [
+     "P2",
+     "P4",
+     "P6"
+    ],
+    "matched": 3,
+    "false": 2,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0
+   },
+   "v3": {
+    "points": 5,
+    "found": 3,
+    "hitIds": [
+     "P2",
+     "P4",
+     "P6"
+    ],
+    "matched": 3,
+    "false": 2,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0
+   }
+  },
+  "P050": {
+   "pose": "FRONT",
+   "targetsInScope": 10,
+   "targetsOutOfMask": 0,
+   "Step0": {
+    "points": 11,
+    "found": 3,
+    "hitIds": [
+     "P3",
+     "P12",
+     "P14"
+    ],
+    "matched": 3,
+    "false": 2,
+    "duplicate": 1,
+    "onUncertain": 5,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0
+   },
+   "v1": {
+    "points": 11,
+    "found": 3,
+    "hitIds": [
+     "P3",
+     "P12",
+     "P14"
+    ],
+    "matched": 3,
+    "false": 2,
+    "duplicate": 1,
+    "onUncertain": 5,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0
+   },
+   "v3": {
+    "points": 11,
+    "found": 3,
+    "hitIds": [
+     "P3",
+     "P12",
+     "P14"
+    ],
+    "matched": 3,
+    "false": 2,
+    "duplicate": 1,
+    "onUncertain": 5,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0
+   }
+  },
+  "P069": {
+   "pose": "LEFT",
+   "targetsInScope": 6,
+   "targetsOutOfMask": 0,
+   "Step0": {
+    "points": 10,
+    "found": 4,
+    "hitIds": [
+     "P1",
+     "P3",
+     "P4",
+     "P8"
+    ],
+    "matched": 4,
+    "false": 4,
+    "duplicate": 2,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0
+   },
+   "v1": {
+    "points": 10,
+    "found": 4,
+    "hitIds": [
+     "P1",
+     "P3",
+     "P4",
+     "P8"
+    ],
+    "matched": 4,
+    "false": 4,
+    "duplicate": 2,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0
+   },
+   "v3": {
+    "points": 9,
+    "found": 4,
+    "hitIds": [
+     "P1",
+     "P3",
+     "P4",
+     "P8"
+    ],
+    "matched": 4,
+    "false": 3,
+    "duplicate": 2,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0
+   }
+  },
+  "P097": {
+   "pose": "FRONT",
+   "targetsInScope": 4,
+   "targetsOutOfMask": 0,
+   "Step0": {
+    "points": 4,
+    "found": 2,
+    "hitIds": [
+     "P1",
+     "P5"
+    ],
+    "matched": 2,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 1,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0
+   },
+   "v1": {
+    "points": 4,
+    "found": 2,
+    "hitIds": [
+     "P1",
+     "P5"
+    ],
+    "matched": 2,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 1,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0
+   },
+   "v3": {
+    "points": 4,
+    "found": 2,
+    "hitIds": [
+     "P1",
+     "P5"
+    ],
+    "matched": 2,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 1,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0
+   }
+  }
+ },
+ "rejectedByPreflight": {
+  "P049": "gate-fail:POSE",
+  "P053": "gate-fail:POSE",
+  "P058": "gate-fail:QUALITY:BLURRY",
+  "P077": "gate-fail:POSE",
+  "P078": "gate-fail:POSE",
+  "P089": "gate-fail:QUALITY:BLURRY",
+  "P092": "gate-fail:POSE",
+  "P100": "gate-fail:POSE",
+  "P102": "gate-fail:POSE",
+  "P103": "gate-fail:QUALITY:BLURRY,POSE"
+ },
+ "cost": {
+  "chainSecMedian": 0.8106822999980068,
+  "maxRssMiB": 371.36328125
+ },
+ "referenceB": {
+  "Step0": {
+   "photos": 17,
+   "targets": 0,
+   "found": 0,
+   "points": 9,
+   "falseTotal": 5,
+   "falseMeanPerPhoto": 0.294,
+   "falseMedianPerPhoto": 0.0,
+   "matched": 0,
+   "duplicate": 0,
+   "onUncertain": 1,
+   "onOther": 3,
+   "nearOutOfScopeTarget": 0,
+   "unreviewedInOval": 0,
+   "nonSkin": 0,
+   "unreviewedPhoto": 0
+  },
+  "v1": {
+   "photos": 17,
+   "targets": 0,
+   "found": 0,
+   "points": 7,
+   "falseTotal": 4,
+   "falseMeanPerPhoto": 0.235,
+   "falseMedianPerPhoto": 0.0,
+   "matched": 0,
+   "duplicate": 0,
+   "onUncertain": 0,
+   "onOther": 3,
+   "nearOutOfScopeTarget": 0,
+   "unreviewedInOval": 0,
+   "nonSkin": 0,
+   "unreviewedPhoto": 0
+  },
+  "v3": {
+   "photos": 17,
+   "targets": 0,
+   "found": 0,
+   "points": 4,
+   "falseTotal": 2,
+   "falseMeanPerPhoto": 0.118,
+   "falseMedianPerPhoto": 0.0,
+   "matched": 0,
+   "duplicate": 0,
+   "onUncertain": 0,
+   "onOther": 2,
+   "nearOutOfScopeTarget": 0,
+   "unreviewedInOval": 0,
+   "nonSkin": 0,
+   "unreviewedPhoto": 0
+  }
+ }
+}
