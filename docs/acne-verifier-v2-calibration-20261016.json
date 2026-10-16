@@ -1,0 +1,142 @@
+{
+ "protocol": "docs/acne-verifier-v2-protocol-20261016.json",
+ "reviewByPool": {
+  "pos": {
+   "A": 40,
+   "U": 18,
+   "P": 1,
+   "F": 1
+  },
+  "neg": {
+   "U": 20,
+   "A": 8,
+   "M": 35,
+   "F": 8
+  },
+  "unl": {
+   "U": 73,
+   "F": 47,
+   "P": 17,
+   "O": 19,
+   "M": 7,
+   "A": 6
+  }
+ },
+ "v1PositiveControlConfirmed": {
+  "A": 40,
+  "n": 60,
+  "ciA": [
+   0.541,
+   0.773
+  ]
+ },
+ "labelled": {
+  "n": 562,
+  "positives": 427,
+  "byType": {
+   "pos": 427,
+   "flat": 56,
+   "mole-mark": 42,
+   "pore-shine": 18,
+   "other": 19
+  },
+  "positivesFromReview": 54,
+  "positivesV1Unreviewed": 373
+ },
+ "flatNegativePhotos": {
+  "learn": 31,
+  "calibration": 13
+ },
+ "flatNegativesBySplit": {
+  "learn": 38,
+  "calibration": 18
+ },
+ "reviewedFlatByPose": {
+  "FRONT": 54,
+  "LEFT": 0,
+  "RIGHT": 2
+ },
+ "reviewedFlatByScaleTertile": {
+  "0": 18,
+  "1": 22,
+  "2": 16
+ },
+ "learn": {
+  "n": 361,
+  "pos": 269,
+  "neg": 92,
+  "groups": 82,
+  "auc": 1.0,
+  "negByType": {
+   "flat": 38,
+   "mole-mark": 31,
+   "pore-shine": 10,
+   "other": 13
+  }
+ },
+ "calibration": {
+  "n": 201,
+  "pos": 158,
+  "neg": 43,
+  "groups": 35,
+  "auc": 0.7695025022078305,
+  "threshold": 0.07104312851627974,
+  "keptPositives": 0.9556962025316456,
+  "removedNegatives": 0.3953488372093023,
+  "removedNegativesCI95": [
+   0.264,
+   0.544
+  ],
+  "byType": {
+   "flat": {
+    "n": 18,
+    "photos": 13,
+    "removed": 8,
+    "removedFrac": 0.444,
+    "removedCI95": [
+     0.246,
+     0.663
+    ],
+    "aucVsPositives": 0.767
+   },
+   "mole-mark": {
+    "n": 11,
+    "photos": 7,
+    "removed": 5,
+    "removedFrac": 0.455,
+    "removedCI95": [
+     0.213,
+     0.72
+    ],
+    "aucVsPositives": 0.877
+   },
+   "pore-shine": {
+    "n": 8,
+    "photos": 7,
+    "removed": 2,
+    "removedFrac": 0.25,
+    "removedCI95": [
+     0.071,
+     0.591
+    ],
+    "aucVsPositives": 0.657
+   },
+   "other": {
+    "n": 6,
+    "photos": 6,
+    "removed": 2,
+    "removedFrac": 0.333,
+    "removedCI95": [
+     0.097,
+     0.7
+    ],
+    "aucVsPositives": 0.729
+   }
+  }
+ },
+ "gate": {
+  "rule": "calibration AUC >= .65 and >= 15% negatives removed (same as v1)",
+  "passed": true
+ },
+ "caution": "overall AUC does not establish flat-skin separation; see calibration.byType.flat"
+}
