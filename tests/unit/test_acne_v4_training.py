@@ -120,3 +120,12 @@ def test_anchor_order_matches_head():
     t.forward_loss(net, loss, np.zeros((384, 384, 3), np.uint8), np.ones((384, 384), bool), [[10, 10, 30, 30]], torch.Generator().manual_seed(0))
     xs, ys, st = (torch.cat(cap[k], 1)[0] for k in 'xys')
     assert np.allclose(np.stack([((xs + .5) * st).numpy(), ((ys + .5) * st).numpy()], 1), t.CENTERS)
+
+
+def test_positive_photo_clean_roi_is_known_negative_but_never_near_lesions():
+    img, p = _photo(); m = np.zeros((900, 1200), bool); m[100:400, 200:500] = True   # overlaps the lesion at (300,200)-(320,220)
+    x, known, tg = t.make_tile(img, p, 1.0, random.Random(3), True, False, m)
+    g = x[..., 0].astype(int)
+    assert not known[g >= 245].any() and known.any()
+    x2, known2, _ = t.make_tile(img, p, 1.0, random.Random(3), True, False, None)
+    assert known2.sum() < known.sum()                                       # without a mask only padding/confounders are known
