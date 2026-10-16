@@ -32,6 +32,10 @@ foreach($port in @(8305,3305)){
   $running+=$known[0]
  }
 }
+$previewEnvKeys=@('ATTUNE_ACNE_V5_MODEL_DIR','ATTUNE_LOAD_LOCAL_ENV','ATTUNE_EXPERIMENTAL_ACNE_V5','ATTUNE_ACNE_V5_VALIDATION','ATTUNE_TRUSTED_ORIGINS','NEXT_PUBLIC_ATTUNE_ACNE_V5','NEXT_PUBLIC_ATTUNE_PREVIEW_API_PORT','NEXT_TELEMETRY_DISABLED')
+$savedPreviewEnv=@{}
+foreach($key in $previewEnvKeys){$savedPreviewEnv[$key]=[Environment]::GetEnvironmentVariable($key,'Process')}
+try {
 $env:ATTUNE_ACNE_V5_MODEL_DIR=$models
 $env:ATTUNE_LOAD_LOCAL_ENV='0'
 $env:ATTUNE_EXPERIMENTAL_ACNE_V5='1'
@@ -60,3 +64,7 @@ for($attempt=0;$attempt -lt 40;$attempt++){
 if(-not $ready){throw 'Preview readiness failed; own process identities and logs are recorded.'}
 Write-Output 'Experimental preview: http://127.0.0.1:3305/skin (no history writes, normal product unchanged)'
 if(-not $NoBrowser){Start-Process 'http://127.0.0.1:3305/skin'}
+
+} finally {
+ foreach($key in $previewEnvKeys){if($null -eq $savedPreviewEnv[$key]){Remove-Item -LiteralPath ('Env:'+ $key) -ErrorAction SilentlyContinue}else{[Environment]::SetEnvironmentVariable($key,$savedPreviewEnv[$key],'Process')}}
+}
