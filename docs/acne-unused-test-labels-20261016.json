@@ -1,0 +1,443 @@
+{
+ "name": "acne-unused-test-labels-1",
+ "nature": "AI engineering review of the 17 evaluated photos on full-face tile sheets (original pixels + grid only, no source boxes, no model outputs existed); not expert, not fully blind, no clinical truth",
+ "rule": "acne-point-relabel-protocol-1 layer-1 categories (TARGET / UNCERTAIN / MOLE / SCAR_PIGMENT / OTHER); mask = face oval - eyes/brows (dilated .03 fw) - lips, minus exclusion rectangles, minus black augmentation patches (pixels with max channel < 12, dilated 3 px), declared before inference",
+ "observation": "no TARGET was found on any of the 17 photos: the product-eligible unused Skin care v5 photos are mostly clear / aged / rosacea-like faces. Target recall and target loss cannot be measured on this set; only false points on reviewed skin can.",
+ "personClusters": {
+  "note": "visually the same person in two different images (decided on the original photos before inference); used as one cluster in the person-aware bootstrap",
+  "clusters": [
+   [
+    "07135c64e979",
+    "e74974c4653b"
+   ],
+   [
+    "0b160194e4cb",
+    "c6cb90159e17"
+   ],
+   [
+    "7e2177c7c04b",
+    "84236bdf39d5"
+   ]
+  ]
+ },
+ "photos": {
+  "03bd71dac1fe": {
+   "sha256": "03bd71dac1fe34dfda0629667d98f2ff46f6db864c027b52bac3e4065fa241a8",
+   "faceWidthPx": 499.9,
+   "points": [],
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "tiles": {},
+    "note": "no visible acne-like lesion; beard area lower face, mild texture"
+   },
+   "mask": {
+    "file": "masks/03bd71dac1fe.png",
+    "sha256": "65ad1794f9e38c319cd8ac9ce703fd7436eb1d51c24f667932576fd5d8738996",
+    "maskPx": 162196
+   }
+  },
+  "07135c64e979": {
+   "sha256": "07135c64e97922431dd84a9dc450678d51f83567d0cb00deec699cc630c9e054",
+   "faceWidthPx": 380.0,
+   "points": [],
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "tiles": {},
+    "note": "no visible acne-like lesion; wrinkles; same woman as e74974c4653b (different image)"
+   },
+   "mask": {
+    "file": "masks/07135c64e979.png",
+    "sha256": "ca4274e0d389de0120bb02aa79e1043537000df67812a2a6158fb38879f248d6",
+    "maskPx": 92417
+   }
+  },
+  "0a30f8f6250a": {
+   "sha256": "0a30f8f6250aa9d8eefed658aee86b7e6f7242847003576ef7ce352c2c9bb4fe",
+   "faceWidthPx": 292.3,
+   "points": [],
+   "coverage": {
+    "exclude": [
+     [
+      240,
+      235,
+      355,
+      335
+     ],
+     [
+      355,
+      185,
+      525,
+      305
+     ]
+    ],
+    "flags": [],
+    "tiles": {},
+    "note": "diffuse facial redness (rosacea-like) on both cheeks; no distinct single acne-like lesion can be pointed; red cheek areas excluded from the reviewed mask (not claimed clean); image over-exposed; black augmentation squares"
+   },
+   "mask": {
+    "file": "masks/0a30f8f6250a.png",
+    "sha256": "944163ab5af23b29bfe6206839fd97d198235778387104a36aca183ab70b75f6",
+    "maskPx": 50041
+   }
+  },
+  "0b160194e4cb": {
+   "sha256": "0b160194e4cbe118746baaf744d8a1b4584474076ad51b87781b6af71deeb0a3",
+   "faceWidthPx": 544.2,
+   "points": [
+    {
+     "id": "P1",
+     "cat": "UNCERTAIN",
+     "x": 226,
+     "y": 452,
+     "note": "faint small red spot left cheek"
+    },
+    {
+     "id": "P2",
+     "cat": "OTHER",
+     "x": 147,
+     "y": 612,
+     "note": "red spot below jaw line (neck)"
+    }
+   ],
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "tiles": {},
+    "note": "clear skin with freckles; black augmentation squares; same woman as c6cb90159e17"
+   },
+   "mask": {
+    "file": "masks/0b160194e4cb.png",
+    "sha256": "0b6dcdcf7669a1d62c7d1b2eb04435130ccf0c42285e9b0a446070b48021d08a",
+    "maskPx": 157265
+   }
+  },
+  "1080abf68e08": {
+   "sha256": "1080abf68e085cfe706ce928a3cb95645eb8c6e7412688acdd65173c03139d4e",
+   "faceWidthPx": 455.9,
+   "points": [],
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "tiles": {},
+    "note": "no visible acne-like lesion; slightly soft image"
+   },
+   "mask": {
+    "file": "masks/1080abf68e08.png",
+    "sha256": "b0888c85689780c653d919f04cf715c7230371d60710d229850fc08ec62fee9a",
+    "maskPx": 150003
+   }
+  },
+  "19bee2b1443d": {
+   "sha256": "19bee2b1443dfa5e3776a2f78a03450f323b7478b068d24cd2d74ff87375128f",
+   "faceWidthPx": 352.4,
+   "points": [],
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "tiles": {},
+    "note": "freckles / sun spots; over-exposed areas; no acne-like lesion; black augmentation squares"
+   },
+   "mask": {
+    "file": "masks/19bee2b1443d.png",
+    "sha256": "75bf1a51f0aa4951dc2b6379968636477652fdb948c6ef576920df179335ae9e",
+    "maskPx": 94291
+   }
+  },
+  "4b52ed5577e1": {
+   "sha256": "4b52ed5577e172115672b0685bab7538974527dbb2db61a529dbfd43a2599f75",
+   "faceWidthPx": 525.0,
+   "points": [
+    {
+     "id": "P1",
+     "cat": "SCAR_PIGMENT",
+     "x": 165,
+     "y": 447,
+     "note": "small brown macule cheek"
+    },
+    {
+     "id": "P2",
+     "cat": "SCAR_PIGMENT",
+     "x": 140,
+     "y": 458,
+     "note": "small brown macule cheek"
+    }
+   ],
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "tiles": {},
+    "note": "no acne-like lesion; small pigment spots; black augmentation squares"
+   },
+   "mask": {
+    "file": "masks/4b52ed5577e1.png",
+    "sha256": "c5befcd124b87c5c05d0968579fff759a3f114243ebfba35d270aad0aead21e7",
+    "maskPx": 201287
+   }
+  },
+  "595bb6e4a4e9": {
+   "sha256": "595bb6e4a4e9301a0a763e9ba48fb8cdbdc8e5987fb0b6ba77008fd4e1d2a941",
+   "faceWidthPx": 467.1,
+   "points": [
+    {
+     "id": "P1",
+     "cat": "MOLE",
+     "x": 470,
+     "y": 490,
+     "note": "small brown mole cheek"
+    },
+    {
+     "id": "P2",
+     "cat": "MOLE",
+     "x": 357,
+     "y": 561,
+     "note": "small mole chin"
+    },
+    {
+     "id": "P3",
+     "cat": "UNCERTAIN",
+     "x": 113,
+     "y": 420,
+     "note": "small red-brown spot cheek"
+    }
+   ],
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "tiles": {},
+    "note": "freckles; no clear acne-like lesion"
+   },
+   "mask": {
+    "file": "masks/595bb6e4a4e9.png",
+    "sha256": "bc42aac0211bedc70b936430185dde5b9ef3f1a745b76e4f24e477e4bdf53e7f",
+    "maskPx": 125947
+   }
+  },
+  "59a1c1ff0a6b": {
+   "sha256": "59a1c1ff0a6be94d5f90cee646ac9740df60c0604728d19417812b389165da4b",
+   "faceWidthPx": 567.5,
+   "points": [
+    {
+     "id": "P1",
+     "cat": "UNCERTAIN",
+     "x": 470,
+     "y": 388,
+     "note": "small pink spot cheek"
+    },
+    {
+     "id": "P2",
+     "cat": "UNCERTAIN",
+     "x": 421,
+     "y": 390,
+     "note": "small pink spot cheek"
+    }
+   ],
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "tiles": {},
+    "note": "sun-damaged textured skin, freckles; pink spots not clearly raised"
+   },
+   "mask": {
+    "file": "masks/59a1c1ff0a6b.png",
+    "sha256": "c9a35acf55ad49189f98d960aa090922c766b56591da3d8252cd52c52f3c5fac",
+    "maskPx": 209718
+   }
+  },
+  "62da3539afd4": {
+   "sha256": "62da3539afd4947d0eaab17df435015d5ac545a155126f527a324d711228eee4",
+   "faceWidthPx": 488.9,
+   "points": [],
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "tiles": {},
+    "note": "no visible acne-like lesion; black augmentation squares"
+   },
+   "mask": {
+    "file": "masks/62da3539afd4.png",
+    "sha256": "d2ea3f0d07bba6ed41aa21694154afaa0e486ec8fbdbc819ec8ccae0eb822614",
+    "maskPx": 152034
+   }
+  },
+  "6bd27673e2f0": {
+   "sha256": "6bd27673e2f05cbfd9b98770312f3c6c1fb6c6519bc19b6a84c56468cfdc35d4",
+   "faceWidthPx": 424.1,
+   "points": [],
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "tiles": {},
+    "note": "no visible acne-like lesion; soft image, freckles"
+   },
+   "mask": {
+    "file": "masks/6bd27673e2f0.png",
+    "sha256": "acdd664e3713360364c4bec9a125074915882d196d00d45f71972c7376c8e1da",
+    "maskPx": 120976
+   }
+  },
+  "7e2177c7c04b": {
+   "sha256": "7e2177c7c04b7a8755d6126259802bbc263f619cccc9d2e6ec4fc39b0a65d452",
+   "faceWidthPx": 467.7,
+   "points": [],
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "tiles": {},
+    "note": "no visible acne-like lesion; same woman as 84236bdf39d5"
+   },
+   "mask": {
+    "file": "masks/7e2177c7c04b.png",
+    "sha256": "158078a9ece1fa8dcb315ef0571494c67e4b9938dc4cf2306ddb6652b7dce9ff",
+    "maskPx": 117276
+   }
+  },
+  "84236bdf39d5": {
+   "sha256": "84236bdf39d58d28a848b0f61f7f8ff4155bb5a9953885eaca501b51c54956f6",
+   "faceWidthPx": 479.4,
+   "points": [
+    {
+     "id": "P1",
+     "cat": "UNCERTAIN",
+     "x": 193,
+     "y": 462,
+     "note": "small bump near mouth corner"
+    }
+   ],
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "tiles": {},
+    "note": "no clear acne-like lesion; textured skin"
+   },
+   "mask": {
+    "file": "masks/84236bdf39d5.png",
+    "sha256": "3e7d8ec9065711e29b5a8bcce5508b0d5d11666009eec2d466a85b559408b123",
+    "maskPx": 121017
+   }
+  },
+  "b10534c9b162": {
+   "sha256": "b10534c9b1624e511f0ce323df394246e7568a7176585c27351ca115ec4cdab8",
+   "faceWidthPx": 449.0,
+   "points": [
+    {
+     "id": "P1",
+     "cat": "MOLE",
+     "x": 155,
+     "y": 383,
+     "note": "brown mole cheek"
+    },
+    {
+     "id": "P2",
+     "cat": "MOLE",
+     "x": 540,
+     "y": 400,
+     "note": "brown spot lateral cheek"
+    },
+    {
+     "id": "P3",
+     "cat": "UNCERTAIN",
+     "x": 210,
+     "y": 357,
+     "note": "small red spot under eye"
+    }
+   ],
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "tiles": {},
+    "note": "no clear acne-like lesion"
+   },
+   "mask": {
+    "file": "masks/b10534c9b162.png",
+    "sha256": "0988a702a38b1d96e75b5696d3823d105f8964be596257a1105980eca6f0f9fe",
+    "maskPx": 140707
+   }
+  },
+  "c6cb90159e17": {
+   "sha256": "c6cb90159e171a2950d61042b718e34a12c4323d1156d2874a1b606aa5d42363",
+   "faceWidthPx": 491.2,
+   "points": [
+    {
+     "id": "P1",
+     "cat": "UNCERTAIN",
+     "x": 215,
+     "y": 455,
+     "note": "faint red spot cheek"
+    },
+    {
+     "id": "P2",
+     "cat": "UNCERTAIN",
+     "x": 254,
+     "y": 468,
+     "note": "faint red spot cheek"
+    },
+    {
+     "id": "P3",
+     "cat": "OTHER",
+     "x": 233,
+     "y": 608,
+     "note": "red spot on neck"
+    },
+    {
+     "id": "P4",
+     "cat": "OTHER",
+     "x": 360,
+     "y": 609,
+     "note": "small red spots chin edge"
+    }
+   ],
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "tiles": {},
+    "note": "cheek redness (blush) without distinct lesion; same woman as 0b160194e4cb"
+   },
+   "mask": {
+    "file": "masks/c6cb90159e17.png",
+    "sha256": "432318210b6d8fdd8d1b3df1dbd4cc58946e8bd1d6ea21ca1df60946c6fee605",
+    "maskPx": 144383
+   }
+  },
+  "c9babdfaa385": {
+   "sha256": "c9babdfaa385642d00d1b9605ec6296e4fa24cb70f634160c7f51947c2c39d87",
+   "faceWidthPx": 388.9,
+   "points": [],
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "tiles": {},
+    "note": "no visible acne-like lesion; freckles; black augmentation squares"
+   },
+   "mask": {
+    "file": "masks/c9babdfaa385.png",
+    "sha256": "246e75ac77f9f997b33cbaea20dcff3929d717b7239ff34039bbb8b767ea822a",
+    "maskPx": 110425
+   }
+  },
+  "e74974c4653b": {
+   "sha256": "e74974c4653b4e13a7c6fd99b0e2437a834d645e4af11ffced64ed9c35631c64",
+   "faceWidthPx": 393.8,
+   "points": [],
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "tiles": {},
+    "note": "no visible acne-like lesion; same woman as 07135c64e979; black augmentation squares"
+   },
+   "mask": {
+    "file": "masks/e74974c4653b.png",
+    "sha256": "e06c855a9674b21f3d503c758b0aaa82d34b5c08dca0105d343579c9522969f8",
+    "maskPx": 97913
+   }
+  }
+ },
+ "counts": {
+  "TARGET": 0,
+  "UNCERTAIN": 8,
+  "MOLE": 4,
+  "SCAR_PIGMENT": 2,
+  "OTHER": 3
+ }
+}
