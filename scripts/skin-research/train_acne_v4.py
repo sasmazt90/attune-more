@@ -177,7 +177,8 @@ def sample_tile(step, j, P, files, cfg, sides):
     else:
         p = poss[rng.randrange(len(poss))]; img = files.read(p['file'])
         side = sides[rng.randrange(len(sides))] * rng.uniform(.8, 1.25)
-        x, known, tg = make_tile(img, p, photo_scale(p, side), rng, rng.random() < cfg['p_focus'], True); src = 'positive-photo'
+        m = files.mask(p['mask']) if p.get('mask') else None   # v5 core: reviewed clean ROI on a positive photo (absent in v4 manifests)
+        x, known, tg = make_tile(img, p, photo_scale(p, side), rng, rng.random() < cfg['p_focus'], True, m); src = 'positive-photo'
     return x, known, tg, src, rng
 
 
@@ -397,7 +398,8 @@ if __name__ == '__main__':
     ap.add_argument('--cloud'); ap.add_argument('--step0', required=True); ap.add_argument('--config'); ap.add_argument('--name', default='pilot')
     ap.add_argument('--steps', type=int); ap.add_argument('--max-seconds', type=float, default=520); ap.add_argument('--model'); ap.add_argument('--role', default='TRAIN'); ap.add_argument('--limit', type=int)
     a = ap.parse_args(); setup_paths(a.cloud); out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
-    man = read_json(Path(a.data) / 'manifest-v4.json'); man['_sha'] = sha_file(Path(a.data) / 'manifest-v4.json'); files = Files(a.data)
+    mf = Path(a.data) / ('manifest-v5.json' if (Path(a.data) / 'manifest-v5.json').exists() else 'manifest-v4.json')
+    man = read_json(mf); man['_sha'] = sha_file(mf); files = Files(a.data)
     if a.phase == 'probe':
         r = probe(man, files, a.step0, CFG); (out / 'probe.json').write_text(json.dumps(r, indent=1))
         print(json.dumps({k: v for k, v in r.items() if k != 'rows'}), 'gradNorm p50/p90', np.percentile([x['gradNorm'] for x in r['rows']], [50, 90]).round(2).tolist())
