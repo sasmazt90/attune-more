@@ -398,7 +398,7 @@ if __name__ == '__main__':
     ap.add_argument('--cloud'); ap.add_argument('--step0', required=True); ap.add_argument('--config'); ap.add_argument('--name', default='pilot')
     ap.add_argument('--steps', type=int); ap.add_argument('--max-seconds', type=float, default=520); ap.add_argument('--model'); ap.add_argument('--role', default='TRAIN'); ap.add_argument('--limit', type=int)
     a = ap.parse_args(); setup_paths(a.cloud); out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
-    mf = Path(a.data) / ('manifest-v5.json' if (Path(a.data) / 'manifest-v5.json').exists() else 'manifest-v4.json')
+    mf = next(Path(a.data) / n for n in ('manifest-v6.json', 'manifest-v5.json', 'manifest-v4.json') if (Path(a.data) / n).exists())   # newest prepared manifest in the data dir
     man = read_json(mf); man['_sha'] = sha_file(mf); files = Files(a.data)
     if a.phase == 'probe':
         r = probe(man, files, a.step0, CFG); (out / 'probe.json').write_text(json.dumps(r, indent=1))
