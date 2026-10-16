@@ -1,0 +1,2264 @@
+{
+ "rule": "one evaluated photo per evaluation group: lowest sha256 among replay-pass photos (protocol)",
+ "extraExclusion": {
+  "0034b55b2f58ea46d3d17a9d5ee630117c60171be4cbc13236e63fbbfb36a8c4": "6b suspected ORB copy (24 inliers to an excluded test row), excluded before any output"
+ },
+ "status": {
+  "b0c84f2442363fad81f0c1c14a361ccf9e4cb1556f0478c5ebdb457bc37504d9": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "aefcd035783fca99f3cbea1e2508f27dfb139119348602385ece265780279638": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "ac7a7fdbf0dd1e634b760f135411ba99b9c8f365bc2cc1d4afcf3d5562b152d8": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "10f5df56f2d79b2f76df2c50f042190c45cfe7360c3624a0eacd7c7ff0b28fff": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "6e84bdead57974be1142fbf96ee9a597edfd19eaee15173579ee1e246e6cfc28": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "55a19ef539eba9b3cfd2111dc9c2888b09ac09b441a5e9233111912ea5b1f1ff": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "LEFT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "0db5cea5a913120395793e36bf8cd4604513427a74d6452ca818f93c133b1213": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "f92e091b838d546f624949043d5d5bff6706a63f4be69eea9b7f5ab2dfcc30e0": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "56a78f4ebc119782ecee0186fc62348e756434025af16bd39ab642dad0f8362f": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "092d58e51b7fcc5711eb8155c0a2b99288c0dc4fead9ef8bb72b38777ff19369": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "07865c61b194d315f5eab9177b26fea4be69909ed7b292d3f4c12b104dfc1f41": {
+   "status": "gate-fail:QUALITY:BLURRY,SNAPSHOT:INCOMPLETE_HEAD_FRAME",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY",
+    "SNAPSHOT:INCOMPLETE_HEAD_FRAME"
+   ]
+  },
+  "3bf34d093dea294cbfbec8f7a95d86e9317f149df8d74a9b94dce2d015eee3aa": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "2a058197d168e23ebffff3f089eb126470f44c0e38c92870a369522e8d9322b5": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "6bd27673e2f05cbfd9b98770312f3c6c1fb6c6519bc19b6a84c56468cfdc35d4": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "c14795a6ea4e59587f4c1a6443406f13bc1086e5bcbb9f5cec9983c1b469a8ae": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "86a27e3a858b1edd53c697b59c551b486ecc0ddd208e453d2c1c037e782949ab": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "41092b3352a17ebfe4ba88716161dcfb68b091dd2215cd74d4d3e4627dbce974": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "4ba218af942c4e96c931a132d2552ac89a95025db765dd65adc182ce5750aa5f": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "13778b30265692450f6934dc1df61b1a6e3a3d6e72562c7ecd00119f91b9ac6e": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "929dc6d9caa2bb3e2aeef8ba4a934a9166edf5c103b82d9fe8b270a82a9f968b": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "1080abf68e085cfe706ce928a3cb95645eb8c6e7412688acdd65173c03139d4e": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "5b1b94308624b1ee36b30cbf690e74a5f2b1dbdff96504ba18286de4096e7a67": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "65a8154abf695a6a48cdc95636809ad274bcb601cbf9f8084a2f31c18cb6d292": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "76e72340e65466a7a3116bf22f9ba2d61b9d11cab549d837666d1c71f56484ce": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "a6082d3170fc8c45b6d2979d5c98fd3012ff1d2161865f4f48edc139a15992f9": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "8294069a392eeaf0444bf298726a9411378e1de6ade797265c99bc75757428c5": {
+   "status": "gate-fail:SNAPSHOT:INCOMPLETE_HEAD_FRAME",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "SNAPSHOT:INCOMPLETE_HEAD_FRAME"
+   ]
+  },
+  "4b52ed5577e172115672b0685bab7538974527dbb2db61a529dbfd43a2599f75": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "3705a5008cbc24a59bbd67c66f4f69bd711e0d0f509e2f77c6d0e057c258ee0a": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "75d112a2e31198050f108d46981cfcfebb5520150ec1e3c5d547f5b1b56c2845": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "7ec603b58b81200ee8959f4e6d54435a7c314a742391c318fcc1161e0976a074": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "ec729862b2ac8605a93ad992d9e1bb4680233e7f687847446bc1f9f55178e0ac": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "a68e66d02af9eb0e26c8c164791c0aea7a490756f7abdc32b70bfc10ede143b5": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "adfd5e5a38601cd07258dee05dfa44b03d7a252a80a3c179a47e39abdffbc538": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "23f2ff308897b453cac6fa56eb3123b69c1a349870adefe749846b88a1975dd1": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "5d9e52d8950e87641f74ca7018a2e6a96f2e20dcfb9ca882810bc254c27b7bca": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "64b5085e1659e702e2497b5965566f17e2cd72b9d25c861ba536f3d9a210d4c7": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "2ac344c28165db7454827eb006c23ae42aacaf67ed4e2c9b874d5c4c915cae5c": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "58a6c36078545fb96bd3757ae19dbac11216cb7e95296da49366f144f2db8dc8": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "33d25ab3f3f8f57e92b703c1f1e3e7e7a8e48e3cdf5ac26149891f640331c185": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "RIGHT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "0b3ffde1ef5693bc1d23b32458463a1ce114bba57ac632a996c755033484aaac": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "RIGHT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "ed2cd411d3e2e725a5d25da3200f650fd939a2c534579a34aa7f7cb8b7beeb1f": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "RIGHT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "c6cb90159e171a2950d61042b718e34a12c4323d1156d2874a1b606aa5d42363": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "LEFT",
+   "reasons": []
+  },
+  "c7329b0303f0e2bf524de02a976670492dc05b6ebaf5df816a97c706d13c93b9": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "LEFT",
+   "reasons": []
+  },
+  "a748de1e6dca9bb102ab848125840c8fc4a53d5cc3f0718252215e4ef513a4de": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "0b160194e4cbe118746baaf744d8a1b4584474076ad51b87781b6af71deeb0a3": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "e630e497b79228da389194d2687b40e4a266cd259d8a6aa8668b9e8712aae865": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "0a30f8f6250aa9d8eefed658aee86b7e6f7242847003576ef7ce352c2c9bb4fe": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "0973d0ae017d3ac18ee6803233353ae6333d3ab967a5b0c574629b02b71cd257": {
+   "status": "gate-fail:SNAPSHOT:INCOMPLETE_HEAD_FRAME",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "SNAPSHOT:INCOMPLETE_HEAD_FRAME"
+   ]
+  },
+  "a72df78d0ad876d9b74ab39ced6b5230c2083eb7a77ae6f8535af02910a3b561": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE_NOT_ALIGNED",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE_NOT_ALIGNED"
+   ]
+  },
+  "46ece214f86f61d4cb8dc74e379efb2d81a46e169b22ef031e1c36f394afaa29": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "73825bad7bc1926d7b921fa50430b1d5200b7ef58e5b54a97a502b9eea27b61f": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "1bed85982f20d7797de918e573513e2f448e6d2e9aa973dd26dc74cd2f4f70d9": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "00f19716b80964b504a81f15f2d42fbebdcfda85989c3f548333e9b29ab543fc": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "64a4e6dd0014016ad6d3bac1b871d6b59a1b79abe23d6f4e17496fc71cea3dd1": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "b5a46a271f90eeebe803bb90534c7e1b0d91a490b55c64f54f6d4b6f4c01156e": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "d2f836d9f2c714ff91c5e5caee19f4a7081c3dfe3f4e79da2c80718c4e7b59b1": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "dfad580252c46c54d2b37be5f2055e3a897609b83d23fa816e90b54b3d305e17": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "f831f5ac67e6581a0c00052f052cd1aaab30cc61f0482e0015676da32458f6fe": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "19bee2b1443dfa5e3776a2f78a03450f323b7478b068d24cd2d74ff87375128f": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "696db91542535898fa1f16c27a3ad56ba22252b07f54c649a228f11699735a1e": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "4e6277cc37fc49aa7a92950e5837ac9c2d4d01a4a1e15c970b2d07f7c3895e9b": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "96054df67af6c89d8d8ac14bfabdcdb5a9dce91ceacb781cf6889b7a1b42deb2": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "364aba4640c33bfd98e47b186f4461aca814d3ba9efb53d87d228c809b60530b": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "83f5ca1f10118f5b0ce2639a8bb0614f6631662447ddb15ac2fe19f218831c35": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "44a951ad27f13000f0ce0085f405c4a0ef74679147e3fa0069749a8ccc906acd": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "891bca7ce5a4438735c76ea60f233f9cdc85a542f0ce735d427870fe7ef69cbd": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "f4a416282576cc8734a4c92ad8c709a631fb421d5ec0de9dc21f74c5b326c3d8": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "98d5c02958109cac747c75e49c69df294ab3e6d41a61ea0c13d3853ca221b4d1": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "45072033da253b583ab33b3033c12a91bde9e68b9175fff0b7e196e779d5b302": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "07e6066a1a7c7c5a6bb79bececa1f224a8c72770903ad775921ae7b5fb8dbcaa": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "a1315f2e2650b035abc336c05a68edfecc93b6dd02bc86e6c209ac66165dd4dd": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "931bbae4668720fdf7037abdb115a144c9c36c968ba655ea5e28addc9793bcb3": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "f0bd2c9abf1f9f12b3470e08c495774c43c37e37ddd985b630f35e375635a021": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "9bd30a6de189e628bf1a0b313955713583523da01bd33aba47f1efad5d24d851": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "9597a10e2f794edfd392069a3b5a08f0eb8fda2db4e5e169a93d0a257247488a": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "a65b64ac72fbb452be5440182ed472dc8097c71c82410270c95522a508eb6a2f": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "4bda8fd80d4a0e1cba5e99e12cb0694c876d9e042bdd5080f2cb9a97407d866b": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "73252f65d75e71e216c2fc6fee27db0429b0124033e356aa916966c73a4924af": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "3034ae8f46f95b355e2261c9273c3c378da5d3fa4cffaf8af6ce7e0a262a5098": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "ef0b1fff2754d46806a179cd49fe4a5c3c2406c8420cbb70b50c386e78e43d12": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "d6fc9b552b7e590735c7210f6ce2fae6e0d274f6ac3115fbf3bbf1bcb4a3e01c": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "1182bdfc633f1a55d269a7791c8f4749565d143f1837594c44d946aaf903d9d1": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "fd6f33b4d6a3bb4977525e6672da1e96b5623661d3201fb2eb9d84d3a1ed7d99": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "d43e2d997c57ff48ce8a3d37abdcc667cc77809e905a0fe243a6d906119c50e4": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "e6bd804fd8e3dde96152bc3cfbe6bcf9a11a2f3d8a21e675b35777f1bfd41c0e": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "1505a050c5ab3ba8df7348c0e761414cbb3afb5263aa1449d223119fc69ada98": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "9049bd41b196101024126867803a7a645b767b403546137692171fb0eb4b0631": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "f4e6777017c43d138b8df5bb991a90340d2a93e25ba9addbb6245fdf282c9b46": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "062daf36f1abb270220fd1e9695577230dca0c2c2dc19fd0de8dbecffb51a094": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "94797de811d00e458b2d31dedfb9f7a5f0938c6a762af7e5a8cd45344296e238": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "941209d8a7c8665f3ff163aaad54ce516b5bdbd4ff786d4015f8bf7e70422a70": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "875b6f1f6280eac6825a994e2d57d812edfc47d83dacb026ebf699e25df70e45": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "31747b608f29ff243a4b98d3d20ed718e026b2785ea181fd65018e34c1bfe6e0": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "d1fbbe8b7b31a5f4908b1be296a50220c905e2d545c8d83921854d95f8cebb7f": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "f1ede9a76e2dd4c7d03ece5c7a60d03dc5cbebe8ee45d3b8013af0ada42d4867": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "e15b895515f0b7118b5b7d9a9e86ee8d560b8bfc5ad154c58cd245bcb974bc51": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "63e77617c3c95837ac6e2cb124157a5c112eaae4524fe19e9218165f366b7c98": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "7b1c5d3cd611fa34bf5c2df271e4bd4a68e48b2da13b3e61c4acff624cb4945b": {
+   "status": "gate-fail:QUALITY:BLURRY,SNAPSHOT:INCOMPLETE_HEAD_FRAME",
+   "tiles": 4,
+   "pose": "RIGHT",
+   "reasons": [
+    "QUALITY:BLURRY",
+    "SNAPSHOT:INCOMPLETE_HEAD_FRAME"
+   ]
+  },
+  "807ab153a19e3fdc73f6c7df0f907d46d18df92c263330f0128830ef9d569604": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "8f29765644e166800e1e8ed091766a29e9c989a2f4543341a0e888a96a9f6269": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "d58f8a999f456ba05510a3a8ab36fbcda0cd1bfeef1241163a7f24226948db12": {
+   "status": "gate-fail:QUALITY:BLURRY,SNAPSHOT:INCOMPLETE_HEAD_FRAME",
+   "tiles": 4,
+   "pose": "RIGHT",
+   "reasons": [
+    "QUALITY:BLURRY",
+    "SNAPSHOT:INCOMPLETE_HEAD_FRAME"
+   ]
+  },
+  "197fc6b8286a2917e81b5fc21963604efeeacbda1c20fb1787c87469d3604ec3": {
+   "status": "gate-fail:QUALITY:BLURRY,SNAPSHOT:INCOMPLETE_HEAD_FRAME",
+   "tiles": 4,
+   "pose": "RIGHT",
+   "reasons": [
+    "QUALITY:BLURRY",
+    "SNAPSHOT:INCOMPLETE_HEAD_FRAME"
+   ]
+  },
+  "3b88c71d394a532ade7f14298e32dda1a67426a964981f1138aa3e515db21a62": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "428adc745aa9f9397802b2b1f0fff0ba6705171532ed245010406216980a0b92": {
+   "status": "gate-fail:SNAPSHOT:INCOMPLETE_HEAD_FRAME",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "SNAPSHOT:INCOMPLETE_HEAD_FRAME"
+   ]
+  },
+  "5f58045234646035cdbe758c363b5dead4a78adc81ef77a1df93f60a7403d1b5": {
+   "status": "gate-fail:SNAPSHOT:INCOMPLETE_HEAD_FRAME",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "SNAPSHOT:INCOMPLETE_HEAD_FRAME"
+   ]
+  },
+  "97670ea898c98d0850546fbf7d877529833e22358bc15c9dbc668807827786a3": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "44ba03e2ca43808d0893bb262ee8005e6a9bb15bff9f67871436bc604aaa1704": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "806ab76421270cd9894ed43c5f37493d8bf1825f52cf6a65c656717cdaed394c": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "3cf9f2c7f22cbb6ce068867f08ae9a4ca2c9eb449b7eb1bf8e8a42db7e8f8449": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "427b43f762d4f31b7d1da3583d5b5c3c63e026a69fa4117fb51ab3ac359cb2e0": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "b6032606ea8cfbb0dc9ffb1add061c64ea9f7820dbfeaabd4f7c309d5b451d2f": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "72d957b5664ef8285d0034b7eb91954c1a2d6a1a3477146cc9b7e5a899a56bcc": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "935893a0507363d9b61b990d53c013967c5c00cf969b3cbf93dc4108cf383e7a": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "595bb6e4a4e9301a0a763e9ba48fb8cdbdc8e5987fb0b6ba77008fd4e1d2a941": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "c361dfbe853177566f729ded2458b7006b7908e388a4da72d7ebf702f77d29d4": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "e74974c4653b4e13a7c6fd99b0e2437a834d645e4af11ffced64ed9c35631c64": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "985595ba9ba16a3668063fbd3ce965775078f5295500d3f15f8dfb09ec86c19a": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "1e824b7458944a767885f6ebc45e932f21c1e7570a3e2d92fe063636d32e5c34": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "174bf06a21f4430df84a587e3c3a830a8e17ce8c291405a1f15814984a470c74": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "7e02244f5fea35b48c7dc4ad711049d27984aa47f8f1b13184c2d91753c854e0": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "fc63586ef48a5a2c21dd910af1dbf034608854c4bb4efb7b0460f3fb827f1926": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "8e7c3812594c95eb26e38b6450cdefdbcd0e1abb01f68f9e2fdf8783c7bd1608": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "38fc6f06dd62cbf7f0864a164777945671ac20becc0a421752ef920c910f3761": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "0e9b351ea20617761c3e43d4bb750cbdd2ba6d91503c024872ae9d2b9fa6e686": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "5f6ab2ff280b4b37f9ee393db6013955941c4883a59baf21174a6caf1bdeea90": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "b4944d995a6b7069c8a43af3d8952091142b37d6e3397f8acd8410aad5f0f4e2": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "d02919b0a216ad5fa65b07050e67a4a039a4ef86ba95651ea5af6fbfab744281": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "a94a47502889ee4413d214c85dbf3b4fec7f597f4c7ddd152df8ae4be35be40c": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "7f33a1573b71623268b6cb769fbd2ab502d2eec70bf9b84de7fb32b9a7245645": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "9565cbea707772a1553c1905bb0e0ce9824bca5f95f2c0a3e126b8c6253a39ae": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "70e5eae1ec5a2399e5efa67019261da19241ea384705c782fc6d27a0d28b1380": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "b5f62f8e6ede2ea4c407871ef24a3c95aa136d7677b3524b04075779fbb4bb40": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "87a228dcdcfadfacf45f210b45d0afabc283d12730a527cd08e2c8a6b32cdd90": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "a87e19a148af6b771b76385fd56c4d1eef1429f2366e4be06a5bd3adec5bb5ea": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "1089df54f6f810f8eaac9412121abbdcc081b714f797bbaef661f8545506dd6a": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "bb3ab89bb82826afcdf145e4ae49df6ec081341d27b0536d3cff2f3f80566f56": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "694f8d615f3fba6cd1a7611320b59b3693834abf56a4546dadbee55d66695a7d": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "1a7284526f438ac67b54ab2bf88bb14f7d34657ffb4d24e39be2decf8c992261": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "ff603561c1f65aabcda45165a7a017cb34a1a858225703d697a2de7a36c325cb": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "da1a08b18c0c69a26c9cd82b2b7823b690084e481b9d02ed1b830c733a0d9113": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "0e5ea771b9cb8d31d3e3655fab169bdf7fee9a6a96cca657bde2d9d80ccd4e3f": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "63e7cf0b471e887045d8832cc3d6f1872a2c9599d6ea666b76f82336edba54ab": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "9be15f630258c8ac0821dbc2d31b0bc6161d5000b63bcb3e7bd1d36deabdaa15": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "84236bdf39d58d28a848b0f61f7f8ff4155bb5a9953885eaca501b51c54956f6": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "ae492910998963bd72bfacc6131258068657f7fa1bf1dc81c9e9ba35c1d83844": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "50826272028cd6294fc94417b251621664ee7b20139597784f85a9629cf980d5": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "a43645064c7361cae1f33a23defbdfee851e18b546c051c57d4806f1e1d685bb": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "509f14831306c4111f463075b381bbf6f7e49a357c0d69c48c1a5a5ec360bea5": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "66ac2273d329789d6fe842245e734b9ae8bc411ac53469473adaa79a47b6a114": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "30f2e416f9442bf28eeb5cc88bbfe35ef3156091629a3d889359dd605c123f64": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "beb08712e4e33a352e608acb0c90dfbf89dd730c58ac2b1721985849494723aa": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "4209425e3f194a47aa79f45727acdbd7158c57dacf82bfe8d872b6a8f2fa20f7": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "8e3bb41c93fe55e1328bf4eac6906ff9dda4248fb09485efa1742a8a574b8877": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "c0c336230115037558de3e99cfd0bee7ce3d5034edbd089c98362a1a5744e6cb": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "d7a96b2a74def3b3a179f78910d75baf018776370bc254d1a8870bd82ea46b78": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "62da3539afd4947d0eaab17df435015d5ac545a155126f527a324d711228eee4": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "7402b33abf09c5e13b956f39de73563ab1f3a339e40ef3334cac47c6abf684e4": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "baffa848dcbb4d301ff23e5547022d533693aad319ab5add26b7bf4ba8e582ff": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "ec02cb10e92e3e11aab2f3a411aa519bcbf8d7483cd18b83d4efc4ae628af8fb": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "b63412bed37add47eef8b722014e1a04971e433929926d7d295ca911b9da622f": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "17dc3440ac1e44cb95e62202e05305f8ffa3588b848532eb0cb09d395b915d5f": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE",
+    "QUALITY:NO_FACE",
+    "POSE"
+   ]
+  },
+  "dc7fdcde3499df6c3f5ff78563a1c892fbff7237513f54ff40cdeda1b2687359": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE",
+    "QUALITY:NO_FACE",
+    "POSE"
+   ]
+  },
+  "e2be7e131c92c2aa96bd6318f35fc5f96ffc901a0c5d5dd4c9885bb3d952a6ee": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "0dac0a871217a5fd0e235eb6de0345806f02d01722670a50c26449b2000331af": {
+   "status": "gate-fail:POSE",
+   "tiles": 2,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "c2c22a34bdf54afd03068bed75919f05f60c5475d355467cca1fc8c9efffcbaf": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "5f32175a410c27493d55c12f2d5789168c793126e63e61b5f581608cea717bf0": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "ba286fa13211fe9458595c98fbacc5fa7b51d4df717848bc9ceeb48ef1172025": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "ffc21f5cc228a4cd86a4a18b9399e183289de4049689e52ee7f19546cf8e8901": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "d182b85e079c4f4182474c873224a704fd5c3e510059e9e65effb960c9fadd61": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "b01b38ce92d86ca1f787c01a8cd2b44224afbc3bba23a80af7f73b92ef6d6994": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "7b03420fe7452196da42b8e7a295024591629ffaf2f79642fd0e0b3cc3c00280": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "76a52963ecc15eb9948b1a773f776f443d775dd8ad978c63ba86bcb59a853481": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "83da6ea9eac5604d9189c4b83f38b74d0d01e990ab570ff2e93dd827dd307ba0": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "1a19a01bd29a57f08c4911853ecff5f5242ed5d980dae79bdc5db18eba0be760": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "d3ffbb1fd3e93f29a5de9750af5bd0aa29ab7f880db2d3329d8c7d52f0df2960": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "050bffb2d79754ae84d3cd1256c2eafd0d28cb52525cc79614e315e85bedd837": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "2a19bb8c5ba19ea964e48397a1168e9a1ec4fe0f88053f9e09e3d5d11426206d": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "17cef6b7cd6c72911905b6253ff137f5ea40bb8789789eb7d3908b8a7f5c8bd8": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "cc16509fe5a5c53b046b2ad92e96602087bfcee8758c624e791865d2ae0d9ed6": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "5706d61fc169e14a117e6f0d8abb8bc7bed3392ff07db33739669a372b435cea": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "a29a173edb07375d347d29d0aafb506b5931f3d91c88b066a9e93c4b56d510bf": {
+   "status": "gate-fail:QUALITY:BLURRY,SNAPSHOT:INCOMPLETE_HEAD_FRAME",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY",
+    "SNAPSHOT:INCOMPLETE_HEAD_FRAME"
+   ]
+  },
+  "53208ed6b9f623200e50d112f1fb615ced386668c7355274bc15da3227ca0eca": {
+   "status": "gate-fail:QUALITY:BLURRY,SNAPSHOT:INCOMPLETE_HEAD_FRAME",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY",
+    "SNAPSHOT:INCOMPLETE_HEAD_FRAME"
+   ]
+  },
+  "99da3b1ddba8102ab6249d6d1de2ee18d3e6ae7b347b8fee471bfb1c72d3f1cd": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "e6a21dea03dad1aa3fac09ee83a7aee94bca7d30ae53adcca8d9d6790d131edd": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "fd5f0c962d3301b8dedddcefe0ed03715285c767959d31b671d1acf4d8dc1c1c": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "99e79acb54a9bd86aad2f6037fe2550c8274f8267c9b627877d7515db8cff88b": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "623df3d9a3d5250ad5e922a726d094bbe0244d42c41bba3ba6bf164cac890715": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "21435ef2628e2b39ff9bb7b91987a8f39fe2949d4c0b38f561648a23cd9f28af": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "fd7caf607b4f37c68a212f2a1a65e04269df45cffaebd6d3f0a09e1eaa7a1ac9": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "d6748a7447ff57f9c94cc2656da9be041ac4d342f72e349d49df18a472faecce": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "5b0fb35400e1b520e16d490caf741939120f25f06ea87ff7553fa2c2661859e4": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "9ce03df41f4905b5220987b042d113e8b8151f17136dde92f571c0f2a0669793": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "d75d628e9cda16ef77f3ec82b7f81d887e888f04a8528065946766e9c5e9416a": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "03bd71dac1fe34dfda0629667d98f2ff46f6db864c027b52bac3e4065fa241a8": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "85f7d26764843d5e56241e33e63c5f76defbec3c814ddc348566e52cd6d6e22b": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "c4300c07f38d7e62fc225a50972c6412c453eb84c1a00df7202319f124c945f3": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "de6a52438f69c6347dc3f86e200d82d86a41d12a487d072aa07c056140674207": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "b2eaccd7bf02150e2fdca5a61c34dd9f46a321b5204cd5beaba13d3ec72346d1": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "3b4d9104f34d9b361a74744ad8d5e306d085ec33955a44abdd747ad9867662ec": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "d561a5e32cdf42a15668a2f8a677cae139345431e7d1b463b2e33a5660f631e0": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "8263a138cd018158c729661fa5b2bb7685778de9c013384a55ff41c13dbd4ca1": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "5bb103d3dc523ae7ff1d3f4d3f0f2c2b4ff96a788072d551c139ad08f5a0f0c1": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "127c7b6f98ba8c3c924609ad0471b4d1cc1c73d3a31ff0c795cd822b2ec85096": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "8d9968d933b25ba2bcd122a38524d11f8de3ef4cf4ff590c9005a4d26dc64cd0": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "737873776f5162f425b4ebee53434baa562a653331104e46adff906e4166c6a9": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "0fbdcc373e3e970f436a1d720ddae6bee40b6c6e00e66527a264894e05e3e125": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "fcb2417dec2a7060f1a6010462aa2375a91eabe51c1c35737d8ec2699a97e81c": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "e313972945f653fe527fee5b0947173172e65279656ecc49f0d93770e39703fa": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "d83064d2953cf201ec6cc42793193933f221ec6055281d2226608cd3ad76a7cf": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "a0be259bc8613a3a91c1c053ed4af5f2857d1740a08b805b963f8d04b32f9a90": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "a2e39015977fccb949edf71af6305636e645849dfbbb48decf5ab9502c986807": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "76648e49c6e832953f71b07f304bfeba7fcf487fabe58a5648930815c050e872": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "5f8411a382eddedb8b4834f07d07904b0d42d6f86c80f32a1a86a79f5693ddaa": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "ea520d045d1db5712250e1cf563e8e9ace36a00df9a0485355a23f46f47f13db": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "4500e6377d4a808ab35e63ec6952ae14dc0084e0bbbd1bc39fc8a3487c111111": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "b10534c9b1624e511f0ce323df394246e7568a7176585c27351ca115ec4cdab8": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "d31100e8c009848c68f79cc99aa182ad2d25a0e154a2f92a9737abd47d007ce8": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "750cb5ff54bd8e7a378d83088d15736f4e19c6ad0418e4e56bfab0904c9aff5a": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "d5c64bfb12a8e24114e90d1813cdd42cef6f96a70358e12485b4d393aa20cb3b": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "54d4ad73a46e72bc76d94b10d6cb5cd4511dcf65b384ac462c6ac1a553a5b327": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "2f02a9aa06e04740783ce6d3f30cf9b0c006c7d7695676f844ed08a4437541d4": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "5fc3ba3a17595fa5e141f88deaab74bd39e2e5dec1e4cbe8e75b13a37c12a8dc": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "f7339dbc5e378ed445efc3a373ceef85599f7a1e628e703832d10ddf364f1b60": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "8e91ce6255de4588cc367c383e6d988a6ddaaee8200397814a1086ad0ddf057c": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "d14019b1272204a1f7dbcaf05f4fc77f23b8a546f7ecfa6fecf0ecb1a9f9e3ae": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "041ba21414fb27c51995797e0e1ad69a32fe9fc3e781622282a621df991a2386": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "66db5e2717c8279d1a9cfb97eaefd69d044f419ced64ecd46ebcb1682fe0f99c": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "e5d622d50756dc35bb560faaba8911d17a04b0f93b0a82ea58e7be45a1030e9d": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "576d7079e3f66968cf0a344ef8cca08dd287cce8f681e2e88a1b6e468fecc9be": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "55e616e05cbecc6fda2f9acb6e439b5ecf3ed615c8fdfbf46a4fb3aafc181bed": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "c9babdfaa385642d00d1b9605ec6296e4fa24cb70f634160c7f51947c2c39d87": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "54a8894b5bb489bd41d9edf83ea8c421524acbd599ce43fe4e1f8b86d872c2e4": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "dae24c0830b1f1e0791a2f7e29121f4b37d0141b785f1cb17a426786b547a707": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "a374b8a14a3f755b108663ce0771c59f615a8465618b93fd4e5ba8c32e66cf8a": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "fc5096a202a4088c6913e08b2f29c10f6028bf2a4950cd02da5b10bdceb43be0": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "874559d615146d7c20d792253bc9293b1df242340eb878a6cfa5156b344f8644": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "b6db96b28b7f92fa1c3a1258375dca31bc2b804e8a4db0b8a0975cbb3c796bd0": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "99cadae6af3498cba929e046c86ca585c9883b8496331603ba881c58321265aa": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "fca51364f8d06a4092eb79e150cf5233b705ed351bcd5772dd17ce96c077a0ec": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "4632991c64d7f63c150a85ab8d57c865146962e95809792ffaa21b35c8d63e04": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "40326edb9e3180799ad2a8148f0f879cc18411a53036fe711421fe7b88fbce9d": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "d3c3f1e375d03c5b8588e4b5dbfffd9024f00caae50edb023d59fc4a3530a503": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "37b7745d958b9c7caed4e205baf16695226fcb605254f1c8b2aa7b870a46d5d9": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "cedb9c560f6f97511aa75e84c780e11f96645df5fcfbce1e676cfcb439f4d32b": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "8639e0d461f732893b9786336fc618acaa221c0ead8467b71148d0815ddd85d4": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "73d41b5d57ad517946d999cfa416a48c0a413b43b859586094107541583508cc": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "afe881aa3d4070c79251e54e62d0429256a7dcb1f2be970615595e50cb1bcf07": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "bdbc483b464d8bd2c818f6527b790bb5ba0ab717cc57b1589fe97bf25e667fb2": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "07135c64e97922431dd84a9dc450678d51f83567d0cb00deec699cc630c9e054": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "493ab2c416260a3dde041fe85c812dec680d4679a882746d47fb95639eb0f653": {
+   "status": "gate-fail:POSE",
+   "tiles": 2,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "0cd489f5c3607aa04e9e5aa06edaaade52fa8462b426d4e35fd79562aacde307": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "752bb9767de6d8e54501f323493689b78ca267ad5f6ceb523f6baf75a34e7e8d": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "70a63ed4cfa88633a8635a72abcb8af4e1cc6cc9bd7f1ff85f0bb713dbfda8df": {
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  },
+  "6c828a477bd1e0020597525becc686906de7cff72dcb1a518799c915d0f29e08": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  },
+  "7e2177c7c04b7a8755d6126259802bbc263f619cccc9d2e6ec4fc39b0a65d452": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "27344170d04b508b9133212922738987c118c59fd7f84743a67f4e49cdc4f16b": {
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "aeb5e6712c694fc19d7abedfe5fdf2cdb387b17f9a2ed4bc404e5f8b02fe39df": {
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 2,
+   "pose": "FRONT",
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "59a1c1ff0a6be94d5f90cee646ac9740df60c0604728d19417812b389165da4b": {
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "reasons": []
+  },
+  "8dff8c6042ed0ead2b72acc1a1f3a88775c995247a9e26596398812a2dda8891": {
+   "status": "no-face",
+   "tiles": 0,
+   "pose": null,
+   "reasons": [
+    "NO_FACE"
+   ]
+  }
+ },
+ "statusCounts": {
+  "gate-fail:QUALITY:BLURRY,POSE": 76,
+  "gate-fail:POSE": 82,
+  "gate-fail:QUALITY:BLURRY": 21,
+  "no-face": 46,
+  "gate-fail:QUALITY:BLURRY,SNAPSHOT:INCOMPLETE_HEAD_FRAME": 6,
+  "replay-pass (eyewear UNKNOWN)": 23,
+  "gate-fail:SNAPSHOT:INCOMPLETE_HEAD_FRAME": 4,
+  "gate-fail:QUALITY:BLURRY,POSE_NOT_ALIGNED": 1
+ },
+ "groups": 124,
+ "evaluated": [
+  "03bd71dac1fe34dfda0629667d98f2ff46f6db864c027b52bac3e4065fa241a8",
+  "07135c64e97922431dd84a9dc450678d51f83567d0cb00deec699cc630c9e054",
+  "0a30f8f6250aa9d8eefed658aee86b7e6f7242847003576ef7ce352c2c9bb4fe",
+  "0b160194e4cbe118746baaf744d8a1b4584474076ad51b87781b6af71deeb0a3",
+  "1080abf68e085cfe706ce928a3cb95645eb8c6e7412688acdd65173c03139d4e",
+  "19bee2b1443dfa5e3776a2f78a03450f323b7478b068d24cd2d74ff87375128f",
+  "4b52ed5577e172115672b0685bab7538974527dbb2db61a529dbfd43a2599f75",
+  "595bb6e4a4e9301a0a763e9ba48fb8cdbdc8e5987fb0b6ba77008fd4e1d2a941",
+  "59a1c1ff0a6be94d5f90cee646ac9740df60c0604728d19417812b389165da4b",
+  "62da3539afd4947d0eaab17df435015d5ac545a155126f527a324d711228eee4",
+  "6bd27673e2f05cbfd9b98770312f3c6c1fb6c6519bc19b6a84c56468cfdc35d4",
+  "7e2177c7c04b7a8755d6126259802bbc263f619cccc9d2e6ec4fc39b0a65d452",
+  "84236bdf39d58d28a848b0f61f7f8ff4155bb5a9953885eaca501b51c54956f6",
+  "b10534c9b1624e511f0ce323df394246e7568a7176585c27351ca115ec4cdab8",
+  "c6cb90159e171a2950d61042b718e34a12c4323d1156d2874a1b606aa5d42363",
+  "c9babdfaa385642d00d1b9605ec6296e4fa24cb70f634160c7f51947c2c39d87",
+  "e74974c4653b4e13a7c6fd99b0e2437a834d645e4af11ffced64ed9c35631c64"
+ ],
+ "groupsWithoutEligiblePhoto": [
+  "041ba21414fb",
+  "050bffb2d797",
+  "07865c61b194",
+  "092d58e51b7f",
+  "0b3ffde1ef56",
+  "0cd489f5c360",
+  "0dac0a871217",
+  "0fbdcc373e3e",
+  "1182bdfc633f",
+  "13778b302656",
+  "174bf06a21f4",
+  "197fc6b8286a",
+  "1bed85982f20",
+  "27344170d04b",
+  "2a058197d168",
+  "2ac344c28165",
+  "3034ae8f46f9",
+  "31747b608f29",
+  "364aba4640c3",
+  "3b88c71d394a",
+  "427b43f762d4",
+  "4500e6377d4a",
+  "45072033da25",
+  "493ab2c41626",
+  "509f14831306",
+  "53208ed6b9f6",
+  "54d4ad73a46e",
+  "55a19ef539eb",
+  "55e616e05cbe",
+  "56a78f4ebc11",
+  "5706d61fc169",
+  "58a6c3607854",
+  "5d9e52d8950e",
+  "5f5804523464",
+  "5f6ab2ff280b",
+  "5f8411a382ed",
+  "623df3d9a3d5",
+  "63e7cf0b471e",
+  "64a4e6dd0014",
+  "64b5085e1659",
+  "694f8d615f3f",
+  "6c828a477bd1",
+  "6e84bdead579",
+  "70a63ed4cfa8",
+  "70e5eae1ec5a",
+  "72d957b5664e",
+  "73252f65d75e",
+  "73825bad7bc1",
+  "73d41b5d57ad",
+  "752bb9767de6",
+  "75d112a2e311",
+  "76648e49c6e8",
+  "76a52963ecc1",
+  "76e72340e654",
+  "806ab7642127",
+  "807ab153a19e",
+  "8263a138cd01",
+  "874559d61514",
+  "891bca7ce5a4",
+  "8d9968d933b2",
+  "8dff8c6042ed",
+  "8e7c3812594c",
+  "931bbae46687",
+  "941209d8a7c8",
+  "9597a10e2f79",
+  "96054df67af6",
+  "99da3b1ddba8",
+  "a0be259bc861",
+  "a68e66d02af9",
+  "a72df78d0ad8",
+  "a87e19a148af",
+  "a94a47502889",
+  "ac7a7fdbf0dd",
+  "aeb5e6712c69",
+  "aefcd035783f",
+  "afe881aa3d40",
+  "b01b38ce92d8",
+  "b0c84f244236",
+  "b6db96b28b7f",
+  "bdbc483b464d",
+  "beb08712e4e3",
+  "c0c336230115",
+  "cc16509fe5a5",
+  "cedb9c560f6f",
+  "d3c3f1e375d0",
+  "d3ffbb1fd3e9",
+  "d561a5e32cdf",
+  "d5c64bfb12a8",
+  "d75d628e9cda",
+  "dae24c0830b1",
+  "de6a52438f69",
+  "dfad580252c4",
+  "e15b895515f0",
+  "e2be7e131c92",
+  "e5d622d50756",
+  "e630e497b792",
+  "e6bd804fd8e3",
+  "ed2cd411d3e2",
+  "f4e6777017c4",
+  "f7339dbc5e37",
+  "f92e091b838d",
+  "fca51364f8d0",
+  "fcb2417dec2a",
+  "fd5f0c962d33",
+  "fd6f33b4d6a3",
+  "ff603561c1f6",
+  "ffc21f5cc228"
+ ],
+ "evaluatedPose": {
+  "FRONT": 16,
+  "LEFT": 1
+ }
+}
