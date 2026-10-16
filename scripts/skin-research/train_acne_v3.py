@@ -22,6 +22,22 @@ import acne_inventory_v3 as inv
 SEED = 20261015
 STEPS, ACCUM, CKPT_EVERY = 1800, 8, 50
 SELECT_EVERY, VAL_PHOTOS = 300, 150
+CONTROLLED_RUN = dict(
+    name='acne-v3-fix-objloss-20261016',
+    question='Does implementing the declared standard background rule correctly change the product-chain regression of the failed v3 run?',
+    onlyChange='objectness loss: shared-head mean-over-known-negatives x20 + sigmoid focal (alpha .25, gamma 2)  ->  standard YOLOX BCE summed over positives + known negatives / num_fg. '
+               'This changes BOTH the normalisation AND focal->BCE weighting; an effect cannot be attributed to the measured ~180x hard-negative gradient ratio alone.',
+    unchanged='plan-v3.json (same SHA), groups, per-step sample order and seed, augmentation, scale targets, missing-label guard, trainable layers, BatchNorm handling, AdamW, LR 2e-4, '
+              'warmup 100, cosine over 1,800 steps (not compressed), ACCUM 8, conf .30, NMS .30, evaluators',
+    start='CDC Step0 (SHA 18e94a95...), fresh optimizer; the failed run (code 688301e7..., step-001250) is preserved and NOT resumed',
+    firstStage='stop after optimizer step 300 (LR at stop = schedule value at step 300 of 1,800); no automatic continuation',
+    comparisons='validation (150 photos, IoU .30/.50, conf .30) and unchanged v2 product chain (IoU .50 primary; .30 reported separately) for Step0, failed step-300 and fixed step-300; '
+                'Step0 and failed-run records are reused where already saved',
+    readout='targets found, false candidates (reviewed negatives, unmatched), gained/lost targets and matched-box area ratio are read together; '
+            'fewer false candidates or a lower loss alone is not success; a failed short run is not proof that the architecture cannot learn',
+    sealed='Skin care v5 independent test stays closed; frozen CDC acceptance (acceptance.json 90dc84fa..., 2026-10-10) unchanged; production stays accepted:false')
+# First stage of the corrected-rule run stops here; the 1,800-step LR schedule is NOT compressed.
+STOP_AT = 300
 LR, WARMUP = 2e-4, 100
 GUARD = .50
 # Objectness background term. The owner approved "standard method": unlabeled skin is background as in public detectors,
@@ -244,7 +260,7 @@ def train(plan_p, out, togg, lease, max_seconds):
     acne = [i for i in items if i['pos']]; conf = [i for i in items if not i['pos'] and i['neg']]
     targets = P['targetLesionSidePx']['values']
     target = out / 'v3'; target.mkdir(exist_ok=True)
-    if (target / 'DONE').exists(): raise RuntimeError('COMPLETED_RUN_NOT_REPEATED')
+    if (target / 'DONE').exists() or (target / f'STAGE-{STOP_AT}.json').exists(): raise RuntimeError('COMPLETED_RUN_NOT_REPEATED')
     torch.set_num_threads(2); torch.manual_seed(SEED)
     net = step0_net(togg)
     for n, p in net.named_parameters(): p.requires_grad_(trainable_name(n))
@@ -253,6 +269,9 @@ def train(plan_p, out, togg, lease, max_seconds):
         if isinstance(m, torch.nn.BatchNorm2d): m.eval()
     focal = make_obj_loss(OBJ_LOSS); net.head.obj_focal_loss = focal
     params = [p for p in net.parameters() if p.requires_grad]
+    frozen_sha = lambda: hashlib.sha256(b''.join(v.detach().cpu().numpy().tobytes() for n, v in sorted(net.state_dict().items()) if n not in tnames)).hexdigest()
+    step0_trainable = {n: p.detach().clone() for n, p in net.named_parameters() if p.requires_grad}
+    frozen0 = frozen_sha()
     opt = torch.optim.AdamW(params, lr=LR, weight_decay=.01)
     lam = lambda s: (s + 1) / WARMUP if s < WARMUP else .05 + .95 * .5 * (1 + math.cos(math.pi * (s - WARMUP) / (STEPS - WARMUP)))
     sched = torch.optim.lr_scheduler.LambdaLR(opt, lam)
@@ -270,6 +289,7 @@ def train(plan_p, out, togg, lease, max_seconds):
     def image(it): return imgs.read(it['archive'], it['path'])
 
     def save(step):
+        if frozen_sha() != frozen0: raise RuntimeError('FROZEN_PARAMETERS_CHANGED')
         d = target / f'step-{step:06d}'; d.mkdir(exist_ok=True)
         save_file({k: v.contiguous() for k, v in net.state_dict().items()}, str(d / 'model.safetensors'))
         state = opt.state_dict(); tensors, states = {}, {}
@@ -288,6 +308,7 @@ def train(plan_p, out, togg, lease, max_seconds):
 
     t0 = time.monotonic()
     for step in range(start, STEPS):
+        if step >= STOP_AT: break
         lease.check(); rng = random.Random(SEED * 1000003 + step)   # stateless per step: resume-exact
         opt.zero_grad(set_to_none=True); tot = 0.; npos = nk = nguard = 0
         for j in range(ACCUM):
@@ -318,15 +339,21 @@ def train(plan_p, out, togg, lease, max_seconds):
             loss = net(ten, y)['total_loss']
             if not torch.isfinite(loss): raise RuntimeError('NONFINITE_LOSS')
             (loss / ACCUM).backward(); tot += float(loss.detach()) / ACCUM
-        torch.nn.utils.clip_grad_norm_(params, 5.); opt.step(); sched.step()
-        logs.append(dict(step=step + 1, loss=round(tot, 4), pos=npos, known=nk, guarded=nguard, lr=sched.get_last_lr()[0]))
+        if not all(p.grad is None or torch.isfinite(p.grad).all() for p in params): raise RuntimeError('NONFINITE_GRADIENT')
+        gnorm = float(torch.nn.utils.clip_grad_norm_(params, 5.)); opt.step(); sched.step()
+        logs.append(dict(step=step + 1, loss=round(tot, 4), pos=npos, known=nk, guarded=nguard, lr=sched.get_last_lr()[0], gradNorm=round(gnorm, 4)))
         if (step + 1) % 10 == 0: print(json.dumps(dict(**logs[-1], sec=round(time.monotonic() - t0, 1))), flush=True)
         if (step + 1) % CKPT_EVERY == 0:
             save(step + 1)
             per = (time.monotonic() - t0) / (step + 1 - start)
-            if step + 1 < STEPS and time.monotonic() - t0 + CKPT_EVERY * per > max_seconds: return dict(partial=True, step=step + 1, secPerStep=round(per, 2))
-    (target / 'DONE').write_text(json.dumps(dict(steps=STEPS, trainable=tnames, resource=lease.receipt())))
-    return dict(done=True)
+            if step + 1 < min(STEPS, STOP_AT) and time.monotonic() - t0 + CKPT_EVERY * per > max_seconds: return dict(partial=True, step=step + 1, secPerStep=round(per, 2))
+    if frozen_sha() != frozen0: raise RuntimeError('FROZEN_PARAMETERS_CHANGED')
+    cur = dict(net.named_parameters()); unchanged = [n for n in tnames if torch.equal(cur[n].detach(), step0_trainable[n])]
+    if unchanged: raise RuntimeError('TRAINABLE_NOT_UPDATED:' + ','.join(unchanged[:5]))
+    stage = dict(stoppedAt=min(STEPS, STOP_AT), scheduleSteps=STEPS, lrAtStop=sched.get_last_lr()[0], trainable=tnames, trainableUpdated=len(tnames),
+                 frozenStateSHA256=frozen0, frozenUnchanged=True, objLoss=OBJ_LOSS, resource=lease.receipt())
+    (target / ('DONE' if STOP_AT >= STEPS else f'STAGE-{STOP_AT}.json')).write_text(json.dumps(stage))
+    return dict(done=True, **{k: v for k, v in stage.items() if k not in ('trainable', 'resource')})
 
 
 # ------------------------------------------------------------------ evaluation on scale-matched full images
@@ -431,8 +458,9 @@ if __name__ == '__main__':
         pre = Path(a.prereg)
         if (out / 'v3').exists(): raise SystemExit('TRAINING_ALREADY_STARTED')
         if pre.exists(): raise SystemExit('PREREGISTRATION_FROZEN')
-        pre.write_text(json.dumps(dict(decision=DECISION, steps=STEPS, selectEvery=SELECT_EVERY, valPhotos=VAL_PHOTOS, accum=ACCUM, lr=LR, warmup=WARMUP, guard=GUARD, objLoss=OBJ_LOSS, seed=SEED, trainArchives=TRAIN_ARCHIVES,
+        pre.write_text(json.dumps(dict(decision=DECISION, steps=STEPS, selectEvery=SELECT_EVERY, valPhotos=VAL_PHOTOS, accum=ACCUM, lr=LR, warmup=WARMUP, guard=GUARD, objLoss=OBJ_LOSS, stopAt=STOP_AT, seed=SEED, trainArchives=TRAIN_ARCHIVES,
                                        testArchive=TEST_ARCHIVE, planSHA256=sha_file(out / 'plan-v3.json'), codeSHA256=sha_file(Path(__file__)),
+                                       controlledRun=CONTROLLED_RUN,
                                        trainable='YOLOX head + PAFPN neck convs (BatchNorm frozen, eval mode); backbone frozen; start = CDC Step0'), indent=1)); print(sha_file(pre)); sys.exit()
     if a.phase == 'metrics':
         for thr in (.3, .5): print(thr, json.dumps(metrics(load_rows(out, a.role, a.model), thr)))

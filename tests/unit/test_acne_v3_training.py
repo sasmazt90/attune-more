@@ -81,3 +81,7 @@ def test_anchor_order_and_standard_background_gradient():
 
 def test_trainer_uses_declared_background_rule():
     assert t.OBJ_LOSS == 'standard-yolox-bce'
+
+
+def test_first_stage_keeps_the_full_schedule():
+    assert (t.STEPS, t.STOP_AT, t.WARMUP, t.LR, t.ACCUM, t.SEED) == (1800, 300, 100, 2e-4, 8, 20261015)

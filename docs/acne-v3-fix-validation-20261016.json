@@ -1,0 +1,98 @@
+{
+ "step0": {
+  "0.3": {
+   "photos": 150,
+   "tp": 307,
+   "fp": 791,
+   "fn": 938,
+   "precision": 0.2796,
+   "recall": 0.2466,
+   "f1": 0.2621,
+   "confounderHits": 87,
+   "fpPerPhoto": 5.27
+  },
+  "0.5": {
+   "photos": 150,
+   "tp": 203,
+   "fp": 889,
+   "fn": 1042,
+   "precision": 0.1859,
+   "recall": 0.1631,
+   "f1": 0.1737,
+   "confounderHits": 87,
+   "fpPerPhoto": 5.93
+  }
+ },
+ "failed-step300": {
+  "0.3": {
+   "photos": 150,
+   "tp": 613,
+   "fp": 3726,
+   "fn": 632,
+   "precision": 0.1413,
+   "recall": 0.4924,
+   "f1": 0.2196,
+   "confounderHits": 244,
+   "fpPerPhoto": 24.84
+  },
+  "0.5": {
+   "photos": 150,
+   "tp": 414,
+   "fp": 3915,
+   "fn": 831,
+   "precision": 0.0956,
+   "recall": 0.3325,
+   "f1": 0.1485,
+   "confounderHits": 244,
+   "fpPerPhoto": 26.1
+  }
+ },
+ "fixed-step300": {
+  "0.3": {
+   "photos": 150,
+   "tp": 13,
+   "fp": 4,
+   "fn": 1232,
+   "precision": 0.7647,
+   "recall": 0.0104,
+   "f1": 0.0206,
+   "confounderHits": 0,
+   "fpPerPhoto": 0.03
+  },
+  "0.5": {
+   "photos": 150,
+   "tp": 9,
+   "fp": 8,
+   "fn": 1236,
+   "precision": 0.5294,
+   "recall": 0.0072,
+   "f1": 0.0143,
+   "confounderHits": 0,
+   "fpPerPhoto": 0.05
+  }
+ },
+ "fixedRunStage": {
+  "stoppedAt": 300,
+  "scheduleSteps": 1800,
+  "lrAtStop": 0.0001935848617934138,
+  "trainableUpdated": 80,
+  "frozenStateSHA256": "20149bbc643b5b74d7ad59b7258655365f6efa506ef901cd825c046ef9b73b98",
+  "frozenUnchanged": true,
+  "objLoss": "standard-yolox-bce"
+ },
+ "fixedRunLogs": {
+  "first10meanLoss": 52.76898,
+  "last50meanLoss": 28.044126000000002,
+  "maxGradNormPreClip": 286400.6562,
+  "lastGradNorm": 22.161
+ },
+ "checkpointHashes": {
+  "directory": "step-000300",
+  "step": 300,
+  "hashes": {
+   "model.safetensors": "5644d62c176fdd6b4e6921337d9fe8d76c05e413761c7398cd4c395792f3b7ad",
+   "optim.safetensors": "3c51414b90acf6fa52993a243606049d8b1636456d656c460185a2b581dc0469",
+   "state.json": "e79281fb74baddde18016519cfc7a0d1ea2723ad6e012a269fa3ccb7728512bd"
+  }
+ }
+}

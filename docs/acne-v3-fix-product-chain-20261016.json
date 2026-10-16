@@ -1,0 +1,202 @@
+{
+ "scopeB-positive": {
+  "photos": 3,
+  "step0": {
+   "targets": 14,
+   "hit50": 4,
+   "hit30": 4,
+   "reviewedNegFP": 0,
+   "unmatched": 19,
+   "candidates": 23,
+   "medianSec": 5.83,
+   "boxAreaRatio": {
+    "n": 4,
+    "median": 0.774
+   }
+  },
+  "old300": {
+   "targets": 14,
+   "hit50": 4,
+   "hit30": 4,
+   "reviewedNegFP": 0,
+   "unmatched": 49,
+   "candidates": 53,
+   "medianSec": 4.13,
+   "boxAreaRatio": {
+    "n": 4,
+    "median": 1.382
+   },
+   "vsStep0_gained50": 0,
+   "vsStep0_lost50": 0,
+   "vsStep0_gained30": 0,
+   "vsStep0_lost30": 0
+  },
+  "fix300": {
+   "targets": 14,
+   "hit50": 2,
+   "hit30": 2,
+   "reviewedNegFP": 0,
+   "unmatched": 1,
+   "candidates": 3,
+   "medianSec": 4.51,
+   "boxAreaRatio": {
+    "n": 2,
+    "median": 1.074
+   },
+   "vsStep0_gained50": 0,
+   "vsStep0_lost50": 2,
+   "vsStep0_gained30": 0,
+   "vsStep0_lost30": 2
+  }
+ },
+ "scopeB-reviewedNegative": {
+  "photos": 7,
+  "step0": {
+   "targets": 0,
+   "hit50": 0,
+   "hit30": 0,
+   "reviewedNegFP": 3,
+   "unmatched": 0,
+   "candidates": 3,
+   "medianSec": 1.49,
+   "boxAreaRatio": {
+    "n": 0,
+    "median": null
+   }
+  },
+  "old300": {
+   "targets": 0,
+   "hit50": 0,
+   "hit30": 0,
+   "reviewedNegFP": 41,
+   "unmatched": 0,
+   "candidates": 41,
+   "medianSec": 1.39,
+   "boxAreaRatio": {
+    "n": 0,
+    "median": null
+   },
+   "vsStep0_gained50": 0,
+   "vsStep0_lost50": 0,
+   "vsStep0_gained30": 0,
+   "vsStep0_lost30": 0
+  },
+  "fix300": {
+   "targets": 0,
+   "hit50": 0,
+   "hit30": 0,
+   "reviewedNegFP": 0,
+   "unmatched": 0,
+   "candidates": 0,
+   "medianSec": 1.53,
+   "boxAreaRatio": {
+    "n": 0,
+    "median": null
+   },
+   "vsStep0_gained50": 0,
+   "vsStep0_lost50": 0,
+   "vsStep0_gained30": 0,
+   "vsStep0_lost30": 0
+  }
+ },
+ "controls": {
+  "photos": 3,
+  "step0": {
+   "targets": 29,
+   "hit50": 16,
+   "hit30": 16,
+   "reviewedNegFP": 0,
+   "unmatched": 81,
+   "candidates": 97,
+   "medianSec": 4.52,
+   "boxAreaRatio": {
+    "n": 16,
+    "median": 1.095
+   }
+  },
+  "old300": {
+   "targets": 29,
+   "hit50": 7,
+   "hit30": 17,
+   "reviewedNegFP": 0,
+   "unmatched": 111,
+   "candidates": 118,
+   "medianSec": 3.98,
+   "boxAreaRatio": {
+    "n": 17,
+    "median": 1.854
+   },
+   "vsStep0_gained50": 1,
+   "vsStep0_lost50": 10,
+   "vsStep0_gained30": 2,
+   "vsStep0_lost30": 1
+  },
+  "fix300": {
+   "targets": 29,
+   "hit50": 1,
+   "hit30": 2,
+   "reviewedNegFP": 0,
+   "unmatched": 2,
+   "candidates": 3,
+   "medianSec": 4.46,
+   "boxAreaRatio": {
+    "n": 2,
+    "median": 1.943
+   },
+   "vsStep0_gained50": 0,
+   "vsStep0_lost50": 15,
+   "vsStep0_gained30": 0,
+   "vsStep0_lost30": 14
+  }
+ },
+ "unusedEval": {
+  "photos": 20,
+  "step0": {
+   "targets": 95,
+   "hit50": 39,
+   "hit30": 52,
+   "reviewedNegFP": 0,
+   "unmatched": 254,
+   "candidates": 293,
+   "medianSec": 3.58,
+   "boxAreaRatio": {
+    "n": 52,
+    "median": 1.172
+   }
+  },
+  "old300": {
+   "targets": 95,
+   "hit50": 39,
+   "hit30": 56,
+   "reviewedNegFP": 0,
+   "unmatched": 606,
+   "candidates": 645,
+   "medianSec": 3.56,
+   "boxAreaRatio": {
+    "n": 56,
+    "median": 1.571
+   },
+   "vsStep0_gained50": 11,
+   "vsStep0_lost50": 11,
+   "vsStep0_gained30": 11,
+   "vsStep0_lost30": 7
+  },
+  "fix300": {
+   "targets": 95,
+   "hit50": 4,
+   "hit30": 5,
+   "reviewedNegFP": 0,
+   "unmatched": 1,
+   "candidates": 5,
+   "medianSec": 3.4,
+   "boxAreaRatio": {
+    "n": 5,
+    "median": 1.357
+   },
+   "vsStep0_gained50": 0,
+   "vsStep0_lost50": 35,
+   "vsStep0_gained30": 0,
+   "vsStep0_lost30": 47
+  }
+ }
+}
