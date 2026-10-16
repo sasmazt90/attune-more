@@ -1,0 +1,23 @@
+{
+ "photos": 115,
+ "uniquePhotoSHA": 115,
+ "byRole": {
+  "TRAIN": 80,
+  "DEV_HELDOUT20": 20,
+  "REVIEWED_NEGATIVE": 15
+ },
+ "pimpleBoxesToConfirm": 512,
+ "conflictsToResolve": 2,
+ "confoundersTouchingPimple": 1,
+ "step0UnknownCandidatesToReview": 699,
+ "archiveAcneInsideCleanMask": 0,
+ "photosWithStep0Candidates": 49,
+ "sealedTestExcludedAndChecked": true,
+ "excludedForSealedTest": [
+  {
+   "sha8": "9fa7d266",
+   "role": "TRAIN",
+   "reason": "photo group overlaps the sealed Skin care v5 test"
+  }
+ ]
+}
