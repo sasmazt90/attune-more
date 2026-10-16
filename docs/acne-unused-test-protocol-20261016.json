@@ -1,0 +1,32 @@
+{
+ "name": "acne-unused-test-v1-vs-v3-1",
+ "date": "2026-10-16",
+ "status": "fixed before any acne model output on these photos, before preflight and before labelling",
+ "question": "On photos never used before, how many false points does frozen v3 remove relative to frozen v1, how many distinct targets does it lose, and for which scope is that reliable?",
+ "frozen": "docs/acne-unused-test-freeze-20261016.json (v1 b6fa6c05..., v3 94d18abb..., Step0 18e94a95..., feature / filter / chain / landmark code hashes). No training, fine-tuning, calibration or threshold search; confidence .30, NMS .30, old box filter, features, standardisers and thresholds unchanged. No point filter, merging, ensemble or new model. The photo command default stays v1.",
+ "scope": {
+  "pool": "the sealed Skin care v5 test archive (plan-v3 TEST_CROSS_SOURCE, 903 rows); this task authorises opening its verified-unused part for this comparison only",
+  "selection": "scripts/skin-research/unused_test_select.py -> audit-results/acne-unused-test/scope.json (copied to docs/acne-unused-test-scope-20261016.json): 643 rows excluded with reasons (289 inferred before by Step0 on 2026-10-15; group links to other archives or excluded rows; dHash/flip <= 10 to any of 33k rows of the other 14 local archives or to excluded rows; shared Roboflow family); ORB/RANSAC crop/collage check against 2,362 photo files of our research records and the 289 excluded test rows",
+  "extraExclusion": "row 0034b55b2f58... had 24 ORB/RANSAC inliers to an excluded (previously inferred) test row while every other kept row had 0; the written rule was >= 25, it is excluded as a suspected copy (decided before any acne output)",
+  "kept": "259 photos (all 640 x 640) in evaluation groups that merge near-duplicates inside the kept set (same plan group, same Roboflow family or dHash <= 10)",
+  "onePerGroup": "within each evaluation group only ONE photo is evaluated: the product-eligible photo with the lowest sha256 (decided by this rule before any output); near-duplicate copies would otherwise count the same face several times. All-photo counts are reported separately.",
+  "notClaimed": "person identity is unknown (no person-independence claim); Step0's original pre-training data is unknown, so overlap with it cannot be ruled out; publisher labels are not truth"
+ },
+ "eligibility": "unchanged product rules: local MediaPipe (product face_landmarker.task) -> frontend replay (quality, pose, snapshot; eyewear not replayed = UNKNOWN) -> product photo_input crop -> tile budget. Only status 'replay-pass (eyewear UNKNOWN)' photos are evaluated; every other status is listed separately and never counted as a success. A photo is never dropped because the model produced no candidate.",
+ "labels": {
+  "rule": "same as acne-point-relabel-protocol-1 (layer 1): TARGET = centre of a visible acne-like single lesion; MOLE, SCAR_PIGMENT, OTHER separate; UNCERTAIN where no reliable decision is possible; coverage flags (collage / closeup_not_full_face -> empty mask, targets still count); per-tile not_reviewable and exclusion rectangles; mask = face oval - eyes/brows (dilated 0.03 fw) - lips, within reviewable tiles, minus exclusions",
+  "how": "full-face tile sheets (original pixels + source-pixel grid only; no source boxes, no model points, no predictions exist yet); decisions recorded per photo",
+  "freeze": "labels and masks hashed and committed before inference",
+  "level": "AI engineering review, not expert verification, not fully blind (the reviewer knows the study), no clinical truth claim",
+  "role": "test only: these labels are never used for training or calibration"
+ },
+ "inference": "once per evaluated photo from the raw file: local MediaPipe + product preparation -> fixed Step0 candidates -> old box filter -> frozen features; the SAME candidates and features go to v1 and v3 (their own verifier files are the only difference). Step0 alone is computed from the same records. Outputs cached; labels enter no inference, crop, scale or filter decision.",
+ "scoring": {
+  "rule": "same as DEV: source-pixel points (box centres), r = 0.03 x face width (landmarks 234-454), deterministic one-to-one matching (max cardinality then min distance), classes matched / duplicate / nearOutOfScopeTarget / onOther / onUncertain / false (inside reviewed mask) / unreviewedInOval / nonSkin / unreviewedPhoto",
+  "mainScope": "all TARGET points inside the reviewed mask of every evaluated photo (product-filtered targets are NOT removed from the denominator)",
+  "diagnostic": "separate table restricted to targets inside the product analysis scope (current product masks; exposed-cheek scope for side captures)",
+  "report": "Step0 / v1 / v3: photos, targets, distinct targets found and rate, false points total / mean / median per photo, duplicates, uncertain, non-skin; v3 vs v1 gained / lost target ids; per-photo paired differences with photo-cluster bootstrap 95% CIs (10,000 resamples, seed 20261016); subgroups FRONT vs side (LEFT/RIGHT capture) and face-width tertiles (TRAIN edges 588 / 899 px) with their denominators; time and memory on the same hardware",
+  "notAllowed": "no pooling with DEV results, no carried-over acceptance numbers, no new acceptance threshold; a CI containing 0 is not evidence of equivalence"
+ },
+ "rights": "licence and source rights are not resolved by this test (publisher-declared licences only; no individual consent records)"
+}

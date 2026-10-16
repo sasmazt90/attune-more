@@ -1,0 +1,37 @@
+{
+ "purpose": "frozen inputs for the unused-photo v1 vs v3 comparison (recorded before any new photo is inferred)",
+ "verifiers": {
+  "v1": {
+   "file": "docs/acne-verifier-model-20261016.json",
+   "sha256": "b6fa6c05b48a092623f7780200c07440ebaf934989ab66518ee21b23fa304f8a"
+  },
+  "v3": {
+   "file": "docs/acne-verifier-v3-model-20261016.json",
+   "sha256": "94d18abb951c49847371f03513957681fd50392e0ebfb51c233a1db65492ab67"
+  }
+ },
+ "note": "each verifier file holds its own standardiser (mean/scale), logistic-regression coefficients and threshold",
+ "step0": {
+  "file": "attune-live-test/audit-results/acne-takeover-20261015/models/step0.safetensors",
+  "sha256": "18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655",
+  "expected": "18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655"
+ },
+ "code": {
+  "scripts/skin-research/acne_candidate_verifier.py": "f2405a5e3772c8c914c8a40fa15ee3bf9ba191be722127e2df9c1319b0972f0a",
+  "scripts/skin-research/acne_verifier_photo.py": "128cb905ccb07fd31fe7fab4e4e40e73685b7690555694cb3462b8849da103c9",
+  "scripts/skin-research/eval_acne_v5_independent.py": "7bc2aaccebf71384ef7f785321c013e1b68571ed9f9f41f09d910fcba4b60a26",
+  "scripts/skin-research/run_acne_v2_pilot.py": "734aa2916b8888c95cd3704d19bce94d55b49f7b214d91caa926c786fa5328c5",
+  "scripts/skin-research/acne_landmarks_v2.py": "db28579aa348cf636a7a7a18bd6e7272e9044939cbe0d5659814fbc13a884ff3",
+  "scripts/skin-research/prepare_acne_data_v2.py": "d82a12753ea813bea0396c1486f74efeeb6857032d63c92eb86ff0ce590b3d20",
+  "scripts/skin-research/acne_product_replay.cjs": "2c1a1dc52f0fe60ad929b519a79799ac5081897c3bbf39dba6c66bc8ce272558"
+ },
+ "filterCode": {
+  "acne_takeover_support.py": "bc70636fff0a544572beb585f716035fa6d770b08a13c09e591dbcdae62aff89",
+  "acne_box_support_staging.py": "11dd8e04ee477597996fd80d3e3d68301f34dae7fcfafeddd3be4c7434b30667"
+ },
+ "faceLandmarker": {
+  "file": "attune-live-test/audit-results/skin-capabilities-20261008/scin/face_landmarker.task",
+  "sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff"
+ },
+ "defaultVerifierInPhotoCommand": "v1 (unchanged)"
+}
