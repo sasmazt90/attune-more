@@ -1,0 +1,1160 @@
+{
+ "table": {
+  "Step0": {
+   "photos": 17,
+   "targets": 0,
+   "found": 0,
+   "points": 9,
+   "falseTotal": 5,
+   "falseMeanPerPhoto": 0.294,
+   "falseMedianPerPhoto": 0.0,
+   "matched": 0,
+   "duplicate": 0,
+   "onUncertain": 1,
+   "onOther": 3,
+   "nearOutOfScopeTarget": 0,
+   "unreviewedInOval": 0,
+   "nonSkin": 0,
+   "unreviewedPhoto": 0
+  },
+  "v1": {
+   "photos": 17,
+   "targets": 0,
+   "found": 0,
+   "points": 7,
+   "falseTotal": 4,
+   "falseMeanPerPhoto": 0.235,
+   "falseMedianPerPhoto": 0.0,
+   "matched": 0,
+   "duplicate": 0,
+   "onUncertain": 0,
+   "onOther": 3,
+   "nearOutOfScopeTarget": 0,
+   "unreviewedInOval": 0,
+   "nonSkin": 0,
+   "unreviewedPhoto": 0
+  },
+  "v3": {
+   "photos": 17,
+   "targets": 0,
+   "found": 0,
+   "points": 4,
+   "falseTotal": 2,
+   "falseMeanPerPhoto": 0.118,
+   "falseMedianPerPhoto": 0.0,
+   "matched": 0,
+   "duplicate": 0,
+   "onUncertain": 0,
+   "onOther": 2,
+   "nearOutOfScopeTarget": 0,
+   "unreviewedInOval": 0,
+   "nonSkin": 0,
+   "unreviewedPhoto": 0
+  }
+ },
+ "targetsV3vsV1": {
+  "gained": [],
+  "lost": [],
+  "note": "no TARGET exists in this set"
+ },
+ "CI95": {
+  "v1-Step0 false": {
+   "photo": {
+    "delta": -1,
+    "ci95": [
+     -3.0,
+     0.0
+    ],
+    "units": 17
+   },
+   "person": {
+    "delta": -1,
+    "ci95": [
+     -3.0,
+     0.0
+    ],
+    "units": 14
+   }
+  },
+  "v1-Step0 points": {
+   "photo": {
+    "delta": -2,
+    "ci95": [
+     -5.0,
+     0.0
+    ],
+    "units": 17
+   },
+   "person": {
+    "delta": -2,
+    "ci95": [
+     -5.0,
+     0.0
+    ],
+    "units": 14
+   }
+  },
+  "v1-Step0 found": {
+   "photo": {
+    "delta": 0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "units": 17
+   },
+   "person": {
+    "delta": 0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "units": 14
+   }
+  },
+  "v3-Step0 false": {
+   "photo": {
+    "delta": -3,
+    "ci95": [
+     -6.0,
+     0.0
+    ],
+    "units": 17
+   },
+   "person": {
+    "delta": -3,
+    "ci95": [
+     -6.0,
+     0.0
+    ],
+    "units": 14
+   }
+  },
+  "v3-Step0 points": {
+   "photo": {
+    "delta": -5,
+    "ci95": [
+     -12.0,
+     0.0
+    ],
+    "units": 17
+   },
+   "person": {
+    "delta": -5,
+    "ci95": [
+     -12.0,
+     0.0
+    ],
+    "units": 14
+   }
+  },
+  "v3-Step0 found": {
+   "photo": {
+    "delta": 0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "units": 17
+   },
+   "person": {
+    "delta": 0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "units": 14
+   }
+  },
+  "v3-v1 false": {
+   "photo": {
+    "delta": -2,
+    "ci95": [
+     -5.0,
+     0.0
+    ],
+    "units": 17
+   },
+   "person": {
+    "delta": -2,
+    "ci95": [
+     -5.0,
+     0.0
+    ],
+    "units": 14
+   }
+  },
+  "v3-v1 points": {
+   "photo": {
+    "delta": -3,
+    "ci95": [
+     -8.0,
+     0.0
+    ],
+    "units": 17
+   },
+   "person": {
+    "delta": -3,
+    "ci95": [
+     -8.0,
+     0.0
+    ],
+    "units": 14
+   }
+  },
+  "v3-v1 found": {
+   "photo": {
+    "delta": 0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "units": 17
+   },
+   "person": {
+    "delta": 0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "units": 14
+   }
+  }
+ },
+ "subgroups": {
+  "FRONT": {
+   "photos": 16,
+   "Step0": {
+    "points": 8,
+    "false": 4
+   },
+   "v1": {
+    "points": 6,
+    "false": 3
+   },
+   "v3": {
+    "points": 3,
+    "false": 1
+   }
+  },
+  "side (LEFT/RIGHT)": {
+   "photos": 1,
+   "Step0": {
+    "points": 1,
+    "false": 1
+   },
+   "v1": {
+    "points": 1,
+    "false": 1
+   },
+   "v3": {
+    "points": 1,
+    "false": 1
+   }
+  },
+  "fw tertile 0 (<588 px)": {
+   "photos": 17,
+   "Step0": {
+    "points": 9,
+    "false": 5
+   },
+   "v1": {
+    "points": 7,
+    "false": 4
+   },
+   "v3": {
+    "points": 4,
+    "false": 2
+   }
+  },
+  "fw tertile 1": {
+   "photos": 0,
+   "Step0": {
+    "points": 0,
+    "false": 0
+   },
+   "v1": {
+    "points": 0,
+    "false": 0
+   },
+   "v3": {
+    "points": 0,
+    "false": 0
+   }
+  },
+  "fw tertile 2 (>=899 px)": {
+   "photos": 0,
+   "Step0": {
+    "points": 0,
+    "false": 0
+   },
+   "v1": {
+    "points": 0,
+    "false": 0
+   },
+   "v3": {
+    "points": 0,
+    "false": 0
+   }
+  }
+ },
+ "perPhoto": {
+  "03bd71dac1fe": {
+   "pose": "FRONT",
+   "faceWidthPx": 499.9,
+   "Step0": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  },
+  "07135c64e979": {
+   "pose": "FRONT",
+   "faceWidthPx": 380.0,
+   "Step0": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  },
+  "0a30f8f6250a": {
+   "pose": "FRONT",
+   "faceWidthPx": 292.3,
+   "Step0": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  },
+  "0b160194e4cb": {
+   "pose": "FRONT",
+   "faceWidthPx": 544.2,
+   "Step0": {
+    "points": 1,
+    "matched": 0,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 1,
+    "matched": 0,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  },
+  "1080abf68e08": {
+   "pose": "FRONT",
+   "faceWidthPx": 455.9,
+   "Step0": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  },
+  "19bee2b1443d": {
+   "pose": "FRONT",
+   "faceWidthPx": 352.4,
+   "Step0": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  },
+  "4b52ed5577e1": {
+   "pose": "FRONT",
+   "faceWidthPx": 525.0,
+   "Step0": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  },
+  "595bb6e4a4e9": {
+   "pose": "FRONT",
+   "faceWidthPx": 467.1,
+   "Step0": {
+    "points": 3,
+    "matched": 0,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 1,
+    "onOther": 1,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 2,
+    "matched": 0,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 1,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  },
+  "59a1c1ff0a6b": {
+   "pose": "FRONT",
+   "faceWidthPx": 567.5,
+   "Step0": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  },
+  "62da3539afd4": {
+   "pose": "FRONT",
+   "faceWidthPx": 488.9,
+   "Step0": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  },
+  "6bd27673e2f0": {
+   "pose": "FRONT",
+   "faceWidthPx": 424.1,
+   "Step0": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  },
+  "7e2177c7c04b": {
+   "pose": "FRONT",
+   "faceWidthPx": 467.7,
+   "Step0": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  },
+  "84236bdf39d5": {
+   "pose": "FRONT",
+   "faceWidthPx": 479.4,
+   "Step0": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  },
+  "b10534c9b162": {
+   "pose": "FRONT",
+   "faceWidthPx": 449.0,
+   "Step0": {
+    "points": 3,
+    "matched": 0,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 2,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 3,
+    "matched": 0,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 2,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 3,
+    "matched": 0,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 2,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  },
+  "c6cb90159e17": {
+   "pose": "LEFT",
+   "faceWidthPx": 491.2,
+   "Step0": {
+    "points": 1,
+    "matched": 0,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 1,
+    "matched": 0,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 1,
+    "matched": 0,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  },
+  "c9babdfaa385": {
+   "pose": "FRONT",
+   "faceWidthPx": 388.9,
+   "Step0": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  },
+  "e74974c4653b": {
+   "pose": "FRONT",
+   "faceWidthPx": 393.8,
+   "Step0": {
+    "points": 1,
+    "matched": 0,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v1": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   },
+   "v3": {
+    "points": 0,
+    "matched": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0,
+    "onOther": 0,
+    "nearOutOfScopeTarget": 0,
+    "unreviewedInOval": 0,
+    "nonSkin": 0,
+    "unreviewedPhoto": 0,
+    "found": 0
+   }
+  }
+ },
+ "removed": {
+  "v1": [
+   {
+    "photo": "595bb6e4a4e9",
+    "box": [
+     111.271,
+     420.108,
+     122.091,
+     427.71
+    ],
+    "proba": 0.0039,
+    "classUnderStep0": "onUncertain"
+   },
+   {
+    "photo": "e74974c4653b",
+    "box": [
+     337.727,
+     340.758,
+     353.351,
+     350.877
+    ],
+    "proba": 0.0224,
+    "classUnderStep0": "false"
+   }
+  ],
+  "v3": [
+   {
+    "photo": "0b160194e4cb",
+    "box": [
+     142.776,
+     384.311,
+     149.693,
+     389.969
+    ],
+    "proba": 0.0,
+    "classUnderStep0": "false"
+   },
+   {
+    "photo": "595bb6e4a4e9",
+    "box": [
+     111.271,
+     420.108,
+     122.091,
+     427.71
+    ],
+    "proba": 0.0016,
+    "classUnderStep0": "onUncertain"
+   },
+   {
+    "photo": "595bb6e4a4e9",
+    "box": [
+     451.211,
+     489.589,
+     466.462,
+     500.827
+    ],
+    "proba": 0.0194,
+    "classUnderStep0": "onOther"
+   },
+   {
+    "photo": "595bb6e4a4e9",
+    "box": [
+     252.92,
+     567.782,
+     265.175,
+     576.382
+    ],
+    "proba": 0.0006,
+    "classUnderStep0": "false"
+   },
+   {
+    "photo": "e74974c4653b",
+    "box": [
+     337.727,
+     340.758,
+     353.351,
+     350.877
+    ],
+    "proba": 0.0005,
+    "classUnderStep0": "false"
+   }
+  ]
+ },
+ "cost": {
+  "chainSecMedian": 1.3091136000002734,
+  "chainSecMax": 1.9905462999886367,
+  "verifierSecMax": {
+   "v1": 0.000632199997198768,
+   "v3": 0.00017850000585895032
+  },
+  "featureBytesMax": 17694720,
+  "maxRssMiB": 397.6484375
+ },
+ "candidatesPerPhoto": {
+  "03bd71dac1fe": 0,
+  "07135c64e979": 0,
+  "0a30f8f6250a": 0,
+  "0b160194e4cb": 1,
+  "1080abf68e08": 0,
+  "19bee2b1443d": 0,
+  "4b52ed5577e1": 0,
+  "595bb6e4a4e9": 3,
+  "59a1c1ff0a6b": 0,
+  "62da3539afd4": 0,
+  "6bd27673e2f0": 0,
+  "7e2177c7c04b": 0,
+  "84236bdf39d5": 0,
+  "b10534c9b162": 3,
+  "c6cb90159e17": 1,
+  "c9babdfaa385": 0,
+  "e74974c4653b": 1
+ },
+ "notEvaluated": {
+  "statusCounts": {
+   "gate-fail:QUALITY:BLURRY,POSE": 76,
+   "gate-fail:POSE": 82,
+   "gate-fail:QUALITY:BLURRY": 21,
+   "no-face": 46,
+   "gate-fail:QUALITY:BLURRY,SNAPSHOT:INCOMPLETE_HEAD_FRAME": 6,
+   "replay-pass (eyewear UNKNOWN)": 23,
+   "gate-fail:SNAPSHOT:INCOMPLETE_HEAD_FRAME": 4,
+   "gate-fail:QUALITY:BLURRY,POSE_NOT_ALIGNED": 1
+  },
+  "groups": 124,
+  "groupsWithoutEligiblePhoto": 107
+ }
+}
