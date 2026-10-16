@@ -43,7 +43,8 @@ class V5Tests(unittest.TestCase):
   for i,r in enumerate(rows):by[r['photo']].append((i,r['idx']))
   for ph,entries in by.items():
    with np.load(CACHE/'train'/(ph+'.npz')) as a:
-    for i,ix in entries:X[i]=a['features'][ix]
+    F=a['features']
+    for i,ix in entries:X[i]=F[ix]
   for f in read(OUT/'folds.json')['folds']:
    tr=f['trainIndices'];train=[rows[i] for i in tr];w=balanced_weights(train);mean,scale=standardize_fit(X[tr],w);saved=read(OUT/f'cv/fold-{f["fold"]}-standardizer.json');np.testing.assert_allclose(mean,saved['mean'],atol=1e-12);np.testing.assert_allclose(scale,saved['scale'],atol=1e-12)
   final=read(OUT/'verifier-v5.json') if (OUT/'verifier-v5.json').exists() else None
