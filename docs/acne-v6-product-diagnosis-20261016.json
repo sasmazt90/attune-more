@@ -1,0 +1,1099 @@
+{
+ "groups": {
+  "Scope B positives": {
+   "photos": 3,
+   "Step0": {
+    "targets": 14,
+    "hit50": 4,
+    "hit30": 4,
+    "small50": "1/11",
+    "medium50": "3/3",
+    "small30": "1/11",
+    "medium30": "3/3",
+    "reviewedNegFP": 0,
+    "fpPerPhoto": null,
+    "unlabeledCandidates": 19,
+    "finalCandidates": 23,
+    "placement": {
+     "n": 4,
+     "medianAreaRatio": 0.774,
+     "shareAreaRatioAbove1_5": 0.0,
+     "medianCentreOffsetSides": 0.051
+    },
+    "medianTotalSec": 5.83,
+    "medianInferSec": 5.27
+   },
+   "V5 step-150": {
+    "targets": 14,
+    "hit50": 3,
+    "hit30": 8,
+    "small50": "1/11",
+    "medium50": "2/3",
+    "small30": "5/11",
+    "medium30": "3/3",
+    "reviewedNegFP": 0,
+    "fpPerPhoto": null,
+    "unlabeledCandidates": 53,
+    "finalCandidates": 56,
+    "placement": {
+     "n": 8,
+     "medianAreaRatio": 1.597,
+     "shareAreaRatioAbove1_5": 0.5,
+     "medianCentreOffsetSides": 0.107
+    },
+    "medianTotalSec": 4.31,
+    "medianInferSec": 3.83
+   },
+   "V6 pilot step-150": {
+    "targets": 14,
+    "hit50": 4,
+    "hit30": 6,
+    "small50": "1/11",
+    "medium50": "3/3",
+    "small30": "3/11",
+    "medium30": "3/3",
+    "reviewedNegFP": 0,
+    "fpPerPhoto": null,
+    "unlabeledCandidates": 42,
+    "finalCandidates": 46,
+    "placement": {
+     "n": 6,
+     "medianAreaRatio": 1.217,
+     "shareAreaRatioAbove1_5": 0.33,
+     "medianCentreOffsetSides": 0.095
+    },
+    "medianTotalSec": 5.41,
+    "medianInferSec": 4.94
+   }
+  },
+  "Product controls": {
+   "photos": 3,
+   "Step0": {
+    "targets": 29,
+    "hit50": 16,
+    "hit30": 16,
+    "small50": "14/20",
+    "medium50": "2/9",
+    "small30": "14/20",
+    "medium30": "2/9",
+    "reviewedNegFP": 0,
+    "fpPerPhoto": null,
+    "unlabeledCandidates": 81,
+    "finalCandidates": 97,
+    "placement": {
+     "n": 16,
+     "medianAreaRatio": 1.095,
+     "shareAreaRatioAbove1_5": 0.12,
+     "medianCentreOffsetSides": 0.071
+    },
+    "medianTotalSec": 4.52,
+    "medianInferSec": 4.06
+   },
+   "V5 step-150": {
+    "targets": 29,
+    "hit50": 14,
+    "hit30": 18,
+    "small50": "12/20",
+    "medium50": "2/9",
+    "small30": "15/20",
+    "medium30": "3/9",
+    "reviewedNegFP": 0,
+    "fpPerPhoto": null,
+    "unlabeledCandidates": 148,
+    "finalCandidates": 162,
+    "placement": {
+     "n": 18,
+     "medianAreaRatio": 1.239,
+     "shareAreaRatioAbove1_5": 0.28,
+     "medianCentreOffsetSides": 0.101
+    },
+    "medianTotalSec": 3.77,
+    "medianInferSec": 3.48
+   },
+   "V6 pilot step-150": {
+    "targets": 29,
+    "hit50": 11,
+    "hit30": 19,
+    "small50": "9/20",
+    "medium50": "2/9",
+    "small30": "15/20",
+    "medium30": "4/9",
+    "reviewedNegFP": 0,
+    "fpPerPhoto": null,
+    "unlabeledCandidates": 112,
+    "finalCandidates": 123,
+    "placement": {
+     "n": 19,
+     "medianAreaRatio": 1.805,
+     "shareAreaRatioAbove1_5": 0.58,
+     "medianCentreOffsetSides": 0.09
+    },
+    "medianTotalSec": 5.58,
+    "medianInferSec": 5.07
+   }
+  },
+  "Held-out development (eyewear UNKNOWN)": {
+   "photos": 20,
+   "Step0": {
+    "targets": 95,
+    "hit50": 39,
+    "hit30": 52,
+    "small50": "19/58",
+    "medium50": "20/37",
+    "small30": "26/58",
+    "medium30": "26/37",
+    "reviewedNegFP": 0,
+    "fpPerPhoto": null,
+    "unlabeledCandidates": 254,
+    "finalCandidates": 293,
+    "placement": {
+     "n": 52,
+     "medianAreaRatio": 1.172,
+     "shareAreaRatioAbove1_5": 0.29,
+     "medianCentreOffsetSides": 0.125
+    },
+    "medianTotalSec": 3.58,
+    "medianInferSec": 3.29
+   },
+   "V5 step-150": {
+    "targets": 95,
+    "hit50": 41,
+    "hit30": 59,
+    "small50": "19/58",
+    "medium50": "22/37",
+    "small30": "29/58",
+    "medium30": "30/37",
+    "reviewedNegFP": 0,
+    "fpPerPhoto": null,
+    "unlabeledCandidates": 634,
+    "finalCandidates": 675,
+    "placement": {
+     "n": 59,
+     "medianAreaRatio": 1.186,
+     "shareAreaRatioAbove1_5": 0.34,
+     "medianCentreOffsetSides": 0.125
+    },
+    "medianTotalSec": 3.5,
+    "medianInferSec": 3.17
+   },
+   "V6 pilot step-150": {
+    "targets": 95,
+    "hit50": 39,
+    "hit30": 55,
+    "small50": "15/58",
+    "medium50": "24/37",
+    "small30": "26/58",
+    "medium30": "29/37",
+    "reviewedNegFP": 0,
+    "fpPerPhoto": null,
+    "unlabeledCandidates": 554,
+    "finalCandidates": 593,
+    "placement": {
+     "n": 55,
+     "medianAreaRatio": 1.513,
+     "shareAreaRatioAbove1_5": 0.53,
+     "medianCentreOffsetSides": 0.113
+    },
+    "medianTotalSec": 6.98,
+    "medianInferSec": 6.39
+   }
+  },
+  "Reviewed negatives": {
+   "photos": 7,
+   "Step0": {
+    "targets": 0,
+    "hit50": 0,
+    "hit30": 0,
+    "small50": "0/0",
+    "medium50": "0/0",
+    "small30": "0/0",
+    "medium30": "0/0",
+    "reviewedNegFP": 3,
+    "fpPerPhoto": [
+     3,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "unlabeledCandidates": 0,
+    "finalCandidates": 3,
+    "placement": null,
+    "medianTotalSec": 1.49,
+    "medianInferSec": 1.24
+   },
+   "V5 step-150": {
+    "targets": 0,
+    "hit50": 0,
+    "hit30": 0,
+    "small50": "0/0",
+    "medium50": "0/0",
+    "small30": "0/0",
+    "medium30": "0/0",
+    "reviewedNegFP": 14,
+    "fpPerPhoto": [
+     10,
+     4,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "unlabeledCandidates": 0,
+    "finalCandidates": 14,
+    "placement": null,
+    "medianTotalSec": 1.42,
+    "medianInferSec": 1.22
+   },
+   "V6 pilot step-150": {
+    "targets": 0,
+    "hit50": 0,
+    "hit30": 0,
+    "small50": "0/0",
+    "medium50": "0/0",
+    "small30": "0/0",
+    "medium30": "0/0",
+    "reviewedNegFP": 10,
+    "fpPerPhoto": [
+     6,
+     3,
+     0,
+     1,
+     0,
+     0,
+     0
+    ],
+    "unlabeledCandidates": 0,
+    "finalCandidates": 10,
+    "placement": null,
+    "medianTotalSec": 1.68,
+    "medianInferSec": 1.41
+   }
+  }
+ },
+ "gainedLost": {
+  "Scope B positives": {
+   "V5 step-150": {
+    "IoU.50": {
+     "gained": [],
+     "lost": [
+      "55d380f724bc#0"
+     ]
+    },
+    "IoU.30": {
+     "gained": [
+      "55d380f724bc#6",
+      "695ed248b9f9#0",
+      "695ed248b9f9#2",
+      "695ed248b9f9#3"
+     ],
+     "lost": []
+    }
+   },
+   "V6 pilot step-150": {
+    "IoU.50": {
+     "gained": [],
+     "lost": []
+    },
+    "IoU.30": {
+     "gained": [
+      "55d380f724bc#6",
+      "695ed248b9f9#0"
+     ],
+     "lost": []
+    }
+   }
+  },
+  "Product controls": {
+   "V5 step-150": {
+    "IoU.50": {
+     "gained": [
+      "f2ed24a9b9a7#15"
+     ],
+     "lost": [
+      "f2ed24a9b9a7#2",
+      "f2ed24a9b9a7#12",
+      "f2ed24a9b9a7#17"
+     ]
+    },
+    "IoU.30": {
+     "gained": [
+      "f2ed24a9b9a7#1",
+      "f2ed24a9b9a7#15"
+     ],
+     "lost": []
+    }
+   },
+   "V6 pilot step-150": {
+    "IoU.50": {
+     "gained": [],
+     "lost": [
+      "f2ed24a9b9a7#2",
+      "f2ed24a9b9a7#6",
+      "f2ed24a9b9a7#7",
+      "f2ed24a9b9a7#12",
+      "f2ed24a9b9a7#17"
+     ]
+    },
+    "IoU.30": {
+     "gained": [
+      "f2ed24a9b9a7#1",
+      "f2ed24a9b9a7#8",
+      "f2ed24a9b9a7#15"
+     ],
+     "lost": []
+    }
+   }
+  },
+  "Held-out development (eyewear UNKNOWN)": {
+   "V5 step-150": {
+    "IoU.50": {
+     "gained": [
+      "7cdc876f2aa6#22701",
+      "f859de125798#28040",
+      "e7f8db3d4c5f#13524",
+      "e7f8db3d4c5f#13525",
+      "e7f8db3d4c5f#13526",
+      "693c4f4c25d1#8396",
+      "693c4f4c25d1#8411",
+      "5c74ac85eb94#231"
+     ],
+     "lost": [
+      "7cdc876f2aa6#22704",
+      "fc2fc6a1a2a2#21524",
+      "fc2fc6a1a2a2#21529",
+      "e7f8db3d4c5f#13527",
+      "bc63081a3391#2074",
+      "bc63081a3391#2098"
+     ]
+    },
+    "IoU.30": {
+     "gained": [
+      "e67dc50fb2ab#3839",
+      "f859de125798#27848",
+      "f859de125798#28040",
+      "8bd0029cabd5#514",
+      "e7f8db3d4c5f#13525",
+      "e7f8db3d4c5f#13526",
+      "693c4f4c25d1#8397",
+      "693c4f4c25d1#8411",
+      "5c74ac85eb94#231"
+     ],
+     "lost": [
+      "fc2fc6a1a2a2#21529",
+      "bc63081a3391#2124"
+     ]
+    }
+   },
+   "V6 pilot step-150": {
+    "IoU.50": {
+     "gained": [
+      "e67dc50fb2ab#3837",
+      "7cdc876f2aa6#22701",
+      "f859de125798#27848",
+      "fc2fc6a1a2a2#21530",
+      "e7f8db3d4c5f#13526",
+      "693c4f4c25d1#8380",
+      "693c4f4c25d1#8396",
+      "693c4f4c25d1#8411"
+     ],
+     "lost": [
+      "c739064b742d#7580",
+      "fc2fc6a1a2a2#21524",
+      "fc2fc6a1a2a2#21529",
+      "bc63081a3391#2071",
+      "bc63081a3391#2073",
+      "bc63081a3391#2074",
+      "bc63081a3391#2098",
+      "e924914cd2ad#5206"
+     ]
+    },
+    "IoU.30": {
+     "gained": [
+      "e67dc50fb2ab#3837",
+      "f859de125798#27848",
+      "f859de125798#28040",
+      "fc2fc6a1a2a2#21530",
+      "e7f8db3d4c5f#13525",
+      "e7f8db3d4c5f#13526",
+      "693c4f4c25d1#8411"
+     ],
+     "lost": [
+      "fc2fc6a1a2a2#21529",
+      "bc63081a3391#2089",
+      "bc63081a3391#2098",
+      "bc63081a3391#2124"
+     ]
+    }
+   }
+  }
+ },
+ "lossBreakdown": {
+  "Scope B positives": {
+   "allMisses": {
+    "raw-misplaced": 4,
+    "no-box": 3,
+    "final-misplaced": 2,
+    "below-score": 1
+   },
+   "lostVsStep0": {},
+   "details": [
+    {
+     "target": "55d380f724bc#1",
+     "sidePx": 9.0,
+     "category": "raw-misplaced",
+     "value": 2.4,
+     "lostVsStep0": false
+    },
+    {
+     "target": "55d380f724bc#2",
+     "sidePx": 9.5,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "55d380f724bc#3",
+     "sidePx": 10.0,
+     "category": "raw-misplaced",
+     "value": 2.58,
+     "lostVsStep0": false
+    },
+    {
+     "target": "55d380f724bc#4",
+     "sidePx": 9.0,
+     "category": "raw-misplaced",
+     "value": 3.19,
+     "lostVsStep0": false
+    },
+    {
+     "target": "55d380f724bc#6",
+     "sidePx": 9.5,
+     "category": "final-misplaced",
+     "value": 3.3,
+     "lostVsStep0": false
+    },
+    {
+     "target": "695ed248b9f9#0",
+     "sidePx": 8.5,
+     "category": "final-misplaced",
+     "value": 2.29,
+     "lostVsStep0": false
+    },
+    {
+     "target": "695ed248b9f9#1",
+     "sidePx": 11.5,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "695ed248b9f9#2",
+     "sidePx": 8.5,
+     "category": "below-score",
+     "value": 0.011,
+     "lostVsStep0": false
+    },
+    {
+     "target": "695ed248b9f9#3",
+     "sidePx": 8.5,
+     "category": "raw-misplaced",
+     "value": 1.6,
+     "lostVsStep0": false
+    },
+    {
+     "target": "695ed248b9f9#4",
+     "sidePx": 6.5,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    }
+   ]
+  },
+  "Product controls": {
+   "allMisses": {
+    "below-score": 2,
+    "filter-removed": 3,
+    "raw-misplaced": 1,
+    "final-misplaced": 8,
+    "no-box": 4
+   },
+   "lostVsStep0": {
+    "final-misplaced": 5
+   },
+   "details": [
+    {
+     "target": "26ebdde4a718#2",
+     "sidePx": 9,
+     "category": "below-score",
+     "value": 0.019,
+     "lostVsStep0": false
+    },
+    {
+     "target": "2ed3716e0b87#0",
+     "sidePx": 20,
+     "category": "filter-removed",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "2ed3716e0b87#1",
+     "sidePx": 25.5,
+     "category": "filter-removed",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "2ed3716e0b87#2",
+     "sidePx": 42,
+     "category": "raw-misplaced",
+     "value": 0.39,
+     "lostVsStep0": false
+    },
+    {
+     "target": "2ed3716e0b87#3",
+     "sidePx": 20.5,
+     "category": "below-score",
+     "value": 0.196,
+     "lostVsStep0": false
+    },
+    {
+     "target": "2ed3716e0b87#4",
+     "sidePx": 22.5,
+     "category": "filter-removed",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "f2ed24a9b9a7#1",
+     "sidePx": 17,
+     "category": "final-misplaced",
+     "value": 0.52,
+     "lostVsStep0": false
+    },
+    {
+     "target": "f2ed24a9b9a7#2",
+     "sidePx": 11,
+     "category": "final-misplaced",
+     "value": 2.13,
+     "lostVsStep0": true
+    },
+    {
+     "target": "f2ed24a9b9a7#3",
+     "sidePx": 9.5,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "f2ed24a9b9a7#6",
+     "sidePx": 11.5,
+     "category": "final-misplaced",
+     "value": 2.12,
+     "lostVsStep0": true
+    },
+    {
+     "target": "f2ed24a9b9a7#7",
+     "sidePx": 8.5,
+     "category": "final-misplaced",
+     "value": 3.21,
+     "lostVsStep0": true
+    },
+    {
+     "target": "f2ed24a9b9a7#8",
+     "sidePx": 48,
+     "category": "final-misplaced",
+     "value": 0.59,
+     "lostVsStep0": false
+    },
+    {
+     "target": "f2ed24a9b9a7#12",
+     "sidePx": 9.5,
+     "category": "final-misplaced",
+     "value": 2.2,
+     "lostVsStep0": true
+    },
+    {
+     "target": "f2ed24a9b9a7#15",
+     "sidePx": 8,
+     "category": "final-misplaced",
+     "value": 2.06,
+     "lostVsStep0": false
+    },
+    {
+     "target": "f2ed24a9b9a7#17",
+     "sidePx": 8.5,
+     "category": "final-misplaced",
+     "value": 2.42,
+     "lostVsStep0": true
+    },
+    {
+     "target": "f2ed24a9b9a7#18",
+     "sidePx": 7.5,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "f2ed24a9b9a7#19",
+     "sidePx": 7,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "f2ed24a9b9a7#20",
+     "sidePx": 6.5,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    }
+   ]
+  },
+  "Held-out development (eyewear UNKNOWN)": {
+   "allMisses": {
+    "below-score": 7,
+    "raw-misplaced": 11,
+    "no-box": 15,
+    "final-misplaced": 16,
+    "filter-removed": 7
+   },
+   "lostVsStep0": {
+    "final-misplaced": 6,
+    "below-score": 1,
+    "raw-misplaced": 1
+   },
+   "details": [
+    {
+     "target": "e67dc50fb2ab#3838",
+     "sidePx": 13.0,
+     "category": "below-score",
+     "value": 0.222,
+     "lostVsStep0": false
+    },
+    {
+     "target": "e67dc50fb2ab#3839",
+     "sidePx": 9.5,
+     "category": "raw-misplaced",
+     "value": 3.32,
+     "lostVsStep0": false
+    },
+    {
+     "target": "e67dc50fb2ab#3845",
+     "sidePx": 8.5,
+     "category": "raw-misplaced",
+     "value": 3.0,
+     "lostVsStep0": false
+    },
+    {
+     "target": "e67dc50fb2ab#3846",
+     "sidePx": 9.0,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "50666469b370#1082",
+     "sidePx": 6.5,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "50666469b370#1083",
+     "sidePx": 8.0,
+     "category": "final-misplaced",
+     "value": 3.11,
+     "lostVsStep0": false
+    },
+    {
+     "target": "50666469b370#1084",
+     "sidePx": 6.0,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "f859de125798#27836",
+     "sidePx": 22.0,
+     "category": "final-misplaced",
+     "value": 0.5,
+     "lostVsStep0": false
+    },
+    {
+     "target": "f859de125798#27838",
+     "sidePx": 19.5,
+     "category": "filter-removed",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "f859de125798#27920",
+     "sidePx": 13.5,
+     "category": "below-score",
+     "value": 0.26,
+     "lostVsStep0": false
+    },
+    {
+     "target": "f859de125798#28010",
+     "sidePx": 14.5,
+     "category": "below-score",
+     "value": 0.083,
+     "lostVsStep0": false
+    },
+    {
+     "target": "f859de125798#28040",
+     "sidePx": 13.0,
+     "category": "final-misplaced",
+     "value": 2.72,
+     "lostVsStep0": false
+    },
+    {
+     "target": "d72596542f8f#3256",
+     "sidePx": 22.0,
+     "category": "filter-removed",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "d72596542f8f#3257",
+     "sidePx": 18.0,
+     "category": "raw-misplaced",
+     "value": 1.03,
+     "lostVsStep0": false
+    },
+    {
+     "target": "d72596542f8f#3258",
+     "sidePx": 14.0,
+     "category": "below-score",
+     "value": 0.096,
+     "lostVsStep0": false
+    },
+    {
+     "target": "2cbbcb51b8dc#11268",
+     "sidePx": 54.5,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "2cbbcb51b8dc#11269",
+     "sidePx": 37.5,
+     "category": "final-misplaced",
+     "value": 0.49,
+     "lostVsStep0": false
+    },
+    {
+     "target": "341283329ba8#25793",
+     "sidePx": 28.0,
+     "category": "final-misplaced",
+     "value": 0.65,
+     "lostVsStep0": false
+    },
+    {
+     "target": "341283329ba8#25805",
+     "sidePx": 19.5,
+     "category": "final-misplaced",
+     "value": 0.91,
+     "lostVsStep0": false
+    },
+    {
+     "target": "c13aa926fffc#22233",
+     "sidePx": 9.5,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "c739064b742d#7580",
+     "sidePx": 11.0,
+     "category": "final-misplaced",
+     "value": 2.06,
+     "lostVsStep0": true
+    },
+    {
+     "target": "c739064b742d#7588",
+     "sidePx": 11.5,
+     "category": "below-score",
+     "value": 0.146,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bf084ae7cda2#26361",
+     "sidePx": 16.5,
+     "category": "filter-removed",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bf084ae7cda2#26364",
+     "sidePx": 20.0,
+     "category": "filter-removed",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bf084ae7cda2#26365",
+     "sidePx": 13.5,
+     "category": "filter-removed",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "8bd0029cabd5#508",
+     "sidePx": 11.0,
+     "category": "filter-removed",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "8bd0029cabd5#509",
+     "sidePx": 10.5,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "8bd0029cabd5#514",
+     "sidePx": 7.0,
+     "category": "raw-misplaced",
+     "value": 3.07,
+     "lostVsStep0": false
+    },
+    {
+     "target": "fc2fc6a1a2a2#21524",
+     "sidePx": 11.0,
+     "category": "final-misplaced",
+     "value": 2.37,
+     "lostVsStep0": true
+    },
+    {
+     "target": "fc2fc6a1a2a2#21529",
+     "sidePx": 8.0,
+     "category": "below-score",
+     "value": 0.24,
+     "lostVsStep0": true
+    },
+    {
+     "target": "bcfc47ee3a9b#968",
+     "sidePx": 15.5,
+     "category": "final-misplaced",
+     "value": 1.57,
+     "lostVsStep0": false
+    },
+    {
+     "target": "e7f8db3d4c5f#13524",
+     "sidePx": 11.5,
+     "category": "final-misplaced",
+     "value": 2.05,
+     "lostVsStep0": false
+    },
+    {
+     "target": "e7f8db3d4c5f#13525",
+     "sidePx": 17.0,
+     "category": "final-misplaced",
+     "value": 2.38,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bc63081a3391#2071",
+     "sidePx": 11.5,
+     "category": "final-misplaced",
+     "value": 2.35,
+     "lostVsStep0": true
+    },
+    {
+     "target": "bc63081a3391#2072",
+     "sidePx": 11.5,
+     "category": "final-misplaced",
+     "value": 1.91,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bc63081a3391#2073",
+     "sidePx": 11.5,
+     "category": "final-misplaced",
+     "value": 2.13,
+     "lostVsStep0": true
+    },
+    {
+     "target": "bc63081a3391#2074",
+     "sidePx": 10.0,
+     "category": "final-misplaced",
+     "value": 2.18,
+     "lostVsStep0": true
+    },
+    {
+     "target": "bc63081a3391#2089",
+     "sidePx": 8.5,
+     "category": "raw-misplaced",
+     "value": 2.03,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bc63081a3391#2090",
+     "sidePx": 6.5,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bc63081a3391#2091",
+     "sidePx": 8.0,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bc63081a3391#2092",
+     "sidePx": 7.5,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bc63081a3391#2098",
+     "sidePx": 9.5,
+     "category": "raw-misplaced",
+     "value": 2.08,
+     "lostVsStep0": true
+    },
+    {
+     "target": "bc63081a3391#2115",
+     "sidePx": 6.5,
+     "category": "raw-misplaced",
+     "value": 2.54,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bc63081a3391#2119",
+     "sidePx": 6.5,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bc63081a3391#2120",
+     "sidePx": 8.0,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bc63081a3391#2121",
+     "sidePx": 6.5,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bc63081a3391#2122",
+     "sidePx": 7.0,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bc63081a3391#2123",
+     "sidePx": 7.5,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bc63081a3391#2124",
+     "sidePx": 8.5,
+     "category": "raw-misplaced",
+     "value": 3.01,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bc63081a3391#2125",
+     "sidePx": 8.0,
+     "category": "no-box",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "bc63081a3391#2126",
+     "sidePx": 9.0,
+     "category": "raw-misplaced",
+     "value": 2.91,
+     "lostVsStep0": false
+    },
+    {
+     "target": "e924914cd2ad#5204",
+     "sidePx": 17.5,
+     "category": "filter-removed",
+     "value": null,
+     "lostVsStep0": false
+    },
+    {
+     "target": "e924914cd2ad#5206",
+     "sidePx": 12.5,
+     "category": "final-misplaced",
+     "value": 2.14,
+     "lostVsStep0": true
+    },
+    {
+     "target": "693c4f4c25d1#8397",
+     "sidePx": 13.0,
+     "category": "raw-misplaced",
+     "value": 2.66,
+     "lostVsStep0": false
+    },
+    {
+     "target": "693c4f4c25d1#8412",
+     "sidePx": 14.5,
+     "category": "raw-misplaced",
+     "value": 1.98,
+     "lostVsStep0": false
+    },
+    {
+     "target": "5c74ac85eb94#231",
+     "sidePx": 18.0,
+     "category": "below-score",
+     "value": 0.097,
+     "lostVsStep0": false
+    }
+   ]
+  }
+ },
+ "notes": "Acne v6 diagnostic: Step0 / V5 step-150 / V6 pilot step-150 on the UNCHANGED v2 product chain (saved rows only; no inference here).\n\nGroups exactly as compare_acne_v4_product.py: Scope B positives (14 targets), product-valid controls (29), held-out development\ngroup (unusedEval; 95 targets; replay pass with the eyewear gate UNKNOWN - not a full product preflight pass), reviewed negatives\n(Scope B photos with 0 targets; clean-mask false candidates). trainProbe rows are TRAIN photos and are not reported.\nTruth = source labels of the v2 evaluator (DEV targets were NOT engineering-reviewed). Unlabeled candidates are reported in their own\ncolumn and are never counted as right or wrong.\n\nLoss breakdown (V6 misses at IoU .50), from the label-free intermediate outputs recorded during the single V6 run\n(v3prod-v6pilot-step-000150-raw.jsonl), first matching category wins:\n  matched-elsewhere   a final box has IoU >= .50 with the target but one-to-one gave it to another target\n  final-misplaced     best final box IoU in [.30, .50)  (area ratio recorded)\n  filter-removed      an NMS-selected box has IoU >= .50 but did not survive the anatomical/staging filter\n  nms-suppressed      a >= .30 confidence candidate has IoU >= .50 but was not NMS-selected\n  below-score         a raw head box (obj*cls in [.01, .30)) has IoU >= .50\n  raw-misplaced       best box at any stage has IoU in [.30, .50) only (too large / badly placed)\n  no-box              no box at any stage with IoU >= .30 (raw boxes below .01 are not recorded)\n",
+ "registeredProductRuleForReference": {
+  "Step0": {
+   "hit50": 59,
+   "reviewedNegFP": 3
+  },
+  "V5 step-150": {
+   "hit50": 58,
+   "reviewedNegFP": 14
+  },
+  "V6 pilot step-150": {
+   "hit50": 54,
+   "reviewedNegFP": 10
+  }
+ },
+ "provenance": {
+  "v6Weights": {
+   "sha256": "8043de6176700122eb449bf667cee2551de28508ab0f1bf64ad116eea0700090",
+   "expected": "8043de6176700122eb449bf667cee2551de28508ab0f1bf64ad116eea0700090 (acne-v6-run-summary-20261016.json)",
+   "configSHA256": "493ebef53b1bbbb9e5bcaedb118b4c8cd7faab871c43995df7d55525413c5e90 = sha256 of the pre-registered config (acne-v6-pilot-preregistration-20261016.json, SHA 3d428eb0) as recorded in the checkpoint state",
+   "manifestSHA256": "f90be74ba305417992167203a2c4c25bd45520f4342eed1e24a98ca429bdacdf"
+  },
+  "reused": {
+   "step0": "evaluation-v3prod-step0.jsonl + boxes (saved 2026-10-15)",
+   "v5": "evaluation-v3prod-v5main-step-000150.jsonl + boxes (saved 2026-10-16, v5 report)"
+  },
+  "step0Parity": {
+   "wrapper": "eval_acne_v6_product.py (observes only; adds the -raw.jsonl record)",
+   "rows": "75/75 evaluation rows identical to the saved Step0 rows",
+   "finalBoxes": "74/74 final box sets identical (max coordinate difference 0.0)"
+  },
+  "v6Run": "single run of the unchanged v2 evaluator; resumed across call segments (one resume after a lease-observer interruption; no photo evaluated twice: 75 rows, 74 box/raw records)",
+  "timing": "median per-photo totalSec over all 74 photos: Step0 saved 4.57, Step0 parity (same session, with recording) 5.49, V5 saved 4.42, V6 (with recording) 6.40; the V6 and parity numbers include the raw-recording overhead and the current machine load"
+ }
+}
