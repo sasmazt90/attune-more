@@ -1,0 +1,1207 @@
+{
+ "codes": {
+  "M": "MOLE",
+  "N": "NOT_LESION",
+  "NN": "NOT_LESION (lesion visible nearby, outside r)",
+  "R": "REGION",
+  "RL": "REGION (contains lesions not marked in layer 1)",
+  "S": "SCAR_PIGMENT",
+  "T": "TARGET_MISSED",
+  "U": "UNCERTAIN"
+ },
+ "marks": {
+  "A001": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek skin"
+  },
+  "A002": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain skin"
+  },
+  "A003": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain skin"
+  },
+  "A004": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "pink-purple macule/papule, not separable"
+  },
+  "A005": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain skin; mole outside centre"
+  },
+  "A006": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain skin; red papule ~0.06 fw above"
+  },
+  "A007": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain skin texture"
+  },
+  "A008": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain skin; red lesion at zoom edge"
+  },
+  "A009": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain skin"
+  },
+  "A010": {
+   "category": "SCAR_PIGMENT",
+   "code": "S",
+   "note": "dark macule on dark skin"
+  },
+  "A011": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "blurred nose side/shadow"
+  },
+  "A012": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain skin below lip"
+  },
+  "A013": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "jaw texture/shadow"
+  },
+  "A014": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "pores"
+  },
+  "A015": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "noise specks on dark skin"
+  },
+  "A016": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "lip border"
+  },
+  "A017": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain forehead"
+  },
+  "A018": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "faint red macule among papules"
+  },
+  "A019": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "under-eye texture/noise"
+  },
+  "A020": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "lip corner"
+  },
+  "A021": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A022": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A023": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "pores"
+  },
+  "A024": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A025": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "faint pink macule among papules (soft image)"
+  },
+  "A026": {
+   "category": "SCAR_PIGMENT",
+   "code": "S",
+   "note": "thin linear mark/scratch"
+  },
+  "A027": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "jaw shadow"
+  },
+  "A028": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain; pink macule at zoom edge"
+  },
+  "A029": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A030": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small pink spot"
+  },
+  "A031": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain; red crusted mark nearby"
+  },
+  "A032": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A033": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "reddish bump between lesions"
+  },
+  "A034": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "lip"
+  },
+  "A035": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "specular highlight on nose"
+  },
+  "A036": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain pink skin"
+  },
+  "A037": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "faint pink macule on chin"
+  },
+  "A038": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "dark speck beside nostril"
+  },
+  "A039": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain; red patch at zoom edge"
+  },
+  "A040": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain; whitish bump at zoom edge"
+  },
+  "A041": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small pink dot"
+  },
+  "A042": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain; red papule at zoom edge"
+  },
+  "A043": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "faint red dot"
+  },
+  "A044": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "noise on dark skin"
+  },
+  "A045": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain"
+  },
+  "A046": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "tiny red dot"
+  },
+  "A047": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "noise"
+  },
+  "A048": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A049": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "eyelashes / eyelid"
+  },
+  "A050": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain"
+  },
+  "A051": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "faint red marks above centre"
+  },
+  "A052": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain; red papule at zoom edge"
+  },
+  "A053": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "specular highlight on nose"
+  },
+  "A054": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "pinkish bump between papules"
+  },
+  "A055": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A056": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "tiny whitish spot"
+  },
+  "A057": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "diffuse red patch near nose ala"
+  },
+  "A058": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain forehead"
+  },
+  "A059": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain forehead"
+  },
+  "A060": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain; small skin-coloured bump nearby"
+  },
+  "A061": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "tiny brownish dot"
+  },
+  "A062": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "under-eye texture"
+  },
+  "A063": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A064": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "pale raised bump beside a red papule"
+  },
+  "A065": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "blurred pink spot between macules"
+  },
+  "A066": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain forehead between papules"
+  },
+  "A067": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A068": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "faint pink marks, nothing at centre"
+  },
+  "A069": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "dark red-brown dot (crusted papule vs pigment)"
+  },
+  "A070": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A071": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A072": {
+   "category": "SCAR_PIGMENT",
+   "code": "S",
+   "note": "linear red-brown mark (excoriation/scar)"
+  },
+  "A073": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "specular highlight on nose"
+  },
+  "A074": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain; orange-brown macule nearby"
+  },
+  "A075": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "faint red dot"
+  },
+  "A076": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A077": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain jaw"
+  },
+  "A078": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "faint pink texture"
+  },
+  "A079": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "pink skin between red papules"
+  },
+  "A080": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain area between forehead papules"
+  },
+  "A081": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain forehead"
+  },
+  "A082": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A083": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain forehead"
+  },
+  "A084": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain philtrum"
+  },
+  "A085": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A086": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small red dot among papules"
+  },
+  "A087": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A088": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain glabella"
+  },
+  "A089": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain; red lesion nearby"
+  },
+  "A090": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "cheek texture"
+  },
+  "A091": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "pinkish bump among jaw scars"
+  },
+  "A092": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "skin at lip corner"
+  },
+  "A093": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "pinkish small bump"
+  },
+  "A094": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain; brown spots nearby"
+  },
+  "A095": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "jaw edge"
+  },
+  "A096": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain; pink lesion nearby"
+  },
+  "A097": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "lip corner"
+  },
+  "A098": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain skin near lip"
+  },
+  "A099": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain; mole below centre"
+  },
+  "A100": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain"
+  },
+  "A101": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain forehead"
+  },
+  "A102": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "nostril"
+  },
+  "A103": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain"
+  },
+  "A104": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain pink skin"
+  },
+  "A105": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "specular speck on dark skin"
+  },
+  "A106": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "tiny whitish bump"
+  },
+  "A107": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain between forehead papules"
+  },
+  "A108": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain/scar line"
+  },
+  "A109": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "nostril"
+  },
+  "A110": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain forehead"
+  },
+  "A111": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain chin"
+  },
+  "A112": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small pink dot"
+  },
+  "A113": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "nostril shadow"
+  },
+  "A114": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "brow hair"
+  },
+  "A115": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain; red lesion nearby"
+  },
+  "A116": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain"
+  },
+  "A117": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain chin"
+  },
+  "A118": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "dark red spot (blurred; papule vs pigment)"
+  },
+  "A119": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A120": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small dark-red dot"
+  },
+  "A121": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain forehead"
+  },
+  "A122": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small whitish bump on glabella"
+  },
+  "A123": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain; pink mark nearby"
+  },
+  "A124": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain; red mark nearby"
+  },
+  "A125": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "blurred cheek near ear"
+  },
+  "A126": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain between lesions"
+  },
+  "A127": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain; linear red mark nearby"
+  },
+  "A128": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "under-eye dark skin"
+  },
+  "A129": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain nose side"
+  },
+  "A130": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A131": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A132": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "jaw scar area, nothing at centre"
+  },
+  "A133": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain"
+  },
+  "A134": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "chin below lip, whitish patches around"
+  },
+  "A135": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A136": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "nostril"
+  },
+  "A137": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "forehead texture"
+  },
+  "A138": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A139": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "blurred nose"
+  },
+  "A140": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain forehead"
+  },
+  "A141": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A142": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A143": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "blurred skin beside red lesions"
+  },
+  "A144": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "philtrum near nostril"
+  },
+  "A145": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain chin between papules"
+  },
+  "A146": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "temple near hair"
+  },
+  "A147": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain"
+  },
+  "A148": {
+   "category": "NOT_LESION (lesion visible nearby, outside r)",
+   "code": "NN",
+   "note": "plain; brown macule nearby"
+  },
+  "A149": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain glabella/nose"
+  },
+  "A150": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A151": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A152": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A153": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain cheek"
+  },
+  "A154": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "faint pink spot"
+  },
+  "A155": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "eye corner/brow"
+  },
+  "A156": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain nose bridge"
+  },
+  "A157": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "blurred pink-purple spot between macules"
+  },
+  "A158": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small brownish dot"
+  },
+  "A159": {
+   "category": "MOLE",
+   "code": "M",
+   "note": "small dark-brown spot (mole/pigment)"
+  },
+  "A160": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "pinkish macule in blurred area"
+  },
+  "A161": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "plain forehead"
+  },
+  "B001": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small skin-coloured bumps in box"
+  },
+  "B002": {
+   "category": "SCAR_PIGMENT",
+   "code": "S",
+   "note": "darker patch on jaw (shadow/pigment), no single lesion"
+  },
+  "B003": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "tiny whitish bumps forehead (closed comedone/milia vs texture)"
+  },
+  "B004": {
+   "category": "REGION",
+   "code": "R",
+   "note": "tall box over faint red marks area"
+  },
+  "B005": {
+   "category": "TARGET_MISSED",
+   "code": "T",
+   "note": "small raised bump with white centre near mouth corner"
+  },
+  "B006": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "skin-coloured bump vs scar on chin"
+  },
+  "B007": {
+   "category": "REGION",
+   "code": "R",
+   "note": "large box over jaw shadow"
+  },
+  "B008": {
+   "category": "TARGET_MISSED",
+   "code": "T",
+   "note": "pustule (white centre, red base); box at its lower edge"
+  },
+  "B009": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "lip border, nothing visible"
+  },
+  "B010": {
+   "category": "REGION",
+   "code": "R",
+   "note": "box over forehead texture area"
+  },
+  "B011": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small red mark"
+  },
+  "B012": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "pinkish bump next to pustules"
+  },
+  "B013": {
+   "category": "SCAR_PIGMENT",
+   "code": "S",
+   "note": "linear fold/scar on jaw"
+  },
+  "B014": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "tiny pink macule in box"
+  },
+  "B015": {
+   "category": "TARGET_MISSED",
+   "code": "T",
+   "note": "red papule with light centre inside box"
+  },
+  "B016": {
+   "category": "REGION",
+   "code": "R",
+   "note": "large box over faint pink area"
+  },
+  "B017": {
+   "category": "REGION",
+   "code": "R",
+   "note": "box over patch of small bumps on noisy dark skin"
+  },
+  "B018": {
+   "category": "REGION",
+   "code": "R",
+   "note": "box over shiny nose-side area with dark specks"
+  },
+  "B019": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small box in dark red bumpy area"
+  },
+  "B020": {
+   "category": "SCAR_PIGMENT",
+   "code": "S",
+   "note": "pink-brown patch near mouth"
+  },
+  "B021": {
+   "category": "REGION",
+   "code": "R",
+   "note": "tall box over faint red marks"
+  },
+  "B022": {
+   "category": "REGION",
+   "code": "R",
+   "note": "box over several dark spots on dark skin"
+  },
+  "B023": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "pinkish area next to a whitehead"
+  },
+  "B024": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "whitish raised bump below lip (comedone vs scar)"
+  },
+  "B025": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "tall box on glabella, nothing distinct"
+  },
+  "B026": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "whitish bumps below lip (comedones vs scars)"
+  },
+  "B027": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small box in red bumpy area"
+  },
+  "B028": {
+   "category": "REGION",
+   "code": "R",
+   "note": "large box over faint pink area"
+  },
+  "B029": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small box in red bumpy area"
+  },
+  "B030": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "faint pink spot"
+  },
+  "B031": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small box in dark red bumpy area"
+  },
+  "B032": {
+   "category": "REGION",
+   "code": "R",
+   "note": "tall box over faint marks"
+  },
+  "B033": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small whitish bump below a red lesion"
+  },
+  "B034": {
+   "category": "REGION",
+   "code": "R",
+   "note": "box over dark spots on dark skin"
+  },
+  "B035": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "whitish line on nose side (texture/specular)"
+  },
+  "B036": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "tall box on cheek near hair edge, nothing distinct"
+  },
+  "B037": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small box in red bumpy area"
+  },
+  "B038": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "tall box on dark temple skin, nothing distinct"
+  },
+  "B039": {
+   "category": "TARGET_MISSED",
+   "code": "T",
+   "note": "raised pinkish papule inside box"
+  },
+  "B040": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "nose tip near specular highlight"
+  },
+  "B041": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small pinkish area near a red patch"
+  },
+  "B042": {
+   "category": "REGION",
+   "code": "R",
+   "note": "box over noisy forehead area with small bumps"
+  },
+  "B043": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "purple-pink macule/papule (blurred)"
+  },
+  "B044": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "faint red macule on glabella"
+  },
+  "B045": {
+   "category": "SCAR_PIGMENT",
+   "code": "S",
+   "note": "tall box over jaw scars"
+  },
+  "B046": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small pink bumps on forehead"
+  },
+  "B047": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small box near red lesions"
+  },
+  "B048": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "tiny whitish bump on forehead"
+  },
+  "B049": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small box near red lesions"
+  },
+  "B050": {
+   "category": "REGION",
+   "code": "R",
+   "note": "large box over pink chin patch"
+  },
+  "B051": {
+   "category": "SCAR_PIGMENT",
+   "code": "S",
+   "note": "elongated pink mark"
+  },
+  "B052": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "faint pink spot beside nose"
+  },
+  "B053": {
+   "category": "REGION",
+   "code": "R",
+   "note": "box over dark specks on glabella"
+  },
+  "B054": {
+   "category": "REGION",
+   "code": "R",
+   "note": "box over forehead texture with tiny specks"
+  },
+  "B055": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "box on cheek near hair, faint line only"
+  },
+  "B056": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small pink spot below lip"
+  },
+  "B057": {
+   "category": "SCAR_PIGMENT",
+   "code": "S",
+   "note": "elongated pink-purple mark"
+  },
+  "B058": {
+   "category": "REGION (contains lesions not marked in layer 1)",
+   "code": "RL",
+   "note": "wide box over a row of small pink papules (not marked in layer 1)"
+  },
+  "B059": {
+   "category": "SCAR_PIGMENT",
+   "code": "S",
+   "note": "pinkish patch/scar on jaw"
+  },
+  "B060": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "whitish bumps below lip (comedones vs scars)"
+  },
+  "B061": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "whitish bump on chin"
+  },
+  "B062": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small whitish bump on cheek"
+  },
+  "B063": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "nose-side shading"
+  },
+  "B064": {
+   "category": "REGION",
+   "code": "R",
+   "note": "box over row of dark (pigmented) spots"
+  },
+  "B065": {
+   "category": "SCAR_PIGMENT",
+   "code": "S",
+   "note": "faint darker macule on forehead"
+  },
+  "B066": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "small red-brown spot on forehead"
+  },
+  "B067": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "cheek, nothing visible in box"
+  },
+  "B068": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "red-brown spot in bumpy forehead area"
+  },
+  "B069": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "faint brownish forehead patch, nothing distinct"
+  },
+  "B070": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "tall box on jaw shadow"
+  },
+  "B071": {
+   "category": "REGION",
+   "code": "R",
+   "note": "tall box over jaw scar area"
+  },
+  "B072": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "faint pink small spot"
+  },
+  "B073": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "faint spot on forehead"
+  },
+  "B074": {
+   "category": "REGION",
+   "code": "R",
+   "note": "box over noisy forehead with whitish specks"
+  },
+  "B075": {
+   "category": "TARGET_MISSED",
+   "code": "T",
+   "note": "pustule-like lesion with white centre inside box"
+  },
+  "B076": {
+   "category": "UNCERTAIN",
+   "code": "U",
+   "note": "tiny whitish bump on forehead"
+  },
+  "B077": {
+   "category": "NOT_LESION",
+   "code": "N",
+   "note": "lip border below lip"
+  }
+ },
+ "name": "acne-point-relabel-layer2",
+ "nature": "post-hoc, model- and source-assisted AI engineering review (crosshair/box shown; model identity hidden). Separate from layer 1, never replaces it. Not expert, not blind.",
+ "scopeSHA256": "6b7baddea4752fe9e410a18676ef6790b9d423bd70022765e5d41bc8bf53275a"
+}
