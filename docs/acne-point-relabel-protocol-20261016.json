@@ -1,0 +1,220 @@
+{
+ "name": "acne-point-relabel-protocol-1",
+ "status": "fixed before the first review sheet was viewed",
+ "nature": "AI (assistant) engineering review of the same 28 DEV photos, done after earlier model results were known: NOT blind, NOT independent, NOT expert-verified, NOT an acceptance test",
+ "coordinateCheck": {
+  "result": "all 201 source boxes lie inside their image bounds in the same source-pixel system as the stored predictions (pack image = product input file; no resize)",
+  "normalized": "box side / face width (MediaPipe 234-454): SmartSkinCare-type 1280px photos ~0.015-0.035; Skin-Problem-Detection large photos 0.04-0.08; i.e. the size gap is not only a pixel-scale effect",
+  "perPhoto": [
+   {
+    "photo": "46a79ef8d7a8",
+    "width": 1280,
+    "height": 1280,
+    "faceWidthPx": 824.3
+   },
+   {
+    "photo": "77176e51db41",
+    "width": 1280,
+    "height": 1280,
+    "faceWidthPx": 592.5
+   },
+   {
+    "photo": "a007c24408ff",
+    "width": 1280,
+    "height": 1280,
+    "faceWidthPx": 690.7
+   },
+   {
+    "photo": "c412587e8b7f",
+    "width": 1280,
+    "height": 1280,
+    "faceWidthPx": 595.8
+   },
+   {
+    "photo": "933e40d730e0",
+    "width": 1280,
+    "height": 1280,
+    "faceWidthPx": 582.3
+   },
+   {
+    "photo": "f30396853c41",
+    "width": 2448,
+    "height": 3264,
+    "faceWidthPx": 960.6
+   },
+   {
+    "photo": "2ad92b5eb9de",
+    "width": 2448,
+    "height": 3264,
+    "faceWidthPx": 1194.3
+   },
+   {
+    "photo": "8ad2e156eef7",
+    "width": 1280,
+    "height": 1280,
+    "faceWidthPx": 594.0
+   },
+   {
+    "photo": "a2cd98ca9566",
+    "width": 1280,
+    "height": 1280,
+    "faceWidthPx": 565.8
+   },
+   {
+    "photo": "e643059207e1",
+    "width": 1280,
+    "height": 1280,
+    "faceWidthPx": 434.4
+   },
+   {
+    "photo": "d79fcee141ca",
+    "width": 1944,
+    "height": 2592,
+    "faceWidthPx": 1102.7
+   },
+   {
+    "photo": "8a78e9d6efd5",
+    "width": 1280,
+    "height": 1280,
+    "faceWidthPx": 586.1
+   },
+   {
+    "photo": "453d2656c394",
+    "width": 1920,
+    "height": 2560,
+    "faceWidthPx": 1107.0
+   },
+   {
+    "photo": "33e42c603f10",
+    "width": 1280,
+    "height": 1280,
+    "faceWidthPx": 488.1
+   },
+   {
+    "photo": "aff1efde301c",
+    "width": 1280,
+    "height": 1280,
+    "faceWidthPx": 565.8
+   },
+   {
+    "photo": "dc089b3f7c38",
+    "width": 1936,
+    "height": 2592,
+    "faceWidthPx": 890.1
+   },
+   {
+    "photo": "a19346a0887a",
+    "width": 2316,
+    "height": 3088,
+    "faceWidthPx": 1211.5
+   },
+   {
+    "photo": "0a8a14a662a5",
+    "width": 1280,
+    "height": 1280,
+    "faceWidthPx": 573.1
+   },
+   {
+    "photo": "29069058884f",
+    "width": 640,
+    "height": 640,
+    "faceWidthPx": 331.3
+   },
+   {
+    "photo": "5aa51f53f86c",
+    "width": 1932,
+    "height": 2576,
+    "faceWidthPx": 1097.2
+   },
+   {
+    "photo": "6dcf4d7ab398",
+    "width": 640,
+    "height": 640,
+    "faceWidthPx": 348.0
+   },
+   {
+    "photo": "7b425c76a80f",
+    "width": 640,
+    "height": 640,
+    "faceWidthPx": 250.6
+   },
+   {
+    "photo": "9334509b3ae3",
+    "width": 1280,
+    "height": 1280,
+    "faceWidthPx": 595.5
+   },
+   {
+    "photo": "b4ec4968102b",
+    "width": 1280,
+    "height": 1280,
+    "faceWidthPx": 650.7
+   },
+   {
+    "photo": "b9dd30fde312",
+    "width": 640,
+    "height": 640,
+    "faceWidthPx": 234.4
+   },
+   {
+    "photo": "c1ae0b437492",
+    "width": 1920,
+    "height": 2560,
+    "faceWidthPx": 1205.9
+   },
+   {
+    "photo": "cb5ca5ca9a33",
+    "width": 241,
+    "height": 300,
+    "faceWidthPx": 163.6
+   },
+   {
+    "photo": "eeb843cadf66",
+    "width": 640,
+    "height": 640,
+    "faceWidthPx": 275.8
+   }
+  ]
+ },
+ "labelRule": {
+  "target": "TARGET = centre of one visible acne-like single lesion: papule / pustule / whitehead-like raised, red or white bump",
+  "otherCategories": [
+   "BLACKHEAD (dark open comedone)",
+   "SCAR_PIGMENT (flat brown/purple/red mark or pitted scar, texture area)",
+   "PORE",
+   "MOLE",
+   "OTHER"
+  ],
+  "uncertain": "UNCERTAIN when the photo does not allow a reliable decision",
+  "separate": "close but separately visible lesions get separate points",
+  "area": "a scar/texture area is never one TARGET",
+  "noDiagnosis": "no clinical subtype diagnosis"
+ },
+ "review": {
+  "view": "label-free sheets: only original pixels + source-pixel grid; source boxes and model points hidden",
+  "tiles": "face-oval bounding box (landmarks), tiles 0.5 x face width, 15% overlap, rendered 640 px, grid ~0.05 x face width",
+  "coverage": "reviewed mask = face-oval polygon minus eyes, brows (dilated 0.03 fw) and lips, intersected with tiles marked reviewable, minus recorded exclusion rectangles (hair, beard, blur, occlusion, glare, collage seams, non-skin)",
+  "flags": [
+   "collage/processed image",
+   "low resolution (upscaling does not verify detail)"
+  ],
+  "overlapMerge": "same-category points within 0.015 x face width from overlapping tiles are merged (mean position)",
+  "freeze": "layer-1 labels are saved and hashed before source boxes or model points are opened; layer-2 (model-assisted, after comparison) is kept separate and never replaces layer 1"
+ },
+ "scoring": {
+  "coordinates": "source px of the pack image",
+  "tolerance": {
+   "primary": "r = 0.03 x face width (~4 mm on a ~14 cm face; covers point-placement uncertainty ~0.0125 fw and typical lesion radius)",
+   "sensitivity": [
+    "0.02 x face width",
+    "0.05 x face width"
+   ],
+   "rule": "fixed now; never widened after results"
+  },
+  "matching": "one-to-one TARGET points vs prediction points (box centres from stored final boxes); feasible if distance <= r; maximum cardinality then minimum total distance (linear_sum_assignment)",
+  "unmatchedPredictions": "within r of an already matched TARGET -> duplicate; within r of OTHER -> that category; within r of UNCERTAIN -> uncertain; else inside reviewed mask -> false point on reviewed skin; inside face oval but outside reviewed mask -> unreviewed; outside face oval -> non-skin",
+  "models": "all 37 stored model/mode records rescored; Jasnk copy not counted; no new inference",
+  "clear": "the 14 Clear photos keep their earlier reviewed-mask results, reported separately",
+  "keep": "earlier IoU and point-in-box results stay as separate diagnostic records"
+ }
+}
