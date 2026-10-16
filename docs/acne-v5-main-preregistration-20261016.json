@@ -1,0 +1,44 @@
+{
+ "name": "acne-v5-main-20261016",
+ "config": {
+  "seed": 20261016,
+  "accum": 8,
+  "k_hard": 64,
+  "k_rand": 192,
+  "w_hard": 1.0,
+  "w_rand": 1.0,
+  "lambda_neg": 36.57142857142857,
+  "p_negative_photo": 0.4,
+  "p_focus": 0.85,
+  "lr": 5e-05,
+  "warmup": 50,
+  "clip": 2000.0,
+  "pilot_steps": 150,
+  "ckpt_every": 25,
+  "trainable": "YOLOX head + PAFPN neck convs; BatchNorm frozen (eval); backbone frozen",
+  "start": "CDC Step0 18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655",
+  "schedule_steps": 600
+ },
+ "maxSteps": 600,
+ "codeSHA256": "7235af615cca7bf3d580ad96f81ff80a5aab8ab3d4853272f692b8e98a9909dc",
+ "manifestSHA256": "c761d44d34fe329db07920d2109984f9bf946ee33cc544234f9b57628a38254c",
+ "pilotResult": "PASS on all 6 registered criteria: hit50 11->12/137, small 8->9/19, Clear FP 0, final candidates 244->530, area ratio 1.067, 0 clipped steps (max grad 95)",
+ "budget": "measured 3.9 s/step; the reviewed core is small (65 positive photos, 236 boxes): 600 steps = ~39 min = ~2,900 positive tiles = ~44 passes per photo; more steps would mostly repeat the same 65 photos, so the cap is 600 (< 1,200 allowed)",
+ "evaluation": {
+  "every": 150,
+  "set": "label-independent product-preprocessing DEV evaluation (same as the pilot gate)"
+ },
+ "selection": "checkpoint with max DEV hit50 among those with small hit50 >= 8, Clear FP <= 1, final candidates >= 61 and median area ratio in [0.75, 1.35]; ties -> earlier; none -> no candidate",
+ "earlyStop": "stop after two consecutive evaluations that do not raise the best qualifying hit50 by >= 2 targets",
+ "productAcceptance": {
+  "evaluator": "unchanged v2 product chain (conf .30)",
+  "sets": "Scope B positives 14, product-valid controls 29, held-out 20 (95; eyewear UNKNOWN), 7 reviewed negatives",
+  "successIf": [
+   "hit50 over 138 targets >= 62 (Step0 59 + 3)",
+   "reviewed-negative false candidates <= 7",
+   "lost <= gained / 3"
+  ],
+  "note": "same rule as v4; Scope B negatives are development data, not an independent test"
+ },
+ "sealed": "Skin care v5 closed; production accepted:false"
+}

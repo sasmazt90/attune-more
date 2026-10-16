@@ -1,0 +1,300 @@
+{
+ "evaluator": "scripts/skin-research/eval_acne_v5_independent.py (label-independent; product image/MediaPipe/crop/tile contract; conf .30, product NMS .30, product masks and staging filter; labels only in metrics)",
+ "note": "not comparable with the v4 rescaled DEV tile numbers (108..274/1091): different preprocessing and photo subset; those v4 numbers are kept unchanged in acne-v4-report-20261016.md",
+ "models": {
+  "step0": {
+   "status": {
+    "replay-pass (eyewear UNKNOWN)": 31,
+    "tile-budget / gate-fail:POSE": 15,
+    "gate-fail:POSE / no-snapshot": 34,
+    "gate-fail:QUALITY:BLURRY": 2,
+    "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 7,
+    "tile-budget": 1,
+    "product-reject:PHOTO_LIMIT": 15,
+    "no-face": 4,
+    "tile-budget / gate-fail:QUALITY:BLURRY,POSE": 1
+   },
+   "pos": {
+    "photos": 17,
+    "targets": 137,
+    "hit50": 11,
+    "hit30": 15,
+    "small": 19,
+    "smallHit50": 8,
+    "medium": 118,
+    "mediumHit50": 3,
+    "unknown": 229,
+    "final": 244,
+    "medianAreaRatio": 1.102,
+    "sizeUnit": "source px == model-input px (no rescale)",
+    "medianTotalSec": 7.34
+   },
+   "neg": {
+    "photos": 14,
+    "fpInMask": 0,
+    "fpPerPhoto": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+   }
+  },
+  "v4-step1000": {
+   "status": {
+    "replay-pass (eyewear UNKNOWN)": 31,
+    "tile-budget / gate-fail:POSE": 15,
+    "gate-fail:POSE / no-snapshot": 34,
+    "gate-fail:QUALITY:BLURRY": 2,
+    "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 7,
+    "tile-budget": 1,
+    "product-reject:PHOTO_LIMIT": 15,
+    "no-face": 4,
+    "tile-budget / gate-fail:QUALITY:BLURRY,POSE": 1
+   },
+   "pos": {
+    "photos": 17,
+    "targets": 137,
+    "hit50": 11,
+    "hit30": 24,
+    "small": 19,
+    "smallHit50": 4,
+    "medium": 118,
+    "mediumHit50": 7,
+    "unknown": 1591,
+    "final": 1615,
+    "medianAreaRatio": 1.308,
+    "sizeUnit": "source px == model-input px (no rescale)",
+    "medianTotalSec": 4.88
+   },
+   "neg": {
+    "photos": 14,
+    "fpInMask": 0,
+    "fpPerPhoto": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+   }
+  },
+  "pilot": {
+   "status": {
+    "replay-pass (eyewear UNKNOWN)": 31,
+    "tile-budget / gate-fail:POSE": 14,
+    "gate-fail:POSE / no-snapshot": 34,
+    "gate-fail:QUALITY:BLURRY": 2,
+    "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 7,
+    "product-reject:PHOTO_LIMIT": 16,
+    "tile-budget": 1,
+    "no-face": 4,
+    "tile-budget / gate-fail:QUALITY:BLURRY,POSE": 1
+   },
+   "pos": {
+    "photos": 17,
+    "targets": 137,
+    "hit50": 12,
+    "hit30": 15,
+    "small": 19,
+    "smallHit50": 9,
+    "medium": 118,
+    "mediumHit50": 3,
+    "unknown": 515,
+    "final": 530,
+    "medianAreaRatio": 1.067,
+    "sizeUnit": "source px == model-input px (no rescale)",
+    "medianTotalSec": 5.09
+   },
+   "neg": {
+    "photos": 14,
+    "fpInMask": 0,
+    "fpPerPhoto": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+   }
+  },
+  "main-150": {
+   "status": {
+    "replay-pass (eyewear UNKNOWN)": 31,
+    "tile-budget / gate-fail:POSE": 14,
+    "gate-fail:POSE / no-snapshot": 34,
+    "gate-fail:QUALITY:BLURRY": 2,
+    "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 7,
+    "product-reject:PHOTO_LIMIT": 16,
+    "tile-budget": 1,
+    "no-face": 4,
+    "tile-budget / gate-fail:QUALITY:BLURRY,POSE": 1
+   },
+   "pos": {
+    "photos": 17,
+    "targets": 137,
+    "hit50": 12,
+    "hit30": 14,
+    "small": 19,
+    "smallHit50": 9,
+    "medium": 118,
+    "mediumHit50": 3,
+    "unknown": 460,
+    "final": 474,
+    "medianAreaRatio": 1.112,
+    "sizeUnit": "source px == model-input px (no rescale)",
+    "medianTotalSec": 5.27
+   },
+   "neg": {
+    "photos": 14,
+    "fpInMask": 0,
+    "fpPerPhoto": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+   }
+  },
+  "main-300": {
+   "status": {
+    "replay-pass (eyewear UNKNOWN)": 31,
+    "tile-budget / gate-fail:POSE": 14,
+    "gate-fail:POSE / no-snapshot": 34,
+    "gate-fail:QUALITY:BLURRY": 2,
+    "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 7,
+    "product-reject:PHOTO_LIMIT": 16,
+    "tile-budget": 1,
+    "no-face": 4,
+    "tile-budget / gate-fail:QUALITY:BLURRY,POSE": 1
+   },
+   "pos": {
+    "photos": 17,
+    "targets": 137,
+    "hit50": 9,
+    "hit30": 13,
+    "small": 19,
+    "smallHit50": 8,
+    "medium": 118,
+    "mediumHit50": 1,
+    "unknown": 463,
+    "final": 476,
+    "medianAreaRatio": 1.029,
+    "sizeUnit": "source px == model-input px (no rescale)",
+    "medianTotalSec": 5.05
+   },
+   "neg": {
+    "photos": 14,
+    "fpInMask": 0,
+    "fpPerPhoto": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+   }
+  },
+  "main-450": {
+   "status": {
+    "replay-pass (eyewear UNKNOWN)": 31,
+    "tile-budget / gate-fail:POSE": 14,
+    "gate-fail:POSE / no-snapshot": 34,
+    "gate-fail:QUALITY:BLURRY": 2,
+    "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 7,
+    "product-reject:PHOTO_LIMIT": 16,
+    "tile-budget": 1,
+    "no-face": 4,
+    "tile-budget / gate-fail:QUALITY:BLURRY,POSE": 1
+   },
+   "pos": {
+    "photos": 17,
+    "targets": 137,
+    "hit50": 10,
+    "hit30": 15,
+    "small": 19,
+    "smallHit50": 8,
+    "medium": 118,
+    "mediumHit50": 2,
+    "unknown": 589,
+    "final": 604,
+    "medianAreaRatio": 1.093,
+    "sizeUnit": "source px == model-input px (no rescale)",
+    "medianTotalSec": 5.16
+   },
+   "neg": {
+    "photos": 14,
+    "fpInMask": 0,
+    "fpPerPhoto": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+   }
+  }
+ }
+}

@@ -1,0 +1,173 @@
+{
+ "evaluator": "unchanged v2 product chain (eval_acne_v3_product.py; conf .30, NMS .30, prelude masks, staging filter, one-to-one matching); comparison compare_acne_v4_product.py",
+ "candidate": "v5main-step-000150 (084af1d2...)",
+ "note": "in each set the key 'v4' is the evaluated candidate (script label), here v5 main step 150",
+ "sets": {
+  "scopeB-positive": {
+   "photos": 3,
+   "step0": {
+    "targets": 14,
+    "hit50": 4,
+    "hit30": 4,
+    "small": "1/11",
+    "medium": "3/3",
+    "reviewedNegFP": 0,
+    "fpPerPhoto": null,
+    "unknown": 19,
+    "candidates": 23,
+    "medianSec": 5.83,
+    "medianInferSec": 5.27
+   },
+   "v4": {
+    "targets": 14,
+    "hit50": 3,
+    "hit30": 8,
+    "small": "1/11",
+    "medium": "2/3",
+    "reviewedNegFP": 0,
+    "fpPerPhoto": null,
+    "unknown": 53,
+    "candidates": 56,
+    "medianSec": 4.31,
+    "medianInferSec": 3.83
+   },
+   "gained50": 0,
+   "lost50": 1,
+   "gained30": 4,
+   "lost30": 0
+  },
+  "reviewedNegatives7": {
+   "photos": 7,
+   "step0": {
+    "targets": 0,
+    "hit50": 0,
+    "hit30": 0,
+    "small": "0/0",
+    "medium": "0/0",
+    "reviewedNegFP": 3,
+    "fpPerPhoto": [
+     3,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "unknown": 0,
+    "candidates": 3,
+    "medianSec": 1.49,
+    "medianInferSec": 1.24
+   },
+   "v4": {
+    "targets": 0,
+    "hit50": 0,
+    "hit30": 0,
+    "small": "0/0",
+    "medium": "0/0",
+    "reviewedNegFP": 14,
+    "fpPerPhoto": [
+     10,
+     4,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "unknown": 0,
+    "candidates": 14,
+    "medianSec": 1.42,
+    "medianInferSec": 1.22
+   },
+   "gained50": 0,
+   "lost50": 0,
+   "gained30": 0,
+   "lost30": 0
+  },
+  "controls": {
+   "photos": 3,
+   "step0": {
+    "targets": 29,
+    "hit50": 16,
+    "hit30": 16,
+    "small": "14/20",
+    "medium": "2/9",
+    "reviewedNegFP": 0,
+    "fpPerPhoto": null,
+    "unknown": 81,
+    "candidates": 97,
+    "medianSec": 4.52,
+    "medianInferSec": 4.06
+   },
+   "v4": {
+    "targets": 29,
+    "hit50": 14,
+    "hit30": 18,
+    "small": "12/20",
+    "medium": "2/9",
+    "reviewedNegFP": 0,
+    "fpPerPhoto": null,
+    "unknown": 148,
+    "candidates": 162,
+    "medianSec": 3.77,
+    "medianInferSec": 3.48
+   },
+   "gained50": 1,
+   "lost50": 3,
+   "gained30": 2,
+   "lost30": 0
+  },
+  "heldOut20(replay pass, eyewear UNKNOWN)": {
+   "photos": 20,
+   "step0": {
+    "targets": 95,
+    "hit50": 39,
+    "hit30": 52,
+    "small": "19/58",
+    "medium": "20/37",
+    "reviewedNegFP": 0,
+    "fpPerPhoto": null,
+    "unknown": 254,
+    "candidates": 293,
+    "medianSec": 3.58,
+    "medianInferSec": 3.29
+   },
+   "v4": {
+    "targets": 95,
+    "hit50": 41,
+    "hit30": 59,
+    "small": "19/58",
+    "medium": "22/37",
+    "reviewedNegFP": 0,
+    "fpPerPhoto": null,
+    "unknown": 634,
+    "candidates": 675,
+    "medianSec": 3.5,
+    "medianInferSec": 3.17
+   },
+   "gained50": 8,
+   "lost50": 6,
+   "gained30": 9,
+   "lost30": 2
+  }
+ },
+ "outcome": {
+  "totals": {
+   "s50": 59,
+   "v50": 58,
+   "gained": 9,
+   "lost": 10,
+   "targets": 138
+  },
+  "rule": {
+   "hit50": "58 >= 59+3",
+   "hitOK": false,
+   "negFP": "14 <= 7",
+   "negOK": false,
+   "lost": "10 <= 9/3",
+   "lostOK": false,
+   "SUCCESS": false
+  }
+ }
+}

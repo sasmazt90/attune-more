@@ -1,0 +1,46 @@
+{
+ "name": "acne-v5-pilot-20261016",
+ "config": {
+  "seed": 20261016,
+  "accum": 8,
+  "k_hard": 64,
+  "k_rand": 192,
+  "w_hard": 1.0,
+  "w_rand": 1.0,
+  "lambda_neg": 36.57142857142857,
+  "p_negative_photo": 0.4,
+  "p_focus": 0.85,
+  "lr": 5e-05,
+  "warmup": 50,
+  "clip": 2000.0,
+  "pilot_steps": 150,
+  "ckpt_every": 25,
+  "trainable": "YOLOX head + PAFPN neck convs; BatchNorm frozen (eval); backbone frozen",
+  "start": "CDC Step0 18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655",
+  "schedule_steps": 150
+ },
+ "steps": 150,
+ "codeSHA256": "7235af615cca7bf3d580ad96f81ff80a5aab8ab3d4853272f692b8e98a9909dc",
+ "manifestSHA256": "c761d44d34fe329db07920d2109984f9bf946ee33cc544234f9b57628a38254c",
+ "unchanged": "v4 architecture and loss: budgeted objectness (K=64 hard + 192 random, lambda 36.57), lr 5e-5, warmup 50, clip 2000, accum 8, 40% negative-photo tiles, head+neck trainable, BN frozen; start Step0 18e94a95 + new optimizer",
+ "changed": "data only: reviewed TRAIN core (65 photos, 236 kept boxes, 111 reviewed-doubtful + 1 unreviewed -> IGNORE, 67 accepted clean ROIs = known negatives on positive photos) + 41 auxiliary TRAIN negative photos (27 Clear engineering, 14 CDC)",
+ "gateEvaluation": "label-independent product-preprocessing evaluation (eval_acne_v5_independent.py): v4 DEV photos that pass the replayed product gates (17 positive photos / 137 targets after PHOTO_LIMIT and tile-budget exclusions; 14 Clear negatives), conf .30, product NMS/filter, one-to-one IoU .50 (.30 separate)",
+ "step0Reference": {
+  "hit50": 11,
+  "hit30": 15,
+  "smallHit50": "8/19",
+  "finalCandidates": 244,
+  "medianAreaRatio": 1.102,
+  "clearFP": 0
+ },
+ "passIf": [
+  "hit50 > 11 (Step0)",
+  "small (<16 px, source == model-input px) hit50 >= 8 (Step0) - a total gain with small-target loss is FAIL",
+  "reviewed clean FP on the 14 Clear DEV negatives <= 1",
+  "no score collapse: final candidates on the positive photos >= 61 (0.25 x Step0)",
+  "median matched-box area ratio (IoU>=.30) within [0.75, 1.35]",
+  "no non-finite loss/gradient and <= 20% clipped steps in the last 50"
+ ],
+ "ifFail": "no main run; no new loss/architecture/threshold experiment",
+ "sealed": "Skin care v5 test closed; 941 unused; held-out 20, Scope B and controls never trained; production accepted:false"
+}

@@ -1,0 +1,4190 @@
+{
+ "reviewLevel": "assistant engineering review at native resolution; NOT human- or expert-verified; no consent or expert approval is claimed or implied",
+ "sourceRights": "as recorded for the existing 115-photo review package / v4 TRAIN roles; publisher or dataset licence is not individual consent",
+ "scope": "TRAIN positive photos of the review package only; DEV photos only evaluated; 941 UNKNOWN-cohort photos, failed product-evaluation photos and the sealed Skin care v5 test not used",
+ "stats": {
+  "sourcePimple": 348,
+  "keptPositive": 236,
+  "ignoredReviewed": 111,
+  "acceptedRoi": 67,
+  "roiPixels": 761884,
+  "notReviewed": 1
+ },
+ "targetSidePx": {
+  "source": "kept core positives, native SmartSkinCare resolution",
+  "n": 236
+ },
+ "boxRule": "IGNORE when no clearly visible lesion (papule/pustule/whitehead bump or inflamed spot) lies inside the source box at this zoom: faint, empty, off-target, shadow/hair/edge or flat mark; KEEP otherwise. Source boxes are kept unchanged in the source record.",
+ "roiRule": "ACCEPT only when the whole region inside the contour shows clearly clean visible skin; REJECT (stays UNKNOWN) on any spot, redness, raised texture, pigment, hair, shadow, finger, glare or tiny fragments",
+ "possibleUnlabeledLesionNote": "engineering note only (region level, no box drawn): a distinct red/raised spot without a source box was seen inside these candidate regions; they stay UNKNOWN, never negative",
+ "sourceLabelsUnchanged": true,
+ "boxDecisions": [
+  {
+   "photoSha": "0784b7635f2f645d25f76f75d8595f4f416ff743965c6d1df687e57520532347",
+   "sourceId": "P177",
+   "sourceBox": [
+    578.0,
+    934.0,
+    590.5,
+    950.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "0784b7635f2f645d25f76f75d8595f4f416ff743965c6d1df687e57520532347",
+   "sourceId": "P178",
+   "sourceBox": [
+    650.0,
+    910.0,
+    656.5,
+    919.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "0784b7635f2f645d25f76f75d8595f4f416ff743965c6d1df687e57520532347",
+   "sourceId": "P179",
+   "sourceBox": [
+    644.0,
+    930.0,
+    654.5,
+    943.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "0784b7635f2f645d25f76f75d8595f4f416ff743965c6d1df687e57520532347",
+   "sourceId": "P180",
+   "sourceBox": [
+    660.0,
+    957.0,
+    667.5,
+    969.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "0784b7635f2f645d25f76f75d8595f4f416ff743965c6d1df687e57520532347",
+   "sourceId": "P181",
+   "sourceBox": [
+    635.0,
+    955.0,
+    643.5,
+    964.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "0784b7635f2f645d25f76f75d8595f4f416ff743965c6d1df687e57520532347",
+   "sourceId": "P182",
+   "sourceBox": [
+    636.0,
+    984.0,
+    648.0,
+    994.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "0784b7635f2f645d25f76f75d8595f4f416ff743965c6d1df687e57520532347",
+   "sourceId": "P189",
+   "sourceBox": [
+    640.0,
+    411.0,
+    647.0,
+    420.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "0784b7635f2f645d25f76f75d8595f4f416ff743965c6d1df687e57520532347",
+   "sourceId": "P190",
+   "sourceBox": [
+    566.0,
+    187.0,
+    577.0,
+    198.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "0784b7635f2f645d25f76f75d8595f4f416ff743965c6d1df687e57520532347",
+   "sourceId": "P191",
+   "sourceBox": [
+    469.0,
+    173.0,
+    477.5,
+    187.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "09c0af93631166b50d607d36dcc978c101f9b79d1c625d14a7a29a9a0a734ab8",
+   "sourceId": "P15104",
+   "sourceBox": [
+    520.0,
+    1026.0,
+    543.0,
+    1041.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "09c0af93631166b50d607d36dcc978c101f9b79d1c625d14a7a29a9a0a734ab8",
+   "sourceId": "P15105",
+   "sourceBox": [
+    507.0,
+    996.0,
+    529.0,
+    1009.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "09c0af93631166b50d607d36dcc978c101f9b79d1c625d14a7a29a9a0a734ab8",
+   "sourceId": "P15106",
+   "sourceBox": [
+    420.0,
+    910.0,
+    438.5,
+    923.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "09c0af93631166b50d607d36dcc978c101f9b79d1c625d14a7a29a9a0a734ab8",
+   "sourceId": "P15117",
+   "sourceBox": [
+    837.0,
+    787.0,
+    850.0,
+    796.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "09c0af93631166b50d607d36dcc978c101f9b79d1c625d14a7a29a9a0a734ab8",
+   "sourceId": "P15118",
+   "sourceBox": [
+    809.0,
+    728.0,
+    819.5,
+    736.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "0cfdda1451dd873b307e5de85cf74a99bca7311b53be985992022722b7a7d101",
+   "sourceId": "P2377",
+   "sourceBox": [
+    674.0,
+    183.0,
+    692.0,
+    197.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "0cfdda1451dd873b307e5de85cf74a99bca7311b53be985992022722b7a7d101",
+   "sourceId": "P2385",
+   "sourceBox": [
+    888.0,
+    887.0,
+    904.5,
+    902.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "1930d5f2e7ccdb7133fd167b45e9a724e41b7aed7f5e4ff0fe1ab6e163ab1aad",
+   "sourceId": "P5121",
+   "sourceBox": [
+    854.0,
+    188.0,
+    882.0,
+    211.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "1930d5f2e7ccdb7133fd167b45e9a724e41b7aed7f5e4ff0fe1ab6e163ab1aad",
+   "sourceId": "P5122",
+   "sourceBox": [
+    964.0,
+    608.0,
+    986.0,
+    629.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "1930d5f2e7ccdb7133fd167b45e9a724e41b7aed7f5e4ff0fe1ab6e163ab1aad",
+   "sourceId": "P5124",
+   "sourceBox": [
+    470.0,
+    524.0,
+    495.5,
+    543.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "1930d5f2e7ccdb7133fd167b45e9a724e41b7aed7f5e4ff0fe1ab6e163ab1aad",
+   "sourceId": "P5131",
+   "sourceBox": [
+    967.0,
+    25.0,
+    994.5,
+    48.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "1930d5f2e7ccdb7133fd167b45e9a724e41b7aed7f5e4ff0fe1ab6e163ab1aad",
+   "sourceId": "P5142",
+   "sourceBox": [
+    792.0,
+    18.0,
+    815.5,
+    29.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "1a5fe24dd746c36bc2af4f8b45a56fb3ff1838b18da24f66e27371011478e235",
+   "sourceId": "P1636",
+   "sourceBox": [
+    481.0,
+    786.0,
+    500.5,
+    799.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "21318f130aaa52441107282735421d5764ee59cc4e8a6afc5c24b7bc564bd344",
+   "sourceId": "P20141",
+   "sourceBox": [
+    622.0,
+    240.0,
+    636.5,
+    250.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "21318f130aaa52441107282735421d5764ee59cc4e8a6afc5c24b7bc564bd344",
+   "sourceId": "P20142",
+   "sourceBox": [
+    599.0,
+    270.0,
+    613.5,
+    280.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "21318f130aaa52441107282735421d5764ee59cc4e8a6afc5c24b7bc564bd344",
+   "sourceId": "P20143",
+   "sourceBox": [
+    498.0,
+    263.0,
+    509.5,
+    274.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "21318f130aaa52441107282735421d5764ee59cc4e8a6afc5c24b7bc564bd344",
+   "sourceId": "P20163",
+   "sourceBox": [
+    699.0,
+    506.0,
+    709.5,
+    518.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "2236701580ba397255ea52ff72179a1f41df020ef0cb80c3e3f88b129da9ff6b",
+   "sourceId": "P5187",
+   "sourceBox": [
+    705.0,
+    839.0,
+    720.0,
+    852.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "2857f8711b5c477b1fef69d98c5c3fd95700f2742289b6995e4bf16aa4cb0de9",
+   "sourceId": "P24546",
+   "sourceBox": [
+    805.0,
+    592.0,
+    826.5,
+    610.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "2857f8711b5c477b1fef69d98c5c3fd95700f2742289b6995e4bf16aa4cb0de9",
+   "sourceId": "P24549",
+   "sourceBox": [
+    468.0,
+    701.0,
+    480.5,
+    712.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "2b21111ea5fbc61072f2d8cd394bcf156533e55940abe1855fd594b24315dd90",
+   "sourceId": "P12346",
+   "sourceBox": [
+    517.0,
+    736.0,
+    527.5,
+    746.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "2b21111ea5fbc61072f2d8cd394bcf156533e55940abe1855fd594b24315dd90",
+   "sourceId": "P12348",
+   "sourceBox": [
+    638.0,
+    741.0,
+    645.0,
+    753.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "2b21111ea5fbc61072f2d8cd394bcf156533e55940abe1855fd594b24315dd90",
+   "sourceId": "P12349",
+   "sourceBox": [
+    651.0,
+    730.0,
+    657.0,
+    738.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "2b21111ea5fbc61072f2d8cd394bcf156533e55940abe1855fd594b24315dd90",
+   "sourceId": "P12350",
+   "sourceBox": [
+    661.0,
+    735.0,
+    667.5,
+    744.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "2b21111ea5fbc61072f2d8cd394bcf156533e55940abe1855fd594b24315dd90",
+   "sourceId": "P12351",
+   "sourceBox": [
+    669.0,
+    639.0,
+    675.5,
+    644.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "2b21111ea5fbc61072f2d8cd394bcf156533e55940abe1855fd594b24315dd90",
+   "sourceId": "P12352",
+   "sourceBox": [
+    715.0,
+    523.0,
+    721.0,
+    534.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "2b21111ea5fbc61072f2d8cd394bcf156533e55940abe1855fd594b24315dd90",
+   "sourceId": "P12353",
+   "sourceBox": [
+    687.0,
+    720.0,
+    692.0,
+    728.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "2b21111ea5fbc61072f2d8cd394bcf156533e55940abe1855fd594b24315dd90",
+   "sourceId": "P12354",
+   "sourceBox": [
+    689.0,
+    705.0,
+    694.5,
+    711.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "2b21111ea5fbc61072f2d8cd394bcf156533e55940abe1855fd594b24315dd90",
+   "sourceId": "P12355",
+   "sourceBox": [
+    688.0,
+    674.0,
+    693.0,
+    680.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "2b21111ea5fbc61072f2d8cd394bcf156533e55940abe1855fd594b24315dd90",
+   "sourceId": "P12356",
+   "sourceBox": [
+    701.0,
+    714.0,
+    705.0,
+    722.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "2b21111ea5fbc61072f2d8cd394bcf156533e55940abe1855fd594b24315dd90",
+   "sourceId": "P12357",
+   "sourceBox": [
+    592.0,
+    474.0,
+    597.5,
+    483.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "3090a2143093436776bea50982efff87e4f21e6d96cc545f8af0287218007228",
+   "sourceId": "P1051",
+   "sourceBox": [
+    597.0,
+    434.0,
+    623.5,
+    448.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "3090a2143093436776bea50982efff87e4f21e6d96cc545f8af0287218007228",
+   "sourceId": "P1052",
+   "sourceBox": [
+    342.0,
+    372.0,
+    354.5,
+    379.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "313448754ade67688a7837887fcc156c8d0efbba50b7d7d88d601d16db3b4fc5",
+   "sourceId": "P16903",
+   "sourceBox": [
+    582.0,
+    351.0,
+    614.5,
+    366.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "313448754ade67688a7837887fcc156c8d0efbba50b7d7d88d601d16db3b4fc5",
+   "sourceId": "P16906",
+   "sourceBox": [
+    578.0,
+    276.0,
+    602.5,
+    291.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "313448754ade67688a7837887fcc156c8d0efbba50b7d7d88d601d16db3b4fc5",
+   "sourceId": "P16907",
+   "sourceBox": [
+    605.0,
+    294.0,
+    630.5,
+    303.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "313448754ade67688a7837887fcc156c8d0efbba50b7d7d88d601d16db3b4fc5",
+   "sourceId": "P16908",
+   "sourceBox": [
+    577.0,
+    299.0,
+    599.0,
+    309.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "313448754ade67688a7837887fcc156c8d0efbba50b7d7d88d601d16db3b4fc5",
+   "sourceId": "P16909",
+   "sourceBox": [
+    588.0,
+    267.0,
+    613.5,
+    281.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "313448754ade67688a7837887fcc156c8d0efbba50b7d7d88d601d16db3b4fc5",
+   "sourceId": "P16911",
+   "sourceBox": [
+    466.0,
+    622.0,
+    483.0,
+    630.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "313448754ade67688a7837887fcc156c8d0efbba50b7d7d88d601d16db3b4fc5",
+   "sourceId": "P16912",
+   "sourceBox": [
+    466.0,
+    610.0,
+    480.5,
+    621.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "313448754ade67688a7837887fcc156c8d0efbba50b7d7d88d601d16db3b4fc5",
+   "sourceId": "P16913",
+   "sourceBox": [
+    451.0,
+    615.0,
+    464.5,
+    625.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "313448754ade67688a7837887fcc156c8d0efbba50b7d7d88d601d16db3b4fc5",
+   "sourceId": "P16914",
+   "sourceBox": [
+    556.0,
+    741.0,
+    574.5,
+    750.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "31cf179fccbdc8ddbed19da9f96e04e260f2791f9ac48fd37f07d609df14599a",
+   "sourceId": "P2630",
+   "sourceBox": [
+    841.0,
+    769.0,
+    876.5,
+    795.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "31cf179fccbdc8ddbed19da9f96e04e260f2791f9ac48fd37f07d609df14599a",
+   "sourceId": "P2631",
+   "sourceBox": [
+    756.0,
+    313.0,
+    776.5,
+    330.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "31cf179fccbdc8ddbed19da9f96e04e260f2791f9ac48fd37f07d609df14599a",
+   "sourceId": "P2632",
+   "sourceBox": [
+    890.0,
+    827.0,
+    907.5,
+    846.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "31cf179fccbdc8ddbed19da9f96e04e260f2791f9ac48fd37f07d609df14599a",
+   "sourceId": "P2633",
+   "sourceBox": [
+    965.0,
+    731.0,
+    988.5,
+    750.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "31cf179fccbdc8ddbed19da9f96e04e260f2791f9ac48fd37f07d609df14599a",
+   "sourceId": "P2634",
+   "sourceBox": [
+    637.0,
+    1131.0,
+    666.0,
+    1163.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "31cf179fccbdc8ddbed19da9f96e04e260f2791f9ac48fd37f07d609df14599a",
+   "sourceId": "P2635",
+   "sourceBox": [
+    409.0,
+    876.0,
+    439.0,
+    902.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "31cf179fccbdc8ddbed19da9f96e04e260f2791f9ac48fd37f07d609df14599a",
+   "sourceId": "P2636",
+   "sourceBox": [
+    766.0,
+    274.0,
+    799.0,
+    307.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "31cf179fccbdc8ddbed19da9f96e04e260f2791f9ac48fd37f07d609df14599a",
+   "sourceId": "P2665",
+   "sourceBox": [
+    708.0,
+    438.0,
+    727.0,
+    463.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "31cf179fccbdc8ddbed19da9f96e04e260f2791f9ac48fd37f07d609df14599a",
+   "sourceId": "P2666",
+   "sourceBox": [
+    694.0,
+    469.0,
+    713.5,
+    488.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "33443cb8f720f0ba795808adbc175819fbcee36a91b4135003868f88716d5800",
+   "sourceId": "P6143",
+   "sourceBox": [
+    725.0,
+    357.0,
+    734.5,
+    373.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "33443cb8f720f0ba795808adbc175819fbcee36a91b4135003868f88716d5800",
+   "sourceId": "P6144",
+   "sourceBox": [
+    765.0,
+    320.0,
+    774.5,
+    335.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "33443cb8f720f0ba795808adbc175819fbcee36a91b4135003868f88716d5800",
+   "sourceId": "P6145",
+   "sourceBox": [
+    670.0,
+    552.0,
+    679.5,
+    562.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "33443cb8f720f0ba795808adbc175819fbcee36a91b4135003868f88716d5800",
+   "sourceId": "P6147",
+   "sourceBox": [
+    777.0,
+    604.0,
+    788.0,
+    617.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "33443cb8f720f0ba795808adbc175819fbcee36a91b4135003868f88716d5800",
+   "sourceId": "P6151",
+   "sourceBox": [
+    775.0,
+    348.0,
+    783.0,
+    358.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "33c309a9e8f5429780c0e46eaa225b0296e0f8045e1c7c361d7c26d7cefc1d6a",
+   "sourceId": "P13916",
+   "sourceBox": [
+    700.0,
+    532.0,
+    709.0,
+    541.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "33cb39a51c895d994a32a036d459b20e7a52aefcf203923d2161957cfc97e3bd",
+   "sourceId": "P8981",
+   "sourceBox": [
+    681.0,
+    702.0,
+    693.5,
+    717.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "3ac2d816886f3af2fe55e486507d20569a2e13a6cd909408dd1c34603b6407ce",
+   "sourceId": "P3552",
+   "sourceBox": [
+    733.0,
+    1122.0,
+    753.5,
+    1137.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "3ac2d816886f3af2fe55e486507d20569a2e13a6cd909408dd1c34603b6407ce",
+   "sourceId": "P3557",
+   "sourceBox": [
+    924.0,
+    843.0,
+    946.5,
+    860.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "3ac2d816886f3af2fe55e486507d20569a2e13a6cd909408dd1c34603b6407ce",
+   "sourceId": "P3580",
+   "sourceBox": [
+    737.0,
+    882.0,
+    754.5,
+    893.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "3cb62ff9cb22adc3b50d5b8b3c3f5eae2be302ca5e1c9caef7357ae420fc9a44",
+   "sourceId": "P1239",
+   "sourceBox": [
+    815.0,
+    1012.0,
+    825.5,
+    1021.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "3cb62ff9cb22adc3b50d5b8b3c3f5eae2be302ca5e1c9caef7357ae420fc9a44",
+   "sourceId": "P1250",
+   "sourceBox": [
+    601.0,
+    454.0,
+    613.5,
+    462.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "3cb62ff9cb22adc3b50d5b8b3c3f5eae2be302ca5e1c9caef7357ae420fc9a44",
+   "sourceId": "P1251",
+   "sourceBox": [
+    713.0,
+    520.0,
+    723.5,
+    528.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "3cb62ff9cb22adc3b50d5b8b3c3f5eae2be302ca5e1c9caef7357ae420fc9a44",
+   "sourceId": "P1252",
+   "sourceBox": [
+    562.0,
+    462.0,
+    571.5,
+    469.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "3cb62ff9cb22adc3b50d5b8b3c3f5eae2be302ca5e1c9caef7357ae420fc9a44",
+   "sourceId": "P1274",
+   "sourceBox": [
+    653.0,
+    1088.0,
+    663.5,
+    1095.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "3e392e39a6d62ff1e367ee5ac9f889176630032d6c97cdb124bf1c51478a4f83",
+   "sourceId": "P12701",
+   "sourceBox": [
+    735.0,
+    494.0,
+    750.5,
+    503.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "3e392e39a6d62ff1e367ee5ac9f889176630032d6c97cdb124bf1c51478a4f83",
+   "sourceId": "P12703",
+   "sourceBox": [
+    392.0,
+    719.0,
+    409.5,
+    732.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "3e392e39a6d62ff1e367ee5ac9f889176630032d6c97cdb124bf1c51478a4f83",
+   "sourceId": "P12712",
+   "sourceBox": [
+    962.0,
+    468.0,
+    979.5,
+    479.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "3e65f76768c876789163c2f1889c657f9550d98b13e9116fd2dbc6a49a3cd972",
+   "sourceId": "P3686",
+   "sourceBox": [
+    716.0,
+    313.0,
+    726.5,
+    320.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "3e65f76768c876789163c2f1889c657f9550d98b13e9116fd2dbc6a49a3cd972",
+   "sourceId": "P3687",
+   "sourceBox": [
+    654.0,
+    240.0,
+    661.5,
+    245.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "3e65f76768c876789163c2f1889c657f9550d98b13e9116fd2dbc6a49a3cd972",
+   "sourceId": "P3688",
+   "sourceBox": [
+    657.0,
+    268.0,
+    665.5,
+    274.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "3fc5bcfa954096ec159b841ceabfe384624e1b3cb5a7a8f1ee017d84abb35d59",
+   "sourceId": "P4391",
+   "sourceBox": [
+    841.0,
+    586.0,
+    848.5,
+    592.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "431c54b4f6d89b394bdcf5b0d5c1e3d20c38c76c0e3699d87e79cfa973638f7b",
+   "sourceId": "P12664",
+   "sourceBox": [
+    516.0,
+    68.0,
+    526.0,
+    89.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "431c54b4f6d89b394bdcf5b0d5c1e3d20c38c76c0e3699d87e79cfa973638f7b",
+   "sourceId": "P12665",
+   "sourceBox": [
+    582.0,
+    134.0,
+    596.0,
+    157.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "431c54b4f6d89b394bdcf5b0d5c1e3d20c38c76c0e3699d87e79cfa973638f7b",
+   "sourceId": "P12666",
+   "sourceBox": [
+    717.0,
+    59.0,
+    726.5,
+    73.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "431c54b4f6d89b394bdcf5b0d5c1e3d20c38c76c0e3699d87e79cfa973638f7b",
+   "sourceId": "P12667",
+   "sourceBox": [
+    668.0,
+    98.0,
+    681.0,
+    111.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "431c54b4f6d89b394bdcf5b0d5c1e3d20c38c76c0e3699d87e79cfa973638f7b",
+   "sourceId": "P12668",
+   "sourceBox": [
+    722.0,
+    218.0,
+    737.5,
+    234.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "431c54b4f6d89b394bdcf5b0d5c1e3d20c38c76c0e3699d87e79cfa973638f7b",
+   "sourceId": "P12669",
+   "sourceBox": [
+    686.0,
+    228.0,
+    697.0,
+    240.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "431c54b4f6d89b394bdcf5b0d5c1e3d20c38c76c0e3699d87e79cfa973638f7b",
+   "sourceId": "P12670",
+   "sourceBox": [
+    585.0,
+    309.0,
+    597.5,
+    322.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "431c54b4f6d89b394bdcf5b0d5c1e3d20c38c76c0e3699d87e79cfa973638f7b",
+   "sourceId": "P12671",
+   "sourceBox": [
+    523.0,
+    307.0,
+    534.0,
+    323.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "431c54b4f6d89b394bdcf5b0d5c1e3d20c38c76c0e3699d87e79cfa973638f7b",
+   "sourceId": "P12672",
+   "sourceBox": [
+    509.0,
+    275.0,
+    520.0,
+    288.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "431c54b4f6d89b394bdcf5b0d5c1e3d20c38c76c0e3699d87e79cfa973638f7b",
+   "sourceId": "P12688",
+   "sourceBox": [
+    650.0,
+    779.0,
+    665.0,
+    796.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "447ffc276b060c2158d07d8527322d6e142b9f438a86ba076d84ce67eb32a958",
+   "sourceId": "P356",
+   "sourceBox": [
+    400.0,
+    390.0,
+    406.0,
+    394.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "44da1718d582e6710d3e81513214574eb4a3e41049b9ca853a5e5505e098b290",
+   "sourceId": "P18351",
+   "sourceBox": [
+    474.0,
+    622.0,
+    481.0,
+    638.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "4d5da924abf46e3a80ceeb192ee0d19644d9af2af1f4cb45e406ae94deccafe2",
+   "sourceId": "P923",
+   "sourceBox": [
+    608.0,
+    398.0,
+    619.5,
+    409.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "4e6dc354ab7e2ba0cf95196a5ca774dc9ed50ab321e050fa6653271eadbbf42d",
+   "sourceId": "P3663",
+   "sourceBox": [
+    542.0,
+    667.0,
+    556.0,
+    684.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "4e6dc354ab7e2ba0cf95196a5ca774dc9ed50ab321e050fa6653271eadbbf42d",
+   "sourceId": "P3664",
+   "sourceBox": [
+    635.0,
+    569.0,
+    644.5,
+    585.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "4e6dc354ab7e2ba0cf95196a5ca774dc9ed50ab321e050fa6653271eadbbf42d",
+   "sourceId": "P3665",
+   "sourceBox": [
+    597.0,
+    335.0,
+    606.0,
+    349.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "4e6dc354ab7e2ba0cf95196a5ca774dc9ed50ab321e050fa6653271eadbbf42d",
+   "sourceId": "P3667",
+   "sourceBox": [
+    532.0,
+    282.0,
+    549.5,
+    300.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "4e6dc354ab7e2ba0cf95196a5ca774dc9ed50ab321e050fa6653271eadbbf42d",
+   "sourceId": "P3668",
+   "sourceBox": [
+    506.0,
+    383.0,
+    515.0,
+    394.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "4e6dc354ab7e2ba0cf95196a5ca774dc9ed50ab321e050fa6653271eadbbf42d",
+   "sourceId": "P3670",
+   "sourceBox": [
+    509.0,
+    520.0,
+    518.5,
+    533.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "56d29169a29c879d1414c8a11b9302a7e2e51d52756c02b6048ad729a060e8e6",
+   "sourceId": "P450",
+   "sourceBox": [
+    733.0,
+    890.0,
+    752.5,
+    905.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "56d29169a29c879d1414c8a11b9302a7e2e51d52756c02b6048ad729a060e8e6",
+   "sourceId": "P451",
+   "sourceBox": [
+    451.0,
+    710.0,
+    461.0,
+    719.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "57f67dc0212450bbdc6e973d91927156c085ad2ea1bb4bbb8fb466a869040baf",
+   "sourceId": "P4330",
+   "sourceBox": [
+    1004.0,
+    694.0,
+    1019.5,
+    704.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5884eb93ba49be1b7881bfa98a3bb99a2f2db23bea82b28b062e974e75dda7d9",
+   "sourceId": "P21199",
+   "sourceBox": [
+    646.0,
+    969.0,
+    667.5,
+    997.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "5884eb93ba49be1b7881bfa98a3bb99a2f2db23bea82b28b062e974e75dda7d9",
+   "sourceId": "P21205",
+   "sourceBox": [
+    591.0,
+    651.0,
+    605.5,
+    675.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5884eb93ba49be1b7881bfa98a3bb99a2f2db23bea82b28b062e974e75dda7d9",
+   "sourceId": "P21206",
+   "sourceBox": [
+    635.0,
+    745.0,
+    645.0,
+    760.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5884eb93ba49be1b7881bfa98a3bb99a2f2db23bea82b28b062e974e75dda7d9",
+   "sourceId": "P21207",
+   "sourceBox": [
+    591.0,
+    521.0,
+    602.5,
+    539.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5884eb93ba49be1b7881bfa98a3bb99a2f2db23bea82b28b062e974e75dda7d9",
+   "sourceId": "P21209",
+   "sourceBox": [
+    458.0,
+    731.0,
+    471.5,
+    754.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5884eb93ba49be1b7881bfa98a3bb99a2f2db23bea82b28b062e974e75dda7d9",
+   "sourceId": "P21211",
+   "sourceBox": [
+    532.0,
+    201.0,
+    549.0,
+    218.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5884eb93ba49be1b7881bfa98a3bb99a2f2db23bea82b28b062e974e75dda7d9",
+   "sourceId": "P21212",
+   "sourceBox": [
+    468.0,
+    223.0,
+    477.5,
+    240.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "58c83decca869292472fce60e3f635c8280f32afccd052f763ba202f871ac62f",
+   "sourceId": "P2758",
+   "sourceBox": [
+    534.0,
+    473.0,
+    545.0,
+    481.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "58c83decca869292472fce60e3f635c8280f32afccd052f763ba202f871ac62f",
+   "sourceId": "P2759",
+   "sourceBox": [
+    512.0,
+    440.0,
+    519.5,
+    446.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "58c83decca869292472fce60e3f635c8280f32afccd052f763ba202f871ac62f",
+   "sourceId": "P2761",
+   "sourceBox": [
+    729.0,
+    548.0,
+    742.0,
+    555.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "58c83decca869292472fce60e3f635c8280f32afccd052f763ba202f871ac62f",
+   "sourceId": "P2763",
+   "sourceBox": [
+    717.0,
+    722.0,
+    729.5,
+    728.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5a2f20cb478e6524e7b740ccd14ae4aec2758b07ee00fd65390b4a05992ece14",
+   "sourceId": "P15399",
+   "sourceBox": [
+    650.0,
+    217.0,
+    676.0,
+    236.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5a2f20cb478e6524e7b740ccd14ae4aec2758b07ee00fd65390b4a05992ece14",
+   "sourceId": "P15400",
+   "sourceBox": [
+    492.0,
+    279.0,
+    519.0,
+    294.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5a2f20cb478e6524e7b740ccd14ae4aec2758b07ee00fd65390b4a05992ece14",
+   "sourceId": "P15401",
+   "sourceBox": [
+    639.0,
+    316.0,
+    663.5,
+    332.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5a2f20cb478e6524e7b740ccd14ae4aec2758b07ee00fd65390b4a05992ece14",
+   "sourceId": "P15402",
+   "sourceBox": [
+    694.0,
+    308.0,
+    716.0,
+    322.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5a2f20cb478e6524e7b740ccd14ae4aec2758b07ee00fd65390b4a05992ece14",
+   "sourceId": "P15437",
+   "sourceBox": [
+    546.0,
+    618.0,
+    553.5,
+    622.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5a2f20cb478e6524e7b740ccd14ae4aec2758b07ee00fd65390b4a05992ece14",
+   "sourceId": "P15438",
+   "sourceBox": [
+    711.0,
+    666.0,
+    731.5,
+    678.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "5a2f20cb478e6524e7b740ccd14ae4aec2758b07ee00fd65390b4a05992ece14",
+   "sourceId": "P15473",
+   "sourceBox": [
+    452.0,
+    773.0,
+    470.5,
+    786.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5a2f20cb478e6524e7b740ccd14ae4aec2758b07ee00fd65390b4a05992ece14",
+   "sourceId": "P15474",
+   "sourceBox": [
+    558.0,
+    779.0,
+    578.0,
+    793.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23364",
+   "sourceBox": [
+    493.0,
+    837.0,
+    508.0,
+    854.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23365",
+   "sourceBox": [
+    568.0,
+    915.0,
+    587.5,
+    933.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23366",
+   "sourceBox": [
+    864.0,
+    969.0,
+    877.0,
+    980.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23367",
+   "sourceBox": [
+    843.0,
+    744.0,
+    863.5,
+    763.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23369",
+   "sourceBox": [
+    568.0,
+    706.0,
+    587.5,
+    724.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23370",
+   "sourceBox": [
+    720.0,
+    484.0,
+    746.5,
+    503.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23372",
+   "sourceBox": [
+    693.0,
+    443.0,
+    712.5,
+    457.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23373",
+   "sourceBox": [
+    710.0,
+    1022.0,
+    733.0,
+    1038.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23382",
+   "sourceBox": [
+    587.0,
+    448.0,
+    602.0,
+    459.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23383",
+   "sourceBox": [
+    640.0,
+    445.0,
+    652.5,
+    455.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23384",
+   "sourceBox": [
+    598.0,
+    465.0,
+    609.5,
+    476.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23385",
+   "sourceBox": [
+    734.0,
+    378.0,
+    749.5,
+    389.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23386",
+   "sourceBox": [
+    750.0,
+    433.0,
+    761.5,
+    443.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23387",
+   "sourceBox": [
+    774.0,
+    469.0,
+    790.5,
+    481.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23388",
+   "sourceBox": [
+    756.0,
+    554.0,
+    769.0,
+    564.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23400",
+   "sourceBox": [
+    701.0,
+    498.0,
+    712.5,
+    507.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23425",
+   "sourceBox": [
+    572.0,
+    897.0,
+    585.0,
+    906.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23426",
+   "sourceBox": [
+    614.0,
+    1023.0,
+    626.5,
+    1034.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23427",
+   "sourceBox": [
+    616.0,
+    971.0,
+    626.0,
+    978.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+   "sourceId": "P23428",
+   "sourceBox": [
+    639.0,
+    1023.0,
+    653.0,
+    1034.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "62c5a230ee18cfcf38d2e72bbc98cd7ff7bd0e1a72d69b28e6012b9fbe31340a",
+   "sourceId": "P14545",
+   "sourceBox": [
+    693.0,
+    473.0,
+    707.0,
+    489.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "62c5a230ee18cfcf38d2e72bbc98cd7ff7bd0e1a72d69b28e6012b9fbe31340a",
+   "sourceId": "P14546",
+   "sourceBox": [
+    694.0,
+    397.0,
+    705.0,
+    411.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "62c5a230ee18cfcf38d2e72bbc98cd7ff7bd0e1a72d69b28e6012b9fbe31340a",
+   "sourceId": "P14547",
+   "sourceBox": [
+    703.0,
+    366.0,
+    714.0,
+    379.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "62c5a230ee18cfcf38d2e72bbc98cd7ff7bd0e1a72d69b28e6012b9fbe31340a",
+   "sourceId": "P14548",
+   "sourceBox": [
+    621.0,
+    592.0,
+    630.5,
+    603.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "62c5a230ee18cfcf38d2e72bbc98cd7ff7bd0e1a72d69b28e6012b9fbe31340a",
+   "sourceId": "P14550",
+   "sourceBox": [
+    722.0,
+    720.0,
+    733.5,
+    732.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "62c5a230ee18cfcf38d2e72bbc98cd7ff7bd0e1a72d69b28e6012b9fbe31340a",
+   "sourceId": "P14551",
+   "sourceBox": [
+    842.0,
+    467.0,
+    854.5,
+    481.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "62c5a230ee18cfcf38d2e72bbc98cd7ff7bd0e1a72d69b28e6012b9fbe31340a",
+   "sourceId": "P14552",
+   "sourceBox": [
+    706.0,
+    403.0,
+    714.0,
+    412.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "62c5a230ee18cfcf38d2e72bbc98cd7ff7bd0e1a72d69b28e6012b9fbe31340a",
+   "sourceId": "P14553",
+   "sourceBox": [
+    685.0,
+    408.0,
+    691.5,
+    419.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "62c5a230ee18cfcf38d2e72bbc98cd7ff7bd0e1a72d69b28e6012b9fbe31340a",
+   "sourceId": "P14560",
+   "sourceBox": [
+    835.0,
+    426.0,
+    844.5,
+    441.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "62c5a230ee18cfcf38d2e72bbc98cd7ff7bd0e1a72d69b28e6012b9fbe31340a",
+   "sourceId": "P14561",
+   "sourceBox": [
+    699.0,
+    344.0,
+    710.5,
+    357.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "62f27f6db706a0d0b019282c74e373219338ae72b8b5d0a7144c06060a1b0048",
+   "sourceId": "P23123",
+   "sourceBox": [
+    498.0,
+    878.0,
+    525.0,
+    892.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "62f27f6db706a0d0b019282c74e373219338ae72b8b5d0a7144c06060a1b0048",
+   "sourceId": "P23124",
+   "sourceBox": [
+    633.0,
+    889.0,
+    651.5,
+    905.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "62f27f6db706a0d0b019282c74e373219338ae72b8b5d0a7144c06060a1b0048",
+   "sourceId": "P23125",
+   "sourceBox": [
+    591.0,
+    930.0,
+    612.5,
+    948.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "62f27f6db706a0d0b019282c74e373219338ae72b8b5d0a7144c06060a1b0048",
+   "sourceId": "P23126",
+   "sourceBox": [
+    588.0,
+    387.0,
+    608.0,
+    404.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "62f27f6db706a0d0b019282c74e373219338ae72b8b5d0a7144c06060a1b0048",
+   "sourceId": "P23127",
+   "sourceBox": [
+    441.0,
+    259.0,
+    469.0,
+    278.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "62f27f6db706a0d0b019282c74e373219338ae72b8b5d0a7144c06060a1b0048",
+   "sourceId": "P23128",
+   "sourceBox": [
+    654.0,
+    337.0,
+    669.5,
+    350.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "62f27f6db706a0d0b019282c74e373219338ae72b8b5d0a7144c06060a1b0048",
+   "sourceId": "P23129",
+   "sourceBox": [
+    478.0,
+    357.0,
+    495.0,
+    369.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "62f27f6db706a0d0b019282c74e373219338ae72b8b5d0a7144c06060a1b0048",
+   "sourceId": "P23130",
+   "sourceBox": [
+    499.0,
+    336.0,
+    513.0,
+    348.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "62f27f6db706a0d0b019282c74e373219338ae72b8b5d0a7144c06060a1b0048",
+   "sourceId": "P23145",
+   "sourceBox": [
+    441.0,
+    734.0,
+    454.5,
+    744.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "62f27f6db706a0d0b019282c74e373219338ae72b8b5d0a7144c06060a1b0048",
+   "sourceId": "P23146",
+   "sourceBox": [
+    417.0,
+    776.0,
+    432.5,
+    785.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "62f27f6db706a0d0b019282c74e373219338ae72b8b5d0a7144c06060a1b0048",
+   "sourceId": "P23147",
+   "sourceBox": [
+    561.0,
+    731.0,
+    582.0,
+    744.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "62f27f6db706a0d0b019282c74e373219338ae72b8b5d0a7144c06060a1b0048",
+   "sourceId": "P23150",
+   "sourceBox": [
+    547.0,
+    878.0,
+    560.0,
+    889.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "62f27f6db706a0d0b019282c74e373219338ae72b8b5d0a7144c06060a1b0048",
+   "sourceId": "P23151",
+   "sourceBox": [
+    562.0,
+    896.0,
+    573.5,
+    905.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "62f27f6db706a0d0b019282c74e373219338ae72b8b5d0a7144c06060a1b0048",
+   "sourceId": "P23152",
+   "sourceBox": [
+    583.0,
+    892.0,
+    592.5,
+    900.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "66e86098c841dd2d4df96f4ca6b6514694600f148091e22e8caa8b299658cf5c",
+   "sourceId": "P25863",
+   "sourceBox": [
+    836.0,
+    452.0,
+    850.5,
+    460.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "66e86098c841dd2d4df96f4ca6b6514694600f148091e22e8caa8b299658cf5c",
+   "sourceId": "P25864",
+   "sourceBox": [
+    607.0,
+    299.0,
+    626.5,
+    310.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "66e86098c841dd2d4df96f4ca6b6514694600f148091e22e8caa8b299658cf5c",
+   "sourceId": "P25961",
+   "sourceBox": [
+    968.0,
+    391.0,
+    980.0,
+    398.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "66e86098c841dd2d4df96f4ca6b6514694600f148091e22e8caa8b299658cf5c",
+   "sourceId": "P25979",
+   "sourceBox": [
+    765.0,
+    887.0,
+    773.5,
+    891.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "66e86098c841dd2d4df96f4ca6b6514694600f148091e22e8caa8b299658cf5c",
+   "sourceId": "P25993",
+   "sourceBox": [
+    419.0,
+    412.0,
+    429.5,
+    418.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "66e86098c841dd2d4df96f4ca6b6514694600f148091e22e8caa8b299658cf5c",
+   "sourceId": "P25994",
+   "sourceBox": [
+    351.0,
+    445.0,
+    360.0,
+    449.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "68dc90c7a0f6bb65e74fb20dd38759261736eef93e2d7291e3bc8a973834809c",
+   "sourceId": "P27417",
+   "sourceBox": [
+    339.0,
+    530.0,
+    358.5,
+    544.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "6cabfaa18cb634227dff63ddbbf8bfb39d4a4e80039690c6e8e7fe55e0fe4a40",
+   "sourceId": "P2408",
+   "sourceBox": [
+    632.0,
+    371.0,
+    646.0,
+    380.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "6cabfaa18cb634227dff63ddbbf8bfb39d4a4e80039690c6e8e7fe55e0fe4a40",
+   "sourceId": "P2409",
+   "sourceBox": [
+    683.0,
+    565.0,
+    697.5,
+    574.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "6cabfaa18cb634227dff63ddbbf8bfb39d4a4e80039690c6e8e7fe55e0fe4a40",
+   "sourceId": "P2410",
+   "sourceBox": [
+    570.0,
+    664.0,
+    585.5,
+    673.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "6cabfaa18cb634227dff63ddbbf8bfb39d4a4e80039690c6e8e7fe55e0fe4a40",
+   "sourceId": "P2411",
+   "sourceBox": [
+    846.0,
+    671.0,
+    866.0,
+    682.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "6cabfaa18cb634227dff63ddbbf8bfb39d4a4e80039690c6e8e7fe55e0fe4a40",
+   "sourceId": "P2412",
+   "sourceBox": [
+    687.0,
+    761.0,
+    698.5,
+    768.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "6cabfaa18cb634227dff63ddbbf8bfb39d4a4e80039690c6e8e7fe55e0fe4a40",
+   "sourceId": "P2452",
+   "sourceBox": [
+    706.0,
+    769.0,
+    714.5,
+    776.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "6ce4f060f2ac15b1e89a44d90f8082bca2f0dc3edc0d32ab359cd2a20fd33d5b",
+   "sourceId": "P3282",
+   "sourceBox": [
+    430.0,
+    849.0,
+    451.0,
+    860.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "6ce4f060f2ac15b1e89a44d90f8082bca2f0dc3edc0d32ab359cd2a20fd33d5b",
+   "sourceId": "P3283",
+   "sourceBox": [
+    628.0,
+    956.0,
+    649.0,
+    971.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "74e7d4ec4f1a0130ce898a90b79a043506ac17d88fe3446bb731878dafd8e13e",
+   "sourceId": "P2688",
+   "sourceBox": [
+    568.0,
+    700.0,
+    575.0,
+    707.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "74e7d4ec4f1a0130ce898a90b79a043506ac17d88fe3446bb731878dafd8e13e",
+   "sourceId": "P2689",
+   "sourceBox": [
+    634.0,
+    692.0,
+    641.0,
+    701.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "74e7d4ec4f1a0130ce898a90b79a043506ac17d88fe3446bb731878dafd8e13e",
+   "sourceId": "P2690",
+   "sourceBox": [
+    606.0,
+    351.0,
+    614.5,
+    358.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "74e7d4ec4f1a0130ce898a90b79a043506ac17d88fe3446bb731878dafd8e13e",
+   "sourceId": "P2691",
+   "sourceBox": [
+    547.0,
+    577.0,
+    554.5,
+    582.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "74e7d4ec4f1a0130ce898a90b79a043506ac17d88fe3446bb731878dafd8e13e",
+   "sourceId": "P2692",
+   "sourceBox": [
+    640.0,
+    670.0,
+    649.5,
+    679.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "74e7d4ec4f1a0130ce898a90b79a043506ac17d88fe3446bb731878dafd8e13e",
+   "sourceId": "P2693",
+   "sourceBox": [
+    782.0,
+    645.0,
+    788.5,
+    652.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "74e7d4ec4f1a0130ce898a90b79a043506ac17d88fe3446bb731878dafd8e13e",
+   "sourceId": "P2703",
+   "sourceBox": [
+    535.0,
+    650.0,
+    542.0,
+    655.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "74e7d4ec4f1a0130ce898a90b79a043506ac17d88fe3446bb731878dafd8e13e",
+   "sourceId": "P2704",
+   "sourceBox": [
+    529.0,
+    675.0,
+    535.0,
+    681.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "7ed4e31b7fe6e823bc098552ee8d8243467944189ead620f17b44d8c191a7a7c",
+   "sourceId": "P6871",
+   "sourceBox": [
+    835.0,
+    633.0,
+    846.0,
+    640.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "7ed4e31b7fe6e823bc098552ee8d8243467944189ead620f17b44d8c191a7a7c",
+   "sourceId": "P6882",
+   "sourceBox": [
+    624.0,
+    974.0,
+    631.5,
+    982.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "7ed4e31b7fe6e823bc098552ee8d8243467944189ead620f17b44d8c191a7a7c",
+   "sourceId": "P6883",
+   "sourceBox": [
+    796.0,
+    951.0,
+    806.0,
+    960.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "7ed4e31b7fe6e823bc098552ee8d8243467944189ead620f17b44d8c191a7a7c",
+   "sourceId": "P6888",
+   "sourceBox": [
+    567.0,
+    897.0,
+    573.5,
+    904.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "7ed4e31b7fe6e823bc098552ee8d8243467944189ead620f17b44d8c191a7a7c",
+   "sourceId": "P6889",
+   "sourceBox": [
+    572.0,
+    906.0,
+    583.0,
+    913.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "7ed4e31b7fe6e823bc098552ee8d8243467944189ead620f17b44d8c191a7a7c",
+   "sourceId": "P6891",
+   "sourceBox": [
+    620.0,
+    986.0,
+    629.0,
+    993.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "7ed4e31b7fe6e823bc098552ee8d8243467944189ead620f17b44d8c191a7a7c",
+   "sourceId": "P6892",
+   "sourceBox": [
+    600.0,
+    978.0,
+    608.0,
+    986.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "7ed4e31b7fe6e823bc098552ee8d8243467944189ead620f17b44d8c191a7a7c",
+   "sourceId": "P6898",
+   "sourceBox": [
+    551.0,
+    1055.0,
+    564.5,
+    1064.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "7ed4e31b7fe6e823bc098552ee8d8243467944189ead620f17b44d8c191a7a7c",
+   "sourceId": "P6899",
+   "sourceBox": [
+    622.0,
+    1112.0,
+    632.0,
+    1120.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "7ed4e31b7fe6e823bc098552ee8d8243467944189ead620f17b44d8c191a7a7c",
+   "sourceId": "P6900",
+   "sourceBox": [
+    796.0,
+    1105.0,
+    805.5,
+    1117.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "7ed4e31b7fe6e823bc098552ee8d8243467944189ead620f17b44d8c191a7a7c",
+   "sourceId": "P6928",
+   "sourceBox": [
+    452.0,
+    988.0,
+    458.0,
+    996.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "7ed4e31b7fe6e823bc098552ee8d8243467944189ead620f17b44d8c191a7a7c",
+   "sourceId": "P6932",
+   "sourceBox": [
+    839.0,
+    1059.0,
+    849.0,
+    1069.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "7ed4e31b7fe6e823bc098552ee8d8243467944189ead620f17b44d8c191a7a7c",
+   "sourceId": "P6933",
+   "sourceBox": [
+    848.0,
+    1041.0,
+    856.0,
+    1050.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "7ed4e31b7fe6e823bc098552ee8d8243467944189ead620f17b44d8c191a7a7c",
+   "sourceId": "P6934",
+   "sourceBox": [
+    849.0,
+    1072.0,
+    855.5,
+    1079.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "7ed4e31b7fe6e823bc098552ee8d8243467944189ead620f17b44d8c191a7a7c",
+   "sourceId": "P6953",
+   "sourceBox": [
+    865.0,
+    894.0,
+    875.0,
+    901.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "7ef981d34b0890ccdc1e8b1be1d545df6631901f7c0400b1570cbc9a717e3bae",
+   "sourceId": "P11083",
+   "sourceBox": [
+    580.0,
+    223.0,
+    607.0,
+    244.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "7ef981d34b0890ccdc1e8b1be1d545df6631901f7c0400b1570cbc9a717e3bae",
+   "sourceId": "P11086",
+   "sourceBox": [
+    430.0,
+    813.0,
+    448.5,
+    828.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "7f713ab3441544e04d0dfe9d38e16dccf3526620bbbe39c4ab51ecdb38316aa6",
+   "sourceId": "P5662",
+   "sourceBox": [
+    574.0,
+    234.0,
+    582.0,
+    242.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27444",
+   "sourceBox": [
+    837.0,
+    684.0,
+    867.0,
+    700.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27445",
+   "sourceBox": [
+    776.0,
+    318.0,
+    790.0,
+    328.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27446",
+   "sourceBox": [
+    784.0,
+    298.0,
+    802.0,
+    310.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27447",
+   "sourceBox": [
+    804.0,
+    289.0,
+    818.0,
+    300.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27448",
+   "sourceBox": [
+    800.0,
+    319.0,
+    817.5,
+    332.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27449",
+   "sourceBox": [
+    853.0,
+    415.0,
+    866.0,
+    427.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27450",
+   "sourceBox": [
+    824.0,
+    435.0,
+    837.5,
+    444.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27451",
+   "sourceBox": [
+    528.0,
+    540.0,
+    539.5,
+    550.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27452",
+   "sourceBox": [
+    508.0,
+    537.0,
+    519.5,
+    551.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27453",
+   "sourceBox": [
+    1077.0,
+    545.0,
+    1096.5,
+    557.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27455",
+   "sourceBox": [
+    925.0,
+    675.0,
+    946.5,
+    687.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27456",
+   "sourceBox": [
+    891.0,
+    684.0,
+    908.5,
+    693.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27460",
+   "sourceBox": [
+    1011.0,
+    757.0,
+    1025.0,
+    768.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27461",
+   "sourceBox": [
+    833.0,
+    445.0,
+    842.5,
+    454.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27462",
+   "sourceBox": [
+    821.0,
+    443.0,
+    834.5,
+    455.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27463",
+   "sourceBox": [
+    783.0,
+    322.0,
+    795.5,
+    331.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27464",
+   "sourceBox": [
+    1060.0,
+    564.0,
+    1074.0,
+    573.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27465",
+   "sourceBox": [
+    806.0,
+    540.0,
+    817.5,
+    550.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27466",
+   "sourceBox": [
+    865.0,
+    511.0,
+    880.0,
+    521.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27467",
+   "sourceBox": [
+    922.0,
+    475.0,
+    936.0,
+    485.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "89865a05430bffe77e2436d5a8ad5d7062183bf70523f22a1d93b98ed1dc03c4",
+   "sourceId": "P27468",
+   "sourceBox": [
+    899.0,
+    411.0,
+    915.0,
+    420.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "8e174c335bd682b0fa201293a1e2fc5d2e7208abeac7314955832067953593be",
+   "sourceId": "P4135",
+   "sourceBox": [
+    628.0,
+    458.0,
+    641.0,
+    467.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "8e174c335bd682b0fa201293a1e2fc5d2e7208abeac7314955832067953593be",
+   "sourceId": "P4136",
+   "sourceBox": [
+    658.0,
+    466.0,
+    670.0,
+    476.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "8e3e10738b135a47afdf4deb5fa5fd1779c22f86b6c0d6e03d4e529127c7f8fc",
+   "sourceId": "P3324",
+   "sourceBox": [
+    622.0,
+    619.0,
+    632.5,
+    632.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "8e3e10738b135a47afdf4deb5fa5fd1779c22f86b6c0d6e03d4e529127c7f8fc",
+   "sourceId": "P3325",
+   "sourceBox": [
+    662.0,
+    623.0,
+    668.5,
+    633.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "8e3e10738b135a47afdf4deb5fa5fd1779c22f86b6c0d6e03d4e529127c7f8fc",
+   "sourceId": "P3326",
+   "sourceBox": [
+    715.0,
+    530.0,
+    721.5,
+    541.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "8e3e10738b135a47afdf4deb5fa5fd1779c22f86b6c0d6e03d4e529127c7f8fc",
+   "sourceId": "P3327",
+   "sourceBox": [
+    657.0,
+    512.0,
+    668.5,
+    527.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "8e3e10738b135a47afdf4deb5fa5fd1779c22f86b6c0d6e03d4e529127c7f8fc",
+   "sourceId": "P3328",
+   "sourceBox": [
+    726.0,
+    431.0,
+    732.5,
+    440.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "8e3e10738b135a47afdf4deb5fa5fd1779c22f86b6c0d6e03d4e529127c7f8fc",
+   "sourceId": "P3329",
+   "sourceBox": [
+    646.0,
+    215.0,
+    654.0,
+    228.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "8e3e10738b135a47afdf4deb5fa5fd1779c22f86b6c0d6e03d4e529127c7f8fc",
+   "sourceId": "P3330",
+   "sourceBox": [
+    695.0,
+    169.0,
+    704.5,
+    182.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "8e3e10738b135a47afdf4deb5fa5fd1779c22f86b6c0d6e03d4e529127c7f8fc",
+   "sourceId": "P3331",
+   "sourceBox": [
+    700.0,
+    238.0,
+    707.0,
+    253.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "8e3e10738b135a47afdf4deb5fa5fd1779c22f86b6c0d6e03d4e529127c7f8fc",
+   "sourceId": "P3332",
+   "sourceBox": [
+    717.0,
+    238.0,
+    723.0,
+    247.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "92629fd8e1a62baa1b2d073fde19b576d571eed45e4a127534d6b9372f273c01",
+   "sourceId": "P25683",
+   "sourceBox": [
+    499.0,
+    725.0,
+    509.0,
+    733.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "92629fd8e1a62baa1b2d073fde19b576d571eed45e4a127534d6b9372f273c01",
+   "sourceId": "P25684",
+   "sourceBox": [
+    522.0,
+    800.0,
+    532.5,
+    808.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "92629fd8e1a62baa1b2d073fde19b576d571eed45e4a127534d6b9372f273c01",
+   "sourceId": "P25699",
+   "sourceBox": [
+    497.0,
+    838.0,
+    506.5,
+    847.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "9db89d4222391251235bf7982a31e2a36ce9c81a6ed200b07138e5e7c44c207a",
+   "sourceId": "P24314",
+   "sourceBox": [
+    646.0,
+    588.0,
+    663.5,
+    602.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "a065656bb23f5740f354b1f4ae541a449207501e877479d830c4c3d9a265dd85",
+   "sourceId": "P3464",
+   "sourceBox": [
+    627.0,
+    171.0,
+    643.0,
+    187.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "a8c248cec096295e07e52d85315e871fac6d43de16948c00fae9caacddcc65c6",
+   "sourceId": "P981",
+   "sourceBox": [
+    679.0,
+    383.0,
+    687.5,
+    395.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "ae46818927c07129d168edf4e3785555aa6f7ef4dad90cefdbfa4270a6c2c78b",
+   "sourceId": "P6366",
+   "sourceBox": [
+    382.0,
+    212.0,
+    404.5,
+    225.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "ae46818927c07129d168edf4e3785555aa6f7ef4dad90cefdbfa4270a6c2c78b",
+   "sourceId": "P6367",
+   "sourceBox": [
+    370.0,
+    519.0,
+    387.0,
+    532.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "ae46818927c07129d168edf4e3785555aa6f7ef4dad90cefdbfa4270a6c2c78b",
+   "sourceId": "P6368",
+   "sourceBox": [
+    287.0,
+    602.0,
+    309.0,
+    618.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "ae46818927c07129d168edf4e3785555aa6f7ef4dad90cefdbfa4270a6c2c78b",
+   "sourceId": "P6369",
+   "sourceBox": [
+    228.0,
+    551.0,
+    249.0,
+    571.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "ae46818927c07129d168edf4e3785555aa6f7ef4dad90cefdbfa4270a6c2c78b",
+   "sourceId": "P6370",
+   "sourceBox": [
+    267.0,
+    550.0,
+    281.0,
+    567.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "ae46818927c07129d168edf4e3785555aa6f7ef4dad90cefdbfa4270a6c2c78b",
+   "sourceId": "P6372",
+   "sourceBox": [
+    464.0,
+    679.0,
+    480.5,
+    692.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "ae46818927c07129d168edf4e3785555aa6f7ef4dad90cefdbfa4270a6c2c78b",
+   "sourceId": "P6373",
+   "sourceBox": [
+    201.0,
+    471.0,
+    223.5,
+    488.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "ae46818927c07129d168edf4e3785555aa6f7ef4dad90cefdbfa4270a6c2c78b",
+   "sourceId": "P6375",
+   "sourceBox": [
+    225.0,
+    527.0,
+    247.5,
+    542.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "b4618738ec61cb0a3ca36136ca84e51a080830b6f7c2e9a7f74f1a3a7d843b6c",
+   "sourceId": "P950",
+   "sourceBox": [
+    609.0,
+    844.0,
+    620.0,
+    856.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "b984a056785f7a79f7216012395d6c2592c699863952f17fc9fa6433e309620c",
+   "sourceId": "P3005",
+   "sourceBox": [
+    581.0,
+    546.0,
+    592.5,
+    553.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "b984a056785f7a79f7216012395d6c2592c699863952f17fc9fa6433e309620c",
+   "sourceId": "P3010",
+   "sourceBox": [
+    795.0,
+    733.0,
+    802.5,
+    738.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "b984a056785f7a79f7216012395d6c2592c699863952f17fc9fa6433e309620c",
+   "sourceId": "P3011",
+   "sourceBox": [
+    751.0,
+    648.0,
+    763.0,
+    653.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "b984a056785f7a79f7216012395d6c2592c699863952f17fc9fa6433e309620c",
+   "sourceId": "P3012",
+   "sourceBox": [
+    784.0,
+    661.0,
+    791.0,
+    664.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "b984a056785f7a79f7216012395d6c2592c699863952f17fc9fa6433e309620c",
+   "sourceId": "P3013",
+   "sourceBox": [
+    796.0,
+    671.0,
+    803.5,
+    675.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "b9a17ae6f76a0c5e69104496da67f09d6a038f78c26115bf0694920bc1a74076",
+   "sourceId": "P10781",
+   "sourceBox": [
+    816.0,
+    643.0,
+    838.0,
+    658.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "b9a17ae6f76a0c5e69104496da67f09d6a038f78c26115bf0694920bc1a74076",
+   "sourceId": "P10782",
+   "sourceBox": [
+    869.0,
+    698.0,
+    894.0,
+    716.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "b9a17ae6f76a0c5e69104496da67f09d6a038f78c26115bf0694920bc1a74076",
+   "sourceId": "P10783",
+   "sourceBox": [
+    957.0,
+    481.0,
+    980.5,
+    501.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "b9a17ae6f76a0c5e69104496da67f09d6a038f78c26115bf0694920bc1a74076",
+   "sourceId": "P10784",
+   "sourceBox": [
+    898.0,
+    670.0,
+    911.5,
+    680.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "b9a17ae6f76a0c5e69104496da67f09d6a038f78c26115bf0694920bc1a74076",
+   "sourceId": "P10829",
+   "sourceBox": [
+    493.0,
+    474.0,
+    508.0,
+    485.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "b9a17ae6f76a0c5e69104496da67f09d6a038f78c26115bf0694920bc1a74076",
+   "sourceId": "P10832",
+   "sourceBox": [
+    272.0,
+    625.0,
+    292.0,
+    639.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6024",
+   "sourceBox": [
+    670.0,
+    220.0,
+    682.5,
+    231.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6025",
+   "sourceBox": [
+    581.0,
+    263.0,
+    595.5,
+    275.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6026",
+   "sourceBox": [
+    565.0,
+    216.0,
+    578.0,
+    227.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6027",
+   "sourceBox": [
+    454.0,
+    512.0,
+    472.5,
+    523.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6028",
+   "sourceBox": [
+    761.0,
+    172.0,
+    774.0,
+    182.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6036",
+   "sourceBox": [
+    467.0,
+    195.0,
+    477.0,
+    203.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6037",
+   "sourceBox": [
+    426.0,
+    234.0,
+    436.5,
+    242.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6038",
+   "sourceBox": [
+    480.0,
+    250.0,
+    490.5,
+    256.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6039",
+   "sourceBox": [
+    541.0,
+    259.0,
+    553.5,
+    267.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6040",
+   "sourceBox": [
+    546.0,
+    252.0,
+    560.0,
+    258.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6041",
+   "sourceBox": [
+    505.0,
+    251.0,
+    515.0,
+    259.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6042",
+   "sourceBox": [
+    553.0,
+    256.0,
+    563.5,
+    262.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6043",
+   "sourceBox": [
+    567.0,
+    273.0,
+    573.0,
+    280.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6044",
+   "sourceBox": [
+    520.0,
+    219.0,
+    531.5,
+    226.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6045",
+   "sourceBox": [
+    512.0,
+    211.0,
+    524.5,
+    217.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6046",
+   "sourceBox": [
+    514.0,
+    225.0,
+    524.5,
+    231.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6047",
+   "sourceBox": [
+    634.0,
+    210.0,
+    645.5,
+    218.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6048",
+   "sourceBox": [
+    632.0,
+    226.0,
+    645.0,
+    234.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6049",
+   "sourceBox": [
+    618.0,
+    242.0,
+    630.0,
+    247.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6050",
+   "sourceBox": [
+    614.0,
+    262.0,
+    627.5,
+    268.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6051",
+   "sourceBox": [
+    656.0,
+    254.0,
+    666.0,
+    260.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6052",
+   "sourceBox": [
+    685.0,
+    207.0,
+    696.5,
+    215.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6063",
+   "sourceBox": [
+    542.0,
+    405.0,
+    551.5,
+    412.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bb068c9310dd40dd88e2b34a8ff0e7a842a3ca25fec1eb749b4794eaaeffb8d6",
+   "sourceId": "P6073",
+   "sourceBox": [
+    475.0,
+    758.0,
+    481.5,
+    764.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "bd0bc672084a4ef937c4426d1b01fdd9eb1a4c6eb267721e6c4894050c6ab675",
+   "sourceId": "P9212",
+   "sourceBox": [
+    589.0,
+    349.0,
+    597.5,
+    360.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "bd0bc672084a4ef937c4426d1b01fdd9eb1a4c6eb267721e6c4894050c6ab675",
+   "sourceId": "P9213",
+   "sourceBox": [
+    657.0,
+    390.0,
+    666.0,
+    403.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "bd0bc672084a4ef937c4426d1b01fdd9eb1a4c6eb267721e6c4894050c6ab675",
+   "sourceId": "P9215",
+   "sourceBox": [
+    587.0,
+    850.0,
+    595.0,
+    863.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "c250804183d57c0cfe8d59341cd5423d4dbce9b0ae629b4d44d041616d65b397",
+   "sourceId": "P24429",
+   "sourceBox": [
+    695.0,
+    699.0,
+    718.0,
+    715.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "c250804183d57c0cfe8d59341cd5423d4dbce9b0ae629b4d44d041616d65b397",
+   "sourceId": "P24430",
+   "sourceBox": [
+    605.0,
+    751.0,
+    625.5,
+    767.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "c250804183d57c0cfe8d59341cd5423d4dbce9b0ae629b4d44d041616d65b397",
+   "sourceId": "P24431",
+   "sourceBox": [
+    637.0,
+    523.0,
+    660.5,
+    538.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "c920e9ad1115484fd9dd5ac7485e12c93c8af0def108c350c85800654e7e8dae",
+   "sourceId": "P18333",
+   "sourceBox": [
+    578.0,
+    371.0,
+    586.5,
+    384.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "c920e9ad1115484fd9dd5ac7485e12c93c8af0def108c350c85800654e7e8dae",
+   "sourceId": "P18339",
+   "sourceBox": [
+    518.0,
+    697.0,
+    525.5,
+    707.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "c920e9ad1115484fd9dd5ac7485e12c93c8af0def108c350c85800654e7e8dae",
+   "sourceId": "P18340",
+   "sourceBox": [
+    512.0,
+    699.0,
+    516.5,
+    706.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "d43d0963b2a3def84dcaf73af371d3adace8182703518a169edc8ed66984e264",
+   "sourceId": "P8568",
+   "sourceBox": [
+    692.0,
+    230.0,
+    708.0,
+    236.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "d4e6a4fbd9cf05795dbf32045a6899774b71f2d372fab1fe927ebe6228597e02",
+   "sourceId": "P27611",
+   "sourceBox": [
+    871.0,
+    212.0,
+    882.5,
+    221.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "d4e6a4fbd9cf05795dbf32045a6899774b71f2d372fab1fe927ebe6228597e02",
+   "sourceId": "P27630",
+   "sourceBox": [
+    974.0,
+    590.0,
+    982.5,
+    597.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "d4e6a4fbd9cf05795dbf32045a6899774b71f2d372fab1fe927ebe6228597e02",
+   "sourceId": "P27631",
+   "sourceBox": [
+    980.0,
+    570.0,
+    987.0,
+    575.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "d4e6a4fbd9cf05795dbf32045a6899774b71f2d372fab1fe927ebe6228597e02",
+   "sourceId": "P27635",
+   "sourceBox": [
+    952.0,
+    621.0,
+    959.0,
+    626.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "d7c2651af6e9658a2c8acee97c7466c9e22ec8c5a5a86c9ed999d9616a674055",
+   "sourceId": "P10326",
+   "sourceBox": [
+    454.0,
+    698.0,
+    477.0,
+    710.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "d7c2651af6e9658a2c8acee97c7466c9e22ec8c5a5a86c9ed999d9616a674055",
+   "sourceId": "P10327",
+   "sourceBox": [
+    814.0,
+    839.0,
+    836.0,
+    853.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "d7c2651af6e9658a2c8acee97c7466c9e22ec8c5a5a86c9ed999d9616a674055",
+   "sourceId": "P10328",
+   "sourceBox": [
+    744.0,
+    818.0,
+    767.0,
+    830.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "d7c2651af6e9658a2c8acee97c7466c9e22ec8c5a5a86c9ed999d9616a674055",
+   "sourceId": "P10330",
+   "sourceBox": [
+    559.0,
+    800.0,
+    581.5,
+    813.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "d7c2651af6e9658a2c8acee97c7466c9e22ec8c5a5a86c9ed999d9616a674055",
+   "sourceId": "P10331",
+   "sourceBox": [
+    711.0,
+    836.0,
+    739.5,
+    847.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "dc60da18c4b492cbbb571f30d5e204d1eb728b9af298f18a9c09190a7cdf8b4a",
+   "sourceId": "P2494",
+   "sourceBox": [
+    609.0,
+    364.0,
+    617.0,
+    385.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "dc60da18c4b492cbbb571f30d5e204d1eb728b9af298f18a9c09190a7cdf8b4a",
+   "sourceId": "P2495",
+   "sourceBox": [
+    632.0,
+    432.0,
+    642.5,
+    448.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "dc60da18c4b492cbbb571f30d5e204d1eb728b9af298f18a9c09190a7cdf8b4a",
+   "sourceId": "P2498",
+   "sourceBox": [
+    638.0,
+    320.0,
+    648.0,
+    336.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "dc60da18c4b492cbbb571f30d5e204d1eb728b9af298f18a9c09190a7cdf8b4a",
+   "sourceId": "P2499",
+   "sourceBox": [
+    740.0,
+    337.0,
+    750.5,
+    349.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "dc60da18c4b492cbbb571f30d5e204d1eb728b9af298f18a9c09190a7cdf8b4a",
+   "sourceId": "P2500",
+   "sourceBox": [
+    780.0,
+    378.0,
+    787.0,
+    391.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "dc60da18c4b492cbbb571f30d5e204d1eb728b9af298f18a9c09190a7cdf8b4a",
+   "sourceId": "P2501",
+   "sourceBox": [
+    765.0,
+    406.0,
+    771.5,
+    417.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "dc60da18c4b492cbbb571f30d5e204d1eb728b9af298f18a9c09190a7cdf8b4a",
+   "sourceId": "P2502",
+   "sourceBox": [
+    633.0,
+    642.0,
+    640.0,
+    654.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "dc60da18c4b492cbbb571f30d5e204d1eb728b9af298f18a9c09190a7cdf8b4a",
+   "sourceId": "P2503",
+   "sourceBox": [
+    461.0,
+    593.0,
+    467.5,
+    614.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "dc60da18c4b492cbbb571f30d5e204d1eb728b9af298f18a9c09190a7cdf8b4a",
+   "sourceId": "P2504",
+   "sourceBox": [
+    455.0,
+    629.0,
+    462.5,
+    649.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "dc60da18c4b492cbbb571f30d5e204d1eb728b9af298f18a9c09190a7cdf8b4a",
+   "sourceId": "P2508",
+   "sourceBox": [
+    517.0,
+    475.0,
+    525.0,
+    488.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "dc60da18c4b492cbbb571f30d5e204d1eb728b9af298f18a9c09190a7cdf8b4a",
+   "sourceId": "P2509",
+   "sourceBox": [
+    469.0,
+    519.0,
+    478.0,
+    535.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "dc60da18c4b492cbbb571f30d5e204d1eb728b9af298f18a9c09190a7cdf8b4a",
+   "sourceId": "P2510",
+   "sourceBox": [
+    488.0,
+    559.0,
+    497.0,
+    573.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "dc60da18c4b492cbbb571f30d5e204d1eb728b9af298f18a9c09190a7cdf8b4a",
+   "sourceId": "P2512",
+   "sourceBox": [
+    484.0,
+    751.0,
+    494.5,
+    763.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "dc60da18c4b492cbbb571f30d5e204d1eb728b9af298f18a9c09190a7cdf8b4a",
+   "sourceId": "P2552",
+   "sourceBox": [
+    720.0,
+    339.0,
+    726.5,
+    346.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "dd732ceedc583529dcbfb7a4c8ba92fa8cfe3173f1e5109b6be2f2ffa6ea896f",
+   "sourceId": "P4967",
+   "sourceBox": [
+    767.0,
+    939.0,
+    785.0,
+    952.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "e1b926d4b3371dca8170efc7c146f9f022a98347ece869219d818eab7d7c031d",
+   "sourceId": "P19747",
+   "sourceBox": [
+    703.0,
+    230.0,
+    733.0,
+    246.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "e2c64c6282c50ef98ea8f968ed5b650d03819ae6da0412f7bad900e339dc417a",
+   "sourceId": "P8939",
+   "sourceBox": [
+    722.0,
+    790.0,
+    737.5,
+    800.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "e2c64c6282c50ef98ea8f968ed5b650d03819ae6da0412f7bad900e339dc417a",
+   "sourceId": "P8940",
+   "sourceBox": [
+    465.0,
+    761.0,
+    477.0,
+    770.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "e2c64c6282c50ef98ea8f968ed5b650d03819ae6da0412f7bad900e339dc417a",
+   "sourceId": "P8941",
+   "sourceBox": [
+    526.0,
+    740.0,
+    541.5,
+    750.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "e2c64c6282c50ef98ea8f968ed5b650d03819ae6da0412f7bad900e339dc417a",
+   "sourceId": "P8942",
+   "sourceBox": [
+    508.0,
+    265.0,
+    525.0,
+    278.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "e2c64c6282c50ef98ea8f968ed5b650d03819ae6da0412f7bad900e339dc417a",
+   "sourceId": "P8962",
+   "sourceBox": [
+    669.0,
+    375.0,
+    678.5,
+    383.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "e2c64c6282c50ef98ea8f968ed5b650d03819ae6da0412f7bad900e339dc417a",
+   "sourceId": "P8963",
+   "sourceBox": [
+    592.0,
+    347.0,
+    606.0,
+    359.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "e2c64c6282c50ef98ea8f968ed5b650d03819ae6da0412f7bad900e339dc417a",
+   "sourceId": "P8964",
+   "sourceBox": [
+    618.0,
+    395.0,
+    633.0,
+    403.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "e2c64c6282c50ef98ea8f968ed5b650d03819ae6da0412f7bad900e339dc417a",
+   "sourceId": "P8972",
+   "sourceBox": [
+    645.0,
+    284.0,
+    660.0,
+    291.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "e8bda31a397aa3198f1d4e329ce4d629cc7a950ac3813fdefaec9502cd406cca",
+   "sourceId": "P10448",
+   "sourceBox": [
+    740.0,
+    1200.0,
+    758.0,
+    1226.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "e8bda31a397aa3198f1d4e329ce4d629cc7a950ac3813fdefaec9502cd406cca",
+   "sourceId": "P10449",
+   "sourceBox": [
+    470.0,
+    752.0,
+    490.0,
+    778.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "e8bda31a397aa3198f1d4e329ce4d629cc7a950ac3813fdefaec9502cd406cca",
+   "sourceId": "P10450",
+   "sourceBox": [
+    668.0,
+    517.0,
+    687.0,
+    549.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "e8bda31a397aa3198f1d4e329ce4d629cc7a950ac3813fdefaec9502cd406cca",
+   "sourceId": "P10451",
+   "sourceBox": [
+    875.0,
+    721.0,
+    893.0,
+    753.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "e8bda31a397aa3198f1d4e329ce4d629cc7a950ac3813fdefaec9502cd406cca",
+   "sourceId": "P10452",
+   "sourceBox": [
+    752.0,
+    186.0,
+    773.0,
+    209.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "e8bda31a397aa3198f1d4e329ce4d629cc7a950ac3813fdefaec9502cd406cca",
+   "sourceId": "P10453",
+   "sourceBox": [
+    483.0,
+    50.0,
+    500.0,
+    74.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "e8bda31a397aa3198f1d4e329ce4d629cc7a950ac3813fdefaec9502cd406cca",
+   "sourceId": "P10454",
+   "sourceBox": [
+    917.0,
+    77.0,
+    934.5,
+    97.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "e8bda31a397aa3198f1d4e329ce4d629cc7a950ac3813fdefaec9502cd406cca",
+   "sourceId": "P10455",
+   "sourceBox": [
+    405.0,
+    308.0,
+    416.5,
+    332.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "ebf2b5ce814ff062e93080a56d72165a2689ef4ea17d10b53915674d5286c38f",
+   "sourceId": "P27285",
+   "sourceBox": [
+    809.0,
+    803.0,
+    825.5,
+    813.0
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "ebf2b5ce814ff062e93080a56d72165a2689ef4ea17d10b53915674d5286c38f",
+   "sourceId": "P27286",
+   "sourceBox": [
+    705.0,
+    951.0,
+    725.0,
+    960.5
+   ],
+   "decision": "KEEP",
+   "reason": "clearly visible lesion inside the source box"
+  },
+  {
+   "photoSha": "ebf2b5ce814ff062e93080a56d72165a2689ef4ea17d10b53915674d5286c38f",
+   "sourceId": "P27287",
+   "sourceBox": [
+    403.0,
+    959.0,
+    420.5,
+    967.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "ebf2b5ce814ff062e93080a56d72165a2689ef4ea17d10b53915674d5286c38f",
+   "sourceId": "P27301",
+   "sourceBox": [
+    665.0,
+    463.0,
+    683.5,
+    473.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "ebf2b5ce814ff062e93080a56d72165a2689ef4ea17d10b53915674d5286c38f",
+   "sourceId": "P27302",
+   "sourceBox": [
+    501.0,
+    441.0,
+    517.5,
+    449.5
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  },
+  {
+   "photoSha": "ebf2b5ce814ff062e93080a56d72165a2689ef4ea17d10b53915674d5286c38f",
+   "sourceId": "P27303",
+   "sourceBox": [
+    579.0,
+    510.0,
+    594.5,
+    518.0
+   ],
+   "decision": "IGNORE",
+   "reason": "no clearly visible lesion inside the source box at native zoom (faint/empty/off-target/shadow/hair/edge/flat mark)"
+  }
+ ],
+ "roiAccepted": 67,
+ "roiCandidates": 195,
+ "roiRegionsWithPossibleUnlabeledLesion": 22
+}

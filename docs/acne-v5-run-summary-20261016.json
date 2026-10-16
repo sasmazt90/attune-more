@@ -1,0 +1,94 @@
+{
+ "pilot": {
+  "stepsRun": 150,
+  "cfgSHA": "493ebef53b1bbbb9e5bcaedb118b4c8cd7faab871c43995df7d55525413c5e90",
+  "manifestSHA": "c761d44d34fe329db07920d2109984f9bf946ee33cc544234f9b57628a38254c",
+  "windows": [
+   {
+    "steps": "1-50",
+    "medianGradPreClip": 15.4,
+    "maxGradPreClip": 51.0,
+    "clipped": 0,
+    "posObj": 1.284,
+    "negObj": 0.286,
+    "box": 1.53,
+    "allFinite": true
+   },
+   {
+    "steps": "51-100",
+    "medianGradPreClip": 22.3,
+    "maxGradPreClip": 56.4,
+    "clipped": 0,
+    "posObj": 1.185,
+    "negObj": 0.318,
+    "box": 1.683,
+    "allFinite": true
+   },
+   {
+    "steps": "101-150",
+    "medianGradPreClip": 30.0,
+    "maxGradPreClip": 95.4,
+    "clipped": 0,
+    "posObj": 0.952,
+    "negObj": 0.354,
+    "box": 1.637,
+    "allFinite": true
+   }
+  ],
+  "checkpointSHA256": "3076eef6e3e4ae1ac9f998e8c7f959f7642c8f658507930867aad71194036b7a"
+ },
+ "main": {
+  "stepsRun": 500,
+  "cfgSHA": "f76b8e306dcb78fde8fe9faf5d238bfc8e3e14e75db3ae7db2a6b7c6714acecf",
+  "manifestSHA": "c761d44d34fe329db07920d2109984f9bf946ee33cc544234f9b57628a38254c",
+  "windows": [
+   {
+    "steps": "1-150",
+    "medianGradPreClip": 23.0,
+    "maxGradPreClip": 105.0,
+    "clipped": 0,
+    "posObj": 1.041,
+    "negObj": 0.332,
+    "box": 1.624,
+    "allFinite": true
+   },
+   {
+    "steps": "151-300",
+    "medianGradPreClip": 53.7,
+    "maxGradPreClip": 140.5,
+    "clipped": 0,
+    "posObj": 0.463,
+    "negObj": 0.261,
+    "box": 1.487,
+    "allFinite": true
+   },
+   {
+    "steps": "301-450",
+    "medianGradPreClip": 63.8,
+    "maxGradPreClip": 205.3,
+    "clipped": 0,
+    "posObj": 0.406,
+    "negObj": 0.236,
+    "box": 1.457,
+    "allFinite": true
+   },
+   {
+    "steps": "451-500",
+    "medianGradPreClip": 69.4,
+    "maxGradPreClip": 167.1,
+    "clipped": 0,
+    "posObj": 0.414,
+    "negObj": 0.253,
+    "box": 1.473,
+    "allFinite": true
+   }
+  ],
+  "evaluatedCheckpointSHA256": {
+   "150": "084af1d298c1a74a5d47b87a15ae14a35b1f28ae9cfba4bbd84c7e049d3e7483",
+   "300": "242fbb0a076de0ba161358f57954bbf4e7c31ebb7a2c715b8c42d56a0065373c",
+   "450": "ab75c935fc52e81f0e0a79477ebeae23f33d7e73220d4856c8aae3c32e9ad7ca"
+  },
+  "stop": "early stop after the step-450 evaluation (two consecutive evaluations, 300 and 450, without raising the best qualifying hit50 of 12 by >= 2); the process had reached step 500 when stopped; checkpoints 475/500 were not evaluated and play no role",
+  "secPerStep": 3.8
+ }
+}
