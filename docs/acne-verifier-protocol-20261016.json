@@ -1,0 +1,43 @@
+{
+ "name": "acne-step0-candidate-verifier-protocol",
+ "status": "fixed before any TRAIN candidate is labelled, any feature is extracted or any model is fitted; one model family, one finite fit",
+ "nature": "small learned second stage on FIXED Step0 candidates; YOLOX weights, BatchNorm, scores, candidate generation (product chain, conf .30, NMS .30, unchanged box filter) untouched; offline; acne stays accepted:false; AI engineering labels, not expert",
+ "data": {
+  "manifest": "audit-results/acne-v6-data/manifest-v6.json (189 TRAIN photos: 148 positive with 514 kept boxes, 76 with reviewed clean ROI, 41 auxiliary negative photos with reviewed masks)",
+  "usable": "photos with an existing replay row (landmarks + snapshot): all 148 positive + 10 negative; the 31 core negative photos without replay are reported and not used (no new landmark/replay generation)",
+  "excluded": "the 28 DEV photos, 108-target common scope, DEV Clear photos and the sealed test are never used for training or calibration; dHash near-duplicates (<= 10) between TRAIN and DEV/DEV Clear are reported and dropped from TRAIN"
+ },
+ "candidates": "Step0 final candidates of the unchanged label-free chain (eval_acne_v5_independent.run_photo) on each usable TRAIN photo; same run records per-candidate features",
+ "labels": {
+  "r": "0.03 x face width (MediaPipe 234-454, source px) - the evaluation tolerance",
+  "positive": "candidate centre within r of the centre of a KEPT positive box (engineering-reviewed visible lesion), and not inside an ignore box closer than that kept box",
+  "negative": "candidate centre inside the reviewed clean ROI (positive photos) or the reviewed negative mask (negative photos), or inside a kept confounder (negativeBoxes) box, and farther than r from every kept/ignore box centre and outside every kept/ignore box",
+  "excluded": "everything else (unlabelled, ambiguous, conflicting); model consensus is never a label",
+  "record": "per-candidate decision with reason; small crop + context images kept locally (not in Git)"
+ },
+ "features": {
+  "source": "frozen Step0 PAFPN outputs of the same tile forward pass that produced the candidate (strides 4, 8, 16, 32; 64/128/256/512 channels)",
+  "vector": "per level: bilinear sample at the candidate centre (tile coordinates) + mean over the cells within +-2 cells of the centre; concatenated (1920 dims); no detector score, no box size, no colour statistic",
+  "tile": "the tile whose >= .30 candidate produced the final box (recorded by the chain); no label-dependent crop or scale",
+  "check": "with feature hooks the final boxes must equal the stored/trace Step0 finals (DEV) and a run without hooks (TRAIN spot check)"
+ },
+ "split": {
+  "groups": "photo = group (each photo has its own research group); dHash <= 10 near-duplicate photos merged into one group",
+  "learnCalib": "groups shuffled with seed 20261016; 70% learn / 30% calibration by group",
+  "standardizer": "z-score fitted on learn only"
+ },
+ "model": {
+  "family": "logistic regression with L2 penalty (C = 0.1, class_weight balanced, lbfgs, max_iter 2000)",
+  "fits": "one"
+ },
+ "threshold": {
+  "rule": "on calibration only: the highest probability threshold that keeps >= 95% of calibration positives (ties keep more); not a product accuracy claim",
+  "gate": "go to DEV only if calibration AUC >= 0.65 AND the threshold removes >= 15% of calibration negatives; otherwise report non-separation and stop"
+ },
+ "dev": {
+  "once": "after freezing model, standardizer and threshold: A = Step0 + unchanged box filter (71/108, F96, D48); B = A minus candidates the verifier rejects",
+  "scoring": "same 108 in-scope targets, frozen layer 1 + reviewed masks, r = 0.03 fw, one-to-one; report found, lost target ids, false, duplicates, uncertain, non-skin, per photo, time and memory",
+  "noRecalibration": "no threshold or model change after DEV"
+ },
+ "rights": "new classifier weights do not resolve the rights status of Step0 or of the TRAIN data (publisher declarations only)"
+}
