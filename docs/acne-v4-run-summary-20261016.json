@@ -1,0 +1,266 @@
+{
+ "trainingHealth": {
+  "steps": 1200,
+  "clippedSteps": 8,
+  "clippedFirst50": 7,
+  "clippedAfter50": 1,
+  "gradPreP50": 38.08,
+  "gradPreMax": 183812.7,
+  "windows": {
+   "1-200": {
+    "total": 16.482,
+    "box": 1.978,
+    "cls": 0.624,
+    "posObj": 13.411,
+    "negObj": 0.47,
+    "gradPre": 1326.713
+   },
+   "201-400": {
+    "total": 3.712,
+    "box": 1.875,
+    "cls": 0.401,
+    "posObj": 0.99,
+    "negObj": 0.446,
+    "gradPre": 44.802
+   },
+   "401-600": {
+    "total": 3.509,
+    "box": 1.839,
+    "cls": 0.393,
+    "posObj": 0.859,
+    "negObj": 0.418,
+    "gradPre": 40.935
+   },
+   "601-800": {
+    "total": 3.433,
+    "box": 1.782,
+    "cls": 0.381,
+    "posObj": 0.86,
+    "negObj": 0.411,
+    "gradPre": 40.674
+   },
+   "801-1000": {
+    "total": 3.54,
+    "box": 1.877,
+    "cls": 0.4,
+    "posObj": 0.851,
+    "negObj": 0.413,
+    "gradPre": 43.327
+   },
+   "1001-1200": {
+    "total": 3.571,
+    "box": 1.846,
+    "cls": 0.39,
+    "posObj": 0.875,
+    "negObj": 0.459,
+    "gradPre": 45.305
+   }
+  },
+  "meanPosAnchorsPerStep": 89.7,
+  "meanNegSelectedPerStep": 982.5,
+  "meanNegAvailablePerStep": 18961.5,
+  "meanNegativeTilesPerStep": 3.2,
+  "pilot": {
+   "clippedSteps": 8,
+   "clippedLast50": 0,
+   "gradPreMax": 125919.0
+  }
+ },
+ "devTileEval": {
+  "step-000200": {
+   "photos": 95,
+   "targets": 1091,
+   "hit50": 182,
+   "hit30": 307,
+   "recall50": 0.1668,
+   "smallTargets": 119,
+   "smallHit50": 33,
+   "mediumTargets": 972,
+   "mediumHit50": 149,
+   "medianAreaRatio": 1.32,
+   "medianBestScore": 0.0658,
+   "candidatesPerPositivePhoto": 98.78,
+   "negativePhotos": 15,
+   "fpInMaskTotal": 0,
+   "fpInMaskPerPhoto": 0.0,
+   "fpPerPhotoMax": 0,
+   "fpBySource": {
+    "clear-engineering": 0
+   }
+  },
+  "step-000400": {
+   "photos": 95,
+   "targets": 1091,
+   "hit50": 195,
+   "hit30": 345,
+   "recall50": 0.1787,
+   "smallTargets": 119,
+   "smallHit50": 25,
+   "mediumTargets": 972,
+   "mediumHit50": 170,
+   "medianAreaRatio": 1.257,
+   "medianBestScore": 0.0688,
+   "candidatesPerPositivePhoto": 39.85,
+   "negativePhotos": 15,
+   "fpInMaskTotal": 0,
+   "fpInMaskPerPhoto": 0.0,
+   "fpPerPhotoMax": 0,
+   "fpBySource": {
+    "clear-engineering": 0
+   }
+  },
+  "step-000600": {
+   "photos": 95,
+   "targets": 1091,
+   "hit50": 257,
+   "hit30": 413,
+   "recall50": 0.2356,
+   "smallTargets": 119,
+   "smallHit50": 40,
+   "mediumTargets": 972,
+   "mediumHit50": 217,
+   "medianAreaRatio": 1.233,
+   "medianBestScore": 0.112,
+   "candidatesPerPositivePhoto": 63.48,
+   "negativePhotos": 15,
+   "fpInMaskTotal": 0,
+   "fpInMaskPerPhoto": 0.0,
+   "fpPerPhotoMax": 0,
+   "fpBySource": {
+    "clear-engineering": 0
+   }
+  },
+  "step-000800": {
+   "photos": 95,
+   "targets": 1091,
+   "hit50": 263,
+   "hit30": 448,
+   "recall50": 0.2411,
+   "smallTargets": 119,
+   "smallHit50": 35,
+   "mediumTargets": 972,
+   "mediumHit50": 228,
+   "medianAreaRatio": 1.261,
+   "medianBestScore": 0.1546,
+   "candidatesPerPositivePhoto": 68.33,
+   "negativePhotos": 15,
+   "fpInMaskTotal": 0,
+   "fpInMaskPerPhoto": 0.0,
+   "fpPerPhotoMax": 0,
+   "fpBySource": {
+    "clear-engineering": 0
+   }
+  },
+  "step-001000": {
+   "photos": 95,
+   "targets": 1091,
+   "hit50": 274,
+   "hit30": 456,
+   "recall50": 0.2511,
+   "smallTargets": 119,
+   "smallHit50": 38,
+   "mediumTargets": 972,
+   "mediumHit50": 236,
+   "medianAreaRatio": 1.231,
+   "medianBestScore": 0.1587,
+   "candidatesPerPositivePhoto": 69.49,
+   "negativePhotos": 15,
+   "fpInMaskTotal": 0,
+   "fpInMaskPerPhoto": 0.0,
+   "fpPerPhotoMax": 0,
+   "fpBySource": {
+    "clear-engineering": 0
+   }
+  },
+  "step-001200": {
+   "photos": 95,
+   "targets": 1091,
+   "hit50": 267,
+   "hit30": 434,
+   "recall50": 0.2447,
+   "smallTargets": 119,
+   "smallHit50": 36,
+   "mediumTargets": 972,
+   "mediumHit50": 231,
+   "medianAreaRatio": 1.274,
+   "medianBestScore": 0.152,
+   "candidatesPerPositivePhoto": 65.52,
+   "negativePhotos": 15,
+   "fpInMaskTotal": 0,
+   "fpInMaskPerPhoto": 0.0,
+   "fpPerPhotoMax": 0,
+   "fpBySource": {
+    "clear-engineering": 0
+   }
+  },
+  "step0": {
+   "photos": 95,
+   "targets": 1091,
+   "hit50": 108,
+   "hit30": 154,
+   "recall50": 0.099,
+   "smallTargets": 119,
+   "smallHit50": 45,
+   "mediumTargets": 972,
+   "mediumHit50": 63,
+   "medianAreaRatio": 1.029,
+   "medianBestScore": 0.0,
+   "candidatesPerPositivePhoto": 9.57,
+   "negativePhotos": 15,
+   "fpInMaskTotal": 0,
+   "fpInMaskPerPhoto": 0.0,
+   "fpPerPhotoMax": 0,
+   "fpBySource": {
+    "clear-engineering": 0
+   }
+  }
+ },
+ "pilotTileEval": {
+  "step0-TRAIN-40": {
+   "photos": 40,
+   "targets": 295,
+   "hit50": 56,
+   "hit30": 75,
+   "recall50": 0.1898,
+   "smallTargets": 52,
+   "smallHit50": 12,
+   "mediumTargets": 243,
+   "mediumHit50": 44,
+   "medianAreaRatio": 1.105,
+   "medianBestScore": 0.0,
+   "candidatesPerPositivePhoto": 12.55,
+   "negativePhotos": 41,
+   "fpInMaskTotal": 0,
+   "fpInMaskPerPhoto": 0.0,
+   "fpPerPhotoMax": 0,
+   "fpBySource": {
+    "clear-engineering": 0,
+    "cdc-reviewed": 0
+   }
+  },
+  "step-000150-TRAIN-40": {
+   "photos": 40,
+   "targets": 295,
+   "hit50": 88,
+   "hit30": 151,
+   "recall50": 0.2983,
+   "smallTargets": 52,
+   "smallHit50": 6,
+   "mediumTargets": 243,
+   "mediumHit50": 82,
+   "medianAreaRatio": 1.278,
+   "medianBestScore": 0.0934,
+   "candidatesPerPositivePhoto": 53.22,
+   "negativePhotos": 41,
+   "fpInMaskTotal": 2,
+   "fpInMaskPerPhoto": 0.049,
+   "fpPerPhotoMax": 2,
+   "fpBySource": {
+    "clear-engineering": 0,
+    "cdc-reviewed": 2
+   }
+  }
+ },
+ "selected": "step-001000 (max DEV hit50 274 among qualifying; all had 0 Clear-DEV FP)",
+ "selectedSHA256": "7e2af5e203d82cf6d6ccaf556fc6f67c467fafcdcd7c97f73661a5b5f25497af"
+}

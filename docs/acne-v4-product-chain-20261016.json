@@ -1,0 +1,166 @@
+{
+ "scopeB-positive": {
+  "photos": 3,
+  "step0": {
+   "targets": 14,
+   "hit50": 4,
+   "hit30": 4,
+   "small": "1/11",
+   "medium": "3/3",
+   "reviewedNegFP": 0,
+   "fpPerPhoto": null,
+   "unknown": 19,
+   "candidates": 23,
+   "medianSec": 5.83,
+   "medianInferSec": 5.27
+  },
+  "v4": {
+   "targets": 14,
+   "hit50": 5,
+   "hit30": 8,
+   "small": "3/11",
+   "medium": "2/3",
+   "reviewedNegFP": 0,
+   "fpPerPhoto": null,
+   "unknown": 137,
+   "candidates": 142,
+   "medianSec": 3.94,
+   "medianInferSec": 3.58
+  },
+  "gained50": 2,
+  "lost50": 1,
+  "gained30": 4,
+  "lost30": 0
+ },
+ "reviewedNegatives7": {
+  "photos": 7,
+  "step0": {
+   "targets": 0,
+   "hit50": 0,
+   "hit30": 0,
+   "small": "0/0",
+   "medium": "0/0",
+   "reviewedNegFP": 3,
+   "fpPerPhoto": [
+    3,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "unknown": 0,
+   "candidates": 3,
+   "medianSec": 1.49,
+   "medianInferSec": 1.24
+  },
+  "v4": {
+   "targets": 0,
+   "hit50": 0,
+   "hit30": 0,
+   "small": "0/0",
+   "medium": "0/0",
+   "reviewedNegFP": 48,
+   "fpPerPhoto": [
+    18,
+    6,
+    4,
+    16,
+    4,
+    0,
+    0
+   ],
+   "unknown": 0,
+   "candidates": 48,
+   "medianSec": 1.33,
+   "medianInferSec": 1.15
+  },
+  "gained50": 0,
+  "lost50": 0,
+  "gained30": 0,
+  "lost30": 0
+ },
+ "controls": {
+  "photos": 3,
+  "step0": {
+   "targets": 29,
+   "hit50": 16,
+   "hit30": 16,
+   "small": "14/20",
+   "medium": "2/9",
+   "reviewedNegFP": 0,
+   "fpPerPhoto": null,
+   "unknown": 81,
+   "candidates": 97,
+   "medianSec": 4.52,
+   "medianInferSec": 4.06
+  },
+  "v4": {
+   "targets": 29,
+   "hit50": 8,
+   "hit30": 17,
+   "small": "5/20",
+   "medium": "3/9",
+   "reviewedNegFP": 0,
+   "fpPerPhoto": null,
+   "unknown": 299,
+   "candidates": 307,
+   "medianSec": 5.39,
+   "medianInferSec": 4.99
+  },
+  "gained50": 1,
+  "lost50": 9,
+  "gained30": 2,
+  "lost30": 1
+ },
+ "heldOut20(replay pass, eyewear UNKNOWN)": {
+  "photos": 20,
+  "step0": {
+   "targets": 95,
+   "hit50": 39,
+   "hit30": 52,
+   "small": "19/58",
+   "medium": "20/37",
+   "reviewedNegFP": 0,
+   "fpPerPhoto": null,
+   "unknown": 254,
+   "candidates": 293,
+   "medianSec": 3.58,
+   "medianInferSec": 3.29
+  },
+  "v4": {
+   "targets": 95,
+   "hit50": 42,
+   "hit30": 63,
+   "small": "17/58",
+   "medium": "25/37",
+   "reviewedNegFP": 0,
+   "fpPerPhoto": null,
+   "unknown": 1674,
+   "candidates": 1716,
+   "medianSec": 3.24,
+   "medianInferSec": 2.81
+  },
+  "gained50": 11,
+  "lost50": 8,
+  "gained30": 14,
+  "lost30": 3
+ },
+ "totals": {
+  "s50": 59,
+  "v50": 55,
+  "gained": 14,
+  "lost": 18,
+  "targets": 138
+ },
+ "registeredSuccessRule": {
+  "hit50": "55 >= 59+3",
+  "hitOK": false,
+  "negFP": "48 <= 7",
+  "negOK": false,
+  "lost": "18 <= 14/3",
+  "lostOK": false,
+  "SUCCESS": false
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "name": "acne-v4-main-20261016",
+ "config": {
+  "seed": 20261016,
+  "accum": 8,
+  "k_hard": 64,
+  "k_rand": 192,
+  "w_hard": 1.0,
+  "w_rand": 1.0,
+  "lambda_neg": 36.57142857142857,
+  "p_negative_photo": 0.4,
+  "p_focus": 0.85,
+  "lr": 5e-05,
+  "warmup": 50,
+  "clip": 2000.0,
+  "pilot_steps": 150,
+  "ckpt_every": 25,
+  "trainable": "YOLOX head + PAFPN neck convs; BatchNorm frozen (eval); backbone frozen",
+  "start": "CDC Step0 18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655",
+  "schedule_steps": 1200
+ },
+ "maxSteps": 1200,
+ "codeSHA256": "636da39ee385bd60fbfe57d1b18380905c8a8527203e20cf704c3edce14a5579",
+ "manifestSHA256": "f8305f7a88ed2c1f6c9fcd689b495805ee225e50178a94383c687dd33d7cbdf7",
+ "pilotResult": "PASS on all 5 registered criteria (hit50 56->88/295, fp-in-mask 0->2/41 photos (.049), median best score 0->.093, area ratio 1.278, 0 clipped steps in last 50)",
+ "budget": "measured 3.8 s/step (8 tiles) in the cloud workspace; 1,200 steps = ~76 min = ~11 passes over 855 TRAIN positive photos at 0.6x8 positive tiles/step; LR schedule = cosine over 1,200, warmup 50, lr 5e-5, clip 2000 (as pilot)",
+ "data": "all TRAIN: 855 positive photos (8,371 positive boxes, 2,275 confounder negative boxes) + 41 negative photos (27 Clear engineering ROI, 14 CDC reviewed)",
+ "evaluation": {
+  "every": 200,
+  "set": "DEV: all 95 positive photos (1,091 boxes) + 15 Clear DEV negative photos; tile-level, conf .30, NMS .30, one-to-one IoU .50 (.30 secondary); FP only inside reviewed negative masks"
+ },
+ "selection": "checkpoint with max DEV hit50 among those with DEV fpInMaskPerPhoto <= 0.25 and DEV medianBestScore >= 0.5 x Step0 DEV; ties -> earlier; if none qualifies -> no candidate",
+ "earlyStop": "stop when two consecutive evaluations do not raise the best qualifying DEV hit50 by >= 1% of DEV targets",
+ "productComparison": {
+  "evaluator": "unchanged v2 product chain (crop, native tiles, BGR, conf .30, NMS .30, prelude masks, staging filter, one-to-one IoU .50; .30 separate)",
+  "sets": "Scope B positives (14), product-valid controls (29), held-out 20 (95; replay pass, eyewear UNKNOWN, development), 7 product-valid reviewed negatives",
+  "successIf": [
+   "hit50 over the 138 targets >= Step0 59 + 3",
+   "reviewed-negative false candidates <= 7 in total (<= 1 per photo, frozen gate) ",
+   "targets lost vs Step0 <= gained / 3"
+  ],
+  "else_": "no candidate; nothing exported or integrated"
+ },
+ "sealed": "Skin care v5 test closed; 941 UNKNOWN cohort unused; acceptance.json 90dc84fa... unchanged; production accepted:false"
+}

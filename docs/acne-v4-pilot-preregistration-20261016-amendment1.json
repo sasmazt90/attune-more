@@ -1,0 +1,6 @@
+{
+ "amends": "pilot-preregistration.json",
+ "codeSHA256": "636da39ee385bd60fbfe57d1b18380905c8a8527203e20cf704c3edce14a5579",
+ "reason": "evaluation JSON crash fix (float32 -> float); no data, loss, config or criterion change",
+ "changesDecisionRules": false
+}
