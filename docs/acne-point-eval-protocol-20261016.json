@@ -1,0 +1,310 @@
+{
+ "name": "acne-point-eval-protocol-1",
+ "createdUTC": "2026-10-16T12:45:00.550066Z",
+ "note": "Fixed before any point metric was computed. Separate diagnostic experiment; earlier FAIL results unchanged. Evaluation/display target only: models and their box-based NMS are unchanged.",
+ "data": {
+  "pack": "audit-results/acne-external/evalpack.zip",
+  "packSHA256": "fa83a743935d399e855f867e55144bb11cd1d9d6f1feb87876fce4d447b9aefd",
+  "manifestSHA256": "2c82ace7893fe2d2ccb78828612454075707a4377a20d10ed314ce6fa8a7c7a6",
+  "positivePhotos": 28,
+  "targets": 201,
+  "small": 63,
+  "medium": 138,
+  "smallRule": "max(w,h) < 16 source px",
+  "clearNegatives": 14,
+  "roiPhotos": 13,
+  "roiFrozen": [
+   "fe82848780adc94a64475f2db2cb1bf183cffaf8e94ca92733038f13e13637c4 (dev17/frozen.json)",
+   "99a2073dffd3f73c5524d2ecff2ec45ccb7e63c49ba9a0107b33dffeaa2a2770 (devext/frozen.json)"
+  ],
+  "labels": "publisher source boxes (not reviewed); sealed Skin care v5 test not used"
+ },
+ "predictions": {
+  "source": "stored final boxes in source px: external-results.json (sha a027cf35cd4a019b656e1495fcaededc2d66ac47318ad5c710de27e3a9271206) and Step0 product-chain rows infer-step0.jsonl (dev bc2f7963.., devext 7890b01a..); no re-run unless a record is missing",
+  "step0": "unchanged v2 product chain (conf .30, NMS .30, product masks, staging filter)",
+  "entries": [
+   {
+    "id": "aldinnasrun-kerascv/crop",
+    "weights": "aldinnasrun_acne_detect_yolo_model.keras",
+    "weightsSHA256": "ab6f90fffe76f39bd2b1a66e483f5fe0ab96a3730a69ef5e6f1e3fa2c618ef60",
+    "settings": "KerasCV built-in decoder (conf .2, NMS IoU .7) then conf >= .25, plain resize to 640 as in its app.py",
+    "inputMode": "product face crop (union of product tile rects), boxes shifted back to source px"
+   },
+   {
+    "id": "aldinnasrun-kerascv/full",
+    "weights": "aldinnasrun_acne_detect_yolo_model.keras",
+    "weightsSHA256": "ab6f90fffe76f39bd2b1a66e483f5fe0ab96a3730a69ef5e6f1e3fa2c618ef60",
+    "settings": "KerasCV built-in decoder (conf .2, NMS IoU .7) then conf >= .25, plain resize to 640 as in its app.py",
+    "inputMode": "whole photo, model letterbox"
+   },
+   {
+    "id": "carsten12/crop",
+    "weights": "carsten12_acne-detection-model_model_V1.pt",
+    "weightsSHA256": "2d189f039095a8c5309acbdcae1b75562afee094bb0da4a57f2ec392b915a81f",
+    "settings": "conf .25, NMS .7, class {Acne}, imgsz 640",
+    "inputMode": "product face crop (union of product tile rects), boxes shifted back to source px"
+   },
+   {
+    "id": "carsten12/full",
+    "weights": "carsten12_acne-detection-model_model_V1.pt",
+    "weightsSHA256": "2d189f039095a8c5309acbdcae1b75562afee094bb0da4a57f2ec392b915a81f",
+    "settings": "conf .25, NMS .7, class {Acne}, imgsz 640",
+    "inputMode": "whole photo, model letterbox"
+   },
+   {
+    "id": "carsten12/tiles",
+    "weights": "carsten12_acne-detection-model_model_V1.pt",
+    "weightsSHA256": "2d189f039095a8c5309acbdcae1b75562afee094bb0da4a57f2ec392b915a81f",
+    "settings": "conf .25, NMS .7, class {Acne}, imgsz 640",
+    "inputMode": "product native tiles (<=384x288 source px) at imgsz 384, shifted back, merged with class-agnostic box NMS IoU .30"
+   },
+   {
+    "id": "dewiin-acne/app",
+    "weights": "dewiin-acne.pt",
+    "weightsSHA256": "b87b6173599a7b251871efdfc738df314c9f195e4fb0358df1e38e82afad5e98",
+    "settings": "conf .25, NMS .7, classes {Papules,Pustule,Whitehead,Nodule}, imgsz 320; app mode: no-acne gate model (conf .25) then conf .01 class-agnostic NMS as published",
+    "inputMode": "Dewiin published pipeline on the product face crop"
+   },
+   {
+    "id": "dewiin-acne/crop",
+    "weights": "dewiin-acne.pt",
+    "weightsSHA256": "b87b6173599a7b251871efdfc738df314c9f195e4fb0358df1e38e82afad5e98",
+    "settings": "conf .25, NMS .7, classes {Papules,Pustule,Whitehead,Nodule}, imgsz 320; app mode: no-acne gate model (conf .25) then conf .01 class-agnostic NMS as published",
+    "inputMode": "product face crop (union of product tile rects), boxes shifted back to source px"
+   },
+   {
+    "id": "dewiin-acne/full",
+    "weights": "dewiin-acne.pt",
+    "weightsSHA256": "b87b6173599a7b251871efdfc738df314c9f195e4fb0358df1e38e82afad5e98",
+    "settings": "conf .25, NMS .7, classes {Papules,Pustule,Whitehead,Nodule}, imgsz 320; app mode: no-acne gate model (conf .25) then conf .01 class-agnostic NMS as published",
+    "inputMode": "whole photo, model letterbox"
+   },
+   {
+    "id": "dewiin-acne/tiles",
+    "weights": "dewiin-acne.pt",
+    "weightsSHA256": "b87b6173599a7b251871efdfc738df314c9f195e4fb0358df1e38e82afad5e98",
+    "settings": "conf .25, NMS .7, classes {Papules,Pustule,Whitehead,Nodule}, imgsz 320; app mode: no-acne gate model (conf .25) then conf .01 class-agnostic NMS as published",
+    "inputMode": "product native tiles (<=384x288 source px) at imgsz 384, shifted back, merged with class-agnostic box NMS IoU .30"
+   },
+   {
+    "id": "dewiin-anyacne/crop",
+    "weights": "dewiin-no_acne_model.pt",
+    "weightsSHA256": "e60a1611d58beafeb9337552ba4384a0bf548149604424ebbeeb2f5f9a91faab",
+    "settings": "conf .25, NMS .7, class {Acne}, imgsz 320",
+    "inputMode": "product face crop (union of product tile rects), boxes shifted back to source px"
+   },
+   {
+    "id": "dewiin-anyacne/full",
+    "weights": "dewiin-no_acne_model.pt",
+    "weightsSHA256": "e60a1611d58beafeb9337552ba4384a0bf548149604424ebbeeb2f5f9a91faab",
+    "settings": "conf .25, NMS .7, class {Acne}, imgsz 320",
+    "inputMode": "whole photo, model letterbox"
+   },
+   {
+    "id": "dewiin-anyacne/tiles",
+    "weights": "dewiin-no_acne_model.pt",
+    "weightsSHA256": "e60a1611d58beafeb9337552ba4384a0bf548149604424ebbeeb2f5f9a91faab",
+    "settings": "conf .25, NMS .7, class {Acne}, imgsz 320",
+    "inputMode": "product native tiles (<=384x288 source px) at imgsz 384, shifted back, merged with class-agnostic box NMS IoU .30"
+   },
+   {
+    "id": "drpauloreis-onnx/crop",
+    "weights": "drpauloreis_dermapro-acne-yolov8m_acne-yolov8m.onnx",
+    "weightsSHA256": "db8b4625083390e8320c790fab9ff330eaf17180b1140e91bef26881985c67dd",
+    "settings": "ultralytics ONNX runtime conf .25, NMS IoU .7, class {acne}, imgsz 640",
+    "inputMode": "product face crop (union of product tile rects), boxes shifted back to source px"
+   },
+   {
+    "id": "drpauloreis-onnx/full",
+    "weights": "drpauloreis_dermapro-acne-yolov8m_acne-yolov8m.onnx",
+    "weightsSHA256": "db8b4625083390e8320c790fab9ff330eaf17180b1140e91bef26881985c67dd",
+    "settings": "ultralytics ONNX runtime conf .25, NMS IoU .7, class {acne}, imgsz 640",
+    "inputMode": "whole photo, model letterbox"
+   },
+   {
+    "id": "drpauloreis-onnx/tiles",
+    "weights": "drpauloreis_dermapro-acne-yolov8m_acne-yolov8m.onnx",
+    "weightsSHA256": "db8b4625083390e8320c790fab9ff330eaf17180b1140e91bef26881985c67dd",
+    "settings": "ultralytics ONNX runtime conf .25, NMS IoU .7, class {acne}, imgsz 640",
+    "inputMode": "product native tiles (<=384x288 source px) at imgsz 384, shifted back, merged with class-agnostic box NMS IoU .30"
+   },
+   {
+    "id": "hilmizr-m/crop",
+    "weights": "HilmiZr_YOLOv8-AcneDetect_yolov8m-acnedetect-best.pt",
+    "weightsSHA256": "6eab8907f39ae2db6578fe1c43ecf639b6c5802184166a69e5d9c01479f94fac",
+    "settings": "conf .25, NMS .7, classes {Acne,Pimples,papular,purulent,whitehead,cystic}, imgsz 640",
+    "inputMode": "product face crop (union of product tile rects), boxes shifted back to source px"
+   },
+   {
+    "id": "hilmizr-m/full",
+    "weights": "HilmiZr_YOLOv8-AcneDetect_yolov8m-acnedetect-best.pt",
+    "weightsSHA256": "6eab8907f39ae2db6578fe1c43ecf639b6c5802184166a69e5d9c01479f94fac",
+    "settings": "conf .25, NMS .7, classes {Acne,Pimples,papular,purulent,whitehead,cystic}, imgsz 640",
+    "inputMode": "whole photo, model letterbox"
+   },
+   {
+    "id": "hilmizr-m/tiles",
+    "weights": "HilmiZr_YOLOv8-AcneDetect_yolov8m-acnedetect-best.pt",
+    "weightsSHA256": "6eab8907f39ae2db6578fe1c43ecf639b6c5802184166a69e5d9c01479f94fac",
+    "settings": "conf .25, NMS .7, classes {Acne,Pimples,papular,purulent,whitehead,cystic}, imgsz 640",
+    "inputMode": "product native tiles (<=384x288 source px) at imgsz 384, shifted back, merged with class-agnostic box NMS IoU .30"
+   },
+   {
+    "id": "hilmizr-s/crop",
+    "weights": "HilmiZr_YOLOv8-AcneDetect_yolov8s-acnedetect-best.pt",
+    "weightsSHA256": "06f06b58652c08d8ad24df0f9fc951c6a6fe2b5523e74d2bc22b5c24e3769f18",
+    "settings": "conf .25, NMS .7, same 6 classes, imgsz 640 (byte-identical to Jasnk/yolo-acne-detector: counted once)",
+    "inputMode": "product face crop (union of product tile rects), boxes shifted back to source px"
+   },
+   {
+    "id": "hilmizr-s/full",
+    "weights": "HilmiZr_YOLOv8-AcneDetect_yolov8s-acnedetect-best.pt",
+    "weightsSHA256": "06f06b58652c08d8ad24df0f9fc951c6a6fe2b5523e74d2bc22b5c24e3769f18",
+    "settings": "conf .25, NMS .7, same 6 classes, imgsz 640 (byte-identical to Jasnk/yolo-acne-detector: counted once)",
+    "inputMode": "whole photo, model letterbox"
+   },
+   {
+    "id": "hilmizr-s/tiles",
+    "weights": "HilmiZr_YOLOv8-AcneDetect_yolov8s-acnedetect-best.pt",
+    "weightsSHA256": "06f06b58652c08d8ad24df0f9fc951c6a6fe2b5523e74d2bc22b5c24e3769f18",
+    "settings": "conf .25, NMS .7, same 6 classes, imgsz 640 (byte-identical to Jasnk/yolo-acne-detector: counted once)",
+    "inputMode": "product native tiles (<=384x288 source px) at imgsz 384, shifted back, merged with class-agnostic box NMS IoU .30"
+   },
+   {
+    "id": "khaminh-11s/crop",
+    "weights": "KhaMinh_yolov11s-acne-detection_best.pt",
+    "weightsSHA256": "b3ceaf98ba1d09606c416c496c5252dab81f2782d8be838c4a675df83df64b18",
+    "settings": "conf .25, NMS .7, classes {Papular,Purulent,Whitehead,Cystic,Conglobata}, imgsz 640",
+    "inputMode": "product face crop (union of product tile rects), boxes shifted back to source px"
+   },
+   {
+    "id": "khaminh-11s/full",
+    "weights": "KhaMinh_yolov11s-acne-detection_best.pt",
+    "weightsSHA256": "b3ceaf98ba1d09606c416c496c5252dab81f2782d8be838c4a675df83df64b18",
+    "settings": "conf .25, NMS .7, classes {Papular,Purulent,Whitehead,Cystic,Conglobata}, imgsz 640",
+    "inputMode": "whole photo, model letterbox"
+   },
+   {
+    "id": "khaminh-11s/tiles",
+    "weights": "KhaMinh_yolov11s-acne-detection_best.pt",
+    "weightsSHA256": "b3ceaf98ba1d09606c416c496c5252dab81f2782d8be838c4a675df83df64b18",
+    "settings": "conf .25, NMS .7, classes {Papular,Purulent,Whitehead,Cystic,Conglobata}, imgsz 640",
+    "inputMode": "product native tiles (<=384x288 source px) at imgsz 384, shifted back, merged with class-agnostic box NMS IoU .30"
+   },
+   {
+    "id": "tinny-robot/crop",
+    "weights": "Tinny-Robot_acne_acne.pt",
+    "weightsSHA256": "2cef23fe3587b0154cd3598cae54f8c0d8076acebb545286e8904c11a9ee0a6c",
+    "settings": "ultralytics conf .25, NMS IoU .7 (ultralytics default), class {acne}, imgsz 640",
+    "inputMode": "product face crop (union of product tile rects), boxes shifted back to source px"
+   },
+   {
+    "id": "tinny-robot/full",
+    "weights": "Tinny-Robot_acne_acne.pt",
+    "weightsSHA256": "2cef23fe3587b0154cd3598cae54f8c0d8076acebb545286e8904c11a9ee0a6c",
+    "settings": "ultralytics conf .25, NMS IoU .7 (ultralytics default), class {acne}, imgsz 640",
+    "inputMode": "whole photo, model letterbox"
+   },
+   {
+    "id": "tinny-robot/tiles",
+    "weights": "Tinny-Robot_acne_acne.pt",
+    "weightsSHA256": "2cef23fe3587b0154cd3598cae54f8c0d8076acebb545286e8904c11a9ee0a6c",
+    "settings": "ultralytics conf .25, NMS IoU .7 (ultralytics default), class {acne}, imgsz 640",
+    "inputMode": "product native tiles (<=384x288 source px) at imgsz 384, shifted back, merged with class-agnostic box NMS IoU .30"
+   },
+   {
+    "id": "tristan-gray/crop",
+    "weights": "tristan-gray_acne-detector_best.pt",
+    "weightsSHA256": "6fea5b9ce7712aa02ad4522f8ebba95b768ffc042bd6952c88057c79ab8e68fc",
+    "settings": "conf .25, NMS .7, class {Acne}, imgsz 640",
+    "inputMode": "product face crop (union of product tile rects), boxes shifted back to source px"
+   },
+   {
+    "id": "tristan-gray/full",
+    "weights": "tristan-gray_acne-detector_best.pt",
+    "weightsSHA256": "6fea5b9ce7712aa02ad4522f8ebba95b768ffc042bd6952c88057c79ab8e68fc",
+    "settings": "conf .25, NMS .7, class {Acne}, imgsz 640",
+    "inputMode": "whole photo, model letterbox"
+   },
+   {
+    "id": "tristan-gray/tiles",
+    "weights": "tristan-gray_acne-detector_best.pt",
+    "weightsSHA256": "6fea5b9ce7712aa02ad4522f8ebba95b768ffc042bd6952c88057c79ab8e68fc",
+    "settings": "conf .25, NMS .7, class {Acne}, imgsz 640",
+    "inputMode": "product native tiles (<=384x288 source px) at imgsz 384, shifted back, merged with class-agnostic box NMS IoU .30"
+   },
+   {
+    "id": "unzelanoor-app/crop",
+    "weights": "unzelanoor-best.pt",
+    "weightsSHA256": "e445cb1de603eb439d1fa5703134ec9b6da6528c677540ae7c4cc20f66aa4f6d",
+    "settings": "same weights as unzelanoor; classes {acne, fore} as its own app displays every class as acne",
+    "inputMode": "product face crop (union of product tile rects), boxes shifted back to source px"
+   },
+   {
+    "id": "unzelanoor-app/full",
+    "weights": "unzelanoor-best.pt",
+    "weightsSHA256": "e445cb1de603eb439d1fa5703134ec9b6da6528c677540ae7c4cc20f66aa4f6d",
+    "settings": "same weights as unzelanoor; classes {acne, fore} as its own app displays every class as acne",
+    "inputMode": "whole photo, model letterbox"
+   },
+   {
+    "id": "unzelanoor-app/tiles",
+    "weights": "unzelanoor-best.pt",
+    "weightsSHA256": "e445cb1de603eb439d1fa5703134ec9b6da6528c677540ae7c4cc20f66aa4f6d",
+    "settings": "same weights as unzelanoor; classes {acne, fore} as its own app displays every class as acne",
+    "inputMode": "product native tiles (<=384x288 source px) at imgsz 384, shifted back, merged with class-agnostic box NMS IoU .30"
+   },
+   {
+    "id": "unzelanoor/crop",
+    "weights": "unzelanoor-best.pt",
+    "weightsSHA256": "e445cb1de603eb439d1fa5703134ec9b6da6528c677540ae7c4cc20f66aa4f6d",
+    "settings": "conf .25, NMS .7, class {acne} (never fires)",
+    "inputMode": "product face crop (union of product tile rects), boxes shifted back to source px"
+   },
+   {
+    "id": "unzelanoor/full",
+    "weights": "unzelanoor-best.pt",
+    "weightsSHA256": "e445cb1de603eb439d1fa5703134ec9b6da6528c677540ae7c4cc20f66aa4f6d",
+    "settings": "conf .25, NMS .7, class {acne} (never fires)",
+    "inputMode": "whole photo, model letterbox"
+   },
+   {
+    "id": "unzelanoor/tiles",
+    "weights": "unzelanoor-best.pt",
+    "weightsSHA256": "e445cb1de603eb439d1fa5703134ec9b6da6528c677540ae7c4cc20f66aa4f6d",
+    "settings": "conf .25, NMS .7, class {acne} (never fires)",
+    "inputMode": "product native tiles (<=384x288 source px) at imgsz 384, shifted back, merged with class-agnostic box NMS IoU .30"
+   }
+  ]
+ },
+ "point": "px=(x1+x2)/2, py=(y1+y2)/2 of each final source-px box; never moved, shrunk or chosen using labels",
+ "primary": {
+  "name": "etiket kutusu i\u00e7ine nokta isabeti (point inside the labelled box)",
+  "edge": "feasible iff x1<=px<=x2 and y1<=py<=y2 (inclusive)",
+  "matching": "one-to-one; maximum-cardinality then minimum total normalized centre distance: scipy.optimize.linear_sum_assignment on cost = d_norm - 1e6 for feasible pairs and 0 for infeasible pairs, keeping only feasible assigned pairs",
+  "tieBreak": "linear_sum_assignment is deterministic for a fixed matrix; rows = targets in manifest order, columns = predictions in stored order; remaining exact ties resolved by that order"
+ },
+ "secondary": {
+  "distance": "d_norm = |point - label centre| / label diagonal",
+  "tolerances": [
+   0.25,
+   0.5
+  ],
+  "matching": "same assignment with feasibility d_norm <= tol",
+  "note": "sensitivity analysis only, not an acceptance threshold"
+ },
+ "iou": {
+  "thresholds": [
+   0.5,
+   0.3
+  ],
+  "matching": "greedy one-to-one by descending IoU as in the earlier evaluations (recomputed and checked against the stored scores)"
+ },
+ "falsePoints": {
+  "rule": "prediction point inside a reviewed mask: frozen clean-skin ROI on positive photos, reviewed Clear mask on Clear negative photos; reported separately",
+  "conflict": "a point inside the mask AND inside any source positive box is a conflict: recorded and left UNKNOWN (ROIs were built excluding every source box dilated by max(10px, side), so none are expected)",
+  "unknown": "all other unmatched points are UNKNOWN, never counted as right or wrong"
+ },
+ "duplicates": "reported: extra points inside an already matched target box (same lesion counted once); distinct lesions found = matched targets; no new merging or filtering",
+ "comparison": "every model x input mode is its own row; no best-mode selection; Step0 on the same 28 photos / 201 targets"
+}
