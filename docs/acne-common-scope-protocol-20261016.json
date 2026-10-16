@@ -1,0 +1,33 @@
+{
+ "name": "acne-common-scope-comparison-protocol",
+ "status": "fixed before any common-scope number is computed",
+ "nature": "diagnostic comparison on the same 28 DEV photos with AI engineering layer-1 labels; not an independent test, expert validation or product acceptance",
+ "scope": {
+  "mask": "frozen layer-1 reviewed-skin masks (layer1-masks, hashes in layer-1 JSON); unchanged; 22 photos have a non-empty mask",
+  "targets": "in-scope TARGET = layer-1 TARGET whose point lies inside the reviewed mask (same rule for every target, found or missed)",
+  "outOfScopeTargets": "TARGETs outside the mask (empty-mask photos, or excluded areas) are reported with reasons and are not counted; predictions within r of them are reported as near-out-of-scope-target (neither hit nor false)"
+ },
+ "rows": {
+  "step0-final": "stored Step0 product-chain final boxes (infer-step0.jsonl; equal to the trace)",
+  "step0-before-filter": "Step0 conf .30 + NMS .30 boxes recorded in audit-results/acne-step0-trace (nms), before principled_accepted_boxes (region/anatomical filter); diagnostic only, not a candidate",
+  "dewiin-anyacne/tiles": "verified re-generated stored rows (acne-external-stored-rows-regen, sha ac06add3)",
+  "tristan-gray/tiles": "same",
+  "carsten12/tiles": "same"
+ },
+ "settingsNote": "third-party rows keep their own settings (ultralytics conf .25, NMS IoU .7, class map, imgsz 384 tiles + box NMS .30 merge); Step0 conf .30 / NMS .30; not a controlled architecture comparison",
+ "scoring": {
+  "point": "box centre, source px",
+  "r": "0.03 x face width (unchanged)",
+  "matching": "one-to-one, max cardinality then min distance, against in-scope TARGETs only",
+  "unmatched": "duplicate (within r of a matched in-scope TARGET) / near out-of-scope TARGET / on other category / on UNCERTAIN / false (inside reviewed mask) / unreviewed (inside face oval, outside mask) / non-skin (outside face oval) / unreviewed photo (empty mask)",
+  "layer2": "post-hoc layer-2 codes are shown only as a separate view and never change layer-1 counts"
+ },
+ "extras": [
+  "per photo",
+  "v4 DEV vs DEV-EXT",
+  "with/without the most influential photo",
+  "targets found before the Step0 filter but removed by it",
+  "legend figures (not in Git)",
+  "timing only if same hardware/scope"
+ ]
+}
