@@ -1,0 +1,14 @@
+{
+ "name": "acne-external-through-step0-filter-protocol",
+ "status": "fixed before any filtered number is computed",
+ "nature": "offline staging experiment on stored predictions; not live camera, not production integration; AI engineering labels on the re-used DEV set; not an independent test or product acceptance; licence separate",
+ "filter": {
+  "code": "services/core-api/acne_box_support_staging.py principled_accepted_boxes (sha 11dd8e04\u2026) with its default parameters (max_hair_area_frac .25, min_skin_support_frac .50, min_rel_erythema .045, min_contrast_diff 18, envelope overlap .15, distance fallback .15 fw)",
+  "masks": "acne_takeover_support.current_product_masks (production analyze_skin prelude, appearance_analysis sha 1102117b\u2026) from the same replay landmarks, snapshot meshes/exclusions and photo; same visible regions, analysis origin/scale and side-angle scope as Step0",
+  "parity": "(a) recomputed masks must equal the stored Step0-trace masks on 28/28 positive photos; (b) the filter applied to the recorded Step0 NMS boxes must reproduce the stored Step0 final boxes on 28/28; otherwise stop before external rows"
+ },
+ "adapter": "external stored final boxes [x1,y1,x2,y2,score] (source px, already conf/NMS-filtered by their own unchanged settings) -> filter input [x1,y1,x2,y2,confidence]; confidence is passed through and not used by any filter decision; no field invented",
+ "yoloxSpecific": "none of the filter decisions reads YOLOX outputs; decisions use box geometry, masks and pixels only. Box-fraction rules (exclusion > .25, hair > .25, skin support < .50, envelope overlap >= .15) depend on box size and are reported per rejection with the box side",
+ "scoring": "common scope unchanged (docs/acne-common-scope-protocol-20261016.json): 108 in-scope targets on the frozen reviewed mask, r = 0.03 fw, one-to-one; filter-removed targets stay in the denominator",
+ "clear": "14 replay-pass Clear photos: product masks computed without any model inference (geometry only; no Step0 pre-filter records exist for Clear, so Step0 Clear parity cannot be checked); false points = point inside the reviewed Clear mask, before and after the filter"
+}
