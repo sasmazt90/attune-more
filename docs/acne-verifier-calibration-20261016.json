@@ -1,0 +1,48 @@
+{
+ "nLabelled": 504,
+ "positives": 433,
+ "negatives": 71,
+ "learn": {
+  "n": 323,
+  "pos": 277,
+  "groups": 71,
+  "auc": 1.0
+ },
+ "calibration": {
+  "n": 181,
+  "pos": 156,
+  "neg": 25,
+  "groups": 30,
+  "auc": 0.9184615384615384,
+  "threshold": 0.07663721387978555,
+  "keptPositives": 0.9551282051282052,
+  "removedNegatives": 0.56
+ },
+ "gate": {
+  "rule": "AUC >= .65 and removed negatives >= 15% at the threshold",
+  "passed": true
+ },
+ "leakageDroppedTrainPhotos": [],
+ "nearDuplicateTrainGroups": 2,
+ "labelReasons": {
+  "excluded: near/inside a kept or ignore box": 828,
+  "excluded: unlabelled area": 1209,
+  "negative: inside a kept confounder box": 65,
+  "negative: inside reviewed clean ROI": 6,
+  "positive: within r of a kept box centre": 433
+ },
+ "photosUsed": 158,
+ "frozenBeforeDev": {
+  "modelSha256": "b6fa6c05b48a092623f7780200c07440ebaf934989ab66518ee21b23fa304f8a",
+  "labelsSha256": "db1c7fe35c7dde62024e2b9ae18fff659ea79f853b8e330dba0fd302c3f9700d",
+  "protocolSha256": "5045d6e183246a4777478b72f8c8adc637751183a99e3d6461daae897b0a1e70",
+  "step0WeightsSha256Prefix": "18e94a95",
+  "note": "Threshold and model fixed from TRAIN calibration only; DEV not read. Review level: AI engineering review of existing TRAIN manifest labels, not expert verification. Person independence not verified (groups are photos / dHash near-duplicate clusters)."
+ },
+ "negativeSourceCaveat": {
+  "calibrationNegatives": "all 25 are candidates inside kept confounder boxes (whole set: Mole 46, Pigmentation 10, Freckles 5, Enlarged pores 4 box hits)",
+  "cleanRoiNegatives": "6, all in learn split; 0 in calibration",
+  "negativePhotoCandidates": "10 negative photos produced 0 candidates after the box filter",
+  "learnAuc": "1.0 (1920 dims, 323 samples: overfit expected; calibration AUC is the relevant number)"
+ }
+}
