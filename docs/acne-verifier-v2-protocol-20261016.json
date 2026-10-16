@@ -1,0 +1,41 @@
+{
+ "title": "Acne candidate verifier v2: TRAIN label review + flat-skin negative coverage, one refit (fixed before review)",
+ "date": "2026-10-16",
+ "keeps": "v1 model docs/acne-verifier-model-20261016.json (sha b6fa6c05...), its calibration, labels and DEV results are kept unchanged and not renamed.",
+ "data": "TRAIN only: the 158 manifest-v6 photos with replay rows, their cached Step0 final candidates and frozen 1920-d features (audit-results/acne-verifier/train). DEV, DEV Clear, the 108-target scope and the sealed test are not used for selection, review, training or calibration. DEV false points are not converted into training data.",
+ "fixed": "Step0 weights, candidate generation (conf .30, NMS .30, product masks, old box filter), feature extraction acne-candidate-verifier-features-v1. No new model, architecture, feature, filter, point merge or hyperparameter search.",
+ "reviewList": {
+  "script": "scripts/skin-research/verifier_v2_select.py",
+  "budget": 300,
+  "pools": {"pos": "60 controls from the 433 v1 positives", "neg": "all 71 v1 negatives (6 clean ROI, 65 confounder box)", "unl": "169 from the 1209 v1 'excluded: unlabelled area' candidates"},
+  "diversity": "strata pose (FRONT / side) x face-width tertile; per-photo caps pos 2, unl 4; deterministic sha256 ordering with seed 20261016",
+  "blind": "review sheets show only the review id, a tight crop, a near-context crop and a face-context view with a marker; not the pool, the v1 label, source boxes or the detector score. The list is committed before any sheet is looked at; no item is replaced after review."
+ },
+ "reviewCategories": {
+  "A": "visible acne-like lesion at the marker (papule/pustule/comedone-like raised or inflamed spot)",
+  "F": "clearly flat/clean skin at the marker: a false candidate on plain skin",
+  "M": "other element: mole / pigment / freckle / post-lesion mark or scar (ben-leke)",
+  "P": "other element: pore / skin texture / shine or specular highlight (gozenek-parlama)",
+  "O": "other element: hair, eyebrow, lip, nostril, eye, shadow edge, jewellery or anything else (diger)",
+  "U": "uncertain (resolution, blur, ambiguous): excluded from learning and calibration",
+  "reviewLevel": "AI engineering review on crops, not expert/dermatologist verification. Decisions are a separate layer (audit-results/acne-verifier-v2/review-decisions.json); manifest and v1 labels are not modified."
+ },
+ "labelsV2": {
+  "reviewed": "A -> positive; F, M, P, O -> negative with type flat / mole-mark / pore-shine / other; U -> excluded",
+  "unreviewed": "v1 positives not in the review list stay positive (their reliability is estimated by the 60-control confirmation rate and reported); all other unreviewed candidates stay excluded (no unreviewed negatives remain, as all 71 v1 negatives are reviewed)"
+ },
+ "split": {
+  "groups": "v1 groups (photo, dHash <= 10 near-duplicate clusters merged); all candidates of a group in one split",
+  "rule": "groups that contain >= 1 flat (F) negative are ordered by sha256(20261016|v2split|group) and the first round(0.3 n) (at least 2) go to calibration, the rest to learn; all other groups are ordered the same way and split 70/30 learn/calibration",
+  "minimum": "at least 2 different photos with flat negatives in learn AND in calibration; otherwise report the counts and the missing category and stop without fitting (no budget increase)"
+ },
+ "model": "LogisticRegression L2, C = 0.1, class_weight balanced, lbfgs, max_iter 2000 on z-scored features; standardiser fitted on learn only; one fit",
+ "threshold": "highest threshold keeping >= 95% of calibration positives (same rule as v1)",
+ "calibrationReport": "overall AUC and per negative type (flat / mole-mark / pore-shine / other): n, AUC positive-vs-type, fraction removed at the threshold with Wilson 95% interval. A good overall AUC is not reported as flat-skin success.",
+ "gate": "same as v1: calibration AUC >= 0.65 and >= 15% of calibration negatives removed; otherwise report and stop before DEV",
+ "dev": {
+  "once": "after freezing v2: A = Step0 + old filter, B = A + v1, C = A + v2 on the same 108 targets, layer 1, masks, r = 0.03 face width and one-to-one matching; 0a8a14a662a5 stays in scope with no special rule; no retraining or recalibration after DEV",
+  "replaceRule": "v2 becomes the preferred staging verifier only if C finds >= the targets of B AND has fewer false points than B; otherwise v1 stays preferred. Neither is enabled in the product (accepted:false, file:null)."
+ },
+ "licence": "Training a classifier does not resolve rights questions on Step0 weights or the data sources; tracked separately."
+}
