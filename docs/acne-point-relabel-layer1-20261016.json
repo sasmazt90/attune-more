@@ -1,0 +1,7235 @@
+{
+ "coordinates": "source px of the pack image",
+ "counts": {
+  "byCategory": {
+   "MOLE": 6,
+   "OTHER": 5,
+   "SCAR_PIGMENT": 5,
+   "TARGET": 114,
+   "UNCERTAIN": 209
+  },
+  "photos": 28,
+  "photosWithReviewedMask": 22,
+  "reviewedMaskPx": 8895346
+ },
+ "declaredDeviations": [
+  "collage (6dcf4d7ab398, 7b425c76a80f, eeb843cadf66) and close-up/padded (29069058884f) photos: landmark face oval does not describe the reviewed skin -> EMPTY reviewed mask (no negative claims); their TARGET points still count",
+  "blurred/noisy photos d79fcee141ca and c1ae0b437492: all tiles not_reviewable -> EMPTY reviewed mask",
+  "marks with sheet number 0 were read directly in source px from label-free full-image or zoom grids (zoom.py, same renderer, no labels/predictions) instead of the 2x2 tile sheets: used for the 640-px devext photos, cb5ca5ca9a33, 9334509b3ae3, b4ec4968102b, 5aa51f53f86c, c1ae0b437492",
+  "self-check overlays (qa/) drew only my own layer-1 points; one stray UNCERTAIN mark on 933e40d730e0 placed on hair was removed before freezing"
+ ],
+ "frozenBefore": "source boxes and model points were not opened or drawn during this review",
+ "name": "acne-point-relabel-layer1",
+ "nature": "AI (assistant) engineering review of the same 28 DEV photos after earlier model results were known; NOT blind, NOT independent, NOT expert-verified",
+ "photos": {
+  "0a8a14a662a5": {
+   "coverage": {
+    "exclude": [
+     [
+      508,
+      109,
+      590,
+      718
+     ],
+     [
+      1000,
+      560,
+      1111,
+      718
+     ]
+    ],
+    "flags": [],
+    "note": "moderate sharpness; many inflamed lesions on forehead and image-left cheek/jaw; hair excluded on both sides",
+    "tiles": {}
+   },
+   "faceWidthPx": 573.1,
+   "mask": {
+    "file": "masks/0a8a14a662a5.png",
+    "flags": [],
+    "maskFracOfImage": 0.1275,
+    "maskPx": 208956,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "4d725f6daa0d33f89421a56f4309e9ae60da804e030690342a5caca144a7ecd0",
+    "targets": 17,
+    "targetsInsideMask": 15
+   },
+   "mergeRadiusPx": 8.6,
+   "points": [
+    {
+     "cat": "TARGET",
+     "id": "P1",
+     "n": 1,
+     "note": "red papule forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 700.4,
+     "y": 155.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P2",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "T1"
+     ],
+     "x": 675.7,
+     "y": 151.2
+    },
+    {
+     "cat": "TARGET",
+     "id": "P3",
+     "n": 1,
+     "note": "red papule forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 653.3,
+     "y": 182.5
+    },
+    {
+     "cat": "TARGET",
+     "id": "P4",
+     "n": 1,
+     "note": "red papule forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 626.4,
+     "y": 198.2
+    },
+    {
+     "cat": "TARGET",
+     "id": "P5",
+     "n": 1,
+     "note": "dark-red papule brow",
+     "tiles": [
+      "T1"
+     ],
+     "x": 588.3,
+     "y": 227.4
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P6",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "T1"
+     ],
+     "x": 608.5,
+     "y": 164.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P7",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "T1"
+     ],
+     "x": 664.5,
+     "y": 131.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P8",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "T1"
+     ],
+     "x": 579.3,
+     "y": 128.7
+    },
+    {
+     "cat": "TARGET",
+     "id": "P9",
+     "n": 1,
+     "note": "pustular red lesion forehead",
+     "tiles": [
+      "T2"
+     ],
+     "x": 781.5,
+     "y": 166.8
+    },
+    {
+     "cat": "TARGET",
+     "id": "P10",
+     "n": 1,
+     "note": "red papule glabella",
+     "tiles": [
+      "T2"
+     ],
+     "x": 848.8,
+     "y": 234.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P11",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T2"
+     ],
+     "x": 967.6,
+     "y": 169.1
+    },
+    {
+     "cat": "TARGET",
+     "id": "P12",
+     "n": 1,
+     "note": "red papule lateral forehead",
+     "tiles": [
+      "T3"
+     ],
+     "x": 1061.2,
+     "y": 139.5
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P13",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "T3"
+     ],
+     "x": 1052.3,
+     "y": 161.9
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P14",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "T3"
+     ],
+     "x": 1085.9,
+     "y": 166.4
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P15",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "T3"
+     ],
+     "x": 1072.4,
+     "y": 195.5
+    },
+    {
+     "cat": "TARGET",
+     "id": "P16",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "T4"
+     ],
+     "x": 619.2,
+     "y": 427.3
+    },
+    {
+     "cat": "TARGET",
+     "id": "P17",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "T4"
+     ],
+     "x": 634.9,
+     "y": 458.7
+    },
+    {
+     "cat": "TARGET",
+     "id": "P18",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "T4"
+     ],
+     "x": 625.9,
+     "y": 528.2
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P19",
+     "n": 1,
+     "note": "faint red",
+     "tiles": [
+      "T4"
+     ],
+     "x": 708.9,
+     "y": 490.1
+    },
+    {
+     "cat": "TARGET",
+     "id": "P20",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "T5"
+     ],
+     "x": 999.4,
+     "y": 418.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P21",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T5"
+     ],
+     "x": 950.1,
+     "y": 546.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P22",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T5"
+     ],
+     "x": 974.8,
+     "y": 515.2
+    },
+    {
+     "cat": "TARGET",
+     "id": "P23",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T7"
+     ],
+     "x": 642.1,
+     "y": 578.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P24",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "T7"
+     ],
+     "x": 639.8,
+     "y": 602.8
+    },
+    {
+     "cat": "TARGET",
+     "id": "P25",
+     "n": 1,
+     "note": "red papule jaw",
+     "tiles": [
+      "T7"
+     ],
+     "x": 648.8,
+     "y": 622.9
+    },
+    {
+     "cat": "TARGET",
+     "id": "P26",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T7"
+     ],
+     "x": 680.2,
+     "y": 622.9
+    },
+    {
+     "cat": "TARGET",
+     "id": "P27",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T7"
+     ],
+     "x": 734.0,
+     "y": 636.4
+    },
+    {
+     "cat": "TARGET",
+     "id": "P28",
+     "n": 1,
+     "note": "red papule chin",
+     "tiles": [
+      "T7"
+     ],
+     "x": 760.9,
+     "y": 674.5
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P29",
+     "n": 1,
+     "note": "white bump",
+     "tiles": [
+      "T7"
+     ],
+     "x": 642.1,
+     "y": 640.9
+    },
+    {
+     "cat": "TARGET",
+     "id": "P30",
+     "n": 1,
+     "note": "small dark-red papule below lip",
+     "tiles": [
+      "T8"
+     ],
+     "x": 877.9,
+     "y": 625.2
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P31",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T8"
+     ],
+     "x": 909.3,
+     "y": 634.1
+    }
+   ],
+   "rawMarks": [
+    [
+     1,
+     475,
+     150,
+     "TARGET",
+     "red papule forehead"
+    ],
+    [
+     1,
+     420,
+     140,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     1,
+     370,
+     210,
+     "TARGET",
+     "red papule forehead"
+    ],
+    [
+     1,
+     310,
+     245,
+     "TARGET",
+     "red papule forehead"
+    ],
+    [
+     1,
+     225,
+     310,
+     "TARGET",
+     "dark-red papule brow"
+    ],
+    [
+     1,
+     270,
+     170,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     1,
+     395,
+     95,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     1,
+     205,
+     90,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     1,
+     800,
+     175,
+     "TARGET",
+     "pustular red lesion forehead"
+    ],
+    [
+     1,
+     950,
+     325,
+     "TARGET",
+     "red papule glabella"
+    ],
+    [
+     1,
+     1215,
+     180,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     1,
+     575,
+     800,
+     "TARGET",
+     "red papule lateral forehead"
+    ],
+    [
+     1,
+     555,
+     850,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     1,
+     630,
+     860,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     1,
+     600,
+     925,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     1,
+     980,
+     900,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     1,
+     1015,
+     970,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     1,
+     995,
+     1125,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     1,
+     1180,
+     1040,
+     "UNCERTAIN",
+     "faint red"
+    ],
+    [
+     2,
+     600,
+     195,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     2,
+     490,
+     480,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     545,
+     410,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     345,
+     1060,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     340,
+     1115,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     2,
+     360,
+     1160,
+     "TARGET",
+     "red papule jaw"
+    ],
+    [
+     2,
+     430,
+     1160,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     550,
+     1190,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     610,
+     1275,
+     "TARGET",
+     "red papule chin"
+    ],
+    [
+     2,
+     345,
+     1200,
+     "UNCERTAIN",
+     "white bump"
+    ],
+    [
+     2,
+     1015,
+     1165,
+     "TARGET",
+     "small dark-red papule below lip"
+    ],
+    [
+     2,
+     1085,
+     1185,
+     "UNCERTAIN",
+     "small red"
+    ]
+   ],
+   "sha256": "0a8a14a662a576aa9d02d403820d245b9de91536dd7e3c3baf8c5c34c0fbe1e5"
+  },
+  "29069058884f": {
+   "coverage": {
+    "exclude": [
+     [
+      440,
+      0,
+      640,
+      640
+     ],
+     [
+      0,
+      600,
+      640,
+      640
+     ],
+     [
+      0,
+      0,
+      60,
+      200
+     ]
+    ],
+    "flags": [
+     "processed_padded",
+     "closeup_not_full_face",
+     "watermark"
+    ],
+    "note": "640px close-up cheek crop with edge-stretched padding (right/bottom) and watermark; face-width from landmarks unreliable; reviewed on full-image overview grid",
+    "tiles": {}
+   },
+   "faceWidthPx": 331.3,
+   "mask": {
+    "file": "masks/29069058884f.png",
+    "flags": [
+     "processed_padded",
+     "closeup_not_full_face",
+     "watermark"
+    ],
+    "maskFracOfImage": 0.0,
+    "maskPx": 0,
+    "rule": "empty: closeup_not_full_face",
+    "sha256": "e63642e71309a6fb0cc88bd3d92b13b1757f7b9892f1aa85e1736cadc42f67db",
+    "targets": 3,
+    "targetsInsideMask": 0
+   },
+   "mergeRadiusPx": 5.0,
+   "points": [
+    {
+     "cat": "TARGET",
+     "id": "P1",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "Z"
+     ],
+     "x": 170.0,
+     "y": 284.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P2",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "Z"
+     ],
+     "x": 252.0,
+     "y": 440.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P3",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "Z"
+     ],
+     "x": 67.0,
+     "y": 232.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "Z"
+     ],
+     "x": 195.0,
+     "y": 394.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P5",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "Z"
+     ],
+     "x": 220.0,
+     "y": 213.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P6",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "Z"
+     ],
+     "x": 291.0,
+     "y": 56.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P7",
+     "n": 1,
+     "note": "faint red",
+     "tiles": [
+      "Z"
+     ],
+     "x": 330.0,
+     "y": 344.0
+    }
+   ],
+   "rawMarks": [
+    [
+     0,
+     170,
+     284,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     0,
+     252,
+     440,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     0,
+     67,
+     232,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     0,
+     195,
+     394,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     0,
+     220,
+     213,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     0,
+     291,
+     56,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     0,
+     330,
+     344,
+     "UNCERTAIN",
+     "faint red"
+    ]
+   ],
+   "sha256": "29069058884f4360e6fadadab4f9ece5ecbceb5467c48c88b025eb449f67f250"
+  },
+  "2ad92b5eb9de": {
+   "coverage": {
+    "exclude": [
+     [
+      601,
+      2560,
+      1814,
+      2841
+     ],
+     [
+      601,
+      2244,
+      960,
+      2560
+     ],
+     [
+      1700,
+      2200,
+      1814,
+      2560
+     ]
+    ],
+    "flags": [
+     "soft_or_smoothed"
+    ],
+    "note": "darker skin, sharpening artifacts; chin/jaw blurred+shadowed (excluded); hair/shirt excluded; forehead has small skin-coloured bumps (uncertain closed comedones vs texture)",
+    "tiles": {}
+   },
+   "faceWidthPx": 1194.3,
+   "mask": {
+    "file": "masks/2ad92b5eb9de.png",
+    "flags": [
+     "soft_or_smoothed"
+    ],
+    "maskFracOfImage": 0.1256,
+    "maskPx": 1003223,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "8932bce88f2f9df5ee021f17f34ecf3153883bf6656b198cbf42bab354059e8d",
+    "targets": 0,
+    "targetsInsideMask": 0
+   },
+   "mergeRadiusPx": 17.9,
+   "points": [
+    {
+     "cat": "UNCERTAIN",
+     "id": "P1",
+     "n": 1,
+     "note": "skin-coloured bump forehead",
+     "tiles": [
+      "T2"
+     ],
+     "x": 1400.0,
+     "y": 1340.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P2",
+     "n": 1,
+     "note": "skin-coloured bump",
+     "tiles": [
+      "T2"
+     ],
+     "x": 1274.0,
+     "y": 1549.9
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 1,
+     "note": "skin-coloured bump",
+     "tiles": [
+      "T2"
+     ],
+     "x": 1432.6,
+     "y": 1512.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "skin-coloured bump",
+     "tiles": [
+      "T2"
+     ],
+     "x": 1194.8,
+     "y": 1470.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P5",
+     "n": 1,
+     "note": "small dark macule cheek",
+     "tiles": [
+      "T5"
+     ],
+     "x": 1573.5,
+     "y": 2243.5
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P6",
+     "n": 1,
+     "note": "small dark macule cheek",
+     "tiles": [
+      "T5"
+     ],
+     "x": 1629.4,
+     "y": 2266.8
+    }
+   ],
+   "rawMarks": [
+    [
+     1,
+     1045,
+     75,
+     "UNCERTAIN",
+     "skin-coloured bump forehead"
+    ],
+    [
+     1,
+     910,
+     300,
+     "UNCERTAIN",
+     "skin-coloured bump"
+    ],
+    [
+     1,
+     1080,
+     260,
+     "UNCERTAIN",
+     "skin-coloured bump"
+    ],
+    [
+     1,
+     825,
+     215,
+     "UNCERTAIN",
+     "skin-coloured bump"
+    ],
+    [
+     2,
+     545,
+     500,
+     "UNCERTAIN",
+     "small dark macule cheek"
+    ],
+    [
+     2,
+     605,
+     525,
+     "UNCERTAIN",
+     "small dark macule cheek"
+    ]
+   ],
+   "sha256": "2ad92b5eb9ded9c0950ac41d9df33f01d5e173a8ffffed3a1ab651464d5deb59"
+  },
+  "33e42c603f10": {
+   "coverage": {
+    "exclude": [],
+    "flags": [
+     "low_resolution"
+    ],
+    "note": "small face (488 px); diffuse pink macules on cheeks hard to separate; discrete papules on forehead, chin, image-right jaw",
+    "tiles": {}
+   },
+   "faceWidthPx": 488.1,
+   "mask": {
+    "file": "masks/33e42c603f10.png",
+    "flags": [
+     "low_resolution"
+    ],
+    "maskFracOfImage": 0.0857,
+    "maskPx": 140351,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "2e67127ab75cbbc061b06d48b22db18ea68241bd15c73268e233ac0e1c029d82",
+    "targets": 7,
+    "targetsInsideMask": 7
+   },
+   "mergeRadiusPx": 7.3,
+   "points": [
+    {
+     "cat": "TARGET",
+     "id": "P1",
+     "n": 1,
+     "note": "red papule forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 591.6,
+     "y": 506.1
+    },
+    {
+     "cat": "TARGET",
+     "id": "P2",
+     "n": 1,
+     "note": "red papule forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 624.0,
+     "y": 517.5
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T1"
+     ],
+     "x": 631.6,
+     "y": 498.4
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T1"
+     ],
+     "x": 580.2,
+     "y": 454.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P5",
+     "n": 1,
+     "note": "faint red cheek",
+     "tiles": [
+      "T1"
+     ],
+     "x": 477.2,
+     "y": 654.7
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P6",
+     "n": 1,
+     "note": "pink macule",
+     "tiles": [
+      "T1"
+     ],
+     "x": 561.1,
+     "y": 645.2
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P7",
+     "n": 1,
+     "note": "red cheek",
+     "tiles": [
+      "T2"
+     ],
+     "x": 788.7,
+     "y": 612.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P8",
+     "n": 1,
+     "note": "red lateral cheek",
+     "tiles": [
+      "T3"
+     ],
+     "x": 885.5,
+     "y": 623.9
+    },
+    {
+     "cat": "TARGET",
+     "id": "P9",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T4"
+     ],
+     "x": 526.4,
+     "y": 761.9
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P10",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T4"
+     ],
+     "x": 570.3,
+     "y": 748.6
+    },
+    {
+     "cat": "TARGET",
+     "id": "P11",
+     "n": 1,
+     "note": "small red papule",
+     "tiles": [
+      "T4"
+     ],
+     "x": 469.2,
+     "y": 683.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P12",
+     "n": 1,
+     "note": "small red chin",
+     "tiles": [
+      "T4"
+     ],
+     "x": 579.8,
+     "y": 813.4
+    },
+    {
+     "cat": "TARGET",
+     "id": "P13",
+     "n": 1,
+     "note": "red papule jaw",
+     "tiles": [
+      "T5"
+     ],
+     "x": 764.3,
+     "y": 764.2
+    },
+    {
+     "cat": "TARGET",
+     "id": "P14",
+     "n": 1,
+     "note": "red papule jaw",
+     "tiles": [
+      "T5"
+     ],
+     "x": 745.2,
+     "y": 777.6
+    },
+    {
+     "cat": "TARGET",
+     "id": "P15",
+     "n": 1,
+     "note": "red papule jaw",
+     "tiles": [
+      "T5"
+     ],
+     "x": 779.6,
+     "y": 781.4
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P16",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T5"
+     ],
+     "x": 693.8,
+     "y": 792.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P17",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T5"
+     ],
+     "x": 636.6,
+     "y": 813.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P18",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T5"
+     ],
+     "x": 724.3,
+     "y": 804.2
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P19",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T5"
+     ],
+     "x": 815.8,
+     "y": 693.7
+    }
+   ],
+   "rawMarks": [
+    [
+     1,
+     525,
+     235,
+     "TARGET",
+     "red papule forehead"
+    ],
+    [
+     1,
+     610,
+     265,
+     "TARGET",
+     "red papule forehead"
+    ],
+    [
+     1,
+     630,
+     215,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     1,
+     495,
+     100,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     1,
+     225,
+     625,
+     "UNCERTAIN",
+     "faint red cheek"
+    ],
+    [
+     1,
+     445,
+     600,
+     "UNCERTAIN",
+     "pink macule"
+    ],
+    [
+     1,
+     1185,
+     515,
+     "UNCERTAIN",
+     "red cheek"
+    ],
+    [
+     1,
+     640,
+     1230,
+     "UNCERTAIN",
+     "red lateral cheek"
+    ],
+    [
+     1,
+     1040,
+     1120,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     1,
+     1155,
+     1085,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     1,
+     890,
+     915,
+     "TARGET",
+     "small red papule"
+    ],
+    [
+     1,
+     1180,
+     1255,
+     "UNCERTAIN",
+     "small red chin"
+    ],
+    [
+     2,
+     435,
+     440,
+     "TARGET",
+     "red papule jaw"
+    ],
+    [
+     2,
+     385,
+     475,
+     "TARGET",
+     "red papule jaw"
+    ],
+    [
+     2,
+     475,
+     485,
+     "TARGET",
+     "red papule jaw"
+    ],
+    [
+     2,
+     250,
+     515,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     100,
+     570,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     330,
+     545,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     570,
+     255,
+     "UNCERTAIN",
+     "small red"
+    ]
+   ],
+   "sha256": "33e42c603f10c05ec4d8e4ed23a9562acbf197bc975c2def382a190d7d6a69b5"
+  },
+  "453d2656c394": {
+   "coverage": {
+    "exclude": [
+     [
+      364,
+      2150,
+      1507,
+      2392
+     ],
+     [
+      364,
+      938,
+      450,
+      2392
+     ]
+    ],
+    "flags": [
+     "noisy_or_sharpened"
+    ],
+    "note": "dark skin, heavy sensor noise/sharpening specks everywhere; tiny papules not distinguishable from noise; lower face shadowed (excluded); only pigment patches recordable",
+    "tiles": {}
+   },
+   "faceWidthPx": 1107.0,
+   "mask": {
+    "file": "masks/453d2656c394.png",
+    "flags": [
+     "noisy_or_sharpened"
+    ],
+    "maskFracOfImage": 0.188,
+    "maskPx": 924059,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "636a9bb298148a56de027e82eb6358bed29fc5adaf596a555278aae7c9a1e18d",
+    "targets": 0,
+    "targetsInsideMask": 0
+   },
+   "mergeRadiusPx": 16.6,
+   "points": [
+    {
+     "cat": "SCAR_PIGMENT",
+     "id": "P1",
+     "n": 1,
+     "note": "dark patch forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 795.9,
+     "y": 1084.3
+    },
+    {
+     "cat": "SCAR_PIGMENT",
+     "id": "P2",
+     "n": 1,
+     "note": "dark patch forehead",
+     "tiles": [
+      "T2"
+     ],
+     "x": 1273.7,
+     "y": 980.4
+    },
+    {
+     "cat": "SCAR_PIGMENT",
+     "id": "P3",
+     "n": 1,
+     "note": "dark patch forehead",
+     "tiles": [
+      "T2"
+     ],
+     "x": 1234.8,
+     "y": 1097.3
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "dark spot below eye",
+     "tiles": [
+      "T6"
+     ],
+     "x": 1414.4,
+     "y": 1519.7
+    }
+   ],
+   "rawMarks": [
+    [
+     1,
+     545,
+     215,
+     "SCAR_PIGMENT",
+     "dark patch forehead"
+    ],
+    [
+     1,
+     1240,
+     95,
+     "SCAR_PIGMENT",
+     "dark patch forehead"
+    ],
+    [
+     1,
+     1195,
+     230,
+     "SCAR_PIGMENT",
+     "dark patch forehead"
+    ],
+    [
+     2,
+     1265,
+     175,
+     "UNCERTAIN",
+     "dark spot below eye"
+    ]
+   ],
+   "sha256": "453d2656c39453f6d6c8aea4a736f498d9d19aec50837737d91723d51a52b3a8"
+  },
+  "46a79ef8d7a8": {
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "note": "sharp 1280 px studio photo; all 9 tiles reviewed",
+    "tiles": {}
+   },
+   "faceWidthPx": 824.3,
+   "mask": {
+    "file": "masks/46a79ef8d7a8.png",
+    "flags": [],
+    "maskFracOfImage": 0.2904,
+    "maskPx": 475787,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "bb9e286db7457052e567f3501c2e19e46b836ea12e30c00fdb9d5b8f78bd16e1",
+    "targets": 12,
+    "targetsInsideMask": 12
+   },
+   "mergeRadiusPx": 12.4,
+   "points": [
+    {
+     "cat": "TARGET",
+     "id": "P1",
+     "n": 1,
+     "note": "forehead red papule",
+     "tiles": [
+      "T1"
+     ],
+     "x": 498.8,
+     "y": 376.9
+    },
+    {
+     "cat": "TARGET",
+     "id": "P2",
+     "n": 1,
+     "note": "forehead red papule",
+     "tiles": [
+      "T1"
+     ],
+     "x": 610.2,
+     "y": 389.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 1,
+     "note": "faint pink macule",
+     "tiles": [
+      "T1"
+     ],
+     "x": 491.1,
+     "y": 331.9
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "tiny dark dot",
+     "tiles": [
+      "T1"
+     ],
+     "x": 388.1,
+     "y": 367.3
+    },
+    {
+     "cat": "TARGET",
+     "id": "P5",
+     "n": 1,
+     "note": "small red papule lateral cheek",
+     "tiles": [
+      "T1"
+     ],
+     "x": 391.3,
+     "y": 655.7
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P6",
+     "n": 1,
+     "note": "faint red",
+     "tiles": [
+      "T1"
+     ],
+     "x": 626.3,
+     "y": 602.2
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P7",
+     "n": 1,
+     "note": "tiny pale dot",
+     "tiles": [
+      "T1"
+     ],
+     "x": 594.1,
+     "y": 508.9
+    },
+    {
+     "cat": "TARGET",
+     "id": "P8",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T2"
+     ],
+     "x": 624.8,
+     "y": 347.9
+    },
+    {
+     "cat": "TARGET",
+     "id": "P9",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T2"
+     ],
+     "x": 682.7,
+     "y": 380.1
+    },
+    {
+     "cat": "TARGET",
+     "id": "P10",
+     "n": 1,
+     "note": "red papule glabella",
+     "tiles": [
+      "T2"
+     ],
+     "x": 689.1,
+     "y": 431.6
+    },
+    {
+     "cat": "TARGET",
+     "id": "P11",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T2"
+     ],
+     "x": 714.9,
+     "y": 312.5
+    },
+    {
+     "cat": "TARGET",
+     "id": "P12",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T2"
+     ],
+     "x": 837.2,
+     "y": 315.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P13",
+     "n": 1,
+     "note": "faint pink",
+     "tiles": [
+      "T2"
+     ],
+     "x": 808.2,
+     "y": 380.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P14",
+     "n": 1,
+     "note": "faint red",
+     "tiles": [
+      "T2"
+     ],
+     "x": 624.8,
+     "y": 531.4
+    },
+    {
+     "cat": "TARGET",
+     "id": "P15",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "T4"
+     ],
+     "x": 287.6,
+     "y": 745.6
+    },
+    {
+     "cat": "TARGET",
+     "id": "P16",
+     "n": 1,
+     "note": "small red papule",
+     "tiles": [
+      "T4"
+     ],
+     "x": 455.0,
+     "y": 964.5
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P17",
+     "n": 1,
+     "note": "brown dot above lip",
+     "tiles": [
+      "T4"
+     ],
+     "x": 538.7,
+     "y": 861.5
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P18",
+     "n": 1,
+     "note": "faint red",
+     "tiles": [
+      "T4"
+     ],
+     "x": 326.3,
+     "y": 913.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P19",
+     "n": 1,
+     "note": "red papule chin",
+     "tiles": [
+      "T7"
+     ],
+     "x": 494.3,
+     "y": 1037.1
+    },
+    {
+     "cat": "TARGET",
+     "id": "P20",
+     "n": 1,
+     "note": "red papule chin",
+     "tiles": [
+      "T7"
+     ],
+     "x": 523.3,
+     "y": 1088.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P21",
+     "n": 1,
+     "note": "small red-brown dot right cheek",
+     "tiles": [
+      "T8"
+     ],
+     "x": 933.8,
+     "y": 872.9
+    }
+   ],
+   "rawMarks": [
+    [
+     1,
+     462,
+     195,
+     "TARGET",
+     "forehead red papule"
+    ],
+    [
+     1,
+     635,
+     215,
+     "TARGET",
+     "forehead red papule"
+    ],
+    [
+     1,
+     450,
+     125,
+     "UNCERTAIN",
+     "faint pink macule"
+    ],
+    [
+     1,
+     290,
+     180,
+     "UNCERTAIN",
+     "tiny dark dot"
+    ],
+    [
+     1,
+     295,
+     628,
+     "TARGET",
+     "small red papule lateral cheek"
+    ],
+    [
+     1,
+     660,
+     545,
+     "UNCERTAIN",
+     "faint red"
+    ],
+    [
+     1,
+     610,
+     400,
+     "UNCERTAIN",
+     "tiny pale dot"
+    ],
+    [
+     1,
+     800,
+     150,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     1,
+     890,
+     200,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     1,
+     900,
+     280,
+     "TARGET",
+     "red papule glabella"
+    ],
+    [
+     1,
+     940,
+     95,
+     "TARGET",
+     "small red"
+    ],
+    [
+     1,
+     1130,
+     100,
+     "TARGET",
+     "small red"
+    ],
+    [
+     1,
+     1085,
+     200,
+     "UNCERTAIN",
+     "faint pink"
+    ],
+    [
+     1,
+     800,
+     435,
+     "UNCERTAIN",
+     "faint red"
+    ],
+    [
+     1,
+     820,
+     910,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     1,
+     1080,
+     1250,
+     "TARGET",
+     "small red papule"
+    ],
+    [
+     1,
+     1210,
+     1090,
+     "UNCERTAIN",
+     "brown dot above lip"
+    ],
+    [
+     1,
+     880,
+     1170,
+     "UNCERTAIN",
+     "faint red"
+    ],
+    [
+     2,
+     455,
+     1195,
+     "TARGET",
+     "red papule chin"
+    ],
+    [
+     2,
+     500,
+     1275,
+     "TARGET",
+     "red papule chin"
+    ],
+    [
+     2,
+     1280,
+     940,
+     "UNCERTAIN",
+     "small red-brown dot right cheek"
+    ]
+   ],
+   "sha256": "46a79ef8d7a865511162cf78110a7f64763b2b5dbf767432e64f4ae35eaa02bf"
+  },
+  "5aa51f53f86c": {
+   "coverage": {
+    "exclude": [
+     [
+      600,
+      423,
+      1000,
+      700
+     ],
+     [
+      1300,
+      1450,
+      1529,
+      1871
+     ],
+     [
+      429,
+      1600,
+      600,
+      1871
+     ]
+    ],
+    "flags": [
+     "overexposed_partly"
+    ],
+    "note": "sharp; upper forehead blown out (excluded); scattered small skin-coloured/whitish bumps (whitehead vs texture not separable) -> UNCERTAIN; no clearly inflamed papule",
+    "tiles": {}
+   },
+   "faceWidthPx": 1097.2,
+   "mask": {
+    "file": "masks/5aa51f53f86c.png",
+    "flags": [
+     "overexposed_partly"
+    ],
+    "maskFracOfImage": 0.191,
+    "maskPx": 950445,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "35259f0ab568a7ae3f0d2c26a8f8bd3579b028d3f2a3818855131984d62eaf98",
+    "targets": 0,
+    "targetsInsideMask": 0
+   },
+   "mergeRadiusPx": 16.5,
+   "points": [
+    {
+     "cat": "UNCERTAIN",
+     "id": "P1",
+     "n": 1,
+     "note": "whitish bump cheek",
+     "tiles": [
+      "Z"
+     ],
+     "x": 1235.0,
+     "y": 1083.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P2",
+     "n": 1,
+     "note": "skin-coloured bump",
+     "tiles": [
+      "Z"
+     ],
+     "x": 1210.0,
+     "y": 1408.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 1,
+     "note": "small bump above lip",
+     "tiles": [
+      "Z"
+     ],
+     "x": 1095.0,
+     "y": 1428.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "skin-coloured bump cheek",
+     "tiles": [
+      "Z"
+     ],
+     "x": 650.0,
+     "y": 1460.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P5",
+     "n": 1,
+     "note": "small red dot",
+     "tiles": [
+      "Z"
+     ],
+     "x": 750.0,
+     "y": 1405.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P6",
+     "n": 1,
+     "note": "red streak nasal fold",
+     "tiles": [
+      "Z"
+     ],
+     "x": 1075.0,
+     "y": 1280.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P7",
+     "n": 1,
+     "note": "whitish bump",
+     "tiles": [
+      "Z"
+     ],
+     "x": 830.0,
+     "y": 800.0
+    }
+   ],
+   "rawMarks": [
+    [
+     0,
+     1235,
+     1083,
+     "UNCERTAIN",
+     "whitish bump cheek"
+    ],
+    [
+     0,
+     1210,
+     1408,
+     "UNCERTAIN",
+     "skin-coloured bump"
+    ],
+    [
+     0,
+     1095,
+     1428,
+     "UNCERTAIN",
+     "small bump above lip"
+    ],
+    [
+     0,
+     650,
+     1460,
+     "UNCERTAIN",
+     "skin-coloured bump cheek"
+    ],
+    [
+     0,
+     750,
+     1405,
+     "UNCERTAIN",
+     "small red dot"
+    ],
+    [
+     0,
+     1075,
+     1280,
+     "UNCERTAIN",
+     "red streak nasal fold"
+    ],
+    [
+     0,
+     830,
+     800,
+     "UNCERTAIN",
+     "whitish bump"
+    ]
+   ],
+   "sha256": "5aa51f53f86cabe45bd1f361651db7140cff0442437990bfd0f2de4b1b5c2151"
+  },
+  "6dcf4d7ab398": {
+   "coverage": {
+    "exclude": [
+     [
+      245,
+      145,
+      310,
+      210
+     ],
+     [
+      600,
+      165,
+      640,
+      225
+     ],
+     [
+      45,
+      570,
+      110,
+      630
+     ]
+    ],
+    "flags": [
+     "collage",
+     "low_resolution"
+    ],
+    "note": "640px 2x2 collage of four different people with black cut-out boxes; face width meaningless; reviewed on full-image overview; no clear acne",
+    "tiles": {}
+   },
+   "faceWidthPx": 348.0,
+   "mask": {
+    "file": "masks/6dcf4d7ab398.png",
+    "flags": [
+     "collage",
+     "low_resolution"
+    ],
+    "maskFracOfImage": 0.0,
+    "maskPx": 0,
+    "rule": "empty: collage",
+    "sha256": "e63642e71309a6fb0cc88bd3d92b13b1757f7b9892f1aa85e1736cadc42f67db",
+    "targets": 0,
+    "targetsInsideMask": 0
+   },
+   "mergeRadiusPx": 5.2,
+   "points": [
+    {
+     "cat": "UNCERTAIN",
+     "id": "P1",
+     "n": 1,
+     "note": "small red dot near eye (bottom-left panel)",
+     "tiles": [
+      "Z"
+     ],
+     "x": 225.0,
+     "y": 577.0
+    }
+   ],
+   "rawMarks": [
+    [
+     0,
+     225,
+     577,
+     "UNCERTAIN",
+     "small red dot near eye (bottom-left panel)"
+    ]
+   ],
+   "sha256": "6dcf4d7ab398b236d8ff4c7510a9ed17877bff73cc6e3b4b7966d6e1268e2c14"
+  },
+  "77176e51db41": {
+   "coverage": {
+    "exclude": [],
+    "flags": [
+     "processed_suspected"
+    ],
+    "note": "sharp; vertical tone seam near x 720-760 (left half pale, right half tanned) suggests compositing/retouch; all 9 tiles reviewed",
+    "tiles": {}
+   },
+   "faceWidthPx": 592.5,
+   "mask": {
+    "file": "masks/77176e51db41.png",
+    "flags": [
+     "processed_suspected"
+    ],
+    "maskFracOfImage": 0.159,
+    "maskPx": 260464,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "fbfa22cab6b854cd9db367d4d02fd037da7572766862c1588b266d51b85629a2",
+    "targets": 9,
+    "targetsInsideMask": 9
+   },
+   "mergeRadiusPx": 8.9,
+   "points": [
+    {
+     "cat": "TARGET",
+     "id": "P1",
+     "n": 1,
+     "note": "small red papule lateral brow",
+     "tiles": [
+      "T1"
+     ],
+     "x": 577.8,
+     "y": 634.7
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P2",
+     "n": 1,
+     "note": "small red dot",
+     "tiles": [
+      "T1"
+     ],
+     "x": 597.7,
+     "y": 667.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 1,
+     "note": "faint pink temple",
+     "tiles": [
+      "T1"
+     ],
+     "x": 345.6,
+     "y": 685.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "small reddish dot forehead",
+     "tiles": [
+      "T3"
+     ],
+     "x": 762.6,
+     "y": 581.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P5",
+     "n": 1,
+     "note": "dark dot (blackhead vs pigment)",
+     "tiles": [
+      "T4"
+     ],
+     "x": 483.9,
+     "y": 802.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P6",
+     "n": 2,
+     "note": "red papule",
+     "tiles": [
+      "T4",
+      "T7"
+     ],
+     "x": 495.6,
+     "y": 826.3
+    },
+    {
+     "cat": "TARGET",
+     "id": "P7",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "T4"
+     ],
+     "x": 357.6,
+     "y": 815.9
+    },
+    {
+     "cat": "TARGET",
+     "id": "P8",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T4"
+     ],
+     "x": 539.4,
+     "y": 873.7
+    },
+    {
+     "cat": "TARGET",
+     "id": "P9",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T4"
+     ],
+     "x": 561.1,
+     "y": 883.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P10",
+     "n": 1,
+     "note": "faint red",
+     "tiles": [
+      "T4"
+     ],
+     "x": 523.2,
+     "y": 851.5
+    },
+    {
+     "cat": "TARGET",
+     "id": "P11",
+     "n": 1,
+     "note": "red papule lateral cheek",
+     "tiles": [
+      "T4"
+     ],
+     "x": 396.0,
+     "y": 924.6
+    },
+    {
+     "cat": "SCAR_PIGMENT",
+     "id": "P12",
+     "n": 1,
+     "note": "brown macule",
+     "tiles": [
+      "T4"
+     ],
+     "x": 465.4,
+     "y": 952.3
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P13",
+     "n": 1,
+     "note": "faint pink",
+     "tiles": [
+      "T4"
+     ],
+     "x": 423.8,
+     "y": 850.6
+    },
+    {
+     "cat": "TARGET",
+     "id": "P14",
+     "n": 1,
+     "note": "red papule beside nose",
+     "tiles": [
+      "T5"
+     ],
+     "x": 670.6,
+     "y": 878.8
+    },
+    {
+     "cat": "TARGET",
+     "id": "P15",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "T5"
+     ],
+     "x": 767.7,
+     "y": 862.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P16",
+     "n": 1,
+     "note": "pink diffuse patch",
+     "tiles": [
+      "T5"
+     ],
+     "x": 786.2,
+     "y": 800.2
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P17",
+     "n": 1,
+     "note": "whitish dot cheek",
+     "tiles": [
+      "T5"
+     ],
+     "x": 844.0,
+     "y": 911.2
+    },
+    {
+     "cat": "TARGET",
+     "id": "P18",
+     "n": 1,
+     "note": "red papule chin",
+     "tiles": [
+      "T7"
+     ],
+     "x": 546.8,
+     "y": 1064.7
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P19",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T7"
+     ],
+     "x": 445.0,
+     "y": 1016.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P20",
+     "n": 1,
+     "note": "red-dark spot jaw",
+     "tiles": [
+      "T9"
+     ],
+     "x": 859.7,
+     "y": 894.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P21",
+     "n": 1,
+     "note": "faint pink",
+     "tiles": [
+      "T9"
+     ],
+     "x": 797.3,
+     "y": 919.5
+    }
+   ],
+   "rawMarks": [
+    [
+     1,
+     612,
+     400,
+     "TARGET",
+     "small red papule lateral brow"
+    ],
+    [
+     1,
+     655,
+     470,
+     "UNCERTAIN",
+     "small red dot"
+    ],
+    [
+     1,
+     110,
+     510,
+     "UNCERTAIN",
+     "faint pink temple"
+    ],
+    [
+     1,
+     350,
+     970,
+     "UNCERTAIN",
+     "small reddish dot forehead"
+    ],
+    [
+     1,
+     1095,
+     905,
+     "UNCERTAIN",
+     "dark dot (blackhead vs pigment)"
+    ],
+    [
+     1,
+     1120,
+     957,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     1,
+     822,
+     935,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     1,
+     1215,
+     1060,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     1,
+     1262,
+     1080,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     1,
+     1180,
+     1012,
+     "UNCERTAIN",
+     "faint red"
+    ],
+    [
+     1,
+     905,
+     1170,
+     "TARGET",
+     "red papule lateral cheek"
+    ],
+    [
+     1,
+     1055,
+     1230,
+     "SCAR_PIGMENT",
+     "brown macule"
+    ],
+    [
+     1,
+     965,
+     1010,
+     "UNCERTAIN",
+     "faint pink"
+    ],
+    [
+     2,
+     270,
+     385,
+     "TARGET",
+     "red papule beside nose"
+    ],
+    [
+     2,
+     480,
+     350,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     2,
+     520,
+     215,
+     "UNCERTAIN",
+     "pink diffuse patch"
+    ],
+    [
+     2,
+     645,
+     455,
+     "UNCERTAIN",
+     "whitish dot cheek"
+    ],
+    [
+     2,
+     435,
+     785,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     545,
+     1300,
+     "TARGET",
+     "red papule chin"
+    ],
+    [
+     2,
+     325,
+     1195,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     3,
+     560,
+     245,
+     "UNCERTAIN",
+     "red-dark spot jaw"
+    ],
+    [
+     3,
+     425,
+     300,
+     "UNCERTAIN",
+     "faint pink"
+    ]
+   ],
+   "sha256": "77176e51db41b2f8a19678e060a889f2cfbf158e83d045d8307b44e1deba1bad"
+  },
+  "7b425c76a80f": {
+   "coverage": {
+    "exclude": [
+     [
+      375,
+      115,
+      440,
+      180
+     ],
+     [
+      163,
+      340,
+      228,
+      405
+     ],
+     [
+      63,
+      400,
+      128,
+      465
+     ]
+    ],
+    "flags": [
+     "collage",
+     "low_resolution"
+    ],
+    "note": "640px 2x2 collage of four people with black cut-out boxes and stock watermark; no acne-like lesion seen",
+    "tiles": {}
+   },
+   "faceWidthPx": 250.6,
+   "mask": {
+    "file": "masks/7b425c76a80f.png",
+    "flags": [
+     "collage",
+     "low_resolution"
+    ],
+    "maskFracOfImage": 0.0,
+    "maskPx": 0,
+    "rule": "empty: collage",
+    "sha256": "e63642e71309a6fb0cc88bd3d92b13b1757f7b9892f1aa85e1736cadc42f67db",
+    "targets": 0,
+    "targetsInsideMask": 0
+   },
+   "mergeRadiusPx": 3.8,
+   "points": [],
+   "rawMarks": [],
+   "sha256": "7b425c76a80fbbc4ab1c7d58e6798e77d7fe42abaccb42c3909167613dcf80ab"
+  },
+  "8a78e9d6efd5": {
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "note": "moderately sharp; many lesions image-right cheek/jaw; background outside face",
+    "tiles": {}
+   },
+   "faceWidthPx": 586.1,
+   "mask": {
+    "file": "masks/8a78e9d6efd5.png",
+    "flags": [],
+    "maskFracOfImage": 0.1485,
+    "maskPx": 243368,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "bdf4c35bb4ce09bdd9820df0bbca4854a0bd2e705a2936af2bc93b5af4ace3a1",
+    "targets": 11,
+    "targetsInsideMask": 11
+   },
+   "mergeRadiusPx": 8.8,
+   "points": [
+    {
+     "cat": "TARGET",
+     "id": "P1",
+     "n": 1,
+     "note": "red papule forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 559.5,
+     "y": 582.5
+    },
+    {
+     "cat": "TARGET",
+     "id": "P2",
+     "n": 1,
+     "note": "red papule forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 605.2,
+     "y": 623.7
+    },
+    {
+     "cat": "TARGET",
+     "id": "P3",
+     "n": 1,
+     "note": "red papule forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 619.0,
+     "y": 644.3
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "faint red",
+     "tiles": [
+      "T1"
+     ],
+     "x": 522.8,
+     "y": 587.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P5",
+     "n": 1,
+     "note": "small red papule forehead",
+     "tiles": [
+      "T2"
+     ],
+     "x": 879.0,
+     "y": 577.9
+    },
+    {
+     "cat": "TARGET",
+     "id": "P6",
+     "n": 1,
+     "note": "crusted red papule cheek",
+     "tiles": [
+      "T4"
+     ],
+     "x": 586.5,
+     "y": 888.2
+    },
+    {
+     "cat": "TARGET",
+     "id": "P7",
+     "n": 1,
+     "note": "pustule",
+     "tiles": [
+      "T4"
+     ],
+     "x": 643.7,
+     "y": 961.5
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P8",
+     "n": 1,
+     "note": "dark red dot",
+     "tiles": [
+      "T4"
+     ],
+     "x": 440.0,
+     "y": 858.5
+    },
+    {
+     "cat": "OTHER",
+     "id": "P9",
+     "n": 1,
+     "note": "red linear mark",
+     "tiles": [
+      "T4"
+     ],
+     "x": 586.5,
+     "y": 1050.7
+    },
+    {
+     "cat": "TARGET",
+     "id": "P10",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T5"
+     ],
+     "x": 888.6,
+     "y": 879.5
+    },
+    {
+     "cat": "TARGET",
+     "id": "P11",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T5"
+     ],
+     "x": 817.6,
+     "y": 927.6
+    },
+    {
+     "cat": "TARGET",
+     "id": "P12",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T5"
+     ],
+     "x": 897.7,
+     "y": 961.9
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P13",
+     "n": 1,
+     "note": "faint red",
+     "tiles": [
+      "T5"
+     ],
+     "x": 874.8,
+     "y": 918.4
+    },
+    {
+     "cat": "TARGET",
+     "id": "P14",
+     "n": 1,
+     "note": "red papule/pustule",
+     "tiles": [
+      "T5"
+     ],
+     "x": 861.1,
+     "y": 1037.5
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P15",
+     "n": 1,
+     "note": "red spot",
+     "tiles": [
+      "T5"
+     ],
+     "x": 906.9,
+     "y": 1010.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P16",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "T5"
+     ],
+     "x": 819.9,
+     "y": 1074.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P17",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T5"
+     ],
+     "x": 902.3,
+     "y": 856.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P18",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "T5"
+     ],
+     "x": 920.6,
+     "y": 1051.2
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P19",
+     "n": 1,
+     "note": "faint red",
+     "tiles": [
+      "T7"
+     ],
+     "x": 651.0,
+     "y": 1088.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P20",
+     "n": 1,
+     "note": "small dark",
+     "tiles": [
+      "T7"
+     ],
+     "x": 490.8,
+     "y": 962.9
+    },
+    {
+     "cat": "TARGET",
+     "id": "P21",
+     "n": 1,
+     "note": "red papule chin",
+     "tiles": [
+      "T8"
+     ],
+     "x": 821.7,
+     "y": 1088.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P22",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T8"
+     ],
+     "x": 835.5,
+     "y": 1143.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P23",
+     "n": 1,
+     "note": "small spot jaw edge",
+     "tiles": [
+      "T9"
+     ],
+     "x": 964.0,
+     "y": 913.0
+    }
+   ],
+   "rawMarks": [
+    [
+     1,
+     355,
+     130,
+     "TARGET",
+     "red papule forehead"
+    ],
+    [
+     1,
+     455,
+     220,
+     "TARGET",
+     "red papule forehead"
+    ],
+    [
+     1,
+     485,
+     265,
+     "TARGET",
+     "red papule forehead"
+    ],
+    [
+     1,
+     275,
+     140,
+     "UNCERTAIN",
+     "faint red"
+    ],
+    [
+     1,
+     1195,
+     120,
+     "TARGET",
+     "small red papule forehead"
+    ],
+    [
+     1,
+     1100,
+     940,
+     "TARGET",
+     "crusted red papule cheek"
+    ],
+    [
+     1,
+     1225,
+     1100,
+     "TARGET",
+     "pustule"
+    ],
+    [
+     1,
+     780,
+     875,
+     "UNCERTAIN",
+     "dark red dot"
+    ],
+    [
+     1,
+     1100,
+     1295,
+     "OTHER",
+     "red linear mark"
+    ],
+    [
+     2,
+     530,
+     235,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     375,
+     340,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     550,
+     415,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     500,
+     320,
+     "UNCERTAIN",
+     "faint red"
+    ],
+    [
+     2,
+     470,
+     580,
+     "TARGET",
+     "red papule/pustule"
+    ],
+    [
+     2,
+     570,
+     520,
+     "UNCERTAIN",
+     "red spot"
+    ],
+    [
+     2,
+     380,
+     660,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     2,
+     560,
+     185,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     600,
+     610,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     2,
+     555,
+     1210,
+     "UNCERTAIN",
+     "faint red"
+    ],
+    [
+     2,
+     205,
+     935,
+     "UNCERTAIN",
+     "small dark"
+    ],
+    [
+     2,
+     1070,
+     1210,
+     "TARGET",
+     "red papule chin"
+    ],
+    [
+     2,
+     1100,
+     1330,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     3,
+     590,
+     140,
+     "UNCERTAIN",
+     "small spot jaw edge"
+    ]
+   ],
+   "sha256": "8a78e9d6efd5f2cc7957d8ee4a2b534decbd99cd757fa03575ce06804a1fef9c"
+  },
+  "8ad2e156eef7": {
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "note": "sharp; white background outside face; cluster of red papules on image-right cheek",
+    "tiles": {}
+   },
+   "faceWidthPx": 594.0,
+   "mask": {
+    "file": "masks/8ad2e156eef7.png",
+    "flags": [],
+    "maskFracOfImage": 0.1443,
+    "maskPx": 236354,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "f45d7bad4026f3588b8c75a5b26442e54a66e713adb706fa6a47f6f2b713bdfa",
+    "targets": 6,
+    "targetsInsideMask": 6
+   },
+   "mergeRadiusPx": 8.9,
+   "points": [
+    {
+     "cat": "TARGET",
+     "id": "P1",
+     "n": 1,
+     "note": "red papule glabella",
+     "tiles": [
+      "T1"
+     ],
+     "x": 352.3,
+     "y": 497.0
+    },
+    {
+     "cat": "MOLE",
+     "id": "P2",
+     "n": 1,
+     "note": "brown macule temple",
+     "tiles": [
+      "T3"
+     ],
+     "x": 770.0,
+     "y": 431.5
+    },
+    {
+     "cat": "MOLE",
+     "id": "P3",
+     "n": 1,
+     "note": "brown macule temple",
+     "tiles": [
+      "T3"
+     ],
+     "x": 765.4,
+     "y": 471.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P4",
+     "n": 1,
+     "note": "small red papule cheek",
+     "tiles": [
+      "T4"
+     ],
+     "x": 282.2,
+     "y": 637.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P5",
+     "n": 1,
+     "note": "brown dot",
+     "tiles": [
+      "T4"
+     ],
+     "x": 296.1,
+     "y": 760.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P6",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T4"
+     ],
+     "x": 256.7,
+     "y": 704.4
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P7",
+     "n": 1,
+     "note": "small brown dot chin",
+     "tiles": [
+      "T5"
+     ],
+     "x": 490.6,
+     "y": 853.4
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P8",
+     "n": 1,
+     "note": "dark dot chin",
+     "tiles": [
+      "T5"
+     ],
+     "x": 518.4,
+     "y": 867.3
+    },
+    {
+     "cat": "TARGET",
+     "id": "P9",
+     "n": 1,
+     "note": "dark-centred red papule",
+     "tiles": [
+      "T9"
+     ],
+     "x": 691.2,
+     "y": 660.1
+    },
+    {
+     "cat": "TARGET",
+     "id": "P10",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T9"
+     ],
+     "x": 707.4,
+     "y": 674.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P11",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T9"
+     ],
+     "x": 726.0,
+     "y": 683.3
+    },
+    {
+     "cat": "TARGET",
+     "id": "P12",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T9"
+     ],
+     "x": 640.1,
+     "y": 681.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P13",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T9"
+     ],
+     "x": 654.0,
+     "y": 699.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P14",
+     "n": 1,
+     "note": "faint red",
+     "tiles": [
+      "T9"
+     ],
+     "x": 695.8,
+     "y": 736.7
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P15",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T9"
+     ],
+     "x": 739.9,
+     "y": 616.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P16",
+     "n": 1,
+     "note": "pink diffuse",
+     "tiles": [
+      "T9"
+     ],
+     "x": 619.2,
+     "y": 639.3
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P17",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T9"
+     ],
+     "x": 593.7,
+     "y": 685.7
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P18",
+     "n": 1,
+     "note": "dark dot",
+     "tiles": [
+      "T9"
+     ],
+     "x": 665.6,
+     "y": 862.0
+    }
+   ],
+   "rawMarks": [
+    [
+     1,
+     400,
+     395,
+     "TARGET",
+     "red papule glabella"
+    ],
+    [
+     1,
+     490,
+     940,
+     "MOLE",
+     "brown macule temple"
+    ],
+    [
+     1,
+     480,
+     1025,
+     "MOLE",
+     "brown macule temple"
+    ],
+    [
+     1,
+     935,
+     840,
+     "TARGET",
+     "small red papule cheek"
+    ],
+    [
+     1,
+     965,
+     1105,
+     "UNCERTAIN",
+     "brown dot"
+    ],
+    [
+     1,
+     880,
+     985,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     155,
+     620,
+     "UNCERTAIN",
+     "small brown dot chin"
+    ],
+    [
+     2,
+     215,
+     650,
+     "UNCERTAIN",
+     "dark dot chin"
+    ],
+    [
+     3,
+     320,
+     195,
+     "TARGET",
+     "dark-centred red papule"
+    ],
+    [
+     3,
+     355,
+     225,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     3,
+     395,
+     245,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     3,
+     210,
+     240,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     3,
+     240,
+     280,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     3,
+     330,
+     360,
+     "UNCERTAIN",
+     "faint red"
+    ],
+    [
+     3,
+     425,
+     100,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     3,
+     165,
+     150,
+     "UNCERTAIN",
+     "pink diffuse"
+    ],
+    [
+     3,
+     110,
+     250,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     3,
+     265,
+     630,
+     "UNCERTAIN",
+     "dark dot"
+    ]
+   ],
+   "sha256": "8ad2e156eef7b7e373b084086daf5b2c57edc24f2a0e3f5aa826ebf3a9df9716"
+  },
+  "9334509b3ae3": {
+   "coverage": {
+    "exclude": [
+     [
+      137,
+      290,
+      200,
+      910
+     ],
+     [
+      680,
+      780,
+      745,
+      910
+     ]
+    ],
+    "flags": [
+     "low_resolution",
+     "upscaled"
+    ],
+    "note": "1280 px file but visibly upscaled from a small selfie; many red/brown lesions on cheeks; papule vs post-inflammatory macule often not separable -> UNCERTAIN; coordinates read from sheet grids in source px",
+    "tiles": {}
+   },
+   "faceWidthPx": 595.5,
+   "mask": {
+    "file": "masks/9334509b3ae3.png",
+    "flags": [
+     "low_resolution",
+     "upscaled"
+    ],
+    "maskFracOfImage": 0.138,
+    "maskPx": 226053,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "d533bdab2a7145bdc5ee88413ab22673800224130f694b254400fdb0665fde4e",
+    "targets": 5,
+    "targetsInsideMask": 5
+   },
+   "mergeRadiusPx": 8.9,
+   "points": [
+    {
+     "cat": "TARGET",
+     "id": "P1",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "Z"
+     ],
+     "x": 310.0,
+     "y": 638.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P2",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "Z"
+     ],
+     "x": 340.0,
+     "y": 705.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "Z"
+     ],
+     "x": 310.0,
+     "y": 672.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "Z"
+     ],
+     "x": 300.0,
+     "y": 700.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P5",
+     "n": 1,
+     "note": "brown dot",
+     "tiles": [
+      "Z"
+     ],
+     "x": 195.0,
+     "y": 612.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P6",
+     "n": 1,
+     "note": "brown dot",
+     "tiles": [
+      "Z"
+     ],
+     "x": 215.0,
+     "y": 665.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P7",
+     "n": 1,
+     "note": "brown dot",
+     "tiles": [
+      "Z"
+     ],
+     "x": 232.0,
+     "y": 705.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P8",
+     "n": 1,
+     "note": "red papule beside lip",
+     "tiles": [
+      "Z"
+     ],
+     "x": 395.0,
+     "y": 705.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P9",
+     "n": 1,
+     "note": "red-brown",
+     "tiles": [
+      "Z"
+     ],
+     "x": 380.0,
+     "y": 765.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P10",
+     "n": 1,
+     "note": "red-brown",
+     "tiles": [
+      "Z"
+     ],
+     "x": 340.0,
+     "y": 800.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P11",
+     "n": 1,
+     "note": "small dark",
+     "tiles": [
+      "Z"
+     ],
+     "x": 410.0,
+     "y": 820.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P12",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "Z"
+     ],
+     "x": 270.0,
+     "y": 640.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P13",
+     "n": 1,
+     "note": "red-brown",
+     "tiles": [
+      "Z"
+     ],
+     "x": 250.0,
+     "y": 720.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P14",
+     "n": 1,
+     "note": "red papule above lip",
+     "tiles": [
+      "Z"
+     ],
+     "x": 485.0,
+     "y": 715.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P15",
+     "n": 1,
+     "note": "red nose side",
+     "tiles": [
+      "Z"
+     ],
+     "x": 430.0,
+     "y": 585.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P16",
+     "n": 1,
+     "note": "pink macule cheek",
+     "tiles": [
+      "Z"
+     ],
+     "x": 570.0,
+     "y": 640.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P17",
+     "n": 1,
+     "note": "pink",
+     "tiles": [
+      "Z"
+     ],
+     "x": 630.0,
+     "y": 640.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P18",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "Z"
+     ],
+     "x": 625.0,
+     "y": 770.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P19",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "Z"
+     ],
+     "x": 605.0,
+     "y": 790.0
+    },
+    {
+     "cat": "OTHER",
+     "id": "P20",
+     "n": 1,
+     "note": "linear red marks",
+     "tiles": [
+      "Z"
+     ],
+     "x": 690.0,
+     "y": 700.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P21",
+     "n": 1,
+     "note": "small red chin",
+     "tiles": [
+      "Z"
+     ],
+     "x": 520.0,
+     "y": 860.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P22",
+     "n": 1,
+     "note": "dark dot forehead",
+     "tiles": [
+      "Z"
+     ],
+     "x": 480.0,
+     "y": 340.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P23",
+     "n": 1,
+     "note": "dark dot",
+     "tiles": [
+      "Z"
+     ],
+     "x": 535.0,
+     "y": 355.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P24",
+     "n": 1,
+     "note": "dark dot",
+     "tiles": [
+      "Z"
+     ],
+     "x": 490.0,
+     "y": 335.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P25",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "Z"
+     ],
+     "x": 560.0,
+     "y": 380.0
+    }
+   ],
+   "rawMarks": [
+    [
+     0,
+     310,
+     638,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     0,
+     340,
+     705,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     0,
+     310,
+     672,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     0,
+     300,
+     700,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     0,
+     195,
+     612,
+     "UNCERTAIN",
+     "brown dot"
+    ],
+    [
+     0,
+     215,
+     665,
+     "UNCERTAIN",
+     "brown dot"
+    ],
+    [
+     0,
+     232,
+     705,
+     "UNCERTAIN",
+     "brown dot"
+    ],
+    [
+     0,
+     395,
+     705,
+     "TARGET",
+     "red papule beside lip"
+    ],
+    [
+     0,
+     380,
+     765,
+     "UNCERTAIN",
+     "red-brown"
+    ],
+    [
+     0,
+     340,
+     800,
+     "UNCERTAIN",
+     "red-brown"
+    ],
+    [
+     0,
+     410,
+     820,
+     "UNCERTAIN",
+     "small dark"
+    ],
+    [
+     0,
+     270,
+     640,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     0,
+     250,
+     720,
+     "UNCERTAIN",
+     "red-brown"
+    ],
+    [
+     0,
+     485,
+     715,
+     "TARGET",
+     "red papule above lip"
+    ],
+    [
+     0,
+     430,
+     585,
+     "UNCERTAIN",
+     "red nose side"
+    ],
+    [
+     0,
+     570,
+     640,
+     "UNCERTAIN",
+     "pink macule cheek"
+    ],
+    [
+     0,
+     630,
+     640,
+     "UNCERTAIN",
+     "pink"
+    ],
+    [
+     0,
+     625,
+     770,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     0,
+     605,
+     790,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     0,
+     690,
+     700,
+     "OTHER",
+     "linear red marks"
+    ],
+    [
+     0,
+     520,
+     860,
+     "UNCERTAIN",
+     "small red chin"
+    ],
+    [
+     0,
+     480,
+     340,
+     "UNCERTAIN",
+     "dark dot forehead"
+    ],
+    [
+     0,
+     535,
+     355,
+     "UNCERTAIN",
+     "dark dot"
+    ],
+    [
+     0,
+     490,
+     335,
+     "UNCERTAIN",
+     "dark dot"
+    ],
+    [
+     0,
+     560,
+     380,
+     "UNCERTAIN",
+     "small red"
+    ]
+   ],
+   "sha256": "9334509b3ae3d7191ccba91c8552891d0380f65729fe475be3f417ecbf1894ec"
+  },
+  "933e40d730e0": {
+   "coverage": {
+    "exclude": [],
+    "flags": [],
+    "note": "sharp; many lesions on image-right cheek; hair outside face oval",
+    "tiles": {}
+   },
+   "faceWidthPx": 582.3,
+   "mask": {
+    "file": "masks/933e40d730e0.png",
+    "flags": [],
+    "maskFracOfImage": 0.2185,
+    "maskPx": 357973,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "3b9572e65563d281771b3ce77d996c6c566b2a32b1085d05707e4dad6aa27466",
+    "targets": 20,
+    "targetsInsideMask": 19
+   },
+   "mergeRadiusPx": 8.7,
+   "points": [
+    {
+     "cat": "TARGET",
+     "id": "P1",
+     "n": 1,
+     "note": "red papule forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 559.6,
+     "y": 191.8
+    },
+    {
+     "cat": "TARGET",
+     "id": "P2",
+     "n": 1,
+     "note": "red papule forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 561.9,
+     "y": 223.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 1,
+     "note": "small red-brown",
+     "tiles": [
+      "T1"
+     ],
+     "x": 439.1,
+     "y": 134.9
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T1"
+     ],
+     "x": 475.5,
+     "y": 134.9
+    },
+    {
+     "cat": "TARGET",
+     "id": "P5",
+     "n": 1,
+     "note": "red papule glabella-nose",
+     "tiles": [
+      "T1"
+     ],
+     "x": 561.9,
+     "y": 369.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P6",
+     "n": 1,
+     "note": "faint red",
+     "tiles": [
+      "T1"
+     ],
+     "x": 596.0,
+     "y": 282.7
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P7",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T1"
+     ],
+     "x": 584.6,
+     "y": 153.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P8",
+     "n": 1,
+     "note": "small red forehead",
+     "tiles": [
+      "T2"
+     ],
+     "x": 722.0,
+     "y": 162.2
+    },
+    {
+     "cat": "TARGET",
+     "id": "P9",
+     "n": 1,
+     "note": "red papule lateral forehead",
+     "tiles": [
+      "T2"
+     ],
+     "x": 844.8,
+     "y": 228.1
+    },
+    {
+     "cat": "TARGET",
+     "id": "P10",
+     "n": 1,
+     "note": "red papule inner canthus",
+     "tiles": [
+      "T2"
+     ],
+     "x": 667.5,
+     "y": 364.5
+    },
+    {
+     "cat": "TARGET",
+     "id": "P11",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "T4"
+     ],
+     "x": 375.0,
+     "y": 552.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P12",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "T4"
+     ],
+     "x": 411.4,
+     "y": 577.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P13",
+     "n": 1,
+     "note": "small red nose side",
+     "tiles": [
+      "T4"
+     ],
+     "x": 561.4,
+     "y": 504.2
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P14",
+     "n": 1,
+     "note": "small bump nose",
+     "tiles": [
+      "T4"
+     ],
+     "x": 554.6,
+     "y": 606.5
+    },
+    {
+     "cat": "TARGET",
+     "id": "P15",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T5"
+     ],
+     "x": 770.2,
+     "y": 529.7
+    },
+    {
+     "cat": "TARGET",
+     "id": "P16",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T5"
+     ],
+     "x": 711.1,
+     "y": 527.4
+    },
+    {
+     "cat": "TARGET",
+     "id": "P17",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T5"
+     ],
+     "x": 797.5,
+     "y": 535.1
+    },
+    {
+     "cat": "TARGET",
+     "id": "P18",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T5"
+     ],
+     "x": 793.0,
+     "y": 552.4
+    },
+    {
+     "cat": "TARGET",
+     "id": "P19",
+     "n": 1,
+     "note": "ring-like red lesion",
+     "tiles": [
+      "T5"
+     ],
+     "x": 827.1,
+     "y": 554.7
+    },
+    {
+     "cat": "TARGET",
+     "id": "P20",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T5"
+     ],
+     "x": 797.5,
+     "y": 574.3
+    },
+    {
+     "cat": "TARGET",
+     "id": "P21",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T5"
+     ],
+     "x": 745.2,
+     "y": 597.9
+    },
+    {
+     "cat": "TARGET",
+     "id": "P22",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T5"
+     ],
+     "x": 699.8,
+     "y": 609.3
+    },
+    {
+     "cat": "TARGET",
+     "id": "P23",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T5"
+     ],
+     "x": 795.2,
+     "y": 622.9
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P24",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T5"
+     ],
+     "x": 656.6,
+     "y": 527.4
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P25",
+     "n": 1,
+     "note": "yellowish dot",
+     "tiles": [
+      "T5"
+     ],
+     "x": 793.0,
+     "y": 484.2
+    },
+    {
+     "cat": "OTHER",
+     "id": "P26",
+     "n": 1,
+     "note": "linear red mark (excoriation/scar?)",
+     "tiles": [
+      "T5"
+     ],
+     "x": 843.0,
+     "y": 579.7
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P27",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T5"
+     ],
+     "x": 592.9,
+     "y": 538.8
+    },
+    {
+     "cat": "TARGET",
+     "id": "P28",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T7"
+     ],
+     "x": 389.1,
+     "y": 630.7
+    },
+    {
+     "cat": "TARGET",
+     "id": "P29",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T7"
+     ],
+     "x": 427.8,
+     "y": 637.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P30",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T7"
+     ],
+     "x": 484.6,
+     "y": 637.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P31",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T7"
+     ],
+     "x": 543.7,
+     "y": 712.6
+    },
+    {
+     "cat": "OTHER",
+     "id": "P32",
+     "n": 1,
+     "note": "linear red mark",
+     "tiles": [
+      "T8"
+     ],
+     "x": 828.9,
+     "y": 639.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P33",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T8"
+     ],
+     "x": 735.7,
+     "y": 642.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P34",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T8"
+     ],
+     "x": 649.3,
+     "y": 689.8
+    },
+    {
+     "cat": "OTHER",
+     "id": "P35",
+     "n": 1,
+     "note": "linear red mark",
+     "tiles": [
+      "T8"
+     ],
+     "x": 826.6,
+     "y": 751.2
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P36",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T8"
+     ],
+     "x": 674.3,
+     "y": 869.5
+    },
+    {
+     "cat": "TARGET",
+     "id": "P37",
+     "n": 1,
+     "note": "red papule chin",
+     "tiles": [
+      "T10"
+     ],
+     "x": 561.4,
+     "y": 884.5
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P38",
+     "n": 1,
+     "note": "small red chin",
+     "tiles": [
+      "T10"
+     ],
+     "x": 593.3,
+     "y": 914.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P39",
+     "n": 1,
+     "note": "small red chin",
+     "tiles": [
+      "T10"
+     ],
+     "x": 581.9,
+     "y": 945.9
+    },
+    {
+     "cat": "TARGET",
+     "id": "P40",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T11"
+     ],
+     "x": 718.0,
+     "y": 888.6
+    }
+   ],
+   "rawMarks": [
+    [
+     1,
+     540,
+     250,
+     "TARGET",
+     "red papule forehead"
+    ],
+    [
+     1,
+     545,
+     320,
+     "TARGET",
+     "red papule forehead"
+    ],
+    [
+     1,
+     275,
+     125,
+     "UNCERTAIN",
+     "small red-brown"
+    ],
+    [
+     1,
+     355,
+     125,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     1,
+     545,
+     640,
+     "TARGET",
+     "red papule glabella-nose"
+    ],
+    [
+     1,
+     620,
+     450,
+     "UNCERTAIN",
+     "faint red"
+    ],
+    [
+     1,
+     595,
+     165,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     1,
+     1040,
+     185,
+     "UNCERTAIN",
+     "small red forehead"
+    ],
+    [
+     1,
+     1310,
+     330,
+     "TARGET",
+     "red papule lateral forehead"
+    ],
+    [
+     1,
+     920,
+     630,
+     "TARGET",
+     "red papule inner canthus"
+    ],
+    [
+     1,
+     820,
+     1185,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     1,
+     900,
+     1240,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     1,
+     1230,
+     1080,
+     "UNCERTAIN",
+     "small red nose side"
+    ],
+    [
+     1,
+     1215,
+     1305,
+     "UNCERTAIN",
+     "small bump nose"
+    ],
+    [
+     2,
+     460,
+     450,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     330,
+     445,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     520,
+     462,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     510,
+     500,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     585,
+     505,
+     "TARGET",
+     "ring-like red lesion"
+    ],
+    [
+     2,
+     520,
+     548,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     405,
+     600,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     305,
+     625,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     515,
+     655,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     210,
+     445,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     510,
+     350,
+     "UNCERTAIN",
+     "yellowish dot"
+    ],
+    [
+     2,
+     620,
+     560,
+     "OTHER",
+     "linear red mark (excoriation/scar?)"
+    ],
+    [
+     2,
+     70,
+     470,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     165,
+     815,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     250,
+     830,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     2,
+     375,
+     830,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     505,
+     995,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     1275,
+     835,
+     "OTHER",
+     "linear red mark"
+    ],
+    [
+     2,
+     1070,
+     840,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     880,
+     945,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     1270,
+     1080,
+     "OTHER",
+     "linear red mark"
+    ],
+    [
+     2,
+     935,
+     1340,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     3,
+     1230,
+     465,
+     "TARGET",
+     "red papule chin"
+    ],
+    [
+     3,
+     1300,
+     530,
+     "UNCERTAIN",
+     "small red chin"
+    ],
+    [
+     3,
+     1275,
+     600,
+     "UNCERTAIN",
+     "small red chin"
+    ],
+    [
+     3,
+     345,
+     1160,
+     "TARGET",
+     "red papule"
+    ]
+   ],
+   "sha256": "933e40d730e05a997243504b164fd0968f5b178e780be5d1a67be1c482c6121a"
+  },
+  "a007c24408ff": {
+   "coverage": {
+    "exclude": [
+     [
+      113,
+      360,
+      847,
+      528
+     ],
+     [
+      113,
+      840,
+      330,
+      1036
+     ],
+     [
+      775,
+      700,
+      847,
+      1036
+     ]
+    ],
+    "flags": [],
+    "note": "forehead occluded by hair (excluded); shirt/background excluded; rest sharp",
+    "tiles": {}
+   },
+   "faceWidthPx": 690.7,
+   "mask": {
+    "file": "masks/a007c24408ff.png",
+    "flags": [],
+    "maskFracOfImage": 0.1338,
+    "maskPx": 219267,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "ba3fc6fa0081fd06737955bf12c2c20bcf72c7b1bef180d081b98ad7b754c797",
+    "targets": 1,
+    "targetsInsideMask": 1
+   },
+   "mergeRadiusPx": 10.4,
+   "points": [
+    {
+     "cat": "TARGET",
+     "id": "P1",
+     "n": 1,
+     "note": "red papule temple/cheek",
+     "tiles": [
+      "T3"
+     ],
+     "x": 816.8,
+     "y": 633.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P2",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T3"
+     ],
+     "x": 800.6,
+     "y": 660.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 1,
+     "note": "faint red",
+     "tiles": [
+      "T3"
+     ],
+     "x": 641.6,
+     "y": 666.2
+    },
+    {
+     "cat": "MOLE",
+     "id": "P4",
+     "n": 1,
+     "note": "brown macule",
+     "tiles": [
+      "T5"
+     ],
+     "x": 610.3,
+     "y": 765.7
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P5",
+     "n": 1,
+     "note": "pink macule",
+     "tiles": [
+      "T5"
+     ],
+     "x": 677.7,
+     "y": 773.8
+    },
+    {
+     "cat": "MOLE",
+     "id": "P6",
+     "n": 1,
+     "note": "dark brown dot",
+     "tiles": [
+      "T5"
+     ],
+     "x": 559.1,
+     "y": 865.4
+    },
+    {
+     "cat": "SCAR_PIGMENT",
+     "id": "P7",
+     "n": 1,
+     "note": "brown dot",
+     "tiles": [
+      "T5"
+     ],
+     "x": 623.8,
+     "y": 858.9
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P8",
+     "n": 1,
+     "note": "faint pink",
+     "tiles": [
+      "T5"
+     ],
+     "x": 701.9,
+     "y": 679.4
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P9",
+     "n": 1,
+     "note": "pink",
+     "tiles": [
+      "T6"
+     ],
+     "x": 762.4,
+     "y": 701.0
+    }
+   ],
+   "rawMarks": [
+    [
+     1,
+     630,
+     1240,
+     "TARGET",
+     "red papule temple/cheek"
+    ],
+    [
+     1,
+     600,
+     1290,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     1,
+     305,
+     1300,
+     "UNCERTAIN",
+     "faint red"
+    ],
+    [
+     2,
+     425,
+     255,
+     "MOLE",
+     "brown macule"
+    ],
+    [
+     2,
+     550,
+     270,
+     "UNCERTAIN",
+     "pink macule"
+    ],
+    [
+     2,
+     330,
+     440,
+     "MOLE",
+     "dark brown dot"
+    ],
+    [
+     2,
+     450,
+     428,
+     "SCAR_PIGMENT",
+     "brown dot"
+    ],
+    [
+     2,
+     595,
+     95,
+     "UNCERTAIN",
+     "faint pink"
+    ],
+    [
+     2,
+     1215,
+     135,
+     "UNCERTAIN",
+     "pink"
+    ]
+   ],
+   "sha256": "a007c24408ff82eb8963ec4f2778fec11d5900370079bc7bef2f08d3c433c45f"
+  },
+  "a19346a0887a": {
+   "coverage": {
+    "exclude": [
+     [
+      656,
+      2500,
+      860,
+      2844
+     ],
+     [
+      1680,
+      2400,
+      1874,
+      2844
+     ]
+    ],
+    "flags": [],
+    "note": "sharp large photo; red papules on both cheeks; chin/beard area covered with skin-coloured bumps (papule vs folliculitis vs texture uncertain); shirt excluded",
+    "tiles": {}
+   },
+   "faceWidthPx": 1211.5,
+   "mask": {
+    "file": "masks/a19346a0887a.png",
+    "flags": [],
+    "maskFracOfImage": 0.1832,
+    "maskPx": 1310130,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "ced35e147e7c26fee7142bb9207b01bb6e8241c1ac40683aba66e2f43af825d6",
+    "targets": 9,
+    "targetsInsideMask": 9
+   },
+   "mergeRadiusPx": 18.2,
+   "points": [
+    {
+     "cat": "UNCERTAIN",
+     "id": "P1",
+     "n": 1,
+     "note": "small red forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 1000.7,
+     "y": 1468.1
+    },
+    {
+     "cat": "TARGET",
+     "id": "P2",
+     "n": 1,
+     "note": "red papule forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 1218.4,
+     "y": 1506.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 1,
+     "note": "red dot temple",
+     "tiles": [
+      "T1"
+     ],
+     "x": 1180.6,
+     "y": 1761.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "small red forehead",
+     "tiles": [
+      "T2"
+     ],
+     "x": 1278.0,
+     "y": 1416.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P5",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "T4"
+     ],
+     "x": 777.2,
+     "y": 1994.5
+    },
+    {
+     "cat": "TARGET",
+     "id": "P6",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "T4"
+     ],
+     "x": 810.3,
+     "y": 2081.6
+    },
+    {
+     "cat": "TARGET",
+     "id": "P7",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "T4"
+     ],
+     "x": 796.1,
+     "y": 2299.4
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P8",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "T4"
+     ],
+     "x": 739.3,
+     "y": 2119.4
+    },
+    {
+     "cat": "TARGET",
+     "id": "P9",
+     "n": 1,
+     "note": "red papule",
+     "tiles": [
+      "T4"
+     ],
+     "x": 900.3,
+     "y": 2181.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P10",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T4"
+     ],
+     "x": 976.0,
+     "y": 2105.2
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P11",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T4"
+     ],
+     "x": 881.4,
+     "y": 1996.4
+    },
+    {
+     "cat": "TARGET",
+     "id": "P12",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "T5"
+     ],
+     "x": 1638.8,
+     "y": 1964.2
+    },
+    {
+     "cat": "TARGET",
+     "id": "P13",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "T5"
+     ],
+     "x": 1695.6,
+     "y": 1997.3
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P14",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "T5"
+     ],
+     "x": 1671.9,
+     "y": 2054.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P15",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "T5"
+     ],
+     "x": 1643.5,
+     "y": 2139.3
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P16",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T5"
+     ],
+     "x": 1525.1,
+     "y": 2030.4
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P17",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T5"
+     ],
+     "x": 1581.9,
+     "y": 2186.7
+    },
+    {
+     "cat": "TARGET",
+     "id": "P18",
+     "n": 1,
+     "note": "red papule below nostril",
+     "tiles": [
+      "T5"
+     ],
+     "x": 1326.3,
+     "y": 2215.1
+    },
+    {
+     "cat": "TARGET",
+     "id": "P19",
+     "n": 1,
+     "note": "red papule chin",
+     "tiles": [
+      "T8"
+     ],
+     "x": 1358.5,
+     "y": 2775.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P20",
+     "n": 1,
+     "note": "skin-coloured bump chin",
+     "tiles": [
+      "T7"
+     ],
+     "x": 924.9,
+     "y": 2548.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P21",
+     "n": 1,
+     "note": "skin-coloured bump chin",
+     "tiles": [
+      "T7"
+     ],
+     "x": 991.2,
+     "y": 2586.4
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P22",
+     "n": 1,
+     "note": "skin-coloured bump chin",
+     "tiles": [
+      "T7"
+     ],
+     "x": 1038.5,
+     "y": 2648.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P23",
+     "n": 1,
+     "note": "skin-coloured bump",
+     "tiles": [
+      "T7"
+     ],
+     "x": 896.5,
+     "y": 2491.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P24",
+     "n": 1,
+     "note": "skin-coloured bump chin",
+     "tiles": [
+      "T8"
+     ],
+     "x": 1514.7,
+     "y": 2548.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P25",
+     "n": 1,
+     "note": "skin-coloured bump",
+     "tiles": [
+      "T8"
+     ],
+     "x": 1547.9,
+     "y": 2595.9
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P26",
+     "n": 1,
+     "note": "skin-coloured bump",
+     "tiles": [
+      "T8"
+     ],
+     "x": 1500.5,
+     "y": 2643.3
+    }
+   ],
+   "rawMarks": [
+    [
+     1,
+     410,
+     270,
+     "UNCERTAIN",
+     "small red forehead"
+    ],
+    [
+     1,
+     640,
+     310,
+     "TARGET",
+     "red papule forehead"
+    ],
+    [
+     1,
+     600,
+     580,
+     "UNCERTAIN",
+     "red dot temple"
+    ],
+    [
+     1,
+     845,
+     215,
+     "UNCERTAIN",
+     "small red forehead"
+    ],
+    [
+     1,
+     860,
+     968,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     1,
+     895,
+     1060,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     1,
+     880,
+     1290,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     1,
+     820,
+     1100,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     1,
+     990,
+     1165,
+     "TARGET",
+     "red papule"
+    ],
+    [
+     1,
+     1070,
+     1085,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     1,
+     970,
+     970,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     540,
+     250,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     2,
+     600,
+     285,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     2,
+     575,
+     345,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     2,
+     545,
+     435,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     2,
+     420,
+     320,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     480,
+     485,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     210,
+     515,
+     "TARGET",
+     "red papule below nostril"
+    ],
+    [
+     2,
+     930,
+     1300,
+     "TARGET",
+     "red papule chin"
+    ],
+    [
+     2,
+     330,
+     1060,
+     "UNCERTAIN",
+     "skin-coloured bump chin"
+    ],
+    [
+     2,
+     400,
+     1100,
+     "UNCERTAIN",
+     "skin-coloured bump chin"
+    ],
+    [
+     2,
+     450,
+     1165,
+     "UNCERTAIN",
+     "skin-coloured bump chin"
+    ],
+    [
+     2,
+     300,
+     1000,
+     "UNCERTAIN",
+     "skin-coloured bump"
+    ],
+    [
+     2,
+     1095,
+     1060,
+     "UNCERTAIN",
+     "skin-coloured bump chin"
+    ],
+    [
+     2,
+     1130,
+     1110,
+     "UNCERTAIN",
+     "skin-coloured bump"
+    ],
+    [
+     2,
+     1080,
+     1160,
+     "UNCERTAIN",
+     "skin-coloured bump"
+    ]
+   ],
+   "sha256": "a19346a0887ad1554341837b13b419fc853e2d21eec87657c3d20493d9301cd9"
+  },
+  "a2cd98ca9566": {
+   "coverage": {
+    "exclude": [
+     [
+      860,
+      174,
+      1030,
+      835
+     ],
+     [
+      830,
+      650,
+      1030,
+      835
+     ],
+     [
+      438,
+      650,
+      500,
+      835
+     ]
+    ],
+    "flags": [],
+    "note": "image-right face side covered by hair (excluded); nose ring is non-skin",
+    "tiles": {}
+   },
+   "faceWidthPx": 565.8,
+   "mask": {
+    "file": "masks/a2cd98ca9566.png",
+    "flags": [],
+    "maskFracOfImage": 0.1063,
+    "maskPx": 174182,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "ddfc20ef6f95a0800b731eea86ff2cf88ae32da487f6ca6490ee83c9d2c08e03",
+    "targets": 3,
+    "targetsInsideMask": 3
+   },
+   "mergeRadiusPx": 8.5,
+   "points": [
+    {
+     "cat": "TARGET",
+     "id": "P1",
+     "n": 1,
+     "note": "red papule forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 585.7,
+     "y": 246.5
+    },
+    {
+     "cat": "TARGET",
+     "id": "P2",
+     "n": 1,
+     "note": "dark-red papule brow",
+     "tiles": [
+      "T1"
+     ],
+     "x": 622.0,
+     "y": 353.5
+    },
+    {
+     "cat": "TARGET",
+     "id": "P3",
+     "n": 1,
+     "note": "red papule forehead",
+     "tiles": [
+      "T2"
+     ],
+     "x": 778.8,
+     "y": 226.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "red elongated mark cheek",
+     "tiles": [
+      "T4"
+     ],
+     "x": 510.1,
+     "y": 614.3
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P5",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T4"
+     ],
+     "x": 527.8,
+     "y": 536.9
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P6",
+     "n": 1,
+     "note": "dark dot above lip",
+     "tiles": [
+      "T5"
+     ],
+     "x": 773.5,
+     "y": 620.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P7",
+     "n": 1,
+     "note": "small dark-red dot",
+     "tiles": [
+      "T5"
+     ],
+     "x": 850.0,
+     "y": 632.4
+    }
+   ],
+   "rawMarks": [
+    [
+     1,
+     380,
+     210,
+     "TARGET",
+     "red papule forehead"
+    ],
+    [
+     1,
+     462,
+     452,
+     "TARGET",
+     "dark-red papule brow"
+    ],
+    [
+     1,
+     960,
+     165,
+     "TARGET",
+     "red papule forehead"
+    ],
+    [
+     1,
+     895,
+     1185,
+     "UNCERTAIN",
+     "red elongated mark cheek"
+    ],
+    [
+     1,
+     935,
+     1010,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     2,
+     262,
+     512,
+     "UNCERTAIN",
+     "dark dot above lip"
+    ],
+    [
+     2,
+     435,
+     540,
+     "UNCERTAIN",
+     "small dark-red dot"
+    ]
+   ],
+   "sha256": "a2cd98ca9566a114e607ed1d82d586c0c1191cf3850d4ae30d065b378b6bbdef"
+  },
+  "aff1efde301c": {
+   "coverage": {
+    "exclude": [
+     [
+      321,
+      246,
+      470,
+      806
+     ]
+    ],
+    "flags": [
+     "soft_or_smoothed"
+    ],
+    "note": "smoothed/beauty-filtered look; image-left face covered by hair (excluded); only a few small red dots on forehead",
+    "tiles": {}
+   },
+   "faceWidthPx": 565.8,
+   "mask": {
+    "file": "masks/aff1efde301c.png",
+    "flags": [
+     "soft_or_smoothed"
+    ],
+    "maskFracOfImage": 0.0939,
+    "maskPx": 153860,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "30f9ed10b99a96bb88d99d20c1854ffedeb8372d767ae717d89a3b4837f0c595",
+    "targets": 0,
+    "targetsInsideMask": 0
+   },
+   "mergeRadiusPx": 8.5,
+   "points": [
+    {
+     "cat": "UNCERTAIN",
+     "id": "P1",
+     "n": 1,
+     "note": "small red forehead",
+     "tiles": [
+      "T2"
+     ],
+     "x": 641.9,
+     "y": 347.3
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P2",
+     "n": 1,
+     "note": "small red forehead",
+     "tiles": [
+      "T2"
+     ],
+     "x": 756.9,
+     "y": 342.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 1,
+     "note": "faint red",
+     "tiles": [
+      "T2"
+     ],
+     "x": 637.5,
+     "y": 287.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "small red dot cheek",
+     "tiles": [
+      "T4"
+     ],
+     "x": 541.2,
+     "y": 544.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P5",
+     "n": 1,
+     "note": "small dark dot cheek",
+     "tiles": [
+      "T6"
+     ],
+     "x": 890.2,
+     "y": 560.7
+    }
+   ],
+   "rawMarks": [
+    [
+     1,
+     915,
+     275,
+     "UNCERTAIN",
+     "small red forehead"
+    ],
+    [
+     1,
+     1175,
+     265,
+     "UNCERTAIN",
+     "small red forehead"
+    ],
+    [
+     1,
+     905,
+     140,
+     "UNCERTAIN",
+     "faint red"
+    ],
+    [
+     1,
+     1230,
+     865,
+     "UNCERTAIN",
+     "small red dot cheek"
+    ],
+    [
+     2,
+     1325,
+     215,
+     "UNCERTAIN",
+     "small dark dot cheek"
+    ]
+   ],
+   "sha256": "aff1efde301c72b3783007a1d60b86f34870e10d6733747c6324a30240175d8f"
+  },
+  "b4ec4968102b": {
+   "coverage": {
+    "exclude": [
+     [
+      323,
+      418,
+      600,
+      600
+     ],
+     [
+      850,
+      418,
+      1000,
+      560
+     ],
+     [
+      323,
+      900,
+      1000,
+      973
+     ]
+    ],
+    "flags": [
+     "low_resolution",
+     "upscaled"
+    ],
+    "note": "upscaled dim selfie; forehead mostly hair-covered (excluded); few small red macules on image-left cheek; chin edge dark",
+    "tiles": {}
+   },
+   "faceWidthPx": 650.7,
+   "mask": {
+    "file": "masks/b4ec4968102b.png",
+    "flags": [
+     "low_resolution",
+     "upscaled"
+    ],
+    "maskFracOfImage": 0.1123,
+    "maskPx": 184014,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "98f1f19ed70bf5d441bcf092b624f589ad808544b2ad89ac5e371984e171b331",
+    "targets": 0,
+    "targetsInsideMask": 0
+   },
+   "mergeRadiusPx": 9.8,
+   "points": [
+    {
+     "cat": "UNCERTAIN",
+     "id": "P1",
+     "n": 1,
+     "note": "pink macule cheek",
+     "tiles": [
+      "Z"
+     ],
+     "x": 450.0,
+     "y": 720.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P2",
+     "n": 1,
+     "note": "pink macule cheek",
+     "tiles": [
+      "Z"
+     ],
+     "x": 480.0,
+     "y": 730.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 1,
+     "note": "red-brown dot cheek",
+     "tiles": [
+      "Z"
+     ],
+     "x": 430.0,
+     "y": 760.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "red dot",
+     "tiles": [
+      "Z"
+     ],
+     "x": 465.0,
+     "y": 750.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P5",
+     "n": 1,
+     "note": "red-brown spot chin",
+     "tiles": [
+      "Z"
+     ],
+     "x": 745.0,
+     "y": 925.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P6",
+     "n": 1,
+     "note": "dark dot nose (mole?)",
+     "tiles": [
+      "Z"
+     ],
+     "x": 725.0,
+     "y": 668.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P7",
+     "n": 1,
+     "note": "dark dot",
+     "tiles": [
+      "Z"
+     ],
+     "x": 640.0,
+     "y": 545.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P8",
+     "n": 1,
+     "note": "small dark dot",
+     "tiles": [
+      "Z"
+     ],
+     "x": 700.0,
+     "y": 566.0
+    }
+   ],
+   "rawMarks": [
+    [
+     0,
+     450,
+     720,
+     "UNCERTAIN",
+     "pink macule cheek"
+    ],
+    [
+     0,
+     480,
+     730,
+     "UNCERTAIN",
+     "pink macule cheek"
+    ],
+    [
+     0,
+     430,
+     760,
+     "UNCERTAIN",
+     "red-brown dot cheek"
+    ],
+    [
+     0,
+     465,
+     750,
+     "UNCERTAIN",
+     "red dot"
+    ],
+    [
+     0,
+     745,
+     925,
+     "UNCERTAIN",
+     "red-brown spot chin"
+    ],
+    [
+     0,
+     725,
+     668,
+     "UNCERTAIN",
+     "dark dot nose (mole?)"
+    ],
+    [
+     0,
+     640,
+     545,
+     "UNCERTAIN",
+     "dark dot"
+    ],
+    [
+     0,
+     700,
+     566,
+     "UNCERTAIN",
+     "small dark dot"
+    ]
+   ],
+   "sha256": "b4ec4968102bc06e06ac90fa7e808f14586437d12d17130f4cd6382121c3e60b"
+  },
+  "b9dd30fde312": {
+   "coverage": {
+    "exclude": [],
+    "flags": [
+     "processed_rotated_padded",
+     "low_resolution"
+    ],
+    "note": "rotated with black padded corners; face 234 px; red papules on both cheeks",
+    "tiles": {}
+   },
+   "faceWidthPx": 234.4,
+   "mask": {
+    "file": "masks/b9dd30fde312.png",
+    "flags": [
+     "processed_rotated_padded",
+     "low_resolution"
+    ],
+    "maskFracOfImage": 0.1441,
+    "maskPx": 59035,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "d73d8d662e0bb413f7cd11fdcc61bf6fa6e07d18150b7ebd158d306c754c2ed0",
+    "targets": 4,
+    "targetsInsideMask": 4
+   },
+   "mergeRadiusPx": 3.5,
+   "points": [
+    {
+     "cat": "TARGET",
+     "id": "P1",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "Z"
+     ],
+     "x": 341.0,
+     "y": 220.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P2",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "Z"
+     ],
+     "x": 355.0,
+     "y": 241.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "Z"
+     ],
+     "x": 334.0,
+     "y": 248.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "Z"
+     ],
+     "x": 366.0,
+     "y": 259.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P5",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "Z"
+     ],
+     "x": 323.0,
+     "y": 291.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P6",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "Z"
+     ],
+     "x": 302.0,
+     "y": 245.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P7",
+     "n": 1,
+     "note": "red papule cheek",
+     "tiles": [
+      "Z"
+     ],
+     "x": 458.0,
+     "y": 220.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P8",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "Z"
+     ],
+     "x": 476.0,
+     "y": 213.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P9",
+     "n": 1,
+     "note": "red",
+     "tiles": [
+      "Z"
+     ],
+     "x": 440.0,
+     "y": 230.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P10",
+     "n": 1,
+     "note": "small red forehead",
+     "tiles": [
+      "Z"
+     ],
+     "x": 430.0,
+     "y": 106.0
+    }
+   ],
+   "rawMarks": [
+    [
+     0,
+     341,
+     220,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     0,
+     355,
+     241,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     0,
+     334,
+     248,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     0,
+     366,
+     259,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     0,
+     323,
+     291,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     0,
+     302,
+     245,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     0,
+     458,
+     220,
+     "TARGET",
+     "red papule cheek"
+    ],
+    [
+     0,
+     476,
+     213,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     0,
+     440,
+     230,
+     "UNCERTAIN",
+     "red"
+    ],
+    [
+     0,
+     430,
+     106,
+     "UNCERTAIN",
+     "small red forehead"
+    ]
+   ],
+   "sha256": "b9dd30fde31272ab4fc910fad5deb8e7d37445107ce2ad6b3853ced4ea2da226"
+  },
+  "c1ae0b437492": {
+   "coverage": {
+    "exclude": [],
+    "flags": [
+     "blurred",
+     "noisy_or_sharpened",
+     "low_light"
+    ],
+    "note": "dark, very noisy, out-of-focus; lesion-level review not possible -> no reviewed coverage; only two dark spots recorded as UNCERTAIN",
+    "tiles": {
+     "T1": "not_reviewable",
+     "T2": "not_reviewable",
+     "T3": "not_reviewable",
+     "T4": "not_reviewable",
+     "T5": "not_reviewable",
+     "T6": "not_reviewable",
+     "T7": "not_reviewable",
+     "T8": "not_reviewable",
+     "T9": "not_reviewable"
+    }
+   },
+   "faceWidthPx": 1205.9,
+   "mask": {
+    "file": "masks/c1ae0b437492.png",
+    "flags": [
+     "blurred",
+     "noisy_or_sharpened",
+     "low_light"
+    ],
+    "maskFracOfImage": 0.0,
+    "maskPx": 0,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "465a60c4a4e1ad0d57c5692de45087f960aec16f2c4c8b3be9058e19ef20717b",
+    "targets": 0,
+    "targetsInsideMask": 0
+   },
+   "mergeRadiusPx": 18.1,
+   "points": [
+    {
+     "cat": "UNCERTAIN",
+     "id": "P1",
+     "n": 1,
+     "note": "dark spot cheek",
+     "tiles": [
+      "Z"
+     ],
+     "x": 600.0,
+     "y": 1525.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P2",
+     "n": 1,
+     "note": "dark-red spot cheek",
+     "tiles": [
+      "Z"
+     ],
+     "x": 560.0,
+     "y": 1605.0
+    }
+   ],
+   "rawMarks": [
+    [
+     0,
+     600,
+     1525,
+     "UNCERTAIN",
+     "dark spot cheek"
+    ],
+    [
+     0,
+     560,
+     1605,
+     "UNCERTAIN",
+     "dark-red spot cheek"
+    ]
+   ],
+   "sha256": "c1ae0b437492a0484977eb587152bccb8260a8283f04f0430f45545bd650bbc7"
+  },
+  "c412587e8b7f": {
+   "coverage": {
+    "exclude": [
+     [
+      374,
+      277,
+      415,
+      845
+     ],
+     [
+      880,
+      700,
+      974,
+      845
+     ]
+    ],
+    "flags": [
+     "soft_or_smoothed"
+    ],
+    "note": "moderate softness/compression; fine texture limited; few discrete lesions visible",
+    "tiles": {}
+   },
+   "faceWidthPx": 595.8,
+   "mask": {
+    "file": "masks/c412587e8b7f.png",
+    "flags": [
+     "soft_or_smoothed"
+    ],
+    "maskFracOfImage": 0.1314,
+    "maskPx": 215209,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "06fb12858e8d82230db6ef6eedf48ea5739bdac9cdd92ee5af0a35574a7520a4",
+    "targets": 0,
+    "targetsInsideMask": 0
+   },
+   "mergeRadiusPx": 8.9,
+   "points": [
+    {
+     "cat": "UNCERTAIN",
+     "id": "P1",
+     "n": 1,
+     "note": "small reddish bump forehead",
+     "tiles": [
+      "T2"
+     ],
+     "x": 817.0,
+     "y": 367.3
+    },
+    {
+     "cat": "MOLE",
+     "id": "P2",
+     "n": 1,
+     "note": "dark brown dot cheek",
+     "tiles": [
+      "T5"
+     ],
+     "x": 791.8,
+     "y": 666.9
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 1,
+     "note": "red dot under nose",
+     "tiles": [
+      "T5"
+     ],
+     "x": 677.8,
+     "y": 673.9
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "red dot under nose",
+     "tiles": [
+      "T7"
+     ],
+     "x": 634.3,
+     "y": 671.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P5",
+     "n": 1,
+     "note": "small dark dot below lip",
+     "tiles": [
+      "T7"
+     ],
+     "x": 629.6,
+     "y": 757.9
+    }
+   ],
+   "rawMarks": [
+    [
+     1,
+     1140,
+     240,
+     "UNCERTAIN",
+     "small reddish bump forehead"
+    ],
+    [
+     2,
+     400,
+     340,
+     "MOLE",
+     "dark brown dot cheek"
+    ],
+    [
+     2,
+     155,
+     355,
+     "UNCERTAIN",
+     "red dot under nose"
+    ],
+    [
+     2,
+     605,
+     1000,
+     "UNCERTAIN",
+     "red dot under nose"
+    ],
+    [
+     2,
+     595,
+     1185,
+     "UNCERTAIN",
+     "small dark dot below lip"
+    ]
+   ],
+   "sha256": "c412587e8b7fd90a80172c11c077e66fd108332a2e0b75841b8e143a91d49e58"
+  },
+  "cb5ca5ca9a33": {
+   "coverage": {
+    "exclude": [],
+    "flags": [
+     "low_resolution"
+    ],
+    "note": "whole image 241x300 (face 164 px); only clear red papules recorded as TARGET",
+    "tiles": {}
+   },
+   "faceWidthPx": 163.6,
+   "mask": {
+    "file": "masks/cb5ca5ca9a33.png",
+    "flags": [
+     "low_resolution"
+    ],
+    "maskFracOfImage": 0.3341,
+    "maskPx": 24156,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "5f7dac800f5208ba685cffac1c410ddeb85470f94206dba1b043e1700be2133c",
+    "targets": 3,
+    "targetsInsideMask": 3
+   },
+   "mergeRadiusPx": 2.5,
+   "points": [
+    {
+     "cat": "TARGET",
+     "id": "P1",
+     "n": 1,
+     "note": "red papule forehead",
+     "tiles": [
+      "Z"
+     ],
+     "x": 85.0,
+     "y": 73.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P2",
+     "n": 1,
+     "note": "red papule forehead",
+     "tiles": [
+      "Z"
+     ],
+     "x": 162.0,
+     "y": 65.0
+    },
+    {
+     "cat": "TARGET",
+     "id": "P3",
+     "n": 1,
+     "note": "red papule chin",
+     "tiles": [
+      "Z"
+     ],
+     "x": 153.0,
+     "y": 245.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "small red chin",
+     "tiles": [
+      "Z"
+     ],
+     "x": 126.0,
+     "y": 258.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P5",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "Z"
+     ],
+     "x": 168.0,
+     "y": 201.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P6",
+     "n": 1,
+     "note": "small red cheek",
+     "tiles": [
+      "Z"
+     ],
+     "x": 75.0,
+     "y": 165.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P7",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "Z"
+     ],
+     "x": 64.0,
+     "y": 147.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P8",
+     "n": 1,
+     "note": "small red forehead",
+     "tiles": [
+      "Z"
+     ],
+     "x": 113.0,
+     "y": 30.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P9",
+     "n": 1,
+     "note": "small red forehead",
+     "tiles": [
+      "Z"
+     ],
+     "x": 140.0,
+     "y": 35.0
+    }
+   ],
+   "rawMarks": [
+    [
+     0,
+     85,
+     73,
+     "TARGET",
+     "red papule forehead"
+    ],
+    [
+     0,
+     162,
+     65,
+     "TARGET",
+     "red papule forehead"
+    ],
+    [
+     0,
+     153,
+     245,
+     "TARGET",
+     "red papule chin"
+    ],
+    [
+     0,
+     126,
+     258,
+     "UNCERTAIN",
+     "small red chin"
+    ],
+    [
+     0,
+     168,
+     201,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     0,
+     75,
+     165,
+     "UNCERTAIN",
+     "small red cheek"
+    ],
+    [
+     0,
+     64,
+     147,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     0,
+     113,
+     30,
+     "UNCERTAIN",
+     "small red forehead"
+    ],
+    [
+     0,
+     140,
+     35,
+     "UNCERTAIN",
+     "small red forehead"
+    ]
+   ],
+   "sha256": "cb5ca5ca9a330a8d46712f2def0207cdb1ed899526c2f5065a897a550b92fa08"
+  },
+  "d79fcee141ca": {
+   "coverage": {
+    "exclude": [],
+    "flags": [
+     "blurred",
+     "overexposed"
+    ],
+    "note": "whole face out of focus, heavy noise, image-right half overexposed; lesion-level review not possible -> no reviewed coverage",
+    "tiles": {
+     "T1": "not_reviewable",
+     "T10": "not_reviewable",
+     "T11": "not_reviewable",
+     "T12": "not_reviewable",
+     "T2": "not_reviewable",
+     "T3": "not_reviewable",
+     "T4": "not_reviewable",
+     "T5": "not_reviewable",
+     "T6": "not_reviewable",
+     "T7": "not_reviewable",
+     "T8": "not_reviewable",
+     "T9": "not_reviewable"
+    }
+   },
+   "faceWidthPx": 1102.7,
+   "mask": {
+    "file": "masks/d79fcee141ca.png",
+    "flags": [
+     "blurred",
+     "overexposed"
+    ],
+    "maskFracOfImage": 0.0,
+    "maskPx": 0,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "e86a61216af28253ce228d501f338248c0e517ebc470a72238cb06906c4d7b82",
+    "targets": 0,
+    "targetsInsideMask": 0
+   },
+   "mergeRadiusPx": 16.5,
+   "points": [
+    {
+     "cat": "UNCERTAIN",
+     "id": "P1",
+     "n": 1,
+     "note": "diffuse red blotch chin (blurred)",
+     "tiles": [
+      "T10"
+     ],
+     "x": 895.2,
+     "y": 1855.1
+    }
+   ],
+   "rawMarks": [
+    [
+     3,
+     1270,
+     405,
+     "UNCERTAIN",
+     "diffuse red blotch chin (blurred)"
+    ]
+   ],
+   "sha256": "d79fcee141ca12b0ba550fe9a6a8747c23d41cb3a06d4a59fcf2c5186aa19683"
+  },
+  "dc089b3f7c38": {
+   "coverage": {
+    "exclude": [
+     [
+      538,
+      1900,
+      760,
+      2236
+     ]
+    ],
+    "flags": [],
+    "note": "sharp; forehead has many tiny whitish bumps (closed comedone vs milia vs texture not separable -> a few recorded UNCERTAIN); one red papule; large mole at glabella; clothing excluded",
+    "tiles": {}
+   },
+   "faceWidthPx": 890.1,
+   "mask": {
+    "file": "masks/dc089b3f7c38.png",
+    "flags": [],
+    "maskFracOfImage": 0.1274,
+    "maskPx": 639382,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "ce7f0d2b89550f467bd0c00e22764d73eed5bdd5801deff9ae3fc6ce7f9dd526",
+    "targets": 1,
+    "targetsInsideMask": 1
+   },
+   "mergeRadiusPx": 13.4,
+   "points": [
+    {
+     "cat": "TARGET",
+     "id": "P1",
+     "n": 1,
+     "note": "small red papule forehead",
+     "tiles": [
+      "T2"
+     ],
+     "x": 1144.1,
+     "y": 1185.4
+    },
+    {
+     "cat": "MOLE",
+     "id": "P2",
+     "n": 1,
+     "note": "large dark mole glabella",
+     "tiles": [
+      "T2"
+     ],
+     "x": 1001.5,
+     "y": 1394.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 2,
+     "note": "small dark dot",
+     "tiles": [
+      "T2",
+      "T1"
+     ],
+     "x": 962.3,
+     "y": 1232.3
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 2,
+     "note": "dark dot",
+     "tiles": [
+      "T2",
+      "T1"
+     ],
+     "x": 922.4,
+     "y": 1474.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P5",
+     "n": 1,
+     "note": "dark dot temple",
+     "tiles": [
+      "T3"
+     ],
+     "x": 1342.0,
+     "y": 1250.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P6",
+     "n": 1,
+     "note": "whitish bump forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 669.4,
+     "y": 1133.3
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P7",
+     "n": 1,
+     "note": "whitish bump forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 610.3,
+     "y": 1230.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P8",
+     "n": 1,
+     "note": "whitish bump forehead",
+     "tiles": [
+      "T2"
+     ],
+     "x": 1269.2,
+     "y": 1181.9
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P9",
+     "n": 1,
+     "note": "small red-brown dot nose",
+     "tiles": [
+      "T4"
+     ],
+     "x": 884.3,
+     "y": 1816.5
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P10",
+     "n": 1,
+     "note": "dark dot",
+     "tiles": [
+      "T4"
+     ],
+     "x": 859.9,
+     "y": 1663.5
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P11",
+     "n": 1,
+     "note": "small dark dot",
+     "tiles": [
+      "T4"
+     ],
+     "x": 682.6,
+     "y": 1580.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P12",
+     "n": 1,
+     "note": "dark dot cheek",
+     "tiles": [
+      "T5"
+     ],
+     "x": 1196.9,
+     "y": 1681.6
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P13",
+     "n": 1,
+     "note": "dark dot nose side",
+     "tiles": [
+      "T5"
+     ],
+     "x": 1030.0,
+     "y": 1655.2
+    }
+   ],
+   "rawMarks": [
+    [
+     1,
+     1060,
+     130,
+     "TARGET",
+     "small red papule forehead"
+    ],
+    [
+     1,
+     855,
+     430,
+     "MOLE",
+     "large dark mole glabella"
+    ],
+    [
+     1,
+     800,
+     195,
+     "UNCERTAIN",
+     "small dark dot"
+    ],
+    [
+     1,
+     740,
+     545,
+     "UNCERTAIN",
+     "dark dot"
+    ],
+    [
+     1,
+     655,
+     200,
+     "UNCERTAIN",
+     "dark dot"
+    ],
+    [
+     1,
+     600,
+     545,
+     "UNCERTAIN",
+     "dark dot"
+    ],
+    [
+     1,
+     545,
+     910,
+     "UNCERTAIN",
+     "dark dot temple"
+    ],
+    [
+     1,
+     235,
+     55,
+     "UNCERTAIN",
+     "whitish bump forehead"
+    ],
+    [
+     1,
+     150,
+     195,
+     "UNCERTAIN",
+     "whitish bump forehead"
+    ],
+    [
+     1,
+     1240,
+     125,
+     "UNCERTAIN",
+     "whitish bump forehead"
+    ],
+    [
+     1,
+     1230,
+     1180,
+     "UNCERTAIN",
+     "small red-brown dot nose"
+    ],
+    [
+     1,
+     1195,
+     960,
+     "UNCERTAIN",
+     "dark dot"
+    ],
+    [
+     1,
+     940,
+     840,
+     "UNCERTAIN",
+     "small dark dot"
+    ],
+    [
+     2,
+     450,
+     300,
+     "UNCERTAIN",
+     "dark dot cheek"
+    ],
+    [
+     2,
+     210,
+     262,
+     "UNCERTAIN",
+     "dark dot nose side"
+    ]
+   ],
+   "sha256": "dc089b3f7c38ad2b8509337b89077adc670bb5eeea8a594106b6031495c4f07f"
+  },
+  "e643059207e1": {
+   "coverage": {
+    "exclude": [],
+    "flags": [
+     "low_resolution"
+    ],
+    "note": "small face (434 px) upscaled; fine texture not verifiable; chin lesions clear",
+    "tiles": {}
+   },
+   "faceWidthPx": 434.4,
+   "mask": {
+    "file": "masks/e643059207e1.png",
+    "flags": [
+     "low_resolution"
+    ],
+    "maskFracOfImage": 0.1267,
+    "maskPx": 207551,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "fd54c2f017fda24254c706f80f8db9ce7d9ea77aaad5c52a7e740b8a7ba93296",
+    "targets": 3,
+    "targetsInsideMask": 3
+   },
+   "mergeRadiusPx": 6.5,
+   "points": [
+    {
+     "cat": "UNCERTAIN",
+     "id": "P1",
+     "n": 1,
+     "note": "faint red forehead",
+     "tiles": [
+      "T1"
+     ],
+     "x": 706.3,
+     "y": 384.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P2",
+     "n": 1,
+     "note": "faint red forehead",
+     "tiles": [
+      "T2"
+     ],
+     "x": 754.4,
+     "y": 384.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 1,
+     "note": "faint red cheek",
+     "tiles": [
+      "T4"
+     ],
+     "x": 656.8,
+     "y": 593.1
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "small dark dot",
+     "tiles": [
+      "T5"
+     ],
+     "x": 824.2,
+     "y": 549.4
+    },
+    {
+     "cat": "TARGET",
+     "id": "P5",
+     "n": 1,
+     "note": "red papule chin",
+     "tiles": [
+      "T10"
+     ],
+     "x": 690.7,
+     "y": 908.7
+    },
+    {
+     "cat": "TARGET",
+     "id": "P6",
+     "n": 1,
+     "note": "pustule chin",
+     "tiles": [
+      "T10"
+     ],
+     "x": 711.1,
+     "y": 908.7
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P7",
+     "n": 1,
+     "note": "faint red chin",
+     "tiles": [
+      "T10"
+     ],
+     "x": 702.6,
+     "y": 888.4
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P8",
+     "n": 1,
+     "note": "red chin",
+     "tiles": [
+      "T10"
+     ],
+     "x": 719.5,
+     "y": 939.2
+    },
+    {
+     "cat": "TARGET",
+     "id": "P9",
+     "n": 1,
+     "note": "red papule chin",
+     "tiles": [
+      "T11"
+     ],
+     "x": 731.0,
+     "y": 933.8
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P10",
+     "n": 1,
+     "note": "small red",
+     "tiles": [
+      "T11"
+     ],
+     "x": 817.4,
+     "y": 889.7
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P11",
+     "n": 1,
+     "note": "small dark dot",
+     "tiles": [
+      "T9"
+     ],
+     "x": 871.7,
+     "y": 763.9
+    }
+   ],
+   "rawMarks": [
+    [
+     1,
+     625,
+     400,
+     "UNCERTAIN",
+     "faint red forehead"
+    ],
+    [
+     1,
+     910,
+     400,
+     "UNCERTAIN",
+     "faint red forehead"
+    ],
+    [
+     1,
+     1165,
+     1160,
+     "UNCERTAIN",
+     "faint red cheek"
+    ],
+    [
+     2,
+     430,
+     345,
+     "UNCERTAIN",
+     "small dark dot"
+    ],
+    [
+     3,
+     1265,
+     520,
+     "TARGET",
+     "red papule chin"
+    ],
+    [
+     3,
+     1325,
+     520,
+     "TARGET",
+     "pustule chin"
+    ],
+    [
+     3,
+     1300,
+     460,
+     "UNCERTAIN",
+     "faint red chin"
+    ],
+    [
+     3,
+     1350,
+     610,
+     "UNCERTAIN",
+     "red chin"
+    ],
+    [
+     3,
+     155,
+     1280,
+     "TARGET",
+     "red papule chin"
+    ],
+    [
+     3,
+     410,
+     1150,
+     "UNCERTAIN",
+     "small red"
+    ],
+    [
+     3,
+     455,
+     435,
+     "UNCERTAIN",
+     "small dark dot"
+    ]
+   ],
+   "sha256": "e643059207e17e06e9245624bb7116cf03f81ff455c82e245135a9247e82eb9e"
+  },
+  "eeb843cadf66": {
+   "coverage": {
+    "exclude": [
+     [
+      85,
+      5,
+      150,
+      70
+     ],
+     [
+      187,
+      445,
+      252,
+      510
+     ],
+     [
+      365,
+      465,
+      430,
+      530
+     ]
+    ],
+    "flags": [
+     "collage",
+     "low_resolution"
+    ],
+    "note": "640px 2x2 collage of four people with black cut-out boxes; small red dots on bottom-left panel only",
+    "tiles": {}
+   },
+   "faceWidthPx": 275.8,
+   "mask": {
+    "file": "masks/eeb843cadf66.png",
+    "flags": [
+     "collage",
+     "low_resolution"
+    ],
+    "maskFracOfImage": 0.0,
+    "maskPx": 0,
+    "rule": "empty: collage",
+    "sha256": "e63642e71309a6fb0cc88bd3d92b13b1757f7b9892f1aa85e1736cadc42f67db",
+    "targets": 0,
+    "targetsInsideMask": 0
+   },
+   "mergeRadiusPx": 4.1,
+   "points": [
+    {
+     "cat": "UNCERTAIN",
+     "id": "P1",
+     "n": 1,
+     "note": "small red dot",
+     "tiles": [
+      "Z"
+     ],
+     "x": 174.0,
+     "y": 422.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P2",
+     "n": 1,
+     "note": "small red dot",
+     "tiles": [
+      "Z"
+     ],
+     "x": 266.0,
+     "y": 422.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 1,
+     "note": "small red dot",
+     "tiles": [
+      "Z"
+     ],
+     "x": 159.0,
+     "y": 465.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P4",
+     "n": 1,
+     "note": "small red dot",
+     "tiles": [
+      "Z"
+     ],
+     "x": 149.0,
+     "y": 551.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P5",
+     "n": 1,
+     "note": "small red dot chin",
+     "tiles": [
+      "Z"
+     ],
+     "x": 159.0,
+     "y": 593.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P6",
+     "n": 1,
+     "note": "small red dot chin",
+     "tiles": [
+      "Z"
+     ],
+     "x": 202.0,
+     "y": 593.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P7",
+     "n": 1,
+     "note": "small red dot chin",
+     "tiles": [
+      "Z"
+     ],
+     "x": 223.0,
+     "y": 607.0
+    }
+   ],
+   "rawMarks": [
+    [
+     0,
+     174,
+     422,
+     "UNCERTAIN",
+     "small red dot"
+    ],
+    [
+     0,
+     266,
+     422,
+     "UNCERTAIN",
+     "small red dot"
+    ],
+    [
+     0,
+     159,
+     465,
+     "UNCERTAIN",
+     "small red dot"
+    ],
+    [
+     0,
+     149,
+     551,
+     "UNCERTAIN",
+     "small red dot"
+    ],
+    [
+     0,
+     159,
+     593,
+     "UNCERTAIN",
+     "small red dot chin"
+    ],
+    [
+     0,
+     202,
+     593,
+     "UNCERTAIN",
+     "small red dot chin"
+    ],
+    [
+     0,
+     223,
+     607,
+     "UNCERTAIN",
+     "small red dot chin"
+    ]
+   ],
+   "sha256": "eeb843cadf66df9178f91a3ff15b3c4e0621a4659b8d6067e62cdd0c81acbe84"
+  },
+  "f30396853c41": {
+   "coverage": {
+    "exclude": [
+     [
+      756,
+      1214,
+      1740,
+      1400
+     ],
+     [
+      756,
+      2030,
+      1050,
+      2539
+     ]
+    ],
+    "flags": [
+     "soft_or_smoothed"
+    ],
+    "note": "soft, low-contrast photo; forehead hair-occluded; image-left lower face in deep shadow (excluded); no clear papules seen",
+    "tiles": {}
+   },
+   "faceWidthPx": 960.6,
+   "mask": {
+    "file": "masks/f30396853c41.png",
+    "flags": [
+     "soft_or_smoothed"
+    ],
+    "maskFracOfImage": 0.0853,
+    "maskPx": 681527,
+    "rule": "face-oval minus eyes/brows/lips, reviewable tiles, minus exclusions",
+    "sha256": "bf472c1607515633908c77ebce70cdf50d71dd65fab8c3c6d552be1825c24edf",
+    "targets": 0,
+    "targetsInsideMask": 0
+   },
+   "mergeRadiusPx": 14.4,
+   "points": [
+    {
+     "cat": "UNCERTAIN",
+     "id": "P1",
+     "n": 1,
+     "note": "dark spot lateral cheek",
+     "tiles": [
+      "T6"
+     ],
+     "x": 1659.8,
+     "y": 1816.2
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P2",
+     "n": 1,
+     "note": "dark linear mark below lip corner",
+     "tiles": [
+      "T9"
+     ],
+     "x": 1533.0,
+     "y": 2258.0
+    },
+    {
+     "cat": "UNCERTAIN",
+     "id": "P3",
+     "n": 1,
+     "note": "small pale bump below lip",
+     "tiles": [
+      "T9"
+     ],
+     "x": 1443.0,
+     "y": 2276.8
+    }
+   ],
+   "rawMarks": [
+    [
+     2,
+     1265,
+     305,
+     "UNCERTAIN",
+     "dark spot lateral cheek"
+    ],
+    [
+     3,
+     410,
+     350,
+     "UNCERTAIN",
+     "dark linear mark below lip corner"
+    ],
+    [
+     3,
+     290,
+     375,
+     "UNCERTAIN",
+     "small pale bump below lip"
+    ]
+   ],
+   "sha256": "f30396853c41603190be42126ab7bc65db8b658afe408e3a16f980d96475d64f"
+  }
+ },
+ "protocol": "acne-point-relabel-protocol-1 (docs/acne-point-relabel-protocol-20261016.json)"
+}
