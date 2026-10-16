@@ -1,0 +1,9285 @@
+{
+ "name": "acne-step0-miss-trace",
+ "note": "Stage trace of Step0 on the frozen layer-1 TARGET points (AI engineering labels, not ground truth). Nearness (box centre within r = 0.03 fw) only follows a target between stages; found/missed stays the frozen one-to-one result.",
+ "layer1SHA256": "fa1be5b4c8e982861e8470dbe3b764ae3e5e4f50cef4a652e5efed05d175cda0",
+ "protocol": "acne-point-relabel-protocol-1 (r = 0.03 x face width, unchanged)",
+ "coordinateCheck": {
+  "predictions": "final boxes in source px of the product input file (native tiles, scale 1); trace finals equal the stored infer-step0 rows on 28/28 photos",
+  "labels": "layer-1 points in source px of the same file (sha256 checked)",
+  "faceWidth": "|landmark 234 - landmark 454| in source px (normalised landmarks x source width/height); identical to layer-1 faceWidthPx on 28/28",
+  "tests": "tests/unit/test_acne_step0_trace.py: tile-local->source mapping and clipping, tile coverage margin >= 48 px, staging filter (src - origin) * scale mapping and unchanged accepted coordinates: 3/3 pass"
+ },
+ "tolerancePerPhoto": [
+  {
+   "photo": "0a8a14a662a5",
+   "set": "devext",
+   "width": 1280,
+   "height": 1280,
+   "faceWidthPx": 573.1,
+   "rPx": 17.2,
+   "angle": "SIDE",
+   "visibleRegions": [
+    "rightCheek"
+   ],
+   "targets": 17
+  },
+  {
+   "photo": "29069058884f",
+   "set": "devext",
+   "width": 640,
+   "height": 640,
+   "faceWidthPx": 331.3,
+   "rPx": 9.9,
+   "angle": "SIDE",
+   "visibleRegions": [
+    "leftCheek"
+   ],
+   "targets": 3
+  },
+  {
+   "photo": "2ad92b5eb9de",
+   "set": "dev",
+   "width": 2448,
+   "height": 3264,
+   "faceWidthPx": 1194.3,
+   "rPx": 35.8,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 0
+  },
+  {
+   "photo": "33e42c603f10",
+   "set": "dev",
+   "width": 1280,
+   "height": 1280,
+   "faceWidthPx": 488.1,
+   "rPx": 14.6,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 7
+  },
+  {
+   "photo": "453d2656c394",
+   "set": "dev",
+   "width": 1920,
+   "height": 2560,
+   "faceWidthPx": 1107.0,
+   "rPx": 33.2,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 0
+  },
+  {
+   "photo": "46a79ef8d7a8",
+   "set": "dev",
+   "width": 1280,
+   "height": 1280,
+   "faceWidthPx": 824.3,
+   "rPx": 24.7,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 12
+  },
+  {
+   "photo": "5aa51f53f86c",
+   "set": "devext",
+   "width": 1932,
+   "height": 2576,
+   "faceWidthPx": 1097.2,
+   "rPx": 32.9,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 0
+  },
+  {
+   "photo": "6dcf4d7ab398",
+   "set": "devext",
+   "width": 640,
+   "height": 640,
+   "faceWidthPx": 348.0,
+   "rPx": 10.4,
+   "angle": "SIDE",
+   "visibleRegions": [
+    "rightCheek"
+   ],
+   "targets": 0
+  },
+  {
+   "photo": "77176e51db41",
+   "set": "dev",
+   "width": 1280,
+   "height": 1280,
+   "faceWidthPx": 592.5,
+   "rPx": 17.8,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 9
+  },
+  {
+   "photo": "7b425c76a80f",
+   "set": "devext",
+   "width": 640,
+   "height": 640,
+   "faceWidthPx": 250.6,
+   "rPx": 7.5,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 0
+  },
+  {
+   "photo": "8a78e9d6efd5",
+   "set": "dev",
+   "width": 1280,
+   "height": 1280,
+   "faceWidthPx": 586.1,
+   "rPx": 17.6,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 11
+  },
+  {
+   "photo": "8ad2e156eef7",
+   "set": "dev",
+   "width": 1280,
+   "height": 1280,
+   "faceWidthPx": 594.0,
+   "rPx": 17.8,
+   "angle": "SIDE",
+   "visibleRegions": [
+    "leftCheek"
+   ],
+   "targets": 6
+  },
+  {
+   "photo": "9334509b3ae3",
+   "set": "devext",
+   "width": 1280,
+   "height": 1280,
+   "faceWidthPx": 595.5,
+   "rPx": 17.9,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 5
+  },
+  {
+   "photo": "933e40d730e0",
+   "set": "dev",
+   "width": 1280,
+   "height": 1280,
+   "faceWidthPx": 582.3,
+   "rPx": 17.5,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 20
+  },
+  {
+   "photo": "a007c24408ff",
+   "set": "dev",
+   "width": 1280,
+   "height": 1280,
+   "faceWidthPx": 690.7,
+   "rPx": 20.7,
+   "angle": "SIDE",
+   "visibleRegions": [
+    "leftCheek"
+   ],
+   "targets": 1
+  },
+  {
+   "photo": "a19346a0887a",
+   "set": "dev",
+   "width": 2316,
+   "height": 3088,
+   "faceWidthPx": 1211.5,
+   "rPx": 36.3,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 9
+  },
+  {
+   "photo": "a2cd98ca9566",
+   "set": "dev",
+   "width": 1280,
+   "height": 1280,
+   "faceWidthPx": 565.8,
+   "rPx": 17.0,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 3
+  },
+  {
+   "photo": "aff1efde301c",
+   "set": "dev",
+   "width": 1280,
+   "height": 1280,
+   "faceWidthPx": 565.8,
+   "rPx": 17.0,
+   "angle": "SIDE",
+   "visibleRegions": [
+    "rightCheek"
+   ],
+   "targets": 0
+  },
+  {
+   "photo": "b4ec4968102b",
+   "set": "devext",
+   "width": 1280,
+   "height": 1280,
+   "faceWidthPx": 650.7,
+   "rPx": 19.5,
+   "angle": "SIDE",
+   "visibleRegions": [
+    "rightCheek"
+   ],
+   "targets": 0
+  },
+  {
+   "photo": "b9dd30fde312",
+   "set": "devext",
+   "width": 640,
+   "height": 640,
+   "faceWidthPx": 234.4,
+   "rPx": 7.0,
+   "angle": "SIDE",
+   "visibleRegions": [
+    "rightCheek"
+   ],
+   "targets": 4
+  },
+  {
+   "photo": "c1ae0b437492",
+   "set": "devext",
+   "width": 1920,
+   "height": 2560,
+   "faceWidthPx": 1205.9,
+   "rPx": 36.2,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 0
+  },
+  {
+   "photo": "c412587e8b7f",
+   "set": "dev",
+   "width": 1280,
+   "height": 1280,
+   "faceWidthPx": 595.8,
+   "rPx": 17.9,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 0
+  },
+  {
+   "photo": "cb5ca5ca9a33",
+   "set": "devext",
+   "width": 241,
+   "height": 300,
+   "faceWidthPx": 163.6,
+   "rPx": 4.9,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 3
+  },
+  {
+   "photo": "d79fcee141ca",
+   "set": "dev",
+   "width": 1944,
+   "height": 2592,
+   "faceWidthPx": 1102.7,
+   "rPx": 33.1,
+   "angle": "SIDE",
+   "visibleRegions": [
+    "leftCheek"
+   ],
+   "targets": 0
+  },
+  {
+   "photo": "dc089b3f7c38",
+   "set": "dev",
+   "width": 1936,
+   "height": 2592,
+   "faceWidthPx": 890.1,
+   "rPx": 26.7,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 1
+  },
+  {
+   "photo": "e643059207e1",
+   "set": "dev",
+   "width": 1280,
+   "height": 1280,
+   "faceWidthPx": 434.4,
+   "rPx": 13.0,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 3
+  },
+  {
+   "photo": "eeb843cadf66",
+   "set": "devext",
+   "width": 640,
+   "height": 640,
+   "faceWidthPx": 275.8,
+   "rPx": 8.3,
+   "angle": "SIDE",
+   "visibleRegions": [
+    "rightCheek"
+   ],
+   "targets": 0
+  },
+  {
+   "photo": "f30396853c41",
+   "set": "dev",
+   "width": 2448,
+   "height": 3264,
+   "faceWidthPx": 960.6,
+   "rPx": 28.8,
+   "angle": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": 0
+  }
+ ],
+ "hashes": {
+  "step0Weights": "18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655",
+  "trace_step0_chain.py": "099b45dfa2b55fa8dfb8419298c8678c41b62c6ac3ee155c77160bad65a7610b",
+  "eval_acne_v5_independent.py": "7bc2aaccebf71384ef7f785321c013e1b68571ed9f9f41f09d910fcba4b60a26",
+  "eval_acne_v6.py": "746b7e1294cbf61c65d9486367d9805af80672111708b4b2cad8da71c0624aa8",
+  "acne_takeover_support.py": "bc70636fff0a544572beb585f716035fa6d770b08a13c09e591dbcdae62aff89",
+  "acne_box_support_staging.py": "11dd8e04ee477597996fd80d3e3d68301f34dae7fcfafeddd3be4c7434b30667",
+  "acne_box_support.py": "a6271443b2c583aa7795dcab7100a2ba2ab98adeaa7fcc656bc8ce279f4c9b49",
+  "appearance_analysis.py": "1102117b3a5d13599c647566d39620768eb8d15ed1a13c0fd34aabb03e91b8ce",
+  "skin_models.py": "a0eb52a01c07b445109fa328aa73994a93f20169db17c4aae1ae48c1230a4c28",
+  "yolox_p2.py": "a117652469c6b7ab1a0719d2c8fda9ed6647c75f002144a27c0795469bf85d0d",
+  "replay-dev.jsonl": "2b86d0dc8fed0e5ec2f2426927a8c88c6771b3af833d3a809e25982f6fc38fd7",
+  "replay-devext.jsonl": "bf6737f26e903eb87501c7918c4329b3ec9d53ab19ccd6afc0efcd97ce81210f",
+  "stored-infer-step0-dev.jsonl": "bc2f79634c964c36caae9aaa064527893fce6ed140e4a0dc644e780672152028",
+  "stored-infer-step0-devext.jsonl": "7890b01a565755a57f529005755973179b6731843838e03c660971aab26714fd"
+ },
+ "traceFiles": {
+  "0a8a14a662a5": {
+   "json": "67013a08fb3812caae010a159738646040fea94e9cd75fe95ee184b1b4f8ce05",
+   "masks": "2b184bdd6198d11915f54e0b70219492786d92573556f32c5eb63050d2ea445a",
+   "photoSHA256": "0a8a14a662a576aa9d02d403820d245b9de91536dd7e3c3baf8c5c34c0fbe1e5",
+   "finalEqualsStored": true
+  },
+  "29069058884f": {
+   "json": "b9f7606d44c64f1c8a3ccdfcd438d7760c69afb8ba6023d0e201363cbfa09cfa",
+   "masks": "eb0403ac768a71563f1f7574b69b553cacacf68987545a1b0a2ab56840a25f38",
+   "photoSHA256": "29069058884f4360e6fadadab4f9ece5ecbceb5467c48c88b025eb449f67f250",
+   "finalEqualsStored": true
+  },
+  "2ad92b5eb9de": {
+   "json": "8bf26125eee1ba02a9fdfe7fa30d521f47c576235363cf8ff53387a87cdd9fd1",
+   "masks": "1f958b05df8d816488ddf1f0c729ea920b58faf776be1b551160b92431725072",
+   "photoSHA256": "2ad92b5eb9ded9c0950ac41d9df33f01d5e173a8ffffed3a1ab651464d5deb59",
+   "finalEqualsStored": true
+  },
+  "33e42c603f10": {
+   "json": "d058d8604ce3b010ab482597494105eb26108739ded2d1725ebac5ea4e1f5fd7",
+   "masks": "b096374621e13b9fcb7007cf060f53c315be49143ea949a337ea98ca6c4a3073",
+   "photoSHA256": "33e42c603f10c05ec4d8e4ed23a9562acbf197bc975c2def382a190d7d6a69b5",
+   "finalEqualsStored": true
+  },
+  "453d2656c394": {
+   "json": "cde49daafe2e5eb382578ae7ccf545b9734fca47000a73dc1e0d66588207c5b7",
+   "masks": "039beb45da377757f3e38037a3c8a913dda11b66bc0d7120dffe02ff07d71d8c",
+   "photoSHA256": "453d2656c39453f6d6c8aea4a736f498d9d19aec50837737d91723d51a52b3a8",
+   "finalEqualsStored": true
+  },
+  "46a79ef8d7a8": {
+   "json": "6184dab04ceaee89cd5bb4c4b4e4ab72fdf51e6858c00d8452b16779cdaea9a9",
+   "masks": "1f5048f225d93774467c326ab8f3d37a562d88a6eb519307e5edf3a58aa7021b",
+   "photoSHA256": "46a79ef8d7a865511162cf78110a7f64763b2b5dbf767432e64f4ae35eaa02bf",
+   "finalEqualsStored": true
+  },
+  "5aa51f53f86c": {
+   "json": "866515477b337e87e7e3cfaef0ec7d3d4509a12e7c6e9b6f91db0da11264c18f",
+   "masks": "c0ac46cc7375fd389aea97f5123a673f8597db701a70646982e77102a697ac74",
+   "photoSHA256": "5aa51f53f86cabe45bd1f361651db7140cff0442437990bfd0f2de4b1b5c2151",
+   "finalEqualsStored": true
+  },
+  "6dcf4d7ab398": {
+   "json": "ed90459150b464cf01bfd018613348b6c67c972c17708f5f6873aaf381fd6e2c",
+   "masks": "c6f0eefe35b186137419f385d7700f1572e491e75b922fd983868a286f6564cd",
+   "photoSHA256": "6dcf4d7ab398b236d8ff4c7510a9ed17877bff73cc6e3b4b7966d6e1268e2c14",
+   "finalEqualsStored": true
+  },
+  "77176e51db41": {
+   "json": "ed45093423809a9a67df498ca62c10cd378ac446d5fc01ae05474a3a4652c297",
+   "masks": "13cf0473dc7ef08917c5f95dcd482c78ef09d336528a6cbd63119b6ef101a1e0",
+   "photoSHA256": "77176e51db41b2f8a19678e060a889f2cfbf158e83d045d8307b44e1deba1bad",
+   "finalEqualsStored": true
+  },
+  "7b425c76a80f": {
+   "json": "33aa2f93105b86808a1bdfe4ad25987de4c939da102a704173e989f025f90dfd",
+   "masks": "3ab10b53f4fad7dcce5cbaad9891a7c66d3db42bbb28d84f25b0e7e089ca1d1c",
+   "photoSHA256": "7b425c76a80fbbc4ab1c7d58e6798e77d7fe42abaccb42c3909167613dcf80ab",
+   "finalEqualsStored": true
+  },
+  "8a78e9d6efd5": {
+   "json": "fea51de305d3ac4e6db5fc65318d938bc4d3342c12b6e4ca24f3fde41b03ddcf",
+   "masks": "74fd2810449b35efebd7b5b9c2909788bd46a9c43bdfdb44f893c22a19a82354",
+   "photoSHA256": "8a78e9d6efd5f2cc7957d8ee4a2b534decbd99cd757fa03575ce06804a1fef9c",
+   "finalEqualsStored": true
+  },
+  "8ad2e156eef7": {
+   "json": "8f0c45e858511380c4ff078828c05e1576e2ce829cd899f5c5173db0e2ac7301",
+   "masks": "144f211b3e5325102e662aba8853ccebd322b14777b0ce92f7a11c4cb4abc03f",
+   "photoSHA256": "8ad2e156eef7b7e373b084086daf5b2c57edc24f2a0e3f5aa826ebf3a9df9716",
+   "finalEqualsStored": true
+  },
+  "9334509b3ae3": {
+   "json": "68e5d02775c12c4c48cb8870dba2166dfbe2b6d2788d1db3214c8949abd8a279",
+   "masks": "6b8eb882bdf776097a3ba3f7e356b1d6c9e710fbd5b19857e7c219e4ea59fded",
+   "photoSHA256": "9334509b3ae3d7191ccba91c8552891d0380f65729fe475be3f417ecbf1894ec",
+   "finalEqualsStored": true
+  },
+  "933e40d730e0": {
+   "json": "58fe12eef3c788867c1074cecb9725e36ac0c4654b7340b9aa184d8bd343517a",
+   "masks": "b862fea04d21a3664698e96391d8511d64b184b1fd923bfd183b38f387a1c4e6",
+   "photoSHA256": "933e40d730e05a997243504b164fd0968f5b178e780be5d1a67be1c482c6121a",
+   "finalEqualsStored": true
+  },
+  "a007c24408ff": {
+   "json": "5fafc571b35dd9879f1775cd8b52538bdf12ef300e6e1d22fa0c12da17ca6a83",
+   "masks": "a07603f8f0a5f1cb1b15e816e639dd7c7c10cf2a9aff0cc013cc21f7fea329fb",
+   "photoSHA256": "a007c24408ff82eb8963ec4f2778fec11d5900370079bc7bef2f08d3c433c45f",
+   "finalEqualsStored": true
+  },
+  "a19346a0887a": {
+   "json": "b8634d8f4440b2bca4373b671171370d2c0e3232b39bae93faa295dc414ca2ec",
+   "masks": "307a8a5c7f96be6cc5cccb599be202dba81dffbb08bad867ba99cc50ff9cbf72",
+   "photoSHA256": "a19346a0887ad1554341837b13b419fc853e2d21eec87657c3d20493d9301cd9",
+   "finalEqualsStored": true
+  },
+  "a2cd98ca9566": {
+   "json": "70d58c36fe4b07fc492202d7487da49300280ded93c8c7c3a7a0803e1e585685",
+   "masks": "49a6defb0e60ac96bd08ec9945eb8e3d5238d7f3a6083b4bfe5482c61b622039",
+   "photoSHA256": "a2cd98ca9566a114e607ed1d82d586c0c1191cf3850d4ae30d065b378b6bbdef",
+   "finalEqualsStored": true
+  },
+  "aff1efde301c": {
+   "json": "eafe53b382cd29c0094b222beca3c515c11c42abea50c3928943b9e7323409da",
+   "masks": "b6fb5ddf764d4096c45b9e6aba9d2eff3b136cb9d8a48ca0c3fe20684ded78bc",
+   "photoSHA256": "aff1efde301c72b3783007a1d60b86f34870e10d6733747c6324a30240175d8f",
+   "finalEqualsStored": true
+  },
+  "b4ec4968102b": {
+   "json": "7501c8603235e59c0ff836c8d29dfd988528d9434535e9120366e72eaa3166d3",
+   "masks": "aba5703b2f360703dfa83514d416e57d5ca947c5699348b0be8b8f3054a8ff2b",
+   "photoSHA256": "b4ec4968102bc06e06ac90fa7e808f14586437d12d17130f4cd6382121c3e60b",
+   "finalEqualsStored": true
+  },
+  "b9dd30fde312": {
+   "json": "d686803ef8f33406f5c2140719dc444d339b58a31a5ffafe5d534662d64048d5",
+   "masks": "7c5bed85a65a88e62e847d37dab63c99ef0f7793e23d3f833022bacfbea6f95e",
+   "photoSHA256": "b9dd30fde31272ab4fc910fad5deb8e7d37445107ce2ad6b3853ced4ea2da226",
+   "finalEqualsStored": true
+  },
+  "c1ae0b437492": {
+   "json": "0807d836f715fe5aa3d14422501516d26baaeaddacd2064798f34ed5d4994a32",
+   "masks": "c9bba04c3dcb621769ad39d8980f3a7763eaf45f419e784c7458a141fec70435",
+   "photoSHA256": "c1ae0b437492a0484977eb587152bccb8260a8283f04f0430f45545bd650bbc7",
+   "finalEqualsStored": true
+  },
+  "c412587e8b7f": {
+   "json": "fee4851b6241266a9f75adafd4ed77af3ced27a13981f249889f8acb359929bd",
+   "masks": "8bbf7ed1064cafbb308458ab13e9dbfdfb0f617cbfcd32934c786cb5bea0f930",
+   "photoSHA256": "c412587e8b7fd90a80172c11c077e66fd108332a2e0b75841b8e143a91d49e58",
+   "finalEqualsStored": true
+  },
+  "cb5ca5ca9a33": {
+   "json": "2ad373d33f904adc505e28d28480fbfc9a04683121411fe534167868883089fe",
+   "masks": "0c4d66d8221e65c1fc5dfa566ed03c06c770ed2ab4e01c393e7e02a6d79e0303",
+   "photoSHA256": "cb5ca5ca9a330a8d46712f2def0207cdb1ed899526c2f5065a897a550b92fa08",
+   "finalEqualsStored": true
+  },
+  "d79fcee141ca": {
+   "json": "68e0a3ce3394f0917cfa2ac97428a9acfb8fa3e5ebda20c0e0e7aaa36b2c0bef",
+   "masks": "c9d7d33aa0db192f7615ebbd1428ffa2dfb9a7bc8af95a0ba29ed3dce975d108",
+   "photoSHA256": "d79fcee141ca12b0ba550fe9a6a8747c23d41cb3a06d4a59fcf2c5186aa19683",
+   "finalEqualsStored": true
+  },
+  "dc089b3f7c38": {
+   "json": "65675bd259c55c5b4262beed7f3a165f1616d66600d7d595cd3d89936b5275d3",
+   "masks": "39cef10e0ebf736a06cf2f47ec0466e39c6e797886d24745ecd62dc5f6c215a5",
+   "photoSHA256": "dc089b3f7c38ad2b8509337b89077adc670bb5eeea8a594106b6031495c4f07f",
+   "finalEqualsStored": true
+  },
+  "e643059207e1": {
+   "json": "0b5230ec9baa61d972ade20594612156d9b7e6a5d5070b0712ae717472efad62",
+   "masks": "89841b6f2055992f4d4d307ee85e1e5dd996ad06652ba2d839478dd92e0d2261",
+   "photoSHA256": "e643059207e17e06e9245624bb7116cf03f81ff455c82e245135a9247e82eb9e",
+   "finalEqualsStored": true
+  },
+  "eeb843cadf66": {
+   "json": "560c127216b3d8f3840066d26394fae98ea1a253b40419e042e7f9bd66d110e0",
+   "masks": "ff8885d9bdc314dab6686dc4659c649371a59c8eb7404178625c549c0a750172",
+   "photoSHA256": "eeb843cadf66df9178f91a3ff15b3c4e0621a4659b8d6067e62cdd0c81acbe84",
+   "finalEqualsStored": true
+  },
+  "f30396853c41": {
+   "json": "af3461c8aaf8d3c29ab1d7e24cda744f5ecd80b11d9c38528232d953b6650c05",
+   "masks": "535e847c55344dce33d0310a89e3c33fd30e72012f963eb387676bd18767ac04",
+   "photoSHA256": "f30396853c41603190be42126ab7bc65db8b658afe408e3a16f980d96475d64f",
+   "finalEqualsStored": true
+  }
+ },
+ "environment": "device python 3.10 venv: torch 1.12.1+cpu, torchvision 0.13.1+cpu, numpy 1.26.4, opencv-headless 4.12.0, scikit-image 0.25.2; 2 threads",
+ "summary": {
+  "C1 chain/scope: side-angle analysis restricted to the exposed cheek; model detected (>= .30, kept by NMS), filter OUTSIDE_SOURCE_SUPPORT": {
+   "n": 7,
+   "targets": [
+    "0a8a14a662a5#P1",
+    "0a8a14a662a5#P3",
+    "0a8a14a662a5#P20",
+    "0a8a14a662a5#P28",
+    "29069058884f#P3",
+    "8ad2e156eef7#P1",
+    "8ad2e156eef7#P4"
+   ]
+  },
+  "C2 model miss AND outside side-angle scope": {
+   "n": 8,
+   "targets": [
+    "0a8a14a662a5#P4",
+    "0a8a14a662a5#P5",
+    "0a8a14a662a5#P9",
+    "0a8a14a662a5#P10",
+    "0a8a14a662a5#P12",
+    "0a8a14a662a5#P30",
+    "29069058884f#P1",
+    "b9dd30fde312#P7"
+   ]
+  },
+  "C3 chain/filter: ANATOMICAL_HOLE on landmark-derived exclusion (non-full-face close-up)": {
+   "n": 1,
+   "targets": [
+    "29069058884f#P2"
+   ]
+  },
+  "M1 model miss in scope: best nearby score below .30": {
+   "n": 21,
+   "targets": [
+    "33e42c603f10#P1",
+    "33e42c603f10#P13",
+    "33e42c603f10#P14",
+    "46a79ef8d7a8#P8",
+    "46a79ef8d7a8#P10",
+    "46a79ef8d7a8#P11",
+    "77176e51db41#P1",
+    "77176e51db41#P8",
+    "77176e51db41#P9",
+    "77176e51db41#P11",
+    "77176e51db41#P14",
+    "8ad2e156eef7#P12",
+    "9334509b3ae3#P1",
+    "9334509b3ae3#P8",
+    "933e40d730e0#P9",
+    "933e40d730e0#P10",
+    "933e40d730e0#P22",
+    "a19346a0887a#P2",
+    "a19346a0887a#P18",
+    "b9dd30fde312#P5",
+    "cb5ca5ca9a33#P3"
+   ]
+  },
+  "M2 model miss in scope: no raw candidate (obj*cls >= .01) within r": {
+   "n": 6,
+   "targets": [
+    "9334509b3ae3#P2",
+    "a19346a0887a#P6",
+    "a19346a0887a#P13",
+    "a19346a0887a#P19",
+    "b9dd30fde312#P1",
+    "b9dd30fde312#P2"
+   ]
+  }
+ },
+ "targets": [
+  {
+   "target": "0a8a14a662a5#P1",
+   "x": 700.4,
+   "y": 155.6,
+   "rPx": 17.2,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     3
+    ],
+    "tileLocal": [
+     [
+      97.4,
+      155.6
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": false,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": null,
+    "hair": null,
+    "exclusion": null,
+    "faceSupport": null
+   },
+   "S4": {
+    "nearRaw": 26,
+    "bestScore": 0.8123,
+    "bestTile": 0
+   },
+   "S5": {
+    "nearConf": 16,
+    "bestScore": 0.8123
+   },
+   "S6": {
+    "nearNms": 4,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": [
+     "OUTSIDE_SOURCE_SUPPORT",
+     "OUTSIDE_SOURCE_SUPPORT",
+     "OUTSIDE_SOURCE_SUPPORT",
+     "OUTSIDE_SOURCE_SUPPORT"
+    ]
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside product analysis raster (not a visible region of the matched angle)",
+    "filter: OUTSIDE_SOURCE_SUPPORT"
+   ],
+   "firstLoss": "S7 filter",
+   "category": "C1 chain/scope: side-angle analysis restricted to the exposed cheek; model detected (>= .30, kept by NMS), filter OUTSIDE_SOURCE_SUPPORT"
+  },
+  {
+   "target": "0a8a14a662a5#P3",
+   "x": 653.3,
+   "y": 182.5,
+   "rPx": 17.2,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0,
+     3
+    ],
+    "tileLocal": [
+     [
+      338.3,
+      182.5
+     ],
+     [
+      50.3,
+      182.5
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": false,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": null,
+    "hair": null,
+    "exclusion": null,
+    "faceSupport": null
+   },
+   "S4": {
+    "nearRaw": 32,
+    "bestScore": 0.5354,
+    "bestTile": 3
+   },
+   "S5": {
+    "nearConf": 15,
+    "bestScore": 0.5354
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": [
+     "OUTSIDE_SOURCE_SUPPORT",
+     "OUTSIDE_SOURCE_SUPPORT"
+    ]
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside product analysis raster (not a visible region of the matched angle)",
+    "filter: OUTSIDE_SOURCE_SUPPORT"
+   ],
+   "firstLoss": "S7 filter",
+   "category": "C1 chain/scope: side-angle analysis restricted to the exposed cheek; model detected (>= .30, kept by NMS), filter OUTSIDE_SOURCE_SUPPORT"
+  },
+  {
+   "target": "0a8a14a662a5#P4",
+   "x": 626.4,
+   "y": 198.2,
+   "rPx": 17.2,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0,
+     3
+    ],
+    "tileLocal": [
+     [
+      311.4,
+      198.2
+     ],
+     [
+      23.4,
+      198.2
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": false,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": null,
+    "hair": null,
+    "exclusion": null,
+    "faceSupport": null
+   },
+   "S4": {
+    "nearRaw": 18,
+    "bestScore": 0.1875,
+    "bestTile": 3
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside product analysis raster (not a visible region of the matched angle)",
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "C2 model miss AND outside side-angle scope"
+  },
+  {
+   "target": "0a8a14a662a5#P5",
+   "x": 588.3,
+   "y": 227.4,
+   "rPx": 17.2,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": false
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0
+    ],
+    "tileLocal": [
+     [
+      273.3,
+      227.4
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": false,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": null,
+    "hair": null,
+    "exclusion": null,
+    "faceSupport": null
+   },
+   "S4": {
+    "nearRaw": 5,
+    "bestScore": 0.024,
+    "bestTile": 0
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside product analysis raster (not a visible region of the matched angle)",
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "C2 model miss AND outside side-angle scope"
+  },
+  {
+   "target": "0a8a14a662a5#P9",
+   "x": 781.5,
+   "y": 166.8,
+   "rPx": 17.2,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     3
+    ],
+    "tileLocal": [
+     [
+      178.5,
+      166.8
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": false,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": null,
+    "hair": null,
+    "exclusion": null,
+    "faceSupport": null
+   },
+   "S4": {
+    "nearRaw": 13,
+    "bestScore": 0.212,
+    "bestTile": 3
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside product analysis raster (not a visible region of the matched angle)",
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "C2 model miss AND outside side-angle scope"
+  },
+  {
+   "target": "0a8a14a662a5#P10",
+   "x": 848.8,
+   "y": 234.1,
+   "rPx": 17.2,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     3
+    ],
+    "tileLocal": [
+     [
+      245.8,
+      234.1
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": false,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": null,
+    "hair": null,
+    "exclusion": null,
+    "faceSupport": null
+   },
+   "S4": {
+    "nearRaw": 11,
+    "bestScore": 0.1353,
+    "bestTile": 3
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside product analysis raster (not a visible region of the matched angle)",
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "C2 model miss AND outside side-angle scope"
+  },
+  {
+   "target": "0a8a14a662a5#P12",
+   "x": 1061.2,
+   "y": 139.5,
+   "rPx": 17.2,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": false
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     6,
+     9
+    ],
+    "tileLocal": [
+     [
+      170.2,
+      139.5
+     ],
+     [
+      165.2,
+      139.5
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": false,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": null,
+    "hair": null,
+    "exclusion": null,
+    "faceSupport": null
+   },
+   "S4": {
+    "nearRaw": 3,
+    "bestScore": 0.1031,
+    "bestTile": 9
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside product analysis raster (not a visible region of the matched angle)",
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "C2 model miss AND outside side-angle scope"
+  },
+  {
+   "target": "0a8a14a662a5#P16",
+   "x": 619.2,
+   "y": 427.3,
+   "rPx": 17.2,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1,
+     4
+    ],
+    "tileLocal": [
+     [
+      304.2,
+      139.3
+     ],
+     [
+      16.2,
+      139.3
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 44,
+    "bestScore": 0.7631,
+    "bestTile": 1
+   },
+   "S5": {
+    "nearConf": 30,
+    "bestScore": 0.7631
+   },
+   "S6": {
+    "nearNms": 3,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP",
+     "rightCheek:ENVELOPE_OVERLAP",
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 3,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "0a8a14a662a5#P17",
+   "x": 634.9,
+   "y": 458.7,
+   "rPx": 17.2,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1,
+     2,
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      319.9,
+      170.7
+     ],
+     [
+      319.9,
+      27.7
+     ],
+     [
+      31.9,
+      170.7
+     ],
+     [
+      31.9,
+      27.7
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 72,
+    "bestScore": 0.8346,
+    "bestTile": 4
+   },
+   "S5": {
+    "nearConf": 51,
+    "bestScore": 0.8346
+   },
+   "S6": {
+    "nearNms": 4,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP",
+     "rightCheek:ENVELOPE_OVERLAP",
+     "rightCheek:ENVELOPE_OVERLAP",
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 4,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "0a8a14a662a5#P18",
+   "x": 625.9,
+   "y": 528.2,
+   "rPx": 17.2,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1,
+     2,
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      310.9,
+      240.2
+     ],
+     [
+      310.9,
+      97.2
+     ],
+     [
+      22.9,
+      240.2
+     ],
+     [
+      22.9,
+      97.2
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 63,
+    "bestScore": 0.7501,
+    "bestTile": 4
+   },
+   "S5": {
+    "nearConf": 20,
+    "bestScore": 0.7501
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "0a8a14a662a5#P20",
+   "x": 999.4,
+   "y": 418.8,
+   "rPx": 17.2,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     7,
+     10
+    ],
+    "tileLocal": [
+     [
+      108.4,
+      130.8
+     ],
+     [
+      103.4,
+      130.8
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": false,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": null,
+    "hair": null,
+    "exclusion": null,
+    "faceSupport": null
+   },
+   "S4": {
+    "nearRaw": 26,
+    "bestScore": 0.6364,
+    "bestTile": 10
+   },
+   "S5": {
+    "nearConf": 19,
+    "bestScore": 0.6364
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": [
+     "OUTSIDE_SOURCE_SUPPORT"
+    ]
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside product analysis raster (not a visible region of the matched angle)",
+    "filter: OUTSIDE_SOURCE_SUPPORT"
+   ],
+   "firstLoss": "S7 filter",
+   "category": "C1 chain/scope: side-angle analysis restricted to the exposed cheek; model detected (>= .30, kept by NMS), filter OUTSIDE_SOURCE_SUPPORT"
+  },
+  {
+   "target": "0a8a14a662a5#P23",
+   "x": 642.1,
+   "y": 578.1,
+   "rPx": 17.2,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1,
+     2,
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      327.1,
+      290.1
+     ],
+     [
+      327.1,
+      147.1
+     ],
+     [
+      39.1,
+      290.1
+     ],
+     [
+      39.1,
+      147.1
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 62,
+    "bestScore": 0.69,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 31,
+    "bestScore": 0.69
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "0a8a14a662a5#P25",
+   "x": 648.8,
+   "y": 622.9,
+   "rPx": 17.2,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1,
+     2,
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      333.8,
+      334.9
+     ],
+     [
+      333.8,
+      191.9
+     ],
+     [
+      45.8,
+      334.9
+     ],
+     [
+      45.8,
+      191.9
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 62,
+    "bestScore": 0.6986,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 44,
+    "bestScore": 0.6986
+   },
+   "S6": {
+    "nearNms": 3,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ANATOMICAL_DISTANCE_FALLBACK(norm_dist=0.046)",
+     "rightCheek:ANATOMICAL_DISTANCE_FALLBACK(norm_dist=0.054)",
+     "rightCheek:ANATOMICAL_DISTANCE_FALLBACK(norm_dist=0.075)"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 3,
+    "found": true
+   },
+   "causes": [
+    "outside every visible region envelope"
+   ],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "0a8a14a662a5#P26",
+   "x": 680.2,
+   "y": 622.9,
+   "rPx": 17.2,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1,
+     2,
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      365.2,
+      334.9
+     ],
+     [
+      365.2,
+      191.9
+     ],
+     [
+      77.2,
+      334.9
+     ],
+     [
+      77.2,
+      191.9
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 55,
+    "bestScore": 0.731,
+    "bestTile": 1
+   },
+   "S5": {
+    "nearConf": 12,
+    "bestScore": 0.731
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ANATOMICAL_DISTANCE_FALLBACK(norm_dist=0.039)",
+     "rightCheek:ANATOMICAL_DISTANCE_FALLBACK(norm_dist=0.048)"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [
+    "outside every visible region envelope"
+   ],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "0a8a14a662a5#P27",
+   "x": 734.0,
+   "y": 636.4,
+   "rPx": 17.2,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      131.0,
+      348.4
+     ],
+     [
+      131.0,
+      205.4
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 24,
+    "bestScore": 0.4018,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 5,
+    "bestScore": 0.4018
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ANATOMICAL_DISTANCE_FALLBACK(norm_dist=0.100)"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [
+    "outside every visible region envelope"
+   ],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "0a8a14a662a5#P28",
+   "x": 760.9,
+   "y": 674.5,
+   "rPx": 17.2,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     5
+    ],
+    "tileLocal": [
+     [
+      157.9,
+      243.5
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": false,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": null,
+    "hair": null,
+    "exclusion": null,
+    "faceSupport": null
+   },
+   "S4": {
+    "nearRaw": 13,
+    "bestScore": 0.5234,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 6,
+    "bestScore": 0.5234
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": [
+     "OUTSIDE_SOURCE_SUPPORT"
+    ]
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside product analysis raster (not a visible region of the matched angle)",
+    "filter: OUTSIDE_SOURCE_SUPPORT"
+   ],
+   "firstLoss": "S7 filter",
+   "category": "C1 chain/scope: side-angle analysis restricted to the exposed cheek; model detected (>= .30, kept by NMS), filter OUTSIDE_SOURCE_SUPPORT"
+  },
+  {
+   "target": "0a8a14a662a5#P30",
+   "x": 877.9,
+   "y": 625.2,
+   "rPx": 17.2,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      274.9,
+      337.2
+     ],
+     [
+      274.9,
+      194.2
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": false,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": null,
+    "hair": null,
+    "exclusion": null,
+    "faceSupport": null
+   },
+   "S4": {
+    "nearRaw": 0,
+    "bestScore": null,
+    "bestTile": null
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside product analysis raster (not a visible region of the matched angle)",
+    "model: no raw candidate (score >= .01) within r"
+   ],
+   "firstLoss": "S4 model raw (no candidate)",
+   "category": "C2 model miss AND outside side-angle scope"
+  },
+  {
+   "target": "29069058884f#P1",
+   "x": 170.0,
+   "y": 284.0,
+   "rPx": 9.9,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": null
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "tileLocal": [
+     [
+      170.0,
+      197.0
+     ],
+     [
+      170.0,
+      97.0
+     ],
+     [
+      16.0,
+      197.0
+     ],
+     [
+      16.0,
+      97.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": false,
+    "visibleRegions": [
+     "leftCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": null,
+    "hair": null,
+    "exclusion": null,
+    "faceSupport": null
+   },
+   "S4": {
+    "nearRaw": 2,
+    "bestScore": 0.0167,
+    "bestTile": 0
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside product analysis raster (not a visible region of the matched angle)",
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "C2 model miss AND outside side-angle scope"
+  },
+  {
+   "target": "29069058884f#P2",
+   "x": 252.0,
+   "y": 440.0,
+   "rPx": 9.9,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": null
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "tileLocal": [
+     [
+      252.0,
+      353.0
+     ],
+     [
+      252.0,
+      253.0
+     ],
+     [
+      98.0,
+      353.0
+     ],
+     [
+      98.0,
+      253.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "leftCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": false,
+    "hair": false,
+    "exclusion": true,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 47,
+    "bestScore": 0.656,
+    "bestTile": 0
+   },
+   "S5": {
+    "nearConf": 14,
+    "bestScore": 0.656
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": [
+     "ANATOMICAL_HOLE"
+    ]
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside every visible region envelope",
+    "not acne_skin at target (hair/exclusion/face edge/clipping)",
+    "filter: ANATOMICAL_HOLE"
+   ],
+   "firstLoss": "S7 filter",
+   "category": "C3 chain/filter: ANATOMICAL_HOLE on landmark-derived exclusion (non-full-face close-up)"
+  },
+  {
+   "target": "29069058884f#P3",
+   "x": 67.0,
+   "y": 232.0,
+   "rPx": 9.9,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": null
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0,
+     1
+    ],
+    "tileLocal": [
+     [
+      67.0,
+      145.0
+     ],
+     [
+      67.0,
+      45.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": false,
+    "visibleRegions": [
+     "leftCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": null,
+    "hair": null,
+    "exclusion": null,
+    "faceSupport": null
+   },
+   "S4": {
+    "nearRaw": 26,
+    "bestScore": 0.5613,
+    "bestTile": 0
+   },
+   "S5": {
+    "nearConf": 7,
+    "bestScore": 0.5613
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": [
+     "OUTSIDE_SOURCE_SUPPORT"
+    ]
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside product analysis raster (not a visible region of the matched angle)",
+    "filter: OUTSIDE_SOURCE_SUPPORT"
+   ],
+   "firstLoss": "S7 filter",
+   "category": "C1 chain/scope: side-angle analysis restricted to the exposed cheek; model detected (>= .30, kept by NMS), filter OUTSIDE_SOURCE_SUPPORT"
+  },
+  {
+   "target": "33e42c603f10#P1",
+   "x": 591.6,
+   "y": 506.1,
+   "rPx": 14.6,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0,
+     2
+    ],
+    "tileLocal": [
+     [
+      339.6,
+      220.1
+     ],
+     [
+      51.6,
+      220.1
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 6,
+    "bestScore": 0.0146,
+    "bestTile": 2
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "33e42c603f10#P2",
+   "x": 624.0,
+   "y": 517.5,
+   "rPx": 14.6,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0,
+     2
+    ],
+    "tileLocal": [
+     [
+      372.0,
+      231.5
+     ],
+     [
+      84.0,
+      231.5
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 24,
+    "bestScore": 0.566,
+    "bestTile": 2
+   },
+   "S5": {
+    "nearConf": 13,
+    "bestScore": 0.566
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ENVELOPE_OVERLAP",
+     "nose:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "33e42c603f10#P9",
+   "x": 526.4,
+   "y": 761.9,
+   "rPx": 14.6,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1
+    ],
+    "tileLocal": [
+     [
+      274.4,
+      219.9
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 12,
+    "bestScore": 0.7165,
+    "bestTile": 1
+   },
+   "S5": {
+    "nearConf": 9,
+    "bestScore": 0.7165
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "chin:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "33e42c603f10#P11",
+   "x": 469.2,
+   "y": 683.8,
+   "rPx": 14.6,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1
+    ],
+    "tileLocal": [
+     [
+      217.2,
+      141.8
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 11,
+    "bestScore": 0.5098,
+    "bestTile": 1
+   },
+   "S5": {
+    "nearConf": 6,
+    "bestScore": 0.5098
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "33e42c603f10#P13",
+   "x": 764.3,
+   "y": 764.2,
+   "rPx": 14.6,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     3,
+     5
+    ],
+    "tileLocal": [
+     [
+      224.3,
+      222.2
+     ],
+     [
+      87.3,
+      222.2
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 9,
+    "bestScore": 0.1902,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "33e42c603f10#P14",
+   "x": 745.2,
+   "y": 777.6,
+   "rPx": 14.6,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     3,
+     5
+    ],
+    "tileLocal": [
+     [
+      205.2,
+      235.6
+     ],
+     [
+      68.2,
+      235.6
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 19,
+    "bestScore": 0.2712,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "33e42c603f10#P15",
+   "x": 779.6,
+   "y": 781.4,
+   "rPx": 14.6,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     3,
+     5
+    ],
+    "tileLocal": [
+     [
+      239.6,
+      239.4
+     ],
+     [
+      102.6,
+      239.4
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 22,
+    "bestScore": 0.3091,
+    "bestTile": 3
+   },
+   "S5": {
+    "nearConf": 1,
+    "bestScore": 0.3091
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "chin:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "46a79ef8d7a8#P1",
+   "x": 498.8,
+   "y": 376.9,
+   "rPx": 24.7,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     5,
+     6
+    ],
+    "tileLocal": [
+     [
+      210.8,
+      376.9
+     ],
+     [
+      210.8,
+      88.9
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 32,
+    "bestScore": 0.7635,
+    "bestTile": 6
+   },
+   "S5": {
+    "nearConf": 9,
+    "bestScore": 0.7635
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "46a79ef8d7a8#P2",
+   "x": 610.2,
+   "y": 389.8,
+   "rPx": 24.7,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     6,
+     11
+    ],
+    "tileLocal": [
+     [
+      322.2,
+      101.8
+     ],
+     [
+      34.2,
+      101.8
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 32,
+    "bestScore": 0.3764,
+    "bestTile": 6
+   },
+   "S5": {
+    "nearConf": 7,
+    "bestScore": 0.3764
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "46a79ef8d7a8#P5",
+   "x": 391.3,
+   "y": 655.7,
+   "rPx": 24.7,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     6,
+     7
+    ],
+    "tileLocal": [
+     [
+      103.3,
+      367.7
+     ],
+     [
+      103.3,
+      79.7
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 40,
+    "bestScore": 0.7058,
+    "bestTile": 6
+   },
+   "S5": {
+    "nearConf": 20,
+    "bestScore": 0.7058
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP",
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [
+    "outside every visible region envelope"
+   ],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "46a79ef8d7a8#P8",
+   "x": 624.8,
+   "y": 347.9,
+   "rPx": 24.7,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     5,
+     6,
+     10,
+     11
+    ],
+    "tileLocal": [
+     [
+      336.8,
+      347.9
+     ],
+     [
+      336.8,
+      59.9
+     ],
+     [
+      48.8,
+      347.9
+     ],
+     [
+      48.8,
+      59.9
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 44,
+    "bestScore": 0.0948,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "46a79ef8d7a8#P9",
+   "x": 682.7,
+   "y": 380.1,
+   "rPx": 24.7,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     10,
+     11
+    ],
+    "tileLocal": [
+     [
+      106.7,
+      380.1
+     ],
+     [
+      106.7,
+      92.1
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 32,
+    "bestScore": 0.6235,
+    "bestTile": 11
+   },
+   "S5": {
+    "nearConf": 10,
+    "bestScore": 0.6235
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "46a79ef8d7a8#P10",
+   "x": 689.1,
+   "y": 431.6,
+   "rPx": 24.7,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     11
+    ],
+    "tileLocal": [
+     [
+      113.1,
+      143.6
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 17,
+    "bestScore": 0.2975,
+    "bestTile": 11
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "46a79ef8d7a8#P11",
+   "x": 714.9,
+   "y": 312.5,
+   "rPx": 24.7,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     10,
+     11
+    ],
+    "tileLocal": [
+     [
+      138.9,
+      312.5
+     ],
+     [
+      138.9,
+      24.5
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 16,
+    "bestScore": 0.1319,
+    "bestTile": 11
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "46a79ef8d7a8#P12",
+   "x": 837.2,
+   "y": 315.8,
+   "rPx": 24.7,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     10,
+     11
+    ],
+    "tileLocal": [
+     [
+      261.2,
+      315.8
+     ],
+     [
+      261.2,
+      27.8
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 35,
+    "bestScore": 0.6175,
+    "bestTile": 10
+   },
+   "S5": {
+    "nearConf": 23,
+    "bestScore": 0.6175
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "46a79ef8d7a8#P15",
+   "x": 287.6,
+   "y": 745.6,
+   "rPx": 24.7,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     2
+    ],
+    "tileLocal": [
+     [
+      287.6,
+      169.6
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 36,
+    "bestScore": 0.5676,
+    "bestTile": 2
+   },
+   "S5": {
+    "nearConf": 11,
+    "bestScore": 0.5676
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP",
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "46a79ef8d7a8#P16",
+   "x": 455.0,
+   "y": 964.5,
+   "rPx": 24.7,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     8,
+     9
+    ],
+    "tileLocal": [
+     [
+      167.0,
+      100.5
+     ],
+     [
+      167.0,
+      68.5
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 36,
+    "bestScore": 0.3862,
+    "bestTile": 8
+   },
+   "S5": {
+    "nearConf": 6,
+    "bestScore": 0.3862
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "chin:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "46a79ef8d7a8#P19",
+   "x": 494.3,
+   "y": 1037.1,
+   "rPx": 24.7,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     8,
+     9
+    ],
+    "tileLocal": [
+     [
+      206.3,
+      173.1
+     ],
+     [
+      206.3,
+      141.1
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 50,
+    "bestScore": 0.7281,
+    "bestTile": 8
+   },
+   "S5": {
+    "nearConf": 28,
+    "bestScore": 0.7281
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "chin:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "46a79ef8d7a8#P20",
+   "x": 523.3,
+   "y": 1088.6,
+   "rPx": 24.7,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     8,
+     9
+    ],
+    "tileLocal": [
+     [
+      235.3,
+      224.6
+     ],
+     [
+      235.3,
+      192.6
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 36,
+    "bestScore": 0.7339,
+    "bestTile": 8
+   },
+   "S5": {
+    "nearConf": 28,
+    "bestScore": 0.7339
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "chin:ENVELOPE_OVERLAP",
+     "chin:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "77176e51db41#P1",
+   "x": 577.8,
+   "y": 634.7,
+   "rPx": 17.8,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     3,
+     4
+    ],
+    "tileLocal": [
+     [
+      165.8,
+      383.7
+     ],
+     [
+      165.8,
+      95.7
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 7,
+    "bestScore": 0.2741,
+    "bestTile": 4
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "77176e51db41#P6",
+   "x": 495.6,
+   "y": 826.3,
+   "rPx": 17.8,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1,
+     2,
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      371.6,
+      287.3
+     ],
+     [
+      371.6,
+      12.3
+     ],
+     [
+      83.6,
+      287.3
+     ],
+     [
+      83.6,
+      12.3
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 52,
+    "bestScore": 0.7215,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 20,
+    "bestScore": 0.7215
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP",
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "77176e51db41#P7",
+   "x": 357.6,
+   "y": 815.9,
+   "rPx": 17.8,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1,
+     2
+    ],
+    "tileLocal": [
+     [
+      233.6,
+      276.9
+     ],
+     [
+      233.6,
+      1.9
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 24,
+    "bestScore": 0.4946,
+    "bestTile": 1
+   },
+   "S5": {
+    "nearConf": 10,
+    "bestScore": 0.4946
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "77176e51db41#P8",
+   "x": 539.4,
+   "y": 873.7,
+   "rPx": 17.8,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      127.4,
+      334.7
+     ],
+     [
+      127.4,
+      59.7
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 12,
+    "bestScore": 0.126,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside every visible region envelope",
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "77176e51db41#P9",
+   "x": 561.1,
+   "y": 883.0,
+   "rPx": 17.8,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      149.1,
+      344.0
+     ],
+     [
+      149.1,
+      69.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 7,
+    "bestScore": 0.0461,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside every visible region envelope",
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "77176e51db41#P11",
+   "x": 396.0,
+   "y": 924.6,
+   "rPx": 17.8,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     2
+    ],
+    "tileLocal": [
+     [
+      272.0,
+      110.6
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 9,
+    "bestScore": 0.1243,
+    "bestTile": 2
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "77176e51db41#P14",
+   "x": 670.6,
+   "y": 878.8,
+   "rPx": 17.8,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      258.6,
+      339.8
+     ],
+     [
+      258.6,
+      64.8
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 6,
+    "bestScore": 0.0517,
+    "bestTile": 4
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside every visible region envelope",
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "77176e51db41#P15",
+   "x": 767.7,
+   "y": 862.6,
+   "rPx": 17.8,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4,
+     5,
+     7,
+     8,
+     10,
+     11
+    ],
+    "tileLocal": [
+     [
+      355.7,
+      323.6
+     ],
+     [
+      355.7,
+      48.6
+     ],
+     [
+      67.7,
+      323.6
+     ],
+     [
+      67.7,
+      48.6
+     ],
+     [
+      41.7,
+      323.6
+     ],
+     [
+      41.7,
+      48.6
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 104,
+    "bestScore": 0.7851,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 53,
+    "bestScore": 0.7851
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "77176e51db41#P18",
+   "x": 546.8,
+   "y": 1064.7,
+   "rPx": 17.8,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     5
+    ],
+    "tileLocal": [
+     [
+      134.8,
+      250.7
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 14,
+    "bestScore": 0.4687,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 9,
+    "bestScore": 0.4687
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "chin:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "8a78e9d6efd5#P1",
+   "x": 559.5,
+   "y": 582.5,
+   "rPx": 17.6,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0,
+     3
+    ],
+    "tileLocal": [
+     [
+      330.5,
+      254.5
+     ],
+     [
+      42.5,
+      254.5
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 40,
+    "bestScore": 0.7086,
+    "bestTile": 0
+   },
+   "S5": {
+    "nearConf": 21,
+    "bestScore": 0.7086
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "8a78e9d6efd5#P2",
+   "x": 605.2,
+   "y": 623.7,
+   "rPx": 17.6,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0,
+     1,
+     3,
+     4
+    ],
+    "tileLocal": [
+     [
+      376.2,
+      295.7
+     ],
+     [
+      376.2,
+      7.7
+     ],
+     [
+      88.2,
+      295.7
+     ],
+     [
+      88.2,
+      7.7
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 51,
+    "bestScore": 0.5065,
+    "bestTile": 3
+   },
+   "S5": {
+    "nearConf": 22,
+    "bestScore": 0.5065
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ENVELOPE_OVERLAP",
+     "nose:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "8a78e9d6efd5#P3",
+   "x": 619.0,
+   "y": 644.3,
+   "rPx": 17.6,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     3,
+     4
+    ],
+    "tileLocal": [
+     [
+      102.0,
+      316.3
+     ],
+     [
+      102.0,
+      28.3
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 38,
+    "bestScore": 0.5906,
+    "bestTile": 3
+   },
+   "S5": {
+    "nearConf": 20,
+    "bestScore": 0.5906
+   },
+   "S6": {
+    "nearNms": 3,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ENVELOPE_OVERLAP",
+     "nose:ENVELOPE_OVERLAP",
+     "nose:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 3,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "8a78e9d6efd5#P5",
+   "x": 879.0,
+   "y": 577.9,
+   "rPx": 17.6,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     3,
+     6,
+     9
+    ],
+    "tileLocal": [
+     [
+      362.0,
+      249.9
+     ],
+     [
+      74.0,
+      249.9
+     ],
+     [
+      67.0,
+      249.9
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 60,
+    "bestScore": 0.7415,
+    "bestTile": 9
+   },
+   "S5": {
+    "nearConf": 30,
+    "bestScore": 0.7415
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "forehead:ENVELOPE_OVERLAP",
+     "forehead:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "8a78e9d6efd5#P6",
+   "x": 586.5,
+   "y": 888.2,
+   "rPx": 17.6,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1,
+     2,
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      357.5,
+      272.2
+     ],
+     [
+      357.5,
+      10.2
+     ],
+     [
+      69.5,
+      272.2
+     ],
+     [
+      69.5,
+      10.2
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 72,
+    "bestScore": 0.7447,
+    "bestTile": 2
+   },
+   "S5": {
+    "nearConf": 33,
+    "bestScore": 0.7447
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP",
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "8a78e9d6efd5#P7",
+   "x": 643.7,
+   "y": 961.5,
+   "rPx": 17.6,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      126.7,
+      345.5
+     ],
+     [
+      126.7,
+      83.5
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 34,
+    "bestScore": 0.3807,
+    "bestTile": 4
+   },
+   "S5": {
+    "nearConf": 5,
+    "bestScore": 0.3807
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ANATOMICAL_DISTANCE_FALLBACK(norm_dist=0.081)"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [
+    "outside every visible region envelope"
+   ],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "8a78e9d6efd5#P10",
+   "x": 888.6,
+   "y": 879.5,
+   "rPx": 17.6,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4,
+     5,
+     7,
+     8,
+     10,
+     11
+    ],
+    "tileLocal": [
+     [
+      371.6,
+      263.5
+     ],
+     [
+      371.6,
+      1.5
+     ],
+     [
+      83.6,
+      263.5
+     ],
+     [
+      83.6,
+      1.5
+     ],
+     [
+      76.6,
+      263.5
+     ],
+     [
+      76.6,
+      1.5
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 58,
+    "bestScore": 0.6834,
+    "bestTile": 10
+   },
+   "S5": {
+    "nearConf": 25,
+    "bestScore": 0.6834
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "8a78e9d6efd5#P11",
+   "x": 817.6,
+   "y": 927.6,
+   "rPx": 17.6,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4,
+     5,
+     7,
+     8,
+     10,
+     11
+    ],
+    "tileLocal": [
+     [
+      300.6,
+      311.6
+     ],
+     [
+      300.6,
+      49.6
+     ],
+     [
+      12.6,
+      311.6
+     ],
+     [
+      12.6,
+      49.6
+     ],
+     [
+      5.6,
+      311.6
+     ],
+     [
+      5.6,
+      49.6
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 93,
+    "bestScore": 0.7569,
+    "bestTile": 10
+   },
+   "S5": {
+    "nearConf": 50,
+    "bestScore": 0.7569
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ANATOMICAL_DISTANCE_FALLBACK(norm_dist=0.042)"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [
+    "outside every visible region envelope"
+   ],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "8a78e9d6efd5#P12",
+   "x": 897.7,
+   "y": 961.9,
+   "rPx": 17.6,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4,
+     5,
+     7,
+     8,
+     10,
+     11
+    ],
+    "tileLocal": [
+     [
+      380.7,
+      345.9
+     ],
+     [
+      380.7,
+      83.9
+     ],
+     [
+      92.7,
+      345.9
+     ],
+     [
+      92.7,
+      83.9
+     ],
+     [
+      85.7,
+      345.9
+     ],
+     [
+      85.7,
+      83.9
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 69,
+    "bestScore": 0.7136,
+    "bestTile": 7
+   },
+   "S5": {
+    "nearConf": 38,
+    "bestScore": 0.7136
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "8a78e9d6efd5#P14",
+   "x": 861.1,
+   "y": 1037.5,
+   "rPx": 17.6,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     5,
+     8,
+     11
+    ],
+    "tileLocal": [
+     [
+      344.1,
+      159.5
+     ],
+     [
+      56.1,
+      159.5
+     ],
+     [
+      49.1,
+      159.5
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 52,
+    "bestScore": 0.6861,
+    "bestTile": 11
+   },
+   "S5": {
+    "nearConf": 30,
+    "bestScore": 0.6861
+   },
+   "S6": {
+    "nearNms": 4,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "chin:ENVELOPE_OVERLAP",
+     "chin:ENVELOPE_OVERLAP",
+     "chin:ENVELOPE_OVERLAP",
+     "chin:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 4,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "8a78e9d6efd5#P21",
+   "x": 821.7,
+   "y": 1088.8,
+   "rPx": 17.6,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     5,
+     8,
+     11
+    ],
+    "tileLocal": [
+     [
+      304.7,
+      210.8
+     ],
+     [
+      16.7,
+      210.8
+     ],
+     [
+      9.7,
+      210.8
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 34,
+    "bestScore": 0.3642,
+    "bestTile": 8
+   },
+   "S5": {
+    "nearConf": 3,
+    "bestScore": 0.3642
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "chin:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "8ad2e156eef7#P1",
+   "x": 352.3,
+   "y": 497.0,
+   "rPx": 17.8,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0,
+     1,
+     3,
+     4
+    ],
+    "tileLocal": [
+     [
+      352.3,
+      355.0
+     ],
+     [
+      352.3,
+      67.0
+     ],
+     [
+      64.3,
+      355.0
+     ],
+     [
+      64.3,
+      67.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": false,
+    "visibleRegions": [
+     "leftCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": null,
+    "hair": null,
+    "exclusion": null,
+    "faceSupport": null
+   },
+   "S4": {
+    "nearRaw": 59,
+    "bestScore": 0.6574,
+    "bestTile": 3
+   },
+   "S5": {
+    "nearConf": 35,
+    "bestScore": 0.6574
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": [
+     "OUTSIDE_SOURCE_SUPPORT"
+    ]
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside product analysis raster (not a visible region of the matched angle)",
+    "filter: OUTSIDE_SOURCE_SUPPORT"
+   ],
+   "firstLoss": "S7 filter",
+   "category": "C1 chain/scope: side-angle analysis restricted to the exposed cheek; model detected (>= .30, kept by NMS), filter OUTSIDE_SOURCE_SUPPORT"
+  },
+  {
+   "target": "8ad2e156eef7#P4",
+   "x": 282.2,
+   "y": 637.1,
+   "rPx": 17.8,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1,
+     2
+    ],
+    "tileLocal": [
+     [
+      282.2,
+      207.1
+     ],
+     [
+      282.2,
+      44.1
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": false,
+    "visibleRegions": [
+     "leftCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": null,
+    "hair": null,
+    "exclusion": null,
+    "faceSupport": null
+   },
+   "S4": {
+    "nearRaw": 15,
+    "bestScore": 0.4669,
+    "bestTile": 1
+   },
+   "S5": {
+    "nearConf": 5,
+    "bestScore": 0.4669
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": [
+     "OUTSIDE_SOURCE_SUPPORT"
+    ]
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside product analysis raster (not a visible region of the matched angle)",
+    "filter: OUTSIDE_SOURCE_SUPPORT"
+   ],
+   "firstLoss": "S7 filter",
+   "category": "C1 chain/scope: side-angle analysis restricted to the exposed cheek; model detected (>= .30, kept by NMS), filter OUTSIDE_SOURCE_SUPPORT"
+  },
+  {
+   "target": "8ad2e156eef7#P9",
+   "x": 691.2,
+   "y": 660.1,
+   "rPx": 17.8,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     7,
+     8
+    ],
+    "tileLocal": [
+     [
+      115.2,
+      230.1
+     ],
+     [
+      115.2,
+      67.1
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 50,
+    "bestScore": 0.7873,
+    "bestTile": 8
+   },
+   "S5": {
+    "nearConf": 26,
+    "bestScore": 0.7873
+   },
+   "S6": {
+    "nearNms": 4,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 4,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "8ad2e156eef7#P10",
+   "x": 707.4,
+   "y": 674.1,
+   "rPx": 17.8,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     7,
+     8,
+     10,
+     11
+    ],
+    "tileLocal": [
+     [
+      131.4,
+      244.1
+     ],
+     [
+      131.4,
+      81.1
+     ],
+     [
+      14.4,
+      244.1
+     ],
+     [
+      14.4,
+      81.1
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 40,
+    "bestScore": 0.6359,
+    "bestTile": 8
+   },
+   "S5": {
+    "nearConf": 10,
+    "bestScore": 0.6359
+   },
+   "S6": {
+    "nearNms": 3,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 3,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "8ad2e156eef7#P12",
+   "x": 640.1,
+   "y": 681.0,
+   "rPx": 17.8,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4,
+     5,
+     7,
+     8
+    ],
+    "tileLocal": [
+     [
+      352.1,
+      251.0
+     ],
+     [
+      352.1,
+      88.0
+     ],
+     [
+      64.1,
+      251.0
+     ],
+     [
+      64.1,
+      88.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 26,
+    "bestScore": 0.2456,
+    "bestTile": 4
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "8ad2e156eef7#P13",
+   "x": 654.0,
+   "y": 699.6,
+   "rPx": 17.8,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4,
+     5,
+     7,
+     8
+    ],
+    "tileLocal": [
+     [
+      366.0,
+      269.6
+     ],
+     [
+      366.0,
+      106.6
+     ],
+     [
+      78.0,
+      269.6
+     ],
+     [
+      78.0,
+      106.6
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 62,
+    "bestScore": 0.5584,
+    "bestTile": 8
+   },
+   "S5": {
+    "nearConf": 16,
+    "bestScore": 0.5584
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "9334509b3ae3#P1",
+   "x": 310.0,
+   "y": 638.0,
+   "rPx": 17.9,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1,
+     2,
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      310.0,
+      277.0
+     ],
+     [
+      310.0,
+      13.0
+     ],
+     [
+      22.0,
+      277.0
+     ],
+     [
+      22.0,
+      13.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 33,
+    "bestScore": 0.1904,
+    "bestTile": 1
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "9334509b3ae3#P2",
+   "x": 340.0,
+   "y": 705.0,
+   "rPx": 17.9,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1,
+     2,
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      340.0,
+      344.0
+     ],
+     [
+      340.0,
+      80.0
+     ],
+     [
+      52.0,
+      344.0
+     ],
+     [
+      52.0,
+      80.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 0,
+    "bestScore": null,
+    "bestTile": null
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: no raw candidate (score >= .01) within r"
+   ],
+   "firstLoss": "S4 model raw (no candidate)",
+   "category": "M2 model miss in scope: no raw candidate (obj*cls >= .01) within r"
+  },
+  {
+   "target": "9334509b3ae3#P8",
+   "x": 395.0,
+   "y": 705.0,
+   "rPx": 17.9,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      107.0,
+      344.0
+     ],
+     [
+      107.0,
+      80.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 10,
+    "bestScore": 0.266,
+    "bestTile": 4
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside every visible region envelope",
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "9334509b3ae3#P14",
+   "x": 485.0,
+   "y": 715.0,
+   "rPx": 17.9,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      197.0,
+      354.0
+     ],
+     [
+      197.0,
+      90.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 34,
+    "bestScore": 0.73,
+    "bestTile": 4
+   },
+   "S5": {
+    "nearConf": 23,
+    "bestScore": 0.73
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ANATOMICAL_DISTANCE_FALLBACK(norm_dist=0.101)",
+     "nose:ANATOMICAL_DISTANCE_FALLBACK(norm_dist=0.087)"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [
+    "outside every visible region envelope"
+   ],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "9334509b3ae3#P18",
+   "x": 625.0,
+   "y": 770.0,
+   "rPx": 17.9,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     5,
+     8
+    ],
+    "tileLocal": [
+     [
+      337.0,
+      145.0
+     ],
+     [
+      68.0,
+      145.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 41,
+    "bestScore": 0.8592,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 30,
+    "bestScore": 0.8592
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ENVELOPE_OVERLAP",
+     "chin:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P1",
+   "x": 559.6,
+   "y": 191.8,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4
+    ],
+    "tileLocal": [
+     [
+      127.6,
+      191.8
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 16,
+    "bestScore": 0.7822,
+    "bestTile": 4
+   },
+   "S5": {
+    "nearConf": 10,
+    "bestScore": 0.7822
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P2",
+   "x": 561.9,
+   "y": 223.6,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4
+    ],
+    "tileLocal": [
+     [
+      129.9,
+      223.6
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 13,
+    "bestScore": 0.8534,
+    "bestTile": 4
+   },
+   "S5": {
+    "nearConf": 10,
+    "bestScore": 0.8534
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P5",
+   "x": 561.9,
+   "y": 369.1,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      129.9,
+      369.1
+     ],
+     [
+      129.9,
+      81.1
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 20,
+    "bestScore": 0.5301,
+    "bestTile": 4
+   },
+   "S5": {
+    "nearConf": 7,
+    "bestScore": 0.5301
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P9",
+   "x": 844.8,
+   "y": 228.1,
+   "rPx": 17.5,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     8,
+     12
+    ],
+    "tileLocal": [
+     [
+      124.8,
+      228.1
+     ],
+     [
+      113.8,
+      228.1
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 14,
+    "bestScore": 0.1774,
+    "bestTile": 8
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside every visible region envelope",
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "933e40d730e0#P10",
+   "x": 667.5,
+   "y": 364.5,
+   "rPx": 17.5,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": false
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     4,
+     5
+    ],
+    "tileLocal": [
+     [
+      235.5,
+      364.5
+     ],
+     [
+      235.5,
+      76.5
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "nose"
+    ],
+    "acneSkin": false,
+    "hair": false,
+    "exclusion": true,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 10,
+    "bestScore": 0.0273,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "not acne_skin at target (hair/exclusion/face edge/clipping)",
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "933e40d730e0#P11",
+   "x": 375.0,
+   "y": 552.0,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1
+    ],
+    "tileLocal": [
+     [
+      231.0,
+      264.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 20,
+    "bestScore": 0.8346,
+    "bestTile": 1
+   },
+   "S5": {
+    "nearConf": 12,
+    "bestScore": 0.8346
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP",
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P12",
+   "x": 411.4,
+   "y": 577.0,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1,
+     2
+    ],
+    "tileLocal": [
+     [
+      267.4,
+      289.0
+     ],
+     [
+      267.4,
+      1.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 23,
+    "bestScore": 0.6865,
+    "bestTile": 1
+   },
+   "S5": {
+    "nearConf": 8,
+    "bestScore": 0.6865
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P15",
+   "x": 770.2,
+   "y": 529.7,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     5,
+     9,
+     13
+    ],
+    "tileLocal": [
+     [
+      338.2,
+      241.7
+     ],
+     [
+      50.2,
+      241.7
+     ],
+     [
+      39.2,
+      241.7
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 52,
+    "bestScore": 0.7439,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 33,
+    "bestScore": 0.7439
+   },
+   "S6": {
+    "nearNms": 3,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 3,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P16",
+   "x": 711.1,
+   "y": 527.4,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     5
+    ],
+    "tileLocal": [
+     [
+      279.1,
+      239.4
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 14,
+    "bestScore": 0.5302,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 5,
+    "bestScore": 0.5302
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P17",
+   "x": 797.5,
+   "y": 535.1,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     5,
+     9,
+     13
+    ],
+    "tileLocal": [
+     [
+      365.5,
+      247.1
+     ],
+     [
+      77.5,
+      247.1
+     ],
+     [
+      66.5,
+      247.1
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 32,
+    "bestScore": 0.6094,
+    "bestTile": 5
+   },
+   "S5": {
+    "nearConf": 18,
+    "bestScore": 0.6094
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P18",
+   "x": 793.0,
+   "y": 552.4,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     5,
+     9,
+     13
+    ],
+    "tileLocal": [
+     [
+      361.0,
+      264.4
+     ],
+     [
+      73.0,
+      264.4
+     ],
+     [
+      62.0,
+      264.4
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 55,
+    "bestScore": 0.7469,
+    "bestTile": 13
+   },
+   "S5": {
+    "nearConf": 28,
+    "bestScore": 0.7469
+   },
+   "S6": {
+    "nearNms": 5,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 5,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P19",
+   "x": 827.1,
+   "y": 554.7,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     9,
+     13
+    ],
+    "tileLocal": [
+     [
+      107.1,
+      266.7
+     ],
+     [
+      96.1,
+      266.7
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 38,
+    "bestScore": 0.8265,
+    "bestTile": 9
+   },
+   "S5": {
+    "nearConf": 25,
+    "bestScore": 0.8265
+   },
+   "S6": {
+    "nearNms": 4,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 4,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P20",
+   "x": 797.5,
+   "y": 574.3,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     5,
+     9,
+     13
+    ],
+    "tileLocal": [
+     [
+      365.5,
+      286.3
+     ],
+     [
+      77.5,
+      286.3
+     ],
+     [
+      66.5,
+      286.3
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 42,
+    "bestScore": 0.553,
+    "bestTile": 13
+   },
+   "S5": {
+    "nearConf": 8,
+    "bestScore": 0.553
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P21",
+   "x": 745.2,
+   "y": 597.9,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     5,
+     6,
+     9,
+     10,
+     13,
+     14
+    ],
+    "tileLocal": [
+     [
+      313.2,
+      309.9
+     ],
+     [
+      313.2,
+      21.9
+     ],
+     [
+      25.2,
+      309.9
+     ],
+     [
+      25.2,
+      21.9
+     ],
+     [
+      14.2,
+      309.9
+     ],
+     [
+      14.2,
+      21.9
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 73,
+    "bestScore": 0.6022,
+    "bestTile": 9
+   },
+   "S5": {
+    "nearConf": 26,
+    "bestScore": 0.6022
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ENVELOPE_OVERLAP",
+     "leftCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P22",
+   "x": 699.8,
+   "y": 609.3,
+   "rPx": 17.5,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     5,
+     6
+    ],
+    "tileLocal": [
+     [
+      267.8,
+      321.3
+     ],
+     [
+      267.8,
+      33.3
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 16,
+    "bestScore": 0.0977,
+    "bestTile": 6
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "933e40d730e0#P23",
+   "x": 795.2,
+   "y": 622.9,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     5,
+     6,
+     9,
+     10,
+     13,
+     14
+    ],
+    "tileLocal": [
+     [
+      363.2,
+      334.9
+     ],
+     [
+      363.2,
+      46.9
+     ],
+     [
+      75.2,
+      334.9
+     ],
+     [
+      75.2,
+      46.9
+     ],
+     [
+      64.2,
+      334.9
+     ],
+     [
+      64.2,
+      46.9
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 57,
+    "bestScore": 0.4378,
+    "bestTile": 14
+   },
+   "S5": {
+    "nearConf": 6,
+    "bestScore": 0.4378
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P28",
+   "x": 389.1,
+   "y": 630.7,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1,
+     2
+    ],
+    "tileLocal": [
+     [
+      245.1,
+      342.7
+     ],
+     [
+      245.1,
+      54.7
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 25,
+    "bestScore": 0.7407,
+    "bestTile": 1
+   },
+   "S5": {
+    "nearConf": 22,
+    "bestScore": 0.7407
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P29",
+   "x": 427.8,
+   "y": 637.6,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     1,
+     2
+    ],
+    "tileLocal": [
+     [
+      283.8,
+      349.6
+     ],
+     [
+      283.8,
+      61.6
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 28,
+    "bestScore": 0.7427,
+    "bestTile": 1
+   },
+   "S5": {
+    "nearConf": 13,
+    "bestScore": 0.7427
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP",
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P37",
+   "x": 561.4,
+   "y": 884.5,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     6,
+     7
+    ],
+    "tileLocal": [
+     [
+      129.4,
+      308.5
+     ],
+     [
+      129.4,
+      142.5
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 35,
+    "bestScore": 0.8025,
+    "bestTile": 6
+   },
+   "S5": {
+    "nearConf": 23,
+    "bestScore": 0.8025
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "chin:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "933e40d730e0#P40",
+   "x": 718.0,
+   "y": 888.6,
+   "rPx": 17.5,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     6,
+     7
+    ],
+    "tileLocal": [
+     [
+      286.0,
+      312.6
+     ],
+     [
+      286.0,
+      146.6
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 44,
+    "bestScore": 0.6376,
+    "bestTile": 7
+   },
+   "S5": {
+    "nearConf": 15,
+    "bestScore": 0.6376
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "chin:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "a007c24408ff#P1",
+   "x": 816.8,
+   "y": 633.8,
+   "rPx": 20.7,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     9,
+     13
+    ],
+    "tileLocal": [
+     [
+      240.8,
+      221.8
+     ],
+     [
+      118.8,
+      221.8
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "leftCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 43,
+    "bestScore": 0.7876,
+    "bestTile": 9
+   },
+   "S5": {
+    "nearConf": 26,
+    "bestScore": 0.7876
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ANATOMICAL_DISTANCE_FALLBACK(norm_dist=0.103)",
+     "leftCheek:ANATOMICAL_DISTANCE_FALLBACK(norm_dist=0.089)"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [
+    "outside every visible region envelope"
+   ],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "a19346a0887a#P2",
+   "x": 1218.4,
+   "y": 1506.0,
+   "rPx": 36.3,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     18,
+     26
+    ],
+    "tileLocal": [
+     [
+      375.4,
+      230.0
+     ],
+     [
+      87.4,
+      230.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 7,
+    "bestScore": 0.0318,
+    "bestTile": 18
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "a19346a0887a#P5",
+   "x": 777.2,
+   "y": 1994.5,
+   "rPx": 36.3,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     12
+    ],
+    "tileLocal": [
+     [
+      222.2,
+      142.5
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 19,
+    "bestScore": 0.4804,
+    "bestTile": 12
+   },
+   "S5": {
+    "nearConf": 4,
+    "bestScore": 0.4804
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "a19346a0887a#P6",
+   "x": 810.3,
+   "y": 2081.6,
+   "rPx": 36.3,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     12
+    ],
+    "tileLocal": [
+     [
+      255.3,
+      229.6
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 0,
+    "bestScore": null,
+    "bestTile": null
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: no raw candidate (score >= .01) within r"
+   ],
+   "firstLoss": "S4 model raw (no candidate)",
+   "category": "M2 model miss in scope: no raw candidate (obj*cls >= .01) within r"
+  },
+  {
+   "target": "a19346a0887a#P7",
+   "x": 796.1,
+   "y": 2299.4,
+   "rPx": 36.3,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     13
+    ],
+    "tileLocal": [
+     [
+      241.1,
+      159.4
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 15,
+    "bestScore": 0.7225,
+    "bestTile": 13
+   },
+   "S5": {
+    "nearConf": 9,
+    "bestScore": 0.7225
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "a19346a0887a#P9",
+   "x": 900.3,
+   "y": 2181.0,
+   "rPx": 36.3,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     12,
+     13,
+     20,
+     21
+    ],
+    "tileLocal": [
+     [
+      345.3,
+      329.0
+     ],
+     [
+      345.3,
+      41.0
+     ],
+     [
+      57.3,
+      329.0
+     ],
+     [
+      57.3,
+      41.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 43,
+    "bestScore": 0.4083,
+    "bestTile": 20
+   },
+   "S5": {
+    "nearConf": 4,
+    "bestScore": 0.4083
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "rightCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "a19346a0887a#P12",
+   "x": 1638.8,
+   "y": 1964.2,
+   "rPx": 36.3,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     36
+    ],
+    "tileLocal": [
+     [
+      219.8,
+      112.2
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 21,
+    "bestScore": 0.4498,
+    "bestTile": 36
+   },
+   "S5": {
+    "nearConf": 7,
+    "bestScore": 0.4498
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "leftCheek:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "a19346a0887a#P13",
+   "x": 1695.6,
+   "y": 1997.3,
+   "rPx": 36.3,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     36
+    ],
+    "tileLocal": [
+     [
+      276.6,
+      145.3
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "leftCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 0,
+    "bestScore": null,
+    "bestTile": null
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: no raw candidate (score >= .01) within r"
+   ],
+   "firstLoss": "S4 model raw (no candidate)",
+   "category": "M2 model miss in scope: no raw candidate (obj*cls >= .01) within r"
+  },
+  {
+   "target": "a19346a0887a#P18",
+   "x": 1326.3,
+   "y": 2215.1,
+   "rPx": 36.3,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     28,
+     29
+    ],
+    "tileLocal": [
+     [
+      195.3,
+      363.1
+     ],
+     [
+      195.3,
+      75.1
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 7,
+    "bestScore": 0.0255,
+    "bestTile": 28
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside every visible region envelope",
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "a19346a0887a#P19",
+   "x": 1358.5,
+   "y": 2775.8,
+   "rPx": 36.3,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     30,
+     31
+    ],
+    "tileLocal": [
+     [
+      227.5,
+      347.8
+     ],
+     [
+      227.5,
+      71.8
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 0,
+    "bestScore": null,
+    "bestTile": null
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: no raw candidate (score >= .01) within r"
+   ],
+   "firstLoss": "S4 model raw (no candidate)",
+   "category": "M2 model miss in scope: no raw candidate (obj*cls >= .01) within r"
+  },
+  {
+   "target": "a2cd98ca9566#P1",
+   "x": 585.7,
+   "y": 246.5,
+   "rPx": 17.0,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0,
+     3
+    ],
+    "tileLocal": [
+     [
+      337.7,
+      246.5
+     ],
+     [
+      49.7,
+      246.5
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 36,
+    "bestScore": 0.6932,
+    "bestTile": 0
+   },
+   "S5": {
+    "nearConf": 20,
+    "bestScore": 0.6932
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "a2cd98ca9566#P2",
+   "x": 622.0,
+   "y": 353.5,
+   "rPx": 17.0,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0,
+     1,
+     3,
+     4
+    ],
+    "tileLocal": [
+     [
+      374.0,
+      353.5
+     ],
+     [
+      374.0,
+      65.5
+     ],
+     [
+      86.0,
+      353.5
+     ],
+     [
+      86.0,
+      65.5
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 65,
+    "bestScore": 0.8443,
+    "bestTile": 0
+   },
+   "S5": {
+    "nearConf": 45,
+    "bestScore": 0.8443
+   },
+   "S6": {
+    "nearNms": 2,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ENVELOPE_OVERLAP",
+     "nose:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 2,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "a2cd98ca9566#P3",
+   "x": 778.8,
+   "y": 226.6,
+   "rPx": 17.0,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     3
+    ],
+    "tileLocal": [
+     [
+      242.8,
+      226.6
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 18,
+    "bestScore": 0.659,
+    "bestTile": 3
+   },
+   "S5": {
+    "nearConf": 8,
+    "bestScore": 0.659
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "b9dd30fde312#P1",
+   "x": 341.0,
+   "y": 220.0,
+   "rPx": 7.0,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "tileLocal": [
+     [
+      168.0,
+      220.0
+     ],
+     [
+      168.0,
+      118.0
+     ],
+     [
+      144.0,
+      220.0
+     ],
+     [
+      144.0,
+      118.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 0,
+    "bestScore": null,
+    "bestTile": null
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: no raw candidate (score >= .01) within r"
+   ],
+   "firstLoss": "S4 model raw (no candidate)",
+   "category": "M2 model miss in scope: no raw candidate (obj*cls >= .01) within r"
+  },
+  {
+   "target": "b9dd30fde312#P2",
+   "x": 355.0,
+   "y": 241.0,
+   "rPx": 7.0,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "tileLocal": [
+     [
+      182.0,
+      241.0
+     ],
+     [
+      182.0,
+      139.0
+     ],
+     [
+      158.0,
+      241.0
+     ],
+     [
+      158.0,
+      139.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 0,
+    "bestScore": null,
+    "bestTile": null
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: no raw candidate (score >= .01) within r"
+   ],
+   "firstLoss": "S4 model raw (no candidate)",
+   "category": "M2 model miss in scope: no raw candidate (obj*cls >= .01) within r"
+  },
+  {
+   "target": "b9dd30fde312#P5",
+   "x": 323.0,
+   "y": 291.0,
+   "rPx": 7.0,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "tileLocal": [
+     [
+      150.0,
+      291.0
+     ],
+     [
+      150.0,
+      189.0
+     ],
+     [
+      126.0,
+      291.0
+     ],
+     [
+      126.0,
+      189.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [
+     "rightCheek"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 1,
+    "bestScore": 0.0102,
+    "bestTile": 2
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "b9dd30fde312#P7",
+   "x": 458.0,
+   "y": 220.0,
+   "rPx": 7.0,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "tileLocal": [
+     [
+      285.0,
+      220.0
+     ],
+     [
+      285.0,
+      118.0
+     ],
+     [
+      261.0,
+      220.0
+     ],
+     [
+      261.0,
+      118.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": false,
+    "visibleRegions": [
+     "rightCheek"
+    ],
+    "envelopes": [],
+    "acneSkin": null,
+    "hair": null,
+    "exclusion": null,
+    "faceSupport": null
+   },
+   "S4": {
+    "nearRaw": 0,
+    "bestScore": null,
+    "bestTile": null
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "outside product analysis raster (not a visible region of the matched angle)",
+    "model: no raw candidate (score >= .01) within r"
+   ],
+   "firstLoss": "S4 model raw (no candidate)",
+   "category": "C2 model miss AND outside side-angle scope"
+  },
+  {
+   "target": "cb5ca5ca9a33#P1",
+   "x": 85.0,
+   "y": 73.0,
+   "rPx": 4.9,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0
+    ],
+    "tileLocal": [
+     [
+      85.0,
+      73.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 12,
+    "bestScore": 0.7072,
+    "bestTile": 0
+   },
+   "S5": {
+    "nearConf": 7,
+    "bestScore": 0.7072
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "cb5ca5ca9a33#P2",
+   "x": 162.0,
+   "y": 65.0,
+   "rPx": 4.9,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0
+    ],
+    "tileLocal": [
+     [
+      162.0,
+      65.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 10,
+    "bestScore": 0.4974,
+    "bestTile": 0
+   },
+   "S5": {
+    "nearConf": 7,
+    "bestScore": 0.4974
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "forehead:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "cb5ca5ca9a33#P3",
+   "x": 153.0,
+   "y": 245.0,
+   "rPx": 4.9,
+   "found": false,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     0
+    ],
+    "tileLocal": [
+     [
+      153.0,
+      245.0
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 9,
+    "bestScore": 0.2111,
+    "bestTile": 0
+   },
+   "S5": {
+    "nearConf": 0,
+    "bestScore": null
+   },
+   "S6": {
+    "nearNms": 0,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 0,
+    "found": false
+   },
+   "causes": [
+    "model: best nearby score below .30"
+   ],
+   "firstLoss": "S5 model confidence (< .30)",
+   "category": "M1 model miss in scope: best nearby score below .30"
+  },
+  {
+   "target": "dc089b3f7c38#P1",
+   "x": 1144.1,
+   "y": 1185.4,
+   "rPx": 26.7,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     13,
+     19
+    ],
+    "tileLocal": [
+     [
+      318.1,
+      158.4
+     ],
+     [
+      30.1,
+      158.4
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "forehead",
+     "nose"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 33,
+    "bestScore": 0.8009,
+    "bestTile": 19
+   },
+   "S5": {
+    "nearConf": 27,
+    "bestScore": 0.8009
+   },
+   "S6": {
+    "nearNms": 1,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "nose:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 1,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "e643059207e1#P5",
+   "x": 690.7,
+   "y": 908.7,
+   "rPx": 13.0,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     2,
+     3,
+     6,
+     7
+    ],
+    "tileLocal": [
+     [
+      321.7,
+      313.7
+     ],
+     [
+      321.7,
+      215.7
+     ],
+     [
+      33.7,
+      313.7
+     ],
+     [
+      33.7,
+      215.7
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 60,
+    "bestScore": 0.7842,
+    "bestTile": 7
+   },
+   "S5": {
+    "nearConf": 43,
+    "bestScore": 0.7842
+   },
+   "S6": {
+    "nearNms": 4,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "chin:ENVELOPE_OVERLAP",
+     "chin:ENVELOPE_OVERLAP",
+     "chin:ENVELOPE_OVERLAP",
+     "chin:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 4,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "e643059207e1#P6",
+   "x": 711.1,
+   "y": 908.7,
+   "rPx": 13.0,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     2,
+     3,
+     6,
+     7,
+     10,
+     11
+    ],
+    "tileLocal": [
+     [
+      342.1,
+      313.7
+     ],
+     [
+      342.1,
+      215.7
+     ],
+     [
+      54.1,
+      313.7
+     ],
+     [
+      54.1,
+      215.7
+     ],
+     [
+      5.1,
+      313.7
+     ],
+     [
+      5.1,
+      215.7
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 85,
+    "bestScore": 0.8193,
+    "bestTile": 7
+   },
+   "S5": {
+    "nearConf": 79,
+    "bestScore": 0.8193
+   },
+   "S6": {
+    "nearNms": 5,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "chin:ENVELOPE_OVERLAP",
+     "chin:ENVELOPE_OVERLAP",
+     "chin:ENVELOPE_OVERLAP",
+     "chin:ENVELOPE_OVERLAP",
+     "chin:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 5,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  },
+  {
+   "target": "e643059207e1#P9",
+   "x": 731.0,
+   "y": 933.8,
+   "rPx": 13.0,
+   "found": true,
+   "S1": {
+    "inImage": true,
+    "inReviewedMask": true
+   },
+   "S2": {
+    "inCrop": true,
+    "tiles": [
+     2,
+     3,
+     6,
+     7,
+     10,
+     11
+    ],
+    "tileLocal": [
+     [
+      362.0,
+      338.8
+     ],
+     [
+      362.0,
+      240.8
+     ],
+     [
+      74.0,
+      338.8
+     ],
+     [
+      74.0,
+      240.8
+     ],
+     [
+      25.0,
+      338.8
+     ],
+     [
+      25.0,
+      240.8
+     ]
+    ],
+    "inPadding": false
+   },
+   "S3": {
+    "inRaster": true,
+    "visibleRegions": [
+     "forehead",
+     "nose",
+     "chin",
+     "periorbital",
+     "rightCheek",
+     "leftCheek"
+    ],
+    "envelopes": [
+     "chin"
+    ],
+    "acneSkin": true,
+    "hair": false,
+    "exclusion": false,
+    "faceSupport": true
+   },
+   "S4": {
+    "nearRaw": 93,
+    "bestScore": 0.7558,
+    "bestTile": 10
+   },
+   "S5": {
+    "nearConf": 50,
+    "bestScore": 0.7558
+   },
+   "S6": {
+    "nearNms": 4,
+    "suppressedBy": null
+   },
+   "S7": {
+    "assigned": [
+     "chin:ENVELOPE_OVERLAP",
+     "chin:ENVELOPE_OVERLAP",
+     "chin:ENVELOPE_OVERLAP",
+     "chin:ENVELOPE_OVERLAP"
+    ],
+    "rejected": []
+   },
+   "S8": {
+    "nearFinal": 4,
+    "found": true
+   },
+   "causes": [],
+   "firstLoss": null,
+   "category": "found"
+  }
+ ]
+}
