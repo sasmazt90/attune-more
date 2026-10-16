@@ -1,0 +1,14 @@
+{
+ "name": "acne-v1-v3-positive-supplement-1",
+ "fixedBefore": "preflight, labelling and any model output on the 15 photos",
+ "question": "Does v3's lower false-point count make it lose targets that v1 finds on these supplementary positive photos? How many, which?",
+ "photos": "the 15 photos of Attune_Pozitif_Ek_Karsilastirma_15.zip (sha 143d8769...), list fixed in index.json; no replacement or removal after results",
+ "exposure": "all 15 were in the 2026-10-15 Step0 TEST_CROSS_SOURCE inference; not unused, not an independent test, person independence not verified; the old label-scaled boxes from that run are NOT reused",
+ "frozen": "v1 b6fa6c05..., v3 94d18abb..., Step0 18e94a95... (match frozen-models.json); conf .30, NMS .30, product masks and side-angle scope, old box filter, features unchanged; v1 stays default",
+ "preflight": "unchanged product preflight (local MediaPipe product .task -> frontend replay -> photo_input plan). Only 'replay-pass (eyewear UNKNOWN)' photos enter the main table; rejected ids and reasons listed; no gate relaxed, no flip/crop/replacement",
+ "labels": "acne-point-relabel-protocol-1 layer-1 rule on full-face tile sheets (original pixels + grid; no source boxes, no predictions): TARGET = centre of a visible acne-like single lesion; UNCERTAIN; MOLE / SCAR_PIGMENT / OTHER separate; areas not fully reviewable excluded from the reviewed mask (rectangles) with the reason; mask = face oval - eyes/brows (dilated .03 fw) - lips - exclusions - black patches. Labels and mask hashes committed before inference. AI engineering review, not expert.",
+ "inference": "one Step0 + old filter + feature run per passing photo; v1 and v3 on the same candidates/features",
+ "scoring": "common_scope_compare.classify: r = .03 face width, deterministic one-to-one matching; UNCERTAIN / outside review not counted as false; duplicates separate; IoU not used; v3 vs v1 lost/gained target ids; photo bootstrap 95% CIs (10,000, seed 20261016); FRONT vs side per preflight",
+ "separateTables": "A (this set), old DEV, B negative reference (reused frozen result 5/4/2, no re-inference) are reported separately and never pooled",
+ "noClaims": "no product acceptance, no independent-success claim, no new acceptance threshold; if no evaluated target remains: 'target preservation could not be measured'"
+}

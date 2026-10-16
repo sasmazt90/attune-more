@@ -1,0 +1,110 @@
+{
+ "packages": {
+  "Attune_Pozitif_Ek_Karsilastirma_15.zip": "143d8769600d16449094df07d8f98b468c6799936bb1b5f37e4fc5ca2faec124",
+  "Attune_Negatif_Referans_17.zip": "41e07f845e7d80ec6cbbd56b2d56461d06706b8d99402d46d83e6f003f687843"
+ },
+ "positivePhotos": {
+  "P003": {
+   "sha256": "07b94843cd2aa79e45c544c5210e3415d476faa585cad3045ae70a7d4f52169a",
+   "file": "photos/P003_07b94843cd2a.jpg"
+  },
+  "P025": {
+   "sha256": "204e14cda78485f6afc81e8f6c3ec866e580c80a671bcbf2fd01e99fb94224bf",
+   "file": "photos/P025_204e14cda784.jpg"
+  },
+  "P049": {
+   "sha256": "483f837328616f7d464136977880090b0751db1d6070462caab4b292b1561602",
+   "file": "photos/P049_483f83732861.jpg"
+  },
+  "P050": {
+   "sha256": "493c6c5e43128a5ffe597cde29ce8cd59e96f1064a36d8f5fa44e25f1344a377",
+   "file": "photos/P050_493c6c5e4312.jpg"
+  },
+  "P053": {
+   "sha256": "4c6eb7529e174180beef99539287a67a25d14c9a16937f8a4d13ebd097efb410",
+   "file": "photos/P053_4c6eb7529e17.jpg"
+  },
+  "P058": {
+   "sha256": "53de22e6961b9dfedcd269f8c03117e770c4cb3820c4cde81b3b28f49da0aaa1",
+   "file": "photos/P058_53de22e6961b.jpg"
+  },
+  "P069": {
+   "sha256": "6ae6ee52cf916771225689f912a2600e34190c6f60e70083ff0b9afa0faa02a3",
+   "file": "photos/P069_6ae6ee52cf91.jpg"
+  },
+  "P077": {
+   "sha256": "765a32cfe138c9dc9e98873d0332aee9c14e65e0ab781344a0fb3917a7a03f4a",
+   "file": "photos/P077_765a32cfe138.jpg"
+  },
+  "P078": {
+   "sha256": "791130c627b4609a07b5607256303778d0d0ad976b614afad5f994a801d41f20",
+   "file": "photos/P078_791130c627b4.jpg"
+  },
+  "P089": {
+   "sha256": "939d6aa0e97b3cac15a0a32e464af5e124ce93d94e0b4b2ce9505aedc2a92436",
+   "file": "photos/P089_939d6aa0e97b.jpg"
+  },
+  "P092": {
+   "sha256": "95c595a16efac2c0d35023a0642b013efc2aaac993e27d603bd3ce50ab70b7f7",
+   "file": "photos/P092_95c595a16efa.jpg"
+  },
+  "P097": {
+   "sha256": "a98f5dc17fe4246121855a67fcc4dba4a7cfb8d057f5f657fcb7a6d3d8bf6e02",
+   "file": "photos/P097_a98f5dc17fe4.jpg"
+  },
+  "P100": {
+   "sha256": "bd4d11ff16b7f58fda21130add297a8e23171239702fcc1c0b2864d9f8f2a52a",
+   "file": "photos/P100_bd4d11ff16b7.jpg"
+  },
+  "P102": {
+   "sha256": "e2229264c23205d2610434c4bbc35c8e16200e19be208d8e2495edac7d52cd91",
+   "file": "photos/P102_e2229264c232.jpg"
+  },
+  "P103": {
+   "sha256": "fa12ce1232a89ada72e85fbe8ac39ccefb41c9d1f8cef108fdc7c1adee7a5a05",
+   "file": "photos/P103_fa12ce1232a8.jpg"
+  }
+ },
+ "negativeReference": {
+  "labels": "a0235f53f440084779cd039ade4f76efec37e903281e84ce2bdb0689407ad55f",
+  "results": "c0fcc89c7a9d8d92be9ba7e9080d6e7b320ff9dd055899bd88b6ae0fef073aa7"
+ },
+ "models": {
+  "v1": {
+   "path": "/sessions/rcw-01ezt6ueyxo65klyktsoziek/mnt/TOGG/attune-claude-acne-audit/docs/acne-verifier-model-20261016.json",
+   "sha256": "b6fa6c05b48a092623f7780200c07440ebaf934989ab66518ee21b23fa304f8a"
+  },
+  "v3": {
+   "path": "/sessions/rcw-01ezt6ueyxo65klyktsoziek/mnt/TOGG/attune-claude-acne-audit/docs/acne-verifier-v3-model-20261016.json",
+   "sha256": "94d18abb951c49847371f03513957681fd50392e0ebfb51c233a1db65492ab67"
+  },
+  "step0": {
+   "path": "/sessions/rcw-01ezt6ueyxo65klyktsoziek/mnt/TOGG/attune-live-test/audit-results/acne-takeover-20261015/models/step0.safetensors",
+   "sha256": "18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655"
+  }
+ },
+ "frozenModelsJson": "match",
+ "settings": {
+  "conf": 0.3,
+  "nms": 0.3,
+  "tiles": "384 / stride 288, budget 64",
+  "filter": "old box filter (principled_accepted_boxes)",
+  "matching": "source-pixel centres, r = 0.03 x face width (landmarks 234-454), deterministic one-to-one (max cardinality, min distance)",
+  "defaultVerifier": "v1"
+ },
+ "code": {
+  "scripts/skin-research/acne_candidate_verifier.py": "f2405a5e3772c8c914c8a40fa15ee3bf9ba191be722127e2df9c1319b0972f0a",
+  "scripts/skin-research/acne_verifier_photo.py": "128cb905ccb07fd31fe7fab4e4e40e73685b7690555694cb3462b8849da103c9",
+  "scripts/skin-research/eval_acne_v5_independent.py": "7bc2aaccebf71384ef7f785321c013e1b68571ed9f9f41f09d910fcba4b60a26",
+  "scripts/skin-research/acne_landmarks_v2.py": "db28579aa348cf636a7a7a18bd6e7272e9044939cbe0d5659814fbc13a884ff3",
+  "scripts/skin-research/prepare_acne_data_v2.py": "d82a12753ea813bea0396c1486f74efeeb6857032d63c92eb86ff0ce590b3d20",
+  "scripts/skin-research/external_acne/common_scope_compare.py": "dc399f4fee3c2023d0fd6b816837431d0dec6aa8f1a972f3ed615829a801de27",
+  "scripts/skin-research/external_acne/relabel_compare.py": "c816e21c49200bd8e9871e5c24f5aedb3362ae75cb1daec587c6d1651d60cca0",
+  "scripts/skin-research/unused_test_masks.py": "970ac50b4793ff3f733fdfc8fad172cfe86cc9550edac30f11849465288f2571",
+  "scripts/skin-research/pos_supplement.py": "ccc663ca330ec1f7e6c61d0b742805a20206f468195f4adacfb90ff487f81316",
+  "acne_takeover_support.py": "bc70636fff0a544572beb585f716035fa6d770b08a13c09e591dbcdae62aff89",
+  "acne_box_support_staging.py": "11dd8e04ee477597996fd80d3e3d68301f34dae7fcfafeddd3be4c7434b30667",
+  "face_landmarker.task": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff"
+ },
+ "git": "d9da154 Unused-photo v1 vs v3 comparison: single inference, results and report (photo-free)"
+}
