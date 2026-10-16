@@ -1,0 +1,165 @@
+{
+ "rule": "unchanged product preflight: local MediaPipe (product .task) -> frontend replay (quality, pose, snapshot; eyewear not replayed = UNKNOWN) -> photo_input plan",
+ "status": {
+  "P003": {
+   "sha256": "07b94843cd2aa79e45c544c5210e3415d476faa585cad3045ae70a7d4f52169a",
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 2,
+   "pose": "LEFT",
+   "yaw": 0.41,
+   "reasons": []
+  },
+  "P025": {
+   "sha256": "204e14cda78485f6afc81e8f6c3ec866e580c80a671bcbf2fd01e99fb94224bf",
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 2,
+   "pose": "FRONT",
+   "yaw": 0,
+   "reasons": []
+  },
+  "P049": {
+   "sha256": "483f837328616f7d464136977880090b0751db1d6070462caab4b292b1561602",
+   "status": "gate-fail:POSE",
+   "tiles": 2,
+   "pose": null,
+   "yaw": 0.18,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "P050": {
+   "sha256": "493c6c5e43128a5ffe597cde29ce8cd59e96f1064a36d8f5fa44e25f1344a377",
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 2,
+   "pose": "FRONT",
+   "yaw": 0,
+   "reasons": []
+  },
+  "P053": {
+   "sha256": "4c6eb7529e174180beef99539287a67a25d14c9a16937f8a4d13ebd097efb410",
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "yaw": -0.62,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "P058": {
+   "sha256": "53de22e6961b9dfedcd269f8c03117e770c4cb3820c4cde81b3b28f49da0aaa1",
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "yaw": -0.02,
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "P069": {
+   "sha256": "6ae6ee52cf916771225689f912a2600e34190c6f60e70083ff0b9afa0faa02a3",
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "LEFT",
+   "yaw": 0.32,
+   "reasons": []
+  },
+  "P077": {
+   "sha256": "765a32cfe138c9dc9e98873d0332aee9c14e65e0ab781344a0fb3917a7a03f4a",
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "yaw": -0.76,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "P078": {
+   "sha256": "791130c627b4609a07b5607256303778d0d0ad976b614afad5f994a801d41f20",
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "yaw": 1.03,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "P089": {
+   "sha256": "939d6aa0e97b3cac15a0a32e464af5e124ce93d94e0b4b2ce9505aedc2a92436",
+   "status": "gate-fail:QUALITY:BLURRY",
+   "tiles": 4,
+   "pose": "FRONT",
+   "yaw": 0.05,
+   "reasons": [
+    "QUALITY:BLURRY"
+   ]
+  },
+  "P092": {
+   "sha256": "95c595a16efac2c0d35023a0642b013efc2aaac993e27d603bd3ce50ab70b7f7",
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "yaw": 0.15,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "P097": {
+   "sha256": "a98f5dc17fe4246121855a67fcc4dba4a7cfb8d057f5f657fcb7a6d3d8bf6e02",
+   "status": "replay-pass (eyewear UNKNOWN)",
+   "tiles": 4,
+   "pose": "FRONT",
+   "yaw": -0.03,
+   "reasons": []
+  },
+  "P100": {
+   "sha256": "bd4d11ff16b7f58fda21130add297a8e23171239702fcc1c0b2864d9f8f2a52a",
+   "status": "gate-fail:POSE",
+   "tiles": 4,
+   "pose": null,
+   "yaw": 0.32,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "P102": {
+   "sha256": "e2229264c23205d2610434c4bbc35c8e16200e19be208d8e2495edac7d52cd91",
+   "status": "gate-fail:POSE",
+   "tiles": 2,
+   "pose": null,
+   "yaw": -0.35,
+   "reasons": [
+    "POSE"
+   ]
+  },
+  "P103": {
+   "sha256": "fa12ce1232a89ada72e85fbe8ac39ccefb41c9d1f8cef108fdc7c1adee7a5a05",
+   "status": "gate-fail:QUALITY:BLURRY,POSE",
+   "tiles": 4,
+   "pose": null,
+   "yaw": -1.09,
+   "reasons": [
+    "QUALITY:BLURRY",
+    "POSE"
+   ]
+  }
+ },
+ "passed": [
+  "P003",
+  "P025",
+  "P050",
+  "P069",
+  "P097"
+ ],
+ "rejected": {
+  "P049": "gate-fail:POSE",
+  "P053": "gate-fail:POSE",
+  "P058": "gate-fail:QUALITY:BLURRY",
+  "P077": "gate-fail:POSE",
+  "P078": "gate-fail:POSE",
+  "P089": "gate-fail:QUALITY:BLURRY",
+  "P092": "gate-fail:POSE",
+  "P100": "gate-fail:POSE",
+  "P102": "gate-fail:POSE",
+  "P103": "gate-fail:QUALITY:BLURRY,POSE"
+ }
+}
