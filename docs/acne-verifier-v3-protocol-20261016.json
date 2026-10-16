@@ -1,0 +1,22 @@
+{
+ "title": "Acne candidate verifier v3: review the remaining unreviewed v1 positives, train only on reviewed candidates, one refit (fixed before review)",
+ "date": "2026-10-16",
+ "keeps": "v1 (default, model b6fa6c05...) and v2 (model 916a3a16..., the fewer-false-points / fewer-targets trade-off) with all their files, results and the default local path.",
+ "data": "TRAIN only: the 158 manifest-v6 photos, cached Step0 candidates and frozen features. DEV, DEV Clear, the 108-target scope and the sealed test are not used; no rule or sample for DEV-lost targets. No new photos or data.",
+ "fixed": "Step0 weights, candidate generation, feature extraction acne-candidate-verifier-features-v1, LogisticRegression L2 C=0.1 balanced lbfgs max_iter 2000. No feature selection, architecture, filter or hyperparameter search.",
+ "reviewList": "scripts/skin-research/verifier_v3_select.py: all 373 v1 positives not reviewed in v2 (no sampling). v2 decisions are not redone.",
+ "review": {
+  "sheets": "same blind format as v2 (id, tight / near / face context crops, marker ticks); no v1 label, box or score shown",
+  "categories": "A acne-like; clearly not acne: F flat skin, M mole/pigment/freckle/mark/scar, P pore/texture/shine, O other (hair, lip, nostril, eye, fold, jewellery); U uncertain",
+  "rationale": "every v3 decision carries a short written reason; v2 decisions keep their category definition as the reason (no per-item text was written in v2)",
+  "level": "AI engineering review, not expert verification; source manifest, v1 and v2 labels are not modified"
+ },
+ "conflicts": "after review: two reviewed candidates (v2 or v3) in the same photo with centres within r = 0.03 x face width, one A and the other F/M/P/O, are a conflict; both are excluded from training and listed with reasons in conflicts-v3.json. No conflict is forced into a class.",
+ "trainingSet": "only reviewed candidates (v2 300 + v3 373): A -> positive; F/M/P/O -> negative with subtype; U and conflicts excluded. No unreviewed candidate and no automatic v1 label is used.",
+ "split": "same rule as v2: groups (photo + dHash <= 10 clusters); groups with >= 1 flat negative ordered by sha256(20261016|v2split|group), round(0.3 n) (>= 2) to calibration; other groups the same, 70/30. Coverage of positives and each negative type in learn and calibration is reported; a category with < 2 photos in either split is reported as insufficient (not filled).",
+ "threshold": "highest threshold keeping >= 95% of calibration positives",
+ "gate": "calibration AUC >= 0.65 and >= 15% of calibration negatives removed; else report and stop before DEV. Per-type calibration reported; learn AUC is not a success criterion.",
+ "freeze": "model, labels and threshold hashes committed before DEV",
+ "dev": "once: A Step0 + old filter, B v1, C v2, D v3 on the same 108 targets, layer 1, masks, matching; no change after DEV",
+ "replaceRule": "v3 replaces v1 as default only if D finds >= the targets of v1 (70) AND has fewer false points than v1 (78); otherwise v1 stays default. Not a product acceptance or independent proof."
+}

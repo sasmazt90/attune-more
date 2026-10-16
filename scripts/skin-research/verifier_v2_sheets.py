@@ -22,8 +22,9 @@ def view(img, c, half, ticks):
     return can
 
 
-def main():
-    o = CODE / 'audit-results/acne-verifier-v2'; L = json.loads((o / 'review-list.json').read_text())['items']
+def main(sub='acne-verifier-v2'):
+    """sub: audit-results/<sub> holding review-list.json (v2 default; v3: acne-verifier-v3)."""
+    o = CODE / 'audit-results' / sub; L = json.loads((o / 'review-list.json').read_text())['items']
     files = {s[:12]: f for s, k, f, rp, _ in X.items('train')}; (o / 'sheets').mkdir(exist_ok=True); cache = {}
     for sh in range(0, len(L), PER):
         blocks = []
@@ -41,4 +42,4 @@ def main():
     print(len(L), 'items', (len(L) + PER - 1) // PER, 'sheets')
 
 
-if __name__ == '__main__': main()
+if __name__ == '__main__': main(*sys.argv[1:2])
