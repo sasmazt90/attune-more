@@ -1,0 +1,50 @@
+[
+ {
+  "photo": "db983ceefbc3",
+  "a": {
+   "rid": "R021",
+   "cat": "P",
+   "reason": "v2 category: pore / texture / shine"
+  },
+  "b": {
+   "rid": "R147",
+   "cat": "A",
+   "reason": "v2 category: visible acne-like lesion"
+  },
+  "distancePx": 15.7,
+  "rPx": 24.4,
+  "why": "same location judged acne-like on one candidate and not acne on the other; both excluded, not forced into a class"
+ },
+ {
+  "photo": "5bd84d547425",
+  "a": {
+   "rid": "S124",
+   "cat": "F",
+   "reason": "plain flat skin at the marker"
+  },
+  "b": {
+   "rid": "S198",
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "distancePx": 13.9,
+  "rPx": 18.0,
+  "why": "same location judged acne-like on one candidate and not acne on the other; both excluded, not forced into a class"
+ },
+ {
+  "photo": "5bd84d547425",
+  "a": {
+   "rid": "S142",
+   "cat": "O",
+   "reason": "lip margin / lip corner"
+  },
+  "b": {
+   "rid": "S282",
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "distancePx": 13.2,
+  "rPx": 18.0,
+  "why": "same location judged acne-like on one candidate and not acne on the other; both excluded, not forced into a class"
+ }
+]
