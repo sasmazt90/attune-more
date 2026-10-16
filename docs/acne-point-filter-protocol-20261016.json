@@ -1,0 +1,41 @@
+{
+ "name": "acne-point-filter-protocol",
+ "status": "fixed before any point-filter number is computed; one version, one comparison",
+ "module": "services/core-api/acne_point_support_staging.py point_accepted, VERSION point-anatomical-support-staging-v1, sha f5d4bec2e25115e0637092e4f42f53270728818969d8764e8fd9e4430c6d4df6",
+ "boxFilterUnchanged": "services/core-api/acne_box_support_staging.py principled_accepted_boxes (sha 11dd8e04\u2026) untouched",
+ "ruleTable": [
+  {
+   "check": "source bounds",
+   "old": "box clipped to raster; rejected only if the clipped box is empty (OUTSIDE_SOURCE_SUPPORT); centre clamped to raster edge",
+   "new": "point not finite / outside image -> reject; no clamping"
+  },
+  {
+   "check": "analysis scope",
+   "old": "box overlapping the raster may pass with clamped centre",
+   "new": "point outside the raster (visible-region scope) -> POINT_OUTSIDE_SCOPE"
+  },
+  {
+   "check": "exclusion",
+   "old": "centre on exclusion OR exclusion fraction of box > .25",
+   "new": "point on exclusion"
+  },
+  {
+   "check": "hair",
+   "old": "hair fraction of box > .25 (dense) ; centre on hair -> redness/contrast rescue if box skin >= .50",
+   "new": "point on hair (no rescue)"
+  },
+  {
+   "check": "skin support",
+   "old": "centre not skin -> rescue; box skin fraction < .50 -> reject",
+   "new": "point not on skin_support (no rescue)"
+  },
+  {
+   "check": "region",
+   "old": "largest envelope&skin overlap fraction of the box >= .15, else distance fallback (midline, .15 fw)",
+   "new": "envelope membership of the point (first in REGIONS order), else the same distance fallback"
+  }
+ ],
+ "inputs": "pre-filter predictions only: Step0 recorded NMS boxes (trace), external stored final boxes before filter; same recomputed product masks/geometry as the parity-checked staging run; no review/ground-truth mask as input",
+ "parityFirst": "old path must reproduce Step0 71/108 F96 D48, Dewiin 75/108 F45 D3, tristan-gray 71/108 F58 D1, carsten12 43/108 F16 D0",
+ "scoring": "unchanged common scope (108 in-scope targets, frozen reviewed masks, r = 0.03 fw, one-to-one); removed targets stay in the denominator; Clear 14 photos separately (Step0 has no Clear pre-filter records)"
+}
