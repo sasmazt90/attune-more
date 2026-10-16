@@ -113,3 +113,30 @@ def test_photo_command_v2_reproduces_frozen_dev_decisions():
     rp = out / 'rp.jsonl'; rp.write_text(json.dumps(it[3]))
     res = P.main(['--out', str(out), '--version', 'v2', '--replay', str(rp), '--no-image', '--', it[2]])
     assert res[ph]['keep'] == D[ph]['keep'] and np.allclose(res[ph]['proba'], D[ph]['proba'], atol=1e-9)
+
+
+V3 = ROOT / 'audit-results/acne-verifier-v3'; MODEL3 = ROOT / 'docs/acne-verifier-v3-model-20261016.json'
+
+
+def test_v3_hash_default_unchanged_and_reviewed_only_labels():
+    need(MODEL3, V3 / 'labels-v3.json'); import acne_verifier_photo as P, verifier_extract as X
+    assert hashlib.sha256(MODEL3.read_bytes()).hexdigest() == '94d18abb951c49847371f03513957681fd50392e0ebfb51c233a1db65492ab67'
+    assert V.Verifier(MODEL3).meta['featureVersion'] == V.VERSION
+    import argparse; assert P.MODEL_SHA == P.MODELS['v1'][1]                      # default stays v1
+    L = json.loads((V3 / 'labels-v3.json').read_text()); rows = L['rows']; grp = json.loads((VER / 'labels.json').read_text())['groups']
+    assert all(r['source'].startswith('review-') and r['reason'] for r in rows if r['label'] is not None)   # no automatic label in training
+    assert not any(r['label'] is not None for r in rows if r['source'] in ('uncertain-excluded', 'conflict-excluded', 'unreviewed-excluded'))
+    dev = {s[:12] for s, *_ in X.items('dev')}; assert not {r['photo'] for r in rows} & dev
+    split = {}
+    for r in rows:
+        if r['split']: split.setdefault(grp[r['photo']], set()).add(r['split'])
+    assert all(len(s) == 1 for s in split.values())
+
+
+def test_photo_command_v3_reproduces_frozen_dev_decisions():
+    need(V3 / 'dev-decisions-v3.json', MODEL3); pytest.importorskip('torch'); import verifier_extract as X, acne_verifier_photo as P
+    D = json.loads((V3 / 'dev-decisions-v3.json').read_text())['photos']; ph = '77176e51db41'
+    it = [i for i in X.items('dev') if i[0][:12] == ph][0]; out = V3 / '_parity'; out.mkdir(exist_ok=True)
+    rp = out / 'rp.jsonl'; rp.write_text(json.dumps(it[3]))
+    res = P.main(['--out', str(out), '--version', 'v3', '--replay', str(rp), '--no-image', '--', it[2]])
+    assert res[ph]['keep'] == D[ph]['keep'] and np.allclose(res[ph]['proba'], D[ph]['proba'], atol=1e-9)

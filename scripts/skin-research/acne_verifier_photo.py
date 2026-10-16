@@ -2,8 +2,8 @@
 No network, no product activation (acne stays accepted:false, file:null in the product; this is a research command).
 
 Usage:
-  acne_verifier_photo.py --out DIR [--version v1|v2] [--replay FILE.jsonl ...] -- PHOTO [PHOTO ...]
-  (v1 = docs/acne-verifier-model-20261016.json, default and preferred; v2 = docs/acne-verifier-v2-model-20261016.json)
+  acne_verifier_photo.py --out DIR [--version v1|v2|v3] [--replay FILE.jsonl ...] -- PHOTO [PHOTO ...]
+  (v1 = docs/acne-verifier-model-20261016.json, default; v2 / v3 = docs/acne-verifier-v2|v3-model-20261016.json, explicit choice only)
 Input needs a product replay row (landmarks + snapshot). If no --replay file holds a row for the photo's sha256, the row is made
 locally: MediaPipe FaceLandmarker with the product face_landmarker.task (separate venv ~/envmp) -> frontend TypeScript replay
 (node). Writes DIR/<sha12>.json (A and B points, probabilities, timings) and DIR/<sha12>-before-after.jpg (legend image).
@@ -15,7 +15,8 @@ import numpy as np
 HERE = Path(__file__).resolve().parent; CODE = HERE.parents[1]; TOGG = CODE.parent
 sys.path[:0] = [str(HERE)]
 MODELS = {'v1': (CODE / 'docs/acne-verifier-model-20261016.json', 'b6fa6c05b48a092623f7780200c07440ebaf934989ab66518ee21b23fa304f8a'),
-          'v2': (CODE / 'docs/acne-verifier-v2-model-20261016.json', '916a3a16c1155c8495777c4de232dddb6a0c04e57e8f41b0321d297919cd8f91')}
+          'v2': (CODE / 'docs/acne-verifier-v2-model-20261016.json', '916a3a16c1155c8495777c4de232dddb6a0c04e57e8f41b0321d297919cd8f91'),
+          'v3': (CODE / 'docs/acne-verifier-v3-model-20261016.json', '94d18abb951c49847371f03513957681fd50392e0ebfb51c233a1db65492ab67')}
 MODEL_SHA = MODELS['v1'][1]          # v1 stays the default / preferred staging verifier
 TASK = TOGG / 'attune-live-test/audit-results/skin-capabilities-20261008/scin/face_landmarker.task'
 
