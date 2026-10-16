@@ -1,0 +1,1509 @@
+{
+ "reviewLevel": "AI engineering review on blind crops (tight / near context / face context); not expert or dermatologist verification",
+ "reviewer": "Claude (AI)",
+ "date": "2026-10-16",
+ "listSha256": "a51118721cd2a43714af0f48d1dcab04474b46921daa82de89a131319b9e6016",
+ "categories": {
+  "A": "acne-like",
+  "F": "flat skin",
+  "M": "mole / pigment / mark / scar",
+  "P": "pore / texture / shine",
+  "O": "other (lip, jaw edge, ...)",
+  "U": "uncertain"
+ },
+ "note": "All 373 still-unreviewed v1 positives; decided per sheet without v1 label, box or score; written once before any v3 fit. v2 decisions are not redone.",
+ "decisions": {
+  "S001": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S002": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S003": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S004": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S005": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S006": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S007": {
+   "cat": "A",
+   "reason": "crusted or excoriated papule at the marker"
+  },
+  "S008": {
+   "cat": "A",
+   "reason": "closed comedone(s) at the marker"
+  },
+  "S009": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S010": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S011": {
+   "cat": "A",
+   "reason": "crusted or excoriated papule at the marker"
+  },
+  "S012": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S013": {
+   "cat": "U",
+   "reason": "diffuse redness without a distinct lesion"
+  },
+  "S014": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S015": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S016": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S017": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S018": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S019": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S020": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S021": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S022": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S023": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S024": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S025": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S026": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S027": {
+   "cat": "O",
+   "reason": "lip margin / lip corner"
+  },
+  "S028": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S029": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S030": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S031": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S032": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S033": {
+   "cat": "U",
+   "reason": "skin texture / pink texture; no distinct lesion"
+  },
+  "S034": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S035": {
+   "cat": "A",
+   "reason": "crusted or excoriated papule at the marker"
+  },
+  "S036": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S037": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S038": {
+   "cat": "A",
+   "reason": "closed comedone(s) at the marker"
+  },
+  "S039": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S040": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S041": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S042": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S043": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S044": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S045": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S046": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S047": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S048": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S049": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S050": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S051": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S052": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S053": {
+   "cat": "U",
+   "reason": "jaw edge / shadow edge"
+  },
+  "S054": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S055": {
+   "cat": "A",
+   "reason": "closed comedone(s) at the marker"
+  },
+  "S056": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S057": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S058": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S059": {
+   "cat": "U",
+   "reason": "skin texture / pink texture; no distinct lesion"
+  },
+  "S060": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S061": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S062": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S063": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S064": {
+   "cat": "U",
+   "reason": "small pale dot on dark skin; papule vs highlight vs other benign papule unclear"
+  },
+  "S065": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S066": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S067": {
+   "cat": "A",
+   "reason": "closed comedone(s) at the marker"
+  },
+  "S068": {
+   "cat": "M",
+   "reason": "brown / purple macule (mark or pigment), not raised"
+  },
+  "S069": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S070": {
+   "cat": "U",
+   "reason": "small pale dot on dark skin; papule vs highlight vs other benign papule unclear"
+  },
+  "S071": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S072": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S073": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S074": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S075": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S076": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S077": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S078": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S079": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S080": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S081": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S082": {
+   "cat": "A",
+   "reason": "closed comedone(s) at the marker"
+  },
+  "S083": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S084": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S085": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S086": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S087": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S088": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S089": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S090": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S091": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S092": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S093": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S094": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S095": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S096": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S097": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S098": {
+   "cat": "U",
+   "reason": "diffuse redness without a distinct lesion"
+  },
+  "S099": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S100": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S101": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S102": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S103": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S104": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S105": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S106": {
+   "cat": "U",
+   "reason": "small pale dot on dark skin; papule vs highlight vs other benign papule unclear"
+  },
+  "S107": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S108": {
+   "cat": "A",
+   "reason": "closed comedone(s) at the marker"
+  },
+  "S109": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S110": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S111": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S112": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S113": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S114": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S115": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S116": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S117": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S118": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S119": {
+   "cat": "U",
+   "reason": "small pale dot on dark skin; papule vs highlight vs other benign papule unclear"
+  },
+  "S120": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S121": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S122": {
+   "cat": "U",
+   "reason": "small pale dot on dark skin; papule vs highlight vs other benign papule unclear"
+  },
+  "S123": {
+   "cat": "U",
+   "reason": "brown / purple macule (mark or pigment), not raised"
+  },
+  "S124": {
+   "cat": "F",
+   "reason": "plain flat skin at the marker"
+  },
+  "S125": {
+   "cat": "U",
+   "reason": "small pale dot on dark skin; papule vs highlight vs other benign papule unclear"
+  },
+  "S126": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S127": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S128": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S129": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S130": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S131": {
+   "cat": "A",
+   "reason": "closed comedone(s) at the marker"
+  },
+  "S132": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S133": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S134": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S135": {
+   "cat": "U",
+   "reason": "brown / purple macule (mark or pigment), not raised"
+  },
+  "S136": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S137": {
+   "cat": "U",
+   "reason": "skin texture / pink texture; no distinct lesion"
+  },
+  "S138": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S139": {
+   "cat": "U",
+   "reason": "small pale dot on dark skin; papule vs highlight vs other benign papule unclear"
+  },
+  "S140": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S141": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S142": {
+   "cat": "O",
+   "reason": "lip margin / lip corner"
+  },
+  "S143": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S144": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S145": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S146": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S147": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S148": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S149": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S150": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S151": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S152": {
+   "cat": "A",
+   "reason": "closed comedone(s) at the marker"
+  },
+  "S153": {
+   "cat": "A",
+   "reason": "crusted or excoriated papule at the marker"
+  },
+  "S154": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S155": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S156": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S157": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S158": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S159": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S160": {
+   "cat": "U",
+   "reason": "skin texture / pink texture; no distinct lesion"
+  },
+  "S161": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S162": {
+   "cat": "A",
+   "reason": "closed comedone(s) at the marker"
+  },
+  "S163": {
+   "cat": "U",
+   "reason": "skin texture / pink texture; no distinct lesion"
+  },
+  "S164": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S165": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S166": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S167": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S168": {
+   "cat": "U",
+   "reason": "skin texture / pink texture; no distinct lesion"
+  },
+  "S169": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S170": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S171": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S172": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S173": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S174": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S175": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S176": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S177": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S178": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S179": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S180": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S181": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S182": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S183": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S184": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S185": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S186": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S187": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S188": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S189": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S190": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S191": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S192": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S193": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S194": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S195": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S196": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S197": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S198": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S199": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S200": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S201": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S202": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S203": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S204": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S205": {
+   "cat": "O",
+   "reason": "lip margin / lip corner"
+  },
+  "S206": {
+   "cat": "M",
+   "reason": "brown / purple macule (mark or pigment), not raised"
+  },
+  "S207": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S208": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S209": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S210": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S211": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S212": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S213": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S214": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S215": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S216": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S217": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S218": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S219": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S220": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S221": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S222": {
+   "cat": "A",
+   "reason": "closed comedone(s) at the marker"
+  },
+  "S223": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S224": {
+   "cat": "U",
+   "reason": "small pale dot on dark skin; papule vs highlight vs other benign papule unclear"
+  },
+  "S225": {
+   "cat": "O",
+   "reason": "jaw edge / shadow edge"
+  },
+  "S226": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S227": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S228": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S229": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S230": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S231": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S232": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S233": {
+   "cat": "U",
+   "reason": "pixelated / blurred region"
+  },
+  "S234": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S235": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S236": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S237": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S238": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S239": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S240": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S241": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S242": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S243": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S244": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S245": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S246": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S247": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S248": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S249": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S250": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S251": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S252": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S253": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S254": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S255": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S256": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S257": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S258": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S259": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S260": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S261": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S262": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S263": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S264": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S265": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S266": {
+   "cat": "U",
+   "reason": "small pale dot on dark skin; papule vs highlight vs other benign papule unclear"
+  },
+  "S267": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S268": {
+   "cat": "A",
+   "reason": "closed comedone(s) at the marker"
+  },
+  "S269": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S270": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S271": {
+   "cat": "U",
+   "reason": "brown / purple macule (mark or pigment), not raised"
+  },
+  "S272": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S273": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S274": {
+   "cat": "U",
+   "reason": "skin texture / pink texture; no distinct lesion"
+  },
+  "S275": {
+   "cat": "U",
+   "reason": "skin texture / pink texture; no distinct lesion"
+  },
+  "S276": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S277": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S278": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S279": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S280": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S281": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S282": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S283": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S284": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S285": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S286": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S287": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S288": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S289": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S290": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S291": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S292": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S293": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S294": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S295": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S296": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S297": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S298": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S299": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S300": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S301": {
+   "cat": "A",
+   "reason": "closed comedone(s) at the marker"
+  },
+  "S302": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S303": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S304": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S305": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S306": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S307": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S308": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S309": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S310": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S311": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S312": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S313": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S314": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S315": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S316": {
+   "cat": "A",
+   "reason": "crusted or excoriated papule at the marker"
+  },
+  "S317": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S318": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S319": {
+   "cat": "U",
+   "reason": "small pale dot on dark skin; papule vs highlight vs other benign papule unclear"
+  },
+  "S320": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S321": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S322": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S323": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S324": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S325": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S326": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S327": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S328": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S329": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S330": {
+   "cat": "A",
+   "reason": "closed comedone(s) at the marker"
+  },
+  "S331": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S332": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S333": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S334": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S335": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S336": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S337": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S338": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S339": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S340": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S341": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S342": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S343": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S344": {
+   "cat": "A",
+   "reason": "closed comedone(s) at the marker"
+  },
+  "S345": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S346": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S347": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S348": {
+   "cat": "A",
+   "reason": "crusted or excoriated papule at the marker"
+  },
+  "S349": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S350": {
+   "cat": "U",
+   "reason": "marker on plain skin between or beside lesions; lesion offset, not clearly at the marker"
+  },
+  "S351": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S352": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S353": {
+   "cat": "U",
+   "reason": "diffuse redness without a distinct lesion"
+  },
+  "S354": {
+   "cat": "A",
+   "reason": "closed comedone(s) at the marker"
+  },
+  "S355": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S356": {
+   "cat": "A",
+   "reason": "crusted or excoriated papule at the marker"
+  },
+  "S357": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S358": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S359": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S360": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S361": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S362": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S363": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S364": {
+   "cat": "A",
+   "reason": "crusted or excoriated papule at the marker"
+  },
+  "S365": {
+   "cat": "U",
+   "reason": "faint, low-contrast spot; cannot tell lesion from skin"
+  },
+  "S366": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S367": {
+   "cat": "U",
+   "reason": "pixelated / blurred region"
+  },
+  "S368": {
+   "cat": "U",
+   "reason": "small pale dot on dark skin; papule vs highlight vs other benign papule unclear"
+  },
+  "S369": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S370": {
+   "cat": "U",
+   "reason": "small pale dot on dark skin; papule vs highlight vs other benign papule unclear"
+  },
+  "S371": {
+   "cat": "A",
+   "reason": "pustule / whitehead at the marker"
+  },
+  "S372": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  },
+  "S373": {
+   "cat": "A",
+   "reason": "raised papule at the marker"
+  }
+ }
+}
