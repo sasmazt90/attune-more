@@ -1,0 +1,1796 @@
+{
+ "table": {
+  "A": {
+   "found": 71,
+   "of": 108,
+   "points": 305,
+   "false": 96,
+   "duplicate": 48,
+   "onUncertain": 75,
+   "onOther": 9,
+   "nearOutOfScopeTarget": 0,
+   "unreviewedInOval": 0,
+   "nonSkin": 1,
+   "unreviewedPhoto": 5
+  },
+  "B": {
+   "found": 70,
+   "of": 108,
+   "points": 265,
+   "false": 78,
+   "duplicate": 42,
+   "onUncertain": 64,
+   "onOther": 8,
+   "nearOutOfScopeTarget": 0,
+   "unreviewedInOval": 0,
+   "nonSkin": 1,
+   "unreviewedPhoto": 2
+  },
+  "C": {
+   "found": 68,
+   "of": 108,
+   "points": 253,
+   "false": 69,
+   "duplicate": 38,
+   "onUncertain": 65,
+   "onOther": 7,
+   "nearOutOfScopeTarget": 0,
+   "unreviewedInOval": 0,
+   "nonSkin": 1,
+   "unreviewedPhoto": 5
+  }
+ },
+ "targets": {
+  "lostCvsA": [
+   "77176e51db41#P15",
+   "8a78e9d6efd5#P21",
+   "a2cd98ca9566#P2"
+  ],
+  "gainedCvsA": [],
+  "lostCvsB": [
+   "77176e51db41#P15",
+   "8a78e9d6efd5#P21",
+   "a2cd98ca9566#P2"
+  ],
+  "gainedCvsB": [
+   "0a8a14a662a5#P26"
+  ],
+  "lostBvsA": [
+   "0a8a14a662a5#P26"
+  ]
+ },
+ "removedByClassUnderA": {
+  "B": {
+   "duplicate": 4,
+   "matched": 3,
+   "false": 18,
+   "onUncertain": 11,
+   "onOther": 1,
+   "unreviewedPhoto": 3
+  },
+  "C": {
+   "duplicate": 8,
+   "false": 27,
+   "matched": 5,
+   "onOther": 2,
+   "onUncertain": 10
+  }
+ },
+ "removed": {
+  "B": {
+   "duplicate": [
+    {
+     "photo": "0a8a14a662a5",
+     "box": [
+      624.0,
+      457.1,
+      636.5,
+      469.0
+     ],
+     "proba": 0.0
+    },
+    {
+     "photo": "0a8a14a662a5",
+     "box": [
+      662.3,
+      622.2,
+      678.7,
+      632.4
+     ],
+     "proba": 0.0
+    },
+    {
+     "photo": "0a8a14a662a5",
+     "box": [
+      627.5,
+      462.3,
+      639.0,
+      473.9
+     ],
+     "proba": 0.0
+    },
+    {
+     "photo": "0a8a14a662a5",
+     "box": [
+      647.9,
+      623.6,
+      662.1,
+      633.9
+     ],
+     "proba": 0.0
+    }
+   ],
+   "matched": [
+    {
+     "photo": "0a8a14a662a5",
+     "box": [
+      670.9,
+      615.6,
+      683.8,
+      625.9
+     ],
+     "proba": 0.0
+    },
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      383.1,
+      650.9,
+      397.2,
+      660.5
+     ],
+     "proba": 0.0141
+    },
+    {
+     "photo": "77176e51db41",
+     "box": [
+      484.7,
+      820.5,
+      501.8,
+      832.3
+     ],
+     "proba": 0.0714
+    }
+   ],
+   "false": [
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      368.2,
+      703.8,
+      375.3,
+      709.7
+     ],
+     "proba": 0.0547
+    },
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      950.2,
+      715.9,
+      959.8,
+      725.0
+     ],
+     "proba": 0.0678
+    },
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      497.2,
+      637.5,
+      509.3,
+      647.3
+     ],
+     "proba": 0.0332
+    },
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      584.6,
+      339.8,
+      591.3,
+      345.4
+     ],
+     "proba": 0.0409
+    },
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      795.4,
+      989.5,
+      803.7,
+      996.7
+     ],
+     "proba": 0.0275
+    },
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      700.0,
+      1001.2,
+      708.7,
+      1008.7
+     ],
+     "proba": 0.034
+    },
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      466.5,
+      1063.0,
+      477.8,
+      1072.0
+     ],
+     "proba": 0.002
+    },
+    {
+     "photo": "77176e51db41",
+     "box": [
+      888.7,
+      633.4,
+      899.0,
+      645.2
+     ],
+     "proba": 0.0054
+    },
+    {
+     "photo": "77176e51db41",
+     "box": [
+      662.3,
+      1058.8,
+      672.2,
+      1068.3
+     ],
+     "proba": 0.0099
+    },
+    {
+     "photo": "8a78e9d6efd5",
+     "box": [
+      853.2,
+      609.7,
+      864.7,
+      618.4
+     ],
+     "proba": 0.0135
+    },
+    {
+     "photo": "8a78e9d6efd5",
+     "box": [
+      848.5,
+      606.7,
+      859.7,
+      615.4
+     ],
+     "proba": 0.0399
+    },
+    {
+     "photo": "8a78e9d6efd5",
+     "box": [
+      739.0,
+      591.9,
+      752.1,
+      601.5
+     ],
+     "proba": 0.0262
+    },
+    {
+     "photo": "9334509b3ae3",
+     "box": [
+      522.2,
+      367.5,
+      535.7,
+      378.9
+     ],
+     "proba": 0.0734
+    },
+    {
+     "photo": "9334509b3ae3",
+     "box": [
+      344.3,
+      303.1,
+      355.7,
+      310.8
+     ],
+     "proba": 0.0012
+    },
+    {
+     "photo": "933e40d730e0",
+     "box": [
+      733.7,
+      794.2,
+      744.9,
+      808.2
+     ],
+     "proba": 0.0125
+    },
+    {
+     "photo": "a19346a0887a",
+     "box": [
+      1725.5,
+      1952.4,
+      1735.0,
+      1960.9
+     ],
+     "proba": 0.0053
+    },
+    {
+     "photo": "c412587e8b7f",
+     "box": [
+      549.8,
+      742.4,
+      561.5,
+      753.6
+     ],
+     "proba": 0.0029
+    },
+    {
+     "photo": "c412587e8b7f",
+     "box": [
+      777.3,
+      773.5,
+      790.9,
+      783.6
+     ],
+     "proba": 0.0216
+    }
+   ],
+   "onUncertain": [
+    {
+     "photo": "77176e51db41",
+     "box": [
+      478.7,
+      796.3,
+      489.6,
+      806.7
+     ],
+     "proba": 0.0033
+    },
+    {
+     "photo": "77176e51db41",
+     "box": [
+      480.1,
+      801.9,
+      493.0,
+      812.0
+     ],
+     "proba": 0.0513
+    },
+    {
+     "photo": "77176e51db41",
+     "box": [
+      757.2,
+      577.2,
+      769.3,
+      586.5
+     ],
+     "proba": 0.0056
+    },
+    {
+     "photo": "8ad2e156eef7",
+     "box": [
+      735.5,
+      611.9,
+      747.8,
+      620.2
+     ],
+     "proba": 0.0539
+    },
+    {
+     "photo": "8ad2e156eef7",
+     "box": [
+      585.8,
+      680.4,
+      601.1,
+      690.7
+     ],
+     "proba": 0.0228
+    },
+    {
+     "photo": "9334509b3ae3",
+     "box": [
+      488.8,
+      337.5,
+      501.4,
+      346.8
+     ],
+     "proba": 0.0326
+    },
+    {
+     "photo": "933e40d730e0",
+     "box": [
+      435.4,
+      130.9,
+      445.1,
+      142.9
+     ],
+     "proba": 0.0285
+    },
+    {
+     "photo": "933e40d730e0",
+     "box": [
+      653.1,
+      863.4,
+      663.0,
+      871.1
+     ],
+     "proba": 0.0128
+    },
+    {
+     "photo": "a2cd98ca9566",
+     "box": [
+      519.8,
+      532.2,
+      533.8,
+      543.4
+     ],
+     "proba": 0.0429
+    },
+    {
+     "photo": "dc089b3f7c38",
+     "box": [
+      679.6,
+      1575.3,
+      690.3,
+      1585.6
+     ],
+     "proba": 0.0238
+    },
+    {
+     "photo": "dc089b3f7c38",
+     "box": [
+      1190.0,
+      1678.1,
+      1203.7,
+      1688.8
+     ],
+     "proba": 0.0
+    }
+   ],
+   "onOther": [
+    {
+     "photo": "a007c24408ff",
+     "box": [
+      602.2,
+      761.1,
+      619.2,
+      773.7
+     ],
+     "proba": 0.0003
+    }
+   ],
+   "unreviewedPhoto": [
+    {
+     "photo": "c1ae0b437492",
+     "box": [
+      581.6,
+      1424.5,
+      590.9,
+      1433.9
+     ],
+     "proba": 0.0623
+    },
+    {
+     "photo": "c1ae0b437492",
+     "box": [
+      946.6,
+      913.2,
+      958.5,
+      924.5
+     ],
+     "proba": 0.0505
+    },
+    {
+     "photo": "d79fcee141ca",
+     "box": [
+      1356.9,
+      1522.4,
+      1369.8,
+      1536.0
+     ],
+     "proba": 0.0039
+    }
+   ]
+  },
+  "C": {
+   "duplicate": [
+    {
+     "photo": "0a8a14a662a5",
+     "box": [
+      624.0,
+      457.1,
+      636.5,
+      469.0
+     ],
+     "proba": 0.0
+    },
+    {
+     "photo": "0a8a14a662a5",
+     "box": [
+      662.3,
+      622.2,
+      678.7,
+      632.4
+     ],
+     "proba": 0.0
+    },
+    {
+     "photo": "0a8a14a662a5",
+     "box": [
+      627.5,
+      462.3,
+      639.0,
+      473.9
+     ],
+     "proba": 0.0
+    },
+    {
+     "photo": "0a8a14a662a5",
+     "box": [
+      647.9,
+      623.6,
+      662.1,
+      633.9
+     ],
+     "proba": 0.0
+    },
+    {
+     "photo": "0a8a14a662a5",
+     "box": [
+      636.6,
+      632.9,
+      650.4,
+      644.1
+     ],
+     "proba": 0.0
+    },
+    {
+     "photo": "a2cd98ca9566",
+     "box": [
+      619.6,
+      362.5,
+      630.2,
+      373.6
+     ],
+     "proba": 0.0
+    },
+    {
+     "photo": "e643059207e1",
+     "box": [
+      718.9,
+      932.8,
+      734.0,
+      943.2
+     ],
+     "proba": 0.0
+    },
+    {
+     "photo": "e643059207e1",
+     "box": [
+      713.5,
+      926.2,
+      726.2,
+      937.0
+     ],
+     "proba": 0.0
+    }
+   ],
+   "false": [
+    {
+     "photo": "33e42c603f10",
+     "box": [
+      539.8,
+      769.0,
+      559.1,
+      779.0
+     ],
+     "proba": 0.0245
+    },
+    {
+     "photo": "33e42c603f10",
+     "box": [
+      568.9,
+      778.7,
+      579.3,
+      787.2
+     ],
+     "proba": 0.0055
+    },
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      425.0,
+      839.2,
+      431.8,
+      845.1
+     ],
+     "proba": 0.0031
+    },
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      497.2,
+      637.5,
+      509.3,
+      647.3
+     ],
+     "proba": 0.0236
+    },
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      795.4,
+      989.5,
+      803.7,
+      996.7
+     ],
+     "proba": 0.0002
+    },
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      793.6,
+      986.7,
+      800.0,
+      992.2
+     ],
+     "proba": 0.0012
+    },
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      787.5,
+      986.1,
+      796.7,
+      992.3
+     ],
+     "proba": 0.0019
+    },
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      778.3,
+      976.6,
+      786.6,
+      983.0
+     ],
+     "proba": 0.0041
+    },
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      700.0,
+      1001.2,
+      708.7,
+      1008.7
+     ],
+     "proba": 0.0027
+    },
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      773.8,
+      974.2,
+      781.1,
+      980.2
+     ],
+     "proba": 0.002
+    },
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      466.5,
+      1063.0,
+      477.8,
+      1072.0
+     ],
+     "proba": 0.0031
+    },
+    {
+     "photo": "5aa51f53f86c",
+     "box": [
+      635.3,
+      1342.3,
+      644.9,
+      1349.2
+     ],
+     "proba": 0.0022
+    },
+    {
+     "photo": "77176e51db41",
+     "box": [
+      888.7,
+      633.4,
+      899.0,
+      645.2
+     ],
+     "proba": 0.0023
+    },
+    {
+     "photo": "77176e51db41",
+     "box": [
+      662.3,
+      1058.8,
+      672.2,
+      1068.3
+     ],
+     "proba": 0.0285
+    },
+    {
+     "photo": "8a78e9d6efd5",
+     "box": [
+      853.2,
+      609.7,
+      864.7,
+      618.4
+     ],
+     "proba": 0.0395
+    },
+    {
+     "photo": "8a78e9d6efd5",
+     "box": [
+      848.5,
+      606.7,
+      859.7,
+      615.4
+     ],
+     "proba": 0.0152
+    },
+    {
+     "photo": "8a78e9d6efd5",
+     "box": [
+      739.0,
+      591.9,
+      752.1,
+      601.5
+     ],
+     "proba": 0.0622
+    },
+    {
+     "photo": "8ad2e156eef7",
+     "box": [
+      710.0,
+      752.7,
+      721.2,
+      763.5
+     ],
+     "proba": 0.0225
+    },
+    {
+     "photo": "9334509b3ae3",
+     "box": [
+      344.3,
+      303.1,
+      355.7,
+      310.8
+     ],
+     "proba": 0.0001
+    },
+    {
+     "photo": "933e40d730e0",
+     "box": [
+      738.0,
+      182.9,
+      748.7,
+      192.9
+     ],
+     "proba": 0.0263
+    },
+    {
+     "photo": "933e40d730e0",
+     "box": [
+      506.3,
+      507.5,
+      515.9,
+      521.9
+     ],
+     "proba": 0.0311
+    },
+    {
+     "photo": "a19346a0887a",
+     "box": [
+      1707.0,
+      2166.3,
+      1715.3,
+      2178.7
+     ],
+     "proba": 0.0113
+    },
+    {
+     "photo": "a19346a0887a",
+     "box": [
+      1621.3,
+      1904.8,
+      1635.7,
+      1914.9
+     ],
+     "proba": 0.0672
+    },
+    {
+     "photo": "a19346a0887a",
+     "box": [
+      1725.5,
+      1952.4,
+      1735.0,
+      1960.9
+     ],
+     "proba": 0.0105
+    },
+    {
+     "photo": "c412587e8b7f",
+     "box": [
+      787.0,
+      302.5,
+      800.7,
+      312.7
+     ],
+     "proba": 0.0073
+    },
+    {
+     "photo": "c412587e8b7f",
+     "box": [
+      549.8,
+      742.4,
+      561.5,
+      753.6
+     ],
+     "proba": 0.0172
+    },
+    {
+     "photo": "dc089b3f7c38",
+     "box": [
+      923.5,
+      1421.0,
+      935.1,
+      1430.2
+     ],
+     "proba": 0.0138
+    }
+   ],
+   "matched": [
+    {
+     "photo": "46a79ef8d7a8",
+     "box": [
+      383.1,
+      650.9,
+      397.2,
+      660.5
+     ],
+     "proba": 0.0169
+    },
+    {
+     "photo": "77176e51db41",
+     "box": [
+      760.2,
+      858.0,
+      776.9,
+      871.9
+     ],
+     "proba": 0.0
+    },
+    {
+     "photo": "8a78e9d6efd5",
+     "box": [
+      815.4,
+      1078.1,
+      831.6,
+      1099.0
+     ],
+     "proba": 0.0337
+    },
+    {
+     "photo": "a2cd98ca9566",
+     "box": [
+      615.7,
+      348.2,
+      629.5,
+      361.1
+     ],
+     "proba": 0.0
+    },
+    {
+     "photo": "e643059207e1",
+     "box": [
+      725.2,
+      928.3,
+      740.8,
+      940.2
+     ],
+     "proba": 0.0
+    }
+   ],
+   "onOther": [
+    {
+     "photo": "77176e51db41",
+     "box": [
+      458.9,
+      948.2,
+      470.9,
+      960.2
+     ],
+     "proba": 0.0156
+    },
+    {
+     "photo": "c412587e8b7f",
+     "box": [
+      783.5,
+      662.1,
+      796.3,
+      672.3
+     ],
+     "proba": 0.013
+    }
+   ],
+   "onUncertain": [
+    {
+     "photo": "77176e51db41",
+     "box": [
+      478.7,
+      796.3,
+      489.6,
+      806.7
+     ],
+     "proba": 0.0312
+    },
+    {
+     "photo": "8ad2e156eef7",
+     "box": [
+      585.8,
+      680.4,
+      601.1,
+      690.7
+     ],
+     "proba": 0.0354
+    },
+    {
+     "photo": "9334509b3ae3",
+     "box": [
+      293.8,
+      690.4,
+      310.2,
+      703.8
+     ],
+     "proba": 0.0027
+    },
+    {
+     "photo": "9334509b3ae3",
+     "box": [
+      488.8,
+      337.5,
+      501.4,
+      346.8
+     ],
+     "proba": 0.0254
+    },
+    {
+     "photo": "a007c24408ff",
+     "box": [
+      670.3,
+      768.6,
+      688.9,
+      783.7
+     ],
+     "proba": 0.0003
+    },
+    {
+     "photo": "a2cd98ca9566",
+     "box": [
+      519.8,
+      532.2,
+      533.8,
+      543.4
+     ],
+     "proba": 0.0315
+    },
+    {
+     "photo": "c412587e8b7f",
+     "box": [
+      631.5,
+      667.8,
+      640.5,
+      677.7
+     ],
+     "proba": 0.0247
+    },
+    {
+     "photo": "dc089b3f7c38",
+     "box": [
+      679.6,
+      1575.3,
+      690.3,
+      1585.6
+     ],
+     "proba": 0.0272
+    },
+    {
+     "photo": "dc089b3f7c38",
+     "box": [
+      1190.0,
+      1678.1,
+      1203.7,
+      1688.8
+     ],
+     "proba": 0.0006
+    },
+    {
+     "photo": "f30396853c41",
+     "box": [
+      1434.0,
+      2268.8,
+      1450.3,
+      2286.8
+     ],
+     "proba": 0.0488
+    }
+   ]
+  }
+ },
+ "overlap": {
+  "removedByC_alsoByB": 23,
+  "removedByC": 52,
+  "removedByB": 40
+ },
+ "CI95": {
+  "falseCminusA": [
+   -48.0,
+   -11.0
+  ],
+  "falseCminusB": [
+   -17.0,
+   -2.0
+  ],
+  "foundCminusA": [
+   -6.0,
+   0.0
+  ],
+  "foundCminusB": [
+   -6.0,
+   2.0
+  ]
+ },
+ "perPhoto": {
+  "0a8a14a662a5": {
+   "set": "devext",
+   "A": {
+    "found": 7,
+    "points": 20,
+    "false": 4,
+    "duplicate": 8,
+    "onUncertain": 1
+   },
+   "B": {
+    "found": 6,
+    "points": 15,
+    "false": 4,
+    "duplicate": 4,
+    "onUncertain": 1
+   },
+   "C": {
+    "found": 7,
+    "points": 15,
+    "false": 4,
+    "duplicate": 3,
+    "onUncertain": 1
+   }
+  },
+  "29069058884f": {
+   "set": "devext",
+   "A": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "B": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "C": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   }
+  },
+  "2ad92b5eb9de": {
+   "set": "dev",
+   "A": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "B": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "C": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   }
+  },
+  "33e42c603f10": {
+   "set": "dev",
+   "A": {
+    "found": 4,
+    "points": 19,
+    "false": 5,
+    "duplicate": 1,
+    "onUncertain": 9
+   },
+   "B": {
+    "found": 4,
+    "points": 19,
+    "false": 5,
+    "duplicate": 1,
+    "onUncertain": 9
+   },
+   "C": {
+    "found": 4,
+    "points": 17,
+    "false": 3,
+    "duplicate": 1,
+    "onUncertain": 9
+   }
+  },
+  "453d2656c394": {
+   "set": "dev",
+   "A": {
+    "found": 0,
+    "points": 1,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "B": {
+    "found": 0,
+    "points": 1,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "C": {
+    "found": 0,
+    "points": 1,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 0
+   }
+  },
+  "46a79ef8d7a8": {
+   "set": "dev",
+   "A": {
+    "found": 9,
+    "points": 34,
+    "false": 15,
+    "duplicate": 3,
+    "onUncertain": 7
+   },
+   "B": {
+    "found": 9,
+    "points": 26,
+    "false": 8,
+    "duplicate": 2,
+    "onUncertain": 7
+   },
+   "C": {
+    "found": 9,
+    "points": 24,
+    "false": 6,
+    "duplicate": 2,
+    "onUncertain": 7
+   }
+  },
+  "5aa51f53f86c": {
+   "set": "devext",
+   "A": {
+    "found": 0,
+    "points": 4,
+    "false": 2,
+    "duplicate": 0,
+    "onUncertain": 2
+   },
+   "B": {
+    "found": 0,
+    "points": 4,
+    "false": 2,
+    "duplicate": 0,
+    "onUncertain": 2
+   },
+   "C": {
+    "found": 0,
+    "points": 3,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 2
+   }
+  },
+  "6dcf4d7ab398": {
+   "set": "devext",
+   "A": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "B": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "C": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   }
+  },
+  "77176e51db41": {
+   "set": "dev",
+   "A": {
+    "found": 4,
+    "points": 20,
+    "false": 4,
+    "duplicate": 1,
+    "onUncertain": 8
+   },
+   "B": {
+    "found": 4,
+    "points": 14,
+    "false": 2,
+    "duplicate": 0,
+    "onUncertain": 5
+   },
+   "C": {
+    "found": 3,
+    "points": 15,
+    "false": 2,
+    "duplicate": 1,
+    "onUncertain": 7
+   }
+  },
+  "7b425c76a80f": {
+   "set": "devext",
+   "A": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "B": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "C": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   }
+  },
+  "8a78e9d6efd5": {
+   "set": "dev",
+   "A": {
+    "found": 11,
+    "points": 36,
+    "false": 13,
+    "duplicate": 8,
+    "onUncertain": 4
+   },
+   "B": {
+    "found": 11,
+    "points": 33,
+    "false": 10,
+    "duplicate": 8,
+    "onUncertain": 4
+   },
+   "C": {
+    "found": 10,
+    "points": 32,
+    "false": 10,
+    "duplicate": 8,
+    "onUncertain": 4
+   }
+  },
+  "8ad2e156eef7": {
+   "set": "dev",
+   "A": {
+    "found": 3,
+    "points": 10,
+    "false": 1,
+    "duplicate": 3,
+    "onUncertain": 3
+   },
+   "B": {
+    "found": 3,
+    "points": 8,
+    "false": 1,
+    "duplicate": 3,
+    "onUncertain": 1
+   },
+   "C": {
+    "found": 3,
+    "points": 8,
+    "false": 0,
+    "duplicate": 3,
+    "onUncertain": 2
+   }
+  },
+  "9334509b3ae3": {
+   "set": "devext",
+   "A": {
+    "found": 2,
+    "points": 28,
+    "false": 16,
+    "duplicate": 2,
+    "onUncertain": 8
+   },
+   "B": {
+    "found": 2,
+    "points": 25,
+    "false": 14,
+    "duplicate": 2,
+    "onUncertain": 7
+   },
+   "C": {
+    "found": 2,
+    "points": 25,
+    "false": 15,
+    "duplicate": 2,
+    "onUncertain": 6
+   }
+  },
+  "933e40d730e0": {
+   "set": "dev",
+   "A": {
+    "found": 17,
+    "points": 56,
+    "false": 12,
+    "duplicate": 11,
+    "onUncertain": 13
+   },
+   "B": {
+    "found": 17,
+    "points": 53,
+    "false": 11,
+    "duplicate": 11,
+    "onUncertain": 11
+   },
+   "C": {
+    "found": 17,
+    "points": 54,
+    "false": 10,
+    "duplicate": 11,
+    "onUncertain": 13
+   }
+  },
+  "a007c24408ff": {
+   "set": "dev",
+   "A": {
+    "found": 1,
+    "points": 7,
+    "false": 0,
+    "duplicate": 1,
+    "onUncertain": 2
+   },
+   "B": {
+    "found": 1,
+    "points": 6,
+    "false": 0,
+    "duplicate": 1,
+    "onUncertain": 2
+   },
+   "C": {
+    "found": 1,
+    "points": 6,
+    "false": 0,
+    "duplicate": 1,
+    "onUncertain": 1
+   }
+  },
+  "a19346a0887a": {
+   "set": "dev",
+   "A": {
+    "found": 4,
+    "points": 14,
+    "false": 7,
+    "duplicate": 0,
+    "onUncertain": 3
+   },
+   "B": {
+    "found": 4,
+    "points": 13,
+    "false": 6,
+    "duplicate": 0,
+    "onUncertain": 3
+   },
+   "C": {
+    "found": 4,
+    "points": 11,
+    "false": 4,
+    "duplicate": 0,
+    "onUncertain": 3
+   }
+  },
+  "a2cd98ca9566": {
+   "set": "dev",
+   "A": {
+    "found": 3,
+    "points": 9,
+    "false": 2,
+    "duplicate": 1,
+    "onUncertain": 3
+   },
+   "B": {
+    "found": 3,
+    "points": 8,
+    "false": 2,
+    "duplicate": 1,
+    "onUncertain": 2
+   },
+   "C": {
+    "found": 2,
+    "points": 6,
+    "false": 2,
+    "duplicate": 0,
+    "onUncertain": 2
+   }
+  },
+  "aff1efde301c": {
+   "set": "dev",
+   "A": {
+    "found": 0,
+    "points": 1,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 1
+   },
+   "B": {
+    "found": 0,
+    "points": 1,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 1
+   },
+   "C": {
+    "found": 0,
+    "points": 1,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 1
+   }
+  },
+  "b4ec4968102b": {
+   "set": "devext",
+   "A": {
+    "found": 0,
+    "points": 3,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 2
+   },
+   "B": {
+    "found": 0,
+    "points": 3,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 2
+   },
+   "C": {
+    "found": 0,
+    "points": 3,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 2
+   }
+  },
+  "b9dd30fde312": {
+   "set": "devext",
+   "A": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "B": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "C": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   }
+  },
+  "c1ae0b437492": {
+   "set": "devext",
+   "A": {
+    "found": 0,
+    "points": 3,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "B": {
+    "found": 0,
+    "points": 1,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "C": {
+    "found": 0,
+    "points": 3,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   }
+  },
+  "c412587e8b7f": {
+   "set": "dev",
+   "A": {
+    "found": 0,
+    "points": 9,
+    "false": 6,
+    "duplicate": 0,
+    "onUncertain": 2
+   },
+   "B": {
+    "found": 0,
+    "points": 7,
+    "false": 4,
+    "duplicate": 0,
+    "onUncertain": 2
+   },
+   "C": {
+    "found": 0,
+    "points": 5,
+    "false": 4,
+    "duplicate": 0,
+    "onUncertain": 1
+   }
+  },
+  "cb5ca5ca9a33": {
+   "set": "devext",
+   "A": {
+    "found": 2,
+    "points": 3,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "B": {
+    "found": 2,
+    "points": 3,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "C": {
+    "found": 2,
+    "points": 3,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 0
+   }
+  },
+  "d79fcee141ca": {
+   "set": "dev",
+   "A": {
+    "found": 0,
+    "points": 2,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "B": {
+    "found": 0,
+    "points": 1,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "C": {
+    "found": 0,
+    "points": 2,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   }
+  },
+  "dc089b3f7c38": {
+   "set": "dev",
+   "A": {
+    "found": 1,
+    "points": 5,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 3
+   },
+   "B": {
+    "found": 1,
+    "points": 3,
+    "false": 1,
+    "duplicate": 0,
+    "onUncertain": 1
+   },
+   "C": {
+    "found": 1,
+    "points": 2,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 1
+   }
+  },
+  "e643059207e1": {
+   "set": "dev",
+   "A": {
+    "found": 3,
+    "points": 20,
+    "false": 5,
+    "duplicate": 9,
+    "onUncertain": 3
+   },
+   "B": {
+    "found": 3,
+    "points": 20,
+    "false": 5,
+    "duplicate": 9,
+    "onUncertain": 3
+   },
+   "C": {
+    "found": 3,
+    "points": 17,
+    "false": 5,
+    "duplicate": 6,
+    "onUncertain": 3
+   }
+  },
+  "eeb843cadf66": {
+   "set": "devext",
+   "A": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "B": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   },
+   "C": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   }
+  },
+  "f30396853c41": {
+   "set": "dev",
+   "A": {
+    "found": 0,
+    "points": 1,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 1
+   },
+   "B": {
+    "found": 0,
+    "points": 1,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 1
+   },
+   "C": {
+    "found": 0,
+    "points": 0,
+    "false": 0,
+    "duplicate": 0,
+    "onUncertain": 0
+   }
+  }
+ },
+ "clear": {
+  "photos": 14,
+  "pointsA": 0
+ },
+ "bySet": {
+  "dev": {
+   "A": 60,
+   "B": 60,
+   "C": 57
+  },
+  "devext": {
+   "A": 11,
+   "B": 10,
+   "C": 11
+  }
+ },
+ "photo_0a8a14a662a5": {
+  "set": "devext",
+  "A": {
+   "found": 7,
+   "points": 20,
+   "false": 4,
+   "duplicate": 8,
+   "onUncertain": 1
+  },
+  "B": {
+   "found": 6,
+   "points": 15,
+   "false": 4,
+   "duplicate": 4,
+   "onUncertain": 1
+  },
+  "C": {
+   "found": 7,
+   "points": 15,
+   "false": 4,
+   "duplicate": 3,
+   "onUncertain": 1
+  }
+ },
+ "inputs": {
+  "v1Model": "b6fa6c05b48a092623f7780200c07440ebaf934989ab66518ee21b23fa304f8a",
+  "v2Model": "916a3a16c1155c8495777c4de232dddb6a0c04e57e8f41b0321d297919cd8f91",
+  "v1DevDecisions": "29c57f706c16e4b3747d9fbfed9ea0d12c0b7b3a77fda7ee3cbeb6a4819d4542",
+  "v2DevDecisions": "442934725d24f63883437d47d71773831d7513837c81c0a8a8ccaa5ae6d62744",
+  "reviewList": "1b6473af3efddce5e5214207ed04fc3f1f3984be250430b24be94bb4e5e76889",
+  "reviewDecisions": "f7453deccf7e571329af0a429fd26bbf4e41511e3fae151eca34e911cb109a6c",
+  "labelsV2": "977064e5d32223e766e7462f548bbd5cec9d1acda796902189954bdebbdf867e",
+  "calibrationV2": "36109691d62b3375cc203518af66ac673b663a096bcbf84f61781f7ac616f55c",
+  "commits": {
+   "protocolAndList": "e96a9b7",
+   "reviewDecisions": "90b2949",
+   "frozenV2": "2a87019"
+  }
+ },
+ "decision": {
+  "rule": "v2 preferred only if C found >= B found AND C false < B false (protocol)",
+  "C": {
+   "found": 68,
+   "false": 69
+  },
+  "B": {
+   "found": 70,
+   "false": 78
+  },
+  "result": "rule not met (68 < 70 targets): v1 stays the preferred staging verifier; v2 kept as a recorded alternative; neither enabled in the product"
+ },
+ "runtimeParity": {
+  "v2StoredReplay": "42/42 DEV photos: photo command --version v2 gives the same Step0 boxes, keep flags and probabilities as the frozen v2 DEV run",
+  "v2LocalReplay": "3/3 DEV photos from raw photo (local MediaPipe + node replay): same boxes and keep flags",
+  "tests": "tests/unit/test_acne_candidate_verifier.py 9 passed"
+ }
+}

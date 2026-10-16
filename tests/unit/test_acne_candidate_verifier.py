@@ -81,3 +81,35 @@ def test_train_runtime_feature_parity_and_fixed_step0():
         rec = json.loads((VER / 'train' / f'{p}.json').read_text())
         assert [[round(x, 2) for x in b[:4]] for b in rec['final']] == [b[:4] for b in res[p]['A']]
         assert cached.shape == now.shape and np.allclose(cached, now, atol=1e-5)
+
+
+V2 = ROOT / 'audit-results/acne-verifier-v2'; MODEL2 = ROOT / 'docs/acne-verifier-v2-model-20261016.json'
+
+
+def test_v2_frozen_hash_v1_unchanged_and_same_feature_version():
+    need(MODEL, MODEL2)
+    assert hashlib.sha256(MODEL2.read_bytes()).hexdigest() == '916a3a16c1155c8495777c4de232dddb6a0c04e57e8f41b0321d297919cd8f91'
+    assert hashlib.sha256(MODEL.read_bytes()).hexdigest() == 'b6fa6c05b48a092623f7780200c07440ebaf934989ab66518ee21b23fa304f8a'
+    assert V.Verifier(MODEL2).meta['featureVersion'] == V.Verifier(MODEL).meta['featureVersion'] == V.VERSION
+
+
+def test_v2_labels_train_only_and_split_separation():
+    need(V2 / 'labels-v2.json', VER / 'dev'); import verifier_extract as X
+    L = json.loads((V2 / 'labels-v2.json').read_text()); rows = L['rows']; grp = json.loads((VER / 'labels.json').read_text())['groups']
+    dev = {s[:12] for s, *_ in X.items('dev')}; assert not {r['photo'] for r in rows} & dev
+    split = {}
+    for r in rows:
+        if r['split']: split.setdefault(grp[r['photo']], set()).add(r['split'])
+    assert all(len(s) == 1 for s in split.values())
+    flat = {s: {r['photo'] for r in rows if r['type'] == 'flat' and r['split'] == s} for s in ('learn', 'calibration')}
+    assert len(flat['learn']) >= 2 and len(flat['calibration']) >= 2
+    assert all(r['label'] is None for r in rows if r['source'] == 'review:U')
+
+
+def test_photo_command_v2_reproduces_frozen_dev_decisions():
+    need(V2 / 'dev-decisions-v2.json', MODEL2); pytest.importorskip('torch'); import verifier_extract as X, acne_verifier_photo as P, eval_acne_v6 as v6
+    D = json.loads((V2 / 'dev-decisions-v2.json').read_text())['photos']; ph = '77176e51db41'
+    it = [i for i in X.items('dev') if i[0][:12] == ph][0]; out = V2 / '_parity'; out.mkdir(exist_ok=True)
+    rp = out / 'rp.jsonl'; rp.write_text(json.dumps(it[3]))
+    res = P.main(['--out', str(out), '--version', 'v2', '--replay', str(rp), '--no-image', '--', it[2]])
+    assert res[ph]['keep'] == D[ph]['keep'] and np.allclose(res[ph]['proba'], D[ph]['proba'], atol=1e-9)
