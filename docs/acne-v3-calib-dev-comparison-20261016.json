@@ -1,0 +1,310 @@
+{
+ "Scope B positives": {
+  "photos": 3,
+  "step0@.30": {
+   "targets": 14,
+   "hit50": 4,
+   "hit30": 4,
+   "reviewedNegFPperPhoto": 0.0,
+   "unknown": 19,
+   "finalCandidates": 23,
+   "rawCandidates": null,
+   "medianSec": 5.83
+  },
+  "step0@.001": {
+   "targets": 14,
+   "hit50": 4,
+   "hit30": 8,
+   "reviewedNegFPperPhoto": 0.0,
+   "unknown": 220,
+   "finalCandidates": 224,
+   "rawCandidates": 2620,
+   "medianSec": 3.78,
+   "vsStep0@.30": {
+    "gained50": 0,
+    "lost50": 0,
+    "gained30": 4,
+    "lost30": 0
+   },
+   "vsSameModel@.30": {
+    "gained50": 0,
+    "lost50": 0,
+    "gained30": 4,
+    "lost30": 0
+   }
+  },
+  "fix300@.30": {
+   "targets": 14,
+   "hit50": 2,
+   "hit30": 2,
+   "reviewedNegFPperPhoto": 0.0,
+   "unknown": 1,
+   "finalCandidates": 3,
+   "rawCandidates": null,
+   "medianSec": 4.51,
+   "vsStep0@.30": {
+    "gained50": 0,
+    "lost50": 2,
+    "gained30": 0,
+    "lost30": 2
+   }
+  },
+  "fix300@.005": {
+   "targets": 14,
+   "hit50": 4,
+   "hit30": 4,
+   "reviewedNegFPperPhoto": 0.0,
+   "unknown": 71,
+   "finalCandidates": 75,
+   "rawCandidates": 1868,
+   "medianSec": 4.9,
+   "vsStep0@.30": {
+    "gained50": 0,
+    "lost50": 0,
+    "gained30": 0,
+    "lost30": 0
+   },
+   "vsSameModel@.30": {
+    "gained50": 2,
+    "lost50": 0,
+    "gained30": 2,
+    "lost30": 0
+   },
+   "vsStep0@.001": {
+    "gained50": 0,
+    "lost50": 0
+   }
+  }
+ },
+ "Reviewed negatives (7 valid)": {
+  "photos": 7,
+  "step0@.30": {
+   "targets": 0,
+   "hit50": 0,
+   "hit30": 0,
+   "reviewedNegFPperPhoto": 0.43,
+   "unknown": 0,
+   "finalCandidates": 3,
+   "rawCandidates": null,
+   "medianSec": 1.49
+  },
+  "step0@.001": {
+   "targets": 0,
+   "hit50": 0,
+   "hit30": 0,
+   "reviewedNegFPperPhoto": 5.29,
+   "unknown": 0,
+   "finalCandidates": 37,
+   "rawCandidates": 645,
+   "medianSec": 1.46,
+   "vsStep0@.30": {
+    "gained50": 0,
+    "lost50": 0,
+    "gained30": 0,
+    "lost30": 0
+   },
+   "vsSameModel@.30": {
+    "gained50": 0,
+    "lost50": 0,
+    "gained30": 0,
+    "lost30": 0
+   }
+  },
+  "fix300@.30": {
+   "targets": 0,
+   "hit50": 0,
+   "hit30": 0,
+   "reviewedNegFPperPhoto": 0.0,
+   "unknown": 0,
+   "finalCandidates": 0,
+   "rawCandidates": null,
+   "medianSec": 1.53,
+   "vsStep0@.30": {
+    "gained50": 0,
+    "lost50": 0,
+    "gained30": 0,
+    "lost30": 0
+   }
+  },
+  "fix300@.005": {
+   "targets": 0,
+   "hit50": 0,
+   "hit30": 0,
+   "reviewedNegFPperPhoto": 6.0,
+   "unknown": 0,
+   "finalCandidates": 42,
+   "rawCandidates": 759,
+   "medianSec": 1.66,
+   "vsStep0@.30": {
+    "gained50": 0,
+    "lost50": 0,
+    "gained30": 0,
+    "lost30": 0
+   },
+   "vsSameModel@.30": {
+    "gained50": 0,
+    "lost50": 0,
+    "gained30": 0,
+    "lost30": 0
+   },
+   "vsStep0@.001": {
+    "gained50": 0,
+    "lost50": 0
+   }
+  }
+ },
+ "Product-valid controls": {
+  "photos": 3,
+  "step0@.30": {
+   "targets": 29,
+   "hit50": 16,
+   "hit30": 16,
+   "reviewedNegFPperPhoto": 0.0,
+   "unknown": 81,
+   "finalCandidates": 97,
+   "rawCandidates": null,
+   "medianSec": 4.52
+  },
+  "step0@.001": {
+   "targets": 29,
+   "hit50": 17,
+   "hit30": 19,
+   "reviewedNegFPperPhoto": 0.0,
+   "unknown": 587,
+   "finalCandidates": 604,
+   "rawCandidates": 3693,
+   "medianSec": 3.99,
+   "vsStep0@.30": {
+    "gained50": 1,
+    "lost50": 0,
+    "gained30": 3,
+    "lost30": 0
+   },
+   "vsSameModel@.30": {
+    "gained50": 1,
+    "lost50": 0,
+    "gained30": 3,
+    "lost30": 0
+   }
+  },
+  "fix300@.30": {
+   "targets": 29,
+   "hit50": 1,
+   "hit30": 2,
+   "reviewedNegFPperPhoto": 0.0,
+   "unknown": 2,
+   "finalCandidates": 3,
+   "rawCandidates": null,
+   "medianSec": 4.46,
+   "vsStep0@.30": {
+    "gained50": 0,
+    "lost50": 15,
+    "gained30": 0,
+    "lost30": 14
+   }
+  },
+  "fix300@.005": {
+   "targets": 29,
+   "hit50": 8,
+   "hit30": 15,
+   "reviewedNegFPperPhoto": 0.0,
+   "unknown": 133,
+   "finalCandidates": 141,
+   "rawCandidates": 2390,
+   "medianSec": 4.89,
+   "vsStep0@.30": {
+    "gained50": 1,
+    "lost50": 9,
+    "gained30": 2,
+    "lost30": 3
+   },
+   "vsSameModel@.30": {
+    "gained50": 7,
+    "lost50": 0,
+    "gained30": 13,
+    "lost30": 0
+   },
+   "vsStep0@.001": {
+    "gained50": 0,
+    "lost50": 9
+   }
+  }
+ },
+ "Held-out 20 (replay pass, eyewear UNKNOWN; development)": {
+  "photos": 20,
+  "step0@.30": {
+   "targets": 95,
+   "hit50": 39,
+   "hit30": 52,
+   "reviewedNegFPperPhoto": 0.0,
+   "unknown": 254,
+   "finalCandidates": 293,
+   "rawCandidates": null,
+   "medianSec": 3.58
+  },
+  "step0@.001": {
+   "targets": 95,
+   "hit50": 47,
+   "hit30": 65,
+   "reviewedNegFPperPhoto": 0.0,
+   "unknown": 2864,
+   "finalCandidates": 2911,
+   "rawCandidates": 20979,
+   "medianSec": 3.92,
+   "vsStep0@.30": {
+    "gained50": 8,
+    "lost50": 0,
+    "gained30": 13,
+    "lost30": 0
+   },
+   "vsSameModel@.30": {
+    "gained50": 8,
+    "lost50": 0,
+    "gained30": 13,
+    "lost30": 0
+   }
+  },
+  "fix300@.30": {
+   "targets": 95,
+   "hit50": 4,
+   "hit30": 5,
+   "reviewedNegFPperPhoto": 0.0,
+   "unknown": 1,
+   "finalCandidates": 5,
+   "rawCandidates": null,
+   "medianSec": 3.4,
+   "vsStep0@.30": {
+    "gained50": 0,
+    "lost50": 35,
+    "gained30": 0,
+    "lost30": 47
+   }
+  },
+  "fix300@.005": {
+   "targets": 95,
+   "hit50": 42,
+   "hit30": 59,
+   "reviewedNegFPperPhoto": 0.0,
+   "unknown": 630,
+   "finalCandidates": 672,
+   "rawCandidates": 10984,
+   "medianSec": 4.05,
+   "vsStep0@.30": {
+    "gained50": 11,
+    "lost50": 8,
+    "gained30": 12,
+    "lost30": 5
+   },
+   "vsSameModel@.30": {
+    "gained50": 38,
+    "lost50": 0,
+    "gained30": 54,
+    "lost30": 0
+   },
+   "vsStep0@.001": {
+    "gained50": 7,
+    "lost50": 12
+   }
+  }
+ }
+}

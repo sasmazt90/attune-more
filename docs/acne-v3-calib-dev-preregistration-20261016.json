@@ -1,0 +1,28 @@
+{
+ "purpose": "Do the TRAIN-chosen fixed thresholds help on the real product chain? Separate from the score-vs-discrimination check; its AUC verdict stays NOT_COMPUTABLE and is not claimed as PRESERVED.",
+ "thresholds": {
+  "step0": 0.001,
+  "fix300": 0.005
+ },
+ "source": {
+  "file": "acne-v3-calibration-analysis-20261016.json",
+  "sha256": "3aa7e3643e8fa906a93974cd6686bc25017d39e205bb8856c3df408cd6345217",
+  "rule": "smallest grid t with <= 1 clean-negative candidate per TRAIN negative photo"
+ },
+ "weights": {
+  "step0": "18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655",
+  "fix300": "5644d62c176fdd6b4e6921337d9fe8d76c05e413761c7398cd4c395792f3b7ad"
+ },
+ "groups": {
+  "scopeBPositive": "3 photos / 14 targets",
+  "reviewedNegatives": "the same 7 product-valid reviewed negative photos (2 not product-valid excluded)",
+  "controls": "3 product-valid controls / 29 targets",
+  "heldOut20": "20 replay-pass photos / 95 targets: separate development group; eyewear UNKNOWN; not full product pass, not an independent final test"
+ },
+ "baselines": "saved conf .30 rows (v3prod-step0, v3prod-fix-step-000300) are kept and reused, not invalidated",
+ "parity": "before using the conf copy: Step0 at conf .30 through the copy must equal the saved Step0 .30 rows (matched, cleanFP, candidates) on every row",
+ "unchanged": "crop, native tiles, BGR channel order, product _nms .30, anatomical support, exclusions, region ownership, one-to-one matching (a box serves one target); IoU .50 primary, .30 secondary",
+ "reading": "raw anchor availability is not product capture; low-threshold candidates outside reviewed clean masks are UNKNOWN, never true acne; no threshold change after development results; no activation, acceptance unchanged (acceptance.json 90dc84fa...)",
+ "limits": "if resources stop a run: report it; no silent candidate truncation and no rule change",
+ "codeSHA256": "ec32644d3884ef4387bff87a8eaf3afd18e9509992c4d62d1e42e4d3767d1154"
+}
