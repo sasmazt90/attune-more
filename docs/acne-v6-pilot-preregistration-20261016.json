@@ -1,0 +1,78 @@
+{
+ "name": "acne-v6-pilot-20261016",
+ "config": {
+  "seed": 20261016,
+  "accum": 8,
+  "k_hard": 64,
+  "k_rand": 192,
+  "w_hard": 1.0,
+  "w_rand": 1.0,
+  "lambda_neg": 36.57142857142857,
+  "p_negative_photo": 0.4,
+  "p_focus": 0.85,
+  "lr": 5e-05,
+  "warmup": 50,
+  "clip": 2000.0,
+  "pilot_steps": 150,
+  "ckpt_every": 25,
+  "trainable": "YOLOX head + PAFPN neck convs; BatchNorm frozen (eval); backbone frozen",
+  "start": "CDC Step0 18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655",
+  "schedule_steps": 150
+ },
+ "steps": 150,
+ "codeSHA256": "f5cf3f61d6b21be0c35f80b3aed9b67be5fc17801103d0ab800cea79f1704e6c",
+ "manifestSHA256": "f90be74ba305417992167203a2c4c25bd45520f4342eed1e24a98ca429bdacdf",
+ "unchanged": "v4/v5 architecture and loss: budgeted objectness (K=64 hard + 192 random, lambda 36.57), lr 5e-5, warmup 50, clip 2000, accum 8, 40% negative-photo tiles, head+neck trainable, BN frozen; start Step0 18e94a95 + new optimizer; product conf .30 / NMS .30 unchanged",
+ "changed": "data coverage and selection control only: v5 core (65 photos) + 83 reviewed TRAIN-extension photos (278 kept of 1,229 source acne boxes; 951 ignored with reason; 34 of 120 confounders kept as explicit negatives; 47 accepted clean ROIs on 35 photos) = 148 positive photos, 514 kept boxes, clean ROIs on 76 photos (1,656,838 px) + the same 41 auxiliary TRAIN negatives",
+ "gateEvaluation": {
+  "evaluator": "eval_acne_v6.py combined (label-independent product preprocessing; eyewear UNKNOWN)",
+  "set": "v4 DEV 17 replay-pass positive photos + 11 replay-pass VALIDATION DEV-EXT photos = 28 photos / 201 source targets (63 small, 138 medium); 14 Clear negatives; frozen reviewed clean ROIs on 13 positive DEV photos (226,001 px; decisions 3987e8e5.. and b58481e0..)"
+ },
+ "step0Reference": {
+  "hit50": 17,
+  "hit30": 25,
+  "smallHit50": "14/63",
+  "mediumHit50": "3/138",
+  "final": 305,
+  "unlabeledCandidates": 280,
+  "medianAreaRatio": 1.142,
+  "clearFP": 0,
+  "positiveRoiFP": 0
+ },
+ "passIf": [
+  "G1 total: hit50 >= 18 (Step0 17)",
+  "G2 small: small hit50 >= 14 (no loss vs Step0)",
+  "G3 Clear negatives: FP in mask <= 1",
+  "G4 positive-DEV clean ROI: false candidates <= 1",
+  "G5 false-candidate growth: unlabeled candidates (final candidates not matched at IoU .30) <= 420 (1.5 x Step0 280)",
+  "G6 no score collapse: final candidates >= 76 (0.25 x Step0)",
+  "G7 box placement: median matched area ratio in [0.75, 1.29] (Step0 1.142 + 0.15)",
+  "G8 optimisation: all losses finite and <= 20% clipped steps in the last 50"
+ ],
+ "rule": "ALL of G1..G8 must hold; otherwise no main run. Thresholds fixed before the pilot is run and never changed afterwards.",
+ "g5Rationale": "V5 step-150 passed its own gate but failed the product chain (reviewed-negative false candidates 3 -> 14). On this DEV set its clean-ROI false candidates were only 0 -> 1 (the ROI area is small), while unlabeled candidates grew 280 -> 588 (2.1x). G5 is therefore a conservative proxy: unlabeled candidates include some real unlabeled lesions, so it can reject a genuinely better model; it is used only as a selection control, never as a success claim.",
+ "knownModelsUnderThisGate": {
+  "v5_step150": {
+   "hit50": 20,
+   "small": 17,
+   "clearFP": 0,
+   "roiFP": 1,
+   "unlabeled": 588,
+   "final": 617,
+   "area": 1.234,
+   "verdict": "FAIL (G5)"
+  },
+  "v4_step1000": {
+   "hit50": 21,
+   "small": 12,
+   "clearFP": 0,
+   "roiFP": 34,
+   "unlabeled": 1997,
+   "final": 2035,
+   "area": 1.164,
+   "verdict": "FAIL (G2, G4, G5)"
+  }
+ },
+ "productAcceptanceUnchanged": "unchanged v2 product chain; success iff hit50 over 138 targets >= 62 (Step0 59 + 3), reviewed-negative false candidates <= 7, lost <= gained / 3",
+ "sealed": "Skin care v5 closed; production accepted:false"
+}

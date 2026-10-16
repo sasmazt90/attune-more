@@ -1,0 +1,770 @@
+{
+ "evaluator": "scripts/skin-research/eval_acne_v6.py (label-independent product preprocessing; conf .30, NMS .30; eyewear UNKNOWN)",
+ "note": "combined = v4 DEV (17 replay-pass positive photos, 14 Clear) + DEV-EXT (11 replay-pass VALIDATION photos); the v4 rescaled-DEV and v5 numbers are kept in their own reports",
+ "models": {
+  "step0": {
+   "combined": {
+    "status": {
+     "replay-pass (eyewear UNKNOWN)": 42,
+     "tile-budget / gate-fail:POSE": 15,
+     "gate-fail:POSE / no-snapshot": 90,
+     "gate-fail:QUALITY:BLURRY": 3,
+     "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 24,
+     "tile-budget": 1,
+     "product-reject:PHOTO_LIMIT": 15,
+     "no-face": 78,
+     "tile-budget / gate-fail:QUALITY:BLURRY,POSE": 1,
+     "gate-fail:SNAPSHOT:INCOMPLETE_HEAD_FRAME / no-snapshot": 3
+    },
+    "pos": {
+     "photos": 28,
+     "targets": 201,
+     "hit50": 17,
+     "hit30": 25,
+     "small": 63,
+     "smallHit50": 14,
+     "medium": 138,
+     "mediumHit50": 3,
+     "unknown": 280,
+     "final": 305,
+     "medianAreaRatio": 1.142,
+     "sizeUnit": "source px == model-input px (no rescale)",
+     "medianTotalSec": 4.52
+    },
+    "posRoi": {
+     "photos": 13,
+     "roiPixels": 226001,
+     "fpTotal": 0,
+     "fpPerPhoto": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "fpPerMegapixel": 0.0,
+     "frozenDecisionsSHA256": [
+      "3987e8e51f1bfff770343735f168dca90cede0816a089e2b782110677c15e1a8",
+      "b58481e0ad7b16d74e5b5fbd284dec932831c60413f3d0c02f57c8403336c933"
+     ],
+     "note": "positive DEV photos: final candidate centre inside the frozen, reviewed clean-skin ROI (ROI excludes every source box dilated by max(10px, side))"
+    },
+    "clearNeg": {
+     "photos": 14,
+     "fpInMask": 0,
+     "fpPerPhoto": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+    }
+   },
+   "dev": {
+    "status": {
+     "replay-pass (eyewear UNKNOWN)": 31,
+     "tile-budget / gate-fail:POSE": 15,
+     "gate-fail:POSE / no-snapshot": 34,
+     "gate-fail:QUALITY:BLURRY": 2,
+     "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 7,
+     "tile-budget": 1,
+     "product-reject:PHOTO_LIMIT": 15,
+     "no-face": 4,
+     "tile-budget / gate-fail:QUALITY:BLURRY,POSE": 1
+    },
+    "pos": {
+     "photos": 17,
+     "targets": 137,
+     "hit50": 11,
+     "hit30": 15,
+     "small": 19,
+     "smallHit50": 8,
+     "medium": 118,
+     "mediumHit50": 3,
+     "unknown": 229,
+     "final": 244,
+     "medianAreaRatio": 1.102,
+     "sizeUnit": "source px == model-input px (no rescale)",
+     "medianTotalSec": 7.34
+    },
+    "posRoi": {
+     "photos": 6,
+     "roiPixels": 107885,
+     "fpTotal": 0,
+     "fpPerPhoto": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "fpPerMegapixel": 0.0,
+     "frozenDecisionsSHA256": "3987e8e51f1bfff770343735f168dca90cede0816a089e2b782110677c15e1a8",
+     "note": "positive DEV photos: final candidate centre inside the frozen, reviewed clean-skin ROI (ROI excludes every source box dilated by max(10px, side))"
+    },
+    "clearNeg": {
+     "photos": 14,
+     "fpInMask": 0,
+     "fpPerPhoto": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+    }
+   },
+   "devext": {
+    "status": {
+     "no-face": 74,
+     "gate-fail:POSE / no-snapshot": 56,
+     "replay-pass (eyewear UNKNOWN)": 11,
+     "gate-fail:SNAPSHOT:INCOMPLETE_HEAD_FRAME / no-snapshot": 3,
+     "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 17,
+     "gate-fail:QUALITY:BLURRY": 1
+    },
+    "pos": {
+     "photos": 11,
+     "targets": 64,
+     "hit50": 6,
+     "hit30": 10,
+     "small": 44,
+     "smallHit50": 6,
+     "medium": 20,
+     "mediumHit50": 0,
+     "unknown": 51,
+     "final": 61,
+     "medianAreaRatio": 1.427,
+     "sizeUnit": "source px == model-input px (no rescale)",
+     "medianTotalSec": 2.54
+    },
+    "posRoi": {
+     "photos": 7,
+     "roiPixels": 118116,
+     "fpTotal": 0,
+     "fpPerPhoto": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "fpPerMegapixel": 0.0,
+     "frozenDecisionsSHA256": "b58481e0ad7b16d74e5b5fbd284dec932831c60413f3d0c02f57c8403336c933",
+     "note": "positive DEV photos: final candidate centre inside the frozen, reviewed clean-skin ROI (ROI excludes every source box dilated by max(10px, side))"
+    },
+    "clearNeg": {
+     "photos": 0,
+     "fpInMask": 0,
+     "fpPerPhoto": [],
+     "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+    }
+   }
+  },
+  "v5-step150": {
+   "combined": {
+    "status": {
+     "replay-pass (eyewear UNKNOWN)": 42,
+     "tile-budget / gate-fail:POSE": 14,
+     "gate-fail:POSE / no-snapshot": 90,
+     "gate-fail:QUALITY:BLURRY": 3,
+     "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 24,
+     "product-reject:PHOTO_LIMIT": 16,
+     "tile-budget": 1,
+     "no-face": 78,
+     "tile-budget / gate-fail:QUALITY:BLURRY,POSE": 1,
+     "gate-fail:SNAPSHOT:INCOMPLETE_HEAD_FRAME / no-snapshot": 3
+    },
+    "pos": {
+     "photos": 28,
+     "targets": 201,
+     "hit50": 20,
+     "hit30": 29,
+     "small": 63,
+     "smallHit50": 17,
+     "medium": 138,
+     "mediumHit50": 3,
+     "unknown": 588,
+     "final": 617,
+     "medianAreaRatio": 1.234,
+     "sizeUnit": "source px == model-input px (no rescale)",
+     "medianTotalSec": 4.17
+    },
+    "posRoi": {
+     "photos": 13,
+     "roiPixels": 226001,
+     "fpTotal": 1,
+     "fpPerPhoto": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "fpPerMegapixel": 4.42,
+     "frozenDecisionsSHA256": [
+      "3987e8e51f1bfff770343735f168dca90cede0816a089e2b782110677c15e1a8",
+      "b58481e0ad7b16d74e5b5fbd284dec932831c60413f3d0c02f57c8403336c933"
+     ],
+     "note": "positive DEV photos: final candidate centre inside the frozen, reviewed clean-skin ROI (ROI excludes every source box dilated by max(10px, side))"
+    },
+    "clearNeg": {
+     "photos": 14,
+     "fpInMask": 0,
+     "fpPerPhoto": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+    }
+   },
+   "dev": {
+    "status": {
+     "replay-pass (eyewear UNKNOWN)": 31,
+     "tile-budget / gate-fail:POSE": 14,
+     "gate-fail:POSE / no-snapshot": 34,
+     "gate-fail:QUALITY:BLURRY": 2,
+     "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 7,
+     "product-reject:PHOTO_LIMIT": 16,
+     "tile-budget": 1,
+     "no-face": 4,
+     "tile-budget / gate-fail:QUALITY:BLURRY,POSE": 1
+    },
+    "pos": {
+     "photos": 17,
+     "targets": 137,
+     "hit50": 12,
+     "hit30": 14,
+     "small": 19,
+     "smallHit50": 9,
+     "medium": 118,
+     "mediumHit50": 3,
+     "unknown": 460,
+     "final": 474,
+     "medianAreaRatio": 1.112,
+     "sizeUnit": "source px == model-input px (no rescale)",
+     "medianTotalSec": 5.27
+    },
+    "posRoi": {
+     "photos": 6,
+     "roiPixels": 107885,
+     "fpTotal": 0,
+     "fpPerPhoto": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "fpPerMegapixel": 0.0,
+     "frozenDecisionsSHA256": "3987e8e51f1bfff770343735f168dca90cede0816a089e2b782110677c15e1a8",
+     "note": "positive DEV photos: final candidate centre inside the frozen, reviewed clean-skin ROI (ROI excludes every source box dilated by max(10px, side))"
+    },
+    "clearNeg": {
+     "photos": 14,
+     "fpInMask": 0,
+     "fpPerPhoto": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+    }
+   },
+   "devext": {
+    "status": {
+     "no-face": 74,
+     "gate-fail:POSE / no-snapshot": 56,
+     "replay-pass (eyewear UNKNOWN)": 11,
+     "gate-fail:SNAPSHOT:INCOMPLETE_HEAD_FRAME / no-snapshot": 3,
+     "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 17,
+     "gate-fail:QUALITY:BLURRY": 1
+    },
+    "pos": {
+     "photos": 11,
+     "targets": 64,
+     "hit50": 8,
+     "hit30": 15,
+     "small": 44,
+     "smallHit50": 8,
+     "medium": 20,
+     "mediumHit50": 0,
+     "unknown": 128,
+     "final": 143,
+     "medianAreaRatio": 1.582,
+     "sizeUnit": "source px == model-input px (no rescale)",
+     "medianTotalSec": 1.82
+    },
+    "posRoi": {
+     "photos": 7,
+     "roiPixels": 118116,
+     "fpTotal": 1,
+     "fpPerPhoto": [
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "fpPerMegapixel": 8.47,
+     "frozenDecisionsSHA256": "b58481e0ad7b16d74e5b5fbd284dec932831c60413f3d0c02f57c8403336c933",
+     "note": "positive DEV photos: final candidate centre inside the frozen, reviewed clean-skin ROI (ROI excludes every source box dilated by max(10px, side))"
+    },
+    "clearNeg": {
+     "photos": 0,
+     "fpInMask": 0,
+     "fpPerPhoto": [],
+     "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+    }
+   }
+  },
+  "v4-step1000": {
+   "combined": {
+    "status": {
+     "replay-pass (eyewear UNKNOWN)": 42,
+     "tile-budget / gate-fail:POSE": 15,
+     "gate-fail:POSE / no-snapshot": 90,
+     "gate-fail:QUALITY:BLURRY": 3,
+     "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 24,
+     "tile-budget": 1,
+     "product-reject:PHOTO_LIMIT": 15,
+     "no-face": 78,
+     "tile-budget / gate-fail:QUALITY:BLURRY,POSE": 1,
+     "gate-fail:SNAPSHOT:INCOMPLETE_HEAD_FRAME / no-snapshot": 3
+    },
+    "pos": {
+     "photos": 28,
+     "targets": 201,
+     "hit50": 21,
+     "hit30": 38,
+     "small": 63,
+     "smallHit50": 12,
+     "medium": 138,
+     "mediumHit50": 9,
+     "unknown": 1997,
+     "final": 2035,
+     "medianAreaRatio": 1.164,
+     "sizeUnit": "source px == model-input px (no rescale)",
+     "medianTotalSec": 4.43
+    },
+    "posRoi": {
+     "photos": 13,
+     "roiPixels": 226001,
+     "fpTotal": 34,
+     "fpPerPhoto": [
+      3,
+      11,
+      0,
+      0,
+      2,
+      0,
+      0,
+      17,
+      1,
+      0,
+      0,
+      0,
+      0
+     ],
+     "fpPerMegapixel": 150.44,
+     "frozenDecisionsSHA256": [
+      "3987e8e51f1bfff770343735f168dca90cede0816a089e2b782110677c15e1a8",
+      "b58481e0ad7b16d74e5b5fbd284dec932831c60413f3d0c02f57c8403336c933"
+     ],
+     "note": "positive DEV photos: final candidate centre inside the frozen, reviewed clean-skin ROI (ROI excludes every source box dilated by max(10px, side))"
+    },
+    "clearNeg": {
+     "photos": 14,
+     "fpInMask": 0,
+     "fpPerPhoto": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+    }
+   },
+   "dev": {
+    "status": {
+     "replay-pass (eyewear UNKNOWN)": 31,
+     "tile-budget / gate-fail:POSE": 15,
+     "gate-fail:POSE / no-snapshot": 34,
+     "gate-fail:QUALITY:BLURRY": 2,
+     "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 7,
+     "tile-budget": 1,
+     "product-reject:PHOTO_LIMIT": 15,
+     "no-face": 4,
+     "tile-budget / gate-fail:QUALITY:BLURRY,POSE": 1
+    },
+    "pos": {
+     "photos": 17,
+     "targets": 137,
+     "hit50": 11,
+     "hit30": 24,
+     "small": 19,
+     "smallHit50": 4,
+     "medium": 118,
+     "mediumHit50": 7,
+     "unknown": 1591,
+     "final": 1615,
+     "medianAreaRatio": 1.308,
+     "sizeUnit": "source px == model-input px (no rescale)",
+     "medianTotalSec": 4.88
+    },
+    "posRoi": {
+     "photos": 6,
+     "roiPixels": 107885,
+     "fpTotal": 16,
+     "fpPerPhoto": [
+      3,
+      11,
+      0,
+      0,
+      2,
+      0
+     ],
+     "fpPerMegapixel": 148.31,
+     "frozenDecisionsSHA256": "3987e8e51f1bfff770343735f168dca90cede0816a089e2b782110677c15e1a8",
+     "note": "positive DEV photos: final candidate centre inside the frozen, reviewed clean-skin ROI (ROI excludes every source box dilated by max(10px, side))"
+    },
+    "clearNeg": {
+     "photos": 14,
+     "fpInMask": 0,
+     "fpPerPhoto": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+    }
+   },
+   "devext": {
+    "status": {
+     "no-face": 74,
+     "gate-fail:POSE / no-snapshot": 56,
+     "replay-pass (eyewear UNKNOWN)": 11,
+     "gate-fail:SNAPSHOT:INCOMPLETE_HEAD_FRAME / no-snapshot": 3,
+     "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 17,
+     "gate-fail:QUALITY:BLURRY": 1
+    },
+    "pos": {
+     "photos": 11,
+     "targets": 64,
+     "hit50": 10,
+     "hit30": 14,
+     "small": 44,
+     "smallHit50": 8,
+     "medium": 20,
+     "mediumHit50": 2,
+     "unknown": 406,
+     "final": 420,
+     "medianAreaRatio": 1.073,
+     "sizeUnit": "source px == model-input px (no rescale)",
+     "medianTotalSec": 2.95
+    },
+    "posRoi": {
+     "photos": 7,
+     "roiPixels": 118116,
+     "fpTotal": 18,
+     "fpPerPhoto": [
+      0,
+      17,
+      1,
+      0,
+      0,
+      0,
+      0
+     ],
+     "fpPerMegapixel": 152.39,
+     "frozenDecisionsSHA256": "b58481e0ad7b16d74e5b5fbd284dec932831c60413f3d0c02f57c8403336c933",
+     "note": "positive DEV photos: final candidate centre inside the frozen, reviewed clean-skin ROI (ROI excludes every source box dilated by max(10px, side))"
+    },
+    "clearNeg": {
+     "photos": 0,
+     "fpInMask": 0,
+     "fpPerPhoto": [],
+     "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+    }
+   }
+  },
+  "v6-pilot": {
+   "combined": {
+    "status": {
+     "replay-pass (eyewear UNKNOWN)": 42,
+     "tile-budget / gate-fail:POSE": 14,
+     "gate-fail:POSE / no-snapshot": 90,
+     "gate-fail:QUALITY:BLURRY": 3,
+     "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 24,
+     "product-reject:PHOTO_LIMIT": 16,
+     "tile-budget": 1,
+     "no-face": 78,
+     "tile-budget / gate-fail:QUALITY:BLURRY,POSE": 1,
+     "gate-fail:SNAPSHOT:INCOMPLETE_HEAD_FRAME / no-snapshot": 3
+    },
+    "pos": {
+     "photos": 28,
+     "targets": 201,
+     "hit50": 19,
+     "hit30": 27,
+     "small": 63,
+     "smallHit50": 16,
+     "medium": 138,
+     "mediumHit50": 3,
+     "unknown": 544,
+     "final": 571,
+     "medianAreaRatio": 1.519,
+     "sizeUnit": "source px == model-input px (no rescale)",
+     "medianTotalSec": 4.22
+    },
+    "posRoi": {
+     "photos": 13,
+     "roiPixels": 226001,
+     "fpTotal": 1,
+     "fpPerPhoto": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "fpPerMegapixel": 4.42,
+     "frozenDecisionsSHA256": [
+      "3987e8e51f1bfff770343735f168dca90cede0816a089e2b782110677c15e1a8",
+      "b58481e0ad7b16d74e5b5fbd284dec932831c60413f3d0c02f57c8403336c933"
+     ],
+     "note": "positive DEV photos: final candidate centre inside the frozen, reviewed clean-skin ROI (ROI excludes every source box dilated by max(10px, side))"
+    },
+    "clearNeg": {
+     "photos": 14,
+     "fpInMask": 0,
+     "fpPerPhoto": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+    }
+   },
+   "dev": {
+    "status": {
+     "replay-pass (eyewear UNKNOWN)": 31,
+     "tile-budget / gate-fail:POSE": 14,
+     "gate-fail:POSE / no-snapshot": 34,
+     "gate-fail:QUALITY:BLURRY": 2,
+     "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 7,
+     "product-reject:PHOTO_LIMIT": 16,
+     "tile-budget": 1,
+     "no-face": 4,
+     "tile-budget / gate-fail:QUALITY:BLURRY,POSE": 1
+    },
+    "pos": {
+     "photos": 17,
+     "targets": 137,
+     "hit50": 11,
+     "hit30": 13,
+     "small": 19,
+     "smallHit50": 8,
+     "medium": 118,
+     "mediumHit50": 3,
+     "unknown": 432,
+     "final": 445,
+     "medianAreaRatio": 1.299,
+     "sizeUnit": "source px == model-input px (no rescale)",
+     "medianTotalSec": 5.47
+    },
+    "posRoi": {
+     "photos": 6,
+     "roiPixels": 107885,
+     "fpTotal": 0,
+     "fpPerPhoto": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "fpPerMegapixel": 0.0,
+     "frozenDecisionsSHA256": "3987e8e51f1bfff770343735f168dca90cede0816a089e2b782110677c15e1a8",
+     "note": "positive DEV photos: final candidate centre inside the frozen, reviewed clean-skin ROI (ROI excludes every source box dilated by max(10px, side))"
+    },
+    "clearNeg": {
+     "photos": 14,
+     "fpInMask": 0,
+     "fpPerPhoto": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+    }
+   },
+   "devext": {
+    "status": {
+     "no-face": 74,
+     "gate-fail:POSE / no-snapshot": 56,
+     "replay-pass (eyewear UNKNOWN)": 11,
+     "gate-fail:SNAPSHOT:INCOMPLETE_HEAD_FRAME / no-snapshot": 3,
+     "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 17,
+     "gate-fail:QUALITY:BLURRY": 1
+    },
+    "pos": {
+     "photos": 11,
+     "targets": 64,
+     "hit50": 8,
+     "hit30": 14,
+     "small": 44,
+     "smallHit50": 8,
+     "medium": 20,
+     "mediumHit50": 0,
+     "unknown": 112,
+     "final": 126,
+     "medianAreaRatio": 1.601,
+     "sizeUnit": "source px == model-input px (no rescale)",
+     "medianTotalSec": 1.83
+    },
+    "posRoi": {
+     "photos": 7,
+     "roiPixels": 118116,
+     "fpTotal": 1,
+     "fpPerPhoto": [
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "fpPerMegapixel": 8.47,
+     "frozenDecisionsSHA256": "b58481e0ad7b16d74e5b5fbd284dec932831c60413f3d0c02f57c8403336c933",
+     "note": "positive DEV photos: final candidate centre inside the frozen, reviewed clean-skin ROI (ROI excludes every source box dilated by max(10px, side))"
+    },
+    "clearNeg": {
+     "photos": 0,
+     "fpInMask": 0,
+     "fpPerPhoto": [],
+     "note": "only replay-pass negative photos; FP = final candidate centre inside reviewed mask"
+    }
+   }
+  }
+ }
+}

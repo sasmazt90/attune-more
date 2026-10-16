@@ -1,0 +1,42 @@
+{
+ "pilot": {
+  "stepsRun": 150,
+  "cfgSHA": "493ebef53b1bbbb9e5bcaedb118b4c8cd7faab871c43995df7d55525413c5e90",
+  "manifestSHA": "f90be74ba305417992167203a2c4c25bd45520f4342eed1e24a98ca429bdacdf",
+  "checkpointSHA256": "8043de6176700122eb449bf667cee2551de28508ab0f1bf64ad116eea0700090",
+  "secPerStep": 3.89,
+  "windows": [
+   {
+    "steps": "1-50",
+    "medianGradPreClip": 21.6,
+    "maxGradPreClip": 925.8,
+    "clipped": 0,
+    "posObj": 2.275,
+    "negObj": 0.249,
+    "box": 1.64,
+    "allFinite": true
+   },
+   {
+    "steps": "51-100",
+    "medianGradPreClip": 22.1,
+    "maxGradPreClip": 664.4,
+    "clipped": 0,
+    "posObj": 1.433,
+    "negObj": 0.353,
+    "box": 1.661,
+    "allFinite": true
+   },
+   {
+    "steps": "101-150",
+    "medianGradPreClip": 21.1,
+    "maxGradPreClip": 422.5,
+    "clipped": 0,
+    "posObj": 1.154,
+    "negObj": 0.323,
+    "box": 1.579,
+    "allFinite": true
+   }
+  ]
+ },
+ "main": "not started: the pilot failed its pre-registered gate (G5, G7)"
+}

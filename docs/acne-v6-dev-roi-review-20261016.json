@@ -1,0 +1,242 @@
+{
+ "reviewLevel": "assistant engineering review; not human or expert verified; DEV photos and ROIs never used for training",
+ "frozenBeforeModelComparison": true,
+ "sets": {
+  "dev17": {
+   "decisions": {
+    "set": "dev17: the 17 positive DEV photos that enter the label-independent evaluation (replay-pass, eyewear UNKNOWN)",
+    "reviewer": "assistant engineering review of each candidate ROI at native resolution (contour on the original photo); not human or expert verified",
+    "blind": "decided before any new model prediction was shown; no prediction file was read by the builder or during review",
+    "rule": "ACCEPT only when the whole region inside the contour shows clearly clean, measurable visible skin; REJECT (stays UNKNOWN) on any spot, redness, raised texture or possible whitehead, pigment, hair/beard, shadow, glare, blur/low light or tiny fragments",
+    "accept": [
+     6,
+     10,
+     11,
+     12,
+     21,
+     22,
+     24,
+     30,
+     43
+    ],
+    "rejectReasons": {
+     "possible lesion/spot/redness inside": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      8,
+      13,
+      14,
+      15,
+      17,
+      23,
+      25,
+      27,
+      28,
+      29,
+      32,
+      34,
+      35,
+      39,
+      44
+     ],
+     "possible whiteheads/raised texture": [
+      7,
+      16,
+      20,
+      31,
+      46
+     ],
+     "hair": [
+      9,
+      18,
+      26,
+      42
+     ],
+     "shadow/low light/blur": [
+      19,
+      33,
+      37,
+      38,
+      40
+     ],
+     "fragment/edge strip": [
+      36,
+      41,
+      45
+     ]
+    },
+    "possibleUnlabeledLesionInside": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     8,
+     13,
+     14,
+     15,
+     17,
+     23,
+     25,
+     27,
+     28,
+     29,
+     32,
+     34,
+     35,
+     39,
+     44
+    ],
+    "possibleUnlabeledLesionNote": "engineering note only (region level, no box drawn): a distinct red/raised/dark spot without a source box was seen inside these candidate regions; they stay UNKNOWN, never negative"
+   },
+   "candidates": 46,
+   "tooSmall": 5,
+   "frozen": {
+    "decisionsSHA256": "3987e8e51f1bfff770343735f168dca90cede0816a089e2b782110677c15e1a8",
+    "candidatesSHA256": "f8200bacab362d3b7da3506242fbc2b60e4b6f28cd8acc5b1ebb3cb605464af5",
+    "photosWithRoi": 6,
+    "pixels": 107885,
+    "masks": [
+     {
+      "sha256": "2ad92b5eb9ded9c0950ac41d9df33f01d5e173a8ffffed3a1ab651464d5deb59",
+      "pixels": 25005,
+      "maskSHA256": "dfc3068fb09df38618b32e22a9aa243ad401082f3875ec8532b1fd607ba05a45"
+     },
+     {
+      "sha256": "77176e51db41b2f8a19678e060a889f2cfbf158e83d045d8307b44e1deba1bad",
+      "pixels": 12196,
+      "maskSHA256": "f59bbdee954ce6e6b39349d59f023eaaf0066ed60bf1358eb5203b86a4eef722"
+     },
+     {
+      "sha256": "8ad2e156eef7b7e373b084086daf5b2c57edc24f2a0e3f5aa826ebf3a9df9716",
+      "pixels": 15420,
+      "maskSHA256": "cee144468e1013665b9eabd0b5468d8424219a8fe68209a05e1f1f2bef8577c3"
+     },
+     {
+      "sha256": "aff1efde301c72b3783007a1d60b86f34870e10d6733747c6324a30240175d8f",
+      "pixels": 7377,
+      "maskSHA256": "6554b93ba91651d9da7e7b563384ca020fff4e364ab08f0c1718f0901a9c9b74"
+     },
+     {
+      "sha256": "c412587e8b7fd90a80172c11c077e66fd108332a2e0b75841b8e143a91d49e58",
+      "pixels": 37641,
+      "maskSHA256": "7222dad5f18001fb472d36e3b87eed212932892938638fd608d6975bbf1fb0c5"
+     },
+     {
+      "sha256": "e643059207e17e06e9245624bb7116cf03f81ff455c82e245135a9247e82eb9e",
+      "pixels": 10246,
+      "maskSHA256": "ea50e046339b21da73af20a1d39e00d0949d3700ce87956b3f7ddd4999de9c1e"
+     }
+    ]
+   }
+  },
+  "devext": {
+   "decisions": {
+    "set": "devext: the 11 additional VALIDATION-role DEV photos that pass the unchanged replayed product gates (eyewear UNKNOWN)",
+    "reviewer": "assistant engineering review of each candidate ROI at native resolution (contour on the original photo); not human or expert verified",
+    "blind": "decided before any model was run on these photos; no prediction file existed",
+    "rule": "ACCEPT only when the whole region inside the contour shows clearly clean, measurable visible skin (pores and fine lines allowed); REJECT (stays UNKNOWN) on any spot, redness, raised texture, pigment, hair/beard, shadow, glare, collage seam/background, blur or thin fragments",
+    "accept": [
+     4,
+     6,
+     8,
+     10,
+     15,
+     20,
+     22,
+     26,
+     28
+    ],
+    "rejectReasons": {
+     "possible lesion/spot/redness inside": [
+      1,
+      2,
+      3,
+      7,
+      16,
+      17,
+      18,
+      19,
+      23
+     ],
+     "raised texture": [
+      5
+     ],
+     "hair/background/collage seam": [
+      11,
+      12,
+      13,
+      14,
+      21,
+      27
+     ],
+     "shadow/dark spots": [
+      24
+     ],
+     "fragment/strip": [
+      9,
+      25
+     ]
+    },
+    "possibleUnlabeledLesionInside": [
+     1,
+     2,
+     3,
+     16,
+     17,
+     18,
+     19,
+     23
+    ]
+   },
+   "candidates": 28,
+   "tooSmall": 5,
+   "frozen": {
+    "decisionsSHA256": "b58481e0ad7b16d74e5b5fbd284dec932831c60413f3d0c02f57c8403336c933",
+    "candidatesSHA256": "b339aab74a6273759c943a02fa21551f3a841c736fbc5497a6d383bef4107e65",
+    "photosWithRoi": 7,
+    "pixels": 118116,
+    "masks": [
+     {
+      "sha256": "29069058884f4360e6fadadab4f9ece5ecbceb5467c48c88b025eb449f67f250",
+      "pixels": 3290,
+      "maskSHA256": "a189d274a5628986ba119e79f3159bb3bae023fd5dceaa24ea9595b30f6d231a"
+     },
+     {
+      "sha256": "5aa51f53f86cabe45bd1f361651db7140cff0442437990bfd0f2de4b1b5c2151",
+      "pixels": 90912,
+      "maskSHA256": "c8a0cf27c0cd3b03b6bd587c68fa9dc97be4b5194a1a0ffc857a35981e067a4a"
+     },
+     {
+      "sha256": "6dcf4d7ab398b236d8ff4c7510a9ed17877bff73cc6e3b4b7966d6e1268e2c14",
+      "pixels": 7423,
+      "maskSHA256": "6dc5937353b34acb869dfb54f4b89b1ac65e834ad20432bbb6976b08934e1fa3"
+     },
+     {
+      "sha256": "7b425c76a80fbbc4ab1c7d58e6798e77d7fe42abaccb42c3909167613dcf80ab",
+      "pixels": 2824,
+      "maskSHA256": "7b8b4b64ca91c0aa70adfc9dae0bfab155d222ef237e5508670a701069609377"
+     },
+     {
+      "sha256": "b4ec4968102bc06e06ac90fa7e808f14586437d12d17130f4cd6382121c3e60b",
+      "pixels": 2777,
+      "maskSHA256": "3b9a141c1e425d04e43e84f14dc8206704d7214fa8900b30c021b3adfe05546a"
+     },
+     {
+      "sha256": "b9dd30fde31272ab4fc910fad5deb8e7d37445107ce2ad6b3853ced4ea2da226",
+      "pixels": 2362,
+      "maskSHA256": "f4fc058d79bcdd3a4c990dd3fa4d0b26483cd9a1e5677321265fa14a32195d3a"
+     },
+     {
+      "sha256": "eeb843cadf66df9178f91a3ff15b3c4e0621a4659b8d6067e62cdd0c81acbe84",
+      "pixels": 8528,
+      "maskSHA256": "ad0fb772d84b5b8fabbbee784d2c8234431712c117cc2b3d33bb727978455622"
+     }
+    ]
+   }
+  }
+ }
+}

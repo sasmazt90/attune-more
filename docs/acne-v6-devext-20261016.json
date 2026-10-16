@@ -1,0 +1,41 @@
+{
+ "rule": "Acne v6 additional DEV group from the existing v3 VALIDATION role (evaluation only, never trained on).\n\nCandidates: plan-v3 items whose ONLY role is VALIDATION, whose research group has no other role, with >= 1 source acne box, not already in\nv4 DEV, not in the 941 UNKNOWN cohort, not a failed-product-evaluation photo, not from the sealed Skin care v5 archive. Leakage check:\n64-bit dHash against every v6 training photo (core 65 + TRAIN extension + TRAIN negatives) and against v4 DEV; distance <= 10 -> excluded.\nThe source bytes are read from the publisher archive and hash-checked. Product gates are NOT relaxed: the evaluator later decides per photo\n(replay-pass with eyewear UNKNOWN, or a recorded failure status). No model output is read here.\n\n  python select_acne_devext_v6.py\n",
+ "candidates": 179,
+ "exclusions": {
+  "already v4 DEV": 94,
+  "no source acne box": 1123,
+  "failed product evaluation photo": 4,
+  "near-duplicate of a v6 TRAIN or v4 DEV photo": 17
+ },
+ "kept": 162,
+ "bySource": {
+  "ciltanalizi.v12i.coco.zip": 56,
+  "skin_face_detection.v1i.coco.zip": 15,
+  "Skin-Problem-Detection-Relabel-Clean3.v1-skin-disease-detection-.coco.zip": 37,
+  "SmartSkinCare.v8i.coco.zip": 31,
+  "Skin Analysis.v11-augmentation_version.coco-segmentation.zip": 23
+ },
+ "productStatus": {
+  "no-face": 74,
+  "gate-fail:POSE / no-snapshot": 56,
+  "replay-pass (eyewear UNKNOWN)": 11,
+  "gate-fail:SNAPSHOT:INCOMPLETE_HEAD_FRAME / no-snapshot": 3,
+  "gate-fail:QUALITY:BLURRY,POSE / no-snapshot": 17,
+  "gate-fail:QUALITY:BLURRY": 1
+ },
+ "evaluable": 11,
+ "evaluableSha": [
+  "0a8a14a662a576aa9d02d403820d245b9de91536dd7e3c3baf8c5c34c0fbe1e5",
+  "29069058884f4360e6fadadab4f9ece5ecbceb5467c48c88b025eb449f67f250",
+  "5aa51f53f86cabe45bd1f361651db7140cff0442437990bfd0f2de4b1b5c2151",
+  "6dcf4d7ab398b236d8ff4c7510a9ed17877bff73cc6e3b4b7966d6e1268e2c14",
+  "7b425c76a80fbbc4ab1c7d58e6798e77d7fe42abaccb42c3909167613dcf80ab",
+  "9334509b3ae3d7191ccba91c8552891d0380f65729fe475be3f417ecbf1894ec",
+  "b4ec4968102bc06e06ac90fa7e808f14586437d12d17130f4cd6382121c3e60b",
+  "b9dd30fde31272ab4fc910fad5deb8e7d37445107ce2ad6b3853ced4ea2da226",
+  "c1ae0b437492a0484977eb587152bccb8260a8283f04f0430f45545bd650bbc7",
+  "cb5ca5ca9a330a8d46712f2def0207cdb1ed899526c2f5065a897a550b92fa08",
+  "eeb843cadf66df9178f91a3ff15b3c4e0621a4659b8d6067e62cdd0c81acbe84"
+ ],
+ "note": "eyewear gate not replayed: evaluable means replay-pass with eyewear UNKNOWN, not a full product preflight pass; source boxes are publisher labels (not reviewed)"
+}
