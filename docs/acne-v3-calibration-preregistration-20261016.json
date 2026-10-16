@@ -1,0 +1,66 @@
+{
+ "rules": {
+  "sample": "positives: first 20 photos of the v2 trainProbe rule (first distinct TRAIN photos of pilotOrder with a replay snapshot); negatives: the 9 reviewed TRAIN negative photos with known clean pixels (41 product tiles). TRAIN only; fixed before any raw score.",
+  "raw": "every anchor of every product tile, obj*cls >= .001 kept, boxes mapped to source pixels exactly as infer_tiles",
+  "negatives": "product _nms(.30) over clean-photo candidates; a candidate is negative only if its centre lies in the reviewed strict clean mask; elsewhere ignored",
+  "targetScore": "per target: best IoU of any kept anchor; best obj*cls among anchors with IoU>=.50 (and >=.30), with its obj, cls and IoU",
+  "lossStage": "at conf .30 for targets missed by the saved final product output: localization (no kept anchor IoU>=.50) | score (IoU>=.50 anchor exists, best score <.30) | NMS (>=.30 anchor with IoU>=.50 exists but none survives product _nms .30) | filter (survives NMS, absent from final product boxes)",
+  "discrimination": "AUC(target best score @IoU>=.50, 0 if none, vs negative candidate scores); localization capacity = share of targets with a kept anchor IoU>=.50. PRESERVED iff AUC_fix300 >= AUC_step0 - .05 AND capacity_fix300 >= capacity_step0 - .05",
+  "calibration": "same for both models, TRAIN only: smallest t in GRID with mean negative candidates per negative photo (score>=t) <= 1.0 (the frozen CDC gate limit); none -> .30. No per-photo thresholds, no score normalisation.",
+  "dev": "only if PRESERVED: Scope B + product-valid controls through the unchanged v2 chain at each model's frozen t; IoU .50 primary, .30 separate; the .30 confidence results stay as recorded; no re-tuning after seeing development results",
+  "unchanged": "IoU rules, acceptance (acceptance.json 90dc84fa..., 2026-10-10), production accepted:false, sealed Skin care v5 test"
+ },
+ "grid": [
+  0.001,
+  0.002,
+  0.005,
+  0.01,
+  0.02,
+  0.03,
+  0.05,
+  0.07,
+  0.1,
+  0.15,
+  0.2,
+  0.3
+ ],
+ "floor": 0.001,
+ "positives": [
+  "dc60da18c4b492cbbb571f30d5e204d1eb728b9af298f18a9c09190a7cdf8b4a",
+  "286cb319c31675430db25683c20f321be557e3725721d35722871cbdfac1feb6",
+  "a8e2373aab560bb6a37ff14e7c23ab70449e3db1114bb17a81aefb1de438daae",
+  "e8bda31a397aa3198f1d4e329ce4d629cc7a950ac3813fdefaec9502cd406cca",
+  "e54c69451a71354cbdc070185efe311b14779951900f4b62218f70a5c1c517b4",
+  "0784b7635f2f645d25f76f75d8595f4f416ff743965c6d1df687e57520532347",
+  "7ed4e31b7fe6e823bc098552ee8d8243467944189ead620f17b44d8c191a7a7c",
+  "5bd84d547425b80db15eb0cd824a20e3bd1d4067f0b15d773a7f6daf048e0664",
+  "8ad2e156eef7b7e373b084086daf5b2c57edc24f2a0e3f5aa826ebf3a9df9716",
+  "b9a17ae6f76a0c5e69104496da67f09d6a038f78c26115bf0694920bc1a74076",
+  "0c972fcb7cfcc312cc58b501a20605dc29f80514b75a4d303b944d41133e7b69",
+  "62f27f6db706a0d0b019282c74e373219338ae72b8b5d0a7144c06060a1b0048",
+  "66e86098c841dd2d4df96f4ca6b6514694600f148091e22e8caa8b299658cf5c",
+  "74e7d4ec4f1a0130ce898a90b79a043506ac17d88fe3446bb731878dafd8e13e",
+  "a007c24408ff82eb8963ec4f2778fec11d5900370079bc7bef2f08d3c433c45f",
+  "edc57acb8d6307c96fe2eab3a203719fe540235cdb5915c00423364a9b4ec15c",
+  "c250804183d57c0cfe8d59341cd5423d4dbce9b0ae629b4d44d041616d65b397",
+  "313448754ade67688a7837887fcc156c8d0efbba50b7d7d88d601d16db3b4fc5",
+  "3fc5bcfa954096ec159b841ceabfe384624e1b3cb5a7a8f1ee017d84abb35d59",
+  "933e40d730e05a997243504b164fd0968f5b178e780be5d1a67be1c482c6121a"
+ ],
+ "negatives": [
+  "024a911a6d1d272d40209610beb2fac200925f1583af626a366054e0cb7378b2",
+  "053816b040823afa34661d7ec524800fe58f78f55e159dda19c1806b16bd3303",
+  "05a95c99872dddacd0987c203fe20dc9302c1aeab53a80f5a04cbedc2fac06eb",
+  "05f0f5c250c19303593f2835cd604cc8dcdf599bd45caf1b65ea75dd01767a82",
+  "0642d4ab787b9020fbdcca3ee89e26e62cb9bfd3147ebf84eeb1cdf033b44ae0",
+  "199c603e6b02d98f7662c7fa480c88dd5291b2443a093bf5d8ffb4432a16f7b9",
+  "4b13b16a33d4c2d72dbae196aa83a21d0ffb738969f80c0394c7941beb24c9db",
+  "e0ee9f0c2241dabc06b72a5780c39d96de795da1be1be69e8c9becd1b597b3d5",
+  "fec4821ad3b0acbd0ee0cd35f38d5e4569a39554fa80b0d8a29641da69a5b803"
+ ],
+ "codeSHA256": "ffe6796ba3ab1bef67e2fdb9daba455ce6f77b94824dfb203d34e249f87fc93b",
+ "models": {
+  "step0": "18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655",
+  "fix300": "5644d62c176fdd6b4e6921337d9fe8d76c05e413761c7398cd4c395792f3b7ad"
+ }
+}

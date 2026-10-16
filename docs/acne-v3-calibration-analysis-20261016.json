@@ -1,0 +1,203 @@
+{
+ "rulesSHA256": "b03e8468847f13a50080f316429f0b0e17415de4b3de70f749b2546abc2e75a5",
+ "discrimination": "NOT_COMPUTABLE_UNDER_REGISTERED_RULE (AUC undefined: step0 has no negative candidate >= floor)",
+ "models": {
+  "step0": {
+   "targets": 170,
+   "negativePhotos": 9,
+   "negativeCandidates": 0,
+   "localizationCapacity": 0.7647,
+   "AUC": null,
+   "targetBestScoreIoU50": {
+    "median": 0.5735,
+    "p25": 0.0022,
+    "p75": 0.7597
+   },
+   "matchedAnchorObj": {
+    "median": 0.8043
+   },
+   "matchedAnchorCls": {
+    "median": 0.8624
+   },
+   "matchedAnchorIoU": {
+    "median": 0.6695
+   },
+   "targetsBelow30WithIoU50Anchor": 26,
+   "negativeScore": {
+    "max": null,
+    "p99": null,
+    "p90": null,
+    "median": null
+   },
+   "targetsAboveMaxNegative": 0,
+   "lossStageAt30": {
+    "filter": 7,
+    "score": 26,
+    "NMS": 10,
+    "localization": 40,
+    "found": 87
+   },
+   "trainCurve": [
+    {
+     "t": 0.001,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.7647
+    },
+    {
+     "t": 0.002,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.7529
+    },
+    {
+     "t": 0.005,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.7353
+    },
+    {
+     "t": 0.01,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.7294
+    },
+    {
+     "t": 0.02,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.7118
+    },
+    {
+     "t": 0.03,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.7118
+    },
+    {
+     "t": 0.05,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.7059
+    },
+    {
+     "t": 0.07,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.6941
+    },
+    {
+     "t": 0.1,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.6765
+    },
+    {
+     "t": 0.15,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.6706
+    },
+    {
+     "t": 0.2,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.6529
+    },
+    {
+     "t": 0.3,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.6118
+    }
+   ],
+   "calibratedThreshold": 0.001
+  },
+  "fix300": {
+   "targets": 170,
+   "negativePhotos": 9,
+   "negativeCandidates": 59,
+   "localizationCapacity": 0.8471,
+   "AUC": 0.802,
+   "targetBestScoreIoU50": {
+    "median": 0.0362,
+    "p25": 0.008,
+    "p75": 0.1657
+   },
+   "matchedAnchorObj": {
+    "median": 0.1163
+   },
+   "matchedAnchorCls": {
+    "median": 0.5316
+   },
+   "matchedAnchorIoU": {
+    "median": 0.6002
+   },
+   "targetsBelow30WithIoU50Anchor": 126,
+   "negativeScore": {
+    "max": 0.0143,
+    "p99": 0.0122,
+    "p90": 0.0058,
+    "median": 0.0022
+   },
+   "targetsAboveMaxNegative": 112,
+   "lossStageAt30": {
+    "score": 126,
+    "localization": 26,
+    "found": 17,
+    "NMS": 1
+   },
+   "trainCurve": [
+    {
+     "t": 0.001,
+     "negPerPhoto": 6.556,
+     "targetRecallIoU50": 0.8471
+    },
+    {
+     "t": 0.002,
+     "negPerPhoto": 3.556,
+     "targetRecallIoU50": 0.8059
+    },
+    {
+     "t": 0.005,
+     "negPerPhoto": 1.0,
+     "targetRecallIoU50": 0.7824
+    },
+    {
+     "t": 0.01,
+     "negPerPhoto": 0.222,
+     "targetRecallIoU50": 0.7176
+    },
+    {
+     "t": 0.02,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.6118
+    },
+    {
+     "t": 0.03,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.5353
+    },
+    {
+     "t": 0.05,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.4647
+    },
+    {
+     "t": 0.07,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.4176
+    },
+    {
+     "t": 0.1,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.3471
+    },
+    {
+     "t": 0.15,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.2706
+    },
+    {
+     "t": 0.2,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.2235
+    },
+    {
+     "t": 0.3,
+     "negPerPhoto": 0.0,
+     "targetRecallIoU50": 0.1059
+    }
+   ],
+   "calibratedThreshold": 0.005
+  }
+ }
+}
