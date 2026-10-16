@@ -108,3 +108,28 @@ Step0 has no pre-filter records for Clear photos, so its Clear rows are not eval
 **Records**
 - `docs/acne-point-filter-results-20261016.json`: tables, per-target classes, changed decisions with old/new reasons, Clear results, code/input hashes.
 - Not in Git: raw outputs in `audit-results/acne-point-filter/results.json`.
+
+## 6. Closure (2026-10-16, on request)
+
+This experiment is **closed**.
+- **Not enabled:** the point filter (`acne_point_support_staging.py`) stays an offline staging module and is not imported or used anywhere in the product.
+- **Reference unchanged:** the unchanged box filter (`principled_accepted_boxes`) remains the reference.
+- **No further variants:** no buffer, margin, threshold or filter variant is to be tried as a follow-up of this run.
+
+**Point display and acceptance filtering are separate questions.**
+- The point metric evaluates a prediction by its box centre. Any prediction **accepted by the existing box filter** can therefore be shown as a centre point, with the same acceptance decision, region and coordinates as today.
+- Showing points does not require the point acceptance filter. This run only tested replacing the acceptance rule, and that replacement did not help.
+
+**Open staging limitation:**
+- The point filter's region assignment (first containing envelope in the order forehead, rightCheek, leftCheek, nose, chin) moves predictions in the nose/forehead overlap from **nose to forehead**. The counts are Step0 47 of 48 region-only changes, Dewiin 31/32, tristan-gray 24/25, carsten12 12/13.
+- This does not change the point scores, but it would change which region a point is reported under.
+- It is recorded as an unresolved staging limitation. It is not corrected here, and no product file was changed.
+
+**Kept locally:**
+- Code: module, tests, runner and scorer.
+- Comparisons: this report and the results JSON.
+- Reproduction records:
+  - raw `audit-results/acne-point-filter/results.json`;
+  - `audit-results/acne-step0-trace`;
+  - the verified external stored rows.
+- Copies, with hashes, are in `TOGG\claude-progress`.
