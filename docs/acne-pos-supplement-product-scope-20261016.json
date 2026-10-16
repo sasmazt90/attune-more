@@ -1,0 +1,536 @@
+{
+ "rule": "Split the 30 frozen TARGETs of the positive supplement into inside / outside the current product analysis scope, from existing\nrecords only (replay rows + photos -> product photo_input tiles and current_product_masks; no detector, no verifier, no label change).\nPoint test (source px -> analysis raster via (src - origin) * scale): in a product tile, inside a visible-region envelope, on acne_skin,\nnot on hair / acne_exclusion. Approximation: the old box filter also uses the box extent; a point inside this scope can still be\nrejected for box-level reasons, so 'in scope' here means 'the product would analyse this location', not 'a box there is accepted'.",
+ "summary": {
+  "targets": 30,
+  "inScope": 26,
+  "outOfScope": 4,
+  "Step0FoundInScope": 11,
+  "v1FoundInScope": 11,
+  "v3FoundInScope": 11,
+  "Step0FoundOutOfScope": 2,
+  "v1FoundOutOfScope": 2,
+  "v3FoundOutOfScope": 2,
+  "perPhoto": {
+   "P003": {
+    "pose": "LEFT",
+    "inScope": 2,
+    "outOfScope": 0,
+    "Step0": 1,
+    "v1": 1,
+    "v3": 1
+   },
+   "P025": {
+    "pose": "FRONT",
+    "inScope": 8,
+    "outOfScope": 0,
+    "Step0": 3,
+    "v1": 3,
+    "v3": 3
+   },
+   "P050": {
+    "pose": "FRONT",
+    "inScope": 9,
+    "outOfScope": 1,
+    "Step0": 3,
+    "v1": 3,
+    "v3": 3
+   },
+   "P069": {
+    "pose": "LEFT",
+    "inScope": 3,
+    "outOfScope": 3,
+    "Step0": 2,
+    "v1": 2,
+    "v3": 2
+   },
+   "P097": {
+    "pose": "FRONT",
+    "inScope": 4,
+    "outOfScope": 0,
+    "Step0": 2,
+    "v1": 2,
+    "v3": 2
+   }
+  }
+ },
+ "photos": {
+  "P003": {
+   "pose": "LEFT",
+   "visibleRegions": [
+    "rightCheek"
+   ],
+   "targets": [
+    {
+     "id": "P1",
+     "note": "dark red papule left cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "rightCheek"
+     ],
+     "foundBy": {
+      "Step0": true,
+      "v1": true,
+      "v3": true
+     }
+    },
+    {
+     "id": "P2",
+     "note": "red papule left cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "rightCheek"
+     ],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    }
+   ]
+  },
+  "P025": {
+   "pose": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": [
+    {
+     "id": "P1",
+     "note": "red papule forehead",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "forehead",
+      "nose"
+     ],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    },
+    {
+     "id": "P2",
+     "note": "red papule forehead",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "forehead",
+      "nose"
+     ],
+     "foundBy": {
+      "Step0": true,
+      "v1": true,
+      "v3": true
+     }
+    },
+    {
+     "id": "P4",
+     "note": "red papule left cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "rightCheek"
+     ],
+     "foundBy": {
+      "Step0": true,
+      "v1": true,
+      "v3": true
+     }
+    },
+    {
+     "id": "P5",
+     "note": "red papule left cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "rightCheek"
+     ],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    },
+    {
+     "id": "P6",
+     "note": "red papule left cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "rightCheek"
+     ],
+     "foundBy": {
+      "Step0": true,
+      "v1": true,
+      "v3": true
+     }
+    },
+    {
+     "id": "P10",
+     "note": "red papule right cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "leftCheek"
+     ],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    },
+    {
+     "id": "P11",
+     "note": "red papule right cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "leftCheek"
+     ],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    },
+    {
+     "id": "P15",
+     "note": "red papule chin",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "chin"
+     ],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    }
+   ]
+  },
+  "P050": {
+   "pose": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": [
+    {
+     "id": "P1",
+     "note": "red papule left cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "rightCheek"
+     ],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    },
+    {
+     "id": "P2",
+     "note": "red papule left cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "rightCheek"
+     ],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    },
+    {
+     "id": "P3",
+     "note": "red papule left cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "rightCheek"
+     ],
+     "foundBy": {
+      "Step0": true,
+      "v1": true,
+      "v3": true
+     }
+    },
+    {
+     "id": "P4",
+     "note": "red papule left cheek",
+     "inProductScope": false,
+     "reasons": [
+      "outside every visible-region envelope"
+     ],
+     "regions": [],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    },
+    {
+     "id": "P5",
+     "note": "red papule lower left cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "rightCheek"
+     ],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    },
+    {
+     "id": "P9",
+     "note": "red papule chin",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "chin"
+     ],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    },
+    {
+     "id": "P10",
+     "note": "red papule mouth corner right",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "chin"
+     ],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    },
+    {
+     "id": "P12",
+     "note": "red papule right cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "leftCheek"
+     ],
+     "foundBy": {
+      "Step0": true,
+      "v1": true,
+      "v3": true
+     }
+    },
+    {
+     "id": "P14",
+     "note": "red papule right cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "leftCheek"
+     ],
+     "foundBy": {
+      "Step0": true,
+      "v1": true,
+      "v3": true
+     }
+    },
+    {
+     "id": "P15",
+     "note": "red papule right cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "leftCheek"
+     ],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    }
+   ]
+  },
+  "P069": {
+   "pose": "LEFT",
+   "visibleRegions": [
+    "rightCheek"
+   ],
+   "targets": [
+    {
+     "id": "P1",
+     "note": "red papule left cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "rightCheek"
+     ],
+     "foundBy": {
+      "Step0": true,
+      "v1": true,
+      "v3": true
+     }
+    },
+    {
+     "id": "P2",
+     "note": "red papule left cheek",
+     "inProductScope": false,
+     "reasons": [
+      "outside every visible-region envelope (side capture analyses the exposed cheek only)"
+     ],
+     "regions": [],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    },
+    {
+     "id": "P3",
+     "note": "raised papule lower cheek",
+     "inProductScope": false,
+     "reasons": [
+      "outside every visible-region envelope (side capture analyses the exposed cheek only)"
+     ],
+     "regions": [],
+     "foundBy": {
+      "Step0": true,
+      "v1": true,
+      "v3": true
+     }
+    },
+    {
+     "id": "P4",
+     "note": "red papule cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "rightCheek"
+     ],
+     "foundBy": {
+      "Step0": true,
+      "v1": true,
+      "v3": true
+     }
+    },
+    {
+     "id": "P6",
+     "note": "red papule cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "rightCheek"
+     ],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    },
+    {
+     "id": "P8",
+     "note": "red papule lower cheek",
+     "inProductScope": false,
+     "reasons": [
+      "outside every visible-region envelope (side capture analyses the exposed cheek only)"
+     ],
+     "regions": [],
+     "foundBy": {
+      "Step0": true,
+      "v1": true,
+      "v3": true
+     }
+    }
+   ]
+  },
+  "P097": {
+   "pose": "FRONT",
+   "visibleRegions": [
+    "forehead",
+    "nose",
+    "chin",
+    "periorbital",
+    "rightCheek",
+    "leftCheek"
+   ],
+   "targets": [
+    {
+     "id": "P1",
+     "note": "red papule forehead",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "forehead",
+      "nose"
+     ],
+     "foundBy": {
+      "Step0": true,
+      "v1": true,
+      "v3": true
+     }
+    },
+    {
+     "id": "P5",
+     "note": "red papule right cheek",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "leftCheek"
+     ],
+     "foundBy": {
+      "Step0": true,
+      "v1": true,
+      "v3": true
+     }
+    },
+    {
+     "id": "P6",
+     "note": "dark red papule chin",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "chin"
+     ],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    },
+    {
+     "id": "P7",
+     "note": "red papule chin-jaw",
+     "inProductScope": true,
+     "reasons": [],
+     "regions": [
+      "chin"
+     ],
+     "foundBy": {
+      "Step0": false,
+      "v1": false,
+      "v3": false
+     }
+    }
+   ]
+  }
+ }
+}

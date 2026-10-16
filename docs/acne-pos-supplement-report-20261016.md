@@ -9,7 +9,7 @@ current product photo path. Source boxes in the package manifest were not shown 
 
 ## Order (each step committed before the next)
 2043063 protocol + fixed list + hashes (v1 b6fa6c05…, v3 94d18abb…, Step0 18e94a95… = frozen-models.json; ZIP and all 15 photo hashes verified)
-→ 3c0c… preflight → 75dd934 labels and mask hashes (before inference) → one inference → score.
+→ 86a3482 preflight → 75dd934 labels and mask hashes (before inference) → one inference → score.
 
 ## Product preflight (unchanged gates)
 5 of 15 pass: P003 (LEFT capture), P025, P050, P097 (FRONT), P069 (LEFT capture).
