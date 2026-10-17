@@ -1,0 +1,292 @@
+{
+  "time": "2026-10-17T08:44:57.160711+00:00",
+  "baseCommit": "7fe773c1f87e0e45dd3386c6e08d13fda6f2cba7",
+  "checkout": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-hearing-technical-20261017",
+  "branch": "research/hearing-technical-closeout-20261017",
+  "BUILD_ID": "K-G2XSPemlh-ioXfE6ucw",
+  "deliveryCommitReceipt": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\status.json",
+  "physicalHeadphoneAcceptance": false,
+  "clinicalValidation": false,
+  "technicalStatus": "COMPLETE_ISOLATED",
+  "normalLauncherChanged": false,
+  "pushed": false,
+  "merged": false,
+  "features": [
+    {
+      "id": "F067",
+      "name": "Kullanıcı eylemi / AudioContext",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "İzin öncesi 0 medya; explicit hazırlık; own lease",
+      "evidence": "consent-proof.json; lifecycle.json"
+    },
+    {
+      "id": "F068",
+      "name": "Stereo sağ/sol PCM",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "18 kombinasyon; hedef dışı kanal peak=0; fiziksel kanal kabulü açık",
+      "evidence": "pcm.json; tone-session.json"
+    },
+    {
+      "id": "F069",
+      "name": "Kullanıcı kanal onayı",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "İki kanal örneği bitmeden checkbox/test açılmıyor; otomasyon onayı fiziksel duyma değildir",
+      "evidence": "tone-session.json; din-session.json"
+    },
+    {
+      "id": "F070",
+      "name": "Cihaz / görünürlük / kesinti",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "Kontrollü devicechange, gerçek context suspend ve route cleanup; fiziksel kopma açık",
+      "evidence": "lifecycle.json; driving.json"
+    },
+    {
+      "id": "F071",
+      "name": "Genlik / ramp / dur",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "35 ms ramp, kaynak gain doğrulaması; stop ile context closed, meter 0",
+      "evidence": "pcm.json; tone-session.json; lifecycle.json"
+    },
+    {
+      "id": "F072",
+      "name": "14 aşamalı plan",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "Sol 7 → sağ 7; 1000/2000/4000/8000/500/250/1000 Hz",
+      "evidence": "tone-session.json"
+    },
+    {
+      "id": "F073",
+      "name": "Adaptif dijital eşik",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "Mevcut −10/+5 dB ve ascending vote korundu; gerçek PCM seviyeleriyle 14 eşik",
+      "evidence": "tone-session.json; unit-protocol-final.log"
+    },
+    {
+      "id": "F074",
+      "name": "Sunum / yanıt zamanı",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "Natural ended + context clock bitişi olmadan sunum/yanıtsızlık puanlanmıyor",
+      "evidence": "baseline.json; bank-failures.json; tone-session.json"
+    },
+    {
+      "id": "F075",
+      "name": "Catch / erken / geç / çift / held",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "13 catch/0 yanlış alarm; 1049 repeat-key olayı yanıta dönüşmedi; press sınıfları unit kontrolü",
+      "evidence": "tone-session.json; unit-hearing.log"
+    },
+    {
+      "id": "F076",
+      "name": "Aralık / tohum",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "Üründe crypto seed; testte ilan edilmiş 8102026; gap 1.1–2.7 s, duration .8–1.35 s",
+      "evidence": "tone-session.json; unit-hearing.log"
+    },
+    {
+      "id": "F077",
+      "name": "Yanıtsız / sınır / null",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "Alt/üst/max-trials null; teknik kesinti miss değil; null geçmişte sıfır değil",
+      "evidence": "unit-protocol-final.log; guidance-null.json; bank-failures.json"
+    },
+    {
+      "id": "F078",
+      "name": "Tekrar tutarlılığı",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "Her iki 1000 Hz tekrar aynı; repeatInconsistent=false, eşik sabiti değişmedi",
+      "evidence": "tone-session.json"
+    },
+    {
+      "id": "F079",
+      "name": "Grafik / legend / kayıt",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "14 değer, ayrı kulak işaretleri, aynı ID/değerler reload sonrası; bir kayıt",
+      "evidence": "tone-session.json; tone-result.png; tone-history.png"
+    },
+    {
+      "id": "F080",
+      "name": "Türkçe sayı bankası",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "10 sayı + noise hash/mono 48 kHz/RMS; Ahmet −10% / −10Hz aynı banka",
+      "evidence": "pcm.json; bank-failures.json"
+    },
+    {
+      "id": "F081",
+      "name": "SNR / RMS / clipping",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "5 bağımsız karışım; max SNR hatası 1.78e-15 dB, max peak 0.080000",
+      "evidence": "pcm.json; din-session.json"
+    },
+    {
+      "id": "F082",
+      "name": "Yönerge → geri sayım",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "Gerçek ended → yalnız bir 5,4,3,2,1 → PCM; sonraki turlarda tekrar yok",
+      "evidence": "din-session.json"
+    },
+    {
+      "id": "F083",
+      "name": "Üç sayı / sıra / keypad",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "24 gerçek PCM bağımsız banka/sıra/offset karışımıyla eşleşti; keypad yanıtları",
+      "evidence": "din-session.json"
+    },
+    {
+      "id": "F084",
+      "name": "24 geçerli / token",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "24 valid; 24 duplicate probe ek tur olmadı; gerçek eski callback yeni turu cevaplamadı",
+      "evidence": "din-session.json; digit-deadline.json; unit-persistence.log"
+    },
+    {
+      "id": "F085",
+      "name": "Ayrı paydalar",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "36/72 doğru sayı, 12/24 tam üçlü; partial 2/3 vs 0 ve tekrar dışlama unit kontrolü",
+      "evidence": "din-session.json; unit-protocol-final.log"
+    },
+    {
+      "id": "F086",
+      "name": "Adaptif SNR / null",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "23 reversal, −1 dB SNR; yetersiz/boundary null; klinik veya insan sonucu değil",
+      "evidence": "din-session.json; unit-protocol-final.log; guidance-null.json"
+    },
+    {
+      "id": "F087",
+      "name": "Dur / yeniden başlat / sahiplik",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "9 lifecycle + driving + 60 s deadline; foreign lease korunuyor; MSE focus stop/block/expire",
+      "evidence": "lifecycle.json; driving.json; digit-deadline.json; focus.json"
+    },
+    {
+      "id": "F088",
+      "name": "Sonuç / uzman bağlamı",
+      "status": "TECHNICAL_VERIFIED_ISOLATED",
+      "result": "Gerçek kayıt ID → hearing / Kulak Burun Boğaz; booking/paylaşım yapılmadı",
+      "evidence": "care-context.json; history-390.png"
+    }
+  ],
+  "metrics": {
+    "toneStages": 14,
+    "tonePresentations": 111,
+    "catchTrials": 13,
+    "catchFalsePositive": 0,
+    "heldKeyRepeatsIgnored": 1049,
+    "dinValid": 24,
+    "dinValue": -1,
+    "dinUnit": "dB-SNR",
+    "maxChannelLeak": 0,
+    "maxMeterSampleDifference": 0,
+    "maxMixPeak": 0.07999999821186066,
+    "maxSNRDifference": 1.7763568394002505e-15,
+    "bankFiles": 11,
+    "uniqueUnitTests": 18,
+    "servedJS": 38,
+    "sourceFiles": 183,
+    "localAssets": 93,
+    "protectedTrees": 7
+  },
+  "evidence": [
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\baseline.json",
+      "bytes": 1281,
+      "sha256": "aa92a8506e7a0e9ffc3e6279109378f3eeaccf3c483a90c26e1a1bd57b55c41b"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\pcm.json",
+      "bytes": 8545,
+      "sha256": "d5dd5b2359509ceec0449bbf6977d0f4970c7b9e6fe87c590caae363c16519ed"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\tone-session.json",
+      "bytes": 86772,
+      "sha256": "1d40c49977d512aa318ab1a3c6ddd639a0e67b903f07f091a9493a9ca64fd8b4"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\din-session.json",
+      "bytes": 30471,
+      "sha256": "06211595586d671949caf7ffeb30a30d6bb6d13f981f4bee4469b652ca9e34bf"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\lifecycle.json",
+      "bytes": 1799,
+      "sha256": "c7f7d3ec71dca2bdc87802736fbbea4e1a4656ba56a92b44c66dba7db0f2bac0"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\bank-failures.json",
+      "bytes": 793,
+      "sha256": "f562acc49eb9655178d6bcd912c012563e3c60ab1b45117a7f33b3d35acd9fec"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\digit-deadline.json",
+      "bytes": 308,
+      "sha256": "626c78e0221cb99aeaa2ae2c6d6fae9cbcc2a36682f973d2c17cc931030584fd"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\views.json",
+      "bytes": 577,
+      "sha256": "c9a0ad2ed42bb40a7aa516499bec8a0a9d899560587b834edfacb60cd4f2ee66"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\served-protection-receipt.json",
+      "bytes": 8168,
+      "sha256": "b1c975a00cf9fcbab744a5070a1c6faf8ef41e1caf8a66685850cde113ca3d3d"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\focus.json",
+      "bytes": 640,
+      "sha256": "b0bb5fe2fb5041fedad8d5d34cc087b6f160a7c8c2d45c365e42c7e23aa9edc5"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\guidance-null.json",
+      "bytes": 663,
+      "sha256": "69a1ffbddd0b868a5e0910fce487a2808e9b401ae567b497a0af45a11c8a64d9"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\driving.json",
+      "bytes": 293,
+      "sha256": "0dfb085f68589cac7fd372ea7ecf258de8e5b2bef189ddef2f2508a98769ae61"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\consent-proof.json",
+      "bytes": 999,
+      "sha256": "2199b6ac35f47207ddde70f3d2fd8ab9a2dcf5b9d618a7c7be611d86d8311741"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\care-context.json",
+      "bytes": 223,
+      "sha256": "4d187ad576160c6ab4134bd0af11db849903973444ce5c779a9ab74144eca5e3"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\build-receipt.json",
+      "bytes": 32511,
+      "sha256": "0dce7e2dfaf76f4fca3ae7fc37c20181092bd0836cb7dc1559ee5270db17ae21"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\unit-hearing.log",
+      "bytes": 100,
+      "sha256": "8e84e3cc4772ed033262dd3834b2250ec16c6ae1e1a6ec4b1c3cf829e2a4031f"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\unit-persistence.log",
+      "bytes": 100,
+      "sha256": "3c4d2c9234d6a7037ce095e5d9a66d37ae4aafab9361f97372e06a82f73440d6"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\unit-protocol-final.log",
+      "bytes": 100,
+      "sha256": "5fc79a5bb1a4e56ea0450be5990136d6701e6157d03c85d3479a169c94877327"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\unit-shared.log",
+      "bytes": 101,
+      "sha256": "97292b8e682669996eef3b56ed844a2100be242470279ab5be6e13f11a829764"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\hearing-technical-closeout-20261017\\typecheck-initial.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

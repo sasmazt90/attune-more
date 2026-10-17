@@ -1,8 +1,10 @@
 import {observeOutputNode} from './playbackMeter';
 import { Ear, HEARING_CONFIG, tonePCM, mixDigits, rms } from './hearingProtocol';
 export type DigitBankManifest={version:string;voice:string;rate:string;pitch:string;digits:{digit:number;url:string;sha256:string;duration:number}[];noise:{url:string;sha256:string};auditoryAcceptance:'pending'|'accepted'};
+export type PlaybackStart={startedAt:number;audioStartedAt:number;audioExpectedEnd:number;duration:number};
+export type PlaybackReceipt=PlaybackStart&{endedAt:number;audioEndedAt:number};
 export class HearingAudio {
- context:AudioContext;private nodes=new Set<AudioBufferSourceNode>();private disposed=false;private epoch=0;
+ context:AudioContext;private nodes=new Map<AudioBufferSourceNode,()=>void>();private disposed=false;private epoch=0;
  bank:Float32Array[]=[];noise?:Float32Array;manifest?:DigitBankManifest;
  constructor(private invalidated:(reason:string)=>void){
   this.context=new AudioContext({sampleRate:48000});
@@ -12,16 +14,28 @@ export class HearingAudio {
  private visibility=()=>{if(document.hidden){this.stop();this.invalidated('Pencere arka plana geçti; hazırlığı yeniden doğrulayın.');}};
  private device=()=>{this.stop();this.invalidated('Ses aygıtı değişti; sol/sağ kanalı yeniden doğrulayın.');};
  async resume(){if(this.disposed)throw Error('AUDIO_CLOSED');await this.context.resume();}
- async play(data:Float32Array,ear:Ear|'both',onStarted?:()=>void){
-  const epoch=this.epoch;await this.resume();if(this.disposed||epoch!==this.epoch)throw Error('AUDIO_CANCELLED');const buffer=this.context.createBuffer(2,data.length,this.context.sampleRate);
+ async play(data:Float32Array,ear:Ear|'both',onStarted?:(timing:PlaybackStart)=>void){
+  const epoch=this.epoch;await this.resume();if(this.disposed||epoch!==this.epoch)throw Error('AUDIO_CANCELLED');
+  if(this.context.state!=='running'||!data.length||!data.every(Number.isFinite))throw Error('AUDIO_NOT_READY');
+  const buffer=this.context.createBuffer(2,data.length,this.context.sampleRate);
   if(ear==='left'||ear==='both')buffer.copyToChannel(data as Float32Array<ArrayBuffer>,0);
   if(ear==='right'||ear==='both')buffer.copyToChannel(data as Float32Array<ArrayBuffer>,1);
-  const node=this.context.createBufferSource();node.buffer=buffer;node.channelCount=2;node.channelCountMode='explicit';const unmeter=observeOutputNode(this.context,node);this.nodes.add(node);
-  return new Promise<void>((resolve,reject)=>{node.onended=()=>{unmeter();node.disconnect();this.nodes.delete(node);epoch===this.epoch?resolve():reject(Error('AUDIO_CANCELLED'));};node.start();onStarted?.();});
+  const node=this.context.createBufferSource();node.buffer=buffer;node.channelCount=2;node.channelCountMode='explicit';const unmeter=observeOutputNode(this.context,node);
+  // Digital source timeline; acoustic headphone latency is not calibrated.
+  const audioStartedAt=this.context.currentTime+.02;
+  const timing:PlaybackStart={startedAt:performance.now()+(audioStartedAt-this.context.currentTime)*1000,audioStartedAt,audioExpectedEnd:audioStartedAt+buffer.duration,duration:buffer.duration};
+  return new Promise<PlaybackReceipt>((resolve,reject)=>{
+   let settled=false;let deadline:ReturnType<typeof setTimeout>;
+   const finish=(error?:Error)=>{if(settled)return;settled=true;clearTimeout(deadline);node.onended=null;this.nodes.delete(node);unmeter();if(error){try{node.stop();}catch{}reject(error);}else resolve({...timing,endedAt:performance.now(),audioEndedAt:this.context.currentTime});};
+   this.nodes.set(node,()=>finish(Error('AUDIO_CANCELLED')));
+   node.onended=()=>{const complete=!this.disposed&&epoch===this.epoch&&this.context.state==='running'&&this.context.currentTime+128/this.context.sampleRate>=timing.audioExpectedEnd;finish(complete?undefined:Error('AUDIO_INCOMPLETE'));};
+   deadline=setTimeout(()=>finish(Error('AUDIO_END_NOT_CONFIRMED')),(buffer.duration+.02)*1000+2000);
+   try{node.start(audioStartedAt);onStarted?.(timing);}catch(error){finish(error instanceof Error?error:Error('AUDIO_START_FAILED'));}
+  });
  }
- tone(frequency:number,db:number,duration:number,ear:Ear,onStarted?:()=>void){return this.play(tonePCM(frequency,db,duration,this.context.sampleRate),ear,onStarted);}
- stop(){this.epoch++;for(const node of this.nodes){try{node.stop();}catch{}node.disconnect();}this.nodes.clear();}
- close(){this.disposed=true;this.stop();this.bank=[];this.noise=undefined;this.manifest=undefined;this.context.removeEventListener('statechange',this.state);document.removeEventListener('visibilitychange',this.visibility);navigator.mediaDevices?.removeEventListener('devicechange',this.device);void this.context.close();}
+ tone(frequency:number,db:number,duration:number,ear:Ear,onStarted?:(timing:PlaybackStart)=>void){return this.play(tonePCM(frequency,db,duration,this.context.sampleRate),ear,onStarted);}
+ stop(){this.epoch++;for(const cancel of [...this.nodes.values()])cancel();this.nodes.clear();}
+ close(){if(this.disposed)return;this.disposed=true;this.stop();this.bank=[];this.noise=undefined;this.manifest=undefined;this.context.removeEventListener('statechange',this.state);document.removeEventListener('visibilitychange',this.visibility);navigator.mediaDevices?.removeEventListener('devicechange',this.device);void this.context.close().catch(()=>{});}
  async loadBank(signal:AbortSignal){
   const response=await fetch('/audio/hearing-bank/manifest.json',{signal});if(!response.ok)throw Error('Sayı bankası bulunamadı.');const manifest:DigitBankManifest=await response.json();
   if(manifest.voice!=='tr-TR-AhmetNeural'||manifest.rate!=='-10%'||manifest.pitch!=='-10Hz'||manifest.digits.length!==10||manifest.digits.some((d,i)=>d.digit!==i))throw Error('Sayı bankası profili doğrulanamadı.');
