@@ -1,7 +1,7 @@
 """Build only the isolated opt-in preview, recording the exact served artifact chain."""
 from pathlib import Path
 import sys,os,json,subprocess,hashlib
-ROOT=Path(__file__).resolve().parents[2];OUT=ROOT.parent/'cdc-progress/acne-v5-camera-integration-20261017'
+ROOT=Path(__file__).resolve().parents[2];OUT=ROOT.parent/'cdc-progress/acne-v5-consistency-fix-20261017'
 sys.path.insert(0,str(ROOT/'scripts/skin-research'))
 from heavy_job_lease import HeavyJobLease
 os.environ.update(NEXT_PUBLIC_ATTUNE_ACNE_V5='1',NEXT_PUBLIC_ATTUNE_PREVIEW_API_PORT='8305',NEXT_TELEMETRY_DISABLED='1',CI='1')

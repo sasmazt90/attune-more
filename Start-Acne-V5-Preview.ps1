@@ -1,7 +1,7 @@
 param([switch]$NoBrowser,[switch]$ValidationTrace)
 $ErrorActionPreference='Stop'
 $root=$PSScriptRoot
-$progress=Join-Path (Split-Path $root) 'cdc-progress\acne-v5-camera-integration-20261017'
+$progress=Join-Path (Split-Path $root) 'cdc-progress\acne-v5-consistency-fix-20261017'
 $record=Join-Path $progress 'preview-processes.json'
 $python='C:\Users\PC\AppData\Local\Programs\Python\Python311\python.exe'
 $node='C:\nvm4w\nodejs\node.exe'

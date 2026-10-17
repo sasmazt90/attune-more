@@ -31,9 +31,15 @@ assert(S.canCompareIndicator(row,structuredClone(row)));
 const old=structuredClone(row);old.method='appearance-cv-6';old.appearance.methodVersion='appearance-cv-6';old.measurement.methodVersion='appearance-cv-6';old.measurement.modelHash=null;old.appearance.modelHash=null;
 assert(!S.canCompareIndicator(row,old));
 assert.equal(JSON.stringify(e),original);
-C.validateAcneV5Response(e.response);
-const bad=structuredClone(e.response);bad.acneRuntime.onnxSHA256='0'.repeat(64);assert.throws(()=>C.validateAcneV5Response(bad));
-const t=structuredClone(e.response);t.acneRuntime.threshold=.1;assert.throws(()=>C.validateAcneV5Response(t));
+// The saved v1 fixture remains readable, but cannot masquerade as a new response.
+assert.throws(()=>C.validateAcneV5Response(e.response));
+const current=structuredClone(e.response);current.acneRuntime.methodVersion=C.ACNE_V5_METHOD;
+for(const r of Object.values(current.measurements).flat()){r.methodVersion=C.ACNE_V5_METHOD;r.components.samplingSupportVersion=C.ACNE_V5_SAMPLING;}
+C.validateAcneV5Response(current);
+const newRow=structuredClone(row);newRow.method=C.ACNE_V5_METHOD;newRow.appearance.methodVersion=C.ACNE_V5_METHOD;newRow.measurement.methodVersion=C.ACNE_V5_METHOD;newRow.appearance.components.samplingSupportVersion=C.ACNE_V5_SAMPLING;
+assert(!S.canCompareIndicator(newRow,row));assert(S.validMeasurement(newRow,'rightCheek'));
+const bad=structuredClone(current);bad.acneRuntime.onnxSHA256='0'.repeat(64);assert.throws(()=>C.validateAcneV5Response(bad));
+const t=structuredClone(current);t.acneRuntime.threshold=.1;assert.throws(()=>C.validateAcneV5Response(t));
 """
     p=subprocess.run(['node','-e',script],cwd=ROOT,text=True,capture_output=True,encoding='utf8');assert p.returncode==0,p.stdout+p.stderr
 
