@@ -51,16 +51,39 @@ def verify_delivery():
     return value
 
 
-def identity(pid,role):
-    process=psutil.Process(pid)
+def identity(pid,role,process=None):
+    process=process or psutil.Process(pid)
     return dict(pid=pid,role=role,started=process.create_time(),cwd=process.cwd(),commandSHA256=hashlib.sha256(json.dumps(process.cmdline()).encode()).hexdigest())
+
+
+def process_matches(row):
+    """Chrome can chdir after startup; executable/profile/argv remain immutable.
+    All other owned roles retain exact CWD matching. Never infer ownership from
+    an executable name, PID alone, or a substring inside arbitrary arguments.
+    """
+    try:
+        role=row['role']
+        if role not in ('launcher','backend','frontend','browser'):return False
+        process=psutil.Process(row['pid'])
+        actual=identity(row['pid'],role,process)
+        if role!='browser':return actual==row and process.is_running()
+        if {k:v for k,v in actual.items() if k!='cwd'}!={k:v for k,v in row.items() if k!='cwd'}:return False
+        executable=Path(process.exe()).resolve()
+        arguments=process.cmdline()
+        if executable!=CHROME.resolve() or not arguments or Path(arguments[0]).resolve()!=executable:return False
+        if arguments[1:]!=chrome_args(PROFILE)[1:]:return False
+        return process.is_running()
+    except (psutil.Error,OSError,KeyError,TypeError,ValueError):return False
 
 
 def verified_owner(state,delivery):
     if state.get('workspace')!=str(ROOT) or state.get('BUILD_ID')!=delivery['BUILD_ID'] or state.get('sourceCommit')!=delivery['sourceCommit'] or state.get('profile')!=str(PROFILE) or state.get('url')!=URL:return False
     try:
-        for row in state['processes']:
-            if identity(row['pid'],row['role'])!=row:return False
+        rows=state['processes']
+        if len(rows)!=4 or {row['role'] for row in rows}!={'launcher','backend','frontend','browser'}:return False
+        if any(row['pid']!=state.get(row['role']+'_pid') for row in rows):return False
+        for row in rows:
+            if not process_matches(row):return False
         actual=json.loads(fetch(API_URL+'/api/launcher/identity') or b'{}')
         return actual.get('sourceCommit')==delivery['sourceCommit'] and actual.get('BUILD_ID')==delivery['BUILD_ID'] and actual.get('hostedSkinTypeEnabled') is False
     except (psutil.Error,ValueError,OSError,KeyError):return False

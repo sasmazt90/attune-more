@@ -14,12 +14,11 @@ def test_hosted_disabled_even_with_photo_consent_and_key(monkeypatch):
  assert result['value'] is None and result['quality']=='insufficient' and result['confidence'] is None
  assert H.infer_hosted_type(None,False)['limitationCode']=='HOSTED_INFERENCE_PERMISSION_DENIED'
 
-def test_second_click_rejects_changed_owner_before_http(monkeypatch):
+def test_second_click_rejects_incomplete_owner_inventory_before_http(monkeypatch):
  module=runpy.run_path(str(ROOT/'scripts/windows-launcher/start_togg.pyw'))
  verify=module['verified_owner'];g=verify.__globals__
  delivery=dict(BUILD_ID='known',sourceCommit='source')
  state=dict(workspace=str(g['ROOT']),BUILD_ID='known',sourceCommit='source',profile=str(g['PROFILE']),url=g['URL'],processes=[dict(pid=123,role='frontend',started=1,cwd='expected',commandSHA256='expected')])
- monkeypatch.setitem(g,'identity',lambda pid,role:dict(pid=pid,role=role,started=2,cwd='foreign',commandSHA256='different'))
  monkeypatch.setitem(g,'fetch',lambda url:pytest.fail('Changed process owner reached HTTP reuse'))
  assert verify(state,delivery) is False
 
@@ -33,3 +32,50 @@ def test_source_hash_tamper_fails_closed(tmp_path,monkeypatch):
  descriptor.write_text(json.dumps(dict(frontendOrigin=g['URL'],apiPort=8311,BUILD_ID='known',files=[dict(path='file.txt',sha256=hashlib.sha256(b'original').hexdigest())])))
  monkeypatch.setitem(g,'ROOT',tmp_path);monkeypatch.setitem(g,'DELIVERY',descriptor)
  with pytest.raises(RuntimeError,match='identity mismatch'):verify()
+
+def fake_owned_process(module,role='browser'):
+ class Process:
+  pid=321
+  started=100.
+  directory='initial-directory'
+  executable=str(module['CHROME'])
+  arguments=module['chrome_args'](module['PROFILE'])
+  running=True
+  def create_time(self):return self.started
+  def cwd(self):return self.directory
+  def exe(self):return self.executable
+  def cmdline(self):return self.arguments
+  def is_running(self):return self.running
+ process=Process()
+ return process,module['identity'](process.pid,role,process)
+
+def test_browser_allows_only_cwd_transition(monkeypatch):
+ module=runpy.run_path(str(ROOT/'scripts/windows-launcher/start_togg.pyw'))
+ process,row=fake_owned_process(module)
+ monkeypatch.setattr(module['psutil'],'Process',lambda pid:process)
+ process.directory=str(module['CHROME'].parent/'132.0.6834.83')
+ assert module['process_matches'](row) is True
+
+@pytest.mark.parametrize('change',['exe','argv-exe','profile','app-url','extra-argument','forged-record-profile','forged-record-app-url','forged-record-extra-argument','start-time','pid-reuse'])
+def test_browser_rejects_other_identity_changes(monkeypatch,change):
+ module=runpy.run_path(str(ROOT/'scripts/windows-launcher/start_togg.pyw'))
+ process,row=fake_owned_process(module)
+ if change=='exe':process.executable=str(ROOT/'unrelated-chrome.exe')
+ elif change=='argv-exe':process.arguments=[str(ROOT/'unrelated-chrome.exe')]+process.arguments[1:]
+ elif change.endswith('profile'):process.arguments=[a if not a.startswith('--user-data-dir=') else '--user-data-dir=another-profile' for a in process.arguments]
+ elif change.endswith('app-url'):process.arguments=[a if not a.startswith('--app=') else '--app=http://127.0.0.1:9999' for a in process.arguments]
+ elif change.endswith('extra-argument'):process.arguments=process.arguments+['--arbitrary-string='+str(module['PROFILE'])]
+ elif change=='start-time':process.started+=1
+ elif change=='pid-reuse':process.running=False
+ if change.startswith('forged-record-'):row['commandSHA256']=hashlib.sha256(json.dumps(process.arguments).encode()).hexdigest()
+ monkeypatch.setattr(module['psutil'],'Process',lambda pid:process)
+ assert module['process_matches'](row) is False
+
+@pytest.mark.parametrize('role',['launcher','backend','frontend'])
+def test_nonbrowser_cwd_stays_strict(monkeypatch,role):
+ module=runpy.run_path(str(ROOT/'scripts/windows-launcher/start_togg.pyw'))
+ process,row=fake_owned_process(module,role)
+ monkeypatch.setattr(module['psutil'],'Process',lambda pid:process)
+ assert module['process_matches'](row) is True
+ process.directory='changed-directory'
+ assert module['process_matches'](row) is False
