@@ -1,0 +1,3493 @@
+{
+  "timeUTC": "2026-10-17T03:19:16.313843+00:00",
+  "sourceCommit": "5f11c111e3f6547e6420ddf37db477190d232f10",
+  "branch": "research/vision-technical-closeout-20261017",
+  "BUILD_ID": "jxdWpuNZvsmHvFPN32Lbz",
+  "technicalChecksPassed": true,
+  "physicalUserAcceptance": false,
+  "uniqueFocusedTests": 65,
+  "scores": {
+    "RIGHT": {
+      "valid": 12,
+      "letterCorrect": 10,
+      "directionCorrect": 11,
+      "averagePercent": 87.5
+    },
+    "LEFT": {
+      "valid": 12,
+      "letterCorrect": 12,
+      "directionCorrect": 12,
+      "averagePercent": 100.0
+    }
+  },
+  "nativeZoomRatio": 2.0,
+  "browser": {
+    "desktop-proof": {
+      "mode": "desktop",
+      "kind": "controlled video/model/ASR; actual page, native Audio/MSE and local speech API",
+      "physicalUserAcceptance": false,
+      "checks": {
+        "resumedPartialSession": true,
+        "priorCompletedTrials": 6,
+        "distanceDoesNotScore": true,
+        "staleRecognitionIgnored": true,
+        "sensorRecoverySameTarget": true
+      },
+      "dimensions": {
+        "width": 1280,
+        "height": 900,
+        "dpr": 1.0000000298023224,
+        "screenWidth": 1280,
+        "screenHeight": 900,
+        "cssZoom": "1",
+        "documentWidth": 1274
+      },
+      "observations": [
+        {
+          "id": "7c7e206b-a90e-40ba-ae7d-86847641f880",
+          "size": 120,
+          "source": "production DOM geometry diagnostic from the same pending session"
+        },
+        {
+          "id": "1afa0c2a-10f5-4ac1-8848-b4a0c09f418a",
+          "size": 120,
+          "source": "production DOM geometry diagnostic from the same pending session"
+        },
+        {
+          "id": "f560c1d9-b886-4b4c-b49e-9e12c57c5234",
+          "size": 60,
+          "source": "production DOM geometry diagnostic from the same pending session"
+        },
+        {
+          "id": "c3868189-8fc1-4fde-91dd-0d492fb8ff22",
+          "size": 60,
+          "source": "production DOM geometry diagnostic from the same pending session"
+        },
+        {
+          "id": "91e58272-0493-4802-9657-e263c1f36030",
+          "size": 120,
+          "source": "production DOM geometry diagnostic from the same pending session"
+        },
+        {
+          "id": "2a7e9049-69c5-4f0c-bd46-daa759355599",
+          "size": 120,
+          "source": "production DOM geometry diagnostic from the same pending session"
+        },
+        {
+          "id": "8403a07e-ddf0-45a4-9ce7-d02c2a776f99",
+          "path": "M80 10H20V90M20 50H70",
+          "transform": "translate(50 50) rotate(0) scale(-1 1) translate(-50 -50)",
+          "size": 60,
+          "rect": {
+            "x": 905.1666870117188,
+            "y": 384,
+            "width": 60,
+            "height": 60,
+            "top": 384,
+            "right": 965.1666870117188,
+            "bottom": 444,
+            "left": 905.1666870117188
+          }
+        },
+        {
+          "id": "27ae5667-bf16-4a2f-b7e8-4ed89117212d",
+          "path": "M80 10H20V90H80M20 50H70",
+          "transform": "translate(50 50) rotate(0) scale(-1 1) translate(-50 -50)",
+          "size": 60,
+          "rect": {
+            "x": 905.1666870117188,
+            "y": 384,
+            "width": 60,
+            "height": 60,
+            "top": 384,
+            "right": 965.1666870117188,
+            "bottom": 444,
+            "left": 905.1666870117188
+          }
+        },
+        {
+          "id": "514c9f15-2e29-4110-a93c-013cb1975da9",
+          "path": "M20 90V10H55C85 10 85 50 55 50H20M55 50C90 50 90 90 55 90H20",
+          "transform": "translate(50 50) rotate(90) scale(-1 1) translate(-50 -50)",
+          "size": 30,
+          "rect": {
+            "x": 920.1666870117188,
+            "y": 399,
+            "width": 30,
+            "height": 30,
+            "top": 399,
+            "right": 950.1666870117188,
+            "bottom": 429,
+            "left": 920.1666870117188
+          }
+        },
+        {
+          "id": "c69bd1b2-0d82-4b8b-9254-be8dd40dd48a",
+          "path": "M20 90V10H55C90 10 90 50 55 50H20",
+          "transform": "translate(50 50) rotate(0) scale(-1 1) translate(-50 -50)",
+          "size": 30,
+          "rect": {
+            "x": 920.1666870117188,
+            "y": 399,
+            "width": 30,
+            "height": 30,
+            "top": 399,
+            "right": 950.1666870117188,
+            "bottom": 429,
+            "left": 920.1666870117188
+          }
+        },
+        {
+          "id": "c9b86e7c-c47d-4b3e-b5a7-aa5fecaa5f28",
+          "path": "M20 90V10H55C90 10 90 50 55 50H20M55 50L85 90",
+          "transform": "translate(50 50) rotate(90) scale(1 1) translate(-50 -50)",
+          "size": 15,
+          "rect": {
+            "x": 927.6666870117188,
+            "y": 406.5,
+            "width": 15,
+            "height": 15,
+            "top": 406.5,
+            "right": 942.6666870117188,
+            "bottom": 421.5,
+            "left": 927.6666870117188
+          }
+        },
+        {
+          "id": "360534be-7c81-466f-b752-18cdc7291ad9",
+          "path": "M80 10H20V90M20 50H70",
+          "transform": "translate(50 50) rotate(0) scale(1 1) translate(-50 -50)",
+          "size": 15,
+          "rect": {
+            "x": 927.6666870117188,
+            "y": 406.5,
+            "width": 15,
+            "height": 15,
+            "top": 406.5,
+            "right": 942.6666870117188,
+            "bottom": 421.5,
+            "left": 927.6666870117188
+          }
+        },
+        {
+          "id": "03965dd3-ad51-445b-a918-4616fc463aed",
+          "path": "M20 90V10H55C85 10 85 50 55 50H20M55 50C90 50 90 90 55 90H20",
+          "transform": "translate(50 50) rotate(270) scale(-1 1) translate(-50 -50)",
+          "size": 120,
+          "rect": {
+            "x": 875.1666870117188,
+            "y": 354,
+            "width": 120,
+            "height": 120,
+            "top": 354,
+            "right": 995.1666870117188,
+            "bottom": 474,
+            "left": 875.1666870117188
+          }
+        },
+        {
+          "id": "af9d855f-587c-4605-b9a8-cabddb9c462c",
+          "path": "M20 90V10H55C90 10 90 50 55 50H20",
+          "transform": "translate(50 50) rotate(0) scale(1 1) translate(-50 -50)",
+          "size": 120,
+          "rect": {
+            "x": 875.1666870117188,
+            "y": 354,
+            "width": 120,
+            "height": 120,
+            "top": 354,
+            "right": 995.1666870117188,
+            "bottom": 474,
+            "left": 875.1666870117188
+          }
+        },
+        {
+          "id": "34cf3693-65f9-4436-8063-5a8adc48d6d0",
+          "path": "M20 90V10H55C90 10 90 50 55 50H20M55 50L85 90",
+          "transform": "translate(50 50) rotate(0) scale(1 1) translate(-50 -50)",
+          "size": 60,
+          "rect": {
+            "x": 905.1666870117188,
+            "y": 384,
+            "width": 60,
+            "height": 60,
+            "top": 384,
+            "right": 965.1666870117188,
+            "bottom": 444,
+            "left": 905.1666870117188
+          }
+        },
+        {
+          "id": "cf8a731f-df1f-4ded-b92c-18648518c912",
+          "path": "M20 90V10H55C90 10 90 50 55 50H20M55 50L85 90",
+          "transform": "translate(50 50) rotate(90) scale(1 1) translate(-50 -50)",
+          "size": 60,
+          "rect": {
+            "x": 905.1666870117188,
+            "y": 384,
+            "width": 60,
+            "height": 60,
+            "top": 384,
+            "right": 965.1666870117188,
+            "bottom": 444,
+            "left": 905.1666870117188
+          }
+        },
+        {
+          "id": "3b846560-3929-40e0-a919-8003ab18e02e",
+          "path": "M80 10H20V90H80M20 50H70",
+          "transform": "translate(50 50) rotate(90) scale(-1 1) translate(-50 -50)",
+          "size": 30,
+          "rect": {
+            "x": 920.1666870117188,
+            "y": 399,
+            "width": 30,
+            "height": 30,
+            "top": 399,
+            "right": 950.1666870117188,
+            "bottom": 429,
+            "left": 920.1666870117188
+          }
+        },
+        {
+          "id": "921837e1-03d1-4830-89a7-89f2261a2bca",
+          "path": "M20 90V10H55C90 10 90 50 55 50H20",
+          "transform": "translate(50 50) rotate(180) scale(1 1) translate(-50 -50)",
+          "size": 30,
+          "rect": {
+            "x": 920.1666870117188,
+            "y": 399,
+            "width": 30,
+            "height": 30,
+            "top": 399,
+            "right": 950.1666870117188,
+            "bottom": 429,
+            "left": 920.1666870117188
+          }
+        },
+        {
+          "id": "a890af40-82fe-4fba-95b5-09717390995e",
+          "path": "M80 10H20V90M20 50H70",
+          "transform": "translate(50 50) rotate(270) scale(-1 1) translate(-50 -50)",
+          "size": 15,
+          "rect": {
+            "x": 927.6666870117188,
+            "y": 406.5,
+            "width": 15,
+            "height": 15,
+            "top": 406.5,
+            "right": 942.6666870117188,
+            "bottom": 421.5,
+            "left": 927.6666870117188
+          }
+        },
+        {
+          "id": "07ae2d9a-cf8e-48cf-b4ef-6953b5f7fd72",
+          "path": "M20 90V10H55C85 10 85 50 55 50H20M55 50C90 50 90 90 55 90H20",
+          "transform": "translate(50 50) rotate(180) scale(-1 1) translate(-50 -50)",
+          "size": 15,
+          "rect": {
+            "x": 927.6666870117188,
+            "y": 406.5,
+            "width": 15,
+            "height": 15,
+            "top": 406.5,
+            "right": 942.6666870117188,
+            "bottom": 421.5,
+            "left": 927.6666870117188
+          }
+        },
+        {
+          "id": "534d7915-d616-40c8-a8c4-b392f36fedfe",
+          "path": "M20 90V10H55C85 10 85 50 55 50H20M55 50C90 50 90 90 55 90H20",
+          "transform": "translate(50 50) rotate(90) scale(1 1) translate(-50 -50)",
+          "size": 15,
+          "rect": {
+            "x": 927.6666870117188,
+            "y": 406.5,
+            "width": 15,
+            "height": 15,
+            "top": 406.5,
+            "right": 942.6666870117188,
+            "bottom": 421.5,
+            "left": 927.6666870117188
+          }
+        },
+        {
+          "id": "35c24fbf-17a3-4cff-ba18-72d9161f981f",
+          "path": "M15 90L50 10L85 90M29 60H71",
+          "transform": "translate(50 50) rotate(270) scale(1 1) translate(-50 -50)",
+          "size": 15,
+          "rect": {
+            "x": 927.6666870117188,
+            "y": 406.5,
+            "width": 15,
+            "height": 15,
+            "top": 406.5,
+            "right": 942.6666870117188,
+            "bottom": 421.5,
+            "left": 927.6666870117188
+          }
+        },
+        {
+          "id": "d7154ddb-df0c-407f-b0b4-82679f4b26be",
+          "path": "M20 90V10H55C90 10 90 50 55 50H20",
+          "transform": "translate(50 50) rotate(180) scale(-1 1) translate(-50 -50)",
+          "size": 15,
+          "rect": {
+            "x": 927.6666870117188,
+            "y": 406.5,
+            "width": 15,
+            "height": 15,
+            "top": 406.5,
+            "right": 942.6666870117188,
+            "bottom": 421.5,
+            "left": 927.6666870117188
+          }
+        },
+        {
+          "id": "810a9e12-68eb-4099-8b60-62b4fa9e7915",
+          "path": "M20 90V10H55C90 10 90 50 55 50H20",
+          "transform": "translate(50 50) rotate(90) scale(1 1) translate(-50 -50)",
+          "size": 15,
+          "rect": {
+            "x": 927.6666870117188,
+            "y": 406.5,
+            "width": 15,
+            "height": 15,
+            "top": 406.5,
+            "right": 942.6666870117188,
+            "bottom": 421.5,
+            "left": 927.6666870117188
+          }
+        }
+      ],
+      "record": {
+        "id": "98480563-1ea1-4fc1-8ecc-a45a0138e5ff",
+        "date": "2026-10-17T03:03:46.629Z",
+        "protocolVersion": "spoken-letter-v2",
+        "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+        "trials": [
+          {
+            "id": "386a20ea-e9ca-44aa-821d-916ac58b6990",
+            "presentationId": "7c7e206b-a90e-40ba-ae7d-86847641f880",
+            "sequence": 1,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": true,
+            "letter": "E",
+            "orientation": "upright",
+            "transform": {
+              "rotation": 0,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "E",
+              "transform": {
+                "rotation": 0,
+                "mirrored": true,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 120,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 120,
+              "viewportHeightCssPx": 120,
+              "pathWidthCssPx": 62.06901168823242,
+              "pathHeightCssPx": 82.75862884521484,
+              "strokeWidthCssPx": 10.344827586206897,
+              "measuredAt": 24951.90000000596,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "rotation": 0,
+              "mirrored": true,
+              "letter": "E"
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 24925.90000000596,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:02:01.688Z",
+            "responseTimeMs": 91.2999999821186,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "2bf30c31-a149-473e-9373-f3ff101e3a58",
+            "presentationId": "1afa0c2a-10f5-4ac1-8848-b4a0c09f418a",
+            "sequence": 2,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": true,
+            "letter": "F",
+            "orientation": "left",
+            "transform": {
+              "rotation": 270,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "F",
+              "transform": {
+                "rotation": 270,
+                "mirrored": true,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 120,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 120,
+              "viewportHeightCssPx": 120,
+              "pathWidthCssPx": 82.75862884521484,
+              "pathHeightCssPx": 62.0689697265625,
+              "strokeWidthCssPx": 10.344827586206897,
+              "measuredAt": 25023.40000000596,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "F",
+              "rotation": 270,
+              "mirrored": true
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 24925.90000000596,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:02:01.759Z",
+            "responseTimeMs": 46.900000005960464,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "bf602be6-663e-4732-8d14-9135cf1e5cd7",
+            "presentationId": "f560c1d9-b886-4b4c-b49e-9e12c57c5234",
+            "sequence": 3,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": true,
+            "letter": "E",
+            "orientation": "right",
+            "transform": {
+              "rotation": 90,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "F",
+              "transform": {
+                "rotation": 90,
+                "mirrored": true,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 60,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 60,
+              "viewportHeightCssPx": 60,
+              "pathWidthCssPx": 41.379234313964844,
+              "pathHeightCssPx": 31.03450584411621,
+              "strokeWidthCssPx": 5.172413793103448,
+              "measuredAt": 25364.600000023842,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "F",
+              "rotation": 90,
+              "mirrored": true
+            },
+            "letterCorrect": false,
+            "orientationCorrect": true,
+            "combinedCorrect": false,
+            "correct": false,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 25225.70000001788,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:02:02.100Z",
+            "responseTimeMs": 321.40000000596046,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "baecc02e-2f02-44f7-a514-42c721f389e0",
+            "presentationId": "c3868189-8fc1-4fde-91dd-0d492fb8ff22",
+            "sequence": 4,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": true,
+            "letter": "R",
+            "orientation": "down",
+            "transform": {
+              "rotation": 180,
+              "mirrored": false,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": null,
+            "notVisible": true,
+            "sizePx": 60,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 60,
+              "viewportHeightCssPx": 60,
+              "pathWidthCssPx": 33.620689392089844,
+              "pathHeightCssPx": 41.37931442260742,
+              "strokeWidthCssPx": 5.172413793103448,
+              "measuredAt": 25435.600000023842,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "command": "not-visible"
+            },
+            "letterCorrect": false,
+            "orientationCorrect": false,
+            "combinedCorrect": false,
+            "correct": false,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 25225.70000001788,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:02:02.171Z",
+            "responseTimeMs": 36.60000002384186,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "0c547b7f-34d6-4044-b5eb-52af9acfffaf",
+            "presentationId": "91e58272-0493-4802-9657-e263c1f36030",
+            "sequence": 5,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": true,
+            "letter": "R",
+            "orientation": "right",
+            "transform": {
+              "rotation": 90,
+              "mirrored": false,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "R",
+              "transform": {
+                "rotation": 90,
+                "mirrored": false,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 120,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 120,
+              "viewportHeightCssPx": 120,
+              "pathWidthCssPx": 82.75862884521484,
+              "pathHeightCssPx": 67.24137878417969,
+              "strokeWidthCssPx": 10.344827586206897,
+              "measuredAt": 25508.5,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "R",
+              "rotation": 90
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 25225.70000001788,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:02:02.245Z",
+            "responseTimeMs": 44.89999997615814,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "f49497f2-ea22-4a25-b243-6de2ce4ad0f9",
+            "presentationId": "8c5c02d9-8c12-40dd-801d-94f1970970ef",
+            "sequence": 6,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": false,
+            "letter": "F",
+            "orientation": "right",
+            "transform": {
+              "rotation": 90,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": null,
+            "notVisible": false,
+            "sizePx": 120,
+            "renderedGeometry": null,
+            "parsedAnswer": {},
+            "letterCorrect": null,
+            "orientationCorrect": null,
+            "combinedCorrect": null,
+            "correct": false,
+            "invalidReason": "USER_PAUSED",
+            "conditions": {
+              "observedAt": 25542.20000001788,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:02:02.324Z",
+            "responseTimeMs": 43.5,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "f49497f2-ea22-4a25-b243-6de2ce4ad0f9",
+            "presentationId": "2a7e9049-69c5-4f0c-bd46-daa759355599",
+            "sequence": 7,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": true,
+            "letter": "F",
+            "orientation": "right",
+            "transform": {
+              "rotation": 90,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "F",
+              "transform": {
+                "rotation": 90,
+                "mirrored": true,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 120,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 120,
+              "viewportHeightCssPx": 120,
+              "pathWidthCssPx": 82.75862884521484,
+              "pathHeightCssPx": 62.0689697265625,
+              "strokeWidthCssPx": 10.344827586206897,
+              "measuredAt": 25683.40000000596,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "rotation": 90,
+              "mirrored": true,
+              "letter": "F"
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 25542.20000001788,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:02:02.419Z",
+            "responseTimeMs": 40.400000005960464,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "43cf8721-5880-4952-a1ba-227be5ded093",
+            "presentationId": "8403a07e-ddf0-45a4-9ce7-d02c2a776f99",
+            "sequence": 8,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": false,
+            "letter": "F",
+            "orientation": "upright",
+            "transform": {
+              "rotation": 0,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "F",
+              "transform": {
+                "rotation": 0,
+                "mirrored": true,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 60,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 60,
+              "viewportHeightCssPx": 60,
+              "pathWidthCssPx": 31.03450584411621,
+              "pathHeightCssPx": 41.37931442260742,
+              "strokeWidthCssPx": 5.172413793103448,
+              "measuredAt": 25803,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "F",
+              "rotation": 0,
+              "mirrored": true
+            },
+            "letterCorrect": null,
+            "orientationCorrect": null,
+            "combinedCorrect": null,
+            "correct": false,
+            "invalidReason": "CONDITIONS_INVALID_AT_RESPONSE",
+            "conditions": {
+              "observedAt": 25758.90000000596,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": false,
+              "relativeScaleChange": 0.22,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "near",
+              "blocker": "recede",
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:02:02.539Z",
+            "responseTimeMs": 71.5,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0.22,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "43cf8721-5880-4952-a1ba-227be5ded093",
+            "presentationId": "8403a07e-ddf0-45a4-9ce7-d02c2a776f99",
+            "sequence": 9,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": false,
+            "letter": "F",
+            "orientation": "upright",
+            "transform": {
+              "rotation": 0,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "F",
+              "transform": {
+                "rotation": 0,
+                "mirrored": true,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 60,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 60,
+              "viewportHeightCssPx": 60,
+              "pathWidthCssPx": 31.03450584411621,
+              "pathHeightCssPx": 41.37931442260742,
+              "strokeWidthCssPx": 5.172413793103448,
+              "measuredAt": 25841.40000000596,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "F",
+              "rotation": 0,
+              "mirrored": true
+            },
+            "letterCorrect": null,
+            "orientationCorrect": null,
+            "combinedCorrect": null,
+            "correct": false,
+            "invalidReason": "CONDITIONS_INVALID_AT_RESPONSE",
+            "conditions": {
+              "observedAt": 25758.90000000596,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": false,
+              "relativeScaleChange": 0.22,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "near",
+              "blocker": "recede",
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:02:02.577Z",
+            "responseTimeMs": 71.5,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0.22,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "43cf8721-5880-4952-a1ba-227be5ded093",
+            "presentationId": "8403a07e-ddf0-45a4-9ce7-d02c2a776f99",
+            "sequence": 10,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": false,
+            "letter": "F",
+            "orientation": "upright",
+            "transform": {
+              "rotation": 0,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "F",
+              "transform": {
+                "rotation": 0,
+                "mirrored": true,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 60,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 60,
+              "viewportHeightCssPx": 60,
+              "pathWidthCssPx": 31.03450584411621,
+              "pathHeightCssPx": 41.37931442260742,
+              "strokeWidthCssPx": 5.172413793103448,
+              "measuredAt": 113287.40000000596,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "F",
+              "rotation": 0,
+              "mirrored": true
+            },
+            "letterCorrect": null,
+            "orientationCorrect": null,
+            "combinedCorrect": null,
+            "correct": false,
+            "invalidReason": "CONDITIONS_INVALID_AT_RESPONSE",
+            "conditions": {
+              "observedAt": 113245.5,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": false,
+              "relativeScaleChange": 0.22,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "near",
+              "blocker": "recede",
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:30.023Z",
+            "responseTimeMs": 87489.69999998808,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0.22,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "43cf8721-5880-4952-a1ba-227be5ded093",
+            "presentationId": "8403a07e-ddf0-45a4-9ce7-d02c2a776f99",
+            "sequence": 11,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": true,
+            "letter": "F",
+            "orientation": "upright",
+            "transform": {
+              "rotation": 0,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "F",
+              "transform": {
+                "rotation": 0,
+                "mirrored": true,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 60,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 60,
+              "viewportHeightCssPx": 60,
+              "pathWidthCssPx": 31.03450584411621,
+              "pathHeightCssPx": 41.37931442260742,
+              "strokeWidthCssPx": 5.172413793103448,
+              "measuredAt": 113419.60000002384,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "F",
+              "rotation": 0,
+              "mirrored": true
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 113380.80000001192,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:30.156Z",
+            "responseTimeMs": 87506,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "47225604-1644-4af0-8eec-aec7556a162f",
+            "presentationId": "27ae5667-bf16-4a2f-b7e8-4ed89117212d",
+            "sequence": 12,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": true,
+            "letter": "E",
+            "orientation": "upright",
+            "transform": {
+              "rotation": 0,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "E",
+              "transform": {
+                "rotation": 0,
+                "mirrored": true,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 60,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 60,
+              "viewportHeightCssPx": 60,
+              "pathWidthCssPx": 31.03450584411621,
+              "pathHeightCssPx": 41.37931442260742,
+              "strokeWidthCssPx": 5.172413793103448,
+              "measuredAt": 113590.80000001192,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "E",
+              "rotation": 0,
+              "mirrored": true
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 113545.80000001192,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:30.327Z",
+            "responseTimeMs": 144.5,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "46909f84-9abd-4eb7-9f89-057999bb0f0a",
+            "presentationId": "514c9f15-2e29-4110-a93c-013cb1975da9",
+            "sequence": 13,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": true,
+            "letter": "B",
+            "orientation": "right",
+            "transform": {
+              "rotation": 90,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "B",
+              "transform": {
+                "rotation": 90,
+                "mirrored": true,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 30,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 30,
+              "viewportHeightCssPx": 30,
+              "pathWidthCssPx": 20.689617156982422,
+              "pathHeightCssPx": 15.840536117553711,
+              "strokeWidthCssPx": 2.586206896551724,
+              "measuredAt": 113656.10000002384,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "B",
+              "rotation": 90,
+              "mirrored": true
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 113545.80000001192,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:30.392Z",
+            "responseTimeMs": 38.60000002384186,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "be8c1904-b9fa-4383-9daf-1f0cd63a61ce",
+            "presentationId": "b26e3263-9f92-4be1-9c70-8a3cb8706b44",
+            "sequence": 14,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": false,
+            "letter": "P",
+            "orientation": "upright",
+            "transform": {
+              "rotation": 0,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": null,
+            "notVisible": false,
+            "sizePx": 30,
+            "renderedGeometry": null,
+            "parsedAnswer": {},
+            "letterCorrect": null,
+            "orientationCorrect": null,
+            "combinedCorrect": null,
+            "correct": false,
+            "invalidReason": "uncertain",
+            "conditions": {
+              "observedAt": 114862.30000001192,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "uncertain",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:31.625Z",
+            "responseTimeMs": 371.10000002384186,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "be8c1904-b9fa-4383-9daf-1f0cd63a61ce",
+            "presentationId": "c69bd1b2-0d82-4b8b-9254-be8dd40dd48a",
+            "sequence": 15,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": true,
+            "letter": "P",
+            "orientation": "upright",
+            "transform": {
+              "rotation": 0,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "P",
+              "transform": {
+                "rotation": 0,
+                "mirrored": true,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 30,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 30,
+              "viewportHeightCssPx": 30,
+              "pathWidthCssPx": 15.840495109558105,
+              "pathHeightCssPx": 20.689617156982422,
+              "strokeWidthCssPx": 2.586206896551724,
+              "measuredAt": 115016.40000000596,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "P",
+              "rotation": 0,
+              "mirrored": true
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 114928.60000002384,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:31.752Z",
+            "responseTimeMs": 31.799999982118607,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "c42f93b2-23d4-4dde-a335-633625a57cb7",
+            "presentationId": "c9b86e7c-c47d-4b3e-b5a7-aa5fecaa5f28",
+            "sequence": 16,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": true,
+            "letter": "R",
+            "orientation": "right",
+            "transform": {
+              "rotation": 90,
+              "mirrored": false,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "R",
+              "transform": {
+                "rotation": 90,
+                "mirrored": false,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 15,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 15,
+              "viewportHeightCssPx": 15,
+              "pathWidthCssPx": 10.344889640808105,
+              "pathHeightCssPx": 8.405192375183105,
+              "strokeWidthCssPx": 1.293103448275862,
+              "measuredAt": 115090.70000001788,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "R",
+              "rotation": 90
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 114928.60000002384,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:31.826Z",
+            "responseTimeMs": 42.30000001192093,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "c5e47129-458c-4817-b020-fc52d52c2d18",
+            "presentationId": "360534be-7c81-466f-b752-18cdc7291ad9",
+            "sequence": 17,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "RIGHT",
+            "valid": true,
+            "letter": "F",
+            "orientation": "upright",
+            "transform": {
+              "rotation": 0,
+              "mirrored": false,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "F",
+              "transform": {
+                "rotation": 0,
+                "mirrored": false,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 15,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 15,
+              "viewportHeightCssPx": 15,
+              "pathWidthCssPx": 7.758626461029053,
+              "pathHeightCssPx": 10.344808578491211,
+              "strokeWidthCssPx": 1.293103448275862,
+              "measuredAt": 115159.10000002384,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "F",
+              "rotation": 0
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 114928.60000002384,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:31.895Z",
+            "responseTimeMs": 45.10000002384186,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "f3bc44be-9048-4398-9bf1-185a3e1e773b",
+            "presentationId": "03965dd3-ad51-445b-a918-4616fc463aed",
+            "sequence": 18,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "LEFT",
+            "valid": true,
+            "letter": "B",
+            "orientation": "left",
+            "transform": {
+              "rotation": 270,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "B",
+              "transform": {
+                "rotation": 270,
+                "mirrored": true,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 120,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 120,
+              "viewportHeightCssPx": 120,
+              "pathWidthCssPx": 82.75862884521484,
+              "pathHeightCssPx": 63.362060546875,
+              "strokeWidthCssPx": 10.344827586206897,
+              "measuredAt": 129085.70000001788,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "B",
+              "rotation": 270,
+              "mirrored": true
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 129024.60000002384,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:45.822Z",
+            "responseTimeMs": 35.20000001788139,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "d031ff3f-8174-42b1-8c4e-fd1393fb7581",
+            "presentationId": "af9d855f-587c-4605-b9a8-cabddb9c462c",
+            "sequence": 19,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "LEFT",
+            "valid": true,
+            "letter": "P",
+            "orientation": "upright",
+            "transform": {
+              "rotation": 0,
+              "mirrored": false,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "P",
+              "transform": {
+                "rotation": 0,
+                "mirrored": false,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 120,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 120,
+              "viewportHeightCssPx": 120,
+              "pathWidthCssPx": 63.362060546875,
+              "pathHeightCssPx": 82.75862884521484,
+              "strokeWidthCssPx": 10.344827586206897,
+              "measuredAt": 129157.10000002384,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "P",
+              "rotation": 0
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 129024.60000002384,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:45.893Z",
+            "responseTimeMs": 46.900000005960464,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "0ef9bf0c-dd6b-4962-a379-f8428281daa8",
+            "presentationId": "34cf3693-65f9-4436-8063-5a8adc48d6d0",
+            "sequence": 20,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "LEFT",
+            "valid": true,
+            "letter": "R",
+            "orientation": "upright",
+            "transform": {
+              "rotation": 0,
+              "mirrored": false,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "R",
+              "transform": {
+                "rotation": 0,
+                "mirrored": false,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 60,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 60,
+              "viewportHeightCssPx": 60,
+              "pathWidthCssPx": 33.620689392089844,
+              "pathHeightCssPx": 41.37931442260742,
+              "strokeWidthCssPx": 5.172413793103448,
+              "measuredAt": 129232.10000002384,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "R",
+              "rotation": 0
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 129157.5,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:45.968Z",
+            "responseTimeMs": 37.60000002384186,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "0a6352b8-35c5-4ada-9403-ea43fc1c5fc9",
+            "presentationId": "cf8a731f-df1f-4ded-b92c-18648518c912",
+            "sequence": 21,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "LEFT",
+            "valid": true,
+            "letter": "R",
+            "orientation": "right",
+            "transform": {
+              "rotation": 90,
+              "mirrored": false,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "R",
+              "transform": {
+                "rotation": 90,
+                "mirrored": false,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 60,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 60,
+              "viewportHeightCssPx": 60,
+              "pathWidthCssPx": 41.379234313964844,
+              "pathHeightCssPx": 33.620689392089844,
+              "strokeWidthCssPx": 5.172413793103448,
+              "measuredAt": 129308.10000002384,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "R",
+              "rotation": 90
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 129274,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:46.044Z",
+            "responseTimeMs": 47.10000002384186,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "bb690a90-1d2c-48e4-8ef8-75cb3752be30",
+            "presentationId": "3b846560-3929-40e0-a919-8003ab18e02e",
+            "sequence": 22,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "LEFT",
+            "valid": true,
+            "letter": "E",
+            "orientation": "right",
+            "transform": {
+              "rotation": 90,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "E",
+              "transform": {
+                "rotation": 90,
+                "mirrored": true,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 30,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 30,
+              "viewportHeightCssPx": 30,
+              "pathWidthCssPx": 20.689617156982422,
+              "pathHeightCssPx": 15.517252922058105,
+              "strokeWidthCssPx": 2.586206896551724,
+              "measuredAt": 129376.90000000596,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "E",
+              "rotation": 90,
+              "mirrored": true
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 129324.10000002384,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:46.113Z",
+            "responseTimeMs": 36.099999994039536,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "3a17b2e1-3045-44dc-b037-c2b2bd1b6a12",
+            "presentationId": "921837e1-03d1-4830-89a7-89f2261a2bca",
+            "sequence": 23,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "LEFT",
+            "valid": true,
+            "letter": "P",
+            "orientation": "down",
+            "transform": {
+              "rotation": 180,
+              "mirrored": false,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "P",
+              "transform": {
+                "rotation": 180,
+                "mirrored": false,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 30,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 30,
+              "viewportHeightCssPx": 30,
+              "pathWidthCssPx": 15.840495109558105,
+              "pathHeightCssPx": 20.689617156982422,
+              "strokeWidthCssPx": 2.586206896551724,
+              "measuredAt": 129454.30000001192,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "P",
+              "rotation": 180
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 129324.10000002384,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:46.190Z",
+            "responseTimeMs": 42.30000001192093,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "fe507270-dfb4-4aed-9cf1-b06296ca2b1d",
+            "presentationId": "a890af40-82fe-4fba-95b5-09717390995e",
+            "sequence": 24,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "LEFT",
+            "valid": true,
+            "letter": "F",
+            "orientation": "left",
+            "transform": {
+              "rotation": 270,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "F",
+              "transform": {
+                "rotation": 270,
+                "mirrored": true,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 15,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 15,
+              "viewportHeightCssPx": 15,
+              "pathWidthCssPx": 10.344889640808105,
+              "pathHeightCssPx": 7.758626461029053,
+              "strokeWidthCssPx": 1.293103448275862,
+              "measuredAt": 129511.5,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "F",
+              "rotation": 270,
+              "mirrored": true
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 129457.80000001192,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:46.247Z",
+            "responseTimeMs": 37,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "8785d790-f9c6-4350-87e7-9ce231bacd2c",
+            "presentationId": "07ae2d9a-cf8e-48cf-b4ef-6953b5f7fd72",
+            "sequence": 25,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "LEFT",
+            "valid": true,
+            "letter": "B",
+            "orientation": "down",
+            "transform": {
+              "rotation": 180,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "B",
+              "transform": {
+                "rotation": 180,
+                "mirrored": true,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 15,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 15,
+              "viewportHeightCssPx": 15,
+              "pathWidthCssPx": 7.920247554779053,
+              "pathHeightCssPx": 10.344808578491211,
+              "strokeWidthCssPx": 1.293103448275862,
+              "measuredAt": 129593,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "B",
+              "rotation": 180,
+              "mirrored": true
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 129557.60000002384,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:46.329Z",
+            "responseTimeMs": 48.099999994039536,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "7ba8cb3c-a1cd-485b-a826-86de907a5de5",
+            "presentationId": "534d7915-d616-40c8-a8c4-b392f36fedfe",
+            "sequence": 26,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "LEFT",
+            "valid": true,
+            "letter": "B",
+            "orientation": "right",
+            "transform": {
+              "rotation": 90,
+              "mirrored": false,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "B",
+              "transform": {
+                "rotation": 90,
+                "mirrored": false,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 15,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 15,
+              "viewportHeightCssPx": 15,
+              "pathWidthCssPx": 10.344889640808105,
+              "pathHeightCssPx": 7.920247554779053,
+              "strokeWidthCssPx": 1.293103448275862,
+              "measuredAt": 129663.5,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "B",
+              "rotation": 90
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 129623.80000001192,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:46.399Z",
+            "responseTimeMs": 32.79999998211861,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "cc750b87-a67b-4556-a73c-dbe2570b4da4",
+            "presentationId": "35c24fbf-17a3-4cff-ba18-72d9161f981f",
+            "sequence": 27,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "LEFT",
+            "valid": true,
+            "letter": "A",
+            "orientation": "left",
+            "transform": {
+              "rotation": 270,
+              "mirrored": false,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "A",
+              "transform": {
+                "rotation": 270,
+                "mirrored": false,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 15,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 15,
+              "viewportHeightCssPx": 15,
+              "pathWidthCssPx": 10.344889640808105,
+              "pathHeightCssPx": 9.0517578125,
+              "strokeWidthCssPx": 1.293103448275862,
+              "measuredAt": 129728,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "A",
+              "rotation": 270
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 129623.80000001192,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:46.464Z",
+            "responseTimeMs": 37.19999998807907,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "38ea103e-7b76-4b44-a7ff-2e292e423988",
+            "presentationId": "d7154ddb-df0c-407f-b0b4-82679f4b26be",
+            "sequence": 28,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "LEFT",
+            "valid": true,
+            "letter": "P",
+            "orientation": "down",
+            "transform": {
+              "rotation": 180,
+              "mirrored": true,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "P",
+              "transform": {
+                "rotation": 180,
+                "mirrored": true,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 15,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 15,
+              "viewportHeightCssPx": 15,
+              "pathWidthCssPx": 7.920247554779053,
+              "pathHeightCssPx": 10.344808578491211,
+              "strokeWidthCssPx": 1.293103448275862,
+              "measuredAt": 129811.30000001192,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "P",
+              "rotation": 180,
+              "mirrored": true
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 129757.30000001192,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:46.547Z",
+            "responseTimeMs": 33.5,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          },
+          {
+            "id": "e782a089-940f-4f9e-9c24-ee43ba4c56f3",
+            "presentationId": "810a9e12-68eb-4099-8b60-62b4fa9e7915",
+            "sequence": 29,
+            "protocolVersion": "spoken-letter-v2",
+            "methodVersion": "mirror-x-then-rotate-two-up-two-down-step50-min15-v4",
+            "eye": "LEFT",
+            "valid": true,
+            "letter": "P",
+            "orientation": "right",
+            "transform": {
+              "rotation": 90,
+              "mirrored": false,
+              "mirrorAxis": "x",
+              "order": "mirror-then-rotate"
+            },
+            "answer": {
+              "letter": "P",
+              "transform": {
+                "rotation": 90,
+                "mirrored": false,
+                "mirrorAxis": "x",
+                "order": "mirror-then-rotate"
+              }
+            },
+            "notVisible": false,
+            "sizePx": 15,
+            "renderedGeometry": {
+              "viewportWidthCssPx": 15,
+              "viewportHeightCssPx": 15,
+              "pathWidthCssPx": 10.344889640808105,
+              "pathHeightCssPx": 7.920247554779053,
+              "strokeWidthCssPx": 1.293103448275862,
+              "measuredAt": 129892.30000001192,
+              "method": "dom-svg-css-pixels"
+            },
+            "parsedAnswer": {
+              "letter": "P",
+              "rotation": 90
+            },
+            "letterCorrect": true,
+            "orientationCorrect": true,
+            "combinedCorrect": true,
+            "correct": true,
+            "invalidReason": null,
+            "conditions": {
+              "observedAt": 129757.30000001192,
+              "cameraLive": true,
+              "modelActive": true,
+              "faceCount": 1,
+              "qualityValid": true,
+              "positionValid": true,
+              "relativeScaleChange": 0,
+              "distancePolicy": "head-anchors-hysteresis-v1",
+              "distanceState": "stable",
+              "blocker": null,
+              "right": {
+                "state": "closed",
+                "ear": 0.3,
+                "method": "controlled"
+              },
+              "left": {
+                "state": "open",
+                "ear": 0.3,
+                "method": "controlled"
+              }
+            },
+            "answeredAt": "2026-10-17T03:03:46.628Z",
+            "responseTimeMs": 48.69999998807907,
+            "distanceEvidence": {
+              "method": "relative-head-anchors",
+              "relativeScaleChange": 0,
+              "absoluteDistanceCm": null,
+              "confidence": "unverified-absolute"
+            }
+          }
+        ],
+        "deviceContext": {
+          "width": 1280,
+          "height": 900,
+          "dpr": 1.0000000298023224
+        },
+        "profileVerification": "unverified",
+        "distanceMethod": "relative-head-anchors",
+        "physicalScale": null,
+        "completed": true
+      },
+      "history": {
+        "sameSummary": true,
+        "unchangedRecord": true
+      }
+    },
+    "narrow-proof": {
+      "mode": "narrow",
+      "kind": "controlled video/model/ASR; actual page, native Audio/MSE and local speech API",
+      "physicalUserAcceptance": false,
+      "checks": {
+        "resumedPartialSession": false,
+        "priorCompletedTrials": 0,
+        "answerDuringNativePrompt": true
+      },
+      "dimensions": {
+        "width": 750,
+        "height": 900,
+        "dpr": 1.0000000298023224,
+        "screenWidth": 750,
+        "screenHeight": 900,
+        "cssZoom": "1",
+        "documentWidth": 744,
+        "videoWidth": 640
+      },
+      "observations": [
+        {
+          "id": "adfe63b0-a4f2-46e5-b2f2-b77c3e724c47",
+          "path": "M20 90V10H55C90 10 90 50 55 50H20M55 50L85 90",
+          "transform": "translate(50 50) rotate(90) scale(-1 1) translate(-50 -50)",
+          "size": 120,
+          "rect": {
+            "x": 312,
+            "y": 232.6666717529297,
+            "width": 120,
+            "height": 120,
+            "top": 232.6666717529297,
+            "right": 432,
+            "bottom": 352.6666717529297,
+            "left": 312
+          }
+        },
+        {
+          "id": "951d9ee5-46bf-4b28-bdc0-05cd6daef7b8",
+          "path": "M20 90V10H55C90 10 90 50 55 50H20M55 50L85 90",
+          "transform": "translate(50 50) rotate(180) scale(1 1) translate(-50 -50)",
+          "size": 120,
+          "rect": {
+            "x": 312,
+            "y": 232.6666717529297,
+            "width": 120,
+            "height": 120,
+            "top": 232.6666717529297,
+            "right": 432,
+            "bottom": 352.6666717529297,
+            "left": 312
+          }
+        },
+        {
+          "id": "5c083b6f-a083-4b22-b889-6965207e19d7",
+          "path": "M20 90V10H55C85 10 85 50 55 50H20M55 50C90 50 90 90 55 90H20",
+          "transform": "translate(50 50) rotate(180) scale(-1 1) translate(-50 -50)",
+          "size": 60,
+          "rect": {
+            "x": 342,
+            "y": 262.66668701171875,
+            "width": 60,
+            "height": 60,
+            "top": 262.66668701171875,
+            "right": 402,
+            "bottom": 322.66668701171875,
+            "left": 342
+          }
+        }
+      ],
+      "record": null,
+      "history": null
+    },
+    "native200-proof": {
+      "mode": "native200",
+      "kind": "controlled video/model/ASR; actual page, native Audio/MSE and local speech API",
+      "physicalUserAcceptance": false,
+      "checks": {
+        "resumedPartialSession": false,
+        "priorCompletedTrials": 0,
+        "answerDuringNativePrompt": true
+      },
+      "dimensions": {
+        "width": 641,
+        "height": 295,
+        "dpr": 3,
+        "screenWidth": 1280,
+        "screenHeight": 720,
+        "cssZoom": "1",
+        "documentWidth": 635,
+        "videoWidth": 640
+      },
+      "observations": [
+        {
+          "id": "07a52b4b-de7b-45ea-8653-4c6635081a1b",
+          "path": "M20 90V10H55C90 10 90 50 55 50H20M55 50L85 90",
+          "transform": "translate(50 50) rotate(180) scale(-1 1) translate(-50 -50)",
+          "size": 120,
+          "rect": {
+            "x": 257.8333435058594,
+            "y": 88,
+            "width": 120,
+            "height": 120,
+            "top": 88,
+            "right": 377.8333435058594,
+            "bottom": 208,
+            "left": 257.8333435058594
+          }
+        },
+        {
+          "id": "26233ff0-70f3-4f5d-aa05-6fa554a45421",
+          "path": "M15 90L50 10L85 90M29 60H71",
+          "transform": "translate(50 50) rotate(180) scale(1 1) translate(-50 -50)",
+          "size": 120,
+          "rect": {
+            "x": 257.8333435058594,
+            "y": 88,
+            "width": 120,
+            "height": 120,
+            "top": 88,
+            "right": 377.8333435058594,
+            "bottom": 208,
+            "left": 257.8333435058594
+          }
+        },
+        {
+          "id": "d3cac004-eb9f-4a29-be93-3a5bd4edb79e",
+          "path": "M20 90V10H55C85 10 85 50 55 50H20M55 50C90 50 90 90 55 90H20",
+          "transform": "translate(50 50) rotate(180) scale(-1 1) translate(-50 -50)",
+          "size": 60,
+          "rect": {
+            "x": 287.8333435058594,
+            "y": 118,
+            "width": 60,
+            "height": 60,
+            "top": 118,
+            "right": 347.8333435058594,
+            "bottom": 178,
+            "left": 287.8333435058594
+          }
+        }
+      ],
+      "record": null,
+      "history": null
+    },
+    "native200-surface": {
+      "kind": "native browser zoom, no CSS zoom or page scale override",
+      "rect": {
+        "x": 257.8333435058594,
+        "y": 88,
+        "width": 120,
+        "height": 120,
+        "top": 88,
+        "right": 377.8333435058594,
+        "bottom": 208,
+        "left": 257.8333435058594
+      },
+      "dpr": 3,
+      "innerWidth": 641,
+      "innerHeight": 295,
+      "outerWidth": 1298,
+      "outerHeight": 738,
+      "cssZoom": "1",
+      "visualScale": 1,
+      "hitChecks": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "sourceVideo": {
+        "width": 640,
+        "height": 480
+      },
+      "physicalUserAcceptance": false
+    },
+    "native100-control": {
+      "kind": "native Chrome 100% control; viewport:null, separate own profile",
+      "dpr": 1.5,
+      "innerWidth": 1283,
+      "innerHeight": 591,
+      "outerWidth": 1298,
+      "outerHeight": 738,
+      "cssZoom": "1",
+      "visualScale": 1,
+      "noTestOverrides": true,
+      "noRecord": true,
+      "physicalUserAcceptance": false
+    },
+    "models-proof": {
+      "kind": "existing licensed recorded pixels -> actual production MediaPipe Face/Hand worker; no landmark/eye override",
+      "physicalUserAcceptance": false,
+      "baseline": {
+        "last": {
+          "worker": 0,
+          "mode": "photo",
+          "at": 9954.700000017881,
+          "delegate": "GPU",
+          "sourceFrame": 9891.09999999404,
+          "conditions": {
+            "observedAt": 9891.09999999404,
+            "cameraLive": true,
+            "modelActive": true,
+            "faceCount": 1,
+            "qualityValid": true,
+            "positionValid": true,
+            "relativeScaleChange": 0,
+            "right": {
+              "state": "open",
+              "heldMs": 0,
+              "ear": 0.29134518077534766,
+              "darkFraction": null,
+              "contrast": 13.943463541666668,
+              "method": "personal-lid-geometry-and-blink",
+              "baselineEar": 0.29134518077534766,
+              "blinkCoefficient": 0.1410122513771057,
+              "appearanceChange": 0,
+              "templateCorrelation": 1,
+              "palmCoverage": 0,
+              "wideTemplateCorrelation": 1,
+              "candidateState": "open"
+            },
+            "left": {
+              "state": "open",
+              "heldMs": 0,
+              "ear": 0.2785559916208415,
+              "darkFraction": null,
+              "contrast": 7.652583333333335,
+              "method": "personal-lid-geometry-and-blink",
+              "baselineEar": 0.2785559916208415,
+              "blinkCoefficient": 0.13528229296207428,
+              "appearanceChange": 0,
+              "templateCorrelation": 1,
+              "palmCoverage": 0,
+              "wideTemplateCorrelation": 1,
+              "candidateState": "open"
+            },
+            "distancePolicy": "head-anchors-hysteresis-v1",
+            "distanceState": "stable",
+            "blocker": null,
+            "trackingMethod": "mediapipe-face-and-head-anchors"
+          },
+          "sourceHeadBox": {
+            "x": 257.4638557434082,
+            "y": 114.05181884765625,
+            "width": 218.56725692749023,
+            "height": 259.76720809936523
+          }
+        },
+        "width": 640,
+        "height": 480,
+        "letters": 0
+      },
+      "resized": {
+        "last": {
+          "worker": 0,
+          "mode": "photo",
+          "at": 10345.40000000596,
+          "delegate": "GPU",
+          "sourceFrame": 10291.90000000596,
+          "conditions": {
+            "observedAt": 10291.90000000596,
+            "cameraLive": true,
+            "modelActive": true,
+            "faceCount": 1,
+            "qualityValid": true,
+            "positionValid": true,
+            "relativeScaleChange": 0,
+            "right": {
+              "state": "open",
+              "heldMs": 400.80000001192093,
+              "ear": 0.29134518077534766,
+              "darkFraction": null,
+              "contrast": 13.943463541666668,
+              "method": "personal-lid-geometry-and-blink",
+              "baselineEar": 0.29134518077534766,
+              "blinkCoefficient": 0.1410122513771057,
+              "appearanceChange": 0,
+              "templateCorrelation": 1,
+              "palmCoverage": 0,
+              "wideTemplateCorrelation": 1,
+              "candidateState": "open"
+            },
+            "left": {
+              "state": "open",
+              "heldMs": 400.80000001192093,
+              "ear": 0.2785559916208415,
+              "darkFraction": null,
+              "contrast": 7.652583333333335,
+              "method": "personal-lid-geometry-and-blink",
+              "baselineEar": 0.2785559916208415,
+              "blinkCoefficient": 0.13528229296207428,
+              "appearanceChange": 0,
+              "templateCorrelation": 1,
+              "palmCoverage": 0,
+              "wideTemplateCorrelation": 1,
+              "candidateState": "open"
+            },
+            "distancePolicy": "head-anchors-hysteresis-v1",
+            "distanceState": "stable",
+            "blocker": null,
+            "trackingMethod": "mediapipe-face-and-head-anchors"
+          },
+          "sourceHeadBox": {
+            "x": 257.4638557434082,
+            "y": 114.05181884765625,
+            "width": 218.56725692749023,
+            "height": 259.76720809936523
+          }
+        },
+        "width": 640,
+        "height": 480
+      },
+      "black": {
+        "worker": 0,
+        "mode": "black",
+        "at": 10448,
+        "delegate": "GPU",
+        "sourceFrame": 10390.800000011921,
+        "conditions": {
+          "observedAt": 10390.800000011921,
+          "cameraLive": true,
+          "modelActive": true,
+          "faceCount": 0,
+          "qualityValid": false,
+          "positionValid": false,
+          "relativeScaleChange": null,
+          "right": {
+            "state": "uncertain",
+            "ear": null,
+            "darkFraction": null,
+            "contrast": null,
+            "method": "no-reliable-eye-pixels"
+          },
+          "left": {
+            "state": "uncertain",
+            "ear": null,
+            "darkFraction": null,
+            "contrast": null,
+            "method": "no-reliable-eye-pixels"
+          },
+          "distancePolicy": "head-anchors-hysteresis-v1",
+          "distanceState": "unknown",
+          "blocker": "face"
+        }
+      },
+      "stale": {
+        "stage": "preparing",
+        "letters": 0,
+        "last": {
+          "worker": 0,
+          "mode": "photo",
+          "at": 10548.90000000596,
+          "delegate": "GPU",
+          "sourceFrame": 10490.5,
+          "conditions": {
+            "observedAt": 10490.5,
+            "cameraLive": true,
+            "modelActive": true,
+            "faceCount": 1,
+            "qualityValid": true,
+            "positionValid": true,
+            "relativeScaleChange": 0,
+            "right": {
+              "state": "open",
+              "heldMs": 0,
+              "ear": 0.29134518077534766,
+              "darkFraction": null,
+              "contrast": 13.943463541666668,
+              "method": "personal-lid-geometry-and-blink",
+              "baselineEar": 0.29134518077534766,
+              "blinkCoefficient": 0.1410122513771057,
+              "appearanceChange": 0,
+              "templateCorrelation": 1,
+              "palmCoverage": 0,
+              "wideTemplateCorrelation": 1,
+              "candidateState": "open"
+            },
+            "left": {
+              "state": "open",
+              "heldMs": 0,
+              "ear": 0.2785559916208415,
+              "darkFraction": null,
+              "contrast": 7.652583333333335,
+              "method": "personal-lid-geometry-and-blink",
+              "baselineEar": 0.2785559916208415,
+              "blinkCoefficient": 0.13528229296207428,
+              "appearanceChange": 0,
+              "templateCorrelation": 1,
+              "palmCoverage": 0,
+              "wideTemplateCorrelation": 1,
+              "candidateState": "open"
+            },
+            "distancePolicy": "head-anchors-hysteresis-v1",
+            "distanceState": "stable",
+            "blocker": null,
+            "trackingMethod": "mediapipe-face-and-head-anchors"
+          },
+          "sourceHeadBox": {
+            "x": 257.4638557434082,
+            "y": 114.05181884765625,
+            "width": 218.56725692749023,
+            "height": 259.76720809936523
+          }
+        },
+        "now": 11778.300000011921
+      },
+      "spaRouteCleanup": {
+        "workers": [
+          {
+            "index": 0,
+            "closed": true
+          }
+        ],
+        "tracks": [
+          [
+            "ended"
+          ]
+        ],
+        "micAttempts": 0
+      },
+      "historyUnchanged": true
+    },
+    "lifecycle-proof": {
+      "kind": "test-only camera/model/ASR failures; actual controller, local vehicle API and native bank audio",
+      "physicalUserAcceptance": false,
+      "checks": {
+        "muteStopsRecognition": true,
+        "asrPermissionErrorUnscored": true,
+        "retryIgnoresOldCallback": true,
+        "newSessionIsolatesOldMediaAndASR": true,
+        "privacyRevocationStopsAll": true,
+        "actualDriveApiStopsAll": true,
+        "cameraPermissionDenialUnscored": true
+      },
+      "historyUnchanged": true,
+      "allOwnedResourcesStopped": true
+    },
+    "voice-failure-proof": {
+      "kind": "test-only 503 speech transport failure through actual production controller",
+      "physicalUserAcceptance": false,
+      "fault": {
+        "stage": "error",
+        "letters": 0,
+        "valid": 3,
+        "recognitionLive": false,
+        "message": "Ahmet Türkçe yönerge oynatılamadı; yanıt dinlenmedi ve puanlanmadı."
+      },
+      "historyUnchanged": true,
+      "allTracksEnded": true
+    },
+    "pause-before": {
+      "kind": "controlled ASR, actual controller/native bank/audio; not physical microphone",
+      "before": {
+        "stage": "user-paused",
+        "recognitionAborted": true,
+        "activeRecognitions": 0,
+        "letterCount": 0,
+        "validTrials": 0
+      },
+      "after": {
+        "stage": "user-paused",
+        "activeRecognitions": 0
+      }
+    },
+    "pause-after": {
+      "kind": "controlled camera/ASR; actual bank/API/native audio",
+      "paused": {
+        "stage": "user-paused",
+        "activeRecognitions": 1,
+        "letters": 0,
+        "validTrials": 0
+      },
+      "resumedSameTarget": true,
+      "nativeAudioEvents": [
+        {
+          "kind": "native-audio",
+          "type": "playing",
+          "code": "prepare",
+          "time": 1282.4000000059605
+        },
+        {
+          "kind": "native-audio",
+          "type": "ended",
+          "code": "prepare",
+          "time": 11875.40000000596
+        },
+        {
+          "kind": "native-audio",
+          "type": "playing",
+          "code": "right",
+          "time": 11906.700000017881
+        },
+        {
+          "kind": "native-audio",
+          "type": "ended",
+          "code": "right",
+          "time": 25645.5
+        }
+      ],
+      "bankCalls": [
+        {
+          "code": "prepare",
+          "requestedAt": 1231.2000000178814,
+          "status": 200,
+          "voice": null,
+          "source": null,
+          "rate": null,
+          "pitch": null
+        },
+        {
+          "code": "right",
+          "requestedAt": 11876.59999999404,
+          "status": 200,
+          "voice": null,
+          "source": null,
+          "rate": null,
+          "pitch": null
+        },
+        {
+          "code": "first",
+          "requestedAt": 25682.59999999404,
+          "status": 200,
+          "voice": null,
+          "source": null,
+          "rate": null,
+          "pitch": null
+        },
+        {
+          "code": "next1",
+          "requestedAt": 25897.20000001788,
+          "status": 200,
+          "voice": null,
+          "source": null,
+          "rate": null,
+          "pitch": null
+        }
+      ]
+    }
+  },
+  "served": {
+    "timeUTC": "2026-10-17T03:16:12.651409+00:00",
+    "BUILD_ID": "jxdWpuNZvsmHvFPN32Lbz",
+    "sourceAndServedJavaScript": [
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\103.3d3b5b2e372f9241.js",
+        "sha256": "5300dc1f7757652fbbb391a21f1cf7c4ffa4bd240e4d9636497e043d359d6876",
+        "bytes": 21509
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\11.4c56c5d99a6160dd.js",
+        "sha256": "429150ca2be0e85f98779652e99f7297765494018994b2269b4354c936fdadfc",
+        "bytes": 739
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\192-8570868d428986cc.js",
+        "sha256": "2c0fccfa2dc6880e11093b28ed77589eb1ad1f3fe696b1478d6f54fd21296192",
+        "bytes": 22222
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\232-cfd4a8b61796d295.js",
+        "sha256": "ca2180d47c011d042fe6369d3d38fc91a682b5f8b2dd68c1cc4a4f9ed4e81f24",
+        "bytes": 28446
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\296.66adb7f450ace1a2.js",
+        "sha256": "1f550323eb1bb73be0da7a9c1d2f885351b075a37c0b916034edf6b77afc805a",
+        "bytes": 154409
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\335-90e9760957f2f39f.js",
+        "sha256": "d42d6fb1ff00cb7e58319a7cf857bd9c67d3fb39d0eb888fd17e0284ea61d8c9",
+        "bytes": 51891
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\355-edc50213d4b1cc4c.js",
+        "sha256": "8e8271abd9c803134c90c86727ec4d9b9f179b1f4b80861a5808f326b1b95c69",
+        "bytes": 173915
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\450-c1c73731a142659a.js",
+        "sha256": "4d09001d874ce285de9852b772f525a110fe846a089b86ec912e8abdeacf6a06",
+        "bytes": 19633
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\529-eb51072254eb8eb5.js",
+        "sha256": "b0c32bda4a1ead63ce499cff52163120ba0d0a7f620f7f6352750ea06817ef0c",
+        "bytes": 9522
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\554.8e46c26c4af42076.js",
+        "sha256": "2e2c845eab02c1b311c3d7556061c5bc5d4e118e0461360990025817a9d19ad1",
+        "bytes": 7649
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\572-a2d0e33d5ec76dbc.js",
+        "sha256": "f6da66def023294173cb0b6668a1d4f373b4ef2b815412de18bc17f88b6a1bb1",
+        "bytes": 44454
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\622-7846609c622f2927.js",
+        "sha256": "7e72db04eb8a5b6e293ab6bc08fe334a63bab39a7f2baf14a1804941a0eae930",
+        "bytes": 26825
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\657.e0636d103a36c847.js",
+        "sha256": "c8db0a03cd038c4afa04a659524a873a6085a2377bbf2ca1c0b446de62ecddeb",
+        "bytes": 24377
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\664-ebbbc42fab29af12.js",
+        "sha256": "d6d7a18c968cfa6fc1ee3f8aeed87a6e3e5568a6b70ff0003845fdd1fa12cef3",
+        "bytes": 168842
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\674-78cf992235143863.js",
+        "sha256": "635d5ed4e798cf8e161cb7b65e623d49c7004557b7e5913b635a8314aadcec25",
+        "bytes": 19873
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\910.932485340bda8c88.js",
+        "sha256": "d81e6dfae8aae6d6cb888b0e76dedf39377f7f566839b52fa873b64c67a9bd03",
+        "bytes": 5442
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\915.c1a1bcc59d932e65.js",
+        "sha256": "aa80d41d9a54c506b614c3fda9398f2c9da2c9e4470c52d5518940d5d9c19f65",
+        "bytes": 154409
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\bddda0f1-bac51c3f056458a8.js",
+        "sha256": "2e1a3d839436a24644550b82de0f66389f9ee5203d5bd8661aa084c225e5ea97",
+        "bytes": 173019
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\framework-f3a787259960d44f.js",
+        "sha256": "c454e588a433cb3f7063905cf294bb00402a5a9bf1026dbe52c658501a00d5a7",
+        "bytes": 181563
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\main-8ccad00df12765a7.js",
+        "sha256": "044091a09c65476496f23417ad972f0a3f88502fd39436e0ae31a0f07b5d66fb",
+        "bytes": 122287
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\main-app-6888eaa9ea25c229.js",
+        "sha256": "5a78de5eb6166e31f175821796579bdd4116497c94884741ea467f4ebc76cef9",
+        "bytes": 555
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\polyfills-42372ed130431b0a.js",
+        "sha256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+        "bytes": 112594
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\webpack-876996aabd3eea3e.js",
+        "sha256": "65fc08a9edd3e8241d080e177832b305c64d63cdea7c2f21142516302a6ff29d",
+        "bytes": 3592
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\layout-60a0e4496b64c8c5.js",
+        "sha256": "56d25b74353f896acb2c1162c57e27d74a98db7c4377c7fe3d4a32bea89767f4",
+        "bytes": 23798
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\page-af1f49dac458208a.js",
+        "sha256": "d98c29c0987c0ccccc828ef0e685a24d1cb5aed77f0351a807dfee3842c16752",
+        "bytes": 7309
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\care\\page-02227ed42b322fda.js",
+        "sha256": "c44daf49921fe181dab55d7305db62c34bed16351ca758e68cc05626e2b3ea21",
+        "bytes": 29915
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\dental\\page-130bc1ec15b7c58a.js",
+        "sha256": "410cc82b60ec78aa2416a4a2660f71d3429e2a09c7af941fc70d1afb7388c331",
+        "bytes": 24809
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\hearing\\page-7f4f3a8ee98c1d87.js",
+        "sha256": "6e0f76423b9e1c960ed0e9a44549c4ddca29c715c22536c0273a64d044eaa405",
+        "bytes": 28799
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\mental\\page-8872af0f6738b136.js",
+        "sha256": "8ed3bd4be5052e9fe1fb17bc88fe834adf65d3e82f6d68e97b136f2a5d2c4441",
+        "bytes": 32506
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\privacy\\page-47a6fa7f781f9235.js",
+        "sha256": "c352963f2c9cabf45efd75847af429d7536870f624a9c42770ab616f31c5f619",
+        "bytes": 26689
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\profile\\page-ee54e861481a2fe4.js",
+        "sha256": "72892206bbe02f7ebc10f9372380e880bc1c44bbbba6912374027c7dde673bbd",
+        "bytes": 15000
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\skin\\page-d64649bbefb75b85.js",
+        "sha256": "57879a740253c937a16971262367bccadb5f44e97fcca01f721e17f2ddfddf4f",
+        "bytes": 75145
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\vision\\page-76aa5a267ede6260.js",
+        "sha256": "5d805a59dca961ac0779263a3bcfe43ded7e59611c6d358bb0c4c28052dfa5e8",
+        "bytes": 37918
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\_not-found\\page-b9c662718688e1c4.js",
+        "sha256": "4ee7e094048b860daa9c0ccaa2bf118e8ffe16b55772463980d64ce1a239ca5c",
+        "bytes": 2670
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\pages\\_app-a7bdf146bddf6e7c.js",
+        "sha256": "35ee7b7812a829a043fd155d2fc779f2e3745e4a9dfd70b844b043091eb34ac8",
+        "bytes": 913
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\pages\\_error-f0daa23b34dd9c4b.js",
+        "sha256": "c67001cffd38f5bd3d8987dac2634c80c07e61285d0ef7fcb6fb6d7b106a9e5c",
+        "bytes": 5650
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\jxdWpuNZvsmHvFPN32Lbz\\_buildManifest.js",
+        "sha256": "e57d33c81653463f2b112776c645637ffc442f8c1dcc3e2bec4b82e70aca0dd9",
+        "bytes": 814
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\jxdWpuNZvsmHvFPN32Lbz\\_ssgManifest.js",
+        "sha256": "678f6ce2cb80b1fe72fc67e7412be6e2ab6ada083111b64f7c40d35e3cba5e00",
+        "bytes": 80
+      }
+    ],
+    "models": [
+      {
+        "path": "apps\\vehicle-app\\public\\mediapipe\\models\\face_landmarker.task",
+        "sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+        "bytes": 3758596
+      },
+      {
+        "path": "apps\\vehicle-app\\public\\mediapipe\\models\\hand_landmarker.task",
+        "sha256": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+        "bytes": 7819105
+      }
+    ],
+    "voice": [
+      {
+        "code": "prepare",
+        "bytes": 63072,
+        "sha256": "24a585b9d89d2f70908e9398a8d6375e57097ab51c7b29ed7ca61633a51e66d3",
+        "source": "verified-fixed-cache"
+      },
+      {
+        "code": "right",
+        "bytes": 82224,
+        "sha256": "917587d0be874c457632a06e307333aba903bd0a13b486fd11c364a3244fd7c4",
+        "source": "verified-fixed-cache"
+      },
+      {
+        "code": "left",
+        "bytes": 82656,
+        "sha256": "f33ee9d938d7ae584004067c446fccb46750b1529a3ae4d068e47870fb86b507",
+        "source": "verified-fixed-cache"
+      },
+      {
+        "code": "first",
+        "bytes": 108576,
+        "sha256": "3208f5408d2738ca841c4531d214fb4a58300844de85345c3366af8b366c8d7c",
+        "source": "verified-fixed-cache"
+      }
+    ],
+    "protected": [
+      {
+        "checkout": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-acne-v5-integration",
+        "head": "2637d1b3a342d333b43a40d53e195e8374c8691d",
+        "statusUnchanged": true
+      },
+      {
+        "checkout": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-claude-acne-audit",
+        "head": "e6db3e1fc775b5cdbd09d63858993b2d55eb588f",
+        "statusUnchanged": true
+      },
+      {
+        "checkout": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-antigravity-skin",
+        "head": "d90ff95434c44b4e73ae77a7f1d5d6b2e167c987",
+        "statusUnchanged": true
+      },
+      {
+        "checkout": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+        "head": "5f11c111e3f6547e6420ddf37db477190d232f10",
+        "statusUnchanged": true
+      }
+    ],
+    "physicalUserAcceptance": false
+  },
+  "evidenceFiles": [
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017\\docs\\vision-technical-closeout-20261017.md",
+      "bytes": 13447,
+      "sha256": "74798d77913db58c687aaef00ed663481aa5aaae8199e964d81f47500d6ac3a6"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\vision-technical-closeout-20261017\\build.log",
+      "bytes": 2182,
+      "sha256": "aee1808b395b65a2b62d64d22c17894813dbfbe4fadabbc056c9a937081e59b0"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\vision-technical-closeout-20261017\\typecheck.log",
+      "bytes": 67,
+      "sha256": "285ddc3cf0afdeab1d4968d2a6f056a3727585c9e973ddb1d943aa7c3f1fc784"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\vision-technical-closeout-20261017\\build-receipt.json",
+      "bytes": 11100,
+      "sha256": "9f670b90d5f020a237f35e4ddd0a9b7b1dce633f6f39a147a352f2494d80a2c6"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\vision-technical-closeout-20261017\\served-protection-receipt.json",
+      "bytes": 10202,
+      "sha256": "b37011238b3994e8f0425019c4d93ded069a02d9425e616c0c341156fbdc6a3a"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\vision-technical-closeout-20261017\\local-assets.json",
+      "bytes": 7694,
+      "sha256": "3caf3aefbe64d80059249647dc885468cb03bc6d3455afe5823aa890a27c9f2d"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\vision-technical-closeout-20261017\\before-nonfinite.xml",
+      "bytes": 12367,
+      "sha256": "40fc936cb58526771f95bea2fcf94be4e11ab50e06258a151e608c3887097dec"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\vision-technical-closeout-20261017\\after-nonfinite.xml",
+      "bytes": 652,
+      "sha256": "1cf767bab3c776795e19e1b0d5c50b1aa698580a20e3884946f04974fc70b08b"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\vision-technical-closeout-20261017\\focused-tests.xml",
+      "bytes": 8861,
+      "sha256": "12fbe7d5f477278234e75e978fbfdd6867f1fa767c18fbd5a082a34c4ccd6c0b"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\vision-technical-closeout-20261017\\local-api-test.xml",
+      "bytes": 378,
+      "sha256": "fb536132e1f0db78d772cfb4658c3ad8b18f66209acc97d22ea6b133d0261f89"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\vision-technical-closeout-20261017\\tracking-geometry-test.xml",
+      "bytes": 399,
+      "sha256": "0f00a472cc81dcc3d9274466da989a817209bf462cf6319d30c39fdc170e9c3b"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017\\output\\playwright\\vision\\desktop-proof.json",
+      "bytes": 50002,
+      "sha256": "9f9752a8e7bc4b949c5b7785ec05c8cb70d28d2c5e63c4792b6f63c30c668561"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017\\output\\playwright\\vision\\narrow-proof.json",
+      "bytes": 1418,
+      "sha256": "c688cbcfb3aa1a1b8435a0c415a534b89ee7154a0cd19fb2cf84f67b1c291a22"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017\\output\\playwright\\vision\\native200-proof.json",
+      "bytes": 1381,
+      "sha256": "1978241a29c873d13686a0d3b7bd5f8c2a7ea3c91f2a8ae700512d186d36b665"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017\\output\\playwright\\vision\\native200-surface.json",
+      "bytes": 442,
+      "sha256": "dfa831c2db40cecd5d061b7d90cd854453f101e6a2c7766fd5c2f822f85f99f3"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017\\output\\playwright\\vision\\native100-control.json",
+      "bytes": 256,
+      "sha256": "c568dbb022bd9f45ccb5b20a76df120eba82b69ccee17333db08c04de0db3cfd"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017\\output\\playwright\\vision\\models-proof.json",
+      "bytes": 4618,
+      "sha256": "788ab2c148a4ca8c1d67f3eec0e6c3b208c4cea7b5ff1c1db155adaf8eecba9c"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017\\output\\playwright\\vision\\lifecycle-proof.json",
+      "bytes": 438,
+      "sha256": "b425c0af134389d26822429a4fce30124225624e2f1d374ecdd2da22268c135a"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017\\output\\playwright\\vision\\voice-failure-proof.json",
+      "bytes": 322,
+      "sha256": "f575886fab1208bc400d5aac8b504c6a4c48772e015e35cc2b285db66f7074a3"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017\\output\\playwright\\vision\\pause-before.json",
+      "bytes": 256,
+      "sha256": "36c73fa7ce7978fc4ca0e55e428740b9f613567499a572e69704ab9bbf184e60"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017\\output\\playwright\\vision\\pause-after.json",
+      "bytes": 982,
+      "sha256": "0c5ba0e665a994908d236ba03820d37f3aa1f7fa41c9f0f3a4473e7faa99c545"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017\\output\\playwright\\vision\\desktop-active.png",
+      "bytes": 78475,
+      "sha256": "a9e1bb8d5ec3fb92ddbdd62c468a1541358c4117cd8d75d681b11cea368a93c9"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017\\output\\playwright\\vision\\desktop-result.png",
+      "bytes": 76718,
+      "sha256": "d536adef07dcdb4f294adc5fe4f00e64fdeffe825ad85fc50d9a1f73296db837"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017\\output\\playwright\\vision\\desktop-history.png",
+      "bytes": 102676,
+      "sha256": "4f8ca96a41d2eccdccdfaca681203da3f585cac582ac61c1fec158cd5125ce85"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017\\output\\playwright\\vision\\narrow-active.png",
+      "bytes": 45414,
+      "sha256": "50a2ccfcf38a1b7d73e1ee38e474c520410b0f98053b85e30c206c0e8d8fd6b9"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017\\output\\playwright\\vision\\native200-surface.png",
+      "bytes": 16603,
+      "sha256": "58221d310c6fa8ef4e8eb12c4743b6b8378968a12cd55547969eee9ecb202df4"
+    }
+  ]
+}

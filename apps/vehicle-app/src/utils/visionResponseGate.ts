@@ -9,7 +9,7 @@ export class VisionResponseGate {
  private eye:Eye|null=null;
  assess(latest:LetterConditions|null,eye:Eye|null,now:number):LetterConditions|null {
   if(this.eye!==eye){this.valid=null;this.eye=eye;}
-  if(!latest||now<latest.observedAt||now-latest.observedAt>750||!latest.cameraLive||!latest.modelActive||latest.faceCount!==1){this.valid=null;return latest;}
+  if(!latest||!Number.isFinite(now)||!Number.isFinite(latest.observedAt)||(latest.relativeScaleChange!==null&&!Number.isFinite(latest.relativeScaleChange))||now<latest.observedAt||now-latest.observedAt>750||!latest.cameraLive||!latest.modelActive||latest.faceCount!==1){this.valid=null;return latest;}
   if(!latest.blocker&&!letterConditionFailure(latest,eye,now)){this.valid=latest;return latest;}
   const previous=this.valid;
   const soft=(!latest.blocker||latest.blocker==='distance-unknown'||latest.blocker==='blur')&&latest.distanceState!=='near'&&latest.distanceState!=='far'&&(latest.relativeScaleChange===null||Math.abs(latest.relativeScaleChange)<=.15);

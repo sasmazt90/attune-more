@@ -118,6 +118,8 @@ scripts/capture_*.py
 audit-results/
 audit-fixtures/
 output/playwright/
+.playwright-cli/
+apps/vehicle-app/public/__vision_audit__/
 
 
 # Large, locally trained dental artifact (manifest is tracked).

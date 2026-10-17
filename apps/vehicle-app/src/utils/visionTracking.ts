@@ -57,7 +57,8 @@ export class SustainedEyeState {
 export class HeadDistanceHysteresis {
  private committed:'stable'|'near'|'far'='stable';private candidate='';private since=0;private last:number|null=null;
  update(relative:number|null,now:number,reliable=true):'stable'|'near'|'far'|'unknown'{
-  if(this.last!==null&&now-this.last>300)this.candidate='';this.last=now;if(relative===null||!reliable){this.candidate='';return 'unknown';}
+  if(!Number.isFinite(now)){this.candidate='';this.last=null;return 'unknown';}
+  if(this.last!==null&&now-this.last>300)this.candidate='';this.last=now;if(relative===null||!Number.isFinite(relative)||!reliable){this.candidate='';return 'unknown';}
   const target=relative>VISION_TRACKING_RULES.distanceEnter?'near':relative< -VISION_TRACKING_RULES.distanceEnter?'far':Math.abs(relative)<=VISION_TRACKING_RULES.distanceExit?'stable':this.committed;
   if(target!==this.committed){if(this.candidate!==target){this.candidate=target;this.since=now;}if(now-this.since>=(target==='stable'?VISION_TRACKING_RULES.recoveryMs:VISION_TRACKING_RULES.distanceHoldMs))this.committed=target;}else this.candidate='';
   return this.committed;

@@ -18,6 +18,7 @@ import { isCameraAllowed, isMicrophoneAllowed, isVisionSavingAllowed, isDemoMode
 import { VisionResponseGate } from '../../utils/visionResponseGate';
 import { VISION_FRAME_CLASS } from '../../components/VisionFrame';
 import { streamSpeech } from '../../utils/streamSpeech';
+import { localBackend } from '../../utils/localBackend';
 const TEXT:Record<string,string>={face:'Yüzünüzü kamera görüntüsünde tutun.',framing:'Yüzünüzün tamamını kamera görüntüsünde tutun.',pose:'Başınızı biraz ekrana çevirin; harf alanına bakabilirsiniz.',light:'Açık gözünüzün bulunduğu tarafı aydınlatın.',bright:'Yüzünüzdeki parlamayı azaltın.',blur:'Açık göz çevresinde netlik yetersiz. Kamera netliğini kontrol edin.',preparing:'İki göz açık: başlangıç konumu öğreniliyor.',recede:'Biraz geri çekilin.',approach:'Biraz yaklaşın.','distance-unknown':'Mesafeyi güvenilir izleyemiyorum; yüzünüzü görünür tutun.',camera:'Kamera görüntüsü güncel değil.',eye:'Test edilen göz açık; diğer göz kapalı veya örtülü olmalı.',uncertain:'Göz örtüsünü veya göz açıklığını kontrol edemiyorum.','both-eyes':'İki göz de kapalı veya örtülü. Test edilen gözünüzü açın.','test-eye':'Test edilen gözünüzü açın; diğer gözü kapatın veya örtün.','cover-other':'Diğer gözünüzü kapatın veya örtün.'};
 const EYE_TEXT={open:'açık',closed:'kapalı',covered:'örtülü',uncertain:'değerlendirilemiyor'};
 export default function SpokenLetterPage(){
@@ -49,7 +50,7 @@ export default function SpokenLetterPage(){
   const valid=()=>current(epoch)&&a.voiceGeneration===generation&&a.controller===controller&&flow.current.matches(token);
   const fail=()=>{if(!valid())return;if(flow.current.stage==='eye-instruction')flow.current.instructionEye=null;stopVoice();discardPresentation('VOICE_UNAVAILABLE');stage('error','Sesli yönerge kullanılamıyor. Tekrar deneyin.');setVoice('failed');setError('Ahmet Türkçe yönerge oynatılamadı; yanıt dinlenmedi ve puanlanmadı.');};
   setVoice('loading');a.voiceTimeout=setTimeout(()=>{if(valid()){controller.abort();fail();}},25000);
-  try{timing('request');const response=await fetch('http://127.0.0.1:8000/api/vision/speech',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:code,cloudConsent:true}),signal:controller.signal});
+  try{timing('request');const response=await fetch(localBackend('/api/vision/speech','http://127.0.0.1:8000'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:code,cloudConsent:true}),signal:controller.signal});
    if(!valid()){await response.body?.cancel();return;}if(!response.ok)throw Error('VOICE_UNAVAILABLE');
    const audio=new Audio();a.audio=audio;audio.onplaying=()=>{if(valid()){setVoice('playing');timing('playing');}};audio.onerror=fail;
    audio.onended=()=>{if(!valid())return;timing('ended');stopSpeech();setVoice(a.listeningStarted?'listening':'quiet');onEnded();};
@@ -57,7 +58,7 @@ export default function SpokenLetterPage(){
   }catch{fail();}
  }
  function listen(){
-  const a=r.current,s=a.session,epoch=a.epoch,f=flow.current;if(!s||!current(epoch)||a.recognition||a.muted||a.modal||!f.canAnswer||failure()||!measureSymbol())return;
+  const a=r.current,s=a.session,epoch=a.epoch,f=flow.current,controlOnly=f.stage==='user-paused';if(!s||!current(epoch)||a.recognition||a.muted||a.modal||(!controlOnly&&(!f.canAnswer||failure()||!measureSymbol())))return;
   const SR=(window as any).SpeechRecognition||(window as any).webkitSpeechRecognition;if(!SR){stage('error','Konuşma tanıma bu tarayıcıda kullanılamıyor.');setError('Türkçe konuşma tanıma için desteklenen Chrome tarayıcısını kullanın.');return;}
   const recognition=new SR(),recognitionId=crypto.randomUUID(),id=s.presentationId,token=f.token();a.recognition=recognition;recognition.lang='tr-TR';recognition.continuous=true;recognition.interimResults=true;const finalIndexes=new Set<number>();
   // Identity callbacks survive a short blink; answer admission remains a
@@ -69,11 +70,15 @@ export default function SpokenLetterPage(){
    const finals=[];for(let i=event.resultIndex||0;i<event.results.length;i++){const item=event.results[i];if(item?.isFinal&&!finalIndexes.has(i)){finalIndexes.add(i);if(isLetterInstructionEcho(item[0].transcript)){timing('instruction-echo-ignored');continue;}finals.push({transcript:item[0].transcript,confidence:item[0].confidence,index:i});}}
    if(!finals.length)return;
    const text=finals.map(x=>x.transcript).join(' '),confidence=Math.min(...finals.map(x=>Number.isFinite(x.confidence)?x.confidence:0));
+   // A user pause hides the target and ends its answer recognizer. The new
+   // generation accepts only the already advertised resume/finish commands;
+   // letters, noise and low-confidence controls never enter answer memory.
+   if(controlOnly&&(!['resume','finish'].includes(parseLetterAnswer(text).command||'')||(confidence>0&&confidence<.5)))return;
    timing('asr-final');
    if(canvas.current)canvas.current.dataset.visionAnswer=JSON.stringify({parsed:parseLetterAnswer(text),confidence,atMs:performance.now(),presentationId:id});
    actions.current.receive(text,confidence,id,`${recognitionId}:${finals.map(x=>x.index).join(',')}`);
   };
-  recognition.onerror=(event:any)=>{if(!valid())return;timing('asr-error:'+event.error);if(event.error==='no-speech'){setAnswerNotice('Konuşma algılanmadı. Dinliyor yazarken harfi ve yönünü söyleyin.');return;}abortRecognition();s.suspendResponse();discardPresentation('ASR_UNAVAILABLE');stage('error','Mikrofon veya konuşma hizmeti kullanılamıyor.');setVoice('failed');setError('Konuşma tanıma başarısız. Yanıt puanlanmadı; tekrar deneyebilirsiniz.');};
+  recognition.onerror=(event:any)=>{if(!valid())return;timing('asr-error:'+event.error);if(event.error==='no-speech'){if(!controlOnly)setAnswerNotice('Konuşma algılanmadı. Dinliyor yazarken harfi ve yönünü söyleyin.');return;}abortRecognition();s.suspendResponse();discardPresentation('ASR_UNAVAILABLE');stage('error','Mikrofon veya konuşma hizmeti kullanılamıyor.');setVoice('failed');setError('Konuşma tanıma başarısız. Yanıt puanlanmadı; tekrar deneyebilirsiniz.');};
   recognition.onend=()=>{if(!valid())return;a.recognition=null;a.listeningStarted=false;a.restart=setTimeout(()=>{if(current(epoch)&&flow.current.matches(token))actions.current.listen();},350);};
   try{recognition.start();}catch{abortRecognition();s.suspendResponse();discardPresentation('ASR_UNAVAILABLE');stage('error','Mikrofon başlatılamadı.');setError('Yanıt puanlanmadı. Tekrar deneyin.');}
  }
@@ -97,7 +102,7 @@ export default function SpokenLetterPage(){
   if(f.stage==='listening'){s.beginResponse();actions.current.listen();}
  }
  function discardPresentation(reason:string){const a=r.current;a.session?.invalidate(reason,a.evidence?.conditions||null,performance.now(),null);flow.current.presentationId='';}
- function pause(){r.current.session?.suspendResponse();stopVoice();discardPresentation('USER_PAUSED');stage('user-paused','Duraklatıldı. Devam et ile sürdürebilirsiniz.');}
+ function pause(){r.current.session?.suspendResponse();stopVoice();discardPresentation('USER_PAUSED');stage('user-paused','Duraklatıldı. Devam et ile sürdürebilirsiniz.');actions.current.listen();}
  function resume(){const a=r.current;if(!a.session)return;setError('');a.modal=false;setDialog(null);stopVoice();stage('condition-paused','Koşullar kontrol ediliyor.');inspect();}
  async function complete(cancelled=false){
   const a=r.current,s=a.session;if(!s)return;const epoch=a.epoch;s.suspendResponse();stopVoice();stage('user-paused');
@@ -113,8 +118,10 @@ export default function SpokenLetterPage(){
   a.lastPrompt=code;s.beginResponse();stage('listening');void speak(code,()=>{if(s.presentationId)actions.current.inspect();});actions.current.listen();
  }
  function receive(text:string,confidence:number,id:string,key:string){
-  const a=r.current,s=a.session;if(!s||!current(a.epoch)||s.presentationId!==id||!flow.current.letterVisible)return;
+  const a=r.current,s=a.session;if(!s||!current(a.epoch)||s.presentationId!==id)return;
   const parsed=parseLetterAnswer(text);
+  if(flow.current.stage==='user-paused'){if(parsed.command==='resume')resume();else if(parsed.command==='finish')void complete(true);return;}
+  if(!flow.current.letterVisible)return;
   if(parsed.command==='finish'){void complete(true);return;}if(parsed.command==='pause'){pause();return;}if(parsed.command==='resume'){resume();return;}
   if(a.answerTimer)clearTimeout(a.answerTimer);a.answerTimer=null;a.settleAnswer=null;
   const target={sessionId:s.id,eye:s.eye,targetId:s.trialId};
