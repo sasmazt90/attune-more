@@ -1,4 +1,5 @@
 import ctypes
+import hashlib
 from ctypes import wintypes
 import json
 import msvcrt
@@ -9,11 +10,13 @@ import subprocess
 import sys
 import time
 import urllib.request
+import psutil
 
-ROOT = Path(__file__).resolve().parents[2]
 TEST = "--verify-lifecycle" in sys.argv
 HERE = Path(os.environ["ATTUNE_LAUNCHER_TEST_HOME"]) if TEST and "ATTUNE_LAUNCHER_TEST_HOME" in os.environ else Path(__file__).resolve().parent
 HERE.mkdir(parents=True, exist_ok=True)
+DELIVERY = HERE / 'deployment.json'
+ROOT = Path(json.loads(DELIVERY.read_text('utf8'))['checkout']) if DELIVERY.is_file() else Path(__file__).resolve().parents[2]
 HOST_SCRIPT = Path(__file__).resolve().parent / "backend_host.py"
 URL = "http://127.0.0.1:3000"
 PYTHON = Path(r"C:\Users\PC\AppData\Local\Programs\Python\Python311\python.exe")
@@ -21,6 +24,46 @@ NODE = Path(r"C:\nvm4w\nodejs\node.exe")
 CHROME = Path(r"C:\Program Files\Google\Chrome\Application\chrome.exe")
 TEST = "--verify-lifecycle" in sys.argv
 PROFILE = HERE / ("chrome-verification-profile" if TEST else "chrome-profile")
+API_URL = 'http://127.0.0.1:8311'
+
+
+def sha256(path):
+    h=hashlib.sha256()
+    with Path(path).open('rb') as stream:
+        for block in iter(lambda:stream.read(65536),b''):h.update(block)
+    return h.hexdigest()
+
+
+def verify_delivery():
+    value=json.loads(DELIVERY.read_text('utf8'))
+    if value['frontendOrigin']!=URL or value['apiPort']!=8311:
+        raise RuntimeError('Launcher origin/API contract mismatch; existing data preserved.')
+    if (ROOT/'apps/vehicle-app/.next/BUILD_ID').read_text().strip()!=value['BUILD_ID']:
+        raise RuntimeError('Production build identity mismatch; no server started.')
+    for row in value['files']:
+        path=(ROOT/row['path']).resolve()
+        if not path.is_relative_to(ROOT.resolve()) or sha256(path)!=row['sha256']:
+            raise RuntimeError('Production source/asset identity mismatch; no server started.')
+    for row in value['launcherFiles']:
+        if sha256(HERE/row['name'])!=row['sha256']:raise RuntimeError('Launcher identity mismatch.')
+    if json.loads((ROOT/'services/core-api/models/skin-type-hosted.json').read_text('utf8'))['enabled'] is not False:
+        raise RuntimeError('Hosted skin type must remain disabled in this delivery.')
+    return value
+
+
+def identity(pid,role):
+    process=psutil.Process(pid)
+    return dict(pid=pid,role=role,started=process.create_time(),cwd=process.cwd(),commandSHA256=hashlib.sha256(json.dumps(process.cmdline()).encode()).hexdigest())
+
+
+def verified_owner(state,delivery):
+    if state.get('workspace')!=str(ROOT) or state.get('BUILD_ID')!=delivery['BUILD_ID'] or state.get('sourceCommit')!=delivery['sourceCommit'] or state.get('profile')!=str(PROFILE) or state.get('url')!=URL:return False
+    try:
+        for row in state['processes']:
+            if identity(row['pid'],row['role'])!=row:return False
+        actual=json.loads(fetch(API_URL+'/api/launcher/identity') or b'{}')
+        return actual.get('sourceCommit')==delivery['sourceCommit'] and actual.get('BUILD_ID')==delivery['BUILD_ID'] and actual.get('hostedSkinTypeEnabled') is False
+    except (psutil.Error,ValueError,OSError,KeyError):return False
 
 class BasicLimits(ctypes.Structure):
     _fields_ = [("PerProcessUserTimeLimit", ctypes.c_int64), ("PerJobUserTimeLimit", ctypes.c_int64),
@@ -107,14 +150,16 @@ def await_ready(url, process, name):
 def chrome_args(profile):
     args = [str(CHROME), "--user-data-dir=" + str(profile), "--app=" + URL,
             "--disable-background-mode", "--no-first-run", "--no-default-browser-check"]
-    if TEST:
+    if TEST or os.getenv('ATTUNE_LAUNCHER_OBSERVE')=='1':
         # Only the bounded verification launch exposes a random loopback debugging port.
         args += ["--remote-debugging-address=127.0.0.1", "--remote-debugging-port=0"]
     return args
 
 
 def write_state(state):
-    (HERE / "session.json").write_text(json.dumps(state, indent=2), encoding="utf-8")
+    temporary=HERE/('session.'+str(os.getpid())+'.tmp')
+    temporary.write_text(json.dumps(state,indent=2),encoding='utf8')
+    temporary.replace(HERE/'session.json')
 
 
 def main():
@@ -122,6 +167,7 @@ def main():
         raise RuntimeError("Google Chrome bulunamadi.")
     if not (ROOT / "apps/vehicle-app/.next/BUILD_ID").is_file():
         raise RuntimeError("Uretim derlemesi bulunamadi; proje dosyalarina dokunulmadi.")
+    delivery=verify_delivery()
     with (HERE / "start.lock").open("a+b") as lock:
         # Reading the locked byte raises PermissionError on Windows on a second launch.
         lock.seek(0, os.SEEK_END)
@@ -132,36 +178,41 @@ def main():
         try:
             msvcrt.locking(lock.fileno(), msvcrt.LK_NBLCK, 1)
         except OSError:
-            state = json.loads((HERE / "session.json").read_text(encoding="utf-8"))
-            if state.get("status") == "running":
-                subprocess.Popen(chrome_args(Path(state["profile"])), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            return
-        if occupied(3000) or occupied(8000):
-            raise RuntimeError("3000 veya 8000 portunda mevcut bir servis var. Kisa yol bu servisi kapatmaz veya sahiplenmez.")
-        env = {key: value for key, value in os.environ.items() if not key.startswith("OPENAI_")}
-        runtime = ROOT / ".runtime/security-20261008"
-        if not (runtime / "fastapi").is_dir():
-            raise RuntimeError("TOGG guvenli Python ortami eksik; install_security_runtime.py calistirilmali.")
-        env["PYTHONPATH"] = str(runtime) + os.pathsep + env.get("PYTHONPATH", "")
+            for _ in range(40):
+                state=json.loads((HERE/'session.json').read_text('utf8'))
+                if state.get('status')=='starting':time.sleep(.5);continue
+                if state.get('status')=='running' and verified_owner(state,delivery):
+                    subprocess.Popen(chrome_args(PROFILE),stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+                    return
+                raise RuntimeError('Existing launcher ownership differs; no process stopped.')
+            raise RuntimeError('Existing launcher is still starting; no duplicate service created.')
+        if occupied(3000) or occupied(8311):
+            raise RuntimeError("3000 veya 8311 portunda mevcut bir servis var. Kisa yol bu servisi kapatmaz veya sahiplenmez.")
+        for process in psutil.process_iter(['name','cmdline']):
+            if (process.info['name'] or '').lower()=='chrome.exe' and '--user-data-dir='+str(PROFILE) in (process.info['cmdline'] or []):
+                raise RuntimeError('Normal Chrome profile already open outside this launcher; preserved.')
+        env={key:value for key,value in os.environ.items() if not any(word in key.upper() for word in ('OPENAI_','ROBOFLOW','API_KEY','TOKEN','PASSWORD','SECRET'))}
         env["OPENAI_API_KEY"] = ""
         env["ATTUNE_LOAD_LOCAL_ENV"] = "0"
         env["ATTUNE_TRUSTED_ORIGINS"] = "http://localhost:3000,http://127.0.0.1:3000"
         env["ATTUNE_DATA_DIR"] = str(HERE / "data")
+        env.update(ATTUNE_EXPERIMENTAL_ACNE_V5='1',NEXT_PUBLIC_ATTUNE_ACNE_V5='1',NEXT_PUBLIC_ATTUNE_LOCAL_API_PORT='8311',NEXT_PUBLIC_ATTUNE_PREVIEW_API_PORT='8311',NEXT_TELEMETRY_DISABLED='1',ATTUNE_LAUNCHER_DELIVERY=str(DELIVERY))
         job = OwnedJob()
         backend = frontend = browser = None
         state = {"status": "starting", "launcher_pid": os.getpid(), "profile": str(PROFILE), "url": URL,
-                 "verification": TEST, "started_at": time.strftime("%Y-%m-%dT%H:%M:%S")}
+                 "verification": TEST, "started_at": time.strftime("%Y-%m-%dT%H:%M:%S"),"workspace":str(ROOT),"BUILD_ID":delivery['BUILD_ID'],"sourceCommit":delivery['sourceCommit']}
         write_state(state)
         try:
             backend = start_service(job, "backend", [str(PYTHON), str(HOST_SCRIPT),
-                                     str(ROOT / "services/core-api")], ROOT, {**env, "ATTUNE_LOAD_LOCAL_ENV": "0" if TEST else "1"}, True)
-            await_ready("http://127.0.0.1:8000/api/health", backend, "backend")
+                                     str(ROOT / "services/core-api")], ROOT, env, True)
+            await_ready(API_URL+"/api/health", backend, "backend")
             frontend = start_service(job, "frontend", [str(NODE), str(ROOT / "node_modules/next/dist/bin/next"),
                                      "start", "--hostname", "127.0.0.1", "--port", "3000"], ROOT / "apps/vehicle-app", env)
             await_ready("http://127.0.0.1:3000/", frontend, "frontend")
             browser = subprocess.Popen(chrome_args(PROFILE), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             job.add(browser)
             state.update(status="running", backend_pid=backend.pid, frontend_pid=frontend.pid, browser_pid=browser.pid)
+            state['processes']=[identity(os.getpid(),'launcher'),identity(backend.pid,'backend'),identity(frontend.pid,'frontend'),identity(browser.pid,'browser')]
             write_state(state)
             # The dedicated profile keeps unrelated Chrome windows outside our process tree.
             while browser.poll() is None:
