@@ -1,0 +1,80 @@
+{
+  "version": "full-head-shoulders-v2",
+  "assets": [
+    {
+      "module": "skin",
+      "path": "apps\\vehicle-app\\public\\assets\\skin-preparation-v2.png",
+      "sha256": "8ec763366268ed11250a25e9635151ba255b110ad55db9726b662690ad032605",
+      "bytes": 1987802,
+      "width": 1122,
+      "height": 1402,
+      "producer": "image_gen built-in",
+      "generationId": "exec-4186d25a-74ed-476d-9872-29153e3de05a.png",
+      "role": "illustrative preparation only; no diagnostic or measured results",
+      "reference": {
+        "path": "apps\\vehicle-app\\public\\assets\\skin-preparation.png",
+        "sha256": "91f01138ff96e9cc980043f89621cea791b3fb79b9ce38528b1a2d2d546165d0"
+      },
+      "modelVersion": "not returned by built-in image tool"
+    },
+    {
+      "module": "dental",
+      "path": "apps\\vehicle-app\\public\\assets\\dental-preparation-v2.png",
+      "sha256": "09c48ef8138a4a1083ef96f5e7f8b4445a0c3ee27167ffb9add817055d796ac7",
+      "bytes": 2359800,
+      "width": 1122,
+      "height": 1402,
+      "producer": "image_gen built-in",
+      "generationId": "exec-511e9460-2660-49dd-b658-a73f11834f66.png",
+      "role": "illustrative preparation only; no diagnostic or measured results",
+      "reference": {
+        "path": "apps\\vehicle-app\\public\\assets\\dental-preparation-v1.png",
+        "sha256": "b5fa412fc3bb9f1efae7db1f0879b868dd3561e9520e568d0e92c3b3213e3af8"
+      },
+      "modelVersion": "not returned by built-in image tool"
+    },
+    {
+      "module": "hearing",
+      "path": "apps\\vehicle-app\\public\\assets\\hearing-preparation-v2.png",
+      "sha256": "ef882729ddd6885dc8b56c429449482e4090a3db091f48049a97015d1864a905",
+      "bytes": 2320572,
+      "width": 1122,
+      "height": 1402,
+      "producer": "image_gen built-in",
+      "generationId": "exec-24ac20ad-d8c6-4ce5-8eb4-9735bad1e07a.png",
+      "role": "illustrative preparation only; no diagnostic or measured results",
+      "reference": {
+        "path": "apps\\vehicle-app\\public\\assets\\hearing-preparation-v1.png",
+        "sha256": "dbaa0387bc3caa886d26c083a90df2f3cc8033c4c6ae60deb2cc5151556f5648"
+      },
+      "modelVersion": "not returned by built-in image tool"
+    },
+    {
+      "module": "vision",
+      "path": "apps\\vehicle-app\\public\\assets\\vision-preparation-v2.png",
+      "sha256": "37ea191d7c872bcf0829ab2019ffcfad5098c9a77c299eb0e48c4e230d268ac6",
+      "bytes": 2208360,
+      "width": 1122,
+      "height": 1402,
+      "producer": "image_gen built-in",
+      "generationId": "exec-7817d593-6e36-4bbd-9948-0fc0dc3fb277.png",
+      "role": "illustrative preparation only; no diagnostic or measured results",
+      "reference": null,
+      "modelVersion": "not returned by built-in image tool"
+    },
+    {
+      "module": "mental",
+      "path": "apps\\vehicle-app\\public\\assets\\mental-preparation-v2.png",
+      "sha256": "3062c5966f57433901f7c97e877d3393e096347761b1fc4b82d3cbdf8e887156",
+      "bytes": 2349306,
+      "width": 1122,
+      "height": 1402,
+      "producer": "image_gen built-in",
+      "generationId": "exec-5540045a-ab4d-4ada-b003-a3fe4121e37a.png",
+      "role": "illustrative preparation only; no diagnostic or measured results",
+      "reference": null,
+      "modelVersion": "not returned by built-in image tool"
+    }
+  ],
+  "promptSet": "docs/health-preparation-prompts-20261017.md"
+}

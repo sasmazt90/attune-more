@@ -6,8 +6,15 @@ export interface ShareSelection { vision: boolean; skin: boolean; mental: boolea
 export interface ShareSection { title: string; text: string; dateTr: string }
 
 export function measuredShareSection(category:'dental'|'hearing'):ShareSection|null {
-  const r=readHealthRecords(category).at(-1);if(!r)return null;
-  const text=category==='dental'?(r.sourceType==='upload'?'Yüklenen tek fotoğraf':'Kamera')+' · '+(r.measurements||[]).map((v:any)=>`${v.pose}: ${v.caries?.value==null?'Çürük adayı değerlendirilemiyor':v.caries.value+' görünür aday'}; birikim ${v.accumulation?.value==null?'değerlendirilemiyor':Math.round(v.accumulation.value)+'% görünür sınır alanı'}`).join('. '):r.thresholds?r.thresholds.map((t:any)=>`${t.ear==='left'?'Sol':'Sağ'} ${t.frequency} Hz: ${t.value==null?'eşik bulunamadı':t.value+' dBFS peak'}`).join('. '):`${r.validTrials} geçerli üçlü · ${r.value==null?'kararlı eşik bulunamadı':r.value+' dB SNR'}`;
+  const records=readHealthRecords(category);
+  const time=(r:typeof records[number])=>{const t=Date.parse(r.timestamp||r.date||r.completedAt||'');return Number.isFinite(t)?t:-Infinity;};
+  // Current stores prepend; imported legacy stores may have another order.
+  // Select by source time without sorting or rewriting the stored records.
+  const r=records.reduce<typeof records[number]|undefined>((latest,row)=>!latest||time(row)>time(latest)?row:latest,undefined);if(!r)return null;
+  const finite=(value:unknown)=>typeof value==='number'&&Number.isFinite(value);
+  const usable=(metric:any)=>metric?.quality==='valid'&&finite(metric.value);
+  const hearingValid=!['invalid','unreliable','insufficient'].includes(r.quality);
+  const text=category==='dental'?(r.sourceType==='upload'?'Yüklenen tek fotoğraf':'Kamera')+' · '+(r.measurements||[]).map((v:any)=>`${v.pose}: ${!usable(v.caries)?'Çürük adayı değerlendirilemiyor':v.caries.value+' görünür aday'}; birikim ${!usable(v.accumulation)?'değerlendirilemiyor':Math.round(v.accumulation.value)+'% görünür sınır alanı'}`).join('. '):r.thresholds?r.thresholds.map((t:any)=>`${t.ear==='left'?'Sol':'Sağ'} ${t.frequency} Hz: ${!hearingValid||t.status!=='threshold'||!finite(t.value)?'eşik bulunamadı':t.value+' dBFS peak'}`).join('. '):`${finite(r.validTrials)?r.validTrials:'Kaydedilmemiş sayıda'} geçerli üçlü · ${!hearingValid||!finite(r.value)?'kararlı eşik bulunamadı':r.value+' dB SNR'}`;
   return {title:HEALTH_MODULES[category].name,dateTr:recordDate(r),text};
 }
 export function buildShareSections(selection: ShareSelection, vision: VisionSummaryData, skin: SkinSummaryData, mental: MentalSummaryData,dental?:ShareSection|null,hearing?:ShareSection|null): ShareSection[] {

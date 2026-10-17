@@ -1,4 +1,5 @@
 'use client';
+import {HealthStartCard,HEALTH_START_ACTION} from '../../components/HealthStartCard';
 import { careHref,HEALTH_MODULES } from '../../utils/healthModules';
 import { useGuidance } from '../../utils/audioGuidance';
 
@@ -50,15 +51,18 @@ export default function MentalPage() {
         {c.messages.map((m, i) => <article key={m.id} data-chat-author={m.sender} data-chat-position={i} data-turn={m.turn} className={`rounded-xl border p-3 text-sm ${m.isCrisis ? 'border-rose-500 bg-rose-950' : m.sender === 'USER' ? 'border-togg-turquoise/30 bg-togg-darkBlue' : 'border-white/10 bg-slate-950'}`}><p className="text-xs text-slate-400">{m.sender === 'USER' ? 'Siz' : 'Attune'} · {m.time}</p><p className="mt-1 whitespace-pre-line break-words">{spokenText(m.text)}</p><span data-provider-kind={m.providerBadge?.split(" ")[0]} /></article>)}
   </div>;
 
-  return <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-    <section className="bg-cockpit-surface border border-white/10 rounded-2xl p-6 space-y-5">
+  return <div className={c.phase==='ready'?'space-y-6 max-w-5xl mx-auto':'grid grid-cols-1 lg:grid-cols-2 gap-6 items-start'}>
+    {c.phase==='ready'&&<h1 className="text-2xl font-bold">{HEALTH_MODULES.mental.name}</h1>}
+    <section className={c.phase==='ready'?undefined:'bg-cockpit-surface border border-white/10 rounded-2xl p-6 space-y-5'}>
       {demo && <p className="text-amber-200">Demo / Örnek içerik — gerçek görüşme geçmişiniz değildir.</p>}
+      {c.phase==='ready'?<HealthStartCard module="mental" actions={<button onClick={()=>{guidance.cancel();return c.start();}} disabled={!isParked||!c.serviceConsent} className={HEALTH_START_ACTION}><span className="flex items-center gap-2 justify-center"><Mic className="h-5 w-5"/>Görüşmeyi Başlat</span></button>}/>:<>
       <div className="flex items-center gap-2 text-togg-turquoise"><HeartPulse /><span>{HEALTH_MODULES.mental.name}</span></div>
       <div className="flex items-center justify-between gap-3"><h1 className="text-2xl font-bold">Bugün nasıl hissediyorsunuz?</h1><InformationButton title={HEALTH_MODULES.mental.name}><p>Park halinde sesli konuşabilirsiniz. Bu hizmet klinik tanı ve acil yardım hizmeti değildir. Sesli yanıt yapay zekâ tarafından üretilir.</p></InformationButton></div>
       <p className="text-sm text-slate-300">Park halinde sesli görüşebilirsiniz. Bu hizmet klinik tanı veya acil yardım hizmeti değildir.</p>
       <div className="flex gap-3">
         <button onClick={() => {guidance.cancel();return c.active ? c.phase === 'permission' && !c.messages.length ? c.cancelConversation() : void c.finish() : c.start();}} disabled={!isParked || c.phase === 'ending' || (!c.active && !c.serviceConsent)} className="flex-1 bg-togg-turquoise text-togg-darkBlue font-bold p-4 rounded-xl disabled:bg-slate-800 disabled:text-slate-400 disabled:cursor-not-allowed flex gap-2 justify-center items-center">{c.active ? <MicOff /> : <Mic />}<span>{c.active ? c.phase === 'permission' && !c.messages.length ? 'Başlatmayı iptal et' : 'Görüşmeyi Bitir' : 'Görüşmeyi Başlat'}</span></button>
       </div>
+      </>}
       {c.active && <button onClick={c.phase==='paused'?c.continueConversation:c.pause} className="min-h-11 px-4 rounded-xl border border-white/20">{c.phase==='paused'?'Devam et':'Duraklat'}</button>}
       <div data-conversation-phase={c.phase} data-voice-state={c.voiceState} aria-label={c.phase==='speaking'?'Sesli yanıt oynatılıyor':undefined} aria-live="polite">
         {!['ready','completed','speaking'].includes(c.phase) && <p className="text-sm text-togg-turquoise">{c.phase === 'preparing' && ['loadingSpeech','starting'].includes(c.voiceState) ? 'Ses hazırlanıyor' : PHASES[c.phase]}</p>}
