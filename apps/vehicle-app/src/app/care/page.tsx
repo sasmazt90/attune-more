@@ -1,5 +1,6 @@
 'use client';
 import {localBackend} from '../../utils/localBackend';
+import {safeCareBookingUrl} from '../../utils/careLinks';
 import { HEALTH_MODULES,HEALTH_MODULE_IDS,HealthModule } from '../../utils/healthModules';
 
 import { InformationButton } from '../../components/InformationButton';
@@ -34,11 +35,11 @@ interface CareSlot {
   title: string;
   clinicName: string;
   locationLabel: string;
-  isOnline: boolean;
+  isOnline: boolean|null;
   dateTime?: string;
   displayTime?: string;
-  travelTimeMin: number;
-  calendarConflict: boolean;
+  travelTimeMin: number|null;
+  calendarConflict: boolean|null;
   sourceBadge: string;
   matchScore: number|null;
   calendarFits?:boolean|null;
@@ -94,6 +95,9 @@ function CareContent() {
 
   const fetchAppointments = useCallback(async (specialty: string, controller: AbortController, generation: number) => {
     setLoading(true); setSlots([]); setSearchNotice(null);
+    if (Boolean(availableStart) !== Boolean(availableEnd) || (availableStart && availableEnd <= availableStart)) {
+      setSearchNotice('Uygun zaman başlangıcını ve bitişini kontrol edin.'); setLoading(false); return;
+    }
     const deadline = setTimeout(() => controller.abort(), 12000);
     try {
       const res = await fetch(localBackend('/api/care/match'), {
@@ -111,9 +115,9 @@ function CareContent() {
 
       if (res.ok) {
         const data = await res.json();
-        if (generation !== searchGeneration.current) return;
-        if (data.status === 'FALLBACK_BLOCKED') setSearchNotice('Canlı uzman uygunluğu doğrulanamadı. Branşa ait sağlayıcı aramasını açabilirsiniz.');
-        setSlots((data.matchedSlots || []).map((slot:CareSlot)=>({...slot,displayTime:slot.dateTime&&Number.isFinite(Date.parse(slot.dateTime))?new Date(slot.dateTime).toLocaleString('tr-TR',{timeZone:timezone,dateStyle:'short',timeStyle:'short'}):'Saati sağlayıcıda doğrulayın'})));
+        if (controller.signal.aborted || generation !== searchGeneration.current) return;
+        if (!['SUCCESS', 'PUBLIC_HANDOFF'].includes(data.status)) setSearchNotice('Canlı uzman uygunluğu doğrulanamadı. Branşa ait sağlayıcı aramasını açabilirsiniz.');
+        setSlots((data.matchedSlots || []).filter((slot:CareSlot)=>safeCareBookingUrl(slot.bookingUrl)).map((slot:CareSlot)=>({...slot,displayTime:slot.dateTime&&Number.isFinite(Date.parse(slot.dateTime))?new Date(slot.dateTime).toLocaleString('tr-TR',{timeZone:timezone,dateStyle:'short',timeStyle:'short'}):'Saati sağlayıcıda doğrulayın'})));
       } else {
         throw new Error('API Hatası');
       }
@@ -129,14 +133,15 @@ function CareContent() {
 
   const invalidateSearch = () => { searchGeneration.current++; activeSearch.current?.abort(); activeSearch.current = null; };
   useEffect(() => {
+    if (!isParked) { invalidateSearch(); setSlots([]); setLoading(false); return; }
     const controller = new AbortController(); activeSearch.current = controller;
     const generation = ++searchGeneration.current;
     void fetchAppointments(selectedSpecialty, controller, generation);
     return () => { invalidateSearch(); controller.abort(); };
-  }, [selectedSpecialty,fetchAppointments]);
+  }, [selectedSpecialty,fetchAppointments,isParked]);
 
   const filteredSlots = slots.filter((slot) => {
-    if (filterType === 'IN_PERSON') return !slot.isOnline;
+    if (filterType === 'IN_PERSON') return slot.isOnline === false;
     if (filterType === 'ONLINE') return slot.isOnline;
     return true;
   });
@@ -274,7 +279,7 @@ function CareContent() {
                   Uzman seçeneği
                 </span>
                 <span className="px-2.5 py-1 rounded-full bg-slate-900 text-slate-300 border border-slate-800 text-[10px] font-mono">
-                  {featuredSlot.isOnline ? 'Online Görüşme' : 'Yüz Yüze Muayene'}
+                  {featuredSlot.isOnline === null ? 'Uzman seçeneği' : featuredSlot.isOnline ? 'Online Görüşme' : 'Yüz Yüze Muayene'}
                 </span>
                 <span className="px-2 py-0.5 rounded bg-white/5 text-slate-400 text-[10px] font-mono">
                   {featuredSlot.sourceBadge}
@@ -298,7 +303,7 @@ function CareContent() {
 
                 <span className="flex items-center gap-1.5">
                   <Car className="w-4 h-4 text-togg-turquoise" />
-                  <span>{featuredSlot.isOnline ? 'Ulaşım gerektirmez (çevrimiçi)' : `Örnek ulaşım: ${featuredSlot.travelTimeMin} dk`}</span>
+                  <span>{featuredSlot.isOnline === true ? 'Ulaşım gerektirmez (çevrimiçi)' : featuredSlot.travelTimeMin === null ? null : `Örnek ulaşım: ${featuredSlot.travelTimeMin} dk`}</span>
                 </span>
 
                 <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
@@ -325,7 +330,7 @@ function CareContent() {
                 </button>
 
                 <a
-                  href={featuredSlot.bookingUrl || 'https://www.doktortakvimi.com'}
+                  href={safeCareBookingUrl(featuredSlot.bookingUrl)}
                   target="_blank"
                   rel="noreferrer"
                   className="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 transition-colors"
@@ -356,7 +361,7 @@ function CareContent() {
                   <div className="flex items-center justify-between">
                     <span className="text-base font-bold text-white">{slot.providerName}</span>
                     <span className="text-[10px] px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400 font-mono">
-                      {slot.isOnline ? 'Online' : 'Yüz Yüze'}
+                      {slot.isOnline === null ? 'Uzman seçeneği' : slot.isOnline ? 'Online' : 'Yüz Yüze'}
                     </span>
                   </div>
 
@@ -369,7 +374,7 @@ function CareContent() {
                   <div className="flex items-center gap-3 text-xs text-slate-300 pt-1">
                     <span className="text-togg-turquoise font-mono font-bold">{slot.displayTime}</span>
                     <span className="text-slate-600">•</span>
-                    <span>{slot.isOnline ? 'Online' : `Örnek ulaşım: ${slot.travelTimeMin} dk`}</span>
+                    <span>{slot.isOnline === true ? 'Online' : slot.travelTimeMin === null ? null : `Örnek ulaşım: ${slot.travelTimeMin} dk`}</span>
                   </div>
                 </div>
 
@@ -487,7 +492,7 @@ function CareContent() {
               Kapat
             </button>
             <a
-              href={selectedSlot.bookingUrl || 'https://www.doktortakvimi.com'}
+              href={safeCareBookingUrl(selectedSlot.bookingUrl)}
               target="_blank"
               rel="noreferrer"
               className="py-2.5 px-6 rounded-xl bg-togg-turquoise hover:bg-[#33D0EE] text-togg-darkBlue font-bold text-xs flex items-center gap-1.5 shadow-md"
