@@ -4,12 +4,16 @@ from datetime import datetime,timezone
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'cdc-progress/dental-technical-closeout-20261017'
 read=lambda name:json.loads((OUT/name).read_text('utf8'))
-code_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
-build=read('build-receipt.json');cam=read('camera-current.json');partial=read('upload-partial.json');portrait=read('upload-portrait.json');chain=read('native-chain.json');protection=read('served-protection-receipt.json')
+code_commit=read('status.json').get('codeCommit') or subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+# Seal the code-verification snapshot. The live receipt is regenerated after
+# evidence-only commits and must not invalidate this immutable evidence index.
+sealed=OUT/'served-protection-code-receipt.json'
+if not sealed.exists():sealed.write_bytes((OUT/'served-protection-receipt.json').read_bytes())
+build=read('build-receipt.json');cam=read('camera-current.json');partial=read('upload-partial.json');portrait=read('upload-portrait.json');chain=read('native-chain.json');protection=read('served-protection-code-receipt.json')
 assert cam['BUILD_ID']==partial['BUILD_ID']==portrait['BUILD_ID']==build['BUILD_ID']
 assert cam['allFourHistoryPhotosAndBoxesEqual'] and chain['browserSourceBoxesEqual']
 assert '39 passed' in (OUT/'unit-final.log').read_text('utf8') and '14 passed' in (OUT/'unit-native-final.log').read_text('utf8') and '2 passed' in (OUT/'unit-history-final.log').read_text('utf8')
-names=['baseline.json','model-boundary-baseline.json','camera-current.json','camera-lifecycle.json','upload-partial.json','upload-portrait.json','exif.json','negative.json','lifecycle.json','worker-race.json','photo-privacy-ui.json','hearing-revoke-proof.json','native-chain.json','dental-negative/proof.json','build-receipt.json','served-protection-receipt.json']
+names=['baseline.json','model-boundary-baseline.json','camera-current.json','camera-lifecycle.json','upload-partial.json','upload-portrait.json','exif.json','negative.json','lifecycle.json','worker-race.json','photo-privacy-ui.json','hearing-revoke-proof.json','native-chain.json','dental-negative/proof.json','build-receipt.json','served-protection-code-receipt.json']
 evidence=[]
 for name in names:
  data=(OUT/name).read_bytes();assert b'data:image/' not in data and b'data:audio/' not in data,name
@@ -88,7 +92,7 @@ Kanıt sütunundaki göreli isimler yukarıdaki kanıt köküne aittir.
 
 - **54 benzersiz odaklı kontrol**: final ana koşu 39; native geometri/birikim/dizilim 14; son history koşusu 2’den biri ana koşudaki response testinin tekrarı, yalnız 1 yeni history testi sayılır. Başarılı tekrarlar tekrar toplanmadı. `unit-final.log`, `unit-native-final.log`, `unit-history-final.log`.
 - Bağımsız typecheck exit 0 (`typecheck-final.log`); production build başarılı (`build.log`, `build-receipt.json`). Atomik ağır-iş kilidi kullanıldı; build ölçülen RSS tepesi 611.3MiB, bütçe 2100MiB; yabancı süreç durdurulmadı.
-- Sunulan **38 JS** dosyası HTTP bayt hash’leri, **186 kaynak/build dosyası**, **93 değişmeyen varlık**, model hash’i ve **8 korunan checkout’un HEAD/status’u** eşleşti. Test ledger endpoint’i 404; test hook’ları production JS’de yok. İlgili `served-protection-receipt.json` son yerel commit sonrasında tekrar üretilecektir.
+- Sunulan **38 JS** dosyası HTTP bayt hash’leri, **186 kaynak/build dosyası**, **93 değişmeyen varlık**, model hash’i ve **8 korunan checkout’un HEAD/status’u** eşleşti. Test ledger endpoint’i 404; test hook’ları production JS’de yok. İndeksteki `served-protection-code-receipt.json` değişmez kaynak doğrulama kopyasıdır; canlı `served-protection-receipt.json` son yerel commit sonrasında tekrar üretilir ve bu sabit indekse dahil değildir.
 - Cilt/göz/ruh/işitme analiz kaynakları, işitme protokol/audio/progress, merkezi consent, header playback meter, onaylı ses/model varlıkları ve normal launcher korunur. Ortak privacy/record değişikliği diş fotoğraf izni/ilişkisiyle sınırlıdır. Gerçek işitme ses dalgası 0.0058’den revoke sonrası 0’a indi; owned context closed, meter suspended, ses paused, eksik kayıt 0. Klinik/işitsel fiziksel kabul iddia edilmez.
 - İlk yanlış test selector’ü carousel ikon SVG’lerini kaynak fotoğrafı saydı; APIResponse.status testte property yerine method olmalıydı; JS label options parantezi ve bir eski fixture’ın artık eksik tek-camera-view beklentisi düzeltildi. Uygulama bu test hatalarını geçirmek için değiştirilmedi; başarılı tekrar kanıtları yukarıdadır.
 - Önceki bağımlılık/güvenlik taraması bulguları bu görevin kapsamında kapatılmış sayılmaz. Yeni provider, kişisel fotoğraf gönderimi, eğitim veya kalite eşiği değişimi yok.
