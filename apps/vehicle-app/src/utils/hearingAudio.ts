@@ -1,3 +1,4 @@
+import {observeOutputNode} from './playbackMeter';
 import { Ear, HEARING_CONFIG, tonePCM, mixDigits, rms } from './hearingProtocol';
 export type DigitBankManifest={version:string;voice:string;rate:string;pitch:string;digits:{digit:number;url:string;sha256:string;duration:number}[];noise:{url:string;sha256:string};auditoryAcceptance:'pending'|'accepted'};
 export class HearingAudio {
@@ -15,8 +16,8 @@ export class HearingAudio {
   const epoch=this.epoch;await this.resume();if(this.disposed||epoch!==this.epoch)throw Error('AUDIO_CANCELLED');const buffer=this.context.createBuffer(2,data.length,this.context.sampleRate);
   if(ear==='left'||ear==='both')buffer.copyToChannel(data as Float32Array<ArrayBuffer>,0);
   if(ear==='right'||ear==='both')buffer.copyToChannel(data as Float32Array<ArrayBuffer>,1);
-  const node=this.context.createBufferSource();node.buffer=buffer;node.channelCount=2;node.channelCountMode='explicit';node.connect(this.context.destination);this.nodes.add(node);
-  return new Promise<void>((resolve,reject)=>{node.onended=()=>{node.disconnect();this.nodes.delete(node);epoch===this.epoch?resolve():reject(Error('AUDIO_CANCELLED'));};node.start();onStarted?.();});
+  const node=this.context.createBufferSource();node.buffer=buffer;node.channelCount=2;node.channelCountMode='explicit';const unmeter=observeOutputNode(this.context,node);this.nodes.add(node);
+  return new Promise<void>((resolve,reject)=>{node.onended=()=>{unmeter();node.disconnect();this.nodes.delete(node);epoch===this.epoch?resolve():reject(Error('AUDIO_CANCELLED'));};node.start();onStarted?.();});
  }
  tone(frequency:number,db:number,duration:number,ear:Ear,onStarted?:()=>void){return this.play(tonePCM(frequency,db,duration,this.context.sampleRate),ear,onStarted);}
  stop(){this.epoch++;for(const node of this.nodes){try{node.stop();}catch{}node.disconnect();}this.nodes.clear();}

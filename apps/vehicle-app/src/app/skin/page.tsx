@@ -1,4 +1,5 @@
 'use client';
+import {serviceAllowed} from '../../utils/serviceConsent';
 import {careHref} from '../../utils/healthModules';
 import { useGuidance,qualityGuidance } from '../../utils/audioGuidance';
 import {SkinEyewearCheck,SkinEyewearGate,SKIN_CAPTURE_POLICY,type EyewearStatus} from '../../utils/skinEyewear';
@@ -45,7 +46,7 @@ import { AlertTriangle, RefreshCw, ShieldAlert } from 'lucide-react';
 
 export default function SkinPage() {
   const resultPersisted=useRef(false);
-  const storageAllowed=()=>localStorage.getItem('attune_privacy_skin_save_allowed')==='true';
+  const storageAllowed=()=>serviceAllowed('skin')&&localStorage.getItem('attune_privacy_skin_save_allowed')==='true';
   const temporalSupport=useRef<ReturnType<typeof skinTemporalSupport>[]>([]);
   const localAnalysis=useRef<SkinLocalAnalysis|null>(null);
   const addLocalMaps=async(snapshot:SkinSnapshot,ctx:CanvasRenderingContext2D,valid:boolean,current:()=>boolean,expected?:string,indicators?:import('../../utils/skinIndicators').SkinIndicators,conditions?:Record<string,number>)=>{
@@ -346,7 +347,7 @@ export default function SkinPage() {
     if (persistingRef.current) return;
     persistingRef.current = true;
     const acquisition = acquisitionRef.current;
-    const validCapture = () => mountedRef.current && parkedRef.current && acquisitionRef.current === acquisition && isCameraAllowed();
+    const validCapture = () => serviceAllowed('skin') && mountedRef.current && parkedRef.current && acquisitionRef.current === acquisition && isCameraAllowed();
     try {
     if (demoTimerRef.current) {
       clearInterval(demoTimerRef.current);
@@ -492,7 +493,7 @@ export default function SkinPage() {
     if (persistingRef.current) return;
     persistingRef.current = true;
     const acquisition = acquisitionRef.current;
-    const validCapture = () => mountedRef.current && parkedRef.current && acquisitionRef.current === acquisition && isCameraAllowed();
+    const validCapture = () => serviceAllowed('skin') && mountedRef.current && parkedRef.current && acquisitionRef.current === acquisition && isCameraAllowed();
     const current: MultiAngleReference = { id: crypto.randomUUID(), timestamp: new Date().toISOString(), schemaVersion: 2, scope: 'three-angle-v2', captures };
     try {
       const comparison = compareMultiAngle(current, null);
@@ -908,7 +909,7 @@ export default function SkinPage() {
       {/* SCREEN 1: SKIN START VIEW (REFERANS 1 & 2)                  */}
       {/* ============================================================ */}
       {scanState === 'READY' && (
-        <><div className="flex items-center justify-between gap-3 mb-3"><p className="text-sm text-slate-300">{multiAngle ? "Ön ve iki yan pozda kısa bir tarama." : "Yalnız ön pozda kısa bir tarama."}</p><InformationButton title="Cilt taraması"><p>Yüz noktaları ve bölgesel görünüm bu cihazda işlenir; sonuçta kamera kapanır. Cilt tipi için Gizlilik & İzinler alanında ayrıca izin verirseniz yüz fotoğrafınızın ilgili kısmı Roboflow tarafından işlenir; internet gerekir. Sayısal kayıt ve fotoğraf saklama tercihleri ayrıdır. Fotoğraf saklama kapalıysa görüntü yalnız açık oturumda kalır. Fotoğrafı saklanmamış eski kayıtlar sayısal olarak gösterilir. Sonuç klinik tanı değildir.</p><label className="flex min-h-11 items-center gap-3"><input type="checkbox" aria-label="Üç açılı tarama" checked={multiAngle} onChange={e => setMultiAngle(e.target.checked)} />Ön, sağ ve sol pozlarda tara. Kapalıyken yalnız ön poz kullanılır.</label></InformationButton></div><SkinStartView onStart={startCamera} /></>
+        <><div className="flex items-center justify-between gap-3 mb-3"><InformationButton title="Cilt taraması"><p>Yüz noktaları ve bölgesel görünüm bu cihazda işlenir; sonuçta kamera kapanır. Cilt tipi için Gizlilik & İzinler alanında ayrıca izin verirseniz yüz fotoğrafınızın ilgili kısmı Roboflow tarafından işlenir; internet gerekir. Sayısal kayıt ve fotoğraf saklama tercihleri ayrıdır. Fotoğraf saklama kapalıysa görüntü yalnız açık oturumda kalır. Fotoğrafı saklanmamış eski kayıtlar sayısal olarak gösterilir. Sonuç klinik tanı değildir.</p><label className="flex min-h-11 items-center gap-3"><input type="checkbox" aria-label="Üç açılı tarama" checked={multiAngle} onChange={e => setMultiAngle(e.target.checked)} />Ön, sağ ve sol pozlarda tara. Kapalıyken yalnız ön poz kullanılır.</label></InformationButton></div><SkinStartView onStart={startCamera} /></>
       )}
 
       {/* ============================================================ */}

@@ -11,7 +11,9 @@ def test_speech_preserves_transport_chunks_and_closes(monkeypatch,tmp_path):
     monkeypatch.setattr(vision_speech,'FIXED_BANK',tmp_path)
     calls=[];closed=[]
     class Communicate:
-        def __init__(self,text,voice,rate,pitch):calls.append((text,voice,rate,pitch))
+        def __init__(self,text,voice,rate,pitch,connect_timeout,receive_timeout):
+            assert (connect_timeout,receive_timeout)==(5,15)
+            calls.append((text,voice,rate,pitch))
         async def stream(self):
             try:
                 yield {'type':'audio','data':b'first'}
@@ -33,7 +35,9 @@ def test_speech_preserves_transport_chunks_and_closes(monkeypatch,tmp_path):
 def test_emel_exact_profile_preserves_chunks_and_cleanup(monkeypatch):
     calls=[];closed=[]
     class Communicate:
-        def __init__(self,text,voice,rate,pitch):calls.append((text,voice,rate,pitch))
+        def __init__(self,text,voice,rate,pitch,connect_timeout,receive_timeout):
+            assert (connect_timeout,receive_timeout)==(5,15)
+            calls.append((text,voice,rate,pitch))
         async def stream(self):
             try:
                 yield {'type':'audio','data':b'one'}

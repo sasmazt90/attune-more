@@ -4,6 +4,7 @@ import {clearSkinPhotos,SKIN_PHOTO_PERMISSION,SKIN_PHOTO_DELETE_PENDING} from '.
 import {clearSkinSnapshots} from '../../utils/skinVolatileHistory';
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import {ServiceConsentSettings} from '../../components/ServiceConsentSettings';
 import { RECORD_JOURNAL, readHealthRecords, withRecordsLock } from '../../utils/healthRecords';
 import { InformationButton } from '../../components/InformationButton';
 import {
@@ -219,6 +220,7 @@ export default function PrivacyPage() {
 
   return (
     <div className="space-y-6">
+<ServiceConsentSettings />
       {storageUnavailable && <p role="alert" className="text-sm text-amber-200">Tarayıcı depolamasına erişilemiyor; kayıtların durumu doğrulanamıyor.</p>}
       {/* 1. SCREEN 10: ÜST BAŞLIK VE AÇIKLAMA (FIRST VIEWPORT) */}
       <section className="bg-gradient-to-br from-cockpit-surface via-[#071322] to-cockpit-bg border border-white/10 rounded-2xl p-6 md:p-7 shadow-2xl space-y-3">

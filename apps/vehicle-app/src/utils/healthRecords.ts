@@ -1,3 +1,4 @@
+import {serviceAllowed} from './serviceConsent';
 import {deleteSkinPhotosWithRecords,recoverSkinPhotoDeletion,SKIN_PHOTO_DELETE_PENDING} from './skinPhotoHistory';
 import { HEALTH_MODULES } from './healthModules';
 import { STORAGE_KEYS } from './attuneMode';
@@ -130,7 +131,7 @@ export async function appendHealthRecord(category: HealthCategory, record: Healt
   };
   if (containsMedia(record) || Object.values(additionalChanges).some(v => v && containsMedia(JSON.parse(v)))) throw new Error('Ham medya kalıcı kayda alınamaz.');
   const history = readRecordsLocked(category).filter(r => r.id !== record.id);
-  if (!beforeWrite()) throw new Error('Kayıt izni veya işlem durumu değişti; kayıt eklenmedi.');
+  if (!serviceAllowed(category) || !beforeWrite()) throw new Error('Kayıt izni veya işlem durumu değişti; kayıt eklenmedi.');
   // Keep all surviving user records; old ten-record truncation discarded history.
   const records = category === 'mental' ? [...history, record] : [record, ...history];
   commit({ ...additionalChanges, [KEYS[category].history]: JSON.stringify(records), [KEYS[category].latest]: category === 'mental' ? mentalLatest(records) : JSON.stringify(record) });

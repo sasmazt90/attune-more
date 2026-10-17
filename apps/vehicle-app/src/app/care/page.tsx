@@ -1,4 +1,5 @@
 'use client';
+import {localBackend} from '../../utils/localBackend';
 import { HEALTH_MODULES,HEALTH_MODULE_IDS,HealthModule } from '../../utils/healthModules';
 
 import { InformationButton } from '../../components/InformationButton';
@@ -95,7 +96,7 @@ function CareContent() {
     setLoading(true); setSlots([]); setSearchNotice(null);
     const deadline = setTimeout(() => controller.abort(), 12000);
     try {
-      const res = await fetch('http://localhost:8000/api/care/match', {
+      const res = await fetch(localBackend('/api/care/match'), {
         method: 'POST',
         signal: controller.signal,
         headers: { 'Content-Type': 'application/json' },

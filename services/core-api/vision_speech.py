@@ -83,7 +83,7 @@ async def mental_response(text,moving):
 
 async def speech_response(text,profile,moving):
  global _catalogue
- iterator=None
+ iterator=None;stage="catalogue"
  # Normalize once for the whole utterance; transport frames never trigger a
  # second voice request. No hidden language hints, extra text or MP3 joins.
  text=unicodedata.normalize('NFC',text).strip()
@@ -93,7 +93,7 @@ async def speech_response(text,profile,moving):
    _catalogue=(monotonic(),frozenset(v['ShortName'] for v in voices))
   if profile.voice not in _catalogue[1]:raise HTTPException(status_code=503,detail='EXACT_MICROSOFT_VOICE_UNAVAILABLE:'+profile.voice)
   if moving():raise HTTPException(status_code=409,detail='PARK_REQUIRED')
-  started=monotonic();iterator=edge_tts.Communicate(text,profile.voice,rate=profile.rate,pitch=profile.pitch).stream()
+  stage="synthesis";started=monotonic();iterator=edge_tts.Communicate(text,profile.voice,rate=profile.rate,pitch=profile.pitch,connect_timeout=5,receive_timeout=15).stream()
   while True:
    item=await asyncio.wait_for(anext(iterator),18)
    if item['type']=='audio':first=item['data'];break
@@ -101,7 +101,10 @@ async def speech_response(text,profile,moving):
  except Exception as error:
   if iterator:await iterator.aclose()
   if isinstance(error,HTTPException):raise
-  raise HTTPException(status_code=503,detail='MICROSOFT_SPEECH_UNAVAILABLE') from None
+  category={'stage':stage,'type':type(error).__name__,'upstreamStatus':getattr(error,'status',None)}
+  import logging
+  logging.getLogger('attune.speech').warning('speech_unavailable %s',json.dumps(category))
+  raise HTTPException(status_code=503,detail={'code':'MICROSOFT_SPEECH_UNAVAILABLE',**category}) from None
  async def body():
   try:
    if not moving():yield first
@@ -110,6 +113,10 @@ async def speech_response(text,profile,moving):
     except StopAsyncIteration:return
     if moving():return
     if part['type']=='audio':yield part['data']
+  except Exception as error:
+   import logging
+   logging.getLogger('attune.speech').warning('speech_stream_failed type=%s status=%s',type(error).__name__,getattr(error,'status',None))
+   raise RuntimeError('MICROSOFT_SPEECH_STREAM_FAILED') from None
   finally:await iterator.aclose()
  result=OwnedSpeechResponse(body(),media_type='audio/mpeg',headers={'Cache-Control':'no-store','X-TTS-Voice':profile.voice,'X-TTS-Rate':profile.rate,'X-TTS-Pitch':profile.pitch,'X-Content-Type-Options':'nosniff','Server-Timing':f'tts_first;dur={(monotonic()-started)*1000:.1f}'})
  result.provider_iterator=iterator

@@ -149,7 +149,15 @@ profile_state = {
 class SpeedUpdatePayload(BaseModel):
     speedKmH: float = Field(ge=0, allow_inf_nan=False)
 
-class ConversePayload(BaseModel):
+from mental_context import validate_memory,compact_context
+
+class MemoryPayload(BaseModel):
+    memory: List[str] = Field(default_factory=list,max_length=32)
+    @field_validator('memory')
+    @classmethod
+    def memory_bounds(cls,value):return validate_memory(value)
+
+class ConversePayload(MemoryPayload):
     userMessage: str = Field(min_length=1, max_length=6000)
     sessionId: Optional[str] = Field(default=None,min_length=1,max_length=128)
     history: Optional[List[Dict[str, str]]] = Field(default=None,max_length=40)
@@ -176,7 +184,7 @@ def validate_mental_messages(messages):
     if sum(len(m['content']) for m in messages)>120000:raise ValueError('SESSION_CONTENT_LIMIT')
     return messages
 
-class AnalyzeSessionPayload(BaseModel):
+class AnalyzeSessionPayload(MemoryPayload):
     messages: List[Dict[str, str]] = Field(max_length=200)
     cloudConsent: StrictBool = False
 
@@ -323,6 +331,8 @@ def converse_mental_assistant(payload: ConversePayload):
     history = payload.history or []
     driver_name = vehicle_state.get("driverName", "Ahmet Bey")
 
+    if payload.memory:
+        provider.session_memory = payload.memory
     result = provider.generate_reply(
         user_message=user_msg,
         is_driving=is_driving,
@@ -339,7 +349,18 @@ def analyze_mental_session(payload: AnalyzeSessionPayload):
     if payload.cloudConsent and not os.getenv('OPENAI_API_KEY', '').strip():
         raise HTTPException(status_code=503, detail='PROVIDER_NOT_CONFIGURED')
     analyzer = get_active_session_analyzer() if payload.cloudConsent else LocalFallbackSessionAnalyzer()
+    if payload.memory:
+        analyzer.session_memory = payload.memory
     return analyzer.analyze_session(payload.messages)
+
+class CompactContextPayload(AnalyzeSessionPayload):
+    pass
+
+@app.post('/api/mental/compact-context')
+def compact_mental_context(payload: CompactContextPayload):
+    if not payload.cloudConsent:raise HTTPException(403,'CLOUD_CONSENT_REQUIRED')
+    if vehicle_state['vehicleMoving']:raise HTTPException(409,'PARK_REQUIRED')
+    return compact_context(payload.memory,payload.messages)
 
 from vision_speech import response as fixed_vision_speech
 from vision_speech import mental_response as edge_mental_speech

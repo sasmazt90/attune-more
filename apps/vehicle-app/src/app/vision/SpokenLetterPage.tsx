@@ -1,4 +1,6 @@
 'use client';
+import {speechMuted} from '../../utils/playbackMeter';
+import {serviceAllowed} from '../../utils/serviceConsent';
 import {HEALTH_MODULES} from '../../utils/healthModules';
 import { useEffect, useRef, useState } from 'react';
 import { useVehicle } from '../../context/VehicleContext';
@@ -32,12 +34,13 @@ export default function SpokenLetterPage(){
  const actions=useRef({inspect:()=>{},receive:(_text:string,_confidence:number,_id:string,_key:string)=>{},listen:()=>{},stop:()=>{},measure:()=>null as RenderedSymbolGeometry|null,prompt:(_code?:string)=>{},current:(_epoch:number):boolean=>false,canPresent:():boolean=>false,renderError:()=>{},timing:(_name:string)=>{}});
  const refresh=()=>redraw(v=>v+1);
  function stage(next:Parameters<VisionFlow['transition']>[0],reason=''){flow.current.transition(next,reason);refresh();}
- function current(epoch:number){return r.current.mounted&&r.current.active&&r.current.epoch===epoch&&parked.current&&isCameraAllowed()&&isMicrophoneAllowed();}
+ function current(epoch:number){return serviceAllowed('vision')&&r.current.mounted&&r.current.active&&r.current.epoch===epoch&&parked.current&&isCameraAllowed()&&isMicrophoneAllowed();}
  function timing(name:string){window.dispatchEvent(new CustomEvent('attune-vision-speech-timing',{detail:{stage:name,atMs:performance.now(),clock:'browser-performance',presentationId:flow.current.presentationId}}));}
  function abortRecognition(){const a=r.current,old=a.recognition;a.recognition=null;a.listeningStarted=false;if(a.restart)clearTimeout(a.restart);a.restart=null;try{old?.abort();}catch{}}
  function stopSpeech(){const a=r.current;a.voiceGeneration++;if(a.voiceTimeout)clearTimeout(a.voiceTimeout);a.voiceTimeout=null;a.controller?.abort();a.controller=null;a.cancelSpeech?.();a.cancelSpeech=null;if(a.audio){a.audio.onplaying=a.audio.onended=a.audio.onerror=null;a.audio.pause();a.audio.removeAttribute('src');a.audio.load();a.audio=null;}if(a.url)URL.revokeObjectURL(a.url);a.url=null;}
  function stopVoice(){if(r.current.answerTimer)clearTimeout(r.current.answerTimer);r.current.answerTimer=null;r.current.settleAnswer=null;abortRecognition();stopSpeech();if(r.current.mounted)setVoice('quiet');}
  function stop(){const a=r.current;a.epoch++;a.active=false;stopVoice();cancelAnimationFrame(a.raf);if(a.timer)clearInterval(a.timer);a.timer=null;a.stream?.getTracks().forEach(t=>t.stop());a.stream=null;a.engine?.close();a.engine=null;a.session=null;a.evidence=null;a.previewPoints=undefined;if(canvas.current)delete canvas.current.dataset.visionEvidence;a.modal=false;a.answerMemory.clear();a.mainInstructionGiven=false;a.nextPrompt=0;a.lastPrompt='';a.prompted.clear();a.conditionGate=new VisionResponseGate();if(video.current)video.current.srcObject=null;flow.current.reset();if(a.mounted){setAnswerNotice('');setEvidence(null);refresh();}}
+ useEffect(()=>{const mute=()=>{if(speechMuted()&&r.current.active){stopSpeech();stage('user-paused','Seslendirme kapalı. Header hoparlörünü açıp devam edin.');abortRecognition();}};window.addEventListener('attune-guidance-muted',mute);return()=>window.removeEventListener('attune-guidance-muted',mute);},[]);
  function measureSymbol():RenderedSymbolGeometry|null{
   const svg=symbol.current,path=svg?.querySelector('path');if(!svg||!path||!flow.current.letterVisible||document.hidden)return null;
   const b=svg.getBoundingClientRect(),p=path.getBoundingClientRect(),style=getComputedStyle(svg),area=svg.parentElement!.getBoundingClientRect(),stroke=Number.parseFloat(getComputedStyle(path).strokeWidth)*b.width/svg.viewBox.baseVal.width;
@@ -46,7 +49,7 @@ export default function SpokenLetterPage(){
   return {viewportWidthCssPx:b.width,viewportHeightCssPx:b.height,pathWidthCssPx:p.width,pathHeightCssPx:p.height,strokeWidthCssPx:stroke,measuredAt:performance.now(),method:'dom-svg-css-pixels'};
  }
  async function speak(code:string,onEnded:()=>void){
-  const a=r.current,epoch=a.epoch;if(!current(epoch)||a.muted)return;stopSpeech();const generation=a.voiceGeneration,token=flow.current.token(),controller=new AbortController();a.controller=controller;
+  const a=r.current,epoch=a.epoch;if(!current(epoch)||a.muted)return;if(speechMuted()){stage('user-paused','Seslendirme kapalı. Header hoparlörünü açıp devam edin.');return;}stopSpeech();const generation=a.voiceGeneration,token=flow.current.token(),controller=new AbortController();a.controller=controller;
   const valid=()=>current(epoch)&&a.voiceGeneration===generation&&a.controller===controller&&flow.current.matches(token);
   const fail=()=>{if(!valid())return;if(flow.current.stage==='eye-instruction')flow.current.instructionEye=null;stopVoice();discardPresentation('VOICE_UNAVAILABLE');stage('error','Sesli yönerge kullanılamıyor. Tekrar deneyin.');setVoice('failed');setError('Ahmet Türkçe yönerge oynatılamadı; yanıt dinlenmedi ve puanlanmadı.');};
   setVoice('loading');a.voiceTimeout=setTimeout(()=>{if(valid()){controller.abort();fail();}},25000);
@@ -206,7 +209,7 @@ export default function SpokenLetterPage(){
      {answerNotice&&<p role="status" data-vision-answer-notice className="text-sm text-slate-200 text-center">{answerNotice}</p>}
      {lastHeard&&<p className="text-sm text-slate-300 text-center break-words">Duyulan: “{lastHeard}”</p>}
 
-     <div className="flex flex-wrap gap-3"><button onClick={()=>void start()} disabled={r.current.starting} className="min-h-11 rounded-xl border border-white/20 px-4">Yeni konumla yeniden başlat</button><button onClick={()=>f.stage==='user-paused'?resume():pause()} className="min-h-11 rounded-xl border border-white/20 px-4">{f.stage==='user-paused'?'Devam et':'Duraklat'}</button><button onClick={()=>{r.current.muted=!r.current.muted;if(r.current.muted)pause();else resume();refresh();}} className="min-h-11 rounded-xl border border-white/20 px-4">{r.current.muted?'Sesi aç':'Sesi kapat'}</button><button onClick={()=>void complete(true)} className="min-h-11 rounded-xl border border-white/20 px-4">Bitir</button>{f.stage==='error'&&<button onClick={resume} className="min-h-11 rounded-xl border border-white/20 px-4">Tekrar dene</button>}</div>
+     <div className="flex flex-wrap gap-3"><button onClick={()=>void start()} disabled={r.current.starting} className="min-h-11 rounded-xl border border-white/20 px-4">Yeni konumla yeniden başlat</button><button onClick={()=>f.stage==='user-paused'?resume():pause()} className="min-h-11 rounded-xl border border-white/20 px-4">{f.stage==='user-paused'?'Devam et':'Duraklat'}</button><button onClick={()=>void complete(true)} className="min-h-11 rounded-xl border border-white/20 px-4">Bitir</button>{f.stage==='error'&&<button onClick={resume} className="min-h-11 rounded-xl border border-white/20 px-4">Tekrar dene</button>}</div>
      <ul className="w-full max-w-lg list-disc space-y-1 pl-5 text-sm leading-relaxed text-slate-300"><li>Harf ve yönü herhangi bir sırada söyleyebilirsiniz.</li><li>Harfi, o harfle başlayan bir kelimeyle kodlayabilirsiniz.</li><li>Düz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.</li><li>“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.</li></ul>
     </div>
    </section>}

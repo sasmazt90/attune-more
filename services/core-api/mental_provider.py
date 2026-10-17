@@ -191,7 +191,8 @@ class OpenAICompatibleMentalProvider(MentalConversationProvider):
                 + "5. Kullanıcı kendine zarar verme veya intihar gibi akut risk içeren bir şey söylerse sohbeti kes ve 112 Acil Çağrı Merkezini ara/aramasını öner. Randevu hatlarını asla kriz için kullanma."
             )
 
-            messages = [{"role": "system", "content": system_prompt}]
+            from mental_context import memory_message
+            messages = [{"role": "system", "content": system_prompt}] + memory_message(getattr(self,"session_memory",[]))
             for h in history[-40:]:
                 if h.get("role") in ("user", "assistant"):
                     messages.append({"role": h["role"], "content": h.get("content", "")})
@@ -313,6 +314,7 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
                 '  "professionalSupportReason": "Klinik öneri gerekçesi veya null"\n'
                 "}\n"
                 "Konuşma Geçmişi:\n"
+                + "Geçici oturum belleği (kullanıcının birebir eski alıntıları, sonraki düzeltmeler önceliklidir):\n" + json.dumps(getattr(self,"session_memory",[]),ensure_ascii=False) + "\n"
                 + "\n".join([f"{m.get('role', 'user')}: {m.get('content', '')}" for m in messages])
             )
 

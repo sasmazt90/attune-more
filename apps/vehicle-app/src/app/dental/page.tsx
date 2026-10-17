@@ -1,4 +1,7 @@
 'use client';
+import {HealthPreparation} from '../../components/HealthPreparation';
+import {serviceAllowed,useServiceAllowed} from '../../utils/serviceConsent';
+import {localBackend} from '../../utils/localBackend';
 import { HEALTH_MODULES } from '../../utils/healthModules';
 import { useGuidance,qualityGuidance } from '../../utils/audioGuidance';
 import {useCallback,useEffect,useRef,useState} from 'react';
@@ -18,7 +21,8 @@ import type {FaceAlignment} from '../../utils/skinAnalyzer';
 const button='min-h-11 px-5 py-3 rounded-xl border border-sky-400/25 bg-slate-900 disabled:opacity-40';
 export default function DentalPage(){
  const {isParked}=useVehicle(),parked=useRef(isParked);parked.current=isParked;
- const [phase,setPhase]=useState<'ready'|'camera'|'analysis'|'result'|'error'>('ready'),[consent,setConsent]=useState(false),[save,setSave]=useState(false),[notice,setNotice]=useState(''),[index,setIndex]=useState(0),[progress,setProgress]=useState(0),[crop,setCrop]=useState<Crop>({x:0,y:0,width:1,height:1}),[ratio,setRatio]=useState(4/3),[result,setResult]=useState<any>(),[shown,setShown]=useState(0);
+ const consent=useServiceAllowed('dental');
+ const [phase,setPhase]=useState<'ready'|'camera'|'analysis'|'result'|'error'>('ready'),[save,setSave]=useState(false),[notice,setNotice]=useState(''),[index,setIndex]=useState(0),[progress,setProgress]=useState(0),[crop,setCrop]=useState<Crop>({x:0,y:0,width:1,height:1}),[ratio,setRatio]=useState(4/3),[result,setResult]=useState<any>(),[shown,setShown]=useState(0);
  const [uploading,setUploading]=useState(false);
  const fileInput=useRef<HTMLInputElement>(null);
  const voice=useGuidance('dental',isParked);
@@ -32,16 +36,16 @@ export default function DentalPage(){
  useEffect(()=>{if(!isParked&&phase!=='ready'){cancel();setNotice('Diş taraması yalnız PARK durumunda yapılır.');}},[isParked,phase,cancel]);
  const analyze=async(run:number)=>{
   setPhase('analysis');setNotice('Görünür diş yüzeyleri cihazda analiz ediliyor…');stream.current?.getTracks().forEach(track=>track.stop());inference.current?.close();abort.current=new AbortController();const timer=setTimeout(()=>abort.current?.abort(),30000);
-  try{const response=await fetch('http://localhost:8000/api/local-health/dental',{method:'POST',headers:{'Content-Type':'application/json'},signal:abort.current.signal,body:JSON.stringify({processingConsent:consent,captures:captures.current})});if(!response.ok)throw Error('Yerel diş analizi tamamlanamadı.');const value=await response.json();if(run!==epoch.current||!parked.current)return;
+  try{const response=await fetch(localBackend('/api/local-health/dental'),{method:'POST',headers:{'Content-Type':'application/json'},signal:abort.current.signal,body:JSON.stringify({processingConsent:consent,captures:captures.current})});if(!response.ok)throw Error('Yerel diş analizi tamamlanamadı.');const value=await response.json();if(run!==epoch.current||!parked.current||!serviceAllowed('dental'))return;
    if(value.views.length!==captures.current.length||value.views.some((v:any,i:number)=>v.photoId!==captures.current[i].photoId))throw Error('Kaynak fotoğraf eşleşmesi doğrulanamadı.');
    setResult(value);setShown(0);setPhase('result');setNotice('Görünür alan ön değerlendirmesi. Çürük adayları tanı veya şiddet yüzdesi değildir.');
   }catch(error){if(run===epoch.current){setPhase('error');setNotice((error as Error).name==='AbortError'?'Analiz zamanında tamamlanamadı. Geçici fotoğrafları temizleyip yeniden başlayabilirsiniz.':(error as Error).message);}}finally{clearTimeout(timer);}
  };
  const upload=async(file:File)=>{
-  if(!consent||!parked.current)return;stop();const run=epoch.current;captures.current=[];setResult(undefined);setUploading(true);setPhase('analysis');setNotice('Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…');
+  if(!consent||!parked.current||!serviceAllowed('dental'))return;stop();const run=epoch.current;captures.current=[];setResult(undefined);setUploading(true);setPhase('analysis');setNotice('Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…');
   abort.current=new AbortController();let deadline:ReturnType<typeof setTimeout>|undefined;
   try{
-   const photo=await validateDentalFile(file);if(run!==epoch.current||!parked.current)return;
+   const photo=await validateDentalFile(file);if(run!==epoch.current||!parked.current||!serviceAllowed('dental'))return;
    // The same on-device face model anchors a full portrait to its inner mouth.
    // A partial intraoral photo need not contain a face or obtain camera access.
    const bitmap=await createImageBitmap(file,{imageOrientation:'from-image'});
@@ -49,14 +53,14 @@ export default function DentalPage(){
    try{
     if(bitmap.width*bitmap.height>24000000||Math.max(bitmap.width,bitmap.height)>8192)throw Error(UPLOAD_REASONS.PIXEL_LIMIT);
     const canvas=document.createElement('canvas'),factor=Math.min(1,640/Math.max(bitmap.width,bitmap.height));canvas.width=Math.round(bitmap.width*factor);canvas.height=Math.round(bitmap.height*factor);canvas.getContext('2d')!.drawImage(bitmap,0,0,canvas.width,canvas.height);
-    setNotice('Fotoğraftaki ağız konumu cihazda hazırlanıyor…');inference.current=new SkinInference();await inference.current.initialize();if(run!==epoch.current||!parked.current)return;
+    setNotice('Fotoğraftaki ağız konumu cihazda hazırlanıyor…');inference.current=new SkinInference();await inference.current.initialize();if(run!==epoch.current||!parked.current||!serviceAllowed('dental'))return;
     const alignment=await inference.current.assessAlignment(canvas);if((alignment.faceCount||0)>1)throw Error('Fotoğrafta yalnız bir kişinin dişleri görünmeli.');if(alignment.faceDetected)photoLandmarks=alignment.landmarks;
    }finally{bitmap.close();inference.current?.close();inference.current=undefined;}
-   if(run!==epoch.current||!parked.current)return;
+   if(run!==epoch.current||!parked.current||!serviceAllowed('dental'))return;
    if(abort.current.signal.aborted)throw new DOMException('Fotoğraf işlemi zaman aşımına uğradı.','AbortError');
    setNotice('Görünür diş yüzeyleri cihazda analiz ediliyor…');deadline=setTimeout(()=>abort.current?.abort(),30000);
-   const response=await fetch('http://localhost:8000/api/local-health/dental-upload',{method:'POST',headers:{'Content-Type':'application/json'},signal:abort.current.signal,body:JSON.stringify({processingConsent:true,photo,photoLandmarks})});
-   const value=await response.json();if(run!==epoch.current||!parked.current)return;if(!response.ok)throw Error(UPLOAD_REASONS[value.detail]||'Yerel fotoğraf analizi tamamlanamadı.');
+   const response=await fetch(localBackend('/api/local-health/dental-upload'),{method:'POST',headers:{'Content-Type':'application/json'},signal:abort.current.signal,body:JSON.stringify({processingConsent:true,photo,photoLandmarks})});
+   const value=await response.json();if(run!==epoch.current||!parked.current||!serviceAllowed('dental'))return;if(!response.ok)throw Error(UPLOAD_REASONS[value.detail]||'Yerel fotoğraf analizi tamamlanamadı.');
    const view=value.views?.[0];if(value.views?.length!==1||view.sourceType!=='upload'||view.sourceWidth!==value.source?.sourceWidth||view.sourceHeight!==value.source?.sourceHeight||!/^[a-f0-9]{64}$/.test(view.photoId))throw Error('Kaynak fotoğraf eşleşmesi doğrulanamadı.');
    captures.current=[{photo:value.normalizedPhoto,photoId:view.photoId,width:view.sourceWidth,height:view.sourceHeight,pose:view.pose,landmarks:[],conditions:{},sourceType:'upload'}];
    delete value.normalizedPhoto;setResult(value);setShown(0);setPhase('result');setNotice('Tek fotoğrafın görünür yüzey sonucu. Çoklu açı doğrulaması yapılmadı.');
@@ -87,8 +91,9 @@ export default function DentalPage(){
  }catch(error){setNotice((error as Error).message);}};
  const view=result?.views[shown],photo=captures.current[shown];
  return <div className="space-y-6 max-w-6xl mx-auto" data-dental-page><div className="flex items-center gap-3"><h1 className="text-2xl font-bold">{HEALTH_MODULES.dental.name}</h1><InformationButton title="Görünür diş yüzeyleri"><ul className="list-disc pl-5 space-y-3"><li>Fotoğraf yükleyebilir veya kamerada ön, sağ, sol ve rahat kapanış görünümlerini takip edebilirsiniz.</li><li>Ağzınızı zorlamadan ön dişlerinizi gösterin; dişlerinize ışık gelsin. Ağzınıza cisim sokmayın.</li><li>Fotoğraftaki işaretler görünür adayları gösterir. Görünmeyen diş yüzeyleri değerlendirilmez.</li><li>Birikim görünümü leke, yiyecek ve dolgu ile karışabilir. Dizilim yalnız güvenilir görünen konturlardan hesaplanır.</li><li>Fotoğraflar bu oturumda cihazınızda işlenir. Kayıt izni yalnız sayısal sonuç içindir.</li></ul></InformationButton></div>
-  <section className="border border-white/10 bg-cockpit-surface rounded-2xl p-5 md:p-7 space-y-5"><p role="status">{notice||'Ağzınıza cisim sokmadan, rahatça açıp doğal kapanışla görünür yüzeyleri tarayın.'}</p>
-   {(phase==='ready'||uploading)&&<><div className="flex flex-wrap gap-3 items-center"><input ref={fileInput} type="file" accept="image/jpeg,image/png,image/webp" aria-label="Diş fotoğrafı seç" className="sr-only" disabled={!consent||!isParked} onChange={e=>{const file=e.target.files?.[0];if(file)void upload(file);}}/><button className={button} disabled={!consent||!isParked} onClick={()=>fileInput.current?.click()}>Fotoğraf Yükle</button><button className={button} disabled={!consent||!isParked||!isCameraAllowed()} onClick={start}>Diş Taramasını Başlat</button></div><label className="flex items-start gap-3"><input type="checkbox" checked={consent} onChange={e=>{setConsent(e.target.checked);if(!e.target.checked&&phase!=='ready')cancel();}}/>Fotoğraflarımı yalnız bu cihazda geçici işlemeyi kabul ediyorum.</label></>}
+  <section className="border border-white/10 bg-cockpit-surface rounded-2xl p-5 md:p-7 space-y-5">{phase==='ready'&&<HealthPreparation module="dental"/>}
+   <p role="status">{notice}</p>
+   {(phase==='ready'||uploading)&&<><div className="flex flex-wrap gap-3 items-center"><input ref={fileInput} type="file" accept="image/jpeg,image/png,image/webp" aria-label="Diş fotoğrafı seç" className="sr-only" disabled={!consent||!isParked} onChange={e=>{const file=e.target.files?.[0];if(file)void upload(file);}}/><button className={button} disabled={!consent||!isParked} onClick={()=>fileInput.current?.click()}>Fotoğraf Yükle</button><button className={button} disabled={!consent||!isParked||!isCameraAllowed()} onClick={start}>Diş Taramasını Başlat</button></div></>}
    {phase==='camera'&&<div className="space-y-4"><p>{Math.min(index+1,4)} / 4 · {DENTAL_GUIDANCE[DENTAL_POSES[Math.min(index,3)]]}</p><div className="relative rounded-2xl overflow-hidden mx-auto w-full max-w-xl" style={{aspectRatio:ratio*crop.width/crop.height}}><div className="absolute" style={{width:`${100/crop.width}%`,height:`${100/crop.height}%`,left:`${-100*crop.x/crop.width}%`,top:`${-100*crop.y/crop.height}%`}}><video ref={video} muted playsInline autoPlay className="w-full h-full object-fill" data-dental-live-video/></div></div><p>{progress>0?'Çekiliyor…':'Dişlerinizi gösterin; başınızı rahat tutun.'}</p></div>}
    {phase==='analysis'&&<p className="animate-pulse">Yerel analiz sürüyor. İptal edebilirsiniz.</p>}
    {phase==='error'&&<p role="alert" className="text-amber-200">{notice}</p>}

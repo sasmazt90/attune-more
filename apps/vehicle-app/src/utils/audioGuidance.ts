@@ -1,10 +1,11 @@
 'use client';
+import {observeAppPlayback,setSpeechMuted} from './playbackMeter';
 import {useEffect,useId,useMemo,useRef} from 'react';
 import manifest from '../../public/audio/guidance/manifest.json';
 import {HEALTH_MODULE_IDS,HEALTH_MODULES} from './healthModules';
 type Entry={text:string;voice:string;rate:string;pitch:string;url:string;sha256:string;textVersion:string};
 export type GuidanceId=keyof typeof manifest.entries;
-type Job={owner:string;id:GuidanceId;controller:AbortController;audio?:HTMLAudioElement;url?:string;resolve:(played:boolean)=>void;finished:boolean};
+type Job={owner:string;id:GuidanceId;controller:AbortController;audio?:HTMLAudioElement;url?:string;resolve:(played:boolean)=>void;finished:boolean;unmeter?:()=>void};
 let current:Job|undefined,pending:Job|undefined,muted=false;
 const completed=new Set<string>();
 const streams=new Set<object>();
@@ -13,9 +14,9 @@ const hearingOwns=()=>Number(localStorage.getItem('attune_hearing_audio_focus')|
 const healthRoute=()=>typeof window!=='undefined'&&HEALTH_MODULE_IDS.some(id=>location.pathname===HEALTH_MODULES[id].route||location.pathname.startsWith(HEALTH_MODULES[id].route+'/'));
 const permitted=(id:GuidanceId)=>healthRoute()&&!/^(cockpit|profile|care|record)-/.test(id);
 function healthInteraction(event:Event){return event.isTrusted&&healthRoute()&&!(event.target instanceof Element&&event.target.closest('[data-cockpit-header], [data-record-history], [data-health-history], a[href]'));}
-function dispose(job:Job,played=false){if(job.finished)return;job.finished=true;job.controller.abort();job.audio?.pause();if(job.audio){job.audio.removeAttribute('src');job.audio.load();}if(job.url)URL.revokeObjectURL(job.url);if(played)completed.add(token(job.owner,job.id));if(current===job)current=undefined;if(pending===job)pending=undefined;job.resolve(played);}
+function dispose(job:Job,played=false){if(job.finished)return;job.finished=true;job.unmeter?.();job.controller.abort();job.audio?.pause();if(job.audio){job.audio.removeAttribute('src');job.audio.load();}if(job.url)URL.revokeObjectURL(job.url);if(played)completed.add(token(job.owner,job.id));if(current===job)current=undefined;if(pending===job)pending=undefined;job.resolve(played);}
 export function cancelGuidance(owner?:string){for(const job of [current,pending])if(job&&(!owner||job.owner===owner))dispose(job);}
-export function muteGuidance(value:boolean){muted=value;if(value)cancelGuidance();window.dispatchEvent(new CustomEvent('attune-guidance-muted',{detail:value}));}
+export function muteGuidance(value:boolean){muted=value;setSpeechMuted(value);if(value)cancelGuidance();window.dispatchEvent(new CustomEvent('attune-guidance-muted',{detail:value}));}
 export function speakGuidance(owner:string,id:GuidanceId,repeat=false):Promise<boolean>{
  if(!permitted(id)||muted||streams.size||hearingOwns())return Promise.resolve(false);
  if(!repeat&&completed.has(token(owner,id)))return Promise.resolve(true);
@@ -32,7 +33,7 @@ async function load(job:Job){
   const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))).map(v=>v.toString(16).padStart(2,'0')).join('');
   if(digest!==e.sha256)throw Error('GUIDANCE_HASH');
   if(job.finished||current!==job||!permitted(job.id)||muted||streams.size||hearingOwns())return dispose(job);
-  job.url=URL.createObjectURL(new Blob([bytes],{type:'audio/mpeg'}));job.audio=new Audio(job.url);job.audio.dataset.guidanceId=job.id;
+  job.url=URL.createObjectURL(new Blob([bytes],{type:'audio/mpeg'}));job.audio=new Audio(job.url);job.audio.dataset.guidanceId=job.id;job.unmeter=observeAppPlayback(job.audio);
   job.audio.onended=()=>{window.dispatchEvent(new CustomEvent('attune-guidance-event',{detail:{id:job.id,event:'ended'}}));dispose(job,true);};
   job.audio.onerror=()=>dispose(job);
   await play(job);

@@ -1,13 +1,16 @@
+import {observeAppPlayback,speechMuted} from './playbackMeter';
 /** One MP3 provider response -> ordered MSE buffer -> actual HTML audio events.
  * A stream is never converted to a full Blob. Unsupported formats fail visibly.
  */
 export function streamSpeech(audio:HTMLAudioElement,response:Response,signal:AbortSignal,current:()=>boolean,observe:(stage:string,bytes?:number)=>void=()=>{}) {
   const hearingOwns=()=>{try{return Number(localStorage.getItem('attune_hearing_audio_focus'))>Date.now();}catch{return false;}};
+  if(speechMuted())throw new Error('Seslendirme kapalı.');
   if(hearingOwns())throw new Error('İşitme testi ses çıkışını kullanıyor.');
   window.dispatchEvent(new Event('attune-guidance-cancel')); // Actual assistant responses retain their own lifecycle; cancel only fixed guidance.
   if(!response.body || !response.headers.get('content-type')?.startsWith('audio/mpeg') || !MediaSource.isTypeSupported('audio/mpeg')) throw new Error('Streaming audio unsupported');
   const source=new MediaSource(),url=URL.createObjectURL(source),reader=response.body.getReader();
   let buffer:SourceBuffer|null=null,closed=false,playStarted=false;
+  const unmeter=observeAppPlayback(audio);
   const speechOwner={};const publishFocus=(active:boolean)=>{const event=new Event('attune-stream-focus') as Event & {owner:object;active:boolean};event.owner=speechOwner;event.active=active;window.dispatchEvent(event);};publishFocus(true);
   const cancelled=()=>closed||signal.aborted||!current();
   const abortError=()=>new DOMException('Playback cancelled','AbortError');
@@ -21,7 +24,7 @@ export function streamSpeech(audio:HTMLAudioElement,response:Response,signal:Abo
   const local=new AbortController();
   // Direct cancellation (mute/route) must also wake sourceopen/updateend waits.
   const cancel=()=>{closed=true;detachFocus();local.abort();void reader.cancel().catch(()=>{});if(buffer?.updating&&source.readyState==='open'){try{buffer.abort();}catch{}}};
-  const detachFocus=()=>{publishFocus(false);window.removeEventListener('attune-audio-focus',audioFocus);window.removeEventListener('storage',audioFocus);audio.removeEventListener('ended',detachFocus);audio.removeEventListener('error',detachFocus);};
+  const detachFocus=()=>{unmeter();publishFocus(false);window.removeEventListener('attune-audio-focus',audioFocus);window.removeEventListener('storage',audioFocus);audio.removeEventListener('ended',detachFocus);audio.removeEventListener('error',detachFocus);};
   audio.addEventListener('ended',detachFocus,{once:true});audio.addEventListener('error',detachFocus,{once:true});
   const audioFocus=()=>{if(hearingOwns()){audio.pause();cancel();}};
   window.addEventListener('attune-audio-focus',audioFocus);window.addEventListener('storage',audioFocus);

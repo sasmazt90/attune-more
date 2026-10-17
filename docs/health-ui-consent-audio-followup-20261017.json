@@ -1,0 +1,1200 @@
+{
+  "schemaVersion": 1,
+  "timeUTC": "2026-10-17T04:59:52.991067+00:00",
+  "checkout": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-ui-20261017",
+  "branch": "research/health-ui-consent-audio-20261017",
+  "sourceBase": "5f11c111e3f6547e6420ddf37db477190d232f10",
+  "integration": {
+    "acneAncestry": [
+      "ebd44bc",
+      "29b9979",
+      "f230cce",
+      "2637d1b"
+    ],
+    "visionFrozen": "1cdb95ebdddd3a2fd4b83cca7408a1ae6cd3b502",
+    "visionApplied": "57d4a75",
+    "mentalFrozen": "eead4b23d92dc40887a3ed223628b2e1297cddea",
+    "mentalApplied": "88e5b8d"
+  },
+  "BUILD_ID": "rQ1sIKKlmHRHhJMzRRk1Z",
+  "frontend": "http://127.0.0.1:3308/",
+  "backend": "http://127.0.0.1:8308",
+  "tests": {
+    "passed": 99,
+    "typecheck": "PASS",
+    "productionBuild": "PASS"
+  },
+  "checks": {
+    "consent-proof.json": {
+      "rows": [
+        {
+          "module": "skin",
+          "checkboxes": 1,
+          "beforeConsentCalls": 0,
+          "firstEntry": true,
+          "unchecked": true,
+          "consentNoAutostart": true,
+          "reload": true,
+          "reentry": true,
+          "crossTabPrivacyRevoke": true
+        },
+        {
+          "module": "vision",
+          "checkboxes": 2,
+          "beforeConsentCalls": 0,
+          "firstEntry": true,
+          "unchecked": true,
+          "consentNoAutostart": true,
+          "reload": true,
+          "reentry": true,
+          "crossTabPrivacyRevoke": true
+        },
+        {
+          "module": "dental",
+          "checkboxes": 1,
+          "beforeConsentCalls": 0,
+          "firstEntry": true,
+          "unchecked": true,
+          "consentNoAutostart": true,
+          "reload": true,
+          "reentry": true,
+          "crossTabPrivacyRevoke": true
+        },
+        {
+          "module": "hearing",
+          "checkboxes": 1,
+          "beforeConsentCalls": 0,
+          "firstEntry": true,
+          "unchecked": true,
+          "consentNoAutostart": true,
+          "reload": true,
+          "reentry": true,
+          "crossTabPrivacyRevoke": true
+        },
+        {
+          "module": "mental",
+          "checkboxes": 3,
+          "beforeConsentCalls": 0,
+          "firstEntry": true,
+          "unchecked": true,
+          "consentNoAutostart": true,
+          "reload": true,
+          "reentry": true,
+          "crossTabPrivacyRevoke": true
+        }
+      ],
+      "storageFailureClosed": true,
+      "denialSafeExit": true,
+      "physicalMediaAttempts": 0,
+      "healthCallsBeforeConsent": 0
+    },
+    "long-session-proof.json": {
+      "controlledTurns": 110,
+      "liveProviderCalls": 0,
+      "liveTtsCalls": 0,
+      "compactions": [
+        {
+          "memoryQuotes": 0,
+          "messages": 18
+        },
+        {
+          "memoryQuotes": 0,
+          "messages": 18
+        },
+        {
+          "memoryQuotes": 5,
+          "messages": 18
+        },
+        {
+          "memoryQuotes": 5,
+          "messages": 18
+        },
+        {
+          "memoryQuotes": 5,
+          "messages": 18
+        },
+        {
+          "memoryQuotes": 5,
+          "messages": 18
+        },
+        {
+          "memoryQuotes": 5,
+          "messages": 18
+        },
+        {
+          "memoryQuotes": 6,
+          "messages": 18
+        },
+        {
+          "memoryQuotes": 6,
+          "messages": 18
+        },
+        {
+          "memoryQuotes": 6,
+          "messages": 18
+        },
+        {
+          "memoryQuotes": 6,
+          "messages": 18
+        },
+        {
+          "memoryQuotes": 6,
+          "messages": 18
+        }
+      ],
+      "contextFailureRetainedPrior": true,
+      "maxRecentMessages": 32,
+      "earlyDetailRetained": true,
+      "correctionRetained": true,
+      "noTurnAutoFinish": true,
+      "finalSummaryMessages": 22,
+      "summaryMemory": 6,
+      "recordCount": 1,
+      "transcriptStored": false,
+      "newSessionEmptyMemory": true,
+      "lateResponseRecordCount": 1,
+      "revocationStoppedOwnedMedia": true
+    },
+    "final-context-smoke.json": {
+      "controlledTurns": 22,
+      "liveProviderCalls": 0,
+      "liveTtsCalls": 0,
+      "compactions": [
+        {
+          "memoryQuotes": 0,
+          "messages": 18
+        },
+        {
+          "memoryQuotes": 0,
+          "messages": 18
+        }
+      ],
+      "contextFailureRetainedPrior": true,
+      "maxRecentMessages": 32,
+      "earlyDetailRetained": true,
+      "correctionRetained": true,
+      "noTurnAutoFinish": true,
+      "finalSummaryMessages": 26,
+      "summaryMemory": 5,
+      "recordCount": 1,
+      "transcriptStored": false,
+      "newSessionEmptyMemory": true,
+      "lateResponseRecordCount": 1,
+      "revocationStoppedOwnedMedia": true
+    },
+    "long-message-proof.json": {
+      "controlledTurns": 15,
+      "userCharsPerTurn": 6000,
+      "requests": [
+        {
+          "messages": 0,
+          "chars": 0,
+          "memoryChars": 0,
+          "userChars": 6000
+        },
+        {
+          "messages": 2,
+          "chars": 6013,
+          "memoryChars": 0,
+          "userChars": 6000
+        },
+        {
+          "messages": 4,
+          "chars": 12026,
+          "memoryChars": 0,
+          "userChars": 6000
+        },
+        {
+          "messages": 6,
+          "chars": 18039,
+          "memoryChars": 0,
+          "userChars": 6000
+        },
+        {
+          "messages": 8,
+          "chars": 24052,
+          "memoryChars": 0,
+          "userChars": 6000
+        },
+        {
+          "messages": 10,
+          "chars": 30065,
+          "memoryChars": 0,
+          "userChars": 6000
+        },
+        {
+          "messages": 12,
+          "chars": 36078,
+          "memoryChars": 0,
+          "userChars": 6000
+        },
+        {
+          "messages": 14,
+          "chars": 42091,
+          "memoryChars": 0,
+          "userChars": 6000
+        },
+        {
+          "messages": 16,
+          "chars": 48104,
+          "memoryChars": 0,
+          "userChars": 6000
+        },
+        {
+          "messages": 18,
+          "chars": 54117,
+          "memoryChars": 0,
+          "userChars": 6000
+        },
+        {
+          "messages": 20,
+          "chars": 60130,
+          "memoryChars": 0,
+          "userChars": 6000
+        },
+        {
+          "messages": 22,
+          "chars": 66143,
+          "memoryChars": 0,
+          "userChars": 6000
+        },
+        {
+          "messages": 24,
+          "chars": 72156,
+          "memoryChars": 0,
+          "userChars": 6000
+        },
+        {
+          "messages": 26,
+          "chars": 78169,
+          "memoryChars": 0,
+          "userChars": 6000
+        },
+        {
+          "messages": 14,
+          "chars": 42091,
+          "memoryChars": 100,
+          "userChars": 6000
+        }
+      ],
+      "compactions": [
+        {
+          "messages": 14,
+          "chars": 42091
+        }
+      ],
+      "summary": {
+        "messages": 16,
+        "chars": 48104
+      },
+      "liveCalls": 0,
+      "physicalAcceptance": false
+    },
+    "audio-lifecycle-proof.json": {
+      "kind": "production app, controlled ASR/provider/HTTP errors; native audio and MediaSource; no live calls",
+      "checks": {
+        "headerMuteKeepsInput": true,
+        "pauseStopsBoth": true,
+        "voiceFailureStopsConversation": true,
+        "failureStopsInputAndAudio": true,
+        "routeCleanup": true
+      },
+      "mediaAttempts": 0,
+      "liveTtsCalls": 0,
+      "recordCount": 0
+    },
+    "capture-revocation-proof.json": {
+      "kind": "real product capture callback, native canvas MediaStream fixture; no physical camera, no frame analysis",
+      "rows": [
+        {
+          "module": "dental",
+          "requested": [
+            {
+              "video": {
+                "width": {
+                  "ideal": 1920
+                },
+                "height": {
+                  "ideal": 1080
+                }
+              },
+              "audio": false
+            }
+          ],
+          "trackStates": [
+            "ended"
+          ],
+          "records": []
+        },
+        {
+          "module": "vision",
+          "requested": [
+            {
+              "video": {
+                "facingMode": "user",
+                "width": {
+                  "ideal": 640
+                },
+                "height": {
+                  "ideal": 480
+                }
+              },
+              "audio": false
+            }
+          ],
+          "trackStates": [
+            "ended"
+          ],
+          "records": []
+        },
+        {
+          "module": "skin",
+          "requested": [
+            {
+              "video": {
+                "width": {
+                  "ideal": 1920
+                },
+                "height": {
+                  "ideal": 1080
+                },
+                "resizeMode": {
+                  "ideal": "none"
+                },
+                "facingMode": "user"
+              }
+            }
+          ],
+          "trackStates": [
+            "ended"
+          ],
+          "records": []
+        }
+      ]
+    },
+    "hearing-revoke-proof.json": {
+      "before": {
+        "states": [
+          "running",
+          "running"
+        ],
+        "playing": 1,
+        "amplitude": 0.00591
+      },
+      "after": {
+        "states": [
+          "closed",
+          "suspended"
+        ],
+        "playing": 0,
+        "amplitude": 0,
+        "records": 0
+      },
+      "physicalAcceptance": false,
+      "liveCalls": 0
+    },
+    "audio-passthrough-proof.json": {
+      "channels": 2,
+      "samplesPerChannel": 2048,
+      "maxAbsoluteSampleDifference": 0,
+      "bitExact": true
+    },
+    "screen-proof.json": {
+      "screens": [
+        {
+          "module": "dental",
+          "size": "desktop",
+          "width": 1440,
+          "scroll": 1434,
+          "header": 121.33333587646484,
+          "brokenImages": []
+        },
+        {
+          "module": "dental",
+          "size": "narrow",
+          "width": 390,
+          "scroll": 384,
+          "header": 207.33334350585938,
+          "brokenImages": []
+        },
+        {
+          "module": "hearing",
+          "size": "desktop",
+          "width": 1440,
+          "scroll": 1434,
+          "header": 121.33333587646484,
+          "brokenImages": []
+        },
+        {
+          "module": "hearing",
+          "size": "narrow",
+          "width": 390,
+          "scroll": 384,
+          "header": 207.33334350585938,
+          "brokenImages": []
+        },
+        {
+          "module": "skin",
+          "size": "desktop",
+          "width": 1440,
+          "scroll": 1440,
+          "header": 121.33333587646484,
+          "brokenImages": []
+        },
+        {
+          "module": "skin",
+          "size": "narrow",
+          "width": 390,
+          "scroll": 384,
+          "header": 207.33334350585938,
+          "brokenImages": []
+        },
+        {
+          "module": "mental",
+          "size": "desktop",
+          "width": 1440,
+          "scroll": 1440,
+          "header": 121.33333587646484,
+          "brokenImages": []
+        },
+        {
+          "module": "mental",
+          "size": "narrow",
+          "width": 390,
+          "scroll": 384,
+          "header": 207.33334350585938,
+          "brokenImages": []
+        }
+      ],
+      "checked": [
+        "dental",
+        "hearing",
+        "skin",
+        "mental"
+      ]
+    }
+  },
+  "tts": {
+    "attempts": 3,
+    "before": {
+      "stages": [
+        {
+          "stage": "catalogue",
+          "ok": true,
+          "exactVoice": true
+        }
+      ],
+      "error": {
+        "type": "WSServerHandshakeError",
+        "status": 403,
+        "errno": null,
+        "causeType": null
+      }
+    },
+    "dependency": "edge-tts==7.3.1; isolated target only",
+    "fixedEntry": {
+      "operation": 2,
+      "status": 200,
+      "voice": "tr-TR-EmelNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "bytes": 57168,
+      "sha256": "9bdfd42f81d5488ff21d6ad8e47bd0ee2db4a95d9f60e971ee70532d2f2b8e93",
+      "dependency": "edge-tts==7.3.1",
+      "route": "POST /api/mental/speech",
+      "note": "HTTP200 branch saved complete audio and updated manifest. Metadata path failure repaired from those exact bytes; no second request."
+    },
+    "dynamicPlayback": {
+      "requests": 1,
+      "peak": 0.34788,
+      "idle": 0,
+      "zeroSamplesDuringPlayback": 3
+    },
+    "liveLlmUsedInThisPlaybackTest": false,
+    "replySource": "controlled nonpersonal reply; actual live TTS endpoint and native playback"
+  },
+  "sourceBuildServed": {
+    "files": 183,
+    "servedJS": 38,
+    "receiptSHA256": "e3a2b55aaa4ba25239d94ef5dc2a160cc0abf4ed63cbf98c8e9c34aebe760831"
+  },
+  "protected": [
+    {
+      "checkout": "attune-live-test",
+      "commit": "5f11c111e3f6547e6420ddf37db477190d232f10",
+      "status": "M docs/all-health-feature-acceptance-20261010.md\n?? docs/all-health-task-status-20261017.json"
+    },
+    {
+      "checkout": "attune-cdc-acne-v5-integration",
+      "commit": "2637d1b3a342d333b43a40d53e195e8374c8691d",
+      "status": ""
+    },
+    {
+      "checkout": "attune-cdc-vision-technical-20261017",
+      "commit": "1cdb95ebdddd3a2fd4b83cca7408a1ae6cd3b502",
+      "status": ""
+    },
+    {
+      "checkout": "attune-cdc-mental-technical-20261017",
+      "commit": "eead4b23d92dc40887a3ed223628b2e1297cddea",
+      "status": ""
+    },
+    {
+      "checkout": "attune-antigravity-skin",
+      "commit": "d90ff95434c44b4e73ae77a7f1d5d6b2e167c987",
+      "status": ""
+    },
+    {
+      "checkout": "attune-claude-acne-audit",
+      "commit": "e6db3e1fc775b5cdbd09d63858993b2d55eb588f",
+      "status": ""
+    }
+  ],
+  "sourceTaskFiles": [
+    {
+      "path": "docs\\all-health-task-status-20261017.json",
+      "sha256": "62389b9dddc39e34ee2f06a276f6bed5bc736c21288a7d8380cbb0eeaada3902",
+      "matchesPrecedingFrozenSnapshot": true
+    },
+    {
+      "path": "docs\\all-health-feature-acceptance-20261010.md",
+      "sha256": "75d6ca6f9aac675232e97e907c85594d9f7874634d3a559c7661f440432b721c",
+      "matchesPrecedingFrozenSnapshot": true
+    }
+  ],
+  "preservedAnalysisFiles": [
+    {
+      "path": "services/core-api/acne_box_support.py",
+      "sha256": "38009262325f86161c30b37c1f220441e4560d7be2bc3a69d7e5860bca13a772"
+    },
+    {
+      "path": "services/core-api/acne_box_support_staging.py",
+      "sha256": "b0529fef86c84a214936a7310daf03a60b14201f74f352c8da48eb410f8ce4fb"
+    },
+    {
+      "path": "services/core-api/acne_v5_features.py",
+      "sha256": "987b952bb843bb98469299feeca8fbd7629c8ba20176376388d3a6cc0bb84734"
+    },
+    {
+      "path": "services/core-api/acne_v5_product.py",
+      "sha256": "25896405985cb6f3542fe09655bf01663cdc0790e79720cd57e94c8a1ed2e8fe"
+    },
+    {
+      "path": "services/core-api/appearance_analysis.py",
+      "sha256": "05062cbcdd67f3009ba96a429033615a5a8d60f632a094dcbee2354e0b604297"
+    },
+    {
+      "path": "services/core-api/care_provider.py",
+      "sha256": "93c81b54004457fca83f1c295d2bc69c31da9e5884cb1ad9afb0eca35038718b"
+    },
+    {
+      "path": "services/core-api/contour_appearance.py",
+      "sha256": "308816a7834a77263cb77c961e8476c25b998c22e244984c9fc9f22c2f573ef7"
+    },
+    {
+      "path": "services/core-api/conversation_control.py",
+      "sha256": "a0fa364b989d2edc2f61553f1232e6f8fa986ff1b3bd6bfd003dbb21d6aad1eb"
+    },
+    {
+      "path": "services/core-api/dental_analysis.py",
+      "sha256": "8880bc7aa7fa60c5eaefa6c5acf586c2e12fc04c265a080b5fc3d8edf8631aef"
+    },
+    {
+      "path": "services/core-api/dental_upload.py",
+      "sha256": "484112da257a9fd6541d19d7533bc374949d4852be3d06826bf16514232419d7"
+    },
+    {
+      "path": "services/core-api/experimental_acne_v5.py",
+      "sha256": "5185160ed839241fdf24d25535aea389d80c96a1cc664ba8f8b6b5310c7e7f9c"
+    },
+    {
+      "path": "services/core-api/hosted_skin_credentials.py",
+      "sha256": "dbdcbe3b517b783fe2f139802ddfa3e0a488a7d0464c9424a9d0050e19f5b9cd"
+    },
+    {
+      "path": "services/core-api/hosted_skin_type.py",
+      "sha256": "1ae242afabc59045211463f81751c4a1f8aa15a4ebbd8ad24111848352611d92"
+    },
+    {
+      "path": "services/core-api/instant_appearance.py",
+      "sha256": "5c9a65b59f60b205cf0d5392d6f64f85ad863a47487057f3538411427a8eb9a8"
+    },
+    {
+      "path": "services/core-api/local_health.py",
+      "sha256": "444107a93de31c99f44cd2b31a69b882678db81af12cb594cb7de3e6f8a9e17a"
+    },
+    {
+      "path": "services/core-api/material_component_features.py",
+      "sha256": "9ced63e2095b27230d4812a7e1b3ee720227856fbf111f1bc80bd9aa012ad3a4"
+    },
+    {
+      "path": "services/core-api/native_dry_path.py",
+      "sha256": "b916f3c0a64271d75b2c9f819147aa604cee383b57b9b9cdd1982e6cfaeb8346"
+    },
+    {
+      "path": "services/core-api/native_flake_support.py",
+      "sha256": "040ad3e3fbe1f58ee16ae9f9e12b62fd788067c7e3d4203b2551286677a4958f"
+    },
+    {
+      "path": "services/core-api/native_material_budget.py",
+      "sha256": "db598badd8ca4631f3cec77a74cf544af512a0c84d3e7ffb35c0252f66dcfda4"
+    },
+    {
+      "path": "services/core-api/openai_client.py",
+      "sha256": "7b3e913cb1894c20255daf24eb42236555ca50d67e247aff4edd4913fcd5312a"
+    },
+    {
+      "path": "services/core-api/product_dryness.py",
+      "sha256": "034dcafc4eaf474dff1ebbe61bc1d7263f5db5397dd445a0942eda239cec6506"
+    },
+    {
+      "path": "services/core-api/session_memory.py",
+      "sha256": "fbbb9230d9c2fbef58ab3951cdc26b68f239356c2837e2cf153ceb210a5b38df"
+    },
+    {
+      "path": "services/core-api/skin_expression.py",
+      "sha256": "79b43577a93835a88d05a8c2bb8cec817ffdfde511449e11ddc4a0a01ab03107"
+    },
+    {
+      "path": "services/core-api/skin_eyewear.py",
+      "sha256": "c1c74739c92c374f029a5d8191b54eeb49d49171df9d887369517286941f1b1e"
+    },
+    {
+      "path": "services/core-api/skin_general.py",
+      "sha256": "4b57829996625ed7f4c3ae9b75e249e3654b0f81ead9390c6eb98aeaa6f2f079"
+    },
+    {
+      "path": "services/core-api/skin_mask_staging.py",
+      "sha256": "5dff794a342e2f1094ecb4b718767d73e38c2846ac846d925a9c5e77ca3c04a6"
+    },
+    {
+      "path": "services/core-api/skin_mask_transform.py",
+      "sha256": "2b0a963a80a897bea69a65482af5c0d40bf747cfdc6e032ee6ab82b1a2486486"
+    },
+    {
+      "path": "services/core-api/skin_measurement_contract.py",
+      "sha256": "90d23ac10fa610459649dc4927e3d3b2201bc8ea0f66ea013223cd8603b87fed"
+    },
+    {
+      "path": "services/core-api/skin_models.py",
+      "sha256": "ef2dfd724c718263f8f823ed8fcc0ced1e211a969da79f5ed3a68e21db5bcf28"
+    },
+    {
+      "path": "services/core-api/skin_native_mask.py",
+      "sha256": "78d9ea4b7fd55bd563baea6139e956b2789682541d575b37def34dd4bfd1167d"
+    },
+    {
+      "path": "services/core-api/speech_stream.py",
+      "sha256": "edcd8a85ff2c96438f94978cd0510d4de4537b1634baa49d17056e5764177eee"
+    },
+    {
+      "path": "services/core-api/tts_profiles.py",
+      "sha256": "29bf4387dadcd1a0c38d03aaf47095f91bd8ebe605cd23aec272e1b6594adc0b"
+    }
+  ],
+  "assets": [
+    {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "path": "apps\\vehicle-app\\public\\mediapipe\\LICENSE-2.0.txt"
+    },
+    {
+      "bytes": 2785,
+      "sha256": "37b4cdfd49006fe4f0541aa53bff858c44ac5c6f37ee28ad6df3f3c748eac8a9",
+      "path": "apps\\vehicle-app\\public\\mediapipe\\manifest.json"
+    },
+    {
+      "bytes": 1334,
+      "sha256": "3cda983213f82a3545ea078a8a2a016c277f69a56ca308f130c04c415515ba8e",
+      "path": "apps\\vehicle-app\\public\\mediapipe\\NOTICE.md"
+    },
+    {
+      "bytes": 3758596,
+      "sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+      "path": "apps\\vehicle-app\\public\\mediapipe\\models\\face_landmarker.task"
+    },
+    {
+      "bytes": 7819105,
+      "sha256": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+      "path": "apps\\vehicle-app\\public\\mediapipe\\models\\hand_landmarker.task"
+    },
+    {
+      "bytes": 323377,
+      "sha256": "e170ee67dd4e16c1a6fcd8840a206687e5a59b22c20e4a902bc445b095454d73",
+      "path": "apps\\vehicle-app\\public\\mediapipe\\wasm\\vision_wasm_internal.js"
+    },
+    {
+      "bytes": 11756954,
+      "sha256": "8da277a733926eacd0474b8704b36742d6ec3231c57a860c5b889dff8f1df886",
+      "path": "apps\\vehicle-app\\public\\mediapipe\\wasm\\vision_wasm_internal.wasm"
+    },
+    {
+      "bytes": 323415,
+      "sha256": "da8934057f147b622e82cfb4c0dbd85461c598e268588b5a8ba9ca963a8ff82d",
+      "path": "apps\\vehicle-app\\public\\mediapipe\\wasm\\vision_wasm_module_internal.js"
+    },
+    {
+      "bytes": 11756972,
+      "sha256": "2dabd8e23c60984628beb7bb338764c81a08e6837145273f59578684b5d53c1b",
+      "path": "apps\\vehicle-app\\public\\mediapipe\\wasm\\vision_wasm_module_internal.wasm"
+    },
+    {
+      "bytes": 323180,
+      "sha256": "e81d715a3d42cc3373602eb2f7aff795d164934db680e32496b65dab537f9658",
+      "path": "apps\\vehicle-app\\public\\mediapipe\\wasm\\vision_wasm_nosimd_internal.js"
+    },
+    {
+      "bytes": 10960242,
+      "sha256": "a28483cd42e74e855bf5ebdb6b40d9b66a5b49e35e95020bc97669e6822a3192",
+      "path": "apps\\vehicle-app\\public\\mediapipe\\wasm\\vision_wasm_nosimd_internal.wasm"
+    },
+    {
+      "bytes": 16416,
+      "sha256": "3e28ff96d990142721bc7a7368b62fd3cd86bea47461c88ac96f4becee3d284a",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\approach.mp3"
+    },
+    {
+      "bytes": 28944,
+      "sha256": "4bf09e646bf711101353bb8f9806ce47bc0f0fb542a937fc800e387ff8a12a52",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\blur.mp3"
+    },
+    {
+      "bytes": 21168,
+      "sha256": "d690b0b1f801a0875fedd7ed7eca84447de740e6c0d82eada19a73ea2a535d4f",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\bright.mp3"
+    },
+    {
+      "bytes": 22320,
+      "sha256": "a3cac5739781e919c5a1ad2ad69d200fe475b524a3265dcfd7d4651f6eda9df2",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\camera.mp3"
+    },
+    {
+      "bytes": 21168,
+      "sha256": "46044cb22f3a08d7413be5613e36b51448a61d5ce2b4408b318cce6b7fdf9901",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\complete.mp3"
+    },
+    {
+      "bytes": 32688,
+      "sha256": "8eb0d46be0c8ae6fc6c8184eae1aa0fe72ea3a95be18649ed1961461e2906994",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\eye.mp3"
+    },
+    {
+      "bytes": 19296,
+      "sha256": "73f473280143616b632d0cfe90d05c848942bc40c41ae727adff6ffab45649d7",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\face.mp3"
+    },
+    {
+      "bytes": 108576,
+      "sha256": "3208f5408d2738ca841c4531d214fb4a58300844de85345c3366af8b366c8d7c",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\first.mp3"
+    },
+    {
+      "bytes": 31824,
+      "sha256": "55d687e4223222145d9f29fcdd8c38325ca83f2dc5e1aa7525cd511cd2cece0b",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\framing.mp3"
+    },
+    {
+      "bytes": 82656,
+      "sha256": "f33ee9d938d7ae584004067c446fccb46750b1529a3ae4d068e47870fb86b507",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\left.mp3"
+    },
+    {
+      "bytes": 46512,
+      "sha256": "882e425d4cb91dbb5662ec56ec3b9425a1dd98bce4b33715a7a16ec6e6d81dee",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\letter.mp3"
+    },
+    {
+      "bytes": 20592,
+      "sha256": "17d484b8a8dc60627f9dc5c015b0cff769a790352f7c98016d0aba367b5825fb",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\light.mp3"
+    },
+    {
+      "bytes": 9253,
+      "sha256": "2e08381a7fa242662ca75244bca100e68aca0d47a2d33302ed17bd0cedac1b53",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\manifest.json"
+    },
+    {
+      "bytes": 21456,
+      "sha256": "31b90e54c6ca490c1e86864f05ced0c6fca975ede784bf0cc738715e577e3bf0",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\motion.mp3"
+    },
+    {
+      "bytes": 20304,
+      "sha256": "cbed2756de2653f6db5bbc728d078bdc64e7f88ec8ab644962008086743dfe5c",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\next1.mp3"
+    },
+    {
+      "bytes": 24480,
+      "sha256": "72df80473c433b0e77a330f28ce6889c00c764a454240486e6a1b41c13ec9c3d",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\next2.mp3"
+    },
+    {
+      "bytes": 35712,
+      "sha256": "6743612982197201b63e2dda09b74b522a1d7eedcc249d7ab495582f6077a5d0",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\next3.mp3"
+    },
+    {
+      "bytes": 27072,
+      "sha256": "3718ce39082812627f98fa7c4713d5098d1f2cd1a5b51bb0c3afb19ba3c4b978",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\orientation.mp3"
+    },
+    {
+      "bytes": 40464,
+      "sha256": "bcc9aa2378174be97a0f1796ff256bb88388ca3804abf55f435ce281c7790c31",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\paused.mp3"
+    },
+    {
+      "bytes": 41472,
+      "sha256": "a2cea103a7f148e6beef614c6f5f449150b109d964a724897174502b91bd7e33",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\pose.mp3"
+    },
+    {
+      "bytes": 41472,
+      "sha256": "0c215f8e18b4f4b37aadbee7676f33d479b72df03fc4d9d741067b3273efd016",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\position.mp3"
+    },
+    {
+      "bytes": 63072,
+      "sha256": "24a585b9d89d2f70908e9398a8d6375e57097ab51c7b29ed7ca61633a51e66d3",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\prepare.mp3"
+    },
+    {
+      "bytes": 34416,
+      "sha256": "ec6583fd2f68ba2c41dc21afc6f428fe645acc9bd540d0f481602afce3a55d2d",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\preparing.mp3"
+    },
+    {
+      "bytes": 13392,
+      "sha256": "b3c19d2fb21bf027a47028365ea0931b67b095e4f47380aea05df37f888ba0cb",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\ready.mp3"
+    },
+    {
+      "bytes": 17136,
+      "sha256": "69f80bd01f2977d483a0dea850ac6d69eceef8559c1d3306281a6e24d8cf6ebd",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\recede.mp3"
+    },
+    {
+      "bytes": 23472,
+      "sha256": "36b63f6e69a532e090384a15a43654a554db2fd5e185bb0a5ee56978fb528254",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\repeat.mp3"
+    },
+    {
+      "bytes": 20016,
+      "sha256": "bb92db6a7bf7a91538b16b4a7f195f2ef9e0486674b4bee664a03589e08573a5",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\reverse.mp3"
+    },
+    {
+      "bytes": 82224,
+      "sha256": "917587d0be874c457632a06e307333aba903bd0a13b486fd11c364a3244fd7c4",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\right.mp3"
+    },
+    {
+      "bytes": 29664,
+      "sha256": "fd3bbe5eedef7354b92d357fe62f713177d94ba430681dc71be04a02e91f66c3",
+      "path": "apps\\vehicle-app\\public\\audio\\vision-speech\\uncertain.mp3"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\bc509b8d87fbeb711c4edf4b1e748fcb57a3f1946c920c7e2caf68db19f45c54.mp3",
+      "bytes": 46368,
+      "sha256": "ecf987d8da58d5f83488da5ae6e899010966d2d0a6745f223283cbf6629a57d1"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\61c37ebbbec5451995f24209cc9072866eb22ec70e1b9d943e340448cdb9b3ec.mp3",
+      "bytes": 36864,
+      "sha256": "b862a9d358f04bae0addfba32231e5b585ce4bef1725bf61eba75a070ecaa182"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\863e4949bcca97d92a24f19edc6962f3c742223521b8d7a8d9efd58c3cecec9d.mp3",
+      "bytes": 34128,
+      "sha256": "06582bf099ee6641335ad79b61512db28597cbe437ef882f5573eae625c9f4c7"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\87813f989e9141e52265d3c3a9d604dff7accbe50cc274642076506f36eef126.mp3",
+      "bytes": 43920,
+      "sha256": "c6b0a94945dc42f8220207a70a00053c12e2051f01a2a5cdaa644dd53ce79003"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\0080b67ce4b5741a8d923722649bc982c2296662257caa84733079542e32a0d1.mp3",
+      "bytes": 61488,
+      "sha256": "92f143f29631a1deb3555adbcd551a03218f21c4f7eb81946dba2ca5df2ea943"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\bfe2747cd9d206ba125df14b4aebe74f546698b7cafc3494ee3b27508210e1b9.mp3",
+      "bytes": 49968,
+      "sha256": "9ddd050ccd2bc3d628172a40190aab7d81574f575f822dcca4f6005353b501d1"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\1aa5eae5001f9a5efafaffbf89b89c3e4b74501c8935ff0f9d1373793220697e.mp3",
+      "bytes": 56304,
+      "sha256": "0931e7a59108d6f0409b23d86219e5ec0be00e2d16f8ac4e8e70d39865948a85"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\1c2c9ebfb1a9d3f9c9a5c31b9069b4bf54f9561d27804fde1dad52f975cff440.mp3",
+      "bytes": 51408,
+      "sha256": "19f51299a37b52a1e63debb98edfeabedc7d895df1d1fb745fb9f7a1d22be8c9"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\95b7ba66ca9383f26426e9b558cdd119f392892c4b44d166a25d72de0b78e4b6.mp3",
+      "bytes": 42912,
+      "sha256": "5a2a2b12d689fd7019aadb23bf122c1192269071fa3aa5ea4047d9d8715fdb9a"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\1a3a7ab0d5c72d5fd83dc7db58ede3d69881125d3aa9ce64d79853cdcb560fdc.mp3",
+      "bytes": 37440,
+      "sha256": "0acf416f0e0c1708cf48579f9b00feda5cef9a9241af38e899b8aa31bf337118"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\301e031afef62a07087fed5325c2a42858790e184d95eb0004f42e3037a9c0f6.mp3",
+      "bytes": 50256,
+      "sha256": "629b32319770e7cb71977fb321a14d09c4a16c1e6a9820b2956fabdeb885c892"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\892496665b61082c6e9d8217345c326ea75043431586c4747837a1b45e0e8d9d.mp3",
+      "bytes": 63072,
+      "sha256": "0ee16b8bbfa6684228ceb30d7fa4d473c4f272300de0da1271f361e45fba95ba"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\f64f01fc4b48b213d73d5f11e00b3af6755f000b1c231ab8f583d1c0ebbc2301.mp3",
+      "bytes": 43920,
+      "sha256": "a6b8f448b802a8ce5da8854caadb12d2d9768b03aca04201f794460ddd568e9e"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\2fe912eef3efec479e33c95c021bae23fc34673a0b6a382c289bbb34f89f7558.mp3",
+      "bytes": 34704,
+      "sha256": "b59f9ff4b0af285012d97aba717ee63ddbd118498047987050ea4901361da08b"
+    },
+    {
+      "path": "apps/vehicle-app/public/audio/guidance/manifest.json",
+      "bytes": 17577,
+      "sha256": "f2c1334699fb71d799a2bcea735841c961bcd05ced86423e9295e188ecf7f1c3"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\17e2e6e3043b8af03da0ec6da40d0c4642049b90796292bf685b5ae6a2eda3ab.mp3",
+      "bytes": 55584,
+      "sha256": "14ed34ac2d1d3df9eb4d39ed7583a7895bae66c102370b96dad946ac0d4ca835"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\dffc5fb2c3e13958b051bc743d09ff19f8b3d5c6c1e502583b70e1b49edcbf3c.mp3",
+      "bytes": 44928,
+      "sha256": "ce82614e9abe7eaa31703651fa7de304f1be87b2b71f7b870e5312dbf362e06f"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\4d7afca395a8d64e7a692821e6a714093641c72f9f5984cad79ff79277ff370d.mp3",
+      "bytes": 44352,
+      "sha256": "d22fe080f619f4573d9d70b9ab012f1302d677564c79dc382cf70b4706e90ccd"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\d87257b714e2b3d2a2820107654ccdee014cbdce383c3d11cdc2cb9e0e8bd5c7.mp3",
+      "bytes": 47664,
+      "sha256": "653edd68058b18c7821fe302397603d61d84fd95b8685a04a77b6018e2e9ea11"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\438f535e696375cf3e64ad131cb2d9e5a962f46b3b325197d0c502be03dab239.mp3",
+      "bytes": 62064,
+      "sha256": "8844fc2d8d2e46c7aca50707a7e16cc7e1e0f277c694fb2d867510c274b89e38"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\247e1a597e24f30fed969f25787b88cebde66512a1cfd1f234aa09e41286a319.mp3",
+      "bytes": 35568,
+      "sha256": "a4b0140aec9b89dbf4167fed4b952ff37122df790a41e3da3e9eb24460b1718d"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\93e1f43eeb80d148898c49499002be71e0830b5f19c2519c400d194612115dd7.mp3",
+      "bytes": 37584,
+      "sha256": "0e28d615714dcf56e7aa5f886e02c2a26bd2399554c98c1423197884c8e5b45a"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\ef32fbf400632b202b3ebf3b0cb85c19ce0115c67d89c4e08ac30ec08cd54078.mp3",
+      "bytes": 49392,
+      "sha256": "3a2c210a917b821b5d4f67344dc7697f928d5e9234ee0f79f3a2bb304a17fc50"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\4dc15ac0d612b0268f7817c086a64ec858d56ebe01e7677818bf1e3b1006d7f3.mp3",
+      "bytes": 35136,
+      "sha256": "e031b3949480cb1c0ee811f7b13151ef4e609f065a3bb0adb4e9846ecd76fde7"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\c1c445a6930024eb14788fd5c16a9b2ad6bc98339604871691f00013863a9bd3.mp3",
+      "bytes": 48816,
+      "sha256": "cc2a311b666d78dc432842d5bd53cbab555269a6340cf294344d387dbf861bbd"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\f1619926a08b68387a346bf57355d866cfd7b429f48335f6ea9965ad255c0f4c.mp3",
+      "bytes": 54000,
+      "sha256": "dc82fcafa235390dd111321b2cdbbfac558e1261be4b0fd9ef0beda171e2f03b"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\de70e66e6d8727715299a9eb47d47b8cb40be8a9b99fec04a4009e6f2f392fca.mp3",
+      "bytes": 36144,
+      "sha256": "7023171305be46e7813aed150fa0bed2fb90bce34e11f37a77cc872d0180183e"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\6a04afabc56b94a3df82ca186e7f6c1833788ca145d8d4923442924f74462634.mp3",
+      "bytes": 51984,
+      "sha256": "4b5e1bb939a65adf653f006a4459f9da9a08790a8a0af76ad8df1779125603ef"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\f1f50c0d6ded53ca4d20fc867a017b36c44741e1e68b4f6cf889da3f266bfa63.mp3",
+      "bytes": 61056,
+      "sha256": "46767d988f4712377ef3ea3bf42cbf3b82be28d35c0a37e5dd93225e6c73410a"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\655ba9db5477a24f60b2de80886f66c43419d83aced1ee9c9782270d454881ce.mp3",
+      "bytes": 44352,
+      "sha256": "f0253fd411b4330fa131c2e8f2f8c5b057b25f2146fad1f81c42b3777d09d253"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\6bfa309a388540e210cc7dfe5b871a045f35c7a154fdbdfd1b1f7437cb7c27e1.mp3",
+      "bytes": 51840,
+      "sha256": "3df31f58cddec267c04b0cb42f8f6c771dc1770072c06e203c6c1d459ce80785"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\6e6201841b280306b8b3f1b01002e232a148c0d0f61eb3278fa176e94edb5011.mp3",
+      "bytes": 30096,
+      "sha256": "147205af68d79fc12e787baa8c27597bdcbdebd128c207287186a680396d8886"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\4124c51a4c630b60da1eeeaaae2a3317e172b1d810aeb0402e5be0fb434c01c4.mp3",
+      "bytes": 35280,
+      "sha256": "cfec5d277b06ac50acb27b90948566967734a99487a6e419c5c41862a19277b8"
+    },
+    {
+      "path": "services/core-api/models/acne-v5-preview/step0-with-features-stable-silu.onnx",
+      "bytes": 39122518,
+      "sha256": "9c87475d9302aed16f09abedc109211c2ac1b49f22f465f86aab408a5244d0be"
+    },
+    {
+      "path": "services/core-api/models/acne-v5-preview/verifier-v5.json",
+      "bytes": 152591,
+      "sha256": "0d7bf03ca4d9898ef1b2e78c6d54d61be6aff580329b20b78a9232f79cfd43bb"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\assets\\dental-preparation-v1.png",
+      "bytes": 2185372,
+      "sha256": "b5fa412fc3bb9f1efae7db1f0879b868dd3561e9520e568d0e92c3b3213e3af8"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\assets\\hearing-preparation-v1.png",
+      "bytes": 2329697,
+      "sha256": "dbaa0387bc3caa886d26c083a90df2f3cc8033c4c6ae60deb2cc5151556f5648"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\assets\\skin-preparation.png",
+      "bytes": 1986809,
+      "sha256": "91f01138ff96e9cc980043f89621cea791b3fb79b9ce38528b1a2d2d546165d0"
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\audio\\guidance\\mental-entry-voice-only-v1.mp3",
+      "bytes": 57168,
+      "sha256": "9bdfd42f81d5488ff21d6ad8e47bd0ee2db4a95d9f60e971ee70532d2f2b8e93"
+    },
+    {
+      "path": "services/core-api/models/skin-focused.json",
+      "bytes": 7289,
+      "sha256": "accc9ff193030bccde572ded39b1878fc7919e33daf62f2ac560c3357a83abfb"
+    },
+    {
+      "path": ".runtime/edge-tts/edge_tts/communicate.py",
+      "bytes": 24038,
+      "sha256": "2944b7de57a49a6dc828186a8465e03fd0936102da2e717b9dce45c40c993bb9"
+    },
+    {
+      "path": ".runtime/edge-tts/edge_tts/drm.py",
+      "bytes": 18490,
+      "sha256": "b29c37e2a0c11284adb2a1ffc04f0f231e1ba2d921494a912797218b05d64c4a"
+    },
+    {
+      "path": "services/core-api/models/dental-yolox-s.json",
+      "bytes": 11399,
+      "sha256": "42e2c4cfc0d86d30294c392997c16b78a364050296235ade9a961cf3828fbd19"
+    },
+    {
+      "path": "services/core-api/models/dental-yolox-s.onnx",
+      "bytes": 35800550,
+      "sha256": "eafaca8139e4447b1aa64375156aa47764affd91cf0594392b896ea78463bf03"
+    },
+    {
+      "path": "services/core-api/models/skin-eyewear-framefind-v1.json",
+      "bytes": 854,
+      "sha256": "918e149f334710cbc0de05f89c2d6f21cae00f8f778310b7c5e6b7613a246f0b"
+    },
+    {
+      "path": "services/core-api/models/skin-eyewear-framefind-v1.onnx",
+      "bytes": 6402858,
+      "sha256": "66f75c686974a04bf956d0ed6411315309afcabd36c400edec743953adafccb9"
+    },
+    {
+      "path": "services/core-api/models/skin-focused-degrees.onnx",
+      "bytes": 16037017,
+      "sha256": "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3"
+    },
+    {
+      "path": "services/core-api/models/skin-type-hosted.json",
+      "bytes": 456,
+      "sha256": "95fd8f84be6c6b09a5eee238c983ab3b024ea074c711ada608ef1d69e964c74e"
+    },
+    {
+      "path": "services/core-api/models/acne-v5-preview/manifest.json",
+      "bytes": 1197,
+      "sha256": "a9f939deb312cfc957d8456fc865e1d3a6f21a5d4e0ba227b94bedb1413a8fe0"
+    },
+    {
+      "path": "services/core-api/models/dryness-calibrated-v3/config.json",
+      "bytes": 578,
+      "sha256": "e62bba10919d4e51b1d0ce09b8c1ae7cdb107510f69b95570d196fda5c915e3d"
+    },
+    {
+      "path": "services/core-api/models/dryness-calibrated-v3/encoder-parity.json",
+      "bytes": 1016,
+      "sha256": "3f1bd96bb44041a80916168fa36c7ccc032598b1211f308b6e2dc081a5085490"
+    },
+    {
+      "path": "services/core-api/models/dryness-calibrated-v3/encoder.onnx",
+      "bytes": 16019972,
+      "sha256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987"
+    },
+    {
+      "path": "services/core-api/models/dryness-calibrated-v3/head.json",
+      "bytes": 204818,
+      "sha256": "7f13c7cb4eb65a3fb44abf062563ee3aff605a6ef9ff3271c5e32e206fedb8e1"
+    }
+  ],
+  "generatedAssets": [
+    {
+      "path": "apps\\vehicle-app\\public\\assets\\dental-preparation-v1.png",
+      "sha256": "b5fa412fc3bb9f1efae7db1f0879b868dd3561e9520e568d0e92c3b3213e3af8",
+      "bytes": 2185372,
+      "source": "built-in image_gen; generated for this authorized task",
+      "use": "local illustrative preparation portrait; fictional, not a patient/result",
+      "prompt": "Create a production website hero asset, photorealistic natural editorial portrait. A fictional adult woman, shoulders and entire head visible, looking toward the camera, natural warm smile with upper teeth clearly and realistically visible, healthy ordinary unretouched skin. Dark navy studio background #0c1424, soft light, portrait 3:4 composition, no text, no logos, no cards. Add a delicate subtle turquoise triangular scanning mesh only on the mouth and visible teeth area, do not place mesh on eyes forehead cheeks or neck. This is an illustrative preparation portrait for a dental photo flow, not a diagnostic result. Natural anatomy, realistic teeth, no tools or medical devices, premium understated styling.",
+      "inGit": false
+    },
+    {
+      "path": "apps\\vehicle-app\\public\\assets\\hearing-preparation-v1.png",
+      "sha256": "dbaa0387bc3caa886d26c083a90df2f3cc8033c4c6ae60deb2cc5151556f5648",
+      "bytes": 2329697,
+      "source": "built-in image_gen; generated for this authorized task",
+      "use": "local illustrative preparation portrait; fictional, not a patient/result",
+      "prompt": "Production website hero asset, photorealistic natural editorial portrait. Fictional adult man with short hair, head and shoulders in subtle three-quarter side view, visible natural ear clearly exposed toward the camera, calm expression. Dark navy studio background #0c1424 and soft photographic lighting, understated premium health app style, portrait 3:4 composition. Fine delicate turquoise sound wave arcs traveling through air toward the ear from the left side of the image. No text, no labels, no diagrams over the face, no headphones covering the ear, no medical devices, no cartoon or illustration rendering. Ordinary natural skin texture. Educational preparation image for a headphone hearing test, never a diagnostic result.",
+      "inGit": false
+    }
+  ],
+  "normalLauncherChanged": false,
+  "push": false,
+  "mergeMain": false,
+  "technicalBlocker": null,
+  "physicalAcceptance": "PENDING: final shared camera, natural ASR, hearing and pronunciation session",
+  "contextContract": {
+    "version": "extractive-user-quotes-v1",
+    "recentMessageTrigger": 32,
+    "characterTrigger": 80000,
+    "recentKeepMaximumMessages": 16,
+    "recentKeepMaximumChars": 48000,
+    "maximumMemoryQuotes": 32,
+    "maximumQuoteChars": 2000,
+    "maximumMemoryChars": 16000,
+    "perRequestTimeoutSeconds": 30,
+    "providerRetries": 0,
+    "permanentMemory": false
+  }
+}

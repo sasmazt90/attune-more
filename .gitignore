@@ -139,3 +139,6 @@ services/core-api/models/acne-v5-preview/*.onnx
 
 apps/vehicle-app/public/__camera_audit__/
 services/core-api/models/dryness-calibrated-v3/*.onnx
+
+# New local illustrative/approved speech asset; identities travel as metadata.
+apps/vehicle-app/public/audio/guidance/mental-entry-voice-only-v1.mp3

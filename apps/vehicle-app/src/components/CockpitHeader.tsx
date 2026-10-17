@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import {PlaybackWave} from './PlaybackWave';
 import { muteGuidance } from '../utils/audioGuidance';
 import { HEALTH_MODULES, HEALTH_MODULE_IDS } from '../utils/healthModules';
 import { InformationButton } from './InformationButton';
@@ -52,7 +53,7 @@ export const CockpitHeader: React.FC = () => {
         </div>
 
         {/* Sensörler, Batarya ve Araç Durumu Butonu */}
-        <div className="flex items-center gap-3"><button type="button" className="min-h-11 min-w-11 rounded-full border border-white/20 inline-flex items-center justify-center" aria-label={guidanceMuted?'Yönerge sesini aç':'Yönerge sesini kapat'} aria-pressed={guidanceMuted} onClick={()=>{const next=!guidanceMuted;setGuidanceMuted(next);muteGuidance(next);}}>{guidanceMuted?<VolumeX className="h-4 w-4"/>:<Volume2 className="h-4 w-4"/>}</button>
+        <div className="flex items-center gap-3"><PlaybackWave/><button type="button" className="min-h-11 min-w-11 rounded-full border border-white/20 inline-flex items-center justify-center" aria-label={guidanceMuted?'Seslendirmeyi aç':'Seslendirmeyi kapat'} aria-pressed={guidanceMuted} onClick={()=>{const next=!guidanceMuted;setGuidanceMuted(next);muteGuidance(next);}}>{guidanceMuted?<VolumeX className="h-4 w-4"/>:<Volume2 className="h-4 w-4"/>}</button>
 
 
           {/* Sürüş / Park Durumu */}
