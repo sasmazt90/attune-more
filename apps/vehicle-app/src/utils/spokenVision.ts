@@ -103,8 +103,8 @@ export function equivalentOrientation(letter:Letter,a:Orientation,b:Orientation)
 export type EyePixelEvidence={state:'open'|'closed'|'covered'|'uncertain';ear:number|null;darkFraction:number|null;contrast:number|null;method:string;baselineEar?:number;blinkCoefficient?:number|null;heldMs?:number;appearanceChange?:number;templateCorrelation?:number;palmCoverage?:number;wideTemplateCorrelation?:number;candidateState?:'open'|'closed'|'covered'|'uncertain'};
 export type LetterConditions={observedAt:number;cameraLive:boolean;modelActive:boolean;faceCount:number;qualityValid:boolean;positionValid:boolean;relativeScaleChange:number|null;motionStable?:boolean;right:EyePixelEvidence;left:EyePixelEvidence;distancePolicy?:'head-anchors-hysteresis-v1';distanceState?:'learning'|'stable'|'near'|'far'|'unknown';blocker?:string|null;trackingMethod?:string};
 export function letterConditionFailure(c:LetterConditions|null,eye:Eye|null,now:number):'camera'|'position'|'eye'|'uncertain'|null {
- if(!c||now-c.observedAt>750||now<c.observedAt||!c.cameraLive||!c.modelActive||c.faceCount!==1||!c.qualityValid)return 'camera';
- if(!c.positionValid||c.relativeScaleChange===null||(c.distancePolicy!=='head-anchors-hysteresis-v1'&&(c.motionStable===false||Math.abs(c.relativeScaleChange)>.08)))return 'position';
+ if(!c||!Number.isFinite(now)||!Number.isFinite(c.observedAt)||now-c.observedAt>750||now<c.observedAt||!c.cameraLive||!c.modelActive||c.faceCount!==1||!c.qualityValid)return 'camera';
+ if(!c.positionValid||c.relativeScaleChange===null||!Number.isFinite(c.relativeScaleChange)||(c.distancePolicy!=='head-anchors-hysteresis-v1'&&(c.motionStable===false||Math.abs(c.relativeScaleChange)>.08)))return 'position';
  if(!eye)return null;
  const opened=eye==='RIGHT'?c.right:c.left,closed=eye==='RIGHT'?c.left:c.right;
  if(opened.state==='uncertain'||closed.state==='uncertain')return 'uncertain';
@@ -170,7 +170,7 @@ export class SpokenLetterSession {
  respond(answer:ParsedAnswer,c:LetterConditions|null,now:number,presentationId:string,geometry:RenderedSymbolGeometry|null){
   if(this.completed||!this.presentationId||presentationId!==this.presentationId||letterConditionFailure(c,this.eye,now)||!c)return false;
   if(answer.clarify||(!answer.command&&(!answer.letter||!answerTransform(answer)))||(answer.command&&answer.command!=='not-visible'))return false;
-  if(!geometry||geometry.viewportWidthCssPx<=0||geometry.viewportHeightCssPx<=0||geometry.pathWidthCssPx<=0||geometry.pathHeightCssPx<=0||now<geometry.measuredAt||now-geometry.measuredAt>750)return false;
+  if(!geometry||![geometry.viewportWidthCssPx,geometry.viewportHeightCssPx,geometry.pathWidthCssPx,geometry.pathHeightCssPx,geometry.strokeWidthCssPx,geometry.measuredAt].every(Number.isFinite)||geometry.viewportWidthCssPx<=0||geometry.viewportHeightCssPx<=0||geometry.pathWidthCssPx<=0||geometry.pathHeightCssPx<=0||now<geometry.measuredAt||now-geometry.measuredAt>750)return false;
   const eye=this.eye,t=this.record(answer,c,now,geometry,null);this.trials.push(t);this.presentationId='';this.streak=t.combinedCorrect?this.streak+1:0;this.wrongStreak=t.combinedCorrect?0:this.wrongStreak+1;
   if(this.wrongStreak===2){this.sizePx=Math.min(LETTER_RULES.maxPx,this.sizePx/LETTER_RULES.shrinkRatio);this.wrongStreak=0;}
   else if(this.streak===2){this.sizePx=Math.max(LETTER_RULES.minPx,this.sizePx*LETTER_RULES.shrinkRatio);this.streak=0;}

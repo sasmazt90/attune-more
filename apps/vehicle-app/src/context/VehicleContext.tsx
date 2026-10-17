@@ -5,6 +5,7 @@ import {LOCAL_API_BASE} from '../utils/previewLocalApi';
 import React, { createContext, useContext, useEffect, useState, useRef, useCallback } from 'react';
 import { mockVehicleInstance } from '@packages/vehicle-context/MockVehicleProvider';
 import { VehicleState } from '@packages/vehicle-context/types';
+import { localBackend } from '../utils/localBackend';
 
 interface VehicleContextType {
   state: VehicleState;
@@ -49,7 +50,7 @@ export const VehicleContextProvider: React.FC<{ children: React.ReactNode }> = (
       activeRequest.current = controller;
       const deadline = setTimeout(() => controller.abort(), 5000);
       try {
-        const response = await fetch(`${LOCAL_API_BASE}/api/vehicle/state`, { cache: 'no-store', signal: controller.signal });
+        const response = await fetch(localBackend('/api/vehicle/state'), { cache: 'no-store', signal: controller.signal });
         if (!response.ok) throw new Error('Araç durumu alınamadı');
         const state = await response.json();
         if (mounted.current && id === requestId.current) applyState(state);
@@ -87,7 +88,7 @@ export const VehicleContextProvider: React.FC<{ children: React.ReactNode }> = (
     setSyncStatus('updating');
     setSyncError(null);
     try {
-      const response = await fetch(`${LOCAL_API_BASE}/api/vehicle/speed`, {
+      const response = await fetch(localBackend('/api/vehicle/speed'), {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ speedKmH: speed }), signal: controller.signal
       });
