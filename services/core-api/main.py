@@ -207,11 +207,11 @@ class CreateSessionPayload(BaseModel):
     saveMentalSummaries: StrictBool = False
 
 class AppointmentMatchPayload(BaseModel):
-    specialty: str
-    preferredCity: Optional[str] = "İstanbul"
+    specialty: str = Field(min_length=1,max_length=120)
+    preferredCity: Optional[str] = Field(default="İstanbul",max_length=120)
     maxTravelTimeMin: Optional[int] = 30
     useBrowserAgent: Optional[bool] = True
-    availableWindows: List[dict] = []
+    availableWindows: List[dict] = Field(default_factory=list,max_length=30)
     timeZone: str = "Europe/Istanbul"
     durationMin: int = 45
 
@@ -420,37 +420,23 @@ def record_mental_session(payload: CreateSessionPayload):
 calendar_provider = CalendarProvider()
 
 @app.post("/api/care/match")
-def match_appointments(payload: AppointmentMatchPayload):
+async def match_appointments(payload: AppointmentMatchPayload, request: Request):
+    from care_provider import get_care_provider, available_window_match, normalize_care_slots
+    from starlette.concurrency import run_in_threadpool
+    if vehicle_state["vehicleMoving"] or not vehicle_state["vehicleParked"]:
+        raise HTTPException(409, "PARK_REQUIRED")
+    if await request.is_disconnected(): raise HTTPException(409, "CANCELLED")
     specialty = payload.specialty
     city = payload.preferredCity or "İstanbul"
-
-    if payload.useBrowserAgent:
-        provider = BrowserCareSearchProvider()
-    else:
-        provider = DemoCareSearchProvider()
-
-    search_result = provider.search_slots(specialty=specialty, city=city)
-    slots = search_result.get("slots", [])
-
-    from care_provider import available_window_match
-    from zoneinfo import ZoneInfo,ZoneInfoNotFoundError
-    if not 15<=payload.durationMin<=120 or len(payload.availableWindows)>30:
-        raise HTTPException(422,'INVALID_MATCH_WINDOW')
-    try:ZoneInfo(payload.timeZone)
-    except ZoneInfoNotFoundError:raise HTTPException(422,'INVALID_TIME_ZONE') from None
-    try:available_window_match(None,payload.availableWindows,payload.durationMin,payload.timeZone)
-    except ValueError:raise HTTPException(422,'INVALID_MATCH_WINDOW') from None
-    processed_slots=[]
-    for slot in slots:
-        date_time_str=slot.get('dateTime','')
-        try:fits=available_window_match(date_time_str,payload.availableWindows,payload.durationMin,payload.timeZone)
-        except ValueError:raise HTTPException(422,'INVALID_MATCH_WINDOW') from None
-        if fits is False:continue
-        demo=slot.get('sourceType')=='DEMO'
-        conflict=calendar_provider.has_conflict(date_time_str,payload.durationMin) if demo and date_time_str else None
-        travel=TravelTimeProvider.calculate_travel_time_min(slot.get('locationLabel',''))
-        processed_slots.append({**slot,'calendarConflict':conflict,'calendarFits':fits,'calendarBadge':'Kullanıcının uygun zaman aralığı' if fits is not None else 'Saat doğrulanmadı',
-                                'travelTimeMin':travel['estimatedMinutes'],'trafficBadge':travel['trafficBadge'],'matchScore':None,'durationMin':payload.durationMin,'timeZone':payload.timeZone})
+    # Reject invalid manual windows before any provider/network side effect.
+    try: available_window_match(None,payload.availableWindows,payload.durationMin,payload.timeZone)
+    except ValueError: raise HTTPException(422,'INVALID_MATCH_WINDOW') from None
+    provider=get_care_provider(payload.useBrowserAgent)
+    search_result = await run_in_threadpool(provider.search_slots,specialty=specialty,city=city)
+    if await request.is_disconnected(): raise HTTPException(409, "CANCELLED")
+    if vehicle_state["vehicleMoving"] or not vehicle_state["vehicleParked"]:
+        raise HTTPException(409, "PARK_REQUIRED")
+    processed_slots = normalize_care_slots(search_result,payload.availableWindows,payload.durationMin,payload.timeZone)
 
     return {
         "status": search_result.get("status", "SUCCESS"),
@@ -461,7 +447,7 @@ def match_appointments(payload: AppointmentMatchPayload):
         "handoffNote": search_result.get("handoffNote"),
         "liveSearchUrl": search_result.get("liveSearchUrl"),
         "matchedSlots": processed_slots,
-        "currentTravelBufferMin": vehicle_state["estimatedTravelTimeToDestMin"]
+        "currentTravelBufferMin": None
     }
 
 # ---------------------------------------------------------------------------

@@ -10,7 +10,7 @@ import hashlib
 import math
 import cv2
 import numpy as np
-from skin_general import general_result
+from skin_general import general_result,oil_region_support,OIL_SAMPLING
 from skin_models import infer as infer_skin_models, infer_acne, infer_bags, session_status
 from skin_measurement_contract import attach_result_receipts
 from skimage.feature import local_binary_pattern
@@ -22,7 +22,7 @@ from skin_scan_baseline.blemishes import blemish_map
 VERSION = 'appearance-cv-6'
 LINE_FREQUENCIES=(.13,.18,.26)
 LIMITS = {'minFacePixels': 180, 'analysisFacePixels': 320, 'maxClippedFraction': .03}
-NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1','dry':'eligible-flake-luma-union-v3','acne':'unique-detection-box-anatomical-area-v2','lines':'outer-canthus-gabor-radiating-hair-excluded-v4','dark':'lower-lid-contrast-chroma-local-v4','sag':'contour-fold-lower-chin-observed-runs-v9','bags':'contour-fold-local-support-v5'}
+NORMALIZATION={'tone':'lab-local-color-fixed-v1','redness':'lab-red-excess-fixed-v1','oil':'visible-specular-area-fixed-v1+regional-quality-union-v2','dry':'eligible-flake-luma-union-v3','acne':'unique-detection-box-anatomical-area-v2','lines':'outer-canthus-gabor-radiating-hair-excluded-v4','dark':'lower-lid-contrast-chroma-local-v4','sag':'contour-fold-lower-chin-observed-runs-v9','bags':'contour-fold-local-support-v5'}
 
 
 def decode_photo(data):
@@ -448,6 +448,7 @@ def analyze_skin(payload, include_research_features=False):
             if usable and signal is not None:
                 layer = map_result(signal, (valid & display_anatomical if map_support is None else map_support) & (signal_mask if signal_mask is not None else True), region, criterion, source_hash, payload['pose'], bgr.shape, scale, unit, ceiling, origin)
                 if layer:
+                    if criterion=='oil':layer.update(normalizationVersion=NORMALIZATION['oil'],samplingSupportVersion=OIL_SAMPLING)
                     key=f'{region}:{criterion}';maps[key]=layer
                     # Descriptor only: the pixel/mask payload remains ephemeral
                     # in response.maps and never enters numeric history records.
@@ -458,7 +459,8 @@ def analyze_skin(payload, include_research_features=False):
             add('tone',np.mean(tone[valid]) if valid.any() else 0,'relative-color-index-0-100',tone,100,components=color_components)
             add('redness',np.mean(redness[valid]) if valid.any() else 0,'relative-color-index-0-100',redness,100,components=color_components)
             add('oil', np.mean(shine[valid] > .12)*100 if valid.any() else 0, 'percent-visible-area', shine,
-                components={'localIntensity': float(np.mean(shine[valid])) if valid.any() else None, 'clippedFraction': clipped})
+                components={'localIntensity': float(np.mean(shine[valid])) if valid.any() else None, 'clippedFraction': clipped,
+                    'samplingSupportVersion':OIL_SAMPLING,'temporalPhotometryMeasured':False})
             # Small red center-surround candidates need circularity, texture and
             # multi-scale agreement. Dark moles/freckles and hair aren't acne evidence.
             boxes=[];candidate_area=np.zeros(gray.shape,bool)
@@ -651,8 +653,9 @@ def analyze_skin(payload, include_research_features=False):
         elif trained_acne and trained_acne.get('valid'):
             final_boxes=[box for items in response.values() for item in items if item['id']=='acne' and item['quality']=='valid' for box in item['components']['bounds']]
             global_candidates=box_area(final_boxes,gray.shape,scale,origin)
+        oil_union,_=oil_region_support(response,masks,union)
         result['general']=general_result(response,masks,union,general_tone,general_redness,shine,general_flakes,
-            general_area,conditions,payload.get('qualityValid',False),candidate_coverage=float(np.mean(global_candidates[union])*100) if union.any() else None,normalizations=NORMALIZATION,dry_support=dry_union,sag_support=(sag_samples,sag_measured,scale))
+            general_area,conditions,payload.get('qualityValid',False),candidate_coverage=float(np.mean(global_candidates[union])*100) if union.any() else None,normalizations=NORMALIZATION,dry_support=dry_union,sag_support=(sag_samples,sag_measured,scale),analysis_scale=scale)
         for item in result['general']['measurements']:
             item['scoreDirection']='higher-is-more-visible'
             item['normalizationVersion']=NORMALIZATION[item['id']]+('-expression-v3-observed-pose' if item['id']=='sag' else '')
@@ -698,8 +701,9 @@ def analyze_skin(payload, include_research_features=False):
             # A whole-photo ordinal grade has no pixel severity localization.
             # Do not attach an analytic field under that grade's calibration.
             if measurement['value'] is not None and measurement['components'].get('modelScope')!='whole-face':
-                layer=map_result(signal,dry_union if criterion=='dry' else union,'overview',criterion,source_hash,'FRONT',bgr.shape,scale,measurement['unit'],ceiling,origin)
+                layer=map_result(signal,oil_union if criterion=='oil' else dry_union if criterion=='dry' else union,'overview',criterion,source_hash,'FRONT',bgr.shape,scale,measurement['unit'],ceiling,origin)
                 if layer:
+                    if criterion=='oil':layer.update(normalizationVersion=NORMALIZATION['oil'],samplingSupportVersion=OIL_SAMPLING)
                     maps['overview:'+criterion]=layer
                     measurement['localMap']=dict(key='overview:'+criterion,photoId=source_hash,region='overview',criterion=criterion,coordinateSpace='source-pixels')
         sag_overview=next(r for r in result['general']['measurements'] if r['id']=='sag')
