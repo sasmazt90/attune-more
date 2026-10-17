@@ -1,3 +1,4 @@
+import {deleteDentalPhotosWithRecords,recoverDentalPhotoDeletion,DENTAL_PHOTO_DELETE_PENDING} from './dentalPhotoHistory';
 import {serviceAllowed} from './serviceConsent';
 import {deleteSkinPhotosWithRecords,recoverSkinPhotoDeletion,SKIN_PHOTO_DELETE_PENDING} from './skinPhotoHistory';
 import { HEALTH_MODULES } from './healthModules';
@@ -103,7 +104,7 @@ export function prepareHealthRecords(category: HealthCategory): Promise<HealthRe
   const pending = preparing.get(category);
   if (pending) return pending;
   const operation = withRecordsLock(async () => {
-    await recoverSkinPhotoDeletion(recover,()=>localStorage.removeItem(RECORD_JOURNAL));
+    await recoverSkinPhotoDeletion(recover,()=>localStorage.removeItem(RECORD_JOURNAL));await recoverDentalPhotoDeletion(recover,()=>localStorage.removeItem(RECORD_JOURNAL));
     const before = JSON.stringify([...Object.values(KEYS).flatMap(k => [k.history, k.latest]), RECORD_JOURNAL].map(k => localStorage.getItem(k)));
     const records = readRecordsLocked(category);
     const after = JSON.stringify([...Object.values(KEYS).flatMap(k => [k.history, k.latest]), RECORD_JOURNAL].map(k => localStorage.getItem(k)));
@@ -114,7 +115,7 @@ export function prepareHealthRecords(category: HealthCategory): Promise<HealthRe
   return operation;
 }
 export function readHealthRecords(category: HealthCategory): HealthRecord[] {
-  try { if(localStorage.getItem(SKIN_PHOTO_DELETE_PENDING))throw new Error('Kayıt silme işlemi doğrulanıyor.');return readRecordsLocked(category, false); }
+  try { if(localStorage.getItem(SKIN_PHOTO_DELETE_PENDING)||localStorage.getItem(DENTAL_PHOTO_DELETE_PENDING))throw new Error('Kayıt silme işlemi doğrulanıyor.');return readRecordsLocked(category, false); }
   catch (error) {
     void prepareHealthRecords(category).catch(() => {});
     throw error;
@@ -123,7 +124,7 @@ export function readHealthRecords(category: HealthCategory): HealthRecord[] {
 
 export async function appendHealthRecord(category: HealthCategory, record: HealthRecord, additionalChanges: Record<string, string | null> = {}, beforeWrite: () => boolean = () => true): Promise<HealthRecord[]> {
   return withRecordsLock(async () => {
-  await recoverSkinPhotoDeletion(recover,()=>localStorage.removeItem(RECORD_JOURNAL));
+  await recoverSkinPhotoDeletion(recover,()=>localStorage.removeItem(RECORD_JOURNAL));await recoverDentalPhotoDeletion(recover,()=>localStorage.removeItem(RECORD_JOURNAL));
   const containsMedia = (value: unknown): boolean => {
     if (typeof value === 'string') return /^data:(image|audio|video)\//i.test(value);
     if (!value || typeof value !== 'object') return false;
@@ -142,7 +143,7 @@ export async function appendHealthRecord(category: HealthCategory, record: Healt
 
 export async function deleteHealthRecord(category: HealthCategory, id: string): Promise<string> {
   const operation = async () => {
-    await recoverSkinPhotoDeletion(recover,()=>localStorage.removeItem(RECORD_JOURNAL));
+    await recoverSkinPhotoDeletion(recover,()=>localStorage.removeItem(RECORD_JOURNAL));await recoverDentalPhotoDeletion(recover,()=>localStorage.removeItem(RECORD_JOURNAL));
     const record = readRecordsLocked(category).find(r => r.id === id);
     if (!record) throw new Error('Kayıt bulunamadı. Listeyi yenileyin.');
     // Current capture/conversation UI stores locally. Linked backend records must
@@ -205,6 +206,7 @@ export async function deleteHealthRecord(category: HealthCategory, id: string): 
     if (referral?.sourceModule === category.toUpperCase()) changes[STORAGE_KEYS.REFERRAL_CONTEXT] = null;
     try {
       if(category==='skin')await deleteSkinPhotosWithRecords(id,()=>commit(changes,false),recover,()=>localStorage.removeItem(RECORD_JOURNAL));
+      else if(category==='dental'&&record.sourceAssociationVersion==='dental-source-identity-v1')await deleteDentalPhotosWithRecords(id,()=>commit(changes,false),recover,()=>localStorage.removeItem(RECORD_JOURNAL));
       else commit(changes);
     }
     catch { throw new Error(record.backendSessionId ? 'Sunucu silindi; yerel kopya silinemedi. Yerel kayıt için tekrar deneyin.' : 'Yerel kayıt silinemedi veya doğrulanamadı. Tekrar deneyebilirsiniz.'); }

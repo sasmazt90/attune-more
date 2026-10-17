@@ -9,6 +9,7 @@ ROOT=Path(__file__).resolve().parent
 _session=None
 _manifest=None
 _model_runtime={}
+_model_identity=None
 
 
 class DentalModelError(RuntimeError):
@@ -152,26 +153,33 @@ def prepare_model_input(image,mouth,size):
     return canvas.transpose(2,0,1)[None].astype(np.float32),ratio,(x0,y0)
 
 
-def model_candidates(image,mouth):
-    global _session,_manifest,_model_runtime
+def model_candidates(image,mouth,check=lambda:None):
+    check()
+    global _session,_manifest,_model_runtime,_model_identity
     path=ROOT/'models/dental-yolox-s.onnx';manifest_path=ROOT/'models/dental-yolox-s.json'
-    if not path.exists() or not manifest_path.exists():return [],dict(methodVersion='official-yolox-s-local-v1',quality='insufficient',limitationCode='TRAINED_MODEL_NOT_INSTALLED')
+    if not path.exists() or not manifest_path.exists():raise DentalModelError('TRAINED_MODEL_NOT_INSTALLED')
+    identity=tuple((p.stat().st_size,p.stat().st_mtime_ns) for p in (path,manifest_path))
+    if _session is not None and _model_identity is not None and identity!=_model_identity:raise DentalModelError('MODEL_IDENTITY_CHANGED')
     if _session is None:
         import onnxruntime as ort
         manifest=json.loads(manifest_path.read_text('utf8'))
         with path.open('rb') as model_file:digest=hashlib.file_digest(model_file,'sha256').hexdigest()
         if digest!=manifest['modelHash']:raise DentalModelError('MODEL_HASH_MISMATCH')
+        if manifest.get('classes')!=['D','d'] or manifest.get('inputSize')!=320 or manifest.get('confidenceThreshold')!=.35 or manifest.get('modelVersion')!='yolox-s-dental-from-scratch-v1':raise DentalModelError('MODEL_CONTRACT_MISMATCH')
         options=ort.SessionOptions();options.intra_op_num_threads=2
         try:_session=ort.InferenceSession(str(path),sess_options=options,providers=['CPUExecutionProvider'])
         except Exception as error:raise DentalModelError('MODEL_LOAD_FAILED') from error
         _manifest=manifest
+        _model_identity=identity
         _model_runtime=dict(onnxruntime=ort.__version__,opencv=cv2.__version__,numpy=np.__version__)
     size=_manifest['inputSize'];h,w=image.shape[:2]
     tensor,ratio,(origin_x,origin_y)=prepare_model_input(image,mouth,size)
+    check()
     try:raw=_session.run(None,{'images':tensor})[0]
     except Exception as error:raise DentalModelError('MODEL_INFERENCE_FAILED') from error
-    if not isinstance(raw,np.ndarray) or raw.ndim!=3 or raw.shape[0]!=1 or raw.shape[2]!=5+len(_manifest['classes']) or not np.isfinite(raw).all():
+    if not isinstance(raw,np.ndarray) or raw.shape!=(1,2100,7) or not np.isfinite(raw).all() or np.any(raw[:,:,4:]<0) or np.any(raw[:,:,4:]>1):
         raise DentalModelError('INVALID_MODEL_OUTPUT')
+    check()
     outputs=raw[0]
     probabilities=outputs[:,4:5]*outputs[:,5:];classes=np.argmax(probabilities,axis=1);scores=np.max(probabilities,axis=1)
     chosen=np.flatnonzero(scores>=_manifest['confidenceThreshold']);boxes=[];class_values=[];confidences=[]
@@ -192,7 +200,8 @@ def model_candidates(image,mouth):
     return candidates,dict(quality='valid',methodVersion='official-yolox-s-local-v1',decisionThreshold=_manifest['confidenceThreshold'],modelHash=_manifest['modelHash'],modelVersion=_manifest['modelVersion'],datasetLicense='CC-BY-4.0',evaluation=_manifest['evaluation'],runtimeVersions=_model_runtime,limitationCode='VISIBLE_SURFACE_ONLY_NOT_DIAGNOSIS',inputRegion='actual-inner-mouth-with-15-percent-source-margin')
 
 
-def analyze_dental(payload):
+def analyze_dental(payload,check=lambda:None):
+    check()
     if len(payload.get('captures',[])) not in (1,2,3,4):raise ValueError('CAPTURE_LIMIT')
     captures=payload['captures']
     # Repeated frames or repeated view names are not independent views.
@@ -200,6 +209,7 @@ def analyze_dental(payload):
     if len({c.get('pose') for c in captures})!=len(captures):raise ValueError('DUPLICATE_VIEW')
     views=[]
     for capture in payload['captures']:
+        check()
         image,source_hash=decode_photo(capture['photo'])
         if source_hash!=capture['photoId']:raise ValueError('SOURCE_HASH_MISMATCH')
         quality=dental_quality(image,capture['landmarks'],capture.get('pose')=='BITE')
@@ -218,7 +228,7 @@ def analyze_dental(payload):
             box=candidate['bounds'];position=np.array([box['x']+box['width']/2,box['y']+box['height']/2])-center
             candidate['mouthPosition']=[float(position@horizontal/mouth_width),float(position@vertical/mouth_width)]
             candidate['normalizedArea']=candidate['areaPixels']/mouth_width**2
-        caries,model=model_candidates(image,mouth)
+        check();caries,model=model_candidates(image,mouth,check)
         contours,alignment,reason=contours_and_alignment(image,tooth,mouth,points) if capture['pose']=='BITE' else ([],None,'NATURAL_BITE_CAPTURE_REQUIRED')
         meta=dict(region='visible-inner-mouth',captureConditions={**capture.get('conditions',{}),**quality},
                   modelVersion=None,modelHash=None,referenceId=None,localMap=None)
@@ -230,4 +240,5 @@ def analyze_dental(payload):
     # A local border-appearance measure is valid from one accepted photograph.
     # Relative mouth position/color is not tooth identity across perspective;
     # do not invent multiview confirmation or suppress valid per-view evidence.
+    check()
     return dict(methodVersion='dental-visible-v2',sourceType='camera',views=views,storage='volatile-memory-only',clinicalValidation=False)

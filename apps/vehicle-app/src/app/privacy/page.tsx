@@ -1,5 +1,6 @@
 'use client';
 
+import {clearDentalPhotos,DENTAL_PHOTO_PERMISSION,DENTAL_PHOTO_DELETE_PENDING} from '../../utils/dentalPhotoHistory';
 import {clearSkinPhotos,SKIN_PHOTO_PERMISSION,SKIN_PHOTO_DELETE_PENDING} from '../../utils/skinPhotoHistory';
 import {clearSkinSnapshots} from '../../utils/skinVolatileHistory';
 import React, { useState, useEffect, useCallback } from 'react';
@@ -52,6 +53,7 @@ export default function PrivacyPage() {
   const [saveSkin,setSaveSkin]=useState(false);
   const [hostedSkin,setHostedSkin]=useState(false);
   const [saveSkinPhotos,setSaveSkinPhotos]=useState(false);
+  const [saveDentalPhotos,setSaveDentalPhotos]=useState(false);
   const [photoBusy,setPhotoBusy]=useState(false);
   const [saveHearing,setSaveHearing]=useState(true);
   const [saveVision, setSaveVision] = useState(false);
@@ -111,7 +113,7 @@ export default function PrivacyPage() {
       setSaveTranscript(localStorage.getItem(STORAGE_KEYS.PRIVACY_MENTAL_TRANSCRIPT_ALLOWED) === 'true');
       setSaveSkin(localStorage.getItem('attune_privacy_skin_save_allowed')==='true');
       setHostedSkin(isSkinHostedProcessingAllowed());
-      setSaveSkinPhotos(localStorage.getItem(SKIN_PHOTO_PERMISSION)==='true');
+      setSaveSkinPhotos(localStorage.getItem(SKIN_PHOTO_PERMISSION)==='true');setSaveDentalPhotos(localStorage.getItem(DENTAL_PHOTO_PERMISSION)==='true');
       setSaveHearing(localStorage.getItem('attune_privacy_hearing_save_allowed')!=='false');
       setSaveVision(localStorage.getItem(STORAGE_KEYS.PRIVACY_VISION_SAVE_ALLOWED) === 'true');
       const mentalPref = localStorage.getItem(STORAGE_KEYS.PRIVACY_MENTAL_SAVE_ALLOWED);
@@ -182,11 +184,11 @@ export default function PrivacyPage() {
   const handleWipeAllData = async () => {
     setWipeStatus('WIPING');
     let local = true;
-    const healthKeys = [SKIN_PHOTO_DELETE_PENDING,'attune_skin_appearance_reference_v1','attune_skin_appearance_single_reference_v1',RECORD_JOURNAL, 'attune_dental_history_v1', 'attune_dental_latest_v1', 'attune_hearing_history_v1', 'attune_hearing_latest_v1', 'attune_skin_geometry_reference_v1', STORAGE_KEYS.SKIN_SIGNS_BASELINE, STORAGE_KEYS.SKIN_SINGLE_SIGNS_BASELINE, 'togg_health_vision_history', STORAGE_KEYS.LATEST_VISION, STORAGE_KEYS.LATEST_SKIN,
+    const healthKeys = [DENTAL_PHOTO_DELETE_PENDING,SKIN_PHOTO_DELETE_PENDING,'attune_skin_appearance_reference_v1','attune_skin_appearance_single_reference_v1',RECORD_JOURNAL, 'attune_dental_history_v1', 'attune_dental_latest_v1', 'attune_hearing_history_v1', 'attune_hearing_latest_v1', 'attune_skin_geometry_reference_v1', STORAGE_KEYS.SKIN_SIGNS_BASELINE, STORAGE_KEYS.SKIN_SINGLE_SIGNS_BASELINE, 'togg_health_vision_history', STORAGE_KEYS.LATEST_VISION, STORAGE_KEYS.LATEST_SKIN,
       STORAGE_KEYS.SKIN_BASELINE, STORAGE_KEYS.SKIN_BASELINE_META, STORAGE_KEYS.SKIN_MULTI_BASELINE, STORAGE_KEYS.SKIN_REMINDER, STORAGE_KEYS.SKIN_HISTORY, STORAGE_KEYS.LATEST_MENTAL, STORAGE_KEYS.MENTAL_HISTORY,
       STORAGE_KEYS.REFERRAL_CONTEXT, STORAGE_KEYS.DEMO_SKIN_RESULT, STORAGE_KEYS.DEMO_REFERRAL];
     try { await withRecordsLock(async () => {
-    await clearSkinPhotos();clearSkinSnapshots();
+    await clearSkinPhotos();await clearDentalPhotos();clearSkinSnapshots();
     for (const key of healthKeys) {
       try {
         localStorage.removeItem(key);
@@ -366,8 +368,10 @@ export default function PrivacyPage() {
 
       <section className="rounded-2xl border border-white/10 bg-cockpit-surface p-6 space-y-3">
         <h2 className="font-bold">Cilt görünümü ve kişisel referans</h2>
-        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveSkinPhotos} disabled={photoBusy} onChange={async e=>{const enabled=e.target.checked;setPhotoBusy(true);try{await withRecordsLock(async()=>{localStorage.setItem(SKIN_PHOTO_PERMISSION,String(enabled));setSaveSkinPhotos(enabled);window.dispatchEvent(new Event('attune-privacy'));if(!enabled){clearSkinSnapshots();await clearSkinPhotos();}});setSaveSkinPhotos(enabled);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);setSaveSkinPhotos(localStorage.getItem(SKIN_PHOTO_PERMISSION)==='true');}finally{setPhotoBusy(false);}}}/>Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla</label>
+        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveSkinPhotos} disabled={photoBusy} onChange={async e=>{const enabled=e.target.checked;setPhotoBusy(true);try{await withRecordsLock(async()=>{localStorage.setItem(SKIN_PHOTO_PERMISSION,String(enabled));setSaveSkinPhotos(enabled);window.dispatchEvent(new Event('attune-privacy'));if(!enabled){clearSkinSnapshots();await clearSkinPhotos();}});setSaveSkinPhotos(enabled);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);setSaveSkinPhotos(localStorage.getItem(SKIN_PHOTO_PERMISSION)==='true');setSaveDentalPhotos(localStorage.getItem(DENTAL_PHOTO_PERMISSION)==='true');}finally{setPhotoBusy(false);}}}/>Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla</label>
         <p className="text-xs text-slate-400">Varsayılan kapalıdır. Sayısal kayıt izni de açıksa yeni taramaların fotoğraf ve seçilebilir görüntü katmanları uygulama yeniden açıldığında korunur. Kapatınca saklanan cilt fotoğrafları silinir; sayısal kayıtlar kalır. En fazla 128 MB saklanır; dolunca eski kayıtlar silinmez, yeni fotoğraf kaydedilemez.</p>
+        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveDentalPhotos} disabled={photoBusy} onChange={async e=>{const enabled=e.target.checked;setPhotoBusy(true);try{await withRecordsLock(async()=>{localStorage.setItem(DENTAL_PHOTO_PERMISSION,String(enabled));setSaveDentalPhotos(enabled);window.dispatchEvent(new Event('attune-privacy'));if(!enabled)await clearDentalPhotos();});window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);setSaveDentalPhotos(localStorage.getItem(DENTAL_PHOTO_PERMISSION)==='true');}finally{setPhotoBusy(false);}}}/>Yeni diş kayıtlarının fotoğraflarını bu cihazda sakla</label>
+        <p className="text-xs text-slate-400">Varsayılan kapalıdır. Sayısal kayıttan bağımsızdır; yalnız yeni kaydettiğiniz sonuçlara uygulanır. Kapatınca diş fotoğrafları silinir, sayısal kayıtlar kalır. Önceki fotoğraflar yeniden oluşturulmaz.</p>
         <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveSkin} onChange={e=>{try{localStorage.setItem('attune_privacy_skin_save_allowed',String(e.target.checked));setSaveSkin(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla</label>
         <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={hostedSkin} onChange={e=>{try{localStorage.setItem(SKIN_HOSTED_PROCESSING_PERMISSION,String(e.target.checked));setHostedSkin(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>Cilt tipi için yüz fotoğrafımın Roboflow tarafından işlenmesine izin ver</label>
         <p className="text-xs text-slate-400">Varsayılan kapalıdır; çekim izninden ayrıdır. Fotoğraf saklama tercihi aşağıda ayrıca yönetilir. Diş sonuçlarında ayrıca Kaydet onayı verilir. Kapatmak eski kayıtları silmez; kayıt Sil veya Tüm Yerel Verileri Sil ile kaldırılır.</p>

@@ -161,6 +161,30 @@ async def skin(request: Request):
         raise HTTPException(422, 'INVALID_LOCAL_GEOMETRY_OR_PHOTO')
 
 
+async def dental_work(request,work,value):
+    """Own one worker until it drains; never return a late successful result."""
+    from native_material_budget import NativeRequestBudget,NativeRequestStopped
+    scope=NativeRequestBudget(30.)
+    async with _busy:
+        worker=asyncio.create_task(run_in_threadpool(work,value,scope.check))
+        try:
+            while not worker.done():
+                if not parked() or await request.is_disconnected():scope.cancel()
+                try:scope.check()
+                except NativeRequestStopped:pass
+                await asyncio.wait({worker},timeout=.05)
+            result=await worker
+            scope.check()
+            return result
+        except asyncio.CancelledError:
+            scope.cancel()
+            try:await asyncio.shield(worker)
+            except Exception:pass
+            raise
+        except NativeRequestStopped:
+            raise HTTPException(408 if scope.reason=='LOCAL_ANALYSIS_TIMEOUT' else 409,scope.reason or 'CANCELLED') from None
+
+
 @router.post('/dental')
 async def dental(request: Request):
     value = await payload(request)
@@ -168,12 +192,11 @@ async def dental(request: Request):
         raise HTTPException(429, 'LOCAL_ANALYSIS_BUSY')
     from dental_analysis import analyze_dental,DentalModelError
     try:
-        if not isinstance(value.get('captures'),list) or not 1<=len(value['captures'])<=4:raise ValueError()
+        if not isinstance(value.get('captures'),list) or [c.get('pose') for c in value['captures']]!=['FRONT','RIGHT','LEFT','BITE']:raise ValueError()
         for capture in value['captures']:
             landmarks(capture.get('landmarks'))
             if capture.get('pose') not in ('FRONT','RIGHT','LEFT','BITE'):raise ValueError()
-        async with _busy:
-            result = await run_in_threadpool(analyze_dental, value)
+        result = await dental_work(request,analyze_dental,value)
         if not parked() or await request.is_disconnected():
             raise HTTPException(409, 'CANCELLED')
         return result
@@ -190,8 +213,7 @@ async def dental_upload(request: Request):
     from dental_analysis import DentalModelError
     try:
         if value.get('photoLandmarks') is not None:landmarks(value['photoLandmarks'])
-        async with _busy:
-            result = await run_in_threadpool(analyze_upload, value)
+        result = await dental_work(request,analyze_upload,value)
         if not parked() or await request.is_disconnected():
             raise HTTPException(409, 'CANCELLED')
         return result

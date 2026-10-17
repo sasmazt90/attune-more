@@ -36,7 +36,7 @@ def test_no_cubic_mesh_work_or_dark_hair_glare():
 
 def test_dental_model_failure_is_503_without_payload_echo(monkeypatch):
  import dental_analysis as dental
- def failure(_):raise dental.DentalModelError('test-private-detail-must-not-echo')
+ def failure(*_):raise dental.DentalModelError('test-private-detail-must-not-echo')
  monkeypatch.setattr(dental,'analyze_dental',failure)
- result=request('/api/local-health/dental',{'processingConsent':True,'captures':[{'pose':'FRONT','landmarks':[{'x':.5,'y':.5}]*478}]})
+ result=request('/api/local-health/dental',{'processingConsent':True,'captures':[{'pose':pose,'landmarks':[{'x':.5,'y':.5}]*478} for pose in ['FRONT','RIGHT','LEFT','BITE']]})
  assert result.status_code==503 and result.json()=={'detail':'LOCAL_MODEL_FAILURE'}

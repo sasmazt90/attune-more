@@ -86,9 +86,11 @@ def upload_roi(image,points=None):
     if reasons:raise UploadError(reasons[0])
     return mouth,tooth,gum,dict(valid=True,reasons=[],geometrySource='local-colored-enamel-gingiva',sourceType='upload',motionGateApplied=False,fullFaceRequired=False,visibleToothPixels=tooth_count,toothFraction=fraction,sharpness=sharp,light=light,clippedPixels=int(glare.sum()),roi=dict(x=x0,y=y0,width=x1-x0,height=y1-y0),analysisScale=factor)
 
-def analyze_upload(payload):
+def analyze_upload(payload,check=lambda:None):
+    check()
     from dental_analysis import model_candidates,calculus_candidates,contours_and_alignment
     image,digest,normalized,source=decode_upload(payload.get('photo'))
+    check()
     points=payload.get('photoLandmarks');origin=(0,0);analysis=image
     if points is not None:
         # Operate on native mouth pixels, not the entire multi-megapixel
@@ -103,7 +105,7 @@ def analyze_upload(payload):
         analysis=image[y0:y1,x0:x1].copy();origin=(x0,y0)
         points=[{**p,'x':(p['x']*w-x0)/(x1-x0),'y':(p['y']*h-y0)/(y1-y0)} for p in points]
     mouth,tooth,gum,quality=upload_roi(analysis,points)
-    candidates,model=model_candidates(analysis,mouth)
+    check();candidates,model=model_candidates(analysis,mouth,check)
     model={**model,'methodVersion':'official-yolox-s-upload-'+quality['geometrySource']+'-v2'}
     deposits,border=calculus_candidates(analysis,tooth,gum)
     meta=dict(region='visible-inner-mouth',captureConditions=quality,referenceId=None,localMap=None,modelVersion=None,modelHash=None)
@@ -134,5 +136,6 @@ def analyze_upload(payload):
         for item in contours:
             item['points']=[[x+ox,y+oy] for x,y in item['points']]
             item['centroid']=[item['centroid'][0]+ox,item['centroid'][1]+oy]
+    check()
     view=dict(photoId=digest,pose='FRONT',sourceWidth=image.shape[1],sourceHeight=image.shape[0],sourceType='upload',quality=quality,caries=dict(type='trained_prediction',value=len(candidates) if model['quality']=='valid' else None,unit='candidate-count',candidates=candidates,evaluatedArea=int(mouth.sum()),uncertainty=['dataset-domain-shift','visible-surface-only','confidence-is-not-severity'],**{**meta,**model}),accumulation=accumulation,alignment=alignment)
     return dict(methodVersion='dental-visible-upload-v3',sourceType='upload',views=[view],storage='volatile-memory-only',clinicalValidation=False,source=source,normalizedPhoto=normalized)
