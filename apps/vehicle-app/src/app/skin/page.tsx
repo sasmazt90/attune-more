@@ -1,6 +1,4 @@
 'use client';
-import {ACNE_V5_PREVIEW} from '../../utils/previewLocalApi';
-import {ExperimentalAcnePhoto} from '../../components/skin/ExperimentalAcnePhoto';
 import {careHref} from '../../utils/healthModules';
 import { useGuidance,qualityGuidance } from '../../utils/audioGuidance';
 import {SkinEyewearCheck,SkinEyewearGate,SKIN_CAPTURE_POLICY,type EyewearStatus} from '../../utils/skinEyewear';
@@ -45,8 +43,7 @@ import { SkinObservationModal } from '../../components/skin/SkinObservationModal
 import { SkinActionsModal } from '../../components/skin/SkinActionsModal';
 import { AlertTriangle, RefreshCw, ShieldAlert } from 'lucide-react';
 
-export default function SkinPage(){return ACNE_V5_PREVIEW?<ExperimentalAcnePhoto/>:<StandardSkinPage/>;}
-function StandardSkinPage() {
+export default function SkinPage() {
   const resultPersisted=useRef(false);
   const storageAllowed=()=>localStorage.getItem('attune_privacy_skin_save_allowed')==='true';
   const temporalSupport=useRef<ReturnType<typeof skinTemporalSupport>[]>([]);
@@ -57,7 +54,7 @@ function StandardSkinPage() {
     if(indicators&&conditions&&snapshot.landmarks){
       if(!snapshot.photoId){const digest=await crypto.subtle.digest('SHA-256',ctx.getImageData(0,0,snapshot.width,snapshot.height).data);snapshot.photoId=Array.from(new Uint8Array(digest)).map(v=>v.toString(16).padStart(2,'0')).join('');}
       const result=await analyzeAppearance(snapshot,valid,conditions,temporalSupport.current,current);
-      if(current()){attachAppearance(indicators,result);snapshot.general=overviewFromResponse(result);snapshot.localMaps=result.maps;snapshot.contoursMeasured=result.contours;snapshot.acneCandidates=Object.fromEntries(Object.entries(result.measurements).map(([region,rows])=>[region,rows.find(v=>v.id==='acne'&&v.value!==null)?.components.bounds||[]]));
+      if(current()){attachAppearance(indicators,result);snapshot.experimentalAcneV5=result.acneRuntime?.status==='measured';snapshot.general=overviewFromResponse(result);snapshot.localMaps=result.maps;snapshot.contoursMeasured=result.contours;snapshot.acneCandidates=Object.fromEntries(Object.entries(result.measurements).map(([region,rows])=>[region,rows.find(v=>v.id==='acne'&&v.value!==null)?.components.bounds||[]]));
         snapshot.acneCandidates.overview=[...new Map(Object.values(snapshot.acneCandidates).flat().map((box:any)=>[box.candidateId||`${box.x}:${box.y}:${box.width}:${box.height}`,box])).values()];}
     }
   };

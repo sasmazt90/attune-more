@@ -1,0 +1,265 @@
+{
+  "provenance": {
+    "evidenceKind": "recorded browser automation response, not physical camera acceptance",
+    "recordId": "a33dba69-120a-44b8-af2f-cdc27cc2f174",
+    "photoId": "818a8528c0b4fd9444ce2a748301e8ecf73049ad37ca241cc353c931dc185c55"
+  },
+  "indicator": {
+    "id": "acne",
+    "label": "Sivilce görünümü",
+    "score": 0.7939087237104786,
+    "reason": "Görünür yüzeyin kozmetik görünüm vekili; hastalık, nem veya klinik şiddet ölçümü değildir.",
+    "method": "appearance-acne-step0-verifier-v5-1",
+    "unit": "%",
+    "sampleCount": 2823,
+    "measurement": {
+      "scope": "regional",
+      "region": "rightCheek",
+      "methodVersion": "appearance-acne-step0-verifier-v5-1",
+      "modelHash": "b8200e999c6c744247d264de70df5280900e08f0ba5130479425a6dac92d13f5",
+      "unit": "appearance-score-0-100",
+      "rawValue": 0.7939087237104786,
+      "confidence": null,
+      "quality": "valid",
+      "validation": "appearance-proxy",
+      "unavailableReason": null
+    },
+    "appearance": {
+      "id": "acne",
+      "type": "appearance_proxy",
+      "value": 0.7939087237104786,
+      "unit": "appearance-score-0-100",
+      "methodVersion": "appearance-acne-step0-verifier-v5-1",
+      "scoreDirection": "higher-is-more-visible",
+      "normalizationVersion": "unique-detection-box-anatomical-area-v2",
+      "modelVersion": "experimental-step0-verifier-v5-local-preview-v1",
+      "modelHash": "b8200e999c6c744247d264de70df5280900e08f0ba5130479425a6dac92d13f5",
+      "quality": "valid",
+      "uncertainty": [
+        "illumination",
+        "visible-surface-only",
+        "unvalidated-cosmetic-proxy"
+      ],
+      "region": "rightCheek",
+      "evaluatedArea": {
+        "sourcePixels": 37073.9890265121,
+        "analysisPixels": 21539,
+        "anatomicalSourcePixels": 37073.9890265121,
+        "sourceFacePixels": 419.82845306396484,
+        "excludedPixels": 438.9185756887778,
+        "scope": "source-box-anatomical-support-v2"
+      },
+      "captureConditions": {
+        "yaw": 0.63,
+        "pitch": -0.01,
+        "roll": -0.15,
+        "scaleRatio": 0.36,
+        "avgLuminance": 144.58117548785418,
+        "blurScore": 6.385440465593899,
+        "sourceWidth": 1280,
+        "sourceHeight": 1280,
+        "skinCapturePolicy": "glasses-free-skin-capture-v1",
+        "skinEyewearModelHash": "66f75c686974a04bf956d0ed6411315309afcabd36c400edec743953adafccb9"
+      },
+      "limitationCode": null,
+      "referenceId": null,
+      "localMap": null,
+      "components": {
+        "bounds": [
+          {
+            "x": 589.6042575836182,
+            "y": 643.3619046211243,
+            "width": 11.656536102294922,
+            "height": 10.099677085876465,
+            "region": "rightCheek",
+            "assignmentReason": "ENVELOPE_OVERLAP",
+            "candidateId": "5eb15bfda87956ef71fa7b5d",
+            "coordinateSpace": "source-pixels",
+            "localization": "detection-box"
+          },
+          {
+            "x": 532.9048733711243,
+            "y": 615.3463134765625,
+            "width": 10.796149253845215,
+            "height": 10.11285400390625,
+            "region": "rightCheek",
+            "assignmentReason": "ENVELOPE_OVERLAP",
+            "candidateId": "0cdb54245c8e2e4d7b8121e1",
+            "coordinateSpace": "source-pixels",
+            "localization": "detection-box"
+          }
+        ],
+        "candidateCount": 2,
+        "evaluatedArea": {
+          "sourcePixels": 37073.9890265121,
+          "analysisPixels": 21539,
+          "anatomicalSourcePixels": 37073.9890265121,
+          "sourceFacePixels": 419.82845306396484,
+          "excludedPixels": 438.9185756887778,
+          "scope": "source-box-anatomical-support-v2"
+        },
+        "candidateBoxCoveragePercent": 0.7939087237104786,
+        "normalization": "unique accepted detection-box pixels / visible anatomical source pixels *100",
+        "pixelSegmentation": false,
+        "filterVersion": "source-box-anatomical-support-v2",
+        "clinicalSeverity": false,
+        "visibleCandidateAreaPercent": 0.7939087237104786,
+        "experimental": true,
+        "accepted": false,
+        "samplingSupportVersion": "step0-staging-v5-source-box-support-v1",
+        "inference": {
+          "version": "experimental-step0-verifier-v5-local-preview-v1",
+          "step0SHA256": "18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655",
+          "onnxSHA256": "9c87475d9302aed16f09abedc109211c2ac1b49f22f465f86aab408a5244d0be",
+          "verifierSHA256": "0d7bf03ca4d9898ef1b2e78c6d54d61be6aff580329b20b78a9232f79cfd43bb",
+          "featureVersion": "acne-candidate-verifier-features-v1",
+          "threshold": 0.15628215094908582,
+          "accepted": false,
+          "runtime": "onnxruntime-numpy",
+          "tileCount": 9,
+          "detectorForwardCount": 9,
+          "loadMs": 0,
+          "inferenceMs": 3525.3688999800943
+        }
+      },
+      "status": "measured",
+      "reason": null,
+      "calibrationVersion": "unique-detection-box-anatomical-area-v2",
+      "coverage": 1,
+      "localConfidence": null
+    }
+  },
+  "response": {
+    "acneRuntime": {
+      "methodVersion": "appearance-acne-step0-verifier-v5-1",
+      "status": "measured",
+      "reason": null,
+      "experimental": true,
+      "accepted": false,
+      "modelHash": "b8200e999c6c744247d264de70df5280900e08f0ba5130479425a6dac92d13f5",
+      "step0SHA256": "18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655",
+      "onnxSHA256": "9c87475d9302aed16f09abedc109211c2ac1b49f22f465f86aab408a5244d0be",
+      "verifierSHA256": "0d7bf03ca4d9898ef1b2e78c6d54d61be6aff580329b20b78a9232f79cfd43bb",
+      "threshold": 0.15628215094908582,
+      "candidateCount": 22,
+      "normalizationVersion": "unique-detection-box-anatomical-area-v2",
+      "timing": {
+        "modelLoadMs": 661.8880000023637,
+        "subsequentAnalysisMs": 4671.744499995839,
+        "inferenceMs": 4294.780399999581,
+        "supportFilterVerifierMs": 278.0866000102833,
+        "totalAnalysisMs": 5333.632499998203
+      },
+      "resources": {
+        "processPeakRSSBytes": 412323840,
+        "processPrivateBytes": 975208448,
+        "processRSSBytes": 412323840,
+        "trainingFrameworkLoaded": false
+      },
+      "tileCount": 12,
+      "detectorForwardCount": 12,
+      "nonAcnePreservation": {
+        "beforeSHA256": "9f467d586ed3eca3e69119b6342466bc37a8ef7d623d9e8adb9e7ba14f866c30",
+        "afterSHA256": "9f467d586ed3eca3e69119b6342466bc37a8ef7d623d9e8adb9e7ba14f866c30",
+        "equal": true
+      }
+    },
+    "measurements": {
+      "forehead": [
+        {
+          "id": "acne",
+          "type": "appearance_proxy",
+          "value": 0,
+          "unit": "appearance-score-0-100",
+          "methodVersion": "appearance-acne-step0-verifier-v5-1",
+          "scoreDirection": "higher-is-more-visible",
+          "normalizationVersion": "unique-detection-box-anatomical-area-v2",
+          "modelVersion": "experimental-step0-verifier-v5-local-preview-v1",
+          "modelHash": "b8200e999c6c744247d264de70df5280900e08f0ba5130479425a6dac92d13f5",
+          "quality": "valid",
+          "uncertainty": [
+            "illumination",
+            "visible-surface-only",
+            "unvalidated-cosmetic-proxy"
+          ],
+          "region": "forehead",
+          "evaluatedArea": {
+            "sourcePixels": 62581.82514370054,
+            "analysisPixels": 18175,
+            "anatomicalSourcePixels": 64899.16040211652,
+            "sourceFacePixels": 593.7954711914062,
+            "excludedPixels": 14485.927833812828,
+            "scope": "source-box-anatomical-support-v2"
+          },
+          "captureConditions": {
+            "yaw": -0.04,
+            "pitch": -0.01,
+            "roll": -0.01,
+            "scaleRatio": 0.47,
+            "avgLuminance": 176.45941277778834,
+            "blurScore": 5.107853034188141,
+            "sourceWidth": 1280,
+            "sourceHeight": 1280,
+            "skinCapturePolicy": "glasses-free-skin-capture-v1",
+            "skinEyewearModelHash": "66f75c686974a04bf956d0ed6411315309afcabd36c400edec743953adafccb9"
+          },
+          "limitationCode": null,
+          "referenceId": null,
+          "localMap": null,
+          "components": {
+            "bounds": [
+              {
+                "x": 888.2529878616333,
+                "y": 633.9422926902771,
+                "width": 10.790472030639648,
+                "height": 11.557263374328613,
+                "region": "forehead",
+                "assignmentReason": "ANATOMICAL_DISTANCE_FALLBACK(norm_dist=0.106)",
+                "candidateId": "56880e848e54c8b957364652",
+                "coordinateSpace": "source-pixels",
+                "localization": "detection-box"
+              }
+            ],
+            "candidateCount": 1,
+            "evaluatedArea": {
+              "sourcePixels": 62581.82514370054,
+              "analysisPixels": 18175,
+              "anatomicalSourcePixels": 64899.16040211652,
+              "sourceFacePixels": 593.7954711914062,
+              "excludedPixels": 14485.927833812828,
+              "scope": "source-box-anatomical-support-v2"
+            },
+            "candidateBoxCoveragePercent": 0,
+            "normalization": "unique accepted detection-box pixels / visible anatomical source pixels *100",
+            "pixelSegmentation": false,
+            "filterVersion": "source-box-anatomical-support-v2",
+            "clinicalSeverity": false,
+            "visibleCandidateAreaPercent": 0,
+            "experimental": true,
+            "accepted": false,
+            "samplingSupportVersion": "step0-staging-v5-source-box-support-v1",
+            "inference": {
+              "version": "experimental-step0-verifier-v5-local-preview-v1",
+              "step0SHA256": "18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655",
+              "onnxSHA256": "9c87475d9302aed16f09abedc109211c2ac1b49f22f465f86aab408a5244d0be",
+              "verifierSHA256": "0d7bf03ca4d9898ef1b2e78c6d54d61be6aff580329b20b78a9232f79cfd43bb",
+              "featureVersion": "acne-candidate-verifier-features-v1",
+              "threshold": 0.15628215094908582,
+              "accepted": false,
+              "runtime": "onnxruntime-numpy",
+              "tileCount": 12,
+              "detectorForwardCount": 12,
+              "loadMs": 661.8880000023637,
+              "inferenceMs": 4294.780399999581
+            }
+          },
+          "status": "measured",
+          "reason": null,
+          "calibrationVersion": "unique-detection-box-anatomical-area-v2",
+          "coverage": 0.9642932937181664,
+          "localConfidence": null
+        }
+      ]
+    }
+  }
+}

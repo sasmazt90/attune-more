@@ -88,7 +88,7 @@ def memory():
  import psutil
  m=psutil.Process().memory_info();return dict(processRSSBytes=m.rss,processPrivateBytes=getattr(m,'private',None),processPeakRSSBytes=getattr(m,'peak_wset',m.rss))
 
-def analyze(payload,check=lambda:None):
+def analyze(payload,check=lambda:None,*,with_context=False):
  from appearance_analysis import decode_photo
  started=time.perf_counter();check();bgr,photoid=decode_photo(payload['photo'])
  if photoid!=payload['photoId']:raise PreviewRejected('SOURCE_MISMATCH')
@@ -116,4 +116,4 @@ def analyze(payload,check=lambda:None):
  result=dict(experimental=True,scope='photo-only',status='ok',productionAccepted=False,historyStorage=False,requestId=payload.get('requestId'),photoId=photoid,sourceWidth=bgr.shape[1],sourceHeight=bgr.shape[0],candidateCount=len(unique),acneCandidates=by,preflight=preflight,model=dict(version='experimental-step0-verifier-v5-local-preview-v1',step0SHA256=STEP0_HASH,onnxSHA256=item['graphHash'],verifierSHA256=V5_HASH,featureVersion=FEATURE_VERSION,threshold=THRESHOLD,accepted=False,runtime='onnxruntime-numpy'),sourceTransform=transform,timing=dict(modelLoadMs=loadms,subsequentAnalysisMs=elapsed-loadms,inferenceMs=inference_ms,supportFilterVerifierMs=(time.perf_counter()-support0)*1000,totalAnalysisMs=elapsed),resources=dict(processPeakRSSBytes=max(m['processPeakRSSBytes'] for m in peaks),processPrivateBytes=max((m['processPrivateBytes'] or 0) for m in peaks),processRSSBytes=max(m['processRSSBytes'] for m in peaks),trainingFrameworkLoaded='torch' in sys.modules),tileCount=len(rects),detectorForwardCount=len(rects))
  if payload.get('includeRuntimeTrace') is True and os.getenv('ATTUNE_ACNE_V5_VALIDATION')=='1':
   result['validationTrace']=dict(rects=rects,nms=selected,nmsMetadata=nms_meta,preVerifier=final,identities=identities,features=features.tolist(),probabilities=p.tolist(),keep=keep.tolist(),rejected=rejected)
- return result
+ return (result,context) if with_context else result

@@ -1,5 +1,5 @@
 $ErrorActionPreference='Stop'
-$record=Join-Path (Split-Path $PSScriptRoot) 'cdc-progress\acne-v5-integration-20261017\preview-processes.json'
+$record=Join-Path (Split-Path $PSScriptRoot) 'cdc-progress\acne-v5-camera-integration-20261017\preview-processes.json'
 if(-not(Test-Path -LiteralPath $record)){return}
 $state=Get-Content -LiteralPath $record -Raw | ConvertFrom-Json
 if($state.workspace -ne $PSScriptRoot){throw 'Workspace identity mismatch'}

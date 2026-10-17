@@ -6,6 +6,7 @@ import { cameraCrop, type Crop } from './cameraStability';
  * photo store requires explicit photo retention consent. */
 export interface SkinSnapshot {
   experimentalAcneV5?:boolean;
+  captureFaceCount?:number;
   general?:import('./skinOverview').SkinOverview;
   dataUrl:string; width:number; height:number; angle:SkinAngle;
   visualError?:string; segmentationMs?:number; maskWidth?:number; maskHeight?:number; meshes:Record<string,SkinMesh>;
@@ -78,7 +79,7 @@ export function snapshotSkinFrame(canvas:HTMLCanvasElement, alignment:FaceAlignm
  * segmenter, neck fade, beauty operation or display crop enters this path. */
 export function snapshotRawSkinFrame(canvas:HTMLCanvasElement,alignment:FaceAlignment,angle:SkinAngle):SkinSnapshot {
  const metadata=snapshotSkinFrame(canvas,alignment,angle);
- return {...metadata,expressionScores:alignment.expressionScores,landmarks:alignment.landmarks,visualError:undefined,dataUrl:canvas.toDataURL('image/png'),crop:{x:0,y:0,width:canvas.width,height:canvas.height},previewCrop:cameraCrop(alignment.landmarks)};
+ return {...metadata,captureFaceCount:alignment.faceCount,expressionScores:alignment.expressionScores,landmarks:alignment.landmarks,visualError:undefined,dataUrl:canvas.toDataURL('image/png'),crop:{x:0,y:0,width:canvas.width,height:canvas.height},previewCrop:cameraCrop(alignment.landmarks)};
 }
 export function snapshotAngleForRegion(id:string,threeAngle:boolean):SkinAngle {
   return !threeAngle?'FRONT':id==='rightCheek'?'LEFT':id==='leftCheek'?'RIGHT':'FRONT';

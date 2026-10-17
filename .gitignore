@@ -134,3 +134,6 @@ services/core-api/models/*.npz
 services/core-api/models/acne-v5-preview/*.onnx
 
 .playwright-cli/
+
+apps/vehicle-app/public/__camera_audit__/
+services/core-api/models/dryness-calibrated-v3/*.onnx

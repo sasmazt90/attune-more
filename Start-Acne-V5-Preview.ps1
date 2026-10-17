@@ -1,7 +1,7 @@
 param([switch]$NoBrowser,[switch]$ValidationTrace)
 $ErrorActionPreference='Stop'
 $root=$PSScriptRoot
-$progress=Join-Path (Split-Path $root) 'cdc-progress\acne-v5-integration-20261017'
+$progress=Join-Path (Split-Path $root) 'cdc-progress\acne-v5-camera-integration-20261017'
 $record=Join-Path $progress 'preview-processes.json'
 $python='C:\Users\PC\AppData\Local\Programs\Python\Python311\python.exe'
 $node='C:\nvm4w\nodejs\node.exe'
@@ -62,7 +62,7 @@ for($attempt=0;$attempt -lt 40;$attempt++){
  Start-Sleep -Milliseconds 500
 }
 if(-not $ready){throw 'Preview readiness failed; own process identities and logs are recorded.'}
-Write-Output 'Experimental preview: http://127.0.0.1:3305/skin (no history writes, normal product unchanged)'
+Write-Output 'Skin camera preview: http://127.0.0.1:3305/skin (isolated origin, normal product unchanged)'
 if(-not $NoBrowser){Start-Process 'http://127.0.0.1:3305/skin'}
 
 } finally {

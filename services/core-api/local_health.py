@@ -7,7 +7,7 @@ import math
 from fastapi import APIRouter, HTTPException, Request
 from starlette.concurrency import run_in_threadpool
 from appearance_analysis import analyze_skin
-from experimental_acne_v5 import analyze as analyze_acne_preview,configuration as acne_preview_configuration,PreviewUnavailable,PreviewRejected
+from experimental_acne_v5 import configuration as acne_preview_configuration,PreviewUnavailable,PreviewRejected
 
 router = APIRouter(prefix='/api/local-health')
 _busy = asyncio.Lock()
@@ -125,7 +125,11 @@ async def skin(request: Request):
             scope=NativeRequestBudget()
             def work():
                 scope.check();eyewear=skin_capture_preflight(value);scope.check()
-                return eyewear,(analyze_acne_preview(value,scope.check) if value.get('experimentalAcneV5') is True else analyze_product(value,analyze_skin,scope.check))
+                result=analyze_product(value,analyze_skin,scope.check)
+                if value.get('experimentalAcneV5') is True:
+                    from acne_v5_product import replace_acne
+                    result=replace_acne(result,value,scope.check)
+                return eyewear,result
             worker=asyncio.create_task(run_in_threadpool(work))
             try:
                 while not worker.done():

@@ -35,10 +35,14 @@ def test_normal_api_missing_and_disabled(monkeypatch,tmp_path):
  monkeypatch.setenv('ATTUNE_EXPERIMENTAL_ACNE_V5','1');monkeypatch.setenv('ATTUNE_ACNE_V5_MODEL_DIR',str(tmp_path))
  with TestClient(main.app) as client:
   p=request_data();response=client.post('/api/local-health/skin',json=p)
-  assert response.status_code==503 and response.json()=={'detail':'EXPERIMENTAL_ACNE_V5_MODEL_UNAVAILABLE'}
+  assert response.status_code==200
+  data=response.json();assert data['acneRuntime']['status']=='unavailable' and data['acneRuntime']['reason']=='EXPERIMENTAL_ACNE_V5_MODEL_UNAVAILABLE'
+  assert data['acneRuntime']['nonAcnePreservation']['equal'] and len(data['general']['measurements'])==9
+  assert all(r['value'] is None for rows in data['measurements'].values() for r in rows if r['id']=='acne')
   monkeypatch.delenv('ATTUNE_EXPERIMENTAL_ACNE_V5')
   response=client.post('/api/local-health/skin',json=p)
-  assert response.status_code==503 and response.json()=={'detail':'EXPERIMENTAL_ACNE_V5_DISABLED'}
+  assert response.status_code==200 and response.json()['acneRuntime']['reason']=='EXPERIMENTAL_ACNE_V5_DISABLED'
+  assert response.json()['acneRuntime']['nonAcnePreservation']['equal']
   p['processingConsent']=False;response=client.post('/api/local-health/skin',json=p)
   assert response.status_code==422 and 'candidateCount' not in response.json()
 
