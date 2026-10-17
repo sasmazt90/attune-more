@@ -1,5 +1,5 @@
 """Visible dental candidates only; local CV + a hash-checked trained ONNX."""
-import hashlib,json
+import copy,hashlib,json
 from pathlib import Path
 import cv2,numpy as np
 from scipy import ndimage
@@ -10,10 +10,32 @@ _session=None
 _manifest=None
 _model_runtime={}
 _model_identity=None
+ADULT_POLICY='adult-permanent-D-only-v1'
 
 
 class DentalModelError(RuntimeError):
     """Technical model failure; never converts to an empty valid detection."""
+
+
+def adult_product_result(result):
+    """Product population scope AFTER raw model decode/NMS/source mapping.
+    Raw D/d outputs and model identity stay intact; historical records never
+    pass through this new-analysis boundary. No d-to-D reclassification.
+    """
+    result=copy.deepcopy(result)
+    for view in result['views']:
+        metric=view['caries'];candidates=metric.get('candidates')
+        if not isinstance(candidates,list) or any(not isinstance(c,dict) or c.get('classCode') not in ('D','d') for c in candidates):raise DentalModelError('INVALID_PRODUCT_CANDIDATES')
+        valid=metric.get('quality')=='valid'
+        if valid and (view.get('quality',{}).get('valid') is not True or type(metric.get('value')) is not int or metric['value']!=len(candidates)):raise DentalModelError('INVALID_PRODUCT_CANDIDATE_COUNT')
+        if not valid and metric.get('value') is not None:raise DentalModelError('INVALID_PRODUCT_UNAVAILABLE_VALUE')
+        metric['candidates']=[c for c in candidates if c['classCode']=='D'] if valid else []
+        metric['value']=len(metric['candidates']) if valid else None
+        method=metric.get('detectorMethodVersion',metric['methodVersion'])
+        metric.update(detectorMethodVersion=method,methodVersion=method+'+'+ADULT_POLICY,candidatePolicyVersion=ADULT_POLICY,includedClassCodes=['D'])
+    method=result.get('sourceMethodVersion',result['methodVersion'])
+    result.update(sourceMethodVersion=method,methodVersion=method+'+'+ADULT_POLICY,candidatePolicyVersion=ADULT_POLICY)
+    return result
 
 
 def mouth_geometry(points,shape):
@@ -241,4 +263,4 @@ def analyze_dental(payload,check=lambda:None):
     # Relative mouth position/color is not tooth identity across perspective;
     # do not invent multiview confirmation or suppress valid per-view evidence.
     check()
-    return dict(methodVersion='dental-visible-v2',sourceType='camera',views=views,storage='volatile-memory-only',clinicalValidation=False)
+    return adult_product_result(dict(methodVersion='dental-visible-v2',sourceType='camera',views=views,storage='volatile-memory-only',clinicalValidation=False))

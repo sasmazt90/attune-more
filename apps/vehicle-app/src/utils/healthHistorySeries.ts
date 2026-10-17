@@ -4,6 +4,7 @@ import { HEALTH_MODULE_IDS, type HealthModule } from './healthModules';
 import { performanceBySize, isLetterProtocol, type LetterTrial } from './spokenVision';
 import { SIGN_LABELS, skinCriterionLabel, samplingSupportVersion } from './skinIndicators';
 import { skinDisplayKind } from './skinPresentation';
+import { DENTAL_ACCUMULATION_LABEL } from './dentalResult';
 
 export type HistoryRecords = Record<HealthModule, HealthRecord[]>;
 export type HistoryPoint = { id: string; recordId: string; time: number; value: number | null; detail: string; numerator?: number; denominator?: number };
@@ -78,7 +79,7 @@ export function buildHistorySeries(module: HealthModule, records: HealthRecord[]
       const source = r.sourceType === 'upload' ? 'Yüklenen fotoğraf' : r.sourceType === 'camera' ? 'Kamera' : 'Kaynak kaydedilmemiş';
       for (const [index, view] of r.measurements.entries()) {
         const pose = view.pose || 'FRONT', poseLabel = pose === 'RIGHT' ? 'Sağ görünüm' : pose === 'LEFT' ? 'Sol görünüm' : REGION_LABELS[pose] || pose;
-        for (const [criterion, label, metric, unit] of [['caries', 'Çürük aday sayısı', view.caries, 'aday'], ['accumulation', 'Birikim görünümü', view.accumulation, '%']] as const) {
+        for (const [criterion, label, metric, unit] of [['caries', 'Çürük aday sayısı', view.caries, 'aday'], ['accumulation', DENTAL_ACCUMULATION_LABEL, view.accumulation, '%']] as const) {
           if (!metric) continue;
           add(r, { criterion, label, region: pose, regionLabel: poseLabel, unit, method: metric.modelVersion || metric.methodVersion || r.methodVersion || 'Eski yöntem', source }, [r.sourceType || { unknown: r.id }, r.measurements.length, metric.evidenceScope || metric.viewSupport || null, metric.methodVersion || r.methodVersion, metric.modelVersion || null, metric.modelHash || null, metric.decisionThreshold ?? metric.confidenceThreshold ?? metric.threshold ?? metric.components?.decisionThreshold ?? (criterion === 'caries' ? { unknown: r.id } : null), metric.unit || unit], metric.quality === 'valid' ? number(metric.value) : null, String(index) + criterion, source + (r.measurements.length === 1 ? ' · tek görünüm' : ' · çoklu görünüm'));
         }

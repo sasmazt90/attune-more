@@ -2,7 +2,8 @@
 import hashlib,json,os,subprocess,sys
 import psutil
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'cdc-progress/skin-type-local-20261017'
+ROOT=Path(__file__).resolve().parents[1];OUT=Path(os.environ.get('ATTUNE_BUILD_EVIDENCE_DIR',str(ROOT.parent/'cdc-progress/skin-type-local-20261017')))
+if not OUT.resolve().is_relative_to((ROOT.parent/'cdc-progress').resolve()):raise ValueError('Build evidence must stay inside the workspace progress directory')
 sys.path.insert(0,str(ROOT/'scripts/skin-research'))
 from heavy_job_lease import HeavyJobLease
 os.environ.update(NEXT_PUBLIC_ATTUNE_LOCAL_API_PORT='8311',NEXT_TELEMETRY_DISABLED='1',CI='1',NEXT_PUBLIC_ATTUNE_ACNE_V5='1',NEXT_PUBLIC_ATTUNE_PREVIEW_API_PORT='8311')

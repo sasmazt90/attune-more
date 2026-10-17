@@ -88,7 +88,7 @@ def upload_roi(image,points=None):
 
 def analyze_upload(payload,check=lambda:None):
     check()
-    from dental_analysis import model_candidates,calculus_candidates,contours_and_alignment
+    from dental_analysis import model_candidates,calculus_candidates,contours_and_alignment,adult_product_result
     image,digest,normalized,source=decode_upload(payload.get('photo'))
     check()
     points=payload.get('photoLandmarks');origin=(0,0);analysis=image
@@ -138,4 +138,4 @@ def analyze_upload(payload,check=lambda:None):
             item['centroid']=[item['centroid'][0]+ox,item['centroid'][1]+oy]
     check()
     view=dict(photoId=digest,pose='FRONT',sourceWidth=image.shape[1],sourceHeight=image.shape[0],sourceType='upload',quality=quality,caries=dict(type='trained_prediction',value=len(candidates) if model['quality']=='valid' else None,unit='candidate-count',candidates=candidates,evaluatedArea=int(mouth.sum()),uncertainty=['dataset-domain-shift','visible-surface-only','confidence-is-not-severity'],**{**meta,**model}),accumulation=accumulation,alignment=alignment)
-    return dict(methodVersion='dental-visible-upload-v3',sourceType='upload',views=[view],storage='volatile-memory-only',clinicalValidation=False,source=source,normalizedPhoto=normalized)
+    return adult_product_result(dict(methodVersion='dental-visible-upload-v3',sourceType='upload',views=[view],storage='volatile-memory-only',clinicalValidation=False,source=source,normalizedPhoto=normalized))
