@@ -2,7 +2,7 @@
 import hashlib,json,os,subprocess,sys
 import psutil
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'cdc-progress/health-approved-assets-menu-20261017'
+ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'cdc-progress/skin-type-local-20261017'
 sys.path.insert(0,str(ROOT/'scripts/skin-research'))
 from heavy_job_lease import HeavyJobLease
 os.environ.update(NEXT_PUBLIC_ATTUNE_LOCAL_API_PORT='8311',NEXT_TELEMETRY_DISABLED='1',CI='1',NEXT_PUBLIC_ATTUNE_ACNE_V5='1',NEXT_PUBLIC_ATTUNE_PREVIEW_API_PORT='8311')
@@ -32,5 +32,5 @@ with HeavyJobLease('CDC-health-final-build',peak_mib=900,minimum_available_mib=1
   if code:raise RuntimeError(f'Build failed: {code}')
  sources=[str(p.relative_to(ROOT)) for p in (ROOT/'apps/vehicle-app/src').rglob('*') if p.suffix in ('.ts','.tsx','.css')]+[str(p.relative_to(ROOT)) for p in (ROOT/'services/core-api').glob('*.py')]+['apps/vehicle-app/next.config.mjs','apps/vehicle-app/public/audio/guidance/manifest.json','package.json','package-lock.json','apps/vehicle-app/package.json']
  files=[ROOT/p for p in sources]+list((ROOT/'apps/vehicle-app/.next/static').rglob('*.js'))
- value=dict(BUILD_ID=(ROOT/'apps/vehicle-app/.next/BUILD_ID').read_text().strip(),apiPort=8311,frontendPort=3311,files=[dict(path=str(p.relative_to(ROOT)),sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in files],resource=lease.receipt())
+ value=dict(BUILD_ID=(ROOT/'apps/vehicle-app/.next/BUILD_ID').read_text().strip(),apiPort=8311,frontendPort=3000,files=[dict(path=str(p.relative_to(ROOT)),sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in files],resource=lease.receipt())
  tmp=OUT/'build-receipt.tmp';tmp.write_text(json.dumps(value,indent=2),'utf8');tmp.replace(OUT/'build-receipt.json');print('BUILD_OK',value['BUILD_ID'])

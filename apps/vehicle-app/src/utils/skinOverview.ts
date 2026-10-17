@@ -15,7 +15,7 @@ function displayLabels(rows: SkinIndicator[], scope: 'regional'|'whole-face'): S
 }
 export type SkinOverview = {
   schemaVersion: 1; analysisId?: string; captureId: string; pose: 'FRONT';
-  skinType: { value: SkinTypeId | null; quality: 'valid' | 'invalid' | 'insufficient'; confidence: number | null; methodVersion: string; modelHash: string | null; limitationCode: string | null; provider?:string;providerModelId?:string;inferenceKind?:'hosted' };
+  skinType: { value: SkinTypeId | null; quality: 'valid' | 'invalid' | 'insufficient'; confidence: number | null; methodVersion: string; modelHash: string | null; limitationCode: string | null; provider?:string;providerModelId?:string;inferenceKind?:'hosted'|'local-onnx';decisionVersion?:string;sourceModel?:string };
   indicators: SkinIndicator[]; normalizationVersion: string;
   modelInputTransform?:Record<string,number|string|boolean>|null;modelInference?:Record<string,Record<string,number|string>>;
   sourceTransform: { sourceWidth: number; sourceHeight: number; coordinateSpace: 'source-pixels' };

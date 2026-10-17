@@ -35,6 +35,8 @@ from main import app
 def launcher_identity():
     descriptor=json.loads(Path(os.environ['ATTUNE_LAUNCHER_DELIVERY']).read_text('utf8'))
     config=ROOT/'services/core-api/models/skin-type-hosted.json'
-    return dict(sourceCommit=descriptor['sourceCommit'],BUILD_ID=descriptor['BUILD_ID'],frontendOrigin='http://127.0.0.1:3000',apiPort=8311,hostedSkinTypeEnabled=json.loads(config.read_text('utf8'))['enabled'],hostedConfigSHA256=hashlib.sha256(config.read_bytes()).hexdigest(),experimentalAcneV5=os.getenv('ATTUNE_EXPERIMENTAL_ACNE_V5')=='1')
+    local_path=ROOT/'services/core-api/models/skin-type-local.json'
+    local=json.loads(local_path.read_text('utf8')) if local_path.is_file() else {}
+    return dict(sourceCommit=descriptor['sourceCommit'],BUILD_ID=descriptor['BUILD_ID'],frontendOrigin='http://127.0.0.1:3000',apiPort=8311,hostedSkinTypeEnabled=json.loads(config.read_text('utf8'))['enabled'],hostedConfigSHA256=hashlib.sha256(config.read_bytes()).hexdigest(),experimentalAcneV5=os.getenv('ATTUNE_EXPERIMENTAL_ACNE_V5')=='1',localSkinTypeEnabled=local.get('enabled') is True,localSkinTypeModelSHA256=local.get('sha256'),localSkinTypeVersion=local.get('version'),localSkinTypeDecisionVersion=local.get('decisionVersion'))
 threading.Thread(target=wait_for_shutdown, daemon=True).start()
 server.run()

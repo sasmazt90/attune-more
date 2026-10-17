@@ -9,6 +9,7 @@ from types import MappingProxyType
 import hashlib,json,threading,time
 import cv2,numpy as np
 from hosted_skin_type import infer_hosted_type,parse_hosted_type_response,get_inference_client
+from local_skin_type import infer as infer_local_type
 
 FOLDER=Path(__file__).parent/'models'
 MANIFEST=FOLDER/'skin-focused.json'
@@ -104,10 +105,12 @@ def infer(bgr,points,quality_valid,hosted_consent=False,type_quality_valid=None)
                 if result['degrees']:used.add(task)
         if type_quality and not type_computed:
             a,b=transform['x'],transform['y'];crop=bgr[b:b+transform['height'],a:a+transform['width']]
-            hosted=infer_hosted_type(crop,hosted_consent)
-            result['models']['type']=dict(modelHash=None,modelVersion=hosted['methodVersion'],providerModelId=hosted['providerModelId'],inferenceKind='hosted',loadMs=0.,inferenceMs=hosted.pop('inferenceMs'))
-            result['skinType']=hosted
+            local=infer_local_type(crop)
+            result['models']['type']=dict(modelHash=local['modelHash'],modelVersion=local['methodVersion'],inferenceKind='local-onnx',loadMs=0.,inferenceMs=local.pop('inferenceMs'))
+            result['skinType']=local
         result['modelRuntime']=session_status(used)
+        if result['skinType'] and result['skinType'].get('inferenceKind')=='local-onnx':
+            local=result['skinType'];result['modelRuntime']['type']=dict(modelId='local-pretrained:'+local.get('sourceModel','unavailable'),fileHashVerified=bool(local.get('fileHashVerified')),sessionLoaded=bool(local.get('sessionLoaded')),loadedModelHash=local.get('modelHash'),usedInResponse=local.get('quality')=='valid',status='used' if local.get('quality')=='valid' else 'unavailable',inferenceKind='local-onnx')
         return result
     except Exception:
         # Compact unavailable state; no old result, substitute weights or zeros.
