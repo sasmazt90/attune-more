@@ -6,6 +6,7 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'apps/vehicle-app/public/audio/guidance'
 N=json.loads((ROOT/'shared/healthModules.json').read_text('utf-8-sig'))
 TEXTS={
+ 'skin-neutral':'Ağzınızı kapatın. Gülümsemeden yüzünüzü rahat bırakın; başınızı istenen pozda sabit tutun.',
  'cockpit-entry':'Sağlık Merkezi menüsünden yapmak istediğiniz değerlendirmeyi seçin.',
  'profile-entry':'Sağlık Geçmişim. Bir kaydı açabilir veya yalnız seçtiğiniz kaydı silebilirsiniz.',
  'record-open':'Kayıt ayrıntısı açıldı. Uzman seçeneklerine buradan geçebilirsiniz.',
@@ -41,8 +42,9 @@ TEXTS={
 }
 async def main():
  import sys
- selected={'skin-front':TEXTS['skin-front']} if '--skin-glasses-only' in sys.argv else TEXTS
- OUT.mkdir(parents=True,exist_ok=True);entries=json.loads((OUT/'manifest.json').read_text('utf8'))['entries'] if '--skin-glasses-only' in sys.argv else {}
+ only='skin-neutral' if '--skin-neutral-only' in sys.argv else 'skin-front' if '--skin-glasses-only' in sys.argv else None
+ selected={only:TEXTS[only]} if only else TEXTS
+ OUT.mkdir(parents=True,exist_ok=True);previous=json.loads((OUT/'manifest.json').read_text('utf8'));entries=previous['entries'] if only else {}
  voices=await edge_tts.list_voices()
  for name in ['tr-TR-AhmetNeural','tr-TR-EmelNeural']:
   if not any(v['ShortName']==name for v in voices):raise RuntimeError('EXACT_VOICE_UNAVAILABLE')
@@ -52,7 +54,15 @@ async def main():
   contract=dict(text=text,voice=voice,rate='-10%',pitch='-10Hz',textVersion='guidance-20261009-v1')
   digest=hashlib.sha256(json.dumps(contract,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
   file=OUT/(digest+'.mp3')
-  if not file.exists():await edge_tts.Communicate(text,voice,rate='-10%',pitch='-10Hz').save(str(file))
+  if not file.exists() or file.stat().st_size<1000:
+   temporary=file.with_suffix('.partial.mp3')
+   try:
+    try:await edge_tts.Communicate(text,voice,rate='-10%',pitch='-10Hz').save(str(temporary))
+    except Exception as error:raise RuntimeError('GUIDANCE_GENERATION_FAILED:'+type(error).__name__) from None
+    if temporary.stat().st_size<1000:raise RuntimeError('EMPTY_GUIDANCE')
+    temporary.replace(file)
+   finally:
+    if temporary.exists():temporary.unlink()
   if file.stat().st_size<1000:raise RuntimeError('EMPTY_GUIDANCE')
   entries[key]={**contract,'contractHash':digest,'sha256':hashlib.sha256(file.read_bytes()).hexdigest(),'url':'/audio/guidance/'+file.name}
   print(key,flush=True)

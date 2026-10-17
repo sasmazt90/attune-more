@@ -119,14 +119,14 @@ def boundary_support(gray,skin,guide,face_width,contour_support=None):
     coverage=float(edge_eligible.any(axis=1).mean()) if contour_support is not None else float(visible.any(axis=1).mean())
     return dict(value=float(deflection.mean()),coverage=coverage,edgeMean=float(strength.mean()),localDeflectionMean=float(np.abs(local).mean()),points=tracked.tolist(),supported=(strength>.04).tolist(),**({'trackingSupportVersion':'anatomical-silhouette-crossing-v1','_localSupport':deflection.tolist()} if contour_support is not None else {}))
 
-def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_shape,hair=None,context_skin=None,clipping=None,exposure_skin=None,boundary_geometry=None,expression_observation=None,photo_id=None):
+def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_shape,hair=None,context_skin=None,clipping=None,exposure_skin=None,boundary_geometry=None,expression_observation=None,photo_id=None,capture_pose=None):
     """Returns an index, component metadata, actual pixel evidence, and a failure code."""
     h,w=source_shape[:2]
     p=np.array([[(v['x']*w-origin[0])*scale,(v['y']*h-origin[1])*scale] for v in points],float)
     eye=p[263]-p[33];eye_width=float(np.linalg.norm(eye))
     empty=np.zeros(gray.shape,np.float32)
     formula='contour-fold-lower-chin-observed-runs-v9' if region=='chin' else 'contour-fold-local-support-v5' if region=='periorbital' else 'contour-fold-visible-region-unique-centers-v7'
-    if region in ('rightCheek','leftCheek','chin'):formula+='-expression-v2'
+    if region in ('rightCheek','leftCheek','chin'):formula+='-expression-v3-observed-pose'
     fail=lambda code:(None,dict(formulaVersion=formula,**({'samplingSupportVersion':'tracked-center-eligible-v1'} if region=='periorbital' else {})),empty,[],code)
     if region=='forehead':return fail('BROW_FOLD_IS_NOT_LOWER_FACE_SAGGING')
     if eye_width<35:return fail('INSUFFICIENT_NATIVE_DETAIL')
@@ -140,7 +140,10 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
     smile=float(((p[61]+p[291])/2-(p[13]+p[14])/2)@vertical)/mouth_width
     eye_aspects=[float(np.linalg.norm(p[a]-p[b]))/max(float(np.linalg.norm(p[c]-p[d])),1) for a,b,c,d in [(159,145,33,133),(386,374,263,362)]]
     if region in ('rightCheek','leftCheek','chin'):
-        from skin_expression import reason
+        from skin_expression import reason,pose_reason
+        if capture_pose is not None:
+            invalid_pose=pose_reason(capture_pose,conditions)
+            if invalid_pose:return fail(invalid_pose)
         expression_reason=reason(expression_observation,photo_id,opening,smile,mouth_width/max(float(abs((p[454]-p[234])@horizontal)),1))
         if expression_reason:return fail(expression_reason)
     elif region in ('periorbital','forehead'):
@@ -319,7 +322,7 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
                     mouthOpening=opening,eyeAspects=eye_aspects,shadowPlaneSlope=slope[:2].tolist())
     if region=='periorbital':components['samplingSupportVersion']='tracked-center-eligible-v1'
     else:
-        components['expressionGateVersion']='source-bound-lower-face-expression-v2'
+        components['expressionGateVersion']='source-bound-lower-face-expression-v3-observed-pose'
         components.update(samplingSupportVersion='lower-chin-observed-fold-runs-unique-centers-v9' if region=='chin' else 'visible-region-unique-centers-v7',uniqueObservedCenters=len(sampling_centers),overlapCountedOnce=True,partialCoverage=any(side['value'] is None for side in sides))
         # Ephemeral raster/coordinates are consumed by the overview aggregator;
         # appearance_analysis removes them before returning or storing JSON.

@@ -1,7 +1,8 @@
 'use client';
 import {serviceAllowed} from '../../utils/serviceConsent';
 import {careHref} from '../../utils/healthModules';
-import { useGuidance,qualityGuidance } from '../../utils/audioGuidance';
+import { useGuidance,qualityGuidance,skinNeutralGuidance } from '../../utils/audioGuidance';
+import { lowerFaceExpressionReason } from '../../utils/skinExpression';
 import {SkinEyewearCheck,SkinEyewearGate,SKIN_CAPTURE_POLICY,type EyewearStatus} from '../../utils/skinEyewear';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -120,6 +121,7 @@ export default function SkinPage() {
   const [guidanceText, setGuidanceText] = useState<string>('Lütfen başınızı sabit tutun.');
   const [eyewearStatus,setEyewearStatus]=useState<EyewearStatus|'PENDING'>('PENDING');
   const voice=useGuidance('skin',isParked);
+  const [lowerFaceIssue,setLowerFaceIssue]=useState<string>();
   const introPendingRef=useRef(false);
   const [introPending,setIntroPending]=useState(false);
   useEffect(()=>{
@@ -133,7 +135,7 @@ export default function SkinPage() {
     introPendingRef.current=!!id;setIntroPending(!!id);
     if(isParked)voice.phase(scanState+':'+angleIndex,id);
   },[voice,isParked,scanState,angleIndex]);
-  useEffect(()=>{const id=scanState==='CAMERA_ACTIVE'&&!introPendingRef.current&&!preparationPhase&&!quality.status.startsWith('EYEWEAR')&&!guidanceText.startsWith('Hizalama uygun')?qualityGuidance(guidanceText):undefined;voice.issue(id||'',id);},[voice,guidanceText,scanState,preparationPhase,quality.status,introPending]);
+  useEffect(()=>{const active=scanState==='CAMERA_ACTIVE'&&serviceAllowed('skin')&&isCameraAllowed()&&!introPendingRef.current&&!preparationPhase&&!quality.status.startsWith('EYEWEAR');const id=active?(lowerFaceIssue?(lowerFaceIssue.startsWith('POSE_')?(['skin-front','skin-right','skin-left'] as const)[angleIndex]:skinNeutralGuidance()):!guidanceText.startsWith('Hizalama uygun')?qualityGuidance(guidanceText):undefined):undefined;voice.issue(id?lowerFaceIssue||id:'',id);},[voice,guidanceText,scanState,preparationPhase,quality.status,introPending,lowerFaceIssue,angleIndex]);
 
   const snapshotFrames = useRef<Partial<Record<SkinAngle, SkinSnapshot>>>({});
   const snapshotRecord = useRef<string | null>(null);
@@ -231,6 +233,7 @@ export default function SkinPage() {
     const revoke = () => {
       const changed=hostedConsentRef.current!==isSkinHostedProcessingAllowed();hostedConsentRef.current=isSkinHostedProcessingAllowed();
       if (!parkedRef.current || !isCameraAllowed() || changed&&activeScanRef.current) {
+        voice.cancel();setLowerFaceIssue(undefined);
         acquisitionRef.current += 1;
         snapshotFrames.current = {}; snapshotRecord.current = null; setSnapshots({});
         if (demoTimerRef.current) clearInterval(demoTimerRef.current);
@@ -652,11 +655,16 @@ export default function SkinPage() {
             const captureState = angleRuntime.current;
             const target = SKIN_ANGLES[captureState.index];
             const aligned = captureState.enabled ? matchesSkinAngle(curAlign, target) : curAlign.isAligned;
+            // Never strand capture behind an unavailable spoken instruction.
+            // Backend still marks unsupported lower-face measurements null.
+            const expressionIssue=skinNeutralGuidance()?lowerFaceExpressionReason(curAlign,canvas.width,canvas.height):undefined;
+            setLowerFaceIssue(curQual.isValid&&curAlign.faceDetected?(!aligned?'POSE_'+target:expressionIssue):undefined);
             const isValid =
               isMPLoaded &&
               curAlign.faceDetected &&
               curAlign.isMediaPipeActive &&
               aligned &&
+              !expressionIssue &&
               curQual.isValid;
 
             if (isValid) {
@@ -700,7 +708,7 @@ export default function SkinPage() {
               }
             } else {
               // Koşullar bozulursa ilerlemeyi durdur veya geriye al
-              consecutiveValidFramesRef.current = captureState.enabled || curQual.status.startsWith('EYEWEAR') ? 0 : Math.max(0, consecutiveValidFramesRef.current - 1);
+              consecutiveValidFramesRef.current = captureState.enabled || expressionIssue || curQual.status.startsWith('EYEWEAR') ? 0 : Math.max(0, consecutiveValidFramesRef.current - 1);
               if (curQual.status.startsWith('EYEWEAR')) {
                 setGuidanceText(curQual.warningMessageTr || 'Göz çevrenizi net gösterin.');
               } else if (!curAlign.faceDetected) {

@@ -596,7 +596,7 @@ def analyze_skin(payload, include_research_features=False):
                 sampled,impulses=isolated_impulse_sampling(bgr)
                 bag_image=cv2.resize(sampled[y0:y1,x0:x1],None,fx=scale,fy=scale,interpolation=cv2.INTER_AREA)
                 contour_gray=cv2.cvtColor(bag_image,cv2.COLOR_BGR2GRAY).astype(np.float32)/255
-            value,components,signal,lines,limitation=instant_proxy(contour_gray,contour_support,points,region,conditions,scale,origin,bgr.shape,hair,contour_context,contour_clipping,contour_exposure,boundary_geometry=(face_support>0) if region=='chin' else None,expression_observation=payload.get('expressionObservation'),photo_id=source_hash)
+            value,components,signal,lines,limitation=instant_proxy(contour_gray,contour_support,points,region,conditions,scale,origin,bgr.shape,hair,contour_context,contour_clipping,contour_exposure,boundary_geometry=(face_support>0) if region=='chin' else None,expression_observation=payload.get('expressionObservation'),photo_id=source_hash,capture_pose=payload['pose'])
             local_samples=components.pop('_samplingCenters',[])
             local_measured=components.pop('_measuredSupport',None)
             if region in ('rightCheek','leftCheek','chin') and value is not None and payload.get('qualityValid'):
@@ -655,7 +655,7 @@ def analyze_skin(payload, include_research_features=False):
             general_area,conditions,payload.get('qualityValid',False),candidate_coverage=float(np.mean(global_candidates[union])*100) if union.any() else None,normalizations=NORMALIZATION,dry_support=dry_union,sag_support=(sag_samples,sag_measured,scale))
         for item in result['general']['measurements']:
             item['scoreDirection']='higher-is-more-visible'
-            item['normalizationVersion']=NORMALIZATION[item['id']]+('-expression-v2' if item['id']=='sag' else '')
+            item['normalizationVersion']=NORMALIZATION[item['id']]+('-expression-v3-observed-pose' if item['id']=='sag' else '')
             if item['id']=='acne' and item['value'] is not None and not include_research_features:
                 measured=[name for name,rows in response.items() if any(r['id']=='acne' and r['quality']=='valid' for r in rows)]
                 support=np.logical_or.reduce([acne_envelopes[name]&acne_skin for name in measured])

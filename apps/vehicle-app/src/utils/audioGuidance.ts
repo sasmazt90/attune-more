@@ -5,6 +5,9 @@ import manifest from '../../public/audio/guidance/manifest.json';
 import {HEALTH_MODULE_IDS,HEALTH_MODULES} from './healthModules';
 type Entry={text:string;voice:string;rate:string;pitch:string;url:string;sha256:string;textVersion:string};
 export type GuidanceId=keyof typeof manifest.entries;
+/** No placeholder/different voice: capture gating is activated only once the
+ * fixed neutral clip has actually been admitted to the content-addressed bank. */
+export const skinNeutralGuidance=():GuidanceId|undefined=>Object.prototype.hasOwnProperty.call(manifest.entries,'skin-neutral')?'skin-neutral' as GuidanceId:undefined;
 type Job={owner:string;id:GuidanceId;controller:AbortController;audio?:HTMLAudioElement;url?:string;resolve:(played:boolean)=>void;finished:boolean;unmeter?:()=>void};
 let current:Job|undefined,pending:Job|undefined,muted=false;
 const completed=new Set<string>();

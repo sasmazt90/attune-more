@@ -13,6 +13,7 @@ def test_expression_requires_complete_source_bound_finite_support():
  obs=observation()
  assert E.reason(obs,'a',.01,-.12,.4) is None
  assert E.reason(None,'a',.01,-.12,.4)=='EXPRESSION_SMILE'
+ assert E.reason(None,'a',.01,0,.4)=='EXPRESSION_SUPPORT_UNAVAILABLE'
  for changed in [dict(photoId='b'),dict(version='future'),dict(scores={}),dict(scores={**obs['scores'],'jawOpen':float('nan')}),dict(scores={**obs['scores'],'jawOpen':True})]:
   with pytest.raises(ValueError):E.validate({**obs,**changed},'a')
  for name,expected in [('jawOpen','OPEN_MOUTH'),('mouthSmileLeft','SMILE'),('mouthFrownLeft','FROWN'),('cheekPuff','CHEEK_PUFF'),('mouthPressLeft','MOUTH_PRESS'),('mouthPucker','PUCKER')]:
