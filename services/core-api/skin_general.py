@@ -4,28 +4,13 @@ import numpy as np
 
 IDS=['tone','oil','redness','acne','sag','dry','lines','dark','bags']
 VERSION='front-appearance-union-v3-local-target-coverage'
-OIL_REGIONS=('forehead','nose','rightCheek','leftCheek','chin')
-OIL_SAMPLING='oil-regional-quality-unique-visible-union-v2'
 
-
-def oil_region_support(response,masks,visible):
-    """Only measured oil anatomy enters oil's union; missing is never normal."""
-    measured=[];missing={}
-    for name in OIL_REGIONS:
-        row=next((r for r in response.get(name,[]) if r['id']=='oil'),None)
-        if name in masks and row and row.get('quality')=='valid' and row.get('value') is not None:
-            measured.append(masks[name])
-        else:missing[name]=(row.get('limitationCode') if row else None) or 'REGION_NOT_VISIBLE'
-    support=(np.logical_or.reduce(measured) if measured else np.zeros_like(visible))&visible
-    return support,missing
-
-def general_result(response,masks,valid,tone,redness,shine,flakes,area,conditions,quality_valid,learned_type=None,candidate_coverage=None,normalizations=None,dry_support=None,sag_support=None,analysis_scale=1.):
+def general_result(response,masks,valid,tone,redness,shine,flakes,area,conditions,quality_valid,learned_type=None,candidate_coverage=None,normalizations=None,dry_support=None,sag_support=None):
     required=['forehead','rightCheek','leftCheek','chin']
     coverage=all(name in masks and int((masks[name]&valid).sum())>=100 for name in required)
     if response:
         coverage=coverage and all(any(r['id']=='tone' and r['quality']=='valid' for r in response.get(name,[])) for name in required)
     result=[]
-    oil_support,oil_missing=oil_region_support(response,masks,valid)
     for criterion in IDS:
         evaluated_area=area;source_normalization=(normalizations or {}).get(criterion)
         value=None;limitation='INSUFFICIENT_FRONT_COVERAGE';components={}
@@ -33,25 +18,14 @@ def general_result(response,masks,valid,tone,redness,shine,flakes,area,condition
         # Cheek/chin coverage is required for whole-face criteria, not eyes.
         local_criterion=criterion in ['lines','dark','bags','sag','acne']
         criterion_coverage=coverage
-        if criterion=='oil':
-            criterion_coverage=not oil_missing
-            limitation=('CAPTURE_QUALITY' if not quality_valid else
-                'GLARE_OR_EXPOSURE' if 'GLARE_OR_EXPOSURE' in oil_missing.values() else
-                'INSUFFICIENT_FRONT_COVERAGE')
-            components={'samplingSupportVersion':OIL_SAMPLING,'sourceRegions':[n for n in OIL_REGIONS if n not in oil_missing],
-                'missingRegions':oil_missing,'overlapCountedOnce':True,'temporalPhotometryMeasured':False}
-            oil_anatomy=[masks[n] for n in OIL_REGIONS if n in masks]
-            evaluated_area={**area,'scope':'unique-visible-measured-oil-regions',
-                'analysisPixels':int(oil_support.sum()),'sourcePixels':float(oil_support.sum()/analysis_scale**2),
-                'anatomicalSourcePixels':float(np.logical_or.reduce(oil_anatomy).sum()/analysis_scale**2) if oil_anatomy else 0.}
         if criterion=='dry' and dry_support is not None:
             criterion_coverage=all(any(r['id']=='dry' and r['quality']=='valid' for r in response.get(name,[])) for name in required)
         if quality_valid and (criterion_coverage or local_criterion):
             signal={'tone':tone,'redness':redness,'oil':shine,'dry':flakes}.get(criterion)
-            signal_support=oil_support if criterion=='oil' else dry_support if criterion=='dry' and dry_support is not None else valid
+            signal_support=dry_support if criterion=='dry' and dry_support is not None else valid
             if signal is not None and signal_support.any():
                 value=float(np.mean(signal[signal_support])) if criterion in ['tone','redness'] else float(np.mean(signal[signal_support]>(.12 if criterion=='oil' else .04))*100)
-                limitation=None;components.update(uniqueAnalysisPixels=int(signal_support.sum()),overlapCountedOnce=True)
+                limitation=None;components={'uniqueAnalysisPixels':int(signal_support.sum()),'overlapCountedOnce':True}
                 if criterion=='dry' and dry_support is not None:
                     scale=sag_support[2] if sag_support is not None else 1.
                     evaluated_area=dict(scope='unique-visible-closed-cell-flake-support',analysisPixels=int(signal_support.sum()),sourcePixels=float(signal_support.sum()/scale**2))
