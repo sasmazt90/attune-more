@@ -1,0 +1,887 @@
+{
+  "timeUTC": "2026-10-17T04:20:25.621665+00:00",
+  "sourceCommit": "5f11c111e3f6547e6420ddf37db477190d232f10",
+  "branch": "research/mental-technical-closeout-20261017",
+  "BUILD_ID": "iWyABFO5oX3OLGs4tM6Vh",
+  "technicalStatus": "CONTROLLED_COMPLETE_LIVE_TTS_BLOCKED",
+  "physicalUserAcceptance": false,
+  "uniqueFocusedTests": 68,
+  "features": [
+    {
+      "id": "F089",
+      "name": "Ayrı izinler",
+      "status": "TEKNİK GEÇTİ",
+      "evidence": "`permissions-proof`, lifecycle consent/mic revoke; varsayılanlar korundu"
+    },
+    {
+      "id": "F090",
+      "name": "Başlat/Türkçe ASR",
+      "status": "KONTROLLÜ TEKNİK GEÇTİ",
+      "evidence": "Interim/final/yeniden başlama; fiziksel mikrofon ve doğal ASR açık"
+    },
+    {
+      "id": "F091",
+      "name": "Yazılı giriş/backend",
+      "status": "CANLI GEÇTİ",
+      "evidence": "`live-proof`, iki gerçek normal frontend/API/provider turu"
+    },
+    {
+      "id": "F092",
+      "name": "Bağlam",
+      "status": "DÜZELTİLDİ / CANLI GEÇTİ",
+      "evidence": "Aynı tur devamı,0/2/2/4; gerçek0/2 context. Eski oturum callback'i yeni oturumu etkilemedi. Backend history istemci tarafından sağlanır; yeni kimlik/oturum doğrulama sistemi eklenmedi."
+    },
+    {
+      "id": "F093",
+      "name": "Türkçe yanıt/Emel",
+      "status": "KISMİ — CANLI TTS ENGELLİ",
+      "evidence": "Gerçek Türkçe metin geçti; kayıtlı Emel/native playback geçti; dinamik uç nokta HTTP503"
+    },
+    {
+      "id": "F094",
+      "name": "Kullanıcı/sistem sesi ayrımı",
+      "status": "KONTROLLÜ TEKNİK GEÇTİ",
+      "evidence": "Sistem sesi sırasında ASR kapalı/eski callback etkisiz; fiziksel yankı açık"
+    },
+    {
+      "id": "F095",
+      "name": "Parçalı/gecikmiş yanıt",
+      "status": "KONTROLLÜ TEKNİK GEÇTİ",
+      "evidence": "Interim/duplicate/oturum nesli kontrolü, `conversation-browser`, lifecycle old-session"
+    },
+    {
+      "id": "F096",
+      "name": "Mute/duraklat/devam",
+      "status": "DÜZELTİLDİ / TEKNİK GEÇTİ",
+      "evidence": "Pending turn/speech belleği; mute ve pendingFinish kontrolü"
+    },
+    {
+      "id": "F097",
+      "name": "Bitir/iptal",
+      "status": "TEKNİK GEÇTİ",
+      "evidence": "Gerçek farewell kontrol route'u, tek özet; iptal/yarım görüşmede kayıt yok"
+    },
+    {
+      "id": "F098",
+      "name": "Sağlayıcı/ağ hatası",
+      "status": "TEKNİK GEÇTİ; SES ERİŞİMİ AÇIK",
+      "evidence": "Kontrollü503 görünür; demo yanıt/başarılı sahte özet yok; canlı503 ayrıca kaydedildi"
+    },
+    {
+      "id": "F099",
+      "name": "Gerçek özet",
+      "status": "CANLI GEÇTİ",
+      "evidence": "Dört gerçek tamamlanmış mesaj, tek kayıt/aynı geçmiş; model mood yorumu ayrı işaretli"
+    },
+    {
+      "id": "F100",
+      "name": "Özet/transkript ayrımı",
+      "status": "TEKNİK GEÇTİ",
+      "evidence": "Varsayılan döküm off; opt-in4 mesaj; summary-off/transcript-on0 kayıt"
+    },
+    {
+      "id": "F101",
+      "name": "Geçmiş/silme",
+      "status": "GERÇEK YEREL YOL GEÇTİ",
+      "evidence": "İzole localStorage/IndexedDB, reload ve kalıcı tekil silme; normal kullanıcı kaydı kullanılmadı"
+    },
+    {
+      "id": "F102",
+      "name": "Kriz/gündelik ifade",
+      "status": "KONTROLLÜ TEKNİK GEÇTİ",
+      "evidence": "Backend kriz önce gelir,112; gündelik negatif kontrol. Klinik evrensel garanti değil."
+    },
+    {
+      "id": "F103",
+      "name": "Teşhis/ilaç sınırı",
+      "status": "POLİTİKA / TEKNİK TEST GEÇTİ",
+      "evidence": "Mevcut sabit sistem sınırları kontrollü client ile; iki canlı nötr tur klinik güvenlik testi sayılmaz"
+    },
+    {
+      "id": "F104",
+      "name": "Süre/uzunluk/döngü",
+      "status": "TEKNİK GEÇTİ",
+      "evidence": "Alan/bağlam sınırları,25/30sn deadline,SDK retry0, sonlu canlı bütçe; otomatik çağrı kampanyası yok"
+    },
+    {
+      "id": "F105",
+      "name": "Psikolog yönlendirmesi",
+      "status": "ROUTE/CONTEXT GEÇTİ",
+      "evidence": "Klinik Psikoloji doğru; uzman sağlayıcı/randevu kabulü kapsam dışında"
+    },
+    {
+      "id": "F106",
+      "name": "Fiziksel mikrofon/telaffuz",
+      "status": "AÇIK",
+      "evidence": "Tek son ortak doğal konuşma/duyma kabulü; canlı Emel engeli önce giderilmeli"
+    }
+  ],
+  "browser": {
+    "pause-pending-before": {
+      "kind": "controlled provider responses, real frontend; pending pause/resume",
+      "resumed": {
+        "requests": 2,
+        "users": 2,
+        "assistants": 1,
+        "phase": "ready"
+      },
+      "summaryRequests": 0,
+      "finalPhase": "error",
+      "saved": 0,
+      "physicalUserAcceptance": false
+    },
+    "pause-pending-after": {
+      "kind": "controlled provider responses, real frontend; pending pause/resume",
+      "resumed": {
+        "requests": 3,
+        "users": 2,
+        "assistants": 2,
+        "phase": "ready"
+      },
+      "summaryRequests": 1,
+      "finalPhase": "completed",
+      "saved": 1,
+      "physicalUserAcceptance": false
+    },
+    "conversation-proof": {
+      "kind": "real production UI/API/history, controlled provider/ASR and recorded Emel",
+      "physicalUserAcceptance": false,
+      "realProviderCalls": 0,
+      "automationRecovery": "Same finished record; driver previously passed controller/context/history assertions, then stopped at incorrect accessible delete name. Corrected selector only; no app change.",
+      "contextLengths": [
+        0,
+        2,
+        2,
+        4
+      ],
+      "summaryRoles": [
+        "user",
+        "assistant",
+        "user",
+        "assistant",
+        "user",
+        "assistant"
+      ],
+      "completedPairs": 3,
+      "recordCountBefore": 1,
+      "recordCountAfter": 0,
+      "transcriptStored": false,
+      "recordFingerprintLength": 337
+    },
+    "controls-proof": {
+      "kind": "actual conversation-control API, controlled ASR, native recorded Emel",
+      "records": 1,
+      "transcriptStored": false,
+      "summaryRequests": 1,
+      "recognitionsClosed": true,
+      "audioStopped": true,
+      "physicalUserAcceptance": false,
+      "realProviderCalls": 0
+    },
+    "permissions-proof": {
+      "kind": "actual privacy controls and normal UI/API/storage, controlled provider responses; no physical input",
+      "physicalUserAcceptance": false,
+      "realProviderCalls": 0,
+      "dimensions": {
+        "width": 390,
+        "documentWidth": 384
+      },
+      "cases": [
+        {
+          "case": "summary-and-transcript-opt-in",
+          "stored": 1,
+          "transcriptMessages": 4,
+          "deletedDurably": true
+        },
+        {
+          "case": "summary-off-transcript-on",
+          "stored": 0
+        }
+      ],
+      "referral": {
+        "from": "mental",
+        "specialty": "Klinik Psikoloji"
+      }
+    },
+    "live-proof": {
+      "kind": "actual production frontend/API/provider and isolated history; nonpersonal text only",
+      "physicalUserAcceptance": false,
+      "turns": [
+        {
+          "httpStatus": 200,
+          "contextLength": 0,
+          "providerType": "LIVE_OPENAI",
+          "visibleReplyMatches": true
+        },
+        {
+          "httpStatus": 200,
+          "contextLength": 2,
+          "providerType": "LIVE_OPENAI",
+          "visibleReplyMatches": true,
+          "contextLabelRecalled": true
+        }
+      ],
+      "summary": {
+        "httpStatus": 200,
+        "providerType": "LIVE_OPENAI",
+        "messageRoles": [
+          "user",
+          "assistant",
+          "user",
+          "assistant"
+        ],
+        "recordStored": true,
+        "transcriptStored": false,
+        "inventedMeasures": false,
+        "moodSource": "assistant-inferred",
+        "sameHistory": true
+      },
+      "tts": {
+        "errorCategory": "TypeError"
+      }
+    },
+    "lifecycle-asr-errors": {
+      "name": "asr-errors",
+      "kind": "controlled ASR/provider seam; real production controller/API/native recorded audio",
+      "physicalUserAcceptance": false,
+      "realProviderCalls": 0,
+      "records": 0,
+      "ownedMediaClosed": true
+    },
+    "lifecycle-permission-start-cancel": {
+      "name": "permission-start-cancel",
+      "kind": "controlled ASR/provider seam; real production controller/API/native recorded audio",
+      "physicalUserAcceptance": false,
+      "realProviderCalls": 0,
+      "records": 0,
+      "ownedMediaClosed": true
+    },
+    "lifecycle-provider-error": {
+      "name": "provider-error",
+      "kind": "controlled ASR/provider seam; real production controller/API/native recorded audio",
+      "physicalUserAcceptance": false,
+      "realProviderCalls": 0,
+      "records": 0,
+      "ownedMediaClosed": true
+    },
+    "lifecycle-speech-error": {
+      "name": "speech-error",
+      "kind": "controlled ASR/provider seam; real production controller/API/native recorded audio",
+      "physicalUserAcceptance": false,
+      "realProviderCalls": 0,
+      "records": 0,
+      "ownedMediaClosed": true
+    },
+    "lifecycle-summary-error": {
+      "name": "summary-error",
+      "kind": "controlled ASR/provider seam; real production controller/API/native recorded audio",
+      "physicalUserAcceptance": false,
+      "realProviderCalls": 0,
+      "records": 0,
+      "ownedMediaClosed": true
+    },
+    "lifecycle-summary-cancel": {
+      "name": "summary-cancel",
+      "kind": "controlled ASR/provider seam; real production controller/API/native recorded audio",
+      "physicalUserAcceptance": false,
+      "realProviderCalls": 0,
+      "records": 0,
+      "ownedMediaClosed": true
+    },
+    "lifecycle-summary-consent-revoke": {
+      "name": "summary-consent-revoke",
+      "kind": "controlled ASR/provider seam; real production controller/API/native recorded audio",
+      "physicalUserAcceptance": false,
+      "realProviderCalls": 0,
+      "records": 0,
+      "ownedMediaClosed": true
+    },
+    "lifecycle-microphone-revoke": {
+      "name": "microphone-revoke",
+      "kind": "controlled ASR/provider seam; real production controller/API/native recorded audio",
+      "physicalUserAcceptance": false,
+      "realProviderCalls": 0,
+      "records": 0,
+      "ownedMediaClosed": true
+    },
+    "lifecycle-drive-lock": {
+      "name": "drive-lock",
+      "kind": "controlled ASR/provider seam; real production controller/API/native recorded audio",
+      "physicalUserAcceptance": false,
+      "realProviderCalls": 0,
+      "records": 0,
+      "ownedMediaClosed": true
+    },
+    "lifecycle-route-cleanup": {
+      "name": "route-cleanup",
+      "kind": "controlled ASR/provider seam; real production controller/API/native recorded audio",
+      "physicalUserAcceptance": false,
+      "realProviderCalls": 0,
+      "records": 0,
+      "ownedMediaClosed": true
+    },
+    "lifecycle-old-session-response": {
+      "name": "old-session-response",
+      "kind": "controlled ASR/provider seam; real production controller/API/native recorded audio",
+      "physicalUserAcceptance": false,
+      "realProviderCalls": 0,
+      "records": 0,
+      "ownedMediaClosed": true
+    }
+  },
+  "liveProvider": {
+    "conversation": 2,
+    "summary": 1,
+    "tts": 1,
+    "failed": false,
+    "events": [
+      {
+        "kind": "conversation",
+        "model": "gpt-4o-mini",
+        "dispatched": true,
+        "messages": [
+          {
+            "role": "system",
+            "sha256": "9dee13e38d81394cbf8393ca92fba811c6e57aa95b3b32f4657e2fe9b051f979"
+          },
+          {
+            "role": "user",
+            "sha256": "bb45a07894d79814ad628e67dd3f8faba802acb87b6b798cc50e4b2fc849ae12"
+          }
+        ],
+        "status": "SUCCESS",
+        "seconds": 3.328,
+        "requestId": "req_c8d6ede1161443bd9c42afe155096c90",
+        "replySHA256": "537adc58c4c3a1b4f5c96797946f91ed02ee44c8d32106722f9d65ea62519f3b",
+        "usage": {
+          "completion_tokens": 21,
+          "prompt_tokens": 468,
+          "total_tokens": 489,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 0
+          }
+        }
+      },
+      {
+        "kind": "conversation",
+        "model": "gpt-4o-mini",
+        "dispatched": true,
+        "messages": [
+          {
+            "role": "system",
+            "sha256": "9dee13e38d81394cbf8393ca92fba811c6e57aa95b3b32f4657e2fe9b051f979"
+          },
+          {
+            "role": "user",
+            "sha256": "bb45a07894d79814ad628e67dd3f8faba802acb87b6b798cc50e4b2fc849ae12"
+          },
+          {
+            "role": "assistant",
+            "sha256": "537adc58c4c3a1b4f5c96797946f91ed02ee44c8d32106722f9d65ea62519f3b"
+          },
+          {
+            "role": "user",
+            "sha256": "0ad1bb55c2118a2c9a26b6715565f52a87b480d19bfefa74f9b7b070b7996d1b"
+          }
+        ],
+        "status": "SUCCESS",
+        "seconds": 1.0,
+        "requestId": "req_70bff81291cc49ee8ca93c0f3195e60f",
+        "replySHA256": "c21896c07b26ca10046d18232178adde930afbdbab40fed85e9c612965c2f8d3",
+        "usage": {
+          "completion_tokens": 29,
+          "prompt_tokens": 511,
+          "total_tokens": 540,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 0
+          }
+        }
+      },
+      {
+        "kind": "summary",
+        "model": "gpt-4o-mini",
+        "dispatched": true,
+        "messages": [
+          {
+            "role": "user",
+            "sha256": "abff66a8bc92e47871ed34a9934cf6a9c7e2688bbc901e1a1cf6b8d97938b5ec"
+          }
+        ],
+        "status": "SUCCESS",
+        "seconds": 1.671,
+        "requestId": "req_8e17ecd15b0049baad6cd15e1ae25d11",
+        "replySHA256": "3ef32b08eb7b770d2ce09268ac42f46b09750d951053a11c68a415483907fee5",
+        "usage": {
+          "completion_tokens": 99,
+          "prompt_tokens": 228,
+          "total_tokens": 327,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": 0,
+            "audio_tokens": 0,
+            "reasoning_tokens": 0,
+            "rejected_prediction_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 0
+          }
+        }
+      }
+    ],
+    "maxRetries": 0,
+    "maximumConversation": 2,
+    "maximumSummary": 1,
+    "maximumTTS": 1
+  },
+  "liveTTS": {
+    "evidence": "passive console observation of the same bounded request, no additional speech request",
+    "httpStatus": 503,
+    "originalBrowserError": "TypeError",
+    "bodyDetailRecorded": false,
+    "requests": 1,
+    "retryPerformed": false,
+    "physicalUserAcceptance": false,
+    "automationError": "Native Fetch ok/status properties were called as functions in the smoke helper; corrected without repeating the operation."
+  },
+  "served": {
+    "timeUTC": "2026-10-17T04:14:26.192201+00:00",
+    "BUILD_ID": "iWyABFO5oX3OLGs4tM6Vh",
+    "controllerEvidenceBuild": "KStBAlggVtmSveA-DN6E0",
+    "identicalControllerSource": true,
+    "servedJavaScript": [
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\103.3d3b5b2e372f9241.js",
+        "sha256": "5300dc1f7757652fbbb391a21f1cf7c4ffa4bd240e4d9636497e043d359d6876",
+        "bytes": 21509
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\11.4c56c5d99a6160dd.js",
+        "sha256": "429150ca2be0e85f98779652e99f7297765494018994b2269b4354c936fdadfc",
+        "bytes": 739
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\192-8570868d428986cc.js",
+        "sha256": "2c0fccfa2dc6880e11093b28ed77589eb1ad1f3fe696b1478d6f54fd21296192",
+        "bytes": 22222
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\232-cfd4a8b61796d295.js",
+        "sha256": "ca2180d47c011d042fe6369d3d38fc91a682b5f8b2dd68c1cc4a4f9ed4e81f24",
+        "bytes": 28446
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\296.66adb7f450ace1a2.js",
+        "sha256": "1f550323eb1bb73be0da7a9c1d2f885351b075a37c0b916034edf6b77afc805a",
+        "bytes": 154409
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\335-90e9760957f2f39f.js",
+        "sha256": "d42d6fb1ff00cb7e58319a7cf857bd9c67d3fb39d0eb888fd17e0284ea61d8c9",
+        "bytes": 51891
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\355-edc50213d4b1cc4c.js",
+        "sha256": "8e8271abd9c803134c90c86727ec4d9b9f179b1f4b80861a5808f326b1b95c69",
+        "bytes": 173915
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\450-517b651d2aa9a748.js",
+        "sha256": "64844bdebc64e99ac23e54b2f37936010dbb1b88073b927130997662544c94d7",
+        "bytes": 19868
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\529-eb51072254eb8eb5.js",
+        "sha256": "b0c32bda4a1ead63ce499cff52163120ba0d0a7f620f7f6352750ea06817ef0c",
+        "bytes": 9522
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\554.8e46c26c4af42076.js",
+        "sha256": "2e2c845eab02c1b311c3d7556061c5bc5d4e118e0461360990025817a9d19ad1",
+        "bytes": 7649
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\572-a2d0e33d5ec76dbc.js",
+        "sha256": "f6da66def023294173cb0b6668a1d4f373b4ef2b815412de18bc17f88b6a1bb1",
+        "bytes": 44454
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\622-00999c630003638c.js",
+        "sha256": "79cf78ae1c3cf9dc8814688dd4cb0ede786ca6560a16b7115c5e0bf75e051c66",
+        "bytes": 26357
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\657.7fee233a92d8b5a2.js",
+        "sha256": "fbd15bfcd8f236030baa89008ed587e5fba0dc9b7a72b739217ae0471a4d0750",
+        "bytes": 24283
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\664-ebbbc42fab29af12.js",
+        "sha256": "d6d7a18c968cfa6fc1ee3f8aeed87a6e3e5568a6b70ff0003845fdd1fa12cef3",
+        "bytes": 168842
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\674-78cf992235143863.js",
+        "sha256": "635d5ed4e798cf8e161cb7b65e623d49c7004557b7e5913b635a8314aadcec25",
+        "bytes": 19873
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\910.932485340bda8c88.js",
+        "sha256": "d81e6dfae8aae6d6cb888b0e76dedf39377f7f566839b52fa873b64c67a9bd03",
+        "bytes": 5442
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\915.c1a1bcc59d932e65.js",
+        "sha256": "aa80d41d9a54c506b614c3fda9398f2c9da2c9e4470c52d5518940d5d9c19f65",
+        "bytes": 154409
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\bddda0f1-bac51c3f056458a8.js",
+        "sha256": "2e1a3d839436a24644550b82de0f66389f9ee5203d5bd8661aa084c225e5ea97",
+        "bytes": 173019
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\framework-f3a787259960d44f.js",
+        "sha256": "c454e588a433cb3f7063905cf294bb00402a5a9bf1026dbe52c658501a00d5a7",
+        "bytes": 181563
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\main-8ccad00df12765a7.js",
+        "sha256": "044091a09c65476496f23417ad972f0a3f88502fd39436e0ae31a0f07b5d66fb",
+        "bytes": 122287
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\main-app-6888eaa9ea25c229.js",
+        "sha256": "5a78de5eb6166e31f175821796579bdd4116497c94884741ea467f4ebc76cef9",
+        "bytes": 555
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\polyfills-42372ed130431b0a.js",
+        "sha256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+        "bytes": 112594
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\webpack-24d092efcdec4348.js",
+        "sha256": "2aae2fc02245d0e791288a766623585df6f4a496adde3e5ffb99fb05ffa23d9c",
+        "bytes": 3592
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\layout-94230363d19adcdc.js",
+        "sha256": "f44a70772ba2fe5ee5d51b483b4af414b3d572c8392db3fab4c70c0d5b980954",
+        "bytes": 23796
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\page-fbad63a105b03c36.js",
+        "sha256": "9728de21c3a7dbf81ed89136c4866db20e2c18e083df121fc1077d52b10826fe",
+        "bytes": 7309
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\care\\page-08431467d89b6997.js",
+        "sha256": "18e02428f9f6dd49dfb9c9f37016e643f9dfdf66079864902e5aea4d85e5425d",
+        "bytes": 29915
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\dental\\page-bea3e5d7e4f19e35.js",
+        "sha256": "b7de9abca1b36eaa83881645b8b479cf5eb3920b990bd54f37b10d0d2a634f59",
+        "bytes": 24809
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\hearing\\page-05e6a218d0c8d690.js",
+        "sha256": "be4fa2b10c8d0f2d6c9b2a6b07bb671725abbf56314536767bdd081ec9d4c9c2",
+        "bytes": 28799
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\mental\\page-817d8299e5fd587c.js",
+        "sha256": "33c4bc3c41296f07de698a31829d6aebec2f46492e215967842d598719f2466b",
+        "bytes": 33164
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\privacy\\page-d294692cd50ea892.js",
+        "sha256": "67723f4f81af3afe8078cfb146bc678f2b17501d34ea7a5d2cfc2e4adb4c3d93",
+        "bytes": 26686
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\profile\\page-550f5ed9c9a535b7.js",
+        "sha256": "64c3d84c5a697d6ee1ae4439686cadd05d1000c0674c77f937b8c8dc710bff1c",
+        "bytes": 15000
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\skin\\page-fb6f339a2dfbcc4a.js",
+        "sha256": "607f8f057d8911db01b4b3496d0c3c4fad69683f828932b8a41760f7796682ba",
+        "bytes": 75145
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\vision\\page-73b50dc890eb41da.js",
+        "sha256": "023cf0cbc3a0defbb4ebb2ed2fc795d1b001ab49475a7eade4e70d3af049e159",
+        "bytes": 37522
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\app\\_not-found\\page-b9c662718688e1c4.js",
+        "sha256": "4ee7e094048b860daa9c0ccaa2bf118e8ffe16b55772463980d64ce1a239ca5c",
+        "bytes": 2670
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\pages\\_app-a7bdf146bddf6e7c.js",
+        "sha256": "35ee7b7812a829a043fd155d2fc779f2e3745e4a9dfd70b844b043091eb34ac8",
+        "bytes": 913
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\chunks\\pages\\_error-f0daa23b34dd9c4b.js",
+        "sha256": "c67001cffd38f5bd3d8987dac2634c80c07e61285d0ef7fcb6fb6d7b106a9e5c",
+        "bytes": 5650
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\iWyABFO5oX3OLGs4tM6Vh\\_buildManifest.js",
+        "sha256": "e57d33c81653463f2b112776c645637ffc442f8c1dcc3e2bec4b82e70aca0dd9",
+        "bytes": 814
+      },
+      {
+        "path": "apps\\vehicle-app\\.next\\static\\iWyABFO5oX3OLGs4tM6Vh\\_ssgManifest.js",
+        "sha256": "678f6ce2cb80b1fe72fc67e7412be6e2ab6ada083111b64f7c40d35e3cba5e00",
+        "bytes": 80
+      }
+    ],
+    "existingEmelBank": [
+      {
+        "path": "apps\\vehicle-app\\public\\audio\\guidance\\bc509b8d87fbeb711c4edf4b1e748fcb57a3f1946c920c7e2caf68db19f45c54.mp3",
+        "bytes": 46368,
+        "sha256": "ecf987d8da58d5f83488da5ae6e899010966d2d0a6745f223283cbf6629a57d1"
+      },
+      {
+        "path": "apps\\vehicle-app\\public\\audio\\guidance\\0080b67ce4b5741a8d923722649bc982c2296662257caa84733079542e32a0d1.mp3",
+        "bytes": 61488,
+        "sha256": "92f143f29631a1deb3555adbcd551a03218f21c4f7eb81946dba2ca5df2ea943"
+      }
+    ],
+    "provider": {
+      "providerName": "LIVE_OPENAI (gpt-4o-mini)",
+      "isLiveLLM": true,
+      "apiKeyConfigured": true
+    },
+    "protected": [
+      {
+        "checkout": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-claude-acne-audit",
+        "head": "e6db3e1fc775b5cdbd09d63858993b2d55eb588f",
+        "statusUnchanged": true
+      },
+      {
+        "checkout": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-vision-technical-20261017",
+        "head": "1cdb95ebdddd3a2fd4b83cca7408a1ae6cd3b502",
+        "statusUnchanged": true
+      },
+      {
+        "checkout": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+        "head": "5f11c111e3f6547e6420ddf37db477190d232f10",
+        "statusUnchanged": true
+      },
+      {
+        "checkout": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-antigravity-skin",
+        "head": "d90ff95434c44b4e73ae77a7f1d5d6b2e167c987",
+        "statusUnchanged": true
+      },
+      {
+        "checkout": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-acne-v5-integration",
+        "head": "2637d1b3a342d333b43a40d53e195e8374c8691d",
+        "statusUnchanged": true
+      }
+    ],
+    "productionTestRoutesAbsent": true,
+    "backendStoredRecords": 0,
+    "physicalUserAcceptance": false
+  },
+  "evidenceFiles": [
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\docs\\mental-technical-closeout-20261017.md",
+      "bytes": 16310,
+      "sha256": "6c4efe16f29f2ec9e0660b16256e325b716612d81262b8308f8815afcd535f7f"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\mental-technical-closeout-20261017\\focused-tests.xml",
+      "bytes": 9379,
+      "sha256": "a722b1cb8cff45efbe6b726c2cb0375c0a209aa1140d7e4e84856f6c2527332d"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\mental-technical-closeout-20261017\\baseline-tests.xml",
+      "bytes": 7820,
+      "sha256": "584b7e6c99e92373578be02147e9aabec5ea376504912d7a51877054a3c266a0"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\mental-technical-closeout-20261017\\before-context.xml",
+      "bytes": 14109,
+      "sha256": "3dbac95b48a03631205e68c303796c6169c199f93c6f8a4644183bf4a6ae5509"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\mental-technical-closeout-20261017\\typecheck.log",
+      "bytes": 67,
+      "sha256": "285ddc3cf0afdeab1d4968d2a6f056a3727585c9e973ddb1d943aa7c3f1fc784"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\mental-technical-closeout-20261017\\build.log",
+      "bytes": 2181,
+      "sha256": "5896317cbe229f854669d58b9b08feb0913e1404cb29779c51a8bebb9c2b8cd1"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\mental-technical-closeout-20261017\\build-receipt.json",
+      "bytes": 11132,
+      "sha256": "8034f4ef1564e74d85a87c2821d52419dbee930f8992261b4245e2204e581e0d"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\mental-technical-closeout-20261017\\controller-build-receipt.json",
+      "bytes": 10967,
+      "sha256": "f1aea51b5ed414ef9eac81fa4e9f7e9c4fd92d181ee92c8a6ae79b987d84f207"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\mental-technical-closeout-20261017\\served-protection-receipt.json",
+      "bytes": 10017,
+      "sha256": "79b33a2bbcfc4a5b6e824f3ddefd8d0738e596d7537dbd4748872a4ed5e0cf7b"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\mental-technical-closeout-20261017\\live-ledger.json",
+      "bytes": 3463,
+      "sha256": "8bc6dcedf74445632b880fe043971a58c8b0a6ae425a994f881f1b771f34f5ad"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\mental-technical-closeout-20261017\\live-tts-observation.json",
+      "bytes": 431,
+      "sha256": "6fefe33f96a935628ed961fa630d945be0d6b0d1a74778a18b2b6fa31ad3a092"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\mental-technical-closeout-20261017\\controller-fixture-ledger.json",
+      "bytes": 9113,
+      "sha256": "12ecce87e1211dbfcb69c105c98bcc6f0241eef286330eddfb08a2f287b418f4"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\mental-technical-closeout-20261017\\permissions-fixture-ledger.json",
+      "bytes": 2562,
+      "sha256": "037076383a5ed7e0c7c5463925872ed79f70bbfab6b52f20595e163d1320ed27"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\pause-pending-before.json",
+      "bytes": 225,
+      "sha256": "97110cdf96584c2095b4185d7ecabc6e46dcf874acd9c0ae76471a5a9020141b"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\pause-pending-after.json",
+      "bytes": 229,
+      "sha256": "21bdc9d7ab946aa927bd096032e27299cb3369120df1e9ddb191f9e49523fcee"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\conversation-proof.json",
+      "bytes": 554,
+      "sha256": "5203b9a073ecb001194790430cd40a15e180d580dfe44dc2a82c3ee693d31fad"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\controls-proof.json",
+      "bytes": 236,
+      "sha256": "daa60521cca45f00693aca56c0694617d422dd71196f33b3bd2ed0a2b94916c5"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\permissions-proof.json",
+      "bytes": 425,
+      "sha256": "1598a10d57d908998992409d1976ef816f301627aab25bc4b0ad38e0337e4798"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\live-proof.json",
+      "bytes": 621,
+      "sha256": "907f8f27a5004ccef4dc2bf5c5cd148d130231289c9b1584090a67b73ccb2679"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\lifecycle-asr-errors.json",
+      "bytes": 202,
+      "sha256": "2daa5bc6f1f29ab23c44fc869871e48b6267bf45f643230d4c50f5687a7a4656"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\lifecycle-permission-start-cancel.json",
+      "bytes": 215,
+      "sha256": "7dcb2ff05a36c4b868b607f5ca9cc0c4e9d567353584e622420e881aeeff9e6f"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\lifecycle-provider-error.json",
+      "bytes": 206,
+      "sha256": "6b4f530aa1919470b495f00592ba068019b9c095aec2b89eeb5385b0293d626e"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\lifecycle-speech-error.json",
+      "bytes": 204,
+      "sha256": "8baad6a4b88d317038bc350db9ceb1c198b5127372a5a2c37d699dffb753dd98"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\lifecycle-summary-error.json",
+      "bytes": 205,
+      "sha256": "a557bc102c1e39319a1e971ea1e0c8570ede76fba73c74e525fb890dc7fe3696"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\lifecycle-summary-cancel.json",
+      "bytes": 206,
+      "sha256": "b1014629ca55961ebc8223df9cfdf4531cea2d4d996add0fdf28b2a54329984d"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\lifecycle-summary-consent-revoke.json",
+      "bytes": 214,
+      "sha256": "100cb91c1376b8df7542d04a9d141149ec3858ff34194bd6fc8de9abfcae624b"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\lifecycle-microphone-revoke.json",
+      "bytes": 209,
+      "sha256": "71762abcfe4d3ea55d0c77e1a14dc37804d029c84e5e729571ac49f5c6ff79c2"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\lifecycle-drive-lock.json",
+      "bytes": 202,
+      "sha256": "41413f5fdb46f6ae69a39a8c9b66a341bed42267d99ac085407375d7766c2ebc"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\lifecycle-route-cleanup.json",
+      "bytes": 205,
+      "sha256": "56132f74714bfba075f867e3c92c85dc6b37e476358bf2a387a2508b23cd1ff6"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\lifecycle-old-session-response.json",
+      "bytes": 212,
+      "sha256": "a5b3b472e3e2990f31ca2b555b002a513bae6da91fb1d80e0773b98ea515d900"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\desktop-conversation.png",
+      "bytes": 154049,
+      "sha256": "b0898da8339e2e6755b90d441b1e601f25027159c2288ded5f87b52525f36f62"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\desktop-history.png",
+      "bytes": 151551,
+      "sha256": "72056b361b05b6204edf17f65e0b775ae96e623ef5e3384441ff7631fda4ca15"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\narrow-conversation.png",
+      "bytes": 79864,
+      "sha256": "2269f7530481dcee89184cef37d59a4e29a501c197fc30bde51ce822254542f1"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\narrow-history.png",
+      "bytes": 81379,
+      "sha256": "81a3a63778e7c2eb1c1bd0ea86c0ad0d85883e99e3398cb913ab1e3f6289be5e"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\desktop-history-viewport.png",
+      "bytes": 99402,
+      "sha256": "6035d1343f2b41fc8c138f4d1003f919b53679cc24b7f6022624bb693466ba33"
+    },
+    {
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-mental-technical-20261017\\output\\playwright\\mental\\narrow-history-viewport.png",
+      "bytes": 42541,
+      "sha256": "16cb2086418c4fe15950c4e196732374ca134ae3928f7666c2f65e191a7bd9cf"
+    }
+  ]
+}

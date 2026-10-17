@@ -1,6 +1,7 @@
 import {deleteSkinPhotosWithRecords,recoverSkinPhotoDeletion,SKIN_PHOTO_DELETE_PENDING} from './skinPhotoHistory';
 import { HEALTH_MODULES } from './healthModules';
 import { STORAGE_KEYS } from './attuneMode';
+import { localBackend } from './localBackend';
 
 export type HealthCategory = 'vision' | 'skin' | 'mental' | 'dental' | 'hearing';
 export type HealthRecord = { id: string; date?: string; timestamp?: string; dateTr?: string; [key: string]: any };
@@ -150,7 +151,7 @@ export async function deleteHealthRecord(category: HealthCategory, id: string): 
       const controller = new AbortController();
       const deadline = setTimeout(() => controller.abort(), 8000);
       try {
-        const response = await fetch(`http://localhost:8000/api/mental/sessions/${encodeURIComponent(record.backendSessionId)}`, { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ deletionToken: record.backendDeletionToken }), signal: controller.signal });
+        const response = await fetch(localBackend(`/api/mental/sessions/${encodeURIComponent(record.backendSessionId)}`), { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ deletionToken: record.backendDeletionToken }), signal: controller.signal });
         if (!response.ok || (await response.json()).deleted !== true) throw new Error('Backend deletion unconfirmed');
       } catch { throw new Error('Sunucu kaydı silinemedi veya doğrulanamadı. Yerel kayıt korundu; tekrar deneyebilirsiniz.'); }
       finally { clearTimeout(deadline); }

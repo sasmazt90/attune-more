@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { readMentalHistory } from '../../utils/mentalHistory';
 import { STORAGE_KEYS, isDemoMode,SKIN_HOSTED_PROCESSING_PERMISSION,isSkinHostedProcessingAllowed } from '../../utils/attuneMode';
+import { localBackend } from '../../utils/localBackend';
 
   const deriveEffectiveStatus = (
     appAllowed: boolean,
@@ -200,9 +201,9 @@ export default function PrivacyPage() {
     const controller = new AbortController();
     const deadline = setTimeout(() => controller.abort(), 8000);
     try {
-      const response = await fetch('http://localhost:8000/api/privacy/wipe', { method: 'POST', signal: controller.signal });
+      const response = await fetch(localBackend('/api/privacy/wipe'), { method: 'POST', signal: controller.signal });
       if (!response.ok) throw new Error('Silme isteği başarısız');
-      const verification = await fetch('http://localhost:8000/api/mental/sessions', { cache: 'no-store', signal: controller.signal });
+      const verification = await fetch(localBackend('/api/mental/sessions'), { cache: 'no-store', signal: controller.signal });
       if (!verification.ok) throw new Error('Silme doğrulanamadı');
       const remaining = await verification.json();
       backend = Array.isArray(remaining) && remaining.length === 0;

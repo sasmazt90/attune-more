@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, Response
 from speech_stream import ProviderSpeechResponse, close_once
-from pydantic import BaseModel, Field, StrictBool
+from pydantic import BaseModel, Field, StrictBool, field_validator
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 from contextlib import asynccontextmanager
@@ -151,13 +151,38 @@ class SpeedUpdatePayload(BaseModel):
 
 class ConversePayload(BaseModel):
     userMessage: str = Field(min_length=1, max_length=6000)
-    sessionId: Optional[str] = None
-    history: Optional[List[Dict[str, str]]] = None
+    sessionId: Optional[str] = Field(default=None,min_length=1,max_length=128)
+    history: Optional[List[Dict[str, str]]] = Field(default=None,max_length=40)
     cloudConsent: StrictBool = False
 
+    @field_validator('userMessage')
+    @classmethod
+    def nonempty_message(cls,value):
+        if not value.strip():raise ValueError('EMPTY_MESSAGE')
+        return value
+
+    @field_validator('history')
+    @classmethod
+    def completed_context(cls,value):
+        if value is None:return value
+        validate_mental_messages(value)
+        if len(value)%2 or any(m['role']!=('user' if i%2==0 else 'assistant') for i,m in enumerate(value)):
+            raise ValueError('COMPLETED_TURN_PAIRS_REQUIRED')
+        return value
+
+def validate_mental_messages(messages):
+    if any(set(m)!= {'role','content'} or m['role'] not in ('user','assistant') or not m['content'].strip() or len(m['content'])>6000 for m in messages):
+        raise ValueError('INVALID_CONVERSATION_MESSAGE')
+    if sum(len(m['content']) for m in messages)>120000:raise ValueError('SESSION_CONTENT_LIMIT')
+    return messages
+
 class AnalyzeSessionPayload(BaseModel):
-    messages: List[Dict[str, str]]
+    messages: List[Dict[str, str]] = Field(max_length=200)
     cloudConsent: StrictBool = False
+
+    @field_validator('messages')
+    @classmethod
+    def bounded_messages(cls,value):return validate_mental_messages(value)
 
 class SpeechPayload(BaseModel):
     text: str = Field(min_length=1, max_length=4096)
