@@ -17,7 +17,7 @@ export function HealthStartCard({module,actions,framed=true,footer}:{module:Prep
  const c=CONTENT[module];
  return <div className={framed?HEALTH_START_CARD:undefined} data-health-start={module}>
   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-   <div className="lg:col-span-6 flex justify-center min-w-0"><div className="relative w-full max-w-[360px] aspect-[4/5] rounded-2xl overflow-hidden" data-health-portrait={module}><Image src={`/assets/${module}-preparation-v2.png`} alt={c.alt} fill sizes="(min-width: 1024px) 360px, (max-width: 480px) 80vw, 360px" className="object-contain" priority/></div></div>
+   <div className="lg:col-span-6 flex justify-center min-w-0"><div className="relative w-full max-w-[360px] aspect-[3/4] rounded-2xl overflow-hidden" data-health-portrait={module}><Image src={`/assets/${module}-preparation-approved-v3.png`} alt={c.alt} fill sizes="(min-width: 1024px) 360px, (max-width: 480px) 80vw, 360px" className="object-contain" priority/></div></div>
    <div className="lg:col-span-6 space-y-6 max-w-md min-w-0">
     <div className="space-y-1.5"><h2 className="text-3xl font-extrabold text-white tracking-tight">{c.title}</h2><p className="text-sm text-slate-300 leading-relaxed">{c.description}</p></div>
     <div className="space-y-3.5 pt-1">{c.items.map(([Icon,text])=><div key={text} className="flex items-center gap-3 text-sm text-slate-200"><div className="w-8 h-8 rounded-full bg-togg-turquoise/15 border border-togg-turquoise/30 flex items-center justify-center text-togg-turquoise shrink-0"><Icon className="w-4 h-4"/></div><span>{text}</span></div>)}</div>

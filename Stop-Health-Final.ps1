@@ -1,5 +1,5 @@
 $ErrorActionPreference='Stop'
-$record=Join-Path (Split-Path $PSScriptRoot) 'cdc-progress\health-final-technical-closeout-20261017\processes.json'
+$record=Join-Path (Split-Path $PSScriptRoot) 'cdc-progress\health-approved-assets-menu-20261017\processes.json'
 if(-not(Test-Path -LiteralPath $record)){return}
 $state=Get-Content -LiteralPath $record -Raw|ConvertFrom-Json
 if($state.workspace -ne $PSScriptRoot){throw 'Workspace ownership mismatch'}

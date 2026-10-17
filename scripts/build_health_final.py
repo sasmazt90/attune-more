@@ -2,7 +2,7 @@
 import hashlib,json,os,subprocess,sys
 import psutil
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'cdc-progress/health-final-technical-closeout-20261017'
+ROOT=Path(__file__).resolve().parents[1];OUT=ROOT.parent/'cdc-progress/health-approved-assets-menu-20261017'
 sys.path.insert(0,str(ROOT/'scripts/skin-research'))
 from heavy_job_lease import HeavyJobLease
 os.environ.update(NEXT_PUBLIC_ATTUNE_LOCAL_API_PORT='8311',NEXT_TELEMETRY_DISABLED='1',CI='1',NEXT_PUBLIC_ATTUNE_ACNE_V5='1',NEXT_PUBLIC_ATTUNE_PREVIEW_API_PORT='8311')

@@ -5,7 +5,7 @@ async page=>{
  await page.route('**/api/care/match',r=>{external++;proof.care.push(r.request().postDataJSON());return r.fulfill({status:503,json:{detail:'CONTROLLED_EXTERNAL_UNAVAILABLE'}})});
  const allow=async()=>{const d=page.getByRole('dialog');if(await d.count()){for(const c of await d.getByRole('checkbox').all())await c.check();await d.getByRole('button',{name:'İzin ver ve devam et'}).click();await d.waitFor({state:'detached'})}};
  await page.goto(base+'/');await page.waitForFunction(()=>document.querySelector('[data-vehicle-status]')?.textContent==='PARK');
- const names=['Göz Sağlığı','Cilt Sağlığı','Diş Sağlığı','İşitme Sağlığı','Ruh Sağlığı'],ids=['vision','skin','dental','hearing','mental'];
+ const names=['Cilt Sağlığı','Diş Sağlığı','Göz Sağlığı','İşitme Sağlığı','Ruh Sağlığı'],ids=['skin','dental','vision','hearing','mental'];
  for(let i=0;i<ids.length;i++){
   const trigger=page.getByRole('button',{name:'Sağlık Merkezi',exact:true});await trigger.focus();await page.keyboard.press('ArrowDown');await page.locator('#health-centre-links a').first().waitFor();assert(JSON.stringify(await page.locator('#health-centre-links a').allTextContents())===JSON.stringify(names),'Module order');await page.getByRole('link',{name:names[i],exact:true}).click();await page.waitForURL(base+'/'+ids[i]);await allow();assert(await page.locator('[data-health-start]').count()===1,'Preparation card missing');await page.getByRole('link',{name:'Kokpit',exact:true}).click();await page.waitForURL(base+'/');
  }proof.checks.fiveMenuRoutesAndReturn=true;

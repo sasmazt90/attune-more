@@ -1,7 +1,7 @@
 param([switch]$NoBrowser,[switch]$Dev)
 $ErrorActionPreference='Stop'
 $root=$PSScriptRoot
-$out=Join-Path (Split-Path $root) 'cdc-progress\health-final-technical-closeout-20261017'
+$out=Join-Path (Split-Path $root) 'cdc-progress\health-approved-assets-menu-20261017'
 $record=Join-Path $out 'processes.json'
 $python='C:\Users\PC\AppData\Local\Programs\Python\Python311\python.exe'
 $node='C:\nvm4w\nodejs\node.exe'
