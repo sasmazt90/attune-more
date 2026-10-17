@@ -1,3 +1,13 @@
+# Current runtime source index (2026-10-18)
+
+The dated entries below retain their historical scope. For the actual installed
+model files, separate code/weight/data declarations and outstanding documents,
+see [the 2026-10-18 source matrix](docs/model-sources-20261018.md) and its hash
+index. Earlier statements about the MVP shipping no research-trained weights
+are not a current inventory. This index does not relicense our application,
+change runtime flags, or declare all model/data rights resolved. Original
+license texts and attribution files referenced by the matrix remain retained.
+
 # Skin research third-party notices (2026-10-08)
 
 The product remains UNLICENSED. These notices do not relicense our application.

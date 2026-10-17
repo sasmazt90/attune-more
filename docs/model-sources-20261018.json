@@ -1,0 +1,572 @@
+{
+  "at": "2026-10-17T22:39:40.241983+00:00",
+  "startHEAD": "148c032b3771df800150210618019b9056baaf54",
+  "servingSource": "b2573b512595adc7cae86d7ab932abb318f61689",
+  "BUILD_ID": "PlmGO62XYbiAMR2PNNLGr",
+  "roots": {
+    "S1": {
+      "name": "Megvii YOLOX",
+      "url": "https://github.com/Megvii-BaseDetection/YOLOX/tree/6ddff4824372906469a7fae2dc3206c7aa4bbaee",
+      "revision": "6ddff4824372906469a7fae2dc3206c7aa4bbaee",
+      "codeLicense": "Apache-2.0",
+      "localEvidence": [
+        "third-party/combined-health/YOLOX-LICENSE",
+        "third-party/skin-focused/provenance.json"
+      ],
+      "weightEvidence": "Official same-project 0.1.1rc0 release recorded locally; separate weight-specific grant not retained",
+      "originalWeightURL": "https://github.com/Megvii-BaseDetection/YOLOX/releases/download/0.1.1rc0/yolox_s.pth",
+      "obligations": "Retain Apache license/notices and modification notices when redistributing applicable code; do not present code license as independent data permission"
+    },
+    "S2": {
+      "name": "Project Step0/P2 and V5 lineage",
+      "revision": "AG d90ff95434c44b4e73ae77a7f1d5d6b2e167c987; verifier research cb0948fa2ebc98eb69d22d1b7079752b69ae6cfb",
+      "localEvidence": [
+        "lineage-metadata.json",
+        "docs/acne-v5-local-preview-20261017.md",
+        "docs/acne-v5-camera-integration-20261017.md"
+      ],
+      "codeLicense": "Project modifications UNLICENSED; upstream S1 remains separate",
+      "weightEvidence": "Step0 source hash and V5 original JSON verified byte-for-byte, not retrained",
+      "missing": "Complete byte-pinned chain from all early base checkpoints to selected P2; V4 candidate-label -> original photo publisher rights join",
+      "projectRepository": "https://github.com/sasmazt90/togg-health-mvp.git",
+      "producerCode": "scripts/skin-research/verifier_v5_train.py at frozen research cb0948fa2ebc98eb69d22d1b7079752b69ae6cfb"
+    },
+    "S3": {
+      "name": "Dima806 three-class skin type",
+      "url": "https://huggingface.co/dima806/skin_types_image_detection/tree/5aace4f4df0ba3265a07fbddab12a4ad38e0f6a6",
+      "revision": "5aace4f4df0ba3265a07fbddab12a4ad38e0f6a6",
+      "weightDeclaration": "Apache-2.0 model-card declaration retained locally; not a code-only declaration",
+      "localEvidence": [
+        "services/core-api/models/skin-type-local-v1/MODEL_CARD.md",
+        "services/core-api/models/skin-type-local-v1/NOTICE.md",
+        "services/core-api/models/skin-type-local.json"
+      ],
+      "officialRead": "Pinned README could not be read by web tool; retained local card used; no further hunt",
+      "baseModel": "https://huggingface.co/google/vit-base-patch16-224-in21k",
+      "missing": "Skin fine-tuning dataset identity, license and photo-rights/consent chain; separate upstream LICENSE absent (does not cancel card declaration)",
+      "obligations": "Retain Apache-2.0 text, source attribution and ONNX conversion notice in any distribution; existing full Apache text is retained in public/models/LICENSE-2.0.txt"
+    },
+    "S4": {
+      "name": "EfficientNet B0 backbone",
+      "originalURL": "https://download.pytorch.org/models/efficientnet_b0_rwightman-7f5810bc.pth",
+      "originalSHA256": "7f5810bc96def8f7552d5b7e68d53c4786f81167d28291b21c0d90e1fca14934",
+      "safeSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+      "card": "https://huggingface.co/timm/efficientnet_b0.ra_in1k",
+      "codeLicense": "torchvision BSD-3-Clause (retained license)",
+      "weightDeclaration": "timm corresponding card declares Apache-2.0 and ImageNet-1k training",
+      "localEvidence": [
+        "third-party/skin-focused/provenance.json",
+        "third-party/combined-health/torchvision-LICENSE",
+        "services/core-api/models/dryness-calibrated-v3/encoder-parity.json"
+      ],
+      "missing": "Exact imported torchvision weight hash to timm card/release mapping is recorded as correspondence, not independently proven publisher hash grant",
+      "obligations": "Retain BSD code copyright/license/disclaimer and Apache applicable notices; no photo redistribution right is inferred"
+    },
+    "S5": {
+      "name": "Local skin source-rights ledger",
+      "localEvidence": [
+        "data-rights-ledger.json",
+        "third-party/skin-focused/provenance.json",
+        "services/core-api/models/skin-focused.json"
+      ],
+      "sourceRegistry": [
+        {
+          "id": "v11",
+          "license": "publisher-declared CC-BY-4.0",
+          "archiveSHA256": "f1f4ea68eec6ffca41d52f56bafa13eea0204a82afff8eb7d65ef1966a769ac5",
+          "sourceURLs": [
+            "https://universe.roboflow.com/bread-7emlk/skin-analysis-wl7al"
+          ],
+          "readmePresent": true,
+          "scope": "publisher-declared; individual photograph rights/consent not established"
+        },
+        {
+          "id": "smart",
+          "license": "publisher-declared CC-BY-4.0",
+          "archiveSHA256": "c6bb5101b0a2c84a388cffc486262985d10b61d9f418f70c64e6eb166eea9bd6",
+          "sourceURLs": [
+            "https://universe.roboflow.com/test-9wsgf/smartskincare"
+          ],
+          "readmePresent": true,
+          "scope": "publisher-declared; individual photograph rights/consent not established"
+        },
+        {
+          "id": "clean3",
+          "license": "publisher-declared CC-BY-4.0",
+          "archiveSHA256": "c6404e0597481c8f52b4855092a92545b14c28691491d45a22707ac7dde43659",
+          "sourceURLs": [
+            "https://universe.roboflow.com/abdullah-ibn-talha/skin-problem-detection-relabel-clean3-0sgdn"
+          ],
+          "readmePresent": true,
+          "scope": "publisher-declared; individual photograph rights/consent not established"
+        },
+        {
+          "id": "dc",
+          "license": "publisher-declared CC-BY-4.0",
+          "archiveSHA256": "3c5f800e2460c6388a3a2755050484b82d619052bedbc6eef153641d8d647b6d",
+          "sourceURLs": [
+            "https://universe.roboflow.com/inexistentheaps-workspace-bhlt5/dc-eb-2"
+          ],
+          "readmePresent": true,
+          "scope": "publisher-declared; individual photograph rights/consent not established"
+        },
+        {
+          "id": "wrinkles",
+          "license": "publisher-declared CC-BY-4.0",
+          "archiveSHA256": "3e6d6f35c0590dccb76335d54a8f52118f97599206b40e5d974212bbc6fdc8ec",
+          "sourceURLs": [
+            "https://universe.roboflow.com/sellsio/wrinkles-detector"
+          ],
+          "readmePresent": true,
+          "scope": "publisher-declared; individual photograph rights/consent not established"
+        },
+        {
+          "id": "skin5",
+          "license": "publisher-declared CC-BY-4.0",
+          "archiveSHA256": "9746b813cd0927bd4ce96822f7667d4ff3c1d5b4504e9ddfc2db70f0db4e8ea5",
+          "sourceURLs": [
+            "https://universe.roboflow.com/phamphong/skin-tybfq"
+          ],
+          "readmePresent": true,
+          "scope": "publisher-declared; individual photograph rights/consent not established"
+        },
+        {
+          "id": "face",
+          "license": "publisher-declared CC-BY-4.0",
+          "archiveSHA256": "c56937df11bdcce2903afa38ee09225c83e2d8f886e312ede0cc50cf5f397798",
+          "sourceURLs": [
+            "https://universe.roboflow.com/elisabeth-hui/skin_face_detection"
+          ],
+          "readmePresent": true,
+          "scope": "publisher-declared; individual photograph rights/consent not established"
+        },
+        {
+          "id": "care",
+          "license": "publisher-declared CC-BY-4.0",
+          "archiveSHA256": "15f4d6d1899d01bd72b881c24efd9732db29df88cc8b785269779c236d8bbddb",
+          "sourceURLs": [
+            "https://universe.roboflow.com/taralina/skin-care-p7mj8"
+          ],
+          "readmePresent": true,
+          "scope": "publisher-declared; individual photograph rights/consent not established"
+        },
+        {
+          "id": "merve",
+          "license": "publisher-declared CC-BY-4.0",
+          "archiveSHA256": "8fdf070c0cae65fd27ce0046c93393e0ac17e5282bf472097453c756481b831e",
+          "sourceURLs": [
+            "https://universe.roboflow.com/merves-workspace-uxyeb/ciltanalizi-rfa8m"
+          ],
+          "readmePresent": true,
+          "scope": "publisher-declared; individual photograph rights/consent not established"
+        },
+        {
+          "id": "arnold",
+          "license": "publisher-declared CC-BY-4.0",
+          "archiveSHA256": "1c6703c589e29b37db3e036eb68ac1bc6bad3ac5974292b167dc730306560915",
+          "sourceURLs": [
+            "https://universe.roboflow.com/k-gyibl/yolo-arnold"
+          ],
+          "readmePresent": true,
+          "scope": "publisher-declared; individual photograph rights/consent not established"
+        },
+        {
+          "id": "csv",
+          "license": "publisher-declared CC-BY-4.0",
+          "archiveSHA256": "b8bf4dd7f33345bf046a8b43dfaa9da279141ba65a2bbb3a82927f6001bb7f21",
+          "sourceURLs": [
+            "https://universe.roboflow.com/purplyyy/multi-class-imgkf"
+          ],
+          "readmePresent": true,
+          "scope": "publisher-declared; individual photograph rights/consent not established"
+        },
+        {
+          "id": "old-skin",
+          "license": "publisher-declared Apache-2.0",
+          "archiveSHA256": "8f2bebd6b97bdd3acd06a42798babbd377b7937db362a734586ff5fb3d0ea4a1",
+          "sourceURLs": [
+            "https://www.kaggle.com/datasets/killa92/facial-skin-analysis-and-type-classification"
+          ],
+          "scope": "skin-focused.json/sourceRights; publisher declaration, not per-photo rights"
+        },
+        {
+          "id": "old-eye",
+          "license": "publisher-declared CC-BY-4.0",
+          "archiveSHA256": "03afd248006874f714a1b39210801be70918cf96e669084c5776a6590ca73f03",
+          "sourceURLs": [
+            "https://universe.roboflow.com/skin-condition-detection/skin-condition-detection_merged/dataset/2"
+          ],
+          "scope": "skin-focused.json/sourceRights; publisher declaration, not per-photo rights"
+        }
+      ],
+      "statement": "Enclosing ledger exists: missing license field in a TRAIN row is not missing publisher declaration",
+      "missing": "Per-photo creator/source/consent verification; full exact final 64-row head and V4 fitting membership rights join",
+      "obligations": "Preserve named publisher, source URL, CC-BY-4.0 license link and adaptations for relevant exports; preserve Apache terms where declared. Dataset declaration is not an independent release of trained weights"
+    },
+    "S6": {
+      "name": "Dental training data",
+      "url": "https://zenodo.org/records/14827784",
+      "revision": "v1; 2025-02-07; DOI 10.5281/zenodo.14827784",
+      "dataLicense": "CC-BY-4.0 in retained original Zenodo metadata",
+      "localEvidence": [
+        "third-party/combined-health/dental-dataset-attribution.json",
+        "third-party/combined-health/dental-source-manifest.json",
+        "services/core-api/models/dental-yolox-s.json"
+      ],
+      "creators": [
+        "Ahmed, Syed Muhammad Faizan",
+        "Ghori, Huzaifa",
+        "Khalid, Aamna",
+        "Nooruddin, Ayesha",
+        "Adnan, Niha",
+        "Lal, Abhishek",
+        "Umer, Fahad"
+      ],
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/",
+      "obligations": "Keep creators/title/DOI/license link and note group split, annotations and from-scratch training/ONNX adaptation; do not imply endorsement or clinical validation. Weights are project-created, not automatically CC-BY solely because the dataset is"
+    },
+    "S7": {
+      "name": "FrameFind eyewear",
+      "url": "https://github.com/moraxh/FrameFind/tree/3c69676cbcd44a47ab083b541b56c050dbc0b1b5",
+      "revision": "3c69676cbcd44a47ab083b541b56c050dbc0b1b5",
+      "codeDeclaration": "MIT; full original Jorge Mora copyright and permission notice retained",
+      "localEvidence": [
+        "services/core-api/models/skin-eyewear-LICENSE.txt",
+        "services/core-api/models/skin-eyewear-framefind-v1.json",
+        "docs/skin-glasses-free-scope-20261013.md"
+      ],
+      "officialRead": "Pinned source page cache miss; stopped after first meaningful official read",
+      "missing": "Explicit weight-specific grant/scope, initial backbone and training dataset/rights documentation",
+      "obligations": "Retain exact MIT notice with applicable code/material; repo-level MIT is documented without inventing separate training-data permission"
+    },
+    "S8": {
+      "name": "MediaPipe geometry",
+      "url": "https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker#models",
+      "sdkVersion": "1.0.1",
+      "weightDeclaration": "Official FaceDetector/FaceMeshV2/Blendshape and Hand model cards recorded as Apache-2.0",
+      "localEvidence": [
+        "third-party/skin-research/sources.json",
+        "apps/vehicle-app/public/mediapipe/manifest.json",
+        "apps/vehicle-app/public/mediapipe/NOTICE.md",
+        "apps/vehicle-app/public/mediapipe/LICENSE-2.0.txt"
+      ],
+      "obligations": "Retain original JS/WASM embedded notices, source/model attribution and Apache text; original task bytes unchanged; no underlying training photos are supplied by that permission"
+    },
+    "S9": {
+      "name": "MediaPipe SelfieMulticlass",
+      "url": "https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_multiclass_256x256/float32/latest/selfie_multiclass_256x256.tflite",
+      "card": "https://storage.googleapis.com/mediapipe-assets/Model%20Card%20Multiclass%20Segmentation.pdf",
+      "weightDeclaration": "Google May 2023 model, Apache-2.0 recorded in retained notice",
+      "localEvidence": [
+        "apps/vehicle-app/public/models/SELFIE-MODEL-NOTICE.md",
+        "apps/vehicle-app/public/models/LICENSE-2.0.txt"
+      ],
+      "missing": "Original download URL uses latest; stored SHA identifies bytes, not immutable upstream release revision",
+      "obligations": "Keep Google/source/model-card and Apache notice; presentation segmentation is not clinical truth"
+    },
+    "S10": {
+      "name": "Historical external comparisons, not runtime ancestors",
+      "repos": [
+        "https://github.com/Dewiin/DTM_CTP2024",
+        "https://huggingface.co/tristan-gray/acne-detector",
+        "https://huggingface.co/carsten12/acne-detection-model"
+      ],
+      "evidence": [
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-acne-verifier-v4\\docs\\acne-external-models-20261016.md",
+          "sha256": "1124cbfced4b8c0dd55467c9307ebef0838d9a38c14aab7c63ce8a551a4ab52d",
+          "scope": "historical comparison only; no inference repeated"
+        },
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-acne-verifier-v4\\docs\\acne-common-scope-report-20261016.md",
+          "sha256": "d9bdc280dac869366222c9ed02a3135340d0bdcce6da67ae6435186b502197e6",
+          "scope": "historical comparison only; no inference repeated"
+        }
+      ],
+      "declarations": "Old inspected checkpoints report AGPL-3.0 metadata; repo/card claims differ: Dewiin MIT, tristan WTFPL, carsten no separate grant recorded",
+      "officialPublisher": "https://www.ultralytics.com/license",
+      "scope": "Publisher describes AGPL/community and Enterprise alternatives for its own code/models; not a license for independent Megvii YOLOX",
+      "missing": "Conflicting uploader/weight declarations and original training-photo rights unresolved",
+      "obligations": "No runtime reference/flag/weight was changed. Do not copy AGPL metadata from these comparison artifacts onto Step0 or other audited assets; do not interpret the conflict as resolved by uploader tag"
+    },
+    "S11": {
+      "name": "ImageNet pretraining data and weight distinction",
+      "dataTerms": "https://www.image-net.org/download.php",
+      "weightWarning": "https://docs.pytorch.org/vision/stable/models.html",
+      "explicitRestriction": "ImageNet access terms restrict use of the Database to non-commercial research and education; this is about database access/use",
+      "scope": "Do not automatically translate database access terms into a blanket ban or blanket grant for every downstream trained tensor. Exact downstream weight rights remain separately documented in S3/S4",
+      "missing": "Per-image rights not reconstructed; no database downloaded or distributed in this task"
+    },
+    "S12": {
+      "name": "SCIN historical research notice only",
+      "localEvidence": [
+        "third-party/skin-research/scin-LICENSE.txt",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "url": "https://github.com/google-research-datasets/scin/tree/b5a498233ef23b24c2f9fdb41b53e162c6eeb98d",
+      "explicitRestriction": "SCIN section3(b) strictly prohibits re-identification/re-linking of subjects and terminates licensed rights on that act",
+      "scope": "Not established as an ancestor of these audited runtime files; do not impose this historical label on all current weights",
+      "obligations": "If SCIN licensed material/adaptations are shared: retain attribution/license/modifications and no downstream restrictions; source notice remains unchanged"
+    }
+  },
+  "runtimeAssets": [
+    {
+      "id": "acne-detector",
+      "file": "services/core-api/models/acne-v5-preview/step0-with-features-stable-silu.onnx",
+      "bytes": 39122518,
+      "sha256": "9c87475d9302aed16f09abedc109211c2ac1b49f22f465f86aab408a5244d0be",
+      "expectedSHA256": "9c87475d9302aed16f09abedc109211c2ac1b49f22f465f86aab408a5244d0be",
+      "hashMatches": true,
+      "usage": "experimental_acne_v5.load; normal launcher opt-in, not generic accepted registry",
+      "runtimeActivity": "Normal başlatıcı V5 opt-in; genel registry accepted:false/file:null kalır",
+      "sourceIDs": [
+        "S1",
+        "S2"
+      ],
+      "lineage": "Megvii YOLOX → native negatif-yolox/P2 → cf3a2b… ebeveyn → Step0 18e94a… → eşdeğer SiLU ONNX; bütün erken ebeveyn bağları kapanmış değil",
+      "codeLicense": "YOLOX Apache-2.0 + Proje kodu/değişiklikleri UNLICENSED; upstream ayrı",
+      "weightsLicense": "Proje adaptasyonu; ayrı kaynak-ağırlık izin metni kanıtı eksik; ONNX yeni lisans yaratmaz",
+      "knownTrainingDataRights": "S5:175 TRAIN kaynak ledger kaydı, dokuz alias; beyanlar mevcut, kişi/fotoğraf hakları doğrulanmamış",
+      "obligationsAndMissingDocuments": "Apache metni/uyarlama atfı korunur; açık AGPL mirası kanıtı yok. Tam ebeveyn/weight grant belgesi açık"
+    },
+    {
+      "id": "acne-verifier",
+      "file": "services/core-api/models/acne-v5-preview/verifier-v5.json",
+      "bytes": 152591,
+      "sha256": "0d7bf03ca4d9898ef1b2e78c6d54d61be6aff580329b20b78a9232f79cfd43bb",
+      "expectedSHA256": "0d7bf03ca4d9898ef1b2e78c6d54d61be6aff580329b20b78a9232f79cfd43bb",
+      "hashMatches": true,
+      "usage": "same opt-in V5 path; NumPy logistic coefficients",
+      "runtimeActivity": "Aynı V5 yolunda NumPy logistic/scaler JSON",
+      "sourceIDs": [
+        "S2",
+        "S5"
+      ],
+      "lineage": "cb0948… dondurulmuş V5 fit; V4 etiket/grup rolleri ve Step0 P2/P3/P4/P5 özellikleri; sklearn fit, runtime NumPy",
+      "codeLicense": "Proje kodu/değişiklikleri UNLICENSED; upstream ayrı; fit kütüphanesi izinleri ağırlık lisansı değildir",
+      "weightsLicense": "Proje ürettiği JSON, ayrı kamusal ağırlık lisansı verilmemiş; S1/S2/S5 soy zinciri silinmez",
+      "knownTrainingDataRights": "V4/V5 gözden geçirilmiş aday etiketleri; özgün fotoğraf-yayımlayıcı hak eşlemesi tam değil",
+      "obligationsAndMissingDocuments": "Özgün V5 JSON hash’i eşleşti. Üçüncü taraf AGPL deney ağırlığı değildir; veri-hak join belgesi açık"
+    },
+    {
+      "id": "skin-type",
+      "file": "services/core-api/models/skin-type-local-v1/model.onnx",
+      "bytes": 343341982,
+      "sha256": "99b4c2fa1e9ac013d539f635eb948c5a29f4c5f86f34fe26c380ad308c26c65a",
+      "expectedSHA256": "99b4c2fa1e9ac013d539f635eb948c5a29f4c5f86f34fe26c380ad308c26c65a",
+      "hashMatches": true,
+      "usage": "local_skin_type.load via skin_models.infer; enabled",
+      "runtimeActivity": "Yerel config enabled; Karma ayrı ürün kuralı, dördüncü öğrenilmiş sınıf değil",
+      "sourceIDs": [
+        "S3",
+        "S11"
+      ],
+      "lineage": "dima806 frozen rev → source572185… safetensors → statik RGB224 ONNX; eğitim yok",
+      "codeLicense": "Ürün adaptörü UNLICENSED; ViT/Transformers upstream ayrı",
+      "weightsLicense": "Yayımlayıcı model kartı Apache-2.0; ayrı LICENSE olmaması bu beyanı yok etmez",
+      "knownTrainingDataRights": "Google ViT ImageNet-21k; cilt fine-tune veri seti/izin kimliği kartta yok",
+      "obligationsAndMissingDocuments": "Dima NOTICE/kart ve mevcut tam Apache metni korunur; cilt verisi lisansı/fotoğraf hak belgesi eksik"
+    },
+    {
+      "id": "dental",
+      "file": "services/core-api/models/dental-yolox-s.onnx",
+      "bytes": 35800550,
+      "sha256": "eafaca8139e4447b1aa64375156aa47764affd91cf0594392b896ea78463bf03",
+      "expectedSHA256": "eafaca8139e4447b1aa64375156aa47764affd91cf0594392b896ea78463bf03",
+      "hashMatches": true,
+      "usage": "dental_analysis detector; permanent-tooth D product scope",
+      "runtimeActivity": "Dental detector; normal üründe kalıcı diş D kapsamı",
+      "sourceIDs": [
+        "S1",
+        "S6"
+      ],
+      "lineage": "Rastgele başlangıç, YOLOX-S20 tur → b438ba… kendi ağırlığı → ONNX eafaca…; pretrained yok",
+      "codeLicense": "YOLOX Apache-2.0 + Proje kodu/değişiklikleri UNLICENSED; upstream ayrı",
+      "weightsLicense": "Proje oluşturdu; model manifesti veri CC-BY der, ağırlığa bağımsız lisans atanmış sayılmaz",
+      "knownTrainingDataRights": "Zenodo14827784 v1, CC-BY-4.0; iki arşiv hash’i ve yedi yaratıcı mevcut",
+      "obligationsAndMissingDocuments": "Atıf/DOI/CC bağlantısı ve uyarlama bildirimi tutulur. Veri izni ile klinik doğrulama ayrı"
+    },
+    {
+      "id": "dryness-encoder",
+      "file": "services/core-api/models/dryness-calibrated-v3/encoder.onnx",
+      "bytes": 16019972,
+      "sha256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987",
+      "expectedSHA256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987",
+      "hashMatches": true,
+      "usage": "product_dryness.runtime / material_component_features.OnnxMaterialEncoder",
+      "runtimeActivity": "product_dryness runtime enabled; akışlı ONNX encoder",
+      "sourceIDs": [
+        "S4",
+        "S11"
+      ],
+      "lineage": "torchvision rwightman7f5810… → safe e50c81… → ORT a93e54…; parity kaydı",
+      "codeLicense": "torchvision BSD-3-Clause; ürün wrapper UNLICENSED",
+      "weightsLicense": "Karşılık gelen timm kartı Apache-2.0; tam imported-byte/card bağı bağımsız tamamlanmış değil",
+      "knownTrainingDataRights": "ImageNet-1k; orijinal fotoğraf hakları aktarılmış sayılmaz",
+      "obligationsAndMissingDocuments": "BSD/Apache notice korunur; imported ağırlığın kesin yayımlayıcı lisans/hashi eşlemesi eksik"
+    },
+    {
+      "id": "dryness-head",
+      "file": "services/core-api/models/dryness-calibrated-v3/head.json",
+      "bytes": 204818,
+      "sha256": "7f13c7cb4eb65a3fb44abf062563ee3aff605a6ef9ff3271c5e32e206fedb8e1",
+      "expectedSHA256": "7f13c7cb4eb65a3fb44abf062563ee3aff605a6ef9ff3271c5e32e206fedb8e1",
+      "hashMatches": true,
+      "usage": "product_dryness.runtime; project calibrated head",
+      "runtimeActivity": "product_dryness kalibre64 TRAIN satırlı head",
+      "sourceIDs": [
+        "S4",
+        "S5"
+      ],
+      "lineage": "AG1b2ee0… dondurulmuş v2 paket; kendi calibrated-v3/head JSON; source encoder aynı",
+      "codeLicense": "Proje kodu/değişiklikleri UNLICENSED; upstream ayrı",
+      "weightsLicense": "Proje head’i, ayrı kamusal yeniden lisanslama yok; encoder/veri koşulları saklı",
+      "knownTrainingDataRights": "Kaynak-konum mühendislik materyal etiketleri; örnek controls merve/pul, publisher-declared/individual-photo-review-pending",
+      "obligationsAndMissingDocuments": "Etiket kaynağı/türünü koru; son64 satırın tam hak join’i eksik. Biyolojik kuruluk izni/klinik kabul çıkarılmaz"
+    },
+    {
+      "id": "focused-degrees",
+      "file": "services/core-api/models/skin-focused-degrees.onnx",
+      "bytes": 16037017,
+      "sha256": "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3",
+      "expectedSHA256": "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3",
+      "hashMatches": true,
+      "usage": "skin_models.load; redness accepted, quality admitted only",
+      "runtimeActivity": "skin-focused accepted redness; kalite uygunsa global başlık; diğer headler kapalı",
+      "sourceIDs": [
+        "S4",
+        "S5"
+      ],
+      "lineage": "ImageNet EfficientNet-B0 → seçilmiş cilt-type fine-tuned backbone → frozen features + masked ridge → yalnız redness ONNX",
+      "codeLicense": "torchvision BSD-3-Clause + Proje kodu/değişiklikleri UNLICENSED; upstream ayrı",
+      "weightsLicense": "Proje ridge+adaptasyon; ImageNet ağırlık dayanağı S4; reddedilmiş type classifier etkin değildir",
+      "knownTrainingDataRights": "Killa92 publisher Apache-2.0 + ayrı old-eye CC-BY; kesin hedef/etiket protokolü klinik değil",
+      "obligationsAndMissingDocuments": "S4/S5 atıf/lisansları korunur; source-to-final-training rights zinciri ve kişi hakları açık"
+    },
+    {
+      "id": "eyewear",
+      "file": "services/core-api/models/skin-eyewear-framefind-v1.onnx",
+      "bytes": 6402858,
+      "sha256": "66f75c686974a04bf956d0ed6411315309afcabd36c400edec743953adafccb9",
+      "expectedSHA256": "66f75c686974a04bf956d0ed6411315309afcabd36c400edec743953adafccb9",
+      "hashMatches": true,
+      "usage": "skin_eyewear; skin capture gate, not eye-health classifier",
+      "runtimeActivity": "Yalnız Cilt Sağlığı çekim kapısı",
+      "sourceIDs": [
+        "S7"
+      ],
+      "lineage": "FrameFind3c6967… hazır112RGB ONNX byte-identical; yeni eğitim yok",
+      "codeLicense": "Repo MIT; Jorge Mora tam metin yerelde",
+      "weightsLicense": "Repo-level MIT bildirimi mevcut; ağırlığa özel kapsam açıkça ayrı belgelenmemiş",
+      "knownTrainingDataRights": "Eğitim veri seti, başlangıç backbone ve fotoğraf hakları belgelenmemiş",
+      "obligationsAndMissingDocuments": "MIT copyright/izin metni korunur; ağırlık/veri kapsamına yeni hak uydurulmaz"
+    },
+    {
+      "id": "geometry-face_landmarker",
+      "file": "apps/vehicle-app/public/mediapipe/models/face_landmarker.task",
+      "bytes": 3758596,
+      "sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+      "expectedSHA256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+      "hashMatches": true,
+      "usage": "skinAnalyzer / visionInference.worker local task",
+      "runtimeActivity": "SkinAnalyzer ve vision worker yerel FaceLandmarker",
+      "sourceIDs": [
+        "S8"
+      ],
+      "lineage": "Google official float16 v1 .task, değiştirilmemiş; SDK1.0.1",
+      "codeLicense": "MediaPipe Apache-2.0",
+      "weightsLicense": "Kayıtlı resmi FaceDetector/MeshV2/Blendshape kartları Apache-2.0",
+      "knownTrainingDataRights": "Model kartlarında açıklanan eğitim; asıl fotoğrafların yeniden dağıtım izni verilmiş sayılmaz",
+      "obligationsAndMissingDocuments": "SDK gömülü notice + tam Apache + model atıfları mevcut; klinik kabul yok"
+    },
+    {
+      "id": "geometry-hand_landmarker",
+      "file": "apps/vehicle-app/public/mediapipe/models/hand_landmarker.task",
+      "bytes": 7819105,
+      "sha256": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+      "expectedSHA256": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+      "hashMatches": true,
+      "usage": "skinAnalyzer / visionInference.worker local task",
+      "runtimeActivity": "Vision worker el/örtme geometrisi",
+      "sourceIDs": [
+        "S8"
+      ],
+      "lineage": "Google official float16 v1 .task; SDK1.0.1",
+      "codeLicense": "MediaPipe Apache-2.0",
+      "weightsLicense": "Kayıtlı resmi Hand model kartı Apache-2.0",
+      "knownTrainingDataRights": "Model-card düzeyi; özgün fotoğraflar ürün parçası değil",
+      "obligationsAndMissingDocuments": "MediaPipe NOTICE + Apache + card URL/hash mevcut; byte kimliği korundu"
+    },
+    {
+      "id": "selfie-segmentation",
+      "file": "apps/vehicle-app/public/models/selfie_multiclass_256x256.tflite",
+      "bytes": 16371837,
+      "sha256": "c6748b1253a99067ef71f7e26ca71096cd449baefa8f101900ea23016507e0e0",
+      "expectedSHA256": "c6748b1253a99067ef71f7e26ca71096cd449baefa8f101900ea23016507e0e0",
+      "hashMatches": true,
+      "usage": "skinInference.worker presentation mask",
+      "runtimeActivity": "Skin worker yalnız sunum/saç-yüz desteği",
+      "sourceIDs": [
+        "S9"
+      ],
+      "lineage": "Google May2023 SelfieMulticlass256 → orijinal TFLite; sabit yerel hash",
+      "codeLicense": "MediaPipe Apache-2.0",
+      "weightsLicense": "Kayıtlı Google model bildirimi Apache-2.0",
+      "knownTrainingDataRights": "Model-card düzeyi; eğitim fotoğraflarına ayrıca hak verildiği iddia edilmez",
+      "obligationsAndMissingDocuments": "Selfie NOTICE/Apache korunur; latest URL için upstream immutable rev eksik, yerel bytes kesin"
+    }
+  ],
+  "explicitlyNotRuntime": {
+    "models": [
+      "Dewiin/DTM_CTP2024",
+      "tristan-gray/acne-detector",
+      "carsten12/acne-detection-model"
+    ],
+    "sourceID": "S10",
+    "runtimeFile": null,
+    "runtimeHash": null,
+    "reason": "No configured runtime file or loader reference to these comparisons; not reloaded"
+  },
+  "technicalCompletion": {
+    "filesVerified": 11,
+    "matched": 11,
+    "modelCalls": 0,
+    "training": 0,
+    "builds": 0,
+    "tests": 0,
+    "normalAPICalls": 0,
+    "runtimeChanged": false
+  },
+  "documentConclusion": "Source declarations, explicit scope restrictions and missing evidence remain distinct. No blanket all-rights-cleared or automatically-unusable finding.",
+  "officialReads": [
+    {
+      "source": "S3",
+      "result": "Pinned README inaccessible; retained local card used, stopped"
+    },
+    {
+      "source": "S7",
+      "result": "Pinned GitHub tree cache miss; retained local MIT used, stopped"
+    },
+    {
+      "source": "S1",
+      "result": "Pinned official repo read; same-project release/code vs weight distinction retained"
+    },
+    {
+      "source": "S4",
+      "result": "Official timm card read; Apache-2.0, ImageNet1k; not independently bound to exact torchvision hash"
+    },
+    {
+      "source": "S6",
+      "result": "Official Zenodo v1 authors/archive listing read; CC-BY ID comes from retained original JSON"
+    },
+    {
+      "source": "S11",
+      "result": "Official ImageNet and torchvision terms distinction read"
+    },
+    {
+      "source": "S10",
+      "result": "Ultralytics official licensing page read; GNU AGPL page unavailable, no further chain pursued"
+    }
+  ],
+  "sourceRightsLedgerCorrection": "TRAIN rows omit license fields, but enclosing ledger resolves publisher declarations for all nine named source aliases; per-photo rights are not thereby independently established."
+}

@@ -1,0 +1,250 @@
+{
+  "at": "2026-10-17T22:31:31.878603+00:00",
+  "startHEAD": "148c032b3771df800150210618019b9056baaf54",
+  "servingSource": "b2573b512595adc7cae86d7ab932abb318f61689",
+  "BUILD_ID": "PlmGO62XYbiAMR2PNNLGr",
+  "modelFiles": [
+    {
+      "id": "acne-detector",
+      "file": "services/core-api/models/acne-v5-preview/step0-with-features-stable-silu.onnx",
+      "bytes": 39122518,
+      "sha256": "9c87475d9302aed16f09abedc109211c2ac1b49f22f465f86aab408a5244d0be",
+      "expectedSHA256": "9c87475d9302aed16f09abedc109211c2ac1b49f22f465f86aab408a5244d0be",
+      "hashMatches": true,
+      "usage": "experimental_acne_v5.load; normal launcher opt-in, not generic accepted registry"
+    },
+    {
+      "id": "acne-verifier",
+      "file": "services/core-api/models/acne-v5-preview/verifier-v5.json",
+      "bytes": 152591,
+      "sha256": "0d7bf03ca4d9898ef1b2e78c6d54d61be6aff580329b20b78a9232f79cfd43bb",
+      "expectedSHA256": "0d7bf03ca4d9898ef1b2e78c6d54d61be6aff580329b20b78a9232f79cfd43bb",
+      "hashMatches": true,
+      "usage": "same opt-in V5 path; NumPy logistic coefficients"
+    },
+    {
+      "id": "skin-type",
+      "file": "services/core-api/models/skin-type-local-v1/model.onnx",
+      "bytes": 343341982,
+      "sha256": "99b4c2fa1e9ac013d539f635eb948c5a29f4c5f86f34fe26c380ad308c26c65a",
+      "expectedSHA256": "99b4c2fa1e9ac013d539f635eb948c5a29f4c5f86f34fe26c380ad308c26c65a",
+      "hashMatches": true,
+      "usage": "local_skin_type.load via skin_models.infer; enabled"
+    },
+    {
+      "id": "dental",
+      "file": "services/core-api/models/dental-yolox-s.onnx",
+      "bytes": 35800550,
+      "sha256": "eafaca8139e4447b1aa64375156aa47764affd91cf0594392b896ea78463bf03",
+      "expectedSHA256": "eafaca8139e4447b1aa64375156aa47764affd91cf0594392b896ea78463bf03",
+      "hashMatches": true,
+      "usage": "dental_analysis detector; permanent-tooth D product scope"
+    },
+    {
+      "id": "dryness-encoder",
+      "file": "services/core-api/models/dryness-calibrated-v3/encoder.onnx",
+      "bytes": 16019972,
+      "sha256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987",
+      "expectedSHA256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987",
+      "hashMatches": true,
+      "usage": "product_dryness.runtime / material_component_features.OnnxMaterialEncoder"
+    },
+    {
+      "id": "dryness-head",
+      "file": "services/core-api/models/dryness-calibrated-v3/head.json",
+      "bytes": 204818,
+      "sha256": "7f13c7cb4eb65a3fb44abf062563ee3aff605a6ef9ff3271c5e32e206fedb8e1",
+      "expectedSHA256": "7f13c7cb4eb65a3fb44abf062563ee3aff605a6ef9ff3271c5e32e206fedb8e1",
+      "hashMatches": true,
+      "usage": "product_dryness.runtime; project calibrated head"
+    },
+    {
+      "id": "focused-degrees",
+      "file": "services/core-api/models/skin-focused-degrees.onnx",
+      "bytes": 16037017,
+      "sha256": "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3",
+      "expectedSHA256": "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3",
+      "hashMatches": true,
+      "usage": "skin_models.load; redness accepted, quality admitted only"
+    },
+    {
+      "id": "eyewear",
+      "file": "services/core-api/models/skin-eyewear-framefind-v1.onnx",
+      "bytes": 6402858,
+      "sha256": "66f75c686974a04bf956d0ed6411315309afcabd36c400edec743953adafccb9",
+      "expectedSHA256": "66f75c686974a04bf956d0ed6411315309afcabd36c400edec743953adafccb9",
+      "hashMatches": true,
+      "usage": "skin_eyewear; skin capture gate, not eye-health classifier"
+    },
+    {
+      "id": "geometry-face_landmarker",
+      "file": "apps/vehicle-app/public/mediapipe/models/face_landmarker.task",
+      "bytes": 3758596,
+      "sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+      "expectedSHA256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+      "hashMatches": true,
+      "usage": "skinAnalyzer / visionInference.worker local task"
+    },
+    {
+      "id": "geometry-hand_landmarker",
+      "file": "apps/vehicle-app/public/mediapipe/models/hand_landmarker.task",
+      "bytes": 7819105,
+      "sha256": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+      "expectedSHA256": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+      "hashMatches": true,
+      "usage": "skinAnalyzer / visionInference.worker local task"
+    },
+    {
+      "id": "selfie-segmentation",
+      "file": "apps/vehicle-app/public/models/selfie_multiclass_256x256.tflite",
+      "bytes": 16371837,
+      "sha256": "c6748b1253a99067ef71f7e26ca71096cd449baefa8f101900ea23016507e0e0",
+      "expectedSHA256": "c6748b1253a99067ef71f7e26ca71096cd449baefa8f101900ea23016507e0e0",
+      "hashMatches": true,
+      "usage": "skinInference.worker presentation mask"
+    }
+  ],
+  "documents": [
+    {
+      "file": "LICENSES.md",
+      "sha256": "b8ab5c556fee1df486069da4ccf37f8f245c485d98a165c286c218d0e96362c6",
+      "bytes": 5942,
+      "initialSHA256": "5f80f2e9e3383715266853d0a6aacfac0843c2e7e3d60de70abbf48cb3878fbd"
+    },
+    {
+      "file": "THIRD_PARTY_NOTICES.md",
+      "sha256": "a884a8f8d274a03f43886dd88a24535054d06234aa0127fa82a98bcccd969702",
+      "bytes": 8910,
+      "initialSHA256": "56ed25d06ac696d9990da17883f4e47e9d04a2e341d6b7697d88e295b4097bb8"
+    },
+    {
+      "file": "third-party/skin-focused/provenance.json",
+      "sha256": "85dca55e71d63ab34502c61e43f0c7b9231ea3a81d2b9d9780b1b3ce3fde7694",
+      "bytes": 4259
+    },
+    {
+      "file": "third-party/skin-research/sources.json",
+      "sha256": "bb1ac77bbcf8215eced552c7db7ac901c540989e59454b043e93336dbac5cad1",
+      "bytes": 4297
+    },
+    {
+      "file": "third-party/combined-health/YOLOX-LICENSE",
+      "sha256": "0ec3668d3274bcf29e8a29e9576d5a2cd96fc78d3c5bec4387355a796e5d9088",
+      "bytes": 11371
+    },
+    {
+      "file": "third-party/combined-health/torchvision-LICENSE",
+      "sha256": "c06363f9d33627dc5173b13522444cc85fbb4739f63e16d4587d5c0a165b5b1e",
+      "bytes": 1546
+    },
+    {
+      "file": "third-party/skin-research/scin-LICENSE.txt",
+      "sha256": "e29f7f0a84f0ad50e4920fa195e852bcd14c9e8b9e6c899ce9e3276be0b75da4",
+      "bytes": 13794
+    },
+    {
+      "file": "services/core-api/models/skin-type-local-v1/NOTICE.md",
+      "sha256": "08b6ba65ef08865f5295698c4d277f06db35aef8eececb354d884c2601696d73",
+      "bytes": 574
+    },
+    {
+      "file": "services/core-api/models/skin-type-local-v1/MODEL_CARD.md",
+      "sha256": "41832782943ca2d6d07a0634caf01fe301fd44069c97f2f688f7bbd768d3cee6",
+      "bytes": 783
+    },
+    {
+      "file": "services/core-api/models/skin-eyewear-LICENSE.txt",
+      "sha256": "525097be90d023b612c77a4c0dd84a5207f155c3bdcf8c9221312b9673cfaf2a",
+      "bytes": 1088
+    },
+    {
+      "file": "apps/vehicle-app/public/mediapipe/NOTICE.md",
+      "sha256": "3cda983213f82a3545ea078a8a2a016c277f69a56ca308f130c04c415515ba8e",
+      "bytes": 1334
+    },
+    {
+      "file": "apps/vehicle-app/public/mediapipe/LICENSE-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    {
+      "file": "apps/vehicle-app/public/models/SELFIE-MODEL-NOTICE.md",
+      "sha256": "32e3ca4227c50b64dd7e678e7218c9f14e39717d237b5b4fe1fd751ca157fc1e",
+      "bytes": 594
+    },
+    {
+      "file": "apps/vehicle-app/public/models/LICENSE-2.0.txt",
+      "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5",
+      "bytes": 11560
+    },
+    {
+      "file": "services/core-api/models/acne-v5-preview/manifest.json",
+      "sha256": "a9f939deb312cfc957d8456fc865e1d3a6f21a5d4e0ba227b94bedb1413a8fe0",
+      "bytes": 1197
+    },
+    {
+      "file": "services/core-api/models/skin-focused.json",
+      "sha256": "accc9ff193030bccde572ded39b1878fc7919e33daf62f2ac560c3357a83abfb",
+      "bytes": 7289
+    },
+    {
+      "file": "services/core-api/models/skin-type-local.json",
+      "sha256": "dae43024430e365f70eb1f157666ae6b54ea0ed52e2677a84cf54aa9ec47d36b",
+      "bytes": 983
+    },
+    {
+      "file": "services/core-api/models/dryness-calibrated-v3/config.json",
+      "sha256": "e62bba10919d4e51b1d0ce09b8c1ae7cdb107510f69b95570d196fda5c915e3d",
+      "bytes": 578
+    },
+    {
+      "file": "services/core-api/models/dryness-calibrated-v3/encoder-parity.json",
+      "sha256": "3f1bd96bb44041a80916168fa36c7ccc032598b1211f308b6e2dc081a5085490",
+      "bytes": 1016
+    },
+    {
+      "file": "services/core-api/models/skin-eyewear-framefind-v1.json",
+      "sha256": "918e149f334710cbc0de05f89c2d6f21cae00f8f778310b7c5e6b7613a246f0b",
+      "bytes": 854
+    },
+    {
+      "file": "services/core-api/models/dental-yolox-s.json",
+      "sha256": "42e2c4cfc0d86d30294c392997c16b78a364050296235ade9a961cf3828fbd19",
+      "bytes": 11399
+    }
+  ],
+  "registryRejected": [
+    {
+      "id": "type",
+      "accepted": false,
+      "file": null
+    },
+    {
+      "id": "acne",
+      "accepted": false,
+      "file": null
+    },
+    {
+      "id": "bags",
+      "accepted": false,
+      "file": null
+    }
+  ],
+  "stateClaims": {
+    "experimentalAcneV5": null,
+    "hostedSkinTypeEnabled": null
+  },
+  "helper": {
+    "pid": 88968,
+    "startedUTC": "2026-10-17T22:31:31.845509+00:00",
+    "executable": "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    "argv": [
+      "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\model-source-closeout-20261018\\inventory.py"
+    ],
+    "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017",
+    "role": "foreground file-hash helper; exits naturally; no worker/browser/server/lease created",
+    "startEpoch": 1792276290.052868
+  },
+  "modelCalls": 0,
+  "finalDocumentationCheckUTC": "2026-10-17T22:41:27.750672+00:00"
+}
