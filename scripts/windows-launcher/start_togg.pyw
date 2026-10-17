@@ -205,7 +205,12 @@ def main():
                 state=json.loads((HERE/'session.json').read_text('utf8'))
                 if state.get('status')=='starting':time.sleep(.5);continue
                 if state.get('status')=='running' and verified_owner(state,delivery):
-                    subprocess.Popen(chrome_args(PROFILE),stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+                    handoff=subprocess.Popen(chrome_args(PROFILE),stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+                    # A same-PID snapshot alone cannot prove this invocation
+                    # passed validation. Emit a value-free positive reuse ack.
+                    receipt=dict(invocationPID=os.getpid(),at=time.time(),sourceCommit=delivery['sourceCommit'],BUILD_ID=delivery['BUILD_ID'],backendPID=state['backend_pid'],frontendPID=state['frontend_pid'],launcherPID=state['launcher_pid'],browserPID=state['browser_pid'],browserObservedCwd=psutil.Process(state['browser_pid']).cwd(),handoffPID=handoff.pid,identityRule='role-specific-browser-v2')
+                    temporary=HERE/('reuse.'+str(os.getpid())+'.tmp')
+                    temporary.write_text(json.dumps(receipt,indent=2),'utf8');temporary.replace(HERE/'reuse-receipt.json')
                     return
                 raise RuntimeError('Existing launcher ownership differs; no process stopped.')
             raise RuntimeError('Existing launcher is still starting; no duplicate service created.')

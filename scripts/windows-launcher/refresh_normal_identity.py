@@ -21,7 +21,7 @@ def main():
  assert all(module['process_matches'](row) for row in state['processes']),'No ownership uncertainty is permitted'
  for row in descriptor['files']:assert module['sha256'](ROOT/row['path'])==row['sha256'],'Build/model/asset changed'
  for row in descriptor['launcherFiles']:assert module['sha256'](HOME/row['name'])==row['sha256'],'Prior deployment changed'
- backup=OUT/'backup-before-CWD-fix';assert not backup.exists(),'Never overwrite a rollback point'
+ backup=OUT/('backup-before-CWD-fix-'+descriptor['sourceCommit'][:12]);assert not backup.exists(),'Never overwrite a rollback point'
  backup.mkdir()
  for name in ['start_togg.pyw','backend_host.py','deployment.json','session.json']:shutil.copyfile(HOME/name,backup/name)
  for name in ['report.md','status.json','deployment-receipt.json']:
@@ -29,7 +29,7 @@ def main():
  source=ROOT/'scripts/windows-launcher/start_togg.pyw';temp=HOME/'start_togg.install.tmp'
  shutil.copyfile(source,temp);temp.replace(HOME/'start_togg.pyw')
  commit=subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip()
- original=state['sourceCommit']
+ original=state.get('runtimeOriginallyStartedFromCommit',state['sourceCommit'])
  descriptor['sourceCommit']=commit
  descriptor['launcherFiles']=[dict(name=name,sha256=module['sha256'](HOME/name)) for name in ['start_togg.pyw','backend_host.py']]
  atomic(HOME/'deployment.json',descriptor)
