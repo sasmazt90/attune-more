@@ -37,7 +37,7 @@ unavailable, with no hosted fallback or substitute class.
 
 ## Regional combination contract and limits
 
-`combination-regional-user-v1-visible-support-v1` implements the fixed user rule:
+`combination-regional-user-v2-final-product-visible-support-v1` implements the fixed user rule:
 T-zone oily and remaining measured regions normal OR dry means combination.
 The global three-class argmax cannot overrule that pattern. Unknown/invalid
 regions never count as normal/dry. A usable base model is still required.
@@ -54,6 +54,15 @@ must be observed, and cheek/chin oil AND dry measurements must be valid.
 Derived combination has no fabricated model confidence; the base confidence
 and full decision trace remain separate. Confidence is never severity.
 
+Finalization occurs once at the normal endpoint boundary, after native dryness
+and optional V5 replacements. The shared/research analyzer returns only the
+raw base model output. A separate `basePrediction` snapshot preserves the
+three-class value/confidence/version/hash; repeated finalization is idempotent
+and never treats an earlier Karma decision as a base model. Final receipts and
+activeCriterionMethods are refreshed after the decision. Rule v2 separates
+this final-product scope from earlier v1 results; historical records are not
+rewritten. Model weights, base model version and all thresholds are unchanged.
+
 ## Evidence and acceptance boundary
 
 The actual API/analyzer replay used an existing recorded browser MediaPipe
@@ -63,6 +72,19 @@ base oily, final combination, with 0 hosted calls and 0 external connections.
 Existing native support was T-zone oil 0.049834%, left cheek dry 0.102407%,
 right cheek dry 0.042385%, and measured-zero chin oil/dry. These small support
 values illustrate the rule's visible-proxy limitation, not clinical validation.
+
+The original replay above exposed a sequencing defect: the early right-cheek
+dry trace was 0.042384854 / appearance-cv-6 while the final native measurement
+was 0 / appearance-native-dry-2. The lightweight correction replay reconstructs
+only the explicitly recorded base model identity and consumes those already
+recorded final API measurements; it does not run inference or modify records.
+Its six cheek/chin oil/dry observations match final value/quality/method/area,
+including native zero. The label stays Karma because both normal and dry rest
+regions satisfy the user rule; this is an input-consistency correction, not a
+demonstrated label-accuracy improvement. Invalid/missing final rows retract
+an earlier matched combination to the preserved base class. The new actual
+normal API verification is recorded separately, subject to the unchanged RAM
+gate. `replay-result.json` remains original evidence, not rewritten as v2.
 
 Focused Python checks: 32 passed including launcher preservation. The real
 numeric response passed the current TypeScript overview/record validator,

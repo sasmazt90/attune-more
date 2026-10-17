@@ -11,7 +11,6 @@ import math
 import cv2
 import numpy as np
 from skin_general import general_result
-from local_skin_type import regional_decision as local_type_decision
 from skin_models import infer as infer_skin_models, infer_acne, infer_bags, session_status
 from skin_measurement_contract import attach_result_receipts
 from skimage.feature import local_binary_pattern
@@ -671,7 +670,10 @@ def analyze_skin(payload, include_research_features=False):
         if not include_research_features:
             type_quality=payload.get('qualityValid') is True and face_pixels>=180 and abs(conditions.get('yaw',99))<=.65
             learned=infer_skin_models(bgr,points,result['general']['measurements'][0]['quality']=='valid' and face_pixels>=180,hosted_consent=payload.get('hostedProcessingConsent') is True,type_quality_valid=type_quality)
-            if learned['skinType']:result['general']['skinType']=local_type_decision(learned['skinType'],response)
+            # Keep the model output intact. Product-native replacements run
+            # after this shared analyzer; only the product endpoint finalizes
+            # the regional combination decision against those final rows.
+            if learned['skinType']:result['general']['skinType']=learned['skinType']
             result['general']['modelInference']=learned.get('models',{})
             result['general']['modelRuntime']=learned.get('modelRuntime',{})
             result['general']['modelInputTransform']=learned.get('sourceTransform')

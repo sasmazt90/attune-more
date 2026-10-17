@@ -7,12 +7,12 @@ import numpy as np
 from PIL import Image
 CONFIG=Path(__file__).parent/'models/skin-type-local.json'
 CLASSES=('dry','normal','oily')
-RULE='combination-regional-user-v1-visible-support-v1'
+RULE='combination-regional-user-v2-final-product-visible-support-v1'
 LOCK=threading.Lock()
 _CACHE=None
 
 def unavailable(reason):
- return dict(value=None,quality='insufficient',confidence=None,methodVersion='local-pretrained-skin-type-v1+'+RULE,modelHash=None,limitationCode=reason,inferenceKind='local-onnx',inferenceMs=0.)
+ return dict(value=None,quality='insufficient',confidence=None,methodVersion='local-pretrained-skin-type-v1',modelHash=None,limitationCode=reason,inferenceKind='local-onnx',inferenceMs=0.)
 
 def preprocess(bgr):
  if not isinstance(bgr,np.ndarray) or bgr.dtype!=np.uint8 or bgr.ndim!=3 or bgr.shape[2]!=3 or min(bgr.shape[:2])<16:raise ValueError('INVALID_TYPE_IMAGE')
@@ -60,23 +60,35 @@ def regional_decision(base,measurements):
  Native existing oil >.12 and flake >.04 pixel gates already produced values;
  this rule tests presence/absence of that accepted support, not a fitted scale.
  """
- result=copy.deepcopy(base);trace=dict(version=RULE,definition='T oily and remaining face normal OR dry',regionalMeaning='visible-support proxy, not sebum/hydration',thresholdPolicy='existing oil>.12 and flake>.04 pixel gates; any accepted area support vs measured zero; no threshold fit',regions={})
- def observed(region,criterion):
+ # Re-finalization uses only the preserved raw three-class output, never a
+ # previously derived combination or its confidence/version. Historical v1
+ # responses without this snapshot are not reprocessed as new model outputs.
+ base=copy.deepcopy(base.get('basePrediction',base))
+ if base.get('decisionTrace') is not None or base.get('value')=='combination':
+  base=unavailable('LOCAL_TYPE_BASE_IDENTITY_UNAVAILABLE')
+ for key in ['status','reason','modelVersion','calibrationVersion','coverage']:
+  base.pop(key,None)
+ result=copy.deepcopy(base);trace=dict(version=RULE,scope='final-product-measurements',definition='T oily and remaining face normal OR dry',regionalMeaning='visible-support proxy, not sebum/hydration',thresholdPolicy='existing oil>.12 and flake>.04 pixel gates; any accepted area support vs measured zero; no threshold fit',regions={})
+ def input_row(region,criterion):
   row=next((r for r in measurements.get(region,[]) if r.get('id')==criterion),None)
+  if not row:return None
+  return {k:copy.deepcopy(row.get(k)) for k in ['value','quality','methodVersion','normalizationVersion','evaluatedArea','limitationCode']}
+ def observed(region,criterion):
+  row=input_row(region,criterion)
   if not row:return None
   value=row.get('value');area=row.get('evaluatedArea',{})
   if row.get('quality')!='valid' or isinstance(value,bool) or not isinstance(value,(int,float)) or not math.isfinite(value) or not 0<=value<=100 or area.get('analysisPixels',0)<100 or area.get('sourcePixels',0)<=0:return None
-  return dict(value=value,evaluatedArea=copy.deepcopy(area),methodVersion=row.get('methodVersion'),normalizationVersion=row.get('normalizationVersion'))
+  return row
  t=observed('nose','oil');forehead=observed('forehead','oil')
  # The existing nose oil ROI is already forehead union nose: never add the
  # forehead area twice. Require actual visible support in both anatomy parts.
  t_valid=t is not None and forehead is not None and t['evaluatedArea'].get('foreheadSourcePixels',0)>0 and t['evaluatedArea'].get('noseSourcePixels',0)>0
- trace['tZone']=dict(observation=t,valid=t_valid,anatomy='existing forehead-union-nose ROI; no duplicate forehead sum')
+ trace['tZone']=dict(observation=t,inputs={r:input_row(r,'oil') for r in ['nose','forehead']},valid=t_valid,anatomy='existing forehead-union-nose ROI; no duplicate forehead sum')
  states=[]
  for region in ['leftCheek','rightCheek','chin']:
   oil,dry=observed(region,'oil'),observed(region,'dry')
   state=None if oil is None or dry is None else 'oily' if oil['value']>0 else 'dry' if dry['value']>0 else 'normal'
-  trace['regions'][region]=dict(state=state,oil=oil,dry=dry);states.append(state)
+  trace['regions'][region]=dict(state=state,oil=oil,dry=dry,inputs=dict(oil=input_row(region,'oil'),dry=input_row(region,'dry')));states.append(state)
  complete=t_valid and all(s is not None for s in states)
  matches=complete and t['value']>0 and all(s in ('normal','dry') for s in states)
  trace.update(complete=complete,combinationMatched=matches,baseValue=base.get('value'),baseConfidence=base.get('confidence'),baseModelHash=base.get('modelHash'))
@@ -85,5 +97,16 @@ def regional_decision(base,measurements):
   result['methodVersion']=base['methodVersion']+'+'+RULE
   if matches:result.update(value='combination',confidence=None)
  trace['applied']=bool(usable and matches)
- result.update(decisionVersion=RULE,decisionTrace=trace)
+ result.update(basePrediction=base,decisionVersion=RULE,decisionTrace=trace)
  return result
+
+
+def finalize_product_type(result):
+ """One endpoint boundary after native dryness and optional acne replacement.
+ No inference or measurement changes; receipts describe the final decision.
+ """
+ skin_type=result.get('general',{}).get('skinType')
+ if skin_type and skin_type.get('inferenceKind')=='local-onnx':
+  result['general']['skinType']=regional_decision(skin_type,result.get('measurements',{}))
+ from skin_measurement_contract import attach_result_receipts
+ return attach_result_receipts(result)

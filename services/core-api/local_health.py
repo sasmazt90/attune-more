@@ -129,6 +129,8 @@ async def skin(request: Request):
                 if value.get('experimentalAcneV5') is True:
                     from acne_v5_product import replace_acne
                     result=replace_acne(result,value,scope.check)
+                from local_skin_type import finalize_product_type
+                result=finalize_product_type(result)
                 return eyewear,result
             worker=asyncio.create_task(run_in_threadpool(work))
             try:
