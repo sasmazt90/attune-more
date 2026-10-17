@@ -1,0 +1,995 @@
+{
+  "createdUTC": "2026-10-17T21:13:00.464409+00:00",
+  "task": "DRY-01",
+  "startingRuntimeCommit": "b2573b512595adc7cae86d7ab932abb318f61689",
+  "BUILD_ID": "PlmGO62XYbiAMR2PNNLGr",
+  "scope": "existing previously seen partial optical development targets; not independent final test, fresh encoder/camera run, hydration or clinical severity",
+  "newProductionFix": false,
+  "confirmedApplicationCoordinateBug": false,
+  "noApplicationBugClaimScope": "No application bug proven by these records; same-source actual product admission/ROI remains unestablished.",
+  "sourceDimensionSchema": "sourceShape in original compare_native_dry_scale.py:46 is [width,height]; audit reader corrected, no product coordinate change",
+  "sourceRecordHashes": [
+    {
+      "path": "audit-results/dry-sag-component-followup-20261013/object-labels.json",
+      "sha256": "f0cec2daf46fd2f745dccf21e20c0f22c2bf59e1ff28b4039352091f984d7e34"
+    },
+    {
+      "path": "audit-results/native-dry-scale-20261013/independent-v3-comparison.json",
+      "sha256": "7cfe020dd14595592aed39d98de871b804efd23d29d4800c3879e7013d1ed30e"
+    },
+    {
+      "path": "audit-results/native-camera-scope-20261013/single-crop-comparison.json",
+      "sha256": "2ff30cb7ef0aa6b11e5edfc4f6f26fdb9bd5f35b3063045ecfdd97e8ccb424a3"
+    },
+    {
+      "path": "audit-results/native-material-contour-20261013/added-components-reviewed.json",
+      "sha256": "1b1172e57064a82599963a30af9e89078827ffb219f68253614f685d068936b4"
+    },
+    {
+      "path": "audit-results/native-material-contour-20261013/added-train-source-selection.json",
+      "sha256": "ec46ed80e3a52726a675653e58a2ef169522ee8ed65285907aa7cf7c8d2aeefc"
+    },
+    {
+      "path": "audit-results/native-material-contour-20261013/material-encoder-balanced-comparison.json",
+      "sha256": "92bdab660dc6507274e10c7d3c7db1ae03e0bfbb5fa8cc043694ed0680e0f6ca"
+    },
+    {
+      "path": "audit-results/dryness-integration-v2-20261014/reviewed-head-replay.json",
+      "sha256": "02230016637f14c1c1dacd64496c1a9307edadc2d21c10d99d5087a02f51ec71"
+    },
+    {
+      "path": "services/core-api/material_component_features.py",
+      "sha256": "9ced63e2095b27230d4812a7e1b3ee720227856fbf111f1bc80bd9aa012ad3a4"
+    },
+    {
+      "path": "scripts/skin-research/audit_dryness_seven_misses.py",
+      "sha256": "908f705f24bc97fb18c3baf240ef408063eba7628d2a90a57f9bd189c85c9a40"
+    }
+  ],
+  "featureFileSHA256": "daa8427e6dea3d1d0db0c4cc46c277dea36520246f9e088330eabaac9d289d61",
+  "recordRowIdentitySHA256": "7c916c52e1364b83a20d679435b6e8299f1e301a415d050de6722fe48adeae22",
+  "allStoredMeasuresMatched": true,
+  "sourcePhotosHashChecked": 16,
+  "sourcePhotosDecoded": 0,
+  "modelAssets": [
+    {
+      "kind": "head",
+      "bytes": 204818,
+      "sha256": "7f13c7cb4eb65a3fb44abf062563ee3aff605a6ef9ff3271c5e32e206fedb8e1"
+    },
+    {
+      "kind": "encoder",
+      "bytes": 16019972,
+      "sha256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987"
+    },
+    {
+      "kind": "parity",
+      "bytes": 1016,
+      "sha256": "3f1bd96bb44041a80916168fa36c7ccc032598b1211f308b6e2dc081a5085490"
+    },
+    {
+      "kind": "sourceEncoder",
+      "bytes": 21357992,
+      "sha256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a"
+    }
+  ],
+  "fixedHeadThreshold": 0.5,
+  "headLoss": "source-group-balanced-calibrated-v3-c04-clean",
+  "summary": [
+    {
+      "factor": 1.0,
+      "hits": 14,
+      "targets": 21,
+      "reviewedNegativeSourcePixels": 0.0,
+      "reviewedNegativeAreaSourcePixels": 18266.0
+    },
+    {
+      "factor": 0.5,
+      "hits": 13,
+      "targets": 21,
+      "reviewedNegativeSourcePixels": 0.0,
+      "reviewedNegativeAreaSourcePixels": 18308.0
+    }
+  ],
+  "splitAndSourceCategories": [
+    {
+      "factor": 1.0,
+      "split": "train",
+      "sourceCategory": "pul",
+      "hits": 4,
+      "targets": 8
+    },
+    {
+      "factor": 1.0,
+      "split": "train",
+      "sourceCategory": "raw",
+      "hits": 3,
+      "targets": 5
+    },
+    {
+      "factor": 1.0,
+      "split": "validation",
+      "sourceCategory": "pul",
+      "hits": 3,
+      "targets": 4
+    },
+    {
+      "factor": 1.0,
+      "split": "validation",
+      "sourceCategory": "raw",
+      "hits": 4,
+      "targets": 4
+    },
+    {
+      "factor": 0.5,
+      "split": "train",
+      "sourceCategory": "pul",
+      "hits": 7,
+      "targets": 8
+    },
+    {
+      "factor": 0.5,
+      "split": "train",
+      "sourceCategory": "raw",
+      "hits": 2,
+      "targets": 5
+    },
+    {
+      "factor": 0.5,
+      "split": "validation",
+      "sourceCategory": "pul",
+      "hits": 2,
+      "targets": 4
+    },
+    {
+      "factor": 0.5,
+      "split": "validation",
+      "sourceCategory": "raw",
+      "hits": 2,
+      "targets": 4
+    }
+  ],
+  "sevenMisses": [
+    {
+      "control": 0,
+      "object": 0,
+      "sourceSHA256": "009503e805a81559bd7d3d024515d67200d4727d7647eaedea87c1139784b663",
+      "sourceSizeWH": [
+        640,
+        640
+      ],
+      "sourceCategory": "pul",
+      "split": "train",
+      "sourcePolygon": [
+        [
+          353,
+          395
+        ],
+        [
+          361,
+          398
+        ],
+        [
+          371,
+          398
+        ],
+        [
+          377,
+          403
+        ],
+        [
+          369,
+          408
+        ],
+        [
+          362,
+          408
+        ],
+        [
+          357,
+          405
+        ]
+      ],
+      "opticalCropOrigin": [
+        276,
+        256
+      ],
+      "opticalCropSizeWH": [
+        288,
+        288
+      ],
+      "proposal": {
+        "activeSourcePixels": 185.0,
+        "reviewedSourcePixels": 207.0,
+        "activeOpticalAreaPercent": 89.3719806763285,
+        "components": 1,
+        "largestSourceComponent": 185.0,
+        "objectHit": true
+      },
+      "finalOptical": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 207.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      },
+      "components": [
+        {
+          "componentId": 131,
+          "proposalPixelsInside": 185,
+          "headProbability": 0.3523599451974149,
+          "accepted": false,
+          "described": true,
+          "rectInOpticalCrop": [
+            60,
+            131,
+            99,
+            45
+          ],
+          "sourceRect": [
+            336.0,
+            387.0,
+            99.0,
+            45.0
+          ],
+          "cropBoxes": [
+            {
+              "x": 52,
+              "y": 96,
+              "width": 115,
+              "height": 115,
+              "sourcePixelsNotAdded": true
+            },
+            {
+              "x": -39,
+              "y": 5,
+              "width": 297,
+              "height": 297,
+              "sourcePixelsNotAdded": true
+            }
+          ]
+        }
+      ],
+      "halfSource": {
+        "control": 0,
+        "index": 0,
+        "sourceSHA256": "009503e805a81559bd7d3d024515d67200d4727d7647eaedea87c1139784b663",
+        "split": "train",
+        "label": "visible-material",
+        "factor": 0.5,
+        "proposal": {
+          "activeSourcePixels": 184.0,
+          "reviewedSourcePixels": 216.0,
+          "activeOpticalAreaPercent": 85.18518518518519,
+          "components": 1,
+          "largestSourceComponent": 184.0,
+          "objectHit": true
+        },
+        "finalOptical": {
+          "activeSourcePixels": 184.0,
+          "reviewedSourcePixels": 216.0,
+          "activeOpticalAreaPercent": 85.18518518518519,
+          "components": 1,
+          "largestSourceComponent": 184.0,
+          "objectHit": true
+        }
+      },
+      "attribution": "fixed-head-rejection-or-insufficient-retained-local-support",
+      "productAdmission": "unestablished: optical reference has no full-face geometry; not rejected solely for absent payload"
+    },
+    {
+      "control": 0,
+      "object": 1,
+      "sourceSHA256": "009503e805a81559bd7d3d024515d67200d4727d7647eaedea87c1139784b663",
+      "sourceSizeWH": [
+        640,
+        640
+      ],
+      "sourceCategory": "pul",
+      "split": "train",
+      "sourcePolygon": [
+        [
+          465,
+          381
+        ],
+        [
+          482,
+          383
+        ],
+        [
+          492,
+          388
+        ],
+        [
+          493,
+          395
+        ],
+        [
+          484,
+          393
+        ],
+        [
+          471,
+          389
+        ]
+      ],
+      "opticalCropOrigin": [
+        276,
+        256
+      ],
+      "opticalCropSizeWH": [
+        288,
+        288
+      ],
+      "proposal": {
+        "activeSourcePixels": 192.0,
+        "reviewedSourcePixels": 235.0,
+        "activeOpticalAreaPercent": 81.70212765957447,
+        "components": 2,
+        "largestSourceComponent": 191.0,
+        "objectHit": true
+      },
+      "finalOptical": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 235.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      },
+      "components": [
+        {
+          "componentId": 118,
+          "proposalPixelsInside": 192,
+          "headProbability": 0.42272172108552025,
+          "accepted": false,
+          "described": true,
+          "rectInOpticalCrop": [
+            177,
+            119,
+            69,
+            25
+          ],
+          "sourceRect": [
+            453.0,
+            375.0,
+            69.0,
+            25.0
+          ],
+          "cropBoxes": [
+            {
+              "x": 169,
+              "y": 89,
+              "width": 85,
+              "height": 85,
+              "sourcePixelsNotAdded": true
+            },
+            {
+              "x": 108,
+              "y": 28,
+              "width": 207,
+              "height": 207,
+              "sourcePixelsNotAdded": true
+            }
+          ]
+        }
+      ],
+      "halfSource": {
+        "control": 0,
+        "index": 1,
+        "sourceSHA256": "009503e805a81559bd7d3d024515d67200d4727d7647eaedea87c1139784b663",
+        "split": "train",
+        "label": "visible-material",
+        "factor": 0.5,
+        "proposal": {
+          "activeSourcePixels": 164.0,
+          "reviewedSourcePixels": 228.0,
+          "activeOpticalAreaPercent": 71.9298245614035,
+          "components": 2,
+          "largestSourceComponent": 160.0,
+          "objectHit": true
+        },
+        "finalOptical": {
+          "activeSourcePixels": 164.0,
+          "reviewedSourcePixels": 228.0,
+          "activeOpticalAreaPercent": 71.9298245614035,
+          "components": 2,
+          "largestSourceComponent": 160.0,
+          "objectHit": true
+        }
+      },
+      "attribution": "fixed-head-rejection-or-insufficient-retained-local-support",
+      "productAdmission": "unestablished: optical reference has no full-face geometry; not rejected solely for absent payload"
+    },
+    {
+      "control": 1,
+      "object": 0,
+      "sourceSHA256": "d6844b4eaf61b55f2b1140d3b05ff864400260a923677576b381c5fc8f10804f",
+      "sourceSizeWH": [
+        640,
+        640
+      ],
+      "sourceCategory": "pul",
+      "split": "train",
+      "sourcePolygon": [
+        [
+          370,
+          404
+        ],
+        [
+          378,
+          404
+        ],
+        [
+          379,
+          414
+        ],
+        [
+          374,
+          418
+        ],
+        [
+          370,
+          411
+        ]
+      ],
+      "opticalCropOrigin": [
+        216,
+        336
+      ],
+      "opticalCropSizeWH": [
+        288,
+        288
+      ],
+      "proposal": {
+        "activeSourcePixels": 62.0,
+        "reviewedSourcePixels": 116.0,
+        "activeOpticalAreaPercent": 53.44827586206897,
+        "components": 2,
+        "largestSourceComponent": 59.0,
+        "objectHit": true
+      },
+      "finalOptical": {
+        "activeSourcePixels": 3.0,
+        "reviewedSourcePixels": 116.0,
+        "activeOpticalAreaPercent": 2.586206896551724,
+        "components": 1,
+        "largestSourceComponent": 3.0,
+        "objectHit": false
+      },
+      "components": [
+        {
+          "componentId": 25,
+          "proposalPixelsInside": 59,
+          "headProbability": 0.36039268204537983,
+          "accepted": false,
+          "described": true,
+          "rectInOpticalCrop": [
+            130,
+            61,
+            32,
+            20
+          ],
+          "sourceRect": [
+            346.0,
+            397.0,
+            32.0,
+            20.0
+          ],
+          "cropBoxes": [
+            {
+              "x": 122,
+              "y": 47,
+              "width": 48,
+              "height": 48,
+              "sourcePixelsNotAdded": true
+            },
+            {
+              "x": 98,
+              "y": 23,
+              "width": 96,
+              "height": 96,
+              "sourcePixelsNotAdded": true
+            }
+          ]
+        },
+        {
+          "componentId": 29,
+          "proposalPixelsInside": 3,
+          "headProbability": 0.531282124689193,
+          "accepted": true,
+          "described": true,
+          "rectInOpticalCrop": [
+            153,
+            65,
+            5,
+            5
+          ],
+          "sourceRect": [
+            369.0,
+            401.0,
+            5.0,
+            5.0
+          ],
+          "cropBoxes": [
+            {
+              "x": 145,
+              "y": 57,
+              "width": 21,
+              "height": 21,
+              "sourcePixelsNotAdded": true
+            },
+            {
+              "x": 123,
+              "y": 35,
+              "width": 64,
+              "height": 64,
+              "sourcePixelsNotAdded": true
+            }
+          ]
+        }
+      ],
+      "halfSource": {
+        "control": 1,
+        "index": 0,
+        "sourceSHA256": "d6844b4eaf61b55f2b1140d3b05ff864400260a923677576b381c5fc8f10804f",
+        "split": "train",
+        "label": "visible-material",
+        "factor": 0.5,
+        "proposal": {
+          "activeSourcePixels": 56.0,
+          "reviewedSourcePixels": 124.0,
+          "activeOpticalAreaPercent": 45.16129032258065,
+          "components": 1,
+          "largestSourceComponent": 56.0,
+          "objectHit": true
+        },
+        "finalOptical": {
+          "activeSourcePixels": 0.0,
+          "reviewedSourcePixels": 124.0,
+          "activeOpticalAreaPercent": 0.0,
+          "components": 0,
+          "largestSourceComponent": 0.0,
+          "objectHit": false
+        }
+      },
+      "attribution": "fixed-head-rejection-or-insufficient-retained-local-support",
+      "productAdmission": "unestablished: optical reference has no full-face geometry; not rejected solely for absent payload"
+    },
+    {
+      "control": 1,
+      "object": 1,
+      "sourceSHA256": "d6844b4eaf61b55f2b1140d3b05ff864400260a923677576b381c5fc8f10804f",
+      "sourceSizeWH": [
+        640,
+        640
+      ],
+      "sourceCategory": "pul",
+      "split": "train",
+      "sourcePolygon": [
+        [
+          327,
+          506
+        ],
+        [
+          339,
+          502
+        ],
+        [
+          341,
+          509
+        ],
+        [
+          336,
+          514
+        ],
+        [
+          329,
+          515
+        ],
+        [
+          327,
+          511
+        ]
+      ],
+      "opticalCropOrigin": [
+        216,
+        336
+      ],
+      "opticalCropSizeWH": [
+        288,
+        288
+      ],
+      "proposal": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 148.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      },
+      "finalOptical": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 148.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      },
+      "components": [],
+      "halfSource": {
+        "control": 1,
+        "index": 1,
+        "sourceSHA256": "d6844b4eaf61b55f2b1140d3b05ff864400260a923677576b381c5fc8f10804f",
+        "split": "train",
+        "label": "visible-material",
+        "factor": 0.5,
+        "proposal": {
+          "activeSourcePixels": 84.0,
+          "reviewedSourcePixels": 152.0,
+          "activeOpticalAreaPercent": 55.26315789473684,
+          "components": 2,
+          "largestSourceComponent": 72.0,
+          "objectHit": true
+        },
+        "finalOptical": {
+          "activeSourcePixels": 84.0,
+          "reviewedSourcePixels": 152.0,
+          "activeOpticalAreaPercent": 55.26315789473684,
+          "components": 2,
+          "largestSourceComponent": 72.0,
+          "objectHit": true
+        }
+      },
+      "attribution": "proposal-below-frozen-object-hit-criterion",
+      "productAdmission": "unestablished: optical reference has no full-face geometry; not rejected solely for absent payload"
+    },
+    {
+      "control": 2,
+      "object": 1,
+      "sourceSHA256": "0272d65f420962e833342ad204630ddba048e72abc9565f745a5b1f16518d350",
+      "sourceSizeWH": [
+        458,
+        457
+      ],
+      "sourceCategory": "raw",
+      "split": "train",
+      "sourcePolygon": [
+        [
+          189,
+          155
+        ],
+        [
+          195,
+          153
+        ],
+        [
+          199,
+          154
+        ],
+        [
+          200,
+          158
+        ],
+        [
+          197,
+          161
+        ],
+        [
+          192,
+          160
+        ]
+      ],
+      "opticalCropOrigin": [
+        56,
+        16
+      ],
+      "opticalCropSizeWH": [
+        288,
+        288
+      ],
+      "proposal": {
+        "activeSourcePixels": 2.0,
+        "reviewedSourcePixels": 74.0,
+        "activeOpticalAreaPercent": 2.7027027027027026,
+        "components": 2,
+        "largestSourceComponent": 1.0,
+        "objectHit": false
+      },
+      "finalOptical": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 74.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      },
+      "components": [
+        {
+          "componentId": 67,
+          "proposalPixelsInside": 2,
+          "headProbability": 0.18591739098709123,
+          "accepted": false,
+          "described": true,
+          "rectInOpticalCrop": [
+            133,
+            132,
+            40,
+            52
+          ],
+          "sourceRect": [
+            189.0,
+            148.0,
+            40.0,
+            52.0
+          ],
+          "cropBoxes": [
+            {
+              "x": 121,
+              "y": 126,
+              "width": 64,
+              "height": 64,
+              "sourcePixelsNotAdded": true
+            },
+            {
+              "x": 75,
+              "y": 80,
+              "width": 156,
+              "height": 156,
+              "sourcePixelsNotAdded": true
+            }
+          ]
+        }
+      ],
+      "halfSource": {
+        "control": 2,
+        "index": 1,
+        "sourceSHA256": "0272d65f420962e833342ad204630ddba048e72abc9565f745a5b1f16518d350",
+        "split": "train",
+        "label": "visible-material",
+        "factor": 0.5,
+        "proposal": {
+          "activeSourcePixels": 4.0,
+          "reviewedSourcePixels": 72.0,
+          "activeOpticalAreaPercent": 5.555555555555555,
+          "components": 1,
+          "largestSourceComponent": 4.0,
+          "objectHit": false
+        },
+        "finalOptical": {
+          "activeSourcePixels": 0.0,
+          "reviewedSourcePixels": 72.0,
+          "activeOpticalAreaPercent": 0.0,
+          "components": 0,
+          "largestSourceComponent": 0.0,
+          "objectHit": false
+        }
+      },
+      "attribution": "proposal-below-frozen-object-hit-criterion",
+      "productAdmission": "unestablished: optical reference has no full-face geometry; not rejected solely for absent payload"
+    },
+    {
+      "control": 3,
+      "object": 1,
+      "sourceSHA256": "0b9cd5340ff12eaf845002e43e7424d2ac47e4e508b45adf30520760be4ec0aa",
+      "sourceSizeWH": [
+        1080,
+        1080
+      ],
+      "sourceCategory": "raw",
+      "split": "train",
+      "sourcePolygon": [
+        [
+          358,
+          609
+        ],
+        [
+          362,
+          608
+        ],
+        [
+          366,
+          612
+        ],
+        [
+          364,
+          614
+        ],
+        [
+          358,
+          612
+        ]
+      ],
+      "opticalCropOrigin": [
+        282,
+        492
+      ],
+      "opticalCropSizeWH": [
+        296,
+        296
+      ],
+      "proposal": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 40.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      },
+      "finalOptical": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 40.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      },
+      "components": [],
+      "halfSource": {
+        "control": 3,
+        "index": 1,
+        "sourceSHA256": "0b9cd5340ff12eaf845002e43e7424d2ac47e4e508b45adf30520760be4ec0aa",
+        "split": "train",
+        "label": "visible-material",
+        "factor": 0.5,
+        "proposal": {
+          "activeSourcePixels": 8.0,
+          "reviewedSourcePixels": 44.0,
+          "activeOpticalAreaPercent": 18.181818181818183,
+          "components": 2,
+          "largestSourceComponent": 4.0,
+          "objectHit": true
+        },
+        "finalOptical": {
+          "activeSourcePixels": 4.0,
+          "reviewedSourcePixels": 44.0,
+          "activeOpticalAreaPercent": 9.090909090909092,
+          "components": 1,
+          "largestSourceComponent": 4.0,
+          "objectHit": false
+        }
+      },
+      "attribution": "proposal-below-frozen-object-hit-criterion",
+      "productAdmission": "unestablished: optical reference has no full-face geometry; not rejected solely for absent payload"
+    },
+    {
+      "control": 9,
+      "object": 0,
+      "sourceSHA256": "67405a875460aa7106b0c6264ea6c74d22e71e8cf079df035163eca648e78307",
+      "sourceSizeWH": [
+        640,
+        640
+      ],
+      "sourceCategory": "pul",
+      "split": "validation",
+      "sourcePolygon": [
+        [
+          347,
+          364
+        ],
+        [
+          359,
+          364
+        ],
+        [
+          358,
+          381
+        ],
+        [
+          351,
+          384
+        ],
+        [
+          351,
+          373
+        ]
+      ],
+      "opticalCropOrigin": [
+        176,
+        266
+      ],
+      "opticalCropSizeWH": [
+        288,
+        288
+      ],
+      "proposal": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 185.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      },
+      "finalOptical": {
+        "activeSourcePixels": 0.0,
+        "reviewedSourcePixels": 185.0,
+        "activeOpticalAreaPercent": 0.0,
+        "components": 0,
+        "largestSourceComponent": 0.0,
+        "objectHit": false
+      },
+      "components": [],
+      "halfSource": {
+        "control": 9,
+        "index": 0,
+        "sourceSHA256": "67405a875460aa7106b0c6264ea6c74d22e71e8cf079df035163eca648e78307",
+        "split": "validation",
+        "label": "visible-material",
+        "factor": 0.5,
+        "proposal": {
+          "activeSourcePixels": 12.0,
+          "reviewedSourcePixels": 184.0,
+          "activeOpticalAreaPercent": 6.521739130434782,
+          "components": 3,
+          "largestSourceComponent": 4.0,
+          "objectHit": false
+        },
+        "finalOptical": {
+          "activeSourcePixels": 0.0,
+          "reviewedSourcePixels": 184.0,
+          "activeOpticalAreaPercent": 0.0,
+          "components": 0,
+          "largestSourceComponent": 0.0,
+          "objectHit": false
+        }
+      },
+      "attribution": "proposal-below-frozen-object-hit-criterion",
+      "productAdmission": "unestablished: optical reference has no full-face geometry; not rejected solely for absent payload"
+    }
+  ],
+  "unknownOutsideReviewedPolygons": true,
+  "objectHitCriterion": ">=3 active source-equivalent pixels AND >=10% of reviewed polygon; field >.04, fixed head p>=.50",
+  "heavyModelInferenceStarted": false,
+  "encoderCalls": 0,
+  "newProposalCalls": 0,
+  "headArithmetic": "single fixed standardized linear/logistic head on pinned existing features, no fit",
+  "resource": {
+    "pid": 109012,
+    "processStarted": 1792271488.6465497,
+    "executable": "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017",
+    "commandSHA256": "c56e777a6d3ddd254b4b1dc5b8c604592d4ab088976f8ad91220d169747f4622",
+    "peakMeasuredRSSMiB": 52.375,
+    "offlineAuditBudgetMiB": 250,
+    "minimumSystemReserveMiB": 650,
+    "heavyModelStartGuardMiB": 2500,
+    "heavyModelStartAttempted": false,
+    "elapsedSeconds": 2.889999999984866
+  },
+  "runtimePreservation": {
+    "createdUTC": "2026-10-17T21:13:00.464409+00:00",
+    "servingSourceCommit": "b2573b512595adc7cae86d7ab932abb318f61689",
+    "BUILD_ID": "PlmGO62XYbiAMR2PNNLGr",
+    "verifiedDeploymentFiles": 297,
+    "allDeploymentFileHashesMatched": true,
+    "launcherFiles": [
+      {
+        "name": "start_togg.pyw",
+        "sha256": "01ff15ea438eed4fb1deb0d9cad1517fa9bbba05708f01be2eb967ad8e674bab"
+      },
+      {
+        "name": "backend_host.py",
+        "sha256": "6d4a3ef747e018b8045d0e912cdf9dc01a8934ef1525ef29d8af3a0cb6ab193d"
+      }
+    ],
+    "normalRolesPreserved": 4,
+    "newBuild": false,
+    "newApiInference": false,
+    "newBrowserAcceptance": false,
+    "productionChanged": false,
+    "sourceOrderEvidence": {
+      "path": "services/core-api/local_health.py",
+      "sequence": [
+        "analyze_product(value,analyze_skin,scope.check)",
+        "replace_acne(result,value,scope.check)",
+        "finalize_product_type(result)"
+      ]
+    }
+  },
+  "remaining": [
+    "Seven optical native misses remain, including native/half instability; no threshold/model/proposal change authorized.",
+    "Same-source real capture/mesh/quality/region-map admission for these seven targets is unestablished.",
+    "SAG-01 verified same-voice neutral audio/live gate remains blocked; FINAL-01 visual/history/semantic permission acceptance remains open."
+  ]
+}
