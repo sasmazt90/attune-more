@@ -8,13 +8,15 @@ import { checkCrisisTrigger } from '@packages/safety/crisisDetector';
 import { isMicrophoneAllowed, isMentalSummarySavingAllowed, isMentalTranscriptSavingAllowed, isDemoMode } from './attuneMode';
 import { MentalHistoryItem, readMentalHistory, saveMentalHistory } from './mentalHistory';
 import { prepareHealthRecords } from './healthRecords';
+import { localBackend } from './localBackend';
 
 export type ConversationPhase = 'ready' | 'paused' | 'permission' | 'listening' | 'preparing' | 'speaking' | 'ending' | 'completed' | 'error';
 export interface ConversationMessage {
   id: string; turn: number; sender: 'USER' | 'AI'; text: string; time: string;
   timestamp?: string; completed: boolean; isCrisis?: boolean; providerBadge?: string;
 }
-const API = 'http://localhost:8000/api/mental';
+type PendingTurn={user:ConversationMessage;prior:{role:string;content:string}[]};
+const API = localBackend('/api/mental');
 const LABELS: Record<string, string> = {
   'not-allowed': 'Ses girişine izin verilmedi. Tarayıcı mikrofon iznini kontrol edin.',
   'service-not-allowed': 'Konuşma tanıma servisine izin verilmiyor.',
@@ -38,7 +40,7 @@ export function useMentalConversation(parked: boolean) {
   const [summary, setSummary] = useState<MentalHistoryItem | null>(null);
   const [provider, setProvider] = useState({ apiKeyConfigured: false, providerName: 'Yerel Kural Motoru (Demo)' });
   const runtime = useRef({ mounted: false, active: false, paused: false, pendingPause: false, pendingFinish: false, epoch: 0, turn: 0, busy: false, failed: false,
-    id: '', startedAt: '', transcript: [] as ConversationMessage[], recognition: null as any,
+    id: '', startedAt: '', transcript: [] as ConversationMessage[], pendingTurn:null as PendingTurn|null, pendingSpeech:null as {text:string;crisis:boolean}|null, recognition: null as any,
     audio: null as HTMLAudioElement | null,
     audioUrl: null as string | null, streamCancel: null as (()=>void) | null, controller: null as AbortController | null,
     restart: null as ReturnType<typeof setTimeout> | null, audioEpoch: 0, voiceWaiting: false });
@@ -78,6 +80,8 @@ export function useMentalConversation(parked: boolean) {
     if (runtime.current.pendingFinish) { runtime.current.pendingFinish = false; void finish(); return; }
     if (runtime.current.pendingPause) { pause(); return; }
     if (runtime.current.paused) { setPhase('paused'); return; }
+    if (runtime.current.pendingTurn) { const pending=runtime.current.pendingTurn;void send(pending.user.text,pending);return; }
+    if (runtime.current.pendingSpeech) { const pending=runtime.current.pendingSpeech;runtime.current.busy=true;void speak(pending.text,epoch,pending.crisis);return; }
     if (settings.current.textMode) { setPhase('ready'); return; }
     // Allow output device and recognition teardown to settle before capture starts.
     runtime.current.restart = setTimeout(() => { if (valid(epoch)) actions.current.listen(); }, 350);
@@ -85,6 +89,7 @@ export function useMentalConversation(parked: boolean) {
   function cancel(reason?: string) {
     const r = runtime.current;
     r.epoch++; r.active = false; r.busy = false; r.failed = true;
+    r.pendingTurn=null;r.pendingSpeech=null;
     cleanup();
     if (r.mounted) { setActive(false); setVoiceState('ready'); setPhase(reason ? 'error' : 'ready'); if (reason) setNotice(reason); }
   }
@@ -127,13 +132,14 @@ export function useMentalConversation(parked: boolean) {
     const r = runtime.current;
     if (!valid(epoch)) return;
     setVoiceNotice(null);
-    if (!settings.current.voiceEnabled) { if (crisis) { r.active = false; r.busy = false; setActive(false); setPhase('error'); } else resume(epoch); return; }
+    if (!settings.current.voiceEnabled) { r.pendingSpeech=null;if (crisis) { r.active = false; r.busy = false; setActive(false); setPhase('error'); } else resume(epoch); return; }
+    r.pendingSpeech={text,crisis};
     abortRecognition(); stopAudio();
     const audioEpoch = r.audioEpoch;
     const current = () => valid(epoch) && r.audioEpoch === audioEpoch;
     r.voiceWaiting = true;
-    const end = () => { if (!current()) return; timing('ended');stopAudio(); setVoiceState('ready'); if (!crisis) resume(epoch); else { r.active = false; setActive(false); setPhase('error'); } };
-    const fail = () => { if (!current()) return; timing('audio-error');stopAudio(); setVoiceState('failed'); setVoiceNotice('Microsoft tr-TR-EmelNeural seslendirmesine ulaşılamadı. Sesli yanıt başarısız. Yanıtı metin olarak okuyabilirsiniz.'); setTextMode(true); r.busy = false; setPhase('ready'); if (r.pendingFinish) { r.pendingFinish=false; void finish(); } else if (r.pendingPause) pause(); if (crisis) { r.active = false; setActive(false); setPhase('error'); } };
+    const end = () => { if (!current()) return; r.pendingSpeech=null;timing('ended');stopAudio(); setVoiceState('ready'); if (!crisis) resume(epoch); else { r.active = false; setActive(false); setPhase('error'); } };
+    const fail = () => { if (!current()) return; r.pendingSpeech=null;timing('audio-error');stopAudio(); setVoiceState('failed'); setVoiceNotice('Microsoft tr-TR-EmelNeural seslendirmesine ulaşılamadı. Sesli yanıt başarısız. Yanıtı metin olarak okuyabilirsiniz.'); setTextMode(true); r.busy = false; setPhase('ready'); if (r.pendingFinish) { r.pendingFinish=false; void finish(); } else if (r.pendingPause) pause(); if (crisis) { r.active = false; setActive(false); setPhase('error'); } };
     setVoiceState('loadingSpeech');
     {
       if (!settings.current.speechConsent) { fail(); return; }
@@ -163,16 +169,16 @@ export function useMentalConversation(parked: boolean) {
     runtime.current.transcript = [...runtime.current.transcript, message];
     setMessages(runtime.current.transcript);
   }
-  async function send(value: string) {
+  async function send(value: string, pending?:PendingTurn) {
     const r = runtime.current, epoch = r.epoch, text = value.trim();
     if (!text || !valid(epoch) || r.paused || r.busy || r.voiceWaiting || r.failed) return;
     r.busy = true; abortRecognition();
     const timestamp = new Date().toISOString();
-    const turn = ++r.turn, time = new Date(timestamp).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+    const turn = pending?pending.user.turn:++r.turn, time = pending?pending.user.time:new Date(timestamp).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
     timing('send');
-    const prior = r.transcript.filter(m => m.completed).map(m => ({ role: m.sender === 'USER' ? 'user' : 'assistant', content: m.text }));
-    const user: ConversationMessage = { id: `${r.id}-${turn}-user`, turn, sender: 'USER', text, time, timestamp, completed: false };
-    append(user); setPhase('preparing'); setNotice(null);
+    const prior = pending?pending.prior:r.transcript.filter(m => m.completed).slice(-40).map(m => ({ role: m.sender === 'USER' ? 'user' : 'assistant', content: m.text }));
+    const user: ConversationMessage = pending?pending.user:{ id: `${r.id}-${turn}-user`, turn, sender: 'USER', text, time, timestamp, completed: false };
+    r.pendingTurn={user,prior};if(!pending)append(user); setPhase('preparing'); setNotice(null);
     const crisis = checkCrisisTrigger(text, !settings.current.parked);
     const controller = new AbortController(); r.controller = controller;
     const deadline = setTimeout(() => controller.abort(), 30000);
@@ -189,6 +195,7 @@ export function useMentalConversation(parked: boolean) {
       timing('chat-response');
       if (typeof data.reply !== 'string' || !data.reply.trim()) throw new Error('Invalid reply');
       if (!isDemoMode() && !['LIVE_OPENAI', 'CRISIS_SAFETY_GUARD', 'CONVERSATION_CONTROL'].includes(data.providerType)) throw new Error('Unexpected demo reply');
+      r.pendingTurn=null;
       r.transcript = r.transcript.map(m => m.id === user.id ? { ...m, completed: true } : m);
       const badge = data.providerType === 'CONVERSATION_CONTROL' ? 'CONVERSATION_CONTROL — Görüşme kontrolü' : data.providerType === 'LIVE_OPENAI' ? 'LIVE_OPENAI — OpenAI Canlı' : data.providerType === 'CRISIS_SAFETY_GUARD' ? 'Kriz Güvenlik Filtresi' : data.providerType === 'LOCAL_DEMO_FALLBACK' ? 'LOCAL_DEMO_FALLBACK — sağlayıcıya ulaşılamadı' : 'LOCAL_DEMO — Yerel Model';
       append({ id: `${r.id}-${turn}-ai`, turn, sender: 'AI', text: data.reply, time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }), timestamp: new Date().toISOString(), completed: true, isCrisis: data.isCrisis, providerBadge: badge });
@@ -199,6 +206,7 @@ export function useMentalConversation(parked: boolean) {
       await speak(spokenText(data.reply), epoch, !!data.isCrisis);
     } catch {
       if (!valid(epoch)) return;
+      r.pendingTurn=null;
       r.failed = true; r.busy = false; setPhase('error');
       append({ id: `${r.id}-${turn}-error`, turn, sender: 'AI', text: 'İyi oluş servisine bağlantı kurulamadı. Bu mesaj için değerlendirme oluşturulamadı. Lütfen daha sonra yeniden deneyin.', time, completed: false, providerBadge: 'Servis Bağlantısı Başarısız' });
       setNotice('İyi oluş servisine bağlantı kurulamadı. Görüşme başarılı kayıt olarak sayılmadı. Lütfen görüşmeyi bitirip daha sonra yeniden deneyin.');
@@ -207,7 +215,7 @@ export function useMentalConversation(parked: boolean) {
   function start(asText = settings.current.textMode) {
     if (!settings.current.parked || runtime.current.active || !settings.current.speechConsent) return;
     cleanup(); const r = runtime.current;
-    r.epoch++; r.active = true; r.paused = false; r.pendingPause = false; r.pendingFinish = false; r.failed = false; r.busy = false; r.turn = 0; r.id = crypto.randomUUID(); r.startedAt = new Date().toISOString(); r.transcript = [];
+    r.epoch++; r.active = true; r.paused = false; r.pendingPause = false; r.pendingFinish = false; r.failed = false; r.busy = false; r.turn = 0; r.id = crypto.randomUUID(); r.startedAt = new Date().toISOString(); r.transcript = [];r.pendingTurn=null;r.pendingSpeech=null;
     settings.current.textMode = asText;
     setActive(true); setTextMode(asText); setMessages([]); setSummary(null); setNotice(null); setVoiceNotice(null); setVoiceState('ready'); setPhase('ready');
     if (!asText) listen();
@@ -217,7 +225,7 @@ export function useMentalConversation(parked: boolean) {
     if (!r.active) return;
     const failed = r.failed || r.transcript.some(m => !m.completed);
     const completed = r.transcript.filter(m => m.completed);
-    const epoch = ++r.epoch; r.active = false; r.busy = false; cleanup(); setActive(false); setPhase('ending');
+    const epoch = ++r.epoch; r.active = false; r.busy = false; r.pendingTurn=null;r.pendingSpeech=null;cleanup(); setActive(false); setPhase('ending');
     if (failed || !completed.some(m => m.sender === 'USER')) { setPhase(failed ? 'error' : 'completed'); setNotice('Boş, iptal edilmiş veya başarısız görüşme geçmişe kaydedilmedi.'); return; }
     const controller = new AbortController(); r.controller = controller;
     const deadline = setTimeout(() => controller.abort(), 30000);
@@ -230,7 +238,7 @@ export function useMentalConversation(parked: boolean) {
       if (!isDemoMode() && data.providerType !== 'LIVE_OPENAI') throw new Error('Unexpected demo summary');
       if (typeof data.summaryText !== 'string' || !data.summaryText.trim() || !Array.isArray(data.themes) || !data.themes.every((t: unknown) => typeof t === 'string')) throw new Error('Invalid summary');
       const item: MentalHistoryItem = { id: r.id, date: new Date().toISOString(), summaryText: data.summaryText, themes: data.themes,
-        moodTrend: typeof data.moodTrend === 'string' ? data.moodTrend : undefined, providerType: data.providerType, schemaVersion: 3, startedAt: r.startedAt, completedAt: new Date().toISOString(), completed: true, consented: false };
+        moodTrend: typeof data.moodTrend === 'string' ? data.moodTrend : undefined, moodTrendSource:typeof data.moodTrend==='string'?'assistant-inferred':undefined, providerType: data.providerType, schemaVersion: 3, startedAt: r.startedAt, completedAt: new Date().toISOString(), completed: true, consented: false };
       if (!isDemoMode() && isMentalSummarySavingAllowed()) {
         // This is the last operation before storage. Consent can change during analysis.
         item.consented = true;
@@ -257,7 +265,7 @@ export function useMentalConversation(parked: boolean) {
     settings.current.textMode = true; abortRecognition(); setTextMode(true);
     if (runtime.current.active && !runtime.current.busy && !runtime.current.paused) setPhase('ready');
   }
-  actions.current = { listen, cancel, send, audioOff: () => { setVoiceNotice(null); if (runtime.current.voiceWaiting) { const epoch = runtime.current.epoch; runtime.current.controller?.abort(); runtime.current.controller = null; stopAudio(); setVoiceState('ready'); resume(epoch); } } };
+  actions.current = { listen, cancel, send, audioOff: () => { setVoiceNotice(null); if (runtime.current.voiceWaiting) { const epoch = runtime.current.epoch; runtime.current.controller?.abort(); runtime.current.controller = null; runtime.current.pendingSpeech=null;stopAudio(); setVoiceState('ready'); resume(epoch); } } };
   useEffect(() => {
     const r = runtime.current; r.mounted = true;
     setHistory(readMentalHistory());

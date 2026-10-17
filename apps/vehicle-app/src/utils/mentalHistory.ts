@@ -14,6 +14,7 @@ export interface MentalHistoryItem {
   completed?: boolean;
   consented?: boolean;
   moodTrend?: string;
+  moodTrendSource?: 'assistant-inferred';
   providerType?: string;
 }
 
