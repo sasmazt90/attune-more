@@ -1,0 +1,80 @@
+{
+  "at": "2026-10-17T22:22:50.429316+00:00",
+  "task": "CARE-READY",
+  "startHEAD": "6a00f3178382cd612a5f1e0251299c663f3f1ec8",
+  "rollbackPreserved": "59ffc06a65cffa65b0baedd98161b8f63c474f30",
+  "servingSource": "b2573b512595adc7cae86d7ab932abb318f61689",
+  "BUILD_ID": "PlmGO62XYbiAMR2PNNLGr",
+  "patch": "docs\\patches\\care-ready-20261018.patch",
+  "patchSHA256": "a327deb3dce71492be86f94c4fb73134b9cf9d52151f4ef0746c57d5a87b14ac",
+  "patchApplyCheck": true,
+  "candidateFiles": [
+    {
+      "path": "services/core-api/care_provider.py",
+      "baselineSHA256": "93c81b54004457fca83f1c295d2bc69c31da9e5884cb1ad9afb0eca35038718b",
+      "candidateSHA256": "16f3a6ae83976fd2cd6aff494e6eb172192683e8246ee2a7b690e43ae6138ba9"
+    },
+    {
+      "path": "services/core-api/main.py",
+      "baselineSHA256": "8e5df792f5b3c6d69e2c9bbd59452dcd62b169b547e6daa0b85b4f3c50437048",
+      "candidateSHA256": "20a8c696395dc4d3c473a3f6b4ac35d9c4fc97821b4324bfbb37200dd1de9f63"
+    },
+    {
+      "path": "apps/vehicle-app/src/app/care/page.tsx",
+      "baselineSHA256": "15b2df7653949da235feb126d2cebeeac656bf54843b69d6c280d98e128d4a3a",
+      "candidateSHA256": "d99a880fd1ef6b555e7885ce0b433df45f549b9c5023335faad7b607f9c9fb0c"
+    },
+    {
+      "path": "apps/vehicle-app/src/utils/careLinks.ts",
+      "baselineSHA256": null,
+      "candidateSHA256": "9cfe4ad1231c5e7ab9c9f9b08d0ef8e15cc74bcc2ad9eadbf4f89843a124295e"
+    },
+    {
+      "path": "tests/unit/test_care_ready.py",
+      "baselineSHA256": null,
+      "candidateSHA256": "2de0a1c68821635a18881f28cabf64d4f11890af2981262621661ee482290ce7"
+    }
+  ],
+  "tests": {
+    "passed": 42,
+    "failed": 0,
+    "seconds": 1.698,
+    "scope": "42 changed-behavior cases; selected actual route AST; no browser/model import"
+  },
+  "frontend": {
+    "safeLinkCases": 15,
+    "safeLinksPassed": true,
+    "typecheckPassed": true,
+    "diagnostics": [],
+    "noEmit": true,
+    "stagedSources": true,
+    "browserUsed": false
+  },
+  "typecheckPeakRSSMiB": 331.7265625,
+  "productionActivated": false,
+  "productionBuildRun": false,
+  "normalCarePOSTs": 0,
+  "normalGetIdentityAndSchemaVerified": true,
+  "visualAcceptance": "OPEN FINAL-01; previous Computer Use URL boundary respected; no Playwright/CDP substitute",
+  "partnerAPIConnected": false,
+  "realAvailabilityVerified": false,
+  "publicSources": [
+    "DoktorTakvimi",
+    "Doktorsitesi",
+    "Doctolib.de"
+  ],
+  "externalData": "Official public directory verification only, no private health data",
+  "calendarConnected": false,
+  "bookingActions": 0,
+  "paidCalls": 0,
+  "protectedRuntimeFilesMatched": 297,
+  "userRecordsUnchanged": true,
+  "normalSessionOpen": true,
+  "limitations": [
+    "Candidate staged; planned combined application/build/normal API acceptance remains in FINAL-01; no new user approval is missing",
+    "Directory templates do not verify every generated city URL or live appointment",
+    "No partner API exists today",
+    "No visual/browser acceptance"
+  ],
+  "pushOrMerge": false
+}
