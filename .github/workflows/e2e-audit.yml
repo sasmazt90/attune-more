@@ -36,7 +36,7 @@ jobs:
         run: |
           npm ci
           python -m pip install -r services/core-api/requirements.txt bandit pillow
-          python -m pip install psutil==7.2.2
+          python -m pip install psutil==7.2.2 safetensors==0.7.0
           python -m pip install torch==2.9.1 torchvision==0.24.1 --index-url https://download.pytorch.org/whl/cpu
           python -m playwright install --with-deps chromium
           sudo apt-get update -qq

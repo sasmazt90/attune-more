@@ -38,7 +38,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r services/core-api/requirements.txt
         # Import-only research/math regressions; no training or model export.
-        pip install psutil==7.2.2
+        pip install psutil==7.2.2 safetensors==0.7.0
         pip install torch==2.9.1 torchvision==0.24.1 --index-url https://download.pytorch.org/whl/cpu
 
     - name: Run deterministic unit test suite
