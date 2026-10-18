@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1 -p 3000",
-    "build": "next build",
+    "build": "node ../../scripts/tooling/run_tool.cjs build",
     "start": "next start --hostname 127.0.0.1 -p 3000",
     "typecheck": "next typegen && tsc --noEmit",
-    "lint": "next lint"
+    "lint": "node ../../scripts/tooling/run_tool.cjs lint"
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "1.0.1",
