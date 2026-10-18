@@ -1,3 +1,5 @@
+from vehicle_controls import toggle_vehicle, vehicle_status
+from continuous_vision_contract import selector_contract, manual_calibration_contract
 """Behavior-level backlog regressions against the built app and actual local API."""
 import argparse
 import json
@@ -30,13 +32,21 @@ def record(name, fn):
 
 
 def enter_text(page, text):
-    if page.locator('input').count() == 0:
-        page.get_by_role('button', name='İsterseniz yazabilirsiniz', exact=True).click()
-    old_position = page.locator('[data-chat-author="AI"]').last.get_attribute('data-chat-position')
-    page.locator('input').fill(text)
-    page.locator('input').press('Enter')
-    expect(page.locator('[data-chat-author="AI"]').last).not_to_have_attribute('data-chat-position', old_position)
-    return page.locator('[data-chat-author="AI"] p').last.inner_text()
+    page.get_by_role('checkbox',name='TOGG Attune hizmet onayı',exact=True).check();page.get_by_role('button', name='İsterseniz yazabilirsiniz', exact=True).click()
+    mute=page.get_by_role('button',name='Sesli yanıtı kapat',exact=True)
+    if mute.count(): mute.click()
+    old_count=page.locator('[data-chat-author="AI"]').count()
+    box=page.get_by_role('textbox',name='Görüşme mesajı')
+    expect(box).to_be_enabled(timeout=45000)
+    box.fill(text);box.press('Enter')
+    expect(page.locator('[data-chat-author="AI"]')).to_have_count(old_count+1)
+    return page.locator('[data-chat-author="AI"]').last.locator('p').nth(1).inner_text()
+
+
+def finish_conversation(page):
+    page.get_by_role('button',name='Görüşmeyi Bitir',exact=True).click()
+    expect(page.locator('[data-conversation-phase]')).to_have_attribute('data-conversation-phase','completed')
+    page.get_by_role('dialog',name='Görüşme tamamlandı',exact=True).get_by_role('button',name='Tamam',exact=True).click()
 
 
 with sync_playwright() as pw:
@@ -113,26 +123,24 @@ with sync_playwright() as pw:
                 page = context.new_page()
                 page.add_init_script("""window.cameraStreams=[];const gum=navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);navigator.mediaDevices.getUserMedia=async(...args)=>{const stream=await gum(...args);window.cameraStreams.push(stream);return stream;};""")
                 page.goto(BASE+'/vision')
-                toggle = page.get_by_title('Sürüş ve Park modları arasında geçiş')
+                toggle = vehicle_status(page)
                 expect(toggle).to_contain_text('PARK')
-                page.get_by_role('button',name='TESTİ HAZIRLA',exact=True).click()
-                page.get_by_role('button',name='Ölçek Doğrulandı, Mesafeye Geç',exact=True).click()
+                page.get_by_role('button',name='Başlat',exact=True).click()
                 page.wait_for_function('window.cameraStreams.some(s=>s.getVideoTracks().some(t=>t.readyState==="live"))')
-                toggle.click()
+                toggle_vehicle(page)
                 expect(toggle).to_contain_text('SÜRÜŞ')
-                expect(page.get_by_role('heading',name='Görme Kontrolü Kullanılamıyor')).to_be_visible()
+                expect(page.get_by_role('button',name='Başlat',exact=True)).to_have_count(0)
                 assert page.evaluate('window.cameraStreams.every(s=>s.getTracks().every(t=>t.readyState==="ended"))')
                 driving = context.request.get(API+'/api/vehicle/state').json()
                 assert driving['vehicleMoving'] is True and driving['currentSpeed'] == 75
                 reply = context.request.post(API+'/api/mental/converse',data={'userMessage':'Bugün kitap okudum'}).json()
                 assert reply['isDriving'] is True
-                toggle.click()
+                toggle_vehicle(page)
                 expect(toggle).to_contain_text('PARK')
                 parked = context.request.get(API+'/api/vehicle/state').json()
                 assert parked['vehicleMoving'] is False and parked['currentSpeed'] == 0
-                expect(page.get_by_role('button',name='TESTİ HAZIRLA',exact=True)).to_be_visible()
-                page.get_by_role('button',name='TESTİ HAZIRLA',exact=True).click()
-                page.get_by_role('button',name='Ölçek Doğrulandı, Mesafeye Geç',exact=True).click()
+                expect(page.get_by_role('button',name='Başlat',exact=True)).to_be_enabled()
+                page.get_by_role('button',name='Başlat',exact=True).click()
                 page.wait_for_function('window.cameraStreams.some(s=>s.getVideoTracks().some(t=>t.readyState==="live"))')
                 page.get_by_role('link',name='Gizlilik & İzinler',exact=True).click()
                 page.wait_for_function('window.cameraStreams.every(s=>s.getTracks().every(t=>t.readyState==="ended"))')
@@ -151,7 +159,7 @@ with sync_playwright() as pw:
                 page.goto(BASE+'/vision')
                 notice = page.get_by_role('alert').filter(has_text='Araç durumu doğrulanamıyor')
                 expect(notice).to_be_visible()
-                assert page.get_by_role('button',name='TESTİ HAZIRLA',exact=True).count() == 0
+                expect(page.get_by_role('button',name='Başlat',exact=True)).to_have_count(0)
                 return {'actualSafetyNotice':notice.inner_text()}
             finally:
                 context.close()
@@ -162,29 +170,12 @@ with sync_playwright() as pw:
             try:
                 context.request.post(API+'/api/vehicle/speed',data={'speedKmH':0})
                 page = context.new_page()
-                page.goto(BASE+'/vision')
-                page.get_by_role('button',name='TESTİ HAZIRLA',exact=True).click()
-                page.get_by_role('button',name='Ölçek Doğrulandı, Mesafeye Geç',exact=True).click()
-                page.get_by_role('button',name='Doğrulandı, Testi Başlat',exact=True).click()
-                symbol = page.get_by_role('img',name='Görme testi simgesi',exact=True)
-                observations = []
-                for i in range(3):
-                    page.wait_for_function('document.querySelector("svg[data-logmar]").getAnimations().length === 0')
-                    observations.append(symbol.evaluate('(s)=>({width:s.getBoundingClientRect().width,logMAR:Number(s.dataset.logmar)})'))
-                    angle = symbol.evaluate("s=>parseFloat(s.style.transform.match(/rotate\(([-\\d.]+)deg\)/)[1])")
-                    title = {0:'Sağ',90:'Aşağı',180:'Sol',270:'Yukarı',-90:'Yukarı'}[angle]
-                    page.get_by_title(title,exact=True).click()
-                assert observations[-1]['width'] < observations[0]['width'], observations
-                ratio = observations[-1]['width']/observations[0]['width']
-                expected = 10 ** (observations[-1]['logMAR']-observations[0]['logMAR'])
-                assert abs(ratio-expected)<0.01, observations
-                # Touch controls retain their readable size independently of the measured stimulus.
-                assert page.get_by_title('Yukarı',exact=True).bounding_box()['height'] >= 90
-                page.screenshot(path=str(OUT/'vision-geometry.png'))
-                return observations
+                result = selector_contract(page, OUT, 'vision-continuous')
+                result['calibration'] = manual_calibration_contract(page)
+                return result
             finally:
                 context.close()
-        record('Rendered optotype geometry follows actual logMAR difficulty',geometry)
+        record('Continuous selector and physical size preserve coordinate/scale contract; measurement blocked',geometry)
     elif phase == 'mental':
         def evidence():
             context = browser.new_context()
@@ -193,19 +184,25 @@ with sync_playwright() as pw:
                 page = context.new_page()
                 page.goto(BASE+'/mental')
                 panel = page.locator('[data-mental-history]')
-                expect(panel).to_contain_text('0 kayıtlı görüşme')
+                expect(page.locator('[data-mental-record-panel]')).to_contain_text('0 kayıtlı görüşme')
                 body = page.locator('body').inner_text()
                 for invented in ['son konuşmalarımızdaki','4 Seans Analiz Edildi','%75','%60','Sabah saatlerinde odaklanma']:
                     assert invented not in body, body
                 enter_text(page,'Bugün çocukları okuldan aldım; ailece güzel zaman geçirdik.')
-                expect(panel).to_contain_text('1 kayıtlı görüşme')
+                expect(panel).to_have_count(0)  # Active right column shows the full transcript.
+                assert page.evaluate('localStorage.getItem("togg_health_mental_history")') is None
+                finish_conversation(page)
+                expect(page.locator('[data-mental-record-panel]')).to_contain_text('1 kayıtlı görüşme')
                 expect(panel).to_contain_text('sosyal ilişkiler')
                 first_history = page.evaluate('JSON.parse(localStorage.getItem("togg_health_mental_history"))')
                 assert len(first_history)==1
                 enter_text(page,'Ailemle konuşmak iyi geldi.')
-                expect(panel).to_contain_text('1 kayıtlı görüşme')
+                expect(panel).to_have_count(0)
+                assert len(page.evaluate('JSON.parse(localStorage.getItem("togg_health_mental_history"))'))==1
+                finish_conversation(page)
+                expect(page.locator('[data-mental-record-panel]')).to_contain_text('2 kayıtlı görüşme')
                 page.reload()
-                expect(panel).to_contain_text('1 kayıtlı görüşme')
+                expect(page.locator('[data-mental-record-panel]')).to_contain_text('2 kayıtlı görüşme')
                 expect(panel).to_contain_text('sosyal ilişkiler')
                 saved = page.evaluate('localStorage.getItem("togg_health_mental_history")')
                 page.route('**/api/mental/converse',lambda route:route.abort())
@@ -219,7 +216,7 @@ with sync_playwright() as pw:
                 fresh=context.browser.new_context()
                 try:
                     another=fresh.new_page();another.goto(BASE+'/mental')
-                    expect(another.locator('[data-mental-history]')).to_contain_text('0 kayıtlı görüşme')
+                    expect(another.locator('[data-mental-record-panel]')).to_contain_text('0 kayıtlı görüşme')
                 finally:
                     fresh.close()
                 return {'storedRealSummaries':json.loads(saved),'outageReply':reply,'demoSeparated':True,'newBrowserHasNoHistory':True}
@@ -236,11 +233,12 @@ with sync_playwright() as pw:
                 page.on('pageerror',lambda error:errors.append(str(error)))
                 for route in ['/','/profile']:
                     page.goto(BASE+route)
-                    expect(page.get_by_title('Sürüş ve Park modları arasında geçiş')).to_contain_text('PARK')
+                    expect(vehicle_status(page)).to_contain_text('PARK')
                     assert not errors,errors
                 page.goto(BASE+'/mental')
                 enter_text(page,'Ailemle bugün güzel vakit geçirdik.')
-                expect(page.locator('[data-mental-history]')).to_contain_text('1 kayıtlı görüşme')
+                finish_conversation(page)
+                expect(page.locator('[data-mental-record-panel]')).to_contain_text('1 kayıtlı görüşme')
                 for route in ['/','/profile']:
                     page.goto(BASE+route)
                     expect(page.get_by_text('sosyal ilişkiler',exact=True).first).to_be_visible()

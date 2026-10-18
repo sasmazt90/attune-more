@@ -1,3 +1,4 @@
+from vehicle_controls import toggle_vehicle, vehicle_status
 """Production browser regressions using decoded frames, actual MediaPipe and native permission denial."""
 import json
 import os
@@ -34,10 +35,12 @@ with sync_playwright() as pw:
 
     def scan():
         page.goto(base + '/skin')
-        page.get_by_role('button', name='Analizi Başlat', exact=True).click()
+        (page.get_by_role('button',name='Cilt taraması hakkında bilgi',exact=True).click(), page.get_by_role('checkbox',name='Üç açılı tarama',exact=True).uncheck(), page.keyboard.press('Escape'));page.get_by_role('button', name='Analizi Başlat', exact=True).click()
         page.wait_for_function('document.querySelector("canvas")?.dataset.mediapipeActive==="true" && window.__draws>2', timeout=30000)
         before = page.evaluate('window.__draws')
-        page.wait_for_timeout(600)
+        # Native inference/accepted-frame segmentation is asynchronous; require
+        # actual continuing draws without asserting a synthetic 600ms frame rate.
+        page.wait_for_function('(before)=>window.__draws>before',arg=before,timeout=10000)
         after = page.evaluate('window.__draws')
         assert after > before, (before, after)
         assert page.evaluate('window.__streams.some(s=>s.getTracks().some(t=>t.readyState==="live"))')
@@ -60,12 +63,12 @@ with sync_playwright() as pw:
     run('Second scan starts after route cleanup', scan)
 
     def driving():
-        page.get_by_title('Sürüş ve Park modları arasında geçiş').click()
+        toggle_vehicle(page)
         expect(page.get_by_text('Cilt Kontrolü Kilitlendi', exact=True)).to_be_visible()
         page.wait_for_timeout(300)
         assert page.evaluate('window.__streams.every(s=>s.getTracks().every(t=>t.readyState==="ended"))')
         assert not errors, errors
-        page.get_by_title('Sürüş ve Park modları arasında geçiş').click()
+        toggle_vehicle(page)
         expect(page.get_by_role('button', name='Analizi Başlat', exact=True)).to_be_visible()
         return {'tracksEnded': True, 'parkRestored': True}
 
@@ -77,10 +80,11 @@ with sync_playwright() as pw:
         target = session.send('Target.getTargetInfo')['targetInfo']
         session.send('Browser.setPermission', {'permission': {'name': 'microphone'}, 'setting': 'denied', 'origin': base, 'browserContextId': target['browserContextId']})
         assert page.evaluate('navigator.permissions.query({name:"microphone"}).then(p=>p.state)') == 'denied'
-        page.get_by_role('button', name='MİKROFONU BAŞLAT', exact=True).click()
+        page.get_by_role('checkbox', name='TOGG Attune hizmet onayı', exact=True).check()
+        page.get_by_role('checkbox',name='TOGG Attune hizmet onayı',exact=True).check();page.get_by_role('button', name='Görüşmeyi Başlat', exact=True).click()
         expect(page.get_by_text('Ses girişine izin verilmedi.', exact=False)).to_be_visible(timeout=15000)
-        expect(page.locator('input')).to_be_visible()
-        expect(page.get_by_role('button', name='MİKROFONU BAŞLAT', exact=True)).to_be_visible()
+        expect(page.get_by_role('textbox',name='Görüşme mesajı')).to_be_visible()
+        expect(page.get_by_role('button', name='Görüşmeyi Bitir', exact=True)).to_be_visible()
         assert not errors, errors
         return {'nativePermission': 'denied', 'visibleFallback': True}
 

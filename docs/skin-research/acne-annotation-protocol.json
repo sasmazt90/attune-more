@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "purpose": "separate future expert labels, not inferred from SCIN user category or case differential",
+  "classification": {
+    "scope": "exact individual full-face source photo",
+    "labels": [
+      "expert-confirmed-visible-acne",
+      "expert-confirmed-no-visible-acne",
+      "uncertain-or-ungradable-excluded"
+    ],
+    "required": [
+      "photoSHA256",
+      "caseId",
+      "image-level independent dermatologist agreement",
+      "visibility",
+      "beard/makeup/occlusion flags",
+      "camera/lighting condition",
+      "commercial data/model rights and consent records"
+    ],
+    "minimumPlanningTarget": "50 independent test cases each class; 60/20/20 splitting implies at least 250 cases each class before exclusions; separate webcam-domain holdout; subgroup minima remain preregistered"
+  },
+  "localization": {
+    "required": [
+      "expert per-lesion boxes or masks",
+      "expert lesion subtype",
+      "invalid/occluded pixels",
+      "confirmed non-acne hard negatives",
+      "agreement/adjudication"
+    ],
+    "forbidden": [
+      "class probability as region intensity",
+      "Grad-CAM as lesion ground truth",
+      "three pose summed counts"
+    ]
+  },
+  "severity": {
+    "required": [
+      "expert-agreed named and versioned validated grading rubric",
+      "independent expert grades and adjudication",
+      "region vs whole-face scope explicitly",
+      "separate independent severity evaluation"
+    ],
+    "forbidden": "model probability or lesion count converted to arbitrary severity percent"
+  },
+  "rights": "schema follows annotation-protocol.json; source license, derived weight license and code license are independent",
+  "productAdmission": "closed until image-specific expert targets, preregistered independent evaluation and camera-domain acceptance"
+}

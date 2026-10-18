@@ -1,0 +1,301 @@
+{
+  "baseCommit": "7d876e0bfbdeba54d85ba32b940de08c43de1422",
+  "buildId": "9DheD3msEFSOMhjMp-kK8",
+  "normalDeliveryVerified": true,
+  "buildSeconds": 65.0460000000894,
+  "priorCoreTests": 47,
+  "priorEyewearTests": 5,
+  "currentBuildTypecheckPassed": true,
+  "normalSkinHTTP": [
+    {
+      "seconds": 7.354299999952317,
+      "status": 200
+    }
+  ],
+  "controlledSourceSize": [
+    640,
+    640
+  ],
+  "controlledClearToResultSeconds": 12.969000000040978,
+  "blockedAnalysisRequests": 0,
+  "blockedHistoryRecords": 0,
+  "startClipPlayingEvents": 1,
+  "scopeComparisons": [
+    {
+      "scope": "overview",
+      "comparable": false,
+      "series": 2
+    },
+    {
+      "scope": "chin",
+      "comparable": false,
+      "series": 2
+    }
+  ],
+  "native200": {
+    "left": 16,
+    "top": 16,
+    "right": 625.6666870117188,
+    "bottom": 279.66668701171875,
+    "innerWidth": 641,
+    "innerHeight": 295,
+    "outerWidth": 1298,
+    "dpr": 3,
+    "scrollWidth": 641,
+    "panelScrollHeight": 1430,
+    "panelClientHeight": 262,
+    "bodyOverflow": "hidden"
+  },
+  "actualMapSourceCoordinates": {
+    "x": 157,
+    "y": 174,
+    "width": 257,
+    "height": 308
+  },
+  "apiMapSourceCoordinates": {
+    "x": 157,
+    "y": 174,
+    "width": 257,
+    "height": 308
+  },
+  "dryComparison": {
+    "comparison": [
+      {
+        "factor": 1.0,
+        "split": "train",
+        "before": {
+          "hits": 5,
+          "negativeSourcePixels": 30.0
+        },
+        "after": {
+          "hits": 7,
+          "negativeSourcePixels": 0.0
+        }
+      },
+      {
+        "factor": 1.0,
+        "split": "validation",
+        "before": {
+          "hits": 7,
+          "negativeSourcePixels": 0.0
+        },
+        "after": {
+          "hits": 7,
+          "negativeSourcePixels": 4.0
+        }
+      },
+      {
+        "factor": 0.5,
+        "split": "train",
+        "before": {
+          "hits": 10,
+          "negativeSourcePixels": 0.0
+        },
+        "after": {
+          "hits": 10,
+          "negativeSourcePixels": 0.0
+        }
+      },
+      {
+        "factor": 0.5,
+        "split": "validation",
+        "before": {
+          "hits": 3,
+          "negativeSourcePixels": 0.0
+        },
+        "after": {
+          "hits": 5,
+          "negativeSourcePixels": 216.0
+        }
+      }
+    ],
+    "candidateAccepted": false,
+    "newGlassesFreeAccuracyClaim": false,
+    "normalVersion": "v3",
+    "corrected24031977TargetSupport": [
+      0,
+      0
+    ],
+    "halfScaleReviewedNegativeSourcePixels": 216
+  },
+  "nativeCamera": {
+    "actualHTTP": true,
+    "rows": [
+      {
+        "source": "current-camera",
+        "status": 200,
+        "httpSeconds": 10.438000000081956,
+        "within45Seconds": true,
+        "sourceImageSize": [
+          1280,
+          960
+        ]
+      }
+    ],
+    "normalProductEnabled": false,
+    "physicalPCTrackSize": [
+      1920,
+      1080
+    ],
+    "controlledAcceptedSnapshotSize": [
+      1280,
+      960
+    ],
+    "phoneAndVehicleHardwareVerified": false
+  },
+  "sagRows": [
+    {
+      "source": "29cc4ba7b1bc0c6c483463d6d5bb5183e7b4a8e88cb3145f5f61b1de6992864b",
+      "status": "CURRENT_BROWSER_SOURCE_MEASURED",
+      "groundTruthPositive": false,
+      "measurements": {
+        "rightCheek": {
+          "value": null,
+          "reason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+          "version": "image-contour-neighbor-excursion-exterior-expression-v3-staging",
+          "unit": "percent-observed-boundary-support",
+          "observedAnatomicalSamples": 0,
+          "uniqueObservedSlots": 0,
+          "acceptedBoundarySlots": 0,
+          "trackedImageSamples": 0,
+          "acceptedSamples": 0,
+          "activeSourcePixels": 0,
+          "quality": "insufficient",
+          "expressionSupportVersion": "local-mediapipe-expression-support-v1"
+        },
+        "leftCheek": {
+          "value": null,
+          "reason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+          "version": "image-contour-neighbor-excursion-exterior-expression-v3-staging",
+          "unit": "percent-observed-boundary-support",
+          "observedAnatomicalSamples": 0,
+          "uniqueObservedSlots": 0,
+          "acceptedBoundarySlots": 0,
+          "trackedImageSamples": 0,
+          "acceptedSamples": 0,
+          "activeSourcePixels": 0,
+          "quality": "insufficient",
+          "expressionSupportVersion": "local-mediapipe-expression-support-v1"
+        },
+        "chin": {
+          "value": null,
+          "reason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+          "version": "image-contour-neighbor-excursion-exterior-expression-v3-staging",
+          "unit": "percent-observed-boundary-support",
+          "observedAnatomicalSamples": 0,
+          "uniqueObservedSlots": 0,
+          "acceptedBoundarySlots": 0,
+          "trackedImageSamples": 0,
+          "acceptedSamples": 0,
+          "activeSourcePixels": 0,
+          "quality": "insufficient",
+          "expressionSupportVersion": "local-mediapipe-expression-support-v1"
+        }
+      }
+    },
+    {
+      "source": "4d05d72be11c920b85feb0d177cd722296677cbcd4467185ba8cde825403e258",
+      "status": "CURRENT_BROWSER_SOURCE_MEASURED",
+      "groundTruthPositive": false,
+      "measurements": {
+        "rightCheek": {
+          "value": null,
+          "reason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+          "version": "image-contour-neighbor-excursion-exterior-expression-v3-staging",
+          "unit": "percent-observed-boundary-support",
+          "observedAnatomicalSamples": 0,
+          "uniqueObservedSlots": 0,
+          "acceptedBoundarySlots": 0,
+          "trackedImageSamples": 0,
+          "acceptedSamples": 0,
+          "activeSourcePixels": 0,
+          "quality": "insufficient",
+          "expressionSupportVersion": "local-mediapipe-expression-support-v1"
+        },
+        "leftCheek": {
+          "value": null,
+          "reason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+          "version": "image-contour-neighbor-excursion-exterior-expression-v3-staging",
+          "unit": "percent-observed-boundary-support",
+          "observedAnatomicalSamples": 0,
+          "uniqueObservedSlots": 0,
+          "acceptedBoundarySlots": 0,
+          "trackedImageSamples": 0,
+          "acceptedSamples": 0,
+          "activeSourcePixels": 0,
+          "quality": "insufficient",
+          "expressionSupportVersion": "local-mediapipe-expression-support-v1"
+        },
+        "chin": {
+          "value": null,
+          "reason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+          "version": "image-contour-neighbor-excursion-exterior-expression-v3-staging",
+          "unit": "percent-observed-boundary-support",
+          "observedAnatomicalSamples": 0,
+          "uniqueObservedSlots": 0,
+          "acceptedBoundarySlots": 0,
+          "trackedImageSamples": 0,
+          "acceptedSamples": 0,
+          "activeSourcePixels": 0,
+          "quality": "insufficient",
+          "expressionSupportVersion": "local-mediapipe-expression-support-v1"
+        }
+      }
+    },
+    {
+      "source": "bb911003e7170b81b6693790cfdeeaffc6925b51ea45c30d3c51abdd71d8e841",
+      "status": "NOT_CAPTURED_RESOURCE_GUARD",
+      "groundTruthPositive": false,
+      "measurements": null
+    },
+    {
+      "source": "dda61524c53bc566f349b57c1d249821d4d111d6a09f9ba823e022fcc48d207c",
+      "status": "NOT_CAPTURED_RESOURCE_GUARD",
+      "groundTruthPositive": false,
+      "measurements": null
+    },
+    {
+      "source": "ff4e7519d06944ecef4d5291c48fe5ec1f6c5f839cd0ec594f27b629d7fcd09b",
+      "status": "NOT_CAPTURED_RESOURCE_GUARD",
+      "groundTruthPositive": false,
+      "measurements": null
+    }
+  ],
+  "selectedSourceHashes": {
+    "services/core-api/local_health.py": "e54931d129e4acbaffd54c51900624e05e527438c0f6016da84f8a89aec88b42",
+    "services/core-api/appearance_analysis.py": "898df1b3114485bbee19aefb49ad05eb69bafefe14243a26900d7bee8ad8ff88",
+    "services/core-api/instant_appearance.py": "09461c956017d89e5c3c5039e51829438c09a3431b77c2b2430cfbf6105cc617",
+    "services/core-api/contour_appearance.py": "abd12cec15e03723df5894274ea3707b0432e46223ebad1adf54e7a3bcd06fce",
+    "services/core-api/skin_eyewear.py": "9c3c0a36b7757e64819775a40495b7d5c6549376c515f889c0890d924b0ce3cf",
+    "services/core-api/models/skin-eyewear-framefind-v1.onnx": "66f75c686974a04bf956d0ed6411315309afcabd36c400edec743953adafccb9",
+    "services/core-api/models/skin-focused.json": "accc9ff193030bccde572ded39b1878fc7919e33daf62f2ac560c3357a83abfb"
+  },
+  "servedJavascriptSHA256": {
+    "/_next/static/chunks/484-4eeac57d85dbea9b.js": "190904445c729dacc500b4baf5f62ce89c6b89322a5b6aabe7298d314c115b2d",
+    "/_next/static/chunks/987-e7efaa2e25847fed.js": "dd2830cddc3d1cecb34ea22e6831df6db876fe17320a06b71eab72c6417e51ca",
+    "/_next/static/chunks/948-85266d567c3bae8b.js": "4e807c0317858631a1831c7a30c82fe5932dec40da12fc8aeffb6d1aebb43a2e",
+    "/_next/static/chunks/e898b764-724e4596a1050f58.js": "fef6a31acbe42cb772fbbca3f7eaf3ecd01ab51e1db99c4d0445205eafb6214b",
+    "/_next/static/chunks/app/layout-abe85a0786eba819.js": "5c49d00af5842f3dbaac1c473382f3edfb3b8e59fa288c2c23920e6f9e7cb072",
+    "/_next/static/chunks/webpack-e04591764102906a.js": "9c2da8c1d761f11d9f34ad5d2e61897cd317074cc485cd423edaa8104332d28f",
+    "/_next/static/chunks/656-012d3387edef90f5.js": "a48c56ee67c628c04af078afb6204fe5e24dc3f02b5820aee463f65f52e7c582",
+    "/_next/static/chunks/polyfills-42372ed130431b0a.js": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+    "/_next/static/chunks/330-67f6fe29b65810ce.js": "e8db9771c4367eef515d9f6c0c8b3c37575b45f701e811e3fa5636db0517d766",
+    "/_next/static/chunks/main-app-a840178321886cc8.js": "b5b7a6a18ee7f8fe0d0fa097ccf76c3fd48ec9a33395e4c9a750baa6e550e99e",
+    "/_next/static/chunks/app/page-a0d5484df505abd5.js": "1e4bf2507b01bd0812914aac020494e9785044fba713b4f9891d4449a2fd098d",
+    "/_next/static/chunks/850-03d460badcc90bec.js": "fe19aab65e4b99652e82702538aef87e95e949da65e3a5d8ab24c4a77740cf5b",
+    "/_next/static/chunks/745-c770c7ac926c4472.js": "a1805d28a50ae9121cea6094e047539868af9c595bd51334866e345ab0afc52a",
+    "/_next/static/chunks/876-970751e242594177.js": "d84eca37ec1994232b2c9c66cdb454332f337757e3c7884b8d82d7dc504a1421",
+    "/_next/static/chunks/app/skin/page-30f7dc738c22cc8a.js": "7c414b6746805663168ecbbbefffd151edc4e3bf193cdf492f44f5567cbf4a95",
+    "/_next/static/chunks/app/profile/page-744f70289f45816d.js": "2394abab54e144a0035ae05184a9ac1fecbfb481a30dfdebe50f89783ebf8efa",
+    "/_next/static/chunks/503-68c18768f0108a30.js": "0e1d8598daa607fd93a397321999d450c799fd3e63a8b62ba94020fca019d2eb",
+    "/_next/static/chunks/852-4206d2ffa53479b5.js": "75c09a83752a0fa304ec64bf2b638383532cf1e29af9d568eec3d17251b95f7f"
+  },
+  "skinStartAudioSHA256": "46767d988f4712377ef3ea3bf42cbf3b82be28d35c0a37e5dd93225e6c73410a",
+  "frozenSourceReceiptSHA256": "88ae185cc87c9795b2390ccf6fb522153a90d3c4a2eb3d66e94817f4bcef2b07",
+  "localFullReceipt": "audit-results/material-closeout-20261013/recovery-delivery-state.json",
+  "oldRecordsRecomputed": false,
+  "AGModified": false,
+  "acneActivated": false,
+  "physicalSamePersonGlassesRemovalTest": false,
+  "phoneAndVehicleCamerasVerified": false
+}

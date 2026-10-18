@@ -1,0 +1,14 @@
+{
+  "enabled": false,
+  "provider": "roboflow",
+  "modelId": "skin-type-axavj/1",
+  "classOrder": ["normal", "dry", "oily", "combination"],
+  "requestContract": "inference-sdk-1.7.4-v0-header-auth",
+  "connectTimeoutSeconds": 3,
+  "readTimeoutSeconds": 15,
+  "maximumRequestsPerFrontCapture": 1,
+  "endpointFallback": false,
+  "requiresExplicitPhotoProcessingConsent": true,
+  "accountQuotaVerified": false,
+  "localWeightsAvailable": false
+}

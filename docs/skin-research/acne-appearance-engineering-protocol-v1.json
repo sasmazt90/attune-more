@@ -1,0 +1,16 @@
+{
+  "version": "acne-appearance-engineering-v1",
+  "scope": "Visible appearance candidates, not diagnosis, severity or dermatologist validation",
+  "clinicalProtocol": "acne-annotation-protocol.json remains unchanged and separate",
+  "requiredPhotoFields": ["photoSHA256", "sourceGroupId", "personGroupId or explicitly unknown", "rightsRecordId", "consentRecordId", "consentScope", "withdrawalRoute", "captureTime", "device", "trackSettings", "snapshotWidth", "snapshotHeight", "light", "pose", "eyewear", "quality", "captureProtocolVersion"],
+  "annotationFields": ["source-pixel box", "candidate/reviewed-negative/unknown/unmeasurable", "appearanceSubtype only when explicitly reviewed", "reviewerId", "reviewerRole", "reviewScope", "annotationVersion"],
+  "annotationPolicy": {"boxIsPixelMask": false, "unlabelledOutsideBoxes": "UNKNOWN", "pseudo401": "not real Pimple labels", "sourceMole": "reviewed confounder, never pseudo-positive", "photoLabelAppliedToEveryObject": false, "internalReviewIsDermatologist": false},
+  "rights": {"publisherDeclarationAlone": "does not verify individual rights/consent", "uncertainExistingSources": "separate private engineering regression; no redistribution or product admission claim", "newSources": "consent and rights record required before processing; no unclear download"},
+  "splitting": {"unit": "person/source-group/near-duplicate", "patchesSplitAcrossRoles": false, "seenScopeBAnd28": "exposed development/regression, not final test", "unknownPersonIdentity": "cannot claim person-disjoint evaluation"},
+  "capture": {"condition": "eyewear-free skin scan", "samePhotoRepeated": "determinism only", "repeatPhysicalCapture": "separate light/pose/distance/device study; not yet measured", "threePoseCountsSummed": false, "currentProduct": "one snapshot per pose; no multi-frame persistence claimed"},
+  "storage": {"snapshot": "volatile until separately consented local photo export", "numericHistory": "no pixels/base64", "existingConsentedPhotoHistory": "preserve", "deleteAndWithdrawal": "preserve existing product contracts"},
+  "engineeringStart": "10-20 explicitly permitted shots can start an engineering review, not sufficient sample size/general accuracy; not a prerequisite for offline coding",
+  "decision": "Recall gain without reviewed-negative FP increase, or maintained recall with FP decrease; frozen A/B, no post-result threshold sweep",
+  "firstScan": "independent candidate result if method admitted and quality valid; no personal baseline required",
+  "history": "method/normalization/capture scope form comparison key; zero baseline percent undefined, never infinity"
+}

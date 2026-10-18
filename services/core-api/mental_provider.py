@@ -20,6 +20,8 @@ Oturum Özeti Analizcisi:
 """
 
 import os
+from fastapi import HTTPException
+from openai_client import get_openai_client
 import unicodedata
 import re
 import json
@@ -53,7 +55,7 @@ class MentalConversationProvider(ABC):
         user_message: str,
         is_driving: bool,
         history: List[Dict[str, str]],
-        driver_name: str = "Ahmet Bey"
+        driver_name: str = ""
     ) -> Dict[str, Any]:
         pass
 
@@ -75,7 +77,7 @@ class LocalFallbackMentalProvider(MentalConversationProvider):
         user_message: str,
         is_driving: bool,
         history: List[Dict[str, str]],
-        driver_name: str = "Ahmet Bey"
+        driver_name: str = ""
     ) -> Dict[str, Any]:
         msg_lower = user_message.lower()
 
@@ -83,7 +85,7 @@ class LocalFallbackMentalProvider(MentalConversationProvider):
         if is_driving:
             if any(w in msg_lower for w in ["stres", "yoğun", "yorgun", "bunal", "sıkıntı"]):
                 reply = (
-                    f"Sizi dinliyorum {driver_name}. Trafikte derin bir nefes alın ve dikkatinizi yola odaklayın. "
+                    f"Sizi dinliyorum. Trafikte derin bir nefes alın ve dikkatinizi yola odaklayın. "
                     "Bu konuyu araç güvenle park edildiğinde daha ayrıntılı konuşabiliriz."
                 )
             elif any(w in msg_lower for w in ["uyku", "uyuyamıyorum", "gece", "dinlenemiyorum"]):
@@ -93,7 +95,7 @@ class LocalFallbackMentalProvider(MentalConversationProvider):
                 )
             else:
                 reply = (
-                    f"Anlıyorum {driver_name}. Şu an araç hareket halinde olduğu için dikkatinizi yoldan ayırmamanız çok önemli. "
+                    f"Anlıyorum. Şu an araç hareket halinde olduğu için dikkatinizi yoldan ayırmamanız çok önemli. "
                     "Park ettiğinizde konuşmaya devam edebiliriz."
                 )
             return {
@@ -115,20 +117,20 @@ class LocalFallbackMentalProvider(MentalConversationProvider):
 
         if "uyku düzensizliği" in detected_themes or "iş stresi" in detected_themes:
             reply = (
-                f"Paylaştığınız için teşekkür ederim {driver_name}. Bu mesajda paylaştığınız konuları dinliyorum. "
+                f"Paylaştığınız için teşekkür ederim. Bu mesajda paylaştığınız konuları dinliyorum. "
                 "Bu durum sizi zorlamaya devam ediyorsa, süreci bir uzman klinik psikologla "
                 "değerlendirmek iyi gelebilir. İsterseniz uygun uzman seçeneklerini bulabilirim."
             )
             escalation = True
         elif detected_themes:
             reply = (
-                f"Gününüzün temposunu paylaştığınız için teşekkürler {driver_name}. Kendinize biraz mola ve dinlenme alanı açmak "
+                f"Gününüzün temposunu paylaştığınız için teşekkürler. Kendinize biraz mola ve dinlenme alanı açmak "
                 "iyi bir başlangıç olabilir. Bu hissi daha önce ne zamanlar yaşadığınızı fark ediyor musunuz?"
             )
             escalation = False
         else:
             reply = (
-                f"Sizi dinliyorum {driver_name}. Paylaşmak istediğiniz duyguları veya gününüzün nasıl geçtiğini "
+                f"Sizi dinliyorum. Paylaşmak istediğiniz duyguları veya gününüzün nasıl geçtiğini "
                 "anlatabilirsiniz. Ben sizi yargılamadan dinlemek için buradayım."
             )
             escalation = False
@@ -165,14 +167,13 @@ class OpenAICompatibleMentalProvider(MentalConversationProvider):
         user_message: str,
         is_driving: bool,
         history: List[Dict[str, str]],
-        driver_name: str = "Ahmet Bey"
+        driver_name: str = ""
     ) -> Dict[str, Any]:
         try:
-            from openai import OpenAI
-            client = OpenAI(api_key=self.api_key, base_url=self.base_url)
+            client = get_openai_client(self.api_key, self.base_url)
 
             system_prompt = (
-                "Sen Togg araç içi Ruhsal İyi Oluş Asistanısın. Kullanıcı ile Türkçe, sıcak ve empatik konuşursun.\n"
+                "Sen Togg araç içi Ruh Sağlığı Asistanısın. Kullanıcı ile Türkçe, sıcak ve empatik konuşursun.\n"
                 "KESİN KURALLAR:\n"
                 "1. ASLA teşhis koyma. Psikolog, psikiyatrist veya tıp doktoru olduğunu iddia etme. İlaç yazma/önerme.\n"
                 "2. Yalnızca dinleyici ve iyi oluş destekçisisin.\n"
@@ -181,15 +182,20 @@ class OpenAICompatibleMentalProvider(MentalConversationProvider):
                     "4. Araç hareket halinde olduğundan yanıtın MAKSİMUM 2 KISA CÜMLE (en fazla 25 kelime) olmalı. "
                     "Sürücüyü ekrana baktırma, soru sorma, dikkati yola odakla.\n"
                     if is_driving
-                    else "4. Araç park halinde olduğundan kullanıcıyla derinlemesine, sakin bir diyalog kurabilirsin. "
+                    else "4. Araç park halinde. Sakin, sıcak, yargılamayan bir sohbet kur. Kullanıcının gerçek sözleri ve önceki konuşma bağlamıyla ilgili kısa yanıt ver; genellikle tek doğal takip sorusu sor. "
+                    "Kullanıcı istemedikçe numaralı tavsiye listesi, buyurganlık, yapay neşe veya tekrar üretme. Kullanıcı hakkında geçmiş, kimlik, duygu veya niyet uydurma. Belirsiz ayrılma/ara verme sözlerinde tek kısa netleştirme sorusu sor; dinlenmek istediği sonucunu çıkarma. Görüşmeyi sen duraklatamazsın; bekleme veya bitirme durumuna geçtiğini iddia etme. Kullanıcı açıkça ara vermek isterse Duraklat düğmesini kullanabileceğini söyle. "
+                    "Konuşulabilir sade metin kullan; Markdown, yıldızlar ve başlıklar yazma. Genellikle 2 kısa cümle yeterli. "
+                    "Bir yanıtta en fazla tek takip sorusu sor; aynı cümlede iki soru birleştirme. Kullanıcı yalnız paylaşım istiyorsa soru sormak zorunda değilsin. "
                     "Tekrar eden stres/uyku durumunda klinik psikolog desteğini nazikçe önerebilirsin.\n"
                 )
                 + "5. Kullanıcı kendine zarar verme veya intihar gibi akut risk içeren bir şey söylerse sohbeti kes ve 112 Acil Çağrı Merkezini ara/aramasını öner. Randevu hatlarını asla kriz için kullanma."
             )
 
-            messages = [{"role": "system", "content": system_prompt}]
-            for h in history[-4:]:
-                messages.append({"role": h.get("role", "user"), "content": h.get("content", "")})
+            from mental_context import memory_message
+            messages = [{"role": "system", "content": system_prompt}] + memory_message(getattr(self,"session_memory",[]))
+            for h in history[-40:]:
+                if h.get("role") in ("user", "assistant"):
+                    messages.append({"role": h["role"], "content": h.get("content", "")})
             messages.append({"role": "user", "content": user_message})
 
             resp = client.chat.completions.create(
@@ -207,11 +213,7 @@ class OpenAICompatibleMentalProvider(MentalConversationProvider):
                 "escalationSuggested": "psikolog" in reply_text.lower()
             }
         except Exception as e:
-            fallback = LocalFallbackMentalProvider()
-            result = fallback.generate_reply(user_message, is_driving, history, driver_name)
-            result["fallbackReason"] = str(e)
-            result["providerType"] = "LOCAL_DEMO_FALLBACK"
-            return result
+            raise HTTPException(status_code=503, detail=provider_error_category(e)) from None
 
 
 # ---------------------------------------------------------------------------
@@ -273,7 +275,7 @@ class LocalFallbackSessionAnalyzer(MentalSessionAnalyzer):
 
         summary_text = (
             f"Kullanıcı görüşmesinde öne çıkan konular: {', '.join(themes)}. "
-            f"Duygu seyri '{mood_trend}' olarak gözlendi."
+            f"Paylaşımlardaki duygu eğilimi: {MOOD_LABELS[mood_trend]}."
         )
 
         return {
@@ -282,7 +284,8 @@ class LocalFallbackSessionAnalyzer(MentalSessionAnalyzer):
             "moodTrend": mood_trend,
             "professionalSupportSuggested": support_suggested,
             "professionalSupportReason": support_reason,
-            "analyzerType": "LOCAL_FALLBACK"
+            "analyzerType": "LOCAL_FALLBACK",
+            "providerType": "LOCAL_DEMO"
         }
 
 
@@ -298,8 +301,7 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
 
     def analyze_session(self, messages: List[Dict[str, str]]) -> Dict[str, Any]:
         try:
-            from openai import OpenAI
-            client = OpenAI(api_key=self.api_key, base_url=self.base_url)
+            client = get_openai_client(self.api_key, self.base_url)
 
             prompt = (
                 "Aşağıdaki kullanıcı-asistan araç içi konuşmasını analiz et ve kesinlikle geçerli tek bir JSON nesnesi üret.\n"
@@ -312,23 +314,23 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
                 '  "professionalSupportReason": "Klinik öneri gerekçesi veya null"\n'
                 "}\n"
                 "Konuşma Geçmişi:\n"
+                + "Geçici oturum belleği (kullanıcının birebir eski alıntıları, sonraki düzeltmeler önceliklidir):\n" + json.dumps(getattr(self,"session_memory",[]),ensure_ascii=False) + "\n"
                 + "\n".join([f"{m.get('role', 'user')}: {m.get('content', '')}" for m in messages])
             )
 
             resp = client.chat.completions.create(
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}],
+                max_tokens=400,
                 temperature=0.2,
                 response_format={"type": "json_object"}
             )
             data = json.loads(resp.choices[0].message.content)
             data["analyzerType"] = "LIVE_LLM"
+            data["providerType"] = "LIVE_OPENAI"
             return data
         except Exception as e:
-            fallback = LocalFallbackSessionAnalyzer()
-            res = fallback.analyze_session(messages)
-            res["fallbackReason"] = str(e)
-            return res
+            raise HTTPException(status_code=503, detail=provider_error_category(e)) from None
 
 
 # ---------------------------------------------------------------------------
@@ -386,6 +388,23 @@ def check_mental_crisis(text: str, is_driving: bool, live_client: Optional[Any] 
         "needsEmergencyEscalation": False,
         "clinicalDisclaimer": "Bu güvenlik değerlendirmesi klinik olarak valide edilmiş bir tanı sistemi değildir."
     }
+
+
+MOOD_LABELS = {"STRESSED": "gergin", "TIRED": "yorgun", "RELAXED": "rahat", "NEUTRAL": "nötr"}
+
+
+def provider_error_category(error: Exception) -> str:
+    """Only fixed categories leave the backend; never include provider exception text."""
+    name = type(error).__name__
+    if name in ("AuthenticationError", "PermissionDeniedError"):
+        return "PROVIDER_AUTH"
+    if name == "RateLimitError":
+        return "PROVIDER_LIMIT"
+    if name in ("APITimeoutError", "TimeoutError"):
+        return "PROVIDER_TIMEOUT"
+    if name == "APIConnectionError":
+        return "PROVIDER_CONNECTION"
+    return "PROVIDER_UNAVAILABLE"
 
 
 def get_active_mental_provider() -> MentalConversationProvider:

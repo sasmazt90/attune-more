@@ -1,0 +1,24 @@
+// Admission and live-gate wiring only; no service, model or old control campaign.
+require('./ts_loader.js');
+const assert=require('node:assert/strict'),fs=require('node:fs'),crypto=require('node:crypto');
+const {admittedSkinNeutral}=require('../../apps/vehicle-app/src/utils/skinNeutralAsset.ts');
+const manifest=require('../../apps/vehicle-app/public/audio/guidance/manifest.json'),entry=manifest.entries['skin-neutral'];
+assert(admittedSkinNeutral(entry,manifest.version));
+const audio=fs.readFileSync('apps/vehicle-app/public'+entry.url);
+assert(audio.length>1000);assert.equal(crypto.createHash('sha256').update(audio).digest('hex'),entry.sha256);
+assert(!admittedSkinNeutral(undefined,manifest.version));
+for(const change of [{text:'other'},{voice:'tr-TR-EmelNeural'},{rate:'+0%'},{pitch:'+0Hz'},{contractHash:'0'.repeat(64)},{url:'/other.mp3'},{sha256:'bad'},{admission:undefined},{admission:{...entry.admission,decodedSamples:0}},{admission:{...entry.admission,durationSeconds:NaN}}])assert(!admittedSkinNeutral({...entry,...change},manifest.version));
+assert(!admittedSkinNeutral(entry,'old'));
+const page=fs.readFileSync('apps/vehicle-app/src/app/skin/page.tsx','utf8');
+assert(page.includes('skinNeutralGuidance()?lowerFaceExpressionReason(curAlign,canvas.width,canvas.height):undefined'));
+assert(page.includes('!expressionIssue &&'));assert(page.includes('aligned &&'));
+assert(page.includes('skinNeutralGuidance()):!guidanceText'));assert(page.includes('voice.issue('));
+const E=require('../../apps/vehicle-app/src/utils/skinExpression.ts'),M=require('../../apps/vehicle-app/src/utils/skinMultiAngle.ts');
+const landmarks=Array.from({length:468},()=>({x:.5,y:.5}));
+for(const [i,x,y] of [[13,.5,.6],[14,.5,.6001],[61,.4,.6],[291,.6,.6],[33,.3,.4],[263,.7,.4],[234,.2,.5],[454,.8,.5]])landmarks[i]={x,y};
+const scores=Object.fromEntries(E.EXPRESSION_FIELDS.map(k=>[k,.01]));
+assert.equal(E.lowerFaceExpressionReason({landmarks,expressionScores:scores},1920,1080),undefined);
+for(const [key,label] of [['jawOpen','OPEN_MOUTH'],['mouthSmileLeft','SMILE']])assert.equal(E.lowerFaceExpressionReason({landmarks,expressionScores:{...scores,[key]:.8}},1920,1080),'EXPRESSION_'+label);
+assert.equal(E.lowerFaceExpressionReason({landmarks},1920,1080),'EXPRESSION_SUPPORT_UNAVAILABLE');
+for(const [pose,yaw,ok] of [['FRONT',0,true],['FRONT',.4,false],['RIGHT',-.4,true],['RIGHT',.4,false],['LEFT',.4,true],['LEFT',-.4,false]])assert.equal(M.matchesSkinAngle({faceDetected:true,isMediaPipeActive:true,sourceFramed:true,yaw,pitch:0,roll:0,scaleRatio:.5},pose),ok);
+console.log('PASS exact decoded asset/hash admission; invalid contracts rejected; current neutral/expression and requested-pose capture wiring');

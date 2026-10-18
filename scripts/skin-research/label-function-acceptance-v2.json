@@ -1,0 +1,19 @@
+{
+  "version": "skin-label-function-20261011-v2",
+  "reason": "User correction: evaluate actual label type and offered function. Missing severity labels cannot fail box/mask/presence localization.",
+  "freezeScope": "Before any new final-test pixels are opened; observed development remains development.",
+  "inheritedNumericThresholds": "selected-acceptance.json selected-skin-20261011-v1 unchanged",
+  "presence": {"F1": 0.8, "precision": 0.8, "recall": 0.8, "maximumNegativeFPR": 0.05, "rationale": "New binary-presence gate reuses natural detection P/R/F1 and mask negative-FPR limits, without tuning to observed dry results."},
+  "labelFunctionMap": {
+    "skinTypeClass": ["classification: per-class F1/recall/confusion/source distribution"],
+    "lesionBox": ["detection/count: P/R/AP/matching IoU/FP/FN", "no pixel Dice or mandatory grade"],
+    "polygonOrRLE": ["localization: Dice/IoU/negative FPR on known reviewed target ROI", "outside partial labels unknown"],
+    "photoOrROIPresence": ["binary presence: P/R/F1/confusion/negative FPR", "no pixel truth or grade extrapolation"],
+    "matchedCriterionGrade": ["grade prediction only: paired MAE/rank/training-median baseline"],
+    "analyticGeometricProxy": ["versioned measured index: natural controls/repeatability/confounders/locality/meaning/limits"]
+  },
+  "stageStates": ["passed", "failed", "pending", "not_applicable"],
+  "indexRules": {"confidenceIsSeverity": false, "binaryMaskIsPixelSeverity": false, "boxIsPixelSeverity": false, "arbitraryPhotoFitAllowed": false, "measuredLocalDensityAllowed": true},
+  "training": {"weightsOptimizerRNGMustBePreserved": true, "dataScopeChangesRequireSeparatePhases": true, "negativeTilesAreIndependentNegativePhotos": false},
+  "final": {"developmentValidationIsIndependentFinal": false, "oldOpenedTestReuseAllowed": false, "separateUnusedTestPreparationRequired": true}
+}

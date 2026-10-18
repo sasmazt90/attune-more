@@ -1,0 +1,207 @@
+{
+  "schema": "skin-neutral-stream-delivery-v1",
+  "diagnosis": {
+    "atUTC": "2026-10-18T00:39:29.527333+00:00",
+    "outcome": "EXACT_CLIP_DELIVERED_NEUTRAL_GATE_TECHNICALLY_ACTIVE",
+    "priorFailureRootCauseResolved": false,
+    "priorFailureCause": "Previous raw streams absent; present same-runtime success does not establish why earlier NoAudioReceived occurred.",
+    "localSynthesisFixes": 0,
+    "dependencyOrTransportChanges": 0,
+    "currentStream": {
+      "connectionEstablished": true,
+      "speechConfigAndSSMLCompletedBySourceOrder": true,
+      "observedTextFrames": 5,
+      "observedBinaryFrames": 77,
+      "audioParserFrames": 77,
+      "yieldedAudioChunks": 76,
+      "audioBytes": 54720,
+      "closeCodes": [
+        1000
+      ],
+      "seconds": 4.375,
+      "statusCodes": [],
+      "errorClasses": []
+    },
+    "sendCountCaveat": {
+      "ssml-sent": "Repeated at async-for line on each coroutine resume/iteration; NOT repeated outbound send. Original raw metadata-only trace preserved in trace-original.json.",
+      "speech-config-sent": "Completion marker after awaited SDK send; line observation, not transport counter."
+    },
+    "outboundSendCounts": {
+      "directlyObservedWebSocketSendFrames": null,
+      "sourceInferredConfigSends": 1,
+      "sourceInferredSSMLSends": 1,
+      "basis": "One __stream connection/text chunk; source has one await send_command_request and one await send_ssml_request before inbound loop. No extra service request or changed SDK."
+    },
+    "logicalSynthesisCalls": 1,
+    "httpSends": 1,
+    "webSocketAttempts": 1,
+    "secondLogicalCall": 0,
+    "catalogueCalls": 0,
+    "asset": {
+      "atUTC": "2026-10-18T00:33:50.993273+00:00",
+      "state": "normal-shortcut-delivered-byte-verified",
+      "contract": {
+        "text": "Ağzınızı kapatın. Gülümsemeden yüzünüzü rahat bırakın; başınızı istenen pozda sabit tutun.",
+        "voice": "tr-TR-AhmetNeural",
+        "rate": "-10%",
+        "pitch": "-10Hz",
+        "textVersion": "guidance-20261009-v1"
+      },
+      "contractHash": "574b1c2f1fcd0bf4f7c597476875ac563a91959bb2fc144f1bce948156a0adaf",
+      "assetSHA256": "31bb07e63c73ecba688a7546469d70c136985f0e65e1d4ddedbcdc9f2151b970",
+      "assetBytes": 54720,
+      "source": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\skin-neutral-stream-delivery-20261018\\fixed-neutral-unadmitted.mp3",
+      "target": "apps/vehicle-app/public/audio/guidance/574b1c2f1fcd0bf4f7c597476875ac563a91959bb2fc144f1bce948156a0adaf.mp3",
+      "entry": {
+        "text": "Ağzınızı kapatın. Gülümsemeden yüzünüzü rahat bırakın; başınızı istenen pozda sabit tutun.",
+        "voice": "tr-TR-AhmetNeural",
+        "rate": "-10%",
+        "pitch": "-10Hz",
+        "textVersion": "guidance-20261009-v1",
+        "contractHash": "574b1c2f1fcd0bf4f7c597476875ac563a91959bb2fc144f1bce948156a0adaf",
+        "sha256": "31bb07e63c73ecba688a7546469d70c136985f0e65e1d4ddedbcdc9f2151b970",
+        "url": "/audio/guidance/574b1c2f1fcd0bf4f7c597476875ac563a91959bb2fc144f1bce948156a0adaf.mp3",
+        "admission": {
+          "version": "fixed-neutral-decoded-v1",
+          "codec": "mp3",
+          "sampleRate": 24000,
+          "channels": 1,
+          "durationSeconds": 9.12,
+          "decodedSamples": 218880,
+          "decodeReceiptSHA256": "29e842da99b3834eb7408ca4d230f6c88290b584adbfb08e87e02c14258a2104"
+        }
+      },
+      "atomicAdmissionPlan": "Immutable content-addressed file first (os.replace), complete manifest os.replace second; no placeholder. Build/launcher verification after focused controls.",
+      "decode": {
+        "atUTC": "2026-10-18T00:33:50.974403+00:00",
+        "fileSHA256": "31bb07e63c73ecba688a7546469d70c136985f0e65e1d4ddedbcdc9f2151b970",
+        "bytes": 54720,
+        "codec": "mp3float",
+        "sampleRate": 24000,
+        "channels": 1,
+        "decodedSamples": 218880,
+        "durationSeconds": 9.12,
+        "rms": 0.12187634562487822,
+        "peak": 0.6603760719299316,
+        "allFramesDecoded": true,
+        "nonSilent": true,
+        "textAuditionOrTranscriptionPerformed": false,
+        "meaning": "Real complete MP3 decode and nonzero waveform; input contract pinned by same synthesis. No pronunciation/physical-listening acceptance claim."
+      },
+      "logicalRequests": 1,
+      "secondRequestNeeded": false,
+      "atomicAssetThenManifest": true,
+      "manifestSHA256": "06fb9c9771026bfe21883a10b8ad2458ae3a0a5a13dca3cc8f03a3f1c234fe29",
+      "sourceCommit": "4942f3d553a1a813570ff060820190c9ffad6636",
+      "BUILD_ID": "2jbDtwhL9OHe3Smz0IZqf"
+    },
+    "gate": {
+      "source": "skinNeutralGuidance -> admittedSkinNeutral -> existing expression/pose auto-capture gates",
+      "activeInServedBundle": true,
+      "observedExpressionAndPoseThresholdsChanged": false,
+      "openMouthOrSmileOrWrongPoseWait": true,
+      "neutralRequestedPoseContinues": true,
+      "spamControl": "900ms stable / once per issue / 1200ms resolved recovery",
+      "muteCancelDrivingPermissionRoute": "Existing lifecycle reused; focused hook controls + source wiring, no live permission/UI acceptance claimed",
+      "unknownLowerFaceBackendNullPreserved": true
+    },
+    "preservation": {
+      "unchangedDeliveryPinCount": 258,
+      "previousManifestEntriesUnchanged": 32,
+      "modelWeightsAndConfigsUnchanged": true,
+      "backendSourceUnchanged": true,
+      "userDataUnchanged": true,
+      "shortcutUnchanged": true,
+      "profileReusedWithoutRestore": true,
+      "full82FileSearchRepeated": false
+    },
+    "build": {
+      "count": 1,
+      "seconds": 70.60899999999674,
+      "jobCommitLimitMiB": 3072,
+      "peakJobCommittedMiB": 886.2421875,
+      "exitCode": 0,
+      "typecheckAndLint": "Passed as phases of the one production build; preexisting warnings retained"
+    },
+    "acceptanceLimits": [
+      "No live camera/physical-listening or pronunciation acceptance",
+      "No Computer Use attempt or alternative browser/CDP; overall visual/history/semantic permission acceptance remains OPEN",
+      "No whole-sag accuracy or positive-target claim",
+      "Prior provider no-audio causal explanation remains unknown"
+    ],
+    "sourceCommit": "4942f3d553a1a813570ff060820190c9ffad6636",
+    "BUILD_ID": "2jbDtwhL9OHe3Smz0IZqf",
+    "newModelOrSkinAPICalls": 0,
+    "paidOrHostedCalls": 0,
+    "push": false,
+    "merge": false
+  },
+  "receiptIndex": [
+    {
+      "name": "request-budget.json",
+      "sha256": "84d76799911d89ba813776e3ec461245b787a9e700be169a1955d2611a47800f",
+      "bytes": 526
+    },
+    {
+      "name": "trace-original.json",
+      "sha256": "2869ffce98591420b51f2df95ce49ae6ae74a401993d57ce19af1158cd51d01b",
+      "bytes": 30373
+    },
+    {
+      "name": "trace-summary.json",
+      "sha256": "433fa9247e838d8a673606416fe40c313e2defe169dc5ccef2bcf0987395dfa7",
+      "bytes": 31037
+    },
+    {
+      "name": "decode.json",
+      "sha256": "29e842da99b3834eb7408ca4d230f6c88290b584adbfb08e87e02c14258a2104",
+      "bytes": 600
+    },
+    {
+      "name": "asset-admission.json",
+      "sha256": "58b2ec3dc64c0fe5eddda40c7dc244dc5e47e265d0e961ad0402f8259c13e189",
+      "bytes": 2803
+    },
+    {
+      "name": "focused-checks.json",
+      "sha256": "fe861bf302c53602293c7b3e2a4e2b0ce2aaa778c8011846b84b568e57478de2",
+      "bytes": 1015
+    },
+    {
+      "name": "process.json",
+      "sha256": "30b2d543abbbde9346d12c736026ea83a14bf666e3880407ca0881ea5ec937f3",
+      "bytes": 599
+    },
+    {
+      "name": "preparation-note.json",
+      "sha256": "a17c3a45acdd73f97571a2542d0ccfa12c63e28f8c999cf46b93296a6558903d",
+      "bytes": 363
+    },
+    {
+      "name": "build-job.json",
+      "sha256": "6b24a98cf2b6bc6658514d8710a358997b64fc2963d20fa6ac2cc6656e428a57",
+      "bytes": 2447
+    },
+    {
+      "name": "delivery-lifecycle.json",
+      "sha256": "75006fbd114f64f6c66610cccfa4f9df5120e6dd7c5d61b8d0952ab1012512ce",
+      "bytes": 664
+    },
+    {
+      "name": "served-chain.json",
+      "sha256": "a04b5bf031e6b5844cd944734cff7123826e7872d6ff36d132a62ec7b211ac06",
+      "bytes": 1305
+    },
+    {
+      "name": "diagnosis.json",
+      "sha256": "a247f7240249912873963eb9a2ee15f4e6cfe6367ce35eadaa9f362c482660ce",
+      "bytes": 6224
+    },
+    {
+      "name": "cleanup.json",
+      "sha256": "9fa861e0be40af0bb6c52bffa115eac741699b4fe986b064e43a0a60c66794a6",
+      "bytes": 3444
+    }
+  ],
+  "rawAudioOutsideGit": true
+}

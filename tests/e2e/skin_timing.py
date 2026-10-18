@@ -1,3 +1,4 @@
+from vehicle_controls import toggle_vehicle, vehicle_status
 """Controlled trace-on/off measurements; fixed functional assertions stay intact."""
 import json
 import os
@@ -24,9 +25,9 @@ with sync_playwright() as pw:
                 page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
                 assert context.request.post(API+'/api/vehicle/speed',data={'speedKmH':0}).ok
                 page.goto(BASE+('/skin?demo=1' if kind=='demo' else '/skin'))
-                expect(page.get_by_title('Sürüş ve Park modları arasında geçiş')).to_be_enabled()
+                expect(vehicle_status(page)).to_contain_text('PARK')
                 t0=time.perf_counter()
-                page.get_by_role('button',name='Analizi Başlat',exact=True).click()
+                (page.get_by_role('button',name='Cilt taraması hakkında bilgi',exact=True).click(), page.get_by_role('checkbox',name='Üç açılı tarama',exact=True).uncheck(), page.keyboard.press('Escape'));page.get_by_role('button',name='Analizi Başlat',exact=True).click()
                 try:
                     if kind=='demo':
                         page.wait_for_function('localStorage.getItem("attune_demo_skin_result")!==null',timeout=12000)
@@ -37,7 +38,7 @@ with sync_playwright() as pw:
                         # Do not let a never-started camera satisfy the stop assertion.
                         page.wait_for_function('window.timing.draw>0')
                         t0=time.perf_counter()
-                        page.get_by_title('Sürüş ve Park modları arasında geçiş').click(timeout=7000)
+                        toggle_vehicle(page)
                         expect(page.get_by_text('Cilt Kontrolü Kilitlendi',exact=True)).to_be_visible()
                         page.wait_for_function('window.timing.tracks.every(t=>t.readyState==="ended")')
                     row={'status':'PASS'}

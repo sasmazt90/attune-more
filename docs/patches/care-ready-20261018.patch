@@ -1,0 +1,690 @@
+--- a/services/core-api/care_provider.py
++++ b/services/core-api/care_provider.py
+@@ -21,8 +21,10 @@
+ from zoneinfo import ZoneInfo
+ import urllib.parse
+ import re
+-
+-def verified_source_slot_time(node):
++import os
++import unicodedata
++
++def verified_source_slot_time(node, source_timezone="Europe/Istanbul"):
+     """Only a complete source timestamp can establish provider availability.
+     A clock label alone has no date. This Turkish provider's naive timestamps
+     use Europe/Istanbul; the user's timezone is never substituted for it.
+@@ -34,8 +36,8 @@
+         if not isinstance(raw,str) or not re.fullmatch(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})?',raw):continue
+         try:
+             value=datetime.fromisoformat(raw.replace('Z','+00:00'))
+-            return (value.replace(tzinfo=ZoneInfo('Europe/Istanbul')) if value.tzinfo is None else value).isoformat()
+-        except ValueError:continue
++            return _aware_timestamp(raw, source_timezone).isoformat()
++        except (ValueError, TypeError):continue
+     return None
+ 
+ class CareSearchProvider(ABC):
+@@ -137,14 +139,16 @@
+     - Sadece DOM'dan gerçek müsaitlik zamanı okunabildiğinde 'LIVE_AVAILABILITY' verilir.
+     """
+     def search_slots(self, specialty: str, city: str = "İstanbul") -> Dict[str, Any]:
+-        query_encoded = urllib.parse.quote(specialty)
+-        city_encoded = urllib.parse.quote(city)
++        query_encoded = urllib.parse.quote(specialty, safe="")
++        city_encoded = urllib.parse.quote(city, safe="")
+         target_url = f"https://www.doktortakvimi.com/arama?q={query_encoded}&loc={city_encoded}"
+ 
+         extracted_providers: List[Dict[str, Any]] = []
+         is_blocked = False
++        failure_status = "EMPTY_RESULT"
+         error_message = None
+ 
++        browser = None
+         try:
+             from playwright.sync_api import sync_playwright
+             with sync_playwright() as p:
+@@ -154,10 +158,18 @@
+                 )
+                 page = context.new_page()
+                 page.set_default_timeout(7000)
++                page.set_default_navigation_timeout(7000)
+ 
+                 response = page.goto(target_url, wait_until="domcontentloaded")
+                 content = page.content().lower()
+                 title = page.title().lower()
++                if not safe_care_url(page.url, "doktortakvimi"):
++                    browser.close()
++                    return public_handoff_result(specialty, city, status="ACCESS_BLOCKED")
++                if response and response.status == 404:
++                    return public_handoff_result(specialty, city, status="EMPTY_RESULT")
++                if response and response.status >= 500:
++                    return public_handoff_result(specialty, city, status="NETWORK_ERROR")
+ 
+                 # Bot koruması veya doğrulama denetimi
+                 if (
+@@ -165,9 +177,10 @@
+                     or "access denied" in content
+                     or "just a moment" in title
+                     or "cloudflare" in content
+-                    or (response and response.status in [403, 404, 429, 503])
++                    or (response and response.status in [401, 403, 429])
+                 ):
+                     is_blocked = True
++                    failure_status = "ACCESS_BLOCKED"
+                     error_message = (
+                         "Web sitesi bot/erişim koruması (Cloudflare/CAPTCHA) tespit edildi. "
+                         "Etik otomasyon gereği bypass yapılmadı; güvenli web yönlendirmesi hazırlandı."
+@@ -186,6 +199,7 @@
+                         profile_elem = card.query_selector("a[href*='/doktor/'], a.doctor-link, a")
+                         profile_href = profile_elem.get_attribute("href") if profile_elem else ""
+                         profile_url = urllib.parse.urljoin("https://www.doktortakvimi.com", profile_href) if profile_href else target_url
++                        if not safe_care_url(profile_url, "doktortakvimi"): continue
+ 
+                         # DOM'da açıkça okunabilen takvim slotu var mı denetle
+                         slot_btn = card.query_selector(".calendar-slot, [data-qa-id='slot-button'], .btn-time")
+@@ -194,6 +208,8 @@
+                             raw_slot_text = slot_btn.inner_text().strip()
+                             source_time=verified_source_slot_time(slot_btn)
+                             extracted_providers.append({
++                                "sourceId": "doktortakvimi",
++                                "sourceTimeZone": "Europe/Istanbul",
+                                 "id": f"live-slot-{idx+1}",
+                                 "specialty": specialty,
+                                 "providerName": name,
+@@ -212,6 +228,8 @@
+                             # Hekim profili bulundu ama müsaitlik saatleri DOM'da açık değil
+                             # KESİNLİKLE SAHTE DATETIME ÜRETİLMEZ!
+                             extracted_providers.append({
++                                "sourceId": "doktortakvimi",
++                                "sourceTimeZone": "Europe/Istanbul",
+                                 "id": f"live-provider-{idx+1}",
+                                 "specialty": specialty,
+                                 "providerName": name,
+@@ -230,11 +248,16 @@
+ 
+         except Exception as e:
+             is_blocked = True
+-            error_message = f"Web otomasyon bağlantı durumu: {str(e)[:120]}"
++            failure_status = "TIMEOUT" if isinstance(e, TimeoutError) or type(e).__name__ == "TimeoutError" else "NETWORK_ERROR"
++            error_message = "Kaynak bağlantısı doğrulanamadı."
++        finally:
++            if browser:
++                try: browser.close()
++                except Exception: pass  # Driver context may already have closed it.
+ 
+         if is_blocked or not extracted_providers:
+             # Şeffaf Fallback
+-            return dict(status='FALLBACK_BLOCKED',providerType='BROWSER_NO_AVAILABILITY',sourceBadge='Canlı uygunluk doğrulanamadı',liveSearchUrl=target_url,handoffNote=error_message or 'Canlı uzman uygunluğu doğrulanamadı.',specialty=specialty,city=city,slots=[])
++            return public_handoff_result(specialty, city, status=failure_status)
+ 
+         return {
+             "status": "SUCCESS",
+@@ -307,18 +330,157 @@
+         }
+ 
+ 
+-def available_window_match(slot_iso,windows,duration_min=45,time_zone='Europe/Istanbul'):
+-    """Aware UTC interval containment; missing/unparseable real slot time stays unknown."""
+-    zone=ZoneInfo(time_zone)
+-    def aware(value):
+-        parsed=datetime.fromisoformat(value.replace('Z','+00:00'))
+-        return (parsed.replace(tzinfo=zone) if parsed.tzinfo is None else parsed).astimezone(timezone.utc)
++# Official public directory templates; no request or availability claim is made here.
++# Doctolib.de is deliberately limited to configured German cities, not an Istanbul substitute.
++CARE_SOURCES = {
++    "doktortakvimi": {"host": "www.doktortakvimi.com", "name": "DoktorTakvimi", "zone": "Europe/Istanbul", "prefix": ""},
++    "doktorsitesi": {"host": "www.doktorsitesi.com", "name": "Doktorsitesi", "zone": "Europe/Istanbul", "prefix": "/uzmanlik-alanlari"},
++    "doctolib": {"host": "www.doctolib.de", "name": "Doctolib", "zone": "Europe/Berlin", "prefix": ""},
++}
++SPECIALTY_PATHS = {
++    "Dermatoloji": ("dermatoloji", "dermatoloji", "hautarzt"),
++    "Diş Hekimliği": ("dis-hekimi", "dis-hekimi", "zahnarzt"),
++    "Göz Hastalıkları": ("goz-hastaliklari", "goz-hastaliklari", "augenarzt"),
++    "Kulak Burun Boğaz": ("kulak-burun-bogaz", "kulak-burun-bogaz-hastaliklari", "facharzt-fur-hno"),
++    "Odyoloji": ("odyoloji-dil-konusma-ve-ses-bozukluklari", "odyoloji", None),
++    "Klinik Psikoloji": ("psikoloji", "klinik-psikolog", "psychologischer-psychotherapeut-psychotherapeutin"),
++    "Psikiyatri": ("psikiyatri", "psikiyatri", "psychiatrie-und-psychotherapie"),
++}
++TR_CITIES = {"istanbul", "ankara", "izmir"}
++DE_CITIES = {"berlin", "hamburg", "muenchen", "koeln", "frankfurt"}
++
++def _slug(value):
++    value = value.translate(str.maketrans({"ı":"i", "İ":"I", "ş":"s", "Ş":"S", "ğ":"g", "Ğ":"G"}))
++    value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode().lower()
++    return re.sub(r"[^a-z0-9]+", "-", value).strip("-")
++
++def safe_care_url(value, source_id=None):
++    """Only HTTPS directory/profile links on the exact official source, no redirects."""
++    if not isinstance(value, str) or len(value)>2048 or any(ord(c)<33 for c in value) or "\\" in value: return False
+     try:
+-        intervals=[(aware(v['start']),aware(v['end'])) for v in windows]
+-        if any(b<=a for a,b in intervals):raise ValueError('INVALID_AVAILABLE_WINDOW')
+-    except (KeyError,TypeError,ValueError):raise ValueError('INVALID_AVAILABLE_WINDOW') from None
+-    if not slot_iso or not windows:return None
+-    try:start=aware(slot_iso)
+-    except (TypeError,ValueError):return None
++        u = urllib.parse.urlsplit(value)
++        if source_id is not None and not isinstance(source_id,str): return False
++        sources = [CARE_SOURCES[source_id]] if source_id in CARE_SOURCES else list(CARE_SOURCES.values()) if source_id is None else []
++        if u.scheme != "https" or u.username or u.password or u.port not in (None,443) or u.fragment: return False
++        if u.hostname not in {source["host"] for source in sources}: return False
++        path = urllib.parse.unquote(u.path)
++        if not re.fullmatch(r"/[a-zA-Z0-9_/-]*", path) or "//" in path or ".." in path: return False
++        if any(segment.lower() in {"redirect", "redirects", "out", "login", "auth", "logout"} for segment in path.split("/")): return False
++        if u.query:
++            # Legacy DoktorTakvimi public search only; no next/url/returnTo parameter.
++            q = urllib.parse.parse_qs(u.query, keep_blank_values=True)
++            if u.hostname != CARE_SOURCES["doktortakvimi"]["host"] or path != "/arama" or set(q)!={"q","loc"}: return False
++            if any(len(v)!=1 or not v[0] or "://" in v[0] for v in q.values()): return False
++        return True
++    except ValueError: return False
++
++def public_handoff_result(specialty, city, status="PUBLIC_HANDOFF"):
++    slots = []
++    paths = SPECIALTY_PATHS.get(specialty)
++    slug = _slug(city)
++    slug = {"munchen":"muenchen", "koln":"koeln"}.get(slug,slug)
++    if paths:
++        for i, (source_id, source) in enumerate(CARE_SOURCES.items()):
++            if slug not in (DE_CITIES if source_id=="doctolib" else TR_CITIES) or paths[i] is None: continue
++            url = f"https://{source['host']}{source['prefix']}/{paths[i]}/{slug}"
++            if source_id=='doktortakvimi' and specialty=='Klinik Psikoloji':
++                url = 'https://www.doktortakvimi.com/arama?' + urllib.parse.urlencode({'q':specialty,'loc':city})
++            assert safe_care_url(url, source_id)
++            slots.append(dict(id=f"public-{source_id}", sourceId=source_id, sourceTimeZone=source['zone'], specialty=specialty,
++                providerName=source['name'], title=specialty, clinicName="Branş araması", locationLabel=city,
++                isOnline=None, dateTime=None, sourceType="PUBLIC_SEARCH_ONLY", sourceBadge="Sağlayıcı araması • saat doğrulanmadı",
++                bookingUrl=url, bookingStatus="DISCOVERED_ONLY"))
++    return dict(status=status if slots else "EMPTY_RESULT", providerType="PUBLIC_HANDOFF", sourceBadge="Saat doğrulanmadı",
++        specialty=specialty, city=city, liveSearchUrl=slots[0]['bookingUrl'] if slots else None, slots=slots)
++
++class PublicCareSearchProvider(CareSearchProvider):
++    def __init__(self, status="PUBLIC_HANDOFF"): self.status=status
++    def search_slots(self, specialty, city="İstanbul"):
++        return public_handoff_result(specialty, city, self.status)
++
++# Code-owned registry: future partnership adapters must enforce their real transport
++# timeout (<=8 seconds), without retries/fallback endpoints or reservation side effects.
++# No endpoint, key, dynamic import, account connection or partner API exists today.
++PARTNER_CARE_ADAPTERS = {}
++
++class PartnerCareSearchProvider(CareSearchProvider):
++    def __init__(self, client): self.client=client
++    def search_slots(self, specialty, city="İstanbul"):
++        try:
++            result = self.client.search_slots(specialty=specialty, city=city, timeout_seconds=8)
++            if not isinstance(result,dict) or not isinstance(result.get('slots'),list):
++                return public_handoff_result(specialty,city,"SOURCE_ERROR")
++            if result.get('status') not in ('SUCCESS','EMPTY_RESULT'):
++                status = result.get('status') if result.get('status') in ('ACCESS_BLOCKED','TIMEOUT','NETWORK_ERROR') else 'SOURCE_ERROR'
++                return public_handoff_result(specialty,city,status)
++            # A successful but empty partner response remains empty, never a demo.
++            return {**result, 'status':'SUCCESS' if result['slots'] else 'EMPTY_RESULT', 'providerType':'PARTNER_API'}
++        except TimeoutError: return public_handoff_result(specialty,city,"TIMEOUT")
++        except PermissionError: return public_handoff_result(specialty,city,"ACCESS_BLOCKED")
++        except (ConnectionError,OSError): return public_handoff_result(specialty,city,"NETWORK_ERROR")
++        except Exception: return public_handoff_result(specialty,city,"SOURCE_ERROR")
++
++def get_care_provider(use_browser=True, config=None):
++    config = os.environ if config is None else config
++    mode = config.get('ATTUNE_CARE_PROVIDER','public')
++    if mode=='demo' and config.get('ATTUNE_CARE_ALLOW_DEMO')=='1' and use_browser is False: return DemoCareSearchProvider()
++    if mode=='browser': return BrowserCareSearchProvider()
++    if mode=='partner':
++        factory = PARTNER_CARE_ADAPTERS.get(config.get('ATTUNE_CARE_PARTNER',''))
++        return PartnerCareSearchProvider(factory()) if factory else PublicCareSearchProvider('CONFIGURATION_REQUIRED')
++    return PublicCareSearchProvider('PUBLIC_HANDOFF' if mode=='public' else 'CONFIGURATION_REQUIRED')
++
++_TIMESTAMP = re.compile(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})?')
++def _aware_timestamp(value, zone_name):
++    if not isinstance(value,str) or not _TIMESTAMP.fullmatch(value): raise ValueError('INVALID_TIMESTAMP')
++    parsed = datetime.fromisoformat(value.replace('Z','+00:00'))
++    if parsed.tzinfo is not None: return parsed
++    try: zone=ZoneInfo(zone_name)
++    except (KeyError,ValueError,TypeError): raise ValueError('INVALID_TIME_ZONE') from None
++    first, second = parsed.replace(tzinfo=zone,fold=0), parsed.replace(tzinfo=zone,fold=1)
++    # Missing spring time or ambiguous autumn time needs an explicit offset.
++    if first.utcoffset()!=second.utcoffset() or first.astimezone(timezone.utc).astimezone(zone).replace(tzinfo=None)!=parsed:
++        raise ValueError('AMBIGUOUS_OR_MISSING_LOCAL_TIME')
++    return first
++
++def available_window_match(slot_iso,windows,duration_min=45,time_zone='Europe/Istanbul',slot_timezone='Europe/Istanbul'):
++    """User windows use user zone; naive source timestamps use source zone, never user zone."""
++    try:
++        ZoneInfo(time_zone)
++        if type(duration_min) is not int or not 15<=duration_min<=120 or not isinstance(windows,list) or len(windows)>30: raise ValueError()
++        intervals=[(_aware_timestamp(v['start'],time_zone).astimezone(timezone.utc),_aware_timestamp(v['end'],time_zone).astimezone(timezone.utc)) for v in windows]
++        if any(b<=a for a,b in intervals): raise ValueError()
++    except (KeyError,TypeError,ValueError): raise ValueError('INVALID_AVAILABLE_WINDOW') from None
++    if not slot_iso or not windows: return None
++    try: start=_aware_timestamp(slot_iso,slot_timezone).astimezone(timezone.utc)
++    except (KeyError,TypeError,ValueError): return None
+     end=start+timedelta(minutes=duration_min)
+     return any(a<=start and end<=b for a,b in intervals)
++
++def normalize_care_slots(search_result, windows, duration, user_zone):
++    """A source row is not a verified time, calendar event or measured travel route."""
++    available_window_match(None,windows,duration,user_zone)
++    rows=[]
++    for raw in search_result.get('slots',[]):
++        if not isinstance(raw,dict) or not safe_care_url(raw.get('bookingUrl'),raw.get('sourceId')): continue
++        row=dict(raw)
++        row.setdefault('isOnline',None)
++        if row.get('sourceType') not in ('LIVE_AVAILABILITY','LIVE_PROVIDER_ONLY','PUBLIC_SEARCH_ONLY','DEMO'): continue
++        if row.get('sourceType')=='DEMO' and search_result.get('providerType')!='DEMO': continue
++        source=CARE_SOURCES.get(row.get('sourceId'))
++        demo=row.get('sourceType')=='DEMO' and search_result.get('providerType')=='DEMO'
++        source_zone=source['zone'] if source else None
++        try: date=_aware_timestamp(row.get('dateTime'),source_zone).isoformat() if row.get('sourceType')=='LIVE_AVAILABILITY' and source else None
++        except (KeyError,TypeError,ValueError): date=None
++        if demo: date=row.get('dateTime')
++        if not date and row.get('sourceType')=='LIVE_AVAILABILITY':
++            row['sourceType']='LIVE_PROVIDER_ONLY'
++            row['sourceBadge']='Hekim profili (tam tarih ve saat doğrulanmadı)'
++        row['dateTime']=date
++        if not date: row['rawExtractedTime']=None
++        fits=available_window_match(date,windows,duration,user_zone,source_zone or 'Europe/Istanbul')
++        if fits is False: continue
++        row.update(calendarConflict=None,calendarFits=fits,calendarBadge='Kullanıcının uygun zaman aralığı' if fits is not None else 'Saat doğrulanmadı',
++            travelTimeMin=None,trafficBadge=None,matchScore=None,durationMin=duration,timeZone=user_zone)
++        rows.append(row)
++    return rows
+--- a/services/core-api/main.py
++++ b/services/core-api/main.py
+@@ -207,11 +207,11 @@
+     saveMentalSummaries: StrictBool = False
+ 
+ class AppointmentMatchPayload(BaseModel):
+-    specialty: str
+-    preferredCity: Optional[str] = "İstanbul"
++    specialty: str = Field(min_length=1,max_length=120)
++    preferredCity: Optional[str] = Field(default="İstanbul",max_length=120)
+     maxTravelTimeMin: Optional[int] = 30
+     useBrowserAgent: Optional[bool] = True
+-    availableWindows: List[dict] = []
++    availableWindows: List[dict] = Field(default_factory=list,max_length=30)
+     timeZone: str = "Europe/Istanbul"
+     durationMin: int = 45
+ 
+@@ -420,37 +420,23 @@
+ calendar_provider = CalendarProvider()
+ 
+ @app.post("/api/care/match")
+-def match_appointments(payload: AppointmentMatchPayload):
++async def match_appointments(payload: AppointmentMatchPayload, request: Request):
++    from care_provider import get_care_provider, available_window_match, normalize_care_slots
++    from starlette.concurrency import run_in_threadpool
++    if vehicle_state["vehicleMoving"] or not vehicle_state["vehicleParked"]:
++        raise HTTPException(409, "PARK_REQUIRED")
++    if await request.is_disconnected(): raise HTTPException(409, "CANCELLED")
+     specialty = payload.specialty
+     city = payload.preferredCity or "İstanbul"
+-
+-    if payload.useBrowserAgent:
+-        provider = BrowserCareSearchProvider()
+-    else:
+-        provider = DemoCareSearchProvider()
+-
+-    search_result = provider.search_slots(specialty=specialty, city=city)
+-    slots = search_result.get("slots", [])
+-
+-    from care_provider import available_window_match
+-    from zoneinfo import ZoneInfo,ZoneInfoNotFoundError
+-    if not 15<=payload.durationMin<=120 or len(payload.availableWindows)>30:
+-        raise HTTPException(422,'INVALID_MATCH_WINDOW')
+-    try:ZoneInfo(payload.timeZone)
+-    except ZoneInfoNotFoundError:raise HTTPException(422,'INVALID_TIME_ZONE') from None
+-    try:available_window_match(None,payload.availableWindows,payload.durationMin,payload.timeZone)
+-    except ValueError:raise HTTPException(422,'INVALID_MATCH_WINDOW') from None
+-    processed_slots=[]
+-    for slot in slots:
+-        date_time_str=slot.get('dateTime','')
+-        try:fits=available_window_match(date_time_str,payload.availableWindows,payload.durationMin,payload.timeZone)
+-        except ValueError:raise HTTPException(422,'INVALID_MATCH_WINDOW') from None
+-        if fits is False:continue
+-        demo=slot.get('sourceType')=='DEMO'
+-        conflict=calendar_provider.has_conflict(date_time_str,payload.durationMin) if demo and date_time_str else None
+-        travel=TravelTimeProvider.calculate_travel_time_min(slot.get('locationLabel',''))
+-        processed_slots.append({**slot,'calendarConflict':conflict,'calendarFits':fits,'calendarBadge':'Kullanıcının uygun zaman aralığı' if fits is not None else 'Saat doğrulanmadı',
+-                                'travelTimeMin':travel['estimatedMinutes'],'trafficBadge':travel['trafficBadge'],'matchScore':None,'durationMin':payload.durationMin,'timeZone':payload.timeZone})
++    # Reject invalid manual windows before any provider/network side effect.
++    try: available_window_match(None,payload.availableWindows,payload.durationMin,payload.timeZone)
++    except ValueError: raise HTTPException(422,'INVALID_MATCH_WINDOW') from None
++    provider=get_care_provider(payload.useBrowserAgent)
++    search_result = await run_in_threadpool(provider.search_slots,specialty=specialty,city=city)
++    if await request.is_disconnected(): raise HTTPException(409, "CANCELLED")
++    if vehicle_state["vehicleMoving"] or not vehicle_state["vehicleParked"]:
++        raise HTTPException(409, "PARK_REQUIRED")
++    processed_slots = normalize_care_slots(search_result,payload.availableWindows,payload.durationMin,payload.timeZone)
+ 
+     return {
+         "status": search_result.get("status", "SUCCESS"),
+@@ -461,7 +447,7 @@
+         "handoffNote": search_result.get("handoffNote"),
+         "liveSearchUrl": search_result.get("liveSearchUrl"),
+         "matchedSlots": processed_slots,
+-        "currentTravelBufferMin": vehicle_state["estimatedTravelTimeToDestMin"]
++        "currentTravelBufferMin": None
+     }
+ 
+ # ---------------------------------------------------------------------------
+--- a/apps/vehicle-app/src/app/care/page.tsx
++++ b/apps/vehicle-app/src/app/care/page.tsx
+@@ -1,5 +1,6 @@
+ 'use client';
+ import {localBackend} from '../../utils/localBackend';
++import {safeCareBookingUrl} from '../../utils/careLinks';
+ import { HEALTH_MODULES,HEALTH_MODULE_IDS,HealthModule } from '../../utils/healthModules';
+ 
+ import { InformationButton } from '../../components/InformationButton';
+@@ -34,11 +35,11 @@
+   title: string;
+   clinicName: string;
+   locationLabel: string;
+-  isOnline: boolean;
++  isOnline: boolean|null;
+   dateTime?: string;
+   displayTime?: string;
+-  travelTimeMin: number;
+-  calendarConflict: boolean;
++  travelTimeMin: number|null;
++  calendarConflict: boolean|null;
+   sourceBadge: string;
+   matchScore: number|null;
+   calendarFits?:boolean|null;
+@@ -94,6 +95,9 @@
+ 
+   const fetchAppointments = useCallback(async (specialty: string, controller: AbortController, generation: number) => {
+     setLoading(true); setSlots([]); setSearchNotice(null);
++    if (Boolean(availableStart) !== Boolean(availableEnd) || (availableStart && availableEnd <= availableStart)) {
++      setSearchNotice('Uygun zaman başlangıcını ve bitişini kontrol edin.'); setLoading(false); return;
++    }
+     const deadline = setTimeout(() => controller.abort(), 12000);
+     try {
+       const res = await fetch(localBackend('/api/care/match'), {
+@@ -111,9 +115,9 @@
+ 
+       if (res.ok) {
+         const data = await res.json();
+-        if (generation !== searchGeneration.current) return;
+-        if (data.status === 'FALLBACK_BLOCKED') setSearchNotice('Canlı uzman uygunluğu doğrulanamadı. Branşa ait sağlayıcı aramasını açabilirsiniz.');
+-        setSlots((data.matchedSlots || []).map((slot:CareSlot)=>({...slot,displayTime:slot.dateTime&&Number.isFinite(Date.parse(slot.dateTime))?new Date(slot.dateTime).toLocaleString('tr-TR',{timeZone:timezone,dateStyle:'short',timeStyle:'short'}):'Saati sağlayıcıda doğrulayın'})));
++        if (controller.signal.aborted || generation !== searchGeneration.current) return;
++        if (!['SUCCESS', 'PUBLIC_HANDOFF'].includes(data.status)) setSearchNotice('Canlı uzman uygunluğu doğrulanamadı. Branşa ait sağlayıcı aramasını açabilirsiniz.');
++        setSlots((data.matchedSlots || []).filter((slot:CareSlot)=>safeCareBookingUrl(slot.bookingUrl)).map((slot:CareSlot)=>({...slot,displayTime:slot.dateTime&&Number.isFinite(Date.parse(slot.dateTime))?new Date(slot.dateTime).toLocaleString('tr-TR',{timeZone:timezone,dateStyle:'short',timeStyle:'short'}):'Saati sağlayıcıda doğrulayın'})));
+       } else {
+         throw new Error('API Hatası');
+       }
+@@ -129,14 +133,15 @@
+ 
+   const invalidateSearch = () => { searchGeneration.current++; activeSearch.current?.abort(); activeSearch.current = null; };
+   useEffect(() => {
++    if (!isParked) { invalidateSearch(); setSlots([]); setLoading(false); return; }
+     const controller = new AbortController(); activeSearch.current = controller;
+     const generation = ++searchGeneration.current;
+     void fetchAppointments(selectedSpecialty, controller, generation);
+     return () => { invalidateSearch(); controller.abort(); };
+-  }, [selectedSpecialty,fetchAppointments]);
++  }, [selectedSpecialty,fetchAppointments,isParked]);
+ 
+   const filteredSlots = slots.filter((slot) => {
+-    if (filterType === 'IN_PERSON') return !slot.isOnline;
++    if (filterType === 'IN_PERSON') return slot.isOnline === false;
+     if (filterType === 'ONLINE') return slot.isOnline;
+     return true;
+   });
+@@ -274,7 +279,7 @@
+                   Uzman seçeneği
+                 </span>
+                 <span className="px-2.5 py-1 rounded-full bg-slate-900 text-slate-300 border border-slate-800 text-[10px] font-mono">
+-                  {featuredSlot.isOnline ? 'Online Görüşme' : 'Yüz Yüze Muayene'}
++                  {featuredSlot.isOnline === null ? 'Uzman seçeneği' : featuredSlot.isOnline ? 'Online Görüşme' : 'Yüz Yüze Muayene'}
+                 </span>
+                 <span className="px-2 py-0.5 rounded bg-white/5 text-slate-400 text-[10px] font-mono">
+                   {featuredSlot.sourceBadge}
+@@ -298,7 +303,7 @@
+ 
+                 <span className="flex items-center gap-1.5">
+                   <Car className="w-4 h-4 text-togg-turquoise" />
+-                  <span>{featuredSlot.isOnline ? 'Ulaşım gerektirmez (çevrimiçi)' : `Örnek ulaşım: ${featuredSlot.travelTimeMin} dk`}</span>
++                  <span>{featuredSlot.isOnline === true ? 'Ulaşım gerektirmez (çevrimiçi)' : featuredSlot.travelTimeMin === null ? null : `Örnek ulaşım: ${featuredSlot.travelTimeMin} dk`}</span>
+                 </span>
+ 
+                 <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
+@@ -325,7 +330,7 @@
+                 </button>
+ 
+                 <a
+-                  href={featuredSlot.bookingUrl || 'https://www.doktortakvimi.com'}
++                  href={safeCareBookingUrl(featuredSlot.bookingUrl)}
+                   target="_blank"
+                   rel="noreferrer"
+                   className="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 transition-colors"
+@@ -356,7 +361,7 @@
+                   <div className="flex items-center justify-between">
+                     <span className="text-base font-bold text-white">{slot.providerName}</span>
+                     <span className="text-[10px] px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400 font-mono">
+-                      {slot.isOnline ? 'Online' : 'Yüz Yüze'}
++                      {slot.isOnline === null ? 'Uzman seçeneği' : slot.isOnline ? 'Online' : 'Yüz Yüze'}
+                     </span>
+                   </div>
+ 
+@@ -369,7 +374,7 @@
+                   <div className="flex items-center gap-3 text-xs text-slate-300 pt-1">
+                     <span className="text-togg-turquoise font-mono font-bold">{slot.displayTime}</span>
+                     <span className="text-slate-600">•</span>
+-                    <span>{slot.isOnline ? 'Online' : `Örnek ulaşım: ${slot.travelTimeMin} dk`}</span>
++                    <span>{slot.isOnline === true ? 'Online' : slot.travelTimeMin === null ? null : `Örnek ulaşım: ${slot.travelTimeMin} dk`}</span>
+                   </div>
+                 </div>
+ 
+@@ -487,7 +492,7 @@
+               Kapat
+             </button>
+             <a
+-              href={selectedSlot.bookingUrl || 'https://www.doktortakvimi.com'}
++              href={safeCareBookingUrl(selectedSlot.bookingUrl)}
+               target="_blank"
+               rel="noreferrer"
+               className="py-2.5 px-6 rounded-xl bg-togg-turquoise hover:bg-[#33D0EE] text-togg-darkBlue font-bold text-xs flex items-center gap-1.5 shadow-md"
+--- /dev/null
++++ b/apps/vehicle-app/src/utils/careLinks.ts
+@@ -0,0 +1,19 @@
++/** Exact public source boundary; not proof of a booking or live availability. */
++export function safeCareBookingUrl(value: unknown): string | undefined {
++  if (typeof value !== 'string' || value.length > 2048 || /[\s\\]/.test(value)) return undefined;
++  try {
++    const url = new URL(value);
++    if (url.protocol !== 'https:' || url.username || url.password || url.port || url.hash ||
++        !['www.doktortakvimi.com','www.doktorsitesi.com','www.doctolib.de'].includes(url.hostname)) return undefined;
++    const path = decodeURIComponent(value.match(/^https:\/\/[^/?#]+([^?#]*)/i)?.[1] || '/');
++    if (!/^\/[a-zA-Z0-9_/-]*$/.test(path) || path.includes('//') || path.includes('..') ||
++        path.split('/').some(p=>['redirect','redirects','out','login','auth','logout'].includes(p.toLowerCase()))) return undefined;
++    if (url.search) {
++      const keys=Array.from(url.searchParams.keys());
++      if (url.hostname !== 'www.doktortakvimi.com' || path !== '/arama' || keys.length !== 2 ||
++          !keys.includes('q') || !keys.includes('loc') ||
++          keys.some(key=>!url.searchParams.get(key) || url.searchParams.get(key)!.includes('://'))) return undefined;
++    }
++    return value;
++  } catch { return undefined; }
++}
+--- /dev/null
++++ b/tests/unit/test_care_ready.py
+@@ -0,0 +1,176 @@
++"""Finite CARE contract tests: actual route AST, no app/model import or external I/O."""
++import ast
++import asyncio
++from pathlib import Path
++import sys
++from typing import List, Optional
++import pytest
++from fastapi import FastAPI, HTTPException, Request
++from fastapi.testclient import TestClient
++from pydantic import BaseModel, Field
++
++ROOT=Path(__file__).resolve().parents[2]
++sys.path.insert(0,str(ROOT/'services/core-api'))
++import care_provider as cp
++
++WINDOW=[{'start':'2026-10-20T09:00','end':'2026-10-20T10:00'}]
++
++def live_row(**changes):
++    return dict(id='fixture-source-time',providerName='Declared contract fixture',
++        bookingUrl='https://www.doktortakvimi.com/dermatoloji/istanbul',
++        sourceId='doktortakvimi',sourceType='LIVE_AVAILABILITY',dateTime='2026-10-20T10:00',**changes)
++
++def test_public_links_keep_source_specialty_city_without_claiming_slot():
++    for specialty in cp.SPECIALTY_PATHS:
++        rows=cp.public_handoff_result(specialty,'İstanbul')['slots']
++        assert len(rows)==2
++        assert all(('/istanbul' in row['bookingUrl'] or 'loc=%C4%B0stanbul' in row['bookingUrl']) and row['sourceId']!='doctolib' for row in rows)
++        result=cp.normalize_care_slots({'slots':rows},WINDOW,45,'Europe/Berlin')
++        assert all(row['calendarFits'] is None and row['dateTime'] is None and row['travelTimeMin'] is None for row in result)
++    rows=cp.public_handoff_result('Dermatoloji','Berlin')['slots']
++    assert len(rows)==1 and rows[0]['bookingUrl']=='https://www.doctolib.de/hautarzt/berlin'
++    assert cp.public_handoff_result('Unknown','İstanbul')['status']=='EMPTY_RESULT'
++    assert cp.public_handoff_result('Dermatoloji','Unknown city')['slots']==[]
++
++@pytest.mark.parametrize('url',[
++    'https://www.doktortakvimi.com/dermatoloji/istanbul',
++    'https://www.doktorsitesi.com/uzmanlik-alanlari/dermatoloji/istanbul',
++    'https://www.doctolib.de/hautarzt/berlin',
++    'https://www.doktortakvimi.com/arama?q=G%C3%B6z%20Hastal%C4%B1klar%C4%B1&loc=%C4%B0stanbul',
++])
++def test_safe_public_links(url): assert cp.safe_care_url(url)
++
++@pytest.mark.parametrize('url',[
++    'http://www.doktortakvimi.com/dermatoloji/istanbul',
++    'https://www.doktortakvimi.com.evil.test/profile',
++    'https://www.doktortakvimi.com@evil.test/profile',
++    'https://www.doktortakvimi.com/redirect?url=https://evil.test',
++    'https://www.doktortakvimi.com/profile?next=https://evil.test',
++    'https://www.doktortakvimi.com/%2f%2fevil',
++    'https://www.doktortakvimi.com/a/../out',
++    'https://www.doktortakvimi.com:8000/profile',
++    'javascript:alert(1)', '//evil.test/path', None,
++])
++def test_unsafe_or_redirect_links_rejected(url): assert not cp.safe_care_url(url)
++
++def test_url_source_identity_cannot_be_substituted():
++    assert not cp.safe_care_url('https://www.doctolib.de/hautarzt/berlin','doktortakvimi')
++    assert not cp.safe_care_url('https://www.doctolib.de/hautarzt/berlin',{})
++
++def test_naive_provider_time_uses_source_not_user_timezone():
++    # 10:00 Istanbul = 09:00 Berlin on this date; whole 45 minutes fits.
++    assert cp.available_window_match('2026-10-20T10:00',WINDOW,45,'Europe/Berlin') is True
++    assert cp.available_window_match('2026-10-20T09:00',WINDOW,45,'Europe/Berlin') is False
++    rows=cp.normalize_care_slots({'slots':[live_row()]},WINDOW,45,'Europe/Berlin')
++    assert rows[0]['dateTime']=='2026-10-20T10:00:00+03:00' and rows[0]['calendarFits'] is True
++    assert rows[0]['calendarConflict'] is None and rows[0]['matchScore'] is None
++
++@pytest.mark.parametrize('windows',[
++    [{'start':'bad','end':'bad'}], [{'start':'2026-10-20','end':'2026-10-21'}],
++    [{'start':'2026-10-20T10:00','end':'2026-10-20T09:00'}], [{}],
++    [{'start':'2026-10-25T02:15','end':'2026-10-25T04:00'}],
++    [{'start':'2026-03-29T02:15','end':'2026-03-29T04:00'}], None,
++])
++def test_invalid_or_ambiguous_user_windows_never_match(windows):
++    with pytest.raises(ValueError): cp.available_window_match(None,windows,45,'Europe/Berlin')
++
++@pytest.mark.parametrize('value',['09:00','2026-10-20','2026-02-30T09:00',None])
++def test_bad_source_timestamp_downgrades_to_profile_not_fitting_slot(value):
++    row=live_row();row['dateTime']=value
++    out=cp.normalize_care_slots({'slots':[row]},WINDOW,45,'Europe/Berlin')[0]
++    assert out['dateTime'] is None and out['calendarFits'] is None and out['sourceType']=='LIVE_PROVIDER_ONLY'
++
++def test_profile_cannot_claim_a_date_and_missing_window_remains_unknown():
++    row=live_row();row['sourceType']='LIVE_PROVIDER_ONLY'
++    assert cp.normalize_care_slots({'slots':[row]},WINDOW,45,'Europe/Berlin')[0]['dateTime'] is None
++    assert cp.available_window_match('2026-10-20T10:00',[],45,'Europe/Berlin') is None
++
++def test_dom_time_requires_complete_timestamp_and_explicit_source_timezone():
++    class Node:
++        def __init__(self,value): self.value=value
++        def get_attribute(self,key): return self.value if key=='datetime' else None
++        def query_selector(self,key): return None
++    assert cp.verified_source_slot_time(Node('2026-10-20T09:00'),'Europe/Berlin')=='2026-10-20T09:00:00+02:00'
++    assert cp.verified_source_slot_time(Node('2026-10-20T09:00'))=='2026-10-20T09:00:00+03:00'
++    assert cp.verified_source_slot_time(Node('09:00')) is None
++    assert cp.verified_source_slot_time(Node('2026-02-30T09:00')) is None
++
++def test_missing_partner_configuration_preserves_public_handoff_no_demo():
++    result=cp.get_care_provider(config={'ATTUNE_CARE_PROVIDER':'partner'}).search_slots('Dermatoloji')
++    assert result['status']=='CONFIGURATION_REQUIRED' and result['slots']
++    assert all(row['sourceType']=='PUBLIC_SEARCH_ONLY' for row in result['slots'])
++    assert isinstance(cp.get_care_provider(False,config={}),cp.PublicCareSearchProvider)
++    assert not isinstance(cp.get_care_provider(False,config={'ATTUNE_CARE_PROVIDER':'demo'}),cp.DemoCareSearchProvider)
++    assert isinstance(cp.get_care_provider(False,config={'ATTUNE_CARE_PROVIDER':'demo','ATTUNE_CARE_ALLOW_DEMO':'1'}),cp.DemoCareSearchProvider)
++
++@pytest.mark.parametrize('error,status',[(TimeoutError,'TIMEOUT'),(ConnectionError,'NETWORK_ERROR'),(PermissionError,'ACCESS_BLOCKED')])
++def test_partner_failure_never_invents_demo_or_time(error,status):
++    class Client:
++        calls=0
++        def search_slots(self,**kwargs):
++            self.calls+=1;assert kwargs['timeout_seconds']==8;raise error()
++    client=Client();result=cp.PartnerCareSearchProvider(client).search_slots('Dermatoloji')
++    assert result['status']==status and client.calls==1
++    assert all(row['dateTime'] is None and row['sourceType']=='PUBLIC_SEARCH_ONLY' for row in result['slots'])
++
++def test_partner_empty_not_conflated_with_network_or_demo():
++    class Client:
++        def search_slots(self,**kwargs): return dict(status='SUCCESS',slots=[])
++    out=cp.PartnerCareSearchProvider(Client()).search_slots('Dermatoloji')
++    assert out['status']=='EMPTY_RESULT' and out['slots']==[]
++
++def route_scope():
++    tree=ast.parse((ROOT/'services/core-api/main.py').read_text('utf-8-sig'))
++    nodes=[node for node in tree.body if isinstance(node,(ast.ClassDef,ast.FunctionDef,ast.AsyncFunctionDef)) and node.name in ('AppointmentMatchPayload','match_appointments')]
++    assert len(nodes)==2
++    app=FastAPI()
++    scope=dict(app=app,BaseModel=BaseModel,Field=Field,Optional=Optional,List=List,
++        Request=Request,HTTPException=HTTPException,vehicle_state={'vehicleParked':True,'vehicleMoving':False})
++    exec(compile(ast.Module(body=nodes,type_ignores=[]),str(ROOT/'services/core-api/main.py'),'exec'),scope)
++    return scope
++
++@pytest.fixture
++def route(monkeypatch):
++    monkeypatch.delenv('ATTUNE_CARE_PROVIDER',raising=False)
++    return route_scope()
++
++def test_actual_selected_route_public_response_no_models_records_or_network(route):
++    with TestClient(route['app']) as client:
++        result=client.post('/api/care/match',json=dict(specialty='Dermatoloji',preferredCity='İstanbul',availableWindows=WINDOW,timeZone='Europe/Berlin'))
++    assert result.status_code==200
++    value=result.json();assert value['status']=='PUBLIC_HANDOFF' and len(value['matchedSlots'])==2
++    assert value['currentTravelBufferMin'] is None
++    assert all(row['calendarFits'] is None and row['sourceType']=='PUBLIC_SEARCH_ONLY' for row in value['matchedSlots'])
++
++@pytest.mark.parametrize('change,code',[
++    ({'availableWindows':[{'start':'bad','end':'bad'}]},422),
++    ({'timeZone':'Bad/Zone'},422), ({'durationMin':0},422),
++])
++def test_route_rejects_invalid_inputs_before_provider(route,monkeypatch,change,code):
++    def forbidden(*args,**kwargs): pytest.fail('provider called before validation')
++    monkeypatch.setattr(cp,'get_care_provider',forbidden)
++    with TestClient(route['app']) as client:
++        assert client.post('/api/care/match',json={'specialty':'Dermatoloji',**change}).status_code==code
++
++def test_actual_route_driving_blocks_before_provider(route,monkeypatch):
++    route['vehicle_state']['vehicleMoving']=True
++    monkeypatch.setattr(cp,'get_care_provider',lambda *args:pytest.fail('driving provider request'))
++    with TestClient(route['app']) as client:
++        assert client.post('/api/care/match',json={'specialty':'Dermatoloji'}).status_code==409
++
++def test_route_discards_result_after_disconnect_or_vehicle_change(route,monkeypatch):
++    class RequestState:
++        calls=0
++        async def is_disconnected(self): self.calls+=1;return self.calls>1
++    payload=route['AppointmentMatchPayload'](specialty='Dermatoloji')
++    with pytest.raises(HTTPException,match='CANCELLED'):
++        asyncio.run(route['match_appointments'](payload,RequestState()))
++    class Provider:
++        def search_slots(self,**kwargs):
++            route['vehicle_state']['vehicleMoving']=True
++            return cp.public_handoff_result('Dermatoloji','İstanbul')
++    class Connected:
++        async def is_disconnected(self): return False
++    monkeypatch.setattr(cp,'get_care_provider',lambda *args:Provider())
++    with pytest.raises(HTTPException,match='PARK_REQUIRED'):
++        asyncio.run(route['match_appointments'](payload,Connected()))

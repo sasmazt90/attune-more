@@ -1,5 +1,6 @@
 'use client';
 
+import { AccessibleDialog } from '../AccessibleDialog';
 import React from 'react';
 import { FileText, X, AlertCircle } from 'lucide-react';
 import { SkinRegionData } from '../../data/skinDemoFixture';
@@ -11,14 +12,7 @@ interface SkinObservationModalProps {
 
 export const SkinObservationModal: React.FC<SkinObservationModalProps> = ({ region, onClose }) => {
   return (
-    <div
-      onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-in fade-in duration-200"
-    >
-      <div
-        className="relative w-full max-w-xl bg-[#0B1526] border border-slate-700/80 rounded-2xl p-6 sm:p-7 shadow-2xl space-y-6"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <AccessibleDialog title="Gözlem Notu" onClose={onClose} className="relative w-full max-w-xl bg-[#0B1526] border border-slate-700/80 rounded-2xl p-6 sm:p-7 shadow-2xl space-y-6">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
@@ -34,7 +28,8 @@ export const SkinObservationModal: React.FC<SkinObservationModalProps> = ({ regi
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer"
+            aria-label="Pencereyi kapat"
+            className="w-11 h-11 shrink-0 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -62,7 +57,6 @@ export const SkinObservationModal: React.FC<SkinObservationModalProps> = ({ regi
           <span className="font-semibold text-slate-300">Bilgilendirme: </span>
           Bu değerlendirme, araç içi optik sensör verileriyle hesaplanan görsel değişim eğilimidir; tıbbi tanı veya tedavi tavsiyesi teşkil etmez.
         </div>
-      </div>
-    </div>
+    </AccessibleDialog>
   );
 };

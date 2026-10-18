@@ -1,0 +1,156 @@
+{
+  "recordedAt": "2026-10-17T14:27:21.679080+00:00",
+  "startCommit": "09d3cd159c1c614f27cb9911e975b7b1eb0d52d9",
+  "BUILD_ID": "kXolFUPsTmCm4s1EZNzt2",
+  "proofFiles": [
+    {
+      "path": "consent-proof.json",
+      "sha256": "2199b6ac35f47207ddde70f3d2fd8ab9a2dcf5b9d618a7c7be611d86d8311741"
+    },
+    {
+      "path": "capture-revocation-proof.json",
+      "sha256": "0bd588d18e5c35ca7da4c1052b9ddf7a60b59907937ac1232ebcde969e6a792f"
+    },
+    {
+      "path": "audio-lifecycle-proof.json",
+      "sha256": "3090c6ee30fe9a0816a8b8f70cf4ad49d20672f5cad602703c9cfd4d2085ad94"
+    },
+    {
+      "path": "hearing-revoke-proof.json",
+      "sha256": "ce70368abe8fbd7bf6087588dd6862c9d136a954a7607e649080c95e56443a27"
+    },
+    {
+      "path": "delivered-screens.json",
+      "sha256": "b94f61445704f09aa8df659ec8f559927a963b5d3fab9bbefeb6a72a801f7d12"
+    },
+    {
+      "path": "native200-proof.json",
+      "sha256": "ecb32bbd0b51405507114e876a0a5256c98d50d90ffd8925b3b33d2213ce3d23"
+    },
+    {
+      "path": "common-proof.json",
+      "sha256": "d8962d782c58016a208188fe7e27ced9806cc18f1520c9f0491031456e51106a"
+    },
+    {
+      "path": "supplement-proof.json",
+      "sha256": "efd050af43ee756da321b88681690f0fc149841d14feea1b9a52e9db7c1659d3"
+    },
+    {
+      "path": "ownership-proof.json",
+      "sha256": "bbfd503102f2e5d73382496d5b2c1257b66f3d0e93ad9f58a2f15f2b884f5c71"
+    },
+    {
+      "path": "print-proof.json",
+      "sha256": "c7d5932a2c3b67da552fa57b823895c75dfd46624446e7fd853a7919dfc29e2f"
+    },
+    {
+      "path": "upload-partial.json",
+      "sha256": "d4f73158c034a3cc6a3f89a761c8e77a50bfe1785a4136f3c23878268127caf6"
+    }
+  ],
+  "entryScreens": 10,
+  "consentModules": 5,
+  "storageFailureModules": 5,
+  "captureRevocationModules": 3,
+  "mentalChecks": {
+    "headerMuteKeepsInput": true,
+    "pauseStopsBoth": true,
+    "voiceFailureStopsConversation": true,
+    "failureStopsInputAndAudio": true,
+    "routeCleanup": true
+  },
+  "common": {
+    "fiveMenuRoutesAndReturn": true,
+    "drivingAndPark": true,
+    "actualStoredRecordsGraph": {
+      "numericPoints": 2,
+      "nullGap": true,
+      "methodPartition": true,
+      "tooltip": true
+    },
+    "selectedSharePreviewOnly": true,
+    "exactDeleteReload": true,
+    "fiveCareUnavailable": true,
+    "wipeIsolatedOnly": [
+      {
+        "key": "togg_health_skin_history",
+        "count": 0
+      },
+      {
+        "key": "attune_hearing_history_v1",
+        "count": 0
+      },
+      {
+        "key": "attune_dental_history_v1",
+        "count": 0
+      },
+      {
+        "key": "togg_health_vision_history",
+        "count": 0
+      },
+      {
+        "key": "togg_health_mental_history",
+        "count": 0
+      }
+    ]
+  },
+  "unrelatedStream": [
+    "live"
+  ],
+  "dental": {
+    "candidates": 8,
+    "sourcePhotoId": "64cd18004a9448ec75ec1f16413d4c6463d4eebca8268763ac9ce76e9eda1d6b",
+    "modelHash": "eafaca8139e4447b1aa64375156aa47764affd91cf0594392b896ea78463bf03",
+    "historyReopened": true,
+    "sameBoxes": true,
+    "cameraCalls": 0
+  },
+  "productionAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "developmentAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 7,
+    "critical": 0,
+    "total": 7
+  },
+  "resource": {
+    "schema": "attune-dual-atomic-lease-v2",
+    "owner": "CDC",
+    "pid": 95996,
+    "processStarted": 1792246933.3335323,
+    "startTime": 1792246933.3335323,
+    "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017",
+    "jobId": "CDC-health-final-build",
+    "nonce": "948447553bef43d1b4739d8ff29f6b90",
+    "commandSHA256": "3fa842fec1d8d2aaa8dbfbe3810e8f39da563afdc13984769918214fb6079e95",
+    "peakBudgetMiB": 900,
+    "memoryBudgetMetric": "rss",
+    "minimumAvailableMiB": 1200,
+    "leasePaths": [
+      "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+      "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+    ],
+    "bothLeasesOwned": true,
+    "ownershipObservationMaxAgeSeconds": 1,
+    "observerPid": 94756,
+    "observerProcessStarted": 1792246933.7250853,
+    "peakMeasuredRSSMiB": 613.66015625,
+    "peakMeasuredPrivateMiB": null,
+    "childRSSIncluded": true,
+    "elapsedSeconds": 62.530999999988126,
+    "foreignProcessesStopped": false,
+    "monitorError": null
+  },
+  "physicalUserAcceptance": false,
+  "clinicalAcceptance": false,
+  "liveProviderCampaign": false,
+  "normalWindowsShortcutChanged": false
+}

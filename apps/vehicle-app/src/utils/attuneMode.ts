@@ -11,6 +11,11 @@ export const STORAGE_KEYS = {
   // Real Mode Keys
   LATEST_SKIN: 'togg_health_latest_skin',
   SKIN_BASELINE: 'togg_health_skin_baseline',
+  SKIN_BASELINE_META: 'togg_health_skin_baseline_meta',
+  SKIN_MULTI_BASELINE: 'togg_health_skin_multi_baseline_v2',
+  SKIN_SIGNS_BASELINE: 'togg_health_skin_signs_baseline_v3',
+  SKIN_SINGLE_SIGNS_BASELINE: 'togg_health_skin_single_signs_baseline_v3',
+  SKIN_REMINDER: 'togg_health_skin_reminder',
   SKIN_HISTORY: 'togg_health_skin_history',
   LATEST_VISION: 'togg_health_latest_vision',
   LATEST_MENTAL: 'togg_health_latest_mental',
@@ -24,8 +29,15 @@ export const STORAGE_KEYS = {
   // App-Level Privacy Preferences
   PRIVACY_CAMERA_ALLOWED: 'attune_privacy_camera_allowed',
   PRIVACY_MIC_ALLOWED: 'attune_privacy_microphone_allowed',
-  PRIVACY_MENTAL_SAVE_ALLOWED: 'togg_privacy_mental_summary_allowed'
+  PRIVACY_MENTAL_SAVE_ALLOWED: 'togg_privacy_mental_summary_allowed',
+  PRIVACY_MENTAL_TRANSCRIPT_ALLOWED: 'attune_privacy_mental_transcript_allowed',
+  PRIVACY_VISION_SAVE_ALLOWED: 'attune_privacy_vision_save_allowed'
 } as const;
+
+export const SKIN_HOSTED_PROCESSING_PERMISSION='attune_privacy_skin_hosted_processing_allowed';
+export function isSkinHostedProcessingAllowed():boolean {
+  try{return typeof window!=='undefined'&&localStorage.getItem(SKIN_HOSTED_PROCESSING_PERMISSION)==='true';}catch{return false;}
+}
 
 export function isDemoMode(): boolean {
   if (typeof window === 'undefined') {
@@ -63,4 +75,13 @@ export function isMicrophoneAllowed(): boolean {
 export function isMentalSummarySavingAllowed(): boolean {
   if (typeof window === 'undefined') return true;
   return localStorage.getItem(STORAGE_KEYS.PRIVACY_MENTAL_SAVE_ALLOWED) !== 'false';
+}
+
+export function isMentalTranscriptSavingAllowed(): boolean {
+  if (typeof window === 'undefined') return false;
+  return localStorage.getItem(STORAGE_KEYS.PRIVACY_MENTAL_TRANSCRIPT_ALLOWED) === 'true';
+}
+
+export function isVisionSavingAllowed(): boolean {
+  return typeof window !== 'undefined' && localStorage.getItem(STORAGE_KEYS.PRIVACY_VISION_SAVE_ALLOWED) === 'true';
 }

@@ -2,30 +2,25 @@
 
 import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { SkinRegionData } from '../../data/skinDemoFixture';
+import { SkinRegionData, REGION_ORDER } from '../../data/skinDemoFixture';
 
 interface SkinRegionNavigatorProps {
   currentRegion: SkinRegionData;
   onPrev: () => void;
   onNext: () => void;
+  total?: number;
 }
 
 export const SkinRegionNavigator: React.FC<SkinRegionNavigatorProps> = ({
   currentRegion,
   onPrev,
-  onNext
+  onNext, total = currentRegion.viewTotal || REGION_ORDER.length
 }) => {
   return (
-    <div className="flex flex-col items-center select-none mt-3">
-      {/* Sayfa Altı Sayaç ve Başlık: 2 / 6 Sağ Yanak */}
-      <div className="text-center space-y-0.5">
-        <div className="text-xs font-mono text-slate-400 font-medium">
-          {currentRegion.index} / 6
-        </div>
-        <div className="text-base font-bold text-white tracking-wide">
-          {currentRegion.nameTr}
-        </div>
-      </div>
+    <div className="flex items-center justify-center gap-5 select-none mt-4" data-skin-navigation>
+      <button onClick={onPrev} aria-label="Önceki Bölge" className="min-w-11 min-h-11 rounded-full border border-togg-turquoise/50 text-togg-turquoise flex items-center justify-center"><ChevronLeft className="w-5 h-5"/></button>
+      <span className="text-xs font-mono text-slate-400">{currentRegion.index} / {total}</span>
+      <button onClick={onNext} aria-label="Sonraki Bölge" className="min-w-11 min-h-11 rounded-full border border-togg-turquoise/50 text-togg-turquoise flex items-center justify-center"><ChevronRight className="w-5 h-5"/></button>
     </div>
   );
 };

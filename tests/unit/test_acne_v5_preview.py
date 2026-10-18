@@ -1,0 +1,58 @@
+"""Focused integration boundaries; uses the actual recorded browser geometry."""
+import os,sys,json,copy
+from pathlib import Path
+import pytest
+ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'services/core-api'))
+import experimental_acne_v5 as preview
+from appearance_analysis import decode_photo
+
+def request_data():
+ path=ROOT/'output/playwright/front-browser-api.json'
+ if not path.is_file():
+  pytest.skip('Historical browser replay requires local output/playwright/front-browser-api.json with its licensed photo and recorded geometry; not shipped in a clean clone')
+ return json.loads(path.read_text('utf8'))['payload']
+
+def test_default_off_and_normal_manifest(monkeypatch):
+ monkeypatch.delenv('ATTUNE_EXPERIMENTAL_ACNE_V5',raising=False)
+ assert preview.configuration()['enabled'] is False
+ with pytest.raises(preview.PreviewUnavailable,match='DISABLED'):preview.load()
+ acne=json.loads((ROOT/'services/core-api/models/skin-focused.json').read_text())['models']['acne']
+ assert acne['accepted'] is False and acne['file'] is None
+
+def test_missing_model_is_explicit(monkeypatch,tmp_path):
+ monkeypatch.setenv('ATTUNE_EXPERIMENTAL_ACNE_V5','1');monkeypatch.setenv('ATTUNE_ACNE_V5_MODEL_DIR',str(tmp_path))
+ assert preview.configuration()['status']=='model-unavailable'
+ with pytest.raises(preview.PreviewUnavailable,match='MODEL_UNAVAILABLE'):preview.load()
+
+def test_real_front_pose_and_quality_contract():
+ p=request_data();image,_=decode_photo(p['photo']);assert preview.gate(p,image)['pose']=='FRONT'
+ p['capturePreflight']['quality']['blurScore']=3.99
+ with pytest.raises(preview.PreviewRejected,match='QUALITY_FAILED'):preview.gate(p,image)
+ p=request_data();p['pose']='LEFT'
+ with pytest.raises(preview.PreviewRejected,match='POSE_FAILED'):preview.gate(p,image)
+ p=request_data();del p['meshes']['chin']
+ with pytest.raises(preview.PreviewRejected,match='VISIBLE_REGION_MISMATCH'):preview.gate(p,image)
+
+def test_normal_api_missing_and_disabled(monkeypatch,tmp_path):
+ from fastapi.testclient import TestClient
+ import main
+ monkeypatch.setenv('ATTUNE_EXPERIMENTAL_ACNE_V5','1');monkeypatch.setenv('ATTUNE_ACNE_V5_MODEL_DIR',str(tmp_path))
+ with TestClient(main.app) as client:
+  p=request_data();response=client.post('/api/local-health/skin',json=p)
+  assert response.status_code==200
+  data=response.json();assert data['acneRuntime']['status']=='unavailable' and data['acneRuntime']['reason']=='EXPERIMENTAL_ACNE_V5_MODEL_UNAVAILABLE'
+  assert data['acneRuntime']['nonAcnePreservation']['equal'] and len(data['general']['measurements'])==9
+  assert all(r['value'] is None for rows in data['measurements'].values() for r in rows if r['id']=='acne')
+  monkeypatch.delenv('ATTUNE_EXPERIMENTAL_ACNE_V5')
+  response=client.post('/api/local-health/skin',json=p)
+  assert response.status_code==200 and response.json()['acneRuntime']['reason']=='EXPERIMENTAL_ACNE_V5_DISABLED'
+  assert response.json()['acneRuntime']['nonAcnePreservation']['equal']
+  p['processingConsent']=False;response=client.post('/api/local-health/skin',json=p)
+  assert response.status_code==422 and 'candidateCount' not in response.json()
+
+def test_stopped_request_never_starts_detector(monkeypatch):
+ from native_material_budget import NativeRequestStopped
+ monkeypatch.setenv('ATTUNE_EXPERIMENTAL_ACNE_V5','1')
+ def stopped():raise NativeRequestStopped('CANCELLED')
+ monkeypatch.setattr(preview,'load',lambda:pytest.fail('Cancelled request started detector loading'))
+ with pytest.raises(NativeRequestStopped):preview.analyze({},stopped)

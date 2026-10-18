@@ -35,8 +35,8 @@ def native_speech(pw, base, out, init, snapshot, require):
     context.add_init_script(init)
     page._audit_errors=[];page._audit_console=[];page._audit_requests=[]
     page.on('pageerror', lambda e:page._audit_errors.append(str(e)))
-    page.goto(base+'/mental')
-    page.get_by_role('button', name='MİKROFONU BAŞLAT', exact=True).wait_for()
+    page.goto(base+'/mental?demo=1')
+    page.get_by_role('button', name='Görüşmeyi Başlat', exact=True).wait_for()
     player = log = None
     try:
         player, log = play_fixture(out)
@@ -44,7 +44,7 @@ def native_speech(pw, base, out, init, snapshot, require):
         (out/'native-spoken-pcm.json').write_text(json.dumps(amplitude, indent=2))
         require(amplitude['peak']>.001, 'No non-zero spoken PCM reached native microphone')
         stop_fixture(player, log);player=log=None
-        page.get_by_role('button',name='MİKROFONU BAŞLAT',exact=True).click()
+        page.get_by_role('checkbox',name='TOGG Attune hizmet onayı',exact=True).check();page.get_by_role('button',name='Görüşmeyi Başlat',exact=True).click()
         page.wait_for_function('window.__audit.speech.some(e=>e.type==="audiostart" || e.type==="error")',timeout=10000)
         require(page.evaluate('window.__audit.speech.some(e=>e.type==="audiostart")'),
                 'Native speech capture did not start: '+str(page.evaluate('window.__audit.speech')))

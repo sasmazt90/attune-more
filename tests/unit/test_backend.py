@@ -48,8 +48,8 @@ def test_mental_assistant_crisis_guard():
     assert "182" not in data["reply"]
 
 def test_care_appointment_matching():
-    response = client.post("/api/care/match", json={"specialty": "Dermatoloji"})
+    response = client.post("/api/care/match", json={"specialty": "Dermatoloji", "useBrowserAgent": False})
     assert response.status_code == 200
     data = response.json()
     assert len(data["matchedSlots"]) > 0
-    assert data["matchedSlots"][0]["calendarFits"] is True
+    assert data["matchedSlots"][0]["calendarFits"] is None

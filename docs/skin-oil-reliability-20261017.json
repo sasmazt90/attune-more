@@ -1,0 +1,366 @@
+{
+  "createdUTC": "2026-10-17T21:33:05.878837+00:00",
+  "task": "OIL-01",
+  "candidateBaseCommit": "237ebae975da64762c9cda3b74fa7b052aab52b6",
+  "servingCommit": "b2573b512595adc7cae86d7ab932abb318f61689",
+  "servingBUILD_ID": "PlmGO62XYbiAMR2PNNLGr",
+  "candidatePatch": "docs\\patches\\oil-regional-quality-v2-20261017.patch",
+  "candidatePatchSHA256": "3d45f56794b034da80f611730a5f45a6432b58d51ac4f999b903d6f42a808022",
+  "candidateFiles": [
+    {
+      "path": "services/core-api/appearance_analysis.py",
+      "sha256": "3795e7c207d02275ae5eb5875a050421c47a7f716af9db2afeb566b1a41a28f2",
+      "bytes": 54653
+    },
+    {
+      "path": "services/core-api/skin_general.py",
+      "sha256": "a02d25d1bb24499830c36d03db45173d992eb8a07321ed0296f366ddb41bab16",
+      "bytes": 9678
+    },
+    {
+      "path": "tests/unit/test_oil_reliability.py",
+      "sha256": "6c6b77e9c6f77e5c83d88c9038ac1e559eb4e0cbcc158a9663d16b8ac9c6d2ac",
+      "bytes": 4788
+    }
+  ],
+  "patchReverseCheckPassed": true,
+  "patchAppliesCleanlyToPreservedCheckout": true,
+  "productionActivated": false,
+  "allProductionPinsPreserved": 297,
+  "normalRolesPreserved": 4,
+  "focusedTests": {
+    "passed": 13,
+    "seconds": 16.43,
+    "scope": "oil support + history; existing clipping/T-zone; final type missing-data order; consent/park/geometry boundary"
+  },
+  "typecheck": {
+    "success": true,
+    "isolated": true,
+    "resource": {
+      "schema": "attune-dual-atomic-lease-v2",
+      "owner": "CDC",
+      "pid": 79448,
+      "processStarted": 1792272574.833212,
+      "startTime": 1792272574.833212,
+      "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017",
+      "jobId": "CDC-OIL01-isolated-typecheck",
+      "nonce": "51254b16669d4428969ac61b93e398e2",
+      "commandSHA256": "a4fd8d1a214503ba7208c0896b28cba6cad87171ba39555475ceedb1d4a1985b",
+      "peakBudgetMiB": 900,
+      "memoryBudgetMetric": "rss",
+      "minimumAvailableMiB": 1000,
+      "leasePaths": [
+        "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+        "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+      ],
+      "bothLeasesOwned": true,
+      "ownershipObservationMaxAgeSeconds": 1,
+      "observerPid": 101552,
+      "observerProcessStarted": 1792272575.2704525,
+      "peakMeasuredRSSMiB": 407.3671875,
+      "peakMeasuredPrivateMiB": null,
+      "childRSSIncluded": true,
+      "elapsedSeconds": 11.046999999991385,
+      "foreignProcessesStopped": false,
+      "monitorError": null
+    }
+  },
+  "productionBuild": {
+    "completed": false,
+    "reason": "isolated candidate requires unchanged 1600MiB build start reserve; observed available1550MiB; normal build not overwritten"
+  },
+  "normalAPI": {
+    "completed": false,
+    "reason": "normal restart action rejected by automatic approval review; explicit human restart approval pending; heavy model start reserve2500MiB also not met"
+  },
+  "approvalRejection": {
+    "action": "copy previous controlled_stop.py and stop verified normal frontend/launcher with API drain",
+    "reason": "normal session protection; no explicit authorization for interruption",
+    "bypassed": false,
+    "normalProcessesStopped": false
+  },
+  "temporal": {
+    "oilPhotometryMeasured": false,
+    "existing": "last6 lower-eyelid edge/contrast and landmarks only;15 capture-valid frames are geometry/mean-quality stability, not temporal oil photometry",
+    "noNewTemporalThresholdOrFakeHistory": true
+  },
+  "rgbEvidence": [
+    {
+      "name": "recorded-matte-regional",
+      "photoId": "e5622aba5124c4238ae11a760e0d96265b7e4bab70884d08cb7d2a4b555eab91",
+      "scope": "existing real browser payload; oil code identical to normal analyzer; research-only flag disables all learned inference, so not a normal full-product API proof",
+      "dimensions": [
+        640,
+        640
+      ],
+      "payloadSHA256": "9750a26f8a4687d981e97004580e5ebd8f6878a539a6f4f70222efe486664b81",
+      "changedSourcePixels": 0,
+      "regional": {
+        "forehead": {
+          "before": 0.0,
+          "after": 0.0,
+          "quality": "valid"
+        },
+        "nose": {
+          "before": 0.0,
+          "after": 0.0,
+          "quality": "valid"
+        },
+        "chin": {
+          "before": 0.0,
+          "after": 0.0,
+          "quality": "valid"
+        },
+        "rightCheek": {
+          "before": 0.0,
+          "after": 0.0,
+          "quality": "valid"
+        },
+        "leftCheek": {
+          "before": 0.0,
+          "after": 0.0,
+          "quality": "valid"
+        }
+      },
+      "overviewBefore": 0.03256621797655232,
+      "overviewAfter": 0.0,
+      "overviewAfterReason": null,
+      "overviewAfterArea": {
+        "sourcePixels": 17376.0,
+        "anatomicalSourcePixels": 18224.0,
+        "analysisPixels": 17376,
+        "sourceFacePixels": 240.27969360351562,
+        "scope": "unique-visible-measured-oil-regions"
+      },
+      "overviewAfterComponents": {
+        "samplingSupportVersion": "oil-regional-quality-unique-visible-union-v2",
+        "sourceRegions": [
+          "forehead",
+          "nose",
+          "rightCheek",
+          "leftCheek",
+          "chin"
+        ],
+        "missingRegions": {},
+        "overlapCountedOnce": true,
+        "temporalPhotometryMeasured": false,
+        "uniqueAnalysisPixels": 17376
+      },
+      "beforeOilMap": {
+        "x": 208.0,
+        "y": 149.0,
+        "step": 1.0,
+        "sampleCount": 18424,
+        "activeAlphaPixels": 80,
+        "dataSHA256": "f253f5f05a39ebf81b31a8cbc303befd22ddc060a0ff92aa787d390c670164cd",
+        "validMaskSHA256": "5f7b8fcbff8db88eb36ac80d4f46293ec29a292989bafeab6fab4ae5c2a5c720"
+      },
+      "afterOilMap": {
+        "x": 208.0,
+        "y": 149.0,
+        "step": 1.0,
+        "sampleCount": 17376,
+        "activeAlphaPixels": 43,
+        "dataSHA256": "e236fe43b73ff6ab9616794da904f42d68796e79bbbb3ad6b449f00096cb4a7f",
+        "validMaskSHA256": "6b5a819040d9fbd75b8f25eec39b740b9fa4fb7f3bae954c61725ddba8957f7f"
+      },
+      "rgbPhotometrySeconds": 1.9839999999967404,
+      "fullNormalProductAPI": false
+    },
+    {
+      "name": "recorded-visible-highlight",
+      "photoId": "8048b7620ac9d7af1c210c1044746682ee48ba8edc1a897248fcab66a308f2e6",
+      "scope": "existing real browser payload; oil code identical to normal analyzer; research-only flag disables all learned inference, so not a normal full-product API proof",
+      "dimensions": [
+        1280,
+        960
+      ],
+      "payloadSHA256": "d1d02b4fde92c73e1c32085ba0ea68bd855ff4b93d98d6bdd358ea1e0a646fc5",
+      "changedSourcePixels": 0,
+      "regional": {
+        "forehead": {
+          "before": 0.1048462255358807,
+          "after": 0.1048462255358807,
+          "quality": "valid"
+        },
+        "nose": {
+          "before": 0.04983388704318936,
+          "after": 0.04983388704318936,
+          "quality": "valid"
+        },
+        "chin": {
+          "before": 0.0,
+          "after": 0.0,
+          "quality": "valid"
+        },
+        "rightCheek": {
+          "before": 0.0,
+          "after": 0.0,
+          "quality": "valid"
+        },
+        "leftCheek": {
+          "before": 0.0,
+          "after": 0.0,
+          "quality": "valid"
+        }
+      },
+      "overviewBefore": 0.024584118659346062,
+      "overviewAfter": 0.027900055800111602,
+      "overviewAfterReason": null,
+      "overviewAfterArea": {
+        "sourcePixels": 49877.05291941416,
+        "anatomicalSourcePixels": 51475.815171217575,
+        "analysisPixels": 32258,
+        "sourceFacePixels": 397.90706634521484,
+        "scope": "unique-visible-measured-oil-regions"
+      },
+      "overviewAfterComponents": {
+        "samplingSupportVersion": "oil-regional-quality-unique-visible-union-v2",
+        "sourceRegions": [
+          "forehead",
+          "nose",
+          "rightCheek",
+          "leftCheek",
+          "chin"
+        ],
+        "missingRegions": {},
+        "overlapCountedOnce": true,
+        "temporalPhotometryMeasured": false,
+        "uniqueAnalysisPixels": 32258
+      },
+      "beforeOilMap": {
+        "x": 415.2776257991791,
+        "y": 312.7907066345215,
+        "step": 1.2434595823287964,
+        "sampleCount": 36609,
+        "activeAlphaPixels": 123,
+        "dataSHA256": "39022b14dc06c4915ec26905bde3451c369d2403d4881a81953573a53d2ab216",
+        "validMaskSHA256": "927230c3c05ea526b2cc0a60601e67918d211ba415c3e01bef023a0650725f2b"
+      },
+      "afterOilMap": {
+        "x": 415.2776257991791,
+        "y": 312.7907066345215,
+        "step": 1.2434595823287964,
+        "sampleCount": 32258,
+        "activeAlphaPixels": 104,
+        "dataSHA256": "f002840e3950bfa6e4d8f89db1a7e811b69e838cd7440178163f76cbd4bff56d",
+        "validMaskSHA256": "90444a64e27358327b91ad3a871d75df3f60da779ffd6e68c507d436a919002f"
+      },
+      "rgbPhotometrySeconds": 3.7820000000065193,
+      "fullNormalProductAPI": false
+    },
+    {
+      "name": "controlled-nose-clipping-on-recorded-frame",
+      "photoId": "17291293e93ef42c4fb0b3d59bba48a3192f7d5c0925bde0553d8b46e4e0da02",
+      "scope": "white clipped pixels applied only to exclusive source nose support; transformed regression, not natural photo/flash/cosmetic truth or real capture acceptance",
+      "dimensions": [
+        640,
+        640
+      ],
+      "payloadSHA256": null,
+      "changedSourcePixels": 5460,
+      "regional": {
+        "forehead": {
+          "before": 0.0,
+          "after": 0.0,
+          "quality": "valid"
+        },
+        "nose": {
+          "before": null,
+          "after": null,
+          "quality": "insufficient"
+        },
+        "chin": {
+          "before": 0.0,
+          "after": 0.0,
+          "quality": "valid"
+        },
+        "rightCheek": {
+          "before": 0.0,
+          "after": 0.0,
+          "quality": "valid"
+        },
+        "leftCheek": {
+          "before": 0.0,
+          "after": 0.0,
+          "quality": "valid"
+        }
+      },
+      "overviewBefore": 0.04485645933014354,
+      "overviewAfter": null,
+      "overviewAfterReason": "GLARE_OR_EXPOSURE",
+      "overviewAfterArea": {
+        "sourcePixels": 12332.0,
+        "anatomicalSourcePixels": 18224.0,
+        "analysisPixels": 12332,
+        "sourceFacePixels": 240.27969360351562,
+        "scope": "unique-visible-measured-oil-regions"
+      },
+      "overviewAfterComponents": {
+        "samplingSupportVersion": "oil-regional-quality-unique-visible-union-v2",
+        "sourceRegions": [
+          "forehead",
+          "rightCheek",
+          "leftCheek",
+          "chin"
+        ],
+        "missingRegions": {
+          "nose": "GLARE_OR_EXPOSURE"
+        },
+        "overlapCountedOnce": true,
+        "temporalPhotometryMeasured": false
+      },
+      "beforeOilMap": {
+        "x": 208.0,
+        "y": 149.0,
+        "step": 1.0,
+        "sampleCount": 13376,
+        "activeAlphaPixels": 78,
+        "dataSHA256": "474ecfb400fe3c1ccf14b5795f2b8aa79f80e59829502c849a11df53fd92cf36",
+        "validMaskSHA256": "1e7d981f6fcbfda2fbb7e121704309345dfe32ebcc4655fe6a50461e1875dcfa"
+      },
+      "afterOilMap": null,
+      "rgbPhotometrySeconds": 2.125,
+      "fullNormalProductAPI": false
+    }
+  ],
+  "thresholdChanges": false,
+  "newModelOrTraining": false,
+  "hostedOrPaidCalls": false,
+  "unknownLimitations": [
+    "RGB visible highlight, not sebum or biological skin type",
+    "No single-image flash/cosmetic/sweat classification",
+    "No measured oil temporal stability; no new uncalibrated threshold",
+    "OIL candidate not activated; SAG neutral voice/live gate, DRY misses/admission and FINAL-01 remain open"
+  ],
+  "patchReplay": {
+    "createdUTC": "2026-10-17T21:35:01.200648+00:00",
+    "candidatePatchSHA256": "3d45f56794b034da80f611730a5f45a6432b58d51ac4f999b903d6f42a808022",
+    "files": [
+      {
+        "path": "services/core-api/appearance_analysis.py",
+        "baselineSHA256": "ad0cd47aef4a7d2ec02cc4fe29d65b62b776254dc96cbf4d74b954a443505662",
+        "testedWorkingCopySHA256": "3795e7c207d02275ae5eb5875a050421c47a7f716af9db2afeb566b1a41a28f2",
+        "appliedPatchSHA256": "3795e7c207d02275ae5eb5875a050421c47a7f716af9db2afeb566b1a41a28f2",
+        "lineEndingNormalization": null
+      },
+      {
+        "path": "services/core-api/skin_general.py",
+        "baselineSHA256": "4b57829996625ed7f4c3ae9b75e249e3654b0f81ead9390c6eb98aeaa6f2f079",
+        "testedWorkingCopySHA256": "a02d25d1bb24499830c36d03db45173d992eb8a07321ed0296f366ddb41bab16",
+        "appliedPatchSHA256": "a02d25d1bb24499830c36d03db45173d992eb8a07321ed0296f366ddb41bab16",
+        "lineEndingNormalization": null
+      },
+      {
+        "path": "tests/unit/test_oil_reliability.py",
+        "baselineSHA256": null,
+        "testedWorkingCopySHA256": "6c6b77e9c6f77e5c83d88c9038ac1e559eb4e0cbcc158a9663d16b8ac9c6d2ac",
+        "appliedPatchSHA256": "fa91cad3608cb21a5f6b967c198d06b73a359ec18d20dd95f1ca74324be4a943",
+        "lineEndingNormalization": "New test LF working copy versus CRLF Git checkout; source content identical"
+      }
+    ],
+    "appliedOnlyToTaskLocalReplayDirectory": true,
+    "bothRuntimeTargetByteHashesMatched": true,
+    "testContentEquivalentAfterLineEndingNormalization": true
+  }
+}

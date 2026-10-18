@@ -1,0 +1,219 @@
+{
+  "codeCommit": "f0b76cf405f66d399a8248f277f4fa19bd892552",
+  "branch": "research/dental-technical-closeout-20261017",
+  "baseCommit": "e82cc2ffe8739d14b99dc68f02fec33875fc465c",
+  "BUILD_ID": "sHzFjTPoO56PaM7NQAge-",
+  "modelHash": "eafaca8139e4447b1aa64375156aa47764affd91cf0594392b896ea78463bf03",
+  "classes": {
+    "D": "daimi diş çürük adayı",
+    "d": "süt dişi çürük adayı"
+  },
+  "confidenceThreshold": 0.35,
+  "nmsThreshold": 0.45,
+  "physicalCameraAcceptance": false,
+  "clinicalValidation": false,
+  "technicalBlockers": [],
+  "focusedUniqueChecks": 54,
+  "typecheck": "PASS",
+  "productionBuild": "PASS",
+  "servedJavaScript": 38,
+  "sourceAndBuildFiles": 186,
+  "assetsVerified": 93,
+  "protectedCheckouts": 8,
+  "tasks": [
+    {
+      "id": "F053",
+      "name": "Çürük D",
+      "status": "TEKNİK DOĞRULANDI / ALGILAMA SINIRLI",
+      "result": "Gerçek ONNX, kaynak kutuları ve aday sayısı aynı. Kısmi ağızda 8 D; bu doğruluk ölçütü değildir.",
+      "evidence": "native-chain.json; upload-partial.json",
+      "limit": "Doğal leke/dolgu/yiyecek zor negatifleri ve bağımsız lokal hedefler açık."
+    },
+    {
+      "id": "F054",
+      "name": "Çürük d",
+      "status": "ZAYIF SINIF AÇIK",
+      "result": "Sınıf sırası D/d, d=süt dişi korunur; d kutu dönüşümü kontrollü ham çıktıyla doğrulandı. Yeni doğal d başarısı iddia edilmez.",
+      "evidence": "unit-final.log; model-boundary-baseline.json",
+      "limit": "Eski korunan sette P .517 / R .476 / F1 .496; hasta bağımsız değil, 10 yaş altı kapsam yok."
+    },
+    {
+      "id": "F055",
+      "name": "Birikim görünümü",
+      "status": "TEKNİK DOĞRULANDI / DOĞAL HEDEF AÇIK",
+      "result": "Payda görünür diş-diş eti sınırı; tek görünüm teyitsiz. Yetersiz sınır null; aday sayısından farklı alan oranı.",
+      "evidence": "camera-current.json; unit-native-final.log",
+      "limit": "Leke/yiyecek/dolgu/yansıma için doğal etiketli ayrım hâlâ sınırlı."
+    },
+    {
+      "id": "F056",
+      "name": "Görünür dizilim",
+      "status": "TEKNİK DOĞRULANDI / KAPSAM SINIRLI",
+      "result": "BITE gerçek konturları; üçten az güvenilir konturda null. Eksen/artık/örtüşme geometri kontrolleri geçti.",
+      "evidence": "camera-current.json; unit-native-final.log",
+      "limit": "2D görünür kontur; gizli diş veya 3D kapanış/klinik dizilim ölçümü değil."
+    },
+    {
+      "id": "F057",
+      "name": "FRONT/RIGHT/LEFT/BITE",
+      "status": "KAYITLI SANAL KAMERA DOĞRULANDI",
+      "result": "4 ayrı kaynak hash, 478 nokta, 1920×1080; aynı sırayla gerçek API ve tek geçmiş kaydı.",
+      "evidence": "camera-current.json",
+      "limit": "Farklı lisanslı katılımcılar; tek doğal kullanıcının fiziksel dört açısı doğrulanmadı."
+    },
+    {
+      "id": "F058",
+      "name": "Doğal ton/dudak/dil/payda",
+      "status": "ODAKLI TEKNİK DOĞRULANDI",
+      "result": "Kaynak RGB değiştirilmez; native renk ayrımı, görünür ağız paydası ve yetersiz kalite null testleri.",
+      "evidence": "unit-final.log; unit-native-final.log; camera-current.json",
+      "limit": "Doğal renk/ışık çeşitliliği klinik doğrulama sayılmaz."
+    },
+    {
+      "id": "F059",
+      "name": "Netlik/parlama/örtülme",
+      "status": "ODAKLI TEKNİK DOĞRULANDI",
+      "result": "Mevcut gerçek kaynağın bulanık/örtülü/parlak kontrollü türevleri frontend ve backend’de reddedildi.",
+      "evidence": "dental-negative/proof.json",
+      "limit": "Türevler doğal zor negatif veya fiziksel kamera kabulü değildir."
+    },
+    {
+      "id": "F060",
+      "name": "Kamera sabit crop",
+      "status": "TEKNİK DOĞRULANDI",
+      "result": "Gerçek snapshot 1920×1080; önizlemeden bağımsız kaynak viewBox, crop/origin ve aynasız çıktı.",
+      "evidence": "camera-current.json; native-chain.json; photo-privacy-ui.json",
+      "limit": "Gerçek cihaz mesafesi/ayna algısı fiziksel listede."
+    },
+    {
+      "id": "F061",
+      "name": "Tam portre yükleme",
+      "status": "TEKNİK DOĞRULANDI",
+      "result": "Gerçek MediaPipe 478 nokta → detected-inner-mouth → native crop → ONNX → aynı kaynaklı geçmiş; kamera isteği 0.",
+      "evidence": "upload-portrait.json; negative.json",
+      "limit": "Diş görünmeyen portre 422; sağlıklı sıfır veya kayıt yok."
+    },
+    {
+      "id": "F062",
+      "name": "Kısmi ağız fotoğrafı",
+      "status": "TEKNİK DOĞRULANDI",
+      "result": "Yüz noktası uydurulmadan local-colored-enamel-gingiva yolu; gerçek ONNX ve kaynak piksel kutuları.",
+      "evidence": "upload-partial.json; native-chain.json",
+      "limit": "Yükleme tek fotoğraftır; çok açılı teyit değildir."
+    },
+    {
+      "id": "F063",
+      "name": "EXIF/format/boyut",
+      "status": "TEKNİK DOĞRULANDI",
+      "result": "EXIF6 bir kez çevrilir; JPEG/PNG/WebP; bozuk signature/decoder, >20MiB, >8192 kenar, alpha ve animasyon reddi.",
+      "evidence": "exif.json; unit-final.log; lifecycle.json",
+      "limit": "EXIF türevi geometri kontrolüdür, doğal doğruluk örneği değildir."
+    },
+    {
+      "id": "F064",
+      "name": "İptal/dosya değişimi",
+      "status": "TEKNİK DOĞRULANDI",
+      "result": "Worker sahipliği, gerçek bekletilen yanıtlar, 30s istemci bütçesi, cooperative backend ve izin/rota/sürüş temizliği.",
+      "evidence": "worker-race.json; lifecycle.json; camera-lifecycle.json",
+      "limit": "Native CV/ORT çağrısının içinde zorla preemption yok; sahip olunan iş doğal bitene kadar kilit korunur."
+    },
+    {
+      "id": "F065",
+      "name": "Kutular ve kaynak kaydı",
+      "status": "TEKNİK DOĞRULANDI",
+      "result": "Tek sonuç UUID; photoId/poz/sourceType/boyut/koordinat/model kimliği; ayrı açık fotoğraf izniyle aynı fotoğraf ve harita.",
+      "evidence": "camera-current.json; upload-partial.json; photo-privacy-ui.json",
+      "limit": "Eski eksik fotoğraflar yeniden üretilmez; izin kapalıysa yalnız sayısal kayıt."
+    },
+    {
+      "id": "F066",
+      "name": "Yöntem uyumluluğu",
+      "status": "TEKNİK DOĞRULANDI",
+      "result": "Model/hash/eşik/geometri/kaynak/birim farklılıkları ayrı seride; null sağlıklı sıfır olmaz; eski kayıtlar değişmez.",
+      "evidence": "unit-history-final.log; unit-final.log",
+      "limit": "Bu sürüm eski kayıtları yeniden hesaplamaz."
+    }
+  ],
+  "evidence": [
+    {
+      "path": "baseline.json",
+      "bytes": 1039,
+      "sha256": "8ad82ae41c1c172a1c40e29bc8da0fbdc329b83acfa5cc9e7c3b34def3fb0be2"
+    },
+    {
+      "path": "model-boundary-baseline.json",
+      "bytes": 672,
+      "sha256": "7f6bbefd420f645f0f809ca27154eb690997fe9c85a70010b257dc436af8f5f0"
+    },
+    {
+      "path": "camera-current.json",
+      "bytes": 43527,
+      "sha256": "ab1dbd22173abcd32f6f2374053792b8dc884db6aaa4765589bd6d1aab7e65b1"
+    },
+    {
+      "path": "camera-lifecycle.json",
+      "bytes": 741,
+      "sha256": "d5c18cd664756f4ac8ea5944c8c3c051e1318593e2c1d14f13463c8df240670a"
+    },
+    {
+      "path": "upload-partial.json",
+      "bytes": 261493,
+      "sha256": "b8010a458f189b7247f80d59fa8a28fcba6b71cc96253543b58952ab5bf1228c"
+    },
+    {
+      "path": "upload-portrait.json",
+      "bytes": 5503,
+      "sha256": "6b5092adde1121dfd915f5e2b7dc62de7a304d54566da096e28e82c5bcb4a2dc"
+    },
+    {
+      "path": "exif.json",
+      "bytes": 259178,
+      "sha256": "d3a31c734738f9a73e108a6309f953756a7f3dc3942e8c44ff5cf76f315a7837"
+    },
+    {
+      "path": "negative.json",
+      "bytes": 119,
+      "sha256": "0962302f9af8c0f1e813d3c1f800778be60a7f1a3b4f881afb17b8a2eb889202"
+    },
+    {
+      "path": "lifecycle.json",
+      "bytes": 806,
+      "sha256": "7bb264b7b63a7b09199c10d695799d25e3705886848b7d5ab2e80d988da2a134"
+    },
+    {
+      "path": "worker-race.json",
+      "bytes": 301,
+      "sha256": "64e2c4065975c102336f7be5facb2b317724ac8cadc141272b58da0a681209b6"
+    },
+    {
+      "path": "photo-privacy-ui.json",
+      "bytes": 575,
+      "sha256": "d9d0b688020ea4fc87b6fe30e901f177c61a00d717148e8be4d02cff0196b0e5"
+    },
+    {
+      "path": "hearing-revoke-proof.json",
+      "bytes": 195,
+      "sha256": "ce70368abe8fbd7bf6087588dd6862c9d136a954a7607e649080c95e56443a27"
+    },
+    {
+      "path": "native-chain.json",
+      "bytes": 3201,
+      "sha256": "2b340f5163084f778148c8e1c9a7dd04cd83c8a602f76866332690921efa49f0"
+    },
+    {
+      "path": "dental-negative/proof.json",
+      "bytes": 5968,
+      "sha256": "42cda6e91478d15a7dea9b4dfed7fbdcc1fb0fde8bf4ab15978986a8031517f8"
+    },
+    {
+      "path": "build-receipt.json",
+      "bytes": 33021,
+      "sha256": "d277533a0d65fd1296d4392e208a4c093bed281b2a4a55bd1791849fe1792581"
+    },
+    {
+      "path": "served-protection-code-receipt.json",
+      "bytes": 9860,
+      "sha256": "cb241bc227683c65e055bd1e2171e0bab28b081244ed5245e6f0d322f046c730"
+    }
+  ]
+}

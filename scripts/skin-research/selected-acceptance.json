@@ -1,0 +1,10 @@
+{
+  "version": "selected-skin-20261011-v1",
+  "freezeScope": "before selected-source YOLOX and shared-mask learning",
+  "type": {"macroF1": 0.6, "minimumClassF1": 0.4, "confidencePrecision": 0.7, "minimumConfidenceSupport": 10, "unusedFourClassHoldoutRequired": true},
+  "detectorSource": {"F1": 0.5, "precision": 0.6, "recall": 0.4, "matchingIoU": 0.5},
+  "detectorNaturalAcceptance": {"F1": 0.8, "precision": 0.8, "recall": 0.8, "minimumPositivePhotos": 50, "minimumNegativePhotos": 50, "minimumLesions": 100, "maximumMeanFalseCandidatesPerNegativePhoto": 1},
+  "mask": {"Dice": 0.65, "IoU": 0.5, "maximumNegativeFPR": 0.05, "threshold": 0.5, "scope": "whole reviewed visible target ROI including normal confounder areas; unknown pixels excluded", "polygonBoundaryBandOnlyAcceptance": false},
+  "appearance": {"calibrationTestReuse": false, "minimumPairedValidationGrades": 10, "maximumMAEOn0to5": 1, "mustBeatTrainingMedianBaseline": true, "missingGradeMaskRequired": true, "positiveNegativeConfounderReviewRequired": true},
+  "all": {"naturalCameraDomainReviewRequired": true, "engineeringLabelsMustBeDisclosed": true, "numericalONNXParityRequired": true, "normalBackendLoadedHashRequired": true, "unknownIsZero": false, "oldFinalReuseAllowed": false, "paidComputeAllowed": false, "userPhotoCloudUploadAllowed": false}
+}

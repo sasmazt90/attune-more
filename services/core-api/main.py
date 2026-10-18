@@ -7,20 +7,45 @@ Lisans: UNLICENSED
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
-from pydantic import BaseModel, Field, StrictBool
+from fastapi.responses import JSONResponse, Response
+from speech_stream import ProviderSpeechResponse, close_once
+from pydantic import BaseModel, Field, StrictBool, field_validator
 from typing import List, Optional, Dict, Any
 from datetime import datetime
+from contextlib import asynccontextmanager
 import os
+from time import perf_counter
+from openai_client import get_openai_client, close_openai_client
+from pathlib import Path
+from qa_vehicle_read import QAVehicleReadPolicy, QA_VEHICLE_ORIGIN
+from hosted_skin_credentials import load_existing_backend_key
+load_existing_backend_key()
 
-from mental_provider import get_active_mental_provider, check_mental_crisis, get_active_session_analyzer
+# Backend-only local configuration. CI has no local file and remains keyless.
+_local_env = Path(__file__).resolve().parents[2] / '.env.local'
+if os.getenv('ATTUNE_LOAD_LOCAL_ENV') == '1' and _local_env.is_file():
+    for _line in _local_env.read_text(encoding='utf-8').splitlines():
+        _name, _separator, _value = _line.partition('=')
+        if _separator and _name.strip() in ('OPENAI_API_KEY', 'OPENAI_MODEL', 'OPENAI_TTS_MODEL'):
+            os.environ[_name.strip()] = _value.strip().strip('\"').strip("'")
+
+from mental_provider import (get_active_mental_provider, check_mental_crisis, get_active_session_analyzer,
+                             LocalFallbackMentalProvider, LocalFallbackSessionAnalyzer, provider_error_category)
 from session_memory import SessionMemoryManager
 from care_provider import BrowserCareSearchProvider, DemoCareSearchProvider, CalendarProvider, TravelTimeProvider
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    try:
+        yield
+    finally:
+        close_openai_client()
 
 app = FastAPI(
     title="Togg Health MVP Core API",
     description="Togg araç içi önleyici sağlık, görme, cilt, sesli asistan ve randevu orkestrasyonu.",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 )
 
 
@@ -37,23 +62,48 @@ trusted_origins = [origin.strip() for origin in os.getenv(
 if not trusted_origins or "*" in trusted_origins:
     raise ValueError("ATTUNE_TRUSTED_ORIGINS must list explicit trusted origins")
 
+# Startup-only opt-in. This never adds the QA origin to the general CORS list.
+qa_vehicle_read_policy = QAVehicleReadPolicy.from_environment(os.environ)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=trusted_origins,
     allow_credentials=False,
-    allow_methods=["GET", "POST"],
+    allow_methods=["GET", "POST", "DELETE"],
     allow_headers=["Content-Type"],
+    expose_headers=["Server-Timing"],
 )
 
 
 @app.middleware("http")
 async def enforce_browser_origin(request: Request, call_next):
     origin = request.headers.get("origin")
+    qa_read = False
+    if origin == QA_VEHICLE_ORIGIN:
+        qa_read = await qa_vehicle_read_policy.authorizes(request)
+        if not qa_read:
+            return JSONResponse(status_code=403, content={"detail": "Untrusted browser origin"})
     # CORS handles preflight. Reject actual untrusted browser requests before
     # they can mutate local health data, including simple POSTs without preflight.
-    if request.method != "OPTIONS" and origin is not None and origin not in trusted_origins:
+    if (not qa_read and request.method != "OPTIONS"
+            and origin is not None and origin not in trusted_origins):
         return JSONResponse(status_code=403, content={"detail": "Untrusted browser origin"})
-    return await call_next(request)
+    started = perf_counter()
+    response = await call_next(request)
+    if qa_read:
+        # Expiry during a handler must not grant a late cross-origin response.
+        if not qa_vehicle_read_policy.active():
+            return JSONResponse(status_code=403, content={"detail": "Untrusted browser origin"})
+        response.headers["Access-Control-Allow-Origin"] = QA_VEHICLE_ORIGIN
+        if "origin" not in {v.strip().lower() for v in response.headers.get("Vary", "").split(",")}:
+            response.headers.add_vary_header("Origin")
+        response.headers["Cache-Control"] = "no-store"
+    if request.url.path.startswith("/api/mental/"):
+        existing = response.headers.get("Server-Timing")
+        timing = f"app;dur={(perf_counter() - started) * 1000:.1f}"
+        response.headers["Server-Timing"] = f"{existing}, {timing}" if existing else timing
+    return response
+
 
 # ---------------------------------------------------------------------------
 # In-Memory State & Mock Data (Local-First)
@@ -117,29 +167,71 @@ profile_state = {
 class SpeedUpdatePayload(BaseModel):
     speedKmH: float = Field(ge=0, allow_inf_nan=False)
 
-class ConversePayload(BaseModel):
-    userMessage: str
-    sessionId: Optional[str] = None
-    history: Optional[List[Dict[str, str]]] = None
+from mental_context import validate_memory,compact_context
 
-class AnalyzeSessionPayload(BaseModel):
-    messages: List[Dict[str, str]]
+class MemoryPayload(BaseModel):
+    memory: List[str] = Field(default_factory=list,max_length=32)
+    @field_validator('memory')
+    @classmethod
+    def memory_bounds(cls,value):return validate_memory(value)
+
+class ConversePayload(MemoryPayload):
+    userMessage: str = Field(min_length=1, max_length=6000)
+    sessionId: Optional[str] = Field(default=None,min_length=1,max_length=128)
+    history: Optional[List[Dict[str, str]]] = Field(default=None,max_length=40)
+    cloudConsent: StrictBool = False
+
+    @field_validator('userMessage')
+    @classmethod
+    def nonempty_message(cls,value):
+        if not value.strip():raise ValueError('EMPTY_MESSAGE')
+        return value
+
+    @field_validator('history')
+    @classmethod
+    def completed_context(cls,value):
+        if value is None:return value
+        validate_mental_messages(value)
+        if len(value)%2 or any(m['role']!=('user' if i%2==0 else 'assistant') for i,m in enumerate(value)):
+            raise ValueError('COMPLETED_TURN_PAIRS_REQUIRED')
+        return value
+
+def validate_mental_messages(messages):
+    if any(set(m)!= {'role','content'} or m['role'] not in ('user','assistant') or not m['content'].strip() or len(m['content'])>6000 for m in messages):
+        raise ValueError('INVALID_CONVERSATION_MESSAGE')
+    if sum(len(m['content']) for m in messages)>120000:raise ValueError('SESSION_CONTENT_LIMIT')
+    return messages
+
+class AnalyzeSessionPayload(MemoryPayload):
+    messages: List[Dict[str, str]] = Field(max_length=200)
+    cloudConsent: StrictBool = False
+
+    @field_validator('messages')
+    @classmethod
+    def bounded_messages(cls,value):return validate_mental_messages(value)
+
+class SpeechPayload(BaseModel):
+    text: str = Field(min_length=1, max_length=4096)
+    cloudConsent: StrictBool = False
 
 class CreateSessionPayload(BaseModel):
     summaryText: str
     recurringThemes: List[str]
-    durationSeconds: Optional[int] = 180
-    moodBefore: Optional[str] = "TIRED"
-    moodAfter: Optional[str] = "RELAXED"
+    durationSeconds: Optional[int] = None
+    moodBefore: Optional[str] = None
+    moodAfter: Optional[str] = None
     escalationSuggested: Optional[bool] = False
     suggestedAction: Optional[str] = None
     saveMentalSummaries: StrictBool = False
 
 class AppointmentMatchPayload(BaseModel):
-    specialty: str
-    preferredCity: Optional[str] = "İstanbul"
+    specialty: str = Field(min_length=1,max_length=120)
+    preferredCity: Optional[str] = Field(default="İstanbul",max_length=120)
     maxTravelTimeMin: Optional[int] = 30
     useBrowserAgent: Optional[bool] = True
+    availableWindows: List[dict] = Field(default_factory=list,max_length=30)
+    timeZone: str = "Europe/Istanbul"
+    durationMin: int = 45
 
 # ---------------------------------------------------------------------------
 # Endpoints
@@ -157,7 +249,12 @@ def read_root():
 
 @app.get("/api/health")
 def health_check():
-    return {"status": "ok", "timestamp": datetime.utcnow().isoformat()}
+    import fastapi, starlette, aiohttp, PIL
+    modules = (fastapi, starlette, aiohttp, PIL)
+    isolated = Path(__file__).resolve().parents[2] / '.runtime/security-20261008'
+    return {"status": "ok", "timestamp": datetime.utcnow().isoformat(),
+            "runtimeVersions": {module.__name__: module.__version__ for module in modules},
+            "runtimeIsolated": all(Path(module.__file__).resolve().is_relative_to(isolated) for module in modules)}
 
 # ---------------------------------------------------------------------------
 # Vehicle State
@@ -240,11 +337,20 @@ def converse_mental_assistant(payload: ConversePayload):
             "clinicalDisclaimer": crisis_check.get("clinicalDisclaimer")
         }
 
+    from conversation_control import conversation_control
+    control = conversation_control(user_msg) if not is_driving else None
+    if control:
+        return control
+
     # 2. Mental Conversation Provider (OpenAI veya LocalFallback)
-    provider = get_active_mental_provider()
+    if payload.cloudConsent and not os.getenv('OPENAI_API_KEY', '').strip():
+        raise HTTPException(status_code=503, detail='PROVIDER_NOT_CONFIGURED')
+    provider = get_active_mental_provider() if payload.cloudConsent else LocalFallbackMentalProvider()
     history = payload.history or []
     driver_name = vehicle_state.get("driverName", "Ahmet Bey")
 
+    if payload.memory:
+        provider.session_memory = payload.memory
     result = provider.generate_reply(
         user_message=user_msg,
         is_driving=is_driving,
@@ -256,21 +362,70 @@ def converse_mental_assistant(payload: ConversePayload):
 
 @app.post("/api/mental/analyze-session")
 def analyze_mental_session(payload: AnalyzeSessionPayload):
-    analyzer = get_active_session_analyzer()
+    if not any(m.get('role') == 'user' and m.get('content', '').strip() for m in payload.messages):
+        raise HTTPException(status_code=422, detail='EMPTY_SESSION')
+    if payload.cloudConsent and not os.getenv('OPENAI_API_KEY', '').strip():
+        raise HTTPException(status_code=503, detail='PROVIDER_NOT_CONFIGURED')
+    analyzer = get_active_session_analyzer() if payload.cloudConsent else LocalFallbackSessionAnalyzer()
+    if payload.memory:
+        analyzer.session_memory = payload.memory
     return analyzer.analyze_session(payload.messages)
+
+class CompactContextPayload(AnalyzeSessionPayload):
+    pass
+
+@app.post('/api/mental/compact-context')
+def compact_mental_context(payload: CompactContextPayload):
+    if not payload.cloudConsent:raise HTTPException(403,'CLOUD_CONSENT_REQUIRED')
+    if vehicle_state['vehicleMoving']:raise HTTPException(409,'PARK_REQUIRED')
+    return compact_context(payload.memory,payload.messages)
+
+from vision_speech import response as fixed_vision_speech
+from vision_speech import mental_response as edge_mental_speech
+
+@app.post('/api/mental/speech')
+async def mental_speech(payload: SpeechPayload):
+    if not payload.cloudConsent:
+        raise HTTPException(status_code=403, detail='CLOUD_CONSENT_REQUIRED')
+    if vehicle_state['vehicleMoving']:
+        raise HTTPException(status_code=409, detail='PARK_REQUIRED')
+    return await edge_mental_speech(payload.text, lambda: vehicle_state['vehicleMoving'])
+
+@app.post('/api/vision/speech')
+async def vision_speech(payload: SpeechPayload):
+    if not payload.cloudConsent:
+        raise HTTPException(status_code=403, detail='CLOUD_CONSENT_REQUIRED')
+    if vehicle_state['vehicleMoving']:
+        raise HTTPException(status_code=409, detail='PARK_REQUIRED')
+    return await fixed_vision_speech(payload.text, lambda: vehicle_state['vehicleMoving'])
 
 @app.get("/api/mental/sessions")
 def get_mental_sessions():
     return SessionMemoryManager.get_all_sessions()
+
+class DeleteSessionPayload(BaseModel):
+    deletionToken: str = Field(min_length=64, max_length=64)
+
+@app.delete('/api/mental/sessions/{session_id}')
+def delete_mental_session(session_id: str, payload: DeleteSessionPayload):
+    if vehicle_state['vehicleMoving']:
+        raise HTTPException(status_code=409, detail='PARK_REQUIRED')
+    try:
+        deleted = SessionMemoryManager.delete_session(session_id, payload.deletionToken)
+    except (OSError, ValueError, RuntimeError):
+        raise HTTPException(status_code=503, detail='DELETION_UNVERIFIED') from None
+    if not deleted:
+        raise HTTPException(status_code=404, detail='OWNED_RECORD_NOT_FOUND')
+    return {'deleted': True}
 
 @app.post("/api/mental/sessions")
 def record_mental_session(payload: CreateSessionPayload):
     return SessionMemoryManager.add_session(
         summary_text=payload.summaryText,
         recurring_themes=payload.recurringThemes,
-        duration_seconds=payload.durationSeconds or 180,
-        mood_before=payload.moodBefore or "TIRED",
-        mood_after=payload.moodAfter or "RELAXED",
+        duration_seconds=payload.durationSeconds,
+        mood_before=payload.moodBefore,
+        mood_after=payload.moodAfter,
         escalation_suggested=payload.escalationSuggested or False,
         suggested_action=payload.suggestedAction,
         save_mental_summaries=payload.saveMentalSummaries
@@ -283,36 +438,23 @@ def record_mental_session(payload: CreateSessionPayload):
 calendar_provider = CalendarProvider()
 
 @app.post("/api/care/match")
-def match_appointments(payload: AppointmentMatchPayload):
+async def match_appointments(payload: AppointmentMatchPayload, request: Request):
+    from care_provider import get_care_provider, available_window_match, normalize_care_slots
+    from starlette.concurrency import run_in_threadpool
+    if vehicle_state["vehicleMoving"] or not vehicle_state["vehicleParked"]:
+        raise HTTPException(409, "PARK_REQUIRED")
+    if await request.is_disconnected(): raise HTTPException(409, "CANCELLED")
     specialty = payload.specialty
     city = payload.preferredCity or "İstanbul"
-
-    if payload.useBrowserAgent:
-        provider = BrowserCareSearchProvider()
-    else:
-        provider = DemoCareSearchProvider()
-
-    search_result = provider.search_slots(specialty=specialty, city=city)
-    slots = search_result.get("slots", [])
-
-    processed_slots = []
-    for slot in slots:
-        date_time_str = slot.get("dateTime", "")
-        has_conflict = False
-        if date_time_str:
-            has_conflict = calendar_provider.has_conflict(date_time_str)
-
-        travel_info = TravelTimeProvider.calculate_travel_time_min(slot.get("locationLabel", ""))
-
-        processed_slots.append({
-            **slot,
-            "calendarConflict": has_conflict,
-            "calendarFits": not has_conflict if date_time_str else True,
-            "calendarBadge": "Demo Takvim (Yerel Simülasyon)",
-            "travelTimeMin": travel_info["estimatedMinutes"],
-            "trafficBadge": travel_info["trafficBadge"],
-            "matchScore": 95 if not has_conflict else 70
-        })
+    # Reject invalid manual windows before any provider/network side effect.
+    try: available_window_match(None,payload.availableWindows,payload.durationMin,payload.timeZone)
+    except ValueError: raise HTTPException(422,'INVALID_MATCH_WINDOW') from None
+    provider=get_care_provider(payload.useBrowserAgent)
+    search_result = await run_in_threadpool(provider.search_slots,specialty=specialty,city=city)
+    if await request.is_disconnected(): raise HTTPException(409, "CANCELLED")
+    if vehicle_state["vehicleMoving"] or not vehicle_state["vehicleParked"]:
+        raise HTTPException(409, "PARK_REQUIRED")
+    processed_slots = normalize_care_slots(search_result,payload.availableWindows,payload.durationMin,payload.timeZone)
 
     return {
         "status": search_result.get("status", "SUCCESS"),
@@ -323,7 +465,7 @@ def match_appointments(payload: AppointmentMatchPayload):
         "handoffNote": search_result.get("handoffNote"),
         "liveSearchUrl": search_result.get("liveSearchUrl"),
         "matchedSlots": processed_slots,
-        "currentTravelBufferMin": vehicle_state["estimatedTravelTimeToDestMin"]
+        "currentTravelBufferMin": None
     }
 
 # ---------------------------------------------------------------------------
@@ -338,3 +480,8 @@ def wipe_user_health_data():
         "message": "Tüm yerel sağlık verisi, geçmiş seans kayıtları ve önbellekler başarıyla silindi.",
         "timestamp": datetime.utcnow().isoformat()
     }
+
+# New routes share the same authoritative vehicle state and origin middleware.
+import local_health
+local_health.parked = lambda: vehicle_state["vehicleParked"] and not vehicle_state["vehicleMoving"]
+app.include_router(local_health.router)

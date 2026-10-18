@@ -1,0 +1,260 @@
+{
+  "version": "fixed-vision-Ahmet-1",
+  "voice": "tr-TR-AhmetNeural",
+  "rate": "-10%",
+  "pitch": "-10Hz",
+  "entries": {
+    "prepare": {
+      "text": "Kamera hazırlanıyor. İki gözünüz açık, yüzünüz görüntüde olsun. Bulunduğunuz mesafeyi koruyun.",
+      "file": "prepare.mp3",
+      "sha256": "24a585b9d89d2f70908e9398a8d6375e57097ab51c7b29ed7ca61633a51e66d3",
+      "bytes": 63072,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "right": {
+      "text": "Sağ gözünüzü test ediyoruz. Sağ gözünüz açık kalsın. Sol gözünüzü kapatın veya örtün. Açık gözünüzle harf alanına bakın.",
+      "file": "right.mp3",
+      "sha256": "917587d0be874c457632a06e307333aba903bd0a13b486fd11c364a3244fd7c4",
+      "bytes": 82224,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "left": {
+      "text": "Sol gözünüzü test ediyoruz. Sol gözünüz açık kalsın. Sağ gözünüzü kapatın veya örtün. Açık gözünüzle harf alanına bakın.",
+      "file": "left.mp3",
+      "sha256": "f33ee9d938d7ae584004067c446fccb46750b1529a3ae4d068e47870fb86b507",
+      "bytes": 82656,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "letter": {
+      "text": "Harfi söyler misiniz? O harfle başlayan bir kelime de kullanabilirsiniz.",
+      "file": "letter.mp3",
+      "sha256": "882e425d4cb91dbb5662ec56ec3b9425a1dd98bce4b33715a7a16ec6e6d81dee",
+      "bytes": 46512,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "orientation": {
+      "text": "Harfin hangi yöne dönük olduğunu söyler misiniz?",
+      "file": "orientation.mp3",
+      "sha256": "3718ce39082812627f98fa7c4713d5098d1f2cd1a5b51bb0c3afb19ba3c4b978",
+      "bytes": 27072,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "reverse": {
+      "text": "Baş aşağı mı, aynalı mı?",
+      "file": "reverse.mp3",
+      "sha256": "bb92db6a7bf7a91538b16b4a7f195f2ef9e0486674b4bee664a03589e08573a5",
+      "bytes": 20016,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "repeat": {
+      "text": "Ekrandaki harfi ve yönünü söyleyin.",
+      "file": "repeat.mp3",
+      "sha256": "36b63f6e69a532e090384a15a43654a554db2fd5e185bb0a5ee56978fb528254",
+      "bytes": 23472,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "first": {
+      "text": "Harf alanına bakın. Harfi ve yönünü istediğiniz sırada söyleyin. Yön ile birlikte, gördüğünüz harfle başlayan bir kelime söyleyebilirsiniz. Harf görünüyorsa yönergenin bitmesini beklemeniz gerekmez.",
+      "file": "first.mp3",
+      "sha256": "3208f5408d2738ca841c4531d214fb4a58300844de85345c3366af8b366c8d7c",
+      "bytes": 108576,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "next1": {
+      "text": "Şimdi sıradaki harfi söyleyin.",
+      "file": "next1.mp3",
+      "sha256": "cbed2756de2653f6db5bbc728d078bdc64e7f88ec8ab644962008086743dfe5c",
+      "bytes": 20304,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "next2": {
+      "text": "Lütfen bu harfi aynı şekilde okuyun.",
+      "file": "next2.mp3",
+      "sha256": "72df80473c433b0e77a330f28ce6889c00c764a454240486e6a1b41c13ec9c3d",
+      "bytes": 24480,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "next3": {
+      "text": "Yanıtınız kaydedildi. Sıradaki harfe geçiyoruz.",
+      "file": "next3.mp3",
+      "sha256": "6743612982197201b63e2dda09b74b522a1d7eedcc249d7ab495582f6077a5d0",
+      "bytes": 35712,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "position": {
+      "text": "Başlangıç mesafenizi koruyun. Harf alanına bakabilirsiniz.",
+      "file": "position.mp3",
+      "sha256": "0c215f8e18b4f4b37aadbee7676f33d479b72df03fc4d9d741067b3273efd016",
+      "bytes": 41472,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "approach": {
+      "text": "Biraz yaklaşın.",
+      "file": "approach.mp3",
+      "sha256": "3e28ff96d990142721bc7a7368b62fd3cd86bea47461c88ac96f4becee3d284a",
+      "bytes": 16416,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "recede": {
+      "text": "Biraz geriye gidin.",
+      "file": "recede.mp3",
+      "sha256": "69f80bd01f2977d483a0dea850ac6d69eceef8559c1d3306281a6e24d8cf6ebd",
+      "bytes": 17136,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "pose": {
+      "text": "Başlangıç mesafenizi koruyun. Harf alanına bakabilirsiniz.",
+      "file": "pose.mp3",
+      "sha256": "a2cea103a7f148e6beef614c6f5f449150b109d964a724897174502b91bd7e33",
+      "bytes": 41472,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "framing": {
+      "text": "Alın ve çeneniz kadrajda kalacak şekilde yüzünüzü ortalayın.",
+      "file": "framing.mp3",
+      "sha256": "55d687e4223222145d9f29fcdd8c38325ca83f2dc5e1aa7525cd511cd2cece0b",
+      "bytes": 31824,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "light": {
+      "text": "Yüzünüzü daha iyi aydınlatın.",
+      "file": "light.mp3",
+      "sha256": "17d484b8a8dc60627f9dc5c015b0cff769a790352f7c98016d0aba367b5825fb",
+      "bytes": 20592,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "bright": {
+      "text": "Yüzünüzdeki parlamayı azaltın.",
+      "file": "bright.mp3",
+      "sha256": "d690b0b1f801a0875fedd7ed7eca84447de740e6c0d82eada19a73ea2a535d4f",
+      "bytes": 21168,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "blur": {
+      "text": "Kamera netliğini ve yüz aydınlatmasını kontrol edin.",
+      "file": "blur.mp3",
+      "sha256": "4bf09e646bf711101353bb8f9806ce47bc0f0fb542a937fc800e387ff8a12a52",
+      "bytes": 28944,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "motion": {
+      "text": "Kısa süre başınızı sabit tutun.",
+      "file": "motion.mp3",
+      "sha256": "31b90e54c6ca490c1e86864f05ced0c6fca975ede784bf0cc738715e577e3bf0",
+      "bytes": 21456,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "face": {
+      "text": "Yüzünüzü kameraya gösterin.",
+      "file": "face.mp3",
+      "sha256": "73f473280143616b632d0cfe90d05c848942bc40c41ae727adff6ffab45649d7",
+      "bytes": 19296,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "preparing": {
+      "text": "Konumunuz doğrulanıyor. Kısa süre sabit durun.",
+      "file": "preparing.mp3",
+      "sha256": "ec6583fd2f68ba2c41dc21afc6f428fe645acc9bd540d0f481602afce3a55d2d",
+      "bytes": 34416,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "ready": {
+      "text": "Konum hazır.",
+      "file": "ready.mp3",
+      "sha256": "b3c19d2fb21bf027a47028365ea0931b67b095e4f47380aea05df37f888ba0cb",
+      "bytes": 13392,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "camera": {
+      "text": "Kameranın önünde, iyi ışıkta durun.",
+      "file": "camera.mp3",
+      "sha256": "a3cac5739781e919c5a1ad2ad69d200fe475b524a3265dcfd7d4651f6eda9df2",
+      "bytes": 22320,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "eye": {
+      "text": "Test edilen göz açık, diğer göz kapalı veya örtülü kalmalı.",
+      "file": "eye.mp3",
+      "sha256": "8eb0d46be0c8ae6fc6c8184eae1aa0fe72ea3a95be18649ed1961461e2906994",
+      "bytes": 32688,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "uncertain": {
+      "text": "Göz örtüsünü veya göz açıklığını kontrol edemiyorum.",
+      "file": "uncertain.mp3",
+      "sha256": "fd3bbe5eedef7354b92d357fe62f713177d94ba430681dc71be04a02e91f66c3",
+      "bytes": 29664,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "paused": {
+      "text": "Görev duraklatıldı. Devam et diyerek sürdürebilirsiniz.",
+      "file": "paused.mp3",
+      "sha256": "bcc9aa2378174be97a0f1796ff256bb88388ca3804abf55f435ce281c7790c31",
+      "bytes": 40464,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    },
+    "complete": {
+      "text": "Harf tanıma görevi tamamlandı.",
+      "file": "complete.mp3",
+      "sha256": "46044cb22f3a08d7413be5613e36b51448a61d5ce2b4408b318cce6b7fdf9901",
+      "bytes": 21168,
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz"
+    }
+  }
+}

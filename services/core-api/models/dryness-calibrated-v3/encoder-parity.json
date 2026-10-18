@@ -1,0 +1,33 @@
+{
+  "sourceEncoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+  "onnxSHA256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987",
+  "featureParity": true,
+  "tests": [
+    {
+      "source": "9bab7ab2",
+      "maximumAbsoluteDifference": 2.2172927856445312e-05,
+      "allclose": true,
+      "torchSeconds": 0.6089999999385327,
+      "onnxSeconds": 0.40600000019185245
+    },
+    {
+      "source": "24031977",
+      "maximumAbsoluteDifference": 2.6047229766845703e-05,
+      "allclose": true,
+      "torchSeconds": 0.7339999999385327,
+      "onnxSeconds": 0.4220000000204891
+    },
+    {
+      "source": "e1646fda",
+      "maximumAbsoluteDifference": 1.2874603271484375e-05,
+      "allclose": true,
+      "torchSeconds": 0.6099999998696148,
+      "onnxSeconds": 0.625
+    }
+  ],
+  "input": "RGB224/ImageNet-standardized, unchanged square source crops",
+  "providers": [
+    "CPUExecutionProvider"
+  ],
+  "sourceWeightsUnchanged": true
+}

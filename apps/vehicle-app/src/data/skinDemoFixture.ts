@@ -28,7 +28,10 @@ export interface MetricItem {
 }
 
 export interface SkinRegionData {
-  id: SkinRegionId;
+  indicators?:import('../utils/skinIndicators').SkinIndicator[];
+  id: SkinRegionId | 'overview';
+  viewTotal?: number;
+  skinType?: import('../utils/skinOverview').SkinOverview['skinType'];
   index: number;
   nameTr: string;
   badgeText: string;
@@ -75,11 +78,11 @@ export const SKIN_REGIONS: Record<SkinRegionId, SkinRegionData> = {
       luminance: {
         label: 'Ton / Parlaklık',
         score: 68,
-        displayValue: 'Optimal',
+        displayValue: 'Yüksek parlaklık',
         status: 'cyan'
       },
       texture: {
-        label: 'Doku Değişimi',
+        label: 'Eski piksel doku farkı',
         score: 22,
         displayValue: 'Stabil',
         status: 'cyan'
@@ -145,7 +148,7 @@ export const SKIN_REGIONS: Record<SkinRegionId, SkinRegionData> = {
         status: 'cyan'
       },
       texture: {
-        label: 'Doku Değişimi',
+        label: 'Eski piksel doku farkı',
         score: 48,
         displayValue: 'Hafif Artış',
         status: 'cyan'
@@ -207,11 +210,11 @@ export const SKIN_REGIONS: Record<SkinRegionId, SkinRegionData> = {
       luminance: {
         label: 'Ton / Parlaklık',
         score: 64,
-        displayValue: 'Optimal',
+        displayValue: 'Yüksek parlaklık',
         status: 'cyan'
       },
       texture: {
-        label: 'Doku Değişimi',
+        label: 'Eski piksel doku farkı',
         score: 22,
         displayValue: 'Stabil',
         status: 'cyan'
@@ -273,11 +276,11 @@ export const SKIN_REGIONS: Record<SkinRegionId, SkinRegionData> = {
       luminance: {
         label: 'Ton / Parlaklık',
         score: 60,
-        displayValue: 'Optimal',
+        displayValue: 'Yüksek parlaklık',
         status: 'cyan'
       },
       texture: {
-        label: 'Doku Değişimi',
+        label: 'Eski piksel doku farkı',
         score: 26,
         displayValue: 'Stabil',
         status: 'cyan'
@@ -338,11 +341,11 @@ export const SKIN_REGIONS: Record<SkinRegionId, SkinRegionData> = {
       luminance: {
         label: 'Ton / Parlaklık',
         score: 65,
-        displayValue: 'Optimal',
+        displayValue: 'Yüksek parlaklık',
         status: 'cyan'
       },
       texture: {
-        label: 'Doku Değişimi',
+        label: 'Eski piksel doku farkı',
         score: 16,
         displayValue: 'Stabil',
         status: 'cyan'
@@ -407,7 +410,7 @@ export const SKIN_REGIONS: Record<SkinRegionId, SkinRegionData> = {
         status: 'cyan'
       },
       texture: {
-        label: 'Doku Değişimi',
+        label: 'Eski piksel doku farkı',
         score: 34,
         displayValue: 'Hafif Artış',
         status: 'cyan'
@@ -477,6 +480,7 @@ export function buildSkinRegionViewModel(
   isDemo: boolean = false
 ): SkinRegionData {
   const base = getRegionData(regionId);
+  if(analysisResult?.schemaVersion===3)return {...base,nameTr:regionId==='nose'?'T-Bölgesi':base.nameTr,indicators:analysisResult.indicators?.[regionId]||[],badgeText:analysisResult.isBaseline?'Yeni ölçüm referansı':'Yeni değerlendirme',trend:[],changePct:0,isAttentionRequired:false,observation:{headline:`${regionId==='nose'?'T-Bölgesi':base.nameTr} — görsel değerlendirme`,details:analysisResult.indicators?.[regionId]?.some((row:import('../utils/skinIndicators').SkinIndicator)=>row.appearance)?'Kabul edilen gerçek fotoğrafta mevcut görüntünün bölgesel görünüm adayları hesaplandı. Bunlar tanı, cilt nemi veya klinik şiddet değildir. Kalite yetersizse o ölçüm gösterilmez.':'Renk indeksleri yalnız kabul edilmiş fotoğrafta ölçülür. Boş göstergeler için doğrulanmış yöntem yoktur. Eski parlaklık/doku skorları bu başlıklara dönüştürülmez.'}};
   if (isDemo) {
     return base;
   }
@@ -502,7 +506,7 @@ export function buildSkinRegionViewModel(
           status: 'cyan'
         },
         texture: {
-          label: 'Doku Değişimi',
+          label: 'Eski piksel doku farkı',
           score: 0,
           displayValue: '—',
           status: 'cyan'
@@ -528,16 +532,17 @@ export function buildSkinRegionViewModel(
 
   const rednessScore = typeof real.rednessScore === 'number' ? real.rednessScore : 0;
   const rednessStatus: 'amber' | 'cyan' | 'emerald' = rednessScore > 50 ? 'amber' : 'cyan';
-  const rednessDisplay = rednessScore > 50 ? 'Yüksek' : rednessScore > 35 ? 'Hafif Artış' : 'Stabil';
+  const rednessDisplay = rednessScore > 50 ? 'Yüksek' : rednessScore > 35 ? 'Orta' : 'Düşük';
 
   const lumScore = typeof real.luminanceScore === 'number' ? real.luminanceScore : 0;
-  const lumDisplay = lumScore > 60 ? 'Optimal' : lumScore < 40 ? 'Düşük' : 'Dengeli';
+  const lumDisplay = lumScore > 60 ? 'Yüksek parlaklık' : lumScore < 40 ? 'Düşük' : 'Dengeli';
 
   const textScore = typeof real.textureVariance === 'number' ? real.textureVariance : 0;
   const textStatus: 'amber' | 'cyan' | 'emerald' = textScore > 40 ? 'amber' : 'cyan';
-  const textDisplay = textScore > 40 ? 'Artış' : 'Stabil';
+  const textDisplay = textScore > 40 ? 'Belirgin piksel farkı' : textScore > 20 ? 'Orta piksel farkı' : 'Az piksel farkı';
 
-  const deltaDisplay = `${changePct > 0 ? '+' : ''}${changePct}%`;
+  const comparable = !analysisResult.isBaseline && !analysisResult.comparisonUnavailable && typeof real.changeFromBaselinePct === 'number';
+  const deltaDisplay = !comparable ? (analysisResult.isBaseline ? 'İlk tarama' : 'Karşılaştırılamadı') : `${changePct > 0 ? '+' : ''}${changePct}%`;
   const deltaStatus: 'amber' | 'cyan' | 'emerald' = isAttentionRequired ? 'amber' : 'emerald';
 
   return {
@@ -572,10 +577,9 @@ export function buildSkinRegionViewModel(
       }
     },
     observation: {
-      headline: isAttentionRequired
-        ? `${base.nameTr} bölgesinde baz çizgiye göre %${Math.abs(changePct)} görsel değişim izlendi.`
-        : `${base.nameTr} bölgesinde görsel telemetri referans bandında seyretmektedir.`,
-      details: analysisResult.clinicalNoteTr || base.observation.details
+      headline: `${base.nameTr} — ${deltaDisplay}`,
+      details: !comparable ? `${base.nameTr}: ${deltaDisplay}. İlk geçerli taramanızın sayısal metrikleri referanstır; bu sonuç tanı değildir.` :
+        `${base.nameTr} bölgesinin kızarıklık piksel göstergesinde ${changePct > 0 ? '+' : ''}${changePct}% fark ölçüldü. Işık ve poz bu göstergeleri etkileyebilir; klinik değişim veya tanı değildir.`
     }
   };
 }

@@ -1,19 +1,24 @@
 'use client';
 
 import React from 'react';
+import { SkinIndicatorValue } from './SkinIndicatorValue';
+import { InformationButton } from '../InformationButton';
 import { TrendingUp, FileText, Lightbulb, ArrowRight } from 'lucide-react';
 import { SkinRegionData } from '../../data/skinDemoFixture';
+import { SKIN_TYPE_LABELS } from '../../utils/skinOverview';
 
 interface SkinRegionSummaryProps {
   currentRegion: SkinRegionData;
   onOpenModal: (modal: 'trend' | 'observation' | 'actions') => void;
   onNavigateToCare: () => void;
+  selectedCriterion?:string|null;
+  onSelectCriterion?:(criterion:string)=>void;
 }
 
 export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
   currentRegion,
   onOpenModal,
-  onNavigateToCare
+  onNavigateToCare,selectedCriterion,onSelectCriterion
 }) => {
   const { metrics } = currentRegion;
 
@@ -25,19 +30,24 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
           <h3 className="text-lg font-bold text-white tracking-wide">
             {currentRegion.nameTr}
           </h3>
-          <span
-            className={`text-xs font-mono font-bold px-2.5 py-0.5 rounded-full border ${
-              currentRegion.isAttentionRequired
-                ? 'bg-amber-500/20 text-amber-400 border-amber-500/30'
-                : 'bg-slate-800 text-slate-300 border-slate-700'
-            }`}
-          >
-            {currentRegion.badgeText}
-          </span>
+
         </div>
 
-        {/* 4 Gerçek Engine Metriği Göstergeleri */}
-        <div className="space-y-2.5">
+        {currentRegion.id === 'overview' && <div className="rounded-2xl border border-sky-400/15 bg-slate-900/60 p-4 flex flex-wrap justify-between gap-2" data-skin-type><span className="text-sm text-slate-300">Cilt tipi</span><strong className="text-base text-white">{currentRegion.skinType?.quality === 'valid' && currentRegion.skinType.value ? SKIN_TYPE_LABELS[currentRegion.skinType.value] : '—'}</strong></div>}
+        {/* Current source measurements only. */}
+        {currentRegion.indicators ? <div className="space-y-4" data-skin-indicators>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {currentRegion.indicators.map(indicator=>{
+              const geometry=indicator.appearance?.type==='longitudinal_measurement';
+              const delta=indicator.referenceDelta===undefined?undefined:Math.round(indicator.referenceDelta*(geometry?1000:1));
+              return <div key={indicator.id} data-skin-indicator={indicator.id} role={onSelectCriterion?'button':undefined} tabIndex={onSelectCriterion?0:undefined} aria-pressed={onSelectCriterion?selectedCriterion===indicator.id:undefined} onClick={()=>onSelectCriterion?.(indicator.id)} onKeyDown={event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();onSelectCriterion?.(indicator.id);}}} className={`rounded-2xl border bg-slate-900/60 p-4 space-y-3 ${selectedCriterion===indicator.id?'border-togg-turquoise ring-1 ring-togg-turquoise/40':'border-sky-400/15'}`}>
+                <div className="text-sm text-slate-300">{indicator.label}</div>
+                <SkinIndicatorValue indicator={indicator}/>
+                {delta!==undefined&&<p className="text-xs text-sky-300">Referansa göre {delta>0?'+':''}{delta} {geometry?'× 10⁻³ kontur farkı':indicator.unit}</p>}
+              </div>;
+            })}
+          </div>
+        </div> : <div className="space-y-2.5">
           {/* 1. Kızarıklık Eğilimi */}
           <div className="space-y-1">
             <div className="flex justify-between text-xs font-medium">
@@ -97,14 +107,14 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
           </div>
 
           {/* 4. Referansa Göre Değişim */}
-          <div className="space-y-1">
+          {/^[-+]?\d/.test(metrics.baselineChange.displayValue) && <div className="space-y-1">
             <div className="flex justify-between text-xs font-medium">
               <span className="text-slate-300">{metrics.baselineChange.label}</span>
               <span
                 className={`font-semibold font-mono ${
                   metrics.baselineChange.status === 'amber'
                     ? 'text-amber-400 font-bold'
-                    : 'text-emerald-400'
+                    : 'text-slate-300'
                 }`}
               >
                 {metrics.baselineChange.displayValue}
@@ -115,14 +125,15 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
                 className={`h-full rounded-full transition-all duration-300 ${
                   metrics.baselineChange.status === 'amber'
                     ? 'bg-amber-400'
-                    : 'bg-emerald-400'
+                    : 'bg-sky-400'
                 }`}
                 style={{ width: `${metrics.baselineChange.score}%` }}
               />
             </div>
-          </div>
-        </div>
+          </div>}
+        </div>}
       </div>
+
 
       {/* 3 İkincil Eylem Butonu */}
       <div className="grid grid-cols-3 gap-3 pt-1">

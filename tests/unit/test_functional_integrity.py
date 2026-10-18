@@ -75,7 +75,7 @@ def test_skin_demo_mode_allows_fixture_with_separate_keys():
 # ---------------------------------------------------------------------------
 # 3. First Real Scan: Baseline Creation
 # ---------------------------------------------------------------------------
-def test_skin_first_real_scan_creates_baseline_no_fake_delta():
+def test_current_skin_first_scan_is_independent_of_reference_no_fake_delta():
     """İlk başarılı tarama referans baz çizgisini kaydetmeli, sahte +22 delta veya referral üretmemelidir."""
     skin_analyzer = root_dir / "apps" / "vehicle-app" / "src" / "utils" / "skinAnalyzer.ts"
     content = skin_analyzer.read_text(encoding="utf-8")
@@ -88,8 +88,10 @@ def test_skin_first_real_scan_creates_baseline_no_fake_delta():
 
     skin_page = root_dir / "apps" / "vehicle-app" / "src" / "app" / "skin" / "page.tsx"
     page_content = skin_page.read_text(encoding="utf-8")
-    assert "STORAGE_KEYS.SKIN_BASELINE" in page_content
-    assert "isFirstScan" in page_content
+    assert "localStorage.getItem(STORAGE_KEYS.SKIN_BASELINE)" not in page_content
+    assert "initializeMissingContourReferences" not in page_content
+    assert "analysisMode: 'instant-appearance-v2'" in page_content
+    assert "highestChangePct: 0" in page_content
 
 
 # ---------------------------------------------------------------------------
@@ -121,7 +123,10 @@ def test_skin_real_result_ui_uses_analysis_result_not_demo_fixture():
 
     skin_page = root_dir / "apps" / "vehicle-app" / "src" / "app" / "skin" / "page.tsx"
     page_content = skin_page.read_text(encoding="utf-8")
-    assert "buildSkinRegionViewModel(" in page_content
+    # Overview now delegates regional views through the same real-data adapter.
+    assert "buildSkinViewModel(" in page_content
+    overview=(root_dir/'apps/vehicle-app/src/utils/skinOverview.ts').read_text(encoding='utf-8')
+    assert "buildSkinRegionViewModel(" in overview
 
 
 # ---------------------------------------------------------------------------
@@ -148,7 +153,9 @@ def test_skin_history_strictly_excludes_raw_images():
     content = skin_page.read_text(encoding="utf-8")
 
     # localStorage.setItem('togg_health_skin_history' bloğunda yalnız sayısal telemetri olmalı
-    assert "STORAGE_KEYS.SKIN_HISTORY" in content
+    assert "appendHealthRecord('skin', finalResult" in content
+    store = (root_dir / 'apps/vehicle-app/src/utils/healthRecords.ts').read_text(encoding='utf-8')
+    assert 'STORAGE_KEYS.SKIN_HISTORY' in store and 'containsMedia(record)' in store
     assert "toDataURL" not in content
     assert "image/jpeg" not in content
     assert "image/png" not in content
@@ -167,7 +174,7 @@ def test_privacy_empty_storage_counts_are_strictly_zero():
     assert "vision ? 1 : 1" not in content
     assert "mental ? 2 : 2" not in content
     # Gerçek sayım mantığı bulunmalı
-    assert "localStorage.getItem(STORAGE_KEYS.LATEST_VISION) ? 1 : 0" in content
+    assert "readHealthRecords('vision').length" in content
     # Browser denied cannot become effective GRANTED merely due to app preference
     assert "deriveEffectiveStatus" in content
     assert "if (!appAllowed)" in content
@@ -185,7 +192,7 @@ def test_camera_app_permission_false_blocks_skin_and_vision():
     assert "isCameraAllowed()" in skin_content
     assert "!isCameraAllowed()" in skin_content
 
-    vision_page = root_dir / "apps" / "vehicle-app" / "src" / "app" / "vision" / "page.tsx"
+    vision_page = root_dir / "apps" / "vehicle-app" / "src" / "app" / "vision" / "ContinuousPage.tsx"
     vision_content = vision_page.read_text(encoding="utf-8")
     assert "isCameraAllowed()" in vision_content
     assert "!isCameraAllowed()" in vision_content
@@ -195,14 +202,16 @@ def test_camera_app_permission_false_blocks_skin_and_vision():
 # 10. Microphone App Permission: Blocks Mental Mic
 # ---------------------------------------------------------------------------
 def test_microphone_app_permission_false_blocks_mental_mic():
-    """Uygulama içi mikrofon izni kapalıysa Mental modülü ses tanımayı başlatmamalı ve metin girişini açmalıdır."""
-    mental_page = root_dir / "apps" / "vehicle-app" / "src" / "app" / "mental" / "page.tsx"
+    """İzin yokken sesli akış iptal edilir; kaldırılmış yazılı fallback açılmaz."""
+    mental_page = root_dir / "apps" / "vehicle-app" / "src" / "utils" / "useMentalConversation.ts"
     content = mental_page.read_text(encoding="utf-8")
 
     assert "isMicrophoneAllowed()" in content
     assert "!isMicrophoneAllowed()" in content
-    assert "setMicNotice(" in content
-    assert "setShowTextInput(true)" in content
+    assert "setNotice(" in content
+    branch=content.split('if (!isMicrophoneAllowed() || !settings.current.speechConsent)',1)[1].split('const SR',1)[0]
+    assert "cancel(" in branch and "return;" in branch
+    assert "setTextMode(true)" not in content
 
 
 # ---------------------------------------------------------------------------
@@ -210,11 +219,11 @@ def test_microphone_app_permission_false_blocks_mental_mic():
 # ---------------------------------------------------------------------------
 def test_mental_summary_saving_false_prevents_session_persistence():
     """Seans özeti saklama kapalıysa mental oturum kaydedilmemelidir."""
-    mental_page = root_dir / "apps" / "vehicle-app" / "src" / "app" / "mental" / "page.tsx"
+    mental_page = root_dir / "apps" / "vehicle-app" / "src" / "utils" / "useMentalConversation.ts"
     content = mental_page.read_text(encoding="utf-8")
 
     assert "isMentalSummarySavingAllowed()" in content
-    assert "if (isMentalSummarySavingAllowed()) {" in content
+    assert "if (!isDemoMode() && isMentalSummarySavingAllowed()) {" in content
 
 
 # ---------------------------------------------------------------------------

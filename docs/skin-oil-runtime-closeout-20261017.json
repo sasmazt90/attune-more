@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-17T22:12:22.634964+00:00",
+  "task": "OIL-01 finite controlled runtime closeout",
+  "productionActivated": false,
+  "productionBuildCompleted": true,
+  "normalApiInferenceCompleted": false,
+  "inferenceRequestsSent": 0,
+  "candidateApplicationCommit": "14efa4123b5ffcfb2095747b99d3baf679d1a3ef",
+  "rollbackCommit": "59ffc06a65cffa65b0baedd98161b8f63c474f30",
+  "worktreeBaseBeforeDocumentation": "59ffc06a65cffa65b0baedd98161b8f63c474f30",
+  "continuingCombinedBase": "rollback commit retains preceding DRY/SEC/OIL audit commits, with verified baseline runtime files",
+  "servingSourceCommit": "b2573b512595adc7cae86d7ab932abb318f61689",
+  "BUILD_ID": "PlmGO62XYbiAMR2PNNLGr",
+  "candidateBUILD_ID": "24ZU0_wGYz9NR_v4LQkNU",
+  "candidateBuildSeconds": 76.18700000000536,
+  "candidateBuildPeakRSSMiB": 930.71875,
+  "patchSHA256": "3d45f56794b034da80f611730a5f45a6432b58d51ac4f999b903d6f42a808022",
+  "modelStartGuardMiB": 2500,
+  "browserClosedSamplesMiB": [
+    2330,
+    2325,
+    2322
+  ],
+  "userRequestedRecheckMiB": 2175,
+  "baselineRestored": true,
+  "normalSessionOpen": true,
+  "rollbackOriginalReceiptPreserved": true,
+  "rollbackOriginalReceiptBaselineRestored": false,
+  "rollbackCorrection": "git revert was staged; redundant git add of deleted test failed (exit128). Finally reopened baseline. Exact staged reversal subsequently committed as rollbackCommit; index clean.",
+  "approvalState": "human controlled restart approval verified; no approval pending",
+  "autoReview": "initial stop rejected before explicit approval; split rollback later rejected before execution; accepted atomic rollback/reopen used",
+  "originalFocusedTestsPassed": 13,
+  "originalTypecheckPassed": true,
+  "repeatedTestsOrBuildDuringFinalization": false,
+  "versionChain": {
+    "files": 297,
+    "servedAssets": 26,
+    "evidence": "resume-rollback-version-chain.json"
+  },
+  "cleanupEvidence": "resume-cleanup-receipt.json",
+  "remaining": "Normal model/API acceptance blocked by unchanged RAM reserve; OIL inactive. SAG/DRY/SEC/FINAL open.",
+  "pushOrMerge": false
+}

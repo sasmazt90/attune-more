@@ -1,0 +1,984 @@
+{
+  "version": "selected-skin-execution-20261011-v1",
+  "readyForFullAcceptance": false,
+  "baseHEAD": "b0116521308466e8604c3d6e49069143ada91ff0",
+  "branch": "fix/live-test-followup",
+  "data": {
+    "manifestSHA256": "3607b875ddc21d3ee8e6b7cc7c20bee2042612b3b184114746c06263fcf00086",
+    "images": 26722,
+    "groups": 11260,
+    "counts": {
+      "v11:train": 705,
+      "v11:validation": 139,
+      "v11:test": 104,
+      "smart:validation": 108,
+      "smart:train": 571,
+      "smart:test": 121,
+      "clean3:train": 2013,
+      "clean3:validation": 388,
+      "clean3:test": 259,
+      "dc:validation": 70,
+      "dc:train": 281,
+      "dc:test": 48,
+      "wrinkles:train": 635,
+      "wrinkles:validation": 144,
+      "wrinkles:test": 135,
+      "skin5:train": 410,
+      "skin5:test": 35,
+      "skin5:validation": 101,
+      "face:train": 4731,
+      "face:validation": 1076,
+      "face:test": 942,
+      "care:test": 69,
+      "care:validation": 134,
+      "care:train": 700,
+      "merve:validation": 574,
+      "merve:train": 2485,
+      "merve:test": 309,
+      "arnold:train": 184,
+      "arnold:test": 19,
+      "arnold:validation": 46,
+      "csv:train": 1781,
+      "csv:validation": 339,
+      "csv:test": 229,
+      "old-skin:train": 3324,
+      "old-skin:validation": 769,
+      "old-eye:train": 2279,
+      "old-eye:validation": 465
+    },
+    "sourceHashes": {
+      "Skin Analysis.v11-augmentation_version.coco-segmentation.zip": "f1f4ea68eec6ffca41d52f56bafa13eea0204a82afff8eb7d65ef1966a769ac5",
+      "SmartSkinCare.v8i.coco.zip": "c6bb5101b0a2c84a388cffc486262985d10b61d9f418f70c64e6eb166eea9bd6",
+      "Skin-Problem-Detection-Relabel-Clean3.v1-skin-disease-detection-.coco.zip": "c6404e0597481c8f52b4855092a92545b14c28691491d45a22707ac7dde43659",
+      "DC EB 2.v1i.coco.zip": "3c5f800e2460c6388a3a2755050484b82d619052bedbc6eef153641d8d647b6d",
+      "Wrinkles Detector.v2i.coco-segmentation.zip": "3e6d6f35c0590dccb76335d54a8f52118f97599206b40e5d974212bbc6fdc8ec",
+      "Skin.v5i.coco.zip": "9746b813cd0927bd4ce96822f7667d4ff3c1d5b4504e9ddfc2db70f0db4e8ea5",
+      "skin_face_detection.v1i.coco.zip": "c56937df11bdcce2903afa38ee09225c83e2d8f886e312ede0cc50cf5f397798",
+      "Skin care.v5i.coco.zip": "15f4d6d1899d01bd72b881c24efd9732db29df88cc8b785269779c236d8bbddb",
+      "ciltanalizi.v12i.coco.zip": "8fdf070c0cae65fd27ce0046c93393e0ac17e5282bf472097453c756481b831e",
+      "yolo arnold.v1i.coco.zip": "1c6703c589e29b37db3e036eb68ac1bc6bad3ac5974292b167dc730306560915",
+      "multi-class.v1i.multiclass.zip": "b8bf4dd7f33345bf046a8b43dfaa9da279141ba65a2bbb3a82927f6001bb7f21"
+    },
+    "groupEdges": {
+      "export-family": 10449,
+      "bytes": 706,
+      "decoded": 706,
+      "old-group": 3320,
+      "reencoded-resized-pixel-match": 7307
+    },
+    "dhashCandidatePairsQuarantined": 32718,
+    "sourceArchivesChanged": false,
+    "trainingFreeze": true
+  },
+  "stockGroupExcludedRows": 79,
+  "realRLEAnnotations": 54,
+  "rights": [
+    {
+      "source": "v11",
+      "archive": "Skin Analysis.v11-augmentation_version.coco-segmentation.zip",
+      "archiveSHA256": "f1f4ea68eec6ffca41d52f56bafa13eea0204a82afff8eb7d65ef1966a769ac5",
+      "readmes": {
+        "README.dataset.txt": "# Skin Analysis > augmentation_version\nhttps://universe.roboflow.com/bread-7emlk/skin-analysis-wl7al\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+        "README.roboflow.txt": "\nSkin Analysis - v11 augmentation_version\n==============================\n\nThis dataset was exported via roboflow.com on March 9, 2026 at 8:54 AM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 948 images.\nFacial-defects are annotated in COCO Segmentation format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Fit (black edges))\n\nNo image augmentation techniques were applied.\n\n\n"
+      },
+      "license": "publisher-declared CC-BY-4.0",
+      "transform": "original export retained; ROI tensors tracked separately",
+      "individualImageRights": "unverified until review; stock markers excluded"
+    },
+    {
+      "source": "smart",
+      "archive": "SmartSkinCare.v8i.coco.zip",
+      "archiveSHA256": "c6bb5101b0a2c84a388cffc486262985d10b61d9f418f70c64e6eb166eea9bd6",
+      "readmes": {
+        "README.dataset.txt": "# SmartSkinCare > 2023-04-30 8:19pm\nhttps://universe.roboflow.com/test-9wsgf/smartskincare\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+        "README.roboflow.txt": "\nSmartSkinCare - v8 2023-04-30 8:19pm\n==============================\n\nThis dataset was exported via roboflow.com on May 7, 2023 at 8:40 PM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 800 images.\nSkin-defects are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 1280x1280 (Stretch)\n\nThe following augmentation was applied to create 1 versions of each source image:\n* Randomly crop between 0 and 25 percent of the image\n\n\n"
+      },
+      "license": "publisher-declared CC-BY-4.0",
+      "transform": "original export retained; ROI tensors tracked separately",
+      "individualImageRights": "unverified until review; stock markers excluded"
+    },
+    {
+      "source": "clean3",
+      "archive": "Skin-Problem-Detection-Relabel-Clean3.v1-skin-disease-detection-.coco.zip",
+      "archiveSHA256": "c6404e0597481c8f52b4855092a92545b14c28691491d45a22707ac7dde43659",
+      "readmes": {
+        "README.roboflow.txt": "\nSkin-Problem-Detection-Relabel-Clean3 - v1 Skin Disease Detection \n==============================\n\nThis dataset was exported via roboflow.com on October 11, 2026 at 1:57 AM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 2660 images.\nAcne-Blackhead-Wrinkles-f6HR-vJCz-Vyox are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n\nNo image augmentation techniques were applied.\n\n\n",
+        "README.dataset.txt": "# Skin-Problem-Detection-Relabel-Clean3 > Skin Disease Detection \nhttps://universe.roboflow.com/abdullah-ibn-talha/skin-problem-detection-relabel-clean3-0sgdn\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n"
+      },
+      "license": "publisher-declared CC-BY-4.0",
+      "transform": "original export retained; ROI tensors tracked separately",
+      "individualImageRights": "unverified until review; stock markers excluded"
+    },
+    {
+      "source": "dc",
+      "archive": "DC EB 2.v1i.coco.zip",
+      "archiveSHA256": "3c5f800e2460c6388a3a2755050484b82d619052bedbc6eef153641d8d647b6d",
+      "readmes": {
+        "README.roboflow.txt": "\nDC EB 2 - v1 2026-05-26 6:34pm\n==============================\n\nThis dataset was exported via roboflow.com on August 25, 2026 at 5:37 AM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 399 images.\nDC-EB-2 are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Stretch)\n\nNo image augmentation techniques were applied.\n\n\n",
+        "README.dataset.txt": "# DC EB 2 > 2026-05-26 6:34pm\nhttps://universe.roboflow.com/inexistentheaps-workspace-bhlt5/dc-eb-2\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n"
+      },
+      "license": "publisher-declared CC-BY-4.0",
+      "transform": "original export retained; ROI tensors tracked separately",
+      "individualImageRights": "unverified until review; stock markers excluded"
+    },
+    {
+      "source": "wrinkles",
+      "archive": "Wrinkles Detector.v2i.coco-segmentation.zip",
+      "archiveSHA256": "3e6d6f35c0590dccb76335d54a8f52118f97599206b40e5d974212bbc6fdc8ec",
+      "readmes": {
+        "README.dataset.txt": "# Wrinkles Detector > 2023-09-19 4:14pm\nhttps://universe.roboflow.com/sellsio/wrinkles-detector\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+        "README.roboflow.txt": "\nWrinkles Detector - v2 2023-09-19 4:14pm\n==============================\n\nThis dataset was exported via roboflow.com on April 17, 2024 at 9:49 AM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 914 images.\nWrinkles are annotated in COCO Segmentation format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Fit (white edges))\n\nNo image augmentation techniques were applied.\n\n\n"
+      },
+      "license": "publisher-declared CC-BY-4.0",
+      "transform": "original export retained; ROI tensors tracked separately",
+      "individualImageRights": "unverified until review; stock markers excluded"
+    },
+    {
+      "source": "skin5",
+      "archive": "Skin.v5i.coco.zip",
+      "archiveSHA256": "9746b813cd0927bd4ce96822f7667d4ff3c1d5b4504e9ddfc2db70f0db4e8ea5",
+      "readmes": {
+        "README.dataset.txt": "# Skin > 2023-04-18 10:43am\nhttps://universe.roboflow.com/phamphong/skin-tybfq\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+        "README.roboflow.txt": "\nSkin - v5 2023-04-18 10:43am\n==============================\n\nThis dataset was exported via roboflow.com on April 18, 2023 at 3:43 AM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 546 images.\nSkin are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 1024x1024 (Stretch)\n\nNo image augmentation techniques were applied.\n\n\n"
+      },
+      "license": "publisher-declared CC-BY-4.0",
+      "transform": "original export retained; ROI tensors tracked separately",
+      "individualImageRights": "unverified until review; stock markers excluded"
+    },
+    {
+      "source": "face",
+      "archive": "skin_face_detection.v1i.coco.zip",
+      "archiveSHA256": "c56937df11bdcce2903afa38ee09225c83e2d8f886e312ede0cc50cf5f397798",
+      "readmes": {
+        "README.dataset.txt": "# skin_face_detection > 2023-12-29 9:52am\nhttps://universe.roboflow.com/elisabeth-hui/skin_face_detection\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+        "README.roboflow.txt": "\nskin_face_detection - v1 2023-12-29 9:52am\n==============================\n\nThis dataset was exported via roboflow.com on February 5, 2025 at 10:50 PM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 6749 images.\nWrinkle-acne are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Stretch)\n\nThe following augmentation was applied to create 3 versions of each source image:\n\n\n"
+      },
+      "license": "publisher-declared CC-BY-4.0",
+      "transform": "original export retained; ROI tensors tracked separately",
+      "individualImageRights": "unverified until review; stock markers excluded"
+    },
+    {
+      "source": "care",
+      "archive": "Skin care.v5i.coco.zip",
+      "archiveSHA256": "15f4d6d1899d01bd72b881c24efd9732db29df88cc8b785269779c236d8bbddb",
+      "readmes": {
+        "README.dataset.txt": "# Skin care > 2025-01-09 6:02pm\nhttps://universe.roboflow.com/taralina/skin-care-p7mj8\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+        "README.roboflow.txt": "\nSkin care - v5 2025-01-09 6:02pm\n==============================\n\nThis dataset was exported via roboflow.com on January 9, 2025 at 1:02 PM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 903 images.\nPhotos-of-pepole-w-skin-issues are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Stretch)\n\nThe following augmentation was applied to create 3 versions of each source image:\n* Random rotation of between -15 and +15 degrees\n\n\n"
+      },
+      "license": "publisher-declared CC-BY-4.0",
+      "transform": "original export retained; ROI tensors tracked separately",
+      "individualImageRights": "unverified until review; stock markers excluded"
+    },
+    {
+      "source": "merve",
+      "archive": "ciltanalizi.v12i.coco.zip",
+      "archiveSHA256": "8fdf070c0cae65fd27ce0046c93393e0ac17e5282bf472097453c756481b831e",
+      "readmes": {
+        "README.dataset.txt": "# ciltanalizi > 2025-05-01 7:06pm\nhttps://universe.roboflow.com/merves-workspace-uxyeb/ciltanalizi-rfa8m\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+        "README.roboflow.txt": "\nciltanalizi - v12 2025-05-01 7:06pm\n==============================\n\nThis dataset was exported via roboflow.com on May 1, 2025 at 4:06 PM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 3368 images.\nObjects-pH78 are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Stretch)\n\nThe following augmentation was applied to create 3 versions of each source image:\n* 50% probability of horizontal flip\n* Randomly crop between 0 and 20 percent of the image\n* Random rotation of between -15 and +15 degrees\n\n\n"
+      },
+      "license": "publisher-declared CC-BY-4.0",
+      "transform": "original export retained; ROI tensors tracked separately",
+      "individualImageRights": "unverified until review; stock markers excluded"
+    },
+    {
+      "source": "arnold",
+      "archive": "yolo arnold.v1i.coco.zip",
+      "archiveSHA256": "1c6703c589e29b37db3e036eb68ac1bc6bad3ac5974292b167dc730306560915",
+      "readmes": {
+        "README.dataset.txt": "# yolo arnold > 2024-09-11 7:02am\nhttps://universe.roboflow.com/k-gyibl/yolo-arnold\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+        "README.roboflow.txt": "\nyolo arnold - v1 2024-09-11 7:02am\n==============================\n\nThis dataset was exported via roboflow.com on October 28, 2024 at 7:24 AM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 249 images.\nYolo are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Stretch)\n\nNo image augmentation techniques were applied.\n\n\n"
+      },
+      "license": "publisher-declared CC-BY-4.0",
+      "transform": "original export retained; ROI tensors tracked separately",
+      "individualImageRights": "unverified until review; stock markers excluded"
+    },
+    {
+      "source": "csv",
+      "archive": "multi-class.v1i.multiclass.zip",
+      "archiveSHA256": "b8bf4dd7f33345bf046a8b43dfaa9da279141ba65a2bbb3a82927f6001bb7f21",
+      "readmes": {
+        "README.dataset.txt": "# multi-class > 2026-01-04 6:00pm\nhttps://universe.roboflow.com/purplyyy/multi-class-imgkf\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+        "README.roboflow.txt": "\nmulti-class - v1 2026-01-04 6:00pm\n==============================\n\nThis dataset was exported via roboflow.com on January 4, 2026 at 12:32 PM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 2349 images.\nSkin are annotated in Multi-Class Classification format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 224x224 (Stretch)\n\nNo image augmentation techniques were applied.\n\n\n"
+      },
+      "license": "publisher-declared CC-BY-4.0",
+      "transform": "original export retained; ROI tensors tracked separately",
+      "individualImageRights": "unverified until review; stock markers excluded"
+    }
+  ],
+  "review": {
+    "photos": 158,
+    "naturalAndRightsEligiblePhotos": 93,
+    "SHA256": "712553938738ddf8051cec0f7b2cdf394a8cd5091e6c97c24a0ff6eef6ba123e",
+    "engineeringLabels": true,
+    "expertLabels": false,
+    "predictionsUsed": false
+  },
+  "models": {
+    "type": {
+      "protocol": {
+        "architecture": "EfficientNet-B0",
+        "featuresTrained": [
+          "features.6",
+          "features.7",
+          "features.8",
+          "classifier"
+        ],
+        "maximumEpochs": 12,
+        "patience": 4,
+        "maximumSeconds": 2400,
+        "seed": 20261011,
+        "batch": 12,
+        "optimizer": "AdamW",
+        "lr": 0.0002,
+        "scheduler": "cosine",
+        "minimumMacroF1": 0.6,
+        "minimumClassF1": 0.4,
+        "confidencePrecision": 0.7,
+        "confidenceMinimumSupport": 10,
+        "selection": "development validation only",
+        "independentFinalAvailable": false,
+        "oldTestNeverOpened": true,
+        "sourceManifestSHA256": "de43cdaf2a17d741081daa535d6c69d498ea3d0244df19958ef9ec3b4d7caccf",
+        "classOrder": [
+          "normal",
+          "dry",
+          "oily",
+          "combination"
+        ],
+        "normalization": "actual RGB224 camera-crop-v1 ImageNet; pixel cache, no frozen feature cache"
+      },
+      "learning": {
+        "trainOnly": true,
+        "images": 8,
+        "firstLoss": 0.9480221629142761,
+        "lastLoss": 6.979094894177251e-06,
+        "accuracy": 1.0,
+        "passed": true,
+        "gradients": {
+          "features.6.0.block.0.0.weight": 0.039987336844205856,
+          "features.7.0.block.0.0.weight": 0.0649610087275505,
+          "features.8.0.weight": 0.042772285640239716,
+          "classifier.1.weight": 0.7008689641952515
+        }
+      },
+      "completedValidatedEpochs": 11,
+      "firstEpochSeconds": 124.625,
+      "selectedEpoch": 7,
+      "validation": {
+        "macroF1": 0.3091025641025641,
+        "balancedAccuracy": 0.3142101284958428,
+        "accuracy": 0.36363636363636365,
+        "classes": [
+          {
+            "label": "normal",
+            "precision": 0.28169014084507044,
+            "recall": 0.40816326530612246,
+            "F1": 0.3333333333333333,
+            "support": 49
+          },
+          {
+            "label": "dry",
+            "precision": 0.6470588235294118,
+            "recall": 0.3142857142857143,
+            "F1": 0.4230769230769231,
+            "support": 70
+          },
+          {
+            "label": "oily",
+            "precision": 0.352112676056338,
+            "recall": 0.46296296296296297,
+            "F1": 0.39999999999999997,
+            "support": 54
+          },
+          {
+            "label": "combination",
+            "precision": 0.09090909090909091,
+            "recall": 0.07142857142857142,
+            "F1": 0.08,
+            "support": 14
+          }
+        ],
+        "confusionMatrix": [
+          [
+            20,
+            4,
+            25,
+            0
+          ],
+          [
+            28,
+            22,
+            16,
+            4
+          ],
+          [
+            17,
+            6,
+            25,
+            6
+          ],
+          [
+            6,
+            2,
+            5,
+            1
+          ]
+        ],
+        "images": 187
+      },
+      "featureEvidence": {
+        "features.6.0.block.0.0.weight": {
+          "maxAbs": 0.0261550173163414,
+          "changed": true,
+          "gradientMax": 0.6487534642219543
+        },
+        "features.7.0.block.0.0.weight": {
+          "maxAbs": 0.02578715980052948,
+          "changed": true,
+          "gradientMax": 0.7001819014549255
+        },
+        "features.8.0.weight": {
+          "maxAbs": 0.027629058808088303,
+          "changed": true,
+          "gradientMax": 0.14883537590503693
+        },
+        "classifier.1.weight": {
+          "maxAbs": 0.017631597816944122,
+          "changed": true,
+          "gradientMax": 2.6639156341552734
+        }
+      },
+      "export": {
+        "sha256": "8dca9c49538567642e275fcefdcf5aaa9114d4715ddf6fa74e6cc2a9a85d3ebf",
+        "maxAbsoluteError": 2.288818359375e-05,
+        "realDevelopmentPhotos": 6,
+        "accepted": false,
+        "productionInstalled": false
+      },
+      "weightsSHA256": "405f5661b484cfa939bbbcc9ce9ccd1e21acccdfa802955c4829858d0fda8457",
+      "accepted": false,
+      "reason": "No unused four-class source holdout; clean source labels/camera domain unaccepted"
+    },
+    "mask": {
+      "protocol": {
+        "task": "mask",
+        "architecture": "ResNet18-small-U-Net",
+        "sharedTargets": [
+          "acne",
+          "oil",
+          "redness",
+          "tone",
+          "lines",
+          "dark",
+          "bags"
+        ],
+        "sigmoidIndependent": true,
+        "partialLabelsLossMasked": true,
+        "boxIsPixelMask": false,
+        "trainingItems": 32,
+        "validationPhotos": 16,
+        "maximumEpochs": 8,
+        "patience": 3,
+        "maximumSeconds": 1500,
+        "minimumDice": 0.65,
+        "minimumIoU": 0.5,
+        "maximumNegativeFPR": 0.05,
+        "minimumF1": 0.5,
+        "minimumPrecision": 0.6,
+        "minimumRecall": 0.4,
+        "requiredNaturalConfounderAcceptance": true,
+        "seed": 20261011,
+        "expertLabels": false,
+        "independentFinalOpened": false,
+        "reviewSHA256": "712553938738ddf8051cec0f7b2cdf394a8cd5091e6c97c24a0ff6eef6ba123e",
+        "manifestSHA256": "3607b875ddc21d3ee8e6b7cc7c20bee2042612b3b184114746c06263fcf00086",
+        "optimizer": "AdamW",
+        "scheduler": "cosine"
+      },
+      "learning": {
+        "firstLoss": 0.8023722171783447,
+        "lastLoss": 0.004369858698919415,
+        "passed": true,
+        "trainOnly": true,
+        "steps": 40,
+        "gradients": {
+          "encoder.layer4.0.conv1.weight": 0.1578158736228943,
+          "d4.0.weight": 0.7808104753494263,
+          "head.weight": 0.6613074541091919
+        }
+      },
+      "completedValidatedEpochs": 8,
+      "firstEpochSeconds": 28.82799999997951,
+      "selectedEpoch": 6,
+      "validation": {
+        "redness": {
+          "ROIs": 3,
+          "positiveROIs": 3,
+          "Dice": 0.0091324200913242,
+          "IoU": 0.004629629629629629,
+          "negativeFPR": 0.03533567188685881
+        },
+        "tone": {
+          "ROIs": 1,
+          "positiveROIs": 1,
+          "Dice": 0.10416631596666948,
+          "IoU": 0.05494485979648737,
+          "negativeFPR": 0.4131247708664304
+        },
+        "bags": {
+          "ROIs": 6,
+          "positiveROIs": 3,
+          "Dice": 0.47051884667787386,
+          "IoU": 0.3465462573002384,
+          "negativeFPR": 0.34004070820364296
+        },
+        "oil": {
+          "ROIs": 1,
+          "positiveROIs": 1,
+          "Dice": 0.19331742243436753,
+          "IoU": 0.10700132100396301,
+          "negativeFPR": 0.19350821103450047
+        },
+        "lines": {
+          "ROIs": 8,
+          "positiveROIs": 3,
+          "Dice": 0.2362286960059031,
+          "IoU": 0.15139518516837802,
+          "negativeFPR": 0.8670382343939254
+        },
+        "dark": {
+          "ROIs": 1,
+          "positiveROIs": 1,
+          "Dice": 0.4417732866107082,
+          "IoU": 0.28351027665917056,
+          "negativeFPR": 0.7524067721589023
+        }
+      },
+      "featureEvidence": {
+        "encoder.layer4.0.conv1.weight": {
+          "maxAbs": 0.0062592606991529465,
+          "gradientMax": 0.07458893954753876
+        },
+        "d4.0.weight": {
+          "maxAbs": 0.00559728778898716,
+          "gradientMax": 0.24020470678806305
+        },
+        "head.weight": {
+          "maxAbs": 0.00847010686993599,
+          "gradientMax": 1.058924674987793
+        }
+      },
+      "export": {
+        "sha256": "1d15044a64171925fbd57fdccf903ab3993b87bc78d1c6d202642e6b1ed0ad0e",
+        "maxAbsoluteError": 1.8477439880371094e-06,
+        "sourceCoordinateMaxAbsoluteError": 1.8477439880371094e-06,
+        "photosOrNativeTiles": 4,
+        "accepted": false,
+        "productionInstalled": false,
+        "preprocessing": "RGB letterbox256 ImageNet"
+      },
+      "weightsSHA256": "0ccffda8dc458e2234c48217f1ce342ca6e0adb15d5d5fae9c020924a41190e8",
+      "accepted": false,
+      "reason": "Engineering subset; independent unused test and natural confounder/score calibration acceptance pending"
+    },
+    "yolox": {
+      "protocol": {
+        "task": "yolox",
+        "architecture": "YOLOX-S Apache-2.0",
+        "sharedTargets": [
+          "active-Pimple-only"
+        ],
+        "sigmoidIndependent": false,
+        "partialLabelsLossMasked": true,
+        "boxIsPixelMask": false,
+        "trainingItems": 100,
+        "validationPhotos": 22,
+        "maximumEpochs": 8,
+        "patience": 3,
+        "maximumSeconds": 2100,
+        "minimumDice": 0.65,
+        "minimumIoU": 0.5,
+        "maximumNegativeFPR": 0.05,
+        "minimumF1": 0.5,
+        "minimumPrecision": 0.6,
+        "minimumRecall": 0.4,
+        "requiredNaturalConfounderAcceptance": true,
+        "seed": 20261011,
+        "expertLabels": false,
+        "independentFinalOpened": false,
+        "reviewSHA256": "712553938738ddf8051cec0f7b2cdf394a8cd5091e6c97c24a0ff6eef6ba123e",
+        "manifestSHA256": "3607b875ddc21d3ee8e6b7cc7c20bee2042612b3b184114746c06263fcf00086",
+        "optimizer": "AdamW",
+        "scheduler": "cosine"
+      },
+      "learning": {
+        "firstLoss": 5.254130268096924,
+        "lastLoss": 0.4189417541027069,
+        "passed": true,
+        "trainOnly": true,
+        "steps": 40,
+        "gradients": {
+          "backbone.backbone.dark5.0.conv.weight": 0.09306847304105759,
+          "backbone.lateral_conv0.conv.weight": 0.19990000128746033,
+          "head.reg_convs.0.0.conv.weight": 2.058270215988159
+        }
+      },
+      "completedValidatedEpochs": 8,
+      "firstEpochSeconds": 128.5470000000205,
+      "selectedEpoch": 5,
+      "validation": {
+        "precision": 0.10714285714285714,
+        "recall": 0.18,
+        "F1": 0.13432835820895522,
+        "truePositive": 9,
+        "falsePositive": 75,
+        "falseNegative": 41,
+        "annotationRelativeFalseCandidatesPerPhoto": 3.409090909090909,
+        "images": 22,
+        "sourceGroups": 21,
+        "unlabelledAreasKnownHealthy": false,
+        "AP50": 0.07631045456816467,
+        "mAP50to95": 0.008377237723101918,
+        "threshold": 0.55
+      },
+      "featureEvidence": {
+        "backbone.backbone.dark5.0.conv.weight": {
+          "maxAbs": 0.005662978161126375,
+          "gradientMax": 1.349467158317566
+        },
+        "backbone.lateral_conv0.conv.weight": {
+          "maxAbs": 0.00507355248555541,
+          "gradientMax": 3.8058300018310547
+        },
+        "head.reg_convs.0.0.conv.weight": {
+          "maxAbs": 0.007677699439227581,
+          "gradientMax": 8.029268264770508
+        }
+      },
+      "export": {
+        "sha256": "f3f5c133dd638bd15464f12e8a3711bc2fb5021dfad5baa48cb60388f3a0002e",
+        "maxAbsoluteError": 0.0020751953125,
+        "sourceCoordinateMaxAbsoluteError": 6.103515625e-05,
+        "photosOrNativeTiles": 4,
+        "accepted": false,
+        "productionInstalled": false,
+        "preprocessing": "native384 BGR 114padding no resizing"
+      },
+      "weightsSHA256": "3e7b0e81d382d07778fc7ffc5ab063c1ea07596078fcd1efc0b749a6988eeecf",
+      "accepted": false,
+      "reason": "Engineering subset; independent unused test and natural confounder/score calibration acceptance pending"
+    }
+  },
+  "appearance": {
+    "naturalPhotos": 93,
+    "sourceGroups": 91,
+    "engineeringLabels": true,
+    "expertLabels": false,
+    "thresholdSelected": false,
+    "criteria": {
+      "acne": {
+        "engineeringGroupAppearance": {},
+        "descriptivePositiveAboveNegativePairFraction": null,
+        "unavailableOrRejected": {
+          "INSUFFICIENT_FRONT_COVERAGE": 92,
+          "PHOTO_LIMIT": 1
+        },
+        "acceptedNewMethod": false,
+        "calibratedSeverity": false,
+        "independentTest": false
+      },
+      "oil": {
+        "engineeringGroupAppearance": {
+          "uncertain": {
+            "sourceGroups": 26,
+            "median": 0.0,
+            "minimum": 0.0,
+            "maximum": 0.3934402117958523
+          },
+          "negative": {
+            "sourceGroups": 5,
+            "median": 0.0,
+            "minimum": 0.0,
+            "maximum": 0.04462691895751517
+          },
+          "positive": {
+            "sourceGroups": 1,
+            "median": 0.0,
+            "minimum": 0.0,
+            "maximum": 0.0
+          }
+        },
+        "descriptivePositiveAboveNegativePairFraction": 0.4,
+        "unavailableOrRejected": {
+          "INSUFFICIENT_FRONT_COVERAGE": 60,
+          "PHOTO_LIMIT": 1
+        },
+        "acceptedNewMethod": false,
+        "calibratedSeverity": false,
+        "independentTest": false
+      },
+      "dry": {
+        "engineeringGroupAppearance": {
+          "negative": {
+            "sourceGroups": 9,
+            "median": 0.0,
+            "minimum": 0.0,
+            "maximum": 0.10000392172242048
+          },
+          "uncertain": {
+            "sourceGroups": 23,
+            "median": 0.04960180771032544,
+            "minimum": 0.0,
+            "maximum": 0.4754503062997166
+          }
+        },
+        "descriptivePositiveAboveNegativePairFraction": null,
+        "unavailableOrRejected": {
+          "INSUFFICIENT_FRONT_COVERAGE": 60,
+          "PHOTO_LIMIT": 1
+        },
+        "acceptedNewMethod": false,
+        "calibratedSeverity": false,
+        "independentTest": false
+      },
+      "redness": {
+        "engineeringGroupAppearance": {
+          "uncertain": {
+            "sourceGroups": 27,
+            "median": 34.5250358581543,
+            "minimum": 0.0,
+            "maximum": 66.3814468383789
+          },
+          "negative": {
+            "sourceGroups": 5,
+            "median": 26.85798454284668,
+            "minimum": 0.6266278028488159,
+            "maximum": 44.270103454589844
+          }
+        },
+        "descriptivePositiveAboveNegativePairFraction": null,
+        "unavailableOrRejected": {
+          "INSUFFICIENT_FRONT_COVERAGE": 60,
+          "PHOTO_LIMIT": 1
+        },
+        "acceptedNewMethod": false,
+        "calibratedSeverity": false,
+        "independentTest": false
+      },
+      "tone": {
+        "engineeringGroupAppearance": {
+          "positive": {
+            "sourceGroups": 5,
+            "median": 3.8967154026031494,
+            "minimum": 2.811283826828003,
+            "maximum": 11.497328758239746
+          },
+          "negative": {
+            "sourceGroups": 3,
+            "median": 4.8912739753723145,
+            "minimum": 2.4782803058624268,
+            "maximum": 6.008639335632324
+          },
+          "uncertain": {
+            "sourceGroups": 24,
+            "median": 5.239800214767456,
+            "minimum": 2.6634926795959473,
+            "maximum": 11.167696952819824
+          }
+        },
+        "descriptivePositiveAboveNegativePairFraction": 0.6,
+        "unavailableOrRejected": {
+          "INSUFFICIENT_FRONT_COVERAGE": 60,
+          "PHOTO_LIMIT": 1
+        },
+        "acceptedNewMethod": false,
+        "calibratedSeverity": false,
+        "independentTest": false
+      },
+      "lines": {
+        "engineeringGroupAppearance": {
+          "negative": {
+            "sourceGroups": 7,
+            "median": 0.2506411373615265,
+            "minimum": 0.0,
+            "maximum": 1.5657358169555664
+          },
+          "uncertain": {
+            "sourceGroups": 18,
+            "median": 0.0,
+            "minimum": 0.0,
+            "maximum": 2.191420555114746
+          },
+          "positive": {
+            "sourceGroups": 6,
+            "median": 1.7695868611335754,
+            "minimum": 0.004744617268443108,
+            "maximum": 10.259417533874512
+          }
+        },
+        "descriptivePositiveAboveNegativePairFraction": 0.8571428571428571,
+        "unavailableOrRejected": {
+          "INSUFFICIENT_FRONT_COVERAGE": 61,
+          "PHOTO_LIMIT": 1
+        },
+        "acceptedNewMethod": false,
+        "calibratedSeverity": false,
+        "independentTest": false
+      },
+      "dark": {
+        "engineeringGroupAppearance": {
+          "uncertain": {
+            "sourceGroups": 16,
+            "median": 13.682849407196045,
+            "minimum": 1.2298684120178223,
+            "maximum": 25.723731994628906
+          },
+          "negative": {
+            "sourceGroups": 2,
+            "median": 12.881301403045654,
+            "minimum": 12.136931419372559,
+            "maximum": 13.62567138671875
+          },
+          "positive": {
+            "sourceGroups": 13,
+            "median": 15.22219467163086,
+            "minimum": 2.042628049850464,
+            "maximum": 37.27609634399414
+          }
+        },
+        "descriptivePositiveAboveNegativePairFraction": 0.6538461538461539,
+        "unavailableOrRejected": {
+          "INSUFFICIENT_FRONT_COVERAGE": 61,
+          "PHOTO_LIMIT": 1
+        },
+        "acceptedNewMethod": false,
+        "calibratedSeverity": false,
+        "independentTest": false
+      },
+      "bags": {
+        "engineeringGroupAppearance": {
+          "negative": {
+            "sourceGroups": 4,
+            "median": 0.39767987179719555,
+            "minimum": 0.08901862048455726,
+            "maximum": 0.7324670380852336
+          },
+          "uncertain": {
+            "sourceGroups": 13,
+            "median": 0.0001815264994829743,
+            "minimum": 0.0,
+            "maximum": 4.707634180062415
+          }
+        },
+        "descriptivePositiveAboveNegativePairFraction": null,
+        "unavailableOrRejected": {
+          "INSUFFICIENT_FRONT_COVERAGE": 75,
+          "PHOTO_LIMIT": 1
+        },
+        "acceptedNewMethod": false,
+        "calibratedSeverity": false,
+        "independentTest": false
+      },
+      "sag": {
+        "engineeringGroupAppearance": {
+          "negative": {
+            "sourceGroups": 6,
+            "median": 3.8841713807896474e-05,
+            "minimum": 0.0,
+            "maximum": 0.1180610531202738
+          },
+          "uncertain": {
+            "sourceGroups": 6,
+            "median": 7.623763662896716e-06,
+            "minimum": 0.0,
+            "maximum": 0.0008720374524088037
+          },
+          "positive": {
+            "sourceGroups": 1,
+            "median": 0.006894814443450918,
+            "minimum": 0.006894814443450918,
+            "maximum": 0.006894814443450918
+          }
+        },
+        "descriptivePositiveAboveNegativePairFraction": 0.6666666666666666,
+        "unavailableOrRejected": {
+          "INSUFFICIENT_FRONT_COVERAGE": 79,
+          "PHOTO_LIMIT": 1
+        },
+        "acceptedNewMethod": false,
+        "calibratedSeverity": false,
+        "independentTest": false
+      }
+    },
+    "appropriateLocalROI": {
+      "lines": {
+        "scope": "actual visible periorbital ROI; full-face coverage not required; no synthetic pixel truth",
+        "levels": {
+          "uncertain": {
+            "sourceGroups": 23,
+            "median": 0.18457579612731934,
+            "minimum": 0.0,
+            "maximum": 22.437238693237305
+          },
+          "negative": {
+            "sourceGroups": 8,
+            "median": 0.2097824290394783,
+            "minimum": 0.0,
+            "maximum": 1.5657358169555664
+          },
+          "positive": {
+            "sourceGroups": 10,
+            "median": 1.2716534733772278,
+            "minimum": 0.004744617268443108,
+            "maximum": 10.259417533874512
+          }
+        },
+        "unavailable": {
+          "CAPTURE_QUALITY": 44,
+          "INSUFFICIENT_SOURCE_DETAIL": 4,
+          "GLARE_OR_EXPOSURE": 2,
+          "OUTER_CORNER_NOT_VISIBLE": 1
+        }
+      },
+      "dark": {
+        "scope": "actual visible periorbital ROI; full-face coverage not required; no synthetic pixel truth",
+        "levels": {
+          "uncertain": {
+            "sourceGroups": 26,
+            "median": 6.015593767166138,
+            "minimum": 0.435454398393631,
+            "maximum": 25.723731994628906
+          },
+          "negative": {
+            "sourceGroups": 2,
+            "median": 12.881301403045654,
+            "minimum": 12.136931419372559,
+            "maximum": 13.62567138671875
+          },
+          "positive": {
+            "sourceGroups": 17,
+            "median": 16.10164451599121,
+            "minimum": 2.042628049850464,
+            "maximum": 37.27609634399414
+          }
+        },
+        "unavailable": {
+          "CAPTURE_QUALITY": 40,
+          "ADJACENT_SKIN_MISSING": 5,
+          "GLARE_OR_EXPOSURE": 2
+        }
+      },
+      "bags": {
+        "scope": "actual visible periorbital ROI; full-face coverage not required; no synthetic pixel truth",
+        "levels": {
+          "uncertain": {
+            "sourceGroups": 16,
+            "median": 0.029040775708608028,
+            "minimum": 0.0,
+            "maximum": 4.707634180062415
+          },
+          "negative": {
+            "sourceGroups": 4,
+            "median": 0.39767987179719555,
+            "minimum": 0.08901862048455726,
+            "maximum": 0.7324670380852336
+          }
+        },
+        "unavailable": {
+          "CAPTURE_QUALITY": 44,
+          "HEAD_ANGLE_UNSUPPORTED": 4,
+          "HARD_DIRECTIONAL_SHADOW": 2,
+          "ANATOMICAL_BAND_NOT_VISIBLE": 1,
+          "EXPRESSION_OPEN_MOUTH_OR_SMILE": 14,
+          "INSUFFICIENT_NATIVE_DETAIL": 4,
+          "HAIR_OR_SHARP_LINE_CONFOUNDER": 1,
+          "GLARE_OR_EXPOSURE": 2
+        }
+      }
+    },
+    "qualityScope": "offline source pose/luminance eligibility; full physical camera acceptance only covered by separately disclosed fixture"
+  },
+  "repeatability": {
+    "licensedPreviouslyExposedSources": 4,
+    "samePersonVideoFramesNotIndependent": true,
+    "maximumAbsoluteDifference": 0.0,
+    "lowQualityAllNull": true,
+    "exposureControlsAuxiliaryOnly": true
+  },
+  "delivery": {
+    "buildId": "7I50XxDSrr_93mzJbonbz",
+    "frontendSourceFiles": 212,
+    "frontendSourceReceiptSHA256": "10e47baf93af52ac7dd193a15bca9085b353c7fe50d73059758b7c2f75b00622",
+    "servedJavaScriptHashes": {
+      "/_next/static/chunks/484-c7854e143b14531c.js": "e70f3d1076cd8ad18884284e5196bf030e5c613dbcde77befaf6484a7dae9646",
+      "/_next/static/chunks/987-e7efaa2e25847fed.js": "dd2830cddc3d1cecb34ea22e6831df6db876fe17320a06b71eab72c6417e51ca",
+      "/_next/static/chunks/app/page-a0343ea501f33ccd.js": "12eba9606507f2ca9e5ce982c6d1531ed0c3df10706f03ae5956c3a0d3d31e4b",
+      "/_next/static/chunks/330-5160c0eea4e0b3c4.js": "0517448997182fe9e71379276258ca5a8273d3443375de03a7108525ef8f73df",
+      "/_next/static/chunks/polyfills-42372ed130431b0a.js": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+      "/_next/static/chunks/app/layout-f7a132b8b66a2562.js": "bc3c09b918614591c18e8dfd3ca6804e6563d8bed18590547a0179302a9f0222",
+      "/_next/static/chunks/850-c3cd35cd40990447.js": "a7a8c996c6c7b85945fe99f1f322e21ac7f23a50d4f1e20c49505ea28b6e952a",
+      "/_next/static/chunks/e898b764-724e4596a1050f58.js": "fef6a31acbe42cb772fbbca3f7eaf3ecd01ab51e1db99c4d0445205eafb6214b",
+      "/_next/static/chunks/656-012d3387edef90f5.js": "a48c56ee67c628c04af078afb6204fe5e24dc3f02b5820aee463f65f52e7c582",
+      "/_next/static/chunks/main-app-a840178321886cc8.js": "b5b7a6a18ee7f8fe0d0fa097ccf76c3fd48ec9a33395e4c9a750baa6e550e99e",
+      "/_next/static/chunks/948-47aab13468c15ad4.js": "7e9b826f0794e640c1774ea8aee773bd0f163e00ec449113b08fff68e097f197",
+      "/_next/static/chunks/webpack-dc23c7fb2c69ce1c.js": "b2f3a7e7fa9961dbd2c123b7a881ed581766c58b192313dc84b10a40bfebd575",
+      "/_next/static/chunks/67-d5276c6601e58415.js": "76f76885db41ee7778d5ba556302ce8923505772ba37cc2ecee63354bbfbe61f",
+      "/_next/static/chunks/app/skin/page-970360643d9d9b97.js": "72e725bc43df64e2415bb359b466909bb4908c93ee1268bb2584a4b1449cbced",
+      "/_next/static/chunks/876-970751e242594177.js": "d84eca37ec1994232b2c9c66cdb454332f337757e3c7884b8d82d7dc504a1421"
+    },
+    "backendSourceHashes": {
+      "services\\core-api\\skin_general.py": "c8854a109e8713638fbc6834486da5c042b409b8b2423305d6767a33d5bd1d68",
+      "services\\core-api\\skin_mask_transform.py": "f12b0aa8ef17afd5e2d61a60a2f944f1722f2b8d3a567128e7381ba5db3f1ab7",
+      "services\\core-api\\skin_measurement_contract.py": "939b003c4c55dd9c630f532d16b5f0eaa315721873de9bd7b62ba3788ca92984",
+      "services\\core-api\\skin_models.py": "61db3d740515efa4808d282feb6487a5dbbdea7f8032c0421a76ac4a703c963f"
+    },
+    "appearanceSourceSHA256": "b5c0e857563389c315d6f1f49962ae874fd9bcf265da6a72c34a9d45e8932feb",
+    "manifestSHA256": "accc9ff193030bccde572ded39b1878fc7919e33daf62f2ac560c3357a83abfb",
+    "normalBackendLoadedModelHashes": [
+      "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3"
+    ],
+    "normalShortcut": true,
+    "previousBuildPreserved": ".runtime/skin-selected-previous-next-20261011",
+    "userRecordsMigrated": false,
+    "normalHistoryWritten": false
+  },
+  "browser": {
+    "status": "PASS",
+    "buildId": "7I50XxDSrr_93mzJbonbz",
+    "physicalCamera": false,
+    "poseMock": false,
+    "qualityOverride": false,
+    "native200": {
+      "innerWidth": 641,
+      "outerWidth": 1298,
+      "dpr": 3,
+      "cssZoom": "1"
+    },
+    "pageErrors": [],
+    "actualThreePoseFixtureRuns": 2,
+    "runSeconds": [
+      49.25,
+      84.18800000008196
+    ],
+    "photoHistoryVerified": true,
+    "narrowAndDesktopVerified": true
+  },
+  "checks": {
+    "focusedRegressionsPassed": 29,
+    "selectedBoundaryTestsIncluded": 7,
+    "typecheckPassed": true,
+    "productionBuildPassed": true,
+    "paidCompute": false,
+    "userPhotoCloudUpload": false
+  },
+  "limitations": [
+    "New candidates rejected; no new model installed.",
+    "2270 unused photo-group candidate rows stay closed; crop/collage and subject independence unresolved.",
+    "Four-class type corpus has no unused four-class final; combination validation support14.",
+    "Engineering masks approximate source boundaries; partial labels remain unknown.",
+    "Natural controls are offline reviewed source ROI arithmetic, not physical camera/person acceptance.",
+    "Merve pul positives reviewed here are CLAHE/processed and excluded from natural RGB calibration.",
+    "Matched appearance-severity calibration and reliable natural confounder acceptance incomplete."
+  ]
+}

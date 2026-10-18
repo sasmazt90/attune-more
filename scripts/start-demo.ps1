@@ -14,6 +14,12 @@ Write-Host "          TOGG HEALTH MVP - DEMO BAŞLATICI                  " -Fore
 Write-Host "============================================================" -ForegroundColor Cyan
 Write-Host "Proje Konumu: $ProjectRoot" -ForegroundColor Gray
 
+$SecureRuntime = Join-Path $ProjectRoot '.runtime\security-20261008'
+if (-not (Test-Path -LiteralPath (Join-Path $SecureRuntime 'fastapi'))) {
+    throw 'Install scripts/install_security_runtime.py before starting TOGG.'
+}
+$env:PYTHONPATH = $SecureRuntime + [IO.Path]::PathSeparator + $env:PYTHONPATH
+
 # 1. Backend Penceresini Başlat
 $BackendDir = Join-Path $ProjectRoot "services\core-api"
 $BackendCmd = "Set-Location '$BackendDir'; if (Test-Path '.venv\Scripts\activate.ps1') { & '.\.venv\Scripts\activate.ps1' }; Write-Host '>>> Core API Başlatılıyor (Port 8000)...' -ForegroundColor Green; python -m uvicorn main:app --reload --host 127.0.0.1 --port 8000"

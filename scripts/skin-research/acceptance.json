@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "seed": 20261008,
+  "preregisteredBeforeTraining": true,
+  "task": "image-level dermatologist acne differential label, not count/localization/severity",
+  "splitFractions": [0.6, 0.2, 0.2],
+  "positive": "explicit Acne expert differential with confidence >= 3 and a gradable case",
+  "negative": "gradable expert differential with labels present and no acne/follicular acne-like label; not certified acne absence",
+  "excludeAmbiguous": true,
+  "minIndependentTestCasesEachClass": 50,
+  "minPrecision": 0.8,
+  "minRecall": 0.8,
+  "minF1": 0.8,
+  "maxECE": 0.1,
+  "minWilsonLowerPrecisionRecall": 0.65,
+  "maxBackgroundOnlyAUC": 0.6,
+  "subgroups": {"minCasesEachClass": 20, "minRecall": 0.7},
+  "localizationRequires": "independent expert lesion boxes/masks, subtype and visibility labels; never Grad-CAM",
+  "deploymentDefault": "closed; passing numerical metrics alone is insufficient without webcam-domain and expert label review"
+}

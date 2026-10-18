@@ -1,0 +1,5502 @@
+{
+  "version": "skin-expanded-actual-phase-progress-v2",
+  "capturedUTC": "2026-10-11T12:45:36.341001+00:00",
+  "training": {
+    "yolox": {
+      "checkpoint": "checkpoint-0005548-01791722684914609700",
+      "modelSHA256": "0de6df6bdeb6041f2ee166803f09ffd7aea57438e8fd980145f33b5efe9d22cd",
+      "optimizerSHA256": "dd198cf27c88d1f506c62378f8cce8635bc075dec58b0f2dd7f550843008bd8b",
+      "completedEpochs": 11,
+      "partialCursor": 448,
+      "step": 5548,
+      "trainingComplete": false,
+      "history": [
+        {
+          "epoch": 2,
+          "phase": "same-selected-weights-revalidated-with-bounded-decoder",
+          "loss": null,
+          "epochSeconds": 0.0,
+          "metrics": {
+            "precision": 0.21212121212121213,
+            "recall": 0.15217391304347827,
+            "F1": 0.17721518987341772,
+            "truePositive": 42,
+            "falsePositive": 156,
+            "falseNegative": 234,
+            "annotationRelativeFalseCandidatesPerPhoto": 3.627906976744186,
+            "images": 43,
+            "sourceGroups": 43,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.09856479983135032,
+            "mAP50to95": 0.021522968015076437,
+            "threshold": 0.7
+          }
+        },
+        {
+          "epoch": 4,
+          "phase": "mixed-numerical-transition",
+          "loss": 4.193880631411371,
+          "epochSeconds": 642.1879999998491,
+          "metrics": {
+            "precision": 0.0873320537428023,
+            "recall": 0.32971014492753625,
+            "F1": 0.13808801213960545,
+            "truePositive": 91,
+            "falsePositive": 951,
+            "falseNegative": 185,
+            "annotationRelativeFalseCandidatesPerPhoto": 22.11627906976744,
+            "images": 43,
+            "sourceGroups": 43,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.07582516108870847,
+            "mAP50to95": 0.020727424378010142,
+            "threshold": 0.55
+          }
+        },
+        {
+          "epoch": 5,
+          "phase": "bounded-decoder-prior-support",
+          "loss": 3.5540235010553,
+          "epochSeconds": 1334.6090000001714,
+          "metrics": {
+            "precision": 0.09225092250922509,
+            "recall": 0.09057971014492754,
+            "F1": 0.09140767824497259,
+            "truePositive": 25,
+            "falsePositive": 246,
+            "falseNegative": 251,
+            "annotationRelativeFalseCandidatesPerPhoto": 5.72093023255814,
+            "images": 43,
+            "sourceGroups": 43,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.035676789467317185,
+            "mAP50to95": 0.008216126576554263,
+            "threshold": 0.7
+          }
+        },
+        {
+          "epoch": 6,
+          "phase": "mixed-negative-support-transition",
+          "loss": 3.2724171234063864,
+          "epochSeconds": 1110.344000000041,
+          "metrics": {
+            "precision": 0.026820866141732284,
+            "recall": 0.39492753623188404,
+            "F1": 0.05023041474654378,
+            "truePositive": 109,
+            "falsePositive": 3955,
+            "falseNegative": 167,
+            "annotationRelativeFalseCandidatesPerPhoto": 91.97674418604652,
+            "images": 43,
+            "sourceGroups": 43,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.03237064932422129,
+            "mAP50to95": 0.008207789305889588,
+            "threshold": 0.7
+          }
+        },
+        {
+          "epoch": 7,
+          "phase": "bounded-decoder-complete-refined-support",
+          "loss": 3.161625152284449,
+          "epochSeconds": 1370.3280000002123,
+          "metrics": {
+            "precision": 0.06051527860994608,
+            "recall": 0.36594202898550726,
+            "F1": 0.1038560411311054,
+            "truePositive": 101,
+            "falsePositive": 1568,
+            "falseNegative": 175,
+            "annotationRelativeFalseCandidatesPerPhoto": 36.46511627906977,
+            "images": 43,
+            "sourceGroups": 43,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.042629865718102684,
+            "mAP50to95": 0.010937436394717155,
+            "threshold": 0.7
+          }
+        },
+        {
+          "epoch": 8,
+          "phase": "bounded-decoder-complete-refined-support",
+          "loss": 2.7727069219281852,
+          "epochSeconds": 1790.7970000000205,
+          "metrics": {
+            "precision": 0.03534985422740525,
+            "recall": 0.35144927536231885,
+            "F1": 0.0642384105960265,
+            "truePositive": 97,
+            "falsePositive": 2647,
+            "falseNegative": 179,
+            "annotationRelativeFalseCandidatesPerPhoto": 61.55813953488372,
+            "images": 43,
+            "sourceGroups": 43,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.02764067542669691,
+            "mAP50to95": 0.0073082310781297675,
+            "threshold": 0.7
+          }
+        },
+        {
+          "epoch": 9,
+          "phase": "bounded-decoder-complete-refined-support",
+          "loss": 2.355084486983039,
+          "epochSeconds": 1588.2340000001714,
+          "metrics": {
+            "precision": 0.03726262988176281,
+            "recall": 0.37681159420289856,
+            "F1": 0.06781871535702641,
+            "truePositive": 104,
+            "falsePositive": 2687,
+            "falseNegative": 172,
+            "annotationRelativeFalseCandidatesPerPhoto": 62.48837209302326,
+            "images": 43,
+            "sourceGroups": 43,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.04134505308455848,
+            "mAP50to95": 0.010313532139481848,
+            "threshold": 0.7
+          }
+        },
+        {
+          "epoch": 10,
+          "phase": "bounded-decoder-complete-refined-support",
+          "loss": 2.200484950926678,
+          "epochSeconds": 1900.7339999999385,
+          "metrics": {
+            "precision": 0.056580565805658053,
+            "recall": 0.3333333333333333,
+            "F1": 0.09674027339642481,
+            "truePositive": 92,
+            "falsePositive": 1534,
+            "falseNegative": 184,
+            "annotationRelativeFalseCandidatesPerPhoto": 35.674418604651166,
+            "images": 43,
+            "sourceGroups": 43,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.04669154208294196,
+            "mAP50to95": 0.013111876170667081,
+            "threshold": 0.7
+          }
+        },
+        {
+          "epoch": 11,
+          "phase": "bounded-decoder-complete-refined-support",
+          "loss": 2.163715150853819,
+          "epochSeconds": 2046.7970000000205,
+          "metrics": {
+            "precision": 0.025936599423631124,
+            "recall": 0.42391304347826086,
+            "F1": 0.04888238980572383,
+            "truePositive": 117,
+            "falsePositive": 4394,
+            "falseNegative": 159,
+            "annotationRelativeFalseCandidatesPerPhoto": 102.18604651162791,
+            "images": 43,
+            "sourceGroups": 43,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.04736223563345096,
+            "mAP50to95": 0.013632280291510371,
+            "threshold": 0.7
+          }
+        }
+      ],
+      "protocol": {
+        "version": "expanded-native-pimple-v1",
+        "dataSHA256": "1103909d15cd2458112eec32219dcc4acaa0ca6f41ac1e51be3fbbf6a268f5d7",
+        "maximumEpochs": 32,
+        "minimumEpochs": 12,
+        "patience": 8,
+        "batch": 2,
+        "threads": 2,
+        "optimizer": "AdamW",
+        "learningRate": 0.00015,
+        "weightDecay": 0.001,
+        "scheduler": "cosine",
+        "unknownPixelsExcluded": true,
+        "sourceGroupsNotPersons": true,
+        "testOpened": false,
+        "naturalAcceptanceRequired": true,
+        "initialization": "licensed general vs previous failed checkpoint; equal 60-step development comparison then reset",
+        "numericalRegressionBounds": {
+          "version": "native-exp-dimension-bounds-v1",
+          "minimumPixels": 0.1,
+          "maximumPixels": 768
+        },
+        "pixelSupportExclusions": "observed-face-oval-eye-lip-nostril-brow-long-filament-v1; same tile rows/order, new negative cells never added"
+      },
+      "parent": null,
+      "lastEpochSeconds": 2046.7970000000205,
+      "originalDecoderHistoryBeforeCorrection": [
+        {
+          "epoch": 1,
+          "metrics": {
+            "precision": 0.03535980148883375,
+            "recall": 0.20652173913043478,
+            "F1": 0.06038135593220339,
+            "truePositive": 57,
+            "falsePositive": 1555,
+            "falseNegative": 219,
+            "annotationRelativeFalseCandidatesPerPhoto": 36.16279069767442,
+            "images": 43,
+            "sourceGroups": 43,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.022547212364230833,
+            "mAP50to95": 0.0050289499007054855,
+            "threshold": 0.55
+          }
+        },
+        {
+          "epoch": 2,
+          "metrics": {
+            "precision": 0.21212121212121213,
+            "recall": 0.15217391304347827,
+            "F1": 0.17721518987341772,
+            "truePositive": 42,
+            "falsePositive": 156,
+            "falseNegative": 234,
+            "annotationRelativeFalseCandidatesPerPhoto": 3.627906976744186,
+            "images": 43,
+            "sourceGroups": 43,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.09856479983135032,
+            "mAP50to95": 0.021522968015076437,
+            "threshold": 0.7
+          }
+        },
+        {
+          "epoch": 3,
+          "metrics": {
+            "precision": 0.020711630377057887,
+            "recall": 0.42391304347826086,
+            "F1": 0.03949367088607596,
+            "truePositive": 117,
+            "falsePositive": 5532,
+            "falseNegative": 159,
+            "annotationRelativeFalseCandidatesPerPhoto": 128.65116279069767,
+            "images": 43,
+            "sourceGroups": 43,
+            "unlabelledAreasKnownHealthy": false,
+            "AP50": 0.029585415396697862,
+            "mAP50to95": 0.006414710204552488,
+            "threshold": 0.55
+          }
+        }
+      ]
+    },
+    "mask-continuation": {
+      "checkpoint": "checkpoint-0007694-01791722701076548400",
+      "modelSHA256": "5585aff7aa94588464370224047e32daaaedc8870d2d58b8d1125052bb24caea",
+      "optimizerSHA256": "27f5c5fd38765b435f2772fea0440a72d8c30efd8ee326bf2e2503257500e85b",
+      "completedEpochs": 6,
+      "partialCursor": 628,
+      "step": 7694,
+      "trainingComplete": false,
+      "history": [
+        {
+          "epoch": 1,
+          "phase": "mixed-support-transition",
+          "loss": 0.710329623832649,
+          "epochSeconds": 125.2180000001099,
+          "metrics": {
+            "redness": {
+              "Dice": 0.3258313937424838,
+              "IoU": 0.19550298866021565,
+              "negativeFPR": 0.652732248793761,
+              "positiveROIs": 2,
+              "negativeROIs": 1,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "tone": {
+              "Dice": null,
+              "IoU": null,
+              "negativeFPR": 0.5551708217913204,
+              "positiveROIs": 0,
+              "negativeROIs": 1,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "bags": {
+              "Dice": 0.8018242330336791,
+              "IoU": 0.6721247506789102,
+              "negativeFPR": 0.5368679745657441,
+              "positiveROIs": 2,
+              "negativeROIs": 4,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "acne": {
+              "Dice": null,
+              "IoU": null,
+              "negativeFPR": 0.6140059560211051,
+              "positiveROIs": 0,
+              "negativeROIs": 13,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "oil": {
+              "Dice": 0.1416046065259117,
+              "IoU": 0.07619724361304822,
+              "negativeFPR": 0.7931191033553239,
+              "positiveROIs": 1,
+              "negativeROIs": 0,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "lines": {
+              "Dice": 0.23859702238817318,
+              "IoU": 0.15607520921082924,
+              "negativeFPR": 0.8782962397059858,
+              "positiveROIs": 2,
+              "negativeROIs": 4,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "dark": {
+              "Dice": 0.31131152884928825,
+              "IoU": 0.18435107135962936,
+              "negativeFPR": 0.8586304143466628,
+              "positiveROIs": 1,
+              "negativeROIs": 0,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            }
+          }
+        },
+        {
+          "epoch": 2,
+          "phase": "complete-refined-support",
+          "loss": 0.5711456783713168,
+          "epochSeconds": 1615.875,
+          "metrics": {
+            "redness": {
+              "Dice": 0.3403411743567407,
+              "IoU": 0.20592672317973154,
+              "negativeFPR": 0.6332919983331161,
+              "positiveROIs": 2,
+              "negativeROIs": 1,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "tone": {
+              "Dice": null,
+              "IoU": null,
+              "negativeFPR": 0.8709602954755309,
+              "positiveROIs": 0,
+              "negativeROIs": 1,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "bags": {
+              "Dice": 0.7431517246714057,
+              "IoU": 0.5989183789977128,
+              "negativeFPR": 0.7915929743002095,
+              "positiveROIs": 2,
+              "negativeROIs": 4,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "acne": {
+              "Dice": null,
+              "IoU": null,
+              "negativeFPR": 0.5094449316789867,
+              "positiveROIs": 0,
+              "negativeROIs": 13,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "oil": {
+              "Dice": 0.1568808437174162,
+              "IoU": 0.08511703824609564,
+              "negativeFPR": 0.699482159324679,
+              "positiveROIs": 1,
+              "negativeROIs": 0,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "lines": {
+              "Dice": 0.23843666766460883,
+              "IoU": 0.15599477336499348,
+              "negativeFPR": 0.9057461471602858,
+              "positiveROIs": 2,
+              "negativeROIs": 4,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "dark": {
+              "Dice": 0.34982738780207134,
+              "IoU": 0.21199442119944212,
+              "negativeFPR": 0.9273266324390773,
+              "positiveROIs": 1,
+              "negativeROIs": 0,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            }
+          }
+        },
+        {
+          "epoch": 3,
+          "phase": "complete-refined-support",
+          "loss": 0.505212095384021,
+          "epochSeconds": 1615.9849999998696,
+          "metrics": {
+            "redness": {
+              "Dice": 0.34246351973917716,
+              "IoU": 0.20801908283547346,
+              "negativeFPR": 0.7946364946117703,
+              "positiveROIs": 2,
+              "negativeROIs": 1,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "tone": {
+              "Dice": null,
+              "IoU": null,
+              "negativeFPR": 0.9720683287165282,
+              "positiveROIs": 0,
+              "negativeROIs": 1,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "bags": {
+              "Dice": 0.7733199721398751,
+              "IoU": 0.6359814786516,
+              "negativeFPR": 0.5967762274617847,
+              "positiveROIs": 2,
+              "negativeROIs": 4,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "acne": {
+              "Dice": null,
+              "IoU": null,
+              "negativeFPR": 0.598208244134812,
+              "positiveROIs": 0,
+              "negativeROIs": 13,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "oil": {
+              "Dice": 0.12826861021475464,
+              "IoU": 0.06852938990859776,
+              "negativeFPR": 0.8891820954813081,
+              "positiveROIs": 1,
+              "negativeROIs": 0,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "lines": {
+              "Dice": 0.23842126172681377,
+              "IoU": 0.15598704692277096,
+              "negativeFPR": 0.9048258873586384,
+              "positiveROIs": 2,
+              "negativeROIs": 4,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "dark": {
+              "Dice": 0.3632994440827365,
+              "IoU": 0.22197062423500613,
+              "negativeFPR": 0.9164075493528093,
+              "positiveROIs": 1,
+              "negativeROIs": 0,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            }
+          }
+        },
+        {
+          "epoch": 4,
+          "phase": "complete-refined-support",
+          "loss": 0.4213713540809567,
+          "epochSeconds": 1670.7650000001304,
+          "metrics": {
+            "redness": {
+              "Dice": 0.3877097062069298,
+              "IoU": 0.24160198046354792,
+              "negativeFPR": 0.6183055908678615,
+              "positiveROIs": 2,
+              "negativeROIs": 1,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "tone": {
+              "Dice": null,
+              "IoU": null,
+              "negativeFPR": 0.8314866112650047,
+              "positiveROIs": 0,
+              "negativeROIs": 1,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "bags": {
+              "Dice": 0.7064005840158301,
+              "IoU": 0.559670100611351,
+              "negativeFPR": 0.7221381779024227,
+              "positiveROIs": 2,
+              "negativeROIs": 4,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "acne": {
+              "Dice": null,
+              "IoU": null,
+              "negativeFPR": 0.40348485763360703,
+              "positiveROIs": 0,
+              "negativeROIs": 13,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "oil": {
+              "Dice": 0.14299913032674866,
+              "IoU": 0.07700541914765505,
+              "negativeFPR": 0.7828190395119529,
+              "positiveROIs": 1,
+              "negativeROIs": 0,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "lines": {
+              "Dice": 0.23853966173975008,
+              "IoU": 0.1560464334557611,
+              "negativeFPR": 0.8074253447740718,
+              "positiveROIs": 2,
+              "negativeROIs": 4,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "dark": {
+              "Dice": 0.33867557039510293,
+              "IoU": 0.20385877939304617,
+              "negativeFPR": 0.8142309639164076,
+              "positiveROIs": 1,
+              "negativeROIs": 0,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            }
+          }
+        },
+        {
+          "epoch": 5,
+          "phase": "complete-refined-support",
+          "loss": 0.357897953980415,
+          "epochSeconds": 1825.6409999998286,
+          "metrics": {
+            "redness": {
+              "Dice": 0.3014303399937577,
+              "IoU": 0.1781215389520626,
+              "negativeFPR": 0.9071532049811043,
+              "positiveROIs": 2,
+              "negativeROIs": 1,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "tone": {
+              "Dice": null,
+              "IoU": null,
+              "negativeFPR": 1.0,
+              "positiveROIs": 0,
+              "negativeROIs": 1,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "bags": {
+              "Dice": 0.8018096671663015,
+              "IoU": 0.6739550320028506,
+              "negativeFPR": 0.31854455199112447,
+              "positiveROIs": 2,
+              "negativeROIs": 4,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "acne": {
+              "Dice": null,
+              "IoU": null,
+              "negativeFPR": 0.8314745360614191,
+              "positiveROIs": 0,
+              "negativeROIs": 13,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "oil": {
+              "Dice": 0.11890916124041004,
+              "IoU": 0.06321287563062075,
+              "negativeFPR": 0.9694686812797049,
+              "positiveROIs": 1,
+              "negativeROIs": 0,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "lines": {
+              "Dice": 0.24072207830339584,
+              "IoU": 0.15786626434722395,
+              "negativeFPR": 0.8483107057365417,
+              "positiveROIs": 2,
+              "negativeROIs": 4,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "dark": {
+              "Dice": 0.36668166591670415,
+              "IoU": 0.22450104077384597,
+              "negativeFPR": 0.9159736785016993,
+              "positiveROIs": 1,
+              "negativeROIs": 0,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            }
+          }
+        },
+        {
+          "epoch": 6,
+          "phase": "complete-refined-support",
+          "loss": 0.28821902880353434,
+          "epochSeconds": 2073.6409999998286,
+          "metrics": {
+            "redness": {
+              "Dice": 0.32139469102412566,
+              "IoU": 0.19209897094682293,
+              "negativeFPR": 0.8530330643219907,
+              "positiveROIs": 2,
+              "negativeROIs": 1,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "tone": {
+              "Dice": null,
+              "IoU": null,
+              "negativeFPR": 1.0,
+              "positiveROIs": 0,
+              "negativeROIs": 1,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "bags": {
+              "Dice": 0.7851692361591803,
+              "IoU": 0.6492499541273407,
+              "negativeFPR": 0.5229115865766482,
+              "positiveROIs": 2,
+              "negativeROIs": 4,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "acne": {
+              "Dice": null,
+              "IoU": null,
+              "negativeFPR": 0.5507636184525389,
+              "positiveROIs": 0,
+              "negativeROIs": 13,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "oil": {
+              "Dice": 0.12483248730964468,
+              "IoU": 0.06657137907137907,
+              "negativeFPR": 0.9172589912747393,
+              "positiveROIs": 1,
+              "negativeROIs": 0,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "lines": {
+              "Dice": 0.23842623446663658,
+              "IoU": 0.15598954084335992,
+              "negativeFPR": 0.9025180200131618,
+              "positiveROIs": 2,
+              "negativeROIs": 4,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            },
+            "dark": {
+              "Dice": 0.34345745787393384,
+              "IoU": 0.20733391937711917,
+              "negativeFPR": 0.8864704606262203,
+              "positiveROIs": 1,
+              "negativeROIs": 0,
+              "scope": "complete engineering reviewed visible anatomical ROI, development only"
+            }
+          }
+        }
+      ],
+      "protocol": {
+        "version": "source-group-balanced-native-mask-continuation-v1",
+        "dataSHA256": "8a573694c45fbc007daab558ccb6c723b3c1c648c4e97a0c36bf153ce0198f48",
+        "maximumEpochs": 30,
+        "minimumEpochs": 12,
+        "patience": 8,
+        "threads": 1,
+        "batch": 2,
+        "learningRate": 0.0001,
+        "optimizer": "AdamW",
+        "weightDecay": 0.001,
+        "scheduler": "cosine",
+        "sigmoidIndependent": true,
+        "targets": [
+          "acne",
+          "oil",
+          "redness",
+          "tone",
+          "lines",
+          "dark",
+          "bags"
+        ],
+        "nativeTile": 256,
+        "partialUnknownExcluded": true,
+        "perTargetBest": true,
+        "negativePairSampling": true,
+        "maximumPositiveGroupsPerTargetPerEpoch": 128,
+        "freezeEarlyEncoder": true,
+        "expertLabels": false,
+        "validationScope": "engineering development, source-group separated; not unused independent final"
+      },
+      "parent": {
+        "checkpoint": "checkpoint-0002800-01791710012536533700",
+        "modelSHA256": "d156eaa8fd66c9bbcba42722a744bdcbe577f06621d4d5e598c683d958eb0928",
+        "optimizerSHA256": "bbda5d8dd748704f3553209b577405629732d076e3ad180c418df7b2e2ce7e39",
+        "protocolSHA256": "b9d3f4f0586a96ca9eaeee3c51a6b4a35539b177d0403ceeab18eed8c9f9c305",
+        "validatedEpochs": 2,
+        "globalStep": 2800,
+        "optimizerSchedulerRNGPreserved": true,
+        "newPoolPhaseMinimumEpochs": 12,
+        "noWeightReset": true,
+        "oldSelectionNotFinalFailure": true
+      },
+      "lastEpochSeconds": 2073.6409999998286,
+      "selectedPerTarget": {
+        "redness": {
+          "epoch": 4,
+          "score": -0.23059588466093173,
+          "metrics": {
+            "Dice": 0.3877097062069298,
+            "IoU": 0.24160198046354792,
+            "negativeFPR": 0.6183055908678615,
+            "positiveROIs": 2,
+            "negativeROIs": 1,
+            "scope": "complete engineering reviewed visible anatomical ROI, development only"
+          }
+        },
+        "tone": {
+          "epoch": 1,
+          "score": -0.5551708217913204,
+          "metrics": {
+            "Dice": null,
+            "IoU": null,
+            "negativeFPR": 0.5551708217913204,
+            "positiveROIs": 0,
+            "negativeROIs": 1,
+            "scope": "complete engineering reviewed visible anatomical ROI, development only"
+          }
+        },
+        "bags": {
+          "epoch": 5,
+          "score": 0.48326511517517706,
+          "metrics": {
+            "Dice": 0.8018096671663015,
+            "IoU": 0.6739550320028506,
+            "negativeFPR": 0.31854455199112447,
+            "positiveROIs": 2,
+            "negativeROIs": 4,
+            "scope": "complete engineering reviewed visible anatomical ROI, development only"
+          }
+        },
+        "acne": {
+          "epoch": 4,
+          "score": -0.40348485763360703,
+          "metrics": {
+            "Dice": null,
+            "IoU": null,
+            "negativeFPR": 0.40348485763360703,
+            "positiveROIs": 0,
+            "negativeROIs": 13,
+            "scope": "complete engineering reviewed visible anatomical ROI, development only"
+          }
+        },
+        "oil": {
+          "epoch": 2,
+          "score": -0.5426013156072629,
+          "metrics": {
+            "Dice": 0.1568808437174162,
+            "IoU": 0.08511703824609564,
+            "negativeFPR": 0.699482159324679,
+            "positiveROIs": 1,
+            "negativeROIs": 0,
+            "scope": "complete engineering reviewed visible anatomical ROI, development only"
+          }
+        },
+        "lines": {
+          "epoch": 4,
+          "score": -0.5688856830343217,
+          "metrics": {
+            "Dice": 0.23853966173975008,
+            "IoU": 0.1560464334557611,
+            "negativeFPR": 0.8074253447740718,
+            "positiveROIs": 2,
+            "negativeROIs": 4,
+            "scope": "complete engineering reviewed visible anatomical ROI, development only"
+          }
+        },
+        "dark": {
+          "epoch": 4,
+          "score": -0.47555539352130466,
+          "metrics": {
+            "Dice": 0.33867557039510293,
+            "IoU": 0.20385877939304617,
+            "negativeFPR": 0.8142309639164076,
+            "positiveROIs": 1,
+            "negativeROIs": 0,
+            "scope": "complete engineering reviewed visible anatomical ROI, development only"
+          }
+        }
+      },
+      "parentCompletedEpochs": 2
+    }
+  },
+  "actualConsumedLowerBounds": {
+    "acne": {
+      "provenPositivePhotos": 111,
+      "provenIndependentNegativePhotos": 13,
+      "provenPositiveROIs": 374,
+      "provenOnlyNegativeROIs": 128,
+      "lowerBound": true,
+      "phaseMixedExposureDisclosed": true
+    },
+    "oil": {
+      "provenPositivePhotos": 123,
+      "provenIndependentNegativePhotos": 2,
+      "provenPositiveROIs": 402,
+      "provenOnlyNegativeROIs": 16,
+      "lowerBound": true,
+      "phaseMixedExposureDisclosed": true
+    },
+    "dry": {
+      "provenPositivePhotos": 0,
+      "provenIndependentNegativePhotos": 0,
+      "provenPositiveROIs": 0,
+      "provenOnlyNegativeROIs": 0,
+      "lowerBound": true,
+      "phaseMixedExposureDisclosed": true
+    },
+    "redness": {
+      "provenPositivePhotos": 134,
+      "provenIndependentNegativePhotos": 1,
+      "provenPositiveROIs": 436,
+      "provenOnlyNegativeROIs": 14,
+      "lowerBound": true,
+      "phaseMixedExposureDisclosed": true
+    },
+    "tone": {
+      "provenPositivePhotos": 137,
+      "provenIndependentNegativePhotos": 1,
+      "provenPositiveROIs": 417,
+      "provenOnlyNegativeROIs": 9,
+      "lowerBound": true,
+      "phaseMixedExposureDisclosed": true
+    },
+    "lines": {
+      "provenPositivePhotos": 160,
+      "provenIndependentNegativePhotos": 12,
+      "provenPositiveROIs": 318,
+      "provenOnlyNegativeROIs": 58,
+      "lowerBound": true,
+      "phaseMixedExposureDisclosed": true
+    },
+    "dark": {
+      "provenPositivePhotos": 65,
+      "provenIndependentNegativePhotos": 1,
+      "provenPositiveROIs": 190,
+      "provenOnlyNegativeROIs": 3,
+      "lowerBound": true,
+      "phaseMixedExposureDisclosed": true
+    },
+    "bags": {
+      "provenPositivePhotos": 31,
+      "provenIndependentNegativePhotos": 11,
+      "provenPositiveROIs": 87,
+      "provenOnlyNegativeROIs": 59,
+      "lowerBound": true,
+      "phaseMixedExposureDisclosed": true
+    }
+  },
+  "actualDetectorConsumedLowerBound": {
+    "provenPositivePhotos": 113,
+    "provenIndependentNegativePhotos": 11,
+    "provenPositiveROIs": 645,
+    "provenOnlyNegativeROIs": 68,
+    "lowerBound": true,
+    "sourceLesionsInPreparedTrain": 834
+  },
+  "dryPresencePhase": {
+    "trainingComplete": true,
+    "epochs": 14,
+    "selectedEpoch": 6,
+    "validation": {
+      "scope": "source-group development weak texture presence with expanded natural negatives; no severity",
+      "precision": 0.8333333333333334,
+      "recall": 0.7142857142857143,
+      "F1": 0.7692307692307692,
+      "confusionMatrix": [
+        [
+          18,
+          1
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "positiveGroups": 7,
+      "negativeGroups": 19,
+      "negativeFPR": 0.05263157894736842
+    },
+    "features": {
+      "0.weight": 0.0003516972064971924,
+      "3.weight": 0.0022884607315063477,
+      "6.weight": 0.0014869458973407745,
+      "11.weight": 0.0010416069999337196
+    },
+    "weightsSHA256": "9cea44f4c4e9b948657331467c5f49ff3e5d8789e5b52a5000370f793f9dc852",
+    "actualConsumedROIIDs": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      29,
+      30,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      74,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      85,
+      86,
+      87,
+      90,
+      91,
+      92,
+      93,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      115,
+      117,
+      119,
+      120,
+      121,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      149
+    ],
+    "probabilityNotSeverity": true,
+    "sourceProcessingConfounderUnresolved": true,
+    "acceptanceDecisionRequired": true
+  },
+  "dryPresenceDataCounts": {
+    "train": {
+      "0": {
+        "photos": 47,
+        "groups": 47,
+        "patches": 71
+      },
+      "1": {
+        "photos": 21,
+        "groups": 21,
+        "patches": 38
+      }
+    },
+    "validation": {
+      "0": {
+        "photos": 19,
+        "groups": 19,
+        "patches": 22
+      },
+      "1": {
+        "photos": 7,
+        "groups": 7,
+        "patches": 19
+      }
+    }
+  },
+  "sourceInventory": {
+    "type": {
+      "counts": {
+        "totalSourceImages": 4093,
+        "targetAnnotations": 0,
+        "geometricallyValidAnnotations": 0,
+        "readyImages": 1066,
+        "excludedImages": 1382,
+        "pendingImages": 1645,
+        "eligiblePositivePhotos": 1064,
+        "eligiblePositiveGroups": 684,
+        "partialPositiveOnlyPhotos": 0,
+        "fullyReviewedNegativePhotos": 0,
+        "fullyReviewedNegativeTiles": 0,
+        "knownNegativePixels": 0
+      },
+      "sources": {
+        "old-skin": {
+          "images": 4093,
+          "targetAnnotations": 0
+        }
+      },
+      "sourceSplits": {
+        "train": {
+          "readyImages": 873,
+          "excludedImages": 1104,
+          "pendingImages": 1347
+        },
+        "validation": {
+          "readyImages": 193,
+          "pendingImages": 298,
+          "excludedImages": 278
+        }
+      },
+      "deduplicatedSourceGroups": 1618,
+      "pendingGroups": 732,
+      "pendingOrExclusionReasons": {
+        "TYPE_PHOTO_QUALITY:isolated-bright-impulses-in-flat-source-padding": 241,
+        "SOURCE_TARGET_VISUAL_REVIEW_PENDING": 1645,
+        "TYPE_PHOTO_QUALITY:monochrome-or-clearly-stylized-heavy-processing": 231,
+        "TYPE_PHOTO_QUALITY:visible-cosmetic-mask-cream-or-application,isolated-bright-impulses-in-flat-source-padding": 67,
+        "TYPE_PHOTO_QUALITY:visible-cosmetic-mask-cream-or-application": 339,
+        "TYPE_PHOTO_QUALITY:superimposed-text-advertisement-or-diagram": 284,
+        "TYPE_PHOTO_QUALITY:monochrome-or-clearly-stylized-heavy-processing,superimposed-text-advertisement-or-diagram": 2,
+        "TYPE_PHOTO_QUALITY:opaque-occlusion-sunglasses-or-clipped-source,isolated-bright-impulses-in-flat-source-padding": 15,
+        "TYPE_PHOTO_QUALITY:opaque-occlusion-sunglasses-or-clipped-source,superimposed-text-advertisement-or-diagram": 4,
+        "TYPE_PHOTO_QUALITY:superimposed-text-advertisement-or-diagram,isolated-bright-impulses-in-flat-source-padding": 44,
+        "TYPE_PHOTO_QUALITY:opaque-occlusion-sunglasses-or-clipped-source": 100,
+        "TYPE_PHOTO_QUALITY:monochrome-or-clearly-stylized-heavy-processing,isolated-bright-impulses-in-flat-source-padding": 39,
+        "TYPE_PHOTO_QUALITY:opaque-occlusion-sunglasses-or-clipped-source,visible-cosmetic-mask-cream-or-application": 2,
+        "TYPE_PHOTO_QUALITY:monochrome-or-clearly-stylized-heavy-processing,superimposed-text-advertisement-or-diagram,isolated-bright-impulses-in-flat-source-padding": 1,
+        "TYPE_PHOTO_QUALITY:superimposed-text-advertisement-or-diagram,visible-cosmetic-mask-cream-or-application": 10,
+        "TYPE_PHOTO_QUALITY:superimposed-text-advertisement-or-diagram,visible-cosmetic-mask-cream-or-application,isolated-bright-impulses-in-flat-source-padding": 2,
+        "TYPE_PHOTO_QUALITY:opaque-occlusion-sunglasses-or-clipped-source,visible-cosmetic-mask-cream-or-application,isolated-bright-impulses-in-flat-source-padding": 1
+      },
+      "separatePreparedPhases": {
+        "continuation-valid-skin-data": {
+          "ledgerSHA256": "8a573694c45fbc007daab558ccb6c723b3c1c648c4e97a0c36bf153ce0198f48",
+          "splits": {
+            "train": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            },
+            "validation": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": true,
+          "actualConsumedCountsMustBeReadSeparately": true
+        },
+        "negative-expanded-mask-data": {
+          "ledgerSHA256": "0b5f603e1123f057207e5099840f46b2881f8e86b5f0dd6ce523c7fbcb608256",
+          "splits": {
+            "train": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            },
+            "validation": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": false,
+          "actualConsumedCountsMustBeReadSeparately": true
+        }
+      }
+    },
+    "acne": {
+      "counts": {
+        "totalSourceImages": 11423,
+        "targetAnnotations": 43379,
+        "geometricallyValidAnnotations": 43376,
+        "pendingImages": 10784,
+        "readyImages": 418,
+        "excludedImages": 221,
+        "eligiblePositivePhotos": 418,
+        "eligiblePositiveGroups": 413,
+        "partialPositiveOnlyPhotos": 418,
+        "fullyReviewedNegativePhotos": 26,
+        "fullyReviewedNegativeTiles": 267,
+        "knownNegativePixels": 6700434
+      },
+      "sources": {
+        "v11": {
+          "images": 948,
+          "targetAnnotations": 6503
+        },
+        "smart": {
+          "images": 800,
+          "targetAnnotations": 3640
+        },
+        "clean3": {
+          "images": 2660,
+          "targetAnnotations": 10913
+        },
+        "care": {
+          "images": 903,
+          "targetAnnotations": 2227
+        },
+        "merve": {
+          "images": 3368,
+          "targetAnnotations": 2775
+        },
+        "old-eye": {
+          "images": 2744,
+          "targetAnnotations": 17321
+        }
+      },
+      "sourceSplits": {
+        "train": {
+          "pendingImages": 8236,
+          "readyImages": 335,
+          "excludedImages": 182
+        },
+        "validation": {
+          "pendingImages": 1689,
+          "readyImages": 83,
+          "excludedImages": 36
+        },
+        "test": {
+          "pendingImages": 859,
+          "excludedImages": 3
+        }
+      },
+      "deduplicatedSourceGroups": 6377,
+      "pendingGroups": 6050,
+      "pendingOrExclusionReasons": {
+        "TARGET_NOT_REVIEWED_IN_THIS_PHOTO": 686,
+        "AMBIGUOUS_ACTIVE_VS_RESIDUAL_PIGMENT": 40,
+        "SOURCE_TARGET_VISUAL_REVIEW_PENDING": 9901,
+        "ACTIVE_VS_RESIDUAL_PIGMENT_OR_BAG_VS_NORMAL_LID_OR_COSMETIC_LIGHT_UNCERTAIN": 84,
+        "COLLAGE_REQUIRES_COMPONENT_GROUP_AND_CROP_REVIEW": 8,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Dermnet": 13,
+        "VISIBLE_THIRD_PARTY_NOTICE_PROVENANCE_UNRESOLVED": 120,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:medical source notice": 4,
+        "COMPONENT_CROP_GROUP_REVIEW_PENDING": 4,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Science Photo": 2,
+        "STOCK_RIGHTS": 58,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:collage unknown provenance": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:product comparison": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:First Derm": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:medical photo notice": 1,
+        "NON_FACIAL_DOMAIN": 2,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Getty": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Instagram photo credit": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:SFS": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external photo credit": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:SFS notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:promotion notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:GirlCircle": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:product promotion": 3,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:commercial edited composition": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:photo notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:physician notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external photo notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:promotion": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Alamy": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Shutterstock": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Galderma": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:clinic promotion": 1,
+        "NATIVE_ACTIVE_LESION_REVIEW_REQUIRED": 38,
+        "CREAM_LIGHT_WRINKLES_PIGMENT_OR_ACTIVE_TARGET_UNCERTAIN": 12,
+        "NO_VISIBLE_FLAKE_OR_ACTIVE_TARGET_UNCERTAIN": 4,
+        "ACTIVE_TARGET_OR_BAG_VS_DARK_NORMAL_LID_UNCERTAIN": 5
+      },
+      "separatePreparedPhases": {
+        "continuation-valid-skin-data": {
+          "ledgerSHA256": "8a573694c45fbc007daab558ccb6c723b3c1c648c4e97a0c36bf153ce0198f48",
+          "splits": {
+            "train": {
+              "photos": 125,
+              "groups": 121,
+              "positivePhotos": 112,
+              "independentNegativePhotos": 13,
+              "positiveROIs": 743,
+              "onlyNegativeROIs": 140,
+              "partialROIs": 743
+            },
+            "validation": {
+              "photos": 41,
+              "groups": 40,
+              "positivePhotos": 28,
+              "independentNegativePhotos": 13,
+              "positiveROIs": 178,
+              "onlyNegativeROIs": 127,
+              "partialROIs": 178
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": true,
+          "actualConsumedCountsMustBeReadSeparately": true
+        },
+        "negative-expanded-mask-data": {
+          "ledgerSHA256": "0b5f603e1123f057207e5099840f46b2881f8e86b5f0dd6ce523c7fbcb608256",
+          "splits": {
+            "train": {
+              "photos": 133,
+              "groups": 129,
+              "positivePhotos": 112,
+              "independentNegativePhotos": 21,
+              "positiveROIs": 743,
+              "onlyNegativeROIs": 208,
+              "partialROIs": 743
+            },
+            "validation": {
+              "photos": 41,
+              "groups": 40,
+              "positivePhotos": 28,
+              "independentNegativePhotos": 13,
+              "positiveROIs": 178,
+              "onlyNegativeROIs": 127,
+              "partialROIs": 178
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": false,
+          "actualConsumedCountsMustBeReadSeparately": true
+        }
+      },
+      "provenConsumedTrainingLowerBound": {
+        "provenPositivePhotos": 111,
+        "provenIndependentNegativePhotos": 13,
+        "provenPositiveROIs": 303,
+        "provenOnlyNegativeROIs": 115,
+        "lowerBound": true,
+        "phaseMixedExposureDisclosed": true
+      },
+      "negativeExpandedDetectorPhase": {
+        "ledgerSHA256": "2ef416d57d26cb552ad3aff081a62ae63384e32d7a6decfc1c8a34ece1d158c9",
+        "counts": {
+          "train": {
+            "images": 132,
+            "groups": 130,
+            "positivePhotos": 113,
+            "fullyReviewedNegativePhotos": 19,
+            "lesions": 834
+          },
+          "validation": {
+            "images": 43,
+            "groups": 43,
+            "positivePhotos": 28,
+            "fullyReviewedNegativePhotos": 15,
+            "lesions": 276
+          }
+        },
+        "trainingStarted": false
+      }
+    },
+    "oil": {
+      "counts": {
+        "totalSourceImages": 10050,
+        "targetAnnotations": 2160,
+        "geometricallyValidAnnotations": 2154,
+        "pendingImages": 9730,
+        "readyImages": 154,
+        "excludedImages": 166,
+        "eligiblePositivePhotos": 154,
+        "eligiblePositiveGroups": 153,
+        "partialPositiveOnlyPhotos": 154,
+        "fullyReviewedNegativePhotos": 2,
+        "fullyReviewedNegativeTiles": 20,
+        "knownNegativePixels": 685187
+      },
+      "sources": {
+        "v11": {
+          "images": 948,
+          "targetAnnotations": 1168
+        },
+        "clean3": {
+          "images": 2660,
+          "targetAnnotations": 992
+        },
+        "csv": {
+          "images": 2349,
+          "targetAnnotations": 0
+        },
+        "old-skin": {
+          "images": 4093,
+          "targetAnnotations": 0
+        }
+      },
+      "sourceSplits": {
+        "train": {
+          "pendingImages": 7562,
+          "readyImages": 129,
+          "excludedImages": 132
+        },
+        "validation": {
+          "pendingImages": 1576,
+          "readyImages": 25,
+          "excludedImages": 34
+        },
+        "test": {
+          "pendingImages": 592
+        }
+      },
+      "deduplicatedSourceGroups": 3893,
+      "pendingGroups": 3834,
+      "pendingOrExclusionReasons": {
+        "TARGET_NOT_REVIEWED_IN_THIS_PHOTO": 550,
+        "SOURCE_TARGET_VISUAL_REVIEW_PENDING": 9122,
+        "COLLAGE_REQUIRES_COMPONENT_GROUP_AND_CROP_REVIEW": 8,
+        "ACTIVE_VS_RESIDUAL_PIGMENT_OR_BAG_VS_NORMAL_LID_OR_COSMETIC_LIGHT_UNCERTAIN": 5,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Dermnet": 13,
+        "VISIBLE_THIRD_PARTY_NOTICE_PROVENANCE_UNRESOLVED": 76,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:medical source notice": 4,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Science Photo": 2,
+        "STOCK_RIGHTS": 47,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:collage unknown provenance": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:product comparison": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:First Derm": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:medical photo notice": 1,
+        "NON_FACIAL_DOMAIN": 2,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Getty": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Instagram photo credit": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:SFS": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external photo credit": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:SFS notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:promotion notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:GirlCircle": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:product promotion": 3,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:commercial edited composition": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external notice": 1,
+        "COMPONENT_CROP_GROUP_REVIEW_PENDING": 2,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:photo notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:physician notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external photo notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:promotion": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Alamy": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Shutterstock": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Galderma": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:clinic promotion": 1,
+        "CREAM_LIGHT_WRINKLES_PIGMENT_OR_ACTIVE_TARGET_UNCERTAIN": 25,
+        "CSV_PRESENCE_NOT_CONFIRMED_OR_COLOR_LIGHT_NORMAL_LID_CONFOUNDER": 16
+      },
+      "separatePreparedPhases": {
+        "continuation-valid-skin-data": {
+          "ledgerSHA256": "8a573694c45fbc007daab558ccb6c723b3c1c648c4e97a0c36bf153ce0198f48",
+          "splits": {
+            "train": {
+              "photos": 125,
+              "groups": 125,
+              "positivePhotos": 123,
+              "independentNegativePhotos": 2,
+              "positiveROIs": 737,
+              "onlyNegativeROIs": 16,
+              "partialROIs": 729
+            },
+            "validation": {
+              "photos": 25,
+              "groups": 25,
+              "positivePhotos": 25,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 146,
+              "onlyNegativeROIs": 4,
+              "partialROIs": 142
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": true,
+          "actualConsumedCountsMustBeReadSeparately": true
+        },
+        "negative-expanded-mask-data": {
+          "ledgerSHA256": "0b5f603e1123f057207e5099840f46b2881f8e86b5f0dd6ce523c7fbcb608256",
+          "splits": {
+            "train": {
+              "photos": 131,
+              "groups": 131,
+              "positivePhotos": 123,
+              "independentNegativePhotos": 8,
+              "positiveROIs": 737,
+              "onlyNegativeROIs": 69,
+              "partialROIs": 729
+            },
+            "validation": {
+              "photos": 25,
+              "groups": 25,
+              "positivePhotos": 25,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 146,
+              "onlyNegativeROIs": 4,
+              "partialROIs": 142
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": false,
+          "actualConsumedCountsMustBeReadSeparately": true
+        }
+      },
+      "provenConsumedTrainingLowerBound": {
+        "provenPositivePhotos": 123,
+        "provenIndependentNegativePhotos": 2,
+        "provenPositiveROIs": 339,
+        "provenOnlyNegativeROIs": 16,
+        "lowerBound": true,
+        "phaseMixedExposureDisclosed": true
+      }
+    },
+    "dry": {
+      "counts": {
+        "totalSourceImages": 12470,
+        "targetAnnotations": 4111,
+        "geometricallyValidAnnotations": 4103,
+        "pendingImages": 12326,
+        "excludedImages": 95,
+        "readyImages": 49,
+        "eligiblePositivePhotos": 49,
+        "eligiblePositiveGroups": 49,
+        "partialPositiveOnlyPhotos": 49,
+        "fullyReviewedNegativePhotos": 0,
+        "fullyReviewedNegativeTiles": 0,
+        "knownNegativePixels": 0
+      },
+      "sources": {
+        "clean3": {
+          "images": 2660,
+          "targetAnnotations": 1521
+        },
+        "merve": {
+          "images": 3368,
+          "targetAnnotations": 2590
+        },
+        "csv": {
+          "images": 2349,
+          "targetAnnotations": 0
+        },
+        "old-skin": {
+          "images": 4093,
+          "targetAnnotations": 0
+        }
+      },
+      "sourceSplits": {
+        "train": {
+          "pendingImages": 9488,
+          "excludedImages": 77,
+          "readyImages": 38
+        },
+        "validation": {
+          "pendingImages": 2041,
+          "readyImages": 11,
+          "excludedImages": 18
+        },
+        "test": {
+          "pendingImages": 797
+        }
+      },
+      "deduplicatedSourceGroups": 4996,
+      "pendingGroups": 4980,
+      "pendingOrExclusionReasons": {
+        "SOURCE_TARGET_VISUAL_REVIEW_PENDING": 12179,
+        "TARGET_NOT_REVIEWED_IN_THIS_PHOTO": 124,
+        "VISIBLE_THIRD_PARTY_NOTICE_PROVENANCE_UNRESOLVED": 44,
+        "CREAM_LIGHT_WRINKLES_PIGMENT_OR_ACTIVE_TARGET_UNCERTAIN": 12,
+        "STOCK_RIGHTS": 51,
+        "NO_VISIBLE_FLAKE_OR_ACTIVE_TARGET_UNCERTAIN": 2,
+        "CSV_PRESENCE_NOT_CONFIRMED_OR_COLOR_LIGHT_NORMAL_LID_CONFOUNDER": 9
+      },
+      "separatePreparedPhases": {
+        "continuation-valid-skin-data": {
+          "ledgerSHA256": "8a573694c45fbc007daab558ccb6c723b3c1c648c4e97a0c36bf153ce0198f48",
+          "splits": {
+            "train": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            },
+            "validation": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": true,
+          "actualConsumedCountsMustBeReadSeparately": true
+        },
+        "negative-expanded-mask-data": {
+          "ledgerSHA256": "0b5f603e1123f057207e5099840f46b2881f8e86b5f0dd6ce523c7fbcb608256",
+          "splits": {
+            "train": {
+              "photos": 32,
+              "groups": 32,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 32,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 279,
+              "partialROIs": 0
+            },
+            "validation": {
+              "photos": 6,
+              "groups": 6,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 6,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 51,
+              "partialROIs": 0
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": false,
+          "actualConsumedCountsMustBeReadSeparately": true
+        }
+      },
+      "provenConsumedTrainingLowerBound": {
+        "provenPositivePhotos": 0,
+        "provenIndependentNegativePhotos": 0,
+        "provenPositiveROIs": 0,
+        "provenOnlyNegativeROIs": 0,
+        "lowerBound": true,
+        "phaseMixedExposureDisclosed": true
+      }
+    },
+    "redness": {
+      "counts": {
+        "totalSourceImages": 8604,
+        "targetAnnotations": 1634,
+        "geometricallyValidAnnotations": 1634,
+        "pendingImages": 8274,
+        "readyImages": 171,
+        "excludedImages": 159,
+        "eligiblePositivePhotos": 171,
+        "eligiblePositiveGroups": 164,
+        "partialPositiveOnlyPhotos": 171,
+        "fullyReviewedNegativePhotos": 3,
+        "fullyReviewedNegativeTiles": 20,
+        "knownNegativePixels": 865032
+      },
+      "sources": {
+        "v11": {
+          "images": 948,
+          "targetAnnotations": 618
+        },
+        "clean3": {
+          "images": 2660,
+          "targetAnnotations": 348
+        },
+        "care": {
+          "images": 903,
+          "targetAnnotations": 668
+        },
+        "old-skin": {
+          "images": 4093,
+          "targetAnnotations": 0
+        }
+      },
+      "sourceSplits": {
+        "train": {
+          "pendingImages": 6470,
+          "readyImages": 143,
+          "excludedImages": 129
+        },
+        "validation": {
+          "pendingImages": 1375,
+          "readyImages": 28,
+          "excludedImages": 27
+        },
+        "test": {
+          "pendingImages": 429,
+          "excludedImages": 3
+        }
+      },
+      "deduplicatedSourceGroups": 4146,
+      "pendingGroups": 4019,
+      "pendingOrExclusionReasons": {
+        "TARGET_NOT_REVIEWED_IN_THIS_PHOTO": 806,
+        "SOURCE_TARGET_VISUAL_REVIEW_PENDING": 7444,
+        "COLLAGE_REQUIRES_COMPONENT_GROUP_AND_CROP_REVIEW": 8,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Dermnet": 13,
+        "VISIBLE_THIRD_PARTY_NOTICE_PROVENANCE_UNRESOLVED": 80,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:medical source notice": 4,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Science Photo": 2,
+        "STOCK_RIGHTS": 36,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:collage unknown provenance": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:product comparison": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:First Derm": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:medical photo notice": 1,
+        "NON_FACIAL_DOMAIN": 2,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Getty": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Instagram photo credit": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:SFS": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external photo credit": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:SFS notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:promotion notice": 1,
+        "COMPONENT_CROP_GROUP_REVIEW_PENDING": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:GirlCircle": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:product promotion": 3,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:commercial edited composition": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:photo notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:physician notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external photo notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:promotion": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Alamy": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Shutterstock": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Galderma": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:clinic promotion": 1,
+        "CREAM_LIGHT_WRINKLES_PIGMENT_OR_ACTIVE_TARGET_UNCERTAIN": 5,
+        "ACTIVE_VS_RESIDUAL_PIGMENT_OR_BAG_VS_NORMAL_LID_OR_COSMETIC_LIGHT_UNCERTAIN": 8
+      },
+      "separatePreparedPhases": {
+        "continuation-valid-skin-data": {
+          "ledgerSHA256": "8a573694c45fbc007daab558ccb6c723b3c1c648c4e97a0c36bf153ce0198f48",
+          "splits": {
+            "train": {
+              "photos": 135,
+              "groups": 135,
+              "positivePhotos": 134,
+              "independentNegativePhotos": 1,
+              "positiveROIs": 872,
+              "onlyNegativeROIs": 14,
+              "partialROIs": 865
+            },
+            "validation": {
+              "photos": 26,
+              "groups": 26,
+              "positivePhotos": 26,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 184,
+              "onlyNegativeROIs": 6,
+              "partialROIs": 172
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": true,
+          "actualConsumedCountsMustBeReadSeparately": true
+        },
+        "negative-expanded-mask-data": {
+          "ledgerSHA256": "0b5f603e1123f057207e5099840f46b2881f8e86b5f0dd6ce523c7fbcb608256",
+          "splits": {
+            "train": {
+              "photos": 137,
+              "groups": 137,
+              "positivePhotos": 134,
+              "independentNegativePhotos": 3,
+              "positiveROIs": 872,
+              "onlyNegativeROIs": 32,
+              "partialROIs": 865
+            },
+            "validation": {
+              "photos": 26,
+              "groups": 26,
+              "positivePhotos": 26,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 184,
+              "onlyNegativeROIs": 6,
+              "partialROIs": 172
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": false,
+          "actualConsumedCountsMustBeReadSeparately": true
+        }
+      },
+      "provenConsumedTrainingLowerBound": {
+        "provenPositivePhotos": 134,
+        "provenIndependentNegativePhotos": 1,
+        "provenPositiveROIs": 366,
+        "provenOnlyNegativeROIs": 14,
+        "lowerBound": true,
+        "phaseMixedExposureDisclosed": true
+      }
+    },
+    "tone": {
+      "counts": {
+        "totalSourceImages": 6739,
+        "targetAnnotations": 4647,
+        "geometricallyValidAnnotations": 4647,
+        "readyImages": 175,
+        "pendingImages": 6438,
+        "excludedImages": 126,
+        "eligiblePositivePhotos": 175,
+        "eligiblePositiveGroups": 171,
+        "partialPositiveOnlyPhotos": 175,
+        "fullyReviewedNegativePhotos": 2,
+        "fullyReviewedNegativeTiles": 10,
+        "knownNegativePixels": 224910
+      },
+      "sources": {
+        "v11": {
+          "images": 948,
+          "targetAnnotations": 3419
+        },
+        "skin5": {
+          "images": 546,
+          "targetAnnotations": 409
+        },
+        "care": {
+          "images": 903,
+          "targetAnnotations": 543
+        },
+        "arnold": {
+          "images": 249,
+          "targetAnnotations": 276
+        },
+        "old-skin": {
+          "images": 4093,
+          "targetAnnotations": 0
+        }
+      },
+      "sourceSplits": {
+        "train": {
+          "readyImages": 151,
+          "pendingImages": 5072,
+          "excludedImages": 100
+        },
+        "validation": {
+          "readyImages": 24,
+          "pendingImages": 1142,
+          "excludedImages": 23
+        },
+        "test": {
+          "pendingImages": 224,
+          "excludedImages": 3
+        }
+      },
+      "deduplicatedSourceGroups": 3402,
+      "pendingGroups": 3180,
+      "pendingOrExclusionReasons": {
+        "TARGET_NOT_REVIEWED_IN_THIS_PHOTO": 765,
+        "SOURCE_TARGET_VISUAL_REVIEW_PENDING": 5586,
+        "ACTIVE_VS_RESIDUAL_PIGMENT_OR_BAG_VS_NORMAL_LID_OR_COSMETIC_LIGHT_UNCERTAIN": 55,
+        "COLLAGE_REQUIRES_COMPONENT_GROUP_AND_CROP_REVIEW": 8,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Dermnet": 13,
+        "VISIBLE_THIRD_PARTY_NOTICE_PROVENANCE_UNRESOLVED": 64,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:medical source notice": 4,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Science Photo": 2,
+        "STOCK_RIGHTS": 19,
+        "UNCERTAIN_APPEARANCE_TARGET": 13,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:collage unknown provenance": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:product comparison": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:First Derm": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:medical photo notice": 1,
+        "NON_FACIAL_DOMAIN": 2,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Getty": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Instagram photo credit": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:SFS": 1,
+        "COMPONENT_CROP_GROUP_REVIEW_PENDING": 3,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external photo credit": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:SFS notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:promotion notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:GirlCircle": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:product promotion": 3,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:commercial edited composition": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:photo notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:physician notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external photo notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:promotion": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Alamy": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Shutterstock": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Galderma": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:clinic promotion": 1,
+        "FRECKLES_SEPARATE_OR_NON_OUTER_EYE_LINE_OR_SHADOW_UNCERTAIN": 2,
+        "FRECKLES_NORMAL_LID_SHADOW_OR_NATIVE_DETAIL_UNCERTAIN": 4
+      },
+      "separatePreparedPhases": {
+        "continuation-valid-skin-data": {
+          "ledgerSHA256": "8a573694c45fbc007daab558ccb6c723b3c1c648c4e97a0c36bf153ce0198f48",
+          "splits": {
+            "train": {
+              "photos": 138,
+              "groups": 138,
+              "positivePhotos": 137,
+              "independentNegativePhotos": 1,
+              "positiveROIs": 895,
+              "onlyNegativeROIs": 9,
+              "partialROIs": 895
+            },
+            "validation": {
+              "photos": 23,
+              "groups": 23,
+              "positivePhotos": 23,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 157,
+              "onlyNegativeROIs": 1,
+              "partialROIs": 157
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": true,
+          "actualConsumedCountsMustBeReadSeparately": true
+        },
+        "negative-expanded-mask-data": {
+          "ledgerSHA256": "0b5f603e1123f057207e5099840f46b2881f8e86b5f0dd6ce523c7fbcb608256",
+          "splits": {
+            "train": {
+              "photos": 140,
+              "groups": 140,
+              "positivePhotos": 137,
+              "independentNegativePhotos": 3,
+              "positiveROIs": 895,
+              "onlyNegativeROIs": 27,
+              "partialROIs": 895
+            },
+            "validation": {
+              "photos": 23,
+              "groups": 23,
+              "positivePhotos": 23,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 157,
+              "onlyNegativeROIs": 1,
+              "partialROIs": 157
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": false,
+          "actualConsumedCountsMustBeReadSeparately": true
+        }
+      },
+      "provenConsumedTrainingLowerBound": {
+        "provenPositivePhotos": 137,
+        "provenIndependentNegativePhotos": 1,
+        "provenPositiveROIs": 342,
+        "provenOnlyNegativeROIs": 9,
+        "lowerBound": true,
+        "phaseMixedExposureDisclosed": true
+      }
+    },
+    "lines": {
+      "counts": {
+        "totalSourceImages": 8209,
+        "targetAnnotations": 11884,
+        "geometricallyValidAnnotations": 11884,
+        "pendingImages": 8033,
+        "readyImages": 166,
+        "excludedImages": 10,
+        "eligiblePositivePhotos": 166,
+        "eligiblePositiveGroups": 165,
+        "partialPositiveOnlyPhotos": 166,
+        "fullyReviewedNegativePhotos": 16,
+        "fullyReviewedNegativeTiles": 77,
+        "knownNegativePixels": 140263
+      },
+      "sources": {
+        "wrinkles": {
+          "images": 914,
+          "targetAnnotations": 6237
+        },
+        "skin5": {
+          "images": 546,
+          "targetAnnotations": 2327
+        },
+        "face": {
+          "images": 6749,
+          "targetAnnotations": 3320
+        }
+      },
+      "sourceSplits": {
+        "train": {
+          "pendingImages": 5639,
+          "readyImages": 128,
+          "excludedImages": 9
+        },
+        "validation": {
+          "pendingImages": 1282,
+          "readyImages": 38,
+          "excludedImages": 1
+        },
+        "test": {
+          "pendingImages": 1112
+        }
+      },
+      "deduplicatedSourceGroups": 3016,
+      "pendingGroups": 3010,
+      "pendingOrExclusionReasons": {
+        "SOURCE_TARGET_VISUAL_REVIEW_PENDING": 7925,
+        "NON_OUTER_EYE_LINE_OR_SHADOW_MAKEUP_OR_ACTIVE_TARGET_UNCERTAIN": 23,
+        "TARGET_NOT_REVIEWED_IN_THIS_PHOTO": 71,
+        "VISIBLE_THIRD_PARTY_NOTICE_PROVENANCE_UNRESOLVED": 6,
+        "FRECKLES_SEPARATE_OR_NON_OUTER_EYE_LINE_OR_SHADOW_UNCERTAIN": 14,
+        "STOCK_RIGHTS": 4
+      },
+      "separatePreparedPhases": {
+        "continuation-valid-skin-data": {
+          "ledgerSHA256": "8a573694c45fbc007daab558ccb6c723b3c1c648c4e97a0c36bf153ce0198f48",
+          "splits": {
+            "train": {
+              "photos": 173,
+              "groups": 171,
+              "positivePhotos": 161,
+              "independentNegativePhotos": 12,
+              "positiveROIs": 461,
+              "onlyNegativeROIs": 58,
+              "partialROIs": 460
+            },
+            "validation": {
+              "photos": 12,
+              "groups": 12,
+              "positivePhotos": 8,
+              "independentNegativePhotos": 4,
+              "positiveROIs": 41,
+              "onlyNegativeROIs": 19,
+              "partialROIs": 37
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": true,
+          "actualConsumedCountsMustBeReadSeparately": true
+        },
+        "negative-expanded-mask-data": {
+          "ledgerSHA256": "0b5f603e1123f057207e5099840f46b2881f8e86b5f0dd6ce523c7fbcb608256",
+          "splits": {
+            "train": {
+              "photos": 194,
+              "groups": 192,
+              "positivePhotos": 161,
+              "independentNegativePhotos": 33,
+              "positiveROIs": 461,
+              "onlyNegativeROIs": 135,
+              "partialROIs": 460
+            },
+            "validation": {
+              "photos": 15,
+              "groups": 15,
+              "positivePhotos": 8,
+              "independentNegativePhotos": 7,
+              "positiveROIs": 41,
+              "onlyNegativeROIs": 32,
+              "partialROIs": 37
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": false,
+          "actualConsumedCountsMustBeReadSeparately": true
+        }
+      },
+      "provenConsumedTrainingLowerBound": {
+        "provenPositivePhotos": 160,
+        "provenIndependentNegativePhotos": 12,
+        "provenPositiveROIs": 278,
+        "provenOnlyNegativeROIs": 58,
+        "lowerBound": true,
+        "phaseMixedExposureDisclosed": true
+      }
+    },
+    "dark": {
+      "counts": {
+        "totalSourceImages": 2108,
+        "targetAnnotations": 730,
+        "geometricallyValidAnnotations": 730,
+        "pendingImages": 2009,
+        "readyImages": 89,
+        "excludedImages": 10,
+        "eligiblePositivePhotos": 89,
+        "eligiblePositiveGroups": 89,
+        "partialPositiveOnlyPhotos": 89,
+        "fullyReviewedNegativePhotos": 1,
+        "fullyReviewedNegativeTiles": 6,
+        "knownNegativePixels": 53977
+      },
+      "sources": {
+        "dc": {
+          "images": 399,
+          "targetAnnotations": 382
+        },
+        "wrinkles": {
+          "images": 914,
+          "targetAnnotations": 56
+        },
+        "skin5": {
+          "images": 546,
+          "targetAnnotations": 228
+        },
+        "arnold": {
+          "images": 249,
+          "targetAnnotations": 64
+        }
+      },
+      "sourceSplits": {
+        "validation": {
+          "pendingImages": 347,
+          "readyImages": 13,
+          "excludedImages": 1
+        },
+        "train": {
+          "pendingImages": 1425,
+          "readyImages": 76,
+          "excludedImages": 9
+        },
+        "test": {
+          "pendingImages": 237
+        }
+      },
+      "deduplicatedSourceGroups": 2013,
+      "pendingGroups": 1918,
+      "pendingOrExclusionReasons": {
+        "TARGET_NOT_REVIEWED_IN_THIS_PHOTO": 185,
+        "SOURCE_TARGET_VISUAL_REVIEW_PENDING": 1744,
+        "NORMAL_LID_DARKNESS_SHADOW_OR_NATIVE_DETAIL_UNCERTAIN": 47,
+        "NON_OUTER_EYE_LINE_OR_SHADOW_MAKEUP_OR_ACTIVE_TARGET_UNCERTAIN": 14,
+        "VISIBLE_THIRD_PARTY_NOTICE_PROVENANCE_UNRESOLVED": 6,
+        "FRECKLES_SEPARATE_OR_NON_OUTER_EYE_LINE_OR_SHADOW_UNCERTAIN": 14,
+        "STOCK_RIGHTS": 4,
+        "FRECKLES_NORMAL_LID_SHADOW_OR_NATIVE_DETAIL_UNCERTAIN": 5
+      },
+      "separatePreparedPhases": {
+        "continuation-valid-skin-data": {
+          "ledgerSHA256": "8a573694c45fbc007daab558ccb6c723b3c1c648c4e97a0c36bf153ce0198f48",
+          "splits": {
+            "train": {
+              "photos": 66,
+              "groups": 66,
+              "positivePhotos": 65,
+              "independentNegativePhotos": 1,
+              "positiveROIs": 307,
+              "onlyNegativeROIs": 3,
+              "partialROIs": 302
+            },
+            "validation": {
+              "photos": 14,
+              "groups": 14,
+              "positivePhotos": 14,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 48,
+              "onlyNegativeROIs": 3,
+              "partialROIs": 45
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": true,
+          "actualConsumedCountsMustBeReadSeparately": true
+        },
+        "negative-expanded-mask-data": {
+          "ledgerSHA256": "0b5f603e1123f057207e5099840f46b2881f8e86b5f0dd6ce523c7fbcb608256",
+          "splits": {
+            "train": {
+              "photos": 66,
+              "groups": 66,
+              "positivePhotos": 65,
+              "independentNegativePhotos": 1,
+              "positiveROIs": 307,
+              "onlyNegativeROIs": 3,
+              "partialROIs": 302
+            },
+            "validation": {
+              "photos": 14,
+              "groups": 14,
+              "positivePhotos": 14,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 48,
+              "onlyNegativeROIs": 3,
+              "partialROIs": 45
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": false,
+          "actualConsumedCountsMustBeReadSeparately": true
+        }
+      },
+      "provenConsumedTrainingLowerBound": {
+        "provenPositivePhotos": 65,
+        "provenIndependentNegativePhotos": 1,
+        "provenPositiveROIs": 170,
+        "provenOnlyNegativeROIs": 3,
+        "lowerBound": true,
+        "phaseMixedExposureDisclosed": true
+      }
+    },
+    "bags": {
+      "counts": {
+        "totalSourceImages": 6689,
+        "targetAnnotations": 2875,
+        "geometricallyValidAnnotations": 2875,
+        "pendingImages": 6511,
+        "readyImages": 43,
+        "excludedImages": 135,
+        "eligiblePositivePhotos": 43,
+        "eligiblePositiveGroups": 42,
+        "partialPositiveOnlyPhotos": 43,
+        "fullyReviewedNegativePhotos": 15,
+        "fullyReviewedNegativeTiles": 108,
+        "knownNegativePixels": 1590753
+      },
+      "sources": {
+        "v11": {
+          "images": 948,
+          "targetAnnotations": 351
+        },
+        "dc": {
+          "images": 399,
+          "targetAnnotations": 487
+        },
+        "arnold": {
+          "images": 249,
+          "targetAnnotations": 99
+        },
+        "csv": {
+          "images": 2349,
+          "targetAnnotations": 0
+        },
+        "old-eye": {
+          "images": 2744,
+          "targetAnnotations": 1938
+        }
+      },
+      "sourceSplits": {
+        "train": {
+          "pendingImages": 5089,
+          "readyImages": 36,
+          "excludedImages": 105
+        },
+        "validation": {
+          "pendingImages": 1022,
+          "excludedImages": 30,
+          "readyImages": 7
+        },
+        "test": {
+          "pendingImages": 400
+        }
+      },
+      "deduplicatedSourceGroups": 4379,
+      "pendingGroups": 4307,
+      "pendingOrExclusionReasons": {
+        "TARGET_NOT_REVIEWED_IN_THIS_PHOTO": 604,
+        "ACTIVE_VS_RESIDUAL_PIGMENT_OR_BAG_VS_NORMAL_LID_OR_COSMETIC_LIGHT_UNCERTAIN": 66,
+        "AMBIGUOUS_BAG_VS_DARK_NORMAL_LID": 53,
+        "SOURCE_TARGET_VISUAL_REVIEW_PENDING": 5588,
+        "COLLAGE_REQUIRES_COMPONENT_GROUP_AND_CROP_REVIEW": 8,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Dermnet": 13,
+        "VISIBLE_THIRD_PARTY_NOTICE_PROVENANCE_UNRESOLVED": 62,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:medical source notice": 4,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Science Photo": 2,
+        "STOCK_RIGHTS": 30,
+        "COMPONENT_CROP_GROUP_REVIEW_PENDING": 3,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:collage unknown provenance": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:product comparison": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:First Derm": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:medical photo notice": 1,
+        "NON_FACIAL_DOMAIN": 2,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Getty": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Instagram photo credit": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:SFS": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external photo credit": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:SFS notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:promotion notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:GirlCircle": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:product promotion": 3,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:commercial edited composition": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:photo notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:physician notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external photo notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:promotion": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Alamy": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Shutterstock": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Galderma": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:clinic promotion": 1,
+        "NORMAL_LID_DARKNESS_SHADOW_OR_NATIVE_DETAIL_UNCERTAIN": 127,
+        "FRECKLES_NORMAL_LID_SHADOW_OR_NATIVE_DETAIL_UNCERTAIN": 23,
+        "CSV_PRESENCE_NOT_CONFIRMED_OR_COLOR_LIGHT_NORMAL_LID_CONFOUNDER": 14,
+        "ACTIVE_TARGET_OR_BAG_VS_DARK_NORMAL_LID_UNCERTAIN": 23
+      },
+      "separatePreparedPhases": {
+        "continuation-valid-skin-data": {
+          "ledgerSHA256": "8a573694c45fbc007daab558ccb6c723b3c1c648c4e97a0c36bf153ce0198f48",
+          "splits": {
+            "train": {
+              "photos": 42,
+              "groups": 42,
+              "positivePhotos": 31,
+              "independentNegativePhotos": 11,
+              "positiveROIs": 134,
+              "onlyNegativeROIs": 85,
+              "partialROIs": 130
+            },
+            "validation": {
+              "photos": 9,
+              "groups": 9,
+              "positivePhotos": 6,
+              "independentNegativePhotos": 3,
+              "positiveROIs": 22,
+              "onlyNegativeROIs": 23,
+              "partialROIs": 13
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": true,
+          "actualConsumedCountsMustBeReadSeparately": true
+        },
+        "negative-expanded-mask-data": {
+          "ledgerSHA256": "0b5f603e1123f057207e5099840f46b2881f8e86b5f0dd6ce523c7fbcb608256",
+          "splits": {
+            "train": {
+              "photos": 64,
+              "groups": 64,
+              "positivePhotos": 31,
+              "independentNegativePhotos": 33,
+              "positiveROIs": 134,
+              "onlyNegativeROIs": 168,
+              "partialROIs": 130
+            },
+            "validation": {
+              "photos": 12,
+              "groups": 12,
+              "positivePhotos": 6,
+              "independentNegativePhotos": 6,
+              "positiveROIs": 22,
+              "onlyNegativeROIs": 36,
+              "partialROIs": 13
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": false,
+          "actualConsumedCountsMustBeReadSeparately": true
+        }
+      },
+      "provenConsumedTrainingLowerBound": {
+        "provenPositivePhotos": 31,
+        "provenIndependentNegativePhotos": 11,
+        "provenPositiveROIs": 79,
+        "provenOnlyNegativeROIs": 49,
+        "lowerBound": true,
+        "phaseMixedExposureDisclosed": true
+      }
+    },
+    "sag": {
+      "counts": {
+        "totalSourceImages": 17461,
+        "targetAnnotations": 0,
+        "geometricallyValidAnnotations": 0,
+        "pendingImages": 17290,
+        "excludedImages": 171,
+        "eligiblePositivePhotos": 0,
+        "eligiblePositiveGroups": 0,
+        "partialPositiveOnlyPhotos": 0,
+        "fullyReviewedNegativePhotos": 0,
+        "fullyReviewedNegativeTiles": 0,
+        "knownNegativePixels": 0
+      },
+      "sources": {
+        "v11": {
+          "images": 948,
+          "targetAnnotations": 0
+        },
+        "clean3": {
+          "images": 2660,
+          "targetAnnotations": 0
+        },
+        "dc": {
+          "images": 399,
+          "targetAnnotations": 0
+        },
+        "wrinkles": {
+          "images": 914,
+          "targetAnnotations": 0
+        },
+        "skin5": {
+          "images": 546,
+          "targetAnnotations": 0
+        },
+        "face": {
+          "images": 6749,
+          "targetAnnotations": 0
+        },
+        "care": {
+          "images": 903,
+          "targetAnnotations": 0
+        },
+        "arnold": {
+          "images": 249,
+          "targetAnnotations": 0
+        },
+        "old-skin": {
+          "images": 4093,
+          "targetAnnotations": 0
+        }
+      },
+      "sourceSplits": {
+        "train": {
+          "pendingImages": 12844,
+          "excludedImages": 139
+        },
+        "validation": {
+          "pendingImages": 2838,
+          "excludedImages": 29
+        },
+        "test": {
+          "pendingImages": 1608,
+          "excludedImages": 3
+        }
+      },
+      "deduplicatedSourceGroups": 7444,
+      "pendingGroups": 7371,
+      "pendingOrExclusionReasons": {
+        "TARGET_NOT_REVIEWED_IN_THIS_PHOTO": 1495,
+        "SOURCE_TARGET_VISUAL_REVIEW_PENDING": 15787,
+        "COLLAGE_REQUIRES_COMPONENT_GROUP_AND_CROP_REVIEW": 8,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Dermnet": 13,
+        "VISIBLE_THIRD_PARTY_NOTICE_PROVENANCE_UNRESOLVED": 86,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:medical source notice": 4,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Science Photo": 2,
+        "STOCK_RIGHTS": 40,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:collage unknown provenance": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:product comparison": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:First Derm": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:medical photo notice": 1,
+        "NON_FACIAL_DOMAIN": 2,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Getty": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Instagram photo credit": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:SFS": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external photo credit": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:SFS notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:promotion notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:GirlCircle": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:product promotion": 3,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:commercial edited composition": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:photo notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:physician notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:external photo notice": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:promotion": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Alamy": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Shutterstock": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:Galderma": 1,
+        "VISIBLE_THIRD_PARTY_PROVENANCE_UNRESOLVED:clinic promotion": 1
+      },
+      "separatePreparedPhases": {
+        "continuation-valid-skin-data": {
+          "ledgerSHA256": "8a573694c45fbc007daab558ccb6c723b3c1c648c4e97a0c36bf153ce0198f48",
+          "splits": {
+            "train": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            },
+            "validation": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": true,
+          "actualConsumedCountsMustBeReadSeparately": true
+        },
+        "negative-expanded-mask-data": {
+          "ledgerSHA256": "0b5f603e1123f057207e5099840f46b2881f8e86b5f0dd6ce523c7fbcb608256",
+          "splits": {
+            "train": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            },
+            "validation": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            },
+            "test": {
+              "photos": 0,
+              "groups": 0,
+              "positivePhotos": 0,
+              "independentNegativePhotos": 0,
+              "positiveROIs": 0,
+              "onlyNegativeROIs": 0,
+              "partialROIs": 0
+            }
+          },
+          "trainingStarted": false,
+          "actualConsumedCountsMustBeReadSeparately": true
+        }
+      }
+    }
+  },
+  "typeSourceClassDistribution": {
+    "source": "old four-class source directories, not expert relabels",
+    "splits": {
+      "train": {
+        "normal": {
+          "photos": 290,
+          "groups": 184
+        },
+        "dry": {
+          "photos": 269,
+          "groups": 174
+        },
+        "oily": {
+          "photos": 208,
+          "groups": 142
+        },
+        "combination": {
+          "photos": 112,
+          "groups": 68
+        }
+      },
+      "validation": {
+        "normal": {
+          "photos": 49,
+          "groups": 29
+        },
+        "dry": {
+          "photos": 70,
+          "groups": 44
+        },
+        "oily": {
+          "photos": 54,
+          "groups": 32
+        },
+        "combination": {
+          "photos": 14,
+          "groups": 11
+        }
+      }
+    },
+    "sourceSHA256": "de43cdaf2a17d741081daa535d6c69d498ea3d0244df19958ef9ec3b4d7caccf"
+  },
+  "acceptance": {
+    "type": {
+      "kind": "type",
+      "functions": [
+        "classification"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "failed",
+          "failures": [
+            "TYPE_MACRO_F1",
+            "TYPE_CLASS_F1",
+            "TYPE_CLASS_F1",
+            "TYPE_CLASS_F1",
+            "TYPE_CLASS_F1",
+            "TYPE_CONFIDENT_PRECISION"
+          ],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "passed",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "failed",
+          "failures": [
+            "TYPE_MACRO_F1",
+            "TYPE_CLASS_F1",
+            "TYPE_CONFIDENT_PRECISION"
+          ],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [
+        "TYPE_MACRO_F1",
+        "TYPE_CLASS_F1",
+        "TYPE_CONFIDENT_PRECISION"
+      ],
+      "offlinePending": [
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "failures": [
+        "TYPE_MACRO_F1",
+        "TYPE_CLASS_F1",
+        "TYPE_CONFIDENT_PRECISION"
+      ],
+      "pending": [
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+        "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+        "PRODUCT_CANCELRESCANLATERESPONSE",
+        "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+        "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": "21ba8383ff0be9442f694bb9e6e45d63d3b9432b0a8205e66db42b8fac312f2a"
+    },
+    "dryPresence": {
+      "kind": "presence",
+      "functions": [
+        "presence"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "failed",
+          "failures": [
+            "PRESENCE_F1",
+            "PRESENCE_RECALL",
+            "PRESENCE_NEGATIVE_FPR"
+          ],
+          "pending": [],
+          "scope": "source-group development weak texture presence with expanded natural negatives; no severity"
+        },
+        "localization": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group development weak texture presence with expanded natural negatives; no severity"
+        },
+        "appearanceScale": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group development weak texture presence with expanded natural negatives; no severity"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group development weak texture presence with expanded natural negatives; no severity"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "CROP_COLLAGE_SPLIT_RELATIONS_UNRESOLVED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group development weak texture presence with expanded natural negatives; no severity"
+        },
+        "exportParity": {
+          "status": "passed",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group development weak texture presence with expanded natural negatives; no severity"
+        },
+        "productIntegration": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group development weak texture presence with expanded natural negatives; no severity"
+        },
+        "userTestReadiness": {
+          "status": "failed",
+          "failures": [
+            "PRESENCE_F1",
+            "PRESENCE_RECALL",
+            "PRESENCE_NEGATIVE_FPR"
+          ],
+          "pending": [
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "CROP_COLLAGE_SPLIT_RELATIONS_UNRESOLVED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group development weak texture presence with expanded natural negatives; no severity"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [
+        "PRESENCE_F1",
+        "PRESENCE_RECALL",
+        "PRESENCE_NEGATIVE_FPR"
+      ],
+      "offlinePending": [
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "CROP_COLLAGE_SPLIT_RELATIONS_UNRESOLVED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "failures": [
+        "PRESENCE_F1",
+        "PRESENCE_RECALL",
+        "PRESENCE_NEGATIVE_FPR"
+      ],
+      "pending": [
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "CROP_COLLAGE_SPLIT_RELATIONS_UNRESOLVED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+        "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+        "PRODUCT_CANCELRESCANLATERESPONSE",
+        "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+        "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": "0a243ea69e7bfee1e172d41b21cdec6f2ebfea0a2c42f51dd86fcc3693fcd62d"
+    },
+    "acneDetector": {
+      "kind": "detector",
+      "functions": [
+        "detection",
+        "localization",
+        "appearanceIndex"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "failed",
+          "failures": [
+            "DETECTOR_SOURCE_F1",
+            "DETECTOR_SOURCE_PRECISION",
+            "DETECTOR_SOURCE_RECALL"
+          ],
+          "pending": [
+            "DETECTOR_NATURAL_F1",
+            "DETECTOR_NATURAL_PRECISION",
+            "DETECTOR_NATURAL_RECALL",
+            "DETECTOR_NATURAL_POSITIVEPHOTOS",
+            "DETECTOR_NATURAL_NEGATIVEPHOTOS",
+            "DETECTOR_NATURAL_LESIONS",
+            "DETECTOR_NEGATIVE_FALSE_CANDIDATES"
+          ],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "failed",
+          "failures": [
+            "DETECTOR_SOURCE_F1",
+            "DETECTOR_SOURCE_PRECISION",
+            "DETECTOR_SOURCE_RECALL"
+          ],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_INDEXVERSION",
+            "APPEARANCE_MEANING",
+            "APPEARANCE_LIMITS",
+            "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_SAMEINPUTREPEATABILITY",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+            "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+            "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+            "APPEARANCE_FINAL_TEST_REUSE"
+          ],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "passed",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "failed",
+          "failures": [
+            "DETECTOR_SOURCE_F1",
+            "DETECTOR_SOURCE_PRECISION",
+            "DETECTOR_SOURCE_RECALL"
+          ],
+          "pending": [
+            "DETECTOR_NATURAL_F1",
+            "DETECTOR_NATURAL_PRECISION",
+            "DETECTOR_NATURAL_RECALL",
+            "DETECTOR_NATURAL_POSITIVEPHOTOS",
+            "DETECTOR_NATURAL_NEGATIVEPHOTOS",
+            "DETECTOR_NATURAL_LESIONS",
+            "DETECTOR_NEGATIVE_FALSE_CANDIDATES",
+            "APPEARANCE_INDEXVERSION",
+            "APPEARANCE_MEANING",
+            "APPEARANCE_LIMITS",
+            "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_SAMEINPUTREPEATABILITY",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+            "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+            "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+            "APPEARANCE_FINAL_TEST_REUSE",
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [
+        "DETECTOR_SOURCE_F1",
+        "DETECTOR_SOURCE_PRECISION",
+        "DETECTOR_SOURCE_RECALL"
+      ],
+      "offlinePending": [
+        "DETECTOR_NATURAL_F1",
+        "DETECTOR_NATURAL_PRECISION",
+        "DETECTOR_NATURAL_RECALL",
+        "DETECTOR_NATURAL_POSITIVEPHOTOS",
+        "DETECTOR_NATURAL_NEGATIVEPHOTOS",
+        "DETECTOR_NATURAL_LESIONS",
+        "DETECTOR_NEGATIVE_FALSE_CANDIDATES",
+        "APPEARANCE_INDEXVERSION",
+        "APPEARANCE_MEANING",
+        "APPEARANCE_LIMITS",
+        "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_SAMEINPUTREPEATABILITY",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+        "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+        "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+        "APPEARANCE_FINAL_TEST_REUSE",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "failures": [
+        "DETECTOR_SOURCE_F1",
+        "DETECTOR_SOURCE_PRECISION",
+        "DETECTOR_SOURCE_RECALL"
+      ],
+      "pending": [
+        "DETECTOR_NATURAL_F1",
+        "DETECTOR_NATURAL_PRECISION",
+        "DETECTOR_NATURAL_RECALL",
+        "DETECTOR_NATURAL_POSITIVEPHOTOS",
+        "DETECTOR_NATURAL_NEGATIVEPHOTOS",
+        "DETECTOR_NATURAL_LESIONS",
+        "DETECTOR_NEGATIVE_FALSE_CANDIDATES",
+        "APPEARANCE_INDEXVERSION",
+        "APPEARANCE_MEANING",
+        "APPEARANCE_LIMITS",
+        "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_SAMEINPUTREPEATABILITY",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+        "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+        "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+        "APPEARANCE_FINAL_TEST_REUSE",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+        "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+        "PRODUCT_CANCELRESCANLATERESPONSE",
+        "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+        "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": "d43bfac75bb082cd925ca12b2130b73500a441bfaf2f98a6bed2a859dc107ab7"
+    },
+    "rednessMask": {
+      "kind": "mask",
+      "functions": [
+        "localization",
+        "appearanceIndex"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "failed",
+          "failures": [
+            "MASK_DICE",
+            "MASK_IOU",
+            "MASK_NEGATIVE_FALSE_PIXELS"
+          ],
+          "pending": [
+            "MASK_KNOWN_TARGET_ROI_REVIEW"
+          ],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_INDEXVERSION",
+            "APPEARANCE_MEANING",
+            "APPEARANCE_LIMITS",
+            "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_SAMEINPUTREPEATABILITY",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+            "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+            "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+            "APPEARANCE_FINAL_TEST_REUSE"
+          ],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "REAL_IMAGE_ONNX_NUMERICALPARITY",
+            "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+            "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY"
+          ],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "failed",
+          "failures": [
+            "MASK_DICE",
+            "MASK_IOU",
+            "MASK_NEGATIVE_FALSE_PIXELS"
+          ],
+          "pending": [
+            "MASK_KNOWN_TARGET_ROI_REVIEW",
+            "APPEARANCE_INDEXVERSION",
+            "APPEARANCE_MEANING",
+            "APPEARANCE_LIMITS",
+            "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_SAMEINPUTREPEATABILITY",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+            "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+            "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+            "APPEARANCE_FINAL_TEST_REUSE",
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+            "REAL_IMAGE_ONNX_NUMERICALPARITY",
+            "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+            "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY",
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [
+        "MASK_DICE",
+        "MASK_IOU",
+        "MASK_NEGATIVE_FALSE_PIXELS"
+      ],
+      "offlinePending": [
+        "MASK_KNOWN_TARGET_ROI_REVIEW",
+        "APPEARANCE_INDEXVERSION",
+        "APPEARANCE_MEANING",
+        "APPEARANCE_LIMITS",
+        "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_SAMEINPUTREPEATABILITY",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+        "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+        "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+        "APPEARANCE_FINAL_TEST_REUSE",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "REAL_IMAGE_ONNX_NUMERICALPARITY",
+        "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+        "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY"
+      ],
+      "failures": [
+        "MASK_DICE",
+        "MASK_IOU",
+        "MASK_NEGATIVE_FALSE_PIXELS"
+      ],
+      "pending": [
+        "MASK_KNOWN_TARGET_ROI_REVIEW",
+        "APPEARANCE_INDEXVERSION",
+        "APPEARANCE_MEANING",
+        "APPEARANCE_LIMITS",
+        "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_SAMEINPUTREPEATABILITY",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+        "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+        "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+        "APPEARANCE_FINAL_TEST_REUSE",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "REAL_IMAGE_ONNX_NUMERICALPARITY",
+        "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+        "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY",
+        "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+        "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+        "PRODUCT_CANCELRESCANLATERESPONSE",
+        "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+        "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": null
+    },
+    "toneMask": {
+      "kind": "mask",
+      "functions": [
+        "localization",
+        "appearanceIndex"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "failed",
+          "failures": [
+            "MASK_NEGATIVE_FALSE_PIXELS",
+            "MASK_POSITIVEROIS_COVERAGE"
+          ],
+          "pending": [
+            "MASK_DICE",
+            "MASK_IOU",
+            "MASK_KNOWN_TARGET_ROI_REVIEW"
+          ],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_INDEXVERSION",
+            "APPEARANCE_MEANING",
+            "APPEARANCE_LIMITS",
+            "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_SAMEINPUTREPEATABILITY",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+            "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+            "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+            "APPEARANCE_FINAL_TEST_REUSE"
+          ],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "REAL_IMAGE_ONNX_NUMERICALPARITY",
+            "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+            "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY"
+          ],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "failed",
+          "failures": [
+            "MASK_NEGATIVE_FALSE_PIXELS",
+            "MASK_POSITIVEROIS_COVERAGE"
+          ],
+          "pending": [
+            "MASK_DICE",
+            "MASK_IOU",
+            "MASK_KNOWN_TARGET_ROI_REVIEW",
+            "APPEARANCE_INDEXVERSION",
+            "APPEARANCE_MEANING",
+            "APPEARANCE_LIMITS",
+            "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_SAMEINPUTREPEATABILITY",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+            "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+            "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+            "APPEARANCE_FINAL_TEST_REUSE",
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+            "REAL_IMAGE_ONNX_NUMERICALPARITY",
+            "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+            "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY",
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [
+        "MASK_NEGATIVE_FALSE_PIXELS",
+        "MASK_POSITIVEROIS_COVERAGE"
+      ],
+      "offlinePending": [
+        "MASK_DICE",
+        "MASK_IOU",
+        "MASK_KNOWN_TARGET_ROI_REVIEW",
+        "APPEARANCE_INDEXVERSION",
+        "APPEARANCE_MEANING",
+        "APPEARANCE_LIMITS",
+        "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_SAMEINPUTREPEATABILITY",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+        "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+        "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+        "APPEARANCE_FINAL_TEST_REUSE",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "REAL_IMAGE_ONNX_NUMERICALPARITY",
+        "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+        "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY"
+      ],
+      "failures": [
+        "MASK_NEGATIVE_FALSE_PIXELS",
+        "MASK_POSITIVEROIS_COVERAGE"
+      ],
+      "pending": [
+        "MASK_DICE",
+        "MASK_IOU",
+        "MASK_KNOWN_TARGET_ROI_REVIEW",
+        "APPEARANCE_INDEXVERSION",
+        "APPEARANCE_MEANING",
+        "APPEARANCE_LIMITS",
+        "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_SAMEINPUTREPEATABILITY",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+        "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+        "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+        "APPEARANCE_FINAL_TEST_REUSE",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "REAL_IMAGE_ONNX_NUMERICALPARITY",
+        "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+        "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY",
+        "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+        "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+        "PRODUCT_CANCELRESCANLATERESPONSE",
+        "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+        "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": null
+    },
+    "bagsMask": {
+      "kind": "mask",
+      "functions": [
+        "localization",
+        "appearanceIndex"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "failed",
+          "failures": [
+            "MASK_NEGATIVE_FALSE_PIXELS"
+          ],
+          "pending": [
+            "MASK_KNOWN_TARGET_ROI_REVIEW"
+          ],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_INDEXVERSION",
+            "APPEARANCE_MEANING",
+            "APPEARANCE_LIMITS",
+            "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_SAMEINPUTREPEATABILITY",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+            "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+            "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+            "APPEARANCE_FINAL_TEST_REUSE"
+          ],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "REAL_IMAGE_ONNX_NUMERICALPARITY",
+            "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+            "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY"
+          ],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "failed",
+          "failures": [
+            "MASK_NEGATIVE_FALSE_PIXELS"
+          ],
+          "pending": [
+            "MASK_KNOWN_TARGET_ROI_REVIEW",
+            "APPEARANCE_INDEXVERSION",
+            "APPEARANCE_MEANING",
+            "APPEARANCE_LIMITS",
+            "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_SAMEINPUTREPEATABILITY",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+            "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+            "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+            "APPEARANCE_FINAL_TEST_REUSE",
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+            "REAL_IMAGE_ONNX_NUMERICALPARITY",
+            "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+            "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY",
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [
+        "MASK_NEGATIVE_FALSE_PIXELS"
+      ],
+      "offlinePending": [
+        "MASK_KNOWN_TARGET_ROI_REVIEW",
+        "APPEARANCE_INDEXVERSION",
+        "APPEARANCE_MEANING",
+        "APPEARANCE_LIMITS",
+        "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_SAMEINPUTREPEATABILITY",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+        "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+        "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+        "APPEARANCE_FINAL_TEST_REUSE",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "REAL_IMAGE_ONNX_NUMERICALPARITY",
+        "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+        "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY"
+      ],
+      "failures": [
+        "MASK_NEGATIVE_FALSE_PIXELS"
+      ],
+      "pending": [
+        "MASK_KNOWN_TARGET_ROI_REVIEW",
+        "APPEARANCE_INDEXVERSION",
+        "APPEARANCE_MEANING",
+        "APPEARANCE_LIMITS",
+        "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_SAMEINPUTREPEATABILITY",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+        "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+        "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+        "APPEARANCE_FINAL_TEST_REUSE",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "REAL_IMAGE_ONNX_NUMERICALPARITY",
+        "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+        "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY",
+        "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+        "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+        "PRODUCT_CANCELRESCANLATERESPONSE",
+        "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+        "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": null
+    },
+    "acneMask": {
+      "kind": "mask",
+      "functions": [
+        "localization",
+        "appearanceIndex"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "failed",
+          "failures": [
+            "MASK_NEGATIVE_FALSE_PIXELS",
+            "MASK_POSITIVEROIS_COVERAGE"
+          ],
+          "pending": [
+            "MASK_DICE",
+            "MASK_IOU",
+            "MASK_KNOWN_TARGET_ROI_REVIEW"
+          ],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_INDEXVERSION",
+            "APPEARANCE_MEANING",
+            "APPEARANCE_LIMITS",
+            "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_SAMEINPUTREPEATABILITY",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+            "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+            "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+            "APPEARANCE_FINAL_TEST_REUSE"
+          ],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "REAL_IMAGE_ONNX_NUMERICALPARITY",
+            "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+            "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY"
+          ],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "failed",
+          "failures": [
+            "MASK_NEGATIVE_FALSE_PIXELS",
+            "MASK_POSITIVEROIS_COVERAGE"
+          ],
+          "pending": [
+            "MASK_DICE",
+            "MASK_IOU",
+            "MASK_KNOWN_TARGET_ROI_REVIEW",
+            "APPEARANCE_INDEXVERSION",
+            "APPEARANCE_MEANING",
+            "APPEARANCE_LIMITS",
+            "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_SAMEINPUTREPEATABILITY",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+            "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+            "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+            "APPEARANCE_FINAL_TEST_REUSE",
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+            "REAL_IMAGE_ONNX_NUMERICALPARITY",
+            "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+            "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY",
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [
+        "MASK_NEGATIVE_FALSE_PIXELS",
+        "MASK_POSITIVEROIS_COVERAGE"
+      ],
+      "offlinePending": [
+        "MASK_DICE",
+        "MASK_IOU",
+        "MASK_KNOWN_TARGET_ROI_REVIEW",
+        "APPEARANCE_INDEXVERSION",
+        "APPEARANCE_MEANING",
+        "APPEARANCE_LIMITS",
+        "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_SAMEINPUTREPEATABILITY",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+        "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+        "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+        "APPEARANCE_FINAL_TEST_REUSE",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "REAL_IMAGE_ONNX_NUMERICALPARITY",
+        "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+        "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY"
+      ],
+      "failures": [
+        "MASK_NEGATIVE_FALSE_PIXELS",
+        "MASK_POSITIVEROIS_COVERAGE"
+      ],
+      "pending": [
+        "MASK_DICE",
+        "MASK_IOU",
+        "MASK_KNOWN_TARGET_ROI_REVIEW",
+        "APPEARANCE_INDEXVERSION",
+        "APPEARANCE_MEANING",
+        "APPEARANCE_LIMITS",
+        "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_SAMEINPUTREPEATABILITY",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+        "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+        "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+        "APPEARANCE_FINAL_TEST_REUSE",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "REAL_IMAGE_ONNX_NUMERICALPARITY",
+        "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+        "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY",
+        "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+        "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+        "PRODUCT_CANCELRESCANLATERESPONSE",
+        "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+        "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": null
+    },
+    "oilMask": {
+      "kind": "mask",
+      "functions": [
+        "localization",
+        "appearanceIndex"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "failed",
+          "failures": [
+            "MASK_DICE",
+            "MASK_IOU",
+            "MASK_NEGATIVE_FALSE_PIXELS",
+            "MASK_NEGATIVEROIS_COVERAGE"
+          ],
+          "pending": [
+            "MASK_KNOWN_TARGET_ROI_REVIEW"
+          ],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_INDEXVERSION",
+            "APPEARANCE_MEANING",
+            "APPEARANCE_LIMITS",
+            "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_SAMEINPUTREPEATABILITY",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+            "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+            "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+            "APPEARANCE_FINAL_TEST_REUSE"
+          ],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "REAL_IMAGE_ONNX_NUMERICALPARITY",
+            "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+            "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY"
+          ],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "failed",
+          "failures": [
+            "MASK_DICE",
+            "MASK_IOU",
+            "MASK_NEGATIVE_FALSE_PIXELS",
+            "MASK_NEGATIVEROIS_COVERAGE"
+          ],
+          "pending": [
+            "MASK_KNOWN_TARGET_ROI_REVIEW",
+            "APPEARANCE_INDEXVERSION",
+            "APPEARANCE_MEANING",
+            "APPEARANCE_LIMITS",
+            "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_SAMEINPUTREPEATABILITY",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+            "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+            "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+            "APPEARANCE_FINAL_TEST_REUSE",
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+            "REAL_IMAGE_ONNX_NUMERICALPARITY",
+            "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+            "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY",
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [
+        "MASK_DICE",
+        "MASK_IOU",
+        "MASK_NEGATIVE_FALSE_PIXELS",
+        "MASK_NEGATIVEROIS_COVERAGE"
+      ],
+      "offlinePending": [
+        "MASK_KNOWN_TARGET_ROI_REVIEW",
+        "APPEARANCE_INDEXVERSION",
+        "APPEARANCE_MEANING",
+        "APPEARANCE_LIMITS",
+        "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_SAMEINPUTREPEATABILITY",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+        "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+        "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+        "APPEARANCE_FINAL_TEST_REUSE",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "REAL_IMAGE_ONNX_NUMERICALPARITY",
+        "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+        "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY"
+      ],
+      "failures": [
+        "MASK_DICE",
+        "MASK_IOU",
+        "MASK_NEGATIVE_FALSE_PIXELS",
+        "MASK_NEGATIVEROIS_COVERAGE"
+      ],
+      "pending": [
+        "MASK_KNOWN_TARGET_ROI_REVIEW",
+        "APPEARANCE_INDEXVERSION",
+        "APPEARANCE_MEANING",
+        "APPEARANCE_LIMITS",
+        "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_SAMEINPUTREPEATABILITY",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+        "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+        "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+        "APPEARANCE_FINAL_TEST_REUSE",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "REAL_IMAGE_ONNX_NUMERICALPARITY",
+        "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+        "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY",
+        "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+        "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+        "PRODUCT_CANCELRESCANLATERESPONSE",
+        "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+        "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": null
+    },
+    "linesMask": {
+      "kind": "mask",
+      "functions": [
+        "localization",
+        "appearanceIndex"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "failed",
+          "failures": [
+            "MASK_DICE",
+            "MASK_IOU",
+            "MASK_NEGATIVE_FALSE_PIXELS"
+          ],
+          "pending": [
+            "MASK_KNOWN_TARGET_ROI_REVIEW"
+          ],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_INDEXVERSION",
+            "APPEARANCE_MEANING",
+            "APPEARANCE_LIMITS",
+            "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_SAMEINPUTREPEATABILITY",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+            "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+            "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+            "APPEARANCE_FINAL_TEST_REUSE"
+          ],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "REAL_IMAGE_ONNX_NUMERICALPARITY",
+            "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+            "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY"
+          ],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "failed",
+          "failures": [
+            "MASK_DICE",
+            "MASK_IOU",
+            "MASK_NEGATIVE_FALSE_PIXELS"
+          ],
+          "pending": [
+            "MASK_KNOWN_TARGET_ROI_REVIEW",
+            "APPEARANCE_INDEXVERSION",
+            "APPEARANCE_MEANING",
+            "APPEARANCE_LIMITS",
+            "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_SAMEINPUTREPEATABILITY",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+            "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+            "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+            "APPEARANCE_FINAL_TEST_REUSE",
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+            "REAL_IMAGE_ONNX_NUMERICALPARITY",
+            "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+            "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY",
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [
+        "MASK_DICE",
+        "MASK_IOU",
+        "MASK_NEGATIVE_FALSE_PIXELS"
+      ],
+      "offlinePending": [
+        "MASK_KNOWN_TARGET_ROI_REVIEW",
+        "APPEARANCE_INDEXVERSION",
+        "APPEARANCE_MEANING",
+        "APPEARANCE_LIMITS",
+        "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_SAMEINPUTREPEATABILITY",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+        "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+        "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+        "APPEARANCE_FINAL_TEST_REUSE",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "REAL_IMAGE_ONNX_NUMERICALPARITY",
+        "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+        "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY"
+      ],
+      "failures": [
+        "MASK_DICE",
+        "MASK_IOU",
+        "MASK_NEGATIVE_FALSE_PIXELS"
+      ],
+      "pending": [
+        "MASK_KNOWN_TARGET_ROI_REVIEW",
+        "APPEARANCE_INDEXVERSION",
+        "APPEARANCE_MEANING",
+        "APPEARANCE_LIMITS",
+        "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_SAMEINPUTREPEATABILITY",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+        "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+        "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+        "APPEARANCE_FINAL_TEST_REUSE",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "REAL_IMAGE_ONNX_NUMERICALPARITY",
+        "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+        "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY",
+        "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+        "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+        "PRODUCT_CANCELRESCANLATERESPONSE",
+        "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+        "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": null
+    },
+    "darkMask": {
+      "kind": "mask",
+      "functions": [
+        "localization",
+        "appearanceIndex"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "failed",
+          "failures": [
+            "MASK_DICE",
+            "MASK_IOU",
+            "MASK_NEGATIVE_FALSE_PIXELS",
+            "MASK_NEGATIVEROIS_COVERAGE"
+          ],
+          "pending": [
+            "MASK_KNOWN_TARGET_ROI_REVIEW"
+          ],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_INDEXVERSION",
+            "APPEARANCE_MEANING",
+            "APPEARANCE_LIMITS",
+            "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_SAMEINPUTREPEATABILITY",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+            "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+            "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+            "APPEARANCE_FINAL_TEST_REUSE"
+          ],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "REAL_IMAGE_ONNX_NUMERICALPARITY",
+            "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+            "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY"
+          ],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "failed",
+          "failures": [
+            "MASK_DICE",
+            "MASK_IOU",
+            "MASK_NEGATIVE_FALSE_PIXELS",
+            "MASK_NEGATIVEROIS_COVERAGE"
+          ],
+          "pending": [
+            "MASK_KNOWN_TARGET_ROI_REVIEW",
+            "APPEARANCE_INDEXVERSION",
+            "APPEARANCE_MEANING",
+            "APPEARANCE_LIMITS",
+            "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_SAMEINPUTREPEATABILITY",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+            "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+            "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+            "APPEARANCE_FINAL_TEST_REUSE",
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+            "REAL_IMAGE_ONNX_NUMERICALPARITY",
+            "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+            "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY",
+            "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+            "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+            "PRODUCT_CANCELRESCANLATERESPONSE",
+            "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+            "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [
+        "MASK_DICE",
+        "MASK_IOU",
+        "MASK_NEGATIVE_FALSE_PIXELS",
+        "MASK_NEGATIVEROIS_COVERAGE"
+      ],
+      "offlinePending": [
+        "MASK_KNOWN_TARGET_ROI_REVIEW",
+        "APPEARANCE_INDEXVERSION",
+        "APPEARANCE_MEANING",
+        "APPEARANCE_LIMITS",
+        "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_SAMEINPUTREPEATABILITY",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+        "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+        "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+        "APPEARANCE_FINAL_TEST_REUSE",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "REAL_IMAGE_ONNX_NUMERICALPARITY",
+        "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+        "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY"
+      ],
+      "failures": [
+        "MASK_DICE",
+        "MASK_IOU",
+        "MASK_NEGATIVE_FALSE_PIXELS",
+        "MASK_NEGATIVEROIS_COVERAGE"
+      ],
+      "pending": [
+        "MASK_KNOWN_TARGET_ROI_REVIEW",
+        "APPEARANCE_INDEXVERSION",
+        "APPEARANCE_MEANING",
+        "APPEARANCE_LIMITS",
+        "APPEARANCE_MEASUREDSIGNALNOTCONFIDENCE",
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_SAMEINPUTREPEATABILITY",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "APPEARANCE_ANATOMICALLOCALITYVERIFIED",
+        "APPEARANCE_SCALEFITONDEVELOPMENTONLY",
+        "APPEARANCE_GRADIENTMATCHESLOCALSIGNAL",
+        "APPEARANCE_FINAL_TEST_REUSE",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE",
+        "REAL_IMAGE_ONNX_NUMERICALPARITY",
+        "REAL_IMAGE_ONNX_REALIMAGEPREPROCESSINGPARITY",
+        "REAL_IMAGE_ONNX_SOURCECOORDINATEPARITY",
+        "NORMAL_API_LOADED_MODEL_HASH_MISSING_OR_DIFFERENT",
+        "PRODUCT_CAPTUREAPIRESULTMAPHISTORY",
+        "PRODUCT_CANCELRESCANLATERESPONSE",
+        "PRODUCT_SOURCEBUILDSERVEDJAVASCRIPTMATCH",
+        "PRODUCT_ACTIVECRITERIONMETHODMATCHED"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": null
+    },
+    "oilAnalytic": {
+      "kind": "appearance",
+      "functions": [
+        "appearanceIndex"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "failed",
+          "failures": [
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION"
+          ],
+          "pending": [
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED"
+          ],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "passed",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "failed",
+          "failures": [
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION"
+          ],
+          "pending": [
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION"
+      ],
+      "offlinePending": [
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "failures": [
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION"
+      ],
+      "pending": [
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": null
+    },
+    "dryAnalytic": {
+      "kind": "appearance",
+      "functions": [
+        "appearanceIndex"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED"
+          ],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "passed",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [],
+      "offlinePending": [
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "failures": [],
+      "pending": [
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": null
+    },
+    "rednessAnalytic": {
+      "kind": "appearance",
+      "functions": [
+        "appearanceIndex"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED"
+          ],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "passed",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [],
+      "offlinePending": [
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "failures": [],
+      "pending": [
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": null
+    },
+    "toneAnalytic": {
+      "kind": "appearance",
+      "functions": [
+        "appearanceIndex"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "failed",
+          "failures": [
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION"
+          ],
+          "pending": [
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED"
+          ],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "passed",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "failed",
+          "failures": [
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION"
+          ],
+          "pending": [
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION"
+      ],
+      "offlinePending": [
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "failures": [
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION"
+      ],
+      "pending": [
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": null
+    },
+    "linesAnalytic": {
+      "kind": "appearance",
+      "functions": [
+        "appearanceIndex"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED"
+          ],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "passed",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [],
+      "offlinePending": [
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "failures": [],
+      "pending": [
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": null
+    },
+    "darkAnalytic": {
+      "kind": "appearance",
+      "functions": [
+        "appearanceIndex"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED"
+          ],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "passed",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [],
+      "offlinePending": [
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "failures": [],
+      "pending": [
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": null
+    },
+    "bagsAnalytic": {
+      "kind": "appearance",
+      "functions": [
+        "appearanceIndex"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED"
+          ],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "passed",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [],
+      "offlinePending": [
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "failures": [],
+      "pending": [
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": null
+    },
+    "sagAnalytic": {
+      "kind": "appearance",
+      "functions": [
+        "appearanceIndex"
+      ],
+      "stages": {
+        "detectionPresence": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "localization": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "appearanceScale": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED"
+          ],
+          "scope": "source-group-development"
+        },
+        "pairedGradeCalibration": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "independentFinal": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        },
+        "exportParity": {
+          "status": "not_applicable",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "productIntegration": {
+          "status": "passed",
+          "failures": [],
+          "pending": [],
+          "scope": "source-group-development"
+        },
+        "userTestReadiness": {
+          "status": "pending",
+          "failures": [],
+          "pending": [
+            "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+            "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+            "SOURCE_TARGET_REVIEW_INCOMPLETE",
+            "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+            "LABEL_SEMANTICS_UNVERIFIED",
+            "UNUSED_HOLDOUT_MISSING",
+            "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+            "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+          ],
+          "scope": "source-group-development"
+        }
+      },
+      "eligibleForStaging": false,
+      "accepted": false,
+      "decisionVersion": "label-function-separate-failure-pending-v2",
+      "offlineFailures": [],
+      "offlinePending": [
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "failures": [],
+      "pending": [
+        "APPEARANCE_NATURALPOSITIVENEGATIVESEPARATION",
+        "APPEARANCE_CONFOUNDERSENSITIVITYREVIEWED",
+        "SOURCE_TARGET_REVIEW_INCOMPLETE",
+        "SOURCE_RIGHTS_REVIEW_INCOMPLETE",
+        "LABEL_SEMANTICS_UNVERIFIED",
+        "UNUSED_HOLDOUT_MISSING",
+        "NATURAL_CAMERA_DOMAIN_INCOMPLETE",
+        "DEVELOPMENT_METRICS_NOT_FINAL_ACCEPTANCE"
+      ],
+      "thresholdVersion": "selected-skin-20261011-v1",
+      "protocolVersion": "skin-label-function-20261011-v2",
+      "modelSHA256": null
+    }
+  },
+  "naturalAppearanceControls": {
+    "acne": {
+      "gradablePositivePhotos": 0,
+      "gradableNegativePhotos": 0,
+      "unavailablePhotos": {
+        "positive": 22,
+        "negative": 34
+      },
+      "positiveMedian": null,
+      "negativeMedian": null,
+      "rankAUC": null,
+      "auxiliaryExposureAbsoluteDriftMedian": null,
+      "photoStatistic": "maximum measured local index; not inferred whole-face severity",
+      "normalizationVersion": "unique-detection-box-area-fixed-v1",
+      "calibrationAccepted": null,
+      "calibrationDecision": "see label-function-current-decisions.json; summary statistics alone are not acceptance"
+    },
+    "oil": {
+      "gradablePositivePhotos": 2,
+      "gradableNegativePhotos": 17,
+      "unavailablePhotos": {
+        "negative": 14,
+        "positive": 12
+      },
+      "positiveMedian": 0.0,
+      "negativeMedian": 0.0,
+      "rankAUC": 0.4117647058823529,
+      "auxiliaryExposureAbsoluteDriftMedian": 0.0,
+      "photoStatistic": "maximum measured local index; not inferred whole-face severity",
+      "normalizationVersion": "visible-specular-area-fixed-v1",
+      "calibrationAccepted": null,
+      "calibrationDecision": "see label-function-current-decisions.json; summary statistics alone are not acceptance"
+    },
+    "dry": {
+      "gradablePositivePhotos": 0,
+      "gradableNegativePhotos": 24,
+      "unavailablePhotos": {
+        "negative": 48
+      },
+      "positiveMedian": null,
+      "negativeMedian": 0.0,
+      "rankAUC": null,
+      "auxiliaryExposureAbsoluteDriftMedian": 0.0,
+      "photoStatistic": "maximum measured local index; not inferred whole-face severity",
+      "normalizationVersion": "eligible-flake-area-fixed-v1",
+      "calibrationAccepted": null,
+      "calibrationDecision": "see label-function-current-decisions.json; summary statistics alone are not acceptance"
+    },
+    "redness": {
+      "gradablePositivePhotos": 5,
+      "gradableNegativePhotos": 6,
+      "unavailablePhotos": {
+        "positive": 9,
+        "negative": 12
+      },
+      "positiveMedian": 5.189444065093994,
+      "negativeMedian": 4.226536750793457,
+      "rankAUC": 0.7666666666666667,
+      "auxiliaryExposureAbsoluteDriftMedian": 0.45895975828170776,
+      "photoStatistic": "maximum measured local index; not inferred whole-face severity",
+      "normalizationVersion": "lab-red-excess-fixed-v1",
+      "calibrationAccepted": null,
+      "calibrationDecision": "see label-function-current-decisions.json; summary statistics alone are not acceptance"
+    },
+    "tone": {
+      "gradablePositivePhotos": 6,
+      "gradableNegativePhotos": 4,
+      "unavailablePhotos": {
+        "positive": 19,
+        "negative": 1
+      },
+      "positiveMedian": 4.064942836761475,
+      "negativeMedian": 4.302836298942566,
+      "rankAUC": 0.5416666666666666,
+      "auxiliaryExposureAbsoluteDriftMedian": 0.3634607791900635,
+      "photoStatistic": "maximum measured local index; not inferred whole-face severity",
+      "normalizationVersion": "lab-local-color-fixed-v1",
+      "calibrationAccepted": null,
+      "calibrationDecision": "see label-function-current-decisions.json; summary statistics alone are not acceptance"
+    },
+    "lines": {
+      "gradablePositivePhotos": 11,
+      "gradableNegativePhotos": 20,
+      "unavailablePhotos": {
+        "negative": 22,
+        "positive": 7
+      },
+      "positiveMedian": 1.3292689323425293,
+      "negativeMedian": 0.0049364116275683045,
+      "rankAUC": 0.8636363636363636,
+      "auxiliaryExposureAbsoluteDriftMedian": 0.0967436134815216,
+      "photoStatistic": "maximum measured local index; not inferred whole-face severity",
+      "normalizationVersion": "outer-canthus-gabor-local-quality-v2",
+      "calibrationAccepted": null,
+      "calibrationDecision": "see label-function-current-decisions.json; summary statistics alone are not acceptance"
+    },
+    "dark": {
+      "gradablePositivePhotos": 16,
+      "gradableNegativePhotos": 2,
+      "unavailablePhotos": {
+        "positive": 4
+      },
+      "positiveMedian": 20.065933227539062,
+      "negativeMedian": 18.874140739440918,
+      "rankAUC": 0.5625,
+      "auxiliaryExposureAbsoluteDriftMedian": 0.3900871276855469,
+      "photoStatistic": "maximum measured local index; not inferred whole-face severity",
+      "normalizationVersion": "lower-lid-relative-contrast-local-quality-v2",
+      "calibrationAccepted": null,
+      "calibrationDecision": "see label-function-current-decisions.json; summary statistics alone are not acceptance"
+    },
+    "bags": {
+      "gradablePositivePhotos": 0,
+      "gradableNegativePhotos": 11,
+      "unavailablePhotos": {
+        "negative": 30,
+        "positive": 6
+      },
+      "positiveMedian": null,
+      "negativeMedian": 0.0,
+      "rankAUC": null,
+      "auxiliaryExposureAbsoluteDriftMedian": 0.0,
+      "photoStatistic": "maximum measured local index; not inferred whole-face severity",
+      "normalizationVersion": "contour-fold-local-support-v4",
+      "calibrationAccepted": null,
+      "calibrationDecision": "see label-function-current-decisions.json; summary statistics alone are not acceptance"
+    }
+  },
+  "unusedFinalPreparation": {
+    "version": "sealed-unused-typed-label-preparation-v1",
+    "counts": {
+      "bags": {
+        "maskAnnotations": 87,
+        "photos": 69,
+        "boxAnnotations": 2,
+        "photoPresenceLabels": 17
+      },
+      "tone": {
+        "maskAnnotations": 585,
+        "photos": 47,
+        "boxAnnotations": 42
+      },
+      "redness": {
+        "maskAnnotations": 52,
+        "photos": 22,
+        "boxAnnotations": 8
+      },
+      "acne": {
+        "maskAnnotations": 831,
+        "photos": 269,
+        "boxAnnotations": 1405
+      },
+      "oil": {
+        "maskAnnotations": 137,
+        "photos": 57,
+        "boxAnnotations": 44,
+        "photoPresenceLabels": 17
+      },
+      "dry": {
+        "boxAnnotations": 225,
+        "photos": 77,
+        "photoPresenceLabels": 17
+      },
+      "dark": {
+        "maskAnnotations": 51,
+        "photos": 33
+      },
+      "lines": {
+        "boxAnnotations": 33,
+        "photos": 156,
+        "maskAnnotations": 1113
+      }
+    },
+    "manifestSHA256": "5aba36b50906d09acc6e07a3fdfa3113286c46fa071b9f7af4725de3cf3d06c8",
+    "protocolFreezeSHA256": "e31a679c058520447fffdcde9c932f27b7e5b60cadc9a60d64835d9f646c844f",
+    "preparationComplete": true,
+    "finalPerformanceReady": false,
+    "sourcePhotosDecoded": false,
+    "modelPredictionsOpened": false,
+    "oldOpenedTestsExcluded": true,
+    "outsidePartialLabelsUnknown": true,
+    "boxesAreMasks": false,
+    "CSVZerosArePixelLabels": false
+  },
+  "freeDiskGB": 2.0294113159179688,
+  "allTenUserReady": false,
+  "oneUninterruptedTrainingCurveAllowed": false,
+  "gradeLabelsNotInvented": true
+}

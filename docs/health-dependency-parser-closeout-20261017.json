@@ -1,0 +1,648 @@
+{
+  "createdUTC": "2026-10-17T21:47:55.231355+00:00",
+  "task": "SEC-01-02",
+  "outcome": "blocked",
+  "scope": "existing dependency/parser findings only; not a new repository-wide scan",
+  "baseCommit": "522441b37d880cc004173d8cd15da8c1e86ce83d",
+  "servingCommit": "b2573b512595adc7cae86d7ab932abb318f61689",
+  "BUILD_ID": "PlmGO62XYbiAMR2PNNLGr",
+  "freshAudit": {
+    "command": "npm audit --json",
+    "exitCode": 1,
+    "counts": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 7,
+      "critical": 0,
+      "total": 7
+    },
+    "sha256": "38dbf216192eff631355fed2312a7ad9b83d16d236c38324efae08971498644c",
+    "omitDevAuditRun": false,
+    "omitDevZeroClaim": false
+  },
+  "affectedPackages": [
+    {
+      "name": "@next/eslint-plugin-next",
+      "severity": "high",
+      "introducer": [
+        "fast-glob"
+      ],
+      "nodes": [
+        {
+          "node": "node_modules/@next/eslint-plugin-next",
+          "version": "15.5.27",
+          "dev": true,
+          "integrity": "sha512-a94xlzvOLaULh4Fzcvj9B2hwIOtPHJW75gghkXiJ8s1Jk0eo00UknrDVhx04Y+8ARu9ds13vy/jHg5u/PdVGqw==",
+          "installedManifestSHA256": "5159dd1590bb8f01513934b1ee30bbe36a8779ddc4dfea80eed382db41508979"
+        }
+      ],
+      "auditFixAvailable": {
+        "name": "eslint-config-next",
+        "version": "14.2.35",
+        "isSemVerMajor": true
+      }
+    },
+    {
+      "name": "braces",
+      "severity": "high",
+      "introducer": [
+        {
+          "source": 1240992,
+          "name": "braces",
+          "dependency": "braces",
+          "title": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+          "url": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+          "severity": "high",
+          "cwe": [
+            "CWE-674"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": "<=3.0.3"
+        }
+      ],
+      "nodes": [
+        {
+          "node": "node_modules/braces",
+          "version": "3.0.3",
+          "dev": true,
+          "integrity": "sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==",
+          "installedManifestSHA256": "56f08b888a4f30dc7cf8a7dbb36ffe92b737912ba36abe9d069d32167c957ac7"
+        }
+      ],
+      "auditFixAvailable": {
+        "name": "tailwindcss",
+        "version": "4.3.3",
+        "isSemVerMajor": true
+      }
+    },
+    {
+      "name": "chokidar",
+      "severity": "high",
+      "introducer": [
+        "braces"
+      ],
+      "nodes": [
+        {
+          "node": "node_modules/chokidar",
+          "version": "3.6.0",
+          "dev": true,
+          "integrity": "sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==",
+          "installedManifestSHA256": "24c7edf8c0127eb1bd257da726983a9aed172a0a1cd5454607a040021675f50e"
+        }
+      ],
+      "auditFixAvailable": {
+        "name": "tailwindcss",
+        "version": "4.3.3",
+        "isSemVerMajor": true
+      }
+    },
+    {
+      "name": "eslint-config-next",
+      "severity": "high",
+      "introducer": [
+        "@next/eslint-plugin-next"
+      ],
+      "nodes": [
+        {
+          "node": "node_modules/eslint-config-next",
+          "version": "15.5.27",
+          "dev": true,
+          "integrity": "sha512-SlpZ5Ch1bM+GNHxahIoCy5OVgbpIHzHoGQDjHo6vEhxvYMukWYVo++AEh9RWYaIxH1i38PO7ArzSdmTruswOew==",
+          "installedManifestSHA256": "43caf4fbfd49c23044b4070cc2cbcecc4e378ec82172a01c5cde85ca662a3993"
+        }
+      ],
+      "auditFixAvailable": {
+        "name": "eslint-config-next",
+        "version": "14.2.35",
+        "isSemVerMajor": true
+      }
+    },
+    {
+      "name": "fast-glob",
+      "severity": "high",
+      "introducer": [
+        "micromatch"
+      ],
+      "nodes": [
+        {
+          "node": "node_modules/@next/eslint-plugin-next/node_modules/fast-glob",
+          "version": "3.3.1",
+          "dev": true,
+          "integrity": "sha512-kNFPyjhh5cKjrUltxs+wFx+ZkbRaxxmZ+X0ZU31SOsxCEtP9VPgtq2teZw1DebupL5GmDaNQ6yKMMVcM41iqDg==",
+          "installedManifestSHA256": "8ad595ebee47ca89a32323be8dd2a21e6074e91db95e8add8b628af4ff025981"
+        },
+        {
+          "node": "node_modules/fast-glob",
+          "version": "3.3.3",
+          "dev": true,
+          "integrity": "sha512-7MptL8U0cqcFdzIzwOTHoilX9x5BrNqye7Z/LuC7kCMRio1EMSyqRK3BEAUD7sXRq4iT4AzTVuZdhgQ2TCvYLg==",
+          "installedManifestSHA256": "be3e54394e824554b06a85529804f11c59b9f2fa7ca6d579fefe71a5d5cf78ee"
+        }
+      ],
+      "auditFixAvailable": {
+        "name": "eslint-config-next",
+        "version": "14.2.35",
+        "isSemVerMajor": true
+      }
+    },
+    {
+      "name": "micromatch",
+      "severity": "high",
+      "introducer": [
+        "braces"
+      ],
+      "nodes": [
+        {
+          "node": "node_modules/micromatch",
+          "version": "4.0.8",
+          "dev": true,
+          "integrity": "sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==",
+          "installedManifestSHA256": "94dbc881c0329813f2481f35fcfa725a2285d45926d33e9b9b8b80b28487752b"
+        }
+      ],
+      "auditFixAvailable": {
+        "name": "tailwindcss",
+        "version": "4.3.3",
+        "isSemVerMajor": true
+      }
+    },
+    {
+      "name": "tailwindcss",
+      "severity": "high",
+      "introducer": [
+        "chokidar",
+        "fast-glob",
+        "micromatch"
+      ],
+      "nodes": [
+        {
+          "node": "node_modules/tailwindcss",
+          "version": "3.4.19",
+          "dev": true,
+          "integrity": "sha512-3ofp+LL8E+pK/JuPLPggVAIaEuhvIz4qNcf3nA1Xn2o/7fb7s/TYpHhwGDv1ZU3PkBluUVaF8PyCHcm48cKLWQ==",
+          "installedManifestSHA256": "969a9400c6b59a0c5b3dd8ac7d083613fedf78a258cef37938c36cf452ca9349"
+        }
+      ],
+      "auditFixAvailable": {
+        "name": "tailwindcss",
+        "version": "4.3.3",
+        "isSemVerMajor": true
+      }
+    }
+  ],
+  "registryCurrent": {
+    "at": "2026-10-17T21:40:49.614Z",
+    "rows": [
+      {
+        "name": "braces",
+        "distTags": {
+          "latest": "3.0.3"
+        },
+        "currentMajorVersions": [
+          "3.0.1",
+          "3.0.2",
+          "3.0.3"
+        ],
+        "latestDependencies": {
+          "fill-range": "^7.1.1"
+        }
+      },
+      {
+        "name": "micromatch",
+        "distTags": {
+          "latest": "4.0.8"
+        },
+        "currentMajorVersions": [
+          "4.0.8"
+        ],
+        "latestDependencies": {
+          "braces": "^3.0.3",
+          "picomatch": "^2.3.1"
+        }
+      },
+      {
+        "name": "fast-glob",
+        "distTags": {
+          "next": "2.0.2",
+          "beta": "3.2.1-beta.1",
+          "latest": "3.3.3"
+        },
+        "currentMajorVersions": [
+          "3.3.1",
+          "3.3.2",
+          "3.3.3"
+        ],
+        "latestDependencies": {
+          "@nodelib/fs.stat": "^2.0.2",
+          "@nodelib/fs.walk": "^1.2.3",
+          "glob-parent": "^5.1.2",
+          "merge2": "^1.3.0",
+          "micromatch": "^4.0.8"
+        }
+      },
+      {
+        "name": "chokidar",
+        "distTags": {
+          "latest": "5.0.0"
+        },
+        "currentMajorVersions": [
+          "3.5.2",
+          "3.5.3",
+          "3.6.0"
+        ],
+        "latestDependencies": {
+          "readdirp": "^5.0.0"
+        }
+      },
+      {
+        "name": "tailwindcss",
+        "distTags": {
+          "next": "4.0.0",
+          "v3-lts": "3.4.19",
+          "latest": "4.3.3",
+          "insiders": "0.0.0-insiders.f7f47f8"
+        },
+        "currentMajorVersions": [
+          "3.4.17",
+          "3.4.18",
+          "3.4.19"
+        ],
+        "latestDependencies": null
+      },
+      {
+        "name": "@next/eslint-plugin-next",
+        "distTags": {
+          "next-11": "11.1.4",
+          "next-12-2-6": "12.2.6",
+          "next-14-1": "14.1.1",
+          "rc": "15.0.0-rc.1",
+          "next-13": "13.5.11",
+          "next-12-3-2": "12.3.7",
+          "beta": "16.0.0-beta.0",
+          "next-14": "14.2.35",
+          "next-15-3": "15.3.9",
+          "next-15-2": "15.2.9",
+          "next-15-0": "15.1.12",
+          "next-15-0-0": "15.0.8",
+          "preview": "16.3.0-preview.10",
+          "backport": "15.5.28",
+          "latest": "16.4.2",
+          "canary": "16.5.0-canary.16"
+        },
+        "currentMajorVersions": [
+          "15.5.26",
+          "15.5.27",
+          "15.5.28"
+        ],
+        "latestDependencies": {
+          "fast-glob": "3.3.1",
+          "@eslint-community/eslint-utils": "4.9.1"
+        }
+      },
+      {
+        "name": "eslint-config-next",
+        "distTags": {
+          "next-11": "11.1.4",
+          "next-12-2-6": "12.2.6",
+          "next-14-1": "14.1.1",
+          "rc": "15.0.0-rc.1",
+          "next-13": "13.5.11",
+          "next-12-3-2": "12.3.7",
+          "beta": "16.0.0-beta.0",
+          "next-14": "14.2.35",
+          "next-15-3": "15.3.9",
+          "next-15-2": "15.2.9",
+          "next-15-0": "15.1.12",
+          "next-15-0-0": "15.0.8",
+          "preview": "16.3.0-preview.10",
+          "backport": "15.5.28",
+          "latest": "16.4.2",
+          "canary": "16.5.0-canary.16"
+        },
+        "currentMajorVersions": [
+          "15.5.26",
+          "15.5.27",
+          "15.5.28"
+        ],
+        "latestDependencies": {
+          "globals": "16.4.0",
+          "typescript-eslint": "^8.56.0",
+          "eslint-plugin-react": "^7.37.0",
+          "eslint-plugin-import": "^2.32.0",
+          "eslint-plugin-jsx-a11y": "^6.10.0",
+          "@next/eslint-plugin-next": "16.4.2",
+          "eslint-plugin-react-hooks": "^7.1.0",
+          "eslint-import-resolver-node": "^0.3.6",
+          "eslint-import-resolver-typescript": "^3.5.2"
+        }
+      },
+      {
+        "name": "postcss-selector-parser",
+        "distTags": {
+          "legacy-v6": "6.1.4",
+          "latest": "7.1.6"
+        },
+        "currentMajorVersions": [
+          "7.1.4",
+          "7.1.5",
+          "7.1.6"
+        ],
+        "latestDependencies": {
+          "cssesc": "^3.0.0",
+          "util-deprecate": "^1.0.2"
+        }
+      }
+    ]
+  },
+  "nextBackport": [
+    {
+      "name": "@next/eslint-plugin-next",
+      "version": "15.5.28",
+      "dependencies": {
+        "fast-glob": "3.3.1"
+      }
+    },
+    {
+      "name": "eslint-config-next",
+      "version": "15.5.28",
+      "dependencies": {
+        "eslint-plugin-react": "^7.37.0",
+        "eslint-plugin-import": "^2.31.0",
+        "eslint-plugin-jsx-a11y": "^6.10.0",
+        "@rushstack/eslint-patch": "^1.10.3",
+        "@next/eslint-plugin-next": "15.5.28",
+        "@typescript-eslint/parser": "^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+        "eslint-plugin-react-hooks": "^5.0.0",
+        "eslint-import-resolver-node": "^0.3.6",
+        "@typescript-eslint/eslint-plugin": "^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+        "eslint-import-resolver-typescript": "^3.5.2"
+      },
+      "peerDependencies": {
+        "eslint": "^7.23.0 || ^8.0.0 || ^9.0.0",
+        "typescript": ">=3.3.1"
+      }
+    }
+  ],
+  "lockAndConfigHashes": {
+    "package.json": "5ff9f226b6a62e617f896e94bbddd1b791926b5ee0c6d38d0abe61fd845bf27c",
+    "package-lock.json": "a3059b0d66c9a65dc1237fea5220d8fa8a051d9b0dc9d81bee7093b1bafb573d",
+    "apps/vehicle-app/package.json": "59690a90af529960b3dee94d1ae239703ee937e9a2de20ffb188d388d86e9426",
+    "apps/vehicle-app/tailwind.config.js": "e4cb6adfc5ffb20a75e6764bd8cb260e76d80a3270368f17abd8f08ac8890b59",
+    "apps/vehicle-app/postcss.config.js": "54a758307a2ce79551eac8e5a0646f6a291b4e5e81e498b07a5d89329c5dd068",
+    "apps/vehicle-app/.eslintrc.json": "677f6c4e85c78d47bfcf9796fa13da2b95e16de4ea2b41a5400e5b10f1757750",
+    "tests/unit/selector_parser_controls.cjs": "cfee17f28d1d2df7b4b7c9f9acac9f991576d7443247b53e3a8425e2ed7d9608",
+    "docs/patches/oil-regional-quality-v2-20261017.patch": "3d45f56794b034da80f611730a5f45a6432b58d51ac4f999b903d6f42a808022"
+  },
+  "installedSourceHashes": [
+    {
+      "path": "node_modules/braces/lib/parse.js",
+      "sha256": "e572166565f15fa6ad9865ae49d678218e32aabfd1b3720f6d0d43d39800d310",
+      "bytes": 6899
+    },
+    {
+      "path": "node_modules/braces/lib/compile.js",
+      "sha256": "dc98f22eee3d511785d92a00758d5f0d48efed5f5813bdecc2de430c529b5c9f",
+      "bytes": 1501
+    },
+    {
+      "path": "node_modules/braces/lib/expand.js",
+      "sha256": "41ccc196ebfa7b7781a634e721eb744e4e7bcb54cba427a7e3d6806a1b9e58f7",
+      "bytes": 2797
+    },
+    {
+      "path": "node_modules/braces/lib/stringify.js",
+      "sha256": "379f22d77bfa1478341ccd49c5e4267464aabcbba03558bab332aac23fc6f23a",
+      "bytes": 708
+    },
+    {
+      "path": "node_modules/postcss-selector-parser/dist/parser.js",
+      "sha256": "eec0eef91952dc136531593d851db7fe13dfd97d4e3389b5d7ca758adf63b24f",
+      "bytes": 48930
+    },
+    {
+      "path": "node_modules/tailwindcss/peers/index.js",
+      "sha256": "170bb8aa8c15354fda1b562544d8084b020370ffd7cf9ef4b4d3ec9bff070c35",
+      "bytes": 4501254
+    },
+    {
+      "path": "node_modules/next/dist/compiled/@vercel/og/index.node.js",
+      "sha256": "676082ee1861fdae2b5ec3443f9108ecc083da5b6f21548ad7b468103b14fbf5",
+      "bytes": 722739
+    },
+    {
+      "path": "node_modules/next/dist/compiled/@vercel/og/index.edge.js",
+      "sha256": "74375b4883401fdfb41d5ada04ac8dcc973a488eefc5d57e6fcc2f6caf0299f4",
+      "bytes": 721908
+    },
+    {
+      "path": "node_modules/@next/eslint-plugin-next/dist/utils/get-root-dirs.js",
+      "sha256": "886677432990a735e5ebdfb345ff1cbd40e264f9947a8432eeeb254b3a926bde",
+      "bytes": 916
+    }
+  ],
+  "sourceToSink": {
+    "sourceSearchCommand": [
+      "rg",
+      "-n",
+      "postcss|tailwindcss|micromatch|braces|selector.parser|fast.glob|chokidar|ImageResponse|next/og|@vercel/og",
+      "apps/vehicle-app/src",
+      "packages",
+      "services/core-api",
+      "-g",
+      "*.js",
+      "-g",
+      "*.mjs",
+      "-g",
+      "*.cjs",
+      "-g",
+      "*.ts",
+      "-g",
+      "*.tsx",
+      "-g",
+      "*.py"
+    ],
+    "sourceSearchExitCode": 1,
+    "applicationParserImportsFound": false,
+    "appRouteFiles": [],
+    "tailwindPostCss": "configured PostCSS plugin -> setupTrackingContext -> content -> fast-glob -> micromatch.braces -> braces; repository content globs are developer/build inputs",
+    "chokidar": "inspected watcher is Tailwind CLI-specific, not proven on the configured Next PostCSS dev path",
+    "nextLint": "get-root-dirs globSync is conditional on settings.next.rootDir string/array; inspected extends/default config has no rootDir and default uses context.cwd",
+    "selector": "Tailwind variant/prefix/important utility selector parsing; optional postcss-nested compatibility consumer is not configured in app",
+    "embeddedCli": "Tailwind CLI lazyCssnano/peers parser remains independent of root override; CLI is not invoked by current npm build/dev scripts",
+    "embeddedOg": "Next compiled @vercel/og contains older parser; app imports/endpoints and current traces do not expose ImageResponse/Satori here",
+    "untrustedProductionPath": "No such path identified in the scoped app/backend/package source and current traces; this is not a proof about future routes/framework versions or a generic security guarantee"
+  },
+  "productionTraces": {
+    "at": "2026-10-17T21:41:59.342Z",
+    "buildId": "PlmGO62XYbiAMR2PNNLGr",
+    "traceCount": 15,
+    "affectedModuleHits": [],
+    "embeddedOgTraceFiles": [],
+    "notAWholeFrameworkProof": true
+  },
+  "focusedControls": {
+    "at": "2026-10-17T21:43:23.808682+00:00",
+    "command": "node tests/unit/selector_parser_controls.cjs <task-output> current",
+    "returnCode": 0,
+    "selectors": 5,
+    "timingCases": 12,
+    "currentVersion": "7.1.6",
+    "cssSHA256": "e677bc4762b266f36d7213b4b15e7c6e99e03dcb11e4b84be0692e46a71cf37d",
+    "matchesExistingPatchedCss": true,
+    "eachParserCaseTimeoutMilliseconds": 5000,
+    "maximumProbeCount": 8000,
+    "linearComplexityEstablished": false,
+    "scope": "bounded controlled parser compatibility/regression only; NOT a guard around Next build, CLI or request processing",
+    "resource": {
+      "schema": "attune-dual-atomic-lease-v2",
+      "owner": "CDC",
+      "pid": 30552,
+      "processStarted": 1792273399.2117078,
+      "startTime": 1792273399.2117078,
+      "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017",
+      "jobId": "CDC-SEC0102-bounded-existing-selector-controls",
+      "nonce": "80e989affe8a4015b1dc58fd895655d7",
+      "commandSHA256": "0b095a6aa5f4e3bfeb6dc6b8c12507d0f6e91bb0f9e0e2a1870a826797813232",
+      "peakBudgetMiB": 600,
+      "memoryBudgetMetric": "rss",
+      "minimumAvailableMiB": 900,
+      "leasePaths": [
+        "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+        "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+      ],
+      "bothLeasesOwned": true,
+      "ownershipObservationMaxAgeSeconds": 1,
+      "observerPid": 34168,
+      "observerProcessStarted": 1792273399.7257297,
+      "peakMeasuredRSSMiB": 205.03515625,
+      "peakMeasuredPrivateMiB": null,
+      "childRSSIncluded": true,
+      "elapsedSeconds": 4.187999999994645,
+      "foreignProcessesStopped": false,
+      "monitorError": null
+    },
+    "childOldSpaceLimitMiB": 128,
+    "observedTotalV8HeapLimitMiB": 176,
+    "oldSpaceIsNotHardRssOrTotalV8Limit": true,
+    "originalExecutionForm": "tool heredoc with explicit NODE_OPTIONS; equivalent retained source is run_controls.py, saved after execution",
+    "invocationSourceCopySHA256": "f60217da780cecfd3f07e8a6168ccc53dc65a2eee4ae66ad80f5fe94f9132ed7",
+    "heapInheritanceEvidence": "heap-cap-inheritance.json",
+    "heapInheritanceProof": {
+      "options": "--max-old-space-size=128",
+      "totalHeapLimitMiB": 176,
+      "createdUTC": "2026-10-17T21:47:27.211354+00:00",
+      "oldSpaceLimitMiB": 128,
+      "scope": "separate small inheritance check matching original wrapper: default spawnSync env inherits flag; total V8 heap/RSS is NOT bounded to128MiB",
+      "bothChildrenExited": true
+    }
+  },
+  "parserTimings": [
+    {
+      "kind": "class",
+      "n": 2000,
+      "ms": 33.90159999999999
+    },
+    {
+      "kind": "class",
+      "n": 4000,
+      "ms": 50.97300000000001
+    },
+    {
+      "kind": "class",
+      "n": 8000,
+      "ms": 68.2801
+    },
+    {
+      "kind": "id",
+      "n": 2000,
+      "ms": 23.7979
+    },
+    {
+      "kind": "id",
+      "n": 4000,
+      "ms": 40.234300000000005
+    },
+    {
+      "kind": "id",
+      "n": 8000,
+      "ms": 52.487399999999994
+    },
+    {
+      "kind": "mixed",
+      "n": 2000,
+      "ms": 32.0762
+    },
+    {
+      "kind": "mixed",
+      "n": 4000,
+      "ms": 43.78290000000001
+    },
+    {
+      "kind": "mixed",
+      "n": 8000,
+      "ms": 57.44469999999998
+    },
+    {
+      "kind": "numeric-prefix",
+      "n": 2000,
+      "ms": 32.75919999999999
+    },
+    {
+      "kind": "numeric-prefix",
+      "n": 4000,
+      "ms": 74.48960000000001
+    },
+    {
+      "kind": "numeric-prefix",
+      "n": 8000,
+      "ms": 209.36849999999998
+    }
+  ],
+  "methodLimits": {
+    "existingRootParser": "7.1.6 is the official fix for GHSA-rj75-hqrm-r3gf flat-index scans",
+    "remainingNumericPrefix": "installed parser.js905-911 repeats numeric-percent regex for each dot; general linearity is not established",
+    "braces": "string maxLength10000/rangeLimit1000 do not bound recursive AST traversal; parentheses and AST entry APIs defeat brace-count-only guards",
+    "testTimeoutScope": "test child only; not an actual guard around Next/PostCSS/Tailwind CLI or a production endpoint",
+    "newVendorPatch": false,
+    "newOverride": false,
+    "newRuntimeGuard": false
+  },
+  "runtimePreservation": {
+    "allDeploymentFilesMatched": 297,
+    "launcherFilesMatched": 2,
+    "normalRolesPreserved": 4,
+    "sourceAndBuildUnchanged": true,
+    "oilExactPatchPreserved": true
+  },
+  "skill": {
+    "name": "codex-security:fix-finding",
+    "readOnlyBoundaryInvestigator": true,
+    "patchStrategy": "No code change: no official compatible patch and no identified untrusted application sink; do not fabricate a runtime boundary or vendor patch",
+    "storage": "Explicit requested cdc-progress delivery location used for this standalone finding task; no managed scan ID or canonical scan outputs invented"
+  },
+  "verification": {
+    "syntaxImport": "existing selector compatibility runner executed successfully",
+    "securityTrigger": "bounded numeric-prefix forms executed; residual algorithm concern remains, not claimed fixed",
+    "legitimateControls": "5 roundtrips + Tailwind normal/prefixed/important/nested CSS and private unesc import; CSS SHA matches prior pinned result",
+    "owningPackageBuild": "not rerun: no manifest/lock/package/source/config change; existing build integrity checked, not newly accepted",
+    "skipped": "No large DoS, whole-repo fuzzing, framework/major CSS/lint migration, embedded CLI/OG execution absent a current app caller, full health tests, new model inference or normal restart"
+  },
+  "remaining": [
+    "7 high dev inventory records remain; braces official patched release unavailable.",
+    "Current numeric-prefix and embedded-parser resource concerns are not a general parser complexity closure.",
+    "No framework/lint major migration, fork, npm ignore or audit gate suppression authorized/performed.",
+    "Oil human restart approval has arrived but activation is deferred to separate sequential handoff; this SEC task does not restart TOGG.",
+    "SAG neutral voice/live, DRY seven misses/admission and FINAL-01 visible/history/semantic permission acceptance remain open."
+  ],
+  "independentCandidateReview": {
+    "scope": "one fresh read-only review cycle",
+    "productionBypassOrRegressionFound": false,
+    "correctedFinding": "micromatch current-major selection now4.0.8 from retained official latest tag;3.x list not presented as current",
+    "heapEvidence": "explicit inherited NODE_OPTIONS old-space128; separate nested-child probe confirms flag and measured total heap176MiB; no hard128MiB RSS claim",
+    "newScanOrPatch": false
+  }
+}

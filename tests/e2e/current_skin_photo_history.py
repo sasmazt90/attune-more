@@ -1,0 +1,88 @@
+"""Production source/photo persistence, actual licensed video and MediaPipe.
+Isolated browser profile; never creates fixture records in the user's profile.
+"""
+import ast,base64,json,time,tempfile,math,hashlib,sys,io
+from pathlib import Path
+from playwright.sync_api import sync_playwright,expect
+from PIL import Image
+sys.path.insert(0,str(Path(__file__).parent))
+from owned_window_capture import capture_owned_window
+ROOT=Path.cwd();OUT=ROOT/'audit-results/followup-closure-20261010/photo-history';OUT.mkdir(parents=True,exist_ok=True)
+constants={n.targets[0].id:ast.literal_eval(n.value) for n in ast.parse((ROOT/'tests/e2e/current_skin_contract.py').read_text()).body if isinstance(n,ast.Assign) and isinstance(n.targets[0],ast.Name) and n.targets[0].id in ('INIT','APPEARANCE')}
+def rows(p):return p.evaluate("()=>new Promise((resolve,reject)=>{const q=indexedDB.open('attune-skin-photos');q.onsuccess=()=>{const db=q.result,t=db.transaction('records');const r=t.objectStore('records').getAll();r.onsuccess=()=>resolve(r.result);t.oncomplete=()=>db.close();t.onerror=()=>reject(t.error);};q.onerror=()=>reject(q.error);})")
+def open_record(p,id):
+ p.goto('http://127.0.0.1:3000/profile');p.locator('[data-record-id="'+id+'"]').get_by_role('button',name='Sonucu Aç',exact=True).click();dialog=p.get_by_role('dialog',name='Cilt Sağlığı sonucu',exact=True);expect(dialog.locator('[data-skin-snapshot]')).to_be_visible(timeout=15000);return dialog
+with tempfile.TemporaryDirectory(prefix='attune-photo-retention-') as profile,sync_playwright() as pw:
+ args=['--use-fake-device-for-media-stream','--use-file-for-fake-video-capture='+str(ROOT/'audit-fixtures/three-angle.y4m'),'--enable-unsafe-swiftshader']
+ def launch(headed=False):return pw.chromium.launch_persistent_context(profile,channel='chrome',headless=not headed,no_viewport=headed,viewport=None if headed else {'width':1600,'height':1000},permissions=['camera'],args=args+(['--window-size=1600,1000'] if headed else []))
+ c=launch();c.add_init_script(constants['INIT']);c.add_init_script(constants['APPEARANCE']);p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
+ c.request.post('http://127.0.0.1:8000/api/vehicle/speed',data={'speedKmH':0})
+ p.goto('http://127.0.0.1:3000/privacy');photo=p.get_by_label('Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla');assert not photo.is_checked()
+ p.get_by_label('Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla').check();photo.click();expect(photo).to_be_checked();p.screenshot(path=str(OUT/'explicit-photo-consent.png'),full_page=True)
+ scans=[];candidateChecks=[]
+ for n in range(3):
+  if n:
+   # Reopen the owned browser so the finite photographic camera fixture starts
+   # from its first frame. This also verifies persistence between real scans.
+   c.close();c=launch();c.add_init_script(constants['INIT']);c.add_init_script(constants['APPEARANCE']);p=c.new_page();p.on('pageerror',lambda e:errors.append(str(e)))
+  p.goto('http://127.0.0.1:3000/skin');p.get_by_role('button',name='Analizi Başlat',exact=True).click();start=time.monotonic();trace=[]
+  while not p.get_by_text('Cilt Analizi Tamamlandı',exact=True).count() and time.monotonic()-start<300:
+   p.wait_for_timeout(2000);trace.append(p.evaluate('({body:document.body.innerText,canvas:{...document.querySelector("canvas")?.dataset}})'));(OUT/f'trace-{n}.json').write_text(json.dumps(trace,ensure_ascii=False),'utf8')
+  expect(p.get_by_text('Cilt Analizi Tamamlandı',exact=True)).to_be_visible(timeout=1000)
+  assert not p.get_by_text('Cilt fotoğrafı kaydedilemedi. Sayısal sonuçlar korunuyor.',exact=True).count()
+  record=p.evaluate('JSON.parse(localStorage.getItem("togg_health_latest_skin"))');stored=rows(p);assert len(stored)==n+1
+  entry=next(r for r in stored if r['id']==record['id']);frames=json.loads(entry['payload']);assert set(frames)=={'FRONT','RIGHT','LEFT'}
+  assert hashlib.sha256(entry['payload'].encode()).hexdigest()==entry['sha256']
+  for pose,snapshot in frames.items():
+   assert pose==snapshot['angle'] and snapshot['photoId'] and snapshot['dataUrl'].startswith('data:image/png;base64,')
+   assert hashlib.sha256(Image.open(io.BytesIO(base64.b64decode(snapshot['dataUrl'].split(',')[1]))).convert('RGBA').tobytes()).hexdigest()==snapshot['photoId']
+   assert all(m['photoId']==snapshot['photoId'] and m['pose']==pose for m in snapshot['localMaps'].values())
+  proof=dict(id=record['id'],sourceByRegion={},shaByRegion={},poseByRegion={},storeBytes=entry['bytes'],seconds=time.monotonic()-start)
+  assert p.get_by_role('heading',name='Genel Bakış',exact=True).count()==1 and p.locator('[data-skin-mesh]').count()==0
+  assert record['general']['captureId']==frames['FRONT']['photoId'] and record['general']['analysisId']==record['id']
+  proof['overviewCaptureId']=record['general']['captureId']
+  p.get_by_role('button',name='Sonraki Bölge',exact=True).click()
+  for region in ['forehead','rightCheek','leftCheek','nose','chin','periorbital']:
+   svg=p.locator('[data-skin-snapshot]');assert svg.locator('[data-skin-mesh]').get_attribute('data-skin-mesh')==region
+   proof['sourceByRegion'][region]=svg.get_attribute('data-snapshot-photoid');proof['shaByRegion'][region]=hashlib.sha256(svg.locator('image').first.get_attribute('href').encode()).hexdigest()
+   proof['poseByRegion'][region]='LEFT' if region=='rightCheek' else 'RIGHT' if region=='leftCheek' else 'FRONT'
+   p.get_by_role('button',name='Sonraki Bölge',exact=True).click()
+  p.screenshot(path=str(OUT/f'scan-{n}.png'),full_page=True);scans.append(proof);print('Actual three-pose scan',n+1,'persisted',entry['bytes'],flush=True)
+ c.close();c=launch();p=c.new_page();p.on('pageerror',lambda e:errors.append(str(e)));p.goto('http://127.0.0.1:3000/profile');assert len(rows(p))==3
+ for n,scan in enumerate(scans):
+  dialog=open_record(p,scan['id'])
+  assert dialog.get_by_role('heading',name='Genel Bakış',exact=True).count()==1
+  assert dialog.locator('[data-skin-snapshot]').get_attribute('data-snapshot-photoid')==scan['overviewCaptureId']
+  assert dialog.locator('[data-skin-mesh]').count()==0
+  dialog.get_by_role('button',name='Sonraki Bölge',exact=True).click()
+  for region in ['forehead','rightCheek','leftCheek','nose','chin','periorbital']:
+   svg=dialog.locator('[data-skin-snapshot]');assert svg.get_attribute('data-snapshot-photoid')==scan['sourceByRegion'][region]
+   assert hashlib.sha256(svg.locator('image').first.get_attribute('href').encode()).hexdigest()==scan['shaByRegion'][region]
+   assert dialog.locator('[data-skin-mesh]').get_attribute('data-skin-mesh')==region
+   numeric=p.evaluate('(id)=>JSON.parse(localStorage.getItem("togg_health_skin_history")).find(r=>r.id===id)',scan['id'])
+   entry=next(r for r in rows(p) if r['id']==scan['id']);frame=json.loads(entry['payload'])[scan['poseByRegion'][region]]
+   if region!='periorbital':
+    boxes=frame.get('acneCandidates',{}).get(region,[]);acne=next(v['appearance'] for v in numeric['indicators'][region] if v['id']=='acne')
+    dialog.locator('[data-skin-record-indicator="acne"]').click();assert dialog.locator('[data-acne-candidate]').count()==len(boxes)
+    if acne['quality']=='valid':
+     assert acne['components']['candidateCount']==len(boxes) and acne['value']==acne['components']['candidateBoxCoveragePercent']
+    acneMap=frame.get('localMaps',{}).get(region+':acne')
+    if acneMap:expect(dialog.locator('[data-skin-local-fill="acne"]')).to_be_visible()
+    candidateChecks.append(dict(id=scan['id'],region=region,count=len(boxes),value=acne['value'],quality=acne['quality'],localMap=bool(acneMap)))
+   dialog.locator('[data-skin-record-indicator="'+('dark' if region=='periorbital' else 'redness')+'"]').click()
+   fill=dialog.locator('[data-skin-local-fill]');expect(fill).to_be_visible();assert fill.get_attribute('data-map-photo')==scan['sourceByRegion'][region]
+   if n==0 and region=='forehead':p.screenshot(path=str(OUT/'oldest-after-relaunch-desktop.png'),full_page=True)
+   dialog.get_by_role('button',name='Sonraki Bölge',exact=True).click()
+  p.keyboard.press('Escape')
+ p.set_viewport_size({'width':720,'height':900});dialog=open_record(p,scans[0]['id']);p.screenshot(path=str(OUT/'history-narrow.png'),full_page=True);assert p.evaluate('document.documentElement.scrollWidth<=innerWidth');p.keyboard.press('Escape');c.close()
+ preferences=Path(profile)/'Default/Preferences';prefs=json.loads(preferences.read_text());prefs.setdefault('partition',{})['default_zoom_level']={'x':math.log(2)/math.log(1.2)};preferences.write_text(json.dumps(prefs),'utf8')
+ c=launch(True);p=c.new_page();dialog=open_record(p,scans[0]['id']);geometry=p.evaluate('({innerWidth,outerWidth,dpr:devicePixelRatio,zoom:getComputedStyle(document.documentElement).zoom,scroll:document.documentElement.scrollWidth})');assert geometry['dpr']>=2 and geometry['innerWidth']<geometry['outerWidth']*.65 and geometry['zoom']=='1' and geometry['scroll']<=geometry['innerWidth'],geometry
+ capture_owned_window(p,profile,OUT/'history-native200.png');dialog.evaluate('(el)=>el.scrollTop=el.scrollHeight');capture_owned_window(p,profile,OUT/'history-native200-bottom.png');p.keyboard.press('Escape')
+ # Real delete UI removes the same source/maps store entry, leaving other rows intact.
+ row=p.locator('[data-record-id="'+scans[0]['id']+'"]');row.locator('button').filter(has_text='Sil').click();p.get_by_role('button',name='Evet, sil',exact=True).click();expect(row).to_have_count(0);assert {r['id'] for r in rows(p)}=={s['id'] for s in scans[1:]}
+ p.goto('http://127.0.0.1:3000/privacy');p.get_by_label('Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla').click();expect(p.get_by_label('Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla')).not_to_be_checked();p.wait_for_timeout(500);assert not rows(p)
+ assert p.evaluate('JSON.parse(localStorage.getItem("togg_health_skin_history")).length')==2
+ p.goto('http://127.0.0.1:3000/profile');p.locator('[data-record-id="'+scans[1]['id']+'"]').get_by_role('button',name='Sonucu Aç',exact=True).click();dialog=p.get_by_role('dialog',name='Cilt Sağlığı sonucu',exact=True);expect(dialog.get_by_text('Bu kaydın fotoğrafı saklanmamış.',exact=True)).to_be_visible();assert not dialog.locator('[data-skin-snapshot]').count();p.keyboard.press('Escape')
+ assert not errors,errors
+ (OUT/'proof.json').write_text(json.dumps(dict(status='PASS',buildId=(ROOT/'apps/vehicle-app/.next/BUILD_ID').read_text().strip(),controlledFixture=True,physicalUserAcceptance=False,poseMock=False,qualityOverride=False,scans=scans,relaunchThreeRecords=True,allSixRegionsAndSelectedMaps=True,acneListCardRingsAndFill=candidateChecks,deleteOne=True,revokePhotosKeepsNumeric=True,native200=geometry,pageErrors=errors),ensure_ascii=False,indent=2),'utf8');c.close()
+print('PASS: three actual scans, oldest survives relaunch, six source-bound regions/maps, delete/revoke, native 200')

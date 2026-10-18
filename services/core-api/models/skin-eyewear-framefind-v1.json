@@ -1,0 +1,17 @@
+{
+  "role": "skin-capture-eyewear-gate-only",
+  "policy": "glasses-free-skin-capture-v1",
+  "file": "skin-eyewear-framefind-v1.onnx",
+  "bytes": 6402858,
+  "sha256": "66f75c686974a04bf956d0ed6411315309afcabd36c400edec743953adafccb9",
+  "source": "https://github.com/moraxh/FrameFind",
+  "sourceCommit": "3c69676cbcd44a47ab083b541b56c050dbc0b1b5",
+  "license": "MIT; adjacent skin-eyewear-LICENSE.txt",
+  "input": "RGB float32 NCHW 1x3x112x112, ImageNet mean/std, MediaPipe 34-point eye/brow/bridge bounds with 1.25 square pad",
+  "output": "single logit; sigmoid; eyewear >= 0.5, clear <= 0.3, otherwise uncertain",
+  "localOnly": true,
+  "noCenterCropFallback": true,
+  "confidenceIsSeverity": false,
+  "generalAccuracyClaim": false,
+  "validation": "limited real-source engineering controls; no guarantee for every frame/style/pose"
+}

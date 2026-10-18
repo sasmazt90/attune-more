@@ -1,0 +1,130 @@
+{
+  "version": "ahmet-digits-20261008-v1",
+  "voice": "tr-TR-AhmetNeural",
+  "rate": "-10%",
+  "pitch": "-10Hz",
+  "edgeTTSVersion": "7.2.8",
+  "digits": [
+    {
+      "digit": 0,
+      "text": "sıfır",
+      "url": "/audio/hearing-bank/0.wav",
+      "sha256": "e63e9435bcfdd16fc6182864b175b90a59f0350f11f236bf12da76c96740d428",
+      "duration": 0.5397083333333333,
+      "rms": 0.06309572607278824,
+      "peak": 0.3124374449253082,
+      "originalRMS": 0.08746036887168884,
+      "clippedSamples": 0
+    },
+    {
+      "digit": 1,
+      "text": "bir",
+      "url": "/audio/hearing-bank/1.wav",
+      "sha256": "ec689f5bad75e8a302ed4228a4e56f0779bb8c59a309f309dcc40d4981815de3",
+      "duration": 0.502375,
+      "rms": 0.06309573352336884,
+      "peak": 0.3297397792339325,
+      "originalRMS": 0.01862342841923237,
+      "clippedSamples": 0
+    },
+    {
+      "digit": 2,
+      "text": "iki",
+      "url": "/audio/hearing-bank/2.wav",
+      "sha256": "81c5f14ee81fe9b8116add43e35e9d0417744f3a01dcac7b395a2f9469ac393d",
+      "duration": 0.4316875,
+      "rms": 0.06309574097394943,
+      "peak": 0.5321879386901855,
+      "originalRMS": 0.037437040358781815,
+      "clippedSamples": 0
+    },
+    {
+      "digit": 3,
+      "text": "üç",
+      "url": "/audio/hearing-bank/3.wav",
+      "sha256": "731094d36977f3a7822235cab7e4b4e4f437836420d3a140fa313dea7e0b7a74",
+      "duration": 0.49445833333333333,
+      "rms": 0.06309573352336884,
+      "peak": 0.5697606205940247,
+      "originalRMS": 0.012336238287389278,
+      "clippedSamples": 0
+    },
+    {
+      "digit": 4,
+      "text": "dört",
+      "url": "/audio/hearing-bank/4.wav",
+      "sha256": "b876c624142c3ec262ab9f1d0d8ef489bf7a1bdbc1ddb1b135d63a129c4a0968",
+      "duration": 0.4421875,
+      "rms": 0.06309573352336884,
+      "peak": 0.39147037267684937,
+      "originalRMS": 0.08710109442472458,
+      "clippedSamples": 0
+    },
+    {
+      "digit": 5,
+      "text": "beş",
+      "url": "/audio/hearing-bank/5.wav",
+      "sha256": "aa31501c879a9858d1cc3ef8b05b06bfd0d2b87a6d9a5f270df3bb0cb518dd1c",
+      "duration": 0.5322083333333333,
+      "rms": 0.06309572607278824,
+      "peak": 0.30834782123565674,
+      "originalRMS": 0.08588161319494247,
+      "clippedSamples": 0
+    },
+    {
+      "digit": 6,
+      "text": "altı",
+      "url": "/audio/hearing-bank/6.wav",
+      "sha256": "9b0ada11b5b533f58beffead1480817c7dadaf404bd92c597fa236725061552c",
+      "duration": 0.5529375,
+      "rms": 0.06309573352336884,
+      "peak": 0.29057246446609497,
+      "originalRMS": 0.08799973130226135,
+      "clippedSamples": 0
+    },
+    {
+      "digit": 7,
+      "text": "yedi",
+      "url": "/audio/hearing-bank/7.wav",
+      "sha256": "e7d5f130e3dc1091f82e62507f429f55a28b11945203af5126a1bac3489892bc",
+      "duration": 0.48191666666666666,
+      "rms": 0.06309574097394943,
+      "peak": 0.28378522396087646,
+      "originalRMS": 0.1478155255317688,
+      "clippedSamples": 0
+    },
+    {
+      "digit": 8,
+      "text": "sekiz",
+      "url": "/audio/hearing-bank/8.wav",
+      "sha256": "7efd1531370532b2eb86b2df4941a2a5dda1bfb28110f6b24fb5cd7f5167eca1",
+      "duration": 0.6323541666666667,
+      "rms": 0.06309573352336884,
+      "peak": 0.3972778916358948,
+      "originalRMS": 0.09496288001537323,
+      "clippedSamples": 0
+    },
+    {
+      "digit": 9,
+      "text": "dokuz",
+      "url": "/audio/hearing-bank/9.wav",
+      "sha256": "b878dea1fdcfd76083d3b6eb2be0bbbc024b9c59b0a3e2929baaefe374123c1e",
+      "duration": 0.5525625,
+      "rms": 0.06309573352336884,
+      "peak": 0.28699085116386414,
+      "originalRMS": 0.11686211079359055,
+      "clippedSamples": 0
+    }
+  ],
+  "noise": {
+    "url": "/audio/hearing-bank/speech-shaped-noise.wav",
+    "sha256": "a10742842a3f017fba3253aadf2884c488435d30c41802e9e06c1fb2fd756184",
+    "duration": 20.48,
+    "rms": 0.06309565901756287,
+    "peak": 0.30617478489875793
+  },
+  "auditoryAcceptance": "pending",
+  "clinicalValidation": false,
+  "meaning": "experimental TTS bank, not clinical Turkish DIN",
+  "rmsWindow": "whole trimmed digit with 20ms padding"
+}

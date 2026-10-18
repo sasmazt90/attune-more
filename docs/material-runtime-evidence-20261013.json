@@ -1,0 +1,1948 @@
+{
+  "baselineSHA": "d190b6c70aff6442366f47a5a4af10077f5ac263",
+  "BUILD_ID": "JO0Xyvupv72uoBiX42mWq",
+  "productionChanged": false,
+  "profile": {
+    "rows": [
+      {
+        "source": "9bab7ab2",
+        "seconds": 18.703999999910593,
+        "stages": {
+          "decode": 0.10999999986961484,
+          "geometry": 0.06200000015087426,
+          "proposal": 2.452999999979511,
+          "material": 15.922000000020489,
+          "mapsAndResults": 0.15699999989010394
+        },
+        "material": {
+          "version": "native-independent-stable-region-ridge-v3",
+          "sourceGrid": [
+            443,
+            509
+          ],
+          "analysisResize": false,
+          "coordinateScale": 0.5637257397174835,
+          "tileCore": 512,
+          "tileStride": 256,
+          "halo": 48,
+          "tiles": 1,
+          "peakTilePixels": 225487,
+          "overlapCountedOnce": true,
+          "classifierVersion": "frozen-imagenet-two-crop-material-v1-staging",
+          "encoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+          "candidateComponents": 74,
+          "acceptedComponents": 3,
+          "threshold": 0.5,
+          "confidenceNotSeverity": true,
+          "sourceLabelsAsInferenceInput": false,
+          "timings": {
+            "describe": 0.1720000000204891,
+            "crop": 0.7979999997187406,
+            "encoder": 14.875,
+            "classifier": 0.01500000013038516
+          },
+          "uniqueEncodedCrops": 148,
+          "identicalCropsReused": 0,
+          "maximumResidentCropTensors": 32,
+          "persistentPhotoCache": false,
+          "transport": "onnx-cpu",
+          "cropOrigin": [
+            81,
+            131
+          ],
+          "cropShape": [
+            443,
+            509
+          ],
+          "sourceImageSize": [
+            640,
+            640
+          ],
+          "normalProductEnabled": false
+        },
+        "scores": {
+          "forehead": 0.0,
+          "nose": 0.0,
+          "chin": 0.0,
+          "periorbital": 5.977448716207037,
+          "rightCheek": 0.0,
+          "leftCheek": 1.1966213045518537
+        },
+        "previousScoreAndMapsExact": true,
+        "featureCacheRead": false,
+        "within45Seconds": true
+      },
+      {
+        "source": "24031977",
+        "seconds": 6.718000000109896,
+        "stages": {
+          "decode": 0.030999999959021807,
+          "geometry": 0.0779999999795109,
+          "proposal": 1.1560000001918525,
+          "material": 5.359999999869615,
+          "mapsAndResults": 0.09300000010989606
+        },
+        "material": {
+          "version": "native-independent-stable-region-ridge-v3",
+          "sourceGrid": [
+            361,
+            436
+          ],
+          "analysisResize": false,
+          "coordinateScale": 0.4424502722918987,
+          "tileCore": 512,
+          "tileStride": 256,
+          "halo": 48,
+          "tiles": 1,
+          "peakTilePixels": 157396,
+          "overlapCountedOnce": true,
+          "classifierVersion": "frozen-imagenet-two-crop-material-v1-staging",
+          "encoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+          "candidateComponents": 29,
+          "acceptedComponents": 1,
+          "threshold": 0.5,
+          "confidenceNotSeverity": true,
+          "sourceLabelsAsInferenceInput": false,
+          "timings": {
+            "describe": 0.0779999999795109,
+            "crop": 0.28199999989010394,
+            "encoder": 4.967999999877065,
+            "classifier": 0.0
+          },
+          "uniqueEncodedCrops": 58,
+          "identicalCropsReused": 0,
+          "maximumResidentCropTensors": 32,
+          "persistentPhotoCache": false,
+          "transport": "onnx-cpu",
+          "cropOrigin": [
+            47,
+            64
+          ],
+          "cropShape": [
+            361,
+            436
+          ],
+          "sourceImageSize": [
+            408,
+            612
+          ],
+          "normalProductEnabled": false
+        },
+        "scores": {
+          "forehead": 0.0,
+          "nose": 0.23938923395445136,
+          "chin": 0.0,
+          "periorbital": 0.6605201596257052,
+          "rightCheek": 0.0,
+          "leftCheek": 0.0
+        },
+        "previousScoreAndMapsExact": true,
+        "featureCacheRead": false,
+        "within45Seconds": true
+      },
+      {
+        "source": "e1646fda",
+        "seconds": 367.2029999999795,
+        "stages": {
+          "decode": 0.75,
+          "geometry": 0.2660000000614673,
+          "proposal": 89.0,
+          "material": 276.0150000001304,
+          "mapsAndResults": 1.125
+        },
+        "material": {
+          "version": "native-independent-stable-region-ridge-v3",
+          "sourceGrid": [
+            956,
+            1256
+          ],
+          "analysisResize": false,
+          "coordinateScale": 1.3211410537362098,
+          "tileCore": 512,
+          "tileStride": 256,
+          "halo": 53,
+          "tiles": 12,
+          "peakTilePixels": 381924,
+          "overlapCountedOnce": true,
+          "classifierVersion": "frozen-imagenet-two-crop-material-v1-staging",
+          "encoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+          "candidateComponents": 1236,
+          "acceptedComponents": 370,
+          "threshold": 0.5,
+          "confidenceNotSeverity": true,
+          "sourceLabelsAsInferenceInput": false,
+          "timings": {
+            "describe": 3.297000000020489,
+            "crop": 16.20699999993667,
+            "encoder": 255.2620000008028,
+            "classifier": 0.3580000000074506
+          },
+          "uniqueEncodedCrops": 2472,
+          "identicalCropsReused": 0,
+          "maximumResidentCropTensors": 32,
+          "persistentPhotoCache": false,
+          "transport": "onnx-cpu",
+          "cropOrigin": [
+            549,
+            831
+          ],
+          "cropShape": [
+            956,
+            1256
+          ],
+          "sourceImageSize": [
+            1944,
+            2592
+          ],
+          "normalProductEnabled": false
+        },
+        "scores": {
+          "forehead": 1.3240961506740445,
+          "nose": 1.8886863724014054,
+          "chin": 0.06529498824690212,
+          "periorbital": 1.5453596909280618,
+          "rightCheek": 0.6182981667243168,
+          "leftCheek": 0.9816998346049192
+        },
+        "previousScoreAndMapsExact": true,
+        "featureCacheRead": false,
+        "within45Seconds": false
+      }
+    ],
+    "normalProductEnabled": false
+  },
+  "onnx": {
+    "sourceEncoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+    "onnxSHA256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987",
+    "featureParity": true,
+    "tests": [
+      {
+        "source": "9bab7ab2",
+        "maximumAbsoluteDifference": 2.2172927856445312e-05,
+        "allclose": true,
+        "torchSeconds": 0.6089999999385327,
+        "onnxSeconds": 0.40600000019185245
+      },
+      {
+        "source": "24031977",
+        "maximumAbsoluteDifference": 2.6047229766845703e-05,
+        "allclose": true,
+        "torchSeconds": 0.7339999999385327,
+        "onnxSeconds": 0.4220000000204891
+      },
+      {
+        "source": "e1646fda",
+        "maximumAbsoluteDifference": 1.2874603271484375e-05,
+        "allclose": true,
+        "torchSeconds": 0.6099999998696148,
+        "onnxSeconds": 0.625
+      }
+    ],
+    "input": "RGB224/ImageNet-standardized, unchanged square source crops",
+    "providers": [
+      "CPUExecutionProvider"
+    ],
+    "sourceWeightsUnchanged": true
+  },
+  "firstNewPhoto": {
+    "source": "00312529",
+    "sourceSHA256": "00312529fd3176a8e264acd39ae2a1e476c78428978be625aff3f966b93de6a1",
+    "photoId": "4a01448ebc4715b7672bb5b396fd4cf4bf412e22e77e7f7bbec025a8bf9b7603",
+    "payloadSHA256": "bd999983fd172d507d80fd852f3d4531dd4bdedc44f65d8fc43890474922769c",
+    "realBrowserMediaPipe": true,
+    "automaticCapture": true,
+    "newSourceNeverPreviouslyEncoderBenchmarked": true,
+    "firstRequestNoPhotoCache": true,
+    "actualHTTP": true,
+    "isolatedResearchNativeAnalyzer": true,
+    "normalProductEnabled": false,
+    "status": 200,
+    "seconds": 16.108999999938533,
+    "worker": {
+      "photoId": "4a01448ebc4715b7672bb5b396fd4cf4bf412e22e77e7f7bbec025a8bf9b7603",
+      "started": 1251683.218,
+      "finished": true,
+      "profile": {
+        "decode": 0.06200000015087426,
+        "geometry": 0.06299999984912574,
+        "proposal": 2.047000000020489,
+        "material": 13.625,
+        "mapsAndResults": 0.2190000000409782
+      },
+      "seconds": 16.031999999890104
+    },
+    "stages": {
+      "decode": 0.06200000015087426,
+      "geometry": 0.06299999984912574,
+      "proposal": 2.047000000020489,
+      "material": 13.625,
+      "mapsAndResults": 0.2190000000409782
+    },
+    "classifier": {
+      "version": "native-independent-stable-region-ridge-v3",
+      "sourceGrid": [
+        442,
+        487
+      ],
+      "analysisResize": false,
+      "coordinateScale": 0.5485663712024689,
+      "tileCore": 512,
+      "tileStride": 256,
+      "halo": 48,
+      "tiles": 1,
+      "peakTilePixels": 215254,
+      "overlapCountedOnce": true,
+      "classifierVersion": "frozen-imagenet-two-crop-material-v1-staging",
+      "encoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+      "candidateComponents": 74,
+      "acceptedComponents": 8,
+      "threshold": 0.5,
+      "confidenceNotSeverity": true,
+      "sourceLabelsAsInferenceInput": false,
+      "timings": {
+        "describe": 0.14000000013038516,
+        "crop": 0.7189999998081475,
+        "encoder": 12.702999999979511,
+        "classifier": 0.01500000013038516
+      },
+      "uniqueEncodedCrops": 148,
+      "identicalCropsReused": 0,
+      "maximumResidentCropTensors": 32,
+      "persistentPhotoCache": false,
+      "transport": "onnx-cpu",
+      "cropOrigin": [
+        113,
+        153
+      ],
+      "cropShape": [
+        442,
+        487
+      ],
+      "sourceImageSize": [
+        640,
+        640
+      ],
+      "normalProductEnabled": false
+    },
+    "scores": {
+      "forehead": 0.0,
+      "nose": 0.0,
+      "chin": 2.0706292300475777,
+      "periorbital": 0.2780451288632232,
+      "rightCheek": 0.0,
+      "leftCheek": 0.4915580252190639
+    },
+    "detail": null
+  },
+  "apiBudget": {
+    "actualHTTP": true,
+    "realProductRouterAndGeometry": true,
+    "isolatedStagingAnalyzer": true,
+    "normal8000Unchanged": true,
+    "budgetSeconds": 45,
+    "timeout": {
+      "status": 504,
+      "detail": {
+        "detail": "LOCAL_ANALYSIS_TIMEOUT"
+      },
+      "elapsed": 45.061999999918044,
+      "worker": {
+        "photoId": "c8e8d8749cbfc7574f13a9d69ba41663168529457394a8766b08431e843f25c3",
+        "started": 1251043.921,
+        "finished": true,
+        "stopped": "LOCAL_ANALYSIS_TIMEOUT",
+        "seconds": 44.14099999982864
+      },
+      "lockReleased": true
+    },
+    "cancel": {
+      "worker": {
+        "photoId": "c8e8d8749cbfc7574f13a9d69ba41663168529457394a8766b08431e843f25c3",
+        "started": 1251088.687,
+        "finished": true,
+        "stopped": "CANCELLED",
+        "seconds": 1.6090000001713634
+      },
+      "secondsAfterDisconnect": 1.0150000001303852,
+      "lockReleased": true
+    },
+    "followingRequest": {
+      "status": 200,
+      "seconds": 9.437000000150874,
+      "mapsAndMeasurementsExact": true
+    },
+    "photoFeatureCacheRead": false
+  },
+  "runtimeLimit": "normal frontend remains 45s AbortController; cooperative stop verified only in isolated research host, no native production selector",
+  "before": [
+    {
+      "factor": 1.0,
+      "domain": "all",
+      "objects": 21,
+      "hits": 11,
+      "negativeSourcePixels": 0.0,
+      "proposalHits": 17
+    },
+    {
+      "factor": 1.0,
+      "domain": "natural",
+      "objects": 9,
+      "hits": 7,
+      "negativeSourcePixels": 0.0,
+      "proposalHits": 7
+    },
+    {
+      "factor": 1.0,
+      "domain": "processed",
+      "objects": 12,
+      "hits": 4,
+      "negativeSourcePixels": 0.0,
+      "proposalHits": 10
+    },
+    {
+      "factor": 0.5,
+      "domain": "all",
+      "objects": 21,
+      "hits": 9,
+      "negativeSourcePixels": 0.0,
+      "proposalHits": 17
+    },
+    {
+      "factor": 0.5,
+      "domain": "natural",
+      "objects": 9,
+      "hits": 4,
+      "negativeSourcePixels": 0.0,
+      "proposalHits": 6
+    },
+    {
+      "factor": 0.5,
+      "domain": "processed",
+      "objects": 12,
+      "hits": 5,
+      "negativeSourcePixels": 0.0,
+      "proposalHits": 11
+    }
+  ],
+  "after": [
+    {
+      "factor": 1.0,
+      "domain": "all",
+      "objects": 21,
+      "hits": 12,
+      "negativeSourcePixels": 30.0,
+      "proposalHits": 17
+    },
+    {
+      "factor": 1.0,
+      "domain": "natural",
+      "objects": 9,
+      "hits": 7,
+      "negativeSourcePixels": 0.0,
+      "proposalHits": 7
+    },
+    {
+      "factor": 1.0,
+      "domain": "processed",
+      "objects": 12,
+      "hits": 5,
+      "negativeSourcePixels": 30.0,
+      "proposalHits": 10
+    },
+    {
+      "factor": 0.5,
+      "domain": "all",
+      "objects": 21,
+      "hits": 13,
+      "negativeSourcePixels": 0.0,
+      "proposalHits": 17
+    },
+    {
+      "factor": 0.5,
+      "domain": "natural",
+      "objects": 9,
+      "hits": 4,
+      "negativeSourcePixels": 0.0,
+      "proposalHits": 6
+    },
+    {
+      "factor": 0.5,
+      "domain": "processed",
+      "objects": 12,
+      "hits": 9,
+      "negativeSourcePixels": 0.0,
+      "proposalHits": 11
+    }
+  ],
+  "trainScope": {
+    "rows": 63,
+    "groups": 15,
+    "newValidationRowsInTrain": 0,
+    "unknownAsNegative": false
+  },
+  "opticalC0C9": [
+    {
+      "control": 0,
+      "object": 0,
+      "baselineEncoderHit": false,
+      "trialEncoderHit": false
+    },
+    {
+      "control": 0,
+      "object": 1,
+      "baselineEncoderHit": false,
+      "trialEncoderHit": false
+    },
+    {
+      "control": 0,
+      "object": 2,
+      "baselineEncoderHit": true,
+      "trialEncoderHit": false
+    },
+    {
+      "control": 0,
+      "object": 3,
+      "baselineEncoderHit": false,
+      "trialEncoderHit": false
+    },
+    {
+      "control": 9,
+      "object": 0,
+      "baselineEncoderHit": false,
+      "trialEncoderHit": false
+    },
+    {
+      "control": 9,
+      "object": 1,
+      "baselineEncoderHit": false,
+      "trialEncoderHit": true
+    },
+    {
+      "control": 9,
+      "object": 2,
+      "baselineEncoderHit": true,
+      "trialEncoderHit": true
+    }
+  ],
+  "product": [
+    {
+      "source": "9bab7ab2",
+      "targets": [
+        {
+          "polygon": [
+            [
+              212,
+              326
+            ],
+            [
+              281,
+              326
+            ],
+            [
+              281,
+              350
+            ],
+            [
+              212,
+              350
+            ]
+          ],
+          "beforeActivePixels": 440,
+          "afterActivePixels": 73,
+          "scope": "reviewed eyewear negative only"
+        }
+      ],
+      "regions": [
+        {
+          "region": "forehead",
+          "before": 0.0,
+          "after": 0.6757831133725553
+        },
+        {
+          "region": "nose",
+          "before": 0.0,
+          "after": 0.7067137809187279
+        },
+        {
+          "region": "chin",
+          "before": 0.0,
+          "after": 0.1765162748005366
+        },
+        {
+          "region": "periorbital",
+          "before": 5.977448716207037,
+          "after": 0.991713082461622
+        },
+        {
+          "region": "rightCheek",
+          "before": 0.0,
+          "after": 0.09785606262788007
+        },
+        {
+          "region": "leftCheek",
+          "before": 1.1966213045518537,
+          "after": 1.1379633974659784
+        }
+      ]
+    },
+    {
+      "source": "24031977",
+      "targets": [
+        {
+          "polygon": [
+            [
+              117,
+              307
+            ],
+            [
+              141,
+              306
+            ],
+            [
+              166,
+              319
+            ],
+            [
+              183,
+              337
+            ],
+            [
+              177,
+              350
+            ],
+            [
+              159,
+              347
+            ],
+            [
+              140,
+              329
+            ],
+            [
+              120,
+              324
+            ]
+          ],
+          "beforeActivePixels": 0,
+          "afterActivePixels": 0,
+          "scope": "partial visible material location; not full-pixel mask"
+        },
+        {
+          "polygon": [
+            [
+              272,
+              300
+            ],
+            [
+              296,
+              301
+            ],
+            [
+              313,
+              325
+            ],
+            [
+              319,
+              351
+            ],
+            [
+              305,
+              366
+            ],
+            [
+              287,
+              354
+            ],
+            [
+              280,
+              332
+            ]
+          ],
+          "beforeActivePixels": 0,
+          "afterActivePixels": 0,
+          "scope": "partial visible material location; not full-pixel mask"
+        }
+      ],
+      "regions": [
+        {
+          "region": "forehead",
+          "before": 0.0,
+          "after": 0.0
+        },
+        {
+          "region": "nose",
+          "before": 0.23938923395445136,
+          "after": 0.0
+        },
+        {
+          "region": "chin",
+          "before": 0.0,
+          "after": 0.1979218208807521
+        },
+        {
+          "region": "periorbital",
+          "before": 0.6605201596257052,
+          "after": 0.0
+        },
+        {
+          "region": "rightCheek",
+          "before": 0.0,
+          "after": 0.0
+        },
+        {
+          "region": "leftCheek",
+          "before": 0.0,
+          "after": 0.29239766081871343
+        }
+      ]
+    }
+  ],
+  "locationCorrection": {
+    "source": "24031977",
+    "photoId": "e9d089f6bcda11d682f9bb64de320768fb915967495fe0b04d30710c27c7cd6c",
+    "payloadSHA256": "88a9ad48048d12f21e8fb929aa663402f433e7099234bacb754cb8d79ecd7602",
+    "legacyLocationIssue": "old y243 locations cover hair/upper cheek rather than the lower visible material; old receipt preserved",
+    "sourceLocationReview": "engineering source-coordinate visual inspection; exposed development, not independent test",
+    "targets": [
+      {
+        "label": "visible irregular left-display cheek material, etiology UNKNOWN",
+        "polygon": [
+          [
+            117,
+            307
+          ],
+          [
+            141,
+            306
+          ],
+          [
+            166,
+            319
+          ],
+          [
+            183,
+            337
+          ],
+          [
+            177,
+            350
+          ],
+          [
+            159,
+            347
+          ],
+          [
+            140,
+            329
+          ],
+          [
+            120,
+            324
+          ]
+        ],
+        "preAnatomyProposalPixels": 143,
+        "eligibleProposalPixels": 38,
+        "acceptedPixels": 0,
+        "components": [
+          {
+            "componentId": 19,
+            "rect": [
+              105,
+              245,
+              27,
+              11
+            ],
+            "probability": 0.15911502402457595,
+            "accepted": false
+          }
+        ],
+        "outsidePolygon": "UNKNOWN",
+        "pixelGroundTruth": false
+      },
+      {
+        "label": "visible irregular right-display cheek material, etiology UNKNOWN",
+        "polygon": [
+          [
+            272,
+            300
+          ],
+          [
+            296,
+            301
+          ],
+          [
+            313,
+            325
+          ],
+          [
+            319,
+            351
+          ],
+          [
+            305,
+            366
+          ],
+          [
+            287,
+            354
+          ],
+          [
+            280,
+            332
+          ]
+        ],
+        "preAnatomyProposalPixels": 16,
+        "eligibleProposalPixels": 8,
+        "acceptedPixels": 0,
+        "components": [
+          {
+            "componentId": 18,
+            "rect": [
+              238,
+              243,
+              6,
+              3
+            ],
+            "probability": 0.2675669818043254,
+            "accepted": false
+          }
+        ],
+        "outsidePolygon": "UNKNOWN",
+        "pixelGroundTruth": false
+      }
+    ],
+    "labelsUsedInInference": false,
+    "addedToTrain": false,
+    "old50LabelsUnchanged": true
+  },
+  "dryAdmission": {
+    "accepted": false,
+    "reasons": [
+      "eyewear remains falsely mapped",
+      "both corrected visible cheek material locations still rejected",
+      "high-resolution full native encoder exceeds 45 seconds",
+      "reviewed native negative support grew from 0 to 30 pixels"
+    ],
+    "nativeNegativePixels": 30.0,
+    "originalSixHitsRetained": 3,
+    "thresholdSearch": false,
+    "secondCNNFit": false
+  },
+  "expressionUnits": {
+    "rows": [
+      {
+        "source": "99f82af5",
+        "photoId": "bedcdcf4a7199dff07fffe800216ce03cfd553911b61b4c1c07a0c5aaeae4729",
+        "payloadSHA256": "a96210b54adb8ba4785ab2b3c8fa56e8acc2c18610855506d72aac5338a39055",
+        "qualityValid": true,
+        "pose": "FRONT",
+        "conditions": {
+          "yaw": -0.05,
+          "pitch": 0.02,
+          "roll": 0,
+          "scaleRatio": 0.57,
+          "avgLuminance": 138.15419316977625,
+          "blurScore": 5.266114247273318
+        },
+        "mouthOpeningSourcePixelRatio": 0.002187449058461211,
+        "mouthOpeningNormalizedRatio": 0.002187449058461211,
+        "lipCornerSourcePixelRatio": -0.08340818123266659,
+        "mouthWidthSourcePixels": 146.51526709358043,
+        "thresholds": {
+          "opening": 0.1,
+          "corner": -0.07,
+          "yaw": 0.65,
+          "pitch": 0.22
+        },
+        "units": "dimensionless ratios; yaw/pitch browser landmark estimator units, not degrees",
+        "mouthLandmarks": {
+          "61": [
+            247.26024627685547,
+            470.07755279541016
+          ],
+          "291": [
+            393.75858306884766,
+            467.8502655029297
+          ],
+          "13": [
+            319.39964294433594,
+            481.0554504394531
+          ],
+          "14": [
+            319.55392837524414,
+            481.33636474609375
+          ]
+        },
+        "results": {
+          "rightCheek": {
+            "value": null,
+            "reason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+            "version": "image-contour-neighbor-excursion-exterior-v2-staging",
+            "unit": "percent-observed-boundary-support",
+            "observedAnatomicalSamples": 0,
+            "uniqueObservedSlots": 0,
+            "acceptedBoundarySlots": 0,
+            "trackedImageSamples": 0,
+            "acceptedSamples": 0,
+            "activeSourcePixels": 0,
+            "quality": "insufficient"
+          },
+          "leftCheek": {
+            "value": null,
+            "reason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+            "version": "image-contour-neighbor-excursion-exterior-v2-staging",
+            "unit": "percent-observed-boundary-support",
+            "observedAnatomicalSamples": 0,
+            "uniqueObservedSlots": 0,
+            "acceptedBoundarySlots": 0,
+            "trackedImageSamples": 0,
+            "acceptedSamples": 0,
+            "activeSourcePixels": 0,
+            "quality": "insufficient"
+          },
+          "chin": {
+            "value": null,
+            "reason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+            "version": "image-contour-neighbor-excursion-exterior-v2-staging",
+            "unit": "percent-observed-boundary-support",
+            "observedAnatomicalSamples": 0,
+            "uniqueObservedSlots": 0,
+            "acceptedBoundarySlots": 0,
+            "trackedImageSamples": 0,
+            "acceptedSamples": 0,
+            "activeSourcePixels": 0,
+            "quality": "insufficient"
+          }
+        },
+        "seconds": 0.125
+      },
+      {
+        "source": "fc3a6b13",
+        "photoId": "29972700d25671291298294a035779a4b3eba742b807eba425efa3ad3f84522e",
+        "payloadSHA256": "f596ef01e602829293a2c0a11ac91b5e7939c037d58960ed84442617853f748b",
+        "qualityValid": true,
+        "pose": "LEFT",
+        "conditions": {
+          "yaw": 0.54,
+          "pitch": 0.05,
+          "roll": -0.0,
+          "scaleRatio": 0.53,
+          "avgLuminance": 116.44972425788224,
+          "blurScore": 14.56052027932402
+        },
+        "mouthOpeningSourcePixelRatio": 0.01859928887973381,
+        "mouthOpeningNormalizedRatio": 0.018599288879733805,
+        "lipCornerSourcePixelRatio": -0.12002236247827032,
+        "mouthWidthSourcePixels": 120.07371432730399,
+        "thresholds": {
+          "opening": 0.1,
+          "corner": -0.07,
+          "yaw": 0.65,
+          "pitch": 0.22
+        },
+        "units": "dimensionless ratios; yaw/pitch browser landmark estimator units, not degrees",
+        "mouthLandmarks": {
+          "61": [
+            261.3906478881836,
+            475.9140396118164
+          ],
+          "291": [
+            381.3076400756836,
+            482.04689025878906
+          ],
+          "13": [
+            341.3719177246094,
+            492.8870391845703
+          ],
+          "14": [
+            340.74745178222656,
+            495.03124237060547
+          ]
+        },
+        "results": {
+          "rightCheek": {
+            "value": null,
+            "reason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+            "version": "image-contour-neighbor-excursion-exterior-v2-staging",
+            "unit": "percent-observed-boundary-support",
+            "observedAnatomicalSamples": 0,
+            "uniqueObservedSlots": 0,
+            "acceptedBoundarySlots": 0,
+            "trackedImageSamples": 0,
+            "acceptedSamples": 0,
+            "activeSourcePixels": 0,
+            "quality": "insufficient"
+          }
+        },
+        "seconds": 0.18700000015087426
+      },
+      {
+        "source": "05619d0a",
+        "photoId": "8d4439dfa107349221f175344eb9714c4622379f1f8d82009f0df4c0fdcb71f5",
+        "payloadSHA256": "361e010f3016be4c5336a2b95a2b257d0d1970d024fb2d4036aebea15029a701",
+        "qualityValid": true,
+        "pose": "FRONT",
+        "conditions": {
+          "yaw": -0.13,
+          "pitch": 0.11,
+          "roll": 0.05,
+          "scaleRatio": 0.51,
+          "avgLuminance": 55.67443961352407,
+          "blurScore": 4.031069392684358
+        },
+        "mouthOpeningSourcePixelRatio": 0.004422193463369601,
+        "mouthOpeningNormalizedRatio": 0.004422193463369602,
+        "lipCornerSourcePixelRatio": -0.04836984549817652,
+        "mouthWidthSourcePixels": 126.80285955178724,
+        "thresholds": {
+          "opening": 0.1,
+          "corner": -0.07,
+          "yaw": 0.65,
+          "pitch": 0.22
+        },
+        "units": "dimensionless ratios; yaw/pitch browser landmark estimator units, not degrees",
+        "mouthLandmarks": {
+          "61": [
+            258.0752754211426,
+            455.6916809082031
+          ],
+          "291": [
+            384.8688507080078,
+            457.2261047363281
+          ],
+          "13": [
+            318.5760307312012,
+            462.72125244140625
+          ],
+          "14": [
+            318.6150550842285,
+            462.161865234375
+          ]
+        },
+        "results": {
+          "rightCheek": {
+            "value": 0.0,
+            "reason": null,
+            "version": "image-contour-neighbor-excursion-exterior-v2-staging",
+            "unit": "percent-observed-boundary-support",
+            "observedAnatomicalSamples": 73,
+            "uniqueObservedSlots": 59,
+            "acceptedBoundarySlots": 0,
+            "trackedImageSamples": 65,
+            "acceptedSamples": 0,
+            "activeSourcePixels": 0,
+            "quality": "valid"
+          },
+          "leftCheek": {
+            "value": null,
+            "reason": "ANATOMICAL_BOUNDARY_NOT_VISIBLE",
+            "version": "image-contour-neighbor-excursion-exterior-v2-staging",
+            "unit": "percent-observed-boundary-support",
+            "observedAnatomicalSamples": 0,
+            "uniqueObservedSlots": 0,
+            "acceptedBoundarySlots": 0,
+            "trackedImageSamples": 0,
+            "acceptedSamples": 0,
+            "activeSourcePixels": 0,
+            "quality": "insufficient"
+          },
+          "chin": {
+            "value": null,
+            "reason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "version": "image-contour-neighbor-excursion-exterior-v2-staging",
+            "unit": "percent-observed-boundary-support",
+            "observedAnatomicalSamples": 88,
+            "uniqueObservedSlots": 88,
+            "acceptedBoundarySlots": 0,
+            "trackedImageSamples": 47,
+            "acceptedSamples": 0,
+            "activeSourcePixels": 0,
+            "quality": "insufficient"
+          }
+        },
+        "seconds": 0.4220000000204891
+      },
+      {
+        "source": "f90e68f8",
+        "photoId": "4077d040e2c1b5205a55b98e98f13d815ca3f3fb75fe741bdb0a423237f9720d",
+        "payloadSHA256": "cb2f2c37eefdd8efbe7a7e73f9e849943becc6de36a6b8a332aab684d00c4ef7",
+        "qualityValid": true,
+        "pose": "FRONT",
+        "conditions": {
+          "yaw": -0.12,
+          "pitch": -0.03,
+          "roll": 0.07,
+          "scaleRatio": 0.73,
+          "avgLuminance": 91.12050446762046,
+          "blurScore": 6.747604887722764
+        },
+        "mouthOpeningSourcePixelRatio": 0.00284828048510128,
+        "mouthOpeningNormalizedRatio": 0.0028482804851012794,
+        "lipCornerSourcePixelRatio": -0.03806425812835745,
+        "mouthWidthSourcePixels": 167.75026885534425,
+        "thresholds": {
+          "opening": 0.1,
+          "corner": -0.07,
+          "yaw": 0.65,
+          "pitch": 0.22
+        },
+        "units": "dimensionless ratios; yaw/pitch browser landmark estimator units, not degrees",
+        "mouthLandmarks": {
+          "61": [
+            208.84035110473633,
+            507.9874801635742
+          ],
+          "291": [
+            376.0215377807617,
+            521.7934036254883
+          ],
+          "13": [
+            288.9512634277344,
+            521.0646438598633
+          ],
+          "14": [
+            289.42821502685547,
+            521.0931015014648
+          ]
+        },
+        "results": {
+          "rightCheek": {
+            "value": null,
+            "reason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "version": "image-contour-neighbor-excursion-exterior-v2-staging",
+            "unit": "percent-observed-boundary-support",
+            "observedAnatomicalSamples": 66,
+            "uniqueObservedSlots": 58,
+            "acceptedBoundarySlots": 0,
+            "trackedImageSamples": 0,
+            "acceptedSamples": 0,
+            "activeSourcePixels": 0,
+            "quality": "insufficient"
+          },
+          "leftCheek": {
+            "value": null,
+            "reason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "version": "image-contour-neighbor-excursion-exterior-v2-staging",
+            "unit": "percent-observed-boundary-support",
+            "observedAnatomicalSamples": 64,
+            "uniqueObservedSlots": 54,
+            "acceptedBoundarySlots": 0,
+            "trackedImageSamples": 47,
+            "acceptedSamples": 0,
+            "activeSourcePixels": 0,
+            "quality": "insufficient"
+          },
+          "chin": {
+            "value": null,
+            "reason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "version": "image-contour-neighbor-excursion-exterior-v2-staging",
+            "unit": "percent-observed-boundary-support",
+            "observedAnatomicalSamples": 96,
+            "uniqueObservedSlots": 96,
+            "acceptedBoundarySlots": 0,
+            "trackedImageSamples": 39,
+            "acceptedSamples": 0,
+            "activeSourcePixels": 0,
+            "quality": "insufficient"
+          }
+        },
+        "seconds": 0.375
+      },
+      {
+        "source": "64b02ede",
+        "photoId": "ab8c841702f74522ce82e8b26905a97a151ecd5ebd20f0a184f8bd79796aa368",
+        "payloadSHA256": "105b551193ea4d03bd2ea04aa7f7faf981246f09a759a6576fa13ef7312744e3",
+        "qualityValid": true,
+        "pose": "FRONT",
+        "conditions": {
+          "yaw": 0.1,
+          "pitch": -0.07,
+          "roll": 0.01,
+          "scaleRatio": 0.55,
+          "avgLuminance": 141.57708737188014,
+          "blurScore": 5.3755894886364946
+        },
+        "mouthOpeningSourcePixelRatio": 0.00442601257083269,
+        "mouthOpeningNormalizedRatio": 0.004426012570832689,
+        "lipCornerSourcePixelRatio": -0.004239435109050355,
+        "mouthWidthSourcePixels": 124.69832140089665,
+        "thresholds": {
+          "opening": 0.1,
+          "corner": -0.07,
+          "yaw": 0.65,
+          "pitch": 0.22
+        },
+        "units": "dimensionless ratios; yaw/pitch browser landmark estimator units, not degrees",
+        "mouthLandmarks": {
+          "61": [
+            257.9801559448242,
+            478.01036834716797
+          ],
+          "291": [
+            382.67601013183594,
+            478.79478454589844
+          ],
+          "13": [
+            321.3706970214844,
+            478.64830017089844
+          ],
+          "14": [
+            321.3867950439453,
+            479.1999816894531
+          ]
+        },
+        "results": {
+          "rightCheek": {
+            "value": null,
+            "reason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "version": "image-contour-neighbor-excursion-exterior-v2-staging",
+            "unit": "percent-observed-boundary-support",
+            "observedAnatomicalSamples": 65,
+            "uniqueObservedSlots": 59,
+            "acceptedBoundarySlots": 0,
+            "trackedImageSamples": 52,
+            "acceptedSamples": 0,
+            "activeSourcePixels": 0,
+            "quality": "insufficient"
+          },
+          "leftCheek": {
+            "value": null,
+            "reason": "ANATOMICAL_BOUNDARY_NOT_VISIBLE",
+            "version": "image-contour-neighbor-excursion-exterior-v2-staging",
+            "unit": "percent-observed-boundary-support",
+            "observedAnatomicalSamples": 52,
+            "uniqueObservedSlots": 45,
+            "acceptedBoundarySlots": 0,
+            "trackedImageSamples": 36,
+            "acceptedSamples": 0,
+            "activeSourcePixels": 0,
+            "quality": "insufficient"
+          },
+          "chin": {
+            "value": null,
+            "reason": "NEIGHBOR_CONTOUR_NOT_OBSERVED",
+            "version": "image-contour-neighbor-excursion-exterior-v2-staging",
+            "unit": "percent-observed-boundary-support",
+            "observedAnatomicalSamples": 96,
+            "uniqueObservedSlots": 96,
+            "acceptedBoundarySlots": 0,
+            "trackedImageSamples": 55,
+            "acceptedSamples": 0,
+            "activeSourcePixels": 0,
+            "quality": "insufficient"
+          }
+        },
+        "seconds": 0.34300000010989606
+      },
+      {
+        "source": "40c7edda",
+        "photoId": "42729e4b0915f24dd66fac864bae59bf9f710857e3d9b4b08c922e54c13c4e8e",
+        "payloadSHA256": "1cc01a895233ecae04391653b0d43df85d297747a4625144b598968c5a6ab9ac",
+        "qualityValid": true,
+        "pose": "FRONT",
+        "conditions": {
+          "yaw": -0.08,
+          "pitch": -0.07,
+          "roll": 0,
+          "scaleRatio": 0.56,
+          "avgLuminance": 161.34955257528156,
+          "blurScore": 6.545142394822379
+        },
+        "mouthOpeningSourcePixelRatio": 0.008109387990454369,
+        "mouthOpeningNormalizedRatio": 0.008109387990454369,
+        "lipCornerSourcePixelRatio": -0.02098965080857432,
+        "mouthWidthSourcePixels": 138.50385932204046,
+        "thresholds": {
+          "opening": 0.1,
+          "corner": -0.07,
+          "yaw": 0.65,
+          "pitch": 0.22
+        },
+        "units": "dimensionless ratios; yaw/pitch browser landmark estimator units, not degrees",
+        "mouthLandmarks": {
+          "61": [
+            250.63756942749023,
+            474.05731201171875
+          ],
+          "291": [
+            389.1414260864258,
+            474.0301513671875
+          ],
+          "13": [
+            317.3489761352539,
+            476.376953125
+          ],
+          "14": [
+            317.4728202819824,
+            477.4932861328125
+          ]
+        },
+        "results": {
+          "rightCheek": {
+            "value": 0.0,
+            "reason": null,
+            "version": "image-contour-neighbor-excursion-exterior-v2-staging",
+            "unit": "percent-observed-boundary-support",
+            "observedAnatomicalSamples": 66,
+            "uniqueObservedSlots": 60,
+            "acceptedBoundarySlots": 0,
+            "trackedImageSamples": 62,
+            "acceptedSamples": 0,
+            "activeSourcePixels": 0,
+            "quality": "valid"
+          },
+          "leftCheek": {
+            "value": null,
+            "reason": "HARD_DIRECTIONAL_SHADOW",
+            "version": "image-contour-neighbor-excursion-exterior-v2-staging",
+            "unit": "percent-observed-boundary-support",
+            "observedAnatomicalSamples": 0,
+            "uniqueObservedSlots": 0,
+            "acceptedBoundarySlots": 0,
+            "trackedImageSamples": 0,
+            "acceptedSamples": 0,
+            "activeSourcePixels": 0,
+            "quality": "insufficient"
+          },
+          "chin": {
+            "value": null,
+            "reason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "version": "image-contour-neighbor-excursion-exterior-v2-staging",
+            "unit": "percent-observed-boundary-support",
+            "observedAnatomicalSamples": 96,
+            "uniqueObservedSlots": 96,
+            "acceptedBoundarySlots": 0,
+            "trackedImageSamples": 0,
+            "acceptedSamples": 0,
+            "activeSourcePixels": 0,
+            "quality": "insufficient"
+          }
+        },
+        "seconds": 0.5629999998491257
+      }
+    ],
+    "thresholdsChanged": false,
+    "normalProductEnabled": false
+  },
+  "expressionTrial": {
+    "rows": [
+      {
+        "source": "99f82af5",
+        "seconds": 0.1559999999590218,
+        "maximumNormalizedLandmarkDelta": 0.0,
+        "expressionCoefficients": {
+          "mouthSmileLeft": 0.16408959031105042,
+          "mouthSmileRight": 0.11553758382797241,
+          "mouthFrownLeft": 0.01584124192595482,
+          "mouthFrownRight": 0.01587085612118244,
+          "jawOpen": 0.008102313615381718
+        },
+        "rows": [
+          {
+            "region": "rightCheek",
+            "before": null,
+            "beforeReason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+            "after": null,
+            "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "observedSourceTargetCenters": 0,
+            "acceptedSourceTargetCenters": 0,
+            "trackedImageSamples": 20,
+            "activeSourcePixels": 0,
+            "rawBrightnessEdgeRows": 34,
+            "exteriorConfirmedRows": 30,
+            "neighborFitSamples": 3
+          },
+          {
+            "region": "leftCheek",
+            "before": null,
+            "beforeReason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+            "after": 0.0,
+            "afterReason": null,
+            "observedSourceTargetCenters": 0,
+            "acceptedSourceTargetCenters": 0,
+            "trackedImageSamples": 56,
+            "activeSourcePixels": 0,
+            "rawBrightnessEdgeRows": 58,
+            "exteriorConfirmedRows": 56,
+            "neighborFitSamples": 32
+          },
+          {
+            "region": "chin",
+            "before": null,
+            "beforeReason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+            "after": null,
+            "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "observedSourceTargetCenters": 0,
+            "acceptedSourceTargetCenters": 0,
+            "trackedImageSamples": 8,
+            "activeSourcePixels": 0,
+            "rawBrightnessEdgeRows": 58,
+            "exteriorConfirmedRows": 37,
+            "neighborFitSamples": 0
+          }
+        ]
+      },
+      {
+        "source": "fc3a6b13",
+        "seconds": 0.0779999999795109,
+        "maximumNormalizedLandmarkDelta": 0.0,
+        "expressionCoefficients": {
+          "mouthSmileLeft": 0.0007940290379337966,
+          "mouthSmileRight": 0.0012700501829385757,
+          "mouthFrownLeft": 0.009054070338606834,
+          "mouthFrownRight": 0.009014730341732502,
+          "jawOpen": 0.16552385687828064
+        },
+        "rows": [
+          {
+            "region": "rightCheek",
+            "before": null,
+            "beforeReason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+            "after": null,
+            "afterReason": "ANATOMICAL_BOUNDARY_NOT_VISIBLE",
+            "observedSourceTargetCenters": 5,
+            "acceptedSourceTargetCenters": 0,
+            "trackedImageSamples": 5,
+            "activeSourcePixels": 0,
+            "rawBrightnessEdgeRows": 48,
+            "exteriorConfirmedRows": 13,
+            "neighborFitSamples": 0
+          }
+        ]
+      },
+      {
+        "source": "05619d0a",
+        "seconds": 0.10899999993853271,
+        "maximumNormalizedLandmarkDelta": 0.0,
+        "expressionCoefficients": {
+          "mouthSmileLeft": 0.002556959632784128,
+          "mouthSmileRight": 0.0008406268316321075,
+          "mouthFrownLeft": 0.06554747372865677,
+          "mouthFrownRight": 0.08552179485559464,
+          "jawOpen": 0.006518739275634289
+        },
+        "rows": [
+          {
+            "region": "rightCheek",
+            "before": 0.0,
+            "beforeReason": null,
+            "after": 0.0,
+            "afterReason": null,
+            "observedSourceTargetCenters": 0,
+            "acceptedSourceTargetCenters": 0,
+            "trackedImageSamples": 65,
+            "activeSourcePixels": 0,
+            "rawBrightnessEdgeRows": 69,
+            "exteriorConfirmedRows": 67,
+            "neighborFitSamples": 41
+          },
+          {
+            "region": "leftCheek",
+            "before": null,
+            "beforeReason": "ANATOMICAL_BOUNDARY_NOT_VISIBLE",
+            "after": null,
+            "afterReason": "ANATOMICAL_BOUNDARY_NOT_VISIBLE",
+            "observedSourceTargetCenters": 0,
+            "acceptedSourceTargetCenters": 0,
+            "trackedImageSamples": 0,
+            "activeSourcePixels": 0,
+            "rawBrightnessEdgeRows": 0,
+            "exteriorConfirmedRows": 0,
+            "neighborFitSamples": 0
+          },
+          {
+            "region": "chin",
+            "before": null,
+            "beforeReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "after": null,
+            "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "observedSourceTargetCenters": 0,
+            "acceptedSourceTargetCenters": 0,
+            "trackedImageSamples": 47,
+            "activeSourcePixels": 0,
+            "rawBrightnessEdgeRows": 85,
+            "exteriorConfirmedRows": 64,
+            "neighborFitSamples": 15
+          }
+        ]
+      },
+      {
+        "source": "f90e68f8",
+        "seconds": 0.125,
+        "maximumNormalizedLandmarkDelta": 0.0,
+        "expressionCoefficients": {
+          "mouthSmileLeft": 0.06714971363544464,
+          "mouthSmileRight": 0.055023882538080215,
+          "mouthFrownLeft": 0.0653480738401413,
+          "mouthFrownRight": 0.06577243655920029,
+          "jawOpen": 0.000853631820064038
+        },
+        "rows": [
+          {
+            "region": "rightCheek",
+            "before": null,
+            "beforeReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "after": null,
+            "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "observedSourceTargetCenters": 0,
+            "acceptedSourceTargetCenters": 0,
+            "trackedImageSamples": 0,
+            "activeSourcePixels": 0,
+            "rawBrightnessEdgeRows": 48,
+            "exteriorConfirmedRows": 12,
+            "neighborFitSamples": 0
+          },
+          {
+            "region": "leftCheek",
+            "before": null,
+            "beforeReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "after": null,
+            "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "observedSourceTargetCenters": 0,
+            "acceptedSourceTargetCenters": 0,
+            "trackedImageSamples": 47,
+            "activeSourcePixels": 0,
+            "rawBrightnessEdgeRows": 51,
+            "exteriorConfirmedRows": 49,
+            "neighborFitSamples": 35
+          },
+          {
+            "region": "chin",
+            "before": null,
+            "beforeReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "after": null,
+            "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "observedSourceTargetCenters": 0,
+            "acceptedSourceTargetCenters": 0,
+            "trackedImageSamples": 39,
+            "activeSourcePixels": 0,
+            "rawBrightnessEdgeRows": 78,
+            "exteriorConfirmedRows": 47,
+            "neighborFitSamples": 3
+          }
+        ]
+      },
+      {
+        "source": "64b02ede",
+        "seconds": 0.2970000000204891,
+        "maximumNormalizedLandmarkDelta": 0.0,
+        "expressionCoefficients": {
+          "mouthSmileLeft": 0.00033864349825307727,
+          "mouthSmileRight": 0.0002555547980591655,
+          "mouthFrownLeft": 0.001375721301883459,
+          "mouthFrownRight": 0.000811347330454737,
+          "jawOpen": 0.005727965850383043
+        },
+        "rows": [
+          {
+            "region": "rightCheek",
+            "before": null,
+            "beforeReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "after": null,
+            "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "observedSourceTargetCenters": 0,
+            "acceptedSourceTargetCenters": 0,
+            "trackedImageSamples": 52,
+            "activeSourcePixels": 0,
+            "rawBrightnessEdgeRows": 54,
+            "exteriorConfirmedRows": 53,
+            "neighborFitSamples": 40
+          },
+          {
+            "region": "leftCheek",
+            "before": null,
+            "beforeReason": "ANATOMICAL_BOUNDARY_NOT_VISIBLE",
+            "after": null,
+            "afterReason": "ANATOMICAL_BOUNDARY_NOT_VISIBLE",
+            "observedSourceTargetCenters": 0,
+            "acceptedSourceTargetCenters": 0,
+            "trackedImageSamples": 36,
+            "activeSourcePixels": 0,
+            "rawBrightnessEdgeRows": 39,
+            "exteriorConfirmedRows": 39,
+            "neighborFitSamples": 24
+          },
+          {
+            "region": "chin",
+            "before": null,
+            "beforeReason": "NEIGHBOR_CONTOUR_NOT_OBSERVED",
+            "after": null,
+            "afterReason": "NEIGHBOR_CONTOUR_NOT_OBSERVED",
+            "observedSourceTargetCenters": 0,
+            "acceptedSourceTargetCenters": 0,
+            "trackedImageSamples": 55,
+            "activeSourcePixels": 0,
+            "rawBrightnessEdgeRows": 75,
+            "exteriorConfirmedRows": 58,
+            "neighborFitSamples": 6
+          }
+        ]
+      },
+      {
+        "source": "40c7edda",
+        "seconds": 0.18799999984912574,
+        "maximumNormalizedLandmarkDelta": 0.0,
+        "expressionCoefficients": {
+          "mouthSmileLeft": 0.2763161063194275,
+          "mouthSmileRight": 0.18620605766773224,
+          "mouthFrownLeft": 0.0014530232874676585,
+          "mouthFrownRight": 0.0018574921414256096,
+          "jawOpen": 0.0016972026787698269
+        },
+        "rows": [
+          {
+            "region": "rightCheek",
+            "before": 0.0,
+            "beforeReason": null,
+            "after": 0.0,
+            "afterReason": null,
+            "observedSourceTargetCenters": 0,
+            "acceptedSourceTargetCenters": 0,
+            "trackedImageSamples": 62,
+            "activeSourcePixels": 0,
+            "rawBrightnessEdgeRows": 66,
+            "exteriorConfirmedRows": 64,
+            "neighborFitSamples": 50
+          },
+          {
+            "region": "leftCheek",
+            "before": null,
+            "beforeReason": "HARD_DIRECTIONAL_SHADOW",
+            "after": null,
+            "afterReason": "HARD_DIRECTIONAL_SHADOW",
+            "observedSourceTargetCenters": 0,
+            "acceptedSourceTargetCenters": 0,
+            "trackedImageSamples": 0,
+            "activeSourcePixels": 0,
+            "rawBrightnessEdgeRows": null,
+            "exteriorConfirmedRows": null,
+            "neighborFitSamples": 0
+          },
+          {
+            "region": "chin",
+            "before": null,
+            "beforeReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "after": null,
+            "afterReason": "IMAGE_BOUNDARY_NOT_TRACKABLE",
+            "observedSourceTargetCenters": 0,
+            "acceptedSourceTargetCenters": 0,
+            "trackedImageSamples": 0,
+            "activeSourcePixels": 0,
+            "rawBrightnessEdgeRows": 24,
+            "exteriorConfirmedRows": 0,
+            "neighborFitSamples": 0
+          }
+        ]
+      }
+    ],
+    "normalProductEnabled": false,
+    "thresholdTuning": false,
+    "qualityOverride": false,
+    "clinicalSuccessClaim": false
+  },
+  "contourScope": {
+    "authority": "engineering source-coordinate optical review; no clinical sag labels",
+    "targets": [
+      {
+        "source": "99f82af5",
+        "review": "marked structure is inside the visible silhouette, near the lateral cheek fold; zero target overlap is a scope mismatch, not validated contour detection failure or success"
+      },
+      {
+        "source": "fc3a6b13",
+        "review": "marked lateral outline is not verified local outward prominence; only 5 observed target centers, insufficient visible-side support"
+      },
+      {
+        "source": "05619d0a",
+        "review": "right-side contour observed but no localized excess beyond neighbor uncertainty; covered left side remains unmeasurable"
+      }
+    ],
+    "bandExpanded": false,
+    "ageAsTruth": false,
+    "neckFoldAsChinTruth": false,
+    "neutralPositiveDemonstrated": false
+  },
+  "finiteReview": {
+    "inspected": 6,
+    "usableNeutralContourPositive": 0,
+    "sources": [
+      {
+        "sha256": "00181b66778c921247235d852f42e2c1bd82aed9d7d8d856696987af5a3f8d3e",
+        "group": "00181b66778c921247235d852f42e2c1bd82aed9d7d8d856696987af5a3f8d3e",
+        "reason": "visible multi-photo collage/black artificial occlusion; no natural contour acceptance"
+      },
+      {
+        "sha256": "00312529fd3176a8e264acd39ae2a1e476c78428978be625aff3f966b93de6a1",
+        "group": "00312529fd3176a8e264acd39ae2a1e476c78428978be625aff3f966b93de6a1",
+        "reason": "single outdoor photograph; visible open smile, cap/eye shadow and partial lower contour; not a neutral sag positive"
+      },
+      {
+        "sha256": "00376c3ec8662f8f85052b9b20e89b15682aa4bd7a4c4e0f66cb50e6b479aaf2",
+        "group": "00376c3ec8662f8f85052b9b20e89b15682aa4bd7a4c4e0f66cb50e6b479aaf2",
+        "reason": "visible multi-photo collage/black artificial occlusion; no natural contour acceptance"
+      },
+      {
+        "sha256": "003e098a733ff811c026dc48b2e6d80e4060be0ef7b70b362052ea9c8014a411",
+        "group": "003e098a733ff811c026dc48b2e6d80e4060be0ef7b70b362052ea9c8014a411",
+        "reason": "visible multi-photo collage/black artificial occlusion; no natural contour acceptance"
+      },
+      {
+        "sha256": "0042678c0a5ca5bdb7ebb6e8fe5eebda8c5bb1b7d90e704c167605a8d164d49d",
+        "group": "0042678c0a5ca5bdb7ebb6e8fe5eebda8c5bb1b7d90e704c167605a8d164d49d",
+        "reason": "visible multi-photo collage/black artificial occlusion; no natural contour acceptance"
+      },
+      {
+        "sha256": "004895c30512b917e4b3b27014d8e526d96c8fc13c145cfa71e3fa555e4e14ea",
+        "group": "004895c30512b917e4b3b27014d8e526d96c8fc13c145cfa71e3fa555e4e14ea",
+        "reason": "visible multi-photo collage/black artificial occlusion; no natural contour acceptance"
+      }
+    ],
+    "remainingNotReviewed": true
+  },
+  "preservation": {
+    "normalSourcePathsUnchanged": true,
+    "normalAPIExact": true,
+    "normalAPISeconds": 5.140999999828637,
+    "normalAPIPhotoId": "4a01448ebc4715b7672bb5b396fd4cf4bf412e22e77e7f7bbec025a8bf9b7603",
+    "pinnedFrontendBuildSources": 115,
+    "servedJavaScript": [
+      {
+        "url": "/_next/static/chunks/e898b764-724e4596a1050f58.js",
+        "sha256": "fef6a31acbe42cb772fbbca3f7eaf3ecd01ab51e1db99c4d0445205eafb6214b",
+        "same": true
+      },
+      {
+        "url": "/_next/static/chunks/656-012d3387edef90f5.js",
+        "sha256": "a48c56ee67c628c04af078afb6204fe5e24dc3f02b5820aee463f65f52e7c582",
+        "same": true
+      },
+      {
+        "url": "/_next/static/chunks/main-app-a840178321886cc8.js",
+        "sha256": "b5b7a6a18ee7f8fe0d0fa097ccf76c3fd48ec9a33395e4c9a750baa6e550e99e",
+        "same": true
+      },
+      {
+        "url": "/_next/static/chunks/987-e7efaa2e25847fed.js",
+        "sha256": "dd2830cddc3d1cecb34ea22e6831df6db876fe17320a06b71eab72c6417e51ca",
+        "same": true
+      },
+      {
+        "url": "/_next/static/chunks/981-40e330b60c9d90dc.js",
+        "sha256": "84119ad68a48f28c8c60b4d289bea76cc31bfe264e338c947dd8cf03c55473a4",
+        "same": true
+      },
+      {
+        "url": "/_next/static/chunks/app/layout-9ba34f168a59eafd.js",
+        "sha256": "7837f6d92f4a334e7c7f847322b52e16919174d9f16c01dafb57cead253eba41",
+        "same": true
+      },
+      {
+        "url": "/_next/static/chunks/876-970751e242594177.js",
+        "sha256": "d84eca37ec1994232b2c9c66cdb454332f337757e3c7884b8d82d7dc504a1421",
+        "same": true
+      },
+      {
+        "url": "/_next/static/chunks/850-03d460badcc90bec.js",
+        "sha256": "fe19aab65e4b99652e82702538aef87e95e949da65e3a5d8ab24c4a77740cf5b",
+        "same": true
+      },
+      {
+        "url": "/_next/static/chunks/948-85266d567c3bae8b.js",
+        "sha256": "4e807c0317858631a1831c7a30c82fe5932dec40da12fc8aeffb6d1aebb43a2e",
+        "same": true
+      },
+      {
+        "url": "/_next/static/chunks/745-c770c7ac926c4472.js",
+        "sha256": "a1805d28a50ae9121cea6094e047539868af9c595bd51334866e345ab0afc52a",
+        "same": true
+      },
+      {
+        "url": "/_next/static/chunks/330-cf0255e3c13607b5.js",
+        "sha256": "e69699a7f77c9c194f9ffdb3856b0c67dd30d4372bdc4866b2666b596fd06cbe",
+        "same": true
+      },
+      {
+        "url": "/_next/static/chunks/app/skin/page-e505679418d552f0.js",
+        "sha256": "117f740738722d4e0759f3638dae6998645680031d3a62e9825e32bb0bae2786",
+        "same": true
+      },
+      {
+        "url": "/_next/static/chunks/polyfills-42372ed130431b0a.js",
+        "sha256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+        "same": true
+      },
+      {
+        "url": "/_next/static/chunks/webpack-e04591764102906a.js",
+        "sha256": "9c2da8c1d761f11d9f34ad5d2e61897cd317074cc485cd423edaa8104332d28f",
+        "same": true
+      }
+    ],
+    "userHistoryRewritten": false,
+    "AGTouched": false,
+    "normalDry": "v3",
+    "normalChin": "v9",
+    "normalCheek": "v7",
+    "newBuild": false
+  },
+  "artifacts": [
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\05619d0a-expression-result.json",
+      "bytes": 50448,
+      "sha256": "71a5262df0896e11cc77ae47a87f3bd85d3d1acebe37da71182683b5222cd8fd"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\24031977-balanced-components.json",
+      "bytes": 10145,
+      "sha256": "c8eff863417da5e1614c9dbfee45c98897d620aed34f946ff403bc411bd2d573"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\24031977-balanced-native-result.json",
+      "bytes": 33277,
+      "sha256": "e46b3dc43e63eb9e962efc706b84e3f91f5f6cac55f60533172683a36346df5a"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\24031977-components.json",
+      "bytes": 10169,
+      "sha256": "90c1770b925038a4ee92307487e753e998232ca4f33f55046bf1724152a1bc22"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\24031977-native-result.json",
+      "bytes": 33198,
+      "sha256": "2106cc45f4120d5117fe7182a82346cc78050faafe9e595d04a168ab59f67ac5"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\40c7edda-expression-result.json",
+      "bytes": 34289,
+      "sha256": "75f355f3d59b24f2979816615d9760bae7159a4f1eb508b2cc9ed29b8387d4fa"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\64b02ede-expression-result.json",
+      "bytes": 50770,
+      "sha256": "83467671bb9446248a94235c6a0861f8a04983406a29bda6462640bfc8011e4a"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\99f82af5-expression-result.json",
+      "bytes": 48331,
+      "sha256": "11fbd3f5dc96fb05ed5e68124a91174aac187743ded8422c6831fd78d79fa35b"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\9bab7ab2-balanced-components.json",
+      "bytes": 25559,
+      "sha256": "04090e1a53ce92bebdfd31a0e867fe290e681db9f0766d3fae05fc969254b8ab"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\9bab7ab2-balanced-native-result.json",
+      "bytes": 39322,
+      "sha256": "a58645022ac2fa9981f83d14e13a4113ad9e6ca4a37d2860205f87f8a4212001"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\9bab7ab2-components.json",
+      "bytes": 25634,
+      "sha256": "749b77c44239e9974f6c37209bc4bf4f4e81baf5e0190d337b42b4ca52d4a435"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\9bab7ab2-native-result.json",
+      "bytes": 38472,
+      "sha256": "b30519047f2740d4e53d9f9253d0db6ce6c42cab354cbb4c53898373a2c2bbb0"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\api-budget.json",
+      "bytes": 1069,
+      "sha256": "3b11d8ef4656dacb2dddcfae644df76ab1505fe58114f8b60d13bcf3cfdf3274"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\balanced-product-profile.json",
+      "bytes": 4227,
+      "sha256": "0a0365130bb094baef4c8541f38dc7e72d27456126ba00c10197bfc7216de2e0"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\balanced-trial-protocol.json",
+      "bytes": 1010,
+      "sha256": "d20e693c5c21a678fb16981ecee336a72c92129c2e73ea73e1e9b2afd3315985"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\browser-expression.json",
+      "bytes": 475848,
+      "sha256": "2313d3675af7d03f56471e4310859c7fec9e79a9d1a29cfcf21ea463e957ff4c"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\contour-capture-units.json",
+      "bytes": 16623,
+      "sha256": "30ba4149e2c8f362c0cf5ce1f13beaab6b68036f7f3e7f2ca0967652951485b1"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\e1646fda-components.json",
+      "bytes": 441139,
+      "sha256": "378b93b90829f49ee2073923eb87a5eea7fca0f3b7052dd9840bd6ed775dac13"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\e1646fda-native-result.json",
+      "bytes": 122911,
+      "sha256": "6ac317bd1c153c0f81fbd4abc7e099067e4795c4e3912fee786b69cb7c1e1948"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\encoder-parity.json",
+      "bytes": 1016,
+      "sha256": "3f1bd96bb44041a80916168fa36c7ccc032598b1211f308b6e2dc081a5085490"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\expression-contour-comparison.json",
+      "bytes": 10712,
+      "sha256": "e6b3b5798a8c77cad71078cf86f001d7879809f6aae019b0a35feea42ce68230"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\f90e68f8-expression-result.json",
+      "bytes": 46940,
+      "sha256": "59b88c969330d3b6c075097221ab8f5ececed6ff112767676f9946d05b361b10"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\failure-attribution.json",
+      "bytes": 94945,
+      "sha256": "88c83e3b607ec12feb64c176d8d817c639176a712694005ca8ed3cab111e2a0a"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\fc3a6b13-expression-result.json",
+      "bytes": 14484,
+      "sha256": "3628bf6aef53caddaf8978783964fdbac2c5fe76b214b0463daf7d329832e974"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\finite-source-review.json",
+      "bytes": 78140,
+      "sha256": "bfc2cc15547a4b637c5cdab49fc88e4519e6350ecf481bdfaad91efcffc693fa"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\finite-source-selection.json",
+      "bytes": 70151,
+      "sha256": "6bfc896938ac1fb620398a0e7dda6afd1f1d5bbb88d1ebe5c9b62a38d7e55784"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\new-photo-request.json",
+      "bytes": 2637,
+      "sha256": "05e787dbdc6b1f0d355de756325023ada080b3c90c3f5d4b2393bf4c38efb8e5"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\new-photo-selection.json",
+      "bytes": 7466,
+      "sha256": "6d11bcc943cf5f7f1acfbe5d1585fc30fb31d5589ee5ce5f2d696fec024010c6"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\profile.json",
+      "bytes": 6195,
+      "sha256": "c1cd997498b55e3a70ae403bcc25d3e0c4b917201dfae26e88dd2b615c983aad"
+    },
+    {
+      "path": "audit-results\\material-runtime-followup-20261013\\source-location-correction.json",
+      "bytes": 2505,
+      "sha256": "9fc091bcb4e28fec2677c6991c6d669d8bbd91ced35405fec09e022282b4f4a9"
+    },
+    {
+      "path": "audit-results\\native-material-contour-20261013\\encoder-material-balanced-head.json",
+      "bytes": 162644,
+      "sha256": "98aaed7bbfc1304a3a0b38ccc049df3f39f50e2f509e0e076fb08858329d38ad"
+    },
+    {
+      "path": "audit-results\\native-material-contour-20261013\\material-encoder-balanced-comparison.json",
+      "bytes": 192856,
+      "sha256": "92bdab660dc6507274e10c7d3c7db1ae03e0bfbb5fa8cc043694ed0680e0f6ca"
+    }
+  ]
+}

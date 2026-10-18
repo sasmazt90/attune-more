@@ -1,0 +1,817 @@
+{
+  "baselineCommit": "ed3cd37dd59a300e5071c403ce1e3788197ccd58",
+  "scope": "research work only; no admitted normal selector change",
+  "preservedBuildId": "JO0Xyvupv72uoBiX42mWq",
+  "normalSourcePins": {
+    "count": 115,
+    "differences": []
+  },
+  "normalMethods": {
+    "dry": "v3",
+    "chin": "v9",
+    "cheek": "v7"
+  },
+  "proposalOptimization": {
+    "comparisons": 32,
+    "allFieldByteExact": true,
+    "allDefaultGeometryExact": true,
+    "sumBeforeSeconds": 17.15999999921769,
+    "sumAfterSeconds": 10.51300000003539,
+    "medianBeforeSeconds": 0.2970000000204891,
+    "medianAfterSeconds": 0.2029999999795109,
+    "realProductGeometryStressExact": true,
+    "stressProposalBeforeSeconds": 89.0,
+    "stressProposalAfterSeconds": 9.452999999979511,
+    "stressFullPipelineNewSeconds": null
+  },
+  "cachelessProfile": {
+    "rows": [
+      {
+        "source": "e1646fda",
+        "scope": "stress-native-proposal-only",
+        "elapsed": 12.0,
+        "profile": {
+          "decode": 0.28100000019185245,
+          "geometry": 0.09399999980814755,
+          "proposal": 9.452999999979511,
+          "material": 0.0,
+          "mapsAndResults": 0.3910000000614673
+        },
+        "sourceImageSize": [
+          1944,
+          2592
+        ],
+        "metadata": {
+          "version": "native-independent-stable-region-ridge-v3",
+          "sourceGrid": [
+            956,
+            1256
+          ],
+          "analysisResize": false,
+          "coordinateScale": 1.3211410537362098,
+          "tileCore": 512,
+          "tileStride": 256,
+          "halo": 53,
+          "tiles": 12,
+          "peakTilePixels": 381924,
+          "overlapCountedOnce": true,
+          "sharedSourceGrayLab": true,
+          "candidateRegions": 61550,
+          "processedCandidateRegions": 14742,
+          "skippedOutsideCoreEligibility": 46808,
+          "cropOrigin": [
+            549,
+            831
+          ],
+          "cropShape": [
+            956,
+            1256
+          ],
+          "sourceImageSize": [
+            1944,
+            2592
+          ],
+          "normalProductEnabled": false
+        },
+        "mapsAndScoresExact": true,
+        "fullEncoderRequestMeasured": false
+      },
+      {
+        "source": "9bab7ab2",
+        "status": "complete",
+        "elapsed": 9.890000000130385,
+        "profile": {
+          "decode": 0.031999999890103936,
+          "geometry": 0.030999999959021807,
+          "proposal": 0.5779999999795109,
+          "material": 7.016000000061467,
+          "mapsAndResults": 0.04600000008940697
+        },
+        "sourceImageSize": [
+          640,
+          640
+        ],
+        "sourceFacePixels": 360.78447341918945,
+        "metadata": {
+          "version": "native-independent-stable-region-ridge-v3",
+          "sourceGrid": [
+            443,
+            509
+          ],
+          "analysisResize": false,
+          "coordinateScale": 0.5637257397174835,
+          "tileCore": 512,
+          "tileStride": 256,
+          "halo": 48,
+          "tiles": 1,
+          "peakTilePixels": 225487,
+          "overlapCountedOnce": true,
+          "sharedSourceGrayLab": true,
+          "candidateRegions": 1250,
+          "processedCandidateRegions": 344,
+          "skippedOutsideCoreEligibility": 906,
+          "classifierVersion": "frozen-imagenet-two-crop-material-block-balanced-v2-staging",
+          "encoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+          "candidateComponents": 74,
+          "acceptedComponents": 6,
+          "threshold": 0.5,
+          "confidenceNotSeverity": true,
+          "sourceLabelsAsInferenceInput": false,
+          "timings": {
+            "describe": 0.0470000000204891,
+            "crop": 0.3740000003017485,
+            "encoder": 5.563000000081956,
+            "classifier": 0.0
+          },
+          "uniqueEncodedCrops": 148,
+          "identicalCropsReused": 0,
+          "maximumResidentCropTensors": 32,
+          "persistentPhotoCache": false,
+          "transport": "onnx-cpu",
+          "cropOrigin": [
+            81,
+            131
+          ],
+          "cropShape": [
+            443,
+            509
+          ],
+          "sourceImageSize": [
+            640,
+            640
+          ],
+          "normalProductEnabled": false
+        },
+        "mapsAndScoresExact": true,
+        "within45Seconds": true,
+        "normalProductEnabled": false,
+        "photoFeatureCacheRead": false
+      },
+      {
+        "source": "24031977",
+        "status": "complete",
+        "elapsed": 2.6089999999385327,
+        "profile": {
+          "decode": 0.01600000006146729,
+          "geometry": 0.01500000013038516,
+          "proposal": 0.21899999980814755,
+          "material": 2.2660000000614673,
+          "mapsAndResults": 0.030999999959021807
+        },
+        "sourceImageSize": [
+          408,
+          612
+        ],
+        "sourceFacePixels": 283.1681742668152,
+        "metadata": {
+          "version": "native-independent-stable-region-ridge-v3",
+          "sourceGrid": [
+            361,
+            436
+          ],
+          "analysisResize": false,
+          "coordinateScale": 0.4424502722918987,
+          "tileCore": 512,
+          "tileStride": 256,
+          "halo": 48,
+          "tiles": 1,
+          "peakTilePixels": 157396,
+          "overlapCountedOnce": true,
+          "sharedSourceGrayLab": true,
+          "candidateRegions": 1088,
+          "processedCandidateRegions": 135,
+          "skippedOutsideCoreEligibility": 953,
+          "classifierVersion": "frozen-imagenet-two-crop-material-block-balanced-v2-staging",
+          "encoderSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a",
+          "candidateComponents": 29,
+          "acceptedComponents": 3,
+          "threshold": 0.5,
+          "confidenceNotSeverity": true,
+          "sourceLabelsAsInferenceInput": false,
+          "timings": {
+            "describe": 0.03100000019185245,
+            "crop": 0.10899999993853271,
+            "encoder": 1.8600000003352761,
+            "classifier": 0.0
+          },
+          "uniqueEncodedCrops": 58,
+          "identicalCropsReused": 0,
+          "maximumResidentCropTensors": 32,
+          "persistentPhotoCache": false,
+          "transport": "onnx-cpu",
+          "cropOrigin": [
+            47,
+            64
+          ],
+          "cropShape": [
+            361,
+            436
+          ],
+          "sourceImageSize": [
+            408,
+            612
+          ],
+          "normalProductEnabled": false
+        },
+        "mapsAndScoresExact": true,
+        "within45Seconds": true,
+        "normalProductEnabled": false,
+        "photoFeatureCacheRead": false
+      }
+    ],
+    "resource": {
+      "owner": "CD",
+      "pid": 175196,
+      "processStarted": 1791914124.7114103,
+      "jobId": "CD-cacheless-preserved-material-scope",
+      "nonce": "554c72881c974532b7ea31fc53eb4e7e",
+      "commandSHA256": "fa5ac0821f35a01ea2482fec30369ff5bb2d814e44705da0d3bcf3435a9af285",
+      "peakBudgetMiB": 600,
+      "minimumAvailableMiB": 1000,
+      "peakMeasuredRSSMiB": 534.04296875,
+      "childRSSIncluded": false,
+      "elapsedSeconds": 13.765999999828637,
+      "foreignProcessesStopped": false
+    },
+    "sourceImageResize": false,
+    "persistentPhotoFeatureCache": false,
+    "newEncoderExport": false,
+    "normalProductEnabled": false,
+    "stressFullPipelineStillUnadmitted": true
+  },
+  "experiment": {
+    "variable": "one frozen-encoder proposal-conditioned context crop plus 12 geometry features",
+    "trainRows": 63,
+    "trainGroups": 15,
+    "headFits": 1,
+    "threshold": 0.5,
+    "seenValidationNotIndependentFinal": true,
+    "summary": [
+      {
+        "factor": 1.0,
+        "split": "train",
+        "objects": 13,
+        "hits": 8,
+        "negativeSourcePixels": 431.0
+      },
+      {
+        "factor": 1.0,
+        "split": "validation",
+        "objects": 8,
+        "hits": 7,
+        "negativeSourcePixels": 77.0
+      },
+      {
+        "factor": 0.5,
+        "split": "train",
+        "objects": 13,
+        "hits": 10,
+        "negativeSourcePixels": 252.0
+      },
+      {
+        "factor": 0.5,
+        "split": "validation",
+        "objects": 8,
+        "hits": 5,
+        "negativeSourcePixels": 404.0
+      }
+    ],
+    "preservedSix": [
+      {
+        "control": 0,
+        "object": 0,
+        "baseline": false,
+        "singleCrop": false
+      },
+      {
+        "control": 0,
+        "object": 1,
+        "baseline": false,
+        "singleCrop": true
+      },
+      {
+        "control": 0,
+        "object": 2,
+        "baseline": false,
+        "singleCrop": true
+      },
+      {
+        "control": 2,
+        "object": 0,
+        "baseline": true,
+        "singleCrop": true
+      },
+      {
+        "control": 3,
+        "object": 0,
+        "baseline": true,
+        "singleCrop": true
+      },
+      {
+        "control": 9,
+        "object": 1,
+        "baseline": true,
+        "singleCrop": true
+      }
+    ],
+    "accepted": false,
+    "reason": "native reviewed-negative support 30 -> 508 pixels; no full normal-camera admission",
+    "normalProductEnabled": false
+  },
+  "correctedMaterialLocations": {
+    "source": "24031977",
+    "photoId": "e9d089f6bcda11d682f9bb64de320768fb915967495fe0b04d30710c27c7cd6c",
+    "sourceOrigin": [
+      47,
+      64
+    ],
+    "rows": [
+      {
+        "polygon": [
+          [
+            117,
+            307
+          ],
+          [
+            141,
+            306
+          ],
+          [
+            166,
+            319
+          ],
+          [
+            183,
+            337
+          ],
+          [
+            177,
+            350
+          ],
+          [
+            159,
+            347
+          ],
+          [
+            140,
+            329
+          ],
+          [
+            120,
+            324
+          ]
+        ],
+        "counts": {
+          "proposal": 143,
+          "anatomy": 38,
+          "anatomyAndExclusion": 38,
+          "beforeHair": 38,
+          "eligible": 38
+        },
+        "outsideLocation": "UNKNOWN",
+        "label": "partial visible material location, etiology UNKNOWN"
+      },
+      {
+        "polygon": [
+          [
+            272,
+            300
+          ],
+          [
+            296,
+            301
+          ],
+          [
+            313,
+            325
+          ],
+          [
+            319,
+            351
+          ],
+          [
+            305,
+            366
+          ],
+          [
+            287,
+            354
+          ],
+          [
+            280,
+            332
+          ]
+        ],
+        "counts": {
+          "proposal": 16,
+          "anatomy": 8,
+          "anatomyAndExclusion": 8,
+          "beforeHair": 8,
+          "eligible": 8
+        },
+        "outsideLocation": "UNKNOWN",
+        "label": "partial visible material location, etiology UNKNOWN"
+      }
+    ],
+    "proposalSeconds": 2.6089999999385327,
+    "peakMeasuredRSSMiB": 61.1015625,
+    "sourcePoolSize": 1,
+    "encoderCalls": 0,
+    "geometryFromCurrentProductionSource": true,
+    "AGModified": false
+  },
+  "cameraObservations": [
+    {
+      "kind": "actual-virtual-camera-track",
+      "source": {
+        "sourcePath": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test\\audit-results\\followup-closure-20261010\\sellers-frames\\002400.png",
+        "sourceSHA256": "5c065531abe76ebc55c1673fcc1ebc3cc881d3dcf0f3eaba85cccde575f8637a",
+        "previouslyLicensedLocalSource": true,
+        "pixelResizeForRuntime": false
+      },
+      "track": {
+        "constraints": {
+          "video": {
+            "width": {
+              "ideal": 1920
+            },
+            "height": {
+              "ideal": 1080
+            },
+            "resizeMode": {
+              "ideal": "none"
+            },
+            "facingMode": "user"
+          }
+        },
+        "settings": {
+          "aspectRatio": 1.7777777777777777,
+          "deviceId": "bddc58dbd5e455971cddea20b2367299e5cbb6236436198016ed046cdf5d9201",
+          "frameRate": 30,
+          "groupId": "5edf58796deae864160e651c67fd7b2a56367b879200e9e52717725d9c3223ff",
+          "height": 720,
+          "resizeMode": "none",
+          "width": 1280
+        },
+        "capabilities": {
+          "aspectRatio": {
+            "max": 1280,
+            "min": 0.001388888888888889
+          },
+          "deviceId": "bddc58dbd5e455971cddea20b2367299e5cbb6236436198016ed046cdf5d9201",
+          "facingMode": [],
+          "frameRate": {
+            "max": 30,
+            "min": 0
+          },
+          "groupId": "5edf58796deae864160e651c67fd7b2a56367b879200e9e52717725d9c3223ff",
+          "height": {
+            "max": 720,
+            "min": 1
+          },
+          "resizeMode": [
+            "none",
+            "crop-and-scale"
+          ],
+          "width": {
+            "max": 1280,
+            "min": 1
+          }
+        },
+        "videoSize": [
+          1280,
+          720
+        ],
+        "deviceKind": "controlled native video virtual device; not physical user camera",
+        "snapshotPreservesTrackDimensions": true
+      },
+      "size": [
+        1280,
+        720
+      ],
+      "photoId": "18ad5e28a070b4f5c94085a8c12d6dfd86be4b01577c7883b1a1aa8b28f3f167",
+      "alignment": {
+        "faceDetected": true,
+        "isMediaPipeActive": true,
+        "box": {
+          "x": 463,
+          "y": 96,
+          "width": 170,
+          "height": 211
+        },
+        "yaw": 0.18,
+        "pitch": -0.06,
+        "roll": -0.18,
+        "scaleRatio": 0.13,
+        "isAligned": true,
+        "guidanceTextTr": "Hizalama uygun",
+        "landmarks": null,
+        "sourceFramed": true,
+        "faceTransform": [
+          0.9852163791656494,
+          0.11073245108127594,
+          -0.13071896135807037,
+          0,
+          -0.09553973376750946,
+          0.9884926676750183,
+          0.1172812432050705,
+          0,
+          0.1422015279531479,
+          -0.10305846482515335,
+          0.984458327293396,
+          0,
+          -7.379764080047607,
+          14.157548904418945,
+          -54.197086334228516,
+          1
+        ],
+        "faceCount": 1
+      },
+      "quality": {
+        "isValid": true,
+        "avgLuminance": 86.51812120181113,
+        "blurScore": 7.2071215419500785,
+        "status": "OPTIMAL"
+      },
+      "expression": {
+        "_neutral": 1.5793508282513358e-05,
+        "browDownLeft": 0.5907287001609802,
+        "browDownRight": 0.5008434057235718,
+        "browInnerUp": 0.0006624360685236752,
+        "browOuterUpLeft": 0.0010988559806719422,
+        "browOuterUpRight": 0.001772944931872189,
+        "cheekPuff": 7.609747990500182e-05,
+        "cheekSquintLeft": 4.824137818104646e-07,
+        "cheekSquintRight": 1.8688532463784213e-06,
+        "eyeBlinkLeft": 0.09693901985883713,
+        "eyeBlinkRight": 0.038567591458559036,
+        "eyeLookDownLeft": 0.062281545251607895,
+        "eyeLookDownRight": 0.051771532744169235,
+        "eyeLookInLeft": 0.0008175023249350488,
+        "eyeLookInRight": 0.8173513412475586,
+        "eyeLookOutLeft": 0.8015352487564087,
+        "eyeLookOutRight": 0.001037576817907393,
+        "eyeLookUpLeft": 0.14075276255607605,
+        "eyeLookUpRight": 0.13483743369579315,
+        "eyeSquintLeft": 0.2981540262699127,
+        "eyeSquintRight": 0.3583908975124359,
+        "eyeWideLeft": 0.0057545313611626625,
+        "eyeWideRight": 0.00948623288422823,
+        "jawForward": 0.00031137425685301423,
+        "jawLeft": 0.0028312529902905226,
+        "jawOpen": 0.01227712631225586,
+        "jawRight": 8.828284990158863e-06,
+        "mouthClose": 0.0033408210147172213,
+        "mouthDimpleLeft": 0.054845165461301804,
+        "mouthDimpleRight": 0.007457702420651913,
+        "mouthFrownLeft": 0.018501736223697662,
+        "mouthFrownRight": 0.02483118325471878,
+        "mouthFunnel": 9.233735909219831e-05,
+        "mouthLeft": 0.00027406084700487554,
+        "mouthLowerDownLeft": 0.00027403136482462287,
+        "mouthLowerDownRight": 0.0006054694531485438,
+        "mouthPressLeft": 0.5835930109024048,
+        "mouthPressRight": 0.1989355832338333,
+        "mouthPucker": 7.284960884135216e-05,
+        "mouthRight": 0.0011628889478743076,
+        "mouthRollLower": 0.07029396295547485,
+        "mouthRollUpper": 0.06898458302021027,
+        "mouthShrugLower": 0.06348258256912231,
+        "mouthShrugUpper": 0.008811400271952152,
+        "mouthSmileLeft": 0.1353536695241928,
+        "mouthSmileRight": 0.053675711154937744,
+        "mouthStretchLeft": 0.07237766683101654,
+        "mouthStretchRight": 0.08902719616889954,
+        "mouthUpperUpLeft": 0.0007641722331754863,
+        "mouthUpperUpRight": 0.0006354161887429655,
+        "noseSneerLeft": 5.009549681744829e-07,
+        "noseSneerRight": 3.698851742228726e-06
+      },
+      "acceptedAngles": [],
+      "snapshotError": null,
+      "sourceFacePixels": 167.44873046875
+    },
+    {
+      "kind": "targeted-natural-local-photo",
+      "source": {
+        "source": "clean3",
+        "absolutePath": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test\\audit-results\\skin-selected-20261011\\sources\\clean3\\test\\277_jpg.rf.7823e7df5ebfb478bcc4ca35051dc77a.jpg",
+        "sha256": "29cc4ba7b1bc0c6c483463d6d5bb5183e7b4a8e88cb3145f5f61b1de6992864b",
+        "group": "29cc4ba7b1bc0c6c483463d6d5bb5183e7b4a8e88cb3145f5f61b1de6992864b",
+        "family": "277",
+        "split": "train",
+        "width": 2316,
+        "height": 3088,
+        "rights": "publisher-declared; individual-photo-review-pending",
+        "reviewIndex": 9,
+        "reviewReason": "natural full face, apparently near-neutral; ordinary-contour control candidate; pending actual pose/expression/quality and local support review",
+        "neutralContourPositive": false,
+        "clinicalSagLabel": null,
+        "visibleDryMaterialPixelLabel": null,
+        "weakPhotoClassAsComponentTruth": false
+      },
+      "size": [
+        2316,
+        3088
+      ],
+      "photoId": "5f1caaf77f86b0d60d80aec147a5c541a0dd732628edabe159de1e8bf6187720",
+      "alignment": {
+        "faceDetected": true,
+        "isMediaPipeActive": true,
+        "box": {
+          "x": 545,
+          "y": 848,
+          "width": 1142,
+          "height": 1417
+        },
+        "yaw": -0.0,
+        "pitch": 0,
+        "roll": 0.01,
+        "scaleRatio": 0.49,
+        "isAligned": true,
+        "guidanceTextTr": "Hizalama uygun",
+        "landmarks": null,
+        "sourceFramed": true,
+        "faceTransform": [
+          0.999701738357544,
+          -0.0003747532609850168,
+          -0.024453353136777878,
+          0,
+          0.004959304817020893,
+          0.9822158813476562,
+          0.18769361078739166,
+          0,
+          0.02394811064004898,
+          -0.18775880336761475,
+          0.9819239974021912,
+          0,
+          -0.39587438106536865,
+          0.6217396259307861,
+          -32.915992736816406,
+          1
+        ],
+        "faceCount": 1
+      },
+      "quality": {
+        "isValid": true,
+        "avgLuminance": 115.73960720837569,
+        "blurScore": 5.104924343345075,
+        "status": "OPTIMAL"
+      },
+      "expression": {
+        "_neutral": 4.25564252282129e-07,
+        "browDownLeft": 0.003753521479666233,
+        "browDownRight": 0.0022342430893331766,
+        "browInnerUp": 0.34998953342437744,
+        "browOuterUpLeft": 0.5981289148330688,
+        "browOuterUpRight": 0.3339311182498932,
+        "cheekPuff": 7.486150934710167e-06,
+        "cheekSquintLeft": 7.284194794010546e-07,
+        "cheekSquintRight": 5.108358536176638e-08,
+        "eyeBlinkLeft": 0.11436212062835693,
+        "eyeBlinkRight": 0.0800388753414154,
+        "eyeLookDownLeft": 0.21912553906440735,
+        "eyeLookDownRight": 0.23794788122177124,
+        "eyeLookInLeft": 0.031199993565678596,
+        "eyeLookInRight": 0.07750199735164642,
+        "eyeLookOutLeft": 0.1226474791765213,
+        "eyeLookOutRight": 0.06358014792203903,
+        "eyeLookUpLeft": 0.04267018660902977,
+        "eyeLookUpRight": 0.04488389194011688,
+        "eyeSquintLeft": 0.23287932574748993,
+        "eyeSquintRight": 0.27230104804039,
+        "eyeWideLeft": 0.006929946132004261,
+        "eyeWideRight": 0.010540081188082695,
+        "jawForward": 0.00014474404451902956,
+        "jawLeft": 0.0001229480403708294,
+        "jawOpen": 0.0009795821970328689,
+        "jawRight": 3.307480437797494e-05,
+        "mouthClose": 0.0002934391377493739,
+        "mouthDimpleLeft": 0.00036678463220596313,
+        "mouthDimpleRight": 0.0045999810099601746,
+        "mouthFrownLeft": 0.002054489217698574,
+        "mouthFrownRight": 0.001353361178189516,
+        "mouthFunnel": 0.07428648322820663,
+        "mouthLeft": 0.0005351384752430022,
+        "mouthLowerDownLeft": 0.0003864391765091568,
+        "mouthLowerDownRight": 0.0002180877054343,
+        "mouthPressLeft": 0.0011061928234994411,
+        "mouthPressRight": 0.00265401229262352,
+        "mouthPucker": 0.6467467546463013,
+        "mouthRight": 0.004066246561706066,
+        "mouthRollLower": 0.00013967067934572697,
+        "mouthRollUpper": 6.183264486026019e-05,
+        "mouthShrugLower": 0.0017170582432299852,
+        "mouthShrugUpper": 0.03446320816874504,
+        "mouthSmileLeft": 0.020393114537000656,
+        "mouthSmileRight": 0.027288706973195076,
+        "mouthStretchLeft": 0.029011940583586693,
+        "mouthStretchRight": 0.011132827959954739,
+        "mouthUpperUpLeft": 0.003988330252468586,
+        "mouthUpperUpRight": 0.0076159327290952206,
+        "noseSneerLeft": 3.5884436329070013e-06,
+        "noseSneerRight": 4.6975347345323826e-07
+      },
+      "acceptedAngles": [
+        "FRONT"
+      ],
+      "snapshotError": null,
+      "sourceFacePixels": 1108.9613295793533
+    }
+  ],
+  "cameraScope": {
+    "idealIsMaximum": false,
+    "normalPageIdeal": [
+      1920,
+      1080
+    ],
+    "existingApiLimit": {
+      "maxDimension": 4096,
+      "maxPixels": 8400000
+    },
+    "actualVirtualTrack": [
+      1280,
+      720
+    ],
+    "actualCameraFixtureAccepted": false,
+    "reason": "roll -0.18 exceeds 0.15; source face 167.4487px below native 180px minimum",
+    "physicalCameraAcceptance": false,
+    "realFullHDCameraBudgetVerified": false,
+    "normalCameraScopeClosed": false,
+    "stressWithinExistingApiShapeLimit": true,
+    "stressRemovedBecauseSlow": false,
+    "healthyZeroOrPartialResultWritten": false,
+    "existingCooperativeDeadlineSeconds": 45,
+    "previousCancelDeadlineProof": "audit-results/material-runtime-followup-20261013/api-budget.json"
+  },
+  "contourReview": {
+    "sourcesReviewed": 16,
+    "freshNativeBrowserSnapshotSources": [
+      "29cc4ba7b1bc0c6c483463d6d5bb5183e7b4a8e88cb3145f5f61b1de6992864b"
+    ],
+    "newVerifiedNeutralExternalProminenceTargets": 0,
+    "allInventoryRejected": false,
+    "remainingCaptureAndContourProbesBlocked": true,
+    "source29cc": {
+      "role": "natural neutral-looking ordinary/unknown external contour; not age/fullness-derived positive",
+      "actualCaptureAccepted": true,
+      "normalProductInferenceCompleted": false
+    }
+  },
+  "resourceObservations": {
+    "roiPeakRSSMiB": 93.48046875,
+    "singleCropPeakRSSMiB": 471.44921875,
+    "profilePeakRSSMiB": 534.04296875,
+    "browserGuard": {
+      "peakSummedOwnTreeRSSMiB": 1380.671875,
+      "budgetMiB": 1000,
+      "availableAtStopMiB": 522.625,
+      "nextSourceNotStarted": true,
+      "ownBrowserClosed": true
+    },
+    "AGAtLastCheck": {
+      "pid": 176480,
+      "processStarted": 1791914530.5200045,
+      "ownerProof": "resolved-process-cwd",
+      "script": "diagnose_p2_contribution.py",
+      "rssMiB": 1627.63671875,
+      "availableMiB": 596.58984375
+    },
+    "sharedLease": "C:/Users/PC/Desktop/AI Workspace/TOGG/coordination-notes/heavy-compute.lock.json",
+    "AGContractAdoptionConfirmed": false,
+    "foreignProcessStopped": false,
+    "foreignOrStaleLeaseRemoved": false,
+    "normalUserAppsClosed": false
+  },
+  "regressions": {
+    "passed": 29,
+    "files": [
+      "test_native_roi_compute_contract.py",
+      "test_native_material_runtime.py",
+      "test_native_dry_path.py",
+      "test_material_contour_branches.py"
+    ],
+    "resourceGuardAfterCompletedTests": "new AG worker observed; further heavy CD work stopped"
+  },
+  "newProductionBuild": false,
+  "newNormalRuntimeAcceptance": false,
+  "oldRecordsRecomputed": false,
+  "sourceHashes": {
+    "services/core-api/native_flake_support.py": "9fcf4702a669cadd1e5e2edbe17512507c4ac9e17bf39c7eb86721084c24e107",
+    "services/core-api/material_component_features.py": "e6d3978cdcf0dd851ecaf3c67464f8fb6c75a771d45d204d6483e0a5d8ffe571",
+    "services/core-api/native_dry_path.py": "3f67526f448ffa291954ab5bb41998e33fe1c6936d7395283af4c7d0e3654829",
+    "services/core-api/contour_appearance.py": "7dd830ff913fc2546f36ded3a75edaca02714fe585784bb835000d604ea03bad",
+    "scripts/skin-research/heavy_job_lease.py": "1e45392ebb120836178538f7109eb87664fc50857f91ca2512823ad41ed00a1a"
+  },
+  "auditHashes": {
+    "roi-exact-parity.json": "16b0bb6b27201584dc06930f040e873d536742ae05e39945c183f046705b787b",
+    "cacheless-profile.json": "56cb1ee8820988b8953f359f4f97b2df109f2811e986b1cd4686a65bfc8409e9",
+    "single-crop-protocol.json": "1c462d58a054e0ba3280ea23c6822f1cc7487912459120d2cd41e4184ddd3a8d",
+    "single-crop-comparison.json": "2ff30cb7ef0aa6b11e5edfc4f6f26fdb9bd5f35b3063045ecfdd97e8ccb424a3",
+    "single-crop-head.json": "82baaf9d6d5dcc1c625c6e410a076614fbe0bf544736663cde521ef787d94d0f",
+    "material-eligibility-diagnosis.json": "53107fb77eb30cecb40e7d532ed4d4eb9432e6e03a7228f29950df63e87beae5",
+    "camera-contour-probe-progress.json": "787a92279d8a16aeec6c3aea536ce45e219dde2fcb29e83896d63bc3dc7ab853",
+    "alternate-domain-reviewed.json": "cbdb9f7bef33638d8ca4f8b338c00e5f7cab95ae41bf449eb04565321dceff71",
+    "contour-probe-selection.json": "0c58b70127a66d075eb8268ea5edc365210d5bd0ff60fb11519d0fd91cc6f470"
+  }
+}

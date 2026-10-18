@@ -75,18 +75,22 @@ def test_vision_park_lock_enforcement():
 
 def test_vision_no_synthetic_distance_generator():
     """Vision sayfasında intervalCount veya 52+ simülasyon döngüsü kesinlikle yer alamaz."""
-    vision_file = root_dir / "apps" / "vehicle-app" / "src" / "app" / "vision" / "page.tsx"
+    vision_file = root_dir / "apps" / "vehicle-app" / "src" / "app" / "vision" / "ContinuousPage.tsx"
     assert vision_file.exists()
     content = vision_file.read_text(encoding="utf-8")
     assert "52 + (intervalCount % 5)" not in content
     assert "intervalCount % 5" not in content
-    assert "verifiedDistanceCm" in content
+    assert "verifiedDistanceCm" not in content
+    assert "relativeScaleChange" in content and "Mutlak mesafe ölçülmüyor" in content
 
 def test_vision_incomplete_result_has_no_fake_snellen_fallback():
     """Tamamlanmamış test durumunda sahte 20/30 veya 20/24 Snellen fallback'i gösterilmemelidir."""
-    vision_file = root_dir / "apps" / "vehicle-app" / "src" / "app" / "vision" / "page.tsx"
+    vision_file = root_dir / "apps" / "vehicle-app" / "src" / "app" / "vision" / "ContinuousPage.tsx"
     content = vision_file.read_text(encoding="utf-8")
     # testResults.rightEye null olduğunda '20/30' basılmamalı
     assert "testResults.rightEye?.snellen || '20/30'" not in content
     assert "testResults.leftEye?.snellen || '20/24'" not in content
-    assert "Değerlendirilemedi" in content
+    assert "if(t.completed)" in content
+    assert "isVisionSavingAllowed()" in content
+    assert "eyeOcclusionVerification:'not-camera-verified-user-instruction'" in content
+    assert "conditionFailure" in content

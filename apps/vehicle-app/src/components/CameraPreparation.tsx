@@ -1,0 +1,23 @@
+'use client';
+import { useEffect, useRef, useState, type RefObject } from 'react';
+import { cameraCrop, StablePreviewCrop, visionCameraCrop, VisionPreviewCrop } from '../utils/cameraStability';
+import { VISION_FRAME_CLASS, VISION_FRAME_RATIO } from './VisionFrame';
+import { InformationButton } from './InformationButton';
+import type { FaceAlignment, ImageQuality } from '../utils/skinAnalyzer';
+
+export { cameraCrop } from '../utils/cameraStability';
+/** Display crop only. Analysis always reads the native uncropped camera. */
+export function CameraPreview({videoRef,landmarks,vision=false}:{videoRef:RefObject<HTMLVideoElement|null>;landmarks?:{x:number;y:number}[];vision?:boolean}) {
+ const [ratio,setRatio]=useState(4/3),[frameRatio,setFrameRatio]=useState(VISION_FRAME_RATIO),frame=useRef<HTMLDivElement>(null),stable=useRef(new StablePreviewCrop()),visionStable=useRef(new VisionPreviewCrop());
+ useEffect(()=>{if(!vision||!frame.current)return;const observer=new ResizeObserver(([entry])=>{const {width,height}=entry.contentRect;if(width>0&&height>0)setFrameRatio(width/height);});observer.observe(frame.current);return()=>observer.disconnect();},[vision]);
+ const desired=vision?visionCameraCrop(landmarks,ratio,frameRatio):cameraCrop(landmarks),crop=(vision?visionStable.current:stable.current).update(desired,performance.now());
+ return <div ref={frame} data-camera-preview data-preview-crop={JSON.stringify(crop)} data-target-crop={JSON.stringify(desired)} className={vision?VISION_FRAME_CLASS:"relative w-full max-w-[480px] mx-auto overflow-hidden rounded-2xl bg-black"} style={vision?undefined:{aspectRatio:ratio*crop.width/crop.height}}>
+  <video ref={videoRef} autoPlay playsInline muted data-vision-camera={vision?true:undefined} onLoadedMetadata={e=>{if(e.currentTarget.videoHeight)setRatio(e.currentTarget.videoWidth/e.currentTarget.videoHeight);}} className="absolute max-w-none" style={{width:`${100/crop.width}%`,height:'auto',left:`${-100*crop.x/crop.width}%`,top:`${-100*crop.y/crop.height}%`}}/>
+ </div>;
+}
+export interface CameraResolution { width:number; height:number; maxWidth?:number; maxHeight?:number }
+export function CameraPreparation({alignment,quality,position,fresh=true,resolution,previewCropped=true}:{alignment?:FaceAlignment;quality?:ImageQuality;position:string;fresh?:boolean;resolution?:CameraResolution;previewCropped?:boolean}) {
+ const face=fresh&&alignment?.isMediaPipeActive&&alignment.faceCount===1;
+ const rows=[['Yüz / Kadraj',!fresh?'Görüntü bekleniyor':!face?'Yüzünüzü kameraya gösterin':'Yüz görünüyor'],['Işık',!face?'Ölçüm bekleniyor':quality?.avgLuminance!>=40&&quality?.avgLuminance!<=220?'İyi':quality?.status==='TOO_BRIGHT'?'Parlamayı azaltın':'Yüzünüzü aydınlatın'],['Netlik',!face?'Ölçüm bekleniyor':quality?.blurScore!>=4?'İyi':'Kamera netliğini kontrol edin'],['Konum',position],['Görüntü',fresh?'Güncel':'Kamera görüntüsü güncel değil']];
+ return <div className="space-y-2" data-camera-preparation>{rows.map(([label,value])=><div key={label} className="flex flex-wrap justify-between gap-2 p-3 rounded-xl border border-white/10 text-sm"><span>{label}</span><span className={value==='İyi'||value==='Güncel'||value==='Konum hazır'?'text-emerald-400':'text-slate-300'}>{value}</span></div>)}{resolution && resolution.width<1280 && <p role="status" className="text-xs text-amber-200">Kamera ayrıntısı sınırlı. Daha net bir sonuç için iyi ışıkta, alın ve çene kadrajda kalacak şekilde yeniden çekin; mümkünse daha yüksek çözünürlüklü kamera seçin.</p>}<InformationButton title="Kamera hazırlığı"><p>{previewCropped ? 'Önizleme yüz çevresine görsel olarak büyütülür; kamera çözünürlüğü, fiziksel uzaklık veya kalite puanı değişmez.' : 'Cilt önizlemesi tam kamera karesidir; yüz hareketine göre kırpılmaz veya büyütülmez. Konum tam kareden, netlik en fazla 640 piksel genişliğindeki tam analiz karesinin gerçek yüz bölgesinden ölçülür. Sonuç fotoğrafı kaynak çözünürlüğünde kalır.'} Alın ve çene korunur. Görüntü aynasızdır. Işık ve netlik gerçek kamera karesindeki yüz piksellerinden ölçülür; klinik yeterlilik veya mutlak mesafe ölçümü değildir. Görme ve cilt için kabul edilen pozlar farklıdır. Donmuş kare ile test ilerletilmez.</p>{resolution && <p data-camera-resolution>Alınan kamera: {resolution.width} × {resolution.height} piksel. {resolution.maxWidth && resolution.maxHeight ? `Cihazın bildirdiği üst sınırlar: ${resolution.maxWidth} × ${resolution.maxHeight}; bu iki sınırın birlikte desteklendiği garanti değildir.` : "Cihaz çözünürlük üst sınırlarını bildirmedi."} Fotoğraf tuvali gerçek video boyutunu korur; kaynaktaki eksik ayrıntı üretilmez.</p>}</InformationButton></div>;
+}

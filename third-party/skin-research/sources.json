@@ -1,0 +1,88 @@
+{
+  "torch": {
+    "version": "2.9.1",
+    "licenseFile": "torch-2.9.1-LICENSE.txt",
+    "sha256": "a60db7b1ec2872f18d2c1b86d147ea39d5ead7d671fe8a9c07c28b17d167e51d"
+  },
+  "numpy": {
+    "version": "2.2.6",
+    "licenseFile": "numpy-2.2.6-LICENSE.txt",
+    "sha256": "14256cc3a2c9d32ac284da96b937feb44f72dd90bee2317ac3020166846ad99d"
+  },
+  "Pillow": {
+    "version": "12.0.0",
+    "licenseFile": "pillow-12.0.0-LICENSE.txt",
+    "sha256": "9a083a15f1026b3d7096629be74f79cc80544ebf443e652d434c19f2594574d7"
+  },
+  "opencv-python": {
+    "version": "4.12.0.88",
+    "licenseFile": "opencv-python-4.12.0.88-LICENSE.txt",
+    "sha256": "edef0fac1eb08d29d34563f724742e078da2513e196133a12c6ad9ff01e26107"
+  },
+  "opencv-haar-frontalface": {
+    "opencvVersion": "4.12.0",
+    "sha256": "0f7d4527844eb514d4a4948e822da90fbb16a34a0bbbbc6adc6498747a5aafb0",
+    "purpose": "training image face candidate, not clinical ground truth"
+  },
+  "scin": {
+    "repo": "google-research-datasets/scin",
+    "revision": "b5a498233ef23b24c2f9fdb41b53e162c6eeb98d",
+    "licenseSha256": "e29f7f0a84f0ad50e4920fa195e852bcd14c9e8b9e6c899ce9e3276be0b75da4"
+  },
+  "skin-scan": {
+    "repo": "DurtyDhiana/skin-scan",
+    "revision": "afc55f5cb87fcc644f36b472c37083b254bd3fe4",
+    "licenseSha256": "06dcddbb6908a0c6dd4a9e8ec822eea41d5a460a53089fecccc8a68049e99241",
+    "oilinessFileSHA256": "b80d78c6e0701a70052b3e5a6a5866c4427e9a70a868cf4aa7031dbb8597e814"
+  },
+  "opencv-core-4.12.0-LICENSE.txt": {
+    "version": "4.12.0",
+    "sourceURL": "https://raw.githubusercontent.com/opencv/opencv/4.12.0/LICENSE",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "purpose": "exact OpenCV core license; offline research runtime, not shipped in product"
+  },
+  "opencv-bundled-third-party-4.12.0.txt": {
+    "sha256": "d8ec888320fcb9d99317a77af4a4a3a91208676067ec1fa9bc1967a522411730",
+    "purpose": "installed local research runtime, not shipped in product"
+  },
+  "scikit-image": {
+    "version": "0.26.0",
+    "licenseFile": "scikit-image-0.26.0-LICENSE.txt",
+    "sha256": "c0ae0d653416915f77a6364eef489ab59fcb319514a806422285cb4359657c5b",
+    "purpose": "reviewed alternative; not used in product or training"
+  },
+  "sourceLinks": {
+    "OpenCV": "https://opencv.org/license/",
+    "scikit-image": "https://scikit-image.org/docs/stable/license.html",
+    "torch": "https://github.com/pytorch/pytorch/blob/v2.9.1/LICENSE",
+    "numpy": "https://github.com/numpy/numpy/blob/v2.2.6/LICENSE.txt",
+    "Pillow": "https://github.com/python-pillow/Pillow/blob/12.0.0/LICENSE",
+    "opencv-python": "https://github.com/opencv/opencv-python/blob/4.12.0.88/LICENSE.txt"
+  },
+  "existing-mediapipe-geometry": {
+    "sdkVersion": "1.0.1",
+    "sdkCodeSHA256": "d885630c297c0b20b1fe86096cb06291c4c8080876f27852e724f24ac603713f",
+    "modelURL": "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+    "modelSHA256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+    "purpose": "reuse existing product geometry on public research images; not diagnosis, identity matching or a new shipped model",
+    "modelCards": "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker#models",
+    "licenseFile": "mediapipe-Apache-2.0.txt",
+    "officialModelCards": {
+      "face-mesh-v2": {
+        "url": "https://storage.googleapis.com/mediapipe-assets/Model%20Card%20MediaPipe%20Face%20Mesh%20V2.pdf",
+        "sha256": "c6add060f4ebfb37b2690136b6c711c7e5fcb7038baa2649ae3338b83979565a",
+        "statedModelLicense": "Apache-2.0"
+      },
+      "blazeface-short-range": {
+        "url": "https://storage.googleapis.com/mediapipe-assets/MediaPipe%20BlazeFace%20Model%20Card%20(Short%20Range).pdf",
+        "sha256": "cd335c06fc0de7807cd815a0777a697932598bcdb28fa98adaaabf847485f758",
+        "statedModelLicense": "Apache-2.0"
+      },
+      "blendshape-v2": {
+        "url": "https://storage.googleapis.com/mediapipe-assets/Model%20Card%20Blendshape%20V2.pdf",
+        "sha256": "c8e9cf60a39998f4b341740623917590e050d1c97004e2de4568d84e026445ae",
+        "statedModelLicense": "Apache-2.0"
+      }
+    }
+  }
+}

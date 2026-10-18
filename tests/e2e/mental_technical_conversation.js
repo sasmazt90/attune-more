@@ -1,0 +1,43 @@
+/** Real production page/API/storage; controlled provider+ASR, recorded Emel audio. */
+async page=>{
+ const assert=(v,m)=>{if(!v)throw Error(m)},calls=[],summaries=[],checks={};
+ page.on('request',r=>{if(r.url().endsWith('/api/mental/converse'))calls.push(r.postDataJSON());if(r.url().endsWith('/api/mental/analyze-session'))summaries.push(r.postDataJSON())});
+ await page.addInitScript({path:'tests/e2e/mental_technical_boot.js'});await page.goto('http://127.0.0.1:3307/mental');
+ const phase=()=>page.locator('[data-conversation-phase]').getAttribute('data-conversation-phase');
+ const listen=()=>page.waitForFunction(()=>mentalProbe.current&&!mentalProbe.current.aborted&&document.querySelector('[data-conversation-phase]').dataset.conversationPhase==='listening',null,{timeout:30000});
+ const emit=(text,final=true)=>page.evaluate(({text,final})=>mentalProbe.current.emit(text,final),{text,final});
+ const mode=async v=>{const r=await page.request.post('http://127.0.0.1:8307/__test__/mode',{data:v});assert(r.ok(),'Fixture control failed')};
+ await page.getByLabel('TOGG Attune hizmet onayı',{exact:true}).check();await page.getByRole('button',{name:'Görüşmeyi Başlat',exact:true}).click();await listen();
+ await emit('Geçici tamamlanmamış test',false);assert(calls.length===0,'Interim dispatched');
+ await page.evaluate(()=>{mentalProbe.first=mentalProbe.current;mentalProbe.oldCallback=mentalProbe.current.onresult});await emit('Kişisel olmayan ilk teknik tur.');await emit('Tekrarlanan eski final.');
+ await page.waitForFunction(()=>document.querySelector('[data-conversation-phase]').dataset.conversationPhase==='speaking');assert(calls.length===1,'Duplicate final dispatched');
+ await page.evaluate(()=>mentalProbe.oldCallback({resultIndex:0,results:[Object.assign([{transcript:'Sistem sesi veya geç yanıt',confidence:.99}],{isFinal:true})]}));assert(calls.length===1,'Echo/stale ASR dispatched');
+ const firstReply=await page.locator('[data-chat-author=AI]').allTextContents();
+ await page.getByRole('button',{name:'Duraklat',exact:true}).click();assert(await phase()==='paused','Not paused');
+ assert(await page.evaluate(()=>mentalProbe.recognitions.every(r=>r.aborted)&&mentalProbe.audios.every(a=>a.paused)),'Pause leaked audio/ASR');
+ await page.getByRole('button',{name:'Devam et',exact:true}).click();await listen();
+ assert(calls.length===1&&JSON.stringify(await page.locator('[data-chat-author=AI]').allTextContents())===JSON.stringify(firstReply),'Audio resume duplicated turn');checks.audioPauseResumesPendingReply=true;
+ await mode({reply:'delay'});await emit('Kişisel olmayan ikinci teknik tur.');await page.waitForFunction(()=>document.querySelector('[data-conversation-phase]').dataset.conversationPhase==='preparing');
+ await page.getByRole('button',{name:'Duraklat',exact:true}).click();await mode({reply:'normal',release:true});
+ await page.getByRole('button',{name:'Devam et',exact:true}).click();await listen();
+ assert(calls.length===3&&calls[1].sessionId===calls[2].sessionId&&calls[1].userMessage===calls[2].userMessage&&JSON.stringify(calls[1].history)===JSON.stringify(calls[2].history),'Pending turn changed on resume');
+ assert(await page.locator('[data-chat-author=USER]').count()===2&&await page.locator('[data-chat-author=AI]').count()===2,'Pending turn duplicated or lost');checks.pendingTurnResumesWithoutDuplicateMessage=true;
+ await page.getByRole('button',{name:'İsterseniz yazabilirsiniz',exact:true}).click();const box=page.getByRole('textbox',{name:'Görüşme mesajı'});await box.fill('Kişisel olmayan üçüncü teknik tur.');
+ await page.getByRole('button',{name:'Gönder',exact:true}).evaluate(e=>{e.click();e.click()});await page.waitForFunction(()=>document.querySelector('[data-conversation-phase]').dataset.conversationPhase==='ready',null,{timeout:30000});
+ assert(calls.length===4&&await page.locator('[data-chat-author=USER]').count()===3,'Double send duplicated a turn');
+ assert(JSON.stringify(calls.map(c=>c.history.length))==='[0,2,2,4]','Wrong completed-turn context');
+ assert(calls.every(c=>c.sessionId===calls[0].sessionId),'Session changed');
+ for(const c of [calls[1],calls[3]])assert(c.history.every((m,i)=>m.role===(i%2?'assistant':'user')),'Context order changed');checks.orderedCompletedContext=true;checks.doubleSendBlocked=true;
+ await page.screenshot({path:'output/playwright/mental/desktop-conversation.png',fullPage:true});
+ await page.getByRole('button',{name:'Görüşmeyi Bitir',exact:true}).evaluate(e=>{e.click();e.click()});await page.getByRole('dialog',{name:'Görüşme tamamlandı',exact:true}).waitFor();
+ await page.getByRole('button',{name:'Tamam',exact:true}).click();const records=await page.evaluate(()=>JSON.parse(localStorage.getItem('togg_health_mental_history')||'[]'));
+ assert(records.length===1&&summaries.length===1&&summaries[0].messages.length===6,'Wrong summary/save count');const record=records[0];
+ assert(!('transcript' in record)&&!('durationSeconds' in record)&&!('moodBefore' in record)&&!('moodAfter' in record),'Invented measure or opt-out transcript');
+ const before=JSON.stringify(record);await page.reload();await page.locator(`[data-record-id="${record.id}"]`).waitFor();await page.locator(`[data-record-id="${record.id}"] [aria-haspopup="dialog"]`).click();
+ const dialog=page.getByRole('dialog',{name:'Ruh Sağlığı sonucu',exact:true});await dialog.waitFor();assert((await dialog.textContent()).includes(record.summaryText),'History differs');assert(await dialog.locator('[data-session-author]').count()===0,'Opt-out transcript visible');
+ assert(await page.evaluate(v=>JSON.stringify(JSON.parse(localStorage.getItem('togg_health_mental_history'))[0])===v,before),'Record rewritten on reload');checks.sameRecordHistory=true;
+ await page.screenshot({path:'output/playwright/mental/desktop-history.png',fullPage:true});await dialog.getByRole('button',{name:'Sonuç penceresini kapat'}).click();
+ await page.locator(`[data-record-id="${record.id}"]`).getByRole('button',{name:/Ruh Sağlığı kaydını sil:/}).click();await page.getByRole('button',{name:'Evet, sil',exact:true}).click();await page.waitForFunction(()=>JSON.parse(localStorage.getItem('togg_health_mental_history')||'[]').length===0);await page.reload();assert(await page.locator('[data-record-id]').count()===0,'Deletion not durable');checks.durableDelete=true;
+ const result={kind:'actual production UI/API/storage; provider fixture seam; controlled ASR; native Audio with recorded existing Emel fixture',physicalUserAcceptance:false,realProviderCalls:0,checks,contextLengths:calls.map(c=>c.history.length),userCards:3,summaryMessageRoles:summaries[0].messages.map(m=>m.role),summaryRequests:summaries.length,savedRecords:records.length,transcriptStored:'transcript' in record};
+ const d=page.waitForEvent('download');await page.evaluate(v=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(v)],{type:'application/json'}));a.download='conversation-proof.json';a.click()},result);await(await d).saveAs('output/playwright/mental/conversation-proof.json');return result;
+}

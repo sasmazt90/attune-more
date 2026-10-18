@@ -1,0 +1,67 @@
+{
+  "sdkVersion": "1.0.1",
+  "files": [
+    {
+      "path": "wasm/vision_wasm_internal.js",
+      "sha256": "e170ee67dd4e16c1a6fcd8840a206687e5a59b22c20e4a902bc445b095454d73",
+      "bytes": 323377,
+      "source": "@mediapipe/tasks-vision@1.0.1/wasm/vision_wasm_internal.js",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "wasm/vision_wasm_internal.wasm",
+      "sha256": "8da277a733926eacd0474b8704b36742d6ec3231c57a860c5b889dff8f1df886",
+      "bytes": 11756954,
+      "source": "@mediapipe/tasks-vision@1.0.1/wasm/vision_wasm_internal.wasm",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "wasm/vision_wasm_module_internal.js",
+      "sha256": "da8934057f147b622e82cfb4c0dbd85461c598e268588b5a8ba9ca963a8ff82d",
+      "bytes": 323415,
+      "source": "@mediapipe/tasks-vision@1.0.1/wasm/vision_wasm_module_internal.js",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "wasm/vision_wasm_module_internal.wasm",
+      "sha256": "2dabd8e23c60984628beb7bb338764c81a08e6837145273f59578684b5d53c1b",
+      "bytes": 11756972,
+      "source": "@mediapipe/tasks-vision@1.0.1/wasm/vision_wasm_module_internal.wasm",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "wasm/vision_wasm_nosimd_internal.js",
+      "sha256": "e81d715a3d42cc3373602eb2f7aff795d164934db680e32496b65dab537f9658",
+      "bytes": 323180,
+      "source": "@mediapipe/tasks-vision@1.0.1/wasm/vision_wasm_nosimd_internal.js",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "wasm/vision_wasm_nosimd_internal.wasm",
+      "sha256": "a28483cd42e74e855bf5ebdb6b40d9b66a5b49e35e95020bc97669e6822a3192",
+      "bytes": 10960242,
+      "source": "@mediapipe/tasks-vision@1.0.1/wasm/vision_wasm_nosimd_internal.wasm",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "models/face_landmarker.task",
+      "sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+      "bytes": 3758596,
+      "source": "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "models/hand_landmarker.task",
+      "sha256": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+      "bytes": 7819105,
+      "source": "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+      "license": "Apache-2.0"
+    }
+  ],
+  "handModelCard": {
+    "url": "https://storage.googleapis.com/mediapipe-assets/Model%20Card%20Hand%20Tracking%20%28Lite_Full%29%20with%20Fairness%20Oct%202021.pdf",
+    "sha256": "43127ff8a92e22717f0d8c30dab3efef4641a29cbf50b15ae3de001be94ab76b"
+  },
+  "modelChange": false,
+  "thresholdChange": false
+}

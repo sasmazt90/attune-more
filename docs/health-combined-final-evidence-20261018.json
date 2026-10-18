@@ -1,0 +1,806 @@
+{
+  "schema": "health-combined-final-technical-closeout-v1",
+  "at": "2026-10-17T23:11:29.732860+00:00",
+  "results": {
+    "at": "2026-10-17T23:10:02.576180+00:00",
+    "status": "TECHNICAL_DELIVERY_CLOSED_VISUAL_ACCEPTANCE_OPEN",
+    "sourceCommit": "197e4541c648171de5e6125a905a33e66cd024e9",
+    "BUILD_ID": "H13-L3qPsjGFM8cPz0r6O",
+    "servingNormalShortcut": true,
+    "combinedCandidateActive": true,
+    "focusedTests": {
+      "passed": 15,
+      "deselected": 55,
+      "receipt": "focused.xml",
+      "repeated": false
+    },
+    "productionBuild": {
+      "count": 1,
+      "seconds": 132.56200000000536,
+      "repeated": false,
+      "builtAtCommit": "f49d461f0ef487e50174bee4b547fabec4791869"
+    },
+    "changedBehavior": {
+      "oilRegionalUniqueSupport": "PASS saved real normal-backend response",
+      "carePublicHandoff": "PASS actual full normal-backend HTTP routes; no booking/live availability claim"
+    },
+    "savedFullModelResponse": {
+      "seconds": 20.54700000002049,
+      "oilNativeDrynessLocalTypePassed": true,
+      "v5ExpectedMissingMetadataRejection": true
+    },
+    "fixtureFailure": {
+      "firstAssertion": "verify_model_api.py:62 expected measured",
+      "sourceCapturePreflightPresent": false,
+      "photoBlurOrQualityFailureProven": false,
+      "productGateChanged": false,
+      "originalReceipt": "lifecycle.json"
+    },
+    "targetedExtraRequest": {
+      "why": "Preexisting real browser payload already admitted by prior normal delivery, now hash-pinned; unchanged quality/gate/config",
+      "count": 1,
+      "seconds": 22.84399999998277,
+      "status": "passed",
+      "candidateCount": 17,
+      "modelGraphSHA256": "9c87475d9302aed16f09abedc109211c2ac1b49f22f465f86aab408a5244d0be",
+      "verifierSHA256": "0d7bf03ca4d9898ef1b2e78c6d54d61be6aff580329b20b78a9232f79cfd43bb",
+      "finalListsConsistent": true,
+      "notClinicalAccuracy": true
+    },
+    "totalFullModelRequests": 2,
+    "qualityPermissionModelThresholdChanges": 0,
+    "hostedCalls": 0,
+    "sourceDataNotUploaded": true,
+    "backendDataUnchanged": true,
+    "shortcutUnchanged": true,
+    "modelsUnchanged": true,
+    "cleanupPassed": true,
+    "pushMerge": false,
+    "openItems": [
+      "Normal-window visual and semantic history/permission acceptance blocked by Computer Use URL identity policy",
+      "Prior SAG same-clip/live-gate proof remains open",
+      "Prior DRY native misses and product geometry uncertainty remain open",
+      "Prior SEC dependency/parser findings remain open",
+      "Six exact source/model license-provenance joins remain unresolved; no blanket clinical or commercial-rights acceptance",
+      "Persisted Chromium permission-exception aggregate hash differs; field/cause not established from baseline hash-only evidence"
+    ],
+    "evidenceFiles": [
+      "saved-response-acceptance.json",
+      "prior-admitted-v5-input.json",
+      "admitted-v5-result.json",
+      "recovery-lifecycle.json",
+      "final-version-chain.json",
+      "cleanup.json",
+      "ui-acceptance-open.json"
+    ],
+    "permissionEvidence": {
+      "opaqueHashUnchanged": false,
+      "beforeOpaqueSHA256": "7d635ebf8f31ee313a2e0b7db2e25a2b215abf12f39c05813babf98c1ebce87d",
+      "afterOpaqueSHA256": "81e14640bb6b1179f070a3add77c46017930506f1983b95d3cab4e2bce44ac38",
+      "meaning": "The aggregate persisted permission-exception hash differs. No permission-setting action was performed. The baseline stored only a hash, so which field changed and why cannot be established. Do not infer either consent preservation or revocation from this aggregate difference. Effective app/browser permissions and history semantics remain OPEN."
+    }
+  },
+  "buildProvenance": {
+    "builtAtCommit": "f49d461f0ef487e50174bee4b547fabec4791869",
+    "BUILD_ID": "H13-L3qPsjGFM8cPz0r6O",
+    "currentRuntimeTargetsByteIdentical": true,
+    "applicationTargets": [
+      {
+        "path": "services/core-api/appearance_analysis.py",
+        "sha256": "3795e7c207d02275ae5eb5875a050421c47a7f716af9db2afeb566b1a41a28f2"
+      },
+      {
+        "path": "services/core-api/skin_general.py",
+        "sha256": "a02d25d1bb24499830c36d03db45173d992eb8a07321ed0296f366ddb41bab16"
+      },
+      {
+        "path": "services/core-api/care_provider.py",
+        "sha256": "16f3a6ae83976fd2cd6aff494e6eb172192683e8246ee2a7b690e43ae6138ba9"
+      },
+      {
+        "path": "services/core-api/main.py",
+        "sha256": "20a8c696395dc4d3c473a3f6b4ac35d9c4fc97821b4324bfbb37200dd1de9f63"
+      },
+      {
+        "path": "apps/vehicle-app/src/app/care/page.tsx",
+        "sha256": "d99a880fd1ef6b555e7885ce0b433df45f549b9c5023335faad7b607f9c9fb0c"
+      },
+      {
+        "path": "tests/unit/test_oil_reliability.py",
+        "sha256": "fa91cad3608cb21a5f6b967c198d06b73a359ec18d20dd95f1ca74324be4a943"
+      },
+      {
+        "path": "tests/unit/test_care_ready.py",
+        "sha256": "c8109b8163bee780ddb685850d2bb3694a16276397a8746d938fb7864d0388ab"
+      },
+      {
+        "path": "apps/vehicle-app/src/utils/careLinks.ts",
+        "sha256": "9cfe4ad1231c5e7ab9c9f9b08d0ef8e15cc74bcc2ad9eadbf4f89843a124295e"
+      }
+    ],
+    "buildRepeated": false
+  },
+  "sourceBuildFilesVerified": 298,
+  "launcherFilesVerified": 2,
+  "httpRoutes": [
+    {
+      "path": "/",
+      "http": 200,
+      "bytes": 32611,
+      "htmlSHA256": "1b2db96ca44764a804e8b66c1fc8272b86b328cb079b4c80c79799248ca0ae27",
+      "javascriptCount": 13
+    },
+    {
+      "path": "/skin",
+      "http": 200,
+      "bytes": 17981,
+      "htmlSHA256": "361c80d8d73c2e7a962872abb8f2e196b4c0da77dcb8bdb69d37de502e25f137",
+      "javascriptCount": 15
+    },
+    {
+      "path": "/care",
+      "http": 200,
+      "bytes": 17440,
+      "htmlSHA256": "440ef899860a35689963b92c03dee1f6828558919cc4cd0108947351c5bd891f",
+      "javascriptCount": 10
+    },
+    {
+      "path": "/dental",
+      "http": 200,
+      "bytes": 18119,
+      "htmlSHA256": "1c4653d7d826b3f5d95bddaafb9680606b5c96c62bab635dc882f5ca7a83df7c",
+      "javascriptCount": 16
+    },
+    {
+      "path": "/vision",
+      "http": 200,
+      "bytes": 18069,
+      "htmlSHA256": "8575299e1e810621adcb778a7567810e0e8227f1dca6dfc8e11d970d98a17a92",
+      "javascriptCount": 16
+    },
+    {
+      "path": "/hearing",
+      "http": 200,
+      "bytes": 18124,
+      "htmlSHA256": "0c7df8fd844368d4eb0de96aa8eb91261bde7a6b0350d62db2afff0bee821da4",
+      "javascriptCount": 16
+    },
+    {
+      "path": "/mental",
+      "http": 200,
+      "bytes": 18119,
+      "htmlSHA256": "f12c9fafd96459a806d64a9f0b71ebd6af8be5247e36fe3a71ecb9c4f65814a9",
+      "javascriptCount": 16
+    }
+  ],
+  "servedFiles": [
+    {
+      "path": "/_next/static/chunks/106-795a2e8570efcbbc.js",
+      "bytes": 27883,
+      "sha256": "c12441c104f98235b66f363a6834f94ef90ae46b73897c7f16f8f9fba0c6ccdd",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/143-282279e9106c856d.js",
+      "bytes": 29119,
+      "sha256": "9ec4052924213fc0f71733b86c3f0c5f07f3299782bf57a590cb631967571d6c",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/18-25b11e3a132b87ef.js",
+      "bytes": 173875,
+      "sha256": "c9073673bfb74a5218e3a25e638cdfdaa57f3921102ecc7796a16fb1acf215ca",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/265-8d5c252f19c37703.js",
+      "bytes": 53508,
+      "sha256": "9ad2715d73dadfbb436c5799e3827f833694c094a70828626c303a355966f395",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/303-98e14505485a4833.js",
+      "bytes": 10063,
+      "sha256": "9431fd791b37361e8449dc5d47f0f56df6f04764d1a7cc4faa9389a8e2dc84fd",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/421-e9997359635f516d.js",
+      "bytes": 44453,
+      "sha256": "70e870a30335c56ffaf9fb87dd2d2b254ff7d15c68c2e26113d1cfc5b0797bc8",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/512-b0dddb427aed6028.js",
+      "bytes": 168833,
+      "sha256": "ad3050563081c4baec7a8435364585fa26b2e43d271f13092b473948cad6baae",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/729-69de4c62485bde78.js",
+      "bytes": 23832,
+      "sha256": "cf798e8649aa367852e3116c11713e02fd92d46894e95dd5da5e5ba466a9e546",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/864-083823c8e81e6922.js",
+      "bytes": 23019,
+      "sha256": "ca3f476bf802280d1737ba890dfc1d88fb0e59d83d73e2c80d32cb4bc142de53",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/87c73c54-24122e7b92478d00.js",
+      "bytes": 173019,
+      "sha256": "0d30e73d8f3c24eee6941dd0861b15e22d943c0aec3bfc571eecfecb0e06b7c3",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/898-abb4cb9cae81c90e.js",
+      "bytes": 28033,
+      "sha256": "0b1d1c308e55003e04cd066338a8cf006326f57c1f0dda4f9face294a7639d50",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/app/care/page-53ff13a9beead024.js",
+      "bytes": 31051,
+      "sha256": "fbcc3aa7b5a2515d946c2bb07c8cd6d8e8db9e2af592fb056999578d1d3ad80c",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/app/dental/page-2322a268a9273f97.js",
+      "bytes": 29889,
+      "sha256": "6de49e87769aace66dd98573de48e25183014e67262ced65fcdb122c8f84d513",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/app/hearing/page-62f25d5615bf78e4.js",
+      "bytes": 37270,
+      "sha256": "325889c344fd4e2835b8d0fd5ac62ca50ba62b1337cd603426ad0590876a3d21",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/app/layout-7064e29bdd17e682.js",
+      "bytes": 27950,
+      "sha256": "8b83c5b17e6ac49597de9e7204c5602dd0ee85682d8a50020339958e36e77de4",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/app/mental/page-0a9eccc11b7ac2c2.js",
+      "bytes": 36272,
+      "sha256": "9a0cf6a860ce978fd015ab970f78d6b5b8b1271a3a7f9fd0fc69ad156723bad4",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/app/page-7597166360a61ef7.js",
+      "bytes": 7304,
+      "sha256": "8fef5cf88587f739ee7967a19288fb43816dd010589b8d01d1e7cfee13c92b19",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/app/skin/page-28de1b2c9e61af84.js",
+      "bytes": 79681,
+      "sha256": "ccfe4a564119ad48247acaa2eebeb21c6d1f1946578cee655921f27fdd381402",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/app/vision/page-a7a8078106d22403.js",
+      "bytes": 45980,
+      "sha256": "e8b8a569618a6e293e895edf55ff9e3628e7a80a38bb405edfe17a39e28287b7",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/main-app-2cdd0384dac55e46.js",
+      "bytes": 554,
+      "sha256": "e4218bc35080f6b677c6507f75e4cac8e5f4a847ce2a68e0cc1a0a991833e098",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/polyfills-42372ed130431b0a.js",
+      "bytes": 112594,
+      "sha256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/_next/static/chunks/webpack-8e0d3931cdcd4150.js",
+      "bytes": 3593,
+      "sha256": "2f4144349374e0f65e3cbc0af3c6faa946c8ba79bd93dee07b09187a6b5aa9b7",
+      "kind": "served-js-equals-build"
+    },
+    {
+      "path": "/assets/skin-preparation-approved-v3.png",
+      "bytes": 2092386,
+      "sha256": "3853e89a3a61eff2db609bdbb5148098749b57c63d2d9bb88fb672e8c10de378",
+      "kind": "approved-health-image"
+    },
+    {
+      "path": "/assets/dental-preparation-approved-v3.png",
+      "bytes": 2145820,
+      "sha256": "c15b551cbd4531d4e59dfdcb3b6e702a6093d230f433da2ffc69aa08def1b252",
+      "kind": "approved-health-image"
+    },
+    {
+      "path": "/assets/vision-preparation-approved-v3.png",
+      "bytes": 2180753,
+      "sha256": "7fc3fd37957a538148a51cc2dcddd43066147241718c46f4889283be72c22c2e",
+      "kind": "approved-health-image"
+    },
+    {
+      "path": "/assets/hearing-preparation-approved-v3.png",
+      "bytes": 2091077,
+      "sha256": "48a3dd22a1f8a7cb6125df8fbdbe66049e2846d924c36fdd11c7310ef74ebc8a",
+      "kind": "approved-health-image"
+    },
+    {
+      "path": "/assets/mental-preparation-approved-v3.png",
+      "bytes": 2141015,
+      "sha256": "dd900577ac37e211389f4d0e1b7f2c02d99a0a2cd16dfb4cfabf64fde52798a6",
+      "kind": "approved-health-image"
+    }
+  ],
+  "modelPins": [
+    {
+      "path": "services/core-api/models/acne-v5-preview/step0-with-features-stable-silu.onnx",
+      "sha256": "9c87475d9302aed16f09abedc109211c2ac1b49f22f465f86aab408a5244d0be"
+    },
+    {
+      "path": "services/core-api/models/acne-v5-preview/verifier-v5.json",
+      "sha256": "0d7bf03ca4d9898ef1b2e78c6d54d61be6aff580329b20b78a9232f79cfd43bb"
+    },
+    {
+      "path": "services/core-api/models/skin-focused.json",
+      "sha256": "accc9ff193030bccde572ded39b1878fc7919e33daf62f2ac560c3357a83abfb"
+    },
+    {
+      "path": "services/core-api/models/dental-yolox-s.json",
+      "sha256": "42e2c4cfc0d86d30294c392997c16b78a364050296235ade9a961cf3828fbd19"
+    },
+    {
+      "path": "services/core-api/models/dental-yolox-s.onnx",
+      "sha256": "eafaca8139e4447b1aa64375156aa47764affd91cf0594392b896ea78463bf03"
+    },
+    {
+      "path": "services/core-api/models/skin-eyewear-framefind-v1.json",
+      "sha256": "918e149f334710cbc0de05f89c2d6f21cae00f8f778310b7c5e6b7613a246f0b"
+    },
+    {
+      "path": "services/core-api/models/skin-eyewear-framefind-v1.onnx",
+      "sha256": "66f75c686974a04bf956d0ed6411315309afcabd36c400edec743953adafccb9"
+    },
+    {
+      "path": "services/core-api/models/skin-focused-degrees.onnx",
+      "sha256": "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3"
+    },
+    {
+      "path": "services/core-api/models/skin-type-hosted.json",
+      "sha256": "ca848df7ac724e8b81b0a61523cf2b3f763e3eb6b1decc0d5b2ee47da89c6972"
+    },
+    {
+      "path": "services/core-api/models/acne-v5-preview/manifest.json",
+      "sha256": "a9f939deb312cfc957d8456fc865e1d3a6f21a5d4e0ba227b94bedb1413a8fe0"
+    },
+    {
+      "path": "services/core-api/models/dryness-calibrated-v3/config.json",
+      "sha256": "e62bba10919d4e51b1d0ce09b8c1ae7cdb107510f69b95570d196fda5c915e3d"
+    },
+    {
+      "path": "services/core-api/models/dryness-calibrated-v3/encoder-parity.json",
+      "sha256": "3f1bd96bb44041a80916168fa36c7ccc032598b1211f308b6e2dc081a5085490"
+    },
+    {
+      "path": "services/core-api/models/dryness-calibrated-v3/encoder.onnx",
+      "sha256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987"
+    },
+    {
+      "path": "services/core-api/models/dryness-calibrated-v3/head.json",
+      "sha256": "7f13c7cb4eb65a3fb44abf062563ee3aff605a6ef9ff3271c5e32e206fedb8e1"
+    },
+    {
+      "path": "services/core-api/models/skin-type-local.json",
+      "sha256": "dae43024430e365f70eb1f157666ae6b54ea0ed52e2677a84cf54aa9ec47d36b"
+    },
+    {
+      "path": "services/core-api/models/skin-type-local-v1/model.onnx",
+      "sha256": "99b4c2fa1e9ac013d539f635eb948c5a29f4c5f86f34fe26c380ad308c26c65a"
+    },
+    {
+      "path": "services/core-api/models/skin-type-local-v1/MODEL_CARD.md",
+      "sha256": "41832782943ca2d6d07a0634caf01fe301fd44069c97f2f688f7bbd768d3cee6"
+    },
+    {
+      "path": "services/core-api/models/skin-type-local-v1/NOTICE.md",
+      "sha256": "08b6ba65ef08865f5295698c4d277f06db35aef8eececb354d884c2601696d73"
+    }
+  ],
+  "normalRoles": [
+    {
+      "pid": 109860,
+      "role": "launcher",
+      "started": 1792278386.1162958,
+      "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG",
+      "commandSHA256": "bd4840ca6a126a3747b75ecd2d1aea8e8cfcccfec38e5c0860121e1f5def5c83"
+    },
+    {
+      "pid": 9532,
+      "role": "backend",
+      "started": 1792278398.2541509,
+      "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017",
+      "commandSHA256": "95e8c13e8707ed824d912bd398df4f6a68b34fe4fb2d6c39d24512abdfe769c9"
+    },
+    {
+      "pid": 84408,
+      "role": "frontend",
+      "started": 1792278402.3205545,
+      "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017\\apps\\vehicle-app",
+      "commandSHA256": "d201736fca7bd3acc0d11c39d940e2f5540318f71512c8d57f1369262e2501c6"
+    },
+    {
+      "pid": 54516,
+      "role": "browser",
+      "started": 1792278404.1191509,
+      "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG",
+      "commandSHA256": "ece46689cb66afdd61a3eaeaaa10453fa741dc6a02f219d6d908f6e47ccbce49"
+    }
+  ],
+  "normalOwnershipVerified": true,
+  "backendDataUnchanged": true,
+  "shortcutUnchanged": true,
+  "shortcutSHA256": "a4cb1540482ab12e9c036c41a9414243d52488b97026e79d99c74a83b86359d8",
+  "permissionEvidence": {
+    "opaqueHashUnchanged": false,
+    "beforeOpaqueSHA256": "7d635ebf8f31ee313a2e0b7db2e25a2b215abf12f39c05813babf98c1ebce87d",
+    "afterOpaqueSHA256": "81e14640bb6b1179f070a3add77c46017930506f1983b95d3cab4e2bce44ac38",
+    "meaning": "The aggregate persisted permission-exception hash differs. No permission-setting action was performed. The baseline stored only a hash, so which field changed and why cannot be established. Do not infer either consent preservation or revocation from this aggregate difference. Effective app/browser permissions and history semantics remain OPEN."
+  },
+  "uiAcceptance": {
+    "at": "2026-10-17T23:10:02.472356+00:00",
+    "status": "OPEN_TOOL_URL_IDENTITY_BLOCK",
+    "windowSelectedFromFreshInventory": true,
+    "windowTitle": "Attune.more — Togg Kişiselleştirilmiş Sağlık ve İyi Oluş",
+    "stateCaptureSucceeded": false,
+    "reason": "Computer Use could not determine the current browser URL on Windows with enough confidence to enforce policy",
+    "retriesAfterStop": 0,
+    "alternateBrowserOrCDPBypass": false,
+    "semanticPermissionHistoryAcceptance": false,
+    "visualAcceptance": false
+  },
+  "cleanup": {
+    "at": "2026-10-17T23:10:02.560239+00:00",
+    "processes": [
+      {
+        "role": "build.json:lease-owner",
+        "pid": 105344,
+        "started": 1792277648.7580247,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017",
+        "commandSHA256": "c79aca7092d8d7a27538cb78d7f21efbc5563de971c4b9a2f76f9b98ec3ab866",
+        "executable": null,
+        "state": "original-process-exited"
+      },
+      {
+        "role": "build.json:observer",
+        "pid": 102876,
+        "started": 1792277666.73436,
+        "cwd": null,
+        "commandSHA256": null,
+        "executable": null,
+        "state": "original-process-exited"
+      },
+      {
+        "role": "build-child",
+        "pid": 27480,
+        "started": 1792277667.1884367,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017\\apps\\vehicle-app",
+        "commandSHA256": "e8808eb8996128e8e501a1cac154b9552e93d7143f8444ccb63669ab15239fe7",
+        "executable": "C:\\nvm4w\\nodejs\\node.exe",
+        "state": "original-process-exited"
+      },
+      {
+        "role": "focused-resource.json:lease-owner",
+        "pid": 105344,
+        "started": 1792277648.7580247,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017",
+        "commandSHA256": "c79aca7092d8d7a27538cb78d7f21efbc5563de971c4b9a2f76f9b98ec3ab866",
+        "executable": null,
+        "state": "original-process-exited"
+      },
+      {
+        "role": "focused-resource.json:observer",
+        "pid": 69800,
+        "started": 1792277654.6668491,
+        "cwd": null,
+        "commandSHA256": null,
+        "executable": null,
+        "state": "original-process-exited"
+      },
+      {
+        "role": "admitted-v5-result.json:lease-owner",
+        "pid": 90772,
+        "started": 1792278346.2472508,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017",
+        "commandSHA256": "c12ea93e4deaaaabc37af04ba2b79321660a15d007d72d748356eb0dcc8731e0",
+        "executable": null,
+        "state": "original-process-exited"
+      },
+      {
+        "role": "admitted-v5-result.json:observer",
+        "pid": 92204,
+        "started": 1792278359.941739,
+        "cwd": null,
+        "commandSHA256": null,
+        "executable": null,
+        "state": "original-process-exited"
+      },
+      {
+        "role": "focused-child",
+        "pid": 94256,
+        "started": 1792277655.0279496,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017",
+        "commandSHA256": "7e29b719ccd30f9a6ccdab27d9c2102557c15f37bf3369f64d55824e66bf165a",
+        "executable": "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "state": "original-process-exited"
+      },
+      {
+        "role": "backend-only.json",
+        "pid": 91616,
+        "started": 1792277810.5133965,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017",
+        "commandSHA256": "95e8c13e8707ed824d912bd398df4f6a68b34fe4fb2d6c39d24512abdfe769c9",
+        "executable": "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "state": "original-process-exited"
+      },
+      {
+        "role": "recovery-backend.json",
+        "pid": 110884,
+        "started": 1792278355.4171174,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017",
+        "commandSHA256": "95e8c13e8707ed824d912bd398df4f6a68b34fe4fb2d6c39d24512abdfe769c9",
+        "executable": "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "state": "original-process-exited"
+      },
+      {
+        "role": "pre-FINAL:launcher",
+        "pid": 112272,
+        "started": 1792274863.382502,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG",
+        "commandSHA256": "bd4840ca6a126a3747b75ecd2d1aea8e8cfcccfec38e5c0860121e1f5def5c83",
+        "executable": null,
+        "state": "PID-reused-preserved",
+        "currentStarted": 1792277807.105571
+      },
+      {
+        "role": "pre-FINAL:backend",
+        "pid": 112016,
+        "started": 1792274875.5626843,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017",
+        "commandSHA256": "95e8c13e8707ed824d912bd398df4f6a68b34fe4fb2d6c39d24512abdfe769c9",
+        "executable": null,
+        "state": "original-process-exited"
+      },
+      {
+        "role": "pre-FINAL:frontend",
+        "pid": 112216,
+        "started": 1792274880.666642,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017\\apps\\vehicle-app",
+        "commandSHA256": "d201736fca7bd3acc0d11c39d940e2f5540318f71512c8d57f1369262e2501c6",
+        "executable": null,
+        "state": "original-process-exited"
+      },
+      {
+        "role": "pre-FINAL:browser",
+        "pid": 66320,
+        "started": 1792274882.0240436,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG",
+        "commandSHA256": "ece46689cb66afdd61a3eaeaaa10453fa741dc6a02f219d6d908f6e47ccbce49",
+        "executable": null,
+        "state": "original-process-exited"
+      },
+      {
+        "role": "first-reopen:launcher",
+        "pid": 40236,
+        "started": 1792277848.3067384,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG",
+        "commandSHA256": "bd4840ca6a126a3747b75ecd2d1aea8e8cfcccfec38e5c0860121e1f5def5c83",
+        "executable": null,
+        "state": "original-process-exited"
+      },
+      {
+        "role": "first-reopen:backend",
+        "pid": 100268,
+        "started": 1792277860.2804291,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017",
+        "commandSHA256": "95e8c13e8707ed824d912bd398df4f6a68b34fe4fb2d6c39d24512abdfe769c9",
+        "executable": null,
+        "state": "original-process-exited"
+      },
+      {
+        "role": "first-reopen:frontend",
+        "pid": 93272,
+        "started": 1792277866.4036577,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017\\apps\\vehicle-app",
+        "commandSHA256": "d201736fca7bd3acc0d11c39d940e2f5540318f71512c8d57f1369262e2501c6",
+        "executable": null,
+        "state": "original-process-exited"
+      },
+      {
+        "role": "first-reopen:browser",
+        "pid": 96272,
+        "started": 1792277868.788205,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG",
+        "commandSHA256": "ece46689cb66afdd61a3eaeaaa10453fa741dc6a02f219d6d908f6e47ccbce49",
+        "executable": null,
+        "state": "original-process-exited"
+      }
+    ],
+    "allRecordedTemporaryOwnedProcessesExited": true,
+    "leases": [
+      {
+        "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+        "state": "absent-own-leases-released"
+      },
+      {
+        "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock",
+        "state": "absent-own-leases-released"
+      }
+    ],
+    "recordedOwnLeasesReleased": true,
+    "cleanupKills": 0,
+    "foreignProcessesTouched": false,
+    "PIDReuseNeverStopped": true,
+    "normalSessionPreserved": [
+      {
+        "pid": 109860,
+        "role": "launcher",
+        "started": 1792278386.1162958,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG",
+        "commandSHA256": "bd4840ca6a126a3747b75ecd2d1aea8e8cfcccfec38e5c0860121e1f5def5c83"
+      },
+      {
+        "pid": 9532,
+        "role": "backend",
+        "started": 1792278398.2541509,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017",
+        "commandSHA256": "95e8c13e8707ed824d912bd398df4f6a68b34fe4fb2d6c39d24512abdfe769c9"
+      },
+      {
+        "pid": 84408,
+        "role": "frontend",
+        "started": 1792278402.3205545,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017\\apps\\vehicle-app",
+        "commandSHA256": "d201736fca7bd3acc0d11c39d940e2f5540318f71512c8d57f1369262e2501c6"
+      },
+      {
+        "pid": 54516,
+        "role": "browser",
+        "started": 1792278404.1191509,
+        "cwd": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG",
+        "commandSHA256": "ece46689cb66afdd61a3eaeaaa10453fa741dc6a02f219d6d908f6e47ccbce49"
+      }
+    ],
+    "oldIsolatedSessionsRestarted": 0,
+    "buildAndInferenceProcessesStartedInThisCloseout": 0
+  },
+  "localReceiptRoot": "cdc-progress/health-combined-delivery-20261018",
+  "receiptIndex": [
+    {
+      "name": "before.json",
+      "sha256": "0dee67ca2255150292c623fe97341520099df72c34e29fcca993672f4f4d32bf",
+      "bytes": 4253
+    },
+    {
+      "name": "application.json",
+      "sha256": "05f87be69f85f77213d228aeae93fdbc5b876fa9367321f120d9abbe2b189c07",
+      "bytes": 1792
+    },
+    {
+      "name": "focused.xml",
+      "sha256": "ad37854c9a6da5c441088c4cd764c8bc157784e1d223b00be84d09c0dc7c19c4",
+      "bytes": 2399
+    },
+    {
+      "name": "focused-resource.json",
+      "sha256": "a71aa1995909c27fbc03a80b3d8cbf36032f2372260a3a5f983fe4aee5e9ca6b",
+      "bytes": 1072
+    },
+    {
+      "name": "build.json",
+      "sha256": "a45a99aecda0251e9804eab0f769b174934e93bc0f7759060577e3f80facf142",
+      "bytes": 34085
+    },
+    {
+      "name": "candidate-deployment.json",
+      "sha256": "0eeb2021e6db4d9c2c2ff6a051e670e93edcf9d141f1d8b9045da52b544e36c6",
+      "bytes": 52565
+    },
+    {
+      "name": "care-api.json",
+      "sha256": "0df0a4ac29c305bc763e049abe5844d3cffc5d7079f50c18ca2dfed945e0c909",
+      "bytes": 4402
+    },
+    {
+      "name": "model-api-precondition.json",
+      "sha256": "2d3cfc4ea96eb79a94718e947685ecadc041456390d0c1099943a5201331ebbb",
+      "bytes": 149
+    },
+    {
+      "name": "model-request-start.json",
+      "sha256": "779fdfa61f7270e9cfea1df151c83934c86b1cf0e996e7e3a690ac04ceaeb279",
+      "bytes": 290
+    },
+    {
+      "name": "model-response-hash.json",
+      "sha256": "c92d77122504cbbcbecff300b59655ce086cb5e8f68d5d068b94af564f9e165a",
+      "bytes": 207
+    },
+    {
+      "name": "acceptance-assertion-diagnosis.json",
+      "sha256": "095da027feea7ba6f83f4125623fed765b39a480c2d9d679d0234124149a5d08",
+      "bytes": 10940
+    },
+    {
+      "name": "saved-response-acceptance.json",
+      "sha256": "347ee3c20501f59de9d24b27a53f2d9b3dea199022599f2f1b980184f0fd73be",
+      "bytes": 5382
+    },
+    {
+      "name": "lifecycle.json",
+      "sha256": "be0b15b9f4d8fb83fa1509a3dec112bfe23c8ea2947ffd6f8b4c722d99faaf07",
+      "bytes": 2103
+    },
+    {
+      "name": "prior-admitted-v5-input.json",
+      "sha256": "492f340585d6ec5a0a526ac1499221a880e118e927a076c30e309118265945cd",
+      "bytes": 2587
+    },
+    {
+      "name": "admitted-v5-start-guard.json",
+      "sha256": "a369a1e5a993092cb5a5777ba342a3998fba46ff824371ee42f5472de64207db",
+      "bytes": 140
+    },
+    {
+      "name": "admitted-v5-request-start.json",
+      "sha256": "3d35a97b2e0b07398ae112fb6969cf5ead77afaf2ba72d7ad3e8c56f8791fffb",
+      "bytes": 313
+    },
+    {
+      "name": "admitted-v5-response-hash.json",
+      "sha256": "38cfcddfe258600f31b0c3225c15591883dc6d74a534453c7bc21f5766187a2e",
+      "bytes": 141
+    },
+    {
+      "name": "admitted-v5-result.json",
+      "sha256": "ffab4cabd335d1130d219275386ad50683b8588e47ed18b1fe45471d027b12ed",
+      "bytes": 11025
+    },
+    {
+      "name": "recovery-deployment.json",
+      "sha256": "5c081db95fb347686386fca2ccc763be3ddc7c9717541e4e55fb4f3455f02502",
+      "bytes": 54096
+    },
+    {
+      "name": "recovery-lifecycle.json",
+      "sha256": "957bde5301cb1f9dfe3da7fd3dc8dd7d5dcd2167646d893cebb5a1a2a48afa8e",
+      "bytes": 1905
+    },
+    {
+      "name": "final-version-chain.json",
+      "sha256": "0a13207bd5ad6d16b10151b4ffb22188d60a6bb83f5de66d8bf3b029652df05f",
+      "bytes": 17503
+    },
+    {
+      "name": "cleanup.json",
+      "sha256": "f44b5d25beee04f8e916c1a195a32ba71bfff31cf6525d77e88b4685b386d6fa",
+      "bytes": 8365
+    },
+    {
+      "name": "ui-acceptance-open.json",
+      "sha256": "efa7ca00da98c9b46a0c45c82977ede9672239b6c7b6d88efbb32264d423194e",
+      "bytes": 562
+    },
+    {
+      "name": "results.json",
+      "sha256": "d6928cf04106924ce43776030f6fbdc44ff08a8477fc5e6e5795a0c304336478",
+      "bytes": 3492
+    }
+  ],
+  "clinicalAcceptance": false,
+  "physicalCameraAcceptance": false
+}

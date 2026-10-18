@@ -1,5 +1,12 @@
 # Açık Kaynak ve Lisans Politikası (LICENSES.md)
 
+Güncel model dosyaları ve kod/ağırlık/veri ayrımı için
+[2026-10-18 runtime kaynak matrisi](docs/model-sources-20261018.md) esas alınır.
+Aşağıdaki ilk-MVP/tarihsel değerlendirmeler güncel ağırlık envanteri değildir.
+“Kısıtlanan/Yasaklanan” listesi proje politikasıdır; her üçüncü taraf lisansının
+evrensel kullanım yasağı olduğu anlamına gelmez. Kaynak matrisindeki açık izin,
+belirli eyleme bağlı kısıt ve eksik belge ayrı tutulur; ürün bayrakları değişmez.
+
 Bu belge, **Togg Health MVP** projesinde kullanılan, referans alınan veya ilerleyen aşamalarda entegre edilmesi planlanan tüm kütüphane, model, veri seti ve araçların lisans durumlarını ve ticari uygunluk değerlendirmelerini içerir.
 
 > [!IMPORTANT]

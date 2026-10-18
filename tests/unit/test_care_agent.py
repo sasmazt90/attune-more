@@ -64,15 +64,37 @@ def test_travel_time_provider_mock_badge():
     assert "Demo Model" in travel["trafficBadge"]
     assert travel["estimatedMinutes"] > 0
 
-def test_care_browser_search_bot_block_provides_safe_handoff():
+def test_care_browser_search_bot_block_provides_safe_handoff(monkeypatch):
     """Playwright arama bot engeli ile karşılaştığında çökmek yerine güvenli handoff URL'i dönmelidir."""
+    # A deterministic blocked transport, not a live provider/browser campaign.
+    from contextlib import contextmanager
+    from types import SimpleNamespace
+    import playwright.sync_api
+    calls=[]
+    class Page:
+        url='https://www.doktortakvimi.com/arama'
+        def set_default_timeout(self,value): assert value==7000
+        def set_default_navigation_timeout(self,value): assert value==7000
+        def goto(self,url,**kwargs): calls.append(url);return SimpleNamespace(status=403)
+        def content(self): return '<html>captcha</html>'
+        def title(self): return 'Access denied'
+    class Browser:
+        def new_context(self,**kwargs): return SimpleNamespace(new_page=lambda:Page())
+        def close(self): pass
+    @contextmanager
+    def blocked_browser():
+        yield SimpleNamespace(chromium=SimpleNamespace(launch=lambda **kwargs:Browser()))
+    monkeypatch.setattr(playwright.sync_api,'sync_playwright',blocked_browser)
     browser_provider = BrowserCareSearchProvider()
     result = browser_provider.search_slots(specialty="Dermatoloji", city="İstanbul")
     
     assert "status" in result
-    assert result["status"] in ["SUCCESS", "FALLBACK_BLOCKED"]
+    assert result["status"] == "ACCESS_BLOCKED"
     assert "slots" in result
-    assert len(result["slots"]) > 0
+    assert result['providerType']=='PUBLIC_HANDOFF' and result['slots']
+    assert all(row['sourceType']=='PUBLIC_SEARCH_ONLY' and row['dateTime'] is None
+               and row['bookingStatus']=='DISCOVERED_ONLY' for row in result['slots'])
+    assert len(calls)==1
     assert "liveSearchUrl" in result
     assert "https://www.doktortakvimi.com" in result["liveSearchUrl"]
 

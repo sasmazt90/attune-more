@@ -46,20 +46,21 @@ class PulseOutput:
   self.process.terminate();self.process.wait(timeout=5);self.thread.join(timeout=5);self.log.close()
 
 def run_native_audio(pw,headed,new,go,snap,browser_environment):
- names=['native PulseAudio spoken input amplitude headed='+str(headed),'original app actual Turkish speech recognition headed='+str(headed),'original app speech synthesis emits native start event headed='+str(headed)]
+ names=['native PulseAudio spoken input amplitude headed='+str(headed),'original app actual Turkish speech recognition headed='+str(headed),'production MPEG native events and PCM (explicit tone fixture) headed='+str(headed)]
  if platform.system()!='Linux':
   def unsupported():raise UnsupportedCapability('The native PulseAudio/Speech Dispatcher diagnostic requires Linux; no personal microphone captured on this host.')
   for name in names:record(name,unsupported)
   return
  native_args=['--autoplay-policy=no-user-gesture-required','--use-fake-ui-for-media-stream','--enable-speech-dispatcher','--enable-logging=stderr','--vmodule=*speech*=2,*audio*=1','--log-net-log='+str((OUT/('chrome-netlog-'+str(headed)+'.json')).resolve())]
  try:
-  b=pw.chromium.launch(channel='chrome',headless=not headed,args=native_args)
+  # PulseOutput must receive real PCM; Playwright otherwise mutes headless audio.
+  b=pw.chromium.launch(channel='chrome',headless=not headed,args=native_args,ignore_default_args=['--mute-audio'])
  except Exception as error:
   message=str(error)
   def unavailable():raise UnsupportedCapability('Native Chrome could not launch: '+message)
   for name in names:record(name,unavailable)
   return
- c,p=new(b);go(p,'/mental');p.wait_for_timeout(1200)
+ c,p=new(b);go(p,'/mental?demo=1');p.wait_for_timeout(1200)
  env=browser_environment(p,b,'native-browser-environment-'+str(headed));env['launchArgs']=native_args;save('native-browser-environment-'+str(headed),env)
  amplitude=None
  def audio_energy():
@@ -78,7 +79,7 @@ def run_native_audio(pw,headed,new,go,snap,browser_environment):
   try:
    # Feed a complete phrase only after the native capture device is listening.
    # Starting paplay before asynchronous Chrome capture clipped the first phrase.
-   p.get_by_role('button',name='MİKROFONU BAŞLAT',exact=True).click()
+   p.get_by_role('checkbox',name='TOGG Attune hizmet onayı',exact=True).check();(p.get_by_role('checkbox',name='TOGG Attune hizmet onayı',exact=True).check(), p.get_by_role('button',name='Görüşmeyi Başlat',exact=True).click())
    p.wait_for_function('window.__audit.speech.some(e=>e.type==="audiostart") || window.__audit.speech.some(e=>e.type==="error")',timeout=10000)
    if p.evaluate('window.__audit.speech.some(e=>e.type==="audiostart")'):player,log=play_fixture()
    p.wait_for_timeout(18000);d=snap(p,'native-speech-'+str(headed))
@@ -100,22 +101,17 @@ def run_native_audio(pw,headed,new,go,snap,browser_environment):
    if player is not None:stop_fixture(player,log)
  record(names[1],speech)
  def tts():
-  p.wait_for_function('speechSynthesis.getVoices().length>0',timeout=10000)
-  voices=p.evaluate('speechSynthesis.getVoices().map(v=>({name:v.name,lang:v.lang,local:v.localService}))');save('tts-voices-'+str(headed),voices)
-  require(any(v['lang'].lower().startswith('tr') for v in voices),'No Turkish voice available in native speech synthesis')
-  # A recognition error now exposes the text input. Do not toggle it closed.
-  if not p.locator('input').is_visible():p.get_by_role('button',name='İsterseniz yazabilirsiniz').click()
-  # Do not let a previous recognition reply satisfy the typed-reply assertion.
-  p.wait_for_function('!speechSynthesis.speaking && !speechSynthesis.pending',timeout=45000)
-  first=p.evaluate('window.__audit.tts.length')
+  # Explicit transport fixture, not an alternate production voice or pronunciation test.
+  p.route('**/api/mental/speech',lambda r:r.fulfill(content_type='audio/mpeg',body=pathlib.Path('tests/fixtures/synthetic-tone.mp3').read_bytes()))
+  p.evaluate("()=>{window.mpegEvents=[];const play=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(){for(const type of ['playing','ended','error'])this.addEventListener(type,()=>window.mpegEvents.push({type,time:performance.now()}));return play.call(this)};}")
+  p.get_by_role('button',name='İsterseniz yazabilirsiniz').click()
   with PulseOutput() as output:
-   p.locator('input').fill('Bugün yeni bir kitap okudum.');p.locator('input').press('Enter');p.wait_for_timeout(8000);d=snap(p,'native-tts-'+str(headed))
-   require(any(any(e['type']=='start' for e in t['events']) for t in d['tts'][first:]),'Speech synthesis called but no native start event')
-   p.wait_for_function('(first)=>window.__audit.tts.slice(first).some(t=>t.events.some(e=>e.type==="end"))',arg=first,timeout=45000)
-   d=snap(p,'native-tts-completed-'+str(headed))
-  evidence={'tts':d['tts'][first:],'priorTtsCount':first,'voices':voices,'outputPeak':output.peak,'outputSamples':output.samples};save('native-tts-output-'+str(headed),evidence)
-  require(output.peak>.001,'Native TTS events emitted but no PCM output reached PulseAudio')
-  require(not any(e['type']=='error' for t in d['tts'][first:] for e in t['events']),'Native TTS error event emitted')
+   p.get_by_role('textbox',name='Görüşme mesajı').fill('Bugün yeni bir kitap okudum.');p.get_by_role('textbox',name='Görüşme mesajı').press('Enter')
+   p.wait_for_function('window.mpegEvents.some(e=>e.type==="playing")')
+   p.wait_for_function('window.mpegEvents.some(e=>e.type==="ended")',timeout=45000)
+  events=p.evaluate('window.mpegEvents');evidence={'events':events,'transportFixture':'synthetic-tone','exactVoiceAcceptance':False,'outputPeak':output.peak,'outputSamples':output.samples};save('native-mpeg-output-'+str(headed),evidence)
+  require(output.peak>.001,'Native MPEG events emitted but no PCM reached PulseAudio')
+  require(not any(e['type']=='error' for e in events),'Native MPEG error event emitted')
   return evidence
  record(names[2],tts)
  c.close();b.close()
@@ -139,7 +135,21 @@ with sync_playwright() as pw:
   return p.evaluate('navigator.permissions.query({name:"camera"}).then(p=>p.state)')
  c,p=new()
  def stalled_scan():
-  go(p,'/skin');browser_environment(p,b,'camera-browser-environment');p.wait_for_timeout(5000);p.get_by_role('button',name='Analizi Başlat',exact=True).click();p.wait_for_timeout(10000);d=snap(p,'skin-live-loop-diagnostic');require(d['video'] and d['video'][0]['w']>0 and d['video'][0]['time']>5,'No actual decoded video');require(d['draw']>0,'Live camera has decoded frames, but analysis drew ZERO canvas frames. RAF trace: '+str(d['raf'])+' cancelled: '+str(d['cancel']));require(d['rafCounts']['fired']>1,'RAF did not repeatedly execute');require(d['engine']['mediapipeReady']=='true' and d['engine']['mediapipeActive']=='true' and d['engine']['faceDetected']=='true' and int(d['engine']['landmarkCount'])>=400,'Live UI did not reach actual MediaPipe detection');require(not d['errors'],'Uncaught live analysis error');p.wait_for_timeout(500);later=state(p);require(later['draw']>d['draw'],'Canvas stopped drawing while active');require('togg_health_latest_skin' not in d['storage'] if d['engine']['qualityStatus']=='BLURRY' else True,'Rejected blurry fixture generated a real result');return d
+  go(p,'/skin');browser_environment(p,b,'camera-browser-environment')
+  p.wait_for_function('document.querySelector("canvas")?.dataset.mediapipeReady==="true"',timeout=30000)
+  p.get_by_role('button',name='Analizi Başlat',exact=True).click()
+  # Observe live acquisition before the accepted frame is frozen for matting.
+  # Actual inference is asynchronous; a 500ms redraw assumption is not FPS proof.
+  p.wait_for_function('document.querySelector("canvas")?.dataset.mediapipeActive==="true" && document.querySelector("canvas")?.dataset.faceDetected==="true" && window.__audit.draw>=3',timeout=30000)
+  d=snap(p,'skin-live-loop-diagnostic')
+  require(d['video'] and d['video'][0]['w']>0 and d['video'][0]['time']>0,'No actual decoded video')
+  require(d['rafCounts']['fired']>1,'RAF did not repeatedly execute')
+  require(int(d['engine']['landmarkCount'])>=400,'Live UI did not reach actual MediaPipe detection')
+  require(not d['errors'],'Uncaught live analysis error')
+  p.wait_for_function('(before)=>window.__audit.draw>before',arg=d['draw'],timeout=10000)
+  later=state(p);require(later['draw']>d['draw'],'Canvas stopped drawing during live acquisition')
+  require('togg_health_latest_skin' not in d['storage'] if d['engine']['qualityStatus']=='BLURRY' else True,'Rejected blurry fixture generated a real result')
+  d['drawsAfterBoundedWait']=later['draw'];return d
  record('original skin live preview actually reaches frame analysis',stalled_scan)
  def route_cleanup():
   p.get_by_role('link',name='Gizlilik & İzinler',exact=True).click();expect(p).to_have_url(BASE+'/privacy');p.wait_for_timeout(800);d=snap(p,'skin-route-cleanup');require(all(t['state']=='ended' for t in d['tracks']),'Video track survives route exit')

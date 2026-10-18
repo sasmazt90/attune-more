@@ -1,0 +1,36 @@
+{
+  "enabled": true,
+  "version": "local-vit-dima806-5aace4f-v1",
+  "sourceModel": "dima806/skin_types_image_detection",
+  "sourceRevision": "5aace4f4df0ba3265a07fbddab12a4ad38e0f6a6",
+  "sourceWeightSHA256": "572185743c6be523efcc72b71f12c089cb81baf54525a1831b333544ba47224a",
+  "sha256": "99b4c2fa1e9ac013d539f635eb948c5a29f4c5f86f34fe26c380ad308c26c65a",
+  "file": "skin-type-local-v1/model.onnx",
+  "classOrder": [
+    "dry",
+    "normal",
+    "oily"
+  ],
+  "preprocessing": {
+    "RGB": true,
+    "size": [
+      224,
+      224
+    ],
+    "resample": "PIL-bilinear",
+    "rescale": 0.00392156862745098,
+    "mean": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "std": [
+      0.5,
+      0.5,
+      0.5
+    ]
+  },
+  "provider": "local",
+  "decisionVersion": "combination-regional-user-v2-final-product-visible-support-v1",
+  "licenseDeclaration": "Apache-2.0 in upstream model card; separate LICENSE not provided; dataset rights not inferred"
+}

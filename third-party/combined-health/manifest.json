@@ -1,0 +1,179 @@
+{
+  "libraries": [
+    {
+      "package": "numpy",
+      "version": "2.2.6",
+      "notices": [
+        {
+          "file": "numpy-LICENSE.txt",
+          "sha256": "14256cc3a2c9d32ac284da96b937feb44f72dd90bee2317ac3020166846ad99d"
+        }
+      ]
+    },
+    {
+      "package": "opencv-python",
+      "version": "4.12.0.88",
+      "notices": [
+        {
+          "file": "opencv-python-LICENSE.txt",
+          "sha256": "edef0fac1eb08d29d34563f724742e078da2513e196133a12c6ad9ff01e26107"
+        },
+        {
+          "file": "opencv-python-THIRD-PARTY.txt",
+          "sha256": "d8ec888320fcb9d99317a77af4a4a3a91208676067ec1fa9bc1967a522411730"
+        }
+      ],
+      "licenseScope": "MIT Python wrapper; Apache-2.0 OpenCV binary; bundled third-party notices include LGPL components. No claim that all dependencies are MIT."
+    },
+    {
+      "package": "scikit-image",
+      "version": "0.26.0",
+      "notices": [
+        {
+          "file": "scikit-image-LICENSE.txt",
+          "sha256": "c0ae0d653416915f77a6364eef489ab59fcb319514a806422285cb4359657c5b"
+        }
+      ]
+    },
+    {
+      "package": "onnxruntime",
+      "version": "1.26.0",
+      "notices": [
+        {
+          "file": "onnxruntime-LICENSE.txt",
+          "sha256": "c250d6278f0b47a6439fb7592b08b58a55eb9f535aa49a1db63211c3f982b674"
+        },
+        {
+          "file": "onnxruntime-THIRD-PARTY.txt",
+          "sha256": "fb0af774b4d7cffc5b9d046f2aaeade2f37df2f80abf8033c95dfffcc77a8866"
+        }
+      ]
+    },
+    {
+      "package": "torch",
+      "version": "2.9.1",
+      "notices": [
+        {
+          "file": "torch-LICENSE",
+          "sha256": "a60db7b1ec2872f18d2c1b86d147ea39d5ead7d671fe8a9c07c28b17d167e51d"
+        }
+      ]
+    },
+    {
+      "package": "edge-tts",
+      "version": "7.2.8",
+      "notices": [
+        {
+          "file": "edge-tts-LICENSE",
+          "sha256": "3613045a46a5bce847f80eadbbf013e4260ef19d728ffd061d61e792689ec3a8"
+        }
+      ]
+    },
+    {
+      "package": "official-Megvii-YOLOX",
+      "revision": "6ddff4824372906469a7fae2dc3206c7aa4bbaee",
+      "license": "Apache-2.0",
+      "noticeSha256": "0ec3668d3274bcf29e8a29e9576d5a2cd96fc78d3c5bec4387355a796e5d9088"
+    },
+    {
+      "package": "scipy",
+      "version": "1.17.1",
+      "notices": [
+        {
+          "file": "../skin-research/scipy-LICENSE.txt",
+          "sha256": "564d63dbef2ef3eb1dec94908966d3edf5f11c487ee2cf2baf8bf3faef01bdd9"
+        }
+      ],
+      "use": "actual ndimage labels and regional image operations"
+    },
+    {
+      "package": "thop",
+      "version": "0.1.1-2209072238",
+      "notices": [
+        {
+          "file": "thop-LICENSE",
+          "sha256": "36f577ad288f1beae8188b6ec09808eaed278c08b8284bacc694bb56ffbf3dfc"
+        }
+      ],
+      "use": "actual local CPU training/export/equivalence dependency; not a runtime analysis model"
+    },
+    {
+      "package": "torchvision",
+      "version": "0.24.1",
+      "notices": [
+        {
+          "file": "torchvision-LICENSE",
+          "sha256": "c06363f9d33627dc5173b13522444cc85fbb4739f63e16d4587d5c0a165b5b1e"
+        }
+      ],
+      "use": "actual local CPU training/export/equivalence dependency; not a runtime analysis model"
+    },
+    {
+      "package": "onnx",
+      "version": "1.19.1",
+      "notices": [
+        {
+          "file": "onnx-LICENSE",
+          "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+        }
+      ],
+      "use": "actual local CPU training/export/equivalence dependency; not a runtime analysis model"
+    },
+    {
+      "package": "tabulate",
+      "version": "0.10.0",
+      "notices": [
+        {
+          "file": "tabulate-LICENSE",
+          "sha256": "cdfab50d37d8ead06468fb76a3abafcd05c16749ec8a18eebfa50fd48c7cb2d2"
+        }
+      ],
+      "use": "actual local CPU training/export/equivalence dependency; not a runtime analysis model"
+    },
+    {
+      "package": "loguru",
+      "version": "0.7.3",
+      "license": "MIT",
+      "source": "https://raw.githubusercontent.com/Delgan/loguru/0.7.3/LICENSE",
+      "notices": [
+        {
+          "file": "loguru-LICENSE",
+          "sha256": "b35d026cc7aca9d5859a02eb87ddf7a386a24c986838651bd1f283f94e003327"
+        }
+      ],
+      "use": "official YOLOX local CPU training logger dependency"
+    }
+  ],
+  "methodReferences": [
+    {
+      "repository": "evidENT-AI/in-silico-audiometry",
+      "revision": "ece09af132fe4dc79311ea241f8803216f2f16a9",
+      "license": "MIT",
+      "noticeSha256": "7feda7f8d4edae4336632032a1429c9a96fcba1fe378419b124e55269687f706",
+      "use": "method comparison only; no code or weights copied"
+    },
+    {
+      "repository": "S1ddh4rthaG/DhwaniSarathi",
+      "revision": "80e990feacadb01bd73fdc80477b07d0f678d571",
+      "license": "Apache-2.0",
+      "noticeSha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "use": "method comparison only; no code or weights copied"
+    },
+    {
+      "url": "https://www.w3.org/TR/webaudio/",
+      "use": "browser API specification; own signal code"
+    },
+    {
+      "url": "https://www.thebsa.org.uk/wp-content/uploads/2024/01/Recommended-Procedure-Pure-Tone-Audiometry-2018.pdf",
+      "use": "method reference, uncalibrated digital adaptation; no clinical equivalence"
+    },
+    {
+      "url": "https://link.springer.com/article/10.1186/s43163-023-00511-2",
+      "use": "method reference only; no clinical audio/norms copied"
+    }
+  ],
+  "modelTrainingData": "Zenodo 14827784 CC-BY-4.0; separate from source code and model rights",
+  "weightsInitialization": "from scratch, no imported weights",
+  "mediaRetention": "volatile; no user training or uploads",
+  "bankAuditoryAcceptance": "pending"
+}

@@ -1,0 +1,2 @@
+Pretrained source: https://huggingface.co/dima806/skin_types_image_detection/tree/5aace4f4df0ba3265a07fbddab12a4ad38e0f6a6
+Upstream model card declares Apache-2.0; it does not provide a separate LICENSE file. MODEL_CARD.md is the unmodified upstream card. Dataset/expert validity and camera accuracy are not established by this declaration. Standard ViTForImageClassification safetensors converted once to static ONNX CPU; no training. SHA and preprocessing are in ../skin-type-local.json. Regional combination is an explicit application rule, not a fourth learned class.

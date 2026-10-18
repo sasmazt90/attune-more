@@ -1,0 +1,12 @@
+"""Diagnose the actual compiled worker without replacing any model result."""
+import json
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+OUT=Path('audit-results/vision-usable');OUT.mkdir(parents=True,exist_ok=True)
+with sync_playwright() as pw:
+ b=pw.chromium.launch(channel='chrome',headless=True,args=['--use-fake-device-for-media-stream','--use-file-for-fake-video-capture='+str(Path('audit-fixtures/valid-face.y4m').resolve()),'--enable-unsafe-swiftshader']);c=b.new_context(permissions=['camera']);p=c.new_page()
+ c.add_init_script("window.NativeWorker=Worker;window.Worker=class extends Worker{constructor(url,...args){super(url,...args);window.workerURL=String(url);}};")
+ c.request.post('http://127.0.0.1:8000/api/vehicle/speed',data={'speedKmH':0});p.goto('http://127.0.0.1:3000/vision');p.get_by_role('button',name='Başlat',exact=True).click();p.wait_for_function('window.workerURL&&document.querySelector("video")?.videoWidth>0')
+ p.evaluate('async()=>window.pixelFrame=await createImageBitmap(document.querySelector("video"))');p.get_by_role('button',name='Bitir',exact=True).click();p.get_by_role('button',name='Tamam',exact=True).click()
+ result=p.evaluate("""async()=>{const results=[];for(const delegate of ['CPU','GPU']){const worker=new NativeWorker(workerURL);let id=100;const request=(type,frame)=>new Promise((resolve,reject)=>{const number=++id,start=performance.now(),timer=setTimeout(()=>{worker.terminate();reject(Error('Raw worker 40s deadline'))},40000);const handle=e=>{if(e.data.id!==number)return;clearTimeout(timer);worker.removeEventListener('message',handle);if(e.data.error)reject(Error(e.data.error));else resolve({...e.data,totalMs:performance.now()-start});};worker.addEventListener('message',handle);worker.postMessage({id:number,type,delegate,frame,frameTime:performance.now(),eye:null},frame?[frame]:[]);});try{const init=await request('initialize'),first=await request('frame',await createImageBitmap(pixelFrame)),warm=[];for(let i=0;i<8;i++){const f=await request('frame',await createImageBitmap(pixelFrame));warm.push(f.totalMs);}results.push({delegate,initMs:init.totalMs,firstFrameMs:first.totalMs,inferenceMs:first.evidence.inferenceMs,faceCount:first.evidence.conditions.faceCount,warmMs:warm});}catch(e){results.push({delegate,error:e.message});}finally{worker.terminate();}}pixelFrame.close();return results;}""")
+ (OUT/'worker-cold.json').write_text(json.dumps(result,indent=2),'utf8');print(json.dumps(result));c.close();b.close()

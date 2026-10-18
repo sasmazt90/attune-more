@@ -116,15 +116,16 @@ def test_privacy_preference_off_prevents_session_persistence():
     assert res_allowed["persisted"] is True
     assert len(SessionMemoryManager.get_all_sessions()) == 1
 
-def test_live_provider_failure_produces_clearly_labelled_fallback():
-    """Canlı sağlayıcı bağlantı hatasında sistem zarifçe LOCAL_DEMO_FALLBACK rozetiyle yerel motora geçmelidir."""
-    # Geçersiz bir anahtar ve URL ile canlı sağlayıcı simüle et
-    broken_provider = OpenAICompatibleMentalProvider(api_key="sk-invalid-test-key", base_url="http://127.0.0.1:9999/v1")
-    reply_obj = broken_provider.generate_reply(
-        user_message="Merhaba",
-        is_driving=False,
-        history=[]
-    )
-    assert reply_obj["providerType"] == "LOCAL_DEMO_FALLBACK"
-    assert "fallbackReason" in reply_obj
-    assert len(reply_obj["reply"]) > 0
+def test_live_provider_failure_is_explicit_without_demo_fallback(monkeypatch):
+    """Provider failure is a sanitized 503; no fabricated personalized demo reply."""
+    import pytest
+    import mental_provider
+    from fastapi import HTTPException
+    def unavailable(*args, **kwargs):
+        raise RuntimeError('PRIVATE_PROVIDER_ERROR_DO_NOT_EXPOSE')
+    monkeypatch.setattr(mental_provider, 'get_openai_client', unavailable)
+    broken_provider = OpenAICompatibleMentalProvider(api_key='noncredential-test-fixture')
+    with pytest.raises(HTTPException) as caught:
+        broken_provider.generate_reply(user_message='Merhaba', is_driving=False, history=[])
+    assert caught.value.status_code == 503
+    assert 'PRIVATE_PROVIDER_ERROR' not in str(caught.value.detail)

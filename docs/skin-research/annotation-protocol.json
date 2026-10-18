@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "seed": 20261008,
+  "targets": {
+    "dry": {
+      "definition": "expert-visible scaling/flaking on the photographed surface, not water content or barrier function",
+      "regions": [
+        "forehead",
+        "rightCheek",
+        "leftCheek",
+        "nose",
+        "chin"
+      ],
+      "unit": "expert-ordinal-grade-0-3",
+      "gradeAnchors": [
+        "no visible scaling",
+        "sparse localized scaling",
+        "multiple clearly visible scaling areas",
+        "extensive visible scaling"
+      ],
+      "localization": "expert polygons of visible flaking, plus invalid/occluded pixel polygons",
+      "forbiddenProxies": [
+        "texture variance",
+        "brightness",
+        "skin-scan hydration",
+        "magnified webcam as microscopy"
+      ]
+    },
+    "sag": {
+      "definition": "expert-visible lower-cheek/jowl contour laxity under standardized neutral pose, not mechanical elasticity",
+      "regions": [
+        "rightCheek",
+        "leftCheek",
+        "chin"
+      ],
+      "unit": "expert-ordinal-grade-0-3",
+      "gradeAnchors": [
+        "no visible contour laxity",
+        "subtle contour laxity",
+        "clear contour laxity",
+        "marked contour laxity"
+      ],
+      "localization": "expert-defined contour intervals and regional grades; local fill requires a separately validated local annotation target",
+      "forbiddenProxies": [
+        "arbitrary landmark distances",
+        "head tilt",
+        "expression",
+        "device elasticity"
+      ]
+    }
+  },
+  "capture": {
+    "poses": [
+      "FRONT",
+      "RIGHT",
+      "LEFT"
+    ],
+    "expression": "neutral, lips relaxed, no smile or forced eye squint",
+    "lighting": "recorded diffuse light direction, fixed exposure/white balance; separate repeat capture and lighting challenge sets",
+    "source": "native uncropped unmirrored RGB with resolution and camera condition metadata; analysis excludes overlay screenshots",
+    "limitations": "macro/side-light visible scaling capture may be required; unavailable detail is not reconstructed",
+    "requiredMetadata": [
+      "photoSHA256",
+      "caseId",
+      "cameraCondition",
+      "lightingCondition",
+      "pose",
+      "sourceWidth",
+      "sourceHeight",
+      "rightsRecord",
+      "consentRecord"
+    ]
+  },
+  "expertReview": {
+    "independentReviewers": 2,
+    "adjudication": "third qualified reviewer for disagreement",
+    "store": [
+      "expertGrades",
+      "consensusGrade",
+      "visibility",
+      "invalidPolygons",
+      "targetPolygons",
+      "annotationRevision",
+      "expertReviewerIds",
+      "regionBox",
+      "consentRecord"
+    ],
+    "noMachineGroundTruth": true,
+    "acceptanceBeforeHoldout": {
+      "minimumInterRaterWeightedKappa": 0.6,
+      "minimumTestCasesPerGrade": 30,
+      "maximumMAE": 0.5,
+      "minimumModelWeightedKappa": 0.6
+    },
+    "split": "case-based 60/20/20 with duplicate photo components kept together; separate camera-domain holdout"
+  },
+  "rights": {
+    "required": [
+      "sourceLicenseName",
+      "sourceLicenseURL",
+      "licenseTextSHA256",
+      "commercialTrainingAllowed",
+      "modelDistributionAllowed",
+      "consentId",
+      "consentScope",
+      "withdrawalPolicy",
+      "licenseTextPath"
+    ],
+    "policy": "data/code/derived-weight permissions are separate; never infer model distribution rights from code license"
+  }
+}

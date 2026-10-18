@@ -1,0 +1,24 @@
+async page=>{
+ const assert=(x,m)=>{if(!x)throw Error(m)},rows=[];
+ const save=async(name,value)=>{const d=page.waitForEvent('download');await page.evaluate(v=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(v)],{type:'application/json'}));a.download='evidence.json';a.click()},value);await(await d).saveAs('../cdc-progress/hearing-technical-closeout-20261017/'+name);};
+ await page.addInitScript(()=>{
+  window.contexts=[];window.waves=[];window.failSource=false;window.throwSource=false;
+  const C=window.AudioContext;window.AudioContext=function(...args){const c=new C(...args);contexts.push(c);return c};window.AudioContext.prototype=C.prototype;
+  const start=AudioBufferSourceNode.prototype.start;AudioBufferSourceNode.prototype.start=function(...args){waves.push({at:performance.now(),duration:this.buffer?.duration,withheld:failSource,threw:throwSource});if(throwSource)throw Error('CONTROLLED_START_FAILURE');if(failSource)return;return start.apply(this,args)};
+ });
+ const auth=async()=>{await page.goto('http://127.0.0.1:3309/hearing');if(await page.getByRole('dialog').count()){assert(await page.evaluate(()=>contexts.length)===0,'Audio before service consent');await page.getByRole('dialog').getByRole('checkbox').check();await page.getByRole('button',{name:'İzin ver ve devam et'}).click();}await page.waitForFunction(()=>document.querySelector('[data-vehicle-status]')?.textContent==='PARK',{},{timeout:20000});};
+ const prep=async()=>{await page.getByRole('button',{name:'Ses hazırlığını başlat'}).click();await page.waitForFunction(()=>[...document.querySelectorAll('button')].some(b=>b.textContent==='Sol kanalı dinle'&&!b.disabled),{},{timeout:25000});};
+ const closed=async(kind)=>{await page.waitForFunction(()=>contexts.length>0&&contexts.every(c=>c.state!=='running')&&Number(document.querySelector('[data-playback-wave]')?.dataset.amplitude||0)===0,{},{timeout:5000});const record=await page.evaluate(()=>({states:contexts.map(c=>c.state),records:JSON.parse(localStorage.getItem('attune_hearing_history_v1')||'[]').length,owner:localStorage.getItem('attune_hearing_audio_owner'),wave:Number(document.querySelector('[data-playback-wave]')?.dataset.amplitude||0),notice:[...document.querySelectorAll('[role=status]')].map(e=>e.textContent)}));assert(record.records===0,kind+' wrote incomplete result');assert(!record.owner,kind+' retained lease');rows.push({kind,...record});await save('lifecycle-progress.json',{rows,physicalHeadphoneAcceptance:false});};
+ await auth();await prep();
+ await page.getByRole('button',{name:'Sol kanalı dinle'}).click();await page.waitForFunction(()=>waves.length>0,{},{timeout:3000});await page.getByRole('button',{name:'Seslendirmeyi kapat'}).click();await closed('header mute during stimulus');const n=await page.evaluate(()=>waves.length);await page.getByRole('button',{name:'Seslendirmeyi aç'}).click();await page.waitForTimeout(300);assert(await page.evaluate(()=>waves.length)===n,'Unmute replayed stale PCM');
+ await prep();await page.evaluate(()=>contexts.find(c=>c.state==='running')?.suspend());await closed('actual AudioContext suspension');
+ await prep();await page.evaluate(()=>navigator.mediaDevices.dispatchEvent(new Event('devicechange')));await closed('controlled devicechange event, not physical disconnection');
+ await prep();await page.getByRole('button',{name:'Durdur',exact:true}).click();await closed('explicit stop');
+ await prep();await page.evaluate(()=>{window.throwSource=true});await page.getByRole('button',{name:'Sol kanalı dinle'}).click();await closed('source start exception');await page.evaluate(()=>{window.throwSource=false});
+ await prep();await page.evaluate(()=>{window.failSource=true});await page.getByRole('button',{name:'Sol kanalı dinle'}).click();await closed('source never starts/never ends');await page.evaluate(()=>{window.failSource=false});
+ // Driving is checked serially after the complete sessions; never mutate their shared vehicle API.
+ await prep();await page.getByRole('link',{name:'Gizlilik',exact:true}).click();await closed('route unmount');
+ await auth();await prep();const other=await page.context().newPage();await other.goto('http://127.0.0.1:3309/privacy');await other.locator('[data-service-settings]>div').filter({has:other.getByRole('heading',{name:'İşitme Sağlığı',exact:true})}).getByRole('button',{name:'İzni kaldır'}).click();await page.getByRole('dialog').waitFor({timeout:5000});await closed('cross-tab processing consent revoke');await other.close();
+ const proof={rows,physicalHeadphoneAcceptance:false,controlledDeviceEvent:true,providerCalls:0};
+ const d=page.waitForEvent('download');await page.evaluate(v=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(v)],{type:'application/json'}));a.download='lifecycle.json';a.click()},proof);await(await d).saveAs('../cdc-progress/hearing-technical-closeout-20261017/lifecycle.json');return proof;
+}

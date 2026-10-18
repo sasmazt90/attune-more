@@ -108,9 +108,12 @@ def test_skin_mediapipe_required_for_persistence_contract():
     assert "MEDIAPIPE_REQUIRED" in content
     assert "isMediaPipeActive" in content
 
-    # 3. CDN WASM yolu latest değil 1.0.1 olarak pinlenmiş olmalı
+    # 3. Byte-identical pinned SDK is now delivered locally; no runtime CDN.
     assert "@mediapipe/tasks-vision@latest" not in content
-    assert "@mediapipe/tasks-vision@1.0.1/wasm" in content
+    assert "'/mediapipe/wasm'" in content
+    import json
+    manifest=json.loads((root_dir/'apps/vehicle-app/public/mediapipe/manifest.json').read_text())
+    assert manifest['sdkVersion']=='1.0.1' and not manifest['modelChange']
 
     # 4. skin/page.tsx içinde de persist öncesi MediaPipe doğrulaması yapılmalı
     skin_page = root_dir / "apps" / "vehicle-app" / "src" / "app" / "skin" / "page.tsx"

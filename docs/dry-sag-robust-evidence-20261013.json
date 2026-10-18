@@ -1,0 +1,2226 @@
+{
+  "generatedUTC": "2026-10-13T03:42:06.678276+00:00",
+  "sourceBaseline": "1f93e33289aed3ef3061adfe72597f5989d1bde0",
+  "productionBehaviorChanged": false,
+  "experiments": [
+    {
+      "name": "robust-DoG",
+      "hypothesis": "native DoG + median11 background / MAD11 prominence > max(.025,3*1.4826*MAD)",
+      "seconds": 62.53099999995902,
+      "processCPUSeconds": 27.625,
+      "sampledPeakRSSBytes": 399904768,
+      "naturalNegativeSupportPreserved": true,
+      "allPartialBoxNativeSupportPreserved": false,
+      "eligibleForDelivery": false,
+      "thresholdSearch": false,
+      "productionChanged": false,
+      "sources": [
+        {
+          "source": "03605ddd",
+          "sha256": "03605ddd0841a8c12ab102fc9a1b0d39ad98f19b2df215567fe57e2ffc270de9",
+          "category": "CLAHE-processed-local-peeling",
+          "partialBoxCandidateSupport": [
+            {
+              "label": "pul",
+              "box": [
+                329,
+                12,
+                148,
+                138
+              ],
+              "nativeBefore": 131,
+              "nativeAfter": 14,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "pul",
+              "box": [
+                411,
+                199,
+                66,
+                84
+              ],
+              "nativeBefore": 24,
+              "nativeAfter": 6,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "pul",
+              "box": [
+                284,
+                379,
+                75,
+                85
+              ],
+              "nativeBefore": 30,
+              "nativeAfter": 3,
+              "scope": "box support; not pixel truth or severity"
+            }
+          ],
+          "productionV3Before": null,
+          "trialOverview": null
+        },
+        {
+          "source": "2cfbfb04",
+          "sha256": "2cfbfb04fda79431aec27f26b19de0d3b7b3ac6a7e8b3d6f8a2097ba3aee0396",
+          "category": "CLAHE-processed-local-peeling",
+          "partialBoxCandidateSupport": [
+            {
+              "label": "pul",
+              "box": [
+                236,
+                458,
+                275,
+                122
+              ],
+              "nativeBefore": 281,
+              "nativeAfter": 164,
+              "scope": "box support; not pixel truth or severity"
+            }
+          ],
+          "productionV3Before": null,
+          "trialOverview": null
+        },
+        {
+          "source": "387e1700",
+          "sha256": "387e17001d0f9a1945e58905f3d82c0c38b4c4c860b9733046e87bcd471380e5",
+          "category": "CLAHE-processed-local-peeling",
+          "partialBoxCandidateSupport": [
+            {
+              "label": "pul",
+              "box": [
+                95,
+                207,
+                196.5,
+                147
+              ],
+              "nativeBefore": 0,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "pul",
+              "box": [
+                198,
+                303,
+                211,
+                150
+              ],
+              "nativeBefore": 0,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "pul",
+              "box": [
+                363,
+                209,
+                194,
+                175.5
+              ],
+              "nativeBefore": 3,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "pul",
+              "box": [
+                524,
+                73,
+                87.5,
+                224.5
+              ],
+              "nativeBefore": 0,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            }
+          ],
+          "productionV3Before": null,
+          "trialOverview": null
+        },
+        {
+          "source": "e1646fda",
+          "sha256": "e1646fda9a0d23d3654546a2d85d773dc884885f5b32811bc85bc8f0733550b0",
+          "category": "natural-photo-pore-specular-local-negative",
+          "partialBoxCandidateSupport": [
+            {
+              "label": "Dry-Skin",
+              "box": [
+                1181.5,
+                895,
+                160,
+                168
+              ],
+              "nativeBefore": 4,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                737.5,
+                907,
+                96,
+                118
+              ],
+              "nativeBefore": 1,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            }
+          ],
+          "productionV3Before": {
+            "value": 0.08314901967305806,
+            "activeSourcePixels": 354,
+            "reviewedNegativePixels": 19
+          },
+          "trialOverview": {
+            "region": "overview",
+            "value": 0.0788926693322456,
+            "limitation": null,
+            "sourcePixels": 323,
+            "reviewedNegativePixels": 9
+          }
+        },
+        {
+          "source": "594aadd0",
+          "sha256": "594aadd0c86944d5235f023003950b1cd6848e1647cbcd0247b010deb8aefd0f",
+          "category": "natural-photographic-partial-visible-peeling",
+          "partialBoxCandidateSupport": [
+            {
+              "label": "Dry-Skin",
+              "box": [
+                373.33,
+                102.23,
+                52.22,
+                53.33
+              ],
+              "nativeBefore": 5,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                194.45,
+                326.67,
+                82.22,
+                60
+              ],
+              "nativeBefore": 19,
+              "nativeAfter": 14,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                171.11,
+                27.78,
+                56.67,
+                41.11
+              ],
+              "nativeBefore": 15,
+              "nativeAfter": 6,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                440,
+                143.33,
+                44.44,
+                72.22
+              ],
+              "nativeBefore": 22,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                346.67,
+                297.78,
+                50,
+                72.22
+              ],
+              "nativeBefore": 8,
+              "nativeAfter": 8,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                462.23,
+                60,
+                71.11,
+                77.78
+              ],
+              "nativeBefore": 17,
+              "nativeAfter": 4,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                83.33,
+                70,
+                32.22,
+                85.56
+              ],
+              "nativeBefore": 0,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                354.45,
+                15.55,
+                46.67,
+                47.78
+              ],
+              "nativeBefore": 0,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                303.34,
+                286.66,
+                36.67,
+                85.56
+              ],
+              "nativeBefore": 10,
+              "nativeAfter": 10,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                407.78,
+                247.78,
+                48.89,
+                65.56
+              ],
+              "nativeBefore": 0,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                487.78,
+                220,
+                37.78,
+                46.67
+              ],
+              "nativeBefore": 3,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            }
+          ],
+          "productionV3Before": null,
+          "trialOverview": null
+        },
+        {
+          "source": "0642d4ab",
+          "sha256": "0642d4ab787b9020fbdcca3ee89e26e62cb9bfd3147ebf84eeb1cdf033b44ae0",
+          "category": "natural-reviewed-visible-skin-negative-for-flaking",
+          "partialBoxCandidateSupport": [],
+          "productionV3Before": {
+            "value": 0.0,
+            "activeSourcePixels": 0,
+            "reviewedNegativePixels": null
+          },
+          "trialOverview": {
+            "region": "overview",
+            "value": 0.0,
+            "limitation": null,
+            "sourcePixels": 0,
+            "reviewedNegativePixels": null
+          }
+        },
+        {
+          "source": "36e4010b",
+          "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+          "category": "natural-reviewed-visible-skin-negative-for-flaking",
+          "partialBoxCandidateSupport": [],
+          "productionV3Before": {
+            "value": 0.1837124416833861,
+            "activeSourcePixels": 76,
+            "reviewedNegativePixels": null
+          },
+          "trialOverview": {
+            "region": "overview",
+            "value": 0.050762648359883,
+            "limitation": null,
+            "sourcePixels": 21,
+            "reviewedNegativePixels": null
+          }
+        },
+        {
+          "source": "c31892d1",
+          "sha256": "c31892d13cdeb47bec36bb962e8039e752170f671b7743b589d7eeb542389a03",
+          "category": "CLAHE-processed-photo",
+          "partialBoxCandidateSupport": [
+            {
+              "label": "pul",
+              "box": [
+                223,
+                409,
+                145,
+                72
+              ],
+              "nativeBefore": 24,
+              "nativeAfter": 4,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "pul",
+              "box": [
+                389,
+                427,
+                21,
+                45
+              ],
+              "nativeBefore": 5,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            }
+          ],
+          "productionV3Before": {
+            "value": 0.0667940701708815,
+            "activeSourcePixels": 36,
+            "reviewedNegativePixels": null
+          },
+          "trialOverview": {
+            "region": "overview",
+            "value": 0.020468734008801556,
+            "limitation": null,
+            "sourcePixels": 12,
+            "reviewedNegativePixels": null
+          }
+        },
+        {
+          "source": "5bd42346",
+          "sha256": "5bd42346304d791a394f98717ae1b38614688cead8dbb9ac2e09cc4ecf6c0905",
+          "category": "transformed-noisy-regression-not-natural",
+          "partialBoxCandidateSupport": [],
+          "productionV3Before": {
+            "value": 0.05825242718446602,
+            "activeSourcePixels": 24,
+            "reviewedNegativePixels": null
+          },
+          "trialOverview": {
+            "region": "overview",
+            "value": 0.05825242718446602,
+            "limitation": null,
+            "sourcePixels": 24,
+            "reviewedNegativePixels": null
+          }
+        }
+      ],
+      "receiptSHA256": "0115e8918a93cf7bd1d249490771d3f8710eee68e7f25e6b8649718aef4209ff"
+    },
+    {
+      "name": "robust-plate",
+      "hypothesis": "native bright-plate prominence, extreme 1/2-pixel impulses excluded + median11 background / MAD11 prominence > max(.025,3*1.4826*MAD)",
+      "seconds": 77.5930000001099,
+      "processCPUSeconds": 36.546875,
+      "sampledPeakRSSBytes": 413208576,
+      "naturalNegativeSupportPreserved": false,
+      "allPartialBoxNativeSupportPreserved": false,
+      "eligibleForDelivery": false,
+      "thresholdSearch": false,
+      "productionChanged": false,
+      "sources": [
+        {
+          "source": "03605ddd",
+          "sha256": "03605ddd0841a8c12ab102fc9a1b0d39ad98f19b2df215567fe57e2ffc270de9",
+          "category": "CLAHE-processed-local-peeling",
+          "partialBoxCandidateSupport": [
+            {
+              "label": "pul",
+              "box": [
+                329,
+                12,
+                148,
+                138
+              ],
+              "nativeBefore": 131,
+              "nativeAfter": 30,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "pul",
+              "box": [
+                411,
+                199,
+                66,
+                84
+              ],
+              "nativeBefore": 24,
+              "nativeAfter": 22,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "pul",
+              "box": [
+                284,
+                379,
+                75,
+                85
+              ],
+              "nativeBefore": 30,
+              "nativeAfter": 12,
+              "scope": "box support; not pixel truth or severity"
+            }
+          ],
+          "productionV3Before": null,
+          "trialOverview": null
+        },
+        {
+          "source": "2cfbfb04",
+          "sha256": "2cfbfb04fda79431aec27f26b19de0d3b7b3ac6a7e8b3d6f8a2097ba3aee0396",
+          "category": "CLAHE-processed-local-peeling",
+          "partialBoxCandidateSupport": [
+            {
+              "label": "pul",
+              "box": [
+                236,
+                458,
+                275,
+                122
+              ],
+              "nativeBefore": 281,
+              "nativeAfter": 233,
+              "scope": "box support; not pixel truth or severity"
+            }
+          ],
+          "productionV3Before": null,
+          "trialOverview": null
+        },
+        {
+          "source": "387e1700",
+          "sha256": "387e17001d0f9a1945e58905f3d82c0c38b4c4c860b9733046e87bcd471380e5",
+          "category": "CLAHE-processed-local-peeling",
+          "partialBoxCandidateSupport": [
+            {
+              "label": "pul",
+              "box": [
+                95,
+                207,
+                196.5,
+                147
+              ],
+              "nativeBefore": 0,
+              "nativeAfter": 80,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "pul",
+              "box": [
+                198,
+                303,
+                211,
+                150
+              ],
+              "nativeBefore": 0,
+              "nativeAfter": 109,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "pul",
+              "box": [
+                363,
+                209,
+                194,
+                175.5
+              ],
+              "nativeBefore": 3,
+              "nativeAfter": 82,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "pul",
+              "box": [
+                524,
+                73,
+                87.5,
+                224.5
+              ],
+              "nativeBefore": 0,
+              "nativeAfter": 73,
+              "scope": "box support; not pixel truth or severity"
+            }
+          ],
+          "productionV3Before": null,
+          "trialOverview": null
+        },
+        {
+          "source": "e1646fda",
+          "sha256": "e1646fda9a0d23d3654546a2d85d773dc884885f5b32811bc85bc8f0733550b0",
+          "category": "natural-photo-pore-specular-local-negative",
+          "partialBoxCandidateSupport": [
+            {
+              "label": "Dry-Skin",
+              "box": [
+                1181.5,
+                895,
+                160,
+                168
+              ],
+              "nativeBefore": 4,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                737.5,
+                907,
+                96,
+                118
+              ],
+              "nativeBefore": 1,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            }
+          ],
+          "productionV3Before": {
+            "value": 0.08314901967305806,
+            "activeSourcePixels": 354,
+            "reviewedNegativePixels": 19
+          },
+          "trialOverview": {
+            "region": "overview",
+            "value": 0.1841643116919913,
+            "limitation": null,
+            "sourcePixels": 754,
+            "reviewedNegativePixels": 15
+          }
+        },
+        {
+          "source": "594aadd0",
+          "sha256": "594aadd0c86944d5235f023003950b1cd6848e1647cbcd0247b010deb8aefd0f",
+          "category": "natural-photographic-partial-visible-peeling",
+          "partialBoxCandidateSupport": [
+            {
+              "label": "Dry-Skin",
+              "box": [
+                373.33,
+                102.23,
+                52.22,
+                53.33
+              ],
+              "nativeBefore": 5,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                194.45,
+                326.67,
+                82.22,
+                60
+              ],
+              "nativeBefore": 19,
+              "nativeAfter": 16,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                171.11,
+                27.78,
+                56.67,
+                41.11
+              ],
+              "nativeBefore": 15,
+              "nativeAfter": 9,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                440,
+                143.33,
+                44.44,
+                72.22
+              ],
+              "nativeBefore": 22,
+              "nativeAfter": 9,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                346.67,
+                297.78,
+                50,
+                72.22
+              ],
+              "nativeBefore": 8,
+              "nativeAfter": 22,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                462.23,
+                60,
+                71.11,
+                77.78
+              ],
+              "nativeBefore": 17,
+              "nativeAfter": 13,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                83.33,
+                70,
+                32.22,
+                85.56
+              ],
+              "nativeBefore": 0,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                354.45,
+                15.55,
+                46.67,
+                47.78
+              ],
+              "nativeBefore": 0,
+              "nativeAfter": 3,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                303.34,
+                286.66,
+                36.67,
+                85.56
+              ],
+              "nativeBefore": 10,
+              "nativeAfter": 11,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                407.78,
+                247.78,
+                48.89,
+                65.56
+              ],
+              "nativeBefore": 0,
+              "nativeAfter": 7,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "Dry-Skin",
+              "box": [
+                487.78,
+                220,
+                37.78,
+                46.67
+              ],
+              "nativeBefore": 3,
+              "nativeAfter": 12,
+              "scope": "box support; not pixel truth or severity"
+            }
+          ],
+          "productionV3Before": null,
+          "trialOverview": null
+        },
+        {
+          "source": "0642d4ab",
+          "sha256": "0642d4ab787b9020fbdcca3ee89e26e62cb9bfd3147ebf84eeb1cdf033b44ae0",
+          "category": "natural-reviewed-visible-skin-negative-for-flaking",
+          "partialBoxCandidateSupport": [],
+          "productionV3Before": {
+            "value": 0.0,
+            "activeSourcePixels": 0,
+            "reviewedNegativePixels": null
+          },
+          "trialOverview": {
+            "region": "overview",
+            "value": 0.08983538985916982,
+            "limitation": null,
+            "sourcePixels": 34,
+            "reviewedNegativePixels": null
+          }
+        },
+        {
+          "source": "36e4010b",
+          "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+          "category": "natural-reviewed-visible-skin-negative-for-flaking",
+          "partialBoxCandidateSupport": [],
+          "productionV3Before": {
+            "value": 0.1837124416833861,
+            "activeSourcePixels": 76,
+            "reviewedNegativePixels": null
+          },
+          "trialOverview": {
+            "region": "overview",
+            "value": 0.07735260702458363,
+            "limitation": null,
+            "sourcePixels": 32,
+            "reviewedNegativePixels": null
+          }
+        },
+        {
+          "source": "c31892d1",
+          "sha256": "c31892d13cdeb47bec36bb962e8039e752170f671b7743b589d7eeb542389a03",
+          "category": "CLAHE-processed-photo",
+          "partialBoxCandidateSupport": [
+            {
+              "label": "pul",
+              "box": [
+                223,
+                409,
+                145,
+                72
+              ],
+              "nativeBefore": 24,
+              "nativeAfter": 10,
+              "scope": "box support; not pixel truth or severity"
+            },
+            {
+              "label": "pul",
+              "box": [
+                389,
+                427,
+                21,
+                45
+              ],
+              "nativeBefore": 5,
+              "nativeAfter": 0,
+              "scope": "box support; not pixel truth or severity"
+            }
+          ],
+          "productionV3Before": {
+            "value": 0.0667940701708815,
+            "activeSourcePixels": 36,
+            "reviewedNegativePixels": null
+          },
+          "trialOverview": {
+            "region": "overview",
+            "value": 0.14669259372974447,
+            "limitation": null,
+            "sourcePixels": 86,
+            "reviewedNegativePixels": null
+          }
+        },
+        {
+          "source": "5bd42346",
+          "sha256": "5bd42346304d791a394f98717ae1b38614688cead8dbb9ac2e09cc4ecf6c0905",
+          "category": "transformed-noisy-regression-not-natural",
+          "partialBoxCandidateSupport": [],
+          "productionV3Before": {
+            "value": 0.05825242718446602,
+            "activeSourcePixels": 24,
+            "reviewedNegativePixels": null
+          },
+          "trialOverview": {
+            "region": "overview",
+            "value": 0.28398058252427183,
+            "limitation": null,
+            "sourcePixels": 117,
+            "reviewedNegativePixels": null
+          }
+        }
+      ],
+      "receiptSHA256": "2e9a88e5cbe6ec2ae58192dbb3e8c179b5a61cd3c37d237637f4073b771867b8"
+    }
+  ],
+  "additionalSources": [
+    {
+      "sourceSHA256": "55ec00b8f8b12d69aa182a9b2e8c94fd4828ee884169aa7c4d642e15b386f33b",
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test\\audit-results\\skin-selected-20261011\\sources\\face\\train\\03542_png_jpg.rf.3f8dacd0e28954baab884ef0c0a68689.jpg",
+      "category": "natural-photo-with-visible-smile; not neutral sag acceptance",
+      "quality": {
+        "isValid": true,
+        "avgLuminance": 155.04518161731704,
+        "blurScore": 4.940554723370074,
+        "status": "OPTIMAL"
+      },
+      "conditions": {
+        "yaw": -0.16,
+        "pitch": 0.01,
+        "roll": 0.03,
+        "scaleRatio": 0.55,
+        "avgLuminance": 155.04518161731704,
+        "blurScore": 4.940554723370074
+      },
+      "angles": [
+        "FRONT"
+      ],
+      "utilityPoseCaptureCompleted": true,
+      "snapshotFailure": null,
+      "mouthOpening": 0.10098835515036894
+    },
+    {
+      "sourceSHA256": "e0da1a64d88077e7f374731bb388c7f868d1bc792ee3d8ce41c193736285be9c",
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test\\audit-results\\skin-selected-20261011\\sources\\face\\valid\\50229_png_jpg.rf.75b04ae02bc959c931a5cfbbb5d5a8f6.jpg",
+      "category": "natural-photo-with-visible-smile; not neutral sag acceptance",
+      "quality": {
+        "isValid": true,
+        "avgLuminance": 126.87086432278238,
+        "blurScore": 5.217904488842653,
+        "status": "OPTIMAL"
+      },
+      "conditions": {
+        "yaw": -0.22,
+        "pitch": -0.1,
+        "roll": -0.01,
+        "scaleRatio": 0.59,
+        "avgLuminance": 126.87086432278238,
+        "blurScore": 5.217904488842653
+      },
+      "angles": [],
+      "utilityPoseCaptureCompleted": false,
+      "snapshotFailure": null,
+      "mouthOpening": 0.10123144510359582
+    }
+  ],
+  "actualAutomaticCamera": {
+    "sourceSHA256": "55ec00b8f8b12d69aa182a9b2e8c94fd4828ee884169aa7c4d642e15b386f33b",
+    "cameraSHA256": "994bb6363a4141e2413cae018f2c87a00a80d3fd8852d3ae964a7951bbc64998",
+    "capturePixelSHA256": "7256ea442acd8c753c2896b8cc61fe82e98261e0012f4e8de0514d3f958b414b",
+    "buildId": "S4upFfAkW8XUxxoM25UK5",
+    "automaticScanCompleted": true,
+    "realMediaPipe": true,
+    "pose": "FRONT",
+    "conditions": {
+      "yaw": -0.15,
+      "pitch": 0,
+      "roll": 0.02,
+      "scaleRatio": 0.55,
+      "avgLuminance": 154.68047755825958,
+      "blurScore": 4.9366827889447285
+    },
+    "qualityValid": true,
+    "requestCount": 1,
+    "responseCount": 1,
+    "sourceMatches": true,
+    "targets": [
+      {
+        "region": "forehead",
+        "id": "dry",
+        "value": 0.03830159772379076,
+        "quality": "valid",
+        "reason": null,
+        "normalizationVersion": "eligible-flake-luma-union-v3",
+        "mapPresent": true
+      },
+      {
+        "region": "forehead",
+        "id": "sag",
+        "value": null,
+        "quality": "insufficient",
+        "reason": "BROW_FOLD_IS_NOT_LOWER_FACE_SAGGING",
+        "normalizationVersion": "contour-fold-visible-region-unique-centers-v7",
+        "mapPresent": false
+      },
+      {
+        "region": "nose",
+        "id": "dry",
+        "value": 0,
+        "quality": "valid",
+        "reason": null,
+        "normalizationVersion": "eligible-flake-luma-union-v3",
+        "mapPresent": true
+      },
+      {
+        "region": "chin",
+        "id": "dry",
+        "value": 0,
+        "quality": "valid",
+        "reason": null,
+        "normalizationVersion": "eligible-flake-luma-union-v3",
+        "mapPresent": true
+      },
+      {
+        "region": "chin",
+        "id": "sag",
+        "value": null,
+        "quality": "insufficient",
+        "reason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+        "normalizationVersion": "contour-fold-lower-chin-visible-region-v8",
+        "mapPresent": false
+      },
+      {
+        "region": "periorbital",
+        "id": "dry",
+        "value": 0.2662946994674106,
+        "quality": "valid",
+        "reason": null,
+        "normalizationVersion": "eligible-flake-luma-union-v3",
+        "mapPresent": true
+      },
+      {
+        "region": "rightCheek",
+        "id": "dry",
+        "value": 0,
+        "quality": "valid",
+        "reason": null,
+        "normalizationVersion": "eligible-flake-luma-union-v3",
+        "mapPresent": true
+      },
+      {
+        "region": "rightCheek",
+        "id": "sag",
+        "value": null,
+        "quality": "insufficient",
+        "reason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+        "normalizationVersion": "contour-fold-visible-region-unique-centers-v7",
+        "mapPresent": false
+      },
+      {
+        "region": "leftCheek",
+        "id": "dry",
+        "value": 0,
+        "quality": "valid",
+        "reason": null,
+        "normalizationVersion": "eligible-flake-luma-union-v3",
+        "mapPresent": true
+      },
+      {
+        "region": "leftCheek",
+        "id": "sag",
+        "value": null,
+        "quality": "insufficient",
+        "reason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+        "normalizationVersion": "contour-fold-visible-region-unique-centers-v7",
+        "mapPresent": false
+      },
+      {
+        "region": "overview",
+        "id": "sag",
+        "value": null,
+        "quality": "insufficient",
+        "reason": "EXPRESSION_OPEN_MOUTH_OR_SMILE",
+        "normalizationVersion": "contour-fold-lower-chin-visible-region-v8",
+        "mapPresent": false
+      },
+      {
+        "region": "overview",
+        "id": "dry",
+        "value": 0.05010916639822471,
+        "quality": "valid",
+        "reason": null,
+        "normalizationVersion": "eligible-flake-luma-union-v3",
+        "mapPresent": true
+      }
+    ],
+    "resultViews": [
+      {
+        "view": "overview",
+        "labels": [
+          {
+            "id": "tone",
+            "text": "Ton eşitsizliği",
+            "expected": "Ton eşitsizliği",
+            "matches": true
+          },
+          {
+            "id": "oil",
+            "text": "Yağlı görünüm",
+            "expected": "Yağlı görünüm",
+            "matches": true
+          },
+          {
+            "id": "redness",
+            "text": "Kızarıklık eğilimi",
+            "expected": "Kızarıklık eğilimi",
+            "matches": true
+          },
+          {
+            "id": "acne",
+            "text": "Sivilce görünümü",
+            "expected": "Sivilce görünümü",
+            "matches": true
+          },
+          {
+            "id": "sag",
+            "text": "Sarkma görünümü",
+            "expected": "Sarkma görünümü",
+            "matches": true
+          },
+          {
+            "id": "dry",
+            "text": "Cilt kuruluğu görünümü",
+            "expected": "Cilt kuruluğu görünümü",
+            "matches": true
+          },
+          {
+            "id": "lines",
+            "text": "Kaz ayakları",
+            "expected": "Kaz ayakları",
+            "matches": true
+          },
+          {
+            "id": "dark",
+            "text": "Göz altı morluğu",
+            "expected": "Göz altı morluğu",
+            "matches": true
+          },
+          {
+            "id": "bags",
+            "text": "Göz altı torbaları",
+            "expected": "Göz altı torbaları",
+            "matches": true
+          }
+        ],
+        "photoId": "7256ea442acd8c753c2896b8cc61fe82e98261e0012f4e8de0514d3f958b414b"
+      },
+      {
+        "view": "forehead",
+        "labels": [
+          {
+            "id": "tone",
+            "text": "Ton eşitsizliği",
+            "expected": "Ton eşitsizliği",
+            "matches": true
+          },
+          {
+            "id": "oil",
+            "text": "Yağlı görünüm",
+            "expected": "Yağlı görünüm",
+            "matches": true
+          },
+          {
+            "id": "redness",
+            "text": "Kızarıklık eğilimi",
+            "expected": "Kızarıklık eğilimi",
+            "matches": true
+          },
+          {
+            "id": "acne",
+            "text": "Sivilce görünümü",
+            "expected": "Sivilce görünümü",
+            "matches": true
+          },
+          {
+            "id": "sag",
+            "text": "Sarkma",
+            "expected": "Sarkma",
+            "matches": true
+          },
+          {
+            "id": "dry",
+            "text": "Cilt kuruluğu",
+            "expected": "Cilt kuruluğu",
+            "matches": true
+          }
+        ],
+        "photoId": "7256ea442acd8c753c2896b8cc61fe82e98261e0012f4e8de0514d3f958b414b"
+      },
+      {
+        "view": "rightCheek",
+        "labels": [
+          {
+            "id": "tone",
+            "text": "Ton eşitsizliği",
+            "expected": "Ton eşitsizliği",
+            "matches": true
+          },
+          {
+            "id": "oil",
+            "text": "Yağlı görünüm",
+            "expected": "Yağlı görünüm",
+            "matches": true
+          },
+          {
+            "id": "redness",
+            "text": "Kızarıklık eğilimi",
+            "expected": "Kızarıklık eğilimi",
+            "matches": true
+          },
+          {
+            "id": "acne",
+            "text": "Sivilce görünümü",
+            "expected": "Sivilce görünümü",
+            "matches": true
+          },
+          {
+            "id": "sag",
+            "text": "Sarkma",
+            "expected": "Sarkma",
+            "matches": true
+          },
+          {
+            "id": "dry",
+            "text": "Cilt kuruluğu",
+            "expected": "Cilt kuruluğu",
+            "matches": true
+          }
+        ],
+        "photoId": "7256ea442acd8c753c2896b8cc61fe82e98261e0012f4e8de0514d3f958b414b"
+      },
+      {
+        "view": "leftCheek",
+        "labels": [
+          {
+            "id": "tone",
+            "text": "Ton eşitsizliği",
+            "expected": "Ton eşitsizliği",
+            "matches": true
+          },
+          {
+            "id": "oil",
+            "text": "Yağlı görünüm",
+            "expected": "Yağlı görünüm",
+            "matches": true
+          },
+          {
+            "id": "redness",
+            "text": "Kızarıklık eğilimi",
+            "expected": "Kızarıklık eğilimi",
+            "matches": true
+          },
+          {
+            "id": "acne",
+            "text": "Sivilce görünümü",
+            "expected": "Sivilce görünümü",
+            "matches": true
+          },
+          {
+            "id": "sag",
+            "text": "Sarkma",
+            "expected": "Sarkma",
+            "matches": true
+          },
+          {
+            "id": "dry",
+            "text": "Cilt kuruluğu",
+            "expected": "Cilt kuruluğu",
+            "matches": true
+          }
+        ],
+        "photoId": "7256ea442acd8c753c2896b8cc61fe82e98261e0012f4e8de0514d3f958b414b"
+      },
+      {
+        "view": "nose",
+        "labels": [
+          {
+            "id": "tone",
+            "text": "Ton eşitsizliği",
+            "expected": "Ton eşitsizliği",
+            "matches": true
+          },
+          {
+            "id": "oil",
+            "text": "Yağlı görünüm",
+            "expected": "Yağlı görünüm",
+            "matches": true
+          },
+          {
+            "id": "redness",
+            "text": "Kızarıklık eğilimi",
+            "expected": "Kızarıklık eğilimi",
+            "matches": true
+          },
+          {
+            "id": "acne",
+            "text": "Sivilce görünümü",
+            "expected": "Sivilce görünümü",
+            "matches": true
+          },
+          {
+            "id": "dry",
+            "text": "Cilt kuruluğu",
+            "expected": "Cilt kuruluğu",
+            "matches": true
+          }
+        ],
+        "photoId": "7256ea442acd8c753c2896b8cc61fe82e98261e0012f4e8de0514d3f958b414b"
+      },
+      {
+        "view": "chin",
+        "labels": [
+          {
+            "id": "tone",
+            "text": "Ton eşitsizliği",
+            "expected": "Ton eşitsizliği",
+            "matches": true
+          },
+          {
+            "id": "oil",
+            "text": "Yağlı görünüm",
+            "expected": "Yağlı görünüm",
+            "matches": true
+          },
+          {
+            "id": "redness",
+            "text": "Kızarıklık eğilimi",
+            "expected": "Kızarıklık eğilimi",
+            "matches": true
+          },
+          {
+            "id": "acne",
+            "text": "Sivilce görünümü",
+            "expected": "Sivilce görünümü",
+            "matches": true
+          },
+          {
+            "id": "sag",
+            "text": "Sarkma",
+            "expected": "Sarkma",
+            "matches": true
+          },
+          {
+            "id": "dry",
+            "text": "Cilt kuruluğu",
+            "expected": "Cilt kuruluğu",
+            "matches": true
+          }
+        ],
+        "photoId": "7256ea442acd8c753c2896b8cc61fe82e98261e0012f4e8de0514d3f958b414b"
+      },
+      {
+        "view": "periorbital",
+        "labels": [
+          {
+            "id": "dark",
+            "text": "Göz altı morluğu",
+            "expected": "Göz altı morluğu",
+            "matches": true
+          },
+          {
+            "id": "bags",
+            "text": "Göz altı torbaları",
+            "expected": "Göz altı torbaları",
+            "matches": true
+          },
+          {
+            "id": "lines",
+            "text": "Kaz ayakları",
+            "expected": "Kaz ayakları",
+            "matches": true
+          },
+          {
+            "id": "dry",
+            "text": "Cilt kuruluğu",
+            "expected": "Cilt kuruluğu",
+            "matches": true
+          }
+        ],
+        "photoId": "7256ea442acd8c753c2896b8cc61fe82e98261e0012f4e8de0514d3f958b414b"
+      }
+    ],
+    "historyViews": [
+      {
+        "view": "overview",
+        "labels": [
+          {
+            "id": "tone",
+            "text": "Ton eşitsizliği",
+            "expected": "Ton eşitsizliği",
+            "matches": true
+          },
+          {
+            "id": "oil",
+            "text": "Yağlı görünüm",
+            "expected": "Yağlı görünüm",
+            "matches": true
+          },
+          {
+            "id": "redness",
+            "text": "Kızarıklık eğilimi",
+            "expected": "Kızarıklık eğilimi",
+            "matches": true
+          },
+          {
+            "id": "acne",
+            "text": "Sivilce görünümü",
+            "expected": "Sivilce görünümü",
+            "matches": true
+          },
+          {
+            "id": "sag",
+            "text": "Sarkma görünümü",
+            "expected": "Sarkma görünümü",
+            "matches": true
+          },
+          {
+            "id": "dry",
+            "text": "Cilt kuruluğu görünümü",
+            "expected": "Cilt kuruluğu görünümü",
+            "matches": true
+          },
+          {
+            "id": "lines",
+            "text": "Kaz ayakları",
+            "expected": "Kaz ayakları",
+            "matches": true
+          },
+          {
+            "id": "dark",
+            "text": "Göz altı morluğu",
+            "expected": "Göz altı morluğu",
+            "matches": true
+          },
+          {
+            "id": "bags",
+            "text": "Göz altı torbaları",
+            "expected": "Göz altı torbaları",
+            "matches": true
+          }
+        ],
+        "photoId": "7256ea442acd8c753c2896b8cc61fe82e98261e0012f4e8de0514d3f958b414b"
+      },
+      {
+        "view": "forehead",
+        "labels": [
+          {
+            "id": "tone",
+            "text": "Ton eşitsizliği",
+            "expected": "Ton eşitsizliği",
+            "matches": true
+          },
+          {
+            "id": "oil",
+            "text": "Yağlı görünüm",
+            "expected": "Yağlı görünüm",
+            "matches": true
+          },
+          {
+            "id": "redness",
+            "text": "Kızarıklık eğilimi",
+            "expected": "Kızarıklık eğilimi",
+            "matches": true
+          },
+          {
+            "id": "acne",
+            "text": "Sivilce görünümü",
+            "expected": "Sivilce görünümü",
+            "matches": true
+          },
+          {
+            "id": "sag",
+            "text": "Sarkma",
+            "expected": "Sarkma",
+            "matches": true
+          },
+          {
+            "id": "dry",
+            "text": "Cilt kuruluğu",
+            "expected": "Cilt kuruluğu",
+            "matches": true
+          }
+        ],
+        "photoId": "7256ea442acd8c753c2896b8cc61fe82e98261e0012f4e8de0514d3f958b414b"
+      },
+      {
+        "view": "rightCheek",
+        "labels": [
+          {
+            "id": "tone",
+            "text": "Ton eşitsizliği",
+            "expected": "Ton eşitsizliği",
+            "matches": true
+          },
+          {
+            "id": "oil",
+            "text": "Yağlı görünüm",
+            "expected": "Yağlı görünüm",
+            "matches": true
+          },
+          {
+            "id": "redness",
+            "text": "Kızarıklık eğilimi",
+            "expected": "Kızarıklık eğilimi",
+            "matches": true
+          },
+          {
+            "id": "acne",
+            "text": "Sivilce görünümü",
+            "expected": "Sivilce görünümü",
+            "matches": true
+          },
+          {
+            "id": "sag",
+            "text": "Sarkma",
+            "expected": "Sarkma",
+            "matches": true
+          },
+          {
+            "id": "dry",
+            "text": "Cilt kuruluğu",
+            "expected": "Cilt kuruluğu",
+            "matches": true
+          }
+        ],
+        "photoId": "7256ea442acd8c753c2896b8cc61fe82e98261e0012f4e8de0514d3f958b414b"
+      },
+      {
+        "view": "leftCheek",
+        "labels": [
+          {
+            "id": "tone",
+            "text": "Ton eşitsizliği",
+            "expected": "Ton eşitsizliği",
+            "matches": true
+          },
+          {
+            "id": "oil",
+            "text": "Yağlı görünüm",
+            "expected": "Yağlı görünüm",
+            "matches": true
+          },
+          {
+            "id": "redness",
+            "text": "Kızarıklık eğilimi",
+            "expected": "Kızarıklık eğilimi",
+            "matches": true
+          },
+          {
+            "id": "acne",
+            "text": "Sivilce görünümü",
+            "expected": "Sivilce görünümü",
+            "matches": true
+          },
+          {
+            "id": "sag",
+            "text": "Sarkma",
+            "expected": "Sarkma",
+            "matches": true
+          },
+          {
+            "id": "dry",
+            "text": "Cilt kuruluğu",
+            "expected": "Cilt kuruluğu",
+            "matches": true
+          }
+        ],
+        "photoId": "7256ea442acd8c753c2896b8cc61fe82e98261e0012f4e8de0514d3f958b414b"
+      },
+      {
+        "view": "nose",
+        "labels": [
+          {
+            "id": "tone",
+            "text": "Ton eşitsizliği",
+            "expected": "Ton eşitsizliği",
+            "matches": true
+          },
+          {
+            "id": "oil",
+            "text": "Yağlı görünüm",
+            "expected": "Yağlı görünüm",
+            "matches": true
+          },
+          {
+            "id": "redness",
+            "text": "Kızarıklık eğilimi",
+            "expected": "Kızarıklık eğilimi",
+            "matches": true
+          },
+          {
+            "id": "acne",
+            "text": "Sivilce görünümü",
+            "expected": "Sivilce görünümü",
+            "matches": true
+          },
+          {
+            "id": "dry",
+            "text": "Cilt kuruluğu",
+            "expected": "Cilt kuruluğu",
+            "matches": true
+          }
+        ],
+        "photoId": "7256ea442acd8c753c2896b8cc61fe82e98261e0012f4e8de0514d3f958b414b"
+      },
+      {
+        "view": "chin",
+        "labels": [
+          {
+            "id": "tone",
+            "text": "Ton eşitsizliği",
+            "expected": "Ton eşitsizliği",
+            "matches": true
+          },
+          {
+            "id": "oil",
+            "text": "Yağlı görünüm",
+            "expected": "Yağlı görünüm",
+            "matches": true
+          },
+          {
+            "id": "redness",
+            "text": "Kızarıklık eğilimi",
+            "expected": "Kızarıklık eğilimi",
+            "matches": true
+          },
+          {
+            "id": "acne",
+            "text": "Sivilce görünümü",
+            "expected": "Sivilce görünümü",
+            "matches": true
+          },
+          {
+            "id": "sag",
+            "text": "Sarkma",
+            "expected": "Sarkma",
+            "matches": true
+          },
+          {
+            "id": "dry",
+            "text": "Cilt kuruluğu",
+            "expected": "Cilt kuruluğu",
+            "matches": true
+          }
+        ],
+        "photoId": "7256ea442acd8c753c2896b8cc61fe82e98261e0012f4e8de0514d3f958b414b"
+      },
+      {
+        "view": "periorbital",
+        "labels": [
+          {
+            "id": "dark",
+            "text": "Göz altı morluğu",
+            "expected": "Göz altı morluğu",
+            "matches": true
+          },
+          {
+            "id": "bags",
+            "text": "Göz altı torbaları",
+            "expected": "Göz altı torbaları",
+            "matches": true
+          },
+          {
+            "id": "lines",
+            "text": "Kaz ayakları",
+            "expected": "Kaz ayakları",
+            "matches": true
+          },
+          {
+            "id": "dry",
+            "text": "Cilt kuruluğu",
+            "expected": "Cilt kuruluğu",
+            "matches": true
+          }
+        ],
+        "photoId": "7256ea442acd8c753c2896b8cc61fe82e98261e0012f4e8de0514d3f958b414b"
+      }
+    ],
+    "historyBytesUnchanged": true,
+    "real200Percent": {
+      "innerWidth": 641,
+      "outerWidth": 1298,
+      "dpr": 3,
+      "zoom": "1",
+      "scroll": 641
+    },
+    "real200Accepted": true,
+    "pageErrors": [],
+    "recordId": "f20fe9b4-01b7-4d3f-8ef4-dc3329bc54fa",
+    "hostedCalls": 0,
+    "real200NullCard": {
+      "text": "Sarkma görünümü\n—",
+      "nullShownAsDash": true,
+      "recordUnchanged": true,
+      "geometry": {
+        "innerWidth": 641,
+        "outerWidth": 1298,
+        "dpr": 3,
+        "zoom": "1"
+      },
+      "cardBounds": {
+        "top": 102.25,
+        "bottom": 220.25,
+        "height": 321
+      }
+    }
+  },
+  "delivery": {
+    "headAtVerification": "1f93e33289aed3ef3061adfe72597f5989d1bde0",
+    "buildId": "S4upFfAkW8XUxxoM25UK5",
+    "normalShortcut": true,
+    "normalSession": "running",
+    "frontendOwned": true,
+    "backendOwned": true,
+    "frontendSources": {
+      "apps/vehicle-app/src/utils/skinInference.ts": true,
+      "apps/vehicle-app/src/utils/visionInference.ts": true,
+      "apps/vehicle-app/src/app/care/page.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/1aa5eae5001f9a5efafaffbf89b89c3e4b74501c8935ff0f9d1373793220697e.mp3": true,
+      "apps/vehicle-app/src/utils/healthSelectors.ts": true,
+      "apps/vehicle-app/public/audio/guidance/17e2e6e3043b8af03da0ec6da40d0c4642049b90796292bf685b5ae6a2eda3ab.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/uncertain.mp3": true,
+      "packages/safety/clinicalLanguageGuard.ts": true,
+      "apps/vehicle-app/src/app/page.tsx": true,
+      "apps/vehicle-app/src/utils/healthModules.ts": true,
+      "apps/vehicle-app/public/audio/guidance/de70e66e6d8727715299a9eb47d47b8cb40be8a9b99fec04a4009e6f2f392fca.mp3": true,
+      "apps/vehicle-app/src/utils/skinReminder.ts": true,
+      "apps/vehicle-app/src/app/vision/SpokenLetterPage.tsx": true,
+      "apps/vehicle-app/src/utils/visionEyePixels.ts": true,
+      "package-lock.json": true,
+      "apps/vehicle-app/public/audio/vision-speech/manifest.json": true,
+      "packages/health-profile/index.ts": true,
+      "apps/vehicle-app/public/mediapipe/wasm/vision_wasm_nosimd_internal.wasm": true,
+      "apps/vehicle-app/src/utils/skinSurfaceAnalysis.ts": true,
+      "packages/safety/crisisDetector.ts": true,
+      "apps/vehicle-app/public/audio/guidance/89c90f5ef388677dbddcbf6caeb167af3f6f046523f42364e49ae4e0c98fd733.mp3": true,
+      "apps/vehicle-app/src/components/skin/SkinActiveScan.tsx": true,
+      "apps/vehicle-app/public/mediapipe/NOTICE.md": true,
+      "apps/vehicle-app/public/audio/hearing-bank/manifest.json": true,
+      "apps/vehicle-app/public/audio/vision-speech/left.mp3": true,
+      "apps/vehicle-app/src/app/mental/page.tsx": true,
+      "apps/vehicle-app/src/utils/visionAnswerMemory.ts": true,
+      "apps/vehicle-app/src/components/HealthHistoryOverview.tsx": true,
+      "apps/vehicle-app/public/audio/vision-speech/recede.mp3": true,
+      "apps/vehicle-app/src/components/skin/SkinFacePanel.tsx": true,
+      "apps/vehicle-app/public/models/SELFIE-MODEL-NOTICE.md": true,
+      "apps/vehicle-app/public/audio/guidance/95b7ba66ca9383f26426e9b558cdd119f392892c4b44d166a25d72de0b78e4b6.mp3": true,
+      "packages/health-profile/mockData.ts": true,
+      "apps/vehicle-app/public/audio/hearing-bank/9.wav": true,
+      "apps/vehicle-app/src/utils/skinIndicators.ts": true,
+      "apps/vehicle-app/public/audio/guidance/247e1a597e24f30fed969f25787b88cebde66512a1cfd1f234aa09e41286a319.mp3": true,
+      "apps/vehicle-app/src/utils/skinInference.worker.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/face.mp3": true,
+      "apps/vehicle-app/public/assets/skin-preparation.png": true,
+      "apps/vehicle-app/src/utils/visionPreparation.ts": true,
+      "apps/vehicle-app/src/components/skin/SkinTrendModal.tsx": true,
+      "apps/vehicle-app/src/utils/streamSpeech.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/prepare.mp3": true,
+      "apps/vehicle-app/public/mediapipe/manifest.json": true,
+      "apps/vehicle-app/src/components/ResultValue.tsx": true,
+      "apps/vehicle-app/public/audio/hearing-bank/4.wav": true,
+      "apps/vehicle-app/public/audio/vision-speech/next1.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/blur.mp3": true,
+      "apps/vehicle-app/src/components/skin/SkinIndicatorValue.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/cd9dd9b07875a9ee06b87a689303232d90c52e35f5616e74287729d5e8ec4a98.mp3": true,
+      "apps/vehicle-app/src/components/VisionFrame.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/approach.mp3": true,
+      "apps/vehicle-app/src/app/profile/page.tsx": true,
+      "apps/vehicle-app/src/utils/skinTemporalSupport.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/camera.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/first.mp3": true,
+      "apps/vehicle-app/public/brand/togg/togg-emblem.svg": true,
+      "apps/vehicle-app/src/components/skin/SkinReminderForm.tsx": true,
+      "apps/vehicle-app/src/components/CameraPreparation.tsx": true,
+      "apps/vehicle-app/public/audio/hearing-bank/2.wav": true,
+      "apps/vehicle-app/public/audio/guidance/7560db7a17afb6fa6463b45cc95146d15434cd314c0087793e3772d8263ed552.mp3": true,
+      "apps/vehicle-app/src/components/HealthModuleIcon.tsx": true,
+      "apps/vehicle-app/src/utils/useMentalConversation.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/letter.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/bright.mp3": true,
+      "apps/vehicle-app/src/app/vision/ContinuousPage.tsx": true,
+      "apps/vehicle-app/public/mediapipe/wasm/vision_wasm_module_internal.wasm": true,
+      "apps/vehicle-app/public/mediapipe/wasm/vision_wasm_nosimd_internal.js": true,
+      "apps/vehicle-app/src/app/vision/page.tsx": true,
+      "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx": true,
+      "package.json": true,
+      "apps/vehicle-app/public/models/LICENSE-2.0.txt": true,
+      "apps/vehicle-app/public/audio/guidance/ef32fbf400632b202b3ebf3b0cb85c19ce0115c67d89c4e08ac30ec08cd54078.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/2fe912eef3efec479e33c95c021bae23fc34673a0b6a382c289bbb34f89f7558.mp3": true,
+      "apps/vehicle-app/src/components/skin/SkinActionsModal.tsx": true,
+      "apps/vehicle-app/src/components/LetterStimulus.tsx": true,
+      "apps/vehicle-app/src/utils/skinMultiAngle.ts": true,
+      "apps/vehicle-app/tailwind.config.js": true,
+      "apps/vehicle-app/src/app/dental/page.tsx": true,
+      "apps/vehicle-app/src/app/skin/page.tsx": true,
+      "apps/vehicle-app/src/utils/hearingProgress.ts": true,
+      "apps/vehicle-app/public/audio/hearing-bank/1.wav": true,
+      "apps/vehicle-app/public/audio/guidance/892496665b61082c6e9d8217345c326ea75043431586c4747837a1b45e0e8d9d.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/301e031afef62a07087fed5325c2a42858790e184d95eb0004f42e3037a9c0f6.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/c1c445a6930024eb14788fd5c16a9b2ad6bc98339604871691f00013863a9bd3.mp3": true,
+      "apps/vehicle-app/public/images/demo-skin-face.jpg": true,
+      "apps/vehicle-app/src/components/skin/SkinRegionOverlay.tsx": true,
+      "apps/vehicle-app/public/brand/togg/togg-logo.svg": true,
+      "apps/vehicle-app/public/audio/vision-speech/complete.mp3": true,
+      "apps/vehicle-app/next-env.d.ts": true,
+      "apps/vehicle-app/public/audio/guidance/6a04afabc56b94a3df82ca186e7f6c1833788ca145d8d4923442924f74462634.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/pose.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/1a3a7ab0d5c72d5fd83dc7db58ede3d69881125d3aa9ce64d79853cdcb560fdc.mp3": true,
+      "apps/vehicle-app/src/components/skin/SkinRecordDetail.tsx": true,
+      "apps/vehicle-app/public/audio/hearing-bank/0.wav": true,
+      "apps/vehicle-app/src/utils/skinMesh.ts": true,
+      "apps/vehicle-app/public/models/selfie_multiclass_256x256.tflite": true,
+      "apps/vehicle-app/src/components/InformationButton.tsx": true,
+      "apps/vehicle-app/src/components/ContinuousVisionResult.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/f64f01fc4b48b213d73d5f11e00b3af6755f000b1c231ab8f583d1c0ebbc2301.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/paused.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/next3.mp3": true,
+      "apps/vehicle-app/src/components/skin/SkinResultView.tsx": true,
+      "apps/vehicle-app/src/utils/dentalUpload.ts": true,
+      "apps/vehicle-app/src/components/skin/SkinPreparationIllustration.tsx": true,
+      "apps/vehicle-app/src/components/AccessibleDialog.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/93e1f43eeb80d148898c49499002be71e0830b5f19c2519c400d194612115dd7.mp3": true,
+      "apps/vehicle-app/public/audio/hearing-bank/speech-shaped-noise.wav": true,
+      "apps/vehicle-app/public/audio/hearing-bank/5.wav": true,
+      "apps/vehicle-app/src/components/LetterVisionResult.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/6e6201841b280306b8b3f1b01002e232a148c0d0f61eb3278fa176e94edb5011.mp3": true,
+      "apps/vehicle-app/src/components/skin/SkinStartView.tsx": true,
+      "apps/vehicle-app/package.json": true,
+      "apps/vehicle-app/src/utils/skinLocalMaps.worker.ts": true,
+      "apps/vehicle-app/src/utils/skinPresentation.ts": true,
+      "apps/vehicle-app/public/audio/guidance/f1619926a08b68387a346bf57355d866cfd7b429f48335f6ea9965ad255c0f4c.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/repeat.mp3": true,
+      "apps/vehicle-app/src/utils/appearanceMeasurements.ts": true,
+      "apps/vehicle-app/public/mediapipe/wasm/vision_wasm_internal.wasm": true,
+      "apps/vehicle-app/src/utils/skinBoxEnvelope.ts": true,
+      "apps/vehicle-app/src/utils/hearingProtocol.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/eye.mp3": true,
+      "apps/vehicle-app/src/utils/healthShare.ts": true,
+      "apps/vehicle-app/src/components/CardCarousel.tsx": true,
+      "apps/vehicle-app/public/audio/vision-speech/preparing.mp3": true,
+      "apps/vehicle-app/src/utils/skinSnapshot.ts": true,
+      "apps/vehicle-app/public/mediapipe/models/hand_landmarker.task": true,
+      "apps/vehicle-app/src/app/hearing/page.tsx": true,
+      "apps/vehicle-app/src/components/ReminderNotice.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/863e4949bcca97d92a24f19edc6962f3c742223521b8d7a8d9efd58c3cecec9d.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/d87257b714e2b3d2a2820107654ccdee014cbdce383c3d11cdc2cb9e0e8bd5c7.mp3": true,
+      "apps/vehicle-app/src/components/skin/SkinRegionNavigator.tsx": true,
+      "apps/vehicle-app/src/components/ContinuousSelector.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/0080b67ce4b5741a8d923722649bc982c2296662257caa84733079542e32a0d1.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/next2.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/87813f989e9141e52265d3c3a9d604dff7accbe50cc274642076506f36eef126.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/orientation.mp3": true,
+      "apps/vehicle-app/public/audio/hearing-bank/hearing-prepare.wav": true,
+      "shared/healthModules.json": true,
+      "apps/vehicle-app/public/audio/guidance/4124c51a4c630b60da1eeeaaae2a3317e172b1d810aeb0402e5be0fb434c01c4.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/right.mp3": true,
+      "apps/vehicle-app/src/utils/skinResearchAdapter.ts": true,
+      "apps/vehicle-app/src/utils/visionFrameQuality.ts": true,
+      "apps/vehicle-app/src/utils/skinAnalyzer.ts": true,
+      "apps/vehicle-app/public/audio/guidance/bc509b8d87fbeb711c4edf4b1e748fcb57a3f1946c920c7e2caf68db19f45c54.mp3": true,
+      "apps/vehicle-app/src/app/privacy/page.tsx": true,
+      "apps/vehicle-app/src/utils/cameraStability.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/ready.mp3": true,
+      "apps/vehicle-app/src/utils/visionFlow.ts": true,
+      "apps/vehicle-app/src/utils/visionResponseGate.ts": true,
+      "apps/vehicle-app/src/data/skinDemoFixture.ts": true,
+      "shared/dentalUploadLimits.json": true,
+      "apps/vehicle-app/src/components/RecordHistory.tsx": true,
+      "apps/vehicle-app/.eslintrc.json": true,
+      "apps/vehicle-app/public/audio/hearing-bank/instructions.json": true,
+      "apps/vehicle-app/public/audio/guidance/40a5cfc5ff1db2b2acf1efd4717e27ad9ce0faf6efabcc8a004b60f372525ff5.mp3": true,
+      "packages/vehicle-context/MockVehicleProvider.ts": true,
+      "apps/vehicle-app/src/components/skin/SkinObservationModal.tsx": true,
+      "apps/vehicle-app/src/utils/mentalHistory.ts": true,
+      "apps/vehicle-app/src/utils/skinLocalMaps.ts": true,
+      "apps/vehicle-app/public/audio/guidance/438f535e696375cf3e64ad131cb2d9e5a962f46b3b325197d0c502be03dab239.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/4d7afca395a8d64e7a692821e6a714093641c72f9f5984cad79ff79277ff370d.mp3": true,
+      "apps/vehicle-app/public/mediapipe/models/face_landmarker.task": true,
+      "apps/vehicle-app/src/utils/skinPhotoHistory.ts": true,
+      "packages/health-profile/types.ts": true,
+      "apps/vehicle-app/tsconfig.json": true,
+      "apps/vehicle-app/src/utils/spokenText.ts": true,
+      "apps/vehicle-app/src/app/layout.tsx": true,
+      "apps/vehicle-app/src/utils/continuousVision.ts": true,
+      "apps/vehicle-app/postcss.config.js": true,
+      "apps/vehicle-app/src/utils/skinMatte.ts": true,
+      "apps/vehicle-app/src/utils/dentalCapture.ts": true,
+      "apps/vehicle-app/public/audio/guidance/manifest.json": true,
+      "packages/vehicle-context/types.ts": true,
+      "apps/vehicle-app/public/mediapipe/wasm/vision_wasm_internal.js": true,
+      "apps/vehicle-app/src/utils/audioGuidance.ts": true,
+      "apps/vehicle-app/public/audio/guidance/61c37ebbbec5451995f24209cc9072866eb22ec70e1b9d943e340448cdb9b3ec.mp3": true,
+      "apps/vehicle-app/src/components/CockpitHeader.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/bfe2747cd9d206ba125df14b4aebe74f546698b7cafc3494ee3b27508210e1b9.mp3": true,
+      "apps/vehicle-app/public/audio/hearing-bank/7.wav": true,
+      "apps/vehicle-app/src/components/DentalRecordDetail.tsx": true,
+      "apps/vehicle-app/public/mediapipe/LICENSE-2.0.txt": true,
+      "apps/vehicle-app/public/audio/guidance/1c2c9ebfb1a9d3f9c9a5c31b9069b4bf54f9561d27804fde1dad52f975cff440.mp3": true,
+      "apps/vehicle-app/src/utils/healthHistorySeries.ts": true,
+      "packages/vehicle-context/index.ts": true,
+      "apps/vehicle-app/src/utils/skinVolatileHistory.ts": true,
+      "apps/vehicle-app/src/utils/healthRecords.ts": true,
+      "apps/vehicle-app/src/app/globals.css": true,
+      "apps/vehicle-app/src/context/VehicleContext.tsx": true,
+      "apps/vehicle-app/src/utils/attuneMode.ts": true,
+      "apps/vehicle-app/public/audio/guidance/6bfa309a388540e210cc7dfe5b871a045f35c7a154fdbdfd1b1f7437cb7c27e1.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/motion.mp3": true,
+      "apps/vehicle-app/public/mediapipe/wasm/vision_wasm_module_internal.js": true,
+      "apps/vehicle-app/src/utils/visionInference.worker.ts": true,
+      "apps/vehicle-app/public/audio/guidance/655ba9db5477a24f60b2de80886f66c43419d83aced1ee9c9782270d454881ce.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/4dc15ac0d612b0268f7817c086a64ec858d56ebe01e7677818bf1e3b1006d7f3.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/framing.mp3": true,
+      "apps/vehicle-app/src/components/MentalSessionRows.tsx": true,
+      "apps/vehicle-app/public/audio/vision-speech/light.mp3": true,
+      "apps/vehicle-app/src/utils/spokenVision.ts": true,
+      "apps/vehicle-app/public/audio/hearing-bank/6.wav": true,
+      "apps/vehicle-app/src/utils/skinOverview.ts": true,
+      "packages/safety/drivingSafetyGuard.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/position.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/dffc5fb2c3e13958b051bc743d09ff19f8b3d5c6c1e502583b70e1b49edcbf3c.mp3": true,
+      "apps/vehicle-app/public/audio/hearing-bank/8.wav": true,
+      "apps/vehicle-app/src/utils/hearingAudio.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/reverse.mp3": true,
+      "apps/vehicle-app/public/audio/hearing-bank/3.wav": true,
+      "apps/vehicle-app/src/utils/visionEngine.ts": true,
+      "apps/vehicle-app/src/utils/visionTracking.ts": true,
+      "packages/safety/index.ts": true,
+      "apps/vehicle-app/public/audio/hearing-bank/dental-prepare.wav": true
+    },
+    "backendSources": {
+      "services/core-api/appearance_analysis.py": {
+        "workingSHA256": "39eafc58c532073ba3a1d9bd87107ce1e50e22cd23e13e7457ea037d373538df",
+        "headCanonicalSHA256": "4ff620a09d0388210805be46cecb4acb2e91fda46543ed7bf73960711922e188",
+        "canonicalMatches": true,
+        "loadedAfterSourceWrite": true
+      },
+      "services/core-api/instant_appearance.py": {
+        "workingSHA256": "acffb3b967e7a9c27242ec458aff42568cf1477de0f8c2a69563d899b0a4dbe1",
+        "headCanonicalSHA256": "b394bd4c9775170c073106e859acacb214a8143172070183d3dfd50dd000e9f0",
+        "canonicalMatches": true,
+        "loadedAfterSourceWrite": true
+      },
+      "services/core-api/skin_general.py": {
+        "workingSHA256": "f58ef9667e3ebe46d38de5ea9e4d3adb7720ef149cd870da2643c0491a519d2b",
+        "headCanonicalSHA256": "ab7e383e0303d6d363baf6f0995b4742823602c6fde5da09989311aec573a5f3",
+        "canonicalMatches": true,
+        "loadedAfterSourceWrite": true
+      },
+      "services/core-api/skin_models.py": {
+        "workingSHA256": "1d3a1dc6df6fc8e7d60048f368f2d0099065c1755a7df513a0ea362ad72da976",
+        "headCanonicalSHA256": "1d3a1dc6df6fc8e7d60048f368f2d0099065c1755a7df513a0ea362ad72da976",
+        "canonicalMatches": true,
+        "loadedAfterSourceWrite": true
+      },
+      "services/core-api/hosted_skin_type.py": {
+        "workingSHA256": "eaa4eb6228406c53a88475ccc661ed61d1f26e901009fe9ff95b8335faf36406",
+        "headCanonicalSHA256": "eaa4eb6228406c53a88475ccc661ed61d1f26e901009fe9ff95b8335faf36406",
+        "canonicalMatches": true,
+        "loadedAfterSourceWrite": true
+      }
+    },
+    "servedJavaScript": {
+      "/_next/static/chunks/app/page-bbeae7d44a7c1750.js": {
+        "servedSHA256": "47e47548500f2e2d4c729f42372bfdadd9814d2ff8518c119630d563f99ffcce",
+        "localSHA256": "47e47548500f2e2d4c729f42372bfdadd9814d2ff8518c119630d563f99ffcce",
+        "matches": true
+      },
+      "/_next/static/chunks/850-03d460badcc90bec.js": {
+        "servedSHA256": "fe19aab65e4b99652e82702538aef87e95e949da65e3a5d8ab24c4a77740cf5b",
+        "localSHA256": "fe19aab65e4b99652e82702538aef87e95e949da65e3a5d8ab24c4a77740cf5b",
+        "matches": true
+      },
+      "/_next/static/chunks/948-85266d567c3bae8b.js": {
+        "servedSHA256": "4e807c0317858631a1831c7a30c82fe5932dec40da12fc8aeffb6d1aebb43a2e",
+        "localSHA256": "4e807c0317858631a1831c7a30c82fe5932dec40da12fc8aeffb6d1aebb43a2e",
+        "matches": true
+      },
+      "/_next/static/chunks/656-012d3387edef90f5.js": {
+        "servedSHA256": "a48c56ee67c628c04af078afb6204fe5e24dc3f02b5820aee463f65f52e7c582",
+        "localSHA256": "a48c56ee67c628c04af078afb6204fe5e24dc3f02b5820aee463f65f52e7c582",
+        "matches": true
+      },
+      "/_next/static/chunks/484-c7854e143b14531c.js": {
+        "servedSHA256": "e70f3d1076cd8ad18884284e5196bf030e5c613dbcde77befaf6484a7dae9646",
+        "localSHA256": "e70f3d1076cd8ad18884284e5196bf030e5c613dbcde77befaf6484a7dae9646",
+        "matches": true
+      },
+      "/_next/static/chunks/987-e7efaa2e25847fed.js": {
+        "servedSHA256": "dd2830cddc3d1cecb34ea22e6831df6db876fe17320a06b71eab72c6417e51ca",
+        "localSHA256": "dd2830cddc3d1cecb34ea22e6831df6db876fe17320a06b71eab72c6417e51ca",
+        "matches": true
+      },
+      "/_next/static/chunks/330-cf0255e3c13607b5.js": {
+        "servedSHA256": "e69699a7f77c9c194f9ffdb3856b0c67dd30d4372bdc4866b2666b596fd06cbe",
+        "localSHA256": "e69699a7f77c9c194f9ffdb3856b0c67dd30d4372bdc4866b2666b596fd06cbe",
+        "matches": true
+      },
+      "/_next/static/chunks/polyfills-42372ed130431b0a.js": {
+        "servedSHA256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+        "localSHA256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+        "matches": true
+      },
+      "/_next/static/chunks/e898b764-724e4596a1050f58.js": {
+        "servedSHA256": "fef6a31acbe42cb772fbbca3f7eaf3ecd01ab51e1db99c4d0445205eafb6214b",
+        "localSHA256": "fef6a31acbe42cb772fbbca3f7eaf3ecd01ab51e1db99c4d0445205eafb6214b",
+        "matches": true
+      },
+      "/_next/static/chunks/webpack-e04591764102906a.js": {
+        "servedSHA256": "9c2da8c1d761f11d9f34ad5d2e61897cd317074cc485cd423edaa8104332d28f",
+        "localSHA256": "9c2da8c1d761f11d9f34ad5d2e61897cd317074cc485cd423edaa8104332d28f",
+        "matches": true
+      },
+      "/_next/static/chunks/app/layout-5723e1a9e701f1c6.js": {
+        "servedSHA256": "5310da35c8ce31c866a4d9e2e2f7979f4350b24d29745c916054faaed4f67b8c",
+        "localSHA256": "5310da35c8ce31c866a4d9e2e2f7979f4350b24d29745c916054faaed4f67b8c",
+        "matches": true
+      },
+      "/_next/static/chunks/main-app-a840178321886cc8.js": {
+        "servedSHA256": "b5b7a6a18ee7f8fe0d0fa097ccf76c3fd48ec9a33395e4c9a750baa6e550e99e",
+        "localSHA256": "b5b7a6a18ee7f8fe0d0fa097ccf76c3fd48ec9a33395e4c9a750baa6e550e99e",
+        "matches": true
+      },
+      "/_next/static/chunks/745-2387ebadf50e1c62.js": {
+        "servedSHA256": "558d41aa626dc2a46bc60d93942453976a164804f15953744ae06c8fe6803505",
+        "localSHA256": "558d41aa626dc2a46bc60d93942453976a164804f15953744ae06c8fe6803505",
+        "matches": true
+      },
+      "/_next/static/chunks/876-970751e242594177.js": {
+        "servedSHA256": "d84eca37ec1994232b2c9c66cdb454332f337757e3c7884b8d82d7dc504a1421",
+        "localSHA256": "d84eca37ec1994232b2c9c66cdb454332f337757e3c7884b8d82d7dc504a1421",
+        "matches": true
+      },
+      "/_next/static/chunks/app/skin/page-549b4949427cf263.js": {
+        "servedSHA256": "198330da3522c86dcf2e029d20902e529f3fab48b5260dff6f27be8d645a1c54",
+        "localSHA256": "198330da3522c86dcf2e029d20902e529f3fab48b5260dff6f27be8d645a1c54",
+        "matches": true
+      },
+      "/_next/static/chunks/852-4206d2ffa53479b5.js": {
+        "servedSHA256": "75c09a83752a0fa304ec64bf2b638383532cf1e29af9d568eec3d17251b95f7f",
+        "localSHA256": "75c09a83752a0fa304ec64bf2b638383532cf1e29af9d568eec3d17251b95f7f",
+        "matches": true
+      },
+      "/_next/static/chunks/503-68c18768f0108a30.js": {
+        "servedSHA256": "0e1d8598daa607fd93a397321999d450c799fd3e63a8b62ba94020fca019d2eb",
+        "localSHA256": "0e1d8598daa607fd93a397321999d450c799fd3e63a8b62ba94020fca019d2eb",
+        "matches": true
+      },
+      "/_next/static/chunks/app/profile/page-96ca79401dbdf4af.js": {
+        "servedSHA256": "ecf8c1c4450102de23b8b41aaf676aa5668824f1ddde2259cfb9c9b46aa256a9",
+        "localSHA256": "ecf8c1c4450102de23b8b41aaf676aa5668824f1ddde2259cfb9c9b46aa256a9",
+        "matches": true
+      }
+    },
+    "modelSHA256": "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3",
+    "configSHA256": "accc9ff193030bccde572ded39b1878fc7919e33daf62f2ac560c3357a83abfb",
+    "actualAutomaticSourceMatches": true,
+    "actualSagNormalization": "contour-fold-lower-chin-visible-region-v8",
+    "actualDryNormalization": "eligible-flake-luma-union-v3"
+  },
+  "buildValidation": {
+    "stagedBuildId": "joq1bo01zOtiFenNeDlFX",
+    "deliveredBuildId": "S4upFfAkW8XUxxoM25UK5",
+    "frontendSourceMatches": {
+      "apps/vehicle-app/src/data/skinDemoFixture.ts": true,
+      "apps/vehicle-app/src/components/CardCarousel.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/247e1a597e24f30fed969f25787b88cebde66512a1cfd1f234aa09e41286a319.mp3": true,
+      "apps/vehicle-app/src/components/InformationButton.tsx": true,
+      "apps/vehicle-app/src/utils/continuousVision.ts": true,
+      "packages/health-profile/types.ts": true,
+      "apps/vehicle-app/public/assets/skin-preparation.png": true,
+      "apps/vehicle-app/public/mediapipe/LICENSE-2.0.txt": true,
+      "apps/vehicle-app/public/audio/vision-speech/orientation.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/next2.mp3": true,
+      "apps/vehicle-app/src/utils/healthRecords.ts": true,
+      "apps/vehicle-app/public/audio/guidance/7560db7a17afb6fa6463b45cc95146d15434cd314c0087793e3772d8263ed552.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/bfe2747cd9d206ba125df14b4aebe74f546698b7cafc3494ee3b27508210e1b9.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/89c90f5ef388677dbddcbf6caeb167af3f6f046523f42364e49ae4e0c98fd733.mp3": true,
+      "apps/vehicle-app/src/utils/skinVolatileHistory.ts": true,
+      "apps/vehicle-app/src/utils/streamSpeech.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/eye.mp3": true,
+      "apps/vehicle-app/public/audio/hearing-bank/dental-prepare.wav": true,
+      "apps/vehicle-app/public/audio/guidance/ef32fbf400632b202b3ebf3b0cb85c19ce0115c67d89c4e08ac30ec08cd54078.mp3": true,
+      "apps/vehicle-app/src/utils/skinAnalyzer.ts": true,
+      "packages/safety/index.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/complete.mp3": true,
+      "apps/vehicle-app/src/utils/visionFlow.ts": true,
+      "apps/vehicle-app/src/app/hearing/page.tsx": true,
+      "apps/vehicle-app/public/mediapipe/manifest.json": true,
+      "apps/vehicle-app/src/utils/skinSurfaceAnalysis.ts": true,
+      "apps/vehicle-app/src/app/privacy/page.tsx": true,
+      "apps/vehicle-app/src/utils/skinPresentation.ts": true,
+      "apps/vehicle-app/.eslintrc.json": true,
+      "apps/vehicle-app/public/audio/hearing-bank/manifest.json": true,
+      "apps/vehicle-app/src/app/mental/page.tsx": true,
+      "apps/vehicle-app/src/components/skin/SkinResultView.tsx": true,
+      "apps/vehicle-app/src/components/skin/SkinReminderForm.tsx": true,
+      "apps/vehicle-app/src/utils/skinBoxEnvelope.ts": true,
+      "apps/vehicle-app/src/utils/healthModules.ts": true,
+      "apps/vehicle-app/src/utils/mentalHistory.ts": true,
+      "packages/health-profile/mockData.ts": true,
+      "apps/vehicle-app/public/brand/togg/togg-emblem.svg": true,
+      "apps/vehicle-app/public/mediapipe/NOTICE.md": true,
+      "packages/safety/crisisDetector.ts": true,
+      "apps/vehicle-app/src/context/VehicleContext.tsx": true,
+      "shared/dentalUploadLimits.json": true,
+      "apps/vehicle-app/public/audio/guidance/f64f01fc4b48b213d73d5f11e00b3af6755f000b1c231ab8f583d1c0ebbc2301.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/bright.mp3": true,
+      "apps/vehicle-app/public/mediapipe/wasm/vision_wasm_internal.js": true,
+      "apps/vehicle-app/public/audio/vision-speech/preparing.mp3": true,
+      "packages/vehicle-context/MockVehicleProvider.ts": true,
+      "apps/vehicle-app/src/utils/cameraStability.ts": true,
+      "apps/vehicle-app/src/utils/visionEyePixels.ts": true,
+      "apps/vehicle-app/package.json": true,
+      "apps/vehicle-app/public/audio/vision-speech/framing.mp3": true,
+      "apps/vehicle-app/src/utils/skinTemporalSupport.ts": true,
+      "apps/vehicle-app/src/utils/skinMesh.ts": true,
+      "apps/vehicle-app/public/audio/guidance/1aa5eae5001f9a5efafaffbf89b89c3e4b74501c8935ff0f9d1373793220697e.mp3": true,
+      "apps/vehicle-app/public/audio/hearing-bank/hearing-prepare.wav": true,
+      "apps/vehicle-app/public/audio/vision-speech/uncertain.mp3": true,
+      "apps/vehicle-app/src/utils/skinMatte.ts": true,
+      "apps/vehicle-app/src/components/skin/SkinRegionNavigator.tsx": true,
+      "apps/vehicle-app/src/app/care/page.tsx": true,
+      "apps/vehicle-app/next-env.d.ts": true,
+      "apps/vehicle-app/src/utils/skinMultiAngle.ts": true,
+      "apps/vehicle-app/src/components/MentalSessionRows.tsx": true,
+      "apps/vehicle-app/public/audio/vision-speech/motion.mp3": true,
+      "apps/vehicle-app/public/mediapipe/wasm/vision_wasm_module_internal.js": true,
+      "apps/vehicle-app/src/utils/spokenVision.ts": true,
+      "apps/vehicle-app/public/audio/hearing-bank/2.wav": true,
+      "apps/vehicle-app/src/utils/visionEngine.ts": true,
+      "apps/vehicle-app/src/components/RecordHistory.tsx": true,
+      "apps/vehicle-app/src/utils/skinLocalMaps.worker.ts": true,
+      "apps/vehicle-app/public/mediapipe/models/face_landmarker.task": true,
+      "apps/vehicle-app/src/components/CockpitHeader.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/0080b67ce4b5741a8d923722649bc982c2296662257caa84733079542e32a0d1.mp3": true,
+      "apps/vehicle-app/src/app/dental/page.tsx": true,
+      "apps/vehicle-app/src/app/profile/page.tsx": true,
+      "apps/vehicle-app/public/audio/vision-speech/recede.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/f1619926a08b68387a346bf57355d866cfd7b429f48335f6ea9965ad255c0f4c.mp3": true,
+      "apps/vehicle-app/src/components/HealthModuleIcon.tsx": true,
+      "package-lock.json": true,
+      "apps/vehicle-app/src/components/CameraPreparation.tsx": true,
+      "apps/vehicle-app/public/audio/hearing-bank/8.wav": true,
+      "apps/vehicle-app/public/audio/vision-speech/left.mp3": true,
+      "apps/vehicle-app/src/app/page.tsx": true,
+      "apps/vehicle-app/src/components/skin/SkinActionsModal.tsx": true,
+      "apps/vehicle-app/postcss.config.js": true,
+      "apps/vehicle-app/public/mediapipe/wasm/vision_wasm_internal.wasm": true,
+      "apps/vehicle-app/public/audio/guidance/manifest.json": true,
+      "apps/vehicle-app/public/mediapipe/wasm/vision_wasm_nosimd_internal.wasm": true,
+      "apps/vehicle-app/src/components/HealthHistoryOverview.tsx": true,
+      "apps/vehicle-app/src/utils/appearanceMeasurements.ts": true,
+      "apps/vehicle-app/public/audio/hearing-bank/speech-shaped-noise.wav": true,
+      "apps/vehicle-app/public/mediapipe/wasm/vision_wasm_nosimd_internal.js": true,
+      "apps/vehicle-app/public/audio/vision-speech/pose.mp3": true,
+      "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx": true,
+      "apps/vehicle-app/public/audio/hearing-bank/3.wav": true,
+      "apps/vehicle-app/public/audio/vision-speech/prepare.mp3": true,
+      "apps/vehicle-app/public/audio/hearing-bank/instructions.json": true,
+      "apps/vehicle-app/src/components/skin/SkinRecordDetail.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/c1c445a6930024eb14788fd5c16a9b2ad6bc98339604871691f00013863a9bd3.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/letter.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/863e4949bcca97d92a24f19edc6962f3c742223521b8d7a8d9efd58c3cecec9d.mp3": true,
+      "apps/vehicle-app/src/app/layout.tsx": true,
+      "apps/vehicle-app/src/utils/skinReminder.ts": true,
+      "apps/vehicle-app/src/components/ContinuousVisionResult.tsx": true,
+      "apps/vehicle-app/src/app/vision/ContinuousPage.tsx": true,
+      "apps/vehicle-app/src/utils/visionInference.worker.ts": true,
+      "packages/vehicle-context/index.ts": true,
+      "apps/vehicle-app/public/audio/hearing-bank/5.wav": true,
+      "apps/vehicle-app/src/utils/hearingProtocol.ts": true,
+      "apps/vehicle-app/public/audio/guidance/301e031afef62a07087fed5325c2a42858790e184d95eb0004f42e3037a9c0f6.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/position.mp3": true,
+      "apps/vehicle-app/tsconfig.json": true,
+      "apps/vehicle-app/src/app/vision/page.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/4dc15ac0d612b0268f7817c086a64ec858d56ebe01e7677818bf1e3b1006d7f3.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/face.mp3": true,
+      "apps/vehicle-app/public/audio/hearing-bank/6.wav": true,
+      "apps/vehicle-app/src/utils/skinOverview.ts": true,
+      "apps/vehicle-app/src/utils/healthShare.ts": true,
+      "apps/vehicle-app/src/app/globals.css": true,
+      "apps/vehicle-app/public/audio/guidance/95b7ba66ca9383f26426e9b558cdd119f392892c4b44d166a25d72de0b78e4b6.mp3": true,
+      "apps/vehicle-app/src/components/LetterVisionResult.tsx": true,
+      "apps/vehicle-app/src/components/DentalRecordDetail.tsx": true,
+      "apps/vehicle-app/src/components/ContinuousSelector.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/892496665b61082c6e9d8217345c326ea75043431586c4747837a1b45e0e8d9d.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/4124c51a4c630b60da1eeeaaae2a3317e172b1d810aeb0402e5be0fb434c01c4.mp3": true,
+      "apps/vehicle-app/src/utils/visionFrameQuality.ts": true,
+      "apps/vehicle-app/src/app/skin/page.tsx": true,
+      "apps/vehicle-app/public/mediapipe/models/hand_landmarker.task": true,
+      "apps/vehicle-app/src/components/skin/SkinFacePanel.tsx": true,
+      "apps/vehicle-app/src/utils/skinInference.worker.ts": true,
+      "packages/safety/clinicalLanguageGuard.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/first.mp3": true,
+      "apps/vehicle-app/src/components/skin/SkinObservationModal.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/4d7afca395a8d64e7a692821e6a714093641c72f9f5984cad79ff79277ff370d.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/6bfa309a388540e210cc7dfe5b871a045f35c7a154fdbdfd1b1f7437cb7c27e1.mp3": true,
+      "apps/vehicle-app/src/utils/skinLocalMaps.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/paused.mp3": true,
+      "apps/vehicle-app/tailwind.config.js": true,
+      "apps/vehicle-app/src/utils/hearingAudio.ts": true,
+      "apps/vehicle-app/public/audio/guidance/d87257b714e2b3d2a2820107654ccdee014cbdce383c3d11cdc2cb9e0e8bd5c7.mp3": true,
+      "apps/vehicle-app/src/components/skin/SkinRegionOverlay.tsx": true,
+      "apps/vehicle-app/src/app/vision/SpokenLetterPage.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/de70e66e6d8727715299a9eb47d47b8cb40be8a9b99fec04a4009e6f2f392fca.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/next1.mp3": true,
+      "apps/vehicle-app/src/utils/visionTracking.ts": true,
+      "apps/vehicle-app/src/utils/skinIndicators.ts": true,
+      "apps/vehicle-app/src/components/skin/SkinPreparationIllustration.tsx": true,
+      "apps/vehicle-app/public/audio/vision-speech/repeat.mp3": true,
+      "packages/safety/drivingSafetyGuard.ts": true,
+      "apps/vehicle-app/src/utils/visionInference.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/manifest.json": true,
+      "apps/vehicle-app/public/audio/guidance/438f535e696375cf3e64ad131cb2d9e5a962f46b3b325197d0c502be03dab239.mp3": true,
+      "apps/vehicle-app/src/components/AccessibleDialog.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/6a04afabc56b94a3df82ca186e7f6c1833788ca145d8d4923442924f74462634.mp3": true,
+      "apps/vehicle-app/src/utils/visionPreparation.ts": true,
+      "apps/vehicle-app/public/audio/hearing-bank/4.wav": true,
+      "apps/vehicle-app/public/audio/hearing-bank/7.wav": true,
+      "apps/vehicle-app/src/utils/skinPhotoHistory.ts": true,
+      "apps/vehicle-app/public/audio/guidance/93e1f43eeb80d148898c49499002be71e0830b5f19c2519c400d194612115dd7.mp3": true,
+      "apps/vehicle-app/public/images/demo-skin-face.jpg": true,
+      "apps/vehicle-app/public/audio/guidance/6e6201841b280306b8b3f1b01002e232a148c0d0f61eb3278fa176e94edb5011.mp3": true,
+      "apps/vehicle-app/src/utils/healthSelectors.ts": true,
+      "apps/vehicle-app/src/components/skin/SkinIndicatorValue.tsx": true,
+      "apps/vehicle-app/src/utils/skinSnapshot.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/reverse.mp3": true,
+      "apps/vehicle-app/src/utils/spokenText.ts": true,
+      "apps/vehicle-app/public/models/selfie_multiclass_256x256.tflite": true,
+      "apps/vehicle-app/src/components/skin/SkinActiveScan.tsx": true,
+      "apps/vehicle-app/public/audio/vision-speech/camera.mp3": true,
+      "apps/vehicle-app/src/components/ResultValue.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/61c37ebbbec5451995f24209cc9072866eb22ec70e1b9d943e340448cdb9b3ec.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/ready.mp3": true,
+      "apps/vehicle-app/public/models/LICENSE-2.0.txt": true,
+      "apps/vehicle-app/public/brand/togg/togg-logo.svg": true,
+      "apps/vehicle-app/public/audio/guidance/87813f989e9141e52265d3c3a9d604dff7accbe50cc274642076506f36eef126.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/right.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/40a5cfc5ff1db2b2acf1efd4717e27ad9ce0faf6efabcc8a004b60f372525ff5.mp3": true,
+      "apps/vehicle-app/src/components/LetterStimulus.tsx": true,
+      "apps/vehicle-app/src/utils/attuneMode.ts": true,
+      "apps/vehicle-app/src/utils/hearingProgress.ts": true,
+      "apps/vehicle-app/public/audio/guidance/2fe912eef3efec479e33c95c021bae23fc34673a0b6a382c289bbb34f89f7558.mp3": true,
+      "apps/vehicle-app/public/audio/hearing-bank/1.wav": true,
+      "apps/vehicle-app/src/utils/skinInference.ts": true,
+      "apps/vehicle-app/src/components/VisionFrame.ts": true,
+      "apps/vehicle-app/src/utils/visionAnswerMemory.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/approach.mp3": true,
+      "apps/vehicle-app/public/audio/hearing-bank/0.wav": true,
+      "packages/health-profile/index.ts": true,
+      "apps/vehicle-app/public/audio/guidance/655ba9db5477a24f60b2de80886f66c43419d83aced1ee9c9782270d454881ce.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/cd9dd9b07875a9ee06b87a689303232d90c52e35f5616e74287729d5e8ec4a98.mp3": true,
+      "apps/vehicle-app/public/audio/guidance/1a3a7ab0d5c72d5fd83dc7db58ede3d69881125d3aa9ce64d79853cdcb560fdc.mp3": true,
+      "apps/vehicle-app/src/utils/useMentalConversation.ts": true,
+      "apps/vehicle-app/public/audio/guidance/bc509b8d87fbeb711c4edf4b1e748fcb57a3f1946c920c7e2caf68db19f45c54.mp3": true,
+      "apps/vehicle-app/src/utils/visionResponseGate.ts": true,
+      "apps/vehicle-app/src/utils/dentalUpload.ts": true,
+      "apps/vehicle-app/src/utils/audioGuidance.ts": true,
+      "apps/vehicle-app/src/components/skin/SkinTrendModal.tsx": true,
+      "apps/vehicle-app/public/mediapipe/wasm/vision_wasm_module_internal.wasm": true,
+      "package.json": true,
+      "apps/vehicle-app/public/audio/guidance/1c2c9ebfb1a9d3f9c9a5c31b9069b4bf54f9561d27804fde1dad52f975cff440.mp3": true,
+      "apps/vehicle-app/src/utils/healthHistorySeries.ts": true,
+      "apps/vehicle-app/src/components/skin/SkinStartView.tsx": true,
+      "apps/vehicle-app/public/audio/vision-speech/next3.mp3": true,
+      "apps/vehicle-app/public/models/SELFIE-MODEL-NOTICE.md": true,
+      "apps/vehicle-app/public/audio/guidance/dffc5fb2c3e13958b051bc743d09ff19f8b3d5c6c1e502583b70e1b49edcbf3c.mp3": true,
+      "apps/vehicle-app/src/utils/dentalCapture.ts": true,
+      "apps/vehicle-app/src/components/ReminderNotice.tsx": true,
+      "apps/vehicle-app/public/audio/guidance/17e2e6e3043b8af03da0ec6da40d0c4642049b90796292bf685b5ae6a2eda3ab.mp3": true,
+      "apps/vehicle-app/src/utils/skinResearchAdapter.ts": true,
+      "apps/vehicle-app/public/audio/hearing-bank/9.wav": true,
+      "packages/vehicle-context/types.ts": true,
+      "apps/vehicle-app/public/audio/vision-speech/blur.mp3": true,
+      "apps/vehicle-app/public/audio/vision-speech/light.mp3": true,
+      "shared/healthModules.json": true
+    },
+    "stagedBuildPromoted": false,
+    "reason": "Production frontend and backend are unchanged; protected normal build is retained"
+  },
+  "limitations": [
+    "No qualified natural neutral sag positive or complete-face peeling positive accepted.",
+    "Box support is not pixel truth, Dice, clinical severity or general accuracy.",
+    "Partial peeling, processed sources, natural reviewed negative ROI and transformed noise remain distinct.",
+    "No training, AG mutation, hosted call, source photo transformation for pose, or user record rewrite."
+  ],
+  "previousEvidenceSHA256": "1826a8c4e11d459b387ac4851d3443a453960fa758e7b0c8129f5fff00900ab8"
+}

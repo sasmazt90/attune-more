@@ -1,679 +1,96 @@
 'use client';
+import {HealthStartCard,HEALTH_START_ACTION} from '../../components/HealthStartCard';
+import { careHref,HEALTH_MODULES } from '../../utils/healthModules';
+import { useGuidance } from '../../utils/audioGuidance';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { checkCrisisTrigger } from '@packages/safety/crisisDetector';
-import Link from 'next/link';
+import React, { useEffect, useRef, useState } from 'react';
+import { Mic, MicOff, HeartPulse } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useVehicle } from '../../context/VehicleContext';
-import {
-  HeartPulse,
-  Mic,
-  MicOff,
-  Volume2,
-  VolumeX,
-  TrendingUp,
-  AlertCircle,
-  ShieldCheck,
-  ArrowRight,
-  MessageSquare,
-  Sparkles,
-  ChevronDown
-} from 'lucide-react';
+import { useMentalConversation } from '../../utils/useMentalConversation';
+import { mentalThemeStats, translateMood } from '../../utils/mentalHistory';
+import { isDemoMode, STORAGE_KEYS } from '../../utils/attuneMode';
+import { RecordHistory } from '../../components/RecordHistory';
+import { spokenText } from '../../utils/spokenText';
+import { AccessibleDialog } from '../../components/AccessibleDialog';
+import { InformationButton } from '../../components/InformationButton';
 
-import { isMicrophoneAllowed, isMentalSummarySavingAllowed, isDemoMode, STORAGE_KEYS } from '../../utils/attuneMode';
-import { readMentalHistory, saveMentalHistory, MentalHistoryItem } from '../../utils/mentalHistory';
-
-interface ChatMessage {
-  sender: 'USER' | 'AI';
-  text: string;
-  time: string;
-  isCrisis?: boolean;
-  providerBadge?: string;
-}
-
-interface MentalSessionItem {
-  sessionId: string;
-  date: string;
-  durationSeconds: number;
-  moodBefore: string;
-  moodAfter: string;
-  recurringThemes: string[];
-  summaryText: string;
-  clinicalEscalationSuggested: boolean;
-}
+const PHASES = { ready: 'Hazır', paused: 'Duraklatıldı', permission: 'Mikrofon başlatılıyor', listening: 'Dinliyor', preparing: 'Yanıt hazırlanıyor', speaking: 'Seslendiriliyor', ending: 'Bitiriliyor', completed: 'Tamamlandı', error: 'Hata' };
+const COLORS = ['#00c2e7', '#a78bfa', '#fb923c', '#4ade80', '#f472b6', '#facc15'];
 
 export default function MentalPage() {
+  const { isParked } = useVehicle();
   const router = useRouter();
-  const { isParked, state } = useVehicle();
-
-  const [isListening, setIsListening] = useState<boolean>(false);
-  const [speechSupported, setSpeechSupported] = useState<boolean>(true);
-  const [voiceSpeechEnabled, setVoiceSpeechEnabled] = useState<boolean>(true);
-  const [showTextInput, setShowTextInput] = useState<boolean>(false);
-  const [inputText, setInputText] = useState<string>('');
-  const [isProcessing, setIsProcessing] = useState<boolean>(false);
-  const [micNotice, setMicNotice] = useState<string | null>(null);
-  const [recognitionState, setRecognitionState] = useState<'ready' | 'starting' | 'listening' | 'failed' | 'unavailable'>('ready');
-  const [voiceState, setVoiceState] = useState<'loading' | 'ready' | 'starting' | 'speaking' | 'failed' | 'unavailable'>('loading');
-  const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
-
-  const [providerInfo, setProviderInfo] = useState<{
-    providerName: string;
-    isLiveLLM: boolean;
-    apiKeyConfigured: boolean;
-  }>({
-    providerName: 'Yerel Kural Motoru (Demo)',
-    isLiveLLM: false,
-    apiKeyConfigured: false
-  });
-
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      sender: 'AI',
-      text: 'Merhaba, bugün kendinizi nasıl hissediyorsunuz? Paylaşmak istediğiniz bir konu varsa dinliyorum.',
-      time: 'Şimdi'
-    }
-  ]);
-  const [isDemo, setIsDemo] = useState(false);
-  const [mentalHistory, setMentalHistory] = useState<MentalHistoryItem[]>([]);
-  const [historyNotice, setHistoryNotice] = useState<string | null>(null);
-  const sessionIdRef = useRef<string | null>(null);
+  const c = useMentalConversation(isParked);
+  const guidance=useGuidance('mental',isParked&&c.voiceEnabled);
+  useEffect(()=>{if(!c.active&&isParked&&c.voiceEnabled&&['ready','completed'].includes(c.phase))guidance.phase(c.phase,c.phase==='completed'?'mental-complete':'mental-entry');else guidance.cancel();},[guidance,c.phase,c.active,c.voiceEnabled,isParked]);
+  const [completionOpen, setCompletionOpen] = useState(false);
+  useEffect(() => { if (c.phase === 'completed') setCompletionOpen(true); else setCompletionOpen(false); }, [c.phase]);
+  const [theme, setTheme] = useState<string | null>(null);
+  const [demo, setDemo] = useState(false);
+  useEffect(() => setDemo(isDemoMode()), []);
+  const transcript = useRef<HTMLDivElement>(null);
+  const follow = useRef(true);
+  const stats = mentalThemeStats(c.history);
   useEffect(() => {
-    setIsDemo(isDemoMode());
-    setMentalHistory(readMentalHistory());
-    sessionIdRef.current = crypto.randomUUID();
-  }, []);
-
-  const recognitionRef = useRef<any>(null);
-  const intentionalRecognitionAbortRef = useRef(false);
-  const mountedRef = useRef(true);
-  const sendRef = useRef<(text: string) => void>(() => {});
-  const voicesRef = useRef<SpeechSynthesisVoice[]>([]);
-  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
-  const voiceEnabledRef = useRef(voiceSpeechEnabled);
-  voiceEnabledRef.current = voiceSpeechEnabled;
-
-  // Sağlayıcı durumunu sorgula
-  useEffect(() => {
-    fetch('http://localhost:8000/api/mental/provider-status')
-      .then((res) => res.json())
-      .then((data) => {
-        setProviderInfo({
-          providerName: data.providerName || 'Yerel Model (Demo)',
-          isLiveLLM: data.isLiveLLM || false,
-          apiKeyConfigured: data.apiKeyConfigured || false
-        });
-      })
-      .catch(() => {
-        setProviderInfo({
-          providerName: 'Yerel Model (Demo)',
-          isLiveLLM: false,
-          apiKeyConfigured: false
-        });
-      });
-  }, []);
-
-  // Web Speech API
-  useEffect(() => {
-    mountedRef.current = true;
-    if (typeof window !== 'undefined') {
-      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-      if (SpeechRecognition) {
-        const recognition = new SpeechRecognition();
-        recognition.lang = 'tr-TR';
-        recognition.continuous = false;
-        recognition.interimResults = false;
-        recognition.onstart = () => {
-          if (!mountedRef.current) return;
-          if (!isMicrophoneAllowed()) { intentionalRecognitionAbortRef.current = true; recognition.abort(); return; }
-          setRecognitionState('listening');
-          setIsListening(true);
-        };
-
-        recognition.onresult = (event: any) => {
-          if (!mountedRef.current || !isMicrophoneAllowed()) return;
-          const transcript = event.results[0][0].transcript;
-          if (transcript) {
-            sendRef.current(transcript);
-          }
-          setIsListening(false);
-        };
-
-        recognition.onerror = (event: any) => {
-          if (!mountedRef.current) return;
-          // Ending capture before our own spoken reply is a normal transition.
-          if (event.error === 'aborted' && intentionalRecognitionAbortRef.current) return;
-          console.warn('Speech recognition error:', event.error);
-          const labels: Record<string, string> = {
-            'not-allowed': 'Ses girişine izin verilmedi. Tarayıcı mikrofon iznini ve mikrofon cihazını kontrol edin.',
-            'service-not-allowed': 'Konuşma tanıma servisine izin verilmiyor.',
-            'audio-capture': 'Mikrofona erişilemiyor. Cihazı ve başka uygulamaların kullanımını kontrol edin.',
-            'network': 'Konuşma tanıma servisine ulaşılamadı.',
-            'no-speech': 'Konuşma algılanmadı. Yeniden deneyin.',
-            'language-not-supported': 'Türkçe konuşma tanıma bu ortamda desteklenmiyor.',
-            'aborted': 'Ses girişi iptal edildi.'
-          };
-          setMicNotice(labels[event.error] || 'Konuşma tanıma başarısız. Yazarak devam edebilirsiniz.');
-          setRecognitionState('failed');
-          setShowTextInput(true);
-          setIsListening(false);
-        };
-
-        recognition.onend = () => {
-          if (!mountedRef.current) return;
-          intentionalRecognitionAbortRef.current = false;
-          setIsListening(false);
-          setRecognitionState(previous => previous === 'failed' ? previous : 'ready');
-        };
-
-        recognitionRef.current = recognition;
-      } else {
-        setSpeechSupported(false);
-        setRecognitionState('unavailable');
-        setMicNotice('Bu tarayıcı konuşma tanımayı desteklemiyor. Yazarak devam edebilirsiniz.');
-        setShowTextInput(true);
-      }
-    }
-    const loadVoices = () => {
-      voicesRef.current = window.speechSynthesis?.getVoices() || [];
-      if (!mountedRef.current) return;
-      const available = voicesRef.current.some(voice => voice.lang.toLowerCase().startsWith('tr'));
-      setVoiceState(previous => ['starting', 'speaking', 'failed'].includes(previous) ? previous : available ? 'ready' : 'unavailable');
-      setVoiceNotice(available ? null : 'Türkçe ses bulunamadı. Yanıtı metin olarak okuyabilirsiniz.');
-    };
-    loadVoices();
-    window.speechSynthesis?.addEventListener('voiceschanged', loadVoices);
-    const revoke = () => {
-      if (!isMicrophoneAllowed()) {
-        intentionalRecognitionAbortRef.current = true;
-        recognitionRef.current?.abort();
-        setIsListening(false);
-        setRecognitionState('ready');
-      }
-    };
-    window.addEventListener('storage', revoke);
-    window.addEventListener('attune-privacy', revoke);
-    return () => {
-      mountedRef.current = false;
-      recognitionRef.current?.abort();
-      recognitionRef.current = null;
-      utteranceRef.current = null;
-      window.speechSynthesis?.cancel();
-      window.speechSynthesis?.removeEventListener('voiceschanged', loadVoices);
-      window.removeEventListener('storage', revoke);
-      window.removeEventListener('attune-privacy', revoke);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!voiceSpeechEnabled) {
-      utteranceRef.current = null;
-      window.speechSynthesis?.cancel();
-      setVoiceState(voicesRef.current.some(voice => voice.lang.toLowerCase().startsWith('tr')) ? 'ready' : 'unavailable');
-    }
-  }, [voiceSpeechEnabled]);
-
-  const speakReply = (text: string) => {
-    if (!voiceEnabledRef.current || !mountedRef.current || typeof window === 'undefined') return;
-    const voice = (voicesRef.current.length ? voicesRef.current : window.speechSynthesis?.getVoices() || []).find(v => v.lang.toLowerCase().startsWith('tr'));
-    if (!window.speechSynthesis || !voice) {
-      setVoiceState('unavailable');
-      setVoiceNotice('Türkçe ses kullanılamıyor. Yanıt metni hazır.');
-      return;
-    }
-    try {
-      intentionalRecognitionAbortRef.current = true;
-      recognitionRef.current?.abort();
-      setIsListening(false);
-      utteranceRef.current = null;
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utteranceRef.current = utterance;
-      utterance.lang = 'tr-TR';
-      utterance.voice = voice;
-      utterance.rate = 0.95;
-      setVoiceState('starting');
-      setVoiceNotice(null);
-      utterance.onstart = () => {
-        if (mountedRef.current && utteranceRef.current === utterance) setVoiceState('speaking');
-      };
-      utterance.onend = () => {
-        if (mountedRef.current && utteranceRef.current === utterance) {
-          utteranceRef.current = null;
-          setVoiceState('ready');
-        }
-      };
-      utterance.onerror = event => {
-        if (!mountedRef.current || utteranceRef.current !== utterance) return;
-        utteranceRef.current = null;
-        setVoiceState('failed');
-        setVoiceNotice(`Sesli yanıt başarısız (${event.error}). Yanıtı metin olarak okuyabilirsiniz.`);
-      };
-      window.speechSynthesis.speak(utterance);
-    } catch (e) {
-      console.warn('Speech synthesis error:', e);
-      setVoiceState('failed');
-      setVoiceNotice('Sesli yanıt başlatılamadı. Yanıtı metin olarak okuyabilirsiniz.');
-    }
+    if (follow.current && transcript.current) transcript.current.scrollTop = transcript.current.scrollHeight;
+  }, [c.messages, c.phase]);
+  const referral = () => {
+    const demo = isDemoMode();
+    try { localStorage.setItem(demo ? STORAGE_KEYS.DEMO_REFERRAL : STORAGE_KEYS.REFERRAL_CONTEXT, JSON.stringify({
+      sourceModule: 'MENTAL', specialty: 'Klinik Psikoloji', reasonSummary: 'Kullanıcının klinik psikolog seçeneklerini inceleme talebi.',
+      timestamp: new Date().toISOString(), isDemo: demo, metricsSummary: { recurringThemes: [...new Set(c.history.flatMap(h => h.themes))] }
+    })); } catch {}
+    router.push(careHref('mental') + (demo ? '&demo=1' : ''));
   };
+  let angle = 0;
+  const gradient = stats.rows.map((row, i) => { const start = angle; angle += row.percent * 3.6; return `${COLORS[i % COLORS.length]} ${start}deg ${angle}deg`; }).join(', ');
 
-  const toggleListening = () => {
-    if (!isMicrophoneAllowed()) {
-      setMicNotice(
-        'Mikrofon kullanım izni Gizlilik ayarlarında kapalıdır. Lütfen Gizlilik sayfasından açın veya yazarak iletişim kurun.'
-      );
-      setShowTextInput(true);
-      return;
-    }
-    setMicNotice(null);
+  const conversationTranscript = <div ref={transcript} data-conversation-transcript className="max-h-[28rem] overflow-y-auto space-y-3" onScroll={() => { const el = transcript.current; if (el) follow.current = el.scrollHeight - el.scrollTop - el.clientHeight < 60; }}>
+        {!c.messages.length && <p className="text-sm text-slate-400">Görüşmeyi başlattığınızda sesli konuşabilirsiniz.</p>}
+        {c.messages.map((m, i) => <article key={m.id} data-chat-author={m.sender} data-chat-position={i} data-turn={m.turn} className={`rounded-xl border p-3 text-sm ${m.isCrisis ? 'border-rose-500 bg-rose-950' : m.sender === 'USER' ? 'border-togg-turquoise/30 bg-togg-darkBlue' : 'border-white/10 bg-slate-950'}`}><p className="text-xs text-slate-400">{m.sender === 'USER' ? 'Siz' : 'Attune'} · {m.time}</p><p className="mt-1 whitespace-pre-line break-words">{spokenText(m.text)}</p><span data-provider-kind={m.providerBadge?.split(" ")[0]} /></article>)}
+  </div>;
 
-    if (!recognitionRef.current) {
-      setMicNotice('Konuşma tanıma kullanılamıyor. Yazarak devam edebilirsiniz.');
-      setShowTextInput(true);
-      return;
-    }
+  return <div className={c.phase==='ready'?'space-y-6 max-w-5xl mx-auto':'grid grid-cols-1 lg:grid-cols-2 gap-6 items-start'}>
+    {c.phase==='ready'&&<h1 className="text-2xl font-bold">{HEALTH_MODULES.mental.name}</h1>}
+    <section className={c.phase==='ready'?undefined:'bg-cockpit-surface border border-white/10 rounded-2xl p-6 space-y-5'}>
+      {demo && <p className="text-amber-200">Demo / Örnek içerik — gerçek görüşme geçmişiniz değildir.</p>}
+      {c.phase==='ready'?<HealthStartCard module="mental" actions={<button onClick={()=>{guidance.cancel();return c.start();}} disabled={!isParked||!c.serviceConsent} className={HEALTH_START_ACTION}><span className="flex items-center gap-2 justify-center"><Mic className="h-5 w-5"/>Görüşmeyi Başlat</span></button>}/>:<>
+      <div className="flex items-center gap-2 text-togg-turquoise"><HeartPulse /><span>{HEALTH_MODULES.mental.name}</span></div>
+      <div className="flex items-center justify-between gap-3"><h1 className="text-2xl font-bold">Bugün nasıl hissediyorsunuz?</h1><InformationButton title={HEALTH_MODULES.mental.name}><p>Park halinde sesli konuşabilirsiniz. Bu hizmet klinik tanı ve acil yardım hizmeti değildir. Sesli yanıt yapay zekâ tarafından üretilir.</p></InformationButton></div>
+      <p className="text-sm text-slate-300">Park halinde sesli görüşebilirsiniz. Bu hizmet klinik tanı veya acil yardım hizmeti değildir.</p>
+      <div className="flex gap-3">
+        <button onClick={() => {guidance.cancel();return c.active ? c.phase === 'permission' && !c.messages.length ? c.cancelConversation() : void c.finish() : c.start();}} disabled={!isParked || c.phase === 'ending' || (!c.active && !c.serviceConsent)} className="flex-1 bg-togg-turquoise text-togg-darkBlue font-bold p-4 rounded-xl disabled:bg-slate-800 disabled:text-slate-400 disabled:cursor-not-allowed flex gap-2 justify-center items-center">{c.active ? <MicOff /> : <Mic />}<span>{c.active ? c.phase === 'permission' && !c.messages.length ? 'Başlatmayı iptal et' : 'Görüşmeyi Bitir' : 'Görüşmeyi Başlat'}</span></button>
+      </div>
+      </>}
+      {c.active && <button onClick={c.phase==='paused'?c.continueConversation:c.pause} className="min-h-11 px-4 rounded-xl border border-white/20">{c.phase==='paused'?'Devam et':'Duraklat'}</button>}
+      <div data-conversation-phase={c.phase} data-voice-state={c.voiceState} aria-label={c.phase==='speaking'?'Sesli yanıt oynatılıyor':undefined} aria-live="polite">
+        {!['ready','completed','speaking'].includes(c.phase) && <p className="text-sm text-togg-turquoise">{c.phase === 'preparing' && ['loadingSpeech','starting'].includes(c.voiceState) ? 'Ses hazırlanıyor' : PHASES[c.phase]}</p>}
+        {c.voiceState === 'failed' && <p className="text-xs text-amber-200">Sesli yanıt başarısız</p>}
+      </div>
+      {c.phase === 'ending' && <button onClick={c.cancelSummary} className="block w-fit text-sm px-3 py-2 rounded-xl border border-togg-turquoise text-togg-turquoise">Özet hazırlamayı iptal et</button>}
+      {c.voiceNotice && <p role="status" className="text-xs text-amber-200">{c.voiceNotice}</p>}
+      {c.notice && c.phase !== 'completed' && <p role="status" className="text-sm text-amber-200">{c.notice}</p>}
+      {!isParked && <p className="text-amber-200">Sürüş sırasında görüşme kapalıdır. Lütfen dikkatinizi yola verin.</p>}
+      <p className="text-xs">Acil Kriz Destek: <strong>112 Acil Çağrı</strong></p>
+    </section>
+    {!c.active && c.messages.some(m => m.sender === 'AI' && m.isCrisis) && <section role="alert" aria-label="Acil destek yanıtı" className="rounded-2xl border border-rose-500 bg-rose-950 p-6"><h2 className="font-bold mb-3">Acil destek</h2>{c.messages.filter(m => m.sender === 'AI' && m.isCrisis).slice(-1).map(m => <article key={m.id} data-chat-author="AI" data-turn={m.turn}><p className="text-xs text-rose-200">Attune · {m.time}</p><p className="whitespace-pre-line break-words mt-2">{spokenText(m.text)}</p></article>)}</section>}
+    {c.active && isParked && <section data-live-transcript className="bg-cockpit-surface border border-white/10 rounded-2xl p-6 space-y-5"><h2 className="font-bold">Görüşme Akışı</h2>{conversationTranscript}<button onClick={referral} className="text-togg-turquoise font-bold text-sm">PSİKOLOG SEÇENEKLERİNİ GÖR</button></section>}
+    {!c.active && isParked && !demo && <section data-mental-history className="bg-cockpit-surface border border-white/10 rounded-2xl p-6 space-y-5">
+      <div className="flex items-center justify-between gap-3"><h2 className="font-bold">Görüşme temaları</h2><InformationButton title="Görüşme temaları"><p>Bu grafik tanı veya ölçülmüş stres düzeyi değildir; tamamlanmış ve saklama izinli görüşmelerdeki tema paylarını gösterir. Çok temalı görüşmeler her farklı temaya bir kez katkı verir; yüzdeler toplamı 100 olacak şekilde yuvarlanır. Tamamlanma ve izin bilgisi doğrulanamayan eski kayıtlar grafiğe katılmaz.</p></InformationButton></div>
 
-    if (isListening || recognitionState === 'starting') {
-      recognitionRef.current.stop();
-      setIsListening(false);
-    } else {
-      try {
-        utteranceRef.current = null;
-        window.speechSynthesis?.cancel();
-        setVoiceState(voicesRef.current.some(voice => voice.lang.toLowerCase().startsWith('tr')) ? 'ready' : 'unavailable');
-        intentionalRecognitionAbortRef.current = false;
-        recognitionRef.current.start();
-        setRecognitionState('starting');
-      } catch (e) {
-        console.warn(e);
-        setIsListening(false);
-        setRecognitionState('failed');
-        setMicNotice('Mikrofon başlatılamadı. Yeniden deneyin veya yazın.');
-        setShowTextInput(true);
-      }
-    }
-  };
+      {!stats.mentions ? <p>Henüz tema verisi yok.</p> : <>
+        <div className="flex flex-wrap gap-4 items-center"><div role="img" aria-label="Görüşme tema payları" className="w-32 h-32 shrink-0 rounded-full" style={{ background: `conic-gradient(${gradient})` }} /><div className="space-y-2">{stats.rows.map((r, i) => <button key={r.theme} onClick={() => setTheme(r.theme)} aria-pressed={theme === r.theme} className="block text-xs text-left rounded-lg px-2 py-1 hover:bg-white/5"><span style={{ color: COLORS[i % COLORS.length] }}>● </span>{r.theme}: %{r.percent} ({r.count}/{stats.mentions} tema kaydı)</button>)}</div></div>
+        <p className="text-xs">{stats.sessions} tamamlanmış izinli görüşme · {stats.mentions} tema kaydı.</p>
+        {theme && <div data-selected-theme><h3 className="font-bold">{theme}</h3>{c.history.filter(h => [2,3].includes(h.schemaVersion || 0) && h.completed && h.consented && h.themes.includes(theme)).map(h => <p className="text-sm mt-2" key={h.id}>{translateMood(h.summaryText)}</p>)}</div>}
+      </>}
 
-  const handleSendMessage = async (textToSend?: string) => {
-    const text = (textToSend || inputText).trim();
-    if (!text) return;
+      {c.active && <p className="text-xs text-slate-400">Bu görüşme bitmeden yeni özet veya geçmiş kaydı oluşturulmaz.</p>}
 
-    const userMsg: ChatMessage = {
-      sender: 'USER',
-      text,
-      time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
-    };
+      <button onClick={referral} className="text-togg-turquoise font-bold text-sm">PSİKOLOG SEÇENEKLERİNİ GÖR</button>
+    </section>}
 
-    setMessages((prev) => [...prev, userMsg]);
-    setInputText('');
-    setIsProcessing(true);
-
-    // Kriz filtresi kontrolü
-    const crisis = checkCrisisTrigger(text, !isParked);
-
-    if (crisis.isCrisis) {
-      setTimeout(() => {
-        const crisisText = crisis.emergencyResponseTr!;
-
-        const crisisMsg: ChatMessage = {
-          sender: 'AI',
-          text: crisisText,
-          time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
-          isCrisis: true,
-          providerBadge: 'Kriz Güvenlik Filtresi'
-        };
-
-        setMessages((prev) => [...prev, crisisMsg]);
-        setIsProcessing(false);
-        speakReply(crisisText);
-      }, 300);
-      return;
-    }
-
-    // Backend iletişimi
-    try {
-      const response = await fetch('http://localhost:8000/api/mental/converse', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userMessage: text,
-          history: messages.map((m) => ({
-            role: m.sender === 'AI' ? 'assistant' : 'user',
-            content: m.text
-          }))
-        })
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        const aiMsg: ChatMessage = {
-          sender: 'AI',
-          text: data.reply,
-          time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
-          isCrisis: data.isCrisis,
-          providerBadge: data.providerType === 'LIVE_OPENAI' ? 'OpenAI Canlı' : 'Yerel Model'
-        };
-        setMessages((prev) => [...prev, aiMsg]);
-        speakReply(data.reply);
-        if (!isDemo && isMentalSummarySavingAllowed()) {
-          try {
-            const analysisResponse = await fetch('http://localhost:8000/api/mental/analyze-session', {
-              method: 'POST', headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ messages: [...messages, userMsg].map(message => ({
-                role: message.sender === 'USER' ? 'user' : 'assistant', content: message.text
-              })) })
-            });
-            if (!analysisResponse.ok) throw new Error('Özet oluşturulamadı');
-            const analysis = await analysisResponse.json();
-            if (typeof analysis.summaryText !== 'string' || !Array.isArray(analysis.themes) ||
-                !analysis.themes.every((theme: unknown) => typeof theme === 'string')) throw new Error('Geçersiz özet');
-            // Re-check consent after asynchronous analysis; one record per actual conversation.
-            if (mountedRef.current) {
-              if (isMentalSummarySavingAllowed()) {
-              const history = saveMentalHistory({ id: sessionIdRef.current!, date: new Date().toISOString(),
-                summaryText: analysis.summaryText, themes: analysis.themes });
-              setMentalHistory(history);
-              setHistoryNotice(null);
-              }
-            }
-          } catch {
-            if (mountedRef.current) setHistoryNotice('Görüşme özeti kaydedilemedi; geçmişe yeni kayıt eklenmedi.');
-          }
-        }
-      } else {
-        throw new Error('API Hatası');
-      }
-    } catch (err) {
-      const fallbackReply = isParked
-        ? 'İyi oluş servisine bağlantı kurulamadı. Bu mesaj için bir değerlendirme oluşturulamadı. Lütfen daha sonra yeniden deneyin.'
-        : 'İyi oluş servisine ulaşılamıyor. Lütfen dikkatinizi yola verin; park ettiğinizde yeniden deneyin.';
-
-      const aiMsg: ChatMessage = {
-        sender: 'AI',
-        text: fallbackReply,
-        time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
-        providerBadge: 'Servis Bağlantısı Başarısız'
-      };
-      setMessages((prev) => [...prev, aiMsg]);
-      speakReply(fallbackReply);
-    } finally {
-      setIsProcessing(false);
-
-    }
-  };
-
-  sendRef.current = handleSendMessage;
-
-  const handleNavigateToCare = () => {
-    const referralContext = {
-      sourceModule: 'MENTAL',
-      specialty: 'Klinik Psikoloji',
-      reasonSummary: 'Kullanıcının klinik psikolog seçeneklerini inceleme talebi.',
-      timestamp: new Date().toISOString(),
-      metricsSummary: {
-        recurringThemes: Array.from(new Set(mentalHistory.flatMap(item => item.themes)))
-      }
-    };
-    try {
-      localStorage.setItem(isDemo ? STORAGE_KEYS.DEMO_REFERRAL : STORAGE_KEYS.REFERRAL_CONTEXT,
-        JSON.stringify({ ...referralContext, isDemo }));
-    } catch (e) {
-      console.warn(e);
-    }
-    router.push('/care?specialty=Klinik%20Psikoloji&from=mental' + (isDemo ? '&demo=1' : ''));
-  };
-
-  // Son 2 mesajı al (Sürücü ve Asistan)
-  const recentMessages = messages.slice(-2);
-
-  return (
-    <div className="space-y-6">
-      {/* 1. SCREEN 07: SES ODAKLI ANA ETKİLEŞİM ALANI (FIRST VIEWPORT) */}
-      <section className="bg-gradient-to-br from-cockpit-surface via-[#071322] to-cockpit-bg border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden flex flex-col items-center text-center space-y-6">
-        <div className="absolute top-0 right-1/2 translate-x-1/2 w-96 h-96 bg-togg-turquoise/10 rounded-full blur-3xl pointer-events-none" />
-
-        {/* Üst Başlık & Subtitle */}
-        <div className="space-y-2 max-w-xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-togg-turquoise/10 border border-togg-turquoise/30 text-togg-turquoise text-[11px] font-semibold tracking-wider uppercase">
-            <HeartPulse className="w-3.5 h-3.5" />
-            <span>Sesli İyi Oluş Asistanı</span>
-          </div>
-
-          <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
-            Bugün nasıl hissediyorsunuz?
-          </h1>
-
-          <p className="text-sm text-slate-300">
-            {isParked
-              ? 'Kabin konforunda dilediğiniz gibi konuşabilir veya dinleyebilirsiniz.'
-              : 'Yolculuk boyunca konuşabilirsiniz; gözünüz yolda, zihniniz rahat olsun.'}
-          </p>
-        </div>
-
-        {/* BÜYÜK SES ORBU / DALGA ANİMASYONU */}
-        <div className="relative my-3 flex items-center justify-center">
-          {/* Dış Halka 1 (Genişleyen Nefes) */}
-          <div
-            className={`w-48 h-48 md:w-56 md:h-56 rounded-full border border-togg-turquoise/20 flex items-center justify-center transition-all duration-1000 ${
-              isListening ? 'scale-110 border-togg-turquoise/50 animate-ping' : 'animate-pulse'
-            }`}
-          />
-
-          {/* Dış Halka 2 */}
-          <div
-            className={`absolute w-36 h-36 md:w-44 md:h-44 rounded-full border border-togg-turquoise/30 bg-togg-turquoise/5 flex items-center justify-center backdrop-blur-sm transition-all duration-700 ${
-              isListening ? 'scale-105 shadow-[0_0_40px_rgba(0,194,231,0.3)]' : ''
-            }`}
-          />
-
-          {/* Merkez Orb */}
-          <div
-            className={`absolute w-24 h-24 md:w-28 md:h-28 rounded-full flex items-center justify-center transition-all duration-500 shadow-2xl ${
-              isListening
-                ? 'bg-gradient-to-tr from-rose-500 via-purple-500 to-togg-turquoise shadow-[0_0_35px_rgba(244,63,94,0.6)] animate-pulse'
-                : 'bg-gradient-to-tr from-cyan-600 via-togg-turquoise to-blue-500 shadow-[0_0_30px_rgba(0,194,231,0.4)]'
-            }`}
-          >
-            {isListening ? (
-              <Mic className="w-10 h-10 text-white animate-bounce" />
-            ) : (
-              <Sparkles className="w-10 h-10 text-togg-darkBlue animate-pulse" />
-            )}
-          </div>
-        </div>
-
-        {/* BİRİNCİL AKSİYON: MİKROFONU BAŞLAT */}
-        <div className="space-y-3 w-full max-w-sm">
-          <button
-            onClick={toggleListening}
-            className={`w-full py-3.5 px-6 rounded-2xl font-bold text-sm transition-all shadow-xl flex items-center justify-center gap-2.5 min-h-touch ${
-              isListening
-                ? 'bg-rose-500 hover:bg-rose-600 text-white shadow-[0_0_25px_rgba(244,63,94,0.5)] animate-pulse'
-                : 'bg-togg-turquoise hover:bg-[#33D0EE] text-togg-darkBlue shadow-[0_0_20px_rgba(0,194,231,0.3)]'
-            }`}
-          >
-            {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-            <span>{isListening ? 'DİNLENİYOR... KONUŞUN' : recognitionState === 'starting' ? 'MİKROFON BAŞLATILIYOR...' : 'MİKROFONU BAŞLAT'}</span>
-          </button>
-
-          <div className="flex items-center justify-center gap-4 text-xs">
-            <button
-              onClick={() => setShowTextInput((prev) => !prev)}
-              className="text-slate-400 hover:text-white transition-colors underline underline-offset-4"
-            >
-              İsterseniz yazabilirsiniz
-            </button>
-
-            <span className="text-slate-600">•</span>
-
-            <button
-              onClick={() => setVoiceSpeechEnabled((prev) => !prev)}
-              className="text-slate-400 hover:text-white transition-colors flex items-center gap-1"
-            >
-              {voiceSpeechEnabled ? <Volume2 className="w-3.5 h-3.5 text-togg-turquoise" /> : <VolumeX className="w-3.5 h-3.5 text-slate-500" />}
-              <span>{!voiceSpeechEnabled ? 'Sessiz' : voiceState === 'speaking' ? 'Sesli Yanıt Oynatılıyor' : voiceState === 'starting' ? 'Sesli Yanıt Başlatılıyor' : voiceState === 'ready' ? 'Sesli Yanıt Hazır' : voiceState === 'failed' ? 'Sesli Yanıt Başarısız' : voiceState === 'loading' ? 'Sesler Yükleniyor' : 'Sesli Yanıt Kullanılamıyor'}</span>
-            </button>
-          </div>
-
-          {/* Mikrofon İzin Uyarısı */}
-          {voiceSpeechEnabled && voiceNotice && <p role="status" className="text-xs text-amber-200">{voiceNotice}</p>}
-          {micNotice && (
-            <div className="p-3 bg-amber-950/70 border border-amber-700/80 rounded-xl text-amber-200 text-xs flex items-center gap-2 text-left animate-in fade-in">
-              <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
-              <span>{micNotice}</span>
-            </div>
-          )}
-
-          {/* İsteğe Bağlı Metin Girişi Kutusu */}
-          {showTextInput && (
-            <div className="pt-2 flex gap-2 w-full animate-in fade-in">
-              <input
-                type="text"
-                value={inputText}
-                onChange={(e) => setInputText(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                placeholder="Düşüncelerinizi yazın..."
-                className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-togg-turquoise"
-              />
-              <button
-                onClick={() => handleSendMessage()}
-                className="px-4 py-2 bg-togg-turquoise text-togg-darkBlue font-bold rounded-xl text-xs hover:bg-[#33D0EE]"
-              >
-                Gönder
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* SON 1-2 KONUŞMA DÖKÜMÜ (KOMPAKT KABİN DİYALOĞU) */}
-        <div className="w-full max-w-2xl space-y-2 pt-2">
-          {recentMessages.map((m, idx) => {
-            const isAi = m.sender === 'AI';
-            return (
-              <div
-                key={idx}
-                data-chat-author={m.sender}
-                data-chat-position={messages.length - recentMessages.length + idx}
-                className={`p-3.5 rounded-xl text-xs leading-relaxed text-left flex items-start gap-3 transition-all ${
-                  m.isCrisis
-                    ? 'bg-rose-950/80 border border-rose-700 text-rose-100'
-                    : isAi
-                    ? 'bg-slate-950/80 border border-white/10 text-slate-200'
-                    : 'bg-togg-darkBlue/80 border border-togg-turquoise/30 text-white ml-auto max-w-lg'
-                }`}
-              >
-                <span className="shrink-0 text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-white/10 text-slate-300">
-                  {isAi ? 'Attune' : 'Siz'}
-                </span>
-                <p className="flex-1">{m.text}</p>
-              </div>
-            );
-          })}
-          {isProcessing && (
-            <div className="text-xs text-slate-400 italic flex items-center justify-center gap-2 pt-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-togg-turquoise animate-ping" />
-              <span>Asistan dinliyor ve yanıt hazırlıyor...</span>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* 2. BELOW FOLD: SON GÖRÜŞMELERDEN İÇGÖRÜLER (SADECE PARK HALİNDE DETAYLI) */}
-      {isParked && !isDemo && (
-        <section data-mental-history className="bg-cockpit-surface border border-white/10 rounded-2xl p-6 space-y-4">
-          <h2 className="text-sm font-bold">Kayıtlı Görüşme Özetleri</h2>
-          <p>{mentalHistory.length} kayıtlı görüşme</p>
-          {mentalHistory.length === 0 && <p>Henüz kayıtlı görüşme yok. Yalnızca gerçekleştirdiğiniz ve kaydedilmesine izin verdiğiniz görüşmeler burada gösterilir.</p>}
-          {mentalHistory.map(item => <article key={item.id} className="space-y-1 text-xs">
-            <time dateTime={item.date}>{new Date(item.date).toLocaleDateString('tr-TR')}</time>
-            <p>{item.summaryText}</p><p>{item.themes.join(' • ')}</p>
-          </article>)}
-          <p className="text-xs text-slate-400">Özetler paylaştığınız metinden oluşturulur; klinik tanı veya ölçülmüş duygu istatistiği değildir. Ham ses ve tam konuşma dökümü saklanmaz.</p>
-          {historyNotice && <p role="status" className="text-xs text-amber-200">{historyNotice}</p>}
-          <button onClick={handleNavigateToCare} className="text-sm font-bold text-togg-turquoise">PSİKOLOG SEÇENEKLERİNİ GÖR</button>
-          <p className="text-xs">Acil Kriz Destek: <strong>112 Acil Çağrı</strong></p>
-        </section>
-      )}
-      {isParked && isDemo ? (
-        <section className="bg-cockpit-surface border border-white/10 rounded-2xl p-6 space-y-4 shadow-xl">
-          <p className="text-sm font-bold text-amber-200">Demo / Örnek içerik — gerçek görüşme geçmişiniz değildir.</p>
-          <div className="flex items-center justify-between border-b border-white/10 pb-3">
-            <div className="flex items-center gap-2.5 text-sm font-bold text-white">
-              <TrendingUp className="w-4 h-4 text-togg-turquoise" />
-              <span>Son Görüşmelerden İçgörüler</span>
-            </div>
-            <span className="text-xs text-slate-400 font-mono">4 Seans Analiz Edildi</span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Kart 1: Tekrar Eden Temalar */}
-            <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800/70 space-y-2.5 text-xs">
-              <div className="text-[11px] uppercase tracking-wider text-slate-400 font-semibold flex items-center justify-between">
-                <span>Tekrar Eden Temalar</span>
-                <span className="text-togg-turquoise font-mono font-bold">1. Örüntü</span>
-              </div>
-              <div className="space-y-1.5 text-slate-200">
-                <div className="flex justify-between items-center">
-                  <span>Uyku Düzensizliği</span>
-                  <span className="font-mono text-togg-turquoise font-semibold">%75</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span>İş Temposu & Stres</span>
-                  <span className="font-mono text-togg-turquoise font-semibold">%60</span>
-                </div>
-              </div>
-              <p className="text-[10px] text-slate-500 pt-1 border-t border-slate-900">
-                Haftalık seanslarda en sık tekrar eden anahtar konular.
-              </p>
-            </div>
-
-            {/* Kart 2: Duygu Eğilimi */}
-            <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800/70 space-y-2.5 text-xs">
-              <div className="text-[11px] uppercase tracking-wider text-slate-400 font-semibold flex items-center justify-between">
-                <span>Duygu Eğilimi</span>
-                <span className="text-amber-400 font-mono font-bold">Zaman İçi</span>
-              </div>
-              <p className="text-slate-300 leading-relaxed text-[11px]">
-                Sabah saatlerinde odaklanma seviyesi yüksek; akşam dönüş saatlerinde zihinsel yorgunluk ve gerginlik eğilimi izleniyor.
-              </p>
-              <p className="text-[10px] text-slate-500 pt-1 border-t border-slate-900">
-                Kabin aydınlatma ve rahatlama sesleri önerildi.
-              </p>
-            </div>
-
-            {/* Kart 3: Profesyonel Destek */}
-            <div className="bg-togg-darkBlue/40 border border-togg-darkTurquoise/60 rounded-xl p-4 space-y-3 text-xs flex flex-col justify-between">
-              <div className="space-y-1.5">
-                <div className="text-[11px] uppercase tracking-wider text-togg-turquoise font-semibold flex items-center justify-between">
-                  <span>Profesyonel Destek</span>
-                  <span className="text-emerald-400 font-mono font-bold">Öneri</span>
-                </div>
-                <p className="text-slate-300 text-[11px] leading-relaxed">
-                  Tekrar eden yorgunluk ve stres örüntüleri için online veya yüz yüze klinik psikolog görüşmesi önerilir.
-                </p>
-              </div>
-
-              <button
-                onClick={handleNavigateToCare}
-                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-togg-turquoise text-togg-darkBlue font-bold text-xs hover:bg-[#33D0EE] transition-all shadow-md"
-              >
-                <span>PSİKOLOG SEÇENEKLERİNİ GÖR</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-
-          <div className="pt-2 text-[11px] text-slate-500 flex items-center justify-between">
-            <span>* Seans dökümleri yerel-first prensibiyle işlenir; ham ses kaydı saklanmaz.</span>
-            <span>Acil Kriz Destek: <strong className="text-rose-400 font-semibold">112 Acil Çağrı</strong></span>
-          </div>
-        </section>
-      ) : !isParked ? (
-        /* Sürüş Modunda Görsel Geçmiş Kilitlidir */
-        <div className="bg-slate-950/60 border border-white/5 rounded-2xl p-4 text-center text-xs text-slate-400">
-          Sürüş sırasında görsel sağlık geçmişi ve analiz grafikleri gizlenir. Yalnızca sesli asistan aktiftir.
-        </div>
-      ) : null}
-    </div>
-  );
+    {!demo && <section data-mental-record-panel className="lg:col-span-2 min-w-0 bg-cockpit-surface border border-white/10 rounded-2xl p-6"><RecordHistory category="mental" parked={isParked} /></section>}
+    {completionOpen && <AccessibleDialog title="Görüşme tamamlandı" onClose={() => setCompletionOpen(false)} className="max-w-lg w-full rounded-2xl bg-cockpit-surface border border-white/20 p-6 space-y-4"><h2 className="font-bold text-xl">Görüşme tamamlandı</h2><p role="status">{c.notice}</p><button onClick={() => setCompletionOpen(false)} className="min-h-11 rounded-xl bg-togg-turquoise text-togg-darkBlue px-6">Tamam</button></AccessibleDialog>}
+  </div>;
 }

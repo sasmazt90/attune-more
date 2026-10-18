@@ -45,6 +45,9 @@ eggs/
 .eggs/
 lib/
 lib64/
+# Reviewed, hash-pinned local braces package sources (not a Python environment).
+!vendor/braces/lib/
+!vendor/braces/lib/*.js
 parts/
 sdist/
 var/
@@ -117,4 +120,29 @@ scripts/capture_*.py
 # Controlled browser audit artifacts and generated fixtures
 audit-results/
 audit-fixtures/
+output/playwright/
+.playwright-cli/
+apps/vehicle-app/public/__vision_audit__/
 
+
+# Large, locally trained dental artifact (manifest is tracked).
+services/core-api/models/*.onnx
+!services/core-api/models/dental-yolox-s.onnx
+services/core-api/models/*.npz
+!apps/vehicle-app/public/audio/hearing-bank/*.wav
+.runtime/
+
+!apps/vehicle-app/public/audio/guidance/*.mp3
+!apps/vehicle-app/public/audio/vision-speech/*.mp3
+
+# Local experimental export and browser fixtures (hash-indexed separately).
+services/core-api/models/acne-v5-preview/*.onnx
+
+.playwright-cli/
+
+apps/vehicle-app/public/__camera_audit__/
+services/core-api/models/dryness-calibrated-v3/*.onnx
+services/core-api/models/skin-type-local-v1/*.onnx
+
+# New local illustrative/approved speech asset; identities travel as metadata.
+apps/vehicle-app/public/audio/guidance/mental-entry-voice-only-v1.mp3

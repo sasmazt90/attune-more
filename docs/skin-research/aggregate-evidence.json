@@ -1,0 +1,233 @@
+{
+  "buildId": "kB4oM8G7sqXd4Cv0uYQ01",
+  "engineeringOnly": true,
+  "inventory": {
+    "cases": 5033,
+    "images": 10407,
+    "headNeckSelfReportedCases": 737,
+    "headNeckImageReferences": 1581,
+    "faceAnnotationAvailable": false,
+    "faceDetectedIsExpertUsable": false,
+    "metadataSHA256": {
+      "scin_cases.csv": "7923ee9ba9775af413ca115c4587dc1bd32259d7936aa97fa80d88dd616ca3c3",
+      "scin_labels.csv": "616ad03c24c304f5f7ef01b4116e4d3274f1c71c9b19a0e3d5620698b081a9fe"
+    },
+    "expertGradableCases": 3171,
+    "expertAcneNamedCases": 98,
+    "headExpertAcneEligibleCases": 32,
+    "headExpertNegativeProxyEligibleCases": 230,
+    "selfReportExpertCrossTab": {
+      "user_other_or_missing/expert_other_or_missing": 4873,
+      "user_other_or_missing/expert_acne": 86,
+      "user_acne/expert_other_or_missing": 62,
+      "user_acne/expert_acne": 12
+    },
+    "imageInventoryScope": "all released cases",
+    "downloadedImages": 10406,
+    "imageFailures": {
+      "HTTPError": 1
+    },
+    "faceDetectorCounts": {
+      "zeroOrMultipleFaces": 9721,
+      "singleFace": 685
+    },
+    "singleFaceCandidates": 685,
+    "gradableCaseSingleFaceCandidates": 471,
+    "eligibleImageCandidates": 304,
+    "eligibleCases": 282,
+    "eligibleAcneImageCandidates": 12,
+    "eligibleAcneCases": 12,
+    "eligibleToneDistribution": {
+      "2": 121,
+      "4": 39,
+      "1": 21,
+      "3": 75,
+      "7": 8,
+      "5": 26,
+      "8": 1,
+      "6": 11,
+      "9": 1,
+      "missing": 1
+    },
+    "expertVerifiedFaceImages": null,
+    "localLesionLabelsAvailable": false,
+    "negativeCertifiedAbsence": false
+  },
+  "wholeFaceGeometryFilter": {
+    "imageCandidatesChecked": 685,
+    "modelInferencesThisRun": 17,
+    "boxSource": "MediaPipe complete outline in native source coordinates",
+    "fullFaceGeometryCandidates": 17,
+    "expertGradableCaseFullFaceCandidates": 11,
+    "eligibleImages": 7,
+    "eligibleCases": 7,
+    "eligibleAcneCases": 2,
+    "eligibleNegativeProxyCases": 5,
+    "expertVerifiedFaceImages": null,
+    "localLesionLabels": false,
+    "negativeAbsenceCertified": false,
+    "modelURL": "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+    "modelSHA256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+    "sdkVersion": "1.0.1",
+    "loadMs": 5297.200000047684,
+    "photoUploads": false,
+    "clinicalGroundTruth": false
+  },
+  "rejectedCandidateModel": {
+    "modelSHA256": "54a7f4136fdbef0afcd06f61e9b13f093b27b17f29e18263d53a36fbb6a7fde3",
+    "test": {
+      "cases": 57,
+      "positiveCases": 3,
+      "negativeCases": 54,
+      "tp": 3,
+      "fp": 54,
+      "fn": 0,
+      "tn": 0,
+      "precision": 0.05263157894736842,
+      "recall": 1.0,
+      "F1": 0.1,
+      "AUC": 0.7160493827160493,
+      "Brier": 0.19031695305880086,
+      "ECE": 0.3749613158012691,
+      "precisionWilsonLower": 0.018059968096281017,
+      "recallWilsonLower": 0.4384939195509822
+    },
+    "backgroundTest": {
+      "cases": 57,
+      "positiveCases": 3,
+      "negativeCases": 54,
+      "tp": 3,
+      "fp": 54,
+      "fn": 0,
+      "tn": 0,
+      "precision": 0.05263157894736842,
+      "recall": 1.0,
+      "F1": 0.1,
+      "AUC": 0.5246913580246914,
+      "Brier": 0.188994870411856,
+      "ECE": 0.37298575043678284,
+      "precisionWilsonLower": 0.018059968096281017,
+      "recallWilsonLower": 0.4384939195509822
+    },
+    "wholeFaceValidationInvalidated": true,
+    "productAccepted": false
+  },
+  "productProof": {
+    "status": "PASS",
+    "physicalCamera": false,
+    "native200": {
+      "innerWidth": 641,
+      "outerWidth": 1298,
+      "dpr": 3,
+      "cssZoom": "1"
+    },
+    "graphs": [
+      "rightCheek",
+      "leftCheek",
+      "nose",
+      "chin",
+      "periorbital",
+      "forehead"
+    ]
+  },
+  "mapRuntime": {
+    "status": "PASS",
+    "buildId": "kB4oM8G7sqXd4Cv0uYQ01",
+    "workerSHA256": "97536295f75ce5272af785264d3f974667c9cb4bfa02f3364586e748d82c1a36",
+    "workerURL": "http://127.0.0.1:3000/_next/static/chunks/966.1b1e3f4f81139b2a.js",
+    "actualProductionWorker": true,
+    "serviceSourceProbe": true,
+    "physicalCamera": false,
+    "clinicalAcceptance": false,
+    "coldFirstWarmNext": [
+      {
+        "photoId": "ae687a0b20b85cdabd3c99967658bee7df2d22b87c5db9e8c7f44b533064a790",
+        "loadMs": 1144.6999999284744,
+        "analysisMs": 382.89999997615814,
+        "knownAllocatedBytes": 2025475,
+        "totalMs": 1533.3999999761581,
+        "maps": [
+          "forehead",
+          "nose",
+          "chin",
+          "rightCheek",
+          "leftCheek"
+        ],
+        "mainHeapBytes": 9053064
+      },
+      {
+        "photoId": "ae687a0b20b85cdabd3c99967658bee7df2d22b87c5db9e8c7f44b533064a790",
+        "loadMs": 1144.6999999284744,
+        "analysisMs": 134.79999995231628,
+        "knownAllocatedBytes": 2025475,
+        "totalMs": 138.10000002384186,
+        "maps": [
+          "forehead",
+          "nose",
+          "chin",
+          "rightCheek",
+          "leftCheek"
+        ],
+        "mainHeapBytes": 9436316
+      },
+      {
+        "photoId": "ae687a0b20b85cdabd3c99967658bee7df2d22b87c5db9e8c7f44b533064a790",
+        "loadMs": 1144.6999999284744,
+        "analysisMs": 112,
+        "knownAllocatedBytes": 2025475,
+        "totalMs": 114.89999997615814,
+        "maps": [
+          "forehead",
+          "nose",
+          "chin",
+          "rightCheek",
+          "leftCheek"
+        ],
+        "mainHeapBytes": 9626007
+      },
+      {
+        "photoId": "ae687a0b20b85cdabd3c99967658bee7df2d22b87c5db9e8c7f44b533064a790",
+        "loadMs": 1144.6999999284744,
+        "analysisMs": 128.39999997615814,
+        "knownAllocatedBytes": 2025475,
+        "totalMs": 131.40000009536743,
+        "maps": [
+          "forehead",
+          "nose",
+          "chin",
+          "rightCheek",
+          "leftCheek"
+        ],
+        "mainHeapBytes": 9816590
+      }
+    ],
+    "ownedChromeAggregateRSSBytes": {
+      "baseline": 409833472,
+      "sampledMaximum": 728051712,
+      "afterCancel": 728051712,
+      "sampling": "working-set sum of owned browser processes; shared pages may be double-counted; sampled, not peak instrumentation"
+    },
+    "cancel": {
+      "rejected": true,
+      "error": "CANCELLED_OR_TIMEOUT",
+      "ms": 2.3000000715255737
+    },
+    "timeout": {
+      "workerAssetFaultDelayMs": 3000,
+      "rejected": true,
+      "error": "CANCELLED_OR_TIMEOUT",
+      "ms": 2504.7000000476837,
+      "heartbeatTicks": 50
+    }
+  },
+  "security": {
+    "production": {
+      "high": 0,
+      "total": 0
+    },
+    "development": {
+      "high": 7,
+      "moderate": 2
+    }
+  }
+}

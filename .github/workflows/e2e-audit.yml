@@ -1,7 +1,7 @@
 name: Attune browser audit
 on:
   push:
-    branches: ['audit/e2e-2026-09-30', 'fix/attune-audit-remediation']
+    branches: ['audit/e2e-2026-09-30', 'fix/attune-audit-remediation', 'fix/live-test-followup']
   workflow_dispatch:
 permissions:
   contents: read
@@ -15,14 +15,17 @@ jobs:
     env:
       NEXT_TELEMETRY_DISABLED: '1'
       OPENAI_API_KEY: ''
+      ATTUNE_LOAD_LOCAL_ENV: '0'
     defaults:
       run:
         shell: bash
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '22.20.0'
           cache: npm
       - uses: actions/setup-python@v5
         with:
@@ -32,7 +35,9 @@ jobs:
       - name: Install application browsers native audio and diagnostics
         run: |
           npm ci
-          python -m pip install -r services/core-api/requirements.txt bandit
+          python -m pip install -r services/core-api/requirements.txt bandit pillow
+          python -m pip install psutil==7.2.2 safetensors==0.7.0
+          python -m pip install torch==2.9.1 torchvision==0.24.1 --index-url https://download.pytorch.org/whl/cpu
           python -m playwright install --with-deps chromium
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg espeak-ng xvfb pulseaudio pulseaudio-utils speech-dispatcher speech-dispatcher-espeak-ng libspeechd2
@@ -49,13 +54,21 @@ jobs:
         run: npm run build 2>&1 | tee audit-results/build.log
       - name: Security and environment reports
         run: |
+          set +e
+          status=0
           npm ls --all --json > audit-results/npm-ls.json
+          if [ "$?" -ne 0 ]; then status=1; fi
           npm ls next react react-dom postcss glob eslint-config-next --all > audit-results/dependency-versions.txt
+          if [ "$?" -ne 0 ]; then status=1; fi
           npm audit --json > audit-results/npm-audit.json
+          if [ "$?" -ne 0 ]; then status=1; fi
           npm audit --omit=dev --json > audit-results/npm-audit-production.json
+          if [ "$?" -ne 0 ]; then status=1; fi
           python -m bandit -r services -f json -o audit-results/bandit.json || true
           python -m pip freeze > audit-results/python-freeze.txt
+          test "$status" -eq 0
       - name: Controlled image and spoken Turkish fixtures plus OS microphone
+        if: ${{ !cancelled() }}
         run: |
           mkdir -p audit-fixtures
           ffmpeg -y -loop 1 -i apps/vehicle-app/public/images/demo-skin-face.jpg -vf 'scale=640:480:force_original_aspect_ratio=decrease,pad=640:480:(ow-iw)/2:(oh-ih)/2,setsar=1' -t 3 -r 15 -pix_fmt yuv420p audit-fixtures/face.y4m
@@ -74,14 +87,21 @@ jobs:
           pactl info > audit-results/pulse-info.txt
           speech-dispatcher --spawn > audit-results/speech-dispatcher.log 2>&1
           python tests/e2e/native_audio_preflight.py
+      - name: Keyless checked-in live harness entrypoints and both admission gates
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/live_harness_preparation.py 2>&1 | tee audit-results/live-harness-preparation.log
+      - name: Final seven-request admission and clocks, keyless success/failure only
+        if: ${{ !cancelled() }}
+        run: xvfb-run -a python -u tests/e2e/final_provider_preparation.py 2>&1 | tee audit-results/final-provider-preparation.log
       - name: Original app focused diagnostics with actual MediaPipe and OS audio
+        if: ${{ !cancelled() }}
         env:
           PULSE_SOURCE: audit_input
           PULSE_SINK: audit_output
           DEBUG: pw:browser
         run: |
           node node_modules/next/dist/bin/next start apps/vehicle-app --hostname 127.0.0.1 -p 3000 > audit-results/frontend.log 2>&1 &
-          python -m uvicorn main:app --app-dir services/core-api --host 127.0.0.1 --port 8000 > audit-results/backend.log 2>&1 &
+          python tests/e2e/ui_contract_backend.py > audit-results/backend.log 2>&1 &
           for i in $(seq 1 45); do
             if curl -fsS http://localhost:3000/ >/dev/null && curl -fsS http://localhost:8000/api/health >/dev/null; then break; fi
             sleep 1
@@ -93,8 +113,13 @@ jobs:
           regression_status=${PIPESTATUS[0]}
           test "$focused_status" -eq 0 && test "$regression_status" -eq 0
       - name: Bounded dependency security regressions
+        if: ${{ !cancelled() }}
         run: node tests/security/dependency-regressions.cjs 2>&1 | tee audit-results/dependency-security.log
+      - name: Licensed three-pose fixture admitted by actual production MediaPipe
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/prepare_multi_angle_fixture.py 2>&1 | tee audit-results/multi-angle-fixture.log
       - name: Broader E2E with valid real skin flow and native spoken PCM
+        if: ${{ !cancelled() }}
         env:
           PULSE_SOURCE: audit_input
           PULSE_SINK: audit_output
@@ -111,7 +136,61 @@ jobs:
           done
           test "$status" -eq 0
       - name: Controlled skin timing with tracing enabled and disabled
+        if: ${{ !cancelled() }}
         run: python -u tests/e2e/skin_timing.py 2>&1 | tee audit-results/skin-timing.log
+      - name: Live-test geometry anatomy reminder and selected print regressions
+        if: ${{ !cancelled() }}
+        run: |
+          python -u tests/e2e/live_followup.py 2>&1 | tee audit-results/live-followup-geometry.log
+          python -u tests/e2e/skin_followup.py 2>&1 | tee audit-results/live-followup-skin.log
+      - name: Conversation lifecycle with keyless generation fixture and real validation/storage
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/mental_lifecycle_followup.py 2>&1 | tee audit-results/mental-lifecycle-followup.log
+      - name: UAT actual UI consent, short modals, waiting faults and responsive routes
+        if: ${{ !cancelled() }}
+        run: |
+          python -u tests/e2e/uat_ux_followup.py 2>&1 | tee audit-results/uat-ux-followup.log
+          python -u tests/e2e/uat_truthfulness_followup.py 2>&1 | tee audit-results/uat-truthfulness-followup.log
+      - name: Live harness rejects unverified source and contaminated input before dispatch
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/live_harness_fail_closed.py 2>&1 | tee audit-results/live-harness-fail-closed.log
+      - name: Keyless generation fixture admitted before unavailable TTS; no live claim
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/live_harness_order_followup.py 2>&1 | tee audit-results/live-harness-order.log
+      - name: Three actual poses and compatible versioned reference
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/skin_multi_angle_followup.py 2>&1 | tee audit-results/skin-multi-angle-followup.log
+      - name: Native-resolution licensed portrait and rejected low-detail regression, actual model and zoom
+        if: ${{ !cancelled() }}
+        run: |
+          python -u tests/e2e/prepare_high_detail_fixture.py 2>&1 | tee audit-results/high-detail-fixture.log
+          xvfb-run -a --server-args="-screen 0 1920x1080x24" python -u tests/e2e/skin_resolution_followup.py 2>&1 | tee audit-results/skin-resolution-high.log
+          xvfb-run -a --server-args="-screen 0 1920x1080x24" python -u tests/e2e/skin_resolution_followup.py --low-quality 2>&1 | tee audit-results/skin-resolution-low.log
+          python -u tests/e2e/prepare_high_detail_fixture.py --digital-source 2>&1 | tee audit-results/digital-detail-fixture.log
+          xvfb-run -a --server-args="-screen 0 1920x1080x24" python -u tests/e2e/skin_resolution_followup.py --digital-source 2>&1 | tee audit-results/skin-resolution-digital.log
+      - name: Explicit pause and clarification without capture or paid generation
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/mental_pause_followup.py 2>&1 | tee audit-results/mental-pause-followup.log
+      - name: Three native Turkish STT turns and MPEG lifecycle with isolated OS PCM
+        if: ${{ !cancelled() }}
+        env:
+          PULSE_SOURCE: audit_input
+          PULSE_SINK: audit_output
+        run: xvfb-run -a python -u tests/e2e/native_three_turn_followup.py 2>&1 | tee audit-results/native-three-turn-followup.log
+      - name: Final service consent and durable per-record deletion
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/final_user_flow.py 2>&1 | tee audit-results/final-user-flow.log
+      - name: Spoken letter, separate accuracy, layout and MPEG streaming regressions
+        if: ${{ !cancelled() }}
+        run: |
+          python -u tests/e2e/vision_camera_followup.py 2>&1 | tee audit-results/vision-camera.log
+          python -u tests/e2e/guided_vision_followup.py 2>&1 | tee audit-results/guided-vision.log
+          python -u tests/e2e/continuous_vision_contract.py 2>&1 | tee audit-results/continuous-vision.log
+          python -u tests/e2e/mental_sessions_followup.py 2>&1 | tee audit-results/mental-sessions.log
+          python -u tests/e2e/stream_speech_followup.py 2>&1 | tee audit-results/stream-speech.log
+          python -u tests/e2e/spoken_letter_render_followup.py 2>&1 | tee audit-results/spoken-letter-render.log
+          python -u tests/e2e/product_layout_followup.py 2>&1 | tee audit-results/product-layout.log
+          python -u tests/e2e/uat_visuals.py 2>&1 | tee audit-results/uat-visuals.log
       - name: Upload evidence
         if: always()
         uses: actions/upload-artifact@v4

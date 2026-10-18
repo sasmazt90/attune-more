@@ -1,0 +1,105 @@
+{
+  "version": "focused-skin-rights-20261010-v1",
+  "data": {
+    "archives": {
+      "skin-18criteria-v1.zip": "8f2bebd6b97bdd3acd06a42798babbd377b7937db362a734586ff5fb3d0ea4a1",
+      "eye-training-v2.zip": "03afd248006874f714a1b39210801be70918cf96e669084c5776a6590ca73f03"
+    },
+    "skin": {
+      "source": "https://www.kaggle.com/datasets/killa92/facial-skin-analysis-and-type-classification",
+      "license": "publisher-declared Apache-2.0"
+    },
+    "eye": {
+      "source": "https://universe.roboflow.com/skin-condition-detection/skin-condition-detection_merged/dataset/2",
+      "license": "CC-BY-4.0"
+    },
+    "changes": "quality filtering, source grouping, split rebuild, native face crops; original annotations retained",
+    "expertProtocolVerified": false,
+    "personIndependent": false
+  },
+  "imageNetWeights": [
+    {
+      "file": "resnet18-f37072fd.pth",
+      "source": "https://download.pytorch.org/models/resnet18-f37072fd.pth",
+      "card": "https://huggingface.co/timm/resnet18.tv_in1k/raw/main/README.md",
+      "declaredLicense": "bsd-3-clause",
+      "sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+      "safeSHA256": "b1d1d36f298c29c07afa9d5be76d888b01d174824177026613bbd64a26612d19"
+    },
+    {
+      "file": "efficientnet_b0_rwightman-7f5810bc.pth",
+      "source": "https://download.pytorch.org/models/efficientnet_b0_rwightman-7f5810bc.pth",
+      "card": "https://huggingface.co/timm/efficientnet_b0.ra_in1k/raw/main/README.md",
+      "declaredLicense": "apache-2.0",
+      "sha256": "7f5810bc96def8f7552d5b7e68d53c4786f81167d28291b21c0d90e1fca14934",
+      "safeSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a"
+    }
+  ],
+  "code": [
+    {
+      "name": "torchvision",
+      "license": "BSD-3-Clause",
+      "notice": "torchvision-BSD.txt"
+    },
+    {
+      "name": "Segmentation Models PyTorch 0.5.0",
+      "license": "MIT",
+      "notice": "SMP-0.5.0-MIT.txt"
+    },
+    {
+      "name": "YOLOX",
+      "license": "Apache-2.0",
+      "revision": "6ddff4824372906469a7fae2dc3206c7aa4bbaee",
+      "notice": "../skin-research/mediapipe-Apache-2.0.txt"
+    },
+    {
+      "name": "Detectron2",
+      "license": "Apache-2.0",
+      "revision": "1e3e13bbf607b54f62205c4c33922521822fb298"
+    }
+  ],
+  "detectionWeights": [
+    {
+      "name": "YOLOX-S official 0.1.1rc0",
+      "source": "https://github.com/Megvii-BaseDetection/YOLOX/releases/tag/0.1.1rc0",
+      "sha256": "f55ded7181e1b0c13285c56e7790b8f0e8f8db590fe4edb37f0b7f345c913a30",
+      "terms": "Same-project Apache-2.0 release; separate explicit weight license not invented; upstream COCO terms distinct",
+      "distributed": false
+    },
+    {
+      "name": "Detectron2 R50-FPN 3x",
+      "source": "https://github.com/facebookresearch/detectron2/blob/1e3e13bbf607b54f62205c4c33922521822fb298/MODEL_ZOO.md",
+      "license": "CC-BY-SA-3.0 weights separately from code",
+      "sha256": "3c25caca37baabbff3e22cc9eb0923db165a0c18b867871a3bf3570bac9b7ef0",
+      "safeNPZSHA256": "b747e62b27496e6ed9bc85a009e33f400a21a6930edfd7cc2fb2b5090fdbf1a9",
+      "adaptation": "Local native-tile acne fine-tuning; attribution/share-alike required if distributed",
+      "distributed": false
+    }
+  ],
+  "optionalAcnePickle": {
+    "sha256": "aa18e19b1c76c33a2edc8c5a820497fe9ff4e023be88cabae83d1ce9e289da47",
+    "review": "Static ZIP/pickletools only",
+    "executed": false,
+    "distributed": false,
+    "rights": "Original training/weight provenance unresolved"
+  },
+  "product": {
+    "registry": "../../services/core-api/models/skin-focused.json",
+    "acceptedFiles": [
+      {
+        "task": "degrees",
+        "file": "skin-focused-degrees.onnx",
+        "sha256": "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3"
+      }
+    ],
+    "adaptation": "Frozen EfficientNet features plus train-only scaled ridge; accepted redness head only; rejected weights/heads not shipped"
+  },
+  "notebooks": {
+    "reviewed": 5,
+    "executed": false,
+    "unknownLicenseCodeCopied": false
+  },
+  "normalUserPhotographsUsed": false,
+  "sourceImagesDistributed": false,
+  "newPaidCalls": 0
+}

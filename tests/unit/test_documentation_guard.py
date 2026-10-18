@@ -11,6 +11,7 @@ gerçeklik standartlarına uyumunu doğrular:
 """
 
 import os
+import subprocess
 from pathlib import Path
 import json
 
@@ -28,25 +29,21 @@ def test_no_unsupported_togg_terms_in_repo():
     
     # Taranacak uzantılar
     scan_extensions = [".md", ".ts", ".tsx", ".py", ".json"]
-    # Hariç tutulacak klasörler
-    exclude_dirs = {".git", "node_modules", ".venv", "__pycache__", ".next", ".system_generated"}
 
     violations = []
 
-    for root, dirs, files in os.walk(ROOT_DIR):
-        dirs[:] = [d for d in dirs if d not in exclude_dirs]
-        for file in files:
-            p = Path(root) / file
-            if p.resolve() == Path(__file__).resolve():
-                continue
-            if p.suffix.lower() in scan_extensions:
-                try:
-                    content = p.read_text(encoding="utf-8", errors="ignore").lower()
-                    for pattern in unsupported_patterns:
-                        if pattern in content:
-                            violations.append(f"{p.relative_to(ROOT_DIR)}: '{pattern}' bulundu")
-                except Exception:
-                    pass
+    # Product source includes untracked candidate changes, but ignored datasets,
+    # generated audits and isolated third-party installations are not our claims.
+    paths = subprocess.check_output(['git', 'ls-files', '--cached', '--others',
+                                     '--exclude-standard', '-z'], cwd=ROOT_DIR).decode('utf-8').split('\0')
+    for relative in paths:
+        if not relative: continue
+        p = ROOT_DIR / relative
+        if p.resolve() == Path(__file__).resolve() or p.suffix.lower() not in scan_extensions:
+            continue
+        content = p.read_text(encoding='utf-8', errors='ignore').lower()
+        for pattern in unsupported_patterns:
+            if pattern in content: violations.append(f"{relative}: '{pattern}' bulundu")
 
     assert len(violations) == 0, f"Desteklenmeyen terim ihlalleri tespit edildi:\n" + "\n".join(violations)
 
@@ -75,8 +72,9 @@ def test_no_182_in_crisis_contexts():
 
 def test_no_synthetic_distance_generator_in_vision():
     """Vision modülünde 'intervalCount % 5' benzeri sahte mesafe döngüsü bulunmamalıdır."""
-    vision_page = ROOT_DIR / "apps" / "vehicle-app" / "src" / "app" / "vision" / "page.tsx"
+    vision_page = ROOT_DIR / "apps" / "vehicle-app" / "src" / "app" / "vision" / "ContinuousPage.tsx"
     assert vision_page.exists()
     content = vision_page.read_text(encoding="utf-8")
     assert "intervalCount % 5" not in content, "Sahte mesafe hesabı 'intervalCount % 5' tespit edildi!"
-    assert "Doğrulanan" in content or "verifiedDistanceCm" in content, "Kullanıcı doğrulamalı mesafe mantığı bulunamadı."
+    assert "verifiedDistanceCm" not in content
+    assert "relativeScaleChange" in content and "Mutlak mesafe ölçülmüyor" in content

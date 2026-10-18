@@ -1,0 +1,346 @@
+{
+  "version": "guidance-20261009-v1",
+  "entries": {
+    "cockpit-entry": {
+      "text": "Sağlık Merkezi menüsünden yapmak istediğiniz değerlendirmeyi seçin.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "863e4949bcca97d92a24f19edc6962f3c742223521b8d7a8d9efd58c3cecec9d",
+      "sha256": "06582bf099ee6641335ad79b61512db28597cbe437ef882f5573eae625c9f4c7",
+      "url": "/audio/guidance/863e4949bcca97d92a24f19edc6962f3c742223521b8d7a8d9efd58c3cecec9d.mp3"
+    },
+    "profile-entry": {
+      "text": "Sağlık Geçmişim. Bir kaydı açabilir veya yalnız seçtiğiniz kaydı silebilirsiniz.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "c1c445a6930024eb14788fd5c16a9b2ad6bc98339604871691f00013863a9bd3",
+      "sha256": "cc2a311b666d78dc432842d5bd53cbab555269a6340cf294344d387dbf861bbd",
+      "url": "/audio/guidance/c1c445a6930024eb14788fd5c16a9b2ad6bc98339604871691f00013863a9bd3.mp3"
+    },
+    "record-open": {
+      "text": "Kayıt ayrıntısı açıldı. Uzman seçeneklerine buradan geçebilirsiniz.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "87813f989e9141e52265d3c3a9d604dff7accbe50cc274642076506f36eef126",
+      "sha256": "c6b0a94945dc42f8220207a70a00053c12e2051f01a2a5cdaa644dd53ce79003",
+      "url": "/audio/guidance/87813f989e9141e52265d3c3a9d604dff7accbe50cc274642076506f36eef126.mp3"
+    },
+    "record-delete": {
+      "text": "Yalnız seçtiğiniz kayıt silinecek. Silmek için onaylayın; vazgeçmek için iptal edin.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "1c2c9ebfb1a9d3f9c9a5c31b9069b4bf54f9561d27804fde1dad52f975cff440",
+      "sha256": "19f51299a37b52a1e63debb98edfeabedc7d895df1d1fb745fb9f7a1d22be8c9",
+      "url": "/audio/guidance/1c2c9ebfb1a9d3f9c9a5c31b9069b4bf54f9561d27804fde1dad52f975cff440.mp3"
+    },
+    "care-entry": {
+      "text": "Sağlık alanını ve branşı seçin. Uzmanı ve uygun saati sağlayıcının sayfasında doğrulayın.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "6a04afabc56b94a3df82ca186e7f6c1833788ca145d8d4923442924f74462634",
+      "sha256": "4b5e1bb939a65adf653f006a4459f9da9a08790a8a0af76ad8df1779125603ef",
+      "url": "/audio/guidance/6a04afabc56b94a3df82ca186e7f6c1833788ca145d8d4923442924f74462634.mp3"
+    },
+    "care-select": {
+      "text": "Seçtiğiniz uzmanı ve saati kontrol edin. Bu adım randevu oluşturmaz.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "655ba9db5477a24f60b2de80886f66c43419d83aced1ee9c9782270d454881ce",
+      "sha256": "f0253fd411b4330fa131c2e8f2f8c5b057b25f2146fad1f81c42b3777d09d253",
+      "url": "/audio/guidance/655ba9db5477a24f60b2de80886f66c43419d83aced1ee9c9782270d454881ce.mp3"
+    },
+    "skin-entry": {
+      "text": "Cilt Sağlığı. Başınızı rahat tutun; ön, sağ ve sol görüntüyü ekrandaki yönergeyle alacağız.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "f1619926a08b68387a346bf57355d866cfd7b429f48335f6ea9965ad255c0f4c",
+      "sha256": "dc82fcafa235390dd111321b2cdbbfac558e1261be4b0fd9ef0beda171e2f03b",
+      "url": "/audio/guidance/f1619926a08b68387a346bf57355d866cfd7b429f48335f6ea9965ad255c0f4c.mp3"
+    },
+    "skin-front": {
+      "text": "Gözlüğünüzü çıkarın. Başınız karşıda. Yüzünüz ekranda görünürken kısa süre sabit durun.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "f1f50c0d6ded53ca4d20fc867a017b36c44741e1e68b4f6cf889da3f266bfa63",
+      "sha256": "46767d988f4712377ef3ea3bf42cbf3b82be28d35c0a37e5dd93225e6c73410a",
+      "url": "/audio/guidance/f1f50c0d6ded53ca4d20fc867a017b36c44741e1e68b4f6cf889da3f266bfa63.mp3"
+    },
+    "skin-right": {
+      "text": "Başınızı kendi sağınıza hafifçe çevirin; kısa süre sabit tutun.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "4dc15ac0d612b0268f7817c086a64ec858d56ebe01e7677818bf1e3b1006d7f3",
+      "sha256": "e031b3949480cb1c0ee811f7b13151ef4e609f065a3bb0adb4e9846ecd76fde7",
+      "url": "/audio/guidance/4dc15ac0d612b0268f7817c086a64ec858d56ebe01e7677818bf1e3b1006d7f3.mp3"
+    },
+    "skin-left": {
+      "text": "Başınızı kendi solunuza hafifçe çevirin; kısa süre sabit tutun.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "4124c51a4c630b60da1eeeaaae2a3317e172b1d810aeb0402e5be0fb434c01c4",
+      "sha256": "cfec5d277b06ac50acb27b90948566967734a99487a6e419c5c41862a19277b8",
+      "url": "/audio/guidance/4124c51a4c630b60da1eeeaaae2a3317e172b1d810aeb0402e5be0fb434c01c4.mp3"
+    },
+    "skin-complete": {
+      "text": "Tarama tamamlandı. Bölge ve kriter kartını seçerek mevcut görünüm sonucunu inceleyin.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "301e031afef62a07087fed5325c2a42858790e184d95eb0004f42e3037a9c0f6",
+      "sha256": "629b32319770e7cb71977fb321a14d09c4a16c1e6a9820b2956fabdeb885c892",
+      "url": "/audio/guidance/301e031afef62a07087fed5325c2a42858790e184d95eb0004f42e3037a9c0f6.mp3"
+    },
+    "quality-near": {
+      "text": "Kaynak görüntüde yüz ayrıntısı yetersiz. Konumunuzu biraz yaklaştırın.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "4d7afca395a8d64e7a692821e6a714093641c72f9f5984cad79ff79277ff370d",
+      "sha256": "d22fe080f619f4573d9d70b9ab012f1302d677564c79dc382cf70b4706e90ccd",
+      "url": "/audio/guidance/4d7afca395a8d64e7a692821e6a714093641c72f9f5984cad79ff79277ff370d.mp3"
+    },
+    "quality-far": {
+      "text": "Alın ve çene kadraja sığmalı. Biraz uzaklaşın.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "61c37ebbbec5451995f24209cc9072866eb22ec70e1b9d943e340448cdb9b3ec",
+      "sha256": "b862a9d358f04bae0addfba32231e5b585ce4bef1725bf61eba75a070ecaa182",
+      "url": "/audio/guidance/61c37ebbbec5451995f24209cc9072866eb22ec70e1b9d943e340448cdb9b3ec.mp3"
+    },
+    "quality-light": {
+      "text": "Yüzünüzü eşit aydınlatın; sert yan ışığı ve yansımayı azaltın.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "2fe912eef3efec479e33c95c021bae23fc34673a0b6a382c289bbb34f89f7558",
+      "sha256": "b59f9ff4b0af285012d97aba717ee63ddbd118498047987050ea4901361da08b",
+      "url": "/audio/guidance/2fe912eef3efec479e33c95c021bae23fc34673a0b6a382c289bbb34f89f7558.mp3"
+    },
+    "quality-blur": {
+      "text": "Kameranın netliğini kontrol edin; başınızı kısa süre sabit tutun.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "247e1a597e24f30fed969f25787b88cebde66512a1cfd1f234aa09e41286a319",
+      "sha256": "a4b0140aec9b89dbf4167fed4b952ff37122df790a41e3da3e9eb24460b1718d",
+      "url": "/audio/guidance/247e1a597e24f30fed969f25787b88cebde66512a1cfd1f234aa09e41286a319.mp3"
+    },
+    "quality-face": {
+      "text": "Yüzünüzün görünmesini sağlayın; kamera görüşünü kapatan şeyi kaldırın.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "de70e66e6d8727715299a9eb47d47b8cb40be8a9b99fec04a4009e6f2f392fca",
+      "sha256": "7023171305be46e7813aed150fa0bed2fb90bce34e11f37a77cc872d0180183e",
+      "url": "/audio/guidance/de70e66e6d8727715299a9eb47d47b8cb40be8a9b99fec04a4009e6f2f392fca.mp3"
+    },
+    "dental-entry": {
+      "text": "Diş Sağlığı. Kamerayla tarayabilir veya net bir ağız içi diş fotoğrafı yükleyebilirsiniz.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "bfe2747cd9d206ba125df14b4aebe74f546698b7cafc3494ee3b27508210e1b9",
+      "sha256": "9ddd050ccd2bc3d628172a40190aab7d81574f575f822dcca4f6005353b501d1",
+      "url": "/audio/guidance/bfe2747cd9d206ba125df14b4aebe74f546698b7cafc3494ee3b27508210e1b9.mp3"
+    },
+    "dental-upload": {
+      "text": "Dişlerin göründüğü net, renkli ağız içi fotoğrafı seçin. Röntgen yüklemeyin.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "d87257b714e2b3d2a2820107654ccdee014cbdce383c3d11cdc2cb9e0e8bd5c7",
+      "sha256": "653edd68058b18c7821fe302397603d61d84fd95b8685a04a77b6018e2e9ea11",
+      "url": "/audio/guidance/d87257b714e2b3d2a2820107654ccdee014cbdce383c3d11cdc2cb9e0e8bd5c7.mp3"
+    },
+    "dental-front": {
+      "text": "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "dffc5fb2c3e13958b051bc743d09ff19f8b3d5c6c1e502583b70e1b49edcbf3c",
+      "sha256": "ce82614e9abe7eaa31703651fa7de304f1be87b2b71f7b870e5312dbf362e06f",
+      "url": "/audio/guidance/dffc5fb2c3e13958b051bc743d09ff19f8b3d5c6c1e502583b70e1b49edcbf3c.mp3"
+    },
+    "dental-right": {
+      "text": "Başınızı kendi sağınıza hafifçe çevirin; ağzınızı rahatça açık tutun.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "93e1f43eeb80d148898c49499002be71e0830b5f19c2519c400d194612115dd7",
+      "sha256": "0e28d615714dcf56e7aa5f886e02c2a26bd2399554c98c1423197884c8e5b45a",
+      "url": "/audio/guidance/93e1f43eeb80d148898c49499002be71e0830b5f19c2519c400d194612115dd7.mp3"
+    },
+    "dental-left": {
+      "text": "Başınızı kendi solunuza hafifçe çevirin; ağzınızı rahatça açık tutun.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "1a3a7ab0d5c72d5fd83dc7db58ede3d69881125d3aa9ce64d79853cdcb560fdc",
+      "sha256": "0acf416f0e0c1708cf48579f9b00feda5cef9a9241af38e899b8aa31bf337118",
+      "url": "/audio/guidance/1a3a7ab0d5c72d5fd83dc7db58ede3d69881125d3aa9ce64d79853cdcb560fdc.mp3"
+    },
+    "dental-bite": {
+      "text": "Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "ef32fbf400632b202b3ebf3b0cb85c19ce0115c67d89c4e08ac30ec08cd54078",
+      "sha256": "3a2c210a917b821b5d4f67344dc7697f928d5e9234ee0f79f3a2bb304a17fc50",
+      "url": "/audio/guidance/ef32fbf400632b202b3ebf3b0cb85c19ce0115c67d89c4e08ac30ec08cd54078.mp3"
+    },
+    "dental-teeth": {
+      "text": "Dişler görünmeli. Dudak, dil veya cisim örtüsünü kaldırın.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "95b7ba66ca9383f26426e9b558cdd119f392892c4b44d166a25d72de0b78e4b6",
+      "sha256": "5a2a2b12d689fd7019aadb23bf122c1192269071fa3aa5ea4047d9d8715fdb9a",
+      "url": "/audio/guidance/95b7ba66ca9383f26426e9b558cdd119f392892c4b44d166a25d72de0b78e4b6.mp3"
+    },
+    "dental-file": {
+      "text": "JPEG, PNG veya WebP biçiminde, sınırlar içinde açılabilen bir fotoğraf seçin.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "f64f01fc4b48b213d73d5f11e00b3af6755f000b1c231ab8f583d1c0ebbc2301",
+      "sha256": "a6b8f448b802a8ce5da8854caadb12d2d9768b03aca04201f794460ddd568e9e",
+      "url": "/audio/guidance/f64f01fc4b48b213d73d5f11e00b3af6755f000b1c231ab8f583d1c0ebbc2301.mp3"
+    },
+    "dental-complete": {
+      "text": "Analiz tamamlandı. Adaylar yalnız görünür yüzeyler içindir; sonuç kartlarını inceleyin.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "6bfa309a388540e210cc7dfe5b871a045f35c7a154fdbdfd1b1f7437cb7c27e1",
+      "sha256": "3df31f58cddec267c04b0cb42f8f6c771dc1770072c06e203c6c1d459ce80785",
+      "url": "/audio/guidance/6bfa309a388540e210cc7dfe5b871a045f35c7a154fdbdfd1b1f7437cb7c27e1.mp3"
+    },
+    "hearing-entry": {
+      "text": "İşitme Sağlığı. Sessiz ortamda stereo kulaklık kullanın. Önce sağ ve sol kanalı doğrulayacağız.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "438f535e696375cf3e64ad131cb2d9e5a962f46b3b325197d0c502be03dab239",
+      "sha256": "8844fc2d8d2e46c7aca50707a7e16cc7e1e0f277c694fb2d867510c274b89e38",
+      "url": "/audio/guidance/438f535e696375cf3e64ad131cb2d9e5a962f46b3b325197d0c502be03dab239.mp3"
+    },
+    "hearing-prepare": {
+      "text": "Lütfen önce kulaklığınızı takın ve aşağıda ilgili butonlara basarak sadece belirtilen kulaklıktan ses duyduğunuzu onaylayın.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "17e2e6e3043b8af03da0ec6da40d0c4642049b90796292bf685b5ae6a2eda3ab",
+      "sha256": "14ed34ac2d1d3df9eb4d39ed7583a7895bae66c102370b96dad946ac0d4ca835",
+      "url": "/audio/guidance/17e2e6e3043b8af03da0ec6da40d0c4642049b90796292bf685b5ae6a2eda3ab.mp3"
+    },
+    "hearing-tone": {
+      "text": "Sesi duyana kadar bekleyin ve duyduğunuz an butona basın.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "6e6201841b280306b8b3f1b01002e232a148c0d0f61eb3278fa176e94edb5011",
+      "sha256": "147205af68d79fc12e787baa8c27597bdcbdebd128c207287186a680396d8886",
+      "url": "/audio/guidance/6e6201841b280306b8b3f1b01002e232a148c0d0f61eb3278fa176e94edb5011.mp3"
+    },
+    "hearing-digits": {
+      "text": "Geri sayım bittikten sonra gürültü içinde üç sayı duyacaksınız. Sayıları sırayla girip yanıtı gönderin.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "1aa5eae5001f9a5efafaffbf89b89c3e4b74501c8935ff0f9d1373793220697e",
+      "sha256": "0931e7a59108d6f0409b23d86219e5ec0be00e2d16f8ac4e8e70d39865948a85",
+      "url": "/audio/guidance/1aa5eae5001f9a5efafaffbf89b89c3e4b74501c8935ff0f9d1373793220697e.mp3"
+    },
+    "hearing-complete": {
+      "text": "Test tamamlandı. Sonuç bu cihazın dijital ses birimindedir. İsterseniz sayısal sonucu kaydedin.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "892496665b61082c6e9d8217345c326ea75043431586c4747837a1b45e0e8d9d",
+      "sha256": "0ee16b8bbfa6684228ceb30d7fa4d473c4f272300de0da1271f361e45fba95ba",
+      "url": "/audio/guidance/892496665b61082c6e9d8217345c326ea75043431586c4747837a1b45e0e8d9d.mp3"
+    },
+    "mental-entry": {
+      "text": "Ruh Sağlığı. Görüşmeyi başlatınca sesli konuşabilirsiniz. Bitir düğmesi görüşmeyi tamamlar.",
+      "voice": "tr-TR-EmelNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "0080b67ce4b5741a8d923722649bc982c2296662257caa84733079542e32a0d1",
+      "sha256": "9bdfd42f81d5488ff21d6ad8e47bd0ee2db4a95d9f60e971ee70532d2f2b8e93",
+      "url": "/audio/guidance/mental-entry-voice-only-v1.mp3"
+    },
+    "mental-complete": {
+      "text": "Görüşme tamamlandı. Özeti inceleyebilir ve uzman seçeneklerine geçebilirsiniz.",
+      "voice": "tr-TR-EmelNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "bc509b8d87fbeb711c4edf4b1e748fcb57a3f1946c920c7e2caf68db19f45c54",
+      "sha256": "ecf987d8da58d5f83488da5ae6e899010966d2d0a6745f223283cbf6629a57d1",
+      "url": "/audio/guidance/bc509b8d87fbeb711c4edf4b1e748fcb57a3f1946c920c7e2caf68db19f45c54.mp3"
+    },
+    "skin-neutral": {
+      "text": "Ağzınızı kapatın. Gülümsemeden yüzünüzü rahat bırakın; başınızı istenen pozda sabit tutun.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "574b1c2f1fcd0bf4f7c597476875ac563a91959bb2fc144f1bce948156a0adaf",
+      "sha256": "31bb07e63c73ecba688a7546469d70c136985f0e65e1d4ddedbcdc9f2151b970",
+      "url": "/audio/guidance/574b1c2f1fcd0bf4f7c597476875ac563a91959bb2fc144f1bce948156a0adaf.mp3",
+      "admission": {
+        "version": "fixed-neutral-decoded-v1",
+        "codec": "mp3",
+        "sampleRate": 24000,
+        "channels": 1,
+        "durationSeconds": 9.12,
+        "decodedSamples": 218880,
+        "decodeReceiptSHA256": "29e842da99b3834eb7408ca4d230f6c88290b584adbfb08e87e02c14258a2104"
+      }
+    }
+  },
+  "auditoryAcceptance": "not-performed",
+  "provider": "edge-tts"
+}

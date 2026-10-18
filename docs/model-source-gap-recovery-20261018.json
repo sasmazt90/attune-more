@@ -1,0 +1,320 @@
+{
+  "atUTC": "2026-10-18T02:02:22.349451+00:00",
+  "task": "ACNE-02",
+  "startHEAD": "dbcb7bffe96514f1036c20c35a1f6953ace443ec",
+  "servingSource": "8e8a51711ccdfb372cc7b2e60d328c888a78e8fe",
+  "BUILD_ID": "A-e1UWQmCW1DpJXm9fY46",
+  "completedGapInvestigations": 6,
+  "closedGaps": 1,
+  "partiallyNarrowedGaps": 2,
+  "requiredDocumentStillNotObtained": 3,
+  "gaps": [
+    {
+      "id": 1,
+      "name": "Step0 earliest upstream",
+      "status": "PARTIAL",
+      "newEvidence": "Recorded original yolox_s.pth f55ded... and safe01f9...; licensed-general selected; frozen P2 parent metadata cf3a2b...",
+      "remaining": "All intermediate tensor transfer execution receipts and independent separate weight-specific grant are not complete",
+      "evidence": [
+        "local-document-index.json",
+        "frozen-document-index.json"
+      ],
+      "documentEvidence": [
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test\\audit-results\\focused-skin-20261010\\pretrained\\yolox-rights.json",
+          "bytes": 482,
+          "documentSHA256": "8356edb8f2ff431e5cd016a8e360f95479bb81624a90e46f522467bbf05e4f65",
+          "scope": "existing metadata/license/producer document only"
+        },
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test\\audit-results\\skin-expanded-20261011\\yolox\\initialization-comparison.json",
+          "bytes": 1470,
+          "documentSHA256": "a68f3866b91a4579c0c307d86be9a1f59202b0542fc37c5c8445142c39accace",
+          "scope": "existing metadata/license/producer document only"
+        },
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test\\audit-results\\skin-expanded-20261011\\negative-yolox\\parent-receipt.json",
+          "bytes": 7135,
+          "documentSHA256": "41550f0736aedde191ba7b2a1e7a98250822004a20a55ecf0d95a4e0a66048ab",
+          "scope": "existing metadata/license/producer document only"
+        },
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017\\scripts\\skin-research\\train_expanded_detector.py",
+          "bytes": 17913,
+          "documentSHA256": "866fb04a0c084800cd23cd44602db41b2a444eca4646b4c08b665b74ca1e46db",
+          "scope": "existing metadata/license/producer document only"
+        },
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017\\scripts\\skin-research\\train_focused_local.py",
+          "bytes": 21244,
+          "documentSHA256": "77ef303bbfcc445a670c86c94ff436ef47c5702a124ea6bc3acba6604049bae2",
+          "scope": "existing metadata/license/producer document only"
+        }
+      ],
+      "frozenGitEvidence": [
+        {
+          "repository": "TOGG project frozen Git object",
+          "commit": "d90ff95434c44b4e73ae77a7f1d5d6b2e167c987",
+          "path": "scripts/skin-research/model_identity.py",
+          "documentSHA256": "7bc573347a8d206f18fe21ac48cf9ae415073c162ec5029ec86e66483291618c",
+          "executed": false
+        },
+        {
+          "repository": "TOGG project frozen Git object",
+          "commit": "d90ff95434c44b4e73ae77a7f1d5d6b2e167c987",
+          "path": "scripts/skin-research/train_p2_focal_trial.py",
+          "documentSHA256": "cc24c60cb88ded8793ed34866e29e7d0c2dba23b0faf3d7c7c3e04286aca1d19",
+          "executed": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "V4/V5 and64-row dryness publisher-membership join",
+      "status": "CLOSED_PUBLISHER_MEMBERSHIP_SCOPE",
+      "newEvidence": {
+        "V4": {
+          "fitRows": 1548,
+          "calibrationRows": 388,
+          "fitPhotos": 96,
+          "fitJoined": 1548,
+          "fitMissingIDs": []
+        },
+        "V5": {
+          "fitRows": 1548,
+          "exactSameFitMembersAsV4": true
+        },
+        "dryness": {
+          "recoveredRows": 64,
+          "expectedHeadRows": 64,
+          "rowCountMatches": true,
+          "groupSetMatches": true,
+          "joined": 64,
+          "missingIDs": []
+        }
+      },
+      "remaining": "Individual photo ownership/consent not established; this closure is archive/publisher metadata, not universal rights clearance",
+      "evidence": [
+        "membership-join.json",
+        "local-document-index.json",
+        "frozen-document-index.json"
+      ],
+      "documentEvidence": [
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\acne-verifier-v4-20261017\\data-list.json",
+          "bytes": 1710066,
+          "documentSHA256": "48bfcf59b3308888bdd1437777b7ba679d6a28cb63a7feb8dbfd5c83c8554d7e",
+          "scope": "existing metadata/license/producer document only"
+        },
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\acne-verifier-v5-20261017\\weights-summary.json",
+          "bytes": 268852,
+          "documentSHA256": "50aff8d556f2ebe58da87eca5ec292ad54de4bb5bb0373b1cf1aa01289362c13",
+          "scope": "existing metadata/license/producer document only"
+        },
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-claude-acne-audit\\audit-results\\acne-v6-data\\manifest-v6.json",
+          "bytes": 697009,
+          "documentSHA256": "f90be74ba305417992167203a2c4c25bd45520f4342eed1e24a98ca429bdacdf",
+          "scope": "existing metadata/license/producer document only"
+        },
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\cdc-progress\\model-source-closeout-20261018\\data-rights-ledger.json",
+          "bytes": 19240,
+          "documentSHA256": "7c10ef94f4ff06a6096c8dd548a25d7e38e6760a085a6530be62665bfe02db9a",
+          "scope": "existing metadata/license/producer document only"
+        },
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test\\audit-results\\native-material-contour-20261013\\added-components-reviewed.json",
+          "bytes": 388867,
+          "documentSHA256": "1b1172e57064a82599963a30af9e89078827ffb219f68253614f685d068936b4",
+          "scope": "existing metadata/license/producer document only"
+        },
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test\\audit-results\\native-dry-scale-20261013\\native-gate-reviewed.json",
+          "bytes": 38541,
+          "documentSHA256": "01ac05df64e3c6146cd5d6119c205213f293fd5d00b652a9f47f477a1e36e03b",
+          "scope": "existing metadata/license/producer document only"
+        },
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test\\audit-results\\dry-sag-component-followup-20261013\\object-labels.json",
+          "bytes": 42769,
+          "documentSHA256": "f0cec2daf46fd2f745dccf21e20c0f22c2bf59e1ff28b4039352091f984d7e34",
+          "scope": "existing metadata/license/producer document only"
+        }
+      ],
+      "frozenGitEvidence": [
+        {
+          "repository": "TOGG project frozen Git object",
+          "commit": "1b2ee037d1d835fcd29a8f5bf78eb99d034632dd",
+          "path": "scripts/skin-research/find_optimal_dry_head.py",
+          "documentSHA256": "3a59e333053c135881ef66f800da361d05033079d580838231af000aeb2d125b",
+          "executed": false
+        },
+        {
+          "repository": "TOGG project frozen Git object",
+          "commit": "1b2ee037d1d835fcd29a8f5bf78eb99d034632dd",
+          "path": "scripts/skin-research/retrain_dry_head.py",
+          "documentSHA256": "0153dc01b0920974fc10d67f789a7c3346f8307148f3d1acf3e9c098994df72d",
+          "executed": false
+        },
+        {
+          "repository": "TOGG project frozen Git object",
+          "commit": "1b2ee037d1d835fcd29a8f5bf78eb99d034632dd",
+          "path": "scripts/skin-research/build_dryness_delivery_v2.py",
+          "documentSHA256": "c756581596908d4fca83038a9b5e109a4b2a2cc7b2765656c2a0ce6ea90394af",
+          "executed": false
+        },
+        {
+          "repository": "TOGG project frozen Git object",
+          "commit": "cb0948fa2ebc98eb69d22d1b7079752b69ae6cfb",
+          "path": "scripts/skin-research/verifier_v5_train.py",
+          "documentSHA256": "bd37fd9a0a7cf1ffca45c80c19c146c10affded6d84cd501c521cbd351a92dd8",
+          "executed": false
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Dima fine-tune dataset",
+      "status": "DOCUMENT_NOT_OBTAINED",
+      "newEvidence": "Author notebook link inspected, but tool returned no usable body. Existing Apache model-card declaration retained.",
+      "remaining": "Author fine-tune dataset identity/version/license and original photo-rights chain",
+      "evidence": [
+        "publisher-read-attempts.json",
+        "local-document-index.json"
+      ],
+      "documentEvidence": [
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017\\services\\core-api\\models\\skin-type-local-v1\\MODEL_CARD.md",
+          "bytes": 783,
+          "documentSHA256": "41832782943ca2d6d07a0634caf01fe301fd44069c97f2f688f7bbd768d3cee6",
+          "scope": "existing metadata/license/producer document only"
+        },
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017\\services\\core-api\\models\\skin-type-local-v1\\NOTICE.md",
+          "bytes": 574,
+          "documentSHA256": "08b6ba65ef08865f5295698c4d277f06db35aef8eececb354d884c2601696d73",
+          "scope": "existing metadata/license/producer document only"
+        }
+      ],
+      "publisherRead": {
+        "url": "https://www.kaggle.com/code/dima806/skin-types-image-detection-vit",
+        "result": "page returned zero body lines; no dataset conclusion"
+      }
+    },
+    {
+      "id": 4,
+      "name": "FrameFind weight/backbone/data scope",
+      "status": "DOCUMENT_NOT_OBTAINED",
+      "newEvidence": "Existing root MIT Jorge Mora statement preserved; pinned README/LICENSE inaccessible in tool",
+      "remaining": "Weight-file-specific repository scope/exclusion, initial backbone and dataset documentation; no blanket license inference from silence",
+      "evidence": [
+        "publisher-read-attempts.json",
+        "local-document-index.json"
+      ],
+      "documentEvidence": [
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017\\services\\core-api\\models\\skin-eyewear-LICENSE.txt",
+          "bytes": 1088,
+          "documentSHA256": "525097be90d023b612c77a4c0dd84a5207f155c3bdcf8c9221312b9673cfaf2a",
+          "scope": "existing metadata/license/producer document only"
+        },
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017\\services\\core-api\\models\\skin-eyewear-framefind-v1.json",
+          "bytes": 854,
+          "documentSHA256": "918e149f334710cbc0de05f89c2d6f21cae00f8f778310b7c5e6b7613a246f0b",
+          "scope": "existing metadata/license/producer document only"
+        }
+      ],
+      "publisherReads": [
+        {
+          "url": "https://raw.githubusercontent.com/moraxh/FrameFind/3c69676cbcd44a47ab083b541b56c050dbc0b1b5/README.md",
+          "result": "tool cache miss"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/moraxh/FrameFind/3c69676cbcd44a47ab083b541b56c050dbc0b1b5/LICENSE",
+          "result": "tool cache miss"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Torchvision efficientnet_b0_rwightman tensor",
+      "status": "PARTIAL",
+      "newEvidence": "Official fixed-tag weights enum explicitly attributes rwightman port and exact download filename; existing corresponding timm Apache declaration retained",
+      "remaining": "Exact imported tensor to timm immutable release/card byte identity and independent weight-specific grant; no ImageNet-data-to-tensor blanket inference",
+      "evidence": [
+        "torchvision-web-extract.json",
+        "publisher-read-attempts.json",
+        "local-document-index.json"
+      ],
+      "documentEvidence": [
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017\\third-party\\skin-focused\\provenance.json",
+          "bytes": 4259,
+          "documentSHA256": "85dca55e71d63ab34502c61e43f0c7b9231ea3a81d2b9d9780b1b3ce3fde7694",
+          "scope": "existing metadata/license/producer document only"
+        }
+      ],
+      "publisherReads": [
+        {
+          "url": "https://raw.githubusercontent.com/pytorch/vision/v0.20.1/torchvision/models/efficientnet.py",
+          "result": "official source read; cached web extract retained",
+          "extractSHA256": "5125543e9efde055883980ad4b80a05168720d0b613496020dca08b6288fe128",
+          "hashScope": "web-extracted snapshot, not raw upstream HTTP bytes",
+          "revision": "v0.20.1 tag, not independently resolved immutable Git SHA"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/huggingface/pytorch-image-models/v1.0.12/timm/models/efficientnet.py",
+          "result": "tool internal error; no fallback"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Selfie local c6748b immutable upstream identity",
+      "status": "DOCUMENT_NOT_OBTAINED",
+      "newEvidence": "Existing Google/Apache/local hash notice preserved; official latest-object JSON metadata unavailable",
+      "remaining": "Original generation/versioned object or immutable metadata tied to the already stored local hash",
+      "evidence": [
+        "publisher-read-attempts.json",
+        "local-document-index.json"
+      ],
+      "documentEvidence": [
+        {
+          "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-cdc-health-final-technical-20261017\\apps\\vehicle-app\\public\\models\\SELFIE-MODEL-NOTICE.md",
+          "bytes": 594,
+          "documentSHA256": "32e3ca4227c50b64dd7e678e7218c9f14e39717d237b5b4fe1fd751ca157fc1e",
+          "scope": "existing metadata/license/producer document only"
+        }
+      ],
+      "publisherRead": {
+        "url": "https://storage.googleapis.com/storage/v1/b/mediapipe-models/o/image_segmenter%2Fselfie_multiclass_256x256%2Ffloat32%2Flatest%2Fselfie_multiclass_256x256.tflite?fields=name,generation,md5Hash,crc32c,timeCreated,updated,size",
+        "result": "tool internal error; metadata not obtained; no fallback"
+      }
+    }
+  ],
+  "fitPublisherCounts": {
+    "smart": 432,
+    "clean3": 1086,
+    "v11": 28,
+    "merve": 2
+  },
+  "dryPublisherCounts": {
+    "merve": 47,
+    "clean3": 17
+  },
+  "membershipEvidenceSHA256": "8c446f879183be333139e47ef268d499a802eab29aa3e1d18d51c0b3d70a3fac",
+  "publisherDeclarationIsNotIndividualPhotoRights": true,
+  "totalDocumentReads": 7,
+  "newFits": 0,
+  "modelInferenceCalls": 0,
+  "photoReads": 0,
+  "tensorFilesRead": 0,
+  "headMetadataRead": true,
+  "runtimeModelAcceptanceChanged": false,
+  "allRightsResolved": false,
+  "clinicalAcceptance": false,
+  "nextTaskStarted": false
+}

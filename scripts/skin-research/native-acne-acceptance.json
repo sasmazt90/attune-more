@@ -1,0 +1,33 @@
+{
+  "task": "localized visible acne-candidate appearance; no diagnosis or severity",
+  "frozenUTC": "2026-10-10T06:27:48.318692+00:00",
+  "minimumIndependentTestPositivePhotos": 50,
+  "minimumIndependentTestNegativePhotos": 50,
+  "minimumTestLesions": 100,
+  "minimumPrecision": 0.8,
+  "minimumRecall": 0.8,
+  "minimumF1": 0.8,
+  "maximumMeanFalsePositivesPerNegativePhoto": 1,
+  "matching": "one-to-one bbox IoU >= 0.3; uncertain regions ignored, all remaining unmatched predictions are FP",
+  "requiredNegativeTypes": [
+    "mole",
+    "pore",
+    "beard",
+    "shadow",
+    "glare",
+    "diffuse-redness"
+  ],
+  "requiredSubjectDisjoint": true,
+  "requiredNativeCameraDomain": true,
+  "requiredExpertLocalizationReview": true,
+  "training": {
+    "fromScratch": true,
+    "CPU": true,
+    "seed": 20261010,
+    "maxEpochs": 30,
+    "patience": 6,
+    "maxSeconds": 1200,
+    "validationOnlyCheckpointAndThreshold": true
+  },
+  "scope": "Small engineering set may demonstrate failure; cannot establish general accuracy or lower the product gate."
+}

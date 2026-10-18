@@ -1,0 +1,247 @@
+{
+  "version": "skin-focused-20261010-v1",
+  "classOrder": [
+    "normal",
+    "dry",
+    "oily",
+    "combination"
+  ],
+  "preprocessing": {
+    "RGB": true,
+    "size": [
+      224,
+      224
+    ],
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "cropVersion": "camera-crop-v1"
+  },
+  "models": {
+    "type": {
+      "temperature": 2.603974164297732,
+      "confidenceThreshold": 1.0,
+      "version": "skin-type-efficientnet_b0-20261010-v1",
+      "validation": {
+        "macroF1": 0.3574917810116325,
+        "balancedAccuracy": 0.36199077962506654,
+        "accuracy": 0.3896457765667575,
+        "classes": [
+          {
+            "label": "normal",
+            "precision": 0.375,
+            "recall": 0.54,
+            "F1": 0.4426229508196721,
+            "support": 100
+          },
+          {
+            "label": "dry",
+            "precision": 0.48514851485148514,
+            "recall": 0.4336283185840708,
+            "F1": 0.45794392523364486,
+            "support": 113
+          },
+          {
+            "label": "oily",
+            "precision": 0.36363636363636365,
+            "recall": 0.2882882882882883,
+            "F1": 0.32160804020100503,
+            "support": 111
+          },
+          {
+            "label": "combination",
+            "precision": 0.23529411764705882,
+            "recall": 0.18604651162790697,
+            "F1": 0.2077922077922078,
+            "support": 43
+          }
+        ],
+        "confusionMatrix": [
+          [
+            54,
+            19,
+            25,
+            2
+          ],
+          [
+            33,
+            49,
+            19,
+            12
+          ],
+          [
+            39,
+            28,
+            32,
+            12
+          ],
+          [
+            18,
+            5,
+            12,
+            8
+          ]
+        ],
+        "images": 367
+      },
+      "finalTest": {
+        "macroF1": 0.2938911661867228,
+        "balancedAccuracy": 0.29797968972589317,
+        "accuracy": 0.32456140350877194,
+        "classes": [
+          {
+            "label": "normal",
+            "precision": 0.3445378151260504,
+            "recall": 0.43617021276595747,
+            "F1": 0.3849765258215962,
+            "support": 94
+          },
+          {
+            "label": "dry",
+            "precision": 0.25961538461538464,
+            "recall": 0.3176470588235294,
+            "F1": 0.28571428571428575,
+            "support": 85
+          },
+          {
+            "label": "oily",
+            "precision": 0.4175824175824176,
+            "recall": 0.2992125984251969,
+            "F1": 0.3486238532110092,
+            "support": 127
+          },
+          {
+            "label": "combination",
+            "precision": 0.17857142857142858,
+            "recall": 0.1388888888888889,
+            "F1": 0.15625000000000003,
+            "support": 36
+          }
+        ],
+        "confusionMatrix": [
+          [
+            41,
+            29,
+            18,
+            6
+          ],
+          [
+            20,
+            27,
+            27,
+            11
+          ],
+          [
+            49,
+            34,
+            38,
+            6
+          ],
+          [
+            9,
+            14,
+            8,
+            5
+          ]
+        ],
+        "images": 342
+      },
+      "sourceQualityAccepted": false,
+      "accepted": false,
+      "file": null,
+      "sha256": "f4b8e3a9a3ff5e0a86033f29675041eeb744624e32ef810c4e27e75fdab003b7",
+      "rejectedWeightsDistributed": false,
+      "sourceLabelProtocolVerified": false,
+      "cameraDomainAccepted": false
+    },
+    "degrees": {
+      "version": "skin-appearance-photo-ridge-20261010-v1",
+      "targets": [
+        "redness"
+      ],
+      "acceptedTargets": [
+        "redness"
+      ],
+      "sourceQualityAccepted": true,
+      "rejectedHeadWeightsDistributed": false,
+      "normalizationVersion": "ordinal-0-5-times-20-v1",
+      "wholeFaceOnly": true,
+      "localSeverityMap": false,
+      "accepted": true,
+      "file": "skin-focused-degrees.onnx",
+      "sha256": "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3",
+      "rejectedWeightsDistributed": false,
+      "sourceLabelProtocolVerified": false,
+      "cameraDomainAccepted": false
+    },
+    "acne": {
+      "version": "skin-acne-yolox-20261010-v1",
+      "confidenceThreshold": 0.1,
+      "probabilityThreshold": null,
+      "pixelSegmentation": false,
+      "sourceCoordinateSpace": "source-pixels",
+      "accepted": false,
+      "file": null,
+      "sha256": "3073b196b8e8fe469399f4c3f3e1472f98e4b54840434ded18139c40cbb9c8cc",
+      "rejectedWeightsDistributed": false,
+      "sourceLabelProtocolVerified": false,
+      "cameraDomainAccepted": false
+    },
+    "bags": {
+      "version": "skin-bags-bags-20261010-v1",
+      "confidenceThreshold": null,
+      "probabilityThreshold": 0.5,
+      "pixelSegmentation": true,
+      "sourceCoordinateSpace": "source-pixels",
+      "accepted": false,
+      "file": null,
+      "sha256": "b9e2667723ad5f737a0134f8fcde61c1c80e18e63d2f1d0092c598a6c273b30a",
+      "rejectedWeightsDistributed": false,
+      "sourceLabelProtocolVerified": false,
+      "cameraDomainAccepted": false
+    }
+  },
+  "sourceManifestSHA256": "e46d48bcab7a92ac74f22ed204a473c557dff9de21ed49261bf86565a0ce2f99",
+  "sourceRights": {
+    "archives": {
+      "skin-18criteria-v1.zip": "8f2bebd6b97bdd3acd06a42798babbd377b7937db362a734586ff5fb3d0ea4a1",
+      "eye-training-v2.zip": "03afd248006874f714a1b39210801be70918cf96e669084c5776a6590ca73f03"
+    },
+    "skin": {
+      "source": "https://www.kaggle.com/datasets/killa92/facial-skin-analysis-and-type-classification",
+      "license": "publisher-declared Apache-2.0"
+    },
+    "eye": {
+      "source": "https://universe.roboflow.com/skin-condition-detection/skin-condition-detection_merged/dataset/2",
+      "license": "CC-BY-4.0"
+    },
+    "changes": "quality filtering, source grouping, split rebuild, native face crops; original annotations retained",
+    "expertProtocolVerified": false,
+    "personIndependent": false
+  },
+  "pretrainedRights": [
+    {
+      "file": "resnet18-f37072fd.pth",
+      "source": "https://download.pytorch.org/models/resnet18-f37072fd.pth",
+      "card": "https://huggingface.co/timm/resnet18.tv_in1k/raw/main/README.md",
+      "declaredLicense": "bsd-3-clause",
+      "sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+      "safeSHA256": "b1d1d36f298c29c07afa9d5be76d888b01d174824177026613bbd64a26612d19"
+    },
+    {
+      "file": "efficientnet_b0_rwightman-7f5810bc.pth",
+      "source": "https://download.pytorch.org/models/efficientnet_b0_rwightman-7f5810bc.pth",
+      "card": "https://huggingface.co/timm/efficientnet_b0.ra_in1k/raw/main/README.md",
+      "declaredLicense": "apache-2.0",
+      "sha256": "7f5810bc96def8f7552d5b7e68d53c4786f81167d28291b21c0d90e1fca14934",
+      "safeSHA256": "e50c812a76cb5003f426ae35a5b9aba4d8d8dd50a9f822d2a64046bac310143a"
+    }
+  ]
+}

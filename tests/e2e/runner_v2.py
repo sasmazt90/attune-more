@@ -35,16 +35,9 @@ extra=r'''
     # Additional actual-user and negative-path regression checks.
     c,page=new()
     def vision_geometry():
-        go(page,'/vision');page.get_by_role('button',name='TESTİ HAZIRLA').click();page.get_by_role('button',name='Ölçek Doğrulandı, Mesafeye Geç').click();page.get_by_role('button',name='Doğrulandı, Testi Başlat').click()
-        circle=page.locator('circle[stroke-dasharray]');svg=circle.locator('..');widths=[]
-        for i in range(3):
-            widths.append(svg.evaluate('(s)=>({width:s.getBoundingClientRect().width,attr:s.getAttribute("width"),style:s.getAttribute("style")})'))
-            deg=svg.evaluate('(s)=>parseFloat(s.style.transform.match(/rotate\(([-\d.]+)deg\)/)[1])')
-            title={0:'Sağ',90:'Aşağı',180:'Sol',270:'Yukarı',-90:'Yukarı'}[deg]
-            page.get_by_title(title,exact=True).click();page.wait_for_timeout(450)
-        snap(page,'vision-geometry');(OUT/'vision-geometry-values.json').write_text(json.dumps(widths,indent=2));require(widths[-1]['width']<widths[0]['width'],'Correct responses change reported difficulty but actual symbol width remains '+str(widths))
-        return widths
-    check('vision actual rendered symbol shrinks after correct responses',vision_geometry);close(c,'vision-geometry')
+        from continuous_vision_contract import manual_calibration_contract
+        return manual_calibration_contract(page)
+    check('vision manual calibrated symbol without floor; no clinical or practice persistence',vision_geometry);close(c,'vision-geometry')
 
     c,page=new()
     def mental_fabricated_panels():
@@ -57,13 +50,13 @@ extra=r'''
 
     c,page=new()
     def mental_upper_crisis():
-        go(page,'/mental')
-        page.wait_for_function('speechSynthesis.getVoices().some(v=>v.lang.toLowerCase().startsWith("tr"))',timeout=10000)
-        prior_tts=page.evaluate('window.__audit.tts.length')
-        text_input('İNTİHAR ETMEK İSTİYORUM')
-        page.wait_for_function('(prior)=>window.__audit.tts.length>prior',arg=prior_tts)
+        go(page,'/mental?demo=1')
+        # Crisis content/guard remain real; the requested TTS transport is denied
+        # by the keyless fixture, never replaced by an alternate production voice.
+        text_input('İNTİHAR ETMEK İSTİYORUM',expect_crisis=True)
         snap(page,'mental-uppercase-crisis')
-        tts=page.evaluate('window.__audit.tts');require(tts and '112' in tts[-1]['text'],'Uppercase Turkish crisis not escalated in actual reply')
+        require('112' in page.locator('[data-chat-author="AI"]').last.inner_text(),'Uppercase Turkish crisis not escalated in actual reply')
+        require(page.locator('[data-chat-author="AI"]').count()==1,'Crisis duplicated a response')
     check('mental Turkish uppercase crisis escalation',mental_upper_crisis);close(c,'mental-upper')
 
     c,page=new()
@@ -85,7 +78,7 @@ extra=r'''
 
     c,page=new()
     def privacy_mic():
-        go(page,'/privacy');page.get_by_role('button',name='Erişimi Kapat',exact=True).nth(1).click();page.get_by_role('link',name='Ruhsal İyi Oluş',exact=True).click();page.wait_for_timeout(800);page.get_by_role('button',name='MİKROFONU BAŞLAT',exact=True).click();snap(page,'privacy-mic-off');require('Mikrofon kullanım izni Gizlilik ayarlarında kapalıdır' in page.locator('body').inner_text(),'App microphone preference ignored');require(not page.evaluate('window.__audit.speech.some(e=>e.type==="start")'),'Recognition starts without app permission')
+        go(page,'/privacy');page.get_by_role('button',name='Erişimi Kapat',exact=True).nth(1).click();page.get_by_role('link',name='Ruhsal İyi Oluş',exact=True).click();page.wait_for_timeout(800);page.get_by_role('checkbox',name='TOGG Attune hizmet onayı',exact=True).check();page.get_by_role('button',name='Görüşmeyi Başlat',exact=True).click();snap(page,'privacy-mic-off');require('Mikrofon kullanım izni Gizlilik ayarlarında kapalıdır' in page.locator('body').inner_text(),'App microphone preference ignored');require(not page.evaluate('window.__audit.speech.some(e=>e.type==="start")'),'Recognition starts without app permission')
     check('privacy microphone off blocks listening and offers typing',privacy_mic);close(c,'privacy-mic')
 '''
 source=source.replace('    browser.close()\n',extra+'\n    browser.close()\n')

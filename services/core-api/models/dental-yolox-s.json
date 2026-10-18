@@ -1,0 +1,420 @@
+{
+  "modelVersion": "yolox-s-dental-from-scratch-v1",
+  "modelHash": "eafaca8139e4447b1aa64375156aa47764affd91cf0594392b896ea78463bf03",
+  "inputSize": 320,
+  "confidenceThreshold": 0.35,
+  "classes": [
+    "D",
+    "d"
+  ],
+  "classDefinitions": {
+    "D": "decay in permanent teeth",
+    "d": "decay in primary teeth",
+    "source": "https://www.nature.com/articles/s41597-025-05647-9",
+    "scope": "Original dataset labels; not different diseases. Separate class evaluation retained."
+  },
+  "codeRevision": "6ddff4824372906469a7fae2dc3206c7aa4bbaee",
+  "codeLicense": "Apache-2.0",
+  "startupWeights": "none; random initialization",
+  "weightsLicense": "project-created; training data CC-BY-4.0",
+  "dataset": {
+    "zenodoRecord": 14827784,
+    "datasetLicense": "CC BY 4.0",
+    "archives": [
+      {
+        "name": "Benchmarking Dataset.zip",
+        "url": "https://zenodo.org/api/records/14827784/files/Benchmarking%20Dataset.zip/content",
+        "MD5": "md5:852520f16faf65f4704ee06bd82561fa",
+        "SHA256": "868b171e7db6d7e0700b9590d06bcce7ca2c30b9cb520544b66d0dcddf0c0f1f",
+        "bytes": 1569536122
+      },
+      {
+        "name": "Dataset.zip",
+        "url": "https://zenodo.org/api/records/14827784/files/Dataset.zip/content",
+        "MD5": "md5:89307871ac2f08f4a8f3a7da1f18db31",
+        "SHA256": "4ea6f6be818702041d07409aa982ee1fb84e096bf53621475dba98e56551fc4c",
+        "bytes": 1576115314
+      }
+    ],
+    "yoloxRevision": "6ddff4824372906469a7fae2dc3206c7aa4bbaee",
+    "yoloxCodeLicense": "Apache-2.0",
+    "sourceArchiveSHA256": "103b59b2d679f2ab829e7f7bf348242c400efa925a4adb262cbf3dd375c4ec0c",
+    "pretrainedWeightsDownloaded": false
+  },
+  "evaluation": {
+    "classes": [
+      {
+        "classIndex": 0,
+        "truePositive": 898,
+        "falsePositive": 223,
+        "falseNegative": 160,
+        "precision": 0.8010704727921498,
+        "recall": 0.8487712665406427,
+        "F1": 0.8242312987608994,
+        "AP": 0.8536020735002474
+      },
+      {
+        "classIndex": 1,
+        "truePositive": 30,
+        "falsePositive": 28,
+        "falseNegative": 33,
+        "precision": 0.5172413793103449,
+        "recall": 0.47619047619047616,
+        "F1": 0.49586776859504134,
+        "AP": 0.5048007330739994
+      }
+    ],
+    "macroF1": 0.6600495336779704,
+    "threshold": 0.35,
+    "IoU": 0.5,
+    "mAP50": 0.6792014032871234,
+    "mAP50_95": 0.485275269479681,
+    "images": 347,
+    "patientIndependent": false,
+    "negatives": "unannotated images excluded; no healthy-specificity claim",
+    "groupBootstrapF1_95CI": [
+      0.588943498339838,
+      0.7117188899204612
+    ],
+    "classGroupBootstrapF1_95CI": [
+      [
+        0.8090041958585322,
+        0.8447666515917213
+      ],
+      [
+        0.34700118063754426,
+        0.6043601482450404
+      ]
+    ],
+    "metricDefinition": "Score-ranked same-class greedy IoU matching; 101-point interpolated AP; macro over raw classes; IoU .5 and .5:.95 step .05. No area strata or official COCO evaluator/maxDets protocol claimed."
+  },
+  "onnxMaxAbsoluteErrors": [
+    0.0018157958984375,
+    8.392333984375e-05,
+    0.000213623046875,
+    0.0006103515625,
+    0.00054931640625,
+    7.62939453125e-05,
+    0.001495361328125,
+    8.392333984375e-05,
+    0.000640869140625,
+    0.00029754638671875
+  ],
+  "epochs": 20,
+  "trainingSeconds": 31306.156000000075,
+  "clinicalValidation": false,
+  "batchSize": 2,
+  "torchCPUThreads": 2,
+  "splitVersion": "case-capture-v2",
+  "additionalDiagnostics": {
+    "modelBytes": 35800550,
+    "libraryVersions": {
+      "onnxruntime": "1.26.0",
+      "opencv": "4.12.0",
+      "numpy": "2.2.6"
+    },
+    "calibration": {
+      "scope": "Retained detections at frozen threshold; correctness is same-class IoU>=0.5. Not disease probability, not full-population calibration; omitted detections are excluded.",
+      "classes": [
+        {
+          "classCode": "D",
+          "retainedPredictions": 1121,
+          "Brier": 0.1337063598021755,
+          "ECE": 0.03767513621730054,
+          "bins": [
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "count": 26,
+              "meanConfidence": 0.3764112620333818,
+              "localizedPrecision": 0.34615384615384615
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "count": 44,
+              "meanConfidence": 0.45020634426701117,
+              "localizedPrecision": 0.36363636363636365
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "count": 43,
+              "meanConfidence": 0.542400359049526,
+              "localizedPrecision": 0.6046511627906976
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "count": 77,
+              "meanConfidence": 0.6520420867603629,
+              "localizedPrecision": 0.5584415584415584
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "count": 145,
+              "meanConfidence": 0.7598017199257954,
+              "localizedPrecision": 0.6896551724137931
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "count": 644,
+              "meanConfidence": 0.8659452111488056,
+              "localizedPrecision": 0.8835403726708074
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "count": 142,
+              "meanConfidence": 0.9066795979707769,
+              "localizedPrecision": 0.9507042253521126
+            }
+          ]
+        },
+        {
+          "classCode": "d",
+          "retainedPredictions": 58,
+          "Brier": 0.19630997087574356,
+          "ECE": 0.21461059083519463,
+          "bins": [
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "count": 3,
+              "meanConfidence": 0.3657254735311959,
+              "localizedPrecision": 0.0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "count": 12,
+              "meanConfidence": 0.4468922112067233,
+              "localizedPrecision": 0.16666666666666666
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "count": 10,
+              "meanConfidence": 0.5458747981969762,
+              "localizedPrecision": 0.2
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "count": 5,
+              "meanConfidence": 0.66538073363796,
+              "localizedPrecision": 0.6
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "count": 7,
+              "meanConfidence": 0.7553139528111791,
+              "localizedPrecision": 1.0
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "count": 15,
+              "meanConfidence": 0.859095866744777,
+              "localizedPrecision": 0.7333333333333333
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "count": 6,
+              "meanConfidence": 0.9337732219523431,
+              "localizedPrecision": 0.8333333333333334
+            }
+          ]
+        }
+      ]
+    },
+    "groupBootstrap": {
+      "groups": 202,
+      "draws": 200,
+      "seed": 8102026,
+      "macroF1_95CI": [
+        0.588943498339838,
+        0.7117188899204612
+      ],
+      "classF1_95CI": [
+        [
+          0.8090041958585322,
+          0.8447666515917213
+        ],
+        [
+          0.34700118063754426,
+          0.6043601482450404
+        ]
+      ],
+      "scope": "Case/capture/duplicate group resampling; patient independence unverified. Zero-denominator class F1 is zero, matching the registered trainer."
+    },
+    "measuredCPUThreads": 2,
+    "sessionLoadMs": 332.6348999980837,
+    "inferenceMs": [
+      94.91179999895394,
+      107.82170004677027,
+      103.28169993590564,
+      96.14109992980957,
+      107.54649993032217,
+      130.815300042741,
+      117.88909998722374,
+      117.01869999524206,
+      110.46630004420877,
+      104.55260006710887,
+      110.92469992581755,
+      119.14730002172291,
+      121.89269997179508,
+      111.66419996879995,
+      117.81830003019422,
+      118.96630004048347,
+      103.62409998197109,
+      111.99700005818158,
+      110.68889999296516,
+      133.38860007934272
+    ],
+    "medianInferenceMs": 111.66419996879995,
+    "sourceImages": 20,
+    "outputShapes": [
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ],
+      [
+        1,
+        2100,
+        7
+      ]
+    ],
+    "sampledRSSBytes": {
+      "baseline": 65032192,
+      "maximum": 150286336,
+      "after": 134459392
+    },
+    "productPositiveCoordinateCheck": {
+      "status": "PASS",
+      "candidateCount": 8,
+      "sourceBoundsValid": true,
+      "atLeastOneSameClassIoU50Match": true,
+      "scope": "Illustrative positive execution and source coordinates; full intraoral source supplied as ROI. Not automatic camera capture, physical acceptance, or population accuracy."
+    }
+  },
+  "selectedEpoch": 20,
+  "trainingProvenance": {
+    "trainingScriptSHA256": "ec0979ae673631296ad09d8d3ed4b64db74a070dd3851033ab6211db174f8549",
+    "inventorySHA256": "2b599595c1661d62189c0cde9a75318ee65ebd504ab758df1a03d85549b6b784",
+    "historySHA256": "67d3e2e458cc300a2036d936989ee19c5331d1905710e04e6dff8c2e549da649",
+    "bestWeightsSHA256": "b438bace197edd77265da84e3dbb092f34ac70b9702f68ad49214b48cdaa3221",
+    "completedEpochs": 20,
+    "selectedEpoch": 20,
+    "validationSelectedThreshold": 0.35,
+    "trainingLibraryVersions": {
+      "torch": "2.9.1",
+      "torchvision": "0.24.1",
+      "onnx": "1.19.1"
+    },
+    "partitionImages": {
+      "train": 1478,
+      "validation": 334,
+      "test": 347
+    },
+    "uniqueLabeledImages": 2159,
+    "groups": 1249,
+    "patientIndependent": false,
+    "groupLimitation": "both separator case IDs, capture families and duplicates; person identity remains unverified"
+  }
+}

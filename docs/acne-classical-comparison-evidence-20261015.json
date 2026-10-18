@@ -1,0 +1,2303 @@
+{
+  "version": "acne-classical-comparison-evidence-v1",
+  "manifestSHA256": "719218a1c818ee637d442c06c8ef9318fa2da18ec550ed9d9e3b7fe16f2da55d",
+  "manifest": {
+    "version": "acne-classical-ab-preregistered-v1",
+    "head": "d7d46eaf9dfc4baec6280b5e03b9e41cdadd8830",
+    "A": {
+      "path": "services\\core-api\\appearance_analysis.py",
+      "sourceSHA256": "05062cbcdd67f3009ba96a429033615a5a8d60f632a094dcbee2354e0b604297",
+      "functionSHA256": "c6f8907466539fdcbe79f5f62c986d59d36692d8fd2c2a768bf6cec70086827e",
+      "config": "unmodified original call, face-analysis320, original overall support; shared current ROI ownership after detection"
+    },
+    "B": {
+      "version": "acne-lab-dog-mad-native-v1",
+      "config": {
+        "sigmaFaceFractions": [
+          0.0035,
+          0.006,
+          0.01
+        ],
+        "surroundRatio": 1.6,
+        "localSurroundFaceFraction": 0.025,
+        "madK": 3.5,
+        "madScale": 1.4826,
+        "minimumAResponse": 0.8,
+        "minimumLocalA": 0.8,
+        "minimumROIFaceArea": 0.005,
+        "minAreaFaceSquared": 2.5e-05,
+        "maxAreaFaceSquared": 0.002,
+        "aspect": [
+          0.45,
+          2.2
+        ],
+        "minFill": 0.38,
+        "borderFaceFraction": 0.004,
+        "minimumL": 20.0
+      },
+      "implementationSHA256": "5bc824456badcd329b78951f2274e8ddd7f3bf09e34c7cf5183c454239c235e9"
+    },
+    "calibration": {
+      "fits": 0,
+      "parameterChoices": 1,
+      "selection": "single a-priori config; no result-based calibration or TRAIN/validation mining"
+    },
+    "inputs": {
+      "browser-preflight.json": "b1824d06a816359ba134cf981b2e5c988be9d9819688cd4b04394ac9c1cf08fd",
+      "inputs/original-reviewed-detector-data.json": "2ef416d57d26cb552ad3aff081a62ae63384e32d7a6decfc1c8a34ece1d158c9",
+      "inputs/annotation-scope-manifest.json": "562358f6f39b62bff9fbebfe095f641260ea1a206f0bed192e01bf83b4af64a5",
+      "inputs/controlled_train_cohort.json": "8e19ce55885d77b42ccae161733d69e8e8becf586f70ee433b82db5702529405"
+    },
+    "priorProductEvaluationSHA256": "f3fef17739b38e58ac98a28d2de0a2b54fcb4cc359dac949a2ea35ac0527beef",
+    "geometrySourceHashes": {
+      "apps/vehicle-app/src/utils/skinSnapshot.ts": "f31c9a7d48c56731ea9c28979e53283fdf355a841f537dfb6e24b83f7e3cbf6e",
+      "apps/vehicle-app/src/utils/skinAnalyzer.ts": "c64c81cfeef0c8b805aedc64b2cd55d26fd80e7f55508a30889387e377d24e56",
+      "apps/vehicle-app/src/utils/skinExpression.ts": "eb0da0620635c31e47b995a15e5d8383f4c333d046f5822e9e5fe4e0ddc1abfd",
+      "apps/vehicle-app/src/utils/skinMesh.ts": "e0df3bb73fdba4f9ac1f0f079bd9856f10cd8027097f74b91f567367593ade46",
+      "apps/vehicle-app/src/utils/cameraStability.ts": "dbea92b037a03d6ae9c98e89fa0c5c24373c23d335236856548e04e6cf9ca8c8",
+      "apps/vehicle-app/src/utils/skinIndicators.ts": "33fe15ccf2f0b2f4ab1c18ea36517aa7250e32a2967a1cb97b13a19b426f0b75",
+      "apps/vehicle-app/src/utils/skinResearchAdapter.ts": "4928010770958781a048cffa8e1b6921a4de7fada702d10aa35c446081d31f2f",
+      "apps/vehicle-app/src/utils/appearanceMeasurements.ts": "0e8ed9d9b91e421c0220cb580eda46b7424d0902a43ea3e427012a1fd84f18aa",
+      "apps/vehicle-app/src/utils/attuneMode.ts": "a1055fa7719bc2f46643713154304da3f0de2d72f59a0d64aef52986c70c27c8",
+      "apps/vehicle-app/src/utils/skinOverview.ts": "b33f2a1d70b665ab56554c338a015df08bbe0c25dc1a6b75d58be036e50dd009",
+      "apps/vehicle-app/src/data/skinDemoFixture.ts": "e2d6f48341bb7967636b65b44b11ba001f87d738934e725b08cb0df94d3b57ee",
+      "apps/vehicle-app/src/utils/skinPhotoHistory.ts": "1ed96f708ad207a8360e08fe65289de1c1bfe70ea0b9f1a6661f4e30f5d57a43",
+      "apps/vehicle-app/src/utils/healthRecords.ts": "ecb61e8559252920fe79289248defaeac8dd324c1f5c0ea8332e88b1f23cfa40",
+      "apps/vehicle-app/src/utils/healthModules.ts": "cf8c02ed126f250cb0bf796ed46711b37d3e59389afca3b7e09d918d417caafd",
+      "shared/healthModules.json": "448db276469738a0e4c59ec2bfd0eb13d13a099ce155db05f3902523480899dc",
+      "apps/vehicle-app/src/utils/healthHistorySeries.ts": "f27e10263f51be2391141a0318eaab333fba47e8945f054257c2d9aa52ef3139",
+      "apps/vehicle-app/src/utils/spokenVision.ts": "b2b458a97ca48141563f09a5c8f5491f7cd61f9ae6cd61640c47e913c68fa561",
+      "apps/vehicle-app/src/utils/skinPresentation.ts": "ff47b9549a9ab239affbebedce5ea4253f5256115402cdcd65f4b1f80f6ee456",
+      "apps/vehicle-app/src/utils/skinSurfaceAnalysis.ts": "1de72c76fe2f206fc34b54698812f4e608aad7ab7503eafd523dd92dbc54396a",
+      "apps/vehicle-app/src/utils/skinMultiAngle.ts": "d089f32938f27e52997d83ecc83e83a90d7f54bb88f07c53ed2e2d55563f2b40",
+      "apps/vehicle-app/src/utils/skinEyewear.ts": "9f89d6ff1d1b4b84cb626c979910d0bf07b06065dd4a564f3acec3e74a2eca32"
+    },
+    "scope": {
+      "fixedScopeBTargets": 14,
+      "visibility": "same current triangle-union, exclusion, hair/exposure and native source-crop; center visibility separately reported",
+      "originalPimpleOnly": true,
+      "pseudo401": "UNKNOWN; unused",
+      "unknownOutsideBoxes": true,
+      "personIndependent": false,
+      "independentTest": false,
+      "appearanceSubtypeLabels": "absent; red/pale truth cannot be inferred from detector",
+      "physicalRepeatCapture": false,
+      "multiframe": "one snapshot per pose; no N/K or summed-pose count"
+    },
+    "metrics": {
+      "primary": "greedy source-box IoU>=.50 one-to-one",
+      "secondary": "candidate center inside source box; not pixel segmentation",
+      "negatives": "center in explicit reviewed negative intersect current eligible ROI; >=80% box area separately",
+      "sizeBands": "max source-box side: micro<8,small<16,medium>=16",
+      "timing": "fresh subprocess per method: decode, production preprocessing/geometry, detector, component-map, JSON; repeat same file; frontend capture/MediaPipe excluded"
+    },
+    "decision": {
+      "positive": "source recall increases with no reviewed-negative FP increase; or recall maintained and FP reduced",
+      "guard": "no scope-B/visible/heldout regression; at least two positive-source gains for recall-increase admission",
+      "admission": "rights-cleared camera-domain evidence and same-list API/UI/history verification also required",
+      "stop": "no gain -> no new method, fit, threshold search or activation"
+    },
+    "dependencies": {
+      "numpy": "2.2.6",
+      "opencv-python": "4.12.0.88",
+      "scikit-image": "0.26.0"
+    },
+    "weights": "none for A/B; existing MediaPipe identity frozen in preflight; no new weights"
+  },
+  "sourceIdentities": [
+    {
+      "sha256": "0061c8b0f852afda82f94bc5cb5b9a35af335749fec85af1affc01b9c1352278",
+      "group": "0061c8b0f852afda82f94bc5cb5b9a35af335749fec85af1affc01b9c1352278",
+      "source": "skin5",
+      "sourceFileSHA256": "0061c8b0f852afda82f94bc5cb5b9a35af335749fec85af1affc01b9c1352278",
+      "snapshotSHA256": null,
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher-declared CC-BY-4.0; no detected third-party restriction",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "sha256": "00fde83450940e20723bd4f20a3fa9f07eeb8abbe9860faedbc1b12ab44eb95f",
+      "group": "00fde83450940e20723bd4f20a3fa9f07eeb8abbe9860faedbc1b12ab44eb95f",
+      "source": "dc",
+      "sourceFileSHA256": "00fde83450940e20723bd4f20a3fa9f07eeb8abbe9860faedbc1b12ab44eb95f",
+      "snapshotSHA256": "8d691326a9dc7919b7790dbaca194fe2b5dc3c6b20aada1cbed123da72003607",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher-declared CC-BY-4.0; no detected third-party restriction",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "sha256": "04635b38ef2171cce22fa2bdf75ef7b8ddf06be4717c2f63b6f43df4524eff42",
+      "group": "04635b38ef2171cce22fa2bdf75ef7b8ddf06be4717c2f63b6f43df4524eff42",
+      "source": "arnold",
+      "sourceFileSHA256": "04635b38ef2171cce22fa2bdf75ef7b8ddf06be4717c2f63b6f43df4524eff42",
+      "snapshotSHA256": "4d15a37853938ef3b6189056c3b70ed7c729942ae193ee5ab028bace56388824",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher-declared CC-BY-4.0; no detected third-party restriction",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "sha256": "1240c105770667c1d7f945a6dbec8f5057584b026e1f3669e95de4b4f7d52544",
+      "group": "1240c105770667c1d7f945a6dbec8f5057584b026e1f3669e95de4b4f7d52544",
+      "source": "old-skin",
+      "sourceFileSHA256": "1240c105770667c1d7f945a6dbec8f5057584b026e1f3669e95de4b4f7d52544",
+      "snapshotSHA256": "82f2da6a73822e7bcd990f84e34c28241bd8df36439891515351d453176f59b4",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher-declared Apache-2.0",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "sha256": "26ebdde4a718478d320492b7bec8ae0d5cb9c4f4b3279fadfdc93ad95a1b8aaf",
+      "group": "26ebdde4a718478d320492b7bec8ae0d5cb9c4f4b3279fadfdc93ad95a1b8aaf",
+      "source": "smart",
+      "sourceFileSHA256": "26ebdde4a718478d320492b7bec8ae0d5cb9c4f4b3279fadfdc93ad95a1b8aaf",
+      "snapshotSHA256": "db301011c18694011276b64ee50db3ef4b5df43e022204f2179fa794b44272d5",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": true,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "70e410fdbb4fce78627a559ec06fcc099740427cf75f4f4bcaacde60370c4dfa"
+    },
+    {
+      "sha256": "274997f44e521b7c02bb466ec2ab883a37117e3ed7192383ef06a5d3465e791c",
+      "group": "274997f44e521b7c02bb466ec2ab883a37117e3ed7192383ef06a5d3465e791c",
+      "source": "smart",
+      "sourceFileSHA256": "274997f44e521b7c02bb466ec2ab883a37117e3ed7192383ef06a5d3465e791c",
+      "snapshotSHA256": "a4a68ae4efb4f9a9d4846833db16964cbd73e3d5dc664b3329d8270d6fcda2f3",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "9178af51ccc2ff7422621f66a7473c348b121f12458c38243f6b34ef9b3fca80"
+    },
+    {
+      "sha256": "2ed3716e0b87f3253ced680a6ddad44f4983a010dedd48457c551e6c28c16738",
+      "group": "2ed3716e0b87f3253ced680a6ddad44f4983a010dedd48457c551e6c28c16738",
+      "source": "smart",
+      "sourceFileSHA256": "2ed3716e0b87f3253ced680a6ddad44f4983a010dedd48457c551e6c28c16738",
+      "snapshotSHA256": "bd7b32ba3a89a713cbbf202fd4e5e6a5aa7562dd4c568bfdc44e0c36c0d0f98d",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": true,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "50efad6476583aeb819395049857b5690763c5cdf173c6ec63a617ba78ae0e02"
+    },
+    {
+      "sha256": "400162a584688a912a81daf0ec333d069e8e3fa384c5c5293c18ef6c1947f8e9",
+      "group": "400162a584688a912a81daf0ec333d069e8e3fa384c5c5293c18ef6c1947f8e9",
+      "source": "smart",
+      "sourceFileSHA256": "400162a584688a912a81daf0ec333d069e8e3fa384c5c5293c18ef6c1947f8e9",
+      "snapshotSHA256": "3ada1f48f6062c2fd008d8cac16ad8428daca246c6956167f3310dfbe22788d6",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "f33286291dfce87c1ef483a36a4a3bc4b62f41fc37ec2a92c3a8c64a34edf55a"
+    },
+    {
+      "sha256": "40aea27704707070f941e36223af20815401e832f079c6396fe45c0b62973a4d",
+      "group": "40aea27704707070f941e36223af20815401e832f079c6396fe45c0b62973a4d",
+      "source": "smart",
+      "sourceFileSHA256": "40aea27704707070f941e36223af20815401e832f079c6396fe45c0b62973a4d",
+      "snapshotSHA256": "dbb41f7db4ee9a9cffc929cab6ae0943e08fa9b41ffefe0a8433514811844efd",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "d7ae700486070ef869cde5f6c9a4e094dd5c34adca4ed6d79213accf962f09b8"
+    },
+    {
+      "sha256": "45261e547ec0b6a5d39b6644950727e7da029c33116ee4b381e1afbba4927bb3",
+      "group": "45261e547ec0b6a5d39b6644950727e7da029c33116ee4b381e1afbba4927bb3",
+      "source": "smart",
+      "sourceFileSHA256": "45261e547ec0b6a5d39b6644950727e7da029c33116ee4b381e1afbba4927bb3",
+      "snapshotSHA256": "1177ef34e0082fde8b53c648e4adf9856310ed8f64feacdfb3ee440d32aa2344",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "ed830c5c884a2f67413784f5ff1a14864910d42af19e695ae9f5034bbe20057c"
+    },
+    {
+      "sha256": "4637b7627c8c601643c97e653c8627f796051166f7b0573b892666f4b41ff7f9",
+      "group": "4637b7627c8c601643c97e653c8627f796051166f7b0573b892666f4b41ff7f9",
+      "source": "smart",
+      "sourceFileSHA256": "4637b7627c8c601643c97e653c8627f796051166f7b0573b892666f4b41ff7f9",
+      "snapshotSHA256": "25b911b0d7a6584cf93de1feb8f2a2c513419e5d31ad8e482196eb0ee4242e12",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "c3e9c5deaadf1fd5ec2770126dc252c80e9664d3bbf587b38d50ce5b81ec797f"
+    },
+    {
+      "sha256": "46d81b6037133b21a87a9129f08d34bbf8fe79d8551d453613c20d399ace03cf",
+      "group": "46d81b6037133b21a87a9129f08d34bbf8fe79d8551d453613c20d399ace03cf",
+      "source": "smart",
+      "sourceFileSHA256": "46d81b6037133b21a87a9129f08d34bbf8fe79d8551d453613c20d399ace03cf",
+      "snapshotSHA256": "4e686b0aebda922bb32b6b90a125a5785d01ccee6d6ce5daac69f05fb9c70971",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "5391f2555205615c397a10b0b0d7a347cf9ad3797693c1cb256778dcee66c432"
+    },
+    {
+      "sha256": "489011db026964ee20860d13ddf332a28c912b2a4aed75f29f47216af7c9f70a",
+      "group": "489011db026964ee20860d13ddf332a28c912b2a4aed75f29f47216af7c9f70a",
+      "source": "smart",
+      "sourceFileSHA256": "489011db026964ee20860d13ddf332a28c912b2a4aed75f29f47216af7c9f70a",
+      "snapshotSHA256": "8658afac0671d457a4aa347bd0e9e0b7625eecce046363dc716e87618996a3c2",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "fdd72984692a74b53fcc675b873a97449f04d00c41488f1514c6960956d6ad2b"
+    },
+    {
+      "sha256": "5519ac874035059527299a5de826bf8de95a002b626c61f7641cad9977f006fc",
+      "group": "5519ac874035059527299a5de826bf8de95a002b626c61f7641cad9977f006fc",
+      "source": "smart",
+      "sourceFileSHA256": "5519ac874035059527299a5de826bf8de95a002b626c61f7641cad9977f006fc",
+      "snapshotSHA256": "8bb5ab479f9f2600cde17d10dded2be389ba6fdf4caad1c49677f5fa50ea85ac",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "f3d76211ad89cb1137dd747c6f0159089cdb3294c0503b1076e4d76bb14083ea"
+    },
+    {
+      "sha256": "5eae369ab6491b68992a26859cfccd97594a7d93cb942d419dd7f0b060625995",
+      "group": "5eae369ab6491b68992a26859cfccd97594a7d93cb942d419dd7f0b060625995",
+      "source": "smart",
+      "sourceFileSHA256": "5eae369ab6491b68992a26859cfccd97594a7d93cb942d419dd7f0b060625995",
+      "snapshotSHA256": null,
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "6365a15a4c4648c1eeb15095f1fc5344dd97a352441bc3275863d7b754823052"
+    },
+    {
+      "sha256": "6328af8b1a793983ce395526b1098f2c8b9b2abc8a5c78c8f3f27d93f899ab00",
+      "group": "6328af8b1a793983ce395526b1098f2c8b9b2abc8a5c78c8f3f27d93f899ab00",
+      "source": "smart",
+      "sourceFileSHA256": "6328af8b1a793983ce395526b1098f2c8b9b2abc8a5c78c8f3f27d93f899ab00",
+      "snapshotSHA256": null,
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "593f4d898de455ca9077915d1fb7da8c4e6312cfde7f77129e6a2e11f6bfa152"
+    },
+    {
+      "sha256": "66b8dcb2fe949c6726db96e2282b26f959ae4ba14bfec476bc19d3b1334a1df7",
+      "group": "66b8dcb2fe949c6726db96e2282b26f959ae4ba14bfec476bc19d3b1334a1df7",
+      "source": "smart",
+      "sourceFileSHA256": "66b8dcb2fe949c6726db96e2282b26f959ae4ba14bfec476bc19d3b1334a1df7",
+      "snapshotSHA256": "3977e0c3f36e7ea5e3da750fb8d853f1d961859530221086c8cea88e0bac14d5",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "83c47a2c9e4311b657497d2d40e74f72b371a64fcbf0ec86a9bae8bf80be25b1"
+    },
+    {
+      "sha256": "6a41d852172835aa0036c5f04a881e2e72454d33832cc5055b12486f693b8367",
+      "group": "6a41d852172835aa0036c5f04a881e2e72454d33832cc5055b12486f693b8367",
+      "source": "smart",
+      "sourceFileSHA256": "6a41d852172835aa0036c5f04a881e2e72454d33832cc5055b12486f693b8367",
+      "snapshotSHA256": "e38865dc108b92d56af309504a4ac456b8ac1ee1b41ae54ca9b6389795400eb0",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "c410360c8104def834b3d608819c5a69278969bbe8117f50842771c168af9eb7"
+    },
+    {
+      "sha256": "7d6cbcdd1843308b9ea1d452f04947e731601bf8800d99d93acad51c5d85babd",
+      "group": "7d6cbcdd1843308b9ea1d452f04947e731601bf8800d99d93acad51c5d85babd",
+      "source": "smart",
+      "sourceFileSHA256": "7d6cbcdd1843308b9ea1d452f04947e731601bf8800d99d93acad51c5d85babd",
+      "snapshotSHA256": "5057e67409dd5dc1962a40d6ca4549e6df6c66d30dbf76cea6bcfef37d0a7dae",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "7e484608db46f426f07fe7a7db526a80578c51822bb59d9db4ff070d2d305b60"
+    },
+    {
+      "sha256": "86a937047cc23f090c3f296dec2ee30916182c8f30f28955c7f7fdfaec471ad3",
+      "group": "86a937047cc23f090c3f296dec2ee30916182c8f30f28955c7f7fdfaec471ad3",
+      "source": "smart",
+      "sourceFileSHA256": "86a937047cc23f090c3f296dec2ee30916182c8f30f28955c7f7fdfaec471ad3",
+      "snapshotSHA256": null,
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "9963ef9b2150b010ada6cc86ae8be0e4ed3ed90161df165bd63b0c319a218d4d"
+    },
+    {
+      "sha256": "98090215183b1133712496370bbe19303bd42a11045773ae8130645524ae7e4c",
+      "group": "98090215183b1133712496370bbe19303bd42a11045773ae8130645524ae7e4c",
+      "source": "smart",
+      "sourceFileSHA256": "98090215183b1133712496370bbe19303bd42a11045773ae8130645524ae7e4c",
+      "snapshotSHA256": "c96abfc4eafeba367d5ec910ca926fe9be2218701f6e0640dbeadc5075b10e4d",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "4910e600adc2f234e5fc1b679d7b9bea935a86923e10c4947bcd38ec6d2a6d28"
+    },
+    {
+      "sha256": "a0cc1c4184cef7544d7224fadf26a109560a3dd0e55947336cae8fc8b3180917",
+      "group": "a0cc1c4184cef7544d7224fadf26a109560a3dd0e55947336cae8fc8b3180917",
+      "source": "smart",
+      "sourceFileSHA256": "a0cc1c4184cef7544d7224fadf26a109560a3dd0e55947336cae8fc8b3180917",
+      "snapshotSHA256": null,
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "bf5190f3934ed3e0e3848f2b146b2ff408e4b11d32cc4ba0464fb850d68d3f1d"
+    },
+    {
+      "sha256": "aa5389b6e5113ab56c96559f0f2737be817969b13c3143a34c55cc3fbbcbf4d1",
+      "group": "aa5389b6e5113ab56c96559f0f2737be817969b13c3143a34c55cc3fbbcbf4d1",
+      "source": "smart",
+      "sourceFileSHA256": "aa5389b6e5113ab56c96559f0f2737be817969b13c3143a34c55cc3fbbcbf4d1",
+      "snapshotSHA256": "6a640fd0d0ec4aced345e9f1d7475ab24dccf88afb990e447c0852e723f788a5",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "304c0953d825a9cf2fa3ecdc6785fb62f0f8f5267e853b2f18804fe0e6c9cb2a"
+    },
+    {
+      "sha256": "dc911cc9ec6cec549685b4e7948585581e13c43715edcffc5fb50dedf384c715",
+      "group": "dc911cc9ec6cec549685b4e7948585581e13c43715edcffc5fb50dedf384c715",
+      "source": "smart",
+      "sourceFileSHA256": "dc911cc9ec6cec549685b4e7948585581e13c43715edcffc5fb50dedf384c715",
+      "snapshotSHA256": "82c5633b2362a173c9f97f543b564c949514b33b1483b518bdbc7022185d6882",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "799a6c2f4e1d63c78e42617be1e19aabdea0d46726b77feae164d354c7934db7"
+    },
+    {
+      "sha256": "ddd91506b4076403bddf52019cd4eb494d09206213795b26ef3c0ea86d613efc",
+      "group": "ddd91506b4076403bddf52019cd4eb494d09206213795b26ef3c0ea86d613efc",
+      "source": "smart",
+      "sourceFileSHA256": "ddd91506b4076403bddf52019cd4eb494d09206213795b26ef3c0ea86d613efc",
+      "snapshotSHA256": null,
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "0db6b9f87814152fa29c845aceb76a2aec36a62f3c844a2cf1635cf9afd420a9"
+    },
+    {
+      "sha256": "e26f3ffd50ec8f7d4f25fce0834648d92aae25f7de0a4e7f378f1e2cbdce674b",
+      "group": "e26f3ffd50ec8f7d4f25fce0834648d92aae25f7de0a4e7f378f1e2cbdce674b",
+      "source": "smart",
+      "sourceFileSHA256": "e26f3ffd50ec8f7d4f25fce0834648d92aae25f7de0a4e7f378f1e2cbdce674b",
+      "snapshotSHA256": "ee4b2fb440909754a8b7220c7637bb67cff60880a16a8437d23dd09c77f7c4f1",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "2d21b5f626c0cabb9640371433250288ce4d4597726053504f7a93f2281bfdfc"
+    },
+    {
+      "sha256": "f172c4a53637e72cfd11e5d1d4076c8775c072c6aac99a2727b13bc663e5e630",
+      "group": "f172c4a53637e72cfd11e5d1d4076c8775c072c6aac99a2727b13bc663e5e630",
+      "source": "smart",
+      "sourceFileSHA256": "f172c4a53637e72cfd11e5d1d4076c8775c072c6aac99a2727b13bc663e5e630",
+      "snapshotSHA256": null,
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "657b225756b2b16ff6e05db6bb40e27771a09b5e79ebec3ea6f3722a75d2822a"
+    },
+    {
+      "sha256": "f2ed24a9b9a72b0be113a5a28fb4beaa76706765e9775cf10dae2c257f82f639",
+      "group": "f2ed24a9b9a72b0be113a5a28fb4beaa76706765e9775cf10dae2c257f82f639",
+      "source": "smart",
+      "sourceFileSHA256": "f2ed24a9b9a72b0be113a5a28fb4beaa76706765e9775cf10dae2c257f82f639",
+      "snapshotSHA256": "10fdb39bc4a243356dd4fe5f2371db56b66cfef382efd43b0a5a79a846afa20b",
+      "role": "exposed-development-regression",
+      "cohort": "heldout-train",
+      "split": "train",
+      "staticProductPass": true,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "250cab5265842a8b637499cf4681cc186e1d8a5bc6940540bac56521ec318542"
+    },
+    {
+      "sha256": "55d380f724bc6b0612f878ee1b70997493edf1c1aecb8cf9d447c050af90f43a",
+      "group": "55d380f724bc6b0612f878ee1b70997493edf1c1aecb8cf9d447c050af90f43a",
+      "source": "smart",
+      "sourceFileSHA256": "55d380f724bc6b0612f878ee1b70997493edf1c1aecb8cf9d447c050af90f43a",
+      "snapshotSHA256": "03c52dc73f9c8ebb85c354c1d0dc6071269b2c345427b8cf8f3dc4ded10c91f3",
+      "role": "exposed-development-regression",
+      "cohort": "scope-B-development",
+      "split": "validation",
+      "staticProductPass": true,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "b58afeaf878db14d33d8f986a403cd11c119e5448446cfa7808ce80e12d8ff2b"
+    },
+    {
+      "sha256": "695ed248b9f9d226db5d127b6e2b9f67ddb06a61ddb7dd6d3883ce469b79cfe4",
+      "group": "695ed248b9f9d226db5d127b6e2b9f67ddb06a61ddb7dd6d3883ce469b79cfe4",
+      "source": "smart",
+      "sourceFileSHA256": "695ed248b9f9d226db5d127b6e2b9f67ddb06a61ddb7dd6d3883ce469b79cfe4",
+      "snapshotSHA256": "d844fa14759ca892b701d1833cb5786f11863058d0a5cdcfe835a4afc4ae9f16",
+      "role": "exposed-development-regression",
+      "cohort": "scope-B-development",
+      "split": "validation",
+      "staticProductPass": true,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "ec8ddcb967333acef96929592c4ed2aecf52407ddf1f56c8ff769ebda585cd31"
+    },
+    {
+      "sha256": "4a1762ee136ff6c5e096ba6914063cf6d81fccb9fe492823cb4477d1e244462d",
+      "group": "4a1762ee136ff6c5e096ba6914063cf6d81fccb9fe492823cb4477d1e244462d",
+      "source": "smart",
+      "sourceFileSHA256": "4a1762ee136ff6c5e096ba6914063cf6d81fccb9fe492823cb4477d1e244462d",
+      "snapshotSHA256": "609ee302c61e9bc04e7cfac6f1b0e292c71f7b3ad8500937459fb70eab2acc50",
+      "role": "exposed-development-regression",
+      "cohort": "scope-B-development",
+      "split": "validation",
+      "staticProductPass": true,
+      "rights": {
+        "publisherDeclaration": "publisher declared CC-BY-4.0; individual rights not independently verified",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "e68bd06a9a82bfe29f36547e195aec327ac57420634b4ad3b0632142645c8cb2"
+    },
+    {
+      "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+      "group": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+      "source": "v11",
+      "sourceFileSHA256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+      "snapshotSHA256": "3af40ea2153d8efe404306809b061c0d1b0bbb4ea5355a1978d27e73ec02b11b",
+      "role": "exposed-development-regression",
+      "cohort": "scope-B-development",
+      "split": "validation",
+      "staticProductPass": true,
+      "rights": {
+        "publisherDeclaration": "publisher-declared CC-BY-4.0; no detected third-party restriction",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "sha256": "20031f3502cc294041fe4d5cb9995b6961ba44b6cae7b8b44e01daeafaa752b2",
+      "group": "20031f3502cc294041fe4d5cb9995b6961ba44b6cae7b8b44e01daeafaa752b2",
+      "source": "dc",
+      "sourceFileSHA256": "20031f3502cc294041fe4d5cb9995b6961ba44b6cae7b8b44e01daeafaa752b2",
+      "snapshotSHA256": "0169fa2ca8ff69948769075bd0da824d462ee65b8bf06507f79578de8a8344ff",
+      "role": "exposed-development-regression",
+      "cohort": "scope-B-development",
+      "split": "validation",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher-declared CC-BY-4.0; no detected third-party restriction",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "sha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+      "group": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+      "source": "wrinkles",
+      "sourceFileSHA256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+      "snapshotSHA256": "d1522fae936516855ec1aeb97e05ff565291e7220ffc79891b0a679cfbc434d7",
+      "role": "exposed-development-regression",
+      "cohort": "scope-B-development",
+      "split": "validation",
+      "staticProductPass": true,
+      "rights": {
+        "publisherDeclaration": "publisher-declared CC-BY-4.0; no detected third-party restriction",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "sha256": "0597e8113444b558862cdc20574b2386e091bfc14fad55e8ea2e3532a02fa552",
+      "group": "0597e8113444b558862cdc20574b2386e091bfc14fad55e8ea2e3532a02fa552",
+      "source": "wrinkles",
+      "sourceFileSHA256": "0597e8113444b558862cdc20574b2386e091bfc14fad55e8ea2e3532a02fa552",
+      "snapshotSHA256": "729406ec4762c61e2b82a6832ebcfc3768aae82242d15a16d8a895ade47ed8bb",
+      "role": "exposed-development-regression",
+      "cohort": "scope-B-development",
+      "split": "validation",
+      "staticProductPass": true,
+      "rights": {
+        "publisherDeclaration": "publisher-declared CC-BY-4.0; no detected third-party restriction",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+      "group": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+      "source": "skin5",
+      "sourceFileSHA256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+      "snapshotSHA256": "243bcb162c5aff830760434bfe82fdbedebe4c392051d79e5b5a340d7296a3a6",
+      "role": "exposed-development-regression",
+      "cohort": "scope-B-development",
+      "split": "validation",
+      "staticProductPass": true,
+      "rights": {
+        "publisherDeclaration": "publisher-declared CC-BY-4.0; no detected third-party restriction",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "sha256": "0f3354ae440284287476130b110bf1d6e941102732d9205f7aa52c74fb1b7926",
+      "group": "0f3354ae440284287476130b110bf1d6e941102732d9205f7aa52c74fb1b7926",
+      "source": "skin5",
+      "sourceFileSHA256": "0f3354ae440284287476130b110bf1d6e941102732d9205f7aa52c74fb1b7926",
+      "snapshotSHA256": "a4604cea243372050e2bc5b5ea04ed4b36de777ffcd1a75bfcf9c2842743e701",
+      "role": "exposed-development-regression",
+      "cohort": "scope-B-development",
+      "split": "validation",
+      "staticProductPass": true,
+      "rights": {
+        "publisherDeclaration": "publisher-declared CC-BY-4.0; no detected third-party restriction",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "sha256": "0d891a034eeac482c96c7dec9f7e89e5fa45219bd429171c6d3da62856733963",
+      "group": "0d891a034eeac482c96c7dec9f7e89e5fa45219bd429171c6d3da62856733963",
+      "source": "face",
+      "sourceFileSHA256": "0d891a034eeac482c96c7dec9f7e89e5fa45219bd429171c6d3da62856733963",
+      "snapshotSHA256": null,
+      "role": "exposed-development-regression",
+      "cohort": "scope-B-development",
+      "split": "validation",
+      "staticProductPass": false,
+      "rights": {
+        "publisherDeclaration": "publisher-declared CC-BY-4.0; no detected third-party restriction",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "sha256": "33da7a527931d29e23b6ab093093c0c4416938e8c0b17a5b2b6ad7af3112c1e0",
+      "group": "0fc024b87bc876bcdd406fa5ac82cb7f5515de4577ebfb393832d365d1939a07",
+      "source": "arnold",
+      "sourceFileSHA256": "33da7a527931d29e23b6ab093093c0c4416938e8c0b17a5b2b6ad7af3112c1e0",
+      "snapshotSHA256": "4323e8476d8e35a995e3814a657d0a3c839ab22d147a868b36905dc9589d98d6",
+      "role": "exposed-development-regression",
+      "cohort": "scope-B-development",
+      "split": "validation",
+      "staticProductPass": true,
+      "rights": {
+        "publisherDeclaration": "publisher-declared CC-BY-4.0; no detected third-party restriction",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+      "group": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+      "source": "old-eye",
+      "sourceFileSHA256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+      "snapshotSHA256": "574029137da06868820e26a2974b578fed0d8c8d851207659e560cbf5aa85ac1",
+      "role": "exposed-development-regression",
+      "cohort": "scope-B-development",
+      "split": "validation",
+      "staticProductPass": true,
+      "rights": {
+        "publisherDeclaration": "publisher-declared CC-BY-4.0; no detected third-party restriction",
+        "individualConsent": "not-recorded",
+        "independentIndividualRights": "unverified",
+        "use": "local private engineering only; no redistribution or product admission"
+      },
+      "annotationSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  ],
+  "summary": {
+    "A": {
+      "scopeB": {
+        "photos": 12,
+        "admissiblePhotos": 10,
+        "rejectedPhotos": 2,
+        "fixedTargets": 14,
+        "measuredTargets": 14,
+        "unmeasuredTargets": 0,
+        "matched": 0,
+        "visibleTargets": 4,
+        "visibleMatched": 0,
+        "sourceBoxCenterHits": 1,
+        "candidateCount": 13,
+        "reviewedNegativePhotos": 7,
+        "reviewedNegativeFP": 8,
+        "scale": {
+          "micro": {
+            "targets": 1,
+            "matched": 0
+          },
+          "small": {
+            "targets": 10,
+            "matched": 0
+          },
+          "medium": {
+            "targets": 3,
+            "matched": 0
+          }
+        },
+        "seconds": {
+          "firstAnalysisMedian": 0.17938394999964657,
+          "firstAnalysisMax": 0.3037309000001187,
+          "repeatMedian": 0.2168590999999651,
+          "repeatMax": 0.3555617000001803
+        },
+        "deterministicPhotos": 10,
+        "automaticNegativeProjectionFP": 10,
+        "automaticProjectionArea80FP": 10,
+        "unknownHairBorderCandidates": 2,
+        "reviewedNegativeFPPerPhoto": 1.1428571428571428
+      },
+      "controls": {
+        "photos": 28,
+        "admissiblePhotos": 3,
+        "rejectedPhotos": 25,
+        "fixedTargets": 155,
+        "measuredTargets": 29,
+        "unmeasuredTargets": 126,
+        "matched": 0,
+        "visibleTargets": 10,
+        "visibleMatched": 0,
+        "sourceBoxCenterHits": 1,
+        "candidateCount": 19,
+        "reviewedNegativePhotos": 0,
+        "reviewedNegativeFP": 0,
+        "reviewedNegativeArea80FP": 0,
+        "scale": {
+          "micro": {
+            "targets": 3,
+            "matched": 0
+          },
+          "small": {
+            "targets": 17,
+            "matched": 0
+          },
+          "medium": {
+            "targets": 9,
+            "matched": 0
+          }
+        },
+        "seconds": {
+          "firstAnalysisMedian": 0.33792989999983547,
+          "firstAnalysisMax": 2.048770199999126,
+          "repeatMedian": 0.2698245000001407,
+          "repeatMax": 0.2934596999994028
+        },
+        "deterministicPhotos": 3
+      },
+      "allAdmissible": {
+        "photos": 40,
+        "admissiblePhotos": 13,
+        "rejectedPhotos": 27,
+        "fixedTargets": 169,
+        "measuredTargets": 43,
+        "unmeasuredTargets": 126,
+        "matched": 0,
+        "visibleTargets": 14,
+        "visibleMatched": 0,
+        "sourceBoxCenterHits": 2,
+        "candidateCount": 32,
+        "reviewedNegativePhotos": 7,
+        "reviewedNegativeFP": 8,
+        "scale": {
+          "micro": {
+            "targets": 4,
+            "matched": 0
+          },
+          "small": {
+            "targets": 27,
+            "matched": 0
+          },
+          "medium": {
+            "targets": 12,
+            "matched": 0
+          }
+        },
+        "seconds": {
+          "firstAnalysisMedian": 0.21217780000006314,
+          "firstAnalysisMax": 2.048770199999126,
+          "repeatMedian": 0.23162779999984195,
+          "repeatMax": 0.3555617000001803
+        },
+        "deterministicPhotos": 13,
+        "automaticNegativeProjectionFP": 10,
+        "automaticProjectionArea80FP": 10,
+        "unknownHairBorderCandidates": 2,
+        "reviewedNegativeFPPerPhoto": 1.1428571428571428
+      },
+      "torchImported": false
+    },
+    "B": {
+      "scopeB": {
+        "photos": 12,
+        "admissiblePhotos": 10,
+        "rejectedPhotos": 2,
+        "fixedTargets": 14,
+        "measuredTargets": 14,
+        "unmeasuredTargets": 0,
+        "matched": 0,
+        "visibleTargets": 4,
+        "visibleMatched": 0,
+        "sourceBoxCenterHits": 0,
+        "candidateCount": 57,
+        "reviewedNegativePhotos": 7,
+        "reviewedNegativeFP": 28,
+        "scale": {
+          "micro": {
+            "targets": 1,
+            "matched": 0
+          },
+          "small": {
+            "targets": 10,
+            "matched": 0
+          },
+          "medium": {
+            "targets": 3,
+            "matched": 0
+          }
+        },
+        "seconds": {
+          "firstAnalysisMedian": 0.30491135000011127,
+          "firstAnalysisMax": 0.4891742999998314,
+          "repeatMedian": 0.3062642500003676,
+          "repeatMax": 0.5159641000000192
+        },
+        "deterministicPhotos": 10,
+        "automaticNegativeProjectionFP": 49,
+        "automaticProjectionArea80FP": 49,
+        "unknownHairBorderCandidates": 21,
+        "reviewedNegativeFPPerPhoto": 4.0
+      },
+      "controls": {
+        "photos": 28,
+        "admissiblePhotos": 3,
+        "rejectedPhotos": 25,
+        "fixedTargets": 155,
+        "measuredTargets": 29,
+        "unmeasuredTargets": 126,
+        "matched": 0,
+        "visibleTargets": 10,
+        "visibleMatched": 0,
+        "sourceBoxCenterHits": 1,
+        "candidateCount": 31,
+        "reviewedNegativePhotos": 0,
+        "reviewedNegativeFP": 0,
+        "reviewedNegativeArea80FP": 0,
+        "scale": {
+          "micro": {
+            "targets": 3,
+            "matched": 0
+          },
+          "small": {
+            "targets": 17,
+            "matched": 0
+          },
+          "medium": {
+            "targets": 9,
+            "matched": 0
+          }
+        },
+        "seconds": {
+          "firstAnalysisMedian": 0.4449530000001687,
+          "firstAnalysisMax": 1.5527175000006537,
+          "repeatMedian": 0.41221390000009706,
+          "repeatMax": 0.46105179999995016
+        },
+        "deterministicPhotos": 3
+      },
+      "allAdmissible": {
+        "photos": 40,
+        "admissiblePhotos": 13,
+        "rejectedPhotos": 27,
+        "fixedTargets": 169,
+        "measuredTargets": 43,
+        "unmeasuredTargets": 126,
+        "matched": 0,
+        "visibleTargets": 14,
+        "visibleMatched": 0,
+        "sourceBoxCenterHits": 1,
+        "candidateCount": 88,
+        "reviewedNegativePhotos": 7,
+        "reviewedNegativeFP": 28,
+        "scale": {
+          "micro": {
+            "targets": 4,
+            "matched": 0
+          },
+          "small": {
+            "targets": 27,
+            "matched": 0
+          },
+          "medium": {
+            "targets": 12,
+            "matched": 0
+          }
+        },
+        "seconds": {
+          "firstAnalysisMedian": 0.30845419999968726,
+          "firstAnalysisMax": 1.5527175000006537,
+          "repeatMedian": 0.32946020000053977,
+          "repeatMax": 0.5159641000000192
+        },
+        "deterministicPhotos": 13,
+        "automaticNegativeProjectionFP": 49,
+        "automaticProjectionArea80FP": 49,
+        "unknownHairBorderCandidates": 21,
+        "reviewedNegativeFPPerPhoto": 4.0
+      },
+      "torchImported": false
+    }
+  },
+  "negativeVisibilityAdjudication": {
+    "version": "acne-negative-visibility-adjudication-v1",
+    "reviewer": "Codex visual engineering; not dermatologist or human adjudication",
+    "blinded": false,
+    "performedAfterFrozenPredictions": true,
+    "parametersChanged": false,
+    "newInference": false,
+    "scope": "object support visibility only; not pixel segmentation/precision",
+    "unknownRule": "blond hair, white eyebrow hair, beard overlap or ambiguous boundary remains UNKNOWN",
+    "rows": [
+      {
+        "method": "A",
+        "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "candidateIndex": 0,
+        "sourceBox": [
+          381.0,
+          172.0,
+          3.0,
+          3.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "0959e094baf811484d0cd06b673ea9036ef6ddd50b64f1ac8a6ff84e8296d452",
+        "resultsSHA256": "987af8f2498bd803caf44a7ec76afacff0ed89e7efe1108dfd14948d6ba22bc4"
+      },
+      {
+        "method": "A",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 0,
+        "sourceBox": [
+          415.91692304611206,
+          346.25442733764646,
+          7.37531623840332,
+          5.53148717880249
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "95ddb61ca4f3000ffe6bf570b65e4023f2154d8c9fd70d97321e0de7047a09de",
+        "resultsSHA256": "987af8f2498bd803caf44a7ec76afacff0ed89e7efe1108dfd14948d6ba22bc4"
+      },
+      {
+        "method": "A",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 1,
+        "sourceBox": [
+          567.1109059333801,
+          373.9118632316589,
+          5.53148717880249,
+          5.53148717880249
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "95ddb61ca4f3000ffe6bf570b65e4023f2154d8c9fd70d97321e0de7047a09de",
+        "resultsSHA256": "987af8f2498bd803caf44a7ec76afacff0ed89e7efe1108dfd14948d6ba22bc4"
+      },
+      {
+        "method": "A",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 2,
+        "sourceBox": [
+          391.9471452713012,
+          381.28717947006226,
+          11.06297435760498,
+          5.53148717880249
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "95ddb61ca4f3000ffe6bf570b65e4023f2154d8c9fd70d97321e0de7047a09de",
+        "resultsSHA256": "987af8f2498bd803caf44a7ec76afacff0ed89e7efe1108dfd14948d6ba22bc4"
+      },
+      {
+        "method": "A",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 3,
+        "sourceBox": [
+          414.07309398651125,
+          383.13100852966306,
+          5.53148717880249,
+          11.06297435760498
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "95ddb61ca4f3000ffe6bf570b65e4023f2154d8c9fd70d97321e0de7047a09de",
+        "resultsSHA256": "987af8f2498bd803caf44a7ec76afacff0ed89e7efe1108dfd14948d6ba22bc4"
+      },
+      {
+        "method": "A",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 4,
+        "sourceBox": [
+          314.5063247680664,
+          399.72547006607056,
+          9.21914529800415,
+          5.53148717880249
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "95ddb61ca4f3000ffe6bf570b65e4023f2154d8c9fd70d97321e0de7047a09de",
+        "resultsSHA256": "987af8f2498bd803caf44a7ec76afacff0ed89e7efe1108dfd14948d6ba22bc4"
+      },
+      {
+        "method": "A",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 5,
+        "sourceBox": [
+          303.44335041046145,
+          574.8892307281494,
+          14.75063247680664,
+          11.06297435760498
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "95ddb61ca4f3000ffe6bf570b65e4023f2154d8c9fd70d97321e0de7047a09de",
+        "resultsSHA256": "987af8f2498bd803caf44a7ec76afacff0ed89e7efe1108dfd14948d6ba22bc4"
+      },
+      {
+        "method": "A",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 6,
+        "sourceBox": [
+          675.8968204498291,
+          584.1083760261536,
+          7.37531623840332,
+          7.37531623840332
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "95ddb61ca4f3000ffe6bf570b65e4023f2154d8c9fd70d97321e0de7047a09de",
+        "resultsSHA256": "987af8f2498bd803caf44a7ec76afacff0ed89e7efe1108dfd14948d6ba22bc4"
+      },
+      {
+        "method": "A",
+        "sha256": "33da7a527931d29e23b6ab093093c0c4416938e8c0b17a5b2b6ad7af3112c1e0",
+        "candidateIndex": 0,
+        "sourceBox": [
+          224.0,
+          224.0,
+          3.0,
+          3.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "1379ea11112eb0e558986b47e9fda7f0ef1ac62f8f992deb5c2b8f6d8bc82d7c",
+        "resultsSHA256": "987af8f2498bd803caf44a7ec76afacff0ed89e7efe1108dfd14948d6ba22bc4"
+      },
+      {
+        "method": "A",
+        "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+        "candidateIndex": 0,
+        "sourceBox": [
+          320.0,
+          128.0,
+          3.0,
+          5.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "949de7246f2d73abdf06ea35428bcf0a0ce9d40593c6968ae484e30cec968d24",
+        "resultsSHA256": "987af8f2498bd803caf44a7ec76afacff0ed89e7efe1108dfd14948d6ba22bc4"
+      },
+      {
+        "method": "B",
+        "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "candidateIndex": 0,
+        "sourceBox": [
+          365.0,
+          146.0,
+          2.0,
+          2.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "55f136bac70ef59f101517e6388561c5895af225ecc68a87ebc70dcd10b38737",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "candidateIndex": 1,
+        "sourceBox": [
+          217.0,
+          150.0,
+          9.0,
+          5.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "55f136bac70ef59f101517e6388561c5895af225ecc68a87ebc70dcd10b38737",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "candidateIndex": 2,
+        "sourceBox": [
+          256.0,
+          152.0,
+          5.0,
+          4.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "55f136bac70ef59f101517e6388561c5895af225ecc68a87ebc70dcd10b38737",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "candidateIndex": 3,
+        "sourceBox": [
+          317.0,
+          155.0,
+          19.0,
+          15.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "55f136bac70ef59f101517e6388561c5895af225ecc68a87ebc70dcd10b38737",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "candidateIndex": 4,
+        "sourceBox": [
+          265.0,
+          157.0,
+          6.0,
+          4.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "55f136bac70ef59f101517e6388561c5895af225ecc68a87ebc70dcd10b38737",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "candidateIndex": 5,
+        "sourceBox": [
+          374.0,
+          160.0,
+          4.0,
+          5.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "55f136bac70ef59f101517e6388561c5895af225ecc68a87ebc70dcd10b38737",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "candidateIndex": 6,
+        "sourceBox": [
+          274.0,
+          164.0,
+          5.0,
+          5.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "55f136bac70ef59f101517e6388561c5895af225ecc68a87ebc70dcd10b38737",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "candidateIndex": 7,
+        "sourceBox": [
+          283.0,
+          168.0,
+          21.0,
+          11.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "55f136bac70ef59f101517e6388561c5895af225ecc68a87ebc70dcd10b38737",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "candidateIndex": 8,
+        "sourceBox": [
+          380.0,
+          169.0,
+          6.0,
+          7.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "55f136bac70ef59f101517e6388561c5895af225ecc68a87ebc70dcd10b38737",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "candidateIndex": 9,
+        "sourceBox": [
+          345.0,
+          172.0,
+          6.0,
+          6.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "55f136bac70ef59f101517e6388561c5895af225ecc68a87ebc70dcd10b38737",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "candidateIndex": 10,
+        "sourceBox": [
+          322.0,
+          183.0,
+          7.0,
+          5.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "55f136bac70ef59f101517e6388561c5895af225ecc68a87ebc70dcd10b38737",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "candidateIndex": 11,
+        "sourceBox": [
+          418.0,
+          272.0,
+          3.0,
+          3.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "55f136bac70ef59f101517e6388561c5895af225ecc68a87ebc70dcd10b38737",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "36e4010bde60027b29a6086a9534e1cb06d7b4191ae0dd2049bdea090577f982",
+        "candidateIndex": 12,
+        "sourceBox": [
+          289.0,
+          301.0,
+          2.0,
+          2.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "55f136bac70ef59f101517e6388561c5895af225ecc68a87ebc70dcd10b38737",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+        "candidateIndex": 0,
+        "sourceBox": [
+          284.0,
+          553.0,
+          4.0,
+          5.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "bed9eebf9222021627a7e92d99e4197d2d84fb0b126a16a6eea48cdd27a2ac33",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+        "candidateIndex": 1,
+        "sourceBox": [
+          270.0,
+          588.0,
+          4.0,
+          4.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "bed9eebf9222021627a7e92d99e4197d2d84fb0b126a16a6eea48cdd27a2ac33",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "02386f867aafa03a82d06c2d9cca8027077de01b3b16ddbd1f6089c7720e9687",
+        "candidateIndex": 2,
+        "sourceBox": [
+          273.0,
+          602.0,
+          4.0,
+          5.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "bed9eebf9222021627a7e92d99e4197d2d84fb0b126a16a6eea48cdd27a2ac33",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 0,
+        "sourceBox": [
+          446.0,
+          320.0,
+          8.0,
+          6.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 1,
+        "sourceBox": [
+          513.0,
+          337.0,
+          4.0,
+          4.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 2,
+        "sourceBox": [
+          623.0,
+          342.0,
+          8.0,
+          5.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 3,
+        "sourceBox": [
+          642.0,
+          342.0,
+          4.0,
+          3.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 4,
+        "sourceBox": [
+          411.0,
+          345.0,
+          16.0,
+          13.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 5,
+        "sourceBox": [
+          544.0,
+          346.0,
+          15.0,
+          12.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 6,
+        "sourceBox": [
+          453.0,
+          352.0,
+          10.0,
+          13.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 7,
+        "sourceBox": [
+          475.0,
+          366.0,
+          12.0,
+          10.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 8,
+        "sourceBox": [
+          652.0,
+          367.0,
+          21.0,
+          13.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 9,
+        "sourceBox": [
+          684.0,
+          368.0,
+          5.0,
+          6.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 10,
+        "sourceBox": [
+          565.0,
+          374.0,
+          10.0,
+          7.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 11,
+        "sourceBox": [
+          597.0,
+          379.0,
+          7.0,
+          4.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 12,
+        "sourceBox": [
+          287.0,
+          383.0,
+          9.0,
+          7.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 13,
+        "sourceBox": [
+          435.0,
+          383.0,
+          9.0,
+          12.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 14,
+        "sourceBox": [
+          566.0,
+          384.0,
+          4.0,
+          7.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 15,
+        "sourceBox": [
+          593.0,
+          385.0,
+          4.0,
+          3.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 16,
+        "sourceBox": [
+          286.0,
+          400.0,
+          6.0,
+          6.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 17,
+        "sourceBox": [
+          292.0,
+          405.0,
+          11.0,
+          9.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 18,
+        "sourceBox": [
+          287.0,
+          417.0,
+          4.0,
+          3.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 19,
+        "sourceBox": [
+          671.0,
+          576.0,
+          14.0,
+          18.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 20,
+        "sourceBox": [
+          272.0,
+          650.0,
+          7.0,
+          8.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 21,
+        "sourceBox": [
+          334.0,
+          673.0,
+          11.0,
+          11.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 22,
+        "sourceBox": [
+          277.0,
+          779.0,
+          5.0,
+          4.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 23,
+        "sourceBox": [
+          447.0,
+          821.0,
+          16.0,
+          17.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0560bfd8ba207b1aa18b2b080515fa4edf1323024ed2f9208558608f9d4f706a",
+        "candidateIndex": 24,
+        "sourceBox": [
+          486.0,
+          860.0,
+          4.0,
+          4.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "93546c8e8e8ba3e006acd77cb2d23db983adaf1cd95ceb53420ca966748dd01e",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "0f3354ae440284287476130b110bf1d6e941102732d9205f7aa52c74fb1b7926",
+        "candidateIndex": 0,
+        "sourceBox": [
+          623.0,
+          625.0,
+          5.0,
+          3.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "77b207be61df84572643e6df20aea782b62137315d36cdbf970be0dc75d21abe",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "33da7a527931d29e23b6ab093093c0c4416938e8c0b17a5b2b6ad7af3112c1e0",
+        "candidateIndex": 0,
+        "sourceBox": [
+          321.0,
+          213.0,
+          3.0,
+          4.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "d8c9a32eb51649d727874fa52874a3937bf2ffd6d3b06aff8820b7923a887233",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "33da7a527931d29e23b6ab093093c0c4416938e8c0b17a5b2b6ad7af3112c1e0",
+        "candidateIndex": 1,
+        "sourceBox": [
+          337.0,
+          285.0,
+          2.0,
+          2.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "d8c9a32eb51649d727874fa52874a3937bf2ffd6d3b06aff8820b7923a887233",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+        "candidateIndex": 0,
+        "sourceBox": [
+          319.0,
+          128.0,
+          5.0,
+          7.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "c58f9a54483a88446528a6392539a87e380be57c0904b3915b179a3af7d9024f",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+        "candidateIndex": 1,
+        "sourceBox": [
+          284.0,
+          144.0,
+          4.0,
+          2.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "c58f9a54483a88446528a6392539a87e380be57c0904b3915b179a3af7d9024f",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+        "candidateIndex": 2,
+        "sourceBox": [
+          364.0,
+          145.0,
+          3.0,
+          6.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "c58f9a54483a88446528a6392539a87e380be57c0904b3915b179a3af7d9024f",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+        "candidateIndex": 3,
+        "sourceBox": [
+          267.0,
+          210.0,
+          4.0,
+          2.0
+        ],
+        "status": "reviewed-non-pimple-visible-skin-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "c58f9a54483a88446528a6392539a87e380be57c0904b3915b179a3af7d9024f",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      },
+      {
+        "method": "B",
+        "sha256": "02413bf985b347112abf737badd0e11650ec25fe08502057343d81427b51fa29",
+        "candidateIndex": 4,
+        "sourceBox": [
+          364.0,
+          285.0,
+          3.0,
+          2.0
+        ],
+        "status": "UNKNOWN-hair-or-border-support",
+        "basis": "existing explicit negative-face review plus source-coordinate visual visibility review; no biological diagnosis",
+        "overlaySHA256": "c58f9a54483a88446528a6392539a87e380be57c0904b3915b179a3af7d9024f",
+        "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b"
+      }
+    ],
+    "counts": {
+      "A": {
+        "known": 8,
+        "unknown": 2
+      },
+      "B": {
+        "known": 28,
+        "unknown": 21
+      }
+    }
+  },
+  "decision": {
+    "measuredGain": false,
+    "productionActive": false,
+    "stop": true,
+    "nextExperimentAuthorized": false,
+    "reason": "No source-box recall gain, reviewed-negative FP increases; no new threshold/method/training"
+  },
+  "sourceTargetGainPhotos": [],
+  "sourceTargetLossPhotos": [],
+  "independentTest": false,
+  "redPaleSubtypeMetrics": null,
+  "physicalRepeatCaptureMeasured": false,
+  "multiFrameMeasured": false,
+  "normalAPIEndToEndMeasured": false,
+  "timingScope": "fresh subprocess per method: decode, production preprocessing/geometry, detector, component-map, JSON; repeat same file; frontend capture/MediaPipe excluded",
+  "rights": {
+    "existingDatasetPublisherRecords": [
+      {
+        "id": "v11",
+        "archiveSHA256": "f1f4ea68eec6ffca41d52f56bafa13eea0204a82afff8eb7d65ef1966a769ac5",
+        "archive": "Skin Analysis.v11-augmentation_version.coco-segmentation.zip",
+        "readmes": {
+          "README.dataset.txt": "# Skin Analysis > augmentation_version\nhttps://universe.roboflow.com/bread-7emlk/skin-analysis-wl7al\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+          "README.roboflow.txt": "\nSkin Analysis - v11 augmentation_version\n==============================\n\nThis dataset was exported via roboflow.com on March 9, 2026 at 8:54 AM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 948 images.\nFacial-defects are annotated in COCO Segmentation format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Fit (black edges))\n\nNo image augmentation techniques were applied.\n\n\n"
+        },
+        "license": "publisher-declared CC-BY-4.0",
+        "individualImageRights": "unverified until review; stock markers excluded",
+        "transform": "original export retained; ROI tensors tracked separately",
+        "auditInputSHA256": "a4da97e0f0e1cf964b6f9cb6f4699f71b0240c12e56e1890a16c74258b989a1d"
+      },
+      {
+        "id": "smart",
+        "archiveSHA256": "c6bb5101b0a2c84a388cffc486262985d10b61d9f418f70c64e6eb166eea9bd6",
+        "archive": "SmartSkinCare.v8i.coco.zip",
+        "readmes": {
+          "README.dataset.txt": "# SmartSkinCare > 2023-04-30 8:19pm\nhttps://universe.roboflow.com/test-9wsgf/smartskincare\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+          "README.roboflow.txt": "\nSmartSkinCare - v8 2023-04-30 8:19pm\n==============================\n\nThis dataset was exported via roboflow.com on May 7, 2023 at 8:40 PM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 800 images.\nSkin-defects are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 1280x1280 (Stretch)\n\nThe following augmentation was applied to create 1 versions of each source image:\n* Randomly crop between 0 and 25 percent of the image\n\n\n"
+        },
+        "license": "publisher-declared CC-BY-4.0",
+        "individualImageRights": "unverified until review; stock markers excluded",
+        "transform": "original export retained; ROI tensors tracked separately",
+        "auditInputSHA256": "a4f9c281fba6ebc7541a53388810c7e852b02a18448fb1e304388360e826a0aa"
+      },
+      {
+        "id": "dc",
+        "archiveSHA256": "3c5f800e2460c6388a3a2755050484b82d619052bedbc6eef153641d8d647b6d",
+        "archive": "DC EB 2.v1i.coco.zip",
+        "readmes": {
+          "README.roboflow.txt": "\nDC EB 2 - v1 2026-05-26 6:34pm\n==============================\n\nThis dataset was exported via roboflow.com on August 25, 2026 at 5:37 AM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 399 images.\nDC-EB-2 are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Stretch)\n\nNo image augmentation techniques were applied.\n\n\n",
+          "README.dataset.txt": "# DC EB 2 > 2026-05-26 6:34pm\nhttps://universe.roboflow.com/inexistentheaps-workspace-bhlt5/dc-eb-2\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n"
+        },
+        "license": "publisher-declared CC-BY-4.0",
+        "individualImageRights": "unverified until review; stock markers excluded",
+        "transform": "original export retained; ROI tensors tracked separately",
+        "auditInputSHA256": "c8911a35c4defa9c2dbec1772a069bb019a3a11ae457c4d05838cc0503aab0bd"
+      },
+      {
+        "id": "wrinkles",
+        "archiveSHA256": "3e6d6f35c0590dccb76335d54a8f52118f97599206b40e5d974212bbc6fdc8ec",
+        "archive": "Wrinkles Detector.v2i.coco-segmentation.zip",
+        "readmes": {
+          "README.dataset.txt": "# Wrinkles Detector > 2023-09-19 4:14pm\nhttps://universe.roboflow.com/sellsio/wrinkles-detector\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+          "README.roboflow.txt": "\nWrinkles Detector - v2 2023-09-19 4:14pm\n==============================\n\nThis dataset was exported via roboflow.com on April 17, 2024 at 9:49 AM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 914 images.\nWrinkles are annotated in COCO Segmentation format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Fit (white edges))\n\nNo image augmentation techniques were applied.\n\n\n"
+        },
+        "license": "publisher-declared CC-BY-4.0",
+        "individualImageRights": "unverified until review; stock markers excluded",
+        "transform": "original export retained; ROI tensors tracked separately",
+        "auditInputSHA256": "b8a4fd079dec7f202f53fde0806c210ba14d9aaa37f0b92798c266efa9df3120"
+      },
+      {
+        "id": "skin5",
+        "archiveSHA256": "9746b813cd0927bd4ce96822f7667d4ff3c1d5b4504e9ddfc2db70f0db4e8ea5",
+        "archive": "Skin.v5i.coco.zip",
+        "readmes": {
+          "README.dataset.txt": "# Skin > 2023-04-18 10:43am\nhttps://universe.roboflow.com/phamphong/skin-tybfq\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+          "README.roboflow.txt": "\nSkin - v5 2023-04-18 10:43am\n==============================\n\nThis dataset was exported via roboflow.com on April 18, 2023 at 3:43 AM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 546 images.\nSkin are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 1024x1024 (Stretch)\n\nNo image augmentation techniques were applied.\n\n\n"
+        },
+        "license": "publisher-declared CC-BY-4.0",
+        "individualImageRights": "unverified until review; stock markers excluded",
+        "transform": "original export retained; ROI tensors tracked separately",
+        "auditInputSHA256": "06a6c401550268ea6b4a9e63d3a89063c836af85606b1ab1640f6e488eb50455"
+      },
+      {
+        "id": "face",
+        "archiveSHA256": "c56937df11bdcce2903afa38ee09225c83e2d8f886e312ede0cc50cf5f397798",
+        "archive": "skin_face_detection.v1i.coco.zip",
+        "readmes": {
+          "README.dataset.txt": "# skin_face_detection > 2023-12-29 9:52am\nhttps://universe.roboflow.com/elisabeth-hui/skin_face_detection\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+          "README.roboflow.txt": "\nskin_face_detection - v1 2023-12-29 9:52am\n==============================\n\nThis dataset was exported via roboflow.com on February 5, 2025 at 10:50 PM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 6749 images.\nWrinkle-acne are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Stretch)\n\nThe following augmentation was applied to create 3 versions of each source image:\n\n\n"
+        },
+        "license": "publisher-declared CC-BY-4.0",
+        "individualImageRights": "unverified until review; stock markers excluded",
+        "transform": "original export retained; ROI tensors tracked separately",
+        "auditInputSHA256": "b618e8318947a21ae219f341aa63858fc51fede5d6b90007cf3b04273c08939f"
+      },
+      {
+        "id": "arnold",
+        "archiveSHA256": "1c6703c589e29b37db3e036eb68ac1bc6bad3ac5974292b167dc730306560915",
+        "archive": "yolo arnold.v1i.coco.zip",
+        "readmes": {
+          "README.dataset.txt": "# yolo arnold > 2024-09-11 7:02am\nhttps://universe.roboflow.com/k-gyibl/yolo-arnold\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+          "README.roboflow.txt": "\nyolo arnold - v1 2024-09-11 7:02am\n==============================\n\nThis dataset was exported via roboflow.com on October 28, 2024 at 7:24 AM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 249 images.\nYolo are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Stretch)\n\nNo image augmentation techniques were applied.\n\n\n"
+        },
+        "license": "publisher-declared CC-BY-4.0",
+        "individualImageRights": "unverified until review; stock markers excluded",
+        "transform": "original export retained; ROI tensors tracked separately",
+        "auditInputSHA256": "fd9039353c42dcc43daf20a7ee333d4ec07574bc825a7283e1660b4e47ed91e7"
+      }
+    ],
+    "individualPhotoConsentVerified": false,
+    "rightsClearedWebcamCohortAvailableInSelectedSources": false,
+    "modelWeights": "No A/B weights. Existing geometry model unchanged; original clinical protocol preserved",
+    "code": "New local comparison/DoG code; no copied new third-party algorithm",
+    "packages": [
+      {
+        "package": "numpy",
+        "version": "2.2.6",
+        "existingDependency": true,
+        "licenseFiles": [
+          {
+            "path": "numpy-2.2.6.dist-info/LICENSE.txt",
+            "sha256": "14256cc3a2c9d32ac284da96b937feb44f72dd90bee2317ac3020166846ad99d"
+          },
+          {
+            "path": "numpy/_core/include/numpy/random/LICENSE.txt",
+            "sha256": "d544761558b510866c21f7e8a2d5716fca76e0b98117e3b6b86314db7244d150"
+          },
+          {
+            "path": "numpy/ma/LICENSE",
+            "sha256": "d78dbb208b80d92b4d333e41a4baae50d12444f46e53199fa7726a91de6e2da7"
+          }
+        ]
+      },
+      {
+        "package": "opencv-python",
+        "version": "4.12.0.88",
+        "existingDependency": true,
+        "licenseFiles": [
+          {
+            "path": "cv2/LICENSE-3RD-PARTY.txt",
+            "sha256": "d8ec888320fcb9d99317a77af4a4a3a91208676067ec1fa9bc1967a522411730"
+          },
+          {
+            "path": "cv2/LICENSE.txt",
+            "sha256": "edef0fac1eb08d29d34563f724742e078da2513e196133a12c6ad9ff01e26107"
+          },
+          {
+            "path": "opencv_python-4.12.0.88.dist-info/LICENSE-3RD-PARTY.txt",
+            "sha256": "d8ec888320fcb9d99317a77af4a4a3a91208676067ec1fa9bc1967a522411730"
+          },
+          {
+            "path": "opencv_python-4.12.0.88.dist-info/LICENSE.txt",
+            "sha256": "edef0fac1eb08d29d34563f724742e078da2513e196133a12c6ad9ff01e26107"
+          }
+        ]
+      },
+      {
+        "package": "scikit-image",
+        "version": "0.26.0",
+        "existingDependency": true,
+        "licenseFiles": [
+          {
+            "path": "scikit_image-0.26.0.dist-info/LICENSE.txt",
+            "sha256": "c0ae0d653416915f77a6364eef489ab59fcb319514a806422285cb4359657c5b"
+          }
+        ]
+      }
+    ],
+    "newDependencyOrNoticeRequired": false,
+    "uncertainty": "Publisher CC-BY declarations do not independently establish photograph/person permissions; no images distributed"
+  },
+  "comparisonCodeSHA256": {
+    "scripts\\skin-research\\finalize_acne_classical_comparison.py": "86a2a4101886cb9d3a045c7c2f5a56e6618c7b2e07549a276bc204fff6276a68",
+    "scripts\\skin-research\\evaluate_acne_classical.py": "b20887b8e219298d1c2685c14812d3d2c5a1dc0a0848d8d0b7e28b11a7ac72a1",
+    "scripts\\skin-research\\acne_lab_dog.py": "5bc824456badcd329b78951f2274e8ddd7f3bf09e34c7cf5183c454239c235e9",
+    "scripts\\skin-research\\acne-appearance-capture.html": "297902a58c552dc46137328924ad31172e29d4d37caac7d1d6a69c5024a0daa9",
+    "scripts\\skin-research\\verify_acne_capture_tool.py": "51f2f57e99794bcfc91c25d83f7a15ab8cc4025aafc331ae7c73305d8970153d"
+  },
+  "protectedProductionHashes": {
+    "services/core-api/appearance_analysis.py": "05062cbcdd67f3009ba96a429033615a5a8d60f632a094dcbee2354e0b604297",
+    "services/core-api/instant_appearance.py": "5c9a65b59f60b205cf0d5392d6f64f85ad863a47487057f3538411427a8eb9a8",
+    "services/core-api/product_dryness.py": "034dcafc4eaf474dff1ebbe61bc1d7263f5db5397dd445a0942eda239cec6506",
+    "services/core-api/skin_models.py": "a0eb52a01c07b445109fa328aa73994a93f20169db17c4aae1ae48c1230a4c28",
+    "services/core-api/models/skin-focused.json": "accc9ff193030bccde572ded39b1878fc7919e33daf62f2ac560c3357a83abfb",
+    "apps/vehicle-app/.next/BUILD_ID": "cdd7707d9f05d3d9c95ab664049e54669e1f5678d946dd74cd5802c108b58563"
+  },
+  "geometryHashes": {
+    "apps/vehicle-app/src/utils/skinSnapshot.ts": "f31c9a7d48c56731ea9c28979e53283fdf355a841f537dfb6e24b83f7e3cbf6e",
+    "apps/vehicle-app/src/utils/skinAnalyzer.ts": "c64c81cfeef0c8b805aedc64b2cd55d26fd80e7f55508a30889387e377d24e56",
+    "apps/vehicle-app/src/utils/skinExpression.ts": "eb0da0620635c31e47b995a15e5d8383f4c333d046f5822e9e5fe4e0ddc1abfd",
+    "apps/vehicle-app/src/utils/skinMesh.ts": "e0df3bb73fdba4f9ac1f0f079bd9856f10cd8027097f74b91f567367593ade46",
+    "apps/vehicle-app/src/utils/cameraStability.ts": "dbea92b037a03d6ae9c98e89fa0c5c24373c23d335236856548e04e6cf9ca8c8",
+    "apps/vehicle-app/src/utils/skinIndicators.ts": "33fe15ccf2f0b2f4ab1c18ea36517aa7250e32a2967a1cb97b13a19b426f0b75",
+    "apps/vehicle-app/src/utils/skinResearchAdapter.ts": "4928010770958781a048cffa8e1b6921a4de7fada702d10aa35c446081d31f2f",
+    "apps/vehicle-app/src/utils/appearanceMeasurements.ts": "0e8ed9d9b91e421c0220cb580eda46b7424d0902a43ea3e427012a1fd84f18aa",
+    "apps/vehicle-app/src/utils/attuneMode.ts": "a1055fa7719bc2f46643713154304da3f0de2d72f59a0d64aef52986c70c27c8",
+    "apps/vehicle-app/src/utils/skinOverview.ts": "b33f2a1d70b665ab56554c338a015df08bbe0c25dc1a6b75d58be036e50dd009",
+    "apps/vehicle-app/src/data/skinDemoFixture.ts": "e2d6f48341bb7967636b65b44b11ba001f87d738934e725b08cb0df94d3b57ee",
+    "apps/vehicle-app/src/utils/skinPhotoHistory.ts": "1ed96f708ad207a8360e08fe65289de1c1bfe70ea0b9f1a6661f4e30f5d57a43",
+    "apps/vehicle-app/src/utils/healthRecords.ts": "ecb61e8559252920fe79289248defaeac8dd324c1f5c0ea8332e88b1f23cfa40",
+    "apps/vehicle-app/src/utils/healthModules.ts": "cf8c02ed126f250cb0bf796ed46711b37d3e59389afca3b7e09d918d417caafd",
+    "shared/healthModules.json": "448db276469738a0e4c59ec2bfd0eb13d13a099ce155db05f3902523480899dc",
+    "apps/vehicle-app/src/utils/healthHistorySeries.ts": "f27e10263f51be2391141a0318eaab333fba47e8945f054257c2d9aa52ef3139",
+    "apps/vehicle-app/src/utils/spokenVision.ts": "b2b458a97ca48141563f09a5c8f5491f7cd61f9ae6cd61640c47e913c68fa561",
+    "apps/vehicle-app/src/utils/skinPresentation.ts": "ff47b9549a9ab239affbebedce5ea4253f5256115402cdcd65f4b1f80f6ee456",
+    "apps/vehicle-app/src/utils/skinSurfaceAnalysis.ts": "1de72c76fe2f206fc34b54698812f4e608aad7ab7503eafd523dd92dbc54396a",
+    "apps/vehicle-app/src/utils/skinMultiAngle.ts": "d089f32938f27e52997d83ecc83e83a90d7f54bb88f07c53ed2e2d55563f2b40",
+    "apps/vehicle-app/src/utils/skinEyewear.ts": "9f89d6ff1d1b4b84cb626c979910d0bf07b06065dd4a564f3acec3e74a2eca32"
+  },
+  "artifacts": {
+    "A": {
+      "resultsSHA256": "987af8f2498bd803caf44a7ec76afacff0ed89e7efe1108dfd14948d6ba22bc4",
+      "nativeOverlays": "audit-results/acne-classical-comparison-20261015/A/<sourceSHA>-overlay.png",
+      "masks": "same source SHA -map.png and -eligible.png",
+      "resource": {
+        "schema": "attune-dual-atomic-lease-v2",
+        "owner": "CDC",
+        "pid": 26044,
+        "processStarted": 1792062024.658862,
+        "startTime": 1792062024.658862,
+        "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+        "jobId": "CDC-acne-classical-A",
+        "nonce": "1f5cd89c77ee4144bdd9dbc892ab1231",
+        "commandSHA256": "842e294f82e8fca3e6e6dd7973c2bf562bfaa546287729525959bcefa1a60512",
+        "peakBudgetMiB": 1350,
+        "memoryBudgetMetric": "private",
+        "minimumAvailableMiB": 1600,
+        "leasePaths": [
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+        ],
+        "bothLeasesOwned": true,
+        "ownershipObservationMaxAgeSeconds": 1,
+        "observerPid": 8880,
+        "observerProcessStarted": 1792062025.49693,
+        "peakMeasuredRSSMiB": 194.1796875,
+        "peakMeasuredPrivateMiB": 159.4921875,
+        "childRSSIncluded": false,
+        "elapsedSeconds": 10.07799999999952,
+        "foreignProcessesStopped": false,
+        "monitorError": null
+      }
+    },
+    "B": {
+      "resultsSHA256": "8ec1071b145d2adf8de3dec6f56e31356a732d57734eba3f6fe38f32e6e5e00b",
+      "nativeOverlays": "audit-results/acne-classical-comparison-20261015/B/<sourceSHA>-overlay.png",
+      "masks": "same source SHA -map.png and -eligible.png",
+      "resource": {
+        "schema": "attune-dual-atomic-lease-v2",
+        "owner": "CDC",
+        "pid": 2240,
+        "processStarted": 1792062064.3742347,
+        "startTime": 1792062064.3742347,
+        "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+        "jobId": "CDC-acne-classical-B",
+        "nonce": "fbec96146dc442fe9992f0ad29d76638",
+        "commandSHA256": "00330d3b4feb9458dd49968ff182f18aa1a59c24ff08cb58960828117c2baeeb",
+        "peakBudgetMiB": 1350,
+        "memoryBudgetMetric": "private",
+        "minimumAvailableMiB": 1600,
+        "leasePaths": [
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+          "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+        ],
+        "bothLeasesOwned": true,
+        "ownershipObservationMaxAgeSeconds": 1,
+        "observerPid": 5992,
+        "observerProcessStarted": 1792062065.2153287,
+        "peakMeasuredRSSMiB": 228.5234375,
+        "peakMeasuredPrivateMiB": 193.46484375,
+        "childRSSIncluded": false,
+        "elapsedSeconds": 11.875,
+        "foreignProcessesStopped": false,
+        "monitorError": null
+      }
+    }
+  },
+  "browser": {
+    "checks": {
+      "unpermittedFileNotDecoded": true,
+      "numericExportNoPixels": true,
+      "persistentPhotoRequiresSeparateConsent": true,
+      "annotationHashMatchesUnpaintedSourcePNG": true,
+      "pendingPhotoExportHonorsRevocation": true,
+      "revocationClearsVolatileFrameWithoutStorage": true,
+      "noExternalRequests": true
+    },
+    "existingPhotoStorageTestsPassed": true,
+    "physicalCameraOpened": false,
+    "syntheticOnly": true,
+    "resource": {
+      "schema": "attune-dual-atomic-lease-v2",
+      "owner": "CDC",
+      "pid": 3028,
+      "processStarted": 1792063211.9697132,
+      "startTime": 1792063211.9697132,
+      "workspace": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-live-test",
+      "jobId": "CDC-acne-capture-tool-browser-check",
+      "nonce": "0bfa0068ebc04304b059b532eafb6f96",
+      "commandSHA256": "62f5511e63a1df9c1ab377406b777d4f07c7a0ead116dd0be167863481ee3901",
+      "peakBudgetMiB": 1350,
+      "memoryBudgetMetric": "private",
+      "minimumAvailableMiB": 1600,
+      "leasePaths": [
+        "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\coordination-notes\\heavy-compute.lock.json",
+        "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\heavy_job.lock"
+      ],
+      "bothLeasesOwned": true,
+      "ownershipObservationMaxAgeSeconds": 1,
+      "observerPid": 16060,
+      "observerProcessStarted": 1792063212.2622335,
+      "peakMeasuredRSSMiB": 781.515625,
+      "peakMeasuredPrivateMiB": 494.58203125,
+      "childRSSIncluded": true,
+      "elapsedSeconds": 16.21900000000005,
+      "foreignProcessesStopped": false,
+      "monitorError": null
+    }
+  },
+  "remainingData": [
+    "Consented, eyewear-free native real webcam photos with device/light/pose/track settings, group and rights records",
+    "Explicit visible red/pale/white/skin-colored candidate boxes, reviewed mole/brown-spot/hair/glare negative ROI and UNKNOWN areas",
+    "Same-pose real repeat captures for light/distance/device stability; static determinism is insufficient",
+    "Independent source/person-group holdout; seen Scope B and 28 controls cannot serve as final test"
+  ]
+}
