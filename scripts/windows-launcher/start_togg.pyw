@@ -171,7 +171,7 @@ def await_ready(url, process, name):
 
 
 def chrome_args(profile):
-    args = [str(CHROME), "--user-data-dir=" + str(profile), "--new-window", URL,
+    args = [str(CHROME), "--user-data-dir=" + str(profile), "--app=" + URL,
             "--disable-background-mode", "--no-first-run", "--no-default-browser-check"]
     if TEST or os.getenv('ATTUNE_LAUNCHER_OBSERVE')=='1':
         # Only the bounded verification launch exposes a random loopback debugging port.
