@@ -122,3 +122,8 @@ Focused skin research and acceptance gate (2026-10-10):
   not add Torch, SMP, unsafe pickle loading, external downloads or a cloud service.
   Only hash-pinned models that pass the recorded frozen acceptance gates can be
   installed. Confidence, ordinal grade, boxes and pixel masks remain distinct.
+
+2026-10-18 provenance addendum: `docs/model-source-gap-recovery-20261018.md`
+and its JSON recover the V4/V5 and 64-row material-head membership links to the
+original publisher-declared archive licenses. This does not establish individual
+photo rights or replace the separate upstream tensor and code declarations.
