@@ -1,0 +1,63 @@
+{
+  "task": "SEC-01-02",
+  "disposition": "OPEN_UPSTREAM_MAINTENANCE",
+  "owner": "CDC/strategist",
+  "startHEAD": "7bd4636a461325c408143436d56156de77d68d7f",
+  "normalSource": "8e8a51711ccdfb372cc7b2e60d328c888a78e8fe",
+  "BUILD_ID": "A-e1UWQmCW1DpJXm9fY46",
+  "registryMetadataAtUTC": "2026-10-17T21:40:49.614Z",
+  "registryRefreshedThisTask": false,
+  "newAuditRun": false,
+  "retainedHighRecords": 7,
+  "underlyingAdvisory": "GHSA-vfj7-8cjw-p6xm",
+  "overallSecurityClosed": false,
+  "userRiskAcceptanceSigned": false,
+  "compatibleSmallPatchEstablished": false,
+  "todayUpstreamPatchStatus": "NOT_REQUERIED",
+  "action": "Preserve lock/config/runtime; maintain open item and existing Windows finite-tool resource guard",
+  "rejectedShortcuts": {
+    "nextLint15528": "Retained plugin dependency still fast-glob3.3.1",
+    "forceOverride": "No established compatible patched braces in retained data",
+    "reinstall": "Same lock resolves same graph",
+    "majorMigration": "Separate CSS/lint compatibility scope; not authorized by this note"
+  },
+  "guard": {
+    "commits": [
+      "cea59f7352ab2f727db9d98def408eeb37995550",
+      "626c32bab58ebe15ba1b601f4564fd5cb4eeecea"
+    ],
+    "scope": "Windows finite build/lint only",
+    "limitsAreCommittedMemoryNotRSS": true,
+    "parserAlgorithmPatched": false,
+    "nonWindows": "Baseline Next pass-through; no Windows Job protection",
+    "devWatchRawToolsCovered": false,
+    "realLinuxCIProven": false
+  },
+  "priorTraceEvidence": {
+    "atUTC": "2026-10-17T21:41:59.342Z",
+    "buildId": "PlmGO62XYbiAMR2PNNLGr",
+    "traces": 15,
+    "affectedHits": 0,
+    "currentBuildRerun": false,
+    "wholeFrameworkSafetyProven": false
+  },
+  "reopeningTriggers": [
+    "Official compatible patched release/advisory fix with pinned dependency metadata",
+    "Concrete new or changed attacker-controlled app input reaches affected parser/glob/AST/ImageResponse sink",
+    "Tooling input/trust boundary or required platform/caller containment changes",
+    "Explicitly selected scoped Tailwind/CSS or lint major migration"
+  ],
+  "demonstratedNonWorkingUserFeaturesFromTheseSevenRecords": [],
+  "functionalEvidenceIsNotFreshUserAcceptance": true,
+  "packageLockConfigDeploymentChanges": 0,
+  "installations": 0,
+  "tests": 0,
+  "builds": 0,
+  "restarts": 0,
+  "modelCalls": 0,
+  "analysisCalls": 0,
+  "scheduledAudits": 0,
+  "canonicalFindingStatusesChanged": false,
+  "otherOpenBoundary": "Numeric-prefix/embedded parser resource concerns remain separate and unpatched by Job guard",
+  "followupTaskStarted": false
+}
