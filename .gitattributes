@@ -14,3 +14,6 @@ apps/vehicle-app/public/audio/vision-speech/** -text
 apps/vehicle-app/public/audio/vision-speech/manifest.json whitespace=cr-at-eol
 # User-pinned model/head/parity hashes identify exact package bytes on every OS.
 services/core-api/models/dryness-calibrated-v3/** -text whitespace=cr-at-eol
+# Vendored package manifests pin exact bytes, including upstream license/source.
+vendor/braces/** -text whitespace=cr-at-eol
+vendor/*.tgz -text

@@ -13,7 +13,8 @@
     "start": "npm --workspace=apps/vehicle-app run start",
     "lint": "npm --workspace=apps/vehicle-app run lint",
     "typecheck": "npm --workspace=apps/vehicle-app run typecheck",
-    "test:backend": "pytest tests/unit -v"
+    "test:backend": "pytest tests/unit -v",
+    "preinstall": "node scripts/tooling/verify_package_manager.cjs"
   },
   "keywords": [
     "togg",
@@ -32,6 +33,15 @@
     "source-map-js": "1.2.2",
     "next@15.5.27": {
       "postcss": "8.5.28"
-    }
+    },
+    "braces": "$braces"
+  },
+  "packageManager": "npm@10.9.3",
+  "engines": {
+    "node": "22.20.0",
+    "npm": "10.9.3"
+  },
+  "devDependencies": {
+    "braces": "file:vendor/braces-3.0.3-attune.1.tgz"
   }
 }
