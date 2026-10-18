@@ -1,0 +1,572 @@
+{
+  "protocol": "qa-vehicle-read-candidate-v1",
+  "atUTC": "2026-10-18T12:26:23.813Z",
+  "scope": "in-process policy/real handler; no live API or browser acceptance",
+  "normalBackendRestarted": false,
+  "liveBackendRequestsDuringTests": 0,
+  "frontendBuildRun": false,
+  "productionActivation": false,
+  "parseImport": {
+    "ASTFiles": 3,
+    "actualMainImportedByTestClient": true
+  },
+  "pytest": {
+    "tests": 45,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "existingRegression": "test_privacy_api_regressions.py::test_cors_preflight_and_actual_request (3 origins)"
+  },
+  "caseEvidence": [
+    {
+      "case": "default-off-qa",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "default-off-normal-unchanged",
+      "status": 200,
+      "expectedStatus": 200,
+      "ACAO": "http://127.0.0.1:3000",
+      "credentials": null,
+      "cacheControl": null,
+      "vary": "Origin",
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "exact-get-real-moving-handler",
+      "status": 200,
+      "expectedStatus": 200,
+      "ACAO": "http://127.0.0.1:3447",
+      "credentials": null,
+      "cacheControl": "no-store",
+      "vary": "Origin",
+      "note": "Actual speed handler set37 in test process; real read must report moving, never force PARK",
+      "passed": true
+    },
+    {
+      "case": "post-speed-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "post-toggle-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "post-health-wipe-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "delete-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "head-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "other-health-read-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "other-path-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "trailing-slash-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "encoded-path-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "query-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "get-body-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "get-undeclared-body-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "chunked-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "cookie-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "empty-cookie-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "authorization-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "empty-authorization-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "preflight-denied",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "wrong-origin-http://localhost:3447",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "wrong-origin-http://127.0.0.1:3448",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "wrong-origin-https://127.0.0.1:3447",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "wrong-origin-http://127.0.0.1:3447.evil.invalid",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "duplicate-origin",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "duplicate-length",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "missing-both",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "missing-origin",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "missing-expiry",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "wrong-config-origin",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "invalid-expiry",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "naive-expiry",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "non-utc-expiry",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "already-expired",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "expires-now",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "over-45-minutes",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "wall-expiry-before",
+      "status": 200,
+      "expectedStatus": 200,
+      "ACAO": "http://127.0.0.1:3447",
+      "credentials": null,
+      "cacheControl": "no-store",
+      "vary": "Origin",
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "wall-expiry-after",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "wall-expiry-normal-still-allowed",
+      "status": 200,
+      "expectedStatus": 200,
+      "ACAO": "http://127.0.0.1:3000",
+      "credentials": null,
+      "cacheControl": null,
+      "vary": "Origin",
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "monotonic-expiry-with-wall-rollback-before",
+      "status": 200,
+      "expectedStatus": 200,
+      "ACAO": "http://127.0.0.1:3447",
+      "credentials": null,
+      "cacheControl": "no-store",
+      "vary": "Origin",
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "monotonic-expiry-with-wall-rollback-after",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "monotonic-expiry-with-wall-rollback-normal-still-allowed",
+      "status": 200,
+      "expectedStatus": 200,
+      "ACAO": "http://127.0.0.1:3000",
+      "credentials": null,
+      "cacheControl": null,
+      "vary": "Origin",
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "startup-only-snapshot",
+      "passed": true
+    },
+    {
+      "case": "absolute-utc-Z-config",
+      "status": 200,
+      "expectedStatus": 200,
+      "ACAO": "http://127.0.0.1:3447",
+      "credentials": null,
+      "cacheControl": "no-store",
+      "vary": "Origin",
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "expiry-during-handler",
+      "status": 403,
+      "expectedStatus": 403,
+      "ACAO": null,
+      "credentials": null,
+      "cacheControl": null,
+      "vary": null,
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "handler-503",
+      "status": 503,
+      "expectedStatus": 503,
+      "ACAO": "http://127.0.0.1:3447",
+      "credentials": null,
+      "cacheControl": "no-store",
+      "vary": "Origin",
+      "note": "",
+      "passed": true
+    },
+    {
+      "case": "normal-preflight-unchanged",
+      "status": 200,
+      "expectedStatus": 200,
+      "ACAO": "http://127.0.0.1:3000",
+      "credentials": null,
+      "cacheControl": null,
+      "vary": "Origin",
+      "note": "",
+      "passed": true
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "services/core-api/main.py",
+      "sha256": "cabc316943e89e71112c05caee5d31dd20852ff3d88e1a27bd5b21b1f1be2d71"
+    },
+    {
+      "path": "services/core-api/qa_vehicle_read.py",
+      "sha256": "82fae8b7464b9c271753c58f7d9abc4748c84e7a6210e66499de3de502396692"
+    },
+    {
+      "path": "tests/unit/test_qa_vehicle_read_policy.py",
+      "sha256": "6607364f556ba259d0ea0c08b29a17b4be43c000eb34fd223868b21a4338f279"
+    }
+  ],
+  "testArtifacts": [
+    {
+      "path": "candidate-policy-test.log",
+      "sha256": "15bfbad069cb9f67678b06d1e1cf0cfdd70da495003bae31f90a5dad78d34732"
+    },
+    {
+      "path": "candidate-policy-junit.xml",
+      "sha256": "ec2cb3824d12a99b3d9ed20291dad97dbdb9d44255b30e852d49358a671813b4"
+    },
+    {
+      "path": "candidate-parse-check.log",
+      "sha256": "135634bad4c4a8a19e21cf79d8f0feb8752a4c3397d2ba6dcebd04444a64491d"
+    }
+  ],
+  "notBrowserOrPhotoHistoryAcceptance": true
+}

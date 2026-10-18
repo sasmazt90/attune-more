@@ -17,6 +17,7 @@ import os
 from time import perf_counter
 from openai_client import get_openai_client, close_openai_client
 from pathlib import Path
+from qa_vehicle_read import QAVehicleReadPolicy, QA_VEHICLE_ORIGIN
 from hosted_skin_credentials import load_existing_backend_key
 load_existing_backend_key()
 
@@ -61,6 +62,9 @@ trusted_origins = [origin.strip() for origin in os.getenv(
 if not trusted_origins or "*" in trusted_origins:
     raise ValueError("ATTUNE_TRUSTED_ORIGINS must list explicit trusted origins")
 
+# Startup-only opt-in. This never adds the QA origin to the general CORS list.
+qa_vehicle_read_policy = QAVehicleReadPolicy.from_environment(os.environ)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=trusted_origins,
@@ -74,12 +78,26 @@ app.add_middleware(
 @app.middleware("http")
 async def enforce_browser_origin(request: Request, call_next):
     origin = request.headers.get("origin")
+    qa_read = False
+    if origin == QA_VEHICLE_ORIGIN:
+        qa_read = await qa_vehicle_read_policy.authorizes(request)
+        if not qa_read:
+            return JSONResponse(status_code=403, content={"detail": "Untrusted browser origin"})
     # CORS handles preflight. Reject actual untrusted browser requests before
     # they can mutate local health data, including simple POSTs without preflight.
-    if request.method != "OPTIONS" and origin is not None and origin not in trusted_origins:
+    if (not qa_read and request.method != "OPTIONS"
+            and origin is not None and origin not in trusted_origins):
         return JSONResponse(status_code=403, content={"detail": "Untrusted browser origin"})
     started = perf_counter()
     response = await call_next(request)
+    if qa_read:
+        # Expiry during a handler must not grant a late cross-origin response.
+        if not qa_vehicle_read_policy.active():
+            return JSONResponse(status_code=403, content={"detail": "Untrusted browser origin"})
+        response.headers["Access-Control-Allow-Origin"] = QA_VEHICLE_ORIGIN
+        if "origin" not in {v.strip().lower() for v in response.headers.get("Vary", "").split(",")}:
+            response.headers.add_vary_header("Origin")
+        response.headers["Cache-Control"] = "no-store"
     if request.url.path.startswith("/api/mental/"):
         existing = response.headers.get("Server-Timing")
         timing = f"app;dur={(perf_counter() - started) * 1000:.1f}"
