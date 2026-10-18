@@ -1,18 +1,30 @@
 """Focused launcher ownership/disabled-provider regressions; no external requests."""
-import hashlib,json,runpy,sys,types
+import ctypes,hashlib,json,runpy,sys,types
 from pathlib import Path
 import pytest
+import psutil  # Select the actual platform backend before any test-only bindings.
 ROOT=Path(__file__).resolve().parents[2]
 
-def load_launcher(monkeypatch):
+def load_launcher(monkeypatch, *, bind_native_stub=False):
  # These tests call the actual pure descriptor/identity functions, not a native
  # Windows launch. Fail loudly if a locking syscall is accidentally exercised.
- if sys.platform != 'win32':
+ if sys.platform != 'win32' or bind_native_stub:
   native=types.ModuleType('msvcrt')
-  def unavailable(*args):raise AssertionError('Native Windows locking needs a Windows lifecycle test')
+  def unavailable(*args):raise AssertionError('Native Windows operation needs a Windows lifecycle test')
   native.locking=unavailable
   monkeypatch.setitem(sys.modules,'msvcrt',native)
+  # Binding argtypes/restype at import is harmless; a fake native operation
+  # must never report success. The tested functions perform no Job syscalls.
+  bindings=types.SimpleNamespace(**{name:unavailable for name in (
+   'CreateJobObjectW','SetInformationJobObject','AssignProcessToJobObject','CloseHandle')})
+  monkeypatch.setattr(ctypes,'WinDLL',lambda *args,**kwargs:bindings,raising=False)
  return runpy.run_path(str(ROOT/'scripts/windows-launcher/start_togg.pyw'))
+
+def test_pure_loader_never_claims_native_windows_operations(monkeypatch):
+ module=load_launcher(monkeypatch,bind_native_stub=True)
+ assert callable(module['process_matches']) and callable(module['verify_delivery'])
+ with pytest.raises(AssertionError,match='Native Windows operation'):
+  module['kernel'].CloseHandle(None)
 
 def test_hosted_disabled_even_with_photo_consent_and_key(monkeypatch):
  sys.path.insert(0,str(ROOT/'services/core-api'))

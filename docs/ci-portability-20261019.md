@@ -16,7 +16,7 @@ skipped. Its frontend production build passed. Backend failures fell into:
 | Numeric history test had no service consent | The isolated in-memory store receives explicit consent through the real production consent setter. The append guard remains active. |
 | A purported unit test launched a live care browser | A deterministic blocked transport exercises the real provider's ACCESS_BLOCKED/public handoff. Assertions require source-only links, unknown time and no invented availability. |
 | Old static checks expected a replaced UI call or removed text fallback | Assertions follow the current overview adapter delegation and microphone rejection branch. They still require real-result binding and cancellation before recognition. |
-| Windows-only imports blocked pure ownership tests on Linux | Only the unused msvcrt locking surface is substituted on non-Windows and raises if called. Actual identity/descriptor functions and tamper assertions run. Native OS lifecycle acceptance is not claimed. URL tampering covers both app-mode and ordinary-window argv. |
+| Windows-only imports blocked pure ownership tests on Linux | The unused msvcrt locking and WinDLL import-time bindings are substituted on non-Windows; every native operation raises if called. Actual identity/descriptor functions and tamper assertions run. A focused loader control verifies that native calls cannot silently succeed. Native OS lifecycle acceptance is not claimed. URL tampering covers both app-mode and ordinary-window argv. |
 | Lease identity tests measured the whole already-imported pytest/Torch process or launched an unrelated observer | Controlled RSS/live-RAM/observer fixtures isolate ownership semantics. A separate over-budget assertion still requires fail-closed rejection. No production resource bound is raised. |
 | Hard-coded Windows Node path and obsolete speech fake signature | Resolve Node from the pinned environment; accept and assert the real positive connection/read timeout arguments in the fake provider. |
 
@@ -38,3 +38,11 @@ both passed after correcting the public-handoff expectation and supplying the
 synthetic eye axis. The speech fake's exact 5s/15s timeout contract also passed.
 Repeated targeted cases are not added to the distinct count. This is focused
 local evidence, not a substitute for the full clean-clone GitHub run.
+
+The first actual clean-clone rerun (39173356232, commit 78791a2) passed frontend
+build and reported 766 backend passes, 16 failures and 45 skips. All remaining
+failures were the same import-time WinDLL binding, after the earlier msvcrt
+boundary was repaired. The test-only binding facade above addresses that second
+platform prerequisite without skipping those 16 ownership/tamper assertions.
+The final local launcher-only check passed all 18 tests, including the new
+fail-on-native-call control, without changing the host's platform identity.
