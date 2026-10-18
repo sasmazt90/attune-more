@@ -9,6 +9,8 @@ for(const n of ['appearanceMeasurements','healthRecords','attuneMode'])fs.writeF
 const A=require(dir+'/appearanceMeasurements.js'),H=require(dir+'/healthRecords.js'),map=new Map();
 global.localStorage={getItem:k=>map.get(k)??null,setItem:(k,v)=>map.set(k,String(v)),removeItem:k=>map.delete(k)};
 global.window={dispatchEvent:()=>{},location:{search:''}};Object.defineProperty(global,'navigator',{value:{locks:{request:async(n,fn)=>fn()}}});global.crypto=require('crypto').webcrypto;
+// Explicit isolated consent fixture; never waive the production append guard.
+require('./apps/vehicle-app/src/utils/serviceConsent.ts').setServiceConsent('skin',['local']);
 const make=(value)=>({id:'sag',score:value,appearance:{type:'longitudinal_measurement',value,quality:value===null?'insufficient':'valid',methodVersion:'appearance-cv-1',unit:'normalized-contour-ratio',referenceId:null,limitationCode:value===null?'DETAIL_MISSING':'REFERENCE_CREATED',components:{features:[value,value]}},measurement:{rawValue:value,quality:value===null?'insufficient':'valid'}});
 let base=make(.4),row=make(.6);A.compareAppearance(row,base,true,'baseline');a(Math.abs(row.referenceDelta-.2)<1e-9);a.equal(row.appearance.referenceId,'baseline');
 row=make(.6);A.compareAppearance(row,base,false,'baseline');a.equal(row.appearance.limitationCode,'CAPTURE_CONDITIONS_INCOMPATIBLE');a.equal(row.referenceDelta,undefined);

@@ -91,7 +91,7 @@ def test_analytic_index_without_grades_requires_real_appearance_controls():
 def test_sag_exposure_quality_is_bound_to_the_measured_corridor():
  import numpy as np
  sys.path.insert(0,str(ROOT/'services/core-api'))
- from instant_appearance import instant_proxy
+ from skin_contract_fixtures import observed_neutral_proxy as instant_proxy
  points=[{'x':.5,'y':.5,'z':0} for _ in range(478)]
  locations={33:(.3,.35),263:(.7,.35),234:(.2,.5),454:(.8,.5),61:(.4,.7),291:(.6,.7),13:(.5,.7),14:(.5,.705),98:(.4,.5),205:(.35,.55),206:(.36,.6),216:(.37,.65),186:(.4,.74),172:(.3,.78),136:(.4,.82),132:(.25,.65),58:(.27,.72),150:(.45,.86)}
  for i,(x,y) in locations.items():points[i].update(x=x,y=y)

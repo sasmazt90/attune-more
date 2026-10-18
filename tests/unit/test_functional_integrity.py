@@ -123,7 +123,10 @@ def test_skin_real_result_ui_uses_analysis_result_not_demo_fixture():
 
     skin_page = root_dir / "apps" / "vehicle-app" / "src" / "app" / "skin" / "page.tsx"
     page_content = skin_page.read_text(encoding="utf-8")
-    assert "buildSkinRegionViewModel(" in page_content
+    # Overview now delegates regional views through the same real-data adapter.
+    assert "buildSkinViewModel(" in page_content
+    overview=(root_dir/'apps/vehicle-app/src/utils/skinOverview.ts').read_text(encoding='utf-8')
+    assert "buildSkinRegionViewModel(" in overview
 
 
 # ---------------------------------------------------------------------------
@@ -199,14 +202,16 @@ def test_camera_app_permission_false_blocks_skin_and_vision():
 # 10. Microphone App Permission: Blocks Mental Mic
 # ---------------------------------------------------------------------------
 def test_microphone_app_permission_false_blocks_mental_mic():
-    """Uygulama içi mikrofon izni kapalıysa Mental modülü ses tanımayı başlatmamalı ve metin girişini açmalıdır."""
+    """İzin yokken sesli akış iptal edilir; kaldırılmış yazılı fallback açılmaz."""
     mental_page = root_dir / "apps" / "vehicle-app" / "src" / "utils" / "useMentalConversation.ts"
     content = mental_page.read_text(encoding="utf-8")
 
     assert "isMicrophoneAllowed()" in content
     assert "!isMicrophoneAllowed()" in content
     assert "setNotice(" in content
-    assert "setTextMode(true)" in content
+    branch=content.split('if (!isMicrophoneAllowed() || !settings.current.speechConsent)',1)[1].split('const SR',1)[0]
+    assert "cancel(" in branch and "return;" in branch
+    assert "setTextMode(true)" not in content
 
 
 # ---------------------------------------------------------------------------

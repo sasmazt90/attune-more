@@ -7,6 +7,7 @@ ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'services/core-api'))
 sys.path.insert(0,str(ROOT/'scripts'))
 import appearance_analysis as A
+from skin_contract_fixtures import observed_neutral_proxy
 from test_local_appearance_health import photo
 
 def test_history_v4_v5_keep_separate_series_with_null_gaps_and_no_rewrite():
@@ -38,9 +39,9 @@ def test_low_continuity_zero_gate_is_eye_only_and_failure_stays_unknown(monkeypa
     eye=IA.instant_proxy(gray,eligible,p,'periorbital',cond,1,(0,0),gray.shape)
     assert eye[0]==0 and not eye[2].any() and eye[4] is None
     for region in ('rightCheek','leftCheek','chin'):
-        lower=IA.instant_proxy(gray,eligible,p,region,cond,1,(0,0),gray.shape)
+        lower=observed_neutral_proxy(gray,eligible,p,region,cond,1,(0,0),gray.shape)
         assert lower[0]==pytest.approx(100*.5*.1/.6)
-        assert lower[1]['formulaVersion']==('contour-fold-lower-chin-observed-runs-v9' if region=='chin' else 'contour-fold-visible-region-unique-centers-v7')
+        assert lower[1]['formulaVersion']==('contour-fold-lower-chin-observed-runs-v9' if region=='chin' else 'contour-fold-visible-region-unique-centers-v7')+'-expression-v3-observed-pose'
     unavailable=IA.instant_proxy(gray,eligible,p,'periorbital',dict(yaw=0.,pitch=.3),1,(0,0),gray.shape)
     assert unavailable[0] is None and unavailable[4]=='HEAD_ANGLE_UNSUPPORTED'
     assert not unavailable[2].any()
@@ -179,13 +180,13 @@ def test_target_c_eye_bags_version_and_eyelid_margin_separation():
 
     # Cheek / chin sag preservation: continuity gate < 0.20 zeroing must be strictly isolated to periorbital
     # In cheek/chin, continuity_gate = min(1.0, continuity / 0.6) and is NOT zeroed
-    gray = np.full((h, w), 150, np.uint8)
+    gray = np.full((h, w), 150/255, np.float32)
     eligible = np.ones((h, w), bool)
     cond = dict(yaw=0., pitch=0., roll=0., scaleRatio=.6, avgLuminance=150., blurScore=50.)
     # Call instant_proxy for rightCheek and periorbital with synthetic flat input
-    v_cheek, comp_cheek, sig_cheek, _, _ = IA.instant_proxy(gray, eligible, p, 'rightCheek', cond, 1.0, (0, 0), (h, w))
+    v_cheek, comp_cheek, sig_cheek, _, _ = observed_neutral_proxy(gray, eligible, p, 'rightCheek', cond, 1.0, (0, 0), (h, w))
     assert 'times continuity/0.6' in comp_cheek['indexAggregation'], "Cheek must retain previous continuity/0.6 aggregation"
-    assert comp_cheek['formulaVersion'] == 'contour-fold-visible-region-unique-centers-v7'
+    assert comp_cheek['formulaVersion'] == 'contour-fold-visible-region-unique-centers-v7-expression-v3-observed-pose'
 
 
 def test_target_d_lines_radiating_angles_exclude_vertical_lash_and_hair():

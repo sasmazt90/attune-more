@@ -6,6 +6,7 @@ import subprocess
 def test_production_face_quality_region_notes_and_reminder_contracts(tmp_path):
     root=Path(__file__).resolve().parents[2]
     script=r"""
+require('./tests/unit/ts_loader.js');
 const fs=require('fs'),ts=require('typescript'),assert=require('assert');
 const dir=JSON.parse(fs.readFileSync(0,'utf8')).dir;
 function load(name){const source='apps/vehicle-app/src/'+name+'.ts',target=dir+'/'+name.split('/').pop()+'.cjs';fs.writeFileSync(target,ts.transpileModule(fs.readFileSync(source,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText);return require(target);}

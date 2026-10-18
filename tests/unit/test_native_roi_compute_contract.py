@@ -35,6 +35,10 @@ def test_atomic_lease_never_removes_foreign_pid_start_job(tmp_path,monkeypatch):
 
 def test_lease_rechecks_pid_start_job_and_only_removes_own_nonce(tmp_path,monkeypatch):
     path=tmp_path/'shared.json';monkeypatch.setattr(H,'LOCK',path);monkeypatch.setattr(H,'AG_LOCK',tmp_path/'ag.lock');monkeypatch.setattr(H,'ag_workers',lambda:[])
+    import time
+    monkeypatch.setattr(H.HeavyJobLease,'start_owner_observer',lambda self:setattr(self,'observer_state',dict(ok=True,workers=[],observedAt=time.monotonic())))
+    monkeypatch.setattr(H.HeavyJobLease,'rss_mib',lambda self:32.)
+    monkeypatch.setattr(H,'available_physical_mib',lambda:4096.)
     with H.HeavyJobLease('CD-small-unit',peak_mib=2000,minimum_available_mib=0) as lease:
         row=json.loads(path.read_text());assert row['pid']==os.getpid() and row['jobId']=='CD-small-unit'
         row['nonce']='other-job-lease-nonce';path.write_text(json.dumps(row));lease.last_check=0

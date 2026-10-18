@@ -35,8 +35,9 @@ def test_unsupported_lower_face_stays_null_and_eye_method_unchanged():
 def test_frontend_matches_backend_neutral_gate_and_snapshot_copy():
  code=r'''
 require('./tests/unit/ts_loader.js');const fs=require('fs'),a=require('assert/strict'),E=require('./apps/vehicle-app/src/utils/skinExpression.ts'),S=require('./apps/vehicle-app/src/utils/skinSnapshot.ts'),A=require('./apps/vehicle-app/src/utils/skinAnalyzer.ts');
-const path=require('path').resolve('../attune-live-test/audit-results/material-closeout-20261013/camera-native-payload.json');const payload=JSON.parse(fs.readFileSync(path,'utf8'));
-const scores=Object.fromEntries(E.EXPRESSION_FIELDS.map(k=>[k,.01])),p=structuredClone(payload.landmarks);p[13]={x:.5,y:.6};p[14]={x:.5,y:.6001};
+// Explicit synthetic geometry: this is snapshot-copy/gate logic, not a camera replay.
+const scores=Object.fromEntries(E.EXPRESSION_FIELDS.map(k=>[k,.01])),p=Array.from({length:478},()=>({x:.5,y:.5,z:0}));
+for(const [i,x,y] of [[33,.3,.4],[263,.7,.4],[234,.2,.5],[454,.8,.5],[61,.4,.6],[291,.6,.6],[13,.5,.6],[14,.5,.6001]])p[i]={x,y,z:0};
 const align={landmarks:p,expressionScores:scores,faceCount:1};a.equal(E.lowerFaceExpressionReason(align,1280,960),undefined);
 const M=require('./apps/vehicle-app/src/utils/skinMultiAngle.ts');for(const [pose,yaw,ok] of [['FRONT',0,true],['FRONT',.3,false],['RIGHT',-.4,true],['RIGHT',.4,false],['LEFT',.4,true],['LEFT',-.4,false]])a.equal(M.matchesSkinAngle({...align,faceDetected:true,isMediaPipeActive:true,sourceFramed:true,yaw,pitch:0,roll:0,scaleRatio:.5},pose),ok);
 for(const [key,expected] of [['jawOpen','OPEN_MOUTH'],['mouthSmileLeft','SMILE'],['mouthFrownRight','FROWN'],['cheekPuff','CHEEK_PUFF'],['mouthPressRight','MOUTH_PRESS']]){a.equal(E.lowerFaceExpressionReason({...align,expressionScores:{...scores,[key]:.8}},1280,960),'EXPRESSION_'+expected)}

@@ -4,6 +4,7 @@ from pathlib import Path
 import cv2,numpy as np,pytest
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'services/core-api'))
 import appearance_analysis as A
+from skin_contract_fixtures import observed_neutral_proxy
 from skin_general import general_result
 from test_local_appearance_health import photo,landmarks
 
@@ -56,7 +57,7 @@ def test_fold_edge_and_independent_boundary_are_all_required(monkeypatch,fold,ed
  monkeypatch.setattr(IA,'curve_profile',profile)
  monkeypatch.setattr(IA,'boundary_support',lambda *args:dict(value=boundary,coverage=1.,points=[],supported=[]))
  gray=np.full((320,320),.5,np.float32)
- value,components,field,_,reason=IA.instant_proxy(gray,np.ones_like(gray,bool),landmarks(),'chin',dict(yaw=0.,pitch=0.),1,(0,0),gray.shape)
+ value,components,field,_,reason=observed_neutral_proxy(gray,np.ones_like(gray,bool),landmarks(),'chin',dict(yaw=0.,pitch=0.),1,(0,0),gray.shape)
  assert reason is None and value==0 and not field.any()
 
 def test_ordinary_mentolabial_crease_cannot_supply_lower_chin_index(monkeypatch):
@@ -70,7 +71,7 @@ def test_ordinary_mentolabial_crease_cannot_supply_lower_chin_index(monkeypatch)
  monkeypatch.setattr(IA,'boundary_support',lambda *args:dict(value=.08,coverage=1.,points=[],supported=[]))
  ys=np.arange(320)[:,None];mental=np.broadcast_to(.6-.18*np.exp(-((ys-208)/1.2)**2),(320,320)).astype('float32')
  lower=np.broadcast_to(.6-.18*np.exp(-((ys-249)/1.2)**2),(320,320)).astype('float32')
- def run(gray):return IA.instant_proxy(gray,np.ones_like(gray,bool),points,'chin',dict(yaw=0.,pitch=0.),1.,(0,0),gray.shape)
+ def run(gray):return observed_neutral_proxy(gray,np.ones_like(gray,bool),points,'chin',dict(yaw=0.,pitch=0.),1.,(0,0),gray.shape)
  old_crease=run(mental);actual_lower=run(lower)
  assert old_crease[4] is None and old_crease[0]==0 and not old_crease[2].any()
  assert actual_lower[4] is None and actual_lower[0]>0 and actual_lower[2].any()
@@ -95,7 +96,7 @@ def test_remote_jaw_edge_cannot_confirm_unrelated_chin_fold(monkeypatch,nearby_s
  monkeypatch.setattr(IA,'curve_profile',profile)
  monkeypatch.setattr(IA,'boundary_support',lambda *args:dict(value=.08,coverage=1.,points=[[160.,220.],[0.,220.]],supported=[True,True],_localSupport=[nearby_support,.08]))
  gray=np.full((320,320),.5,np.float32);visible=np.ones_like(gray,bool)
- value,components,field,_,reason=IA.instant_proxy(gray,visible,landmarks(),'chin',dict(yaw=0.,pitch=0.),1.,(0,0),gray.shape,boundary_geometry=visible)
+ value,components,field,_,reason=observed_neutral_proxy(gray,visible,landmarks(),'chin',dict(yaw=0.,pitch=0.),1.,(0,0),gray.shape,boundary_geometry=visible)
  assert reason is None and value==pytest.approx(expected)
  assert bool(field.any())==(nearby_support>0)
  assert '_localSupport' not in components['boundary']

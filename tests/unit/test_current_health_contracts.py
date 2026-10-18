@@ -6,7 +6,8 @@ sys.path.insert(0,str(ROOT/'services/core-api'))
 import cv2,numpy as np,pytest
 from PIL import Image,ImageOps
 from dental_upload import decode_upload,UploadError,LIMITS,analyze_upload
-from instant_appearance import curve_profile,boundary_support,instant_proxy
+from instant_appearance import curve_profile,boundary_support
+from skin_contract_fixtures import observed_neutral_proxy as instant_proxy
 from care_provider import available_window_match
 from test_local_appearance_health import landmarks,skin_input
 from appearance_analysis import analyze_skin

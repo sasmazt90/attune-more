@@ -10,6 +10,10 @@ def locks(tmp_path,monkeypatch):
     paths=[tmp_path/'cdc.json',tmp_path/'ag.lock']
     monkeypatch.setattr(H,'LOCK',paths[0]);monkeypatch.setattr(H,'AG_LOCK',paths[1]);monkeypatch.setattr(H,'ag_workers',lambda:[])
     monkeypatch.setattr(H.HeavyJobLease,'start_owner_observer',lambda self:setattr(self,'observer_state',dict(ok=True,workers=[],observedAt=time.monotonic())))
+    # This is a lease-identity unit test, not a budget for the whole pytest
+    # process (which may already contain Torch from other collected tests).
+    monkeypatch.setattr(H.HeavyJobLease,'rss_mib',lambda self:32.)
+    monkeypatch.setattr(H,'available_physical_mib',lambda:4096.)
     return paths
 
 def test_mid_run_observation_stale_or_active_blocks_with_valid_leases(locks):
@@ -28,6 +32,12 @@ def test_both_paths_have_same_real_identity_and_release_only_owned(locks):
         assert Path(a['workspace']).resolve()==Path.cwd().resolve() and a['jobId']=='CDC-unit' and len(a['nonce'])>=16
         lease.check()
     assert not any(p.exists() for p in locks)
+
+def test_resource_limit_still_fails_closed_with_controlled_measurement(locks):
+    with H.HeavyJobLease('CDC-unit-budget',peak_mib=500,minimum_available_mib=0) as lease:
+        lease.peak=501;lease.last_check=0
+        with pytest.raises(H.HeavyJobUnavailable,match='OWN_MEMORY_OR_RESERVE'):
+            lease.check()
 
 @pytest.mark.parametrize('index',[0,1])
 @pytest.mark.parametrize('raw',['','{','{"pid":123,"jobId":"legacy"}'])

@@ -86,7 +86,9 @@ def test_real_speech_boundary_nfc_and_single_provider_iterator(monkeypatch):
  from tts_profiles import MENTAL_WELLBEING_TTS_PROFILE
  calls=[]
  class Provider:
-  def __init__(self,text,voice,rate,pitch):calls.append((text,voice,rate,pitch))
+  def __init__(self,text,voice,rate,pitch,*,connect_timeout,receive_timeout):
+   assert connect_timeout==5 and receive_timeout==15
+   calls.append((text,voice,rate,pitch))
   async def stream(self):
    for data in (b'audio-1',b'audio-2',b'audio-3'):yield {'type':'audio','data':data}
  monkeypatch.setattr(vision_speech.edge_tts,'Communicate',Provider)

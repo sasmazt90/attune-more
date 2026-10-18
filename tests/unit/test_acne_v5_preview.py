@@ -6,7 +6,11 @@ ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'services/co
 import experimental_acne_v5 as preview
 from appearance_analysis import decode_photo
 
-def request_data():return json.loads((ROOT/'output/playwright/front-browser-api.json').read_text('utf8'))['payload']
+def request_data():
+ path=ROOT/'output/playwright/front-browser-api.json'
+ if not path.is_file():
+  pytest.skip('Historical browser replay requires local output/playwright/front-browser-api.json with its licensed photo and recorded geometry; not shipped in a clean clone')
+ return json.loads(path.read_text('utf8'))['payload']
 
 def test_default_off_and_normal_manifest(monkeypatch):
  monkeypatch.delenv('ATTUNE_EXPERIMENTAL_ACNE_V5',raising=False)
@@ -50,4 +54,5 @@ def test_stopped_request_never_starts_detector(monkeypatch):
  from native_material_budget import NativeRequestStopped
  monkeypatch.setenv('ATTUNE_EXPERIMENTAL_ACNE_V5','1')
  def stopped():raise NativeRequestStopped('CANCELLED')
- with pytest.raises(NativeRequestStopped):preview.analyze(request_data(),stopped)
+ monkeypatch.setattr(preview,'load',lambda:pytest.fail('Cancelled request started detector loading'))
+ with pytest.raises(NativeRequestStopped):preview.analyze({},stopped)

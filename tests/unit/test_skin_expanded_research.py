@@ -5,6 +5,7 @@ ROOT=Path(__file__).resolve().parents[2]
 
 def test_unreviewed_or_foreign_source_artifact_cannot_enter_user_result(tmp_path):
  script=r'''
+require('./tests/unit/ts_loader.js');
 const fs=require('fs'),ts=require('typescript'),a=require('assert/strict'),dir=JSON.parse(fs.readFileSync(0,'utf8')).dir;
 for(const n of ['skinResearchAdapter','skinIndicators','skinSurfaceAnalysis'])fs.writeFileSync(dir+'/'+n+'.js',ts.transpileModule(fs.readFileSync('apps/vehicle-app/src/utils/'+n+'.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText);
 const A=require(dir+'/skinResearchAdapter.js'),I=require(dir+'/skinIndicators.js');

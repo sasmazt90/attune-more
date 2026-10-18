@@ -4,6 +4,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 def test_fixed_scale_mask_units_source_immutability_and_contract(tmp_path):
  script=r'''
+require('./tests/unit/ts_loader.js');
 const fs=require('fs'),ts=require('typescript'),assert=require('assert/strict');const {dir}=JSON.parse(fs.readFileSync(0,'utf8'));
 function load(n){const p=dir+'/'+n+'.js';fs.writeFileSync(p,ts.transpileModule(fs.readFileSync('apps/vehicle-app/src/utils/'+n+'.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText);return require(p)}
 load('skinResearchAdapter');const S=load('skinSurfaceAnalysis'),I=load('skinIndicators');
