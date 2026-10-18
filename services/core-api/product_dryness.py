@@ -5,9 +5,9 @@ from pathlib import Path
 BASE=Path(__file__).resolve().parent/'models/dryness-calibrated-v3'
 HEAD_SHA='7f13c7cb4eb65a3fb44abf062563ee3aff605a6ef9ff3271c5e32e206fedb8e1'
 ORT_SHA='a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987'
-METHOD='appearance-native-dry-2'
-NORMALIZATION='native-calibrated-material-source-area-v8'
-SAMPLING='native-source-closed-cells-max-union-v5'
+METHOD='appearance-native-dry-3'
+NORMALIZATION='native-calibrated-dualscale-visible-source-area-v9'
+SAMPLING='native-half-accepted-source-max-v1'
 _runtime=None
 _lock=threading.Lock()
 
@@ -61,17 +61,6 @@ def replace_dryness(result,native,identity):
     return attach_result_receipts(result)
 
 def analyze_product(value,base_analyzer,check):
-    import psutil
-    import material_component_features as M
-    from native_dry_path import analyze_native_dry
-    started=time.monotonic()
-    def guard():
-        check()
-        if psutil.virtual_memory().available<400*2**20:raise DrynessModelUnavailable('LOCAL_MEMORY_RESERVE')
-    guard();result=base_analyzer(value);guard();head,encoder=runtime(guard);profile={}
-    def material_filter(image,field,metric):return M.filter_material_support_streamed(image,field,metric,encoder,head,check=guard)
-    native=analyze_native_dry(value,material_filter=material_filter,check=guard,profile=profile)
-    guard();identity=hashlib.sha256((HEAD_SHA+ORT_SHA+M.ENCODER_SHA).encode()).hexdigest()
-    result=replace_dryness(result,native,identity)
-    result['drynessRuntime'].update(profile=profile,fullAnalysisSeconds=time.monotonic()-started)
-    guard();return result
+    # The admitted fixed native/half kernel; no alternate head or scale choice.
+    from dry_dualscale_runtime_staging import analyze_product_candidate
+    return analyze_product_candidate(value,base_analyzer,check,promoted=True)

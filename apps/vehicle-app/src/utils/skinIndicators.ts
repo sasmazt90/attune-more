@@ -28,7 +28,7 @@ export function validSkinIndicators(value:unknown):value is SkinIndicators {
 }
 /** One allowlist for attachment and persistence; native v2 is dryness-only. */
 export function supportedAppearanceMethod(id:string,methodVersion:string) {
- return ['appearance-cv-1','appearance-cv-2','appearance-cv-3','appearance-cv-4','appearance-cv-5','appearance-cv-6'].includes(methodVersion)||(id==='dry'&&methodVersion==='appearance-native-dry-2')||(id==='acne'&&['appearance-acne-step0-verifier-v5-1','appearance-acne-step0-verifier-v5-2'].includes(methodVersion));
+ return ['appearance-cv-1','appearance-cv-2','appearance-cv-3','appearance-cv-4','appearance-cv-5','appearance-cv-6'].includes(methodVersion)||(id==='dry'&&['appearance-native-dry-2','appearance-native-dry-3'].includes(methodVersion))||(id==='acne'&&['appearance-acne-step0-verifier-v5-1','appearance-acne-step0-verifier-v5-2'].includes(methodVersion));
 }
 export function validMeasurement(row:SkinIndicator,region:string) {
  const appearance=row.appearance;
