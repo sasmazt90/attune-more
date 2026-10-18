@@ -320,6 +320,25 @@
       "contractHash": "bc509b8d87fbeb711c4edf4b1e748fcb57a3f1946c920c7e2caf68db19f45c54",
       "sha256": "ecf987d8da58d5f83488da5ae6e899010966d2d0a6745f223283cbf6629a57d1",
       "url": "/audio/guidance/bc509b8d87fbeb711c4edf4b1e748fcb57a3f1946c920c7e2caf68db19f45c54.mp3"
+    },
+    "skin-neutral": {
+      "text": "Ağzınızı kapatın. Gülümsemeden yüzünüzü rahat bırakın; başınızı istenen pozda sabit tutun.",
+      "voice": "tr-TR-AhmetNeural",
+      "rate": "-10%",
+      "pitch": "-10Hz",
+      "textVersion": "guidance-20261009-v1",
+      "contractHash": "574b1c2f1fcd0bf4f7c597476875ac563a91959bb2fc144f1bce948156a0adaf",
+      "sha256": "31bb07e63c73ecba688a7546469d70c136985f0e65e1d4ddedbcdc9f2151b970",
+      "url": "/audio/guidance/574b1c2f1fcd0bf4f7c597476875ac563a91959bb2fc144f1bce948156a0adaf.mp3",
+      "admission": {
+        "version": "fixed-neutral-decoded-v1",
+        "codec": "mp3",
+        "sampleRate": 24000,
+        "channels": 1,
+        "durationSeconds": 9.12,
+        "decodedSamples": 218880,
+        "decodeReceiptSHA256": "29e842da99b3834eb7408ca4d230f6c88290b584adbfb08e87e02c14258a2104"
+      }
     }
   },
   "auditoryAcceptance": "not-performed",

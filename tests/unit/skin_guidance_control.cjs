@@ -16,14 +16,15 @@ async function step(ms){now+=ms;for(const [id,t] of [...timers])if(t.at<=now){ti
 (async()=>{
  const G=require('../../apps/vehicle-app/src/utils/audioGuidance.ts'),api=G.useGuidance('skin',true);
  try{
-  api.issue('pose-front','skin-front');await step(899);assert.equal(plays,0);await step(1);assert.equal(plays,1);lastAudio.onended();
-  for(let i=0;i<5;i++)api.issue('pose-front','skin-front');await step(5000);assert.equal(plays,1);
-  api.issue('');await step(1200);api.issue('pose-front','skin-front');await step(900);assert.equal(plays,2);
+  assert.equal(G.skinNeutralGuidance(),'skin-neutral');
+  api.issue('expression-open','skin-neutral');await step(899);assert.equal(plays,0);await step(1);assert.equal(plays,1);lastAudio.onended();
+  for(let i=0;i<5;i++)api.issue('expression-open','skin-neutral');await step(5000);assert.equal(plays,1);
+  api.issue('');await step(1200);api.issue('expression-open','skin-neutral');await step(900);assert.equal(plays,2);
   G.muteGuidance(true);assert(pauses>0);api.issue('pose-left','skin-left');await step(900);assert.equal(plays,2);
   G.muteGuidance(false);api.cancel();api.issue('pose-right','skin-right');api.cancel();await step(1000);assert.equal(plays,2);
   refs[0].current=false;api.issue('disabled','skin-front');await step(900);assert.equal(plays,2);api.cancel();refs[0].current=true;
   location.pathname='/privacy';api.issue('outside-health','skin-front');await step(900);assert.equal(plays,2);
-  assert.equal(G.skinNeutralGuidance(),undefined); // Failed clip is not faked/admitted.
+  assert.equal(G.skinNeutralGuidance(),'skin-neutral'); // Real decoded fixed asset is admitted.
  }finally{api.cancel();for(const f of cleanup)if(typeof f==='function')f();Module._load=nativeLoad;global.setTimeout=nativeTimeout;global.clearTimeout=nativeClear}
- assert.equal(timers.size,0);console.log('PASS 900ms stability / once per issue / 1200ms recovery / mute / cancel / disabled / route boundary / no fake neutral clip');
+ assert.equal(timers.size,0);console.log('PASS admitted neutral clip / 900ms stability / once per issue / 1200ms recovery / mute / cancel / disabled / route boundary');
 })().catch(e=>{console.error(e);process.exitCode=1});
