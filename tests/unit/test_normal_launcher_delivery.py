@@ -63,7 +63,7 @@ def test_browser_rejects_other_identity_changes(monkeypatch,change):
  if change=='exe':process.executable=str(ROOT/'unrelated-chrome.exe')
  elif change=='argv-exe':process.arguments=[str(ROOT/'unrelated-chrome.exe')]+process.arguments[1:]
  elif change.endswith('profile'):process.arguments=[a if not a.startswith('--user-data-dir=') else '--user-data-dir=another-profile' for a in process.arguments]
- elif change.endswith('app-url'):process.arguments=[a if not a.startswith('--app=') else '--app=http://127.0.0.1:9999' for a in process.arguments]
+ elif change.endswith('app-url'):process.arguments=[a if a!=module['URL'] else 'http://127.0.0.1:9999' for a in process.arguments]
  elif change.endswith('extra-argument'):process.arguments=process.arguments+['--arbitrary-string='+str(module['PROFILE'])]
  elif change=='start-time':process.started+=1
  elif change=='pid-reuse':process.running=False
