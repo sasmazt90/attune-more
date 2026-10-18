@@ -2,12 +2,19 @@
 import hashlib,json,os,time,uuid,threading,math,subprocess,sys
 from pathlib import Path
 import psutil
+from physical_memory import available_physical_bytes, PhysicalMemoryUnavailable
 ROOT=Path(__file__).resolve().parents[2]
 LOCK=ROOT.parent/'coordination-notes/heavy-compute.lock.json'
 AG_LOCK=ROOT.parent/'heavy_job.lock'
 AG_ROOT=(ROOT.parent/'attune-antigravity-skin').resolve()
 
 class HeavyJobUnavailable(RuntimeError):pass
+
+
+def available_physical_mib():
+    try:return available_physical_bytes()/2**20
+    except PhysicalMemoryUnavailable as error:
+        raise HeavyJobUnavailable('Physical RAM unavailable; own work stopped') from error
 
 def process_names(include_parents=False):
     if os.name!='nt':return [(p.pid,p.info['name'] or '',p.info['ppid']) if include_parents else (p.pid,p.info['name'] or '') for p in psutil.process_iter(['name','ppid'])]
@@ -142,7 +149,7 @@ class HeavyJobLease:
             if row is not None:
                 verify_process_identity(row)
                 raise HeavyJobUnavailable(f'Existing shared lease retained at {path.name}; no takeover')
-        available=psutil.virtual_memory().available/2**20;workers=ag_workers()
+        available=available_physical_mib();workers=ag_workers()
         if available<self.minimum or workers:raise HeavyJobUnavailable(json.dumps(dict(reason='RESOURCE_OR_AG_BUSY',availableMiB=available,requiredMiB=self.minimum,AG=workers)))
         LOCK.parent.mkdir(exist_ok=True)
         identity=dict(schema='attune-dual-atomic-lease-v2',owner='CDC',pid=os.getpid(),processStarted=self.process.create_time(),startTime=self.process.create_time(),workspace=str(Path(self.process.cwd()).resolve()),jobId=self.job,nonce=self.nonce,commandSHA256=hashlib.sha256('\0'.join(self.process.cmdline()).encode()).hexdigest(),peakBudgetMiB=self.limit,memoryBudgetMetric=self.memory_metric,minimumAvailableMiB=self.minimum)
@@ -207,7 +214,7 @@ class HeavyJobLease:
         if self.monitor_error:raise HeavyJobUnavailable('Memory monitor failed; own work stopped: '+str(self.monitor_error))
         if self.memory_metric=='private':self.private_peak=max(self.private_peak,self.private_mib())
         self.verify_owned()
-        available=psutil.virtual_memory().available/2**20
+        available=available_physical_mib()
         budget_peak=self.private_peak if self.memory_metric=='private' else self.peak
         if budget_peak>self.limit or available<400:raise HeavyJobUnavailable(json.dumps(dict(reason='OWN_MEMORY_OR_RESERVE',metric=self.memory_metric,peakMiB=budget_peak,summedRSSMiB=self.peak,limitMiB=self.limit,availableMiB=available)))
         self.verify_observation()
