@@ -1,4 +1,5 @@
 'use client';
+import { PRODUCT_NAME } from '../../utils/brand';
 import {HealthStartCard,HEALTH_START_ACTION} from '../../components/HealthStartCard';
 import { careHref,HEALTH_MODULES } from '../../utils/healthModules';
 import { useGuidance } from '../../utils/audioGuidance';
@@ -48,7 +49,7 @@ export default function MentalPage() {
 
   const conversationTranscript = <div ref={transcript} data-conversation-transcript className="max-h-[28rem] overflow-y-auto space-y-3" onScroll={() => { const el = transcript.current; if (el) follow.current = el.scrollHeight - el.scrollTop - el.clientHeight < 60; }}>
         {!c.messages.length && <p className="text-sm text-slate-400">Görüşmeyi başlattığınızda sesli konuşabilirsiniz.</p>}
-        {c.messages.map((m, i) => <article key={m.id} data-chat-author={m.sender} data-chat-position={i} data-turn={m.turn} className={`rounded-xl border p-3 text-sm ${m.isCrisis ? 'border-rose-500 bg-rose-950' : m.sender === 'USER' ? 'border-togg-turquoise/30 bg-togg-darkBlue' : 'border-white/10 bg-slate-950'}`}><p className="text-xs text-slate-400">{m.sender === 'USER' ? 'Siz' : 'Attune'} · {m.time}</p><p className="mt-1 whitespace-pre-line break-words">{spokenText(m.text)}</p><span data-provider-kind={m.providerBadge?.split(" ")[0]} /></article>)}
+        {c.messages.map((m, i) => <article key={m.id} data-chat-author={m.sender} data-chat-position={i} data-turn={m.turn} className={`rounded-xl border p-3 text-sm ${m.isCrisis ? 'border-rose-500 bg-rose-950' : m.sender === 'USER' ? 'border-togg-turquoise/30 bg-togg-darkBlue' : 'border-white/10 bg-slate-950'}`}><p className="text-xs text-slate-400">{m.sender === 'USER' ? 'Siz' : PRODUCT_NAME} · {m.time}</p><p className="mt-1 whitespace-pre-line break-words">{spokenText(m.text)}</p><span data-provider-kind={m.providerBadge?.split(" ")[0]} /></article>)}
   </div>;
 
   return <div className={c.phase==='ready'?'space-y-6 max-w-5xl mx-auto':'grid grid-cols-1 lg:grid-cols-2 gap-6 items-start'}>
@@ -74,7 +75,7 @@ export default function MentalPage() {
       {!isParked && <p className="text-amber-200">Sürüş sırasında görüşme kapalıdır. Lütfen dikkatinizi yola verin.</p>}
       <p className="text-xs">Acil Kriz Destek: <strong>112 Acil Çağrı</strong></p>
     </section>
-    {!c.active && c.messages.some(m => m.sender === 'AI' && m.isCrisis) && <section role="alert" aria-label="Acil destek yanıtı" className="rounded-2xl border border-rose-500 bg-rose-950 p-6"><h2 className="font-bold mb-3">Acil destek</h2>{c.messages.filter(m => m.sender === 'AI' && m.isCrisis).slice(-1).map(m => <article key={m.id} data-chat-author="AI" data-turn={m.turn}><p className="text-xs text-rose-200">Attune · {m.time}</p><p className="whitespace-pre-line break-words mt-2">{spokenText(m.text)}</p></article>)}</section>}
+    {!c.active && c.messages.some(m => m.sender === 'AI' && m.isCrisis) && <section role="alert" aria-label="Acil destek yanıtı" className="rounded-2xl border border-rose-500 bg-rose-950 p-6"><h2 className="font-bold mb-3">Acil destek</h2>{c.messages.filter(m => m.sender === 'AI' && m.isCrisis).slice(-1).map(m => <article key={m.id} data-chat-author="AI" data-turn={m.turn}><p className="text-xs text-rose-200">{PRODUCT_NAME} · {m.time}</p><p className="whitespace-pre-line break-words mt-2">{spokenText(m.text)}</p></article>)}</section>}
     {c.active && isParked && <section data-live-transcript className="bg-cockpit-surface border border-white/10 rounded-2xl p-6 space-y-5"><h2 className="font-bold">Görüşme Akışı</h2>{conversationTranscript}<button onClick={referral} className="text-togg-turquoise font-bold text-sm">PSİKOLOG SEÇENEKLERİNİ GÖR</button></section>}
     {!c.active && isParked && !demo && <section data-mental-history className="bg-cockpit-surface border border-white/10 rounded-2xl p-6 space-y-5">
       <div className="flex items-center justify-between gap-3"><h2 className="font-bold">Görüşme temaları</h2><InformationButton title="Görüşme temaları"><p>Bu grafik tanı veya ölçülmüş stres düzeyi değildir; tamamlanmış ve saklama izinli görüşmelerdeki tema paylarını gösterir. Çok temalı görüşmeler her farklı temaya bir kez katkı verir; yüzdeler toplamı 100 olacak şekilde yuvarlanır. Tamamlanma ve izin bilgisi doğrulanamayan eski kayıtlar grafiğe katılmaz.</p></InformationButton></div>

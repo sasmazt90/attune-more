@@ -1,8 +1,8 @@
 {
-  "name": "togg-health-mvp",
+  "name": "attune-more",
   "version": "0.1.0",
   "private": true,
-  "description": "Togg Akıllı Cihazları İçin Bütünleşik, Yapay Zekâ Destekli Önleyici Sağlık Platformu",
+  "description": "Attune.more kişiselleştirilmiş sağlık ve iyi oluş ön değerlendirmesi",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -17,7 +17,7 @@
     "preinstall": "node scripts/tooling/verify_package_manager.cjs"
   },
   "keywords": [
-    "togg",
+    "attune-more",
     "automotive",
     "digital-health",
     "preventive-health",
@@ -26,7 +26,7 @@
     "mental-wellbeing",
     "care-agent"
   ],
-  "author": "Togg Health MVP Team",
+  "author": "Attune.more Team",
   "license": "UNLICENSED",
   "overrides": {
     "postcss-selector-parser": "7.1.6",

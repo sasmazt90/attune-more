@@ -1,5 +1,5 @@
 /**
- * Togg Health MVP - Vehicle Context Types
+ * Attune.more - Vehicle Context Types
  * Araç durumu, sürüş modu ve sensör soyutlama tanımları
  */
 

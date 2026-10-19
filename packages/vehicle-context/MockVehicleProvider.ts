@@ -2,7 +2,7 @@ import { VehicleState, IVehicleProvider, DriverFatigueLevel } from './types';
 
 /**
  * MockVehicleProvider
- * Togg API'leri entegre edilmeden önce araç telemetrisini ve durumunu simüle eder.
+ * Gerçek araç üreticisi API'leri entegre edilmeden önce araç telemetrisini ve durumunu simüle eder.
  * UI üzerinden tek tıkla Park (0 km/s) ve Sürüş (85 km/s) modları arasında geçiş sağlar.
  */
 export class MockVehicleProvider implements IVehicleProvider {

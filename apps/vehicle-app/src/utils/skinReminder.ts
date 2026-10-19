@@ -26,7 +26,7 @@ export function cancelSkinReminder(): void {
 export function buildReminderCalendar(item: SkinReminder): string {
   if (!/^[a-zA-Z0-9-]+$/.test(item.id) || !Number.isFinite(Date.parse(item.dueAt))) throw new Error('Invalid reminder');
   const stamp = (date: Date) => date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
-  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Attune//Local Follow-up//TR', 'BEGIN:VEVENT',
+  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Attune.more//Local Follow-up//TR', 'BEGIN:VEVENT',
     `UID:${item.id}@attune.local`, `DTSTAMP:${stamp(new Date())}`, `DTSTART:${stamp(new Date(item.dueAt))}`,
     'DURATION:PT15M', 'SUMMARY:Planlanan takip', 'DESCRIPTION:Uygulamadaki planlanan takibi kontrol edin.',
     'BEGIN:VALARM', 'TRIGGER:PT0M', 'ACTION:DISPLAY', 'DESCRIPTION:Planlanan takip', 'END:VALARM',

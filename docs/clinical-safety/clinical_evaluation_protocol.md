@@ -1,6 +1,6 @@
 # Klinik Değerlendirme ve Güvenlik Protokolü
 
-Bu doküman, **Togg Health MVP** sisteminde uygulanan non-diagnostic (teşhis içermeyen) klinik güvenlik protokollerini, dil kurallarını ve acil durum eskalasyon eşiklerini açıklar.
+Bu doküman, **Attune.more** için non-diagnostic (teşhis içermeyen) güvenlik hedeflerini, dil kurallarını ve acil durum eskalasyon eşiklerini açıklar. Bir kuralın burada yazılı olması, her güncel akışta klinik olarak doğrulandığı anlamına gelmez; güncel ürün kapsamı için [README](../../README.md) esas alınır.
 
 ---
 

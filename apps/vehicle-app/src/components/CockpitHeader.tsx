@@ -2,6 +2,8 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { ProductWordmark } from './ProductWordmark';
+import { PRODUCT_NAME } from '../utils/brand';
 import {PlaybackWave} from './PlaybackWave';
 import { muteGuidance } from '../utils/audioGuidance';
 import { HEALTH_MODULES, HEALTH_MODULE_IDS, HEALTH_CENTRE_MENU_IDS } from '../utils/healthModules';
@@ -37,15 +39,15 @@ export const CockpitHeader: React.FC = () => {
       {/* Üst Telemetri ve Güvenlik Durum Çubuğu */}
       <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-2 border-b border-white/5 text-xs">
         <div className="flex items-center gap-4">
-          <Link href="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
+          <Link href="/" aria-label={PRODUCT_NAME} className="flex items-center gap-3 hover:opacity-90 transition-opacity">
             <img
-              src="/brand/togg/togg-logo.svg"
-              alt="Togg"
+              src="/brand/attune-more/icon.svg"
+              alt=""
+              aria-hidden="true"
               className="h-5 w-auto object-contain"
             />
-            <span className="h-3.5 w-px bg-slate-700/60" />
             <span className="font-extrabold text-white tracking-wide text-sm flex items-center">
-              Attune<span className="text-togg-turquoise">.more</span>
+              <ProductWordmark />
             </span>
           </Link>
 
@@ -58,7 +60,7 @@ export const CockpitHeader: React.FC = () => {
 
           {/* Sürüş / Park Durumu */}
           <span data-vehicle-status className={`flex items-center gap-2 rounded-full px-3 py-2 border text-xs ${isParked?'text-emerald-300 border-emerald-800':'text-amber-200 border-amber-700'}`}><Car className="w-3.5 h-3.5"/>{syncStatus!=='synced'?(syncStatus==='failed'?'ARAÇ DURUMU BELİRSİZ':'ARAÇ DURUMU DOĞRULANIYOR'):isParked?'PARK':'SÜRÜŞ'}</span>
-          <InformationButton title="Demo araç durumu"><p>Windows MVP’si gerçek araç API/CAN bağlantısına sahip değildir. Aşağıdaki demo kontrolü gerçek frontend/backend durumunu değiştirir. PARK doğrulanmadan işlemler açılmaz. Kamera ve mikrofonun native izinleri araç sensörlerinden bağımsızdır.</p>          <button
+          <InformationButton title="Demo araç durumu"><p>Bu Windows uygulaması gerçek araç API/CAN bağlantısına sahip değildir. Aşağıdaki demo kontrolü gerçek frontend/backend durumunu değiştirir. PARK doğrulanmadan işlemler açılmaz. Kamera ve mikrofonun native izinleri araç sensörlerinden bağımsızdır.</p>          <button
             onClick={toggleDrivingMode}
             disabled={syncStatus === 'loading' || syncStatus === 'updating'}
             className={`flex items-center gap-2 px-3 py-1 rounded-full shrink-0 font-bold text-xs transition-all border shadow-sm ${

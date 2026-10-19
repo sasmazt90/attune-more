@@ -1,5 +1,5 @@
 /**
- * Togg Health MVP - Unified Health Profile Types
+ * Attune.more - Unified Health Profile Types
  * Dört modülün paylaştığı merkezi kullanıcı ve sağlık geçmişi modelleri
  */
 

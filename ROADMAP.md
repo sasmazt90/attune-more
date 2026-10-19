@@ -1,6 +1,6 @@
 # Ürün Yol Haritası (ROADMAP.md)
 
-Bu yol haritası, **Togg Health MVP**'nin çalışan bir yerel prototipten Togg araç içi PoC aşamasına ve sağlık ağı ekosistemine uzanan stratejik gelişim basamaklarını tanımlar.
+Bu yol haritası, **Attune.more**'un yerel prototipten üreticiden bağımsız araç ve mobil entegrasyon hedeflerine uzanan gelişim basamaklarını tanımlar. Aşağıdaki ilk-MVP kapsamı tarihsel bir plan kesitidir; güncel teslim durumu için [README](README.md) esas alınır. Üretici ortaklığı veya gerçek araç entegrasyonu henüz doğrulanmış değildir.
 
 ---
 
@@ -16,13 +16,13 @@ Bu yol haritası, **Togg Health MVP**'nin çalışan bir yerel prototipten Togg 
 
 ---
 
-## Aşama 2: Togg PoC ve Araç İçi Entegrasyon Aşaması (Sonraki Adım)
-* **Hedef:** Togg test araçlarında veya kabin simülatöründe PoC doğrulaması.
+## Aşama 2: Araç Üreticisi PoC ve Araç İçi Entegrasyon Aşaması (Planlanan)
+* **Hedef:** Erişim sağlanırsa hedef üreticinin test araçlarında veya kabin simülatöründe PoC doğrulaması.
 * **Kapsam:**
-  - Togg tarafından PoC kapsamında erişime açılacak uygun kamera, giriş, ses, navigasyon ve araç bağlamı API/SDK'ları doğrultusunda uyarlanacaktır.
+  - Hedef üreticinin PoC kapsamında erişime açabileceği kamera, giriş, ses, navigasyon ve araç bağlamı API/SDK'larına göre uyarlama planlanır.
   - Direksiyon tuşları erişilebilir ise Landolt C yön seçiminde alternatif giriş yöntemi olarak değerlendirilebilir.
   - Araç içi mikrofon ve hoparlörler ile sesli diyalog entegrasyonu (uygun ses API/SDK erişimi kapsamında).
-  - Togg kullanıcı profili ile oturum açma soyutlaması.
+  - Araç ve eşlikçi mobil uygulama kullanıcı profili ile oturum açma soyutlaması.
 
 ---
 

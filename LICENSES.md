@@ -7,10 +7,10 @@ Aşağıdaki ilk-MVP/tarihsel değerlendirmeler güncel ağırlık envanteri de�
 evrensel kullanım yasağı olduğu anlamına gelmez. Kaynak matrisindeki açık izin,
 belirli eyleme bağlı kısıt ve eksik belge ayrı tutulur; ürün bayrakları değişmez.
 
-Bu belge, **Togg Health MVP** projesinde kullanılan, referans alınan veya ilerleyen aşamalarda entegre edilmesi planlanan tüm kütüphane, model, veri seti ve araçların lisans durumlarını ve ticari uygunluk değerlendirmelerini içerir.
+Bu belge, **Attune.more** projesinde kullanılan, referans alınan veya ilerleyen aşamalarda entegre edilmesi planlanan kütüphane, model, veri seti ve araçların lisans durumlarını ve ticari uygunluk değerlendirmelerini içerir.
 
 > [!IMPORTANT]
-> **Proje Kodlarımızın Lisans Durumu:** Bu reponun public olması kodun açık kaynak/MIT lisanslı olduğu anlamına gelmez. `togg-health-mvp` ürün ve uygulama kodları **UNLICENSED (Telif Hakkı Saklıdır / Özel Mülkiyet)** statüsündedir. Bu belge, yalnızca kullandığımız üçüncü taraf dependency/model/dataset lisanslarının uyumluluğunu şeffaf biçimde belgelemektedir. Third-party kütüphanelerin MIT/Apache-2.0 olması, ürün kodumuzun MIT olduğu anlamına gelmez.
+> **Proje Kodlarımızın Lisans Durumu:** Bu reponun public olması kodun açık kaynak/MIT lisanslı olduğu anlamına gelmez. Attune.more ürün ve uygulama kodları **UNLICENSED (Telif Hakkı Saklıdır / Özel Mülkiyet)** statüsündedir. Bu belge, yalnızca kullandığımız üçüncü taraf dependency/model/dataset lisanslarının uyumluluğunu şeffaf biçimde belgelemektedir. Third-party kütüphanelerin MIT/Apache-2.0 olması, ürün kodumuzun MIT olduğu anlamına gelmez.
 
 ---
 
