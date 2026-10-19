@@ -98,9 +98,11 @@ jobs:
       - name: Verify host tools, APKs and application imports before emulator boot
         id: preflight
         run: |
+          set -o pipefail
           python -m pip check
           python tests/automotive/runtime_preflight.py --stage tools
           python tests/automotive/validate_emulator.py --preflight
+          python -m pytest tests/automotive/test_car_restriction_source.py tests/automotive/test_emulator_harness.py tests/unit/test_automotive_contract.py -q -rA 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/safety-preflight-tests.log"
       - name: Boot real AAOS and run finite checks
         id: emulator
         # One launch of the audited SDK; no upstream SDK reinstallation after

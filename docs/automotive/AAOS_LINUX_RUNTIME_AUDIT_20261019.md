@@ -1,5 +1,9 @@
 # AAOS Linux runtime audit after run #119
 
+> Historical runtime audit. Run #120 subsequently passed SDK/native dependency
+> setup and boot, then failed APK installation. Current image/Car compatibility
+> findings and readiness are in [AAOS_CAR_COMPATIBILITY_AUDIT_20261019.md](AAOS_CAR_COMPATIBILITY_AUDIT_20261019.md).
+
 **GitHub Actions remains stopped.** This task starts no job, emulator guest, retry, deployment or paid service. Consolidated infrastructure changes are verified in managed Cloud before feature-only commit/push. This report supersedes the earlier readiness conclusion in `AAOS_PIPELINE_AUDIT_20261019.md`.
 
 ## First actual failure and previous verification gap

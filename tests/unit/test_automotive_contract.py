@@ -31,6 +31,12 @@ def test_manifest_requires_aaos_but_does_not_require_camera_or_microphone():
     assert not any('CAR_SPEED' in e.get(ANDROID + 'name', '') or 'CAR_POWERTRAIN' in e.get(ANDROID + 'name', '')
                    for e in manifest.findall('uses-permission'))
     assert manifest.find('application').get(ANDROID + 'allowBackup') == 'false'
+    # android.car is a boot-classpath API, not a PM-registered shared library
+    # on the pinned AAOS 35-ext15 image. Compilation still uses the SDK stubs.
+    for path in (APP / 'src/main/AndroidManifest.xml',
+                 ROOT / 'tests/automotive/emulator-probe/src/main/AndroidManifest.xml'):
+        assert not any(e.get(ANDROID + 'name') == 'android.car'
+                       for e in ET.parse(path).getroot().iter('uses-library'))
     rules = ET.parse(APP / 'src/main/res/xml/data_extraction_rules.xml').getroot()
     for mode in ('cloud-backup', 'device-transfer'):
         assert {e.get('domain') for e in rules.find(mode).findall('exclude')} == {

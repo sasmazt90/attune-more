@@ -43,13 +43,16 @@ public final class RestrictionProbe extends Instrumentation {
                             result.putString("doRequired", Boolean.toString(ux.isRequiresDistractionOptimization()));
                             result.putString("restrictionFlags", Integer.toString(ux.getActiveRestrictions()));
                         }
-                    } catch (RuntimeException error) { result.putString("error", error.toString()); }
+                    } catch (RuntimeException | LinkageError error) { result.putString("error", error.toString()); }
                     finally { done.countDown(); }
                 });
             if (!done.await(10, TimeUnit.SECONDS)) result.putString("error", "Car service timeout");
-        } catch (Exception error) { result.putString("error", error.toString()); }
+        } catch (Exception | LinkageError error) { result.putString("error", error.toString()); }
         finally {
-            if (car != null) car.disconnect();
+            if (car != null) {
+                try { car.disconnect(); }
+                catch (RuntimeException | LinkageError error) { result.putString("error", error.toString()); }
+            }
             finish(result.containsKey("error") ? 0 : -1, result);
         }
     }

@@ -22,7 +22,7 @@ PACKAGE = 'more.attune.automotive.prototype.debug'
 COMPONENT = PACKAGE + '/more.attune.automotive.MainActivity'
 PROBE = 'more.attune.validation/more.attune.validation.RestrictionProbe'
 CHECKS = [
-    'aaos-runtime', 'apk-install', 'activity-start', 'platform-parked',
+    'aaos-runtime', 'platform-compatibility', 'apk-install', 'activity-start', 'platform-parked',
     'webview-backend', 'navigation', 'backend-moving-lock', 'platform-moving-lock',
     'background-lifecycle', 'backend-offline', 'web-load-error-recovery',
     'permissions-initial', 'permissions-denial', 'unsupported-hardware', 'crashes-console',
@@ -110,7 +110,7 @@ def host_preflight(out):
         path = sdk_tool(name)
         result = subprocess.run([path, flag], capture_output=True, text=True, timeout=20, check=True)
         checks[name] = {'path': path, 'version': (result.stdout + result.stderr)[:2000]}
-    for name in ('node', 'java'):
+    for name in ('node', 'java', 'javac'):
         assert shutil.which(name), f'{name} is not available'
     env = {**os.environ, 'ATTUNE_PLAYWRIGHT_NODE_PACKAGE': playwright_package()}
     subprocess.run(['node', str(Path(__file__).with_name('webview_driver.cjs')), '--self-check'], env=env, check=True, timeout=20)
@@ -128,7 +128,8 @@ def host_preflight(out):
     for path, expected in apks:
         metadata = subprocess.check_output([str(aapt), 'dump', 'badging', str(path)], text=True)
         assert f"package: name='{expected}'" in metadata, metadata[:1000]
-        assert "uses-library:'android.car'" in metadata, 'Missing required Car library'
+        assert not re.search(r"uses-library(?:-not-required)?:\'android\.car\'", metadata), \
+            'Car boot-classpath APIs must not require a PackageManager shared library'
         checks['apks'].append({'path': str(path.relative_to(ROOT)), 'package': expected})
     subprocess.run([sys.executable, '-c',
                     "import sys;sys.path.insert(0,'services/core-api');import main;assert main.vehicle_state['vehicleParked'] is True;print('PASS: real backend imports, initial simulation Park')"],
@@ -139,6 +140,37 @@ def host_preflight(out):
 
 def parse_probe(text):
     return {key: value.strip() for key, value in re.findall(r'^INSTRUMENTATION_RESULT: ([\w]+)=(.*)$', text, re.M)}
+
+
+CAR_BOOT_JARS = ('/system/framework/android.car.jar',
+                 '/apex/com.android.car.framework/javalib/android.car-module.jar')
+
+
+def platform_compatibility_errors(observed):
+    """Boot-classpath APIs and PM shared-library registration are distinct.
+
+    This harness supports the pinned image's boot-classpath integration. A PM
+    library name alone does not make classes visible without uses-library.
+    Shell observations do not replace the later public Car API observer.
+    """
+    errors = []
+    features = set(observed.get('features', '').splitlines())
+    for feature in ('android.hardware.type.automotive', 'android.software.webview'):
+        if 'feature:' + feature not in features:
+            errors.append('Required feature absent: ' + feature)
+    boot = observed.get('bootclasspath', '').strip().split(':')
+    if not any(path in boot for path in CAR_BOOT_JARS):
+        errors.append('No supported Car API jar on BOOTCLASSPATH; a shared-library listing alone is insufficient')
+    if not re.search(r'^Service car_service: found\s*$', observed.get('car-binder', ''), re.M):
+        errors.append('car_service binder unavailable')
+    car = observed.get('car-service', '')
+    if '*CarUxRestrictionsManagerService*' not in car:
+        errors.append('Car UX restrictions manager unavailable')
+    if 'mEnableActivityBlocking:true' not in car:
+        errors.append('Independent platform Activity blocking not confirmed enabled')
+    if observed.get('user-state', '').strip() != 'RUNNING_UNLOCKED':
+        errors.append('Current AAOS driver user is not RUNNING_UNLOCKED')
+    return errors
 
 
 def write_reports(out, results):
@@ -213,6 +245,7 @@ def finalize(out):
         'emulator': os.getenv('AAOS_EMULATOR_OUTCOME', 'unknown'),
         'first_failed_stage': first_failed_stage,
         'first_failed_check': first_failure,
+        'first_blocked_check': next((r for r in results if r['status'] == 'BLOCKED'), None),
         'evidence_warnings': [r['check'] for r in results if r.get('evidence_warning')],
         'source': os.getenv('GITHUB_SHA', 'unknown'),
         'run_id': os.getenv('GITHUB_RUN_ID', 'offline-finalizer'),
@@ -435,6 +468,54 @@ class Assessment:
         self.save('webview-provider.txt', self.adb('shell', 'dumpsys', 'webviewupdate'))
         self.save('emulator-version.txt', self.command([sdk_tool('emulator'), '-version']))
         return 'API 35 real automotive emulator with WebView feature; fingerprint/provider recorded.'
+
+    def compatibility(self):
+        observed, errors = {}, []
+        # Record every query even when another query fails. No root, remount,
+        # framework injection, permission grant or UX-policy override is used.
+        queries = {
+            'properties': ('getprop',),
+            'libraries': ('pm', 'list', 'libraries'),
+            'features': ('pm', 'list', 'features'),
+            'packages': ('pm', 'list', 'packages', '-f', '--user', self.user),
+            'car-package': ('dumpsys', 'package', 'com.android.car'),
+            'car-binder': ('service', 'check', 'car_service'),
+            'car-service': ('dumpsys', 'car_service'),
+            'bootclasspath': ('printenv', 'BOOTCLASSPATH'),
+            'user-state': ('am', 'get-started-user-state', self.user),
+        }
+        # sys.boot_completed is insufficient: AAOS may still be starting user 10.
+        try:
+            self.wait(lambda: self.adb('shell', *queries['user-state']).strip() == 'RUNNING_UNLOCKED', 60)
+        except Exception as error:
+            errors.append('Driver user readiness: ' + str(error))
+        for name, args in queries.items():
+            try:
+                observed[name] = self.adb('shell', *args)
+            except Exception as error:
+                observed[name] = ''
+                errors.append(name + ': ' + str(error))
+            self.save('platform-' + name + '.txt', observed[name])
+        errors += platform_compatibility_errors(observed)
+        boot = observed.get('bootclasspath', '').strip().split(':')
+        car_jar = next((path for path in CAR_BOOT_JARS if path in boot), None)
+        if car_jar:
+            try:
+                self.adb('shell', 'test', '-s', car_jar)
+            except Exception as error:
+                errors.append('Boot-classpath Car jar unreadable/absent: ' + str(error))
+        shared = 'library:android.car' in observed.get('libraries', '').splitlines()
+        self.save('platform-compatibility.json', json.dumps({
+            'status': 'BLOCKED' if errors else 'PASS', 'errors': errors,
+            'car_boot_jar': car_jar, 'pm_shared_android_car': shared,
+            'integration': 'boot-classpath; no manifest shared-library dependency',
+            'public_car_api': 'UNVERIFIED until post-install read-only observer succeeds',
+        }, indent=2))
+        if errors:
+            raise Blocked('Incompatible/incompletely observed AAOS platform before APK installation: ' + '; '.join(errors))
+        return ('Boot-classpath Car jar, automotive/WebView features, Car UX service, enabled platform Activity blocking '
+                'and unlocked driver user observed. PM android.car shared registration=' + str(shared) +
+                '; public API connectivity remains a separate post-install check.')
 
     def install(self):
         probes = sorted((ROOT / 'tests/automotive/emulator-probe/build/outputs/apk/debug').glob('*.apk'))
@@ -664,8 +745,11 @@ class Assessment:
 
     def run(self):
         try:
-            self.check('aaos-runtime', self.runtime)
-            self.check('apk-install', self.install, ['aaos-runtime'])
+            # Startup system screens can have no accessibility root (#120).
+            # Product screenshots/UI remain mandatory from activity-start onward.
+            self.check('aaos-runtime', self.runtime, capture=False)
+            self.check('platform-compatibility', self.compatibility, ['aaos-runtime'], capture=False)
+            self.check('apk-install', self.install, ['platform-compatibility'], capture=False)
             self.check('activity-start', self.start_activity, ['apk-install'])
             self.check('platform-parked', self.parked, ['activity-start'])
             self.check('webview-backend', self.web_backend, ['platform-parked'])

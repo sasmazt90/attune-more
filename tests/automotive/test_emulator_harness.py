@@ -14,6 +14,67 @@ spec.loader.exec_module(qa)
 
 
 class ReportingChecks(unittest.TestCase):
+    @staticmethod
+    def compatible_platform():
+        # Fixture, not a claim that these commands were executed on a device.
+        return {'features': 'feature:android.hardware.type.automotive\nfeature:android.software.webview\n',
+                'bootclasspath': '/system/framework/framework.jar:/system/framework/android.car.jar\n',
+                'libraries': 'library:org.apache.http.legacy\n',
+                'car-binder': 'Service car_service: found\n',
+                'car-service': '*CarUxRestrictionsManagerService*\nmEnableActivityBlocking:true\n',
+                'user-state': 'RUNNING_UNLOCKED\n'}
+
+    def test_boot_classpath_does_not_require_pm_shared_library_registration(self):
+        self.assertEqual(qa.platform_compatibility_errors(self.compatible_platform()), [])
+
+    def test_shared_library_does_not_substitute_for_boot_classpath_integration(self):
+        observed = self.compatible_platform()
+        observed.update(bootclasspath='', libraries='library:android.car\n')
+        self.assertIn('No supported Car API jar', ';'.join(qa.platform_compatibility_errors(observed)))
+
+    def test_incompatible_platform_lists_all_missing_safety_requirements(self):
+        errors = qa.platform_compatibility_errors({})
+        self.assertEqual(len(errors), 7)
+        self.assertIn('Activity blocking', ';'.join(errors))
+
+    def test_platform_names_and_classpath_paths_must_match_exactly(self):
+        observed = self.compatible_platform()
+        observed.update(features='feature:android.hardware.type.automotive.fake\nfeature:android.software.webview.fake\n',
+                        bootclasspath='/system/framework/android.car.jar.backup',
+                        **{'car-binder': 'Service car_service: not found\n'})
+        self.assertEqual(len(qa.platform_compatibility_errors(observed)), 4)
+
+    def test_compatibility_blocker_prevents_every_apk_install(self):
+        with tempfile.TemporaryDirectory() as directory:
+            assessment = qa.Assessment(Path(directory))
+            assessment.user = '10'
+            observations = self.compatible_platform()
+            observations.update(bootclasspath='', **{'car-binder': 'Service car_service: not found\n'})
+            def adb(*args, **kw):
+                if args == ('shell', 'am', 'get-started-user-state', '10'):
+                    return observations['user-state']
+                if args == ('shell', 'printenv', 'BOOTCLASSPATH'):
+                    return observations['bootclasspath']
+                if args == ('shell', 'service', 'check', 'car_service'):
+                    return observations['car-binder']
+                if args == ('shell', 'dumpsys', 'car_service'):
+                    return observations['car-service']
+                if args == ('shell', 'pm', 'list', 'features'):
+                    return observations['features']
+                return 'fixture diagnostic'
+            assessment.adb = adb
+            assessment.check('platform-compatibility', assessment.compatibility, capture=False)
+            assessment.check('apk-install', lambda: self.fail('Must never install'),
+                             ['platform-compatibility'], capture=False)
+            self.assertEqual([r['status'] for r in assessment.results], ['BLOCKED', 'BLOCKED'])
+            evidence = json.loads((Path(directory) / 'platform-compatibility.json').read_text())
+            self.assertEqual(len(evidence['errors']), 2)
+            self.assertTrue((Path(directory) / 'platform-libraries.txt').exists())
+            qa.finalize(Path(directory))
+            execution = json.loads((Path(directory) / 'execution.json').read_text())
+            self.assertEqual(execution['first_blocked_check']['check'], 'platform-compatibility')
+            self.assertIsNone(execution['first_failed_check'])
+
     def test_probe_reads_only_explicit_instrumentation_results(self):
         raw = 'INSTRUMENTATION_STATUS: doRequired=false\nINSTRUMENTATION_RESULT: doRequired=true\nINSTRUMENTATION_RESULT: camera=false\nINSTRUMENTATION_CODE: -1\n'
         self.assertEqual(qa.parse_probe(raw), {'doRequired': 'true', 'camera': 'false'})

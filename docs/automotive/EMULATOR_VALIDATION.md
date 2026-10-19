@@ -1,9 +1,10 @@
-# Controlled Cloud AAOS validation — one run authorized
+# Controlled Cloud AAOS validation — manual approval required
 
-> Current status (2026-10-19): runs #117, #118 and #119 failed before
-> application acceptance. Actions is stopped. The latest dependency matrix,
-> actual Noble verification, exact changes and remaining risks are in
-> [AAOS_LINUX_RUNTIME_AUDIT_20261019.md](AAOS_LINUX_RUNTIME_AUDIT_20261019.md).
+> Current status (2026-10-19): run #120 passed infrastructure and booted AAOS,
+> then failed APK installation on the manifest's `android.car` shared-library
+> requirement. Actions is stopped. The image evidence, safety-preserving
+> correction, offline verification and remaining risks are in
+> [AAOS_CAR_COMPATIBILITY_AUDIT_20261019.md](AAOS_CAR_COMPATIBILITY_AUDIT_20261019.md).
 > Earlier preparation/run-authorization statements below are historical.
 > This audit does not authorize or request an immediate rerun.
 
@@ -27,8 +28,10 @@ remain unverified until that single run actually executes.
   ID `370615037`. These are historical evidence, not a new run or proof that current
   third-party-action policy accepts the emulator action.
 - Existing app: AGP 8.9.2, Gradle 8.11.1 with distribution checksum, Java 17 bytecode,
-  minSdk 29, compile/target SDK 35, build tools 35.0.0, required `android.car`,
-  automotive and WebView features. Minimum SDK is a declared compatibility floor,
+  minSdk 29, compile/target SDK 35, build tools 35.0.0, compile-time `android.car`,
+  required automotive and WebView features. The #120 correction removes the
+  erroneous PM shared-library requirement; the native Car UX gate remains required.
+  Minimum SDK is a declared compatibility floor,
   not proof of acceptance on every API 29–35 system image.
 - Google's stable SDK catalog contains
   `system-images;android-35-ext15;android-automotive;x86_64`, revision 4,
