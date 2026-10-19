@@ -7,9 +7,13 @@ import json
 import os
 from pathlib import Path
 import re
+import selectors
+import shutil
 import subprocess
 import sys
+import tempfile
 import time
+import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 
@@ -22,6 +26,7 @@ CHECKS = [
     'webview-backend', 'navigation', 'backend-moving-lock', 'platform-moving-lock',
     'background-lifecycle', 'backend-offline', 'web-load-error-recovery',
     'permissions-initial', 'permissions-denial', 'unsupported-hardware', 'crashes-console',
+    'evidence-capture',
 ]
 ROUTES = ['/', '/skin', '/dental', '/vision', '/hearing', '/mental', '/care', '/profile', '/privacy']
 
@@ -34,8 +39,106 @@ class Unverified(Exception):
     pass
 
 
+def sdk_tool(name):
+    root = Path(os.environ.get('ANDROID_HOME', ''))
+    if not os.environ.get('ANDROID_HOME') or not root.is_dir():
+        raise Blocked('ANDROID_HOME must identify the installed Android SDK')
+    if os.environ.get('ANDROID_SDK_ROOT', str(root)) != str(root):
+        raise Blocked('ANDROID_HOME and ANDROID_SDK_ROOT disagree')
+    relative = {'adb': 'platform-tools/adb', 'emulator': 'emulator/emulator'}[name]
+    path = root / relative
+    if not path.is_file() or not os.access(path, os.X_OK):
+        raise Blocked(f'Required SDK executable absent: {path}')
+    return str(path)
+
+
+def playwright_package():
+    import playwright
+    return str(Path(playwright.__file__).parent / 'driver/package')
+
+
+class WebViewClient:
+    """Bounded JSON RPC to Playwright's documented Node Android/WebView API."""
+    def __init__(self, out, events):
+        self.events, self.phase, self.sequence = events, 'connect', 0
+        self.log = open(out / 'webview-driver.log', 'ab')
+        self.process = subprocess.Popen(
+            ['node', str(Path(__file__).with_name('webview_driver.cjs'))],
+            env={**os.environ, 'ATTUNE_PLAYWRIGHT_NODE_PACKAGE': playwright_package()},
+            stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=self.log,
+            text=True, bufsize=1, start_new_session=True)
+
+    def request(self, action, timeout=35, **args):
+        self.sequence += 1
+        payload = {'id': self.sequence, 'action': action, 'args': args, 'phase': self.phase}
+        self.process.stdin.write(json.dumps(payload) + '\n')
+        self.process.stdin.flush()
+        with selectors.DefaultSelector() as ready:
+            ready.register(self.process.stdout, selectors.EVENT_READ)
+            if not ready.select(timeout):
+                raise Blocked(f'Android WebView operation timed out: {action}')
+        line = self.process.stdout.readline()
+        if not line:
+            raise Blocked('Android WebView observer exited; see webview-driver.log')
+        response = json.loads(line)
+        assert response['id'] == self.sequence, 'WebView RPC response mismatch'
+        self.events.extend(response.get('events', []))
+        if response.get('error'):
+            raise RuntimeError(response['error'])
+        return response.get('result')
+
+    def close(self):
+        try:
+            if self.process.poll() is None:
+                try:
+                    self.request('quit', timeout=4)
+                    self.process.wait(timeout=4)
+                except Exception:
+                    self.process.terminate()
+                    self.process.wait(timeout=4)
+        finally:
+            self.process.stdin.close()
+            self.process.stdout.close()
+            self.log.close()
+
+
+def host_preflight(out):
+    """Real host tools/APKs/imports; never boots or claims an Android device."""
+    out.mkdir(parents=True, exist_ok=True)
+    checks = {}
+    for name, flag in [('adb', 'version'), ('emulator', '-version')]:
+        path = sdk_tool(name)
+        result = subprocess.run([path, flag], capture_output=True, text=True, timeout=20, check=True)
+        checks[name] = {'path': path, 'version': (result.stdout + result.stderr)[:2000]}
+    for name in ('node', 'java'):
+        assert shutil.which(name), f'{name} is not available'
+    env = {**os.environ, 'ATTUNE_PLAYWRIGHT_NODE_PACKAGE': playwright_package()}
+    subprocess.run(['node', str(Path(__file__).with_name('webview_driver.cjs')), '--self-check'], env=env, check=True, timeout=20)
+    assert os.environ.get('ATTUNE_LOAD_LOCAL_ENV') == '0', 'Local credential loading must be disabled'
+    assert os.environ.get('ATTUNE_DATA_DIR'), 'An isolated test data directory is required'
+    for name in ('OPENAI_API_KEY', 'ATTUNE_ROBOFLOW_API_KEY', 'ROBOFLOW_API_KEY'):
+        assert not os.environ.get(name), f'{name} must be empty for this validation'
+    # Verify actual packaged identities, not just filenames or source manifests.
+    aapt = Path(os.environ['ANDROID_HOME']) / 'build-tools/35.0.0/aapt'
+    apks = [(ROOT / 'apps/automotive/app/build/outputs/apk/debug/app-debug.apk', PACKAGE)]
+    probes = sorted((ROOT / 'tests/automotive/emulator-probe/build/outputs/apk/debug').glob('*.apk'))
+    assert len(probes) == 1, 'Expected exactly one observer APK'
+    apks.append((probes[0], 'more.attune.validation'))
+    checks['apks'] = []
+    for path, expected in apks:
+        metadata = subprocess.check_output([str(aapt), 'dump', 'badging', str(path)], text=True)
+        assert f"package: name='{expected}'" in metadata, metadata[:1000]
+        assert "uses-library:'android.car'" in metadata, 'Missing required Car library'
+        checks['apks'].append({'path': str(path.relative_to(ROOT)), 'package': expected})
+    subprocess.run([sys.executable, '-c',
+                    "import sys;sys.path.insert(0,'services/core-api');import main;assert main.vehicle_state['vehicleParked'] is True;print('PASS: real backend imports, initial simulation Park')"],
+                   cwd=ROOT, env=env, check=True, timeout=30)
+    (out / 'host-preflight.json').write_text(json.dumps(checks, indent=2))
+    print('PASS: actual SDK executables, APK identities, Node Android API and backend imports; no emulator execution')
+
+
 def parse_probe(text):
-    return dict(re.findall(r'^INSTRUMENTATION_RESULT: ([\w]+)=(.*)$', text, re.M))
+    return {key: value.strip() for key, value in re.findall(r'^INSTRUMENTATION_RESULT: ([\w]+)=(.*)$', text, re.M)}
 
 
 def write_reports(out, results):
@@ -51,7 +154,10 @@ def write_reports(out, results):
             ET.SubElement(case, 'failure', message=result['detail'])
         elif result['status'] in ('BLOCKED', 'UNVERIFIED'):
             ET.SubElement(case, 'skipped', message=result['status'] + ': ' + result['detail'])
-        lines.append('| ' + ' | '.join(str(result[k]).replace('|', '/').replace('\n', ' ') for k in ('check', 'status', 'detail')) + ' |')
+        detail = result['detail']
+        if result.get('evidence_warning'):
+            detail += '; EVIDENCE BLOCKED: ' + result['evidence_warning']
+        lines.append('| ' + ' | '.join(str(v).replace('|', '/').replace('\n', ' ') for v in (result['check'], result['status'], detail)) + ' |')
     lines += ['', 'PASS applies only to the named emulator observation. Physical media, real vehicles, OEM integration, clinical accuracy, and release acceptance remain UNVERIFIED.']
     ET.ElementTree(suite).write(out / 'results.xml', encoding='utf-8', xml_declaration=True)
     report = '\n'.join(lines) + '\n'
@@ -60,19 +166,41 @@ def write_reports(out, results):
 
 
 def finalize(out):
+    out.mkdir(parents=True, exist_ok=True)
     path = out / 'results.json'
     if path.exists():
-        results = json.loads(path.read_text())
+        try:
+            results = json.loads(path.read_text())
+            if not isinstance(results, list) or any(
+                    not isinstance(row, dict) or not all(isinstance(row.get(k), str) for k in ('check', 'status', 'detail'))
+                    or row['status'] not in ('PASS', 'FAIL', 'BLOCKED', 'UNVERIFIED') for row in results):
+                raise ValueError('Invalid result schema')
+        except (ValueError, OSError):
+            results = [{'check': 'harness-report', 'status': 'FAIL', 'detail': 'Runtime results could not be decoded; remaining checks are BLOCKED.'}]
         existing = {r['check'] for r in results}
         results += [{'check': c, 'status': 'BLOCKED', 'detail': 'Harness terminated before this check.'}
                     for c in CHECKS if c not in existing]
     else:
         detail = f"Harness not reached; build={os.getenv('AAOS_BUILD_OUTCOME', 'unknown')}, emulator={os.getenv('AAOS_EMULATOR_OUTCOME', 'unknown')}. See job logs."
         results = [{'check': c, 'status': 'BLOCKED', 'detail': detail} for c in CHECKS]
+    if not (out / 'navigation.json').exists():
+        (out / 'navigation.json').write_text(json.dumps([
+            {'path': route, 'status': 'BLOCKED', 'detail': 'Navigation was not reached; see results.json dependencies.'}
+            for route in ROUTES], indent=2))
+    first_failure = next((r for r in results if r['status'] == 'FAIL'), None)
+    stages = {name: os.getenv('AAOS_' + name.upper() + '_OUTCOME', 'unknown')
+              for name in ('kvm', 'sdk', 'build', 'preflight', 'emulator')}
+    first_failed_stage = next((name for name, outcome in stages.items() if outcome == 'failure'), None)
     report = write_reports(out, results)
     (out / 'execution.json').write_text(json.dumps({
+        'sdk': os.getenv('AAOS_SDK_OUTCOME', 'unknown'),
+        'kvm': os.getenv('AAOS_KVM_OUTCOME', 'unknown'),
         'build': os.getenv('AAOS_BUILD_OUTCOME', 'unknown'),
+        'preflight': os.getenv('AAOS_PREFLIGHT_OUTCOME', 'unknown'),
         'emulator': os.getenv('AAOS_EMULATOR_OUTCOME', 'unknown'),
+        'first_failed_stage': first_failed_stage,
+        'first_failed_check': first_failure,
+        'evidence_warnings': [r['check'] for r in results if r.get('evidence_warning')],
         'source': os.getenv('GITHUB_SHA', 'unknown'),
         'run_id': os.getenv('GITHUB_RUN_ID', 'offline-finalizer'),
         'hardware': 'AAOS virtual vehicle only; no physical device acceptance',
@@ -89,7 +217,8 @@ class Assessment:
         self.processes = []
         self.phase = 'setup'
         self.console = []
-        self.pw = None
+        self.web_client = None
+        self.cdp_port = None
         self.features = {}
         self.user = None
         self.out.mkdir(parents=True, exist_ok=True)
@@ -102,7 +231,7 @@ class Assessment:
         return text
 
     def adb(self, *args, **kwargs):
-        return self.command(['adb', '-s', 'emulator-5554', *args], **kwargs)
+        return self.command([sdk_tool('adb'), '-s', 'emulator-5554', *args], **kwargs)
 
     def save(self, name, text):
         # Log evidence is explicitly bounded; never copy API data dirs or profiles.
@@ -119,13 +248,22 @@ class Assessment:
                 value = predicate()
                 if value:
                     return value
+                last = None
             except Exception as error:
                 last = error
             time.sleep(1)
+        if isinstance(last, Blocked):
+            raise last
         raise AssertionError(f'Timed out after {seconds}s: {last or "expected observation absent"}')
 
-    def check(self, name, action, requires=()):
+    def check(self, name, action, requires=(), capture=True):
         self.phase = name
+        if self.web_client is not None:
+            self.web_client.phase = name
+            try:
+                self.web_client.request('phase', timeout=3)
+            except Exception as error:
+                self.save(name + '-observer-warning.txt', str(error))
         statuses = {r['check']: r['status'] for r in self.results}
         missing = [c for c in requires if statuses.get(c) != 'PASS']
         try:
@@ -140,29 +278,53 @@ class Assessment:
         except Exception as error:
             status, detail = 'FAIL', type(error).__name__ + ': ' + str(error)
         self.results.append({'check': name, 'status': status, 'detail': detail})
-        try:
-            self.capture(name)
-        except Exception as error:
-            self.save(name + '-evidence-error.txt', str(error))
+        if not missing and capture:
+            try:
+                self.capture(name)
+            except Exception as error:
+                self.results[-1]['evidence_warning'] = str(error)
+                self.save(name + '-evidence-error.txt', str(error))
         write_reports(self.out, self.results)
         print(f'{status}: {name}: {detail}', flush=True)
 
     def ui(self):
-        self.adb('shell', 'uiautomator', 'dump', '/data/local/tmp/attune-qa.xml', timeout=20)
-        return self.adb('shell', 'cat', '/data/local/tmp/attune-qa.xml')
+        path = '/data/local/tmp/attune-qa.xml'
+        self.adb('shell', 'rm', '-f', path)
+        result = self.adb('shell', 'uiautomator', 'dump', path, timeout=20)
+        if 'UI hierchary dumped to:' not in result and 'UI hierarchy dumped to:' not in result:
+            raise Blocked('No fresh UI hierarchy: ' + result[-500:])
+        raw = self.adb('shell', 'cat', path)
+        if ET.fromstring(raw).tag != 'hierarchy':
+            raise Blocked('Invalid fresh UI hierarchy')
+        return raw
 
     def capture(self, name):
-        result = subprocess.run(['adb', '-s', 'emulator-5554', 'exec-out', 'screencap', '-p'], capture_output=True, timeout=20)
-        if result.returncode == 0 and result.stdout.startswith(b'\x89PNG'):
-            (self.out / (name + '.png')).write_bytes(result.stdout)
-        self.save(name + '.xml', self.ui())
-        self.save(name + '-activities.txt', self.adb('shell', 'dumpsys', 'activity', 'activities'))
+        errors = []
+        # Guest screencap repeatedly SIGABRTed in run #118. Use the documented
+        # host emulator framebuffer interface; never substitute rendered HTML.
+        try:
+            with tempfile.TemporaryDirectory(prefix='frame-', dir=self.out) as directory:
+                reply = self.adb('emu', 'screenrecord', 'screenshot', directory, timeout=20)
+                images = list(Path(directory).glob('*.png'))
+                if len(images) != 1 or not images[0].read_bytes().startswith(b'\x89PNG\r\n\x1a\n'):
+                    raise Blocked('No fresh emulator framebuffer PNG: ' + reply[-500:])
+                images[0].replace(self.out / (name + '.png'))
+        except Exception as error:
+            errors.append('screenshot: ' + str(error))
+        for suffix, obtain in [('.xml', self.ui),
+                               ('-activities.txt', lambda: self.adb('shell', 'dumpsys', 'activity', 'activities'))]:
+            try:
+                self.save(name + suffix, obtain())
+            except Exception as error:
+                errors.append(suffix + ': ' + str(error))
+        if errors:
+            raise Blocked('; '.join(errors))
 
     def tap(self, label=None, resource_suffix=None):
         root = ET.fromstring(self.ui())
         for node in root.iter('node'):
             matches = node.get('text') == label if label else node.get('resource-id', '').endswith(resource_suffix)
-            if matches and node.get('enabled') == 'true':
+            if matches and node.get('enabled') == 'true' and node.get('clickable') == 'true':
                 numbers = list(map(int, re.findall(r'\d+', node.get('bounds', ''))))
                 if len(numbers) == 4:
                     self.adb('shell', 'input', 'tap', str((numbers[0] + numbers[2]) // 2), str((numbers[1] + numbers[3]) // 2))
@@ -201,44 +363,49 @@ class Assessment:
         return raw
 
     def connect(self):
-        # Modern debuggable WebView enables CDP; no product code is changed to do so.
+        if self.web_client is not None:
+            self.web_client.close()
+        self.web_client = WebViewClient(self.out, self.console)
+        self.web_client.phase = self.phase
+        try:
+            observation = self.web_client.request('connect')
+        except Exception as error:
+            raise Blocked('Real Android WebView attachment unavailable: ' + str(error)[-700:]) from error
+        assert observation['pkg'] == PACKAGE
+        # HTTP target discovery is used only to verify destruction on background;
+        # DOM automation uses the documented Android API, not desktop CDP defaults.
         pid = self.adb('shell', 'pidof', PACKAGE).strip().split()[0]
         sockets = self.adb('shell', 'cat', '/proc/net/unix')
         names = re.findall(r'@(webview_devtools_remote[\w_]*)', sockets)
         name = next((n for n in names if n.endswith('_' + pid)), None)
         if name is None:
             raise Blocked('Debug WebView CDP socket absent; DOM checks cannot be inferred from native UI.')
-        self.adb('forward', 'tcp:9222', 'localabstract:' + name)
-        try:
-            browser = self.pw.chromium.connect_over_cdp('http://127.0.0.1:9222', timeout=10000)
-        except Exception as error:
-            raise Blocked('Real WebView CDP attachment unavailable: ' + str(error)[-700:]) from error
-        page = next((p for c in browser.contexts for p in c.pages if p.url.startswith('http://localhost:3000')), None)
-        if page is None:
-            raise Blocked('No trusted-origin WebView page available over CDP.')
-        page.on('pageerror', lambda error: self.console.append({'phase': self.phase, 'kind': 'pageerror', 'text': str(error)}))
-        page.on('console', lambda message: self.console.append({'phase': self.phase, 'kind': message.type, 'text': message.text}) if message.type == 'error' else None)
-        # No remote model/provider traffic. Only these loopback app/API resources.
-        def network(route):
-            if route.request.url.startswith(('http://localhost:3000/', 'http://localhost:8000/', 'http://127.0.0.1:8000/')):
-                route.continue_()
-            else:
-                self.console.append({'phase': self.phase, 'kind': 'external-request-blocked', 'text': route.request.url.split('?')[0]})
-                route.abort()
-        page.route('**/*', network)
-        return page
+        if self.cdp_port is not None:
+            self.adb('forward', '--remove', f'tcp:{self.cdp_port}', check=False)
+        self.cdp_port = int(self.adb('forward', 'tcp:0', 'localabstract:' + name).strip())
+        return self.web_client
 
-    def parked_page(self):
+    def parked_ready(self):
         self.vhal(True)
         self.api(0)
         self.wait(lambda: self.probe()['doRequired'] == 'false')
         self.launch()
         self.wait(lambda: 'PARK doğrulandı' in self.ui())
-        page = self.connect()
-        page.wait_for_load_state('domcontentloaded')
-        return page
+        self.wait(lambda: 'android.webkit.WebView' in self.ui())
+
+    def parked_page(self):
+        self.parked_ready()
+        client = self.connect()
+        client.request('ready')
+        return client
+
+    def locked(self, reasons):
+        raw = self.ui()
+        return any(reason in raw for reason in reasons) and 'android.webkit.WebView' not in raw
 
     def runtime(self):
+        self.adb('wait-for-device', timeout=60)
+        self.wait(lambda: self.adb('get-state').strip() == 'device' and self.adb('shell', 'getprop', 'sys.boot_completed').strip() == '1', 60)
         assert self.adb('shell', 'getprop', 'ro.build.version.sdk').strip() == '35'
         assert self.adb('shell', 'getprop', 'ro.kernel.qemu').strip() == '1'
         self.user = self.adb('shell', 'am', 'get-current-user').strip()
@@ -253,7 +420,7 @@ class Assessment:
         image_metadata = Path(os.environ['ANDROID_HOME']) / 'system-images/android-35-ext15/android-automotive/x86_64/source.properties'
         self.save('system-image-package.txt', image_metadata.read_text())
         self.save('webview-provider.txt', self.adb('shell', 'dumpsys', 'webviewupdate'))
-        self.save('emulator-version.txt', self.command(['emulator', '-version'], check=False))
+        self.save('emulator-version.txt', self.command([sdk_tool('emulator'), '-version']))
         return 'API 35 real automotive emulator with WebView feature; fingerprint/provider recorded.'
 
     def install(self):
@@ -274,7 +441,7 @@ class Assessment:
             with socket.socket() as test:
                 test.bind(('127.0.0.1', port))
         for name, args in [('backend', [sys.executable, '-m', 'uvicorn', 'main:app', '--app-dir', 'services/core-api', '--host', '127.0.0.1', '--port', '8000']),
-                           ('frontend', ['npm', 'start', '--', '--hostname', '127.0.0.1'])]:
+                           ('frontend', ['npm', '--workspace=apps/vehicle-app', 'run', 'start'])]:
             stream = open(self.out / (name + '.log'), 'wb')
             process = subprocess.Popen(args, cwd=ROOT, stdout=stream, stderr=subprocess.STDOUT, start_new_session=True)
             stream.close()
@@ -301,54 +468,43 @@ class Assessment:
         return 'Real Car UX unrestricted AND fresh backend simulation Park; no UX override.'
 
     def web_backend(self):
-        page = self.connect()
-        page.wait_for_selector('[data-vehicle-status]', timeout=20000)
-        self.wait(lambda: page.locator('[data-vehicle-status]').inner_text() == 'PARK')
-        assert page.evaluate("fetch('http://localhost:8000/api/vehicle/state').then(r=>r.ok)")
-        assert 'Attune.more' in page.title()
+        self.connect().request('ready')
         return 'Actual Android WebView rendered Attune.more and fetched existing API via adb reverse.'
 
     def navigation(self):
-        page = self.connect()
+        client = self.connect()
         visited = []
         for route in ROUTES:
-            if route == '/':
-                self.wait(lambda: self.tap('Attune.more'))
-            else:
-                link = page.locator(f'nav a[href="{route}"]')
-                if not link.count():
-                    link = page.locator(f'a[href="{route}"]').first
-                link.click(timeout=10000)
-            page.wait_for_url('http://localhost:3000' + route, timeout=10000)
-            gate = page.get_by_role('dialog').filter(has=page.get_by_role('button', name='İzin ver ve devam et', exact=True))
-            if gate.count():
-                # Fresh disposable CI profile only; no saved human consent/data.
-                for box in gate.get_by_role('checkbox').all():
-                    box.check()
-                gate.get_by_role('button', name='İzin ver ve devam et', exact=True).click()
-            page.locator('h1').first.wait_for(state='visible')
-            geometry = page.evaluate('({width:innerWidth,scroll:document.documentElement.scrollWidth,headings:[...document.querySelectorAll("h1")].map(x=>x.textContent)})')
-            assert geometry['scroll'] <= geometry['width'] + 1, geometry
-            visited.append({'path': route, **geometry})
-            self.capture('route-' + (route.strip('/') or 'dashboard'))
-        self.save('navigation.json', json.dumps(visited, ensure_ascii=False, indent=2))
+            try:
+                if route == '/':
+                    self.wait(lambda: self.tap('Attune.more'))
+                row = client.request('navigate', route=route)
+                self.capture('route-' + (route.strip('/') or 'dashboard'))
+            except Exception as error:
+                row = {'path': route, 'status': 'BLOCKED' if isinstance(error, Blocked) else 'FAIL', 'detail': str(error)}
+            finally:
+                # Persist every route, even when an earlier route cannot load.
+                visited.append(row)
+                self.save('navigation.json', json.dumps(visited, ensure_ascii=False, indent=2))
+        assert all(row['status'] == 'PASS' for row in visited), str(visited)
         self.wait(lambda: self.tap('Geri'))
-        self.wait(lambda: page.url == 'http://localhost:3000/profile')
+        client.request('wait-url', route='/profile')
         self.wait(lambda: self.tap('Attune.more'))
-        self.wait(lambda: page.url == 'http://localhost:3000/')
+        client.request('wait-url', route='/')
         return 'Nine real WebView routes, visible headings, overflow check, native Back/Home; screenshots recorded. One AAOS viewport only.'
 
     def backend_moving(self):
+        self.parked_ready()
         self.api(75)
         try:
-            self.wait(lambda: 'Araç hareket ediyor' in self.ui() and 'android.webkit.WebView' not in self.ui())
+            self.wait(lambda: self.locked(['Araç hareket ediyor']))
             assert self.probe()['doRequired'] == 'false'
             return 'Backend-only simulated 75 km/h removed WebView while real Car UX remained unrestricted.'
         finally:
             self.api(0)
 
     def platform_moving(self):
-        self.parked_page()
+        self.parked_ready()
         self.vhal(False)
         try:
             self.wait(lambda: self.probe()['doRequired'] == 'true')
@@ -367,36 +523,44 @@ class Assessment:
         def fresh_events():
             events = self.adb('logcat', '-b', 'events', '-d', '-v', 'threadtime')
             self.save('lifecycle-events.txt', events)
-            return any(line not in previous and 'more.attune.automotive.MainActivity' in line
-                       and re.search(r'(on_paused_called|on_stop_called)', line) for line in events.splitlines())
+            fresh = [line for line in events.splitlines() if line not in previous
+                     and 'more.attune.automotive.MainActivity' in line]
+            return all(any(tag in line for line in fresh) for tag in ('on_paused_called', 'on_stop_called'))
         try:
             self.wait(fresh_events, 15)
         except AssertionError:
-            raise Blocked('App backgrounded, but image did not expose pause/stop lifecycle event receipts.')
-        def no_web_target():
-            try:
-                with urllib.request.urlopen('http://127.0.0.1:9222/json/list', timeout=2) as response:
-                    targets = json.load(response)
-                return not any(t.get('url', '').startswith('http://localhost:3000') for t in targets)
-            except (OSError, ValueError):
-                # Destroyed WebView can close its debug endpoint entirely.
-                return True
-        self.wait(no_web_target, 15)
+            raise Blocked('App backgrounded, but image did not expose both fresh pause and stop lifecycle receipts.')
+        self.wait(self.no_web_target, 15)
         self.launch()
         self.wait(lambda: 'PARK doğrulandı' in self.ui())
-        return 'Home backgrounded app; fresh native pause/stop receipt and absence of trusted WebView debug target observed; foreground Park restored. No active capture session was started.'
+        return 'Home backgrounded app; fresh native pause AND stop receipts and absence of trusted WebView debug target observed; foreground Park restored. No active capture session was started.'
+
+    def no_web_target(self):
+        try:
+            with urllib.request.urlopen(f'http://127.0.0.1:{self.cdp_port}/json/list', timeout=2) as response:
+                targets = json.load(response)
+            if not isinstance(targets, list) or any(not isinstance(t, dict) for t in targets):
+                raise Blocked('Invalid WebView debug target list')
+            return not any(t.get('url', '').startswith('http://localhost:3000') for t in targets)
+        except ValueError as error:
+            raise Blocked('Invalid WebView debug JSON; destruction is not established') from error
+        except urllib.error.HTTPError as error:
+            raise Blocked('Debug endpoint returned HTTP error; destruction is not established: ' + str(error)) from error
+        except urllib.error.URLError as error:
+            if isinstance(error.reason, (ConnectionRefusedError, ConnectionResetError)):
+                return True  # Destroyed WebView can close its endpoint.
+            raise Blocked('Cannot observe WebView target destruction: ' + str(error)) from error
 
     def backend_offline(self):
         self.parked_page()
         self.adb('reverse', '--remove', 'tcp:8000')
         try:
-            self.wait(lambda: ('Araç verisi alınamadı' in self.ui() or 'Araç verisi güncel değil' in self.ui()) and 'android.webkit.WebView' not in self.ui())
+            self.wait(lambda: self.locked(['Araç verisi alınamadı', 'Araç verisi güncel değil']))
             self.capture('backend-offline-locked')
         finally:
             self.adb('reverse', 'tcp:8000', 'tcp:8000')
         self.wait(lambda: 'PARK doğrulandı' in self.ui())
-        page = self.connect()
-        page.wait_for_selector('[data-vehicle-status]', timeout=15000)
+        self.connect().request('ready')
         return 'Removed only emulator backend reverse tunnel: fail-closed gate, WebView absent, fresh Park recovered after tunnel restore.'
 
     def web_error(self):
@@ -411,11 +575,12 @@ class Assessment:
             self.adb('reverse', 'tcp:3000', 'tcp:3000')
         assert self.tap('Yeniden dene')
         self.wait(lambda: 'android.webkit.WebView' in self.ui())
-        self.connect().wait_for_selector('[data-vehicle-status]', timeout=15000)
+        self.connect().request('ready')
         return 'Real WebView main-frame connection failure showed native retry state; retry restored existing web app.'
 
     def permissions_denied(self):
         observation = self.probe()
+        assert observation.get('targetVisible') == 'true', 'Target package visibility not established'
         for permission in ['cameraPermission', 'microphonePermission']:
             result = observation.get(permission)
             if result not in ('granted', 'denied'):
@@ -425,36 +590,29 @@ class Assessment:
 
     def permission_request(self):
         self.permissions_denied()
-        page = self.parked_page()
-        page.evaluate("""() => {
-          window.__attuneQaPermission = 'pending';
-          const button = document.createElement('button');
-          button.id = 'attune-qa-denial'; button.textContent = 'QA deny media';
-          button.onclick = () => navigator.mediaDevices.getUserMedia({audio:true,video:true})
-            .then(s => { s.getTracks().forEach(t=>t.stop()); window.__attuneQaPermission='UNEXPECTED_GRANT'; })
-            .catch(e => window.__attuneQaPermission=e.name);
-          document.body.prepend(button);
-        }""")
-        page.locator('#attune-qa-denial').click()
+        features = self.probe()
+        if not any(features.get(key) == 'true' for key in ('camera', 'microphone')):
+            raise Unverified('No advertised media hardware can exercise an Android permission prompt')
+        client = self.parked_page()
+        client.request('permission-start', features=features)
         saw_dialog = False
+        state = 'pending'
         for _ in range(10):
             if self.tap(resource_suffix='permission_deny_button'):
                 saw_dialog = True
                 break
-            if page.is_closed():
-                break
-            state = page.evaluate('window.__attuneQaPermission')
+            state = client.request('permission-state')
             assert state != 'UNEXPECTED_GRANT', 'Media was unexpectedly granted'
             if state != 'pending':
                 break
             time.sleep(1)
         self.permissions_denied()
         if not saw_dialog:
-            raise Blocked('Permissions remain denied; actual OS denial dialog not observed (missing emulator hardware or cancelled request). See screenshot/logs; no synthetic grant.')
+            raise Blocked(f'Permissions remain denied; actual OS denial dialog not observed; request state={state}. Hardware advertisement is not proof of capture capability; no synthetic grant.')
         return 'Trusted-origin WebView requested media; actual Android denial button used; permissions remained denied. No physical media involved.'
 
     def unsupported(self):
-        self.parked_page()
+        self.parked_ready()
         self.features = self.probe()
         absent = [key for key in ('camera', 'microphone') if self.features.get(key) == 'false']
         if not absent:
@@ -468,50 +626,68 @@ class Assessment:
         return 'PackageManager reports absent ' + ', '.join(absent) + '; native status labels agree. Physical hardware is unverified.'
 
     def crash_console(self):
+        if self.web_client is not None:
+            self.web_client.request('events')
         logs = self.adb('logcat', '-b', 'crash', '-d', '-v', 'threadtime')
         self.save('crash-buffer.txt', logs)
         self.save('webview-console.json', json.dumps(self.console[:200], ensure_ascii=False, indent=2))
         assert f'Process: {PACKAGE}' not in logs, 'App crash in Android crash buffer'
-        blocked_phases = {c['phase'] for c in self.console if c['kind'] == 'external-request-blocked'}
-        unexpected = [c for c in self.console if c['kind'] == 'pageerror' or
+        blocked_resources = {(c['phase'], c.get('url')) for c in self.console if c['kind'] == 'external-request-blocked' and c.get('url')}
+        unexpected = [c for c in self.console if c['kind'] in ('pageerror', 'console-overflow') or
                       (c['kind'] == 'error' and c['phase'] not in ('backend-offline', 'web-load-error-recovery') and
-                       not (c['phase'] in blocked_phases and c['text'].startswith('Failed to load resource: net::ERR_FAILED')))]
+                       not ((c['phase'], c.get('url')) in blocked_resources and c['text'].startswith('Failed to load resource: net::ERR_FAILED')))]
         assert not unexpected, str(unexpected[:8])
         return 'No app crash receipt or unexpected observed WebView JS/console error; intentional network fault phases logged separately.'
 
+    def evidence_quality(self):
+        incomplete = [r['check'] for r in self.results if r.get('evidence_warning')]
+        if incomplete:
+            raise Blocked('Missing screenshot/UI/activity evidence: ' + ', '.join(incomplete) + '; named behavior results remain separate.')
+        for route in ROUTES:
+            name = 'route-' + (route.strip('/') or 'dashboard')
+            if not (self.out / (name + '.png')).is_file():
+                raise Blocked('Route screenshot unavailable: ' + route)
+        return 'Fresh emulator framebuffer screenshots, UI and activity evidence recorded; nine route PNGs present.'
+
     def run(self):
-        from playwright.sync_api import sync_playwright
-        with sync_playwright() as self.pw:
-            try:
-                self.check('aaos-runtime', self.runtime)
-                self.check('apk-install', self.install, ['aaos-runtime'])
-                self.check('activity-start', self.start_activity, ['apk-install'])
-                self.check('platform-parked', self.parked, ['activity-start'])
-                self.check('webview-backend', self.web_backend, ['platform-parked'])
-                self.check('navigation', self.navigation, ['webview-backend'])
-                self.check('backend-moving-lock', self.backend_moving, ['webview-backend'])
-                self.check('platform-moving-lock', self.platform_moving, ['webview-backend'])
-                self.check('background-lifecycle', self.background, ['webview-backend'])
-                self.check('backend-offline', self.backend_offline, ['webview-backend'])
-                self.check('web-load-error-recovery', self.web_error, ['webview-backend'])
-                self.check('permissions-initial', self.permissions_denied, ['apk-install'])
-                self.check('permissions-denial', self.permission_request, ['webview-backend', 'permissions-initial'])
-                self.check('unsupported-hardware', self.unsupported, ['platform-parked'])
-                self.check('crashes-console', self.crash_console, ['webview-backend'])
-            finally:
-                self.phase = 'cleanup'
-                for name, args in [('logcat.txt', ('logcat', '-d', '-t', '8000', '-v', 'threadtime')),
-                                   ('car-service.txt', ('shell', 'dumpsys', 'car_service'))]:
-                    try:
-                        self.save(name, self.adb(*args))
-                    except Exception as error:
-                        self.save(name + '-error.txt', str(error))
-                # Only this harness's process groups; never unrelated listeners.
-                import signal
-                for process in self.processes:
-                    if process.poll() is None:
-                        os.killpg(process.pid, signal.SIGTERM)
-                write_reports(self.out, self.results)
+        try:
+            self.check('aaos-runtime', self.runtime)
+            self.check('apk-install', self.install, ['aaos-runtime'])
+            self.check('activity-start', self.start_activity, ['apk-install'])
+            self.check('platform-parked', self.parked, ['activity-start'])
+            self.check('webview-backend', self.web_backend, ['platform-parked'])
+            self.check('navigation', self.navigation, ['webview-backend'])
+            # Independent native safety/hardware checks do not depend on DOM tooling.
+            self.check('backend-moving-lock', self.backend_moving, ['platform-parked'])
+            self.check('platform-moving-lock', self.platform_moving, ['platform-parked'])
+            self.check('background-lifecycle', self.background, ['webview-backend'])
+            self.check('backend-offline', self.backend_offline, ['webview-backend'])
+            self.check('web-load-error-recovery', self.web_error, ['webview-backend'])
+            self.check('permissions-initial', self.permissions_denied, ['apk-install'])
+            self.check('permissions-denial', self.permission_request, ['webview-backend', 'permissions-initial'])
+            self.check('unsupported-hardware', self.unsupported, ['platform-parked'])
+            self.check('crashes-console', self.crash_console, ['webview-backend'])
+            self.check('evidence-capture', self.evidence_quality, ['navigation'], capture=False)
+        finally:
+            self.phase = 'cleanup'
+            if self.web_client is not None:
+                try:
+                    self.web_client.close()
+                except Exception as error:
+                    self.save('webview-close-error.txt', str(error))
+            for name, args in [('logcat.txt', ('logcat', '-d', '-t', '8000', '-v', 'threadtime')),
+                               ('car-service.txt', ('shell', 'dumpsys', 'car_service'))]:
+                try:
+                    self.save(name, self.adb(*args))
+                except Exception as error:
+                    self.save(name + '-error.txt', str(error))
+            # Only this harness's process groups; never unrelated listeners.
+            import signal
+            for process in self.processes:
+                if process.poll() is None:
+                    os.killpg(process.pid, signal.SIGTERM)
+            self.save('webview-console.json', json.dumps(self.console, ensure_ascii=False, indent=2))
+            write_reports(self.out, self.results)
         return 0 if all(r['status'] == 'PASS' for r in self.results) else 1
 
 
@@ -519,5 +695,7 @@ if __name__ == '__main__':
     output = Path(os.environ.get('ATTUNE_AAOS_EVIDENCE', '/tmp/attune-aaos-emulator-evidence'))
     if '--finalize' in sys.argv:
         finalize(output)
+    elif '--preflight' in sys.argv:
+        host_preflight(output)
     else:
         raise SystemExit(Assessment(output).run())

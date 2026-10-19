@@ -1,0 +1,32 @@
+name: Set up automotive Android SDK
+description: Install official SDK tools and verify their executable paths before use.
+inputs:
+  emulator:
+    description: Install the emulator executable without booting a device.
+    default: 'false'
+runs:
+  using: composite
+  steps:
+    - uses: android-actions/setup-android@be39fa834029ff78f1a44aa3bb0819b8fc2bd8fd
+      with:
+        cmdline-tools-version: '15859902'
+        log-accepted-android-sdk-licenses: false
+        packages: ${{ inputs.emulator == 'true' && 'platform-tools emulator' || 'platform-tools' }}
+    - name: Verify SDK paths and install compile packages
+      shell: bash
+      env:
+        INSTALL_EMULATOR: ${{ inputs.emulator }}
+      run: |
+        test -d "$ANDROID_HOME"
+        test "$ANDROID_HOME" = "$ANDROID_SDK_ROOT"
+        command -v sdkmanager
+        command -v avdmanager
+        test -x "$ANDROID_HOME/platform-tools/adb"
+        sdkmanager --version
+        "$ANDROID_HOME/platform-tools/adb" version
+        if [[ "$INSTALL_EMULATOR" == true ]]; then
+          test -x "$ANDROID_HOME/emulator/emulator"
+          echo "$ANDROID_HOME/emulator" >> "$GITHUB_PATH"
+          "$ANDROID_HOME/emulator/emulator" -version
+        fi
+        sdkmanager 'platforms;android-35' 'build-tools;35.0.0'

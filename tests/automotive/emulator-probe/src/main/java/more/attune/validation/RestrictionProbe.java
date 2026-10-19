@@ -25,6 +25,9 @@ public final class RestrictionProbe extends Instrumentation {
             result.putString("camera", Boolean.toString(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)));
             result.putString("microphone", Boolean.toString(pm.hasSystemFeature(PackageManager.FEATURE_MICROPHONE)));
             String target = "more.attune.automotive.prototype.debug";
+            // Unknown/filtered packages must not look like a verified denial.
+            pm.getApplicationInfo(target, 0);
+            result.putString("targetVisible", "true");
             result.putString("cameraPermission", pm.checkPermission("android.permission.CAMERA", target)
                 == PackageManager.PERMISSION_GRANTED ? "granted" : "denied");
             result.putString("microphonePermission", pm.checkPermission("android.permission.RECORD_AUDIO", target)

@@ -8,6 +8,7 @@ on:
       - 'tests/unit/test_automotive_contract.py'
       - 'scripts/automotive/**'
       - '.github/workflows/automotive.yml'
+      - '.github/actions/setup-automotive-sdk/**'
 permissions:
   contents: read
 jobs:
@@ -20,13 +21,12 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
+      - uses: ./.github/actions/setup-automotive-sdk
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.11.1'
       - name: Host policy checks
         run: python3 tests/automotive/run_checks.py
-      - name: Prepare Android platform
-        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
       - name: Assemble and lint debug prototype
         run: bash scripts/automotive/build.sh
       - uses: actions/upload-artifact@v4

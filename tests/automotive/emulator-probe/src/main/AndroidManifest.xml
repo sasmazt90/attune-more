@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-feature android:name="android.hardware.type.automotive" android:required="true" />
+    <queries>
+        <package android:name="more.attune.automotive.prototype.debug" />
+    </queries>
     <application android:label="Attune QA read-only probe" android:allowBackup="false">
         <uses-library android:name="android.car" android:required="true" />
     </application>
