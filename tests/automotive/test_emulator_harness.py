@@ -37,6 +37,17 @@ class ReportingChecks(unittest.TestCase):
             self.assertTrue((out / 'report.md').exists())
             self.assertTrue((out / 'navigation.json').exists())
 
+    def test_sdk_blocker_lists_all_missing_libraries_without_app_failures(self):
+        with tempfile.TemporaryDirectory() as directory:
+            out = Path(directory)
+            (out / 'runtime-sdk.json').write_text(json.dumps({'errors': ['libpulse.so.0 absent', 'libX11.so.6 absent']}))
+            with patch.dict(qa.os.environ, {'AAOS_SDK_OUTCOME': 'failure'}):
+                qa.finalize(out)
+            self.assertEqual(json.loads((out / 'execution.json').read_text())['first_failed_stage'], 'sdk')
+            self.assertTrue(all(r['status'] == 'BLOCKED' for r in json.loads((out / 'results.json').read_text())))
+            self.assertIn('libpulse.so.0 absent', (out / 'report.md').read_text())
+            self.assertIn('libX11.so.6 absent', (out / 'report.md').read_text())
+
     def test_partial_run_cannot_hide_unexecuted_checks(self):
         with tempfile.TemporaryDirectory() as directory:
             out = Path(directory)

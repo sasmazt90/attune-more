@@ -59,7 +59,7 @@ jobs:
           # No persistent caches or snapshots are created by this workflow.
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.11.17'
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -80,41 +80,38 @@ jobs:
         uses: ./.github/actions/setup-automotive-sdk
         with:
           emulator: 'true'
+      - name: Install and audit the AAOS image before application builds
+        id: image
+        run: |
+          sdkmanager 'system-images;android-35-ext15;android-automotive;x86_64'
+          python tests/automotive/runtime_preflight.py --stage image
       - name: Build existing web app and debug APK plus read-only UX probe
         id: build
         run: |
           set -o pipefail
           npm ci 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/npm-install.log"
-          python -m pip install -r services/core-api/requirements.txt playwright==1.64.0 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/python-install.log"
+          python -m pip install -r services/core-api/requirements.txt -c tests/automotive/runtime-constraints.txt playwright==1.64.0 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/python-install.log"
           npm run build 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/web-build.log"
           apps/automotive/gradlew --no-daemon --max-workers=2 -p apps/automotive :app:assembleDebug 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/apk-build.log"
           apps/automotive/gradlew --no-daemon --max-workers=2 -p tests/automotive/emulator-probe assembleDebug 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/probe-build.log"
           cp apps/automotive/app/build/outputs/apk/debug/app-debug.apk "$ATTUNE_AAOS_EVIDENCE/"
       - name: Verify host tools, APKs and application imports before emulator boot
         id: preflight
-        run: python tests/automotive/validate_emulator.py --preflight
+        run: |
+          python -m pip check
+          python tests/automotive/runtime_preflight.py --stage tools
+          python tests/automotive/validate_emulator.py --preflight
       - name: Boot real AAOS and run finite checks
         id: emulator
-        # Resolved from upstream v2 tag on 2026-10-19; supports extended SDK tags.
-        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d
-        with:
-          api-level: 35
-          system-image-api-level: 35-ext15
-          target: android-automotive
-          arch: x86_64
-          avd-name: attune-aaos
-          cores: 2
-          ram-size: 3072M
-          disk-size: 4096M
-          emulator-boot-timeout: 600
-          disable-linux-hw-accel: false
-          emulator-options: -no-window -no-snapshot -no-boot-anim -noaudio -gpu swiftshader_indirect -camera-back none -camera-front none -accel on -skin 1280x800 -dpi-device 160
-          script: python tests/automotive/validate_emulator.py
+        # One launch of the audited SDK; no upstream SDK reinstallation after
+        # preflight and no pre-launch-hook catch that continues after failure.
+        run: python tests/automotive/run_emulator.py
       - name: Finalize report even if setup or boot failed
         if: always() && steps.checkout.outcome == 'success'
         env:
           AAOS_BUILD_OUTCOME: ${{ steps.build.outcome }}
           AAOS_KVM_OUTCOME: ${{ steps.kvm.outcome }}
+          AAOS_IMAGE_OUTCOME: ${{ steps.image.outcome }}
           AAOS_SDK_OUTCOME: ${{ steps.sdk.outcome }}
           AAOS_PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
           AAOS_EMULATOR_OUTCOME: ${{ steps.emulator.outcome }}

@@ -1,12 +1,11 @@
 # Controlled Cloud AAOS validation — one run authorized
 
-> Current status (2026-10-19): manual runs #117 and #118 failed before any
-> application acceptance. The complete root-cause audit, consolidated corrections,
-> current Cloud verification and remaining runtime limitations are in
-> [AAOS_PIPELINE_AUDIT_20261019.md](AAOS_PIPELINE_AUDIT_20261019.md).
-> Earlier preparation/run-authorization statements below are historical. No new
-> Actions execution is authorized by this audit; request approval after its verified
-> feature-only commit/push. Use a new manual run, not a rerun attempt.
+> Current status (2026-10-19): runs #117, #118 and #119 failed before
+> application acceptance. Actions is stopped. The latest dependency matrix,
+> actual Noble verification, exact changes and remaining risks are in
+> [AAOS_LINUX_RUNTIME_AUDIT_20261019.md](AAOS_LINUX_RUNTIME_AUDIT_20261019.md).
+> Earlier preparation/run-authorization statements below are historical.
+> This audit does not authorize or request an immediate rerun.
 
 Prepared 2026-10-19 in managed Linux Cloud, `/workspace/attune-more`, from
 `32b0f5278c94e2c1a1b91d01b52b9fdc439099ab` on

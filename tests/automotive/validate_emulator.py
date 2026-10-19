@@ -181,7 +181,9 @@ def finalize(out):
         results += [{'check': c, 'status': 'BLOCKED', 'detail': 'Harness terminated before this check.'}
                     for c in CHECKS if c not in existing]
     else:
-        detail = f"Harness not reached; build={os.getenv('AAOS_BUILD_OUTCOME', 'unknown')}, emulator={os.getenv('AAOS_EMULATOR_OUTCOME', 'unknown')}. See job logs."
+        stages = ', '.join(name + '=' + os.getenv('AAOS_' + name.upper() + '_OUTCOME', 'unknown')
+                           for name in ('kvm', 'sdk', 'image', 'build', 'preflight', 'emulator'))
+        detail = f'Harness not reached; {stages}. See job logs and runtime-*.json.'
         results = [{'check': c, 'status': 'BLOCKED', 'detail': detail} for c in CHECKS]
     if not (out / 'navigation.json').exists():
         (out / 'navigation.json').write_text(json.dumps([
@@ -189,11 +191,22 @@ def finalize(out):
             for route in ROUTES], indent=2))
     first_failure = next((r for r in results if r['status'] == 'FAIL'), None)
     stages = {name: os.getenv('AAOS_' + name.upper() + '_OUTCOME', 'unknown')
-              for name in ('kvm', 'sdk', 'build', 'preflight', 'emulator')}
+              for name in ('kvm', 'sdk', 'image', 'build', 'preflight', 'emulator')}
     first_failed_stage = next((name for name, outcome in stages.items() if outcome == 'failure'), None)
     report = write_reports(out, results)
+    diagnostics = []
+    for path in sorted(out.glob('runtime-*.json')):
+        try:
+            diagnostics += [path.name + ': ' + str(error) for error in json.loads(path.read_text()).get('errors', [])]
+        except (ValueError, OSError, AttributeError):
+            diagnostics.append(path.name + ': diagnostic file could not be decoded')
+    if diagnostics:
+        report += '\nDependency/preflight blockers (host setup, not application failures):\n\n'
+        report += '\n'.join('- ' + error.replace('\n', ' ') for error in diagnostics) + '\n'
+        (out / 'report.md').write_text(report)
     (out / 'execution.json').write_text(json.dumps({
         'sdk': os.getenv('AAOS_SDK_OUTCOME', 'unknown'),
+        'image': os.getenv('AAOS_IMAGE_OUTCOME', 'unknown'),
         'kvm': os.getenv('AAOS_KVM_OUTCOME', 'unknown'),
         'build': os.getenv('AAOS_BUILD_OUTCOME', 'unknown'),
         'preflight': os.getenv('AAOS_PREFLIGHT_OUTCOME', 'unknown'),

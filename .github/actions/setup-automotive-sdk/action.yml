@@ -7,6 +7,10 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Install audited Ubuntu runtime libraries before SDK execution
+      if: inputs.emulator == 'true'
+      shell: bash
+      run: bash scripts/automotive/install_linux_runtime.sh
     - uses: android-actions/setup-android@be39fa834029ff78f1a44aa3bb0819b8fc2bd8fd
       with:
         cmdline-tools-version: '15859902'
@@ -27,6 +31,13 @@ runs:
         if [[ "$INSTALL_EMULATOR" == true ]]; then
           test -x "$ANDROID_HOME/emulator/emulator"
           echo "$ANDROID_HOME/emulator" >> "$GITHUB_PATH"
-          "$ANDROID_HOME/emulator/emulator" -version
         fi
         sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+    - name: Audit all SDK ELF dependencies before executing emulator
+      shell: bash
+      env:
+        INSTALL_EMULATOR: ${{ inputs.emulator }}
+      run: |
+        if [[ "$INSTALL_EMULATOR" == true ]]; then
+          python3 tests/automotive/runtime_preflight.py --stage sdk
+        fi

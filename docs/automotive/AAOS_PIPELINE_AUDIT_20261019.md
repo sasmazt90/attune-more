@@ -1,5 +1,9 @@
 # AAOS pipeline audit — 19 October 2026
 
+> Superseded readiness status: run #119 exposed an unverified Ubuntu dependency.
+> See [AAOS_LINUX_RUNTIME_AUDIT_20261019.md](AAOS_LINUX_RUNTIME_AUDIT_20261019.md).
+> Actions remains stopped; the earlier readiness conclusion below is historical.
+
 ## Conclusion and evidence boundary
 
 The first fatal check in the latest run, **#118**, was a **host executable lookup** in the validation harness, not an emulator boot or application failure. At `14:05:35.808Z`, `tests/automotive/validate_emulator.py:256` at `9f2b64a` spawned `emulator -version` by bare name. The emulator action had successfully launched the same executable by its full SDK path and completed boot at `14:05:30.146Z`. Its directory was absent from the harness PATH. `check=False` suppresses nonzero exit checks; it does not suppress `FileNotFoundError` while spawning a process.
