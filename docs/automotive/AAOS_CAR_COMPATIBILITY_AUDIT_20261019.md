@@ -1,5 +1,9 @@
 # AAOS Car API compatibility audit after run #120
 
+> Historical audit: run #121 subsequently passed installation, public Car API
+> observation, nine routes and independent moving locks. Remaining acceptance
+> is documented in [AAOS_ACCEPTANCE_AUDIT_20261019.md](AAOS_ACCEPTANCE_AUDIT_20261019.md).
+
 Actions remains stopped. This audit used managed Cloud only and launched no new emulator guest or GitHub Actions job. The correction retains AAOS 35-ext15 and the public Car UX APIs. Installation and application acceptance of the corrected APKs remain unverified.
 
 ## First actual failure

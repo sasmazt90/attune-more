@@ -1,10 +1,10 @@
 # Controlled Cloud AAOS validation — manual approval required
 
-> Current status (2026-10-19): run #120 passed infrastructure and booted AAOS,
-> then failed APK installation on the manifest's `android.car` shared-library
-> requirement. Actions is stopped. The image evidence, safety-preserving
-> correction, offline verification and remaining risks are in
-> [AAOS_CAR_COMPATIBILITY_AUDIT_20261019.md](AAOS_CAR_COMPATIBILITY_AUDIT_20261019.md).
+> Current status (2026-10-19): run #121 installed/launched the APK and passed
+> all nine routes plus independent moving locks and lifecycle checks.
+> Acceptance is partial; Actions is stopped. Remaining harness/evidence fixes
+> and the missing approved MP3 prerequisite are documented in
+> [AAOS_ACCEPTANCE_AUDIT_20261019.md](AAOS_ACCEPTANCE_AUDIT_20261019.md).
 > Earlier preparation/run-authorization statements below are historical.
 > This audit does not authorize or request an immediate rerun.
 

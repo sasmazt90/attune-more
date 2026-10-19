@@ -53,6 +53,9 @@ jobs:
           git merge-base --is-ancestor 32b0f5278c94e2c1a1b91d01b52b9fdc439099ab HEAD
           git rev-parse HEAD > "$ATTUNE_AAOS_EVIDENCE/source-commit.txt"
           git status --porcelain > "$ATTUNE_AAOS_EVIDENCE/checkout-status.txt"
+      - name: Verify approved guidance assets before SDK downloads or builds
+        id: assets
+        run: python3 tests/automotive/validate_assets.py
       - uses: actions/setup-node@v4
         with:
           node-version: '22.20.0'
@@ -102,7 +105,7 @@ jobs:
           python -m pip check
           python tests/automotive/runtime_preflight.py --stage tools
           python tests/automotive/validate_emulator.py --preflight
-          python -m pytest tests/automotive/test_car_restriction_source.py tests/automotive/test_emulator_harness.py tests/unit/test_automotive_contract.py -q -rA 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/safety-preflight-tests.log"
+          python -m pytest tests/automotive/test_car_restriction_source.py tests/automotive/test_emulator_harness.py tests/automotive/test_acceptance_regressions.py tests/unit/test_automotive_contract.py -q -rA 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/safety-preflight-tests.log"
       - name: Boot real AAOS and run finite checks
         id: emulator
         # One launch of the audited SDK; no upstream SDK reinstallation after
@@ -112,17 +115,18 @@ jobs:
         if: always() && steps.checkout.outcome == 'success'
         env:
           AAOS_BUILD_OUTCOME: ${{ steps.build.outcome }}
+          AAOS_ASSETS_OUTCOME: ${{ steps.assets.outcome }}
           AAOS_KVM_OUTCOME: ${{ steps.kvm.outcome }}
           AAOS_IMAGE_OUTCOME: ${{ steps.image.outcome }}
           AAOS_SDK_OUTCOME: ${{ steps.sdk.outcome }}
           AAOS_PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
           AAOS_EMULATOR_OUTCOME: ${{ steps.emulator.outcome }}
-        run: python tests/automotive/validate_emulator.py --finalize
+        run: python3 tests/automotive/validate_emulator.py --finalize
       - name: Enforce artifact size ceiling
         if: always() && steps.checkout.outcome == 'success'
         id: artifact-cap
         run: |
-          python - <<'PY'
+          python3 - <<'PY'
           import os
           from pathlib import Path
           root = Path(os.environ['ATTUNE_AAOS_EVIDENCE'])

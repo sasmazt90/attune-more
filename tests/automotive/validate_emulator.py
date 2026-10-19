@@ -4,6 +4,7 @@ Run only inside the manually approved disposable GitHub-hosted AAOS job.
 --finalize is offline and creates explicit BLOCKED results after setup/boot failure.
 """
 import json
+import hashlib
 import os
 from pathlib import Path
 import re
@@ -13,6 +14,7 @@ import subprocess
 import sys
 import tempfile
 import time
+import traceback
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -142,6 +144,55 @@ def parse_probe(text):
     return {key: value.strip() for key, value in re.findall(r'^INSTRUMENTATION_RESULT: ([\w]+)=(.*)$', text, re.M)}
 
 
+PERMISSION_PACKAGES = {'com.android.permissioncontroller', 'com.google.android.permissioncontroller'}
+DENIAL_LABELS = {'Don’t allow', "Don't allow", 'İzin verme', 'Nicht zulassen'}
+
+
+def permission_dialog(raw):
+    root = ET.fromstring(raw)
+    return any(node.get('package') in PERMISSION_PACKAGES
+               and node.get('resource-id', '').split('/')[-1] in ('car_ui_alert_title', 'permission_message')
+               and 'Attune.more Prototype' in node.get('text', '') for node in root.iter('node'))
+
+
+def denial_target(raw):
+    """Only a known OS permission dialog for this APK; never an allow action."""
+    if not permission_dialog(raw):
+        return None
+    root = ET.fromstring(raw)
+    candidates = []
+    for node in root.iter('node'):
+        if node.get('package') not in PERMISSION_PACKAGES:
+            continue
+        resource = node.get('resource-id', '').split('/')[-1]
+        if resource == 'permission_deny_button':
+            candidates.append(node)
+        # AAOS uses a nonclickable title and a clickable sibling interceptor.
+        children = list(node)
+        if any(c.get('package') in PERMISSION_PACKAGES and
+               c.get('resource-id', '').endswith('/car_ui_list_item_title') and
+               c.get('text') in DENIAL_LABELS for c in children):
+            candidates += [c for c in children if c.get('package') in PERMISSION_PACKAGES
+                           and c.get('resource-id', '').endswith('/car_ui_list_item_touch_interceptor')]
+    targets = []
+    for node in candidates:
+        bounds = list(map(int, re.findall(r'\d+', node.get('bounds', ''))))
+        if node.get('enabled') == 'true' and node.get('clickable') == 'true' and len(bounds) == 4:
+            x1, y1, x2, y2 = bounds
+            if x2 > x1 and y2 > y1:
+                targets.append({'x': (x1 + x2) // 2, 'y': (y1 + y2) // 2,
+                                'resource': node.get('resource-id'), 'package': node.get('package')})
+    return targets[0] if len(targets) == 1 else None
+
+
+def verify_png(path):
+    from PIL import Image
+    with Image.open(path) as image:
+        if image.format != 'PNG' or min(image.size) <= 0:
+            raise Blocked('Invalid framebuffer PNG')
+        image.verify()
+
+
 CAR_BOOT_JARS = ('/system/framework/android.car.jar',
                  '/apex/com.android.car.framework/javalib/android.car-module.jar')
 
@@ -214,7 +265,7 @@ def finalize(out):
                     for c in CHECKS if c not in existing]
     else:
         stages = ', '.join(name + '=' + os.getenv('AAOS_' + name.upper() + '_OUTCOME', 'unknown')
-                           for name in ('kvm', 'sdk', 'image', 'build', 'preflight', 'emulator'))
+                           for name in ('assets', 'kvm', 'sdk', 'image', 'build', 'preflight', 'emulator'))
         detail = f'Harness not reached; {stages}. See job logs and runtime-*.json.'
         results = [{'check': c, 'status': 'BLOCKED', 'detail': detail} for c in CHECKS]
     if not (out / 'navigation.json').exists():
@@ -223,21 +274,22 @@ def finalize(out):
             for route in ROUTES], indent=2))
     first_failure = next((r for r in results if r['status'] == 'FAIL'), None)
     stages = {name: os.getenv('AAOS_' + name.upper() + '_OUTCOME', 'unknown')
-              for name in ('kvm', 'sdk', 'image', 'build', 'preflight', 'emulator')}
+              for name in ('assets', 'kvm', 'sdk', 'image', 'build', 'preflight', 'emulator')}
     first_failed_stage = next((name for name, outcome in stages.items() if outcome == 'failure'), None)
     report = write_reports(out, results)
     diagnostics = []
-    for path in sorted(out.glob('runtime-*.json')):
+    for path in sorted([*out.glob('runtime-*.json'), *out.glob('asset-preflight.json')]):
         try:
             diagnostics += [path.name + ': ' + str(error) for error in json.loads(path.read_text()).get('errors', [])]
         except (ValueError, OSError, AttributeError):
             diagnostics.append(path.name + ': diagnostic file could not be decoded')
     if diagnostics:
-        report += '\nDependency/preflight blockers (host setup, not application failures):\n\n'
+        report += '\nSetup/source-packaging blockers (emulator scenarios were not executed):\n\n'
         report += '\n'.join('- ' + error.replace('\n', ' ') for error in diagnostics) + '\n'
         (out / 'report.md').write_text(report)
     (out / 'execution.json').write_text(json.dumps({
         'sdk': os.getenv('AAOS_SDK_OUTCOME', 'unknown'),
+        'assets': os.getenv('AAOS_ASSETS_OUTCOME', 'unknown'),
         'image': os.getenv('AAOS_IMAGE_OUTCOME', 'unknown'),
         'kvm': os.getenv('AAOS_KVM_OUTCOME', 'unknown'),
         'build': os.getenv('AAOS_BUILD_OUTCOME', 'unknown'),
@@ -261,6 +313,10 @@ class Assessment:
     def __init__(self, out):
         self.out, self.results = out, []
         self.processes = []
+        self.services = {}
+        self.last_ui = None
+        self.last_ui_at = None
+        self.evidence = {}
         self.phase = 'setup'
         self.console = []
         self.web_client = None
@@ -286,7 +342,7 @@ class Assessment:
             data = b'[Earlier log content truncated to 4 MiB]\n' + data[-4 * 1024 * 1024:]
         (self.out / name).write_bytes(data)
 
-    def wait(self, predicate, seconds=30):
+    def wait(self, predicate, seconds=30, label='expected observation'):
         deadline = time.monotonic() + seconds
         last = None
         while time.monotonic() < deadline:
@@ -300,10 +356,16 @@ class Assessment:
             time.sleep(1)
         if isinstance(last, Blocked):
             raise last
-        raise AssertionError(f'Timed out after {seconds}s: {last or "expected observation absent"}')
+        if self.last_ui:
+            self.save(self.phase + '-timeout.xml', self.last_ui)
+        self.save(self.phase + '-timeout.json', json.dumps({'label': label, 'seconds': seconds,
+                                                          'last_error': str(last) if last else None,
+                                                          'last_ui_observed_at_unix': self.last_ui_at}))
+        raise AssertionError(f'Timed out after {seconds}s: {label}: {last or "expected observation absent"}')
 
     def check(self, name, action, requires=(), capture=True):
         self.phase = name
+        self.last_ui, self.last_ui_at = None, None
         if self.web_client is not None:
             self.web_client.phase = name
             try:
@@ -323,6 +385,7 @@ class Assessment:
             status, detail = 'UNVERIFIED', str(error)
         except Exception as error:
             status, detail = 'FAIL', type(error).__name__ + ': ' + str(error)
+            self.save(name + '-traceback.txt', traceback.format_exc())
         self.results.append({'check': name, 'status': status, 'detail': detail})
         if not missing and capture:
             try:
@@ -342,10 +405,31 @@ class Assessment:
         raw = self.adb('shell', 'cat', path)
         if ET.fromstring(raw).tag != 'hierarchy':
             raise Blocked('Invalid fresh UI hierarchy')
+        self.last_ui = raw
+        self.last_ui_at = time.time()
         return raw
 
     def capture(self, name):
         errors = []
+        components = {}
+        def receipt(suffix):
+            path = self.out / (name + suffix)
+            components[suffix] = {'path': path.name, 'bytes': path.stat().st_size,
+                                  'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+                                  'observed_at_unix': time.time()}
+        # AAOS can resume an Activity before its first accessibility root exists.
+        # Poll fresh dumps within a finite window, retaining no previous dump.
+        def fresh_ui():
+            raw = self.ui()
+            if name == 'activity-start' and not any(n.get('package') == PACKAGE
+                    for n in ET.fromstring(raw).iter('node')):
+                raise Blocked('First application UI frame not yet accessible')
+            return raw
+        try:
+            self.save(name + '.xml', self.wait(fresh_ui, 12, label='fresh UI hierarchy for evidence'))
+            receipt('.xml')
+        except Exception as error:
+            errors.append('.xml: ' + str(error))
         # Guest screencap repeatedly SIGABRTed in run #118. Use the documented
         # host emulator framebuffer interface; never substitute rendered HTML.
         try:
@@ -354,15 +438,22 @@ class Assessment:
                 images = list(Path(directory).glob('*.png'))
                 if len(images) != 1 or not images[0].read_bytes().startswith(b'\x89PNG\r\n\x1a\n'):
                     raise Blocked('No fresh emulator framebuffer PNG: ' + reply[-500:])
+                verify_png(images[0])
                 images[0].replace(self.out / (name + '.png'))
+                receipt('.png')
         except Exception as error:
             errors.append('screenshot: ' + str(error))
-        for suffix, obtain in [('.xml', self.ui),
-                               ('-activities.txt', lambda: self.adb('shell', 'dumpsys', 'activity', 'activities'))]:
+        for suffix, obtain in [('-activities.txt', lambda: self.adb('shell', 'dumpsys', 'activity', 'activities'))]:
             try:
-                self.save(name + suffix, obtain())
+                text = obtain()
+                if not text.strip():
+                    raise Blocked('Empty Activity evidence')
+                self.save(name + suffix, text)
+                receipt(suffix)
             except Exception as error:
                 errors.append(suffix + ': ' + str(error))
+        self.evidence[name] = {'components': components, 'errors': errors}
+        self.save('evidence-index.json', json.dumps(self.evidence, indent=2))
         if errors:
             raise Blocked('; '.join(errors))
 
@@ -432,12 +523,16 @@ class Assessment:
         return self.web_client
 
     def parked_ready(self):
+        raw = self.ui()
+        if permission_dialog(raw):
+            self.save(self.phase + '-blocking-permission-dialog.xml', raw)
+            raise Blocked('An unresolved OS permission dialog obstructs native Park/hardware observation; see permissions-denial')
         self.vhal(True)
         self.api(0)
         self.wait(lambda: self.probe()['doRequired'] == 'false')
         self.launch()
-        self.wait(lambda: 'PARK doğrulandı' in self.ui())
-        self.wait(lambda: 'android.webkit.WebView' in self.ui())
+        self.wait(lambda: 'PARK doğrulandı' in self.ui(), label='native Park gate before scenario')
+        self.wait(lambda: 'android.webkit.WebView' in self.ui(), label='native WebView before scenario')
 
     def parked_page(self):
         self.parked_ready()
@@ -534,12 +629,8 @@ class Assessment:
             import socket
             with socket.socket() as test:
                 test.bind(('127.0.0.1', port))
-        for name, args in [('backend', [sys.executable, '-m', 'uvicorn', 'main:app', '--app-dir', 'services/core-api', '--host', '127.0.0.1', '--port', '8000']),
-                           ('frontend', ['npm', '--workspace=apps/vehicle-app', 'run', 'start'])]:
-            stream = open(self.out / (name + '.log'), 'wb')
-            process = subprocess.Popen(args, cwd=ROOT, stdout=stream, stderr=subprocess.STDOUT, start_new_session=True)
-            stream.close()
-            self.processes.append(process)
+        for name in ('backend', 'frontend'):
+            self.start_service(name)
         self.wait(lambda: self.api().get('vehicleParked') is True, 60)
         def web_ready():
             with urllib.request.urlopen('http://127.0.0.1:3000/', timeout=3) as response:
@@ -547,6 +638,44 @@ class Assessment:
         self.wait(web_ready, 60)
         for port in (3000, 8000):
             self.adb('reverse', f'tcp:{port}', f'tcp:{port}')
+
+    def start_service(self, name):
+        previous = self.services.get(name)
+        if previous is not None and previous.poll() is None:
+            raise Blocked('Owned service already running: ' + name)
+        args = {'backend': [sys.executable, '-m', 'uvicorn', 'main:app', '--app-dir', 'services/core-api',
+                            '--host', '127.0.0.1', '--port', '8000'],
+                'frontend': ['npm', '--workspace=apps/vehicle-app', 'run', 'start']}[name]
+        with open(self.out / (name + '.log'), 'ab') as stream:
+            process = subprocess.Popen(args, cwd=ROOT, stdout=stream, stderr=subprocess.STDOUT, start_new_session=True)
+        self.processes.append(process)
+        self.services[name] = process
+        return process
+
+    def stop_service(self, name):
+        import signal
+        process = self.services.get(name)
+        if process is None or process not in self.processes:
+            raise Blocked('Refusing to stop a service not owned by this harness: ' + name)
+        if process.poll() is None:
+            os.killpg(process.pid, signal.SIGTERM)
+            try:
+                process.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                os.killpg(process.pid, signal.SIGKILL)
+                process.wait(timeout=5)
+        return process.returncode
+
+    def backend_unreachable(self):
+        try:
+            self.api()
+            return False
+        except urllib.error.HTTPError as error:
+            raise Blocked('HTTP error is not proof of a disconnected backend: ' + str(error)) from error
+        except urllib.error.URLError as error:
+            if isinstance(error.reason, (ConnectionRefusedError, ConnectionResetError)):
+                return True
+            raise Blocked('Backend fault injection not established: ' + str(error)) from error
 
     def start_activity(self):
         self.start_services()
@@ -647,15 +776,29 @@ class Assessment:
 
     def backend_offline(self):
         self.parked_page()
-        self.adb('reverse', '--remove', 'tcp:8000')
+        fault = {'method': 'stop only harness-owned backend; keep adb reverse mapping',
+                 'started_at_unix': time.time(), 'locked': False, 'recovered': False}
         try:
-            self.wait(lambda: self.locked(['Araç verisi alınamadı', 'Araç verisi güncel değil']))
+            fault['stopped_exit_code'] = self.stop_service('backend')
+            self.wait(self.backend_unreachable, 10, label='backend actually disconnected')
+            fault['host_unreachable'] = True
+            self.wait(lambda: self.locked(['Araç verisi alınamadı', 'Araç verisi güncel değil']),
+                      label='native offline/stale gate and absence of WebView')
+            fault['locked'] = True
+            fault['locked_at_unix'] = time.time()
             self.capture('backend-offline-locked')
         finally:
-            self.adb('reverse', 'tcp:8000', 'tcp:8000')
-        self.wait(lambda: 'PARK doğrulandı' in self.ui())
+            # Restart the same isolated, keyless backend and retain both log segments.
+            process = self.services.get('backend')
+            if process is not None and process.poll() is not None:
+                self.start_service('backend')
+            self.save('backend-offline-fault.json', json.dumps(fault, indent=2))
+        self.wait(lambda: self.api().get('vehicleParked') is True, 60, label='owned backend recovery')
+        self.wait(lambda: 'PARK doğrulandı' in self.ui(), label='fresh native Park after backend recovery')
         self.connect().request('ready')
-        return 'Removed only emulator backend reverse tunnel: fail-closed gate, WebView absent, fresh Park recovered after tunnel restore.'
+        fault.update(recovered=True, recovered_at_unix=time.time())
+        self.save('backend-offline-fault.json', json.dumps(fault, indent=2))
+        return 'Stopped owned backend and verified connection refusal; native offline/stale gate removed WebView; same isolated backend restart restored fresh Park.'
 
     def web_error(self):
         self.parked_page()
@@ -688,22 +831,44 @@ class Assessment:
         if not any(features.get(key) == 'true' for key in ('camera', 'microphone')):
             raise Unverified('No advertised media hardware can exercise an Android permission prompt')
         client = self.parked_page()
-        client.request('permission-start', features=features)
         saw_dialog = False
         state = 'pending'
-        for _ in range(10):
-            if self.tap(resource_suffix='permission_deny_button'):
-                saw_dialog = True
-                break
-            state = client.request('permission-state')
-            assert state != 'UNEXPECTED_GRANT', 'Media was unexpectedly granted'
-            if state != 'pending':
-                break
-            time.sleep(1)
-        self.permissions_denied()
-        if not saw_dialog:
-            raise Blocked(f'Permissions remain denied; actual OS denial dialog not observed; request state={state}. Hardware advertisement is not proof of capture capability; no synthetic grant.')
-        return 'Trusted-origin WebView requested media; actual Android denial button used; permissions remained denied. No physical media involved.'
+        observation = {'state': state, 'denial_clicked': False}
+        try:
+            client.request('permission-start', features=features)
+            deadline = time.monotonic() + 30
+            while time.monotonic() < deadline:
+                raw = self.wait(self.ui, 12, label='fresh OS permission UI')
+                self.save('permissions-denial-observed.xml', raw)
+                target = denial_target(raw)
+                if target:
+                    self.capture('permissions-denial-prompt')
+                    self.adb('shell', 'input', 'tap', str(target['x']), str(target['y']))
+                    observation.update(denial_clicked=True, target=target)
+                    self.wait(lambda: not permission_dialog(self.ui()), 15, label='actual OS denial dialog dismissed')
+                    saw_dialog = True
+                    break
+                # onPause intentionally destroys the WebView when the OS prompt
+                # opens. A closed page is not proof that no OS prompt exists.
+                state = client.request('permission-state')
+                observation['state'] = state
+                assert state != 'UNEXPECTED_GRANT', 'Media was unexpectedly granted'
+                time.sleep(1)
+            self.permissions_denied()
+            if not saw_dialog:
+                raise Blocked(f'Actual OS denial action not established; WebView state={state}; permissions remain denied. See OS UI evidence; no synthetic grant.')
+            return 'Actual OS permission dialog observed; its denial control clicked; dialog dismissed and camera/microphone permissions remained denied. No physical media involved.'
+        finally:
+            # Never leave a permission modal to contaminate the next scenario.
+            # Back is cancellation only; it cannot make denial acceptance PASS.
+            raw = self.wait(self.ui, 12, label='fresh UI for permission cleanup')
+            if permission_dialog(raw):
+                self.save('permissions-denial-cleanup-before.xml', raw)
+                self.adb('shell', 'input', 'keyevent', 'KEYCODE_BACK')
+                self.wait(lambda: not permission_dialog(self.ui()), 15, label='permission-modal cleanup')
+                self.permissions_denied()
+                observation['cleanup_cancelled'] = True
+            self.save('permissions-denial-observation.json', json.dumps(observation, indent=2))
 
     def unsupported(self):
         self.parked_ready()
@@ -737,11 +902,24 @@ class Assessment:
         incomplete = [r['check'] for r in self.results if r.get('evidence_warning')]
         if incomplete:
             raise Blocked('Missing screenshot/UI/activity evidence: ' + ', '.join(incomplete) + '; named behavior results remain separate.')
-        for route in ROUTES:
-            name = 'route-' + (route.strip('/') or 'dashboard')
+        required = ['route-' + (route.strip('/') or 'dashboard') for route in ROUTES]
+        required += [r['check'] for r in self.results if r['status'] == 'PASS'
+                     and r['check'] not in ('aaos-runtime', 'platform-compatibility', 'apk-install', 'evidence-capture')]
+        for name in required:
             if not (self.out / (name + '.png')).is_file():
-                raise Blocked('Route screenshot unavailable: ' + route)
-        return 'Fresh emulator framebuffer screenshots, UI and activity evidence recorded; nine route PNGs present.'
+                raise Blocked('Route screenshot unavailable or successful-check screenshot missing: ' + name)
+            try:
+                verify_png(self.out / (name + '.png'))
+                assert ET.parse(self.out / (name + '.xml')).getroot().tag == 'hierarchy'
+                assert (self.out / (name + '-activities.txt')).read_text().strip()
+                receipt = self.evidence[name]
+                assert not receipt['errors']
+                for suffix in ('.png', '.xml', '-activities.txt'):
+                    path = self.out / (name + suffix)
+                    assert hashlib.sha256(path.read_bytes()).hexdigest() == receipt['components'][suffix]['sha256']
+            except Exception as error:
+                raise Blocked('Incomplete or changed screenshot/UI/activity evidence for ' + name + ': ' + str(error)) from error
+        return 'Valid framebuffer PNGs, fresh UI/activity evidence and matching acquisition hashes for nine routes and every passed behavioral check.'
 
     def run(self):
         try:
