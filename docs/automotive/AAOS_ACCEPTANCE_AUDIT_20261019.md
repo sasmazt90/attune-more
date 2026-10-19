@@ -1,6 +1,10 @@
 # AAOS partial acceptance audit — run #121
 
-**Actions remains stopped.** Consolidated harness corrections are verified in managed Cloud. Another emulator run is **BLOCKED by a missing approved audio asset**, not requested by this report. No corrected-scenario emulator passes are claimed.
+> Historical findings before approved audio commit `de703d95`. The exact asset
+> has now been independently verified; current consolidated readiness, all five
+> remaining scenarios and risks are in [AAOS_RUN121_READINESS_20261019.md](AAOS_RUN121_READINESS_20261019.md).
+
+**Actions remains stopped.** At this audit snapshot another emulator run was blocked by the missing approved audio asset. No corrected-scenario emulator passes are claimed by this historical report.
 
 ## Evidence examined
 

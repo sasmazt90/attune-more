@@ -2,9 +2,10 @@
 
 > Current status (2026-10-19): run #121 installed/launched the APK and passed
 > all nine routes plus independent moving locks and lifecycle checks.
-> Acceptance is partial; Actions is stopped. Remaining harness/evidence fixes
-> and the missing approved MP3 prerequisite are documented in
-> [AAOS_ACCEPTANCE_AUDIT_20261019.md](AAOS_ACCEPTANCE_AUDIT_20261019.md).
+> Acceptance is partial; Actions is stopped. Approved audio commit `de703d95`
+> now passes source/hash, actual HTTP serving and desktop browser decode checks.
+> All five remaining scenarios, Cloud verification and manual-run approval
+> boundary are documented in [AAOS_RUN121_READINESS_20261019.md](AAOS_RUN121_READINESS_20261019.md).
 > Earlier preparation/run-authorization statements below are historical.
 > This audit does not authorize or request an immediate rerun.
 

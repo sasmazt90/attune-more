@@ -354,13 +354,13 @@ class Assessment:
             except Exception as error:
                 last = error
             time.sleep(1)
-        if isinstance(last, Blocked):
-            raise last
         if self.last_ui:
             self.save(self.phase + '-timeout.xml', self.last_ui)
         self.save(self.phase + '-timeout.json', json.dumps({'label': label, 'seconds': seconds,
                                                           'last_error': str(last) if last else None,
                                                           'last_ui_observed_at_unix': self.last_ui_at}))
+        if isinstance(last, Blocked):
+            raise Blocked(f'{label}: {last}') from last
         raise AssertionError(f'Timed out after {seconds}s: {label}: {last or "expected observation absent"}')
 
     def check(self, name, action, requires=(), capture=True):

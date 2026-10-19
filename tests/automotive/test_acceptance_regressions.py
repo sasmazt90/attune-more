@@ -157,6 +157,39 @@ class AcceptanceRegressionChecks(unittest.TestCase):
             with self.assertRaisesRegex(qa.Blocked, 'Incomplete or changed'):
                 a.evidence_quality()
 
+    def test_complete_evidence_passes_and_changed_activity_receipt_blocks(self):
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as directory:
+            a = qa.Assessment(Path(directory))
+            a.ui = lambda: '<hierarchy><node package="' + qa.PACKAGE + '"/></hierarchy>'
+            def adb(*args, **kw):
+                if args[:3] == ('emu', 'screenrecord', 'screenshot'):
+                    Image.new('RGB', (2, 2)).save(Path(args[3]) / 'frame.png')
+                    return 'fixture framebuffer, not an emulator observation'
+                return 'fixture Activity receipt'
+            a.adb = adb
+            for route in qa.ROUTES:
+                a.capture('route-' + (route.strip('/') or 'dashboard'))
+            a.capture('activity-start')
+            a.results = [{'check': 'activity-start', 'status': 'PASS', 'detail': 'unit fixture only'}]
+            self.assertIn('nine routes', a.evidence_quality())
+            (Path(directory) / 'activity-start-activities.txt').write_text('changed fixture')
+            with self.assertRaisesRegex(qa.Blocked, 'Incomplete or changed'):
+                a.evidence_quality()
+
+    def test_blocked_wait_preserves_phase_label_and_diagnostic_receipt(self):
+        with tempfile.TemporaryDirectory() as directory:
+            a = qa.Assessment(Path(directory))
+            a.phase = 'permissions-denial'
+            def unavailable():
+                raise qa.Blocked('fresh OS hierarchy unavailable')
+            with patch.object(qa.time, 'monotonic', side_effect=[0, 0, 1]), patch.object(qa.time, 'sleep'):
+                with self.assertRaises(qa.Blocked):
+                    a.wait(unavailable, 1, label='permission OS UI readiness')
+            receipt = json.loads((Path(directory) / 'permissions-denial-timeout.json').read_text())
+            self.assertEqual(receipt['label'], 'permission OS UI readiness')
+            self.assertIn('fresh OS hierarchy unavailable', receipt['last_error'])
+
 
 if __name__ == '__main__':
     unittest.main()
