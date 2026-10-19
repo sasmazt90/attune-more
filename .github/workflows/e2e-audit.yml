@@ -9,7 +9,12 @@ concurrency:
   group: attune-e2e-audit-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  # This registered manual entry can select the feature ref without touching main.
+  aaos-emulator:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/feature/aaos-oem-agnostic-prototype-20261019'
+    uses: ./.github/workflows/aaos-emulator-validation.yml
   browser-audit:
+    if: github.ref != 'refs/heads/feature/aaos-oem-agnostic-prototype-20261019'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:

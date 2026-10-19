@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-feature android:name="android.hardware.type.automotive" android:required="true" />
+    <application android:label="Attune QA read-only probe" android:allowBackup="false">
+        <uses-library android:name="android.car" android:required="true" />
+    </application>
+    <!-- Targets itself; never instruments, alters or grants privileges to the app. -->
+    <instrumentation android:name=".RestrictionProbe" android:targetPackage="more.attune.validation" />
+</manifest>

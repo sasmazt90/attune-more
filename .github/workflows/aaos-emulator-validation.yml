@@ -1,0 +1,134 @@
+name: AAOS emulator validation (manual only)
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aaos-emulator-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    # Never allocate a paid/private/larger runner.
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      github.repository == 'sasmazt90/attune-more' &&
+      github.event.repository.private == false &&
+      github.ref == 'refs/heads/feature/aaos-oem-agnostic-prototype-20261019'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    defaults:
+      run:
+        shell: bash
+    env:
+      ATTUNE_LOAD_LOCAL_ENV: '0'
+      OPENAI_API_KEY: ''
+      ATTUNE_ROBOFLOW_API_KEY: ''
+      ROBOFLOW_API_KEY: ''
+      NEXT_TELEMETRY_DISABLED: '1'
+      OMP_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+    steps:
+      - name: Record single-run authorization and initialize isolated paths
+        run: |
+          if [[ "$GITHUB_RUN_ATTEMPT" != 1 ]]; then
+            echo 'BLOCKED: only the initial manual run is authorized; no rerun.' | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 69
+          fi
+          echo 'Owner authorized one bounded run with limited artifact billing risk; zero additional cost is not guaranteed.' >> "$GITHUB_STEP_SUMMARY"
+          echo "ATTUNE_AAOS_EVIDENCE=$RUNNER_TEMP/attune-aaos-evidence" >> "$GITHUB_ENV"
+          echo "ATTUNE_DATA_DIR=$RUNNER_TEMP/attune-aaos-private-data" >> "$GITHUB_ENV"
+      - uses: actions/checkout@v4
+        id: checkout
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Initialize evidence and verify expected history
+        run: |
+          mkdir -p "$ATTUNE_AAOS_EVIDENCE" "$ATTUNE_DATA_DIR"
+          git merge-base --is-ancestor 32b0f5278c94e2c1a1b91d01b52b9fdc439099ab HEAD
+          git rev-parse HEAD > "$ATTUNE_AAOS_EVIDENCE/source-commit.txt"
+          git status --porcelain > "$ATTUNE_AAOS_EVIDENCE/checkout-status.txt"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.20.0'
+          # No persistent caches or snapshots are created by this workflow.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Require KVM and free runner disk space
+        run: |
+          test -c /dev/kvm || { echo 'BLOCKED: runner has no KVM'; exit 69; }
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+          test -r /dev/kvm && test -w /dev/kvm
+          # Only disposable hosted-runner tool caches; no workspace/user data.
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android/sdk/ndk
+          df -h . > "$ATTUNE_AAOS_EVIDENCE/runner-disk.txt"
+      - name: Build existing web app and debug APK plus read-only UX probe
+        id: build
+        run: |
+          set -o pipefail
+          npm ci 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/npm-install.log"
+          python -m pip install -r services/core-api/requirements.txt 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/python-install.log"
+          npm run build 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/web-build.log"
+          sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+          apps/automotive/gradlew --no-daemon --max-workers=2 -p apps/automotive :app:assembleDebug 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/apk-build.log"
+          apps/automotive/gradlew --no-daemon --max-workers=2 -p tests/automotive/emulator-probe assembleDebug 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/probe-build.log"
+          cp apps/automotive/app/build/outputs/apk/debug/app-debug.apk "$ATTUNE_AAOS_EVIDENCE/"
+      - name: Boot real AAOS and run finite checks
+        id: emulator
+        # Resolved from upstream v2 tag on 2026-10-19; supports extended SDK tags.
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d
+        with:
+          api-level: 35
+          system-image-api-level: 35-ext15
+          target: android-automotive
+          arch: x86_64
+          avd-name: attune-aaos
+          cores: 2
+          ram-size: 3072M
+          disk-size: 4096M
+          emulator-boot-timeout: 600
+          disable-linux-hw-accel: false
+          emulator-options: -no-window -no-snapshot -no-boot-anim -noaudio -gpu swiftshader_indirect -camera-back none -camera-front none -accel on -skin 1280x800 -dpi-device 160
+          script: python tests/automotive/validate_emulator.py
+      - name: Finalize report even if setup or boot failed
+        if: always() && steps.checkout.outcome == 'success'
+        env:
+          AAOS_BUILD_OUTCOME: ${{ steps.build.outcome }}
+          AAOS_EMULATOR_OUTCOME: ${{ steps.emulator.outcome }}
+        run: python tests/automotive/validate_emulator.py --finalize
+      - name: Enforce artifact size ceiling
+        if: always() && steps.checkout.outcome == 'success'
+        id: artifact-cap
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          root = Path(os.environ['ATTUNE_AAOS_EVIDENCE'])
+          files = [p for p in root.rglob('*') if p.is_file()]
+          size = sum(p.stat().st_size for p in files)
+          # Reserve 1 MiB for deflate expansion and ZIP headers, keeping the
+          # resulting hosted artifact below the owner's 50 MiB ceiling.
+          assert len(files) <= 256 and all(len(str(p.relative_to(root)).encode()) <= 200 for p in files)
+          assert 0 < size <= 49 * 1024 * 1024, f'BLOCKED artifact upload: {size} source bytes; 49 MiB plus ZIP overhead must fit 50 MiB'
+          PY
+      - name: Downloadable synthetic-only evidence (expires after one day)
+        if: always() && steps.artifact-cap.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: aaos-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ env.ATTUNE_AAOS_EVIDENCE }}/
+          retention-days: 1
+          compression-level: 6
+          if-no-files-found: error
