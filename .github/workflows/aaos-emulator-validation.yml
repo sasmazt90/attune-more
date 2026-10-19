@@ -74,6 +74,21 @@ jobs:
           # Only disposable hosted-runner tool caches; no workspace/user data.
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android/sdk/ndk
           df -h . > "$ATTUNE_AAOS_EVIDENCE/runner-disk.txt"
+      - name: Set up Android SDK command-line tools
+        # setup-android v4 installs Google's tools and exports SDK roots/PATH.
+        uses: android-actions/setup-android@be39fa834029ff78f1a44aa3bb0819b8fc2bd8fd
+        with:
+          cmdline-tools-version: '15859902'
+          log-accepted-android-sdk-licenses: false
+          packages: platform-tools
+      - name: Verify Android SDK tools before build
+        run: |
+          test -d "$ANDROID_HOME"
+          test "$ANDROID_HOME" = "$ANDROID_SDK_ROOT"
+          command -v sdkmanager
+          command -v avdmanager
+          command -v adb
+          sdkmanager --version
       - name: Build existing web app and debug APK plus read-only UX probe
         id: build
         run: |
