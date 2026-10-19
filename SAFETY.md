@@ -1,13 +1,13 @@
 # Güvenlik, Klinik Sınırlar ve Kullanıcı Onay Politikası (SAFETY.md)
 
-Bu belge, **Togg Health MVP** sisteminin tıbbi güvenlik, sürüş güvenliği, ruhsal iyi oluş koruma mekanizmaları ve otonom randevu asistanı onay ilkelerini tanımlar.
+Bu belge, **Attune.more** sisteminin tıbbi güvenlik, sürüş güvenliği, ruhsal iyi oluş koruma mekanizmaları ve otonom randevu asistanı onay ilkelerini tanımlar.
 
 ---
 
 ## 1. Klinik ve Tıbbi Güvenlik İlkesi (Non-Diagnostic Principle)
 
 ### 1.1. Tıbbi Teşhis İddiası Reddi
-Togg Health MVP bir **tıbbi cihaz değildir** ve **tıbbi teşhis koymaz**.
+Attune.more **tıbbi teşhis koymaz** ve bir tıbbi cihazın yerine sunulmaz. Gelecekteki ürünün düzenleyici sınıflandırması, kullanım amacı ve hedef pazara göre ayrıca değerlendirilmelidir.
 Sistem kullanıcıya doğrudan hastalık ismi, patolojik tanı veya kesin klinik hüküm vermez.
 
 * **YANLIŞ DİL (Yasak):**

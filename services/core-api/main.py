@@ -1,5 +1,5 @@
 """
-Togg Health MVP - Core API (FastAPI)
+Attune.more - Core API (FastAPI)
 Yerel önleyici sağlık ve araç bağlamı orkestrasyon servisi.
 Lisans: UNLICENSED
 """
@@ -42,8 +42,8 @@ async def lifespan(_app: FastAPI):
         close_openai_client()
 
 app = FastAPI(
-    title="Togg Health MVP Core API",
-    description="Togg araç içi önleyici sağlık, görme, cilt, sesli asistan ve randevu orkestrasyonu.",
+    title="Attune.more Core API",
+    description="Attune.more sağlık ve iyi oluş ön değerlendirmesi, sesli asistan ve randevu orkestrasyonu.",
     version="1.0.0",
     lifespan=lifespan
 )
@@ -240,7 +240,7 @@ class AppointmentMatchPayload(BaseModel):
 @app.get("/")
 def read_root():
     return {
-        "service": "Togg Health MVP Core API",
+        "service": "Attune.more Core API",
         "status": "OPERATIONAL",
         "language": "tr-TR",
         "clinicalSafety": "Non-diagnostic trend monitoring",

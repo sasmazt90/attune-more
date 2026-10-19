@@ -1,6 +1,6 @@
 # Sistem Mimarisi (ARCHITECTURE.md)
 
-Bu belge, **Togg Health MVP**'nin modüler yapısını, veri akışını, otomotiv soyutlama katmanlarını ve dört temel sağlık modülünün teknik mimarisini açıklar.
+Bu belge, **Attune.more**'un modüler yapısını, veri akışını ve otomotiv soyutlama katmanlarının önceki mimari kesitini açıklar. Güncel beş sağlık modülü ve gerçek/simüle/planlanan özellik ayrımı için [README](README.md) esas alınır; aşağıdaki eski şema güncel teslim envanteri değildir.
 
 ---
 
@@ -8,7 +8,7 @@ Bu belge, **Togg Health MVP**'nin modüler yapısını, veri akışını, otomot
 
 ```
 +-------------------------------------------------------------------------+
-|                        TOGG HEALTH MVP KOKPİT                           |
+|                         ATTUNE.MORE KOKPİT                              |
 |                  (Next.js 14 / TypeScript / Tailwind)                   |
 +--------------------+-------------------------------+--------------------+
                      |                               |
@@ -39,7 +39,7 @@ Bu belge, **Togg Health MVP**'nin modüler yapısını, veri akışını, otomot
 ## 2. Monorepo Yapısı
 
 ```
-togg-health-mvp/
+attune-more/
   apps/
     vehicle-app/                  # Next.js 14 kokpit web uygulaması
   services/
@@ -103,7 +103,7 @@ togg-health-mvp/
 
 ## 4. Araç Bağlamı Soyutlama Katmanı (Vehicle Context)
 
-Togg tarafından sağlanacak resmi araç API'leri / SDK'ları doğrudan tak-çalıştır bağlanabilecek şekilde `VehicleDataProvider` / `ToggVehicleProvider` mimari soyutlaması kullanılmıştır:
+Gelecekte entegre edilecek araç üreticisinin API/SDK erişimi için `VehicleDataProvider` / `ToggVehicleProvider` mimari soyutlaması kullanılmıştır. İkinci ad eski bir teknik tanımlayıcıdır; mevcut üretici ortaklığı veya tak-çalıştır donanım entegrasyonu kanıtı değildir:
 
 ```typescript
 export interface VehicleState {
@@ -127,7 +127,7 @@ MVP ortamında bu arayüz `MockVehicleProvider` tarafından beslenir ve üst bar
 
 ## 5. Gizlilik ve Veri Güvenliği (Privacy-by-Design & /privacy Ekranı)
 
-- **Ham Veri Politikası:** Ham yüz görüntüleri veya mikrofon ses dalgaları Togg Health MVP tarafından kalıcı olarak saklanmaz. Web Speech API'nin tarayıcı/cihaz seviyesinde çalışması platforma bağlıdır. Canlı LLM etkinse metin transkripti yanıt üretimi için ilgili sağlayıcıya iletilir.
+- **Ham Veri Politikası:** Bu eski mimari kesitte ham yüz görüntüleri veya mikrofon ses dalgaları kalıcı saklanmıyordu. Güncel Attune.more sürümünde fotoğraf saklama ilgili hizmetin açık tercihine bağlıdır; güncel izin ve saklama akışı için README ve uygulamanın Gizlilik & İzinler ekranı esas alınır. Web Speech API'nin tarayıcı/cihaz seviyesinde çalışması platforma bağlıdır. Canlı LLM etkinse metin transkripti yanıt üretimi için ilgili sağlayıcıya iletilir.
 - **Yerel Depolama (Local-First):** Görme ölçüm sonuçları, cilt baz çizgisi ve mental oturum özetleri yerel tarayıcı depolamasında (`localStorage`) ve yerel backend JSON oturum dosyasında tutulur.
 - **Gizlilik Yönetim Ekranı (`/privacy`):** Donanım izinlerinin testi, seans özeti kaydetme tercihi, kayıtlı telemetri sayaçları ve tek tıkla "Tüm Yerel Veriyi Kalıcı Olarak Sil" imkânı sunulur.
 - Kod tabanımız UNLICENSED (özel mülkiyet) statüsündedir; üçüncü taraf kütüphaneler (Next.js, FastAPI, MediaPipe, Playwright) izin verici açık kaynak lisanslara sahiptir.

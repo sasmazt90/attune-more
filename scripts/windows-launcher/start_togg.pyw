@@ -245,7 +245,7 @@ def main():
             # The dedicated profile keeps unrelated Chrome windows outside our process tree.
             while browser.poll() is None:
                 if backend.poll() is not None or frontend.poll() is not None:
-                    raise RuntimeError("TOGG servisi beklenmedik sekilde durdu; bu oturum kapatildi.")
+                    raise RuntimeError("Attune.more servisi beklenmedik şekilde durdu; bu oturum kapatıldı.")
                 time.sleep(0.25)
         finally:
             if backend is not None and backend.poll() is None:
@@ -276,5 +276,5 @@ if __name__ == "__main__":
         from tkinter import Tk, messagebox
         window = Tk()
         window.withdraw()
-        messagebox.showerror("TOGG baslatilamadi", str(error))
+        messagebox.showerror("Attune.more başlatılamadı", str(error))
         window.destroy()

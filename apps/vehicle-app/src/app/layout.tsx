@@ -5,10 +5,15 @@ import './globals.css';
 import { VehicleContextProvider } from '../context/VehicleContext';
 import { ReminderNotice } from '../components/ReminderNotice';
 import { CockpitHeader } from '../components/CockpitHeader';
+import { ProductWordmark } from '../components/ProductWordmark';
+import { PRODUCT_NAME, PRODUCT_TAGLINE, PRODUCT_DESCRIPTION } from '../utils/brand';
 
 export const metadata: Metadata = {
-  title: 'Attune.more — Togg Kişiselleştirilmiş Sağlık ve İyi Oluş',
-  description: 'Togg için yapay zekâ destekli kişiselleştirilmiş sağlık ve iyi oluş deneyimi.',
+  title: `${PRODUCT_NAME} — ${PRODUCT_TAGLINE}`,
+  description: PRODUCT_DESCRIPTION,
+  applicationName: PRODUCT_NAME,
+  manifest: '/manifest.webmanifest',
+  icons: { icon: '/brand/attune-more/icon.svg', apple: '/brand/attune-more/icon-192.png' },
 };
 
 export default function RootLayout({
@@ -27,9 +32,9 @@ export default function RootLayout({
           </main>
           <footer className="border-t border-cockpit-border/40 py-3 px-6 text-center text-xs text-slate-500 bg-cockpit-surface/50">
             <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 max-w-[1600px] mx-auto text-[11px]">
-              <span className="font-semibold text-slate-300 tracking-wide">Attune<span className="text-togg-turquoise">.more</span></span>
+              <span className="font-semibold text-slate-300 tracking-wide"><ProductWordmark /></span>
               <span>•</span>
-              <span className="text-slate-400">Togg Kişiselleştirilmiş Sağlık Deneyimi</span>
+              <span className="text-slate-400">{PRODUCT_TAGLINE}</span>
               <span>•</span>
               <span className="text-slate-500">Tıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.</span>
 

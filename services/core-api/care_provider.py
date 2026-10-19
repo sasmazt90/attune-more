@@ -104,7 +104,7 @@ class DemoCareSearchProvider(CareSearchProvider):
                 "specialty": specialty,
                 "providerName": f"Uzm. E. Şahin (Demo Çevrimiçi)",
                 "title": f"Çevrimiçi {specialty} Danışmanı",
-                "clinicName": "Togg Araç İçi Tele-Sağlık Odası",
+                "clinicName": "Attune.more Tele-Sağlık Odası (Demo)",
                 "locationLabel": "Online / Araç Ekranı",
                 "isOnline": True,
                 "dateTime": (now + timedelta(days=2, hours=5)).replace(minute=0).strftime("%Y-%m-%dT%H:%M:00"),
