@@ -1,0 +1,5 @@
+/* Native shell only: existing health modules, layout and colors remain authoritative. */
+button, select, input:not([type="checkbox"]):not([type="radio"]),
+nav a, footer a { min-height: 48px; }
+nav button, nav a { font-size: 14px; }
+input[type="checkbox"], input[type="radio"] { min-width: 24px; min-height: 24px; }

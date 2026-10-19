@@ -1,0 +1,9 @@
+.gradle/
+local.properties
+**/build/
+*.jks
+*.keystore
+
+# The repository ignores raw asset folders; this small shipped stylesheet is source.
+!app/src/main/assets/
+!app/src/main/assets/automotive.css

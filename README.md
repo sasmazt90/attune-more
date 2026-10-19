@@ -1,5 +1,10 @@
 # Attune.more
 
+AAOS için ayrı, üreticiden bağımsız park uygulaması prototipi:
+[mimari, kurulum ve sınırlar](docs/automotive/README.md),
+[depo denetimi](docs/automotive/AUDIT.md),
+[doğrulama kanıtı](docs/automotive/VALIDATION.md).
+
 **Kişiselleştirilmiş sağlık ve iyi oluş ön değerlendirmesi ve değişim takibi.**
 
 Kaynak depo: [sasmazt90/attune-more](https://github.com/sasmazt90/attune-more).

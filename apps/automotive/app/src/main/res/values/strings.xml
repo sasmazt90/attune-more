@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Attune.more Prototype</string>
+    <string name="back">Geri</string>
+    <string name="home" translatable="false">Attune.more</string>
+    <string name="retry">Yeniden dene</string>
+    <string name="simulation">Simülasyon</string>
+    <string name="simulate_driving">Simülasyon: Sürüş</string>
+    <string name="simulate_parked">Simülasyon: Park</string>
+    <string name="present">var</string>
+    <string name="absent">yok</string>
+    <string name="platform_clear">Kullanılabilir</string>
+    <string name="platform_restricted">Kısıtlı</string>
+    <string name="platform_unknown">Doğrulanamadı</string>
+    <string name="status_line">%1$s\nAndroid: %2$s · %3$s · Kamera: %4$s · Mikrofon: %5$s</string>
+    <string name="gate_background">Uygulama arka planda</string>
+    <string name="gate_platform_unknown">Android araç kısıtları doğrulanamadı</string>
+    <string name="gate_platform_restricted">Android araç ekranını kısıtlıyor</string>
+    <string name="gate_vehicle_unknown">Araç verisi alınamadı</string>
+    <string name="gate_stale">Araç verisi güncel değil</string>
+    <string name="gate_moving">Araç hareket ediyor</string>
+    <string name="gate_not_parked">PARK doğrulanmadı</string>
+    <string name="gate_ready">PARK doğrulandı</string>
+    <string name="locked">İşlemler kapalı.\n%1$s\nAndroid kısıtları ve güncel PARK bilgisi doğrulanmadan sağlık ekranı açılmaz.</string>
+    <string name="page_failed">Sayfa yüklenemedi. Ağ bağlantısını kontrol edip Yeniden dene seçeneğini kullanın.</string>
+    <string name="external_title">Dış bağlantı</string>
+    <string name="external_message">Bu bağlantı ayrı tarayıcıda açılacak. Randevu veya ödeme otomatik tamamlanmaz.</string>
+    <string name="cancel">İptal</string>
+    <string name="open_browser">Tarayıcıda aç</string>
+    <string name="no_browser">Desteklenen tarayıcı yok.</string>
+    <string name="no_picker">Bu prototipte dış fotoğraf seçimi kapalı; arka plan geçişi geçici işlemi iptal eder.</string>
+    <string name="media_unavailable">İzin veya cihaz yeteneği uygun değil.</string>
+</resources>
