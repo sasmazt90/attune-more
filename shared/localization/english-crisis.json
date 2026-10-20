@@ -2,7 +2,7 @@
   "legacyKeywords": ["suicide", "suicidal", "kill myself", "hurt myself", "end my life", "want to die", "don't want to live", "do not want to live"],
   "signal": "\\b(?:suicide|suicidal|kill myself|hurt myself|end my life|want to die|(?:don't|do not|never) want to live)\\b",
   "selfDirected": "\\b(?:kill myself|hurt myself|end my life|want to die|(?:don't|do not|never) want to live)\\b",
-  "currentState": "\\b(?:i(?: am|'m| feel| have been feeling) (?:actively |currently |still )?suicidal|i (?:have|keep having|am having) suicidal (?:thoughts|feelings)|(?:feeling|actively|currently) suicidal|(?:commit|attempt|considering|contemplating|planning|thinking about) suicide|(?:suicide|suicidal) (?:tonight|now|today))\\b",
+  "currentState": "\\b(?:i(?: am|'m| feel| have been feeling) (?:actively |currently |still )?suicidal|i (?:have|keep having|am having) suicidal (?:thoughts|feelings)|i (?:have|made|am making) (?:a|my) suicide (?:plan|note)|i have (?:a|my) plan for suicide|i (?:wrote|am writing|have written) (?:a|my) suicide note|(?:feeling|actively|currently) suicidal|(?:commit|attempt|considering|contemplating|planning|thinking about) (?:my |a )?suicide|suicide (?:is|feels like) (?:my|the) (?:only|best) (?:option|way out)|(?:suicide|suicidal) (?:tonight|now|today))\\b",
   "reassurance": [
     "\\bi (?:don't|do not|never) (?:want|intend|plan) to (?:die|kill myself|hurt myself|end my life)\\b",
     "\\bi(?: am|'m| feel) (?:not|no longer) (?:currently |actively |feeling )?suicidal\\b",
@@ -10,7 +10,7 @@
     "\\bi (?:don't|do not|never) feel suicidal(?: anymore| any longer)?\\b",
     "\\bi(?: am|'m) not (?:going|planning|trying|intending) to (?:(?:kill|hurt) myself|commit suicide)\\b",
     "\\bi (?:will not|won't|would not|wouldn't) (?:(?:kill|hurt) myself|commit suicide|end my life)\\b",
-    "\\bi(?: am|'m) not (?:planning|considering|contemplating|thinking about) suicide\\b"
+    "\\bi(?: am|'m) (?:not|no longer) (?:currently |seriously |actively )?(?:planning|considering|contemplating|thinking about) (?:my |a )?suicide\\b"
   ],
   "historical": [
     "\\bi used to (?:feel|be) suicidal\\b",
@@ -19,7 +19,8 @@
   "uncertain": [
     "\\bi(?: am|'m) not sure (?:if|whether) i(?: am|'m| feel) suicidal\\b",
     "\\bi (?:don't|do not) (?:know|think) (?:if |whether |that )?i(?: am|'m| feel) suicidal\\b",
-    "\\bi (?:don't|do not) know what (?:suicide|suicidal) means\\b"
+    "\\bi (?:don't|do not) know what (?:suicide|suicidal) means\\b",
+    "\\bi (?:don't|do not) (?:think|believe) (?:that )?suicide (?:is|feels like) (?:my|the) (?:only|best) (?:option|way out)\\b"
   ],
   "continuedRisk": "\\b(?:but|and) (?:sometimes )?(?:i )?(?:still (?:do|am|feel that way)|feel that way (?:again|now))\\b",
   "conditional": "\\b(?:unless|until|if|yet|not sure)\\b"

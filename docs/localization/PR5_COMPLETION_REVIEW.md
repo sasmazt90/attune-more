@@ -22,8 +22,9 @@ English examples:
 | `I don't want to die, but I'm afraid I might hurt myself.` | Independent current risk wins; 112 route |
 | `I used to feel suicidal, and I still do.` | Continuing current risk; 112 route |
 | `I'm not sure whether I'm suicidal.` / conditional reassurance | UNCERTAIN; no automatic imminent-intent diagnosis |
+| `I have a suicide plan.` / `I am planning my suicide.` / `Suicide is my only option.` | Explicit current risk; existing 112 route |
 
-These are bounded deterministic engineering rules, not a clinical classifier or proof of understanding every natural-language utterance. Uncertainty is not labelled unconditional safety. Existing backend/cloud-consent and automotive admission controls remain unchanged.
+These are bounded deterministic engineering rules, not a clinical classifier or proof of understanding every natural-language utterance. Uncertainty is not labelled unconditional safety. A final affirmative-risk preflight found three over-narrow classifications in the first correction; they were corrected and locked with preparation/plan, negative-counterpart and frontend/backend regressions before any emulator dispatch. Existing backend/cloud-consent and automotive admission controls remain unchanged.
 
 ## Hearing: actual evidence and remaining blocker
 
@@ -54,7 +55,7 @@ TR/EN arbitrary live speech remains unverified through a legitimate eligible run
 
 ## Validation and AAOS authorization
 
-Focused review/integration regression: **170 passed**, including the new bilingual source parity, actual API routing, multilingual recommendation cases, existing German/Unicode/priority cases, consent/motion and original-file preservation. Counts overlap prior runs. Isolated production build/typecheck/lint pass with six pre-existing warnings. Full old suites are reused; automatic exact-head CI is checked after push.
+Final focused review/integration regression: **180 passed**, including the new source parity, actual API routing, multilingual recommendation cases, affirmative-plan/preparation and negative counterparts, existing German/Unicode/priority cases, consent/motion and original-file preservation. Counts overlap prior runs. Isolated production build/typecheck/lint pass with six pre-existing warnings. Eighteen Hearing regressions pass. Full old suites are reused; automatic exact-head CI is checked after push.
 
 The owner freshly verified GitHub Free, Actions 0/2,000 minutes, storage 0/0.5 GB, billable usage $0 and reset in twelve days. They explicitly renewed authorization for one final-source run within free allowance. Use only standard `ubuntu-24.04`, 40 minutes maximum, 50 MiB artifacts including ZIP overhead, one-day retention, no retries or paid services. Stop on quota/billing restriction.
 
