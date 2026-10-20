@@ -1,4 +1,6 @@
 'use client';
+import {useTranslations} from '../../i18n/LanguageProvider';
+
 
 import { AccessibleDialog } from '../AccessibleDialog';
 import React from 'react';
@@ -11,8 +13,9 @@ interface SkinObservationModalProps {
 }
 
 export const SkinObservationModal: React.FC<SkinObservationModalProps> = ({ region, onClose }) => {
+ const {text:i18nText,node:i18nNode}=useTranslations();
   return (
-    <AccessibleDialog title="Gözlem Notu" onClose={onClose} className="relative w-full max-w-xl bg-[#0B1526] border border-slate-700/80 rounded-2xl p-6 sm:p-7 shadow-2xl space-y-6">
+    <AccessibleDialog title={i18nText("Gözlem Notu")} onClose={onClose} className="relative w-full max-w-xl bg-[#0B1526] border border-slate-700/80 rounded-2xl p-6 sm:p-7 shadow-2xl space-y-6">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
@@ -20,15 +23,14 @@ export const SkinObservationModal: React.FC<SkinObservationModalProps> = ({ regi
               <FileText className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-white tracking-wide">Gözlem Notu</h3>
+              <h3 className="text-lg font-bold text-white tracking-wide">{i18nText("Gözlem Notu")}</h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                {region.nameTr} — Optik Analiz Değerlendirmesi
-              </p>
+                {i18nNode(region.nameTr)}{i18nText(" — Optik Analiz Değerlendirmesi ")}</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            aria-label="Pencereyi kapat"
+            aria-label={i18nText("Pencereyi kapat")}
             className="w-11 h-11 shrink-0 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
@@ -43,10 +45,10 @@ export const SkinObservationModal: React.FC<SkinObservationModalProps> = ({ regi
             </div>
             <div className="space-y-2">
               <h4 className="text-sm font-semibold text-white leading-snug">
-                {region.observation.headline}
+                {i18nNode(region.observation.headline)}
               </h4>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                {region.observation.details}
+                {i18nNode(region.observation.details)}
               </p>
             </div>
           </div>
@@ -54,9 +56,7 @@ export const SkinObservationModal: React.FC<SkinObservationModalProps> = ({ regi
 
         {/* Disclaimer / Guidance */}
         <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80 text-[11px] text-slate-400 leading-normal">
-          <span className="font-semibold text-slate-300">Bilgilendirme: </span>
-          Bu değerlendirme, araç içi optik sensör verileriyle hesaplanan görsel değişim eğilimidir; tıbbi tanı veya tedavi tavsiyesi teşkil etmez.
-        </div>
+          <span className="font-semibold text-slate-300">{i18nText("Bilgilendirme: ")}</span>{i18nText("Bu değerlendirme, araç içi optik sensör verileriyle hesaplanan görsel değişim eğilimidir; tıbbi tanı veya tedavi tavsiyesi teşkil etmez. ")}</div>
     </AccessibleDialog>
   );
 };

@@ -11,6 +11,8 @@ from fastapi import HTTPException
 from fastapi.responses import StreamingResponse
 
 from tts_profiles import VISION_TTS_PROFILE, MENTAL_WELLBEING_TTS_PROFILE
+from tts_profiles import SpeechProfile
+from localization import current_language, LANGUAGES, translate
 VOICE=VISION_TTS_PROFILE.voice
 PROMPTS={
  'prepare':'Kamera hazırlanıyor. İki gözünüz açık, yüzünüz görüntüde olsun. Bulunduğunuz mesafeyi koruyun.',
@@ -49,9 +51,12 @@ class OwnedSpeechResponse(StreamingResponse):
 
 _catalogue=(0.,frozenset())
 FIXED_BANK=Path(__file__).resolve().parents[2]/'apps/vehicle-app/public/audio/vision-speech'
-async def response(code,moving):
+async def response(code,moving,voice_id=None):
  if code not in PROMPTS:raise HTTPException(status_code=422,detail='FIXED_INSTRUCTION_REQUIRED')
  if moving():raise HTTPException(status_code=409,detail='PARK_REQUIRED')
+ if current_language()!='tr' or voice_id:
+  profile=await localized_profile(VISION_TTS_PROFILE,voice_id)
+  return await speech_response(translate(PROMPTS[code]),profile,moving)
  manifest=FIXED_BANK/'manifest.json'
  if manifest.exists():
   # These are the existing fixed prompts, generated once by the same approved
@@ -78,8 +83,24 @@ async def response(code,moving):
  # path and its explicit failure. There is no alternate voice or silent audio.
  return await speech_response(PROMPTS[code],VISION_TTS_PROFILE,moving)
 
-async def mental_response(text,moving):
- return await speech_response(text,MENTAL_WELLBEING_TTS_PROFILE,moving)
+async def mental_response(text,moving,voice_id=None):
+ profile=await localized_profile(MENTAL_WELLBEING_TTS_PROFILE,voice_id) if current_language()!='tr' or voice_id else MENTAL_WELLBEING_TTS_PROFILE
+ return await speech_response(text,profile,moving)
+
+async def available_voices():
+ try:
+  voices=await asyncio.wait_for(edge_tts.list_voices(),12)
+ except Exception:
+  raise HTTPException(status_code=503,detail='VOICE_CATALOGUE_UNAVAILABLE') from None
+ locale=LANGUAGES[current_language()]
+ return [v for v in voices if v.get('Locale','').casefold()==locale.casefold()]
+
+async def localized_profile(default,voice_id=None):
+ voices=await available_voices()
+ if voice_id:
+  voices=[v for v in voices if v.get('ShortName')==voice_id]
+ if not voices:raise HTTPException(status_code=503,detail='SELECTED_LOCALE_VOICE_UNAVAILABLE')
+ return SpeechProfile(voices[0]['ShortName'],default.rate,default.pitch)
 
 async def speech_response(text,profile,moving):
  global _catalogue

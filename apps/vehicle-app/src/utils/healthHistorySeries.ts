@@ -1,3 +1,4 @@
+import {getLocale} from '../i18n/core';
 /** Read-only presentation adapters. They never persist or change measurement precision. */
 import type { HealthRecord } from './healthRecords';
 import { HEALTH_MODULE_IDS, type HealthModule } from './healthModules';
@@ -23,7 +24,7 @@ export function recordsInRange(records: HealthRecord[], days: number | null, now
   return days === null ? records : records.filter(r => { const t = historyTime(r); return t !== null && t >= now - days * 86400000 && t <= now; });
 }
 export function formatHistoryValue(value: number, unit: string) {
-  return `${new Intl.NumberFormat('tr-TR', { maximumFractionDigits: unit === '%' ? 0 : 3 }).format(value)}${unit === '%' ? '%' : unit ? ' ' + unit : ''}`;
+  return `${new Intl.NumberFormat(getLocale(), { maximumFractionDigits: unit === '%' ? 0 : 3 }).format(value)}${unit === '%' ? '%' : unit ? ' ' + unit : ''}`;
 }
 export function moduleOverview(module: HealthModule, records: HealthRecord[]): { date: number | null; text: string; count: number } {
   const rows = usableHistory(module, records).filter(r => r.quality !== 'invalid' && r.quality !== 'unreliable' && r.quality?.isValid !== false).slice().sort((a, b) => (historyTime(b) ?? -Infinity) - (historyTime(a) ?? -Infinity));
@@ -116,7 +117,7 @@ export function themeDistribution(records: HealthRecord[]) {
 }
 export function sessionCountSeries(records: HealthRecord[]): HistorySeries {
   const days = new Map<string, HealthRecord[]>();
-  for (const r of usableHistory('mental', records)) { const time = historyTime(r); if (time === null) continue; const key = new Date(time).toLocaleDateString('tr-TR'); days.set(key, [...(days.get(key) || []), r]); }
-  return { id: 'mental-count', module: 'mental', criterion: 'sessions', label: 'Kayıtlı görüşme sayısı', region: '', regionLabel: '', unit: 'görüşme', method: '', source: '', points: [...days.values()].map(rows => ({ id: rows.map(r => r.id).join('|'), recordId: rows[0].id, time: Math.min(...rows.map(r => historyTime(r)!)), value: rows.length, detail: rows.map(r => new Date(historyTime(r)!).toLocaleString('tr-TR')).join(' · ') })).sort((a, b) => a.time - b.time) };
+  for (const r of usableHistory('mental', records)) { const time = historyTime(r); if (time === null) continue; const key = new Date(time).toLocaleDateString(getLocale()); days.set(key, [...(days.get(key) || []), r]); }
+  return { id: 'mental-count', module: 'mental', criterion: 'sessions', label: 'Kayıtlı görüşme sayısı', region: '', regionLabel: '', unit: 'görüşme', method: '', source: '', points: [...days.values()].map(rows => ({ id: rows.map(r => r.id).join('|'), recordId: rows[0].id, time: Math.min(...rows.map(r => historyTime(r)!)), value: rows.length, detail: rows.map(r => new Date(historyTime(r)!).toLocaleString(getLocale())).join(' · ') })).sort((a, b) => a.time - b.time) };
 }
 export function emptyHistoryRecords(): HistoryRecords { const records = { ...EMPTY_HISTORY }; for (const id of HEALTH_MODULE_IDS) records[id] = []; return records; }

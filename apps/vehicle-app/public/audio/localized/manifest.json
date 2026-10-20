@@ -1,0 +1,1798 @@
+{
+  "version": "localized-espeak-20261020-v1",
+  "source": "new-local-synthesis",
+  "auditoryAcceptance": "pending",
+  "engine": "eSpeak NG text-to-speech: 1.51  Data at: /usr/lib/x86_64-linux-gnu/espeak-ng-data",
+  "encoder": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "originalApprovedAudioModified": false,
+  "voices": {
+    "en": {
+      "male": {
+        "id": "espeak:en:male",
+        "name": "eSpeak NG English_(America)",
+        "locale": "en-US",
+        "gender": "male",
+        "provider": "local",
+        "local": true,
+        "availability": "actual metadata and synthesis probe verified",
+        "scope": "new translated synthesis; original approved recordings unchanged",
+        "speedWordsPerMinute": 155,
+        "pitch": 50,
+        "guidance": {
+          "cockpit-entry": {
+            "text": "Select the assessment you want from the Health Center menu.",
+            "sourceTextSha256": "c6a2b85c54fce10697f86effff44f3de1e586caa9c6c727568916eaa49c39daa",
+            "url": "/audio/localized/v1/en/male/guidance/cockpit-entry.mp3",
+            "bytes": 30765,
+            "sha256": "326444af7d5f4131b0ab1e4f22706b48c67a4fdfefa67caf47cd87fa2b264458"
+          },
+          "profile-entry": {
+            "text": "My Health History. You can open a record or delete only the record you select.",
+            "sourceTextSha256": "b7ae34b171a587394a9ec1465ed50182850d9d8913bdb129b7ac1099f6ff11b9",
+            "url": "/audio/localized/v1/en/male/guidance/profile-entry.mp3",
+            "bytes": 41901,
+            "sha256": "4f57dbfbc99de8c4e090cba39923f7ba17f9d87f5ee9343f18b24e4d928f87da"
+          },
+          "record-open": {
+            "text": "Record details opened. You can continue to specialist options from here.",
+            "sourceTextSha256": "36b9551ba044a101f40b861244870a74c5d5fd83d16bac5d77fd684232e2781b",
+            "url": "/audio/localized/v1/en/male/guidance/record-open.mp3",
+            "bytes": 42477,
+            "sha256": "88cdf17c26ea1c6f932c51403684e81cea460f8427842a6b3dca8712916e738f"
+          },
+          "record-delete": {
+            "text": "Only your selected record will be deleted. Confirm to delete, or cancel to keep it.",
+            "sourceTextSha256": "0ebe7dd651e3b3f5f5cd994844bad9721d0372f7a3b77c8528c60d373aae5112",
+            "url": "/audio/localized/v1/en/male/guidance/record-delete.mp3",
+            "bytes": 46701,
+            "sha256": "154402dbe2cd35e624d4cc8500ecdf67e3abf8c32cde015f0f81951428544128"
+          },
+          "care-entry": {
+            "text": "Select the health area and specialty. Confirm the specialist and available time on the provider's page.",
+            "sourceTextSha256": "4a0b294523e48ba089d9547059fa229c3cc659cbc43b92120e480cb97ef844fb",
+            "url": "/audio/localized/v1/en/male/guidance/care-entry.mp3",
+            "bytes": 56685,
+            "sha256": "194cdcbb24d8d31e9724ea0775e5a818cd029e95ffaf42d23fc99b5f397f9a05"
+          },
+          "care-select": {
+            "text": "Review your selected specialist and time. This step does not book an appointment.",
+            "sourceTextSha256": "a3dda825f7aaee6c93127dff5634658ca3b79c291735a17dede11e9ddd3cfb8b",
+            "url": "/audio/localized/v1/en/male/guidance/care-select.mp3",
+            "bytes": 45741,
+            "sha256": "d8ce20bb43ba35b3cd2e491eb062b58ae82ff2c222e24921a8a92ea8cc567383"
+          },
+          "skin-entry": {
+            "text": "Skin Health. Keep your head relaxed; we will capture front, right and left views following the on-screen instructions.",
+            "sourceTextSha256": "cc58ff98eecf07bdb2bf06ba769b502cf49892d8537f8c40350994bd1971d786",
+            "url": "/audio/localized/v1/en/male/guidance/skin-entry.mp3",
+            "bytes": 64749,
+            "sha256": "10c5063927ea9579981672623a718e99e10f90f58ced04c84852dc9b54feb1ae"
+          },
+          "skin-front": {
+            "text": "Remove your glasses. Face forward. Keep still briefly with your face visible on screen.",
+            "sourceTextSha256": "9fb74f590b9d064e82588e51c82b8b2d8946c359bfd7532c772da3937ae29351",
+            "url": "/audio/localized/v1/en/male/guidance/skin-front.mp3",
+            "bytes": 49965,
+            "sha256": "6dd2d65e9f055966b3fc9075a9557ccb3b2ba5869e95c95cfb9b58da4b9c02cc"
+          },
+          "skin-right": {
+            "text": "Turn your head slightly to your own right; hold still briefly.",
+            "sourceTextSha256": "bf8ec3e38fade30762c780089288636aa7011457cc74250cdfd6cc7859816ed2",
+            "url": "/audio/localized/v1/en/male/guidance/skin-right.mp3",
+            "bytes": 33645,
+            "sha256": "acd50abbb04c350e2f68f00d4e985fab904f4e60b1c52ffabd98161b96d0b26f"
+          },
+          "skin-left": {
+            "text": "Turn your head slightly to your own left; hold still briefly.",
+            "sourceTextSha256": "0cdd988305a1435dfd5ad5d8433832d51012e962698efd11f48b9c2302e79687",
+            "url": "/audio/localized/v1/en/male/guidance/skin-left.mp3",
+            "bytes": 34029,
+            "sha256": "df71bd82ed9a5488fc476ce6c4e1e53180e7ba8442bc355a432187ee2b214e71"
+          },
+          "skin-complete": {
+            "text": "Scan complete. Select a region and criterion card to review the current appearance result.",
+            "sourceTextSha256": "ad73de0ee08f2b14237e13c404f42ef7f896e46699ad80a4906ab61aa274a734",
+            "url": "/audio/localized/v1/en/male/guidance/skin-complete.mp3",
+            "bytes": 51117,
+            "sha256": "1d5c571f3be375c4d2eb337b45e3f6232f581ef570608bb5b96a858ab74f4333"
+          },
+          "quality-near": {
+            "text": "Insufficient face detail in the source image. Move slightly closer.",
+            "sourceTextSha256": "14b0a669e7c678fd1e246a5d8f10e179615e971708f1ed2b685a8e845df39115",
+            "url": "/audio/localized/v1/en/male/guidance/quality-near.mp3",
+            "bytes": 38061,
+            "sha256": "2841e21dcc8f1e4ecd195f4e1c7b90cd5ce8e854ed57a90c35959d3cf31a5ec3"
+          },
+          "quality-far": {
+            "text": "Your forehead and chin must fit in the frame. Move back a little.",
+            "sourceTextSha256": "18ef56e9b4108ab7af7ccb9feca310b21d5ee54c89b700b85c348c9029219408",
+            "url": "/audio/localized/v1/en/male/guidance/quality-far.mp3",
+            "bytes": 36909,
+            "sha256": "00198f017c8d81197a0702dea8e1d91a62f04ffa2b893433777946d65f0f5408"
+          },
+          "quality-light": {
+            "text": "Light your face evenly; reduce harsh side lighting and reflections.",
+            "sourceTextSha256": "c308844409375c8d6f7ce7e37451658fa2520aee9118488f3631808c82283a05",
+            "url": "/audio/localized/v1/en/male/guidance/quality-light.mp3",
+            "bytes": 37869,
+            "sha256": "6220f735d433851da36363dd45df05a4849c22131928f5160d1e279b404a26ff"
+          },
+          "quality-blur": {
+            "text": "Check camera focus and hold your head still briefly.",
+            "sourceTextSha256": "6508aee53ef218f7e5d9ce6b7340f1d26aaef6f6562e485431ee028b9be3a08e",
+            "url": "/audio/localized/v1/en/male/guidance/quality-blur.mp3",
+            "bytes": 29805,
+            "sha256": "58b7c817cf88f223eb150d671b49cdf4ce1e33098c29ef229dbde4c205600945"
+          },
+          "quality-face": {
+            "text": "Keep your face visible and remove whatever is blocking the camera view.",
+            "sourceTextSha256": "2d052a596ea7c517df7adefcd58cddda919928ed30b6d03ff8d1d19ab45e80bf",
+            "url": "/audio/localized/v1/en/male/guidance/quality-face.mp3",
+            "bytes": 36525,
+            "sha256": "375cfe6df6df63064ed45c7a39b9c743daca83162f1b223e42524b6d51589fd4"
+          },
+          "dental-entry": {
+            "text": "Dental Health. You can scan with the camera or upload a clear intraoral dental photo.",
+            "sourceTextSha256": "a0d5856ad8115b5422f139f67025763f581706176144b6261e4db68b6d4f9a9a",
+            "url": "/audio/localized/v1/en/male/guidance/dental-entry.mp3",
+            "bytes": 45549,
+            "sha256": "d238378e65254697a964943a073fd9ac3fff0cede05fab000a56772c64ad776b"
+          },
+          "dental-upload": {
+            "text": "Select a sharp color intraoral photo showing the teeth. Do not upload an X-ray.",
+            "sourceTextSha256": "75e2f941d1b98f0e1aadc3b0b68ab16a54a7a43377d9c37b79b18071aa77829b",
+            "url": "/audio/localized/v1/en/male/guidance/dental-upload.mp3",
+            "bytes": 44205,
+            "sha256": "4fc475532edd819d724f8d318e0afdda58c826349a8adee57d982a04f0c926db"
+          },
+          "dental-front": {
+            "text": "Face forward. Open your mouth comfortably so your front teeth are visible.",
+            "sourceTextSha256": "5b5de852612b56e232f47b67fcfb38b582654a3f41c2386585c0380f509c45b8",
+            "url": "/audio/localized/v1/en/male/guidance/dental-front.mp3",
+            "bytes": 40365,
+            "sha256": "b29aebe103940816044ad1dbf5ec92dc0dca9e642323c8cf44d58b5002113db3"
+          },
+          "dental-right": {
+            "text": "Turn your head slightly to your own right; keep your mouth comfortably open.",
+            "sourceTextSha256": "70ca8dfe5912b8c6adc5de5594a2cdb5ace831352a0979fbbb5a7fee5830c446",
+            "url": "/audio/localized/v1/en/male/guidance/dental-right.mp3",
+            "bytes": 38829,
+            "sha256": "ad8e30cd0ab22d1ddabacfb00ca4e9cca60e63793f7a2592ad24168e308d2e2c"
+          },
+          "dental-left": {
+            "text": "Turn your head slightly to your own left; keep your mouth comfortably open.",
+            "sourceTextSha256": "c2456e5a84739d9726b869a1c5416df03823e112967e84e904cb2dfccb2daf60",
+            "url": "/audio/localized/v1/en/male/guidance/dental-left.mp3",
+            "bytes": 38829,
+            "sha256": "738d18319461704345e7d6e08c50131442240ac241e7ac8ac479d166ca5d742c"
+          },
+          "dental-bite": {
+            "text": "Keep your teeth in a natural, relaxed bite with your front teeth visible. Do not strain.",
+            "sourceTextSha256": "e1670639f0fb7324db857153c27be23d7d5e4fb50cb13a211060dc2eb5475381",
+            "url": "/audio/localized/v1/en/male/guidance/dental-bite.mp3",
+            "bytes": 47853,
+            "sha256": "b04a2f5d3f375844a34e704773d728ca27555f51f1a5fc4956da1dbd99e0915e"
+          },
+          "dental-teeth": {
+            "text": "Teeth must be visible. Remove any covering by lips, tongue or objects.",
+            "sourceTextSha256": "6dc2e1e5887282dc4e02309d461bb76833544bdebcf6a46910792d1ad93f445d",
+            "url": "/audio/localized/v1/en/male/guidance/dental-teeth.mp3",
+            "bytes": 42477,
+            "sha256": "60f6fa235941e5596b2dabcf86505a6e45e0080aade29dd39b1c310e9f01a93b"
+          },
+          "dental-file": {
+            "text": "Select a JPEG, PNG or WebP photo that can be opened within the limits.",
+            "sourceTextSha256": "fe85bb2d4b39e12469512a680789eb1c6633c180ddf9f8f7566db9fdd1a83bed",
+            "url": "/audio/localized/v1/en/male/guidance/dental-file.mp3",
+            "bytes": 43245,
+            "sha256": "c9c03a1a32841e2cffcf45be6d3421a420eb283ab632da7c867edbae2d6d08bc"
+          },
+          "dental-complete": {
+            "text": "Analysis complete. Candidates relate only to visible surfaces; review the result cards.",
+            "sourceTextSha256": "6ee0f38256093dc7822d9a1d133c236fbc2e73ea8405b61363f0379010fe1a7b",
+            "url": "/audio/localized/v1/en/male/guidance/dental-complete.mp3",
+            "bytes": 53613,
+            "sha256": "0a7c2c6e6f74a5bc27184556e77d00500c96bfb89d786e54ed2e18ee3cebb48b"
+          },
+          "hearing-entry": {
+            "text": "Hearing Health. Use stereo headphones in a quiet environment. We will first verify the right and left channels.",
+            "sourceTextSha256": "5b98e513a0b53707abe654b9ff8366af17a4c26aaa39bda65fa9adf423b7fe9e",
+            "url": "/audio/localized/v1/en/male/guidance/hearing-entry.mp3",
+            "bytes": 62253,
+            "sha256": "dac11ab2ed94b24abb4722c3634b9dd86dbf85fc6eaeab2b8a5958754aba8495"
+          },
+          "hearing-prepare": {
+            "text": "First put on your headphones, then use the corresponding buttons below to confirm you hear audio only from the indicated earpiece.",
+            "sourceTextSha256": "eb578034c08e7339b1e2fb46071b2540ccfc25668f1aeab1ad6b341d4424d273",
+            "url": "/audio/localized/v1/en/male/guidance/hearing-prepare.mp3",
+            "bytes": 63789,
+            "sha256": "9a30a20b7d3914fe229c3aca0605357b6eaccd9420a0f32b2d6f41c428b2c8a5"
+          },
+          "hearing-tone": {
+            "text": "Wait until you hear the sound and press the button as soon as you hear it.",
+            "sourceTextSha256": "949bebe4bc6cd7b3da584bbd356b518a0a18d1b558b231046a084cc1b1ce88e4",
+            "url": "/audio/localized/v1/en/male/guidance/hearing-tone.mp3",
+            "bytes": 36525,
+            "sha256": "cfaca408257d6956755345d8b0fc227f83e0b625d1394cfa39d0c391f662b672"
+          },
+          "hearing-digits": {
+            "text": "After the countdown you will hear three digits in noise. Enter the digits in order and submit your response.",
+            "sourceTextSha256": "b982d8a68822e78bdfde81388dbd2cedc5eaddcfa5a03e8d056ea060f9f6766a",
+            "url": "/audio/localized/v1/en/male/guidance/hearing-digits.mp3",
+            "bytes": 55725,
+            "sha256": "40e3a836723c2ef1ddc489ea124bc6ee28d58fe334919c6d06ca2998645e8e2f"
+          },
+          "hearing-complete": {
+            "text": "Test complete. The result uses this device's digital audio units. You can save the numerical result if you wish.",
+            "sourceTextSha256": "df178674477ab23607dcb83bb9c40452ede0aeb1e807b700c8ac2b7b6b66d77f",
+            "url": "/audio/localized/v1/en/male/guidance/hearing-complete.mp3",
+            "bytes": 63597,
+            "sha256": "129280062900e3275dbf98401ed6d4f79548172e0209030d296caf8bec5dff7c"
+          },
+          "mental-entry": {
+            "text": "Mental Health. You can speak after starting the conversation. The Finish button ends the conversation.",
+            "sourceTextSha256": "67f69e2d3b9bbfd30e334b05514c639f3d61c1e87a4bf7a28e531b825452a04f",
+            "url": "/audio/localized/v1/en/male/guidance/mental-entry.mp3",
+            "bytes": 56109,
+            "sha256": "0cff5db63f505b9d17aba469b2c9e0cc54e9ce25394dd8dc439b75bd52ff04c8"
+          },
+          "mental-complete": {
+            "text": "Conversation complete. You can review the summary and continue to specialist options.",
+            "sourceTextSha256": "f348a097eb911a46c133a024b4d19faf08151cabb2b7bb6bf450b7be798b854a",
+            "url": "/audio/localized/v1/en/male/guidance/mental-complete.mp3",
+            "bytes": 47853,
+            "sha256": "5dc5165445ed6bb07bffc50e52b7cc404b27796b053850f5d310d3f50fa45237"
+          },
+          "skin-neutral": {
+            "text": "Close your mouth. Relax your face without smiling; keep your head still in the requested pose.",
+            "sourceTextSha256": "29a04286a85817b3fdb18a94b47098e247f104ed62aab420399fcd34b9ca9654",
+            "url": "/audio/localized/v1/en/male/guidance/skin-neutral.mp3",
+            "bytes": 52653,
+            "sha256": "f1f60c5274c7b51e05f4565b77409d65767799fca52818bb0936db841dce07c8"
+          }
+        },
+        "vision": {
+          "prepare": {
+            "text": "Preparing the camera. Keep both eyes open and your face in view. Maintain your current distance.",
+            "sourceTextSha256": "3eadd80d06845644ec29c1435bc7cf6d219457872947e95cf651f9c2554195e0",
+            "url": "/audio/localized/v1/en/male/vision/prepare.mp3",
+            "bytes": 54189,
+            "sha256": "7ef5840e450247d0619b01967b8cb420a1c38083ec047b1762119b0877f8fd9b"
+          },
+          "right": {
+            "text": "We are testing your right eye. Keep your right eye open. Close or cover your left eye. Look at the letter area with your open eye.",
+            "sourceTextSha256": "3dc12a2147b7d24ba704e816d4f36b228d24a70e3a7616b434a21f54141638c2",
+            "url": "/audio/localized/v1/en/male/vision/right.mp3",
+            "bytes": 67821,
+            "sha256": "571e8975328ccc54fed1bedf78a75e1328f7aa83ec5839d7215f6a695ea57894"
+          },
+          "left": {
+            "text": "We are testing your left eye. Keep your left eye open. Close or cover your right eye. Look at the letter area with your open eye.",
+            "sourceTextSha256": "2eba5bbf9074af04f72730d7e361f2b79eb0d9063ef405d2025bfde513b056bd",
+            "url": "/audio/localized/v1/en/male/vision/left.mp3",
+            "bytes": 68013,
+            "sha256": "014fe6a3c0d6dfd933d120900901f2c60fc0993f2eb8b74e0766485ae3f17b97"
+          },
+          "letter": {
+            "text": "Could you say the letter? You can also use a word starting with that letter.",
+            "sourceTextSha256": "1834a1321b7ed050281f2a435848efb8932948b9e2b338d952c644400582f3ae",
+            "url": "/audio/localized/v1/en/male/vision/letter.mp3",
+            "bytes": 37485,
+            "sha256": "05ba0112547f3edb896fcb9b6083c9b2438204d6e90f65443637b43dc0c95ce4"
+          },
+          "orientation": {
+            "text": "Could you say which way the letter is facing?",
+            "sourceTextSha256": "39e37cf322f02f339d2ba7ff3febc7b6f1d6c78f26d27174d80062e9607321af",
+            "url": "/audio/localized/v1/en/male/vision/orientation.mp3",
+            "bytes": 23661,
+            "sha256": "17f82fc684cb9ea807953ae26c49523bf217d04ff6458bfa7d2a2f40d0f223bc"
+          },
+          "reverse": {
+            "text": "Upside down or mirrored?",
+            "sourceTextSha256": "301511884f8b1920b57918181d04de2285775af41920335e230d798ab2d18f68",
+            "url": "/audio/localized/v1/en/male/vision/reverse.mp3",
+            "bytes": 15405,
+            "sha256": "d3caf79d4b1c47f7eea10b424143f9c2dea75740d0467b87b97a5142f425973a"
+          },
+          "repeat": {
+            "text": "Say the letter on the screen and its orientation.",
+            "sourceTextSha256": "97917f93c02e7e4d95ae81168850e5f184b9e1f7d3166a23a8f37ec2f9703a78",
+            "url": "/audio/localized/v1/en/male/vision/repeat.mp3",
+            "bytes": 25965,
+            "sha256": "6c4e3c4843faac305f880d0dc1a585c84e38f7322a6e5076ccccd9da80790ca9"
+          },
+          "first": {
+            "text": "Look at the letter area. Say the letter and its orientation in either order. Along with the orientation, you can say a word beginning with the letter you see. If the letter is visible, you do not need to wait for the instruction to finish.",
+            "sourceTextSha256": "5e8da2e5e8863f52bfbec76f366fee342e35735b543d8ed9d11f09083a4997b7",
+            "url": "/audio/localized/v1/en/male/vision/first.mp3",
+            "bytes": 114285,
+            "sha256": "f5ffff092302598022d8a99b7cddbab994114b420b23e1f5eda41d5d5946a78c"
+          },
+          "next1": {
+            "text": "Now say the next letter.",
+            "sourceTextSha256": "427d83e77009bf5fabcb9ffee6442e65844ec1912e25a88b083f461886e5789c",
+            "url": "/audio/localized/v1/en/male/vision/next1.mp3",
+            "bytes": 15213,
+            "sha256": "f7ff8cc81151fdb7a59354849345101ff3edf61af55b5633928a959f1e4547fa"
+          },
+          "next2": {
+            "text": "Please read this letter in the same way.",
+            "sourceTextSha256": "3a33737a2550f81e916f6ff70e6a6e8cf725876abd8b01d0fe269ca8aa22ea57",
+            "url": "/audio/localized/v1/en/male/vision/next2.mp3",
+            "bytes": 20589,
+            "sha256": "ec0f2a1c26eefa777beaf81d63677680b41d3a72693d6aed198c2d28e884551d"
+          },
+          "next3": {
+            "text": "Your response was recorded. Moving to the next letter.",
+            "sourceTextSha256": "0bb963fc893f6773a9a1b286a0181cefecc114f6c52753206c129b2f704ce971",
+            "url": "/audio/localized/v1/en/male/vision/next3.mp3",
+            "bytes": 30957,
+            "sha256": "005dab58af1591c3f1dc9f146135ed01a04cabc6c5521bb350a1f5c14d9ff17e"
+          },
+          "position": {
+            "text": "Maintain your starting distance. You can look at the letter area.",
+            "sourceTextSha256": "297e9fc13ce42aee0f5982051a666425ecb0ec6ea2b5e4c86d1f43e3e06ebffc",
+            "url": "/audio/localized/v1/en/male/vision/position.mp3",
+            "bytes": 33837,
+            "sha256": "0cd81431d1f0c8b48bfcb35b0de6d13824cd2ccf70a8f81f541cfff02968e45a"
+          },
+          "approach": {
+            "text": "Move a little closer.",
+            "sourceTextSha256": "c69cfb4c1bf876c47c25adb1f1696324d3db47ebce532a27d77cd18992a994ee",
+            "url": "/audio/localized/v1/en/male/vision/approach.mp3",
+            "bytes": 13293,
+            "sha256": "7854d1101b82b81b7b62128bfc1af4e6617b93a954244937ab33b8f8d0eabbe8"
+          },
+          "recede": {
+            "text": "Move slightly farther back.",
+            "sourceTextSha256": "19c6720ed16da62d2b8fe866d0b73ec733d8b05904443046b59285e0b4f0a1e4",
+            "url": "/audio/localized/v1/en/male/vision/recede.mp3",
+            "bytes": 16365,
+            "sha256": "487fb038d17c32bf1d5d629c8bf2eff7ebb737cc7b3d144642cee6ed281799bb"
+          },
+          "pose": {
+            "text": "Maintain your starting distance. You can look at the letter area.",
+            "sourceTextSha256": "297e9fc13ce42aee0f5982051a666425ecb0ec6ea2b5e4c86d1f43e3e06ebffc",
+            "url": "/audio/localized/v1/en/male/vision/pose.mp3",
+            "bytes": 33837,
+            "sha256": "0cd81431d1f0c8b48bfcb35b0de6d13824cd2ccf70a8f81f541cfff02968e45a"
+          },
+          "framing": {
+            "text": "Center your face with your forehead and chin in the frame.",
+            "sourceTextSha256": "31911544eece7192098aaddee271b30be0acf07c84697ae45f0f313333f0eb9b",
+            "url": "/audio/localized/v1/en/male/vision/framing.mp3",
+            "bytes": 28461,
+            "sha256": "46721009c1451d7c5a93df76790bbd6186b19c1b44ba91ebacd725bc848b7a48"
+          },
+          "light": {
+            "text": "Illuminate your face better.",
+            "sourceTextSha256": "6578ff9a1c4dfd183b66a7f45035c89644d132dc694b31103b3c0a9e648cb530",
+            "url": "/audio/localized/v1/en/male/vision/light.mp3",
+            "bytes": 15405,
+            "sha256": "5aaa41777042d28d964ffc073df72ea2ef660e09fd469ce2d0cfb9272548f552"
+          },
+          "bright": {
+            "text": "Reduce glare on your face.",
+            "sourceTextSha256": "1f71ef60e4e5e311b79d08089162227147ec40b6b8d2ca1374b7bebf1276ade1",
+            "url": "/audio/localized/v1/en/male/vision/bright.mp3",
+            "bytes": 15597,
+            "sha256": "5c51735f40f8e6e106101289fc81a62bee61ae1edc4dcbfd07ab3aeecfcd06d8"
+          },
+          "blur": {
+            "text": "Check camera focus and face lighting.",
+            "sourceTextSha256": "d6205a7fe925ed96a8a3510a5a1f09613a5d68e37f3d6271249cc55d50eb14ac",
+            "url": "/audio/localized/v1/en/male/vision/blur.mp3",
+            "bytes": 22893,
+            "sha256": "3b0cae30dfed86308e0d4900e464f5f723de278407d158f9d451690a701e7161"
+          },
+          "motion": {
+            "text": "Keep your head still briefly.",
+            "sourceTextSha256": "0b0c2a5aaa90611aff0c97184bd119bcf425f238409e20cd2ba1843f796df412",
+            "url": "/audio/localized/v1/en/male/vision/motion.mp3",
+            "bytes": 16749,
+            "sha256": "6329faa512e5e9b82ac15f4dd4b0b86891a9394edbc93f9d8a5e9d3e1a629278"
+          },
+          "face": {
+            "text": "Show your face to the camera.",
+            "sourceTextSha256": "6ee61515269f81be363a7aa6feb8554e83f6963e5525c6329c3221f56d2d6f28",
+            "url": "/audio/localized/v1/en/male/vision/face.mp3",
+            "bytes": 15597,
+            "sha256": "2b4d3a52c4479dbb95f427cb48566fa241e8bfb1129fed65f62588b2f2cd86d8"
+          },
+          "preparing": {
+            "text": "Verifying your position. Hold still briefly.",
+            "sourceTextSha256": "e6abf052a6fad0c02488a6f589142d602f4b6a23042f31cb410f2d58131bf916",
+            "url": "/audio/localized/v1/en/male/vision/preparing.mp3",
+            "bytes": 27885,
+            "sha256": "4efdb97a07e459ce243a9f5ea1c132b389b71520ba770acff0285f19f4aedfd0"
+          },
+          "ready": {
+            "text": "Position ready.",
+            "sourceTextSha256": "f1935ee8421bcfdd1c7f7ebe9e65644b1301909e110bd1fef3b29bf68d5c9731",
+            "url": "/audio/localized/v1/en/male/vision/ready.mp3",
+            "bytes": 10989,
+            "sha256": "350bfc0d2e1a94d48add49824cc7f439cb4783dfb7a5579cff906750d8af1f2f"
+          },
+          "camera": {
+            "text": "Stand in front of the camera in good light.",
+            "sourceTextSha256": "8da0dc1a7cd6aad84cfa98a548cf2d3d7c01b50c140de6aafc547902095815d0",
+            "url": "/audio/localized/v1/en/male/vision/camera.mp3",
+            "bytes": 22125,
+            "sha256": "8a725eb8b9409da26969453c7e3c6cff4e97e386f9c108fac37beb4971ef879a"
+          },
+          "eye": {
+            "text": "Keep the tested eye open and the other eye closed or covered.",
+            "sourceTextSha256": "8080f68f27dff4cb6c442ac788d634180eda16f9515c1dc7a21bf07d2836da4f",
+            "url": "/audio/localized/v1/en/male/vision/eye.mp3",
+            "bytes": 33453,
+            "sha256": "344f04aca0dc96fc8f85edb62ee5a83b0ac113999f0b73541b9a7dcdbd57b421"
+          },
+          "uncertain": {
+            "text": "I cannot verify eye covering or whether the eye is open.",
+            "sourceTextSha256": "fb387796c57aac90732b4866cf2608a817f846114bbe02ef8f1d16a1797f26ec",
+            "url": "/audio/localized/v1/en/male/vision/uncertain.mp3",
+            "bytes": 29997,
+            "sha256": "661d037f958f0cd60462dc9d498909b4ed91d4dbf05e5777c8e0ae23c2db6bef"
+          },
+          "paused": {
+            "text": "Task paused. Say resume to continue.",
+            "sourceTextSha256": "499a3d24a74cd5afa0de1ba262f5dace76473ceea897aaf5d25ce62fe01e5ccb",
+            "url": "/audio/localized/v1/en/male/vision/paused.mp3",
+            "bytes": 25965,
+            "sha256": "1ead0724f9dde4b7e89d8d32846efbc7a4c3f43e7d1aa740a2d7f025344bf6c9"
+          },
+          "complete": {
+            "text": "Letter recognition task complete.",
+            "sourceTextSha256": "1052afcb71373707e8f41d4307b826c724339567628959c17df3474acb353784",
+            "url": "/audio/localized/v1/en/male/vision/complete.mp3",
+            "bytes": 20397,
+            "sha256": "fe05dc6dccc37bd5281074c86d3dbfc8dec7c698b338aaf1e7120a132ddc09f8"
+          }
+        }
+      },
+      "female": {
+        "id": "espeak:en:female",
+        "name": "eSpeak NG English_(America) / female3",
+        "locale": "en-US",
+        "gender": "female",
+        "provider": "local",
+        "local": true,
+        "availability": "actual metadata and synthesis probe verified",
+        "scope": "new translated synthesis; original approved recordings unchanged",
+        "speedWordsPerMinute": 155,
+        "pitch": 50,
+        "guidance": {
+          "cockpit-entry": {
+            "text": "Select the assessment you want from the Health Center menu.",
+            "sourceTextSha256": "c6a2b85c54fce10697f86effff44f3de1e586caa9c6c727568916eaa49c39daa",
+            "url": "/audio/localized/v1/en/female/guidance/cockpit-entry.mp3",
+            "bytes": 30573,
+            "sha256": "1ff1e56f4efa46a7552f9a27c589f1474c890462b0bd941d624076447cfca0cd"
+          },
+          "profile-entry": {
+            "text": "My Health History. You can open a record or delete only the record you select.",
+            "sourceTextSha256": "b7ae34b171a587394a9ec1465ed50182850d9d8913bdb129b7ac1099f6ff11b9",
+            "url": "/audio/localized/v1/en/female/guidance/profile-entry.mp3",
+            "bytes": 41517,
+            "sha256": "fc2a2cde4d4e4cc19fb556016d7e73a9d1a8e7d7089719d55bcf30c2554c13c0"
+          },
+          "record-open": {
+            "text": "Record details opened. You can continue to specialist options from here.",
+            "sourceTextSha256": "36b9551ba044a101f40b861244870a74c5d5fd83d16bac5d77fd684232e2781b",
+            "url": "/audio/localized/v1/en/female/guidance/record-open.mp3",
+            "bytes": 42477,
+            "sha256": "9b45cf1d01394caadd88321b88ffcf4519b3ea4473b52a712f4c03957d4f1a53"
+          },
+          "record-delete": {
+            "text": "Only your selected record will be deleted. Confirm to delete, or cancel to keep it.",
+            "sourceTextSha256": "0ebe7dd651e3b3f5f5cd994844bad9721d0372f7a3b77c8528c60d373aae5112",
+            "url": "/audio/localized/v1/en/female/guidance/record-delete.mp3",
+            "bytes": 46317,
+            "sha256": "27ca71d7afe57a3df69aee7e43af6b4d4499347ea07a1d4cff3d6a0095c94057"
+          },
+          "care-entry": {
+            "text": "Select the health area and specialty. Confirm the specialist and available time on the provider's page.",
+            "sourceTextSha256": "4a0b294523e48ba089d9547059fa229c3cc659cbc43b92120e480cb97ef844fb",
+            "url": "/audio/localized/v1/en/female/guidance/care-entry.mp3",
+            "bytes": 56301,
+            "sha256": "8f1380f56551b19e7794f08443ae1756ddd98ec19e8d0fa5c0ad0ae71c1018c3"
+          },
+          "care-select": {
+            "text": "Review your selected specialist and time. This step does not book an appointment.",
+            "sourceTextSha256": "a3dda825f7aaee6c93127dff5634658ca3b79c291735a17dede11e9ddd3cfb8b",
+            "url": "/audio/localized/v1/en/female/guidance/care-select.mp3",
+            "bytes": 45549,
+            "sha256": "852292bd1d4858e0c9189288cff8118ee7d6b9be733a7555f675edbe6ca4f961"
+          },
+          "skin-entry": {
+            "text": "Skin Health. Keep your head relaxed; we will capture front, right and left views following the on-screen instructions.",
+            "sourceTextSha256": "cc58ff98eecf07bdb2bf06ba769b502cf49892d8537f8c40350994bd1971d786",
+            "url": "/audio/localized/v1/en/female/guidance/skin-entry.mp3",
+            "bytes": 64557,
+            "sha256": "01c19b7749507dbada6c3516688b5b850f33871ca1b40b4e61aac48287de8c55"
+          },
+          "skin-front": {
+            "text": "Remove your glasses. Face forward. Keep still briefly with your face visible on screen.",
+            "sourceTextSha256": "9fb74f590b9d064e82588e51c82b8b2d8946c359bfd7532c772da3937ae29351",
+            "url": "/audio/localized/v1/en/female/guidance/skin-front.mp3",
+            "bytes": 49581,
+            "sha256": "32bc64196e0bc276471e2735f960341a7248a015ce788ddb487ca41b8c5f7bd9"
+          },
+          "skin-right": {
+            "text": "Turn your head slightly to your own right; hold still briefly.",
+            "sourceTextSha256": "bf8ec3e38fade30762c780089288636aa7011457cc74250cdfd6cc7859816ed2",
+            "url": "/audio/localized/v1/en/female/guidance/skin-right.mp3",
+            "bytes": 33261,
+            "sha256": "278af9564fee27d5d7c47b7ab683b0d0a158a9a8f3419249858916cb35eb3e2c"
+          },
+          "skin-left": {
+            "text": "Turn your head slightly to your own left; hold still briefly.",
+            "sourceTextSha256": "0cdd988305a1435dfd5ad5d8433832d51012e962698efd11f48b9c2302e79687",
+            "url": "/audio/localized/v1/en/female/guidance/skin-left.mp3",
+            "bytes": 33645,
+            "sha256": "a8e55a9d211efca26260c5b2746a394defcf3d4126f892cf30811974b0ae7c22"
+          },
+          "skin-complete": {
+            "text": "Scan complete. Select a region and criterion card to review the current appearance result.",
+            "sourceTextSha256": "ad73de0ee08f2b14237e13c404f42ef7f896e46699ad80a4906ab61aa274a734",
+            "url": "/audio/localized/v1/en/female/guidance/skin-complete.mp3",
+            "bytes": 50541,
+            "sha256": "d46502508b114cda78aa26ba692cc9e40ecc24dded54705b91144e019c4cb2e9"
+          },
+          "quality-near": {
+            "text": "Insufficient face detail in the source image. Move slightly closer.",
+            "sourceTextSha256": "14b0a669e7c678fd1e246a5d8f10e179615e971708f1ed2b685a8e845df39115",
+            "url": "/audio/localized/v1/en/female/guidance/quality-near.mp3",
+            "bytes": 37677,
+            "sha256": "83b6dbc5a023579c955655128f7937f96b33767481f94691204443d7ae32cd78"
+          },
+          "quality-far": {
+            "text": "Your forehead and chin must fit in the frame. Move back a little.",
+            "sourceTextSha256": "18ef56e9b4108ab7af7ccb9feca310b21d5ee54c89b700b85c348c9029219408",
+            "url": "/audio/localized/v1/en/female/guidance/quality-far.mp3",
+            "bytes": 36717,
+            "sha256": "2f8b69ba9e7f0e0953e77290e996376c198828353c7779382d35026245a51a70"
+          },
+          "quality-light": {
+            "text": "Light your face evenly; reduce harsh side lighting and reflections.",
+            "sourceTextSha256": "c308844409375c8d6f7ce7e37451658fa2520aee9118488f3631808c82283a05",
+            "url": "/audio/localized/v1/en/female/guidance/quality-light.mp3",
+            "bytes": 37677,
+            "sha256": "f3c901e4f2f244dc205d2641439f6796bb240fe964cbf0ba16be3426f48bc3d9"
+          },
+          "quality-blur": {
+            "text": "Check camera focus and hold your head still briefly.",
+            "sourceTextSha256": "6508aee53ef218f7e5d9ce6b7340f1d26aaef6f6562e485431ee028b9be3a08e",
+            "url": "/audio/localized/v1/en/female/guidance/quality-blur.mp3",
+            "bytes": 29421,
+            "sha256": "c7b36eccaf6fd17318f7c162e357301adad9674cb3a81ff6e2577ba5fc8a5593"
+          },
+          "quality-face": {
+            "text": "Keep your face visible and remove whatever is blocking the camera view.",
+            "sourceTextSha256": "2d052a596ea7c517df7adefcd58cddda919928ed30b6d03ff8d1d19ab45e80bf",
+            "url": "/audio/localized/v1/en/female/guidance/quality-face.mp3",
+            "bytes": 36333,
+            "sha256": "795e514a0e5e5d8ce2be0fc9c9aeff666774412f397af49773ec4026bba49845"
+          },
+          "dental-entry": {
+            "text": "Dental Health. You can scan with the camera or upload a clear intraoral dental photo.",
+            "sourceTextSha256": "a0d5856ad8115b5422f139f67025763f581706176144b6261e4db68b6d4f9a9a",
+            "url": "/audio/localized/v1/en/female/guidance/dental-entry.mp3",
+            "bytes": 45165,
+            "sha256": "2db8923d25206b79590476c71235c36653a902b9c3b0d17d69e01e4a5953e397"
+          },
+          "dental-upload": {
+            "text": "Select a sharp color intraoral photo showing the teeth. Do not upload an X-ray.",
+            "sourceTextSha256": "75e2f941d1b98f0e1aadc3b0b68ab16a54a7a43377d9c37b79b18071aa77829b",
+            "url": "/audio/localized/v1/en/female/guidance/dental-upload.mp3",
+            "bytes": 44205,
+            "sha256": "1c6649e20e9976952f2374f3e55bf32f3c2a1d75ba10a344835cec687cce7547"
+          },
+          "dental-front": {
+            "text": "Face forward. Open your mouth comfortably so your front teeth are visible.",
+            "sourceTextSha256": "5b5de852612b56e232f47b67fcfb38b582654a3f41c2386585c0380f509c45b8",
+            "url": "/audio/localized/v1/en/female/guidance/dental-front.mp3",
+            "bytes": 39981,
+            "sha256": "d24797ef5f54b05a520a65150c9ff59c4da49eb52291b66bec7f63bb4b0436d9"
+          },
+          "dental-right": {
+            "text": "Turn your head slightly to your own right; keep your mouth comfortably open.",
+            "sourceTextSha256": "70ca8dfe5912b8c6adc5de5594a2cdb5ace831352a0979fbbb5a7fee5830c446",
+            "url": "/audio/localized/v1/en/female/guidance/dental-right.mp3",
+            "bytes": 38445,
+            "sha256": "a392b7fdab990e5e4ec1bf9ad6c0c8c200f30c985eea758bb4fdac9e4b0c2e81"
+          },
+          "dental-left": {
+            "text": "Turn your head slightly to your own left; keep your mouth comfortably open.",
+            "sourceTextSha256": "c2456e5a84739d9726b869a1c5416df03823e112967e84e904cb2dfccb2daf60",
+            "url": "/audio/localized/v1/en/female/guidance/dental-left.mp3",
+            "bytes": 38445,
+            "sha256": "7916e3a9fa493a29d93e03d4801ebd539fe5d302f6da46246880a7b6db3a67b8"
+          },
+          "dental-bite": {
+            "text": "Keep your teeth in a natural, relaxed bite with your front teeth visible. Do not strain.",
+            "sourceTextSha256": "e1670639f0fb7324db857153c27be23d7d5e4fb50cb13a211060dc2eb5475381",
+            "url": "/audio/localized/v1/en/female/guidance/dental-bite.mp3",
+            "bytes": 47469,
+            "sha256": "d0c2f2d38f5f93b32584ada3b6e7e3b0211633266c11dff34276e6b753a35153"
+          },
+          "dental-teeth": {
+            "text": "Teeth must be visible. Remove any covering by lips, tongue or objects.",
+            "sourceTextSha256": "6dc2e1e5887282dc4e02309d461bb76833544bdebcf6a46910792d1ad93f445d",
+            "url": "/audio/localized/v1/en/female/guidance/dental-teeth.mp3",
+            "bytes": 41901,
+            "sha256": "02e57c14351a2aa5367fb43222a87445244c4cd51dea96f17b3c0dd1c6d53aa0"
+          },
+          "dental-file": {
+            "text": "Select a JPEG, PNG or WebP photo that can be opened within the limits.",
+            "sourceTextSha256": "fe85bb2d4b39e12469512a680789eb1c6633c180ddf9f8f7566db9fdd1a83bed",
+            "url": "/audio/localized/v1/en/female/guidance/dental-file.mp3",
+            "bytes": 43053,
+            "sha256": "d3bd0692a3ee9cb1df0791c0f4e1cc629ba695baf5593222c64f085f9c8d3a8a"
+          },
+          "dental-complete": {
+            "text": "Analysis complete. Candidates relate only to visible surfaces; review the result cards.",
+            "sourceTextSha256": "6ee0f38256093dc7822d9a1d133c236fbc2e73ea8405b61363f0379010fe1a7b",
+            "url": "/audio/localized/v1/en/female/guidance/dental-complete.mp3",
+            "bytes": 53037,
+            "sha256": "6e38235c520e5a6081bbda70af74dd75cb4ba88fce5f47ce881bbe1923958949"
+          },
+          "hearing-entry": {
+            "text": "Hearing Health. Use stereo headphones in a quiet environment. We will first verify the right and left channels.",
+            "sourceTextSha256": "5b98e513a0b53707abe654b9ff8366af17a4c26aaa39bda65fa9adf423b7fe9e",
+            "url": "/audio/localized/v1/en/female/guidance/hearing-entry.mp3",
+            "bytes": 61869,
+            "sha256": "d33a97fa31c6de0fd496f3f9423dd50d9bb34683eb9cc8b0c4973304fdf86253"
+          },
+          "hearing-prepare": {
+            "text": "First put on your headphones, then use the corresponding buttons below to confirm you hear audio only from the indicated earpiece.",
+            "sourceTextSha256": "eb578034c08e7339b1e2fb46071b2540ccfc25668f1aeab1ad6b341d4424d273",
+            "url": "/audio/localized/v1/en/female/guidance/hearing-prepare.mp3",
+            "bytes": 63405,
+            "sha256": "20fe967511891651c85e93daea93c869aba2367963eb50aaccc009e35a3a3adf"
+          },
+          "hearing-tone": {
+            "text": "Wait until you hear the sound and press the button as soon as you hear it.",
+            "sourceTextSha256": "949bebe4bc6cd7b3da584bbd356b518a0a18d1b558b231046a084cc1b1ce88e4",
+            "url": "/audio/localized/v1/en/female/guidance/hearing-tone.mp3",
+            "bytes": 36141,
+            "sha256": "064296087b16df4d22a02075484a16c70a89e0aebcbc80df972627540113b7d9"
+          },
+          "hearing-digits": {
+            "text": "After the countdown you will hear three digits in noise. Enter the digits in order and submit your response.",
+            "sourceTextSha256": "b982d8a68822e78bdfde81388dbd2cedc5eaddcfa5a03e8d056ea060f9f6766a",
+            "url": "/audio/localized/v1/en/female/guidance/hearing-digits.mp3",
+            "bytes": 55341,
+            "sha256": "37d097693923c8d0d6f58efd26339effd99edd7876428bd6243da5400be681e7"
+          },
+          "hearing-complete": {
+            "text": "Test complete. The result uses this device's digital audio units. You can save the numerical result if you wish.",
+            "sourceTextSha256": "df178674477ab23607dcb83bb9c40452ede0aeb1e807b700c8ac2b7b6b66d77f",
+            "url": "/audio/localized/v1/en/female/guidance/hearing-complete.mp3",
+            "bytes": 63213,
+            "sha256": "dfec2b222501e3bde50de3f8b623646622af83537bbf527aaca6e33f260034a5"
+          },
+          "mental-entry": {
+            "text": "Mental Health. You can speak after starting the conversation. The Finish button ends the conversation.",
+            "sourceTextSha256": "67f69e2d3b9bbfd30e334b05514c639f3d61c1e87a4bf7a28e531b825452a04f",
+            "url": "/audio/localized/v1/en/female/guidance/mental-entry.mp3",
+            "bytes": 55533,
+            "sha256": "122afd08fcd0dfa752416d239b83ec50c5de6ef49b16e082e8affc6ec0a88830"
+          },
+          "mental-complete": {
+            "text": "Conversation complete. You can review the summary and continue to specialist options.",
+            "sourceTextSha256": "f348a097eb911a46c133a024b4d19faf08151cabb2b7bb6bf450b7be798b854a",
+            "url": "/audio/localized/v1/en/female/guidance/mental-complete.mp3",
+            "bytes": 47469,
+            "sha256": "e5cb73b8d648adad0d7370840417ca79a59d60617147a258b94ccd4de8a43ae4"
+          },
+          "skin-neutral": {
+            "text": "Close your mouth. Relax your face without smiling; keep your head still in the requested pose.",
+            "sourceTextSha256": "29a04286a85817b3fdb18a94b47098e247f104ed62aab420399fcd34b9ca9654",
+            "url": "/audio/localized/v1/en/female/guidance/skin-neutral.mp3",
+            "bytes": 52269,
+            "sha256": "8f796fb6bcb52402b67c317aef5ad14769cca356107c3e5444804605a851331d"
+          }
+        },
+        "vision": {
+          "prepare": {
+            "text": "Preparing the camera. Keep both eyes open and your face in view. Maintain your current distance.",
+            "sourceTextSha256": "3eadd80d06845644ec29c1435bc7cf6d219457872947e95cf651f9c2554195e0",
+            "url": "/audio/localized/v1/en/female/vision/prepare.mp3",
+            "bytes": 53805,
+            "sha256": "2cdbf8543d187692f11f9f135402b02798ffa7048d957b52b9ed3244df60f2d6"
+          },
+          "right": {
+            "text": "We are testing your right eye. Keep your right eye open. Close or cover your left eye. Look at the letter area with your open eye.",
+            "sourceTextSha256": "3dc12a2147b7d24ba704e816d4f36b228d24a70e3a7616b434a21f54141638c2",
+            "url": "/audio/localized/v1/en/female/vision/right.mp3",
+            "bytes": 67437,
+            "sha256": "f32d519e51d3c779d3e1281c63c2ccac096927877b79c852f9d5e40ca15c08bb"
+          },
+          "left": {
+            "text": "We are testing your left eye. Keep your left eye open. Close or cover your right eye. Look at the letter area with your open eye.",
+            "sourceTextSha256": "2eba5bbf9074af04f72730d7e361f2b79eb0d9063ef405d2025bfde513b056bd",
+            "url": "/audio/localized/v1/en/female/vision/left.mp3",
+            "bytes": 67629,
+            "sha256": "62d0d12b57dfd872af8e645200852f86c2dabf0edb0a78d729caa07c2b73863f"
+          },
+          "letter": {
+            "text": "Could you say the letter? You can also use a word starting with that letter.",
+            "sourceTextSha256": "1834a1321b7ed050281f2a435848efb8932948b9e2b338d952c644400582f3ae",
+            "url": "/audio/localized/v1/en/female/vision/letter.mp3",
+            "bytes": 37293,
+            "sha256": "ee8a9bcd25a94458f6a795f19c4ef20af70f4266a4bf9b4f0647aed60a5462ee"
+          },
+          "orientation": {
+            "text": "Could you say which way the letter is facing?",
+            "sourceTextSha256": "39e37cf322f02f339d2ba7ff3febc7b6f1d6c78f26d27174d80062e9607321af",
+            "url": "/audio/localized/v1/en/female/vision/orientation.mp3",
+            "bytes": 23277,
+            "sha256": "ea7ad58fe4ee12dfaa50a706d1021c7f1bedbd2156b5ad441cb474a8b041428f"
+          },
+          "reverse": {
+            "text": "Upside down or mirrored?",
+            "sourceTextSha256": "301511884f8b1920b57918181d04de2285775af41920335e230d798ab2d18f68",
+            "url": "/audio/localized/v1/en/female/vision/reverse.mp3",
+            "bytes": 15405,
+            "sha256": "d6283fa3eb1d9fab50c04fb4ace86934c826409ccc255714baf74e558dc4e4d0"
+          },
+          "repeat": {
+            "text": "Say the letter on the screen and its orientation.",
+            "sourceTextSha256": "97917f93c02e7e4d95ae81168850e5f184b9e1f7d3166a23a8f37ec2f9703a78",
+            "url": "/audio/localized/v1/en/female/vision/repeat.mp3",
+            "bytes": 25581,
+            "sha256": "0304d48f9da3052ffbb058e85a40aba8898429771955c0bb22bffd4d1ee92238"
+          },
+          "first": {
+            "text": "Look at the letter area. Say the letter and its orientation in either order. Along with the orientation, you can say a word beginning with the letter you see. If the letter is visible, you do not need to wait for the instruction to finish.",
+            "sourceTextSha256": "5e8da2e5e8863f52bfbec76f366fee342e35735b543d8ed9d11f09083a4997b7",
+            "url": "/audio/localized/v1/en/female/vision/first.mp3",
+            "bytes": 113709,
+            "sha256": "9e5a7425efeb1ac0686aab328802c91c135ed28645edcbfcec1d7a84ab593485"
+          },
+          "next1": {
+            "text": "Now say the next letter.",
+            "sourceTextSha256": "427d83e77009bf5fabcb9ffee6442e65844ec1912e25a88b083f461886e5789c",
+            "url": "/audio/localized/v1/en/female/vision/next1.mp3",
+            "bytes": 15021,
+            "sha256": "9bb5f3a6c6af1f66eb2e507ba48409f02f5aa319ce4e6e9d42e8b4ce3866d874"
+          },
+          "next2": {
+            "text": "Please read this letter in the same way.",
+            "sourceTextSha256": "3a33737a2550f81e916f6ff70e6a6e8cf725876abd8b01d0fe269ca8aa22ea57",
+            "url": "/audio/localized/v1/en/female/vision/next2.mp3",
+            "bytes": 20589,
+            "sha256": "a56b65220516ba688df2960a9cc483b296c0f85f37b8cdadc4dd63ab6105bdc6"
+          },
+          "next3": {
+            "text": "Your response was recorded. Moving to the next letter.",
+            "sourceTextSha256": "0bb963fc893f6773a9a1b286a0181cefecc114f6c52753206c129b2f704ce971",
+            "url": "/audio/localized/v1/en/female/vision/next3.mp3",
+            "bytes": 30765,
+            "sha256": "93f9e0170e475de6bb5e379f1a4ce6e9245c4230a9b48223ff0c4b374ee255c7"
+          },
+          "position": {
+            "text": "Maintain your starting distance. You can look at the letter area.",
+            "sourceTextSha256": "297e9fc13ce42aee0f5982051a666425ecb0ec6ea2b5e4c86d1f43e3e06ebffc",
+            "url": "/audio/localized/v1/en/female/vision/position.mp3",
+            "bytes": 33453,
+            "sha256": "b82e5db15483a48bb061f6b1859456ecb019d00ca24023ba11dc98937e5692bc"
+          },
+          "approach": {
+            "text": "Move a little closer.",
+            "sourceTextSha256": "c69cfb4c1bf876c47c25adb1f1696324d3db47ebce532a27d77cd18992a994ee",
+            "url": "/audio/localized/v1/en/female/vision/approach.mp3",
+            "bytes": 13293,
+            "sha256": "eb14cbc7945e1dc5d7b4184cfa69984df083c1d0f0ffbdabccde2b05a891d1bf"
+          },
+          "recede": {
+            "text": "Move slightly farther back.",
+            "sourceTextSha256": "19c6720ed16da62d2b8fe866d0b73ec733d8b05904443046b59285e0b4f0a1e4",
+            "url": "/audio/localized/v1/en/female/vision/recede.mp3",
+            "bytes": 16365,
+            "sha256": "8bc0b4e5f929b323a55399c56ce158a217e220d89818b50a4048157e2a062e7c"
+          },
+          "pose": {
+            "text": "Maintain your starting distance. You can look at the letter area.",
+            "sourceTextSha256": "297e9fc13ce42aee0f5982051a666425ecb0ec6ea2b5e4c86d1f43e3e06ebffc",
+            "url": "/audio/localized/v1/en/female/vision/pose.mp3",
+            "bytes": 33453,
+            "sha256": "b82e5db15483a48bb061f6b1859456ecb019d00ca24023ba11dc98937e5692bc"
+          },
+          "framing": {
+            "text": "Center your face with your forehead and chin in the frame.",
+            "sourceTextSha256": "31911544eece7192098aaddee271b30be0acf07c84697ae45f0f313333f0eb9b",
+            "url": "/audio/localized/v1/en/female/vision/framing.mp3",
+            "bytes": 28269,
+            "sha256": "9d0a9b49dce32705c0ae125d6c6ca5010048cd237787166fb92324857ba563af"
+          },
+          "light": {
+            "text": "Illuminate your face better.",
+            "sourceTextSha256": "6578ff9a1c4dfd183b66a7f45035c89644d132dc694b31103b3c0a9e648cb530",
+            "url": "/audio/localized/v1/en/female/vision/light.mp3",
+            "bytes": 15405,
+            "sha256": "6ce53d133195d97dc197576e4d2a041412a95b13daee358f32007fb9baa2778d"
+          },
+          "bright": {
+            "text": "Reduce glare on your face.",
+            "sourceTextSha256": "1f71ef60e4e5e311b79d08089162227147ec40b6b8d2ca1374b7bebf1276ade1",
+            "url": "/audio/localized/v1/en/female/vision/bright.mp3",
+            "bytes": 15405,
+            "sha256": "a28133864129439487d96a48cb3aa5e65c70ddc64e90ab44417136de5796c864"
+          },
+          "blur": {
+            "text": "Check camera focus and face lighting.",
+            "sourceTextSha256": "d6205a7fe925ed96a8a3510a5a1f09613a5d68e37f3d6271249cc55d50eb14ac",
+            "url": "/audio/localized/v1/en/female/vision/blur.mp3",
+            "bytes": 22701,
+            "sha256": "4e6e5901e2d14e3fbdd814f7a3ed2cb7fd33c6d3d9ea40b4a70b1777bd51a8aa"
+          },
+          "motion": {
+            "text": "Keep your head still briefly.",
+            "sourceTextSha256": "0b0c2a5aaa90611aff0c97184bd119bcf425f238409e20cd2ba1843f796df412",
+            "url": "/audio/localized/v1/en/female/vision/motion.mp3",
+            "bytes": 16557,
+            "sha256": "b995c8b460f014391fb7fd22960991a3027cb9aa5b5bbb908f4b9bea8b9c1b35"
+          },
+          "face": {
+            "text": "Show your face to the camera.",
+            "sourceTextSha256": "6ee61515269f81be363a7aa6feb8554e83f6963e5525c6329c3221f56d2d6f28",
+            "url": "/audio/localized/v1/en/female/vision/face.mp3",
+            "bytes": 15405,
+            "sha256": "640398658c1b0effa53b4b51e743c8868be4dfc0e6214305cc935c57718c4cd7"
+          },
+          "preparing": {
+            "text": "Verifying your position. Hold still briefly.",
+            "sourceTextSha256": "e6abf052a6fad0c02488a6f589142d602f4b6a23042f31cb410f2d58131bf916",
+            "url": "/audio/localized/v1/en/female/vision/preparing.mp3",
+            "bytes": 27501,
+            "sha256": "2747df06fdadc4e4f3056d4b70953184caab90886f453b43c7dbd92e33e9342d"
+          },
+          "ready": {
+            "text": "Position ready.",
+            "sourceTextSha256": "f1935ee8421bcfdd1c7f7ebe9e65644b1301909e110bd1fef3b29bf68d5c9731",
+            "url": "/audio/localized/v1/en/female/vision/ready.mp3",
+            "bytes": 10797,
+            "sha256": "4897fb9b87a24b62e704bf2297cb91e958fa88ea96fbd093da713b3eb7258e57"
+          },
+          "camera": {
+            "text": "Stand in front of the camera in good light.",
+            "sourceTextSha256": "8da0dc1a7cd6aad84cfa98a548cf2d3d7c01b50c140de6aafc547902095815d0",
+            "url": "/audio/localized/v1/en/female/vision/camera.mp3",
+            "bytes": 21933,
+            "sha256": "21cd4c0b2f6b9b6381b9f55ae0aa9ab1051726422f3a0bd82aac760e159fb8ab"
+          },
+          "eye": {
+            "text": "Keep the tested eye open and the other eye closed or covered.",
+            "sourceTextSha256": "8080f68f27dff4cb6c442ac788d634180eda16f9515c1dc7a21bf07d2836da4f",
+            "url": "/audio/localized/v1/en/female/vision/eye.mp3",
+            "bytes": 33261,
+            "sha256": "d073e4f273a04f828e01ef3f180235ba8079066b9f7274254effc17be5537dea"
+          },
+          "uncertain": {
+            "text": "I cannot verify eye covering or whether the eye is open.",
+            "sourceTextSha256": "fb387796c57aac90732b4866cf2608a817f846114bbe02ef8f1d16a1797f26ec",
+            "url": "/audio/localized/v1/en/female/vision/uncertain.mp3",
+            "bytes": 29613,
+            "sha256": "45eaba7954c120430d41b154d20f79fcc6b92f15c54c60c186a980aab1002fd1"
+          },
+          "paused": {
+            "text": "Task paused. Say resume to continue.",
+            "sourceTextSha256": "499a3d24a74cd5afa0de1ba262f5dace76473ceea897aaf5d25ce62fe01e5ccb",
+            "url": "/audio/localized/v1/en/female/vision/paused.mp3",
+            "bytes": 25773,
+            "sha256": "3169aa404085124bed61659a17316f3f0fcf6c5a02fb6407cd05a117f44c04b7"
+          },
+          "complete": {
+            "text": "Letter recognition task complete.",
+            "sourceTextSha256": "1052afcb71373707e8f41d4307b826c724339567628959c17df3474acb353784",
+            "url": "/audio/localized/v1/en/female/vision/complete.mp3",
+            "bytes": 20205,
+            "sha256": "fd3e1d7c40a2df2e064440b0517ffa31aa0b943591d78aff372fe74f417b8b97"
+          }
+        }
+      }
+    },
+    "de": {
+      "male": {
+        "id": "espeak:de:male",
+        "name": "eSpeak NG German",
+        "locale": "de-DE",
+        "gender": "male",
+        "provider": "local",
+        "local": true,
+        "availability": "actual metadata and synthesis probe verified",
+        "scope": "new translated synthesis; original approved recordings unchanged",
+        "speedWordsPerMinute": 155,
+        "pitch": 50,
+        "guidance": {
+          "cockpit-entry": {
+            "text": "Wählen Sie die gewünschte Beurteilung im Menü Gesundheitszentrum.",
+            "sourceTextSha256": "c6a2b85c54fce10697f86effff44f3de1e586caa9c6c727568916eaa49c39daa",
+            "url": "/audio/localized/v1/de/male/guidance/cockpit-entry.mp3",
+            "bytes": 31533,
+            "sha256": "e8337101848e50dbb31f41573360858a9d0a876fe45df47504b655e5b9baaff4"
+          },
+          "profile-entry": {
+            "text": "Mein Gesundheitsverlauf. Sie können einen Eintrag öffnen oder nur den ausgewählten Eintrag löschen.",
+            "sourceTextSha256": "b7ae34b171a587394a9ec1465ed50182850d9d8913bdb129b7ac1099f6ff11b9",
+            "url": "/audio/localized/v1/de/male/guidance/profile-entry.mp3",
+            "bytes": 52461,
+            "sha256": "f8bba4be61799add8dcb14cf21428461f7f340c3adc843500138ccfad8f6dd83"
+          },
+          "record-open": {
+            "text": "Eintragsdetails geöffnet. Von hier aus können Sie zu den Fachkraftoptionen wechseln.",
+            "sourceTextSha256": "36b9551ba044a101f40b861244870a74c5d5fd83d16bac5d77fd684232e2781b",
+            "url": "/audio/localized/v1/de/male/guidance/record-open.mp3",
+            "bytes": 47469,
+            "sha256": "34f5ac6a3404e50108d9b19942bb8ba38cef59665f288a85fb8a2a992e87bf7c"
+          },
+          "record-delete": {
+            "text": "Nur der ausgewählte Eintrag wird gelöscht. Bestätigen Sie zum Löschen oder brechen Sie ab, um ihn zu behalten.",
+            "sourceTextSha256": "0ebe7dd651e3b3f5f5cd994844bad9721d0372f7a3b77c8528c60d373aae5112",
+            "url": "/audio/localized/v1/de/male/guidance/record-delete.mp3",
+            "bytes": 58029,
+            "sha256": "f1c7da5ae44456f20a48ee2d5202a56b70f664c444778068f3821d3d7194228b"
+          },
+          "care-entry": {
+            "text": "Wählen Sie den Gesundheitsbereich und das Fachgebiet. Bestätigen Sie die Fachkraft und einen verfügbaren Termin auf der Anbieterseite.",
+            "sourceTextSha256": "4a0b294523e48ba089d9547059fa229c3cc659cbc43b92120e480cb97ef844fb",
+            "url": "/audio/localized/v1/de/male/guidance/care-entry.mp3",
+            "bytes": 68013,
+            "sha256": "98a30230e1c3721e9806fe0f519b30f810ecda7cd5eda111eb58584357604374"
+          },
+          "care-select": {
+            "text": "Prüfen Sie die gewählte Fachkraft und Zeit. Dieser Schritt bucht keinen Termin.",
+            "sourceTextSha256": "a3dda825f7aaee6c93127dff5634658ca3b79c291735a17dede11e9ddd3cfb8b",
+            "url": "/audio/localized/v1/de/male/guidance/care-select.mp3",
+            "bytes": 43437,
+            "sha256": "0073360a9c21be04d1bf0516396f50351b5688d934816c90af51bbadf3bfa62a"
+          },
+          "skin-entry": {
+            "text": "Hautgesundheit. Halten Sie den Kopf entspannt; wir nehmen gemäß den Bildschirmanweisungen eine Frontal-, Rechts- und Linksansicht auf.",
+            "sourceTextSha256": "cc58ff98eecf07bdb2bf06ba769b502cf49892d8537f8c40350994bd1971d786",
+            "url": "/audio/localized/v1/de/male/guidance/skin-entry.mp3",
+            "bytes": 72237,
+            "sha256": "aad866bf68801cb122436cbb7fb58366c5c79e9c6daabdb444e91f0ca7b42317"
+          },
+          "skin-front": {
+            "text": "Nehmen Sie die Brille ab. Schauen Sie geradeaus. Halten Sie kurz still, während Ihr Gesicht auf dem Bildschirm sichtbar ist.",
+            "sourceTextSha256": "9fb74f590b9d064e82588e51c82b8b2d8946c359bfd7532c772da3937ae29351",
+            "url": "/audio/localized/v1/de/male/guidance/skin-front.mp3",
+            "bytes": 64173,
+            "sha256": "101289e97c13472c4a2bb9553f1a2a99e8122bc958addc38cfb727431db0ef90"
+          },
+          "skin-right": {
+            "text": "Drehen Sie den Kopf etwas nach rechts aus Ihrer Sicht; halten Sie kurz still.",
+            "sourceTextSha256": "bf8ec3e38fade30762c780089288636aa7011457cc74250cdfd6cc7859816ed2",
+            "url": "/audio/localized/v1/de/male/guidance/skin-right.mp3",
+            "bytes": 42861,
+            "sha256": "ce910a7d31e5c8515009998aef51d01c535fc8992fed724515f3c403d0a277ea"
+          },
+          "skin-left": {
+            "text": "Drehen Sie den Kopf etwas nach links aus Ihrer Sicht; halten Sie kurz still.",
+            "sourceTextSha256": "0cdd988305a1435dfd5ad5d8433832d51012e962698efd11f48b9c2302e79687",
+            "url": "/audio/localized/v1/de/male/guidance/skin-left.mp3",
+            "bytes": 42861,
+            "sha256": "6a17366bb7cc53fc813e839d99cdefa02e6fa70f098183c461546b191fc02d39"
+          },
+          "skin-complete": {
+            "text": "Scan abgeschlossen. Wählen Sie eine Regions- und Kriterienkarte, um das Ergebnis zum aktuellen Erscheinungsbild anzusehen.",
+            "sourceTextSha256": "ad73de0ee08f2b14237e13c404f42ef7f896e46699ad80a4906ab61aa274a734",
+            "url": "/audio/localized/v1/de/male/guidance/skin-complete.mp3",
+            "bytes": 67437,
+            "sha256": "1a1916aa4a7677f180ac8af186c226652c92bf3380e612ad4424007a596b8403"
+          },
+          "quality-near": {
+            "text": "Unzureichende Gesichtsdetails im Quellbild. Kommen Sie etwas näher.",
+            "sourceTextSha256": "14b0a669e7c678fd1e246a5d8f10e179615e971708f1ed2b685a8e845df39115",
+            "url": "/audio/localized/v1/de/male/guidance/quality-near.mp3",
+            "bytes": 38445,
+            "sha256": "5aa2697a00fcf55264ce4fed1c28f38c45a546d15b2eaef42a17ef510725c703"
+          },
+          "quality-far": {
+            "text": "Stirn und Kinn müssen ins Bild passen. Gehen Sie etwas zurück.",
+            "sourceTextSha256": "18ef56e9b4108ab7af7ccb9feca310b21d5ee54c89b700b85c348c9029219408",
+            "url": "/audio/localized/v1/de/male/guidance/quality-far.mp3",
+            "bytes": 34989,
+            "sha256": "cc703d3793849c144460547187710ce6a498d5982463037683b160177222759b"
+          },
+          "quality-light": {
+            "text": "Beleuchten Sie Ihr Gesicht gleichmäßig; verringern Sie hartes Seitenlicht und Reflexionen.",
+            "sourceTextSha256": "c308844409375c8d6f7ce7e37451658fa2520aee9118488f3631808c82283a05",
+            "url": "/audio/localized/v1/de/male/guidance/quality-light.mp3",
+            "bytes": 44589,
+            "sha256": "940eca438b44bfbe1bd895c08664b691819fe725cec5803e7affd0dc014e2d79"
+          },
+          "quality-blur": {
+            "text": "Prüfen Sie den Kamerafokus und halten Sie den Kopf kurz still.",
+            "sourceTextSha256": "6508aee53ef218f7e5d9ce6b7340f1d26aaef6f6562e485431ee028b9be3a08e",
+            "url": "/audio/localized/v1/de/male/guidance/quality-blur.mp3",
+            "bytes": 36909,
+            "sha256": "95b9929bc43727e035394bdcfec03def20e8214f53847972fe9c7ff12107aa0b"
+          },
+          "quality-face": {
+            "text": "Halten Sie Ihr Gesicht sichtbar und entfernen Sie Hindernisse aus dem Kamerablickfeld.",
+            "sourceTextSha256": "2d052a596ea7c517df7adefcd58cddda919928ed30b6d03ff8d1d19ab45e80bf",
+            "url": "/audio/localized/v1/de/male/guidance/quality-face.mp3",
+            "bytes": 42477,
+            "sha256": "3ae5b5542b9f34edd4d50b1717c26c4ce68797a8dd7c148696048dfdcd74e774"
+          },
+          "dental-entry": {
+            "text": "Zahngesundheit. Sie können mit der Kamera scannen oder ein scharfes Foto der Zähne im Mund hochladen.",
+            "sourceTextSha256": "a0d5856ad8115b5422f139f67025763f581706176144b6261e4db68b6d4f9a9a",
+            "url": "/audio/localized/v1/de/male/guidance/dental-entry.mp3",
+            "bytes": 54573,
+            "sha256": "9eeca6971cace932ed4f0e78b2ab38634d3bd6fc4e0017a055685155d1e2d75e"
+          },
+          "dental-upload": {
+            "text": "Wählen Sie ein scharfes Farbfoto des Mundinnenraums mit sichtbaren Zähnen. Laden Sie kein Röntgenbild hoch.",
+            "sourceTextSha256": "75e2f941d1b98f0e1aadc3b0b68ab16a54a7a43377d9c37b79b18071aa77829b",
+            "url": "/audio/localized/v1/de/male/guidance/dental-upload.mp3",
+            "bytes": 57453,
+            "sha256": "4211eb7da220389391bfbf6c5aad36d16abf6b867cbb589bb0219c37d7bc4184"
+          },
+          "dental-front": {
+            "text": "Schauen Sie geradeaus. Öffnen Sie den Mund entspannt, sodass die Vorderzähne sichtbar sind.",
+            "sourceTextSha256": "5b5de852612b56e232f47b67fcfb38b582654a3f41c2386585c0380f509c45b8",
+            "url": "/audio/localized/v1/de/male/guidance/dental-front.mp3",
+            "bytes": 47277,
+            "sha256": "acfc9ca55ccf8c51e1a386b240cade4530a4bee2502f74cdedbab643128e0321"
+          },
+          "dental-right": {
+            "text": "Drehen Sie den Kopf etwas nach rechts aus Ihrer Sicht; halten Sie den Mund entspannt offen.",
+            "sourceTextSha256": "70ca8dfe5912b8c6adc5de5594a2cdb5ace831352a0979fbbb5a7fee5830c446",
+            "url": "/audio/localized/v1/de/male/guidance/dental-right.mp3",
+            "bytes": 47277,
+            "sha256": "db5532cf29ebf30d676bee8919c73e7456aa31d0b985db6f6349f5e8dcfa5e5a"
+          },
+          "dental-left": {
+            "text": "Drehen Sie den Kopf etwas nach links aus Ihrer Sicht; halten Sie den Mund entspannt offen.",
+            "sourceTextSha256": "c2456e5a84739d9726b869a1c5416df03823e112967e84e904cb2dfccb2daf60",
+            "url": "/audio/localized/v1/de/male/guidance/dental-left.mp3",
+            "bytes": 47277,
+            "sha256": "7c1717c27952e4cc374612010291fcc5e8a95bc792a22bdbdb7871d0787559f9"
+          },
+          "dental-bite": {
+            "text": "Halten Sie die Zähne in einem natürlichen, entspannten Zusammenbiss, sodass die Vorderzähne sichtbar sind. Erzwingen Sie nichts.",
+            "sourceTextSha256": "e1670639f0fb7324db857153c27be23d7d5e4fb50cb13a211060dc2eb5475381",
+            "url": "/audio/localized/v1/de/male/guidance/dental-bite.mp3",
+            "bytes": 63981,
+            "sha256": "a42bd446ea53526a5528566b2b4bddd5683b54586fed3739e5dd5620f8e9369c"
+          },
+          "dental-teeth": {
+            "text": "Die Zähne müssen sichtbar sein. Entfernen Sie Abdeckungen durch Lippen, Zunge oder Gegenstände.",
+            "sourceTextSha256": "6dc2e1e5887282dc4e02309d461bb76833544bdebcf6a46910792d1ad93f445d",
+            "url": "/audio/localized/v1/de/male/guidance/dental-teeth.mp3",
+            "bytes": 47853,
+            "sha256": "6078e3a5e3d52a271b6adf2d5a2b2da2a8edbecb1a80f89bb1076cba84b2721b"
+          },
+          "dental-file": {
+            "text": "Wählen Sie ein JPEG-, PNG- oder WebP-Foto, das innerhalb der Grenzen geöffnet werden kann.",
+            "sourceTextSha256": "fe85bb2d4b39e12469512a680789eb1c6633c180ddf9f8f7566db9fdd1a83bed",
+            "url": "/audio/localized/v1/de/male/guidance/dental-file.mp3",
+            "bytes": 52269,
+            "sha256": "b425ec1209ff00e6120fb81b7918bb6c2d559d3b078ddc96ffc9298684e632a7"
+          },
+          "dental-complete": {
+            "text": "Analyse abgeschlossen. Kandidaten beziehen sich nur auf sichtbare Oberflächen; prüfen Sie die Ergebniskarten.",
+            "sourceTextSha256": "6ee0f38256093dc7822d9a1d133c236fbc2e73ea8405b61363f0379010fe1a7b",
+            "url": "/audio/localized/v1/de/male/guidance/dental-complete.mp3",
+            "bytes": 58413,
+            "sha256": "66f92cc3aa16a2a3c8a886fc4919a90b5e9e81def2f76d3a537b5f5653ab7854"
+          },
+          "hearing-entry": {
+            "text": "Hörgesundheit. Verwenden Sie Stereokopfhörer in ruhiger Umgebung. Wir prüfen zuerst den rechten und linken Kanal.",
+            "sourceTextSha256": "5b98e513a0b53707abe654b9ff8366af17a4c26aaa39bda65fa9adf423b7fe9e",
+            "url": "/audio/localized/v1/de/male/guidance/hearing-entry.mp3",
+            "bytes": 66093,
+            "sha256": "3990bd91d819e96746ce3fbd697197079681e1ad4f1ff707f25d0709b25ddf6d"
+          },
+          "hearing-prepare": {
+            "text": "Setzen Sie zuerst die Kopfhörer auf und bestätigen Sie dann mit den entsprechenden Schaltflächen unten, dass Sie den Ton nur im angegebenen Ohrhörer hören.",
+            "sourceTextSha256": "eb578034c08e7339b1e2fb46071b2540ccfc25668f1aeab1ad6b341d4424d273",
+            "url": "/audio/localized/v1/de/male/guidance/hearing-prepare.mp3",
+            "bytes": 77037,
+            "sha256": "225999f2938ed915b73d49515f7e80674aa1abc2e3f227832d60241f66375519"
+          },
+          "hearing-tone": {
+            "text": "Warten Sie, bis Sie den Ton hören, und drücken Sie die Schaltfläche, sobald Sie ihn hören.",
+            "sourceTextSha256": "949bebe4bc6cd7b3da584bbd356b518a0a18d1b558b231046a084cc1b1ce88e4",
+            "url": "/audio/localized/v1/de/male/guidance/hearing-tone.mp3",
+            "bytes": 47277,
+            "sha256": "963d350919c5f6c257115731c0cc86905dc9c21e7c40e4d55769c22a0f9848e5"
+          },
+          "hearing-digits": {
+            "text": "Nach dem Countdown hören Sie drei Ziffern im Störgeräusch. Geben Sie die Ziffern der Reihe nach ein und senden Sie Ihre Antwort.",
+            "sourceTextSha256": "b982d8a68822e78bdfde81388dbd2cedc5eaddcfa5a03e8d056ea060f9f6766a",
+            "url": "/audio/localized/v1/de/male/guidance/hearing-digits.mp3",
+            "bytes": 63021,
+            "sha256": "23e22b71684e82db156928abc323df8b7a8bb0e9787f9ec2ad5fad152047f775"
+          },
+          "hearing-complete": {
+            "text": "Test abgeschlossen. Das Ergebnis verwendet die digitalen Audioeinheiten dieses Geräts. Sie können das numerische Ergebnis auf Wunsch speichern.",
+            "sourceTextSha256": "df178674477ab23607dcb83bb9c40452ede0aeb1e807b700c8ac2b7b6b66d77f",
+            "url": "/audio/localized/v1/de/male/guidance/hearing-complete.mp3",
+            "bytes": 72429,
+            "sha256": "951535f026eaf6eb37073cc1fd4262070d5f56ae9e82ea6fa846270e19c52d0f"
+          },
+          "mental-entry": {
+            "text": "Psychisches Wohlbefinden. Nach dem Gesprächsstart können Sie sprechen. Die Schaltfläche Beenden beendet das Gespräch.",
+            "sourceTextSha256": "67f69e2d3b9bbfd30e334b05514c639f3d61c1e87a4bf7a28e531b825452a04f",
+            "url": "/audio/localized/v1/de/male/guidance/mental-entry.mp3",
+            "bytes": 59949,
+            "sha256": "d0bc58fc81042ad11333974d5ab865f36024a3616ba3fa635c283057001f20fb"
+          },
+          "mental-complete": {
+            "text": "Gespräch abgeschlossen. Sie können die Zusammenfassung prüfen und zu den Fachkraftoptionen wechseln.",
+            "sourceTextSha256": "f348a097eb911a46c133a024b4d19faf08151cabb2b7bb6bf450b7be798b854a",
+            "url": "/audio/localized/v1/de/male/guidance/mental-complete.mp3",
+            "bytes": 52653,
+            "sha256": "3cfac21e928cbb970fded425647db6d9f583d4180dd6ee2c8c92355072ec20a5"
+          },
+          "skin-neutral": {
+            "text": "Schließen Sie den Mund. Entspannen Sie Ihr Gesicht, ohne zu lächeln; halten Sie den Kopf in der gewünschten Position still.",
+            "sourceTextSha256": "29a04286a85817b3fdb18a94b47098e247f104ed62aab420399fcd34b9ca9654",
+            "url": "/audio/localized/v1/de/male/guidance/skin-neutral.mp3",
+            "bytes": 63597,
+            "sha256": "330735c4c936c39bbb5498ed5678978f34ee495789ef2370798b4b7b5dc5dc23"
+          }
+        },
+        "vision": {
+          "prepare": {
+            "text": "Die Kamera wird vorbereitet. Halten Sie beide Augen offen und Ihr Gesicht im Bild. Behalten Sie Ihren aktuellen Abstand bei.",
+            "sourceTextSha256": "3eadd80d06845644ec29c1435bc7cf6d219457872947e95cf651f9c2554195e0",
+            "url": "/audio/localized/v1/de/male/vision/prepare.mp3",
+            "bytes": 67437,
+            "sha256": "a4da90888d46854c65fc31254e5855e5fb7cbc8372bb75a5f14711d5ec2ba299"
+          },
+          "right": {
+            "text": "Wir testen Ihr rechtes Auge. Halten Sie das rechte Auge offen. Schließen Sie das linke Auge oder decken Sie es ab. Schauen Sie mit dem offenen Auge auf den Buchstabenbereich.",
+            "sourceTextSha256": "3dc12a2147b7d24ba704e816d4f36b228d24a70e3a7616b434a21f54141638c2",
+            "url": "/audio/localized/v1/de/male/vision/right.mp3",
+            "bytes": 87597,
+            "sha256": "3941e2c0c3fd230f3e0b738a5dc7bcf724b66d0218a946427122d3852639afb9"
+          },
+          "left": {
+            "text": "Wir testen Ihr linkes Auge. Halten Sie das linke Auge offen. Schließen Sie das rechte Auge oder decken Sie es ab. Schauen Sie mit dem offenen Auge auf den Buchstabenbereich.",
+            "sourceTextSha256": "2eba5bbf9074af04f72730d7e361f2b79eb0d9063ef405d2025bfde513b056bd",
+            "url": "/audio/localized/v1/de/male/vision/left.mp3",
+            "bytes": 87789,
+            "sha256": "2adf3d95eaf09bec05fdb594922fe5a80ae0b13fff278b17ab9652d6217e6382"
+          },
+          "letter": {
+            "text": "Können Sie den Buchstaben nennen? Sie können auch ein Wort verwenden, das mit diesem Buchstaben beginnt.",
+            "sourceTextSha256": "1834a1321b7ed050281f2a435848efb8932948b9e2b338d952c644400582f3ae",
+            "url": "/audio/localized/v1/de/male/vision/letter.mp3",
+            "bytes": 50733,
+            "sha256": "98a112671975c199d8d67bb36304144b3ccfc6b24e738e1c1b91911678ea57b9"
+          },
+          "orientation": {
+            "text": "Können Sie sagen, in welche Richtung der Buchstabe ausgerichtet ist?",
+            "sourceTextSha256": "39e37cf322f02f339d2ba7ff3febc7b6f1d6c78f26d27174d80062e9607321af",
+            "url": "/audio/localized/v1/de/male/vision/orientation.mp3",
+            "bytes": 34797,
+            "sha256": "018eb4d4dee86a2d32f667b34a084389c8499d7550ad4ae42ed9fdec7f414671"
+          },
+          "reverse": {
+            "text": "Auf dem Kopf oder gespiegelt?",
+            "sourceTextSha256": "301511884f8b1920b57918181d04de2285775af41920335e230d798ab2d18f68",
+            "url": "/audio/localized/v1/de/male/vision/reverse.mp3",
+            "bytes": 18477,
+            "sha256": "5afa7c712f7ee6df8ea319bd5f14b2d12c0025c91d48f7d1fe6730fca0240a1a"
+          },
+          "repeat": {
+            "text": "Nennen Sie den Buchstaben auf dem Bildschirm und seine Ausrichtung.",
+            "sourceTextSha256": "97917f93c02e7e4d95ae81168850e5f184b9e1f7d3166a23a8f37ec2f9703a78",
+            "url": "/audio/localized/v1/de/male/vision/repeat.mp3",
+            "bytes": 33261,
+            "sha256": "9034c39a471951b6d8110935fb6898c4219f811054658b1347c324b080d0ecf7"
+          },
+          "first": {
+            "text": "Schauen Sie auf den Buchstabenbereich. Nennen Sie den Buchstaben und seine Ausrichtung in beliebiger Reihenfolge. Zusammen mit der Ausrichtung können Sie ein Wort nennen, das mit dem sichtbaren Buchstaben beginnt. Ist der Buchstabe sichtbar, müssen Sie nicht auf das Ende der Anweisung warten.",
+            "sourceTextSha256": "5e8da2e5e8863f52bfbec76f366fee342e35735b543d8ed9d11f09083a4997b7",
+            "url": "/audio/localized/v1/de/male/vision/first.mp3",
+            "bytes": 140973,
+            "sha256": "cdfc83e00872695cadadfbbeb373cd36585ef61d19d3b624f9f392226b114634"
+          },
+          "next1": {
+            "text": "Nennen Sie jetzt den nächsten Buchstaben.",
+            "sourceTextSha256": "427d83e77009bf5fabcb9ffee6442e65844ec1912e25a88b083f461886e5789c",
+            "url": "/audio/localized/v1/de/male/vision/next1.mp3",
+            "bytes": 21357,
+            "sha256": "ec9f4385edc00044e345428d6430c4a788d6ca6adcf6ee243afbdccb1054a927"
+          },
+          "next2": {
+            "text": "Bitte lesen Sie diesen Buchstaben auf dieselbe Weise vor.",
+            "sourceTextSha256": "3a33737a2550f81e916f6ff70e6a6e8cf725876abd8b01d0fe269ca8aa22ea57",
+            "url": "/audio/localized/v1/de/male/vision/next2.mp3",
+            "bytes": 28845,
+            "sha256": "19bf2de38ebdc31840db95babdac0d847e2f818136dc21b8ead527dd025216a5"
+          },
+          "next3": {
+            "text": "Ihre Antwort wurde erfasst. Wir wechseln zum nächsten Buchstaben.",
+            "sourceTextSha256": "0bb963fc893f6773a9a1b286a0181cefecc114f6c52753206c129b2f704ce971",
+            "url": "/audio/localized/v1/de/male/vision/next3.mp3",
+            "bytes": 36909,
+            "sha256": "4e8ee9f12044e388a22fadce84ffda4c8bcfdf37582509d1c537ed6c9ec3eaef"
+          },
+          "position": {
+            "text": "Halten Sie Ihren Ausgangsabstand ein. Sie können auf den Buchstabenbereich schauen.",
+            "sourceTextSha256": "297e9fc13ce42aee0f5982051a666425ecb0ec6ea2b5e4c86d1f43e3e06ebffc",
+            "url": "/audio/localized/v1/de/male/vision/position.mp3",
+            "bytes": 43245,
+            "sha256": "abc31f33a41e04d2f900201b9bd191b35b1687cee48ec942ef82bac0a44ff0c3"
+          },
+          "approach": {
+            "text": "Kommen Sie etwas näher.",
+            "sourceTextSha256": "c69cfb4c1bf876c47c25adb1f1696324d3db47ebce532a27d77cd18992a994ee",
+            "url": "/audio/localized/v1/de/male/vision/approach.mp3",
+            "bytes": 14061,
+            "sha256": "14a4d70a688b1938ec5912b5fbdd45edbe8882e08e23f66fb115973b665cd3c8"
+          },
+          "recede": {
+            "text": "Gehen Sie ein wenig weiter zurück.",
+            "sourceTextSha256": "19c6720ed16da62d2b8fe866d0b73ec733d8b05904443046b59285e0b4f0a1e4",
+            "url": "/audio/localized/v1/de/male/vision/recede.mp3",
+            "bytes": 18477,
+            "sha256": "a392b878920bbc7311a594ce27f6c7fd225b47de3e379d076fec4f55b4e35634"
+          },
+          "pose": {
+            "text": "Halten Sie Ihren Ausgangsabstand ein. Sie können auf den Buchstabenbereich schauen.",
+            "sourceTextSha256": "297e9fc13ce42aee0f5982051a666425ecb0ec6ea2b5e4c86d1f43e3e06ebffc",
+            "url": "/audio/localized/v1/de/male/vision/pose.mp3",
+            "bytes": 43245,
+            "sha256": "abc31f33a41e04d2f900201b9bd191b35b1687cee48ec942ef82bac0a44ff0c3"
+          },
+          "framing": {
+            "text": "Zentrieren Sie Ihr Gesicht so, dass Stirn und Kinn im Bild bleiben.",
+            "sourceTextSha256": "31911544eece7192098aaddee271b30be0acf07c84697ae45f0f313333f0eb9b",
+            "url": "/audio/localized/v1/de/male/vision/framing.mp3",
+            "bytes": 36717,
+            "sha256": "60d8d7153e4c846d960e643dbb97cc74d1685e96cb16f099aa7a418539ce628d"
+          },
+          "light": {
+            "text": "Beleuchten Sie Ihr Gesicht besser.",
+            "sourceTextSha256": "6578ff9a1c4dfd183b66a7f45035c89644d132dc694b31103b3c0a9e648cb530",
+            "url": "/audio/localized/v1/de/male/vision/light.mp3",
+            "bytes": 15981,
+            "sha256": "88c3bec7cc9464fdad36730967a9421d6aa9aab31947448036855fcddc01b692"
+          },
+          "bright": {
+            "text": "Verringern Sie den Glanz auf Ihrem Gesicht.",
+            "sourceTextSha256": "1f71ef60e4e5e311b79d08089162227147ec40b6b8d2ca1374b7bebf1276ade1",
+            "url": "/audio/localized/v1/de/male/vision/bright.mp3",
+            "bytes": 21549,
+            "sha256": "d53d4c767780d9c9f1ffe6153301a89598d7891f1a0836c354f1818f351b9901"
+          },
+          "blur": {
+            "text": "Prüfen Sie Kamerafokus und Gesichtsbeleuchtung.",
+            "sourceTextSha256": "d6205a7fe925ed96a8a3510a5a1f09613a5d68e37f3d6271249cc55d50eb14ac",
+            "url": "/audio/localized/v1/de/male/vision/blur.mp3",
+            "bytes": 27885,
+            "sha256": "25d628f04a7bbb1199c170bd38040fd05d7e20617a30b5d5cccd20d402bac65d"
+          },
+          "motion": {
+            "text": "Halten Sie den Kopf kurz still.",
+            "sourceTextSha256": "0b0c2a5aaa90611aff0c97184bd119bcf425f238409e20cd2ba1843f796df412",
+            "url": "/audio/localized/v1/de/male/vision/motion.mp3",
+            "bytes": 19245,
+            "sha256": "959000b4dad73968dc2073e4a8ce6ffbab72fb580f06b4faa09dd5e26653560d"
+          },
+          "face": {
+            "text": "Zeigen Sie der Kamera Ihr Gesicht.",
+            "sourceTextSha256": "6ee61515269f81be363a7aa6feb8554e83f6963e5525c6329c3221f56d2d6f28",
+            "url": "/audio/localized/v1/de/male/vision/face.mp3",
+            "bytes": 18861,
+            "sha256": "bdbcc6cb2042f31dc6f94bd74e75e7c7c2b5ea6a3da5ad083bbf7f8a911c82b4"
+          },
+          "preparing": {
+            "text": "Ihre Position wird geprüft. Halten Sie kurz still.",
+            "sourceTextSha256": "e6abf052a6fad0c02488a6f589142d602f4b6a23042f31cb410f2d58131bf916",
+            "url": "/audio/localized/v1/de/male/vision/preparing.mp3",
+            "bytes": 33261,
+            "sha256": "dc639074a692ad4fddf3ec42891e0b89c61489aac8bbb07d5f0de9a41ca231b7"
+          },
+          "ready": {
+            "text": "Position bereit.",
+            "sourceTextSha256": "f1935ee8421bcfdd1c7f7ebe9e65644b1301909e110bd1fef3b29bf68d5c9731",
+            "url": "/audio/localized/v1/de/male/vision/ready.mp3",
+            "bytes": 13677,
+            "sha256": "4bb9604dcbeea2634bc21dd10516579165006eef2e2d7a5c41eb01b3987638e9"
+          },
+          "camera": {
+            "text": "Stellen Sie sich bei gutem Licht vor die Kamera.",
+            "sourceTextSha256": "8da0dc1a7cd6aad84cfa98a548cf2d3d7c01b50c140de6aafc547902095815d0",
+            "url": "/audio/localized/v1/de/male/vision/camera.mp3",
+            "bytes": 24621,
+            "sha256": "679af0ef0fa3c61744a2804501fb4e2ffd8ef0abdd3c6b0c907c30b246216cda"
+          },
+          "eye": {
+            "text": "Halten Sie das getestete Auge offen und das andere Auge geschlossen oder abgedeckt.",
+            "sourceTextSha256": "8080f68f27dff4cb6c442ac788d634180eda16f9515c1dc7a21bf07d2836da4f",
+            "url": "/audio/localized/v1/de/male/vision/eye.mp3",
+            "bytes": 41901,
+            "sha256": "98b25c38f4e91271e8380f19f33184c9f7c702f648e6b673f9a562f0704aa7d8"
+          },
+          "uncertain": {
+            "text": "Ich kann die Augenabdeckung oder Augenöffnung nicht prüfen.",
+            "sourceTextSha256": "fb387796c57aac90732b4866cf2608a817f846114bbe02ef8f1d16a1797f26ec",
+            "url": "/audio/localized/v1/de/male/vision/uncertain.mp3",
+            "bytes": 28845,
+            "sha256": "35b05b87db8a28b90558374e0a806f8cc812fc231c7965e8023ac84f3c1555d9"
+          },
+          "paused": {
+            "text": "Aufgabe pausiert. Sagen Sie fortsetzen, um weiterzumachen.",
+            "sourceTextSha256": "499a3d24a74cd5afa0de1ba262f5dace76473ceea897aaf5d25ce62fe01e5ccb",
+            "url": "/audio/localized/v1/de/male/vision/paused.mp3",
+            "bytes": 36717,
+            "sha256": "b97acb4ff3505a1e6fec3202fe0421c355e6854496af02168ed0177bdc5d9a7d"
+          },
+          "complete": {
+            "text": "Buchstabenerkennungsaufgabe abgeschlossen.",
+            "sourceTextSha256": "1052afcb71373707e8f41d4307b826c724339567628959c17df3474acb353784",
+            "url": "/audio/localized/v1/de/male/vision/complete.mp3",
+            "bytes": 22509,
+            "sha256": "8d438af8f6c89b7c1149bdbee30d7c211ba4d62097f366395d4a4aeec0aa4867"
+          }
+        }
+      },
+      "female": {
+        "id": "espeak:de:female",
+        "name": "eSpeak NG German / female3",
+        "locale": "de-DE",
+        "gender": "female",
+        "provider": "local",
+        "local": true,
+        "availability": "actual metadata and synthesis probe verified",
+        "scope": "new translated synthesis; original approved recordings unchanged",
+        "speedWordsPerMinute": 155,
+        "pitch": 50,
+        "guidance": {
+          "cockpit-entry": {
+            "text": "Wählen Sie die gewünschte Beurteilung im Menü Gesundheitszentrum.",
+            "sourceTextSha256": "c6a2b85c54fce10697f86effff44f3de1e586caa9c6c727568916eaa49c39daa",
+            "url": "/audio/localized/v1/de/female/guidance/cockpit-entry.mp3",
+            "bytes": 31149,
+            "sha256": "c0592791ece0b75dc9dfd4cd5e199136aa7bc4ccf8b55ac4bf03c70144ca58db"
+          },
+          "profile-entry": {
+            "text": "Mein Gesundheitsverlauf. Sie können einen Eintrag öffnen oder nur den ausgewählten Eintrag löschen.",
+            "sourceTextSha256": "b7ae34b171a587394a9ec1465ed50182850d9d8913bdb129b7ac1099f6ff11b9",
+            "url": "/audio/localized/v1/de/female/guidance/profile-entry.mp3",
+            "bytes": 52077,
+            "sha256": "4a533604d37f1a75f53999cf401132e4d9ed8eb38beb9699aa0da38f3bf0ce4f"
+          },
+          "record-open": {
+            "text": "Eintragsdetails geöffnet. Von hier aus können Sie zu den Fachkraftoptionen wechseln.",
+            "sourceTextSha256": "36b9551ba044a101f40b861244870a74c5d5fd83d16bac5d77fd684232e2781b",
+            "url": "/audio/localized/v1/de/female/guidance/record-open.mp3",
+            "bytes": 47277,
+            "sha256": "46fc811394926bebdcc6bb3c88b2f7fb8c2a3889b30ad593d4977411ef41f084"
+          },
+          "record-delete": {
+            "text": "Nur der ausgewählte Eintrag wird gelöscht. Bestätigen Sie zum Löschen oder brechen Sie ab, um ihn zu behalten.",
+            "sourceTextSha256": "0ebe7dd651e3b3f5f5cd994844bad9721d0372f7a3b77c8528c60d373aae5112",
+            "url": "/audio/localized/v1/de/female/guidance/record-delete.mp3",
+            "bytes": 57645,
+            "sha256": "5370aed8c9a9ae4e7ae5b1c82fd3a698d97cb5ef0803b69ae71a37e02b387ddb"
+          },
+          "care-entry": {
+            "text": "Wählen Sie den Gesundheitsbereich und das Fachgebiet. Bestätigen Sie die Fachkraft und einen verfügbaren Termin auf der Anbieterseite.",
+            "sourceTextSha256": "4a0b294523e48ba089d9547059fa229c3cc659cbc43b92120e480cb97ef844fb",
+            "url": "/audio/localized/v1/de/female/guidance/care-entry.mp3",
+            "bytes": 67245,
+            "sha256": "dcfaa3e90465d3740c713733773044063e295950a9719100acfb6304e8172184"
+          },
+          "care-select": {
+            "text": "Prüfen Sie die gewählte Fachkraft und Zeit. Dieser Schritt bucht keinen Termin.",
+            "sourceTextSha256": "a3dda825f7aaee6c93127dff5634658ca3b79c291735a17dede11e9ddd3cfb8b",
+            "url": "/audio/localized/v1/de/female/guidance/care-select.mp3",
+            "bytes": 43053,
+            "sha256": "4e61992783b785d9288a8a6982a6d01647c2a07fc047c4077117a96c89c9a550"
+          },
+          "skin-entry": {
+            "text": "Hautgesundheit. Halten Sie den Kopf entspannt; wir nehmen gemäß den Bildschirmanweisungen eine Frontal-, Rechts- und Linksansicht auf.",
+            "sourceTextSha256": "cc58ff98eecf07bdb2bf06ba769b502cf49892d8537f8c40350994bd1971d786",
+            "url": "/audio/localized/v1/de/female/guidance/skin-entry.mp3",
+            "bytes": 71469,
+            "sha256": "07d7547a67935f3b382621993b0f300c2b01814d561b219133ed77ce75edac3d"
+          },
+          "skin-front": {
+            "text": "Nehmen Sie die Brille ab. Schauen Sie geradeaus. Halten Sie kurz still, während Ihr Gesicht auf dem Bildschirm sichtbar ist.",
+            "sourceTextSha256": "9fb74f590b9d064e82588e51c82b8b2d8946c359bfd7532c772da3937ae29351",
+            "url": "/audio/localized/v1/de/female/guidance/skin-front.mp3",
+            "bytes": 63789,
+            "sha256": "596204e47e709b6d483087d13f5a1a107254f6b3372cd24f6952631d2a644766"
+          },
+          "skin-right": {
+            "text": "Drehen Sie den Kopf etwas nach rechts aus Ihrer Sicht; halten Sie kurz still.",
+            "sourceTextSha256": "bf8ec3e38fade30762c780089288636aa7011457cc74250cdfd6cc7859816ed2",
+            "url": "/audio/localized/v1/de/female/guidance/skin-right.mp3",
+            "bytes": 42477,
+            "sha256": "b88b8d0dda9da7683f5e8b0f2e15175302220b4a962d66f61afcc624846eb321"
+          },
+          "skin-left": {
+            "text": "Drehen Sie den Kopf etwas nach links aus Ihrer Sicht; halten Sie kurz still.",
+            "sourceTextSha256": "0cdd988305a1435dfd5ad5d8433832d51012e962698efd11f48b9c2302e79687",
+            "url": "/audio/localized/v1/de/female/guidance/skin-left.mp3",
+            "bytes": 42669,
+            "sha256": "8c9dbbe4a6750ebf4918f1ce36779557afc80c34c4726f558568d6d3ad8f64a9"
+          },
+          "skin-complete": {
+            "text": "Scan abgeschlossen. Wählen Sie eine Regions- und Kriterienkarte, um das Ergebnis zum aktuellen Erscheinungsbild anzusehen.",
+            "sourceTextSha256": "ad73de0ee08f2b14237e13c404f42ef7f896e46699ad80a4906ab61aa274a734",
+            "url": "/audio/localized/v1/de/female/guidance/skin-complete.mp3",
+            "bytes": 67245,
+            "sha256": "e9b1f81876b4c0882d0974e08d9c8b47c600bb3b590cfcb11fd65e750a795049"
+          },
+          "quality-near": {
+            "text": "Unzureichende Gesichtsdetails im Quellbild. Kommen Sie etwas näher.",
+            "sourceTextSha256": "14b0a669e7c678fd1e246a5d8f10e179615e971708f1ed2b685a8e845df39115",
+            "url": "/audio/localized/v1/de/female/guidance/quality-near.mp3",
+            "bytes": 38061,
+            "sha256": "901c5237da8f3c22a19cbcf637a77eb9f9e626b54d3a718daacac9bafddf8663"
+          },
+          "quality-far": {
+            "text": "Stirn und Kinn müssen ins Bild passen. Gehen Sie etwas zurück.",
+            "sourceTextSha256": "18ef56e9b4108ab7af7ccb9feca310b21d5ee54c89b700b85c348c9029219408",
+            "url": "/audio/localized/v1/de/female/guidance/quality-far.mp3",
+            "bytes": 34605,
+            "sha256": "88a75a68c41b0a8998982e113d8216d06dab28140559451b2fcdb89016bd47f9"
+          },
+          "quality-light": {
+            "text": "Beleuchten Sie Ihr Gesicht gleichmäßig; verringern Sie hartes Seitenlicht und Reflexionen.",
+            "sourceTextSha256": "c308844409375c8d6f7ce7e37451658fa2520aee9118488f3631808c82283a05",
+            "url": "/audio/localized/v1/de/female/guidance/quality-light.mp3",
+            "bytes": 44205,
+            "sha256": "da7960bc6517f663fe311695b4e06e8500b9cb03b096460206873d9ab01cca92"
+          },
+          "quality-blur": {
+            "text": "Prüfen Sie den Kamerafokus und halten Sie den Kopf kurz still.",
+            "sourceTextSha256": "6508aee53ef218f7e5d9ce6b7340f1d26aaef6f6562e485431ee028b9be3a08e",
+            "url": "/audio/localized/v1/de/female/guidance/quality-blur.mp3",
+            "bytes": 36717,
+            "sha256": "ea37adb29e6ca2238b058ec0fa47dc6b13cff1c5cbba2ad92d5d9cf3d9e4d77a"
+          },
+          "quality-face": {
+            "text": "Halten Sie Ihr Gesicht sichtbar und entfernen Sie Hindernisse aus dem Kamerablickfeld.",
+            "sourceTextSha256": "2d052a596ea7c517df7adefcd58cddda919928ed30b6d03ff8d1d19ab45e80bf",
+            "url": "/audio/localized/v1/de/female/guidance/quality-face.mp3",
+            "bytes": 42093,
+            "sha256": "3ef696cfee418b1b3ca5d5b6833db7711e5951a32fc3d342f420cb5597998bfd"
+          },
+          "dental-entry": {
+            "text": "Zahngesundheit. Sie können mit der Kamera scannen oder ein scharfes Foto der Zähne im Mund hochladen.",
+            "sourceTextSha256": "a0d5856ad8115b5422f139f67025763f581706176144b6261e4db68b6d4f9a9a",
+            "url": "/audio/localized/v1/de/female/guidance/dental-entry.mp3",
+            "bytes": 54189,
+            "sha256": "3eb555a57c05271f05ffbebdbef413475450426d9ff8a9e370eec59837ad3753"
+          },
+          "dental-upload": {
+            "text": "Wählen Sie ein scharfes Farbfoto des Mundinnenraums mit sichtbaren Zähnen. Laden Sie kein Röntgenbild hoch.",
+            "sourceTextSha256": "75e2f941d1b98f0e1aadc3b0b68ab16a54a7a43377d9c37b79b18071aa77829b",
+            "url": "/audio/localized/v1/de/female/guidance/dental-upload.mp3",
+            "bytes": 57069,
+            "sha256": "34c09d98680da3b21d2f5410133f7a8220e27622a2a46abac85ffb456eacd07f"
+          },
+          "dental-front": {
+            "text": "Schauen Sie geradeaus. Öffnen Sie den Mund entspannt, sodass die Vorderzähne sichtbar sind.",
+            "sourceTextSha256": "5b5de852612b56e232f47b67fcfb38b582654a3f41c2386585c0380f509c45b8",
+            "url": "/audio/localized/v1/de/female/guidance/dental-front.mp3",
+            "bytes": 46893,
+            "sha256": "d5a7fd07cd387b8f69d97b9539300ebc3c2eacb956cf64c6aed8538c7c52cabe"
+          },
+          "dental-right": {
+            "text": "Drehen Sie den Kopf etwas nach rechts aus Ihrer Sicht; halten Sie den Mund entspannt offen.",
+            "sourceTextSha256": "70ca8dfe5912b8c6adc5de5594a2cdb5ace831352a0979fbbb5a7fee5830c446",
+            "url": "/audio/localized/v1/de/female/guidance/dental-right.mp3",
+            "bytes": 46893,
+            "sha256": "d2fa2cdd8dac52ee3ad7318779f0ef9f48c612adb6608eb53685b25a4f59b029"
+          },
+          "dental-left": {
+            "text": "Drehen Sie den Kopf etwas nach links aus Ihrer Sicht; halten Sie den Mund entspannt offen.",
+            "sourceTextSha256": "c2456e5a84739d9726b869a1c5416df03823e112967e84e904cb2dfccb2daf60",
+            "url": "/audio/localized/v1/de/female/guidance/dental-left.mp3",
+            "bytes": 46893,
+            "sha256": "e6854e587b4e56d605c4dd0d7795ea4ed5ec421a557b8e5305d7c3b27ed5931a"
+          },
+          "dental-bite": {
+            "text": "Halten Sie die Zähne in einem natürlichen, entspannten Zusammenbiss, sodass die Vorderzähne sichtbar sind. Erzwingen Sie nichts.",
+            "sourceTextSha256": "e1670639f0fb7324db857153c27be23d7d5e4fb50cb13a211060dc2eb5475381",
+            "url": "/audio/localized/v1/de/female/guidance/dental-bite.mp3",
+            "bytes": 63597,
+            "sha256": "794207f06fecb7499b0d4f43b3eb14cfc90cffa7afd6d43721b0e6ce14bf8624"
+          },
+          "dental-teeth": {
+            "text": "Die Zähne müssen sichtbar sein. Entfernen Sie Abdeckungen durch Lippen, Zunge oder Gegenstände.",
+            "sourceTextSha256": "6dc2e1e5887282dc4e02309d461bb76833544bdebcf6a46910792d1ad93f445d",
+            "url": "/audio/localized/v1/de/female/guidance/dental-teeth.mp3",
+            "bytes": 47661,
+            "sha256": "a3b06d127dd645c1dda8fa947d71f985dd3d5b1dc487292125cd1415b74f91e3"
+          },
+          "dental-file": {
+            "text": "Wählen Sie ein JPEG-, PNG- oder WebP-Foto, das innerhalb der Grenzen geöffnet werden kann.",
+            "sourceTextSha256": "fe85bb2d4b39e12469512a680789eb1c6633c180ddf9f8f7566db9fdd1a83bed",
+            "url": "/audio/localized/v1/de/female/guidance/dental-file.mp3",
+            "bytes": 52077,
+            "sha256": "0dc949bba00da69d101237d0e92b68be6d59c6115b09fb01622da5f8a0b2c395"
+          },
+          "dental-complete": {
+            "text": "Analyse abgeschlossen. Kandidaten beziehen sich nur auf sichtbare Oberflächen; prüfen Sie die Ergebniskarten.",
+            "sourceTextSha256": "6ee0f38256093dc7822d9a1d133c236fbc2e73ea8405b61363f0379010fe1a7b",
+            "url": "/audio/localized/v1/de/female/guidance/dental-complete.mp3",
+            "bytes": 57837,
+            "sha256": "97f534e580ec2825b76e3c148b0493b80f67f9bbde15d2239dcc673568785896"
+          },
+          "hearing-entry": {
+            "text": "Hörgesundheit. Verwenden Sie Stereokopfhörer in ruhiger Umgebung. Wir prüfen zuerst den rechten und linken Kanal.",
+            "sourceTextSha256": "5b98e513a0b53707abe654b9ff8366af17a4c26aaa39bda65fa9adf423b7fe9e",
+            "url": "/audio/localized/v1/de/female/guidance/hearing-entry.mp3",
+            "bytes": 65517,
+            "sha256": "9e07c383967d14e5fccad523e98ad32e0bcc5ba720d15f94d80833ecafb8c1ab"
+          },
+          "hearing-prepare": {
+            "text": "Setzen Sie zuerst die Kopfhörer auf und bestätigen Sie dann mit den entsprechenden Schaltflächen unten, dass Sie den Ton nur im angegebenen Ohrhörer hören.",
+            "sourceTextSha256": "eb578034c08e7339b1e2fb46071b2540ccfc25668f1aeab1ad6b341d4424d273",
+            "url": "/audio/localized/v1/de/female/guidance/hearing-prepare.mp3",
+            "bytes": 76269,
+            "sha256": "04460f65f16a56e247b5f3c6a64fe43f77e6c9923c912f874aa8eee3eef141ac"
+          },
+          "hearing-tone": {
+            "text": "Warten Sie, bis Sie den Ton hören, und drücken Sie die Schaltfläche, sobald Sie ihn hören.",
+            "sourceTextSha256": "949bebe4bc6cd7b3da584bbd356b518a0a18d1b558b231046a084cc1b1ce88e4",
+            "url": "/audio/localized/v1/de/female/guidance/hearing-tone.mp3",
+            "bytes": 46701,
+            "sha256": "715938b7600a10011a92d1949e494aad7218aee545f31d4bc20edafcf3c260cc"
+          },
+          "hearing-digits": {
+            "text": "Nach dem Countdown hören Sie drei Ziffern im Störgeräusch. Geben Sie die Ziffern der Reihe nach ein und senden Sie Ihre Antwort.",
+            "sourceTextSha256": "b982d8a68822e78bdfde81388dbd2cedc5eaddcfa5a03e8d056ea060f9f6766a",
+            "url": "/audio/localized/v1/de/female/guidance/hearing-digits.mp3",
+            "bytes": 62445,
+            "sha256": "f77a6023275d0eeb6f4322ca6a61d8dcb58a5eb5274c714c039fe4ac4012426d"
+          },
+          "hearing-complete": {
+            "text": "Test abgeschlossen. Das Ergebnis verwendet die digitalen Audioeinheiten dieses Geräts. Sie können das numerische Ergebnis auf Wunsch speichern.",
+            "sourceTextSha256": "df178674477ab23607dcb83bb9c40452ede0aeb1e807b700c8ac2b7b6b66d77f",
+            "url": "/audio/localized/v1/de/female/guidance/hearing-complete.mp3",
+            "bytes": 72045,
+            "sha256": "e3aaf6100dfcbfb58a2d7d9cb93fc92cda7fffe93380ecf240cb8459b7070cbe"
+          },
+          "mental-entry": {
+            "text": "Psychisches Wohlbefinden. Nach dem Gesprächsstart können Sie sprechen. Die Schaltfläche Beenden beendet das Gespräch.",
+            "sourceTextSha256": "67f69e2d3b9bbfd30e334b05514c639f3d61c1e87a4bf7a28e531b825452a04f",
+            "url": "/audio/localized/v1/de/female/guidance/mental-entry.mp3",
+            "bytes": 59373,
+            "sha256": "9f3cbebb1b28283ad9373f34204b1967c7a76b337bfa453ba4accb375ac13770"
+          },
+          "mental-complete": {
+            "text": "Gespräch abgeschlossen. Sie können die Zusammenfassung prüfen und zu den Fachkraftoptionen wechseln.",
+            "sourceTextSha256": "f348a097eb911a46c133a024b4d19faf08151cabb2b7bb6bf450b7be798b854a",
+            "url": "/audio/localized/v1/de/female/guidance/mental-complete.mp3",
+            "bytes": 52269,
+            "sha256": "46f7030ae4d3657057ff818bba97b81b00cb0cec9db8c43cd623b9077410650f"
+          },
+          "skin-neutral": {
+            "text": "Schließen Sie den Mund. Entspannen Sie Ihr Gesicht, ohne zu lächeln; halten Sie den Kopf in der gewünschten Position still.",
+            "sourceTextSha256": "29a04286a85817b3fdb18a94b47098e247f104ed62aab420399fcd34b9ca9654",
+            "url": "/audio/localized/v1/de/female/guidance/skin-neutral.mp3",
+            "bytes": 62829,
+            "sha256": "38fb39962675c642ff8ea5211c887bc129a3c1782284585033d3a11941d61561"
+          }
+        },
+        "vision": {
+          "prepare": {
+            "text": "Die Kamera wird vorbereitet. Halten Sie beide Augen offen und Ihr Gesicht im Bild. Behalten Sie Ihren aktuellen Abstand bei.",
+            "sourceTextSha256": "3eadd80d06845644ec29c1435bc7cf6d219457872947e95cf651f9c2554195e0",
+            "url": "/audio/localized/v1/de/female/vision/prepare.mp3",
+            "bytes": 67053,
+            "sha256": "c165e63bec105a63dbc6245baef240be0e67d5ad24c7d68af4c45be2f1133173"
+          },
+          "right": {
+            "text": "Wir testen Ihr rechtes Auge. Halten Sie das rechte Auge offen. Schließen Sie das linke Auge oder decken Sie es ab. Schauen Sie mit dem offenen Auge auf den Buchstabenbereich.",
+            "sourceTextSha256": "3dc12a2147b7d24ba704e816d4f36b228d24a70e3a7616b434a21f54141638c2",
+            "url": "/audio/localized/v1/de/female/vision/right.mp3",
+            "bytes": 86829,
+            "sha256": "1296af8be1470587fa3298a00601fef14d3e72dbab20e55519a02226ee3efabd"
+          },
+          "left": {
+            "text": "Wir testen Ihr linkes Auge. Halten Sie das linke Auge offen. Schließen Sie das rechte Auge oder decken Sie es ab. Schauen Sie mit dem offenen Auge auf den Buchstabenbereich.",
+            "sourceTextSha256": "2eba5bbf9074af04f72730d7e361f2b79eb0d9063ef405d2025bfde513b056bd",
+            "url": "/audio/localized/v1/de/female/vision/left.mp3",
+            "bytes": 87021,
+            "sha256": "f5a2f4c827467aea1dcee67f3f3436633869ec0b00d0c2735ad59ad70f74604b"
+          },
+          "letter": {
+            "text": "Können Sie den Buchstaben nennen? Sie können auch ein Wort verwenden, das mit diesem Buchstaben beginnt.",
+            "sourceTextSha256": "1834a1321b7ed050281f2a435848efb8932948b9e2b338d952c644400582f3ae",
+            "url": "/audio/localized/v1/de/female/vision/letter.mp3",
+            "bytes": 50541,
+            "sha256": "0c59a2efbaea506ce10d80459a76eb9bb339d649bad7dd149a03a957ef7fe400"
+          },
+          "orientation": {
+            "text": "Können Sie sagen, in welche Richtung der Buchstabe ausgerichtet ist?",
+            "sourceTextSha256": "39e37cf322f02f339d2ba7ff3febc7b6f1d6c78f26d27174d80062e9607321af",
+            "url": "/audio/localized/v1/de/female/vision/orientation.mp3",
+            "bytes": 34605,
+            "sha256": "04d97f52e2b3fd53e166f578a7d8bf12898aad7be88cd775f031f71a315acc74"
+          },
+          "reverse": {
+            "text": "Auf dem Kopf oder gespiegelt?",
+            "sourceTextSha256": "301511884f8b1920b57918181d04de2285775af41920335e230d798ab2d18f68",
+            "url": "/audio/localized/v1/de/female/vision/reverse.mp3",
+            "bytes": 18285,
+            "sha256": "290baf1008c5b3bd3f03f587ab89ce6d58bfc9e46256aa19e6a5cc43829b1fe9"
+          },
+          "repeat": {
+            "text": "Nennen Sie den Buchstaben auf dem Bildschirm und seine Ausrichtung.",
+            "sourceTextSha256": "97917f93c02e7e4d95ae81168850e5f184b9e1f7d3166a23a8f37ec2f9703a78",
+            "url": "/audio/localized/v1/de/female/vision/repeat.mp3",
+            "bytes": 33069,
+            "sha256": "1e7ebbf2d645062fd8f7149d6c4dc384a2d81fd7cc5b30a3ca8f2f76ed31c094"
+          },
+          "first": {
+            "text": "Schauen Sie auf den Buchstabenbereich. Nennen Sie den Buchstaben und seine Ausrichtung in beliebiger Reihenfolge. Zusammen mit der Ausrichtung können Sie ein Wort nennen, das mit dem sichtbaren Buchstaben beginnt. Ist der Buchstabe sichtbar, müssen Sie nicht auf das Ende der Anweisung warten.",
+            "sourceTextSha256": "5e8da2e5e8863f52bfbec76f366fee342e35735b543d8ed9d11f09083a4997b7",
+            "url": "/audio/localized/v1/de/female/vision/first.mp3",
+            "bytes": 139821,
+            "sha256": "5bb94f6d3fafef09f926314313a67e892765592c7f034a56cc75f9f9e6ec20e7"
+          },
+          "next1": {
+            "text": "Nennen Sie jetzt den nächsten Buchstaben.",
+            "sourceTextSha256": "427d83e77009bf5fabcb9ffee6442e65844ec1912e25a88b083f461886e5789c",
+            "url": "/audio/localized/v1/de/female/vision/next1.mp3",
+            "bytes": 21165,
+            "sha256": "3fc5fe0f779917f7b0fdbd0742747db4bf47e12ef525d90b0c0bb168b5430433"
+          },
+          "next2": {
+            "text": "Bitte lesen Sie diesen Buchstaben auf dieselbe Weise vor.",
+            "sourceTextSha256": "3a33737a2550f81e916f6ff70e6a6e8cf725876abd8b01d0fe269ca8aa22ea57",
+            "url": "/audio/localized/v1/de/female/vision/next2.mp3",
+            "bytes": 28653,
+            "sha256": "2bb94fc49453e704cc19a6f7460fc147986b1d9bb22baae2de2b71e27ea040e4"
+          },
+          "next3": {
+            "text": "Ihre Antwort wurde erfasst. Wir wechseln zum nächsten Buchstaben.",
+            "sourceTextSha256": "0bb963fc893f6773a9a1b286a0181cefecc114f6c52753206c129b2f704ce971",
+            "url": "/audio/localized/v1/de/female/vision/next3.mp3",
+            "bytes": 36525,
+            "sha256": "c848f1bdd028dad3bbe97c550076a99e7a042f713769f00d12808c1aed62cc0e"
+          },
+          "position": {
+            "text": "Halten Sie Ihren Ausgangsabstand ein. Sie können auf den Buchstabenbereich schauen.",
+            "sourceTextSha256": "297e9fc13ce42aee0f5982051a666425ecb0ec6ea2b5e4c86d1f43e3e06ebffc",
+            "url": "/audio/localized/v1/de/female/vision/position.mp3",
+            "bytes": 43053,
+            "sha256": "27795f58b18714f145243d4b0bddbac6919759ec189681ceb486ad8b18730cbc"
+          },
+          "approach": {
+            "text": "Kommen Sie etwas näher.",
+            "sourceTextSha256": "c69cfb4c1bf876c47c25adb1f1696324d3db47ebce532a27d77cd18992a994ee",
+            "url": "/audio/localized/v1/de/female/vision/approach.mp3",
+            "bytes": 13869,
+            "sha256": "7826de8bdaa38469f822374d392db1279452a5d4972c810c9bcf4795d0cbd7f1"
+          },
+          "recede": {
+            "text": "Gehen Sie ein wenig weiter zurück.",
+            "sourceTextSha256": "19c6720ed16da62d2b8fe866d0b73ec733d8b05904443046b59285e0b4f0a1e4",
+            "url": "/audio/localized/v1/de/female/vision/recede.mp3",
+            "bytes": 18477,
+            "sha256": "20eadd722dc40f911c09bcdeb5867b0c4c80b71b42e35c7f766e6b7bae1cd47b"
+          },
+          "pose": {
+            "text": "Halten Sie Ihren Ausgangsabstand ein. Sie können auf den Buchstabenbereich schauen.",
+            "sourceTextSha256": "297e9fc13ce42aee0f5982051a666425ecb0ec6ea2b5e4c86d1f43e3e06ebffc",
+            "url": "/audio/localized/v1/de/female/vision/pose.mp3",
+            "bytes": 43053,
+            "sha256": "27795f58b18714f145243d4b0bddbac6919759ec189681ceb486ad8b18730cbc"
+          },
+          "framing": {
+            "text": "Zentrieren Sie Ihr Gesicht so, dass Stirn und Kinn im Bild bleiben.",
+            "sourceTextSha256": "31911544eece7192098aaddee271b30be0acf07c84697ae45f0f313333f0eb9b",
+            "url": "/audio/localized/v1/de/female/vision/framing.mp3",
+            "bytes": 36333,
+            "sha256": "5ad06a8ca13bcf889fe4e9c8bf38e0e341af154252444e3cc24cac2ab5702905"
+          },
+          "light": {
+            "text": "Beleuchten Sie Ihr Gesicht besser.",
+            "sourceTextSha256": "6578ff9a1c4dfd183b66a7f45035c89644d132dc694b31103b3c0a9e648cb530",
+            "url": "/audio/localized/v1/de/female/vision/light.mp3",
+            "bytes": 15789,
+            "sha256": "eb988a20aa429823c7da97dcef5e8fe7685a08ccfe90bb81944f4350a3d51c12"
+          },
+          "bright": {
+            "text": "Verringern Sie den Glanz auf Ihrem Gesicht.",
+            "sourceTextSha256": "1f71ef60e4e5e311b79d08089162227147ec40b6b8d2ca1374b7bebf1276ade1",
+            "url": "/audio/localized/v1/de/female/vision/bright.mp3",
+            "bytes": 21357,
+            "sha256": "256ed75d1645916cc17bed97c90a4dbfe06664a1a2e0b02861dc738d174d4f24"
+          },
+          "blur": {
+            "text": "Prüfen Sie Kamerafokus und Gesichtsbeleuchtung.",
+            "sourceTextSha256": "d6205a7fe925ed96a8a3510a5a1f09613a5d68e37f3d6271249cc55d50eb14ac",
+            "url": "/audio/localized/v1/de/female/vision/blur.mp3",
+            "bytes": 27501,
+            "sha256": "0579d9faf8cfb10cc4ded26dd33a5345d280cd1dbc2ee09d34f7949cceec6b69"
+          },
+          "motion": {
+            "text": "Halten Sie den Kopf kurz still.",
+            "sourceTextSha256": "0b0c2a5aaa90611aff0c97184bd119bcf425f238409e20cd2ba1843f796df412",
+            "url": "/audio/localized/v1/de/female/vision/motion.mp3",
+            "bytes": 19053,
+            "sha256": "5de856438c575216d7fe35654c80009160e691cecffb669c5d87d14dabb3f0f3"
+          },
+          "face": {
+            "text": "Zeigen Sie der Kamera Ihr Gesicht.",
+            "sourceTextSha256": "6ee61515269f81be363a7aa6feb8554e83f6963e5525c6329c3221f56d2d6f28",
+            "url": "/audio/localized/v1/de/female/vision/face.mp3",
+            "bytes": 18861,
+            "sha256": "691f142806fbccefb813ef3fe273aaaef992454f22e229c999c914d34066fe4b"
+          },
+          "preparing": {
+            "text": "Ihre Position wird geprüft. Halten Sie kurz still.",
+            "sourceTextSha256": "e6abf052a6fad0c02488a6f589142d602f4b6a23042f31cb410f2d58131bf916",
+            "url": "/audio/localized/v1/de/female/vision/preparing.mp3",
+            "bytes": 33069,
+            "sha256": "cd0f1315c27f1017b906b35ea683ed81b2b754fd3cac0775c8f07c5e6d97069e"
+          },
+          "ready": {
+            "text": "Position bereit.",
+            "sourceTextSha256": "f1935ee8421bcfdd1c7f7ebe9e65644b1301909e110bd1fef3b29bf68d5c9731",
+            "url": "/audio/localized/v1/de/female/vision/ready.mp3",
+            "bytes": 13677,
+            "sha256": "0723a40c535235d16a964a3cad8bd707fad6f78608c2c55265d4e2bbe7b97c11"
+          },
+          "camera": {
+            "text": "Stellen Sie sich bei gutem Licht vor die Kamera.",
+            "sourceTextSha256": "8da0dc1a7cd6aad84cfa98a548cf2d3d7c01b50c140de6aafc547902095815d0",
+            "url": "/audio/localized/v1/de/female/vision/camera.mp3",
+            "bytes": 24237,
+            "sha256": "2428e74707096146dc629d729ed731b7666addb3bbc957e7609f6926a74a7be1"
+          },
+          "eye": {
+            "text": "Halten Sie das getestete Auge offen und das andere Auge geschlossen oder abgedeckt.",
+            "sourceTextSha256": "8080f68f27dff4cb6c442ac788d634180eda16f9515c1dc7a21bf07d2836da4f",
+            "url": "/audio/localized/v1/de/female/vision/eye.mp3",
+            "bytes": 41325,
+            "sha256": "d9aa8ccfbe01b1389ebcca5d666f6830888a3a97228d72fd259c2f953982e3eb"
+          },
+          "uncertain": {
+            "text": "Ich kann die Augenabdeckung oder Augenöffnung nicht prüfen.",
+            "sourceTextSha256": "fb387796c57aac90732b4866cf2608a817f846114bbe02ef8f1d16a1797f26ec",
+            "url": "/audio/localized/v1/de/female/vision/uncertain.mp3",
+            "bytes": 28653,
+            "sha256": "b9c1c351e1beed4e5a7505c02664cee6780324ae8c22988f4f1f4e2412685d5d"
+          },
+          "paused": {
+            "text": "Aufgabe pausiert. Sagen Sie fortsetzen, um weiterzumachen.",
+            "sourceTextSha256": "499a3d24a74cd5afa0de1ba262f5dace76473ceea897aaf5d25ce62fe01e5ccb",
+            "url": "/audio/localized/v1/de/female/vision/paused.mp3",
+            "bytes": 36333,
+            "sha256": "8da249b352fe83e8e5273a004c7220455840d5f8552801fa117585d1ca152773"
+          },
+          "complete": {
+            "text": "Buchstabenerkennungsaufgabe abgeschlossen.",
+            "sourceTextSha256": "1052afcb71373707e8f41d4307b826c724339567628959c17df3474acb353784",
+            "url": "/audio/localized/v1/de/female/vision/complete.mp3",
+            "bytes": 22125,
+            "sha256": "c2d641ba2994324175b8cba1b83a50f4f079bca58114ebb11fd8b851c6531791"
+          }
+        }
+      }
+    }
+  },
+  "hearing": {
+    "en": {
+      "url": "/audio/localized/v1/en/hearing/manifest.json",
+      "bytes": 3976,
+      "sha256": "5a27be48397ca4cf23f98af600db179d925639460a585a93a6794f9f0ba1a8e0"
+    },
+    "de": {
+      "url": "/audio/localized/v1/de/hearing/manifest.json",
+      "bytes": 3976,
+      "sha256": "94f0b287a0361c2056828e937b048a3c14c248200c729f1630304eae52ca304b"
+    }
+  }
+}

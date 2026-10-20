@@ -1,0 +1,129 @@
+{
+  "version": "localized-espeak-20261020-v1-de-male",
+  "locale": "de",
+  "voice": "espeak:de:male",
+  "source": "new-local-synthesis",
+  "auditoryAcceptance": "pending",
+  "clinicalValidity": "unverified",
+  "gender": "male",
+  "engine": "eSpeak NG text-to-speech: 1.51  Data at: /usr/lib/x86_64-linux-gnu/espeak-ng-data",
+  "digits": [
+    {
+      "digit": 0,
+      "text": "null",
+      "duration": 0.7478125,
+      "rms": 0.06309376283969818,
+      "peak": 0.52252197265625,
+      "clippedSamples": 0,
+      "url": "/audio/localized/v1/de/hearing/0.wav",
+      "bytes": 71834,
+      "sha256": "96a8a6168e75fa122bee30cbc37049d6ab543b8326473be3101cf795d3760d8f"
+    },
+    {
+      "digit": 1,
+      "text": "eins",
+      "duration": 0.77125,
+      "rms": 0.06309376502431656,
+      "peak": 0.553436279296875,
+      "clippedSamples": 0,
+      "url": "/audio/localized/v1/de/hearing/1.wav",
+      "bytes": 74084,
+      "sha256": "e2cefc4b3e440bd61ef0dbc916e04ffe2f3e80214b9a54135b5d1f781d8877c8"
+    },
+    {
+      "digit": 2,
+      "text": "zwei",
+      "duration": 0.9129791666666667,
+      "rms": 0.06309382217571191,
+      "peak": 0.50469970703125,
+      "clippedSamples": 0,
+      "url": "/audio/localized/v1/de/hearing/2.wav",
+      "bytes": 87690,
+      "sha256": "44bf3bdd02a95df46e89602d6de79c313f69e03e2316009d2e474e31761ddac8"
+    },
+    {
+      "digit": 3,
+      "text": "drei",
+      "duration": 0.7410625,
+      "rms": 0.0630938404428837,
+      "peak": 0.448089599609375,
+      "clippedSamples": 0,
+      "url": "/audio/localized/v1/de/hearing/3.wav",
+      "bytes": 71186,
+      "sha256": "ad79f337228c86f99eeaf0e72abc1dee4f343acbde2099147f039ec917a6a445"
+    },
+    {
+      "digit": 4,
+      "text": "vier",
+      "duration": 0.7330208333333333,
+      "rms": 0.06309373727428616,
+      "peak": 0.446685791015625,
+      "clippedSamples": 0,
+      "url": "/audio/localized/v1/de/hearing/4.wav",
+      "bytes": 70414,
+      "sha256": "70c83fe25a413ea3f5e3b85244a7e4ff0c07050fda8f3cad5e8b22051c9c60bb"
+    },
+    {
+      "digit": 5,
+      "text": "fünf",
+      "duration": 0.7792291666666666,
+      "rms": 0.06309389188120892,
+      "peak": 0.599700927734375,
+      "clippedSamples": 0,
+      "url": "/audio/localized/v1/de/hearing/5.wav",
+      "bytes": 74850,
+      "sha256": "6477daa853d0da3ad6e2b9e5a6a3f052e47f92e51f50dd0f76d0707da657872e"
+    },
+    {
+      "digit": 6,
+      "text": "sechs",
+      "duration": 0.8012708333333334,
+      "rms": 0.0630938299860473,
+      "peak": 0.6614990234375,
+      "clippedSamples": 0,
+      "url": "/audio/localized/v1/de/hearing/6.wav",
+      "bytes": 76966,
+      "sha256": "712647be0e9172421695733c0f0e19d4c610e5d4c738278ca983319ae83f3781"
+    },
+    {
+      "digit": 7,
+      "text": "sieben",
+      "duration": 0.7993333333333333,
+      "rms": 0.06309381109341795,
+      "peak": 0.5965576171875,
+      "clippedSamples": 0,
+      "url": "/audio/localized/v1/de/hearing/7.wav",
+      "bytes": 76780,
+      "sha256": "f63b6885572e89628a9f9e9607b95db7a2f3c01d797613a712e4f985fabd0e79"
+    },
+    {
+      "digit": 8,
+      "text": "acht",
+      "duration": 0.6904375,
+      "rms": 0.06309382326460292,
+      "peak": 0.726531982421875,
+      "clippedSamples": 0,
+      "url": "/audio/localized/v1/de/hearing/8.wav",
+      "bytes": 66326,
+      "sha256": "f44581a011e0084a7020a9245b738da5a4c3e6258f9b8be009ab4f7cf45c7ae7"
+    },
+    {
+      "digit": 9,
+      "text": "neun",
+      "duration": 0.8050833333333334,
+      "rms": 0.06309381177738703,
+      "peak": 0.53900146484375,
+      "clippedSamples": 0,
+      "url": "/audio/localized/v1/de/hearing/9.wav",
+      "bytes": 77332,
+      "sha256": "8cbd3a9d25719db028301943749316d2447f7141f0be5cc2a5c51aa8b4aa3866"
+    }
+  ],
+  "noise": {
+    "url": "/audio/hearing-bank/speech-shaped-noise.wav",
+    "sha256": "a10742842a3f017fba3253aadf2884c488435d30c41802e9e06c1fb2fd756184",
+    "duration": 20.48,
+    "rms": 0.06309565901756287,
+    "peak": 0.30617478489875793
+  }
+}

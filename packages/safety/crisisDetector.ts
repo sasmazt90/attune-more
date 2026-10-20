@@ -4,6 +4,9 @@
  */
 
 export const CRISIS_KEYWORDS = [
+  'suicide', 'suicidal', 'kill myself', 'hurt myself', 'end my life', 'want to die',
+  "don't want to live", 'do not want to live', 'selbstmord', 'suizid',
+  'mich umbringen', 'mir etwas antun', 'mir selbst schaden', 'nicht mehr leben', 'sterben will', 'will sterben',
   'intihar',
   'kendime zarar',
   'canıma kıymak',

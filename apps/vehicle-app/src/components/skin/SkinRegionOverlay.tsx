@@ -1,4 +1,6 @@
 'use client';
+import {useTranslations} from '../../i18n/LanguageProvider';
+
 
 import React from 'react';
 import { SkinRegionData } from '../../data/skinDemoFixture';
@@ -14,6 +16,7 @@ export const SkinRegionOverlay: React.FC<SkinRegionOverlayProps> = ({
   mode = 'result',
   scanProgress = 75
 }) => {
+ const {text:i18nText,node:i18nNode}=useTranslations();
   const isAmber = region.isAttentionRequired;
   const primaryColor = isAmber ? '#F59E0B' : '#00e5ff';
   const secondaryColor = isAmber ? '#D97706' : '#00b4d8';

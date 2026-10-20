@@ -20,6 +20,7 @@ Oturum Özeti Analizcisi:
 """
 
 import os
+from localization import current_language, LANGUAGE_NAMES, normalized_mental_input, translate
 from fastapi import HTTPException
 from openai_client import get_openai_client
 import unicodedata
@@ -30,6 +31,9 @@ from typing import Dict, Any, List, Optional
 from datetime import datetime
 
 CRISIS_KEYWORDS = [
+    'suicide', 'suicidal', 'kill myself', 'hurt myself', 'end my life', 'want to die',
+    "don't want to live", 'do not want to live', 'selbstmord', 'suizid',
+    'mich umbringen', 'mir etwas antun', 'mir selbst schaden', 'nicht mehr leben', 'sterben will', 'will sterben',
     "intihar",
     "ölmek istiyorum",
     "kendime zarar",
@@ -79,7 +83,7 @@ class LocalFallbackMentalProvider(MentalConversationProvider):
         history: List[Dict[str, str]],
         driver_name: str = ""
     ) -> Dict[str, Any]:
-        msg_lower = user_message.lower()
+        msg_lower = normalized_mental_input(user_message)
 
         # 1. Sürüş modu kısıtları: Kısa, sakin yanıtlar, ekrana baktırmama
         if is_driving:
@@ -191,6 +195,9 @@ class OpenAICompatibleMentalProvider(MentalConversationProvider):
                 + "5. Kullanıcı kendine zarar verme veya intihar gibi akut risk içeren bir şey söylerse sohbeti kes ve 112 Acil Çağrı Merkezini ara/aramasını öner. Randevu hatlarını asla kriz için kullanma."
             )
 
+            if current_language() != 'tr':
+                system_prompt = system_prompt.replace('Kullanıcı ile Türkçe, sıcak ve empatik konuşursun.',
+                    'Respond only in '+LANGUAGE_NAMES[current_language()]+', warmly and empathetically; preserve every safety rule below.')
             from mental_context import memory_message
             messages = [{"role": "system", "content": system_prompt}] + memory_message(getattr(self,"session_memory",[]))
             for h in history[-40:]:
@@ -234,7 +241,7 @@ class LocalFallbackSessionAnalyzer(MentalSessionAnalyzer):
 
     def analyze_session(self, messages: List[Dict[str, str]]) -> Dict[str, Any]:
         user_utterances = [m.get("content", "") for m in messages if m.get("role") == "user"]
-        combined = " ".join(user_utterances).lower()
+        combined = normalized_mental_input(" ".join(user_utterances))
 
         themes = []
         if any(w in combined for w in ["uyku", "gece", "uyan", "uyuyamıyorum", "rüya"]):
@@ -274,9 +281,10 @@ class LocalFallbackSessionAnalyzer(MentalSessionAnalyzer):
         )
 
         summary_text = (
-            f"Kullanıcı görüşmesinde öne çıkan konular: {', '.join(themes)}. "
-            f"Paylaşımlardaki duygu eğilimi: {MOOD_LABELS[mood_trend]}."
+            f"Kullanıcı görüşmesinde öne çıkan konular: {', '.join(translate(theme) for theme in themes)}. "
+            f"Paylaşımlardaki duygu eğilimi: {translate(MOOD_LABELS[mood_trend])}."
         )
+        summary_text = translate(summary_text)
 
         return {
             "summaryText": summary_text,
@@ -317,6 +325,11 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
                 + "Geçici oturum belleği (kullanıcının birebir eski alıntıları, sonraki düzeltmeler önceliklidir):\n" + json.dumps(getattr(self,"session_memory",[]),ensure_ascii=False) + "\n"
                 + "\n".join([f"{m.get('role', 'user')}: {m.get('content', '')}" for m in messages])
             )
+
+            if current_language() != 'tr':
+                prompt += ('\nWrite summaryText, themes and professionalSupportReason in '
+                           + LANGUAGE_NAMES[current_language()]
+                           + '. Preserve the JSON schema, enum values and verbatim user quotations. Do not invent facts.')
 
             resp = client.chat.completions.create(
                 model=self.model,

@@ -1,8 +1,12 @@
 'use client';
+import {useTranslations} from '../i18n/LanguageProvider';
+
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { ProductWordmark } from './ProductWordmark';
+import {LanguageSelector} from './LanguageSelector';
+import {VoiceAvailabilityNotice} from './VoiceAvailabilityNotice';
 import { PRODUCT_NAME } from '../utils/brand';
 import {PlaybackWave} from './PlaybackWave';
 import { muteGuidance } from '../utils/audioGuidance';
@@ -21,6 +25,7 @@ import {
 } from 'lucide-react';
 
 export const CockpitHeader: React.FC = () => {
+ const {text:i18nText,node:i18nNode}=useTranslations();
   const pathname = usePathname();
   const navigation = useRef<HTMLElement>(null);
   const [open,setOpen]=useState(false),[guidanceMuted,setGuidanceMuted]=useState(false);
@@ -39,7 +44,7 @@ export const CockpitHeader: React.FC = () => {
       {/* Üst Telemetri ve Güvenlik Durum Çubuğu */}
       <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-2 border-b border-white/5 text-xs">
         <div className="flex items-center gap-4">
-          <Link href="/" aria-label={PRODUCT_NAME} className="flex items-center gap-3 hover:opacity-90 transition-opacity">
+          <Link href="/" aria-label={i18nText(PRODUCT_NAME)} className="flex items-center gap-3 hover:opacity-90 transition-opacity">
             <img
               src="/brand/attune-more/icon.svg"
               alt=""
@@ -55,12 +60,12 @@ export const CockpitHeader: React.FC = () => {
         </div>
 
         {/* Sensörler, Batarya ve Araç Durumu Butonu */}
-        <div className="flex items-center gap-3"><PlaybackWave/><button type="button" className="min-h-11 min-w-11 rounded-full border border-white/20 inline-flex items-center justify-center" aria-label={guidanceMuted?'Seslendirmeyi aç':'Seslendirmeyi kapat'} aria-pressed={guidanceMuted} onClick={()=>{const next=!guidanceMuted;setGuidanceMuted(next);muteGuidance(next);}}>{guidanceMuted?<VolumeX className="h-4 w-4"/>:<Volume2 className="h-4 w-4"/>}</button>
+        <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3 min-w-0"><LanguageSelector/><PlaybackWave/><button type="button" className="min-h-11 min-w-11 rounded-full border border-white/20 inline-flex items-center justify-center" aria-label={i18nText(guidanceMuted?'Seslendirmeyi aç':'Seslendirmeyi kapat')} aria-pressed={guidanceMuted} onClick={()=>{const next=!guidanceMuted;setGuidanceMuted(next);muteGuidance(next);}}>{guidanceMuted?<VolumeX className="h-4 w-4"/>:<Volume2 className="h-4 w-4"/>}</button>
 
 
           {/* Sürüş / Park Durumu */}
-          <span data-vehicle-status className={`flex items-center gap-2 rounded-full px-3 py-2 border text-xs ${isParked?'text-emerald-300 border-emerald-800':'text-amber-200 border-amber-700'}`}><Car className="w-3.5 h-3.5"/>{syncStatus!=='synced'?(syncStatus==='failed'?'ARAÇ DURUMU BELİRSİZ':'ARAÇ DURUMU DOĞRULANIYOR'):isParked?'PARK':'SÜRÜŞ'}</span>
-          <InformationButton title="Demo araç durumu"><p>Bu Windows uygulaması gerçek araç API/CAN bağlantısına sahip değildir. Aşağıdaki demo kontrolü gerçek frontend/backend durumunu değiştirir. PARK doğrulanmadan işlemler açılmaz. Kamera ve mikrofonun native izinleri araç sensörlerinden bağımsızdır.</p>          <button
+          <span data-vehicle-status className={`flex items-center gap-2 rounded-full px-3 py-2 border text-xs ${isParked?'text-emerald-300 border-emerald-800':'text-amber-200 border-amber-700'}`}><Car className="w-3.5 h-3.5"/>{i18nNode(syncStatus!=='synced'?(syncStatus==='failed'?'ARAÇ DURUMU BELİRSİZ':'ARAÇ DURUMU DOĞRULANIYOR'):isParked?'PARK':'SÜRÜŞ')}</span>
+          <InformationButton title={i18nText("Demo araç durumu")}><p>{i18nText("Bu Windows uygulaması gerçek araç API/CAN bağlantısına sahip değildir. Aşağıdaki demo kontrolü gerçek frontend/backend durumunu değiştirir. PARK doğrulanmadan işlemler açılmaz. Kamera ve mikrofonun native izinleri araç sensörlerinden bağımsızdır.")}</p>          <button
             onClick={toggleDrivingMode}
             disabled={syncStatus === 'loading' || syncStatus === 'updating'}
             className={`flex items-center gap-2 px-3 py-1 rounded-full shrink-0 font-bold text-xs transition-all border shadow-sm ${
@@ -68,40 +73,37 @@ export const CockpitHeader: React.FC = () => {
                 ? 'bg-emerald-950/50 text-emerald-300 border-emerald-800/70 hover:bg-emerald-900/60'
                 : 'bg-amber-950/60 text-amber-300 border-amber-700/80 hover:bg-amber-900/70 animate-pulse'
             }`}
-            title="Sürüş ve Park modları arasında geçiş"
+            title={i18nText("Sürüş ve Park modları arasında geçiş")}
           >
             <Car className="w-3.5 h-3.5" />
             <span className="whitespace-nowrap">
-              {syncStatus !== 'synced' ? <strong>{syncStatus === 'failed' ? 'ARAÇ DURUMU BELİRSİZ' : 'ARAÇ DURUMU DOĞRULANIYOR'}</strong> : isParked ? (
+              {syncStatus !== 'synced' ? <strong>{i18nNode(syncStatus === 'failed' ? 'ARAÇ DURUMU BELİRSİZ' : 'ARAÇ DURUMU DOĞRULANIYOR')}</strong> : isParked ? (
                 <>
-                  <strong>PARK</strong> • 0 km/s
-                </>
+                  <strong>{i18nText("PARK")}</strong>{i18nText(" • 0 km/s ")}</>
               ) : (
                 <>
-                  <strong>SÜRÜŞ</strong> • {state.currentSpeed} km/s
-                </>
+                  <strong>{i18nText("SÜRÜŞ")}</strong> • {i18nNode(state.currentSpeed)}{i18nText(" km/s ")}</>
               )}
             </span>
-            <span className="text-[9px] bg-white/10 px-1.5 py-0.2 rounded text-slate-300 font-normal">
-              Değiştir
-            </span>
+            <span className="text-[9px] bg-white/10 px-1.5 py-0.2 rounded text-slate-300 font-normal">{i18nText("Değiştir ")}</span>
           </button></InformationButton>
         </div>
       </div>
 
-      <nav ref={navigation} aria-label="Ana sekmeler" className="relative px-3 sm:px-6 py-1.5">
+      <nav ref={navigation} aria-label={i18nText("Ana sekmeler")} className="relative px-3 sm:px-6 py-1.5">
         <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-1.5">
-          <Link href="/" aria-current={pathname==='/'?'page':undefined} className={itemClass(pathname==='/')}><Activity className="w-3.5 h-3.5 shrink-0"/>Kokpit</Link>
+          <Link href="/" aria-current={pathname==='/'?'page':undefined} className={itemClass(pathname==='/')}><Activity className="w-3.5 h-3.5 shrink-0"/>{i18nText("Kokpit")}</Link>
           <div className="relative min-w-0">
-            <button ref={trigger} type="button" aria-expanded={open} aria-controls="health-centre-links" className={itemClass(healthActive)+' w-full'} onClick={()=>setOpen(v=>!v)} onKeyDown={e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();setOpen(true);requestAnimationFrame(()=>{const links=panel.current?.querySelectorAll<HTMLAnchorElement>('a');links?.[e.key==='ArrowDown'?0:links.length-1]?.focus();});}}}><HeartPulse className="w-3.5 h-3.5 shrink-0"/>Sağlık Merkezi</button>
-            {open&&<div ref={panel} id="health-centre-links" onKeyDown={move} className="absolute top-full right-0 sm:left-0 sm:right-auto mt-2 w-56 max-w-[calc(100vw-2rem)] rounded-xl border border-white/20 bg-[#0b1424] shadow-2xl p-2 z-[60]" aria-label="Sağlık modülleri">
-              {HEALTH_CENTRE_MENU_IDS.map(id=><Link key={id} href={HEALTH_MODULES[id].route} aria-current={pathname===HEALTH_MODULES[id].route?'page':undefined} onClick={()=>close()} className={dropdownClass(pathname===HEALTH_MODULES[id].route)}><span className="w-[18px] shrink-0 inline-flex"><HealthModuleIcon module={id}/></span><span className="min-w-0 break-words">{HEALTH_MODULES[id].name}</span></Link>)}
+            <button ref={trigger} type="button" aria-expanded={open} aria-controls="health-centre-links" className={itemClass(healthActive)+' w-full'} onClick={()=>setOpen(v=>!v)} onKeyDown={e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();setOpen(true);requestAnimationFrame(()=>{const links=panel.current?.querySelectorAll<HTMLAnchorElement>('a');links?.[e.key==='ArrowDown'?0:links.length-1]?.focus();});}}}><HeartPulse className="w-3.5 h-3.5 shrink-0"/>{i18nText("Sağlık Merkezi")}</button>
+            {open&&<div ref={panel} id="health-centre-links" onKeyDown={move} className="absolute top-full right-0 sm:left-0 sm:right-auto mt-2 w-56 max-w-[calc(100vw-2rem)] rounded-xl border border-white/20 bg-[#0b1424] shadow-2xl p-2 z-[60]" aria-label={i18nText("Sağlık modülleri")}>
+              {HEALTH_CENTRE_MENU_IDS.map(id=><Link key={id} href={HEALTH_MODULES[id].route} aria-current={pathname===HEALTH_MODULES[id].route?'page':undefined} onClick={()=>close()} className={dropdownClass(pathname===HEALTH_MODULES[id].route)}><span className="w-[18px] shrink-0 inline-flex"><HealthModuleIcon module={id}/></span><span className="min-w-0 break-words">{i18nNode(HEALTH_MODULES[id].name)}</span></Link>)}
             </div>}
           </div>
-          {navItems.slice(1).map(item=>{const Icon=item.icon;return <Link key={item.href} href={item.href} aria-current={pathname===item.href?'page':undefined} className={itemClass(pathname===item.href)}><Icon className="w-3.5 h-3.5 shrink-0"/>{item.label}</Link>;})}
+          {navItems.slice(1).map(item=>{const Icon=item.icon;return <Link key={item.href} href={item.href} aria-current={pathname===item.href?'page':undefined} className={itemClass(pathname===item.href)}><Icon className="w-3.5 h-3.5 shrink-0"/>{i18nNode(item.label)}</Link>;})}
         </div>
       </nav>
-      {syncError && <p role="alert" className="px-6 py-2 text-xs text-amber-200">{syncError}</p>}
+      {syncError && <p role="alert" className="px-6 py-2 text-xs text-amber-200">{i18nNode(syncError)}</p>}
+      <VoiceAvailabilityNotice/>
     </header>
   );
 };

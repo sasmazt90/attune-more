@@ -1,4 +1,7 @@
 'use client';
+import {useLocaleSwitchLock} from '../../i18n/useLocaleSwitchLock';
+import {useTranslations} from '../../i18n/LanguageProvider';
+
 import {serviceAllowed} from '../../utils/serviceConsent';
 import {careHref} from '../../utils/healthModules';
 import { useGuidance,qualityGuidance,skinNeutralGuidance } from '../../utils/audioGuidance';
@@ -46,6 +49,7 @@ import { SkinActionsModal } from '../../components/skin/SkinActionsModal';
 import { AlertTriangle, RefreshCw, ShieldAlert } from 'lucide-react';
 
 export default function SkinPage() {
+ const {text:i18nText,node:i18nNode}=useTranslations();
   const resultPersisted=useRef(false);
   const storageAllowed=()=>serviceAllowed('skin')&&localStorage.getItem('attune_privacy_skin_save_allowed')==='true';
   const temporalSupport=useRef<ReturnType<typeof skinTemporalSupport>[]>([]);
@@ -65,6 +69,7 @@ export default function SkinPage() {
   const { isParked, state } = useVehicle();
 
   const [scanState, setScanState] = useState<'READY' | 'CAMERA_ACTIVE' | 'COMPLETED' | 'ERROR'>('READY');
+  useLocaleSwitchLock('skin',scanState==='CAMERA_ACTIVE');
   const activeScanRef=useRef(false);activeScanRef.current=scanState==='CAMERA_ACTIVE';
   const hostedConsentRef=useRef(isSkinHostedProcessingAllowed());
   const [preparationPhase,setPreparationPhase]=useState<string|null>(null);
@@ -847,17 +852,13 @@ export default function SkinPage() {
           <AlertTriangle className="w-10 h-10 animate-pulse" />
         </div>
         <div className="space-y-2">
-          <span className="text-[11px] font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 bg-amber-500/10 rounded-full border border-amber-500/20">
-            Sürüş Emniyeti Devrede • {state.currentSpeed} km/s
-          </span>
-          <h1 className="text-2xl font-extrabold text-white">Cilt Sağlığı Kilitlendi</h1>
-          <p className="text-sm text-slate-300 leading-relaxed max-w-md mx-auto">
-            Cilt analizi kamera odaklanması ve yüz hizalaması gerektirdiğinden, sürüş güvenliğiniz için araç hareket halindeyken kullanılamaz.
-          </p>
+          <span className="text-[11px] font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 bg-amber-500/10 rounded-full border border-amber-500/20">{i18nText("Sürüş Emniyeti Devrede • ")}{i18nNode(state.currentSpeed)}{i18nText(" km/s ")}</span>
+          <h1 className="text-2xl font-extrabold text-white">{i18nText("Cilt Sağlığı Kilitlendi")}</h1>
+          <p className="text-sm text-slate-300 leading-relaxed max-w-md mx-auto">{i18nText("Cilt analizi kamera odaklanması ve yüz hizalaması gerektirdiğinden, sürüş güvenliğiniz için araç hareket halindeyken kullanılamaz. ")}</p>
         </div>
         <div className="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 text-xs text-slate-300 flex items-center justify-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
-          <span>Lütfen aracı güvenli bir alanda <strong>Park (P)</strong> moduna alın.</span>
+          <span>{i18nText("Lütfen aracı güvenli bir alanda ")}<strong>{i18nText("Park (P)")}</strong>{i18nText(" moduna alın.")}</span>
         </div>
       </div>
     );
@@ -873,7 +874,7 @@ export default function SkinPage() {
     <div className="space-y-4 max-w-5xl mx-auto select-none">
       {/* Gizli kanvas (MediaPipe piksel analizi) */}
       <canvas ref={canvasRef} className="hidden" data-skin-capture-policy={SKIN_CAPTURE_POLICY} data-skin-eyewear-state={eyewearStatus} data-mediapipe-ready={isMediaPipeLoaded} data-mediapipe-active={alignment.isMediaPipeActive} data-face-detected={alignment.faceDetected} data-landmark-count={alignment.landmarks?.length || 0} data-quality-status={quality.status} data-yaw={alignment.yaw} data-angle={SKIN_ANGLES[angleIndex]} data-completed-angles={completedAngles.join(',')} />
-      {scanState === 'READY' && errorMessage && <p role="alert" className="text-amber-200">{errorMessage}</p>}
+      {scanState === 'READY' && errorMessage && <p role="alert" className="text-amber-200">{i18nNode(errorMessage)}</p>}
 
       {/* ============================================================ */}
       {/* HATA DURUMU: MediaPipe / Kamera / İzin Eksikliği             */}
@@ -884,12 +885,10 @@ export default function SkinPage() {
             <AlertTriangle className="w-8 h-8" />
           </div>
           <div className="space-y-2">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 bg-amber-500/10 rounded-full border border-amber-500/20">
-              Analiz Motoru Bildirimi
-            </span>
-            <h2 className="text-2xl font-extrabold text-white">Cilt Sağlığı Başlatılamadı</h2>
+            <span className="text-[11px] font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 bg-amber-500/10 rounded-full border border-amber-500/20">{i18nText("Analiz Motoru Bildirimi ")}</span>
+            <h2 className="text-2xl font-extrabold text-white">{i18nText("Cilt Sağlığı Başlatılamadı")}</h2>
             <p className="text-sm text-slate-300 leading-relaxed max-w-md mx-auto">
-              {errorMessage || 'Cilt analiz motoru kullanılamıyor. Lütfen kamera iznini ve bağlantınızı kontrol edip tekrar deneyin.'}
+              {i18nNode(errorMessage || 'Cilt analiz motoru kullanılamıyor. Lütfen kamera iznini ve bağlantınızı kontrol edip tekrar deneyin.')}
             </p>
           </div>
           <div className="pt-2 flex justify-center gap-3">
@@ -900,15 +899,11 @@ export default function SkinPage() {
                 setScanState('READY');
               }}
               className="px-6 py-2.5 rounded-xl bg-togg-turquoise text-togg-darkBlue font-bold text-xs hover:bg-[#33D0EE] transition-all shadow-md"
-            >
-              Tekrar Dene
-            </button>
+            >{i18nText("Tekrar Dene ")}</button>
             <button
               onClick={() => router.push('/privacy')}
               className="px-5 py-2.5 rounded-xl bg-slate-900 text-slate-300 border border-slate-700 font-medium text-xs hover:bg-slate-800 transition-all"
-            >
-              Gizlilik & İzinler
-            </button>
+            >{i18nText("Gizlilik & İzinler ")}</button>
           </div>
         </div>
       )}
@@ -917,7 +912,7 @@ export default function SkinPage() {
       {/* SCREEN 1: SKIN START VIEW (REFERANS 1 & 2)                  */}
       {/* ============================================================ */}
       {scanState === 'READY' && (
-        <><div className="flex items-center justify-between gap-3 mb-3"><InformationButton title="Cilt taraması"><p>Yüz noktaları ve bölgesel görünüm bu cihazda işlenir; sonuçta kamera kapanır. Cilt tipi için Gizlilik & İzinler alanında ayrıca izin verirseniz yüz fotoğrafınızın ilgili kısmı Roboflow tarafından işlenir; internet gerekir. Sayısal kayıt ve fotoğraf saklama tercihleri ayrıdır. Fotoğraf saklama kapalıysa görüntü yalnız açık oturumda kalır. Fotoğrafı saklanmamış eski kayıtlar sayısal olarak gösterilir. Sonuç klinik tanı değildir.</p><label className="flex min-h-11 items-center gap-3"><input type="checkbox" aria-label="Üç açılı tarama" checked={multiAngle} onChange={e => setMultiAngle(e.target.checked)} />Ön, sağ ve sol pozlarda tara. Kapalıyken yalnız ön poz kullanılır.</label></InformationButton></div><SkinStartView onStart={startCamera} /></>
+        <><div className="flex items-center justify-between gap-3 mb-3"><InformationButton title={i18nText("Cilt taraması")}><p>{i18nText("Yüz noktaları ve bölgesel görünüm bu cihazda işlenir; sonuçta kamera kapanır. Cilt tipi için Gizlilik & İzinler alanında ayrıca izin verirseniz yüz fotoğrafınızın ilgili kısmı Roboflow tarafından işlenir; internet gerekir. Sayısal kayıt ve fotoğraf saklama tercihleri ayrıdır. Fotoğraf saklama kapalıysa görüntü yalnız açık oturumda kalır. Fotoğrafı saklanmamış eski kayıtlar sayısal olarak gösterilir. Sonuç klinik tanı değildir.")}</p><label className="flex min-h-11 items-center gap-3"><input type="checkbox" aria-label={i18nText("Üç açılı tarama")} checked={multiAngle} onChange={e => setMultiAngle(e.target.checked)} />{i18nText("Ön, sağ ve sol pozlarda tara. Kapalıyken yalnız ön poz kullanılır.")}</label></InformationButton></div><SkinStartView onStart={startCamera} /></>
       )}
 
       {/* ============================================================ */}
@@ -925,8 +920,8 @@ export default function SkinPage() {
       {/* ============================================================ */}
       {scanState === 'CAMERA_ACTIVE' && (
         <>
-        {!isDemoMode() && <div data-angle-progress className="flex flex-wrap items-center gap-3"><p>{multiAngle ? `Aşama ${angleIndex + 1}/3: ${ANGLE_LABELS[SKIN_ANGLES[angleIndex]]}` : 'Ön poz'}</p><InformationButton title="Kamera ve pozlar"><p>Önizleme aynasızdır. Yönler anatomik sağ ve solunuzdur. Ön pozdan alın, burun, çene ve göz çevresi; yan pozdan görünen yanak ölçülür. Tamamlanan pozlar: {completedAngles.map(a=>ANGLE_LABELS[a]).join(', ') || 'henüz yok'}. Ekrandaki büyütme yalnız görüntüleme içindir; kalite ham kamera karesinden ölçülür.</p></InformationButton><button onClick={() => { void voice.repeat();consecutiveValidFramesRef.current = 0; setScanProgress(Math.round(angleIndex * 100 / 3)); setGuidanceText('İstenen pozu yeniden deneyin.'); }} className="text-sm underline">Bu açıyı tekrar dene</button><button onClick={() => { acquisitionRef.current++; activeScanRef.current=false; setPreparationPhase(null); setScanState('READY'); setMediaStream(null); }} className="text-sm underline">Taramayı İptal Et</button></div>}
-        {preparationPhase && <div role="status" data-portrait-preparation={preparationPhase} className="flex items-center gap-3 py-3 text-sm text-togg-turquoise"><span aria-hidden="true" className="h-5 w-5 rounded-full border-2 border-current border-r-transparent animate-spin"/><span>{guidanceText} Bu aşamada geçen süre: {preparationSeconds} sn.</span></div>}
+        {!isDemoMode() && <div data-angle-progress className="flex flex-wrap items-center gap-3"><p>{i18nNode(multiAngle ? `Aşama ${angleIndex + 1}/3: ${ANGLE_LABELS[SKIN_ANGLES[angleIndex]]}` : 'Ön poz')}</p><InformationButton title={i18nText("Kamera ve pozlar")}><p>{i18nText("Önizleme aynasızdır. Yönler anatomik sağ ve solunuzdur. Ön pozdan alın, burun, çene ve göz çevresi; yan pozdan görünen yanak ölçülür. Tamamlanan pozlar: ")}{i18nNode(completedAngles.map(a=>ANGLE_LABELS[a]).join(', ') || 'henüz yok')}{i18nText(". Ekrandaki büyütme yalnız görüntüleme içindir; kalite ham kamera karesinden ölçülür.")}</p></InformationButton><button onClick={() => { void voice.repeat();consecutiveValidFramesRef.current = 0; setScanProgress(Math.round(angleIndex * 100 / 3)); setGuidanceText('İstenen pozu yeniden deneyin.'); }} className="text-sm underline">{i18nText("Bu açıyı tekrar dene")}</button><button onClick={() => { acquisitionRef.current++; activeScanRef.current=false; setPreparationPhase(null); setScanState('READY'); setMediaStream(null); }} className="text-sm underline">{i18nText("Taramayı İptal Et")}</button></div>}
+        {preparationPhase && <div role="status" data-portrait-preparation={preparationPhase} className="flex items-center gap-3 py-3 text-sm text-togg-turquoise"><span aria-hidden="true" className="h-5 w-5 rounded-full border-2 border-current border-r-transparent animate-spin"/><span>{i18nNode(guidanceText)}{i18nText(" Bu aşamada geçen süre: ")}{i18nNode(preparationSeconds)}{i18nText(" sn.")}</span></div>}
         <SkinActiveScan
           preparing={!!preparationPhase}
           scanProgress={scanProgress}
@@ -948,7 +943,7 @@ export default function SkinPage() {
       {scanState === 'COMPLETED' && (isDemoMode() || !!analysisResult) && (
         <>
 
-        {photoNotice&&<p role="status" className="text-sm text-amber-200">{photoNotice}</p>}
+        {photoNotice&&<p role="status" className="text-sm text-amber-200">{i18nNode(photoNotice)}</p>}
         <SkinResultView
           currentRegion={currentRegionData}
           snapshot={snapshots[snapshotAngleForRegion(selectedRegionId, analysisResult?.comparisonScope === 'three-angle-v2')]}
@@ -965,7 +960,7 @@ export default function SkinPage() {
           baselineId={analysisResult?.baselineId}
           comparisonScope={analysisResult?.comparisonScope === 'three-angle-v2' ? 'three-angle-v2' : 'single-front-v1'}
         />
-        {Object.values(snapshots).some(s=>s?.visualError) && <button onClick={()=>{setMediaStream(null);setIsLiveVideo(false);setScanState('READY');}} className="min-h-11 border border-white/20 rounded-xl px-4">Görüntü için yeni tarama</button>}
+        {Object.values(snapshots).some(s=>s?.visualError) && <button onClick={()=>{setMediaStream(null);setIsLiveVideo(false);setScanState('READY');}} className="min-h-11 border border-white/20 rounded-xl px-4">{i18nText("Görüntü için yeni tarama")}</button>}
         </>
       )}
 

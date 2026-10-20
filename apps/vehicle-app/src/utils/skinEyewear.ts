@@ -1,3 +1,4 @@
+import {apiFetch as fetch} from './localBackend';
 import {LOCAL_API_BASE} from './previewLocalApi';
 import type {FaceAlignment} from './skinAnalyzer';
 export const SKIN_CAPTURE_POLICY='glasses-free-skin-capture-v1';

@@ -1,4 +1,7 @@
 'use client';
+import {getLocale} from '../../i18n/core';
+import {useTranslations} from '../../i18n/LanguageProvider';
+
 
 import { AccessibleDialog } from '../AccessibleDialog';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -17,6 +20,7 @@ interface SkinTrendModalProps {
 }
 
 export const SkinTrendModal: React.FC<SkinTrendModalProps> = ({ region, onClose, analysisId, selectedCriterion }) => {
+ const {text:i18nText,node:i18nNode}=useTranslations();
   const isDemo = isDemoMode();
   const [records,setRecords]=useState<HealthRecord[]>([]),[readError,setReadError]=useState(false);
   const [criterionChoice,setCriterionChoice]=useState(selectedCriterion||''),[seriesChoice,setSeriesChoice]=useState('');
@@ -58,15 +62,15 @@ export const SkinTrendModal: React.FC<SkinTrendModalProps> = ({ region, onClose,
     ? `${pointsStr} ${getX(trendPoints.length - 1)},${height - padY} ${getX(0)},${height - padY}`
     : '';
 
-  if(!isDemo)return <AccessibleDialog title="Zaman İçinde Değişim" onClose={onClose} className="relative w-full max-w-xl bg-[#0B1526] border border-slate-700/80 rounded-2xl p-6 sm:p-7 shadow-2xl space-y-6">
-    <div className="flex items-start justify-between gap-3"><div className="flex items-center gap-3"><div className="w-10 h-10 shrink-0 rounded-xl bg-togg-turquoise/10 border border-togg-turquoise/30 flex items-center justify-center text-togg-turquoise"><TrendingUp className="w-5 h-5"/></div><div><h3 className="text-lg font-bold text-white tracking-wide">Zaman İçinde Değişim</h3><p className="text-xs text-slate-400 mt-0.5">{region.nameTr}</p></div></div><button onClick={onClose} aria-label="Pencereyi kapat" className="w-11 h-11 shrink-0 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800/80"><X className="w-5 h-5"/></button></div>
-    <div className="grid gap-3 sm:grid-cols-2">{criteria.length>0&&<label className="space-y-1 text-xs text-slate-400">Ölçüm<select value={criterion} onChange={e=>{setCriterionChoice(e.target.value);setSeriesChoice('');}} className="min-h-11 w-full min-w-0 rounded-xl border border-white/20 bg-slate-950 px-3 text-sm text-white">{criteria.map(c=><option key={c.id} value={c.id}>{c.label}</option>)}</select></label>}{comparable.length>1&&<label className="space-y-1 text-xs text-slate-400">Karşılaştırılabilir seri<select value={selected?.id||''} onChange={e=>setSeriesChoice(e.target.value)} className="min-h-11 w-full min-w-0 rounded-xl border border-white/20 bg-slate-950 px-3 text-sm text-white">{comparable.map((s,i)=><option key={s.id} value={s.id}>Seri {i+1} · {new Date(s.points.find(p=>p.value!==null)?.time||s.points[0].time).toLocaleDateString('tr-TR')}</option>)}</select></label>}</div>
-    <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 sm:p-5 min-h-[200px]">{readError?<p role="alert" className="py-8 text-center text-sm text-amber-200">Kayıtlar açılamadı; mevcut veriler korunuyor.</p>:selected?<HistoryChart key={JSON.stringify([selected.id,selected.points])} series={selected} kind="line"/>:<p className="py-8 text-center text-sm text-slate-400">Bu görünüm için kayıtlı karşılaştırılabilir ölçüm yok.</p>}</div>
-    <details className="text-xs text-slate-400"><summary className="cursor-pointer">Kayıtların karşılaştırılması hakkında bilgi</summary><p className="mt-2">Yalnız kayıtlı ölçümler gösterilir. Farklı yöntemler ve birimler ayrı serilerde tutulur; eksik ölçümler çizgiyi keser.</p></details>
+  if(!isDemo)return <AccessibleDialog title={i18nText("Zaman İçinde Değişim")} onClose={onClose} className="relative w-full max-w-xl bg-[#0B1526] border border-slate-700/80 rounded-2xl p-6 sm:p-7 shadow-2xl space-y-6">
+    <div className="flex items-start justify-between gap-3"><div className="flex items-center gap-3"><div className="w-10 h-10 shrink-0 rounded-xl bg-togg-turquoise/10 border border-togg-turquoise/30 flex items-center justify-center text-togg-turquoise"><TrendingUp className="w-5 h-5"/></div><div><h3 className="text-lg font-bold text-white tracking-wide">{i18nText("Zaman İçinde Değişim")}</h3><p className="text-xs text-slate-400 mt-0.5">{i18nNode(region.nameTr)}</p></div></div><button onClick={onClose} aria-label={i18nText("Pencereyi kapat")} className="w-11 h-11 shrink-0 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800/80"><X className="w-5 h-5"/></button></div>
+    <div className="grid gap-3 sm:grid-cols-2">{criteria.length>0&&<label className="space-y-1 text-xs text-slate-400">{i18nText("Ölçüm")}<select value={criterion} onChange={e=>{setCriterionChoice(e.target.value);setSeriesChoice('');}} className="min-h-11 w-full min-w-0 rounded-xl border border-white/20 bg-slate-950 px-3 text-sm text-white">{criteria.map(c=><option key={c.id} value={c.id}>{i18nNode(c.label)}</option>)}</select></label>}{comparable.length>1&&<label className="space-y-1 text-xs text-slate-400">{i18nText("Karşılaştırılabilir seri")}<select value={selected?.id||''} onChange={e=>setSeriesChoice(e.target.value)} className="min-h-11 w-full min-w-0 rounded-xl border border-white/20 bg-slate-950 px-3 text-sm text-white">{comparable.map((s,i)=><option key={s.id} value={s.id}>{i18nText("Seri ")}{i18nNode(i+1)} · {i18nNode(new Date(s.points.find(p=>p.value!==null)?.time||s.points[0].time).toLocaleDateString(getLocale()))}</option>)}</select></label>}</div>
+    <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 sm:p-5 min-h-[200px]">{readError?<p role="alert" className="py-8 text-center text-sm text-amber-200">{i18nText("Kayıtlar açılamadı; mevcut veriler korunuyor.")}</p>:selected?<HistoryChart key={JSON.stringify([selected.id,selected.points])} series={selected} kind="line"/>:<p className="py-8 text-center text-sm text-slate-400">{i18nText("Bu görünüm için kayıtlı karşılaştırılabilir ölçüm yok.")}</p>}</div>
+    <details className="text-xs text-slate-400"><summary className="cursor-pointer">{i18nText("Kayıtların karşılaştırılması hakkında bilgi")}</summary><p className="mt-2">{i18nText("Yalnız kayıtlı ölçümler gösterilir. Farklı yöntemler ve birimler ayrı serilerde tutulur; eksik ölçümler çizgiyi keser.")}</p></details>
   </AccessibleDialog>;
 
   return (
-    <AccessibleDialog title="Zaman İçinde Değişim" onClose={onClose} className="relative w-full max-w-xl bg-[#0B1526] border border-slate-700/80 rounded-2xl p-6 sm:p-7 shadow-2xl space-y-6">
+    <AccessibleDialog title={i18nText("Zaman İçinde Değişim")} onClose={onClose} className="relative w-full max-w-xl bg-[#0B1526] border border-slate-700/80 rounded-2xl p-6 sm:p-7 shadow-2xl space-y-6">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
@@ -74,15 +78,15 @@ export const SkinTrendModal: React.FC<SkinTrendModalProps> = ({ region, onClose,
               <TrendingUp className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-white tracking-wide">Zaman İçinde Değişim</h3>
+              <h3 className="text-lg font-bold text-white tracking-wide">{i18nText("Zaman İçinde Değişim")}</h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                {region.nameTr} bölgesindeki görsel değişim {isDemo ? '(Demo Geçmiş)' : '(Gerçek Ölçümler)'}
+                {i18nNode(region.nameTr)}{i18nText(" bölgesindeki görsel değişim ")}{i18nNode(isDemo ? '(Demo Geçmiş)' : '(Gerçek Ölçümler)')}
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            aria-label="Pencereyi kapat"
+            aria-label={i18nText("Pencereyi kapat")}
             className="w-11 h-11 shrink-0 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
@@ -120,7 +124,7 @@ export const SkinTrendModal: React.FC<SkinTrendModalProps> = ({ region, onClose,
                       textAnchor="end"
                       className="text-[10px] fill-slate-500 font-mono"
                     >
-                      {level > 0 ? `+${level}%` : `${level}%`}
+                      {i18nNode(level > 0 ? `+${level}%` : `${level}%`)}
                     </text>
                   </g>
                 );
@@ -171,7 +175,7 @@ export const SkinTrendModal: React.FC<SkinTrendModalProps> = ({ region, onClose,
                           textAnchor="middle"
                           className="text-[11px] font-bold fill-slate-950 font-mono"
                         >
-                          {p.value > 0 ? `+${p.value}%` : `${p.value}%`}
+                          {i18nNode(p.value > 0 ? `+${p.value}%` : `${p.value}%`)}
                         </text>
                       </g>
                     ) : (
@@ -181,7 +185,7 @@ export const SkinTrendModal: React.FC<SkinTrendModalProps> = ({ region, onClose,
                         textAnchor="middle"
                         className="text-[10px] font-mono fill-slate-300 font-semibold"
                       >
-                        {p.value > 0 ? `+${p.value}%` : `${p.value}%`}
+                        {i18nNode(p.value > 0 ? `+${p.value}%` : `${p.value}%`)}
                       </text>
                     )}
                     {/* X Axis Date Label */}
@@ -191,7 +195,7 @@ export const SkinTrendModal: React.FC<SkinTrendModalProps> = ({ region, onClose,
                       textAnchor="middle"
                       className="text-[11px] fill-slate-400 font-medium"
                     >
-                      {p.date}
+                      {i18nNode(p.date)}
                     </text>
                   </g>
                 );
@@ -200,20 +204,16 @@ export const SkinTrendModal: React.FC<SkinTrendModalProps> = ({ region, onClose,
           ) : (
             <div className="py-8 text-center space-y-2">
               <Info className="w-7 h-7 text-slate-500 mx-auto" />
-              <p className="text-xs text-slate-300 font-medium">
-                Henüz yeterli geçmiş ölçüm yok.
-              </p>
-              <p className="text-[11px] text-slate-500 max-w-xs mx-auto">
-                Zaman içindeki görsel değişim grafiğini görüntüleyebilmek için en az 2 karşılaştırılabilir takip taraması gereklidir.
-              </p>
+              <p className="text-xs text-slate-300 font-medium">{i18nText("Henüz yeterli geçmiş ölçüm yok. ")}</p>
+              <p className="text-[11px] text-slate-500 max-w-xs mx-auto">{i18nText("Zaman içindeki görsel değişim grafiğini görüntüleyebilmek için en az 2 karşılaştırılabilir takip taraması gereklidir. ")}</p>
             </div>
           )}
         </div>
 
         {/* Footer info */}
         <div className="flex items-center justify-between text-xs text-slate-400 border-t border-slate-800/80 pt-4">
-          <span>{isDemo ? 'Referans baz: 17 Eylül 2026' : 'İlk Ölçüm: Referans Baz Çizgisi'}</span>
-          <span className="text-amber-400 font-medium">İzleme sıklığı: Periyodik</span>
+          <span>{i18nNode(isDemo ? 'Referans baz: 17 Eylül 2026' : 'İlk Ölçüm: Referans Baz Çizgisi')}</span>
+          <span className="text-amber-400 font-medium">{i18nText("İzleme sıklığı: Periyodik")}</span>
         </div>
     </AccessibleDialog>
   );

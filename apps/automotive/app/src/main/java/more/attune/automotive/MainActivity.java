@@ -2,6 +2,11 @@ package more.attune.automotive;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import java.util.Locale;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -53,12 +58,49 @@ public final class MainActivity extends Activity {
     private String[] pendingResources;
     private static final int MEDIA_PERMISSION = 31;
 
+    private Resources localizedResources;
+    private String uiLanguage = "tr";
+    private boolean localeReadPending;
+    private final Map<Button,Integer> toolbarLabels = new LinkedHashMap<>();
+
+    private String localizedString(int id, Object... args) {
+        return (localizedResources == null ? getResources() : localizedResources).getString(id,args);
+    }
+
+    private void applyLanguage(String language, boolean persist) {
+        if (!("tr".equals(language) || "en".equals(language) || "de".equals(language))) return;
+        if (localizedResources != null && uiLanguage.equals(language)) return;
+        uiLanguage = language;
+        Configuration config = new Configuration(getResources().getConfiguration());
+        config.setLocale(Locale.forLanguageTag(language.equals("en") ? "en-US" : language.equals("de") ? "de-DE" : "tr-TR"));
+        localizedResources = createConfigurationContext(config).getResources();
+        for (Map.Entry<Button,Integer> label : toolbarLabels.entrySet()) label.getKey().setText(localizedString(label.getValue()));
+        if (persist) getPreferences(MODE_PRIVATE).edit().putString("attune.language.v1",language).apply();
+    }
+
+    /** One-way, allowlisted preference read from the trusted foreground WebView.
+     * No JS interface, navigation, vehicle mutation or policy override is exposed. */
+    private void synchronizeLanguage() {
+        if (!ready() || web == null || localeReadPending || !webOrigin.contains(web.getUrl())) return;
+        final WebView source = web;
+        localeReadPending = true;
+        try { source.evaluateJavascript("(function(){try{var l=localStorage.getItem('attune.language.v1');return ['tr','en','de'].indexOf(l)>=0?l:'tr';}catch(e){return 'tr';}})()", value -> {
+            localeReadPending = false;
+            if (source != web || !ready() || !webOrigin.contains(source.getUrl())) return;
+            try {
+                Object decoded = new org.json.JSONTokener(value).nextValue();
+                if (decoded instanceof String) { applyLanguage((String) decoded,true); render(); }
+            } catch (org.json.JSONException ignored) { }
+        }); } catch (RuntimeException ignored) { localeReadPending = false; }
+    }
+
     private final Runnable watchdog = new Runnable() {
-        @Override public void run() { render(); main.postDelayed(this, 500); }
+        @Override public void run() { render(); synchronizeLanguage(); main.postDelayed(this, 500); }
     };
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
+        applyLanguage(getPreferences(MODE_PRIVATE).getString("attune.language.v1","tr"),false);
         vehicleProvider = BuildConfig.BACKEND_SIMULATION
             ? new BackendSimulationVehicleProvider(BuildConfig.API_ORIGIN, main) : new UnavailableVehicleProvider();
         carRestrictions = new CarRestrictionSource(this, main);
@@ -107,7 +149,7 @@ public final class MainActivity extends Activity {
     private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
     private Button button(int text, Runnable action) {
         Button button = new Button(this);
-        button.setText(text); button.setTextSize(16); button.setAllCaps(false);
+        toolbarLabels.put(button,text); button.setText(localizedString(text)); button.setTextSize(16); button.setAllCaps(false);
         button.setMinHeight(dp(64)); button.setMinWidth(dp(80));
         button.setOnClickListener(view -> action.run());
         return button;
@@ -142,22 +184,22 @@ public final class MainActivity extends Activity {
         GatePolicy.Reason reason = reason();
         int platformText = platform == GatePolicy.Platform.UNRESTRICTED ? R.string.platform_clear
             : platform == GatePolicy.Platform.RESTRICTED ? R.string.platform_restricted : R.string.platform_unknown;
-        status.setText(getString(R.string.status_line, vehicleProvider.label(), getString(platformText),
-            getString(messageFor(reason)), getString(cameraPresent() ? R.string.present : R.string.absent),
-            getString(microphonePresent() ? R.string.present : R.string.absent)));
+        status.setText(localizedString(R.string.status_line, localizedString(BuildConfig.BACKEND_SIMULATION ? R.string.provider_simulation : R.string.provider_unavailable), localizedString(platformText),
+            localizedString(messageFor(reason)), localizedString(cameraPresent() ? R.string.present : R.string.absent),
+            localizedString(microphonePresent() ? R.string.present : R.string.absent)));
         boolean allowed = reason == GatePolicy.Reason.READY;
         back.setEnabled(allowed); home.setEnabled(allowed);
         simulation.setEnabled(foreground && platform == GatePolicy.Platform.UNRESTRICTED
             && (!(vehicleProvider instanceof BackendSimulationVehicleProvider)
                 || !((BackendSimulationVehicleProvider) vehicleProvider).isUpdating()));
-        simulation.setText(observation != null && observation.parked ? R.string.simulate_driving : R.string.simulate_parked);
+        simulation.setText(localizedString(observation != null && observation.parked ? R.string.simulate_driving : R.string.simulate_parked));
         if (!allowed) {
             destroyWeb();
             placeholder.setVisibility(View.VISIBLE);
-            placeholder.setText(getString(R.string.locked, getString(messageFor(reason))));
+            placeholder.setText(localizedString(R.string.locked, localizedString(messageFor(reason))));
         } else if (pageFailed) {
             placeholder.setVisibility(View.VISIBLE);
-            placeholder.setText(R.string.page_failed);
+            placeholder.setText(localizedString(R.string.page_failed));
         } else if (web == null) openWeb();
     }
 
@@ -196,9 +238,9 @@ public final class MainActivity extends Activity {
                 String url = request.getUrl().toString();
                 if (ready() && webOrigin.contains(url)) return false;
                 if (request.isForMainFrame() && request.hasGesture() && ready() && OriginPolicy.isHttps(url)) {
-                    new AlertDialog.Builder(MainActivity.this).setTitle(R.string.external_title)
-                        .setMessage(R.string.external_message)
-                        .setNegativeButton(R.string.cancel, null).setPositiveButton(R.string.open_browser, (dialog, which) -> {
+                    new AlertDialog.Builder(MainActivity.this).setTitle(localizedString(R.string.external_title))
+                        .setMessage(localizedString(R.string.external_message))
+                        .setNegativeButton(localizedString(R.string.cancel), null).setPositiveButton(localizedString(R.string.open_browser), (dialog, which) -> {
                             if (!ready()) return;
                             try { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))); }
                             catch (android.content.ActivityNotFoundException error) { notice(R.string.no_browser); }
@@ -288,8 +330,9 @@ public final class MainActivity extends Activity {
         if (code == MEDIA_PERMISSION) completePermission();
     }
     @Override public void onBackPressed() { if (ready() && web != null && web.canGoBack()) web.goBack(); else super.onBackPressed(); }
-    private void notice(int message) { Toast.makeText(this, message, Toast.LENGTH_SHORT).show(); }
+    private void notice(int message) { Toast.makeText(this, localizedString(message), Toast.LENGTH_SHORT).show(); }
     private void destroyWeb() {
+        localeReadPending = false;
         if (pendingPermission != null) { pendingPermission.deny(); pendingPermission = null; pendingResources = null; }
         WebView old = web; web = null;
         if (old != null) {

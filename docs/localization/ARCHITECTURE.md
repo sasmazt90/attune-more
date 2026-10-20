@@ -1,0 +1,25 @@
+# Localization architecture and maintenance
+
+TR is the default. The supported preference codes are `tr`, `en`, `de`; speech/formatting locales are `tr-TR`, `en-US`, `de-DE`. New storage keys are `attune.language.v1` and `attune.voice.v1`. Existing health records, consent IDs, storage permissions, protocols, routes, clinical units and numeric values retain their identities.
+
+## Presentation catalogs
+
+`shared/localization/messages.json` is a source-message catalog. Each key is the first 16 hexadecimal characters of SHA-256 over NFC-normalized, whitespace-normalized source text. Source text remains readable at the display boundary; all three catalog values and every numbered placeholder must exist. Templates are matched by descending literal specificity so a generic label cannot shadow a complete safety sentence. Translation is bounded by input length and recursion depth. Unknown private/user/provider text is never submitted to a translation service.
+
+Client components subscribe through `useTranslations()`. `text()` translates source labels/templates; `node()` translates display strings/arrays and formats displayed decimal numbers without changing their underlying numeric values. It does not traverse or replace React elements. Inputs retain their actual values and Unicode. No page duplication, DOM text replacement, mutation observer or locale-keyed remount is used. Document language, title and description follow the preference after hydration; server fallback is TR. The selected-locale installation manifest keeps the same app identity, start URL, scope and icons. Explicit manifest routes retain the original default URL while a single React-owned link follows the preference; the factory is outside Next’s automatic file-based metadata registration.
+
+Translate presentation, never the strings used by the existing measurement/state algorithms. New UI copy must pass `node scripts/localization/check.cjs`. Its AST inventory checks JSX text/accessibility attributes, translated expressions (including concatenations), shared health metadata, fixed guidance and relevant backend response sources. Explicit exemptions identify only internal grammar/provider instructions/docstrings and protected names. This detects missing coverage/placeholder errors; it cannot certify linguistic accuracy or infer every arbitrary runtime string. Browser checks complement it. The one-time migration script is not part of the application runtime and must not be rerun over an already localized tree.
+
+FastAPI uses a validated, request-scoped `language` query parameter and `Content-Language`. Default TR request behavior is retained. Known response presentation fields are localized; machine IDs, numbers, model/version fields, user utterances and identity fields remain raw. Error responses preserve machine `detail` and add a separate localized `displayMessage` for non-TR requests. Existing HTTP status, CORS, origin, consent and driving checks remain in force. Mental conversation/summary prompts request the selected language without changing their schemas or safety rules; no paid model requests were made in validation.
+
+## Lifecycle and safety
+
+The selector and voice settings require the existing acknowledged parked state. Active capture/assessment owners also lock preference changes; no settings switch resets progress. Locale/voice changes cancel stale guidance, recognition and speech. Paused sessions retain their data. An external cross-tab locale/voice change pauses active voice/hearing tasks; hearing preparation must be reverified to avoid mixing stimulus banks. Queued free-text speech is discarded with an explicit notice while its transcript/progress remain intact, preventing an old-language reply from being read by a new-language voice. Crisis speech cancellation retains the emergency stop/112 path. This adds no vehicle-state mutation or readiness override.
+
+Native AAOS strings have complete EN/DE resource sets. A bounded, one-way read of the allowlisted preference from the trusted, ready foreground WebView updates native labels. It exposes no JavaScript bridge, origin exception or vehicle API. Native Car UX restrictions, backend parked checks, manifest requirements and lifecycle teardown remain independent. Offline builds/host policy tests are distinct from emulator/device speech acceptance.
+
+## Input and historical records
+
+There is no alphabetic on-screen keyboard to replace. Text/date/number/file inputs use native browser/platform controls. The existing hearing numeric keypad remains numeric. Unicode text is preserved; no transliteration is used for storage. Recognition parsing uses transient language-specific normalization only, independently of expected assessment targets. The user's actual transcript is displayed verbatim.
+
+New backend-generated replies use the selected language. Previously stored free-text summaries and quotations retain their original language and bytes; they are not machine-translated. Dates and generated labels are localized at display time. Language switching does not migrate or rewrite records or permissions.

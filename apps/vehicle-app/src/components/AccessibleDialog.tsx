@@ -1,5 +1,7 @@
-
 'use client';
+
+import {useTranslations} from '../i18n/LanguageProvider';
+
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -9,6 +11,7 @@ import type { ReactNode } from 'react';
 export function AccessibleDialog({ title, onClose, children, className }: {
   title: string; onClose: () => void; children: ReactNode; className: string;
 }) {
+ const {text:i18nText,node:i18nNode}=useTranslations();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   const panel = useRef<HTMLDivElement>(null);
@@ -57,9 +60,9 @@ export function AccessibleDialog({ title, onClose, children, className }: {
     };
   }, [mounted]);
   return mounted ? createPortal(<div onClick={onClose} style={{ margin: 0 }} className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-    <div ref={panel} role="dialog" aria-modal="true" aria-label={title} tabIndex={-1}
+    <div ref={panel} role="dialog" aria-modal="true" aria-label={i18nText(title)} tabIndex={-1}
       onClick={event => event.stopPropagation()} className={`max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain ${className}`}>
-      {children}
+      {i18nNode(children)}
     </div>
   </div>, document.body) : null;
 }

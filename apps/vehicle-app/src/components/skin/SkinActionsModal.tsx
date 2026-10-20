@@ -1,4 +1,6 @@
 'use client';
+import {useTranslations} from '../../i18n/LanguageProvider';
+
 
 import { AccessibleDialog } from '../AccessibleDialog';
 import React, { useState } from 'react';
@@ -18,9 +20,10 @@ export const SkinActionsModal: React.FC<SkinActionsModalProps> = ({
   onClose,
   onNavigateToCare
 }) => {
+ const {text:i18nText,node:i18nNode}=useTranslations();
   const [showReminder, setShowReminder] = useState(false);
   return (
-    <AccessibleDialog title="Önerilen Aksiyonlar" onClose={onClose} className="relative w-full max-w-xl bg-[#0B1526] border border-slate-700/80 rounded-2xl p-6 sm:p-7 shadow-2xl space-y-6">
+    <AccessibleDialog title={i18nText("Önerilen Aksiyonlar")} onClose={onClose} className="relative w-full max-w-xl bg-[#0B1526] border border-slate-700/80 rounded-2xl p-6 sm:p-7 shadow-2xl space-y-6">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
@@ -28,15 +31,14 @@ export const SkinActionsModal: React.FC<SkinActionsModalProps> = ({
               <Lightbulb className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-white tracking-wide">Önerilen Aksiyonlar</h3>
+              <h3 className="text-lg font-bold text-white tracking-wide">{i18nText("Önerilen Aksiyonlar")}</h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                {region.nameTr} bölgesi analizi doğrultusunda öneriler
-              </p>
+                {i18nNode(region.nameTr)}{i18nText(" bölgesi analizi doğrultusunda öneriler ")}</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            aria-label="Pencereyi kapat"
+            aria-label={i18nText("Pencereyi kapat")}
             className="w-11 h-11 shrink-0 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
@@ -63,10 +65,10 @@ export const SkinActionsModal: React.FC<SkinActionsModalProps> = ({
                     </div>
                     <div>
                       <h4 className="text-sm font-semibold text-white group-hover:text-togg-turquoise transition-colors">
-                        {act.title}
+                        {i18nNode(act.title)}
                       </h4>
                       <p className="text-xs text-slate-300 mt-0.5">
-                        {act.description}
+                        {i18nNode(act.description)}
                       </p>
                     </div>
                   </div>
@@ -88,25 +90,23 @@ export const SkinActionsModal: React.FC<SkinActionsModalProps> = ({
                     <IconComponent className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-white">{act.title}</h4>
-                    <p className="text-xs text-slate-400 mt-0.5">{act.description}</p>
+                    <h4 className="text-sm font-semibold text-white">{i18nNode(act.title)}</h4>
+                    <p className="text-xs text-slate-400 mt-0.5">{i18nNode(act.description)}</p>
                   </div>
                 </div>
-                {act.icon === 'calendar' && <button aria-expanded={showReminder} onClick={() => setShowReminder(previous => !previous)} className="text-togg-turquoise text-xs"><Bell className="w-4 h-4 inline mr-1" />Hatırlat</button>}
+                {act.icon === 'calendar' && <button aria-expanded={showReminder} onClick={() => setShowReminder(previous => !previous)} className="text-togg-turquoise text-xs"><Bell className="w-4 h-4 inline mr-1" />{i18nText("Hatırlat")}</button>}
               </div>
             );
           })}
         </div>
 
-        {showReminder && (isDemoMode() ? <p className="text-xs text-amber-200">Demo içeriği için gerçek takip planı oluşturulmaz. Kendi taramanızın ardından hatırlatma oluşturabilirsiniz.</p> : <SkinReminderForm />)}
+        {showReminder && (isDemoMode() ? <p className="text-xs text-amber-200">{i18nText("Demo içeriği için gerçek takip planı oluşturulmaz. Kendi taramanızın ardından hatırlatma oluşturabilirsiniz.")}</p> : <SkinReminderForm />)}
         {/* Footer */}
         <div className="text-right">
           <button
             onClick={onClose}
             className="px-5 py-2 text-xs font-semibold text-slate-300 hover:text-white bg-slate-900 border border-slate-800 rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
-          >
-            Kapat
-          </button>
+          >{i18nText("Kapat ")}</button>
         </div>
     </AccessibleDialog>
   );

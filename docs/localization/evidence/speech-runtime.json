@@ -1,0 +1,74 @@
+[
+  {
+    "id": "espeak:en:male",
+    "name": "eSpeak NG English_(America)",
+    "locale": "en-US",
+    "gender": "male",
+    "provider": "local",
+    "local": true,
+    "availability": "actual metadata and synthesis probe verified",
+    "bytes": 35373,
+    "sha256": "ef8a76bc6a6205f4a7af45df1a45f45a2b722a6668a62cfa6c748601f0c447e7",
+    "stream": {
+      "codec_name": "mp3",
+      "sample_rate": "24000",
+      "channels": 1
+    },
+    "status": "PASS",
+    "audibleAcceptance": "UNVERIFIED"
+  },
+  {
+    "id": "espeak:en:female",
+    "name": "eSpeak NG English_(America) / female3",
+    "locale": "en-US",
+    "gender": "female",
+    "provider": "local",
+    "local": true,
+    "availability": "actual metadata and synthesis probe verified",
+    "bytes": 34989,
+    "sha256": "f2e55fe81c7864c10a4b5bc4ccf8cc5df747321373428b669fb21e68bb321784",
+    "stream": {
+      "codec_name": "mp3",
+      "sample_rate": "24000",
+      "channels": 1
+    },
+    "status": "PASS",
+    "audibleAcceptance": "UNVERIFIED"
+  },
+  {
+    "id": "espeak:de:male",
+    "name": "eSpeak NG German",
+    "locale": "de-DE",
+    "gender": "male",
+    "provider": "local",
+    "local": true,
+    "availability": "actual metadata and synthesis probe verified",
+    "bytes": 41901,
+    "sha256": "4143dda1a7e1f860dc52236915c3c6cc0a0b6a4744800f300e24f440abf48c45",
+    "stream": {
+      "codec_name": "mp3",
+      "sample_rate": "24000",
+      "channels": 1
+    },
+    "status": "PASS",
+    "audibleAcceptance": "UNVERIFIED"
+  },
+  {
+    "id": "espeak:de:female",
+    "name": "eSpeak NG German / female3",
+    "locale": "de-DE",
+    "gender": "female",
+    "provider": "local",
+    "local": true,
+    "availability": "actual metadata and synthesis probe verified",
+    "bytes": 41709,
+    "sha256": "d05c9a0b3b7b1c58537b66e726467b8627146d06ac9340df60fcc129d986bdcc",
+    "stream": {
+      "codec_name": "mp3",
+      "sample_rate": "24000",
+      "channels": 1
+    },
+    "status": "PASS",
+    "audibleAcceptance": "UNVERIFIED"
+  }
+]

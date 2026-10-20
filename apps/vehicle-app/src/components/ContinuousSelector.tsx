@@ -1,8 +1,11 @@
 'use client';
+import {useTranslations} from '../i18n/LanguageProvider';
+
 import { useRef } from 'react';
 import { normalizeAngle } from '../utils/continuousVision';
 /** Single arrow; pointer capture keeps continuous touch drag on the ring. */
 export function ContinuousSelector({ angle, disabled, onChange }: { angle:number; disabled:boolean; onChange:(angle:number)=>void }) {
+ const {text:i18nText,node:i18nNode}=useTranslations();
   const pointer=useRef<number|null>(null);
   const move=(event:React.PointerEvent<HTMLDivElement>)=>{
     if(disabled || pointer.current!==event.pointerId) return;
@@ -10,7 +13,7 @@ export function ContinuousSelector({ angle, disabled, onChange }: { angle:number
     if(Math.hypot(x,y)<rect.width*.18)return;
     onChange(normalizeAngle(Math.atan2(y,x)*180/Math.PI));
   };
-  return <div role="slider" tabIndex={disabled?-1:0} aria-label="Boşluk yönünü ayarlayın" aria-disabled={disabled} aria-valuemin={0} aria-valuemax={360} aria-valuenow={angle} aria-valuetext="Okun seçili yönü" data-continuous-selector
+  return <div role="slider" tabIndex={disabled?-1:0} aria-label={i18nText("Boşluk yönünü ayarlayın")} aria-disabled={disabled} aria-valuemin={0} aria-valuemax={360} aria-valuenow={angle} aria-valuetext={i18nText("Okun seçili yönü")} data-continuous-selector
     className={`relative w-56 h-56 max-w-full rounded-full border-2 border-togg-turquoise/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-togg-turquoise ${disabled?'opacity-40':'cursor-grab active:cursor-grabbing'}`} style={{touchAction:'none'}}
     onPointerDown={event=>{if(disabled)return;pointer.current=event.pointerId;event.currentTarget.setPointerCapture(event.pointerId);move(event);}}
     onPointerMove={move} onPointerUp={event=>{if(pointer.current===event.pointerId){move(event);pointer.current=null;event.currentTarget.releasePointerCapture(event.pointerId);}}}

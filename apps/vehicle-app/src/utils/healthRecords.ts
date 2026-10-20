@@ -1,3 +1,5 @@
+import {apiFetch as fetch} from './localBackend';
+import {getLocale} from '../i18n/core';
 import {deleteDentalPhotosWithRecords,recoverDentalPhotoDeletion,DENTAL_PHOTO_DELETE_PENDING} from './dentalPhotoHistory';
 import {serviceAllowed} from './serviceConsent';
 import {deleteSkinPhotosWithRecords,recoverSkinPhotoDeletion,SKIN_PHOTO_DELETE_PENDING} from './skinPhotoHistory';
@@ -19,7 +21,7 @@ const KEYS = {
 
 export function recordDate(record: HealthRecord): string {
   const value = record.date || record.timestamp;
-  return value && Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleString('tr-TR') : record.dateTr || 'Tarih kaydı yok';
+  return value && Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleString(getLocale()) : record.dateTr || 'Tarih kaydı yok';
 }
 
 function recover() {
