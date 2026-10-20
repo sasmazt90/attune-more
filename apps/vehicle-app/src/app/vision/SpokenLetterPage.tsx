@@ -25,12 +25,8 @@ import { appendHealthRecord } from '../../utils/healthRecords';
 import { isCameraAllowed, isMicrophoneAllowed, isVisionSavingAllowed, isDemoMode } from '../../utils/attuneMode';
 import { VisionResponseGate } from '../../utils/visionResponseGate';
 import { VISION_FRAME_CLASS } from '../../components/VisionFrame';
-import { streamSpeech } from '../../utils/streamSpeech';
-import {systemSpeech} from '../../i18n/systemSpeech';
-import {voicePreference} from '../../i18n/voices';
-import {recordedProfile,verifiedClipBytes} from '../../i18n/fixedAudio';
-import prompts from '../../../../../shared/localization/vision-prompts.json';
-import { localBackend } from '../../utils/localBackend';
+import {approvedClip} from '../../i18n/approvedAudio';
+import {playFixedSpeech} from '../../utils/fixedFileSpeech';
 const TEXT:Record<string,string>={face:'Yüzünüzü kamera görüntüsünde tutun.',framing:'Yüzünüzün tamamını kamera görüntüsünde tutun.',pose:'Başınızı biraz ekrana çevirin; harf alanına bakabilirsiniz.',light:'Açık gözünüzün bulunduğu tarafı aydınlatın.',bright:'Yüzünüzdeki parlamayı azaltın.',blur:'Açık göz çevresinde netlik yetersiz. Kamera netliğini kontrol edin.',preparing:'İki göz açık: başlangıç konumu öğreniliyor.',recede:'Biraz geri çekilin.',approach:'Biraz yaklaşın.','distance-unknown':'Mesafeyi güvenilir izleyemiyorum; yüzünüzü görünür tutun.',camera:'Kamera görüntüsü güncel değil.',eye:'Test edilen göz açık; diğer göz kapalı veya örtülü olmalı.',uncertain:'Göz örtüsünü veya göz açıklığını kontrol edemiyorum.','both-eyes':'İki göz de kapalı veya örtülü. Test edilen gözünüzü açın.','test-eye':'Test edilen gözünüzü açın; diğer gözü kapatın veya örtün.','cover-other':'Diğer gözünüzü kapatın veya örtün.'};
 const EYE_TEXT={open:'açık',closed:'kapalı',covered:'örtülü',uncertain:'değerlendirilemiyor'};
 export default function SpokenLetterPage(){
@@ -67,23 +63,11 @@ export default function SpokenLetterPage(){
   const fail=()=>{if(!valid())return;if(flow.current.stage==='eye-instruction')flow.current.instructionEye=null;stopVoice();discardPresentation('VOICE_UNAVAILABLE');stage('error','Sesli yönerge kullanılamıyor. Tekrar deneyin.');setVoice('failed');setError('Seçilen dilde yönerge oynatılamadı; yanıt dinlenmedi ve puanlanmadı.');};
   setVoice('loading');a.voiceTimeout=setTimeout(()=>{if(valid()){controller.abort();fail();}},25000);
   try{
-   const preference=voicePreference();
-   if(preference.provider==='system'){
-    const text=(prompts as Record<string,string>)[code];if(!text)throw Error('FIXED_INSTRUCTION_REQUIRED');
-    const played=await systemSpeech(text,controller.signal,valid,()=>{if(valid()){setVoice('playing');timing('playing');}});
-    if(played&&valid()){timing('ended');stopSpeech();setVoice(a.listeningStarted?'listening':'quiet');onEnded();}else fail();return;
-   }
-   timing('request');let response:Response;
-   if(preference.provider==='local'){
-    const profile=recordedProfile(getLanguage(),preference.gender==='female'?'female':'male');
-    const clip=profile&&profile.id===preference.voiceId?profile.vision[code]:undefined;
-    if(!clip)throw Error('LOCALIZED_RECORDING_UNAVAILABLE');
-    const bytes=await verifiedClipBytes(clip,controller.signal);response=new Response(bytes,{headers:{'Content-Type':'audio/mpeg'}});
-   }else response=await fetch(localBackend('/api/vision/speech','http://127.0.0.1:8000'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:code,cloudConsent:true,...(preference.provider==='edge'?{voiceId:preference.voiceId}:{})}),signal:controller.signal});
-   if(!valid()){await response.body?.cancel();return;}if(!response.ok)throw Error('VOICE_UNAVAILABLE');
-   const audio=new Audio();a.audio=audio;audio.onplaying=()=>{if(valid()){setVoice('playing');timing('playing');}};audio.onerror=fail;
-   audio.onended=()=>{if(!valid())return;timing('ended');stopSpeech();setVoice(a.listeningStarted?'listening':'quiet');onEnded();};
-   const stream=streamSpeech(audio,response,controller.signal,valid,name=>timing(name));a.url=stream.url;a.cancelSpeech=stream.cancel;await stream.finished;
+   const clip=approvedClip(getLanguage(),'vision','vision:'+code);
+   if(!clip)throw Error('APPROVED_VISION_RECORDING_UNAVAILABLE');
+   const audio=new Audio();a.audio=audio;audio.dataset.recordingId=clip.recordingId;
+   const played=await playFixedSpeech(audio,clip,controller.signal,valid,name=>{if(valid()){timing(name);if(name==='playing')setVoice('playing');}},true);
+   if(played&&valid()){stopSpeech();setVoice(a.listeningStarted?'listening':'quiet');onEnded();}else fail();
   }catch{fail();}
  }
  function listen(){

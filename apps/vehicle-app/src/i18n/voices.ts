@@ -10,9 +10,7 @@ export function systemVoiceChoices(voices:readonly SpeechSynthesisVoice[],langua
 }
 export function voicePreference(language:Language=getLanguage()):VoicePreference {
  try {const data=JSON.parse(localStorage.getItem(VOICE_KEY)||'{}'),value=data[language];if(value&&['approved','system','edge','local'].includes(value.provider)&&(!value.voiceId||typeof value.voiceId==='string'))return value;}catch{}
- if(language==='tr')return {provider:'approved'};
- if(typeof speechSynthesis!=='undefined'&&speechSynthesis.getVoices().some(v=>v.lang.toLowerCase()===LOCALES[language].toLowerCase()&&v.localService))return {provider:'system'};
- return {provider:'local',voiceId:recordedProfile(language)?.id,gender:'male'};
+ return {provider:'approved'};
 }
 export function setVoicePreference(language:Language,value:VoicePreference){
  if(languageSwitchLocked())throw Error('ASSESSMENT_IN_PROGRESS');

@@ -1,5 +1,4 @@
 import {getLanguage} from '../i18n/core';
-import {localizedAudio} from '../i18n/fixedAudio';
 import {observeOutputNode} from './playbackMeter';
 import { Ear, HEARING_CONFIG, tonePCM, mixDigits, rms } from './hearingProtocol';
 export type DigitBankManifest={version:string;voice:string;rate:string;pitch:string;digits:{digit:number;url:string;sha256:string;duration:number}[];noise:{url:string;sha256:string};auditoryAcceptance:'pending'|'accepted';locale?:string;source?:string};
@@ -39,12 +38,11 @@ export class HearingAudio {
  stop(){this.epoch++;for(const cancel of [...this.nodes.values()])cancel();this.nodes.clear();}
  close(){if(this.disposed)return;this.disposed=true;this.stop();this.bank=[];this.noise=undefined;this.manifest=undefined;this.context.removeEventListener('statechange',this.state);document.removeEventListener('visibilitychange',this.visibility);navigator.mediaDevices?.removeEventListener('devicechange',this.device);void this.context.close().catch(()=>{});}
  async loadBank(signal:AbortSignal){
-  const language=getLanguage(),localized=language==='tr'?undefined:localizedAudio.hearing[language];
-  const response=await fetch(localized?.url||'/audio/hearing-bank/manifest.json',{signal});if(!response.ok)throw Error('Sayı bankası bulunamadı.');
-  let manifest:DigitBankManifest;
-  if(localized){const bytes=await response.arrayBuffer();const hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))).map(x=>x.toString(16).padStart(2,'0')).join('');if(bytes.byteLength!==localized.bytes||hash!==localized.sha256)throw Error('Sayı bankası hash uyuşmazlığı.');manifest=JSON.parse(new TextDecoder().decode(bytes));}
-  else manifest=await response.json();
-  const profileValid=language==='tr'?manifest.voice==='tr-TR-AhmetNeural'&&manifest.rate==='-10%'&&manifest.pitch==='-10Hz':manifest.locale===language&&manifest.source==='new-local-synthesis'&&manifest.voice==='espeak:'+language+':male'&&manifest.auditoryAcceptance==='pending';
+  // Owner approval of recordings does not establish scored acoustic equivalence.
+  if(getLanguage()!=='tr')throw Error('Seçilen dilin sayı kayıtları için akustik doğrulama tamamlanmadı. Puanlanan sayı testi başlatılamaz.');
+  const response=await fetch('/audio/hearing-bank/manifest.json',{signal});if(!response.ok)throw Error('Sayı bankası bulunamadı.');
+  const manifest:DigitBankManifest=await response.json();
+  const profileValid=manifest.voice==='tr-TR-AhmetNeural'&&manifest.rate==='-10%'&&manifest.pitch==='-10Hz';
   if(!profileValid||manifest.digits.length!==10||manifest.digits.some((d,i)=>d.digit!==i))throw Error('Sayı bankası profili doğrulanamadı.');
   const decode=async(item:{url:string;sha256:string})=>{const r=await fetch(item.url,{signal});if(!r.ok)throw Error('Sayı dosyası açılamadı.');const bytes=await r.arrayBuffer();const hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))).map(x=>x.toString(16).padStart(2,'0')).join('');if(hash!==item.sha256)throw Error('Sayı bankası hash uyuşmazlığı.');const decoded=await this.context.decodeAudioData(bytes);if(decoded.numberOfChannels!==1||decoded.sampleRate!==48000||decoded.duration>30)throw Error('Sayı bankası biçimi doğrulanamadı.');const pcm=decoded.getChannelData(0).slice();if(!pcm.every(Number.isFinite)||rms(pcm)<=.001)throw Error('Geçersiz veya sessiz sayı dosyası.');return pcm;};
   const digits=await Promise.all(manifest.digits.map(decode));const noise=await decode(manifest.noise);if(this.disposed||signal.aborted)throw Error('AUDIO_CANCELLED');this.noise=noise;this.bank=digits;this.manifest=manifest;

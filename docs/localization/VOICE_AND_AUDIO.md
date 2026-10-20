@@ -1,5 +1,19 @@
 # Voice and audio provenance
 
+## Current owner-approved recordings
+
+The approved package contains **194 unchanged original M4A/AAC files** under `public/audio/user-approved/tr-en-de-20261020-v1/`: 129 selected module/language/event recordings (including exact Mental templates), 30 isolated acoustic-gated digit recordings, 33 retained alternatives and two neutral demos. All 194 are owner-approved for integration; no further personal listening/rating campaign is required. Technical browser acceptance and acoustic/platform validation remain separate. Full hashes, provider identity, application/voice locales and disposition are in that namespace's `manifest.json`.
+
+Mental/Skin use Emel (TR), Katja (DE), Ada (EN). Vision/Dental/Hearing guidance use Ahmet (TR), Stefan (DE), Andrew (EN). Shared camera-quality prompts resolve by module. Ada's provider identity is `en-GB-AdaMultilingualNeural` and voice locale is en-GB; application locale stays en-US. DE Clipchamp provider IDs are not supplied and are not inferred from OneCore names.
+
+The module policy controls fixed playback; the voice dialog shows assignments and the actual browser/provider inventory without offering an override that could substitute another character. Existing stored preferences are retained. Original `audio/mp4` bytes are size/SHA-256 checked, decoded directly, and played at the browser's normal speed/pitch. Old files are preserved but are not a fallback for missing approved module recordings. Cockpit-entry remains inactive.
+
+Mental full-text template matching is literal and finite. Arbitrary AI responses still require live TTS using the same approved female identity, with existing consent/crisis/driving controls. TR Emel and EN Ada are exact-ID contracts whose live availability/parity remains unverified. DE dynamic TTS is BLOCKED because the exact live Katja provider identity is unverified. No paid/provider synthesis was used to fill this gap. Clipchamp files do not confer live TTS availability.
+
+**Scored hearing:** only the original TR digit/noise bank remains active. Newly supplied digits and the earlier EN/DE eSpeak banks remain inactive for scored testing. EN/DE scored digit tests fail closed until separate acoustic validation; ordinary male-voice guidance and the existing tone protocol remain separate. No SNR, gain, timing, scoring or threshold algorithm was changed.
+
+See [current integration evidence and limitations](APPROVED_AUDIO_INTEGRATION.md). The sections below describe the original `bb27283d` implementation and retained provenance, not permission to reactivate superseded speech paths.
+
 ## Actual voice selection
 
 The browser's real `speechSynthesis.getVoices()`/`voiceschanged` metadata is filtered to the exact selected locale. Web Speech does not standardize gender, so browser/system voices are labelled gender unknown; names are not used to guess. Missing requested voices and absent exact locales stop playback and produce an availability state. No other-language voice is silently selected. Installed Windows voices and AAOS voices are not presumed interchangeable. Online system speech containing response text needs an explicit additional voice-provider permission; existing health consent and safety checks still apply.
@@ -16,7 +30,7 @@ Optional free-text synthesis in `local_speech.py` uses installed eSpeak NG and F
 
 ## Hearing stimuli
 
-The original approved Turkish digit/noise assets are unchanged. EN/DE use **separate**, versioned newly synthesized 10-digit banks; a male voice is fixed for each bank, independently of narrator preference. Each WAV is mono 48 kHz, SHA-256 checked, RMS-normalized to the existing engineering target and checked for silence/clipping. The existing noise, pure tones, SNR mixing, scoring, calibration warnings and assessment algorithms are preserved. Result provenance records the bank version/hash and pending acceptance. These banks are **not** acoustically/clinically validated equivalents; this limitation is visible in the application. Cross-language thresholds must not be asserted clinically comparable.
+The original approved Turkish digit/noise assets are unchanged. The original localization commit generated **separate**, versioned EN/DE 10-digit banks; they are retained as inactive assets. Each WAV is mono 48 kHz, SHA-256 checked, RMS-normalized to the existing engineering target and checked for silence/clipping. Current scored playback rejects EN/DE banks pending separate acoustic validation. The existing noise, pure tones, SNR mixing, scoring, calibration warnings and assessment algorithms are preserved. These banks are **not** acoustically/clinically validated equivalents. Cross-language thresholds must not be asserted clinically comparable.
 
 `shared/localization/preserved-audio.json` records size/SHA-256 for all 83 pre-existing audio files captured before implementation. Tests rehash each file. The regeneration command refuses an existing output directory, generates EN/DE only, and cannot overwrite the approved TR bank:
 

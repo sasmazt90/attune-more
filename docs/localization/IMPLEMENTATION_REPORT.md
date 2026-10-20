@@ -1,5 +1,7 @@
 # TR / EN / DE localization implementation and acceptance
 
+**Current approved-recording integration:** see [194-recording acceptance report](APPROVED_AUDIO_INTEGRATION.md). It supersedes the historical eSpeak/global voice-selection and scored EN/DE digit-bank behavior described below. PR #5 remains draft. The following original implementation evidence belongs to `bb27283d` and is retained as history.
+
 **Engineering implementation verified in Cloud; draft integration pending platform speech/listening acceptance.** No merge or deployment is authorized by this report.
 
 Repository: `sasmazt90/attune-more`. Branch: `feature/localization-en-de-tr-20261020`. Integration base: `7ba4dfbad8b4916de1411e1a6e2980b814a3658c`. Current main was rechecked at `1ee2386efd3dc30fe8d5b0d2bbf336ac7f03c98e`; the integration base contains ten already-pushed AAOS commits beyond main. All eight observed remote branch tips are ancestors of that integration base. The PR therefore includes that previously unmerged AAOS history as well as the new localization commit.

@@ -449,8 +449,6 @@ async def mental_speech(payload: SpeechPayload):
         raise HTTPException(status_code=403, detail='CLOUD_CONSENT_REQUIRED')
     if vehicle_state['vehicleMoving']:
         raise HTTPException(status_code=409, detail='PARK_REQUIRED')
-    if payload.voiceId and payload.voiceId.startswith('espeak:'):
-        return await local_speech_response(payload.text,payload.voiceId,lambda:vehicle_state['vehicleMoving'])
     if payload.voiceId:return await edge_mental_speech(payload.text, lambda: vehicle_state['vehicleMoving'],payload.voiceId)
     return await edge_mental_speech(payload.text, lambda: vehicle_state['vehicleMoving'])
 

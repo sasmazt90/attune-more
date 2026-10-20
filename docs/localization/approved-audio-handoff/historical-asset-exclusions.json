@@ -1,0 +1,166 @@
+{
+  "excludedAudioFilesNotBundled": [
+    {
+      "filename": "tr-existing-guidance-care-entry.m4a",
+      "bytes": 157948,
+      "sha256": "bcaae69d7b94c984b69e5463a4e7bae487b3b4fb253cf1049262a5cf6c577880",
+      "classification": "Inactive or historical",
+      "reason": "Present in bank, but no dispatch in inspected frozen source; route/permitted guard additionally blocks cockpit/profile/care/record guidance",
+      "eventId": "guidance:care-entry",
+      "activeInFrozenApplication": false,
+      "sourceCommit": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a"
+    },
+    {
+      "filename": "tr-existing-guidance-care-select.m4a",
+      "bytes": 133180,
+      "sha256": "6328e7a6e1cb771b0e8f62191682761d230c21fed484e478e0bba497024121ed",
+      "classification": "Inactive or historical",
+      "reason": "Present in bank, but no dispatch in inspected frozen source; route/permitted guard additionally blocks cockpit/profile/care/record guidance",
+      "eventId": "guidance:care-select",
+      "activeInFrozenApplication": false,
+      "sourceCommit": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a"
+    },
+    {
+      "filename": "tr-existing-guidance-cockpit-entry.m4a",
+      "bytes": 113564,
+      "sha256": "f0c708539470719230c39c5ce510afcb59cd5adaf8afe47f69766ab8abfe1c14",
+      "classification": "Inactive or historical",
+      "reason": "Present in bank, but no dispatch in inspected frozen source; route/permitted guard additionally blocks cockpit/profile/care/record guidance",
+      "eventId": "guidance:cockpit-entry",
+      "activeInFrozenApplication": false,
+      "sourceCommit": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a"
+    },
+    {
+      "filename": "tr-existing-guidance-dental-complete.m4a",
+      "bytes": 181684,
+      "sha256": "d53291a62577e00382cd5dba42aac191a6135de96479958001b92dac6c55baf8",
+      "classification": "Inactive or historical",
+      "reason": "Present in bank, but no dispatch in inspected frozen source; route/permitted guard additionally blocks cockpit/profile/care/record guidance",
+      "eventId": "guidance:dental-complete",
+      "activeInFrozenApplication": false,
+      "sourceCommit": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a"
+    },
+    {
+      "filename": "tr-existing-guidance-dental-entry.m4a",
+      "bytes": 183224,
+      "sha256": "99ecdd1b490997468954cf087ef8424803ed3cd02d56c6cd9c4193210b5f43d1",
+      "classification": "Inactive or historical",
+      "reason": "Present in bank, but no dispatch in inspected frozen source; route/permitted guard additionally blocks cockpit/profile/care/record guidance",
+      "eventId": "guidance:dental-entry",
+      "activeInFrozenApplication": false,
+      "sourceCommit": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a"
+    },
+    {
+      "filename": "tr-existing-guidance-dental-upload.m4a",
+      "bytes": 157948,
+      "sha256": "221e965778f4539235955e17c3f411fd94e5b61cdfce16cee41808afe42fa137",
+      "classification": "Inactive or historical",
+      "reason": "Present in bank, but no dispatch in inspected frozen source; route/permitted guard additionally blocks cockpit/profile/care/record guidance",
+      "eventId": "guidance:dental-upload",
+      "activeInFrozenApplication": false,
+      "sourceCommit": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a"
+    },
+    {
+      "filename": "tr-existing-guidance-hearing-complete.m4a",
+      "bytes": 185812,
+      "sha256": "194843eb8e8c6c50ff1c55e00f790e627fadbe57c11705a6b88ebffa46ec6480",
+      "classification": "Inactive or historical",
+      "reason": "Present in bank, but no dispatch in inspected frozen source; route/permitted guard additionally blocks cockpit/profile/care/record guidance",
+      "eventId": "guidance:hearing-complete",
+      "activeInFrozenApplication": false,
+      "sourceCommit": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a"
+    },
+    {
+      "filename": "tr-existing-guidance-hearing-entry.m4a",
+      "bytes": 210580,
+      "sha256": "e98800e5fff5e59f3c321b3087028fab3d2c9b3c05a8392a4c745dd63b325683",
+      "classification": "Inactive or historical",
+      "reason": "Present in bank, but no dispatch in inspected frozen source; route/permitted guard additionally blocks cockpit/profile/care/record guidance",
+      "eventId": "guidance:hearing-entry",
+      "activeInFrozenApplication": false,
+      "sourceCommit": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a"
+    },
+    {
+      "filename": "tr-existing-guidance-profile-entry.m4a",
+      "bytes": 163624,
+      "sha256": "f6cd7bc1a36b90bd5dc396fa23ef131f84fc39d9f11ea519bcc7ef36adeeb271",
+      "classification": "Inactive or historical",
+      "reason": "Present in bank, but no dispatch in inspected frozen source; route/permitted guard additionally blocks cockpit/profile/care/record guidance",
+      "eventId": "guidance:profile-entry",
+      "activeInFrozenApplication": false,
+      "sourceCommit": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a"
+    },
+    {
+      "filename": "tr-existing-guidance-record-delete.m4a",
+      "bytes": 156400,
+      "sha256": "ee9c8df6c2a43f58e3804433d1e0121f5051d01e03b744ead02d843ae01fcfda",
+      "classification": "Inactive or historical",
+      "reason": "Present in bank, but no dispatch in inspected frozen source; route/permitted guard additionally blocks cockpit/profile/care/record guidance",
+      "eventId": "guidance:record-delete",
+      "activeInFrozenApplication": false,
+      "sourceCommit": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a"
+    },
+    {
+      "filename": "tr-existing-guidance-record-open.m4a",
+      "bytes": 131632,
+      "sha256": "67250f0815ded1fd2bd8f8cc43b9f2f09d6729bec1bad70e7c19417df7621dd0",
+      "classification": "Inactive or historical",
+      "reason": "Present in bank, but no dispatch in inspected frozen source; route/permitted guard additionally blocks cockpit/profile/care/record guidance",
+      "eventId": "guidance:record-open",
+      "activeInFrozenApplication": false,
+      "sourceCommit": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a"
+    },
+    {
+      "filename": "tr-existing-guidance-skin-complete.m4a",
+      "bytes": 162592,
+      "sha256": "6be058b0292ec27b997382ae798daea6c98a3ac3e3b483e7578b9314370b6cf2",
+      "classification": "Inactive or historical",
+      "reason": "Present in bank, but no dispatch in inspected frozen source; route/permitted guard additionally blocks cockpit/profile/care/record guidance",
+      "eventId": "guidance:skin-complete",
+      "activeInFrozenApplication": false,
+      "sourceCommit": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a"
+    },
+    {
+      "filename": "tr-existing-guidance-skin-entry.m4a",
+      "bytes": 162076,
+      "sha256": "4d6f786e2cc69cdbaadec7912a2dc13d3877f379f7dc71ebefe4dcf6c91f9f6e",
+      "classification": "Inactive or historical",
+      "reason": "Present in bank, but no dispatch in inspected frozen source; route/permitted guard additionally blocks cockpit/profile/care/record guidance",
+      "eventId": "guidance:skin-entry",
+      "activeInFrozenApplication": false,
+      "sourceCommit": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a"
+    },
+    {
+      "filename": "tr-existing-guidance-skin-front.m4a",
+      "bytes": 219352,
+      "sha256": "a5134abfc2dfb9698c65c567aa2492a9e3254f16f04094b369684152f728af67",
+      "classification": "Conflicting",
+      "reason": "Event is active; historical intended Ahmet voice conflicts with new Emel-for-Skin policy. Keep as reference, not selected candidate",
+      "eventId": "guidance:skin-front",
+      "activeInFrozenApplication": true,
+      "sourceCommit": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a"
+    },
+    {
+      "filename": "tr-existing-guidance-skin-left.m4a",
+      "bytes": 117700,
+      "sha256": "a07e782b0f009a9d218251a4a6d47b556d9c021f6e353f99558bd39b184ec07a",
+      "classification": "Conflicting",
+      "reason": "Event is active; historical intended Ahmet voice conflicts with new Emel-for-Skin policy. Keep as reference, not selected candidate",
+      "eventId": "guidance:skin-left",
+      "activeInFrozenApplication": true,
+      "sourceCommit": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a"
+    },
+    {
+      "filename": "tr-existing-guidance-skin-right.m4a",
+      "bytes": 117700,
+      "sha256": "eb828e9d88031ed3b69bb35e0b1fc95b3c77488585e8c215184baa2651b7c7c2",
+      "classification": "Conflicting",
+      "reason": "Event is active; historical intended Ahmet voice conflicts with new Emel-for-Skin policy. Keep as reference, not selected candidate",
+      "eventId": "guidance:skin-right",
+      "activeInFrozenApplication": true,
+      "sourceCommit": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a"
+    }
+  ],
+  "policy": "13inactive events and3legacy Skin male-voice references remain preserved locally; no inactive cockpit announcement is introduced",
+  "originalHistoricalAssetsDeleted": false
+}

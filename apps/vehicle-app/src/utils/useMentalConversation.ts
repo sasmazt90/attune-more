@@ -7,8 +7,8 @@ import {serviceAllowed,useServiceAllowed} from './serviceConsent';
 import {speechMuted} from './playbackMeter';
 import { spokenText } from './spokenText';
 import { streamSpeech } from './streamSpeech';
-import {systemSpeech} from '../i18n/systemSpeech';
-import {voicePreference} from '../i18n/voices';
+import {approvedMentalTemplate,mentalVoiceContract} from '../i18n/approvedAudio';
+import {playFixedSpeech} from './fixedFileSpeech';
 import {cancelQueuedSessionSpeech} from '../i18n/sessionSpeech';
 
 import { useEffect, useRef, useState } from 'react';
@@ -44,7 +44,7 @@ export function useMentalConversation(parked: boolean) {
   const [voiceEnabled, setVoiceEnabled] = useState(!speechMuted());
   const [cloudConsent, setCloudConsent] = useState(false);
   const [speechConsent, setSpeechConsent] = useState(false);
-  const speechSource = ['approved','edge'].includes(voicePreference().provider)?'microsoft':voicePreference().provider;
+  const speechSource = 'microsoft';
   const [history, setHistory] = useState<MentalHistoryItem[]>([]);
   const [summary, setSummary] = useState<MentalHistoryItem | null>(null);
   const [provider, setProvider] = useState({ apiKeyConfigured: false, providerName: 'Yerel Kural Motoru (Demo)' });
@@ -154,14 +154,17 @@ export function useMentalConversation(parked: boolean) {
       const controller = new AbortController(); r.controller = controller;
       const deadline = setTimeout(() => controller.abort(), 30000);
       try {
-        const preference=voicePreference();
-        if(preference.provider==='system'){
-          const played=await systemSpeech(text,controller.signal,current,()=>{if(current()){timing('playing');setPhase('speaking');setVoiceState('speaking');}},true);
+        const clip=approvedMentalTemplate(getLanguage(),text);
+        if(clip){
+          const audio=new Audio();r.audio=audio;audio.dataset.recordingId=clip.recordingId;
+          const played=await playFixedSpeech(audio,clip,controller.signal,current,stage=>{if(current()){timing(stage);if(stage==='playing'){setPhase('speaking');setVoiceState('speaking');}}},true);
           if(played)end();else fail();return;
         }
+        const contract=mentalVoiceContract(getLanguage());
+        if(!contract?.providerVoiceId)throw Error('EXACT_FEMALE_DYNAMIC_VOICE_UNVERIFIED');
         timing('tts-request');
         const response = await fetch(API + '/speech', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text, cloudConsent: true, ...(['edge','local'].includes(voicePreference().provider)?{voiceId:voicePreference().voiceId}:{}) }), signal: controller.signal });
+          body: JSON.stringify({ text, cloudConsent: true, voiceId:contract.providerVoiceId }), signal: controller.signal });
         timing('tts-headers');
         if (!response.ok) throw new Error('Microsoft exact voice unavailable');
         if (!current()) { await response.body?.cancel(); return; }
@@ -322,6 +325,7 @@ export function useMentalConversation(parked: boolean) {
   }, []);
   useEffect(() => { if (!parked && (runtime.current.active || phase === 'ending')) actions.current.cancel('Sürüş geçişinde görüşme güvenle kapatıldı. Park ettiğinizde yeni görüşme başlatabilirsiniz.'); }, [parked, phase]);
   useEffect(() => { if (!voiceEnabled) actions.current.audioOff(); }, [voiceEnabled]);
+  useEffect(()=>{const hidden=()=>{if(document.hidden&&runtime.current.active)actions.current.pause();};document.addEventListener('visibilitychange',hidden);return()=>document.removeEventListener('visibilitychange',hidden);},[]);
   useEffect(()=>{const changed=()=>cancelQueuedSessionSpeech(runtime.current,{
     pause:()=>actions.current.pause(),
     crisis:()=>actions.current.cancel('Normal görüşme durduruldu. Acil Kriz Destek: 112 Acil Çağrı.'),

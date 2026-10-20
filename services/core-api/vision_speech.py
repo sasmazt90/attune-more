@@ -84,7 +84,22 @@ async def response(code,moving,voice_id=None):
  return await speech_response(PROMPTS[code],VISION_TTS_PROFILE,moving)
 
 async def mental_response(text,moving,voice_id=None):
- profile=await localized_profile(MENTAL_WELLBEING_TTS_PROFILE,voice_id) if current_language()!='tr' or voice_id else MENTAL_WELLBEING_TTS_PROFILE
+ # Fixed exports do not confer live TTS availability. Read only the owner's
+ # explicit provider ID; never infer Katja/Stefan from a desktop voice name.
+ bank=Path(__file__).resolve().parents[2]/'apps/vehicle-app/public/audio/user-approved/tr-en-de-20261020-v1/manifest.json'
+ try:
+  data=json.loads(bank.read_text('utf8'));language=current_language()
+  mapping=next(m for m in data['activeGuidanceMappings'] if m['language']==language and m['module']=='Mental Health' and m['eventId']=='guidance:mental-entry')
+  recording=next(r for r in data['recordings'] if r['recordingId']==mapping['recordingId'])
+  exact=recording['providerVoiceId']
+ except (OSError,ValueError,KeyError,StopIteration,TypeError):
+  raise HTTPException(status_code=503,detail='APPROVED_MENTAL_VOICE_CONTRACT_UNAVAILABLE') from None
+ if moving():raise HTTPException(status_code=409,detail='PARK_REQUIRED')
+ if not exact:raise HTTPException(status_code=503,detail='EXACT_FEMALE_DYNAMIC_VOICE_UNVERIFIED')
+ if voice_id and voice_id!=exact:raise HTTPException(status_code=422,detail='EXACT_APPROVED_MENTAL_VOICE_REQUIRED')
+ # Ada is explicitly en-GB with application locale en-US. speech_response
+ # still verifies the exact ID against the real catalogue before synthesis.
+ profile=SpeechProfile(exact,MENTAL_WELLBEING_TTS_PROFILE.rate,MENTAL_WELLBEING_TTS_PROFILE.pitch)
  return await speech_response(text,profile,moving)
 
 async def available_voices():

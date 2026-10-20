@@ -1,0 +1,122 @@
+[
+  {
+    "check": "actual abort cancellation",
+    "status": "PASS",
+    "played": false,
+    "events": [
+      {
+        "id": "mental-entry",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "en-ada-guidance-mental-entry",
+        "voice": "Microsoft Ada Multilingual",
+        "locale": "en-US"
+      }
+    ]
+  },
+  {
+    "check": "actual mute cancellation",
+    "status": "PASS",
+    "played": false,
+    "events": [
+      {
+        "id": "mental-entry",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "en-ada-guidance-mental-entry",
+        "voice": "Microsoft Ada Multilingual",
+        "locale": "en-US"
+      },
+      {
+        "id": "mental-entry",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "en-ada-guidance-mental-entry",
+        "voice": "Microsoft Ada Multilingual",
+        "locale": "en-US"
+      }
+    ]
+  },
+  {
+    "check": "actual language cancellation",
+    "status": "PASS",
+    "played": false,
+    "events": [
+      {
+        "id": "mental-entry",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "en-ada-guidance-mental-entry",
+        "voice": "Microsoft Ada Multilingual",
+        "locale": "en-US"
+      },
+      {
+        "id": "mental-entry",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "en-ada-guidance-mental-entry",
+        "voice": "Microsoft Ada Multilingual",
+        "locale": "en-US"
+      },
+      {
+        "id": "mental-entry",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "en-ada-guidance-mental-entry",
+        "voice": "Microsoft Ada Multilingual",
+        "locale": "en-US"
+      }
+    ]
+  },
+  {
+    "check": "actual navigation cancellation",
+    "status": "PASS",
+    "played": false,
+    "events": [
+      {
+        "id": "mental-entry",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "en-ada-guidance-mental-entry",
+        "voice": "Microsoft Ada Multilingual",
+        "locale": "en-US"
+      },
+      {
+        "id": "mental-entry",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "en-ada-guidance-mental-entry",
+        "voice": "Microsoft Ada Multilingual",
+        "locale": "en-US"
+      },
+      {
+        "id": "mental-entry",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "en-ada-guidance-mental-entry",
+        "voice": "Microsoft Ada Multilingual",
+        "locale": "en-US"
+      },
+      {
+        "id": "mental-entry",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "en-ada-guidance-mental-entry",
+        "voice": "Microsoft Ada Multilingual",
+        "locale": "en-US"
+      }
+    ]
+  },
+  {
+    "check": "actual background cancellation",
+    "status": "UNVERIFIED",
+    "reason": "Headless Chrome does not expose hidden state for this tab"
+  },
+  {
+    "check": "browser errors and capture boundary",
+    "status": "PASS",
+    "errors": [],
+    "blockedExternalRequests": [],
+    "captureAttempts": 0
+  }
+]

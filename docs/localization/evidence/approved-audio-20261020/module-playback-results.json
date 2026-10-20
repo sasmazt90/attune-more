@@ -1,0 +1,433 @@
+[
+  {
+    "check": "194 actual browser fetch/hash/decode",
+    "status": "PASS",
+    "files": 194
+  },
+  {
+    "check": "actual module recording playback",
+    "status": "PASS",
+    "language": "tr",
+    "module": "skin",
+    "event": "guidance:skin-neutral",
+    "recordingId": "tr-emel-guidance-skin-neutral",
+    "voice": "Microsoft Emel Neural",
+    "voiceLocale": "tr-TR",
+    "applicationLocale": "tr-TR",
+    "events": [
+      {
+        "id": "skin-neutral",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "tr-emel-guidance-skin-neutral",
+        "voice": "Microsoft Emel Neural",
+        "locale": "tr-TR"
+      },
+      {
+        "id": "skin-neutral",
+        "event": "ended",
+        "source": "user-approved-recordings",
+        "recordingId": "tr-emel-guidance-skin-neutral",
+        "voice": "Microsoft Emel Neural",
+        "locale": "tr-TR"
+      }
+    ],
+    "screenshot": "screenshots/tr-skin.png"
+  },
+  {
+    "check": "actual module recording playback",
+    "status": "PASS",
+    "language": "tr",
+    "module": "dental",
+    "event": "guidance:dental-front",
+    "recordingId": "tr-ahmet-guidance-dental-front",
+    "voice": "Microsoft Ahmet Neural",
+    "voiceLocale": "tr-TR",
+    "applicationLocale": "tr-TR",
+    "events": [
+      {
+        "id": "dental-front",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "tr-ahmet-guidance-dental-front",
+        "voice": "Microsoft Ahmet Neural",
+        "locale": "tr-TR"
+      },
+      {
+        "id": "dental-front",
+        "event": "ended",
+        "source": "user-approved-recordings",
+        "recordingId": "tr-ahmet-guidance-dental-front",
+        "voice": "Microsoft Ahmet Neural",
+        "locale": "tr-TR"
+      }
+    ],
+    "screenshot": "screenshots/tr-dental.png"
+  },
+  {
+    "check": "actual module recording playback",
+    "status": "PASS",
+    "language": "tr",
+    "module": "vision",
+    "event": "vision:next1",
+    "recordingId": "tr-ahmet-vision-next1",
+    "voice": "Microsoft Ahmet Neural",
+    "voiceLocale": "tr-TR",
+    "applicationLocale": "tr-TR",
+    "events": [
+      {
+        "event": "playing",
+        "recordingId": "tr-ahmet-vision-next1"
+      },
+      {
+        "event": "ended",
+        "recordingId": "tr-ahmet-vision-next1"
+      }
+    ],
+    "screenshot": "screenshots/tr-vision.png"
+  },
+  {
+    "check": "actual module recording playback",
+    "status": "PASS",
+    "language": "tr",
+    "module": "hearing",
+    "event": "guidance:hearing-tone",
+    "recordingId": "tr-ahmet-guidance-hearing-tone",
+    "voice": "Microsoft Ahmet Neural",
+    "voiceLocale": "tr-TR",
+    "applicationLocale": "tr-TR",
+    "events": [
+      {
+        "id": "hearing-tone",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "tr-ahmet-guidance-hearing-tone",
+        "voice": "Microsoft Ahmet Neural",
+        "locale": "tr-TR"
+      },
+      {
+        "id": "hearing-tone",
+        "event": "ended",
+        "source": "user-approved-recordings",
+        "recordingId": "tr-ahmet-guidance-hearing-tone",
+        "voice": "Microsoft Ahmet Neural",
+        "locale": "tr-TR"
+      }
+    ],
+    "screenshot": "screenshots/tr-hearing.png"
+  },
+  {
+    "check": "actual module recording playback",
+    "status": "PASS",
+    "language": "tr",
+    "module": "mental",
+    "event": "guidance:mental-entry",
+    "recordingId": "tr-emel-guidance-mental-entry",
+    "voice": "Microsoft Emel Neural",
+    "voiceLocale": "tr-TR",
+    "applicationLocale": "tr-TR",
+    "events": [
+      {
+        "id": "mental-entry",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "tr-emel-guidance-mental-entry",
+        "voice": "Microsoft Emel Neural",
+        "locale": "tr-TR"
+      },
+      {
+        "id": "mental-entry",
+        "event": "ended",
+        "source": "user-approved-recordings",
+        "recordingId": "tr-emel-guidance-mental-entry",
+        "voice": "Microsoft Emel Neural",
+        "locale": "tr-TR"
+      }
+    ],
+    "screenshot": "screenshots/tr-mental.png"
+  },
+  {
+    "check": "actual module recording playback",
+    "status": "PASS",
+    "language": "en",
+    "module": "skin",
+    "event": "guidance:skin-neutral",
+    "recordingId": "en-ada-guidance-skin-neutral",
+    "voice": "Microsoft Ada Multilingual",
+    "voiceLocale": "en-GB",
+    "applicationLocale": "en-US",
+    "events": [
+      {
+        "id": "skin-neutral",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "en-ada-guidance-skin-neutral",
+        "voice": "Microsoft Ada Multilingual",
+        "locale": "en-US"
+      },
+      {
+        "id": "skin-neutral",
+        "event": "ended",
+        "source": "user-approved-recordings",
+        "recordingId": "en-ada-guidance-skin-neutral",
+        "voice": "Microsoft Ada Multilingual",
+        "locale": "en-US"
+      }
+    ],
+    "screenshot": "screenshots/en-skin.png"
+  },
+  {
+    "check": "actual module recording playback",
+    "status": "PASS",
+    "language": "en",
+    "module": "dental",
+    "event": "guidance:dental-front",
+    "recordingId": "en-andrew-guidance-dental-front",
+    "voice": "Microsoft Andrew Multilingual",
+    "voiceLocale": "en-US",
+    "applicationLocale": "en-US",
+    "events": [
+      {
+        "id": "dental-front",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "en-andrew-guidance-dental-front",
+        "voice": "Microsoft Andrew Multilingual",
+        "locale": "en-US"
+      },
+      {
+        "id": "dental-front",
+        "event": "ended",
+        "source": "user-approved-recordings",
+        "recordingId": "en-andrew-guidance-dental-front",
+        "voice": "Microsoft Andrew Multilingual",
+        "locale": "en-US"
+      }
+    ],
+    "screenshot": "screenshots/en-dental.png"
+  },
+  {
+    "check": "actual module recording playback",
+    "status": "PASS",
+    "language": "en",
+    "module": "vision",
+    "event": "vision:next1",
+    "recordingId": "en-andrew-vision-next1",
+    "voice": "Microsoft Andrew Multilingual",
+    "voiceLocale": "en-US",
+    "applicationLocale": "en-US",
+    "events": [
+      {
+        "event": "playing",
+        "recordingId": "en-andrew-vision-next1"
+      },
+      {
+        "event": "ended",
+        "recordingId": "en-andrew-vision-next1"
+      }
+    ],
+    "screenshot": "screenshots/en-vision.png"
+  },
+  {
+    "check": "actual module recording playback",
+    "status": "PASS",
+    "language": "en",
+    "module": "hearing",
+    "event": "guidance:hearing-tone",
+    "recordingId": "en-andrew-guidance-hearing-tone",
+    "voice": "Microsoft Andrew Multilingual",
+    "voiceLocale": "en-US",
+    "applicationLocale": "en-US",
+    "events": [
+      {
+        "id": "hearing-tone",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "en-andrew-guidance-hearing-tone",
+        "voice": "Microsoft Andrew Multilingual",
+        "locale": "en-US"
+      },
+      {
+        "id": "hearing-tone",
+        "event": "ended",
+        "source": "user-approved-recordings",
+        "recordingId": "en-andrew-guidance-hearing-tone",
+        "voice": "Microsoft Andrew Multilingual",
+        "locale": "en-US"
+      }
+    ],
+    "screenshot": "screenshots/en-hearing.png"
+  },
+  {
+    "check": "actual module recording playback",
+    "status": "PASS",
+    "language": "en",
+    "module": "mental",
+    "event": "guidance:mental-entry",
+    "recordingId": "en-ada-guidance-mental-entry",
+    "voice": "Microsoft Ada Multilingual",
+    "voiceLocale": "en-GB",
+    "applicationLocale": "en-US",
+    "events": [
+      {
+        "id": "mental-entry",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "en-ada-guidance-mental-entry",
+        "voice": "Microsoft Ada Multilingual",
+        "locale": "en-US"
+      },
+      {
+        "id": "mental-entry",
+        "event": "ended",
+        "source": "user-approved-recordings",
+        "recordingId": "en-ada-guidance-mental-entry",
+        "voice": "Microsoft Ada Multilingual",
+        "locale": "en-US"
+      }
+    ],
+    "screenshot": "screenshots/en-mental.png"
+  },
+  {
+    "check": "actual module recording playback",
+    "status": "PASS",
+    "language": "de",
+    "module": "skin",
+    "event": "guidance:skin-neutral",
+    "recordingId": "de-katja-guidance-skin-neutral",
+    "voice": "Microsoft Katja",
+    "voiceLocale": "de-DE",
+    "applicationLocale": "de-DE",
+    "events": [
+      {
+        "id": "skin-neutral",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "de-katja-guidance-skin-neutral",
+        "voice": "Microsoft Katja",
+        "locale": "de-DE"
+      },
+      {
+        "id": "skin-neutral",
+        "event": "ended",
+        "source": "user-approved-recordings",
+        "recordingId": "de-katja-guidance-skin-neutral",
+        "voice": "Microsoft Katja",
+        "locale": "de-DE"
+      }
+    ],
+    "screenshot": "screenshots/de-skin.png"
+  },
+  {
+    "check": "actual module recording playback",
+    "status": "PASS",
+    "language": "de",
+    "module": "dental",
+    "event": "guidance:dental-front",
+    "recordingId": "de-stefan-guidance-dental-front",
+    "voice": "Microsoft Stefan",
+    "voiceLocale": "de-DE",
+    "applicationLocale": "de-DE",
+    "events": [
+      {
+        "id": "dental-front",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "de-stefan-guidance-dental-front",
+        "voice": "Microsoft Stefan",
+        "locale": "de-DE"
+      },
+      {
+        "id": "dental-front",
+        "event": "ended",
+        "source": "user-approved-recordings",
+        "recordingId": "de-stefan-guidance-dental-front",
+        "voice": "Microsoft Stefan",
+        "locale": "de-DE"
+      }
+    ],
+    "screenshot": "screenshots/de-dental.png"
+  },
+  {
+    "check": "actual module recording playback",
+    "status": "PASS",
+    "language": "de",
+    "module": "vision",
+    "event": "vision:next1",
+    "recordingId": "de-stefan-vision-next1",
+    "voice": "Microsoft Stefan",
+    "voiceLocale": "de-DE",
+    "applicationLocale": "de-DE",
+    "events": [
+      {
+        "event": "playing",
+        "recordingId": "de-stefan-vision-next1"
+      },
+      {
+        "event": "ended",
+        "recordingId": "de-stefan-vision-next1"
+      }
+    ],
+    "screenshot": "screenshots/de-vision.png"
+  },
+  {
+    "check": "actual module recording playback",
+    "status": "PASS",
+    "language": "de",
+    "module": "hearing",
+    "event": "guidance:hearing-tone",
+    "recordingId": "de-stefan-guidance-hearing-tone",
+    "voice": "Microsoft Stefan",
+    "voiceLocale": "de-DE",
+    "applicationLocale": "de-DE",
+    "events": [
+      {
+        "id": "hearing-tone",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "de-stefan-guidance-hearing-tone",
+        "voice": "Microsoft Stefan",
+        "locale": "de-DE"
+      },
+      {
+        "id": "hearing-tone",
+        "event": "ended",
+        "source": "user-approved-recordings",
+        "recordingId": "de-stefan-guidance-hearing-tone",
+        "voice": "Microsoft Stefan",
+        "locale": "de-DE"
+      }
+    ],
+    "screenshot": "screenshots/de-hearing.png"
+  },
+  {
+    "check": "actual module recording playback",
+    "status": "PASS",
+    "language": "de",
+    "module": "mental",
+    "event": "guidance:mental-entry",
+    "recordingId": "de-katja-guidance-mental-entry",
+    "voice": "Microsoft Katja",
+    "voiceLocale": "de-DE",
+    "applicationLocale": "de-DE",
+    "events": [
+      {
+        "id": "mental-entry",
+        "event": "playing",
+        "source": "user-approved-recordings",
+        "recordingId": "de-katja-guidance-mental-entry",
+        "voice": "Microsoft Katja",
+        "locale": "de-DE"
+      },
+      {
+        "id": "mental-entry",
+        "event": "ended",
+        "source": "user-approved-recordings",
+        "recordingId": "de-katja-guidance-mental-entry",
+        "voice": "Microsoft Katja",
+        "locale": "de-DE"
+      }
+    ],
+    "screenshot": "screenshots/de-mental.png"
+  }
+]
