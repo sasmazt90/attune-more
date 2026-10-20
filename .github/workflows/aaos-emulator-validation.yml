@@ -2,7 +2,17 @@ name: AAOS emulator validation (manual only)
 
 on:
   workflow_dispatch:
+    inputs:
+      expected_source_sha:
+        description: Exact approved source SHA (required for integrated localization acceptance)
+        type: string
+        required: false
   workflow_call:
+    inputs:
+      expected_source_sha:
+        type: string
+        required: false
+        default: ''
 
 permissions:
   contents: read
@@ -18,7 +28,7 @@ jobs:
       github.event_name == 'workflow_dispatch' &&
       github.repository == 'sasmazt90/attune-more' &&
       github.event.repository.private == false &&
-      github.ref == 'refs/heads/feature/aaos-oem-agnostic-prototype-20261019'
+      contains(fromJSON('["refs/heads/feature/aaos-oem-agnostic-prototype-20261019","refs/heads/feature/localization-en-de-tr-20261020"]'), github.ref)
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     defaults:
@@ -34,12 +44,20 @@ jobs:
       MKL_NUM_THREADS: '2'
     steps:
       - name: Record single-run authorization and initialize isolated paths
+        env:
+          EXPECTED_SOURCE_SHA: ${{ inputs.expected_source_sha }}
         run: |
           if [[ "$GITHUB_RUN_ATTEMPT" != 1 ]]; then
             echo 'BLOCKED: only the initial manual run is authorized; no rerun.' | tee -a "$GITHUB_STEP_SUMMARY"
             exit 69
           fi
-          echo 'Owner authorized one bounded run with limited artifact billing risk; zero additional cost is not guaranteed.' >> "$GITHUB_STEP_SUMMARY"
+          if [[ "$GITHUB_REF" == refs/heads/feature/localization-en-de-tr-20261020 ]]; then
+            [[ "$EXPECTED_SOURCE_SHA" =~ ^[0-9a-f]{40}$ && "$EXPECTED_SOURCE_SHA" == "$GITHUB_SHA" ]] || {
+              echo 'BLOCKED: exact approved integrated source SHA is required.' >> "$GITHUB_STEP_SUMMARY"
+              exit 69
+            }
+          fi
+          echo 'Manual dispatch must have separate owner approval for this source. Standard runner only; zero additional artifact cost is not guaranteed.' >> "$GITHUB_STEP_SUMMARY"
           echo "ATTUNE_AAOS_EVIDENCE=$RUNNER_TEMP/attune-aaos-evidence" >> "$GITHUB_ENV"
           echo "ATTUNE_DATA_DIR=$RUNNER_TEMP/attune-aaos-private-data" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
@@ -134,7 +152,9 @@ jobs:
           size = sum(p.stat().st_size for p in files)
           # Reserve 1 MiB for deflate expansion and ZIP headers, keeping the
           # resulting hosted artifact below the owner's 50 MiB ceiling.
-          assert len(files) <= 256 and all(len(str(p.relative_to(root)).encode()) <= 200 for p in files)
+          # 27 localized route captures add three evidence files each. At 512
+          # bounded names, ZIP headers still fit the reserved 1 MiB allowance.
+          assert len(files) <= 512 and all(len(str(p.relative_to(root)).encode()) <= 200 for p in files)
           assert 0 < size <= 49 * 1024 * 1024, f'BLOCKED artifact upload: {size} source bytes; 49 MiB plus ZIP overhead must fit 50 MiB'
           PY
       - name: Downloadable synthetic-only evidence (expires after one day)

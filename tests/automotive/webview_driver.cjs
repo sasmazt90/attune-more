@@ -7,6 +7,7 @@ const { URL } = require('node:url');
 const PACKAGE = 'more.attune.automotive.prototype.debug';
 const ORIGIN = 'http://localhost:3000';
 const ROUTES = new Set(['/', '/skin', '/dental', '/vision', '/hearing', '/mental', '/care', '/profile', '/privacy']);
+const localized = require('./localized_webview.cjs');
 
 function mediaConstraints(features) {
   if (features.microphone === 'true') return { audio: true, video: false };
@@ -24,21 +25,25 @@ function allowedResource(value) {
 
 async function navigate(page, routePath) {
   if (!ROUTES.has(routePath)) throw Error('Route outside the finite acceptance list');
+  const language = await page.locator('#attune-language').inputValue();
+  localized.validate(language);
+  if (routePath === '/' && page.url() !== ORIGIN + '/') await page.locator('header a[href="/"]').first().click();
   if (routePath !== '/') {
     // Privacy is a footer destination; health modules are in the closed menu.
     const link = page.locator(`${routePath === '/privacy' ? 'footer' : 'nav'} a[href="${routePath}"]`);
     if (!await link.count()) {
-      const menu = page.getByRole('button', { name: 'Sağlık Merkezi', exact: true });
+      const menu = page.getByRole('button', { name: {tr:'Sağlık Merkezi',en:'Health Center',de:'Gesundheitszentrum'}[language], exact: true });
       if (await menu.getAttribute('aria-expanded') !== 'true') await menu.click();
     }
     await link.click();
   }
   await page.waitForURL(ORIGIN + routePath);
-  const accept = page.getByRole('button', { name: 'İzin ver ve devam et', exact: true });
+  const acceptName = {tr:'İzin ver ve devam et',en:'Allow and continue',de:'Erlauben und fortfahren'}[language];
+  const accept = page.getByRole('button', { name: acceptName, exact: true });
   const gate = page.getByRole('dialog').filter({ has: accept });
   if (await gate.count()) {
     for (const box of await gate.getByRole('checkbox').all()) await box.check();
-    await gate.getByRole('button', { name: 'İzin ver ve devam et', exact: true }).click();
+    await gate.getByRole('button', { name: acceptName, exact: true }).click();
     await gate.waitFor({ state: 'hidden' });
   }
   await page.locator('h1').first().waitFor({ state: 'visible' });
@@ -91,6 +96,9 @@ async function serve() {
     }
     if (action === 'wait-url') { await page.waitForURL(ORIGIN + args.route); return page.url(); }
     if (action === 'navigate') return navigate(page, args.route);
+    if (action === 'localization-language') return localized.language(page,args.language);
+    if (action === 'localization-recording') return localized.recording(page,args.language,args.module);
+    if (action === 'localization-decode') return localized.decode(page);
     if (action === 'permission-start') {
       const constraints = mediaConstraints(args.features);
       if (!constraints) throw Error('No advertised media hardware to exercise an OS request');

@@ -258,5 +258,9 @@
   "2aa9b454f1739962": {
     "source": "\\b(dönerim|döneceğim|sonra gelirim|sonra dönerim|ara verelim mi)\\b",
     "reason": "Internal conversation-control regex; never displayed, EN/DE controls are mapped separately"
+  },
+  "e5ab0705e057bec5": {
+    "source": "(?:bitte )?(?:ich (?:möchte|will) (?:das )?gespräch(?: jetzt)? beenden|(?:das )?gespräch(?: jetzt)? beenden|beenden sie(?: bitte)? (?:das )?gespräch)",
+    "reason": "Internal full-utterance German termination grammar; not displayed or translated."
   }
 }

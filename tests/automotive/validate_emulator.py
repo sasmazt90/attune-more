@@ -28,7 +28,7 @@ CHECKS = [
     'webview-backend', 'navigation', 'backend-moving-lock', 'platform-moving-lock',
     'background-lifecycle', 'backend-offline', 'web-load-error-recovery',
     'permissions-initial', 'permissions-denial', 'unsupported-hardware', 'crashes-console',
-    'evidence-capture',
+    'evidence-capture', 'localized-webview-audio',
 ]
 ROUTES = ['/', '/skin', '/dental', '/vision', '/hearing', '/mental', '/care', '/profile', '/privacy']
 
@@ -774,6 +774,40 @@ class Assessment:
                 return True  # Destroyed WebView can close its endpoint.
             raise Blocked('Cannot observe WebView target destruction: ' + str(error)) from error
 
+    def localized_webview_audio(self):
+        """Fresh actual runtime acceptance; never infer this from desktop Chrome."""
+        client = self.parked_page()
+        languages, playbacks, navigation = [], [], []
+        native_park = {'tr': 'PARK doğrulandı', 'en': 'PARK verified', 'de': 'PARK bestätigt'}
+        try:
+            decoded = client.request('localization-decode', timeout=90)
+            self.save('localized-audio-decode.json', json.dumps(decoded, ensure_ascii=False, indent=2))
+            assert len(decoded) == 194 and all(r['status'] == 'PASS' for r in decoded), 'Real WebView approved audio decode/integrity failed; see all 194 observations'
+            for language in ('tr', 'en', 'de'):
+                languages.append(client.request('localization-language', language=language))
+                self.wait(lambda: native_park[language] in self.ui(), 15,
+                          label='actual native toolbar/status locale ' + language)
+                for route in ROUTES:
+                    result = client.request('navigate', route=route)
+                    result['language'] = language
+                    navigation.append(result)
+                    module = route.strip('/')
+                    if module in ('skin', 'dental', 'vision', 'hearing', 'mental'):
+                        playback = client.request('localization-recording', timeout=40,
+                                                  language=language, module=module)
+                        playbacks.append(playback)
+                        self.save('localized-audio-playback.json', json.dumps(playbacks, ensure_ascii=False, indent=2))
+                        assert playback['status'] == 'PASS', playback
+                    self.capture('localized-' + language + '-' + (module or 'dashboard'))
+            assert len(decoded) == 194 and len(playbacks) == 15 and len(navigation) == 27
+            return 'Real Android WebView:194 approved AAC decodes,15 actual playback cases,27 localized routes and native TR/EN/DE status observed; no microphone/STT/live TTS claim.'
+        finally:
+            self.save('localized-language.json', json.dumps(languages, ensure_ascii=False, indent=2))
+            self.save('localized-navigation.json', json.dumps(navigation, ensure_ascii=False, indent=2))
+            # Existing independent safety diagnostics deliberately use their
+            # historical Turkish labels; reset only the synthetic preference.
+            client.request('localization-language', language='tr')
+
     def backend_offline(self):
         self.parked_page()
         fault = {'method': 'stop only harness-owned backend; keep adb reverse mapping',
@@ -941,6 +975,7 @@ class Assessment:
             self.check('permissions-initial', self.permissions_denied, ['apk-install'])
             self.check('permissions-denial', self.permission_request, ['webview-backend', 'permissions-initial'])
             self.check('unsupported-hardware', self.unsupported, ['platform-parked'])
+            self.check('localized-webview-audio', self.localized_webview_audio, ['webview-backend', 'navigation'])
             self.check('crashes-console', self.crash_console, ['webview-backend'])
             self.check('evidence-capture', self.evidence_quality, ['navigation'], capture=False)
         finally:

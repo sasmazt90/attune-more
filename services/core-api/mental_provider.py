@@ -26,6 +26,7 @@ from openai_client import get_openai_client
 import unicodedata
 import re
 import json
+from pathlib import Path
 from abc import ABC, abstractmethod
 from typing import Dict, Any, List, Optional
 from datetime import datetime
@@ -43,6 +44,11 @@ CRISIS_KEYWORDS = [
     "kendimi asmak",
     "ilaç içip ölmek"
 ]
+
+# Explicit urgent danger plus a request for urgent help. Uncertainty alone is
+# not classified as an emergency, and this rule makes no self-harm diagnosis.
+URGENT_SAFETY_PATTERNS = json.loads((Path(__file__).resolve().parents[2] /
+    'shared/localization/urgent-safety.json').read_text('utf-8'))
 
 class MentalConversationProvider(ABC):
     @abstractmethod
@@ -365,10 +371,14 @@ def check_mental_crisis(text: str, is_driving: bool, live_client: Optional[Any] 
     Katman 2: Yapılandırılmış güvenlik seviyesi.
     """
     candidates = (normalize_crisis_text(text), normalize_crisis_text(text, turkish=False))
+    urgent_safety = any(all(re.search(pattern, candidates[1]) for pattern in pair)
+                        for pair in URGENT_SAFETY_PATTERNS.values())
+    self_harm_signal = any(normalize_crisis_text(keyword) in candidate
+                           for keyword in CRISIS_KEYWORDS for candidate in candidates)
     
     # 1. Katman: Deterministik Anahtar Kelime Koruması
     for kw in CRISIS_KEYWORDS:
-        if any(normalize_crisis_text(kw) in candidate for candidate in candidates):
+        if urgent_safety or any(normalize_crisis_text(kw) in candidate for candidate in candidates):
             if is_driving:
                 reply = (
                     "Söyledikleriniz benim için çok önemli ve zor bir andan geçtiğinizi anlıyorum. "
@@ -383,8 +393,8 @@ def check_mental_crisis(text: str, is_driving: bool, live_client: Optional[Any] 
                 )
             return {
                 "isCrisis": True,
-                "riskLevel": "IMMINENT",
-                "selfHarmSignal": True,
+                "riskLevel": "IMMINENT" if self_harm_signal else "URGENT_SAFETY",
+                "selfHarmSignal": self_harm_signal,
                 "violenceSignal": False,
                 "needsEmergencyEscalation": True,
                 "emergencyContact": "112 Acil Çağrı Merkezi",

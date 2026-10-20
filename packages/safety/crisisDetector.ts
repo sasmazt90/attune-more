@@ -3,6 +3,8 @@
  * Ruhsal iyi oluş seanslarında intihar, kendine zarar verme veya akut kriz durumlarını filtreler.
  */
 
+import urgentSafetyPatterns from '../../shared/localization/urgent-safety.json';
+
 export const CRISIS_KEYWORDS = [
   'suicide', 'suicidal', 'kill myself', 'hurt myself', 'end my life', 'want to die',
   "don't want to live", 'do not want to live', 'selbstmord', 'suizid',
@@ -33,8 +35,9 @@ export function normalizeCrisisText(text: string, turkish = true): string {
 export function checkCrisisTrigger(text: string, isMoving: boolean = false): CrisisCheckResult {
   // Also accept ordinary ASCII casing (INTIHAR), without conflating Turkish ı/i.
   const candidates = [normalizeCrisisText(text), normalizeCrisisText(text, false)];
+  const urgentSafety=Object.values(urgentSafetyPatterns).some(pair=>pair.every(pattern=>new RegExp(pattern,'u').test(candidates[1])));
   for (const keyword of CRISIS_KEYWORDS) {
-    if (candidates.some(candidate => candidate.includes(normalizeCrisisText(keyword)))) {
+    if (urgentSafety || candidates.some(candidate => candidate.includes(normalizeCrisisText(keyword)))) {
       if (isMoving) {
         return {
           isCrisis: true,

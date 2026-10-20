@@ -215,7 +215,9 @@ export function useMentalConversation(parked: boolean) {
     const controller = new AbortController(); r.controller = controller;
     let deadline:ReturnType<typeof setTimeout>|undefined;
     try {
-      await updateContext(epoch,r.transcript.filter(m=>m.completed));
+      // Local emergency routing must not wait for optional context compaction
+      // or an unavailable network/provider after a long conversation.
+      if(!crisis.isCrisis)await updateContext(epoch,r.transcript.filter(m=>m.completed));
       if(!valid(epoch))return;
       prior=r.transcript.filter(m=>m.completed).slice(r.memoryThrough).map(m=>({role:m.sender==='USER'?'user':'assistant',content:m.text}));
       if(r.pendingTurn)r.pendingTurn.prior=prior;

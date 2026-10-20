@@ -3,6 +3,11 @@ on:
   push:
     branches: ['audit/e2e-2026-09-30', 'fix/attune-audit-remediation', 'fix/live-test-followup']
   workflow_dispatch:
+    inputs:
+      expected_source_sha:
+        description: Exact approved integrated source SHA; does not authorize execution by itself
+        type: string
+        required: false
 permissions:
   contents: read
 concurrency:
@@ -11,10 +16,12 @@ concurrency:
 jobs:
   # This registered manual entry can select the feature ref without touching main.
   aaos-emulator:
-    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/feature/aaos-oem-agnostic-prototype-20261019'
+    if: github.event_name == 'workflow_dispatch' && contains(fromJSON('["refs/heads/feature/aaos-oem-agnostic-prototype-20261019","refs/heads/feature/localization-en-de-tr-20261020"]'), github.ref)
     uses: ./.github/workflows/aaos-emulator-validation.yml
+    with:
+      expected_source_sha: ${{ inputs.expected_source_sha || '' }}
   browser-audit:
-    if: github.ref != 'refs/heads/feature/aaos-oem-agnostic-prototype-20261019'
+    if: ${{ !contains(fromJSON('["refs/heads/feature/aaos-oem-agnostic-prototype-20261019","refs/heads/feature/localization-en-de-tr-20261020"]'), github.ref) }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:

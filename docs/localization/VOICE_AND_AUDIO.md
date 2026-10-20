@@ -1,5 +1,7 @@
 # Voice and audio provenance
 
+**2026-10-21 integrated audit:** [current acceptance and exact live-provider limits](FINAL_INTEGRATED_ACCEPTANCE.md). Microsoft documents an Azure Katja identifier, but no authorized no-cost live runtime or Clipchamp/live-service equivalence was established. Original DE provider metadata stays unchanged; arbitrary DE live speech remains unavailable. Existing Edge consumer integration is not evidence of a documented service API entitlement and was not invoked in this audit.
+
 ## Current owner-approved recordings
 
 The approved package contains **194 unchanged original M4A/AAC files** under `public/audio/user-approved/tr-en-de-20261020-v1/`: 129 selected module/language/event recordings (including exact Mental templates), 30 isolated acoustic-gated digit recordings, 33 retained alternatives and two neutral demos. All 194 are owner-approved for integration; no further personal listening/rating campaign is required. Technical browser acceptance and acoustic/platform validation remain separate. Full hashes, provider identity, application/voice locales and disposition are in that namespace's `manifest.json`.

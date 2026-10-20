@@ -15,7 +15,10 @@ def conversation_control(text):
         'finish': ('finish', 'end the conversation', 'finish the conversation', 'goodbye', 'beenden', 'gespräch beenden', 'auf wiedersehen'),
         'pause': ('pause', 'pause the conversation', 'take a break', 'pausieren', 'gespräch pausieren', 'eine pause machen'),
     }
-    if value in controls['finish']:
+    german_finish = re.fullmatch(
+        r'(?:bitte )?(?:ich (?:möchte|will) (?:das )?gespräch(?: jetzt)? beenden|'
+        r'(?:das )?gespräch(?: jetzt)? beenden|beenden sie(?: bitte)? (?:das )?gespräch)', value)
+    if value in controls['finish'] or german_finish:
         return {'reply': 'Görüşmeyi bitiriyorum. Kendinize iyi bakın.', 'sessionAction': 'finish', 'providerType': 'CONVERSATION_CONTROL', 'isCrisis': False}
     if value in controls['pause']:
         return {'reply': 'Görüşmeyi duraklatıyorum. Hazır olduğunuzda Devam et düğmesiyle sürdürebilirsiniz.', 'sessionAction': 'pause', 'providerType': 'CONVERSATION_CONTROL', 'isCrisis': False}

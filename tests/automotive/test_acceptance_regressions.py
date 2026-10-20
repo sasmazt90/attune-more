@@ -129,6 +129,45 @@ class AcceptanceRegressionChecks(unittest.TestCase):
             self.assertTrue(all(r['status'] == 'BLOCKED' for r in json.loads((out / 'results.json').read_text())))
             self.assertIn('approved MP3 absent', (out / 'report.md').read_text())
 
+    def test_localized_source_gate_checks_count_hash_size_and_path(self):
+        public = assets.ROOT / 'apps/vehicle-app/public'
+        report = assets.inspect_localized(public)
+        self.assertEqual(len(report['assets']), 194)
+        self.assertEqual(report['errors'], [])
+        with tempfile.TemporaryDirectory() as directory:
+            public = Path(directory)
+            folder = public / 'audio/user-approved/tr-en-de-20261020-v1'
+            folder.mkdir(parents=True)
+            data = b'synthetic integrity fixture; never deployed audio'
+            manifest = {'approvalStatus': 'USER_APPROVED_FOR_INTEGRATION', 'recordings': [
+                {'recordingId': 'fixture', 'url': '/audio/user-approved/tr-en-de-20261020-v1/fixture.m4a',
+                 'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}]}
+            def inspect():
+                (folder / 'manifest.json').write_text(json.dumps(manifest))
+                return assets.inspect_localized(public)['errors']
+            self.assertTrue(any('194' in e for e in inspect()))
+            self.assertTrue(any('absent' in e for e in inspect()))
+            (folder / 'fixture.m4a').write_bytes(b'wrong')
+            self.assertTrue(any('differs' in e for e in inspect()))
+            (folder / 'fixture.m4a').write_bytes(data)
+            self.assertFalse(any('differs' in e for e in inspect()))
+            manifest['recordings'][0]['url'] = '/audio/user-approved/tr-en-de-20261020-v1/../../outside.m4a'
+            self.assertTrue(any('escapes' in e for e in inspect()))
+
+    def test_localized_codec_failure_retains_all_observations_and_restores_locale(self):
+        with tempfile.TemporaryDirectory() as directory:
+            a = qa.Assessment(Path(directory))
+            rows = [{'status': 'PASS', 'id': str(i)} for i in range(194)]
+            rows[3] = {'status': 'FAIL', 'id': '3', 'error': 'Actual codec unavailable fixture'}
+            client = Mock()
+            client.request.side_effect = lambda action, **args: rows if action == 'localization-decode' else None
+            a.parked_page = lambda: client
+            with self.assertRaisesRegex(AssertionError, 'decode/integrity failed'):
+                a.localized_webview_audio()
+            self.assertEqual(json.loads((Path(directory) / 'localized-audio-decode.json').read_text()), rows)
+            client.request.assert_any_call('localization-language', language='tr')
+            self.assertFalse(any(call.args[0] == 'navigate' for call in client.request.call_args_list))
+
     def test_activity_capture_waits_for_fresh_ui_and_records_complete_hashes(self):
         from PIL import Image
         with tempfile.TemporaryDirectory() as directory:

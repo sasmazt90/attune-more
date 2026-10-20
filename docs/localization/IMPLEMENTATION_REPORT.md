@@ -1,6 +1,6 @@
 # TR / EN / DE localization implementation and acceptance
 
-**Current approved-recording integration:** see [194-recording acceptance report](APPROVED_AUDIO_INTEGRATION.md). It supersedes the historical eSpeak/global voice-selection and scored EN/DE digit-bank behavior described below. PR #5 remains draft. The following original implementation evidence belongs to `bb27283d` and is retained as history.
+**Current integrated decision:** see [AAOS + localization acceptance and remaining merge gate](FINAL_INTEGRATED_ACCEPTANCE.md). Ready for review pending separately approved combined AAOS runtime acceptance; physical availability alone does not require Draft status. The [194-recording report](APPROVED_AUDIO_INTEGRATION.md) supersedes historical eSpeak/global voice-selection and scored EN/DE digit-bank behavior. The original implementation evidence below belongs to `bb27283d` and is retained as history.
 
 **Engineering implementation verified in Cloud; draft integration pending platform speech/listening acceptance.** No merge or deployment is authorized by this report.
 
