@@ -1,0 +1,26 @@
+{
+  "legacyKeywords": ["suicide", "suicidal", "kill myself", "hurt myself", "end my life", "want to die", "don't want to live", "do not want to live"],
+  "signal": "\\b(?:suicide|suicidal|kill myself|hurt myself|end my life|want to die|(?:don't|do not|never) want to live)\\b",
+  "selfDirected": "\\b(?:kill myself|hurt myself|end my life|want to die|(?:don't|do not|never) want to live)\\b",
+  "currentState": "\\b(?:i(?: am|'m| feel| have been feeling) (?:actively |currently |still )?suicidal|i (?:have|keep having|am having) suicidal (?:thoughts|feelings)|(?:feeling|actively|currently) suicidal|(?:commit|attempt|considering|contemplating|planning|thinking about) suicide|(?:suicide|suicidal) (?:tonight|now|today))\\b",
+  "reassurance": [
+    "\\bi (?:don't|do not|never) (?:want|intend|plan) to (?:die|kill myself|hurt myself|end my life)\\b",
+    "\\bi(?: am|'m| feel) (?:not|no longer) (?:currently |actively |feeling )?suicidal\\b",
+    "\\bi(?: am|'m) currently not suicidal\\b",
+    "\\bi (?:don't|do not|never) feel suicidal(?: anymore| any longer)?\\b",
+    "\\bi(?: am|'m) not (?:going|planning|trying|intending) to (?:(?:kill|hurt) myself|commit suicide)\\b",
+    "\\bi (?:will not|won't|would not|wouldn't) (?:(?:kill|hurt) myself|commit suicide|end my life)\\b",
+    "\\bi(?: am|'m) not (?:planning|considering|contemplating|thinking about) suicide\\b"
+  ],
+  "historical": [
+    "\\bi used to (?:feel|be) suicidal\\b",
+    "\\bi used to (?:want to die|want to end my life|think about suicide)\\b"
+  ],
+  "uncertain": [
+    "\\bi(?: am|'m) not sure (?:if|whether) i(?: am|'m| feel) suicidal\\b",
+    "\\bi (?:don't|do not) (?:know|think) (?:if |whether |that )?i(?: am|'m| feel) suicidal\\b",
+    "\\bi (?:don't|do not) know what (?:suicide|suicidal) means\\b"
+  ],
+  "continuedRisk": "\\b(?:but|and) (?:sometimes )?(?:i )?(?:still (?:do|am|feel that way)|feel that way (?:again|now))\\b",
+  "conditional": "\\b(?:unless|until|if|yet|not sure)\\b"
+}

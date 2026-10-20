@@ -27,6 +27,7 @@ import unicodedata
 import re
 import json
 from pathlib import Path
+from mental_text_rules import ENGLISH_CRISIS, english_crisis_context, professional_support_suggested
 from abc import ABC, abstractmethod
 from typing import Dict, Any, List, Optional
 from datetime import datetime
@@ -223,7 +224,7 @@ class OpenAICompatibleMentalProvider(MentalConversationProvider):
                 "reply": reply_text,
                 "providerType": "LIVE_OPENAI",
                 "isDriving": is_driving,
-                "escalationSuggested": "psikolog" in reply_text.lower()
+                "escalationSuggested": professional_support_suggested(reply_text, current_language())
             }
         except Exception as e:
             raise HTTPException(status_code=503, detail=provider_error_category(e)) from None
@@ -373,39 +374,40 @@ def check_mental_crisis(text: str, is_driving: bool, live_client: Optional[Any] 
     candidates = (normalize_crisis_text(text), normalize_crisis_text(text, turkish=False))
     urgent_safety = any(all(re.search(pattern, candidates[1]) for pattern in pair)
                         for pair in URGENT_SAFETY_PATTERNS.values())
-    self_harm_signal = any(normalize_crisis_text(keyword) in candidate
-                           for keyword in CRISIS_KEYWORDS for candidate in candidates)
+    english = english_crisis_context(text)
+    legacy_english = set(ENGLISH_CRISIS['legacyKeywords'])
+    self_harm_signal = english['signal'] or any(normalize_crisis_text(keyword) in candidate
+                           for keyword in CRISIS_KEYWORDS if keyword not in legacy_english for candidate in candidates)
     
     # 1. Katman: Deterministik Anahtar Kelime Koruması
-    for kw in CRISIS_KEYWORDS:
-        if urgent_safety or any(normalize_crisis_text(kw) in candidate for candidate in candidates):
-            if is_driving:
-                reply = (
-                    "Söyledikleriniz benim için çok önemli ve zor bir andan geçtiğinizi anlıyorum. "
-                    "Ancak ben acil durum servisi değilim. Lütfen ekrana bakmayın. "
-                    "Mümkün olduğunda aracınızı hemen güvenli bir yerde durdurun ve 112 Acil Çağrı Merkezini arayın. Yalnız değilsiniz."
-                )
-            else:
-                reply = (
-                    "Söyledikleriniz benim için çok önemli ve şu an çok zor bir süreçten geçtiğinizi anlıyorum. "
-                    "Ancak ben bir acil durum veya sağlık servisi değilim. Lütfen şu an güvende kalmak için gecikmeden "
-                    "112 Acil Çağrı Merkezi ile iletişime geçin. Yalnız değilsiniz, profesyonel uzmanlar size yardımcı olmak için hazır."
-                )
-            return {
-                "isCrisis": True,
-                "riskLevel": "IMMINENT" if self_harm_signal else "URGENT_SAFETY",
-                "selfHarmSignal": self_harm_signal,
-                "violenceSignal": False,
-                "needsEmergencyEscalation": True,
-                "emergencyContact": "112 Acil Çağrı Merkezi",
-                "reply": reply,
-                "drivingModeResponse": is_driving,
-                "clinicalDisclaimer": "Bu güvenlik değerlendirmesi klinik olarak valide edilmiş bir tanı sistemi değildir."
-            }
+    if urgent_safety or self_harm_signal:
+        if is_driving:
+            reply = (
+                "Söyledikleriniz benim için çok önemli ve zor bir andan geçtiğinizi anlıyorum. "
+                "Ancak ben acil durum servisi değilim. Lütfen ekrana bakmayın. "
+                "Mümkün olduğunda aracınızı hemen güvenli bir yerde durdurun ve 112 Acil Çağrı Merkezini arayın. Yalnız değilsiniz."
+            )
+        else:
+            reply = (
+                "Söyledikleriniz benim için çok önemli ve şu an çok zor bir süreçten geçtiğinizi anlıyorum. "
+                "Ancak ben bir acil durum veya sağlık servisi değilim. Lütfen şu an güvende kalmak için gecikmeden "
+                "112 Acil Çağrı Merkezi ile iletişime geçin. Yalnız değilsiniz, profesyonel uzmanlar size yardımcı olmak için hazır."
+            )
+        return {
+            "isCrisis": True,
+            "riskLevel": "IMMINENT" if self_harm_signal else "URGENT_SAFETY",
+            "selfHarmSignal": self_harm_signal,
+            "violenceSignal": False,
+            "needsEmergencyEscalation": True,
+            "emergencyContact": "112 Acil Çağrı Merkezi",
+            "reply": reply,
+            "drivingModeResponse": is_driving,
+            "clinicalDisclaimer": "Bu güvenlik değerlendirmesi klinik olarak valide edilmiş bir tanı sistemi değildir."
+        }
 
     return {
         "isCrisis": False,
-        "riskLevel": "NONE",
+        "riskLevel": "UNCERTAIN" if english['context'] in ('UNCERTAIN', 'HISTORICAL') else "NONE",
         "selfHarmSignal": False,
         "violenceSignal": False,
         "needsEmergencyEscalation": False,

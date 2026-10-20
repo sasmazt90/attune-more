@@ -1,5 +1,7 @@
 # Integrated AAOS + TR/EN/DE prototype acceptance
 
+**Historical decision at `013e1ba`: superseded by the owner's subsequent full-product acceptance requirement.** See [current P1/P2 corrections, Hearing/live-speech blockers and merge decision](PR5_COMPLETION_REVIEW.md). A narrower prototype-only merge now requires separate owner approval; the earlier classification below is retained as historical evidence.
+
 Assessment date: 2026-10-21 (Europe/Berlin). Repository: `sasmazt90/attune-more`; PR [#5](https://github.com/sasmazt90/attune-more/pull/5); branch `feature/localization-en-de-tr-20261020`. Reviewed starting HEAD `978e42cf4fb4ab641015564a82f69837e6325072` against merge base/main `1ee2386efd3dc30fe8d5b0d2bbf336ac7f03c98e`, including all twelve commits of AAOS and localization history. This report supersedes earlier instructions to keep the PR Draft solely for physical acceptance. No deployment or new emulator execution occurred.
 
 ## Decision
