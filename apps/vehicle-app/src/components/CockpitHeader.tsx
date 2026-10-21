@@ -4,6 +4,7 @@ import {useTranslations} from '../i18n/LanguageProvider';
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ProductWordmark } from './ProductWordmark';
 import {LanguageSelector} from './LanguageSelector';
 import {VoiceAvailabilityNotice} from './VoiceAvailabilityNotice';
@@ -45,8 +46,10 @@ export const CockpitHeader: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-2 border-b border-white/5 text-xs">
         <div className="flex items-center gap-4">
           <Link href="/" aria-label={i18nText(PRODUCT_NAME)} className="flex items-center gap-3 hover:opacity-90 transition-opacity">
-            <img
+            <Image
               src="/brand/attune-more/icon.svg"
+              width={20}
+              height={20}
               alt=""
               aria-hidden="true"
               className="h-5 w-auto object-contain"

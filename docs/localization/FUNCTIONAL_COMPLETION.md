@@ -1,3 +1,5 @@
+> Update 2026-10-21: [Chatterbox V3 integration and current runtime blockers](NEURAL_TTS_COMPLETION.md) supersedes the browser-only dynamic speech path below. Historical fixed-recording/Hearing evidence is preserved.
+
 # Experimental Hearing and dynamic system speech completion
 
 2026-10-21. Starting source: `88e0101e1940bbd7d17969430ecc312d5abe86fa`; PR #5 feature branch. The owner's Final Functional Completion request supersedes the previous requirement for separate qualified acoustic acceptance before experimental EN/DE activation. No clinical study, diagnosis or cross-language clinical equivalence is claimed.

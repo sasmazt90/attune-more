@@ -2,13 +2,15 @@
 import {createContext,useContext,useEffect,useSyncExternalStore} from 'react';
 import {getLanguage,LANGUAGE_EVENT,LANGUAGE_KEY,VOICE_KEY,VOICE_EVENT,Language,LOCALES,t} from './core';
 import {localizedNode} from './render';
+import {languageSwitchLocked} from './locks';
 import {PRODUCT_TAGLINE,PRODUCT_DESCRIPTION} from '../utils/brand';
 const LanguageContext=createContext<Language>('tr');
 function subscribe(listener:()=>void){
  const storage=(event:StorageEvent)=>{
-  if(event.key===LANGUAGE_KEY||event.key===VOICE_KEY||event.key===null)window.dispatchEvent(new Event('attune-locale-media-cancel'));
-  if(event.key===LANGUAGE_KEY||event.key===null)listener();
-  if(event.key===VOICE_KEY||event.key===null)window.dispatchEvent(new Event(VOICE_EVENT));
+  if((event.key===LANGUAGE_KEY||event.key===null)&&!languageSwitchLocked()){
+   window.dispatchEvent(new Event('attune-locale-media-cancel'));listener();
+  }
+  if(event.key===VOICE_KEY||event.key===null){window.dispatchEvent(new Event('attune-locale-media-cancel'));window.dispatchEvent(new Event(VOICE_EVENT));}
  };
  window.addEventListener(LANGUAGE_EVENT,listener);window.addEventListener('storage',storage);
  return ()=>{window.removeEventListener(LANGUAGE_EVENT,listener);window.removeEventListener('storage',storage);};

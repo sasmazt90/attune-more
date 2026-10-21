@@ -8,11 +8,12 @@ import {speechMuted} from './playbackMeter';
 import { spokenText } from './spokenText';
 import {canonicalMentalTheme} from '../i18n/mentalThemes';
 import {mentalSystemSpeech} from '../i18n/systemSpeech';
+import {mentalNeuralSpeech,mentalSpeechEngine} from './mentalNeuralSpeech';
 import {approvedMentalTemplate} from '../i18n/approvedAudio';
 import {playFixedSpeech} from './fixedFileSpeech';
 import {cancelQueuedSessionSpeech} from '../i18n/sessionSpeech';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { checkCrisisTrigger } from '@packages/safety/crisisDetector';
 import { isMicrophoneAllowed, isMentalSummarySavingAllowed, isMentalTranscriptSavingAllowed, isDemoMode } from './attuneMode';
 import { MentalHistoryItem, readMentalHistory, saveMentalHistory } from './mentalHistory';
@@ -34,7 +35,9 @@ const LABELS: Record<string, string> = {
 };
 
 export function useMentalConversation(parked: boolean) {
-  const [phase, setPhase] = useState<ConversationPhase>('ready');
+  const [phase, setPhaseState] = useState<ConversationPhase>('ready');
+  const phaseRef=useRef<ConversationPhase>('ready');
+  const setPhase=useCallback((value:ConversationPhase)=>{phaseRef.current=value;setPhaseState(value);},[]);
   const [active, setActive] = useState(false);
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
   const [notice, setNotice] = useState<string | null>(null);
@@ -45,7 +48,7 @@ export function useMentalConversation(parked: boolean) {
   const [voiceEnabled, setVoiceEnabled] = useState(!speechMuted());
   const [cloudConsent, setCloudConsent] = useState(false);
   const [speechConsent, setSpeechConsent] = useState(false);
-  const speechSource = 'browser-system';
+  const speechSource = mentalSpeechEngine();
   const [history, setHistory] = useState<MentalHistoryItem[]>([]);
   const [summary, setSummary] = useState<MentalHistoryItem | null>(null);
   const [provider, setProvider] = useState({ apiKeyConfigured: false, providerName: 'Yerel Kural Motoru (Demo)' });
@@ -56,7 +59,7 @@ export function useMentalConversation(parked: boolean) {
     restart: null as ReturnType<typeof setTimeout> | null, audioEpoch: 0, voiceWaiting: false });
   const settings = useRef({ parked, textMode, voiceEnabled, cloudConsent, speechConsent, speechSource });
   settings.current = { parked, textMode, voiceEnabled, cloudConsent, speechConsent, speechSource };
-  const actions = useRef({ listen: () => {}, cancel: (_reason?: string) => {}, send: (_text: string) => {}, audioOff: () => {}, pause: () => {} });
+  const actions = useRef({ listen: () => {}, cancel: (_reason?: string) => {}, send: (_text: string) => {}, audioOff: () => {}, pause: () => {}, consent: (_value:boolean) => {} });
 
   // Content-free observation only: no storage or telemetry.
   function timing(stage:string,bytes?:number) { window.dispatchEvent(new CustomEvent('attune-speech-timing',{detail:{stage,atMs:performance.now(),clock:'browser-performance',turn:runtime.current.turn,bytes}})); }
@@ -148,12 +151,12 @@ export function useMentalConversation(parked: boolean) {
     const current = () => valid(epoch) && r.audioEpoch === audioEpoch;
     r.voiceWaiting = true;
     const end = () => { if (!current()) return; r.pendingSpeech=null;timing('ended');stopAudio(); setVoiceState('ready'); if (!crisis) resume(epoch); else { r.active = false; setActive(false); setPhase('error'); } };
-    const fail = () => { if (!current()) return; timing('audio-error');cancel('Seçilen dil veya ses kullanılamıyor. Sesli görüşme durduruldu; dil ve ses seçeneklerini kontrol edin.');setVoiceState('failed'); };
+    const fail = () => { if (!current()) return; timing('audio-error');cancel(crisis?t('Normal görüşme durduruldu. Acil Kriz Destek: 112 Acil Çağrı.'):'Seçilen dil veya ses kullanılamıyor. Sesli görüşme durduruldu; dil ve ses seçeneklerini kontrol edin.');setVoiceState('failed'); };
     setVoiceState('loadingSpeech');
     {
       if (!settings.current.speechConsent) { fail(); return; }
       const controller = new AbortController(); r.controller = controller;
-      const deadline = setTimeout(() => controller.abort(), 30000);
+      const deadline = setTimeout(() => controller.abort(), crisis?30000:100000);
       try {
         const clip=approvedMentalTemplate(getLanguage(),text);
         if(clip){
@@ -163,7 +166,13 @@ export function useMentalConversation(parked: boolean) {
         }
         timing('tts-request');
         r.streamCancel=()=>controller.abort();
-        const played=await mentalSystemSpeech(text,controller.signal,()=>current()&&settings.current.voiceEnabled,()=>{if(current()){timing('playing');setPhase('speaking');setVoiceState('speaking');}});
+        const observePlaying=()=>{if(current()){timing('playing');setPhase('speaking');setVoiceState('speaking');}};
+        // Emergency text is already visible and routed locally. Never wait for
+        // optional neural generation, nor transmit a crisis message to it.
+        if(crisis){fail();return;}
+        const played=mentalSpeechEngine()==='browser-system'
+          ?await mentalSystemSpeech(text,controller.signal,()=>current()&&settings.current.voiceEnabled,observePlaying)
+          :await mentalNeuralSpeech(text,controller.signal,()=>current()&&settings.current.voiceEnabled&&settings.current.speechConsent,observePlaying,audio=>{r.audio=audio;});
         if(played)end();else fail();
       } catch { fail(); }
       finally { clearTimeout(deadline); if (r.controller === controller) r.controller = null; }
@@ -294,7 +303,7 @@ export function useMentalConversation(parked: boolean) {
     const r=runtime.current;if(!r.active||!r.paused||!settings.current.parked)return;
     r.paused=false;setNotice(null);resume(r.epoch);
   }
-  actions.current = { listen, cancel, send, pause, audioOff: () => { setVoiceNotice(null); if (runtime.current.voiceWaiting) { const epoch = runtime.current.epoch; runtime.current.controller?.abort(); runtime.current.controller = null; runtime.current.pendingSpeech=null;stopAudio(); setVoiceState('ready'); resume(epoch); } } };
+  actions.current = { listen, cancel, send, pause, consent: changeServiceConsent, audioOff: () => { setVoiceNotice(null); if (runtime.current.voiceWaiting) { const epoch = runtime.current.epoch; runtime.current.controller?.abort(); runtime.current.controller = null; runtime.current.pendingSpeech=null;stopAudio(); setVoiceState('ready'); resume(epoch); } } };
   useEffect(() => {
     const r = runtime.current; r.mounted = true;
     setHistory(readMentalHistory());
@@ -304,7 +313,7 @@ export function useMentalConversation(parked: boolean) {
     }).catch(() => {});
     setVoiceState('ready'); // Availability is verified by the exact Edge request.
     const revoke = () => {
-      if ((r.active || phase === 'ending') && !serviceAllowed('mental')) actions.current.cancel('Hizmet izni geri çekildi.');
+      if ((r.active || phaseRef.current === 'ending') && !serviceAllowed('mental')) actions.current.cancel('Hizmet izni geri çekildi.');
       if (r.active && !isMicrophoneAllowed() && !settings.current.textMode) actions.current.cancel('Mikrofon izni geri çekildi. Sesli görüşme kapatıldı.');
       void prepareHealthRecords('mental').then(() => {
         if (!r.mounted) return;
@@ -323,7 +332,7 @@ export function useMentalConversation(parked: boolean) {
     crisis:()=>actions.current.cancel('Normal görüşme durduruldu. Acil Kriz Destek: 112 Acil Çağrı.'),
     notice:()=>setNotice('Dil veya ses değişti. Konuşma metni korundu; eski seslendirme yeniden başlatılmaz. Devam et ile sürdürebilirsiniz.'),
   });window.addEventListener('attune-locale-media-cancel',changed);return()=>window.removeEventListener('attune-locale-media-cancel',changed);},[]);
-  useEffect(()=>{changeServiceConsent(serviceConsent);},[serviceConsent]);
+  useEffect(()=>{actions.current.consent(serviceConsent);},[serviceConsent]);
   useEffect(()=>{const changed=()=>setVoiceEnabled(!speechMuted());window.addEventListener('attune-guidance-muted',changed);return()=>window.removeEventListener('attune-guidance-muted',changed);},[]);
   function changeCloud(value: boolean) { if (!value && (runtime.current.active || phase === 'ending')) cancel('Bulut aktarım izni geri çekildi. Görüşme kapatıldı.'); setCloudConsent(value); }
   function changeSpeech(value: boolean) { if (!value && runtime.current.active) cancel('Ses aktarım izni geri çekildi. Görüşme kapatıldı.'); setSpeechConsent(value); }

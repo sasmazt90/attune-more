@@ -1,3 +1,5 @@
+> Update 2026-10-21: [Chatterbox V3 integration and current runtime blockers](NEURAL_TTS_COMPLETION.md) supersedes the browser-only dynamic speech path below. Historical fixed-recording/Hearing evidence is preserved.
+
 # Voice and audio provenance
 
 **Superseding 2026-10-21 functional implementation:** [experimental EN/DE Hearing activation, browser/system dynamic speech and owner acceptance](FUNCTIONAL_COMPLETION.md). Earlier unavailable/gated descriptions below are historical checkpoints, not the current activation policy.

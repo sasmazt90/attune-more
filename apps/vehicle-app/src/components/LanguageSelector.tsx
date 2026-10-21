@@ -6,6 +6,7 @@ import {LANGUAGES,LOCALES,setLanguage} from '../i18n/core';
 import {systemVoiceChoices,VoiceChoice} from '../i18n/voices';
 import {useVehicle} from '../context/VehicleContext';
 import {AccessibleDialog} from './AccessibleDialog';
+import {mentalSpeechEngine,setMentalSpeechEngine,type MentalSpeechEngine} from '../utils/mentalNeuralSpeech';
 import {mentalSystemSpeech} from '../i18n/systemSpeech';
 import {mentalSystemVoices,mentalVoicePreference,setMentalVoicePreference,selectMentalSystemVoice,type MentalVoicePreference} from '../i18n/mentalVoices';
 import {approvedClip} from '../i18n/approvedAudio';
@@ -15,6 +16,8 @@ export function LanguageSelector(){
  const {language,text:t}=useTranslations(),{isParked}=useVehicle();
  const [open,setOpen]=useState(false),[error,setError]=useState(''),[voices,setVoices]=useState<VoiceChoice[]>([]),[allVoices,setAllVoices]=useState<SpeechSynthesisVoice[]>([]),[preference,setPreference]=useState<MentalVoicePreference>({}),[sample,setSample]=useState(''),[preview,setPreview]=useState('');
  const pathname=usePathname();
+ const [engine,setEngine]=useState<MentalSpeechEngine>('chatterbox-v3');
+ useEffect(()=>{setEngine(mentalSpeechEngine());},[]);
  const locked=useLanguageSwitchLocked(),permitted=isParked&&!locked;
  const previewController=useRef<AbortController|null>(null);
  const close=()=>{previewController.current?.abort();previewController.current=null;setSample('');setPreview('');setOpen(false);};
@@ -42,7 +45,9 @@ export function LanguageSelector(){
    <p className="text-sm">{t('Seçilen dil')} {LOCALES[language]}. {t('Dil tercihi kayıtları, izinleri veya değerlendirme ilerlemesini sıfırlamaz.')}</p>
    <p className="text-sm">{t('Onaylı sesler sağlık modülüne göre seçilir. Başka ses veya dil otomatik olarak kullanılmaz.')}</p>
    <ul className="text-sm space-y-1">{HEALTH_MODULE_IDS.map(module=>{const clip=approvedClip(language,module,module==='vision'?'vision:prepare':module==='mental'?'guidance:mental-entry':module==='skin'?'guidance:skin-front':module==='dental'?'guidance:dental-front':'guidance:hearing-prepare');return <li key={module}>{t(HEALTH_MODULES[module].name)}: {clip?.voice} · {clip?.voiceLocale}</li>;})}</ul>
-   <p role="status" className="text-sm text-amber-200">{t('Sabit kayıtlar değişmez. Dinamik Mental yanıtları, seçilen dilde doğrulanmış bir kadın tarayıcı veya cihaz sesi gerektirir.')}</p>
+   <p role="status" className="text-sm text-amber-200">{t('Sabit kayıtlar değişmez. Dinamik Mental yanıtları için Chatterbox V3 veya açıkça seçilmiş tarayıcı yedeği kullanılır.')}</p>
+   <label className="block text-sm">{t('Dinamik konuşma motoru')}<select className="block w-full min-h-11 bg-slate-950 border border-white/20 rounded-xl p-2" value={engine} disabled={!permitted} onChange={event=>{try{const next=event.target.value as MentalSpeechEngine;setMentalSpeechEngine(next);setEngine(next);}catch{setError('Dil tercihi kaydedilemedi.');}}}><option value="chatterbox-v3">{t('Chatterbox V3 — yerel arka uç')}</option><option value="browser-system">{t('Tarayıcı veya cihaz — açık yedek seçimi')}</option></select></label>
+   <p className="text-xs text-slate-300">{t('Chatterbox doğrulanmış model ve izinli kadın referansı gerektirir. Kullanılamazsa otomatik sağlayıcı değişmez. Aşağıdaki deneme yalnız tarayıcı sesini sınar.')}</p>
    {voices.length===0&&<p role="status" className="text-sm text-amber-200">{t('Bu dil için sistem sesi bulunamadı. Başka bir dilin sesi kullanılmaz.')}</p>}
    <ul className="text-xs text-slate-300">{voices.map(v=><li key={v.provider+v.id}>{v.name} · {v.locale} · {t(v.gender==='male'?'Erkek':v.gender==='female'?'Kadın':'Cinsiyet bilgisi yok')} · {t(v.local?'Cihazda':'Çevrimiçi')}</li>)}</ul>
    <p className="text-xs text-slate-300">{t('Tarayıcı sesleri cinsiyet bilgisi sağlamaz; isimden cinsiyet tahmin edilmez. Ses envanteri onaylı modül eşlemelerini değiştirmez.')}</p>

@@ -67,4 +67,23 @@ async function decode(page) {
     return rows;
   });
 }
-module.exports={LANGUAGES,MODULE_EVENTS,NATIVE_PARK,validate,language,recording,decode};
+async function neural(page, value) {
+  validate(value);await inject(page);
+  const statuses=[];
+  const observe=response=>{if(new URL(response.url()).pathname==='/api/mental-neural-speech')statuses.push(response.status());};
+  page.on('response',observe);
+  try {
+    const result=await page.evaluate(async language=>{
+      const q=window.ApprovedAudioQA;
+      if(q.core.getLanguage()!==language)throw Error('Selected locale differs');
+      if(q.neural.mentalSpeechEngine()!=='chatterbox-v3')throw Error('Explicit fallback selected; do not overwrite owner preference');
+      const text={tr:'Bu yeni ve kişisel olmayan örnekte 1287 sayısı var.',en:'This new nonpersonal example includes the number 1287.',de:'Dieses neue, nichtpersönliche Beispiel enthält die Zahl 1287.'}[language];
+      const started=performance.now();let starts=0;
+      const played=await q.neural.mentalNeuralSpeech(text,new AbortController().signal,()=>q.core.getLanguage()===language,()=>starts++,()=>{});
+      return {language,played,starts,milliseconds:performance.now()-started,format:'audio/wav',realModelClaimed:false};
+    },value);
+    return {...result,httpStatuses:statuses,status:result.played&&result.starts===1?'PASS':statuses.some(s=>[401,403,429,503,504].includes(s))?'BLOCKED':'FAIL',
+      meaning:'Actual backend transport/playback attempt. Model/profile readiness and naturalness require separately verified inference evidence.'};
+  }finally{page.off('response',observe);}
+}
+module.exports={LANGUAGES,MODULE_EVENTS,NATIVE_PARK,validate,language,recording,decode,neural};

@@ -28,7 +28,7 @@ CHECKS = [
     'webview-backend', 'navigation', 'backend-moving-lock', 'platform-moving-lock',
     'background-lifecycle', 'backend-offline', 'web-load-error-recovery',
     'permissions-initial', 'permissions-denial', 'unsupported-hardware', 'crashes-console',
-    'evidence-capture', 'localized-webview-audio',
+    'evidence-capture', 'localized-webview-audio', 'mental-neural-audio',
 ]
 ROUTES = ['/', '/skin', '/dental', '/vision', '/hearing', '/mental', '/care', '/profile', '/privacy']
 
@@ -774,6 +774,27 @@ class Assessment:
                 return True  # Destroyed WebView can close its endpoint.
             raise Blocked('Cannot observe WebView target destruction: ' + str(error)) from error
 
+    def mental_neural_audio(self):
+        rows=[]
+        try:
+            client=self.parked_page()
+            client.request('navigate',route='/')
+            for language in ('tr','en','de'):
+                client.request('localization-language',language=language)
+                row=client.request('localization-neural',language=language,timeout=110)
+                rows.append(row)
+                self.save('mental-neural-audio.json',json.dumps(rows,ensure_ascii=False,indent=2))
+                if row['status']=='PASS':
+                    self.capture('mental-neural-'+language)
+            assert all(row['status']!='FAIL' for row in rows),rows
+            if any(row['status']=='BLOCKED' for row in rows):
+                raise Blocked('Actual neural requests unavailable; see all three language observations. No real model/profile inference or playback claimed for blocked rows.')
+            return 'Actual authenticated backend audio transport and Android WebView playback observed in TR/EN/DE; model identity/profile and naturalness require separate inference evidence.'
+        finally:
+            self.save('mental-neural-audio.json',json.dumps(rows,ensure_ascii=False,indent=2))
+            if self.web_client is not None:
+                self.web_client.request('localization-language',language='tr')
+
     def localized_webview_audio(self):
         """Fresh actual runtime acceptance; never infer this from desktop Chrome."""
         client = self.parked_page()
@@ -976,6 +997,7 @@ class Assessment:
             self.check('permissions-denial', self.permission_request, ['webview-backend', 'permissions-initial'])
             self.check('unsupported-hardware', self.unsupported, ['platform-parked'])
             self.check('localized-webview-audio', self.localized_webview_audio, ['webview-backend', 'navigation'])
+            self.check('mental-neural-audio', self.mental_neural_audio, ['localized-webview-audio'])
             self.check('crashes-console', self.crash_console, ['webview-backend'])
             self.check('evidence-capture', self.evidence_quality, ['navigation'], capture=False)
         finally:

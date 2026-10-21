@@ -24,6 +24,20 @@ PROMPT = (HERE / 'fixtures/aaos_permission_denial.xml').read_text()
 
 
 class AcceptanceRegressionChecks(unittest.TestCase):
+    def test_neural_audio_unavailable_preserves_all_languages_and_blocks(self):
+        with tempfile.TemporaryDirectory() as directory:
+            a=qa.Assessment(Path(directory));client=Mock()
+            def request(action,**kwargs):
+                if action=='localization-neural':
+                    return {'language':kwargs['language'],'status':'BLOCKED','httpStatuses':[503]}
+                return True
+            client.request.side_effect=request;a.parked_page=Mock(return_value=client);a.web_client=client;a.capture=Mock()
+            with self.assertRaises(qa.Blocked):a.mental_neural_audio()
+            rows=json.loads((Path(directory)/'mental-neural-audio.json').read_text())
+            self.assertEqual([r['language'] for r in rows],['tr','en','de'])
+            a.capture.assert_not_called()
+            self.assertIn('mental-neural-audio',qa.CHECKS)
+
     def test_real_aaos_denial_row_selects_deny_interceptor_not_allow(self):
         self.assertTrue(qa.permission_dialog(PROMPT))
         target = qa.denial_target(PROMPT)

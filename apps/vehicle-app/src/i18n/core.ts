@@ -1,5 +1,5 @@
 import catalog from '../../../../shared/localization/messages.json';
-import {languageSwitchLocked} from './locks';
+import {languageSwitchLocked,subscribeLanguageLock} from './locks';
 
 export const LANGUAGES = ['tr', 'en', 'de'] as const;
 export type Language = typeof LANGUAGES[number];
@@ -9,10 +9,21 @@ export const VOICE_KEY = 'attune.voice.v1';
 export const LANGUAGE_EVENT = 'attune-language-change';
 export const VOICE_EVENT = 'attune-voice-change';
 export const isLanguage = (value:unknown):value is Language => LANGUAGES.includes(value as Language);
-export function getLanguage():Language {
+function storedLanguage():Language {
   if(typeof window==='undefined')return 'tr';
   try {const value=localStorage.getItem(LANGUAGE_KEY);return isLanguage(value)?value:'tr';}catch{return 'tr';}
 }
+let assessmentLanguage:Language|undefined;
+/** Freeze every locale consumer, including fetch/audio, for the local lock's lifetime. */
+export function getLanguage():Language {return assessmentLanguage||storedLanguage();}
+subscribeLanguageLock(()=>{
+ if(languageSwitchLocked()){assessmentLanguage=storedLanguage();return;}
+ const previous=assessmentLanguage;assessmentLanguage=undefined;
+ if(typeof window!=='undefined'&&previous&&previous!==storedLanguage()){
+  window.dispatchEvent(new Event('attune-locale-media-cancel'));
+  window.dispatchEvent(new CustomEvent(LANGUAGE_EVENT,{detail:storedLanguage()}));
+ }
+});
 export const getLocale = () => LOCALES[getLanguage()];
 export function setLanguage(language:Language) {
   if(!isLanguage(language))throw Error('UNSUPPORTED_LANGUAGE');

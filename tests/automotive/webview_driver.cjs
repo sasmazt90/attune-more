@@ -87,6 +87,7 @@ async function serve() {
     if (action === 'events') return true;
     if (action === 'quit') { if (device) await device.close(); return true; }
     if (!page) throw Error('No Android WebView has been connected');
+    if (action === 'localization-neural') return localized.neural(page,args.language);
     if (action === 'ready') {
       await page.locator('[data-vehicle-status]').waitFor({ state: 'visible', timeout: 20000 });
       await page.waitForFunction(() => document.querySelector('[data-vehicle-status]')?.textContent === 'PARK');

@@ -6,8 +6,14 @@ export async function playFixedSpeech(audio:HTMLAudioElement,clip:FixedClip,sign
  const allowed=()=>{try{return !signal.aborted&&current()&&!document.hidden&&!speechMuted()&&Number(localStorage.getItem('attune_hearing_audio_focus')||0)<=Date.now();}catch{return false;}};
  if(!allowed())return false;
  const bytes=await verifiedClipBytes(clip,signal);if(!allowed())return false;
- const mime=clip.mimeType||'audio/mpeg';
- if(!audio.canPlayType(mime))throw Error('APPROVED_AUDIO_FORMAT_UNAVAILABLE');
+ return playAudioBytes(audio,bytes,clip.mimeType||'audio/mpeg',clip.durationSeconds||20,signal,current,observe,ownsFocus);
+}
+
+/** Shared output lifecycle for original clips and newly generated PCM WAV. */
+export async function playAudioBytes(audio:HTMLAudioElement,bytes:ArrayBuffer,mime:string,durationSeconds:number,signal:AbortSignal,current:()=>boolean,observe:(stage:string)=>void=()=>{},ownsFocus=false):Promise<boolean>{
+ const allowed=()=>{try{return !signal.aborted&&current()&&!document.hidden&&!speechMuted()&&Number(localStorage.getItem('attune_hearing_audio_focus')||0)<=Date.now();}catch{return false;}};
+ if(!allowed())return false;
+ if(!audio.canPlayType(mime))throw Error('AUDIO_FORMAT_UNAVAILABLE');
  const url=URL.createObjectURL(new Blob([bytes],{type:mime}));
  return new Promise(resolve=>{
   let done=false,started=false;
@@ -18,7 +24,7 @@ export async function playFixedSpeech(audio:HTMLAudioElement,clip:FixedClip,sign
   const cancel=()=>finish(false),visibility=()=>{if(!allowed())cancel();};
   const playing=()=>{if(!allowed()){cancel();return;}started=true;observe('playing');};
   const ended=()=>{const complete=started&&allowed()&&audio.ended&&Number.isFinite(audio.duration)&&audio.currentTime+.1>=audio.duration;if(complete)observe('ended');finish(complete);};
-  const timer=setInterval(visibility,100),deadline=setTimeout(cancel,Math.max(30000,((clip.durationSeconds||20)+8)*1000));
+  const timer=setInterval(visibility,100),deadline=setTimeout(cancel,Math.max(30000,(durationSeconds+8)*1000));
   signal.addEventListener('abort',cancel,{once:true});document.addEventListener('visibilitychange',visibility);window.addEventListener('attune-guidance-muted',visibility);
   audio.addEventListener('playing',playing);audio.addEventListener('ended',ended);audio.addEventListener('error',cancel);
   focus(true);audio.preload='auto';audio.src=url;

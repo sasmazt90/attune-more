@@ -17,6 +17,6 @@ function collect(file){
   });modules[id]=code;
  }return id;
 }
-const entries={};for(const [key,name] of Object.entries({audio:'i18n/approvedAudio.ts',guidance:'utils/audioGuidance.ts',playback:'utils/fixedFileSpeech.ts',core:'i18n/core.ts',hearing:'utils/hearingAudio.ts'}))entries[key]=collect(path.join(root,'apps/vehicle-app/src',name));
+const entries={};for(const [key,name] of Object.entries({audio:'i18n/approvedAudio.ts',guidance:'utils/audioGuidance.ts',playback:'utils/fixedFileSpeech.ts',core:'i18n/core.ts',hearing:'utils/hearingAudio.ts',neural:'utils/mentalNeuralSpeech.ts'}))entries[key]=collect(path.join(root,'apps/vehicle-app/src',name));
 const factories=Object.entries(modules).map(([id,code])=>JSON.stringify(id)+':function(module,exports,require){\n'+code+'\n}').join(',\n');
 process.stdout.write('(function(){const factories={'+factories+'},cache={};function require(id){if(cache[id])return cache[id].exports;const module=cache[id]={exports:{}};factories[id](module,module.exports,require);return module.exports;}window.ApprovedAudioQA=Object.fromEntries(Object.entries('+JSON.stringify(entries)+').map(([k,id])=>[k,require(id)]));})();');

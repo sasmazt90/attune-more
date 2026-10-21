@@ -7293,5 +7293,35 @@
     "tr": "Ses denemesini Kokpit sayfasında yapın; sağlık görevlerinin sesli kontrolleriyle çakışmaz.",
     "en": "Run the voice test from the Cockpit so it does not interfere with spoken health-task controls.",
     "de": "Führen Sie den Sprachtest im Cockpit aus, damit er nicht mit Sprachbefehlen von Gesundheitsaufgaben kollidiert."
+  },
+  "0bfba12daaf5fdbf": {
+    "tr": "Sabit kayıtlar değişmez. Dinamik Mental yanıtları için Chatterbox V3 veya açıkça seçilmiş tarayıcı yedeği kullanılır.",
+    "en": "Fixed recordings stay unchanged. Dynamic Mental replies use Chatterbox V3 or an explicitly selected browser fallback.",
+    "de": "Feste Aufnahmen bleiben unverändert. Dynamische Mental-Antworten verwenden Chatterbox V3 oder eine ausdrücklich gewählte Browser-Alternative."
+  },
+  "758d0e49093c2441": {
+    "tr": "Dinamik konuşma motoru",
+    "en": "Dynamic speech engine",
+    "de": "Dynamische Sprachausgabe"
+  },
+  "fb80fe00e8bd0f27": {
+    "tr": "Chatterbox V3 — yerel arka uç",
+    "en": "Chatterbox V3 — local backend",
+    "de": "Chatterbox V3 — lokales Backend"
+  },
+  "0275f8cca7a861f0": {
+    "tr": "Tarayıcı veya cihaz — açık yedek seçimi",
+    "en": "Browser or device — explicit fallback selection",
+    "de": "Browser oder Gerät — ausdrücklich gewählte Alternative"
+  },
+  "b8494ebb54ba4586": {
+    "tr": "Chatterbox doğrulanmış model ve izinli kadın referansı gerektirir. Kullanılamazsa otomatik sağlayıcı değişmez. Aşağıdaki deneme yalnız tarayıcı sesini sınar.",
+    "en": "Chatterbox requires verified weights and an authorized female reference. If unavailable, providers do not switch automatically. The test below checks browser speech only.",
+    "de": "Chatterbox benötigt verifizierte Modellgewichte und eine autorisierte weibliche Referenz. Bei Nichtverfügbarkeit wird der Anbieter nicht automatisch gewechselt. Der folgende Test prüft nur die Browser-Stimme."
+  },
+  "bfc9d8cab35faca2": {
+    "tr": "Yanıt metninin seçtiğim dilde yerel Chatterbox modeliyle veya açıkça seçtiğim tarayıcı/cihaz sesiyle okunmasına izin veriyorum. Çevrimiçi tarayıcı sesi için ayrıca sağlayıcı izni gerekir.",
+    "en": "I allow response text to be read in my selected language by the local Chatterbox model or a browser/device voice I explicitly select. An online browser voice requires separate provider permission.",
+    "de": "Ich erlaube das Vorlesen des Antworttexts in meiner gewählten Sprache durch das lokale Chatterbox-Modell oder eine ausdrücklich gewählte Browser-/Gerätestimme. Eine Online-Browserstimme benötigt eine gesonderte Anbieterfreigabe."
   }
 }

@@ -8,7 +8,7 @@ import { useGuidance,qualityGuidance,skinNeutralGuidance } from '../../utils/aud
 import { lowerFaceExpressionReason } from '../../utils/skinExpression';
 import {SkinEyewearCheck,SkinEyewearGate,SKIN_CAPTURE_POLICY,type EyewearStatus} from '../../utils/skinEyewear';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useVehicle } from '../../context/VehicleContext';
 import {
@@ -254,7 +254,7 @@ export default function SkinPage() {
       window.removeEventListener('storage', revoke);
       window.removeEventListener('attune-privacy', revoke);
     };
-  }, [isParked]);
+  }, [isParked, voice]);
 
   useEffect(() => {
     const refresh = () => {
@@ -288,6 +288,16 @@ export default function SkinPage() {
     }
   }, [scanState, analysisResult]);
 
+  // Functional selection reads the latest region; handlers stay stable until results change.
+  const handlePrevRegion = useCallback(() => {
+    const order = skinViewOrder(analysisResult);
+    setSelectedRegionId(current => order[(order.indexOf(current) - 1 + order.length) % order.length]);
+  }, [analysisResult]);
+  const handleNextRegion = useCallback(() => {
+    const order = skinViewOrder(analysisResult);
+    setSelectedRegionId(current => order[(order.indexOf(current) + 1) % order.length]);
+  }, [analysisResult]);
+
   // Klavye ile döngüsel bölge navigasyonu ve modal kontrolü
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -307,20 +317,7 @@ export default function SkinPage() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [scanState, activeModal, selectedRegionId]);
-
-  // Döngüsel bölge navigasyonu
-  const handlePrevRegion = () => {
-    const order = skinViewOrder(analysisResult);
-    const currentIdx = order.indexOf(selectedRegionId);
-    setSelectedRegionId(order[(currentIdx - 1 + order.length) % order.length]);
-  };
-
-  const handleNextRegion = () => {
-    const order = skinViewOrder(analysisResult);
-    const currentIdx = order.indexOf(selectedRegionId);
-    setSelectedRegionId(order[(currentIdx + 1) % order.length]);
-  };
+  }, [scanState, activeModal, handlePrevRegion, handleNextRegion]);
 
   // Demo modda kamera olmadan sentetik portreyle doğrudan deterministik tarama
   const startSyntheticDemoScan = () => {

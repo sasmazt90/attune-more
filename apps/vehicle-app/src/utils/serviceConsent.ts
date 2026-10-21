@@ -7,7 +7,7 @@ export const SERVICE_REQUIREMENTS={
  dental:[['local','Diş fotoğraflarımın bu cihazda geçici işlenmesine izin veriyorum.']],
  hearing:[['local','Kulaklık sesleri ve yanıtlarımla yerel işitme testinin yapılmasına izin veriyorum.']],
  vision:[['local','Kamera görüntüsü ve konuşma yanıtlarımın göz görevi için geçici işlenmesine izin veriyorum.'],['speech','Yönerge metinlerinin Microsoft Edge Türkçe ses hizmetinde işlenmesine ve tarayıcı konuşma tanıma hizmetini kullanmaya izin veriyorum.']],
- mental:[['recognition','Sesimin tarayıcı/cihaz konuşma tanıma hizmetinde metne çevrilmesine izin veriyorum; bu hizmet sesi buluta aktarabilir.'],['conversation','Konuşma metnimin yanıt, geçici oturum belleği ve özet için OpenAI tarafından işlenmesine izin veriyorum.'],['speech','Yanıt metninin seçtiğim dilde tarayıcı veya cihaz sesiyle okunmasına izin veriyorum. Çevrimiçi ses için ayrıca ses sağlayıcısı izni gerekir.']]
+ mental:[['recognition','Sesimin tarayıcı/cihaz konuşma tanıma hizmetinde metne çevrilmesine izin veriyorum; bu hizmet sesi buluta aktarabilir.'],['conversation','Konuşma metnimin yanıt, geçici oturum belleği ve özet için OpenAI tarafından işlenmesine izin veriyorum.'],['speech','Yanıt metninin seçtiğim dilde yerel Chatterbox modeliyle veya açıkça seçtiğim tarayıcı/cihaz sesiyle okunmasına izin veriyorum. Çevrimiçi tarayıcı sesi için ayrıca sağlayıcı izni gerekir.']]
 } as const;
 export type HealthService=keyof typeof SERVICE_REQUIREMENTS;
 type ConsentDocument={version:1;services:Partial<Record<HealthService,{at:string;permissions:string[]}>>};

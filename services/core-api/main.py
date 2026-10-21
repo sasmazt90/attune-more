@@ -245,6 +245,18 @@ class SpeechPayload(BaseModel):
     cloudConsent: StrictBool = False
     voiceId: Optional[str] = Field(default=None,max_length=160)
 
+class NeuralSpeechPayload(BaseModel):
+    text: str = Field(min_length=1, max_length=4096)
+    language: str
+    speechConsent: StrictBool = False
+
+    @field_validator('text')
+    @classmethod
+    def nonempty_speech(cls, value):
+        if not value.strip():
+            raise ValueError('NONEMPTY_SPEECH_REQUIRED')
+        return value
+
 class CreateSessionPayload(BaseModel):
     summaryText: str
     recurringThemes: List[str]
@@ -451,6 +463,23 @@ async def mental_speech(payload: SpeechPayload):
         raise HTTPException(status_code=409, detail='PARK_REQUIRED')
     if payload.voiceId:return await edge_mental_speech(payload.text, lambda: vehicle_state['vehicleMoving'],payload.voiceId)
     return await edge_mental_speech(payload.text, lambda: vehicle_state['vehicleMoving'])
+
+@app.post('/api/mental/neural-speech')
+async def mental_neural_speech(payload: NeuralSpeechPayload, request: Request):
+    from mental_neural_tts import authorize, generate
+    authorize(request.headers.get('authorization'))
+    if not payload.speechConsent:
+        raise HTTPException(403, 'SPEECH_CONSENT_REQUIRED')
+    if payload.language != current_language():
+        raise HTTPException(422, 'TTS_LANGUAGE_MISMATCH')
+    def permitted():
+        return (vehicle_state.get('driverAuthenticated') is True
+                and vehicle_state.get('vehicleMoving') is False
+                and vehicle_state.get('vehicleParked') is True)
+    raw = await generate(payload.text, payload.language, permitted, request.is_disconnected)
+    return Response(raw, media_type='audio/wav', headers={
+        'Cache-Control':'no-store', 'X-Content-Type-Options':'nosniff',
+        'X-TTS-Source':'chatterbox-multilingual-v3', 'X-TTS-Locale':LANGUAGES[payload.language]})
 
 @app.post('/api/vision/speech')
 async def vision_speech(payload: SpeechPayload):
