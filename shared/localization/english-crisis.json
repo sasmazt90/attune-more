@@ -46,9 +46,10 @@
     "\\bi (?:don't|do not) (?:think|believe) (?:that )?suicide (?:is|feels like) (?:my|the) (?:only|best) (?:option|way out)\\b",
     "\\b(?:the (?:title|phrase)|a story called) [\"\\u201c]?my suicide (?:plans?|notes?)[\"\\u201d]?",
     "\\bi(?: am|'m) not sure (?:if|whether) i have thoughts (?:of|about) suicide\\b",
-    "\\b(?:(?:he|she|they|(?:my|a|the) (?:friend|partner|brother|sister|character|narrator)) (?:said|says|wrote|writes|thought|thinks)|i (?:read|heard|am quoting|was quoting|never said|did not say|didn't say)|the (?:phrase|quote|sentence|title)|what does|the meaning of)[:,]?\\s+[\"“'‘]?(?:i wish i (?:were|was) dead|i(?:'d| would) rather be dead)\\b[\"”']?",
+    "\\b(?:(?:he|she|they|(?:my|a|the) (?:friend|partner|brother|sister|character|narrator)) (?:said|says|told me|wrote|writes|thought|thinks)|i (?:read|heard|am quoting|was quoting|never said|did not say|didn't say)|the (?:phrase|quote|sentence|title)|what does|the meaning of)[:,]?\\s+[\"“'‘]?(?:i wish i (?:were|was) dead|i(?:'d| would) rather be dead)\\b[\"”']?",
     "^[\"“'‘](?:i wish i (?:were|was) dead|i(?:'d| would) rather be dead)[.!?]?[\"”'][.!?]?$",
-    "\\bi (?:don't|do not|no longer) (?:think|believe) (?:that )?(?:i wish i (?:were|was) dead|i(?:'d| would) rather be dead)\\b"
+    "\\bi (?:don't|do not|no longer) (?:think|believe) (?:that )?(?:i wish i (?:were|was) dead|i(?:'d| would) rather be dead)\\b",
+    "[\"“'‘](?:i wish i (?:were|was) dead|i(?:'d| would) rather be dead)[.!?]?[\"”'] (?:is|was|appears|appeared|comes|came) (?:(?:just|only) )?(?:(?:a|the) (?:quote|quotation|line|sentence) )?(?:in|from) (?:a|the) (?:book|movie|film|novel|story|article|song|poem|script)\\b"
   ],
   "continuedRisk": "\\b(?:but|and) (?:sometimes )?(?:i )?(?:still (?:do|am|feel that way)|feel that way (?:again|now))\\b",
   "conditional": "\\b(?:unless|until|if|yet|not sure)\\b"
