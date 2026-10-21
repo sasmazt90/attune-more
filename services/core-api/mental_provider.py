@@ -27,6 +27,7 @@ import unicodedata
 import re
 import json
 from pathlib import Path
+from mental_themes import SESSION_THEME_KEYS, stable_session_themes
 from mental_text_rules import ENGLISH_CRISIS, GERMAN_CRISIS, english_crisis_context, german_crisis_context, professional_support_suggested
 from abc import ABC, abstractmethod
 from typing import Dict, Any, List, Optional
@@ -334,9 +335,13 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
             )
 
             if current_language() != 'tr':
-                prompt += ('\nWrite summaryText, themes and professionalSupportReason in '
+                prompt += ('\nWrite summaryText and professionalSupportReason in '
                            + LANGUAGE_NAMES[current_language()]
                            + '. Preserve the JSON schema, enum values and verbatim user quotations. Do not invent facts.')
+
+            prompt += ('\nThe themes field contains stable category keys, never translated display labels. '
+                       'Choose only supported keys from ' + json.dumps(SESSION_THEME_KEYS, ensure_ascii=False)
+                       + '; use [] if none applies. Do not invent a new category or a diagnosis.')
 
             resp = client.chat.completions.create(
                 model=self.model,
@@ -346,6 +351,7 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
                 response_format={"type": "json_object"}
             )
             data = json.loads(resp.choices[0].message.content)
+            data['themes'] = stable_session_themes(data.get('themes'))
             data["analyzerType"] = "LIVE_LLM"
             data["providerType"] = "LIVE_OPENAI"
             return data

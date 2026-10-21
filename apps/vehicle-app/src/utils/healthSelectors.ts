@@ -1,3 +1,4 @@
+import {displayMentalTheme} from '../i18n/mentalThemes';
 import {getLocale} from '../i18n/core';
 import { readHealthRecords,recordDate } from './healthRecords';
 import { HEALTH_MODULES } from './healthModules';
@@ -213,7 +214,7 @@ export function getMentalSummary(demoMode: boolean = isDemoMode()): MentalSummar
           hasData: true,
           isDemo: false,
           dateTr: recordDate(parsed),
-          primaryTheme: parsed.primaryTheme || 'Genel İyi Oluş',
+          primaryTheme: Array.isArray(parsed.themes)&&parsed.themes.length?parsed.themes.map(displayMentalTheme).join(' • '):displayMentalTheme(parsed.primaryTheme || 'Genel İyi Oluş'),
           sessionCount: parsed.sessionCount || 1,
           sessionCountLabel: `${parsed.sessionCount || 1} görüşme`,
           recommendation: parsed.recommendation || 'Takip önerildi'

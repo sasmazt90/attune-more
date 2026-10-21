@@ -6,6 +6,7 @@ import {contextWindowThrough} from './mentalContextWindow';
 import {serviceAllowed,useServiceAllowed} from './serviceConsent';
 import {speechMuted} from './playbackMeter';
 import { spokenText } from './spokenText';
+import {canonicalMentalTheme} from '../i18n/mentalThemes';
 import {mentalSystemSpeech} from '../i18n/systemSpeech';
 import {approvedMentalTemplate} from '../i18n/approvedAudio';
 import {playFixedSpeech} from './fixedFileSpeech';
@@ -269,7 +270,7 @@ export function useMentalConversation(parked: boolean) {
       if (!r.mounted || r.epoch !== epoch || !settings.current.parked || !settings.current.speechConsent || !serviceAllowed('mental')) return;
       if (!isDemoMode() && data.providerType !== 'LIVE_OPENAI') throw new Error('Unexpected demo summary');
       if (typeof data.summaryText !== 'string' || !data.summaryText.trim() || !Array.isArray(data.themes) || !data.themes.every((t: unknown) => typeof t === 'string')) throw new Error('Invalid summary');
-      const item: MentalHistoryItem = { id: r.id, date: new Date().toISOString(), summaryText: data.summaryText, themes: data.themes,
+      const item: MentalHistoryItem = { id: r.id, date: new Date().toISOString(), summaryText: data.summaryText, themes: data.themes.map(canonicalMentalTheme),
         moodTrend: typeof data.moodTrend === 'string' ? data.moodTrend : undefined, moodTrendSource:typeof data.moodTrend==='string'?'assistant-inferred':undefined, providerType: data.providerType, schemaVersion: 3, startedAt: r.startedAt, completedAt: new Date().toISOString(), completed: true, consented: false };
       if (!isDemoMode() && isMentalSummarySavingAllowed()) {
         // This is the last operation before storage. Consent can change during analysis.

@@ -1,4 +1,5 @@
 'use client';
+import {usePathname} from 'next/navigation';
 import {useEffect,useRef,useState} from 'react';
 import {useTranslations} from '../i18n/LanguageProvider';
 import {LANGUAGES,LOCALES,setLanguage} from '../i18n/core';
@@ -13,6 +14,7 @@ import {useLanguageSwitchLocked} from '../i18n/useLocaleSwitchLock';
 export function LanguageSelector(){
  const {language,text:t}=useTranslations(),{isParked}=useVehicle();
  const [open,setOpen]=useState(false),[error,setError]=useState(''),[voices,setVoices]=useState<VoiceChoice[]>([]),[allVoices,setAllVoices]=useState<SpeechSynthesisVoice[]>([]),[preference,setPreference]=useState<MentalVoicePreference>({}),[sample,setSample]=useState(''),[preview,setPreview]=useState('');
+ const pathname=usePathname();
  const locked=useLanguageSwitchLocked(),permitted=isParked&&!locked;
  const previewController=useRef<AbortController|null>(null);
  const close=()=>{previewController.current?.abort();previewController.current=null;setSample('');setPreview('');setOpen(false);};
@@ -24,6 +26,7 @@ export function LanguageSelector(){
   speechSynthesis.addEventListener('voiceschanged',update);return()=>speechSynthesis.removeEventListener('voiceschanged',update);
  },[language]);
  useEffect(()=>{previewController.current?.abort();previewController.current=null;setPreference(mentalVoicePreference(language));setSample('');setPreview('');setError('');},[language]);
+ useEffect(()=>{previewController.current?.abort();previewController.current=null;setSample('');setPreview('');},[pathname]);
  useEffect(()=>()=>{previewController.current?.abort();previewController.current=null;},[]);
  useEffect(()=>{if(!permitted){previewController.current?.abort();previewController.current=null;setOpen(false);}},[permitted]);
  return <div className="flex flex-wrap items-center gap-2 min-w-0" data-language-selector>
@@ -43,6 +46,7 @@ export function LanguageSelector(){
    {voices.length===0&&<p role="status" className="text-sm text-amber-200">{t('Bu dil için sistem sesi bulunamadı. Başka bir dilin sesi kullanılmaz.')}</p>}
    <ul className="text-xs text-slate-300">{voices.map(v=><li key={v.provider+v.id}>{v.name} · {v.locale} · {t(v.gender==='male'?'Erkek':v.gender==='female'?'Kadın':'Cinsiyet bilgisi yok')} · {t(v.local?'Cihazda':'Çevrimiçi')}</li>)}</ul>
    <p className="text-xs text-slate-300">{t('Tarayıcı sesleri cinsiyet bilgisi sağlamaz; isimden cinsiyet tahmin edilmez. Ses envanteri onaylı modül eşlemelerini değiştirmez.')}</p>
+   {pathname!=='/'&&<p role="status" className="text-xs text-amber-200">{t('Ses denemesini Kokpit sayfasında yapın; sağlık görevlerinin sesli kontrolleriyle çakışmaz.')}</p>}
    <fieldset className="min-w-0 space-y-3 border-t border-white/15 pt-3" data-mental-system-voice>
     <legend>{t('Dinamik Mental sesi')}</legend>
     <label className="block text-sm">{t('Kadın sistem sesi')}<select className="block w-full min-w-0 max-w-full min-h-11 bg-slate-950 border border-white/20 rounded-xl p-2" value={preference.voiceId||''} disabled={!permitted} onChange={e=>changePreference({voiceId:e.target.value||undefined,onlineConsent:false})}>
@@ -55,7 +59,7 @@ export function LanguageSelector(){
     <p role="status" className="text-xs text-amber-200">{selectedVoice?selectedVoice.name+' · '+selectedVoice.lang:t('Uygun kadın sesi bulunamadı veya çevrimiçi ses izni verilmedi. Başka dil veya erkek ses kullanılmaz.')}</p>
     <label className="block text-sm">{t('Kişisel olmayan ses deneme metni')}<textarea className="block w-full bg-slate-950 border border-white/20 rounded-xl p-2" rows={2} maxLength={500} value={sample} onChange={e=>setSample(e.target.value)}/></label>
     <p className="text-xs text-slate-300">{t('Deneme metni saklanmaz. Bu yalnız ses motoru denemesidir; mikrofon veya yapay zekâ görüşmesi başlatmaz.')}</p>
-    <button type="button" className="min-h-11 px-3 border border-white/20 rounded-xl disabled:opacity-40" disabled={!permitted||!sample.trim()||!selectedVoice||['starting','speaking'].includes(preview)} onClick={async()=>{previewController.current?.abort();const controller=new AbortController();previewController.current=controller;setPreview('starting');try{const played=await mentalSystemSpeech(sample,controller.signal,()=>previewController.current===controller,()=>{if(previewController.current===controller)setPreview('speaking');});if(previewController.current===controller)setPreview(played?'Ses denemesi tamamlandı.':'Ses denemesi tamamlanamadı.');}catch{if(previewController.current===controller)setPreview('Ses denemesi tamamlanamadı.');}}}>{t('Dinamik sesi dene')}</button>
+    <button type="button" className="min-h-11 px-3 border border-white/20 rounded-xl disabled:opacity-40" disabled={!permitted||pathname!=='/'||!sample.trim()||!selectedVoice||['starting','speaking'].includes(preview)} onClick={async()=>{previewController.current?.abort();const controller=new AbortController();previewController.current=controller;setPreview('starting');try{const played=await mentalSystemSpeech(sample,controller.signal,()=>previewController.current===controller,()=>{if(previewController.current===controller)setPreview('speaking');});if(previewController.current===controller)setPreview(played?'Ses denemesi tamamlandı.':'Ses denemesi tamamlanamadı.');}catch{if(previewController.current===controller)setPreview('Ses denemesi tamamlanamadı.');}}}>{t('Dinamik sesi dene')}</button>
     <button type="button" className="min-h-11 px-3 border border-white/20 rounded-xl" onClick={()=>{previewController.current?.abort();previewController.current=null;setPreview('');}}>{t('Durdur')}</button>
     {preview&&<p role="status">{preview==='speaking'?t('Seslendiriliyor'):preview==='starting'?t('Ses hazırlanıyor'):t(preview)}</p>}
    </fieldset>

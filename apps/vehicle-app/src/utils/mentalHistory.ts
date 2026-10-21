@@ -1,3 +1,4 @@
+import {canonicalMentalTheme} from '../i18n/mentalThemes';
 import { appendHealthRecord, readHealthRecords, prepareHealthRecords } from './healthRecords';
 import { STORAGE_KEYS, isMentalSummarySavingAllowed, isMentalTranscriptSavingAllowed } from './attuneMode';
 
@@ -26,7 +27,7 @@ export function translateMood(text: string): string {
 export function mentalThemeStats(history: MentalHistoryItem[]) {
   const completed = history.filter(item => [2,3].includes(item.schemaVersion || 0) && item.completed === true && item.consented === true);
   const counts = new Map<string, number>();
-  for (const item of completed) for (const theme of new Set(item.themes.map(t => t.trim()).filter(Boolean))) {
+  for (const item of completed) for (const theme of new Set(item.themes.map(t => canonicalMentalTheme(t.trim())).filter(Boolean))) {
     counts.set(theme, (counts.get(theme) || 0) + 1);
   }
   const total = [...counts.values()].reduce((a, b) => a + b, 0);

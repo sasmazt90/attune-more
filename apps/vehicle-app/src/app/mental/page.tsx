@@ -1,5 +1,6 @@
 'use client';
 import {useLocaleSwitchLock} from '../../i18n/useLocaleSwitchLock';
+import {canonicalMentalTheme} from '../../i18n/mentalThemes';
 import {getLocale} from '../../i18n/core';
 import {useTranslations} from '../../i18n/LanguageProvider';
 
@@ -46,7 +47,7 @@ export default function MentalPage() {
     const demo = isDemoMode();
     try { localStorage.setItem(demo ? STORAGE_KEYS.DEMO_REFERRAL : STORAGE_KEYS.REFERRAL_CONTEXT, JSON.stringify({
       sourceModule: 'MENTAL', specialty: 'Klinik Psikoloji', reasonSummary: 'Kullanıcının klinik psikolog seçeneklerini inceleme talebi.',
-      timestamp: new Date().toISOString(), isDemo: demo, metricsSummary: { recurringThemes: [...new Set(c.history.flatMap(h => h.themes))] }
+      timestamp: new Date().toISOString(), isDemo: demo, metricsSummary: { recurringThemes: [...new Set(c.history.flatMap(h => h.themes.map(canonicalMentalTheme)))] }
     })); } catch {}
     router.push(careHref('mental') + (demo ? '&demo=1' : ''));
   };
@@ -89,7 +90,7 @@ export default function MentalPage() {
       {!stats.mentions ? <p>{i18nText("Henüz tema verisi yok.")}</p> : <>
         <div className="flex flex-wrap gap-4 items-center"><div role="img" aria-label={i18nText("Görüşme tema payları")} className="w-32 h-32 shrink-0 rounded-full" style={{ background: `conic-gradient(${gradient})` }} /><div className="space-y-2">{stats.rows.map((r, i) => <button key={r.theme} onClick={() => setTheme(r.theme)} aria-pressed={theme === r.theme} className="block text-xs text-left rounded-lg px-2 py-1 hover:bg-white/5"><span style={{ color: COLORS[i % COLORS.length] }}>● </span>{i18nNode(r.theme)}: %{i18nNode(r.percent)} ({i18nNode(r.count)}/{i18nNode(stats.mentions)}{i18nText(" tema kaydı)")}</button>)}</div></div>
         <p className="text-xs">{i18nNode(stats.sessions)}{i18nText(" tamamlanmış izinli görüşme · ")}{i18nNode(stats.mentions)}{i18nText(" tema kaydı.")}</p>
-        {theme && <div data-selected-theme><h3 className="font-bold">{i18nNode(theme)}</h3>{c.history.filter(h => [2,3].includes(h.schemaVersion || 0) && h.completed && h.consented && h.themes.includes(theme)).map(h => <p className="text-sm mt-2" key={h.id}>{translateMood(h.summaryText)}</p>)}</div>}
+        {theme && <div data-selected-theme><h3 className="font-bold">{i18nNode(theme)}</h3>{c.history.filter(h => [2,3].includes(h.schemaVersion || 0) && h.completed && h.consented && h.themes.some(value=>canonicalMentalTheme(value)===theme)).map(h => <p className="text-sm mt-2" key={h.id}>{translateMood(h.summaryText)}</p>)}</div>}
       </>}
 
       {c.active && <p className="text-xs text-slate-400">{i18nText("Bu görüşme bitmeden yeni özet veya geçmiş kaydı oluşturulmaz.")}</p>}

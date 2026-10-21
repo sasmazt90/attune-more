@@ -40,12 +40,12 @@ def translate(value, language=None, depth=0):
     return value
 
 DISPLAY_FIELDS = frozenset(('reply','message','displayMessage','detail','summaryText','description','label','title',
-    'note','recommendation','suggestedAction','baselineDiffNote','detectedThemes','themes','recurringThemes',
+    'note','recommendation','suggestedAction','baselineDiffNote',
     'professionalSupportReason','reason','warning','warnings','providerLabel','sourceBadge',
     'specialty','locationLabel','displayTime','clinicalDisclaimer','disclaimer','emergencyContact',
     'handoffNote','suggestedActionNote','nameTr'))
 PROTECTED_FIELDS = frozenset(('userMessage','content','transcript','displayName','driverName','name','id','themeId',
-    'recordId','sessionId','providerType','model','url','dateTime','timeZone'))
+    'recordId','sessionId','providerType','model','url','dateTime','timeZone','themes','detectedThemes','recurringThemes'))
 
 def localize_payload(value, field=None):
     if current_language() == 'tr' or field in PROTECTED_FIELDS:
