@@ -9,7 +9,7 @@
 | Six original frontend warnings | PASS: stable handlers/current refs, no suppressions |
 | Initial lint, typecheck, production build | PASS, zero frontend warnings |
 | Initial affected Skin/Vision/Mental checks | PASS, 31 tests |
-| Consolidated auth/config/process/proxy/client/locale/original-audio/observer checks | PASS, 86 focused tests and four subtests; explicit model/HTTP/audio fixtures |
+| Consolidated auth/config/process/proxy/client/locale/original-audio/observer checks | PASS, 87 focused tests and four subtests; explicit model/HTTP/audio fixtures |
 | Chatterbox source identity and code license | PASS, official pinned source and MIT text |
 | Exact V3 weight snapshot/hash/model license evidence | BLOCKED: official Hugging Face endpoint returned proxy `403 Forbidden` |
 | Approved natural female reference profiles | BLOCKED: no verified reference recording/profile established. Owner authorized autonomous selection; no further voice-selection approval is required. Official VCTK corpus page also returned proxy `403 Forbidden`; upstream source tree contains no reference WAV/MP3. No rights are inferred from Clipchamp approval. |
@@ -26,6 +26,8 @@ Final focused/browser/build/CI receipts are retained in `/workspace/attune-neura
 Skin uses its memoized guidance controller in the privacy effect's dependencies. Region navigation uses stable callbacks with functional selection updates and current result order. Vision's stage transition callback is stable, so the mute listener observes it without being repeatedly torn down. The header uses Next Image with explicit 20×20 geometry for the same decorative SVG. Mental's phase ref is updated synchronously by a stable setter, preserving cancellation during asynchronous summary completion; consent events call the latest action through the existing ref. No effect suppressions or lint rule changes were introduced.
 
 The additional cross-tab review finding is corrected in the locale core and provider: all locale/API/audio consumers retain the assessment's language for the lifetime of local locks. Storage-driven language changes do not cancel active assessments or notify the provider until the last local lock releases. The latest external preference then applies without rewriting other tabs' settings, records or consent.
+
+The related cross-tab speech-selection finding is also corrected. Engine and female voice identity are captured at the first local lock, before an utterance starts, and remain stable through that assessment. Pending remote settings become effective after unlock and refresh the selector. Online-provider permission is deliberately not frozen: a live revocation still cancels remote browser output. Microphone/service permission and motion gates are unchanged. Focused tests exercise actual generation/browser adapter functions under foreign-tab writes and verify revocation still works; all voice/output observations in these tests are explicitly synthetic fixtures.
 
 ## Model identity and licenses
 

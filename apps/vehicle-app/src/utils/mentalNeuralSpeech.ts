@@ -1,12 +1,13 @@
 import {getLanguage,getLocale,VOICE_EVENT} from '../i18n/core';
-import {languageSwitchLocked} from '../i18n/locks';
+import {captureWhileLocked,languageSwitchLocked} from '../i18n/locks';
 import {playAudioBytes} from './fixedFileSpeech';
 import {speechMuted} from './playbackMeter';
 export const MENTAL_ENGINE_KEY='attune.mental-speech-engine.v1';
 export type MentalSpeechEngine='chatterbox-v3'|'browser-system';
-export function mentalSpeechEngine():MentalSpeechEngine{
+function storedEngine():MentalSpeechEngine{
  try{return localStorage.getItem(MENTAL_ENGINE_KEY)==='browser-system'?'browser-system':'chatterbox-v3';}catch{return 'chatterbox-v3';}
 }
+export const mentalSpeechEngine=captureWhileLocked(storedEngine);
 export function setMentalSpeechEngine(engine:MentalSpeechEngine){
  if(languageSwitchLocked())throw Error('ASSESSMENT_IN_PROGRESS');
  if(!['chatterbox-v3','browser-system'].includes(engine))throw Error('UNSUPPORTED_ENGINE');

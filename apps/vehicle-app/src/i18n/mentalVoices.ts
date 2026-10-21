@@ -1,5 +1,5 @@
 import {getLanguage,Language,VOICE_EVENT} from './core';
-import {languageSwitchLocked} from './locks';
+import {captureWhileLocked,languageSwitchLocked} from './locks';
 // Identity metadata only: neither installation nor service entitlement is inferred.
 // https://learn.microsoft.com/azure/ai-services/speech-service/language-support
 // https://support.microsoft.com/en-us/accessibility/windows/narrator/appendix-a-supported-languages-and-voices
@@ -25,8 +25,15 @@ export function mentalVoiceIdentity(voice:SpeechSynthesisVoice){
 export function mentalSystemVoices(voices:readonly SpeechSynthesisVoice[],language:Language){
  return voices.filter(v=>v.lang.split(/[-_]/)[0].toLowerCase()===language&&!!mentalVoiceIdentity(v));
 }
+function storedPreferences():string {try{return localStorage.getItem(MENTAL_VOICE_KEY)||'{}';}catch{return '{}';}}
+const lockedPreferences=captureWhileLocked(storedPreferences);
+function parsePreference(raw:string,language:Language):MentalVoicePreference{
+ try{const value=JSON.parse(raw)[language];return value&&typeof value==='object'?{voiceId:typeof value.voiceId==='string'?value.voiceId:undefined,onlineConsent:value.onlineConsent===true}:{};}catch{return {};}
+}
 export function mentalVoicePreference(language:Language=getLanguage()):MentalVoicePreference{
- try{const value=JSON.parse(localStorage.getItem(MENTAL_VOICE_KEY)||'{}')[language];return value&&typeof value==='object'?{voiceId:typeof value.voiceId==='string'?value.voiceId:undefined,onlineConsent:value.onlineConsent===true}:{};}catch{return {};}
+ const selected=parsePreference(lockedPreferences(),language),live=parsePreference(storedPreferences(),language);
+ // Freeze identity, but never freeze a revoked online-provider permission.
+ return {...selected,onlineConsent:selected.onlineConsent===true&&live.onlineConsent===true};
 }
 export function setMentalVoicePreference(language:Language,value:MentalVoicePreference){
  if(languageSwitchLocked())throw Error('ASSESSMENT_IN_PROGRESS');

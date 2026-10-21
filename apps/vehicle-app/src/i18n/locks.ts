@@ -6,3 +6,10 @@ export function setLanguageSwitchLock(owner:string,active:boolean){
  if(before!==languageSwitchLocked())for(const listener of listeners)listener();
 }
 export function subscribeLanguageLock(listener:()=>void){listeners.add(listener);return()=>{listeners.delete(listener);};}
+
+/** Module-owned preferences snapshot on first lock, not on the first utterance. */
+export function captureWhileLocked<T>(read:()=>T):()=>T {
+ let held=languageSwitchLocked(),snapshot=held?read():undefined;
+ subscribeLanguageLock(()=>{held=languageSwitchLocked();snapshot=held?read():undefined;});
+ return()=>held?snapshot as T:read();
+}

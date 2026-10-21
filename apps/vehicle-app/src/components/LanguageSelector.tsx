@@ -12,12 +12,18 @@ import {mentalSystemVoices,mentalVoicePreference,setMentalVoicePreference,select
 import {approvedClip} from '../i18n/approvedAudio';
 import {HEALTH_MODULE_IDS,HEALTH_MODULES} from '../utils/healthModules';
 import {useLanguageSwitchLocked} from '../i18n/useLocaleSwitchLock';
+import {subscribeLanguageLock} from '../i18n/locks';
+import {VOICE_EVENT} from '../i18n/core';
 export function LanguageSelector(){
  const {language,text:t}=useTranslations(),{isParked}=useVehicle();
  const [open,setOpen]=useState(false),[error,setError]=useState(''),[voices,setVoices]=useState<VoiceChoice[]>([]),[allVoices,setAllVoices]=useState<SpeechSynthesisVoice[]>([]),[preference,setPreference]=useState<MentalVoicePreference>({}),[sample,setSample]=useState(''),[preview,setPreview]=useState('');
  const pathname=usePathname();
  const [engine,setEngine]=useState<MentalSpeechEngine>('chatterbox-v3');
- useEffect(()=>{setEngine(mentalSpeechEngine());},[]);
+ useEffect(()=>{
+  const update=()=>{setEngine(mentalSpeechEngine());setPreference(mentalVoicePreference(language));};update();
+  window.addEventListener('storage',update);window.addEventListener(VOICE_EVENT,update);const unsubscribe=subscribeLanguageLock(update);
+  return()=>{window.removeEventListener('storage',update);window.removeEventListener(VOICE_EVENT,update);unsubscribe();};
+ },[language]);
  const locked=useLanguageSwitchLocked(),permitted=isParked&&!locked;
  const previewController=useRef<AbortController|null>(null);
  const close=()=>{previewController.current?.abort();previewController.current=null;setSample('');setPreview('');setOpen(false);};
