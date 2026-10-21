@@ -45,6 +45,7 @@ jobs:
       NEXT_TELEMETRY_DISABLED: '1'
       OMP_NUM_THREADS: '2'
       MKL_NUM_THREADS: '2'
+      ATTUNE_MENTAL_TTS_DIAGNOSTICS: '1'
     steps:
       - name: Record single-run authorization and initialize isolated paths
         env:

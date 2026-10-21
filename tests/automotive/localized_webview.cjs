@@ -72,8 +72,8 @@ async function decode(page) {
 async function neural(page, value) {
   validate(value);await inject(page);
   await page.locator('h1').first().click();
-  const statuses=[],responses=[];
-  const observe=response=>{if(new URL(response.url()).pathname==='/api/mental-neural-speech'){statuses.push(response.status());responses.push(response);}};
+  const statuses=[],responses=[],responseTimings=[],requestStartedAtUnixMs=Date.now();
+  const observe=response=>{if(new URL(response.url()).pathname==='/api/mental-neural-speech'){statuses.push(response.status());responses.push(response);responseTimings.push({status:response.status(),milliseconds:Date.now()-requestStartedAtUnixMs});}};
   page.on('response',observe);
   try {
     const result=await page.evaluate(async language=>{
@@ -92,7 +92,7 @@ async function neural(page, value) {
       if(bytes.length<=44||bytes.length>8*1024*1024||bytes.toString('ascii',0,4)!=='RIFF'||bytes.toString('ascii',8,12)!=='WAVE')throw Error('Invalid actual neural WAV');
       generatedEnglish={bytes,sha256:createHash('sha256').update(bytes).digest('hex')};
     }
-    return {...result,httpStatuses:statuses,status:result.played&&result.starts===1?'PASS':statuses.some(s=>[401,403,429,503,504].includes(s))?'BLOCKED':'FAIL',
+    return {...result,requestStartedAtUnixMs,responseTimings,httpStatuses:statuses,status:result.played&&result.starts===1?'PASS':statuses.some(s=>[401,403,429,503,504].includes(s))?'BLOCKED':'FAIL',
       meaning:'Actual backend transport/playback attempt. Model/profile readiness and naturalness require separately verified inference evidence.'};
   }finally{page.off('response',observe);}
 }

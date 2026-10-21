@@ -5,10 +5,12 @@ import hmac
 import io
 from importlib.metadata import distribution
 import json
+import logging
 import os
 from pathlib import Path
 import re
 import sys
+import tempfile
 from time import monotonic
 import wave
 from fastapi import HTTPException
@@ -18,9 +20,32 @@ SOURCE_REVISION = '5de7a54aa4e5e2baadb0182dde554908b48b85c2'
 MODEL_FILE = 't3_mtl23ls_v3.safetensors'
 REQUIRED_FILES = (MODEL_FILE, 've.pt', 's3gen.pt', 'grapheme_mtl_merged_expanded_v1.json', 'Cangjie5_TC.json', 'conds.pt')
 MAX_AUDIO = 8 * 1024 * 1024
-MAX_SECONDS = 60
+LIMITS = json.loads((Path(__file__).resolve().parents[2] / 'shared/localization/neural-tts-limits.json').read_text())
+MAX_SECONDS = LIMITS['audioSeconds']
 _busy = False
 SOURCE_MANIFEST = Path(__file__).resolve().parents[2] / 'shared/localization/chatterbox-v3-source.json'
+logger = logging.getLogger('uvicorn.error')
+WORKER_PHASES = ('verify-assets', 'verify-source', 'import-runtime', 'load-model', 'inference', 'encode-wav', 'complete')
+
+
+def worker_progress(path):
+    """Only bounded, allowlisted numerical telemetry crosses into service logs."""
+    try:
+        with Path(path).open('rb') as stream:
+            rows = json.loads(stream.read(4097))
+        if not isinstance(rows, list) or len(rows) > len(WORKER_PHASES):
+            return []
+        safe = []
+        for row in rows:
+            if row['phase'] not in WORKER_PHASES:
+                return []
+            values = {key: row[key] for key in ('elapsedSeconds', 'cpuSeconds', 'peakRSSKiB')}
+            if any(type(value) not in (int, float) or not 0 <= value < 2**40 for value in values.values()):
+                return []
+            safe.append({'phase': row['phase'], **values})
+        return safe
+    except (OSError, ValueError, KeyError, TypeError):
+        return []
 
 
 def verify_runtime_source(installed=None):
@@ -156,6 +181,9 @@ async def generate(text, language, permitted, disconnected):
     _busy = True
     process = None
     task = None
+    diagnostic = None
+    started = monotonic()
+    outcome = 'cancelled'
     try:
         executable = os.getenv('ATTUNE_MENTAL_TTS_PYTHON') or sys.executable
         env = {**os.environ, 'HF_HUB_OFFLINE': '1', 'TRANSFORMERS_OFFLINE': '1',
@@ -164,6 +192,11 @@ async def generate(text, language, permitted, disconnected):
         for key in list(env):
             if any(word in key.upper() for word in ('TOKEN', 'SECRET', 'API_KEY', 'PASSWORD')):
                 env.pop(key, None)
+        if os.getenv('ATTUNE_MENTAL_TTS_DIAGNOSTICS') == '1':
+            diagnostic = tempfile.TemporaryDirectory(prefix='attune-tts-timing-')
+            env['ATTUNE_MENTAL_TTS_PROGRESS'] = str(Path(diagnostic.name) / 'progress.json')
+        else:
+            env.pop('ATTUNE_MENTAL_TTS_PROGRESS', None)
         worker = Path(__file__).with_name('mental_neural_worker.py')
         process = await asyncio.create_subprocess_exec(executable, str(worker),
             stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE,
@@ -176,7 +209,7 @@ async def generate(text, language, permitted, disconnected):
                 raise HTTPException(409, 'PARK_AND_AUTHENTICATION_REQUIRED')
             if await disconnected():
                 raise HTTPException(499, 'NEURAL_TTS_REQUEST_CANCELLED')
-            if monotonic() - started >= 90:
+            if monotonic() - started >= LIMITS['workerSeconds']:
                 raise HTTPException(504, 'NEURAL_TTS_DEADLINE')
             await asyncio.wait({task}, timeout=.1)
         raw, _ = task.result()
@@ -187,10 +220,16 @@ async def generate(text, language, permitted, disconnected):
         if await disconnected():
             raise HTTPException(499, 'NEURAL_TTS_REQUEST_CANCELLED')
         try:
-            return validate_wave(raw)
+            audio = validate_wave(raw)
         except (ValueError, wave.Error, EOFError):
             raise HTTPException(503, 'NEURAL_TTS_INVALID_AUDIO') from None
+        outcome = 'success'
+        return audio
+    except HTTPException as error:
+        outcome = 'http-' + str(error.status_code)
+        raise
     except (OSError, ValueError):
+        outcome = 'runtime-unavailable'
         raise HTTPException(503, 'NEURAL_TTS_RUNTIME_UNAVAILABLE') from None
     finally:
         if process and process.returncode is None:
@@ -200,7 +239,18 @@ async def generate(text, language, permitted, disconnected):
             if not task.done():
                 task.cancel()
             await asyncio.gather(task, return_exceptions=True)
-        _busy = False
+        try:
+            if diagnostic:
+                logger.info('Neural worker timing %s', json.dumps({
+                    'language': language if language in ('tr', 'en', 'de') else 'unknown',
+                    'outcome': outcome, 'elapsedSeconds': round(monotonic() - started, 3),
+                    'returncode': process.returncode if process else None,
+                    'phases': worker_progress(Path(diagnostic.name) / 'progress.json'),
+                }))
+        finally:
+            if diagnostic:
+                diagnostic.cleanup()
+            _busy = False
 
 
 async def generate_for_request(text, language, permitted, request):

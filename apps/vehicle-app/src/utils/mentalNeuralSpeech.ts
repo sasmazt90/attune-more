@@ -2,6 +2,7 @@ import {getLanguage,getLocale,VOICE_EVENT} from '../i18n/core';
 import {captureWhileLocked,languageSwitchLocked} from '../i18n/locks';
 import {playAudioBytes} from './fixedFileSpeech';
 import {speechMuted} from './playbackMeter';
+import limits from '../../../../shared/localization/neural-tts-limits.json';
 export const MENTAL_ENGINE_KEY='attune.mental-speech-engine.v1';
 export type MentalSpeechEngine='chatterbox-v3'|'browser-system';
 function storedEngine():MentalSpeechEngine{
@@ -24,7 +25,7 @@ export async function mentalNeuralSpeech(text:string,signal:AbortSignal,current:
  signal.addEventListener('abort',cancel,{once:true});
  for(const event of ['attune-locale-media-cancel','attune-guidance-muted','attune-guidance-cancel'])window.addEventListener(event,cancel);
  document.addEventListener('visibilitychange',check);
- const timer=setInterval(check,100),deadline=setTimeout(cancel,95000);
+ const timer=setInterval(check,100),deadline=setTimeout(cancel,limits.generationMilliseconds);
  // Claim focus during generation too, preventing fixed guidance overlap.
  const owner={},focus=(active:boolean)=>{const event=new Event('attune-stream-focus') as Event&{owner:object;active:boolean};event.owner=owner;event.active=active;window.dispatchEvent(event);};
  focus(true);
@@ -34,9 +35,12 @@ export async function mentalNeuralSpeech(text:string,signal:AbortSignal,current:
   const reader=response.body?.getReader();if(!reader)return false;const chunks:Uint8Array[]=[];let size=0;
   while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>8*1024*1024){await reader.cancel();return false;}chunks.push(value);}
   if(size<=44||!permitted())return false;
+  // The generation budget ends here; playback has its own bounded deadline.
+  // Keep live mute/consent/locale/session/motion and abort observation active.
+  clearTimeout(deadline);
   const bytes=new Uint8Array(size);let at=0;for(const chunk of chunks){bytes.set(chunk,at);at+=chunk.length;}
   const audio=new Audio();audioReady(audio);
-  return await playAudioBytes(audio,bytes.buffer,'audio/wav',60,controller.signal,permitted,stage=>{if(stage==='playing')onPlaying();});
+  return await playAudioBytes(audio,bytes.buffer,'audio/wav',limits.audioSeconds,controller.signal,permitted,stage=>{if(stage==='playing')onPlaying();});
  }catch{return false;}
  finally{controller.abort();clearInterval(timer);clearTimeout(deadline);signal.removeEventListener('abort',cancel);for(const event of ['attune-locale-media-cancel','attune-guidance-muted','attune-guidance-cancel'])window.removeEventListener(event,cancel);document.removeEventListener('visibilitychange',check);focus(false);}
 }

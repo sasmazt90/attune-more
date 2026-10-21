@@ -177,3 +177,64 @@ def test_request_observer_kills_actual_child_and_releases_slot(monkeypatch,tmp_p
             await asyncio.wait_for(task,2)
         assert process.returncode is not None and neural._busy is False
     asyncio.run(scenario())
+
+
+@pytest.mark.parametrize('terminal', ['success-after-90', 'deadline', 'disconnect', 'motion'])
+def test_extended_budget_still_kills_reaps_and_redacts(monkeypatch, tmp_path, caplog, terminal):
+    """Virtual elapsed time plus a real non-ML child; no neural acceptance claim."""
+    path = tmp_path / 'config.json'; path.write_text('{}')
+    monkeypatch.setenv('ATTUNE_MENTAL_TTS_CONFIG', str(path))
+    monkeypatch.setenv('ATTUNE_MENTAL_TTS_DIAGNOSTICS', '1')
+    clock = [0]
+    monkeypatch.setattr(neural, 'monotonic', lambda: clock[0])
+    real_spawn = asyncio.create_subprocess_exec
+    async def scenario():
+        process = None
+        progress = None
+        checks = 0
+        async def spawn(*args, **kwargs):
+            nonlocal process, progress
+            progress = Path(kwargs['env']['ATTUNE_MENTAL_TTS_PROGRESS'])
+            progress.write_text(json.dumps([{'phase': 'inference', 'elapsedSeconds': 15,
+                'cpuSeconds': 12, 'peakRSSKiB': 7000000, 'private': 'NEVER_LOG_USER_TEXT'}]))
+            if terminal == 'success-after-90':
+                # An explicit synthetic WAV, never a model-generated recording.
+                code = 'import sys;sys.stdin.buffer.read();sys.stdout.buffer.write(' + repr(wav_bytes()) + ')'
+            else:
+                code = 'import sys,time;sys.stdin.buffer.read();time.sleep(30)'
+            process = await real_spawn(sys.executable, '-c', code, **kwargs)
+            return process
+        monkeypatch.setattr(neural.asyncio, 'create_subprocess_exec', spawn)
+        def permitted():
+            nonlocal checks
+            checks += 1
+            return terminal != 'motion' or checks < 4
+        async def disconnected():
+            clock[0] = 120 if terminal == 'success-after-90' else clock[0] + 61
+            return terminal == 'disconnect' and clock[0] >= 122
+        with caplog.at_level('INFO', logger='uvicorn.error'):
+            if terminal == 'success-after-90':
+                assert await neural.generate('NEVER_LOG_USER_TEXT', 'en', permitted, disconnected) == wav_bytes()
+            else:
+                with pytest.raises(HTTPException) as caught:
+                    await neural.generate('NEVER_LOG_USER_TEXT', 'en', permitted, disconnected)
+                assert caught.value.status_code == {'deadline': 504, 'disconnect': 499, 'motion': 409}[terminal]
+                if terminal == 'deadline':
+                    assert caught.value.detail == 'NEURAL_TTS_DEADLINE'
+                    assert clock[0] >= neural.LIMITS['workerSeconds']
+            assert process.returncode is not None
+            assert not progress.parent.exists()
+            assert neural._busy is False
+        assert 'Neural worker timing' in caplog.text
+        assert 'inference' in caplog.text
+        for private in ('NEVER_LOG_USER_TEXT', str(path), str(progress)):
+            assert private not in caplog.text
+    asyncio.run(scenario())
+
+
+@pytest.mark.parametrize('row', [None, {}, {'phase': 'PRIVATE_TEXT'},
+    {'phase': 'inference', 'elapsedSeconds': float('nan'), 'cpuSeconds': 0, 'peakRSSKiB': 0},
+    {'phase': 'inference', 'elapsedSeconds': 0, 'cpuSeconds': -1, 'peakRSSKiB': 0}])
+def test_invalid_timing_data_never_enters_logs(tmp_path, row):
+    path = tmp_path / 'progress.json'; path.write_text(json.dumps([row]))
+    assert neural.worker_progress(path) == []

@@ -1,4 +1,5 @@
 import {NextRequest,NextResponse} from 'next/server';
+import limits from '../../../../../../shared/localization/neural-tts-limits.json';
 export const runtime='nodejs';
 export const dynamic='force-dynamic';
 const fail=(status:number,detail:string)=>NextResponse.json({detail},{status,headers:{'Cache-Control':'no-store'}});
@@ -36,7 +37,7 @@ export async function POST(request:NextRequest){
  }catch{return fail(422,'INVALID_SPEECH');}
  const controller=new AbortController(),cancel=()=>controller.abort();
  request.signal.addEventListener('abort',cancel,{once:true});
- const deadline=setTimeout(cancel,95000);
+ const deadline=setTimeout(cancel,limits.proxyMilliseconds);
  try{
   if(request.signal.aborted)return fail(499,'SPEECH_CANCELLED');
   const target=new URL('/api/mental/neural-speech',backend);target.searchParams.set('language',payload.language);

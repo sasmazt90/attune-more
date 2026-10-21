@@ -16,6 +16,8 @@ import mental_neural_tts as boundary
 @pytest.mark.parametrize('language', ['tr', 'en', 'de'])
 @pytest.mark.parametrize('has_conditioning', [True, False])
 def test_explicit_v3_default_conditioning_without_external_reference(monkeypatch, tmp_path, language, has_conditioning):
+    progress = tmp_path / 'worker-timing.json'
+    monkeypatch.setenv('ATTUNE_MENTAL_TTS_PROGRESS', str(progress))
     monkeypatch.setattr(worker, 'load_configuration', lambda *a: ({'device': 'cpu'}, tmp_path, None, {}))
     monkeypatch.setattr(worker, 'verify_runtime_source', lambda: {'fixture': 'explicit fake ML source'})
     versions = {'torch': '2.6.0+cpu', 'torchaudio': '2.6.0+cpu', 'transformers': '5.2.0', 'safetensors': '0.5.3'}
@@ -54,6 +56,9 @@ def test_explicit_v3_default_conditioning_without_external_reference(monkeypatch
     if has_conditioning:
         boundary.validate_wave(worker.synthesize(payload))
         assert calls[1] == ('generate', (payload['text'],), {'language_id': language})
+        rows = boundary.worker_progress(progress)
+        assert [row['phase'] for row in rows] == list(boundary.WORKER_PHASES)
+        assert payload['text'] not in progress.read_text()
     else:
         with pytest.raises(ValueError, match='OFFICIAL_DEFAULT_CONDITIONING_MISSING'):
             worker.synthesize(payload)

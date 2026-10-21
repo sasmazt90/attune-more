@@ -20,6 +20,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[2]
+NEURAL_LIMITS = json.loads((ROOT / 'shared/localization/neural-tts-limits.json').read_text())
 PACKAGE = 'more.attune.automotive.prototype.debug'
 COMPONENT = PACKAGE + '/more.attune.automotive.MainActivity'
 PROBE = 'more.attune.validation/more.attune.validation.RestrictionProbe'
@@ -785,7 +786,10 @@ class Assessment:
             client.request('navigate',route='/')
             for language in ('tr','en','de'):
                 client.request('localization-language',language=language)
-                row=client.request('localization-neural',language=language,timeout=110)
+                # Generation and bounded playback are separate budgets. Keep the
+                # three observations sequential, including response/body delivery.
+                row=client.request('localization-neural',language=language,
+                                   timeout=NEURAL_LIMITS['generationMilliseconds'] / 1000 + NEURAL_LIMITS['audioSeconds'] + 15)
                 rows.append(row)
                 self.save('mental-neural-audio.json',json.dumps(rows,ensure_ascii=False,indent=2))
                 if row['status']=='PASS':
