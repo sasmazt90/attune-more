@@ -121,6 +121,7 @@ class SingleLaunchChecks(unittest.TestCase):
                  patch.object(Path, 'is_char_device', return_value=False), \
                  patch.object(runner, 'free_port'), \
                  patch.object(runner, 'command', return_value=(1, 'KVM absent')), \
+                 patch('shutil.disk_usage', return_value=Mock(free=10 * 1024**3)), \
                  patch.object(runner.subprocess, 'Popen') as launch, \
                  patch.object(runner.subprocess, 'run') as avd:
                 self.assertEqual(runner.run(), 69)

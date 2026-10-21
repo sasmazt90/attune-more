@@ -68,6 +68,14 @@ def run():
     sdk = Path(os.environ['ANDROID_HOME'])
     out = Path(os.environ['ATTUNE_AAOS_EVIDENCE'])
     out.mkdir(parents=True, exist_ok=True)
+    if os.getenv('ATTUNE_AAOS_REQUIRE_NEURAL') == '1':
+        try:
+            readiness = json.loads((out / 'neural-readiness.json').read_text())
+            if readiness.get('status') != 'PASS':
+                raise ValueError('Neural readiness did not pass')
+        except (OSError, ValueError):
+            print('BLOCKED: successful real neural readiness is required before emulator launch')
+            return 69
     report = audit(sdk, 'image')
     (out / 'runtime-before-boot.json').write_text(json.dumps(report, indent=2))
     if report['errors']:

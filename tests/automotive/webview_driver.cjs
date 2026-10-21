@@ -88,6 +88,16 @@ async function serve() {
     if (action === 'quit') { if (device) await device.close(); return true; }
     if (!page) throw Error('No Android WebView has been connected');
     if (action === 'localization-neural') return localized.neural(page,args.language);
+    if (action === 'hearing-scored') return localized.hearing(page,args.language);
+    if (action === 'neural-active-start') return localized.activeStart(page,args.mode);
+    if (action === 'neural-interrupt') return localized.activeInterrupt(page,args.mode,navigate);
+    if (action === 'neural-stale-check') {
+      await page.evaluate(()=>new Promise(resolve=>setTimeout(resolve,1500)));
+      return page.evaluate(()=>{
+        const stale=!!window.attuneActiveQA||[...document.querySelectorAll('audio,video')].some(a=>!a.paused);
+        return {status:stale?'FAIL':'PASS',staleMediaObserved:stale,observationMs:1500};
+      });
+    }
     if (action === 'ready') {
       await page.locator('[data-vehicle-status]').waitFor({ state: 'visible', timeout: 20000 });
       await page.waitForFunction(() => document.querySelector('[data-vehicle-status]')?.textContent === 'PARK');

@@ -8,6 +8,9 @@ on:
         type: string
         required: false
   workflow_call:
+    secrets:
+      ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON:
+        required: false
     inputs:
       expected_source_sha:
         type: string
@@ -60,6 +63,10 @@ jobs:
           echo 'Manual dispatch must have separate owner approval for this source. Standard runner only; zero additional artifact cost is not guaranteed.' >> "$GITHUB_STEP_SUMMARY"
           echo "ATTUNE_AAOS_EVIDENCE=$RUNNER_TEMP/attune-aaos-evidence" >> "$GITHUB_ENV"
           echo "ATTUNE_DATA_DIR=$RUNNER_TEMP/attune-aaos-private-data" >> "$GITHUB_ENV"
+          echo "ATTUNE_AAOS_JOB_STARTED=$(date +%s)" >> "$GITHUB_ENV"
+          if [[ "$GITHUB_REF" == refs/heads/feature/localization-en-de-tr-20261020 ]]; then
+            echo 'ATTUNE_AAOS_REQUIRE_NEURAL=1' >> "$GITHUB_ENV"
+          fi
       - uses: actions/checkout@v4
         id: checkout
         with:
@@ -81,6 +88,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11.17'
+      - name: Require authorized private neural transfer configuration
+        id: neural-config
+        if: env.ATTUNE_AAOS_REQUIRE_NEURAL == '1'
+        env:
+          ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON: ${{ secrets.ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON }}
+          ATTUNE_AAOS_TTS_BUNDLE_FILE_ID: ${{ vars.ATTUNE_AAOS_TTS_BUNDLE_FILE_ID }}
+        run: python tests/automotive/provision_neural.py --credentials-only
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -96,6 +110,16 @@ jobs:
           # Only disposable hosted-runner tool caches; no workspace/user data.
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android/sdk/ndk
           df -h . > "$ATTUNE_AAOS_EVIDENCE/runner-disk.txt"
+      - name: Import verified private bundle and install isolated pinned CPU runtime
+        if: env.ATTUNE_AAOS_REQUIRE_NEURAL == '1'
+        id: neural-import
+        timeout-minutes: 9
+        env:
+          ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON: ${{ secrets.ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON }}
+          ATTUNE_AAOS_TTS_BUNDLE_FILE_ID: ${{ vars.ATTUNE_AAOS_TTS_BUNDLE_FILE_ID }}
+        run: |
+          python -m pip install --disable-pip-version-check --retries 0 'google-auth[requests]==2.40.3' requests==2.34.2
+          python tests/automotive/provision_neural.py
       - name: Set up and verify Android SDK tools
         id: sdk
         uses: ./.github/actions/setup-automotive-sdk
@@ -124,6 +148,10 @@ jobs:
           python tests/automotive/runtime_preflight.py --stage tools
           python tests/automotive/validate_emulator.py --preflight
           python -m pytest tests/automotive/test_car_restriction_source.py tests/automotive/test_emulator_harness.py tests/automotive/test_acceptance_regressions.py tests/unit/test_automotive_contract.py -q -rA 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/safety-preflight-tests.log"
+      - name: Require real neural configuration and service readiness before emulator boot
+        if: env.ATTUNE_AAOS_REQUIRE_NEURAL == '1'
+        id: neural-readiness
+        run: python tests/automotive/neural_readiness.py
       - name: Boot real AAOS and run finite checks
         id: emulator
         # One launch of the audited SDK; no upstream SDK reinstallation after
@@ -139,6 +167,9 @@ jobs:
           AAOS_SDK_OUTCOME: ${{ steps.sdk.outcome }}
           AAOS_PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
           AAOS_EMULATOR_OUTCOME: ${{ steps.emulator.outcome }}
+          AAOS_NEURAL_CONFIG_OUTCOME: ${{ steps.neural-config.outcome }}
+          AAOS_NEURAL_IMPORT_OUTCOME: ${{ steps.neural-import.outcome }}
+          AAOS_NEURAL_READINESS_OUTCOME: ${{ steps.neural-readiness.outcome }}
         run: python3 tests/automotive/validate_emulator.py --finalize
       - name: Enforce artifact size ceiling
         if: always() && steps.checkout.outcome == 'success'

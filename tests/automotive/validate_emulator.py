@@ -29,6 +29,7 @@ CHECKS = [
     'background-lifecycle', 'backend-offline', 'web-load-error-recovery',
     'permissions-initial', 'permissions-denial', 'unsupported-hardware', 'crashes-console',
     'evidence-capture', 'localized-webview-audio', 'mental-neural-audio',
+    'hearing-scored-locales', 'mental-neural-interruptions',
 ]
 ROUTES = ['/', '/skin', '/dental', '/vision', '/hearing', '/mental', '/care', '/profile', '/privacy']
 
@@ -265,7 +266,7 @@ def finalize(out):
                     for c in CHECKS if c not in existing]
     else:
         stages = ', '.join(name + '=' + os.getenv('AAOS_' + name.upper() + '_OUTCOME', 'unknown')
-                           for name in ('assets', 'kvm', 'sdk', 'image', 'build', 'preflight', 'emulator'))
+                           for name in ('assets', 'neural_config', 'kvm', 'neural_import', 'sdk', 'image', 'build', 'preflight', 'neural_readiness', 'emulator'))
         detail = f'Harness not reached; {stages}. See job logs and runtime-*.json.'
         results = [{'check': c, 'status': 'BLOCKED', 'detail': detail} for c in CHECKS]
     if not (out / 'navigation.json').exists():
@@ -274,11 +275,11 @@ def finalize(out):
             for route in ROUTES], indent=2))
     first_failure = next((r for r in results if r['status'] == 'FAIL'), None)
     stages = {name: os.getenv('AAOS_' + name.upper() + '_OUTCOME', 'unknown')
-              for name in ('assets', 'kvm', 'sdk', 'image', 'build', 'preflight', 'emulator')}
+              for name in ('assets', 'neural_config', 'kvm', 'neural_import', 'sdk', 'image', 'build', 'preflight', 'neural_readiness', 'emulator')}
     first_failed_stage = next((name for name, outcome in stages.items() if outcome == 'failure'), None)
     report = write_reports(out, results)
     diagnostics = []
-    for path in sorted([*out.glob('runtime-*.json'), *out.glob('asset-preflight.json')]):
+    for path in sorted([*out.glob('runtime-*.json'), *out.glob('asset-preflight.json'), *out.glob('neural-readiness.json')]):
         try:
             diagnostics += [path.name + ': ' + str(error) for error in json.loads(path.read_text()).get('errors', [])]
         except (ValueError, OSError, AttributeError):
@@ -288,6 +289,9 @@ def finalize(out):
         report += '\n'.join('- ' + error.replace('\n', ' ') for error in diagnostics) + '\n'
         (out / 'report.md').write_text(report)
     (out / 'execution.json').write_text(json.dumps({
+        'neural_config': os.getenv('AAOS_NEURAL_CONFIG_OUTCOME', 'unknown'),
+        'neural_import': os.getenv('AAOS_NEURAL_IMPORT_OUTCOME', 'unknown'),
+        'neural_readiness': os.getenv('AAOS_NEURAL_READINESS_OUTCOME', 'unknown'),
         'sdk': os.getenv('AAOS_SDK_OUTCOME', 'unknown'),
         'assets': os.getenv('AAOS_ASSETS_OUTCOME', 'unknown'),
         'image': os.getenv('AAOS_IMAGE_OUTCOME', 'unknown'),
@@ -795,6 +799,86 @@ class Assessment:
             if self.web_client is not None:
                 self.web_client.request('localization-language',language='tr')
 
+    def hearing_scored_locales(self):
+        rows = []
+        client = self.parked_page()
+        try:
+            for language in ('tr', 'en', 'de'):
+                client.request('navigate', route='/')
+                client.request('localization-language', language=language)
+                client.request('navigate', route='/hearing')
+                row = client.request('hearing-scored', language=language, timeout=180)
+                rows.append(row)
+                self.save('hearing-scored-locales.json', json.dumps(rows, ensure_ascii=False, indent=2))
+                self.capture('hearing-scored-' + language)
+                assert row['status'] == 'PASS', row
+            return 'Three real Android WebView DIN UI runs: selected banks, real PCM completion, 24 synthetic responses each, unchanged scoring, localized results; no human hearing or clinical claim.'
+        finally:
+            observed = {row['language'] for row in rows}
+            rows.extend({'language': language, 'status': 'BLOCKED', 'detail': 'Earlier scored workflow did not complete; no result inferred.'}
+                        for language in ('tr', 'en', 'de') if language not in observed)
+            self.save('hearing-scored-locales.json', json.dumps(rows, ensure_ascii=False, indent=2))
+            try:
+                client.request('navigate', route='/')
+                client.request('localization-language', language='tr')
+            except Exception:
+                pass  # Keep the primary failure; no safety lock is overridden.
+
+    def mental_neural_interruptions(self):
+        rows = []
+        client = self.web_client  # Keep current-run WAV bytes in this observer process.
+        if client is None:
+            raise Blocked('Current-run neural playback observer is unavailable')
+        try:
+            for mode in ('mute', 'cancel', 'consent', 'language', 'session'):
+                client.request('navigate', route='/mental')
+                client.request('navigate', route='/')
+                row = client.request('neural-interrupt', mode=mode, timeout=25)
+                rows.append(row)
+                self.save('mental-neural-interruptions.json', json.dumps(rows, indent=2))
+                self.capture('neural-interrupt-' + mode)
+                assert row['status'] == 'PASS', row
+            for source in ('backend', 'car-ux'):
+                client.request('navigate', route='/mental')
+                client.request('navigate', route='/')
+                active = client.request('neural-active-start', mode='motion')
+                self.save('neural-active-' + source + '.json', json.dumps(active, indent=2))
+                if source == 'backend':
+                    self.api(75)
+                    self.wait(lambda: self.probe()['doRequired'] == 'false')
+                else:
+                    self.vhal(False)
+                    self.wait(lambda: self.probe()['doRequired'] == 'true')
+                    assert self.api()['vehicleParked'] is True
+                self.wait(lambda: 'android.webkit.WebView' not in self.ui())
+                self.wait(self.no_web_target, 15, label='active neural WebView destroyed on ' + source)
+                if time.time() * 1000 - active['observedAtUnixMs'] >= 30000:
+                    raise Blocked('Motion observation exceeded 30 seconds; shared output deadline could confound cessation evidence')
+                self.capture('neural-motion-' + source)
+                self.api(0)
+                self.vhal(True)
+                self.launch()
+                self.wait(lambda: 'android.webkit.WebView' in self.ui())
+                client.request('connect')
+                client.request('ready')
+                stale = client.request('neural-stale-check', timeout=8)
+                row = {**active, 'mode': source + '-motion', 'destroyedWebView': True, **stale}
+                rows.append(row)
+                self.save('mental-neural-interruptions.json', json.dumps(rows, indent=2))
+                assert row['status'] == 'PASS', row
+            return 'Actual current-run neural WAV interrupted during real WebView playback by mute, abort, consent withdrawal, locale/route change and both independent motion gates; no stale restart observed. Shared output/session-boundary checks, not microphone/LLM conversation acceptance.'
+        finally:
+            observed = {row['mode'] for row in rows}
+            rows.extend({'mode': mode, 'status': 'BLOCKED', 'detail': 'Earlier active-audio observation did not complete; no result inferred.'}
+                        for mode in ('mute', 'cancel', 'consent', 'language', 'session', 'backend-motion', 'car-ux-motion') if mode not in observed)
+            self.save('mental-neural-interruptions.json', json.dumps(rows, indent=2))
+            self.api(0)
+            self.vhal(True)
+            try:
+                client.request('localization-language', language='tr')
+            except Exception:
+                pass
+
     def localized_webview_audio(self):
         """Fresh actual runtime acceptance; never infer this from desktop Chrome."""
         client = self.parked_page()
@@ -997,7 +1081,9 @@ class Assessment:
             self.check('permissions-denial', self.permission_request, ['webview-backend', 'permissions-initial'])
             self.check('unsupported-hardware', self.unsupported, ['platform-parked'])
             self.check('localized-webview-audio', self.localized_webview_audio, ['webview-backend', 'navigation'])
+            self.check('hearing-scored-locales', self.hearing_scored_locales, ['localized-webview-audio'])
             self.check('mental-neural-audio', self.mental_neural_audio, ['localized-webview-audio'])
+            self.check('mental-neural-interruptions', self.mental_neural_interruptions, ['mental-neural-audio'])
             self.check('crashes-console', self.crash_console, ['webview-backend'])
             self.check('evidence-capture', self.evidence_quality, ['navigation'], capture=False)
         finally:
