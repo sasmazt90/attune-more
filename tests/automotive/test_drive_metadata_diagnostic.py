@@ -99,6 +99,11 @@ class MetadataDiagnosticTests(unittest.TestCase):
         self.assertIsNone(diag.NoRedirect().redirect_request(None, None, 302, 'private', {}, 'https://private.invalid'))
         self.assertEqual(diag.reasons(PRIVATE_TOKEN.encode()), [])
 
+    def test_common_field_auth_and_standard_google_status_codes_are_preserved(self):
+        raw = json.dumps({'error': {'status': 'INVALID_ARGUMENT', 'message': PRIVATE_ID,
+                                    'errors': [{'reason': 'invalidParameter'}, {'reason': 'authError'}]}}).encode()
+        self.assertEqual(diag.reasons(raw), ['INVALID_ARGUMENT', 'authError', 'invalidParameter'])
+
     def test_real_openssl_signature_claims_and_temporary_key_cleanup(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

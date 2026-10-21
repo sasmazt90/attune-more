@@ -20,12 +20,15 @@ SCOPE = 'https://www.googleapis.com/auth/drive.readonly'
 FIELDS = 'name,size,trashed,capabilities(canDownload)'
 SAFE_REASONS = frozenset({
     'accessNotConfigured', 'insufficientPermissions', 'insufficientFilePermissions',
-    'notFound', 'forbidden', 'badRequest', 'invalid', 'rateLimitExceeded',
+    'notFound', 'forbidden', 'badRequest', 'invalid', 'invalidParameter', 'authError',
+    'backendError', 'internalError', 'appNotAuthorizedToFile', 'domainPolicy', 'rateLimitExceeded',
     'userRateLimitExceeded', 'dailyLimitExceeded', 'downloadQuotaExceeded',
     'fileNotDownloadable', 'SERVICE_DISABLED', 'ACCESS_TOKEN_SCOPE_INSUFFICIENT',
     'IAM_PERMISSION_DENIED', 'BILLING_DISABLED', 'invalid_grant', 'invalid_client',
     'unauthorized_client', 'invalid_scope', 'invalid_request', 'access_denied',
     'temporarily_unavailable',
+    'INVALID_ARGUMENT', 'UNAUTHENTICATED', 'PERMISSION_DENIED', 'NOT_FOUND',
+    'RESOURCE_EXHAUSTED', 'INTERNAL', 'UNAVAILABLE',
 })
 
 
@@ -72,6 +75,7 @@ def reasons(raw):
         else:
             candidates = [r.get('reason') for key in ('errors', 'details')
                           for r in error.get(key, []) if isinstance(r, dict)]
+            candidates.append(error.get('status'))
         return sorted({v for v in candidates if isinstance(v, str) and v in SAFE_REASONS})
     except (ValueError, AttributeError, TypeError):
         return []
