@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'services/core-api'))
 import mental_provider
 from mental_provider import check_mental_crisis
-from mental_text_rules import english_crisis_context, professional_support_suggested
+from mental_text_rules import english_crisis_context, german_crisis_context, professional_support_suggested
 from localization import request_language
 from fastapi.testclient import TestClient
 import main
@@ -113,6 +113,57 @@ def test_requested_english_transcripts_through_actual_keyless_api(monkeypatch, t
         assert '112' in result['reply'] and '182' not in result['reply']
     else:
         assert result['providerType'] == 'LOCAL_DEMO'
+
+
+GERMAN = [
+    ('Ich bin nicht suizidal.', False, 'REASSURANCE'),
+    ('Ich möchte sterben.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich will sterben.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich möchte nicht sterben.', False, 'REASSURANCE'),
+    ('Ich möchte nicht mehr leben.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich bin suizidal.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich habe Suizidgedanken.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich plane Suizid.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich möchte mich umbringen.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich habe vor, mich umzubringen.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich habe nicht vor, mich umzubringen.', False, 'REASSURANCE'),
+    ('Ich bin nicht mehr suizidal, aber ich möchte sterben.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Früher war ich suizidal, aber jetzt nicht mehr.', False, 'HISTORICAL'),
+    ('Früher war ich suizidal, und ich bin es noch.', True, 'CONTINUING_RISK_SIGNAL'),
+    ('Ich weiß nicht, ob ich suizidal bin.', False, 'UNCERTAIN'),
+    ('Das Wort Suizid steht im Wörterbuch.', False, 'UNCERTAIN'),
+    ('Ich möchte leben.', False, 'NONE'),
+    ('Ich werde Selbstmord begehen.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich möchte Suizid begehen.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich denke über Selbstmord nach.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich habe einen Plan für Suizid.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich werde keinen Selbstmord begehen.', False, 'REASSURANCE'),
+    ('Ich werde Selbstmord nicht begehen.', False, 'REASSURANCE'),
+    ('Ich denke nicht über Suizid nach.', False, 'REASSURANCE'),
+    ('Ich fühle mich gerade nicht sicher und brauche dringend Hilfe.', True, 'NONE'),
+]
+
+
+@pytest.mark.parametrize('text,crisis,context', GERMAN)
+def test_german_context_and_actual_api(monkeypatch, text, crisis, context):
+    assert german_crisis_context(text)['context'] == context
+    assert check_mental_crisis(text, False)['isCrisis'] is crisis
+    assert check_mental_crisis(text, True)['isCrisis'] is crisis
+    monkeypatch.setitem(main.vehicle_state, 'vehicleMoving', False)
+    with TestClient(main.app) as client:
+        result = client.post('/api/mental/converse?language=de', json={'userMessage': text, 'cloudConsent': False})
+    assert result.status_code == 200 and result.headers['content-language'] == 'de-DE'
+    assert (result.json()['providerType'] == 'CRISIS_SAFETY_GUARD') is crisis
+    if crisis:
+        assert '112' in result.json()['reply']
+
+
+def test_german_shared_frontend_backend_rule_parity():
+    script = """require('./tests/unit/ts_loader.js');const d=require('./packages/safety/crisisDetector.ts');console.log(JSON.stringify(JSON.parse(process.argv[1]).map(text=>({context:d.germanCrisisContext(text),result:d.checkCrisisTrigger(text)}))));"""
+    result = subprocess.run(['node','-e',script,json.dumps([r[0] for r in GERMAN])],cwd=ROOT,text=True,capture_output=True,timeout=20,check=True)
+    for case, observed in zip(GERMAN,json.loads(result.stdout),strict=True):
+        assert observed['context']==german_crisis_context(case[0])
+        assert observed['result']['isCrisis'] is case[1]
 
 
 SUPPORT = [

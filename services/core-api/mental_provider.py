@@ -27,7 +27,7 @@ import unicodedata
 import re
 import json
 from pathlib import Path
-from mental_text_rules import ENGLISH_CRISIS, english_crisis_context, professional_support_suggested
+from mental_text_rules import ENGLISH_CRISIS, GERMAN_CRISIS, english_crisis_context, german_crisis_context, professional_support_suggested
 from abc import ABC, abstractmethod
 from typing import Dict, Any, List, Optional
 from datetime import datetime
@@ -375,9 +375,10 @@ def check_mental_crisis(text: str, is_driving: bool, live_client: Optional[Any] 
     urgent_safety = any(all(re.search(pattern, candidates[1]) for pattern in pair)
                         for pair in URGENT_SAFETY_PATTERNS.values())
     english = english_crisis_context(text)
-    legacy_english = set(ENGLISH_CRISIS['legacyKeywords'])
-    self_harm_signal = english['signal'] or any(normalize_crisis_text(keyword) in candidate
-                           for keyword in CRISIS_KEYWORDS if keyword not in legacy_english for candidate in candidates)
+    german = german_crisis_context(text)
+    contextual_keywords = set(ENGLISH_CRISIS['legacyKeywords'] + GERMAN_CRISIS['legacyKeywords'])
+    self_harm_signal = english['signal'] or german['signal'] or any(normalize_crisis_text(keyword) in candidate
+                           for keyword in CRISIS_KEYWORDS if keyword not in contextual_keywords for candidate in candidates)
     
     # 1. Katman: Deterministik Anahtar Kelime Koruması
     if urgent_safety or self_harm_signal:
@@ -407,7 +408,7 @@ def check_mental_crisis(text: str, is_driving: bool, live_client: Optional[Any] 
 
     return {
         "isCrisis": False,
-        "riskLevel": "UNCERTAIN" if english['context'] in ('UNCERTAIN', 'HISTORICAL') else "NONE",
+        "riskLevel": "UNCERTAIN" if any(r['context'] in ('UNCERTAIN', 'HISTORICAL') for r in (english, german)) else "NONE",
         "selfHarmSignal": False,
         "violenceSignal": False,
         "needsEmergencyEscalation": False,

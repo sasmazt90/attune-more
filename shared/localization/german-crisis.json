@@ -1,0 +1,34 @@
+{
+  "legacyKeywords": [
+    "selbstmord",
+    "suizid",
+    "mich umbringen",
+    "mir etwas antun",
+    "mir selbst schaden",
+    "nicht mehr leben",
+    "sterben will",
+    "will sterben"
+  ],
+  "signal": "\\b(?:selbstmord|suizid(?:al|gedanken|plan)?|mich (?:nicht )?(?:umbringen|umzubringen)|mir (?:etwas|selbst) (?:antun|antue|schaden)|nicht mehr leben|sterben (?:will|möchte)|(?:will|möchte) (?:nicht (?:mehr )?)?sterben|(?:will|möchte) nicht (?:mehr )?leben)\\b",
+  "selfDirected": "\\b(?:mich (?:umbringen|umzubringen)|mir (?:etwas|selbst) (?:antun|antue|schaden)|nicht mehr leben|sterben (?:will|möchte)|(?:will|möchte) sterben|(?:will|möchte) nicht (?:mehr )?leben)\\b",
+  "currentState": "\\b(?:ich (?:bin|fühle mich)(?: akut|aktuell|gerade|noch)? suizidal|ich habe (?:einen )?(?:suizidplan|suizidgedanken)|ich (?:plane|erwäge|denke an) (?:einen )?(?:selbstmord|suizid)|ich (?:will|möchte|werde) (?:einen )?(?:selbstmord|suizid) (?:begehen|verüben)|ich denke über (?:selbstmord|suizid) nach|ich habe einen plan für (?:selbstmord|suizid))\\b",
+  "reassurance": [
+    "\\bich (?:bin|fühle mich)(?: aktuell|gerade)? (?:nicht|nicht mehr) suizidal\\b",
+    "\\bich (?:will|möchte) nicht (?:mehr )?sterben\\b",
+    "\\bich (?:will|möchte|werde) mich nicht (?:umbringen|umzubringen)\\b",
+    "\\bich denke nicht an (?:selbstmord|suizid)\\b",
+    "\\bich habe nicht vor,? mich umzubringen\\b",
+    "\\bich (?:will|möchte|werde) (?:keinen (?:selbstmord|suizid) (?:begehen|verüben)|(?:selbstmord|suizid) nicht (?:begehen|verüben))\\b",
+    "\\bich denke nicht über (?:selbstmord|suizid) nach"
+  ],
+  "historical": [
+    "\\b(?:früher war ich|ich war früher) suizidal\\b",
+    "\\bfrüher wollte ich (?:sterben|mich umbringen)\\b"
+  ],
+  "uncertain": [
+    "\\bich weiß nicht,? ob ich suizidal bin\\b",
+    "\\bich bin (?:mir )?nicht sicher,? ob ich suizidal bin\\b"
+  ],
+  "continuedRisk": "\\b(?:aber|und) (?:ich )?(?:bin es noch|bin immer noch|fühle mich immer noch so|tue es noch)\\b",
+  "conditional": "\\b(?:wenn|falls|bis|es sei denn|nicht sicher)\\b"
+}

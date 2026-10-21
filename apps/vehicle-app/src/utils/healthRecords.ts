@@ -56,7 +56,7 @@ function commit(changes: Record<string, string | null>, finalize = true) {
 
 function mentalLatest(records: HealthRecord[]) {
   const item = records.at(-1);
-  return item ? JSON.stringify({ ...item, dateTr: recordDate(item), primaryTheme: Array.isArray(item.themes) ? item.themes.join(' • ') || 'Günlük paylaşım' : item.primaryTheme || 'Tema kaydı yok', sessionCount: records.length, recommendation: 'Kayıtlı görüşme özeti' }) : null;
+  return item ? JSON.stringify({ ...item, primaryTheme: Array.isArray(item.themes) ? item.themes.join(' • ') || 'Günlük paylaşım' : item.primaryTheme || 'Tema kaydı yok', sessionCount: records.length, recommendation: 'Kayıtlı görüşme özeti' }) : null;
 }
 
 function readRecordsLocked(category: HealthCategory, writable = true): HealthRecord[] {

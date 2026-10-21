@@ -30,7 +30,7 @@ import {
 } from '../../utils/healthSelectors';
 
 export default function ProfilePage() {
- const {text:i18nText,node:i18nNode}=useTranslations();
+ const {language,text:i18nText,node:i18nNode}=useTranslations();
 
   const { isParked } = useVehicle();
   const profile = mockInitialHealthProfile;
@@ -55,7 +55,7 @@ export default function ProfilePage() {
     };
     refresh(); window.addEventListener('attune-records', refresh); window.addEventListener('storage', refresh);
     return () => { window.removeEventListener('attune-records', refresh); window.removeEventListener('storage', refresh); };
-  }, []);
+  }, [language]);
 
   return (
     <div className="space-y-6">

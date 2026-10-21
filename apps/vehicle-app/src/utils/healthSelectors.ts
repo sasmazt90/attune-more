@@ -212,7 +212,7 @@ export function getMentalSummary(demoMode: boolean = isDemoMode()): MentalSummar
         return {
           hasData: true,
           isDemo: false,
-          dateTr: parsed.dateTr || 'Bugün',
+          dateTr: recordDate(parsed),
           primaryTheme: parsed.primaryTheme || 'Genel İyi Oluş',
           sessionCount: parsed.sessionCount || 1,
           sessionCountLabel: `${parsed.sessionCount || 1} görüşme`,

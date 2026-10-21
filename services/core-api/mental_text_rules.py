@@ -11,29 +11,39 @@ import unicodedata
 
 ENGLISH_CRISIS = json.loads((Path(__file__).resolve().parents[2] /
     'shared/localization/english-crisis.json').read_text('utf-8'))
+GERMAN_CRISIS = json.loads((Path(__file__).resolve().parents[2] /
+    'shared/localization/german-crisis.json').read_text('utf-8'))
 
 
-def english_crisis_context(text):
+def contextual_crisis_context(text, policy):
     value = re.sub(r'\s+', ' ', unicodedata.normalize('NFC', text).lower().replace('’', "'")).strip()
-    if not re.search(ENGLISH_CRISIS['signal'], value, re.ASCII):
+    if not re.search(policy['signal'], value, re.ASCII):
         return {'signal': False, 'context': 'NONE'}
     observed = set()
     for kind in ('reassurance', 'historical', 'uncertain'):
-        for pattern in ENGLISH_CRISIS[kind]:
+        for pattern in policy[kind]:
             value, count = re.subn(pattern, ' ', value, flags=re.ASCII)
             if count:
                 observed.add(kind)
-    if any(re.search(ENGLISH_CRISIS[key], value, re.ASCII) for key in ('selfDirected', 'currentState')):
+    if any(re.search(policy[key], value, re.ASCII) for key in ('selfDirected', 'currentState')):
         return {'signal': True, 'context': 'CURRENT_RISK_SIGNAL'}
     # A denial or reference to the past is not an all-message safe exemption.
-    if observed and re.search(ENGLISH_CRISIS['continuedRisk'], value, re.ASCII):
+    if observed and re.search(policy['continuedRisk'], value, re.ASCII):
         return {'signal': True, 'context': 'CONTINUING_RISK_SIGNAL'}
-    if re.search(ENGLISH_CRISIS['signal'], value, re.ASCII):
+    if re.search(policy['signal'], value, re.ASCII):
         return {'signal': False, 'context': 'UNCERTAIN'}
-    if observed and re.search(ENGLISH_CRISIS['conditional'], value, re.ASCII):
+    if observed and re.search(policy['conditional'], value, re.ASCII):
         return {'signal': False, 'context': 'UNCERTAIN'}
     context = 'UNCERTAIN' if 'uncertain' in observed else 'HISTORICAL' if 'historical' in observed else 'REASSURANCE'
     return {'signal': False, 'context': context}
+
+
+def english_crisis_context(text):
+    return contextual_crisis_context(text, ENGLISH_CRISIS)
+
+
+def german_crisis_context(text):
+    return contextual_crisis_context(text, GERMAN_CRISIS)
 
 
 SUPPORT_RULES = {

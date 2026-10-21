@@ -15,7 +15,22 @@ export function measuredShareSection(category:'dental'|'hearing'):ShareSection|n
   const finite=(value:unknown)=>typeof value==='number'&&Number.isFinite(value);
   const usable=(metric:any)=>metric?.quality==='valid'&&finite(metric.value);
   const hearingValid=!['invalid','unreliable','insufficient'].includes(r.quality);
-  const text=category==='dental'?(r.sourceType==='upload'?'Yüklenen tek fotoğraf':'Kamera')+' · '+(r.measurements||[]).map((v:any)=>`${v.pose}: ${!usable(v.caries)?'Çürük adayı değerlendirilemiyor':v.caries.value+' görünür aday'}; birikim ${!usable(v.accumulation)?'değerlendirilemiyor':Math.round(v.accumulation.value)+'% görünür sınır alanı'}`).join('. '):r.thresholds?r.thresholds.map((t:any)=>`${t.ear==='left'?'Sol':'Sağ'} ${t.frequency} Hz: ${!hearingValid||t.status!=='threshold'||!finite(t.value)?'eşik bulunamadı':t.value+' dBFS peak'}`).join('. '):`${finite(r.validTrials)?r.validTrials:'Kaydedilmemiş sayıda'} geçerli üçlü · ${!hearingValid||!finite(r.value)?'kararlı eşik bulunamadı':r.value+' dB SNR'}`;
+  // Translate display fragments before joining them; an entire multi-view
+  // measurement string is not a catalog key. Never rewrite the raw record.
+  let text:string;
+  if(category==='dental'){
+    const poses:Record<string,string>={FRONT:'Ön',RIGHT:'Anatomik sağ',LEFT:'Anatomik sol',BITE:'Kapanış görünümü'};
+    const measurements=(r.measurements||[]).map((v:any)=>{
+      const caries=t(!usable(v.caries)?'Çürük adayı değerlendirilemiyor':`${v.caries.value} görünür aday`);
+      const accumulation=t(!usable(v.accumulation)?'değerlendirilemiyor':`${Math.round(v.accumulation.value)}% görünür sınır alanı`);
+      return t(`${t(poses[v.pose]||v.pose)}: ${caries}; birikim ${accumulation}`);
+    });
+    text=t(r.sourceType==='upload'?'Yüklenen tek fotoğraf':'Kamera')+' · '+measurements.join('. ');
+  }else if(r.thresholds){
+    text=r.thresholds.map((threshold:any)=>`${t(threshold.ear==='left'?'Sol':'Sağ')} ${threshold.frequency} Hz: ${t(!hearingValid||threshold.status!=='threshold'||!finite(threshold.value)?'eşik bulunamadı':threshold.value+' dBFS peak')}`).join('. ');
+  }else{
+    text=t(`${finite(r.validTrials)?r.validTrials:t('Kaydedilmemiş sayıda')} geçerli üçlü · ${t(!hearingValid||!finite(r.value)?'kararlı eşik bulunamadı':r.value+' dB SNR')}`);
+  }
   return {title:HEALTH_MODULES[category].name,dateTr:recordDate(r),text};
 }
 export function buildShareSections(selection: ShareSelection, vision: VisionSummaryData, skin: SkinSummaryData, mental: MentalSummaryData,dental?:ShareSection|null,hearing?:ShareSection|null): ShareSection[] {
