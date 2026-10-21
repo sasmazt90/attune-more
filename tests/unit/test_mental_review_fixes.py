@@ -54,6 +54,24 @@ CASES = [
     ('Suicide is my only option.', True, 'CURRENT_RISK_SIGNAL'),
     ("I don't believe suicide is my only option.", False, 'UNCERTAIN'),
     ('I am writing a suicide note.', True, 'CURRENT_RISK_SIGNAL'),
+    ('My suicide plan is ready.', True, 'CURRENT_RISK_SIGNAL'),
+    ('My suicide plan is finalized.', True, 'CURRENT_RISK_SIGNAL'),
+    ('My suicide note is in my hand.', True, 'CURRENT_RISK_SIGNAL'),
+    ("My suicide plan doesn't exist.", False, 'REASSURANCE'),
+    ('The title "My suicide note" is in a story.', False, 'UNCERTAIN'),
+    ('My suicide note is finished.', True, 'CURRENT_RISK_SIGNAL'),
+    ("My suicide plan's ready.", True, 'CURRENT_RISK_SIGNAL'),
+    ('I finished my suicide note.', True, 'CURRENT_RISK_SIGNAL'),
+    ('I have prepared my suicide plan.', True, 'CURRENT_RISK_SIGNAL'),
+    ('My suicide note is being written.', True, 'CURRENT_RISK_SIGNAL'),
+    ('My suicide note is not finished yet.', True, 'CURRENT_RISK_SIGNAL'),
+    ('My suicide plan is no longer active.', False, 'REASSURANCE'),
+    ('My suicide plan is abandoned.', False, 'REASSURANCE'),
+    ('My suicide note is from years ago.', False, 'HISTORICAL'),
+    ('I found my suicide note from years ago.', False, 'HISTORICAL'),
+    ('My suicide plan was abandoned years ago.', False, 'HISTORICAL'),
+    ('My suicide plan is no longer active, but I want to die.', True, 'CURRENT_RISK_SIGNAL'),
+    ('My suicide plan is no longer active unless I lose my job.', False, 'UNCERTAIN'),
     ('An unrelated presuicidalword is not a self-report.', False, 'NONE'),
     ('Ich fühle mich gerade nicht sicher und brauche dringend Hilfe.', True, 'NONE'),
     ('Ich will sterben.', True, 'NONE'),
@@ -99,7 +117,7 @@ def test_all_contexts_match_actual_frontend_including_remaining_danger():
                 assert observed[key]['riskLevel'] == check_mental_crisis(text, key == 'moving')['riskLevel']
 
 
-@pytest.mark.parametrize('text,crisis,context', CASES[:7])
+@pytest.mark.parametrize('text,crisis,context', [c for c in CASES if c in CASES[:7] or c[0] in ('My suicide plan is ready.','My suicide note is finished.','My suicide plan is no longer active.','My suicide plan is no longer active, but I want to die.')])
 def test_requested_english_transcripts_through_actual_keyless_api(monkeypatch, text, crisis, context):
     monkeypatch.setitem(main.vehicle_state, 'vehicleMoving', False)
     monkeypatch.setattr(main, 'get_active_mental_provider', lambda: (_ for _ in ()).throw(AssertionError('No live provider permitted')))
@@ -132,6 +150,15 @@ GERMAN = [
     ('Früher war ich suizidal, und ich bin es noch.', True, 'CONTINUING_RISK_SIGNAL'),
     ('Ich weiß nicht, ob ich suizidal bin.', False, 'UNCERTAIN'),
     ('Das Wort Suizid steht im Wörterbuch.', False, 'UNCERTAIN'),
+    ('Mein Suizidplan ist fertig.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Mein Suizidplan existiert nicht.', False, 'REASSURANCE'),
+    ('Der Titel "Mein Suizidplan" steht in einem Roman.', False, 'UNCERTAIN'),
+    ('Mein Suizidplan ist bereit.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich habe meinen Suizidplan vorbereitet.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Mein Suizidplan ist nicht mehr aktiv.', False, 'REASSURANCE'),
+    ('Mein Suizidplan ist von vor Jahren.', False, 'HISTORICAL'),
+    ('Mein Suizidplan ist nicht mehr aktiv, aber ich möchte sterben.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Mein Suizidplan ist nicht mehr aktiv, falls ich meinen Job behalte.', False, 'UNCERTAIN'),
     ('Ich möchte leben.', False, 'NONE'),
     ('Ich werde Selbstmord begehen.', True, 'CURRENT_RISK_SIGNAL'),
     ('Ich möchte Suizid begehen.', True, 'CURRENT_RISK_SIGNAL'),

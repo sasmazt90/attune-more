@@ -1,8 +1,8 @@
 """Small deterministic text rules, not a diagnosis or a clinical risk assessment.
 
-English reassurance/history only masks its own bounded phrase. Independent
-current-risk clauses remain visible. TR/DE emergency rules stay in their
-existing detector. These shared patterns are also executed by the frontend.
+English/German reassurance/history only masks its own bounded phrase.
+Independent current-risk clauses remain visible. Turkish emergency rules
+stay in the existing detector. The frontend executes these same policies.
 """
 import json
 from pathlib import Path
