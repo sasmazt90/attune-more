@@ -9,8 +9,8 @@
     "sterben will",
     "will sterben"
   ],
-  "signal": "\\b(?:selbstmord(?:gedanken|plan|pläne|plaene)?|suizid(?:al(?:e|en|er|es|em)?|gedanken|plan|pläne|plaene)?|mich (?:nicht )?(?:umbringen|umzubringen)|mir (?:etwas|selbst) (?:antun|antue|schaden)|nicht mehr leben|sterben (?:will|möchte)|(?:will|möchte) (?:nicht (?:mehr )?)?sterben|(?:will|möchte) nicht (?:mehr )?leben)\\b",
-  "selfDirected": "\\b(?:mich (?:umbringen|umzubringen)|mir (?:etwas|selbst) (?:antun|antue|schaden)|nicht mehr leben|sterben (?:will|möchte)|(?:will|möchte) sterben|(?:will|möchte) nicht (?:mehr )?leben)\\b",
+  "signal": "\\b(?:selbstmord(?:gedanken|plan|pläne|plaene)?|suizid(?:al(?:e|en|er|es|em)?|gedanken|plan|pläne|plaene)?|mich (?:nicht )?(?:umbringen|umzubringen)|mir (?:etwas|selbst) (?:antun|antue|schaden)|nicht mehr leben|sterben (?:will|möchte)|(?:will|möchte) (?:nicht (?:mehr )?)?sterben|(?:will|möchte) nicht (?:mehr )?leben|ich bringe mich(?: nicht(?: mehr)?)?(?: (?:jetzt|gleich|heute|bald))? um|ich (?:tue|tu) mir (?:etwas|was|selbst etwas|nichts(?: mehr)?)(?: nicht(?: mehr)?)?(?: (?:jetzt|gleich|heute|bald))? an)\\b",
+  "selfDirected": "\\b(?:mich (?:umbringen|umzubringen)|mir (?:etwas|selbst) (?:antun|antue|schaden)|nicht mehr leben|sterben (?:will|möchte)|(?:will|möchte) sterben|(?:will|möchte) nicht (?:mehr )?leben|ich bringe mich(?: (?:jetzt|gleich|heute|bald))? um|ich (?:tue|tu) mir (?:etwas|was|selbst etwas)(?: (?:jetzt|gleich|heute|bald))? an)\\b",
   "currentState": "\\b(?:ich (?:bin|fühle mich)(?: akut|aktuell|gerade|noch)? suizidal|ich habe (?:einen )?(?:(?:suizid|selbstmord)(?:plan|pläne|plaene|gedanken))|ich (?:plane|erwäge|denke an) (?:einen )?(?:selbstmord|suizid)|ich (?:will|möchte|werde) (?:einen )?(?:selbstmord|suizid) (?:begehen|verüben)|ich denke über (?:selbstmord|suizid) nach|ich habe einen plan für (?:selbstmord|suizid)|mein(?:e|en|er|em|es)? (?:suizid|selbstmord)(?:plan|pläne|plaene)|ich habe meinen (?:suizid|selbstmord)(?:plan|pläne|plaene) (?:fertiggestellt|vorbereitet)|ich habe (?:akute |aktuelle )?suizidal(?:e|en) gedanken|ich habe gedanken an (?:selbstmord|suizid))\\b",
   "reassurance": [
     "\\bich (?:bin|fühle mich)(?: aktuell|gerade)? (?:nicht|nicht mehr) suizidal\\b",
@@ -23,11 +23,13 @@
     "\\bmein(?:e|en|er|em|es)? (?:suizid|selbstmord)(?:plan|pläne|plaene) (?:ist|sind) (?:nicht mehr aktiv|aufgegeben|abgebrochen)\\b",
     "\\bmein(?:e|en|er|em|es)? (?:suizid|selbstmord)(?:plan|pläne|plaene) existier(?:t|en) nicht\\b",
     "\\bich habe (?:keine|nicht mehr|keine aktuellen) (?:suizid|selbstmord)gedanken(?: mehr)?\\b",
-    "\\bich habe (?:keine(?: aktuellen)?|nicht mehr) (?:suizidal(?:e|en) gedanken|gedanken an (?:selbstmord|suizid))(?: mehr)?\\b"
+    "\\bich habe (?:keine(?: aktuellen)?|nicht mehr) (?:suizidal(?:e|en) gedanken|gedanken an (?:selbstmord|suizid))(?: mehr)?\\b",
+    "\\bich bringe mich nicht(?: mehr)?(?: (?:jetzt|gleich|heute|bald))? um\\b",
+    "\\bich (?:tue|tu) mir (?:(?:etwas|was|selbst etwas) nicht(?: mehr)?|nichts(?: mehr)?)(?: (?:jetzt|gleich|heute|bald))? an\\b"
   ],
   "historical": [
     "\\b(?:früher war ich|ich war früher) suizidal\\b",
-    "\\bfrüher wollte ich (?:sterben|mich umbringen)\\b",
+    "\\bfrüher wollte ich (?:sterben|mich umbringen|mir (?:etwas|was|selbst etwas) antun)\\b",
     "\\bmein(?:e|en|er|em|es)? (?:suizid|selbstmord)(?:plan|pläne|plaene) (?:ist von vor (?:jahren|monaten)|wurde[n]? vor (?:jahren|monaten) aufgegeben)\\b",
     "\\bfrüher hatte ich (?:suizid|selbstmord)gedanken\\b",
     "\\bfrüher hatte ich (?:suizidal(?:e|en) gedanken|gedanken an (?:selbstmord|suizid))\\b"

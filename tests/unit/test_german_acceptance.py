@@ -27,8 +27,9 @@ def test_requested_german_transcript_scenarios(monkeypatch,case):
     assert response.status_code==200
     data=response.json();assert response.headers['content-language']=='de-DE'
     assert 'Sizi dinliyorum' not in data['reply'] and 'I am listening' not in data['reply']
-    if case=='stress':assert data['providerType']=='LOCAL_DEMO' and 'Arbeitsstress' in data['detectedThemes']
-    if case=='fatigue':assert data['providerType']=='LOCAL_DEMO' and 'körperliche Müdigkeit' in data['detectedThemes']
+    # Themes are stable wire/storage keys; German labels translate at display time.
+    if case=='stress':assert data['providerType']=='LOCAL_DEMO' and 'iş stresi' in data['detectedThemes']
+    if case=='fatigue':assert data['providerType']=='LOCAL_DEMO' and 'fiziksel yorgunluk' in data['detectedThemes']
     if case=='finish':assert data['providerType']=='CONVERSATION_CONTROL' and data['sessionAction']=='finish' and 'beende' in data['reply'].lower()
     if case=='safety':
         assert data['providerType']=='CRISIS_SAFETY_GUARD' and data['isCrisis'] is True

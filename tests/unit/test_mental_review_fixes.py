@@ -152,6 +152,23 @@ def test_requested_english_transcripts_through_actual_keyless_api(monkeypatch, t
 
 
 GERMAN = [
+    ('Ich bringe mich um.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich bringe mich jetzt um.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich tue mir etwas an.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich tu mir was an.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich tue mir selbst etwas an.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich bringe mich nicht um.', False, 'REASSURANCE'),
+    ('Ich bringe mich nicht mehr um.', False, 'REASSURANCE'),
+    ('Ich tue mir nichts an.', False, 'REASSURANCE'),
+    ('Ich tu mir nichts mehr an.', False, 'REASSURANCE'),
+    ('Ich tue mir etwas nicht an.', False, 'REASSURANCE'),
+    ('Früher wollte ich mir etwas antun.', False, 'HISTORICAL'),
+    ('Früher wollte ich mich umbringen.', False, 'HISTORICAL'),
+    ('Ich bringe mich nicht um, aber ich tue mir etwas an.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich tue mir nichts an, aber ich bringe mich um.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Früher wollte ich mir etwas antun, aber ich bringe mich jetzt um.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich tue mir nichts an, und ich tue es noch.', True, 'CONTINUING_RISK_SIGNAL'),
+    ('Ich tue mir nichts an, falls ich meinen Job behalte.', False, 'UNCERTAIN'),
     ('Ich bin nicht suizidal.', False, 'REASSURANCE'),
     ('Ich möchte sterben.', True, 'CURRENT_RISK_SIGNAL'),
     ('Ich will sterben.', True, 'CURRENT_RISK_SIGNAL'),
