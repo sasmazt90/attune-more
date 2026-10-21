@@ -7,6 +7,11 @@ const {createHash} = require('node:crypto');
 const LANGUAGES = new Set(['tr', 'en', 'de']);
 const MODULE_EVENTS = {skin:'guidance:skin-neutral', dental:'guidance:dental-front',
   vision:'vision:next1', hearing:'guidance:hearing-tone', mental:'guidance:mental-entry'};
+// Comparable short utterances exercise real synthesis; long-form CPU capacity
+// is not established by this bounded acceptance. Interruptions reuse the WAV.
+const NEURAL_TEXT = {tr:'Bu yeni ve kişisel olmayan örnekte 1287 sayısı var.',
+  en:'Hello, this new and nonpersonal audio example includes the number 1287.',
+  de:'Dieses neue, nichtpersönliche Beispiel enthält die Zahl 1287.'};
 const NATIVE_PARK = {tr:'PARK doğrulandı', en:'PARK verified', de:'PARK bestätigt'};
 let bundle;
 let generatedEnglish;
@@ -71,24 +76,43 @@ async function decode(page) {
 }
 async function neural(page, value) {
   validate(value);await inject(page);
-  await page.locator('h1').first().click();
-  const statuses=[],responses=[],responseTimings=[],requestStartedAtUnixMs=Date.now();
-  const observe=response=>{if(new URL(response.url()).pathname==='/api/mental-neural-speech'){statuses.push(response.status());responses.push(response);responseTimings.push({status:response.status(),milliseconds:Date.now()-requestStartedAtUnixMs});}};
+  if(value==='en')generatedEnglish=undefined;
+  const statuses=[],responseBodies=[],responseTimings=[],requestStartedAtUnixMs=Date.now();
+  const observe=response=>{if(new URL(response.url()).pathname==='/api/mental-neural-speech'){
+    statuses.push(response.status());responseTimings.push({status:response.status(),milliseconds:Date.now()-requestStartedAtUnixMs});
+    // Read immediately, before playback/other requests can evict CDP's body.
+    // Keep a settled outcome so observation errors cannot become unhandled.
+    if(response.status()===200)responseBodies.push(response.body().then(bytes=>({bytes}),()=>({unavailable:true})));
+  }};
   page.on('response',observe);
   try {
-    const result=await page.evaluate(async language=>{
+    await page.evaluate(({language,text})=>{
       const q=window.ApprovedAudioQA;
       if(q.core.getLanguage()!==language)throw Error('Selected locale differs');
       if(q.neural.mentalSpeechEngine()!=='chatterbox-v3')throw Error('Explicit fallback selected; do not overwrite owner preference');
-      const text={tr:'Bu yeni ve kişisel olmayan örnekte 1287 sayısı var.',en:'Hello, this is a nonpersonal audio acceptance example. This new example includes the number 1287. The application must stop this speech immediately when consent, language, session or vehicle restrictions change. Cancelled audio must stay stopped when normal conditions return.',de:'Dieses neue, nichtpersönliche Beispiel enthält die Zahl 1287.'}[language];
-      const started=performance.now();let starts=0;
-      const played=await q.neural.mentalNeuralSpeech(text,new AbortController().signal,()=>q.core.getLanguage()===language,()=>starts++,()=>{});
-      return {language,played,starts,milliseconds:performance.now()-started,format:'audio/wav',realModelClaimed:false};
-    },value);
+      const started=performance.now(),row=window.attuneNeuralQA={starts:0,stages:[],gestureRequested:false,result:null};
+      q.neural.mentalNeuralSpeech(text,new AbortController().signal,()=>q.core.getLanguage()===language,()=>row.starts++,()=>{},{
+        observe:stage=>row.stages.push({stage,milliseconds:performance.now()-started}),
+        // This observer runs outside the microphone conversation. Use the same
+        // production callback contract and a visible, trusted user action.
+        requestGesture:play=>{
+          row.gestureRequested=true;
+          const button=document.createElement('button');button.dataset.aaosNeuralPlay='';
+          button.textContent=q.core.translateText('Sesli yanıtı oynat');
+          button.style.cssText='position:fixed;bottom:20px;left:20px;z-index:9999;padding:20px;background:white;color:black';
+          button.onclick=()=>play();document.body.append(button);
+          return()=>button.remove();
+        },
+      }).then(played=>{row.result={language,played,starts:row.starts,stages:row.stages,gestureRequested:row.gestureRequested,milliseconds:performance.now()-started,format:'audio/wav',realModelClaimed:false};});
+    },{language:value,text:NEURAL_TEXT[value]});
+    await page.waitForFunction(()=>attuneNeuralQA.result||attuneNeuralQA.gestureRequested,null,{timeout:200000});
+    if(!await page.evaluate(()=>!!attuneNeuralQA.result))await page.locator('[data-aaos-neural-play]').click();
+    await page.waitForFunction(()=>!!attuneNeuralQA.result,null,{timeout:75000});
+    const result=await page.evaluate(()=>attuneNeuralQA.result);
     if(value==='en'&&result.played){
-      const response=responses.find(r=>r.status()===200);
-      if(!response)throw Error('No real neural response to retain for lifecycle checks');
-      const bytes=await response.body();
+      const retained=responseBodies.length?await responseBodies[0]:null;
+      if(!retained?.bytes)return {...result,requestStartedAtUnixMs,responseTimings,httpStatuses:statuses,status:'BLOCKED',evidenceError:'Current-run neural response bytes unavailable; interruption checks cannot proceed'};
+      const bytes=retained.bytes;
       if(bytes.length<=44||bytes.length>8*1024*1024||bytes.toString('ascii',0,4)!=='RIFF'||bytes.toString('ascii',8,12)!=='WAVE')throw Error('Invalid actual neural WAV');
       generatedEnglish={bytes,sha256:createHash('sha256').update(bytes).digest('hex')};
     }
@@ -207,4 +231,4 @@ async function hearing(page,value){
   }
   return row;
 }
-module.exports={LANGUAGES,MODULE_EVENTS,NATIVE_PARK,validate,language,recording,decode,neural,activeStart,activeInterrupt,hearing};
+module.exports={NEURAL_TEXT,LANGUAGES,MODULE_EVENTS,NATIVE_PARK,validate,language,recording,decode,neural,activeStart,activeInterrupt,hearing};

@@ -1,6 +1,6 @@
 import {getLanguage,getLocale,VOICE_EVENT} from '../i18n/core';
 import {captureWhileLocked,languageSwitchLocked} from '../i18n/locks';
-import {playAudioBytes} from './fixedFileSpeech';
+import {playAudioBytes,type PlaybackGestureRequest} from './fixedFileSpeech';
 import {speechMuted} from './playbackMeter';
 import limits from '../../../../shared/localization/neural-tts-limits.json';
 export const MENTAL_ENGINE_KEY='attune.mental-speech-engine.v1';
@@ -17,7 +17,7 @@ export function setMentalSpeechEngine(engine:MentalSpeechEngine){
  window.dispatchEvent(new Event(VOICE_EVENT));window.dispatchEvent(new Event('attune-locale-media-cancel'));
 }
 /** Dynamic response text only. Authentication is handled by the same-origin server. */
-export async function mentalNeuralSpeech(text:string,signal:AbortSignal,current:()=>boolean,onPlaying:()=>void,audioReady:(audio:HTMLAudioElement)=>void):Promise<boolean>{
+export async function mentalNeuralSpeech(text:string,signal:AbortSignal,current:()=>boolean,onPlaying:()=>void,audioReady:(audio:HTMLAudioElement)=>void,options:{requestGesture?:PlaybackGestureRequest;observe?:(stage:string)=>void}={}):Promise<boolean>{
  const language=getLanguage(),locale=getLocale(),controller=new AbortController();
  const permitted=()=>{try{return !signal.aborted&&!controller.signal.aborted&&current()&&!speechMuted()&&!document.hidden&&getLanguage()===language&&mentalSpeechEngine()==='chatterbox-v3'&&Number(localStorage.getItem('attune_hearing_audio_focus')||0)<=Date.now();}catch{return false;}};
  const check=()=>{if(!permitted())controller.abort();},cancel=()=>controller.abort();
@@ -38,9 +38,10 @@ export async function mentalNeuralSpeech(text:string,signal:AbortSignal,current:
   // The generation budget ends here; playback has its own bounded deadline.
   // Keep live mute/consent/locale/session/motion and abort observation active.
   clearTimeout(deadline);
+  options.observe?.('response-ready');
   const bytes=new Uint8Array(size);let at=0;for(const chunk of chunks){bytes.set(chunk,at);at+=chunk.length;}
   const audio=new Audio();audioReady(audio);
-  return await playAudioBytes(audio,bytes.buffer,'audio/wav',limits.audioSeconds,controller.signal,permitted,stage=>{if(stage==='playing')onPlaying();});
+  return await playAudioBytes(audio,bytes.buffer,'audio/wav',limits.audioSeconds,controller.signal,permitted,stage=>{options.observe?.(stage);if(stage==='playing')onPlaying();},false,options.requestGesture);
  }catch{return false;}
  finally{controller.abort();clearInterval(timer);clearTimeout(deadline);signal.removeEventListener('abort',cancel);for(const event of ['attune-locale-media-cancel','attune-guidance-muted','attune-guidance-cancel'])window.removeEventListener(event,cancel);document.removeEventListener('visibilitychange',check);focus(false);}
 }

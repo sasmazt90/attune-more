@@ -78,6 +78,7 @@ export default function MentalPage() {
       </div>
       {c.phase === 'ending' && <button onClick={c.cancelSummary} className="block w-fit text-sm px-3 py-2 rounded-xl border border-togg-turquoise text-togg-turquoise">{i18nText("Özet hazırlamayı iptal et")}</button>}
       {c.voiceNotice && <p role="status" className="text-xs text-amber-200">{i18nNode(c.voiceNotice)}</p>}
+      {c.audioNeedsGesture && <button data-neural-play-response onClick={c.playPendingAudio} disabled={!isParked||!c.active||!c.speechConsent} className="min-h-11 px-4 py-3 rounded-xl bg-togg-turquoise text-togg-darkBlue font-bold disabled:opacity-50">{i18nText('Sesli yanıtı oynat')}</button>}
       {c.notice && c.phase !== 'completed' && <p role="status" className="text-sm text-amber-200">{i18nNode(c.notice)}</p>}
       {!isParked && <p className="text-amber-200">{i18nText("Sürüş sırasında görüşme kapalıdır. Lütfen dikkatinizi yola verin.")}</p>}
       <p className="text-xs">{i18nText("Acil Kriz Destek: ")}<strong>{i18nText("112 Acil Çağrı")}</strong></p>

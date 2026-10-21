@@ -42,6 +42,8 @@ export function useMentalConversation(parked: boolean) {
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
   const [notice, setNotice] = useState<string | null>(null);
   const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
+  const pendingAudioPlay=useRef<(()=>void)|null>(null);
+  const [audioNeedsGesture,setAudioNeedsGesture]=useState(false);
   const [voiceState, setVoiceState] = useState('loading');
   const serviceConsent=useServiceAllowed('mental');
   const textMode=false;
@@ -71,6 +73,7 @@ export function useMentalConversation(parked: boolean) {
   }
   function stopAudio() {
     const r = runtime.current;
+    pendingAudioPlay.current=null;if(r.mounted)setAudioNeedsGesture(false);
     r.audioEpoch++;
     r.streamCancel?.(); r.streamCancel = null;
     if (r.audio) { r.audio.onplaying = r.audio.onended = r.audio.onerror = null; r.audio.pause(); r.audio.removeAttribute('src'); r.audio.load(); r.audio = null; }
@@ -156,7 +159,10 @@ export function useMentalConversation(parked: boolean) {
     {
       if (!settings.current.speechConsent) { fail(); return; }
       const controller = new AbortController(); r.controller = controller;
-      const deadline = setTimeout(() => controller.abort(), crisis?30000:100000);
+      // Neural generation/playback own their separate finite deadlines. The
+      // former 100s cap would abort measured 135–153s responses before playback.
+      const deadline = crisis||mentalSpeechEngine()==='browser-system'||approvedMentalTemplate(getLanguage(),text)
+        ?setTimeout(() => controller.abort(), crisis?30000:100000):undefined;
       try {
         const clip=approvedMentalTemplate(getLanguage(),text);
         if(clip){
@@ -172,7 +178,13 @@ export function useMentalConversation(parked: boolean) {
         if(crisis){fail();return;}
         const played=mentalSpeechEngine()==='browser-system'
           ?await mentalSystemSpeech(text,controller.signal,()=>current()&&settings.current.voiceEnabled,observePlaying)
-          :await mentalNeuralSpeech(text,controller.signal,()=>current()&&settings.current.voiceEnabled&&settings.current.speechConsent,observePlaying,audio=>{r.audio=audio;});
+          :await mentalNeuralSpeech(text,controller.signal,()=>current()&&settings.current.voiceEnabled&&settings.current.speechConsent,observePlaying,audio=>{r.audio=audio;},{
+            requestGesture:play=>{
+              if(!current())return()=>{};
+              pendingAudioPlay.current=play;setAudioNeedsGesture(true);
+              return()=>{if(pendingAudioPlay.current===play){pendingAudioPlay.current=null;if(r.mounted)setAudioNeedsGesture(false);}};
+            },observe:stage=>timing(stage),
+          });
         if(played)end();else fail();
       } catch { fail(); }
       finally { clearTimeout(deadline); if (r.controller === controller) r.controller = null; }
@@ -343,7 +355,7 @@ export function useMentalConversation(parked: boolean) {
     if (!value) cancel('Hizmet onayı geri çekildi. Görüşme ve ses durduruldu.');
     setSpeechConsent(value); setCloudConsent(value && !isDemoMode());
   }
-  return { phase, active, messages, notice, voiceNotice, voiceState, textMode, voiceEnabled, setVoiceEnabled,
+  return { phase, active, messages, notice, voiceNotice, voiceState, audioNeedsGesture, playPendingAudio:()=>pendingAudioPlay.current?.(), textMode, voiceEnabled, setVoiceEnabled,
     serviceConsent: speechConsent, setServiceConsent: changeServiceConsent,
     cloudConsent, setCloudConsent: changeCloud, speechConsent, setSpeechConsent: changeSpeech, speechSource,
     history, summary, provider, start, finish, send, pause, continueConversation, cancelConversation: () => cancel('Görüşme başlatma iptal edildi.'), cancelSummary: () => { cancel('Özet hazırlama iptal edildi. Görüşme geçmişe kaydedilmedi.'); setPhase('ready'); } };
