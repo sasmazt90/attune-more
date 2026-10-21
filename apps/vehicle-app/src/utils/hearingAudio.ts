@@ -6,6 +6,7 @@ export type PlaybackStart={startedAt:number;audioStartedAt:number;audioExpectedE
 export type PlaybackReceipt=PlaybackStart&{endedAt:number;audioEndedAt:number};
 export class HearingAudio {
  context:AudioContext;private nodes=new Map<AudioBufferSourceNode,()=>void>();private disposed=false;private epoch=0;
+ private bankLanguage?:string;private loadSerial=0;
  bank:Float32Array[]=[];noise?:Float32Array;manifest?:DigitBankManifest;
  constructor(private invalidated:(reason:string)=>void){
   this.context=new AudioContext({sampleRate:48000});
@@ -38,18 +39,21 @@ export class HearingAudio {
  stop(){this.epoch++;for(const cancel of [...this.nodes.values()])cancel();this.nodes.clear();}
  close(){if(this.disposed)return;this.disposed=true;this.stop();this.bank=[];this.noise=undefined;this.manifest=undefined;this.context.removeEventListener('statechange',this.state);document.removeEventListener('visibilitychange',this.visibility);navigator.mediaDevices?.removeEventListener('devicechange',this.device);void this.context.close().catch(()=>{});}
  async loadBank(signal:AbortSignal){
-  // Owner approval of recordings does not establish scored acoustic equivalence.
-  if(getLanguage()!=='tr')throw Error('Seçilen dilin sayı kayıtları için akustik doğrulama tamamlanmadı. Puanlanan sayı testi başlatılamaz.');
-  const response=await fetch('/audio/hearing-bank/manifest.json',{signal});if(!response.ok)throw Error('Sayı bankası bulunamadı.');
+  const language=getLanguage(),serial=++this.loadSerial,epoch=this.epoch;
+  this.bank=[];this.noise=undefined;this.manifest=undefined;this.bankLanguage=undefined;
+  const profiles={tr:{url:'/audio/hearing-bank/manifest.json',voice:'tr-TR-AhmetNeural',rate:'-10%',pitch:'-10Hz',locale:undefined},en:{url:'/audio/hearing-approved-derived-20261021-v1/en/manifest.json',voice:'Andrew',rate:'original',pitch:'original',locale:'en-US'},de:{url:'/audio/hearing-approved-derived-20261021-v1/de/manifest.json',voice:'Stefan',rate:'original',pitch:'original',locale:'de-DE'}};
+  const profile=profiles[language];
+  const response=await fetch(profile.url,{signal});if(!response.ok)throw Error('Sayı bankası bulunamadı.');
   const manifest:DigitBankManifest=await response.json();
-  const profileValid=manifest.voice==='tr-TR-AhmetNeural'&&manifest.rate==='-10%'&&manifest.pitch==='-10Hz';
-  if(!profileValid||manifest.digits.length!==10||manifest.digits.some((d,i)=>d.digit!==i))throw Error('Sayı bankası profili doğrulanamadı.');
+  const profileValid=manifest.voice===profile.voice&&manifest.rate===profile.rate&&manifest.pitch===profile.pitch&&(!profile.locale||manifest.locale===profile.locale);
+  const prefix=profile.url.slice(0,profile.url.lastIndexOf('/')+1);
+  if(!profileValid||manifest.digits.length!==10||manifest.digits.some((d,i)=>d.digit!==i||d.url!==prefix+d.digit+'.wav')||manifest.noise.url!==prefix+'speech-shaped-noise.wav')throw Error('Sayı bankası profili doğrulanamadı.');
   const decode=async(item:{url:string;sha256:string})=>{const r=await fetch(item.url,{signal});if(!r.ok)throw Error('Sayı dosyası açılamadı.');const bytes=await r.arrayBuffer();const hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))).map(x=>x.toString(16).padStart(2,'0')).join('');if(hash!==item.sha256)throw Error('Sayı bankası hash uyuşmazlığı.');const decoded=await this.context.decodeAudioData(bytes);if(decoded.numberOfChannels!==1||decoded.sampleRate!==48000||decoded.duration>30)throw Error('Sayı bankası biçimi doğrulanamadı.');const pcm=decoded.getChannelData(0).slice();if(!pcm.every(Number.isFinite)||rms(pcm)<=.001)throw Error('Geçersiz veya sessiz sayı dosyası.');return pcm;};
-  const digits=await Promise.all(manifest.digits.map(decode));const noise=await decode(manifest.noise);if(this.disposed||signal.aborted)throw Error('AUDIO_CANCELLED');this.noise=noise;this.bank=digits;this.manifest=manifest;
+  const digits=await Promise.all(manifest.digits.map(decode));const noise=await decode(manifest.noise);if(this.disposed||signal.aborted||serial!==this.loadSerial||epoch!==this.epoch||language!==getLanguage())throw Error('AUDIO_CANCELLED');this.noise=noise;this.bank=digits;this.manifest=manifest;this.bankLanguage=language;
  }
  triplet(digits:number[],snr:number,random:()=>number){
   if(digits.length!==3||digits.some(d=>!Number.isInteger(d)||d<0||d>9))throw Error('THREE_DIGITS_REQUIRED');
-  if(this.bank.length!==10||!this.noise)throw Error('BANK_NOT_READY');
+  if(this.bank.length!==10||!this.noise||this.bankLanguage!==getLanguage())throw Error('BANK_NOT_READY');
   const gap=Math.round(this.context.sampleRate*.18),length=digits.reduce((sum,d)=>sum+this.bank[d].length,0)+2*gap;
   const speech=new Float32Array(length),noise=new Float32Array(length);let at=0;
   for(const digit of digits){speech.set(this.bank[digit],at);at+=this.bank[digit].length+gap;}

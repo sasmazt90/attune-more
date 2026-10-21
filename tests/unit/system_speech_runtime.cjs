@@ -3,7 +3,7 @@ require('./ts_loader.js');
 const assert=require('assert/strict'),path=require('node:path');
 const map=new Map();global.localStorage={getItem:k=>map.get(k)??null,setItem:(k,v)=>map.set(k,v)};
 global.window=new EventTarget();global.CustomEvent=class extends Event{constructor(t,o){super(t);this.detail=o?.detail;}};
-global.document={hidden:false};global.SpeechSynthesisUtterance=class{constructor(text){this.text=text;}};
+global.document=new EventTarget();document.hidden=false;global.SpeechSynthesisUtterance=class{constructor(text){this.text=text;}};
 const core=require(path.resolve('apps/vehicle-app/src/i18n/core.ts')),voices=require(path.resolve('apps/vehicle-app/src/i18n/voices.ts')),S=require(path.resolve('apps/vehicle-app/src/i18n/systemSpeech.ts'));
 const fixture=[{voiceURI:'fixture-en',lang:'en-US',localService:true},{voiceURI:'fixture-de',lang:'de-DE',localService:false}];
 let calls=[],behavior='complete';

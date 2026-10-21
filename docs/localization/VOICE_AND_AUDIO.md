@@ -1,5 +1,6 @@
 # Voice and audio provenance
 
+**Superseding 2026-10-21 functional implementation:** [experimental EN/DE Hearing activation, browser/system dynamic speech and owner acceptance](FUNCTIONAL_COMPLETION.md). Earlier unavailable/gated descriptions below are historical checkpoints, not the current activation policy.
 **2026-10-21 integrated audit:** [current acceptance and exact live-provider limits](FINAL_INTEGRATED_ACCEPTANCE.md). Microsoft documents an Azure Katja identifier, but no authorized no-cost live runtime or Clipchamp/live-service equivalence was established. Original DE provider metadata stays unchanged; arbitrary DE live speech remains unavailable. Existing Edge consumer integration is not evidence of a documented service API entitlement and was not invoked in this audit.
 
 ## Current owner-approved recordings

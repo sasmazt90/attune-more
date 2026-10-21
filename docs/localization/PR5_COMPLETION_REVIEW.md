@@ -1,5 +1,6 @@
 # PR #5 review corrections and functional completion decision
 
+**Superseding 2026-10-21 functional implementation:** [experimental EN/DE Hearing activation, browser/system dynamic speech and owner acceptance](FUNCTIONAL_COMPLETION.md). Earlier unavailable/gated descriptions below are historical checkpoints, not the current activation policy.
 2026-10-21, Europe/Berlin. Starting source `013e1ba7b2fce0d20a43cc3d26c0e3b63d32d67a`; feature `feature/localization-en-de-tr-20261020`; main `1ee2386efd3dc30fe8d5b0d2bbf336ac7f03c98e`.
 
 **The owner's latest request supersedes the earlier narrower prototype merge classification. EN/DE scored digit functionality and genuinely dynamic female speech are product acceptance blockers. No narrower prototype-only merge is authorized.** Physical OEM acceptance and actual headless hidden-tab state remain separate limitations, not independent merge blockers.

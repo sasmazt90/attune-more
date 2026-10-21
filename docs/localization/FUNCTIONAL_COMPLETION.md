@@ -1,0 +1,49 @@
+# Experimental Hearing and dynamic system speech completion
+
+2026-10-21. Starting source: `88e0101e1940bbd7d17969430ecc312d5abe86fa`; PR #5 feature branch. The owner's Final Functional Completion request supersedes the previous requirement for separate qualified acoustic acceptance before experimental EN/DE activation. No clinical study, diagnosis or cross-language clinical equivalence is claimed.
+
+## Hearing
+
+The original Turkish bank, 194 approved originals, digit randomization, SNR/gain limits, timing, response gates and scoring formula are unchanged. EN uses Andrew and DE uses Stefan. Twenty digit derivatives and two same-bank speech-shaped noises are byte-identical to the previously measured engineering candidates, now under `audio/hearing-approved-derived-20261021-v1/{en,de}`. Per-file source IDs, original/derived SHA-256, PCM metrics and processing parameters are in the new manifests. Original speed/pitch and approved source bytes are preserved. The narrow `.gitignore` exception includes only these versioned WAV files.
+
+The loader selects the language/voice manifest, verifies hashes/format and rejects stale, cancelled or different-language banks. It never falls back to Turkish for EN/DE. Results retain the selected language, bank locale/voice/version and existing uncertainty/calibration information. `auditoryAcceptance: pending` and `clinicalValidation: false` remain explicit engineering limitations, as in the existing experimental reference.
+
+Actual production Cloud UI passed all 24 trials in each of EN/DE/TR: real browser decoding/mixing/playback, actual keypad/text input handlers, 12 correct and 12 deliberately incorrect synthetic answers, duplicate-submit rejection, existing converged score −1 dB SNR, localized results and interruption without partial-record creation. An actual EN→paused→DE switch loaded only the new DE bank and saved neither incomplete session. All 72 trial histories were compared with independently calculated presented sequences. Audio and staircase were not replaced or time-accelerated. Channel confirmations and answers were labelled automation fixtures; this is not human hearing, physical headphone or clinical acceptance.
+
+Nineteen Hearing-focused tests initially passed. The final combined suite covers 36 focused checks, including hash/profile/locale/cancel faults, original audio integrity, existing Hearing completion/scoring, speech selection, privacy/history and automotive contracts. The isolated production build passes with the existing six lint warnings. Valid prior fixed-recording and review evidence is reused; no broad local suite was repeated.
+
+An initial harness assertion allowed only five seconds for original guidance; it was corrected to allow natural completion. The next isolated package lacked ignored new WAV files; the versioned exception and source packaging corrected this. Initial failed logs are retained. A catalog check caught the new Speaking label; all three translations are now included.
+
+## Dynamic Mental speech
+
+Arbitrary replies now enter the documented browser `speechSynthesis` API through `mentalSystemSpeech`; the frontend does not dispatch those replies to the legacy Edge consumer integration. Approved finite templates and fixed guidance remain unchanged and are not presented as arbitrary AI output. AI response generation, context, recognition, emergency priority and transcript/history behavior remain unchanged.
+
+Preferred documented female identities are Emel/TR, Ada/EN and Katja/DE. A small identity catalog also recognizes documented same-language female alternatives. A catalog entry is not proof of installation: an actual runtime voice with matching identity and locale must be exposed. Unknown identities/genders and other languages are never guessed or substituted. Ada's en-GB locale is English; app/recognition locale remains en-US. Fixed assignments are unaffected. Missing explicitly selected voices fail without fallback.
+
+Gender sources are [Microsoft's voice catalog](https://learn.microsoft.com/azure/ai-services/speech-service/language-support) and [Windows supported voices](https://support.microsoft.com/en-us/accessibility/windows/narrator/appendix-a-supported-languages-and-voices). Web Speech itself has no standardized gender field. Neural identities are preferred; Windows legacy Zira/Hedda alternatives have documented gender but their naturalness must be judged on the intended device. No installed voice or naturalness PASS is inferred from this catalog.
+
+The new preference uses its own storage key, leaving existing preferences, health records and consent documents untouched. Online voices require an explicit additional opt-in; changing voice clears that online opt-in. Existing Mental service/recognition/cloud-conversation permissions still apply. The speech permission description now accurately describes browser/device output; permission IDs and stored consents are not rewritten. No paid API, subscription or direct undocumented consumer endpoint is used by this path.
+
+Completion requires actual start and end events. Cancellation covers abort, mute, hidden state, language/voice changes, Hearing focus and invalidated motion/consent state. Voice discovery waits for a bounded late `voiceschanged` event. Unavailable output stops the voice conversation with the existing notice, preserving transcript and emergency handling. The voice-options text probe uses the same production speech function, stores no test text and starts neither microphone nor AI generation.
+
+Focused platform fixtures pass arbitrary non-predefined text unchanged to the selected voice in TR/EN/DE, including alternate English locale, no unknown/male/other-language fallback, online opt-in, late discovery, missing selection and interruption/failure cases. **Fixtures are not live TTS acceptance.** Actual Cloud Chrome exposes zero voices; the actual voice dialog also passes at 375px in all three languages without horizontal overflow and with an accessible Close control. actual TR/EN/DE option screens correctly disable synthesis and report unavailability without creating health consents or making capture/external requests. Audible synthesis remains UNVERIFIED for Windows/AAOS until observed there. The previous Windows microphone success is historical and is not repeated.
+
+### Short Windows owner acceptance (no microphone)
+
+Use a separately authorized checkout/runtime of this exact feature commit; do not replace the validated local application or start a heavy build merely for this check. If the feature runtime is unavailable, report that limitation.
+
+1. In PARK, select TR, open **Voice options**, and inspect **Dynamic Mental voice**. Record the actual name, locale, local/online designation and manufacturer identity. Unknown voices must remain ineligible. Do not install/purchase voices.
+2. Prefer Emel, Ada and Katja where exposed. Select a documented female alternative in the same language if needed. Online voices require the explicit provider permission; do not enable it for a provider you do not authorize. A missing preferred voice must be reported, never invented.
+3. Enter a new, nonpersonal sentence in that language, including an arbitrary number. Press **Test dynamic voice**. Confirm actual audible output, correct spoken language, acceptable natural female voice and completed status. This tests arbitrary speech output, not a live LLM response or microphone.
+4. Repeat a longer nonpersonal phrase and press **Stop**; output must cease without completion. Closing the dialog or backgrounding must cancel. Check normal application mute and language changes stop pending speech; changing voice must clear online permission. Do not change vehicle state or health consent to bypass restrictions.
+5. Repeat for EN and DE. Record PASS/FAIL/BLOCKED and exact voice names. No recordings, personal text or health records should be uploaded. Existing data/consent must remain intact. Do not repeat microphone capture.
+
+## AAOS and merge
+
+Run only after the combined commit is pushed and automatic CI succeeds. The registered Actions entry is **Attune browser audit**, `.github/workflows/e2e-audit.yml`; select `feature/localization-en-de-tr-20261020` and enter the exact final 40-character commit in `expected_source_sha`. This routes to the feature's reusable **AAOS emulator validation (manual only)**; the unrelated browser job is excluded for this branch. No main modification is required. If the input is absent after selecting the branch, stop and report the form rather than launching without the exact-SHA guard.
+
+[Workflow UI](https://github.com/sasmazt90/attune-more/actions/workflows/e2e-audit.yml). Use **Run workflow** exactly once, never Re-run jobs. Standard `ubuntu-24.04`, 40 minutes, 50 MiB including ZIP overhead, one-day retention, no automatic retry/paid services/deployment remain unchanged. The prior forbidden CLI dispatch method is not retried. Stop on any actual quota/billing restriction.
+
+The existing observer retains historical automotive scenarios, native locale sync, nine routes per language, all 194 AAC decodes and 15 module/language playback cases. Android runtime acceptance is not inferred from desktop UI or host builds. Await the owner's actual run ID and downloadable evidence, plus intended-runtime dynamic speech acceptance, before considering merge. No narrower merge, main change or deployment occurs while required acceptance is incomplete.
+
+Cloud evidence: `/workspace/attune-functional-completion-20261021/`, including original failures, final build/focused logs, 3 full Hearing result/interrupt screenshots, switch receipt, actual unavailable voice screens and integrity receipts. GitHub exact-head CI/run status is recorded separately after push; no manual emulator run is claimed by this document.

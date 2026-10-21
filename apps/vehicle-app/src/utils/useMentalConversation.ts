@@ -6,8 +6,8 @@ import {contextWindowThrough} from './mentalContextWindow';
 import {serviceAllowed,useServiceAllowed} from './serviceConsent';
 import {speechMuted} from './playbackMeter';
 import { spokenText } from './spokenText';
-import { streamSpeech } from './streamSpeech';
-import {approvedMentalTemplate,mentalVoiceContract} from '../i18n/approvedAudio';
+import {mentalSystemSpeech} from '../i18n/systemSpeech';
+import {approvedMentalTemplate} from '../i18n/approvedAudio';
 import {playFixedSpeech} from './fixedFileSpeech';
 import {cancelQueuedSessionSpeech} from '../i18n/sessionSpeech';
 
@@ -44,7 +44,7 @@ export function useMentalConversation(parked: boolean) {
   const [voiceEnabled, setVoiceEnabled] = useState(!speechMuted());
   const [cloudConsent, setCloudConsent] = useState(false);
   const [speechConsent, setSpeechConsent] = useState(false);
-  const speechSource = 'microsoft';
+  const speechSource = 'browser-system';
   const [history, setHistory] = useState<MentalHistoryItem[]>([]);
   const [summary, setSummary] = useState<MentalHistoryItem | null>(null);
   const [provider, setProvider] = useState({ apiKeyConfigured: false, providerName: 'Yerel Kural Motoru (Demo)' });
@@ -160,21 +160,10 @@ export function useMentalConversation(parked: boolean) {
           const played=await playFixedSpeech(audio,clip,controller.signal,current,stage=>{if(current()){timing(stage);if(stage==='playing'){setPhase('speaking');setVoiceState('speaking');}}},true);
           if(played)end();else fail();return;
         }
-        const contract=mentalVoiceContract(getLanguage());
-        if(!contract?.providerVoiceId)throw Error('EXACT_FEMALE_DYNAMIC_VOICE_UNVERIFIED');
         timing('tts-request');
-        const response = await fetch(API + '/speech', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text, cloudConsent: true, voiceId:contract.providerVoiceId }), signal: controller.signal });
-        timing('tts-headers');
-        if (!response.ok) throw new Error('Microsoft exact voice unavailable');
-        if (!current()) { await response.body?.cancel(); return; }
-        setVoiceState('starting');
-        const audio = new Audio(); r.audio = audio;
-        audio.onplaying = () => { if (current()) { timing('playing');setPhase('speaking'); setVoiceState('speaking'); } };
-        audio.onended = end; audio.onerror = fail;
-        const output = streamSpeech(audio, response, controller.signal, current, timing);
-        r.audioUrl = output.url; r.streamCancel = output.cancel;
-        await output.finished;
+        r.streamCancel=()=>controller.abort();
+        const played=await mentalSystemSpeech(text,controller.signal,()=>current()&&settings.current.voiceEnabled,()=>{if(current()){timing('playing');setPhase('speaking');setVoiceState('speaking');}});
+        if(played)end();else fail();
       } catch { fail(); }
       finally { clearTimeout(deadline); if (r.controller === controller) r.controller = null; }
       return;

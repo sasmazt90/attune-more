@@ -146,3 +146,7 @@ services/core-api/models/skin-type-local-v1/*.onnx
 
 # Approved public guidance recordings must travel with their manifest in Git.
 # The AAOS packaging gate verifies their exact hashes before any emulator run.
+
+# Versioned derivatives of the owner-approved Andrew/Stefan digit recordings.
+!apps/vehicle-app/public/audio/hearing-approved-derived-20261021-v1/en/*.wav
+!apps/vehicle-app/public/audio/hearing-approved-derived-20261021-v1/de/*.wav

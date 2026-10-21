@@ -46,9 +46,5 @@ const tick=()=>new Promise(r=>setTimeout(r,10));
   if(mode==='abort')controller.abort();if(mode==='hidden'){document.hidden=true;document.dispatchEvent(new Event('visibilitychange'));}if(mode==='mute'){window.attuneOutputMuted=true;window.dispatchEvent(new Event('attune-guidance-muted'));}if(mode==='early-end')audio.dispatchEvent(new Event('ended'));if(mode==='generation')current=false;
   assert.equal(await task,false,mode);assert.equal(audio.paused,true);assert.equal(liveURLs,0);document.hidden=false;window.attuneOutputMuted=false;
  }
- global.AudioContext=class extends EventTarget{constructor(){super();this.state='running';}close(){return Promise.resolve();}};
- const {HearingAudio}=require('../../apps/vehicle-app/src/utils/hearingAudio.ts');
- const nativeFetch=global.fetch;let bankFetches=0;global.fetch=(...args)=>{bankFetches++;return nativeFetch(...args);};
- for(const language of ['en','de']){C.setLanguage(language);const engine=new HearingAudio(()=>{});await assert.rejects(engine.loadBank(new AbortController().signal),/akustik/);assert.equal(bankFetches,0);engine.close();}
  console.log('PASS 129 mappings / 15 module-language assignments / shared voice separation / exact templates only / 3-locale storage preservation / MIME / missing-size-hash faults / actual-handler cancellation, mute, hidden, generation and completion fixtures');
 })().catch(e=>{console.error(e);process.exitCode=1});
