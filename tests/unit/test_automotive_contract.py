@@ -2,12 +2,20 @@
 from pathlib import Path
 import importlib.util
 import shutil
+import subprocess
 import xml.etree.ElementTree as ET
 import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 APP = ROOT / 'apps/automotive/app'
 ANDROID = '{http://schemas.android.com/apk/res/android}'
+
+
+def test_webview_observer_reconnect_and_admission_on_host():
+    """Real RPC implementation with labelled Android lifecycle fixtures; no emulator."""
+    result = subprocess.run(['node', '--test', 'tests/automotive/test_webview_driver.cjs'],
+                            cwd=ROOT, text=True, capture_output=True, timeout=30)
+    assert result.returncode == 0, result.stdout + result.stderr
 
 
 def test_actual_automotive_policy_classes_on_host_jvm():

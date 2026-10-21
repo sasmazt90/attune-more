@@ -65,14 +65,25 @@ async function serve() {
   }
   async function dispatch(action, args) {
     if (action === 'connect') {
+      // AndroidWebView.page() is cached per device/socket. A native motion lock
+      // destroys its page without changing the app PID/socket. Detach the old
+      // observer handle before discovery; keep this RPC process/current WAV.
+      if (device) {
+        record('observer-detach', page?.isClosed() ? 'closed target' : 'previous attachment');
+        await device.close();
+        device = undefined; page = undefined;
+      }
       const devices = await _android.devices({ omitDriverInstall: true });
       device = devices.find(d => d.serial() === 'emulator-5554');
       if (!device) throw Error('Required emulator-5554 is not available');
       device.setDefaultTimeout(15000);
       const webview = await device.webView({ pkg: PACKAGE, timeout: 15000 });
       page = await webview.page();
-      if (!page) throw Error('WebView has no page target');
+      if (!page || page.isClosed()) throw Error('WebView has no live page target');
       page.setDefaultTimeout(10000);
+      page.on('close', () => record('page-close', 'Android WebView target closed'));
+      page.on('crash', () => record('pageerror', 'Android WebView renderer crashed'));
+      page.context().on('close', () => record('context-close', 'Android WebView observer context closed'));
       page.on('pageerror', error => record('pageerror', error.message));
       page.on('console', message => { if (message.type() === 'error') record('error', message.text(), message.location().url); });
       await page.route('**/*', route => {
@@ -81,6 +92,7 @@ async function serve() {
         return route.abort('blockedbyclient');
       });
       await page.waitForURL(url => url.origin === ORIGIN);
+      record('observer-attached', 'Live trusted WebView; pid=' + webview.pid());
       return { url: page.url(), pid: webview.pid(), pkg: webview.pkg() };
     }
     if (action === 'phase') return true;

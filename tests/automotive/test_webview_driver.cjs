@@ -4,6 +4,52 @@ const assert = require('node:assert/strict');
 const test = require('node:test');
 const { mediaConstraints, allowedResource, ROUTES, navigate } = require('./webview_driver.cjs');
 const localized = require('./localized_webview.cjs');
+const fs = require('node:fs'), os = require('node:os'), path = require('node:path');
+const {execFileSync} = require('node:child_process');
+
+test('RPC reconnect discards the cached Android page after each native WebView replacement', () => {
+  // Android API lifecycle fixture, not an emulator observation. Match upstream's
+  // device/socket and AndroidWebView.page() cache; only device.close invalidates it.
+  const temporary=fs.mkdtempSync(path.join(os.tmpdir(),'attune-webview-reconnect-'));
+  const fixture=path.join(temporary,'android.cjs');
+  fs.writeFileSync(fixture,`
+    const {EventEmitter}=require('node:events');let cached,generation=0,previous;
+    exports._android={devices:async options=>{
+      if(options.omitDriverInstall!==true)throw Error('Driver installation forbidden');
+      // Native motion destroyed the old target, but the app PID/socket survived.
+      if(previous){previous.closed=true;previous.emit('close');}
+      if(!cached){
+        const page=new EventEmitter(),context=new EventEmitter();
+        Object.assign(page,{closed:process.env.FIXTURE_CLOSED==='1',isClosed(){return this.closed;},
+          setDefaultTimeout(){},context:()=>context,url:()=> 'http://localhost:3000/',
+          route:async()=>{if(page.closed)throw Error('page.route: Target page, context or browser has been closed');},
+          waitForURL:async predicate=>{if(!predicate(new URL(page.url())))throw Error('Wrong origin');}});
+        previous=page;const pid=++generation;
+        const view={pid:()=>pid,pkg:()=> 'more.attune.automotive.prototype.debug',page:async()=>page};
+        cached={serial:()=> 'emulator-5554',setDefaultTimeout(){},webView:async selector=>{
+          if(selector.pkg!==view.pkg())throw Error('Wrong application');return view;},close:async()=>{
+            if(process.env.FIXTURE_DETACH_FAIL==='1')throw Error('Detach failed');
+            page.closed=true;page.emit('close');context.emit('close');cached=undefined;}};
+      }
+      return [cached];
+    }};
+  `);
+  const requests=[1,2,3].map(id=>({id,action:'connect',phase:'mental-neural-interruptions'}));
+  requests.push({id:4,action:'quit'});
+  const run=extra=>execFileSync(process.execPath,[path.join(__dirname,'webview_driver.cjs')],{
+    env:{...process.env,ATTUNE_PLAYWRIGHT_NODE_PACKAGE:fixture,...extra},
+    input:requests.map(r=>JSON.stringify(r)).join('\n')+'\n',encoding:'utf8',timeout:10000,
+  }).trim().split('\n').map(line=>JSON.parse(line));
+  try{
+    const rows=run({});assert.equal(rows.length,4);
+    for(const row of rows)assert.equal(row.error,undefined,row.error);
+    assert.deepEqual(rows.slice(0,3).map(r=>r.result.pid),[1,2,3]);
+    const detach=run({FIXTURE_DETACH_FAIL:'1'});
+    assert.match(detach[1].error,/Detach failed/,'failed detach must not silently reuse the page');
+    const closed=run({FIXTURE_CLOSED:'1'});
+    assert.match(closed[0].error,/no live page target/i,'a closed fresh target must not pass attachment');
+  }finally{fs.rmSync(temporary,{recursive:true,force:true});}
+});
 
 test('Only advertised hardware is requested, preferring the image microphone', () => {
   assert.deepEqual(mediaConstraints({ microphone: 'true', camera: 'false' }), { audio: true, video: false });
