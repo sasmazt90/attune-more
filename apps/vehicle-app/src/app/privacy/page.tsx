@@ -1,4 +1,7 @@
 'use client';
+import {apiFetch as fetch} from '../../utils/localBackend';
+import {useTranslations} from '../../i18n/LanguageProvider';
+
 
 import {clearDentalPhotos,DENTAL_PHOTO_PERMISSION,DENTAL_PHOTO_DELETE_PENDING} from '../../utils/dentalPhotoHistory';
 import {clearSkinPhotos,SKIN_PHOTO_PERMISSION,SKIN_PHOTO_DELETE_PENDING} from '../../utils/skinPhotoHistory';
@@ -43,6 +46,7 @@ import { localBackend } from '../../utils/localBackend';
 
 
 export default function PrivacyPage() {
+ const {text:i18nText,node:i18nNode}=useTranslations();
   const [cameraAppAllowed, setCameraAppAllowed] = useState<boolean>(true);
   const [micAppAllowed, setMicAppAllowed] = useState<boolean>(true);
   const [browserCameraState, setBrowserCameraState] = useState<'granted' | 'denied' | 'prompt'>('prompt');
@@ -223,28 +227,24 @@ export default function PrivacyPage() {
   return (
     <div className="space-y-6">
 <ServiceConsentSettings />
-      {storageUnavailable && <p role="alert" className="text-sm text-amber-200">Tarayıcı depolamasına erişilemiyor; kayıtların durumu doğrulanamıyor.</p>}
+      {storageUnavailable && <p role="alert" className="text-sm text-amber-200">{i18nText("Tarayıcı depolamasına erişilemiyor; kayıtların durumu doğrulanamıyor.")}</p>}
       {/* 1. SCREEN 10: ÜST BAŞLIK VE AÇIKLAMA (FIRST VIEWPORT) */}
       <section className="bg-gradient-to-br from-cockpit-surface via-[#071322] to-cockpit-bg border border-white/10 rounded-2xl p-6 md:p-7 shadow-2xl space-y-3">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-togg-turquoise/10 border border-togg-turquoise/30 text-togg-turquoise text-[11px] font-semibold tracking-wider uppercase">
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Yerel Gizlilik ve Veri Güvenliği</span>
+              <span>{i18nText("Yerel Gizlilik ve Veri Güvenliği")}</span>
             </div>
 
-            <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
-              Verileriniz sizin kontrolünüzde.
-            </h1>
+            <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">{i18nText("Verileriniz sizin kontrolünüzde. ")}</h1>
 
-            <p className="text-sm text-slate-300">
-              Kullanım tercihlerinizi ve kayıtlarınızı yönetin.
-            </p>
+            <p className="text-sm text-slate-300">{i18nText("Kullanım tercihlerinizi ve kayıtlarınızı yönetin. ")}</p>
           </div>
 
           <div className="flex items-center gap-2 text-xs bg-slate-950/80 px-4 py-2 rounded-xl border border-white/10 text-slate-300 shrink-0 self-start md:self-auto">
             <Lock className="w-3.5 h-3.5 text-togg-turquoise" />
-            <span>Cihazda Depolama: <strong>Aktif</strong></span>
+            <span>{i18nText("Cihazda Depolama: ")}<strong>{i18nText("Aktif")}</strong></span>
           </div>
         </div>
       </section>
@@ -267,22 +267,22 @@ export default function PrivacyPage() {
                     : 'bg-amber-950/70 text-amber-400 border border-amber-800/70'
                 }`}
               >
-                {cameraStatus === 'GRANTED' ? 'Açık' : cameraStatus === 'DENIED' ? 'Kapalı' : 'Sorulacak'}
+                {i18nNode(cameraStatus === 'GRANTED' ? 'Açık' : cameraStatus === 'DENIED' ? 'Kapalı' : 'Sorulacak')}
               </span>
             </div>
 
             <div>
-              <div className="flex items-center justify-between gap-3"><h2 className="text-base font-bold text-white">Kabin Kamerası</h2><InformationButton title="Kabin Kamerası"><p>Kamera yalnız görme ve cilt kontrolleri için kullanılır. Ham görüntü saklanmaz. Bu tercih tarayıcı/cihaz izni değildir; Başlat eyleminde gerçek izin istenir. Bilinçli olarak kapattığınız tercih korunur.</p></InformationButton></div>
+              <div className="flex items-center justify-between gap-3"><h2 className="text-base font-bold text-white">{i18nText("Kabin Kamerası")}</h2><InformationButton title={i18nText("Kabin Kamerası")}><p>{i18nText("Kamera yalnız görme ve cilt kontrolleri için kullanılır. Ham görüntü saklanmaz. Bu tercih tarayıcı/cihaz izni değildir; Başlat eyleminde gerçek izin istenir. Bilinçli olarak kapattığınız tercih korunur.")}</p></InformationButton></div>
             </div>
           </div>
 
           <div className="pt-3 border-t border-white/5 flex items-center justify-between">
-            <span className="text-[11px] text-slate-400">Uygulama İzni</span>
+            <span className="text-[11px] text-slate-400">{i18nText("Uygulama İzni")}</span>
             <button
               onClick={handleToggleCamera}
               className="text-xs font-semibold text-togg-turquoise hover:underline"
             >
-              {cameraAppAllowed ? 'Erişimi Kapat' : 'İzin Ver'}
+              {i18nNode(cameraAppAllowed ? 'Erişimi Kapat' : 'İzin Ver')}
             </button>
           </div>
         </div>
@@ -303,22 +303,22 @@ export default function PrivacyPage() {
                     : 'bg-amber-950/70 text-amber-400 border border-amber-800/70'
                 }`}
               >
-                {micStatus === 'GRANTED' ? 'Açık' : micStatus === 'DENIED' ? 'Kapalı' : 'Sorulacak'}
+                {i18nNode(micStatus === 'GRANTED' ? 'Açık' : micStatus === 'DENIED' ? 'Kapalı' : 'Sorulacak')}
               </span>
             </div>
 
             <div>
-              <div className="flex items-center justify-between gap-3"><h2 className="text-base font-bold text-white">Kabin Mikrofonu</h2><InformationButton title="Kabin Mikrofonu"><p>Mikrofon yalnız görüşmeyi başlattığınızda kullanılır. Tarayıcı/cihaz izni ayrıca gerekir; bu tercih onu onaylamaz. Konuşma tanıma hizmeti sesi buluta aktarabilir. Aktarım Ruh Sağlığı ekranındaki hizmet onayına bağlıdır. Ham ses uygulamada saklanmaz.</p></InformationButton></div>
+              <div className="flex items-center justify-between gap-3"><h2 className="text-base font-bold text-white">{i18nText("Kabin Mikrofonu")}</h2><InformationButton title={i18nText("Kabin Mikrofonu")}><p>{i18nText("Mikrofon yalnız görüşmeyi başlattığınızda kullanılır. Tarayıcı/cihaz izni ayrıca gerekir; bu tercih onu onaylamaz. Konuşma tanıma hizmeti sesi buluta aktarabilir. Aktarım Ruh Sağlığı ekranındaki hizmet onayına bağlıdır. Ham ses uygulamada saklanmaz.")}</p></InformationButton></div>
             </div>
           </div>
 
           <div className="pt-3 border-t border-white/5 flex items-center justify-between">
-            <span className="text-[11px] text-slate-400">Uygulama İzni</span>
+            <span className="text-[11px] text-slate-400">{i18nText("Uygulama İzni")}</span>
             <button
               onClick={handleToggleMic}
               className="text-xs font-semibold text-togg-turquoise hover:underline"
             >
-              {micAppAllowed ? 'Erişimi Kapat' : 'İzin Ver'}
+              {i18nNode(micAppAllowed ? 'Erişimi Kapat' : 'İzin Ver')}
             </button>
           </div>
         </div>
@@ -337,47 +337,47 @@ export default function PrivacyPage() {
                     : 'bg-slate-900 text-slate-400 border border-slate-800'
                 }`}
               >
-                {saveMentalSummaries ? 'Açık' : 'Kapalı'}
+                {i18nNode(saveMentalSummaries ? 'Açık' : 'Kapalı')}
               </span>
             </div>
 
             <div>
-              <div className="flex items-center justify-between gap-3"><h2 className="text-base font-bold text-white">Seans Hafızası</h2><InformationButton title="Seans Hafızası"><p>Tamamlanan görüşmenin kısa özeti, temaları, duygu eğilimi ve tarihi bu cihazda saklanır. Ham ses saklanmaz. Tam konuşma dökümü için aşağıdaki ayrı, varsayılan kapalı tercih gerekir. Kapatmak önceki kayıtları silmez. Görüşme başlatmak için saklama izni zorunlu değildir.</p></InformationButton></div>
+              <div className="flex items-center justify-between gap-3"><h2 className="text-base font-bold text-white">{i18nText("Seans Hafızası")}</h2><InformationButton title={i18nText("Seans Hafızası")}><p>{i18nText("Tamamlanan görüşmenin kısa özeti, temaları, duygu eğilimi ve tarihi bu cihazda saklanır. Ham ses saklanmaz. Tam konuşma dökümü için aşağıdaki ayrı, varsayılan kapalı tercih gerekir. Kapatmak önceki kayıtları silmez. Görüşme başlatmak için saklama izni zorunlu değildir.")}</p></InformationButton></div>
             </div>
           </div>
 
           <div className="pt-3 border-t border-white/5 flex items-center justify-between">
-            <span className="text-[11px] text-slate-400">Yerel Saklama</span>
+            <span className="text-[11px] text-slate-400">{i18nText("Yerel Saklama")}</span>
             <button
               onClick={() => handleToggleMentalSaving(!saveMentalSummaries)}
               className="text-xs font-semibold text-togg-turquoise hover:underline"
             >
-              {saveMentalSummaries ? 'Devre Dışı Bırak' : 'Etkinleştir'}
+              {i18nNode(saveMentalSummaries ? 'Devre Dışı Bırak' : 'Etkinleştir')}
             </button>
           </div>
         </div>
       </section>
 
       <section className="rounded-2xl border border-white/10 bg-cockpit-surface p-6 space-y-3">
-        <div className="flex items-center justify-between gap-3"><h2 className="font-bold">Konuşma dökümü</h2><InformationButton title="Konuşma dökümü saklama"><p>Varsayılan kapalıdır. Açarsanız, ayrıca özet saklama tercihiniz açıkken tamamlanmış görüşmenin kullanıcı/asistan metinleri ve gerçek mesaj zamanları bu tarayıcıda aynı oturum kaydına eklenir. Ham mikrofon sesi saklanmaz. Bu tercih yeni bir backend veya dış sağlayıcı döküm kaydı oluşturmaz.</p><p>Görüşme hizmet onayı kapsamındaki yanıt/özet metin aktarımı ayrıdır. Yerel Sil eylemi dökümü ve özeti birlikte temizler; sağlayıcının tarihsel saklama veya silme durumunu doğrulamaz. Tercihi kapatmak eski kayıtları otomatik silmez.</p></InformationButton></div>
-        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveTranscript} aria-label="Tam konuşma dökümünü bu cihazda sakla" onChange={e=>{try{localStorage.setItem(STORAGE_KEYS.PRIVACY_MENTAL_TRANSCRIPT_ALLOWED,String(e.target.checked));setSaveTranscript(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>Tam konuşma dökümünü bu cihazda sakla</label>
-        <p className="text-xs text-slate-400">Fotoğraf saklama tercihi aşağıda Cilt Sağlığı için ayrıca yönetilir.</p>
-        <div className="flex items-center justify-between gap-3"><h2 className="font-bold">Görme ön değerlendirmesi</h2><InformationButton title="Yön hizalama sonucu saklama"><p>Varsayılan kapalıdır. Açarsanız tamamlanan yön hizalama denemeleri, görünürlük yanıtları, açı hataları, tarih ve hazırlık/doğrulama sınırları yalnız bu tarayıcıdaki geçmişe kaydedilir. Kamera karesi veya klinik keskinlik kaydı oluşturulmaz. Kapatmak eski kayıtları silmez; Sil ile tek kayıt kaldırılabilir.</p></InformationButton></div>
-        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveVision} aria-label="Yön hizalama sonuçlarını bu cihazda sakla" onChange={e=>{try{localStorage.setItem(STORAGE_KEYS.PRIVACY_VISION_SAVE_ALLOWED,String(e.target.checked));setSaveVision(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>Yön hizalama sonuçlarını bu cihazda sakla</label>
+        <div className="flex items-center justify-between gap-3"><h2 className="font-bold">{i18nText("Konuşma dökümü")}</h2><InformationButton title={i18nText("Konuşma dökümü saklama")}><p>{i18nText("Varsayılan kapalıdır. Açarsanız, ayrıca özet saklama tercihiniz açıkken tamamlanmış görüşmenin kullanıcı/asistan metinleri ve gerçek mesaj zamanları bu tarayıcıda aynı oturum kaydına eklenir. Ham mikrofon sesi saklanmaz. Bu tercih yeni bir backend veya dış sağlayıcı döküm kaydı oluşturmaz.")}</p><p>{i18nText("Görüşme hizmet onayı kapsamındaki yanıt/özet metin aktarımı ayrıdır. Yerel Sil eylemi dökümü ve özeti birlikte temizler; sağlayıcının tarihsel saklama veya silme durumunu doğrulamaz. Tercihi kapatmak eski kayıtları otomatik silmez.")}</p></InformationButton></div>
+        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveTranscript} aria-label={i18nText("Tam konuşma dökümünü bu cihazda sakla")} onChange={e=>{try{localStorage.setItem(STORAGE_KEYS.PRIVACY_MENTAL_TRANSCRIPT_ALLOWED,String(e.target.checked));setSaveTranscript(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>{i18nText("Tam konuşma dökümünü bu cihazda sakla")}</label>
+        <p className="text-xs text-slate-400">{i18nText("Fotoğraf saklama tercihi aşağıda Cilt Sağlığı için ayrıca yönetilir.")}</p>
+        <div className="flex items-center justify-between gap-3"><h2 className="font-bold">{i18nText("Görme ön değerlendirmesi")}</h2><InformationButton title={i18nText("Yön hizalama sonucu saklama")}><p>{i18nText("Varsayılan kapalıdır. Açarsanız tamamlanan yön hizalama denemeleri, görünürlük yanıtları, açı hataları, tarih ve hazırlık/doğrulama sınırları yalnız bu tarayıcıdaki geçmişe kaydedilir. Kamera karesi veya klinik keskinlik kaydı oluşturulmaz. Kapatmak eski kayıtları silmez; Sil ile tek kayıt kaldırılabilir.")}</p></InformationButton></div>
+        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveVision} aria-label={i18nText("Yön hizalama sonuçlarını bu cihazda sakla")} onChange={e=>{try{localStorage.setItem(STORAGE_KEYS.PRIVACY_VISION_SAVE_ALLOWED,String(e.target.checked));setSaveVision(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>{i18nText("Yön hizalama sonuçlarını bu cihazda sakla")}</label>
       </section>
 
       <section className="rounded-2xl border border-white/10 bg-cockpit-surface p-6 space-y-3">
-        <h2 className="font-bold">Cilt görünümü ve kişisel referans</h2>
-        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveSkinPhotos} disabled={photoBusy} onChange={async e=>{const enabled=e.target.checked;setPhotoBusy(true);try{await withRecordsLock(async()=>{localStorage.setItem(SKIN_PHOTO_PERMISSION,String(enabled));setSaveSkinPhotos(enabled);window.dispatchEvent(new Event('attune-privacy'));if(!enabled){clearSkinSnapshots();await clearSkinPhotos();}});setSaveSkinPhotos(enabled);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);setSaveSkinPhotos(localStorage.getItem(SKIN_PHOTO_PERMISSION)==='true');setSaveDentalPhotos(localStorage.getItem(DENTAL_PHOTO_PERMISSION)==='true');}finally{setPhotoBusy(false);}}}/>Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla</label>
-        <p className="text-xs text-slate-400">Varsayılan kapalıdır. Sayısal kayıt izni de açıksa yeni taramaların fotoğraf ve seçilebilir görüntü katmanları uygulama yeniden açıldığında korunur. Kapatınca saklanan cilt fotoğrafları silinir; sayısal kayıtlar kalır. En fazla 128 MB saklanır; dolunca eski kayıtlar silinmez, yeni fotoğraf kaydedilemez.</p>
-        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveDentalPhotos} disabled={photoBusy} onChange={async e=>{const enabled=e.target.checked;setPhotoBusy(true);try{await withRecordsLock(async()=>{localStorage.setItem(DENTAL_PHOTO_PERMISSION,String(enabled));setSaveDentalPhotos(enabled);window.dispatchEvent(new Event('attune-privacy'));if(!enabled)await clearDentalPhotos();});window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);setSaveDentalPhotos(localStorage.getItem(DENTAL_PHOTO_PERMISSION)==='true');}finally{setPhotoBusy(false);}}}/>Yeni diş kayıtlarının fotoğraflarını bu cihazda sakla</label>
-        <p className="text-xs text-slate-400">Varsayılan kapalıdır. Sayısal kayıttan bağımsızdır; yalnız yeni kaydettiğiniz sonuçlara uygulanır. Kapatınca diş fotoğrafları silinir, sayısal kayıtlar kalır. Önceki fotoğraflar yeniden oluşturulmaz.</p>
-        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveSkin} onChange={e=>{try{localStorage.setItem('attune_privacy_skin_save_allowed',String(e.target.checked));setSaveSkin(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla</label>
-        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={hostedSkin} onChange={e=>{try{localStorage.setItem(SKIN_HOSTED_PROCESSING_PERMISSION,String(e.target.checked));setHostedSkin(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>Cilt tipi için yüz fotoğrafımın Roboflow tarafından işlenmesine izin ver</label>
-        <p className="text-xs text-slate-400">Varsayılan kapalıdır; çekim izninden ayrıdır. Fotoğraf saklama tercihi aşağıda ayrıca yönetilir. Diş sonuçlarında ayrıca Kaydet onayı verilir. Kapatmak eski kayıtları silmez; kayıt Sil veya Tüm Yerel Verileri Sil ile kaldırılır.</p>
+        <h2 className="font-bold">{i18nText("Cilt görünümü ve kişisel referans")}</h2>
+        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveSkinPhotos} disabled={photoBusy} onChange={async e=>{const enabled=e.target.checked;setPhotoBusy(true);try{await withRecordsLock(async()=>{localStorage.setItem(SKIN_PHOTO_PERMISSION,String(enabled));setSaveSkinPhotos(enabled);window.dispatchEvent(new Event('attune-privacy'));if(!enabled){clearSkinSnapshots();await clearSkinPhotos();}});setSaveSkinPhotos(enabled);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);setSaveSkinPhotos(localStorage.getItem(SKIN_PHOTO_PERMISSION)==='true');setSaveDentalPhotos(localStorage.getItem(DENTAL_PHOTO_PERMISSION)==='true');}finally{setPhotoBusy(false);}}}/>{i18nText("Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla")}</label>
+        <p className="text-xs text-slate-400">{i18nText("Varsayılan kapalıdır. Sayısal kayıt izni de açıksa yeni taramaların fotoğraf ve seçilebilir görüntü katmanları uygulama yeniden açıldığında korunur. Kapatınca saklanan cilt fotoğrafları silinir; sayısal kayıtlar kalır. En fazla 128 MB saklanır; dolunca eski kayıtlar silinmez, yeni fotoğraf kaydedilemez.")}</p>
+        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveDentalPhotos} disabled={photoBusy} onChange={async e=>{const enabled=e.target.checked;setPhotoBusy(true);try{await withRecordsLock(async()=>{localStorage.setItem(DENTAL_PHOTO_PERMISSION,String(enabled));setSaveDentalPhotos(enabled);window.dispatchEvent(new Event('attune-privacy'));if(!enabled)await clearDentalPhotos();});window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);setSaveDentalPhotos(localStorage.getItem(DENTAL_PHOTO_PERMISSION)==='true');}finally{setPhotoBusy(false);}}}/>{i18nText("Yeni diş kayıtlarının fotoğraflarını bu cihazda sakla")}</label>
+        <p className="text-xs text-slate-400">{i18nText("Varsayılan kapalıdır. Sayısal kayıttan bağımsızdır; yalnız yeni kaydettiğiniz sonuçlara uygulanır. Kapatınca diş fotoğrafları silinir, sayısal kayıtlar kalır. Önceki fotoğraflar yeniden oluşturulmaz.")}</p>
+        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveSkin} onChange={e=>{try{localStorage.setItem('attune_privacy_skin_save_allowed',String(e.target.checked));setSaveSkin(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>{i18nText("Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla")}</label>
+        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={hostedSkin} onChange={e=>{try{localStorage.setItem(SKIN_HOSTED_PROCESSING_PERMISSION,String(e.target.checked));setHostedSkin(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>{i18nText("Cilt tipi için yüz fotoğrafımın Roboflow tarafından işlenmesine izin ver")}</label>
+        <p className="text-xs text-slate-400">{i18nText("Varsayılan kapalıdır; çekim izninden ayrıdır. Fotoğraf saklama tercihi aşağıda ayrıca yönetilir. Diş sonuçlarında ayrıca Kaydet onayı verilir. Kapatmak eski kayıtları silmez; kayıt Sil veya Tüm Yerel Verileri Sil ile kaldırılır.")}</p>
       </section>
 
-      <section className="rounded-2xl border border-white/10 bg-cockpit-surface p-6 space-y-3"><h2 className="font-bold">İşitme Sağlığı sonuçları</h2><label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveHearing} onChange={e=>{try{localStorage.setItem('attune_privacy_hearing_save_allowed',String(e.target.checked));setSaveHearing(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>Tamamlanan sayısal işitme sonuçlarını bu cihazda sakla</label></section>
+      <section className="rounded-2xl border border-white/10 bg-cockpit-surface p-6 space-y-3"><h2 className="font-bold">{i18nText("İşitme Sağlığı sonuçları")}</h2><label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveHearing} onChange={e=>{try{localStorage.setItem('attune_privacy_hearing_save_allowed',String(e.target.checked));setSaveHearing(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>{i18nText("Tamamlanan sayısal işitme sonuçlarını bu cihazda sakla")}</label></section>
 
       {/* 3. BELOW FOLD: YEREL VERİ YÖNETİMİ VE SİLME */}
       <section className="bg-cockpit-surface border border-white/10 rounded-2xl p-6 md:p-7 shadow-xl space-y-5">
@@ -385,28 +385,26 @@ export default function PrivacyPage() {
           <div className="space-y-0.5">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Database className="w-4 h-4 text-togg-turquoise" />
-              <span>Kayıtlı Yerel Sağlık Verileri</span>
+              <span>{i18nText("Kayıtlı Yerel Sağlık Verileri")}</span>
             </h2>
-            <p className="text-xs text-slate-400">
-              Bu cihazda yerel olarak tutulan test ve seans özetleri.
-            </p>
+            <p className="text-xs text-slate-400">{i18nText("Bu cihazda yerel olarak tutulan test ve seans özetleri. ")}</p>
           </div>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 text-center">
           <div className="bg-slate-950/70 border border-slate-800 p-4 rounded-xl">
-            <div className="text-xs text-slate-400">Görme Kayıtları</div>
-            <div className="text-2xl font-bold text-togg-turquoise mt-1 font-mono">{storageUnavailable ? '—' : dataStats.visionCount}</div>
+            <div className="text-xs text-slate-400">{i18nText("Görme Kayıtları")}</div>
+            <div className="text-2xl font-bold text-togg-turquoise mt-1 font-mono">{i18nNode(storageUnavailable ? '—' : dataStats.visionCount)}</div>
           </div>
           <div className="bg-slate-950/70 border border-slate-800 p-4 rounded-xl">
-            <div className="text-xs text-slate-400">Cilt Taramaları</div>
-            <div className="text-2xl font-bold text-togg-turquoise mt-1 font-mono">{storageUnavailable ? '—' : dataStats.skinCount}</div>
+            <div className="text-xs text-slate-400">{i18nText("Cilt Taramaları")}</div>
+            <div className="text-2xl font-bold text-togg-turquoise mt-1 font-mono">{i18nNode(storageUnavailable ? '—' : dataStats.skinCount)}</div>
           </div>
           <div className="bg-slate-950/70 border border-slate-800 p-4 rounded-xl">
-            <div className="text-xs text-slate-400">Görüşme Özetleri</div>
-            <div className="text-2xl font-bold text-togg-turquoise mt-1 font-mono">{storageUnavailable ? '—' : dataStats.mentalCount}</div>
+            <div className="text-xs text-slate-400">{i18nText("Görüşme Özetleri")}</div>
+            <div className="text-2xl font-bold text-togg-turquoise mt-1 font-mono">{i18nNode(storageUnavailable ? '—' : dataStats.mentalCount)}</div>
           </div>
-            {(['dental','hearing'] as const).map(category => <div key={category} className="bg-slate-950/70 border border-slate-800 p-4 rounded-xl"><div className="text-xs text-slate-400">{category === 'dental' ? 'Diş Kayıtları' : 'İşitme Kayıtları'}</div><div className="text-2xl font-bold text-togg-turquoise mt-1 font-mono">{storageUnavailable ? '—' : category === 'dental' ? dataStats.dentalCount : dataStats.hearingCount}</div></div>)}
+            {(['dental','hearing'] as const).map(category => <div key={category} className="bg-slate-950/70 border border-slate-800 p-4 rounded-xl"><div className="text-xs text-slate-400">{i18nNode(category === 'dental' ? 'Diş Kayıtları' : 'İşitme Kayıtları')}</div><div className="text-2xl font-bold text-togg-turquoise mt-1 font-mono">{i18nNode(storageUnavailable ? '—' : category === 'dental' ? dataStats.dentalCount : dataStats.hearingCount)}</div></div>)}
         </div>
 
         {/* TÜM YEREL VERİLERİ SİL BUTONU */}
@@ -417,7 +415,7 @@ export default function PrivacyPage() {
               className="flex items-center gap-2 px-5 py-3 rounded-xl bg-rose-950/50 hover:bg-rose-900/70 text-rose-300 border border-rose-800/80 text-xs font-bold transition-all min-h-touch"
             >
               <Trash2 className="w-4 h-4" />
-              <span>TÜM YEREL VERİLERİ SİL</span>
+              <span>{i18nText("TÜM YEREL VERİLERİ SİL")}</span>
             </button>
           )}
 
@@ -425,41 +423,35 @@ export default function PrivacyPage() {
             <div className="bg-rose-950/40 border border-rose-700/80 rounded-xl p-4 space-y-3">
               <div className="flex items-center gap-2 text-rose-300 font-bold text-xs">
                 <AlertTriangle className="w-4 h-4 text-rose-400" />
-                <span>Bu işlem yerel bellekteki tüm kayıtları kalıcı olarak temizler!</span>
+                <span>{i18nText("Bu işlem yerel bellekteki tüm kayıtları kalıcı olarak temizler!")}</span>
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Beş sağlık modülünün yerel kayıtları ve eski kişisel cilt referansları silinecektir.
-              </p>
+              <p className="text-xs text-slate-300 leading-relaxed">{i18nText("Beş sağlık modülünün yerel kayıtları ve eski kişisel cilt referansları silinecektir. ")}</p>
               <div className="flex gap-3 pt-1">
                 <button
                   onClick={handleWipeAllData}
                   className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow"
-                >
-                  Evet, Tüm Verileri Sil
-                </button>
+                >{i18nText("Evet, Tüm Verileri Sil ")}</button>
                 <button
                   onClick={() => setWipeStatus('IDLE')}
                   className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs"
-                >
-                  Vazgeç
-                </button>
+                >{i18nText("Vazgeç ")}</button>
               </div>
             </div>
           )}
 
-          {wipeStatus === 'WIPING' && <p role="status" className="text-xs text-slate-300">Veriler siliniyor ve doğrulanıyor…</p>}
+          {wipeStatus === 'WIPING' && <p role="status" className="text-xs text-slate-300">{i18nText("Veriler siliniyor ve doğrulanıyor…")}</p>}
           {wipeResult && ['SUCCESS', 'PARTIAL', 'FAILED'].includes(wipeStatus) && (
             <div role="status" className="p-4 rounded-xl border border-slate-700 space-y-2 text-xs text-slate-200">
-              <p>{wipeResult.local ? 'Tarayıcıdaki sağlık kayıtları silindi.' : 'Tarayıcıdaki sağlık kayıtlarının tamamı silinemedi.'}</p>
-              <p>{wipeResult.backend ? 'Yerel sunucudaki seans özetlerinin silindiği doğrulandı.' : 'Yerel sunucudaki seans özetlerinin silindiği doğrulanamadı; kayıtlar hâlâ mevcut olabilir.'}</p>
-              {wipeStatus !== 'SUCCESS' && <p className="text-amber-200">{wipeStatus === 'PARTIAL' ? 'Silme işlemi kısmen tamamlandı.' : 'Silme işlemi tamamlanamadı.'}</p>}
-              <button onClick={handleWipeAllData} className="underline">Yeniden Dene</button>
+              <p>{i18nNode(wipeResult.local ? 'Tarayıcıdaki sağlık kayıtları silindi.' : 'Tarayıcıdaki sağlık kayıtlarının tamamı silinemedi.')}</p>
+              <p>{i18nNode(wipeResult.backend ? 'Yerel sunucudaki seans özetlerinin silindiği doğrulandı.' : 'Yerel sunucudaki seans özetlerinin silindiği doğrulanamadı; kayıtlar hâlâ mevcut olabilir.')}</p>
+              {wipeStatus !== 'SUCCESS' && <p className="text-amber-200">{i18nNode(wipeStatus === 'PARTIAL' ? 'Silme işlemi kısmen tamamlandı.' : 'Silme işlemi tamamlanamadı.')}</p>}
+              <button onClick={handleWipeAllData} className="underline">{i18nText("Yeniden Dene")}</button>
             </div>
           )}
           {wipeStatus === 'SUCCESS' && (
             <div className="bg-emerald-950/40 border border-emerald-700/80 rounded-xl p-4 text-emerald-300 text-xs flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>Tüm yerel veriler başarıyla temizlendi.</span>
+              <span>{i18nText("Tüm yerel veriler başarıyla temizlendi.")}</span>
             </div>
           )}
         </div>

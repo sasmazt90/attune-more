@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-19",
+  "baseCommit": "1ee2386efd3dc30fe8d5b0d2bbf336ac7f03c98e",
+  "branch": "feature/aaos-oem-agnostic-prototype-20261019",
+  "runtime": "managed Linux Cloud",
+  "hostPolicyChecks": 69,
+  "androidSourcesSdkCompiled": 9,
+  "unitFullRun": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "3",
+    "skipped": "45",
+    "tests": "831",
+    "time": "92.823",
+    "timestamp": "2026-10-19T05:13:12.152967+00:00"
+  },
+  "browserEnvironmentRerun": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "3",
+    "time": "6.044",
+    "timestamp": "2026-10-19T05:15:51.584089+00:00"
+  },
+  "finalAutomotiveContracts": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "3",
+    "time": "1.599",
+    "timestamp": "2026-10-19T05:23:10.750950+00:00"
+  },
+  "resolvedUnitTotal": {
+    "passed": 786,
+    "skipped": 45,
+    "failed": 0,
+    "note": "combined full run plus rerun of three Chrome-path setup failures"
+  },
+  "webSmoke": {
+    "passed": 48,
+    "configurations": [
+      [
+        1024,
+        600
+      ],
+      [
+        1280,
+        720
+      ],
+      [
+        1920,
+        1080
+      ],
+      [
+        768,
+        1024
+      ]
+    ],
+    "nativeAaosRuntime": false
+  },
+  "android": {
+    "debugAssemble": "PASS",
+    "debugLint": "PASS",
+    "releaseAssemble": "PASS",
+    "releaseLint": "PASS",
+    "emulator": "NOT_RUN",
+    "physicalDevice": "NOT_RUN",
+    "actualVehicleSignals": "NOT_VERIFIED",
+    "officialDistribution": "NOT_ESTABLISHED",
+    "oemApproval": "NOT_ESTABLISHED",
+    "artifacts": {
+      "debug": {
+        "file": "attune-more-aaos-debug.apk",
+        "bytes": 87958,
+        "sha256": "cf37d31b80274135d9b1676f354d1fd445ab6f931d270d18cf026dadf3e18e90",
+        "lintIssues": [
+          {
+            "id": "SetJavaScriptEnabled",
+            "severity": "Warning"
+          }
+        ]
+      },
+      "release": {
+        "file": "attune-more-aaos-release-unsigned.apk",
+        "bytes": 43579,
+        "sha256": "f26c09488b7c3de87f50d5c96e3d08df927698a55a886d34faf07b7546289418",
+        "lintIssues": [
+          {
+            "id": "SetJavaScriptEnabled",
+            "severity": "Warning"
+          }
+        ]
+      }
+    }
+  },
+  "frontendBuildId": "wzGV2Bl7yG3Hs_DFFpeEQ"
+}

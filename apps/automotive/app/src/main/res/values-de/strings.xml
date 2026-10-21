@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="back">Zurück</string>
+  <string name="retry">Erneut versuchen</string>
+  <string name="simulation">Simulation</string>
+  <string name="simulate_driving">Simulation: Fahrt</string>
+  <string name="simulate_parked">Simulation: Parken</string>
+  <string name="present">vorhanden</string>
+  <string name="absent">nicht vorhanden</string>
+  <string name="platform_clear">Verfügbar</string>
+  <string name="platform_restricted">Eingeschränkt</string>
+  <string name="platform_unknown">Nicht bestätigt</string>
+  <string name="status_line">%1$s\nAndroid: %2$s · %3$s · Kamera: %4$s · Mikrofon: %5$s</string>
+  <string name="gate_background">Anwendung im Hintergrund</string>
+  <string name="gate_platform_unknown">Android-Fahrzeugeinschränkungen nicht bestätigt</string>
+  <string name="gate_platform_restricted">Android schränkt die Fahrzeuganzeige ein</string>
+  <string name="gate_vehicle_unknown">Fahrzeugdaten nicht verfügbar</string>
+  <string name="gate_stale">Fahrzeugdaten sind veraltet</string>
+  <string name="gate_moving">Fahrzeug bewegt sich</string>
+  <string name="gate_not_parked">PARK nicht bestätigt</string>
+  <string name="gate_ready">PARK bestätigt</string>
+  <string name="locked">Vorgänge gesperrt.\n%1$s\nDer Gesundheitsbildschirm bleibt geschlossen, bis Android-Einschränkungen und aktuelle PARK-Daten bestätigt sind.</string>
+  <string name="page_failed">Die Seite konnte nicht geladen werden. Prüfen Sie das Netzwerk und wählen Sie Erneut versuchen.</string>
+  <string name="external_title">Externer Link</string>
+  <string name="external_message">Dieser Link öffnet sich in einem separaten Browser. Es wird kein Termin oder Zahlungsvorgang automatisch abgeschlossen.</string>
+  <string name="cancel">Abbrechen</string>
+  <string name="open_browser">Im Browser öffnen</string>
+  <string name="no_browser">Kein unterstützter Browser verfügbar.</string>
+  <string name="no_picker">Die externe Fotoauswahl ist in diesem Prototyp deaktiviert; ein Wechsel in den Hintergrund bricht vorübergehende Vorgänge ab.</string>
+  <string name="media_unavailable">Berechtigung oder Gerätefunktion nicht verfügbar.</string>
+  <string name="provider_simulation">Backend-Simulation — kein echtes Fahrzeugsignal</string>
+  <string name="provider_unavailable">Autorisierter Fahrzeuganbieter nicht integriert</string>
+</resources>

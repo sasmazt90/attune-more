@@ -1,0 +1,43 @@
+{
+  "device": "cpu",
+  "model": {
+    "repository": "ResembleAI/chatterbox",
+    "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+    "revision": "REPLACE_WITH_VERIFIED_HF_REVISION",
+    "file": "t3_mtl23ls_v3.safetensors",
+    "license": "MIT",
+    "licenseURL": "https://huggingface.co/ResembleAI/chatterbox/blob/REPLACE_WITH_VERIFIED_HF_REVISION/LICENSE",
+    "licenseEvidence": {
+      "path": "model-LICENSE",
+      "sha256": "REPLACE_WITH_VERIFIED_SHA256"
+    },
+    "directory": "model",
+    "files": {
+      "t3_mtl23ls_v3.safetensors": {
+        "path": "model/t3_mtl23ls_v3.safetensors",
+        "sha256": "REPLACE_WITH_VERIFIED_SHA256"
+      },
+      "ve.pt": {
+        "path": "model/ve.pt",
+        "sha256": "REPLACE_WITH_VERIFIED_SHA256"
+      },
+      "s3gen.pt": {
+        "path": "model/s3gen.pt",
+        "sha256": "REPLACE_WITH_VERIFIED_SHA256"
+      },
+      "grapheme_mtl_merged_expanded_v1.json": {
+        "path": "model/grapheme_mtl_merged_expanded_v1.json",
+        "sha256": "REPLACE_WITH_VERIFIED_SHA256"
+      },
+      "Cangjie5_TC.json": {
+        "path": "model/Cangjie5_TC.json",
+        "sha256": "REPLACE_WITH_VERIFIED_SHA256"
+      },
+      "conds.pt": {
+        "path": "model/conds.pt",
+        "sha256": "REPLACE_WITH_VERIFIED_SHA256"
+      }
+    }
+  },
+  "conditioning": "official-default"
+}

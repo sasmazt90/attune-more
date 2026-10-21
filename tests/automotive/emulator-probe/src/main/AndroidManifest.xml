@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-feature android:name="android.hardware.type.automotive" android:required="true" />
+    <queries>
+        <package android:name="more.attune.automotive.prototype.debug" />
+    </queries>
+    <application android:label="Attune QA read-only probe" android:allowBackup="false">
+        <!-- Car APIs are on the AAOS boot classpath, not a PM shared library.
+             Gradle useLibrary remains compile-only; runtime compatibility is checked. -->
+    </application>
+    <!-- Targets itself; never instruments, alters or grants privileges to the app. -->
+    <instrumentation android:name=".RestrictionProbe" android:targetPackage="more.attune.validation" />
+</manifest>

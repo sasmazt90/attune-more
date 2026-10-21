@@ -1,3 +1,5 @@
+import {apiFetch as fetch} from './localBackend';
+import {getLocale} from '../i18n/core';
 import {deleteDentalPhotosWithRecords,recoverDentalPhotoDeletion,DENTAL_PHOTO_DELETE_PENDING} from './dentalPhotoHistory';
 import {serviceAllowed} from './serviceConsent';
 import {deleteSkinPhotosWithRecords,recoverSkinPhotoDeletion,SKIN_PHOTO_DELETE_PENDING} from './skinPhotoHistory';
@@ -19,7 +21,7 @@ const KEYS = {
 
 export function recordDate(record: HealthRecord): string {
   const value = record.date || record.timestamp;
-  return value && Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleString('tr-TR') : record.dateTr || 'Tarih kaydı yok';
+  return value && Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleString(getLocale()) : record.dateTr || 'Tarih kaydı yok';
 }
 
 function recover() {
@@ -54,7 +56,7 @@ function commit(changes: Record<string, string | null>, finalize = true) {
 
 function mentalLatest(records: HealthRecord[]) {
   const item = records.at(-1);
-  return item ? JSON.stringify({ ...item, dateTr: recordDate(item), primaryTheme: Array.isArray(item.themes) ? item.themes.join(' • ') || 'Günlük paylaşım' : item.primaryTheme || 'Tema kaydı yok', sessionCount: records.length, recommendation: 'Kayıtlı görüşme özeti' }) : null;
+  return item ? JSON.stringify({ ...item, primaryTheme: Array.isArray(item.themes) ? item.themes.join(' • ') || 'Günlük paylaşım' : item.primaryTheme || 'Tema kaydı yok', sessionCount: records.length, recommendation: 'Kayıtlı görüşme özeti' }) : null;
 }
 
 function readRecordsLocked(category: HealthCategory, writable = true): HealthRecord[] {

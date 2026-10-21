@@ -1,4 +1,6 @@
-/** Target-independent Turkish parsing and a nonclinical letter task. */
+import prompts from '../../../../shared/localization/vision-prompts.json';
+import {t} from '../i18n/core';
+/** Target-independent parsing and a nonclinical letter task; TR protocol unchanged. */
 export const LETTER_PROTOCOL='spoken-letter-v2';
 export const LETTER_METHOD='mirror-x-then-rotate-two-up-two-down-step50-min15-v4';
 export type Orientation='upright'|'right'|'down'|'left'|'mirror';
@@ -53,12 +55,20 @@ export const LETTER_INSTRUCTIONS={
 } as const;
 function normalizeSpeech(text:string){return text.toLocaleLowerCase('tr-TR').normalize('NFKC').replace(/[’‘`]/g,"'").replace(/[^a-zçğıöşü ]/g,' ').replace(/\s+/g,' ').trim();}
 /** Only instruction clauses, not broad vocabulary/short answer filtering. */
-export function isLetterInstructionEcho(text:string){
+export function isLetterInstructionEcho(text:string,language:'tr'|'en'|'de'='tr'){
+ if(language!=='tr'){
+  const normal=(value:string)=>value.toLocaleLowerCase(language==='de'?'de-DE':'en-US').normalize('NFKC').replace(/[^\p{L} ]/gu,' ').replace(/\s+/g,' ').trim();
+  const value=normal(text);
+  if(value.split(' ').length>=3&&Object.values(prompts).some(source=>normal(t(source,language)).includes(value)))return true;
+ }
+ if(language==='en')return /please (?:say|look|keep)|look at the letter|which way|you can (?:say|use)|keep your|cover the other/i.test(text);
+ if(language==='de')return /bitte (?:sagen|schauen|halten)|schauen sie|in welche richtung|sie können|decken sie|halten sie/i.test(text);
  const value=normalizeSpeech(text);
  if(/söyleyin|söyler misiniz|okuyun|bakın|kullanabilirsiniz|beklemeniz gerekmez|yanıtınız alındı|test ediyoruz|kalsın|kapatın|örtün/.test(value))return true;
  return Object.values(LETTER_INSTRUCTIONS).map(normalizeSpeech).some(line=>value.split(' ').length>=3&&line.includes(value));
 }
-export function parseLetterAnswer(text:string):ParsedAnswer {
+export function parseLetterAnswer(text:string,language:'tr'|'en'|'de'='tr'):ParsedAnswer {
+ if(language!=='tr')return parseLetterAnswer(localizedAnswerTokens(text,language));
  let value=normalizeSpeech(text);
  if(/^(?:harfi )?(?:göremiyorum|ayırt edemiyorum)$/.test(value))return {command:'not-visible'};
  if(/^(?:bitir|sonlandır|testi bitir)$/.test(value))return {command:'finish'};
@@ -90,6 +100,38 @@ export function parseLetterAnswer(text:string):ParsedAnswer {
  if(answer.ambiguous)return {...answer,clarify:answer.ambiguous==='letter'?'letter':'orientation'};
  if(!letter)answer.clarify='letter';else if(!answerTransform(answer))answer.clarify='orientation';
  return answer;
+}
+/** Language adaptation only: target, geometry, scoring and ambiguity policy are unchanged. */
+export function localizedAnswerTokens(text:string,language:'en'|'de'){
+ let value=text.normalize('NFC').toLocaleLowerCase(language==='de'?'de-DE':'en-US').replace(/[’‘]/g,"'");
+ // Translate controls only as complete utterances, never inside code-word
+ // answers ("repeat right" must retain R, not become Turkish "tekrar").
+ // Bare finish/fertig/beenden are valid F/F/B code words. Ending a session
+ // requires an explicit test phrase; the original TR protocol is unchanged.
+ const controls:Record<string,string>=language==='en'?{
+  "i can't see it":'göremiyorum','i cannot see it':'göremiyorum','not visible':'göremiyorum',
+  'repeat':'tekrar','pause':'duraklat','resume':'devam et','continue':'devam et',
+  'finish the test':'bitir','stop the test':'bitir'
+ }:{'ich sehe es nicht':'göremiyorum','nicht erkennbar':'göremiyorum',
+  'wiederholen':'tekrar','pausieren':'duraklat','pause':'duraklat','fortsetzen':'devam et','weiter':'devam et',
+  'test beenden':'bitir','den test beenden':'bitir'};
+ const utterance=value.replace(/[^\p{L}' ]/gu,' ').replace(/\s+/g,' ').trim();
+ if(Object.hasOwn(controls,utterance))return controls[utterance];
+ const phrases:Record<string,string>=language==='en'?{
+  'upside down':'baş aşağı','turned right':'sağa','turned left':'sola','mirrored':'aynalı','mirror':'aynalı',
+  'upright':'düz','right':'sağa','left':'sola','reverse':'ters',
+  'bee':'be','pee':'pe','eff':'ef','are':'re','ay':'a','ee':'e','no':'değil','and':'ve'
+ }:{'auf dem kopf':'baş aşağı',
+  'kopfüber':'baş aşağı','nach rechts':'sağa','nach links':'sola','rechts':'sağa','links':'sola',
+  'aufrecht':'düz','gerade':'düz','gespiegelt':'aynalı','spiegelverkehrt':'aynalı','umgekehrt':'ters',
+  'beh':'be','peh':'pe','eff':'ef','und':'ve','nein':'değil'};
+ for(const [source,target] of Object.entries(phrases).sort((a,b)=>b[0].length-a[0].length)){
+  const escaped=source.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');value=value.replace(new RegExp('(?<![\\p{L}])'+escaped+'(?![\\p{L}])','gu'),target);
+ }
+ // The unchanged TR tokenizer does not include ä/ß. Keep these as non-target
+ // graphemes instead of deleting an initial (Äpfel must never become P-fel).
+ if(language==='de')value=value.replace(/[äß]/g,'x');
+ return value.replace(/\b(?:please|the|letter|is|bitte|der|die|das|buchstabe|ist)\b/gu,' ').replace(/\s+/g,' ').trim();
 }
 /** These are exact symmetries of the drawn A and E paths. Composition is
  * mirror in local x, then clockwise rotation, as in LetterStimulus. */

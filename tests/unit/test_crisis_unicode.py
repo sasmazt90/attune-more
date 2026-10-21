@@ -46,23 +46,20 @@ def test_actual_backend_reply_path(text):
         assert data['providerType'] != 'CRISIS_SAFETY_GUARD'
 
 
-def test_frontend_detector_matches_backend_without_losing_turkish_accents(tmp_path):
-    # Compile the production TypeScript and execute it in Node. No detector doubles.
+def test_frontend_detector_matches_backend_without_losing_turkish_accents():
+    # Load production TypeScript with its real shared JSON dependencies.
     script = r"""
-const fs = require('fs'), ts = require('typescript');
+const fs = require('fs');
 const input = JSON.parse(fs.readFileSync(0, 'utf8'));
-const source = fs.readFileSync('packages/safety/crisisDetector.ts', 'utf8');
-fs.writeFileSync(input.output, ts.transpileModule(source, {
- compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}
-}).outputText);
-const detector = require(input.output);
+require('./tests/unit/ts_loader.js');
+const detector = require('./packages/safety/crisisDetector.ts');
 process.stdout.write(JSON.stringify({
  results: input.texts.map(text=>detector.checkCrisisTrigger(text)),
  accents: detector.normalizeCrisisText('ÇĞÖŞÜ I İ')
 }));
 """
     completed = subprocess.run(['node', '-e', script], cwd=ROOT, check=True,
-        input=json.dumps({'texts': PHRASES + BENIGN, 'output': str(tmp_path/'crisis.cjs')}),
+        input=json.dumps({'texts': PHRASES + BENIGN}),
         capture_output=True, text=True, encoding='utf-8')
     observed = json.loads(completed.stdout)
     for i, result in enumerate(observed['results']):

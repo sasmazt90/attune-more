@@ -1,3 +1,4 @@
+import {apiFetch as fetch} from './localBackend';
 import {ACNE_V5_PREVIEW,LOCAL_API_BASE} from './previewLocalApi';
 import {validateAcneV5Response,type AcneV5Runtime} from './acneV5Contract';
 import {expressionObservation} from './skinExpression';

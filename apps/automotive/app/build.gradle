@@ -1,0 +1,38 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'more.attune.automotive'
+    compileSdk 35
+    buildToolsVersion '35.0.0'
+    useLibrary 'android.car'
+
+    defaultConfig {
+        applicationId 'more.attune.automotive.prototype'
+        minSdk 29
+        targetSdk 35
+        versionCode 1
+        versionName '0.1-prototype'
+    }
+    buildFeatures { buildConfig true }
+    buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+            buildConfigField 'boolean', 'BACKEND_SIMULATION', 'true'
+            // adb reverse connects to an isolated host instance of the existing app/API.
+            buildConfigField 'String', 'WEB_ORIGIN', '"http://localhost:3000"'
+            buildConfigField 'String', 'API_ORIGIN', '"http://localhost:8000"'
+        }
+        release {
+            minifyEnabled false
+            buildConfigField 'boolean', 'BACKEND_SIMULATION', 'false'
+            // Intentionally unusable until an authorized provider and deployment are integrated.
+            buildConfigField 'String', 'WEB_ORIGIN', '"https://attune.invalid"'
+            buildConfigField 'String', 'API_ORIGIN', '"https://attune.invalid"'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    lint { abortOnError true }
+}

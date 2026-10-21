@@ -1,0 +1,593 @@
+{
+  "zip_name": "Chatterbox-Multilingual-V3-offline-20261021-v1.zip",
+  "zip_bytes": 3283572066,
+  "zip_sha256": "5e98c442627ad78ce22a9bff151b0badd2343f1392b590b42889a0beb679f3fc",
+  "files": [
+    {
+      "path": "dependency-assets/Perth/src/perth/perth_net/pretrained/implicit/hparams.yaml",
+      "bytes": 257,
+      "sha256": "c66e8f8ce5b09d100e719843a064d37a97c5aec13510824343bf4e096b3184db"
+    },
+    {
+      "path": "dependency-assets/Perth/src/perth/perth_net/pretrained/implicit/id.txt",
+      "bytes": 22,
+      "sha256": "f4129d0cce1fcd76a01c778dd46aeecc84130e38d83c98402abf2e1b9c49770d"
+    },
+    {
+      "path": "dependency-assets/Perth/src/perth/perth_net/pretrained/implicit/perth_net_250000.pth.tar",
+      "bytes": 37429684,
+      "sha256": "a15bce457ebc53ce5e6c9c3f11df78cf7ee2bf9cdab0a798902135b4c4027670"
+    },
+    {
+      "path": "dependency-assets/pkuseg/spacy_ontonotes.zip",
+      "bytes": 34567143,
+      "sha256": "b216e7f92de7ae285aeab8feba2faa8ea8216e5995ff6fb3d391cc8356db1bfe"
+    },
+    {
+      "path": "models/Cangjie5_TC.json",
+      "bytes": 1920163,
+      "sha256": "7073fd9de919443ae88e0bd2449917a65fe54898a4413ed1edcc4b67f28bce8c"
+    },
+    {
+      "path": "models/conds.pt",
+      "bytes": 107374,
+      "sha256": "6552d70568833628ba019c6b03459e77fe71ca197d5c560cef9411bee9d87f4e"
+    },
+    {
+      "path": "models/grapheme_mtl_merged_expanded_v1.json",
+      "bytes": 69989,
+      "sha256": "69632f47220a788a52ce2661d096453c5655e9bf25289d89a8d832c46ee07dbf"
+    },
+    {
+      "path": "models/models--ResembleAI--chatterbox/refs/main",
+      "bytes": 40,
+      "sha256": "fa1be205f53895cd606847a04a388419055a1626fd1ce34a8f04ee5360ca91a4"
+    },
+    {
+      "path": "models/models--ResembleAI--chatterbox/snapshots/5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18/Cangjie5_TC.json",
+      "bytes": 1920163,
+      "sha256": "7073fd9de919443ae88e0bd2449917a65fe54898a4413ed1edcc4b67f28bce8c"
+    },
+    {
+      "path": "models/s3gen.pt",
+      "bytes": 1057165844,
+      "sha256": "9b9ff07e60b20c136e2b1b3d7563a24604e8d2c4c267888d1ee929dd0151d2a3"
+    },
+    {
+      "path": "models/t3_mtl23ls_v3.safetensors",
+      "bytes": 2143989928,
+      "sha256": "5abca8321ede76f8e61f1cc0d19aea6c946b28871017ce8726f8a69203f05953"
+    },
+    {
+      "path": "models/ve.pt",
+      "bytes": 5698626,
+      "sha256": "4b16d836bc598509860f6fa068165a8bb5e9ac84f05582dfcf278a5a372879f1"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/__init__.py",
+      "bytes": 856,
+      "sha256": "9608dbd3ad783d7cfa5e455f4c0f4b55c232339f5c78b12fa35033928b90b6a1"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/cli/__init__.py",
+      "bytes": 107,
+      "sha256": "878c345d2efabb0f93b36eb57fa86e325b5aeabf28ed54cf11b702d88477498a"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/cli/watermark_cli.py",
+      "bytes": 5143,
+      "sha256": "071efea826d41b67ebe2c3695f6055c62e7db74f2fffebc01467303b9ceadc32"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/config.py",
+      "bytes": 4561,
+      "sha256": "d7d16a15c53087c895345da7522ee4ca4e3354bad44c0de6871d80aa7ef6a492"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/dummy_watermarker.py",
+      "bytes": 1794,
+      "sha256": "11645acda37fbc70c481e1f034a0ae62099f222783d0859c611a721f43b5a407"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/perth_net/__init__.py",
+      "bytes": 211,
+      "sha256": "57cb1f06014a3c1828fe16569b8d2cddb0776672e12ab4df42ddf04d5ca91572"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/perth_net/perth_net_implicit/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/perth_net/perth_net_implicit/audio_processor.py",
+      "bytes": 1635,
+      "sha256": "54a725918961f0c468503a9c34eec8722643a90dcdbefff941b41b97db607793"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/perth_net/perth_net_implicit/checkpoint_manager.py",
+      "bytes": 2224,
+      "sha256": "ea3e1a016ec654b630f85f11840d6b1a23388a794dff7d1d23437f32ef40691e"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/perth_net/perth_net_implicit/config.py",
+      "bytes": 756,
+      "sha256": "e2f001e114e516f11cc2b8c093d12f3b186a7881f3a3fcd7d81c6ae9fbdf5b58"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/perth_net/perth_net_implicit/model/__init__.py",
+      "bytes": 894,
+      "sha256": "1c8f62c99bc6c6bfddb9255f2101fb3c8219bd2df73f182da64fad607d5d5362"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/perth_net/perth_net_implicit/model/decoder.py",
+      "bytes": 2879,
+      "sha256": "17e36a21196a801bc920cc4d0a7fb5a4b0811ccd6793fbb849423379e9ee9b4d"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/perth_net/perth_net_implicit/model/encoder.py",
+      "bytes": 981,
+      "sha256": "d08b893760666c46e6497ed63c80e054702329c151f7ee96c5bb908412888bb5"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/perth_net/perth_net_implicit/model/perth_net.py",
+      "bytes": 4144,
+      "sha256": "0679ea14ac124d350eb3dfc213dd8d9829b449cbd2da1acb06c030661565e33a"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/perth_net/perth_net_implicit/perth_watermarker.py",
+      "bytes": 2730,
+      "sha256": "7bd8c5fd1ac5dac577f6d8f5f23ea7cbad7f28b449c1864996b2c4162fa2b417"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/perth_net/perth_net_implicit/utils.py",
+      "bytes": 5104,
+      "sha256": "55bf374a355124dedf7f9bd5ee3535d8d65dba41f0a6363c7e3cb881da3c1eac"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/utils.py",
+      "bytes": 6768,
+      "sha256": "6bf68c94d9a470dded54544e4ee9d63c3256455c1a1ffa280b1223297a83154d"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/watermarker.py",
+      "bytes": 2392,
+      "sha256": "3e8587c30a4063c7b065ab415190fd5185d04f99f974b0cc47f338ecaa55446e"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/src/perth/waveform.py",
+      "bytes": 2523,
+      "sha256": "fb14829df176df64514eb510a6f3a40f5d379d836939df97db7a0ee5543ae8ca"
+    },
+    {
+      "path": "provenance/dependency-source/Perth/tree.json",
+      "bytes": 15643,
+      "sha256": "d8118426d6cb4994069290b5e7575ca0bd5763654abaad7e01b8da463878ff4d"
+    },
+    {
+      "path": "provenance/dependency-source/s3tokenizer-0.3.0/s3tokenizer/__init__.py",
+      "bytes": 5466,
+      "sha256": "35e921400c1733f518922bf8b34440a5769234e850dc8e29ac4f50b668210a8e"
+    },
+    {
+      "path": "provenance/dependency-source/s3tokenizer-0.3.0/s3tokenizer/cli.py",
+      "bytes": 5942,
+      "sha256": "a94500fb9468f882de41dfba61756e22da588a411d6a984851f69ba544e5221e"
+    },
+    {
+      "path": "provenance/dependency-source/s3tokenizer-0.3.0/s3tokenizer/model.py",
+      "bytes": 19755,
+      "sha256": "3eac144280103ca0df3d24d4171eea24b8ee6a39e2df1eebbdd79b7992896b9a"
+    },
+    {
+      "path": "provenance/dependency-source/s3tokenizer-0.3.0/s3tokenizer/model_v2.py",
+      "bytes": 21803,
+      "sha256": "c4ddd7b6e95f050a2575309baef8eba990a56654b1893e2e03f95c0bd0e0677f"
+    },
+    {
+      "path": "provenance/dependency-source/s3tokenizer-0.3.0/s3tokenizer/model_v3.py",
+      "bytes": 13017,
+      "sha256": "d695e3d4f3b9b486522f3465cb50a00d7bc2793cc8dc76ee23a9ea9545c58e87"
+    },
+    {
+      "path": "provenance/dependency-source/s3tokenizer-0.3.0/s3tokenizer/utils.py",
+      "bytes": 20501,
+      "sha256": "0d3c6653256981f1b78fc397da6d96553f148b5a03255cf3cf4ee59fe5e4bbb6"
+    },
+    {
+      "path": "provenance/dependency-source/s3tokenizer-0.3.0/setup.py",
+      "bytes": 1250,
+      "sha256": "c7a45a175501ba2a191e192ab6a1c82d6a166fa84ff5a599b69fce0786f827c9"
+    },
+    {
+      "path": "provenance/dependency-source/s3tokenizer-0.3.0/test/test_batch_efficiency.py",
+      "bytes": 9570,
+      "sha256": "3fe6fc0308d1895c542161e338f1d94bdf0523b273c707a95747d543b3025607"
+    },
+    {
+      "path": "provenance/dependency-source/s3tokenizer-0.3.0/test/test_onnx.py",
+      "bytes": 13373,
+      "sha256": "9bcb87f270dc3e7a3824aa95c53e6e284df9914b7d2d137472f8bafee4803937"
+    },
+    {
+      "path": "provenance/dependency-source/s3tokenizer-metadata.json",
+      "bytes": 258,
+      "sha256": "a9c1407f5536797b4bdc4cf6efb8703c8bdd7241500994e37fd3b4ec66cdf442"
+    },
+    {
+      "path": "provenance/dependency-source/spacy-pkuseg/spacy_pkuseg/__init__.py",
+      "bytes": 16941,
+      "sha256": "ac1b093f242b994dfdd2eb74ce0ec21ece03bf2b8e99b322baeb4768ca076ece"
+    },
+    {
+      "path": "provenance/dependency-source/spacy-pkuseg/spacy_pkuseg/config.py",
+      "bytes": 5742,
+      "sha256": "e454d138cb80f1e47448012953e4370fa221ffa5a278dc8cba912bdc515beae8"
+    },
+    {
+      "path": "provenance/dependency-source/spacy-pkuseg/spacy_pkuseg/data.py",
+      "bytes": 14421,
+      "sha256": "27d2386a9d03c9ba66f5156b4e634a2c84cb002acac481510644c55c6cc725b5"
+    },
+    {
+      "path": "provenance/dependency-source/spacy-pkuseg/spacy_pkuseg/dicts/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "provenance/dependency-source/spacy-pkuseg/spacy_pkuseg/download.py",
+      "bytes": 3658,
+      "sha256": "7eac72cfbc149a82dd5aa96840da09c0b6aae269a00e09b0a73f8fdf4d173736"
+    },
+    {
+      "path": "provenance/dependency-source/spacy-pkuseg/spacy_pkuseg/gradient.py",
+      "bytes": 1366,
+      "sha256": "15b174e3cf5190dea63e1db2e6a76c4405dfc7e00cadeeed11716c716705ee30"
+    },
+    {
+      "path": "provenance/dependency-source/spacy-pkuseg/spacy_pkuseg/model.py",
+      "bytes": 3568,
+      "sha256": "8a1822afaaa878da62fcaee2cd223685b64ce6da7118194bc5efd93f6be608c6"
+    },
+    {
+      "path": "provenance/dependency-source/spacy-pkuseg/spacy_pkuseg/optimizer.py",
+      "bytes": 3989,
+      "sha256": "9ceef89b4e052bc22a2406e56dc5aa667f79990ae09de2a73f4bb205f688bba8"
+    },
+    {
+      "path": "provenance/dependency-source/spacy-pkuseg/spacy_pkuseg/postag/__init__.py",
+      "bytes": 1772,
+      "sha256": "fc2beb32fbf92ad95021db6a54de0a37c28cfb2d8cfe31514a9152e4a351dba0"
+    },
+    {
+      "path": "provenance/dependency-source/spacy-pkuseg/spacy_pkuseg/postag/model.py",
+      "bytes": 2678,
+      "sha256": "9c0e0ca97ea21de306e930044e587700dc73af7f81f4933e1eb00ae295c68b5b"
+    },
+    {
+      "path": "provenance/dependency-source/spacy-pkuseg/spacy_pkuseg/res_summarize.py",
+      "bytes": 3732,
+      "sha256": "738d901e1075dd123f088d95f99b0edabcaf0e390fa1d1a927ac14de4a20c4e4"
+    },
+    {
+      "path": "provenance/dependency-source/spacy-pkuseg/spacy_pkuseg/scorer.py",
+      "bytes": 2747,
+      "sha256": "0a49cb36d52aa0024cfd7b556762d101cf609a3280f1fb4c2b960e9f539977d3"
+    },
+    {
+      "path": "provenance/dependency-source/spacy-pkuseg/spacy_pkuseg/tests/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "provenance/dependency-source/spacy-pkuseg/spacy_pkuseg/tests/test_import.py",
+      "bytes": 43,
+      "sha256": "27d8ab8caa2951f022a7f8afd6bea0b768238f139cbf3b90b563e785497f6ca1"
+    },
+    {
+      "path": "provenance/dependency-source/spacy-pkuseg/spacy_pkuseg/trainer.py",
+      "bytes": 14133,
+      "sha256": "ee92acfcb2c61831a929c9d6f4bb30c6aad784138054813e0deb45edbe98793e"
+    },
+    {
+      "path": "provenance/dependency-source/spacy-pkuseg/tree.json",
+      "bytes": 15039,
+      "sha256": "8649f6127197c34fb18e74b345caee451c624ff893b7dd03a5bb0c3f5ad8b62e"
+    },
+    {
+      "path": "provenance/github-commit.json",
+      "bytes": 2059,
+      "sha256": "7c247f6a052b8924092e5f59b024197b7fb4db138041bc71ba7ad784d00b8816"
+    },
+    {
+      "path": "provenance/github-tree.json",
+      "bytes": 25395,
+      "sha256": "979ffc42183e84963d33dba08c668cddff04457718fa7195baa6c7a3900a2305"
+    },
+    {
+      "path": "provenance/huggingface-revision.json",
+      "bytes": 10113,
+      "sha256": "2d5c4121edef81586a81b9e47947ad19b82cea2c7b156832916e1e09a536c02d"
+    },
+    {
+      "path": "provenance/official-source/LICENSE",
+      "bytes": 1067,
+      "sha256": "4248e910a928849fe5815a0f9236e17fa07768d95b9193212752c464b93d6caa"
+    },
+    {
+      "path": "provenance/official-source/pyproject.toml",
+      "bytes": 1328,
+      "sha256": "e1aab210e1eb6023a694a05e92ae4cbb08efa9510d295401303e90eec41d594f"
+    },
+    {
+      "path": "provenance/official-source/README.md",
+      "bytes": 15301,
+      "sha256": "fd9315cc529c65d46ddd21ded05ba3372b6f6f39242bd015f770145bf5e0448f"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/__init__.py",
+      "bytes": 300,
+      "sha256": "dab20a9fb088c06cba044bc3b0ba2c52a914d5b5d51e6266bfd220d23f1bea41"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/__init__.py",
+      "bytes": 68,
+      "sha256": "1eb98b785c481502e515676da0e65afbfd8fa2254ae303b6fa9714db6a52730c"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/configs.py",
+      "bytes": 220,
+      "sha256": "15a84f5819e0fe1371ae4f5ac7e3cfb56df52cf36704401586efddd0383697fb"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/const.py",
+      "bytes": 34,
+      "sha256": "0a3a957453060ca081a427e71559889f65e45181e6d7befa649e7314cd90e516"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/decoder.py",
+      "bytes": 13171,
+      "sha256": "40d093fd61549a09f5f71d74081585df1e3871b3a8e6b6fafde12bb447701810"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/f0_predictor.py",
+      "bytes": 1993,
+      "sha256": "917825eec353b9601b9f7af0c0e3603eb1061d8b641539225e78c910d7bc2255"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/flow.py",
+      "bytes": 8178,
+      "sha256": "1e9bc8219eb0832b6db2b86bf7e4085dc9d0c0de47e5c496eb94bbd38b01511d"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/flow_matching.py",
+      "bytes": 10786,
+      "sha256": "63fc979521e1b758f0e8f3bee00a496a53184a714ef1a7a723b319a58158d612"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/hifigan.py",
+      "bytes": 17652,
+      "sha256": "e49f4723323937493ecf5f6c7f1934f57766ef46c74eaf7c60bf456a1c6fe897"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/matcha/decoder.py",
+      "bytes": 14435,
+      "sha256": "a9f35df7b3eb1c7defb8744626b32ef0504a519a066f3240fde90393a39b3488"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/matcha/flow_matching.py",
+      "bytes": 4556,
+      "sha256": "56614b92aad52f713c198ae089d47e6a7df13450f3cf5d1144f65fb34c35107d"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/matcha/text_encoder.py",
+      "bytes": 14965,
+      "sha256": "a1e993ad219d95dee864e010d8415e7057abb6131a21550093d83db0279b01cb"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/matcha/transformer.py",
+      "bytes": 13237,
+      "sha256": "66ff2092d974a99b251b9d8e5c08bbcecceaedfaf41e2bd8af2b4bc7a56dcbea"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/s3gen.py",
+      "bytes": 13189,
+      "sha256": "b3ea20b6f3f98dacfa3c2c99502bbf3dfbe7a77362f2ce0d16783d4324e6fc96"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/transformer/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/transformer/activation.py",
+      "bytes": 3089,
+      "sha256": "a4a96caea9f7b05111286de5ea760bdfdf9c4e53448f53420857dc04a50440c2"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/transformer/attention.py",
+      "bytes": 14415,
+      "sha256": "28c38f1e3ea1aeac1526e98f8349d9f068e25f1f6ae246c60badc3d540d62794"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/transformer/convolution.py",
+      "bytes": 5230,
+      "sha256": "eb5f41f324a97225c73b9c430af8bb231bd77386ef18450bb0fd329f469ab4e1"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/transformer/embedding.py",
+      "bytes": 11399,
+      "sha256": "3646e748783fe6c069b424cc9cbfe81bc54a5ccfea1ae7041df398a603cccd3e"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/transformer/encoder_layer.py",
+      "bytes": 9602,
+      "sha256": "1920582be2c9b7cf7835e7b539118ec1eb9da8f2c711c6257f8598b3792951b9"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/transformer/positionwise_feed_forward.py",
+      "bytes": 4219,
+      "sha256": "6e8038e3bcc8ca086ddca508fb9b9d40bf3ab98bebabcf5c94935d032329d0f8"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/transformer/subsampling.py",
+      "bytes": 12666,
+      "sha256": "31fc0347a851abc1205dfd4cf68099c0c416589c3e99a07b250e8630cece19d0"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/transformer/upsample_encoder.py",
+      "bytes": 13694,
+      "sha256": "1794ff01b678791ad665d7b0c0999448e760fc1dcb3bc8208de5f58510c1f68c"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/utils/class_utils.py",
+      "bytes": 2334,
+      "sha256": "02f3cb3a55ee124c279777245b09061fa15a8182e6e7d7762f8fa45c0a631948"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/utils/intmeanflow.py",
+      "bytes": 951,
+      "sha256": "df3c73d77244518c7b90224c2a5180bf0435d27868f598cb876cfcf812aa5285"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/utils/mask.py",
+      "bytes": 7666,
+      "sha256": "902c85fbbd1e30a0cb9792cdcf1b9acd97804bd5cb3b5d6a440dc236f274bb3e"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/utils/mel.py",
+      "bytes": 2556,
+      "sha256": "afbb6fe14c30e104cb2617230daa2a6770f97452948b2e6f6eea4a4c2f4ff3ba"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3gen/xvector.py",
+      "bytes": 14141,
+      "sha256": "c7c759920cbf1aac9f12e0a15c1bf3d38da51ca9d3ea7a7b53cf740c86fe17fa"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3tokenizer/__init__.py",
+      "bytes": 595,
+      "sha256": "7357ce9a0349bae51e8e8cabcdd01ba8534dd6a2373c1e092291ecb716414fe0"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/s3tokenizer/s3tokenizer.py",
+      "bytes": 5155,
+      "sha256": "76eae9f95b14608c4847c9d7acfcf08138c365640b0d4589de01e742b0e5eb43"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/t3/__init__.py",
+      "bytes": 19,
+      "sha256": "cfecc1c7df7d22398157d40605abfa64f30ef9b697190dc4f57b229299f70538"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/t3/inference/t3_hf_backend.py",
+      "bytes": 3990,
+      "sha256": "2d8407cf500ec1e6b707b060861145bb7802741328d76ec341280c06c7f3f2b5"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/t3/llama_configs.py",
+      "bytes": 2608,
+      "sha256": "8d348019801dd017d85b88c2a17c5f785e6bb4ffba4ba6edf190a8996536a60a"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/t3/modules/cond_enc.py",
+      "bytes": 3293,
+      "sha256": "d8128803091423141051caf295de6208113da987fe537de5566c4b84e19df847"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/t3/modules/learned_pos_emb.py",
+      "bytes": 1099,
+      "sha256": "2ec5b09ce94d71261e9c25833a08f666bd6e2d5439b2314123e035c02df8b7af"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/t3/modules/perceiver.py",
+      "bytes": 7719,
+      "sha256": "f9c4b0130652e94d05873ead931ecd399a9dd644b7a17edf1b76d7d7f2bfbf42"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/t3/modules/t3_config.py",
+      "bytes": 1245,
+      "sha256": "e07d8c09f85242f061a036cb1ac56de5b49cd5444790e8ac35098df44348801f"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/t3/t3.py",
+      "bytes": 18116,
+      "sha256": "bfb689c9018a329aa3a1a364aaa6d03a68a97b7352cbc394a13d4711742f9a0a"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/tokenizers/__init__.py",
+      "bytes": 48,
+      "sha256": "6759fb8b4f6d50b8e4ab8ddd0e39d44e1ca7196544f93311b385a7eeea6c38c2"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/tokenizers/tokenizer.py",
+      "bytes": 10202,
+      "sha256": "e169f02f14b008e8e7a4f29df66ecafaa29972ff4a38724b51545b8563861889"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/utils.py",
+      "bytes": 148,
+      "sha256": "c30615629f906acf71c67104a78d36f682c635e55b808d7d8022d47a2738b225"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/voice_encoder/__init__.py",
+      "bytes": 56,
+      "sha256": "adf1bcef74e90dae0fcb5c2945103cbc0bd9af15cc9be4288f960ad7d22ce678"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/voice_encoder/config.py",
+      "bytes": 406,
+      "sha256": "0b41d794a16fd94929b37fd229dc61d3634178a11046a6b5834e109109a8e3c8"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/voice_encoder/melspec.py",
+      "bytes": 1940,
+      "sha256": "0f5fea173841c5150fa6ea9236160798c8ee24afba724d65da61dce78a4d48e8"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/models/voice_encoder/voice_encoder.py",
+      "bytes": 10555,
+      "sha256": "4b12e9d49cbb7ce81e6731c02d4f37a9b763ef7419dba95a7e66ea078d49a9c3"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/mtl_tts.py",
+      "bytes": 11721,
+      "sha256": "936759044e54cffe8c68b91b32e01da0bc032a1e084f769f0403080d86ad153c"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/tts.py",
+      "bytes": 8924,
+      "sha256": "7896787bc17e20eafcd1dce7b8a4a6ea3a6478baab771c60d63e9e81f5564195"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/tts_turbo.py",
+      "bytes": 11379,
+      "sha256": "2f27e8ff2fa35181fdd2849367fb96ecc2cb87a1088ca7520c8bd51946599f08"
+    },
+    {
+      "path": "provenance/official-source/src/chatterbox/vc.py",
+      "bytes": 3520,
+      "sha256": "4093a7edf32b1174999b00a74b5b83de193763c65249b0d5288d5f45f3ac2d71"
+    },
+    {
+      "path": "README-OFFLINE.md",
+      "bytes": 4765,
+      "sha256": "b01fd9847cd765e0fd7da78da379cf305cb4929122785e1684f4b89cbbb224ca"
+    },
+    {
+      "path": "technical-verification-report.json",
+      "bytes": 613,
+      "sha256": "0deb647f561d3c19a789c62fd22ee9b4a5b630f67ab8aec9a83820eec2250dde"
+    },
+    {
+      "path": "verify_bundle.py",
+      "bytes": 1021,
+      "sha256": "067909caaed4c9a3c1ead363849ad375578ef4799129cf1c155d97d810428f8a"
+    }
+  ],
+  "perth_revision": "ff1c8ac55a976971245cdd53c18d6131ca00d993"
+}

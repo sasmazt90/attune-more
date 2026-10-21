@@ -1,4 +1,7 @@
 'use client';
+import {apiFetch as fetch} from '../../utils/localBackend';
+import {useTranslations} from '../../i18n/LanguageProvider';
+
 import {localBackend} from '../../utils/localBackend';
 import {safeCareBookingUrl} from '../../utils/careLinks';
 import { HEALTH_MODULES,HEALTH_MODULE_IDS,HealthModule } from '../../utils/healthModules';
@@ -47,6 +50,7 @@ interface CareSlot {
 }
 
 function CareContent() {
+ const {locale,text:i18nText,node:i18nNode}=useTranslations();
 
   const { state, isParked } = useVehicle();
   const searchParams = useSearchParams();
@@ -117,7 +121,7 @@ function CareContent() {
         const data = await res.json();
         if (controller.signal.aborted || generation !== searchGeneration.current) return;
         if (!['SUCCESS', 'PUBLIC_HANDOFF'].includes(data.status)) setSearchNotice('Canlı uzman uygunluğu doğrulanamadı. Branşa ait sağlayıcı aramasını açabilirsiniz.');
-        setSlots((data.matchedSlots || []).filter((slot:CareSlot)=>safeCareBookingUrl(slot.bookingUrl)).map((slot:CareSlot)=>({...slot,displayTime:slot.dateTime&&Number.isFinite(Date.parse(slot.dateTime))?new Date(slot.dateTime).toLocaleString('tr-TR',{timeZone:timezone,dateStyle:'short',timeStyle:'short'}):'Saati sağlayıcıda doğrulayın'})));
+        setSlots((data.matchedSlots || []).filter((slot:CareSlot)=>safeCareBookingUrl(slot.bookingUrl)).map((slot:CareSlot)=>({...slot,displayTime:slot.dateTime&&Number.isFinite(Date.parse(slot.dateTime))?new Date(slot.dateTime).toLocaleString(locale,{timeZone:timezone,dateStyle:'short',timeStyle:'short'}):'Saati sağlayıcıda doğrulayın'})));
       } else {
         throw new Error('API Hatası');
       }
@@ -129,7 +133,7 @@ function CareContent() {
       clearTimeout(deadline);
       if (generation === searchGeneration.current) setLoading(false);
     }
-  },[availableStart,availableEnd,duration,timezone]);
+  },[availableStart,availableEnd,duration,timezone,locale]);
 
   const invalidateSearch = () => { searchGeneration.current++; activeSearch.current?.abort(); activeSearch.current = null; };
   useEffect(() => {
@@ -165,8 +169,8 @@ function CareContent() {
     return (
       <div className="max-w-4xl mx-auto py-12 text-center space-y-4">
         <ShieldCheck className="w-14 h-14 text-amber-400 mx-auto" />
-        <h1 className="text-2xl font-bold">Randevu İşlemleri Kilitlendi</h1>
-        <p className="text-slate-300">Ayrıntılı uzman seçimi ve randevu onayı için aracın park halinde olduğu doğrulanmalıdır.</p>
+        <h1 className="text-2xl font-bold">{i18nText("Randevu İşlemleri Kilitlendi")}</h1>
+        <p className="text-slate-300">{i18nText("Ayrıntılı uzman seçimi ve randevu onayı için aracın park halinde olduğu doğrulanmalıdır.")}</p>
       </div>
     );
   }
@@ -179,25 +183,21 @@ function CareContent() {
           <div className="space-y-1.5">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-togg-turquoise/10 border border-togg-turquoise/30 text-togg-turquoise text-[11px] font-semibold tracking-wider uppercase">
               <CalendarCheck className="w-3.5 h-3.5" />
-              <span>Uzman Erişimi • Akıllı Hekim Erişimi</span>
+              <span>{i18nText("Uzman Erişimi • Akıllı Hekim Erişimi")}</span>
             </div>
 
-            <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
-              Sizin için uygun uzmanlar
-            </h1>
+            <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">{i18nText("Sizin için uygun uzmanlar ")}</h1>
 
-            <p className="text-sm text-slate-300">
-              Branş seçin; uygunluğu sağlayıcının sayfasında doğrulayın.
-            </p>
+            <p className="text-sm text-slate-300">{i18nText("Branş seçin; uygunluğu sağlayıcının sayfasında doğrulayın. ")}</p>
           </div>
 
           <div className="flex items-center gap-2 self-start md:self-auto text-xs bg-slate-950/80 px-3 py-1.5 rounded-xl border border-white/10 text-slate-300">
             <span className="w-2 h-2 rounded-full bg-emerald-400" />
-            <span>Uygun Zaman • Uzman Seçenekleri</span>
+            <span>{i18nText("Uygun Zaman • Uzman Seçenekleri")}</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-3"><p data-care-limits className="text-xs text-amber-200">Burada randevu oluşturulmaz.</p><InformationButton title="Uzman seçenekleri"><p>Seçtiğiniz zaman aralığı ve görüşme süresi yalnız kaynağın doğrulanmış saatleriyle eşleştirilir. Kişisel takvim ve canlı rota entegrasyonu yoktur. Ulaşım süresi örnektir. Harici sayfada uygunluğu kontrol edip randevuyu kendiniz tamamlarsınız. Paylaşım ayrı eylemde onaylanır; yönlendirme hazırlamak bilgilerinizi hekime göndermez.</p></InformationButton></div>
+        <div className="flex items-center gap-3"><p data-care-limits className="text-xs text-amber-200">{i18nText("Burada randevu oluşturulmaz.")}</p><InformationButton title={i18nText("Uzman seçenekleri")}><p>{i18nText("Seçtiğiniz zaman aralığı ve görüşme süresi yalnız kaynağın doğrulanmış saatleriyle eşleştirilir. Kişisel takvim ve canlı rota entegrasyonu yoktur. Ulaşım süresi örnektir. Harici sayfada uygunluğu kontrol edip randevuyu kendiniz tamamlarsınız. Paylaşım ayrı eylemde onaylanır; yönlendirme hazırlamak bilgilerinizi hekime göndermez.")}</p></InformationButton></div>
 
         {/* AKTİF SEVK BAĞLAMI BİLDİRİMİ */}
         {referralContext && (
@@ -206,10 +206,10 @@ function CareContent() {
               <Sparkles className="w-4 h-4 text-togg-turquoise shrink-0" />
               <div className="text-slate-200">
                 <span className="font-bold text-white">
-                  {HEALTH_MODULES[referralContext.sourceModule.toLowerCase() as HealthModule]?.name||'Sağlık sonucu'} → {referralContext.specialty}
+                  {i18nNode(HEALTH_MODULES[referralContext.sourceModule.toLowerCase() as HealthModule]?.name||'Sağlık sonucu')} → {i18nNode(referralContext.specialty)}
                 </span>
                 <span className="text-slate-400 mx-1.5">•</span>
-                <span className="text-slate-300 text-[11px]">{referralContext.reasonSummary}</span>
+                <span className="text-slate-300 text-[11px]">{i18nNode(referralContext.reasonSummary)}</span>
               </div>
             </div>
 
@@ -219,16 +219,14 @@ function CareContent() {
                 setReferralContext(null);
               }}
               className="text-[11px] text-slate-400 hover:text-white underline shrink-0 self-end sm:self-auto"
-            >
-              Bağlamı Kaldır
-            </button>
+            >{i18nText("Bağlamı Kaldır ")}</button>
           </div>
         )}
 
         {/* BRANŞ VE GÖRÜŞME TÜRÜ FİLTRE HAPLARI */}
         <div className="flex flex-wrap items-center justify-between gap-4 pt-1 border-t border-white/10">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-semibold text-slate-400 mr-1">Branş:</span>
+            <span className="text-xs font-semibold text-slate-400 mr-1">{i18nText("Branş:")}</span>
             {Array.from(new Set(HEALTH_MODULE_IDS.flatMap(id=>HEALTH_MODULES[id].specialties))).map((spec) => (
               <button
                 key={spec}
@@ -239,7 +237,7 @@ function CareContent() {
                     : 'bg-slate-900/90 text-slate-400 hover:text-white border border-slate-800'
                 }`}
               >
-                {spec}
+                {i18nNode(spec)}
               </button>
             ))}
           </div>
@@ -255,17 +253,17 @@ function CareContent() {
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                {type === 'ALL' ? 'Tümü' : type === 'IN_PERSON' ? 'Yüz Yüze' : 'Online'}
+                {i18nNode(type === 'ALL' ? 'Tümü' : type === 'IN_PERSON' ? 'Yüz Yüze' : 'Online')}
               </button>
             ))}
           </div>
         </div>
       </section>
 
-      <div className="flex flex-wrap gap-3 items-end"><label className="text-sm">Uygun zaman başlangıcı<input type="datetime-local" value={availableStart} onChange={e=>setAvailableStart(e.target.value)} className="block mt-1 bg-slate-900 rounded-lg p-2 border border-white/20 max-w-full"/></label><label className="text-sm">Uygun zaman bitişi<input type="datetime-local" value={availableEnd} min={availableStart} onChange={e=>setAvailableEnd(e.target.value)} className="block mt-1 bg-slate-900 rounded-lg p-2 border border-white/20 max-w-full"/></label><label className="text-sm">Görüşme süresi<select value={duration} onChange={e=>setDuration(Number(e.target.value))} className="block mt-1 bg-slate-900 p-2 rounded-lg">{[30,45,60].map(v=><option key={v} value={v}>{v} dakika</option>)}</select></label><span className="text-xs text-slate-400">{timezone}</span></div>
-      {loading && <p role="status" className="p-4 text-sm text-slate-300">Uzman seçenekleri hazırlanıyor…</p>}
-      {searchNotice && <div role="status" className="p-4 rounded-xl border border-amber-800 text-sm text-amber-200"><p>{searchNotice}</p><button className="underline mt-2" onClick={() => { invalidateSearch(); const controller = new AbortController(); activeSearch.current = controller; const generation = ++searchGeneration.current; void fetchAppointments(selectedSpecialty, controller, generation); }}>Yeniden ara</button></div>}
-      {!loading && !filteredSlots.length && <p role="status" className="p-4 text-sm">Bu filtre için uygun seçenek bulunamadı. Diğer görüşme türlerini inceleyebilirsiniz.</p>}
+      <div className="flex flex-wrap gap-3 items-end"><label className="text-sm">{i18nText("Uygun zaman başlangıcı")}<input type="datetime-local" value={availableStart} onChange={e=>setAvailableStart(e.target.value)} className="block mt-1 bg-slate-900 rounded-lg p-2 border border-white/20 max-w-full"/></label><label className="text-sm">{i18nText("Uygun zaman bitişi")}<input type="datetime-local" value={availableEnd} min={availableStart} onChange={e=>setAvailableEnd(e.target.value)} className="block mt-1 bg-slate-900 rounded-lg p-2 border border-white/20 max-w-full"/></label><label className="text-sm">{i18nText("Görüşme süresi")}<select value={duration} onChange={e=>setDuration(Number(e.target.value))} className="block mt-1 bg-slate-900 p-2 rounded-lg">{[30,45,60].map(v=><option key={v} value={v}>{i18nNode(v)}{i18nText(" dakika")}</option>)}</select></label><span className="text-xs text-slate-400">{i18nNode(timezone)}</span></div>
+      {loading && <p role="status" className="p-4 text-sm text-slate-300">{i18nText("Uzman seçenekleri hazırlanıyor…")}</p>}
+      {searchNotice && <div role="status" className="p-4 rounded-xl border border-amber-800 text-sm text-amber-200"><p>{i18nNode(searchNotice)}</p><button className="underline mt-2" onClick={() => { invalidateSearch(); const controller = new AbortController(); activeSearch.current = controller; const generation = ++searchGeneration.current; void fetchAppointments(selectedSpecialty, controller, generation); }}>{i18nText("Yeniden ara")}</button></div>}
+      {!loading && !filteredSlots.length && <p role="status" className="p-4 text-sm">{i18nText("Bu filtre için uygun seçenek bulunamadı. Diğer görüşme türlerini inceleyebilirsiniz.")}</p>}
       {/* 2. ÖNE ÇIKAN UZMAN KARTI (FEATURED PROVIDER CARD) */}
       {featuredSlot && (
         <section className="bg-cockpit-surface border border-togg-turquoise/30 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden group hover:border-togg-turquoise/60 transition-all">
@@ -275,40 +273,38 @@ function CareContent() {
             {/* Sol: Doktor Bilgileri & Rozetler */}
             <div className="space-y-3 max-w-2xl">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="px-2.5 py-1 rounded-full bg-emerald-950/60 text-emerald-400 border border-emerald-800/60 text-[10px] font-semibold tracking-wider uppercase">
-                  Uzman seçeneği
-                </span>
+                <span className="px-2.5 py-1 rounded-full bg-emerald-950/60 text-emerald-400 border border-emerald-800/60 text-[10px] font-semibold tracking-wider uppercase">{i18nText("Uzman seçeneği ")}</span>
                 <span className="px-2.5 py-1 rounded-full bg-slate-900 text-slate-300 border border-slate-800 text-[10px] font-mono">
-                  {featuredSlot.isOnline === null ? 'Uzman seçeneği' : featuredSlot.isOnline ? 'Online Görüşme' : 'Yüz Yüze Muayene'}
+                  {i18nNode(featuredSlot.isOnline === null ? 'Uzman seçeneği' : featuredSlot.isOnline ? 'Online Görüşme' : 'Yüz Yüze Muayene')}
                 </span>
                 <span className="px-2 py-0.5 rounded bg-white/5 text-slate-400 text-[10px] font-mono">
-                  {featuredSlot.sourceBadge}
+                  {i18nNode(featuredSlot.sourceBadge)}
                 </span>
               </div>
 
               <div>
                 <h2 className="text-xl md:text-2xl font-extrabold text-white group-hover:text-togg-turquoise transition-colors">
-                  {featuredSlot.providerName}
+                  {i18nNode(featuredSlot.providerName)}
                 </h2>
                 <div className="text-xs text-slate-400 font-medium mt-0.5">
-                  {featuredSlot.title}
+                  {i18nNode(featuredSlot.title)}
                 </div>
               </div>
 
               <div className="flex flex-wrap items-center gap-4 text-xs text-slate-300 pt-1">
                 <span className="flex items-center gap-1.5">
                   <MapPin className="w-4 h-4 text-togg-turquoise" />
-                  <span>{featuredSlot.clinicName} • {featuredSlot.locationLabel}</span>
+                  <span>{i18nNode(featuredSlot.clinicName)} • {i18nNode(featuredSlot.locationLabel)}</span>
                 </span>
 
                 <span className="flex items-center gap-1.5">
                   <Car className="w-4 h-4 text-togg-turquoise" />
-                  <span>{featuredSlot.isOnline === true ? 'Ulaşım gerektirmez (çevrimiçi)' : featuredSlot.travelTimeMin === null ? null : `Örnek ulaşım: ${featuredSlot.travelTimeMin} dk`}</span>
+                  <span>{i18nNode(featuredSlot.isOnline === true ? 'Ulaşım gerektirmez (çevrimiçi)' : featuredSlot.travelTimeMin === null ? null : `Örnek ulaşım: ${featuredSlot.travelTimeMin} dk`)}</span>
                 </span>
 
                 <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  <span>{featuredSlot.calendarFits===true?'Seçtiğiniz zaman aralığına uygun':'Saat uygunluğu doğrulanmadı'}</span>
+                  <span>{i18nNode(featuredSlot.calendarFits===true?'Seçtiğiniz zaman aralığına uygun':'Saat uygunluğu doğrulanmadı')}</span>
                 </span>
               </div>
             </div>
@@ -316,8 +312,8 @@ function CareContent() {
             {/* Sağ: Önerilen Saat ve Birincil CTA */}
             <div className="flex lg:flex-col items-center lg:items-end justify-between gap-4 shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-white/10">
               <div className="text-left lg:text-right space-y-0.5">
-                <div className="text-[11px] text-slate-400 uppercase tracking-wider font-mono">Listelenen Saat</div>
-                <div className="text-lg md:text-xl font-bold text-white font-mono">{featuredSlot.displayTime}</div>
+                <div className="text-[11px] text-slate-400 uppercase tracking-wider font-mono">{i18nText("Listelenen Saat")}</div>
+                <div className="text-lg md:text-xl font-bold text-white font-mono">{i18nNode(featuredSlot.displayTime)}</div>
               </div>
 
               <div className="flex items-center gap-2.5">
@@ -325,7 +321,7 @@ function CareContent() {
                   onClick={() => handleSelectSlot(featuredSlot)}
                   className="py-3 px-6 rounded-xl bg-togg-turquoise hover:bg-[#33D0EE] text-togg-darkBlue font-bold text-xs flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(0,194,231,0.25)] min-h-touch"
                 >
-                  <span>RANDEVUYU İNCELE</span>
+                  <span>{i18nText("RANDEVUYU İNCELE")}</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
 
@@ -334,7 +330,7 @@ function CareContent() {
                   target="_blank"
                   rel="noreferrer"
                   className="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 transition-colors"
-                  title="Sağlayıcı sayfasını aç"
+                  title={i18nText("Sağlayıcı sayfasını aç")}
                 >
                   <ExternalLink className="w-4 h-4" />
                 </a>
@@ -347,9 +343,7 @@ function CareContent() {
       {/* 3. BELOW FOLD: ALTERNATİF UZMAN SEÇENEKLERİ */}
       {secondarySlots.length > 0 && (
         <section className="space-y-3">
-          <div className="text-xs font-bold text-slate-400 uppercase tracking-wider px-1">
-            Diğer Uzman Seçenekleri
-          </div>
+          <div className="text-xs font-bold text-slate-400 uppercase tracking-wider px-1">{i18nText("Diğer Uzman Seçenekleri ")}</div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {secondarySlots.map((slot) => (
@@ -359,22 +353,22 @@ function CareContent() {
               >
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-base font-bold text-white">{slot.providerName}</span>
+                    <span className="text-base font-bold text-white">{i18nNode(slot.providerName)}</span>
                     <span className="text-[10px] px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400 font-mono">
-                      {slot.isOnline === null ? 'Uzman seçeneği' : slot.isOnline ? 'Online' : 'Yüz Yüze'}
+                      {i18nNode(slot.isOnline === null ? 'Uzman seçeneği' : slot.isOnline ? 'Online' : 'Yüz Yüze')}
                     </span>
                   </div>
 
-                  <p className="text-[10px] text-slate-400">{slot.sourceBadge}</p>
+                  <p className="text-[10px] text-slate-400">{i18nNode(slot.sourceBadge)}</p>
                   <p className="text-xs text-slate-400 flex items-center gap-1.5">
                     <MapPin className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-                    <span>{slot.clinicName} • {slot.locationLabel}</span>
+                    <span>{i18nNode(slot.clinicName)} • {i18nNode(slot.locationLabel)}</span>
                   </p>
 
                   <div className="flex items-center gap-3 text-xs text-slate-300 pt-1">
-                    <span className="text-togg-turquoise font-mono font-bold">{slot.displayTime}</span>
+                    <span className="text-togg-turquoise font-mono font-bold">{i18nNode(slot.displayTime)}</span>
                     <span className="text-slate-600">•</span>
-                    <span>{slot.isOnline === true ? 'Online' : slot.travelTimeMin === null ? null : `Örnek ulaşım: ${slot.travelTimeMin} dk`}</span>
+                    <span>{i18nNode(slot.isOnline === true ? 'Online' : slot.travelTimeMin === null ? null : `Örnek ulaşım: ${slot.travelTimeMin} dk`)}</span>
                   </div>
                 </div>
 
@@ -383,7 +377,7 @@ function CareContent() {
                     onClick={() => handleSelectSlot(slot)}
                     className="py-2 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-togg-turquoise border border-togg-turquoise/30 font-semibold text-xs transition-all flex items-center gap-1.5"
                   >
-                    <span>İncele</span>
+                    <span>{i18nText("İncele")}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -395,15 +389,15 @@ function CareContent() {
 
       {/* AÇIK ONAY MODALI (CONSENT GATE) */}
       {confirmationStep === 'CONFIRM_MODAL' && selectedSlot && (
-        <AccessibleDialog title="Kullanıcı Onayı ve Sevk Bağlamı" onClose={() => setConfirmationStep('SELECTING')} className="bg-cockpit-surface border border-white/20 rounded-2xl max-w-lg w-full p-6 md:p-7 space-y-5 shadow-2xl">
+        <AccessibleDialog title={i18nText("Kullanıcı Onayı ve Sevk Bağlamı")} onClose={() => setConfirmationStep('SELECTING')} className="bg-cockpit-surface border border-white/20 rounded-2xl max-w-lg w-full p-6 md:p-7 space-y-5 shadow-2xl">
             <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <div className="flex items-center gap-2 text-togg-turquoise font-bold text-base">
                 <ShieldCheck className="w-5 h-5" />
-                <span>Kullanıcı Onayı ve Sevk Bağlamı</span>
+                <span>{i18nText("Kullanıcı Onayı ve Sevk Bağlamı")}</span>
               </div>
               <button
                 onClick={() => setConfirmationStep('SELECTING')}
-                aria-label="Pencereyi kapat"
+                aria-label={i18nText("Pencereyi kapat")}
                 className="w-11 shrink-0 text-slate-400 hover:text-white text-xs"
               >
                 ✕
@@ -411,20 +405,16 @@ function CareContent() {
             </div>
 
             <div className="space-y-3 text-xs text-slate-300 leading-relaxed">
-              <p>
-                Bu adım yalnız yönlendirmeyi hazırlar. Randevu oluşturulmaz ve bilgileriniz sağlayıcıya gönderilmez.
-              </p>
+              <p>{i18nText("Bu adım yalnız yönlendirmeyi hazırlar. Randevu oluşturulmaz ve bilgileriniz sağlayıcıya gönderilmez. ")}</p>
 
               <div className="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 space-y-1">
-                <div className="font-bold text-white text-sm">{selectedSlot.providerName}</div>
-                <div className="text-slate-400">{selectedSlot.clinicName} • {selectedSlot.locationLabel}</div>
-                <div className="text-togg-turquoise font-mono font-bold pt-1">{selectedSlot.displayTime}</div>
+                <div className="font-bold text-white text-sm">{i18nNode(selectedSlot.providerName)}</div>
+                <div className="text-slate-400">{i18nNode(selectedSlot.clinicName)} • {i18nNode(selectedSlot.locationLabel)}</div>
+                <div className="text-togg-turquoise font-mono font-bold pt-1">{i18nNode(selectedSlot.displayTime)}</div>
               </div>
 
               {referralContext && (
-                <div className="bg-togg-darkBlue/40 border border-togg-turquoise/40 p-3 rounded-xl text-[11px] text-togg-turquoise">
-                  ℹ️ Randevu talebine <strong>{referralContext.specialty}</strong> ön değerlendirme özeti bu cihazda hazırlanır. Harici sayfaya otomatik aktarılmaz.
-                </div>
+                <div className="bg-togg-darkBlue/40 border border-togg-turquoise/40 p-3 rounded-xl text-[11px] text-togg-turquoise">{i18nText("ℹ️ Randevu talebine ")}<strong>{i18nNode(referralContext.specialty)}</strong>{i18nText(" ön değerlendirme özeti bu cihazda hazırlanır. Harici sayfaya otomatik aktarılmaz. ")}</div>
               )}
 
               <label className="flex items-start gap-3 pt-2 cursor-pointer select-none">
@@ -434,8 +424,7 @@ function CareContent() {
                   onChange={(e) => setConsentApproved(e.target.checked)}
                   className="mt-0.5 w-4 h-4 rounded border-slate-700 bg-slate-900 accent-togg-turquoise cursor-pointer"
                 />
-                <span className="text-slate-300 leading-snug">
-                  Randevu bilgilerimin sağlık asistanı tarafından işlenmesini, sevk bağlamımın hekime aktarılmak üzere hazırlanmasını ve harici sağlayıcı bağlantısına yönlendirilmeyi <strong>açıkça onaylıyorum</strong>.
+                <span className="text-slate-300 leading-snug">{i18nText("Randevu bilgilerimin sağlık asistanı tarafından işlenmesini, sevk bağlamımın hekime aktarılmak üzere hazırlanmasını ve harici sağlayıcı bağlantısına yönlendirilmeyi ")}<strong>{i18nText("açıkça onaylıyorum")}</strong>.
                 </span>
               </label>
             </div>
@@ -444,9 +433,7 @@ function CareContent() {
               <button
                 onClick={() => setConfirmationStep('SELECTING')}
                 className="px-4 py-2 rounded-xl text-xs text-slate-400 hover:text-white"
-              >
-                Vazgeç
-              </button>
+              >{i18nText("Vazgeç ")}</button>
               <button
                 onClick={handleConfirmBooking}
                 disabled={!consentApproved}
@@ -456,7 +443,7 @@ function CareContent() {
                     : 'bg-slate-800 text-slate-500 cursor-not-allowed'
                 }`}
               >
-                <span>Onayla ve Devam Et</span>
+                <span>{i18nText("Onayla ve Devam Et")}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
@@ -470,15 +457,13 @@ function CareContent() {
             <CheckCircle2 className="w-6 h-6" />
           </div>
 
-          <h2 className="text-xl font-bold text-white">Randevu Yönlendirmesi Hazırlandı</h2>
-          <p className="text-xs text-slate-300 leading-relaxed">
-            Hekim sisteminde randevu oluşturulmadı ve bilgileriniz gönderilmedi. Harici sayfada uygunluğu kontrol edip işlemi kendiniz tamamlayabilirsiniz.
-          </p>
+          <h2 className="text-xl font-bold text-white">{i18nText("Randevu Yönlendirmesi Hazırlandı")}</h2>
+          <p className="text-xs text-slate-300 leading-relaxed">{i18nText("Hekim sisteminde randevu oluşturulmadı ve bilgileriniz gönderilmedi. Harici sayfada uygunluğu kontrol edip işlemi kendiniz tamamlayabilirsiniz. ")}</p>
 
           <div className="max-w-sm mx-auto bg-slate-950/80 border border-slate-800 p-4 rounded-xl text-xs text-left space-y-1">
-            <div className="font-bold text-white">{selectedSlot.providerName}</div>
-            <div className="text-slate-400">{selectedSlot.clinicName}</div>
-            <div className="text-togg-turquoise font-mono">{selectedSlot.displayTime}</div>
+            <div className="font-bold text-white">{i18nNode(selectedSlot.providerName)}</div>
+            <div className="text-slate-400">{i18nNode(selectedSlot.clinicName)}</div>
+            <div className="text-togg-turquoise font-mono">{i18nNode(selectedSlot.displayTime)}</div>
           </div>
 
           <div className="flex justify-center gap-3 pt-2">
@@ -488,16 +473,14 @@ function CareContent() {
                 setSelectedSlot(null);
               }}
               className="px-4 py-2 rounded-xl text-xs text-slate-400 hover:text-white"
-            >
-              Kapat
-            </button>
+            >{i18nText("Kapat ")}</button>
             <a
               href={safeCareBookingUrl(selectedSlot.bookingUrl)}
               target="_blank"
               rel="noreferrer"
               className="py-2.5 px-6 rounded-xl bg-togg-turquoise hover:bg-[#33D0EE] text-togg-darkBlue font-bold text-xs flex items-center gap-1.5 shadow-md"
             >
-              <span>Sağlayıcı Sayfasına Git</span>
+              <span>{i18nText("Sağlayıcı Sayfasına Git")}</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
@@ -508,8 +491,9 @@ function CareContent() {
 }
 
 export default function CarePage() {
+ const {text:i18nText,node:i18nNode}=useTranslations();
   return (
-    <Suspense fallback={<div className="p-8 text-center text-slate-400 text-xs">Yükleniyor...</div>}>
+    <Suspense fallback={<div className="p-8 text-center text-slate-400 text-xs">{i18nText("Yükleniyor...")}</div>}>
       <CareContent />
     </Suspense>
   );

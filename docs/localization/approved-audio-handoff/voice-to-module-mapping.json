@@ -1,0 +1,45 @@
+{
+  "moduleVoiceProfiles": {
+    "Mental Health": {
+      "tr": "emel",
+      "de": "katja",
+      "en": "ada"
+    },
+    "Skin Health": {
+      "tr": "emel",
+      "de": "katja",
+      "en": "ada"
+    },
+    "Vision Health": {
+      "tr": "ahmet",
+      "de": "stefan",
+      "en": "andrew"
+    },
+    "Dental Health": {
+      "tr": "ahmet",
+      "de": "stefan",
+      "en": "andrew"
+    },
+    "Hearing Health": {
+      "tr": "ahmet",
+      "de": "stefan",
+      "en": "andrew"
+    }
+  },
+  "voiceNames": {
+    "emel": "Microsoft Emel Neural",
+    "ahmet": "Microsoft Ahmet Neural",
+    "katja": "Microsoft Katja",
+    "stefan": "Microsoft Stefan",
+    "ada": "Microsoft Ada Multilingual",
+    "andrew": "Microsoft Andrew Multilingual"
+  },
+  "sharedGuidanceSelectionKey": [
+    "module",
+    "language",
+    "eventId"
+  ],
+  "cockpitEntryActive": false,
+  "newWelcomeAnnouncement": false,
+  "applicationCodeChanged": false
+}

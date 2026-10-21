@@ -1,4 +1,6 @@
 'use client';
+import {useTranslations} from '../../i18n/LanguageProvider';
+
 
 import React from 'react';
 import { CameraPreparation, type CameraResolution } from '../CameraPreparation';
@@ -32,6 +34,7 @@ export const SkinActiveScan: React.FC<SkinActiveScanProps> = ({
   resolution,
   preparing=false
 }) => {
+ const {text:i18nText,node:i18nNode}=useTranslations();
   const defaultRegion = getRegionData('forehead');
 
   const analyzing=fresh && !!alignment?.isMediaPipeActive && alignment.faceDetected && alignment.isAligned && !!quality?.isValid && scanProgress>0;
@@ -55,18 +58,18 @@ export const SkinActiveScan: React.FC<SkinActiveScanProps> = ({
         <div className="lg:col-span-6 space-y-6 max-w-md">
           <div className="space-y-1">
             <h2 className="text-3xl font-extrabold text-white tracking-tight">
-              {preparing ? 'Portre Hazırlanıyor' : analyzing ? 'Analiz Ediliyor' : 'Kamera Hazırlığı'}
+              {i18nNode(preparing ? 'Portre Hazırlanıyor' : analyzing ? 'Analiz Ediliyor' : 'Kamera Hazırlığı')}
             </h2>
             <p className="text-sm text-slate-300">
-              {guidanceText || 'Lütfen başınızı sabit tutun.'}
+              {i18nNode(guidanceText || 'Lütfen başınızı sabit tutun.')}
             </p>
           </div>
 
           {/* İlerleme Çubuğu */}
           {!preparing && <div className="space-y-2">
             <div className="flex justify-between text-xs text-slate-300 font-medium">
-              <span>{analyzing ? 'Geçerli kareler değerlendiriliyor' : 'Uygun konum bekleniyor'}</span>
-              <span className="font-mono text-togg-turquoise font-bold">%{scanProgress}</span>
+              <span>{i18nNode(analyzing ? 'Geçerli kareler değerlendiriliyor' : 'Uygun konum bekleniyor')}</span>
+              <span className="font-mono text-togg-turquoise font-bold">%{i18nNode(scanProgress)}</span>
             </div>
             <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
               <div

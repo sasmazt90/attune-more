@@ -1,0 +1,46 @@
+{
+  "repository": "sasmazt90/attune-more",
+  "branch": "feature/localization-en-de-tr-20261020",
+  "parent": "bb27283d8a7e4cf8c400eccd5412d269f5d1bb0a",
+  "sourceZIP": {
+    "bytes": 26541258,
+    "sha256": "e3eaced150581a30a10d0339d84e84388566fe64bd3fc96e97711b472bcd7ee7"
+  },
+  "recordings": 194,
+  "originalAudioBytes": 25262314,
+  "derivedFiles": [],
+  "activeMappings": 129,
+  "stagedAcousticDigits": 30,
+  "inactiveAlternatives": 33,
+  "inactiveDemos": 2,
+  "originalAudioPreserved": 83,
+  "mediaDecode": {
+    "ffmpegPass": 194,
+    "ChromeDecodePass": 194,
+    "actualModulePlaybackPass": 15,
+    "naturalSpeed": true,
+    "physicalOutputVerified": false
+  },
+  "focusedTests": 35,
+  "regression": {
+    "initialPass": 848,
+    "skip": 47,
+    "initialEnvironmentFailures": 8,
+    "cachedDependencyRechecksPass": 8,
+    "distinctPassingTests": 856,
+    "passedSubtests": 10,
+    "warning": "Existing AnyIO deprecation"
+  },
+  "typecheck": "PASS",
+  "build": "PASS",
+  "lint": "PASS; six pre-existing warnings",
+  "hiddenTab": "UNVERIFIED; headless browser did not expose hidden visibility",
+  "hiddenStateFixture": "PASS; explicitly synthetic event fixture",
+  "dynamicTTS": "BLOCKED acceptance: TR/EN exact live availability/parity unverified; DE live provider ID unverified",
+  "acousticScoredDigits": "BLOCKED; no new banks activated",
+  "microphoneCapture": false,
+  "externalSpeechCalls": false,
+  "manualActionsRuns": 0,
+  "mainModified": false,
+  "mergeReadiness": "KEEP_DRAFT"
+}

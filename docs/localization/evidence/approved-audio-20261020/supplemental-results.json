@@ -1,0 +1,78 @@
+[
+  {
+    "check": "narrow approved voice inventory and storage preservation",
+    "language": "tr",
+    "status": "PASS",
+    "screenshot": "tr-voice-assignments-375.png"
+  },
+  {
+    "check": "isolated DEMO backend moving locks",
+    "language": "tr",
+    "status": "PASS",
+    "speechStatus": 409,
+    "physicalVehicleEvidence": false
+  },
+  {
+    "check": "narrow approved voice inventory and storage preservation",
+    "language": "en",
+    "status": "PASS",
+    "screenshot": "en-voice-assignments-375.png"
+  },
+  {
+    "check": "isolated DEMO backend moving locks",
+    "language": "en",
+    "status": "PASS",
+    "speechStatus": 409,
+    "physicalVehicleEvidence": false
+  },
+  {
+    "check": "narrow approved voice inventory and storage preservation",
+    "language": "de",
+    "status": "PASS",
+    "screenshot": "de-voice-assignments-375.png"
+  },
+  {
+    "check": "isolated DEMO backend moving locks",
+    "language": "de",
+    "status": "PASS",
+    "speechStatus": 409,
+    "physicalVehicleEvidence": false
+  },
+  {
+    "check": "actual dispatch rejects missing HTTP fixture",
+    "status": "PASS",
+    "played": false,
+    "events": [
+      {
+        "locale": "en"
+      }
+    ]
+  },
+  {
+    "check": "actual dispatch rejects size HTTP fixture",
+    "status": "PASS",
+    "played": false,
+    "events": [
+      {
+        "locale": "en"
+      }
+    ]
+  },
+  {
+    "check": "actual dispatch rejects hash HTTP fixture",
+    "status": "PASS",
+    "played": false,
+    "events": [
+      {
+        "locale": "en"
+      }
+    ]
+  },
+  {
+    "check": "capture and unexpected runtime errors",
+    "status": "PASS",
+    "errors": [],
+    "blockedExternalRequests": [],
+    "captureAttempts": 0
+  }
+]

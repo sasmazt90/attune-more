@@ -1,0 +1,5 @@
+{
+  "de": ["\\b(?:ich fühle mich(?: gerade)? nicht sicher|ich bin(?: gerade)? nicht sicher|ich bin in gefahr)\\b", "\\b(?:brauche|benötige) (?:dringend|sofort|jetzt) hilfe\\b"],
+  "en": ["\\b(?:i am not safe|i'm not safe|i do not feel safe|i don't feel safe|i am in danger)\\b", "\\b(?:i need|i require|and need) (?:urgent|immediate) help\\b"],
+  "tr": ["(?:güvende değilim|kendimi güvende hissetmiyorum|tehlikedeyim)", "(?:acil yardıma ihtiyacım var|acil yardım istiyorum|hemen yardım istiyorum|acilen yardım istiyorum)"]
+}

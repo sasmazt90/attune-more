@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="back">Back</string>
+  <string name="retry">Retry</string>
+  <string name="simulation">Simulation</string>
+  <string name="simulate_driving">Simulation: Driving</string>
+  <string name="simulate_parked">Simulation: Park</string>
+  <string name="present">available</string>
+  <string name="absent">unavailable</string>
+  <string name="platform_clear">Available</string>
+  <string name="platform_restricted">Restricted</string>
+  <string name="platform_unknown">Not verified</string>
+  <string name="status_line">%1$s\nAndroid: %2$s · %3$s · Camera: %4$s · Microphone: %5$s</string>
+  <string name="gate_background">Application in background</string>
+  <string name="gate_platform_unknown">Android vehicle restrictions not verified</string>
+  <string name="gate_platform_restricted">Android is restricting the vehicle display</string>
+  <string name="gate_vehicle_unknown">Vehicle data unavailable</string>
+  <string name="gate_stale">Vehicle data is stale</string>
+  <string name="gate_moving">Vehicle is moving</string>
+  <string name="gate_not_parked">PARK not verified</string>
+  <string name="gate_ready">PARK verified</string>
+  <string name="locked">Operations disabled.\n%1$s\nThe health screen stays closed until Android restrictions and fresh PARK data are verified.</string>
+  <string name="page_failed">The page could not load. Check the network and select Retry.</string>
+  <string name="external_title">External link</string>
+  <string name="external_message">This link opens in a separate browser. No appointment or payment is completed automatically.</string>
+  <string name="cancel">Cancel</string>
+  <string name="open_browser">Open in browser</string>
+  <string name="no_browser">No supported browser available.</string>
+  <string name="no_picker">External photo selection is disabled in this prototype; backgrounding cancels temporary operations.</string>
+  <string name="media_unavailable">Permission or device capability is unavailable.</string>
+  <string name="provider_simulation">Backend simulation — not a real vehicle signal</string>
+  <string name="provider_unavailable">Authorized vehicle provider not integrated</string>
+</resources>

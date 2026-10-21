@@ -1,3 +1,4 @@
+import {getLocale,getLanguage,t} from '../i18n/core';
 import { HEALTH_MODULES } from './healthModules';
 import { readHealthRecords,recordDate } from './healthRecords';
 import { VisionSummaryData, SkinSummaryData, MentalSummaryData } from './healthSelectors';
@@ -14,7 +15,22 @@ export function measuredShareSection(category:'dental'|'hearing'):ShareSection|n
   const finite=(value:unknown)=>typeof value==='number'&&Number.isFinite(value);
   const usable=(metric:any)=>metric?.quality==='valid'&&finite(metric.value);
   const hearingValid=!['invalid','unreliable','insufficient'].includes(r.quality);
-  const text=category==='dental'?(r.sourceType==='upload'?'Yüklenen tek fotoğraf':'Kamera')+' · '+(r.measurements||[]).map((v:any)=>`${v.pose}: ${!usable(v.caries)?'Çürük adayı değerlendirilemiyor':v.caries.value+' görünür aday'}; birikim ${!usable(v.accumulation)?'değerlendirilemiyor':Math.round(v.accumulation.value)+'% görünür sınır alanı'}`).join('. '):r.thresholds?r.thresholds.map((t:any)=>`${t.ear==='left'?'Sol':'Sağ'} ${t.frequency} Hz: ${!hearingValid||t.status!=='threshold'||!finite(t.value)?'eşik bulunamadı':t.value+' dBFS peak'}`).join('. '):`${finite(r.validTrials)?r.validTrials:'Kaydedilmemiş sayıda'} geçerli üçlü · ${!hearingValid||!finite(r.value)?'kararlı eşik bulunamadı':r.value+' dB SNR'}`;
+  // Translate each complete raw template before joining views, letting the
+  // catalog translate its fields recursively. Never rewrite the raw record.
+  let text:string;
+  if(category==='dental'){
+    const poses:Record<string,string>={FRONT:'Ön',RIGHT:'Anatomik sağ',LEFT:'Anatomik sol',BITE:'Kapanış görünümü'};
+    const measurements=(r.measurements||[]).map((v:any)=>{
+      const caries=!usable(v.caries)?'Çürük adayı değerlendirilemiyor':`${v.caries.value} görünür aday`;
+      const accumulation=!usable(v.accumulation)?'değerlendirilemiyor':`${Math.round(v.accumulation.value)}% görünür sınır alanı`;
+      return t(`${poses[v.pose]||v.pose}: ${caries}; birikim ${accumulation}`);
+    });
+    text=t(r.sourceType==='upload'?'Yüklenen tek fotoğraf':'Kamera')+' · '+measurements.join('. ');
+  }else if(r.thresholds){
+    text=r.thresholds.map((threshold:any)=>`${t(threshold.ear==='left'?'Sol':'Sağ')} ${threshold.frequency} Hz: ${t(!hearingValid||threshold.status!=='threshold'||!finite(threshold.value)?'eşik bulunamadı':threshold.value+' dBFS peak')}`).join('. ');
+  }else{
+    text=t(`${finite(r.validTrials)?r.validTrials:'Kaydedilmemiş sayıda'} geçerli üçlü · ${!hearingValid||!finite(r.value)?'kararlı eşik bulunamadı':r.value+' dB SNR'}`);
+  }
   return {title:HEALTH_MODULES[category].name,dateTr:recordDate(r),text};
 }
 export function buildShareSections(selection: ShareSelection, vision: VisionSummaryData, skin: SkinSummaryData, mental: MentalSummaryData,dental?:ShareSection|null,hearing?:ShareSection|null): ShareSection[] {
@@ -34,20 +50,20 @@ export function buildShareSections(selection: ShareSelection, vision: VisionSumm
 export function printHealthSummary(sections: ShareSection[], demo: boolean): void {
   if (!sections.length) throw new Error('No selected results');
   const frame = document.createElement('iframe');
-  frame.title = 'Seçilmiş sağlık özeti yazdırma';
+  frame.title = t('Seçilmiş sağlık özeti yazdırma');
   frame.style.cssText = 'position:fixed;width:1px;height:1px;left:-10000px;border:0';
   document.body.appendChild(frame);
   const target = frame.contentWindow;
   const doc = frame.contentDocument;
   if (!target || !doc) { frame.remove(); throw new Error('Print unavailable'); }
-  doc.open(); doc.write('<!doctype html><html lang="tr"><head><meta charset="utf-8"><title>Seçilmiş değerlendirme özeti</title></head><body></body></html>'); doc.close();
-  const add = (tag: string, text: string) => { const el = doc.createElement(tag); el.textContent = text; doc.body.appendChild(el); };
+  doc.open(); doc.write('<!doctype html><html lang="tr"><head><meta charset="utf-8"><title>Seçilmiş değerlendirme özeti</title></head><body></body></html>'); doc.close(); doc.documentElement.lang=getLanguage();doc.title=t('Seçilmiş değerlendirme özeti');
+  const add = (tag: string, text: string) => { const el = doc.createElement(tag); el.textContent = t(text); doc.body.appendChild(el); };
   const style = doc.createElement('style');
   style.textContent = 'body{font:14px Arial,sans-serif;color:#111;padding:24px}h1{font-size:22px}h2{font-size:17px}p{white-space:pre-wrap;line-height:1.5}';
   doc.head.appendChild(style);
   add('h1', 'Hekimle paylaşılabilir değerlendirme özeti');
   add('p', demo ? 'Demo rapor — örnek kullanıcı' : 'Yerel kullanıcı — kimlik doğrulanmadı');
-  add('p', new Date().toLocaleString('tr-TR'));
+  add('p', new Date().toLocaleString(getLocale()));
   sections.forEach(section => { add('h2', section.title); add('p', section.dateTr); add('p', section.text); });
   add('p', 'Bu cihazdaki değerlendirmeler klinik tanı veya gerçek araç sensörü doğrulaması değildir. Hekime otomatik gönderim yapılmaz.');
   target.addEventListener('afterprint', () => frame.remove(), { once: true });

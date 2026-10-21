@@ -1,59 +1,50 @@
 'use client';
-import {observeAppPlayback,setSpeechMuted} from './playbackMeter';
+import {setSpeechMuted} from './playbackMeter';
+import {getLanguage} from '../i18n/core';
+import {approvedClip} from '../i18n/approvedAudio';
+import {playFixedSpeech} from './fixedFileSpeech';
 import {useEffect,useId,useMemo,useRef} from 'react';
 import manifest from '../../public/audio/guidance/manifest.json';
-import {HEALTH_MODULE_IDS,HEALTH_MODULES} from './healthModules';
-import {admittedSkinNeutral} from './skinNeutralAsset';
-type Entry={text:string;voice:string;rate:string;pitch:string;url:string;sha256:string;textVersion:string};
+import {HEALTH_MODULE_IDS,HEALTH_MODULES,type HealthModule} from './healthModules';
 export type GuidanceId=keyof typeof manifest.entries;
-/** No placeholder/different voice: capture gating is activated only once the
- * fixed neutral clip has actually been admitted to the content-addressed bank. */
-export const skinNeutralGuidance=():GuidanceId|undefined=>admittedSkinNeutral((manifest.entries as Record<string,unknown>)['skin-neutral'],manifest.version)?'skin-neutral' as GuidanceId:undefined;
-type Job={owner:string;id:GuidanceId;controller:AbortController;audio?:HTMLAudioElement;url?:string;resolve:(played:boolean)=>void;finished:boolean;unmeter?:()=>void};
+export const skinNeutralGuidance=():GuidanceId|undefined=>approvedClip(getLanguage(),'skin','guidance:skin-neutral')?'skin-neutral':undefined;
+type Job={owner:string;id:GuidanceId;language:ReturnType<typeof getLanguage>;module:HealthModule;controller:AbortController;audio?:HTMLAudioElement;resolve:(played:boolean)=>void;finished:boolean};
 let current:Job|undefined,pending:Job|undefined,muted=false;
 const completed=new Set<string>();
 const streams=new Set<object>();
-const token=(owner:string,id:GuidanceId)=>owner+':'+id;
+const activeModule=()=>HEALTH_MODULE_IDS.find(id=>location.pathname===HEALTH_MODULES[id].route||location.pathname.startsWith(HEALTH_MODULES[id].route+'/'));
+const token=(owner:string,id:GuidanceId)=>owner+':'+getLanguage()+':'+activeModule()+':'+id;
 const hearingOwns=()=>Number(localStorage.getItem('attune_hearing_audio_focus')||0)>Date.now();
-const healthRoute=()=>typeof window!=='undefined'&&HEALTH_MODULE_IDS.some(id=>location.pathname===HEALTH_MODULES[id].route||location.pathname.startsWith(HEALTH_MODULES[id].route+'/'));
-const permitted=(id:GuidanceId)=>healthRoute()&&!/^(cockpit|profile|care|record)-/.test(id);
+const healthRoute=()=>typeof window!=='undefined'&&!!activeModule();
+const permitted=(id:GuidanceId)=>healthRoute()&&!document.hidden&&!/^(cockpit|profile|care|record)-/.test(id);
+function unavailable(job:Job){if(!job.controller.signal.aborted)window.dispatchEvent(new CustomEvent('attune-voice-unavailable',{detail:{locale:job.language}}));dispose(job);}
 function healthInteraction(event:Event){return event.isTrusted&&healthRoute()&&!(event.target instanceof Element&&event.target.closest('[data-cockpit-header], [data-record-history], [data-health-history], a[href]'));}
-function dispose(job:Job,played=false){if(job.finished)return;job.finished=true;job.unmeter?.();job.controller.abort();job.audio?.pause();if(job.audio){job.audio.removeAttribute('src');job.audio.load();}if(job.url)URL.revokeObjectURL(job.url);if(played)completed.add(token(job.owner,job.id));if(current===job)current=undefined;if(pending===job)pending=undefined;job.resolve(played);}
+function dispose(job:Job,played=false){if(job.finished)return;job.finished=true;job.controller.abort();if(played)completed.add(job.owner+':'+job.language+':'+job.module+':'+job.id);if(current===job)current=undefined;if(pending===job)pending=undefined;job.resolve(played);}
 export function cancelGuidance(owner?:string){for(const job of [current,pending])if(job&&(!owner||job.owner===owner))dispose(job);}
 export function muteGuidance(value:boolean){muted=value;setSpeechMuted(value);if(value)cancelGuidance();window.dispatchEvent(new CustomEvent('attune-guidance-muted',{detail:value}));}
 export function speakGuidance(owner:string,id:GuidanceId,repeat=false):Promise<boolean>{
- if(!permitted(id)||muted||streams.size||hearingOwns())return Promise.resolve(false);
+ const targetModule=activeModule();
+ if(!targetModule||!permitted(id)||muted||streams.size||hearingOwns())return Promise.resolve(false);
  if(!repeat&&completed.has(token(owner,id)))return Promise.resolve(true);
  if(current?.owner===owner&&current.id===id)return Promise.resolve(false);
  cancelGuidance();
- return new Promise(resolve=>{const job:Job={owner,id,controller:new AbortController(),resolve,finished:false};current=job;void load(job);});
+ return new Promise(resolve=>{const job:Job={owner,id,language:getLanguage(),module:targetModule,controller:new AbortController(),resolve,finished:false};current=job;void load(job);});
 }
 async function load(job:Job){
  try{
-  const e=manifest.entries[job.id] as Entry;
-  const expected=job.id.startsWith('mental-')?'tr-TR-EmelNeural':'tr-TR-AhmetNeural';
-  if(manifest.version!=='guidance-20261009-v1'||e.textVersion!==manifest.version||e.voice!==expected||e.rate!=='-10%'||e.pitch!=='-10Hz')throw Error('GUIDANCE_CONTRACT');
-  const response=await fetch(e.url,{signal:job.controller.signal});if(!response.ok)throw Error('GUIDANCE_LOAD');const bytes=await response.arrayBuffer();
-  const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))).map(v=>v.toString(16).padStart(2,'0')).join('');
-  if(digest!==e.sha256)throw Error('GUIDANCE_HASH');
-  if(job.finished||current!==job||!permitted(job.id)||muted||streams.size||hearingOwns())return dispose(job);
-  job.url=URL.createObjectURL(new Blob([bytes],{type:'audio/mpeg'}));job.audio=new Audio(job.url);job.audio.dataset.guidanceId=job.id;job.unmeter=observeAppPlayback(job.audio);
-  job.audio.onended=()=>{window.dispatchEvent(new CustomEvent('attune-guidance-event',{detail:{id:job.id,event:'ended'}}));dispose(job,true);};
-  job.audio.onerror=()=>dispose(job);
-  await play(job);
- }catch{dispose(job);}
-}
-async function play(job:Job){
- if(job.finished||current!==job||!permitted(job.id)||muted||streams.size||hearingOwns())return dispose(job);
- try{await job.audio!.play();pending=undefined;window.dispatchEvent(new CustomEvent('attune-guidance-event',{detail:{id:job.id,event:'playing'}}));}
- catch(error){if(job.finished)return;if((error as DOMException).name==='NotAllowedError'){pending=job;window.dispatchEvent(new CustomEvent('attune-guidance-event',{detail:{id:job.id,event:'interaction-required'}}));}else dispose(job);}
+  const clip=approvedClip(job.language,job.module,'guidance:'+job.id);
+  if(!clip)throw Error('APPROVED_MODULE_RECORDING_UNAVAILABLE');
+  const valid=()=>!job.finished&&current===job&&getLanguage()===job.language&&activeModule()===job.module&&permitted(job.id)&&!muted&&!streams.size&&!hearingOwns();
+  const audio=new Audio();job.audio=audio;audio.dataset.guidanceId=job.id;audio.dataset.guidanceSource='user-approved-recordings';audio.dataset.recordingId=clip.recordingId;
+  const played=await playFixedSpeech(audio,clip,job.controller.signal,valid,event=>window.dispatchEvent(new CustomEvent('attune-guidance-event',{detail:{id:job.id,event,source:'user-approved-recordings',recordingId:clip.recordingId,voice:clip.voice,locale:clip.applicationLocale}})));
+  if(!played&&!job.controller.signal.aborted&&valid())unavailable(job);else dispose(job,played);
+ }catch{unavailable(job);}
 }
 if(typeof window!=='undefined'){
  window.addEventListener('attune-stream-focus',event=>{const e=event as Event & {owner:object;active:boolean};if(e.active){streams.add(e.owner);cancelGuidance();}else streams.delete(e.owner);});
- window.addEventListener('attune-guidance-cancel',()=>cancelGuidance());
+ for(const event of ['attune-guidance-cancel','attune-locale-media-cancel','popstate','pagehide'])window.addEventListener(event,()=>cancelGuidance());
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelGuidance();});
  window.addEventListener('attune-audio-focus',()=>{if(hearingOwns())cancelGuidance();});
- const retry=(e:Event)=>{if(!healthInteraction(e)){if(e.isTrusted)cancelGuidance();return;}if(pending)void play(pending);};
- window.addEventListener('pointerdown',retry,{capture:true});window.addEventListener('keydown',retry,{capture:true});
 }
 /** One session per mounted route. Issues must be stable 900ms and resolve 1200ms before repeating. */
 export function useGuidance(owner:string,enabled=true){

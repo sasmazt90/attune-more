@@ -20,16 +20,23 @@ Oturum Özeti Analizcisi:
 """
 
 import os
+from localization import current_language, LANGUAGE_NAMES, normalized_mental_input, translate
 from fastapi import HTTPException
 from openai_client import get_openai_client
 import unicodedata
 import re
 import json
+from pathlib import Path
+from mental_themes import SESSION_THEME_KEYS, stable_session_themes
+from mental_text_rules import ENGLISH_CRISIS, GERMAN_CRISIS, english_crisis_context, german_crisis_context, professional_support_suggested
 from abc import ABC, abstractmethod
 from typing import Dict, Any, List, Optional
 from datetime import datetime
 
 CRISIS_KEYWORDS = [
+    'suicide', 'suicidal', 'kill myself', 'hurt myself', 'end my life', 'want to die',
+    "don't want to live", 'do not want to live', 'selbstmord', 'suizid',
+    'mich umbringen', 'mir etwas antun', 'mir selbst schaden', 'nicht mehr leben', 'sterben will', 'will sterben',
     "intihar",
     "ölmek istiyorum",
     "kendime zarar",
@@ -39,6 +46,11 @@ CRISIS_KEYWORDS = [
     "kendimi asmak",
     "ilaç içip ölmek"
 ]
+
+# Explicit urgent danger plus a request for urgent help. Uncertainty alone is
+# not classified as an emergency, and this rule makes no self-harm diagnosis.
+URGENT_SAFETY_PATTERNS = json.loads((Path(__file__).resolve().parents[2] /
+    'shared/localization/urgent-safety.json').read_text('utf-8'))
 
 class MentalConversationProvider(ABC):
     @abstractmethod
@@ -79,7 +91,7 @@ class LocalFallbackMentalProvider(MentalConversationProvider):
         history: List[Dict[str, str]],
         driver_name: str = ""
     ) -> Dict[str, Any]:
-        msg_lower = user_message.lower()
+        msg_lower = normalized_mental_input(user_message)
 
         # 1. Sürüş modu kısıtları: Kısa, sakin yanıtlar, ekrana baktırmama
         if is_driving:
@@ -191,6 +203,9 @@ class OpenAICompatibleMentalProvider(MentalConversationProvider):
                 + "5. Kullanıcı kendine zarar verme veya intihar gibi akut risk içeren bir şey söylerse sohbeti kes ve 112 Acil Çağrı Merkezini ara/aramasını öner. Randevu hatlarını asla kriz için kullanma."
             )
 
+            if current_language() != 'tr':
+                system_prompt = system_prompt.replace('Kullanıcı ile Türkçe, sıcak ve empatik konuşursun.',
+                    'Respond only in '+LANGUAGE_NAMES[current_language()]+', warmly and empathetically; preserve every safety rule below.')
             from mental_context import memory_message
             messages = [{"role": "system", "content": system_prompt}] + memory_message(getattr(self,"session_memory",[]))
             for h in history[-40:]:
@@ -210,7 +225,7 @@ class OpenAICompatibleMentalProvider(MentalConversationProvider):
                 "reply": reply_text,
                 "providerType": "LIVE_OPENAI",
                 "isDriving": is_driving,
-                "escalationSuggested": "psikolog" in reply_text.lower()
+                "escalationSuggested": professional_support_suggested(reply_text, current_language())
             }
         except Exception as e:
             raise HTTPException(status_code=503, detail=provider_error_category(e)) from None
@@ -234,7 +249,7 @@ class LocalFallbackSessionAnalyzer(MentalSessionAnalyzer):
 
     def analyze_session(self, messages: List[Dict[str, str]]) -> Dict[str, Any]:
         user_utterances = [m.get("content", "") for m in messages if m.get("role") == "user"]
-        combined = " ".join(user_utterances).lower()
+        combined = normalized_mental_input(" ".join(user_utterances))
 
         themes = []
         if any(w in combined for w in ["uyku", "gece", "uyan", "uyuyamıyorum", "rüya"]):
@@ -274,9 +289,10 @@ class LocalFallbackSessionAnalyzer(MentalSessionAnalyzer):
         )
 
         summary_text = (
-            f"Kullanıcı görüşmesinde öne çıkan konular: {', '.join(themes)}. "
-            f"Paylaşımlardaki duygu eğilimi: {MOOD_LABELS[mood_trend]}."
+            f"Kullanıcı görüşmesinde öne çıkan konular: {', '.join(translate(theme) for theme in themes)}. "
+            f"Paylaşımlardaki duygu eğilimi: {translate(MOOD_LABELS[mood_trend])}."
         )
+        summary_text = translate(summary_text)
 
         return {
             "summaryText": summary_text,
@@ -318,6 +334,15 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
                 + "\n".join([f"{m.get('role', 'user')}: {m.get('content', '')}" for m in messages])
             )
 
+            if current_language() != 'tr':
+                prompt += ('\nWrite summaryText and professionalSupportReason in '
+                           + LANGUAGE_NAMES[current_language()]
+                           + '. Preserve the JSON schema, enum values and verbatim user quotations. Do not invent facts.')
+
+            prompt += ('\nThe themes field contains stable category keys, never translated display labels. '
+                       'Choose only supported keys from ' + json.dumps(SESSION_THEME_KEYS, ensure_ascii=False)
+                       + '; use [] if none applies. Do not invent a new category or a diagnosis.')
+
             resp = client.chat.completions.create(
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}],
@@ -326,6 +351,7 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
                 response_format={"type": "json_object"}
             )
             data = json.loads(resp.choices[0].message.content)
+            data['themes'] = stable_session_themes(data.get('themes'))
             data["analyzerType"] = "LIVE_LLM"
             data["providerType"] = "LIVE_OPENAI"
             return data
@@ -352,37 +378,43 @@ def check_mental_crisis(text: str, is_driving: bool, live_client: Optional[Any] 
     Katman 2: Yapılandırılmış güvenlik seviyesi.
     """
     candidates = (normalize_crisis_text(text), normalize_crisis_text(text, turkish=False))
+    urgent_safety = any(all(re.search(pattern, candidates[1]) for pattern in pair)
+                        for pair in URGENT_SAFETY_PATTERNS.values())
+    english = english_crisis_context(text)
+    german = german_crisis_context(text)
+    contextual_keywords = set(ENGLISH_CRISIS['legacyKeywords'] + GERMAN_CRISIS['legacyKeywords'])
+    self_harm_signal = english['signal'] or german['signal'] or any(normalize_crisis_text(keyword) in candidate
+                           for keyword in CRISIS_KEYWORDS if keyword not in contextual_keywords for candidate in candidates)
     
     # 1. Katman: Deterministik Anahtar Kelime Koruması
-    for kw in CRISIS_KEYWORDS:
-        if any(normalize_crisis_text(kw) in candidate for candidate in candidates):
-            if is_driving:
-                reply = (
-                    "Söyledikleriniz benim için çok önemli ve zor bir andan geçtiğinizi anlıyorum. "
-                    "Ancak ben acil durum servisi değilim. Lütfen ekrana bakmayın. "
-                    "Mümkün olduğunda aracınızı hemen güvenli bir yerde durdurun ve 112 Acil Çağrı Merkezini arayın. Yalnız değilsiniz."
-                )
-            else:
-                reply = (
-                    "Söyledikleriniz benim için çok önemli ve şu an çok zor bir süreçten geçtiğinizi anlıyorum. "
-                    "Ancak ben bir acil durum veya sağlık servisi değilim. Lütfen şu an güvende kalmak için gecikmeden "
-                    "112 Acil Çağrı Merkezi ile iletişime geçin. Yalnız değilsiniz, profesyonel uzmanlar size yardımcı olmak için hazır."
-                )
-            return {
-                "isCrisis": True,
-                "riskLevel": "IMMINENT",
-                "selfHarmSignal": True,
-                "violenceSignal": False,
-                "needsEmergencyEscalation": True,
-                "emergencyContact": "112 Acil Çağrı Merkezi",
-                "reply": reply,
-                "drivingModeResponse": is_driving,
-                "clinicalDisclaimer": "Bu güvenlik değerlendirmesi klinik olarak valide edilmiş bir tanı sistemi değildir."
-            }
+    if urgent_safety or self_harm_signal:
+        if is_driving:
+            reply = (
+                "Söyledikleriniz benim için çok önemli ve zor bir andan geçtiğinizi anlıyorum. "
+                "Ancak ben acil durum servisi değilim. Lütfen ekrana bakmayın. "
+                "Mümkün olduğunda aracınızı hemen güvenli bir yerde durdurun ve 112 Acil Çağrı Merkezini arayın. Yalnız değilsiniz."
+            )
+        else:
+            reply = (
+                "Söyledikleriniz benim için çok önemli ve şu an çok zor bir süreçten geçtiğinizi anlıyorum. "
+                "Ancak ben bir acil durum veya sağlık servisi değilim. Lütfen şu an güvende kalmak için gecikmeden "
+                "112 Acil Çağrı Merkezi ile iletişime geçin. Yalnız değilsiniz, profesyonel uzmanlar size yardımcı olmak için hazır."
+            )
+        return {
+            "isCrisis": True,
+            "riskLevel": "IMMINENT" if self_harm_signal else "URGENT_SAFETY",
+            "selfHarmSignal": self_harm_signal,
+            "violenceSignal": False,
+            "needsEmergencyEscalation": True,
+            "emergencyContact": "112 Acil Çağrı Merkezi",
+            "reply": reply,
+            "drivingModeResponse": is_driving,
+            "clinicalDisclaimer": "Bu güvenlik değerlendirmesi klinik olarak valide edilmiş bir tanı sistemi değildir."
+        }
 
     return {
         "isCrisis": False,
-        "riskLevel": "NONE",
+        "riskLevel": "UNCERTAIN" if any(r['context'] in ('UNCERTAIN', 'HISTORICAL') for r in (english, german)) else "NONE",
         "selfHarmSignal": False,
         "violenceSignal": False,
         "needsEmergencyEscalation": False,

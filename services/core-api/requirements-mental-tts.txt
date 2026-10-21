@@ -1,0 +1,4 @@
+# Optional isolated inference environment only. Not included in normal app/CI setup.
+# Official V3 source; dependency constraints are defined by this pinned commit.
+chatterbox-tts @ git+https://github.com/resemble-ai/chatterbox.git@5de7a54aa4e5e2baadb0182dde554908b48b85c2
+fastapi==0.135.4

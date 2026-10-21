@@ -1,0 +1,29 @@
+{
+  "status": "CLOUD_ENGINEERING_PASS_RUNTIME_ACCEPTANCE_OPEN",
+  "unitAndAutomotive": {
+    "passed": 854,
+    "skipped": 45,
+    "failed": 0,
+    "passedSubtests": 10
+  },
+  "responsiveCases": 81,
+  "actualZoomCases": 27,
+  "syntheticResultCases": 30,
+  "actualGuidanceProfilesPlayed": 4,
+  "safetyCases": 3,
+  "metadataAndCareCases": 3,
+  "catalog": {
+    "status": "PASS",
+    "catalogMessages": 1437,
+    "inventoriedSources": 1485,
+    "exemptions": 65,
+    "scope": "Frontend JSX/accessibility/source literals and shared modules/guidance; backend API/mental/care/control plus health-module response/error presentation sources. Dynamic/private/provider text needs runtime review.",
+    "failures": []
+  },
+  "preservedOriginalAudioFiles": 83,
+  "newAudioFiles": 267,
+  "newAudioBytes": 12004852,
+  "newAAOSEmulatorRun": false,
+  "windowsOrPhysicalDeviceChecks": false,
+  "paidModelOrSpeechRequests": false
+}

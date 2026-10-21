@@ -1,0 +1,52 @@
+> Update 2026-10-21: [official default V3 conditioning and offline bundle preparation](DEFAULT_V3_COMPLETION.md) removes the external female-reference requirement. [Earlier integration evidence](NEURAL_TTS_COMPLETION.md) and historical fixed-recording/Hearing evidence are preserved. Real TR/EN/DE V3 generation and Cloud browser delivery/playback are verified; final AAOS acceptance remains separate and was not run.
+
+# Voice and audio provenance
+
+**Superseding 2026-10-21 functional implementation:** [experimental EN/DE Hearing activation, browser/system dynamic speech and owner acceptance](FUNCTIONAL_COMPLETION.md). Earlier unavailable/gated descriptions below are historical checkpoints, not the current activation policy.
+**2026-10-21 integrated audit:** [current acceptance and exact live-provider limits](FINAL_INTEGRATED_ACCEPTANCE.md). Microsoft documents an Azure Katja identifier, but no authorized no-cost live runtime or Clipchamp/live-service equivalence was established. Original DE provider metadata stays unchanged; arbitrary DE live speech remains unavailable. Existing Edge consumer integration is not evidence of a documented service API entitlement and was not invoked in this audit.
+
+## Current owner-approved recordings
+
+The approved package contains **194 unchanged original M4A/AAC files** under `public/audio/user-approved/tr-en-de-20261020-v1/`: 129 selected module/language/event recordings (including exact Mental templates), 30 isolated acoustic-gated digit recordings, 33 retained alternatives and two neutral demos. All 194 are owner-approved for integration; no further personal listening/rating campaign is required. Technical browser acceptance and acoustic/platform validation remain separate. Full hashes, provider identity, application/voice locales and disposition are in that namespace's `manifest.json`.
+
+Mental/Skin use Emel (TR), Katja (DE), Ada (EN). Vision/Dental/Hearing guidance use Ahmet (TR), Stefan (DE), Andrew (EN). Shared camera-quality prompts resolve by module. Ada's provider identity is `en-GB-AdaMultilingualNeural` and voice locale is en-GB; application locale stays en-US. DE Clipchamp provider IDs are not supplied and are not inferred from OneCore names.
+
+The module policy controls fixed playback; the voice dialog shows assignments and the actual browser/provider inventory without offering an override that could substitute another character. Existing stored preferences are retained. Original `audio/mp4` bytes are size/SHA-256 checked, decoded directly, and played at the browser's normal speed/pitch. Old files are preserved but are not a fallback for missing approved module recordings. Cockpit-entry remains inactive.
+
+Mental full-text template matching is literal and finite. Arbitrary AI responses still require live TTS using the same approved female identity, with existing consent/crisis/driving controls. TR Emel and EN Ada are exact-ID contracts whose live availability/parity remains unverified. DE dynamic TTS is BLOCKED because the exact live Katja provider identity is unverified. No paid/provider synthesis was used to fill this gap. Clipchamp files do not confer live TTS availability.
+
+**Scored hearing:** only the original TR digit/noise bank remains active. Newly supplied digits and the earlier EN/DE eSpeak banks remain inactive for scored testing. EN/DE scored digit tests fail closed until separate acoustic validation; ordinary male-voice guidance and the existing tone protocol remain separate. No SNR, gain, timing, scoring or threshold algorithm was changed.
+
+See [current integration evidence and limitations](APPROVED_AUDIO_INTEGRATION.md). The sections below describe the original `bb27283d` implementation and retained provenance, not permission to reactivate superseded speech paths.
+
+## Actual voice selection
+
+The browser's real `speechSynthesis.getVoices()`/`voiceschanged` metadata is filtered to the exact selected locale. Web Speech does not standardize gender, so browser/system voices are labelled gender unknown; names are not used to guess. Missing requested voices and absent exact locales stop playback and produce an availability state. No other-language voice is silently selected. Installed Windows voices and AAOS voices are not presumed interchangeable. Online system speech containing response text needs an explicit additional voice-provider permission; existing health consent and safety checks still apply.
+
+The existing free Microsoft Edge path can query actual locale/gender metadata on explicit user request. Provider failures remain failures, without another-language or invented-voice substitution. Existing approved TR recordings and exact TR Ahmet/Emel provider contracts remain intact. Availability of live Microsoft voices depends on the device/network/provider and was not claimed from an offline fixture.
+
+## New, free local synthesis
+
+New EN/DE fixed recordings use eSpeak NG 1.51 plus FFmpeg 6.1.1. Actual tool metadata and successful synthesis were verified for English (America) `en-us` and German `de` male base voices and the `female3` / `+f3` female variant. Optional MBROLA voices appearing in a list were not treated as installed. eSpeak is a synthetic voice/variant; this is not a human speaker or a Microsoft neural voice. These free tools introduce no paid API or service.
+
+`apps/vehicle-app/public/audio/localized/manifest.json` identifies every profile, text, source-text hash, URL, size, asset SHA-256 and provenance. There are 244 MP3s: 33 guidance and 28 fixed vision prompts for each of four locale/gender profiles. Each is mono MP3 at 24 kHz; measured longest fixed prompt is 17.616 seconds, within the unchanged 25-second vision speech timeout. Runtime playback verifies content size/hash. All are explicitly `new-local-synthesis`, with auditory acceptance **pending**. They are not original approved recordings. Review pronunciation, naturalness and medical wording before release.
+
+Optional free-text synthesis in `local_speech.py` uses installed eSpeak NG and FFmpeg, probes the actual profiles, accepts only the selected locale/profile, and uses cancellable subprocesses with bounded output/timeouts. Text flows through stdin, without a shell/network service or persisted health-text files. Moving/restricted requests fail closed, including checks before/after synthesis and while yielding output. If the tools are absent (for example on an unverified Windows installation), the UI states that fixed guidance remains available while local free-text speech is unavailable. It does not claim the tools exist on Windows or AAOS. Cloud synthesis and codec validation do not prove physical audible acceptance.
+
+## Hearing stimuli
+
+The original approved Turkish digit/noise assets are unchanged. The original localization commit generated **separate**, versioned EN/DE 10-digit banks; they are retained as inactive assets. Each WAV is mono 48 kHz, SHA-256 checked, RMS-normalized to the existing engineering target and checked for silence/clipping. Current scored playback rejects EN/DE banks pending separate acoustic validation. The existing noise, pure tones, SNR mixing, scoring, calibration warnings and assessment algorithms are preserved. These banks are **not** acoustically/clinically validated equivalents. Cross-language thresholds must not be asserted clinically comparable.
+
+`shared/localization/preserved-audio.json` records size/SHA-256 for all 83 pre-existing audio files captured before implementation. Tests rehash each file. The regeneration command refuses an existing output directory, generates EN/DE only, and cannot overwrite the approved TR bank:
+
+```sh
+python scripts/localization/synthesize_assets.py --stage /path/to/new/empty/staging-directory
+```
+
+Use a new version/output design for future synthesis; do not delete existing approved assets to rerun it. eSpeak NG and FFmpeg are external free tools; retain their upstream license notices when distributing the tools. New generated-speech provenance is separate from approved recording consent and from any broader commercial/clinical certification.
+
+## Bounded CDC Local checks still required
+
+On the actual Windows installation: list real matching TR/EN/DE voices and available metadata; check actual recognition and audible playback in each language; verify male/female choices only where metadata supports them; test mute, interruption, backgrounding and unavailable-provider errors. Do not install paid voices or assume names/gender.
+
+On an authorized AAOS runtime: verify selected-locale recognition, actual WebView/system voice metadata, new local recordings/streamed speech, permission denial and lifecycle interruption while independently applying Car UX/backend gates. No new emulator workflow was dispatched for this change. The archived successful run #122 validates its historical source, not this localized build. Physical camera/microphone/vehicle acceptance and listening/linguistic/clinical validation remain separate.

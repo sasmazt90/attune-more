@@ -1,0 +1,37 @@
+name: Automotive prototype
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'apps/automotive/**'
+      - 'tests/automotive/**'
+      - 'tests/unit/test_automotive_contract.py'
+      - 'scripts/automotive/**'
+      - '.github/workflows/automotive.yml'
+      - '.github/actions/setup-automotive-sdk/**'
+permissions:
+  contents: read
+jobs:
+  android-prototype:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: ./.github/actions/setup-automotive-sdk
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+      - name: Host policy checks
+        run: python3 tests/automotive/run_checks.py
+      - name: Assemble and lint debug prototype
+        run: bash scripts/automotive/build.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: attune-aaos-debug-prototype
+          path: apps/automotive/app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+          retention-days: 7

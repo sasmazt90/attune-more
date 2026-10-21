@@ -1,3 +1,5 @@
+import {displayMentalTheme} from '../i18n/mentalThemes';
+import {getLocale} from '../i18n/core';
 import { readHealthRecords,recordDate } from './healthRecords';
 import { HEALTH_MODULES } from './healthModules';
 /**
@@ -94,7 +96,7 @@ export function getVisionSummary(demoMode: boolean = isDemoMode()): VisionSummar
   try {
     const parsed = JSON.parse(raw);
     const dateObj = parsed.date ? new Date(parsed.date) : new Date();
-    const dateTr = dateObj.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+    const dateTr = dateObj.toLocaleDateString(getLocale(), { day: 'numeric', month: 'long', year: 'numeric' });
     if (parsed.protocolVersion==='spoken-letter-v1') return {hasData:true,isDemo:false,dateTr,acuitySummary:'Cihaz koşullarında harf tanıma; klinik keskinlik hesaplanmadı',contrastSummary:`${parsed.trials?.filter((t:any)=>t.valid).length||0} geçerli deneme · Boyut bazında harf/yön/birleşik sonuç`,referralRecommended:false,rawRecord:parsed};
     if (['landolt-orientation-continuous-v1','landolt-orientation-guided-v2'].includes(parsed.protocolVersion)) return { hasData:true,isDemo:false,dateTr,acuitySummary:'Görme keskinliği bu protokolle hesaplanmadı',contrastSummary:`${parsed.validTrials || 0} geçerli deneme · ${parsed.notVisible || 0} göremedi`,referralRecommended:false,rawRecord:parsed };
     const right = parsed.acuityRightSnellen || '—';
@@ -156,7 +158,7 @@ export function getSkinSummary(demoMode: boolean = isDemoMode()): SkinSummaryDat
   try {
     const parsed = JSON.parse(raw);
     const dateObj = parsed.timestamp ? new Date(parsed.timestamp) : new Date();
-    const dateTr = dateObj.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+    const dateTr = dateObj.toLocaleDateString(getLocale(), { day: 'numeric', month: 'long', year: 'numeric' });
     const isBaseline = !!parsed.isBaseline;
     const regionNameTr = parsed.highestChangeRegion || (isBaseline ? 'Referans Tarama' : 'Tüm Bölgeler');
     const changePct = Number(parsed.highestChangePct || 0);
@@ -211,8 +213,8 @@ export function getMentalSummary(demoMode: boolean = isDemoMode()): MentalSummar
         return {
           hasData: true,
           isDemo: false,
-          dateTr: parsed.dateTr || 'Bugün',
-          primaryTheme: parsed.primaryTheme || 'Genel İyi Oluş',
+          dateTr: recordDate(parsed),
+          primaryTheme: Array.isArray(parsed.themes)&&parsed.themes.length?parsed.themes.map(displayMentalTheme).join(' • '):displayMentalTheme(parsed.primaryTheme || 'Genel İyi Oluş'),
           sessionCount: parsed.sessionCount || 1,
           sessionCountLabel: `${parsed.sessionCount || 1} görüşme`,
           recommendation: parsed.recommendation || 'Takip önerildi'

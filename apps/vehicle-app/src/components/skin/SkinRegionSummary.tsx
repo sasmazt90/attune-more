@@ -1,4 +1,6 @@
 'use client';
+import {useTranslations} from '../../i18n/LanguageProvider';
+
 
 import React from 'react';
 import { SkinIndicatorValue } from './SkinIndicatorValue';
@@ -20,6 +22,7 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
   onOpenModal,
   onNavigateToCare,selectedCriterion,onSelectCriterion
 }) => {
+ const {text:i18nText,node:i18nNode}=useTranslations();
   const { metrics } = currentRegion;
 
   return (
@@ -28,12 +31,12 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
       <div className="space-y-3.5">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-bold text-white tracking-wide">
-            {currentRegion.nameTr}
+            {i18nNode(currentRegion.nameTr)}
           </h3>
 
         </div>
 
-        {currentRegion.id === 'overview' && <div className="rounded-2xl border border-sky-400/15 bg-slate-900/60 p-4 flex flex-wrap justify-between gap-2" data-skin-type><span className="text-sm text-slate-300">Cilt tipi</span><strong className="text-base text-white">{currentRegion.skinType?.quality === 'valid' && currentRegion.skinType.value ? SKIN_TYPE_LABELS[currentRegion.skinType.value] : '—'}</strong></div>}
+        {currentRegion.id === 'overview' && <div className="rounded-2xl border border-sky-400/15 bg-slate-900/60 p-4 flex flex-wrap justify-between gap-2" data-skin-type><span className="text-sm text-slate-300">{i18nText("Cilt tipi")}</span><strong className="text-base text-white">{i18nNode(currentRegion.skinType?.quality === 'valid' && currentRegion.skinType.value ? SKIN_TYPE_LABELS[currentRegion.skinType.value] : '—')}</strong></div>}
         {/* Current source measurements only. */}
         {currentRegion.indicators ? <div className="space-y-4" data-skin-indicators>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -41,9 +44,9 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
               const geometry=indicator.appearance?.type==='longitudinal_measurement';
               const delta=indicator.referenceDelta===undefined?undefined:Math.round(indicator.referenceDelta*(geometry?1000:1));
               return <div key={indicator.id} data-skin-indicator={indicator.id} role={onSelectCriterion?'button':undefined} tabIndex={onSelectCriterion?0:undefined} aria-pressed={onSelectCriterion?selectedCriterion===indicator.id:undefined} onClick={()=>onSelectCriterion?.(indicator.id)} onKeyDown={event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();onSelectCriterion?.(indicator.id);}}} className={`rounded-2xl border bg-slate-900/60 p-4 space-y-3 ${selectedCriterion===indicator.id?'border-togg-turquoise ring-1 ring-togg-turquoise/40':'border-sky-400/15'}`}>
-                <div className="text-sm text-slate-300">{indicator.label}</div>
+                <div className="text-sm text-slate-300">{i18nNode(indicator.label)}</div>
                 <SkinIndicatorValue indicator={indicator}/>
-                {delta!==undefined&&<p className="text-xs text-sky-300">Referansa göre {delta>0?'+':''}{delta} {geometry?'× 10⁻³ kontur farkı':indicator.unit}</p>}
+                {delta!==undefined&&<p className="text-xs text-sky-300">{i18nText("Referansa göre ")}{i18nNode(delta>0?'+':'')}{i18nNode(delta)} {i18nNode(geometry?'× 10⁻³ kontur farkı':indicator.unit)}</p>}
               </div>;
             })}
           </div>
@@ -51,7 +54,7 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
           {/* 1. Kızarıklık Eğilimi */}
           <div className="space-y-1">
             <div className="flex justify-between text-xs font-medium">
-              <span className="text-slate-300">{metrics.redness.label}</span>
+              <span className="text-slate-300">{i18nNode(metrics.redness.label)}</span>
               <span
                 className={`font-mono font-bold ${
                   metrics.redness.status === 'amber'
@@ -59,7 +62,7 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
                     : 'text-slate-300'
                 }`}
               >
-                {metrics.redness.displayValue}
+                {i18nNode(metrics.redness.displayValue)}
               </span>
             </div>
             <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
@@ -77,9 +80,9 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
           {/* 2. Ton / Parlaklık */}
           <div className="space-y-1">
             <div className="flex justify-between text-xs font-medium">
-              <span className="text-slate-300">{metrics.luminance.label}</span>
+              <span className="text-slate-300">{i18nNode(metrics.luminance.label)}</span>
               <span className="text-sky-400 font-semibold font-mono">
-                {metrics.luminance.displayValue}
+                {i18nNode(metrics.luminance.displayValue)}
               </span>
             </div>
             <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
@@ -93,9 +96,9 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
           {/* 3. Doku Değişimi */}
           <div className="space-y-1">
             <div className="flex justify-between text-xs font-medium">
-              <span className="text-slate-300">{metrics.texture.label}</span>
+              <span className="text-slate-300">{i18nNode(metrics.texture.label)}</span>
               <span className="text-togg-turquoise font-semibold font-mono">
-                {metrics.texture.displayValue}
+                {i18nNode(metrics.texture.displayValue)}
               </span>
             </div>
             <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
@@ -109,7 +112,7 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
           {/* 4. Referansa Göre Değişim */}
           {/^[-+]?\d/.test(metrics.baselineChange.displayValue) && <div className="space-y-1">
             <div className="flex justify-between text-xs font-medium">
-              <span className="text-slate-300">{metrics.baselineChange.label}</span>
+              <span className="text-slate-300">{i18nNode(metrics.baselineChange.label)}</span>
               <span
                 className={`font-semibold font-mono ${
                   metrics.baselineChange.status === 'amber'
@@ -117,7 +120,7 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
                     : 'text-slate-300'
                 }`}
               >
-                {metrics.baselineChange.displayValue}
+                {i18nNode(metrics.baselineChange.displayValue)}
               </span>
             </div>
             <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
@@ -144,9 +147,7 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
           <div className="w-8 h-8 rounded-xl bg-togg-turquoise/10 border border-togg-turquoise/20 flex items-center justify-center text-togg-turquoise group-hover:scale-110 transition-transform">
             <TrendingUp className="w-4 h-4" />
           </div>
-          <span className="text-xs font-medium text-slate-300 group-hover:text-white leading-tight">
-            Zaman İçinde<br />Değişim
-          </span>
+          <span className="text-xs font-medium text-slate-300 group-hover:text-white leading-tight">{i18nText("Zaman İçinde")}<br />{i18nText("Değişim ")}</span>
         </button>
 
         <button
@@ -156,9 +157,7 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
           <div className="w-8 h-8 rounded-xl bg-togg-turquoise/10 border border-togg-turquoise/20 flex items-center justify-center text-togg-turquoise group-hover:scale-110 transition-transform">
             <FileText className="w-4 h-4" />
           </div>
-          <span className="text-xs font-medium text-slate-300 group-hover:text-white leading-tight">
-            Gözlem Notu
-          </span>
+          <span className="text-xs font-medium text-slate-300 group-hover:text-white leading-tight">{i18nText("Gözlem Notu ")}</span>
         </button>
 
         <button
@@ -168,9 +167,7 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
           <div className="w-8 h-8 rounded-xl bg-togg-turquoise/10 border border-togg-turquoise/20 flex items-center justify-center text-togg-turquoise group-hover:scale-110 transition-transform">
             <Lightbulb className="w-4 h-4" />
           </div>
-          <span className="text-xs font-medium text-slate-300 group-hover:text-white leading-tight">
-            Önerilen<br />Aksiyonlar
-          </span>
+          <span className="text-xs font-medium text-slate-300 group-hover:text-white leading-tight">{i18nText("Önerilen")}<br />{i18nText("Aksiyonlar ")}</span>
         </button>
       </div>
 
@@ -180,7 +177,7 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
           onClick={onNavigateToCare}
           className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-full bg-[#00d2eb] hover:bg-[#00e5ff] text-slate-950 font-bold text-sm tracking-wide shadow-[0_0_25px_rgba(0,210,235,0.35)] hover:brightness-105 active:scale-[0.99] transition-all cursor-pointer"
         >
-          <span>Uzman Seçeneklerini Gör</span>
+          <span>{i18nText("Uzman Seçeneklerini Gör")}</span>
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>

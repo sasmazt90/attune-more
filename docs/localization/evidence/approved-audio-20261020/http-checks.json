@@ -1,0 +1,59 @@
+[
+  {
+    "language": "tr",
+    "scenario": "keyless DEMO conversation",
+    "status": 200,
+    "providerType": "LOCAL_DEMO",
+    "reply": "Sizi dinliyorum. Paylaşmak istediğiniz duyguları veya gününüzün nasıl geçtiğini anlatabilirsiniz. Ben sizi yargılamadan dinlemek için buradayım."
+  },
+  {
+    "language": "tr",
+    "scenario": "speech without consent",
+    "status": 403,
+    "detail": "CLOUD_CONSENT_REQUIRED"
+  },
+  {
+    "language": "tr",
+    "scenario": "reject unapproved dynamic voice before network",
+    "status": 422,
+    "detail": "EXACT_APPROVED_MENTAL_VOICE_REQUIRED"
+  },
+  {
+    "language": "en",
+    "scenario": "keyless DEMO conversation",
+    "status": 200,
+    "providerType": "LOCAL_DEMO",
+    "reply": "I am listening. You can share the feelings you want to talk about or tell me how your day went. I am here to listen without judging you."
+  },
+  {
+    "language": "en",
+    "scenario": "speech without consent",
+    "status": 403,
+    "detail": "CLOUD_CONSENT_REQUIRED"
+  },
+  {
+    "language": "en",
+    "scenario": "reject unapproved dynamic voice before network",
+    "status": 422,
+    "detail": "EXACT_APPROVED_MENTAL_VOICE_REQUIRED"
+  },
+  {
+    "language": "de",
+    "scenario": "keyless DEMO conversation",
+    "status": 200,
+    "providerType": "LOCAL_DEMO",
+    "reply": "Ich höre Ihnen zu. Sie können Gefühle ansprechen, über die Sie sprechen möchten, oder erzählen, wie Ihr Tag war. Ich bin da, um Ihnen ohne Urteil zuzuhören."
+  },
+  {
+    "language": "de",
+    "scenario": "speech without consent",
+    "status": 403,
+    "detail": "CLOUD_CONSENT_REQUIRED"
+  },
+  {
+    "language": "de",
+    "scenario": "reject unapproved dynamic voice before network",
+    "status": 503,
+    "detail": "EXACT_FEMALE_DYNAMIC_VOICE_UNVERIFIED"
+  }
+]

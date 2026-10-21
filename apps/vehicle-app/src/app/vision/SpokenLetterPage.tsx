@@ -1,9 +1,14 @@
 'use client';
+import {useLocaleSwitchLock} from '../../i18n/useLocaleSwitchLock';
+import {getLanguage,getLocale} from '../../i18n/core';
+import {apiFetch as fetch} from '../../utils/localBackend';
+import {useTranslations} from '../../i18n/LanguageProvider';
+
 import {HealthStartCard,HEALTH_START_ACTION} from '../../components/HealthStartCard';
 import {speechMuted} from '../../utils/playbackMeter';
 import {serviceAllowed} from '../../utils/serviceConsent';
 import {HEALTH_MODULES} from '../../utils/healthModules';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useVehicle } from '../../context/VehicleContext';
 import { AccessibleDialog } from '../../components/AccessibleDialog';
 import { InformationButton } from '../../components/InformationButton';
@@ -20,11 +25,12 @@ import { appendHealthRecord } from '../../utils/healthRecords';
 import { isCameraAllowed, isMicrophoneAllowed, isVisionSavingAllowed, isDemoMode } from '../../utils/attuneMode';
 import { VisionResponseGate } from '../../utils/visionResponseGate';
 import { VISION_FRAME_CLASS } from '../../components/VisionFrame';
-import { streamSpeech } from '../../utils/streamSpeech';
-import { localBackend } from '../../utils/localBackend';
+import {approvedClip} from '../../i18n/approvedAudio';
+import {playFixedSpeech} from '../../utils/fixedFileSpeech';
 const TEXT:Record<string,string>={face:'Yüzünüzü kamera görüntüsünde tutun.',framing:'Yüzünüzün tamamını kamera görüntüsünde tutun.',pose:'Başınızı biraz ekrana çevirin; harf alanına bakabilirsiniz.',light:'Açık gözünüzün bulunduğu tarafı aydınlatın.',bright:'Yüzünüzdeki parlamayı azaltın.',blur:'Açık göz çevresinde netlik yetersiz. Kamera netliğini kontrol edin.',preparing:'İki göz açık: başlangıç konumu öğreniliyor.',recede:'Biraz geri çekilin.',approach:'Biraz yaklaşın.','distance-unknown':'Mesafeyi güvenilir izleyemiyorum; yüzünüzü görünür tutun.',camera:'Kamera görüntüsü güncel değil.',eye:'Test edilen göz açık; diğer göz kapalı veya örtülü olmalı.',uncertain:'Göz örtüsünü veya göz açıklığını kontrol edemiyorum.','both-eyes':'İki göz de kapalı veya örtülü. Test edilen gözünüzü açın.','test-eye':'Test edilen gözünüzü açın; diğer gözü kapatın veya örtün.','cover-other':'Diğer gözünüzü kapatın veya örtün.'};
 const EYE_TEXT={open:'açık',closed:'kapalı',covered:'örtülü',uncertain:'değerlendirilemiyor'};
 export default function SpokenLetterPage(){
+ const {text:i18nText,node:i18nNode}=useTranslations();
  const {isParked,syncStatus}=useVehicle(),parked=useRef(isParked);parked.current=isParked;
  const [,redraw]=useState(0),[ready,setReady]=useState(false),[error,setError]=useState(''),[dialog,setDialog]=useState<string|null>(null),[result,setResult]=useState<LetterResult|null>(null);
  const [evidence,setEvidence]=useState<VisionEvidence|null>(null),[voice,setVoice]=useState<'quiet'|'loading'|'playing'|'listening'|'failed'>('quiet');
@@ -32,16 +38,25 @@ export default function SpokenLetterPage(){
  const answerDescription=describeAnswer;
  const video=useRef<HTMLVideoElement>(null),canvas=useRef<HTMLCanvasElement>(null),symbol=useRef<SVGSVGElement>(null),flow=useRef(new VisionFlow());
  const r=useRef({mounted:false,epoch:0,active:false,starting:false,stream:null as MediaStream|null,engine:null as VisionInference|null,raf:0,timer:null as ReturnType<typeof setInterval>|null,session:null as SpokenLetterSession|null,evidence:null as VisionEvidence|null,recognition:null as any,listeningStarted:false,answerTimer:null as ReturnType<typeof setTimeout>|null,settleAnswer:null as (()=>void)|null,audio:null as HTMLAudioElement|null,controller:null as AbortController|null,cancelSpeech:null as (()=>void)|null,url:null as string|null,restart:null as ReturnType<typeof setTimeout>|null,voiceGeneration:0,voiceTimeout:null as ReturnType<typeof setTimeout>|null,muted:false,modal:false,fault:'',faultSince:0,announcedFault:'',answerMemory:new VisionAnswerMemory(),clarifications:0,saving:false,mainInstructionGiven:false,nextPrompt:0,lastPrompt:'',prompted:new Set<string>(),conditionGate:new VisionResponseGate(),previewPoints:undefined as VisionEvidence['alignment']['landmarks']});
- const actions=useRef({inspect:()=>{},receive:(_text:string,_confidence:number,_id:string,_key:string)=>{},listen:()=>{},stop:()=>{},measure:()=>null as RenderedSymbolGeometry|null,prompt:(_code?:string)=>{},current:(_epoch:number):boolean=>false,canPresent:():boolean=>false,renderError:()=>{},timing:(_name:string)=>{}});
+ useLocaleSwitchLock('vision',r.current.active&&flow.current.stage!=='user-paused');
+ const actions=useRef({inspect:()=>{},receive:(_text:string,_confidence:number,_id:string,_key:string)=>{},listen:()=>{},stop:()=>{},measure:()=>null as RenderedSymbolGeometry|null,prompt:(_code?:string)=>{},current:(_epoch:number):boolean=>false,canPresent:():boolean=>false,renderError:()=>{},pause:()=>{},timing:(_name:string)=>{}});
  const refresh=()=>redraw(v=>v+1);
- function stage(next:Parameters<VisionFlow['transition']>[0],reason=''){flow.current.transition(next,reason);refresh();}
+ const stage=useCallback((next:Parameters<VisionFlow['transition']>[0],reason='')=>{flow.current.transition(next,reason);redraw(v=>v+1);},[]);
  function current(epoch:number){return serviceAllowed('vision')&&r.current.mounted&&r.current.active&&r.current.epoch===epoch&&parked.current&&isCameraAllowed()&&isMicrophoneAllowed();}
  function timing(name:string){window.dispatchEvent(new CustomEvent('attune-vision-speech-timing',{detail:{stage:name,atMs:performance.now(),clock:'browser-performance',presentationId:flow.current.presentationId}}));}
  function abortRecognition(){const a=r.current,old=a.recognition;a.recognition=null;a.listeningStarted=false;if(a.restart)clearTimeout(a.restart);a.restart=null;try{old?.abort();}catch{}}
  function stopSpeech(){const a=r.current;a.voiceGeneration++;if(a.voiceTimeout)clearTimeout(a.voiceTimeout);a.voiceTimeout=null;a.controller?.abort();a.controller=null;a.cancelSpeech?.();a.cancelSpeech=null;if(a.audio){a.audio.onplaying=a.audio.onended=a.audio.onerror=null;a.audio.pause();a.audio.removeAttribute('src');a.audio.load();a.audio=null;}if(a.url)URL.revokeObjectURL(a.url);a.url=null;}
  function stopVoice(){if(r.current.answerTimer)clearTimeout(r.current.answerTimer);r.current.answerTimer=null;r.current.settleAnswer=null;abortRecognition();stopSpeech();if(r.current.mounted)setVoice('quiet');}
  function stop(){const a=r.current;a.epoch++;a.active=false;stopVoice();cancelAnimationFrame(a.raf);if(a.timer)clearInterval(a.timer);a.timer=null;a.stream?.getTracks().forEach(t=>t.stop());a.stream=null;a.engine?.close();a.engine=null;a.session=null;a.evidence=null;a.previewPoints=undefined;if(canvas.current)delete canvas.current.dataset.visionEvidence;a.modal=false;a.answerMemory.clear();a.mainInstructionGiven=false;a.nextPrompt=0;a.lastPrompt='';a.prompted.clear();a.conditionGate=new VisionResponseGate();if(video.current)video.current.srcObject=null;flow.current.reset();if(a.mounted){setAnswerNotice('');setEvidence(null);refresh();}}
- useEffect(()=>{const mute=()=>{if(speechMuted()&&r.current.active){stopSpeech();stage('user-paused','Seslendirme kapalı. Header hoparlörünü açıp devam edin.');abortRecognition();}};window.addEventListener('attune-guidance-muted',mute);return()=>window.removeEventListener('attune-guidance-muted',mute);},[]);
+ useEffect(()=>{const mute=()=>{if(speechMuted()&&r.current.active){stopSpeech();stage('user-paused','Seslendirme kapalı. Header hoparlörünü açıp devam edin.');abortRecognition();}};window.addEventListener('attune-guidance-muted',mute);return()=>window.removeEventListener('attune-guidance-muted',mute);},[stage]);
+ useEffect(()=>{
+  let language=getLanguage();
+  const changed=()=>{const next=getLanguage(),localeChanged=next!==language;language=next;if(!r.current.active)return;
+   if(flow.current.stage!=='user-paused'){actions.current.pause();return;}
+   if(localeChanged){abortRecognition();setVoice('quiet');if(!speechMuted()&&!document.hidden)actions.current.listen();}
+  };
+  window.addEventListener('attune-locale-media-cancel',changed);return()=>window.removeEventListener('attune-locale-media-cancel',changed);
+ },[]);
  function measureSymbol():RenderedSymbolGeometry|null{
   const svg=symbol.current,path=svg?.querySelector('path');if(!svg||!path||!flow.current.letterVisible||document.hidden)return null;
   const b=svg.getBoundingClientRect(),p=path.getBoundingClientRect(),style=getComputedStyle(svg),area=svg.parentElement!.getBoundingClientRect(),stroke=Number.parseFloat(getComputedStyle(path).strokeWidth)*b.width/svg.viewBox.baseVal.width;
@@ -52,34 +67,35 @@ export default function SpokenLetterPage(){
  async function speak(code:string,onEnded:()=>void){
   const a=r.current,epoch=a.epoch;if(!current(epoch)||a.muted)return;if(speechMuted()){stage('user-paused','Seslendirme kapalı. Header hoparlörünü açıp devam edin.');return;}stopSpeech();const generation=a.voiceGeneration,token=flow.current.token(),controller=new AbortController();a.controller=controller;
   const valid=()=>current(epoch)&&a.voiceGeneration===generation&&a.controller===controller&&flow.current.matches(token);
-  const fail=()=>{if(!valid())return;if(flow.current.stage==='eye-instruction')flow.current.instructionEye=null;stopVoice();discardPresentation('VOICE_UNAVAILABLE');stage('error','Sesli yönerge kullanılamıyor. Tekrar deneyin.');setVoice('failed');setError('Ahmet Türkçe yönerge oynatılamadı; yanıt dinlenmedi ve puanlanmadı.');};
+  const fail=()=>{if(!valid())return;if(flow.current.stage==='eye-instruction')flow.current.instructionEye=null;stopVoice();discardPresentation('VOICE_UNAVAILABLE');stage('error','Sesli yönerge kullanılamıyor. Tekrar deneyin.');setVoice('failed');setError('Seçilen dilde yönerge oynatılamadı; yanıt dinlenmedi ve puanlanmadı.');};
   setVoice('loading');a.voiceTimeout=setTimeout(()=>{if(valid()){controller.abort();fail();}},25000);
-  try{timing('request');const response=await fetch(localBackend('/api/vision/speech','http://127.0.0.1:8000'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:code,cloudConsent:true}),signal:controller.signal});
-   if(!valid()){await response.body?.cancel();return;}if(!response.ok)throw Error('VOICE_UNAVAILABLE');
-   const audio=new Audio();a.audio=audio;audio.onplaying=()=>{if(valid()){setVoice('playing');timing('playing');}};audio.onerror=fail;
-   audio.onended=()=>{if(!valid())return;timing('ended');stopSpeech();setVoice(a.listeningStarted?'listening':'quiet');onEnded();};
-   const stream=streamSpeech(audio,response,controller.signal,valid,name=>timing(name));a.url=stream.url;a.cancelSpeech=stream.cancel;await stream.finished;
+  try{
+   const clip=approvedClip(getLanguage(),'vision','vision:'+code);
+   if(!clip)throw Error('APPROVED_VISION_RECORDING_UNAVAILABLE');
+   const audio=new Audio();a.audio=audio;audio.dataset.recordingId=clip.recordingId;
+   const played=await playFixedSpeech(audio,clip,controller.signal,valid,name=>{if(valid()){timing(name);if(name==='playing')setVoice('playing');}},true);
+   if(played&&valid()){stopSpeech();setVoice(a.listeningStarted?'listening':'quiet');onEnded();}else fail();
   }catch{fail();}
  }
  function listen(){
   const a=r.current,s=a.session,epoch=a.epoch,f=flow.current,controlOnly=f.stage==='user-paused';if(!s||!current(epoch)||a.recognition||a.muted||a.modal||(!controlOnly&&(!f.canAnswer||failure()||!measureSymbol())))return;
-  const SR=(window as any).SpeechRecognition||(window as any).webkitSpeechRecognition;if(!SR){stage('error','Konuşma tanıma bu tarayıcıda kullanılamıyor.');setError('Türkçe konuşma tanıma için desteklenen Chrome tarayıcısını kullanın.');return;}
-  const recognition=new SR(),recognitionId=crypto.randomUUID(),id=s.presentationId,token=f.token();a.recognition=recognition;recognition.lang='tr-TR';recognition.continuous=true;recognition.interimResults=true;const finalIndexes=new Set<number>();
+  const SR=(window as any).SpeechRecognition||(window as any).webkitSpeechRecognition;if(!SR){stage('error','Konuşma tanıma bu tarayıcıda kullanılamıyor.');setError('Seçilen dilde konuşma tanıma için desteklenen Chrome tarayıcısını kullanın.');return;}
+  const recognition=new SR(),recognitionId=crypto.randomUUID(),id=s.presentationId,token=f.token();a.recognition=recognition;recognition.lang=getLocale();recognition.continuous=true;recognition.interimResults=true;const finalIndexes=new Set<number>();
   // Identity callbacks survive a short blink; answer admission remains a
   // separate fresh-frame/stimulus gate. Persistent faults stop this instance.
   const valid=()=>current(epoch)&&a.recognition===recognition&&flow.current.matches(token)&&s.presentationId===id;
   recognition.onstart=()=>{if(valid()){a.listeningStarted=true;if(a.audio?.paused!==false)setVoice('listening');timing('listening');}else{try{recognition.abort();}catch{}}};
   recognition.onresult=(event:any)=>{
    if(!valid())return;
-   const finals=[];for(let i=event.resultIndex||0;i<event.results.length;i++){const item=event.results[i];if(item?.isFinal&&!finalIndexes.has(i)){finalIndexes.add(i);if(isLetterInstructionEcho(item[0].transcript)){timing('instruction-echo-ignored');continue;}finals.push({transcript:item[0].transcript,confidence:item[0].confidence,index:i});}}
+   const finals=[];for(let i=event.resultIndex||0;i<event.results.length;i++){const item=event.results[i];if(item?.isFinal&&!finalIndexes.has(i)){finalIndexes.add(i);if(isLetterInstructionEcho(item[0].transcript,getLanguage())){timing('instruction-echo-ignored');continue;}finals.push({transcript:item[0].transcript,confidence:item[0].confidence,index:i});}}
    if(!finals.length)return;
    const text=finals.map(x=>x.transcript).join(' '),confidence=Math.min(...finals.map(x=>Number.isFinite(x.confidence)?x.confidence:0));
    // A user pause hides the target and ends its answer recognizer. The new
    // generation accepts only the already advertised resume/finish commands;
    // letters, noise and low-confidence controls never enter answer memory.
-   if(controlOnly&&(!['resume','finish'].includes(parseLetterAnswer(text).command||'')||(confidence>0&&confidence<.5)))return;
+   if(controlOnly&&(!['resume','finish'].includes(parseLetterAnswer(text,getLanguage()).command||'')||(confidence>0&&confidence<.5)))return;
    timing('asr-final');
-   if(canvas.current)canvas.current.dataset.visionAnswer=JSON.stringify({parsed:parseLetterAnswer(text),confidence,atMs:performance.now(),presentationId:id});
+   if(canvas.current)canvas.current.dataset.visionAnswer=JSON.stringify({parsed:parseLetterAnswer(text,getLanguage()),confidence,atMs:performance.now(),presentationId:id});
    actions.current.receive(text,confidence,id,`${recognitionId}:${finals.map(x=>x.index).join(',')}`);
   };
   recognition.onerror=(event:any)=>{if(!valid())return;timing('asr-error:'+event.error);if(event.error==='no-speech'){if(!controlOnly)setAnswerNotice('Konuşma algılanmadı. Dinliyor yazarken harfi ve yönünü söyleyin.');return;}abortRecognition();s.suspendResponse();discardPresentation('ASR_UNAVAILABLE');stage('error','Mikrofon veya konuşma hizmeti kullanılamıyor.');setVoice('failed');setError('Konuşma tanıma başarısız. Yanıt puanlanmadı; tekrar deneyebilirsiniz.');};
@@ -123,7 +139,7 @@ export default function SpokenLetterPage(){
  }
  function receive(text:string,confidence:number,id:string,key:string){
   const a=r.current,s=a.session;if(!s||!current(a.epoch)||s.presentationId!==id)return;
-  const parsed=parseLetterAnswer(text);
+  const parsed=parseLetterAnswer(text,getLanguage());
   if(flow.current.stage==='user-paused'){if(parsed.command==='resume')resume();else if(parsed.command==='finish')void complete(true);return;}
   if(!flow.current.letterVisible)return;
   if(parsed.command==='finish'){void complete(true);return;}if(parsed.command==='pause'){pause();return;}if(parsed.command==='resume'){resume();return;}
@@ -158,7 +174,7 @@ export default function SpokenLetterPage(){
    if(s.completed)void complete();else{stage('eye-check');inspect();}
   }
  }
- actions.current={inspect,receive,listen,stop,measure:measureSymbol,prompt,current,timing,canPresent:()=>!failure(),renderError:()=>{discardPresentation('STIMULUS_NOT_VISIBLE');stage('error','Harf alanı görünür değil. Alanı ekrana getirip tekrar deneyin.');setError('Harf gösterilemedi; yanıt istenmedi veya puanlanmadı.');}};
+ actions.current={inspect,receive,listen,stop,pause,measure:measureSymbol,prompt,current,timing,canPresent:()=>!failure(),renderError:()=>{discardPresentation('STIMULUS_NOT_VISIBLE');stage('error','Harf alanı görünür değil. Alanı ekrana getirip tekrar deneyin.');setError('Harf gösterilemedi; yanıt istenmedi veya puanlanmadı.');}};
  const renderStage=flow.current.stage,renderToken=flow.current.token();
  // Require a painted, nonzero, unclipped stimulus before any response prompt.
  useEffect(()=>{if(renderStage!=='rendering')return;const token=renderToken,epoch=r.current.epoch;let cancelled=false,raf=0;const startedAt=performance.now();const verify=()=>{if(cancelled||!actions.current.current(epoch)||!flow.current.matches(token))return;if(actions.current.measure()&&actions.current.canPresent()){actions.current.timing('letter-rendered');actions.current.prompt();}else if(performance.now()-startedAt<2000)raf=requestAnimationFrame(verify);else actions.current.renderError();};raf=requestAnimationFrame(()=>{
@@ -193,32 +209,32 @@ export default function SpokenLetterPage(){
  const blockLabel=problem&&['eye','uncertain','both-eyes','test-eye','cover-other'].includes(problem)?'Göz':problem==='pose'?'Baş pozu':problem==='blur'?'Netlik':problem==='light'||problem==='bright'?'Işık':problem==='camera'?'Görüntü':problem==='face'||problem==='framing'?'Kadraj':'Mesafe';
  const placeholder=!evidence&&f.stage==='preparing'?'Kamera ve cihazdaki modeller hazırlanıyor…':f.stage==='user-paused'||f.stage==='error'||f.stage==='condition-paused'?f.reason:f.stage==='eye-instruction'?eyeInstruction(s?.eye||'RIGHT'):f.stage==='eye-check'?eyeInstruction(s?.eye||'RIGHT')+(problem&&problem!=='cover-other'?' '+(TEXT[problem]||TEXT.uncertain):''):problem?(problem==='preparing'?'Başlangıç kontrolü sürüyor.':`${blockLabel} kontrolü nedeniyle duraklatıldı.`):'Harf hazırlanıyor…';
  return <div className={`${active?'space-y-3 max-w-full':f.stage==='idle'?'space-y-6 max-w-5xl mx-auto':'space-y-6 max-w-full'} w-full min-w-0`} data-vision-stage={f.stage} data-vision-trial={f.presentationId}>
-  <div className="flex flex-wrap items-center justify-between gap-3"><div className="flex items-center gap-3"><h1 className="text-2xl font-bold">{HEALTH_MODULES.vision.name}</h1><InformationButton title="Görme görevi ve hizmet bilgisi"><p>Bu görev klinik görme keskinliği veya göz numarası ölçmez. Kamera pikselleri ve göz başlangıcı yalnız cihaz belleğinde değerlendirilir. Görüntü aynasızdır; sağ ve sol, kendi anatomik gözünüzdür. Mutlak uzaklık ölçülmez.</p></InformationButton></div>{f.stage==='result'&&<button onClick={()=>{setResult(null);setAnswerNotice('');flow.current.reset();refresh();}} className="min-h-11 rounded-xl border border-white/20 px-4">Yeni görev</button>}</div>
-  {!isParked?<p>{syncStatus==='synced'?'Sürüş sırasında görev kapalıdır.':'Araç durumu doğrulanamadı; görev kapalıdır.'}</p>:<>
-   {f.stage==='idle'&&<HealthStartCard module="vision" actions={<button onClick={()=>void start()} disabled={!ready||r.current.starting} className={HEALTH_START_ACTION}>Başlat</button>}/>}
+  <div className="flex flex-wrap items-center justify-between gap-3"><div className="flex items-center gap-3"><h1 className="text-2xl font-bold">{i18nNode(HEALTH_MODULES.vision.name)}</h1><InformationButton title={i18nText("Görme görevi ve hizmet bilgisi")}><p>{i18nText("Bu görev klinik görme keskinliği veya göz numarası ölçmez. Kamera pikselleri ve göz başlangıcı yalnız cihaz belleğinde değerlendirilir. Görüntü aynasızdır; sağ ve sol, kendi anatomik gözünüzdür. Mutlak uzaklık ölçülmez.")}</p></InformationButton></div>{f.stage==='result'&&<button onClick={()=>{setResult(null);setAnswerNotice('');flow.current.reset();refresh();}} className="min-h-11 rounded-xl border border-white/20 px-4">{i18nText("Yeni görev")}</button>}</div>
+  {!isParked?<p>{i18nNode(syncStatus==='synced'?'Sürüş sırasında görev kapalıdır.':'Araç durumu doğrulanamadı; görev kapalıdır.')}</p>:<>
+   {f.stage==='idle'&&<HealthStartCard module="vision" actions={<button onClick={()=>void start()} disabled={!ready||r.current.starting} className={HEALTH_START_ACTION}>{i18nText("Başlat")}</button>}/>}
    {active&&<section className="grid md:grid-cols-2 gap-4 rounded-2xl bg-cockpit-surface border border-white/10 p-4 w-full min-w-0 max-w-full">
     <div className="order-first md:order-none md:col-span-2 grid md:grid-cols-2 gap-4 min-w-0"><div className="hidden md:block" aria-hidden="true"/><div className="space-y-2 min-w-0">
-     <p className="text-center font-semibold">{s?`${s.eye==='RIGHT'?'Sağ':'Sol'} göz · ${s.trials.length%12+1}/12`:''}</p>
-     <p role="status" data-vision-readiness className="min-h-5 text-sm text-togg-turquoise text-center">{voice==='playing'?(r.current.listeningStarted?'Yönerge okunuyor · Dinliyor':'Yönerge okunuyor'):voice==='loading'?(r.current.listeningStarted?'Yönerge hazırlanıyor · Dinliyor':'Yönerge hazırlanıyor'):f.stage==='listening'&&r.current.listeningStarted?(f.conditionsValid?'Dinliyor':'Koşul bekleniyor'):f.stage==='listening'?'Mikrofon hazırlanıyor':f.stage==='condition-paused'?'Koşul bekleniyor':''}</p>
+     <p className="text-center font-semibold">{i18nNode(s?`${s.eye==='RIGHT'?'Sağ':'Sol'} göz · ${s.trials.length%12+1}/12`:'')}</p>
+     <p role="status" data-vision-readiness className="min-h-5 text-sm text-togg-turquoise text-center">{i18nNode(voice==='playing'?(r.current.listeningStarted?'Yönerge okunuyor · Dinliyor':'Yönerge okunuyor'):voice==='loading'?(r.current.listeningStarted?'Yönerge hazırlanıyor · Dinliyor':'Yönerge hazırlanıyor'):f.stage==='listening'&&r.current.listeningStarted?(f.conditionsValid?'Dinliyor':'Koşul bekleniyor'):f.stage==='listening'?'Mikrofon hazırlanıyor':f.stage==='condition-paused'?'Koşul bekleniyor':'')}</p>
     </div></div>
-    <div className="space-y-2 min-w-0"><CameraPreview videoRef={video} landmarks={r.current.previewPoints} vision/><div data-camera-preparation className="space-y-1.5">{rows.map(([label,value])=><div key={label} className="flex flex-wrap justify-between gap-2 px-3 py-1.5 rounded-xl border border-white/10 text-sm"><span>{label}</span><span className={value==='İyi'||value==='Güncel'?'text-emerald-400':'text-slate-300'}>{value}</span></div>)}</div><p className="text-sm text-togg-turquoise" data-vision-voice={voice}>{voice==='playing'?'Yönerge okunuyor':voice==='loading'?'Yönerge hazırlanıyor':voice==='listening'?'Dinliyor':''}</p></div>
+    <div className="space-y-2 min-w-0"><CameraPreview videoRef={video} landmarks={r.current.previewPoints} vision/><div data-camera-preparation className="space-y-1.5">{rows.map(([label,value])=><div key={label} className="flex flex-wrap justify-between gap-2 px-3 py-1.5 rounded-xl border border-white/10 text-sm"><span>{i18nNode(label)}</span><span className={value==='İyi'||value==='Güncel'?'text-emerald-400':'text-slate-300'}>{i18nNode(value)}</span></div>)}</div><p className="text-sm text-togg-turquoise" data-vision-voice={voice}>{i18nNode(voice==='playing'?'Yönerge okunuyor':voice==='loading'?'Yönerge hazırlanıyor':voice==='listening'?'Dinliyor':'')}</p></div>
     <div className="order-first md:order-none flex flex-col items-center justify-start gap-2 min-w-0 self-start w-full">
      <div data-letter-area className={`${VISION_FRAME_CLASS} flex items-center justify-center p-3`}>
-      {f.letterVisible&&s?<LetterStimulus svgRef={symbol} path={LETTER_PATHS[s.letter]} transform={s.transform} sizePx={s.sizePx}/>:<p role="status" data-letter-placeholder className="p-4 text-center text-slate-200">{placeholder}</p>}
+      {f.letterVisible&&s?<LetterStimulus svgRef={symbol} path={LETTER_PATHS[s.letter]} transform={s.transform} sizePx={s.sizePx}/>:<p role="status" data-letter-placeholder className="p-4 text-center text-slate-200">{i18nNode(placeholder)}</p>}
      </div>
-     {f.stage==='condition-paused'&&<p role="status" data-vision-condition className="text-sm text-amber-200 text-center">Koşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.</p>}
-     {answerNotice&&<p role="status" data-vision-answer-notice className="text-sm text-slate-200 text-center">{answerNotice}</p>}
-     {lastHeard&&<p className="text-sm text-slate-300 text-center break-words">Duyulan: “{lastHeard}”</p>}
+     {f.stage==='condition-paused'&&<p role="status" data-vision-condition className="text-sm text-amber-200 text-center">{i18nText("Koşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.")}</p>}
+     {answerNotice&&<p role="status" data-vision-answer-notice className="text-sm text-slate-200 text-center">{i18nNode(answerNotice)}</p>}
+     {lastHeard&&<p className="text-sm text-slate-300 text-center break-words">{i18nText("Duyulan: “")}{lastHeard}”</p>}
 
-     <div className="flex flex-wrap gap-3"><button onClick={()=>void start()} disabled={r.current.starting} className="min-h-11 rounded-xl border border-white/20 px-4">Yeni konumla yeniden başlat</button><button onClick={()=>f.stage==='user-paused'?resume():pause()} className="min-h-11 rounded-xl border border-white/20 px-4">{f.stage==='user-paused'?'Devam et':'Duraklat'}</button><button onClick={()=>void complete(true)} className="min-h-11 rounded-xl border border-white/20 px-4">Bitir</button>{f.stage==='error'&&<button onClick={resume} className="min-h-11 rounded-xl border border-white/20 px-4">Tekrar dene</button>}</div>
-     <ul className="w-full max-w-lg list-disc space-y-1 pl-5 text-sm leading-relaxed text-slate-300"><li>Harf ve yönü herhangi bir sırada söyleyebilirsiniz.</li><li>Harfi, o harfle başlayan bir kelimeyle kodlayabilirsiniz.</li><li>Düz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.</li><li>“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.</li></ul>
+     <div className="flex flex-wrap gap-3"><button onClick={()=>void start()} disabled={r.current.starting} className="min-h-11 rounded-xl border border-white/20 px-4">{i18nText("Yeni konumla yeniden başlat")}</button><button onClick={()=>f.stage==='user-paused'?resume():pause()} className="min-h-11 rounded-xl border border-white/20 px-4">{i18nNode(f.stage==='user-paused'?'Devam et':'Duraklat')}</button><button onClick={()=>void complete(true)} className="min-h-11 rounded-xl border border-white/20 px-4">{i18nText("Bitir")}</button>{f.stage==='error'&&<button onClick={resume} className="min-h-11 rounded-xl border border-white/20 px-4">{i18nText("Tekrar dene")}</button>}</div>
+     <ul className="w-full max-w-lg list-disc space-y-1 pl-5 text-sm leading-relaxed text-slate-300"><li>{i18nText("Harf ve yönü herhangi bir sırada söyleyebilirsiniz.")}</li><li>{i18nText("Harfi, o harfle başlayan bir kelimeyle kodlayabilirsiniz.")}</li><li>{i18nText("Düz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.")}</li><li>{i18nText("“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.")}</li></ul>
     </div>
    </section>}
-   {error&&<p role="alert" className="text-amber-200">{error}</p>}
+   {error&&<p role="alert" className="text-amber-200">{i18nNode(error)}</p>}
    {f.stage==='result'&&result&&<section className="rounded-2xl border border-white/10 bg-cockpit-surface p-6 space-y-5"><LetterVisionResult result={result}/></section>}
    <RecordHistory category="vision" parked={isParked}/>
   </>}
   <canvas ref={canvas} hidden/>
-  {dialog&&<AccessibleDialog title="Görme bildirimi" onClose={()=>{r.current.modal=false;setDialog(null);inspect();}} className="w-full max-w-md rounded-2xl border border-white/20 bg-cockpit-surface p-6 space-y-4"><h2 className="font-bold">Görme bildirimi</h2><p>{dialog}</p><button onClick={()=>{r.current.modal=false;setDialog(null);inspect();}} className="min-h-11 rounded-xl bg-togg-turquoise text-togg-darkBlue px-6">Tamam</button></AccessibleDialog>}
+  {dialog&&<AccessibleDialog title={i18nText("Görme bildirimi")} onClose={()=>{r.current.modal=false;setDialog(null);inspect();}} className="w-full max-w-md rounded-2xl border border-white/20 bg-cockpit-surface p-6 space-y-4"><h2 className="font-bold">{i18nText("Görme bildirimi")}</h2><p>{i18nNode(dialog)}</p><button onClick={()=>{r.current.modal=false;setDialog(null);inspect();}} className="min-h-11 rounded-xl bg-togg-turquoise text-togg-darkBlue px-6">{i18nText("Tamam")}</button></AccessibleDialog>}
  </div>;
 }

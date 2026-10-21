@@ -5,9 +5,11 @@ Lisans: UNLICENSED
 """
 
 from fastapi import FastAPI, HTTPException, Request
+from localization import LocalizedJSONResponse, LANGUAGES, request_language, current_language, translate
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, Response
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from speech_stream import ProviderSpeechResponse, close_once
 from pydantic import BaseModel, Field, StrictBool, field_validator
 from typing import List, Optional, Dict, Any
@@ -42,19 +44,47 @@ async def lifespan(_app: FastAPI):
         close_openai_client()
 
 app = FastAPI(
+    default_response_class=LocalizedJSONResponse,
     title="Attune.more Core API",
     description="Attune.more sağlık ve iyi oluş ön değerlendirmesi, sesli asistan ve randevu orkestrasyonu.",
     version="1.0.0",
     lifespan=lifespan
 )
 
+@app.middleware('http')
+async def selected_language(request: Request, call_next):
+    language = request.query_params.get('language','tr')
+    if language not in LANGUAGES:
+        return JSONResponse(status_code=422,content={'detail':'UNSUPPORTED_LANGUAGE'})
+    token = request_language.set(language)
+    try:
+        result = await call_next(request)
+        result.headers['Content-Language'] = LANGUAGES[language]
+        return result
+    finally:
+        request_language.reset(token)
+
 
 @app.exception_handler(RequestValidationError)
 async def request_validation_error(_request, error: RequestValidationError):
     # Do not echo private request values. Non-finite input also cannot be JSON-serialized.
-    return JSONResponse(status_code=422, content={"detail": [
+    content = {"detail": [
         {key: item[key] for key in ("loc", "type", "msg")} for item in error.errors()
-    ]})
+    ]}
+    if current_language() != 'tr':
+        content['displayMessage'] = translate('Girilen bilgiler doğrulanamadı. Lütfen alanları kontrol edin.')
+    return JSONResponse(status_code=422, content=content)
+
+
+@app.exception_handler(StarletteHTTPException)
+async def localized_http_error(_request, error):
+    # Keep machine diagnostics intact; expose a separate localized presentation.
+    content = {'detail': error.detail}
+    if current_language() != 'tr':
+        source = error.detail if isinstance(error.detail,str) else ''
+        translated = translate(source)
+        content['displayMessage'] = translated if translated != source else translate('İşlem tamamlanamadı. Lütfen izinleri ve bağlantıyı kontrol edin.')
+    return JSONResponse(status_code=error.status_code,content=content,headers=error.headers)
 
 trusted_origins = [origin.strip() for origin in os.getenv(
     "ATTUNE_TRUSTED_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000"
@@ -213,6 +243,19 @@ class AnalyzeSessionPayload(MemoryPayload):
 class SpeechPayload(BaseModel):
     text: str = Field(min_length=1, max_length=4096)
     cloudConsent: StrictBool = False
+    voiceId: Optional[str] = Field(default=None,max_length=160)
+
+class NeuralSpeechPayload(BaseModel):
+    text: str = Field(min_length=1, max_length=4096)
+    language: str
+    speechConsent: StrictBool = False
+
+    @field_validator('text')
+    @classmethod
+    def nonempty_speech(cls, value):
+        if not value.strip():
+            raise ValueError('NONEMPTY_SPEECH_REQUIRED')
+        return value
 
 class CreateSessionPayload(BaseModel):
     summaryText: str
@@ -242,7 +285,7 @@ def read_root():
     return {
         "service": "Attune.more Core API",
         "status": "OPERATIONAL",
-        "language": "tr-TR",
+        "language": LANGUAGES[current_language()],
         "clinicalSafety": "Non-diagnostic trend monitoring",
         "version": "0.3.0-faz3"
     }
@@ -382,6 +425,35 @@ def compact_mental_context(payload: CompactContextPayload):
 
 from vision_speech import response as fixed_vision_speech
 from vision_speech import mental_response as edge_mental_speech
+from vision_speech import available_voices, localized_profile, speech_response
+from local_speech import available_local_voices, response as local_speech_response
+
+@app.get('/api/speech/local-voices')
+async def local_voices():
+    if vehicle_state['vehicleMoving']:raise HTTPException(409,'PARK_REQUIRED')
+    return {'locale':LANGUAGES[current_language()],'voices':await available_local_voices()}
+
+@app.get('/api/speech/voices')
+async def speech_voices():
+    if vehicle_state['vehicleMoving']:
+        raise HTTPException(status_code=409,detail='PARK_REQUIRED')
+    voices=await available_voices()
+    return {'locale':LANGUAGES[current_language()],'voices':[
+        {'id':v['ShortName'],'name':v.get('FriendlyName') or v['ShortName'],
+         'locale':v['Locale'],'gender':v.get('Gender','unknown').lower() if v.get('Gender','unknown').lower() in ('male','female') else 'unknown',
+         'provider':'edge','local':False} for v in voices]}
+
+@app.post('/api/guidance/speech')
+async def guidance_speech(payload: SpeechPayload):
+    if not payload.cloudConsent:raise HTTPException(status_code=403,detail='CLOUD_CONSENT_REQUIRED')
+    if vehicle_state['vehicleMoving']:raise HTTPException(status_code=409,detail='PARK_REQUIRED')
+    import json
+    from tts_profiles import VISION_TTS_PROFILE
+    bank=Path(__file__).resolve().parents[2]/'apps/vehicle-app/public/audio/guidance/manifest.json'
+    entries=json.loads(bank.read_text('utf8'))['entries']
+    if payload.text not in entries:raise HTTPException(status_code=422,detail='FIXED_INSTRUCTION_REQUIRED')
+    profile=await localized_profile(VISION_TTS_PROFILE,payload.voiceId)
+    return await speech_response(translate(entries[payload.text]['text']),profile,lambda:vehicle_state['vehicleMoving'])
 
 @app.post('/api/mental/speech')
 async def mental_speech(payload: SpeechPayload):
@@ -389,7 +461,25 @@ async def mental_speech(payload: SpeechPayload):
         raise HTTPException(status_code=403, detail='CLOUD_CONSENT_REQUIRED')
     if vehicle_state['vehicleMoving']:
         raise HTTPException(status_code=409, detail='PARK_REQUIRED')
+    if payload.voiceId:return await edge_mental_speech(payload.text, lambda: vehicle_state['vehicleMoving'],payload.voiceId)
     return await edge_mental_speech(payload.text, lambda: vehicle_state['vehicleMoving'])
+
+@app.post('/api/mental/neural-speech')
+async def mental_neural_speech(payload: NeuralSpeechPayload, request: Request):
+    from mental_neural_tts import authorize, generate_for_request
+    authorize(request.headers.get('authorization'))
+    if not payload.speechConsent:
+        raise HTTPException(403, 'SPEECH_CONSENT_REQUIRED')
+    if payload.language != current_language():
+        raise HTTPException(422, 'TTS_LANGUAGE_MISMATCH')
+    def permitted():
+        return (vehicle_state.get('driverAuthenticated') is True
+                and vehicle_state.get('vehicleMoving') is False
+                and vehicle_state.get('vehicleParked') is True)
+    raw = await generate_for_request(payload.text, payload.language, permitted, request)
+    return Response(raw, media_type='audio/wav', headers={
+        'Cache-Control':'no-store', 'X-Content-Type-Options':'nosniff',
+        'X-TTS-Source':'chatterbox-multilingual-v3', 'X-TTS-Locale':LANGUAGES[payload.language]})
 
 @app.post('/api/vision/speech')
 async def vision_speech(payload: SpeechPayload):
@@ -397,6 +487,7 @@ async def vision_speech(payload: SpeechPayload):
         raise HTTPException(status_code=403, detail='CLOUD_CONSENT_REQUIRED')
     if vehicle_state['vehicleMoving']:
         raise HTTPException(status_code=409, detail='PARK_REQUIRED')
+    if payload.voiceId:return await fixed_vision_speech(payload.text, lambda: vehicle_state['vehicleMoving'],payload.voiceId)
     return await fixed_vision_speech(payload.text, lambda: vehicle_state['vehicleMoving'])
 
 @app.get("/api/mental/sessions")

@@ -1,0 +1,1693 @@
+{
+  "schema_version": 1,
+  "designation": "AAOS emulator-validated prototype",
+  "repository": "https://github.com/sasmazt90/attune-more",
+  "branch": "feature/aaos-oem-agnostic-prototype-20261019",
+  "validated_commit": "a3943b6c62e6f0282ff021e1de2f73a5c3c43e18",
+  "baseline_kind": "single existing emulator execution; documentation preservation only",
+  "github_actions": {
+    "run_id": 39321125673,
+    "run_number": 122,
+    "attempt": 1,
+    "run_url": "https://github.com/sasmazt90/attune-more/actions/runs/39321125673",
+    "job_id": 118295153003,
+    "job_url": "https://github.com/sasmazt90/attune-more/actions/runs/39321125673/job/118295153003",
+    "event": "workflow_dispatch",
+    "conclusion": "success",
+    "registered_entry": ".github/workflows/e2e-audit.yml",
+    "reusable_workflow": ".github/workflows/aaos-emulator-validation.yml",
+    "job_ui_duration_seconds": 651,
+    "job_ui_duration_provenance": "owner-reported GitHub UI; connector omitted job start/end timestamps",
+    "log_first_timestamp_utc": "2026-10-19T20:39:32.9473543Z",
+    "log_last_timestamp_utc": "2026-10-19T20:50:18.9654449Z",
+    "log_span_seconds": 646.018,
+    "billing_outcome": "UNVERIFIED; no billing receipt in evidence"
+  },
+  "artifact": {
+    "id": 12220138469,
+    "name": "aaos-39321125673-1",
+    "file_name": "aaos-39321125673-1.zip",
+    "original_download_page": "https://github.com/sasmazt90/attune-more/actions/runs/39321125673/artifacts/12220138469",
+    "download_page_is_permanent": false,
+    "created_at_utc": "2026-10-19T20:50:17Z",
+    "expires_at_utc": "2026-10-20T20:50:15Z",
+    "bytes": 5475596,
+    "sha256": "664c8bd56f13d9d59940290cbd6bb21e4b6ced48ba4033cdf3f9c44161f19171",
+    "matches_github_digest": true,
+    "zip_crc_status": "PASS",
+    "entry_count": 172,
+    "file_count": 172,
+    "uncompressed_bytes": 11316421,
+    "structure": "flat ZIP root; no directory entries",
+    "local_original_zip": "/workspace/attune-aaos-evidence-archive/39321125673/aaos-39321125673-1.zip",
+    "local_extracted_directory": "/workspace/attune-aaos-evidence-archive/39321125673/extracted",
+    "files": [
+      {
+        "path": "acceleration.txt",
+        "bytes": 57,
+        "sha256": "4484bdd6d5e16c817d4dfc5cda05334055c86428c861c1d22e8cf67ce42fee49",
+        "crc32": "1ddf6337"
+      },
+      {
+        "path": "activity-start-activities.txt",
+        "bytes": 59422,
+        "sha256": "cf0d4512f141afd6561be4db661ffe8ffa288b1f21c16fd53ee745fa47a644e3",
+        "crc32": "81424cb4"
+      },
+      {
+        "path": "activity-start-launch.txt",
+        "bytes": 269,
+        "sha256": "4dcbebfb1ddcced0287ed4dcef5341ba8cf16256240481a1faade41a09d341d3",
+        "crc32": "6fec160c"
+      },
+      {
+        "path": "activity-start-vhal-0x11200402.txt",
+        "bytes": 112,
+        "sha256": "fbf6477d0f7bfbe68b954b40923212d03e77ef051c9c8a8a3976f8e79d4efe12",
+        "crc32": "ee54e02d"
+      },
+      {
+        "path": "activity-start-vhal-0x11400400.txt",
+        "bytes": 107,
+        "sha256": "e4cc18c7e7768b4e024e6441f7afd0e5bc69aa160ae32316537646f60dfdbe01",
+        "crc32": "7bc5f801"
+      },
+      {
+        "path": "activity-start-vhal-0x11600207.txt",
+        "bytes": 111,
+        "sha256": "dbbc4581c416e27ebb7c16b2e5b2d7633da2c09a4c830985a79a3fc2944bd46f",
+        "crc32": "1ab81533"
+      },
+      {
+        "path": "activity-start.png",
+        "bytes": 66610,
+        "sha256": "dca4850ecc47dde82acb3a64a66e39c5d86930aaf10133e8a218b57b965fc5b2",
+        "crc32": "4f8557f9"
+      },
+      {
+        "path": "activity-start.xml",
+        "bytes": 5520,
+        "sha256": "329e29d251085610a58a291a546640a3c62bf25ddb2c7528a98c06b138fa8db6",
+        "crc32": "ed1a2a4a"
+      },
+      {
+        "path": "apk-build.log",
+        "bytes": 2774,
+        "sha256": "9ba89bd0dfc5cb414eef323d2788bae108a17a29155015cc67b8c8368a055925",
+        "crc32": "10cd1af5"
+      },
+      {
+        "path": "apk-install-car-api.txt",
+        "bytes": 369,
+        "sha256": "f2c0490dfafd332e1a509aad30c29de6f7539fd718e2bdf1e81ee6587249c3a9",
+        "crc32": "a89b7f1c"
+      },
+      {
+        "path": "app-debug.apk",
+        "bytes": 56158,
+        "sha256": "2c49c1bc6b899ba547bf16349c569f4d3afd0a8a9781c54674e71f1de3732005",
+        "crc32": "25047951"
+      },
+      {
+        "path": "asset-preflight.json",
+        "bytes": 11591,
+        "sha256": "6d0df0fa4db4a4ab1a5ad42195aa065564f5a37b2deb548ac627f9b28376b103",
+        "crc32": "57261711"
+      },
+      {
+        "path": "avd-config.ini",
+        "bytes": 3521,
+        "sha256": "0f8ce235c0c7c78507e9fe7787b2c73954e9fc2231637b5207023d1fa2f1caf4",
+        "crc32": "e1d0070a"
+      },
+      {
+        "path": "backend-moving-lock-activities.txt",
+        "bytes": 60539,
+        "sha256": "2adb8003c36b25c542c2c470bdda6be1479ca43f0efdbd9aefdc8291a956b882",
+        "crc32": "3a0bd69a"
+      },
+      {
+        "path": "backend-moving-lock-car-api.txt",
+        "bytes": 369,
+        "sha256": "f2c0490dfafd332e1a509aad30c29de6f7539fd718e2bdf1e81ee6587249c3a9",
+        "crc32": "a89b7f1c"
+      },
+      {
+        "path": "backend-moving-lock-launch.txt",
+        "bytes": 368,
+        "sha256": "0c655ce3a0e74a7fd02b07d1cd866ea3bd62c948a3c5711d897f9c03a218f38f",
+        "crc32": "a07299c0"
+      },
+      {
+        "path": "backend-moving-lock-vhal-0x11200402.txt",
+        "bytes": 112,
+        "sha256": "fbf6477d0f7bfbe68b954b40923212d03e77ef051c9c8a8a3976f8e79d4efe12",
+        "crc32": "ee54e02d"
+      },
+      {
+        "path": "backend-moving-lock-vhal-0x11400400.txt",
+        "bytes": 107,
+        "sha256": "e4cc18c7e7768b4e024e6441f7afd0e5bc69aa160ae32316537646f60dfdbe01",
+        "crc32": "7bc5f801"
+      },
+      {
+        "path": "backend-moving-lock-vhal-0x11600207.txt",
+        "bytes": 111,
+        "sha256": "dbbc4581c416e27ebb7c16b2e5b2d7633da2c09a4c830985a79a3fc2944bd46f",
+        "crc32": "1ab81533"
+      },
+      {
+        "path": "backend-moving-lock.png",
+        "bytes": 233821,
+        "sha256": "bde920427f132689023f45dcfe5380ae7ee3c37acc23deb46e0a9fe1e9190036",
+        "crc32": "0c05ece0"
+      },
+      {
+        "path": "backend-moving-lock.xml",
+        "bytes": 5520,
+        "sha256": "329e29d251085610a58a291a546640a3c62bf25ddb2c7528a98c06b138fa8db6",
+        "crc32": "ed1a2a4a"
+      },
+      {
+        "path": "backend-offline-activities.txt",
+        "bytes": 60513,
+        "sha256": "65073ca3d85039088e2b5e565ad4c35612f57beaff3b4e05d69c970015991072",
+        "crc32": "4b311739"
+      },
+      {
+        "path": "backend-offline-car-api.txt",
+        "bytes": 369,
+        "sha256": "f2c0490dfafd332e1a509aad30c29de6f7539fd718e2bdf1e81ee6587249c3a9",
+        "crc32": "a89b7f1c"
+      },
+      {
+        "path": "backend-offline-fault.json",
+        "bytes": 294,
+        "sha256": "9f4bd46a0d8af60334c77bb4995ac4aa46ecb73fdf9f456cafd2faa3cba77cb0",
+        "crc32": "c85013f2"
+      },
+      {
+        "path": "backend-offline-launch.txt",
+        "bytes": 368,
+        "sha256": "a95776601c338117f8de70dadd9b40baf0d145945a4ffb1b0047c2e5843b8c62",
+        "crc32": "3c5fba0c"
+      },
+      {
+        "path": "backend-offline-locked.png",
+        "bytes": 82051,
+        "sha256": "541055f6609d0540f9e7e2d2403edcca2e1161a019599c9cd658c170fc138afd",
+        "crc32": "2f29c272"
+      },
+      {
+        "path": "backend-offline-locked-activities.txt",
+        "bytes": 60519,
+        "sha256": "baa61402e2d1db2a52cc242413a8e630e620a80dc0de0e7283f496fbe01e565a",
+        "crc32": "c4667ddb"
+      },
+      {
+        "path": "backend-offline-locked.xml",
+        "bytes": 5657,
+        "sha256": "ea1e4a80d72ce155cfc147372c1e69da1d7359e70b2ab596c3bec3e37e3975ae",
+        "crc32": "c7f923c5"
+      },
+      {
+        "path": "backend-offline-vhal-0x11200402.txt",
+        "bytes": 112,
+        "sha256": "fbf6477d0f7bfbe68b954b40923212d03e77ef051c9c8a8a3976f8e79d4efe12",
+        "crc32": "ee54e02d"
+      },
+      {
+        "path": "backend-offline-vhal-0x11400400.txt",
+        "bytes": 107,
+        "sha256": "e4cc18c7e7768b4e024e6441f7afd0e5bc69aa160ae32316537646f60dfdbe01",
+        "crc32": "7bc5f801"
+      },
+      {
+        "path": "backend-offline-vhal-0x11600207.txt",
+        "bytes": 111,
+        "sha256": "dbbc4581c416e27ebb7c16b2e5b2d7633da2c09a4c830985a79a3fc2944bd46f",
+        "crc32": "1ab81533"
+      },
+      {
+        "path": "backend-offline.png",
+        "bytes": 232989,
+        "sha256": "13f81ca0bc6eeebdaef1651157f6ee7f286b4702848126abd10a50c02d0284dd",
+        "crc32": "102c09d2"
+      },
+      {
+        "path": "backend-offline.xml",
+        "bytes": 28316,
+        "sha256": "c6b57878067cea2eab0af7bba225f2be98595e6f45b5e81a9049f8852195cb62",
+        "crc32": "dc491dea"
+      },
+      {
+        "path": "backend.log",
+        "bytes": 45564,
+        "sha256": "3e8753caf436c2661d7f446753899d26d82f90a32dab48cad278b986bc4c9b53",
+        "crc32": "800ee03c"
+      },
+      {
+        "path": "background-lifecycle-activities.txt",
+        "bytes": 60511,
+        "sha256": "a2fa04e86e3339926ff8ff8642a7de63bfa470328cd33425fb24b0d7eb287765",
+        "crc32": "338b2d7c"
+      },
+      {
+        "path": "background-lifecycle-car-api.txt",
+        "bytes": 369,
+        "sha256": "f2c0490dfafd332e1a509aad30c29de6f7539fd718e2bdf1e81ee6587249c3a9",
+        "crc32": "a89b7f1c"
+      },
+      {
+        "path": "background-lifecycle-launch.txt",
+        "bytes": 344,
+        "sha256": "d767e6e00228fcc6fcd313504a3f97c092f883191c138493ec8f108f27b56602",
+        "crc32": "4f76aad5"
+      },
+      {
+        "path": "background-lifecycle-vhal-0x11200402.txt",
+        "bytes": 112,
+        "sha256": "fbf6477d0f7bfbe68b954b40923212d03e77ef051c9c8a8a3976f8e79d4efe12",
+        "crc32": "ee54e02d"
+      },
+      {
+        "path": "background-lifecycle-vhal-0x11400400.txt",
+        "bytes": 107,
+        "sha256": "e4cc18c7e7768b4e024e6441f7afd0e5bc69aa160ae32316537646f60dfdbe01",
+        "crc32": "7bc5f801"
+      },
+      {
+        "path": "background-lifecycle-vhal-0x11600207.txt",
+        "bytes": 111,
+        "sha256": "dbbc4581c416e27ebb7c16b2e5b2d7633da2c09a4c830985a79a3fc2944bd46f",
+        "crc32": "1ab81533"
+      },
+      {
+        "path": "background-lifecycle.png",
+        "bytes": 233155,
+        "sha256": "0ab66d689960b259e5d825e18656d95bc22efc0ab42ab14ddc48494aa0214628",
+        "crc32": "9d487fac"
+      },
+      {
+        "path": "background-lifecycle.xml",
+        "bytes": 42159,
+        "sha256": "f954b29e03b3e395743acc7486302ebe7c132909dfd916c11c7c6397b5c061cd",
+        "crc32": "781ca457"
+      },
+      {
+        "path": "boot.json",
+        "bytes": 97,
+        "sha256": "b38dea6575b885b6a2c93ec41fbe1ee2b40bcca7e45b56611db1ef045f1e51f8",
+        "crc32": "a3a7b2d9"
+      },
+      {
+        "path": "car-service.txt",
+        "bytes": 591824,
+        "sha256": "439d562f960ea6d31c2aeb8b89bb9e7a667f975e0d5f1f2bcbd8321b6c106fc6",
+        "crc32": "3ca03b40"
+      },
+      {
+        "path": "checkout-status.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "crc32": "00000000"
+      },
+      {
+        "path": "crash-buffer.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "crc32": "00000000"
+      },
+      {
+        "path": "crashes-console-activities.txt",
+        "bytes": 60522,
+        "sha256": "fc7147dce068db1e4d5ec7e4b16079d7537722586a74477af96701870a5c6d73",
+        "crc32": "d9ad6a60"
+      },
+      {
+        "path": "crashes-console.png",
+        "bytes": 233601,
+        "sha256": "fce12bb1a51c03afa66a64ee5343416eac7b5db329ac02c631cd998646f14210",
+        "crc32": "49085557"
+      },
+      {
+        "path": "crashes-console.xml",
+        "bytes": 41425,
+        "sha256": "72cebaf1e1c46071704b4c035248dbd180f2185d417c5d62fe33c7fd3dbcc5fc",
+        "crc32": "0fe56d14"
+      },
+      {
+        "path": "debug-package.txt",
+        "bytes": 4209,
+        "sha256": "77363d16b2f29019c954b7415f1cc62842a4ddd34b825ac75cbb8da124663131",
+        "crc32": "1bcf3a26"
+      },
+      {
+        "path": "display-and-user.txt",
+        "bytes": 72,
+        "sha256": "f73a14cdcf67c3561d9a85695a436075b6956d1976a7b74a9521319239fa19c2",
+        "crc32": "a008f875"
+      },
+      {
+        "path": "emulator-command.json",
+        "bytes": 331,
+        "sha256": "e3fece5f22aeff63e740953894fcbecc10d69a44f05b78be3d5e97b6477ae8d7",
+        "crc32": "aa026e86"
+      },
+      {
+        "path": "emulator-host.log",
+        "bytes": 9027,
+        "sha256": "bc0476894895565e9b563526e59a7d91cc17c10fd2ac52535cee2372ac1daef6",
+        "crc32": "7fde787e"
+      },
+      {
+        "path": "emulator-version.txt",
+        "bytes": 655,
+        "sha256": "ea36a35958c14ba5f003d0e68087a01947b2b1e7d3c26286417430ced3f2b811",
+        "crc32": "902e8766"
+      },
+      {
+        "path": "evidence-index.json",
+        "bytes": 18977,
+        "sha256": "2b1aead82b80a598dd4f790269640fdd60aa00639740b2e0052b073c7eef7332",
+        "crc32": "ebf46ca8"
+      },
+      {
+        "path": "execution.json",
+        "bytes": 435,
+        "sha256": "730203803ee76ad78c1ed88ce8515ff048ca53fd4ac1327a81d011ca49b82391",
+        "crc32": "46f93461"
+      },
+      {
+        "path": "frontend.log",
+        "bytes": 213,
+        "sha256": "3baaa66cf26d8517e2a35350bde2301c3c896fd295bc3dfe7bf009b35f2e8e00",
+        "crc32": "53dd4a72"
+      },
+      {
+        "path": "host-preflight.json",
+        "bytes": 1359,
+        "sha256": "db0f744c015e743c4d029a300e7621bcc6af1dd0ec88c2d5bcd4ae7d6854c565",
+        "crc32": "0d6abffa"
+      },
+      {
+        "path": "lifecycle-events.txt",
+        "bytes": 606549,
+        "sha256": "a32d03c9469bede3123e8cefcb781e99a69bd806a316e4972508f57bb4e40c03",
+        "crc32": "371533d1"
+      },
+      {
+        "path": "logcat.txt",
+        "bytes": 1360879,
+        "sha256": "c693287d26a8f214a14842a223844f9f2968e28b0c2825f30fa165907aaeca56",
+        "crc32": "9c16a535"
+      },
+      {
+        "path": "navigation-activities.txt",
+        "bytes": 60536,
+        "sha256": "94db1096281a3e8e038b84213e7b7aeadd848f902962b598701cbc8f096772bb",
+        "crc32": "dd7671b3"
+      },
+      {
+        "path": "navigation.json",
+        "bytes": 1302,
+        "sha256": "9b0212f5ca177d73490f4b92d446cf4e84462fb3a8c9ee2d211c13347c8a86bf",
+        "crc32": "6d10595d"
+      },
+      {
+        "path": "navigation.png",
+        "bytes": 234352,
+        "sha256": "20fa7707002379eb0420822ea67d96c58bedf5c74eac3d13920a230d48776444",
+        "crc32": "082969c7"
+      },
+      {
+        "path": "navigation.xml",
+        "bytes": 42159,
+        "sha256": "f954b29e03b3e395743acc7486302ebe7c132909dfd916c11c7c6397b5c061cd",
+        "crc32": "781ca457"
+      },
+      {
+        "path": "npm-install.log",
+        "bytes": 1149,
+        "sha256": "ed9de51b6f4e7f123dc43480716b6872e3505a83df803d91c7cd8e2c2c0a4810",
+        "crc32": "c09de858"
+      },
+      {
+        "path": "permissions-denial-activities.txt",
+        "bytes": 60656,
+        "sha256": "0c16e8569ebcb9b0e0121e71b3fb037e9136a868b1bd6f6a37d28c9df7a5e372",
+        "crc32": "bb8a6bc8"
+      },
+      {
+        "path": "permissions-denial-car-api.txt",
+        "bytes": 369,
+        "sha256": "f2c0490dfafd332e1a509aad30c29de6f7539fd718e2bdf1e81ee6587249c3a9",
+        "crc32": "a89b7f1c"
+      },
+      {
+        "path": "permissions-denial-launch.txt",
+        "bytes": 368,
+        "sha256": "767b7259f5d5fe6636b6d99a6d4ae2a6fa18fd6dc5c8505d544b65ad82c5c29a",
+        "crc32": "60bd5711"
+      },
+      {
+        "path": "permissions-denial-observation.json",
+        "bytes": 237,
+        "sha256": "25af3d42c9f19231d9f14df71801b11450e2cade0475058b7ce7dd6ab4a51d0a",
+        "crc32": "06fa2e48"
+      },
+      {
+        "path": "permissions-denial-observed.xml",
+        "bytes": 8317,
+        "sha256": "46264aa1bb0e02bbcb97fb4e002c1d2949eea4a62b28daea8af4a385b8313931",
+        "crc32": "cf2d4311"
+      },
+      {
+        "path": "permissions-denial-prompt-activities.txt",
+        "bytes": 66617,
+        "sha256": "5f3f3684acebc392a467033a205403008c70bf92901eaa68995ef1fd74f5d663",
+        "crc32": "64c2242c"
+      },
+      {
+        "path": "permissions-denial-prompt.png",
+        "bytes": 95444,
+        "sha256": "2070282c93a7b87cc01939013138fa014da1c00fe31c08ba61982896a2c5aca5",
+        "crc32": "5e357d7e"
+      },
+      {
+        "path": "permissions-denial-vhal-0x11200402.txt",
+        "bytes": 112,
+        "sha256": "fbf6477d0f7bfbe68b954b40923212d03e77ef051c9c8a8a3976f8e79d4efe12",
+        "crc32": "ee54e02d"
+      },
+      {
+        "path": "permissions-denial-prompt.xml",
+        "bytes": 8317,
+        "sha256": "46264aa1bb0e02bbcb97fb4e002c1d2949eea4a62b28daea8af4a385b8313931",
+        "crc32": "cf2d4311"
+      },
+      {
+        "path": "permissions-denial-vhal-0x11400400.txt",
+        "bytes": 107,
+        "sha256": "e4cc18c7e7768b4e024e6441f7afd0e5bc69aa160ae32316537646f60dfdbe01",
+        "crc32": "7bc5f801"
+      },
+      {
+        "path": "permissions-denial-vhal-0x11600207.txt",
+        "bytes": 111,
+        "sha256": "dbbc4581c416e27ebb7c16b2e5b2d7633da2c09a4c830985a79a3fc2944bd46f",
+        "crc32": "1ab81533"
+      },
+      {
+        "path": "permissions-denial.png",
+        "bytes": 233371,
+        "sha256": "9c5e6529a4235054585a8291757ec81ea8cc8b1a2d9c6768d7f15bdd657ca982",
+        "crc32": "bfec70bf"
+      },
+      {
+        "path": "permissions-denial.xml",
+        "bytes": 42159,
+        "sha256": "f954b29e03b3e395743acc7486302ebe7c132909dfd916c11c7c6397b5c061cd",
+        "crc32": "781ca457"
+      },
+      {
+        "path": "permissions-initial-activities.txt",
+        "bytes": 60523,
+        "sha256": "c85a911a94bd85ade7c62c65755add47507459b3c81e08303907b39b74226e86",
+        "crc32": "5a1f9f6a"
+      },
+      {
+        "path": "permissions-initial-car-api.txt",
+        "bytes": 369,
+        "sha256": "f2c0490dfafd332e1a509aad30c29de6f7539fd718e2bdf1e81ee6587249c3a9",
+        "crc32": "a89b7f1c"
+      },
+      {
+        "path": "permissions-initial.png",
+        "bytes": 233318,
+        "sha256": "c9a577272a58fe519b7481a67ebc9ce1a10320593ac80fb01796cc8dee867b76",
+        "crc32": "efe29ece"
+      },
+      {
+        "path": "permissions-initial.xml",
+        "bytes": 43229,
+        "sha256": "4c86c5aa7fda704fc935777ff559205b333e089540e7a0a2c18a85ee9a5838b8",
+        "crc32": "5016c2ba"
+      },
+      {
+        "path": "platform-bootclasspath.txt",
+        "bytes": 2314,
+        "sha256": "0046a300dde09c5c6d30ec1408fdb28cdf800e7128921d95c01e7649a458a6af",
+        "crc32": "e066d318"
+      },
+      {
+        "path": "platform-car-binder.txt",
+        "bytes": 27,
+        "sha256": "605a887cb5513ee3474aa6864ffae2f7b6148134573e0fec71dde02b1f145c80",
+        "crc32": "cafd0d2c"
+      },
+      {
+        "path": "platform-car-package.txt",
+        "bytes": 47283,
+        "sha256": "7c66beba48eb0fee8442af9448e535fd2b3414be6d8e8d11166eae488799f9cc",
+        "crc32": "300a70cf"
+      },
+      {
+        "path": "platform-car-service.txt",
+        "bytes": 516349,
+        "sha256": "ff648241fdca4915b4c65ba26c7ebfaeb3f599a3221e5a398efea97ef7e12550",
+        "crc32": "0a131e22"
+      },
+      {
+        "path": "platform-features.txt",
+        "bytes": 3542,
+        "sha256": "970a91b15f7af170afab48cef6cda591ebb9ecfdc1d9219f2a202b97546dafce",
+        "crc32": "a3ffb4bf"
+      },
+      {
+        "path": "platform-compatibility.json",
+        "bytes": 282,
+        "sha256": "2725b9066d2d29681876b9fdced7ec3d0543266827280cdd7b5d2619fbab8638",
+        "crc32": "d820c3ed"
+      },
+      {
+        "path": "platform-libraries.txt",
+        "bytes": 697,
+        "sha256": "871de2c7d59ddcb5593b2026eba6d169f8dcd032f9c424493fbc1ef435d12031",
+        "crc32": "99b5178c"
+      },
+      {
+        "path": "platform-moving-lock-activities.txt",
+        "bytes": 60535,
+        "sha256": "7994ca32b8dfb798c4148a77bd575e898548fcf5e54ad97eb2116259ed5df51c",
+        "crc32": "c746c6b1"
+      },
+      {
+        "path": "platform-moving-lock-car-api.txt",
+        "bytes": 370,
+        "sha256": "235d009b86285faf9086622e3a6498591a9169403e85aa43b033aa2332122fed",
+        "crc32": "4a43519b"
+      },
+      {
+        "path": "platform-moving-lock-launch.txt",
+        "bytes": 368,
+        "sha256": "0d191a00556246708c9dfe2c5f86c37fbccec9290acc202017a5a4e750a67d80",
+        "crc32": "63bb6c6e"
+      },
+      {
+        "path": "platform-moving-lock-vhal-0x11200402.txt",
+        "bytes": 112,
+        "sha256": "fbf6477d0f7bfbe68b954b40923212d03e77ef051c9c8a8a3976f8e79d4efe12",
+        "crc32": "ee54e02d"
+      },
+      {
+        "path": "platform-moving-lock-vhal-0x11600207.txt",
+        "bytes": 111,
+        "sha256": "dbbc4581c416e27ebb7c16b2e5b2d7633da2c09a4c830985a79a3fc2944bd46f",
+        "crc32": "1ab81533"
+      },
+      {
+        "path": "platform-moving-lock-vhal-0x11400400.txt",
+        "bytes": 107,
+        "sha256": "e4cc18c7e7768b4e024e6441f7afd0e5bc69aa160ae32316537646f60dfdbe01",
+        "crc32": "7bc5f801"
+      },
+      {
+        "path": "platform-moving-lock.png",
+        "bytes": 233230,
+        "sha256": "917b7c8f3ee25e67570e49ccb310877ad306d47bf1d849046b4a435c069d3983",
+        "crc32": "7a27f151"
+      },
+      {
+        "path": "platform-moving-lock.xml",
+        "bytes": 42159,
+        "sha256": "f954b29e03b3e395743acc7486302ebe7c132909dfd916c11c7c6397b5c061cd",
+        "crc32": "781ca457"
+      },
+      {
+        "path": "platform-packages.txt",
+        "bytes": 28779,
+        "sha256": "ce70fa5d327d6526ed80291c538c4f181d8400042afeb9cd5db4c6ee329dcc61",
+        "crc32": "1176b04b"
+      },
+      {
+        "path": "platform-parked-activities.txt",
+        "bytes": 59805,
+        "sha256": "f5140ad562ded2824d7744800d679ae40c5409d2506bbfc0d7de5766b3992416",
+        "crc32": "f2cc3f1f"
+      },
+      {
+        "path": "platform-parked-car-api.txt",
+        "bytes": 369,
+        "sha256": "f2c0490dfafd332e1a509aad30c29de6f7539fd718e2bdf1e81ee6587249c3a9",
+        "crc32": "a89b7f1c"
+      },
+      {
+        "path": "platform-parked.png",
+        "bytes": 233801,
+        "sha256": "631b1aeff4161c9a42e2bb495c3b3305c12d701ab8c32effb4e954315f7e35e4",
+        "crc32": "4cb101de"
+      },
+      {
+        "path": "platform-parked.xml",
+        "bytes": 42159,
+        "sha256": "f954b29e03b3e395743acc7486302ebe7c132909dfd916c11c7c6397b5c061cd",
+        "crc32": "781ca457"
+      },
+      {
+        "path": "platform-properties.txt",
+        "bytes": 25557,
+        "sha256": "cfd242f429cc2b1a65f199e44ad7e03fef4fcb2777d7b52d465498e6140aacef",
+        "crc32": "7951f457"
+      },
+      {
+        "path": "platform-user-state.txt",
+        "bytes": 17,
+        "sha256": "f7e3ef2a0655ff8eccb9cf63ec01c617e54e6f563e1dacc42f7d4269ad642347",
+        "crc32": "34e8c53f"
+      },
+      {
+        "path": "probe-build.log",
+        "bytes": 1662,
+        "sha256": "a0f2097846cd998043eb9bc72270ad227e477c636cbb8a3d5da1ea6eb828f9e7",
+        "crc32": "c9280188"
+      },
+      {
+        "path": "python-install.log",
+        "bytes": 25948,
+        "sha256": "6683f497d5c5c3391eff1fea2425a7f1684f71e576d1454f1921f9eabbf6a7ee",
+        "crc32": "8ab1440a"
+      },
+      {
+        "path": "report.md",
+        "bytes": 2825,
+        "sha256": "30b828ab390e0058c33209926f4376672d38aa6bdc01a342d1be8015c2d83aec",
+        "crc32": "7f5b08be"
+      },
+      {
+        "path": "results.json",
+        "bytes": 3432,
+        "sha256": "722c1f0c9c0f39965d8f2b493e71364eafa40a66d719bec4e7c884e15c7acda8",
+        "crc32": "f07b16e0"
+      },
+      {
+        "path": "results.xml",
+        "bytes": 748,
+        "sha256": "7236b230d49a8d1a3062477c1fe252186a1a452c862a469f5e4fe7c3784142db",
+        "crc32": "bad724e4"
+      },
+      {
+        "path": "route-care-activities.txt",
+        "bytes": 60537,
+        "sha256": "d1bbf565de9842ab9a90c9c624a475c975e3c8844c24ae19d38a499ad264c433",
+        "crc32": "a1f3fe4c"
+      },
+      {
+        "path": "route-care.png",
+        "bytes": 213965,
+        "sha256": "81bae7e75cab3c906cba97f11b3f7fbefe6f491f7cc3aa5ba4b47bf9118fcd0f",
+        "crc32": "f120444a"
+      },
+      {
+        "path": "route-care.xml",
+        "bytes": 41058,
+        "sha256": "79d6289f5833672480b3c425affbf1ed9c2ae8bd7899f4fcf62a75a8fa0e2bf1",
+        "crc32": "709a93e0"
+      },
+      {
+        "path": "route-dashboard-activities.txt",
+        "bytes": 60400,
+        "sha256": "a2b3bf4126922b4ea1e7620893ddc6ec8be8418f646450be34253fbafd7b3000",
+        "crc32": "283f8629"
+      },
+      {
+        "path": "route-dashboard.png",
+        "bytes": 234541,
+        "sha256": "e4791f7dc26dbb758423cce16a696dcba1f49030bff2b87afe4d934edc3cf3d5",
+        "crc32": "9da07592"
+      },
+      {
+        "path": "route-dashboard.xml",
+        "bytes": 42159,
+        "sha256": "f954b29e03b3e395743acc7486302ebe7c132909dfd916c11c7c6397b5c061cd",
+        "crc32": "781ca457"
+      },
+      {
+        "path": "route-dental-activities.txt",
+        "bytes": 60539,
+        "sha256": "35532b64abe973eb17433f132a3a97b982f6992f3831ee3225821061ff81cb08",
+        "crc32": "d215a81d"
+      },
+      {
+        "path": "route-dental.png",
+        "bytes": 253393,
+        "sha256": "88fb558d843e7b3c585bf63072644d87237280f68a1c53c4e2372b421d52bebd",
+        "crc32": "1f7b0bf6"
+      },
+      {
+        "path": "route-dental.xml",
+        "bytes": 27028,
+        "sha256": "8a9d0dad131cafe65bc14acb0627376a67a0d0366bef68321d577cdc342500a5",
+        "crc32": "5d5ab86a"
+      },
+      {
+        "path": "route-hearing-activities.txt",
+        "bytes": 60541,
+        "sha256": "d42f0c5a0a826f3bdfee650717f4c85c99a0f720d1264505bc674667e261c22b",
+        "crc32": "844f25a5"
+      },
+      {
+        "path": "route-hearing.png",
+        "bytes": 238975,
+        "sha256": "ea12bda1c9d46052819be57da9503cfed28506ed5afd6beeafd81cdb27f0f4cd",
+        "crc32": "561f2aa0"
+      },
+      {
+        "path": "route-hearing.xml",
+        "bytes": 26265,
+        "sha256": "521e67e193199be7155edb782c48b342d66aa29aa467058a240fe5e02b79fe4b",
+        "crc32": "1a758e91"
+      },
+      {
+        "path": "route-mental-activities.txt",
+        "bytes": 60538,
+        "sha256": "8aeb495fd4f1f7a224d7d0a1a4470c4d2129f85358721061aeec72cb3c8e2973",
+        "crc32": "5c09c856"
+      },
+      {
+        "path": "route-mental.png",
+        "bytes": 267993,
+        "sha256": "550999d120b83a7b463b459324c2e8088a2b1c06cc96eda6289343ef710610a4",
+        "crc32": "9d923acb"
+      },
+      {
+        "path": "route-mental.xml",
+        "bytes": 29118,
+        "sha256": "dc2e934c66da31029dfdfc58e48fe410d23011eb0288def57ba9c382e6558441",
+        "crc32": "86ea4752"
+      },
+      {
+        "path": "route-privacy-activities.txt",
+        "bytes": 60535,
+        "sha256": "6a4d655c390994c639c9ebd23aeb51fc1f5d7ad5ac5a0ef71ea7def33899c689",
+        "crc32": "e6cc6a06"
+      },
+      {
+        "path": "route-privacy.png",
+        "bytes": 103765,
+        "sha256": "315394fd5e5ac365ea02a4ab41da39a0e4f05079b3de87fd8743d7bc2eb0c3c5",
+        "crc32": "20c2c4a1"
+      },
+      {
+        "path": "route-privacy.xml",
+        "bytes": 49846,
+        "sha256": "250242a08e766f7cc4dbfd991a7e3798d671091caec876003f2b4c9062ab73d0",
+        "crc32": "cbeb0376"
+      },
+      {
+        "path": "route-profile-activities.txt",
+        "bytes": 60536,
+        "sha256": "503d03fc5134e54a7fee7a9dbb28341eaa009032a9dfd55d32e5d971c74ec3e8",
+        "crc32": "7b08296c"
+      },
+      {
+        "path": "route-profile.png",
+        "bytes": 151998,
+        "sha256": "e6fa8a7b6e1c539befa0d02cf324abb62d31cefe8e7b649a44c56f128ba04f0f",
+        "crc32": "0bbcc516"
+      },
+      {
+        "path": "route-profile.xml",
+        "bytes": 33934,
+        "sha256": "8dcb1a0d2e9c7c1b8e4319d0ddb2d7c9ededdfb47adecb4a44c3578d6371340d",
+        "crc32": "56b41eb4"
+      },
+      {
+        "path": "route-skin-activities.txt",
+        "bytes": 60538,
+        "sha256": "e5408f3c4a430b1e1d213527df8566d242e6739e949924eb3b27c4362ce88bc7",
+        "crc32": "05515dfb"
+      },
+      {
+        "path": "route-skin.png",
+        "bytes": 211846,
+        "sha256": "9ccd284a16d7dea89988badc355eff14e4656fe90bd30c803dfe0435e7a6bc6c",
+        "crc32": "1f3c78ab"
+      },
+      {
+        "path": "route-skin.xml",
+        "bytes": 24090,
+        "sha256": "0949ae4ef5dde45bceb4e16625384b4bebca85dd77e1ab85844790107ab8a891",
+        "crc32": "d1c3f93a"
+      },
+      {
+        "path": "route-vision-activities.txt",
+        "bytes": 60538,
+        "sha256": "29763786c620ad2ff1049af0ce8ca64c7cf592b6edd7883ebee5890cd98e1c0e",
+        "crc32": "da11b631"
+      },
+      {
+        "path": "route-vision.xml",
+        "bytes": 26352,
+        "sha256": "beca141fc48beefe1a56f268a32634767d6a213a52eca4942f46469405def535",
+        "crc32": "741f79dc"
+      },
+      {
+        "path": "route-vision.png",
+        "bytes": 261134,
+        "sha256": "5283090df1fdea228adeb0cff173224b5c17fabda8b86f78ba4374f892333620",
+        "crc32": "45f7fceb"
+      },
+      {
+        "path": "runner-disk.txt",
+        "bytes": 89,
+        "sha256": "3a65020a92bb657d04d8899236b29150d4aee98cac5d92a5eb752cf7835b0251",
+        "crc32": "26938973"
+      },
+      {
+        "path": "runtime-before-boot.json",
+        "bytes": 85803,
+        "sha256": "490160a42012630b9e18df58743c6ff59cc1081b07a1012b5319f935ee7f56c6",
+        "crc32": "90b696f0"
+      },
+      {
+        "path": "runtime-image.json",
+        "bytes": 85803,
+        "sha256": "490160a42012630b9e18df58743c6ff59cc1081b07a1012b5319f935ee7f56c6",
+        "crc32": "90b696f0"
+      },
+      {
+        "path": "runtime-sdk.json",
+        "bytes": 85197,
+        "sha256": "bade11eb2a28cc6056152dd940a4ab40cf4edd770210e7eba05b943e89ed1fa1",
+        "crc32": "5711efb7"
+      },
+      {
+        "path": "runtime-tools.json",
+        "bytes": 292955,
+        "sha256": "3796103649aee9368b1d91bd601dd2eb0ee503401f14176401e5ba4e7b6d6044",
+        "crc32": "6489dc19"
+      },
+      {
+        "path": "safety-preflight-tests.log",
+        "bytes": 8101,
+        "sha256": "3cfa5e251a646d4b252552712ab407a4de824bc143c68a8704416e43e01ea31f",
+        "crc32": "f7d4a7ba"
+      },
+      {
+        "path": "source-commit.txt",
+        "bytes": 41,
+        "sha256": "3c7a891ac9c46a57ebaac69a7df99ba29e9fa84d5998577539ea26a5eb6c6fbb",
+        "crc32": "44246cbc"
+      },
+      {
+        "path": "system-features.txt",
+        "bytes": 3542,
+        "sha256": "970a91b15f7af170afab48cef6cda591ebb9ecfdc1d9219f2a202b97546dafce",
+        "crc32": "a3ffb4bf"
+      },
+      {
+        "path": "system-image-package.txt",
+        "bytes": 446,
+        "sha256": "12758560d232bc0a1088f9d48fbbc014604cbc31357638888f328f2519d75a00",
+        "crc32": "f1e8140d"
+      },
+      {
+        "path": "system-image.txt",
+        "bytes": 96,
+        "sha256": "0f7d8a875a86df0c55779928660f107457df85234c15874990e02f621d980a6d",
+        "crc32": "60b44ad0"
+      },
+      {
+        "path": "unsupported-hardware-activities.txt",
+        "bytes": 60523,
+        "sha256": "44f22f93b2f22b72d8666fa6c4b1e2ed5cfa7c65ca0ea13e1239f7170bf584c3",
+        "crc32": "2796fbb4"
+      },
+      {
+        "path": "unsupported-hardware-car-api.txt",
+        "bytes": 369,
+        "sha256": "f2c0490dfafd332e1a509aad30c29de6f7539fd718e2bdf1e81ee6587249c3a9",
+        "crc32": "a89b7f1c"
+      },
+      {
+        "path": "unsupported-hardware-launch.txt",
+        "bytes": 367,
+        "sha256": "0dc7744afeb719d8b6161c8d1bda8d7baf1fc7cd2950eb7cfb6687c8a6ee57fa",
+        "crc32": "97744d87"
+      },
+      {
+        "path": "unsupported-hardware-vhal-0x11200402.txt",
+        "bytes": 112,
+        "sha256": "fbf6477d0f7bfbe68b954b40923212d03e77ef051c9c8a8a3976f8e79d4efe12",
+        "crc32": "ee54e02d"
+      },
+      {
+        "path": "unsupported-hardware-vhal-0x11400400.txt",
+        "bytes": 107,
+        "sha256": "e4cc18c7e7768b4e024e6441f7afd0e5bc69aa160ae32316537646f60dfdbe01",
+        "crc32": "7bc5f801"
+      },
+      {
+        "path": "unsupported-hardware-vhal-0x11600207.txt",
+        "bytes": 111,
+        "sha256": "dbbc4581c416e27ebb7c16b2e5b2d7633da2c09a4c830985a79a3fc2944bd46f",
+        "crc32": "1ab81533"
+      },
+      {
+        "path": "unsupported-hardware.png",
+        "bytes": 233568,
+        "sha256": "686630b956ee1ab45087c21c18f8ae0ba15f87f434131bc2fdb02d3711d19564",
+        "crc32": "c2dc531d"
+      },
+      {
+        "path": "unsupported-hardware.xml",
+        "bytes": 41425,
+        "sha256": "72cebaf1e1c46071704b4c035248dbd180f2185d417c5d62fe33c7fd3dbcc5fc",
+        "crc32": "0fe56d14"
+      },
+      {
+        "path": "web-build.log",
+        "bytes": 3307,
+        "sha256": "b88b9a7f6bace4b1601ad9db6bae462f1ad85c47e3d5d1b64fd4bf453690bba5",
+        "crc32": "f8ac599e"
+      },
+      {
+        "path": "web-load-error-recovery-activities.txt",
+        "bytes": 60520,
+        "sha256": "d5aa35ce9dfaa8b45840b4f8e3e55133064bd3b12f0c4f4c8a48bf72302d304f",
+        "crc32": "4d691091"
+      },
+      {
+        "path": "web-load-error-recovery-car-api.txt",
+        "bytes": 369,
+        "sha256": "f2c0490dfafd332e1a509aad30c29de6f7539fd718e2bdf1e81ee6587249c3a9",
+        "crc32": "a89b7f1c"
+      },
+      {
+        "path": "web-load-error-recovery-launch.txt",
+        "bytes": 368,
+        "sha256": "bfd2ba82d76e750f6e6a71c6c7d50693e29a6c33ad45332cb5359aba99bd9959",
+        "crc32": "f95f3110"
+      },
+      {
+        "path": "web-load-error-recovery-vhal-0x11200402.txt",
+        "bytes": 112,
+        "sha256": "fbf6477d0f7bfbe68b954b40923212d03e77ef051c9c8a8a3976f8e79d4efe12",
+        "crc32": "ee54e02d"
+      },
+      {
+        "path": "web-load-error-recovery-vhal-0x11400400.txt",
+        "bytes": 107,
+        "sha256": "e4cc18c7e7768b4e024e6441f7afd0e5bc69aa160ae32316537646f60dfdbe01",
+        "crc32": "7bc5f801"
+      },
+      {
+        "path": "web-load-error-recovery-vhal-0x11600207.txt",
+        "bytes": 111,
+        "sha256": "dbbc4581c416e27ebb7c16b2e5b2d7633da2c09a4c830985a79a3fc2944bd46f",
+        "crc32": "1ab81533"
+      },
+      {
+        "path": "web-load-error-recovery.png",
+        "bytes": 233333,
+        "sha256": "369ab655247eea409684315e4cad13e91dc9d949e2e7c00af1f1533ff2ac0ca6",
+        "crc32": "eb97e60c"
+      },
+      {
+        "path": "web-load-error-recovery.xml",
+        "bytes": 43229,
+        "sha256": "4c86c5aa7fda704fc935777ff559205b333e089540e7a0a2c18a85ee9a5838b8",
+        "crc32": "5016c2ba"
+      },
+      {
+        "path": "web-load-failed-activities.txt",
+        "bytes": 60523,
+        "sha256": "d1bb993bb9555205ff3f09a09bdb924e454b1d631d9cc9c5238b7f21f08ff49d",
+        "crc32": "07bcbacc"
+      },
+      {
+        "path": "web-load-failed.png",
+        "bytes": 73596,
+        "sha256": "346c73bb741923bda87519efbc8988cf11d5a26bb11008b6c898235dcd17759b",
+        "crc32": "00b12b0c"
+      },
+      {
+        "path": "web-load-failed.xml",
+        "bytes": 5602,
+        "sha256": "b7c23c0c9fe171cf4378cee08a976d679a8cf250fc6a801a1f305ac41f972422",
+        "crc32": "7f38a640"
+      },
+      {
+        "path": "webview-backend-activities.txt",
+        "bytes": 60128,
+        "sha256": "41fd506c4079ac03a962908d1258316e6476da38f19b3a8eb15797eb29b5d2d4",
+        "crc32": "9e8ce1eb"
+      },
+      {
+        "path": "webview-backend.png",
+        "bytes": 233813,
+        "sha256": "8495b7e2d292fc403730557f8058eb125d99bf8607e30fa2d9e829336685a35f",
+        "crc32": "25476011"
+      },
+      {
+        "path": "webview-backend.xml",
+        "bytes": 42159,
+        "sha256": "f954b29e03b3e395743acc7486302ebe7c132909dfd916c11c7c6397b5c061cd",
+        "crc32": "781ca457"
+      },
+      {
+        "path": "webview-console.json",
+        "bytes": 181,
+        "sha256": "92596aae61aa1f487183e5f38ca29b2a1d663e0b503e39304798abb51001a405",
+        "crc32": "649b59e4"
+      },
+      {
+        "path": "webview-driver.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "crc32": "00000000"
+      },
+      {
+        "path": "webview-provider.txt",
+        "bytes": 855,
+        "sha256": "a98192dd8be6e5df5af61fe890f58612d468cb2643cd9623c0774a1fd5609fb5",
+        "crc32": "b7a3474f"
+      }
+    ]
+  },
+  "job_log_export": {
+    "file_name": "job-118295153003.log",
+    "bytes": 169234,
+    "sha256": "73ca5a08bbe03051e9817665aa30b0e74c328ef24f9e466268c72d077d908c20",
+    "lines": 1753,
+    "provenance": "complete executing-job log text exported by GitHub connector, saved UTF-8 with connector BOM; not a raw GitHub logs ZIP",
+    "local_path": "/workspace/attune-aaos-evidence-archive/39321125673/job-118295153003.log"
+  },
+  "durable_binary_storage": {
+    "status": "PENDING_OWNER_APPROVAL",
+    "stable_url": null,
+    "workspace_copy_is_permanent": false,
+    "preferred_proposal": "private archive; no public sharing",
+    "publication_plan_document": "ARCHIVE_PUBLICATION_PLAN.md"
+  },
+  "apk": {
+    "evidence": "app-debug.apk",
+    "bytes": 56158,
+    "sha256": "2c49c1bc6b899ba547bf16349c569f4d3afd0a8a9781c54674e71f1de3732005",
+    "application_id": "more.attune.automotive.prototype.debug",
+    "activity": "more.attune.automotive.MainActivity",
+    "version_code": 1,
+    "version_name": "0.1-prototype",
+    "min_sdk": 29,
+    "target_sdk": 35,
+    "variant": "debug"
+  },
+  "environment": {
+    "runner_label": "ubuntu-24.04",
+    "runner_image_version": "20261012.334.1",
+    "runner_agent": "2.337.0",
+    "os": "Ubuntu 24.04.5 LTS",
+    "kernel": "6.17.0-1022-azure",
+    "glibc": "2.39",
+    "android_api": 35,
+    "android_extension": 15,
+    "system_image": "system-images;android-35-ext15;android-automotive;x86_64",
+    "system_image_revision": 4,
+    "fingerprint": "google/sdk_gcar_x86_64/emulator_car64_x86_64:15/AAI5.260516.001.A6/16618942:userdebug/test-keys",
+    "cmdline_tools_version": "22.0",
+    "cmdline_tools_build": "15859902",
+    "emulator_version": "37.2.12.0",
+    "emulator_build": "16428233",
+    "adb": "37.0.1-15733141",
+    "compile_sdk": 35,
+    "build_tools": "35.0.0",
+    "gradle": "8.11.1",
+    "android_gradle_plugin": "8.9.2",
+    "java": "Temurin 21.0.12.1+1",
+    "python": "3.11.17",
+    "node": "22.20.0",
+    "playwright": "1.64.0",
+    "webview_package": "com.google.android.webview",
+    "webview_version": "147.0.7727.137",
+    "avd": "attune-aaos",
+    "serial": "emulator-5554",
+    "driver_user": 10,
+    "framebuffer": {
+      "width": 1280,
+      "height": 800,
+      "density_dpi": 160
+    },
+    "avd_cpu_cores": 2,
+    "avd_ram_mib": 3072,
+    "avd_data_partition_mib": 4096,
+    "boot": {
+      "status": "PASS",
+      "seconds": 36.625,
+      "serial": "emulator-5554",
+      "single_launch": true
+    },
+    "launch_command": [
+      "/usr/local/lib/android/sdk/emulator/emulator",
+      "-port",
+      "5554",
+      "-avd",
+      "attune-aaos",
+      "-no-window",
+      "-no-snapshot",
+      "-no-boot-anim",
+      "-noaudio",
+      "-gpu",
+      "swiftshader_indirect",
+      "-camera-back",
+      "none",
+      "-camera-front",
+      "none",
+      "-accel",
+      "on",
+      "-skin",
+      "1280x800",
+      "-dpi-device",
+      "160"
+    ],
+    "camera_observed": false,
+    "microphone_feature_observed": true,
+    "physical_media_tested": false,
+    "evidence": [
+      "runtime-sdk.json",
+      "runtime-tools.json",
+      "runtime-image.json",
+      "runtime-before-boot.json",
+      "system-image.txt",
+      "system-image-package.txt",
+      "avd-config.ini",
+      "emulator-command.json",
+      "display-and-user.txt",
+      "webview-provider.txt",
+      "host-preflight.json",
+      "apk-build.log"
+    ]
+  },
+  "summary": {
+    "PASS": 17,
+    "FAIL": 0,
+    "BLOCKED": 0,
+    "UNVERIFIED": 0
+  },
+  "behavioral_checks": [
+    {
+      "check": "aaos-runtime",
+      "status": "PASS",
+      "detail": "API 35 real automotive emulator with WebView feature; fingerprint/provider recorded.",
+      "evidence": [
+        "system-image.txt",
+        "system-features.txt",
+        "webview-provider.txt",
+        "boot.json"
+      ]
+    },
+    {
+      "check": "platform-compatibility",
+      "status": "PASS",
+      "detail": "Boot-classpath Car jar, automotive/WebView features, Car UX service, enabled platform Activity blocking and unlocked driver user observed. PM android.car shared registration=False; public API connectivity remains a separate post-install check.",
+      "evidence": [
+        "platform-compatibility.json",
+        "platform-bootclasspath.txt",
+        "platform-libraries.txt",
+        "platform-car-service.txt",
+        "platform-user-state.txt"
+      ]
+    },
+    {
+      "check": "apk-install",
+      "status": "PASS",
+      "detail": "Debug app and separate self-targeted read-only Car API probe installed.",
+      "evidence": [
+        "debug-package.txt",
+        "host-preflight.json",
+        "app-debug.apk"
+      ]
+    },
+    {
+      "check": "activity-start",
+      "status": "PASS",
+      "detail": "am start -W succeeded; process and Activity observed. App-private callbacks checked separately.",
+      "evidence": [
+        "activity-start-launch.txt",
+        "activity-start.xml",
+        "activity-start-activities.txt",
+        "activity-start.png"
+      ]
+    },
+    {
+      "check": "platform-parked",
+      "status": "PASS",
+      "detail": "Real Car UX unrestricted AND fresh backend simulation Park; no UX override.",
+      "evidence": [
+        "platform-parked-car-api.txt",
+        "platform-parked.xml",
+        "platform-parked.png"
+      ]
+    },
+    {
+      "check": "webview-backend",
+      "status": "PASS",
+      "detail": "Actual Android WebView rendered Attune.more and fetched existing API via adb reverse.",
+      "evidence": [
+        "webview-backend.xml",
+        "webview-backend.png",
+        "backend.log",
+        "frontend.log",
+        "webview-driver.log"
+      ]
+    },
+    {
+      "check": "navigation",
+      "status": "PASS",
+      "detail": "Nine real WebView routes, visible headings, overflow check, native Back/Home; screenshots recorded. One AAOS viewport only.",
+      "evidence": [
+        "navigation.json",
+        "navigation.xml",
+        "navigation.png"
+      ]
+    },
+    {
+      "check": "backend-moving-lock",
+      "status": "PASS",
+      "detail": "Backend-only simulated 75 km/h removed WebView while real Car UX remained unrestricted.",
+      "evidence": [
+        "backend-moving-lock-car-api.txt",
+        "backend-moving-lock.xml",
+        "backend-moving-lock.png",
+        "backend.log"
+      ]
+    },
+    {
+      "check": "platform-moving-lock",
+      "status": "PASS",
+      "detail": "Emulator VHAL speed=10 m/s, Drive, parking brake off; actual Car UX restricted with backend still Park; no visible health WebView.",
+      "evidence": [
+        "platform-moving-lock-car-api.txt",
+        "platform-moving-lock.xml",
+        "platform-moving-lock.png",
+        "logcat.txt"
+      ]
+    },
+    {
+      "check": "background-lifecycle",
+      "status": "PASS",
+      "detail": "Home backgrounded app; fresh native pause AND stop receipts and absence of trusted WebView debug target observed; foreground Park restored. No active capture session was started.",
+      "evidence": [
+        "lifecycle-events.txt",
+        "background-lifecycle.xml",
+        "background-lifecycle.png",
+        "logcat.txt"
+      ]
+    },
+    {
+      "check": "backend-offline",
+      "status": "PASS",
+      "detail": "Stopped owned backend and verified connection refusal; native offline/stale gate removed WebView; same isolated backend restart restored fresh Park.",
+      "evidence": [
+        "backend-offline-fault.json",
+        "backend-offline-locked.xml",
+        "backend-offline-locked.png",
+        "backend-offline.png",
+        "backend.log"
+      ]
+    },
+    {
+      "check": "web-load-error-recovery",
+      "status": "PASS",
+      "detail": "Real WebView main-frame connection failure showed native retry state; retry restored existing web app.",
+      "evidence": [
+        "web-load-failed.xml",
+        "web-load-failed.png",
+        "web-load-error-recovery.png",
+        "webview-console.json"
+      ]
+    },
+    {
+      "check": "permissions-initial",
+      "status": "PASS",
+      "detail": "Camera and microphone Android runtime permissions both denied; no grants or privileged vehicle permissions.",
+      "evidence": [
+        "permissions-initial-car-api.txt",
+        "permissions-initial.xml",
+        "permissions-initial.png"
+      ]
+    },
+    {
+      "check": "permissions-denial",
+      "status": "PASS",
+      "detail": "Actual OS permission dialog observed; its denial control clicked; dialog dismissed and camera/microphone permissions remained denied. No physical media involved.",
+      "evidence": [
+        "permissions-denial-observation.json",
+        "permissions-denial-observed.xml",
+        "permissions-denial-prompt.png",
+        "permissions-denial-car-api.txt",
+        "permissions-denial.png"
+      ]
+    },
+    {
+      "check": "unsupported-hardware",
+      "status": "PASS",
+      "detail": "PackageManager reports absent camera; native status labels agree. Physical hardware is unverified.",
+      "evidence": [
+        "unsupported-hardware-car-api.txt",
+        "unsupported-hardware.xml",
+        "unsupported-hardware.png"
+      ]
+    },
+    {
+      "check": "crashes-console",
+      "status": "PASS",
+      "detail": "No app crash receipt or unexpected observed WebView JS/console error; intentional network fault phases logged separately.",
+      "evidence": [
+        "crash-buffer.txt",
+        "webview-console.json",
+        "logcat.txt",
+        "crashes-console.png"
+      ]
+    },
+    {
+      "check": "evidence-capture",
+      "status": "PASS",
+      "detail": "Valid framebuffer PNGs, fresh UI/activity evidence and matching acquisition hashes for nine routes and every passed behavioral check.",
+      "evidence": [
+        "evidence-index.json",
+        "results.json",
+        "results.xml"
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "path": "/",
+      "status": "PASS",
+      "width": 1280,
+      "scroll": 1280,
+      "headings": [
+        "Attune.more"
+      ],
+      "evidence": [
+        "route-dashboard.png",
+        "route-dashboard.xml",
+        "route-dashboard-activities.txt"
+      ]
+    },
+    {
+      "path": "/skin",
+      "status": "PASS",
+      "width": 1280,
+      "scroll": 1280,
+      "headings": [
+        "Cilt Sağlığı"
+      ],
+      "evidence": [
+        "route-skin.png",
+        "route-skin.xml",
+        "route-skin-activities.txt"
+      ]
+    },
+    {
+      "path": "/dental",
+      "status": "PASS",
+      "width": 1280,
+      "scroll": 1280,
+      "headings": [
+        "Diş Sağlığı"
+      ],
+      "evidence": [
+        "route-dental.png",
+        "route-dental.xml",
+        "route-dental-activities.txt"
+      ]
+    },
+    {
+      "path": "/vision",
+      "status": "PASS",
+      "width": 1280,
+      "scroll": 1280,
+      "headings": [
+        "Göz Sağlığı"
+      ],
+      "evidence": [
+        "route-vision.png",
+        "route-vision.xml",
+        "route-vision-activities.txt"
+      ]
+    },
+    {
+      "path": "/hearing",
+      "status": "PASS",
+      "width": 1280,
+      "scroll": 1280,
+      "headings": [
+        "İşitme Sağlığı"
+      ],
+      "evidence": [
+        "route-hearing.png",
+        "route-hearing.xml",
+        "route-hearing-activities.txt"
+      ]
+    },
+    {
+      "path": "/mental",
+      "status": "PASS",
+      "width": 1280,
+      "scroll": 1280,
+      "headings": [
+        "Ruh Sağlığı"
+      ],
+      "evidence": [
+        "route-mental.png",
+        "route-mental.xml",
+        "route-mental-activities.txt"
+      ]
+    },
+    {
+      "path": "/care",
+      "status": "PASS",
+      "width": 1280,
+      "scroll": 1280,
+      "headings": [
+        "Sizin için uygun uzmanlar"
+      ],
+      "evidence": [
+        "route-care.png",
+        "route-care.xml",
+        "route-care-activities.txt"
+      ]
+    },
+    {
+      "path": "/profile",
+      "status": "PASS",
+      "width": 1280,
+      "scroll": 1280,
+      "headings": [
+        "Sağlık Geçmişim"
+      ],
+      "evidence": [
+        "route-profile.png",
+        "route-profile.xml",
+        "route-profile-activities.txt"
+      ]
+    },
+    {
+      "path": "/privacy",
+      "status": "PASS",
+      "width": 1280,
+      "scroll": 1280,
+      "headings": [
+        "Verileriniz sizin kontrolünüzde."
+      ],
+      "evidence": [
+        "route-privacy.png",
+        "route-privacy.xml",
+        "route-privacy-activities.txt"
+      ]
+    }
+  ],
+  "safety": {
+    "backend_provider": "debug-only isolated backend simulation; not certified vehicle signals",
+    "platform_provider": "public Android CarUxRestrictionsManager, observed independently by read-only probe",
+    "car_boot_jar": "/system/framework/android.car.jar",
+    "pm_shared_android_car": false,
+    "backend_max_observation_age_ms": 2500,
+    "backend_moving_kmh": 75,
+    "platform_vhal_speed_mps": 10,
+    "platform_vhal_gear": "Drive",
+    "platform_vhal_parking_brake": false,
+    "ux_policy_overridden": false,
+    "camera_permission_after_test": "denied",
+    "microphone_permission_after_test": "denied"
+  },
+  "preservation_checks": {
+    "scope": "Post-run archive/document integrity only; no new application execution",
+    "archive_crc": "PASS",
+    "github_digest_match": true,
+    "files_verified": 172,
+    "png_chunk_crc_and_dimensions_verified": 25,
+    "json_parsed": 16,
+    "xml_parsed": 27,
+    "evidence_groups_verified": 25,
+    "acquisition_components_verified": 75,
+    "original_behavioral_checks": 17,
+    "original_behavioral_status": "17 PASS, 0 FAIL, 0 BLOCKED, 0 UNVERIFIED",
+    "original_routes": 9,
+    "source_commit_and_clean_checkout": "PASS",
+    "all_original_zip_members_unchanged": true
+  },
+  "privacy_review": {
+    "public_binary_publication_performed": false,
+    "scope": "all 25 original screenshots; 188 distinct XML text labels; text-pattern scan and source/packaging inspection",
+    "user_health_records_or_credentials_found": false,
+    "raw_log_public_contact_metadata_present": true,
+    "static_portraits": "existing approved preparation illustrations, not captured test participants",
+    "decision": "publish lightweight reviewed documents only; retain raw original evidence privately pending owner approval",
+    "limitations": "bounded manual and pattern review, not blanket privacy/security/asset-rights certification"
+  },
+  "immutable_source_files": [
+    {
+      "path": ".github/workflows/e2e-audit.yml",
+      "bytes": 12149,
+      "sha256": "c447cfb2371687338ef6a594141f2df59c8e2bb8c2a98a820975550f1b7435b4",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/.github/workflows/e2e-audit.yml"
+    },
+    {
+      "path": ".github/workflows/aaos-emulator-validation.yml",
+      "bytes": 7088,
+      "sha256": "38056afac957f23a341cba7355ab8d8e211cdea9eb68679cd5a28940f5093b50",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/.github/workflows/aaos-emulator-validation.yml"
+    },
+    {
+      "path": ".github/actions/setup-automotive-sdk/action.yml",
+      "bytes": 1694,
+      "sha256": "dc9a38592e783254d50ee070c14ab7f7f956e150f5babea85c4f8e2f66c53a94",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/.github/actions/setup-automotive-sdk/action.yml"
+    },
+    {
+      "path": "scripts/automotive/install_linux_runtime.sh",
+      "bytes": 968,
+      "sha256": "cc23576fbfe1aa37b28ac7bb2057c4ce091714c4937aa57a5076b549e6571479",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/scripts/automotive/install_linux_runtime.sh"
+    },
+    {
+      "path": "tests/automotive/runtime_policy.json",
+      "bytes": 1885,
+      "sha256": "09d05c6cce68ee2b349ed44c8e5d325e4e029b278227a1f457bea9aa4d544513",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/tests/automotive/runtime_policy.json"
+    },
+    {
+      "path": "tests/automotive/runtime-constraints.txt",
+      "bytes": 1619,
+      "sha256": "52d0c4a1dd286ef1c7a5e7ff12042cd281e5541dfd8fe02c2cb2366d735590ff",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/tests/automotive/runtime-constraints.txt"
+    },
+    {
+      "path": "tests/automotive/runtime_preflight.py",
+      "bytes": 14686,
+      "sha256": "cfd0a9ed08550b537b431f8fd3660b7b8380638f5d3b86bb894eb32ca06ec0af",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/tests/automotive/runtime_preflight.py"
+    },
+    {
+      "path": "tests/automotive/run_emulator.py",
+      "bytes": 6424,
+      "sha256": "b965318e0aa68cd83398e3a5af472db4b6612632f7ebb4c2703c792a1ca165e6",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/tests/automotive/run_emulator.py"
+    },
+    {
+      "path": "tests/automotive/validate_emulator.py",
+      "bytes": 52946,
+      "sha256": "2e9076cd55b9f660371034023b4060509e9b2bd3a6bb2cf1acb06bde0068aaf0",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/tests/automotive/validate_emulator.py"
+    },
+    {
+      "path": "tests/automotive/webview_driver.cjs",
+      "bytes": 7615,
+      "sha256": "aef8783f9d832ff6e41ed9d434eea1baa912136c95797584a6e4e06c9e4d748d",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/tests/automotive/webview_driver.cjs"
+    },
+    {
+      "path": "tests/automotive/validate_assets.py",
+      "bytes": 2063,
+      "sha256": "a7ba14747b94781b57a58ced3ba58781198f9ad03926823c17dce4fa69364ee7",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/tests/automotive/validate_assets.py"
+    },
+    {
+      "path": "tests/automotive/emulator-probe/src/main/java/more/attune/validation/RestrictionProbe.java",
+      "bytes": 3448,
+      "sha256": "a81b9ea32eef36d24352981c3516573f05dc3b96825fb0d0735eb9bce0441d16",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/tests/automotive/emulator-probe/src/main/java/more/attune/validation/RestrictionProbe.java"
+    },
+    {
+      "path": "apps/automotive/app/build.gradle",
+      "bytes": 1346,
+      "sha256": "33fb094b81a37054ad2aedc105f1d13d77c00fe84c7f1255beefa31bfb414b04",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/apps/automotive/app/build.gradle"
+    },
+    {
+      "path": "apps/automotive/build.gradle",
+      "bytes": 73,
+      "sha256": "4b08d3c261d317db5e5a5f7fa8ade50f361690e3b03fa86ee69a678f2a4b3a37",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/apps/automotive/build.gradle"
+    },
+    {
+      "path": "apps/automotive/gradle/wrapper/gradle-wrapper.properties",
+      "bytes": 340,
+      "sha256": "fe90ff0d9944879f591a8c37b6dbaf5046d1051ccbb6b26b22081692c321f432",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/apps/automotive/gradle/wrapper/gradle-wrapper.properties"
+    },
+    {
+      "path": "apps/automotive/app/src/main/AndroidManifest.xml",
+      "bytes": 1961,
+      "sha256": "9bac38837d342af0d1700150c096d2d345548373e23584fc5ce0b8981a3e705a",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/apps/automotive/app/src/main/AndroidManifest.xml"
+    },
+    {
+      "path": "apps/automotive/app/src/main/java/more/attune/automotive/GatePolicy.java",
+      "bytes": 1290,
+      "sha256": "3e757bf57638b1580c3dc33aa89812019afd9dcd3e0734f2ba1e7bfe6710df7c",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/apps/automotive/app/src/main/java/more/attune/automotive/GatePolicy.java"
+    },
+    {
+      "path": "apps/automotive/app/src/main/java/more/attune/automotive/CarRestrictionSource.java",
+      "bytes": 4676,
+      "sha256": "756fb956f0a892f92ec53f9cb2af2bcc91e4133158774e4f23bafa43e09b54e4",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/apps/automotive/app/src/main/java/more/attune/automotive/CarRestrictionSource.java"
+    },
+    {
+      "path": "apps/automotive/app/src/main/java/more/attune/automotive/MainActivity.java",
+      "bytes": 17510,
+      "sha256": "2c6e70116f3802d675f96f68cca2abe3deda4887ce500d21491bbd05b70be303",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/apps/automotive/app/src/main/java/more/attune/automotive/MainActivity.java"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 224498,
+      "sha256": "4179288e3c971fed0e739f3d36d5fe46e37a6b99689569fa73f8ff903d58f2ab",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/package-lock.json"
+    },
+    {
+      "path": "services/core-api/requirements.txt",
+      "bytes": 353,
+      "sha256": "0e0d0ebe925f5bbcb221938e8f0cbb90fdaeb74638b59de7186eb53a40fc9be8",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/services/core-api/requirements.txt"
+    },
+    {
+      "path": "apps/vehicle-app/src/components/HealthStartCard.tsx",
+      "bytes": 4347,
+      "sha256": "317e80a056ffdf3758b5b9009a8f7cd9403bcd407556564ef9690101f0449342",
+      "url": "https://github.com/sasmazt90/attune-more/blob/a3943b6c62e6f0282ff021e1de2f73a5c3c43e18/apps/vehicle-app/src/components/HealthStartCard.tsx"
+    }
+  ],
+  "documentation": [
+    "README.md",
+    "AAOS_EMULATOR_ACCEPTANCE_REPORT.md",
+    "AAOS_ACCEPTANCE_MANIFEST.json",
+    "AAOS_ACCEPTANCE_LIMITATIONS.md",
+    "OEM_TECHNICAL_VALIDATION_SUMMARY.md",
+    "ARCHIVE_PUBLICATION_PLAN.md"
+  ]
+}

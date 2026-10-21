@@ -1,0 +1,46 @@
+name: Attune Drive metadata diagnostic
+on:
+  workflow_call:
+    inputs:
+      expected_source_sha:
+        type: string
+        required: true
+    secrets:
+      ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON:
+        required: true
+      DRIVE_METADATA_FILE_ID:
+        required: true
+permissions:
+  contents: read
+jobs:
+  metadata:
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      github.repository == 'sasmazt90/attune-more' &&
+      github.event.repository.private == false &&
+      github.ref == 'refs/heads/feature/localization-en-de-tr-20261020'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - name: Require exact diagnostic source and initial manual attempt
+        env:
+          APPROVED_SOURCE: ${{ inputs.expected_source_sha }}
+        run: |
+          [[ "$GITHUB_RUN_ATTEMPT" == 1 && "$APPROVED_SOURCE" == "drive-metadata-only:$GITHUB_SHA" ]] || {
+            echo 'BLOCKED: exact diagnostic marker/source and initial attempt required.' >> "$GITHUB_STEP_SUMMARY"
+            exit 69
+          }
+          command -v python3
+          command -v openssl
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          # Fetch only the diagnostic script; no model, audio or application blobs.
+          sparse-checkout: /tests/automotive/drive_metadata_diagnostic.py
+          sparse-checkout-cone-mode: false
+      - name: One private Drive metadata request (safe status and reason only)
+        env:
+          ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON: ${{ secrets.ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON }}
+          ATTUNE_AAOS_TTS_BUNDLE_FILE_ID: ${{ secrets.DRIVE_METADATA_FILE_ID }}
+        run: python3 tests/automotive/drive_metadata_diagnostic.py
