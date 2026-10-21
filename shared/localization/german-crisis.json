@@ -9,9 +9,9 @@
     "sterben will",
     "will sterben"
   ],
-  "signal": "\\b(?:selbstmord|suizid(?:al|gedanken|plan)?|mich (?:nicht )?(?:umbringen|umzubringen)|mir (?:etwas|selbst) (?:antun|antue|schaden)|nicht mehr leben|sterben (?:will|möchte)|(?:will|möchte) (?:nicht (?:mehr )?)?sterben|(?:will|möchte) nicht (?:mehr )?leben)\\b",
+  "signal": "\\b(?:selbstmord(?:gedanken|plan|pläne|plaene)?|suizid(?:al|gedanken|plan|pläne|plaene)?|mich (?:nicht )?(?:umbringen|umzubringen)|mir (?:etwas|selbst) (?:antun|antue|schaden)|nicht mehr leben|sterben (?:will|möchte)|(?:will|möchte) (?:nicht (?:mehr )?)?sterben|(?:will|möchte) nicht (?:mehr )?leben)\\b",
   "selfDirected": "\\b(?:mich (?:umbringen|umzubringen)|mir (?:etwas|selbst) (?:antun|antue|schaden)|nicht mehr leben|sterben (?:will|möchte)|(?:will|möchte) sterben|(?:will|möchte) nicht (?:mehr )?leben)\\b",
-  "currentState": "\\b(?:ich (?:bin|fühle mich)(?: akut|aktuell|gerade|noch)? suizidal|ich habe (?:einen )?(?:suizidplan|suizidgedanken)|ich (?:plane|erwäge|denke an) (?:einen )?(?:selbstmord|suizid)|ich (?:will|möchte|werde) (?:einen )?(?:selbstmord|suizid) (?:begehen|verüben)|ich denke über (?:selbstmord|suizid) nach|ich habe einen plan für (?:selbstmord|suizid)|mein(?:en)? suizidplan|ich habe meinen suizidplan (?:fertiggestellt|vorbereitet))\\b",
+  "currentState": "\\b(?:ich (?:bin|fühle mich)(?: akut|aktuell|gerade|noch)? suizidal|ich habe (?:einen )?(?:(?:suizid|selbstmord)(?:plan|pläne|plaene|gedanken))|ich (?:plane|erwäge|denke an) (?:einen )?(?:selbstmord|suizid)|ich (?:will|möchte|werde) (?:einen )?(?:selbstmord|suizid) (?:begehen|verüben)|ich denke über (?:selbstmord|suizid) nach|ich habe einen plan für (?:selbstmord|suizid)|mein(?:en)? suizidplan|ich habe meinen suizidplan (?:fertiggestellt|vorbereitet))\\b",
   "reassurance": [
     "\\bich (?:bin|fühle mich)(?: aktuell|gerade)? (?:nicht|nicht mehr) suizidal\\b",
     "\\bich (?:will|möchte) nicht (?:mehr )?sterben\\b",
@@ -21,12 +21,14 @@
     "\\bich (?:will|möchte|werde) (?:keinen (?:selbstmord|suizid) (?:begehen|verüben)|(?:selbstmord|suizid) nicht (?:begehen|verüben))\\b",
     "\\bich denke nicht über (?:selbstmord|suizid) nach",
     "\\bmein suizidplan ist (?:nicht mehr aktiv|aufgegeben|abgebrochen)\\b",
-    "\\bmein suizidplan existiert nicht\\b"
+    "\\bmein suizidplan existiert nicht\\b",
+    "\\bich habe (?:keine|nicht mehr|keine aktuellen) (?:suizid|selbstmord)gedanken(?: mehr)?\\b"
   ],
   "historical": [
     "\\b(?:früher war ich|ich war früher) suizidal\\b",
     "\\bfrüher wollte ich (?:sterben|mich umbringen)\\b",
-    "\\bmein suizidplan (?:ist von vor (?:jahren|monaten)|wurde vor (?:jahren|monaten) aufgegeben)\\b"
+    "\\bmein suizidplan (?:ist von vor (?:jahren|monaten)|wurde vor (?:jahren|monaten) aufgegeben)\\b",
+    "\\bfrüher hatte ich (?:suizid|selbstmord)gedanken\\b"
   ],
   "uncertain": [
     "\\bich weiß nicht,? ob ich suizidal bin\\b",

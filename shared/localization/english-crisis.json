@@ -11,7 +11,7 @@
   ],
   "signal": "\\b(?:suicide|suicidal|kill myself|hurt myself|end my life|want to die|(?:don't|do not|never) want to live)\\b",
   "selfDirected": "\\b(?:kill myself|hurt myself|end my life|want to die|(?:don't|do not|never) want to live)\\b",
-  "currentState": "\\b(?:i(?: am|'m| feel| have been feeling) (?:actively |currently |still )?suicidal|i (?:have|keep having|am having) suicidal (?:thoughts|feelings)|i (?:have|made|am making) (?:a|my) suicide (?:plan|note)|i have (?:a|my) plan for suicide|i (?:wrote|am writing|have written) (?:a|my) suicide note|(?:feeling|actively|currently) suicidal|(?:commit|attempt|considering|contemplating|planning|thinking about) (?:my |a )?suicide|suicide (?:is|feels like) (?:my|the) (?:only|best) (?:option|way out)|(?:suicide|suicidal) (?:tonight|now|today)|my suicide (?:plan|note)|i (?:finished|completed|prepared|have prepared|have finished|have completed) my suicide (?:plan|note))\\b",
+  "currentState": "\\b(?:i(?: am|'m| feel| have been feeling) (?:actively |currently |still )?suicidal|i (?:have|keep having|am having) (?:suicidal (?:thoughts|feelings)|thoughts (?:of|about) suicide)|i (?:have|made|am making) (?:a|my) suicide (?:plan|note)|i have (?:a|my) plan for suicide|i (?:wrote|am writing|have written) (?:a|my) suicide note|(?:feeling|actively|currently) suicidal|(?:commit|attempt|considering|contemplating|planning|thinking about) (?:my |a )?suicide|suicide (?:is|feels like) (?:my|the) (?:only|best) (?:option|way out)|(?:suicide|suicidal) (?:tonight|now|today)|my suicide (?:plan|note)|i (?:finished|completed|prepared|have prepared|have finished|have completed) my suicide (?:plan|note))\\b",
   "reassurance": [
     "\\bi (?:don't|do not|never) (?:want|intend|plan) to (?:die|kill myself|hurt myself|end my life)\\b",
     "\\bi(?: am|'m| feel) (?:not|no longer) (?:currently |actively |feeling )?suicidal\\b",
@@ -21,20 +21,23 @@
     "\\bi (?:will not|won't|would not|wouldn't) (?:(?:kill|hurt) myself|commit suicide|end my life)\\b",
     "\\bi(?: am|'m) (?:not|no longer) (?:currently |seriously |actively )?(?:planning|considering|contemplating|thinking about) (?:my |a )?suicide\\b",
     "\\bmy suicide (?:plan|note) is (?:no longer (?:active|relevant)|abandoned|cancelled|canceled)\\b",
-    "\\bmy suicide (?:plan|note) (?:does not|doesn't) exist\\b"
+    "\\bmy suicide (?:plan|note) (?:does not|doesn't) exist\\b",
+    "\\bi (?:have no|do not have|don't have|no longer have|am not having) (?:any )?thoughts (?:of|about) suicide\\b"
   ],
   "historical": [
     "\\bi used to (?:feel|be) suicidal\\b",
     "\\bi used to (?:want to die|want to end my life|think about suicide)\\b",
     "\\bmy suicide (?:plan|note) (?:is from (?:years|months) ago|was abandoned (?:years|months) ago)\\b",
-    "\\b(?:i found )?my suicide (?:plan|note) from (?:years|months) ago\\b"
+    "\\b(?:i found )?my suicide (?:plan|note) from (?:years|months) ago\\b",
+    "\\bi used to have thoughts (?:of|about) suicide\\b"
   ],
   "uncertain": [
     "\\bi(?: am|'m) not sure (?:if|whether) i(?: am|'m| feel) suicidal\\b",
     "\\bi (?:don't|do not) (?:know|think) (?:if |whether |that )?i(?: am|'m| feel) suicidal\\b",
     "\\bi (?:don't|do not) know what (?:suicide|suicidal) means\\b",
     "\\bi (?:don't|do not) (?:think|believe) (?:that )?suicide (?:is|feels like) (?:my|the) (?:only|best) (?:option|way out)\\b",
-    "\\b(?:the (?:title|phrase)|a story called) [\"\\u201c]?my suicide (?:plan|note)[\"\\u201d]?"
+    "\\b(?:the (?:title|phrase)|a story called) [\"\\u201c]?my suicide (?:plan|note)[\"\\u201d]?",
+    "\\bi(?: am|'m) not sure (?:if|whether) i have thoughts (?:of|about) suicide\\b"
   ],
   "continuedRisk": "\\b(?:but|and) (?:sometimes )?(?:i )?(?:still (?:do|am|feel that way)|feel that way (?:again|now))\\b",
   "conditional": "\\b(?:unless|until|if|yet|not sure)\\b"

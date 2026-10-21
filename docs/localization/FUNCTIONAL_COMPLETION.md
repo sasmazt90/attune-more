@@ -38,6 +38,10 @@ Use a separately authorized checkout/runtime of this exact feature commit; do no
 4. Repeat a longer nonpersonal phrase and press **Stop**; output must cease without completion. Closing the dialog or backgrounding must cancel. Check normal application mute and language changes stop pending speech; changing voice must clear online permission. Do not change vehicle state or health consent to bypass restrictions.
 5. Repeat for EN and DE. Record PASS/FAIL/BLOCKED and exact voice names. No recordings, personal text or health records should be uploaded. Existing data/consent must remain intact. Do not repeat microphone capture.
 
+## Additional material review findings
+
+The automatic review of the combined feature found two further P1 construction gaps in the prior safety grammar: [English thoughts of suicide](https://github.com/sasmazt90/attune-more/pull/5#discussion_r4331898231) and [German Selbstmordgedanken](https://github.com/sasmazt90/attune-more/pull/5#discussion_r4331898242). The shared frontend/backend policies now recognize these direct self-reports, related thoughts-about-suicide phrasing and German plan compounds. Scoped negated/historical counterparts still mask only their own phrase; independent present danger retains the existing 112 route. Focused actual API and frontend/backend parity regressions cover all new cases. The previous six resolved findings are not reopened. These remain bounded engineering rules, not a clinical risk classifier. No Hearing, voice, storage or automotive algorithm changes accompany this correction.
+
 ## AAOS and merge
 
 Run only after the combined commit is pushed and automatic CI succeeds. The registered Actions entry is **Attune browser audit**, `.github/workflows/e2e-audit.yml`; select `feature/localization-en-de-tr-20261020` and enter the exact final 40-character commit in `expected_source_sha`. This routes to the feature's reusable **AAOS emulator validation (manual only)**; the unrelated browser job is excluded for this branch. No main modification is required. If the input is absent after selecting the branch, stop and report the form rather than launching without the exact-SHA guard.

@@ -36,6 +36,13 @@ CASES = [
     ("I do not want to die. I might hurt myself.", True, 'CURRENT_RISK_SIGNAL'),
     ("I don't want to die, and I am not safe and need urgent help.", True, 'REASSURANCE'),
     ('I have suicidal thoughts.', True, 'CURRENT_RISK_SIGNAL'),
+    ('I have thoughts of suicide.', True, 'CURRENT_RISK_SIGNAL'),
+    ('I am having thoughts about suicide.', True, 'CURRENT_RISK_SIGNAL'),
+    ('I have no thoughts of suicide.', False, 'REASSURANCE'),
+    ("I don't have any thoughts about suicide.", False, 'REASSURANCE'),
+    ('I used to have thoughts of suicide.', False, 'HISTORICAL'),
+    ('I am not sure whether I have thoughts of suicide.', False, 'UNCERTAIN'),
+    ('I have no thoughts of suicide, but I want to die.', True, 'CURRENT_RISK_SIGNAL'),
     ('I am thinking about suicide.', True, 'CURRENT_RISK_SIGNAL'),
     ('I am not thinking about suicide.', False, 'REASSURANCE'),
     ("I won't hurt myself.", False, 'REASSURANCE'),
@@ -117,7 +124,7 @@ def test_all_contexts_match_actual_frontend_including_remaining_danger():
                 assert observed[key]['riskLevel'] == check_mental_crisis(text, key == 'moving')['riskLevel']
 
 
-@pytest.mark.parametrize('text,crisis,context', [c for c in CASES if c in CASES[:7] or c[0] in ('My suicide plan is ready.','My suicide note is finished.','My suicide plan is no longer active.','My suicide plan is no longer active, but I want to die.')])
+@pytest.mark.parametrize('text,crisis,context', [c for c in CASES if c in CASES[:7] or c[0] in ('I have thoughts of suicide.','I am having thoughts about suicide.','I have no thoughts of suicide.','I have no thoughts of suicide, but I want to die.','My suicide plan is ready.','My suicide note is finished.','My suicide plan is no longer active.','My suicide plan is no longer active, but I want to die.')])
 def test_requested_english_transcripts_through_actual_keyless_api(monkeypatch, text, crisis, context):
     monkeypatch.setitem(main.vehicle_state, 'vehicleMoving', False)
     monkeypatch.setattr(main, 'get_active_mental_provider', lambda: (_ for _ in ()).throw(AssertionError('No live provider permitted')))
@@ -141,6 +148,14 @@ GERMAN = [
     ('Ich möchte nicht mehr leben.', True, 'CURRENT_RISK_SIGNAL'),
     ('Ich bin suizidal.', True, 'CURRENT_RISK_SIGNAL'),
     ('Ich habe Suizidgedanken.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich habe Selbstmordgedanken.', True, 'CURRENT_RISK_SIGNAL'),
+    ('ICH HABE SELBSTMORDGEDANKEN.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich habe Suizidpläne.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich habe Selbstmordpläne.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich habe keine Selbstmordgedanken.', False, 'REASSURANCE'),
+    ('Ich habe keine Suizidgedanken mehr.', False, 'REASSURANCE'),
+    ('Früher hatte ich Selbstmordgedanken.', False, 'HISTORICAL'),
+    ('Ich habe keine Selbstmordgedanken, aber ich möchte sterben.', True, 'CURRENT_RISK_SIGNAL'),
     ('Ich plane Suizid.', True, 'CURRENT_RISK_SIGNAL'),
     ('Ich möchte mich umbringen.', True, 'CURRENT_RISK_SIGNAL'),
     ('Ich habe vor, mich umzubringen.', True, 'CURRENT_RISK_SIGNAL'),
