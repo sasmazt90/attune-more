@@ -5,25 +5,34 @@ on:
   workflow_dispatch:
     inputs:
       expected_source_sha:
-        description: Exact approved integrated source SHA; does not authorize execution by itself
+        description: Exact approved SHA, or drive-metadata-only:<SHA> for metadata only; separate approval required
         type: string
         required: false
 permissions:
   contents: read
 concurrency:
-  group: attune-e2e-audit-${{ github.ref }}
-  cancel-in-progress: true
+  group: ${{ startsWith(inputs.expected_source_sha || '', 'drive-metadata-only:') && 'attune-drive-metadata' || 'attune-e2e-audit' }}-${{ github.ref }}
+  cancel-in-progress: ${{ !startsWith(inputs.expected_source_sha || '', 'drive-metadata-only:') }}
 jobs:
+  drive-metadata-diagnostic:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/feature/localization-en-de-tr-20261020' && startsWith(inputs.expected_source_sha || '', 'drive-metadata-only:')
+    uses: ./.github/workflows/drive-metadata-diagnostic.yml
+    with:
+      expected_source_sha: ${{ inputs.expected_source_sha }}
+    secrets:
+      ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON: ${{ secrets.ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON }}
+      # Secret forwarding masks the existing variable before any step can log it.
+      DRIVE_METADATA_FILE_ID: ${{ vars.ATTUNE_AAOS_TTS_BUNDLE_FILE_ID }}
   # This registered manual entry can select the feature ref without touching main.
   aaos-emulator:
-    if: github.event_name == 'workflow_dispatch' && contains(fromJSON('["refs/heads/feature/aaos-oem-agnostic-prototype-20261019","refs/heads/feature/localization-en-de-tr-20261020"]'), github.ref)
+    if: github.event_name == 'workflow_dispatch' && contains(fromJSON('["refs/heads/feature/aaos-oem-agnostic-prototype-20261019","refs/heads/feature/localization-en-de-tr-20261020"]'), github.ref) && !startsWith(inputs.expected_source_sha || '', 'drive-metadata-only:')
     uses: ./.github/workflows/aaos-emulator-validation.yml
     with:
       expected_source_sha: ${{ inputs.expected_source_sha || '' }}
     secrets:
       ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON: ${{ secrets.ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON }}
   browser-audit:
-    if: ${{ !contains(fromJSON('["refs/heads/feature/aaos-oem-agnostic-prototype-20261019","refs/heads/feature/localization-en-de-tr-20261020"]'), github.ref) }}
+    if: ${{ !contains(fromJSON('["refs/heads/feature/aaos-oem-agnostic-prototype-20261019","refs/heads/feature/localization-en-de-tr-20261020"]'), github.ref) && !startsWith(inputs.expected_source_sha || '', 'drive-metadata-only:') }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:

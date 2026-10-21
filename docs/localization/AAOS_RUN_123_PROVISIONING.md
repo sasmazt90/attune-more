@@ -43,7 +43,8 @@ private access and archive integrity controls remain unchanged.
 There is also a bounded `--metadata-only` mode. It uses the same read-only service
 account and file selector for one metadata request, then exits without downloading
 the ZIP, installing dependencies, generating speech or launching the emulator.
-It is not added to or dispatched as another GitHub workflow.
+The investigation did not dispatch a workflow. A dependency-free manual workflow
+route was subsequently prepared at the owner's request, as described below.
 
 In an authorized environment with `google-auth[requests]==2.40.3` and
 `requests==2.34.2` installed, and with the two existing environment variables
@@ -69,3 +70,42 @@ its actual status/reason. A new owner-authorized AAOS run is eventually necessar
 for final acceptance, but another full run should not be used merely to recover
 these missing diagnostics. Run #123 was not retried. No manual workflow, emulator,
 new inference, merge or deployment was launched for this investigation.
+
+## Owner-launched metadata diagnostic using existing repository configuration
+
+Direct execution in Cloud cannot use an encrypted GitHub repository secret. The
+existing registered **Attune browser audit** workflow now has an explicitly
+separate diagnostic route; main and workflow registration are unchanged.
+
+1. Open https://github.com/sasmazt90/attune-more/actions/workflows/e2e-audit.yml.
+2. Select **Run workflow** and branch `feature/localization-en-de-tr-20261020`.
+3. In the existing `expected_source_sha` field, enter
+   `drive-metadata-only:<exact final feature commit SHA from the handoff>`.
+   The prefix and full SHA are mandatory. A plain SHA selects the AAOS route;
+   **use the diagnostic prefix for this task**.
+4. Click **Run workflow** once. Do not use **Re-run jobs**.
+5. Read the `Drive metadata diagnostic` job summary: `requestStage`, `httpStatus`,
+   `safeGoogleReasons` and `metadataAttempts`. Share only that safe result.
+
+Only `drive-metadata-diagnostic / metadata` runs. AAOS and the browser audit jobs
+are excluded by the diagnostic marker. It has a separate concurrency group so it
+cannot cancel an AAOS run. An exact-source guard and initial-attempt guard run
+before credentials are provided to the script.
+
+The reusable workflow uses standard `ubuntu-24.04`, a three-minute timeout,
+preinstalled Python/OpenSSL, and a sparse `blob:none` checkout of only the
+diagnostic script. No package installation, model/audio download, build, emulator,
+artifact upload, permissions change or paid service is used.
+
+The existing `ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON` secret is passed through.
+The existing `ATTUNE_AAOS_TTS_BUNDLE_FILE_ID` variable is forwarded as an internal
+reusable-workflow secret (`DRIVE_METADATA_FILE_ID`) so GitHub masks it before step
+environment logging. **No new repository configuration is required.**
+
+The script performs one OAuth token POST using RS256 service-account credentials,
+then exactly one Drive metadata GET with the same read-only scope and fields as
+the importer. Token failure prevents the metadata request. Neither operation
+retries or follows redirects. Only status/stage and allowlisted reason codes are
+reported; no raw metadata, identifiers, credentials, tokens or free-text provider
+messages enter the summary. A 200 means metadata access succeeded, not that model
+download, integrity, inference or AAOS acceptance passed.
