@@ -1,8 +1,10 @@
 # Zero-warning frontend and opt-in Chatterbox V3 integration
 
+> Current results: [real V3 default-voice inference, source fingerprint verification and Cloud playback](DEFAULT_V3_COMPLETION.md). All unavailable-model/VCS-installer status and counts below describe the earlier pre-import checkpoint; they do not replace current runtime evidence. AAOS remains unverified.
+
 2026-10-21. PR #5, `feature/localization-en-de-tr-20261020`, starting at `45d6b3778144cd1c7322314b16f5ee0d21f93cd5`. This report supersedes the browser-only dynamic speech architecture in FUNCTIONAL_COMPLETION.md. Historical Hearing/fixed-recording evidence remains applicable.
 
-## Actual status
+## Historical pre-import status
 
 | Check | Result |
 |---|---|
@@ -12,8 +14,8 @@
 | Consolidated auth/config/process/proxy/client/locale/original-audio/observer checks | PASS, 87 focused tests and four subtests; explicit model/HTTP/audio fixtures |
 | Chatterbox source identity and code license | PASS, official pinned source and MIT text |
 | Exact V3 weight snapshot/hash/model license evidence | BLOCKED: official Hugging Face endpoint returned proxy `403 Forbidden` |
-| Approved natural female reference profiles | BLOCKED: no verified reference recording/profile established. Owner authorized autonomous selection; no further voice-selection approval is required. Official VCTK corpus page also returned proxy `403 Forbidden`; upstream source tree contains no reference WAV/MP3. No rights are inferred from Clipchamp approval. |
-| Real model inference, voice identity/naturalness, TR/EN/DE speech samples and synthesis latency | NOT EXECUTED; unavailable weights/profiles/runtime. No fixture is presented as neural output. |
+| Official default conditioning | Source behavior verified; required `conds.pt` is included in the new six-file hash manifest. External female reference requirement removed. Actual conditioning bytes remain unavailable. |
+| Real model inference, TR/EN/DE speech samples and synthesis latency | NOT EXECUTED; unavailable weights/conditioning/runtime. No fixture is presented as neural output. |
 | New Android neural transport/playback | NOT EXECUTED; explicit required observer scenario added |
 | Final AAOS and merge | BLOCKED by neural runtime acceptance; no dispatch, merge or deployment |
 
@@ -45,7 +47,7 @@ The server-held `ATTUNE_MENTAL_TTS_TOKEN` must be at least 32 characters and ide
 
 Inference is off until `ATTUNE_MENTAL_TTS_CONFIG` exists. No model downloads, ML imports or model construction happen at API startup. Each request runs a separate, single-concurrency subprocess; loading cost is included in its 90-second deadline. Concurrent requests return 429 rather than building an unbounded queue. Text travels over stdin, audio over stdout; no response text/audio cache or temporary health files are created. Worker logging is suppressed; provider credentials are removed from its environment. Offline flags and disabled Python socket connections prohibit implicit network fetches. The tokenizer's auxiliary Cangjie mapping is supplied from the hash-verified local bundle. Upstream audio watermarking remains enabled. Subprocess loading is deliberately bounded; low-latency suitability remains unverified.
 
-The manifest verifies the exact model files, model-repository license evidence, female profile metadata, explicit cloning rights evidence and per-language reference hashes. Builtin `conds.pt` is prohibited because its gender/reference authorization was not established. References must be mono PCM16 WAV, 3–15 seconds. The checked-in example is intentionally **unconfigured** and cannot produce output. Attestation fields do not themselves establish rights: an operator must first verify the actual license/consent evidence covering commercial synthetic voice generation and identity use.
+The manifest now verifies all six official model files, including required internal `conds.pt`, and model-repository license evidence. Generation explicitly selects V3 with `audio_prompt_path` omitted. No external reference or female-profile requirement remains. The checked-in example is intentionally **unconfigured** and cannot produce output. Exact official model metadata and bytes must first be verified; source code license evidence alone does not establish model-file integrity.
 
 Motion, lost driver state, disconnect, deadline or cancellation kills the inference child and discards output. Frontend also gates language, mute, visibility, permissions/session identity, navigation and Hearing focus. It validates source/locale/MIME/size before creating an audio element. Native `playing` plus completed `ended` are required; generated audio uses the same cleanup/meter/playback lifecycle as fixed files. No overlapping fixed guidance is allowed during generation/playback. Existing recordings/hashes and Hearing banks/scoring are unchanged.
 
@@ -53,11 +55,9 @@ Chatterbox is the new ordinary dynamic default. Browser/system speech remains an
 
 ## Reproducible completion in an accessible free Cloud runtime
 
-1. Do not alter the main application venv. Create a separate Python 3.11 environment outside tracked paths and install `services/core-api/requirements-mental-tts.txt` only when enough disk is available. Resolve/retain transitive package versions in a runtime receipt; no installation was performed here.
-2. In an environment permitted to access the official Hugging Face repository, verify its V3 revision and model license/card. Download only `t3_mtl23ls_v3.safetensors`, `ve.pt`, `s3gen.pt`, `grapheme_mtl_merged_expanded_v1.json`, `Cangjie5_TC.json` and exact license evidence at that revision. Compute SHA-256 independently. Do not obtain a model via an unofficial mirror to evade a network restriction.
-3. Select female references with documented commercial cloning/generation and identity-use rights. Preserve original source/license/consent and hashes; prepare separate derived mono PCM16 3–15s references. Never use the approved Clipchamp files without explicit cloning rights. Complete the config template in a private runtime directory, with all referenced files inside that directory. User authorization to select voices is not evidence of a third party's rights.
-4. Run `python scripts/mental_tts/preflight.py --config /ABS/runtime/config.json --output /ABS/preflight.json` using the isolated environment. It validates dependencies/files/rights evidence without model loading or inference. Exit 69 means BLOCKED.
-5. Set `ATTUNE_MENTAL_TTS_PYTHON=/ABS/isolated/bin/python`; run `python scripts/mental_tts/probe.py --config /ABS/runtime/config.json --output /ABS/NEW-evidence-directory`. This runs exactly three nonpersonal examples, reports actual synthesis latency/output hashes and never claims browser playback/naturalness from successful generation alone.
-6. Verify those actual outputs in browser and confirm language, female voice/naturalness, complete playback and cancellation. Start the existing API and web app with the same randomly generated server token, the config path and worker Python. Set `ATTUNE_MENTAL_TTS_BACKEND_URL=http://127.0.0.1:PORT` only on the Next server. Use nonpersonal generated AI replies; capture no microphone or health data for this output check.
-7. Only after required inference/playback acceptance and final CI/review pass, prepare one owner UI AAOS run on the new final SHA. Existing Attune browser audit routing, standard Ubuntu, 40 min, 50 MiB incl ZIP, one-day retention/no retries/paid services remain unchanged. The new `mental-neural-audio` observer attempts all three languages and reports unavailable runtime as BLOCKED; no silent skip. The ordinary workflow currently provisions no neural weights/profiles/runtime/token, so **do not launch it expecting this new gate to pass**. Provide verified assets/config in the same disposable free runtime first; do not commit weights/secrets/references or upload them to a paid service.
-8. Await actual AAOS evidence and review/merge requirements. Keep PR #5 unmerged while a required acceptance remains BLOCKED. No deployment is authorized.
+The verified asset import and real speech generation have since completed. See
+[DEFAULT_V3_COMPLETION.md](DEFAULT_V3_COMPLETION.md) for the measured results,
+offline directory installation and actual-source fingerprint checks. The received
+archive is an asset bundle, not a wheelhouse; do not repeat its transfer or model
+verification without evidence of corruption. AAOS, merge and deployment were not
+run in this recovery task.

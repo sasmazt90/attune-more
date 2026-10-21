@@ -7323,5 +7323,10 @@
     "tr": "Yanıt metninin seçtiğim dilde yerel Chatterbox modeliyle veya açıkça seçtiğim tarayıcı/cihaz sesiyle okunmasına izin veriyorum. Çevrimiçi tarayıcı sesi için ayrıca sağlayıcı izni gerekir.",
     "en": "I allow response text to be read in my selected language by the local Chatterbox model or a browser/device voice I explicitly select. An online browser voice requires separate provider permission.",
     "de": "Ich erlaube das Vorlesen des Antworttexts in meiner gewählten Sprache durch das lokale Chatterbox-Modell oder eine ausdrücklich gewählte Browser-/Gerätestimme. Eine Online-Browserstimme benötigt eine gesonderte Anbieterfreigabe."
+  },
+  "6fb5ca940966cb4d": {
+    "tr": "Chatterbox doğrulanmış V3 modelini ve resmî varsayılan koşullandırmayı kullanır; dış ses referansı gerekmez. Kullanılamazsa sağlayıcı otomatik değişmez. Aşağıdaki deneme yalnız tarayıcı sesini sınar.",
+    "en": "Chatterbox uses the verified V3 model and official default conditioning; no external voice reference is required. If unavailable, providers do not switch automatically. The test below checks browser speech only.",
+    "de": "Chatterbox verwendet das verifizierte V3-Modell und die offizielle Standard-Konditionierung; eine externe Stimmreferenz ist nicht erforderlich. Bei Nichtverfügbarkeit wird der Anbieter nicht automatisch gewechselt. Der folgende Test prüft nur die Browser-Stimme."
   }
 }

@@ -28,30 +28,69 @@ def configuration(tmp_path):
         return {'path':name,'sha256':hashlib.sha256(data).hexdigest()}
     files={name:item('model/'+name,b'SYNTHETIC WEIGHT FIXTURE') for name in neural.REQUIRED_FILES}
     license_item=item('MODEL-LICENSE',b'MIT License\nResemble AI\nSYNTHETIC TEST EVIDENCE, NOT ACTUAL MODEL RIGHTS')
-    evidence=item('REFERENCE-RIGHTS',b'Explicit synthetic unit fixture only; not a real voice or rights grant')
-    reference=item('reference.wav',wav_bytes(72000))
-    profiles={lang:{'id':'fixture-'+lang,'language':lang,'gender':'female','cloningPermission':True,'sourceURL':'https://example.invalid/synthetic','license':'TEST FIXTURE','rightsExplanation':'synthetic unit fixture only','rightsEvidence':evidence,'audio':reference} for lang in ['tr','en','de']}
     model={'repository':neural.MODEL_REPO,'file':neural.MODEL_FILE,'sourceRevision':neural.SOURCE_REVISION,'revision':'0'*40,'license':'MIT','licenseURL':f'https://huggingface.co/{neural.MODEL_REPO}/blob/'+('0'*40)+'/LICENSE','licenseEvidence':license_item,'directory':'model','files':files}
-    path=tmp_path/'config.json';config={'model':model,'profiles':profiles};path.write_text(json.dumps(config));return path,config
+    path=tmp_path/'config.json';config={'model':model,'conditioning':'official-default'};path.write_text(json.dumps(config));return path,config
 
 @pytest.mark.parametrize('language',['tr','en','de'])
 def test_verified_fixture_routing_and_tamper_rejection(configuration,language):
     path,config=configuration
-    assert neural.load_configuration(path,language)[3]['id']=='fixture-'+language
-    config['profiles'][language]['cloningPermission']=False;path.write_text(json.dumps(config))
-    with pytest.raises(ValueError,match='APPROVED_FEMALE'):neural.load_configuration(path,language)
+    loaded=neural.load_configuration(path,language)
+    assert loaded[2] is None and loaded[3]=={'id':'official-default','language':language}
+    assert 'profiles' not in config
+    (path.parent/'model/conds.pt').write_bytes(b'tampered default')
+    with pytest.raises(ValueError,match='HASH_MISMATCH'):neural.load_configuration(path,language)
 
-@pytest.mark.parametrize('fault',['weight','version','gender','locale','reference','builtin'])
+@pytest.mark.parametrize('fault',['weight','version','conditioningMode','conditioningMissing','tokenizer','conditioningHash'])
 def test_unverified_resources_never_load(configuration,fault):
     path,c=configuration
     if fault=='weight':(path.parent/'model'/neural.MODEL_FILE).write_bytes(b'tampered')
     if fault=='version':c['model']['file']='t3_mtl23ls_v2.safetensors'
-    if fault=='gender':c['profiles']['en']['gender']='unknown'
-    if fault=='locale':c['profiles']['en']['language']='de'
-    if fault=='reference':(path.parent/'reference.wav').write_bytes(b'tampered')
-    if fault=='builtin':(path.parent/'model'/'conds.pt').write_bytes(b'unverified')
+    if fault=='conditioningMode':c['conditioning']='external-reference'
+    if fault=='conditioningMissing':(path.parent/'model/conds.pt').unlink()
+    if fault=='tokenizer':(path.parent/'model/grapheme_mtl_merged_expanded_v1.json').write_bytes(b'tampered')
+    if fault=='conditioningHash':c['model']['files']['conds.pt']['sha256']='0'*64
     path.write_text(json.dumps(c))
-    with pytest.raises(ValueError):neural.load_configuration(path,'en')
+    with pytest.raises((ValueError,OSError)):neural.load_configuration(path,'en')
+
+
+@pytest.mark.parametrize('fault',[None,'repository','license','url','code-license-only'])
+def test_explicit_repository_metadata_license_evidence(configuration,fault):
+    path,c=configuration
+    text='# ResembleAI/chatterbox\n\n## Metadata\n- **License:** mit\n'
+    if fault=='repository':text=text.replace('ResembleAI/chatterbox','another/model')
+    if fault=='license':text=text.replace('mit','other')
+    if fault=='code-license-only':text='MIT License\nResemble AI\nSource code only'
+    evidence=path.parent/'MODEL-LICENSE';evidence.write_text(text)
+    c['model']['licenseEvidence']['sha256']=hashlib.sha256(evidence.read_bytes()).hexdigest()
+    c['model']['licenseEvidenceKind']='hf-repository-metadata'
+    c['model']['licenseURL']='https://huggingface.co/'+neural.MODEL_REPO
+    if fault=='url':c['model']['licenseURL']='https://another.example/model'
+    path.write_text(json.dumps(c))
+    if fault:
+        with pytest.raises(ValueError):neural.load_configuration(path,'en')
+    else:assert neural.load_configuration(path,'en')[2] is None
+
+
+@pytest.mark.parametrize('fault',[None,'tamper','extra','missing','version','revision','outside'])
+def test_actual_installed_source_fingerprints_accept_offline_install_and_reject_changes(monkeypatch,tmp_path,fault):
+    root=tmp_path/'site';package=root/'chatterbox';package.mkdir(parents=True)
+    f=package/'example.py';f.write_text('# explicit source-verification fixture\n')
+    manifest={'sourceRevision':neural.SOURCE_REVISION,'packageVersion':'0.1.7',
+              'files':{'chatterbox/example.py':hashlib.sha256(f.read_bytes()).hexdigest()}}
+    path=tmp_path/'source.json';monkeypatch.setattr(neural,'SOURCE_MANIFEST',path)
+    if fault=='revision':manifest['sourceRevision']='0'*40
+    path.write_text(json.dumps(manifest))
+    if fault=='tamper':f.write_text('# changed\n')
+    if fault=='extra':(package/'extra.py').write_text('# unexpected executable module\n')
+    if fault=='missing':f.unlink()
+    if fault=='outside':
+        f.unlink();outside=tmp_path/'outside.py';outside.write_text('# explicit source-verification fixture\n');f.symlink_to(outside)
+    class Installed:
+        version='0.1.7' if fault!='version' else '0.1.6'
+        def locate_file(self,name):return root/name
+    if fault:
+        with pytest.raises((OSError,ValueError)):neural.verify_runtime_source(Installed())
+    else:assert neural.verify_runtime_source(Installed())['filesVerified']==1
 
 @pytest.mark.parametrize('language',['tr','en','de'])
 def test_authenticated_actual_api_transports_fixture_wav_without_rewriting_text(monkeypatch,language):
@@ -107,4 +146,34 @@ def test_inference_process_cleanup_and_stale_output(monkeypatch,tmp_path,failure
             with pytest.raises((HTTPException,asyncio.CancelledError)):await task
         if failure in ('motion','disconnect','cancel'):assert process.killed
         assert neural._busy is False
+    asyncio.run(scenario())
+
+
+@pytest.mark.parametrize('failure',['disconnect','receive-error','handler-cancel'])
+def test_request_observer_kills_actual_child_and_releases_slot(monkeypatch,tmp_path,failure):
+    """Real process, labelled non-ML sleeper; ASGI event queue, no model weights."""
+    path=tmp_path/'config.json';path.write_text('{}')
+    monkeypatch.setenv('ATTUNE_MENTAL_TTS_CONFIG',str(path))
+    real_spawn=asyncio.create_subprocess_exec
+    async def scenario():
+        spawned=asyncio.Event();events=asyncio.Queue();process=None
+        async def spawn(*args,**kwargs):
+            nonlocal process
+            process=await real_spawn(sys.executable,'-c','import sys,time;sys.stdin.buffer.read();time.sleep(30)',**kwargs)
+            spawned.set();return process
+        monkeypatch.setattr(neural.asyncio,'create_subprocess_exec',spawn)
+        class Request:
+            async def receive(self):
+                event=await events.get()
+                if isinstance(event,Exception):raise event
+                return event
+            async def is_disconnected(self):
+                raise AssertionError('Pre-cancelled polling must not be used')
+        task=asyncio.create_task(neural.generate_for_request('Nonpersonal process fixture','en',lambda:True,Request()))
+        await asyncio.wait_for(spawned.wait(),2)
+        if failure=='handler-cancel':task.cancel()
+        else:await events.put(OSError('fixture closed connection') if failure=='receive-error' else {'type':'http.disconnect'})
+        with pytest.raises((HTTPException,asyncio.CancelledError)):
+            await asyncio.wait_for(task,2)
+        assert process.returncode is not None and neural._busy is False
     asyncio.run(scenario())

@@ -9,11 +9,11 @@
     "don't want to live",
     "do not want to live"
   ],
-  "signal": "\\b(?:suicide|suicidal|kill myself|hurt myself|end my life|want to die|(?:don't|do not|never) want to live)\\b",
-  "selfDirected": "\\b(?:kill myself|hurt myself|end my life|want to die|(?:don't|do not|never) want to live)\\b",
+  "signal": "\\b(?:suicide|suicidal|kill myself|hurt myself|end my life|want to die|(?:don't|do not|never|no longer) want to live)\\b",
+  "selfDirected": "\\b(?:kill myself|hurt myself|end my life|want to die|(?:don't|do not|never|no longer) want to live)\\b",
   "currentState": "\\b(?:i(?: am|'m| feel| have been feeling) (?:actively |currently |still )?suicidal|i (?:have|keep having|am having) (?:suicidal (?:thoughts|feelings)|thoughts (?:of|about) suicide)|i (?:have|made|am making) (?:(?:a|my) )?suicide (?:plans?|notes?)|i have (?:a|my) plan for suicide|i (?:wrote|am writing|have written) (?:a|my) suicide note|(?:feeling|actively|currently) suicidal|(?:commit|attempt|considering|contemplating|planning|thinking (?:of|about)) (?:my |a )?suicide|suicide (?:is|feels like) (?:my|the) (?:only|best) (?:option|way out)|(?:suicide|suicidal) (?:tonight|now|today)|my suicide (?:plans?|notes?)|i (?:finished|completed|prepared|have prepared|have finished|have completed) my suicide (?:plans?|notes?)|i(?: am|'m) (?:experiencing|struggling with|dealing with) suicidal (?:thoughts|feelings|urges))\\b",
   "reassurance": [
-    "\\bi (?:don't|do not|never) (?:want|intend|plan) to (?:die|kill myself|hurt myself|end my life)\\b",
+    "\\bi (?:don't|do not|never|no longer) (?:want|intend|plan) to (?:die|kill myself|hurt myself|end my life)\\b",
     "\\bi(?: am|'m| feel) (?:not|no longer) (?:currently |actively |feeling )?suicidal\\b",
     "\\bi(?: am|'m) currently not suicidal\\b",
     "\\bi (?:don't|do not|never) feel suicidal(?: anymore| any longer)?\\b",

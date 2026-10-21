@@ -1,4 +1,4 @@
-> Update 2026-10-21: [Chatterbox V3 integration and current runtime blockers](NEURAL_TTS_COMPLETION.md) supersedes the browser-only dynamic speech path below. Historical fixed-recording/Hearing evidence is preserved.
+> Update 2026-10-21: [official default V3 conditioning and offline bundle preparation](DEFAULT_V3_COMPLETION.md) removes the external female-reference requirement. [Earlier integration evidence](NEURAL_TTS_COMPLETION.md) and historical fixed-recording/Hearing evidence are preserved. Real TR/EN/DE V3 generation and Cloud browser delivery/playback are verified; final AAOS acceptance remains separate and was not run.
 
 # Voice and audio provenance
 

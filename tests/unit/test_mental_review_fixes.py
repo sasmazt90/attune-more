@@ -18,6 +18,12 @@ from fastapi.testclient import TestClient
 import main
 
 CASES = [
+    ('I no longer want to live.', True, 'CURRENT_RISK_SIGNAL'),
+    ('I no longer want to live anymore.', True, 'CURRENT_RISK_SIGNAL'),
+    ("I no longer want to live, but I don't want to die.", True, 'CURRENT_RISK_SIGNAL'),
+    ('I no longer want to die.', False, 'REASSURANCE'),
+    ('I no longer want to kill myself.', False, 'REASSURANCE'),
+    ('I no longer want to die, but I no longer want to live.', True, 'CURRENT_RISK_SIGNAL'),
     ("I don't want to die.", False, 'REASSURANCE'),
     ('I am no longer suicidal.', False, 'REASSURANCE'),
     ('I want to die.', True, 'CURRENT_RISK_SIGNAL'),
@@ -135,7 +141,7 @@ def test_all_contexts_match_actual_frontend_including_remaining_danger():
                 assert observed[key]['riskLevel'] == check_mental_crisis(text, key == 'moving')['riskLevel']
 
 
-@pytest.mark.parametrize('text,crisis,context', [c for c in CASES if c in CASES[:7] or c[0] in ('I am thinking of suicide.','I am experiencing suicidal thoughts.','I have suicide plans.','I have thoughts of suicide.','I am having thoughts about suicide.','I have no thoughts of suicide.','I have no thoughts of suicide, but I want to die.','My suicide plan is ready.','My suicide note is finished.','My suicide plan is no longer active.','My suicide plan is no longer active, but I want to die.')])
+@pytest.mark.parametrize('text,crisis,context', [c for c in CASES if c in CASES[:13] or c[0] in ('I am thinking of suicide.','I am experiencing suicidal thoughts.','I have suicide plans.','I have thoughts of suicide.','I am having thoughts about suicide.','I have no thoughts of suicide.','I have no thoughts of suicide, but I want to die.','My suicide plan is ready.','My suicide note is finished.','My suicide plan is no longer active.','My suicide plan is no longer active, but I want to die.')])
 def test_requested_english_transcripts_through_actual_keyless_api(monkeypatch, text, crisis, context):
     monkeypatch.setitem(main.vehicle_state, 'vehicleMoving', False)
     monkeypatch.setattr(main, 'get_active_mental_provider', lambda: (_ for _ in ()).throw(AssertionError('No live provider permitted')))

@@ -3,20 +3,18 @@ import contextlib
 import io
 import json
 import socket
-from importlib.metadata import distribution, version
+from importlib.metadata import version
 import sys
 import wave
-from mental_neural_tts import load_configuration, MAX_SECONDS, SOURCE_REVISION
+from mental_neural_tts import load_configuration, MAX_SECONDS, verify_runtime_source
 
 
 def synthesize(payload):
-    config, directory, reference, _ = load_configuration(payload['config'], payload['language'])
+    config, directory, _, _ = load_configuration(payload['config'], payload['language'])
     text = payload['text']
     if not isinstance(text, str) or not text.strip() or len(text) > 4096:
         raise ValueError('INVALID_TEXT')
-    direct = json.loads(distribution('chatterbox-tts').read_text('direct_url.json') or '{}')
-    if direct.get('vcs_info', {}).get('commit_id') != SOURCE_REVISION:
-        raise ValueError('PINNED_OFFICIAL_SOURCE_REQUIRED')
+    verify_runtime_source()
     for name, expected in [('torch','2.6.0'),('torchaudio','2.6.0'),('transformers','5.2.0'),('safetensors','0.5.3')]:
         if version(name).split('+')[0] != expected:
             raise ValueError('PINNED_RUNTIME_REQUIRED')
@@ -40,9 +38,11 @@ def synthesize(payload):
     if device not in ('cpu', 'cuda'):
         raise ValueError('UNSUPPORTED_DEVICE')
     model = ChatterboxMultilingualTTS.from_local(str(directory), device, t3_model='v3')
-    # Preserve the upstream watermark. No builtin/unknown gender conditioning.
+    # Keep the official internal default conditioning and upstream watermark.
+    if model.conds is None:
+        raise ValueError('OFFICIAL_DEFAULT_CONDITIONING_MISSING')
     with torch.inference_mode():
-        audio = model.generate(text, language_id=payload['language'], audio_prompt_path=str(reference))
+        audio = model.generate(text, language_id=payload['language'])
     samples = audio.detach().cpu().numpy().reshape(-1)
     if model.sr != 24000 or not 0 < len(samples) <= model.sr * MAX_SECONDS or not np.isfinite(samples).all():
         raise ValueError('INVALID_MODEL_OUTPUT')

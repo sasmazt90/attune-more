@@ -32,60 +32,12 @@
       "Cangjie5_TC.json": {
         "path": "model/Cangjie5_TC.json",
         "sha256": "REPLACE_WITH_VERIFIED_SHA256"
+      },
+      "conds.pt": {
+        "path": "model/conds.pt",
+        "sha256": "REPLACE_WITH_VERIFIED_SHA256"
       }
     }
   },
-  "profiles": {
-    "tr": {
-      "id": "UNCONFIGURED-tr",
-      "language": "tr",
-      "gender": "female",
-      "sourceURL": "",
-      "license": "",
-      "cloningPermission": false,
-      "rightsExplanation": "",
-      "rightsEvidence": {
-        "path": "rights/tr.txt",
-        "sha256": "REPLACE_WITH_VERIFIED_SHA256"
-      },
-      "audio": {
-        "path": "references/tr.wav",
-        "sha256": "REPLACE_WITH_VERIFIED_SHA256"
-      }
-    },
-    "en": {
-      "id": "UNCONFIGURED-en",
-      "language": "en",
-      "gender": "female",
-      "sourceURL": "",
-      "license": "",
-      "cloningPermission": false,
-      "rightsExplanation": "",
-      "rightsEvidence": {
-        "path": "rights/en.txt",
-        "sha256": "REPLACE_WITH_VERIFIED_SHA256"
-      },
-      "audio": {
-        "path": "references/en.wav",
-        "sha256": "REPLACE_WITH_VERIFIED_SHA256"
-      }
-    },
-    "de": {
-      "id": "UNCONFIGURED-de",
-      "language": "de",
-      "gender": "female",
-      "sourceURL": "",
-      "license": "",
-      "cloningPermission": false,
-      "rightsExplanation": "",
-      "rightsEvidence": {
-        "path": "rights/de.txt",
-        "sha256": "REPLACE_WITH_VERIFIED_SHA256"
-      },
-      "audio": {
-        "path": "references/de.wav",
-        "sha256": "REPLACE_WITH_VERIFIED_SHA256"
-      }
-    }
-  }
+  "conditioning": "official-default"
 }

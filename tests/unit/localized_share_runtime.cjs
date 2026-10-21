@@ -8,7 +8,7 @@ const {setLanguage,LOCALES}=require('../../apps/vehicle-app/src/i18n/core.ts');
 const {appendHealthRecord}=require('../../apps/vehicle-app/src/utils/healthRecords.ts');
 const {getMentalSummary}=require('../../apps/vehicle-app/src/utils/healthSelectors.ts');
 const ISO='2026-10-20T12:34:56.000Z',latestKey='togg_health_latest_mental',historyKey='togg_health_mental_history';
-localStorage.setItem('attune_health_processing_v1',JSON.stringify({version:1,services:{mental:{at:ISO,permissions:['recognition','conversation','speech']}}}));
+localStorage.setItem('attune_health_processing_v1',JSON.stringify({version:1,services:{mental:{at:ISO,permissions:['recognition','conversation','speech-output-v2']}}}));
 (async()=>{
  setLanguage('de');const record={id:'synthetic-mental-locale-fixture',timestamp:ISO,themes:['Synthetic theme'],summaryText:'Synthetic nonpersonal summary'};
  await appendHealthRecord('mental',record);

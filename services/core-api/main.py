@@ -466,7 +466,7 @@ async def mental_speech(payload: SpeechPayload):
 
 @app.post('/api/mental/neural-speech')
 async def mental_neural_speech(payload: NeuralSpeechPayload, request: Request):
-    from mental_neural_tts import authorize, generate
+    from mental_neural_tts import authorize, generate_for_request
     authorize(request.headers.get('authorization'))
     if not payload.speechConsent:
         raise HTTPException(403, 'SPEECH_CONSENT_REQUIRED')
@@ -476,7 +476,7 @@ async def mental_neural_speech(payload: NeuralSpeechPayload, request: Request):
         return (vehicle_state.get('driverAuthenticated') is True
                 and vehicle_state.get('vehicleMoving') is False
                 and vehicle_state.get('vehicleParked') is True)
-    raw = await generate(payload.text, payload.language, permitted, request.is_disconnected)
+    raw = await generate_for_request(payload.text, payload.language, permitted, request)
     return Response(raw, media_type='audio/wav', headers={
         'Cache-Control':'no-store', 'X-Content-Type-Options':'nosniff',
         'X-TTS-Source':'chatterbox-multilingual-v3', 'X-TTS-Locale':LANGUAGES[payload.language]})

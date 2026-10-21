@@ -3,9 +3,11 @@ import asyncio
 import hashlib
 import hmac
 import io
+from importlib.metadata import distribution
 import json
 import os
 from pathlib import Path
+import re
 import sys
 from time import monotonic
 import wave
@@ -14,10 +16,33 @@ from fastapi import HTTPException
 MODEL_REPO = 'ResembleAI/chatterbox'
 SOURCE_REVISION = '5de7a54aa4e5e2baadb0182dde554908b48b85c2'
 MODEL_FILE = 't3_mtl23ls_v3.safetensors'
-REQUIRED_FILES = (MODEL_FILE, 've.pt', 's3gen.pt', 'grapheme_mtl_merged_expanded_v1.json', 'Cangjie5_TC.json')
+REQUIRED_FILES = (MODEL_FILE, 've.pt', 's3gen.pt', 'grapheme_mtl_merged_expanded_v1.json', 'Cangjie5_TC.json', 'conds.pt')
 MAX_AUDIO = 8 * 1024 * 1024
 MAX_SECONDS = 60
 _busy = False
+SOURCE_MANIFEST = Path(__file__).resolve().parents[2] / 'shared/localization/chatterbox-v3-source.json'
+
+
+def verify_runtime_source(installed=None):
+    """Pin actual installed Python bytes, including offline wheels/directories.
+
+    PEP 610 VCS metadata alone neither supports offline directory installs nor
+    detects edited source. These fingerprints come from the pinned official tree.
+    """
+    package = installed or distribution('chatterbox-tts')
+    manifest = json.loads(SOURCE_MANIFEST.read_text('utf-8'))
+    if manifest['sourceRevision'] != SOURCE_REVISION or package.version != manifest['packageVersion']:
+        raise ValueError('PINNED_OFFICIAL_SOURCE_REQUIRED')
+    root = Path(package.locate_file('chatterbox')).resolve(strict=True)
+    expected = manifest['files']
+    actual = {'chatterbox/' + p.relative_to(root).as_posix() for p in root.rglob('*.py')}
+    if actual != set(expected):
+        raise ValueError('OFFICIAL_SOURCE_FILE_SET_MISMATCH')
+    for name, fingerprint in expected.items():
+        path = Path(package.locate_file(name)).resolve(strict=True)
+        if not path.is_relative_to(root) or digest(path) != fingerprint:
+            raise ValueError('OFFICIAL_SOURCE_HASH_MISMATCH')
+    return {'sourceRevision': SOURCE_REVISION, 'version': package.version, 'filesVerified': len(expected)}
 
 
 def authorize(header):
@@ -68,13 +93,24 @@ def load_configuration(config_path, language, verify_models=True):
         raise ValueError('UNVERIFIED_V3_ARTIFACT')
     # The operator must preserve the exact model repository's license evidence,
     # independently of the code license. A code license alone is insufficient.
-    if model.get('licenseURL') not in (
+    metadata_evidence = model.get('licenseEvidenceKind') == 'hf-repository-metadata'
+    allowed_license_urls = (
+        (f'https://huggingface.co/{MODEL_REPO}',) if metadata_evidence else (
             f'https://huggingface.co/{MODEL_REPO}/blob/{revision}/LICENSE',
-            f'https://huggingface.co/{MODEL_REPO}/blob/{revision}/README.md'):
+            f'https://huggingface.co/{MODEL_REPO}/blob/{revision}/README.md'))
+    if model.get('licenseURL') not in allowed_license_urls:
         raise ValueError('MODEL_LICENSE_EVIDENCE_REQUIRED')
     license_path = verified_file(root, model['licenseEvidence'], 65536)
     license_text = license_path.read_text('utf-8')
-    if not ('MIT License' in license_text or 'license: mit' in license_text.lower()) or 'resemble' not in license_text.lower():
+    if metadata_evidence:
+        # Authenticated Hub metadata is repository-level evidence, not a fetched
+        # snapshot README. Snapshot file integrity is checked independently below.
+        licensed = (license_text.startswith('# ' + MODEL_REPO + '\n')
+                    and re.search(r'^- \*\*License:\*\* mit\s*$', license_text, re.M) is not None)
+    else:
+        licensed = (('MIT License' in license_text or 'license: mit' in license_text.lower())
+                    and 'resemble' in license_text.lower())
+    if not licensed:
         raise ValueError('MODEL_MIT_LICENSE_REQUIRED')
     directory = (root / model['directory']).resolve(strict=True)
     if not directory.is_relative_to(root) or not directory.is_dir():
@@ -85,22 +121,13 @@ def load_configuration(config_path, language, verify_models=True):
             actual = verified_file(root, item)
             if actual != directory / name:
                 raise ValueError('MODEL_FILE_PATH_MISMATCH')
-        # from_local auto-loads conds.pt; prohibit unapproved builtin conditioning.
-        if (directory / 'conds.pt').exists():
-            raise ValueError('UNAPPROVED_BUILTIN_CONDITIONING')
-    profile = config['profiles'][language]
-    if (profile.get('language') != language or profile.get('gender') != 'female'
-            or profile.get('cloningPermission') is not True
-            or not profile.get('id') or not profile.get('sourceURL')
-            or not profile.get('license') or not profile.get('rightsExplanation')):
-        raise ValueError('APPROVED_FEMALE_REFERENCE_REQUIRED')
-    reference = verified_file(root, profile['audio'], 4 * 1024 * 1024)
-    verified_file(root, profile['rightsEvidence'], 65536)
-    with wave.open(str(reference), 'rb') as audio:
-        duration = audio.getnframes() / audio.getframerate()
-        if audio.getnchannels() != 1 or audio.getsampwidth() != 2 or not 3 <= duration <= 15:
-            raise ValueError('REFERENCE_PCM_MONO_3_TO_15_SECONDS_REQUIRED')
-    return config, directory, reference, profile
+    if config.get('conditioning') != 'official-default':
+        raise ValueError('OFFICIAL_DEFAULT_CONDITIONING_REQUIRED')
+    # from_local loads this internal tensor bundle. No external reference is used.
+    if not (directory / 'conds.pt').is_file():
+        raise ValueError('OFFICIAL_DEFAULT_CONDITIONING_MISSING')
+    return config, directory, None, {'id':'official-default', 'language':language}
+
 
 
 def validate_wave(raw):
@@ -125,7 +152,7 @@ async def generate(text, language, permitted, disconnected):
         raise HTTPException(409, 'PARK_AND_AUTHENTICATION_REQUIRED')
     path = os.getenv('ATTUNE_MENTAL_TTS_CONFIG', '')
     if not path or not Path(path).is_file():
-        raise HTTPException(503, 'NEURAL_TTS_MODEL_AND_PROFILES_UNAVAILABLE')
+        raise HTTPException(503, 'NEURAL_TTS_MODEL_BUNDLE_UNAVAILABLE')
     _busy = True
     process = None
     task = None
@@ -174,3 +201,34 @@ async def generate(text, language, permitted, disconnected):
                 task.cancel()
             await asyncio.gather(task, return_exceptions=True)
         _busy = False
+
+
+async def generate_for_request(text, language, permitted, request):
+    """Observe disconnects after FastAPI has consumed the validated JSON body.
+
+    Request.is_disconnected uses a pre-cancelled receive probe. With the HTTP
+    middleware's AnyIO receive stream it can miss a real client disconnect.
+    A dedicated pending receive observes that event without that polling race.
+    """
+    gone = asyncio.Event()
+
+    async def watch():
+        try:
+            while True:
+                if (await request.receive())['type'] == 'http.disconnect':
+                    gone.set()
+                    return
+        except asyncio.CancelledError:
+            raise
+        except Exception:
+            gone.set()  # An unreadable connection must never keep inference alive.
+
+    async def disconnected():
+        return gone.is_set()
+
+    watcher = asyncio.create_task(watch())
+    try:
+        return await generate(text, language, permitted, disconnected)
+    finally:
+        watcher.cancel()
+        await asyncio.gather(watcher, return_exceptions=True)

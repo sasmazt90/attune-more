@@ -11,7 +11,11 @@ from mental_neural_tts import load_configuration,generate,digest
 parser=argparse.ArgumentParser();parser.add_argument('--config',required=True,type=Path);parser.add_argument('--output',required=True,type=Path);args=parser.parse_args()
 if args.output.exists():raise SystemExit('Use a NEW evidence directory; never overwrite originals')
 args.output.mkdir(parents=True);os.environ['ATTUNE_MENTAL_TTS_CONFIG']=str(args.config.resolve())
-phrases={'tr':'Bu yeni ve kişisel olmayan örnekte 1287 sayısı var. Kısa bir mola verebilirsiniz.','en':'This new nonpersonal example includes the number 1287. You could take a short break.','de':'Dieses neue, nichtpersönliche Beispiel enthält die Zahl 1287. Sie könnten eine kurze Pause machen.'}
+phrases={
+ 'tr':'Merhaba, bugün kendinizi nasıl hissediyorsunuz? İsterseniz sizi dinleyebilirim. Aklınızdan geçenleri birlikte konuşabiliriz.',
+ 'en':"Hello, how are you feeling today? I'm here to listen if you'd like to talk. We can take some time to discuss what's on your mind.",
+ 'de':'Hallo, wie geht es Ihnen heute? Wenn Sie möchten, können Sie mir erzählen, was Sie gerade beschäftigt. Ich höre Ihnen gerne zu.'}
+
 async def disconnected():return False
 async def run():
     rows=[]
@@ -21,7 +25,7 @@ async def run():
             _,_,_,profile=load_configuration(args.config,language)
             raw=await generate(text,language,lambda:True,disconnected)
             path=args.output/(language+'.wav');path.write_bytes(raw)
-            rows.append({'language':language,'status':'PASS','profile':profile['id'],'seconds':perf_counter()-started,'format':'PCM16 mono 24000 Hz WAV','bytes':len(raw),'sha256':digest(path),'text':text,'browserPlayback':'UNVERIFIED','femaleNaturalness':'UNVERIFIED'})
+            rows.append({'language':language,'status':'PASS','profile':profile['id'],'seconds':perf_counter()-started,'format':'PCM16 mono 24000 Hz WAV','bytes':len(raw),'sha256':digest(path),'text':text,'browserPlayback':'UNVERIFIED','conditioning':'official-default','voiceGender':'not constrained'})
         except Exception:
             rows.append({'language':language,'status':'BLOCKED','seconds':perf_counter()-started,'reason':'Configuration or offline model inference unavailable; no success inferred','browserPlayback':'NOT_EXECUTED'})
         (args.output/'results.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n')
