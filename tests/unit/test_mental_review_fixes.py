@@ -36,6 +36,17 @@ CASES = [
     ("I do not want to die. I might hurt myself.", True, 'CURRENT_RISK_SIGNAL'),
     ("I don't want to die, and I am not safe and need urgent help.", True, 'REASSURANCE'),
     ('I have suicidal thoughts.', True, 'CURRENT_RISK_SIGNAL'),
+    ('I am thinking of suicide.', True, 'CURRENT_RISK_SIGNAL'),
+    ('I am not thinking of suicide.', False, 'REASSURANCE'),
+    ('I am experiencing suicidal thoughts.', True, 'CURRENT_RISK_SIGNAL'),
+    ('I am struggling with suicidal thoughts.', True, 'CURRENT_RISK_SIGNAL'),
+    ('I am no longer experiencing suicidal thoughts.', False, 'REASSURANCE'),
+    ('I used to struggle with suicidal thoughts.', False, 'HISTORICAL'),
+    ('My suicide plans are ready.', True, 'CURRENT_RISK_SIGNAL'),
+    ('My suicide notes are from years ago.', False, 'HISTORICAL'),
+    ('My suicide plans are no longer active.', False, 'REASSURANCE'),
+    ('I have suicide plans.', True, 'CURRENT_RISK_SIGNAL'),
+    ('I used to have my suicide plans.', False, 'HISTORICAL'),
     ('I have thoughts of suicide.', True, 'CURRENT_RISK_SIGNAL'),
     ('I am having thoughts about suicide.', True, 'CURRENT_RISK_SIGNAL'),
     ('I have no thoughts of suicide.', False, 'REASSURANCE'),
@@ -124,7 +135,7 @@ def test_all_contexts_match_actual_frontend_including_remaining_danger():
                 assert observed[key]['riskLevel'] == check_mental_crisis(text, key == 'moving')['riskLevel']
 
 
-@pytest.mark.parametrize('text,crisis,context', [c for c in CASES if c in CASES[:7] or c[0] in ('I have thoughts of suicide.','I am having thoughts about suicide.','I have no thoughts of suicide.','I have no thoughts of suicide, but I want to die.','My suicide plan is ready.','My suicide note is finished.','My suicide plan is no longer active.','My suicide plan is no longer active, but I want to die.')])
+@pytest.mark.parametrize('text,crisis,context', [c for c in CASES if c in CASES[:7] or c[0] in ('I am thinking of suicide.','I am experiencing suicidal thoughts.','I have suicide plans.','I have thoughts of suicide.','I am having thoughts about suicide.','I have no thoughts of suicide.','I have no thoughts of suicide, but I want to die.','My suicide plan is ready.','My suicide note is finished.','My suicide plan is no longer active.','My suicide plan is no longer active, but I want to die.')])
 def test_requested_english_transcripts_through_actual_keyless_api(monkeypatch, text, crisis, context):
     monkeypatch.setitem(main.vehicle_state, 'vehicleMoving', False)
     monkeypatch.setattr(main, 'get_active_mental_provider', lambda: (_ for _ in ()).throw(AssertionError('No live provider permitted')))
@@ -148,6 +159,11 @@ GERMAN = [
     ('Ich möchte nicht mehr leben.', True, 'CURRENT_RISK_SIGNAL'),
     ('Ich bin suizidal.', True, 'CURRENT_RISK_SIGNAL'),
     ('Ich habe Suizidgedanken.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich habe suizidale Gedanken.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich habe Gedanken an Selbstmord.', True, 'CURRENT_RISK_SIGNAL'),
+    ('Ich habe keine suizidalen Gedanken.', False, 'REASSURANCE'),
+    ('Früher hatte ich suizidale Gedanken.', False, 'HISTORICAL'),
+    ('Mein Selbstmordplan ist bereit.', True, 'CURRENT_RISK_SIGNAL'),
     ('Ich habe Selbstmordgedanken.', True, 'CURRENT_RISK_SIGNAL'),
     ('ICH HABE SELBSTMORDGEDANKEN.', True, 'CURRENT_RISK_SIGNAL'),
     ('Ich habe Suizidpläne.', True, 'CURRENT_RISK_SIGNAL'),
@@ -184,6 +200,16 @@ GERMAN = [
     ('Ich denke nicht über Suizid nach.', False, 'REASSURANCE'),
     ('Ich fühle mich gerade nicht sicher und brauche dringend Hilfe.', True, 'NONE'),
 ]
+
+# Every synonymous plan family must retain identical ownership/context behavior.
+for noun in ('Suizid', 'Selbstmord'):
+    GERMAN.extend([
+        (f'Mein {noun}plan ist fertig.', True, 'CURRENT_RISK_SIGNAL'),
+        (f'Meine {noun}pläne sind bereit.', True, 'CURRENT_RISK_SIGNAL'),
+        (f'Meine {noun}pläne sind nicht mehr aktiv.', False, 'REASSURANCE'),
+        (f'Mein {noun}plan wurde vor Jahren aufgegeben.', False, 'HISTORICAL'),
+        (f'Mein {noun}plan ist nicht mehr aktiv, aber ich möchte sterben.', True, 'CURRENT_RISK_SIGNAL'),
+    ])
 
 
 @pytest.mark.parametrize('text,crisis,context', GERMAN)

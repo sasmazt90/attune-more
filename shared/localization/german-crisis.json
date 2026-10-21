@@ -9,9 +9,9 @@
     "sterben will",
     "will sterben"
   ],
-  "signal": "\\b(?:selbstmord(?:gedanken|plan|pläne|plaene)?|suizid(?:al|gedanken|plan|pläne|plaene)?|mich (?:nicht )?(?:umbringen|umzubringen)|mir (?:etwas|selbst) (?:antun|antue|schaden)|nicht mehr leben|sterben (?:will|möchte)|(?:will|möchte) (?:nicht (?:mehr )?)?sterben|(?:will|möchte) nicht (?:mehr )?leben)\\b",
+  "signal": "\\b(?:selbstmord(?:gedanken|plan|pläne|plaene)?|suizid(?:al(?:e|en|er|es|em)?|gedanken|plan|pläne|plaene)?|mich (?:nicht )?(?:umbringen|umzubringen)|mir (?:etwas|selbst) (?:antun|antue|schaden)|nicht mehr leben|sterben (?:will|möchte)|(?:will|möchte) (?:nicht (?:mehr )?)?sterben|(?:will|möchte) nicht (?:mehr )?leben)\\b",
   "selfDirected": "\\b(?:mich (?:umbringen|umzubringen)|mir (?:etwas|selbst) (?:antun|antue|schaden)|nicht mehr leben|sterben (?:will|möchte)|(?:will|möchte) sterben|(?:will|möchte) nicht (?:mehr )?leben)\\b",
-  "currentState": "\\b(?:ich (?:bin|fühle mich)(?: akut|aktuell|gerade|noch)? suizidal|ich habe (?:einen )?(?:(?:suizid|selbstmord)(?:plan|pläne|plaene|gedanken))|ich (?:plane|erwäge|denke an) (?:einen )?(?:selbstmord|suizid)|ich (?:will|möchte|werde) (?:einen )?(?:selbstmord|suizid) (?:begehen|verüben)|ich denke über (?:selbstmord|suizid) nach|ich habe einen plan für (?:selbstmord|suizid)|mein(?:en)? suizidplan|ich habe meinen suizidplan (?:fertiggestellt|vorbereitet))\\b",
+  "currentState": "\\b(?:ich (?:bin|fühle mich)(?: akut|aktuell|gerade|noch)? suizidal|ich habe (?:einen )?(?:(?:suizid|selbstmord)(?:plan|pläne|plaene|gedanken))|ich (?:plane|erwäge|denke an) (?:einen )?(?:selbstmord|suizid)|ich (?:will|möchte|werde) (?:einen )?(?:selbstmord|suizid) (?:begehen|verüben)|ich denke über (?:selbstmord|suizid) nach|ich habe einen plan für (?:selbstmord|suizid)|mein(?:e|en|er|em|es)? (?:suizid|selbstmord)(?:plan|pläne|plaene)|ich habe meinen (?:suizid|selbstmord)(?:plan|pläne|plaene) (?:fertiggestellt|vorbereitet)|ich habe (?:akute |aktuelle )?suizidal(?:e|en) gedanken|ich habe gedanken an (?:selbstmord|suizid))\\b",
   "reassurance": [
     "\\bich (?:bin|fühle mich)(?: aktuell|gerade)? (?:nicht|nicht mehr) suizidal\\b",
     "\\bich (?:will|möchte) nicht (?:mehr )?sterben\\b",
@@ -20,20 +20,22 @@
     "\\bich habe nicht vor,? mich umzubringen\\b",
     "\\bich (?:will|möchte|werde) (?:keinen (?:selbstmord|suizid) (?:begehen|verüben)|(?:selbstmord|suizid) nicht (?:begehen|verüben))\\b",
     "\\bich denke nicht über (?:selbstmord|suizid) nach",
-    "\\bmein suizidplan ist (?:nicht mehr aktiv|aufgegeben|abgebrochen)\\b",
-    "\\bmein suizidplan existiert nicht\\b",
-    "\\bich habe (?:keine|nicht mehr|keine aktuellen) (?:suizid|selbstmord)gedanken(?: mehr)?\\b"
+    "\\bmein(?:e|en|er|em|es)? (?:suizid|selbstmord)(?:plan|pläne|plaene) (?:ist|sind) (?:nicht mehr aktiv|aufgegeben|abgebrochen)\\b",
+    "\\bmein(?:e|en|er|em|es)? (?:suizid|selbstmord)(?:plan|pläne|plaene) existier(?:t|en) nicht\\b",
+    "\\bich habe (?:keine|nicht mehr|keine aktuellen) (?:suizid|selbstmord)gedanken(?: mehr)?\\b",
+    "\\bich habe (?:keine(?: aktuellen)?|nicht mehr) (?:suizidal(?:e|en) gedanken|gedanken an (?:selbstmord|suizid))(?: mehr)?\\b"
   ],
   "historical": [
     "\\b(?:früher war ich|ich war früher) suizidal\\b",
     "\\bfrüher wollte ich (?:sterben|mich umbringen)\\b",
-    "\\bmein suizidplan (?:ist von vor (?:jahren|monaten)|wurde vor (?:jahren|monaten) aufgegeben)\\b",
-    "\\bfrüher hatte ich (?:suizid|selbstmord)gedanken\\b"
+    "\\bmein(?:e|en|er|em|es)? (?:suizid|selbstmord)(?:plan|pläne|plaene) (?:ist von vor (?:jahren|monaten)|wurde[n]? vor (?:jahren|monaten) aufgegeben)\\b",
+    "\\bfrüher hatte ich (?:suizid|selbstmord)gedanken\\b",
+    "\\bfrüher hatte ich (?:suizidal(?:e|en) gedanken|gedanken an (?:selbstmord|suizid))\\b"
   ],
   "uncertain": [
     "\\bich weiß nicht,? ob ich suizidal bin\\b",
     "\\bich bin (?:mir )?nicht sicher,? ob ich suizidal bin\\b",
-    "\\b(?:der titel|der ausdruck) [\"\\u201e]?mein suizidplan[\"\\u201c]?"
+    "\\b(?:der titel|der ausdruck) [\"\\u201e]?mein(?:e|en|er|em|es)? (?:suizid|selbstmord)(?:plan|pläne|plaene)[\"\\u201c]?"
   ],
   "continuedRisk": "\\b(?:aber|und) (?:ich )?(?:bin es noch|bin immer noch|fühle mich immer noch so|tue es noch)\\b",
   "conditional": "\\b(?:wenn|falls|bis|es sei denn|nicht sicher)\\b"
