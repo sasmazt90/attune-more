@@ -104,17 +104,27 @@ export function parseLetterAnswer(text:string,language:'tr'|'en'|'de'='tr'):Pars
 /** Language adaptation only: target, geometry, scoring and ambiguity policy are unchanged. */
 export function localizedAnswerTokens(text:string,language:'en'|'de'){
  let value=text.normalize('NFC').toLocaleLowerCase(language==='de'?'de-DE':'en-US').replace(/[’‘]/g,"'");
- const phrases:Record<string,string>=language==='en'?{
+ // Translate controls only as complete utterances, never inside code-word
+ // answers ("repeat right" must retain R, not become Turkish "tekrar").
+ // Bare finish/fertig/beenden are valid F/F/B code words. Ending a session
+ // requires an explicit test phrase; the original TR protocol is unchanged.
+ const controls:Record<string,string>=language==='en'?{
   "i can't see it":'göremiyorum','i cannot see it':'göremiyorum','not visible':'göremiyorum',
+  'repeat':'tekrar','pause':'duraklat','resume':'devam et','continue':'devam et',
+  'finish the test':'bitir','stop the test':'bitir'
+ }:{'ich sehe es nicht':'göremiyorum','nicht erkennbar':'göremiyorum',
+  'wiederholen':'tekrar','pausieren':'duraklat','pause':'duraklat','fortsetzen':'devam et','weiter':'devam et',
+  'test beenden':'bitir','den test beenden':'bitir'};
+ const utterance=value.replace(/[^\p{L}' ]/gu,' ').replace(/\s+/g,' ').trim();
+ if(Object.hasOwn(controls,utterance))return controls[utterance];
+ const phrases:Record<string,string>=language==='en'?{
   'upside down':'baş aşağı','turned right':'sağa','turned left':'sola','mirrored':'aynalı','mirror':'aynalı',
-  'upright':'düz','right':'sağa','left':'sola','reverse':'ters','repeat':'tekrar','pause':'duraklat',
-  'resume':'devam et','continue':'devam et','finish':'bitir','stop the test':'bitir',
+  'upright':'düz','right':'sağa','left':'sola','reverse':'ters',
   'bee':'be','pee':'pe','eff':'ef','are':'re','ay':'a','ee':'e','no':'değil','and':'ve'
- }:{'ich sehe es nicht':'göremiyorum','nicht erkennbar':'göremiyorum','auf dem kopf':'baş aşağı',
+ }:{'auf dem kopf':'baş aşağı',
   'kopfüber':'baş aşağı','nach rechts':'sağa','nach links':'sola','rechts':'sağa','links':'sola',
   'aufrecht':'düz','gerade':'düz','gespiegelt':'aynalı','spiegelverkehrt':'aynalı','umgekehrt':'ters',
-  'wiederholen':'tekrar','pausieren':'duraklat','pause':'duraklat','fortsetzen':'devam et','weiter':'devam et',
-  'beenden':'bitir','fertig':'bitir','beh':'be','peh':'pe','eff':'ef','und':'ve','nein':'değil'};
+  'beh':'be','peh':'pe','eff':'ef','und':'ve','nein':'değil'};
  for(const [source,target] of Object.entries(phrases).sort((a,b)=>b[0].length-a[0].length)){
   const escaped=source.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');value=value.replace(new RegExp('(?<![\\p{L}])'+escaped+'(?![\\p{L}])','gu'),target);
  }

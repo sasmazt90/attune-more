@@ -26,7 +26,7 @@ for(const [language,sentence,letter,rotation,mirrored] of [['en','P upside down 
  const parsed=P.parseLetterAnswer(sentence,language);assert.equal(parsed.letter,letter,sentence);assert.equal(parsed.rotation,rotation,sentence);assert.equal(!!parsed.mirrored,mirrored,sentence);
 }
 for(const language of ['en','de']){
- for(const [command,text] of Object.entries(language==='en'?{pause:'pause',resume:'resume',finish:'finish','not-visible':"I can't see it",repeat:'repeat'}:{pause:'pausieren',resume:'fortsetzen',finish:'beenden','not-visible':'ich sehe es nicht',repeat:'wiederholen'}))assert.equal(P.parseLetterAnswer(text,language).command,command,text);
+ for(const [command,text] of Object.entries(language==='en'?{pause:'pause',resume:'resume',finish:'finish the test','not-visible':"I can't see it",repeat:'repeat'}:{pause:'pausieren',resume:'fortsetzen',finish:'Test beenden','not-visible':'ich sehe es nicht',repeat:'wiederholen'}))assert.equal(P.parseLetterAnswer(text,language).command,command,text);
  assert(!P.isLetterInstructionEcho(language==='en'?'P upside down':'P auf dem Kopf',language));
  assert(P.parseLetterAnswer(language==='en'?'E or F upright':'E oder F aufrecht',language).clarify);
 }
