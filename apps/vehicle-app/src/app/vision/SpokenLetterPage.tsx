@@ -49,7 +49,14 @@ export default function SpokenLetterPage(){
  function stopVoice(){if(r.current.answerTimer)clearTimeout(r.current.answerTimer);r.current.answerTimer=null;r.current.settleAnswer=null;abortRecognition();stopSpeech();if(r.current.mounted)setVoice('quiet');}
  function stop(){const a=r.current;a.epoch++;a.active=false;stopVoice();cancelAnimationFrame(a.raf);if(a.timer)clearInterval(a.timer);a.timer=null;a.stream?.getTracks().forEach(t=>t.stop());a.stream=null;a.engine?.close();a.engine=null;a.session=null;a.evidence=null;a.previewPoints=undefined;if(canvas.current)delete canvas.current.dataset.visionEvidence;a.modal=false;a.answerMemory.clear();a.mainInstructionGiven=false;a.nextPrompt=0;a.lastPrompt='';a.prompted.clear();a.conditionGate=new VisionResponseGate();if(video.current)video.current.srcObject=null;flow.current.reset();if(a.mounted){setAnswerNotice('');setEvidence(null);refresh();}}
  useEffect(()=>{const mute=()=>{if(speechMuted()&&r.current.active){stopSpeech();stage('user-paused','Seslendirme kapalı. Header hoparlörünü açıp devam edin.');abortRecognition();}};window.addEventListener('attune-guidance-muted',mute);return()=>window.removeEventListener('attune-guidance-muted',mute);},[]);
- useEffect(()=>{const changed=()=>{if(r.current.active&&flow.current.stage!=='user-paused')actions.current.pause();};window.addEventListener('attune-locale-media-cancel',changed);return()=>window.removeEventListener('attune-locale-media-cancel',changed);},[]);
+ useEffect(()=>{
+  let language=getLanguage();
+  const changed=()=>{const next=getLanguage(),localeChanged=next!==language;language=next;if(!r.current.active)return;
+   if(flow.current.stage!=='user-paused'){actions.current.pause();return;}
+   if(localeChanged){abortRecognition();setVoice('quiet');if(!speechMuted()&&!document.hidden)actions.current.listen();}
+  };
+  window.addEventListener('attune-locale-media-cancel',changed);return()=>window.removeEventListener('attune-locale-media-cancel',changed);
+ },[]);
  function measureSymbol():RenderedSymbolGeometry|null{
   const svg=symbol.current,path=svg?.querySelector('path');if(!svg||!path||!flow.current.letterVisible||document.hidden)return null;
   const b=svg.getBoundingClientRect(),p=path.getBoundingClientRect(),style=getComputedStyle(svg),area=svg.parentElement!.getBoundingClientRect(),stroke=Number.parseFloat(getComputedStyle(path).strokeWidth)*b.width/svg.viewBox.baseVal.width;
