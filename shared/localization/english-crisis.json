@@ -9,8 +9,8 @@
     "don't want to live",
     "do not want to live"
   ],
-  "signal": "\\b(?:suicide|suicidal|kill myself|hurt myself|end my life|want to die|(?:don't|do not|never|no longer) want to live)\\b",
-  "selfDirected": "\\b(?:kill myself|hurt myself|end my life|want to die|(?:don't|do not|never|no longer) want to live)\\b",
+  "signal": "\\b(?:suicide|suicidal|kill myself|hurt myself|end my life|want to die|(?:don't|do not|never|no longer) want to live|wish(?:ed)? i (?:were|was) dead|rather (?:not )?be dead)\\b",
+  "selfDirected": "\\b(?:kill myself|hurt myself|end my life|want to die|(?:don't|do not|never|no longer) want to live|i wish i (?:were|was) dead|i(?:'d| would) rather be dead)\\b",
   "currentState": "\\b(?:i(?: am|'m| feel| have been feeling) (?:actively |currently |still )?suicidal|i (?:have|keep having|am having) (?:suicidal (?:thoughts|feelings)|thoughts (?:of|about) suicide)|i (?:have|made|am making) (?:(?:a|my) )?suicide (?:plans?|notes?)|i have (?:a|my) plan for suicide|i (?:wrote|am writing|have written) (?:a|my) suicide note|(?:feeling|actively|currently) suicidal|(?:commit|attempt|considering|contemplating|planning|thinking (?:of|about)) (?:my |a )?suicide|suicide (?:is|feels like) (?:my|the) (?:only|best) (?:option|way out)|(?:suicide|suicidal) (?:tonight|now|today)|my suicide (?:plans?|notes?)|i (?:finished|completed|prepared|have prepared|have finished|have completed) my suicide (?:plans?|notes?)|i(?: am|'m) (?:experiencing|struggling with|dealing with) suicidal (?:thoughts|feelings|urges))\\b",
   "reassurance": [
     "\\bi (?:don't|do not|never|no longer) (?:want|intend|plan) to (?:die|kill myself|hurt myself|end my life)\\b",
@@ -23,7 +23,9 @@
     "\\bmy suicide (?:plans?|notes?) (?:is|are) (?:no longer (?:active|relevant)|abandoned|cancelled|canceled)\\b",
     "\\bmy suicide (?:plans?|notes?) (?:does not|doesn't) exist\\b",
     "\\bi (?:have no|do not have|don't have|no longer have|am not having) (?:any )?thoughts (?:of|about) suicide\\b",
-    "\\bi(?: am|'m) (?:not|no longer) (?:experiencing|struggling with|dealing with) suicidal (?:thoughts|feelings|urges)\\b"
+    "\\bi(?: am|'m) (?:not|no longer) (?:experiencing|struggling with|dealing with) suicidal (?:thoughts|feelings|urges)\\b",
+    "\\bi (?:don't|do not|never|no longer) wish i (?:were|was) dead\\b",
+    "\\bi(?:(?: would not| wouldn't) rather be dead|(?:'d| would) rather not be dead)\\b"
   ],
   "historical": [
     "\\bi used to (?:feel|be) suicidal\\b",
@@ -32,7 +34,10 @@
     "\\b(?:i found )?my suicide (?:plans?|notes?) from (?:years|months) ago\\b",
     "\\bi used to have thoughts (?:of|about) suicide\\b",
     "\\bi used to (?:experience|struggle with|deal with) suicidal (?:thoughts|feelings|urges)\\b",
-    "\\bi used to have (?:my )?suicide (?:plans?|notes?)\\b"
+    "\\bi used to have (?:my )?suicide (?:plans?|notes?)\\b",
+    "\\bi (?:used to wish|wished) i (?:were|was) dead\\b",
+    "\\bi (?:used to (?:think|feel)|thought|felt)(?: that)? i(?:'d| would) rather be dead\\b",
+    "\\bi used to (?:say|think|feel)(?: that)? [\"“'‘]?(?:i wish i (?:were|was) dead|i(?:'d| would) rather be dead)\\b[\"”']?"
   ],
   "uncertain": [
     "\\bi(?: am|'m) not sure (?:if|whether) i(?: am|'m| feel) suicidal\\b",
@@ -40,7 +45,10 @@
     "\\bi (?:don't|do not) know what (?:suicide|suicidal) means\\b",
     "\\bi (?:don't|do not) (?:think|believe) (?:that )?suicide (?:is|feels like) (?:my|the) (?:only|best) (?:option|way out)\\b",
     "\\b(?:the (?:title|phrase)|a story called) [\"\\u201c]?my suicide (?:plans?|notes?)[\"\\u201d]?",
-    "\\bi(?: am|'m) not sure (?:if|whether) i have thoughts (?:of|about) suicide\\b"
+    "\\bi(?: am|'m) not sure (?:if|whether) i have thoughts (?:of|about) suicide\\b",
+    "\\b(?:(?:he|she|they|(?:my|a|the) (?:friend|partner|brother|sister|character|narrator)) (?:said|says|wrote|writes|thought|thinks)|i (?:read|heard|am quoting|was quoting|never said|did not say|didn't say)|the (?:phrase|quote|sentence|title)|what does|the meaning of)[:,]?\\s+[\"“'‘]?(?:i wish i (?:were|was) dead|i(?:'d| would) rather be dead)\\b[\"”']?",
+    "^[\"“'‘](?:i wish i (?:were|was) dead|i(?:'d| would) rather be dead)[.!?]?[\"”'][.!?]?$",
+    "\\bi (?:don't|do not|no longer) (?:think|believe) (?:that )?(?:i wish i (?:were|was) dead|i(?:'d| would) rather be dead)\\b"
   ],
   "continuedRisk": "\\b(?:but|and) (?:sometimes )?(?:i )?(?:still (?:do|am|feel that way)|feel that way (?:again|now))\\b",
   "conditional": "\\b(?:unless|until|if|yet|not sure)\\b"
