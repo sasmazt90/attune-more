@@ -20,6 +20,66 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[2]
 POLICY_DIR = Path(__file__).with_name('neural-runtime')
 POLICY = json.loads((POLICY_DIR / 'assets.json').read_text())
+DRIVE_ENDPOINT = 'https://www.googleapis.com/drive/v3/files/'
+SAFE_GOOGLE_REASONS = frozenset({
+    'accessNotConfigured', 'insufficientPermissions', 'insufficientFilePermissions',
+    'notFound', 'forbidden', 'badRequest', 'invalid', 'rateLimitExceeded',
+    'userRateLimitExceeded', 'dailyLimitExceeded', 'downloadQuotaExceeded',
+    'fileNotDownloadable', 'SERVICE_DISABLED', 'ACCESS_TOKEN_SCOPE_INSUFFICIENT',
+    'IAM_PERMISSION_DENIED', 'BILLING_DISABLED',
+})
+
+
+class PrivateDriveHTTPError(Exception):
+    """Only allowlisted diagnostics survive; never retain request/response objects."""
+    def __init__(self, response, stage):
+        super().__init__('PRIVATE_DRIVE_HTTP_ERROR')
+        if stage not in ('metadata', 'media'):
+            raise ValueError('UNKNOWN_PRIVATE_DRIVE_STAGE')
+        self.stage = stage
+        self.status = int(response.status_code)
+        self.reasons = []
+        # Metadata error envelopes can explain API enablement/scope/permission
+        # failures. Never inspect streaming media contents or copy free-text
+        # messages, URLs, file IDs, project IDs or credential-bearing headers.
+        if stage == 'metadata':
+            try:
+                error = response.json().get('error', {})
+                candidates = [row.get('reason') for key in ('errors', 'details')
+                              for row in error.get(key, []) if isinstance(row, dict)]
+                self.reasons = sorted({r for r in candidates if isinstance(r, str) and r in SAFE_GOOGLE_REASONS})
+            except (ValueError, AttributeError, TypeError):
+                pass
+
+
+def failure_details(error):
+    if isinstance(error, PrivateDriveHTTPError):
+        return {'reason': 'PRIVATE_DRIVE_HTTP_ERROR', 'httpStatus': error.status,
+                'requestStage': error.stage, 'requestMethod': 'GET',
+                'requestEndpoint': DRIVE_ENDPOINT + '{file_id}',
+                'requestKind': 'fields=name,size,trashed,capabilities(canDownload)' if error.stage == 'metadata' else 'alt=media',
+                'providerReasons': error.reasons}
+    reason = str(error) if isinstance(error, ValueError) and re.fullmatch('[A-Z0-9_]+', str(error)) else type(error).__name__
+    return {'reason': reason}
+
+
+def drive_session(info):
+    from google.oauth2.service_account import Credentials
+    from google.auth.transport.requests import AuthorizedSession
+    return AuthorizedSession(Credentials.from_service_account_info(
+        info, scopes=['https://www.googleapis.com/auth/drive.readonly']), max_refresh_attempts=0)
+
+
+def metadata_for(session, file_id):
+    response = session.get(DRIVE_ENDPOINT + file_id,
+                           params={'fields': 'name,size,trashed,capabilities(canDownload)'}, timeout=30)
+    if response.status_code != 200:
+        raise PrivateDriveHTTPError(response, 'metadata')
+    m = response.json()
+    if (m.get('name') != POLICY['zip_name'] or int(m.get('size', 0)) != POLICY['zip_bytes']
+            or m.get('trashed') or not m.get('capabilities', {}).get('canDownload')):
+        raise ValueError('PRIVATE_DRIVE_FILE_NOT_APPROVED')
+    return m
 
 
 def sha(path):
@@ -78,23 +138,15 @@ def credentials(raw, file_id):
 
 
 def download(destination, info, file_id, deadline):
-    from google.oauth2.service_account import Credentials
-    from google.auth.transport.requests import AuthorizedSession
-    session = AuthorizedSession(Credentials.from_service_account_info(
-        info, scopes=['https://www.googleapis.com/auth/drive.readonly']), max_refresh_attempts=0)
-    url = 'https://www.googleapis.com/drive/v3/files/' + file_id
+    session = drive_session(info)
+    url = DRIVE_ENDPOINT + file_id
     try:
-        metadata = session.get(url, params={'fields': 'name,size,trashed,capabilities(canDownload)'}, timeout=30)
-        metadata.raise_for_status()
-        m = metadata.json()
-        if (m.get('name') != POLICY['zip_name'] or int(m.get('size', 0)) != POLICY['zip_bytes']
-                or m.get('trashed') or not m.get('capabilities', {}).get('canDownload')):
-            raise ValueError('PRIVATE_DRIVE_FILE_NOT_APPROVED')
+        metadata_for(session, file_id)
         # No public-link fallback, retries, redirects to unapproved destinations,
         # cookies from an owner's browser, or Drive permission changes.
         with session.get(url, params={'alt': 'media'}, stream=True, timeout=(15, 30), allow_redirects=False) as response:
             if response.status_code != 200:
-                raise ValueError('PRIVATE_DRIVE_DOWNLOAD_BLOCKED')
+                raise PrivateDriveHTTPError(response, 'media')
             size = 0
             with destination.open('xb') as stream:
                 for chunk in response.iter_content(1024 * 1024):
@@ -151,11 +203,21 @@ def install(runtime, deadline):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--credentials-only', action='store_true')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--credentials-only', action='store_true')
+    mode.add_argument('--metadata-only', action='store_true', help='One authenticated metadata request; no ZIP, install or emulator')
     args = parser.parse_args()
     info = credentials(os.environ.get('ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON'), os.environ.get('ATTUNE_AAOS_TTS_BUNDLE_FILE_ID'))
     if args.credentials_only:
         print('PASS: credential shape and private file selector present; download authorization remains unverified')
+        return
+    if args.metadata_only:
+        session = drive_session(info)
+        try:
+            metadata_for(session, os.environ['ATTUNE_AAOS_TTS_BUNDLE_FILE_ID'])
+        finally:
+            session.close()
+        print('PASS: private ZIP metadata readable and approved; content download/integrity not tested')
         return
     if not os.environ.get('RUNNER_TEMP') or os.environ.get('RUNNER_ENVIRONMENT') != 'github-hosted':
         raise ValueError('DISPOSABLE_STANDARD_RUNNER_REQUIRED')
@@ -194,10 +256,10 @@ if __name__ == '__main__':
         main()
     except Exception as error:
         # Transport/library messages can contain private URLs or credential data.
-        reason = str(error) if isinstance(error, ValueError) and re.fullmatch('[A-Z0-9_]+', str(error)) else type(error).__name__
+        details = failure_details(error)
         if os.environ.get('ATTUNE_AAOS_EVIDENCE'):
             out = Path(os.environ['ATTUNE_AAOS_EVIDENCE'])
             out.mkdir(parents=True, exist_ok=True)
-            (out / 'neural-provision.json').write_text(json.dumps({'status': 'BLOCKED', 'reason': reason, 'inference': 'NOT_EXECUTED'}) + '\n')
-        print('BLOCKED: private neural provisioning (' + reason + '); no emulator launch', file=sys.stderr)
+            (out / 'neural-provision.json').write_text(json.dumps({'status': 'BLOCKED', **details, 'inference': 'NOT_EXECUTED'}) + '\n')
+        print('BLOCKED: private neural provisioning ' + json.dumps(details, sort_keys=True) + '; no emulator launch', file=sys.stderr)
         sys.exit(69)

@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 import zipfile
 
 HERE = Path(__file__).parent
@@ -25,6 +25,66 @@ assessment = load('validate_emulator')
 
 
 class PrivateImportTests(unittest.TestCase):
+    def test_metadata_http_error_preserves_status_stage_without_private_values(self):
+        for status in (400, 401, 403, 404, 429, 500, 503):
+            with self.subTest(status=status), tempfile.TemporaryDirectory() as directory:
+                response = Mock(status_code=status)
+                response.json.return_value = {'error': {
+                    'message': 'PRIVATE_FILENAME Bearer ACCESS_TOKEN service-account@example.invalid',
+                    'errors': [{'reason': 'accessNotConfigured'}, {'reason': 'PRIVATE_REASON_VALUE'}],
+                    'details': [{'reason': 'SERVICE_DISABLED', 'metadata': {'consumer': 'PRIVATE_PROJECT'}}],
+                }}
+                session = Mock()
+                session.get.return_value = response
+                destination = Path(directory) / 'never-downloaded.zip'
+                with patch.object(provision, 'drive_session', return_value=session):
+                    with self.assertRaises(provision.PrivateDriveHTTPError) as caught:
+                        provision.download(destination, {}, 'PRIVATE_FILE_ID', 1)
+                row = provision.failure_details(caught.exception)
+                self.assertEqual(row['httpStatus'], status)
+                self.assertEqual(row['requestStage'], 'metadata')
+                self.assertEqual(row['requestMethod'], 'GET')
+                self.assertEqual(row['providerReasons'], ['SERVICE_DISABLED', 'accessNotConfigured'])
+                serialized = json.dumps(row)
+                for private in ('PRIVATE_FILENAME', 'ACCESS_TOKEN', 'Bearer', 'PRIVATE_FILE_ID', 'PRIVATE_PROJECT', 'PRIVATE_REASON_VALUE', '@example'):
+                    self.assertNotIn(private, serialized)
+                self.assertFalse(destination.exists())
+                self.assertEqual(session.get.call_count, 1)
+                session.close.assert_called_once()
+
+    def test_non_json_error_is_safe_and_media_error_body_is_not_read(self):
+        metadata = Mock(status_code=403)
+        metadata.json.side_effect = ValueError('PRIVATE_RESPONSE_BODY')
+        row = provision.failure_details(provision.PrivateDriveHTTPError(metadata, 'metadata'))
+        self.assertEqual(row['httpStatus'], 403)
+        self.assertEqual(row['providerReasons'], [])
+        media = Mock(status_code=429)
+        row = provision.failure_details(provision.PrivateDriveHTTPError(media, 'media'))
+        self.assertEqual(row['httpStatus'], 429)
+        self.assertEqual(row['requestKind'], 'alt=media')
+        media.json.assert_not_called()
+        media.iter_content.assert_not_called()
+
+    def test_metadata_only_probe_never_downloads_installs_or_launches(self):
+        info = {'type': 'service_account', 'token_uri': 'https://oauth2.googleapis.com/token',
+                'client_email': 'fixture@example.iam.gserviceaccount.com', 'private_key': 'NOT_A_REAL_KEY'}
+        response = Mock(status_code=200)
+        response.json.return_value = {'name': provision.POLICY['zip_name'], 'size': str(provision.POLICY['zip_bytes']),
+                                      'trashed': False, 'capabilities': {'canDownload': True}}
+        session = Mock()
+        session.get.return_value = response
+        with patch.dict(os.environ, {'ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON': json.dumps(info), 'ATTUNE_AAOS_TTS_BUNDLE_FILE_ID': 'private-fixture-file'}), \
+             patch.object(provision.sys, 'argv', ['provision_neural.py', '--metadata-only']), \
+             patch.object(provision, 'drive_session', return_value=session), \
+             patch.object(provision, 'download') as download, patch.object(provision, 'install') as install, \
+             patch.object(provision.subprocess, 'run') as spawn:
+            provision.main()
+        self.assertEqual(session.get.call_count, 1)
+        session.close.assert_called_once()
+        download.assert_not_called()
+        install.assert_not_called()
+        spawn.assert_not_called()
+
     def test_only_explicit_google_service_account_shape_is_admitted(self):
         valid = {'type': 'service_account', 'token_uri': 'https://oauth2.googleapis.com/token',
                  'client_email': 'fixture@example.iam.gserviceaccount.com', 'private_key': 'NOT_A_REAL_KEY'}
