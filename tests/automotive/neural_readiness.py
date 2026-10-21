@@ -3,12 +3,12 @@ import json
 import os
 from pathlib import Path
 import signal
-import socket
 import subprocess
 import sys
 import time
 import urllib.error
 import urllib.request
+from service_lifecycle import free_port, port_observations, stop_owned_services, wait_free_ports
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -29,8 +29,7 @@ def verify_services(backend_port=8000, frontend_port=3000, frontend_root=ROOT):
     if len(token) < 32:
         raise ValueError('NEURAL_TTS_AUTH_UNCONFIGURED')
     for port in (frontend_port, backend_port):
-        with socket.socket() as test:
-            test.bind(('127.0.0.1', port))
+        free_port(port)
     owned = []
     backend_origin = 'http://127.0.0.1:' + str(backend_port)
     frontend_origin = 'http://localhost:' + str(frontend_port)
@@ -63,19 +62,14 @@ def verify_services(backend_port=8000, frontend_port=3000, frontend_root=ROOT):
         status, body = request(frontend_origin + '/api/mental-neural-speech', payload, {'Origin': frontend_origin})
         if status != 409:
             raise ValueError('AUTHENTICATED_PROXY_MOVING_DENIAL_NOT_OBSERVED')
-        return {'backendAvailable': True, 'frontendAvailable': True, 'backendUnauthenticated': 401,
-                'backendNoConsent': 403, 'authenticatedFrontendProxyMoving': status,
-                'inference': 'NOT_EXECUTED', 'playback': 'NOT_EXECUTED'}
+        report = {'backendAvailable': True, 'frontendAvailable': True, 'backendUnauthenticated': 401,
+                  'backendNoConsent': 403, 'authenticatedFrontendProxyMoving': status,
+                  'inference': 'NOT_EXECUTED', 'playback': 'NOT_EXECUTED'}
     finally:
-        for process in owned:
-            if process.poll() is None:
-                os.killpg(process.pid, signal.SIGTERM)
-        for process in owned:
-            try:
-                process.wait(timeout=10)
-            except subprocess.TimeoutExpired:
-                os.killpg(process.pid, signal.SIGKILL)
-                process.wait(timeout=5)
+        cleanup = stop_owned_services(owned)
+        released = wait_free_ports((frontend_port, backend_port))
+    return {**report, 'temporaryServicesCleaned': True, 'temporaryServices': cleanup,
+            'portsReleased': released, 'socketStatesAfterCleanup': port_observations(released)}
 
 
 def main():
@@ -110,4 +104,8 @@ def main():
 
 
 if __name__ == '__main__':
+    def stop(signum, _frame):
+        # Raise through verify_services' finally, including workflow cancellation.
+        raise SystemExit(128 + signum)
+    signal.signal(signal.SIGTERM, stop)
     sys.exit(main())

@@ -148,7 +148,7 @@ jobs:
           python -m pip check
           python tests/automotive/runtime_preflight.py --stage tools
           python tests/automotive/validate_emulator.py --preflight
-          python -m pytest tests/automotive/test_car_restriction_source.py tests/automotive/test_emulator_harness.py tests/automotive/test_acceptance_regressions.py tests/unit/test_automotive_contract.py -q -rA 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/safety-preflight-tests.log"
+          python -m pytest tests/automotive/test_car_restriction_source.py tests/automotive/test_emulator_harness.py tests/automotive/test_acceptance_regressions.py tests/automotive/test_service_lifecycle.py tests/unit/test_automotive_contract.py -q -rA 2>&1 | tee "$ATTUNE_AAOS_EVIDENCE/safety-preflight-tests.log"
       - name: Require real neural configuration and service readiness before emulator boot
         if: env.ATTUNE_AAOS_REQUIRE_NEURAL == '1'
         id: neural-readiness

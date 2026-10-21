@@ -3,12 +3,12 @@ import json
 import os
 from pathlib import Path
 import signal
-import socket
 import subprocess
 import sys
 import time
 
 from runtime_preflight import POLICY, audit, command
+from service_lifecycle import free_port, port_observations
 
 SERIAL = 'emulator-5554'
 NAME = 'attune-aaos'
@@ -34,11 +34,6 @@ def wait_boot(adb, process, seconds=600):
             return
         time.sleep(2)  # Readiness polling, never a second emulator/job launch.
     raise TimeoutError('AAOS did not complete boot within 600 seconds')
-
-
-def free_port(port):
-    with socket.socket() as test:
-        test.bind(('127.0.0.1', port))
 
 
 def configure_avd(path):
@@ -73,8 +68,11 @@ def run():
             readiness = json.loads((out / 'neural-readiness.json').read_text())
             if readiness.get('status') != 'PASS':
                 raise ValueError('Neural readiness did not pass')
+            if (readiness.get('temporaryServicesCleaned') is not True
+                    or not {3000, 8000}.issubset(readiness.get('portsReleased', []))):
+                raise ValueError('Temporary neural services were not released')
         except (OSError, ValueError):
-            print('BLOCKED: successful real neural readiness is required before emulator launch')
+            print('BLOCKED: successful real neural readiness with verified temporary-service cleanup is required before emulator launch')
             return 69
     report = audit(sdk, 'image')
     (out / 'runtime-before-boot.json').write_text(json.dumps(report, indent=2))
@@ -89,9 +87,12 @@ def run():
         blockers.append('/dev/kvm is not a readable/writable character device')
     for port in (3000, 8000, 5554, 5555):
         try:
-            free_port(port)
+            # Only HTTP service ports use the server's address-reuse behavior;
+            # preserve the existing strict emulator console/ADB port checks.
+            free_port(port, reuse=port in (3000, 8000))
         except OSError as error:
             blockers.append(f'Port {port} unavailable: {error}')
+    (out / 'port-preflight.json').write_text(json.dumps(port_observations((3000, 8000, 5554, 5555)), indent=2))
     code, acceleration = command([str(sdk / 'emulator/emulator'), '-accel-check'])
     (out / 'acceleration.txt').write_text(acceleration)
     if code:

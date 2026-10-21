@@ -18,6 +18,7 @@ import traceback
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
+from service_lifecycle import free_port, stop_owned_services
 
 ROOT = Path(__file__).resolve().parents[2]
 NEURAL_LIMITS = json.loads((ROOT / 'shared/localization/neural-tts-limits.json').read_text())
@@ -631,9 +632,7 @@ class Assessment:
     def start_services(self):
         for port in (3000, 8000):
             # Refuse unrelated listeners rather than reusing or killing a service.
-            import socket
-            with socket.socket() as test:
-                test.bind(('127.0.0.1', port))
+            free_port(port)
         for name in ('backend', 'frontend'):
             self.start_service(name)
         self.wait(lambda: self.api().get('vehicleParked') is True, 60)
@@ -658,17 +657,10 @@ class Assessment:
         return process
 
     def stop_service(self, name):
-        import signal
         process = self.services.get(name)
         if process is None or process not in self.processes:
             raise Blocked('Refusing to stop a service not owned by this harness: ' + name)
-        if process.poll() is None:
-            os.killpg(process.pid, signal.SIGTERM)
-            try:
-                process.wait(timeout=10)
-            except subprocess.TimeoutExpired:
-                os.killpg(process.pid, signal.SIGKILL)
-                process.wait(timeout=5)
+        stop_owned_services([process])
         return process.returncode
 
     def backend_unreachable(self):
@@ -1104,10 +1096,7 @@ class Assessment:
                 except Exception as error:
                     self.save(name + '-error.txt', str(error))
             # Only this harness's process groups; never unrelated listeners.
-            import signal
-            for process in self.processes:
-                if process.poll() is None:
-                    os.killpg(process.pid, signal.SIGTERM)
+            stop_owned_services(list(self.services.values()))
             self.save('webview-console.json', json.dumps(self.console, ensure_ascii=False, indent=2))
             write_reports(self.out, self.results)
         return 0 if all(r['status'] == 'PASS' for r in self.results) else 1
