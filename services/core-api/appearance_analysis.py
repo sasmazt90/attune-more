@@ -13,6 +13,7 @@ import numpy as np
 from skin_general import general_result,oil_region_support,OIL_SAMPLING
 from skin_models import infer as infer_skin_models, infer_acne, infer_bags, session_status
 from skin_measurement_contract import attach_result_receipts
+from skin_product_contract import tone_separation_components
 from skimage.feature import local_binary_pattern
 from skimage.filters import gabor
 from acne_box_support import region_envelopes,accepted_boxes as filter_acne_boxes,box_area,VERSION as ACNE_SUPPORT_VERSION
@@ -456,7 +457,7 @@ def analyze_skin(payload, include_research_features=False):
                         criterion=criterion,coordinateSpace='source-pixels')
         if region != 'periorbital':
             tone,redness,color_components=local_color_signals(image,valid)
-            add('tone',np.mean(tone[valid]) if valid.any() else 0,'relative-color-index-0-100',tone,100,components=color_components)
+            add('tone',np.mean(tone[valid]) if valid.any() else 0,'relative-color-index-0-100',tone,100,components=tone_separation_components(color_components))
             add('redness',np.mean(redness[valid]) if valid.any() else 0,'relative-color-index-0-100',redness,100,components=color_components)
             add('oil', np.mean(shine[valid] > .12)*100 if valid.any() else 0, 'percent-visible-area', shine,
                 components={'localIntensity': float(np.mean(shine[valid])) if valid.any() else None, 'clippedFraction': clipped,
@@ -658,7 +659,8 @@ def analyze_skin(payload, include_research_features=False):
             general_area,conditions,payload.get('qualityValid',False),candidate_coverage=float(np.mean(global_candidates[union])*100) if union.any() else None,normalizations=NORMALIZATION,dry_support=dry_union,sag_support=(sag_samples,sag_measured,scale),analysis_scale=scale)
         for item in result['general']['measurements']:
             item['scoreDirection']='higher-is-more-visible'
-            item['normalizationVersion']=NORMALIZATION[item['id']]+('-expression-v3-observed-pose' if item['id']=='sag' else '')
+            if item['id'] in NORMALIZATION:
+                item['normalizationVersion']=NORMALIZATION[item['id']]+('-expression-v3-observed-pose' if item['id']=='sag' else '')
             if item['id']=='acne' and item['value'] is not None and not include_research_features:
                 measured=[name for name,rows in response.items() if any(r['id']=='acne' and r['quality']=='valid' for r in rows)]
                 support=np.logical_or.reduce([acne_envelopes[name]&acne_skin for name in measured])
