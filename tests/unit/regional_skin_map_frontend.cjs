@@ -29,7 +29,8 @@ async function load(name) {
     cache.set(name,m); return m;
   }
   if (name.endsWith('skinIndicators')) {
-    const m = synthetic({ SIGN_LABELS: {}, skinCriterionLabel: id => id }); cache.set(name,m); return m;
+    const labels={postAcne:'Sivilce izi görünümü',pigmentation:'Pigmentasyon görünümü'};
+    const m = synthetic({ SIGN_LABELS: labels, skinCriterionLabel: id => labels[id]||id }); cache.set(name,m); return m;
   }
   const filename = path.join(root, 'apps/vehicle-app/src/utils', path.basename(name) + '.ts');
   const m = new vm.SourceTextModule(strip(fs.readFileSync(filename, 'utf8')), { identifier: filename });
@@ -144,14 +145,16 @@ async function load(name) {
   check(() => { const x=clone(replaySnapshots[0]);x.previewCrop.x=-.1;assert.throws(()=>P.validateSkinPhotoFrames({FRONT:x}),/INVALID_REGIONAL_REPLAY_SOURCE/); });
   check(() => { const x=clone(replaySnapshots[0]);x.meshes.nose.points[0].y=x.height+1;assert.throws(()=>P.validateSkinPhotoFrames({FRONT:x}),/INVALID_REGIONAL_REPLAY_SOURCE/); });
 
-  const ids=['tone','oil','redness','acne','sag','dry','lines','dark','bags'];
+  const ids=['tone','oil','redness','acne','sag','dry','lines','dark','bags','postAcne','pigmentation'];
   const response = { photoId: source.captureId, sourceWidth: source.sourceWidth, sourceHeight: source.sourceHeight,
     general: { regionalSkinMap: fixtures.combination, normalizationVersion:'fixture-scale',
       skinType:{value:null,quality:'insufficient',confidence:null,methodVersion:'unavailable',modelHash:null},
-      measurements:ids.map(id=>({id,value:null,quality:'insufficient',methodVersion:'fixture-only',unit:'appearance-score-0-100',evaluatedArea:{analysisPixels:0},limitationCode:'NO_ACCEPTED_METHOD'})) } };
+      measurements:ids.map(id=>({id,value:null,quality:'insufficient',methodVersion:['postAcne','pigmentation'].includes(id)?'localized-concern-unavailable-v1':'fixture-only',unit:['postAcne','pigmentation'].includes(id)?'candidate-count':'appearance-score-0-100',evaluatedArea:{analysisPixels:0},limitationCode:id==='postAcne'?'ACCEPTED_POST_ACNE_LOCAL_DETECTOR_NOT_AVAILABLE':id==='pigmentation'?'ACCEPTED_PIGMENTATION_LOCAL_DETECTOR_NOT_AVAILABLE':'NO_ACCEPTED_METHOD'})) } };
   const before=JSON.stringify(response), converted=overview.overviewFromResponse(response);
   check(() => assert.equal(JSON.stringify(response),before));
   check(() => assert.deepEqual(JSON.parse(JSON.stringify(converted.regionalSkinMap)),JSON.parse(JSON.stringify(p))));
+  check(() => { assert.equal(converted.indicators.length,11); assert.equal(converted.indicators.find(v=>v.id==='postAcne').score,null); assert.equal(converted.indicators.find(v=>v.id==='pigmentation').score,null); });
+  check(() => { assert.equal(converted.indicators.find(v=>v.id==='postAcne').label,'Sivilce izi görünümü'); assert.equal(converted.indicators.find(v=>v.id==='pigmentation').label,'Pigmentasyon görünümü'); });
   converted.analysisId='analysis-fixture';
   check(() => assert(overview.validSkinOverview(JSON.parse(JSON.stringify(converted)),'analysis-fixture')));
   check(() => { const x=clone(converted); x.captureId='b'.repeat(64); assert.equal(overview.validSkinOverview(x,'analysis-fixture'),false); });
