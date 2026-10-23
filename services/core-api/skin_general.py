@@ -1,8 +1,9 @@
 """Front-photo overview, separate from side ROI scores and model confidence."""
 import copy
 import numpy as np
+from skin_product_contract import PRODUCT_APPEARANCE_IDS, general_concern_contract, tone_separation_components
 
-IDS=['tone','oil','redness','acne','sag','dry','lines','dark','bags']
+IDS=list(PRODUCT_APPEARANCE_IDS)
 VERSION='front-appearance-union-v3-local-target-coverage'
 OIL_REGIONS=('forehead','nose','rightCheek','leftCheek','chin')
 OIL_SAMPLING='oil-regional-quality-unique-visible-union-v2'
@@ -28,7 +29,9 @@ def general_result(response,masks,valid,tone,redness,shine,flakes,area,condition
     oil_support,oil_missing=oil_region_support(response,masks,valid)
     for criterion in IDS:
         evaluated_area=area;source_normalization=(normalizations or {}).get(criterion)
-        value=None;limitation='INSUFFICIENT_FRONT_COVERAGE';components={}
+        contract=general_concern_contract(criterion)
+        value=None;limitation=contract['limitationCode'];components=contract['components']
+        if criterion=='tone':components=tone_separation_components(components)
         # Eye-only source photos can have a fully visible anatomical eye ROI.
         # Cheek/chin coverage is required for whole-face criteria, not eyes.
         local_criterion=criterion in ['lines','dark','bags','sag','acne']
@@ -96,11 +99,11 @@ def general_result(response,masks,valid,tone,redness,shine,flakes,area,condition
         model_rows=[r for values in response.values() for r in values if r['id']==criterion and r['quality']=='valid' and r.get('modelHash')]
         hashes={r['modelHash'] for r in model_rows}
         source_model=model_rows[0] if len(hashes)==1 else None
-        result.append(dict(id=criterion,type='appearance_proxy',value=value,unit='appearance-score-0-100',
-          methodVersion='front-lower-face-unique-centers-v1' if criterion=='sag' and sag_support is not None else VERSION,modelVersion=None,modelHash=None,quality='valid' if value is not None else 'insufficient',
+        result.append(dict(id=criterion,type=contract['type'],value=value,unit=contract['unit'],
+          methodVersion=contract['methodVersion'] or ('front-lower-face-unique-centers-v1' if criterion=='sag' and sag_support is not None else VERSION),modelVersion=None,modelHash=None,quality='valid' if value is not None else 'insufficient',
           uncertainty=['illumination','visible-surface-only','unvalidated-cosmetic-proxy'],region='overview',
           evaluatedArea=evaluated_area,captureConditions=conditions,limitationCode=limitation,referenceId=None,
-          localMap=None,components=components,normalizationVersion=source_normalization))
+          localMap=None,components=components,normalizationVersion=contract['normalizationVersion'] or source_normalization))
         if value is not None and source_model:
             result[-1].update(modelVersion=source_model['modelVersion'],modelHash=source_model['modelHash'])
     skin_type=learned_type or dict(value=None,quality='insufficient',confidence=None,methodVersion='type-not-accepted-v1',modelHash=None,limitationCode='MODEL_NOT_ACCEPTED')
