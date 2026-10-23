@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "sourceArchiveSHA256": "7c06f1c48d049c1c419d909d488c6642465f0f57958a42eaa62569527ee3094c",
+  "class": "wrinkles",
+  "reviewerType": "assistant_visual_review_not_expert",
+  "sampleDesign": {
+    "total": 18,
+    "largestNonRectangleMasks": 6,
+    "smallNonRectangleMasks": 6,
+    "rectanglePolygons": 6
+  },
+  "observations": [
+    "Largest polygons cover broad face, cheek, chin or mouth regions rather than individual crease lines.",
+    "Small polygons include under-eye, eye-adjacent and nasal patches; several occur on files named normal_skin and are not a crow's-feet-only taxonomy.",
+    "Rectangle-polygon samples cover entire close-up crops and are box supervision, not exact wrinkle masks.",
+    "The class mixes facial locations and has no separate crow's-feet label or expression/pose definition."
+  ],
+  "artifacts": {
+    "privateContactSheetCommitted": false,
+    "reason": "Contains source facial images; only metadata findings are committed."
+  },
+  "decision": {
+    "faceV3AcceptedForCrowsFeetTraining": false,
+    "faceV3AcceptedForGenericWrinkleSegmentation": false,
+    "labelRepairPerformed": false,
+    "expertApproval": false,
+    "next": "Audit the separately selected Wrinkles Detector / skin-face sources for an explicit crow's-feet definition and localized geometry; do not merge FACE v3 masks into training."
+  }
+}
