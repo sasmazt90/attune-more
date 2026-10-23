@@ -30,6 +30,16 @@ def test_tone_contract_never_supplies_localized_pigmentation():
     assert value['coReportingPolicy'] == 'separate-headings-no-local-result-from-tone'
 
 
+
+def test_sag_is_appearance_only_even_when_unavailable():
+    value = C.general_concern_contract('sag')
+    assert value['components'] == {
+        'appearanceSemantics': C.SAG_APPEARANCE_SEMANTICS,
+        'clinicalSeverity': False,
+        'elasticity': False,
+        'comparisonMode': C.SAG_COMPARISON_MODE,
+    }
+
 def test_existing_concerns_keep_existing_general_defaults():
     value = C.general_concern_contract('tone')
     assert value['type'] == 'appearance_proxy'
