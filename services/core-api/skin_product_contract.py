@@ -12,6 +12,9 @@ PRODUCT_HEADING_COUNT_WITH_SKIN_TYPE = len(PRODUCT_APPEARANCE_IDS) + 1
 SEPARATION_VERSION = 'tone-localized-pigmentation-separation-v1'
 SAG_APPEARANCE_SEMANTICS = 'visible-lower-face-contour-fold-appearance-v1'
 SAG_COMPARISON_MODE = 'same-person-compatible-capture-only'
+GENERIC_DEGREE_BLOCKED_TARGETS = {
+    'sag': 'WHOLE_FACE_ORDINAL_SAG_NOT_A_LOCAL_APPEARANCE_TARGET',
+}
 
 LOCALIZED_CONCERNS = {
     'postAcne': {
@@ -35,6 +38,29 @@ def sag_appearance_components(components=None):
         'elasticity': False,
         'comparisonMode': SAG_COMPARISON_MODE,
     }
+
+
+def generic_degree_target_policy(head):
+    """Return the usable targets of the generic whole-face ordinal head.
+
+    The source's ``elasticity`` grade is not a localized sag label.  Even if a
+    future manifest accidentally lists ``sag`` as accepted, it must not leave
+    the model boundary or appear as an unavailable product target.
+    """
+    if head.get('accepted') is not True:
+        return {'acceptedTargets': [], 'blockedTargets': []}
+    outputs = set(head.get('targets', ()))
+    accepted = []
+    blocked = []
+    for target in dict.fromkeys(head.get('acceptedTargets', ())):
+        reason = GENERIC_DEGREE_BLOCKED_TARGETS.get(target)
+        if reason is None and target not in outputs:
+            reason = 'ACCEPTED_TARGET_NOT_IN_MODEL_OUTPUTS'
+        if reason:
+            blocked.append({'target': target, 'reason': reason})
+        else:
+            accepted.append(target)
+    return {'acceptedTargets': accepted, 'blockedTargets': blocked}
 
 
 def general_concern_contract(criterion):
