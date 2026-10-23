@@ -16,12 +16,12 @@ E = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(E)
 
 
-def archive(tmp, name, *, remote=False, split='test', shift=0, colour='white', duplicate=False):
+def archive(tmp, name, *, remote=False, split='test', shift=0, colour='white', duplicate=False, polygon=False, mask_shift=0):
     path = tmp / name
     filename = 'sample_png_jpg.rf.new.jpg' if remote else 'sample_png.rf.original.jpg'
     image = dict(id=7 if remote else 1, width=16, height=16, file_name=filename)
     ann = dict(id=9 if remote else 1, image_id=image['id'], category_id=2 if remote else 1,
-               bbox=[1 + shift, 2, 3, 4], segmentation=[], iscrowd=0)
+               bbox=[1 + shift, 2, 3, 4], segmentation=[[1+mask_shift,2,4,2,4,6,1,6]] if polygon else [], iscrowd=0)
     data = dict(images=[image], annotations=[ann],
                 categories=[dict(id=ann['category_id'], name='Pimple')])
     if duplicate:
@@ -77,3 +77,23 @@ def test_empty_archive_is_rejected(tmp_path):
         pass
     with pytest.raises(ValueError, match='NO_COCO_IMAGES'):
         E.compare(empty, archive(tmp_path, 'a.zip'))
+
+
+def test_exact_polygon_policy_reports_recomputed_boxes_separately(tmp_path):
+    a=archive(tmp_path,'a.zip',polygon=True)
+    b=archive(tmp_path,'b.zip',remote=True,polygon=True,shift=.13)
+    assert not E.compare(a,b)['metadataAndGeometryMatched']
+    result=E.compare(a,b,'segmentation')
+    assert result['metadataAndGeometryMatched'] and result['splitsUnchanged']
+    assert not result['fullGeometryUnchanged'] and result['changedBoxGeometryImages']==1
+
+
+def test_polygon_drift_is_never_rounded_away(tmp_path):
+    a=archive(tmp_path,'a.zip',polygon=True)
+    b=archive(tmp_path,'b.zip',remote=True,polygon=True,mask_shift=.00001)
+    assert not E.compare(a,b,'segmentation')['metadataAndGeometryMatched']
+
+
+def test_boxes_cannot_pass_polygon_verification(tmp_path):
+    with pytest.raises(ValueError,match='POLYGON_TRUTH'):
+        E.compare(archive(tmp_path,'a.zip'),archive(tmp_path,'b.zip',remote=True),'segmentation')

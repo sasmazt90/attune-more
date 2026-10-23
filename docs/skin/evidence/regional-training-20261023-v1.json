@@ -1,0 +1,17 @@
+{
+  "trainingId": "3485f8c67f957a1b850d",
+  "status": "running",
+  "project_id": "attune-skin-regional-skin-map",
+  "version": 1,
+  "url": "https://app.roboflow.com/tolgar-sasmaz/attune-skin-regional-skin-map/1",
+  "message": "Training has been created. Monitor progress with trainings_get(project_id, version_number, training_id) or at the URL above. Training can take minutes to hours depending on dataset size and model type.",
+  "lastCheckedAt": "2026-10-23 05:33:17 UTC",
+  "latestRun": {
+    "trainingId": "3485f8c67f957a1b850d",
+    "status": "running",
+    "createdAt": "2026-10-23T05:28:00.316000Z",
+    "modelType": "rfdetr-nas-seg-parent",
+    "modelGroup": null,
+    "modelIds": []
+  }
+}

@@ -9,6 +9,7 @@ import collections
 import hashlib
 import io
 import json
+import math
 from pathlib import Path, PurePosixPath
 import re
 import zipfile
@@ -24,7 +25,15 @@ def original_name(name):
     return re.sub(r'(?:_(?:jpg|jpeg|png|webp))+$', '', stem, flags=re.I)
 
 
-def annotations_key(annotations, categories):
+def annotations_key(annotations, categories, geometry='all'):
+    if geometry == 'segmentation':
+        for a in annotations:
+            masks = a.get('segmentation')
+            if (not isinstance(masks, list) or not masks or any(
+                not isinstance(p, list) or len(p) < 6 or len(p) % 2 or any(
+                    isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v)
+                    for v in p) for p in masks)):
+                raise ValueError('SEGMENTATION_REQUIRES_POLYGON_TRUTH')
     def numeric(value):
         if isinstance(value, list):
             return [numeric(v) for v in value]
@@ -32,13 +41,13 @@ def annotations_key(annotations, categories):
             return float(value)
         return value
     return tuple(sorted(json.dumps(dict(label=categories[a['category_id']],
-                                        bbox=numeric(a.get('bbox')),
+                                        bbox=numeric(a.get('bbox')) if geometry == 'all' else None,
                                         segmentation=numeric(a.get('segmentation', [])),
                                         iscrowd=a.get('iscrowd', 0)), sort_keys=True)
                         for a in annotations))
 
 
-def index(archive):
+def index(archive, geometry='all'):
     rows = collections.defaultdict(list)
     names = archive.namelist()
     if len(names) != len(set(names)):
@@ -57,18 +66,21 @@ def index(archive):
             if path not in names:
                 raise ValueError('IMAGE_FILE_MISSING')
             key = (original_name(image['file_name']), image['width'], image['height'],
-                   annotations_key(anns[image['id']], categories))
+                   annotations_key(anns[image['id']], categories, geometry))
             rows[key].append(dict(path=path, split=PurePosixPath(name).parent.name,
-                                  annotationCount=len(anns[image['id']])))
+                                  annotationCount=len(anns[image['id']]),
+                                  fullGeometry=annotations_key(anns[image['id']], categories)))
     if not rows:
         raise ValueError('NO_COCO_IMAGES')
     return rows
 
 
-def compare(local, remote):
+def compare(local, remote, geometry='all'):
+    if geometry not in ('all', 'segmentation'):
+        raise ValueError('INVALID_GEOMETRY_POLICY')
     pairs, missing, extra, ambiguous = [], [], [], []
     with zipfile.ZipFile(local) as a, zipfile.ZipFile(remote) as b:
-        old, new = index(a), index(b)
+        old, new = index(a, geometry), index(b, geometry)
         for key in sorted(set(old) | set(new)):
             left, right = old.get(key, []), new.get(key, [])
             if not left:
@@ -81,6 +93,7 @@ def compare(local, remote):
                 ambiguous.append(dict(local=left, remote=right))
                 continue
             left, right = left[0], right[0]
+            full_geometry_unchanged = left.pop('fullGeometry') == right.pop('fullGeometry')
             ab, bb = a.read(left['path']), b.read(right['path'])
             with Image.open(io.BytesIO(ab)) as image:
                 ap = np.asarray(image.convert('RGB'))
@@ -90,6 +103,7 @@ def compare(local, remote):
             error = np.abs(ap.astype(np.int16) - bp.astype(np.int16)) if shape_matches else None
             pairs.append(dict(local=left['path'], remote=right['path'],
                               splitUnchanged=left['split'] == right['split'],
+                              fullGeometryUnchanged=full_geometry_unchanged,
                               encodedBytesIdentical=ab == bb,
                               decodedPixelsIdentical=bool(shape_matches and np.array_equal(ap, bp)),
                               dimensionsVerified=shape_matches, annotationCount=left['annotationCount'],
@@ -100,9 +114,12 @@ def compare(local, remote):
     return dict(schemaVersion=1, methodVersion='roboflow-coco-export-comparison-v1',
                 localArchive=Path(local).name, localArchiveSHA256=file_digest(local),
                 remoteArchive=Path(remote).name, remoteArchiveSHA256=file_digest(remote),
-                matchingPolicy='Unique original-name/dimensions/full labelled geometry; exact numeric values, no rounding',
+                geometryPolicy=geometry,
+                matchingPolicy='Unique original-name/dimensions/exact labelled ' + geometry + ' geometry; no rounding',
                 pairedImages=len(pairs), missing=missing, extra=extra, ambiguous=ambiguous,
                 metadataAndGeometryMatched=metadata,
+                fullGeometryUnchanged=metadata and all(p['fullGeometryUnchanged'] for p in pairs),
+                changedBoxGeometryImages=sum(not p['fullGeometryUnchanged'] for p in pairs),
                 splitsUnchanged=metadata and all(p['splitUnchanged'] for p in pairs),
                 allDimensionsVerified=metadata and all(p['dimensionsVerified'] for p in pairs),
                 encodedIdenticalImages=sum(p['encodedBytesIdentical'] for p in pairs),
@@ -119,8 +136,9 @@ if __name__ == '__main__':
     parser.add_argument('--local', required=True, type=Path)
     parser.add_argument('--remote', required=True, type=Path)
     parser.add_argument('--output', required=True, type=Path)
+    parser.add_argument('--geometry', choices=['all', 'segmentation'], default='all')
     args = parser.parse_args()
-    result = compare(args.local, args.remote)
+    result = compare(args.local, args.remote, args.geometry)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open('x', encoding='utf8') as stream:
         json.dump(result, stream, indent=2, allow_nan=False)

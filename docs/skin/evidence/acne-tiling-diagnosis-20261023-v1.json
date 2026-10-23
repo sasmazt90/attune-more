@@ -1,0 +1,695 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "validation-four-corner-tiling-v1",
+  "split": "valid",
+  "modelIdentity": {
+    "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--754885",
+    "modelPackageId": "d336c1c2c6c791758326d9cc4f9afecc"
+  },
+  "tileFraction": 0.6,
+  "nmsIoU": 0.5,
+  "confidenceFloor": 0.05,
+  "thresholds": {
+    "Pigmentation": 0.2,
+    "Pimple": 0.3,
+    "Post acne": 0.3
+  },
+  "thresholdsRefitted": false,
+  "selection": "Three prior worst-case examples plus first three SHA256(filename) controls excluding failures",
+  "groups": {
+    "diagnosticFailures": {
+      "imageIds": [
+        26,
+        144,
+        19
+      ],
+      "full": {
+        "operatingPoints": {
+          "Pigmentation": {
+            "threshold": 0.2,
+            "tp": 0,
+            "fp": 9,
+            "fn": 62,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "groundTruthCount": 62
+          },
+          "Pimple": {
+            "threshold": 0.3,
+            "tp": 3,
+            "fp": 5,
+            "fn": 25,
+            "precision": 0.375,
+            "recall": 0.10714285714285714,
+            "f1": 0.16666666666666666,
+            "groundTruthCount": 28
+          },
+          "Post acne": {
+            "threshold": 0.3,
+            "tp": 100,
+            "fp": 72,
+            "fn": 193,
+            "precision": 0.5813953488372093,
+            "recall": 0.3412969283276451,
+            "f1": 0.43010752688172044,
+            "groundTruthCount": 293
+          }
+        },
+        "coco": {
+          "maxDetectionsPerImage": 300,
+          "map50": 0.1646940601161139,
+          "map50_95": 0.055787133531445564,
+          "perClass": {
+            "Pigmentation": {
+              "map50": 0.0,
+              "map50_95": 0.0
+            },
+            "Pimple": {
+              "map50": 0.15890150701662462,
+              "map50_95": 0.05755773908263627
+            },
+            "Post acne": {
+              "map50": 0.3351806733317171,
+              "map50_95": 0.10980366151170043
+            }
+          }
+        },
+        "predictions": 900
+      },
+      "tiled": {
+        "operatingPoints": {
+          "Pigmentation": {
+            "threshold": 0.2,
+            "tp": 0,
+            "fp": 9,
+            "fn": 62,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "groundTruthCount": 62
+          },
+          "Pimple": {
+            "threshold": 0.3,
+            "tp": 9,
+            "fp": 8,
+            "fn": 19,
+            "precision": 0.5294117647058824,
+            "recall": 0.32142857142857145,
+            "f1": 0.4,
+            "groundTruthCount": 28
+          },
+          "Post acne": {
+            "threshold": 0.3,
+            "tp": 117,
+            "fp": 136,
+            "fn": 176,
+            "precision": 0.4624505928853755,
+            "recall": 0.3993174061433447,
+            "f1": 0.42857142857142855,
+            "groundTruthCount": 293
+          }
+        },
+        "coco": {
+          "maxDetectionsPerImage": 300,
+          "map50": 0.20122278321986434,
+          "map50_95": 0.06926474946721227,
+          "perClass": {
+            "Pigmentation": {
+              "map50": 0.00010154861640010154,
+              "map50_95": 1.0154861640010155e-05
+            },
+            "Pimple": {
+              "map50": 0.26847443748771055,
+              "map50_95": 0.08562720775217518
+            },
+            "Post acne": {
+              "map50": 0.3350923635554824,
+              "map50_95": 0.12215688578782159
+            }
+          }
+        },
+        "predictions": 2100
+      }
+    },
+    "hashControls": {
+      "imageIds": [
+        34,
+        7,
+        23
+      ],
+      "full": {
+        "operatingPoints": {
+          "Pigmentation": {
+            "threshold": 0.2,
+            "tp": 0,
+            "fp": 16,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": null,
+            "f1": 0.0,
+            "groundTruthCount": 0
+          },
+          "Pimple": {
+            "threshold": 0.3,
+            "tp": 1,
+            "fp": 11,
+            "fn": 4,
+            "precision": 0.08333333333333333,
+            "recall": 0.2,
+            "f1": 0.11764705882352941,
+            "groundTruthCount": 5
+          },
+          "Post acne": {
+            "threshold": 0.3,
+            "tp": 24,
+            "fp": 43,
+            "fn": 92,
+            "precision": 0.3582089552238806,
+            "recall": 0.20689655172413793,
+            "f1": 0.26229508196721313,
+            "groundTruthCount": 116
+          }
+        },
+        "coco": {
+          "maxDetectionsPerImage": 300,
+          "map50": 0.20335632669711515,
+          "map50_95": 0.07824036946898696,
+          "perClass": {
+            "Pigmentation": {
+              "map50": null,
+              "map50_95": null
+            },
+            "Pimple": {
+              "map50": 0.22772277227722765,
+              "map50_95": 0.1079207920792079
+            },
+            "Post acne": {
+              "map50": 0.17898988111700265,
+              "map50_95": 0.04855994685876601
+            }
+          }
+        },
+        "predictions": 900
+      },
+      "tiled": {
+        "operatingPoints": {
+          "Pigmentation": {
+            "threshold": 0.2,
+            "tp": 0,
+            "fp": 17,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": null,
+            "f1": 0.0,
+            "groundTruthCount": 0
+          },
+          "Pimple": {
+            "threshold": 0.3,
+            "tp": 2,
+            "fp": 23,
+            "fn": 3,
+            "precision": 0.08,
+            "recall": 0.4,
+            "f1": 0.13333333333333333,
+            "groundTruthCount": 5
+          },
+          "Post acne": {
+            "threshold": 0.3,
+            "tp": 31,
+            "fp": 57,
+            "fn": 85,
+            "precision": 0.3522727272727273,
+            "recall": 0.2672413793103448,
+            "f1": 0.30392156862745096,
+            "groundTruthCount": 116
+          }
+        },
+        "coco": {
+          "maxDetectionsPerImage": 300,
+          "map50": 0.18696954711080768,
+          "map50_95": 0.07186273026492576,
+          "perClass": {
+            "Pigmentation": {
+              "map50": null,
+              "map50_95": null
+            },
+            "Pimple": {
+              "map50": 0.16996699669966994,
+              "map50_95": 0.08976897689768976
+            },
+            "Post acne": {
+              "map50": 0.20397209752194545,
+              "map50_95": 0.05395648363216175
+            }
+          }
+        },
+        "predictions": 1867
+      }
+    },
+    "all": {
+      "imageIds": [
+        26,
+        144,
+        19,
+        34,
+        7,
+        23
+      ],
+      "full": {
+        "operatingPoints": {
+          "Pigmentation": {
+            "threshold": 0.2,
+            "tp": 0,
+            "fp": 25,
+            "fn": 62,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "groundTruthCount": 62
+          },
+          "Pimple": {
+            "threshold": 0.3,
+            "tp": 4,
+            "fp": 16,
+            "fn": 29,
+            "precision": 0.2,
+            "recall": 0.12121212121212122,
+            "f1": 0.1509433962264151,
+            "groundTruthCount": 33
+          },
+          "Post acne": {
+            "threshold": 0.3,
+            "tp": 124,
+            "fp": 115,
+            "fn": 285,
+            "precision": 0.5188284518828452,
+            "recall": 0.30317848410757947,
+            "f1": 0.38271604938271603,
+            "groundTruthCount": 409
+          }
+        },
+        "coco": {
+          "maxDetectionsPerImage": 300,
+          "map50": 0.13710783067578322,
+          "map50_95": 0.04469888133862673,
+          "perClass": {
+            "Pigmentation": {
+              "map50": 0.0,
+              "map50_95": 0.0
+            },
+            "Pimple": {
+              "map50": 0.12158545744064848,
+              "map50_95": 0.04278231638138974
+            },
+            "Post acne": {
+              "map50": 0.28973803458670117,
+              "map50_95": 0.09131432763449043
+            }
+          }
+        },
+        "predictions": 1800
+      },
+      "tiled": {
+        "operatingPoints": {
+          "Pigmentation": {
+            "threshold": 0.2,
+            "tp": 0,
+            "fp": 26,
+            "fn": 62,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "groundTruthCount": 62
+          },
+          "Pimple": {
+            "threshold": 0.3,
+            "tp": 11,
+            "fp": 31,
+            "fn": 22,
+            "precision": 0.2619047619047619,
+            "recall": 0.3333333333333333,
+            "f1": 0.29333333333333333,
+            "groundTruthCount": 33
+          },
+          "Post acne": {
+            "threshold": 0.3,
+            "tp": 148,
+            "fp": 193,
+            "fn": 261,
+            "precision": 0.4340175953079179,
+            "recall": 0.36185819070904646,
+            "f1": 0.39466666666666667,
+            "groundTruthCount": 409
+          }
+        },
+        "coco": {
+          "maxDetectionsPerImage": 300,
+          "map50": 0.1662895575412734,
+          "map50_95": 0.05530192340794036,
+          "perClass": {
+            "Pigmentation": {
+              "map50": 6.168841183183739e-05,
+              "map50_95": 6.1688411831837385e-06
+            },
+            "Pimple": {
+              "map50": 0.19974076403354274,
+              "map50_95": 0.06371406255964084
+            },
+            "Post acne": {
+              "map50": 0.29906622017844564,
+              "map50_95": 0.10218553882299704
+            }
+          }
+        },
+        "predictions": 3967
+      }
+    }
+  },
+  "receipts": [
+    {
+      "imageId": 144,
+      "tile": [
+        0,
+        0,
+        768,
+        768
+      ],
+      "inferenceId": "e899a0a4-61c9-431b-aafe-67d0336e434b",
+      "payloadSHA256": "a50e74cf1308899b510fd2c1839d415b5d73aa74afc607fd2a68a783bdd9a74e",
+      "sourceSHA256": "af80f26f0b44a5d27f40d160550a094b14e26b238513e4aa6e7b6a8a45d13372",
+      "predictions": 300
+    },
+    {
+      "imageId": 144,
+      "tile": [
+        512,
+        0,
+        768,
+        768
+      ],
+      "inferenceId": "f91ca672-3e36-44f0-ade5-a7b0e28b68fb",
+      "payloadSHA256": "1f7bc77f83b560a7e35ff681c23bf6b6dcf44db1e40a700d1bd13552b9354753",
+      "sourceSHA256": "af80f26f0b44a5d27f40d160550a094b14e26b238513e4aa6e7b6a8a45d13372",
+      "predictions": 300
+    },
+    {
+      "imageId": 144,
+      "tile": [
+        0,
+        512,
+        768,
+        768
+      ],
+      "inferenceId": "fb15520b-acb4-4f05-bbe8-2a87c8b56e8d",
+      "payloadSHA256": "74ecaedf50701d54233f85b341947076cdb8670a27711b091ef45c3e01cf1600",
+      "sourceSHA256": "af80f26f0b44a5d27f40d160550a094b14e26b238513e4aa6e7b6a8a45d13372",
+      "predictions": 300
+    },
+    {
+      "imageId": 144,
+      "tile": [
+        512,
+        512,
+        768,
+        768
+      ],
+      "inferenceId": "d77478ec-6f73-4659-809a-7a197990963d",
+      "payloadSHA256": "d7eef07fdbfc221f2ad065be4f223044e5aefad7fbf0540e6263f0971bfcb893",
+      "sourceSHA256": "af80f26f0b44a5d27f40d160550a094b14e26b238513e4aa6e7b6a8a45d13372",
+      "predictions": 300
+    },
+    {
+      "imageId": 19,
+      "tile": [
+        0,
+        0,
+        768,
+        768
+      ],
+      "inferenceId": "dbb6faf3-6798-413f-ab8b-3ac87a739a69",
+      "payloadSHA256": "f8b67918c8985762a60d7bfab8acd36d6247a8466b58f47ddf2d92ab0ef41dca",
+      "sourceSHA256": "b3437f67048df078fa683443445f7fdc8e0aaa2a4470c6fffd487790a64e5564",
+      "predictions": 300
+    },
+    {
+      "imageId": 19,
+      "tile": [
+        512,
+        0,
+        768,
+        768
+      ],
+      "inferenceId": "5d963793-4681-4311-a0f6-e09d3ace7832",
+      "payloadSHA256": "64c0f03a0849d07fa1c709a715245580f782f6594102bf20a9d780ff383021f1",
+      "sourceSHA256": "b3437f67048df078fa683443445f7fdc8e0aaa2a4470c6fffd487790a64e5564",
+      "predictions": 300
+    },
+    {
+      "imageId": 19,
+      "tile": [
+        0,
+        512,
+        768,
+        768
+      ],
+      "inferenceId": "e6a199bb-dd92-4405-a4bb-9ea81b808b7b",
+      "payloadSHA256": "651a7d2c0223079fac34a3402d04ff722af8d2d6da0210348f4567acd6297ac9",
+      "sourceSHA256": "b3437f67048df078fa683443445f7fdc8e0aaa2a4470c6fffd487790a64e5564",
+      "predictions": 300
+    },
+    {
+      "imageId": 19,
+      "tile": [
+        512,
+        512,
+        768,
+        768
+      ],
+      "inferenceId": "24a6847f-652d-4bd5-9944-314dc5e74a04",
+      "payloadSHA256": "b6f174f661405e79b91343cfb844fb1e403f153b7164c6d85a9a4d810d262118",
+      "sourceSHA256": "b3437f67048df078fa683443445f7fdc8e0aaa2a4470c6fffd487790a64e5564",
+      "predictions": 262
+    },
+    {
+      "imageId": 23,
+      "tile": [
+        0,
+        0,
+        768,
+        768
+      ],
+      "inferenceId": "8dcdfc4c-834a-4015-b274-245518397e22",
+      "payloadSHA256": "32d32fe8c9a287e2de1f8f0dfa7480421d2ef1a4ab3f5d1e0b762a02728a90fe",
+      "sourceSHA256": "578e92e90381b0efb96cfee66f7f18730fc92da5d37c3c2f94766069817020c3",
+      "predictions": 139
+    },
+    {
+      "imageId": 23,
+      "tile": [
+        512,
+        0,
+        768,
+        768
+      ],
+      "inferenceId": "046e8fd0-f092-4825-8568-ba70fe4f2fcc",
+      "payloadSHA256": "1b8e480f8ca555a71a6aabf2807616f55c4e68cbb578abf7122e465fbaad4bbb",
+      "sourceSHA256": "578e92e90381b0efb96cfee66f7f18730fc92da5d37c3c2f94766069817020c3",
+      "predictions": 124
+    },
+    {
+      "imageId": 23,
+      "tile": [
+        0,
+        512,
+        768,
+        768
+      ],
+      "inferenceId": "9d30356d-4ba1-4488-bef1-b0677136b826",
+      "payloadSHA256": "ffea3e803a10b837249ce0417a581b4acfc17cf28c787d8708c33d4d66e9a941",
+      "sourceSHA256": "578e92e90381b0efb96cfee66f7f18730fc92da5d37c3c2f94766069817020c3",
+      "predictions": 300
+    },
+    {
+      "imageId": 23,
+      "tile": [
+        512,
+        512,
+        768,
+        768
+      ],
+      "inferenceId": "c0c7d94f-99b4-4bb2-ba9b-1ef2c2ef96b1",
+      "payloadSHA256": "dbf3a4872731dc5ec0d1591a9b16d09bb848f6fb68d1d94ce2f71a6dfaf9db75",
+      "sourceSHA256": "578e92e90381b0efb96cfee66f7f18730fc92da5d37c3c2f94766069817020c3",
+      "predictions": 300
+    },
+    {
+      "imageId": 26,
+      "tile": [
+        0,
+        0,
+        768,
+        768
+      ],
+      "inferenceId": "4f7f1b7b-314d-41fe-b69f-396e4b031c86",
+      "payloadSHA256": "30e8cc575605d5c88cc640e1d5dc5379761f714639fba438116ed39340e514d7",
+      "sourceSHA256": "270b863d0385bbdcf52f36d8de44d5cce69f302bf2a0f429cb89f8ebf536c274",
+      "predictions": 300
+    },
+    {
+      "imageId": 26,
+      "tile": [
+        512,
+        0,
+        768,
+        768
+      ],
+      "inferenceId": "26a7289a-d604-4375-9add-a5b94f6cf8e7",
+      "payloadSHA256": "70eb4f32b56d66adbeb42f2d4a0dba535b1b7555525111774d8c163dd56e7ca6",
+      "sourceSHA256": "270b863d0385bbdcf52f36d8de44d5cce69f302bf2a0f429cb89f8ebf536c274",
+      "predictions": 300
+    },
+    {
+      "imageId": 26,
+      "tile": [
+        0,
+        512,
+        768,
+        768
+      ],
+      "inferenceId": "c76ba44f-5333-46cf-96fc-f8297ba5bfb4",
+      "payloadSHA256": "664292734d4053ab9e408a760577755f6053629daa2f3acdd3434bfe913db139",
+      "sourceSHA256": "270b863d0385bbdcf52f36d8de44d5cce69f302bf2a0f429cb89f8ebf536c274",
+      "predictions": 300
+    },
+    {
+      "imageId": 26,
+      "tile": [
+        512,
+        512,
+        768,
+        768
+      ],
+      "inferenceId": "25148412-67d0-460e-b6b9-01a9ca878ff9",
+      "payloadSHA256": "98513bd125018056dc0ce2aefacf3fa9f72dbabc74951cdcd78d4d9f455753c2",
+      "sourceSHA256": "270b863d0385bbdcf52f36d8de44d5cce69f302bf2a0f429cb89f8ebf536c274",
+      "predictions": 300
+    },
+    {
+      "imageId": 34,
+      "tile": [
+        0,
+        0,
+        768,
+        768
+      ],
+      "inferenceId": "59ea0622-a0e7-4d31-8972-e31e2d9d58b8",
+      "payloadSHA256": "c3b8456e561806f43e7e1453dfda566c07e4ec639dfefe26c2c7c3b91d84f2f6",
+      "sourceSHA256": "46ca0ed037463644b42a514ed1bc766d83678f11a36f9906762d8deb642228d8",
+      "predictions": 300
+    },
+    {
+      "imageId": 34,
+      "tile": [
+        512,
+        0,
+        768,
+        768
+      ],
+      "inferenceId": "dfb03b66-135c-4997-b2ef-c9d80d0aaa32",
+      "payloadSHA256": "483ce4871bd13cca4753826c88e024035d174b7b5e63bac6f1f0caf07ab3a0ad",
+      "sourceSHA256": "46ca0ed037463644b42a514ed1bc766d83678f11a36f9906762d8deb642228d8",
+      "predictions": 288
+    },
+    {
+      "imageId": 34,
+      "tile": [
+        0,
+        512,
+        768,
+        768
+      ],
+      "inferenceId": "0f00529e-624a-418a-896c-fe72e1000bc4",
+      "payloadSHA256": "bb99e17bb8178603e747a787490b77cc5ecb962bfdf62cdb4a88460be08ca694",
+      "sourceSHA256": "46ca0ed037463644b42a514ed1bc766d83678f11a36f9906762d8deb642228d8",
+      "predictions": 244
+    },
+    {
+      "imageId": 34,
+      "tile": [
+        512,
+        512,
+        768,
+        768
+      ],
+      "inferenceId": "70e02029-7733-422c-85ed-156893910951",
+      "payloadSHA256": "8bcbdad12cc31aa09bfd8cbc0d55191b1916a5c0f803447f660ea455e3d589e2",
+      "sourceSHA256": "46ca0ed037463644b42a514ed1bc766d83678f11a36f9906762d8deb642228d8",
+      "predictions": 100
+    },
+    {
+      "imageId": 7,
+      "tile": [
+        0,
+        0,
+        768,
+        768
+      ],
+      "inferenceId": "73e8a470-8e1c-409d-94b0-d88072a0ab33",
+      "payloadSHA256": "dc06cfd25fd9fdb76a7bd739002857b441f5189ebacf0b8529cc8f944023eb1c",
+      "sourceSHA256": "252e0d72c66bec68160890386d66dc1016b6a1ae5c745f11bd60271a597a4042",
+      "predictions": 294
+    },
+    {
+      "imageId": 7,
+      "tile": [
+        512,
+        0,
+        768,
+        768
+      ],
+      "inferenceId": "286186de-bccd-41c3-a0d2-86259e476655",
+      "payloadSHA256": "ae9b0f4d427ded397ad7cf1e610b13560960621035fe42eb11cdb38730a52833",
+      "sourceSHA256": "252e0d72c66bec68160890386d66dc1016b6a1ae5c745f11bd60271a597a4042",
+      "predictions": 300
+    },
+    {
+      "imageId": 7,
+      "tile": [
+        0,
+        512,
+        768,
+        768
+      ],
+      "inferenceId": "fc2b2bfa-bb5a-4e5f-92a8-8a25f9e550c4",
+      "payloadSHA256": "7e90b1af2dde451d1521ee2576cc909a42324df54d6cf15f77a3fdd2fbf7edf1",
+      "sourceSHA256": "252e0d72c66bec68160890386d66dc1016b6a1ae5c745f11bd60271a597a4042",
+      "predictions": 225
+    },
+    {
+      "imageId": 7,
+      "tile": [
+        512,
+        512,
+        768,
+        768
+      ],
+      "inferenceId": "2fa3454d-1dcc-4f5e-87ae-a8c05905c5d0",
+      "payloadSHA256": "d9822c769711112f80332a906fecfdf5b5f6531e1df6a3b19d3f20a17154cef9",
+      "sourceSHA256": "252e0d72c66bec68160890386d66dc1016b6a1ae5c745f11bd60271a597a4042",
+      "predictions": 300
+    }
+  ],
+  "images": 6,
+  "inferences": 24,
+  "tilesAtPredictionCap": 16,
+  "snapshotSHA256": "91351648c6b5dfbe16e678bee5e6dafb236d264571f895b3c0b99e0c91aca4fb",
+  "modelAccepted": false,
+  "testSplitTouched": false,
+  "limitations": [
+    "Small diagnostic sample; selected failures are deliberately biased; report controls separately.",
+    "Tiling changes image context, input scale, JPEG encoding and per-frame prediction budget together; no isolated causal claim.",
+    "Original publisher truth remains unchanged, with unverified semantic/negative coverage and subject independence.",
+    "Whole validation and independent camera evaluation are still required before acceptance."
+  ]
+}
