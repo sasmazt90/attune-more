@@ -43,7 +43,9 @@ export function validSkinOverview(value: SkinOverview | undefined, analysisId:st
   if (value.regionalSkinMap !== undefined && !validBoundRegionalSkinMap(value.regionalSkinMap, {
     captureId: value.captureId, pose: value.pose, ...value.sourceTransform
   })) return false;
-  const type=value.skinType,ids=PRODUCT_APPEARANCE_IDS;
+  const type=value.skinType,legacyIds=PRODUCT_APPEARANCE_IDS.slice(0,9);
+  const hasLocalizedHeadings=value.indicators.some(row=>row.id==='postAcne'||row.id==='pigmentation');
+  const ids=hasLocalizedHeadings?PRODUCT_APPEARANCE_IDS:legacyIds;
   if(!type||!['valid','invalid','insufficient'].includes(type.quality)||type.value!==null&&!(type.value in SKIN_TYPE_LABELS)||type.confidence!==null&&(!Number.isFinite(type.confidence)||type.confidence<0||type.confidence>1))return false;
   const hosted=type.inferenceKind==='hosted'&&type.provider==='roboflow'&&type.providerModelId==='skin-type-axavj/1'&&type.methodVersion==='hosted-roboflow-skin-type-axavj/1'&&type.modelHash===null;
   if(type.quality==='valid'?(type.value===null||!type.modelHash&&!hosted):type.value!==null)return false;
