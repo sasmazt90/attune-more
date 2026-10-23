@@ -10,6 +10,7 @@ import hashlib,json,threading,time
 import cv2,numpy as np
 from hosted_skin_type import infer_hosted_type,parse_hosted_type_response,get_inference_client
 from local_skin_type import infer as infer_local_type
+from skin_product_contract import generic_degree_target_policy
 
 FOLDER=Path(__file__).parent/'models'
 MANIFEST=FOLDER/'skin-focused.json'
@@ -100,8 +101,9 @@ def infer(bgr,points,quality_valid,hosted_consent=False,type_quality_valid=None)
                 used.add(task)
             elif task=='degrees':
                 assert len(output)==len(m['targets'])
+                policy=generic_degree_target_policy(m);result['degreeTargetPolicy']=policy
                 for target,value in zip(m['targets'],output):
-                    if target in m['acceptedTargets']:result['degrees'][target]=dict(value=float(np.clip(value,0,5)*20),rawGrade=float(np.clip(value,0,5)),methodVersion=identity['modelVersion'],modelHash=identity['modelHash'],confidence=None,scope='whole-face',normalizationVersion='ordinal-0-5-times-20-v1')
+                    if target in policy['acceptedTargets']:result['degrees'][target]=dict(value=float(np.clip(value,0,5)*20),rawGrade=float(np.clip(value,0,5)),methodVersion=identity['modelVersion'],modelHash=identity['modelHash'],confidence=None,scope='whole-face',normalizationVersion='ordinal-0-5-times-20-v1')
                 if result['degrees']:used.add(task)
         if type_quality and not type_computed:
             a,b=transform['x'],transform['y'];crop=bgr[b:b+transform['height'],a:a+transform['width']]
@@ -116,16 +118,17 @@ def infer(bgr,points,quality_valid,hosted_consent=False,type_quality_valid=None)
         # Compact unavailable state; no old result, substitute weights or zeros.
         # Preserve the expected accepted targets so the product can make them
         # unavailable instead of silently substituting an analytic score.
-        targets=[];unavailable_type=None
+        targets=[];unavailable_type=None;degree_policy=None
         try:
             manifest=json.loads(MANIFEST.read_text('utf8'))
             head=manifest.get('models',{}).get('degrees',{})
-            if head.get('accepted'):targets=list(head.get('acceptedTargets',[]))
+            degree_policy=generic_degree_target_policy(head)
+            targets=list(degree_policy['acceptedTargets'])
             type_head=manifest.get('models',{}).get('type',{})
             if type_head.get('accepted'):
                 unavailable_type=dict(value=None,quality='insufficient',confidence=None,methodVersion=type_head.get('version'),modelHash=None,limitationCode='ACCEPTED_MODEL_UNAVAILABLE')
         except (OSError,ValueError):pass
-        return {**empty,'skinType':unavailable_type,'failure':'ACCEPTED_MODEL_UNAVAILABLE','unavailableTargets':targets,'modelRuntime':session_status(reason='ACCEPTED_MODEL_UNAVAILABLE')}
+        return {**empty,'skinType':unavailable_type,'failure':'ACCEPTED_MODEL_UNAVAILABLE','unavailableTargets':targets,'degreeTargetPolicy':degree_policy,'modelRuntime':session_status(reason='ACCEPTED_MODEL_UNAVAILABLE')}
 
 def _nms(boxes,threshold=.3):
     if not boxes:return []
@@ -181,3 +184,4 @@ def infer_bags(bgr,points,quality_valid):
         identity=item['sessionMetadata']
         return dict(valid=len(layers)==2,layers=layers,modelHash=identity['modelHash'],modelVersion=identity['modelVersion'],loadMs=item['loadMs'],inferenceMs=(time.perf_counter()-start)*1000)
     except Exception:return {'valid':False,'reason':'ACCEPTED_MODEL_UNAVAILABLE'}
+
