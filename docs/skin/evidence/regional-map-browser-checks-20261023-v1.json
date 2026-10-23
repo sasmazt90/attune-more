@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-23T07:24:57Z",
+  "scope": "regional numeric browser and history contract",
+  "command": "python -m pytest -q tests/unit/test_regional_map_frontend_contract.py",
+  "pytestPassed": 1,
+  "executableAssertions": 48,
+  "actualServerFixtures": 4,
+  "hashes": {
+    "apps/vehicle-app/src/utils/regionalSkinMap.ts": "bc548dab07f69f8cbfef2f47f4d111f1f17f6cf5030750b38ab732abcc9e98f7",
+    "apps/vehicle-app/src/utils/skinOverview.ts": "5d559087d25ed83ae5218e9db2b606a7dede7603635d216ab0e8ea5964b6c12d",
+    "apps/vehicle-app/src/utils/appearanceMeasurements.ts": "69c2d878a375057c767189fd16e8bcc13bd9982bf1f742038ca75d29d1d7e2f9",
+    "tests/unit/regional_skin_map_frontend.cjs": "afe55f17c48546b40730e5863905d0ea80a44044244a33e89914e7df6335cf32",
+    "tests/unit/test_regional_map_frontend_contract.py": "f728448ebae9418739b20b080f017f4b57cdec572fa577b5c1baca9c503c3579"
+  },
+  "fullAppTypecheck": "not run; app dependencies absent from scheduled workspace",
+  "modelAccepted": false,
+  "cameraAccepted": false,
+  "renderingAccepted": false,
+  "productionChanged": false,
+  "sharedEvaluationWorkDuplicated": false
+}

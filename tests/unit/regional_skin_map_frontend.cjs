@@ -1,0 +1,90 @@
+// Exercises real server fixtures and the browser converter; no image retention,
+// trained-model quality or calibrated threshold acceptance is implied.
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
+const native = require('node:module');
+const root = path.resolve(__dirname, '../..');
+let typescript;
+try { typescript = require('typescript'); } catch {}
+const strip = source => typescript ? typescript.transpileModule(source, {
+  compilerOptions: { module: typescript.ModuleKind.ESNext, target: typescript.ScriptTarget.ES2022 }
+}).outputText : native.stripTypeScriptTypes(source);
+const fixtures = JSON.parse(fs.readFileSync(0, 'utf8'));
+const source = { captureId: 'a'.repeat(64), pose: 'FRONT', sourceWidth: 1280, sourceHeight: 720, coordinateSpace: 'source-pixels' };
+const clone = value => JSON.parse(JSON.stringify(value));
+let checks = 0;
+function check(fn) { fn(); checks++; }
+function synthetic(values) {
+  const keys = Object.keys(values);
+  const module = new vm.SyntheticModule(keys, function () { for (const k of keys) this.setExport(k, values[k]); });
+  return module;
+}
+const cache = new Map();
+async function load(name) {
+  if (cache.has(name)) return cache.get(name);
+  if (name.endsWith('skinDemoFixture')) {
+    const m = synthetic({ REGION_ORDER: ['forehead','rightCheek','leftCheek','nose','chin','periorbital'], SKIN_REGIONS: { forehead: {} }, buildSkinRegionViewModel: () => ({ index: 1 }) });
+    cache.set(name,m); return m;
+  }
+  if (name.endsWith('skinIndicators')) {
+    const m = synthetic({ SIGN_LABELS: {}, skinCriterionLabel: id => id }); cache.set(name,m); return m;
+  }
+  const filename = path.join(root, 'apps/vehicle-app/src/utils', path.basename(name) + '.ts');
+  const m = new vm.SourceTextModule(strip(fs.readFileSync(filename, 'utf8')), { identifier: filename });
+  cache.set(name,m); await m.link(load); return m;
+}
+(async () => {
+  const module = await load('skinOverview'); await module.evaluate();
+  const overview = module.namespace;
+  const mapModule = [...cache.values()].find(m => m.identifier.endsWith('/regionalSkinMap.ts'));
+  const R = mapModule.namespace;
+  const u = R.bindRegionalSkinMap(fixtures.unknown, source), p = R.bindRegionalSkinMap(fixtures.combination, source);
+  check(() => { assert(u); assert(p); assert(p.map.combinationMatched); });
+  check(() => { assert.equal(u.map.complete,false); assert(Object.values(u.map.regions).every(r => r.state==='unknown' && r.fill==='lightgrey')); });
+  check(() => { assert.equal(p.map.regions.leftCheek.fill,'blue'); assert.equal(p.map.regions.leftCheek.redness.colour,'red'); assert.equal(p.map.regions.rightCheek.fill,null); });
+  check(() => { assert.equal(R.bindRegionalSkinMap(fixtures.partial,source).map.combinationMatched,false); });
+  check(() => { const x=R.bindRegionalSkinMap(fixtures.conflict,source).map.regions.leftCheek; assert.equal(x.state,'unknown'); assert.equal(x.redness.colour,'red'); });
+  for (const [key,value] of [['captureId','b'.repeat(64)],['pose','LEFT'],['sourceWidth',640],['sourceHeight',1280],['coordinateSpace','model-pixels']]) {
+    check(() => assert.equal(R.validBoundRegionalSkinMap(p,{...source,[key]:value}),false));
+  }
+  for (const mutate of [
+    x=>x.version='unknown-version', x=>x.geometry='predicted-pixel-mask', x=>x.sensitivityInferred=true,
+    x=>x.complete=false, x=>x.combinationMatched=false, x=>x.tZone=['nose'],
+    x=>x.regions.forehead.fill='blue', x=>x.regions.rightCheek.observations.dry.state='unknown',
+    x=>x.regions.nose.observations.oil.coverage=0, x=>x.regions.nose.observations.oil.coverage=1.1,
+    x=>x.regions.nose.observations.oil.coverage=NaN, x=>x.regions.nose.observations.oil.validationEvidence='',
+    x=>x.regions.nose.observations.oil.methodVersion='', x=>delete x.regions.chin,
+    x=>x.regions.leftCheek.redness.colour=null, x=>x.regions.leftCheek.redness.style='sensitivity-fill',
+    x=>x.regions.rightCheek.reason='made-up-normal'
+  ]) check(() => { const x=clone(fixtures.combination); mutate(x); assert.equal(R.parseRegionalSkinMap(x),undefined); });
+  check(() => { const x=clone(fixtures.unknown); x.regions.forehead.state='normal'; x.regions.forehead.fill=null; assert.equal(R.parseRegionalSkinMap(x),undefined); });
+  check(() => { const x=clone(fixtures.combination); x.photo='data:image/png;base64,secret'; x.regions.forehead.photo='secret'; assert(!JSON.stringify(R.parseRegionalSkinMap(x)).includes('secret')); });
+  check(() => assert.deepEqual(Array.from(R.comparableRegionalObservations(u,u)),[]));
+  check(() => assert.equal(R.comparableRegionalObservations(p,clone(p)).length,15));
+  for (const mutate of [x=>x.photo='secret', x=>x.source.photo='secret', x=>x.map.photo='secret', x=>x.map.regions.forehead.observations.oil.photo='secret']) {
+    check(() => { const x=clone(p); mutate(x); assert.equal(R.validBoundRegionalSkinMap(x,source),false); });
+  }
+  check(() => { const x=clone(p); x.map.regions.forehead.observations.oil.modelHash='other-model'; assert(!R.comparableRegionalObservations(p,x).includes('forehead:oil')); assert.equal(R.comparableRegionalObservations(p,x).length,14); });
+  check(() => { const x=clone(p); x.map.regions.forehead.observations.oil.normalizationVersion='other-scale'; assert.equal(R.comparableRegionalObservations(p,x).length,14); });
+  check(() => { const x=clone(p); x.map.regions.forehead.observations.oil.validationEvidence='different-evidence'; assert.equal(R.comparableRegionalObservations(p,x).length,14); });
+  const ids=['tone','oil','redness','acne','sag','dry','lines','dark','bags'];
+  const response = { photoId: source.captureId, sourceWidth: source.sourceWidth, sourceHeight: source.sourceHeight,
+    general: { regionalSkinMap: fixtures.combination, normalizationVersion:'fixture-scale',
+      skinType:{value:null,quality:'insufficient',confidence:null,methodVersion:'unavailable',modelHash:null},
+      measurements:ids.map(id=>({id,value:null,quality:'insufficient',methodVersion:'fixture-only',unit:'appearance-score-0-100',evaluatedArea:{analysisPixels:0},limitationCode:'NO_ACCEPTED_METHOD'})) } };
+  const before=JSON.stringify(response), converted=overview.overviewFromResponse(response);
+  check(() => assert.equal(JSON.stringify(response),before));
+  check(() => assert.deepEqual(JSON.parse(JSON.stringify(converted.regionalSkinMap)),JSON.parse(JSON.stringify(p))));
+  converted.analysisId='analysis-fixture';
+  check(() => assert(overview.validSkinOverview(JSON.parse(JSON.stringify(converted)),'analysis-fixture')));
+  check(() => { const x=clone(converted); x.captureId='b'.repeat(64); assert.equal(overview.validSkinOverview(x,'analysis-fixture'),false); });
+  check(() => { const x=clone(converted); x.sourceTransform.sourceWidth=720; assert.equal(overview.validSkinOverview(x,'analysis-fixture'),false); });
+  check(() => { const x=clone(converted); delete x.regionalSkinMap; assert(overview.validSkinOverview(x,'analysis-fixture')); });
+  check(() => { const x=clone(response); delete x.general.regionalSkinMap; assert.equal(overview.overviewFromResponse(x).regionalSkinMap,undefined); });
+  check(() => { const x=clone(response); x.general.regionalSkinMap.regions.forehead.fill='blue'; assert.equal(overview.overviewFromResponse(x).regionalSkinMap,undefined); });
+  check(() => { const x=clone(response); x.photoId='not-a-capture'; assert.equal(overview.overviewFromResponse(x).regionalSkinMap,undefined); });
+  check(() => assert.equal(overview.overviewFromResponse({}),undefined));
+  console.log(JSON.stringify({ checks, serverFixtures:4, result:'pass', scope:'numeric-contract-and-converter-only', modelAcceptance:false, cameraAcceptance:false }));
+})().catch(error => { console.error(error); process.exitCode=1; });

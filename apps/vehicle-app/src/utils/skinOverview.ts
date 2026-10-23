@@ -2,6 +2,7 @@ import { REGION_ORDER, SKIN_REGIONS, buildSkinRegionViewModel, type SkinRegionDa
 import type { SkinIndicator } from './skinIndicators';
 import { skinCriterionLabel, SIGN_LABELS } from './skinIndicators';
 import type { AppearanceResponse } from './appearanceMeasurements';
+import { bindRegionalSkinMap, validBoundRegionalSkinMap, type BoundRegionalSkinMap } from './regionalSkinMap';
 
 export const SKIN_TYPE_LABELS = { normal: 'Normal', dry: 'Kuru', oily: 'Yağlı', combination: 'Karma' } as const;
 export type SkinTypeId = keyof typeof SKIN_TYPE_LABELS;
@@ -14,6 +15,7 @@ function displayLabels(rows: SkinIndicator[], scope: 'regional'|'whole-face'): S
     ? {...row,label:skinCriterionLabel(row.id,scope)} : row);
 }
 export type SkinOverview = {
+  regionalSkinMap?: BoundRegionalSkinMap;
   schemaVersion: 1; analysisId?: string; captureId: string; pose: 'FRONT';
   skinType: { value: SkinTypeId | null; quality: 'valid' | 'invalid' | 'insufficient'; confidence: number | null; methodVersion: string; modelHash: string | null; limitationCode: string | null; provider?:string;providerModelId?:string;inferenceKind?:'hosted'|'local-onnx';decisionVersion?:string;sourceModel?:string };
   indicators: SkinIndicator[]; normalizationVersion: string;
@@ -22,7 +24,12 @@ export type SkinOverview = {
 };
 export function overviewFromResponse(response: AppearanceResponse): SkinOverview | undefined {
   if (!response.general) return;
+  const regionalSkinMap = bindRegionalSkinMap(response.general.regionalSkinMap, {
+    captureId: response.photoId, pose: 'FRONT', sourceWidth: response.sourceWidth,
+    sourceHeight: response.sourceHeight, coordinateSpace: 'source-pixels'
+  });
   return { schemaVersion: 1, captureId: response.photoId, pose: 'FRONT',
+    ...(regionalSkinMap ? { regionalSkinMap } : {}),
     skinType: response.general.skinType, normalizationVersion: response.general.normalizationVersion,
     modelInputTransform:response.general.modelInputTransform,modelInference:response.general.modelInference,
     sourceTransform: { sourceWidth: response.sourceWidth, sourceHeight: response.sourceHeight, coordinateSpace: 'source-pixels' },
@@ -32,6 +39,9 @@ export function overviewFromResponse(response: AppearanceResponse): SkinOverview
 }
 export function validSkinOverview(value: SkinOverview | undefined, analysisId:string): boolean {
   if (!value || value.schemaVersion!==1 || value.analysisId!==analysisId || value.pose!=='FRONT' || !/^[a-f0-9]{64}$/.test(value.captureId)) return false;
+  if (value.regionalSkinMap !== undefined && !validBoundRegionalSkinMap(value.regionalSkinMap, {
+    captureId: value.captureId, pose: value.pose, ...value.sourceTransform
+  })) return false;
   const type=value.skinType,ids=['tone','oil','redness','acne','sag','dry','lines','dark','bags'];
   if(!type||!['valid','invalid','insufficient'].includes(type.quality)||type.value!==null&&!(type.value in SKIN_TYPE_LABELS)||type.confidence!==null&&(!Number.isFinite(type.confidence)||type.confidence<0||type.confidence>1))return false;
   const hosted=type.inferenceKind==='hosted'&&type.provider==='roboflow'&&type.providerModelId==='skin-type-axavj/1'&&type.methodVersion==='hosted-roboflow-skin-type-axavj/1'&&type.modelHash===null;

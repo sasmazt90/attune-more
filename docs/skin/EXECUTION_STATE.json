@@ -707,10 +707,17 @@
       "work": "Integrate accepted outputs incrementally into maps/cards/history; explicit unavailable reasons; method/version compatibility for trends; end-to-end camera/API/result/history tests and final acceptance report.",
       "evidence": [
         "docs/skin/regional-evidence-contract-20261023.md",
-        "docs/skin/evidence/regional-checks-20261023-v1.json"
+        "docs/skin/evidence/regional-checks-20261023-v1.json",
+        "apps/vehicle-app/src/utils/regionalSkinMap.ts",
+        "apps/vehicle-app/src/utils/skinOverview.ts",
+        "apps/vehicle-app/src/utils/appearanceMeasurements.ts",
+        "tests/unit/regional_skin_map_frontend.cjs",
+        "tests/unit/test_regional_map_frontend_contract.py",
+        "docs/skin/evidence/regional-map-browser-checks-20261023-v1.json",
+        "docs/skin/regional-map-browser-contract-20261023.md"
       ],
       "blockers": [
-        "API finalizer now emits general.regionalSkinMap region summary and independent redness descriptors. Frontend map rendering, geometry alignment, accepted model integration and longitudinal E2E acceptance remain pending."
+        "Numeric API regional summaries now survive browser conversion and overview/history validation with source capture and dimensions bound. 48 contract assertions across four actual server fixtures pass. No UI pixel/region overlay has been enabled; rendering, real-camera acceptance, accepted model integration, trend wiring and complete browser/API/history E2E remain pending."
       ]
     }
   ],
@@ -733,7 +740,8 @@
     "Refresh this branch and existing regional version 1 training 3485f8c67f957a1b850d. Still running at 05:42:45 UTC; never duplicate it. On completion, page NAS children by modelGroup and evaluate segmentation per class; recommendation flags are not accuracy or hardware winner evidence.",
     "Acne localization and taxonomy diagnosis is saved for all 165 validation images. Cross-class disagreement, poor tight IoU, tiny instances and the prediction cap remain. Do not call overlap opportunities recall or assistant review expert labels. Review label standards and coverage before another training; do not repeat completed tiling or retune on the exposed test.",
     "Merve v12 has been audited; its archive SHA256 matches the historical selected file. There are 2,590 pul boxes, zero pul masks and 3,368 CLAHE-prefixed filenames. Do not repeat the download/audit or turn these boxes into blue masks or normal truth. Natural RGB calibration is not admitted; natural source counterparts and true dry masks remain a data gap. Continue other available work.",
-    "Continue the independent real-camera benchmark and consent path, under-eye source grouping and segmentation, selected wrinkle source audit, sagging evaluation, UI coordinate alignment and history integration while regional training runs. Keep the accepted regional-method registry empty until acceptance evidence passes."
+    "Continue the independent real-camera benchmark and consent path, under-eye source grouping and segmentation, selected wrinkle source audit, sagging evaluation, UI coordinate alignment and history integration while regional training runs. Keep the accepted regional-method registry empty until acceptance evidence passes.",
+    "Preserve the browser regional-map contract work and its 48 executable checks when completing the independent segmentation evaluation checkpoint. Wire only accepted anatomical source support into photo SVG and categorical history; unknown remains grey and missing/changed evidence cannot be normal or a comparable trend."
   ],
   "executionLog": [
     {
@@ -768,6 +776,12 @@
       "observedAt": "2026-10-23 05:42:45 UTC",
       "action": "Refreshed all three private project states and existing regional NAS segmentation job 3485f8c67f957a1b850d, still running. Read the selected-source ledger and directly audited all 3,368 Merve v12 images and 12,741 annotations; archive SHA256 matches the original selected file. Found 2,590 pul boxes and zero pul masks; all filenames are CLAHE-prefixed. Preserved 74 cross-split perceptual candidate pairs and 39 filename candidate groups. Inspected six train examples without expert approval or mask fabrication. Added validation-only class-agnostic one-to-one matching and localization diagnosis for all 165 acne validation images from existing pinned predictions; 205 Pimple and 93 Pigmentation truths matched Post acne predictions. Inspected six disagreement examples, changed no labels, and launched no new training or test inference. All 121 checks pass. Saved the full audit, diagnostic matches, code and continuation; no deployment, merge or acceptance claim.",
       "report": "docs/skin/dryness-source-and-acne-diagnosis-20261023.md"
+    },
+    {
+      "date": "2026-10-23",
+      "observedAt": "2026-10-23 07:24:57 UTC",
+      "action": "Refreshed execution branch and regional NAS run: finished, all 75 models enumerated via two modelGroup-scoped pages. Detected separate active regional inference/evaluation files in shared workspace and did not duplicate inference or training. Worked in isolated frontend directory: preserved general.regionalSkinMap through overview conversion, added strict evidence/colour/unknown/combination consistency parsing, source-bound numeric persistence validation and per-observation method-compatible categorical comparison helper. Four real server-builder fixtures and 48 executable browser-converter/history assertions passed. No new subscription, source changes, photo upload, model activation, deployment or merge. Full app typecheck unavailable in scratch because app dependencies are absent; overlay/trend wiring and camera/E2E remain pending.",
+      "report": "docs/skin/regional-map-browser-contract-20261023.md"
     }
   ]
 }
