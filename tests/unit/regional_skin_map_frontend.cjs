@@ -157,6 +157,7 @@ async function load(name) {
   check(() => { assert.equal(converted.indicators.find(v=>v.id==='postAcne').label,'Sivilce izi görünümü'); assert.equal(converted.indicators.find(v=>v.id==='pigmentation').label,'Pigmentasyon görünümü'); });
   converted.analysisId='analysis-fixture';
   check(() => assert(overview.validSkinOverview(JSON.parse(JSON.stringify(converted)),'analysis-fixture')));
+  check(() => { const x=clone(converted); x.indicators=x.indicators.filter(v=>!['postAcne','pigmentation'].includes(v.id)); assert(overview.validSkinOverview(x,'analysis-fixture')); });
   check(() => { const x=clone(converted); x.captureId='b'.repeat(64); assert.equal(overview.validSkinOverview(x,'analysis-fixture'),false); });
   check(() => { const x=clone(converted); x.sourceTransform.sourceWidth=720; assert.equal(overview.validSkinOverview(x,'analysis-fixture'),false); });
   check(() => { const x=clone(converted); delete x.regionalSkinMap; assert(overview.validSkinOverview(x,'analysis-fixture')); });
