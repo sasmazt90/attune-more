@@ -48,6 +48,7 @@ assert(combo.flatMap(s=>s.items).join(' ').includes('Karma'));
 const source={photoId:'photo-a',angle:'FRONT',width:640,height:480};
 const good={criterion:'dry',photoId:'photo-a',pose:'FRONT',sourceWidth:640,sourceHeight:480,modelHash:'a'.repeat(64),confidence:.8,box:{x:10,y:20,width:50,height:30}};
 assert.equal(sourceMatchedFindings([good],source,'dry').length,1);
+assert.equal(sourceMatchedFindings([{...good,photoId:undefined}],{...source,photoId:undefined},'dry').length,0);
 for(const change of [{photoId:'photo-b'},{pose:'LEFT'},{sourceWidth:1280},{modelHash:'unverified'},{confidence:NaN},{box:{x:630,y:20,width:50,height:30}}])
   assert.equal(sourceMatchedFindings([{...good,...change}],source,'dry').length,0);
 '''

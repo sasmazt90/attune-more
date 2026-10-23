@@ -10,6 +10,7 @@ export type SkinFinding = {
   line?: { x: number; y: number }[];
 };
 export function sourceMatchedFindings(findings: SkinFinding[] | undefined, source: { photoId?: string; angle: string; width: number; height: number }, criterion: string | null | undefined): SkinFinding[] {
+  if (typeof source.photoId !== 'string' || !source.photoId.trim()) return [];
   return (findings || []).filter(f => {
     const b = f.box;
     return f.criterion === criterion && f.photoId === source.photoId && f.pose === source.angle &&
