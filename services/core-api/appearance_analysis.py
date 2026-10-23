@@ -13,7 +13,7 @@ import numpy as np
 from skin_general import general_result,oil_region_support,OIL_SAMPLING
 from skin_models import infer as infer_skin_models, infer_acne, infer_bags, session_status
 from skin_measurement_contract import attach_result_receipts
-from skin_product_contract import tone_separation_components
+from skin_product_contract import apply_learned_general_degree, tone_separation_components
 from skimage.feature import local_binary_pattern
 from skimage.filters import gabor
 from acne_box_support import region_envelopes,accepted_boxes as filter_acne_boxes,box_area,VERSION as ACNE_SUPPORT_VERSION
@@ -691,8 +691,10 @@ def analyze_skin(payload, include_research_features=False):
                 # candidates. A whole-photo acne grade is not a calibrated
                 # fusion with detection-box coverage and cannot replace it.
                 if degree and item['id']!='acne':
-                    item.update(value=degree['value'],type='trained_prediction',methodVersion=degree['methodVersion'],modelVersion=degree['methodVersion'],modelHash=degree['modelHash'],quality='valid',limitationCode=None,normalizationVersion=degree['normalizationVersion'],uncertainty=['source-label-protocol-unverified','camera-domain-shift'])
-                    item['components'].update(rawGrade=degree['rawGrade'],normalizationVersion=degree['normalizationVersion'],modelScope='whole-face',pixelLocalizationAvailable=False)
+                    # Generic degree heads are whole-photo ordinal outputs. The
+                    # shared contract blocks them from replacing localized sag
+                    # contour/fold evidence or inheriting its analytic map.
+                    apply_learned_general_degree(item,degree)
         if include_research_features:
             # Offline train/validation comparison only. The normal API never
             # requests or persists these alternatives or uses them as scores.
@@ -709,7 +711,7 @@ def analyze_skin(payload, include_research_features=False):
                     maps['overview:'+criterion]=layer
                     measurement['localMap']=dict(key='overview:'+criterion,photoId=source_hash,region='overview',criterion=criterion,coordinateSpace='source-pixels')
         sag_overview=next(r for r in result['general']['measurements'] if r['id']=='sag')
-        if sag_overview['value'] is not None and sag_measured.any():
+        if sag_overview['value'] is not None and sag_measured.any() and sag_overview['components'].get('modelScope')!='whole-face':
             layer=map_result(sag_field,sag_measured,'overview','sag',source_hash,'FRONT',bgr.shape,scale,INSTANT_UNIT,1.,origin)
             if layer:
                 maps['overview:sag']=layer
