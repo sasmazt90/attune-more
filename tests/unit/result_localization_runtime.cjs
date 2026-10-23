@@ -6,7 +6,8 @@ global.window=new EventTarget();global.CustomEvent=class extends Event{construct
 const C=require('../../apps/vehicle-app/src/i18n/core.ts');
 const {SKIN_TYPE_LABELS}=require('../../apps/vehicle-app/src/utils/skinOverview.ts');
 const {SIGN_LABELS}=require('../../apps/vehicle-app/src/utils/skinIndicators.ts');
-const {buildSkinRegionViewModel}=require('../../apps/vehicle-app/src/data/skinDemoFixture.ts');
+const {buildSkinRegionViewModel,SKIN_REGIONS}=require('../../apps/vehicle-app/src/data/skinDemoFixture.ts');
+const catalog=Object.values(require('../../shared/localization/messages.json'));
 const {translateMood}=require('../../apps/vehicle-app/src/utils/mentalHistory.ts');
 const {moduleOverview,formatHistoryValue}=require('../../apps/vehicle-app/src/utils/healthHistorySeries.ts');
 const current={id:'readonly-source',timestamp:'2026-10-23T10:00:00Z',schemaVersion:3,completed:true,consented:true,themes:['uyku düzeni','iş stresi']};
@@ -17,6 +18,13 @@ for(const language of ['en','de']){
  assert.equal(C.t(SKIN_TYPE_LABELS.dry),expected.dry);
  assert.equal(C.t(SKIN_TYPE_LABELS.combination),expected.combination);
  assert.equal(C.t(SIGN_LABELS.sag),expected.sag);
+ for(const label of [...Object.values(SKIN_TYPE_LABELS),...Object.values(SIGN_LABELS),'Cilt tipi']){
+  for(const variant of [label,label.toLocaleUpperCase('tr-TR'),label.toLocaleLowerCase('tr-TR')]){
+   assert.equal(C.t(variant),C.t(label),`${language}: ${variant}`);
+  }
+ }
+ assert.equal(C.t('Cilt Tipi'),language==='en'?'Skin type':'Hauttyp');
+ for(const value of ['-3%','+2%','+4%','+6%','+12%'])assert.equal(C.t(`Stabil (${value})`).replace(/\s+%/g,'%'),`${language==='en'?'Stable':'Stabil'} (${value})`);
  for(const label of ['Parlaklık','parlaklık','Cilt parlaklığı','Cilt Parlaklığı','cilt parlaklığı','Cilt Parlaklık Skoru','Ton / Parlaklık','Ton / parlaklık','Ton/Parlaklık','Yüksek parlaklık','Dengeli']){
   const translated=C.t(label);assert(!/parlak|cilt|dengeli/i.test(translated),`${label}: ${translated}`);
  }
@@ -33,6 +41,26 @@ for(const language of ['en','de']){
   assert(translated.includes(String(value)),translated);
  }
  assert.equal(JSON.stringify(current),original);
+ // Traverse every visible field, including ASCII labels, across all six regions
+ // and legacy/current/baseline/missing states. Identical translations (Normal,
+ // Stabil in German, numeric badges) are accepted only when catalogued.
+ const visible=new Set(['nameTr','badgeText','label','displayValue','headline','details','title','description']);
+ const check=(node,key='')=>{
+  if(Array.isArray(node)){node.forEach(item=>check(item,key));return;}
+  if(node&&typeof node==='object'){Object.entries(node).forEach(([k,v])=>check(v,k));return;}
+  if(typeof node!=='string'||!visible.has(key)||!/[A-Za-zÇĞİÖŞÜçğıöşü]/.test(node))return;
+  const translated=C.t(node);
+  assert(translated!==node||catalog.some(m=>m.tr===node&&m[language]===node),`${language} ${key}: ${node}`);
+  assert(!/[ÇĞİŞçğı]/.test(translated),`${language} ${key}: ${translated}`);
+ };
+ for(const id of Object.keys(SKIN_REGIONS)){
+  check(SKIN_REGIONS[id]);check(buildSkinRegionViewModel(id,null));
+  check(buildSkinRegionViewModel(id,{schemaVersion:3,isBaseline:true,indicators:{}}));
+  check(buildSkinRegionViewModel(id,{schemaVersion:3,isBaseline:false,indicators:{[id]:[{appearance:{}}]}}));
+  for(const isBaseline of [true,false])for(const value of [0,5,-5]){
+   check(buildSkinRegionViewModel(id,{isBaseline,regions:{[id]:{rednessScore:10,luminanceScore:75,textureVariance:0,changeFromBaselinePct:value}}}));
+  }
+ }
 }
 // Render the actual result components with the locale supplied by the hook.
 // Effects/capture do not run in server rendering; source records remain raw.

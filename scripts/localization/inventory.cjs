@@ -27,9 +27,9 @@ function inventory(){
   function walk(n){
    // Controlled display dictionaries also contain ASCII-only Turkish (Kuru,
    // Karma, Gergin). Character-based discovery alone cannot find these labels.
-   if(ts.isVariableDeclaration(n)&&['SKIN_TYPE_LABELS','SIGN_LABELS','MOOD_LABELS','REGION_LABELS','DENTAL_GUIDANCE','APPEARANCE_UNITS'].includes(n.name.getText(sf))&&n.initializer)output(n.initializer);
+   if(ts.isVariableDeclaration(n)&&/(?:^|_)(?:LABELS|GUIDANCE|UNITS)$/.test(n.name.getText(sf))&&n.initializer)output(n.initializer);
    if(ts.isCallExpression(n)&&['t','i18nText','i18nNode'].includes(n.expression.getText(sf)))n.arguments.forEach(output);
-   if(ts.isPropertyAssignment(n)&&['name','nameTr','label','title','text','description','disclaimer','recommendation','hint','notice','subtitle','summaryText'].includes(n.name.getText(sf).replace(/^['"]|['"]$/g,'')))output(n.initializer);
+   if(ts.isPropertyAssignment(n)&&['name','nameTr','label','title','text','description','disclaimer','recommendation','hint','notice','subtitle','summaryText','headline','details','displayValue','badgeText'].includes(n.name.getText(sf).replace(/^['"]|['"]$/g,'')))output(n.initializer);
    if(ts.isJsxText(n)){const v=decode(n.text);if(/[\p{L}]/u.test(v))add(v,file,sf.getLineAndCharacterOfPosition(n.pos).line+1,'jsx-text');}
    else if(ts.isStringLiteralLike(n)||ts.isTemplateExpression(n)){
     const text=ts.isTemplateExpression(n)?n.head.text+n.templateSpans.map((x,i)=>`{${i}}`+x.literal.text).join(''):n.text;

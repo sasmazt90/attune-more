@@ -22,6 +22,18 @@ def test_backend_zero_result_with_optional_sign_stays_localized(language,region)
     assert translate('PRIVATE Öztürk Straße İı',language)=='PRIVATE Öztürk Straße İı'
 
 
+@pytest.mark.parametrize('language,type_label,combination,sagging',[
+    ('en','Skin type','Combination','Sagging'),
+    ('de','Hauttyp','Mischhaut','Hauterschlaffung'),
+])
+def test_backend_controlled_result_label_case_variants(language,type_label,combination,sagging):
+    for label in ['Cilt Tipi','CİLT TİPİ','cilt tipi']:
+        assert translate(label,language)==type_label
+    assert translate('KARMA',language)==combination
+    assert translate('SARKMA',language)==sagging
+    assert translate('Stabil (+12%)',language).replace(' %','%')==('Stable (+12%)' if language=='en' else 'Stabil (+12%)')
+
+
 def test_dental_side_rotation_is_more_distinct_without_relaxing_other_pose_gates():
     script=r'''
 require('./tests/unit/ts_loader.js');

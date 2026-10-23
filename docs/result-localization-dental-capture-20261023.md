@@ -8,6 +8,7 @@ Türkçe karakter taraması tek başına `Kuru`, `Karma`, `Sarkma`, `Gergin`, `Y
 
 | Kaynak etiket | İngilizce | Almanca |
 |---|---|---|
+| Cilt Tipi / Cilt tipi | Skin type | Hauttyp |
 | Kuru | Dry | Trocken |
 | Karma | Combination | Mischhaut |
 | Sarkma | Sagging | Hauterschlaffung |
@@ -18,9 +19,11 @@ Türkçe karakter taraması tek başına `Kuru`, `Karma`, `Sarkma`, `Gergin`, `Y
 
 Eski parlaklık etiketleri, büyük/küçük harf ve boşluk varyantları da kapsandı. Görünür aday birimi, sol yanak/kulak etiketleri ve ruh hâli etiketleri tamamlandı. Ruh hâli geçmişi ve birleştirilmiş tema özetleri görüntülenirken çevrilir; kayıt metni ve sayısal değerler değiştirilmez. Kullanıcının serbest metni ve konuşma dökümü çeviri servisine gönderilmez.
 
+Katalogdaki kısa, kontrollü etiketlerin Türkçe büyük/küçük harf varyantları ön ve arka uçta eşleştirilir: `CİLT TİPİ`, `Cilt Tipi`, `KARMA`, `SARKMA` dahil. Envanter tüm `LABELS`/`GUIDANCE`/`UNITS` sözlüklerini, `headline`, `details`, `displayValue`, `badgeText` alanlarını da tarar. `Stabil (+4%)` gibi statik ve dinamik yüzdeli etiketler kapsanır; Almancadaki `Stabil` doğru çeviridir.
+
 Boş dinamik alanlar da düzeltildi: örneğin değişim `0` olduğunda boş `+` alanı içeren cümle eski eşleştiricide çevrilemeyebiliyordu. Ön ve arka uç artık boş parametreyi kabul eder. Parametre yanındaki boşlukların normalleştirilmesi, cümlenin Türkçe kalmasına neden olmaz.
 
-Doğrulama: 34 ilgili test geçti. EN/DE için gerçek React sonuç bileşenleri sunucu üzerinde render edildi: cilt özeti, diş kayıt detayı, harf tanıma sonucu ve yön hizalama sonucu. Parlaklık varyantları, sıfır/pozitif/negatif değişim, cilt tipi, ruh hâli, geçmiş birimleri ve kaynak kayıtların değişmemesi kontrol edildi. Çeviri envanteri PASS; TypeScript ve üretim derlemesi başarılı. Bu kontrol fiziksel kamera kabulü veya tarayıcı ekran görüntüsü testi değildir.
+Doğrulama: 36 ilgili test geçti. EN/DE için gerçek React sonuç bileşenleri sunucu üzerinde render edildi: cilt özeti, diş kayıt detayı, harf tanıma sonucu ve yön hizalama sonucu. Ayrıca altı cilt bölgesinin demo, veri yok, güncel sonuç ve eski kayıt/referans durumlarındaki tüm görünür alanları tarandı. Parlaklık varyantları, sıfır/pozitif/negatif değişim, cilt tipi, ruh hâli, geçmiş birimleri ve kaynak kayıtların değişmemesi kontrol edildi. Çeviri envanteri 1.529 kaynakta PASS; TypeScript ve üretim derlemesi başarılı. Bu kontrol fiziksel kamera kabulü veya tarayıcı ekran görüntüsü testi değildir.
 
 ## Diş yan çekimi
 

@@ -12,6 +12,8 @@ _catalog_path = Path(__file__).resolve().parents[2] / 'shared/localization/messa
 _messages = list(json.loads(_catalog_path.read_text('utf-8')).values())
 _normal = lambda value: ' '.join(unicodedata.normalize('NFC',value).split())
 _by_source = {_normal(row['tr']): row for row in _messages}
+_label_key = lambda value: _normal(value).replace('I','ı').replace('İ','i').casefold()
+_by_label = {_label_key(row['tr']):row for row in _messages if len(_normal(row['tr']))<=80 and not re.search(r'\{\d+\}',row['tr'])}
 _templates = []
 def _template_literal(value):
     if not value.strip(' '):
@@ -32,7 +34,7 @@ def translate(value, language=None, depth=0):
     if language == 'tr' or not isinstance(value, str):
         return value
     normalized = _normal(value)
-    direct = _by_source.get(normalized)
+    direct = _by_source.get(normalized) or (_by_label.get(_label_key(normalized)) if len(normalized)<=80 else None)
     if direct and direct.get(language):
         return direct[language]
     if depth < 3 and len(normalized) <= 6000:
