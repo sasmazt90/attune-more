@@ -69,6 +69,23 @@ async function load(name) {
   check(() => { const x=clone(p); x.map.regions.forehead.observations.oil.modelHash='other-model'; assert(!R.comparableRegionalObservations(p,x).includes('forehead:oil')); assert.equal(R.comparableRegionalObservations(p,x).length,14); });
   check(() => { const x=clone(p); x.map.regions.forehead.observations.oil.normalizationVersion='other-scale'; assert.equal(R.comparableRegionalObservations(p,x).length,14); });
   check(() => { const x=clone(p); x.map.regions.forehead.observations.oil.validationEvidence='different-evidence'; assert.equal(R.comparableRegionalObservations(p,x).length,14); });
+
+  // Presentation plan remains source-bound and uses only anatomical summaries.
+  const all = R.regionalSkinLayers(p,source,'overview',null);
+  check(() => assert.equal(all.length,5));
+  check(() => { const x=all.find(v=>v.region==='leftCheek'); assert.equal(x.fill,'blue'); assert.equal(x.redness,'positive'); assert.equal(x.geometry,'anatomical-region-summary-not-pixel-mask'); });
+  check(() => { const x=all.find(v=>v.region==='rightCheek'); assert.equal(x.fill,null); assert.equal(x.state,'normal'); });
+  const oil = R.regionalSkinLayers(p,source,'overview','oil');
+  check(() => { assert.equal(oil.find(v=>v.region==='forehead').fill,'green'); assert.equal(oil.find(v=>v.region==='leftCheek').fill,null); assert(oil.every(v=>v.redness==='negative')); });
+  const dry = R.regionalSkinLayers(p,source,'leftCheek','dry');
+  check(() => { assert.equal(dry.length,1); assert.equal(dry[0].fill,'blue'); assert.equal(dry[0].redness,'negative'); });
+  const red = R.regionalSkinLayers(p,source,'leftCheek','redness');
+  check(() => { assert.equal(red[0].fill,null); assert.equal(red[0].redness,'positive'); });
+  check(() => { const x=R.regionalSkinLayers(u,source,'forehead','redness')[0]; assert.equal(x.fill,'lightgrey'); assert.equal(x.redness,'unknown'); });
+  check(() => assert.deepEqual(Array.from(R.regionalSkinLayers(p,{...source,captureId:'b'.repeat(64)},'overview',null)),[]));
+  check(() => assert.deepEqual(Array.from(R.regionalSkinLayers(p,source,'periorbital',null)),[]));
+  check(() => assert.deepEqual(Array.from(R.regionalSkinLayers(p,source,'overview','acne')),[]));
+
   const ids=['tone','oil','redness','acne','sag','dry','lines','dark','bags'];
   const response = { photoId: source.captureId, sourceWidth: source.sourceWidth, sourceHeight: source.sourceHeight,
     general: { regionalSkinMap: fixtures.combination, normalizationVersion:'fixture-scale',
@@ -86,5 +103,5 @@ async function load(name) {
   check(() => { const x=clone(response); x.general.regionalSkinMap.regions.forehead.fill='blue'; assert.equal(overview.overviewFromResponse(x).regionalSkinMap,undefined); });
   check(() => { const x=clone(response); x.photoId='not-a-capture'; assert.equal(overview.overviewFromResponse(x).regionalSkinMap,undefined); });
   check(() => assert.equal(overview.overviewFromResponse({}),undefined));
-  console.log(JSON.stringify({ checks, serverFixtures:4, result:'pass', scope:'numeric-contract-and-converter-only', modelAcceptance:false, cameraAcceptance:false }));
+  console.log(JSON.stringify({ checks, serverFixtures:4, result:'pass', scope:'numeric-contract-converter-and-svg-layer-plan', modelAcceptance:false, cameraAcceptance:false }));
 })().catch(error => { console.error(error); process.exitCode=1; });
