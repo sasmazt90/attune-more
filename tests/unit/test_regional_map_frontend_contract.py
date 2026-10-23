@@ -34,10 +34,10 @@ def test_server_browser_and_numeric_history_contract():
         capture_output=True, text=True, timeout=60)
     assert result.returncode == 0, result.stdout + result.stderr
     report = json.loads(result.stdout)
-    assert report['checks'] >= 82 and report['serverFixtures'] == 4
+    assert report['checks'] >= 88 and report['serverFixtures'] == 4
     assert report['replayAspectRatios'] == 3
     assert report['result'] == 'pass'
-    assert report['scope'] == 'numeric-contract-converter-svg-layer-categorical-history-retained-photo-replay-and-storage-gate'
+    assert report['scope'] == 'numeric-contract-converter-svg-layer-history-status-retained-photo-replay-and-storage-gate'
 
 
 def test_trend_modal_uses_method_compatible_categorical_history():
@@ -46,6 +46,9 @@ def test_trend_modal_uses_method_compatible_categorical_history():
     assert 'Durum değişti' in source and 'Durum aynı' in source
     assert 'farklı yöntem/kanıt kimliği' in source
     assert 'sayısal şiddet uydurmadan' in source
+    assert 'Eski bir ölçüm güncel sonuç gibi gösterilmedi' in source
+    assert 'Belirsiz sonuç normal kabul edilmedi' in source
+    assert 'Önceki yöntemle trend birleştirilmedi' in source
 
 
 def test_photo_history_uses_the_same_regional_replay_gate():
