@@ -763,6 +763,52 @@
         "trainingStarted": false,
         "decision": "Do not train or substitute for the selected 914-image Wrinkles Detector v2 source without lineage resolution and grouped re-splitting."
       }
+    },
+    "concurrentWork": {
+      "observedAt": "2026-10-23T14:10:38Z",
+      "projectsTotal": 15,
+      "doNotDuplicate": [
+        {
+          "project": "tolgar-sasmaz/attune-comedones-clean-train-r2",
+          "version": 1,
+          "trainingId": "c2bcbeca2ab5719224fe",
+          "status": "running",
+          "modelType": "rfdetr-nas-parent",
+          "images": 1571,
+          "splits": {
+            "train": 917,
+            "valid": 345,
+            "test": 309
+          }
+        },
+        {
+          "project": "tolgar-sasmaz/attune-comedones-boxes-grouped-r1",
+          "version": 1,
+          "trainingId": "e45fb1f2578bf09750fb",
+          "status": "finished",
+          "modelType": "rfdetr-small",
+          "images": 2201,
+          "splits": {
+            "train": 1547,
+            "valid": 345,
+            "test": 309
+          }
+        },
+        {
+          "project": "tolgar-sasmaz/attune-pores-masks-grouped-r1",
+          "version": 2,
+          "trainingId": "66999f483e520c0353b9",
+          "status": "finished",
+          "modelType": "yolov11s-seg",
+          "images": 1416,
+          "splits": {
+            "train": 1018,
+            "valid": 192,
+            "test": 206
+          }
+        }
+      ],
+      "note": "These projects belong to concurrent comedone/pore work. This run did not start, stop, repeat or evaluate them."
     }
   },
   "sourceAccess": {
@@ -1286,7 +1332,7 @@
     {
       "id": "13",
       "target": "unified-results-and-trends",
-      "status": "implementation_in_progress",
+      "status": "svg_summary_layer_integrated_browser_camera_pending",
       "work": "Integrate accepted outputs incrementally into maps/cards/history; explicit unavailable reasons; method/version compatibility for trends; end-to-end camera/API/result/history tests and final acceptance report.",
       "evidence": [
         "docs/skin/regional-evidence-contract-20261023.md",
@@ -1300,11 +1346,15 @@
         "docs/skin/regional-map-browser-contract-20261023.md",
         "docs/skin/regional-mask-evaluation-20261023.md",
         "docs/skin/evidence/current-product-skin-contract-20261023-v1.json",
-        "docs/skin/current-product-and-crows-preparation-20261023.md"
+        "docs/skin/current-product-and-crows-preparation-20261023.md",
+        "apps/vehicle-app/src/components/skin/SkinFacePanel.tsx",
+        "docs/skin/evidence/regional-map-svg-layer-checks-20261023-v1.json",
+        "docs/skin/regional-map-svg-layer-20261023.md"
       ],
       "blockers": [
         "The merged main branch already has the nine-criterion result path, separate skin type, six regional views, overview, local maps/contours, persistence gate and result UI. Roadmap integration means replacing or extending individual methods only after acceptance, not creating a result flow from zero.",
-        "The new source-bound regional summary parser has contract coverage, but accepted upgraded-model overlay rendering, method-compatible trend wiring, real-camera acceptance and complete browser/API/history E2E remain pending."
+        "The source-bound regional summary now has strict parsing, persistence validation and an anatomical SVG layer plan wired into the existing result portrait. Retained-photo/browser screenshot replay, full app typecheck, method-compatible trend UI, real-camera acceptance and complete browser/API/history E2E remain pending.",
+        "No oil/dry/redness method is activated by the synthetic layer tests; the accepted-method registry remains authoritative and currently empty."
       ]
     }
   ],
@@ -1328,11 +1378,11 @@
     "The private grouped under-eye project tolgar-sasmaz/attune-skin-under-eye-grouped-research exists but is empty. Reuse upload task sLFwX7CYBVcnnD6iAW5o only if the prepared signed transfer is still valid and permitted; otherwise create one replacement task, not another project. Upload only archive SHA256 41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8, then verify 283/78/38 and 869 polygons before generating/training.",
     "Use the saved single-call Merve v12 response for threshold analysis; do not repeat inference on the same image. Build a consented labelled multi-camera benchmark before class-specific threshold selection or product promotion. Verify checkpoint/commercial rights. pul is not regional dryness truth.",
     "Source-pair acquisition is complete for FACEv3/v4,Rednessv2,Drynessv1; do not repeat downloads/audits unchanged. Use the pinned private120pairbundle and persistedfullaudit, with review-manifest provenance. FACEv3 is preferred over augmentedv4. 700Dryness/45Redness images exactly match existing sources; never count these as newly acquired coverage. All source labels and rights acceptance remain pending; no automatic merge or retraining.",
-    "Continue unblocked source-bound SVG overlay and method-compatible history wiring under the accepted-method gate; under-eye source grouping/review; selected crow's-feet data; sagging and real-camera acceptance. Source normal labels must not bypass the empty accepted regional-method registry.",
+    "The source-bound regional SVG summary layer is implemented under the accepted-method gate; do not rebuild it. Next run retained-photo/browser replay for overview and single-region views, verify source-pixel alignment at multiple aspect ratios, then wire method-compatible categorical trend presentation. Keep source normal labels behind the empty accepted regional-method registry.",
     "Regional training 3485f8c67f957a1b850d is finished; candidate 2c07ef has complete 63 validation / 30 test mask evaluation and lossless inference receipts. Do not duplicate training, inference or refit thresholds on the exposed source test. Reassemble the two pinned evidence bundles from index files before replay.",
     "Roboflow reports 75 group records but only 74 distinct model IDs; duplicate e79545 has conflicting candidate/baseline metadata. Preserve raw records and compare by immutable model package. Evaluated 2c07ef resolves to e1688c2c8447af39e51ce60dd8c7f1d0; no recommendation/hardware winner claim.",
     "Improve oil source coverage and anatomical face scope on validation before a targeted data or model change. Redness union overlap is promising but requires independent camera calibration and reviewed negative/normal support. Do not clip test masks post hoc or turn missing masks into normal skin. Keep accepted-regional-method registry empty.",
-    "Preserve concurrent browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54 and its 48 executable checks; new work extends head e6d5ace85837fbc1c8b8c361dfb9ac315a28ce1d. Continue source-bound SVG overlay and history wiring with accepted evidence only; no full-app or real-camera acceptance yet."
+    "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54 and SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758. The combined contract now has 58 executable checks; no full-app, screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
     {
@@ -1424,6 +1474,20 @@
         "303ee1823e3fd5b9cc13f982fc90e6275d8fb540",
         "1329d8b57e91efa3a340faab01d6e7bb47982b6d",
         "bb9f42665410a3452e4e228db879352002294845"
+      ]
+    },
+    {
+      "date": "2026-10-23",
+      "observedAt": "2026-10-23T14:10:38Z",
+      "action": "Refreshed the branch, all 15 private Roboflow projects and relevant trainings. Detected concurrent comedone and pore work; clean comedone NAS c2bcbeca2ab5719224fe is running, grouped comedone RF-DETR Small e45fb1f2578bf09750fb and pore YOLOv11s-seg 66999f483e520c0353b9 are finished, so none were duplicated or altered. Continued the independent product integration path: added a strict source-bound presentation planner and wired regional summaries into the existing SkinFacePanel. Dry is blue, oily green, evaluated normal uncoloured, unknown light grey, and redness is independent red hatching/contour that may overlap other states. Pixel-local maps take priority; wrong capture, pose, dimensions, coordinate space, unsupported criteria and periorbital regional type produce no layer. Four actual server-builder fixtures pass 58 TypeScript contract/layer assertions plus a static rendering guard. Full app typecheck is unavailable because scratch frontend dependencies are absent. No model acceptance, method activation, training, inference, deployment or merge.",
+      "report": "docs/skin/regional-map-svg-layer-20261023.md",
+      "commits": [
+        "992d2fcb7c5cdf5ac88a107398e211f940aa39fb",
+        "21b878b2a8b8cadaf005ecee3d06260ba23df758",
+        "c8cfe7f48501b4f1860d4efde9559458262aadb4",
+        "97bd4366247fdf3bcb1bdaa5fe4bb7df54fd53ac",
+        "d236be63c98e0ee6b22469b88ed2c343b3831427",
+        "6ec326c71b173cfe8eb74bddf195e4fef4e64e67"
       ]
     }
   ]
