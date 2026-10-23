@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-23T17:31:36Z",
+  "scope": "regional categorical history availability and compatibility presentation",
+  "result": "pass",
+  "executableChecks": 88,
+  "serverFixtures": 4,
+  "sourceAspectRatios": 3,
+  "statuses": [
+    "comparable",
+    "single-record",
+    "method-changed",
+    "not-evaluated",
+    "record-unavailable"
+  ],
+  "acceptanceAssertions": [
+    "An explicitly selected unknown observation does not fall back to an older positive or negative observation.",
+    "A record without a regional result is not evaluated and is not treated as normal.",
+    "A malformed source-bound map is record-unavailable and does not produce a trend.",
+    "An absent requested record is record-unavailable and does not fall back to the newest record.",
+    "A changed method, normalization, model hash or validation evidence starts a separate series.",
+    "Only two or more observations with the exact same evidence identity are marked comparable.",
+    "Categorical history contains no invented numeric severity delta."
+  ],
+  "testCommand": "python -c \"import sys; sys.path.insert(0,'tests/unit'); import test_regional_map_frontend_contract as t; t.test_server_browser_and_numeric_history_contract(); t.test_trend_modal_uses_method_compatible_categorical_history(); t.test_photo_history_uses_the_same_regional_replay_gate(); t.test_face_panel_renders_only_the_sanitized_layer_plan()\"",
+  "limits": {
+    "browserAcceptance": false,
+    "cameraAcceptance": false,
+    "modelAcceptance": false,
+    "methodActivation": false,
+    "fullApplicationTypecheck": false,
+    "reason": "The scratch environment still has no runnable browser engine or installed frontend dependency tree."
+  },
+  "remoteRefresh": {
+    "projectsTotal": 16,
+    "acneTraining": "finished",
+    "regionalTraining": "finished",
+    "duplicateTrainingStarted": false
+  }
+}
