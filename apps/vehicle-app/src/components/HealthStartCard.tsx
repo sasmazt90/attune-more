@@ -3,7 +3,7 @@
 import {useTranslations} from '../i18n/LanguageProvider';
 import Image from 'next/image';
 import type {ReactNode} from 'react';
-import {Camera,Eye,Headphones,HeartPulse,Mic,Scan,Sun,Volume2} from 'lucide-react';
+import {Camera,Eye,Headphones,Brain,Mic,Scan,Sun,Volume2} from 'lucide-react';
 export type PreparationModule='skin'|'vision'|'dental'|'hearing'|'mental';
 export const HEALTH_START_CARD='bg-[#0c1424]/90 border border-slate-800/90 rounded-3xl p-6 md:p-8 shadow-2xl w-full';
 export const HEALTH_START_ACTION='min-h-11 w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#00d2eb] hover:bg-[#00e5ff] text-slate-950 font-bold text-base shadow-[0_0_25px_rgba(0,210,235,0.4)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed uppercase tracking-wider';
@@ -13,7 +13,7 @@ const CONTENT={
  dental:{title:'Diş Analizi',description:'Kamera görünümlerini izleyebilir veya diş fotoğrafı yükleyebilirsiniz.',alt:'Dik başlı doğal gülümsemede, görünen diş eğrisini izleyen temsili hazırlık ağı',items:[[Camera,'Ön, sağ, sol ve rahat kapanış görünümü'],[Sun,'Dişleriniz iyi ışıkta net görünsün'],[Scan,'Ağzınıza cisim sokmadan rahatça gülümseyin']]},
  hearing:{title:'İşitme Testi',description:'Kulaklığınızı takın; ses ayarını rahat bir düzeyde tutun.',alt:'Başının tamamı görünen doğal portrede kulağa yönelen temsili ses dalgaları',items:[[Headphones,'Stereo kulaklığınızı takın'],[Volume2,'Sessiz bir ortamda rahat ses ayarını koruyun'],[Scan,'Saf ses ve gürültüde sayı testlerini izleyin']]},
  vision:{title:'Görme Görevi',description:'İki gözünüz açık başlayın. Sonra belirtilen gözü kapatın veya örtün.',alt:'Başı tam görünen doğal portrede ekrandaki harf görevini temsil eden sade öğeler',items:[[Eye,'Açık gözünüzle ekrandaki harfe bakın'],[Scan,'Harfi ve yönünü istediğiniz sırada söyleyin'],[Mic,'Harfi doğrudan veya bir kelimeyle kodlayın'],[Volume2,'Harf görünüyorsa yönergenin bitmesini beklemeden yanıtlayabilirsiniz']]},
- mental:{title:'Sesli Görüşme',description:'Park halinde sesli görüşebilirsiniz. Bu hizmet klinik tanı veya acil yardım hizmeti değildir.',alt:'Başı tam görünen sakin doğal portrede sesli görüşmeyi temsil eden sade dalga',items:[[Mic,'Yalnız sesinizle konuşun'],[Volume2,'Yanıtları dinleyin; isterseniz duraklatın'],[HeartPulse,'Sessiz ve size uygun bir ortam seçin']]}
+ mental:{title:'Sesli Görüşme',description:'Park halinde sesli görüşebilirsiniz. Bu hizmet klinik tanı veya acil yardım hizmeti değildir.',alt:'Başı tam görünen sakin doğal portrede sesli görüşmeyi temsil eden sade dalga',items:[[Mic,'Yalnız sesinizle konuşun'],[Volume2,'Yanıtları dinleyin; isterseniz duraklatın'],[Brain,'Sessiz ve size uygun bir ortam seçin']]}
 } as const;
 /** Preparation only; active, result and history renderers stay separate. */
 export function HealthStartCard({module,actions,framed=true,footer}:{module:PreparationModule;actions?:ReactNode;framed?:boolean;footer?:ReactNode}){

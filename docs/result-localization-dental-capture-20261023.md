@@ -1,4 +1,4 @@
-# Sonuç ekranlarının EN/DE çevirisi, diş çekimi ve cilt eğitimi
+# Tüm arayüzün EN/DE çevirisi, ruh sağlığı ikonu, diş çekimi ve cilt eğitimi
 
 23 Ekim 2026. Değişiklikler `feat/skin-findings-routine-20261023`, PR #6 kapsamındadır.
 
@@ -23,7 +23,15 @@ Katalogdaki kısa, kontrollü etiketlerin Türkçe büyük/küçük harf varyant
 
 Boş dinamik alanlar da düzeltildi: örneğin değişim `0` olduğunda boş `+` alanı içeren cümle eski eşleştiricide çevrilemeyebiliyordu. Ön ve arka uç artık boş parametreyi kabul eder. Parametre yanındaki boşlukların normalleştirilmesi, cümlenin Türkçe kalmasına neden olmaz.
 
-Doğrulama: 36 ilgili test geçti. EN/DE için gerçek React sonuç bileşenleri sunucu üzerinde render edildi: cilt özeti, diş kayıt detayı, harf tanıma sonucu ve yön hizalama sonucu. Ayrıca altı cilt bölgesinin demo, veri yok, güncel sonuç ve eski kayıt/referans durumlarındaki tüm görünür alanları tarandı. Parlaklık varyantları, sıfır/pozitif/negatif değişim, cilt tipi, ruh hâli, geçmiş birimleri ve kaynak kayıtların değişmemesi kontrol edildi. Çeviri envanteri 1.529 kaynakta PASS; TypeScript ve üretim derlemesi başarılı. Bu kontrol fiziksel kamera kabulü veya tarayıcı ekran görüntüsü testi değildir.
+Kapsam tüm arayüzdür: kokpit ve menüler, beş sağlık modülü, kamera hazırlığı, sonuç kartları ve kriterleri, geçmiş grafikleri, kayıt/açıklama/öneri pencereleri, profil paylaşımı, gizlilik, hizmet izinleri, dil ayarları ve uzman yönlendirme onayı. Kaynak analizi artık JSX'e taşınan sözlük ve tuple dizilerini, yardımcı fonksiyonları, değişken atamalarını, durum bildirimlerini ve arka uç gösterim alanlarını da izler. Dahili protokol/alan kimlikleri ayrı, gerekçeli istisnalardır; makine kimlikleri çevrilmez.
+
+Geniş taramada bulunan 28 ek metin/şablon tamamlandı. Örnekler: gözde `Harf boyutu`, `Toplam ortalama skor`, `Netlik`, `Mesafe / Konum`, `Kamera karesi bekleniyor`; kamera hazırlığında `Konum`; ruh sağlığında `Bitiriliyor`; dil ayarında kayıt hatası; demo grafiğinde Eylül tarihleri. Sayıyla birleşen geçerli harf/yön yanıtı ve görünüm adedi ile çok modüllü kayıt okuma hatasındaki modül adları da çevrilir.
+
+Doğrulama: **37 ilgili test geçti.** Gerçek React sayfa ve bileşenleri kontrollü durumlarla İngilizce/Almanca **142 ekran durumunda** sunucu üzerinde render edildi. Açılır pencerelerin metinlerini görmek için portal kabuğu açıldı; kamera/ses/ağ yan etkileri çalıştırılmadı. Dolu ve boş göz/diş/işitme/ruh sağlığı sonuçları, altı cilt bölgesinin demo/güncel/eski kayıt/referans durumları, dört bakım rutini, kriterler, bilgi pencereleri, kayıt silme/sonuç pencereleri ve izin/ayar ekranları kapsandı. Ek cilt testleri tüm görünür bölge alanlarını ve harf/sayı varyantlarını denetler. Kaynak kayıtların değişmediği kontrol edildi. Çeviri envanteri **1.619 kaynak ifadesinde PASS**; TypeScript ve üretim derlemesi başarılı. Bu kontrol fiziksel kamera kabulü veya tarayıcı ekran görüntüsü testi değildir.
+
+## Ruh sağlığı ikonu
+
+Ruh sağlığı için beyin ikonu kullanılır: ortak modül kartı/menü eşlemesi, ruh sağlığı sayfa başlığı ve başlangıç kartı aynı sembole geçti. Genel Sağlık Merkezi ikonu ayrı kalır.
 
 ## Diş yan çekimi
 
@@ -43,6 +51,7 @@ Roboflow'daki gerçek sürüm 1 dışa aktarımı, yüklenen kaynak arşivine ka
 - Sürüm: `1`
 - Training ID: `8e239395ebda9996fe0f`
 - Başlatma yanıtı: `running`
+- Sonraki kontrol: `mining`; henüz üretilen model/metrik yok.
 - [Eğitim sayfası](https://app.roboflow.com/tolgar-sasmaz/attune-skin-findings-boxes-research/1)
 
 Kullanıcının seçimiyle ChatGPT üzerinden **saatlik kısa özet** otomasyonu kuruldu. GitHub zamanlayıcısı kurulmadı. Otomasyon yalnız bu eğitimi izler, terminal durumda son özeti verip kapanır; yeni eğitim veya otomatik üretim geçişi başlatmaz.

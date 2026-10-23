@@ -13,8 +13,14 @@ def inventory():
         relative = path.relative_to(ROOT).as_posix()
         tree = ast.parse(path.read_text('utf-8'))
         selected = list(ast.walk(tree)) if path.name in FILES else []
+        explicit_display = set()
         # Cover health-module response fields and explicit API/user errors too.
-        fields = {'nameTr','label','title','description','note','reason','message','detail','recommendation','hint','warning','warnings','baselineDiffNote','limitation','displayMessage'}
+        fields = {'nameTr','label','title','description','note','reason','message','detail','recommendation','hint','warning','warnings','baselineDiffNote','limitation','displayMessage','summaryText','sourceBadge','providerLabel','emergencyContact','clinicalDisclaimer','specialty','locationLabel','suggestedAction','disclaimer','handoffNote'}
+        for candidate in ast.walk(tree):
+            if isinstance(candidate,ast.Dict):
+                for key,value in zip(candidate.keys,candidate.values):
+                    if isinstance(key,ast.Constant) and key.value in fields:
+                        nodes=list(ast.walk(value));explicit_display.update(map(id,nodes));selected.extend(nodes)
         if path.name not in FILES:
             for candidate in ast.walk(tree):
                 outputs=[]
@@ -30,7 +36,7 @@ def inventory():
             elif isinstance(node,ast.JoinedStr):
                 fields = iter(range(100))
                 source = ''.join(part.value if isinstance(part,ast.Constant) else '{'+str(next(fields))+'}' for part in node.values)
-            if not source or not re.search('[çğıöşüÇĞİÖŞÜ]',source):
+            if not source or not (re.search('[çğıöşüÇĞİÖŞÜ]',source) or id(node) in explicit_display and re.search(r'[A-Za-z]',source)):
                 continue
             source = ' '.join(source.split())
             key = hashlib.sha256(source.encode()).hexdigest()[:16]

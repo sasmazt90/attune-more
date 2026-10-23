@@ -10,7 +10,7 @@ import { careHref,HEALTH_MODULES } from '../../utils/healthModules';
 import { useGuidance } from '../../utils/audioGuidance';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Mic, MicOff, HeartPulse } from 'lucide-react';
+import { Mic, MicOff, Brain } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useVehicle } from '../../context/VehicleContext';
 import { useMentalConversation } from '../../utils/useMentalConversation';
@@ -64,7 +64,7 @@ export default function MentalPage() {
     <section className={c.phase==='ready'?undefined:'bg-cockpit-surface border border-white/10 rounded-2xl p-6 space-y-5'}>
       {demo && <p className="text-amber-200">{i18nText("Demo / Örnek içerik — gerçek görüşme geçmişiniz değildir.")}</p>}
       {c.phase==='ready'?<HealthStartCard module="mental" actions={<button onClick={()=>{guidance.cancel();return c.start();}} disabled={!isParked||!c.serviceConsent} className={HEALTH_START_ACTION}><span className="flex items-center gap-2 justify-center"><Mic className="h-5 w-5"/>{i18nText("Görüşmeyi Başlat")}</span></button>}/>:<>
-      <div className="flex items-center gap-2 text-togg-turquoise"><HeartPulse /><span>{i18nNode(HEALTH_MODULES.mental.name)}</span></div>
+      <div className="flex items-center gap-2 text-togg-turquoise"><Brain /><span>{i18nNode(HEALTH_MODULES.mental.name)}</span></div>
       <div className="flex items-center justify-between gap-3"><h1 className="text-2xl font-bold">{i18nText("Bugün nasıl hissediyorsunuz?")}</h1><InformationButton title={i18nText(HEALTH_MODULES.mental.name)}><p>{i18nText("Park halinde sesli konuşabilirsiniz. Bu hizmet klinik tanı ve acil yardım hizmeti değildir. Sesli yanıt yapay zekâ tarafından üretilir.")}</p></InformationButton></div>
       <p className="text-sm text-slate-300">{i18nText("Park halinde sesli görüşebilirsiniz. Bu hizmet klinik tanı veya acil yardım hizmeti değildir.")}</p>
       <div className="flex gap-3">
