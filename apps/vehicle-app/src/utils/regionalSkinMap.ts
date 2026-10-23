@@ -28,6 +28,13 @@ export type RegionalMapSource = {
   coordinateSpace: 'source-pixels';
 };
 export type BoundRegionalSkinMap = { source: RegionalMapSource; map: RegionalMap };
+export type RegionalSkinLayer = {
+  region: RegionalMapRegion;
+  state: RegionState;
+  fill: 'blue' | 'green' | 'lightgrey' | null;
+  redness: 'positive' | 'negative' | 'unknown';
+  geometry: 'anatomical-region-summary-not-pixel-mask';
+};
 
 const object = (v: unknown): v is Record<string, any> => !!v && typeof v === 'object' && !Array.isArray(v);
 const nonempty = (v: unknown): v is string => typeof v === 'string' && v.length > 0;
@@ -89,8 +96,6 @@ export function validBoundRegionalSkinMap(value: unknown, source: RegionalMapSou
   if (!object(value) || !sourceValid(source) || !sourceValid(value.source)
     || !['captureId', 'pose', 'sourceWidth', 'sourceHeight', 'coordinateSpace'].every(k => value.source[k] === source[k as keyof RegionalMapSource])) return false;
   const clean = bindRegionalSkinMap(value.map, source);
-  // Existing numeric records are validated, never silently rewritten. Unknown
-  // fields (including photo material) must fail the persistence boundary.
   return !!clean && sameValue(value, clean);
 }
 function sameValue(a: unknown, b: unknown): boolean {
@@ -100,6 +105,30 @@ function sameValue(a: unknown, b: unknown): boolean {
   const keys = Object.keys(a);
   return keys.length === Object.keys(b).length && keys.every(k => Object.prototype.hasOwnProperty.call(b, k) && sameValue(a[k], b[k]));
 }
+
+/** Convert only a source-bound accepted summary to a presentation plan.
+ * The plan uses existing anatomical meshes; it is never a predicted pixel mask.
+ * A criterion-specific view does not infer normal from another criterion. */
+export function regionalSkinLayers(value: unknown, source: RegionalMapSource,
+  region: 'overview' | string, criterion?: string | null): RegionalSkinLayer[] {
+  if (!validBoundRegionalSkinMap(value, source)
+    || ![null, undefined, 'oil', 'dry', 'redness'].includes(criterion)
+    || (region !== 'overview' && !REGIONAL_MAP_REGIONS.includes(region as RegionalMapRegion))) return [];
+  const ids = region === 'overview' ? REGIONAL_MAP_REGIONS : [region as RegionalMapRegion];
+  return ids.map(id => {
+    const row = value.map.regions[id];
+    let fill = row.fill;
+    if (criterion === 'oil') fill = row.observations.oil.state === 'positive' ? 'green'
+      : row.observations.oil.state === 'unknown' ? 'lightgrey' : null;
+    if (criterion === 'dry') fill = row.observations.dry.state === 'positive' ? 'blue'
+      : row.observations.dry.state === 'unknown' ? 'lightgrey' : null;
+    if (criterion === 'redness') fill = row.observations.redness.state === 'unknown' ? 'lightgrey' : null;
+    return { region: id, state: row.state, fill,
+      redness: criterion === 'oil' || criterion === 'dry' ? 'negative' : row.redness.state,
+      geometry: 'anatomical-region-summary-not-pixel-mask' };
+  });
+}
+
 /** Only categorical comparisons, with identical evidence identities per region
  * and criterion. Unknown readings and changed methods have no comparable pair. */
 export function comparableRegionalObservations(a: unknown, b: unknown): string[] {
