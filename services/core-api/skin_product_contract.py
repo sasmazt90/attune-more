@@ -10,6 +10,8 @@ PRODUCT_APPEARANCE_IDS = (
 )
 PRODUCT_HEADING_COUNT_WITH_SKIN_TYPE = len(PRODUCT_APPEARANCE_IDS) + 1
 SEPARATION_VERSION = 'tone-localized-pigmentation-separation-v1'
+SAG_APPEARANCE_SEMANTICS = 'visible-lower-face-contour-fold-appearance-v1'
+SAG_COMPARISON_MODE = 'same-person-compatible-capture-only'
 
 LOCALIZED_CONCERNS = {
     'postAcne': {
@@ -25,6 +27,16 @@ LOCALIZED_CONCERNS = {
 }
 
 
+def sag_appearance_components(components=None):
+    return {
+        **(components or {}),
+        'appearanceSemantics': SAG_APPEARANCE_SEMANTICS,
+        'clinicalSeverity': False,
+        'elasticity': False,
+        'comparisonMode': SAG_COMPARISON_MODE,
+    }
+
+
 def general_concern_contract(criterion):
     localized = LOCALIZED_CONCERNS.get(criterion)
     if not localized:
@@ -34,7 +46,7 @@ def general_concern_contract(criterion):
             'methodVersion': None,
             'normalizationVersion': None,
             'limitationCode': 'INSUFFICIENT_FRONT_COVERAGE',
-            'components': {},
+            'components': sag_appearance_components() if criterion == 'sag' else {},
         }
     return {
         'type': 'trained_prediction',
