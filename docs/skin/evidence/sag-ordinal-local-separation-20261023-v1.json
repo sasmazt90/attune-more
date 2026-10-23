@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-23T20:46:16Z",
+  "roadmapTask": "12",
+  "branch": "work/skin-roadmap-20261023",
+  "finding": {
+    "risk": "A future generic whole-face ordinal sag degree could overwrite the local contour/fold value and then inherit the analytic overview sag map.",
+    "currentProductionTriggered": false,
+    "reason": "The current accepted degree manifest contains redness only; no sag degree is accepted.",
+    "impactIfUnfixed": "Score and localization would come from different methods while appearing to be one localized sag result."
+  },
+  "policy": {
+    "wholeFaceOrdinalSagReplacementAllowed": false,
+    "blockReason": "WHOLE_FACE_ORDINAL_CANNOT_REPLACE_LOCAL_SAG",
+    "preservedResult": "local contour/fold appearance value and its own analytic map",
+    "futureLocalizedModelRoute": "A localized sag model must use its own accepted localization contract, not the generic whole-face degree head."
+  },
+  "implementation": {
+    "policyAndMutationHelper": "services/core-api/skin_product_contract.py",
+    "productWiring": "services/core-api/appearance_analysis.py",
+    "behaviorTests": "tests/unit/test_skin_product_contract.py",
+    "defenseInDepth": "The overview sag map is not attached when a row declares modelScope=whole-face.",
+    "currentMergedOutputChanged": false
+  },
+  "roboflowRefresh": {
+    "privateProjects": 16,
+    "acnePigmentation": {
+      "version": 1,
+      "trainingId": "5b632a5c12b76fcfe703",
+      "status": "finished",
+      "modelRecords": 89
+    },
+    "regionalMap": {
+      "images": 337,
+      "version": 1,
+      "trainingId": "3485f8c67f957a1b850d",
+      "status": "finished",
+      "providerModelRecords": 75,
+      "distinctModelIds": 74
+    },
+    "underEyePilot": {
+      "images": 399,
+      "versions": [],
+      "trainingStatus": "no-version"
+    },
+    "underEyeGrouped": {
+      "images": 0
+    },
+    "newTrainingStarted": false,
+    "inferenceRun": false
+  },
+  "verification": {
+    "pythonCompile": [
+      "skin_product_contract.py",
+      "appearance_analysis.py",
+      "test_skin_product_contract.py"
+    ],
+    "productContractChecks": 8,
+    "behavior": {
+      "wholeFaceOrdinalSagBlocked": true,
+      "localSagValuePreserved": true,
+      "localSagMapPreserved": true,
+      "genericWholeFaceDegreeClearsAnalyticMap": true,
+      "appearanceAnalysisPolicyWired": true,
+      "defensiveSagMapGateWired": true
+    },
+    "fullAppBrowserCameraAcceptance": false
+  },
+  "commits": [
+    "ddb1ddecf9b407fd6bcb2c2792f7f5446c216154",
+    "67e003ddd20c4743161683598d16fb98682e6f62",
+    "627f8d2cc451a211ebc7f0a3b54f3ef17bf5354b"
+  ],
+  "acceptance": {
+    "latentMethodMixingClosed": true,
+    "learnedLocalSagModelAccepted": false,
+    "independentCameraEvaluationComplete": false,
+    "roadmapTaskComplete": false
+  }
+}
