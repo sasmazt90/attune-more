@@ -34,7 +34,7 @@ def test_server_browser_and_numeric_history_contract():
         capture_output=True, text=True, timeout=60)
     assert result.returncode == 0, result.stdout + result.stderr
     report = json.loads(result.stdout)
-    assert report['checks'] >= 88 and report['serverFixtures'] == 4
+    assert report['checks'] >= 90 and report['serverFixtures'] == 4
     assert report['replayAspectRatios'] == 3
     assert report['result'] == 'pass'
     assert report['scope'] == 'numeric-contract-converter-svg-layer-history-status-retained-photo-replay-and-storage-gate'
