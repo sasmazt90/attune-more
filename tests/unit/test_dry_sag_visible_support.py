@@ -37,6 +37,9 @@ def test_overview_unique_centers_and_visible_area_omit_missing_side():
  assert sag['value']==pytest.approx(50) and sag['components']['uniqueObservedCenters']==2
  assert sag['components']['partialCoverage'] and sag['evaluatedArea']['analysisPixels']==25 and sag['evaluatedArea']['sourcePixels']==100
  assert sag['components']['missingRegions']=={'leftCheek':'ANATOMICAL_BAND_NOT_VISIBLE'}
+ assert sag['components']['appearanceSemantics']=='visible-lower-face-contour-fold-appearance-v1'
+ assert sag['components']['clinicalSeverity'] is False and sag['components']['elasticity'] is False
+ assert sag['components']['comparisonMode']=='same-person-compatible-capture-only'
 
 def test_dry_and_sag_history_versions_separate_both_scopes_without_rewrite():
  script=r'''
@@ -76,6 +79,9 @@ def test_ordinary_mentolabial_crease_cannot_supply_lower_chin_index(monkeypatch)
  assert old_crease[4] is None and old_crease[0]==0 and not old_crease[2].any()
  assert actual_lower[4] is None and actual_lower[0]>0 and actual_lower[2].any()
  assert actual_lower[1]['samplingSupportVersion']=='lower-chin-observed-fold-runs-unique-centers-v9'
+ assert actual_lower[1]['appearanceSemantics']=='visible-lower-face-contour-fold-appearance-v1'
+ assert actual_lower[1]['clinicalSeverity'] is False and actual_lower[1]['elasticity'] is False
+ assert actual_lower[1]['comparisonMode']=='same-person-compatible-capture-only'
 
 def test_v7_and_v8_history_and_render_support_remain_distinct():
  script=r'''
