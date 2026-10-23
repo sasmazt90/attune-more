@@ -103,6 +103,34 @@ async function load(name) {
   check(() => assert.deepEqual(Array.from(R.regionalSkinLayers(p,source,'periorbital',null)),[]));
   check(() => assert.deepEqual(Array.from(R.regionalSkinLayers(p,source,'overview','acne')),[]));
 
+  // Retained-photo replay keeps the raster, crop and anatomical layer meshes
+  // in the same source-pixel coordinate system at multiple source ratios.
+  const replayCases=[
+    {width:720,height:1280,crop:{x:.1,y:.05,width:.8,height:.9}},
+    {width:1280,height:720,crop:{x:.08,y:.1,width:.84,height:.8}},
+    {width:900,height:900,crop:{x:.05,y:.05,width:.9,height:.9}}
+  ];
+  const replaySnapshots=replayCases.map(({width,height,crop})=>{
+    const bound=R.bindRegionalSkinMap(fixtures.combination,{captureId:'c'.repeat(64),pose:'FRONT',sourceWidth:width,sourceHeight:height,coordinateSpace:'source-pixels'});
+    const x=crop.x*width,y=crop.y*height,w=crop.width*width,h=crop.height*height;
+    const meshes=Object.fromEntries(['forehead','nose','chin','leftCheek','rightCheek'].map((id,index)=>[id,{points:[
+      {x:x+w*(.18+index*.11),y:y+h*.25},{x:x+w*(.24+index*.11),y:y+h*.25},
+      {x:x+w*(.24+index*.11),y:y+h*.42},{x:x+w*(.18+index*.11),y:y+h*.42}
+    ],edges:[[0,1],[1,2],[2,3],[3,0]],major:[],boundary:[],excluded:[]}]))
+    return {angle:'FRONT',photoId:'c'.repeat(64),dataUrl:'data:image/png;base64,AA==',width,height,
+      crop:{x:0,y:0,width,height},previewCrop:crop,meshes,general:{regionalSkinMap:bound}};
+  });
+  for(const [index,snapshot] of replaySnapshots.entries()){
+    const replay=R.retainedRegionalSkinReplay(snapshot,'overview',null);
+    check(() => { assert(replay); assert.equal(replay.layers.length,5); assert.equal(replay.source.sourceWidth,snapshot.width); assert.equal(replay.source.sourceHeight,snapshot.height); });
+    check(() => assert.deepEqual(JSON.parse(JSON.stringify(replay.viewBox)),{x:snapshot.previewCrop.x*snapshot.width,y:snapshot.previewCrop.y*snapshot.height,width:snapshot.previewCrop.width*snapshot.width,height:snapshot.previewCrop.height*snapshot.height}));
+    check(() => { const scale=320/replay.viewBox.width,point=snapshot.meshes.forehead.points[0]; const projected={x:(point.x-replay.viewBox.x)*scale,y:(point.y-replay.viewBox.y)*scale}; assert(projected.x>=0&&projected.x<=320); assert(projected.y>=0&&projected.y<=320/replay.viewBox.width*replay.viewBox.height); });
+  }
+  check(() => { const x=clone(replaySnapshots[0]);x.photoId='d'.repeat(64);assert.equal(R.retainedRegionalSkinReplay(x,'overview',null),undefined); });
+  check(() => { const x=clone(replaySnapshots[0]);x.previewCrop.width=1;assert.equal(R.retainedRegionalSkinReplay(x,'overview',null),undefined); });
+  check(() => { const x=clone(replaySnapshots[0]);x.meshes.forehead.points[0].x=x.width+1;assert.equal(R.retainedRegionalSkinReplay(x,'overview',null),undefined); });
+  check(() => { const x=clone(replaySnapshots[0]);x.dataUrl='https://example.invalid/photo.png';assert.equal(R.retainedRegionalSkinReplay(x,'overview',null),undefined); });
+
   const ids=['tone','oil','redness','acne','sag','dry','lines','dark','bags'];
   const response = { photoId: source.captureId, sourceWidth: source.sourceWidth, sourceHeight: source.sourceHeight,
     general: { regionalSkinMap: fixtures.combination, normalizationVersion:'fixture-scale',
@@ -120,6 +148,6 @@ async function load(name) {
   check(() => { const x=clone(response); x.general.regionalSkinMap.regions.forehead.fill='blue'; assert.equal(overview.overviewFromResponse(x).regionalSkinMap,undefined); });
   check(() => { const x=clone(response); x.photoId='not-a-capture'; assert.equal(overview.overviewFromResponse(x).regionalSkinMap,undefined); });
   check(() => assert.equal(overview.overviewFromResponse({}),undefined));
-  console.log(JSON.stringify({ checks, serverFixtures:4, result:'pass', scope:'numeric-contract-converter-svg-layer-and-categorical-history', modelAcceptance:false, cameraAcceptance:false }));
+  console.log(JSON.stringify({ checks, serverFixtures:4, replayAspectRatios:3, result:'pass', scope:'numeric-contract-converter-svg-layer-categorical-history-and-retained-photo-replay', modelAcceptance:false, cameraAcceptance:false }));
 })().catch(error => { console.error(error); process.exitCode=1; });
 
