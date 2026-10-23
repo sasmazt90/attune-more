@@ -1,0 +1,157 @@
+{
+  "sources": {
+    "FACE": {
+      "projectId": "datasetbola/face-a7el6",
+      "versionId": "datasetbola/face-a7el6/3",
+      "sourceURL": "https://universe.roboflow.com/datasetbola/face-a7el6/dataset/3",
+      "projectURL": "https://universe.roboflow.com/datasetbola/face-a7el6",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/",
+      "preprocessing": {
+        "auto-orient": {
+          "enabled": true
+        },
+        "resize": {
+          "format": "Stretch to",
+          "width": 640,
+          "enabled": true,
+          "height": 640
+        }
+      },
+      "augmentation": {},
+      "exportFormat": "coco-segmentation",
+      "exportImages": 408,
+      "splits": {
+        "valid": 82,
+        "test": 40,
+        "train": 286
+      },
+      "reviewUse": "inspection only",
+      "commercialTrainingAccepted": false,
+      "provenanceDocumentation": "Export metadata and supplied README only; no per-image consent evidence or original author source supplied in these records."
+    },
+    "Redness": {
+      "projectId": "model-cn9k6/redness-ik5oe",
+      "versionId": "model-cn9k6/redness-ik5oe/2",
+      "sourceURL": "https://universe.roboflow.com/model-cn9k6/redness-ik5oe/dataset/2",
+      "projectURL": "https://universe.roboflow.com/model-cn9k6/redness-ik5oe",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/",
+      "preprocessing": {
+        "auto-orient": {
+          "enabled": true
+        },
+        "resize": {
+          "enabled": true,
+          "format": "Stretch to",
+          "height": 640,
+          "width": 640
+        }
+      },
+      "augmentation": {
+        "image": {
+          "enabled": true,
+          "versions": 2
+        },
+        "noise": {
+          "enabled": true,
+          "percent": 0.93
+        },
+        "brightness": {
+          "enabled": true,
+          "percent": 25,
+          "brighten": true,
+          "darken": true
+        },
+        "saturation": {
+          "enabled": true,
+          "percent": 26
+        }
+      },
+      "exportFormat": "coco-segmentation",
+      "exportImages": 1746,
+      "splits": {
+        "valid": 112,
+        "test": 46,
+        "train": 1588
+      },
+      "reviewUse": "inspection only",
+      "commercialTrainingAccepted": false,
+      "provenanceDocumentation": "Export metadata and supplied README only; no per-image consent evidence or original author source supplied in these records."
+    },
+    "Dryness": {
+      "projectId": "skinanalysisv22025/dryness-q1yyf",
+      "versionId": "skinanalysisv22025/dryness-q1yyf/1",
+      "sourceURL": "https://universe.roboflow.com/skinanalysisv22025/dryness-q1yyf/dataset/1",
+      "projectURL": "https://universe.roboflow.com/skinanalysisv22025/dryness-q1yyf",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/",
+      "preprocessing": {
+        "auto-orient": {
+          "enabled": true
+        },
+        "resize": {
+          "enabled": true,
+          "format": "Stretch to",
+          "height": 640,
+          "width": 640
+        }
+      },
+      "augmentation": {},
+      "exportFormat": "coco",
+      "exportImages": 2072,
+      "splits": {
+        "valid": 389,
+        "test": 197,
+        "train": 1486
+      },
+      "reviewUse": "inspection only",
+      "commercialTrainingAccepted": false,
+      "provenanceDocumentation": "Export metadata and supplied README only; no per-image consent evidence or original author source supplied in these records."
+    }
+  },
+  "quotas": [
+    [
+      "FACE",
+      "dry",
+      "mask",
+      16
+    ],
+    [
+      "FACE",
+      "oily",
+      "mask",
+      16
+    ],
+    [
+      "FACE",
+      "normal",
+      "mask",
+      16
+    ],
+    [
+      "FACE",
+      "wrinkles",
+      "mask",
+      16
+    ],
+    [
+      "Redness",
+      "redness",
+      "mask",
+      32
+    ],
+    [
+      "Dryness",
+      "Dryness",
+      "mask",
+      12
+    ],
+    [
+      "Dryness",
+      "Dryness",
+      "box",
+      12
+    ]
+  ]
+}

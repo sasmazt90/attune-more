@@ -585,6 +585,54 @@
       "naturalColourCalibrationAdmitted": false,
       "sourceReview": "docs/skin/evidence/merve-direct-summary-20261023-v1.json",
       "expertReviewed": false
+    },
+    "regionalCandidates": {
+      "observedAt": "2026-10-23 07:45:35 UTC",
+      "sources": [
+        {
+          "id": "datasetbola/face-a7el6",
+          "version": 3,
+          "images": 408,
+          "archiveSHA256": "7c06f1c48d049c1c419d909d488c6642465f0f57958a42eaa62569527ee3094c",
+          "comparisonVersion": 4
+        },
+        {
+          "id": "model-cn9k6/redness-ik5oe",
+          "version": 2,
+          "images": 1746,
+          "archiveSHA256": "cc4e1b59a4c02b209fbab5f27251ca9c47998581670e39e9b4116a57ecb65863",
+          "existingExactMatches": 45
+        },
+        {
+          "id": "skinanalysisv22025/dryness-q1yyf",
+          "version": 1,
+          "images": 2072,
+          "archiveSHA256": "caa1d873d1c98a507ed37a31c42e2f7a0cd543d494e65d0be1f67f15b5b483f4",
+          "existingExactMatches": 700
+        }
+      ],
+      "reviewBundle": {
+        "library_file_id": "libfile_9abd3a46c4d48191baf5bc096a0bb680",
+        "filename": "Attune_skin_source_review_pairs_20261023_v2.zip",
+        "images": 120,
+        "bytes": 5164859,
+        "sha256": "39c5a43b9ae87926b63b19fe5dd139409e55e38d3202affb04884e18daab61ce",
+        "sourceTrainOnly": true,
+        "expertReviewed": false,
+        "commercialTrainingAccepted": false
+      },
+      "fullAudit": {
+        "library_file_id": "libfile_59f1bfe9a41c81919835afe73ce3b948",
+        "filename": "source-candidates-audit-20261023-v1.json.gz"
+      },
+      "evidence": [
+        "docs/skin/evidence/source-acquisition-summary-20261023-v1.json",
+        "docs/skin/evidence/source-review-config-20261023-v1.json",
+        "docs/skin/evidence/source-review-manifest-20261023-v1.json.gz",
+        "docs/skin/evidence/source-visual-inspection-20261023-v1.json",
+        "docs/skin/evidence/source-review-checks-20261023-v1.json"
+      ],
+      "report": "docs/skin/source-pair-preparation-20261023.md"
     }
   },
   "sourceMappingEvidence": {
@@ -669,7 +717,13 @@
         "docs/skin/evidence/regional-mask-inferences-valid-20261023-v1.index.json",
         "docs/skin/evidence/regional-mask-inferences-test-20261023-v1.index.json",
         "docs/skin/evidence/regional-mask-visual-review-20261023-v1.json",
-        "docs/skin/evidence/regional-mask-evaluation-checks-20261023-v1.json"
+        "docs/skin/evidence/regional-mask-evaluation-checks-20261023-v1.json",
+        "docs/skin/evidence/source-acquisition-summary-20261023-v1.json",
+        "docs/skin/evidence/source-review-config-20261023-v1.json",
+        "docs/skin/evidence/source-review-manifest-20261023-v1.json.gz",
+        "docs/skin/evidence/source-visual-inspection-20261023-v1.json",
+        "docs/skin/evidence/source-review-checks-20261023-v1.json",
+        "docs/skin/source-pair-preparation-20261023.md"
       ],
       "blockers": [
         "Final holdout independence is not established: perceptual and filename crop relations need source/provenance review; prior exposure and person overlap are unknown.",
@@ -785,7 +839,13 @@
         "docs/skin/evidence/regional-mask-inferences-valid-20261023-v1.index.json",
         "docs/skin/evidence/regional-mask-inferences-test-20261023-v1.index.json",
         "docs/skin/evidence/regional-mask-visual-review-20261023-v1.json",
-        "docs/skin/evidence/regional-mask-evaluation-checks-20261023-v1.json"
+        "docs/skin/evidence/regional-mask-evaluation-checks-20261023-v1.json",
+        "docs/skin/evidence/source-acquisition-summary-20261023-v1.json",
+        "docs/skin/evidence/source-review-config-20261023-v1.json",
+        "docs/skin/evidence/source-review-manifest-20261023-v1.json.gz",
+        "docs/skin/evidence/source-visual-inspection-20261023-v1.json",
+        "docs/skin/evidence/source-review-checks-20261023-v1.json",
+        "docs/skin/source-pair-preparation-20261023.md"
       ],
       "blockers": [
         "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
@@ -795,18 +855,25 @@
     {
       "id": "05",
       "target": "regional-dryness-flaking",
-      "status": "source_supervision_gap_confirmed",
+      "status": "candidate_masks_prepared_review_pending",
       "work": "Audit Dry-Skin/pul local labels and geometry; prepare local samples; evaluate visible dryness/flaking; blue overlay.",
       "evidence": [
         "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
         "docs/skin/regional-evidence-contract-20261023.md",
         "docs/skin/evidence/merve-direct-summary-20261023-v1.json",
         "docs/skin/evidence/merve-direct-audit-20261023-v1.json.gz",
-        "docs/skin/evidence/merve-pul-visual-review-20261023-v1.json"
+        "docs/skin/evidence/merve-pul-visual-review-20261023-v1.json",
+        "docs/skin/evidence/source-acquisition-summary-20261023-v1.json",
+        "docs/skin/evidence/source-review-config-20261023-v1.json",
+        "docs/skin/evidence/source-review-manifest-20261023-v1.json.gz",
+        "docs/skin/evidence/source-visual-inspection-20261023-v1.json",
+        "docs/skin/evidence/source-review-checks-20261023-v1.json",
+        "docs/skin/source-pair-preparation-20261023.md"
       ],
       "blockers": [
         "Clean3 supplies only6genuine dry polygons. Direct Mervev12 hash matches original selected archive:2590pul boxes,0pul polygons; all3368filenames CLAHE-prefixed and prior ledger excludes processed positives from natural RGB calibration. SixTRAINexamples reviewed byassistant,notexpert. Boxes must not become blue masks; absence ofpul is not normal truth.",
-        "Research box localization can be studied with grouping and label review, but natural-camera region truth/negative coverage and sufficient dry polygons remain unavailable. Other roadmap work continues."
+        "Research box localization can be studied with grouping and label review, but natural-camera region truth/negative coverage and sufficient dry polygons remain unavailable. Other roadmap work continues.",
+        "New Dryness v1 export has61nonrectangular polygons (47withvalidboxes), plus FACEv3dry48polygons; source labels range from visible peeling to broad/nonfacial/lesion-like regions. 700Dryness images exactly match existing audit pixels. Review-only pairs prepared; no source label accepted as natural-camera dryness/flaking truth."
       ]
     },
     {
@@ -820,10 +887,17 @@
         "tests/unit/test_regional_skin_evidence.py",
         "tests/unit/test_local_skin_type.py",
         "docs/skin/evidence/regional-checks-20261023-v1.json",
-        "docs/skin/regional-evidence-contract-20261023.md"
+        "docs/skin/regional-evidence-contract-20261023.md",
+        "docs/skin/evidence/source-acquisition-summary-20261023-v1.json",
+        "docs/skin/evidence/source-review-config-20261023-v1.json",
+        "docs/skin/evidence/source-review-manifest-20261023-v1.json.gz",
+        "docs/skin/evidence/source-visual-inspection-20261023-v1.json",
+        "docs/skin/evidence/source-review-checks-20261023-v1.json",
+        "docs/skin/source-pair-preparation-20261023.md"
       ],
       "blockers": [
-        "Validated regional method registry remains empty; unknown is grey, legacy tiny supports cannot force combination. Base three-class model retained. Need regional training/calibration, independent tests and camera evidence before enabling methods; synthetic fixture policies are not product calibration."
+        "Validated regional method registry remains empty; unknown is grey, legacy tiny supports cannot force combination. Base three-class model retained. Need regional training/calibration, independent tests and camera evidence before enabling methods; synthetic fixture policies are not product calibration.",
+        "FACEv3normal88sourcepolygons include broad/full-face masks covering eyes in sampled trainexamples.16normal-maskpairs prepared forreview only; no explicit region assessability/normal completeness accepted."
       ]
     },
     {
@@ -850,7 +924,13 @@
         "docs/skin/evidence/regional-mask-inferences-valid-20261023-v1.index.json",
         "docs/skin/evidence/regional-mask-inferences-test-20261023-v1.index.json",
         "docs/skin/evidence/regional-mask-visual-review-20261023-v1.json",
-        "docs/skin/evidence/regional-mask-evaluation-checks-20261023-v1.json"
+        "docs/skin/evidence/regional-mask-evaluation-checks-20261023-v1.json",
+        "docs/skin/evidence/source-acquisition-summary-20261023-v1.json",
+        "docs/skin/evidence/source-review-config-20261023-v1.json",
+        "docs/skin/evidence/source-review-manifest-20261023-v1.json.gz",
+        "docs/skin/evidence/source-visual-inspection-20261023-v1.json",
+        "docs/skin/evidence/source-review-checks-20261023-v1.json",
+        "docs/skin/source-pair-preparation-20261023.md"
       ],
       "blockers": [
         "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
@@ -892,14 +972,21 @@
     {
       "id": "11",
       "target": "crows-feet-and-wrinkles",
-      "status": "pending",
+      "status": "candidate_source_pairs_prepared",
       "work": "Start with existing lines/crows-feet criterion; audit Wrinkles Detector/skin_face_detection/Skin v5 labels and geometry; extend other facial wrinkles only where labelled truth supports it; evaluate expression and pose effects.",
       "evidence": [
         "docs/skin/evidence/merve-direct-summary-20261023-v1.json",
-        "docs/skin/evidence/merve-direct-audit-20261023-v1.json.gz"
+        "docs/skin/evidence/merve-direct-audit-20261023-v1.json.gz",
+        "docs/skin/evidence/source-acquisition-summary-20261023-v1.json",
+        "docs/skin/evidence/source-review-config-20261023-v1.json",
+        "docs/skin/evidence/source-review-manifest-20261023-v1.json.gz",
+        "docs/skin/evidence/source-visual-inspection-20261023-v1.json",
+        "docs/skin/evidence/source-review-checks-20261023-v1.json",
+        "docs/skin/source-pair-preparation-20261023.md"
       ],
       "blockers": [
-        "Mervev12 also contains2513kirisiklik boxes, no wrinkle polygons, processed/augmented source. This does not establish native camera wrinkle segmentation; audit selected wrinkle sources separately."
+        "Mervev12 also contains2513kirisiklik boxes, no wrinkle polygons, processed/augmented source. This does not establish native camera wrinkle segmentation; audit selected wrinkle sources separately.",
+        "FACEv3contains96nonrectangularwrinklespolygons,16trainpairs prepared; sampled masks can cover broad under-eye/cheek anatomy. This does not establish a crows-feet definition or expert crease labels; selected ledger wrinkle sources remain toreview."
       ]
     },
     {
@@ -948,6 +1035,8 @@
     "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety."
   },
   "nextActions": [
+    "Source-pair acquisition is complete for FACEv3/v4,Rednessv2,Drynessv1; do not repeat downloads/audits unchanged. Use the pinned private120pairbundle and persistedfullaudit, with review-manifest provenance. FACEv3 is preferred over augmentedv4. 700Dryness/45Redness images exactly match existing sources; never count these as newly acquired coverage. All source labels and rights acceptance remain pending; no automatic merge or retraining.",
+    "Continue unblocked source-bound SVG overlay and method-compatible history wiring under the accepted-method gate; under-eye source grouping/review; selected crow's-feet data; sagging and real-camera acceptance. Source normal labels must not bypass the empty accepted regional-method registry.",
     "Regional training 3485f8c67f957a1b850d is finished; candidate 2c07ef has complete 63 validation / 30 test mask evaluation and lossless inference receipts. Do not duplicate training, inference or refit thresholds on the exposed source test. Reassemble the two pinned evidence bundles from index files before replay.",
     "Roboflow reports 75 group records but only 74 distinct model IDs; duplicate e79545 has conflicting candidate/baseline metadata. Preserve raw records and compare by immutable model package. Evaluated 2c07ef resolves to e1688c2c8447af39e51ce60dd8c7f1d0; no recommendation/hardware winner claim.",
     "Improve oil source coverage and anatomical face scope on validation before a targeted data or model change. Redness union overlap is promising but requires independent camera calibration and reviewed negative/normal support. Do not clip test masks post hoc or turn missing masks into normal skin. Keep accepted-regional-method registry empty.",
@@ -1001,6 +1090,12 @@
       "observedAt": "2026-10-23 07:28:48 UTC",
       "action": "Completed regional NAS mask evaluation while preserving concurrent browser work. Parent 3485f8c67f957a1b850d finished; raw group has 75 records and 74 unique IDs due to duplicate e79545 metadata. Pinned highest-observed-map5095 candidate 2c07ef/package e1688c2c8447af39e51ce60dd8c7f1d0 inferred on all 63 validation and 30 test images. Thresholds 0.35 were locked before test calls. Instance-mask AP/matching and separately fixed-threshold class-union overlap measured; no bbox-as-mask fallback, empty predicted masks counted explicitly. Reviewed two validation failures, identified coverage/face-scope and instance-granularity limits, no relabeling or test clipping. Lossless 93 raw responses stored as 11 SHA256-pinned binary parts; eight incomplete initial local writes were detected and replaced before evaluation, 101 inference requests total. Added mask evaluator/reassembler and 24 meaningful regressions; 145 checks pass. No model activation, merge/deploy or camera/roadmap acceptance.",
       "report": "docs/skin/regional-mask-evaluation-20261023.md"
+    },
+    {
+      "date": "2026-10-23",
+      "observedAt": "2026-10-23 07:45:35 UTC",
+      "action": "Refreshed GitHub state and existing Roboflow projects/training; both prior NAS runs finished. Preserved newly committed regional mask evaluation8d8e635 and did not duplicate inference/training. Retrieved FACEv4,Rednessv2,Drynessv1image-annotation archives, then unaugmentedFACEv3 for specific augmentation gap. Audited only these new source exports, reusing4existing audit manifests:700Dryness/45Redness exact-pixel source overlaps found. Prepared120source-trainimage/annotationpairs preserving bytes,COCOobjects,README,classes and licences; excluded known exact-existing andcross-splitcandidate records. Saved private reviewZIP andfullaudit with durableidentities; committed metadata only,nofacialphotos.10newbehaviouralchecks and all120pair-byte/annotation checks passed. Assistant reviewed24source-classrecords,notexpertapproval. No training,relabeling,splitmutation,productionactivation,merge/deploy or productacceptance.",
+      "report": "docs/skin/source-pair-preparation-20261023.md"
     }
   ]
 }
