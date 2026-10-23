@@ -1,0 +1,286 @@
+{
+  "schemaVersion": 1,
+  "project": "Attune.more skin roadmap",
+  "date": "2026-10-23",
+  "repository": "sasmazt90/attune-more",
+  "branch": "work/skin-roadmap-20261023",
+  "authorization": "User explicitly delegated execution of the entire accepted roadmap until completed, with final-only notification. Continue routine reversible preparation, implementation, testing and authorized model training autonomously; disclose a material blocker once. Do not fabricate completion or treat user/model visual review as expert annotation.",
+  "notification": "No routine progress or individual-training completion notifications. Return ::SKIP_COMPLETION:: until all acceptance criteria pass or a concrete blocker prevents useful work; report blockers accurately and do not declare partial work complete.",
+  "criteriaInventory": {
+    "existingAppearanceIds": [
+      "tone",
+      "oil",
+      "redness",
+      "acne",
+      "sag",
+      "dry",
+      "lines",
+      "dark",
+      "bags"
+    ],
+    "existingSeparateSkinType": true,
+    "newDetectionTargets": [
+      "Post acne",
+      "Pigmentation"
+    ],
+    "totalProductHeadings": 12,
+    "dataset18CriteriaIsNotProductCriterionCount": true,
+    "auxiliaryMetrics": [
+      "luminanceScore",
+      "textureVariance"
+    ],
+    "auxiliaryMetricsAreNotNewConcernClasses": true
+  },
+  "mapContract": {
+    "dry": "blue",
+    "oily": "green",
+    "redness": "red contour/hatching independent overlay",
+    "normal": "uncoloured only if evaluated normal",
+    "unknown": "light grey; never count as normal",
+    "mixedColoursAllowed": true,
+    "combination": "Supported oily T-zone plus supported normal or dry outside T-zone; validate coverage and rule."
+  },
+  "remoteState": {
+    "acne": {
+      "project": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation",
+      "version": 1,
+      "trainingId": "5b632a5c12b76fcfe703",
+      "lastObservedStatus": "running",
+      "modelType": "rfdetr-nas-parent",
+      "images": 800,
+      "splits": {
+        "train": 553,
+        "valid": 165,
+        "test": 82
+      },
+      "classes": {
+        "Pimple": 3640,
+        "Post acne": 32123,
+        "Pigmentation": 1579
+      }
+    },
+    "acneSourceProject": "tolgar-sasmaz/attune-skin-acne-pilot",
+    "underEye": {
+      "project": "tolgar-sasmaz/attune-skin-under-eye-pilot",
+      "images": 399,
+      "classes": {
+        "eyebag": 487,
+        "darkcircle": 382
+      }
+    },
+    "regionalMap": {
+      "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+      "images": 0,
+      "status": "empty existing private project; no model trained"
+    },
+    "allProjectsPrivate": true
+  },
+  "sourceAccess": {
+    "gcs": "gs://attune-more-skin-datasets-tolgar/skin-datasets/",
+    "historyVerifiedUpload": {
+      "datasets": 12,
+      "objects": 27171,
+      "images": 24373
+    },
+    "gcsDatasourceValidation": "Still Unknown error after marker correction; do not repeat already disproven filter/IAM fixes or modify marker/IAM. Prefer direct project/archive import if GCS is unavailable.",
+    "scratchArchives": [
+      "smartskincare.zip",
+      "acne-three-class.zip",
+      "dc-eb-2-pilot.zip"
+    ],
+    "scratchPersistence": "Not guaranteed; never rely on these as sole checkpoint or source."
+  },
+  "sourceMappingEvidence": {
+    "files": [
+      "scripts/skin-research/selected_sources.py",
+      "scripts/skin-research/expanded_sources.py"
+    ],
+    "labels": {
+      "v11": [
+        "Acne",
+        "Oily",
+        "Redness",
+        "Dark-Spots",
+        "Eyebags"
+      ],
+      "smart": [
+        "Pimple",
+        "Post acne",
+        "Pigmentation",
+        "Enlarged pores",
+        "Freckles",
+        "Mole"
+      ],
+      "clean3": [
+        "Acne",
+        "Oily-Skin",
+        "Dry-Skin",
+        "Skin-Redness"
+      ],
+      "dc": [
+        "eyebag",
+        "darkcircle"
+      ],
+      "wrinkles": [
+        "wrinkle",
+        "acne",
+        "dark_circle"
+      ],
+      "skin5": [
+        "wrinkle",
+        "darkcircle",
+        "melasma"
+      ],
+      "face": [
+        "crows_feet"
+      ],
+      "merve": [
+        "akne",
+        "pul"
+      ]
+    },
+    "note": "Mappings are code evidence, not fresh geometry/source availability verification; inspect actual annotations before training. Preserve four user-excluded archives; exact current upload manifest wins over old scripts."
+  },
+  "tasks": [
+    {
+      "id": "00",
+      "target": "shared-data-and-evaluation",
+      "status": "in_progress",
+      "work": "Build target/source inventory; verify annotation geometry and label meaning; group exact/near duplicate photos across sources; freeze train/validation/test groups; audit source licences; create independent camera benchmark and capture-quality checks.",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "01",
+      "target": "active-acne",
+      "status": "training_running",
+      "work": "Evaluate Pimple per class on validation and locked test; choose threshold on validation only; inspect confounders and real-camera examples; integrate accepted detector and count deduplication.",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "02",
+      "target": "post-acne-marks",
+      "status": "training_running",
+      "work": "Evaluate Post acne separately from active acne and pigmentation; keep label semantics appearance-only and preserve instance boxes.",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "03",
+      "target": "pigmentation",
+      "status": "training_running",
+      "work": "Evaluate Pigmentation instances separately from generic tone unevenness, marks, freckles, moles and shadow.",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "04",
+      "target": "regional-oiliness",
+      "status": "pending",
+      "work": "Audit selected Oily/Oily-Skin regional truth; prepare reliable regional samples; evaluate shine/illumination confounders; green overlay from measured regional support.",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "05",
+      "target": "regional-dryness-flaking",
+      "status": "pending",
+      "work": "Audit Dry-Skin/pul local labels and geometry; prepare local samples; evaluate visible dryness/flaking; blue overlay.",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "06",
+      "target": "skin-type-and-combination",
+      "status": "pending",
+      "work": "Evaluate existing dry/normal/oily classifier; do not label whole-face classes as regional truth; derive combination from supported oily T-zone and normal/dry outside T-zone; require sufficient coverage and validate this rule.",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "07",
+      "target": "regional-redness",
+      "status": "pending",
+      "work": "Audit Redness/Skin-Redness local labels; evaluate source score and regional masks; red contour/hatching independent from oil/dry map; do not equate redness with sensitivity.",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "08",
+      "target": "tone-unevenness",
+      "status": "pending",
+      "work": "Evaluate existing regional tone index; separate broad colour distribution from local Pigmentation detections and avoid duplicate reporting.",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "09",
+      "target": "under-eye-dark-circles",
+      "status": "pending",
+      "work": "Use existing DC EB 2 private project with darkcircle polygons; audit actual masks, group split, train and evaluate segmentation and camera behaviour.",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "10",
+      "target": "under-eye-bags",
+      "status": "pending",
+      "work": "Use DC EB 2 eyebag polygons; keep bags and darkcircle separate; evaluate and integrate appearance segmentation.",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "11",
+      "target": "crows-feet-and-wrinkles",
+      "status": "pending",
+      "work": "Start with existing lines/crows-feet criterion; audit Wrinkles Detector/skin_face_detection/Skin v5 labels and geometry; extend other facial wrinkles only where labelled truth supports it; evaluate expression and pose effects.",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "12",
+      "target": "sagging-appearance",
+      "status": "pending",
+      "work": "Audit current cheek/chin contour-fold method and available ordinal labels; evaluate pose/expression robustness and obtain suitable truth before claiming learned local segmentation; never call contour proxy elasticity.",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "13",
+      "target": "unified-results-and-trends",
+      "status": "pending",
+      "work": "Integrate accepted outputs incrementally into maps/cards/history; explicit unavailable reasons; method/version compatibility for trends; end-to-end camera/API/result/history tests and final acceptance report.",
+      "evidence": [],
+      "blockers": []
+    }
+  ],
+  "acceptance": {
+    "allTasksMustHaveEvidence": true,
+    "trainingCompleteAloneIsNotDone": true,
+    "minimumEvidence": [
+      "Source and split provenance with leakage limitations",
+      "Per-class validation and locked-test metrics with threshold chosen on validation",
+      "Failure analysis and honest unsupported/unavailable handling",
+      "Real-camera validation across suitable lighting, pose and skin tone slices where data available",
+      "Correct overlay-coordinate alignment, uncertain regions and overlap rules",
+      "Passing meaningful integration and regression tests",
+      "Versioned model/config/data identities and reproducible final report"
+    ],
+    "nas": "Do not equate recommended flag with best accuracy or target-hardware winner. Page NAS children by group and compare available actual accuracy/latency.",
+    "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety."
+  },
+  "nextActions": [
+    "Read this state fresh and inspect current repository/Roboflow state before mutation to avoid concurrent work and duplicate training.",
+    "Continue shared source/geometry preparation while acne training runs.",
+    "Inspect acne results when completed, choose representative models by actual metrics, evaluate each class.",
+    "Advance oil/dry/skin type package before eye/wrinkle/sag steps; use real regional truth and the existing empty regional project.",
+    "Persist concrete work, evidence, queued jobs and blockers in this branch on every run; do not merely poll forever."
+  ],
+  "executionLog": [
+    {
+      "date": "2026-10-23",
+      "action": "Verified source inventory in current main; checked Roboflow: acne run running, under-eye project 399 images, regional map project empty; created durable execution branch and state."
+    }
+  ]
+}
