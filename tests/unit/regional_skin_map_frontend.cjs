@@ -82,11 +82,17 @@ async function load(name) {
     record('one','2026-10-20T10:00:00Z',p),record('two','2026-10-21T10:00:00Z',pNegative),record('three','2026-10-22T10:00:00Z',pNegative)
   ],'forehead','oil','three');
   check(() => { assert(history); assert.deepEqual(Array.from(history.points,v=>v.state),['positive','negative','negative']); });
+  check(() => assert.equal(history.status,'comparable'));
   check(() => assert.deepEqual(Array.from(history.points,v=>v.changedFromPrevious),[null,true,false]));
   check(() => assert.equal(Object.values(history.points[0]).some(v=>typeof v==='number'&&v!==history.points[0].time),false));
-  check(() => { const x=clone(p); x.map.regions.forehead.observations.oil.methodVersion='new-method'; const h=R.regionalObservationHistory([record('old','2026-10-20T10:00:00Z',p),record('new','2026-10-21T10:00:00Z',x)],'forehead','oil','new'); assert.equal(h.points.length,1); assert.equal(h.excludedIncompatible,1); });
+  check(() => { const x=clone(p); x.map.regions.forehead.observations.oil.methodVersion='new-method'; const h=R.regionalObservationHistory([record('old','2026-10-20T10:00:00Z',p),record('new','2026-10-21T10:00:00Z',x)],'forehead','oil','new'); assert.equal(h.points.length,1); assert.equal(h.excludedIncompatible,1); assert.equal(h.status,'method-changed'); });
+  check(() => { const h=R.regionalObservationHistory([record('one','2026-10-20T10:00:00Z',p)],'forehead','oil','one'); assert.equal(h.status,'single-record'); assert.equal(h.points.length,1); });
+  check(() => { const h=R.regionalObservationHistory([record('old','2026-10-20T10:00:00Z',p),record('unknown','2026-10-21T10:00:00Z',u)],'forehead','oil','unknown'); assert.equal(h.status,'not-evaluated'); assert.equal(typeof h.unavailableReason,'string'); assert(h.unavailableReason.length>0); assert.equal(h.points.length,0); assert.equal(h.excludedUnknown,1); });
+  check(() => { const h=R.regionalObservationHistory([record('old','2026-10-20T10:00:00Z',p)],'forehead','oil','missing'); assert.equal(h.status,'record-unavailable'); assert.equal(h.points.length,0); });
+  check(() => { const h=R.regionalObservationHistory([{id:'unsupported',timestamp:'2026-10-21T10:00:00Z',general:{}}],'forehead','oil','unsupported'); assert.equal(h.status,'not-evaluated'); assert.equal(h.unavailableReason,'REGIONAL_RESULT_NOT_AVAILABLE'); assert.equal(h.points.length,0); });
+  check(() => { const x=clone(p); x.map.regions.forehead.fill='blue'; const h=R.regionalObservationHistory([record('old','2026-10-20T10:00:00Z',p),record('broken','2026-10-21T10:00:00Z',x)],'forehead','oil','broken'); assert.equal(h.status,'record-unavailable'); assert.equal(h.points.length,0); });
   check(() => assert.equal(R.regionalObservationHistory([record('one','bad-date',p)],'forehead','oil'),undefined));
-  check(() => assert.equal(R.regionalObservationHistory([record('one','2026-10-20T10:00:00Z',u)],'forehead','oil'),undefined));
+  check(() => { const h=R.regionalObservationHistory([record('one','2026-10-20T10:00:00Z',u)],'forehead','oil'); assert.equal(h.status,'not-evaluated'); assert.equal(h.points.length,0); });
   check(() => assert.equal(R.regionalObservationHistory([record('one','2026-10-20T10:00:00Z',p)],'periorbital','oil'),undefined));
 
   // Presentation plan remains source-bound and uses only anatomical summaries.
@@ -155,6 +161,6 @@ async function load(name) {
   check(() => { const x=clone(response); x.general.regionalSkinMap.regions.forehead.fill='blue'; assert.equal(overview.overviewFromResponse(x).regionalSkinMap,undefined); });
   check(() => { const x=clone(response); x.photoId='not-a-capture'; assert.equal(overview.overviewFromResponse(x).regionalSkinMap,undefined); });
   check(() => assert.equal(overview.overviewFromResponse({}),undefined));
-  console.log(JSON.stringify({ checks, serverFixtures:4, replayAspectRatios:3, result:'pass', scope:'numeric-contract-converter-svg-layer-categorical-history-retained-photo-replay-and-storage-gate', modelAcceptance:false, cameraAcceptance:false }));
+  console.log(JSON.stringify({ checks, serverFixtures:4, replayAspectRatios:3, result:'pass', scope:'numeric-contract-converter-svg-layer-history-status-retained-photo-replay-and-storage-gate', modelAcceptance:false, cameraAcceptance:false }));
 })().catch(error => { console.error(error); process.exitCode=1; });
 
