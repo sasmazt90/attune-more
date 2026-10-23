@@ -57,7 +57,10 @@
         "Pimple": 3640,
         "Post acne": 32123,
         "Pigmentation": 1579
-      }
+      },
+      "modelGroup": null,
+      "modelIds": [],
+      "lastCheckedDate": "2026-10-23"
     },
     "acneSourceProject": "tolgar-sasmaz/attune-skin-acne-pilot",
     "underEye": {
@@ -66,7 +69,13 @@
       "classes": {
         "eyebag": 487,
         "darkcircle": 382
-      }
+      },
+      "sourceGeometryVerified": {
+        "darkcirclePolygons": 382,
+        "eyebagPolygons": 487,
+        "invalidGeometry": 0
+      },
+      "versions": []
     },
     "regionalMap": {
       "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
@@ -147,32 +156,60 @@
       "target": "shared-data-and-evaluation",
       "status": "in_progress",
       "work": "Build target/source inventory; verify annotation geometry and label meaning; group exact/near duplicate photos across sources; freeze train/validation/test groups; audit source licences; create independent camera benchmark and capture-quality checks.",
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "scripts/skin-research/audit_roadmap_archives.py",
+        "scripts/skin-research/verify_roadmap_filter.py",
+        "tests/unit/test_skin_roadmap_archive_audit.py",
+        "docs/skin/evidence/archive-audit-20261023-v2.json",
+        "docs/skin/evidence/acne-import-provenance-20261023-v2.json",
+        "docs/skin/evidence/evaluation-quarantine-20261023-v1.json",
+        "docs/skin/evidence/preparation-checks-20261023-v1.json",
+        "docs/skin/archive-audit-20261023.md"
+      ],
+      "blockers": [
+        "Final holdout independence is not established: perceptual and filename crop relations need source/provenance review; prior exposure and person overlap are unknown.",
+        "Direct oil/dry/redness source archive geometry is not yet verified in this environment; do not train regional masks from whole-image classes.",
+        "Independent real-camera benchmark and reviewed regional normal truth remain pending."
+      ]
     },
     {
       "id": "01",
       "target": "active-acne",
       "status": "training_running",
       "work": "Evaluate Pimple per class on validation and locked test; choose threshold on validation only; inspect confounders and real-camera examples; integrate accepted detector and count deduplication.",
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/skin/evidence/acne-import-provenance-20261023-v2.json",
+        "docs/skin/evidence/archive-audit-20261023-v2.json"
+      ],
+      "blockers": [
+        "Existing NAS run still running; no model IDs yet. Keep baseline validation metrics provisional until leakage candidates and source rights/exposure are resolved; no training duplication."
+      ]
     },
     {
       "id": "02",
       "target": "post-acne-marks",
       "status": "training_running",
       "work": "Evaluate Post acne separately from active acne and pigmentation; keep label semantics appearance-only and preserve instance boxes.",
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/skin/evidence/acne-import-provenance-20261023-v2.json",
+        "docs/skin/evidence/archive-audit-20261023-v2.json"
+      ],
+      "blockers": [
+        "Existing NAS run still running; no model IDs yet. Keep baseline validation metrics provisional until leakage candidates and source rights/exposure are resolved; no training duplication."
+      ]
     },
     {
       "id": "03",
       "target": "pigmentation",
       "status": "training_running",
       "work": "Evaluate Pigmentation instances separately from generic tone unevenness, marks, freckles, moles and shadow.",
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/skin/evidence/acne-import-provenance-20261023-v2.json",
+        "docs/skin/evidence/archive-audit-20261023-v2.json"
+      ],
+      "blockers": [
+        "Existing NAS run still running; no model IDs yet. Keep baseline validation metrics provisional until leakage candidates and source rights/exposure are resolved; no training duplication."
+      ]
     },
     {
       "id": "04",
@@ -217,18 +254,26 @@
     {
       "id": "09",
       "target": "under-eye-dark-circles",
-      "status": "pending",
+      "status": "source_geometry_audited",
       "work": "Use existing DC EB 2 private project with darkcircle polygons; audit actual masks, group split, train and evaluate segmentation and camera behaviour.",
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/skin/evidence/archive-audit-20261023-v2.json"
+      ],
+      "blockers": [
+        "Source polygon geometry passes; semantic review, source grouping and independent camera evaluation remain open. No model/version generated."
+      ]
     },
     {
       "id": "10",
       "target": "under-eye-bags",
-      "status": "pending",
+      "status": "source_geometry_audited",
       "work": "Use DC EB 2 eyebag polygons; keep bags and darkcircle separate; evaluate and integrate appearance segmentation.",
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/skin/evidence/archive-audit-20261023-v2.json"
+      ],
+      "blockers": [
+        "Source polygon geometry passes; semantic review, source grouping and independent camera evaluation remain open. No model/version generated."
+      ]
     },
     {
       "id": "11",
@@ -271,16 +316,23 @@
     "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety."
   },
   "nextActions": [
-    "Read this state fresh and inspect current repository/Roboflow state before mutation to avoid concurrent work and duplicate training.",
-    "Continue shared source/geometry preparation while acne training runs.",
-    "Inspect acne results when completed, choose representative models by actual metrics, evaluate each class.",
-    "Advance oil/dry/skin type package before eye/wrinkle/sag steps; use real regional truth and the existing empty regional project.",
-    "Persist concrete work, evidence, queued jobs and blockers in this branch on every run; do not merely poll forever."
+    "Read current checkpoint/branch and refresh Roboflow before mutations. Existing acne trainingId 5b632a5c12b76fcfe703 is running; do not duplicate.",
+    "Use archive-audit-20261023-v2.json plus evaluation-quarantine sidecar to resolve perceptual/crop filename candidates. Do not call candidate pairs confirmed duplicates or person identities, and do not count remaining rows as accepted independent holdout.",
+    "Verify generated remote acne version export against the audited local import (preprocessing/image IDs); retain original SmartSkinCare confounder annotations for evaluation.",
+    "Obtain selected oil/dry/redness source archives directly and audit actual geometry; existing empty regional project is not trained. Do not repeat GCS IAM/filter/marker mutations.",
+    "Review current local_skin_type regional combination proxy against accepted coverage/unknown evidence contract; tiny nonzero support is not validated regional truth.",
+    "When NAS finishes, page children by modelGroup; save per-class validation/test metrics and failure analysis before model selection/threshold freeze.",
+    "Continue real-camera benchmark, reviewed regional labels, safe map integration and other roadmap tasks; no completion or notification until acceptance evidence exists."
   ],
   "executionLog": [
     {
       "date": "2026-10-23",
       "action": "Verified source inventory in current main; checked Roboflow: acne run running, under-eye project 399 images, regional map project empty; created durable execution branch and state."
+    },
+    {
+      "date": "2026-10-23",
+      "action": "Implemented and ran read-only COCO archive auditor plus class-filter provenance verifier; 1199 files, 37342 acne boxes, 869 under-eye polygons, zero geometry issues. No exact byte/pixel duplicates; 4 cross-split perceptual candidate pairs and 3 cross-split filename candidate groups queued without identity claims. Ten executable regression tests passed. Saved evaluation-quarantine sidecar and source hashes; acne NAS still running; regional project remains empty. No new training or production change.",
+      "report": "docs/skin/archive-audit-20261023.md"
     }
   ]
 }

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "python": "3.12.14",
+  "Pillow": "12.3.0",
+  "command": "python -m unittest discover -s tests/unit -p test_skin_roadmap_archive_audit.py -v",
+  "passed": 10,
+  "failed": 0,
+  "sourceHashes": {
+    "scripts/skin-research/audit_roadmap_archives.py": "db71a2a0ff59fcec0a69a886fb743ddf20ed76d003c379893107eb17b668900d",
+    "scripts/skin-research/verify_roadmap_filter.py": "33c4848811744a9a0e2d98b41a319476cc507b3b81f66f9299a677c102f44f4c",
+    "tests/unit/test_skin_roadmap_archive_audit.py": "536545e33ba81ae95295480cf0f90e5ac3f0f39cf28fa0e86d748b3ab3c08525"
+  },
+  "auditSummary": {
+    "images": 1199,
+    "exactDuplicateGroups": 0,
+    "crossSplitExactGroups": 0,
+    "perceptualCandidatePairs": 6,
+    "crossSplitPerceptualCandidatePairs": 4,
+    "filenameCandidateGroups": 8,
+    "crossSplitFilenameCandidateGroups": 3,
+    "geometryIssueCount": 0
+  },
+  "quarantinedEvaluationImages": 7,
+  "cameraValidationCompleted": false,
+  "trainingCompleted": false,
+  "runtimeIntegrationChanged": false
+}
