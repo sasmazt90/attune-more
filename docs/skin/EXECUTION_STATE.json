@@ -174,8 +174,8 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0d8c66",
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
-      "lastCheckedDate": "2026-10-23",
-      "lastCheckedAt": "2026-10-23T21:36:29Z",
+      "lastCheckedDate": "2026-10-24",
+      "lastCheckedAt": "2026-10-23T22:53:19Z",
       "modelCount": 89,
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
@@ -327,7 +327,7 @@
         "invalidGeometry": 0
       },
       "versions": [],
-      "lastCheckedAt": "2026-10-23T21:36:29Z",
+      "lastCheckedAt": "2026-10-23T22:53:19Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -420,7 +420,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-23T21:36:29Z",
+      "lastCheckedAt": "2026-10-23T22:53:19Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "modelIds": [
@@ -1010,8 +1010,8 @@
     {
       "id": "00",
       "target": "shared-data-and-evaluation",
-      "status": "in_progress",
-      "work": "Build target/source inventory; verify annotation geometry and label meaning; group exact/near duplicate photos across sources; freeze train/validation/test groups; audit source licences; create independent camera benchmark and capture-quality checks.",
+      "status": "acceptance_gate_integrated_data_and_camera_pending",
+      "work": "Build target/source inventory; verify annotation geometry and label meaning; group exact/near duplicate photos across sources; freeze train/validation/test groups; audit source licences; create independent camera benchmark and capture-quality checks. A shared fail-closed learned-model gate now requires immutable identity, reviewed source/split/negative evidence, per-class validation plus locked test, independent product-contract camera evidence and working integration before activation.",
       "evidence": [
         "scripts/skin-research/audit_roadmap_archives.py",
         "scripts/skin-research/verify_roadmap_filter.py",
@@ -1047,12 +1047,17 @@
         "scripts/skin-research/prepare_crows_feet_review_set.py",
         "tests/unit/test_prepare_crows_feet_review_set.py",
         "docs/skin/evidence/crows-feet-positive-review-package-20261023-v1.json",
-        "docs/skin/evidence/crows-feet-positive-review-package-audit-20261023-v1.json"
+        "docs/skin/evidence/crows-feet-positive-review-package-audit-20261023-v1.json",
+        "scripts/skin-research/skin_model_acceptance_gate.py",
+        "tests/unit/test_skin_model_acceptance_gate.py",
+        "docs/skin/evidence/model-acceptance-gate-20261024-v1.json",
+        "docs/skin/model-acceptance-gate-20261024.md"
       ],
       "blockers": [
         "Final holdout independence is not established: perceptual and filename crop relations need source/provenance review; prior exposure and person overlap are unknown.",
         "Direct Clean3 v1 geometry audited: mainly boxes; only 10 oil and 6 dry polygons, no redness polygons. Source geometry is not expert/normal truth; preserve 9 exact cross-split groups and resolve candidate/exposure relations. Other selected regional sources still need audit.",
-        "Independent real-camera benchmark and reviewed regional normal truth remain pending."
+        "Independent real-camera benchmark and reviewed regional normal truth remain pending.",
+        "The shared gate correctly rejects the current acne/post-acne/pigmentation and regional oil/redness candidates, and the empty grouped under-eye project has no model to evaluate; source/expert/person-independent/camera gaps must be resolved rather than bypassed."
       ]
     },
     {
@@ -1434,9 +1439,17 @@
       "Versioned model/config/data identities and reproducible final report"
     ],
     "nas": "Do not equate recommended flag with best accuracy or target-hardware winner. Page NAS children by group and compare available actual accuracy/latency.",
-    "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety."
+    "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety.",
+    "sharedLearnedModelGate": {
+      "version": "skin-model-acceptance-gate-v1",
+      "implementation": "scripts/skin-research/skin_model_acceptance_gate.py",
+      "evidence": "docs/skin/evidence/model-acceptance-gate-20261024-v1.json",
+      "currentActivationAllowed": false,
+      "scope": "new learned skin-model candidates; existing analytic appearance methods unchanged"
+    }
   },
   "nextActions": [
+    "Apply scripts/skin-research/skin_model_acceptance_gate.py to every future learned candidate before changing any accepted manifest or registry. A finished training or recommendation flag is insufficient. Current 754885 acne/post-acne/pigmentation, 2c07ef regional oil/redness and the model-less grouped under-eye path all fail closed; improve the recorded source, per-class, camera and integration gaps, then replay the same receipt.",
     "Task 12 source audit is complete: the 18-criterion ordinal source has elasticity, not sag, and cannot authorize a sag target. Preserve both model-boundary and downstream replacement guards; do not add sag to the generic degree head. Next useful evidence is consented same-person compatible capture pairs, expert localized truth, pose/expression robustness and execution of the focused model-boundary test in the service runtime with OpenCV/ONNX Runtime.",
     "Task 12 appearance-only semantics and the frontend rejection gate are implemented; do not rebuild or rename the contour/fold proxy as elasticity or clinical severity. Next obtain consented same-person compatible capture pairs plus expert localized truth, then evaluate pose/expression robustness before any learned segmentation or directional improvement claim.",
     "Task 08 product semantics are implemented; do not derive Post acne or Pigmentation from the tone proxy and do not rebuild the twelve-heading contract. Improve the localized detector/data problem first, then activate only an accepted immutable model/evidence triple. When accepted local masks exist, exclude their support from the broad tone sampling and validate co-reporting on an independent camera set.",
@@ -1677,6 +1690,18 @@
         "27a332107a072554b93f532ec3f2c503f2c2cd2a",
         "1bc5721aa9b62a26c961efefb223d4c22f0d2831",
         "1bdb5322289850542a6a1b518474ad8177c6b0ea"
+      ]
+    },
+    {
+      "date": "2026-10-24",
+      "observedAt": "2026-10-23T22:53:19Z",
+      "action": "Refreshed the roadmap branch and all 16 private Roboflow projects. Acne/pigmentation NAS 5b632a5c12b76fcfe703 remains finished with 89 model IDs; regional NAS segmentation 3485f8c67f957a1b850d remains finished with 75 provider records; regional stays at 337 images, under-eye pilot 399 images with no version, and grouped under-eye remains empty. No training or inference was duplicated. Added a shared fail-closed learned-model acceptance gate requiring immutable model/source identity, reviewed rights and label protocol, person-independent splits, negative coverage, validation-selected locked thresholds, per-class validation/test pass, independent product-contract camera evidence and working API/product/privacy/history regression evidence. Replayed the actual 754885 acne and 2c07ef regional receipts: both remain activationAllowed=false; grouped under-eye has no model. Python compilation, four focused checks and two real candidate verdict replays passed. Existing merged analytic results were not disabled, renamed or treated as missing.",
+      "report": "docs/skin/model-acceptance-gate-20261024.md",
+      "commits": [
+        "f1a4fe1b07e2ed97b4c74b8c60ff69520f8e64e3",
+        "ec4db64247c3abaeb60a036e6ba1102f1acabbdd",
+        "54694cd088929d982b669fe4db3f048c43f4082a",
+        "fc2c64afdcea975ca6d1bc26a77ce8d1550b5b4e"
       ]
     }
   ]
