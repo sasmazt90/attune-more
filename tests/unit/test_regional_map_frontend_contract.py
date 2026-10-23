@@ -34,9 +34,10 @@ def test_server_browser_and_numeric_history_contract():
         capture_output=True, text=True, timeout=60)
     assert result.returncode == 0, result.stdout + result.stderr
     report = json.loads(result.stdout)
-    assert report['checks'] >= 62 and report['serverFixtures'] == 4
+    assert report['checks'] >= 78 and report['serverFixtures'] == 4
+    assert report['replayAspectRatios'] == 3
     assert report['result'] == 'pass'
-    assert report['scope'] == 'numeric-contract-converter-svg-layer-and-categorical-history'
+    assert report['scope'] == 'numeric-contract-converter-svg-layer-categorical-history-and-retained-photo-replay'
 
 
 def test_trend_modal_uses_method_compatible_categorical_history():
@@ -49,7 +50,9 @@ def test_trend_modal_uses_method_compatible_categorical_history():
 
 def test_face_panel_renders_only_the_sanitized_layer_plan():
     source = (ROOT / 'apps/vehicle-app/src/components/skin/SkinFacePanel.tsx').read_text('utf8')
-    assert 'regionalSkinLayers(snapshot.general?.regionalSkinMap' in source
+    assert 'retainedRegionalSkinReplay(snapshot,currentRegion.id,selectedCriterion)' in source
+    assert "data-regional-replay={regionalReplay?'source-pixels':undefined}" in source
+    assert 'data-regional-replay-source={regionalReplay?.source.captureId}' in source
     assert 'data-regional-geometry={layer.geometry}' in source
     assert 'data-regional-redness={layer.redness}' in source
     assert 'red-hatch' in source
