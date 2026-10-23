@@ -54,8 +54,10 @@
     "frontendGate": "apps/vehicle-app/src/utils/appearanceMeasurements.ts",
     "behaviorTests": [
       "tests/unit/test_dry_sag_visible_support.py",
-      "tests/unit/test_appearance_references.py"
-    ]
+      "tests/unit/test_appearance_references.py",
+      "tests/unit/test_skin_product_contract.py"
+    ],
+    "backendSharedContract": "services/core-api/skin_product_contract.py"
   },
   "verification": {
     "pythonCompile": [
@@ -68,7 +70,9 @@
     "overviewAggregationBehavior": "passed",
     "frontendSemanticGateBehavior": "passed",
     "fullTypeScriptCompile": "not-run: TypeScript compiler unavailable in execution environment",
-    "cameraAcceptance": false
+    "cameraAcceptance": false,
+    "productContractChecks": 5,
+    "unavailableSagCarriesSemantics": true
   },
   "commits": [
     "4126bfc5bb61c56b7a7f983f46b5f7c9838aa188",
@@ -76,7 +80,9 @@
     "0452c8aa443ccf1fc20e43d39a19053b7286c6c0",
     "e04ac23227dcb7bb5276fa18c81945e450d1fd01",
     "14a3173dbd3307b730baf8e49bdf3d1a7cfc3048",
-    "2503d82a2d8d7be89dc7cae2368a9c004e3aacbb"
+    "2503d82a2d8d7be89dc7cae2368a9c004e3aacbb",
+    "77f182c8f68b0d958e39327fc16d88ab5b3adf82",
+    "3372872eb1cf24a14f250986fe7a0df2d8235eed"
   ],
   "acceptance": {
     "productSemanticsIntegrated": true,
