@@ -35,6 +35,11 @@ export type RegionalSkinLayer = {
   redness: 'positive' | 'negative' | 'unknown';
   geometry: 'anatomical-region-summary-not-pixel-mask';
 };
+export type RegionalSkinReplay = {
+  source: RegionalMapSource;
+  viewBox: { x: number; y: number; width: number; height: number };
+  layers: RegionalSkinLayer[];
+};
 export type RegionalObservationCriterion = 'oil' | 'dry' | 'redness';
 export type RegionalObservationHistoryPoint = {
   recordId: string; time: number; state: 'positive' | 'negative'; changedFromPrevious: boolean | null;
@@ -136,6 +141,42 @@ export function regionalSkinLayers(value: unknown, source: RegionalMapSource,
       redness: criterion === 'oil' || criterion === 'dry' ? 'negative' : row.redness.state,
       geometry: 'anatomical-region-summary-not-pixel-mask' };
   });
+}
+
+/** Replays a retained photo only when the accepted regional summary, photo,
+ * crop and every rendered mesh all share one source-pixel coordinate space. */
+export function retainedRegionalSkinReplay(snapshot: unknown, region: 'overview' | string,
+  criterion?: string | null): RegionalSkinReplay | undefined {
+  if (!object(snapshot) || snapshot.angle !== 'FRONT' || !nonempty(snapshot.photoId)
+    || !/^data:image\/png;base64,/.test(snapshot.dataUrl || '')
+    || !Number.isSafeInteger(snapshot.width) || !Number.isSafeInteger(snapshot.height)
+    || snapshot.width < 16 || snapshot.height < 16 || !object(snapshot.general)
+    || !object(snapshot.meshes)) return;
+  const source: RegionalMapSource = { captureId: snapshot.photoId, pose: 'FRONT',
+    sourceWidth: snapshot.width, sourceHeight: snapshot.height, coordinateSpace: 'source-pixels' };
+  const normalized = snapshot.previewCrop;
+  const rawCrop = normalized ? object(normalized) && [normalized.x, normalized.y, normalized.width, normalized.height]
+    .every(n => typeof n === 'number' && Number.isFinite(n))
+    ? { x: normalized.x * snapshot.width, y: normalized.y * snapshot.height,
+      width: normalized.width * snapshot.width, height: normalized.height * snapshot.height } : undefined
+    : snapshot.crop;
+  if (!object(rawCrop) || ![rawCrop.x, rawCrop.y, rawCrop.width, rawCrop.height]
+    .every(n => typeof n === 'number' && Number.isFinite(n)) || rawCrop.x < 0 || rawCrop.y < 0
+    || rawCrop.width <= 0 || rawCrop.height <= 0 || rawCrop.x + rawCrop.width > snapshot.width
+    || rawCrop.y + rawCrop.height > snapshot.height) return;
+  const layers = regionalSkinLayers(snapshot.general.regionalSkinMap, source, region, criterion);
+  if (!layers.length) return;
+  const epsilon = .5;
+  for (const layer of layers) {
+    const mesh = snapshot.meshes[layer.region];
+    if (!object(mesh) || !Array.isArray(mesh.points) || mesh.points.length < 3
+      || mesh.points.some((point: unknown) => !object(point) || typeof point.x !== 'number' || !Number.isFinite(point.x)
+        || typeof point.y !== 'number' || !Number.isFinite(point.y) || point.x < 0 || point.y < 0
+        || point.x > snapshot.width || point.y > snapshot.height
+        || point.x < rawCrop.x - epsilon || point.y < rawCrop.y - epsilon
+        || point.x > rawCrop.x + rawCrop.width + epsilon || point.y > rawCrop.y + rawCrop.height + epsilon)) return;
+  }
+  return { source, viewBox: { x: rawCrop.x, y: rawCrop.y, width: rawCrop.width, height: rawCrop.height }, layers };
 }
 
 /** Only categorical comparisons, with identical evidence identities per region
