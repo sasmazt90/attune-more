@@ -175,7 +175,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-23",
-      "lastCheckedAt": "2026-10-23T18:29:14Z",
+      "lastCheckedAt": "2026-10-23T19:31:30Z",
       "modelCount": 89,
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
@@ -327,7 +327,7 @@
         "invalidGeometry": 0
       },
       "versions": [],
-      "lastCheckedAt": "2026-10-23T11:00:23.644Z",
+      "lastCheckedAt": "2026-10-23T19:31:30Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -420,7 +420,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-23T18:29:14Z",
+      "lastCheckedAt": "2026-10-23T19:31:30Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "modelIds": [
@@ -1351,10 +1351,23 @@
     {
       "id": "12",
       "target": "sagging-appearance",
-      "status": "pending",
-      "work": "Audit current cheek/chin contour-fold method and available ordinal labels; evaluate pose/expression robustness and obtain suitable truth before claiming learned local segmentation; never call contour proxy elasticity.",
-      "evidence": [],
-      "blockers": []
+      "status": "appearance_semantics_integrated_pose_expression_truth_pending",
+      "work": "Current cheek/chin contour-fold product method is now contractually appearance-only across regional backend, overview aggregation, staging audit branch and frontend acceptance. The frontend rejects sag rows unless appearanceSemantics, clinicalSeverity=false, elasticity=false and same-person-compatible-capture-only are explicit. Continue pose/expression robustness and suitable truth acquisition before any learned local segmentation or severity claim.",
+      "evidence": [
+        "docs/skin/evidence/sag-appearance-semantics-20261023-v1.json",
+        "docs/skin/sag-appearance-semantics-20261023.md",
+        "services/core-api/instant_appearance.py",
+        "services/core-api/skin_general.py",
+        "services/core-api/contour_appearance.py",
+        "apps/vehicle-app/src/utils/appearanceMeasurements.ts",
+        "tests/unit/test_dry_sag_visible_support.py",
+        "tests/unit/test_appearance_references.py"
+      ],
+      "blockers": [
+        "No accepted independent-camera or expert-reviewed localized sagging truth exists; the current contour/fold index is not elasticity, tissue volume or clinical severity.",
+        "Pose/expression robustness and same-person compatible capture pairs remain incomplete, so learned local segmentation and improved/worsened severity language are not accepted.",
+        "This execution environment lacks a TypeScript compiler and real-browser camera stack; focused semantic-gate behavior and Python syntax/overview behavior passed, but full app/browser acceptance remains pending."
+      ]
     },
     {
       "id": "13",
@@ -1415,6 +1428,7 @@
     "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety."
   },
   "nextActions": [
+    "Task 12 appearance-only semantics and the frontend rejection gate are implemented; do not rebuild or rename the contour/fold proxy as elasticity or clinical severity. Next obtain consented same-person compatible capture pairs plus expert localized truth, then evaluate pose/expression robustness before any learned segmentation or directional improvement claim.",
     "Task 08 product semantics are implemented; do not derive Post acne or Pigmentation from the tone proxy and do not rebuild the twelve-heading contract. Improve the localized detector/data problem first, then activate only an accepted immutable model/evidence triple. When accepted local masks exist, exclude their support from the broad tone sampling and validate co-reporting on an independent camera set.",
     "For task 11, use the SHA-pinned positive-only crows_feet review package as the cleaned source baseline; do not repeat split cleanup or train it yet. Establish whether crows_feet absence is an evaluated negative through source protocol/expert review, add reviewed negative and expression/pose coverage without fabricating labels, then form a true group-safe train/validation/locked-test dataset. Separately resolve the exact selected Wrinkles Detector v2 archive; do not substitute wrinkles-79rrf-t7kyp.",
     "The private grouped under-eye project tolgar-sasmaz/attune-skin-under-eye-grouped-research exists but is empty. Reuse upload task sLFwX7CYBVcnnD6iAW5o only if the prepared signed transfer is still valid and permitted; otherwise create one replacement task, not another project. Upload only archive SHA256 41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8, then verify 283/78/38 and 869 polygons before generating/training.",
@@ -1607,6 +1621,22 @@
         "57d532eb5ece09c995a6b2aaa46f6cad57fba7ca",
         "04c5a3dfe4e61c0f427f9009e94d71dacf236871",
         "c429ceac59eb95fe2246daef8491d73ea2a3d333"
+      ]
+    },
+    {
+      "date": "2026-10-23",
+      "observedAt": "2026-10-23T19:31:30Z",
+      "action": "Refreshed the branch and all 16 private Roboflow projects. Acne/pigmentation NAS 5b632a5c12b76fcfe703 and regional NAS segmentation 3485f8c67f957a1b850d remain finished; the regional project has 337 images, the under-eye pilot still has no version, and the grouped under-eye research project remains empty. No training or inference was duplicated. Continued Task 12 in the existing product flow: bound regional, overview and staging lower-face contour/fold outputs to an explicit appearance-only contract; clinicalSeverity and elasticity are false and comparison is same-person/compatible-capture only. The frontend now rejects sag measurements that omit or contradict this contract and displays a non-elasticity/non-clinical explanation. Five changed Python source/test files compiled; overview aggregation and frontend semantic-gate behavior checks passed. TypeScript compiler and real-browser camera acceptance were unavailable, so Task 12 remains incomplete and no learned segmentation, model acceptance, deployment or merge is claimed.",
+      "report": "docs/skin/sag-appearance-semantics-20261023.md",
+      "commits": [
+        "4126bfc5bb61c56b7a7f983f46b5f7c9838aa188",
+        "cba6f3b9b1d4066d23c19b75df167fb654e1b65c",
+        "0452c8aa443ccf1fc20e43d39a19053b7286c6c0",
+        "e04ac23227dcb7bb5276fa18c81945e450d1fd01",
+        "14a3173dbd3307b730baf8e49bdf3d1a7cfc3048",
+        "2503d82a2d8d7be89dc7cae2368a9c004e3aacbb",
+        "eca54d70eac361ed7d7af6c416e6a17966f6164a",
+        "ebca9d9a15fbf5e6d80dea58acee8fc80b8e8c1b"
       ]
     }
   ]
