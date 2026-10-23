@@ -5,7 +5,7 @@ export const SKIN_SIGN_CONTRACT='regional-appearance-v4';
 export type SkinMeasurement={scope:'regional'|'whole-face';region?:string;target?:string;methodVersion:string;modelHash:string|null;datasetHash?:string|null;evidenceHash?:string|null;unit:'appearance-score-0-100'|'color-index-0-100'|'visible-highlight-area-percent'|'class-probability'|'ordinal-grade'|'lesion-count'|'percent-visible-area'|'candidate-count'|'relative-color-index-0-100'|'directional-line-index-0-100'|'normalized-contour-ratio'|'contour-fold-index-0-100';rawValue:number|null;confidence:number|null;quality:'valid'|'invalid'|'insufficient';validation:'analytic-pixel-index'|'development-only'|'independently-validated'|'unavailable'|'appearance-proxy';unavailableReason:string|null};
 export type SkinIndicator={appearance?:import('./appearanceMeasurements').AppearanceMeasurement;id:string;label:string;score:number|null;referenceDelta?:number;reason:string;method:string;unit:string;sampleCount:number;measurement?:SkinMeasurement};
 export type SkinIndicators=Record<string,SkinIndicator[]>;
-export const SIGN_LABELS:Record<string,string>={tone:'Ton eşitsizliği',oil:'Yağlı görünüm',redness:'Kızarıklık eğilimi',acne:'Sivilce görünümü',sag:'Sarkma',dry:'Cilt kuruluğu',dark:'Göz altı morluğu',bags:'Göz altı torbaları',lines:'Kaz ayakları'};
+export const SIGN_LABELS:Record<string,string>={tone:'Ton eşitsizliği',oil:'Yağlı görünüm',redness:'Kızarıklık eğilimi',acne:'Sivilce görünümü',sag:'Sarkma',dry:'Cilt kuruluğu',dark:'Göz altı morluğu',bags:'Göz altı torbaları',lines:'Kaz ayakları',postAcne:'Sivilce izi görünümü',pigmentation:'Pigmentasyon görünümü'};
 export function skinCriterionLabel(id:string,scope:'regional'|'whole-face'='regional') {
  return scope==='whole-face'&&id==='sag'?'Sarkma görünümü':scope==='whole-face'&&id==='dry'?'Cilt kuruluğu görünümü':SIGN_LABELS[id]||id;
 }
@@ -94,3 +94,4 @@ export function measureSkinIndicators(ctx:CanvasRenderingContext2D,snapshot:Skin
  }
  return result;
 }
+
