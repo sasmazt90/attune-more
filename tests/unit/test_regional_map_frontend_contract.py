@@ -34,5 +34,16 @@ def test_server_browser_and_numeric_history_contract():
         capture_output=True, text=True, timeout=60)
     assert result.returncode == 0, result.stdout + result.stderr
     report = json.loads(result.stdout)
-    assert report['checks'] >= 40 and report['serverFixtures'] == 4
+    assert report['checks'] >= 55 and report['serverFixtures'] == 4
     assert report['result'] == 'pass'
+    assert report['scope'] == 'numeric-contract-converter-and-svg-layer-plan'
+
+
+def test_face_panel_renders_only_the_sanitized_layer_plan():
+    source = (ROOT / 'apps/vehicle-app/src/components/skin/SkinFacePanel.tsx').read_text('utf8')
+    assert 'regionalSkinLayers(snapshot.general?.regionalSkinMap' in source
+    assert 'data-regional-geometry={layer.geometry}' in source
+    assert 'data-regional-redness={layer.redness}' in source
+    assert 'red-hatch' in source
+    assert "layer.fill==='lightgrey'?'.20':'.24'" in source
+    assert 'sensitivity' not in source[source.index('regionalLayers.map'):source.index("{localMap&&")]
