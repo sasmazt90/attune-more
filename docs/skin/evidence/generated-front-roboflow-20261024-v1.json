@@ -1,0 +1,2643 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-23T23:49:37.220Z",
+  "purpose": "Qualitative proposal and confidence-retention comparison on six user-authorized generated FRONT images",
+  "source": {
+    "generatedImagesUserDeclared": true,
+    "expertGroundTruth": false,
+    "realCameraCapture": false,
+    "rawImagesCommitted": false,
+    "sideImagesSentToRoboflow": false,
+    "frontImagesSentToRoboflow": true
+  },
+  "model": {
+    "requestedModelId": "ciltanalizi-rfa8m/12",
+    "resolvedModel": {
+      "model_id": "ciltanalizi-rfa8m/12",
+      "model_package_id": "7ee34fce76456d9ff4cfe6e7049aad1e",
+      "backend": "onnx",
+      "quantization": "fp32"
+    },
+    "requestedConfidence": 0.08,
+    "requestedOverlap": 0.5,
+    "immutableResolutionConsistent": true
+  },
+  "aggregateThresholdCounts": {
+    "0.08": {
+      "total": 224,
+      "byClass": {
+        "akne": 39,
+        "gozenek": 45,
+        "kirisiklik": 55,
+        "kizariklik": 80,
+        "pul": 5
+      }
+    },
+    "0.15": {
+      "total": 89,
+      "byClass": {
+        "akne": 18,
+        "gozenek": 17,
+        "kirisiklik": 25,
+        "kizariklik": 28,
+        "pul": 1
+      }
+    },
+    "0.2": {
+      "total": 62,
+      "byClass": {
+        "akne": 9,
+        "gozenek": 11,
+        "kirisiklik": 21,
+        "kizariklik": 20,
+        "pul": 1
+      }
+    },
+    "0.3": {
+      "total": 36,
+      "byClass": {
+        "akne": 3,
+        "gozenek": 8,
+        "kirisiklik": 17,
+        "kizariklik": 7,
+        "pul": 1
+      }
+    },
+    "0.5": {
+      "total": 17,
+      "byClass": {
+        "gozenek": 3,
+        "kirisiklik": 13,
+        "kizariklik": 1
+      }
+    }
+  },
+  "metricEligibility": {
+    "precision": false,
+    "recall": false,
+    "f1": false,
+    "map": false,
+    "reason": "No expert object-level ground truth exists for these generated images; detector proposals cannot be scored against themselves."
+  },
+  "interpretation": {
+    "thresholdCountsAreAccuracy": false,
+    "lowConfidencePredictionsAreProposalsOnly": true,
+    "highConfidencePredictionsAreNotAutomaticallyCorrect": true,
+    "thresholdSelectionAuthorized": false,
+    "productionActivationAuthorized": false
+  },
+  "calls": [
+    {
+      "input": {
+        "filename": "1.England_front.jpg",
+        "sha256": "2945ce637fefa6099fcef31f9ae19a548f7c2cd13dc010eb967267830f429184",
+        "width": 2048,
+        "height": 1529
+      },
+      "inferenceId": "e2bd5b32-0cfd-4352-b267-fbcc29d3923b",
+      "inferenceSeconds": 0.46722804103046656,
+      "thresholdCounts": {
+        "0.08": {
+          "total": 19,
+          "byClass": {
+            "gozenek": 6,
+            "kirisiklik": 13
+          }
+        },
+        "0.15": {
+          "total": 12,
+          "byClass": {
+            "gozenek": 3,
+            "kirisiklik": 9
+          }
+        },
+        "0.2": {
+          "total": 11,
+          "byClass": {
+            "gozenek": 3,
+            "kirisiklik": 8
+          }
+        },
+        "0.3": {
+          "total": 8,
+          "byClass": {
+            "gozenek": 2,
+            "kirisiklik": 6
+          }
+        },
+        "0.5": {
+          "total": 5,
+          "byClass": {
+            "kirisiklik": 5
+          }
+        }
+      },
+      "predictions": [
+        {
+          "x": 1042.5,
+          "y": 439.5,
+          "width": 425,
+          "height": 163,
+          "confidence": 0.745072603225708,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "7825cdd7-3673-4a0c-a9ae-fd250a2f6554"
+        },
+        {
+          "x": 873.5,
+          "y": 963,
+          "width": 75,
+          "height": 144,
+          "confidence": 0.6636985540390015,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "6b0a3461-551f-467e-a4ed-85b43b55c6cc"
+        },
+        {
+          "x": 798.5,
+          "y": 712.5,
+          "width": 77,
+          "height": 103,
+          "confidence": 0.663602352142334,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "06051846-e992-42ff-aefc-45ceb6a7c664"
+        },
+        {
+          "x": 1318,
+          "y": 690,
+          "width": 76,
+          "height": 132,
+          "confidence": 0.6419879198074341,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "1ef62b0d-3d12-4129-a304-12e71768b6d0"
+        },
+        {
+          "x": 1225,
+          "y": 922,
+          "width": 102,
+          "height": 156,
+          "confidence": 0.6222078204154968,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "7b5c01ee-41d0-42a0-945d-faf915ff6a24"
+        },
+        {
+          "x": 1040,
+          "y": 916.5,
+          "width": 278,
+          "height": 87,
+          "confidence": 0.34886398911476135,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "7cfff38e-ca75-4c29-8b77-f6b5762bca8d"
+        },
+        {
+          "x": 1049.5,
+          "y": 1115,
+          "width": 211,
+          "height": 118,
+          "confidence": 0.31680217385292053,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "8c7f7928-049b-4779-ab49-03a481584fdf"
+        },
+        {
+          "x": 1210.5,
+          "y": 1041,
+          "width": 61,
+          "height": 100,
+          "confidence": 0.31240350008010864,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "82ee7a7a-541a-49a7-9e5d-df1b4ab25065"
+        },
+        {
+          "x": 1045.5,
+          "y": 565.5,
+          "width": 99,
+          "height": 103,
+          "confidence": 0.24673154950141907,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "f74861bb-3647-40d5-a5f9-49cb9692c128"
+        },
+        {
+          "x": 1251,
+          "y": 721.5,
+          "width": 182,
+          "height": 83,
+          "confidence": 0.23575462400913239,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "5ebc3b65-b409-45ac-b330-b3070f5a5bca"
+        },
+        {
+          "x": 870.5,
+          "y": 821.5,
+          "width": 117,
+          "height": 113,
+          "confidence": 0.2308626025915146,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "fa23cb21-7cad-497f-96fc-c88f934f717b"
+        },
+        {
+          "x": 864,
+          "y": 710,
+          "width": 130,
+          "height": 64,
+          "confidence": 0.18523842096328735,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "695499bc-f51a-4353-a3bf-622f6806d961"
+        },
+        {
+          "x": 950,
+          "y": 918.5,
+          "width": 128,
+          "height": 83,
+          "confidence": 0.12697380781173706,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "5407d591-3136-4968-86da-6848fa5fd527"
+        },
+        {
+          "x": 1297,
+          "y": 718.5,
+          "width": 82,
+          "height": 81,
+          "confidence": 0.11658675223588943,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "65b28432-851a-494b-b91b-7751c98e745d"
+        },
+        {
+          "x": 1040,
+          "y": 916.5,
+          "width": 278,
+          "height": 87,
+          "confidence": 0.11117705702781677,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "ed31af0d-5ec8-4905-9c6c-b757fab5d7da"
+        },
+        {
+          "x": 890.5,
+          "y": 910,
+          "width": 107,
+          "height": 124,
+          "confidence": 0.09809328615665436,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "27939d91-138a-4117-9649-0d91e5fcaa06"
+        },
+        {
+          "x": 855.5,
+          "y": 819.5,
+          "width": 155,
+          "height": 153,
+          "confidence": 0.09398918598890305,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "1bafd2fd-2f1d-4080-8556-70f7eae0460f"
+        },
+        {
+          "x": 1303,
+          "y": 801,
+          "width": 88,
+          "height": 100,
+          "confidence": 0.08451995998620987,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "3234fa8e-2d61-45be-8bc7-71170f810622"
+        },
+        {
+          "x": 937.5,
+          "y": 1067.5,
+          "width": 91,
+          "height": 85,
+          "confidence": 0.0832817330956459,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "553d80fb-090b-414e-b1c6-580c36ff54c2"
+        }
+      ]
+    },
+    {
+      "input": {
+        "filename": "2.Germany_front.jpg",
+        "sha256": "a44fb454da79908755e47dec3bdd027088fda38c4328503fd1dfd517ecfef12f",
+        "width": 2048,
+        "height": 1529
+      },
+      "inferenceId": "0ae60ac1-1a8b-49c7-a5c0-7b8fad3dd091",
+      "inferenceSeconds": 0.4327374557033181,
+      "thresholdCounts": {
+        "0.08": {
+          "total": 40,
+          "byClass": {
+            "akne": 5,
+            "gozenek": 12,
+            "kirisiklik": 2,
+            "kizariklik": 21
+          }
+        },
+        "0.15": {
+          "total": 18,
+          "byClass": {
+            "akne": 4,
+            "gozenek": 3,
+            "kizariklik": 11
+          }
+        },
+        "0.2": {
+          "total": 12,
+          "byClass": {
+            "akne": 2,
+            "gozenek": 1,
+            "kizariklik": 9
+          }
+        },
+        "0.3": {
+          "total": 4,
+          "byClass": {
+            "kizariklik": 4
+          }
+        },
+        "0.5": {
+          "total": 1,
+          "byClass": {
+            "kizariklik": 1
+          }
+        }
+      },
+      "predictions": [
+        {
+          "x": 1241.5,
+          "y": 833.5,
+          "width": 173,
+          "height": 195,
+          "confidence": 0.7263662815093994,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "4b2fc86c-8095-4fdf-bdf4-04ced07ae67c"
+        },
+        {
+          "x": 833,
+          "y": 881,
+          "width": 172,
+          "height": 246,
+          "confidence": 0.4723649322986603,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "ced2cd80-32f2-43b5-8bad-427e56bbfa4b"
+        },
+        {
+          "x": 1079,
+          "y": 474,
+          "width": 314,
+          "height": 156,
+          "confidence": 0.44698449969291687,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "c2e5359e-f2c7-49ee-ae1f-0bf15a8faeab"
+        },
+        {
+          "x": 815.5,
+          "y": 936.5,
+          "width": 109,
+          "height": 135,
+          "confidence": 0.4274888336658478,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "d8d9b3b3-b0fb-4446-b046-1e3a1ebff9a7"
+        },
+        {
+          "x": 850,
+          "y": 822,
+          "width": 158,
+          "height": 130,
+          "confidence": 0.29363733530044556,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "a554d8c3-90e6-4f9e-8dd0-2836845c8e02"
+        },
+        {
+          "x": 1165.5,
+          "y": 1019.5,
+          "width": 33,
+          "height": 23,
+          "confidence": 0.2831265926361084,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "ab3f27e8-387e-426a-9b10-d9edc0b6baac"
+        },
+        {
+          "x": 1030.5,
+          "y": 1091.5,
+          "width": 233,
+          "height": 95,
+          "confidence": 0.2803216278553009,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "703fc748-2b37-48a6-92d6-dc9f83dc1c08"
+        },
+        {
+          "x": 1040,
+          "y": 751,
+          "width": 136,
+          "height": 166,
+          "confidence": 0.27702492475509644,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "223d2bc8-f711-4ce8-8443-42c95939832f"
+        },
+        {
+          "x": 1047.5,
+          "y": 1088.5,
+          "width": 145,
+          "height": 83,
+          "confidence": 0.2712835371494293,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "b382b7fc-ebca-4c6c-9a76-bc6a4f8d45f1"
+        },
+        {
+          "x": 850,
+          "y": 822,
+          "width": 158,
+          "height": 130,
+          "confidence": 0.2706807255744934,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "ca4b96d5-1361-4c4f-bc0b-7476d5290816"
+        },
+        {
+          "x": 1041.5,
+          "y": 805.5,
+          "width": 547,
+          "height": 181,
+          "confidence": 0.23410171270370483,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "1b264de6-4d6e-41a0-ad1d-4fc269fa4db2"
+        },
+        {
+          "x": 1172,
+          "y": 1023.5,
+          "width": 28,
+          "height": 17,
+          "confidence": 0.2057589292526245,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "3517c313-9ce8-48e9-9b88-3b1400d329e0"
+        },
+        {
+          "x": 945,
+          "y": 1319,
+          "width": 170,
+          "height": 146,
+          "confidence": 0.19693906605243683,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "425ccfe6-bf01-4261-982e-9e5391a4c8f8"
+        },
+        {
+          "x": 1039.5,
+          "y": 771.5,
+          "width": 115,
+          "height": 119,
+          "confidence": 0.1856188029050827,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "6284a453-5fc7-406e-ac08-61fbd0fc4721"
+        },
+        {
+          "x": 1082,
+          "y": 1064.5,
+          "width": 34,
+          "height": 31,
+          "confidence": 0.17134638130664825,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "1c96a646-2bb3-40d1-b6df-9dd91f3b0411"
+        },
+        {
+          "x": 1039.5,
+          "y": 771.5,
+          "width": 115,
+          "height": 119,
+          "confidence": 0.1627562940120697,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "c93cc3c7-e768-4d45-8943-bf79c4d3665b"
+        },
+        {
+          "x": 1148.5,
+          "y": 373,
+          "width": 55,
+          "height": 28,
+          "confidence": 0.15130576491355896,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "09bed9b0-481f-45e7-892d-d5c0ba13736e"
+        },
+        {
+          "x": 1082,
+          "y": 1064.5,
+          "width": 34,
+          "height": 31,
+          "confidence": 0.1502123773097992,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "762f7a2f-c5af-479f-8d9b-8b9cb3fdeaad"
+        },
+        {
+          "x": 895,
+          "y": 1012,
+          "width": 48,
+          "height": 60,
+          "confidence": 0.14295005798339844,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "f1cf1a60-f1e7-4dfc-834e-9c62230aaad9"
+        },
+        {
+          "x": 1241.5,
+          "y": 833.5,
+          "width": 173,
+          "height": 195,
+          "confidence": 0.12451770156621933,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "9635f697-51b2-47fd-a7f6-4f2b8346b137"
+        },
+        {
+          "x": 810.5,
+          "y": 959,
+          "width": 69,
+          "height": 74,
+          "confidence": 0.1223849356174469,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "9d750917-e74b-4295-8ded-208aecd09eac"
+        },
+        {
+          "x": 1227.5,
+          "y": 821,
+          "width": 157,
+          "height": 150,
+          "confidence": 0.11589869856834412,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "95707df3-6c76-4de4-9bb2-b55ff6060616"
+        },
+        {
+          "x": 967,
+          "y": 392,
+          "width": 206,
+          "height": 68,
+          "confidence": 0.10919474810361862,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "94169bd6-ac02-431f-99e2-143acfe8e92e"
+        },
+        {
+          "x": 1041,
+          "y": 500,
+          "width": 184,
+          "height": 104,
+          "confidence": 0.10908783227205276,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "6b2fa673-cee8-4c0c-aac0-eb984d4906b9"
+        },
+        {
+          "x": 839.5,
+          "y": 875.5,
+          "width": 185,
+          "height": 249,
+          "confidence": 0.10307066142559052,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "cf701116-c1e3-4bf2-8d42-f6358b8e6324"
+        },
+        {
+          "x": 1040,
+          "y": 751,
+          "width": 136,
+          "height": 166,
+          "confidence": 0.10217121988534927,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "6f7c6322-0db2-4482-8e04-a7a2a8802566"
+        },
+        {
+          "x": 838.5,
+          "y": 876.5,
+          "width": 181,
+          "height": 255,
+          "confidence": 0.10155455023050308,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "237c3f58-6bde-4c58-b6ac-1e6d068532f1"
+        },
+        {
+          "x": 1197,
+          "y": 821.5,
+          "width": 106,
+          "height": 119,
+          "confidence": 0.09925514459609985,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "0d1d5ad2-b313-4bbb-beca-a8d0dea972e0"
+        },
+        {
+          "x": 937.5,
+          "y": 897.5,
+          "width": 105,
+          "height": 61,
+          "confidence": 0.09819838404655457,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "818e66d3-d68b-4005-b29b-51eb18224758"
+        },
+        {
+          "x": 1026,
+          "y": 776,
+          "width": 498,
+          "height": 126,
+          "confidence": 0.09709562361240387,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "a07849c3-605f-4177-879c-5cf6f86024e0"
+        },
+        {
+          "x": 1079,
+          "y": 474,
+          "width": 314,
+          "height": 156,
+          "confidence": 0.09558462351560593,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "477739fb-2262-410c-bb96-b571733bc198"
+        },
+        {
+          "x": 846.5,
+          "y": 933.5,
+          "width": 37,
+          "height": 37,
+          "confidence": 0.09462952613830566,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "faeb30b1-6fc2-4e2a-96cd-3f4c2b279232"
+        },
+        {
+          "x": 808,
+          "y": 831,
+          "width": 88,
+          "height": 106,
+          "confidence": 0.09373117238283157,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "2038ac44-90d5-44f3-bd3b-085c266b6664"
+        },
+        {
+          "x": 1047.5,
+          "y": 1088.5,
+          "width": 145,
+          "height": 83,
+          "confidence": 0.0931461825966835,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "50acf469-a844-4d47-8784-8c420dd51469"
+        },
+        {
+          "x": 1026,
+          "y": 776,
+          "width": 498,
+          "height": 126,
+          "confidence": 0.0906825065612793,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "672ff3e7-51e8-4aef-865a-bf851eaca2ce"
+        },
+        {
+          "x": 1033.5,
+          "y": 386,
+          "width": 311,
+          "height": 78,
+          "confidence": 0.09056214988231659,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "9cc83159-18d9-4e9f-932e-c3948747c493"
+        },
+        {
+          "x": 1227.5,
+          "y": 821,
+          "width": 157,
+          "height": 150,
+          "confidence": 0.08987972140312195,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "876b746b-5641-4c07-b584-f4ca323dfed1"
+        },
+        {
+          "x": 870.5,
+          "y": 1187.5,
+          "width": 43,
+          "height": 35,
+          "confidence": 0.0898226872086525,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "0a020bc7-191b-44f2-8e30-24b668566bba"
+        },
+        {
+          "x": 768,
+          "y": 751,
+          "width": 76,
+          "height": 92,
+          "confidence": 0.08476930111646652,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "4443a3ed-0dd0-4fae-bc6f-b09f71eeecd2"
+        },
+        {
+          "x": 1030.5,
+          "y": 1091.5,
+          "width": 233,
+          "height": 95,
+          "confidence": 0.08406910300254822,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "21d1080d-0408-4854-af31-281ba5422ff7"
+        }
+      ]
+    },
+    {
+      "input": {
+        "filename": "3.Kenya_front.jpg",
+        "sha256": "b95d5cfd087c4248e31aa3463de1f8d64b52302c6ab1e814d9aabe29b08275fb",
+        "width": 2048,
+        "height": 1529
+      },
+      "inferenceId": "9c8682ca-3b50-4a06-aa17-aef992225e21",
+      "inferenceSeconds": 0.43857492692768574,
+      "thresholdCounts": {
+        "0.08": {
+          "total": 24,
+          "byClass": {
+            "akne": 3,
+            "gozenek": 8,
+            "kirisiklik": 13
+          }
+        },
+        "0.15": {
+          "total": 3,
+          "byClass": {
+            "gozenek": 2,
+            "kirisiklik": 1
+          }
+        },
+        "0.2": {
+          "total": 3,
+          "byClass": {
+            "gozenek": 2,
+            "kirisiklik": 1
+          }
+        },
+        "0.3": {
+          "total": 2,
+          "byClass": {
+            "gozenek": 2
+          }
+        },
+        "0.5": {
+          "total": 1,
+          "byClass": {
+            "gozenek": 1
+          }
+        }
+      },
+      "predictions": [
+        {
+          "x": 847,
+          "y": 808,
+          "width": 130,
+          "height": 132,
+          "confidence": 0.6424198746681213,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "d03ad9e7-0a27-4097-895f-a05183fe5210"
+        },
+        {
+          "x": 1030,
+          "y": 1090,
+          "width": 172,
+          "height": 76,
+          "confidence": 0.39907827973365784,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "41a4df45-e90f-44a4-9788-5365d6868a00"
+        },
+        {
+          "x": 1184.5,
+          "y": 743.5,
+          "width": 115,
+          "height": 73,
+          "confidence": 0.22883924841880798,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "8afc75bc-60ec-4247-b7c3-9472c0135f9a"
+        },
+        {
+          "x": 1077.5,
+          "y": 476,
+          "width": 41,
+          "height": 36,
+          "confidence": 0.13737541437149048,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "46ec278b-d9b8-4c6b-83e2-1e04b1423e65"
+        },
+        {
+          "x": 801,
+          "y": 944.5,
+          "width": 40,
+          "height": 69,
+          "confidence": 0.13546393811702728,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "b4dc4e4a-c911-41c4-981b-37382acb6f8e"
+        },
+        {
+          "x": 1030,
+          "y": 1090,
+          "width": 172,
+          "height": 76,
+          "confidence": 0.1291992962360382,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "751be318-c40c-4cc2-896e-0eb21398271d"
+        },
+        {
+          "x": 806,
+          "y": 927,
+          "width": 54,
+          "height": 92,
+          "confidence": 0.12861201167106628,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "aa8c87d3-5882-4447-a080-44e7ea1713f5"
+        },
+        {
+          "x": 1037.5,
+          "y": 720.5,
+          "width": 139,
+          "height": 103,
+          "confidence": 0.12852166593074799,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "b6ae5611-e7c7-43e7-b1f6-a94c1e8f439b"
+        },
+        {
+          "x": 899.5,
+          "y": 851,
+          "width": 51,
+          "height": 54,
+          "confidence": 0.12647686898708344,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "f0458d7a-1707-4742-84a7-9a15ad3e82f7"
+        },
+        {
+          "x": 891,
+          "y": 743.5,
+          "width": 92,
+          "height": 47,
+          "confidence": 0.12523941695690155,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "00c302f2-ed53-4fcf-9d18-61055abd9606"
+        },
+        {
+          "x": 1208,
+          "y": 958,
+          "width": 38,
+          "height": 82,
+          "confidence": 0.11206936091184616,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "1e8dc0dd-7e01-46a1-a26f-e608b2b0c93c"
+        },
+        {
+          "x": 992.5,
+          "y": 910,
+          "width": 293,
+          "height": 68,
+          "confidence": 0.11186271160840988,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "a612d26e-597c-4aab-96d1-d86a3b1aa93f"
+        },
+        {
+          "x": 1223.5,
+          "y": 818,
+          "width": 99,
+          "height": 122,
+          "confidence": 0.11033781617879868,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "744f4c0a-9267-45a2-9433-bd2ff4e39422"
+        },
+        {
+          "x": 1220,
+          "y": 856,
+          "width": 36,
+          "height": 28,
+          "confidence": 0.09757691621780396,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "fda9c456-27d0-4cef-8b5f-e36c85ed6e6f"
+        },
+        {
+          "x": 878.5,
+          "y": 930.5,
+          "width": 53,
+          "height": 41,
+          "confidence": 0.09680081903934479,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "51f7a403-4a2c-493f-8335-1c7a77a94987"
+        },
+        {
+          "x": 1223.5,
+          "y": 818,
+          "width": 99,
+          "height": 122,
+          "confidence": 0.09452629834413528,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "99e7bbda-baf0-4284-bcc6-15dce4f4980b"
+        },
+        {
+          "x": 868,
+          "y": 1099,
+          "width": 64,
+          "height": 78,
+          "confidence": 0.09408164024353027,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "b08b9a1c-4860-4bbb-b529-8ca673a1f681"
+        },
+        {
+          "x": 870,
+          "y": 938.5,
+          "width": 56,
+          "height": 57,
+          "confidence": 0.09211789071559906,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "728afbf9-ffaa-433c-af44-37975eb22c82"
+        },
+        {
+          "x": 820.5,
+          "y": 907.5,
+          "width": 77,
+          "height": 95,
+          "confidence": 0.09196355193853378,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "53e26a7a-b017-45c7-9b53-ddcc3ee10e4a"
+        },
+        {
+          "x": 1003.5,
+          "y": 425,
+          "width": 341,
+          "height": 148,
+          "confidence": 0.08940738439559937,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "e7cf8cd6-0834-4df0-8fef-7ce4ea00d870"
+        },
+        {
+          "x": 993.5,
+          "y": 473.5,
+          "width": 43,
+          "height": 33,
+          "confidence": 0.08857019990682602,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "9e9dad5f-f123-4ae8-8f33-240b65e8ae2c"
+        },
+        {
+          "x": 878.5,
+          "y": 930.5,
+          "width": 53,
+          "height": 41,
+          "confidence": 0.08757105469703674,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "5e4243eb-f3fb-44c2-8c84-2bfbb29631f7"
+        },
+        {
+          "x": 1000,
+          "y": 894,
+          "width": 272,
+          "height": 72,
+          "confidence": 0.08525335043668747,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "2f2b6731-8bc0-4115-a108-79e2c3082712"
+        },
+        {
+          "x": 854.5,
+          "y": 947,
+          "width": 69,
+          "height": 66,
+          "confidence": 0.08349643647670746,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "22c26865-65e2-449a-8a62-bc1458dd1d2c"
+        }
+      ]
+    },
+    {
+      "input": {
+        "filename": "4.Scotland_front.jpg",
+        "sha256": "334202b493c1e15877f13531919c390fb397dccb137873330d7934073584a8c8",
+        "width": 2048,
+        "height": 1529
+      },
+      "inferenceId": "4ee8ff19-2a39-4d1f-9f83-b8052355eac4",
+      "inferenceSeconds": 0.43651847168803215,
+      "thresholdCounts": {
+        "0.08": {
+          "total": 40,
+          "byClass": {
+            "akne": 6,
+            "gozenek": 3,
+            "kirisiklik": 7,
+            "kizariklik": 19,
+            "pul": 5
+          }
+        },
+        "0.15": {
+          "total": 15,
+          "byClass": {
+            "akne": 2,
+            "kirisiklik": 3,
+            "kizariklik": 9,
+            "pul": 1
+          }
+        },
+        "0.2": {
+          "total": 10,
+          "byClass": {
+            "kirisiklik": 3,
+            "kizariklik": 6,
+            "pul": 1
+          }
+        },
+        "0.3": {
+          "total": 5,
+          "byClass": {
+            "kirisiklik": 3,
+            "kizariklik": 1,
+            "pul": 1
+          }
+        },
+        "0.5": {
+          "total": 2,
+          "byClass": {
+            "kirisiklik": 2
+          }
+        }
+      },
+      "predictions": [
+        {
+          "x": 1073.5,
+          "y": 427.5,
+          "width": 439,
+          "height": 135,
+          "confidence": 0.805834174156189,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "54a8e79b-97ad-4594-926e-c4043aadf3eb"
+        },
+        {
+          "x": 881.5,
+          "y": 715.5,
+          "width": 155,
+          "height": 63,
+          "confidence": 0.6043875217437744,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "09424a54-0263-4aa3-a3a8-359c76a93111"
+        },
+        {
+          "x": 1251,
+          "y": 836,
+          "width": 170,
+          "height": 192,
+          "confidence": 0.3790147006511688,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "53e8bd67-938c-4a2a-b58a-18d309f62265"
+        },
+        {
+          "x": 1276,
+          "y": 859,
+          "width": 116,
+          "height": 152,
+          "confidence": 0.3614443242549896,
+          "class": "pul",
+          "class_id": 4,
+          "detection_id": "ea8c8cb3-2b99-49c1-9389-f4ebc1d2edcf"
+        },
+        {
+          "x": 815.5,
+          "y": 678.5,
+          "width": 57,
+          "height": 63,
+          "confidence": 0.3163354694843292,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "021db169-1688-42c4-b165-169efedac421"
+        },
+        {
+          "x": 1062.5,
+          "y": 817.5,
+          "width": 525,
+          "height": 203,
+          "confidence": 0.2857681214809418,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "c161c7ac-89d3-40f2-9c15-61aad3263262"
+        },
+        {
+          "x": 851,
+          "y": 814,
+          "width": 116,
+          "height": 104,
+          "confidence": 0.2652239203453064,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "b81bd192-cecc-445a-8f74-3f9130c7aa45"
+        },
+        {
+          "x": 882.5,
+          "y": 821.5,
+          "width": 167,
+          "height": 151,
+          "confidence": 0.26030927896499634,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "8aa07b70-c7b1-47e9-9e60-546158a61198"
+        },
+        {
+          "x": 860.5,
+          "y": 858.5,
+          "width": 129,
+          "height": 189,
+          "confidence": 0.2241104245185852,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "39f61cf1-93a3-4057-bd73-df7dea63baa3"
+        },
+        {
+          "x": 836,
+          "y": 820.5,
+          "width": 54,
+          "height": 65,
+          "confidence": 0.21400579810142517,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "ef8ab1ec-e630-4ded-9026-b8ab6c0ce614"
+        },
+        {
+          "x": 874,
+          "y": 934.5,
+          "width": 26,
+          "height": 27,
+          "confidence": 0.19749589264392853,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "7e7aa063-0947-4dff-a77e-22e5ac6e521c"
+        },
+        {
+          "x": 1276,
+          "y": 859,
+          "width": 116,
+          "height": 152,
+          "confidence": 0.19625477492809296,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "52234ed3-f8c4-4308-bd9f-324b29529db3"
+        },
+        {
+          "x": 876.5,
+          "y": 932.5,
+          "width": 53,
+          "height": 53,
+          "confidence": 0.17806817591190338,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "d29b2f83-6369-4c99-a4d0-191418afa292"
+        },
+        {
+          "x": 835,
+          "y": 822.5,
+          "width": 34,
+          "height": 29,
+          "confidence": 0.1591404676437378,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "b002f41a-1fe5-421d-a90e-6f93e5a5d20e"
+        },
+        {
+          "x": 922.5,
+          "y": 820,
+          "width": 145,
+          "height": 160,
+          "confidence": 0.15336784720420837,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "2b6335e8-e695-4351-8a47-b104482a97b2"
+        },
+        {
+          "x": 813,
+          "y": 707.5,
+          "width": 72,
+          "height": 105,
+          "confidence": 0.1495658904314041,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "792c7c03-ea2f-452a-8c04-a4b2e6c43e79"
+        },
+        {
+          "x": 923.5,
+          "y": 792.5,
+          "width": 147,
+          "height": 117,
+          "confidence": 0.1402329057455063,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "35b3cf0b-2727-44b6-97fe-5a1b367d30a9"
+        },
+        {
+          "x": 836,
+          "y": 820.5,
+          "width": 54,
+          "height": 65,
+          "confidence": 0.13751092553138733,
+          "class": "pul",
+          "class_id": 4,
+          "detection_id": "d175b073-9c39-4fcf-9248-4cd2263626d4"
+        },
+        {
+          "x": 869.5,
+          "y": 891.5,
+          "width": 91,
+          "height": 135,
+          "confidence": 0.1184883564710617,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "fda06783-a33f-426a-9e4c-5e18bb88cc5f"
+        },
+        {
+          "x": 1315,
+          "y": 675.5,
+          "width": 58,
+          "height": 51,
+          "confidence": 0.11741672456264496,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "2687b253-6dd4-45b6-93ba-246e9b0954d7"
+        },
+        {
+          "x": 1064.5,
+          "y": 789,
+          "width": 99,
+          "height": 102,
+          "confidence": 0.11490378528833389,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "d3e1137a-45b6-47e2-9fd9-66b75576de2b"
+        },
+        {
+          "x": 890.5,
+          "y": 916,
+          "width": 93,
+          "height": 100,
+          "confidence": 0.11483157426118851,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "87119842-cecf-4412-b006-d1aa0b89c9c7"
+        },
+        {
+          "x": 1277,
+          "y": 695.5,
+          "width": 114,
+          "height": 61,
+          "confidence": 0.11141085624694824,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "7ef7bc68-835d-4a3d-8f4f-9ed2d5b30281"
+        },
+        {
+          "x": 1153,
+          "y": 521.5,
+          "width": 58,
+          "height": 55,
+          "confidence": 0.10827749967575073,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "80a1f5d9-a42f-4c3d-9955-a447b6446a1a"
+        },
+        {
+          "x": 1156,
+          "y": 734,
+          "width": 64,
+          "height": 74,
+          "confidence": 0.10683564841747284,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "447d9aee-7b67-408e-8e1f-24630bf0681f"
+        },
+        {
+          "x": 1162,
+          "y": 750,
+          "width": 66,
+          "height": 86,
+          "confidence": 0.10178785026073456,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "469d71a7-40a3-4f18-9ae8-2fec6fbdaaaf"
+        },
+        {
+          "x": 1141.5,
+          "y": 717,
+          "width": 29,
+          "height": 36,
+          "confidence": 0.10088878870010376,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "781783ec-7d92-4d68-8be0-56e0be04252b"
+        },
+        {
+          "x": 900.5,
+          "y": 904.5,
+          "width": 113,
+          "height": 111,
+          "confidence": 0.09848055988550186,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "4a32d857-ce58-407f-a03a-e5d5bd90c800"
+        },
+        {
+          "x": 1081,
+          "y": 762.5,
+          "width": 184,
+          "height": 147,
+          "confidence": 0.09794881194829941,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "53d366e4-b945-42c5-ba1d-b061dd29bd92"
+        },
+        {
+          "x": 876.5,
+          "y": 932.5,
+          "width": 53,
+          "height": 53,
+          "confidence": 0.0955183133482933,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "a1f22519-b69b-41fe-8532-188cbc92faf2"
+        },
+        {
+          "x": 1295.5,
+          "y": 839,
+          "width": 67,
+          "height": 96,
+          "confidence": 0.09208320081233978,
+          "class": "pul",
+          "class_id": 4,
+          "detection_id": "520c0c22-4543-42db-80ee-2dc36ef8d63b"
+        },
+        {
+          "x": 1153,
+          "y": 521.5,
+          "width": 58,
+          "height": 55,
+          "confidence": 0.09133222699165344,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "0fa9dbd0-92c7-4e05-ab21-4a026d3bfdfa"
+        },
+        {
+          "x": 843,
+          "y": 852.5,
+          "width": 96,
+          "height": 155,
+          "confidence": 0.0879620909690857,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "f31c82d6-523f-4231-844f-cbbab403bd7d"
+        },
+        {
+          "x": 836,
+          "y": 820.5,
+          "width": 54,
+          "height": 65,
+          "confidence": 0.08740247786045074,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "dc839718-2392-43ad-9726-a02c303d9e2b"
+        },
+        {
+          "x": 1153,
+          "y": 521.5,
+          "width": 58,
+          "height": 55,
+          "confidence": 0.08621056377887726,
+          "class": "pul",
+          "class_id": 4,
+          "detection_id": "22ec3c82-369a-4af0-b939-3cce0552f5c7"
+        },
+        {
+          "x": 1028.5,
+          "y": 783,
+          "width": 409,
+          "height": 138,
+          "confidence": 0.0854383185505867,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "27d289a3-eb15-4377-b3e7-f291c9d06603"
+        },
+        {
+          "x": 1249,
+          "y": 817.5,
+          "width": 164,
+          "height": 147,
+          "confidence": 0.08525435626506805,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "3883a92f-532e-4ebf-850c-f164c8e4a6f5"
+        },
+        {
+          "x": 1028.5,
+          "y": 783,
+          "width": 409,
+          "height": 138,
+          "confidence": 0.08386030793190002,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "96e29252-073f-43f5-a19e-46d70f76eb76"
+        },
+        {
+          "x": 1261,
+          "y": 907,
+          "width": 64,
+          "height": 76,
+          "confidence": 0.08274209499359131,
+          "class": "pul",
+          "class_id": 4,
+          "detection_id": "9c9ca462-dd70-47c6-9bb0-c57ea4ab791f"
+        },
+        {
+          "x": 795.5,
+          "y": 706,
+          "width": 69,
+          "height": 116,
+          "confidence": 0.08170250803232193,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "08d21869-5226-440b-addc-04e511145e79"
+        }
+      ]
+    },
+    {
+      "input": {
+        "filename": "5.Turkey_front.jpg",
+        "sha256": "4efd376516e2bcba8cf737824adfb30508f173e04363fc822bab860a38a80326",
+        "width": 2048,
+        "height": 1529
+      },
+      "inferenceId": "eb2d40a9-4135-43cb-bf63-09d6eed35bcb",
+      "inferenceSeconds": 0.44033767841756344,
+      "thresholdCounts": {
+        "0.08": {
+          "total": 29,
+          "byClass": {
+            "gozenek": 5,
+            "kirisiklik": 16,
+            "kizariklik": 8
+          }
+        },
+        "0.15": {
+          "total": 16,
+          "byClass": {
+            "gozenek": 3,
+            "kirisiklik": 10,
+            "kizariklik": 3
+          }
+        },
+        "0.2": {
+          "total": 10,
+          "byClass": {
+            "gozenek": 2,
+            "kirisiklik": 7,
+            "kizariklik": 1
+          }
+        },
+        "0.3": {
+          "total": 8,
+          "byClass": {
+            "gozenek": 2,
+            "kirisiklik": 6
+          }
+        },
+        "0.5": {
+          "total": 5,
+          "byClass": {
+            "gozenek": 1,
+            "kirisiklik": 4
+          }
+        }
+      },
+      "predictions": [
+        {
+          "x": 1033.5,
+          "y": 377.5,
+          "width": 377,
+          "height": 135,
+          "confidence": 0.7962091565132141,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "117194f4-69a7-4c37-851c-8db5909b220c"
+        },
+        {
+          "x": 865,
+          "y": 865,
+          "width": 68,
+          "height": 98,
+          "confidence": 0.674534261226654,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "5281b2d8-f0af-4830-958c-1b513bb24698"
+        },
+        {
+          "x": 794,
+          "y": 616,
+          "width": 68,
+          "height": 78,
+          "confidence": 0.643639326095581,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "c4dad067-7f59-4df1-9f39-d309ce8415dd"
+        },
+        {
+          "x": 1206,
+          "y": 865,
+          "width": 68,
+          "height": 122,
+          "confidence": 0.5680120587348938,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "2b9d56fd-e5a7-4d1e-b09a-5ff450a2dedf"
+        },
+        {
+          "x": 1015.5,
+          "y": 962,
+          "width": 183,
+          "height": 94,
+          "confidence": 0.54538494348526,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "8db4173c-471a-4319-9a88-18ef8b2ae64c"
+        },
+        {
+          "x": 1277.5,
+          "y": 587,
+          "width": 61,
+          "height": 118,
+          "confidence": 0.3776778280735016,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "1099dab1-2169-450b-9fbb-8f7ff13f7b23"
+        },
+        {
+          "x": 1025.5,
+          "y": 534,
+          "width": 81,
+          "height": 60,
+          "confidence": 0.3540644347667694,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "19255cb8-6f03-49e7-89a0-9c0566b40014"
+        },
+        {
+          "x": 863.5,
+          "y": 713,
+          "width": 115,
+          "height": 90,
+          "confidence": 0.3187316954135895,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "5a87a8f2-ffeb-4f6d-a384-b1e886b9fb17"
+        },
+        {
+          "x": 1206,
+          "y": 730,
+          "width": 142,
+          "height": 140,
+          "confidence": 0.2866742014884949,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "f52d14fa-28e4-4012-861f-00abe8bb3f32"
+        },
+        {
+          "x": 890.5,
+          "y": 794.5,
+          "width": 91,
+          "height": 97,
+          "confidence": 0.21400320529937744,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "d034e1be-e41c-4ea6-83a8-c5384ab01b68"
+        },
+        {
+          "x": 1021.5,
+          "y": 508.5,
+          "width": 91,
+          "height": 105,
+          "confidence": 0.18879225850105286,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "c5ebf238-036c-4fe7-8d8c-9ecece6f0b59"
+        },
+        {
+          "x": 1188.5,
+          "y": 921,
+          "width": 57,
+          "height": 70,
+          "confidence": 0.1869174838066101,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "0e34b5e9-4c42-4f16-ba14-a7e3fddbe4de"
+        },
+        {
+          "x": 860,
+          "y": 734,
+          "width": 146,
+          "height": 144,
+          "confidence": 0.17713846266269684,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "4f2f9af8-c151-4dcf-8b44-fe16397b6caa"
+        },
+        {
+          "x": 1198,
+          "y": 831.5,
+          "width": 88,
+          "height": 139,
+          "confidence": 0.16966286301612854,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "c16840e1-7f20-4b11-aedd-237f43013d30"
+        },
+        {
+          "x": 1206,
+          "y": 730,
+          "width": 142,
+          "height": 140,
+          "confidence": 0.16237808763980865,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "74719bd2-e225-487c-848c-bf4c49bf5338"
+        },
+        {
+          "x": 863.5,
+          "y": 713,
+          "width": 115,
+          "height": 90,
+          "confidence": 0.1572813093662262,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "aa5526c5-eb11-46ed-a06b-44ddbfec45f8"
+        },
+        {
+          "x": 1154,
+          "y": 604,
+          "width": 120,
+          "height": 46,
+          "confidence": 0.1498757153749466,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "e2e2d537-ec7e-4e17-b425-aea426c4e58c"
+        },
+        {
+          "x": 1197,
+          "y": 599.5,
+          "width": 194,
+          "height": 65,
+          "confidence": 0.1335028111934662,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "48e933ee-3e7b-4dbb-8850-90ee15de195e"
+        },
+        {
+          "x": 1034,
+          "y": 702.5,
+          "width": 102,
+          "height": 87,
+          "confidence": 0.1320188045501709,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "4cdda53a-11d9-4631-98a5-e71e5cfe8103"
+        },
+        {
+          "x": 1208,
+          "y": 786,
+          "width": 166,
+          "height": 268,
+          "confidence": 0.13134270906448364,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "fd9cbeda-c798-4cfc-bd5e-0f88e4e63f03"
+        },
+        {
+          "x": 1272.5,
+          "y": 559,
+          "width": 59,
+          "height": 82,
+          "confidence": 0.1274099498987198,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "b6028671-c05c-48df-ac24-f3f93d72e417"
+        },
+        {
+          "x": 824,
+          "y": 752.5,
+          "width": 88,
+          "height": 97,
+          "confidence": 0.10840508341789246,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "1d19f585-5213-4805-a511-1f9bb8bd79dc"
+        },
+        {
+          "x": 936,
+          "y": 783.5,
+          "width": 90,
+          "height": 71,
+          "confidence": 0.10577677190303802,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "371a8456-0f86-4983-8555-9addcb94ec2a"
+        },
+        {
+          "x": 1034,
+          "y": 702.5,
+          "width": 102,
+          "height": 87,
+          "confidence": 0.08732502907514572,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "36877bbc-447f-42ac-8fe2-0260ce7dace7"
+        },
+        {
+          "x": 1219.5,
+          "y": 734,
+          "width": 115,
+          "height": 110,
+          "confidence": 0.08623353391885757,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "b62ba52f-c5b9-4344-8c9f-17f053e6eb3d"
+        },
+        {
+          "x": 1175,
+          "y": 800.5,
+          "width": 70,
+          "height": 87,
+          "confidence": 0.08579649031162262,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "d996e842-1eff-4321-89af-5cbcc2248c38"
+        },
+        {
+          "x": 1101.5,
+          "y": 610,
+          "width": 61,
+          "height": 54,
+          "confidence": 0.08273246884346008,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "1cebc980-27f3-4e13-aeb3-c14f25860e1f"
+        },
+        {
+          "x": 809,
+          "y": 747.5,
+          "width": 62,
+          "height": 85,
+          "confidence": 0.08089303970336914,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "617dcc0d-44d9-4936-9f88-acb397f595c4"
+        },
+        {
+          "x": 824,
+          "y": 752.5,
+          "width": 88,
+          "height": 97,
+          "confidence": 0.08079855144023895,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "8e2b132c-e2b6-413a-b72a-6341474c1b76"
+        }
+      ]
+    },
+    {
+      "input": {
+        "filename": "6.usa_front.jpg",
+        "sha256": "70e4b5c2a6ba874b07f824190f72799506b1c3949161ea1033d9fa95b8254bce",
+        "width": 2048,
+        "height": 1529
+      },
+      "inferenceId": "9931f59f-7624-4d10-9f6f-e278668a38e9",
+      "inferenceSeconds": 0.023486070334911346,
+      "thresholdCounts": {
+        "0.08": {
+          "total": 72,
+          "byClass": {
+            "akne": 25,
+            "gozenek": 11,
+            "kirisiklik": 4,
+            "kizariklik": 32
+          }
+        },
+        "0.15": {
+          "total": 25,
+          "byClass": {
+            "akne": 12,
+            "gozenek": 6,
+            "kirisiklik": 2,
+            "kizariklik": 5
+          }
+        },
+        "0.2": {
+          "total": 16,
+          "byClass": {
+            "akne": 7,
+            "gozenek": 3,
+            "kirisiklik": 2,
+            "kizariklik": 4
+          }
+        },
+        "0.3": {
+          "total": 9,
+          "byClass": {
+            "akne": 3,
+            "gozenek": 2,
+            "kirisiklik": 2,
+            "kizariklik": 2
+          }
+        },
+        "0.5": {
+          "total": 3,
+          "byClass": {
+            "gozenek": 1,
+            "kirisiklik": 2
+          }
+        }
+      },
+      "predictions": [
+        {
+          "x": 860.5,
+          "y": 928,
+          "width": 61,
+          "height": 82,
+          "confidence": 0.6285552382469177,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "2e0db4cf-b1af-4d8d-8663-e641129974f9"
+        },
+        {
+          "x": 1187,
+          "y": 900.5,
+          "width": 66,
+          "height": 109,
+          "confidence": 0.5730950832366943,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "0b90eada-dff4-42df-ae2f-5da353afb0eb"
+        },
+        {
+          "x": 872.5,
+          "y": 801,
+          "width": 129,
+          "height": 144,
+          "confidence": 0.5358906388282776,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "b88b1ae7-2a93-46e1-a73f-82ce692736d2"
+        },
+        {
+          "x": 779,
+          "y": 490,
+          "width": 48,
+          "height": 48,
+          "confidence": 0.3754732012748718,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "eae20141-301b-4de3-b07e-a7b46fa513c5"
+        },
+        {
+          "x": 1221.5,
+          "y": 827,
+          "width": 105,
+          "height": 94,
+          "confidence": 0.3293757736682892,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "d5bcbf73-71ed-479a-85fc-a901dde9cc3e"
+        },
+        {
+          "x": 962,
+          "y": 1098,
+          "width": 26,
+          "height": 22,
+          "confidence": 0.3237864375114441,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "5e7d9f10-23d9-4512-aeba-c365a28c617d"
+        },
+        {
+          "x": 1022.5,
+          "y": 762,
+          "width": 105,
+          "height": 96,
+          "confidence": 0.3132982850074768,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "1450b9aa-fd6b-4f8c-b7c1-363edf989518"
+        },
+        {
+          "x": 1108.5,
+          "y": 415,
+          "width": 45,
+          "height": 38,
+          "confidence": 0.3014523983001709,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "46885b90-2534-492a-8bf0-ff04983cc6b4"
+        },
+        {
+          "x": 942.5,
+          "y": 381.5,
+          "width": 41,
+          "height": 39,
+          "confidence": 0.3010907769203186,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "64fa743a-c4ae-4a1e-859f-f4fd13c01c78"
+        },
+        {
+          "x": 1093.5,
+          "y": 403.5,
+          "width": 31,
+          "height": 33,
+          "confidence": 0.27723243832588196,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "7fb77b19-1701-4090-8674-5703e67f1495"
+        },
+        {
+          "x": 808,
+          "y": 817.5,
+          "width": 46,
+          "height": 47,
+          "confidence": 0.2761545777320862,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "4c52dee8-1d24-4be1-99f3-cb9d9dc4a01d"
+        },
+        {
+          "x": 1163,
+          "y": 363.5,
+          "width": 50,
+          "height": 43,
+          "confidence": 0.27516743540763855,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "b7dd05b2-e51e-436c-a1a5-a6af08243a2e"
+        },
+        {
+          "x": 972,
+          "y": 1037.5,
+          "width": 32,
+          "height": 25,
+          "confidence": 0.24825091660022736,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "d40604e6-adec-47d2-ab96-b27e816538a8"
+        },
+        {
+          "x": 968.5,
+          "y": 455.5,
+          "width": 87,
+          "height": 87,
+          "confidence": 0.22602663934230804,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "6a06b733-7bf1-49d0-925b-1b57190e219d"
+        },
+        {
+          "x": 1157.5,
+          "y": 355.5,
+          "width": 33,
+          "height": 29,
+          "confidence": 0.21179883182048798,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "3cb024be-72d0-4202-94b4-1c5df2fb158d"
+        },
+        {
+          "x": 946.5,
+          "y": 768,
+          "width": 261,
+          "height": 110,
+          "confidence": 0.20738665759563446,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "5f00dfe6-d2f0-4557-90a6-40408e137153"
+        },
+        {
+          "x": 775,
+          "y": 496.5,
+          "width": 28,
+          "height": 27,
+          "confidence": 0.19494907557964325,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "a59c83c4-b9c5-4c31-ba06-2cd6acae7775"
+        },
+        {
+          "x": 1084.5,
+          "y": 447,
+          "width": 33,
+          "height": 28,
+          "confidence": 0.18599361181259155,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "bf7ffb85-3e49-49ff-baa6-cae4202c3776"
+        },
+        {
+          "x": 890,
+          "y": 753,
+          "width": 118,
+          "height": 72,
+          "confidence": 0.18459512293338776,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "3fd81a59-1e13-4916-bf46-36bf567a2801"
+        },
+        {
+          "x": 1057,
+          "y": 1053.5,
+          "width": 34,
+          "height": 27,
+          "confidence": 0.1840849220752716,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "30ef9d3f-7ae4-49f7-bbd2-798906d3f9b7"
+        },
+        {
+          "x": 1020.5,
+          "y": 792.5,
+          "width": 429,
+          "height": 163,
+          "confidence": 0.1829841136932373,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "6ef0f1aa-db07-43ae-86fb-5266431bc1db"
+        },
+        {
+          "x": 1191,
+          "y": 786.5,
+          "width": 114,
+          "height": 115,
+          "confidence": 0.16394218802452087,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "30a4e2d8-b61b-4c70-8ac2-ffe902d22b7b"
+        },
+        {
+          "x": 779,
+          "y": 490,
+          "width": 48,
+          "height": 48,
+          "confidence": 0.15939998626708984,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "fdee21f1-048e-4f20-9299-be0d33e2a100"
+        },
+        {
+          "x": 1102,
+          "y": 434,
+          "width": 80,
+          "height": 96,
+          "confidence": 0.15810345113277435,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "e7b19d62-5b18-46e9-bc00-1a1bd43d517c"
+        },
+        {
+          "x": 1087,
+          "y": 499.5,
+          "width": 32,
+          "height": 25,
+          "confidence": 0.15160460770130157,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "415df510-8f44-4c53-bf09-0b4a927e46a3"
+        },
+        {
+          "x": 1166,
+          "y": 377.5,
+          "width": 44,
+          "height": 31,
+          "confidence": 0.14965493977069855,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "e8161743-1bed-445a-a7e2-4803e9290d32"
+        },
+        {
+          "x": 1184.5,
+          "y": 423.5,
+          "width": 31,
+          "height": 19,
+          "confidence": 0.14933401346206665,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "aa1563a9-5fa8-43ec-b5a7-7c6d70f19c3b"
+        },
+        {
+          "x": 1016,
+          "y": 546,
+          "width": 48,
+          "height": 46,
+          "confidence": 0.14312012493610382,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "118a8dd8-1af8-4cd1-b569-9bafb67165ba"
+        },
+        {
+          "x": 1250.5,
+          "y": 807.5,
+          "width": 45,
+          "height": 49,
+          "confidence": 0.14209462702274323,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "f9424d8b-de21-4c06-aebc-322dd7c1502e"
+        },
+        {
+          "x": 1057,
+          "y": 1053.5,
+          "width": 34,
+          "height": 27,
+          "confidence": 0.13329952955245972,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "6357c5ef-e28f-4527-904a-1f6241436a33"
+        },
+        {
+          "x": 994,
+          "y": 324,
+          "width": 34,
+          "height": 26,
+          "confidence": 0.13133329153060913,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "dc122c28-7e3f-4051-92cb-56a0f499e4b6"
+        },
+        {
+          "x": 966,
+          "y": 442.5,
+          "width": 40,
+          "height": 31,
+          "confidence": 0.13085997104644775,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "c91c75cb-e175-4111-bd7f-cf829c0811d9"
+        },
+        {
+          "x": 1203,
+          "y": 810.5,
+          "width": 122,
+          "height": 131,
+          "confidence": 0.1283787041902542,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "8ba9f051-050f-4238-bee2-a8627364b56e"
+        },
+        {
+          "x": 1155,
+          "y": 1000.5,
+          "width": 40,
+          "height": 31,
+          "confidence": 0.12425682693719864,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "f5578985-e58b-4153-af7a-1bf91750b2ad"
+        },
+        {
+          "x": 879,
+          "y": 801,
+          "width": 150,
+          "height": 154,
+          "confidence": 0.12308338284492493,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "84aa8905-b939-4b08-ae35-62513fa4745c"
+        },
+        {
+          "x": 828.5,
+          "y": 867,
+          "width": 93,
+          "height": 160,
+          "confidence": 0.12264267355203629,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "cc16a620-33e6-43c0-bc0d-da83a9a810ed"
+        },
+        {
+          "x": 1087,
+          "y": 499.5,
+          "width": 32,
+          "height": 25,
+          "confidence": 0.1201978251338005,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "f1c1ff73-93b8-4ed9-a58c-cfaf529ff573"
+        },
+        {
+          "x": 1257.5,
+          "y": 817.5,
+          "width": 33,
+          "height": 35,
+          "confidence": 0.11984388530254364,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "0a880855-bd80-4670-a814-ce3870b9e14d"
+        },
+        {
+          "x": 1130,
+          "y": 450.5,
+          "width": 32,
+          "height": 27,
+          "confidence": 0.1195237934589386,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "167968bd-e9ec-4e93-976c-40059599ae61"
+        },
+        {
+          "x": 1165.5,
+          "y": 392.5,
+          "width": 77,
+          "height": 99,
+          "confidence": 0.11023906618356705,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "9878a3ca-a501-43b5-bc09-5d11a0b69986"
+        },
+        {
+          "x": 894.5,
+          "y": 863.5,
+          "width": 65,
+          "height": 61,
+          "confidence": 0.1077461987733841,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "c7ce684e-eecc-4400-af8f-9e6e2740d807"
+        },
+        {
+          "x": 1014,
+          "y": 531,
+          "width": 66,
+          "height": 86,
+          "confidence": 0.10639836639165878,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "2144d25c-d4fb-421e-862a-7b90ac930f15"
+        },
+        {
+          "x": 1237.5,
+          "y": 849.5,
+          "width": 31,
+          "height": 29,
+          "confidence": 0.10615622252225876,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "1c198f8e-4f73-4a3e-83d7-3d45a26ba22c"
+        },
+        {
+          "x": 968.5,
+          "y": 1057.5,
+          "width": 67,
+          "height": 89,
+          "confidence": 0.10563212633132935,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "58998c3b-db48-4262-9655-d196c88657d1"
+        },
+        {
+          "x": 1208.5,
+          "y": 823,
+          "width": 97,
+          "height": 86,
+          "confidence": 0.10522682964801788,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "700313a9-5a03-47b2-a1c3-36ab3b63baee"
+        },
+        {
+          "x": 983.5,
+          "y": 470,
+          "width": 35,
+          "height": 26,
+          "confidence": 0.10315879434347153,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "a4fe4118-48ce-4c8d-a4db-125a733cc60c"
+        },
+        {
+          "x": 1084.5,
+          "y": 447,
+          "width": 33,
+          "height": 28,
+          "confidence": 0.10242132097482681,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "9f284100-e841-4b73-b944-fcc240afff69"
+        },
+        {
+          "x": 1120.5,
+          "y": 415,
+          "width": 141,
+          "height": 124,
+          "confidence": 0.10136779397726059,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "71db57a5-6168-4097-8772-de36eb7886f2"
+        },
+        {
+          "x": 972,
+          "y": 1037.5,
+          "width": 32,
+          "height": 25,
+          "confidence": 0.10083945095539093,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "5fb3000c-5e1b-4687-a925-09655a6ff920"
+        },
+        {
+          "x": 1208.5,
+          "y": 823,
+          "width": 97,
+          "height": 86,
+          "confidence": 0.1003737598657608,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "e583a5f5-be4d-4655-ba6c-fc6af9fc33c3"
+        },
+        {
+          "x": 1196,
+          "y": 919.5,
+          "width": 52,
+          "height": 77,
+          "confidence": 0.09518426656723022,
+          "class": "kirisiklik",
+          "class_id": 2,
+          "detection_id": "6872e740-88cd-4cac-9d67-6b1d5a142615"
+        },
+        {
+          "x": 974.5,
+          "y": 1035,
+          "width": 55,
+          "height": 46,
+          "confidence": 0.09426296502351761,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "f13abc6a-d5b2-400e-aaae-86b34a56d5c9"
+        },
+        {
+          "x": 1237.5,
+          "y": 849.5,
+          "width": 31,
+          "height": 29,
+          "confidence": 0.09359939396381378,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "f8490e96-a319-4171-b81f-176f8cd9a0d7"
+        },
+        {
+          "x": 808,
+          "y": 817.5,
+          "width": 46,
+          "height": 47,
+          "confidence": 0.09337705373764038,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "8203ee31-1488-4d85-8b86-271a4bb4b169"
+        },
+        {
+          "x": 983.5,
+          "y": 470,
+          "width": 35,
+          "height": 26,
+          "confidence": 0.09242177754640579,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "6623e8e6-c906-42dd-93da-14e074fc7882"
+        },
+        {
+          "x": 942.5,
+          "y": 381.5,
+          "width": 41,
+          "height": 39,
+          "confidence": 0.09105512499809265,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "830c08ae-4dd9-4da1-a1ca-e0a6af1d26cf"
+        },
+        {
+          "x": 1013,
+          "y": 558.5,
+          "width": 34,
+          "height": 29,
+          "confidence": 0.08994317799806595,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "6e3b13ca-d303-4748-ae37-475a1d5a54c0"
+        },
+        {
+          "x": 1104.5,
+          "y": 423,
+          "width": 63,
+          "height": 68,
+          "confidence": 0.08918896317481995,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "5c6e1193-a0c2-42ac-8e4e-991c6770bc45"
+        },
+        {
+          "x": 900.5,
+          "y": 446.5,
+          "width": 201,
+          "height": 131,
+          "confidence": 0.08861254900693893,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "cf081470-bb63-439a-9b56-8d604a69ca7f"
+        },
+        {
+          "x": 1203,
+          "y": 810.5,
+          "width": 122,
+          "height": 131,
+          "confidence": 0.0881965160369873,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "25e87d53-39c2-4f9a-8c96-7848f4d1dd96"
+        },
+        {
+          "x": 1257.5,
+          "y": 817.5,
+          "width": 33,
+          "height": 35,
+          "confidence": 0.0876808762550354,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "dcd622ba-42a8-4851-bff4-4d1f554a0610"
+        },
+        {
+          "x": 1163,
+          "y": 363.5,
+          "width": 50,
+          "height": 43,
+          "confidence": 0.0861438736319542,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "7e68c036-d55c-4abe-abb4-f6eaa3dc2a03"
+        },
+        {
+          "x": 966,
+          "y": 442.5,
+          "width": 40,
+          "height": 31,
+          "confidence": 0.08607330173254013,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "64486bce-ef26-4da0-8d12-5af4d2a90069"
+        },
+        {
+          "x": 994,
+          "y": 324,
+          "width": 34,
+          "height": 26,
+          "confidence": 0.08512644469738007,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "42768b0d-f47b-4e7a-97e6-ffdc845fb36f"
+        },
+        {
+          "x": 962,
+          "y": 1098,
+          "width": 26,
+          "height": 22,
+          "confidence": 0.08507721871137619,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "bf30c9d6-fd78-41fc-8505-ddbe017be537"
+        },
+        {
+          "x": 1068,
+          "y": 1045,
+          "width": 94,
+          "height": 54,
+          "confidence": 0.08471599221229553,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "bb1fa395-2c65-4348-a5c5-f77f3e562204"
+        },
+        {
+          "x": 1155,
+          "y": 1000.5,
+          "width": 40,
+          "height": 31,
+          "confidence": 0.08331532031297684,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "f05d0c0c-14a2-40a3-aa8a-8d0a93d8bbfd"
+        },
+        {
+          "x": 950,
+          "y": 481,
+          "width": 30,
+          "height": 32,
+          "confidence": 0.08328443020582199,
+          "class": "akne",
+          "class_id": 0,
+          "detection_id": "c4da649b-1c30-45d2-ab5a-1daa7d588139"
+        },
+        {
+          "x": 1170,
+          "y": 767.5,
+          "width": 148,
+          "height": 177,
+          "confidence": 0.0828004702925682,
+          "class": "gozenek",
+          "class_id": 1,
+          "detection_id": "ddde4128-36e5-43cc-8a02-ec775ccf0079"
+        },
+        {
+          "x": 1215.5,
+          "y": 849,
+          "width": 129,
+          "height": 158,
+          "confidence": 0.08232582360506058,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "f254e263-7099-4c56-9757-27972c503d89"
+        },
+        {
+          "x": 1027.5,
+          "y": 610.5,
+          "width": 29,
+          "height": 23,
+          "confidence": 0.08112994581460953,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "faf63247-53fb-42b1-a3cd-c6fb99852cc9"
+        },
+        {
+          "x": 775,
+          "y": 496.5,
+          "width": 28,
+          "height": 27,
+          "confidence": 0.08026372641324997,
+          "class": "kizariklik",
+          "class_id": 3,
+          "detection_id": "de020b3f-d83b-4013-b31e-60381f3f08d6"
+        }
+      ]
+    }
+  ]
+}
+
