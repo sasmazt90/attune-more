@@ -164,7 +164,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-23",
-      "lastCheckedAt": "2026-10-23T15:45:38Z",
+      "lastCheckedAt": "2026-10-23T16:52:59Z",
       "modelCount": 89,
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
@@ -765,7 +765,7 @@
       }
     },
     "concurrentWork": {
-      "observedAt": "2026-10-23T15:45:38Z",
+      "observedAt": "2026-10-23T16:52:59Z",
       "projectsTotal": 15,
       "doNotDuplicate": [
         {
@@ -781,7 +781,7 @@
             "test": 309
           },
           "modelGroup": "Yr3MKkD8aDu0NIzG9M5F-c2bcbeca2ab5719224fe-rfdetrNasGroup",
-          "modelCount": 89
+          "modelCount": 90
         },
         {
           "project": "tolgar-sasmaz/attune-comedones-boxes-grouped-r1",
@@ -810,7 +810,7 @@
           }
         }
       ],
-      "note": "These projects belong to concurrent comedone/pore work. This run observed that clean comedone NAS finished; it did not start, stop, repeat, evaluate or select any child. Recommended flags were not interpreted."
+      "note": "All three concurrent comedone/pore runs are finished. This run refreshed statuses only and did not repeat training, evaluate/select NAS children or interpret recommendation flags."
     }
   },
   "sourceAccess": {
@@ -1334,7 +1334,7 @@
     {
       "id": "13",
       "target": "unified-results-and-trends",
-      "status": "retained_source_replay_integrated_real_browser_camera_pending",
+      "status": "retained_replay_and_storage_gate_integrated_real_browser_camera_pending",
       "work": "Integrate accepted outputs incrementally into maps/cards/history; explicit unavailable reasons; method/version compatibility for trends; end-to-end camera/API/result/history tests and final acceptance report.",
       "evidence": [
         "docs/skin/regional-evidence-contract-20261023.md",
@@ -1356,12 +1356,15 @@
         "docs/skin/evidence/regional-categorical-history-20261023-v1.json",
         "docs/skin/regional-categorical-history-20261023.md",
         "docs/skin/evidence/regional-retained-photo-replay-20261023-v1.json",
-        "docs/skin/regional-retained-photo-replay-20261023.md"
+        "docs/skin/regional-retained-photo-replay-20261023.md",
+        "apps/vehicle-app/src/utils/skinPhotoHistory.ts",
+        "docs/skin/evidence/regional-photo-storage-gate-20261023-v1.json",
+        "docs/skin/regional-photo-storage-gate-20261023.md"
       ],
       "blockers": [
         "The merged main branch already has the nine-criterion result path, separate skin type, six regional views, overview, local maps/contours, persistence gate and result UI. Roadmap integration means replacing or extending individual methods only after acceptance, not creating a result flow from zero.",
-        "Regional summaries now pass strict parsing, persistence validation, source-bound SVG presentation, method-compatible categorical history and retained-photo replay validation. The replay gate rejects mismatched capture identity, pose, source dimensions, crop and mesh coordinates. Real browser screenshot replay could not run in this environment because local Chromium is absent and the cloud browser blocked inline/local pages by protocol policy; no bypass was attempted. Full app typecheck, real-browser/API/history E2E and real-camera acceptance remain pending.",
-        "No oil/dry/redness method is activated by synthetic contract, history or replay tests; the accepted-method registry remains authoritative and currently empty."
+        "Regional summaries now pass strict parsing, source-bound presentation, method-compatible categorical history, retained-photo replay validation and the same replay gate before IndexedDB write and after read. Real browser/IndexedDB screenshot replay cannot run in this environment because Python Playwright and a Chromium executable are absent and the cloud browser rejects inline/local pages; no bypass was attempted. Full app typecheck, browser/API/history E2E and real-camera acceptance remain pending.",
+        "No oil/dry/redness method is activated by synthetic contract, history, replay or storage tests; the accepted-method registry remains authoritative and currently empty."
       ]
     }
   ],
@@ -1385,11 +1388,11 @@
     "The private grouped under-eye project tolgar-sasmaz/attune-skin-under-eye-grouped-research exists but is empty. Reuse upload task sLFwX7CYBVcnnD6iAW5o only if the prepared signed transfer is still valid and permitted; otherwise create one replacement task, not another project. Upload only archive SHA256 41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8, then verify 283/78/38 and 869 polygons before generating/training.",
     "Use the saved single-call Merve v12 response for threshold analysis; do not repeat inference on the same image. Build a consented labelled multi-camera benchmark before class-specific threshold selection or product promotion. Verify checkpoint/commercial rights. pul is not regional dryness truth.",
     "Source-pair acquisition is complete for FACEv3/v4,Rednessv2,Drynessv1; do not repeat downloads/audits unchanged. Use the pinned private120pairbundle and persistedfullaudit, with review-manifest provenance. FACEv3 is preferred over augmentedv4. 700Dryness/45Redness images exactly match existing sources; never count these as newly acquired coverage. All source labels and rights acceptance remain pending; no automatic merge or retraining.",
-    "The source-bound regional SVG layer, categorical history and retained-photo replay gate are implemented; do not rebuild them. Run the committed app in an environment with its frontend dependencies and Chromium, then replay a consented retained FRONT photo through overview and every single-region view at narrow/wide viewport sizes, capture screenshots and exercise record selection plus incompatible-method exclusion. Keep source normal labels behind the empty accepted regional-method registry.",
+    "The source-bound regional SVG layer, categorical history, retained-photo replay and IndexedDB storage gate are implemented; do not rebuild them. Run the committed app and tests in an environment with frontend dependencies, Python Playwright and Chromium, then replay a consented retained FRONT photo through overview/every region at narrow and wide viewport sizes, verify record selection and incompatible-method exclusion, and capture screenshots. Keep source normal labels behind the empty accepted regional-method registry.",
     "Regional training 3485f8c67f957a1b850d is finished; candidate 2c07ef has complete 63 validation / 30 test mask evaluation and lossless inference receipts. Do not duplicate training, inference or refit thresholds on the exposed source test. Reassemble the two pinned evidence bundles from index files before replay.",
     "Roboflow reports 75 group records but only 74 distinct model IDs; duplicate e79545 has conflicting candidate/baseline metadata. Preserve raw records and compare by immutable model package. Evaluated 2c07ef resolves to e1688c2c8447af39e51ce60dd8c7f1d0; no recommendation/hardware winner claim.",
     "Improve oil source coverage and anatomical face scope on validation before a targeted data or model change. Redness union overlap is promising but requires independent camera calibration and reviewed negative/normal support. Do not clip test masks post hoc or turn missing masks into normal skin. Keep accepted-regional-method registry empty.",
-    "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, and retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5. The combined contract now has 78 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
+    "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, and storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb. The combined contract now has 82 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
     {
@@ -1523,6 +1526,20 @@
         "b4c2794c09f3e0979ef48b4550890a12f2eb34c9",
         "a6f99c2a55032886a263e94d95a0351ea1de106f",
         "4a9f6771e80383fd2f9c5ffbb9429f2f8ac0889b"
+      ]
+    },
+    {
+      "date": "2026-10-23",
+      "observedAt": "2026-10-23T16:52:59Z",
+      "action": "Refreshed the roadmap branch, all 15 Roboflow projects and relevant trainings. Clean comedone NAS c2bcbeca2ab5719224fe remains finished and now lists 90 children in modelGroup Yr3MKkD8aDu0NIzG9M5F-c2bcbeca2ab5719224fe-rfdetrNasGroup; this run did not duplicate training, evaluate/select children or interpret recommendation flags. Continued task 13 by enforcing the existing retainedRegionalSkinReplay contract at the photo persistence boundary. A FRONT photo containing general.regionalSkinMap is rejected before IndexedDB serialization if capture identity, source dimensions, crop or meshes do not match; after hash verification and typed-array revival, the same validation runs on load and invalid rows follow the existing delete/fail-closed path. Four real server summaries, three source aspect ratios and corrupted identity/crop/mesh cases pass 82 executable checks. The committed browser storage test was extended, but Python Playwright and Chromium are absent here, so browser/camera acceptance is not claimed. No raw photo, method activation, model acceptance, training, inference, deployment or merge.",
+      "report": "docs/skin/regional-photo-storage-gate-20261023.md",
+      "commits": [
+        "a1738e2e3842377f4ddb42c25b3e07362f6795eb",
+        "f24a5eadc36767f035fc217189c278d6183198ae",
+        "c00638d5d055d40d9e2211126b49758a16c13f74",
+        "dce9cd4176001df537acb7ae9920c0664da2ca73",
+        "1059e3222452fb22a858acfa21441600105231e3",
+        "57d278d6fe3f86c767cd135fd117302a1342dbf2"
       ]
     }
   ]
