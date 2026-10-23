@@ -1361,7 +1361,9 @@
         "services/core-api/contour_appearance.py",
         "apps/vehicle-app/src/utils/appearanceMeasurements.ts",
         "tests/unit/test_dry_sag_visible_support.py",
-        "tests/unit/test_appearance_references.py"
+        "tests/unit/test_appearance_references.py",
+        "services/core-api/skin_product_contract.py",
+        "tests/unit/test_skin_product_contract.py"
       ],
       "blockers": [
         "No accepted independent-camera or expert-reviewed localized sagging truth exists; the current contour/fold index is not elasticity, tissue volume or clinical severity.",
@@ -1626,7 +1628,7 @@
     {
       "date": "2026-10-23",
       "observedAt": "2026-10-23T19:31:30Z",
-      "action": "Refreshed the branch and all 16 private Roboflow projects. Acne/pigmentation NAS 5b632a5c12b76fcfe703 and regional NAS segmentation 3485f8c67f957a1b850d remain finished; the regional project has 337 images, the under-eye pilot still has no version, and the grouped under-eye research project remains empty. No training or inference was duplicated. Continued Task 12 in the existing product flow: bound regional, overview and staging lower-face contour/fold outputs to an explicit appearance-only contract; clinicalSeverity and elasticity are false and comparison is same-person/compatible-capture only. The frontend now rejects sag measurements that omit or contradict this contract and displays a non-elasticity/non-clinical explanation. Five changed Python source/test files compiled; overview aggregation and frontend semantic-gate behavior checks passed. TypeScript compiler and real-browser camera acceptance were unavailable, so Task 12 remains incomplete and no learned segmentation, model acceptance, deployment or merge is claimed.",
+      "action": "Refreshed the branch and all 16 private Roboflow projects. Acne/pigmentation NAS 5b632a5c12b76fcfe703 and regional NAS segmentation 3485f8c67f957a1b850d remain finished; the regional project has 337 images, the under-eye pilot still has no version, and the grouped under-eye research project remains empty. No training or inference was duplicated. Continued Task 12 in the existing product flow: bound regional, overview and staging lower-face contour/fold outputs to an explicit appearance-only contract; clinicalSeverity and elasticity are false and comparison is same-person/compatible-capture only. The frontend now rejects sag measurements that omit or contradict this contract and displays a non-elasticity/non-clinical explanation. Changed Python source/test files compiled; five shared product-contract checks, unavailable-sag semantics, overview aggregation and frontend semantic-gate behavior checks passed. TypeScript compiler and real-browser camera acceptance were unavailable, so Task 12 remains incomplete and no learned segmentation, model acceptance, deployment or merge is claimed.",
       "report": "docs/skin/sag-appearance-semantics-20261023.md",
       "commits": [
         "4126bfc5bb61c56b7a7f983f46b5f7c9838aa188",
@@ -1636,7 +1638,11 @@
         "14a3173dbd3307b730baf8e49bdf3d1a7cfc3048",
         "2503d82a2d8d7be89dc7cae2368a9c004e3aacbb",
         "eca54d70eac361ed7d7af6c416e6a17966f6164a",
-        "ebca9d9a15fbf5e6d80dea58acee8fc80b8e8c1b"
+        "ebca9d9a15fbf5e6d80dea58acee8fc80b8e8c1b",
+        "77f182c8f68b0d958e39327fc16d88ab5b3adf82",
+        "3372872eb1cf24a14f250986fe7a0df2d8235eed",
+        "b1548b411e6914bde95a3c1ef45968d0d53b0cc0",
+        "f56017e9af2a2ff27a5ca224cd677a0df5a7aa65"
       ]
     }
   ]
