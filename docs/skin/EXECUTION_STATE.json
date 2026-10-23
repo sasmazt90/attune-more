@@ -303,7 +303,34 @@
         "invalidGeometry": 0
       },
       "versions": [],
-      "lastCheckedAt": "2026-10-23 07:27:15 UTC"
+      "lastCheckedAt": "2026-10-23T09:46:48.027Z",
+      "sourceSplits": {
+        "train": 279,
+        "valid": 81,
+        "test": 39
+      },
+      "groupedSource": {
+        "methodVersion": "under-eye-source-photo-split-v1",
+        "sourceArchiveSHA256": "3c5f800e2460c6388a3a2755050484b82d619052bedbc6eef153641d8d647b6d",
+        "derivedArchiveSHA256": "41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8",
+        "images": 399,
+        "annotations": 869,
+        "splits": {
+          "train": 283,
+          "valid": 78,
+          "test": 38
+        },
+        "reviewedSourcePhotoPairs": 8,
+        "crossSplitSourcePhotoPairs": 3,
+        "recordsMovedToTrain": 4,
+        "explicitPairCrossSplitAfterBuild": 0,
+        "geometryIssuesAfterBuild": 0,
+        "personIndependent": false,
+        "expertReviewed": false,
+        "cameraAccepted": false,
+        "remoteVersionCreated": false,
+        "evidence": "docs/skin/evidence/under-eye-group-split-20261023-v1.json"
+      }
     },
     "regionalMap": {
       "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
@@ -1010,25 +1037,29 @@
     {
       "id": "09",
       "target": "under-eye-dark-circles",
-      "status": "source_geometry_audited",
+      "status": "source_grouped_export_prepared",
       "work": "Use existing DC EB 2 private project with darkcircle polygons; audit actual masks, group split, train and evaluate segmentation and camera behaviour.",
       "evidence": [
-        "docs/skin/evidence/archive-audit-20261023-v2.json"
+        "docs/skin/evidence/archive-audit-20261023-v2.json",
+        "docs/skin/evidence/under-eye-group-split-20261023-v1.json",
+        "docs/skin/under-eye-group-split-20261023.md"
       ],
       "blockers": [
-        "Source polygon geometry passes; semantic review, source grouping and independent camera evaluation remain open. No model/version generated."
+        "The SHA-pinned derived export preserves all 399 image bytes and 869 polygons and keeps all eight reviewed left/right source-photo pairs within one split. Person independence, expert semantic review, private import/version/training and independent camera acceptance remain open; no model/version generated."
       ]
     },
     {
       "id": "10",
       "target": "under-eye-bags",
-      "status": "source_geometry_audited",
+      "status": "source_grouped_export_prepared",
       "work": "Use DC EB 2 eyebag polygons; keep bags and darkcircle separate; evaluate and integrate appearance segmentation.",
       "evidence": [
-        "docs/skin/evidence/archive-audit-20261023-v2.json"
+        "docs/skin/evidence/archive-audit-20261023-v2.json",
+        "docs/skin/evidence/under-eye-group-split-20261023-v1.json",
+        "docs/skin/under-eye-group-split-20261023.md"
       ],
       "blockers": [
-        "Source polygon geometry passes; semantic review, source grouping and independent camera evaluation remain open. No model/version generated."
+        "The SHA-pinned derived export preserves all 399 image bytes and 869 polygons and keeps all eight reviewed left/right source-photo pairs within one split. Person independence, expert semantic review, private import/version/training and independent camera acceptance remain open; no model/version generated."
       ]
     },
     {
@@ -1097,14 +1128,14 @@
     "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety."
   },
   "nextActions": [
+    "Import the SHA-pinned grouped under-eye export into a private research project/version without duplicating or mutating the original 399-image project. Use the derived 283/78/38 split, verify geometry after import, and launch at most one research NAS segmentation run; never train on the original leaking 279/81/39 split.",
     "Use the saved single-call Merve v12 response for threshold analysis; do not repeat inference on the same image. Build a consented labelled multi-camera benchmark before class-specific threshold selection or product promotion. Verify checkpoint/commercial rights. pul is not regional dryness truth.",
     "Source-pair acquisition is complete for FACEv3/v4,Rednessv2,Drynessv1; do not repeat downloads/audits unchanged. Use the pinned private120pairbundle and persistedfullaudit, with review-manifest provenance. FACEv3 is preferred over augmentedv4. 700Dryness/45Redness images exactly match existing sources; never count these as newly acquired coverage. All source labels and rights acceptance remain pending; no automatic merge or retraining.",
     "Continue unblocked source-bound SVG overlay and method-compatible history wiring under the accepted-method gate; under-eye source grouping/review; selected crow's-feet data; sagging and real-camera acceptance. Source normal labels must not bypass the empty accepted regional-method registry.",
     "Regional training 3485f8c67f957a1b850d is finished; candidate 2c07ef has complete 63 validation / 30 test mask evaluation and lossless inference receipts. Do not duplicate training, inference or refit thresholds on the exposed source test. Reassemble the two pinned evidence bundles from index files before replay.",
     "Roboflow reports 75 group records but only 74 distinct model IDs; duplicate e79545 has conflicting candidate/baseline metadata. Preserve raw records and compare by immutable model package. Evaluated 2c07ef resolves to e1688c2c8447af39e51ce60dd8c7f1d0; no recommendation/hardware winner claim.",
     "Improve oil source coverage and anatomical face scope on validation before a targeted data or model change. Redness union overlap is promising but requires independent camera calibration and reviewed negative/normal support. Do not clip test masks post hoc or turn missing masks into normal skin. Keep accepted-regional-method registry empty.",
-    "Preserve concurrent browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54 and its 48 executable checks; new work extends head e6d5ace85837fbc1c8b8c361dfb9ac315a28ce1d. Continue source-bound SVG overlay and history wiring with accepted evidence only; no full-app or real-camera acceptance yet.",
-    "Continue under-eye cleaned source grouping/quarantine and research segmentation without mutating the original 399 uploaded images; selected wrinkle source audit, sagging evaluation and independent camera/consent benchmark remain open. Acne diagnosis/tiling and Merve source audit are complete research steps; do not repeat them or fabricate dry masks."
+    "Preserve concurrent browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54 and its 48 executable checks; new work extends head e6d5ace85837fbc1c8b8c361dfb9ac315a28ce1d. Continue source-bound SVG overlay and history wiring with accepted evidence only; no full-app or real-camera acceptance yet."
   ],
   "executionLog": [
     {
@@ -1165,6 +1196,12 @@
       "observedAt": "2026-10-23T08:47:50.113Z",
       "action": "Verified current merged main already produces nine appearance results and audited the active manifest: acne, skin-type and bags learned heads are not accepted; only the whole-face redness learned head is accepted. Ran one authorized hosted probe of public ciltanalizi-rfa8m/12 on the supplied front image at 0.08; resolved immutable package 7ee34fce76456d9ff4cfe6e7049aad1e and inference 05afb3cd-9bd9-4b64-aac3-5d1fb1014fa3. Reused that same response for 0.08/0.15/0.20/0.30/0.50 subsets (27/17/12/6/3 detections), preserved an exact cross-class conflict and observed no pul. Added a reproducible threshold evaluator and three focused tests; 13 relevant tests pass. No training, image commit, model activation, deployment or merge.",
       "report": "docs/skin/merve-v12-camera-probe-20261023.md"
+    },
+    {
+      "date": "2026-10-23",
+      "observedAt": "2026-10-23T09:46:48.027Z",
+      "action": "Refreshed GitHub and all five private Roboflow projects; under-eye remains 399 images, 487 eyebag/382 darkcircle polygons, original 279/81/39 splits and zero versions. Visually reviewed all eight explicit left/right source-photo pairs plus dHash and short-numeric collision candidates: only explicit pairs were reliable, while automatic alternatives paired visibly unrelated people/photos. Built and fully re-audited a research-only grouped COCO export: all 399 image bytes and 869 polygon geometries preserved, three cross-split source-photo pairs moved wholly to train, resulting 283/78/38 with zero cross-split explicit pairs and zero geometry issues. Fourteen focused tests pass. Saved code, test, metadata receipt and report; no facial image committed, no project mutation, training, deployment, merge or acceptance claim.",
+      "report": "docs/skin/under-eye-group-split-20261023.md"
     }
   ]
 }
