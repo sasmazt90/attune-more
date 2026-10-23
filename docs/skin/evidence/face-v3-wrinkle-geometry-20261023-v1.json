@@ -1,0 +1,1880 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "wrinkle-source-geometry-audit-v1",
+  "sourceArchive": "face-v3.zip",
+  "sourceArchiveSHA256": "7c06f1c48d049c1c419d909d488c6642465f0f57958a42eaa62569527ee3094c",
+  "class": "wrinkles",
+  "annotations": 138,
+  "imagesWithClass": 106,
+  "annotationsBySplit": {
+    "train": 99,
+    "valid": 28,
+    "test": 11
+  },
+  "imagesBySplit": {
+    "train": 78,
+    "valid": 20,
+    "test": 8
+  },
+  "geometry": {
+    "polygon": 96,
+    "rectangle-polygon": 42
+  },
+  "nonRectanglePolygonAreaRatio": {
+    "min": 0.0011412900195312402,
+    "p25": 0.006507841439208964,
+    "median": 0.03389166577392576,
+    "p75": 0.13688866431762695,
+    "p90": 0.4149424489733886,
+    "max": 0.8006877720532227
+  },
+  "nonRectanglePolygonBBoxAreaRatio": {
+    "min": 0.002096427392578125,
+    "p25": 0.015679163330078124,
+    "median": 0.057398434589843755,
+    "p75": 0.22541472956542968,
+    "p90": 0.50190625,
+    "max": 0.9597265625
+  },
+  "nonRectanglePolygonPointCount": {
+    "min": 4,
+    "p25": 5,
+    "median": 6,
+    "p75": 7,
+    "p90": 9,
+    "max": 12
+  },
+  "descriptiveBuckets": {
+    "maskAreaAtMost2Percent": 37,
+    "maskAreaAtLeast8Percent": 35,
+    "maskAreaAtLeast40Percent": 10,
+    "bboxAreaAtLeast25Percent": 23
+  },
+  "normalizedCentroidBins": {
+    "x0-y0": 3,
+    "x0-y1": 3,
+    "x0-y2": 2,
+    "x1-y0": 10,
+    "x1-y1": 52,
+    "x1-y2": 4,
+    "x2-y0": 5,
+    "x2-y1": 13,
+    "x2-y2": 4
+  },
+  "filenameContext": {
+    "annotationsOnWrinkleNamedImages": 86,
+    "annotationsOnOtherNamedImages": 52
+  },
+  "rows": [
+    {
+      "split": "train",
+      "fileName": "dry_skin_33_jpg.rf.d0eb2b1cb6629791feb16f1b1f33ea26.jpg",
+      "annotationId": 2,
+      "geometry": "polygon",
+      "polygonPoints": 7,
+      "maskAreaRatio": 0.049216153928222664,
+      "bboxAreaRatio": 0.10885794947021483,
+      "centroid": [
+        0.7897742187500001,
+        0.26224453125
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "dry_skin_33_jpg.rf.d0eb2b1cb6629791feb16f1b1f33ea26.jpg",
+      "annotationId": 3,
+      "geometry": "polygon",
+      "polygonPoints": 7,
+      "maskAreaRatio": 0.03057555051391601,
+      "bboxAreaRatio": 0.08011730742919923,
+      "centroid": [
+        0.23903046875,
+        0.27265390625
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_53_jpg.rf.d25745769f6e5883686327b4f24c93ee.jpg",
+      "annotationId": 5,
+      "geometry": "polygon",
+      "polygonPoints": 9,
+      "maskAreaRatio": 0.007663651738281256,
+      "bboxAreaRatio": 0.018118474375,
+      "centroid": [
+        0.6525875,
+        0.5086265625
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_53_jpg.rf.d25745769f6e5883686327b4f24c93ee.jpg",
+      "annotationId": 6,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.0022598236865234256,
+      "bboxAreaRatio": 0.00618414189453125,
+      "centroid": [
+        0.8501914062499999,
+        0.48023125
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_53_jpg.rf.d25745769f6e5883686327b4f24c93ee.jpg",
+      "annotationId": 7,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.0017591104541015668,
+      "bboxAreaRatio": 0.008192302890625,
+      "centroid": [
+        0.57185625,
+        0.441690625
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_14_jpg.rf.c8f5a1ef44b1f7f5bba0f94987af04e9.jpg",
+      "annotationId": 10,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.004485986794433572,
+      "bboxAreaRatio": 0.00871385787109375,
+      "centroid": [
+        0.474465625,
+        0.5424796875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_65_jpg.rf.c71d0eb68861fdb545536316ba0960f1.jpg",
+      "annotationId": 18,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.50078125,
+        0.50078125
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_43_jpg.rf.d2a172f4914181248cc14fc30acf7c5f.jpg",
+      "annotationId": 29,
+      "geometry": "polygon",
+      "polygonPoints": 9,
+      "maskAreaRatio": 0.6340229835852051,
+      "bboxAreaRatio": 0.7672063307080079,
+      "centroid": [
+        0.45558828125,
+        0.5081140625
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_65_jpg.rf.c4f1e2c7c268b36858e2a58ad15f8be7.jpg",
+      "annotationId": 37,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.00529221619995119,
+      "bboxAreaRatio": 0.014352946015625,
+      "centroid": [
+        0.3588328125,
+        0.4266
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "dry_skin_42_jpg.rf.cf14e79eddd451e417f5e0f67805ea1a.jpg",
+      "annotationId": 47,
+      "geometry": "polygon",
+      "polygonPoints": 7,
+      "maskAreaRatio": 0.05108926081787109,
+      "bboxAreaRatio": 0.10485372858154296,
+      "centroid": [
+        0.21693828124999998,
+        0.12083359375
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "dry_skin_42_jpg.rf.cf14e79eddd451e417f5e0f67805ea1a.jpg",
+      "annotationId": 48,
+      "geometry": "polygon",
+      "polygonPoints": 8,
+      "maskAreaRatio": 0.04420938552734375,
+      "bboxAreaRatio": 0.14026059093749998,
+      "centroid": [
+        0.40568515625,
+        0.368925
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_49_jpg.rf.d7943cd2cf2e7677d751e5ff369295a0.jpg",
+      "annotationId": 52,
+      "geometry": "polygon",
+      "polygonPoints": 9,
+      "maskAreaRatio": 0.4149424489733886,
+      "bboxAreaRatio": 0.50190625,
+      "centroid": [
+        0.549390625,
+        0.5
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_57_jpg.rf.e0b144e3ac72a369ee08477f25ce5355.jpg",
+      "annotationId": 55,
+      "geometry": "polygon",
+      "polygonPoints": 9,
+      "maskAreaRatio": 0.2747505670202637,
+      "bboxAreaRatio": 0.34238690300537106,
+      "centroid": [
+        0.46919296875,
+        0.48149453124999997
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_9_jpg.rf.dba3bc7eb13c0f747bb0c6912880b396.jpg",
+      "annotationId": 72,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 1.0,
+      "bboxAreaRatio": 1.0,
+      "centroid": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_16_jpg.rf.d146f300303ebbeed0f438ba7a9aab3e.jpg",
+      "annotationId": 73,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_66_jpg.rf.e67509c74228e481412a202e479e6591.jpg",
+      "annotationId": 101,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.7492023440393066,
+      "bboxAreaRatio": 0.9163052147314452,
+      "centroid": [
+        0.4824703125,
+        0.47790390625
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "dry_skin_63_jpg.rf.e7c64be8c259bc0140147d2b54910050.jpg",
+      "annotationId": 109,
+      "geometry": "polygon",
+      "polygonPoints": 12,
+      "maskAreaRatio": 0.09562989507568359,
+      "bboxAreaRatio": 0.2287314118066406,
+      "centroid": [
+        0.5019890625000001,
+        0.3886765625
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_40_jpg.rf.ed3dd33760576f71bfdfaa8887c6cc65.jpg",
+      "annotationId": 115,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.032131532625732415,
+      "bboxAreaRatio": 0.046731838750000004,
+      "centroid": [
+        0.361425,
+        0.3375765625
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_1_jpg.rf.edb8f7aeab19097dec019a4e76beb902.jpg",
+      "annotationId": 119,
+      "geometry": "polygon",
+      "polygonPoints": 5,
+      "maskAreaRatio": 0.1693635336682129,
+      "bboxAreaRatio": 0.4605453933007812,
+      "centroid": [
+        0.37178203125,
+        0.55860625
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_1_jpg.rf.edb8f7aeab19097dec019a4e76beb902.jpg",
+      "annotationId": 120,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.1310586695751953,
+      "bboxAreaRatio": 0.4653724436669922,
+      "centroid": [
+        0.51635859375,
+        0.5414328125
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "dry_skin_57_jpg.rf.ed16a8c379a9bfdbaab4c82c88c39374.jpg",
+      "annotationId": 122,
+      "geometry": "polygon",
+      "polygonPoints": 7,
+      "maskAreaRatio": 0.08613714683349608,
+      "bboxAreaRatio": 0.13910559287109375,
+      "centroid": [
+        0.474890625,
+        0.21132343750000002
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_59_jpg.rf.eef277d9803792b605cef99d1e5fae9f.jpg",
+      "annotationId": 149,
+      "geometry": "polygon",
+      "polygonPoints": 11,
+      "maskAreaRatio": 0.8006877720532227,
+      "bboxAreaRatio": 0.947060560048828,
+      "centroid": [
+        0.4970484375,
+        0.4935296875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_36_jpg.rf.f8e46ca28c8fe432355ec2f34ac4bb52.jpg",
+      "annotationId": 150,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_41_jpg.rf.f78761e7433e2d40d13eea1122cb28cf.jpg",
+      "annotationId": 156,
+      "geometry": "polygon",
+      "polygonPoints": 9,
+      "maskAreaRatio": 0.009405830762939438,
+      "bboxAreaRatio": 0.02074794788085937,
+      "centroid": [
+        0.45987421875,
+        0.576615625
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_31_jpg.rf.f83095408c91434510313b12cc7216a3.jpg",
+      "annotationId": 161,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.010784475124511755,
+      "bboxAreaRatio": 0.022284737900390622,
+      "centroid": [
+        0.5015304687500001,
+        0.611496875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_61_jpg.rf.eb99f6eebee669f1be3530b9818d8fa5.jpg",
+      "annotationId": 167,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.620810341081543,
+      "bboxAreaRatio": 0.6801632512988282,
+      "centroid": [
+        0.3642859375,
+        0.5039546875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_31_jpg.rf.fcf8f314c05a6b5d39a04b4117c8c284.jpg",
+      "annotationId": 168,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_23_jpg.rf.ff4290def25182e3125d228df1932cc8.jpg",
+      "annotationId": 171,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_45_jpg.rf.ff804e2555cd04293e43a64726af78a4.jpg",
+      "annotationId": 173,
+      "geometry": "polygon",
+      "polygonPoints": 8,
+      "maskAreaRatio": 0.011613458712158185,
+      "bboxAreaRatio": 0.04022835153808594,
+      "centroid": [
+        0.6088242187499999,
+        0.5959078124999999
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_39_jpg.rf.fd5e980ae51c804748202624f7bb0ee2.jpg",
+      "annotationId": 175,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.0016554196496581853,
+      "bboxAreaRatio": 0.004396202941894531,
+      "centroid": [
+        0.51171015625,
+        0.37970703125
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_2_jpg.rf.f87b1562a8678636955786afd50a7d71.jpg",
+      "annotationId": 176,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "dry_skin_52_jpg.rf.08a0ec7efd94cbb8f71a276b498dfd0a.jpg",
+      "annotationId": 179,
+      "geometry": "polygon",
+      "polygonPoints": 7,
+      "maskAreaRatio": 0.035436694498290996,
+      "bboxAreaRatio": 0.057398434589843755,
+      "centroid": [
+        0.8246648437499999,
+        0.46988125
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "dry_skin_52_jpg.rf.08a0ec7efd94cbb8f71a276b498dfd0a.jpg",
+      "annotationId": 180,
+      "geometry": "polygon",
+      "polygonPoints": 5,
+      "maskAreaRatio": 0.030341981258544884,
+      "bboxAreaRatio": 0.04245001224609375,
+      "centroid": [
+        0.46795625,
+        0.43027265625
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_21_jpg.rf.0d69b1e2f00c49f25928604bd6273e27.jpg",
+      "annotationId": 193,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_32_jpg.rf.0a71921a327f414bad622ce32abb06c3.jpg",
+      "annotationId": 204,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "dry_skin_60_jpg.rf.11e5c0aa266a1feaaa73e83d661a9333.jpg",
+      "annotationId": 213,
+      "geometry": "polygon",
+      "polygonPoints": 5,
+      "maskAreaRatio": 0.03273704674438474,
+      "bboxAreaRatio": 0.0471937640625,
+      "centroid": [
+        0.613,
+        0.25701874999999996
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_20_jpg.rf.0acabe9e6141d8c23afe3d0f9c7f4273.jpg",
+      "annotationId": 217,
+      "geometry": "polygon",
+      "polygonPoints": 5,
+      "maskAreaRatio": 0.0018468520458984018,
+      "bboxAreaRatio": 0.0033646336083984372,
+      "centroid": [
+        0.56978046875,
+        0.43230781250000005
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_11_jpg.rf.01a179ab0a4fc041d87600c97984b3db.jpg",
+      "annotationId": 219,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_63_jpg.rf.13ddb91bb544377d28bc2f92f1c91028.jpg",
+      "annotationId": 228,
+      "geometry": "polygon",
+      "polygonPoints": 8,
+      "maskAreaRatio": 0.6954974931518554,
+      "bboxAreaRatio": 0.8851800939697266,
+      "centroid": [
+        0.4881984375,
+        0.45768359375
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_54_jpg.rf.14259662ba1c79b21a1a6762d032e938.jpg",
+      "annotationId": 231,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.004595141678466792,
+      "bboxAreaRatio": 0.015533771748046876,
+      "centroid": [
+        0.44192109375,
+        0.48516562499999993
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_28_jpg.rf.26290a9c2e7a7eec18b16d7a747753d9.jpg",
+      "annotationId": 241,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_44_jpg.rf.1ac49cefacf867f24de8f537d8ed8b35.jpg",
+      "annotationId": 245,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.11967759631591797,
+      "bboxAreaRatio": 0.13914010183105469,
+      "centroid": [
+        0.2116328125,
+        0.22354609375
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_44_jpg.rf.1ac49cefacf867f24de8f537d8ed8b35.jpg",
+      "annotationId": 246,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.13688866431762695,
+      "bboxAreaRatio": 0.15009147616210938,
+      "centroid": [
+        0.7924632812500001,
+        0.191259375
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_44_jpg.rf.1ac49cefacf867f24de8f537d8ed8b35.jpg",
+      "annotationId": 247,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.030899577209472652,
+      "bboxAreaRatio": 0.04857437203124999,
+      "centroid": [
+        0.1643625,
+        0.5341609375
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_44_jpg.rf.1ac49cefacf867f24de8f537d8ed8b35.jpg",
+      "annotationId": 248,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.0331437402636718,
+      "bboxAreaRatio": 0.057307878068847656,
+      "centroid": [
+        0.88538046875,
+        0.54696171875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_48_jpg.rf.15ab3add8df88edee151c4bbd1ac5305.jpg",
+      "annotationId": 250,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.030362796964111344,
+      "bboxAreaRatio": 0.03620401275390625,
+      "centroid": [
+        0.595534375,
+        0.1413171875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_48_jpg.rf.15ab3add8df88edee151c4bbd1ac5305.jpg",
+      "annotationId": 251,
+      "geometry": "polygon",
+      "polygonPoints": 7,
+      "maskAreaRatio": 0.13274757226562503,
+      "bboxAreaRatio": 0.1638998791259766,
+      "centroid": [
+        0.60306796875,
+        0.4491171875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_35_jpg.rf.137bff9a11059de4bb2076365e045e5c.jpg",
+      "annotationId": 253,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_37_jpg.rf.1b945d57ebffe126bacd1961f2bcd973.jpg",
+      "annotationId": 254,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "oily_skin_50_jpg.rf.2a84d3307dce7c2f005d345dc29069ce.jpg",
+      "annotationId": 261,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.04037153019897459,
+      "bboxAreaRatio": 0.09377595560302736,
+      "centroid": [
+        0.8733976562500001,
+        0.23971484375
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "acne_skin_63_jpg.rf.2695340a4f02973b3e68a870a9a08811.jpg",
+      "annotationId": 263,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.8585009765625,
+      "bboxAreaRatio": 0.8585009765625,
+      "centroid": [
+        0.5015625,
+        0.44453125
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_41_jpg.rf.359b64d23e3d0243db5aafc4001b9a57.jpg",
+      "annotationId": 270,
+      "geometry": "polygon",
+      "polygonPoints": 8,
+      "maskAreaRatio": 0.6955150721704101,
+      "bboxAreaRatio": 0.8934359374999999,
+      "centroid": [
+        0.54671796875,
+        0.5
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_54_jpg.rf.2bdbfdf75521de5159ec7c639f7a9ec8.jpg",
+      "annotationId": 273,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.4199151285644531,
+      "bboxAreaRatio": 0.4966997666113281,
+      "centroid": [
+        0.3866703125,
+        0.3211390625
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_69_jpg.rf.2a149e5a486c9e13dcfdaaddc9b8e5b8.jpg",
+      "annotationId": 275,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_47_jpg.rf.26be8c2cf3aa8dc592f23900d191ea53.jpg",
+      "annotationId": 284,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.11062527622924803,
+      "bboxAreaRatio": 0.11739438222656251,
+      "centroid": [
+        0.5663750000000001,
+        0.27996171875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_47_jpg.rf.26be8c2cf3aa8dc592f23900d191ea53.jpg",
+      "annotationId": 285,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.0770070567370606,
+      "bboxAreaRatio": 0.09871852581787109,
+      "centroid": [
+        0.86041640625,
+        0.19646484375
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_47_jpg.rf.26be8c2cf3aa8dc592f23900d191ea53.jpg",
+      "annotationId": 286,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.5967336056054687,
+      "bboxAreaRatio": 0.600378125,
+      "centroid": [
+        0.5,
+        0.6908140625
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_71_jpg.rf.305f87cc979845aaee26a16fe7f3e828.jpg",
+      "annotationId": 288,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_7_jpg.rf.422a21ef29244bf2bc39bf6a8bd40163.jpg",
+      "annotationId": 319,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "dry_skin_38_jpg.rf.43d77a76a182521f64b357ba3caac018.jpg",
+      "annotationId": 325,
+      "geometry": "polygon",
+      "polygonPoints": 7,
+      "maskAreaRatio": 0.03687140024902341,
+      "bboxAreaRatio": 0.04314336290039062,
+      "centroid": [
+        0.8152859375,
+        0.2927609375
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_48_jpg.rf.560a6388a46e0dd62974322ec6157e7e.jpg",
+      "annotationId": 335,
+      "geometry": "polygon",
+      "polygonPoints": 9,
+      "maskAreaRatio": 0.012709748756103494,
+      "bboxAreaRatio": 0.04515136158691406,
+      "centroid": [
+        0.6489203124999999,
+        0.5917320312500001
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_2_jpg.rf.4f47f6391a2ab624276d9ef352a1bad5.jpg",
+      "annotationId": 353,
+      "geometry": "polygon",
+      "polygonPoints": 7,
+      "maskAreaRatio": 0.005412439416503929,
+      "bboxAreaRatio": 0.01281626349609375,
+      "centroid": [
+        0.58644375,
+        0.5109851562500001
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_2_jpg.rf.4f47f6391a2ab624276d9ef352a1bad5.jpg",
+      "annotationId": 354,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.0031808802526855475,
+      "bboxAreaRatio": 0.007423963203124999,
+      "centroid": [
+        0.7968640625,
+        0.5062875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_34_jpg.rf.3c2a11448c78edb52748550bd557610c.jpg",
+      "annotationId": 368,
+      "geometry": "polygon",
+      "polygonPoints": 5,
+      "maskAreaRatio": 0.006507841439208964,
+      "bboxAreaRatio": 0.009151916396484376,
+      "centroid": [
+        0.5817484375,
+        0.40731406249999996
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_34_jpg.rf.3c2a11448c78edb52748550bd557610c.jpg",
+      "annotationId": 369,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.0030640271362304718,
+      "bboxAreaRatio": 0.006594798889160158,
+      "centroid": [
+        0.7291554687499999,
+        0.53076171875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_34_jpg.rf.3c2a11448c78edb52748550bd557610c.jpg",
+      "annotationId": 370,
+      "geometry": "polygon",
+      "polygonPoints": 8,
+      "maskAreaRatio": 0.0024442029968261723,
+      "bboxAreaRatio": 0.00771047361328125,
+      "centroid": [
+        0.6609203124999999,
+        0.272940625
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_25_jpg.rf.5a4bf38ec60f6b5a77678be62d68f509.jpg",
+      "annotationId": 372,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.001404471259765625,
+      "bboxAreaRatio": 0.002604849670410156,
+      "centroid": [
+        0.50676328125,
+        0.51720703125
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_25_jpg.rf.5a4bf38ec60f6b5a77678be62d68f509.jpg",
+      "annotationId": 373,
+      "geometry": "polygon",
+      "polygonPoints": 5,
+      "maskAreaRatio": 0.0011412900195312402,
+      "bboxAreaRatio": 0.002096427392578125,
+      "centroid": [
+        0.64554296875,
+        0.512771875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "dry_skin_37_jpg.rf.5cda935af5d63a4c1fae2374723ceed4.jpg",
+      "annotationId": 376,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.013051701923828141,
+      "bboxAreaRatio": 0.021325790625,
+      "centroid": [
+        0.69709375,
+        0.5154125
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_59_jpg.rf.62eae2bd81cff5971fdddb63636fd37f.jpg",
+      "annotationId": 382,
+      "geometry": "polygon",
+      "polygonPoints": 5,
+      "maskAreaRatio": 0.005051238006591783,
+      "bboxAreaRatio": 0.015095416601562502,
+      "centroid": [
+        0.35414453125,
+        0.48285
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_53_jpg.rf.5d621d20fda2753f9d83ba598e0f1ebf.jpg",
+      "annotationId": 384,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.3341319490429687,
+      "bboxAreaRatio": 0.42033783328857416,
+      "centroid": [
+        0.5551210937500001,
+        0.42224453124999994
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_51_jpg.rf.5c700a92c926b67eb76732c47f52d128.jpg",
+      "annotationId": 394,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.005889410604248049,
+      "bboxAreaRatio": 0.015636133842773438,
+      "centroid": [
+        0.5387796875,
+        0.6010695312500001
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_51_jpg.rf.5c700a92c926b67eb76732c47f52d128.jpg",
+      "annotationId": 395,
+      "geometry": "polygon",
+      "polygonPoints": 7,
+      "maskAreaRatio": 0.0031133519726562753,
+      "bboxAreaRatio": 0.004868565502929688,
+      "centroid": [
+        0.29166171875,
+        0.6321015625
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_50_jpg.rf.628d20a2b8957864d7ff11ccd948e9e6.jpg",
+      "annotationId": 415,
+      "geometry": "polygon",
+      "polygonPoints": 8,
+      "maskAreaRatio": 0.36040483973510745,
+      "bboxAreaRatio": 0.49779763264160154,
+      "centroid": [
+        0.57803515625,
+        0.48582656249999995
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_5_jpg.rf.69ad2a4cfdcb12a000380e9a7cc46a06.jpg",
+      "annotationId": 417,
+      "geometry": "polygon",
+      "polygonPoints": 7,
+      "maskAreaRatio": 0.0028407747094726867,
+      "bboxAreaRatio": 0.006397694375,
+      "centroid": [
+        0.4565125,
+        0.501840625
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_42_jpg.rf.62e1b67a5c5c96a44ecb35afbb4d2fb8.jpg",
+      "annotationId": 446,
+      "geometry": "polygon",
+      "polygonPoints": 8,
+      "maskAreaRatio": 0.29657803000122074,
+      "bboxAreaRatio": 0.352681460925293,
+      "centroid": [
+        0.57908984375,
+        0.41379453125000004
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_25_jpg.rf.77f9e5f65d0b0cd0ce5e11eb8979ba7d.jpg",
+      "annotationId": 456,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.50078125,
+        0.50078125
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_67_jpg.rf.7d9e9a41b25210b5b260552d9e37755f.jpg",
+      "annotationId": 458,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_60_jpg.rf.8837fd787563973c9aaae553c0bed37b.jpg",
+      "annotationId": 475,
+      "geometry": "polygon",
+      "polygonPoints": 9,
+      "maskAreaRatio": 0.2159497164575195,
+      "bboxAreaRatio": 0.2850791166259765,
+      "centroid": [
+        0.4749296875,
+        0.60491171875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_68_jpg.rf.895be33c3da1a109dc9ab4685b44881c.jpg",
+      "annotationId": 478,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_8_jpg.rf.6ed153e2eb0b000a1ca58ad7f22e6c71.jpg",
+      "annotationId": 480,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.002837122299804715,
+      "bboxAreaRatio": 0.008387706445312499,
+      "centroid": [
+        0.5718593750000001,
+        0.40419687499999996
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_8_jpg.rf.6ed153e2eb0b000a1ca58ad7f22e6c71.jpg",
+      "annotationId": 481,
+      "geometry": "polygon",
+      "polygonPoints": 5,
+      "maskAreaRatio": 0.0018538087097167998,
+      "bboxAreaRatio": 0.0035817895898437504,
+      "centroid": [
+        0.4416578125,
+        0.395334375
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_4_jpg.rf.8110d183236584aac152313ce66be75c.jpg",
+      "annotationId": 485,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_58_jpg.rf.77fe20952f6b689cb81372da8d73f739.jpg",
+      "annotationId": 506,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.03389166577392576,
+      "bboxAreaRatio": 0.0712874081616211,
+      "centroid": [
+        0.78929140625,
+        0.65010234375
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_58_jpg.rf.77fe20952f6b689cb81372da8d73f739.jpg",
+      "annotationId": 507,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.3314618999719238,
+      "bboxAreaRatio": 0.37832316372070307,
+      "centroid": [
+        0.50169765625,
+        0.192828125
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_58_jpg.rf.77fe20952f6b689cb81372da8d73f739.jpg",
+      "annotationId": 508,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.0366509195666504,
+      "bboxAreaRatio": 0.0640371026953125,
+      "centroid": [
+        0.24735000000000001,
+        0.68861953125
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_18_jpg.rf.8e11322bb42df3a15433741c505c0e41.jpg",
+      "annotationId": 509,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "dry_skin_19_jpg.rf.9b5868209d69e3e5abea87b645ed7c5c.jpg",
+      "annotationId": 512,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.09708487426757814,
+      "bboxAreaRatio": 0.09708487426757811,
+      "centroid": [
+        0.5512421875,
+        0.14027343750000001
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_29_jpg.rf.a27b8d6e6c1dfba61c5ba637d33b1283.jpg",
+      "annotationId": 532,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_13_jpg.rf.9fdd2b86a696cbdc29ed5a6475fa966b.jpg",
+      "annotationId": 545,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "acne_skin_153_jpg.rf.a52d3813988290d496ec061db8856b01.jpg",
+      "annotationId": 547,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.033225471171875,
+      "bboxAreaRatio": 0.04254653798095703,
+      "centroid": [
+        0.36298515625,
+        0.62766953125
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_62_jpg.rf.ad534b0f6f7cf3433068a44fb5056bd8.jpg",
+      "annotationId": 567,
+      "geometry": "polygon",
+      "polygonPoints": 8,
+      "maskAreaRatio": 0.7955470495642091,
+      "bboxAreaRatio": 0.9597265625,
+      "centroid": [
+        0.5001757812500001,
+        0.5
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_52_jpg.rf.b0793b1451549d8808cda61ddc985d08.jpg",
+      "annotationId": 574,
+      "geometry": "polygon",
+      "polygonPoints": 7,
+      "maskAreaRatio": 0.008995081564941448,
+      "bboxAreaRatio": 0.022521698791503907,
+      "centroid": [
+        0.6106835937499999,
+        0.63626484375
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "normal_skin_52_jpg.rf.b0793b1451549d8808cda61ddc985d08.jpg",
+      "annotationId": 575,
+      "geometry": "polygon",
+      "polygonPoints": 5,
+      "maskAreaRatio": 0.002047835324706995,
+      "bboxAreaRatio": 0.005445522805175781,
+      "centroid": [
+        0.88299921875,
+        0.67220234375
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_30_jpg.rf.af520505c503f37989e780b84b3e374e.jpg",
+      "annotationId": 595,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_72_jpg.rf.b331a0b7b9a387c16b22324e32a29dfd.jpg",
+      "annotationId": 608,
+      "geometry": "polygon",
+      "polygonPoints": 8,
+      "maskAreaRatio": 0.3406267127319337,
+      "bboxAreaRatio": 0.4556434846508789,
+      "centroid": [
+        0.48946328124999994,
+        0.46375078125
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_19_jpg.rf.bb36e3e3aaf1b4eec2e710e28f731766.jpg",
+      "annotationId": 610,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "wrinkle_skin_27_jpg.rf.bcaac3e59370f6a1f48979aa87fdc9a8.jpg",
+      "annotationId": 611,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "train",
+      "fileName": "dry_skin_51_jpg.rf.b839a55beb7cf645f30a804696f452db.jpg",
+      "annotationId": 614,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.02985943474731448,
+      "bboxAreaRatio": 0.055139537060546875,
+      "centroid": [
+        0.45518359375,
+        0.771240625
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_15_jpg.rf.16eb5302d3a18dcab9023c65c18679f3.jpg",
+      "annotationId": 23,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_5_jpg.rf.34097517b9eb8b0303860c28bd0c4aa6.jpg",
+      "annotationId": 26,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_8_jpg.rf.4130c25d5ac6fd0173f3c997950d6fd1.jpg",
+      "annotationId": 50,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_46_jpg.rf.471401b689721ffa06066acb97a91321.jpg",
+      "annotationId": 51,
+      "geometry": "polygon",
+      "polygonPoints": 5,
+      "maskAreaRatio": 0.12143081557739258,
+      "bboxAreaRatio": 0.15740592379394533,
+      "centroid": [
+        0.5623851562500001,
+        0.11997031250000001
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_46_jpg.rf.471401b689721ffa06066acb97a91321.jpg",
+      "annotationId": 52,
+      "geometry": "polygon",
+      "polygonPoints": 8,
+      "maskAreaRatio": 0.089502235168457,
+      "bboxAreaRatio": 0.13839389299804686,
+      "centroid": [
+        0.3041203125,
+        0.43662343749999993
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_46_jpg.rf.471401b689721ffa06066acb97a91321.jpg",
+      "annotationId": 53,
+      "geometry": "polygon",
+      "polygonPoints": 8,
+      "maskAreaRatio": 0.23239257891113277,
+      "bboxAreaRatio": 0.29191716500000003,
+      "centroid": [
+        0.64364765625,
+        0.46995000000000003
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_24_jpg.rf.6651a491063504625edfa9d5b0ea73e3.jpg",
+      "annotationId": 54,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "normal_skin_49_jpg.rf.7b7501281f13b49c3b3f5009b2c24a24.jpg",
+      "annotationId": 63,
+      "geometry": "polygon",
+      "polygonPoints": 5,
+      "maskAreaRatio": 0.0036880751452636673,
+      "bboxAreaRatio": 0.009431525803222656,
+      "centroid": [
+        0.68101484375,
+        0.59666484375
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_3_jpg.rf.84c5adcee65b6b3856c48430818bb5da.jpg",
+      "annotationId": 68,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_56_jpg.rf.a1fb1469fea0338b8e20acb1577115a3.jpg",
+      "annotationId": 69,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.19889890570800783,
+      "bboxAreaRatio": 0.22258397541503905,
+      "centroid": [
+        0.6790546875000001,
+        0.34594296875
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_56_jpg.rf.a1fb1469fea0338b8e20acb1577115a3.jpg",
+      "annotationId": 70,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.030538864527587906,
+      "bboxAreaRatio": 0.03907342888671875,
+      "centroid": [
+        0.468728125,
+        0.8375984375
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_56_jpg.rf.a1fb1469fea0338b8e20acb1577115a3.jpg",
+      "annotationId": 71,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.027773495694580142,
+      "bboxAreaRatio": 0.036256255356445305,
+      "centroid": [
+        0.9041476562499999,
+        0.8330203125000001
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_6_jpg.rf.a052e21d490de6ee5c22ca70da5c4835.jpg",
+      "annotationId": 72,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "dry_skin_64_jpg.rf.8c1a0ee6fe2bc08d2422d150ad83a3e3.jpg",
+      "annotationId": 76,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.01656639039794925,
+      "bboxAreaRatio": 0.03343094659423828,
+      "centroid": [
+        0.25935546875000004,
+        0.85175859375
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "dry_skin_64_jpg.rf.8c1a0ee6fe2bc08d2422d150ad83a3e3.jpg",
+      "annotationId": 77,
+      "geometry": "polygon",
+      "polygonPoints": 5,
+      "maskAreaRatio": 0.009722931267089834,
+      "bboxAreaRatio": 0.015679163330078124,
+      "centroid": [
+        0.8371718749999999,
+        0.91213671875
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_52_jpg.rf.7d8f364b2d81eae518a242994ca8b9e7.jpg",
+      "annotationId": 83,
+      "geometry": "polygon",
+      "polygonPoints": 5,
+      "maskAreaRatio": 0.1188265513671875,
+      "bboxAreaRatio": 0.1524744225439453,
+      "centroid": [
+        0.59263046875,
+        0.3804859375
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_52_jpg.rf.7d8f364b2d81eae518a242994ca8b9e7.jpg",
+      "annotationId": 84,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.07215356478881833,
+      "bboxAreaRatio": 0.0861350882006836,
+      "centroid": [
+        0.58432265625,
+        0.73267109375
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_51_jpg.rf.b1868a58bd379df3fca3d8038786d7a4.jpg",
+      "annotationId": 85,
+      "geometry": "polygon",
+      "polygonPoints": 8,
+      "maskAreaRatio": 0.3701811482373047,
+      "bboxAreaRatio": 0.5208710682128906,
+      "centroid": [
+        0.72413203125,
+        0.488953125
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "normal_skin_58_jpg.rf.8e553352eb2a6c509e653550468e1f95.jpg",
+      "annotationId": 90,
+      "geometry": "polygon",
+      "polygonPoints": 7,
+      "maskAreaRatio": 0.006342869694824227,
+      "bboxAreaRatio": 0.019536616821289064,
+      "centroid": [
+        0.46403515625,
+        0.5484765625
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_38_jpg.rf.b6245aaebc292ca1cb50f48373133cff.jpg",
+      "annotationId": 91,
+      "geometry": "polygon",
+      "polygonPoints": 9,
+      "maskAreaRatio": 0.16625244655029303,
+      "bboxAreaRatio": 0.22541472956542968,
+      "centroid": [
+        0.4343203125,
+        0.49672734374999994
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_26_jpg.rf.c09e294742f5e0955f34b6bc35f4d5b0.jpg",
+      "annotationId": 105,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.50078125,
+        0.50078125
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_55_jpg.rf.d2f1043ec4ded02918b33bfde2b599f0.jpg",
+      "annotationId": 108,
+      "geometry": "polygon",
+      "polygonPoints": 8,
+      "maskAreaRatio": 0.22760282213867186,
+      "bboxAreaRatio": 0.279886466796875,
+      "centroid": [
+        0.49887499999999996,
+        0.42726953125
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_45_jpg.rf.3d8a432c70b34a3398ce86a70b454bcf.jpg",
+      "annotationId": 111,
+      "geometry": "polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.10163338373657226,
+      "bboxAreaRatio": 0.13336016920898439,
+      "centroid": [
+        0.6355929687499999,
+        0.09954062500000001
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_45_jpg.rf.3d8a432c70b34a3398ce86a70b454bcf.jpg",
+      "annotationId": 112,
+      "geometry": "polygon",
+      "polygonPoints": 7,
+      "maskAreaRatio": 0.07818735657470702,
+      "bboxAreaRatio": 0.12732630727783203,
+      "centroid": [
+        0.42107734375000005,
+        0.37371796875
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_45_jpg.rf.3d8a432c70b34a3398ce86a70b454bcf.jpg",
+      "annotationId": 113,
+      "geometry": "polygon",
+      "polygonPoints": 5,
+      "maskAreaRatio": 0.06126488236328123,
+      "bboxAreaRatio": 0.11502738978759766,
+      "centroid": [
+        0.8397585937500001,
+        0.34752109375
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_22_jpg.rf.d2e69fcde45bdb60e00e1d5e1341e91c.jpg",
+      "annotationId": 119,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_10_jpg.rf.eb1649fb370f0f99c9df78c783579f68.jpg",
+      "annotationId": 121,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "valid",
+      "fileName": "wrinkle_skin_17_jpg.rf.f9b4e0a913e28ddf97a8754a010d74c5.jpg",
+      "annotationId": 133,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "test",
+      "fileName": "dry_skin_45_jpg.rf.458d1f24bb6ad9e618463e47ed8dec42.jpg",
+      "annotationId": 2,
+      "geometry": "polygon",
+      "polygonPoints": 7,
+      "maskAreaRatio": 0.01881721266479497,
+      "bboxAreaRatio": 0.03836119157226563,
+      "centroid": [
+        0.52131953125,
+        0.641728125
+      ]
+    },
+    {
+      "split": "test",
+      "fileName": "dry_skin_45_jpg.rf.458d1f24bb6ad9e618463e47ed8dec42.jpg",
+      "annotationId": 3,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.005859651002197275,
+      "bboxAreaRatio": 0.015112664853515622,
+      "centroid": [
+        0.8145617187499999,
+        0.723996875
+      ]
+    },
+    {
+      "split": "test",
+      "fileName": "dry_skin_45_jpg.rf.458d1f24bb6ad9e618463e47ed8dec42.jpg",
+      "annotationId": 4,
+      "geometry": "polygon",
+      "polygonPoints": 7,
+      "maskAreaRatio": 0.013155647653808585,
+      "bboxAreaRatio": 0.0362002250390625,
+      "centroid": [
+        0.48953749999999996,
+        0.42109140624999997
+      ]
+    },
+    {
+      "split": "test",
+      "fileName": "dry_skin_45_jpg.rf.458d1f24bb6ad9e618463e47ed8dec42.jpg",
+      "annotationId": 5,
+      "geometry": "polygon",
+      "polygonPoints": 5,
+      "maskAreaRatio": 0.007474436115722689,
+      "bboxAreaRatio": 0.013830668237304687,
+      "centroid": [
+        0.89132421875,
+        0.5294515625
+      ]
+    },
+    {
+      "split": "test",
+      "fileName": "wrinkle_skin_70_jpg.rf.3a2f85e9b2c91c325d8329c75b83f1b9.jpg",
+      "annotationId": 11,
+      "geometry": "polygon",
+      "polygonPoints": 7,
+      "maskAreaRatio": 0.051926712814941406,
+      "bboxAreaRatio": 0.0653390587890625,
+      "centroid": [
+        0.44580156249999997,
+        0.32615625000000004
+      ]
+    },
+    {
+      "split": "test",
+      "fileName": "wrinkle_skin_34_jpg.rf.0ac51572a49bd80e0dad0efa6b67c6ec.jpg",
+      "annotationId": 18,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "test",
+      "fileName": "normal_skin_50_jpg.rf.73e563089594d4e79ef0a74773d50f23.jpg",
+      "annotationId": 24,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.0046910050903319345,
+      "bboxAreaRatio": 0.01665361931396484,
+      "centroid": [
+        0.63383515625,
+        0.63470234375
+      ]
+    },
+    {
+      "split": "test",
+      "fileName": "wrinkle_skin_33_jpg.rf.6f2f076282f16f879426731cc405a1f1.jpg",
+      "annotationId": 25,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    },
+    {
+      "split": "test",
+      "fileName": "wrinkle_skin_39_jpg.rf.4792a350551c6e7a621a5e3da2eba4a4.jpg",
+      "annotationId": 26,
+      "geometry": "polygon",
+      "polygonPoints": 6,
+      "maskAreaRatio": 0.25975426503784177,
+      "bboxAreaRatio": 0.3385849972387696,
+      "centroid": [
+        0.70278984375,
+        0.40440546875
+      ]
+    },
+    {
+      "split": "test",
+      "fileName": "wrinkle_skin_64_jpg.rf.a45fd5252e778cb4227243d503ef46b8.jpg",
+      "annotationId": 67,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.50078125
+      ]
+    },
+    {
+      "split": "test",
+      "fileName": "wrinkle_skin_20_jpg.rf.de3821d7d45f0abefe0fb8bfc89f1f76.jpg",
+      "annotationId": 97,
+      "geometry": "rectangle-polygon",
+      "polygonPoints": 4,
+      "maskAreaRatio": 0.99687744140625,
+      "bboxAreaRatio": 0.99687744140625,
+      "centroid": [
+        0.49921875,
+        0.49921875
+      ]
+    }
+  ],
+  "acceptance": {
+    "geometryAudited": true,
+    "crowsFeetDefinitionSupported": false,
+    "specializedCrowsFeetTrainingAuthorized": false,
+    "genericWrinkleTrainingAuthorized": false,
+    "expertSemanticReview": false,
+    "cameraAccepted": false,
+    "productAccepted": false
+  },
+  "limitations": [
+    "Image-normalized mask location is not facial anatomy without landmarks.",
+    "A valid polygon can still be a broad skin region rather than wrinkle/crease truth.",
+    "Axis-aligned rectangle polygons are box supervision, not exact wrinkle masks.",
+    "The source class does not distinguish crow's feet from forehead, under-eye, cheek or mouth lines.",
+    "No expression, pose, person-independence or native Attune camera acceptance is established."
+  ]
+}
