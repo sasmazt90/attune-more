@@ -46,8 +46,11 @@ export type RegionalObservationHistoryPoint = {
 };
 export type RegionalObservationHistory = {
   region: RegionalMapRegion; criterion: RegionalObservationCriterion;
-  methodVersion: string; normalizationVersion: string; modelHash: string | null; validationEvidence: string;
-  points: RegionalObservationHistoryPoint[]; excludedIncompatible: number;
+  status: 'comparable' | 'single-record' | 'method-changed' | 'not-evaluated' | 'record-unavailable';
+  unavailableReason: string | null;
+  methodVersion: string | null; normalizationVersion: string | null; modelHash: string | null;
+  validationEvidence: string | null;
+  points: RegionalObservationHistoryPoint[]; excludedIncompatible: number; excludedUnknown: number;
 };
 
 const object = (v: unknown): v is Record<string, any> => !!v && typeof v === 'object' && !Array.isArray(v);
@@ -202,29 +205,58 @@ export function regionalObservationHistory(records: unknown[], region: string, c
   const regionId = region as RegionalMapRegion, criterionId = criterion as RegionalObservationCriterion;
   const candidates: Array<{recordId: string; time: number; state: 'positive' | 'negative'; identity: string;
     methodVersion: string; normalizationVersion: string; modelHash: string | null; validationEvidence: string}> = [];
+  const unknowns: Array<{recordId: string; time: number; reason: string}> = [];
+  let requestedRecordSeen = false, requestedRecordInvalid = false;
   for (const raw of records) {
     if (!object(raw) || !nonempty(raw.id)) continue;
-    const value = raw.general?.regionalSkinMap;
-    if (!object(value) || !sourceValid(value.source) || !validBoundRegionalSkinMap(value, value.source)) continue;
-    const observation = value.map.regions[regionId].observations[criterionId];
-    if (observation.state === 'unknown') continue;
+    if (anchorRecordId && raw.id === anchorRecordId) requestedRecordSeen = true;
     const date = raw.timestamp ?? raw.date ?? raw.completedAt;
     const time = typeof date === 'string' ? Date.parse(date) : NaN;
-    if (!Number.isFinite(time)) continue;
-    const identity = JSON.stringify([observation.methodVersion, observation.normalizationVersion,
-      observation.modelHash, observation.validationEvidence]);
-    candidates.push({ recordId: raw.id, time, state: observation.state, identity,
-      methodVersion: observation.methodVersion, normalizationVersion: observation.normalizationVersion,
-      modelHash: observation.modelHash, validationEvidence: observation.validationEvidence });
+    if (!Number.isFinite(time)) {
+      if (anchorRecordId && raw.id === anchorRecordId) requestedRecordInvalid = true;
+      continue;
+    }
+    const value = raw.general?.regionalSkinMap;
+    if (value === undefined || value === null) {
+      unknowns.push({ recordId: raw.id, time, reason: 'REGIONAL_RESULT_NOT_AVAILABLE' });
+      continue;
+    }
+    if (!object(value) || !sourceValid(value.source) || !validBoundRegionalSkinMap(value, value.source)) {
+      if (anchorRecordId && raw.id === anchorRecordId) requestedRecordInvalid = true;
+      continue;
+    }
+    const observed = value.map.regions[regionId].observations[criterionId];
+    if (observed.state === 'unknown') unknowns.push({ recordId: raw.id, time, reason: observed.reason });
+    else {
+      const identity = JSON.stringify([observed.methodVersion, observed.normalizationVersion,
+        observed.modelHash, observed.validationEvidence]);
+      candidates.push({ recordId: raw.id, time, state: observed.state, identity,
+        methodVersion: observed.methodVersion, normalizationVersion: observed.normalizationVersion,
+        modelHash: observed.modelHash, validationEvidence: observed.validationEvidence });
+    }
   }
   candidates.sort((a, b) => a.time - b.time || a.recordId.localeCompare(b.recordId));
-  const anchor = (anchorRecordId && candidates.find(row => row.recordId === anchorRecordId)) || candidates.at(-1);
-  if (!anchor) return;
+  unknowns.sort((a, b) => a.time - b.time || a.recordId.localeCompare(b.recordId));
+  const unavailable = (status: 'not-evaluated' | 'record-unavailable', reason: string): RegionalObservationHistory => ({
+    region: regionId, criterion: criterionId, status, unavailableReason: reason,
+    methodVersion: null, normalizationVersion: null, modelHash: null, validationEvidence: null,
+    excludedIncompatible: 0, excludedUnknown: unknowns.length, points: []
+  });
+  if (anchorRecordId) {
+    const unknownAnchor = unknowns.find(row => row.recordId === anchorRecordId);
+    if (unknownAnchor) return unavailable('not-evaluated', unknownAnchor.reason);
+    if (!requestedRecordSeen || requestedRecordInvalid) return unavailable('record-unavailable', 'SELECTED_RECORD_NOT_AVAILABLE');
+  }
+  const anchor = anchorRecordId ? candidates.find(row => row.recordId === anchorRecordId) : candidates.at(-1);
+  if (!anchor) return unknowns.length ? unavailable('not-evaluated', unknowns.at(-1)!.reason) : undefined;
   const compatible = candidates.filter(row => row.identity === anchor.identity);
+  const excludedIncompatible = candidates.length - compatible.length;
   return {
-    region: regionId, criterion: criterionId, methodVersion: anchor.methodVersion,
+    region: regionId, criterion: criterionId,
+    status: compatible.length >= 2 ? 'comparable' : excludedIncompatible > 0 ? 'method-changed' : 'single-record',
+    unavailableReason: null, methodVersion: anchor.methodVersion,
     normalizationVersion: anchor.normalizationVersion, modelHash: anchor.modelHash,
-    validationEvidence: anchor.validationEvidence, excludedIncompatible: candidates.length - compatible.length,
+    validationEvidence: anchor.validationEvidence, excludedIncompatible, excludedUnknown: unknowns.length,
     points: compatible.map((row, index) => ({ recordId: row.recordId, time: row.time, state: row.state,
       changedFromPrevious: index === 0 ? null : compatible[index - 1].state !== row.state }))
   };
