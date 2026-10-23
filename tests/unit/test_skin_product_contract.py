@@ -89,7 +89,38 @@ def test_nonlocal_degree_clears_any_unrelated_analytic_map():
     assert item['components']['pixelLocalizationAvailable'] is False
 
 
+def test_generic_degree_policy_blocks_sag_and_invalid_manifest_targets():
+    policy = C.generic_degree_target_policy({
+        'accepted': True,
+        'targets': ['redness', 'sag'],
+        'acceptedTargets': ['redness', 'sag', 'missing', 'sag'],
+    })
+    assert policy['acceptedTargets'] == ['redness']
+    assert policy['blockedTargets'] == [
+        {
+            'target': 'sag',
+            'reason': 'WHOLE_FACE_ORDINAL_SAG_NOT_A_LOCAL_APPEARANCE_TARGET',
+        },
+        {'target': 'missing', 'reason': 'ACCEPTED_TARGET_NOT_IN_MODEL_OUTPUTS'},
+    ]
+
+
+def test_generic_degree_policy_requires_accepted_head():
+    assert C.generic_degree_target_policy({
+        'accepted': False,
+        'targets': ['redness'],
+        'acceptedTargets': ['redness'],
+    }) == {'acceptedTargets': [], 'blockedTargets': []}
+
+
 def test_appearance_analysis_wires_policy_and_defensive_sag_map_gate():
     source = (ROOT / 'services/core-api/appearance_analysis.py').read_text('utf8')
     assert 'apply_learned_general_degree(item,degree)' in source
     assert "sag_overview['components'].get('modelScope')!='whole-face'" in source
+
+
+def test_skin_model_boundary_filters_declared_degree_targets():
+    source = (ROOT / 'services/core-api/skin_models.py').read_text('utf8')
+    assert 'generic_degree_target_policy' in source
+    assert "policy['acceptedTargets']" in source
+    assert "result['degreeTargetPolicy']=policy" in source
