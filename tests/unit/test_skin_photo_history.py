@@ -5,6 +5,11 @@ from playwright.sync_api import sync_playwright
 
 ROOT=Path(__file__).resolve().parents[2]
 
+def test_regional_replay_is_validated_before_indexeddb_write_and_after_read():
+    source=(ROOT/'apps/vehicle-app/src/utils/skinPhotoHistory.ts').read_text('utf8')
+    assert "s.general?.regionalSkinMap&&!retainedRegionalSkinReplay(s,'overview')" in source
+    assert source.count('validate(frames)') >= 2
+
 def test_explicit_consent_atomic_storage_relaunch_and_revocation(tmp_path):
     js=subprocess.check_output(['node','-e',"const fs=require('fs'),ts=require('typescript');process.stdout.write(ts.transpileModule(fs.readFileSync('apps/vehicle-app/src/utils/skinPhotoHistory.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText);"],cwd=ROOT,text=True)
     with sync_playwright() as pw:
@@ -50,3 +55,4 @@ def test_explicit_consent_atomic_storage_relaunch_and_revocation(tmp_path):
         p.evaluate("localStorage.setItem(photos.SKIN_PHOTO_PERMISSION,'true')")
         assert p.evaluate("()=>photos.loadSkinPhotos('c')") is None
         c.close()
+
