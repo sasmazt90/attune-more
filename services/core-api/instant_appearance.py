@@ -316,14 +316,14 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
     components=dict(formulaVersion=formula,measurementROI=measurement_roi,sides=sides,fixedConstants=CONSTANTS,
                     indexAggregation='mean of measured local fold * min(1, sqrt(pairedEdge/0.04)), times continuity/0.6 and min(1, sqrt(nearest supported jaw boundary/0.08)) where applicable' if region=='chin' else 'mean of measured local fold * min(1, sqrt(pairedEdge/0.04)), times continuity/0.6 and min(1, sqrt(jaw boundary/0.08)) where applicable' if region!='periorbital' else 'mean of measured local fold * sqrt(local paired edge), times supported continuity (minimum 0.20)',
                     localMapMeaning='measured local support intensity; no confidence or pixel disease severity',
-                    meaning='visible-supported-contour-fold; not probability, volume or clinical severity',boundary=boundary,
+                    meaning='visible-supported-contour-fold; not probability, volume, elasticity or clinical severity',boundary=boundary,
                     weights=dict(fold=1,pairedEdgeRef=.04,continuityRef=.60,boundaryRef=.08) if region!='periorbital' else dict(fold=1,pairedEdge=.5,continuity=1,boundary=.5),
                     rollRadians=float(np.arctan2(horizontal[1],horizontal[0])),normalization='2D eye axis and face width; no z/depth',
                     mouthOpening=opening,eyeAspects=eye_aspects,shadowPlaneSlope=slope[:2].tolist())
     if region=='periorbital':components['samplingSupportVersion']='tracked-center-eligible-v1'
     else:
         components['expressionGateVersion']='source-bound-lower-face-expression-v3-observed-pose'
-        components.update(samplingSupportVersion='lower-chin-observed-fold-runs-unique-centers-v9' if region=='chin' else 'visible-region-unique-centers-v7',uniqueObservedCenters=len(sampling_centers),overlapCountedOnce=True,partialCoverage=any(side['value'] is None for side in sides))
+        components.update(samplingSupportVersion='lower-chin-observed-fold-runs-unique-centers-v9' if region=='chin' else 'visible-region-unique-centers-v7',uniqueObservedCenters=len(sampling_centers),overlapCountedOnce=True,partialCoverage=any(side['value'] is None for side in sides),appearanceSemantics='visible-lower-face-contour-fold-appearance-v1',clinicalSeverity=False,elasticity=False,comparisonMode='same-person-compatible-capture-only')
         # Ephemeral raster/coordinates are consumed by the overview aggregator;
         # appearance_analysis removes them before returning or storing JSON.
         components['_samplingCenters']=[[x,y,v] for (x,y),v in sampling_centers.items()]
