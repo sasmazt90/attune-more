@@ -151,7 +151,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-23",
-      "lastCheckedAt": "2026-10-23 05:42:45 UTC",
+      "lastCheckedAt": "2026-10-23 07:27:15 UTC",
       "modelCount": 89,
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
@@ -302,12 +302,13 @@
         "eyebagPolygons": 487,
         "invalidGeometry": 0
       },
-      "versions": []
+      "versions": [],
+      "lastCheckedAt": "2026-10-23 07:27:15 UTC"
     },
     "regionalMap": {
       "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
       "images": 337,
-      "status": "research-only NAS segmentation training running",
+      "status": "research-only NAS segmentation finished; separate active evaluation in progress",
       "projectSummaryImages": 337,
       "uploadTaskId": "jr8FWunZL1rM1mIowmxS",
       "uploadStatus": "completed",
@@ -348,11 +349,87 @@
       "version": 1,
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
-      "lastObservedStatus": "running",
-      "lastCheckedAt": "2026-10-23 05:42:45 UTC",
+      "lastObservedStatus": "finished",
+      "lastCheckedAt": "2026-10-23 07:27:15 UTC",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
-      "modelGroup": null,
-      "modelIds": [],
+      "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "modelIds": [
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9602f1",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--a768c1",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--a5e262",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--282937",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--1433b7",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--4a1d62",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--8b4ccc",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--8d4789",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--bcfb37",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--5894cd",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e17205",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--fa3729",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e90d5f",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--3bbf07",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--7f8328",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--291700",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c07ef",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--1a8050",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--f2f530",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--52e6b1",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--653a05",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79a02",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--8f22fb",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--befd4c",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--7d790b",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c50f2",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--0089fe",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9a9e4a",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--3744e3",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--33f994",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--b1f634",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--b018f1",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--f3096f",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--fe9c70",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--ee22e2",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--67377e",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--f1d99d",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--65bf2e",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e27951",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--059f87",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--126ec4",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--0522f2",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--4f45e1",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--ae28a1",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--48ed71",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e4615a",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--93c184",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--4e8078",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e2fad5",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--cdb8c8",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2ae6dc",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2f3b44",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--83e7b7",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--5ab4fe",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--a8dd23",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--136674",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2f6ff0",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--feef13",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--fc93cc",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--95ac27",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--fff422",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--069a45",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--5d16d3",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--df8293",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--454449",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9c8afa",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--520b4f",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--c2a92d",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--12a75a",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--7086a8",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9af6e4",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--c67d62",
+        "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--259da4"
+      ],
       "preprocessing": {},
       "augmentation": {},
       "maskGeometryVerified": true,
@@ -365,7 +442,8 @@
         "expertApproved": 0
       },
       "versionReceipt": "docs/skin/evidence/regional-mask-comparison-20261023-v1.json",
-      "trainingReceipt": "docs/skin/evidence/regional-training-20261023-v1.json"
+      "trainingReceipt": "docs/skin/evidence/regional-training-20261023-v1.json",
+      "modelCount": 75
     },
     "allProjectsPrivate": true
   },
@@ -572,7 +650,7 @@
     {
       "id": "04",
       "target": "regional-oiliness",
-      "status": "pilot_training_running",
+      "status": "pilot_training_finished_evaluation_in_progress",
       "work": "Audit selected Oily/Oily-Skin regional truth; prepare reliable regional samples; evaluate shine/illumination confounders; green overlay from measured regional support.",
       "evidence": [
         "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
@@ -588,7 +666,7 @@
       ],
       "blockers": [
         "337 source-polygon-only images imported with 1636 Oily/Redness polygons. Unsupported geometry and cross-split candidate images quarantined. Existing source masks are not expert labels; missing/normal coverage and identity independence remain unresolved.",
-        "Version1 contains337images1636exact source polygons, same244/63/30splits;316image boxes were recomputed by export, masks unchanged. Training3485f8c67f957a1b850d running; no model/camera acceptance. Dataset board confirms337annotated,0expertapproved; project.unannotated field is inconsistent, do not reupload."
+        "Version1 contains337images1636exact source polygons, same244/63/30splits;316image boxes were recomputed by export, masks unchanged. Training3485f8c67f957a1b850d finished with75models; separate active evaluation work detected, do not duplicate; no model/camera acceptance. Dataset board confirms337annotated,0expertapproved; project.unannotated field is inconsistent, do not reupload."
       ]
     },
     {
@@ -628,7 +706,7 @@
     {
       "id": "07",
       "target": "regional-redness",
-      "status": "pilot_training_running",
+      "status": "pilot_training_finished_evaluation_in_progress",
       "work": "Audit Redness/Skin-Redness local labels; evaluate source score and regional masks; red contour/hatching independent from oil/dry map; do not equate redness with sensitivity.",
       "evidence": [
         "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
@@ -644,7 +722,7 @@
       ],
       "blockers": [
         "337 source-polygon-only images imported with 1636 Oily/Redness polygons. Unsupported geometry and cross-split candidate images quarantined. Existing source masks are not expert labels; missing/normal coverage and identity independence remain unresolved.",
-        "Version1 contains337images1636exact source polygons, same244/63/30splits;316image boxes were recomputed by export, masks unchanged. Training3485f8c67f957a1b850d running; no model/camera acceptance. Dataset board confirms337annotated,0expertapproved; project.unannotated field is inconsistent, do not reupload."
+        "Version1 contains337images1636exact source polygons, same244/63/30splits;316image boxes were recomputed by export, masks unchanged. Training3485f8c67f957a1b850d finished with75models; separate active evaluation work detected, do not duplicate; no model/camera acceptance. Dataset board confirms337annotated,0expertapproved; project.unannotated field is inconsistent, do not reupload."
       ]
     },
     {
@@ -737,7 +815,7 @@
     "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety."
   },
   "nextActions": [
-    "Refresh this branch and existing regional version 1 training 3485f8c67f957a1b850d. Still running at 05:42:45 UTC; never duplicate it. On completion, page NAS children by modelGroup and evaluate segmentation per class; recommendation flags are not accuracy or hardware winner evidence.",
+    "Regional version 1 NAS training 3485f8c67f957a1b850d is finished with 75 models as freshly verified at 07:27:15 UTC. A separate active evaluation is producing pinned validation/test mask inference and diagnosis receipts in the shared working area; do not duplicate its inference or training. Preserve the browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54 and append completed evaluation evidence using a fresh branch lease. No regional model is accepted yet.",
     "Acne localization and taxonomy diagnosis is saved for all 165 validation images. Cross-class disagreement, poor tight IoU, tiny instances and the prediction cap remain. Do not call overlap opportunities recall or assistant review expert labels. Review label standards and coverage before another training; do not repeat completed tiling or retune on the exposed test.",
     "Merve v12 has been audited; its archive SHA256 matches the historical selected file. There are 2,590 pul boxes, zero pul masks and 3,368 CLAHE-prefixed filenames. Do not repeat the download/audit or turn these boxes into blue masks or normal truth. Natural RGB calibration is not admitted; natural source counterparts and true dry masks remain a data gap. Continue other available work.",
     "Continue the independent real-camera benchmark and consent path, under-eye source grouping and segmentation, selected wrinkle source audit, sagging evaluation, UI coordinate alignment and history integration while regional training runs. Keep the accepted regional-method registry empty until acceptance evidence passes.",
@@ -781,7 +859,9 @@
       "date": "2026-10-23",
       "observedAt": "2026-10-23 07:24:57 UTC",
       "action": "Refreshed execution branch and regional NAS run: finished, all 75 models enumerated via two modelGroup-scoped pages. Detected separate active regional inference/evaluation files in shared workspace and did not duplicate inference or training. Worked in isolated frontend directory: preserved general.regionalSkinMap through overview conversion, added strict evidence/colour/unknown/combination consistency parsing, source-bound numeric persistence validation and per-observation method-compatible categorical comparison helper. Four real server-builder fixtures and 48 executable browser-converter/history assertions passed. No new subscription, source changes, photo upload, model activation, deployment or merge. Full app typecheck unavailable in scratch because app dependencies are absent; overlay/trend wiring and camera/E2E remain pending.",
-      "report": "docs/skin/regional-map-browser-contract-20261023.md"
+      "report": "docs/skin/regional-map-browser-contract-20261023.md",
+      "browserContractCommit": "cf7447b28e2c39cc976f0af9d66e4be5a44dff54",
+      "remoteVerification": "At07:27:15UTC acne training finished89models; regional training finished75models; under-eye Private399images487eyebag382darkcircle, zero versions. Read back the committed browser parser successfully."
     }
   ]
 }
