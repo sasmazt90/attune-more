@@ -1,0 +1,2307 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-23 03:47:30 UTC",
+  "project": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation",
+  "version": 1,
+  "trainingId": "5b632a5c12b76fcfe703",
+  "modelGroup": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+  "pages": [
+    {
+      "offset": 0,
+      "total": 89,
+      "returned": 89,
+      "truncated": false
+    }
+  ],
+  "models": [
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--7d1d2f",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--7d1d2f",
+      "created": "2026-10-23T03:40:32.908Z",
+      "metrics": {
+        "map50": 16.86,
+        "map5095": 4.46,
+        "latency": {
+          "T4": 13.395744323730469,
+          "AI1": 49.610897064208984
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0ab37a",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0ab37a",
+      "created": "2026-10-23T03:41:58.836Z",
+      "metrics": {
+        "map50": 16.34,
+        "map5095": 4.23,
+        "latency": {
+          "T4": 12.269775867462158,
+          "AI1": 44.22585678100586
+        },
+        "paretoOptimalFor": [
+          "T4:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--39cac2",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--39cac2",
+      "created": "2026-10-23T03:40:56.941Z",
+      "metrics": {
+        "map50": 11.12,
+        "map5095": 2.88,
+        "latency": {
+          "T4": 4.157055854797363,
+          "AI1": 17.13041591644287
+        },
+        "paretoOptimalFor": [
+          "T4:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3acf8d",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3acf8d",
+      "created": "2026-10-23T03:43:16.572Z",
+      "metrics": {
+        "map50": 15.34,
+        "map5095": 3.89,
+        "latency": {
+          "T4": 9.550511837005615,
+          "AI1": 36.34432029724121
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--f7adf2",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--f7adf2",
+      "created": "2026-10-23T03:40:28.867Z",
+      "metrics": {
+        "map50": 16.65,
+        "map5095": 4.35,
+        "latency": {
+          "T4": 12.226223945617676,
+          "AI1": 44.386592864990234
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3f0931",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3f0931",
+      "created": "2026-10-23T03:43:31.613Z",
+      "metrics": {
+        "map50": 10.59,
+        "map5095": 2.71,
+        "latency": {
+          "T4": 3.9560000896453857,
+          "AI1": 15.770703792572021
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0deb91",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0deb91",
+      "created": "2026-10-23T03:43:06.014Z",
+      "metrics": {
+        "map50": 12.01,
+        "map5095": 3.11,
+        "latency": {
+          "T4": 4.952560186386108,
+          "AI1": 19.231359481811523
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b547fa",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b547fa",
+      "created": "2026-10-23T03:43:02.456Z",
+      "metrics": {
+        "map50": 10.47,
+        "map5095": 2.73,
+        "latency": {
+          "T4": 3.9935998916625977,
+          "AI1": 15.713679790496826
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--61d871",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--61d871",
+      "created": "2026-10-23T03:43:09.302Z",
+      "metrics": {
+        "map50": 12.29,
+        "map5095": 3.19,
+        "latency": {
+          "T4": 5.136159896850586,
+          "AI1": 20.136303901672363
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b8c736",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b8c736",
+      "created": "2026-10-23T03:39:53.413Z",
+      "metrics": {
+        "map50": 6.23,
+        "map5095": 1.59,
+        "latency": {
+          "T4": 2.386176109313965,
+          "AI1": 8.715712070465088
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--2e7a49",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--2e7a49",
+      "created": "2026-10-23T03:42:52.089Z",
+      "metrics": {
+        "map50": 0.66,
+        "map5095": 0.4,
+        "latency": {
+          "T4": 1.2410880327224731,
+          "AI1": 3.0162240266799927
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e98277",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e98277",
+      "created": "2026-10-23T03:40:37.633Z",
+      "metrics": {
+        "map50": 17.35,
+        "map5095": 4.47,
+        "latency": {
+          "T4": 15.749119758605957,
+          "AI1": 58.86863899230957
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "T4:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4d4f20",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4d4f20",
+      "created": "2026-10-23T03:42:06.277Z",
+      "metrics": {
+        "map50": 3.04,
+        "map5095": 0.71,
+        "latency": {
+          "T4": 1.9062080383300781,
+          "AI1": 5.340991973876953
+        },
+        "paretoOptimalFor": [
+          "T4:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e65db0",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e65db0",
+      "created": "2026-10-23T03:39:48.766Z",
+      "metrics": {
+        "map50": 0.67,
+        "map5095": 0.31,
+        "latency": {
+          "T4": 1.1568959951400757,
+          "AI1": 2.933184027671814
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--bdb037",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--bdb037",
+      "created": "2026-10-23T03:42:19.882Z",
+      "metrics": {
+        "map50": 12.92,
+        "map5095": 3.2,
+        "latency": {
+          "T4": 6.158704042434692,
+          "AI1": 21.938687324523926
+        },
+        "paretoOptimalFor": [
+          "T4:recall",
+          "AI1:map_50",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--ee03c0",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--ee03c0",
+      "created": "2026-10-23T03:40:54.366Z",
+      "metrics": {
+        "map50": 10.05,
+        "map5095": 2.42,
+        "latency": {
+          "T4": 3.5532801151275635,
+          "AI1": 14.718495845794678
+        },
+        "paretoOptimalFor": [
+          "T4:map_50",
+          "T4:recall",
+          "AI1:map_50",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4f45e1",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4f45e1",
+      "created": "2026-10-23T03:42:49.731Z",
+      "metrics": {
+        "map50": 0.22,
+        "map5095": 0.09,
+        "latency": {
+          "T4": 1.0936319828033447,
+          "AI1": 2.368880033493042
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95",
+          "AI1:map_50",
+          "AI1:f1",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--069032",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--069032",
+      "created": "2026-10-23T03:43:53.799Z",
+      "metrics": {
+        "map50": 3.55,
+        "map5095": 0.89,
+        "latency": {
+          "T4": 1.938048005104065,
+          "AI1": 5.537951946258545
+        },
+        "paretoOptimalFor": [
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--7bb719",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--7bb719",
+      "created": "2026-10-23T03:42:08.514Z",
+      "metrics": {
+        "map50": 5.54,
+        "map5095": 1.35,
+        "latency": {
+          "T4": 2.1872000694274902,
+          "AI1": 8.069983959197998
+        },
+        "paretoOptimalFor": [
+          "T4:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a72106",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a72106",
+      "created": "2026-10-23T03:44:02.617Z",
+      "metrics": {
+        "map50": 13.84,
+        "map5095": 3.5,
+        "latency": {
+          "T4": 8.65817642211914,
+          "AI1": 31.8864803314209
+        },
+        "paretoOptimalFor": [
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--fe9c70",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--fe9c70",
+      "created": "2026-10-23T03:42:57.064Z",
+      "metrics": {
+        "map50": 4.64,
+        "map5095": 1.18,
+        "latency": {
+          "T4": 2.187551975250244,
+          "AI1": 7.234544038772583
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a2db27",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a2db27",
+      "created": "2026-10-23T03:40:13.296Z",
+      "metrics": {
+        "map50": 13.59,
+        "map5095": 3.51,
+        "latency": {
+          "T4": 7.366176128387451,
+          "AI1": 28.11347198486328
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "T4:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--01a8fb",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--01a8fb",
+      "created": "2026-10-23T03:40:16.776Z",
+      "metrics": {
+        "map50": 14.67,
+        "map5095": 3.8,
+        "latency": {
+          "T4": 8.580031871795654,
+          "AI1": 32.35072135925293
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--5d16d3",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--5d16d3",
+      "created": "2026-10-23T03:43:26.251Z",
+      "metrics": {
+        "map50": 0.71,
+        "map5095": 0.11,
+        "latency": {
+          "T4": 1.2743680477142334,
+          "AI1": 2.746000051498413
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--bd64a4",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--bd64a4",
+      "created": "2026-10-23T03:42:29.966Z",
+      "metrics": {
+        "map50": 14.77,
+        "map5095": 3.78,
+        "latency": {
+          "T4": 9.156208038330078,
+          "AI1": 35.22873497009277
+        },
+        "paretoOptimalFor": [
+          "T4:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--2b3ca7",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--2b3ca7",
+      "created": "2026-10-23T03:43:38.150Z",
+      "metrics": {
+        "map50": 0.84,
+        "map5095": 0.29,
+        "latency": {
+          "T4": 1.1711039543151855,
+          "AI1": 3.061360001564026
+        },
+        "paretoOptimalFor": [
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3df677",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3df677",
+      "created": "2026-10-23T03:42:47.497Z",
+      "metrics": {
+        "map50": 16.99,
+        "map5095": 4.44,
+        "latency": {
+          "T4": 18.648719787597656,
+          "AI1": 71.17024230957031
+        },
+        "paretoOptimalFor": [
+          "T4:recall",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--6ec618",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--6ec618",
+      "created": "2026-10-23T03:43:45.223Z",
+      "metrics": {
+        "map50": 7.91,
+        "map5095": 1.9,
+        "latency": {
+          "T4": 2.981760025024414,
+          "AI1": 11.954111576080322
+        },
+        "paretoOptimalFor": [
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--d757ed",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--d757ed",
+      "created": "2026-10-23T03:42:38.176Z",
+      "metrics": {
+        "map50": 15.66,
+        "map5095": 4.1,
+        "latency": {
+          "T4": 11.345439910888672,
+          "AI1": 43.25372886657715
+        },
+        "paretoOptimalFor": [
+          "T4:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e65132",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e65132",
+      "created": "2026-10-23T03:41:18.196Z",
+      "metrics": {
+        "map50": 17.04,
+        "map5095": 4.36,
+        "latency": {
+          "T4": 12.545791625976562,
+          "AI1": 45.42587089538574
+        },
+        "paretoOptimalFor": [
+          "T4:map_50",
+          "T4:f1",
+          "AI1:map_50",
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9d3303",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9d3303",
+      "created": "2026-10-23T03:41:29.882Z",
+      "metrics": {
+        "map50": 5.17,
+        "map5095": 1.25,
+        "latency": {
+          "T4": 2.1094400882720947,
+          "AI1": 7.694095849990845
+        },
+        "paretoOptimalFor": [
+          "T4:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4f2240",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4f2240",
+      "created": "2026-10-23T03:41:43.952Z",
+      "metrics": {
+        "map50": 11.75,
+        "map5095": 3,
+        "latency": {
+          "T4": 4.74505615234375,
+          "AI1": 18.79599952697754
+        },
+        "paretoOptimalFor": [
+          "T4:f1",
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9d4013",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9d4013",
+      "created": "2026-10-23T03:41:37.971Z",
+      "metrics": {
+        "map50": 8.69,
+        "map5095": 2.22,
+        "latency": {
+          "T4": 3.7501120567321777,
+          "AI1": 14.88646411895752
+        },
+        "paretoOptimalFor": [
+          "T4:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9ae04f",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9ae04f",
+      "created": "2026-10-23T03:44:20.807Z",
+      "metrics": {
+        "map50": 10.33,
+        "map5095": 2.67,
+        "latency": {
+          "T4": 4.36195182800293,
+          "AI1": 17.300352096557617
+        }
+      },
+      "nasFamily": "baseline",
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--69fae3",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--69fae3",
+      "created": "2026-10-23T03:42:34.246Z",
+      "metrics": {
+        "map50": 15.13,
+        "map5095": 3.75,
+        "latency": {
+          "T4": 9.582799911499023,
+          "AI1": 36.143280029296875
+        },
+        "paretoOptimalFor": [
+          "T4:recall",
+          "AI1:map_50",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--38d613",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--38d613",
+      "created": "2026-10-23T03:42:59.493Z",
+      "metrics": {
+        "map50": 6.22,
+        "map5095": 1.59,
+        "latency": {
+          "T4": 2.406719923019409,
+          "AI1": 8.703680038452148
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95",
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0beb9f",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0beb9f",
+      "created": "2026-10-23T03:41:10.218Z",
+      "metrics": {
+        "map50": 15.87,
+        "map5095": 4,
+        "latency": {
+          "T4": 9.580063819885254,
+          "AI1": 36.761024475097656
+        },
+        "paretoOptimalFor": [
+          "T4:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--482e07",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--482e07",
+      "created": "2026-10-23T03:44:17.420Z",
+      "metrics": {
+        "map50": 8.86,
+        "map5095": 2.1,
+        "latency": {
+          "T4": 3.4751999378204346,
+          "AI1": 13.39782428741455
+        }
+      },
+      "nasFamily": "baseline",
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--653c93",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--653c93",
+      "created": "2026-10-23T03:41:02.901Z",
+      "metrics": {
+        "map50": 12.97,
+        "map5095": 3.25,
+        "latency": {
+          "T4": 6.285984039306641,
+          "AI1": 22.445631980895996
+        },
+        "paretoOptimalFor": [
+          "T4:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--60d957",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--60d957",
+      "created": "2026-10-23T03:41:34.693Z",
+      "metrics": {
+        "map50": 8.41,
+        "map5095": 2.04,
+        "latency": {
+          "T4": 2.9818880558013916,
+          "AI1": 12.047200202941895
+        },
+        "paretoOptimalFor": [
+          "T4:f1",
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e416fe",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e416fe",
+      "created": "2026-10-23T03:40:24.718Z",
+      "metrics": {
+        "map50": 16,
+        "map5095": 4.18,
+        "latency": {
+          "T4": 11.779952049255371,
+          "AI1": 43.2606086730957
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3cf7fc",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3cf7fc",
+      "created": "2026-10-23T03:41:50.852Z",
+      "metrics": {
+        "map50": 14.13,
+        "map5095": 3.52,
+        "latency": {
+          "T4": 8.467967987060547,
+          "AI1": 32.080894470214844
+        },
+        "paretoOptimalFor": [
+          "T4:f1",
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--8413a5",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--8413a5",
+      "created": "2026-10-23T03:40:09.893Z",
+      "metrics": {
+        "map50": 12.62,
+        "map5095": 3.29,
+        "latency": {
+          "T4": 6.116127967834473,
+          "AI1": 23.26806354522705
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--8dd6a3",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--8dd6a3",
+      "created": "2026-10-23T03:43:56.186Z",
+      "metrics": {
+        "map50": 5.04,
+        "map5095": 1.2,
+        "latency": {
+          "T4": 2.2305920124053955,
+          "AI1": 7.3856000900268555
+        },
+        "paretoOptimalFor": [
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b65196",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b65196",
+      "created": "2026-10-23T03:42:13.784Z",
+      "metrics": {
+        "map50": 9.82,
+        "map5095": 2.43,
+        "latency": {
+          "T4": 3.526655912399292,
+          "AI1": 14.709712028503418
+        },
+        "paretoOptimalFor": [
+          "T4:recall",
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--befd4c",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--befd4c",
+      "created": "2026-10-23T03:41:25.093Z",
+      "metrics": {
+        "map50": 0.22,
+        "map5095": 0.09,
+        "latency": {
+          "T4": 1.0915839672088623,
+          "AI1": 2.370672106742859
+        },
+        "paretoOptimalFor": [
+          "T4:f1",
+          "T4:recall",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--c6c89a",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--c6c89a",
+      "created": "2026-10-23T03:39:58.790Z",
+      "metrics": {
+        "map50": 9.95,
+        "map5095": 2.44,
+        "latency": {
+          "T4": 3.6433920860290527,
+          "AI1": 15.002655982971191
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262",
+      "created": "2026-10-23T03:40:44.376Z",
+      "metrics": {
+        "map50": 0.84,
+        "map5095": 0.29,
+        "latency": {
+          "T4": 1.1569279432296753,
+          "AI1": 3.065984010696411
+        },
+        "paretoOptimalFor": [
+          "T4:map_50",
+          "T4:f1",
+          "T4:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false,
+      "recommended": true
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b7a36c",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b7a36c",
+      "created": "2026-10-23T03:43:36.006Z",
+      "metrics": {
+        "map50": 17.2,
+        "map5095": 4.3,
+        "latency": {
+          "T4": 15.107791900634766,
+          "AI1": 57.1319522857666
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--604c1b",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--604c1b",
+      "created": "2026-10-23T03:43:13.044Z",
+      "metrics": {
+        "map50": 13.79,
+        "map5095": 3.67,
+        "latency": {
+          "T4": 8.067071914672852,
+          "AI1": 29.34657573699951
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9602f1",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9602f1",
+      "created": "2026-10-23T03:39:46.573Z",
+      "metrics": {
+        "map50": 0.22,
+        "map5095": 0.11,
+        "latency": {
+          "T4": 1.0690560340881348,
+          "AI1": 2.7479519844055176
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "T4:map_50",
+          "T4:f1",
+          "T4:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--dc0042",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--dc0042",
+      "created": "2026-10-23T03:43:28.627Z",
+      "metrics": {
+        "map50": 3.55,
+        "map5095": 0.89,
+        "latency": {
+          "T4": 1.9619200229644775,
+          "AI1": 5.535104036331177
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--13bcb0",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--13bcb0",
+      "created": "2026-10-23T03:43:58.704Z",
+      "metrics": {
+        "map50": 6.26,
+        "map5095": 1.59,
+        "latency": {
+          "T4": 2.4379040002822876,
+          "AI1": 8.797248363494873
+        },
+        "paretoOptimalFor": [
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--ae28a1",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--ae28a1",
+      "created": "2026-10-23T03:43:23.761Z",
+      "metrics": {
+        "map50": 0.31,
+        "map5095": 0.09,
+        "latency": {
+          "T4": 1.0889919996261597,
+          "AI1": 2.3988959789276123
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false,
+      "recommended": true
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--27d7af",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--27d7af",
+      "created": "2026-10-23T03:39:56.156Z",
+      "metrics": {
+        "map50": 8.23,
+        "map5095": 2.05,
+        "latency": {
+          "T4": 2.875391960144043,
+          "AI1": 11.465456008911133
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a428ce",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a428ce",
+      "created": "2026-10-23T03:44:07.054Z",
+      "metrics": {
+        "map50": 17,
+        "map5095": 4.37,
+        "latency": {
+          "T4": 13.719776153564453,
+          "AI1": 52.244192123413086
+        },
+        "paretoOptimalFor": [
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--21ddd6",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--21ddd6",
+      "created": "2026-10-23T03:40:59.754Z",
+      "metrics": {
+        "map50": 12.05,
+        "map5095": 3.01,
+        "latency": {
+          "T4": 4.681056022644043,
+          "AI1": 18.72444725036621
+        },
+        "paretoOptimalFor": [
+          "T4:map_50",
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e834ff",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e834ff",
+      "created": "2026-10-23T03:41:47.208Z",
+      "metrics": {
+        "map50": 12.69,
+        "map5095": 3.18,
+        "latency": {
+          "T4": 6.465935945510864,
+          "AI1": 24.118720054626465
+        },
+        "paretoOptimalFor": [
+          "T4:f1",
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--929397",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--929397",
+      "created": "2026-10-23T03:41:22.960Z",
+      "metrics": {
+        "map50": 17.59,
+        "map5095": 4.44,
+        "latency": {
+          "T4": 18.872496604919434,
+          "AI1": 67.13016128540039
+        },
+        "paretoOptimalFor": [
+          "T4:map_50",
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b3be78",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b3be78",
+      "created": "2026-10-23T03:40:04.198Z",
+      "metrics": {
+        "map50": 11.15,
+        "map5095": 2.89,
+        "latency": {
+          "T4": 4.177919864654541,
+          "AI1": 17.360591888427734
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--94bff1",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--94bff1",
+      "created": "2026-10-23T03:44:11.977Z",
+      "metrics": {
+        "map50": 16.66,
+        "map5095": 4.3,
+        "latency": {
+          "T4": 16.674816131591797,
+          "AI1": 60.4129753112793
+        },
+        "paretoOptimalFor": [
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b79645",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b79645",
+      "created": "2026-10-23T03:41:14.126Z",
+      "metrics": {
+        "map50": 16.55,
+        "map5095": 4.26,
+        "latency": {
+          "T4": 12.056575775146484,
+          "AI1": 43.83184051513672
+        },
+        "paretoOptimalFor": [
+          "T4:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--c47f7c",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--c47f7c",
+      "created": "2026-10-23T03:41:27.401Z",
+      "metrics": {
+        "map50": 4.25,
+        "map5095": 1.01,
+        "latency": {
+          "T4": 1.934048056602478,
+          "AI1": 6.579920053482056
+        },
+        "paretoOptimalFor": [
+          "T4:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--debb5d",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--debb5d",
+      "created": "2026-10-23T03:42:10.908Z",
+      "metrics": {
+        "map50": 8.43,
+        "map5095": 2.07,
+        "latency": {
+          "T4": 2.9417760372161865,
+          "AI1": 11.753151893615723
+        },
+        "paretoOptimalFor": [
+          "T4:recall",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--94ee50",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--94ee50",
+      "created": "2026-10-23T03:43:42.893Z",
+      "metrics": {
+        "map50": 3.69,
+        "map5095": 0.92,
+        "latency": {
+          "T4": 2.0606720447540283,
+          "AI1": 5.959167957305908
+        },
+        "paretoOptimalFor": [
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--754885",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--754885",
+      "created": "2026-10-23T03:40:42.360Z",
+      "metrics": {
+        "map50": 17,
+        "map5095": 4.51,
+        "latency": {
+          "T4": 18.433232307434082,
+          "AI1": 67.5183219909668
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a14667",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a14667",
+      "created": "2026-10-23T03:40:49.378Z",
+      "metrics": {
+        "map50": 5.27,
+        "map5095": 1.27,
+        "latency": {
+          "T4": 2.1035521030426025,
+          "AI1": 7.6943359375
+        },
+        "paretoOptimalFor": [
+          "T4:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--5f9ce2",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--5f9ce2",
+      "created": "2026-10-23T03:39:51.024Z",
+      "metrics": {
+        "map50": 3.87,
+        "map5095": 0.88,
+        "latency": {
+          "T4": 1.8978240489959717,
+          "AI1": 6.337407827377319
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--877d54",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--877d54",
+      "created": "2026-10-23T03:40:47.042Z",
+      "metrics": {
+        "map50": 4.25,
+        "map5095": 0.98,
+        "latency": {
+          "T4": 1.9154880046844482,
+          "AI1": 6.4105119705200195
+        },
+        "paretoOptimalFor": [
+          "T4:map_50",
+          "T4:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--175389",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--175389",
+      "created": "2026-10-23T03:40:51.800Z",
+      "metrics": {
+        "map50": 8.53,
+        "map5095": 2.04,
+        "latency": {
+          "T4": 2.9213759899139404,
+          "AI1": 11.64844799041748
+        },
+        "paretoOptimalFor": [
+          "T4:map_50",
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--1758df",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--1758df",
+      "created": "2026-10-23T03:42:42.370Z",
+      "metrics": {
+        "map50": 16.79,
+        "map5095": 4.33,
+        "latency": {
+          "T4": 12.382783889770508,
+          "AI1": 44.91958427429199
+        },
+        "paretoOptimalFor": [
+          "T4:recall",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--53fb1f",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--53fb1f",
+      "created": "2026-10-23T03:41:06.675Z",
+      "metrics": {
+        "map50": 14.68,
+        "map5095": 3.77,
+        "latency": {
+          "T4": 8.69753646850586,
+          "AI1": 32.83126258850098
+        },
+        "paretoOptimalFor": [
+          "T4:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--1608db",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--1608db",
+      "created": "2026-10-23T03:43:48.224Z",
+      "metrics": {
+        "map50": 10.36,
+        "map5095": 2.58,
+        "latency": {
+          "T4": 4.4917120933532715,
+          "AI1": 17.983071327209473
+        },
+        "paretoOptimalFor": [
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--d672fc",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--d672fc",
+      "created": "2026-10-23T03:43:21.598Z",
+      "metrics": {
+        "map50": 17.2,
+        "map5095": 4.46,
+        "latency": {
+          "T4": 15.295696258544922,
+          "AI1": 57.7894229888916
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--ae6cec",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--ae6cec",
+      "created": "2026-10-23T03:42:23.357Z",
+      "metrics": {
+        "map50": 13.16,
+        "map5095": 3.34,
+        "latency": {
+          "T4": 6.426623821258545,
+          "AI1": 22.90670394897461
+        },
+        "paretoOptimalFor": [
+          "T4:recall",
+          "AI1:map_50_95",
+          "AI1:map_50",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--2b943f",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--2b943f",
+      "created": "2026-10-23T03:40:01.764Z",
+      "metrics": {
+        "map50": 10.93,
+        "map5095": 2.87,
+        "latency": {
+          "T4": 4.111040115356445,
+          "AI1": 16.860095977783203
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "T4:recall",
+          "AI1:map_50_95",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b93a6e",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b93a6e",
+      "created": "2026-10-23T03:42:16.853Z",
+      "metrics": {
+        "map50": 12.08,
+        "map5095": 3.19,
+        "latency": {
+          "T4": 5.235040187835693,
+          "AI1": 20.65392017364502
+        },
+        "paretoOptimalFor": [
+          "T4:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--2374c5",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--2374c5",
+      "created": "2026-10-23T03:43:40.674Z",
+      "metrics": {
+        "map50": 3.47,
+        "map5095": 0.88,
+        "latency": {
+          "T4": 1.9107840061187744,
+          "AI1": 5.528015851974487
+        },
+        "paretoOptimalFor": [
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--043a26",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--043a26",
+      "created": "2026-10-23T03:41:32.264Z",
+      "metrics": {
+        "map50": 6.46,
+        "map5095": 1.65,
+        "latency": {
+          "T4": 2.5194239616394043,
+          "AI1": 9.190736293792725
+        },
+        "paretoOptimalFor": [
+          "T4:f1",
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--66b5d1",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--66b5d1",
+      "created": "2026-10-23T03:43:51.593Z",
+      "metrics": {
+        "map50": 12.05,
+        "map5095": 3.07,
+        "latency": {
+          "T4": 6.27235221862793,
+          "AI1": 21.909232139587402
+        },
+        "paretoOptimalFor": [
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--26492d",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--26492d",
+      "created": "2026-10-23T03:40:20.896Z",
+      "metrics": {
+        "map50": 16.01,
+        "map5095": 4.11,
+        "latency": {
+          "T4": 9.765279769897461,
+          "AI1": 37.26380729675293
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "T4:map_50",
+          "AI1:map_50_95",
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4290bf",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4290bf",
+      "created": "2026-10-23T03:44:14.564Z",
+      "metrics": {
+        "map50": 4.4,
+        "map5095": 1.01,
+        "latency": {
+          "T4": 2.3215041160583496,
+          "AI1": 7.572880029678345
+        }
+      },
+      "nasFamily": "baseline",
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a89c5",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a89c5",
+      "created": "2026-10-23T03:40:07.223Z",
+      "metrics": {
+        "map50": 12.06,
+        "map5095": 3.19,
+        "latency": {
+          "T4": 5.097472190856934,
+          "AI1": 20.442383766174316
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4fdadd",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4fdadd",
+      "created": "2026-10-23T03:41:54.643Z",
+      "metrics": {
+        "map50": 15.69,
+        "map5095": 3.94,
+        "latency": {
+          "T4": 9.801631927490234,
+          "AI1": 37.12316703796387
+        },
+        "paretoOptimalFor": [
+          "T4:f1",
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--423e40",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--423e40",
+      "created": "2026-10-23T03:42:54.252Z",
+      "metrics": {
+        "map50": 3.19,
+        "map5095": 0.81,
+        "latency": {
+          "T4": 1.941375970840454,
+          "AI1": 5.414368152618408
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95",
+          "AI1:map_50",
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--30b614",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--30b614",
+      "created": "2026-10-23T03:41:40.784Z",
+      "metrics": {
+        "map50": 11.11,
+        "map5095": 2.8,
+        "latency": {
+          "T4": 4.51636815071106,
+          "AI1": 18.155871391296387
+        },
+        "paretoOptimalFor": [
+          "T4:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--46e50c",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--46e50c",
+      "created": "2026-10-23T03:44:24.262Z",
+      "metrics": {
+        "map50": 13.05,
+        "map5095": 3.42,
+        "latency": {
+          "T4": 6.782895803451538,
+          "AI1": 25.08833599090576
+        }
+      },
+      "nasFamily": "baseline",
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0d8c66",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0d8c66",
+      "created": "2026-10-23T03:42:04.073Z",
+      "metrics": {
+        "map50": 15.28,
+        "map5095": 3.91,
+        "latency": {
+          "T4": 19.249664306640625,
+          "AI1": 67.41193771362305
+        },
+        "paretoOptimalFor": [
+          "T4:f1",
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "object-detection",
+      "modelType": "rfdetr-nas",
+      "name": "attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00",
+      "created": "2026-10-23T03:42:26.340Z",
+      "metrics": {
+        "map50": 13.94,
+        "map5095": 3.49,
+        "latency": {
+          "T4": 7.978224039077759,
+          "AI1": 30.60596752166748
+        },
+        "paretoOptimalFor": [
+          "T4:recall",
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "favorited": false
+    }
+  ],
+  "provisional": false,
+  "selectedModel": null,
+  "perHardwareWinnerNotInferred": true,
+  "trainingStatus": "finished",
+  "frontierEnumerationComplete": true,
+  "modelAcceptanceComplete": false,
+  "evaluation": {
+    "evalId": "0xMgfVLFzMyNEOhN1baC",
+    "status": "pending",
+    "project": "attune-skin-acne-marks-pigmentation",
+    "versionId": "1",
+    "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262",
+    "createdAt": "2026-10-23T03:45:19.362Z",
+    "app_url": "https://app.roboflow.com/tolgar-sasmaz/attune-skin-acne-marks-pigmentation/evaluation/1"
+  },
+  "evaluationPerClassLookup": {
+    "status": "not_ready",
+    "error": "model_eval_not_done"
+  }
+}

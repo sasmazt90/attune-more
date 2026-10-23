@@ -1,0 +1,674 @@
+{
+  "schemaVersion": 1,
+  "source": "parin-kittipongdaja-vwmn3/skin-problem-detection-relabel-clean3/1",
+  "sourceUrl": "https://universe.roboflow.com/parin-kittipongdaja-vwmn3/skin-problem-detection-relabel-clean3/dataset/1",
+  "apiVersionImageCount": 3261,
+  "actualCocoImageCount": 3240,
+  "apiToExportCountDiscrepancyUnresolved": true,
+  "archive": {
+    "source": "clean3",
+    "archive": "clean3-v1.zip",
+    "archiveSHA256": "461c70bb46307273af60334259bec685981e4fb99348fbeb0fc04e6102466fc3",
+    "images": 3240,
+    "splits": {
+      "test": 342,
+      "train": 2481,
+      "valid": 417
+    },
+    "classes": {
+      "Acne": {
+        "test": 1977,
+        "train": 11374,
+        "valid": 1028
+      },
+      "Blackheads": {
+        "test": 41,
+        "train": 581,
+        "valid": 26
+      },
+      "Dark-Spots": {
+        "test": 15,
+        "train": 71,
+        "valid": 21
+      },
+      "Dry-Skin": {
+        "test": 227,
+        "train": 1493,
+        "valid": 403
+      },
+      "Englarged-Pores": {
+        "test": 130,
+        "train": 562,
+        "valid": 7
+      },
+      "Eyebags": {
+        "test": 63,
+        "train": 426,
+        "valid": 24
+      },
+      "Oily-Skin": {
+        "test": 122,
+        "train": 579,
+        "valid": 198
+      },
+      "Skin-Redness": {
+        "train": 112,
+        "valid": 11
+      },
+      "Whiteheads": {
+        "train": 631,
+        "valid": 5
+      },
+      "Wrinkles": {
+        "test": 111,
+        "train": 2266
+      }
+    },
+    "geometry": [
+      {
+        "class": "Acne",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 14342
+      },
+      {
+        "class": "Acne",
+        "kind": "polygon",
+        "validBox": false,
+        "validMask": true,
+        "count": 1
+      },
+      {
+        "class": "Acne",
+        "kind": "polygon",
+        "validBox": true,
+        "validMask": true,
+        "count": 36
+      },
+      {
+        "class": "Blackheads",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 648
+      },
+      {
+        "class": "Dark-Spots",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 107
+      },
+      {
+        "class": "Dry-Skin",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 2117
+      },
+      {
+        "class": "Dry-Skin",
+        "kind": "polygon",
+        "validBox": true,
+        "validMask": true,
+        "count": 6
+      },
+      {
+        "class": "Englarged-Pores",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 699
+      },
+      {
+        "class": "Eyebags",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 329
+      },
+      {
+        "class": "Eyebags",
+        "kind": "polygon",
+        "validBox": true,
+        "validMask": true,
+        "count": 184
+      },
+      {
+        "class": "Oily-Skin",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 889
+      },
+      {
+        "class": "Oily-Skin",
+        "kind": "polygon",
+        "validBox": true,
+        "validMask": true,
+        "count": 10
+      },
+      {
+        "class": "Skin-Redness",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 123
+      },
+      {
+        "class": "Whiteheads",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 636
+      },
+      {
+        "class": "Wrinkles",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 436
+      },
+      {
+        "class": "Wrinkles",
+        "kind": "invalid-polygon",
+        "validBox": true,
+        "validMask": false,
+        "count": 36
+      },
+      {
+        "class": "Wrinkles",
+        "kind": "polygon",
+        "validBox": true,
+        "validMask": true,
+        "count": 1905
+      }
+    ],
+    "issues": [
+      {
+        "image": "train/93_jpg.rf.5e02edb1912b99b0b71be88e6b68faad.jpg",
+        "annotationId": 283,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/93_jpg.rf.5e02edb1912b99b0b71be88e6b68faad.jpg",
+        "annotationId": 284,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/93_jpg.rf.5e02edb1912b99b0b71be88e6b68faad.jpg",
+        "annotationId": 286,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/93_jpg.rf.5e02edb1912b99b0b71be88e6b68faad.jpg",
+        "annotationId": 287,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/93_jpg.rf.5e02edb1912b99b0b71be88e6b68faad.jpg",
+        "annotationId": 289,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/93_jpg.rf.5e02edb1912b99b0b71be88e6b68faad.jpg",
+        "annotationId": 290,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/93_jpg.rf.5e02edb1912b99b0b71be88e6b68faad.jpg",
+        "annotationId": 292,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/93_jpg.rf.5e02edb1912b99b0b71be88e6b68faad.jpg",
+        "annotationId": 293,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/93_jpg.rf.5e02edb1912b99b0b71be88e6b68faad.jpg",
+        "annotationId": 294,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/50_jpg.rf.71d5af705dac7506c8c213bc5fd51574.jpg",
+        "annotationId": 1759,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/50_jpg.rf.71d5af705dac7506c8c213bc5fd51574.jpg",
+        "annotationId": 1760,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/344_jpg.rf.2bb0337e4b956ab7056fca16535839cd.jpg",
+        "annotationId": 5458,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/344_jpg.rf.2bb0337e4b956ab7056fca16535839cd.jpg",
+        "annotationId": 5466,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/344_jpg.rf.2bb0337e4b956ab7056fca16535839cd.jpg",
+        "annotationId": 5473,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/63_jpg.rf.2dfe9200f5991895070d63027cf6124a.jpg",
+        "annotationId": 5755,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/72_jpg.rf.2ff9a0cdf25501ba93ad115762aa4030.jpg",
+        "annotationId": 5930,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/72_jpg.rf.2ff9a0cdf25501ba93ad115762aa4030.jpg",
+        "annotationId": 5932,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/236_jpg.rf.390e0731f1b0b1615b57135ed00bff3b.jpg",
+        "annotationId": 6541,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/314_jpg.rf.44326c2fb82f72800d5d8d93d18210db.jpg",
+        "annotationId": 7332,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/273_jpg.rf.525ffba59c2b6dd07139a87ba80bfd0b.jpg",
+        "annotationId": 8228,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/273_jpg.rf.525ffba59c2b6dd07139a87ba80bfd0b.jpg",
+        "annotationId": 8231,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/100_jpg.rf.0368e824a0e2f616442c039186a737ce.jpg",
+        "annotationId": 9035,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/86_jpg.rf.b1eb85400c6489e45fda7bfd78b8479a.jpg",
+        "annotationId": 9617,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/86_jpg.rf.b1eb85400c6489e45fda7bfd78b8479a.jpg",
+        "annotationId": 9618,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/334_jpg.rf.b59b76ed37e9dcb65caa5f57b46d9c33.jpg",
+        "annotationId": 9907,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/238_jpg.rf.b5d6d3cc7fd19c17fbf7612b656213ad.jpg",
+        "annotationId": 9917,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/acne-prone-skin_116_jpeg.rf.c88e79ffcb3facb3ccd5c1af5261af58.jpg",
+        "annotationId": 11185,
+        "class": "Acne",
+        "validBox": false,
+        "kind": "polygon",
+        "validMask": true
+      },
+      {
+        "image": "train/270_jpg.rf.d32f1e969c95be8dc0ace5687b667047.jpg",
+        "annotationId": 11606,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/267_jpeg.rf.d79767091eb963362df139ecf5e9499e.jpg",
+        "annotationId": 12273,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/267_jpeg.rf.d79767091eb963362df139ecf5e9499e.jpg",
+        "annotationId": 12274,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/271_jpg.rf.e799fba8c08f42912ff9b5ef932e6d1c.jpg",
+        "annotationId": 12958,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/352_jpg.rf.ee790fd89227bd57b65de858ec8015df.jpg",
+        "annotationId": 13358,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/352_jpg.rf.ee790fd89227bd57b65de858ec8015df.jpg",
+        "annotationId": 13360,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/94_jpg.rf.fc7b30de8e3e9f6ad8d9aa3332b8bff3.jpg",
+        "annotationId": 14474,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/94_jpg.rf.fc7b30de8e3e9f6ad8d9aa3332b8bff3.jpg",
+        "annotationId": 14476,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "SELF_INTERSECTION"
+      },
+      {
+        "image": "train/94_jpg.rf.fc7b30de8e3e9f6ad8d9aa3332b8bff3.jpg",
+        "annotationId": 14483,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      },
+      {
+        "image": "train/220_jpg.rf.93a2ae681a469d5d7c2acd89dbd95818.jpg",
+        "annotationId": 16304,
+        "class": "Wrinkles",
+        "validBox": true,
+        "kind": "invalid-polygon",
+        "validMask": false,
+        "maskReason": "DEGENERATE_POLYGON"
+      }
+    ],
+    "readmes": {
+      "README.dataset.txt": "# Skin-Problem-Detection-Relabel-Clean3 > 2024-01-05 6:31am\nhttps://universe.roboflow.com/parin-kittipongdaja-vwmn3/skin-problem-detection-relabel-clean3\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+      "README.roboflow.txt": "\nSkin-Problem-Detection-Relabel-Clean3 - v1 2024-01-05 6:31am\n==============================\n\nThis dataset was exported via roboflow.com on February 11, 2025 at 5:26 PM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 3261 images.\nAcne-Blackhead-Wrinkles-f6HR-vJCz-Vyox are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Stretch)\n\nNo image augmentation techniques were applied.\n\n\n"
+    }
+  },
+  "summary": {
+    "images": 3240,
+    "exactDuplicateGroups": 15,
+    "crossSplitExactGroups": 9,
+    "perceptualCandidatePairs": 565,
+    "crossSplitPerceptualCandidatePairs": 229,
+    "filenameCandidateGroups": 126,
+    "crossSplitFilenameCandidateGroups": 56,
+    "geometryIssueCount": 37
+  },
+  "crossSplitExactGroups": [
+    {
+      "group": "d636b749449b24b3e5f244bb2dfc58becc48180ecfcc02d7a955c8af27be1631",
+      "members": [
+        "clean3:test/oily-skin_109_jpeg.rf.5fbacb2e337c30553bddbf7bfd602977.jpg",
+        "clean3:train/oily24_jpg.rf.a2d8139032bc247289fbd373c2e073ab.jpg"
+      ],
+      "splits": [
+        "test",
+        "train"
+      ],
+      "crossSplit": true
+    },
+    {
+      "group": "48ae35a539e0e0cedc9f77d8ec40b888388a2a4d1f26cb940ced1320a94431e0",
+      "members": [
+        "clean3:test/dry-249-_jpg.rf.811d3854c616358060ba8d8b047a7109.jpg",
+        "clean3:train/dry-skin_116_jpeg.rf.f1bc7d1c6b4dba95bd022035ef40fa40.jpg"
+      ],
+      "splits": [
+        "test",
+        "train"
+      ],
+      "crossSplit": true
+    },
+    {
+      "group": "350e6354e3cbe63caeae673a68503313749c31e4a19f324e5b2f887dc504ab2d",
+      "members": [
+        "clean3:test/Image_109_jpg.rf.8b609e66366c549e19e7559f0868d504.jpg",
+        "clean3:train/Berminyak-3-_jpg.rf.111f66a4e833920914afcde023dd9b48.jpg"
+      ],
+      "splits": [
+        "test",
+        "train"
+      ],
+      "crossSplit": true
+    },
+    {
+      "group": "ab690e7996a347a88adac67fcc5f1e6591e79230802a2b57734b3ed2462675b6",
+      "members": [
+        "clean3:test/acne-6-_jpg.rf.dac36c1aa6b381945d531fd77dc2ac66.jpg",
+        "clean3:train/oily-246-_jpg.rf.7fe21c2ab2b017bef1942bf54c450e44.jpg"
+      ],
+      "splits": [
+        "test",
+        "train"
+      ],
+      "crossSplit": true
+    },
+    {
+      "group": "4eb048b4a3c5aa3e3b03f11c1a43c6dceb9d00ac2540b765d6a2fb09e6b7ac1e",
+      "members": [
+        "clean3:test/kering_-5-_jpg.rf.e86289b05f510a926a080ee954bec9fa.jpg",
+        "clean3:train/212_jpg.rf.89ddde52afd2ebb27ae44b15777b41b6.jpg"
+      ],
+      "splits": [
+        "test",
+        "train"
+      ],
+      "crossSplit": true
+    },
+    {
+      "group": "89a8b064224a60540346da31b611bd484d2c3db6d49ac4b1aff1be28e13120a4",
+      "members": [
+        "clean3:train/238_jpg.rf.b5d6d3cc7fd19c17fbf7612b656213ad.jpg",
+        "clean3:valid/kering_-51-_jpg.rf.01b2aad7b993d3b27d8a7c79a165e494.jpg"
+      ],
+      "splits": [
+        "train",
+        "valid"
+      ],
+      "crossSplit": true
+    },
+    {
+      "group": "3b15bbba0341909d6726fd38987fd3ca03542ec0c60ca1999bdfb08594c679bb",
+      "members": [
+        "clean3:train/215_jpg.rf.d886d8455bab2d47b03d5e91f6ac6f99.jpg",
+        "clean3:valid/kering_-58-_jpg.rf.29cffc23dcc6546d69776f576ff62542.jpg"
+      ],
+      "splits": [
+        "train",
+        "valid"
+      ],
+      "crossSplit": true
+    },
+    {
+      "group": "ea3661ea0d630b4240b8cc587a3381fc22d9785617910a0832ca00471cdbf4ad",
+      "members": [
+        "clean3:train/oily-222-_jpg.rf.ed17045dfce745da2f85b87003b37944.jpg",
+        "clean3:valid/acne-11-_jpg.rf.2f176963837caa1d4e3a6a663ebf864d.jpg"
+      ],
+      "splits": [
+        "train",
+        "valid"
+      ],
+      "crossSplit": true
+    },
+    {
+      "group": "eb7486d2ad17f0115280f462af52b8cecb62da8e41333040390e324f7661e426",
+      "members": [
+        "clean3:train/acne-prone-skin_3_jpeg.rf.a4357e45ae69edabb26743d8635604fb.jpg",
+        "clean3:valid/acne-prone-skin_164_jpeg.rf.065d5b510b8a47b8983e46742c9b58ae.jpg"
+      ],
+      "splits": [
+        "train",
+        "valid"
+      ],
+      "crossSplit": true
+    }
+  ],
+  "trueMaskCountsBySplit": {
+    "Dry-Skin": {
+      "train": 3,
+      "valid": 2,
+      "test": 1
+    },
+    "Oily-Skin": {
+      "train": 6,
+      "test": 4
+    },
+    "Skin-Redness": {}
+  },
+  "fullAuditSHA256": "91693aef23bc45a0ba479fc35dedfcf7b4b20836449a72dd28b9f605cae999ed",
+  "reproduce": "python scripts/skin-research/audit_roadmap_archives.py --source clean3=clean3-v1.zip --output fresh-audit.json",
+  "trainingAuthorizedByThisAudit": false,
+  "lockedTestAccepted": false,
+  "decision": "Do not train a regional segmentation model from the boxes. Oil has no validation-split polygons; redness has no polygons in any split. Preserve exact cross-split quarantine, resolve candidates and prepare reviewed regional negatives/normal truth; do not automatically relabel remaining pixels.",
+  "limitations": [
+    "Exact groups establish matching files/pixels, not person identity.",
+    "dHash proximity is a review candidate, never ground truth or an automatic merge.",
+    "Export-name/left-right crop hints are candidates only, not photo or person identities.",
+    "Crops, mirrors, collages and different photos of a person may escape this audit.",
+    "Publisher README licences do not establish individual-photo rights.",
+    "Archive splits do not prove previous review/training exposure is absent.",
+    "No missing annotation is inferred to be normal/negative skin.",
+    "COCO geometric validity does not prove annotation semantics or completeness."
+  ]
+}

@@ -45,7 +45,7 @@
       "project": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation",
       "version": 1,
       "trainingId": "5b632a5c12b76fcfe703",
-      "lastObservedStatus": "running",
+      "lastObservedStatus": "finished",
       "modelType": "rfdetr-nas-parent",
       "images": 800,
       "splits": {
@@ -58,9 +58,112 @@
         "Post acne": 32123,
         "Pigmentation": 1579
       },
-      "modelGroup": null,
-      "modelIds": [],
-      "lastCheckedDate": "2026-10-23"
+      "modelGroup": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "modelIds": [
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--7d1d2f",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0ab37a",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--39cac2",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3acf8d",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--f7adf2",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3f0931",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0deb91",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b547fa",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--61d871",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b8c736",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--2e7a49",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e98277",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4d4f20",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e65db0",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--bdb037",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--ee03c0",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4f45e1",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--069032",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--7bb719",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a72106",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--fe9c70",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a2db27",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--01a8fb",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--5d16d3",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--bd64a4",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--2b3ca7",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3df677",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--6ec618",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--d757ed",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e65132",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9d3303",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4f2240",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9d4013",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9ae04f",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--69fae3",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--38d613",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0beb9f",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--482e07",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--653c93",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--60d957",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e416fe",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3cf7fc",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--8413a5",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--8dd6a3",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b65196",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--befd4c",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--c6c89a",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b7a36c",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--604c1b",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9602f1",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--dc0042",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--13bcb0",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--ae28a1",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--27d7af",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a428ce",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--21ddd6",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e834ff",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--929397",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b3be78",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--94bff1",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b79645",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--c47f7c",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--debb5d",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--94ee50",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--754885",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a14667",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--5f9ce2",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--877d54",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--175389",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--1758df",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--53fb1f",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--1608db",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--d672fc",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--ae6cec",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--2b943f",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b93a6e",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--2374c5",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--043a26",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--66b5d1",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--26492d",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4290bf",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a89c5",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4fdadd",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--423e40",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--30b614",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--46e50c",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0d8c66",
+        "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
+      ],
+      "lastCheckedDate": "2026-10-23",
+      "lastCheckedAt": "2026-10-23 03:47:30 UTC",
+      "modelCount": 89,
+      "evaluation": {
+        "evalId": "0xMgfVLFzMyNEOhN1baC",
+        "status": "pending",
+        "project": "attune-skin-acne-marks-pigmentation",
+        "versionId": "1",
+        "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262",
+        "createdAt": "2026-10-23T03:45:19.362Z",
+        "app_url": "https://app.roboflow.com/tolgar-sasmaz/attune-skin-acne-marks-pigmentation/evaluation/1"
+      },
+      "modelAccepted": false,
+      "selectedModel": null
     },
     "acneSourceProject": "tolgar-sasmaz/attune-skin-acne-pilot",
     "underEye": {
@@ -95,7 +198,9 @@
     "scratchArchives": [
       "smartskincare.zip",
       "acne-three-class.zip",
-      "dc-eb-2-pilot.zip"
+      "dc-eb-2-pilot.zip",
+      "clean3-v1.zip",
+      "acne-remote-v1.zip"
     ],
     "scratchPersistence": "Not guaranteed; never rely on these as sole checkpoint or source."
   },
@@ -164,84 +269,117 @@
         "docs/skin/evidence/acne-import-provenance-20261023-v2.json",
         "docs/skin/evidence/evaluation-quarantine-20261023-v1.json",
         "docs/skin/evidence/preparation-checks-20261023-v1.json",
-        "docs/skin/archive-audit-20261023.md"
+        "docs/skin/archive-audit-20261023.md",
+        "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
+        "docs/skin/evidence/acne-remote-summary-20261023-v1.json",
+        "docs/skin/evidence/regional-checks-20261023-v1.json"
       ],
       "blockers": [
         "Final holdout independence is not established: perceptual and filename crop relations need source/provenance review; prior exposure and person overlap are unknown.",
-        "Direct oil/dry/redness source archive geometry is not yet verified in this environment; do not train regional masks from whole-image classes.",
+        "Direct Clean3 v1 geometry audited: mainly boxes; only 10 oil and 6 dry polygons, no redness polygons. Source geometry is not expert/normal truth; preserve 9 exact cross-split groups and resolve candidate/exposure relations. Other selected regional sources still need audit.",
         "Independent real-camera benchmark and reviewed regional normal truth remain pending."
       ]
     },
     {
       "id": "01",
       "target": "active-acne",
-      "status": "training_running",
+      "status": "evaluation_pending",
       "work": "Evaluate Pimple per class on validation and locked test; choose threshold on validation only; inspect confounders and real-camera examples; integrate accepted detector and count deduplication.",
       "evidence": [
         "docs/skin/evidence/acne-import-provenance-20261023-v2.json",
-        "docs/skin/evidence/archive-audit-20261023-v2.json"
+        "docs/skin/evidence/archive-audit-20261023-v2.json",
+        "docs/skin/evidence/acne-remote-summary-20261023-v1.json",
+        "docs/skin/evidence/nas-frontier-20261023-v1.json"
       ],
       "blockers": [
-        "Existing NAS run still running; no model IDs yet. Keep baseline validation metrics provisional until leakage candidates and source rights/exposure are resolved; no training duplication."
+        "NAS finished with 89 children including 4 baselines. Group-scoped enumeration saved; no model accepted or deployed. Eval 0xMgfVLFzMyNEOhN1baC is pending and class metrics return model_eval_not_done. Source holdout independence and real-camera acceptance remain open. Do not choose the queued evaluation/recommended child as accuracy winner."
       ]
     },
     {
       "id": "02",
       "target": "post-acne-marks",
-      "status": "training_running",
+      "status": "evaluation_pending",
       "work": "Evaluate Post acne separately from active acne and pigmentation; keep label semantics appearance-only and preserve instance boxes.",
       "evidence": [
         "docs/skin/evidence/acne-import-provenance-20261023-v2.json",
-        "docs/skin/evidence/archive-audit-20261023-v2.json"
+        "docs/skin/evidence/archive-audit-20261023-v2.json",
+        "docs/skin/evidence/acne-remote-summary-20261023-v1.json",
+        "docs/skin/evidence/nas-frontier-20261023-v1.json"
       ],
       "blockers": [
-        "Existing NAS run still running; no model IDs yet. Keep baseline validation metrics provisional until leakage candidates and source rights/exposure are resolved; no training duplication."
+        "NAS finished with 89 children including 4 baselines. Group-scoped enumeration saved; no model accepted or deployed. Eval 0xMgfVLFzMyNEOhN1baC is pending and class metrics return model_eval_not_done. Source holdout independence and real-camera acceptance remain open. Do not choose the queued evaluation/recommended child as accuracy winner."
       ]
     },
     {
       "id": "03",
       "target": "pigmentation",
-      "status": "training_running",
+      "status": "evaluation_pending",
       "work": "Evaluate Pigmentation instances separately from generic tone unevenness, marks, freckles, moles and shadow.",
       "evidence": [
         "docs/skin/evidence/acne-import-provenance-20261023-v2.json",
-        "docs/skin/evidence/archive-audit-20261023-v2.json"
+        "docs/skin/evidence/archive-audit-20261023-v2.json",
+        "docs/skin/evidence/acne-remote-summary-20261023-v1.json",
+        "docs/skin/evidence/nas-frontier-20261023-v1.json"
       ],
       "blockers": [
-        "Existing NAS run still running; no model IDs yet. Keep baseline validation metrics provisional until leakage candidates and source rights/exposure are resolved; no training duplication."
+        "NAS finished with 89 children including 4 baselines. Group-scoped enumeration saved; no model accepted or deployed. Eval 0xMgfVLFzMyNEOhN1baC is pending and class metrics return model_eval_not_done. Source holdout independence and real-camera acceptance remain open. Do not choose the queued evaluation/recommended child as accuracy winner."
       ]
     },
     {
       "id": "04",
       "target": "regional-oiliness",
-      "status": "pending",
+      "status": "source_geometry_audited",
       "work": "Audit selected Oily/Oily-Skin regional truth; prepare reliable regional samples; evaluate shine/illumination confounders; green overlay from measured regional support.",
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
+        "docs/skin/regional-evidence-contract-20261023.md"
+      ],
+      "blockers": [
+        "Clean3 supports box detection research but has insufficient true regional masks/negative-normal truth for accepted segmentation; audit v11 and prepare reviewed regional support. No regional training launched."
+      ]
     },
     {
       "id": "05",
       "target": "regional-dryness-flaking",
-      "status": "pending",
+      "status": "source_geometry_audited",
       "work": "Audit Dry-Skin/pul local labels and geometry; prepare local samples; evaluate visible dryness/flaking; blue overlay.",
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
+        "docs/skin/regional-evidence-contract-20261023.md"
+      ],
+      "blockers": [
+        "Clean3 supports box detection research but has insufficient true regional masks/negative-normal truth for accepted segmentation; audit v11 and prepare reviewed regional support. No regional training launched."
+      ]
     },
     {
       "id": "06",
       "target": "skin-type-and-combination",
-      "status": "pending",
+      "status": "implementation_in_progress",
       "work": "Evaluate existing dry/normal/oily classifier; do not label whole-face classes as regional truth; derive combination from supported oily T-zone and normal/dry outside T-zone; require sufficient coverage and validate this rule.",
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "services/core-api/regional_skin_evidence.py",
+        "services/core-api/local_skin_type.py",
+        "tests/unit/test_regional_skin_evidence.py",
+        "tests/unit/test_local_skin_type.py",
+        "docs/skin/evidence/regional-checks-20261023-v1.json",
+        "docs/skin/regional-evidence-contract-20261023.md"
+      ],
+      "blockers": [
+        "Validated regional method registry remains empty; unknown is grey, legacy tiny supports cannot force combination. Base three-class model retained. Need regional training/calibration, independent tests and camera evidence before enabling methods; synthetic fixture policies are not product calibration."
+      ]
     },
     {
       "id": "07",
       "target": "regional-redness",
-      "status": "pending",
+      "status": "source_geometry_audited",
       "work": "Audit Redness/Skin-Redness local labels; evaluate source score and regional masks; red contour/hatching independent from oil/dry map; do not equate redness with sensitivity.",
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
+        "docs/skin/regional-evidence-contract-20261023.md"
+      ],
+      "blockers": [
+        "Clean3 supports box detection research but has insufficient true regional masks/negative-normal truth for accepted segmentation; audit v11 and prepare reviewed regional support. No regional training launched."
+      ]
     },
     {
       "id": "08",
@@ -294,10 +432,15 @@
     {
       "id": "13",
       "target": "unified-results-and-trends",
-      "status": "pending",
+      "status": "implementation_in_progress",
       "work": "Integrate accepted outputs incrementally into maps/cards/history; explicit unavailable reasons; method/version compatibility for trends; end-to-end camera/API/result/history tests and final acceptance report.",
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/skin/regional-evidence-contract-20261023.md",
+        "docs/skin/evidence/regional-checks-20261023-v1.json"
+      ],
+      "blockers": [
+        "API finalizer now emits general.regionalSkinMap region summary and independent redness descriptors. Frontend map rendering, geometry alignment, accepted model integration and longitudinal E2E acceptance remain pending."
+      ]
     }
   ],
   "acceptance": {
@@ -316,13 +459,12 @@
     "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety."
   },
   "nextActions": [
-    "Read current checkpoint/branch and refresh Roboflow before mutations. Existing acne trainingId 5b632a5c12b76fcfe703 is running; do not duplicate.",
-    "Use archive-audit-20261023-v2.json plus evaluation-quarantine sidecar to resolve perceptual/crop filename candidates. Do not call candidate pairs confirmed duplicates or person identities, and do not count remaining rows as accepted independent holdout.",
-    "Verify generated remote acne version export against the audited local import (preprocessing/image IDs); retain original SmartSkinCare confounder annotations for evaluation.",
-    "Obtain selected oil/dry/redness source archives directly and audit actual geometry; existing empty regional project is not trained. Do not repeat GCS IAM/filter/marker mutations.",
-    "Review current local_skin_type regional combination proxy against accepted coverage/unknown evidence contract; tiny nonzero support is not validated regional truth.",
-    "When NAS finishes, page children by modelGroup; save per-class validation/test metrics and failure analysis before model selection/threshold freeze.",
-    "Continue real-camera benchmark, reviewed regional labels, safe map integration and other roadmap tasks; no completion or notification until acceptance evidence exists."
+    "Read this checkpoint, refresh branch/Roboflow, and preserve the existing finished training; do not create duplicate training.",
+    "Resume eval 0xMgfVLFzMyNEOhN1baC; when done save per-class validation/test metrics and diagnose failures. Queued eval model is a5e262, not highest map5095 child; highest observed map5095 is 754885 (raw 4.51, map50 17). Compare relevant candidates and do not infer hardware winners from recommendation/frontier flags.",
+    "Source quarantine remains in force. Remote export matched 800 name/dimension/full-geometry pairs with identical splits; image bytes mostly re-encoded. Do not replace original duplicate/exposure checks with weaker remote hash checks.",
+    "Audit selected v11 regional source next. Clean3 v1 has 3240 COCO records vs API 3261; 9 exact cross-split groups, 10 oily polygons (0 valid split), 6 dry polygons (2 valid split), 0 redness polygons. Do not box-to-mask or manufacture normal truth; prepare reviewed target-specific regional labels.",
+    "Use regional_skin_evidence's server-owned acceptance registry only after actual per-method calibration/coverage evidence. Leave it empty now; fixture thresholds are synthetic tests. T-zone includes forehead/nose/chin independently; cheeks require supported normal/dry.",
+    "Continue source grouping, normal/negative truth, camera benchmark, UI map rendering, other criteria and history integration. No task is complete until full acceptance evidence exists."
   ],
   "executionLog": [
     {
@@ -333,6 +475,12 @@
       "date": "2026-10-23",
       "action": "Implemented and ran read-only COCO archive auditor plus class-filter provenance verifier; 1199 files, 37342 acne boxes, 869 under-eye polygons, zero geometry issues. No exact byte/pixel duplicates; 4 cross-split perceptual candidate pairs and 3 cross-split filename candidate groups queued without identity claims. Ten executable regression tests passed. Saved evaluation-quarantine sidecar and source hashes; acne NAS still running; regional project remains empty. No new training or production change.",
       "report": "docs/skin/archive-audit-20261023.md"
+    },
+    {
+      "date": "2026-10-23",
+      "observedAt": "2026-10-23 03:47:30 UTC",
+      "action": "Implemented accepted-method/coverage-gated regional map and corrected combination override at final API boundary; preserved base three-class prediction and historical records. Audited direct Clean3 archive (3240 records, mostly boxes, sparse masks, 9 exact cross-split groups) and frozen remote acne version (800 geometry/name pairs, splits preserved; pixels re-encoded). Enumerated all 89 finished NAS children by modelGroup; pending eval checkpointed. 80 meaningful checks passed including normal endpoint finalization and export drift tests. No new training, shared-data mutation, deployment, photo upload or merge.",
+      "report": "docs/skin/regional-evidence-contract-20261023.md"
     }
   ]
 }

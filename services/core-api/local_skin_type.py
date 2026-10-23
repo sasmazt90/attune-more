@@ -1,13 +1,13 @@
 """Pinned three-class pretrained ORT CPU inference plus explicit regional rule.
 No training, remote client, downloads, sebum/hydration or clinical claims.
 """
-import copy,hashlib,json,math,threading,time
+import copy,hashlib,json,threading,time
 from pathlib import Path
 import numpy as np
 from PIL import Image
 CONFIG=Path(__file__).parent/'models/skin-type-local.json'
 CLASSES=('dry','normal','oily')
-RULE='combination-regional-user-v2-final-product-visible-support-v1'
+RULE='combination-regional-user-v3-accepted-evidence'
 LOCK=threading.Lock()
 _CACHE=None
 
@@ -55,49 +55,38 @@ def infer(bgr):
  except Exception:return unavailable('LOCAL_TYPE_UNAVAILABLE')
 
 def regional_decision(base,measurements):
- """Measured absence is distinct from missing support; global argmax cannot
- overrule an observed T-oily/rest-normal-or-dry pattern. No cheek classifier.
- Native existing oil >.12 and flake >.04 pixel gates already produced values;
- this rule tests presence/absence of that accepted support, not a fitted scale.
+ """Derive combination only from accepted regional evidence, never raw proxies.
+ Keep the original global model output for idempotent finalization and history.
  """
- # Re-finalization uses only the preserved raw three-class output, never a
- # previously derived combination or its confidence/version. Historical v1
- # responses without this snapshot are not reprocessed as new model outputs.
+ from regional_skin_evidence import build_regional_map
  base=copy.deepcopy(base.get('basePrediction',base))
  if base.get('decisionTrace') is not None or base.get('value')=='combination':
   base=unavailable('LOCAL_TYPE_BASE_IDENTITY_UNAVAILABLE')
  for key in ['status','reason','modelVersion','calibrationVersion','coverage']:
   base.pop(key,None)
- result=copy.deepcopy(base);trace=dict(version=RULE,scope='final-product-measurements',definition='T oily and remaining face normal OR dry',regionalMeaning='visible-support proxy, not sebum/hydration',thresholdPolicy='existing oil>.12 and flake>.04 pixel gates; any accepted area support vs measured zero; no threshold fit',regions={})
- def input_row(region,criterion):
-  row=next((r for r in measurements.get(region,[]) if r.get('id')==criterion),None)
-  if not row:return None
-  return {k:copy.deepcopy(row.get(k)) for k in ['value','quality','methodVersion','normalizationVersion','evaluatedArea','limitationCode']}
- def observed(region,criterion):
-  row=input_row(region,criterion)
-  if not row:return None
-  value=row.get('value');area=row.get('evaluatedArea',{})
-  if row.get('quality')!='valid' or isinstance(value,bool) or not isinstance(value,(int,float)) or not math.isfinite(value) or not 0<=value<=100 or area.get('analysisPixels',0)<100 or area.get('sourcePixels',0)<=0:return None
-  return row
- t=observed('nose','oil');forehead=observed('forehead','oil')
- # The existing nose oil ROI is already forehead union nose: never add the
- # forehead area twice. Require actual visible support in both anatomy parts.
- t_valid=t is not None and forehead is not None and t['evaluatedArea'].get('foreheadSourcePixels',0)>0 and t['evaluatedArea'].get('noseSourcePixels',0)>0
- trace['tZone']=dict(observation=t,inputs={r:input_row(r,'oil') for r in ['nose','forehead']},valid=t_valid,anatomy='existing forehead-union-nose ROI; no duplicate forehead sum')
- states=[]
- for region in ['leftCheek','rightCheek','chin']:
-  oil,dry=observed(region,'oil'),observed(region,'dry')
-  state=None if oil is None or dry is None else 'oily' if oil['value']>0 else 'dry' if dry['value']>0 else 'normal'
-  trace['regions'][region]=dict(state=state,oil=oil,dry=dry,inputs=dict(oil=input_row(region,'oil'),dry=input_row(region,'dry')));states.append(state)
- complete=t_valid and all(s is not None for s in states)
- matches=complete and t['value']>0 and all(s in ('normal','dry') for s in states)
- trace.update(complete=complete,combinationMatched=matches,baseValue=base.get('value'),baseConfidence=base.get('confidence'),baseModelHash=base.get('modelHash'))
+ measurements=measurements if isinstance(measurements,dict) else {}
+ regional=build_regional_map(measurements)
+ result=copy.deepcopy(base)
+ trace=dict(version=RULE,scope='final-product-accepted-regional-evidence',
+  definition='forehead, nose and chin oily; both cheeks supported normal or dry',
+  regionalMeaning='appearance only; not sebum/hydration or sensitivity',
+  complete=regional['complete'],combinationMatched=regional['combinationMatched'],
+  baseValue=base.get('value'),baseConfidence=base.get('confidence'),
+  baseModelHash=base.get('modelHash'),regions={})
+ for region,summary in regional['regions'].items():
+  rows=measurements.get(region,[])
+  rows=rows if isinstance(rows,list) else []
+  keys=['value','quality','methodVersion','normalizationVersion','evaluatedArea','limitationCode']
+  inputs={criterion:next(({k:copy.deepcopy(row.get(k)) for k in keys} for row in rows
+   if isinstance(row,dict) and row.get('id')==criterion),None) for criterion in ['oil','dry']}
+  trace['regions'][region]=dict(state=None if summary['state']=='unknown' else summary['state'],
+   reason=summary['reason'],oil=inputs['oil'],dry=inputs['dry'],inputs=inputs)
  usable=base.get('quality')=='valid' and base.get('value') in CLASSES and bool(base.get('modelHash'))
  if usable:
   result['methodVersion']=base['methodVersion']+'+'+RULE
-  if matches:result.update(value='combination',confidence=None)
- trace['applied']=bool(usable and matches)
- result.update(basePrediction=base,decisionVersion=RULE,decisionTrace=trace)
+  if regional['combinationMatched']:result.update(value='combination',confidence=None)
+ trace['applied']=bool(usable and regional['combinationMatched'])
+ result.update(basePrediction=base,decisionVersion=RULE,decisionTrace=trace,regionalMap=regional)
  return result
 
 
@@ -108,5 +97,7 @@ def finalize_product_type(result):
  skin_type=result.get('general',{}).get('skinType')
  if skin_type and skin_type.get('inferenceKind')=='local-onnx':
   result['general']['skinType']=regional_decision(skin_type,result.get('measurements',{}))
+  result['general']['regionalSkinMap']=copy.deepcopy(result['general']['skinType']['regionalMap'])
  from skin_measurement_contract import attach_result_receipts
  return attach_result_receipts(result)
+

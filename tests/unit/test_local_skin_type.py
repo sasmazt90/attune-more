@@ -11,9 +11,10 @@ def base(value='normal'):return dict(value=value,quality='valid',confidence=.8,m
 def regions(dry=0):return dict(nose=rows(10),forehead=rows(10),leftCheek=rows(0,dry),rightCheek=rows(0,dry),chin=rows(0,dry))
 @pytest.mark.parametrize('dry',[0,4])
 @pytest.mark.parametrize('global_value',['normal','dry','oily'])
-def test_user_combination_rule_overrides_all_global_argmax(dry,global_value):
+def test_uncalibrated_visible_proxies_do_not_override_global_argmax(dry,global_value):
  value=T.regional_decision(base(global_value),regions(dry))
- assert value['value']=='combination' and value['confidence'] is None and value['decisionTrace']['applied']
+ assert value['value']==global_value and value['confidence']==.8 and not value['decisionTrace']['applied']
+ assert all(row['state']=='unknown' for row in value['regionalMap']['regions'].values())
 def test_all_face_oily_is_not_combination():
  r=regions();r.update(leftCheek=rows(10),rightCheek=rows(10),chin=rows(10))
  assert T.regional_decision(base('oily'),r)['value']=='oily'
@@ -54,9 +55,10 @@ def test_final_native_zero_replaces_old_positive_trace_without_reinference(monke
  for rows_ in r['measurements'].values():
   row=next(x for x in rows_ if x['id']=='dry');row.update(value=0,methodVersion='appearance-native-dry-2',normalizationVersion='native-final')
  result=T.finalize_product_type(r);t=result['general']['skinType']
- assert t['value']=='combination' and t['basePrediction']['value']=='oily'
+ assert t['value']=='oily' and t['basePrediction']['value']=='oily'
  assert t['decisionTrace']['regions']['rightCheek']['dry']['value']==0
- assert t['decisionTrace']['regions']['rightCheek']['state']=='normal'
+ assert t['decisionTrace']['regions']['rightCheek']['state'] is None
+ assert result['general']['regionalSkinMap']['regions']['rightCheek']['fill']=='lightgrey'
  assert t['decisionTrace']['regions']['rightCheek']['dry']['methodVersion']=='appearance-native-dry-2'
  assert t['decisionTrace']['regions']['rightCheek']['dry']['quality']=='valid'
  assert result['activeCriterionMethods']['criteria']['type']['overview']['methodVersion']==t['methodVersion']==t['modelVersion']
@@ -76,7 +78,7 @@ def test_final_invalid_or_missing_retracts_previously_matched_combination(failur
 def test_product_finalization_is_idempotent_and_preserves_base(dry):
  r=product_result(dry);before=copy.deepcopy(r['measurements'])
  T.finalize_product_type(r);first=copy.deepcopy(r);T.finalize_product_type(r)
- assert r==first and r['general']['skinType']['value']=='combination'
+ assert r==first and r['general']['skinType']['value']=='oily'
  assert r['general']['skinType']['basePrediction']=={**base('oily'),'inferenceKind':'local-onnx'}
  for region,original in before.items():
   for old,current in zip(original,r['measurements'][region]):
@@ -104,3 +106,4 @@ def test_normal_endpoint_finalizes_after_all_product_replacements(monkeypatch):
  assert events==['native-dry','acne']
  assert result['general']['skinType']['value']=='oily' and not result['general']['skinType']['decisionTrace']['complete']
  assert result['activeCriterionMethods']['criteria']['type']['overview']['methodVersion'].endswith(T.RULE)
+
