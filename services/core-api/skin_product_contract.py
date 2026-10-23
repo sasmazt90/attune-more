@@ -64,6 +64,54 @@ def general_concern_contract(criterion):
     }
 
 
+
+def learned_degree_replacement_policy(criterion, degree):
+    """Whole-face ordinal heads cannot replace localized sag appearance.
+
+    A future accepted localized sag model needs its own localization contract;
+    it must not enter through the generic whole-face degree head.
+    """
+    scope = degree.get('scope')
+    if criterion == 'sag':
+        return {
+            'allowed': False,
+            'reason': 'WHOLE_FACE_ORDINAL_CANNOT_REPLACE_LOCAL_SAG',
+            'candidateScope': scope,
+        }
+    return {'allowed': True, 'reason': None, 'candidateScope': scope}
+
+
+def apply_learned_general_degree(item, degree):
+    """Apply a generic learned degree without mixing score and map methods."""
+    decision = learned_degree_replacement_policy(item['id'], degree)
+    components = item.setdefault('components', {})
+    if not decision['allowed']:
+        components.update(
+            learnedDegreeCandidateBlocked=True,
+            learnedDegreeBlockReason=decision['reason'],
+            learnedDegreeScope=decision['candidateScope'],
+        )
+        return False
+    item.update(
+        value=degree['value'],
+        type='trained_prediction',
+        methodVersion=degree['methodVersion'],
+        modelVersion=degree['methodVersion'],
+        modelHash=degree['modelHash'],
+        quality='valid',
+        limitationCode=None,
+        normalizationVersion=degree['normalizationVersion'],
+        uncertainty=['source-label-protocol-unverified', 'camera-domain-shift'],
+        localMap=None,
+    )
+    components.update(
+        rawGrade=degree['rawGrade'],
+        normalizationVersion=degree['normalizationVersion'],
+        modelScope=degree.get('scope', 'whole-face'),
+        pixelLocalizationAvailable=False,
+    )
+    return True
+
 def tone_separation_components(components=None, localized_support_excluded=False):
     return {
         **(components or {}),
