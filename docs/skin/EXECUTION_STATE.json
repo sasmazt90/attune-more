@@ -175,7 +175,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-23",
-      "lastCheckedAt": "2026-10-23T20:46:16Z",
+      "lastCheckedAt": "2026-10-23T21:36:29Z",
       "modelCount": 89,
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
@@ -327,7 +327,7 @@
         "invalidGeometry": 0
       },
       "versions": [],
-      "lastCheckedAt": "2026-10-23T20:46:16Z",
+      "lastCheckedAt": "2026-10-23T21:36:29Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -420,7 +420,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-23T20:46:16Z",
+      "lastCheckedAt": "2026-10-23T21:36:29Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "modelIds": [
@@ -1351,8 +1351,8 @@
     {
       "id": "12",
       "target": "sagging-appearance",
-      "status": "appearance_and_method_separation_integrated_truth_pending",
-      "work": "Current cheek/chin contour-fold result is appearance-only and the frontend rejects missing/contradictory semantics. Generic whole-face ordinal degree heads are now prohibited from replacing the localized sag contour/fold value or inheriting its analytic map. A future localized sag model must use its own accepted localization contract. Continue pose/expression robustness, same-person capture evaluation and suitable truth acquisition.",
+      "status": "ordinal_source_audited_model_boundary_blocked_truth_pending",
+      "work": "Current cheek/chin contour-fold result remains appearance-only. The 18-criterion ordinal source contains elasticity, not sag; it is not person-independent and lacks accepted expert protocol and camera-domain evidence. The generic whole-face degree boundary now filters any future sag declaration on both success and unavailable-target paths, while the downstream local-result/map replacement guard remains active. Continue pose/expression robustness, same-person capture evaluation and suitable localized truth acquisition.",
       "evidence": [
         "docs/skin/evidence/sag-appearance-semantics-20261023-v1.json",
         "docs/skin/sag-appearance-semantics-20261023.md",
@@ -1366,12 +1366,16 @@
         "tests/unit/test_skin_product_contract.py",
         "docs/skin/evidence/sag-ordinal-local-separation-20261023-v1.json",
         "docs/skin/sag-ordinal-local-separation-20261023.md",
-        "services/core-api/appearance_analysis.py"
+        "services/core-api/appearance_analysis.py",
+        "services/core-api/skin_models.py",
+        "docs/skin/evidence/sag-ordinal-source-audit-20261023-v1.json",
+        "docs/skin/sag-ordinal-source-audit-20261023.md"
       ],
       "blockers": [
         "No accepted independent-camera or expert-reviewed localized sagging truth exists; the current contour/fold index is not elasticity, tissue volume or clinical severity.",
         "Pose/expression robustness and same-person compatible capture pairs remain incomplete, so learned local segmentation and improved/worsened severity language are not accepted.",
-        "This execution environment lacks a TypeScript compiler and real-browser camera stack; focused semantic-gate behavior and Python syntax/overview behavior passed, but full app/browser acceptance remains pending."
+        "This execution environment lacks a TypeScript compiler and real-browser camera stack; focused semantic-gate behavior and Python syntax/overview behavior passed, but full app/browser acceptance remains pending.",
+        "The scratch runtime lacks OpenCV and ONNX Runtime, so the changed model boundary was syntax-checked and covered by pure policy/wiring tests but the actual accepted ONNX session was not executed in this run."
       ]
     },
     {
@@ -1433,7 +1437,7 @@
     "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety."
   },
   "nextActions": [
-    "Task 12 generic whole-face ordinal/local sag mixing is blocked. Do not add sag to the accepted generic degree head or attach its score to the contour map. Any future localized sag model needs an explicit localized-truth/camera acceptance contract; next useful evidence remains consented same-person compatible capture pairs plus expert localized truth and pose/expression robustness.",
+    "Task 12 source audit is complete: the 18-criterion ordinal source has elasticity, not sag, and cannot authorize a sag target. Preserve both model-boundary and downstream replacement guards; do not add sag to the generic degree head. Next useful evidence is consented same-person compatible capture pairs, expert localized truth, pose/expression robustness and execution of the focused model-boundary test in the service runtime with OpenCV/ONNX Runtime.",
     "Task 12 appearance-only semantics and the frontend rejection gate are implemented; do not rebuild or rename the contour/fold proxy as elasticity or clinical severity. Next obtain consented same-person compatible capture pairs plus expert localized truth, then evaluate pose/expression robustness before any learned segmentation or directional improvement claim.",
     "Task 08 product semantics are implemented; do not derive Post acne or Pigmentation from the tone proxy and do not rebuild the twelve-heading contract. Improve the localized detector/data problem first, then activate only an accepted immutable model/evidence triple. When accepted local masks exist, exclude their support from the broad tone sampling and validate co-reporting on an independent camera set.",
     "For task 11, use the SHA-pinned positive-only crows_feet review package as the cleaned source baseline; do not repeat split cleanup or train it yet. Establish whether crows_feet absence is an evaluated negative through source protocol/expert review, add reviewed negative and expression/pose coverage without fabricating labels, then form a true group-safe train/validation/locked-test dataset. Separately resolve the exact selected Wrinkles Detector v2 archive; do not substitute wrinkles-79rrf-t7kyp.",
@@ -1660,6 +1664,19 @@
         "627f8d2cc451a211ebc7f0a3b54f3ef17bf5354b",
         "1181868ce71bd861311235970a6bbcd80a63a223",
         "e84af9194b8856d9c8333f083067b13d3cf8ed64"
+      ]
+    },
+    {
+      "date": "2026-10-23",
+      "observedAt": "2026-10-23T21:36:29Z",
+      "action": "Refreshed the roadmap branch and all 16 private Roboflow projects. Acne/pigmentation NAS 5b632a5c12b76fcfe703 and regional NAS segmentation 3485f8c67f957a1b850d remain finished; regional remains 337 images, under-eye pilot 399 images with no version, and grouped under-eye remains empty. No training or inference was duplicated. Audited the only ordinal appearance source: its 18 columns include elasticity but no sag, the split is not person-independent, and expert protocol/camera acceptance are false; the current manifest still accepts only whole-face redness. Added a model-boundary target policy that filters any future generic sag declaration on success and failure paths while preserving the downstream local contour/map guard. Three Python files compiled and 11 focused checks passed. No model activation, production merge or deployment.",
+      "report": "docs/skin/sag-ordinal-source-audit-20261023.md",
+      "commits": [
+        "e68442475809b907d59148dd6008c333396cf21e",
+        "9999459d6ce07fe13feea4fe6773a710bf14b62c",
+        "27a332107a072554b93f532ec3f2c503f2c2cd2a",
+        "1bc5721aa9b62a26c961efefb223d4c22f0d2831",
+        "1bdb5322289850542a6a1b518474ad8177c6b0ea"
       ]
     }
   ]
