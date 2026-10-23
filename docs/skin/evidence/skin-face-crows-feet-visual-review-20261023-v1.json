@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-23T12:23:00Z",
+  "methodVersion": "skin-face-crows-feet-visual-review-v1",
+  "sourceArchiveSHA256": "1271091931876b3fce1a6bc22865cc7ce112c93042bba589be0412d05070b163",
+  "reviewBoardSHA256": "183243b9c6ee5305af25f8cbcb49f5ab8351996daa34818d2913dfbd0394f346",
+  "selectionSHA256": "24cff43c7fda6624a391faed3ca2d4a052e795b6545d7c18826d4b479f9bb1f7",
+  "examplesReviewed": 12,
+  "selection": {
+    "crossSplitFilenameCandidateImages": 4,
+    "smallMaskImages": 4,
+    "mediumMaskImages": 4
+  },
+  "observations": {
+    "localizedAtLateralEyeArea": 12,
+    "confirmedCrossSplitSamePhotoGroups": 2,
+    "glassesOrStrongEyeOcclusionExamples": 2,
+    "ageOrDynamicExpressionConcernExamples": 1,
+    "notes": [
+      "The class is materially more specific than the rejected FACE v3 generic wrinkles class: reviewed polygons are thin and concentrated near the lateral eye area.",
+      "Both repeated filename groups are visibly the same source photo across train and validation, with different transforms and annotation counts.",
+      "One child example is labelled crows_feet despite weak age-related evidence; this may represent a dynamic smile line or semantic noise and requires expert policy.",
+      "Glasses and smile/expression examples exist, but twelve images cannot establish robustness across pose, expression, age, lighting or camera domain."
+    ]
+  },
+  "reviewNature": "engineering visual review, not dermatology/expert annotation acceptance",
+  "trainingDecision": "do not train until invalid polygons and source-photo split leakage are removed and negative-label semantics are established",
+  "acceptance": {
+    "semanticSignalPromising": true,
+    "expertReviewed": false,
+    "groupSafeSplit": false,
+    "cameraAccepted": false,
+    "productAccepted": false
+  }
+}
