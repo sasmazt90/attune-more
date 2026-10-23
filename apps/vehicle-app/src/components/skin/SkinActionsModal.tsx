@@ -45,9 +45,18 @@ export const SkinActionsModal: React.FC<SkinActionsModalProps> = ({
           </button>
         </div>
 
-        {/* Action Rows */}
+        {region.routine && <div data-skin-routine className="space-y-4">
+          {region.routine.length ? region.routine.map(section => <section key={section.id} data-routine-section={section.id}>
+            <h4 className="text-sm font-bold text-white">{i18nText(section.title)}</h4>
+            <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-slate-300">
+              {section.items.map(item => <li key={item}>{i18nText(item)}</li>)}
+            </ul>
+          </section>) : <p className="text-sm text-slate-400">{i18nText('Bu sonuçta kişiselleştirilmiş ürün önerisi için yeterli ölçüm yok.')}</p>}
+        </div>}
+
+        {/* Preserve reminder and specialist actions after the four routine sections. */}
         <div className="space-y-3">
-          {region.actions.map((act, idx) => {
+          {region.actions.filter(act => region.routine === undefined || act.isCareHandoff || act.icon === 'calendar').map((act, idx) => {
             if (act.isCareHandoff) {
               return (
                 <button

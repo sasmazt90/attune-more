@@ -7,7 +7,7 @@ import numpy as np
 from PIL import Image
 CONFIG=Path(__file__).parent/'models/skin-type-local.json'
 CLASSES=('dry','normal','oily')
-RULE='combination-regional-user-v2-final-product-visible-support-v1'
+RULE='combination-regional-user-v3-tzone-oily-cheeks-not-oily'
 LOCK=threading.Lock()
 _CACHE=None
 
@@ -56,7 +56,7 @@ def infer(bgr):
 
 def regional_decision(base,measurements):
  """Measured absence is distinct from missing support; global argmax cannot
- overrule an observed T-oily/rest-normal-or-dry pattern. No cheek classifier.
+ overrule an observed T-oily/cheeks-not-oily pattern. Dryness is optional.
  Native existing oil >.12 and flake >.04 pixel gates already produced values;
  this rule tests presence/absence of that accepted support, not a fitted scale.
  """
@@ -68,7 +68,7 @@ def regional_decision(base,measurements):
   base=unavailable('LOCAL_TYPE_BASE_IDENTITY_UNAVAILABLE')
  for key in ['status','reason','modelVersion','calibrationVersion','coverage']:
   base.pop(key,None)
- result=copy.deepcopy(base);trace=dict(version=RULE,scope='final-product-measurements',definition='T oily and remaining face normal OR dry',regionalMeaning='visible-support proxy, not sebum/hydration',thresholdPolicy='existing oil>.12 and flake>.04 pixel gates; any accepted area support vs measured zero; no threshold fit',regions={})
+ result=copy.deepcopy(base);trace=dict(version=RULE,scope='final-product-measurements',definition='T-zone forehead/nose/chin oily and both cheeks measured not oily',regionalMeaning='visible-support proxy, not sebum/hydration',thresholdPolicy='existing oil>.12 pixel gate; accepted support vs measured zero; dryness is optional',regions={})
  def input_row(region,criterion):
   row=next((r for r in measurements.get(region,[]) if r.get('id')==criterion),None)
   if not row:return None
@@ -83,14 +83,16 @@ def regional_decision(base,measurements):
  # The existing nose oil ROI is already forehead union nose: never add the
  # forehead area twice. Require actual visible support in both anatomy parts.
  t_valid=t is not None and forehead is not None and t['evaluatedArea'].get('foreheadSourcePixels',0)>0 and t['evaluatedArea'].get('noseSourcePixels',0)>0
- trace['tZone']=dict(observation=t,inputs={r:input_row(r,'oil') for r in ['nose','forehead']},valid=t_valid,anatomy='existing forehead-union-nose ROI; no duplicate forehead sum')
+ chin=observed('chin','oil')
+ t_valid=t_valid and chin is not None
+ trace['tZone']=dict(observation=t,inputs={r:input_row(r,'oil') for r in ['nose','forehead','chin']},valid=t_valid,anatomy='forehead/nose union plus observed chin; no duplicate forehead sum')
  states=[]
- for region in ['leftCheek','rightCheek','chin']:
+ for region in ['leftCheek','rightCheek']:
   oil,dry=observed(region,'oil'),observed(region,'dry')
-  state=None if oil is None or dry is None else 'oily' if oil['value']>0 else 'dry' if dry['value']>0 else 'normal'
+  state=None if oil is None else 'oily' if oil['value']>0 else 'dry' if dry is not None and dry['value']>0 else 'non-oily'
   trace['regions'][region]=dict(state=state,oil=oil,dry=dry,inputs=dict(oil=input_row(region,'oil'),dry=input_row(region,'dry')));states.append(state)
  complete=t_valid and all(s is not None for s in states)
- matches=complete and t['value']>0 and all(s in ('normal','dry') for s in states)
+ matches=complete and (t['value']>0 or chin['value']>0) and all(s in ('non-oily','dry') for s in states)
  trace.update(complete=complete,combinationMatched=matches,baseValue=base.get('value'),baseConfidence=base.get('confidence'),baseModelHash=base.get('modelHash'))
  usable=base.get('quality')=='valid' and base.get('value') in CLASSES and bool(base.get('modelHash'))
  if usable:

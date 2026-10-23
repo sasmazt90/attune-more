@@ -5,6 +5,7 @@ import { cameraCrop, type Crop } from './cameraStability';
 /** Source photo contract. Numeric writers never receive it; the separate local
  * photo store requires explicit photo retention consent. */
 export interface SkinSnapshot {
+  findings?: import('./skinFindingPresentation').SkinFinding[];
   experimentalAcneV5?:boolean;
   captureFaceCount?:number;
   general?:import('./skinOverview').SkinOverview;

@@ -1,6 +1,7 @@
 import { REGION_ORDER, SKIN_REGIONS, buildSkinRegionViewModel, type SkinRegionData, type SkinRegionId } from '../data/skinDemoFixture';
 import type { SkinIndicator } from './skinIndicators';
 import { skinCriterionLabel, SIGN_LABELS } from './skinIndicators';
+import { buildSkinRoutine } from './skinRoutine';
 import type { AppearanceResponse } from './appearanceMeasurements';
 
 export const SKIN_TYPE_LABELS = { normal: 'Normal', dry: 'Kuru', oily: 'Yağlı', combination: 'Karma' } as const;
@@ -53,11 +54,14 @@ export function buildSkinViewModel(id: SkinViewId, result: any, demo = false): S
     const region = buildSkinRegionViewModel(id, result, demo);
     // Historical numeric records can predate schemaVersion 3. Preserve their
     // actual regional rows without inventing an overview or changing units.
-    return { ...region, ...(Array.isArray(result?.indicators?.[id]) ? { indicators: displayLabels(result.indicators[id],'regional') } : {}),
+    const indicators = Array.isArray(result?.indicators?.[id]) ? displayLabels(result.indicators[id],'regional') : region.indicators || [];
+    return { ...region, indicators, skinType: result?.general?.skinType,
+      routine: demo ? undefined : buildSkinRoutine(indicators, result?.general?.skinType),
       index: region.index + (result?.general ? 1 : 0), viewTotal: result?.general ? 7 : 6 };
   }
   return { ...SKIN_REGIONS.forehead, id: 'overview', index: 1, viewTotal: 7,
     nameTr: 'Genel Bakış', indicators: displayLabels(result?.general?.indicators || [],'whole-face'), skinType: result?.general?.skinType,
+    routine: demo ? undefined : buildSkinRoutine(Object.values(result?.indicators || {}).flat() as SkinIndicator[], result?.general?.skinType),
     badgeText: '', changePct: 0, isAttentionRequired: false, trend: [],
     observation: { headline: 'Genel Bakış', details: 'Bu oturumun ön pozundaki genel cilt görünümü.' } };
 }

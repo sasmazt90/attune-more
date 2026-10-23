@@ -28,6 +28,7 @@ export interface MetricItem {
 }
 
 export interface SkinRegionData {
+  routine?: import('../utils/skinRoutine').SkinRoutineSection[];
   indicators?:import('../utils/skinIndicators').SkinIndicator[];
   id: SkinRegionId | 'overview';
   viewTotal?: number;

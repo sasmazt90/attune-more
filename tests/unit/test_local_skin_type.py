@@ -56,20 +56,20 @@ def test_final_native_zero_replaces_old_positive_trace_without_reinference(monke
  result=T.finalize_product_type(r);t=result['general']['skinType']
  assert t['value']=='combination' and t['basePrediction']['value']=='oily'
  assert t['decisionTrace']['regions']['rightCheek']['dry']['value']==0
- assert t['decisionTrace']['regions']['rightCheek']['state']=='normal'
+ assert t['decisionTrace']['regions']['rightCheek']['state']=='non-oily'
  assert t['decisionTrace']['regions']['rightCheek']['dry']['methodVersion']=='appearance-native-dry-2'
  assert t['decisionTrace']['regions']['rightCheek']['dry']['quality']=='valid'
  assert result['activeCriterionMethods']['criteria']['type']['overview']['methodVersion']==t['methodVersion']==t['modelVersion']
  assert t['methodVersion'].count(T.RULE)==1
 
 @pytest.mark.parametrize('failure',['invalid','missing'])
-def test_final_invalid_or_missing_retracts_previously_matched_combination(failure):
+def test_optional_dryness_does_not_retract_observed_non_oily_cheeks(failure):
  r=product_result(4);r['general']['skinType']=T.regional_decision(r['general']['skinType'],r['measurements'])
  if failure=='missing':r['measurements']['leftCheek']=[row for row in r['measurements']['leftCheek'] if row['id']!='dry']
  else:next(row for row in r['measurements']['leftCheek'] if row['id']=='dry').update(value=None,quality='insufficient',methodVersion='appearance-native-dry-2')
  result=T.finalize_product_type(r);t=result['general']['skinType']
- assert t['value']=='oily' and t['confidence']==.8 and not t['decisionTrace']['complete'] and not t['decisionTrace']['applied']
- assert t['decisionTrace']['regions']['leftCheek']['state'] is None
+ assert t['value']=='combination' and t['confidence'] is None and t['decisionTrace']['complete'] and t['decisionTrace']['applied']
+ assert t['decisionTrace']['regions']['leftCheek']['state']=='non-oily'
  assert t['decisionTrace']['regions']['leftCheek']['inputs']['dry']==(None if failure=='missing' else {k:next(row for row in r['measurements']['leftCheek'] if row['id']=='dry').get(k) for k in ['value','quality','methodVersion','normalizationVersion','evaluatedArea','limitationCode']})
 
 @pytest.mark.parametrize('dry',[0,4])
@@ -102,5 +102,20 @@ def test_normal_endpoint_finalizes_after_all_product_replacements(monkeypatch):
   L._busy=asyncio.Lock();return await L.skin(Request())
  result=asyncio.run(run())
  assert events==['native-dry','acne']
- assert result['general']['skinType']['value']=='oily' and not result['general']['skinType']['decisionTrace']['complete']
+ assert result['general']['skinType']['value']=='combination' and result['general']['skinType']['decisionTrace']['complete']
  assert result['activeCriterionMethods']['criteria']['type']['overview']['methodVersion'].endswith(T.RULE)
+
+
+def test_chin_is_part_of_tzone_not_a_non_oily_cheek():
+ r=regions();r['chin']=rows(8)
+ assert T.regional_decision(base('oily'),r)['value']=='combination'
+
+def test_dryness_not_required_for_user_not_oily_rule():
+ r=regions()
+ for region in ['leftCheek','rightCheek']:
+  r[region]=[v for v in r[region] if v['id']=='oil']
+ assert T.regional_decision(base(),r)['value']=='combination'
+
+def test_missing_chin_oil_is_not_observed_tzone():
+ r=regions();r['chin']=[]
+ assert not T.regional_decision(base(),r)['decisionTrace']['complete']

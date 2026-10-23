@@ -25,7 +25,9 @@ def reason(observation,photo_id,opening,smile,lip_width_ratio):
 
 
 def pose_reason(pose,conditions):
-    """Same capture-angle limits as matchesSkinAngle; no new fitted thresholds."""
+    """Analysis supports historical side poses; acquisition now asks for more turn.
+    Keep .28..65 here so older source-bound photographs remain analyzable.
+    """
     values=[conditions.get(k) for k in ('yaw','pitch','roll')]
     if any(isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) for v in values):return 'HEAD_ANGLE_UNSUPPORTED'
     yaw,pitch,roll=values
