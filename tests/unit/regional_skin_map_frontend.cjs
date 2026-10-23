@@ -40,6 +40,8 @@ async function load(name) {
   const overview = module.namespace;
   const mapModule = [...cache.values()].find(m => m.identifier.endsWith('/regionalSkinMap.ts'));
   const R = mapModule.namespace;
+  const photoModule = await load('skinPhotoHistory'); await photoModule.evaluate();
+  const P = photoModule.namespace;
   const u = R.bindRegionalSkinMap(fixtures.unknown, source), p = R.bindRegionalSkinMap(fixtures.combination, source);
   check(() => { assert(u); assert(p); assert(p.map.combinationMatched); });
   check(() => { assert.equal(u.map.complete,false); assert(Object.values(u.map.regions).every(r => r.state==='unknown' && r.fill==='lightgrey')); });
@@ -118,7 +120,8 @@ async function load(name) {
       {x:x+w*(.24+index*.11),y:y+h*.42},{x:x+w*(.18+index*.11),y:y+h*.42}
     ],edges:[[0,1],[1,2],[2,3],[3,0]],major:[],boundary:[],excluded:[]}]))
     return {angle:'FRONT',photoId:'c'.repeat(64),dataUrl:'data:image/png;base64,AA==',width,height,
-      crop:{x:0,y:0,width,height},previewCrop:crop,meshes,general:{regionalSkinMap:bound}};
+      crop:{x:0,y:0,width,height},previewCrop:crop,meshes,general:{captureId:'c'.repeat(64),pose:'FRONT',
+        sourceTransform:{sourceWidth:width,sourceHeight:height},regionalSkinMap:bound}};
   });
   for(const [index,snapshot] of replaySnapshots.entries()){
     const replay=R.retainedRegionalSkinReplay(snapshot,'overview',null);
@@ -130,6 +133,10 @@ async function load(name) {
   check(() => { const x=clone(replaySnapshots[0]);x.previewCrop.width=1;assert.equal(R.retainedRegionalSkinReplay(x,'overview',null),undefined); });
   check(() => { const x=clone(replaySnapshots[0]);x.meshes.forehead.points[0].x=x.width+1;assert.equal(R.retainedRegionalSkinReplay(x,'overview',null),undefined); });
   check(() => { const x=clone(replaySnapshots[0]);x.dataUrl='https://example.invalid/photo.png';assert.equal(R.retainedRegionalSkinReplay(x,'overview',null),undefined); });
+  check(() => assert.equal(P.validateSkinPhotoFrames({FRONT:replaySnapshots[0]}),true));
+  check(() => { const x=clone(replaySnapshots[0]);x.general.regionalSkinMap.source.captureId='e'.repeat(64);assert.throws(()=>P.validateSkinPhotoFrames({FRONT:x}),/INVALID_REGIONAL_REPLAY_SOURCE/); });
+  check(() => { const x=clone(replaySnapshots[0]);x.previewCrop.x=-.1;assert.throws(()=>P.validateSkinPhotoFrames({FRONT:x}),/INVALID_REGIONAL_REPLAY_SOURCE/); });
+  check(() => { const x=clone(replaySnapshots[0]);x.meshes.nose.points[0].y=x.height+1;assert.throws(()=>P.validateSkinPhotoFrames({FRONT:x}),/INVALID_REGIONAL_REPLAY_SOURCE/); });
 
   const ids=['tone','oil','redness','acne','sag','dry','lines','dark','bags'];
   const response = { photoId: source.captureId, sourceWidth: source.sourceWidth, sourceHeight: source.sourceHeight,
@@ -148,6 +155,6 @@ async function load(name) {
   check(() => { const x=clone(response); x.general.regionalSkinMap.regions.forehead.fill='blue'; assert.equal(overview.overviewFromResponse(x).regionalSkinMap,undefined); });
   check(() => { const x=clone(response); x.photoId='not-a-capture'; assert.equal(overview.overviewFromResponse(x).regionalSkinMap,undefined); });
   check(() => assert.equal(overview.overviewFromResponse({}),undefined));
-  console.log(JSON.stringify({ checks, serverFixtures:4, replayAspectRatios:3, result:'pass', scope:'numeric-contract-converter-svg-layer-categorical-history-and-retained-photo-replay', modelAcceptance:false, cameraAcceptance:false }));
+  console.log(JSON.stringify({ checks, serverFixtures:4, replayAspectRatios:3, result:'pass', scope:'numeric-contract-converter-svg-layer-categorical-history-retained-photo-replay-and-storage-gate', modelAcceptance:false, cameraAcceptance:false }));
 })().catch(error => { console.error(error); process.exitCode=1; });
 
