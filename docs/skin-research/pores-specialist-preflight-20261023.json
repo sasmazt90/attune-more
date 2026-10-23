@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "preparedArchiveSHA256": "f4f6ebb743354ad7a65ee75487ee4a09b74f74ea26f0493f6fab7a9d28bf5c44",
+  "filenameIdentity": "source-file-SHA256",
+  "actualExportSHA256": "784d1ce1b07be7ae98e505ea33acaca9bae9fc9e5740c99e3c0f8cbf1e5f4617",
+  "splits": {
+    "test": {
+      "images": 206,
+      "annotated": 206,
+      "annotations": 7450,
+      "unannotated": 0
+    },
+    "train": {
+      "images": 1018,
+      "annotated": 1018,
+      "annotations": 41559,
+      "unannotated": 0
+    },
+    "valid": {
+      "images": 192,
+      "annotated": 192,
+      "annotations": 7879,
+      "unannotated": 0
+    }
+  },
+  "classes": {
+    "pore": 56888
+  },
+  "classPositiveImages": {
+    "pore": {
+      "test": 206,
+      "train": 1018,
+      "valid": 192
+    }
+  },
+  "exactImageOverlaps": {
+    "test-train": 0,
+    "test-valid": 0,
+    "train-valid": 0
+  },
+  "groupOverlaps": {
+    "test-train": 0,
+    "test-valid": 0,
+    "train-valid": 0
+  },
+  "jpegRecodedImages": 657,
+  "maxMeanAbsolutePixelDifference": 0.014315592447916666,
+  "imagesWithAdjustedBoxGeometry": 1,
+  "maxBoxCoordinateDifferencePixels": 0.010000000000019327,
+  "boxTolerancePixels": 1.01,
+  "pixelDifferenceLimit": 8,
+  "issues": {},
+  "nativeInstanceMasksChecked": 56888,
+  "minimumInstanceRasterIoU": 1.0,
+  "maskBoundaryTolerancePixels": 1
+}

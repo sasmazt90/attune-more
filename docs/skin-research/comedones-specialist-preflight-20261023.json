@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "preparedArchiveSHA256": "e64e6f6e2db2a61f646652654efd51a4531da2afff74279f23ab95bf0971e0d9",
+  "filenameIdentity": "source-file-SHA256",
+  "actualExportSHA256": "96658bac34264547e677300852687b47c843e5ff82ff12101a7a09a76d98cb88",
+  "splits": {
+    "test": {
+      "images": 309,
+      "annotated": 309,
+      "annotations": 2322,
+      "unannotated": 0
+    },
+    "train": {
+      "images": 1547,
+      "annotated": 1547,
+      "annotations": 10226,
+      "unannotated": 0
+    },
+    "valid": {
+      "images": 345,
+      "annotated": 345,
+      "annotations": 2024,
+      "unannotated": 0
+    }
+  },
+  "classes": {
+    "acne": 3577,
+    "whiteheads": 6172,
+    "blackheads": 4823
+  },
+  "classPositiveImages": {
+    "acne": {
+      "test": 210,
+      "train": 1074,
+      "valid": 223
+    },
+    "whiteheads": {
+      "test": 88,
+      "train": 392,
+      "valid": 84
+    },
+    "blackheads": {
+      "test": 90,
+      "train": 440,
+      "valid": 82
+    }
+  },
+  "exactImageOverlaps": {
+    "test-train": 0,
+    "test-valid": 0,
+    "train-valid": 0
+  },
+  "groupOverlaps": {
+    "test-train": 0,
+    "test-valid": 0,
+    "train-valid": 0
+  },
+  "jpegRecodedImages": 2197,
+  "maxMeanAbsolutePixelDifference": 1.6649943310657596,
+  "imagesWithAdjustedBoxGeometry": 0,
+  "maxBoxCoordinateDifferencePixels": 0.0,
+  "boxTolerancePixels": 1.01,
+  "pixelDifferenceLimit": 8,
+  "issues": {}
+}

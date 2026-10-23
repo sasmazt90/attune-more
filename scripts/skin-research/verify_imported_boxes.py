@@ -36,10 +36,14 @@ def records(z):
 
 def verify(prepared, manifest, exported):
     provenance = json.loads(manifest.read_text())
-    expected_rows = {r['decodedSHA256']: r for r in provenance['images']}
+    grouped_manifest = 'outputArchiveSHA256' in provenance
+    expected_rows = {(r['rawSHA256'] if grouped_manifest else r['decodedSHA256']):
+                     {**r, 'group': r['sourceGroup'] if grouped_manifest else r['group']}
+                     for r in provenance['images']}
     issues, counts, groups, hashes = [], defaultdict(Counter), defaultdict(set), defaultdict(set)
     prepared_hash=hashlib.file_digest(prepared.open('rb'),'sha256').hexdigest()
-    if prepared_hash != provenance['summary']['archiveSHA256']:
+    expected_archive_hash = provenance['outputArchiveSHA256'] if grouped_manifest else provenance['summary']['archiveSHA256']
+    if prepared_hash != expected_archive_hash:
         issues.append('SOURCE_ARCHIVE_HASH_MISMATCH')
     labels, class_images, max_pixel_difference, max_geometry_difference, geometry_changed = Counter(), defaultdict(Counter), 0., 0., 0
     seen, recoded = set(), 0
@@ -94,6 +98,7 @@ def verify(prepared, manifest, exported):
     if any(v.get('unannotated',0) for v in counts.values()):issues.append('UNANNOTATED_IMAGE')
     for value in counts.values():value.setdefault('unannotated',0)
     return dict(passed=not issues,preparedArchiveSHA256=prepared_hash,
+                filenameIdentity='source-file-SHA256' if grouped_manifest else 'source-decoded-SHA256',
                 actualExportSHA256=hashlib.file_digest(exported.open('rb'),'sha256').hexdigest(),
                 splits=dict(counts),classes=dict(labels),classPositiveImages=dict(class_images),exactImageOverlaps=overlaps,groupOverlaps=group_overlaps,
                 jpegRecodedImages=recoded,maxMeanAbsolutePixelDifference=max_pixel_difference,
