@@ -303,7 +303,7 @@
         "invalidGeometry": 0
       },
       "versions": [],
-      "lastCheckedAt": "2026-10-23T09:46:48.027Z",
+      "lastCheckedAt": "2026-10-23T11:00:23.644Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -330,6 +330,25 @@
         "cameraAccepted": false,
         "remoteVersionCreated": false,
         "evidence": "docs/skin/evidence/under-eye-group-split-20261023-v1.json"
+      },
+      "groupedResearchProject": {
+        "project": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+        "url": "https://app.roboflow.com/tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+        "annotationGroup": "attune-undereye-grouped-20261023-r1",
+        "private": true,
+        "images": 0,
+        "splits": {
+          "train": 0,
+          "valid": 0,
+          "test": 0
+        },
+        "versions": [],
+        "uploadTaskId": "sLFwX7CYBVcnnD6iAW5o",
+        "uploadStatus": "created",
+        "uploadProgress": null,
+        "bytesSent": false,
+        "trainingStarted": false,
+        "evidence": "docs/skin/evidence/under-eye-grouped-project-20261023-v1.json"
       }
     },
     "regionalMap": {
@@ -722,6 +741,17 @@
         "docs/skin/evidence/source-review-checks-20261023-v1.json"
       ],
       "report": "docs/skin/source-pair-preparation-20261023.md"
+    },
+    "roboflowPlanEvidence": {
+      "observedDate": "2026-10-23",
+      "source": "user-provided Roboflow plan screenshot",
+      "displayedText": "Commercial model license: Includes a license to self-host models trained on Roboflow.",
+      "appliesTo": "models trained on the user's Roboflow plan/workspace",
+      "doesNotEstablish": [
+        "individual source-photo rights",
+        "dataset publisher ownership",
+        "third-party public checkpoint rights"
+      ]
     }
   },
   "sourceMappingEvidence": {
@@ -1042,10 +1072,11 @@
       "evidence": [
         "docs/skin/evidence/archive-audit-20261023-v2.json",
         "docs/skin/evidence/under-eye-group-split-20261023-v1.json",
-        "docs/skin/under-eye-group-split-20261023.md"
+        "docs/skin/under-eye-group-split-20261023.md",
+        "docs/skin/evidence/under-eye-grouped-project-20261023-v1.json"
       ],
       "blockers": [
-        "The SHA-pinned derived export preserves all 399 image bytes and 869 polygons and keeps all eight reviewed left/right source-photo pairs within one split. Person independence, expert semantic review, private import/version/training and independent camera acceptance remain open; no model/version generated."
+        "The grouped 399-image/869-polygon export is SHA-pinned and a unique private Roboflow research project exists, but the client-side facial-image ZIP transfer was not permitted in this run. The project remains empty, upload task sLFwX7CYBVcnnD6iAW5o has status created with no progress, and no version/training exists. Do not create another project or task; retry only the same verified archive through an explicitly permitted private transfer path."
       ]
     },
     {
@@ -1056,16 +1087,17 @@
       "evidence": [
         "docs/skin/evidence/archive-audit-20261023-v2.json",
         "docs/skin/evidence/under-eye-group-split-20261023-v1.json",
-        "docs/skin/under-eye-group-split-20261023.md"
+        "docs/skin/under-eye-group-split-20261023.md",
+        "docs/skin/evidence/under-eye-grouped-project-20261023-v1.json"
       ],
       "blockers": [
-        "The SHA-pinned derived export preserves all 399 image bytes and 869 polygons and keeps all eight reviewed left/right source-photo pairs within one split. Person independence, expert semantic review, private import/version/training and independent camera acceptance remain open; no model/version generated."
+        "The grouped 399-image/869-polygon export is SHA-pinned and a unique private Roboflow research project exists, but the client-side facial-image ZIP transfer was not permitted in this run. The project remains empty, upload task sLFwX7CYBVcnnD6iAW5o has status created with no progress, and no version/training exists. Do not create another project or task; retry only the same verified archive through an explicitly permitted private transfer path."
       ]
     },
     {
       "id": "11",
       "target": "crows-feet-and-wrinkles",
-      "status": "candidate_source_pairs_prepared",
+      "status": "face_v3_rejected_selected_sources_pending",
       "work": "Start with existing lines/crows-feet criterion; audit Wrinkles Detector/skin_face_detection/Skin v5 labels and geometry; extend other facial wrinkles only where labelled truth supports it; evaluate expression and pose effects.",
       "evidence": [
         "docs/skin/evidence/merve-direct-summary-20261023-v1.json",
@@ -1075,11 +1107,14 @@
         "docs/skin/evidence/source-review-manifest-20261023-v1.json.gz",
         "docs/skin/evidence/source-visual-inspection-20261023-v1.json",
         "docs/skin/evidence/source-review-checks-20261023-v1.json",
-        "docs/skin/source-pair-preparation-20261023.md"
+        "docs/skin/source-pair-preparation-20261023.md",
+        "docs/skin/evidence/face-v3-wrinkle-geometry-20261023-v1.json",
+        "docs/skin/evidence/face-v3-wrinkle-visual-review-20261023-v1.json",
+        "docs/skin/face-v3-wrinkle-audit-20261023.md"
       ],
       "blockers": [
-        "Mervev12 also contains2513kirisiklik boxes, no wrinkle polygons, processed/augmented source. This does not establish native camera wrinkle segmentation; audit selected wrinkle sources separately.",
-        "FACEv3contains96nonrectangularwrinklespolygons,16trainpairs prepared; sampled masks can cover broad under-eye/cheek anatomy. This does not establish a crows-feet definition or expert crease labels; selected ledger wrinkle sources remain toreview."
+        "Merve v12 contains 2,513 kirisiklik boxes, no wrinkle polygons, and processed/augmented imagery; it is not native-camera wrinkle segmentation truth.",
+        "FACE v3 was fully audited: 138 wrinkles annotations on 106 images, including 42 rectangle polygons and 96 non-rectangle polygons. Thirty-five true polygons cover at least 8% of the frame and ten cover at least 40%; stratified visual review showed mixed broad face/cheek/mouth and inconsistent local patches, not a crow's-feet definition. FACE v3 is rejected for crow's-feet and generic wrinkle segmentation training. Separately selected Wrinkles Detector / skin-face sources remain to audit."
       ]
     },
     {
@@ -1128,7 +1163,8 @@
     "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety."
   },
   "nextActions": [
-    "Import the SHA-pinned grouped under-eye export into a private research project/version without duplicating or mutating the original 399-image project. Use the derived 283/78/38 split, verify geometry after import, and launch at most one research NAS segmentation run; never train on the original leaking 279/81/39 split.",
+    "Audit the separately selected Wrinkles Detector and skin-face sources for an explicit crow's-feet definition, localized non-rectangle geometry, split leakage, expression/pose coverage and rights. FACE v3 and Merve v12 are not eligible for crow's-feet training.",
+    "The private grouped under-eye project tolgar-sasmaz/attune-skin-under-eye-grouped-research exists but is empty. Reuse upload task sLFwX7CYBVcnnD6iAW5o only if the prepared signed transfer is still valid and permitted; otherwise create one replacement task, not another project. Upload only archive SHA256 41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8, then verify 283/78/38 and 869 polygons before generating/training.",
     "Use the saved single-call Merve v12 response for threshold analysis; do not repeat inference on the same image. Build a consented labelled multi-camera benchmark before class-specific threshold selection or product promotion. Verify checkpoint/commercial rights. pul is not regional dryness truth.",
     "Source-pair acquisition is complete for FACEv3/v4,Rednessv2,Drynessv1; do not repeat downloads/audits unchanged. Use the pinned private120pairbundle and persistedfullaudit, with review-manifest provenance. FACEv3 is preferred over augmentedv4. 700Dryness/45Redness images exactly match existing sources; never count these as newly acquired coverage. All source labels and rights acceptance remain pending; no automatic merge or retraining.",
     "Continue unblocked source-bound SVG overlay and method-compatible history wiring under the accepted-method gate; under-eye source grouping/review; selected crow's-feet data; sagging and real-camera acceptance. Source normal labels must not bypass the empty accepted regional-method registry.",
@@ -1202,6 +1238,12 @@
       "observedAt": "2026-10-23T09:46:48.027Z",
       "action": "Refreshed GitHub and all five private Roboflow projects; under-eye remains 399 images, 487 eyebag/382 darkcircle polygons, original 279/81/39 splits and zero versions. Visually reviewed all eight explicit left/right source-photo pairs plus dHash and short-numeric collision candidates: only explicit pairs were reliable, while automatic alternatives paired visibly unrelated people/photos. Built and fully re-audited a research-only grouped COCO export: all 399 image bytes and 869 polygon geometries preserved, three cross-split source-photo pairs moved wholly to train, resulting 283/78/38 with zero cross-split explicit pairs and zero geometry issues. Fourteen focused tests pass. Saved code, test, metadata receipt and report; no facial image committed, no project mutation, training, deployment, merge or acceptance claim.",
       "report": "docs/skin/under-eye-group-split-20261023.md"
+    },
+    {
+      "date": "2026-10-23",
+      "observedAt": "2026-10-23T11:00:23.644Z",
+      "action": "Refreshed the execution branch and all existing Roboflow trainings/projects; prior acne and regional NAS runs remain finished and were not duplicated. Recorded user-provided plan evidence that Roboflow-trained models include a commercial self-host license, without treating it as source-photo or public-checkpoint rights. Created one unique private grouped under-eye research project and one upload task, but client-side transfer of the facial-image ZIP was not permitted: no bytes/images were sent, project remains empty, task status created, no version/training. Continued useful work by fully auditing FACE v3 wrinkles geometry: 138 annotations on 106 images, 96 non-rectangle polygons, 42 rectangles; 35 masks cover >=8% and 10 cover >=40% of the frame. Stratified 18-example visual review found mixed broad face/cheek/mouth and inconsistent local patches, no crow's-feet taxonomy. Rejected FACE v3 for crow's-feet/generic wrinkle segmentation, added reusable audit and 3 tests; 13 focused tests pass. No source relabel, facial image commit, model activation, deployment or merge.",
+      "report": "docs/skin/face-v3-wrinkle-audit-20261023.md"
     }
   ]
 }
