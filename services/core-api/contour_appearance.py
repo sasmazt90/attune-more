@@ -168,7 +168,7 @@ def analyze_contour(payload,check=None):
                     field[y,x]=1.;accepted_centers.add((x,y));accepted_slots.add(tuple(np.rint(guide_xy).astype(int)))
             value=float(100*len(accepted_slots)/max(1,len(observed_slots)))
             maps[region]=map_result(field,eligible,region,'sag',digest,payload['pose'],image.shape,1.,'percent-observed-boundary-support',1.)
-        row=dict(value=value,reason=reason,version=VERSION,unit='percent-observed-boundary-support',observedAnatomicalSamples=int(q['visible'].sum()) if q else 0,uniqueObservedSlots=len(observed_slots),acceptedBoundarySlots=len(accepted_slots),trackedImageSamples=int(q['observed'].sum()) if q else 0,acceptedSamples=len(accepted_centers),activeSourcePixels=int((field>0).sum()),quality='valid' if value is not None else 'insufficient')
+        row=dict(value=value,reason=reason,version=VERSION,unit='percent-observed-boundary-support',observedAnatomicalSamples=int(q['visible'].sum()) if q else 0,uniqueObservedSlots=len(observed_slots),acceptedBoundarySlots=len(accepted_slots),trackedImageSamples=int(q['observed'].sum()) if q else 0,acceptedSamples=len(accepted_centers),activeSourcePixels=int((field>0).sum()),quality='valid' if value is not None else 'insufficient',appearanceSemantics='visible-lower-face-contour-fold-appearance-v1',clinicalSeverity=False,elasticity=False,comparisonMode='same-person-compatible-capture-only')
         if payload.get('expressionObservation'):
             row['version']='image-contour-neighbor-excursion-exterior-expression-v3-staging'
             row['expressionSupportVersion']='local-mediapipe-expression-support-v1'
