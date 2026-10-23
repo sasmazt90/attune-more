@@ -663,6 +663,62 @@
         "productActivated": false,
         "decision": "Research candidate only; multi-image labelled camera benchmark and checkpoint/commercial-rights verification required."
       }
+    },
+    "wrinkleSources": {
+      "observedAt": "2026-10-23T12:23:00Z",
+      "skinFaceCurrent": {
+        "universeSource": "https://universe.roboflow.com/elisabeth-hui/skin_face_detection",
+        "forkTaskId": "ECgvbqgBLjG2VCMcjcCb",
+        "forkStatus": "completed",
+        "project": "tolgar-sasmaz/skin_face_detection-emora",
+        "projectUrl": "https://app.roboflow.com/tolgar-sasmaz/skin_face_detection-emora",
+        "version": 1,
+        "versionReady": true,
+        "images": 2811,
+        "splits": {
+          "train": 1969,
+          "valid": 564,
+          "test": 278
+        },
+        "classes": {
+          "crows_feet": 875,
+          "wrinkle": 18400,
+          "forehead": 4037,
+          "frown": 578,
+          "tear_through": 648,
+          "nasolabial_fold": 602,
+          "marionette_line": 401
+        },
+        "preprocessing": {},
+        "augmentation": {},
+        "exportArchiveSHA256": "1271091931876b3fce1a6bc22865cc7ce112c93042bba589be0412d05070b163",
+        "validCrowsFeetPolygons": 855,
+        "invalidCrowsFeetPolygons": 20,
+        "crossSplitPositiveSourcePhotoGroupsConfirmed": 2,
+        "trainingStarted": false,
+        "currentSplitsEligibleForHoldout": false,
+        "modelAccepted": false,
+        "productActivated": false
+      },
+      "unrelatedWorkspaceCandidate": {
+        "project": "tolgar-sasmaz/wrinkles-79rrf-t7kyp",
+        "version": 1,
+        "images": 1558,
+        "splits": {
+          "train": 1167,
+          "valid": 243,
+          "test": 148
+        },
+        "classes": {
+          "wrinkles": 7516
+        },
+        "exportArchiveSHA256": "b4f608040a4847bf0cd6c781496f0182ca870ca2e080f502854a2959f223e657",
+        "sourceIdentityMatchesSelectedWrinklesDetectorV2": false,
+        "crossSplitFilenameCandidateGroups": 65,
+        "crossSplitPerceptualCandidatePairs": 202,
+        "trainingStarted": false,
+        "decision": "Do not train or substitute for the selected 914-image Wrinkles Detector v2 source without lineage resolution and grouped re-splitting."
+      }
     }
   },
   "sourceAccess": {
@@ -752,6 +808,48 @@
         "dataset publisher ownership",
         "third-party public checkpoint rights"
       ]
+    },
+    "wrinkleCandidates": {
+      "observedAt": "2026-10-23T12:23:00Z",
+      "universeInventory": [
+        {
+          "id": "sellsio/wrinkles-detector",
+          "url": "https://universe.roboflow.com/sellsio/wrinkles-detector",
+          "currentImages": 914,
+          "currentSplits": {
+            "train": 640,
+            "valid": 183,
+            "test": 91
+          },
+          "currentClasses": {
+            "wrinkle": 6237,
+            "face": 464,
+            "acne": 222,
+            "dark_circle": 56
+          },
+          "priorSelectedArchive": "Wrinkles Detector.v2i.coco-segmentation.zip",
+          "priorSelectedArchiveSHA256": "3e6d6f35c0590dccb76335d54a8f52118f97599206b40e5d974212bbc6fdc8ec"
+        },
+        {
+          "id": "elisabeth-hui/skin_face_detection",
+          "url": "https://universe.roboflow.com/elisabeth-hui/skin_face_detection",
+          "currentImages": 2811,
+          "currentSplits": {
+            "train": 1969,
+            "valid": 564,
+            "test": 278
+          },
+          "explicitCrowsFeetAnnotations": 875,
+          "priorSelectedArchive": "skin_face_detection.v1i.coco.zip",
+          "priorSelectedArchiveSHA256": "c56937df11bdcce2903afa38ee09225c83e2d8f886e312ede0cc50cf5f397798",
+          "currentSnapshotEqualsPriorAugmentedArchive": false
+        }
+      ],
+      "evidence": [
+        "docs/skin/evidence/skin-face-crows-feet-audit-20261023-v1.json",
+        "docs/skin/evidence/skin-face-crows-feet-visual-review-20261023-v1.json"
+      ],
+      "report": "docs/skin/skin-face-crows-feet-audit-20261023.md"
     }
   },
   "sourceMappingEvidence": {
@@ -1097,7 +1195,7 @@
     {
       "id": "11",
       "target": "crows-feet-and-wrinkles",
-      "status": "face_v3_rejected_selected_sources_pending",
+      "status": "skin_face_promising_cleanup_and_group_split_pending",
       "work": "Start with existing lines/crows-feet criterion; audit Wrinkles Detector/skin_face_detection/Skin v5 labels and geometry; extend other facial wrinkles only where labelled truth supports it; evaluate expression and pose effects.",
       "evidence": [
         "docs/skin/evidence/merve-direct-summary-20261023-v1.json",
@@ -1110,11 +1208,18 @@
         "docs/skin/source-pair-preparation-20261023.md",
         "docs/skin/evidence/face-v3-wrinkle-geometry-20261023-v1.json",
         "docs/skin/evidence/face-v3-wrinkle-visual-review-20261023-v1.json",
-        "docs/skin/face-v3-wrinkle-audit-20261023.md"
+        "docs/skin/face-v3-wrinkle-audit-20261023.md",
+        "docs/skin/evidence/skin-face-crows-feet-audit-20261023-v1.json",
+        "docs/skin/evidence/skin-face-crows-feet-visual-review-20261023-v1.json",
+        "docs/skin/skin-face-crows-feet-audit-20261023.md",
+        "scripts/skin-research/render_wrinkle_source_review.py",
+        "tests/unit/test_wrinkle_source_review.py"
       ],
       "blockers": [
         "Merve v12 contains 2,513 kirisiklik boxes, no wrinkle polygons, and processed/augmented imagery; it is not native-camera wrinkle segmentation truth.",
-        "FACE v3 was fully audited: 138 wrinkles annotations on 106 images, including 42 rectangle polygons and 96 non-rectangle polygons. Thirty-five true polygons cover at least 8% of the frame and ten cover at least 40%; stratified visual review showed mixed broad face/cheek/mouth and inconsistent local patches, not a crow's-feet definition. FACE v3 is rejected for crow's-feet and generic wrinkle segmentation training. Separately selected Wrinkles Detector / skin-face sources remain to audit."
+        "FACE v3 was fully audited and rejected for crow's-feet and generic wrinkle segmentation training because its class mixes 42 rectangle polygons with broad/inconsistent face, cheek and mouth regions.",
+        "The current skin_face_detection snapshot supplies an explicit crows_feet class with 855 valid localized polygons, but 20 invalid polygons and two visually confirmed train/validation same-photo groups require quarantine and a group-safe replacement split. Images without crows_feet are not yet verified evaluated negatives; expert semantics, rights, expression/pose and camera acceptance remain open.",
+        "The private 1,558-image wrinkles-79rrf-t7kyp project is not the selected 914-image Wrinkles Detector v2 archive. It has 65 cross-split filename candidate groups and 202 cross-split perceptual candidate pairs and must not be trained or substituted without lineage resolution."
       ]
     },
     {
@@ -1163,7 +1268,7 @@
     "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety."
   },
   "nextActions": [
-    "Audit the separately selected Wrinkles Detector and skin-face sources for an explicit crow's-feet definition, localized non-rectangle geometry, split leakage, expression/pose coverage and rights. FACE v3 and Merve v12 are not eligible for crow's-feet training.",
+    "For task 11, use tolgar-sasmaz/skin_face_detection-emora version 1 only as audited source material: quarantine the 20 invalid crows_feet polygons, group the two confirmed repeated source photos and broader duplicate candidates, establish whether class absence is an evaluated negative, then create a group-safe research split. Do not train on the current splits. Separately resolve the exact selected Wrinkles Detector v2 archive; do not substitute wrinkles-79rrf-t7kyp.",
     "The private grouped under-eye project tolgar-sasmaz/attune-skin-under-eye-grouped-research exists but is empty. Reuse upload task sLFwX7CYBVcnnD6iAW5o only if the prepared signed transfer is still valid and permitted; otherwise create one replacement task, not another project. Upload only archive SHA256 41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8, then verify 283/78/38 and 869 polygons before generating/training.",
     "Use the saved single-call Merve v12 response for threshold analysis; do not repeat inference on the same image. Build a consented labelled multi-camera benchmark before class-specific threshold selection or product promotion. Verify checkpoint/commercial rights. pul is not regional dryness truth.",
     "Source-pair acquisition is complete for FACEv3/v4,Rednessv2,Drynessv1; do not repeat downloads/audits unchanged. Use the pinned private120pairbundle and persistedfullaudit, with review-manifest provenance. FACEv3 is preferred over augmentedv4. 700Dryness/45Redness images exactly match existing sources; never count these as newly acquired coverage. All source labels and rights acceptance remain pending; no automatic merge or retraining.",
@@ -1244,6 +1349,12 @@
       "observedAt": "2026-10-23T11:00:23.644Z",
       "action": "Refreshed the execution branch and all existing Roboflow trainings/projects; prior acne and regional NAS runs remain finished and were not duplicated. Recorded user-provided plan evidence that Roboflow-trained models include a commercial self-host license, without treating it as source-photo or public-checkpoint rights. Created one unique private grouped under-eye research project and one upload task, but client-side transfer of the facial-image ZIP was not permitted: no bytes/images were sent, project remains empty, task status created, no version/training. Continued useful work by fully auditing FACE v3 wrinkles geometry: 138 annotations on 106 images, 96 non-rectangle polygons, 42 rectangles; 35 masks cover >=8% and 10 cover >=40% of the frame. Stratified 18-example visual review found mixed broad face/cheek/mouth and inconsistent local patches, no crow's-feet taxonomy. Rejected FACE v3 for crow's-feet/generic wrinkle segmentation, added reusable audit and 3 tests; 13 focused tests pass. No source relabel, facial image commit, model activation, deployment or merge.",
       "report": "docs/skin/face-v3-wrinkle-audit-20261023.md"
+    },
+    {
+      "date": "2026-10-23",
+      "observedAt": "2026-10-23T12:23:00Z",
+      "action": "Refreshed the branch and all Roboflow projects/trainings; acne and regional NAS runs remain finished and were not duplicated. Detected an unrelated private wrinkles project and audited its 1,558-image export: it does not match the selected 914-image Wrinkles Detector v2 identity and has extensive cross-split duplicate candidates, so no training was started. Queried both exact Universe sources and verified that current skin_face_detection has an explicit crows_feet class (875 annotations). Forked it once as tolgar-sasmaz/skin_face_detection-emora, generated version 1 with empty preprocessing/augmentation, exported and SHA-pinned 2,811 images, then audited geometry and leakage. Found 855 valid localized crows-feet polygons, 20 invalid polygons on 15 images, and two positive same-photo groups spanning train/validation; engineering review of 12 stratified images confirmed lateral-eye localization but exposed expression/age and glasses coverage concerns. Added a deterministic review renderer and three tests; 16 focused checks pass. Current splits are rejected as a locked holdout; no model training, inference, activation, deployment or merge.",
+      "report": "docs/skin/skin-face-crows-feet-audit-20261023.md"
     }
   ]
 }
