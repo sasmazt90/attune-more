@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "declaredGenerated": true,
+    "expertGroundTruth": false,
+    "realCameraCapture": false,
+    "rawImagesCommitted": false
+  },
+  "capturePackage": {
+    "subjects": 6,
+    "images": 18,
+    "posesPerSubject": [
+      "front",
+      "side_1",
+      "side_2"
+    ],
+    "completeTriplets": true,
+    "uniqueImageBytes": true,
+    "consistentGeometryWithinTriplets": true
+  },
+  "eligibility": {
+    "captureAndIntegrationSmokeTest": true,
+    "modelQualitativeProposalReview": true,
+    "precisionRecallF1": false,
+    "thresholdCalibration": false,
+    "realCameraAcceptance": false,
+    "expertLabelAcceptance": false
+  },
+  "subjects": [
+    {
+      "subjectKey": "1.England",
+      "poses": {
+        "front": {
+          "filename": "1.England_front.jpg",
+          "sha256": "2945ce637fefa6099fcef31f9ae19a548f7c2cd13dc010eb967267830f429184",
+          "bytes": 352381,
+          "width": 2048,
+          "height": 1529
+        },
+        "side_1": {
+          "filename": "1.England_side_1.jpg",
+          "sha256": "b760b8dabdab6217b1933a5a3d749466ec73fc2b16a21e8d80fd974ec86fd829",
+          "bytes": 344982,
+          "width": 2048,
+          "height": 1529
+        },
+        "side_2": {
+          "filename": "1.England_side_2.jpg",
+          "sha256": "eaec90361c3e4a6f97fa7dc8f8654dd554e11506c3c39b937e1ac468e0b8e158",
+          "bytes": 370014,
+          "width": 2048,
+          "height": 1529
+        }
+      },
+      "consistentGeometry": true
+    },
+    {
+      "subjectKey": "2.Germany",
+      "poses": {
+        "front": {
+          "filename": "2.Germany_front.jpg",
+          "sha256": "a44fb454da79908755e47dec3bdd027088fda38c4328503fd1dfd517ecfef12f",
+          "bytes": 382839,
+          "width": 2048,
+          "height": 1529
+        },
+        "side_1": {
+          "filename": "2.Germany_side_1.jpg",
+          "sha256": "ff6352281cc38815bbbac2add6f2154f52422754c8e6396497c3d55762b3e5fc",
+          "bytes": 369358,
+          "width": 2048,
+          "height": 1529
+        },
+        "side_2": {
+          "filename": "2.Germany_side_2.jpg",
+          "sha256": "9a340e86699686a05bbd10719e5eb1bccac5d1622bee4ccbba0ebd527831afac",
+          "bytes": 380347,
+          "width": 2048,
+          "height": 1529
+        }
+      },
+      "consistentGeometry": true
+    },
+    {
+      "subjectKey": "3.Kenya",
+      "poses": {
+        "front": {
+          "filename": "3.Kenya_front.jpg",
+          "sha256": "b95d5cfd087c4248e31aa3463de1f8d64b52302c6ab1e814d9aabe29b08275fb",
+          "bytes": 363001,
+          "width": 2048,
+          "height": 1529
+        },
+        "side_1": {
+          "filename": "3.Kenya_side_1.jpg",
+          "sha256": "1c1f229262a57887db165a5cc30692c3d0c5347f5fdf102098995bf9f31386ea",
+          "bytes": 373744,
+          "width": 2048,
+          "height": 1529
+        },
+        "side_2": {
+          "filename": "3.Kenya_side_2.jpg",
+          "sha256": "977864e6074072ee335f6a6b5e4b46b6d307be0dd82a691727a7dd2a81097300",
+          "bytes": 390879,
+          "width": 2048,
+          "height": 1529
+        }
+      },
+      "consistentGeometry": true
+    },
+    {
+      "subjectKey": "4.Scotland",
+      "poses": {
+        "front": {
+          "filename": "4.Scotland_front.jpg",
+          "sha256": "334202b493c1e15877f13531919c390fb397dccb137873330d7934073584a8c8",
+          "bytes": 472371,
+          "width": 2048,
+          "height": 1529
+        },
+        "side_1": {
+          "filename": "4.Scotland_side_1.jpg",
+          "sha256": "1c8ee5bbae6600ea71ba3a2be5f47d4ebd71675a3a64578e205d0c764650c18a",
+          "bytes": 439647,
+          "width": 2048,
+          "height": 1529
+        },
+        "side_2": {
+          "filename": "4.Scotland_side_2.jpg",
+          "sha256": "a9d8532c729b842b6ce6a5c7a8b6cd552da011878da52af13ac58d783aec122b",
+          "bytes": 468168,
+          "width": 2048,
+          "height": 1529
+        }
+      },
+      "consistentGeometry": true
+    },
+    {
+      "subjectKey": "5.Turkey",
+      "poses": {
+        "front": {
+          "filename": "5.Turkey_front.jpg",
+          "sha256": "4efd376516e2bcba8cf737824adfb30508f173e04363fc822bab860a38a80326",
+          "bytes": 514856,
+          "width": 2048,
+          "height": 1529
+        },
+        "side_1": {
+          "filename": "5.Turkey_side_1.jpg",
+          "sha256": "3c97ccc468c13f86fa8e4e57313ebdebf396973119e7ba4a27111e9ac373b7cc",
+          "bytes": 499270,
+          "width": 2048,
+          "height": 1529
+        },
+        "side_2": {
+          "filename": "5.Turkey_side_2.jpg",
+          "sha256": "ea308806f40da1bcf70c581938c42e4ea808a66300299ae933500966febfbaa0",
+          "bytes": 515411,
+          "width": 2048,
+          "height": 1529
+        }
+      },
+      "consistentGeometry": true
+    },
+    {
+      "subjectKey": "6.usa",
+      "poses": {
+        "front": {
+          "filename": "6.usa_front.jpg",
+          "sha256": "70e4b5c2a6ba874b07f824190f72799506b1c3949161ea1033d9fa95b8254bce",
+          "bytes": 590144,
+          "width": 2048,
+          "height": 1529
+        },
+        "side_1": {
+          "filename": "6.usa_side_1.jpg",
+          "sha256": "8dc3c5f19463a723ee0553a082b413d436bac06cc343e5044957eebe9e6c9e6c",
+          "bytes": 560479,
+          "width": 2048,
+          "height": 1529
+        },
+        "side_2": {
+          "filename": "6.usa_side_2.jpg",
+          "sha256": "3787d208c75bcfa240afd250353ef008887785ed02fa6d8c4f4ae049c1cbfe4e",
+          "bytes": 548538,
+          "width": 2048,
+          "height": 1529
+        }
+      },
+      "consistentGeometry": true
+    }
+  ]
+}
