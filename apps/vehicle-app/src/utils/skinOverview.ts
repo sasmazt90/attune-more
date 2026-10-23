@@ -5,6 +5,7 @@ import type { AppearanceResponse } from './appearanceMeasurements';
 import { bindRegionalSkinMap, validBoundRegionalSkinMap, type BoundRegionalSkinMap } from './regionalSkinMap';
 
 export const SKIN_TYPE_LABELS = { normal: 'Normal', dry: 'Kuru', oily: 'Yağlı', combination: 'Karma' } as const;
+export const PRODUCT_APPEARANCE_IDS = ['tone','oil','redness','acne','sag','dry','lines','dark','bags','postAcne','pigmentation'] as const;
 export type SkinTypeId = keyof typeof SKIN_TYPE_LABELS;
 export type SkinViewId = 'overview' | SkinRegionId;
 export const SKIN_VIEW_ORDER: SkinViewId[] = ['overview', ...REGION_ORDER];
@@ -34,7 +35,7 @@ export function overviewFromResponse(response: AppearanceResponse): SkinOverview
     modelInputTransform:response.general.modelInputTransform,modelInference:response.general.modelInference,
     sourceTransform: { sourceWidth: response.sourceWidth, sourceHeight: response.sourceHeight, coordinateSpace: 'source-pixels' },
     indicators: response.general.measurements.map(value => ({ id: value.id, label: skinCriterionLabel(value.id,'whole-face'), score: value.value,
-      reason: value.value === null ? 'Bu karede yeterli güvenilir ölçüm yok.' : 'Bu oturumun genel görünüm göstergesi.', method: value.methodVersion, unit: '%', sampleCount: value.evaluatedArea.analysisPixels || 0, appearance: value,
+      reason: value.value === null && value.id === 'postAcne' ? 'Doğrulanmış lokal sivilce izi modeli henüz etkin değil.' : value.value === null && value.id === 'pigmentation' ? 'Doğrulanmış lokal pigmentasyon modeli henüz etkin değil.' : value.value === null ? 'Bu karede yeterli güvenilir ölçüm yok.' : 'Bu oturumun genel görünüm göstergesi.', method: value.methodVersion, unit: value.unit === 'candidate-count' ? 'aday' : '%', sampleCount: value.evaluatedArea.analysisPixels || 0, appearance: value,
       measurement: { scope: 'whole-face', region: 'overview', methodVersion: value.methodVersion, modelHash: value.modelHash, unit: value.unit as import('./skinIndicators').SkinMeasurement['unit'], rawValue: value.value, confidence: null, quality: value.quality, validation: 'appearance-proxy', unavailableReason: value.limitationCode } })) };
 }
 export function validSkinOverview(value: SkinOverview | undefined, analysisId:string): boolean {
@@ -42,7 +43,7 @@ export function validSkinOverview(value: SkinOverview | undefined, analysisId:st
   if (value.regionalSkinMap !== undefined && !validBoundRegionalSkinMap(value.regionalSkinMap, {
     captureId: value.captureId, pose: value.pose, ...value.sourceTransform
   })) return false;
-  const type=value.skinType,ids=['tone','oil','redness','acne','sag','dry','lines','dark','bags'];
+  const type=value.skinType,ids=PRODUCT_APPEARANCE_IDS;
   if(!type||!['valid','invalid','insufficient'].includes(type.quality)||type.value!==null&&!(type.value in SKIN_TYPE_LABELS)||type.confidence!==null&&(!Number.isFinite(type.confidence)||type.confidence<0||type.confidence>1))return false;
   const hosted=type.inferenceKind==='hosted'&&type.provider==='roboflow'&&type.providerModelId==='skin-type-axavj/1'&&type.methodVersion==='hosted-roboflow-skin-type-axavj/1'&&type.modelHash===null;
   if(type.quality==='valid'?(type.value===null||!type.modelHash&&!hosted):type.value!==null)return false;
@@ -51,7 +52,7 @@ export function validSkinOverview(value: SkinOverview | undefined, analysisId:st
       const rows=value.indicators.filter(r=>r.id===id);if(rows.length!==1)return false;
       const row=rows[0],m=row.measurement;
       return !!m && m.scope==='whole-face' && m.region==='overview' && !!m.methodVersion &&
-        (row.score===null?m.quality!=='valid'&&!!m.unavailableReason:Number.isFinite(row.score)&&row.score>=0&&row.score<=100&&m.quality==='valid'&&m.rawValue===row.score);
+        (row.score===null?m.quality!=='valid'&&!!m.unavailableReason:Number.isFinite(row.score)&&row.score>=0&&(m.unit==='candidate-count'?Number.isInteger(row.score):row.score<=100)&&m.quality==='valid'&&m.rawValue===row.score);
     });
 }
 /** Older six-region records do not acquire invented overview measurements. */
@@ -71,3 +72,4 @@ export function buildSkinViewModel(id: SkinViewId, result: any, demo = false): S
     badgeText: '', changePct: 0, isAttentionRequired: false, trend: [],
     observation: { headline: 'Genel Bakış', details: 'Bu oturumun ön pozundaki genel cilt görünümü.' } };
 }
+
