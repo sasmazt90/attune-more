@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "tests": 98,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "codeSHA256": {
+    "scripts/skin-research/evaluate_detector_snapshot.py": "cfe4b620250c291680fbe734fcd2835734814ed7c723156ed4d0bd044ef5e1b9",
+    "scripts/skin-research/render_detector_failure_board.py": "5f76f1c096c7c723ba8e497dcb94f511fb47d33f851678a4674a75b9efa38c05",
+    "scripts/skin-research/prepare_regional_polygons.py": "b4ddf24ffdfd1d2459f332b44429ff3374577aee0ee2410d199426af8a956362",
+    "tests/unit/test_detector_snapshot_evaluation.py": "55994f953bd2330068aef65af2a9f3fdb70fc18721420cd27797f792b98d0876",
+    "tests/unit/test_regional_polygon_preparation.py": "74008033cab2a6413377d05c9e01780d722fc146e74c6877a5e7f6947b1678bc"
+  },
+  "dependencies": {
+    "numpy": "2.3.5",
+    "Pillow": "12.3.0",
+    "pycocotools": "2.0.11",
+    "supervision": "0.31.1"
+  },
+  "notCameraOrModelAcceptance": true
+}

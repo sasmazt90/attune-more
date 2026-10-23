@@ -1,0 +1,517 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "skin-roadmap-coco-audit-v1",
+  "summary": {
+    "images": 948,
+    "exactDuplicateGroups": 0,
+    "crossSplitExactGroups": 0,
+    "perceptualCandidatePairs": 45,
+    "crossSplitPerceptualCandidatePairs": 28,
+    "filenameCandidateGroups": 3,
+    "crossSplitFilenameCandidateGroups": 1,
+    "geometryIssueCount": 70
+  },
+  "acceptance": {
+    "trainingAuthorizedByThisAudit": false,
+    "personIndependent": false,
+    "lockedTestAccepted": false,
+    "thresholdsSelected": false,
+    "sourceArchivesMutated": false,
+    "expertReviewed": false
+  },
+  "limitations": [
+    "Exact groups establish matching files/pixels, not person identity.",
+    "dHash proximity is a review candidate, never ground truth or an automatic merge.",
+    "Export-name/left-right crop hints are candidates only, not photo or person identities.",
+    "Crops, mirrors, collages and different photos of a person may escape this audit.",
+    "Publisher README licences do not establish individual-photo rights.",
+    "Archive splits do not prove previous review/training exposure is absent.",
+    "No missing annotation is inferred to be normal/negative skin.",
+    "COCO geometric validity does not prove annotation semantics or completeness."
+  ],
+  "exactGroups": [],
+  "perceptualCandidates": [
+    {
+      "left": "v11:test/Image_45_jpg.rf.539f9e1dcc6687f5fa66021131919661.jpg",
+      "right": "v11:train/Image_130_jpg.rf.694ae303dc43276715a942c5c5f3ddf7.jpg",
+      "distance": 3,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:test/Image_1_jpg.rf.c2de60d946c7f8427ee237443fafab95.jpg",
+      "right": "v11:train/Image_86_jpg.rf.f62b3c795e42ffdc2845ea69fab5eb60.jpg",
+      "distance": 1,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/oily-194-_jpg.rf.465f0a1998ab8cd5fd4febd22c95055e.jpg",
+      "right": "v11:train/oily-skin_183_jpeg_jpg.rf.2c30f6c54d7469e7fe42cd19e20b03f6.jpg",
+      "distance": 3,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:train/how-can-i-fix-these-dark-acne-spots-v0-xh3bfn6b50ff1_webp.rf.961c415945c32445684315a961d828fe.jpg",
+      "right": "v11:train/acne-198-_jpg.rf.5b55fdad66c6677dfa2a195d11221472.jpg",
+      "distance": 4,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:test/acne-899-_jpeg_jpg.rf.93e7efe57821c9a2e3fa21fa8d8f72c1.jpg",
+      "right": "v11:train/acne-220-_jpeg_jpg.rf.5f73cda615d5b732ee04a5d225e45aa9.jpg",
+      "distance": 6,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:test/levle2_109_jpg.rf.46ac26e334273aa05b881a0f472f5c2c.jpg",
+      "right": "v11:train/levle1_525_jpg.rf.0c0bbd29706a5ac0e59776f55c1984a2.jpg",
+      "distance": 6,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/32_jpg.rf.a088fde9f2e847230bfa6e3d387d70ff.jpg",
+      "right": "v11:train/acne-340-_jpg.rf.6480cee16d19c26e2254733f270e9028.jpg",
+      "distance": 5,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:test/at-my-wits-end-hyperpigmentation-and-dark-spots-v0-eb39432ue6fe1_webp.rf.f3efd139b79c5fa8d46f08010a92aa7e.jpg",
+      "right": "v11:train/how-can-i-fix-these-dark-acne-spots-v0-tc1j0o6b50ff1_webp.rf.aba63bc7227d8a89ea73e7d5d4591f7d.jpg",
+      "distance": 6,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/Rosacea-treatment-removal-redness-acne-veins-spider_jpg.rf.84fa05c745d2df78e435975646083bee.jpg",
+      "right": "v11:train/z4220863771590_9cf7e2bd92036ca75abebde81e8720ce_jpg.rf.c3c506cf6eafc914a2fae38d4f298936.jpg",
+      "distance": 0,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:test/acne-864-_jpeg_jpg.rf.75f2d684b55edcaec1affc0089b05cd5.jpg",
+      "right": "v11:train/oily-167-_jpg.rf.0a0b7efc0fb211763467798ecd9e5b36.jpg",
+      "distance": 6,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:test/oily-156-_jpg.rf.756bd34385ee81da9321dd79c6160604.jpg",
+      "right": "v11:train/oily-251-_jpg.rf.2a0706163de15879179b3efafb1d1bf1.jpg",
+      "distance": 0,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:test/berminyak__-47-_jpg.rf.6a5113e62e36c727b8238773da23a2be.jpg",
+      "right": "v11:train/Berminyak-9-_jpeg_jpg.rf.ed018b03d226fe969be79ab641f3b30d.jpg",
+      "distance": 6,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/Berminyak-24-_jpeg_jpg.rf.313e6f2b5f94c60999cbb56d756da578.jpg",
+      "right": "v11:train/Image_71_jpg.rf.b49ce09349662ab75f6b471011448d8c.jpg",
+      "distance": 5,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:train/acne-198-_jpg.rf.5b55fdad66c6677dfa2a195d11221472.jpg",
+      "right": "v11:train/acne-326-_jpeg_jpg.rf.4a1495a8a4ebf50cd1272cb0e14d5c6e.jpg",
+      "distance": 5,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:test/download_jpg.rf.62f385d2fcfd38699d396e41d37d428c.jpg",
+      "right": "v11:train/240_F_137816577_BdN2G0s5CvyjWBez0EiievvSDnhnEqNF_jpg.rf.c82edd621f1d99bb2978ddbb517f8294.jpg",
+      "distance": 0,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:test/Berminyak-37-_jpg.rf.735fffa7964b7318bfe33507d8abddd6.jpg",
+      "right": "v11:train/Image_110_jpg.rf.994d19e4e63032c00af9fbd6a7958729.jpg",
+      "distance": 1,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/105_jpg.rf.cb53c350ac5b4245638c35cffe67c663.jpg",
+      "right": "v11:train/Img_82_jpg.rf.8f9b42486a240b028010c47e5fa5ed4f.jpg",
+      "distance": 5,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:train/da-mong-noi-gan-mau-la-benh-gi-2_jpg.rf.3773211b59a0d5fd436fb38cc266aeda.jpg",
+      "right": "v11:train/noi-man-do-ngua-toan-than-4_jpg.rf.5dcf9c253ada769f55ce98899e3947e6.jpg",
+      "distance": 0,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:train/da-bi-kich-ung_9b3f3875_d7b1_4c14_b67c_5e6434550409_jpg.rf.e82eb476a793cfbc618ae7fdf9a43eb8.jpg",
+      "right": "v11:train/di-ung-da-mat_jpg.rf.4fe450056b529a82baf387403a2341bd.jpg",
+      "distance": 0,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:train/161_jpg.rf.719e665452d5588e1636420dfeb338c7.jpg",
+      "right": "v11:train/160_jpg.rf.8e2ba88dc2cda9578ae3206a60d6a666.jpg",
+      "distance": 4,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:train/acne-198-_jpg.rf.5b55fdad66c6677dfa2a195d11221472.jpg",
+      "right": "v11:train/how-can-i-fix-these-dark-acne-spots-v0-srawx58b50ff1_webp.rf.ca820f4611a0dbcbabb21aec87313b7e.jpg",
+      "distance": 5,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:train/acne-326-_jpeg_jpg.rf.4a1495a8a4ebf50cd1272cb0e14d5c6e.jpg",
+      "right": "v11:train/how-can-i-fix-these-dark-acne-spots-v0-srawx58b50ff1_webp.rf.ca820f4611a0dbcbabb21aec87313b7e.jpg",
+      "distance": 6,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:train/Ance-Scars_jpg.rf.9d2d5aa44532f89909a055333be93bcc.jpg",
+      "right": "v11:train/acne-229-_jpg.rf.05162b2cfa2dd22e34f18392005e86e4.jpg",
+      "distance": 6,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:train/acne-63-_jpg.rf.f0e6b8e4c4a9e07bf1699f71f5c1a1f4.jpg",
+      "right": "v11:train/38_jpg.rf.6878ac01ea4c6157e3b62b1dbf9ef2c1.jpg",
+      "distance": 6,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:train/Berminyak-2-_jpeg_jpg.rf.f5c3b5baff8da464682d0efa24477aed.jpg",
+      "right": "v11:train/Image_26_png_jpg.rf.5151fe292bb390bcfdb5beb54abc3bff.jpg",
+      "distance": 0,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:train/download-1-_jpg.rf.7cce114d41460c1838bcf97bf7610a45.jpg",
+      "right": "v11:valid/240_F_505136963_IXrvryaszca1gr3AdLK025QSTCPe22u5_jpg.rf.4f930480b10a3141cc4fef13dbe76813.jpg",
+      "distance": 1,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/acne-198-_jpg.rf.5b55fdad66c6677dfa2a195d11221472.jpg",
+      "right": "v11:valid/acne-6-_png_jpg.rf.50296a8fb64b055b5bf5f3d7661fdb27.jpg",
+      "distance": 5,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/acne-326-_jpeg_jpg.rf.4a1495a8a4ebf50cd1272cb0e14d5c6e.jpg",
+      "right": "v11:valid/acne-6-_png_jpg.rf.50296a8fb64b055b5bf5f3d7661fdb27.jpg",
+      "distance": 6,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/how-can-i-fix-these-dark-acne-spots-v0-srawx58b50ff1_webp.rf.ca820f4611a0dbcbabb21aec87313b7e.jpg",
+      "right": "v11:valid/acne-6-_png_jpg.rf.50296a8fb64b055b5bf5f3d7661fdb27.jpg",
+      "distance": 6,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/Image_36_jpg.rf.15e42e792b75376d0b752d7ddbd31826.jpg",
+      "right": "v11:valid/oily2_jpg.rf.f1a9e306c710a0b167c45c38704c3b05.jpg",
+      "distance": 0,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/acne-340-_jpg.rf.6480cee16d19c26e2254733f270e9028.jpg",
+      "right": "v11:valid/20_jpg.rf.d235579cd41527f3a803133fe9a7942b.jpg",
+      "distance": 3,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/acne-340-_jpg.rf.6480cee16d19c26e2254733f270e9028.jpg",
+      "right": "v11:valid/61_webp.rf.1422cbd67cbfd5faa05d63a8d67a9597.jpg",
+      "distance": 6,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:valid/20_jpg.rf.d235579cd41527f3a803133fe9a7942b.jpg",
+      "right": "v11:valid/61_webp.rf.1422cbd67cbfd5faa05d63a8d67a9597.jpg",
+      "distance": 5,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:test/Image_34_jpg.rf.3d3c94d5728646e09027b9f8014d673c.jpg",
+      "right": "v11:valid/Image_67_jpg.rf.253d92d0fa5e6a68156268d6d4f6f4eb.jpg",
+      "distance": 0,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:test/Image_1_jpg.rf.c2de60d946c7f8427ee237443fafab95.jpg",
+      "right": "v11:valid/36_jpg.rf.efa60a27e015cf6ae242609b1c570355.jpg",
+      "distance": 4,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/Image_86_jpg.rf.f62b3c795e42ffdc2845ea69fab5eb60.jpg",
+      "right": "v11:valid/36_jpg.rf.efa60a27e015cf6ae242609b1c570355.jpg",
+      "distance": 3,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:test/oily57_jpg.rf.be640ccfa4599c801eee6587e6c2872f.jpg",
+      "right": "v11:valid/oily37_jpg.rf.c6a8bcae30c74c3f9eace1c312a8582d.jpg",
+      "distance": 0,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/140_jpg.rf.bb425a867bd25ec6bf5eb6b8a0115b5f.jpg",
+      "right": "v11:valid/8_jpg.rf.c5a977630e4ec5da667dda70b83e0c9d.jpg",
+      "distance": 0,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/acne-15-_jpeg_jpg.rf.10e35b0a8acc368774ac07f048663a45.jpg",
+      "right": "v11:valid/acne-13-_jpeg_jpg.rf.7f3c324d71a367f7ea1d4961d143b4fb.jpg",
+      "distance": 0,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/oily-skin_110_jpeg_jpg.rf.8759f46f9e63dddda4a5c9081bcea091.jpg",
+      "right": "v11:valid/berminyak__-39-_jpg.rf.773a2284216663cb535b4f7e06c68e76.jpg",
+      "distance": 1,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/oily-176-_jpg.rf.da9855f4cb96fe4059c8a6ea81c07589.jpg",
+      "right": "v11:valid/oily-278-_jpg.rf.5a34aaaa62f7a347adaac158b4410a6a.jpg",
+      "distance": 0,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:valid/levle1_491_jpg.rf.b54c2bf0f7a5138d8efc3237c145699e.jpg",
+      "right": "v11:valid/levle1_492_jpg.rf.5b17c91cffd8ae1ffbe12cf52889203b.jpg",
+      "distance": 5,
+      "crossSplit": false
+    },
+    {
+      "left": "v11:train/Berminyak-21-_jpeg_jpg.rf.35f01b35665bc131c6c3ff6858fa2b76.jpg",
+      "right": "v11:valid/Image_4_jpg.rf.751146112a5a83571f97828277d6f31c.jpg",
+      "distance": 0,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/how-can-i-fix-these-dark-acne-spots-v0-xh3bfn6b50ff1_webp.rf.961c415945c32445684315a961d828fe.jpg",
+      "right": "v11:valid/how-can-i-fix-these-dark-acne-spots-v0-22ahsm6b50ff1_webp.rf.7e562015e9a04181845dc6acf92e352a.jpg",
+      "distance": 6,
+      "crossSplit": true
+    },
+    {
+      "left": "v11:train/acne-198-_jpg.rf.5b55fdad66c6677dfa2a195d11221472.jpg",
+      "right": "v11:valid/how-can-i-fix-these-dark-acne-spots-v0-22ahsm6b50ff1_webp.rf.7e562015e9a04181845dc6acf92e352a.jpg",
+      "distance": 6,
+      "crossSplit": true
+    }
+  ],
+  "filenameCandidates": [
+    {
+      "source": "v11",
+      "filenameHint": "download",
+      "members": [
+        "v11:test/download_jpg.rf.62f385d2fcfd38699d396e41d37d428c.jpg",
+        "v11:train/download_jpg.rf.625c44e78ba4bc4ef98c03923c9de886.jpg"
+      ],
+      "splits": [
+        "test",
+        "train"
+      ],
+      "crossSplit": true,
+      "samePhotoConfirmed": false
+    },
+    {
+      "source": "v11",
+      "filenameHint": "image_132",
+      "members": [
+        "v11:train/Image_132_jpg.rf.340faa7e1a83bfbda813727a1a8ee333.jpg",
+        "v11:train/Image_132_jpg.rf.82d86660b95fcc1d50e1b2445b23fe49.jpg"
+      ],
+      "splits": [
+        "train"
+      ],
+      "crossSplit": false,
+      "samePhotoConfirmed": false
+    },
+    {
+      "source": "v11",
+      "filenameHint": "levle2_61",
+      "members": [
+        "v11:train/levle2_61_jpg.rf.970d0c2f4f3ae0eb87eea8dc52148d2c.jpg",
+        "v11:train/levle2_61_jpg.rf.91dcef64ee30ca296e804acd94117138.jpg"
+      ],
+      "splits": [
+        "train"
+      ],
+      "crossSplit": false,
+      "samePhotoConfirmed": false
+    }
+  ],
+  "archives": [
+    {
+      "source": "v11",
+      "archive": "v11-regional.zip",
+      "archiveSHA256": "f1f4ea68eec6ffca41d52f56bafa13eea0204a82afff8eb7d65ef1966a769ac5",
+      "images": 948,
+      "splits": {
+        "test": 94,
+        "train": 664,
+        "valid": 190
+      },
+      "classes": {
+        "Acne": {
+          "test": 580,
+          "train": 4652,
+          "valid": 1271
+        },
+        "Dark-Spots": {
+          "test": 424,
+          "train": 2287,
+          "valid": 708
+        },
+        "Eyebags": {
+          "test": 45,
+          "train": 242,
+          "valid": 64
+        },
+        "Oily": {
+          "test": 116,
+          "train": 822,
+          "valid": 230
+        },
+        "Redness": {
+          "test": 52,
+          "train": 457,
+          "valid": 109
+        },
+        "pores": {
+          "test": 131,
+          "train": 836,
+          "valid": 221
+        }
+      },
+      "geometry": [
+        {
+          "class": "Acne",
+          "kind": "invalid-polygon",
+          "validBox": true,
+          "validMask": false,
+          "count": 2
+        },
+        {
+          "class": "Acne",
+          "kind": "polygon",
+          "validBox": true,
+          "validMask": true,
+          "count": 6463
+        },
+        {
+          "class": "Acne",
+          "kind": "rectangle-polygon",
+          "validBox": true,
+          "validMask": false,
+          "count": 17
+        },
+        {
+          "class": "Acne",
+          "kind": "rle",
+          "validBox": true,
+          "validMask": false,
+          "count": 21
+        },
+        {
+          "class": "Dark-Spots",
+          "kind": "invalid-polygon",
+          "validBox": true,
+          "validMask": false,
+          "count": 1
+        },
+        {
+          "class": "Dark-Spots",
+          "kind": "polygon",
+          "validBox": true,
+          "validMask": true,
+          "count": 3381
+        },
+        {
+          "class": "Dark-Spots",
+          "kind": "rectangle-polygon",
+          "validBox": true,
+          "validMask": false,
+          "count": 10
+        },
+        {
+          "class": "Dark-Spots",
+          "kind": "rle",
+          "validBox": true,
+          "validMask": false,
+          "count": 27
+        },
+        {
+          "class": "Eyebags",
+          "kind": "polygon",
+          "validBox": true,
+          "validMask": true,
+          "count": 351
+        },
+        {
+          "class": "Oily",
+          "kind": "polygon",
+          "validBox": true,
+          "validMask": true,
+          "count": 1168
+        },
+        {
+          "class": "Redness",
+          "kind": "invalid-polygon",
+          "validBox": true,
+          "validMask": false,
+          "count": 2
+        },
+        {
+          "class": "Redness",
+          "kind": "polygon",
+          "validBox": true,
+          "validMask": true,
+          "count": 610
+        },
+        {
+          "class": "Redness",
+          "kind": "rle",
+          "validBox": true,
+          "validMask": false,
+          "count": 6
+        },
+        {
+          "class": "pores",
+          "kind": "invalid-polygon",
+          "validBox": true,
+          "validMask": false,
+          "count": 11
+        },
+        {
+          "class": "pores",
+          "kind": "polygon",
+          "validBox": true,
+          "validMask": true,
+          "count": 1177
+        }
+      ],
+      "readmes": {
+        "README.dataset.txt": "# Skin Analysis > augmentation_version\nhttps://universe.roboflow.com/bread-7emlk/skin-analysis-wl7al\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+        "README.roboflow.txt": "\nSkin Analysis - v11 augmentation_version\n==============================\n\nThis dataset was exported via roboflow.com on March 9, 2026 at 8:54 AM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 948 images.\nFacial-defects are annotated in COCO Segmentation format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Fit (black edges))\n\nNo image augmentation techniques were applied.\n\n\n"
+      }
+    }
+  ],
+  "source": {
+    "project": "bread-7emlk/skin-analysis-wl7al",
+    "version": 11,
+    "versionName": "augmentation_version",
+    "format": "coco-segmentation",
+    "licence": "CC BY 4.0",
+    "url": "https://universe.roboflow.com/bread-7emlk/skin-analysis-wl7al/dataset/11",
+    "preprocessing": {
+      "resize": "Fit black edges 640x640",
+      "autoOrient": true
+    },
+    "augmentation": {}
+  },
+  "reproduction": "python scripts/skin-research/audit_roadmap_archives.py --help; audit v11-regional.zip (SHA256 in archives), then run prepare_regional_polygons.py with full audit."
+}

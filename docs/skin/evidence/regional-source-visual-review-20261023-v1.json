@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "assistantVisualReviewPerformed": true,
+  "expertReviewed": false,
+  "source": "bread-7emlk/skin-analysis-wl7al/11",
+  "examples": [
+    {
+      "split": "train",
+      "imageId": 314,
+      "filename": "206_jpg.rf.a270383c9d8d321baff7fb21488d6538.jpg",
+      "class": "Oily",
+      "polygons": 5,
+      "observation": "Masks cover nose/cheek highlights; visible forehead shine is not covered. Negative/normal coverage is not established."
+    },
+    {
+      "split": "train",
+      "imageId": 14,
+      "filename": "01F3MMYV5NBAMXWHPA6EKMF3SP_jpeg_jpg.rf.4637f6c3b70e5f00de121e06828b0c43.jpg",
+      "class": "Redness",
+      "polygons": 13,
+      "observation": "Publisher masks cover cheek patches with rough boundaries. No sensitivity conclusion or expert truth claim."
+    }
+  ],
+  "modelUse": "research pilot only; no accepted methods or normal truth"
+}

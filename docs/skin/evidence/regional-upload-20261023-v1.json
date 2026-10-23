@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "taskId": "jr8FWunZL1rM1mIowmxS",
+  "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+  "observedAt": "2026-10-23 05:19:29 UTC",
+  "status": "completed",
+  "progress": {
+    "total": 337,
+    "current": 337
+  },
+  "result": {
+    "uploaded": 337,
+    "duplicates": 0,
+    "annotated": 337,
+    "videosStaged": 0,
+    "videoIds": [],
+    "uploadErrors": [],
+    "annotationErrors": [],
+    "warnings": [
+      {
+        "type": "ignored",
+        "path": "README.dataset.txt",
+        "name": "README.dataset.txt",
+        "reason": "readme"
+      },
+      {
+        "type": "ignored",
+        "path": "README.roboflow.txt",
+        "name": "README.roboflow.txt",
+        "reason": "readme"
+      },
+      {
+        "type": "ignored",
+        "path": "README.attune.txt",
+        "name": "README.attune.txt",
+        "reason": "readme"
+      }
+    ],
+    "chunkCount": 4,
+    "failedChunks": 0
+  },
+  "searchImages": 337,
+  "projectSummaryImages": 0,
+  "summaryDiscrepancy": "Upload task reports 337 uploaded/annotated and image search confirms 337; projects_get summary still reports zero. Verify generated version and per-image annotation geometry before training.",
+  "sourceReceipt": "docs/skin/evidence/v11-polygon-preparation-20261023-v1.json",
+  "trainingLaunched": false
+}

@@ -151,19 +151,115 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-23",
-      "lastCheckedAt": "2026-10-23 03:47:30 UTC",
+      "lastCheckedAt": "2026-10-23 05:19:29 UTC",
       "modelCount": 89,
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
-        "status": "pending",
+        "status": "done",
         "project": "attune-skin-acne-marks-pigmentation",
         "versionId": "1",
         "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262",
         "createdAt": "2026-10-23T03:45:19.362Z",
-        "app_url": "https://app.roboflow.com/tolgar-sasmaz/attune-skin-acne-marks-pigmentation/evaluation/1"
+        "app_url": "https://app.roboflow.com/tolgar-sasmaz/attune-skin-acne-marks-pigmentation/evaluation/1",
+        "evidence": "docs/skin/evidence/acne-queued-evaluation-20261023-v1.json"
       },
       "modelAccepted": false,
-      "selectedModel": null
+      "selectedModel": null,
+      "candidateEvaluation": {
+        "modelIdentity": {
+          "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--754885",
+          "modelPackageId": "d336c1c2c6c791758326d9cc4f9afecc"
+        },
+        "validImages": 165,
+        "testImages": 82,
+        "thresholdSelectionSplit": "valid",
+        "lockedThresholds": {
+          "Pigmentation": 0.2,
+          "Pimple": 0.3,
+          "Post acne": 0.3
+        },
+        "testOperatingPoints": {
+          "Pigmentation": {
+            "threshold": 0.2,
+            "tp": 30,
+            "fp": 179,
+            "fn": 153,
+            "precision": 0.14354066985645933,
+            "recall": 0.16393442622950818,
+            "f1": 0.15306122448979592,
+            "groundTruthCount": 183
+          },
+          "Pimple": {
+            "threshold": 0.3,
+            "tp": 112,
+            "fp": 201,
+            "fn": 235,
+            "precision": 0.35782747603833864,
+            "recall": 0.3227665706051873,
+            "f1": 0.3393939393939394,
+            "groundTruthCount": 347
+          },
+          "Post acne": {
+            "threshold": 0.3,
+            "tp": 1387,
+            "fp": 2179,
+            "fn": 2101,
+            "precision": 0.38895120583286596,
+            "recall": 0.3976490825688073,
+            "f1": 0.39325205557130705,
+            "groundTruthCount": 3488
+          }
+        },
+        "testCOCO": [
+          {
+            "maxDetectionsPerImage": 100,
+            "map50": 0.19191713498363927,
+            "map50_95": 0.052792403574463444,
+            "perClass": {
+              "Pigmentation": {
+                "map50": 0.06989689970889726,
+                "map50_95": 0.021864905352309713
+              },
+              "Pimple": {
+                "map50": 0.2378392358471002,
+                "map50_95": 0.06575167988711567
+              },
+              "Post acne": {
+                "map50": 0.2680152693949204,
+                "map50_95": 0.07076062548396492
+              }
+            }
+          },
+          {
+            "maxDetectionsPerImage": 300,
+            "map50": 0.19539206608869406,
+            "map50_95": 0.05361983848282397,
+            "perClass": {
+              "Pigmentation": {
+                "map50": 0.06989689970889726,
+                "map50_95": 0.021864905352309713
+              },
+              "Pimple": {
+                "map50": 0.2378392358471002,
+                "map50_95": 0.06575167988711567
+              },
+              "Post acne": {
+                "map50": 0.27844006271008465,
+                "map50_95": 0.07324293020904654
+              }
+            }
+          }
+        ],
+        "accepted": false,
+        "decision": "quality_insufficient; targeted resolution/localisation/label-coverage diagnosis required",
+        "cameraAcceptance": false,
+        "splitIndependenceEstablished": false,
+        "evidence": [
+          "docs/skin/evidence/acne-best-validation-20261023-v1.json",
+          "docs/skin/evidence/acne-best-test-20261023-v1.json",
+          "docs/skin/evidence/acne-best-inference-snapshots-20261023-v1.json.gz"
+        ]
+      }
     },
     "acneSourceProject": "tolgar-sasmaz/attune-skin-acne-pilot",
     "underEye": {
@@ -182,8 +278,43 @@
     },
     "regionalMap": {
       "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
-      "images": 0,
-      "status": "empty existing private project; no model trained"
+      "images": 337,
+      "status": "337 polygon-only source images uploaded and annotated; project summary stale; no version or training yet",
+      "projectSummaryImages": 0,
+      "uploadTaskId": "jr8FWunZL1rM1mIowmxS",
+      "uploadStatus": "completed",
+      "annotations": 1636,
+      "classes": {
+        "Oily": 1065,
+        "Redness": 571
+      },
+      "sourceSplits": {
+        "test": {
+          "images": 30,
+          "annotations": {
+            "Redness": 37,
+            "Oily": 90
+          }
+        },
+        "train": {
+          "images": 244,
+          "annotations": {
+            "Oily": 780,
+            "Redness": 429
+          }
+        },
+        "valid": {
+          "images": 63,
+          "annotations": {
+            "Redness": 105,
+            "Oily": 195
+          }
+        }
+      },
+      "versions": [],
+      "modelAccepted": false,
+      "sourceReceipt": "docs/skin/evidence/v11-polygon-preparation-20261023-v1.json",
+      "uploadReceipt": "docs/skin/evidence/regional-upload-20261023-v1.json"
     },
     "allProjectsPrivate": true
   },
@@ -272,7 +403,10 @@
         "docs/skin/archive-audit-20261023.md",
         "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
         "docs/skin/evidence/acne-remote-summary-20261023-v1.json",
-        "docs/skin/evidence/regional-checks-20261023-v1.json"
+        "docs/skin/evidence/regional-checks-20261023-v1.json",
+        "docs/skin/evidence/v11-source-summary-20261023-v1.json",
+        "docs/skin/evidence/v11-polygon-preparation-20261023-v1.json",
+        "docs/skin/evidence/evaluation-preparation-checks-20261023-v1.json"
       ],
       "blockers": [
         "Final holdout independence is not established: perceptual and filename crop relations need source/provenance review; prior exposure and person overlap are unknown.",
@@ -283,59 +417,79 @@
     {
       "id": "01",
       "target": "active-acne",
-      "status": "evaluation_pending",
+      "status": "improvement_needed",
       "work": "Evaluate Pimple per class on validation and locked test; choose threshold on validation only; inspect confounders and real-camera examples; integrate accepted detector and count deduplication.",
       "evidence": [
         "docs/skin/evidence/acne-import-provenance-20261023-v2.json",
         "docs/skin/evidence/archive-audit-20261023-v2.json",
         "docs/skin/evidence/acne-remote-summary-20261023-v1.json",
-        "docs/skin/evidence/nas-frontier-20261023-v1.json"
+        "docs/skin/evidence/nas-frontier-20261023-v1.json",
+        "docs/skin/evidence/acne-best-validation-20261023-v1.json",
+        "docs/skin/evidence/acne-best-test-20261023-v1.json",
+        "docs/skin/evidence/acne-best-inference-snapshots-20261023-v1.json.gz",
+        "docs/skin/evidence/acne-validation-visual-selection-20261023-v2.json"
       ],
       "blockers": [
-        "NAS finished with 89 children including 4 baselines. Group-scoped enumeration saved; no model accepted or deployed. Eval 0xMgfVLFzMyNEOhN1baC is pending and class metrics return model_eval_not_done. Source holdout independence and real-camera acceptance remain open. Do not choose the queued evaluation/recommended child as accuracy winner."
+        "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
+        "Source holdout independence, expert semantic review, real-camera tests and application integration remain pending. Diagnose tiny-instance resolution, localisation, dense prediction cap and label coverage on validation before targeted changes; do not blindly retrain."
       ]
     },
     {
       "id": "02",
       "target": "post-acne-marks",
-      "status": "evaluation_pending",
+      "status": "improvement_needed",
       "work": "Evaluate Post acne separately from active acne and pigmentation; keep label semantics appearance-only and preserve instance boxes.",
       "evidence": [
         "docs/skin/evidence/acne-import-provenance-20261023-v2.json",
         "docs/skin/evidence/archive-audit-20261023-v2.json",
         "docs/skin/evidence/acne-remote-summary-20261023-v1.json",
-        "docs/skin/evidence/nas-frontier-20261023-v1.json"
+        "docs/skin/evidence/nas-frontier-20261023-v1.json",
+        "docs/skin/evidence/acne-best-validation-20261023-v1.json",
+        "docs/skin/evidence/acne-best-test-20261023-v1.json",
+        "docs/skin/evidence/acne-best-inference-snapshots-20261023-v1.json.gz",
+        "docs/skin/evidence/acne-validation-visual-selection-20261023-v2.json"
       ],
       "blockers": [
-        "NAS finished with 89 children including 4 baselines. Group-scoped enumeration saved; no model accepted or deployed. Eval 0xMgfVLFzMyNEOhN1baC is pending and class metrics return model_eval_not_done. Source holdout independence and real-camera acceptance remain open. Do not choose the queued evaluation/recommended child as accuracy winner."
+        "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
+        "Source holdout independence, expert semantic review, real-camera tests and application integration remain pending. Diagnose tiny-instance resolution, localisation, dense prediction cap and label coverage on validation before targeted changes; do not blindly retrain."
       ]
     },
     {
       "id": "03",
       "target": "pigmentation",
-      "status": "evaluation_pending",
+      "status": "improvement_needed",
       "work": "Evaluate Pigmentation instances separately from generic tone unevenness, marks, freckles, moles and shadow.",
       "evidence": [
         "docs/skin/evidence/acne-import-provenance-20261023-v2.json",
         "docs/skin/evidence/archive-audit-20261023-v2.json",
         "docs/skin/evidence/acne-remote-summary-20261023-v1.json",
-        "docs/skin/evidence/nas-frontier-20261023-v1.json"
+        "docs/skin/evidence/nas-frontier-20261023-v1.json",
+        "docs/skin/evidence/acne-best-validation-20261023-v1.json",
+        "docs/skin/evidence/acne-best-test-20261023-v1.json",
+        "docs/skin/evidence/acne-best-inference-snapshots-20261023-v1.json.gz",
+        "docs/skin/evidence/acne-validation-visual-selection-20261023-v2.json"
       ],
       "blockers": [
-        "NAS finished with 89 children including 4 baselines. Group-scoped enumeration saved; no model accepted or deployed. Eval 0xMgfVLFzMyNEOhN1baC is pending and class metrics return model_eval_not_done. Source holdout independence and real-camera acceptance remain open. Do not choose the queued evaluation/recommended child as accuracy winner."
+        "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
+        "Source holdout independence, expert semantic review, real-camera tests and application integration remain pending. Diagnose tiny-instance resolution, localisation, dense prediction cap and label coverage on validation before targeted changes; do not blindly retrain."
       ]
     },
     {
       "id": "04",
       "target": "regional-oiliness",
-      "status": "source_geometry_audited",
+      "status": "pilot_data_uploaded",
       "work": "Audit selected Oily/Oily-Skin regional truth; prepare reliable regional samples; evaluate shine/illumination confounders; green overlay from measured regional support.",
       "evidence": [
         "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
-        "docs/skin/regional-evidence-contract-20261023.md"
+        "docs/skin/regional-evidence-contract-20261023.md",
+        "docs/skin/evidence/v11-source-summary-20261023-v1.json",
+        "docs/skin/evidence/v11-polygon-preparation-20261023-v1.json",
+        "docs/skin/evidence/regional-upload-20261023-v1.json",
+        "docs/skin/evidence/regional-source-visual-review-20261023-v1.json"
       ],
       "blockers": [
-        "Clean3 supports box detection research but has insufficient true regional masks/negative-normal truth for accepted segmentation; audit v11 and prepare reviewed regional support. No regional training launched."
+        "337 source-polygon-only images imported with 1636 Oily/Redness polygons. Unsupported geometry and cross-split candidate images quarantined. Existing source masks are not expert labels; missing/normal coverage and identity independence remain unresolved.",
+        "Upload completed, image search confirms 337 annotated images; projects_get summary stale at zero. Verify generated version geometry/splits before research-only training. No accepted regional method or app activation."
       ]
     },
     {
@@ -348,7 +502,7 @@
         "docs/skin/regional-evidence-contract-20261023.md"
       ],
       "blockers": [
-        "Clean3 supports box detection research but has insufficient true regional masks/negative-normal truth for accepted segmentation; audit v11 and prepare reviewed regional support. No regional training launched."
+        "Clean3 contains only six true dry polygons. v11 oil/redness preparation contains no dryness truth; audit remaining selected dry/flaking source. Do not invent dry masks or normal negatives."
       ]
     },
     {
@@ -371,14 +525,19 @@
     {
       "id": "07",
       "target": "regional-redness",
-      "status": "source_geometry_audited",
+      "status": "pilot_data_uploaded",
       "work": "Audit Redness/Skin-Redness local labels; evaluate source score and regional masks; red contour/hatching independent from oil/dry map; do not equate redness with sensitivity.",
       "evidence": [
         "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
-        "docs/skin/regional-evidence-contract-20261023.md"
+        "docs/skin/regional-evidence-contract-20261023.md",
+        "docs/skin/evidence/v11-source-summary-20261023-v1.json",
+        "docs/skin/evidence/v11-polygon-preparation-20261023-v1.json",
+        "docs/skin/evidence/regional-upload-20261023-v1.json",
+        "docs/skin/evidence/regional-source-visual-review-20261023-v1.json"
       ],
       "blockers": [
-        "Clean3 supports box detection research but has insufficient true regional masks/negative-normal truth for accepted segmentation; audit v11 and prepare reviewed regional support. No regional training launched."
+        "337 source-polygon-only images imported with 1636 Oily/Redness polygons. Unsupported geometry and cross-split candidate images quarantined. Existing source masks are not expert labels; missing/normal coverage and identity independence remain unresolved.",
+        "Upload completed, image search confirms 337 annotated images; projects_get summary stale at zero. Verify generated version geometry/splits before research-only training. No accepted regional method or app activation."
       ]
     },
     {
@@ -459,12 +618,11 @@
     "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety."
   },
   "nextActions": [
-    "Read this checkpoint, refresh branch/Roboflow, and preserve the existing finished training; do not create duplicate training.",
-    "Resume eval 0xMgfVLFzMyNEOhN1baC; when done save per-class validation/test metrics and diagnose failures. Queued eval model is a5e262, not highest map5095 child; highest observed map5095 is 754885 (raw 4.51, map50 17). Compare relevant candidates and do not infer hardware winners from recommendation/frontier flags.",
-    "Source quarantine remains in force. Remote export matched 800 name/dimension/full-geometry pairs with identical splits; image bytes mostly re-encoded. Do not replace original duplicate/exposure checks with weaker remote hash checks.",
-    "Audit selected v11 regional source next. Clean3 v1 has 3240 COCO records vs API 3261; 9 exact cross-split groups, 10 oily polygons (0 valid split), 6 dry polygons (2 valid split), 0 redness polygons. Do not box-to-mask or manufacture normal truth; prepare reviewed target-specific regional labels.",
-    "Use regional_skin_evidence's server-owned acceptance registry only after actual per-method calibration/coverage evidence. Leave it empty now; fixture thresholds are synthetic tests. T-zone includes forehead/nose/chin independently; cheeks require supported normal/dry.",
-    "Continue source grouping, normal/negative truth, camera benchmark, UI map rendering, other criteria and history integration. No task is complete until full acceptance evidence exists."
+    "Refresh GitHub/Roboflow from this checkpoint. Never duplicate completed acne training or regional upload jr8FWunZL1rM1mIowmxS; retain empty product regional-method acceptance registry.",
+    "Acne 754885 validation/test evaluation complete but insufficient; raw inference bundle is in Git. Run targeted validation-only crop/tiling experiment and label-coverage diagnosis before training changes. Do not retune against exposed test; independent camera/subject holdout remains pending.",
+    "Regional upload completed 337 uploaded/annotated, search confirms337; project summary still reports0. Verify imported annotation geometry and source split counts, then generate research-only segmentation version with no added resize/augmentation (source already640). Check existing versions/trainings before starting one pilot. Persist actual version/training IDs. Never infer normal/dry truth from absence of masks.",
+    "Reproduce v11 audit from source version11 coco-segmentation archive hash, isolate listed cross-split candidates and unsupported target geometry. Source selected by original augmentation_version archive identity; publisher labels require expert semantics/coverage review.",
+    "Continue dryness/flaking source audit, independent camera benchmark, under-eye segmentation, wrinkles/sagging, UI coordinate alignment and history integration. No complete roadmap acceptance yet."
   ],
   "executionLog": [
     {
@@ -481,6 +639,12 @@
       "observedAt": "2026-10-23 03:47:30 UTC",
       "action": "Implemented accepted-method/coverage-gated regional map and corrected combination override at final API boundary; preserved base three-class prediction and historical records. Audited direct Clean3 archive (3240 records, mostly boxes, sparse masks, 9 exact cross-split groups) and frozen remote acne version (800 geometry/name pairs, splits preserved; pixels re-encoded). Enumerated all 89 finished NAS children by modelGroup; pending eval checkpointed. 80 meaningful checks passed including normal endpoint finalization and export drift tests. No new training, shared-data mutation, deployment, photo upload or merge.",
       "report": "docs/skin/regional-evidence-contract-20261023.md"
+    },
+    {
+      "date": "2026-10-23",
+      "observedAt": "2026-10-23 05:19:29 UTC",
+      "action": "Evaluated finished NAS queued child and accuracy-leading 754885 candidate via 247 actual hosted inferences (165 valid,82 test), validation-only thresholds and independent local COCO matching; rejected product promotion for low class quality. Saved lossless inference bundle and reproducible evaluator/14 checks. Audited direct selected v11 segmentation source, quarantined cross-split candidates and unsupported target geometry, prepared337images1636 genuine polygons; uploaded/annotated all337 successfully (task jr8FWunZL1rM1mIowmxS). Project summary stale but image search confirms337 with annotation summaries. Source and failure boards visually reviewed by assistant, not expert. 98 checks pass; no new training, product deployment, merge or acceptance claim.",
+      "report": "docs/skin/acne-evaluation-and-regional-pilot-20261023.md"
     }
   ]
 }

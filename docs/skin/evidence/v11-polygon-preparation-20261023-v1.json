@@ -1,0 +1,5480 @@
+{
+  "schemaVersion": 1,
+  "source": "v11",
+  "sourceArchiveSHA256": "f1f4ea68eec6ffca41d52f56bafa13eea0204a82afff8eb7d65ef1966a769ac5",
+  "outputArchive": "v11-oil-redness-pilot.zip",
+  "outputArchiveSHA256": "a24793ca3490a48088abf47ba89fc9ab94e1c3a12c488ce52915e19b5bdf6fd6",
+  "classes": [
+    "Oily",
+    "Redness"
+  ],
+  "splits": {
+    "test": {
+      "images": 30,
+      "annotations": {
+        "Redness": 37,
+        "Oily": 90
+      }
+    },
+    "train": {
+      "images": 244,
+      "annotations": {
+        "Oily": 780,
+        "Redness": 429
+      }
+    },
+    "valid": {
+      "images": 63,
+      "annotations": {
+        "Redness": 105,
+        "Oily": 195
+      }
+    }
+  },
+  "images": 337,
+  "annotations": 1636,
+  "sourceImageBytesUnchanged": true,
+  "targetPolygonsUnchanged": true,
+  "wholeImageLabelsExpandedToRegions": false,
+  "normalTruthCreated": false,
+  "quarantineCandidateKeys": [
+    "v11:test/Berminyak-37-_jpg.rf.735fffa7964b7318bfe33507d8abddd6.jpg",
+    "v11:test/Image_1_jpg.rf.c2de60d946c7f8427ee237443fafab95.jpg",
+    "v11:test/Image_34_jpg.rf.3d3c94d5728646e09027b9f8014d673c.jpg",
+    "v11:test/Image_45_jpg.rf.539f9e1dcc6687f5fa66021131919661.jpg",
+    "v11:test/acne-864-_jpeg_jpg.rf.75f2d684b55edcaec1affc0089b05cd5.jpg",
+    "v11:test/acne-899-_jpeg_jpg.rf.93e7efe57821c9a2e3fa21fa8d8f72c1.jpg",
+    "v11:test/at-my-wits-end-hyperpigmentation-and-dark-spots-v0-eb39432ue6fe1_webp.rf.f3efd139b79c5fa8d46f08010a92aa7e.jpg",
+    "v11:test/berminyak__-47-_jpg.rf.6a5113e62e36c727b8238773da23a2be.jpg",
+    "v11:test/download_jpg.rf.62f385d2fcfd38699d396e41d37d428c.jpg",
+    "v11:test/levle2_109_jpg.rf.46ac26e334273aa05b881a0f472f5c2c.jpg",
+    "v11:test/oily-156-_jpg.rf.756bd34385ee81da9321dd79c6160604.jpg",
+    "v11:test/oily57_jpg.rf.be640ccfa4599c801eee6587e6c2872f.jpg",
+    "v11:train/140_jpg.rf.bb425a867bd25ec6bf5eb6b8a0115b5f.jpg",
+    "v11:train/240_F_137816577_BdN2G0s5CvyjWBez0EiievvSDnhnEqNF_jpg.rf.c82edd621f1d99bb2978ddbb517f8294.jpg",
+    "v11:train/Berminyak-21-_jpeg_jpg.rf.35f01b35665bc131c6c3ff6858fa2b76.jpg",
+    "v11:train/Berminyak-9-_jpeg_jpg.rf.ed018b03d226fe969be79ab641f3b30d.jpg",
+    "v11:train/Image_110_jpg.rf.994d19e4e63032c00af9fbd6a7958729.jpg",
+    "v11:train/Image_130_jpg.rf.694ae303dc43276715a942c5c5f3ddf7.jpg",
+    "v11:train/Image_36_jpg.rf.15e42e792b75376d0b752d7ddbd31826.jpg",
+    "v11:train/Image_86_jpg.rf.f62b3c795e42ffdc2845ea69fab5eb60.jpg",
+    "v11:train/acne-15-_jpeg_jpg.rf.10e35b0a8acc368774ac07f048663a45.jpg",
+    "v11:train/acne-198-_jpg.rf.5b55fdad66c6677dfa2a195d11221472.jpg",
+    "v11:train/acne-220-_jpeg_jpg.rf.5f73cda615d5b732ee04a5d225e45aa9.jpg",
+    "v11:train/acne-326-_jpeg_jpg.rf.4a1495a8a4ebf50cd1272cb0e14d5c6e.jpg",
+    "v11:train/acne-340-_jpg.rf.6480cee16d19c26e2254733f270e9028.jpg",
+    "v11:train/download-1-_jpg.rf.7cce114d41460c1838bcf97bf7610a45.jpg",
+    "v11:train/download_jpg.rf.625c44e78ba4bc4ef98c03923c9de886.jpg",
+    "v11:train/how-can-i-fix-these-dark-acne-spots-v0-srawx58b50ff1_webp.rf.ca820f4611a0dbcbabb21aec87313b7e.jpg",
+    "v11:train/how-can-i-fix-these-dark-acne-spots-v0-tc1j0o6b50ff1_webp.rf.aba63bc7227d8a89ea73e7d5d4591f7d.jpg",
+    "v11:train/how-can-i-fix-these-dark-acne-spots-v0-xh3bfn6b50ff1_webp.rf.961c415945c32445684315a961d828fe.jpg",
+    "v11:train/levle1_525_jpg.rf.0c0bbd29706a5ac0e59776f55c1984a2.jpg",
+    "v11:train/oily-167-_jpg.rf.0a0b7efc0fb211763467798ecd9e5b36.jpg",
+    "v11:train/oily-176-_jpg.rf.da9855f4cb96fe4059c8a6ea81c07589.jpg",
+    "v11:train/oily-251-_jpg.rf.2a0706163de15879179b3efafb1d1bf1.jpg",
+    "v11:train/oily-skin_110_jpeg_jpg.rf.8759f46f9e63dddda4a5c9081bcea091.jpg",
+    "v11:valid/20_jpg.rf.d235579cd41527f3a803133fe9a7942b.jpg",
+    "v11:valid/240_F_505136963_IXrvryaszca1gr3AdLK025QSTCPe22u5_jpg.rf.4f930480b10a3141cc4fef13dbe76813.jpg",
+    "v11:valid/36_jpg.rf.efa60a27e015cf6ae242609b1c570355.jpg",
+    "v11:valid/61_webp.rf.1422cbd67cbfd5faa05d63a8d67a9597.jpg",
+    "v11:valid/8_jpg.rf.c5a977630e4ec5da667dda70b83e0c9d.jpg",
+    "v11:valid/Image_4_jpg.rf.751146112a5a83571f97828277d6f31c.jpg",
+    "v11:valid/Image_67_jpg.rf.253d92d0fa5e6a68156268d6d4f6f4eb.jpg",
+    "v11:valid/acne-13-_jpeg_jpg.rf.7f3c324d71a367f7ea1d4961d143b4fb.jpg",
+    "v11:valid/acne-6-_png_jpg.rf.50296a8fb64b055b5bf5f3d7661fdb27.jpg",
+    "v11:valid/berminyak__-39-_jpg.rf.773a2284216663cb535b4f7e06c68e76.jpg",
+    "v11:valid/how-can-i-fix-these-dark-acne-spots-v0-22ahsm6b50ff1_webp.rf.7e562015e9a04181845dc6acf92e352a.jpg",
+    "v11:valid/oily-278-_jpg.rf.5a34aaaa62f7a347adaac158b4410a6a.jpg",
+    "v11:valid/oily2_jpg.rf.f1a9e306c710a0b167c45c38704c3b05.jpg",
+    "v11:valid/oily37_jpg.rf.c6a8bcae30c74c3f9eace1c312a8582d.jpg"
+  ],
+  "excluded": [
+    {
+      "path": "test/Image_29_jpg.rf.fdfc72287a5a301f74f35833edc5a17f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/want-to-get-rid-of-dark-spots-v0-1pi6riyea07e1_webp.rf.be82d705bae2b5569689d0b43d36e435.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/Image_45_jpg.rf.539f9e1dcc6687f5fa66021131919661.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-98-_jpg.rf.9073d36561077fd382227f9ebba7341e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-515-_jpeg_jpg.rf.ee00fa64f4eb63163c72bcf77f6cb3be.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/197_jpg.rf.a2ee232b5d1b01150b9c879db211e944.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/089c8f6d-60da-46db-931e-9812d35b3599_jpg.rf.1fb36ea1b132bc382a4e089cd5ffaf3b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/530_jpg.rf.a4c783ab9b588c0ca3b4f91a8d13b989.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/237_jpg.rf.57825489af455ee15f29bf99cc0a43ae.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/310_jpg.rf.dcc928880247e0a73ab9dd8fc955cb04.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-129-_jpg.rf.6105af69ae77da35847122bf2d481cd4.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/Image_13_jpg.rf.4a96e13234f9a1947a3f0e209345f8db.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-864-_jpeg_jpg.rf.75f2d684b55edcaec1affc0089b05cd5.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-21-_jpeg_jpg.rf.181380760af7e4268b418783865766d0.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-899-_jpeg_jpg.rf.93e7efe57821c9a2e3fa21fa8d8f72c1.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-114-_jpg.rf.e47239dd2d08a6e6bcf67ecbf3c78b37.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-18-_jpg.rf.361ac2509c57f0610df40a8a3420d21a.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/291_jpg.rf.309fafa7953ad561a9b125f7a95da0db.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/184_jpg.rf.dced33c77c476f8b2987a02a62720e71.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-677-_jpeg_jpg.rf.3af7428cd40a14c2a3d69f217e4b7db9.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-38-_png_jpg.rf.89977dc7e8e3271aa89bfae78a7d0974.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-678-_jpeg_jpg.rf.619f0680337e99ce39d8954cf61b3576.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/2437904540_1_jpg.rf.1aa78c64518567eb1707de370dbc4456.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/2200730806_1_jpg.rf.f1d8cbb7caa7ec7ef5ec190804427586.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/2828057266_1_jpg.rf.47c2815c5b6db89db064c414bb03109f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/2106011059_1_jpg.rf.70e9931d9ea1e2dac9b3634d99845bb7.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/2426631349_1_jpg.rf.aa62bc3dc926141374a637fbd5307c26.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/468_jpg.rf.59dff647d060d7c619988c42f5e74412.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/berminyak__-47-_jpg.rf.6a5113e62e36c727b8238773da23a2be.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "test/587_jpg.rf.da5a0f11387fc65dc83de9901054b870.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-130-_jpg.rf.73e59f9d4b4992cb1b2b882e25b469e4.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/96_jpg.rf.d2f314839e23b1fc1003b307f80fe622.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/Image_39_jpg.rf.e47bd3ba34422e3aefc7c73f9ad8cffa.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/320_jpg.rf.dfe22940ed9d2b7c3728ff94b4794160.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/585_jpg.rf.48fe958b39cd02fe6486fc811280b294.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/624_jpg.rf.92825b695d3ab9db80601ebe0c047bac.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/628_jpg.rf.c189820b0e93ca66528196d3c366c43d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-300-_jpeg_jpg.rf.e84f6968ed2831be69d972b9354574ac.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-20-_jpeg_jpg.rf.3594ce673713f11232e23b4fe1a77fc3.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/Berminyak-37-_jpg.rf.735fffa7964b7318bfe33507d8abddd6.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "test/235_jpg.rf.f6ddba77d2dda13f1a6dc15dc98b7574.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/at-my-wits-end-hyperpigmentation-and-dark-spots-v0-eb39432ue6fe1_webp.rf.f3efd139b79c5fa8d46f08010a92aa7e.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/437_jpg.rf.7e5e44a51d472a17373f2471217001c7.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/levle2_109_jpg.rf.46ac26e334273aa05b881a0f472f5c2c.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "test/152_jpg.rf.64a14493e125aec9b9d4138d9e3c3b69.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-prone-skin_148_jpeg_jpg.rf.60dff70267cb0c0ef24c19bf7a78be72.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/436_jpg.rf.ae40fac0c941036785da1d23aeda4cd6.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/oily57_jpg.rf.be640ccfa4599c801eee6587e6c2872f.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "test/2609766139_1_jpg.rf.6478121fefdaeff53d77a142bbc9f811.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-498-_jpeg_jpg.rf.290ddb3caec35c866c3e73cef984a431.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/Image_1_jpg.rf.c2de60d946c7f8427ee237443fafab95.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/levle1_42_jpg.rf.ded504f530018dffd1bac9d207006ab8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/download_jpg.rf.62f385d2fcfd38699d396e41d37d428c.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/2394089614_1_jpg.rf.de839b1dc1ce79c344907c32f69f76ca.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/levle2_129_jpg.rf.658b7a358d92bf8b75a77ed2891d5d31.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/acne-5-_png_jpg.rf.5841c8af8b4801d4962c36717fd04b39.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/594_jpg.rf.cf0a3292eca5c859e29e5d8bcfcf5596.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/Image_34_jpg.rf.3d3c94d5728646e09027b9f8014d673c.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/oily-156-_jpg.rf.756bd34385ee81da9321dd79c6160604.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "test/acne-162-_jpg.rf.4141df013928b75d30725ae523228651.jpg",
+      "reasons": [
+        "UNSUPPORTED_TARGET_GEOMETRY"
+      ]
+    },
+    {
+      "path": "test/Image_24_jpeg_jpg.rf.2d8f7e3acadc87411e550a0322c9a901.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/552_jpg.rf.395423dc8295527a6166cc803ead6e9d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/2196749951_1_jpg.rf.7ec813a45faa9cb903dc5e4730618cc8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "test/240_F_110479910_n9eh4gcWPH8kOGIWN8ZD1PvfQ9XhloHO_jpg.rf.bf3ba675698cc303d8952b21d7ea501c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/458_jpg.rf.2af4d1d9ce687c8a434d4d6becf0a8bc.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2936372160_1_jpg.rf.9feb55e546a2a36ff414112ac9d5c111.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/before-after-dark-spot-removal-v0-pep924yek85e1_webp.rf.033d5234b0816a946ae67eeaf89c098e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-197-_jpeg_jpg.rf.bfcea2a0c567c7679ee2bc4c32b1e9c3.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/360_jpg.rf.cde75ae08d30b8a729045b3d55d9bc32.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-50-_png_jpg.rf.ab5a2642e616f0468c7b6e31488d7696.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/641_jpg.rf.d0c531637b7ceeb72f9716bf65329725.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-135-_jpg.rf.0fad39b2908ef0ccc9ccf867ac75a6c9.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/1129801707_1_jpg.rf.350eed72420baac0211fcbf553787a50.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-15-_png_jpg.rf.bf5b881c2aa74fdacb689c0d0727cd45.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_5_jpg.rf.14a827ac09c5300908e9985794571563.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_45_jpg.rf.1de928aef5c48d211851fe5442727824.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_38_jpg.rf.262873de267bad92545b397056b6ce4b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-372-_jpg.rf.eaa0a25edbd2e71020fa757cbe1f5da8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/579_jpg.rf.aaf1f8bc554677f66cf075e9a635a467.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-482-_jpg.rf.06390ab9f289875dd3c2c9cd444064a7.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-250-_jpg.rf.376d6914a82501320c62ef6af0acda0b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-37-_jpeg_jpg.rf.e156efd9892b2e88ee9482c1e245004a.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-8-_png_jpg.rf.006417b5aaba06f0b8b60aa6923f296b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/melasma35_jpg.rf.59fbb2bc3d8fe0cfff6413c784aa36b9.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/9_jpg.rf.ea8e20bc22b3ef74bd670553cdd08b95.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_86_png_jpg.rf.b56eae28b5482431c75c5f4889bcd966.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/499_jpg.rf.df677f4698bcffc55c437068ce2c5b4f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/9_jpg.rf.53d20d8a32e060387aa795b6e448ce71.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/82_jpg.rf.a313504ea82f20067e453ce07916e80d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/583_jpg.rf.477d7ec1f1c3cd544045c2a06472fa32.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-skin_110_jpeg_jpg.rf.8759f46f9e63dddda4a5c9081bcea091.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "train/Image_129_jpg.rf.c0f48fff8d9c9c7df90b472cc7d21747.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/521_jpg.rf.833e291888bd5fe5ea2d2387626e7ea8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_77_jpg.rf.bd895c3dd303fb2e40bc9878bca9e357.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-767-_jpg.rf.c2136098b59ab9d2ee44e8b6eeb89ee8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/146_jpg.rf.01cb95694c67465dce0e895a75a64bec.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/449_jpg.rf.1191d24d46531b761d579a207eb5057d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-115-_jpg.rf.c291041236d4209ed769fe63dc78270a.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-40-_png_jpg.rf.996d1d1d7c317d05ee3aad56f23864fb.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_127_jpg.rf.1ce07ea7f8076ef857e3f0810f106ca9.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/large-dark-spots-can-i-do-anything-v0-qoc51megb25e1_webp.rf.250462440be9bb57af0219ae5a486807.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/dark-spots-on-the-face-v0-4s63vc2o5qdg1_webp.rf.7d2c70b5d2bd0bcf9cce9865ed98c5fd.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/388_jpg.rf.8ecae08b2da314297e86647f69d9eb7d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_134_jpg.rf.3aeb0c507c2577c5780c7f8439472b27.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/132_jpg.rf.4caeacdca58aac9696ec5b5a9c7089ac.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_130_jpg.rf.694ae303dc43276715a942c5c5f3ddf7.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-354-_jpeg_jpg.rf.b90004b473b7062ad6826e8c01d2f13b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/39_jpg.rf.5d35b7dfec7d1f367e212c60a2d9d6d9.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/162_jpg.rf.db3e778e797977a14d1018f5b9eb34e5.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/download_jpg.rf.625c44e78ba4bc4ef98c03923c9de886.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "train/melasma40_jpg.rf.12ef1e2a5e67e71a70480c33e6a1021e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/normal-20-_jpg.rf.a1dd9a42d9d446a578040d9034840f37.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2569659822_1_jpg.rf.403c5366c01ab3ded7d35c38981a0ace.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/before-after-dark-spot-removal-v0-7ti397yek85e1_webp.rf.8338d0bf8ecd925222c38cac33fb0cbb.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/206273130_1_jpg.rf.2186648909e9baca7428b137ce02c003.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2692799934_1_jpg.rf.abae6aec870e0f8d4569707ec13618f2.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/melasma33_jpg.rf.bb4802b0fc6534aa18d72085cc40a22e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-7-_png_jpg.rf.e6deee92729e990ca8608e76f184a724.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2692234417_1_jpg.rf.fcde910754aaf0f4133ada8baf71737e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-84-_jpg.rf.22d3bcefd1b123cd77f48684ff702b59.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-800-_jpeg_jpg.rf.9402dc7e17a8115bfe3ec666ab8bb9cf.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/how-can-i-fix-these-dark-acne-spots-v0-xh3bfn6b50ff1_webp.rf.961c415945c32445684315a961d828fe.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/923126c5-16a0-48ed-969e-0b43af0f3c1e_jpg.rf.a10de0962306b24b2a95f32f18d8231a.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-6-_jpg.rf.1bb77decdf127692a6a04877c4decc9f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-89-_jpg.rf.13a9f357e97d4b3f6d336c53d71294ed.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/372_jpg.rf.de15e88720def63b2ed18987333d776f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/63_jpg.rf.5cd77334815570cf70af3af009631bb5.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/542_jpg.rf.8eb0543adebea90a659e66fe3a4eb72a.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/451_jpg.rf.c1ca4dc507ef9b007a296930ebe9c715.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/215_jpg.rf.b1ca29bc53df5794534bea4868bcf714.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/1_jpg.rf.8525318059aa6eafa45fe3ad5317cd92.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/175_jpg.rf.57a8127a6f466c452008c27eda194a5d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/a9a346a2-5870-43d7-b11a-9b89352d011f_jpg.rf.334ea29240f4f9ef2cdb51f67b59bd6a.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/289_jpg.rf.06bab49127e8214d2133a9e064c6bc8b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-41-_jpeg_jpg.rf.744a991a2007b6526d489587e51827db.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-684-_jpeg_jpg.rf.c58e3b8be0be3b4464bbec1bb2316598.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/levle1_29_jpg.rf.3674f3d8e4e8f7ca151e15d550d98ff6.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/396_jpg.rf.dbe3187ea87491325214dc9a93528703.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-565-_jpg.rf.717a893c4cebdb8a26c2ff9fb4cbfec2.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/161_jpg.rf.719e665452d5588e1636420dfeb338c7.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2837076619_1_jpg.rf.0cf17eb02fb58448e771e214e8d7ba89.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/588_jpg.rf.10014139c520d81931e7d352c7ab2e0b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/240_F_276016522_IsVo5qn0aPsII5LGQOrflbfCODHW1OkA_jpg.rf.211e2bae5bf4d154188bedb474deedd8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2665879761_1_jpg.rf.617c0bd93591c5e945f24c389f86f06b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/233_jpg.rf.95427e02d2374068acdbe93b95c33b8b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/istockphoto-638452020-612x612_jpg.rf.1d48d00c752c91304f21d29cebce3a5d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/images_jpg.rf.c7a3fe039164fd2232f6e74e5ed50416.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/520_jpg.rf.873156867e8294d72cd7a8d638a2e1ff.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2397008230_1_jpg.rf.4cf6f3438082039d720b98065900c925.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_121_png_jpg.rf.51cc21400d0c987f81c1b67bc78a4c67.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-645-_jpg.rf.277afd7e63aeaf4f84bcfdf5f337f74f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-586-_jpeg_jpg.rf.8c0d48d9e97e549db295dde64d958aaf.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/274_jpg.rf.0f658d8da9cd3e0b8ea68b47465849a8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_99_jpg.rf.832121228eae06d053da40b604202cee.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/186_jpg.rf.b5a41d496cd5b172122ea79e506c4ada.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/7_jpg.rf.c78fadeeff656e3bae7d02487e1af4b8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/469_jpg.rf.6606054ce899f048975765ea7ae83ff3.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/12_jpg.rf.cd3859646bf1d66bb7fd5077932a21a6.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/598_jpg.rf.316cf59eeaf7f567599cd9e7d5f7aad7.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/332_jpg.rf.27413ed5fffa7a480f21f1c29906aeb2.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-263-_jpg.rf.7c35b2115e7d89416b3e7b16292c59a0.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-131-_jpg.rf.1ba60d49ad3a2e39d60af7e278de32a1.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/541_jpg.rf.3aa97c254dc534ab524da784c8874aeb.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2719473671_1_jpg.rf.ab5e27f567947e4de57f2852d86a7b31.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/655_jpg.rf.27ce840d976df27378dfc85015e270d8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/687_jpg.rf.406084749f84a54a401df9cbfd784249.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/4_jpg.rf.27a914c7c306117c0c5c5216b0f3b1e5.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Ance-Scars_jpg.rf.9d2d5aa44532f89909a055333be93bcc.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/240_F_477645690_E0R8uapTGEyyv0cwUM9P06Uk78kiLPXW_jpg.rf.e1ba7e4aa6780e98899aeaf7ff6c0737.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_86_jpg.rf.f62b3c795e42ffdc2845ea69fab5eb60.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/653_jpg.rf.db2cabfb431a3bf2113680f16b1e9ca6.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-63-_jpg.rf.f0e6b8e4c4a9e07bf1699f71f5c1a1f4.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-32-_png_jpg.rf.f4347288c39eed5d6068486a45416b9d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-845-_jpg.rf.1135e378275730d12191cde62938b44c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/105_jpg.rf.cb53c350ac5b4245638c35cffe67c663.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-33-_png_jpg.rf.ec22ba4a896082c6ff7b1b03ec1a14b0.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-prone-skin_115_jpeg_jpg.rf.76b8a6b2127971084b4a057f72994dc1.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-176-_jpg.rf.da9855f4cb96fe4059c8a6ea81c07589.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "train/acne-135-_jpg.rf.0ddb54b8eccddf177637684648504b87.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/107473045_1_jpg.rf.faa6e5c761c305b90de2ced8bb9c6265.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-332-_jpeg_jpg.rf.b64a48016c2b4302e809da92cc0a49e2.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-11-_PNG_jpg.rf.25cf0d8fce9c6e4a7e69810da672c1d0.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/207_jpg.rf.0232f3c3f787997394d692e0fb0cb672.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/10_jpg.rf.2663fc9953cee804c4fc06d46f79ce67.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/75_jpg.rf.e9d944367f0897947e9aebab27e92117.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-prone-skin_180_jpeg_jpg.rf.dd2a2d2aef4391021808eb5db4a3e3aa.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-387-_jpeg_jpg.rf.ab122b9c1fa5bae3dfe834d87a81ea2c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/395_jpg.rf.a7ba90443bc08765cd95c76280a40341.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2501339174_1_jpg.rf.66115c940b8d13f1e518dc830f176a31.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/581_jpg.rf.0247f08af219b0e94388b4820e2ac5d6.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-88-_jpeg_jpg.rf.44101b519a86b415cfd3c45bf95b70b2.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/21_jpg.rf.55dc9058a9dc23393cf9a4320d3cfd5f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-466-_jpeg_jpg.rf.7dc27025baa7f4be31a2e4b8af706b65.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-198-_jpg.rf.5b55fdad66c6677dfa2a195d11221472.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/234_jpg.rf.ef458f8c37be88fd8a460248f68f4c61.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/how-can-i-fix-these-dark-acne-spots-v0-g714hm6b50ff1_webp.rf.544b852636469e2f80eccb30804f6d43.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/339_jpg.rf.a0e0f58bb36cd927735c8b2a56c50e12.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2720293102_1_jpg.rf.74c569c3026a05834b9348c09b4d5496.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/levle1_247_png_jpg.rf.0644e5c14b140ec96ea972c12c0e07c5.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-150-_jpeg_jpg.rf.916fbebbcad56bd9a3e2d8298a2dd85f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/219_jpg.rf.0579d1a8dd451d88e00526428896e906.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/140_jpg.rf.bb425a867bd25ec6bf5eb6b8a0115b5f.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-47-_jpeg_jpg.rf.e30e5ad1f5a135ea37ed404728bea05a.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-84-_jpg.rf.767e192b45e65fb36c98776f675e2df3.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/116_jpg.rf.945db007c0fa33badc6865ec749c4f07.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/349_jpg.rf.58be19dc9ddb598c82f8a89cbd3343fa.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2720297592_1_jpg.rf.f1029f2374053baf49e4aa08ac8bdf67.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-9-_png_jpg.rf.8311bb770dc2ad9e45b0a190908df0f6.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/89_jpg.rf.b434189e392d19600fb9dd383e6859e8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-26-_jpeg_jpg.rf.441a831ddf03c1acedae61210b324b71.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_132_jpg.rf.340faa7e1a83bfbda813727a1a8ee333.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-75-_jpg.rf.18915d9c574173d0749cb4d5599923a7.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-10-_jpg.rf.e2967d657b4d006c253de456c5035f9c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/619_jpg.rf.358a0cccfd8d60f0d995c0a4b0530cce.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/328_jpg.rf.a678a5d92b5fcf0348b57ddd70ff8227.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/397_jpg.rf.1141daf7116eb101f2941075807cc85a.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/370_jpg.rf.6456eb5fd9bf9aafd0818b41739fd3f8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/45_webp.rf.7d1514b5e9f005791da60766b9019b56.jpg",
+      "reasons": [
+        "UNSUPPORTED_TARGET_GEOMETRY"
+      ]
+    },
+    {
+      "path": "train/102_jpg.rf.92357653a1c0a400b25a84bf8be659c0.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-44-_jpeg_jpg.rf.a43789d5bdf0f3a3e7b63b66dd664fe4.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-13-_png_jpg.rf.0bb8c8b5cc374ccf0406068c75e4ff59.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2707644515_1_jpg.rf.3a10bd73063cec33b038027256445f67.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_37-1-_jpg.rf.6147bcb09cbcb2f51a1d9504ece02cdd.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-251-_jpeg_jpg.rf.89cddc710360db16303a9098b6fca15d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/could-use-some-help-ive-had-these-dark-spots-on-my-face-for-v0-ltc7vraa57a91_webp.rf.3e4faaf5d6904ede779f7915e38d5e4d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/600_jpg.rf.307cb281344912f33ae9d98debc32fbc.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/levle2_61_jpg.rf.970d0c2f4f3ae0eb87eea8dc52148d2c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-220-_jpeg_jpg.rf.5f73cda615d5b732ee04a5d225e45aa9.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/7_jpg.rf.30bb979d9b5316f0794840ce141e7f12.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-572-_jpg.rf.b5c04ed6f5a7a8c9730b029143cd31df.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-31-_jpeg_jpg.rf.6d627dc3cc9e4b1dd29f459b3e6bb8e8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-462-_jpeg_jpg.rf.32745680bd1eb1270760925a71ce0fc5.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/dry-258-_jpg.rf.ee9c7de69c0184015ee04b9d4e5d3f55.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/87_jpg.rf.6876c0551f37e08894d43d974b3045c0.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/260_jpg.rf.3be335d66bd304567f32a450ffd7a26c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/240_F_210297159_7tMSDq38NJGGGfjubjo57EoqK1L4Qw6O_jpg.rf.ce96fce45064351d2031b463f442c22d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/313_jpg.rf.879328945520bfefb1ef7d48483a0152.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_97_jpg.rf.d213b541bda68de1e90ad82101defb90.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/622_jpg.rf.d4e4287f662e1cd9642c8bfbfab12e3c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2699422785_1_jpg.rf.90ad583c7aa73ea618c61436a2e62377.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/438_jpg.rf.f9c294b5462fde35488903a976f41bcf.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-463-_jpeg_jpg.rf.4b9ef19f3a8ef1a67bc5dc47b811bd84.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-147-_jpg.rf.cf84a1356a93222ee7b8dfc6460ba676.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/103887554_1_jpg.rf.ff1d7d9b3a059c075872ce4621c35bcc.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/104074861_1_jpg.rf.7bff1316119d83162bb9b7ef3d607b7d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_51_jpg.rf.d59825185610d322b85e96e65d28c1d7.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/130_jpg.rf.6c94351570120bff00b720cfe8291ec7.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/1_jpg.rf.d09e4a143480cda647eb2f08ae807f6f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-877-_jpeg_jpg.rf.1983cc2daef744f7dbbd3eb6efb3f2f2.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/450_jpg.rf.268fa4b0ab9bd38a82f5dcb9efeae371.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-47-_png_jpg.rf.1b79b10a3f765a7c6647f1d6d4a297a5.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/88_jpg.rf.24e8842e486ca69668d9599d098b90b3.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/ac1_jpg.rf.58c1bf08e2a57aef3fbe7d197619435c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/before-after-dark-spot-removal-v0-p4k453yek85e1_webp.rf.1b2ce76709c914a817c8cd03146d18bd.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/stock-photo-small-brown-patches-called-age-spots-and-scars-on-the-face-of-asian-man-liver-spots-senile-2225623985_jpg.rf.a5bc72da8ccd07df575cebf7de00157f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/92_jpg.rf.5a9c03f94cf248cc398c708834406895.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/levle1_525_jpg.rf.0c0bbd29706a5ac0e59776f55c1984a2.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "train/acne-3-_png_jpg.rf.fd974008545986e81e7ea1ea145cbfc9.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/363_jpg.rf.4c7965f0168fa8867f629a8544b33476.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/315_jpg.rf.8f28e3e8d737879cb12536444a3f2e61.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-80-_jpg.rf.0d243ce16affa5760f9626d2bc528f15.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/159_jpg.rf.2e7aa21dc3044c6c041a9de3c08cbe05.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-744-_jpg.rf.eed2c9bc740752d9d60150ad06790cd0.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-28-_png_jpg.rf.825a12d074205594abc3079fbdf7c1bf.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/158_jpg.rf.02646ccf93a5409a1fcf720123077c3e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-125-_jpg.rf.2b487ddb46aeac61231029f91496fa7c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-prone-skin_123_png_jpg.rf.2fb6ac095ffcee3d21c965200c11b5f1.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/13_jpg.rf.94b3f9458da8f62b5e450006ef41185d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/19_png_jpg.rf.456e0a5f04c04cc4d848c55d0b25b148.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/596_jpg.rf.7e4cdda07808d6f117ef1b43b9b02ba4.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_114_jpg.rf.2161713da92ba82d37c4283b618f3002.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_58_jpeg_jpg.rf.852e2581726c00403036c537e4c823b8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-34-_jpg.rf.926860cbb1f6bf8e44833a34a4fa217d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/125_jpg.rf.a6cd8b78c63f52c9113c7656b00cd896.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-27-_jpeg_jpg.rf.7a81218dc6bf29344e9cdf1fded93edf.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-276-_jpg.rf.ce5b0b8291639282963ebfffdf663958.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/120801881_1_jpg.rf.35fe2bb79f0d8b36ab3f2d37cefe461d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/550_jpg.rf.3edc0ff1f0302776a0d3d98e153c1ee3.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2719463843_1_jpg.rf.c6e9498c1e71b4903f8cbf58f9470e68.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-367-_jpg.rf.c7ba190cd2d0901720aafeb7757fb048.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_85_jpg.rf.265cac419eba76f21bb7f2046e3abe17.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-37-_png_jpg.rf.6317d1081309ea0302dcb2597a2e87b6.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_14_JPG_jpg.rf.ecd181ac370dfa314eb574441ec7f257.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-271-_jpg.rf.ef85037d4e7371678d109d711727c096.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/390_jpg.rf.b5381214f0db8e9b2ae550243190c3a4.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Berminyak-21-_jpeg_jpg.rf.35f01b35665bc131c6c3ff6858fa2b76.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "train/before-after-dark-spot-removal-v0-i3rdw3yek85e1_webp.rf.5ff1038888dbf566efb86dbb951184d3.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-18-_png_jpg.rf.c1f397208c4bb16f0360737785d419b7.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/236817064_1_jpg.rf.c40c3eb7326a611e144e8b004c3f7a9a.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-784-_jpeg_jpg.rf.9e7bd30ac159c8c1ce8e164b6893852e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-23-_jpg.rf.9cf5be55fe833946b1e18271fd504187.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-34-_jpeg_jpg.rf.a2629d025824321b88c4d23bf48693ad.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-340-_jpg.rf.6480cee16d19c26e2254733f270e9028.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/large-dark-spots-can-i-do-anything-v0-0hl0qlegb25e1_webp.rf.d539c64abec3d628714dda8a7ada0bdd.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-138-_jpg.rf.05480c3673a1ce31a3e541ca3c686821.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-9-_jpg.rf.59ac2e022039be6d9ee0b891b0d4babe.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2423457666_1_jpg.rf.b73c2a09ca0038b38ddda12cc57e9fb6.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/9_jpg.rf.d3f4d35f3f98190ef6223a714c4ea249.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/levle2_61_jpg.rf.91dcef64ee30ca296e804acd94117138.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-145-_jpg.rf.16c6fcb3dc2e3309cd5a1e8888e253fa.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/663_jpg.rf.37ab7ede6ed72257e9734b2b26ac20cb.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/565_jpg.rf.ea006d76434ebc85b8c96fcfb2092421.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/128_jpg.rf.ec0b8f1b4db25ccbdd8ab0f46beace1e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/376_jpg.rf.a1046989bd2a2224d46b44d61102f174.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/275_jpg.rf.7096a13ce72770dcc70ce9c56299b9ce.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2738625961_1_jpg.rf.ad5b005f29013ba79a0874189e0d480b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/589_jpg.rf.9f39264b4586515f2da2b5613cc1983d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-99-_jpg.rf.6c53ef5f07f482475d5f5c589acce0d7.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/12_jpg.rf.4af34d5e57d720b764fdd54d6e80246a.jpg",
+      "reasons": [
+        "UNSUPPORTED_TARGET_GEOMETRY"
+      ]
+    },
+    {
+      "path": "train/how-can-i-fix-these-dark-acne-spots-v0-tc1j0o6b50ff1_webp.rf.aba63bc7227d8a89ea73e7d5d4591f7d.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/330_jpg.rf.74c1aafb664616c3d8a0e35e8326888f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-159-_jpg.rf.07cf871cbbab080d68d60f6245093443.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_54_jpg.rf.09c1736fda0d7f95a8822206cb0a9e79.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/393_jpg.rf.2ef345e3fd6074d9faa2958a1c656b42.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-prone-skin_120_jpeg_jpg.rf.7c3c7f1cd73f4422fde4a05dc9ccadbb.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-4-_jpg.rf.cfdf82936a5327d1fecdcb7c8680c5be.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/16_jpg.rf.36f5628b6f02e582a9fdd21f08d935cb.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/582_jpg.rf.6721fd3c8f48d17bdfc002baa08bd255.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/6_jpg.rf.4a6c9085fc5f9f6e7dc82ba47bc8ec0e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/a27e16c6-4acc-40a9-adaf-1e152ac7a68b_jpg.rf.5cbeb6ec989e5de49d061d83f239c747.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/222_jpg.rf.08fce9146dca6f61100ff22976a53a0d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/143_jpg.rf.9af1a6715b048edb2952e5e4ebdf9c9d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/126_jpg.rf.dd4656abb269b89e9e3c516c9a29fec0.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/425_jpg.rf.fcdc47a28fcf6253af880bf00cd589e7.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_111_jpg.rf.9f56231219b2d0c0b999cfc9d90a5d81.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/489_jpg.rf.660780572eb15a45ce954816bf97d6dd.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/361_jpg.rf.1986f2435abf7ba7802c0d28b6ec43af.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/640_jpg.rf.8fa6659785a7337dc8af9ad835321ff1.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/612_jpg.rf.f5e6b763a7dcca73b976b7fba7edcf3d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-42-_png_jpg.rf.1658b6e5b03269977966afaa288d7a11.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-167-_jpg.rf.0a0b7efc0fb211763467798ecd9e5b36.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-749-_jpg.rf.a7b1dc15898de999779fff6d01f8493c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_132_jpg.rf.82d86660b95fcc1d50e1b2445b23fe49.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/321_jpg.rf.06c3d383a1796f48ac4f9b10c20e771e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/617_jpg.rf.dd81babd294493ab28d74719a282ed78.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/170_jpg.rf.21b0a2a3e6601be5cdd23ae511f1c830.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/467_jpg.rf.39d25b9eb0422b81419418e4fc05d2fb.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/before-after-dark-spot-removal-v0-dxj361yek85e1_webp.rf.ef6c736acb0b217777d3687ffebb8b22.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-30-_png_jpg.rf.d80e23ff97602fe04dfc42ea0f747f60.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2677149532_1_jpg.rf.4f17225181b80679299667bfca662b74.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/01F3MMX3DB7W0CEV30K2NZZR8Q_jpeg_jpg.rf.e71d2c405bb2ef49229a0376c18aaddc.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-29-_jpeg_jpg.rf.ef39b30b0ddd53b73e3345cc974a83fc.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/371_jpg.rf.555a35c696cbb195e5deff6f787cebf3.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/136_jpg.rf.fbe04e61042c005555915a60ae1ea64a.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-251-_jpg.rf.2a0706163de15879179b3efafb1d1bf1.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "train/36_jpg.rf.84b8516cdb72a6fef7fa3324eb249e57.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/240_F_303787590_E77HGFUoZJhi2l5GEpegMU9jmUrfrHYv_jpg.rf.428e18e7c6ea5388e59d1f340154f346.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/240_F_504672454_jndgj2KO7RJwbd1f5qgcFFAYtOcNpOgT_jpg.rf.63e6fb215e470118e411f9ac3558a531.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2_jpg.rf.ed0e8e963a2730d5ab36dd954410fb20.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/15_jpg.rf.11974781ac76fd7444529660b8f3d320.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/121_jpg.rf.6e5097d9e91bd8c49242adec74adce97.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-8-_jpeg_jpg.rf.fa1e20bce442d6b5ead42fd1b7c7a093.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-406-_jpeg_jpg.rf.6d2b693e11a4e72f5dd90c30b09d4014.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-prone-skin_116_jpeg_jpg.rf.5b0c571f102075d2226176d413daac1b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-221-_jpg.rf.eb2f6b96e000cde4c2d307f5ba8feeb1.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Berminyak-9-_jpeg_jpg.rf.ed018b03d226fe969be79ab641f3b30d.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "train/acne-15-_jpeg_jpg.rf.10e35b0a8acc368774ac07f048663a45.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/62_jpg.rf.d150445054a24967e71913284686cd8c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/232_jpg.rf.0de09af8e84a8a102ed43a33257dec7b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-prone-skin_11_jpeg_jpg.rf.279bb45522880581f913de8a7424785e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/342_jpg.rf.c99490fab4388a63a91df4a039f4ed20.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-33-_jpg.rf.8f19a46308f40cd7c18c6ff9272ba750.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2405801774_1_jpg.rf.2755dc576c1ad76e69cf9d2f62a2cf42.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-173-_jpg.rf.e319d88d7910deb677ac419de90ec7f7.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-395-_jpeg_jpg.rf.10c79b792149265cc81d000d7854838c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/at-my-wits-end-hyperpigmentation-and-dark-spots-v0-gseztp4ue6fe1_webp.rf.42210d8badd4422d691fd657966b8bfc.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/352_jpg.rf.6513df9306c648c595c3645d8d702843.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_137_jpg.rf.df1ed4577699c25b79994869933c79cc.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/levle0_75_jpg.rf.39f0c75f77af6c14849fe5d55f3cd215.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/240_F_505842148_TGTabIfdLCUOOQZD2kRsQnYJD7OTf3BT_jpg.rf.44c69a29d87ae067e984b3e5a2284287.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_71_jpg.rf.990ab78073611b6459f3956cfa02eac9.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/378_jpg.rf.b350a3b9bc5cc601167fdf76ea1ebd08.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-14-_jpeg_jpg.rf.132dbe60798140f5056352c5a017ef61.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/556_jpg.rf.10356205430825664fd30cb1d825f65d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/at-my-wits-end-hyperpigmentation-and-dark-spots-v0-3xqtkuxte6fe1_webp.rf.8a91c423b255a02b6a8ca74128d4686a.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/melasma54_png_jpg.rf.78c5b1a8096051be1b735c3aa089de5c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/bfgjfghj_jpg.rf.f9d677613e640f571384915cbd03dff3.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/447_jpg.rf.2f9fac6ffb6ba74f0a0ba7475b6a5c5b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-525-_jpeg_jpg.rf.f147080718984a9c1e1326d82c8c3e56.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_79_jpg.rf.b362ca252d4c32e25c960f34db46ce2c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-233-_jpeg_jpg.rf.1c922fbb433528ef1becba8c8864f5a1.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/131_jpg.rf.4d692b8ce7583546779793533733457c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/164_jpg.rf.67ebc67c3e2083c5415be0773fd925fd.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-67-_jpg.rf.57f41b99efe3779ec8e329372858c6d0.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_117_jpg.rf.7403da2303139296a8136fd72b820cfe.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-329-_jpeg_jpg.rf.ef1d4bd526f371a7008f45d0af2c770b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/351_jpg.rf.9dac4fe4b1d73df8814c35ab02d6a207.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-193-_jpg.rf.a953948af78da09621a9a1f2d2ff5ff5.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/127_jpg.rf.7496650cf01eaaead006839a485972dc.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/221_jpg.rf.ae0a22445a2353c46ae5ab4b1b3cad4c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-36-_png_jpg.rf.b1c89f813d5197eaf63bb5da9d120f85.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_33_jpg.rf.cd126d1fd03f3854fca5380c707102c9.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/187_jpg.rf.704a6ddf63711edac5c84ed1469dadce.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-2-_jpg.rf.d855a771e99b2994e37834bd6300e1e0.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/350_jpg.rf.9555c61f7e87da441b260c52edde1082.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/176_jpg.rf.ad12a405fd16a45145d059f85d3b0f6b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-119-_jpg.rf.d43ab4040bfc4adeec1d2fc3f29dd404.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/how-do-i-get-rid-of-these-dark-spots-on-my-chin-v0-u02wit8fkune1_webp.rf.9ed7b5f0529e0cd3932293a4a303f484.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/levle0_305_jpg.rf.b579c4a3e54a4d577d6811d079e0a864.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-326-_jpeg_jpg.rf.4a1495a8a4ebf50cd1272cb0e14d5c6e.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/download-1-_jpg.rf.7cce114d41460c1838bcf97bf7610a45.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/1e812d5b-ee7a-4ec5-bd3e-04ca72cd805a_jpg.rf.362bdb62c21230fa052cab2221d785c9.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-204-_jpeg_jpg.rf.a11c7e3907e4c2a13928de40ce170e5f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/1030333538_1_jpg.rf.c5344a952acefe4595a7a565343e947d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/656_jpg.rf.1442afa52468a5fcdbb673825b0e77d9.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_128_jpg.rf.f041ac2e7a17ce163fd3a3f12a962d63.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-19-_jpeg_jpg.rf.4ca09c3f5d43a8536697e616e8eff70c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/8_jpg.rf.c2c7109728ba2047975fac12af9828f2.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/314_jpg.rf.321cf90e9d9d705f93484d3703f1302c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-63-_jpg.rf.a44a95a0760d4dee1de47929a1b6dd29.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-42-_jpg.rf.45dcfb24680ef28c7d155d2388bf0fbe.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/240_F_137816577_BdN2G0s5CvyjWBez0EiievvSDnhnEqNF_jpg.rf.c82edd621f1d99bb2978ddbb517f8294.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2450984791_1_jpg.rf.f595403a62df0df101457322221c98ce.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_110_jpg.rf.994d19e4e63032c00af9fbd6a7958729.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "train/acne-754-_jpg.rf.ac8afbe0ba9468223233402681260b52.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/457_jpg.rf.c75b87c9d1d678150f0c33830eefbb87.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-94-_jpg.rf.4f0ef8d5463fc66ad7cec301de5c3893.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-31-_png_jpg.rf.42e8f37a2b0ac367913115257d8f2464.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-70-_jpg.rf.8b91fca28573309753233bc7b83da01d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/429_jpg.rf.7af223af968bebfcb3b221a51f488ae1.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-96-_jpg.rf.dabf608ae9da3a983d3680c9f8052b8f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-17-_png_jpg.rf.37a07961578d22a38e76379c1a74a830.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/levle1_256_jpg.rf.33d8bf71bd33f225b4c9a1812d81dee3.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-33-_jpeg_jpg.rf.24328e906f4b90a0bfc9a6db94f783e0.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-754-_jpeg_jpg.rf.4bc93b61e8b7571dc5e58cdb4d503321.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Img_82_jpg.rf.8f9b42486a240b028010c47e5fa5ed4f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/454_jpg.rf.954dc0abbe4df7f8516d4cc3fe31ccae.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-24-_png_jpg.rf.21ca2ed61ecac69044266b0d29e2adff.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/172_jpg.rf.b6e5fcd5b7e53aae71e96d0285e2ddfc.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/240_F_175181761_NaukWVZ1iZTbDytJzuiQqN5Y2Xc0zZ2C_jpg.rf.96d372a63fb49a29ce1326748945ae42.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/19_jpg.rf.6231bfc7438acf022ad4d1b02114e529.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/147_jpg.rf.72c20652dac2e6733b760e0b46de675e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_36_jpg.rf.a461154ab120e93bea56584bb9645ab2.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/before-after-dark-spot-removal-v0-apn4f1yek85e1_webp.rf.e56cf2eaae664839f60c96cd7bd26fd8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/144_jpg.rf.19dd7255c3c896803b09536185262b95.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_8_jpg.rf.dd99f8c7e19d7f13dc449e79e44d2d9b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/160_jpg.rf.8e2ba88dc2cda9578ae3206a60d6a666.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-35-_png_jpg.rf.29896b17612a19646794b2e998471100.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-272-_jpg.rf.417360097348dae2e874b6cc37b09b36.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-887-_jpeg_jpg.rf.1ea3e8dbf80d4436eeba78b9b8c4985e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-572-_jpeg_jpg.rf.4934f3b5a97c910c1ee734b0a4541d57.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-prone-skin_134_jpeg_jpg.rf.48cffafe2bb3a27e6db72cfc962adf02.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_52_jpg.rf.56fd4bffa809739a948c3fc99535235c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2666396914_1_jpg.rf.832b652b989eb83316e5390574f597d0.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/oily-31-_jpg.rf.f3c2a3565cdc09fb057f97635016466c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-816-_jpg.rf.e707574d01f6cd61aadbdccf2c052853.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/3_jpg.rf.50cf98ec38f68658d61d51f591ab9e35.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/652_jpg.rf.639f685ee2ddd170e59fb83eb9210cf1.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2352254513_1_jpg.rf.048900b49268152867c2173bc47ecb2d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-12-_png_jpg.rf.de0ea7172b4ca25e35c4dec7ac4958ee.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/162_jpg.rf.cdc682d73346be175f15c46754980bb8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/586_jpg.rf.cf488305e24591bf5c3351f7283be471.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/642_jpg.rf.2c4ea1dcaf8ee5faf5b12980dab70f4c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/491_jpg.rf.bcce8cc1d624c3c408d4db55f2ec4a90.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-22-_jpg.rf.d78ba4c450fa8d241ee0797bf9e3b461.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-15-_jpg.rf.f64d415ff87bae41b53d5db60de312c5.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/417_jpg.rf.07c0c48ac9a419112543cd2401a2a1db.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-795-_jpeg_jpg.rf.7e945fcaea601c0f9e90d3e8bea040ee.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2688545621_1_jpg.rf.3b0ecd7f38de3c96f1eca3e2b24e38a0.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_58_jpg.rf.62ba5394debab1b2a4d8890cdaa43bf0.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_81_jpg.rf.b0417f13fd9a23ec1e9bf43ba1c4d033.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/how-can-i-fix-these-dark-acne-spots-v0-srawx58b50ff1_webp.rf.ca820f4611a0dbcbabb21aec87313b7e.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/381_jpg.rf.d790dc80cf1d12d6931cb0b15bf80544.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-229-_jpg.rf.05162b2cfa2dd22e34f18392005e86e4.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/597_jpg.rf.2d8890a371a0c1eb1ef1d836e4dd519f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-232-_jpeg_jpg.rf.4298f4eaf5bbe045158691146d09b1a8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2947222498_1_jpg.rf.5a0524cabe11ed83ae4391a5f09a74a2.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2706940948_1_jpg.rf.18dcab7d6f527396928ea1904cbb7b12.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2091682510_1_jpg.rf.7b336e2dc344d9d61c96b9a0dc5e59a5.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-467-_jpeg_jpg.rf.cb71155cf66eb2411dbacf4d60d936d4.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2458204984_1_jpg.rf.8e8576ffa910114c6bb99f0a44002afa.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-7-_jpg.rf.fdb2810f755f502087e9645ca9f2c3bd.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/657_jpg.rf.bd1ef817c3fad128a41d9216acb94898.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/224_jpg.rf.dd367c217d9ad84dc04a2f75b16f91da.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/249852286_2_jpg.rf.3ae0abd93cfb73180dfb98ec7d88668d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/38_jpg.rf.6878ac01ea4c6157e3b62b1dbf9ef2c1.jpg",
+      "reasons": [
+        "UNSUPPORTED_TARGET_GEOMETRY"
+      ]
+    },
+    {
+      "path": "train/543_jpg.rf.05391728630dd0eb674d54996a65cefe.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/Image_36_jpg.rf.15e42e792b75376d0b752d7ddbd31826.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "train/334_jpg.rf.f81d32aac3961e26b3cc4664518e840e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/acne-7-_jpeg_jpg.rf.f7cca466bebbc73cc9f33c03c551e0a2.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/109_jpg.rf.6b2d572f942127dc83dfdbb4e85ef8e3.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/2545119553_1_jpg.rf.4ac346eabcd3fb9d45b66592a5466072.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/levle1_176_jpg.rf.5a34f1b300ee9bf1cbf09847fde201b1.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "train/503_jpg.rf.22985afc90c0fcdbea691b6710214419.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/2720295826_1_jpg.rf.70dca3c7db39f99b9323a274800ee1fc.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/240_F_505136963_IXrvryaszca1gr3AdLK025QSTCPe22u5_jpg.rf.4f930480b10a3141cc4fef13dbe76813.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/509_jpg.rf.badb17afdd6b1446c50f01a81ff3b26d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-6-_png_jpg.rf.50296a8fb64b055b5bf5f3d7661fdb27.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/477_jpg.rf.9fb4be4a710238ddf87f1134380adb6b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/476_jpg.rf.8f361ebf2bef8a487564dd86b5fb4516.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Image_4_jpg.rf.3ecb5d31186b306d18b6f70109685d8b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/oily2_jpg.rf.f1a9e306c710a0b167c45c38704c3b05.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "valid/480_jpg.rf.2066703acb7c4f8c09b93f0f3c2e4aec.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Image_94_jpg.rf.f1f7142f537f3b951d7686a9d4287855.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/538_jpg.rf.40d6565b086770d5b3ccc779212e262e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/198_jpg.rf.7723d55436bf6e890caeeae00895d33a.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/2113106881_1_jpg.rf.736e73f6ba3fc9999c4cca4cb086359f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/240_F_175181783_9h2VmEFY0xA9yc8O2fqKvhzsEOAfDFtD_jpg.rf.197455e7674b80b2d4a86f8973c57ea8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/levle1_180_jpg.rf.96462058f2fa7293573e305ae90f2ba1.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/5_jpg.rf.1b1e9755c90e1a183a9928206f1101f8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/20_jpg.rf.d235579cd41527f3a803133fe9a7942b.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/658_jpg.rf.0c046bc4e320f63ea2f861b22f79b541.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/61_webp.rf.1422cbd67cbfd5faa05d63a8d67a9597.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "valid/acne-618-_jpg.rf.d90f28584a8c4d70e5e5bc52236ef610.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/535_jpg.rf.bf6c8814abbfad2db8d43f868aac7ab8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/218_jpg.rf.b383e561a9dedace9770ad3bdda47b7c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/185_jpg.rf.23eba8b08aa613754ccde9425f3cb4a4.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/484_jpg.rf.8adc5cb5bb46ba424cc114bb9bffe2e5.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/oily-39-_jpg.rf.f9ca5182ce4ba22a05616c71152ba7fe.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/236_jpg.rf.2f8b4b81f0f9ec4753e6265e4852ea00.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-8-_jpg.rf.ce8c4c2e32adad36aa5eebce38464eb1.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/oily-233-_JPG_jpg.rf.2977c6cac8db5ee6ed8e2c31c98c6108.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Image_145_jpg.rf.3e6bfa09b229a97482d49cfd51883215.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/11_jpg.rf.a55fa1031b50a37587db42baf3f86a8d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/259_jpg.rf.d2b18eff7d3c471758e6211295886d39.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/394_jpg.rf.0a901f22ee6f00fa687c4e6a0d74a42d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Image_67_jpg.rf.253d92d0fa5e6a68156268d6d4f6f4eb.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Kering-33-_jpeg_jpg.rf.c6fb6a02de30ba5c6d448b520bef7e6b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/36_jpg.rf.efa60a27e015cf6ae242609b1c570355.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-33-_jpg.rf.32fb7f20718c76f1d1a42c9fef6da8b9.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/72_jpg.rf.67e5eaded0d3fc41940e76e423f0b2d1.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Image_7_jpeg_jpg.rf.e6bc2b17a46e881cc8fc595c1339bd35.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-112-_jpeg_jpg.rf.cde1b7024fa10c3d809218a85717ff4e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Image_49-1-_jpg.rf.a7945b0147ddcbf87333af4a7589991b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-35-_jpeg_jpg.rf.3d671f19922f833ddb0e443adb95b32f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-315-_jpg.rf.4b16448941dce0991c3bdfd2945caeff.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/levle1_394_jpg.rf.2e25fc173ca1e248f62b333233b6585e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/213_jpg.rf.34422b982deb56652dbfd19c626dc7d4.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/584_jpg.rf.f4f73f47d585bf8ea43f7ac2196115e2.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/oily37_jpg.rf.c6a8bcae30c74c3f9eace1c312a8582d.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "valid/316_jpg.rf.4a42db5647625245eface4ce85dc2fbc.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/424_jpg.rf.f218bf18930cca707c67fec444823d63.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/355_jpg.rf.866a2a7b8f2117402fc5cb71a122a6e8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-257-_jpg.rf.dd06874540fc78032d4b7516a40487a3.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/152_jpg.rf.143e046635bfba1f1285e080e40111d7.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/2175042512_1_jpg.rf.4987436acd63dd867047a9fa2c74bb93.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/oily-62-_jpg.rf.982d66956423cf1dc0bd59835fba737c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/levle1_567_jpg.rf.46b1147f439c98495b207f040894d2ef.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Image_46_jpg.rf.cc3c68bb08ddf7983318401d7f19dc5f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/2719469801_1_jpg.rf.2813b45c54f33a4d55d5239f223ab658.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/415_jpg.rf.f496503c8f59f73ea00ee084471b6a23.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/AdobeStock_1285717592_webp.rf.192f52abefad4d1c86c492a64163668c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/262545392_1_jpg.rf.0a4e999d255f22e4b44aabd9c87c4bf2.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/17_jpg.rf.c65a35fa303293ac7f134698571fce2a.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/could-use-some-help-ive-had-these-dark-spots-on-my-face-for-v0-0abyosaa57a91_webp.rf.7f53de76d721495ba5ac425557468668.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-239-_jpg.rf.4c5d4041ea59c54dd7633385a513449c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Image_125_png_jpg.rf.330f1bba8fc73cf272f076dc07086e8d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/482_jpg.rf.3a1554209a0234bcd9caf590eed4f28e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/240_F_203088174_Y10HdNxqyBbEFTBctiIDfMBQNO8Ze3p2_jpg.rf.f2c1374b4e58b593600c7ac6bb0bc156.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-19-_png_jpg.rf.0ffc6a5b5636f987793600b3c1b2bf1a.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/01F3MMXJ24BWB58NHE1QVGMZJ3_jpeg_jpg.rf.726418e51137547c7c945d2963283eeb.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/2665784919_1_jpg.rf.83b266556723c2437a5c8eb9812ed854.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Image_146_jpg.rf.88cd97f0c2b4106cf627e7a6e46d53bd.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Image_57_jpg.rf.6026c9c071a9ab7626653bb1f7cec2c8.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Image_49_jpg.rf.0813757be9d9c37fa3f1e0b1caacf48b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-prone-skin_170_jpeg_jpg.rf.6e4c648b74840a2f172b7a13e5aa167b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-5-_jpg.rf.4bab4c27f20a0ccbcb12be8eb322669e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/oily-52-_jpg.rf.c57ab59d88e9d7f4745eff92a96cdc04.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/01F3MMWFKMEV4ZTBMDTVCRNY93_jpeg_jpg.rf.a8781e17b3215e6075ed36402ff1cd81.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/8_jpg.rf.c5a977630e4ec5da667dda70b83e0c9d.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-13-_jpeg_jpg.rf.7f3c324d71a367f7ea1d4961d143b4fb.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-39-_jpg.rf.b02a54f19426228b736df2fecc49bbfd.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/329_jpg.rf.f50589e218674d28c1c711877e008e33.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/377_jpg.rf.ec92f31fef30a77d1f2abf20e83d4cdb.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-53-_jpg.rf.8e60bc41d33b174f41e0f1ad06d716cb.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/levle1_140_jpg.rf.922596680eec6c48a8bf84fc2ec0b3aa.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/2708460596_1_jpg.rf.6dcc0131b8820f8047b4cc0965df0cb2.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-2-_png_jpg.rf.7b34717be38ff306098ecd237b8bc236.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/367_jpg.rf.9eff8e07b271486772d804d495f974c5.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/2806176632_1_jpg.rf.ad451bb28a1d9678c421bd8de4d80d22.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/levle0_56_jpg.rf.74fe4767a1371336066b6b59d3f0d4aa.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/466_jpg.rf.22e9513a347a851aa7206e7ff10daddc.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/want-to-get-rid-of-dark-spots-v0-8kuy7jyea07e1_webp.rf.447610110206c1a70af489575e8bfe16.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/432_jpg.rf.15f0d8257afce7a99b28b6532c94163d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/levle2_67_jpg.rf.82e9ad7b8af6644e21edc875f085b763.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/142661608_1_jpg.rf.f5e818b2b68fb8d65405790206db99dd.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-56-_jpeg_jpg.rf.2d932984dd35b894b792651695193b25.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/berminyak__-39-_jpg.rf.773a2284216663cb535b4f7e06c68e76.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "valid/oily-278-_jpg.rf.5a34aaaa62f7a347adaac158b4410a6a.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "valid/acne-344-_jpg.rf.624af3b58f080ad4d4356c4222e20e37.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-77-_jpg.rf.6a7d7716ad39f7c54b72f3c4a484f318.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/261_jpg.rf.32424ebb35847e90eab519d93d363528.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Top_Home_Remedies_for_Dark_Spots_on_Face_from_Pimples_webp.rf.dc90b7b9f540a91398108f26b0bda84f.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/409_jpg.rf.5be5bc8ff2f57fea6f189c0893ff1006.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/18_jpg.rf.ca2459f9acfd5086cb3302c6d50c144b.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/levle1_362_jpg.rf.8e15395fa0d3ebefb363326681cb044c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Image_4_jpg.rf.751146112a5a83571f97828277d6f31c.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE"
+      ]
+    },
+    {
+      "path": "valid/oily-214-_jpg.rf.6f6534acee6924ea2589af7864299884.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/151_jpg.rf.076bc2b6057f43ebb60114a791c946bb.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/how-can-i-remove-these-tiny-dark-spots-from-my-face-17m-v0-p6s6w7gb8k1f1_webp.rf.91b60c41bdcd0555bf7ae99fcc84d0d6.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/60_jpg.rf.7c58dc35809930fdbef053b878ba9386.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/202_jpg.rf.b3d6b40743b30b5278acbd82783d3bff.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/2937757570_1_jpg.rf.957c1512b417908bf0ada1e46d14a4dc.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/444_jpg.rf.058968e8506114546abac0b30baf9af6.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Image_69_jpg.rf.8c2e5c25a85d04874601ce93416c4044.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-46-_png_jpg.rf.4a3cf9d1477480fa433ca68ea9e2c753.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-401-_jpeg_jpg.rf.7d0f335dcf42b13e69c095221b97bfde.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Image_119_jpg.rf.44a1cce67f92b455a9761655de241fac.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/e92f5c8d-5224-43a4-9481-5ff37c6ff1a9_jpg.rf.9b0c478521b39cc40131e8ef2a6cdf10.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-247-_jpeg_jpg.rf.08aaec5591e421e5249f2d3a3b3c746e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/how-can-i-fix-these-dark-acne-spots-v0-22ahsm6b50ff1_webp.rf.7e562015e9a04181845dc6acf92e352a.jpg",
+      "reasons": [
+        "CROSS_SPLIT_CANDIDATE_QUARANTINE",
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-439-_jpg.rf.c479d8136a8223abae582c4802cfd9a4.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-797-_jpg.rf.3ce5ab3a72b1e3d93d1db982a8b70605.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/levle1_573_jpg.rf.b3b9a27ed4a338f2034be011a64c35b2.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/391_jpg.rf.c3528362071fb62b13bcfa28dfb576ff.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/want-to-get-rid-of-dark-spots-v0-2b7yk8zea07e1_webp.rf.1e9447cabc651ae07bd880ca343366fc.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Image_63_png_jpg.rf.a9d2c7797401d8d12d97ff6ab1a28a4d.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-prone-skin_160_jpeg_jpg.rf.3db1714fabf3654ae934981b39db334c.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-prone-skin_135_jpeg_jpg.rf.fb7225d2bf7f65b655745d3d9dfd1c47.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/Image_53_png_jpg.rf.e1262d165c54784f34044e9dbfc39a81.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    },
+    {
+      "path": "valid/acne-755-_jpg.rf.6e99b74403772c284a98287e13965e4e.jpg",
+      "reasons": [
+        "NO_TARGET_POSITIVES_NOT_NORMAL_TRUTH"
+      ]
+    }
+  ],
+  "imageRows": [
+    {
+      "path": "test/how-to-get-rid-of-redness-on-face-feat_jpg.rf.fc76b066130b04b7400e84a1cca2da89.jpg",
+      "sourceImageId": 5,
+      "imageSHA256": "e01bb6b54de795450e3f1f8061593e8f4a1c0559f8aa2200da92d55f37fa8697"
+    },
+    {
+      "path": "test/Berminyak177_jpg.rf.1b4b21fb6bdee673a68d66a498567ee4.jpg",
+      "sourceImageId": 6,
+      "imageSHA256": "41961a3c7cc68a108f23c6df7b1fc9c93719381c05768b0a4ec6c6f6c74f672d"
+    },
+    {
+      "path": "test/Berminyak205_jpg.rf.351d83696acca150aeef8e68235c36d3.jpg",
+      "sourceImageId": 8,
+      "imageSHA256": "b6a68dc7c0ba5695ce85334a4004847a1b52b8cfcded3dc3736df637d2573cdf"
+    },
+    {
+      "path": "test/levle1_437_png_jpg.rf.785d000ae448eeecb8e6e47f056f87ac.jpg",
+      "sourceImageId": 10,
+      "imageSHA256": "6f8dff86ec731379609fe8d1538cfe54ee39c5cd3de286c5a92d731bff44f374"
+    },
+    {
+      "path": "test/435_jpg.rf.c37c883f9adf69fe87f626d6153a8980.jpg",
+      "sourceImageId": 11,
+      "imageSHA256": "ba59d5ce7872f95f120a08ec144445a1a893b493bc4bd2f2d84b8a4c2a45229e"
+    },
+    {
+      "path": "test/568_jpg.rf.940d265c11a75f1ba8ed03ae2facbf06.jpg",
+      "sourceImageId": 14,
+      "imageSHA256": "9374aca8348bca38fd01165a9be5d533e5f9c3ffbdbbe65a429ba0df6f8c2aef"
+    },
+    {
+      "path": "test/Image_16_jpeg_jpg.rf.992929cf33e6894c2934ce6030dfc172.jpg",
+      "sourceImageId": 15,
+      "imageSHA256": "f6f4f568727158df31a2df708292d85b1ae9484193c9ae7b2e2138020561735d"
+    },
+    {
+      "path": "test/oily52_jpg.rf.459fd2b228f4a43be676f49b6d391ba3.jpg",
+      "sourceImageId": 16,
+      "imageSHA256": "f44eee0188ac6033e113a8626946175d3105dc18e45f60e16f1d7ab4e5d323f5"
+    },
+    {
+      "path": "test/Berminyak-16-_jpeg_jpg.rf.bfdcc31d405e565da2999a3ce5dfcb2a.jpg",
+      "sourceImageId": 17,
+      "imageSHA256": "356e5f56f705873dbec27ba518521ba4b70dfd2dacd0faef8d3e347b95f3b909"
+    },
+    {
+      "path": "test/Berminyak-26-_jpeg_jpg.rf.31610db5a047dbbaf76c584b4cb1f711.jpg",
+      "sourceImageId": 18,
+      "imageSHA256": "36d155a74213ea078fdca59474561123fd5a0969a80f9c7506e166c9777759a6"
+    },
+    {
+      "path": "test/18_jpg.rf.bde22032941e71e3aa956d0b6a7724e9.jpg",
+      "sourceImageId": 20,
+      "imageSHA256": "367dba326f8c14d0bd22960e410d0b388b44ec95e129e3312e90f3d5d32e7095"
+    },
+    {
+      "path": "test/oily-264-_jpg.rf.62598018d60fc650dd476e0c09f5fc0f.jpg",
+      "sourceImageId": 26,
+      "imageSHA256": "cb0b99e0b46b499acdfd059eb3ab21a4e057fcf528d3f9dc0bafddb15c395bb3"
+    },
+    {
+      "path": "test/570_jpg.rf.1401893f524ccfa04a30cb9faad816c4.jpg",
+      "sourceImageId": 27,
+      "imageSHA256": "4a93ff3ec5b3c2303518a106facce9cad403f6ce2dc53310a83d943f8e32deb0"
+    },
+    {
+      "path": "test/52_webp.rf.b8314c5115d84ff570d7a7eeb537b744.jpg",
+      "sourceImageId": 29,
+      "imageSHA256": "0016f8d82bf7a631df91cc728d7a6f4f577499f30994f8ebb9717059f192486a"
+    },
+    {
+      "path": "test/25_jpg.rf.9d49bce2b6c3fb36bd13840ddd2253bd.jpg",
+      "sourceImageId": 31,
+      "imageSHA256": "9f60460b7f5d9f213817a3b58be2319949f5fe598f9d4489d5485cf2caa5a0b2"
+    },
+    {
+      "path": "test/Skin-Redness_jpg.rf.0306a7205a1bbfb2c7e596232f05f4e6.jpg",
+      "sourceImageId": 32,
+      "imageSHA256": "4330bc1a4c378c7c3b4612ee5481cd8d83d303a93e780381fdd8ef62f8bb57ad"
+    },
+    {
+      "path": "test/26_jpg.rf.9b7a7595e9f7b6cd504a8f795cb194d4.jpg",
+      "sourceImageId": 38,
+      "imageSHA256": "7099e24acc145cc1cda4c1b892c521a37229e5881fc5cc91f2c6051b9940ad08"
+    },
+    {
+      "path": "test/conditions-redness-skn-clinics_jpg.rf.12208ef72437eb0daec142e96a405851.jpg",
+      "sourceImageId": 47,
+      "imageSHA256": "f612e3590d11dfdf9500ec75b2df6f2716ea733effadf452a67b4d58f6530f9f"
+    },
+    {
+      "path": "test/56_webp.rf.a574a92a2fa2a0fc3a683d9e13074b82.jpg",
+      "sourceImageId": 48,
+      "imageSHA256": "1a4fdb33137e0398c477980b008aa191c23b7b6b02ba169c5ee9a35c76407654"
+    },
+    {
+      "path": "test/Berminyak-1-_jpeg_jpg.rf.7f2d560a1fe13cacd7f48110fb4b0182.jpg",
+      "sourceImageId": 52,
+      "imageSHA256": "eb66b3d4967e0898dc2afb6dbcfe26f1a0242521254cefb4d6eb4c7274ad9390"
+    },
+    {
+      "path": "test/berminyak__-53-_JPG_jpg.rf.fb352c575d6754b1d1a741d9266e449d.jpg",
+      "sourceImageId": 53,
+      "imageSHA256": "d92939314c5c4a400db0061f95baabb6d8560ab78338c4a5fb0e594c2de65488"
+    },
+    {
+      "path": "test/levle2_50_jpg.rf.aa760703b3935501de84888fdbc66e40.jpg",
+      "sourceImageId": 57,
+      "imageSHA256": "e493ef25cfb4db7d71bd1836fc94ccb1a0f0419fc02c938e8f3eaaa582be5407"
+    },
+    {
+      "path": "test/c0500788-800px-wm_jpg.rf.8b2e96817cbff91696b1c3751db1b083.jpg",
+      "sourceImageId": 58,
+      "imageSHA256": "01b07fb21c76066edb013301f8298af6a9fbd0af7e2514199dc971042e653fea"
+    },
+    {
+      "path": "test/639_jpg.rf.8e0e50b228daeea14fe012d57e6e33e1.jpg",
+      "sourceImageId": 64,
+      "imageSHA256": "63c545b0250c0bba05780eb042d8a4384a698bdb1ba0311ce69db1b3b6bee59c"
+    },
+    {
+      "path": "test/Image_53_jpg.rf.1c7cb96aebe405d606e7cec3ea4e89ae.jpg",
+      "sourceImageId": 66,
+      "imageSHA256": "ee8bb5eadee2aa3c381432c98fe84383f8f976fbe0c23fc748104f8ded02ac94"
+    },
+    {
+      "path": "test/levle0_86_jpg.rf.a55b7000979eeafd3754f5d9f1c96dc3.jpg",
+      "sourceImageId": 68,
+      "imageSHA256": "09c017719c8a25013e601919a4dcb785fcfd93bc3c1d23b89f722ab080159788"
+    },
+    {
+      "path": "test/oily31_jpg.rf.a41889ba62e2dc919e1e1c0d4f9bae91.jpg",
+      "sourceImageId": 69,
+      "imageSHA256": "05aa1ad02f9406cbf4836bd4ff2a3eed09892b433999988c69436bb6dd33a296"
+    },
+    {
+      "path": "test/Berminyak-6-_jpg.rf.db89189870f21030acefacdabf83c44c.jpg",
+      "sourceImageId": 77,
+      "imageSHA256": "163f96f7d2fed12c4e7acd4e5496fbc5e2cbc98590401710a0dcda594c4ab761"
+    },
+    {
+      "path": "test/oily18_jpg.rf.d35ff42719112e19b4de11b7598a972f.jpg",
+      "sourceImageId": 91,
+      "imageSHA256": "f59097fa7d1d5013dfda27a719b6fa195090392c81372e9c0b68340d019c7dc3"
+    },
+    {
+      "path": "test/Berminyak258_jpg.rf.4f05b4498e1933b9c23264f7cc58f50a.jpg",
+      "sourceImageId": 93,
+      "imageSHA256": "7fc029c65ca847deae2d41313d5b8b884635cf30a77aa510d5decd21f4e60f78"
+    },
+    {
+      "path": "train/Image_17_jpg.rf.077d281420e7a2cd8307e603920bd61e.jpg",
+      "sourceImageId": 3,
+      "imageSHA256": "562d2b4143f4bc4a36dfeddc94765ed56ceb5c46f37edec25a256aec7e3a9207"
+    },
+    {
+      "path": "train/Image_49_jpg.rf.c4e906ebb627e94d7db4d6a3ab5af6b8.jpg",
+      "sourceImageId": 10,
+      "imageSHA256": "2ec7fc7969db5b24324744afb406b1fa0744e988ccdfef7e1403a7f4bc14810f"
+    },
+    {
+      "path": "train/24604-eczema-on-face_jpg.rf.6343915401464be51edecd2a02a1e30d.jpg",
+      "sourceImageId": 12,
+      "imageSHA256": "d4bbdc6190ee8d0567c581a380f84708074eef81649ba31bb45f6fde5c12f181"
+    },
+    {
+      "path": "train/01F3MMYV5NBAMXWHPA6EKMF3SP_jpeg_jpg.rf.4637f6c3b70e5f00de121e06828b0c43.jpg",
+      "sourceImageId": 14,
+      "imageSHA256": "da0631daf9c00f67b8e87bd9e1ac1c0ef0aeb3fdac79384e7ae3aec17d72bd9d"
+    },
+    {
+      "path": "train/bieu-hien-cua-benh-lupus-ban-do2_jpg.rf.064a1f95ad013754f08164dcc2da291e.jpg",
+      "sourceImageId": 20,
+      "imageSHA256": "80373a484cb235c2addf06b664b7ebe221c5e2a6d90834575b4926b74a4cedb9"
+    },
+    {
+      "path": "train/oily-64-_jpg.rf.c3ae6c13f22a9552b3779065c96f2c08.jpg",
+      "sourceImageId": 22,
+      "imageSHA256": "174cd999eb55deb0e03034f4f79bfe4fda993696344a40bfe65f98ae64aa6e45"
+    },
+    {
+      "path": "train/Condition-Rosacea_jpg.rf.d3beedaf9b740b28fb3899461e1c25cf.jpg",
+      "sourceImageId": 26,
+      "imageSHA256": "8a078408c63df486a5899a373e7511f6fd110f3470fc50d74766b6e511977aa2"
+    },
+    {
+      "path": "train/berminyak__-19-_jpg.rf.2d364d0209fc11c9a3589a4db267c305.jpg",
+      "sourceImageId": 29,
+      "imageSHA256": "375fd47b681e591f83d136806824b766eba89114e99da53e30c7d16d31e11053"
+    },
+    {
+      "path": "train/10_jpg.rf.6d2669eaaae8b7e854dfbe0640713231.jpg",
+      "sourceImageId": 30,
+      "imageSHA256": "066fa53c89225762a01e7b2e97985e4c81522ccb8cb438bf16db89b906354e3f"
+    },
+    {
+      "path": "train/levle1_476_jpg.rf.d11a6637bf8ed8b262ae2fb781cdf923.jpg",
+      "sourceImageId": 31,
+      "imageSHA256": "3d57fa7d137ac9e581f8a051b6ae9696e4ef84fedbe799408e01de12212de80d"
+    },
+    {
+      "path": "train/GettyImages-546459592-5b215d8996c74956bc733aa9f6dd21a8_jpg.rf.0dbd73e03bdbfe1795fc33f6a7b8e52a.jpg",
+      "sourceImageId": 32,
+      "imageSHA256": "0c430147d61f2dbe21b9474a11fdab58729a8e4345f2a6450bbc07411546b66a"
+    },
+    {
+      "path": "train/oily-123-_jpg.rf.e422f9c1b17b278a19f7f73aae17dd6b.jpg",
+      "sourceImageId": 33,
+      "imageSHA256": "e9d909e0be45d02d2d2f77e52cd9094450b19a8de7d4c4c0379735ef89745e2a"
+    },
+    {
+      "path": "train/oily6_jpg.rf.b88542268b2371a771a6007da2c32dc2.jpg",
+      "sourceImageId": 34,
+      "imageSHA256": "89a1edf07ad1ee04321fe6d40949aa31cd9565e63d2e5d59ddd7a5dfd9995d13"
+    },
+    {
+      "path": "train/berminyak__-48-_jpg.rf.77d8704b8f8a2bf386edc51ed0b1cd11.jpg",
+      "sourceImageId": 35,
+      "imageSHA256": "a6ab77cac85cfcdf048a7ef592b57f63a13251884db9ac696e6036c9fa2a4c5e"
+    },
+    {
+      "path": "train/47_webp.rf.d7b6db4fa2db469a16d03b361ed97e28.jpg",
+      "sourceImageId": 36,
+      "imageSHA256": "4056a9964407bc4e524d7690bcecaff358a5d044d7add32609f2a81e1d1b7790"
+    },
+    {
+      "path": "train/Rosacea-eritematosa-iniziale_jpg.rf.aee9af6235bb73525493dd1d47416997.jpg",
+      "sourceImageId": 40,
+      "imageSHA256": "ed20d1df0e0296a200a9da967951750d7912e7b6ae8f846b7bd247b1f86eeb1b"
+    },
+    {
+      "path": "train/berminyak__-41-_jpg.rf.94b3d82ba068a2467e0eef30aa3b1b6f.jpg",
+      "sourceImageId": 41,
+      "imageSHA256": "2e3e4d3a563c6a9ab38f8b4bfeb7444116a6fc847294aa9e197a7e9d9935f423"
+    },
+    {
+      "path": "train/Berminyak-23-_jpeg_jpg.rf.9ccc8659b6a86457ee2fa7e77fbbad27.jpg",
+      "sourceImageId": 43,
+      "imageSHA256": "2702d17da462812b469bd082fab5e442a7fe16af74b398ba9bf1b20315af5472"
+    },
+    {
+      "path": "train/kering-6-_jpg.rf.43eefb052f92f9751afd72a1ee073bda.jpg",
+      "sourceImageId": 46,
+      "imageSHA256": "7b849440f2493f5f1069461da5552f0955ed5464d476cd2f7c1e4b3545c1be5d"
+    },
+    {
+      "path": "train/oily23_jpg.rf.6e9a165eb325e5aee26d46998ec1e600.jpg",
+      "sourceImageId": 51,
+      "imageSHA256": "9e8f33627bc86b2ee1b24a079e296718dd2617c70f8b959df514737e27cbfb93"
+    },
+    {
+      "path": "train/Berminyak249_jpg.rf.ec9b0d4338cd016b03bbb5e8326c65b2.jpg",
+      "sourceImageId": 52,
+      "imageSHA256": "2428a23843aa14d63b6e907e527e11238edd5e1dfe5af837fe00ec587f6c7f81"
+    },
+    {
+      "path": "train/536_jpg.rf.239c22f081fbf10f6c1d5aa1eafc736f.jpg",
+      "sourceImageId": 53,
+      "imageSHA256": "e587e7fc1d41a13bfcf7fa0b655df33470112d22f471ade2410cfab3cd86a86d"
+    },
+    {
+      "path": "train/berminyak__-52-_JPG_jpg.rf.02f96a8845a0c0a9e80dd5284b5eaa6d.jpg",
+      "sourceImageId": 57,
+      "imageSHA256": "999b15636d75491453f21cb674873888ad3f1158f79dcfb46cbf28b8c2a56588"
+    },
+    {
+      "path": "train/22_jpg.rf.c6b371a3a3ef3771f5a2e60523222d5c.jpg",
+      "sourceImageId": 62,
+      "imageSHA256": "0f4843c1759da2ed797372d6635946bb3896aa5795a194d0833647d6ccbb49ec"
+    },
+    {
+      "path": "train/_1892688412_jpg.rf.f60cc8d7bbe0b24cc3b20293e1135e77.jpg",
+      "sourceImageId": 66,
+      "imageSHA256": "f35ef0b4c5873fb6cac7b0d567cd8e4d0c2138011d9afa644f57b301969481d9"
+    },
+    {
+      "path": "train/Berminyak-19-_jpg.rf.f1ad7ed3241e5309b776b0030fa5c6da.jpg",
+      "sourceImageId": 70,
+      "imageSHA256": "7c10c8905d92c2558de44965df67e0f93a59fe472b044e6f435a7553bcdedd39"
+    },
+    {
+      "path": "train/oily-194-_jpg.rf.465f0a1998ab8cd5fd4febd22c95055e.jpg",
+      "sourceImageId": 75,
+      "imageSHA256": "02e8a6047b4e375b47c71383a73858c47f76ca9aa2c4c7a31ed23c3a6d341265"
+    },
+    {
+      "path": "train/Screenshot_34_png_jpg.rf.1030c61a99d75e7786395cebcf7c92ba.jpg",
+      "sourceImageId": 77,
+      "imageSHA256": "6667ef66110acfc83735f89d7634eaed7632c6f4a71643806a3e3494dcb5ab12"
+    },
+    {
+      "path": "train/acne-5561750_1280_jpg.rf.106d4a99bb50b83cfbf969cae0f9defa.jpg",
+      "sourceImageId": 83,
+      "imageSHA256": "ceb90c648265d24780b84c0e1b23a1b6fb21d7fdcbec4275240aaa8e073780ee"
+    },
+    {
+      "path": "train/Berminyak-26-_JPG_jpg.rf.8ee91e418b5936d5f403deaed4dd7f77.jpg",
+      "sourceImageId": 88,
+      "imageSHA256": "2a4cc265cb404d47ae50ff2d48e8af608ae412c7b4eea8b596b6f76bd88293c4"
+    },
+    {
+      "path": "train/Screenshot-2023-03-29-144401_png_jpg.rf.12824f72bcdd5b2175b66cdb8c2ef483.jpg",
+      "sourceImageId": 92,
+      "imageSHA256": "f0483121cd2b79c75a65b3db853b1b923c13ef51f11dc048e5234570c291713d"
+    },
+    {
+      "path": "train/oily29_jpg.rf.09669ea354d4675c018cb30528ed9b79.jpg",
+      "sourceImageId": 96,
+      "imageSHA256": "ca72a8056a1e84d4f27c1ce367cc5c4217519b3c82012cd3358251c356cbe192"
+    },
+    {
+      "path": "train/acne-306-_jpg.rf.cf7b62464571fd81bfe1544d9c86ac34.jpg",
+      "sourceImageId": 101,
+      "imageSHA256": "970609d1eafc57828327e021c31ebd3def59f28475b2c35689e1a5c5882097ef"
+    },
+    {
+      "path": "train/Normal81_jpg.rf.0cc6eceb4b3610ad3f06031531e6f5af.jpg",
+      "sourceImageId": 103,
+      "imageSHA256": "39d62c328ad2ba84d5acce870ec7e7e6ff2bbdbb81dd46ee985762a1358455b1"
+    },
+    {
+      "path": "train/24_jpg.rf.59e1744c774651330250ee75ae8e93c1.jpg",
+      "sourceImageId": 107,
+      "imageSHA256": "888a70dbba0f257c48ff946e3597b990b25780a580e23f24323f9af476d575ad"
+    },
+    {
+      "path": "train/levle1_510_jpg.rf.14cba5a355884fd1939a4e7c28820418.jpg",
+      "sourceImageId": 112,
+      "imageSHA256": "8dee6ae099db60db13694515bcd629e5cc857367e59b4cd6b98299101f41ab71"
+    },
+    {
+      "path": "train/Berminyak-35-_jpg.rf.578993aea1bf7f9254290d4792522aa8.jpg",
+      "sourceImageId": 113,
+      "imageSHA256": "300d2e70d690d0a385abf3bb1b71989d51de81c52b6288f1bba727ecf126841e"
+    },
+    {
+      "path": "train/noi-mao-mach_jpg.rf.d498feab8692d5161fda1adf54eb3264.jpg",
+      "sourceImageId": 114,
+      "imageSHA256": "d22d058ed18b60ef3a088aecd002f4006e21c50476302671ad557f4169d5f40c"
+    },
+    {
+      "path": "train/_2250439467_jpg.rf.c41a4780bd24b9f08cd0b97365e9d142.jpg",
+      "sourceImageId": 118,
+      "imageSHA256": "b0cf87bc1639a8a7d52473ee10486a97f12b376c5017ae2940c8da4482de2d31"
+    },
+    {
+      "path": "train/Berminyak282_jpg.rf.f913d2aab72375484519ed0a44b7dee8.jpg",
+      "sourceImageId": 120,
+      "imageSHA256": "0cdb4f2ed49dc9446c622c2198f198f4ac9d89d0551af66d05af7b6f9ba2c97a"
+    },
+    {
+      "path": "train/7_jpg.rf.f091703042215812b68deb33991989a7.jpg",
+      "sourceImageId": 122,
+      "imageSHA256": "71380dccc9dde5aff871648c4dd6a83d731161449e98c1546a33e49894f3e2a4"
+    },
+    {
+      "path": "train/434_jpg.rf.24c0d41010eca3512b1958f9881092f4.jpg",
+      "sourceImageId": 127,
+      "imageSHA256": "d5e60b491bec98e5efdf2ee1dd06cb12dcb1f868b9f84860d25565bdda0e926a"
+    },
+    {
+      "path": "train/32_jpg.rf.a088fde9f2e847230bfa6e3d387d70ff.jpg",
+      "sourceImageId": 129,
+      "imageSHA256": "7b47d1f9c3114fe1803c32cbf4b7fc65e9f70feb4792842e4f56d6d452a16904"
+    },
+    {
+      "path": "train/acne-128-_jpg.rf.462edd606393395e45e3e62e7a116a3b.jpg",
+      "sourceImageId": 138,
+      "imageSHA256": "120f6039407075eaf9ead2c4f0744509d13ecc03674a6fedcae3644ff3ee57be"
+    },
+    {
+      "path": "train/11_jpg.rf.18a38ddc46e64579d6b8a682b9e21e56.jpg",
+      "sourceImageId": 140,
+      "imageSHA256": "f46e91ed2b6a3afb84878a32461f439141f6172a88eaceaa64bcf6767b3c94f2"
+    },
+    {
+      "path": "train/oily54_jpg.rf.3defb96441b9ae5046fe02824bb56c10.jpg",
+      "sourceImageId": 144,
+      "imageSHA256": "b9384aeb26e06ca068d3eb8e137e8e833e0a9024bd2a4fbb6ca5b73af9f150d6"
+    },
+    {
+      "path": "train/Berminyak9_jpg.rf.48b50e8e338f2221ece3e98ab7d398cd.jpg",
+      "sourceImageId": 145,
+      "imageSHA256": "dfb025be174715c697b64c198a3f24f0f88976cb10c898f62781ba52e5cd10b0"
+    },
+    {
+      "path": "train/Berminyak87_jpg.rf.93f40bc3b325c1c751a1f31b52cb0546.jpg",
+      "sourceImageId": 146,
+      "imageSHA256": "3663d2e090589ead612422e949d1b9b86d07bf47f790e172dce001a3a23b01b0"
+    },
+    {
+      "path": "train/oily59_jpg.rf.e7b8c94bcb3c95cb70c0a528d0323ef7.jpg",
+      "sourceImageId": 148,
+      "imageSHA256": "bfd39f7957ac0a75bcb57f89c3553c46b06384e6d26b55f5ebd7f44dd87ce9a2"
+    },
+    {
+      "path": "train/levle2_189_png_jpg.rf.6c6a6bb0e505d328114693d0a68775ce.jpg",
+      "sourceImageId": 149,
+      "imageSHA256": "9b6603b275ffb69fa84a8e0749055a4613ca4fa5a5136d77c47923f064fe0e4f"
+    },
+    {
+      "path": "train/oily15_jpg.rf.b0b8709dcf1155d5b1e746ba234cf797.jpg",
+      "sourceImageId": 150,
+      "imageSHA256": "55ffb4df94a935fcc2041e803bb25d1e938c3f67b92ba9aa3718e0b36f54bd34"
+    },
+    {
+      "path": "train/Rosacea-treatment-removal-redness-acne-veins-spider_jpg.rf.84fa05c745d2df78e435975646083bee.jpg",
+      "sourceImageId": 161,
+      "imageSHA256": "7c2754849c1d168e06f529141564204d8bc39cedd6f1952067c80f66fef144e5"
+    },
+    {
+      "path": "train/_2094077383_jpg.rf.b175d6cfc7316febb7be605bc5864f78.jpg",
+      "sourceImageId": 162,
+      "imageSHA256": "36cd9eaa9d1525d2f2fba6f51013b3e8a3516b9a50d28b1df051b11870de2d74"
+    },
+    {
+      "path": "train/Berminyak96_jpg.rf.3db8aa9f4dbe7862c0d9c9b991551e9a.jpg",
+      "sourceImageId": 165,
+      "imageSHA256": "fcc7a6bdc3990c991850e3f3beb5f15852d8e73a65dd3727555feff37e211721"
+    },
+    {
+      "path": "train/oily-skin_6_jpeg_jpg.rf.bcff2a88ccbb92469374d1ac9c867f24.jpg",
+      "sourceImageId": 167,
+      "imageSHA256": "994f554147ec89a8faed860aa498ff5fc08ff9200134f5a3ab1928afb440b8bd"
+    },
+    {
+      "path": "train/Image_115_jpg.rf.ecbd7aaf91d2b2afd7bc9bf70a0d0928.jpg",
+      "sourceImageId": 168,
+      "imageSHA256": "ebdfd5275e29133e3e81d8740e1d4d06181a03aa969df9c5297eba9bff728083"
+    },
+    {
+      "path": "train/Berminyak-17-_jpg.rf.f720b9e07c252f6475a600d58ee05d7d.jpg",
+      "sourceImageId": 170,
+      "imageSHA256": "31c3e5763752061bc4d3f886bd34402d475a0981db980f3281bd430299be2be7"
+    },
+    {
+      "path": "train/oily42_jpg.rf.d7ac799b3940b45a7ca5fec4fb1daa51.jpg",
+      "sourceImageId": 171,
+      "imageSHA256": "f53b7e258065ac0e712c606e44e7ef6d91147e53da143d0ef647dea45df8935a"
+    },
+    {
+      "path": "train/Image_101_jpg.rf.713467298b9de8d395819896a2318c4d.jpg",
+      "sourceImageId": 173,
+      "imageSHA256": "bd98a2d7ab280f8c121bf67a881ebf1b7453faeddd8271b78b816e5c4f525304"
+    },
+    {
+      "path": "train/berminyak__-42-_jpg.rf.0ff99e1aeac034fcec6379ddce6a85a1.jpg",
+      "sourceImageId": 175,
+      "imageSHA256": "83728bbe1ac8f049eea8fd9c28064cc94a28fa7fa154cdf7e1751986a2549641"
+    },
+    {
+      "path": "train/Screenshot-2023-03-29-145456_png_jpg.rf.02c822412d50dbd86c18f16b5be01317.jpg",
+      "sourceImageId": 176,
+      "imageSHA256": "945cb4ea912ecf0d37fe47a9d267acae428754884d1070e659830660d1b517a7"
+    },
+    {
+      "path": "train/Berminyak-24-_jpeg_jpg.rf.313e6f2b5f94c60999cbb56d756da578.jpg",
+      "sourceImageId": 181,
+      "imageSHA256": "a5f82f538285bfb984dc6a4a18083c0f96ba67aa85adec39f37153f3ba67d55a"
+    },
+    {
+      "path": "train/44_jpg.rf.3e71d908d98846155d831d91c6289a8a.jpg",
+      "sourceImageId": 182,
+      "imageSHA256": "dfe46f2b2a1f18d523cc4bd223a6f622d74e12c0afa473c19d57fe83d1a152aa"
+    },
+    {
+      "path": "train/sc-broken_png_jpg.rf.526a7ee5d0a4aef9d5aeefc18a618c11.jpg",
+      "sourceImageId": 183,
+      "imageSHA256": "10cf891f774e373fbf02d648254d63ad6ae43c5598c435289489bb30da399935"
+    },
+    {
+      "path": "train/Image_14_jpg.rf.7b32964ecfa2b0351817895684d4d31e.jpg",
+      "sourceImageId": 184,
+      "imageSHA256": "aaf4817343aceb029ff486defb8532779ced754974120a55f903da0416ffb7a7"
+    },
+    {
+      "path": "train/acne-649-_jpg.rf.058cedb18861dc47538c3d99737d5f43.jpg",
+      "sourceImageId": 185,
+      "imageSHA256": "cba8ac90dddea351ff62e6a86204337f106934f8eb2da5877ebbf01150835669"
+    },
+    {
+      "path": "train/_2265062407_jpg.rf.9628397c378d679da4a7a681989d1c7f.jpg",
+      "sourceImageId": 186,
+      "imageSHA256": "6f889bcd2cc3092ac701cf3d7ee30494ccf47d5862f4c25f1df46771814cc8c9"
+    },
+    {
+      "path": "train/Berminyak-14-_jpg.rf.43a752cbbb6eda77ee897661b79d023d.jpg",
+      "sourceImageId": 188,
+      "imageSHA256": "4f49edba3a1f107f5102bdf0e59a67db2dad36d9fb9a3615984d3f1c6061eb46"
+    },
+    {
+      "path": "train/oily-skin_183_jpeg_jpg.rf.2c30f6c54d7469e7fe42cd19e20b03f6.jpg",
+      "sourceImageId": 189,
+      "imageSHA256": "63730801a56b5939a583a0350b4a8f477b6d0dbb5e84ba981b4b31811b17420e"
+    },
+    {
+      "path": "train/Image_9_jpg.rf.1578690fcc29d42ac79e22f3e83b4052.jpg",
+      "sourceImageId": 193,
+      "imageSHA256": "d8035599996dfde622ad53121793465843a3ce2a21d4da99710e15da476e9f07"
+    },
+    {
+      "path": "train/Screenshot_3_png_jpg.rf.09698c82c70fc8abcaee27ac93b843c5.jpg",
+      "sourceImageId": 202,
+      "imageSHA256": "5653ffeeaa5b547ac7262dcc3fa4ce2aec479caf02afe929ee98b2a29125e0f4"
+    },
+    {
+      "path": "train/oily17_jpg.rf.4aab02006e82fdc2fb350e1b09cfeb5e.jpg",
+      "sourceImageId": 203,
+      "imageSHA256": "3fe159849240279f2fb2438760da4c3073d0ed022f5049706c4b4eb987e981a9"
+    },
+    {
+      "path": "train/Berminyak-27-_jpeg_jpg.rf.0eb5a47aa164ad85109fcbecdcb6065d.jpg",
+      "sourceImageId": 205,
+      "imageSHA256": "947cb64d808ed51cfb4f08408a80b046a79c37b16df82e81e0d3054e1b3baf74"
+    },
+    {
+      "path": "train/oily47_jpg.rf.296981e37193f016fa7d2fb57fb5c722.jpg",
+      "sourceImageId": 210,
+      "imageSHA256": "b0356fae42ed0d729efe67407e8987694bfdc5f43dea7234167dc03a3c0ecd2d"
+    },
+    {
+      "path": "train/500_jpg.rf.e48e4a9c55784bfbf8a9e586dab32bf3.jpg",
+      "sourceImageId": 213,
+      "imageSHA256": "37b8ce483584b53937799680c67640029d08a04295bc5da586228017d95ea87e"
+    },
+    {
+      "path": "train/Berminyak286_jpg.rf.e14541237ace8fa5c6f04c6e19eea633.jpg",
+      "sourceImageId": 216,
+      "imageSHA256": "fc6e9aea1390945bc3d685ecfcee2f02509eadcfa05c34b3efeba56165135b8d"
+    },
+    {
+      "path": "train/da-mat-bi-do-rat-va-ngua-600x400_jpg.rf.bed112ec90ae90262eec85f10c90d7c6.jpg",
+      "sourceImageId": 217,
+      "imageSHA256": "b5e78731d2fb0e6b55679f96a1bbac3942374e8190f2c5e2bd8e6f82faaa50a8"
+    },
+    {
+      "path": "train/58_webp.rf.add0bf9abe7f1cea587bc1c59765abb1.jpg",
+      "sourceImageId": 221,
+      "imageSHA256": "98a54071a32740e15339e8837ebee45b7412c0bd96803e30a887f4b678161cb6"
+    },
+    {
+      "path": "train/oily-262-_jpg.rf.bae5d708fc2fb82f41a2cb0893680774.jpg",
+      "sourceImageId": 225,
+      "imageSHA256": "e2f5f86f9e489d38dbf81a078897311fa5062562690a205616954165bee180a0"
+    },
+    {
+      "path": "train/kering_-100-_jpg.rf.a6374b53d6325ff1d8710a27f37c8bb4.jpg",
+      "sourceImageId": 227,
+      "imageSHA256": "b927c7df87e36f632d818f203ccaa410a9f3439b114f42002408e4778ba2386a"
+    },
+    {
+      "path": "train/508_jpg.rf.8478be514f32eb75566eab47967938b2.jpg",
+      "sourceImageId": 228,
+      "imageSHA256": "48a92d00af50c441e8d3eb4fb6fbe32ff6b736350698d509e50cdaf8554c6950"
+    },
+    {
+      "path": "train/494_jpg.rf.94f1fd3f2625a2466c2bd53454192f2c.jpg",
+      "sourceImageId": 233,
+      "imageSHA256": "dd3a6e8f57b402c33e9126e625f32a6d9cd0b14f9faf5b96e1e6e43f058f0a70"
+    },
+    {
+      "path": "train/acne-19-_jpg.rf.a5cefad6a2ef2c82d40e3a8914ec9046.jpg",
+      "sourceImageId": 241,
+      "imageSHA256": "add2be9a0fde5deae8294e6cdec23a2013857083586973547447ac88fe8df5bb"
+    },
+    {
+      "path": "train/oily-199-_jpg.rf.7235923d8834aa87a6120181893e28bf.jpg",
+      "sourceImageId": 242,
+      "imageSHA256": "013e9c2f34e2d337c25b1fea6e69705f3df99f23dabef660c175ffd046c4a78d"
+    },
+    {
+      "path": "train/Berminyak136_jpg.rf.814e9afd97dbbdb080a5986657261e69.jpg",
+      "sourceImageId": 243,
+      "imageSHA256": "9048be66fe29f57ee663c106edad46e3bd880a036d25424b7f921c2abdce4155"
+    },
+    {
+      "path": "train/oily-skin_148_png_jpg.rf.6a698dde3a8056dd2747cda2daea7727.jpg",
+      "sourceImageId": 247,
+      "imageSHA256": "60557900c3c1e8e864feae72ee41f7e19413170b53895dc75acb4a1b06e039e2"
+    },
+    {
+      "path": "train/Image_98_jpg.rf.0a79586a1fb8920899995df3f44cc421.jpg",
+      "sourceImageId": 250,
+      "imageSHA256": "fe61e69086db092bc103cded6b76ffcbafe9dab84b0c4b1e5d0af5ba1bbe1134"
+    },
+    {
+      "path": "train/acne-154-_jpg.rf.3558c4b10c553dfd5ec4e0da4b236acb.jpg",
+      "sourceImageId": 257,
+      "imageSHA256": "bda2dbcf2b92649f353b01c7a84df571e659988c43ceeab4fde53fe2c3b5a665"
+    },
+    {
+      "path": "train/berminyak__-15-_jpg.rf.47e85b0e8bd17dce6513a5f5e2a19733.jpg",
+      "sourceImageId": 258,
+      "imageSHA256": "79d8f4ac7c31c8d8068de48b293d63e69c92b124cbaebe312948c391d3a3190d"
+    },
+    {
+      "path": "train/Berminyak-11-_jpg.rf.4904988954d4e6cedd2f1814ec140df7.jpg",
+      "sourceImageId": 261,
+      "imageSHA256": "4a5dab65e0fdcc8e487f1e4be85a1ed7990f81ede851f05c172fb8b915d23812"
+    },
+    {
+      "path": "train/oily-skin_109_jpeg_jpg.rf.1c8277ba86dba1cb19cfea54fe452e8c.jpg",
+      "sourceImageId": 265,
+      "imageSHA256": "afc99b1236deb0a718955e1b9e4174a63ce83871871150ce3567ca6691d0a767"
+    },
+    {
+      "path": "train/oily-115-_jpg.rf.6b175cc458037f3543c2a985b7470a7b.jpg",
+      "sourceImageId": 269,
+      "imageSHA256": "34c099548aa9c5b6bdb2c4176428d8d5f8a88b8b287f91b3264698e808853057"
+    },
+    {
+      "path": "train/13_jpg.rf.92328422a012d28a1822a6ae844ca9b5.jpg",
+      "sourceImageId": 270,
+      "imageSHA256": "0249eb3b2afc4c00c073201ffe5e1aa887a8d92db5b13dc028c1da30838d66c6"
+    },
+    {
+      "path": "train/40_jpg.rf.b1ef8cf6c3a041ef522de09342c76f2e.jpg",
+      "sourceImageId": 271,
+      "imageSHA256": "6c5324c723b6e16fac78db36b2dce992212eb99510dfc94f8f308708bb131deb"
+    },
+    {
+      "path": "train/Berminyak-14-_jpeg_jpg.rf.b18e6acc4d75cfb1e8ca1307a3b752a2.jpg",
+      "sourceImageId": 274,
+      "imageSHA256": "8275488b9352cacfb19ca43c82960e6031f9ed6c4100bb258181f3166adf0aa7"
+    },
+    {
+      "path": "train/Berminyak-15-_jpg.rf.b743892d8c67bef1477a1c8b249f6a27.jpg",
+      "sourceImageId": 278,
+      "imageSHA256": "ec5c9d71d54843a37ff30e536ad6ebc09c18840ea43f4c9e7989b53b8ee969a1"
+    },
+    {
+      "path": "train/42_jpg.rf.5dcdcf58b9ef946945a17ddffac07514.jpg",
+      "sourceImageId": 280,
+      "imageSHA256": "50987c91a701ce3c7e9a76fb36abcf951fe12545ec99551f89079409c83801b9"
+    },
+    {
+      "path": "train/acne-16-_jpeg_jpg.rf.1ac106f5087eebbb87adedb8b64cd442.jpg",
+      "sourceImageId": 283,
+      "imageSHA256": "8ef5f89e5e8c3056496a3d526727e6f189d58a3c30a70f82cb51f975648de77a"
+    },
+    {
+      "path": "train/Screenshot-2023-03-29-144534_png_jpg.rf.244c15f5caf0c90952e3c1513ce403a8.jpg",
+      "sourceImageId": 284,
+      "imageSHA256": "81ef2cf9a04194f6fb2451806942e18d1c8a1a8bc68932cf4d674963135b33c6"
+    },
+    {
+      "path": "train/acne-prone-skin_3_jpeg_jpg.rf.3d220c9d6ef3927127bbbcc8d872d586.jpg",
+      "sourceImageId": 285,
+      "imageSHA256": "17edd6e923f6357aac51d40360c8a079bca66477d4b18dca7a60506411e2a626"
+    },
+    {
+      "path": "train/29_jpg.rf.88fec16320b28ec1e984d24d6e938d62.jpg",
+      "sourceImageId": 289,
+      "imageSHA256": "190ffc004230b63da4be97d5d6894f6a16770bc82050c9e76a562a40be6b4728"
+    },
+    {
+      "path": "train/chung-do-mat2_jpg.rf.92bddd17eaa129b8ee0fa5696296d3e0.jpg",
+      "sourceImageId": 291,
+      "imageSHA256": "31b2e63975e216f2eb7dd0f9b1920de2cc47037e1eb52d8292d2b37ae511e895"
+    },
+    {
+      "path": "train/da-mong-noi-gan-mau-la-benh-gi-2_jpg.rf.3773211b59a0d5fd436fb38cc266aeda.jpg",
+      "sourceImageId": 292,
+      "imageSHA256": "33ea1cf39a2a9a665618052112eaf7803424bc5b2297ec6f0195cd1575aab900"
+    },
+    {
+      "path": "train/Image_107_jpg.rf.79fb5e73cdc411593d34451fe9bdeff7.jpg",
+      "sourceImageId": 293,
+      "imageSHA256": "81540a8cb6f79af88d590f76f4b610dc666fbe04f96e6bea670f0436aee668c8"
+    },
+    {
+      "path": "train/oily33_jpg.rf.78995cef831a0fa3fcb3673cbbc378e2.jpg",
+      "sourceImageId": 296,
+      "imageSHA256": "d64d53f0094dc81eac9a3f9a97692ba21aa65ce4c71f9bd1c1957b75ff8c8fc2"
+    },
+    {
+      "path": "train/oily48_jpg.rf.5c8feb6d5c0b5e50acb9fe7646308441.jpg",
+      "sourceImageId": 298,
+      "imageSHA256": "1505b9acbdd3dc932c0ba878d72fa9098729d8d22379b56d92a29fe5bb9121e5"
+    },
+    {
+      "path": "train/oily35_jpg.rf.5805a8f27c33c6ba55cf522817f30343.jpg",
+      "sourceImageId": 301,
+      "imageSHA256": "b3c338dfbffe5e2447a7fc1897709f15d141f0266ef470d483587235d334fde7"
+    },
+    {
+      "path": "train/_1495410572_jpg.rf.1496dd764ebf0613a2d907fcf292581e.jpg",
+      "sourceImageId": 308,
+      "imageSHA256": "df047f2f81ae10077c52e8750339acb7c26ed8d6809ed359fc48dbb028c6912a"
+    },
+    {
+      "path": "train/4_jpg.rf.65c729b64afbf03545d2ff19d12772e0.jpg",
+      "sourceImageId": 313,
+      "imageSHA256": "e46752889d460a716fac68211423ac2a7e553da2640d70d53ed02498974f9055"
+    },
+    {
+      "path": "train/206_jpg.rf.a270383c9d8d321baff7fb21488d6538.jpg",
+      "sourceImageId": 314,
+      "imageSHA256": "70fe85575b0e2a54d67b27cce635a1e44cc0ff2945f3dc9ef474cf2b4550c9d9"
+    },
+    {
+      "path": "train/33_jpg.rf.bd69eddf432e22c9485c2135e9bcd3d2.jpg",
+      "sourceImageId": 316,
+      "imageSHA256": "72ef6ed8c0a84031554668708852ffd753d6b8941afa13a9d63a426773fb1c44"
+    },
+    {
+      "path": "train/acne-821-_jpg.rf.6b6a018789526d22b8e79c94fe8ed4d6.jpg",
+      "sourceImageId": 318,
+      "imageSHA256": "9b246057fe0ea7e28c704e9571b58a29d8b80894f7abefce34cf1849c5888f21"
+    },
+    {
+      "path": "train/oily-skin_88_jpeg_jpg.rf.8a3ac02349f6c51e5cd2c5953abc07b7.jpg",
+      "sourceImageId": 320,
+      "imageSHA256": "0f0e71b094c42e960fdb8f80f50b1265091f3574414a06ce4fc5674b07c92517"
+    },
+    {
+      "path": "train/right_before_jpg.rf.bb3d7d3017a41fdeba05226261c9e62b.jpg",
+      "sourceImageId": 325,
+      "imageSHA256": "2d65f66035342db470f8ce9a71bf7b48c906c5fd10d29395c658b93f987e6f8a"
+    },
+    {
+      "path": "train/Berminyak-11-_jpeg_jpg.rf.51807681d321f7827aea9c62e897b39b.jpg",
+      "sourceImageId": 328,
+      "imageSHA256": "183302cc59b9c003d385ec36e380782e54c748221ad0e2f088e321e68f9640ca"
+    },
+    {
+      "path": "train/oily20_jpg.rf.647840c2123b60a4602405ad4da6136e.jpg",
+      "sourceImageId": 330,
+      "imageSHA256": "3ca93ccaa74fcd4bf6a67abb9593155bb50be523ef81f412c9dc13e65882b32b"
+    },
+    {
+      "path": "train/506_jpg.rf.6d29acf1095e9cb99569409536d9a4f8.jpg",
+      "sourceImageId": 333,
+      "imageSHA256": "259981ac2c99461b3ebbea36157af1b9007b3603af09c969f0e3a92db99e9f1c"
+    },
+    {
+      "path": "train/levle0_89_jpg.rf.df3c12ae311cced7fa10ac5971fe445a.jpg",
+      "sourceImageId": 336,
+      "imageSHA256": "acb7e9eccbc50f0763b6b146ca904d8a10179cd7cda850af385a7aa1dc1709de"
+    },
+    {
+      "path": "train/kering-45-_JPG_jpg.rf.e75fd738519f04ea5c619c75e7c0c925.jpg",
+      "sourceImageId": 337,
+      "imageSHA256": "c74c21d027de8544dbec09f78fc031b38b4cdf6018caa84fac73e3f7a5bcbc7d"
+    },
+    {
+      "path": "train/oily-skin_5_jpeg_jpg.rf.46775800a6719e1f79fc17d7fef7d9d3.jpg",
+      "sourceImageId": 338,
+      "imageSHA256": "c936815356537956ddf8c088ebb211ad49d12f98fa01edc7773747d4d43b862e"
+    },
+    {
+      "path": "train/da-bi-kich-ung_9b3f3875_d7b1_4c14_b67c_5e6434550409_jpg.rf.e82eb476a793cfbc618ae7fdf9a43eb8.jpg",
+      "sourceImageId": 339,
+      "imageSHA256": "2449a48fc571c98fb084f4b7c80fcbfcfec0f023cc72b6b3d34905b5dc54f6aa"
+    },
+    {
+      "path": "train/levle1_225_jpg.rf.cb39aa71d8368ea0c0db0e00ba529a1d.jpg",
+      "sourceImageId": 341,
+      "imageSHA256": "7ee44467ebec293652d68a4e88976b17f6b60f21a909e3bbbb6fe35a9916e7be"
+    },
+    {
+      "path": "train/IMG_6817_JPG_jpg.rf.bb8cee85d4d7384c2c7e5b50a5606e06.jpg",
+      "sourceImageId": 345,
+      "imageSHA256": "151bbb4cb4c0f8edb49c2ce2776733e5e7db85dc7cb0c5b71b0ebbdef5ad34fa"
+    },
+    {
+      "path": "train/Berminyak295_jpg.rf.6d653c0dfdb623f4b1d2ecdc21e00461.jpg",
+      "sourceImageId": 347,
+      "imageSHA256": "69061d3843cd406fc84fd96b87a885041eac3cd4bee7c568b5f44b7610ce8f08"
+    },
+    {
+      "path": "train/acne-20-_jpg.rf.64e495db849577e85be85d376d9ffc33.jpg",
+      "sourceImageId": 348,
+      "imageSHA256": "94dc63c32438aac5bcd079258bd7a09c7039cf94dfc9f6458aced8a7d4bf63b4"
+    },
+    {
+      "path": "train/Screenshot-2023-03-29-145645_png_jpg.rf.e869a151397987200cee28e1c7dfae71.jpg",
+      "sourceImageId": 351,
+      "imageSHA256": "99018b2a9c9d793d95066ccf7422f893a0841eeebe716197bec97ba20b8fcae4"
+    },
+    {
+      "path": "train/levle0_375_jpg.rf.c58164389512eac0f912d250b4f23247.jpg",
+      "sourceImageId": 354,
+      "imageSHA256": "138a6f496b840fe6b084ce18869babaa13996cedec298c3701dd87cf4a30d0f2"
+    },
+    {
+      "path": "train/Berminyak269_jpg.rf.229ea62e21dcf609240d2105dc0c6b0c.jpg",
+      "sourceImageId": 355,
+      "imageSHA256": "b9efc714d788fc779957579fba8959a6cde0b73392866911a69a7635abcc639e"
+    },
+    {
+      "path": "train/Berminyak45_jpg.rf.5dc8d52708b13ed7a6cb37aa7b976cea.jpg",
+      "sourceImageId": 356,
+      "imageSHA256": "c9ce0a04199adfa38de40665be1323d303c6202f5e5d2db15d982b1edb1540f4"
+    },
+    {
+      "path": "train/Image_82_jpg.rf.1cbc134b40edf0aeafde3fc1b664f634.jpg",
+      "sourceImageId": 360,
+      "imageSHA256": "028989466c99758acb63f671adba98b26ad1143b692666ce9387c8cb0e9a13a3"
+    },
+    {
+      "path": "train/oily-168-_jpg.rf.bff993f39e3ea1d076ca7ed95994a0dd.jpg",
+      "sourceImageId": 363,
+      "imageSHA256": "96b96646e9a5d5c2c9673fa79cfe4b567993b2ee550211200474617057adca0e"
+    },
+    {
+      "path": "train/501_jpg.rf.d8009c74aa122ecaf2b7a9f4744be1de.jpg",
+      "sourceImageId": 366,
+      "imageSHA256": "2c945aaab0d43db1970e8a65dc8c31a31f86478f5e6cfc536f2bb2585c22ef89"
+    },
+    {
+      "path": "train/acne-17-_jpeg_jpg.rf.b8135f7c438a74bb16b86723b8200c70.jpg",
+      "sourceImageId": 368,
+      "imageSHA256": "0e766d6fe6b54b003e2133bebf9aa852771f924eda3af6f653bc46e0d15eb9c0"
+    },
+    {
+      "path": "train/569_jpg.rf.88fa201bab97a5c70544bea22f2743ab.jpg",
+      "sourceImageId": 372,
+      "imageSHA256": "41e70ed61b706f3bc621e4989ab36396ae1ec68522ef8e128e608f433580f30f"
+    },
+    {
+      "path": "train/oily43_jpg.rf.791e55f62029f1b102b744d0fd673957.jpg",
+      "sourceImageId": 374,
+      "imageSHA256": "b520749f379561c2662afcd53a8edc24f3672314129be0e22b759668e73477f1"
+    },
+    {
+      "path": "train/Image_51_jpg.rf.4a774c71ab55f0210aee09cb04e4bcfa.jpg",
+      "sourceImageId": 375,
+      "imageSHA256": "3be2db04448612a698f12321d03731ac067a9cc8a09174f4a1893a565164de7e"
+    },
+    {
+      "path": "train/acne-4-_png_jpg.rf.8aa3bbeafd50627d69656fb349f3aa5f.jpg",
+      "sourceImageId": 377,
+      "imageSHA256": "3be8143eca66c319e2346c7fb01a2063d24f53250773d6f9795cf07988623ccb"
+    },
+    {
+      "path": "train/35_jpg.rf.4eabab664b02ec957fedd10ec26e6b40.jpg",
+      "sourceImageId": 379,
+      "imageSHA256": "ff7ab560832e8eb07fb46caa1c231f3e47a9277043064680635270d35a19d1b3"
+    },
+    {
+      "path": "train/30_jpg.rf.196c50d9c7ced7a22c69459e108dfe0d.jpg",
+      "sourceImageId": 381,
+      "imageSHA256": "d761699dcfed425d0e9df9c6317ca73d054b57b0330ba7a1399f0c014b87c802"
+    },
+    {
+      "path": "train/z4220863771590_9cf7e2bd92036ca75abebde81e8720ce_jpg.rf.c3c506cf6eafc914a2fae38d4f298936.jpg",
+      "sourceImageId": 385,
+      "imageSHA256": "5d6ae847f2557c22d40865584ddb33d8a25263dbd7e1e2343bc08637cf72723c"
+    },
+    {
+      "path": "train/Berminyak-8-_jpg.rf.fd0481d588f7eb33c4bedc36ac2b1ebe.jpg",
+      "sourceImageId": 386,
+      "imageSHA256": "2ca25820b2ecf5fb0a41dee97c1e6fbca7bfd1954c2be9aa58434b3530d27a4a"
+    },
+    {
+      "path": "train/654_jpg.rf.6ced20ce1d993e234e3216afe9797a84.jpg",
+      "sourceImageId": 388,
+      "imageSHA256": "e4363ab733fb1a2533dc6bfbd56d97f2cfdd6de4e695d31a82956d7ea1f285e9"
+    },
+    {
+      "path": "train/acne-781-_jpg.rf.509d8b59dbf82ae87ee0ae04009ce963.jpg",
+      "sourceImageId": 389,
+      "imageSHA256": "a36bb32d725b792f248915eeddf77c72524276462ea782f7a19f74ddd8fa3d70"
+    },
+    {
+      "path": "train/oily-136-_jpg.rf.70530a58eaa0b36aeda72801f787e4dc.jpg",
+      "sourceImageId": 390,
+      "imageSHA256": "39162c44b9788e997ed8a5e9e37e9f91aeb81e292729a0fe44b72c473342bab9"
+    },
+    {
+      "path": "train/oily-113-_jpg.rf.f3d5157c5d688d83f2dc38ea8269a2be.jpg",
+      "sourceImageId": 391,
+      "imageSHA256": "f0fa65cb1d6d5f6d432eb05a9c06b0e863d179e57c35177861640c66ec97a045"
+    },
+    {
+      "path": "train/acne-16-_jpg.rf.f7cfdeb4c432cb06073614c043c3d17b.jpg",
+      "sourceImageId": 392,
+      "imageSHA256": "1f0cd32ed0def20779fa9296ccd1911ea6a5b96421fd205b6779be19e34dc118"
+    },
+    {
+      "path": "train/berminyak__-28-_jpg.rf.100b936020c491a7521b8149fcee32d8.jpg",
+      "sourceImageId": 398,
+      "imageSHA256": "278f4ec8cf7983d9e364cbb604737551bc588ea4329db0e0072cf529c6c42739"
+    },
+    {
+      "path": "train/acne-516-_jpg.rf.4a6b868c9edbbff0794a87f3a094b993.jpg",
+      "sourceImageId": 400,
+      "imageSHA256": "1f272d9a009ff3aac94278bf592972a2ec6c9539b3d507d151c3284af349503a"
+    },
+    {
+      "path": "train/Berminyak260_jpg.rf.9fa857a2bb3dea5088b07182ed6dbea9.jpg",
+      "sourceImageId": 402,
+      "imageSHA256": "2e2337ae242d1e85a26c0485c9275820b1179268e769faca957fd3fa256a5ed6"
+    },
+    {
+      "path": "train/258_jpg.rf.9e619e76ce2e321a6fd35d79b92ad7ec.jpg",
+      "sourceImageId": 405,
+      "imageSHA256": "c2c66f28f44f808ceac880a1faab51f3bd41828f6e28cf6b4a9eff6b3b7e4394"
+    },
+    {
+      "path": "train/Image_139_jpg.rf.bca9a7f6aef5cee1d8bf54a243a81ebb.jpg",
+      "sourceImageId": 406,
+      "imageSHA256": "957bf9c6d55568eb09d93d0b7b5064475992acf235e0fd5e9c2ac52809a2a8ee"
+    },
+    {
+      "path": "train/53_webp.rf.c029cbbd86d2339856700049e3710096.jpg",
+      "sourceImageId": 407,
+      "imageSHA256": "a6a14cd4e507ff5f1b65515cd643c81f6e20149f66904cc89e38266ef758efc2"
+    },
+    {
+      "path": "train/oily9_jpg.rf.0668898474965c7128423f01d7a43637.jpg",
+      "sourceImageId": 408,
+      "imageSHA256": "74d687fbe0c6b996071c3903d9886a7e789d2e2eb15f4b0c1dc4056cdd77692e"
+    },
+    {
+      "path": "train/15_jpg.rf.cad2689784423714aea0d40ea06fb1d1.jpg",
+      "sourceImageId": 410,
+      "imageSHA256": "cf8e40dbf77028cb1e28b6c5d65a8a3dedb081477df9a8ad1a979a295e30f014"
+    },
+    {
+      "path": "train/Berminyak-30-_JPG_jpg.rf.88e98c4c60e64f11c45500b84121308a.jpg",
+      "sourceImageId": 411,
+      "imageSHA256": "45f42c9499d4d5eab1700c0722ee2684d4bbc553dfb967e0798355835fae39e8"
+    },
+    {
+      "path": "train/berminyak__-57-_JPG_jpg.rf.eb7d167589fcb90f26e167d12739cff7.jpg",
+      "sourceImageId": 414,
+      "imageSHA256": "6676d9774f343c949529ae53656fbf11bf7f2a8fc109e8467d53733a6ba39f77"
+    },
+    {
+      "path": "train/oily22_jpg.rf.0bfff3649b0f8787552c7b4b3dd28510.jpg",
+      "sourceImageId": 417,
+      "imageSHA256": "1bceedca12c581c5d9a3019e768742b8100f36f3cb147c61457e40fc9da50d6c"
+    },
+    {
+      "path": "train/292_jpg.rf.bf3413de557002d5e4d431aecae7af49.jpg",
+      "sourceImageId": 423,
+      "imageSHA256": "1962df5346ded23b0664175bd9daf88c044df24cf759684a2d5a849f0e0279fa"
+    },
+    {
+      "path": "train/oily5_jpg.rf.fc6af4848bfc9b1cdd26689574809ce8.jpg",
+      "sourceImageId": 425,
+      "imageSHA256": "4290c97e21aa8e2348f389a2dd08145174d222a3c4cbaa7d4e99706d1557a531"
+    },
+    {
+      "path": "train/9_jpg.rf.d7579e7e66c3a03d469b4a0eb6c5e016.jpg",
+      "sourceImageId": 427,
+      "imageSHA256": "bdb4b69bec7c634f054bfe99713a2c75563245f033b967b7209943ae5a42ee40"
+    },
+    {
+      "path": "train/persistent-erythema_3249_jpg.rf.3b4e85f1b5093134a1358063410bf840.jpg",
+      "sourceImageId": 430,
+      "imageSHA256": "b9eef3bcabe2afcab16e4b95824e44f985a6eb01b2e0da671d72a4e17f447c4b"
+    },
+    {
+      "path": "train/acne-1-_jpg.rf.6f1725402a3dcf1b45dac7540fe10b6e.jpg",
+      "sourceImageId": 431,
+      "imageSHA256": "d3c865ddd8189250f681bb842b3af3f2535e83c2e36274236e1c7a649502dddf"
+    },
+    {
+      "path": "train/oily-55-_jpg.rf.2047220b9eadb20f943010909a6c3ccd.jpg",
+      "sourceImageId": 435,
+      "imageSHA256": "71b59de914de71c722ea5598898d0c760d2efbe3c37f0334b356e5d42d8719db"
+    },
+    {
+      "path": "train/Berminyak-7-_jpg.rf.fb61b8e676df8ab81daec74d1d5b7c8e.jpg",
+      "sourceImageId": 446,
+      "imageSHA256": "a62bc4121141fc3bf1daf642b75197e074d9a08907e5e3f202b3943933e9d1f2"
+    },
+    {
+      "path": "train/27_jpg.rf.e6b8f520df6e7585b9f43c4b710fc39a.jpg",
+      "sourceImageId": 447,
+      "imageSHA256": "5cad10725111005e8d36c97c430cdaf43e0ce856fd95c0b45cf2e4c25bfa8f5a"
+    },
+    {
+      "path": "train/acne-658-_jpg.rf.a061760b6ecae686ca02f45d43dd0c66.jpg",
+      "sourceImageId": 450,
+      "imageSHA256": "d17c42b7bc72911853b706e8a2262c79c1864c08b7578dba2f958841ac96153d"
+    },
+    {
+      "path": "train/Berminyak191_jpg.rf.d0323d8bbdc24a9d2e0c25c495b4f35d.jpg",
+      "sourceImageId": 454,
+      "imageSHA256": "d0c132368106545fafef38375f48d02e7b6aa23efcfb3613c399643bdec3d15b"
+    },
+    {
+      "path": "train/Image_78_jpg.rf.5eb1ef8f0b3c4d66ed6371b51ac55ca3.jpg",
+      "sourceImageId": 463,
+      "imageSHA256": "26d6a72c9451b116974341ea094ca08d5c6ef6c7fddfd9705ca2317d950f8ae1"
+    },
+    {
+      "path": "train/48_jpg.rf.9d1c57ac91ae3cf312708102d311fee2.jpg",
+      "sourceImageId": 464,
+      "imageSHA256": "b0c87a27ba4fbfa5b7efa47e153cf2b59e1b63572d53cee5d982ed3e4479fd96"
+    },
+    {
+      "path": "train/IMG_6807_JPG_jpg.rf.3b019a883b94f5200b990d412a407e77.jpg",
+      "sourceImageId": 466,
+      "imageSHA256": "43a4db4d299158c324e639f0c44dadb941c02c95302237858c9814db0832e39f"
+    },
+    {
+      "path": "train/6_jpg.rf.14bd3e8fec3e8cb66e828240378719b2.jpg",
+      "sourceImageId": 473,
+      "imageSHA256": "f5cde5d12b8be13e180d600c56ce83bbadc051edcd1d1b4c5895610210b29646"
+    },
+    {
+      "path": "train/oily-172-_jpg.rf.0cd26d7ef62aea81bacc4a83d408cb1e.jpg",
+      "sourceImageId": 474,
+      "imageSHA256": "33bab6d09a23d1a7f0c07ec58fb60fea07b5926e3379ff4d09eb1887464681de"
+    },
+    {
+      "path": "train/51_webp.rf.76cc11729fc0aceafd9ec186d1f00e25.jpg",
+      "sourceImageId": 475,
+      "imageSHA256": "897e508b6150990008d9c6b00d2e6e2104dc6754578bbceff301de54815d311f"
+    },
+    {
+      "path": "train/3_jpg.rf.7bb9c73cf26aa17faa2655b82563b2f2.jpg",
+      "sourceImageId": 476,
+      "imageSHA256": "82071379887d349e95b8503ada619ed440b63a985c329aad8652e7e60dc2563b"
+    },
+    {
+      "path": "train/levle1_536_jpg.rf.1b0f7b1200e16f6833d4aab04bee862d.jpg",
+      "sourceImageId": 481,
+      "imageSHA256": "7c7032794f69e51fee2bfe4eff9abbbdbb913ef33f09dfd500a9ed5171011d5c"
+    },
+    {
+      "path": "train/levle2_125_jpg.rf.63a384e3e5b6896664b44a8dad26028c.jpg",
+      "sourceImageId": 482,
+      "imageSHA256": "babd4fef19244b7f84912d0f2d6cea4c0537ff32fa4ede9e410372f4e9cca58d"
+    },
+    {
+      "path": "train/oily39_jpg.rf.0d700af0e00bfa2c993bb0e4b530bef1.jpg",
+      "sourceImageId": 484,
+      "imageSHA256": "8e00c4edac2999e015d22fd0be301ed32fe85cccc721f93d96d79d2c27fd51c7"
+    },
+    {
+      "path": "train/2_jpg.rf.a59d4da6e425895279cc869c7ca15cc3.jpg",
+      "sourceImageId": 485,
+      "imageSHA256": "2d4cb3658a950e545ffb864812b6214fa0e50bee75df706c63b6fb280978bd53"
+    },
+    {
+      "path": "train/Screenshot-2023-03-29-145623_png_jpg.rf.40743316cdc911484d09b309155cb35f.jpg",
+      "sourceImageId": 488,
+      "imageSHA256": "33c9774242f9acf85139ba16d4af63cde2e4ae76c7bc7d664658ac67aa7d309f"
+    },
+    {
+      "path": "train/oily51_jpg.rf.ce71301dfff4c0baac04416356bd3f28.jpg",
+      "sourceImageId": 490,
+      "imageSHA256": "47170f134e54a1f4330999e533ff092a2284d623f852c938bf9e111ca1337114"
+    },
+    {
+      "path": "train/oily21_jpg.rf.e61f0ea9325b496a9069cd9452d72f96.jpg",
+      "sourceImageId": 491,
+      "imageSHA256": "70cf211b56fe5a7569d955f51d5cfc281526fc08fbdf7f3a4b08d597958ba582"
+    },
+    {
+      "path": "train/oily50_jpg.rf.d1f2f6e1b418a3eb018a9ee598f69734.jpg",
+      "sourceImageId": 492,
+      "imageSHA256": "0ca18965d00708faaaede0544d21827f8e0b2f8e58b986e627bfaba57afc37c3"
+    },
+    {
+      "path": "train/berminyak__-59-_JPG_jpg.rf.6952af128e4417ee8341de67662952e0.jpg",
+      "sourceImageId": 493,
+      "imageSHA256": "5a6a944660b697932ebaa13be3804718057f808eed9234be65df6ef2b68c01d7"
+    },
+    {
+      "path": "train/60_webp.rf.6c766ceab595a54178f8f5a109235bc6.jpg",
+      "sourceImageId": 494,
+      "imageSHA256": "d2436fa37552beee014a8bcdc63700a0d7d332bda6941fafda021bfa7a50545b"
+    },
+    {
+      "path": "train/levle1_360_jpg.rf.879191798329394a3f60064d42cf0e13.jpg",
+      "sourceImageId": 495,
+      "imageSHA256": "77f72d411a248f09d29352a7925b913f1c9808445b938513f6c5a931348f36e3"
+    },
+    {
+      "path": "train/Image_71_jpg.rf.b49ce09349662ab75f6b471011448d8c.jpg",
+      "sourceImageId": 497,
+      "imageSHA256": "47ba3145f9ae0d0b418682b286a9e007e901d87bc2ae45958876c49c169354f0"
+    },
+    {
+      "path": "train/Berminyak-15-_jpeg_jpg.rf.3fad74c2f66e0cbd5792952b9b0669c7.jpg",
+      "sourceImageId": 498,
+      "imageSHA256": "6cd68be0e1e4e6e608572be632af08da733b33cd3e3c22cc61887ecc47c20c05"
+    },
+    {
+      "path": "train/Berminyak-4-_jpg.rf.67fa6038bb67cfc56cc927b27d236e2d.jpg",
+      "sourceImageId": 507,
+      "imageSHA256": "6bc8cc1d5ab4c9c012ee9ae1d366e015d210ad9475eb3dbd2599555a8d240942"
+    },
+    {
+      "path": "train/da-mong-noi-mach-mau-1-2_png_jpg.rf.ea5f31a6134512322529339d9d70e06f.jpg",
+      "sourceImageId": 509,
+      "imageSHA256": "3a7e97150e8fd2c38a541d2329060ba94f2a7e13b781b4c483d06061cec5e5fe"
+    },
+    {
+      "path": "train/55_webp.rf.72fa59cd1c246c40e790e98fe5c52bb0.jpg",
+      "sourceImageId": 512,
+      "imageSHA256": "3f5c9b4a196d153a766d442cee97252397b735622ae506ea6a2cc93b73e63ecd"
+    },
+    {
+      "path": "train/Berminyak-2-_jpeg_jpg.rf.f5c3b5baff8da464682d0efa24477aed.jpg",
+      "sourceImageId": 518,
+      "imageSHA256": "40f03cde4fc1099a72a7bb72c4ec04f62828942972cbcc37aefe9c75910b48fb"
+    },
+    {
+      "path": "train/2973A28100000578-0-image-m-194_1433782669849_jpg.rf.3ce75114fb3fd55fa13295cf89c32683.jpg",
+      "sourceImageId": 519,
+      "imageSHA256": "f92149773ae31bd8b2f8a0d0557035c682133ec453dcdd8b8266e4d26d5b8e2f"
+    },
+    {
+      "path": "train/oily-263-_jpg.rf.f245887acf5de538c0e4ad48b97431f9.jpg",
+      "sourceImageId": 521,
+      "imageSHA256": "2422892765fae54285d624e52f749d7d0d78dfe6dd89e724e0c897e19baebac6"
+    },
+    {
+      "path": "train/da-mat-noi-man-do-khong-ngua-do-di-ung_jpg.rf.40d6d9fcc3a8c226b5f600c683b750ad.jpg",
+      "sourceImageId": 522,
+      "imageSHA256": "d1b5e91dbfb7da8de1fad5bcbac54440bf9df19afc61cf78427ddcaf807e4cc5"
+    },
+    {
+      "path": "train/Berminyak-38-_jpg.rf.083d2c5f7487053223410e39fe07f695.jpg",
+      "sourceImageId": 523,
+      "imageSHA256": "47e46be02b76e413ed59035460ea1ca646dd803e23b649dd63f0de8073e550da"
+    },
+    {
+      "path": "train/acne-prone-skin_155_jpeg_jpg.rf.e7032aaf93923107b181721d5ccb3949.jpg",
+      "sourceImageId": 528,
+      "imageSHA256": "fce48349af9e94fec061573cc29438fbc587c5584d3db5ebccac6a32ae1d9d31"
+    },
+    {
+      "path": "train/59_webp.rf.4fcd55668ac85dbff1b66645de152132.jpg",
+      "sourceImageId": 529,
+      "imageSHA256": "d85f9f5bb4c887d6ad4e54013c1c30542818fa78acd96bdd49823dbecc4022eb"
+    },
+    {
+      "path": "train/Screenshot-2023-03-29-144433_png_jpg.rf.c6d5a469185d8d282e6a148bfb5cc031.jpg",
+      "sourceImageId": 534,
+      "imageSHA256": "f49fc77a17707943cf64a529cd06759dddb3d3b2fa31ea8f5d27457031c3ead3"
+    },
+    {
+      "path": "train/levle0_526_jpg.rf.2f8339b27e8a345299206770d7e06934.jpg",
+      "sourceImageId": 535,
+      "imageSHA256": "667e804185073764e048c65a5d344444cda127e1a169f4f5d4f291cb56134d61"
+    },
+    {
+      "path": "train/acne-333-_jpg.rf.3058e5b3b45ea8e2631237fcf53d4b0e.jpg",
+      "sourceImageId": 536,
+      "imageSHA256": "fc4db3fad43517d167b06b25fd686dcc4313f84647acb9012aad79d35809526e"
+    },
+    {
+      "path": "train/kering-3-_jpg.rf.98a406c3f4f7d6830ed53bf6caf29bab.jpg",
+      "sourceImageId": 538,
+      "imageSHA256": "eb2d7651b935f08cee5e521edf930ce5edaccdd8b943de9c058a8b361af9cc2c"
+    },
+    {
+      "path": "train/pro04_sec03_png_jpg.rf.ef0f7946bfa705824a6cc9d482b04bc4.jpg",
+      "sourceImageId": 539,
+      "imageSHA256": "d6d287969b8d70bb146ecea6267495ff0729d4937fed426dc1e6d1c11eeddb78"
+    },
+    {
+      "path": "train/Image_68_jpg.rf.4a9050b4901088f3d9337f6e89899da9.jpg",
+      "sourceImageId": 542,
+      "imageSHA256": "092d1f8fc3e16c3af8291228353c1ff73f49fc0c4fe79b90ec14dc5d308043b0"
+    },
+    {
+      "path": "train/507_jpg.rf.c0f6cff6c783fcd641f9d4a7d6282809.jpg",
+      "sourceImageId": 544,
+      "imageSHA256": "1b3a8b86afe489c086330751440f11e45838e7220b931692a9b0d718ed07a933"
+    },
+    {
+      "path": "train/Berminyak-25-_JPG_jpg.rf.11aba13e3287c96affaf344a74aa35f1.jpg",
+      "sourceImageId": 548,
+      "imageSHA256": "813e36f45bf9f437bb55de6051c319949908d6cd81319f41fdd593da5448f09b"
+    },
+    {
+      "path": "train/oily7_jpg.rf.e7557712112bef3b2a751f56444a5f60.jpg",
+      "sourceImageId": 551,
+      "imageSHA256": "63d6fac00bdc27f3f3718b4ce007d05e1a9037595470a97876862e69f027cb24"
+    },
+    {
+      "path": "train/54_webp.rf.b48f1851f4140ee26df8b28eb6e0650a.jpg",
+      "sourceImageId": 553,
+      "imageSHA256": "d76dc67cc46c142c6caf766833a3ea97ec90666b78310321df181c3a1a8bfb15"
+    },
+    {
+      "path": "train/acne-56-_jpg.rf.55b1e42a2d73f2f65710434dad1af653.jpg",
+      "sourceImageId": 560,
+      "imageSHA256": "b36c1d0b9040ead496abf9dbfae6b0ae2505e2c1363cd5f2d2a3588a96d41e3d"
+    },
+    {
+      "path": "train/berminyak__-51-_JPG_jpg.rf.4cbfe24f4b8088021a40fa42f4a836cf.jpg",
+      "sourceImageId": 561,
+      "imageSHA256": "5119a0ad709c6baee187c4394840d4357a970d2f4de54f57fe7f908759fbfe85"
+    },
+    {
+      "path": "train/levle1_330_jpg.rf.4675f0a7ccb5df7ba052f390aa725eb3.jpg",
+      "sourceImageId": 564,
+      "imageSHA256": "c935a4f8011d088049dd96dec16cbd005f5e89c103b41bb4a936255f4d2311da"
+    },
+    {
+      "path": "train/oily-skin_187_jpeg_jpg.rf.697de800692e81bd9c5ea31a27191382.jpg",
+      "sourceImageId": 565,
+      "imageSHA256": "e9761fd3f5a9cad2d30e8021eecdcd2feea59225661e089a179f02e261f41f0f"
+    },
+    {
+      "path": "train/c0500787-800px-wm_jpg.rf.e9bea036648543096e28fa256272fe91.jpg",
+      "sourceImageId": 568,
+      "imageSHA256": "492322e1c8ee5841ad9ffa275d40fc6ab5eaba8200aa54f982b74c810c2bef34"
+    },
+    {
+      "path": "train/oily28_jpg.rf.928e5cf9da626f7cc22eeec0f534dcb9.jpg",
+      "sourceImageId": 570,
+      "imageSHA256": "8674b939a5913013353fd421cace715d6f0bb070844ab5e9987752b035db3a50"
+    },
+    {
+      "path": "train/37_jpg.rf.0cd7b7a01c1a57e2697bbd6bc16a9dc6.jpg",
+      "sourceImageId": 571,
+      "imageSHA256": "263716bc70d31ee01581a2f133d5764f0a415484abec326225f1115c6ca93e78"
+    },
+    {
+      "path": "train/berminyak__-49-_jpg.rf.1d3584e8ed75c4f7085a176c0e9d7fef.jpg",
+      "sourceImageId": 572,
+      "imageSHA256": "be72104e879df3dcd53bda8fdc656db172340247f5a426ae3ea63be75bc3b810"
+    },
+    {
+      "path": "train/levle1_468_jpg.rf.52d716856147c440f149bee921009752.jpg",
+      "sourceImageId": 574,
+      "imageSHA256": "e80bb9ba5ae8b4a36037cd8c4ea9b374cbfcfa8f94b10d626a1668b5b8ea7291"
+    },
+    {
+      "path": "train/21_jpg.rf.b9c5beb411039404b69438bf72fd6c28.jpg",
+      "sourceImageId": 576,
+      "imageSHA256": "efc7e3de54e1324f22d3d644ffb4713bffcab283539cf460e02902afa9bd6ff1"
+    },
+    {
+      "path": "train/Berminyak288_jpg.rf.7cefa459b6bdaa235fde6fafb990b41d.jpg",
+      "sourceImageId": 578,
+      "imageSHA256": "99563df921e9f89a570ff53228ea2eebbce7fe63832835bc42168d3db945b32e"
+    },
+    {
+      "path": "train/257_jpg.rf.49a3fc0d3695f28f7da14d89e8a145ba.jpg",
+      "sourceImageId": 581,
+      "imageSHA256": "7a9036e19e212daf2a3e23d4e4d5ea00fba95744965c4a3336a0e8a98eb3f950"
+    },
+    {
+      "path": "train/noi-man-do-ngua-toan-than-4_jpg.rf.5dcf9c253ada769f55ce98899e3947e6.jpg",
+      "sourceImageId": 582,
+      "imageSHA256": "9ba8edcbb5b621587040376bec3c26db1703b7ec99b94e3b58f3d69c9a1cdf98"
+    },
+    {
+      "path": "train/berminyak__-40-_jpg.rf.33222340449066d5a0a1df9725345d2d.jpg",
+      "sourceImageId": 583,
+      "imageSHA256": "62e356b51ad259cfa7029d1582863e54f142b2aa51f6aaf763664576bdb113c3"
+    },
+    {
+      "path": "train/36_jpg.rf.31a607ab4aa9ec096b9edd6fd52d0e76.jpg",
+      "sourceImageId": 588,
+      "imageSHA256": "b6c2d43ec931272c796df1ae240cd7df15940d3fe1fedeabb8ca5970d9282311"
+    },
+    {
+      "path": "train/Berminyak-29-_JPG_jpg.rf.c5c2a7e158b13be1210c495b9e53c0b3.jpg",
+      "sourceImageId": 593,
+      "imageSHA256": "3732856eac67158a2649e2ea40d82f96bcea85ce114ff849ad371f702b8c5dec"
+    },
+    {
+      "path": "train/di-ung-da-mat_jpg.rf.4fe450056b529a82baf387403a2341bd.jpg",
+      "sourceImageId": 595,
+      "imageSHA256": "9d178e64dc6e251e8318726936a946c122b60a286d3f10472aa24079f2f06a9e"
+    },
+    {
+      "path": "train/levle0_167_jpg.rf.b1a432bb4bc290aa7ccca8c71190b7fe.jpg",
+      "sourceImageId": 601,
+      "imageSHA256": "2d803cb96f88f75a65f981a1a4cd23e2f70f97498a204347cb456dc29afabbb9"
+    },
+    {
+      "path": "train/kering-88-_jpg.rf.21c58b49e22164a5156a12d23cd2d0d7.jpg",
+      "sourceImageId": 612,
+      "imageSHA256": "47dc4a4249e6c870017c6c3136bfae8aac29bacc92e78559f58686aca590bbf4"
+    },
+    {
+      "path": "train/39_jpg.rf.83c0ad2b223621d98e8ffe5b60b1ec32.jpg",
+      "sourceImageId": 613,
+      "imageSHA256": "f352925a4ce575855f97129f218109a22d403ad35779a44ca07616f33020a344"
+    },
+    {
+      "path": "train/23_jpg.rf.b1d458242fa17abf6f9b753d6e16b37c.jpg",
+      "sourceImageId": 614,
+      "imageSHA256": "df6ff5bc8ccf9e24d829849ef079e892fefd1ee0f02904fb483d789f09a385f2"
+    },
+    {
+      "path": "train/8_jpg.rf.a8d8bbcc9cb7ca625527ac583094028e.jpg",
+      "sourceImageId": 616,
+      "imageSHA256": "9c489106c96e7e9bbf77b3a23826845ef01edff39a509c813e199734679ec3bb"
+    },
+    {
+      "path": "train/46_jpg.rf.f472012760a736ce209e777fa7918ed7.jpg",
+      "sourceImageId": 617,
+      "imageSHA256": "cb9a49c3724912b421a01efa392a0ba92ff01c97675b375024df7683d7c9362c"
+    },
+    {
+      "path": "train/da-mat-bi-rat-khong-ro-nguyen-nhan-1_jpg.rf.5a28dccd206c4b734a577d06b4287aeb.jpg",
+      "sourceImageId": 622,
+      "imageSHA256": "497020f14801f17f7975ed5ab48c6251ed346ab9cdb50212f7dfdea1bb2dc8ee"
+    },
+    {
+      "path": "train/Berminyak-17-_jpeg_jpg.rf.fbd061246366b57b7b9563d70ba3e679.jpg",
+      "sourceImageId": 625,
+      "imageSHA256": "c2433cadb54a5ae985fa9ca0e06599967e83294d8fbf6e5c81f7b927b1ca4b89"
+    },
+    {
+      "path": "train/478_jpg.rf.1a70a64e80b459f2e7ca7c09f95efb09.jpg",
+      "sourceImageId": 630,
+      "imageSHA256": "1283073d2769e7dfd185848f9472ecc1860d5eb132ba94b7338caf778960db66"
+    },
+    {
+      "path": "train/acne-177-_jpeg_jpg.rf.ac0fa878fa8a9047aeca597ac0f72afa.jpg",
+      "sourceImageId": 636,
+      "imageSHA256": "a14ec0579ed9a7f5c59f08360ac34ce37a94f0fcc4e36e566fb740302ffaaa2d"
+    },
+    {
+      "path": "train/57_webp.rf.0d43df70ed37d66008f02f6d1ea4ab81.jpg",
+      "sourceImageId": 639,
+      "imageSHA256": "0908e4e3ecaaea3fbb0bd288e66ee3b9946ed7a1ea6acafa8b321f92f3dc93f4"
+    },
+    {
+      "path": "train/Berminyak-13-_jpg.rf.0495c21b8ec064bc890d9fdcd2c4662a.jpg",
+      "sourceImageId": 644,
+      "imageSHA256": "3688acea08e6488f54d36ae5b6fb1318bad2f7fc1ea8585f38aa4dee6c87d3ae"
+    },
+    {
+      "path": "train/oily41_jpg.rf.1df8509cc059bd4f3713fa7c7a195724.jpg",
+      "sourceImageId": 646,
+      "imageSHA256": "1e799631654683e860704457e7050472fbce0a279d5e41c27bbd9451c0fa4529"
+    },
+    {
+      "path": "train/267_jpg.rf.0ed75454f92c66f025f15ae232580065.jpg",
+      "sourceImageId": 652,
+      "imageSHA256": "199584a05f89d90d2540e86a41aef964575d4fe9255f7860a5e8ff20e759cc25"
+    },
+    {
+      "path": "train/Image_26_png_jpg.rf.5151fe292bb390bcfdb5beb54abc3bff.jpg",
+      "sourceImageId": 653,
+      "imageSHA256": "d6f3928156201dc50e5dec9bc32266a7e951d34075b4cbca88f6c730384dd795"
+    },
+    {
+      "path": "train/28_jpg.rf.15ed74e29c2753fa28b73fed3332ba02.jpg",
+      "sourceImageId": 655,
+      "imageSHA256": "bd97386eda790b0d13da2a67406cfcd0af5f28f3d6666fc6ad8c54d272939df3"
+    },
+    {
+      "path": "train/oily60_jpg.rf.5d97dfeeeaa5b2f3570a7c751dbd590e.jpg",
+      "sourceImageId": 656,
+      "imageSHA256": "e4de35738cad4557b7e03f6411d21cf555c6630ab22777edc12a43f8c8969b25"
+    },
+    {
+      "path": "train/_1679374360_jpg.rf.a07e5bcc6b00edbee5a61a95a6a16d97.jpg",
+      "sourceImageId": 658,
+      "imageSHA256": "599b9bb69f9405021b9e2d5e9cbefd314f6ed7372f5842bb585e17778e03be1b"
+    },
+    {
+      "path": "train/Berminyak-27-_JPG_jpg.rf.022456ca53e35fd799702d440a346ab9.jpg",
+      "sourceImageId": 659,
+      "imageSHA256": "9c39a7b54736fc17e20a5ecb2472ed13f12d78053982c865fb31e459542b5c18"
+    },
+    {
+      "path": "train/oily36_jpg.rf.5b9030419202b816e2d1685204b90efe.jpg",
+      "sourceImageId": 662,
+      "imageSHA256": "45c302bf9f5f200fcaef4258760e87fe643ec7d5e6ec0e0e73c07a616712fbea"
+    },
+    {
+      "path": "valid/image_jpg.rf.c725564c58e5ed101078d8b857033399.jpg",
+      "sourceImageId": 1,
+      "imageSHA256": "e1685b1464e0282baa3e28e8bee5c9950d19067d25b8fae34f5c412c1aee0c30"
+    },
+    {
+      "path": "valid/19_jpg.rf.9fdbf7af2c9469935c7ad53e8db74c16.jpg",
+      "sourceImageId": 2,
+      "imageSHA256": "6e1743af17c25bcace5bb7766beee023dff0c2c254d335d40a68c35a0d30bb58"
+    },
+    {
+      "path": "valid/excelvplus-Vascular-Lesions-Telangiectasias-Ross-P1-before_jpg.rf.1e8df57ba5a3f308a6e59598a7cf96a9.jpg",
+      "sourceImageId": 7,
+      "imageSHA256": "8db76eac4ea7dfee66d033dd1b11ada083240b972b90421a931062056afa9bef"
+    },
+    {
+      "path": "valid/Image_61_jpg.rf.8c943f9390cd498267b324d688b21f5a.jpg",
+      "sourceImageId": 8,
+      "imageSHA256": "b5eed7bdc6afceb5820508e7e68c07f2a5c8618e985790f4fb65575c694af64e"
+    },
+    {
+      "path": "valid/oily-144-_jpg.rf.fc3e7def34c6c784b574f4d694b236fd.jpg",
+      "sourceImageId": 15,
+      "imageSHA256": "2c02a948e13e61e8ff449aab316d61061a1a16b4a94a6d076d8e4b3920077b91"
+    },
+    {
+      "path": "valid/oily49_jpg.rf.36c2502e91c85c220fe400591f4714a8.jpg",
+      "sourceImageId": 16,
+      "imageSHA256": "91f3fa178f21b159adadd5e38b894b39516f0272e0b9117d8e39058d36e5bf57"
+    },
+    {
+      "path": "valid/34_jpg.rf.0beb2bde8b11f36076a7a8bd2022acbb.jpg",
+      "sourceImageId": 19,
+      "imageSHA256": "7f7b6aceca45764a9546e82ad196ab1549f2fd97ff4742f63eca6d70751fc6bf"
+    },
+    {
+      "path": "valid/20220303_042827_532264_da-mat-bi-ngua-va-d-max-1800x1800_jpg.rf.faf942c10b53f7b5d3fddcc044317512.jpg",
+      "sourceImageId": 22,
+      "imageSHA256": "ad9db2d2bbbb6a88560d89d22c06bca4ef15759a1396f2b88558a3174932ef2b"
+    },
+    {
+      "path": "valid/Berminyak302_jpg.rf.79d92ad50473192a4512ec24e72b81ee.jpg",
+      "sourceImageId": 23,
+      "imageSHA256": "f7c0e8aa169632944061cc6913d62ed144fefe6442e28f0447c3558ee907b6d3"
+    },
+    {
+      "path": "valid/50_webp.rf.50c46a508546c7ce10b4b6d460ad3043.jpg",
+      "sourceImageId": 24,
+      "imageSHA256": "db7bdd461eabb90c14c43b5e6566c21659489d0fe42398dc65b85f3ca2ed9cf5"
+    },
+    {
+      "path": "valid/oily58_jpg.rf.50f0515857bb98db3c8ef2b423435bb1.jpg",
+      "sourceImageId": 26,
+      "imageSHA256": "4c90cc93a09aad6f06a1669b524c3b2fce722aa7e6226d88c4bc679a52f88be7"
+    },
+    {
+      "path": "valid/428_jpg.rf.bea18dfc93bea13c8edb2435d2254b70.jpg",
+      "sourceImageId": 30,
+      "imageSHA256": "99e179835244758574adff3b865a5b4d4b7d7a01c3ff7e6d64cf742eb86d0e35"
+    },
+    {
+      "path": "valid/Berminyak-16-_jpg.rf.09874a2da07943a84b2758a591cc748d.jpg",
+      "sourceImageId": 31,
+      "imageSHA256": "7d3fcd470bfab14b4c0a111c67b62aa6a1c7f310364bfd008ce4ea1d4fe996e7"
+    },
+    {
+      "path": "valid/Berminyak-33-_jpg.rf.6e08961268ddda97f182f54191b00328.jpg",
+      "sourceImageId": 33,
+      "imageSHA256": "36a9a18312327ffd2aefb72b7a2c543870780b270adcd9aaf1702443fc3e6bfa"
+    },
+    {
+      "path": "valid/berminyak__-20-_jpg.rf.b3541d4ed61cc1e29dd1b1a1b2c10e20.jpg",
+      "sourceImageId": 35,
+      "imageSHA256": "a23165e81c7bf2837416caa90242116ce86d80369f1c3ac2472fdfe4c295dce0"
+    },
+    {
+      "path": "valid/Berminyak267_jpg.rf.945483ffdde7ec43457168fb18c41b0b.jpg",
+      "sourceImageId": 36,
+      "imageSHA256": "bf73d0b25b5b6863b5c7ecd0df76883bca880ab809dc1569b243ba9251b24d96"
+    },
+    {
+      "path": "valid/1_jpg.rf.ae8cfd0a567439a37ee6fcca2dbe1f98.jpg",
+      "sourceImageId": 37,
+      "imageSHA256": "292f63bdb7a527d415da2bbde6bdf361272efc5ab5ca5eac49d5ba5491109a35"
+    },
+    {
+      "path": "valid/14_jpg.rf.1186902a42b95096feed46d12a6b2f22.jpg",
+      "sourceImageId": 42,
+      "imageSHA256": "e00e18e79325c19be91fad83cb55c131c9cbb6b26c41f16d8538bea602629e33"
+    },
+    {
+      "path": "valid/oily8_jpg.rf.dfd61d56143516e5d4bf840db2255bfd.jpg",
+      "sourceImageId": 45,
+      "imageSHA256": "a263f77e4cfbb108522d389d61bf7f0816b8ce0141cec1bf9f0a6b9d002a25b8"
+    },
+    {
+      "path": "valid/Berminyak-12-_jpg.rf.f5a4403551ffc53fe98caab975fd73a6.jpg",
+      "sourceImageId": 46,
+      "imageSHA256": "f97742e132c195b48f168c475e50aff7222ac0b6800daa75a31576e85e4b1f39"
+    },
+    {
+      "path": "valid/455_jpg.rf.6d20d4cd8bd9ffa10ae16f1f68febfc2.jpg",
+      "sourceImageId": 51,
+      "imageSHA256": "e91bd10a75638e79b655607bedcfc645852d2f74ecc31e53ccd8aebae9647993"
+    },
+    {
+      "path": "valid/_1869624823_jpg.rf.1f91c77196455182bf105f627584fade.jpg",
+      "sourceImageId": 56,
+      "imageSHA256": "d30f150e5d5c50e346e13510268b0457587853d930d4fa5c955800e9c69891b2"
+    },
+    {
+      "path": "valid/16_jpg.rf.29090dfea37f5f7f140283c7f75222e7.jpg",
+      "sourceImageId": 57,
+      "imageSHA256": "ac7e45c2d0fa11c408e9f63e12510547a457683399e873312c653ec2b28c5f87"
+    },
+    {
+      "path": "valid/31_jpg.rf.045aa25ba8ffd650dab588fbf8445e17.jpg",
+      "sourceImageId": 62,
+      "imageSHA256": "c6f21709acd3be1d092ac41cd63b97612b8c6cd56664a20372475ef54adf9e09"
+    },
+    {
+      "path": "valid/levle1_491_jpg.rf.b54c2bf0f7a5138d8efc3237c145699e.jpg",
+      "sourceImageId": 68,
+      "imageSHA256": "c1309cdf274b2cb140c5cabd76c4d6c089b70ecbaf31661d2bbeff0e5abf898d"
+    },
+    {
+      "path": "valid/Image_11_jpg.rf.fcfb7e9a5e4e01daefd2a05b4d29f752.jpg",
+      "sourceImageId": 70,
+      "imageSHA256": "8daeb2c37cbbaf0c654ade6aa46daae85d0593f5894c789b259dd867f3fe3643"
+    },
+    {
+      "path": "valid/acne-820-_jpg.rf.b361d50bb4d06b2c691a34ffae4272de.jpg",
+      "sourceImageId": 71,
+      "imageSHA256": "8a92f2b1101984b1b447c4b8733a3ef9a361be29e16ed7efb8e10dea3effe0ca"
+    },
+    {
+      "path": "valid/acne-153-_jpg.rf.f9ea5996defc2f19ca231035c30f2f39.jpg",
+      "sourceImageId": 72,
+      "imageSHA256": "90b6e1df4219daec1573f452901a44cce9ecbee400b03b89a8fdb25da3f47429"
+    },
+    {
+      "path": "valid/43_jpg.rf.40f98662aa85652a03aa06461fd49e25.jpg",
+      "sourceImageId": 73,
+      "imageSHA256": "06cc293829995dfb09ca35e2a4f7ff15b14b6291c18a075599fb1685d3e39227"
+    },
+    {
+      "path": "valid/acne-21-_jpg.rf.9ddd606688c285e36610ce7548839520.jpg",
+      "sourceImageId": 75,
+      "imageSHA256": "97d2c1e548fc1ed86dde5a5ba88cb6ae7a8acb2593eabcd50dfc87ce789df965"
+    },
+    {
+      "path": "valid/shutterstock_1545102416_jpg.rf.b5747bf7fa3e06abda043aea558745ff.jpg",
+      "sourceImageId": 79,
+      "imageSHA256": "c86a781703c1e8391548d50a4a7d5611ae7c8a324737999db3b7657f41ad3343"
+    },
+    {
+      "path": "valid/oily-skin_10_jpeg_jpg.rf.cc228b81a08049fff790f36761868a2c.jpg",
+      "sourceImageId": 87,
+      "imageSHA256": "c4b5008a4d66cdae4f0218f1c53170d3c5d652a57aa3d2be821f670c0b719010"
+    },
+    {
+      "path": "valid/20200418_102430_703398_thuoc-tri-cham-sua-max-1800x1800_jpg.rf.f700e8eeb64735084e762eac517b583a.jpg",
+      "sourceImageId": 88,
+      "imageSHA256": "cdaec41dc83023131f001f1fa70b75b71e4c4cb6f9722f6c7d5e5ff86c644de8"
+    },
+    {
+      "path": "valid/oily34_jpg.rf.d93474b531e2dda3cfc6f21222614131.jpg",
+      "sourceImageId": 91,
+      "imageSHA256": "7b0d03b86803095f617d7ff345825896c78e65d09065dbe32e7e1c82e3d2fb02"
+    },
+    {
+      "path": "valid/Screenshot_2_png_jpg.rf.5456d4c195cc8df65d8d7adc1206dd2c.jpg",
+      "sourceImageId": 93,
+      "imageSHA256": "5d0d9e37cc35c9b1c1b4d954453c22f4cdcb249be4bd027d5de47394460bb320"
+    },
+    {
+      "path": "valid/berminyak__-50-_jpg.rf.6a9f0e5c429cc6d69f67d721f80fd1ac.jpg",
+      "sourceImageId": 94,
+      "imageSHA256": "3074b5923cfd2c02b63bf82664c798a86f7b22d35623e5bffdb844d8e4963edf"
+    },
+    {
+      "path": "valid/oily12_jpg.rf.b79673671012967eb501004f5ce14c0a.jpg",
+      "sourceImageId": 96,
+      "imageSHA256": "b02508904491f17606559e6820bcd5c4a890214ce687ed96640d829f07afc4dd"
+    },
+    {
+      "path": "valid/Image_8_jpg.rf.7306163bad1c51cd960b0c153219b7f9.jpg",
+      "sourceImageId": 105,
+      "imageSHA256": "03c9fdc8e46b694bef943317db7d951659c76544cc63f7a04dd1a42df58241c9"
+    },
+    {
+      "path": "valid/Image_38_jpg.rf.64fef249bc20d91a906bb992b53fa5fd.jpg",
+      "sourceImageId": 110,
+      "imageSHA256": "ced1f20f600c8ee95a21dd725841594dd3c3df3969d38f0e8586f057280033c0"
+    },
+    {
+      "path": "valid/berminyak__-43-_jpg.rf.78d619bca1e89ef03dba5213f48cb1de.jpg",
+      "sourceImageId": 115,
+      "imageSHA256": "62ccc160711b204fbc4be271a6af87451d99e76402f5b18a8ddd05672d4b81b6"
+    },
+    {
+      "path": "valid/20_jpg.rf.231bf69195c582f1cfdca59643f8c144.jpg",
+      "sourceImageId": 118,
+      "imageSHA256": "67be0bd63151a8dda407d2ce3af5895a278319dbfa45fd96f2596e40eede9b77"
+    },
+    {
+      "path": "valid/levle2_175_jpg.rf.2a1b600d6ddd15424801f0dd02a706ec.jpg",
+      "sourceImageId": 122,
+      "imageSHA256": "5f30763b48568a12a18348340021dc71192db405e7d0253721a89de9578b9a97"
+    },
+    {
+      "path": "valid/oily-150-_jpg.rf.442341892130ce16c220929f6043c9d7.jpg",
+      "sourceImageId": 123,
+      "imageSHA256": "d6f71aa8c3ac42d186bf324168a46ee5e7f7111272a6691f27771044c43b109f"
+    },
+    {
+      "path": "valid/berminyak__-32-_jpg.rf.afa518a0a7fa4891a823fd04a9e7dc14.jpg",
+      "sourceImageId": 128,
+      "imageSHA256": "c0be0cc74e3017601a5fc7ea0bc9eb4e177fc9441744f1a6f244b9505e2ca3cd"
+    },
+    {
+      "path": "valid/oily55-4-_jpg.rf.6d5b7c1c318a42549d28f58bbcd3f89a.jpg",
+      "sourceImageId": 129,
+      "imageSHA256": "a4fc89d48197175c136dbb4a1579e6332ed1550d0be8672c290a95c2595bad1e"
+    },
+    {
+      "path": "valid/2861547_16_articlelarge_iStock-1327412897_1__jpg.rf.3e3287105d792ccfd2dd1baaeead79a7.jpg",
+      "sourceImageId": 130,
+      "imageSHA256": "efd7f297b11d29b862b0c36281f3d1d094a0e2caa73696a53a867c5c80ea5813"
+    },
+    {
+      "path": "valid/Berminyak36_jpg.rf.dff106846bcb0d75df197ee43f76e0f1.jpg",
+      "sourceImageId": 133,
+      "imageSHA256": "21bccaaddd620855dea568618e26a623d77e6536bcb3884ded2bd3c3db3aaf96"
+    },
+    {
+      "path": "valid/Berminyak279_jpg.rf.552b84f3f41f0c530dfddad4e397963d.jpg",
+      "sourceImageId": 141,
+      "imageSHA256": "0e7ca0606b55e2fc2534f758945764a19316fac60f8d65c5afef3b5ba6de1caa"
+    },
+    {
+      "path": "valid/Rosacea-Skin-Concerns-Vitality-Laser-Geelong_jpg.rf.4c7499ecc87ecdc966c62dd363671879.jpg",
+      "sourceImageId": 149,
+      "imageSHA256": "caedbefd98d20b27da996d12db3b07fe81c800d448bd3f8e5ae425babfb136e1"
+    },
+    {
+      "path": "valid/levle1_492_jpg.rf.5b17c91cffd8ae1ffbe12cf52889203b.jpg",
+      "sourceImageId": 151,
+      "imageSHA256": "bed2212543f9c40c21835c036b136a6184f5f69b1ff7b9e957a4ce48177aa207"
+    },
+    {
+      "path": "valid/17_jpg.rf.f3e1a7df28788a1bab49c10adbac8208.jpg",
+      "sourceImageId": 153,
+      "imageSHA256": "4c50bdc6d90146a4d5134a76e16eaa4c4b2fcf7e1286e24681759fd653445352"
+    },
+    {
+      "path": "valid/Berminyak-4-_jpeg_jpg.rf.d390b9d3271c18d1bc492bdd6a0251d9.jpg",
+      "sourceImageId": 154,
+      "imageSHA256": "91c77394db95e31467fa2b010ec786b1658c795cf59fffcdccf2ed7ddaa5e25c"
+    },
+    {
+      "path": "valid/berminyak__-44-_jpg.rf.21b6b0aab93e6ae906700d33ee4c113a.jpg",
+      "sourceImageId": 157,
+      "imageSHA256": "266156e4bc686dfd7ef2aec7b1abd223045c8adfd6c03b30a37058cd99a49438"
+    },
+    {
+      "path": "valid/256_jpg.rf.8c9cff3a0d80e95b7fbf60673f19ac1f.jpg",
+      "sourceImageId": 161,
+      "imageSHA256": "8341be2dd9d3cd2461bc0850cb888d6c9cbf5815d7c94f92eece3f1dc96a7be8"
+    },
+    {
+      "path": "valid/acne-25-_jpg.rf.0487afa32a49e56fb25aedf0440c47a8.jpg",
+      "sourceImageId": 167,
+      "imageSHA256": "417fa16e186b01cbf0c41983d153db1705536a2dedf02903aa077caffeb8ecae"
+    },
+    {
+      "path": "valid/berminyak__-54-_JPG_jpg.rf.571da730f811e3476344e18e2cb3ab7f.jpg",
+      "sourceImageId": 169,
+      "imageSHA256": "dbe5f6c47eb93365cc0e5312a791091ef8965608736e5f0e87ade0bfff305126"
+    },
+    {
+      "path": "valid/638_jpg.rf.4730b1216071f424217990900d5b677b.jpg",
+      "sourceImageId": 175,
+      "imageSHA256": "4dcb9b0f98036e829336af83c5ac1214285be76b31c956270f5cb3ae96a47b6d"
+    },
+    {
+      "path": "valid/istockphoto-1214062242-170667a_jpg.rf.945dc73b706c70d2f864eadd13a15012.jpg",
+      "sourceImageId": 176,
+      "imageSHA256": "849012d7698c068480a6f600fbbafa90380ae02f8201626fdd8837634ace11c3"
+    },
+    {
+      "path": "valid/49_jpg.rf.359fb4a510153f8d8255443ca573515d.jpg",
+      "sourceImageId": 177,
+      "imageSHA256": "83ae438b73265c1977ba1e7db9671ef5ac55520e7b7886156194fb0687fe26b4"
+    },
+    {
+      "path": "valid/oily-61-_jpg.rf.30360dc98badc138afc07b2b2b224660.jpg",
+      "sourceImageId": 179,
+      "imageSHA256": "713d9640b5019ce59d07b0846d448cfc9a1662cdf3c0d0fb4d61a2fe6b64bdf2"
+    },
+    {
+      "path": "valid/serum-phuc-hoi-da-mong-noi-mach-mau-min_jpg.rf.8af9714677e8707baf8a577c508f9de3.jpg",
+      "sourceImageId": 186,
+      "imageSHA256": "c50ac2162c388a303fffc8106024636ceb13a8bc574b722d4b8b22c31ddb9d58"
+    },
+    {
+      "path": "valid/acne-688-_jpg.rf.d26ec1c5d25b1186897b5ee3357b0d10.jpg",
+      "sourceImageId": 188,
+      "imageSHA256": "fbbf0e86ea50c9d5e60083fdc4b0e53049c01869402561239008183b1e326b66"
+    },
+    {
+      "path": "valid/Berminyak-9-_jpg.rf.73f48505660332a6f102403fdbd28e70.jpg",
+      "sourceImageId": 189,
+      "imageSHA256": "6bec812b86275f32848c89a7ae172cf67931ac7789b0ba5a1b81e32559be7ae9"
+    }
+  ],
+  "sourceArchivesMutated": false,
+  "expertReviewed": false,
+  "lockedTestAccepted": false,
+  "trainingLaunched": false,
+  "remoteUploadPerformed": false
+}
