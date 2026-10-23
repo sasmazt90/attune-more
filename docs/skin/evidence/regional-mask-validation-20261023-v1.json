@@ -1,0 +1,589 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "pinned-coco-instance-mask-evaluation-v1",
+  "split": "valid",
+  "modelIdentity": {
+    "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c07ef",
+    "modelPackageId": "e1688c2c8447af39e51ce60dd8c7f1d0"
+  },
+  "sourceArchiveSHA256": "e470c5f1a9b4bdaadd87a9ba9b714175bc62ab0a7e0b10d10b4880a72889aa40",
+  "snapshotSHA256": "815bec7badbc4c1795e507f7eacf31f656981b4e75f4d528b2f659ae3986017a",
+  "images": 63,
+  "operatingPoints": {
+    "Oily": {
+      "threshold": 0.35,
+      "tp": 95,
+      "fp": 57,
+      "fn": 100,
+      "precision": 0.625,
+      "recall": 0.48717948717948717,
+      "f1": 0.547550432276657,
+      "groundTruthCount": 195
+    },
+    "Redness": {
+      "threshold": 0.35,
+      "tp": 44,
+      "fp": 16,
+      "fn": 61,
+      "precision": 0.7333333333333333,
+      "recall": 0.41904761904761906,
+      "f1": 0.5333333333333333,
+      "groundTruthCount": 105
+    }
+  },
+  "thresholdSelectionSplit": "valid",
+  "lockedThresholds": {
+    "Oily": 0.35,
+    "Redness": 0.35
+  },
+  "coco": [
+    {
+      "maxDetectionsPerImage": 100,
+      "map50": 0.4859408646371941,
+      "map50_95": 0.2099334931303934,
+      "perClass": {
+        "Oily": {
+          "map50": 0.48911640845410237,
+          "map50_95": 0.17005906762549952
+        },
+        "Redness": {
+          "map50": 0.4827653208202859,
+          "map50_95": 0.24980791863528728
+        }
+      }
+    },
+    {
+      "maxDetectionsPerImage": 300,
+      "map50": 0.48635165673764863,
+      "map50_95": 0.2104482161583254,
+      "perClass": {
+        "Oily": {
+          "map50": 0.4899425307358418,
+          "map50_95": 0.17105538287230426
+        },
+        "Redness": {
+          "map50": 0.4827607827394555,
+          "map50_95": 0.24984104944434654
+        }
+      }
+    }
+  ],
+  "imageReceipts": [
+    {
+      "imageId": 0,
+      "inferenceId": "3812075b-d4ac-46d1-8fc8-770de316f388",
+      "predictionCount": 62,
+      "emptyPredictedMasks": 5,
+      "imageSHA256": "8db76eac4ea7dfee66d033dd1b11ada083240b972b90421a931062056afa9bef",
+      "rawJSONSHA256": "eae856e0fcc66b397f77827be22019a1ab42d9bcff90ffe487660bd7e35e86a0"
+    },
+    {
+      "imageId": 1,
+      "inferenceId": "49472df5-7440-44d7-aa19-a6b45ea93d26",
+      "predictionCount": 213,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "7b0d03b86803095f617d7ff345825896c78e65d09065dbe32e7e1c82e3d2fb02",
+      "rawJSONSHA256": "32d11b15aed6ca67899f19cf3b601523899ecee101c57a158b17ebacad81e775"
+    },
+    {
+      "imageId": 10,
+      "inferenceId": "9b802fe6-b349-49c6-aba7-cc73f2453070",
+      "predictionCount": 158,
+      "emptyPredictedMasks": 1,
+      "imageSHA256": "a23165e81c7bf2837416caa90242116ce86d80369f1c3ac2472fdfe4c295dce0",
+      "rawJSONSHA256": "5a840b0ac46f2ae22177e6c1c21ae0e1a103e0a3c787356f324fae0341178b10"
+    },
+    {
+      "imageId": 11,
+      "inferenceId": "d8d9bacf-0035-4fcb-8155-3046627e5486",
+      "predictionCount": 63,
+      "emptyPredictedMasks": 6,
+      "imageSHA256": "e1685b1464e0282baa3e28e8bee5c9950d19067d25b8fae34f5c412c1aee0c30",
+      "rawJSONSHA256": "1db541acfbad5579e8977efecc6b233cced1c51caaf43d94a971c419c4dbf686"
+    },
+    {
+      "imageId": 12,
+      "inferenceId": "bf4d8821-63c2-44f0-ab7a-cab55030da54",
+      "predictionCount": 146,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "915e486b0f1e28b767b78f70dd235330378e3d7c74fae774717a7a38236743d3",
+      "rawJSONSHA256": "3e6446cb21162e03b279349b2c0ef5c785f79badb985aef639ebc1c8b9cb86e1"
+    },
+    {
+      "imageId": 13,
+      "inferenceId": "7daffc87-1dff-4bd8-ba09-6b05b6b8d89d",
+      "predictionCount": 144,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "91f3fa178f21b159adadd5e38b894b39516f0272e0b9117d8e39058d36e5bf57",
+      "rawJSONSHA256": "32c0d88b9b1b75d011966de5022e69950ed9cf387314c58912bee7e86ac6f40a"
+    },
+    {
+      "imageId": 14,
+      "inferenceId": "45bed85b-6dc7-4b12-9275-bdbf2a8cad62",
+      "predictionCount": 78,
+      "emptyPredictedMasks": 13,
+      "imageSHA256": "fcd39a267c719a3e6a024e2965175c02c439dfeef210614195c5209c7462bb31",
+      "rawJSONSHA256": "bb5af31cc101b0d8164b114dacb6bc895206a30b586b77cea9bf1ebb73b571aa"
+    },
+    {
+      "imageId": 15,
+      "inferenceId": "11a4c6e1-93d0-4524-b5cd-b867995b5ee0",
+      "predictionCount": 57,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "65e15dd424d52f1479100bd96c116d01cc0f69d4f36893bd90a92da5c2a38081",
+      "rawJSONSHA256": "7e565a07b305196ff90b09ba07ecde45c2b29db751bd6994888d90aa17a1b9a7"
+    },
+    {
+      "imageId": 16,
+      "inferenceId": "c00283a9-be83-47eb-a801-758a7988d2a4",
+      "predictionCount": 175,
+      "emptyPredictedMasks": 1,
+      "imageSHA256": "d6f71aa8c3ac42d186bf324168a46ee5e7f7111272a6691f27771044c43b109f",
+      "rawJSONSHA256": "c888d66dd49c59779f0ee6df0c54b3236f583a4bb3c1e5407768836f2d778044"
+    },
+    {
+      "imageId": 17,
+      "inferenceId": "24337bd1-dad7-4f41-b5da-1b88897d6739",
+      "predictionCount": 187,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "a4fbea9e7ad110ae21dce7f66e917fd5f0fe693373d4ecdf5bc9277b4f23c91e",
+      "rawJSONSHA256": "986dd83229101a5cf708c88a3b26a7001febc2dd6ce04785db574aab044eccce"
+    },
+    {
+      "imageId": 18,
+      "inferenceId": "ed5c6e7c-257b-4193-ab3e-15535a15b6c5",
+      "predictionCount": 144,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "bed2212543f9c40c21835c036b136a6184f5f69b1ff7b9e957a4ce48177aa207",
+      "rawJSONSHA256": "c0cbdbf328d8a50296b4851da6fe36f15b3d93015074275ed5e1ac2f868e1712"
+    },
+    {
+      "imageId": 19,
+      "inferenceId": "957ef1c2-2bbf-466e-8c3f-e4cd56a737aa",
+      "predictionCount": 100,
+      "emptyPredictedMasks": 6,
+      "imageSHA256": "13f5056f5e7f57b4b82d81b4aea11b6ed9866238a772ef425335c3084b4941f0",
+      "rawJSONSHA256": "fc2c139a340cb3c579315e5ca06ffbbc85eb9118ec0bfd074a24c7b925975a85"
+    },
+    {
+      "imageId": 2,
+      "inferenceId": "6bd39514-daab-4e9b-8c91-f43eb9925a95",
+      "predictionCount": 42,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "d1a2eda00b8eeecd8c60b3e37d3f7a689bf914c181d69879a5cd267e10ee4e1e",
+      "rawJSONSHA256": "aadad19653b7cabc791f5af5e8205f8ce7f9042efa7eff1cdbfed7a88521251d"
+    },
+    {
+      "imageId": 20,
+      "inferenceId": "230b084b-8044-40ee-9f0f-b5cd330e1383",
+      "predictionCount": 171,
+      "emptyPredictedMasks": 1,
+      "imageSHA256": "8daeb2c37cbbaf0c654ade6aa46daae85d0593f5894c789b259dd867f3fe3643",
+      "rawJSONSHA256": "97924dc705e5c6e8b6623e2c7f7a3bcb09d58ee3fb7392015b0578a7a1b4f1c2"
+    },
+    {
+      "imageId": 21,
+      "inferenceId": "b213b692-6780-4000-ab3d-4e1a97c830e6",
+      "predictionCount": 176,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "8341be2dd9d3cd2461bc0850cb888d6c9cbf5815d7c94f92eece3f1dc96a7be8",
+      "rawJSONSHA256": "3e0a96dfba14d86eefbbb103d82f2bfee1819963cf04bb187dd94f84d5445015"
+    },
+    {
+      "imageId": 22,
+      "inferenceId": "ccf2b4ea-d903-4c15-9618-89ccab7de3dd",
+      "predictionCount": 195,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "2c02a948e13e61e8ff449aab316d61061a1a16b4a94a6d076d8e4b3920077b91",
+      "rawJSONSHA256": "cb2af5f23890f5ebec3fa855e4dd666be2b39e08dbb07cd37e51147442cc073a"
+    },
+    {
+      "imageId": 23,
+      "inferenceId": "a5d4b055-5465-4f22-834f-7120e2ecc663",
+      "predictionCount": 23,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "caedbefd98d20b27da996d12db3b07fe81c800d448bd3f8e5ae425babfb136e1",
+      "rawJSONSHA256": "9982b2eaaee4ba7475f80729f51b9a5d9aefbf1a87bd80c014f941f1c27ab744"
+    },
+    {
+      "imageId": 24,
+      "inferenceId": "9fe6e0ad-aa83-4927-b7d3-8e8fb21b21fb",
+      "predictionCount": 59,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "90b6e1df4219daec1573f452901a44cce9ecbee400b03b89a8fdb25da3f47429",
+      "rawJSONSHA256": "73e497820a3f5723e3540c05c40499b9fe7e4696c4a5dd722c379a73cf68aa2f"
+    },
+    {
+      "imageId": 25,
+      "inferenceId": "b7d86ca1-68ad-4703-8d69-e34221ace02c",
+      "predictionCount": 99,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "fbbf0e86ea50c9d5e60083fdc4b0e53049c01869402561239008183b1e326b66",
+      "rawJSONSHA256": "09ae13aa5b90178877c6c06e7815a8f681e8d0d6785e4d73bdd454b959618e17"
+    },
+    {
+      "imageId": 26,
+      "inferenceId": "56704371-222c-424c-869a-a256a745b390",
+      "predictionCount": 115,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "62ccc160711b204fbc4be271a6af87451d99e76402f5b18a8ddd05672d4b81b6",
+      "rawJSONSHA256": "2b88eb23785c3d483fba52496d56ead11bd44f758e284601f4c99293799dece2"
+    },
+    {
+      "imageId": 27,
+      "inferenceId": "be9d806d-523a-4f44-a092-8b7ddf272227",
+      "predictionCount": 114,
+      "emptyPredictedMasks": 1,
+      "imageSHA256": "7b5a9c2de886f2087656516ee6035c1568b2cd6d83a594da11eaa5cd5469926e",
+      "rawJSONSHA256": "3e09e0955f1207ee0df58819fb7789bbb508069e36ab22d8e901f2385fc1ccdc"
+    },
+    {
+      "imageId": 28,
+      "inferenceId": "52bac061-434d-48d4-ba6a-ba4ebfce7149",
+      "predictionCount": 208,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "45fada250c74ae259c0cf9cc058ab6412dc388f8818226333a1f606fcd7ddfa3",
+      "rawJSONSHA256": "a1bef740e85917d08268cc4cef07f96c10246ef1c135774849ff9f93de2e2aca"
+    },
+    {
+      "imageId": 29,
+      "inferenceId": "898661ad-29e3-40e0-b80c-52cbfd3f1373",
+      "predictionCount": 206,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "bf73d0b25b5b6863b5c7ecd0df76883bca880ab809dc1569b243ba9251b24d96",
+      "rawJSONSHA256": "087680f71db18b66901ffd38aae92e51c4565a5ca7405654d4af4a807376b4b6"
+    },
+    {
+      "imageId": 3,
+      "inferenceId": "a1bd9434-340e-473b-9c9d-86bc85f39d80",
+      "predictionCount": 191,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "e91bd10a75638e79b655607bedcfc645852d2f74ecc31e53ccd8aebae9647993",
+      "rawJSONSHA256": "f70356b79d67f44ae8b6a695f37f52e67966b670f0f3b94e8c24434a7842a862"
+    },
+    {
+      "imageId": 30,
+      "inferenceId": "a60dd371-8c19-4fd9-9d1a-f490dc5f03aa",
+      "predictionCount": 190,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "5c1935cdff17bde16be71fe4f6bbe033524779d385ba3982a7480187c02dfafb",
+      "rawJSONSHA256": "288e46f8b49bcf39dfc8ad2871dbbe4094661f0b791e05a1d4aa8fc0b4edc0d2"
+    },
+    {
+      "imageId": 31,
+      "inferenceId": "466dee36-b45e-491c-9593-cb3420f4d553",
+      "predictionCount": 162,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "0a1b0e1e879cd052f46ca1877c55344bd93845eb4373144d065e64a8048db848",
+      "rawJSONSHA256": "dd28a27e835f7d2d8ef8c55d709e48206e6c44479c7d870b1fa89237a4926f29"
+    },
+    {
+      "imageId": 32,
+      "inferenceId": "fd76d9f0-35e5-4860-9444-e647557005cc",
+      "predictionCount": 126,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "1d5367d93a0f3edc3d7ad781b14ea7e1f1bb4c5523dc1acf69dc409415eccb19",
+      "rawJSONSHA256": "ccd3f1a71859e2b1cdc97cc96c68094684c769fddb6cc35dfe9965fb33d26710"
+    },
+    {
+      "imageId": 33,
+      "inferenceId": "892a342e-152c-41b1-bbc5-7cd94f270a59",
+      "predictionCount": 239,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "a263f77e4cfbb108522d389d61bf7f0816b8ce0141cec1bf9f0a6b9d002a25b8",
+      "rawJSONSHA256": "4ff894d88fef209b3fc5c642f83943e80ccee4c5653a60c8424506d7bc1ed511"
+    },
+    {
+      "imageId": 34,
+      "inferenceId": "d197ee98-c611-43e9-a414-53827fe8045e",
+      "predictionCount": 108,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "b256cd87f56cc780368f1c22cbdd877a8b48673f1d9d6306243068ba9ebcd1d4",
+      "rawJSONSHA256": "0de7ca41b0961486879f9405a41bdadc3cbde8c230f183e41bc31b8b198a7fe4"
+    },
+    {
+      "imageId": 35,
+      "inferenceId": "66c804be-744e-44ba-b9ae-ed7300a84cf4",
+      "predictionCount": 77,
+      "emptyPredictedMasks": 1,
+      "imageSHA256": "355049c749d238594716306d27caee9fa720f61402fe057bf649fbe349335085",
+      "rawJSONSHA256": "a97db6e24359d875f005951e7829550f75673bf6cbe94223527a96b4c86a21b2"
+    },
+    {
+      "imageId": 36,
+      "inferenceId": "0f2aec35-3d5f-4d55-84d7-9b3da475692e",
+      "predictionCount": 92,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "b5eed7bdc6afceb5820508e7e68c07f2a5c8618e985790f4fb65575c694af64e",
+      "rawJSONSHA256": "a3420e8923771d228114ed942e6a4b0dd54caf083b953aa566d7aace4bdfdb4c"
+    },
+    {
+      "imageId": 37,
+      "inferenceId": "7a7504a2-056d-410f-afac-1d7b22dfe9be",
+      "predictionCount": 161,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "5f30763b48568a12a18348340021dc71192db405e7d0253721a89de9578b9a97",
+      "rawJSONSHA256": "6c8dba2b8383ac0157e11fab255accf9b438ef40c81cc61272bbcabeecfe2366"
+    },
+    {
+      "imageId": 38,
+      "inferenceId": "b2014368-ec8d-4c95-a2fc-2ddf23ad5d94",
+      "predictionCount": 189,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "f7c0e8aa169632944061cc6913d62ed144fefe6442e28f0447c3558ee907b6d3",
+      "rawJSONSHA256": "0d490a1c180e3ac9f6386178ad353ac491f300eea7d32d281494f702fd3e9743"
+    },
+    {
+      "imageId": 39,
+      "inferenceId": "f23a16ee-6fdc-41e7-ae6f-3ee38d681f5a",
+      "predictionCount": 102,
+      "emptyPredictedMasks": 1,
+      "imageSHA256": "10dd0fa43dcc97dacc2f22fd52e9aac5dd88157afd6c9100176fc161a1dc7495",
+      "rawJSONSHA256": "2ae98273b65aebe56fe167c07b529d153adfb304d39459eeeccaeb37b4ba4310"
+    },
+    {
+      "imageId": 4,
+      "inferenceId": "ceb3bd15-e1a8-4abb-89e8-f3b2a9d34f2e",
+      "predictionCount": 131,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "7d3fcd470bfab14b4c0a111c67b62aa6a1c7f310364bfd008ce4ea1d4fe996e7",
+      "rawJSONSHA256": "fd9146846ba73cda54a2ab0d89db08b5f59c29c075a300875a299a57facb50c3"
+    },
+    {
+      "imageId": 40,
+      "inferenceId": "4517ab6d-ffa7-45f4-9861-4ffaa6338124",
+      "predictionCount": 37,
+      "emptyPredictedMasks": 5,
+      "imageSHA256": "09c4102e52cfcf9686973f3ac995c701c970d61c2ab889faa00098cc2d8afc33",
+      "rawJSONSHA256": "b330804d747fda9df9159e229b8ab76e078f196e5983a462c7667aafd310f06f"
+    },
+    {
+      "imageId": 41,
+      "inferenceId": "815c3888-3af1-4e1b-a11d-1218b09e15b2",
+      "predictionCount": 217,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "b0cf8521dc5bfe7f7a305be0c0021838e03b41c331968d20de061c2a1f060b9b",
+      "rawJSONSHA256": "21fa105f9aab0d72b6f9230c249afe0fe26747634766311457496e8eed3efdaf"
+    },
+    {
+      "imageId": 42,
+      "inferenceId": "80ecaa7a-88d9-4afe-8690-6058d099f75b",
+      "predictionCount": 210,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "f97742e132c195b48f168c475e50aff7222ac0b6800daa75a31576e85e4b1f39",
+      "rawJSONSHA256": "6810eefb8251c26c3e8380ccd95224f24ed4ac466445ea722bb217156d6ec453"
+    },
+    {
+      "imageId": 43,
+      "inferenceId": "ebd5fdda-f7a0-40b2-b62b-f5ee8f0da06f",
+      "predictionCount": 167,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "417fa16e186b01cbf0c41983d153db1705536a2dedf02903aa077caffeb8ecae",
+      "rawJSONSHA256": "4cc48a457ea20b5e01ee50db58cd9991c7976e3a80d86f7f2ba6c276d5092ec4"
+    },
+    {
+      "imageId": 44,
+      "inferenceId": "1cd5f901-7557-4b51-8020-6dd59118a5cd",
+      "predictionCount": 25,
+      "emptyPredictedMasks": 6,
+      "imageSHA256": "ad9db2d2bbbb6a88560d89d22c06bca4ef15759a1396f2b88558a3174932ef2b",
+      "rawJSONSHA256": "6f607cfc79186f40ef77dbb4e7be0635ad52a2b5e43701856c11fe936184a065"
+    },
+    {
+      "imageId": 45,
+      "inferenceId": "6fe2d83a-b5f6-43f2-9c8f-540859863b6b",
+      "predictionCount": 104,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "99e179835244758574adff3b865a5b4d4b7d7a01c3ff7e6d64cf742eb86d0e35",
+      "rawJSONSHA256": "20e7aa7949aa79c6a2e9f28fc6085a4d60ef8630350d020d1ced30ec5fa230ca"
+    },
+    {
+      "imageId": 46,
+      "inferenceId": "f48e2dd6-2b34-402f-a2ec-70275b9e4f1e",
+      "predictionCount": 116,
+      "emptyPredictedMasks": 4,
+      "imageSHA256": "a8b10ea0aa8d761e2ab3bcb1baedba28c2d90bc1827065349586fc55db896ad7",
+      "rawJSONSHA256": "008c72f6f3c9de028aab020dfe280a0a73e90e871c49917f30f7f1529ddd4a4b"
+    },
+    {
+      "imageId": 47,
+      "inferenceId": "434b4c9e-50ac-4638-9e38-9c31d3b648b0",
+      "predictionCount": 68,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "115e452218502f1522e7b3844a73769057ae58d2096c53608f901a8f14b7ced8",
+      "rawJSONSHA256": "d56f93abfaedfe24d028bed3f1445485572a06ea0c536fbb0f662a3affb4037f"
+    },
+    {
+      "imageId": 48,
+      "inferenceId": "db021c31-9c2f-4893-8f96-33b98fdb134b",
+      "predictionCount": 59,
+      "emptyPredictedMasks": 7,
+      "imageSHA256": "0ce659d8179a47afc69c6757994e4f7d00e47db14f2627224f404746bc95cb70",
+      "rawJSONSHA256": "83d18ce841ced5480c4d112eb8c8804c51dae71ab1632a38a45a72e49269b53a"
+    },
+    {
+      "imageId": 49,
+      "inferenceId": "c6025ef4-e20d-45a0-9029-a23f6339e67c",
+      "predictionCount": 152,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "21bccaaddd620855dea568618e26a623d77e6536bcb3884ded2bd3c3db3aaf96",
+      "rawJSONSHA256": "822b72f6e71cd2d1c18813aa959660eec7c74c4a3863d42be4f90911d9338f60"
+    },
+    {
+      "imageId": 5,
+      "inferenceId": "19117178-a8b0-4416-8683-57bf8a8368a8",
+      "predictionCount": 105,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "b02508904491f17606559e6820bcd5c4a890214ce687ed96640d829f07afc4dd",
+      "rawJSONSHA256": "e7a6033559070f7a8e75cfafcb38acdde368a9ac97c5827d7310b2b2d9f849ed"
+    },
+    {
+      "imageId": 50,
+      "inferenceId": "2ad5e24a-67bd-44bb-81fd-138e5cb7cad9",
+      "predictionCount": 59,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "cdaec41dc83023131f001f1fa70b75b71e4c4cb6f9722f6c7d5e5ff86c644de8",
+      "rawJSONSHA256": "f67f4d6c94935e824ae537d089d8f697abba49a2effac4be6289d44fe80ab374"
+    },
+    {
+      "imageId": 51,
+      "inferenceId": "205712b1-1e63-4ef0-a774-7528a77e09a5",
+      "predictionCount": 76,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "0e7ca0606b55e2fc2534f758945764a19316fac60f8d65c5afef3b5ba6de1caa",
+      "rawJSONSHA256": "d6a07a984e5e12061301e4b23bc8a436442fb166a99fde196110be79c59d1a2b"
+    },
+    {
+      "imageId": 52,
+      "inferenceId": "f95758c6-7e57-4844-91dc-319be460c3f8",
+      "predictionCount": 105,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "f5a404f995813d499a1dd5675781c97aa85a16ecabe9654acb191f3f11418789",
+      "rawJSONSHA256": "4a982d8efe99343434fa68826563fc8ae05cfa77ab2779e101d950cebb982537"
+    },
+    {
+      "imageId": 53,
+      "inferenceId": "bfdbe00e-d6e6-4582-a592-ec4d0841b52b",
+      "predictionCount": 120,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "1e21b0f80aafa8487d8cd7b288746d0c85480fe76d2edf36e34c12d0d30d3182",
+      "rawJSONSHA256": "f1c82b58e28f60f31bf905aa7ef8aab02403ff5cb296917ef06a244ce022fef2"
+    },
+    {
+      "imageId": 54,
+      "inferenceId": "bb2155e0-9f72-4da1-bae7-6dc6818dbfdf",
+      "predictionCount": 190,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "c4b5008a4d66cdae4f0218f1c53170d3c5d652a57aa3d2be821f670c0b719010",
+      "rawJSONSHA256": "80fdcf3b333575d9cff90b8ac91434c9224bcf0eaf849b1211ff9adfe4a2349b"
+    },
+    {
+      "imageId": 55,
+      "inferenceId": "3b6aa154-3956-4af4-9677-df114c354d75",
+      "predictionCount": 41,
+      "emptyPredictedMasks": 2,
+      "imageSHA256": "849012d7698c068480a6f600fbbafa90380ae02f8201626fdd8837634ace11c3",
+      "rawJSONSHA256": "bccced93d878b23bcec7685d7c40d0172c6dce6a245fd9336416f0a1296a6d37"
+    },
+    {
+      "imageId": 56,
+      "inferenceId": "dcc50619-06d9-4519-b868-90008950187b",
+      "predictionCount": 123,
+      "emptyPredictedMasks": 17,
+      "imageSHA256": "08941749dcd61cc5263e9a32e661474f80a99bf9e29058ca33cd2995a507f7fc",
+      "rawJSONSHA256": "5460edd0a75b7a554d2b1c8ceec7aee7a42181db09312c9fdd79cf4d24087570"
+    },
+    {
+      "imageId": 57,
+      "inferenceId": "8abd4967-1d25-4c33-b73c-009dbd1b7290",
+      "predictionCount": 12,
+      "emptyPredictedMasks": 3,
+      "imageSHA256": "c86a781703c1e8391548d50a4a7d5611ae7c8a324737999db3b7657f41ad3343",
+      "rawJSONSHA256": "042de712191cf70973c537f8db5be71ad4d1d3439f6db734d5efd8989bd948fb"
+    },
+    {
+      "imageId": 58,
+      "inferenceId": "5428decc-07cd-4695-b663-1925a618efab",
+      "predictionCount": 205,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "a4fc89d48197175c136dbb4a1579e6332ed1550d0be8672c290a95c2595bad1e",
+      "rawJSONSHA256": "47f425f05807ad2c41ea3c7d293334db8ee4ebca1929ffdd9e37ed414ae63322"
+    },
+    {
+      "imageId": 59,
+      "inferenceId": "35fa13d4-f98f-4c18-a8ee-d07bd27982ba",
+      "predictionCount": 197,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "03c9fdc8e46b694bef943317db7d951659c76544cc63f7a04dd1a42df58241c9",
+      "rawJSONSHA256": "3723dd76e009f0bcbdd0c9d57378700c314c04ae5f25573c96c9f02769a874e0"
+    },
+    {
+      "imageId": 6,
+      "inferenceId": "b5f17c38-a0e4-49fc-9e59-0f3d038a90fd",
+      "predictionCount": 133,
+      "emptyPredictedMasks": 2,
+      "imageSHA256": "cedb7a4b2713a867a021db2824a2043699cd1591d278a7b1d200ef28c4dc37c8",
+      "rawJSONSHA256": "15735e5f02e421b55923f7510e896b5de96c4738aec9d369f5a200e20a4514b5"
+    },
+    {
+      "imageId": 60,
+      "inferenceId": "7ba6e194-bff3-460f-b06b-e0bc0526d179",
+      "predictionCount": 93,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "df13b15bd25fd9866ca756a5a37998987bb5a32541d93cf07b226503586b7fae",
+      "rawJSONSHA256": "da0665704cc2ec344bce9d5fb1eede3ea863ac51f04708fe8e9bd12c0171aca7"
+    },
+    {
+      "imageId": 61,
+      "inferenceId": "495b91d4-9e59-495c-a07c-b3edfabf269f",
+      "predictionCount": 126,
+      "emptyPredictedMasks": 2,
+      "imageSHA256": "9a2316fd4a6bc6f35075f04e3b1a09ac10eeed4bd9ab22570020c8cca7ff83c4",
+      "rawJSONSHA256": "09dc695d98847745971e2e1053df44836f9f13055962cc03e2a0d445a45d778d"
+    },
+    {
+      "imageId": 62,
+      "inferenceId": "5402fe07-88a9-47de-a478-13819a725ac7",
+      "predictionCount": 78,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "30c06e6e7bd560cae5ba567b512cf4287e37e187565571af6e4354eadfc314bf",
+      "rawJSONSHA256": "c09742a1a33e31713d92b36a9cbf63d412c8bb38f19b24fad098aabd2311ca5f"
+    },
+    {
+      "imageId": 7,
+      "inferenceId": "736cb104-eb85-4047-9e73-038be115e463",
+      "predictionCount": 121,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "97d2c1e548fc1ed86dde5a5ba88cb6ae7a8acb2593eabcd50dfc87ce789df965",
+      "rawJSONSHA256": "8d4e9ecd529497c2ed512a7177638777f88875d2cfb04a4a7f9dcecf38ca1a0c"
+    },
+    {
+      "imageId": 8,
+      "inferenceId": "d56de992-83fe-4a0a-8389-2d3d26f21628",
+      "predictionCount": 172,
+      "emptyPredictedMasks": 1,
+      "imageSHA256": "36a9a18312327ffd2aefb72b7a2c543870780b270adcd9aaf1702443fc3e6bfa",
+      "rawJSONSHA256": "1dbdbf2337148bed404d9f8c661448260df86838ab7fc058bac335addbed35c2"
+    },
+    {
+      "imageId": 9,
+      "inferenceId": "0213251e-4828-4fb9-b293-bb873f44e399",
+      "predictionCount": 210,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "266156e4bc686dfd7ef2aec7b1abd223045c8adfd6c03b30a37058cd99a49438",
+      "rawJSONSHA256": "711d236f85770fd9ed83973c488989882c8fb4810d8ee145517b61ce6fb52706"
+    }
+  ],
+  "evaluationGeometry": "instance-polygons-not-boxes",
+  "evaluationAreaPolicy": "Derived from polygon raster only; source archive unchanged",
+  "emptyPredictedMasks": 85,
+  "predictionRasterPolicy": "Unmodified finite in-frame model contours rasterized by COCO. Empty masks count as unmatched predictions; no box fallback or contour repair.",
+  "modelAccepted": false,
+  "cameraAccepted": false,
+  "normalRegionsInferred": false,
+  "limitations": [
+    "Incomplete publisher annotations can count unlabelled real appearance as false positives.",
+    "Mask matching does not establish normal/dry/sensitivity truth or anatomical regional coverage.",
+    "Existing source split and subject-independence limitations remain; synthetic tests validate tooling only."
+  ]
+}

@@ -308,7 +308,7 @@
     "regionalMap": {
       "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
       "images": 337,
-      "status": "research-only NAS segmentation finished; separate active evaluation in progress",
+      "status": "NAS segmentation finished; pinned candidate mask evaluation complete, no product acceptance",
       "projectSummaryImages": 337,
       "uploadTaskId": "jr8FWunZL1rM1mIowmxS",
       "uploadStatus": "completed",
@@ -350,7 +350,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-23 07:27:15 UTC",
+      "lastCheckedAt": "2026-10-23 07:28:48 UTC",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "modelIds": [
@@ -443,7 +443,117 @@
       },
       "versionReceipt": "docs/skin/evidence/regional-mask-comparison-20261023-v1.json",
       "trainingReceipt": "docs/skin/evidence/regional-training-20261023-v1.json",
-      "modelCount": 75
+      "modelCount": 75,
+      "providerModelRecords": 75,
+      "distinctModelIds": 74,
+      "duplicateModelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545",
+      "candidateEvaluation": {
+        "modelIdentity": {
+          "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c07ef",
+          "modelPackageId": "e1688c2c8447af39e51ce60dd8c7f1d0"
+        },
+        "validImages": 63,
+        "testImages": 30,
+        "thresholdSelectionSplit": "valid",
+        "lockedThresholds": {
+          "Oily": 0.35,
+          "Redness": 0.35
+        },
+        "testOperatingPoints": {
+          "Oily": {
+            "threshold": 0.35,
+            "tp": 37,
+            "fp": 20,
+            "fn": 53,
+            "precision": 0.6491228070175439,
+            "recall": 0.4111111111111111,
+            "f1": 0.5034013605442177,
+            "groundTruthCount": 90
+          },
+          "Redness": {
+            "threshold": 0.35,
+            "tp": 15,
+            "fp": 9,
+            "fn": 22,
+            "precision": 0.625,
+            "recall": 0.40540540540540543,
+            "f1": 0.4918032786885246,
+            "groundTruthCount": 37
+          }
+        },
+        "testCOCO": [
+          {
+            "maxDetectionsPerImage": 100,
+            "map50": 0.461349099750096,
+            "map50_95": 0.18973477814702222,
+            "perClass": {
+              "Oily": {
+                "map50": 0.4806006565466834,
+                "map50_95": 0.15117252544717238
+              },
+              "Redness": {
+                "map50": 0.4420975429535087,
+                "map50_95": 0.22829703084687206
+              }
+            }
+          },
+          {
+            "maxDetectionsPerImage": 300,
+            "map50": 0.4635148884645329,
+            "map50_95": 0.19032638986524852,
+            "perClass": {
+              "Oily": {
+                "map50": 0.48231771589719,
+                "map50_95": 0.1519599393580695
+              },
+              "Redness": {
+                "map50": 0.4447120610318757,
+                "map50_95": 0.2286928403724275
+              }
+            }
+          }
+        ],
+        "testUnionDiagnostics": {
+          "Oily": {
+            "annotatedPixels": 467419,
+            "predictedPixels": 288274,
+            "intersectionPixels": 178393,
+            "unionPixels": 577300,
+            "microIoU": 0.30901264507188636,
+            "annotationCoverageFraction": 0.3816554312084019,
+            "predictedFractionOverlappingAnnotations": 0.6188313895807461,
+            "meanIoUOnAnnotatedImages": 0.31999956690006987,
+            "annotatedImages": 21,
+            "imagesWithoutSourceAnnotations": 9
+          },
+          "Redness": {
+            "annotatedPixels": 329644,
+            "predictedPixels": 358296,
+            "intersectionPixels": 285516,
+            "unionPixels": 402424,
+            "microIoU": 0.7094904876448721,
+            "annotationCoverageFraction": 0.8661343752654379,
+            "predictedFractionOverlappingAnnotations": 0.7968718601379865,
+            "meanIoUOnAnnotatedImages": 0.6523100485268608,
+            "annotatedImages": 9,
+            "imagesWithoutSourceAnnotations": 21
+          }
+        },
+        "accepted": false,
+        "cameraAcceptance": false,
+        "splitIndependenceEstablished": false,
+        "sourceAnnotationCompletenessEstablished": false,
+        "evidence": [
+          "docs/skin/evidence/regional-mask-validation-20261023-v1.json",
+          "docs/skin/evidence/regional-mask-test-20261023-v1.json",
+          "docs/skin/evidence/regional-union-diagnosis-20261023-v1.json",
+          "docs/skin/evidence/regional-mask-threshold-lock-20261023-v1.json"
+        ],
+        "inferenceEvidence": [
+          "docs/skin/evidence/regional-mask-inferences-valid-20261023-v1.index.json",
+          "docs/skin/evidence/regional-mask-inferences-test-20261023-v1.index.json"
+        ]
+      }
     },
     "allProjectsPrivate": true
   },
@@ -555,7 +665,11 @@
         "docs/skin/evidence/merve-direct-summary-20261023-v1.json",
         "docs/skin/evidence/merve-direct-audit-20261023-v1.json.gz",
         "docs/skin/evidence/merve-pul-visual-review-20261023-v1.json",
-        "docs/skin/evidence/source-and-diagnosis-checks-20261023-v1.json"
+        "docs/skin/evidence/source-and-diagnosis-checks-20261023-v1.json",
+        "docs/skin/evidence/regional-mask-inferences-valid-20261023-v1.index.json",
+        "docs/skin/evidence/regional-mask-inferences-test-20261023-v1.index.json",
+        "docs/skin/evidence/regional-mask-visual-review-20261023-v1.json",
+        "docs/skin/evidence/regional-mask-evaluation-checks-20261023-v1.json"
       ],
       "blockers": [
         "Final holdout independence is not established: perceptual and filename crop relations need source/provenance review; prior exposure and person overlap are unknown.",
@@ -650,7 +764,7 @@
     {
       "id": "04",
       "target": "regional-oiliness",
-      "status": "pilot_training_finished_evaluation_in_progress",
+      "status": "pilot_mask_evaluated_improvement_needed",
       "work": "Audit selected Oily/Oily-Skin regional truth; prepare reliable regional samples; evaluate shine/illumination confounders; green overlay from measured regional support.",
       "evidence": [
         "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
@@ -662,11 +776,20 @@
         "docs/skin/evidence/regional-mask-comparison-20261023-v1.json",
         "docs/skin/evidence/regional-mask-comparison-details-20261023-v1.json.gz",
         "docs/skin/evidence/regional-training-20261023-v1.json",
-        "docs/skin/evidence/tiling-and-regional-checks-20261023-v1.json"
+        "docs/skin/evidence/tiling-and-regional-checks-20261023-v1.json",
+        "docs/skin/evidence/regional-nas-frontier-20261023-v1.json",
+        "docs/skin/evidence/regional-mask-validation-20261023-v1.json",
+        "docs/skin/evidence/regional-mask-test-20261023-v1.json",
+        "docs/skin/evidence/regional-union-diagnosis-20261023-v1.json",
+        "docs/skin/evidence/regional-mask-threshold-lock-20261023-v1.json",
+        "docs/skin/evidence/regional-mask-inferences-valid-20261023-v1.index.json",
+        "docs/skin/evidence/regional-mask-inferences-test-20261023-v1.index.json",
+        "docs/skin/evidence/regional-mask-visual-review-20261023-v1.json",
+        "docs/skin/evidence/regional-mask-evaluation-checks-20261023-v1.json"
       ],
       "blockers": [
-        "337 source-polygon-only images imported with 1636 Oily/Redness polygons. Unsupported geometry and cross-split candidate images quarantined. Existing source masks are not expert labels; missing/normal coverage and identity independence remain unresolved.",
-        "Version1 contains337images1636exact source polygons, same244/63/30splits;316image boxes were recomputed by export, masks unchanged. Training3485f8c67f957a1b850d finished with75models; separate active evaluation work detected, do not duplicate; no model/camera acceptance. Dataset board confirms337annotated,0expertapproved; project.unannotated field is inconsistent, do not reupload."
+        "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
+        "Oily test mask precision/recall 0.649/0.411 and class-union IoU 0.309 require improvement. Redness test mask precision/recall 0.625/0.405, but class-union IoU 0.709 shows that instance subdivision matters; only nine test images have redness annotations. This is promising research evidence, not camera acceptance."
       ]
     },
     {
@@ -706,7 +829,7 @@
     {
       "id": "07",
       "target": "regional-redness",
-      "status": "pilot_training_finished_evaluation_in_progress",
+      "status": "pilot_mask_evaluated_camera_pending",
       "work": "Audit Redness/Skin-Redness local labels; evaluate source score and regional masks; red contour/hatching independent from oil/dry map; do not equate redness with sensitivity.",
       "evidence": [
         "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
@@ -718,11 +841,20 @@
         "docs/skin/evidence/regional-mask-comparison-20261023-v1.json",
         "docs/skin/evidence/regional-mask-comparison-details-20261023-v1.json.gz",
         "docs/skin/evidence/regional-training-20261023-v1.json",
-        "docs/skin/evidence/tiling-and-regional-checks-20261023-v1.json"
+        "docs/skin/evidence/tiling-and-regional-checks-20261023-v1.json",
+        "docs/skin/evidence/regional-nas-frontier-20261023-v1.json",
+        "docs/skin/evidence/regional-mask-validation-20261023-v1.json",
+        "docs/skin/evidence/regional-mask-test-20261023-v1.json",
+        "docs/skin/evidence/regional-union-diagnosis-20261023-v1.json",
+        "docs/skin/evidence/regional-mask-threshold-lock-20261023-v1.json",
+        "docs/skin/evidence/regional-mask-inferences-valid-20261023-v1.index.json",
+        "docs/skin/evidence/regional-mask-inferences-test-20261023-v1.index.json",
+        "docs/skin/evidence/regional-mask-visual-review-20261023-v1.json",
+        "docs/skin/evidence/regional-mask-evaluation-checks-20261023-v1.json"
       ],
       "blockers": [
-        "337 source-polygon-only images imported with 1636 Oily/Redness polygons. Unsupported geometry and cross-split candidate images quarantined. Existing source masks are not expert labels; missing/normal coverage and identity independence remain unresolved.",
-        "Version1 contains337images1636exact source polygons, same244/63/30splits;316image boxes were recomputed by export, masks unchanged. Training3485f8c67f957a1b850d finished with75models; separate active evaluation work detected, do not duplicate; no model/camera acceptance. Dataset board confirms337annotated,0expertapproved; project.unannotated field is inconsistent, do not reupload."
+        "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
+        "Oily test mask precision/recall 0.649/0.411 and class-union IoU 0.309 require improvement. Redness test mask precision/recall 0.625/0.405, but class-union IoU 0.709 shows that instance subdivision matters; only nine test images have redness annotations. This is promising research evidence, not camera acceptance."
       ]
     },
     {
@@ -792,7 +924,8 @@
         "tests/unit/regional_skin_map_frontend.cjs",
         "tests/unit/test_regional_map_frontend_contract.py",
         "docs/skin/evidence/regional-map-browser-checks-20261023-v1.json",
-        "docs/skin/regional-map-browser-contract-20261023.md"
+        "docs/skin/regional-map-browser-contract-20261023.md",
+        "docs/skin/regional-mask-evaluation-20261023.md"
       ],
       "blockers": [
         "Numeric API regional summaries now survive browser conversion and overview/history validation with source capture and dimensions bound. 48 contract assertions across four actual server fixtures pass. No UI pixel/region overlay has been enabled; rendering, real-camera acceptance, accepted model integration, trend wiring and complete browser/API/history E2E remain pending."
@@ -815,11 +948,11 @@
     "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety."
   },
   "nextActions": [
-    "Regional version 1 NAS training 3485f8c67f957a1b850d is finished with 75 models as freshly verified at 07:27:15 UTC. A separate active evaluation is producing pinned validation/test mask inference and diagnosis receipts in the shared working area; do not duplicate its inference or training. Preserve the browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54 and append completed evaluation evidence using a fresh branch lease. No regional model is accepted yet.",
-    "Acne localization and taxonomy diagnosis is saved for all 165 validation images. Cross-class disagreement, poor tight IoU, tiny instances and the prediction cap remain. Do not call overlap opportunities recall or assistant review expert labels. Review label standards and coverage before another training; do not repeat completed tiling or retune on the exposed test.",
-    "Merve v12 has been audited; its archive SHA256 matches the historical selected file. There are 2,590 pul boxes, zero pul masks and 3,368 CLAHE-prefixed filenames. Do not repeat the download/audit or turn these boxes into blue masks or normal truth. Natural RGB calibration is not admitted; natural source counterparts and true dry masks remain a data gap. Continue other available work.",
-    "Continue the independent real-camera benchmark and consent path, under-eye source grouping and segmentation, selected wrinkle source audit, sagging evaluation, UI coordinate alignment and history integration while regional training runs. Keep the accepted regional-method registry empty until acceptance evidence passes.",
-    "Preserve the browser regional-map contract work and its 48 executable checks when completing the independent segmentation evaluation checkpoint. Wire only accepted anatomical source support into photo SVG and categorical history; unknown remains grey and missing/changed evidence cannot be normal or a comparable trend."
+    "Regional training 3485f8c67f957a1b850d is finished; candidate 2c07ef has complete 63 validation / 30 test mask evaluation and lossless inference receipts. Do not duplicate training, inference or refit thresholds on the exposed source test. Reassemble the two pinned evidence bundles from index files before replay.",
+    "Roboflow reports 75 group records but only 74 distinct model IDs; duplicate e79545 has conflicting candidate/baseline metadata. Preserve raw records and compare by immutable model package. Evaluated 2c07ef resolves to e1688c2c8447af39e51ce60dd8c7f1d0; no recommendation/hardware winner claim.",
+    "Improve oil source coverage and anatomical face scope on validation before a targeted data or model change. Redness union overlap is promising but requires independent camera calibration and reviewed negative/normal support. Do not clip test masks post hoc or turn missing masks into normal skin. Keep accepted-regional-method registry empty.",
+    "Preserve concurrent browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54 and its 48 executable checks; new work extends head e6d5ace85837fbc1c8b8c361dfb9ac315a28ce1d. Continue source-bound SVG overlay and history wiring with accepted evidence only; no full-app or real-camera acceptance yet.",
+    "Continue under-eye cleaned source grouping/quarantine and research segmentation without mutating the original 399 uploaded images; selected wrinkle source audit, sagging evaluation and independent camera/consent benchmark remain open. Acne diagnosis/tiling and Merve source audit are complete research steps; do not repeat them or fabricate dry masks."
   ],
   "executionLog": [
     {
@@ -862,6 +995,12 @@
       "report": "docs/skin/regional-map-browser-contract-20261023.md",
       "browserContractCommit": "cf7447b28e2c39cc976f0af9d66e4be5a44dff54",
       "remoteVerification": "At07:27:15UTC acne training finished89models; regional training finished75models; under-eye Private399images487eyebag382darkcircle, zero versions. Read back the committed browser parser successfully."
+    },
+    {
+      "date": "2026-10-23",
+      "observedAt": "2026-10-23 07:28:48 UTC",
+      "action": "Completed regional NAS mask evaluation while preserving concurrent browser work. Parent 3485f8c67f957a1b850d finished; raw group has 75 records and 74 unique IDs due to duplicate e79545 metadata. Pinned highest-observed-map5095 candidate 2c07ef/package e1688c2c8447af39e51ce60dd8c7f1d0 inferred on all 63 validation and 30 test images. Thresholds 0.35 were locked before test calls. Instance-mask AP/matching and separately fixed-threshold class-union overlap measured; no bbox-as-mask fallback, empty predicted masks counted explicitly. Reviewed two validation failures, identified coverage/face-scope and instance-granularity limits, no relabeling or test clipping. Lossless 93 raw responses stored as 11 SHA256-pinned binary parts; eight incomplete initial local writes were detected and replaced before evaluation, 101 inference requests total. Added mask evaluator/reassembler and 24 meaningful regressions; 145 checks pass. No model activation, merge/deploy or camera/roadmap acceptance.",
+      "report": "docs/skin/regional-mask-evaluation-20261023.md"
     }
   ]
 }

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-23T07:21:14.702520+00:00",
+  "modelIdentity": {
+    "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c07ef",
+    "modelPackageId": "e1688c2c8447af39e51ce60dd8c7f1d0"
+  },
+  "validationSHA256": "11be60257051b2f3b104450bfabea69670b0339e3d5fb2f752c8818b58745f0b",
+  "sourceArchiveSHA256": "e470c5f1a9b4bdaadd87a9ba9b714175bc62ab0a7e0b10d10b4880a72889aa40",
+  "thresholds": {
+    "Oily": 0.35,
+    "Redness": 0.35
+  },
+  "testImages": 30,
+  "createdBeforeTestInference": true,
+  "postTestRefittingAllowed": false
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "format": "binary-concatenation-sha256-v1",
+  "filename": "regional-mask-inferences-test-20261023-v1.json.gz",
+  "bytes": 1681539,
+  "sha256": "b36d2c07ccc998e5b79095564bd20b8a1fc2e9a706d8e9a4fab123f88c8cf9e6",
+  "parts": [
+    {
+      "path": "regional-mask-inferences-test-20261023-v1.json.gz.part-00",
+      "bytes": 500000,
+      "sha256": "c5c77f3799d56119e7f792797ced53c024adb3348f27a41097b031dd2341dda8"
+    },
+    {
+      "path": "regional-mask-inferences-test-20261023-v1.json.gz.part-01",
+      "bytes": 500000,
+      "sha256": "5de4a346f24ffa5e4737c0f7e13a2bc6467a06637f6467e0d2d8060b8b0a6bf5"
+    },
+    {
+      "path": "regional-mask-inferences-test-20261023-v1.json.gz.part-02",
+      "bytes": 500000,
+      "sha256": "eefa0ef0f1f313fa4add329ebaedb9d5a5fcbfddbd60ac922bf9c7b7c6a9074e"
+    },
+    {
+      "path": "regional-mask-inferences-test-20261023-v1.json.gz.part-03",
+      "bytes": 181539,
+      "sha256": "310452481153ff9993054fd92c9aee00f074ea62315f988588424b9e9f22138f"
+    }
+  ],
+  "split": "test",
+  "records": 30
+}

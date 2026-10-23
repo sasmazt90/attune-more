@@ -1,0 +1,1965 @@
+{
+  "schemaVersion": 1,
+  "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+  "parentTrainingId": "3485f8c67f957a1b850d",
+  "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+  "status": "finished",
+  "returnedRecords": 75,
+  "distinctModelIds": 74,
+  "duplicateEntries": [
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545",
+      "rows": [
+        {
+          "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545",
+          "version": "1",
+          "train": {
+            "status": "finished"
+          },
+          "taskType": "instance-segmentation",
+          "modelType": "rfdetr-nas-seg",
+          "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545",
+          "created": "2026-10-23T07:11:18.406Z",
+          "metrics": {
+            "map50": 47.1,
+            "precision": 61.3,
+            "recall": 46.1,
+            "f1": 52.1
+          },
+          "nasFamily": null,
+          "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+          "favorited": false,
+          "recommended": true
+        },
+        {
+          "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545",
+          "version": "1",
+          "train": {
+            "status": "finished"
+          },
+          "taskType": "instance-segmentation",
+          "modelType": "rfdetr-nas-seg",
+          "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545",
+          "created": "2026-10-23T07:13:53.713Z",
+          "metrics": {
+            "map50": 49.49,
+            "map5095": 18.98,
+            "latency": {
+              "T4": 2.806175947189331,
+              "AI1": 9.30675220489502
+            }
+          },
+          "nasFamily": "baseline",
+          "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+          "favorited": false
+        }
+      ]
+    }
+  ],
+  "models": [
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--653a05",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--653a05",
+      "created": "2026-10-23T07:11:09.062Z",
+      "metrics": {
+        "map50": 41.58,
+        "map5095": 15.95,
+        "latency": {
+          "T4": 2.0635199546813965,
+          "AI1": 5.44483208656311
+        },
+        "paretoOptimalFor": [
+          "T4:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2f3b44",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2f3b44",
+      "created": "2026-10-23T07:12:53.399Z",
+      "metrics": {
+        "map50": 44.56,
+        "map5095": 19.05,
+        "latency": {
+          "T4": 2.6485118865966797,
+          "AI1": 7.211600065231323
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--4a1d62",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--4a1d62",
+      "created": "2026-10-23T07:10:19.229Z",
+      "metrics": {
+        "map50": 35.22,
+        "map5095": 13.42,
+        "latency": {
+          "T4": 1.4428479671478271,
+          "AI1": 3.5096960067749023
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "T4:map_50",
+          "T4:f1",
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--f2f530",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--f2f530",
+      "created": "2026-10-23T07:11:03.402Z",
+      "metrics": {
+        "map50": 37.24,
+        "map5095": 13.97,
+        "latency": {
+          "T4": 1.5689599514007568,
+          "AI1": 3.689199924468994
+        },
+        "paretoOptimalFor": [
+          "T4:map_50",
+          "T4:f1",
+          "AI1:map_50_95",
+          "AI1:map_50",
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--33f994",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--33f994",
+      "created": "2026-10-23T07:11:42.333Z",
+      "metrics": {
+        "map50": 19.16,
+        "map5095": 6.6,
+        "latency": {
+          "T4": 1.363935947418213,
+          "AI1": 3.398111939430237
+        },
+        "paretoOptimalFor": [
+          "T4:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--fa3729",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--fa3729",
+      "created": "2026-10-23T07:10:38.324Z",
+      "metrics": {
+        "map50": 46.9,
+        "map5095": 18.78,
+        "latency": {
+          "T4": 2.526848077774048,
+          "AI1": 7.655551910400391
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--b1f634",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--b1f634",
+      "created": "2026-10-23T07:11:45.026Z",
+      "metrics": {
+        "map50": 32.44,
+        "map5095": 12.62,
+        "latency": {
+          "T4": 1.4749759435653687,
+          "AI1": 3.7109280824661255
+        },
+        "paretoOptimalFor": [
+          "T4:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9602f1",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9602f1",
+      "created": "2026-10-23T07:10:06.497Z",
+      "metrics": {
+        "map50": 18.27,
+        "map5095": 6.43,
+        "latency": {
+          "T4": 1.0690560340881348,
+          "AI1": 2.7479519844055176
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "T4:map_50",
+          "T4:f1",
+          "T4:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--cdb8c8",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--cdb8c8",
+      "created": "2026-10-23T07:12:46.940Z",
+      "metrics": {
+        "map50": 44.4,
+        "map5095": 18.17,
+        "latency": {
+          "T4": 2.5059518814086914,
+          "AI1": 6.546207904815674
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--f1d99d",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--f1d99d",
+      "created": "2026-10-23T07:12:03.185Z",
+      "metrics": {
+        "map50": 47.53,
+        "map5095": 19.2,
+        "latency": {
+          "T4": 3.01094388961792,
+          "AI1": 10.598015785217285
+        },
+        "paretoOptimalFor": [
+          "T4:recall",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--259da4",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--259da4",
+      "created": "2026-10-23T07:14:04.745Z",
+      "metrics": {
+        "map50": 48.32,
+        "map5095": 20.47,
+        "latency": {
+          "T4": 6.277120113372803,
+          "AI1": 21.957039833068848
+        }
+      },
+      "nasFamily": "baseline",
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--5d16d3",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--5d16d3",
+      "created": "2026-10-23T07:13:29.441Z",
+      "metrics": {
+        "map50": 17.83,
+        "map5095": 5.42,
+        "latency": {
+          "T4": 1.2743680477142334,
+          "AI1": 2.746000051498413
+        },
+        "paretoOptimalFor": [
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--c2a92d",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--c2a92d",
+      "created": "2026-10-23T07:13:43.674Z",
+      "metrics": {
+        "map50": 38,
+        "map5095": 15.64,
+        "latency": {
+          "T4": 2.0746240615844727,
+          "AI1": 5.579904079437256
+        },
+        "paretoOptimalFor": [
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9af6e4",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9af6e4",
+      "created": "2026-10-23T07:13:56.961Z",
+      "metrics": {
+        "map50": 46.56,
+        "map5095": 18.67,
+        "latency": {
+          "T4": 3.41046404838562,
+          "AI1": 12.701759815216064
+        }
+      },
+      "nasFamily": "baseline",
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--059f87",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--059f87",
+      "created": "2026-10-23T07:12:14.173Z",
+      "metrics": {
+        "map50": 41.73,
+        "map5095": 18.18,
+        "latency": {
+          "T4": 4.845119953155518,
+          "AI1": 19.20857524871826
+        },
+        "paretoOptimalFor": [
+          "T4:recall",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--520b4f",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--520b4f",
+      "created": "2026-10-23T07:13:40.288Z",
+      "metrics": {
+        "map50": 37.28,
+        "map5095": 15.49,
+        "latency": {
+          "T4": 2.036288022994995,
+          "AI1": 5.4355199337005615
+        },
+        "paretoOptimalFor": [
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--feef13",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--feef13",
+      "created": "2026-10-23T07:13:14.313Z",
+      "metrics": {
+        "map50": 45.5,
+        "map5095": 17.99,
+        "latency": {
+          "T4": 2.510688066482544,
+          "AI1": 6.5337440967559814
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--8b4ccc",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--8b4ccc",
+      "created": "2026-10-23T07:10:22.297Z",
+      "metrics": {
+        "map50": 37.39,
+        "map5095": 14.36,
+        "latency": {
+          "T4": 1.6561599969863892,
+          "AI1": 3.842288017272949
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--4f45e1",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--4f45e1",
+      "created": "2026-10-23T07:12:26.104Z",
+      "metrics": {
+        "map50": 24.29,
+        "map5095": 7.91,
+        "latency": {
+          "T4": 1.0936319828033447,
+          "AI1": 2.368880033493042
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95",
+          "AI1:map_50",
+          "AI1:f1",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--fc93cc",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--fc93cc",
+      "created": "2026-10-23T07:13:17.521Z",
+      "metrics": {
+        "map50": 46.63,
+        "map5095": 17.72,
+        "latency": {
+          "T4": 2.412384033203125,
+          "AI1": 7.190415859222412
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--0089fe",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--0089fe",
+      "created": "2026-10-23T07:11:30.467Z",
+      "metrics": {
+        "map50": 46.3,
+        "map5095": 18.68,
+        "latency": {
+          "T4": 2.5968639850616455,
+          "AI1": 7.991568088531494
+        },
+        "paretoOptimalFor": [
+          "T4:f1",
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e17205",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e17205",
+      "created": "2026-10-23T07:10:34.958Z",
+      "metrics": {
+        "map50": 45.77,
+        "map5095": 18.62,
+        "latency": {
+          "T4": 2.476032018661499,
+          "AI1": 7.444576025009155
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--282937",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--282937",
+      "created": "2026-10-23T07:10:13.516Z",
+      "metrics": {
+        "map50": 28.03,
+        "map5095": 11.07,
+        "latency": {
+          "T4": 1.2560640573501587,
+          "AI1": 2.693343997001648
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--3bbf07",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--3bbf07",
+      "created": "2026-10-23T07:10:46.283Z",
+      "metrics": {
+        "map50": 47.91,
+        "map5095": 20.26,
+        "latency": {
+          "T4": 3.4693119525909424,
+          "AI1": 12.017984390258789
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--126ec4",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--126ec4",
+      "created": "2026-10-23T07:12:18.449Z",
+      "metrics": {
+        "map50": 43.31,
+        "map5095": 19.19,
+        "latency": {
+          "T4": 5.16761589050293,
+          "AI1": 20.28446388244629
+        },
+        "paretoOptimalFor": [
+          "T4:recall",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545",
+      "created": "2026-10-23T07:11:18.406Z",
+      "metrics": {
+        "map50": 47.1,
+        "precision": 61.3,
+        "recall": 46.1,
+        "f1": 52.1
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false,
+      "recommended": true
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--8f22fb",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--8f22fb",
+      "created": "2026-10-23T07:11:15.310Z",
+      "metrics": {
+        "map50": 46.1,
+        "map5095": 17.27,
+        "latency": {
+          "T4": 2.30947208404541,
+          "AI1": 7.034127950668335
+        },
+        "paretoOptimalFor": [
+          "T4:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--12a75a",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--12a75a",
+      "created": "2026-10-23T07:13:46.817Z",
+      "metrics": {
+        "map50": 43.44,
+        "map5095": 16.86,
+        "latency": {
+          "T4": 2.465791940689087,
+          "AI1": 7.989216089248657
+        },
+        "paretoOptimalFor": [
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2ae6dc",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2ae6dc",
+      "created": "2026-10-23T07:12:50.064Z",
+      "metrics": {
+        "map50": 45.54,
+        "map5095": 18.56,
+        "latency": {
+          "T4": 2.5383200645446777,
+          "AI1": 6.767519950866699
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95",
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--fe9c70",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--fe9c70",
+      "created": "2026-10-23T07:11:53.207Z",
+      "metrics": {
+        "map50": 36.35,
+        "map5095": 14.53,
+        "latency": {
+          "T4": 2.187551975250244,
+          "AI1": 7.234544038772583
+        },
+        "paretoOptimalFor": [
+          "T4:recall",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--67377e",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--67377e",
+      "created": "2026-10-23T07:11:59.406Z",
+      "metrics": {
+        "map50": 44.5,
+        "map5095": 17.63,
+        "latency": {
+          "T4": 2.74783992767334,
+          "AI1": 9.135280132293701
+        },
+        "paretoOptimalFor": [
+          "T4:recall",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--fff422",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--fff422",
+      "created": "2026-10-23T07:13:23.930Z",
+      "metrics": {
+        "map50": 44.82,
+        "map5095": 17.67,
+        "latency": {
+          "T4": 2.425552010536194,
+          "AI1": 6.35206413269043
+        },
+        "paretoOptimalFor": [
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--136674",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--136674",
+      "created": "2026-10-23T07:13:07.645Z",
+      "metrics": {
+        "map50": 41.38,
+        "map5095": 15.83,
+        "latency": {
+          "T4": 2.0337278842926025,
+          "AI1": 5.223152160644531
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--ae28a1",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--ae28a1",
+      "created": "2026-10-23T07:12:28.226Z",
+      "metrics": {
+        "map50": 25.37,
+        "map5095": 8.84,
+        "latency": {
+          "T4": 1.0889919996261597,
+          "AI1": 2.3988959789276123
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95",
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--c67d62",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--c67d62",
+      "created": "2026-10-23T07:14:00.574Z",
+      "metrics": {
+        "map50": 48.31,
+        "map5095": 19.82,
+        "latency": {
+          "T4": 4.357632160186768,
+          "AI1": 17.008719444274902
+        }
+      },
+      "nasFamily": "baseline",
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2f6ff0",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2f6ff0",
+      "created": "2026-10-23T07:13:11.005Z",
+      "metrics": {
+        "map50": 43.93,
+        "map5095": 16.98,
+        "latency": {
+          "T4": 2.284127950668335,
+          "AI1": 5.921903848648071
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--b018f1",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--b018f1",
+      "created": "2026-10-23T07:11:47.656Z",
+      "metrics": {
+        "map50": 35.69,
+        "map5095": 14.14,
+        "latency": {
+          "T4": 1.8211840391159058,
+          "AI1": 5.031728029251099
+        },
+        "paretoOptimalFor": [
+          "T4:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--1433b7",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--1433b7",
+      "created": "2026-10-23T07:10:16.102Z",
+      "metrics": {
+        "map50": 30.84,
+        "map5095": 11.37,
+        "latency": {
+          "T4": 1.343616008758545,
+          "AI1": 2.9024319648742676
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--65bf2e",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--65bf2e",
+      "created": "2026-10-23T07:12:06.855Z",
+      "metrics": {
+        "map50": 46.43,
+        "map5095": 19.72,
+        "latency": {
+          "T4": 3.895296096801758,
+          "AI1": 15.876175880432129
+        },
+        "paretoOptimalFor": [
+          "T4:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e27951",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e27951",
+      "created": "2026-10-23T07:12:10.653Z",
+      "metrics": {
+        "map50": 45.76,
+        "map5095": 19.48,
+        "latency": {
+          "T4": 4.285088062286377,
+          "AI1": 15.883376121520996
+        },
+        "paretoOptimalFor": [
+          "T4:recall",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--4e8078",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--4e8078",
+      "created": "2026-10-23T07:12:39.827Z",
+      "metrics": {
+        "map50": 38.26,
+        "map5095": 15.47,
+        "latency": {
+          "T4": 1.9924800395965576,
+          "AI1": 4.495775938034058
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e2fad5",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e2fad5",
+      "created": "2026-10-23T07:12:43.403Z",
+      "metrics": {
+        "map50": 41.13,
+        "map5095": 17.12,
+        "latency": {
+          "T4": 2.2077438831329346,
+          "AI1": 5.781280040740967
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c50f2",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c50f2",
+      "created": "2026-10-23T07:11:27.493Z",
+      "metrics": {
+        "map50": 45.79,
+        "map5095": 18.39,
+        "latency": {
+          "T4": 2.5518081188201904,
+          "AI1": 7.792704105377197
+        },
+        "paretoOptimalFor": [
+          "T4:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c07ef",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c07ef",
+      "created": "2026-10-23T07:10:57.480Z",
+      "metrics": {
+        "map50": 49.62,
+        "map5095": 20.96,
+        "latency": {
+          "T4": 5.219359874725342,
+          "AI1": 20.18900775909424
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e4615a",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e4615a",
+      "created": "2026-10-23T07:12:33.672Z",
+      "metrics": {
+        "map50": 34,
+        "map5095": 13,
+        "latency": {
+          "T4": 1.4849599599838257,
+          "AI1": 3.057055950164795
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95",
+          "AI1:map_50",
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--8d4789",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--8d4789",
+      "created": "2026-10-23T07:10:25.220Z",
+      "metrics": {
+        "map50": 39.33,
+        "map5095": 15.03,
+        "latency": {
+          "T4": 1.8229119777679443,
+          "AI1": 4.820575952529907
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--bcfb37",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--bcfb37",
+      "created": "2026-10-23T07:10:28.011Z",
+      "metrics": {
+        "map50": 39.74,
+        "map5095": 16.52,
+        "latency": {
+          "T4": 2.0641279220581055,
+          "AI1": 5.668799877166748
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e90d5f",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e90d5f",
+      "created": "2026-10-23T07:10:42.280Z",
+      "metrics": {
+        "map50": 49.25,
+        "map5095": 19.83,
+        "latency": {
+          "T4": 2.8769919872283936,
+          "AI1": 9.632175922393799
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9c8afa",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9c8afa",
+      "created": "2026-10-23T07:13:37.296Z",
+      "metrics": {
+        "map50": 29.03,
+        "map5095": 10.07,
+        "latency": {
+          "T4": 1.6381759643554688,
+          "AI1": 3.8394399881362915
+        },
+        "paretoOptimalFor": [
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--52e6b1",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--52e6b1",
+      "created": "2026-10-23T07:11:05.976Z",
+      "metrics": {
+        "map50": 40.48,
+        "map5095": 15.1,
+        "latency": {
+          "T4": 1.8724160194396973,
+          "AI1": 5.012991905212402
+        },
+        "paretoOptimalFor": [
+          "T4:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--1a8050",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--1a8050",
+      "created": "2026-10-23T07:11:00.130Z",
+      "metrics": {
+        "map50": 34.2,
+        "map5095": 12.68,
+        "latency": {
+          "T4": 1.4213119745254517,
+          "AI1": 3.3850879669189453
+        },
+        "paretoOptimalFor": [
+          "T4:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--0522f2",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--0522f2",
+      "created": "2026-10-23T07:12:23.564Z",
+      "metrics": {
+        "map50": 48.09,
+        "map5095": 20.4,
+        "latency": {
+          "T4": 11.083776473999023,
+          "AI1": 42.7691535949707
+        },
+        "paretoOptimalFor": [
+          "T4:recall",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--ee22e2",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--ee22e2",
+      "created": "2026-10-23T07:11:56.314Z",
+      "metrics": {
+        "map50": 43.47,
+        "map5095": 17.02,
+        "latency": {
+          "T4": 2.5169920921325684,
+          "AI1": 8.1778883934021
+        },
+        "paretoOptimalFor": [
+          "T4:recall",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--7086a8",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--7086a8",
+      "created": "2026-10-23T07:13:50.467Z",
+      "metrics": {
+        "map50": 44.59,
+        "map5095": 18.95,
+        "latency": {
+          "T4": 3.612544059753418,
+          "AI1": 13.92855978012085
+        },
+        "paretoOptimalFor": [
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--a768c1",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--a768c1",
+      "created": "2026-10-23T07:10:08.680Z",
+      "metrics": {
+        "map50": 25.37,
+        "map5095": 8.84,
+        "latency": {
+          "T4": 1.0879679918289185,
+          "AI1": 2.4109280109405518
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "T4:map_50",
+          "T4:f1",
+          "T4:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--5ab4fe",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--5ab4fe",
+      "created": "2026-10-23T07:13:00.713Z",
+      "metrics": {
+        "map50": 47.41,
+        "map5095": 20.39,
+        "latency": {
+          "T4": 3.8389759063720703,
+          "AI1": 15.151135921478271
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--93c184",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--93c184",
+      "created": "2026-10-23T07:12:36.627Z",
+      "metrics": {
+        "map50": 36.89,
+        "map5095": 14.82,
+        "latency": {
+          "T4": 1.8186240196228027,
+          "AI1": 4.0848000049591064
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--3744e3",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--3744e3",
+      "created": "2026-10-23T07:11:39.461Z",
+      "metrics": {
+        "map50": 49.18,
+        "map5095": 20.27,
+        "latency": {
+          "T4": 14.69001579284668,
+          "AI1": 54.777889251708984
+        },
+        "paretoOptimalFor": [
+          "T4:f1",
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--7d790b",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--7d790b",
+      "created": "2026-10-23T07:11:24.372Z",
+      "metrics": {
+        "map50": 40.6,
+        "map5095": 15.87,
+        "latency": {
+          "T4": 2.075711965560913,
+          "AI1": 5.284528017044067
+        },
+        "paretoOptimalFor": [
+          "T4:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--95ac27",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--95ac27",
+      "created": "2026-10-23T07:13:20.725Z",
+      "metrics": {
+        "map50": 47.31,
+        "map5095": 18.44,
+        "latency": {
+          "T4": 2.5620479583740234,
+          "AI1": 7.649248123168945
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9a9e4a",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9a9e4a",
+      "created": "2026-10-23T07:11:34.315Z",
+      "metrics": {
+        "map50": 47.14,
+        "map5095": 19.68,
+        "latency": {
+          "T4": 4.0082879066467285,
+          "AI1": 14.576512336730957
+        },
+        "paretoOptimalFor": [
+          "T4:f1",
+          "AI1:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79a02",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79a02",
+      "created": "2026-10-23T07:11:12.137Z",
+      "metrics": {
+        "map50": 43.21,
+        "map5095": 16.7,
+        "latency": {
+          "T4": 2.266848087310791,
+          "AI1": 7.124495983123779
+        },
+        "paretoOptimalFor": [
+          "T4:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--befd4c",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--befd4c",
+      "created": "2026-10-23T07:11:20.977Z",
+      "metrics": {
+        "map50": 24.29,
+        "map5095": 7.91,
+        "latency": {
+          "T4": 1.0915839672088623,
+          "AI1": 2.370672106742859
+        },
+        "paretoOptimalFor": [
+          "T4:f1"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--f3096f",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--f3096f",
+      "created": "2026-10-23T07:11:50.354Z",
+      "metrics": {
+        "map50": 29.77,
+        "map5095": 9.78,
+        "latency": {
+          "T4": 2.1507840156555176,
+          "AI1": 6.950527906417847
+        },
+        "paretoOptimalFor": [
+          "T4:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--7f8328",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--7f8328",
+      "created": "2026-10-23T07:10:49.948Z",
+      "metrics": {
+        "map50": 47.86,
+        "map5095": 20.42,
+        "latency": {
+          "T4": 4.0068159103393555,
+          "AI1": 16.02785587310791
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--a8dd23",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--a8dd23",
+      "created": "2026-10-23T07:13:04.366Z",
+      "metrics": {
+        "map50": 38.51,
+        "map5095": 14.41,
+        "latency": {
+          "T4": 1.7074240446090698,
+          "AI1": 3.984560012817383
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--48ed71",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--48ed71",
+      "created": "2026-10-23T07:12:30.741Z",
+      "metrics": {
+        "map50": 27.92,
+        "map5095": 10.84,
+        "latency": {
+          "T4": 1.2533760070800781,
+          "AI1": 2.653887987136841
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95",
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--069a45",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--069a45",
+      "created": "2026-10-23T07:13:26.944Z",
+      "metrics": {
+        "map50": 22.39,
+        "map5095": 7.05,
+        "latency": {
+          "T4": 1.246880054473877,
+          "AI1": 2.5791200399398804
+        },
+        "paretoOptimalFor": [
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--83e7b7",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--83e7b7",
+      "created": "2026-10-23T07:12:56.914Z",
+      "metrics": {
+        "map50": 47.02,
+        "map5095": 19.47,
+        "latency": {
+          "T4": 2.8080639839172363,
+          "AI1": 8.83076810836792
+        },
+        "paretoOptimalFor": [
+          "AI1:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--df8293",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--df8293",
+      "created": "2026-10-23T07:13:32.046Z",
+      "metrics": {
+        "map50": 27.88,
+        "map5095": 10.71,
+        "latency": {
+          "T4": 1.3766720294952393,
+          "AI1": 3.071071982383728
+        },
+        "paretoOptimalFor": [
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--291700",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--291700",
+      "created": "2026-10-23T07:10:53.828Z",
+      "metrics": {
+        "map50": 49.73,
+        "map5095": 20.81,
+        "latency": {
+          "T4": 4.404640197753906,
+          "AI1": 17.290800094604492
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "T4:map_50",
+          "AI1:map_50_95",
+          "AI1:map_50"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--454449",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--454449",
+      "created": "2026-10-23T07:13:34.694Z",
+      "metrics": {
+        "map50": 27.06,
+        "map5095": 9.23,
+        "latency": {
+          "T4": 1.5953919887542725,
+          "AI1": 3.662272095680237
+        },
+        "paretoOptimalFor": [
+          "AI1:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--5894cd",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--5894cd",
+      "created": "2026-10-23T07:10:31.432Z",
+      "metrics": {
+        "map50": 43.22,
+        "map5095": 17.3,
+        "latency": {
+          "T4": 2.290351986885071,
+          "AI1": 5.9906721115112305
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--a5e262",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--a5e262",
+      "created": "2026-10-23T07:10:10.929Z",
+      "metrics": {
+        "map50": 28.32,
+        "map5095": 10.86,
+        "latency": {
+          "T4": 1.1569279432296753,
+          "AI1": 3.065984010696411
+        },
+        "paretoOptimalFor": [
+          "T4:map_50_95",
+          "T4:map_50",
+          "T4:f1",
+          "T4:recall"
+        ]
+      },
+      "nasFamily": null,
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    },
+    {
+      "url": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545",
+      "version": "1",
+      "train": {
+        "status": "finished"
+      },
+      "taskType": "instance-segmentation",
+      "modelType": "rfdetr-nas-seg",
+      "name": "attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545",
+      "created": "2026-10-23T07:13:53.713Z",
+      "metrics": {
+        "map50": 49.49,
+        "map5095": 18.98,
+        "latency": {
+          "T4": 2.806175947189331,
+          "AI1": 9.30675220489502
+        }
+      },
+      "nasFamily": "baseline",
+      "group": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "favorited": false
+    }
+  ],
+  "selectedCandidate": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c07ef",
+  "selectionRule": "Highest observed provider map5095 among returned records, independent mask evaluation follows; recommendation/hardware winner not inferred."
+}
