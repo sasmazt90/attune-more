@@ -35,6 +35,15 @@ export type RegionalSkinLayer = {
   redness: 'positive' | 'negative' | 'unknown';
   geometry: 'anatomical-region-summary-not-pixel-mask';
 };
+export type RegionalObservationCriterion = 'oil' | 'dry' | 'redness';
+export type RegionalObservationHistoryPoint = {
+  recordId: string; time: number; state: 'positive' | 'negative'; changedFromPrevious: boolean | null;
+};
+export type RegionalObservationHistory = {
+  region: RegionalMapRegion; criterion: RegionalObservationCriterion;
+  methodVersion: string; normalizationVersion: string; modelHash: string | null; validationEvidence: string;
+  points: RegionalObservationHistoryPoint[]; excludedIncompatible: number;
+};
 
 const object = (v: unknown): v is Record<string, any> => !!v && typeof v === 'object' && !Array.isArray(v);
 const nonempty = (v: unknown): v is string => typeof v === 'string' && v.length > 0;
@@ -141,3 +150,42 @@ export function comparableRegionalObservations(a: unknown, b: unknown): string[]
   }
   return comparable;
 }
+
+/** Builds a categorical history for one region/criterion without inventing a
+ * numeric severity delta. The current (or requested) record pins the evidence
+ * identity; records produced by any other method are excluded, not bridged. */
+export function regionalObservationHistory(records: unknown[], region: string, criterion: string,
+  anchorRecordId?: string): RegionalObservationHistory | undefined {
+  if (!Array.isArray(records) || !REGIONAL_MAP_REGIONS.includes(region as RegionalMapRegion)
+    || !['oil', 'dry', 'redness'].includes(criterion)) return;
+  const regionId = region as RegionalMapRegion, criterionId = criterion as RegionalObservationCriterion;
+  const candidates: Array<{recordId: string; time: number; state: 'positive' | 'negative'; identity: string;
+    methodVersion: string; normalizationVersion: string; modelHash: string | null; validationEvidence: string}> = [];
+  for (const raw of records) {
+    if (!object(raw) || !nonempty(raw.id)) continue;
+    const value = raw.general?.regionalSkinMap;
+    if (!object(value) || !sourceValid(value.source) || !validBoundRegionalSkinMap(value, value.source)) continue;
+    const observation = value.map.regions[regionId].observations[criterionId];
+    if (observation.state === 'unknown') continue;
+    const date = raw.timestamp ?? raw.date ?? raw.completedAt;
+    const time = typeof date === 'string' ? Date.parse(date) : NaN;
+    if (!Number.isFinite(time)) continue;
+    const identity = JSON.stringify([observation.methodVersion, observation.normalizationVersion,
+      observation.modelHash, observation.validationEvidence]);
+    candidates.push({ recordId: raw.id, time, state: observation.state, identity,
+      methodVersion: observation.methodVersion, normalizationVersion: observation.normalizationVersion,
+      modelHash: observation.modelHash, validationEvidence: observation.validationEvidence });
+  }
+  candidates.sort((a, b) => a.time - b.time || a.recordId.localeCompare(b.recordId));
+  const anchor = (anchorRecordId && candidates.find(row => row.recordId === anchorRecordId)) || candidates.at(-1);
+  if (!anchor) return;
+  const compatible = candidates.filter(row => row.identity === anchor.identity);
+  return {
+    region: regionId, criterion: criterionId, methodVersion: anchor.methodVersion,
+    normalizationVersion: anchor.normalizationVersion, modelHash: anchor.modelHash,
+    validationEvidence: anchor.validationEvidence, excludedIncompatible: candidates.length - compatible.length,
+    points: compatible.map((row, index) => ({ recordId: row.recordId, time: row.time, state: row.state,
+      changedFromPrevious: index === 0 ? null : compatible[index - 1].state !== row.state }))
+  };
+}
+
