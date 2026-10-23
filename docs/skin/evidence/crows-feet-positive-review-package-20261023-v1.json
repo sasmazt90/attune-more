@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "crows-feet-positive-review-package-v1",
+  "sourceArchive": "skin-face-remote-v1.zip",
+  "sourceArchiveSHA256": "1271091931876b3fce1a6bc22865cc7ce112c93042bba589be0412d05070b163",
+  "class": "crows_feet",
+  "scope": "positive-only annotation review; not a train-ready negative-complete dataset",
+  "validImages": 166,
+  "validAnnotations": 855,
+  "quarantinedAnnotations": 20,
+  "quarantinedImages": 15,
+  "quarantineReasons": {
+    "INVALID_OR_OUT_OF_FRAME": 1,
+    "SELF_INTERSECTION": 19
+  },
+  "sourceGroups": 163,
+  "splits": {
+    "train": {
+      "images": 116,
+      "annotations": 572,
+      "groups": 114
+    },
+    "valid": {
+      "images": 25,
+      "annotations": 133,
+      "groups": 24
+    },
+    "test": {
+      "images": 25,
+      "annotations": 150,
+      "groups": 25
+    }
+  },
+  "crossSplitGroupsAfter": 0,
+  "sourceBytesUnchanged": true,
+  "trainingAuthorized": false,
+  "negativeCompletenessVerified": false,
+  "expertSemanticReview": false,
+  "cameraAccepted": false,
+  "productAccepted": false,
+  "quarantine": [
+    {
+      "sourceSplit": "train",
+      "fileName": "22073_png_jpg.rf.b12d2e537b155933e24d9617ca4a9eb9.jpg",
+      "annotationId": 742,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "train",
+      "fileName": "23545_png_jpg.rf.4a2384ab03de1325391c52b4d2bcb9b5.jpg",
+      "annotationId": 6984,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "train",
+      "fileName": "07637_png_jpg.rf.3c388a199940e80d8a875ed4eebae3dc.jpg",
+      "annotationId": 8960,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "train",
+      "fileName": "9_jpeg_jpg.rf.37e2626278c0aeb3208e0b944de9610b.jpg",
+      "annotationId": 14561,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "train",
+      "fileName": "32951_png_jpg.rf.a5400494c7c0058b7d4866c351ef424d.jpg",
+      "annotationId": 17123,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "train",
+      "fileName": "32951_png_jpg.rf.a5400494c7c0058b7d4866c351ef424d.jpg",
+      "annotationId": 17124,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "train",
+      "fileName": "21943_png_jpg.rf.78251a662bc44b9ada9e7826966af5f4.jpg",
+      "annotationId": 18540,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "valid",
+      "fileName": "00164_png_jpg.rf.21e3f085cc06956f2c58d9f13717ac75.jpg",
+      "annotationId": 1766,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "valid",
+      "fileName": "21986_png_jpg.rf.aad0b34b5dea6ee294d624a25a87b0cf.jpg",
+      "annotationId": 2280,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "valid",
+      "fileName": "44205_png_jpg.rf.439c66a16628d31cdc6b6671b808ddbf.jpg",
+      "annotationId": 2566,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "valid",
+      "fileName": "24229_png_jpg.rf.d7cedb97ace53cc071a289fbb2880b79.jpg",
+      "annotationId": 3006,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "valid",
+      "fileName": "46135_png_jpg.rf.771ab0bf6c81c6a9d4ee89203ce16e09.jpg",
+      "annotationId": 4006,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "valid",
+      "fileName": "46135_png_jpg.rf.771ab0bf6c81c6a9d4ee89203ce16e09.jpg",
+      "annotationId": 4011,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "valid",
+      "fileName": "21557_png_jpg.rf.b40adfb883a44043b93a57955c553da9.jpg",
+      "annotationId": 4703,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "valid",
+      "fileName": "21557_png_jpg.rf.b40adfb883a44043b93a57955c553da9.jpg",
+      "annotationId": 4705,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "valid",
+      "fileName": "21557_png_jpg.rf.b40adfb883a44043b93a57955c553da9.jpg",
+      "annotationId": 4706,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "valid",
+      "fileName": "50229_png_jpg.rf.5923d482cd6df160c1c9717c7adf5c3e.jpg",
+      "annotationId": 5159,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "valid",
+      "fileName": "50229_png_jpg.rf.5923d482cd6df160c1c9717c7adf5c3e.jpg",
+      "annotationId": 5162,
+      "reason": "SELF_INTERSECTION"
+    },
+    {
+      "sourceSplit": "test",
+      "fileName": "312_jpg.rf.6af27fa41a95e31ea954a8f7d39d31f2.jpg",
+      "annotationId": 1211,
+      "reason": "INVALID_OR_OUT_OF_FRAME"
+    },
+    {
+      "sourceSplit": "test",
+      "fileName": "00133_png_jpg.rf.91e808b2c2f193eedf77e7ed120a2820.jpg",
+      "annotationId": 2667,
+      "reason": "SELF_INTERSECTION"
+    }
+  ],
+  "limitations": [
+    "Only images with at least one valid crows_feet polygon are included.",
+    "Unlabelled images are not converted into negative examples.",
+    "Filename stems and exact decoded pixels are grouping evidence, not person identity.",
+    "A valid polygon does not replace expert semantic review."
+  ],
+  "outputArchive": "crows-feet-positive-review-v1.zip",
+  "outputArchiveSHA256": "467a00f0aaf0569a2bf6bcf9abac063bb32caabf195c577c22a4afbb918ef5e5"
+}
