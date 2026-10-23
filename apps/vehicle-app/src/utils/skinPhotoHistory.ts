@@ -1,5 +1,6 @@
 import type {SkinSnapshot} from './skinSnapshot';
 import type {SkinAngle} from './skinMultiAngle';
+import {retainedRegionalSkinReplay} from './regionalSkinMap';
 
 export const SKIN_PHOTO_PERMISSION='attune_privacy_skin_photos_allowed';
 export const SKIN_PHOTO_LIMITS={recordBytes:32*1024*1024,totalBytes:128*1024*1024};
@@ -31,9 +32,12 @@ function validate(frames:Frames){
  for(const [angle,s] of entries){
   if(!['FRONT','RIGHT','LEFT'].includes(angle)||s.angle!==angle||!s.photoId||!/^[a-f0-9]{64}$/.test(s.photoId)||!s.dataUrl.startsWith('data:image/png;base64,')||s.width<16||s.height<16||s.width*s.height>8400000)throw Error('INVALID_PHOTO_SOURCE');
   if(s.general&&(angle!=='FRONT'||s.general.captureId!==s.photoId||s.general.pose!=='FRONT'||s.general.sourceTransform.sourceWidth!==s.width||s.general.sourceTransform.sourceHeight!==s.height))throw Error('INVALID_OVERVIEW_SOURCE');
+  if(s.general?.regionalSkinMap&&!retainedRegionalSkinReplay(s,'overview'))throw Error('INVALID_REGIONAL_REPLAY_SOURCE');
   for(const map of Object.values(s.localMaps||{}))if(map.photoId!==s.photoId||map.pose!==angle||map.sourceWidth!==s.width||map.sourceHeight!==s.height)throw Error('INVALID_PHOTO_MAP');
  }
 }
+/** Pure validation seam used by save and load. It contains no storage access. */
+export function validateSkinPhotoFrames(frames:Frames):true{validate(frames);return true;}
 /** Caller holds the health-records lock. Numeric history contains no pixels. */
 export async function saveSkinPhotos(id:string,frames:Frames,isCurrent:()=>boolean=()=>true):Promise<boolean>{
  if(!isCurrent()||!permitted()||!recordExists(id))return false;
@@ -108,3 +112,4 @@ export async function recoverSkinPhotoDeletion(rollback:()=>void,finalize:()=>vo
  localStorage.removeItem(SKIN_PHOTO_DELETE_PENDING);
 }
 export async function clearSkinPhotos(){await transaction<void>('readwrite',store=>{store.clear();});}
+
