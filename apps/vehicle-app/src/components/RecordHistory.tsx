@@ -33,7 +33,7 @@ export function RecordHistory({category='all',parked}:{category?:HealthCategory|
   <h2 ref={heading} tabIndex={-1} className="font-bold">{i18nNode(category==='all'?'Sağlık kayıtları':RECORD_LABELS[category]+' kayıtları')}</h2>
   {category==='all'&&<div className="flex flex-wrap gap-2" aria-label={i18nText("Kayıt türü")}><button className={button} aria-pressed={filter==='all'} onClick={()=>setFilter('all')}>{i18nText("Tümü")}</button>{HEALTH_MODULE_IDS.map(c=><button key={c} className={button} aria-pressed={filter===c} onClick={()=>setFilter(c)}>{i18nNode(HEALTH_MODULES[c].name)}</button>)}</div>}
   <p className="text-sm text-slate-400">{i18nNode(loading?'Kayıtlar hazırlanıyor…':list.length+' kayıt')}</p>
-  {notice&&<p role="status" className="text-sm text-amber-200">{i18nNode(notice)}</p>}
+  {notice&&<p role="status" className="text-sm text-amber-200">{notice.split(', ').map(part=>i18nText(part)).join(', ')}</p>}
   {!loading&&!list.length&&<p className="text-sm text-slate-400">{i18nText("Henüz kayıt yok.")}</p>}
   {list.map(v=><article key={v.category+v.record.id} data-record-id={v.record.id} data-record-category={v.category} className="rounded-xl border border-white/10 p-4 space-y-3 min-w-0">
    <div className="flex flex-wrap justify-between items-start gap-2"><p className="text-sm font-semibold">{i18nNode(RECORD_LABELS[v.category])}</p><time className="text-sm text-slate-400">{i18nNode(recordDate(v.record))}</time></div>

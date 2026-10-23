@@ -41,19 +41,24 @@ type Message={tr:string;en:string;de:string};
 const normalize=(text:string)=>text.normalize('NFC').replace(/\s+/g,' ').trim();
 const messages=Object.values(catalog) as Message[];
 const bySource=new Map(messages.map(message=>[normalize(message.tr),message]));
+// Short, controlled UI labels can come from older records with title casing.
+// Resolve only catalogued labels; unknown/private text still stays unchanged.
+const labelKey=(text:string)=>normalize(text).toLocaleLowerCase('tr-TR');
+const byLabel=new Map(messages.filter(m=>normalize(m.tr).length<=80&&!/\{\d+\}/.test(m.tr)).map(m=>[labelKey(m.tr),m]));
 const escape=(text:string)=>text.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+const templateLiteral=(text:string)=>escape(text).replace(/^ | $/g,'\\s*');
 const templates=messages.filter(m=>/\{\d+\}/.test(m.tr)).sort((a,b)=>b.tr.replace(/\{\d+\}/g,'').length-a.tr.replace(/\{\d+\}/g,'').length).map(message=>{
   const fields:number[]=[];let pattern='',previous=0;
   for(const match of message.tr.matchAll(/\{(\d+)\}/g)){
-    pattern+=escape(message.tr.slice(previous,match.index))+'(.+?)';fields.push(Number(match[1]));previous=match.index!+match[0].length;
+    pattern+=templateLiteral(message.tr.slice(previous,match.index))+'(.*?)';fields.push(Number(match[1]));previous=match.index!+match[0].length;
   }
-  pattern+=escape(message.tr.slice(previous));
+  pattern+=templateLiteral(message.tr.slice(previous));
   return {message,fields,match:new RegExp('^'+pattern+'$','u')};
 });
 /** Display only. Never use translated strings as policy IDs or rewrite records. */
 export function translateText(value:string,language:Language=getLanguage(),depth=0):string {
   if(language==='tr'||!value.trim())return value;
-  const normalized=normalize(value),direct=bySource.get(normalized);
+  const normalized=normalize(value),direct=bySource.get(normalized)||(normalized.length<=80?byLabel.get(labelKey(normalized)):undefined);
   const padded=(text:string)=>(/^\s/.test(value)?' ':'')+text+(/\s$/.test(value)?' ':'');
   if(direct)return padded(direct[language]);
   if(depth<3&&normalized.length<=6000){

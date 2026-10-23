@@ -1,0 +1,213 @@
+{
+  "date": "2026-10-23",
+  "checkedAt": "2026-10-23T12:47:55.554Z",
+  "scope": "Replacement specialist training; not OEM model acceptance",
+  "targets": [
+    {
+      "target": "comedones",
+      "description": "Acne / whiteheads / blackheads",
+      "source": {
+        "url": "https://universe.roboflow.com/skin-lj9yp/jerawat-v",
+        "publisherDeclaredLicense": "CC BY 4.0",
+        "independentRightsAudit": false
+      },
+      "project": "attune-comedones-boxes-grouped-r1",
+      "version": 1,
+      "url": "https://app.roboflow.com/tolgar-sasmaz/attune-comedones-boxes-grouped-r1/1",
+      "images": 2201,
+      "annotations": 14572,
+      "annotationType": "boxes",
+      "classes": {
+        "acne": 3577,
+        "whiteheads": 6172,
+        "blackheads": 4823
+      },
+      "splits": {
+        "train": {
+          "images": 1547,
+          "annotations": 10226,
+          "sourceGroups": 497,
+          "byClass": {
+            "3": 4281,
+            "1": 2576,
+            "2": 3369
+          }
+        },
+        "valid": {
+          "images": 345,
+          "annotations": 2024,
+          "sourceGroups": 108,
+          "byClass": {
+            "3": 890,
+            "1": 526,
+            "2": 608
+          }
+        },
+        "test": {
+          "images": 309,
+          "annotations": 2322,
+          "sourceGroups": 106,
+          "byClass": {
+            "1": 475,
+            "2": 846,
+            "3": 1001
+          }
+        }
+      },
+      "sourceGroups": 711,
+      "personIndependent": false,
+      "importPreflight": {
+        "passed": true,
+        "file": "comedones-specialist-preflight-20261023.json",
+        "preparedArchiveSHA256": "e64e6f6e2db2a61f646652654efd51a4531da2afff74279f23ab95bf0971e0d9",
+        "actualExportSHA256": "96658bac34264547e677300852687b47c843e5ff82ff12101a7a09a76d98cb88",
+        "unannotatedImages": 0,
+        "knownSourceGroupCrossSplitOverlap": 0
+      },
+      "training": {
+        "trainingId": "e45fb1f2578bf09750fb",
+        "versionId": "1",
+        "status": "running",
+        "start": 1792758249540,
+        "end": null,
+        "jobType": "fine-tune",
+        "modelType": "rfdetr-small",
+        "modelGroup": null,
+        "modelCount": 0,
+        "models": [],
+        "createdAt": "2026-10-23T12:24:09.540000Z"
+      },
+      "recipe": {
+        "modelType": "rfdetr-small",
+        "requestedEpochs": 100,
+        "resize": {
+          "width": 512,
+          "height": 512,
+          "format": "Stretch to"
+        },
+        "recipeKind": "standard; no custom 640 or early-stopping claim"
+      },
+      "trainingArchiveDriveUrl": "https://drive.google.com/file/d/1hIQ5lADN1ien5vrPkPl-N-UZ6VdfWmOJ/view",
+      "productionAdmitted": false,
+      "testPerformance": null
+    },
+    {
+      "target": "pores",
+      "description": "Localized facial pores",
+      "source": {
+        "url": "https://universe.roboflow.com/dermascan-ai/pores-detection-rqkcb",
+        "publisherDeclaredLicense": "CC BY 4.0",
+        "independentRightsAudit": false
+      },
+      "project": "attune-pores-masks-grouped-r1",
+      "version": 2,
+      "url": "https://app.roboflow.com/tolgar-sasmaz/attune-pores-masks-grouped-r1/2",
+      "images": 1416,
+      "annotations": 56888,
+      "annotationType": "native instance polygons",
+      "classes": {
+        "pore": 56888
+      },
+      "splits": {
+        "train": {
+          "images": 1018,
+          "annotations": 41559,
+          "sourceGroups": 427,
+          "byClass": {
+            "1": 41559
+          }
+        },
+        "valid": {
+          "images": 192,
+          "annotations": 7879,
+          "sourceGroups": 91,
+          "byClass": {
+            "1": 7879
+          }
+        },
+        "test": {
+          "images": 206,
+          "annotations": 7450,
+          "sourceGroups": 91,
+          "byClass": {
+            "1": 7450
+          }
+        }
+      },
+      "sourceGroups": 609,
+      "personIndependent": false,
+      "importPreflight": {
+        "passed": true,
+        "file": "pores-specialist-preflight-20261023.json",
+        "preparedArchiveSHA256": "f4f6ebb743354ad7a65ee75487ee4a09b74f74ea26f0493f6fab7a9d28bf5c44",
+        "actualExportSHA256": "784d1ce1b07be7ae98e505ea33acaca9bae9fc9e5740c99e3c0f8cbf1e5f4617",
+        "unannotatedImages": 0,
+        "knownSourceGroupCrossSplitOverlap": 0,
+        "nativeMasksCompared": 56888,
+        "minimumImportMaskIoU": 1.0,
+        "meaning": "Import preservation, not prediction accuracy"
+      },
+      "training": {
+        "trainingId": "66999f483e520c0353b9",
+        "versionId": "2",
+        "status": "running",
+        "start": 1792759360956,
+        "end": null,
+        "jobType": "fine-tune",
+        "modelType": "yolov11s-seg",
+        "modelGroup": null,
+        "modelCount": 0,
+        "models": [],
+        "createdAt": "2026-10-23T12:42:40.956000Z"
+      },
+      "recipe": {
+        "modelType": "yolov11s-seg",
+        "requestedEpochs": 150,
+        "resize": {
+          "width": 640,
+          "height": 640,
+          "format": "Fit (black edges) in"
+        },
+        "augmentationSteps": []
+      },
+      "trainingArchiveDriveUrl": "https://drive.google.com/file/d/1Y3sRbMhCPvIiWolf2Oj-TvRp_j-8aF-9/view",
+      "productionAdmitted": false,
+      "testPerformance": null,
+      "trainingFormatPreflight": {
+        "passed": true,
+        "archiveSHA256": "f5857357131f71050c53d24891fc4a486563acc65c21646fe103920f09643eea",
+        "format": "yolov5pytorch",
+        "task": "instance-segmentation",
+        "classes": [
+          "pore"
+        ],
+        "counts": {
+          "trainImages": 1018,
+          "trainInstances": 41559,
+          "validImages": 192,
+          "validInstances": 7879,
+          "testImages": 206,
+          "testInstances": 7450
+        },
+        "minimumPolygonVertices": 3,
+        "maximumPolygonVertices": 59,
+        "normalizedCoordinatesInRange": true,
+        "sourceVersion": 2
+      }
+    }
+  ],
+  "monitor": {
+    "id": "6adb35bfc574819184002140a367a818",
+    "enabled": true,
+    "frequency": "hourly",
+    "service": "ChatGPT; no GitHub scheduler",
+    "paidActionsPermitted": false
+  },
+  "acceptanceStillRequired": [
+    "Complete each training and inspect its actual model-linked evaluation; report validation and test separately.",
+    "Evaluate camera-domain inputs against independently reviewed labels before OEM admission.",
+    "Do not infer regional oily/dry or combination evidence, wrinkle contours, clinical risk or sensitivity from these two specialist datasets."
+  ],
+  "evidenceFolderUrl": "https://drive.google.com/drive/folders/1VSRvppN-XySX9_J-dSo_Urf5dNcnsMG5",
+  "codePullRequest": "https://github.com/sasmazt90/attune-more/pull/6"
+}

@@ -13,6 +13,7 @@ import numpy as np
 from skin_general import general_result,oil_region_support,OIL_SAMPLING
 from skin_models import infer as infer_skin_models, infer_acne, infer_bags, session_status
 from skin_measurement_contract import attach_result_receipts
+from skin_display_geometry import measured_line_paths
 from skimage.feature import local_binary_pattern
 from skimage.filters import gabor
 from acne_box_support import region_envelopes,accepted_boxes as filter_acne_boxes,box_area,VERSION as ACNE_SUPPORT_VERSION
@@ -124,7 +125,8 @@ def map_result(values, mask, region, criterion, photo, pose, source_shape, scale
                 sourceWidth=source_shape[1], sourceHeight=source_shape[0], x=x/scale+origin[0], y=y/scale+origin[1],
                 step=1/scale, width=w, height=h, unit=unit, method=VERSION,
                 validation='appearance-proxy', colorMapping='cyan-fixed-100-v1',mapType='source-pixel-signal',
-                dataUrl=png(rgba), validMaskUrl=png((m * 255).astype(np.uint8)), sampleCount=int(m.sum()))
+                dataUrl=png(rgba), validMaskUrl=png((m * 255).astype(np.uint8)), sampleCount=int(m.sum()),
+                **({'linePaths':measured_line_paths(v,m,x,y,scale,origin)} if criterion=='lines' else {}))
 
 
 def row(region, criterion, value, unit, area, conditions, limitation=None, components=None, kind='appearance_proxy', uncertainty=None):

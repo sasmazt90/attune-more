@@ -1,0 +1,107 @@
+{
+  "date": "2026-10-23",
+  "dataset": {
+    "source": "zgr-mjbpf/dermatoloji_tespit_yz-cxlee/5",
+    "sourceArchiveSHA256": "4a89cca393baa3ca1afc5eedf8c4a4407040ca1888104ff07b8cc2226c6110c6",
+    "archiveSHA256": "a332904d1f83e361399abbf3466aa5652caffac72e20157d57e41168d7a47dfa",
+    "excludedClasses": [
+      "Mantar",
+      "Sigil"
+    ],
+    "unannotatedImagesExcluded": true,
+    "nearDuplicateGrouping": "dHash distance <=3 co-partitioned, no identity assertion",
+    "nearCandidatePairs": 24,
+    "groups": 903,
+    "splits": {
+      "train": {
+        "images": 669,
+        "annotations": 7466,
+        "classes": {
+          "Kuru Cilt": 337,
+          "Akne": 1143,
+          "Siyah Nokta": 1702,
+          "Beyaz Nokta": 1534,
+          "Gunes Lekesi": 1193,
+          "Yagli Cilt": 214,
+          "Rozasea": 206,
+          "Riskli Ben": 125,
+          "Genis Gozenek": 265,
+          "Egzema": 203,
+          "Sedef ve Dokuntu": 407,
+          "Ucuk": 137
+        }
+      },
+      "valid": {
+        "images": 117,
+        "annotations": 891,
+        "classes": {
+          "Gunes Lekesi": 109,
+          "Kuru Cilt": 92,
+          "Riskli Ben": 8,
+          "Siyah Nokta": 158,
+          "Akne": 214,
+          "Beyaz Nokta": 89,
+          "Yagli Cilt": 36,
+          "Genis Gozenek": 19,
+          "Egzema": 53,
+          "Rozasea": 26,
+          "Ucuk": 33,
+          "Sedef ve Dokuntu": 54
+        }
+      },
+      "test": {
+        "images": 141,
+        "annotations": 1195,
+        "classes": {
+          "Riskli Ben": 17,
+          "Akne": 242,
+          "Rozasea": 25,
+          "Egzema": 43,
+          "Siyah Nokta": 161,
+          "Sedef ve Dokuntu": 164,
+          "Beyaz Nokta": 166,
+          "Yagli Cilt": 70,
+          "Gunes Lekesi": 166,
+          "Ucuk": 32,
+          "Kuru Cilt": 86,
+          "Genis Gozenek": 23
+        }
+      }
+    },
+    "annotationSemantics": "publisher labels, not expert-verified",
+    "clinicalOutputEnabled": false,
+    "personIndependent": false
+  },
+  "roboflowProject": "tolgar-sasmaz/attune-skin-findings-boxes-research",
+  "version": 1,
+  "training": {
+    "started": true,
+    "attemptedModel": "rfdetr-nas-parent",
+    "epochs": 30,
+    "trainingId": "8e239395ebda9996fe0f",
+    "statusAtStart": "running"
+  },
+  "upload": {
+    "uploaded": 927,
+    "annotated": 927,
+    "annotationTrimmedWarningImages": 7
+  },
+  "checks": {
+    "relevantTestsPassed": 53,
+    "productionBuildPassed": true,
+    "typeScriptPassed": true,
+    "visualBrowserReviewCompleted": false
+  },
+  "runtimeNewModelEnabled": false,
+  "audioSideUpdate": {
+    "regenerationRequested": false,
+    "existingApprovedAudioRetained": true
+  },
+  "monitoring": {
+    "provider": "ChatGPT automations",
+    "frequency": "hourly",
+    "created": true,
+    "githubScheduler": false
+  },
+  "preflightReport": "training-preflight-20261023.json"
+}

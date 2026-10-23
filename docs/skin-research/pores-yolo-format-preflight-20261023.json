@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "archiveSHA256": "f5857357131f71050c53d24891fc4a486563acc65c21646fe103920f09643eea",
+  "format": "yolov5pytorch",
+  "task": "instance-segmentation",
+  "classes": [
+    "pore"
+  ],
+  "counts": {
+    "trainImages": 1018,
+    "trainInstances": 41559,
+    "validImages": 192,
+    "validInstances": 7879,
+    "testImages": 206,
+    "testInstances": 7450
+  },
+  "minimumPolygonVertices": 3,
+  "maximumPolygonVertices": 59,
+  "normalizedCoordinatesInRange": true,
+  "sourceVersion": 2
+}

@@ -8,6 +8,7 @@ Module._resolveFilename=function(request,parent,...rest){
  if(request==='./healthModules')return path.resolve('apps/vehicle-app/src/utils/healthModules.ts');
  if(request==='../ResultValue')return path.resolve('apps/vehicle-app/src/components/ResultValue.tsx');
  if(request==='./SkinIndicatorValue')return path.resolve('apps/vehicle-app/src/components/skin/SkinIndicatorValue.tsx');
+ if(request==='./SkinFindingsOverlay')return path.resolve('apps/vehicle-app/src/components/skin/SkinFindingsOverlay.tsx');
  try{return resolve.call(this,request,parent,...rest);}catch(error){
   if(error.code==='MODULE_NOT_FOUND'&&request.startsWith('./')){
    const actual=path.resolve('apps/vehicle-app/src/utils',request+'.ts');if(fs.existsSync(actual))return actual;

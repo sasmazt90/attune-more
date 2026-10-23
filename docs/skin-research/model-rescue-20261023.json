@@ -1,0 +1,624 @@
+{
+  "date": "2026-10-23",
+  "project": "tolgar-sasmaz/attune-skin-findings-boxes-research",
+  "version": 1,
+  "originalTrainingId": "8e239395ebda9996fe0f",
+  "productionModelChanged": false,
+  "newTrainingStarted": true,
+  "agentConversationId": "VSVVBhvRJa2eaSZ7vLWM",
+  "agentWorkflow": {
+    "id": "M5LeIcLLHOhefbB18TP1",
+    "slug": "attune-research-nas-4360cc-boxes-1792755600064",
+    "runtimeVerified": true,
+    "productionIntegrated": false,
+    "activeLearning": false,
+    "imageLoggingSink": false
+  },
+  "selection": {
+    "split": "valid",
+    "criterion": "highest locally measured AP50to95 among two validation-frontier candidates",
+    "selectedSuffix": "4360cc",
+    "candidateCalls": 234,
+    "selectedTestCalls": 141,
+    "testUsedForThresholdFitting": false,
+    "confidenceFloor": 0.05,
+    "overlap": 0.5,
+    "testPreviouslyUsedForBaselineErrorDiagnosis": true,
+    "untouchedOEMAcceptanceSet": false
+  },
+  "validation": {
+    "split": "valid",
+    "images": 117,
+    "annotations": 891,
+    "exportSHA256": "38d3b62028d8f48341bdeebca4a97555c2d55e022fe08b0ff3f7ea6608ba0fa6",
+    "metric": "pycocotools COCOeval bbox, maxDets=[1,10,100], IoU=.50:.05:.95",
+    "inference": {
+      "confidenceFloor": 0.05,
+      "overlap": 0.5,
+      "serverCandidateCap": 300
+    },
+    "scope": "Publisher annotations; not clinical accuracy or camera-domain acceptance",
+    "models": {
+      "4360cc": {
+        "AP50": 0.29979182424003803,
+        "AP50to95": 0.15088726516964437,
+        "AP75": 0.12239795976655939,
+        "APSmall": 0.1263977930328584,
+        "APMedium": 0.15773865628791064,
+        "APLarge": 0.1588942147972676,
+        "predictionCount": 20764,
+        "imagesAtServerCandidateCap": 20,
+        "resolvedPackages": [
+          "d9c41c0c929a51d75b51b69d231442e5"
+        ],
+        "classes": [
+          {
+            "class": "Akne",
+            "AP50": 0.3138414123459865,
+            "AP50to95": 0.09817295341157636
+          },
+          {
+            "class": "Beyaz Nokta",
+            "AP50": 0.052259416540205106,
+            "AP50to95": 0.01643789434633618
+          },
+          {
+            "class": "Egzema",
+            "AP50": 0.13028495672744062,
+            "AP50to95": 0.05573480314808569
+          },
+          {
+            "class": "Genis Gozenek",
+            "AP50": 0.21421734297950837,
+            "AP50to95": 0.10288374605216252
+          },
+          {
+            "class": "Gunes Lekesi",
+            "AP50": 0.3056423568666226,
+            "AP50to95": 0.1611540971435538
+          },
+          {
+            "class": "Kuru Cilt",
+            "AP50": 0.09854073524107852,
+            "AP50to95": 0.02728407004342475
+          },
+          {
+            "class": "Riskli Ben",
+            "AP50": 1.0,
+            "AP50to95": 0.5779702970297029
+          },
+          {
+            "class": "Rozasea",
+            "AP50": 0.3282994779833766,
+            "AP50to95": 0.18434470995829597
+          },
+          {
+            "class": "Sedef ve Dokuntu",
+            "AP50": 0.2456659038943369,
+            "AP50to95": 0.14764266998206568
+          },
+          {
+            "class": "Siyah Nokta",
+            "AP50": 0.005207793442133262,
+            "AP50to95": 0.0013588921761613906
+          },
+          {
+            "class": "Ucuk",
+            "AP50": 0.5397141403464725,
+            "AP50to95": 0.29713365000645514
+          },
+          {
+            "class": "Yagli Cilt",
+            "AP50": 0.36382835451329576,
+            "AP50to95": 0.14052939873791215
+          }
+        ]
+      },
+      "69fae3": {
+        "AP50": 0.29298828679241795,
+        "AP50to95": 0.1484560850822384,
+        "AP75": 0.12562471763812846,
+        "APSmall": 0.18010397231986772,
+        "APMedium": 0.16111150830357052,
+        "APLarge": 0.15635042724099446,
+        "predictionCount": 21223,
+        "imagesAtServerCandidateCap": 22,
+        "resolvedPackages": [
+          "81f1ab3ecaeab034426d871eef567cd0"
+        ],
+        "classes": [
+          {
+            "class": "Akne",
+            "AP50": 0.3067690985231621,
+            "AP50to95": 0.09999487688186863
+          },
+          {
+            "class": "Beyaz Nokta",
+            "AP50": 0.06391820871850525,
+            "AP50to95": 0.02013974054293566
+          },
+          {
+            "class": "Egzema",
+            "AP50": 0.12273401670906882,
+            "AP50to95": 0.054453164894819835
+          },
+          {
+            "class": "Genis Gozenek",
+            "AP50": 0.22563808393548812,
+            "AP50to95": 0.09935610180063476
+          },
+          {
+            "class": "Gunes Lekesi",
+            "AP50": 0.3194890714079798,
+            "AP50to95": 0.17365726615119023
+          },
+          {
+            "class": "Kuru Cilt",
+            "AP50": 0.08765139854960909,
+            "AP50to95": 0.023567334746893296
+          },
+          {
+            "class": "Riskli Ben",
+            "AP50": 1.0,
+            "AP50to95": 0.5579443658651579
+          },
+          {
+            "class": "Rozasea",
+            "AP50": 0.30304291050313636,
+            "AP50to95": 0.17178872960091915
+          },
+          {
+            "class": "Sedef ve Dokuntu",
+            "AP50": 0.2314212391004498,
+            "AP50to95": 0.1421435801642923
+          },
+          {
+            "class": "Siyah Nokta",
+            "AP50": 0.007205846829333904,
+            "AP50to95": 0.001586528223759148
+          },
+          {
+            "class": "Ucuk",
+            "AP50": 0.5124856091740502,
+            "AP50to95": 0.3025142882775633
+          },
+          {
+            "class": "Yagli Cilt",
+            "AP50": 0.3355039580582324,
+            "AP50to95": 0.13432704383682623
+          }
+        ]
+      }
+    }
+  },
+  "selectedTest": {
+    "split": "test",
+    "images": 141,
+    "annotations": 1195,
+    "exportSHA256": "38d3b62028d8f48341bdeebca4a97555c2d55e022fe08b0ff3f7ea6608ba0fa6",
+    "metric": "pycocotools COCOeval bbox, maxDets=[1,10,100], IoU=.50:.05:.95",
+    "inference": {
+      "confidenceFloor": 0.05,
+      "overlap": 0.5,
+      "serverCandidateCap": 300
+    },
+    "scope": "Publisher annotations; not clinical accuracy or camera-domain acceptance",
+    "models": {
+      "4360cc": {
+        "AP50": 0.3146907614683984,
+        "AP50to95": 0.15777079261202548,
+        "AP75": 0.13436323742097744,
+        "APSmall": 0.11532385388554708,
+        "APMedium": 0.21785828848208474,
+        "APLarge": 0.25883208507483046,
+        "predictionCount": 23515,
+        "imagesAtServerCandidateCap": 38,
+        "resolvedPackages": [
+          "d9c41c0c929a51d75b51b69d231442e5"
+        ],
+        "classes": [
+          {
+            "class": "Akne",
+            "AP50": 0.17411704408470474,
+            "AP50to95": 0.05054978304386189
+          },
+          {
+            "class": "Beyaz Nokta",
+            "AP50": 0.2187255860453805,
+            "AP50to95": 0.06613659439504273
+          },
+          {
+            "class": "Egzema",
+            "AP50": 0.16013512528784854,
+            "AP50to95": 0.08960594625120764
+          },
+          {
+            "class": "Genis Gozenek",
+            "AP50": 0.1375876521736879,
+            "AP50to95": 0.033082577645989
+          },
+          {
+            "class": "Gunes Lekesi",
+            "AP50": 0.1990358818265071,
+            "AP50to95": 0.09830639620833219
+          },
+          {
+            "class": "Kuru Cilt",
+            "AP50": 0.16266975206107365,
+            "AP50to95": 0.08017918227805297
+          },
+          {
+            "class": "Riskli Ben",
+            "AP50": 0.8375482709561279,
+            "AP50to95": 0.5965361732912036
+          },
+          {
+            "class": "Rozasea",
+            "AP50": 0.5109302290575443,
+            "AP50to95": 0.22700297780447665
+          },
+          {
+            "class": "Sedef ve Dokuntu",
+            "AP50": 0.21517341514058477,
+            "AP50to95": 0.1106700366441356
+          },
+          {
+            "class": "Siyah Nokta",
+            "AP50": 0.16135558981037978,
+            "AP50to95": 0.04969975042410378
+          },
+          {
+            "class": "Ucuk",
+            "AP50": 0.6656752161925843,
+            "AP50to95": 0.35879853633181674
+          },
+          {
+            "class": "Yagli Cilt",
+            "AP50": 0.33333537498435845,
+            "AP50to95": 0.13268155702608286
+          }
+        ]
+      }
+    }
+  },
+  "visualReview": {
+    "scope": "Visible annotation geometry, domain and supplied provenance; not medical adjudication",
+    "selection": "First six training placements per class in source COCO order; not random or representative error sampling",
+    "classBoards": 12,
+    "placements": 72,
+    "distinctSourceImages": 60,
+    "notes": {
+      "Genis Gozenek": "Broad cheek/skin rectangles contain multiple visible pores; incompatible with individual-pore pinpoint labels.",
+      "Kuru Cilt": "At least one reviewed example is a navel/body photo; facial-domain filtering is required.",
+      "Riskli Ben": "Five of six reviewed placements are watermarked stock portraits. No supplied risk reference or diagnostic labeling protocol; class AP is not risk-detection accuracy.",
+      "Beyaz Nokta": "Very small and variably sized boxes; exhaustive labeling and whitehead/blackhead/pore lookalike definitions need verification.",
+      "Siyah Nokta": "Very small boxes and variable marked extent; source labels are retained and not medically relabeled by this review.",
+      "Gunes Lekesi": "Mixed broad facial patches and individual spot boxes; do not infer per-pixel boundaries from these boxes.",
+      "Yagli Cilt": "Mixed tiny highlight boxes and broad regions; source rectangles do not establish independently assessed non-oily cheeks.",
+      "Egzema": "Regional boxes do not establish a dry-skin severity label.",
+      "Rozasea": "Regional source labels do not establish a sensitive-skin type label.",
+      "Sedef ve Dokuntu": "Combined publisher class; distinct disease labels are not verified by this review.",
+      "Ucuk": "Source box extent varies; clinical class provenance and camera-domain acceptance remain unverified.",
+      "Akne": "Small localized boxes across heterogeneous clinical/stock imagery; source annotation agreement is not clinical or camera-domain acceptance."
+    },
+    "placementsReviewed": [
+      {
+        "label": "Rozasea",
+        "sourceMember": "train/10_jpg.rf.b9b9d65c4b5c552e7e8565ec681e08d3.jpg"
+      },
+      {
+        "label": "Rozasea",
+        "sourceMember": "train/Rosacea-home-treatment_jpeg.rf.186a4e4a88f69abd006744fc80f14ae6.jpg"
+      },
+      {
+        "label": "Ucuk",
+        "sourceMember": "train/istockphoto-487997501-1024x1024_jpg.rf.395784508fa433bf0e8013707c018646.jpg"
+      },
+      {
+        "label": "Egzema",
+        "sourceMember": "train/download-22-_jpeg.rf.bf148708624afab158b3f83045684db1.jpg"
+      },
+      {
+        "label": "Gunes Lekesi",
+        "sourceMember": "train/pigmentation-dark-spots_98_jpg.rf.b38cc09d243614a78315a7107d5f972b.jpg"
+      },
+      {
+        "label": "Genis Gozenek",
+        "sourceMember": "train/5_jpg.rf.2df6bae0b962888f4fd0b45eeb6c66ac.jpg"
+      },
+      {
+        "label": "Kuru Cilt",
+        "sourceMember": "train/shutterstock_1009805386_760x400_webp.rf.8f6b5ed51172a7027588aa30ef36756d.jpg"
+      },
+      {
+        "label": "Kuru Cilt",
+        "sourceMember": "train/1000-png_webp.rf.006d24a6a89b3bcf3a1e015052ece50f.jpg"
+      },
+      {
+        "label": "Kuru Cilt",
+        "sourceMember": "train/2021-06-09_Treating-Dry-and-Flaking-Skin_webp.rf.382fc163df7199d429bb7916652031c7.jpg"
+      },
+      {
+        "label": "Genis Gozenek",
+        "sourceMember": "train/stock-photo-enlarged-pores-in-face-of-southeast-asian-chinese-elder-man-2140073175_jpg.rf.3eb356cecac00be839d4e74a7c70497d.jpg"
+      },
+      {
+        "label": "Sedef ve Dokuntu",
+        "sourceMember": "train/istockphoto-2011122430-612x612_jpg.rf.1aad0c0b769e5e3b3e363ed2a4675efb.jpg"
+      },
+      {
+        "label": "Riskli Ben",
+        "sourceMember": "train/gettyimages-157636048-1024x1024_jpg.rf.74ca218663965a5b41f17d3bb87d0828.jpg"
+      },
+      {
+        "label": "Kuru Cilt",
+        "sourceMember": "train/images-7-_jpeg.rf.1b53326f17a90de5b1a8de38a867960b.jpg"
+      },
+      {
+        "label": "Ucuk",
+        "sourceMember": "train/22839-1721317891324-728x420_png.rf.9b2d9c484378e12fd9116567875c766b.jpg"
+      },
+      {
+        "label": "Akne",
+        "sourceMember": "train/levle0_465_jpg.rf.5c3cddd5d1f5d376c58f7d6049cde4bc.jpg"
+      },
+      {
+        "label": "Beyaz Nokta",
+        "sourceMember": "train/levle0_465_jpg.rf.5c3cddd5d1f5d376c58f7d6049cde4bc.jpg"
+      },
+      {
+        "label": "Yagli Cilt",
+        "sourceMember": "train/levle0_465_jpg.rf.5c3cddd5d1f5d376c58f7d6049cde4bc.jpg"
+      },
+      {
+        "label": "Gunes Lekesi",
+        "sourceMember": "train/melasma46_jpg.rf.6d890d83fe201213050ef7d1bc4a0e37.jpg"
+      },
+      {
+        "label": "Sedef ve Dokuntu",
+        "sourceMember": "train/images-5-_jpg.rf.3afac18ec05768f8b89f24b66b27b44a.jpg"
+      },
+      {
+        "label": "Riskli Ben",
+        "sourceMember": "train/gettyimages-477446612-2048x2048_jpg.rf.9faa5f1d88c235c360df036571d5e93c.jpg"
+      },
+      {
+        "label": "Sedef ve Dokuntu",
+        "sourceMember": "train/Perioral-facial-psoriasis-image-used-with-the-courtesy-of-CS_png.rf.3f75e1a0eec8882843744115504db0c5.jpg"
+      },
+      {
+        "label": "Sedef ve Dokuntu",
+        "sourceMember": "train/images-6-_jpg.rf.162d40e0b6ea165bc0c7ec7a73778e94.jpg"
+      },
+      {
+        "label": "Akne",
+        "sourceMember": "train/rotated_pustular_acne_-35-_jpg.rf.0006c5c173dd60d8bafde03880e04b7d.jpg"
+      },
+      {
+        "label": "Beyaz Nokta",
+        "sourceMember": "train/rotated_pustular_acne_-35-_jpg.rf.0006c5c173dd60d8bafde03880e04b7d.jpg"
+      },
+      {
+        "label": "Riskli Ben",
+        "sourceMember": "train/gettyimages-1409690637-1024x1024_jpg.rf.bec360ba87971d6e88c977bdfd3a8247.jpg"
+      },
+      {
+        "label": "Riskli Ben",
+        "sourceMember": "train/images-5-_jpg.rf.bda154784ae2cd147c6812c110c016cd.jpg"
+      },
+      {
+        "label": "Egzema",
+        "sourceMember": "train/inguinal-dermatit2_jpg.rf.d92bbfdece339800791f5b51e16ea4ac.jpg"
+      },
+      {
+        "label": "Kuru Cilt",
+        "sourceMember": "train/13_jpg.rf.7dc313a537aa4ba9fbe94b6a9e8efc28.jpg"
+      },
+      {
+        "label": "Akne",
+        "sourceMember": "train/3082b7bce5e9f335ad44f81c247f4a72_jpg.rf.b7f8a7300e74bd6f60e7f41df18df024.jpg"
+      },
+      {
+        "label": "Siyah Nokta",
+        "sourceMember": "train/3082b7bce5e9f335ad44f81c247f4a72_jpg.rf.b7f8a7300e74bd6f60e7f41df18df024.jpg"
+      },
+      {
+        "label": "Ucuk",
+        "sourceMember": "train/3082b7bce5e9f335ad44f81c247f4a72_jpg.rf.b7f8a7300e74bd6f60e7f41df18df024.jpg"
+      },
+      {
+        "label": "Rozasea",
+        "sourceMember": "train/Rosacea-Hero-Ingredients_webp.rf.b3206e3960fb21ca5a028de2c157d586.jpg"
+      },
+      {
+        "label": "Riskli Ben",
+        "sourceMember": "train/gettyimages-1702008265-1024x1024_jpg.rf.136c62c16eb7c818226bbfe458a79087.jpg"
+      },
+      {
+        "label": "Riskli Ben",
+        "sourceMember": "train/gettyimages-1308298616-2048x2048_jpg.rf.f1e18cdcfe643fb2d0f88b08edb46db9.jpg"
+      },
+      {
+        "label": "Kuru Cilt",
+        "sourceMember": "train/dry-skin-solutions-for-winter_webp.rf.fa5b0f997c655d8843f011b01b37a469.jpg"
+      },
+      {
+        "label": "Rozasea",
+        "sourceMember": "train/-_jpg.rf.df7a245d9ce278117e36a8ce418f0aac.jpg"
+      },
+      {
+        "label": "Rozasea",
+        "sourceMember": "train/rosacea18_jpg.rf.0479c58c52af56feba62cddad46f1e3e.jpg"
+      },
+      {
+        "label": "Sedef ve Dokuntu",
+        "sourceMember": "train/stock-photo-skin-psoriasis-psoriasis-is-an-autoimmune-disease-that-affects-the-skin-causing-red-flaky-skin-to-1338196559_jpg.rf.db4da4498a3b185d6d5618fc3b32b546.jpg"
+      },
+      {
+        "label": "Sedef ve Dokuntu",
+        "sourceMember": "train/JB3BN50pRbLB5nf1_webp.rf.dfe1e67a8067b9324d3d019812d5a5a6.jpg"
+      },
+      {
+        "label": "Egzema",
+        "sourceMember": "train/before-chin-scaling-epicderma_webp.rf.2ef5599270b7dcff784ede3e1b3d1cca.jpg"
+      },
+      {
+        "label": "Genis Gozenek",
+        "sourceMember": "train/large-pores-blotchy-skin-woman-face-cheek-1480_jpeg.rf.b108f722418032af95167e1d0aa3bab4.jpg"
+      },
+      {
+        "label": "Ucuk",
+        "sourceMember": "train/sin-titulo-300x200_webp.rf.dc8446cbb1d8af0aa0238a820eadcb85.jpg"
+      },
+      {
+        "label": "Egzema",
+        "sourceMember": "train/24604-eczema-on-face_jpg.rf.21092df232acdc1c2532ceb1d1e8fbff.jpg"
+      },
+      {
+        "label": "Rozasea",
+        "sourceMember": "train/seed0838_png.rf.19f04a15f6dca87a8476aac5fe15d016.jpg"
+      },
+      {
+        "label": "Siyah Nokta",
+        "sourceMember": "train/tinea-face-58_jpeg.rf.2b75616769c79aa3ee1bc8512fab9024.jpg"
+      },
+      {
+        "label": "Egzema",
+        "sourceMember": "train/1481353122-c62c46_webp.rf.cbb3e7bd017c58807508f1fc5287b1c4.jpg"
+      },
+      {
+        "label": "Egzema",
+        "sourceMember": "train/Eczema-1677-22-_jpg.rf.e18e6fe817a15c5893e1f964903e14d1.jpg"
+      },
+      {
+        "label": "Ucuk",
+        "sourceMember": "train/iStock-1153671528_-1-_960_webp.rf.e64b9de0cf36de862f2d5b48805bc1e5.jpg"
+      },
+      {
+        "label": "Genis Gozenek",
+        "sourceMember": "train/25_jpg.rf.50d064b2400446034d9e48c2d3ed7c39.jpg"
+      },
+      {
+        "label": "Ucuk",
+        "sourceMember": "train/images_jpg.rf.5d534fb4c3e097e7bc93bf894513e76c.jpg"
+      },
+      {
+        "label": "Yagli Cilt",
+        "sourceMember": "train/Blog_34_webp.rf.a4b5777eb03f428039d650fc420a9558.jpg"
+      },
+      {
+        "label": "Akne",
+        "sourceMember": "train/solar-lentigo-25_jpg.rf.46d8f9d94cca47c11ec6569e3084bab2.jpg"
+      },
+      {
+        "label": "Gunes Lekesi",
+        "sourceMember": "train/solar-lentigo-25_jpg.rf.46d8f9d94cca47c11ec6569e3084bab2.jpg"
+      },
+      {
+        "label": "Akne",
+        "sourceMember": "train/rotated_acne-face-3-6__ProtectWyJQcm90ZWN0Il0_FocusFillWzI5NCwyMjIsIngiLDFd_jpg.rf.40efabfc8337cc4bb7dea2c902bccd8b.jpg"
+      },
+      {
+        "label": "Beyaz Nokta",
+        "sourceMember": "train/rotated_acne-face-3-6__ProtectWyJQcm90ZWN0Il0_FocusFillWzI5NCwyMjIsIngiLDFd_jpg.rf.40efabfc8337cc4bb7dea2c902bccd8b.jpg"
+      },
+      {
+        "label": "Siyah Nokta",
+        "sourceMember": "train/rotated_acne-face-3-6__ProtectWyJQcm90ZWN0Il0_FocusFillWzI5NCwyMjIsIngiLDFd_jpg.rf.40efabfc8337cc4bb7dea2c902bccd8b.jpg"
+      },
+      {
+        "label": "Yagli Cilt",
+        "sourceMember": "train/rotated_acne-face-3-6__ProtectWyJQcm90ZWN0Il0_FocusFillWzI5NCwyMjIsIngiLDFd_jpg.rf.40efabfc8337cc4bb7dea2c902bccd8b.jpg"
+      },
+      {
+        "label": "Beyaz Nokta",
+        "sourceMember": "train/18-2-_jpeg.rf.839f08b7ccc89286025c3127915f22e5.jpg"
+      },
+      {
+        "label": "Genis Gozenek",
+        "sourceMember": "train/18-2-_jpeg.rf.839f08b7ccc89286025c3127915f22e5.jpg"
+      },
+      {
+        "label": "Siyah Nokta",
+        "sourceMember": "train/18-2-_jpeg.rf.839f08b7ccc89286025c3127915f22e5.jpg"
+      },
+      {
+        "label": "Beyaz Nokta",
+        "sourceMember": "train/2_51_jpg.rf.569e7ccff12016902faffd1cf9afb50b.jpg"
+      },
+      {
+        "label": "Akne",
+        "sourceMember": "train/stock-photo-seborrheic-dermatitis-in-adult-face-isolated-white-background-1044660676_jpg.rf.9fa96de97bdddd718c77a0e71fa99564.jpg"
+      },
+      {
+        "label": "Beyaz Nokta",
+        "sourceMember": "train/rotated_acne-pustular-5_jpg.rf.442c60513d9134edfc56d0172d0e63fc.jpg"
+      },
+      {
+        "label": "Siyah Nokta",
+        "sourceMember": "train/levle0_257_jpg.rf.7845fecda374311015d1cd2f008e68bf.jpg"
+      },
+      {
+        "label": "Yagli Cilt",
+        "sourceMember": "train/levle0_257_jpg.rf.7845fecda374311015d1cd2f008e68bf.jpg"
+      },
+      {
+        "label": "Genis Gozenek",
+        "sourceMember": "train/Enlarged-Pores-1_webp.rf.c378c5840b74d173c363309c02cd2edd.jpg"
+      },
+      {
+        "label": "Gunes Lekesi",
+        "sourceMember": "train/Gunes-lekesi-nedir_jpeg.rf.636c4eb49a8c46e1e3c21e852e9cd491.jpg"
+      },
+      {
+        "label": "Siyah Nokta",
+        "sourceMember": "train/tinea-face-41_jpeg.rf.e625515297c7e4ec952124d45072f732.jpg"
+      },
+      {
+        "label": "Yagli Cilt",
+        "sourceMember": "train/270_feature02_01_fig01_jpg.rf.94cb9c78bc3357baa04da1ae52ac3817.jpg"
+      },
+      {
+        "label": "Yagli Cilt",
+        "sourceMember": "train/stock-photo-before-and-after-excision-of-a-nevus-spots-on-a-woman-s-cheek-with-a-laser-in-a-cosmetology-clinic-2162860803_jpg.rf.696f4e61a5ee0e6cb29cf3fdf025f8b4.jpg"
+      },
+      {
+        "label": "Gunes Lekesi",
+        "sourceMember": "train/Process_and_results_for_removing_dark_sun_spots_on_the_face-min_webp.rf.04450b257f1d7e98d5da286b8a4e7751.jpg"
+      },
+      {
+        "label": "Gunes Lekesi",
+        "sourceMember": "train/sun-spot-help-v0-art5svwk679b1_webp.rf.bdaa6ece2f8a9bd64837be855c8adfb2.jpg"
+      }
+    ]
+  },
+  "blockingWork": [
+    "Replacement pinpoint specialist datasets passed import preflight and trainings are running. Held-out results, exhaustive annotation quality and reviewed-negative/camera acceptance remain to be assessed before admission.",
+    "Prepare independently assessed regional dry/oily support including non-oily cheeks; existing class labels alone do not validate regional skin type or combination.",
+    "Validate actual device-camera inputs against independent labels before promoting the new model. Retain clinical/risk classes outside production without verified class meaning/reference labels."
+  ],
+  "budget": {
+    "purchasedAdditionalCreditsReportedByUser": 20,
+    "remainingBalanceReadable": false,
+    "bulkAutolabelLaunched": false,
+    "newPaidTrainingLaunched": true
+  },
+  "readiness": {
+    "uiAndRoutineRulesImplemented": true,
+    "newFindingsModelOEMAccepted": false,
+    "allRequestedNewCVFindingsReady": false
+  },
+  "replacementSpecialists": {
+    "receipt": "replacement-specialists-20261023.json",
+    "trainingIds": [
+      "e45fb1f2578bf09750fb",
+      "66999f483e520c0353b9"
+    ],
+    "statuses": [
+      "running",
+      "running"
+    ],
+    "productionAdmitted": false,
+    "note": "Original 12-class version was not retrained. Two separately repaired specialist datasets were trained."
+  }
+}

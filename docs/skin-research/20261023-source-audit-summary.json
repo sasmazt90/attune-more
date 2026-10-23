@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "archiveSHA256": "4a89cca393baa3ca1afc5eedf8c4a4407040ca1888104ff07b8cc2226c6110c6",
+  "images": 3890,
+  "uniqueDecodedImages": 3888,
+  "exactDuplicateGroups": 2,
+  "crossSplitExactGroups": 0,
+  "classes": {
+    "Akne": {
+      "testAnnotations": 364,
+      "testImages": 28,
+      "trainAnnotations": 792,
+      "trainImages": 65,
+      "validAnnotations": 443,
+      "validImages": 48
+    },
+    "Beyaz Nokta": {
+      "testAnnotations": 344,
+      "testImages": 25,
+      "trainAnnotations": 696,
+      "trainImages": 58,
+      "validAnnotations": 749,
+      "validImages": 28
+    },
+    "Egzema": {
+      "testAnnotations": 24,
+      "testImages": 10,
+      "trainAnnotations": 232,
+      "trainImages": 74,
+      "validAnnotations": 43,
+      "validImages": 18
+    },
+    "Genis Gozenek": {
+      "testAnnotations": 21,
+      "testImages": 6,
+      "trainAnnotations": 251,
+      "trainImages": 74,
+      "validAnnotations": 35,
+      "validImages": 17
+    },
+    "Gunes Lekesi": {
+      "testAnnotations": 43,
+      "testImages": 7,
+      "trainAnnotations": 1404,
+      "trainImages": 84,
+      "validAnnotations": 21,
+      "validImages": 7
+    },
+    "Kuru Cilt": {
+      "testAnnotations": 26,
+      "testImages": 5,
+      "trainAnnotations": 457,
+      "trainImages": 96,
+      "validAnnotations": 32,
+      "validImages": 12
+    },
+    "Mantar": {
+      "testAnnotations": 5,
+      "testImages": 2,
+      "trainAnnotations": 243,
+      "trainImages": 87,
+      "validAnnotations": 9,
+      "validImages": 4
+    },
+    "Riskli Ben": {
+      "testAnnotations": 12,
+      "testImages": 7,
+      "trainAnnotations": 123,
+      "trainImages": 89,
+      "validAnnotations": 15,
+      "validImages": 14
+    },
+    "Rozasea": {
+      "testAnnotations": 18,
+      "testImages": 9,
+      "trainAnnotations": 158,
+      "trainImages": 75,
+      "validAnnotations": 81,
+      "validImages": 31
+    },
+    "Sedef ve Dokuntu": {
+      "testAnnotations": 11,
+      "testImages": 1,
+      "trainAnnotations": 593,
+      "trainImages": 87,
+      "validAnnotations": 21,
+      "validImages": 5
+    },
+    "Sigil": {
+      "testAnnotations": 3,
+      "testImages": 1,
+      "trainAnnotations": 1684,
+      "trainImages": 92,
+      "validAnnotations": 119,
+      "validImages": 7
+    },
+    "Siyah Nokta": {
+      "testAnnotations": 248,
+      "testImages": 24,
+      "trainAnnotations": 970,
+      "trainImages": 44,
+      "validAnnotations": 803,
+      "validImages": 35
+    },
+    "Ucuk": {
+      "trainAnnotations": 188,
+      "trainImages": 93,
+      "validAnnotations": 14,
+      "validImages": 6
+    },
+    "Yagli Cilt": {
+      "testAnnotations": 43,
+      "testImages": 14,
+      "trainAnnotations": 187,
+      "trainImages": 57,
+      "validAnnotations": 90,
+      "validImages": 31
+    }
+  },
+  "issues": {},
+  "personIndependent": false,
+  "annotationSemanticsReviewed": false,
+  "trainingStarted": false
+}

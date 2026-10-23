@@ -1,0 +1,64 @@
+{
+  "source": "parin-kittipongdaja-vwmn3/skin-problem-multilabel/1",
+  "archiveSHA256": "e4f164eb6b266f58dbf072cd437dc1b32fb7643926850d35425e36f0a31a3342",
+  "images": 4828,
+  "uniqueDecodedImages": 4828,
+  "exactDuplicateGroups": 0,
+  "crossSplitExactGroups": 0,
+  "exactCrossSourceMatches": 112,
+  "classes": {
+    "Acne": {
+      "test": 312,
+      "train": 2105,
+      "valid": 608
+    },
+    "Dark Spots": {
+      "test": 21,
+      "train": 190,
+      "valid": 46
+    },
+    "Dry Skin": {
+      "test": 43,
+      "train": 326,
+      "valid": 103
+    },
+    "Eye bags": {
+      "test": 17,
+      "train": 156,
+      "valid": 48
+    },
+    "Pores": {
+      "test": 13,
+      "train": 197,
+      "valid": 53
+    },
+    "Wrinkles": {
+      "test": 38,
+      "train": 297,
+      "valid": 82
+    },
+    "Oily Skin": {
+      "test": 32,
+      "train": 179,
+      "valid": 53
+    },
+    "Blackheads": {
+      "test": 12,
+      "train": 72,
+      "valid": 22
+    },
+    "Normal Skin": {
+      "test": 27,
+      "train": 178,
+      "valid": 43
+    },
+    "Skin Redness": {
+      "test": 5,
+      "train": 32,
+      "valid": 13
+    }
+  },
+  "task": "whole-image multilabel classification; no box/pixel coordinates",
+  "publisherReportedAccuracy": 0.971,
+  "personIndependent": false
+}

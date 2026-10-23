@@ -1,0 +1,534 @@
+{
+  "date": "2026-10-23",
+  "scope": "One bounded quality-correction training; not completed OEM acceptance",
+  "project": "tolgar-sasmaz/attune-comedones-clean-train-r2",
+  "version": 1,
+  "source": "https://universe.roboflow.com/skin-lj9yp/jerawat-v",
+  "publisherDeclaredLicense": "CC BY 4.0",
+  "baselineEvaluationId": "fWaeZp06Wry5DwIQgdhP",
+  "qualityPolicy": {
+    "onlySplit": "train",
+    "metric": "Fraction of pixels whose grayscale differs from 3x3 median by >60/255; candidate quality screen, not annotation diagnosis",
+    "threshold": 0.01,
+    "excludedImages": 630,
+    "sourceTrainingGroupsPreserved": true,
+    "qualityAuditSHA256": "e213ce0b50769d419453604281a114f0a6128ff2e044aff538256dbb9d78551a",
+    "sourcePreparedArchiveSHA256": "e64e6f6e2db2a61f646652654efd51a4531da2afff74279f23ab95bf0971e0d9",
+    "unchangedValidTestAnnotationSHA256": {
+      "valid": "69f53c94d8fbebab4029db5d07ec3e68ae45f20ded7a6bf235eb1479564ad772",
+      "test": "cbd15c9e6e19cd992c0e290cecd57cbd8db506ab8e2bd75412a915e6f9967f27"
+    },
+    "medicalLabelsReviewed": false
+  },
+  "splits": {
+    "train": {
+      "images": 917,
+      "annotations": 6270,
+      "sourceGroups": 497,
+      "byClass": {
+        "3": 2667,
+        "1": 1506,
+        "2": 2097
+      }
+    },
+    "valid": {
+      "images": 345,
+      "annotations": 2024,
+      "sourceGroups": 108,
+      "byClass": {
+        "3": 890,
+        "1": 526,
+        "2": 608
+      }
+    },
+    "test": {
+      "images": 309,
+      "annotations": 2322,
+      "sourceGroups": 106,
+      "byClass": {
+        "1": 475,
+        "2": 846,
+        "3": 1001
+      }
+    }
+  },
+  "sourceGroups": 711,
+  "personIndependent": false,
+  "importPreflight": {
+    "passed": true,
+    "preparedArchiveSHA256": "dc3d20e76b81475cd14f481862aeb2a57ce0e3a85e85d9ca897570bfe3a77cf1",
+    "filenameIdentity": "source-file-SHA256",
+    "actualExportSHA256": "f476a67dc19c9ba53e91fccd924df748960c0867a83da963f76e1f77512b849c",
+    "splits": {
+      "test": {
+        "images": 309,
+        "annotated": 309,
+        "annotations": 2322,
+        "unannotated": 0
+      },
+      "train": {
+        "images": 917,
+        "annotated": 917,
+        "annotations": 6270,
+        "unannotated": 0
+      },
+      "valid": {
+        "images": 345,
+        "annotated": 345,
+        "annotations": 2024,
+        "unannotated": 0
+      }
+    },
+    "classes": {
+      "acne": 2507,
+      "whiteheads": 4558,
+      "blackheads": 3551
+    },
+    "classPositiveImages": {
+      "acne": {
+        "test": 210,
+        "train": 627,
+        "valid": 223
+      },
+      "whiteheads": {
+        "test": 88,
+        "train": 242,
+        "valid": 84
+      },
+      "blackheads": {
+        "test": 90,
+        "train": 252,
+        "valid": 82
+      }
+    },
+    "exactImageOverlaps": {
+      "test-train": 0,
+      "test-valid": 0,
+      "train-valid": 0
+    },
+    "groupOverlaps": {
+      "test-train": 0,
+      "test-valid": 0,
+      "train-valid": 0
+    },
+    "jpegRecodedImages": 1567,
+    "maxMeanAbsolutePixelDifference": 1.3954138321995464,
+    "imagesWithAdjustedBoxGeometry": 0,
+    "maxBoxCoordinateDifferencePixels": 0.0,
+    "boxTolerancePixels": 1.01,
+    "pixelDifferenceLimit": 8,
+    "issues": {}
+  },
+  "training": {
+    "checkedAt": "2026-10-23T13:17:16.210Z",
+    "launch": {
+      "trainingId": "c2bcbeca2ab5719224fe",
+      "status": "running",
+      "project_id": "attune-comedones-clean-train-r2",
+      "version": 1,
+      "url": "https://app.roboflow.com/tolgar-sasmaz/attune-comedones-clean-train-r2/1",
+      "message": "Training has been created. Monitor progress with trainings_get(project_id, version_number, training_id) or at the URL above. Training can take minutes to hours depending on dataset size and model type."
+    },
+    "status": {
+      "trainingId": "c2bcbeca2ab5719224fe",
+      "versionId": "1",
+      "status": "running",
+      "start": 1792761363258,
+      "end": null,
+      "jobType": "fine-tune",
+      "modelType": "rfdetr-nas-parent",
+      "modelGroup": null,
+      "modelCount": 0,
+      "models": [],
+      "createdAt": "2026-10-23T13:16:03.258000Z"
+    },
+    "recipe": {
+      "schema_version": 1,
+      "input": {
+        "width": 640,
+        "height": 640,
+        "resize": {
+          "enabled": true,
+          "format": "Fit (black edges) in",
+          "width": 640,
+          "height": 640
+        },
+        "resolution": 640,
+        "splits": [
+          "train",
+          "valid",
+          "test"
+        ]
+      },
+      "online_preprocessing": [],
+      "online_augmentation": {
+        "splits": [
+          "train"
+        ],
+        "steps": []
+      },
+      "source_version": {
+        "dataset_id": "Yr3MKkD8aDu0NIzG9M5F",
+        "version_id": "1",
+        "baked_preprocessing": {},
+        "baked_augmentation": {},
+        "assertions": {
+          "resize_baked": false,
+          "augmentation_baked": false
+        }
+      },
+      "hyperparameters": {
+        "epochs": 100
+      }
+    },
+    "monitor": {
+      "success": true,
+      "id": "6adb35bfc574819184002140a367a818",
+      "enabled": true,
+      "schedule": "BEGIN:VEVENT\nDTSTART:20261023T102359Z\nRRULE:FREQ=HOURLY\nEND:VEVENT"
+    }
+  },
+  "diagnosticPilot": {
+    "split": "valid",
+    "images": 4,
+    "selection": "First two class-positive images (5-40 targets), deterministic SHA256 order, distinct known source groups; diagnostic only",
+    "scope": "Six-image diagnostic pilot; four comedone cases paired. Not a held-out performance estimate.",
+    "confidenceThresholdsFromExistingFullValidation": {
+      "acne": 0.38,
+      "blackheads": 0.32,
+      "whiteheads": 0.32
+    },
+    "matchingIoU": 0.5,
+    "mergeNmsIoU": 0.5,
+    "tiles": {
+      "nativeSize": 252,
+      "positions": [
+        [
+          0,
+          0
+        ],
+        [
+          168,
+          0
+        ],
+        [
+          0,
+          168
+        ],
+        [
+          168,
+          168
+        ]
+      ],
+      "cropEncoding": "JPEG quality95; full images original JPEG"
+    },
+    "rows": [
+      {
+        "case": 0,
+        "target": "whiteheads",
+        "mode": "full",
+        "counts": {
+          "acne": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "smallTP": 0,
+            "smallGT": 0
+          },
+          "blackheads": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "smallTP": 0,
+            "smallGT": 0
+          },
+          "whiteheads": {
+            "tp": 7,
+            "fp": 3,
+            "fn": 0,
+            "smallTP": 3,
+            "smallGT": 3
+          }
+        }
+      },
+      {
+        "case": 0,
+        "target": "whiteheads",
+        "mode": "tile",
+        "counts": {
+          "acne": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "smallTP": 0,
+            "smallGT": 0
+          },
+          "blackheads": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "smallTP": 0,
+            "smallGT": 0
+          },
+          "whiteheads": {
+            "tp": 7,
+            "fp": 10,
+            "fn": 0,
+            "smallTP": 3,
+            "smallGT": 3
+          }
+        }
+      },
+      {
+        "case": 1,
+        "target": "whiteheads",
+        "mode": "full",
+        "counts": {
+          "acne": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "smallTP": 0,
+            "smallGT": 0
+          },
+          "blackheads": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "smallTP": 0,
+            "smallGT": 0
+          },
+          "whiteheads": {
+            "tp": 5,
+            "fp": 2,
+            "fn": 5,
+            "smallTP": 0,
+            "smallGT": 0
+          }
+        }
+      },
+      {
+        "case": 1,
+        "target": "whiteheads",
+        "mode": "tile",
+        "counts": {
+          "acne": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "smallTP": 0,
+            "smallGT": 0
+          },
+          "blackheads": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "smallTP": 0,
+            "smallGT": 0
+          },
+          "whiteheads": {
+            "tp": 9,
+            "fp": 3,
+            "fn": 1,
+            "smallTP": 0,
+            "smallGT": 0
+          }
+        }
+      },
+      {
+        "case": 2,
+        "target": "blackheads",
+        "mode": "full",
+        "counts": {
+          "acne": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 0,
+            "smallTP": 0,
+            "smallGT": 0
+          },
+          "blackheads": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 6,
+            "smallTP": 0,
+            "smallGT": 2
+          },
+          "whiteheads": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "smallTP": 0,
+            "smallGT": 0
+          }
+        }
+      },
+      {
+        "case": 2,
+        "target": "blackheads",
+        "mode": "tile",
+        "counts": {
+          "acne": {
+            "tp": 0,
+            "fp": 3,
+            "fn": 0,
+            "smallTP": 0,
+            "smallGT": 0
+          },
+          "blackheads": {
+            "tp": 1,
+            "fp": 1,
+            "fn": 5,
+            "smallTP": 0,
+            "smallGT": 2
+          },
+          "whiteheads": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "smallTP": 0,
+            "smallGT": 0
+          }
+        }
+      },
+      {
+        "case": 3,
+        "target": "blackheads",
+        "mode": "full",
+        "counts": {
+          "acne": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "smallTP": 0,
+            "smallGT": 0
+          },
+          "blackheads": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 14,
+            "smallTP": 1,
+            "smallGT": 14
+          },
+          "whiteheads": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "smallTP": 0,
+            "smallGT": 0
+          }
+        }
+      },
+      {
+        "case": 3,
+        "target": "blackheads",
+        "mode": "tile",
+        "counts": {
+          "acne": {
+            "tp": 1,
+            "fp": 1,
+            "fn": 0,
+            "smallTP": 0,
+            "smallGT": 0
+          },
+          "blackheads": {
+            "tp": 1,
+            "fp": 4,
+            "fn": 15,
+            "smallTP": 1,
+            "smallGT": 14
+          },
+          "whiteheads": {
+            "tp": 0,
+            "fp": 5,
+            "fn": 0,
+            "smallTP": 0,
+            "smallGT": 0
+          }
+        }
+      }
+    ],
+    "aggregate": {
+      "full": {
+        "acne": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "smallTP": 0,
+          "smallGT": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "smallRecall": 0.0
+        },
+        "blackheads": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 20,
+          "smallTP": 1,
+          "smallGT": 16,
+          "precision": 1.0,
+          "recall": 0.09090909090909091,
+          "smallRecall": 0.0625
+        },
+        "whiteheads": {
+          "tp": 12,
+          "fp": 5,
+          "fn": 5,
+          "smallTP": 3,
+          "smallGT": 3,
+          "precision": 0.7058823529411765,
+          "recall": 0.7058823529411765,
+          "smallRecall": 1.0
+        }
+      },
+      "tile": {
+        "acne": {
+          "tp": 1,
+          "fp": 4,
+          "fn": 0,
+          "smallTP": 0,
+          "smallGT": 0,
+          "precision": 0.2,
+          "recall": 1.0,
+          "smallRecall": 0.0
+        },
+        "blackheads": {
+          "tp": 2,
+          "fp": 5,
+          "fn": 20,
+          "smallTP": 1,
+          "smallGT": 16,
+          "precision": 0.2857142857142857,
+          "recall": 0.09090909090909091,
+          "smallRecall": 0.0625
+        },
+        "whiteheads": {
+          "tp": 16,
+          "fp": 18,
+          "fn": 1,
+          "smallTP": 3,
+          "smallGT": 3,
+          "precision": 0.47058823529411764,
+          "recall": 0.9411764705882353,
+          "smallRecall": 1.0
+        }
+      }
+    },
+    "serverCandidateCapHits": 3,
+    "limitations": [
+      "Only four class-positive validation images are paired; not a held-out performance estimate.",
+      "Two blackhead cases contain artificial impulse corruption; this pilot does not isolate crop-size effects from source quality.",
+      "Tile JPEG encoding and full-image original JPEG are recorded.",
+      "Three requests reached the hosted300 candidate cap."
+    ]
+  },
+  "productionAdmitted": false,
+  "comparisonProtocol": [
+    "Keep all345validation and309test images and native labels, including noisy variants.",
+    "Choose NAS candidate on validation; never select children or thresholds using test performance.",
+    "Report class-specific AP50/AP50-95 and fixed-threshold precision/recall; keep any clean-subset result separate.",
+    "The correction changes data quality, architecture family and input size together; do not claim a controlled causal gain from any single factor.",
+    "Do not relabel missed predictions as annotation errors without visual review; quality screen is not medical label approval.",
+    "No automatic extra paid experiment or production admission."
+  ]
+}

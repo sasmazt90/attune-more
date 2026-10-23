@@ -262,5 +262,301 @@
   "e5ab0705e057bec5": {
     "source": "(?:bitte )?(?:ich (?:möchte|will) (?:das )?gespräch(?: jetzt)? beenden|(?:das )?gespräch(?: jetzt)? beenden|beenden sie(?: bitte)? (?:das )?gespräch)",
     "reason": "Internal full-utterance German termination grammar; not displayed or translated."
+  },
+  "89e8b9518d922794": {
+    "source": "camera",
+    "reason": "Browser Permissions API permission name; machine identifier passed to navigator.permissions.query, not display text."
+  },
+  "d7f4d3ccee7acd3d": {
+    "source": "microphone",
+    "reason": "Browser Permissions API permission name; machine identifier passed to navigator.permissions.query, not display text."
+  },
+  "709a7097dceb6dfd": {
+    "source": "/care",
+    "reason": "Internal route, not display text."
+  },
+  "55d685028857dd6c": {
+    "source": "/profile",
+    "reason": "Internal route, not display text."
+  },
+  "ba47c4c783868a48": {
+    "source": "{0} LogCS",
+    "reason": "Numeric value and invariant technical unit; no natural-language text."
+  },
+  "f6f15d5f824848ea": {
+    "source": "binaural",
+    "reason": "Internal hearing ear ID; displayed label is İki kulak."
+  },
+  "360f84035942243c": {
+    "source": "left",
+    "reason": "Internal ear ID; visible label is Sol/Sol kulak."
+  },
+  "1225ae6c1ae69dcb": {
+    "source": "sessions",
+    "reason": "History criterion ID; visible label is Kayıtlı görüşme sayısı."
+  },
+  "ff582559c3948dbb": {
+    "source": "themes",
+    "reason": "History criterion ID; visible label is Tema dağılımı."
+  },
+  "875c34e615c2d9c7": {
+    "source": "speaking",
+    "reason": "Internal preview state; visible label is Seslendiriliyor."
+  },
+  "59dbf36d9930a99b": {
+    "source": "starting",
+    "reason": "Internal preview state; visible label is Ses hazırlanıyor."
+  },
+  "7817bb812e82168b": {
+    "source": "tr",
+    "reason": "ISO language code, not translated."
+  },
+  "0734960f2699628e": {
+    "source": "tr-TR",
+    "reason": "BCP-47 locale code, not translated."
+  },
+  "b5f09495ecaf590b": {
+    "source": "environment-noise",
+    "reason": "Internal hearing noise method ID, not rendered copy."
+  },
+  "ee9cd748a53141e2": {
+    "source": "experimental-TTS-bank",
+    "reason": "Internal test-bank provenance ID, not rendered copy."
+  },
+  "a159fd6b317220f2": {
+    "source": "not-observable; user-maintained",
+    "reason": "Internal calibration metadata; not UI text."
+  },
+  "eb5ce210858f7291": {
+    "source": "relative-head-anchors",
+    "reason": "Internal distance method ID, not rendered copy."
+  },
+  "caf86296c6774e94": {
+    "source": "source-complete-token-v1",
+    "reason": "Internal protocol version; not translated."
+  },
+  "aaa8b18a1b9f9b89": {
+    "source": "uncalibrated-hardware",
+    "reason": "Internal calibration profile; not UI text."
+  },
+  "97b7e2db799e2b79": {
+    "source": "unverified",
+    "reason": "Internal measurement evidence state; visible limitation text is localized."
+  },
+  "af2956f64f03a69e": {
+    "source": "user-confirmed",
+    "reason": "Internal evidence provenance marker; not UI text."
+  },
+  "75f6a5979ff302f2": {
+    "source": "user-reported",
+    "reason": "Internal evidence provenance marker; not UI text."
+  },
+  "97f09541bbbd5b0a": {
+    "source": "acne",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/utils/skinResearchAdapter.ts"
+  },
+  "aa28d0c67ebd889f": {
+    "source": "asr-error:",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/app/vision/SpokenLetterPage.tsx"
+  },
+  "6ca9acb7970d0ea5": {
+    "source": "asr-error:{0}",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/app/vision/SpokenLetterPage.tsx"
+  },
+  "45757c76636b011d": {
+    "source": "asr-final",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/app/vision/SpokenLetterPage.tsx"
+  },
+  "4e6bfb8099894cdc": {
+    "source": "browser-performance",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/app/vision/SpokenLetterPage.tsx"
+  },
+  "fcac2b290afcdb27": {
+    "source": "class-probability",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/utils/skinIndicators.ts"
+  },
+  "c6233bff011968d6": {
+    "source": "color-index-0-100",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/utils/skinIndicators.ts"
+  },
+  "a0782d1e27e21182": {
+    "source": "dB-SNR",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/utils/hearingProtocol.ts"
+  },
+  "5076970174dc9a66": {
+    "source": "dBFS-peak",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/app/hearing/page.tsx"
+  },
+  "b755cb248c3c4a7d": {
+    "source": "dry",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/utils/skinResearchAdapter.ts"
+  },
+  "3e5880122eb7ff37": {
+    "source": "instruction-echo-ignored",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/app/vision/SpokenLetterPage.tsx"
+  },
+  "482f4fd6ae0b6d50": {
+    "source": "lesion-count",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/utils/skinResearchAdapter.ts"
+  },
+  "8560878b8782af43": {
+    "source": "listening",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/app/vision/SpokenLetterPage.tsx"
+  },
+  "ab7902bcbd91137e": {
+    "source": "oil",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/utils/skinResearchAdapter.ts"
+  },
+  "140b07360d8a462d": {
+    "source": "ordinal-grade",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/utils/skinIndicators.ts"
+  },
+  "da5bcc8845f81fa2": {
+    "source": "sag",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/utils/skinResearchAdapter.ts"
+  },
+  "3c4a9b75bba38ec7": {
+    "source": "UNSUPPORTED_LANGUAGE",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/app/localized-manifest/route.ts"
+  },
+  "13a5c743483937b0": {
+    "source": "user-approved-recordings",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/utils/audioGuidance.ts"
+  },
+  "59ba2684c8f4987b": {
+    "source": "visible-highlight-area-percent",
+    "reason": "Internal measurement/protocol/unit/event ID discovered by display dependency tracing; UI uses localized labels, not this machine value. Source: apps/vehicle-app/src/utils/skinIndicators.ts"
+  },
+  "8a671e77d3cb398d": {
+    "source": "audio-error",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/utils/useMentalConversation.ts"
+  },
+  "b560976d9135db3b": {
+    "source": "chat-response",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/utils/useMentalConversation.ts"
+  },
+  "611496f412cac947": {
+    "source": "cleanup",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/utils/useMentalConversation.ts"
+  },
+  "7caaa212a334c711": {
+    "source": "CRISIS_SAFETY_GUARD",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/utils/useMentalConversation.ts"
+  },
+  "e87ba7a0b779d8b7": {
+    "source": "ended",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/utils/useMentalConversation.ts"
+  },
+  "953c9b25898485ce": {
+    "source": "EYEWEAR",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/app/skin/page.tsx"
+  },
+  "3ebd656efa9cbb33": {
+    "source": "EYEWEAR_PENDING",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/app/skin/page.tsx"
+  },
+  "ce4163933e1ab5b8": {
+    "source": "EYEWEAR_UNCERTAIN",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/app/skin/page.tsx"
+  },
+  "d1d0843208aac22a": {
+    "source": "INVALID_SPEECH",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/app/api/mental-neural-speech/route.ts"
+  },
+  "7467d266b873cd81": {
+    "source": "INVALID_TTS_RESPONSE",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/app/api/mental-neural-speech/route.ts"
+  },
+  "a192ad2e69475f08": {
+    "source": "JSON_REQUIRED",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/app/api/mental-neural-speech/route.ts"
+  },
+  "20446f34cd0e821b": {
+    "source": "NEURAL_TTS_AUTH_UNCONFIGURED",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/app/api/mental-neural-speech/route.ts"
+  },
+  "cd01ce8bc72d01ed": {
+    "source": "NEURAL_TTS_LOOPBACK_BACKEND_REQUIRED",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/app/api/mental-neural-speech/route.ts"
+  },
+  "897ae6acb1bd10b7": {
+    "source": "NEURAL_TTS_UNAVAILABLE",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/app/api/mental-neural-speech/route.ts"
+  },
+  "0db79e63c5179b12": {
+    "source": "playing",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/utils/useMentalConversation.ts"
+  },
+  "27042f4e6eca7d0b": {
+    "source": "right",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/app/hearing/page.tsx"
+  },
+  "16d00e6b822c97b9": {
+    "source": "SAME_ORIGIN_REQUIRED",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/app/api/mental-neural-speech/route.ts"
+  },
+  "27ce1d1bf4270020": {
+    "source": "send",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/utils/useMentalConversation.ts"
+  },
+  "a9e708a2ee02cf5b": {
+    "source": "SPEECH_CANCELLED",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/app/api/mental-neural-speech/route.ts"
+  },
+  "9535bbd0edd48fa6": {
+    "source": "SPEECH_TOO_LARGE",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/app/api/mental-neural-speech/route.ts"
+  },
+  "6f2fd3097c46d59e": {
+    "source": "TTS_RESPONSE_TOO_LARGE",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/app/api/mental-neural-speech/route.ts"
+  },
+  "96274136cb3381b1": {
+    "source": "tts-request",
+    "reason": "Internal event, protocol, service error code or state-machine ID. UI renders a localized notice instead; display dependency tracing also reaches this non-display value. Source: apps/vehicle-app/src/utils/useMentalConversation.ts"
+  },
+  "4d56b739ae8909a9": {
+    "source": "sourceBadge",
+    "reason": "Internal response key, validation metadata or diagnostic code. User-facing errors use localized displayMessage; not UI copy."
+  },
+  "23bb7a1a04217310": {
+    "source": "handoffNote",
+    "reason": "Internal response key, validation metadata or diagnostic code. User-facing errors use localized displayMessage; not UI copy."
+  },
+  "fe64da678b076f21": {
+    "source": "emergencyContact",
+    "reason": "Internal response key, validation metadata or diagnostic code. User-facing errors use localized displayMessage; not UI copy."
+  },
+  "0161662702957182": {
+    "source": "clinicalDisclaimer",
+    "reason": "Internal response key, validation metadata or diagnostic code. User-facing errors use localized displayMessage; not UI copy."
+  },
+  "5e516202d2e1eb83": {
+    "source": "Untrusted browser origin",
+    "reason": "Internal response key, validation metadata or diagnostic code. User-facing errors use localized displayMessage; not UI copy."
+  },
+  "a7f32380cf333659": {
+    "source": "loc",
+    "reason": "Internal response key, validation metadata or diagnostic code. User-facing errors use localized displayMessage; not UI copy."
+  },
+  "1303c06b0b014d0c": {
+    "source": "type",
+    "reason": "Internal response key, validation metadata or diagnostic code. User-facing errors use localized displayMessage; not UI copy."
+  },
+  "e46b320165eec91e": {
+    "source": "msg",
+    "reason": "Internal response key, validation metadata or diagnostic code. User-facing errors use localized displayMessage; not UI copy."
+  },
+  "d93bfc2a085d3539": {
+    "source": "NATIVE_TILE_BUDGET_EXCEEDED",
+    "reason": "Internal response key, validation metadata or diagnostic code. User-facing errors use localized displayMessage; not UI copy."
+  },
+  "4009e07e4ada8996": {
+    "source": "ACCEPTED_MODEL_UNAVAILABLE",
+    "reason": "Internal response key, validation metadata or diagnostic code. User-facing errors use localized displayMessage; not UI copy."
+  },
+  "8ef5f50cc3679934": {
+    "source": "PRIVACY_PREFERENCE_DISABLED",
+    "reason": "Internal response key, validation metadata or diagnostic code. User-facing errors use localized displayMessage; not UI copy."
   }
 }

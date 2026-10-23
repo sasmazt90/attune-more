@@ -57,7 +57,7 @@ export const SkinResultView: React.FC<SkinResultViewProps> = ({
             <li>{i18nText("Işık, gölge, sakal ve görüntü netliği değerlendirmeyi etkileyebilir. Yeterli görüntü alınamayan değerler — ile gösterilir.")}</li>
             <li>{i18nText("Parlama, pullanma ve sivilce adayları fotoğraftaki görünüm üzerinden değerlendirilir.")}</li>
             <li>{i18nText("Renkli alanlar seçtiğiniz bölge ve kriterin görüntüdeki dağılımını gösterir.")}</li>
-            <li>{i18nText("T-bölgesi alın ve burunu kapsar.")}</li>
+            <li>{i18nText("T-bölgesi alın, burun ve çeneyi kapsar.")}</li>
             <li>{i18nText("Kontur göstergelerinde görüntüde izlenen katlanma ve sınır çizgileri gösterilir.")}</li>
           </ul></InformationButton>
         </div>
