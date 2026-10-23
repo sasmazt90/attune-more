@@ -175,7 +175,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-24",
-      "lastCheckedAt": "2026-10-23T22:53:19Z",
+      "lastCheckedAt": "2026-10-23T23:49:37.220Z",
       "modelCount": 89,
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
@@ -327,7 +327,7 @@
         "invalidGeometry": 0
       },
       "versions": [],
-      "lastCheckedAt": "2026-10-23T22:53:19Z",
+      "lastCheckedAt": "2026-10-23T23:49:37.220Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -420,7 +420,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-23T22:53:19Z",
+      "lastCheckedAt": "2026-10-23T23:49:37.220Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "modelIds": [
@@ -685,7 +685,81 @@
         },
         "modelAccepted": false,
         "productActivated": false,
-        "decision": "Research candidate only; multi-image labelled camera benchmark and checkpoint/commercial-rights verification required."
+        "decision": "Research candidate only; multi-image labelled camera benchmark and checkpoint/commercial-rights verification required.",
+        "generatedFrontBatch": {
+          "observedAt": "2026-10-23T23:49:37.220Z",
+          "inputs": 6,
+          "inputKind": "user-declared generated FRONT images",
+          "sideImagesSent": false,
+          "confidenceFloor": 0.08,
+          "overlap": 0.5,
+          "inferenceIds": [
+            "e2bd5b32-0cfd-4352-b267-fbcc29d3923b",
+            "0ae60ac1-1a8b-49c7-a5c0-7b8fad3dd091",
+            "9c8682ca-3b50-4a06-aa17-aef992225e21",
+            "4ee8ff19-2a39-4d1f-9f83-b8052355eac4",
+            "eb2d40a9-4135-43cb-bf63-09d6eed35bcb",
+            "9931f59f-7624-4d10-9f6f-e278668a38e9"
+          ],
+          "aggregateThresholdCounts": {
+            "0.08": {
+              "total": 224,
+              "byClass": {
+                "akne": 39,
+                "gozenek": 45,
+                "kirisiklik": 55,
+                "kizariklik": 80,
+                "pul": 5
+              }
+            },
+            "0.15": {
+              "total": 89,
+              "byClass": {
+                "akne": 18,
+                "gozenek": 17,
+                "kirisiklik": 25,
+                "kizariklik": 28,
+                "pul": 1
+              }
+            },
+            "0.20": {
+              "total": 62,
+              "byClass": {
+                "akne": 9,
+                "gozenek": 11,
+                "kirisiklik": 21,
+                "kizariklik": 20,
+                "pul": 1
+              }
+            },
+            "0.30": {
+              "total": 36,
+              "byClass": {
+                "akne": 3,
+                "gozenek": 8,
+                "kirisiklik": 17,
+                "kizariklik": 7,
+                "pul": 1
+              }
+            },
+            "0.50": {
+              "total": 17,
+              "byClass": {
+                "gozenek": 3,
+                "kirisiklik": 13,
+                "kizariklik": 1
+              }
+            }
+          },
+          "precisionRecallF1Eligible": false,
+          "thresholdCalibrationEligible": false,
+          "realCameraAcceptance": false,
+          "evidence": [
+            "docs/skin/evidence/camera-triplet-generated-smoke-20261024-v1.json",
+            "docs/skin/evidence/generated-front-roboflow-20261024-v1.json",
+            "docs/skin/generated-camera-triplet-roboflow-review-20261024.md"
+          ]
+        }
       }
     },
     "wrinkleSources": {
@@ -1010,7 +1084,7 @@
     {
       "id": "00",
       "target": "shared-data-and-evaluation",
-      "status": "acceptance_gate_integrated_data_and_camera_pending",
+      "status": "acceptance_gate_and_generated_camera_smoke_integrated_real_camera_pending",
       "work": "Build target/source inventory; verify annotation geometry and label meaning; group exact/near duplicate photos across sources; freeze train/validation/test groups; audit source licences; create independent camera benchmark and capture-quality checks. A shared fail-closed learned-model gate now requires immutable identity, reviewed source/split/negative evidence, per-class validation plus locked test, independent product-contract camera evidence and working integration before activation.",
       "evidence": [
         "scripts/skin-research/audit_roadmap_archives.py",
@@ -1051,7 +1125,13 @@
         "scripts/skin-research/skin_model_acceptance_gate.py",
         "tests/unit/test_skin_model_acceptance_gate.py",
         "docs/skin/evidence/model-acceptance-gate-20261024-v1.json",
-        "docs/skin/model-acceptance-gate-20261024.md"
+        "docs/skin/model-acceptance-gate-20261024.md",
+        "scripts/skin-research/prepare_camera_triplet_benchmark.py",
+        "tests/unit/test_prepare_camera_triplet_benchmark.py",
+        "docs/skin/evidence/camera-triplet-generated-smoke-20261024-v1.json",
+        "docs/skin/evidence/generated-front-roboflow-20261024-v1.json",
+        "tests/unit/test_generated_front_roboflow_evidence.py",
+        "docs/skin/generated-camera-triplet-roboflow-review-20261024.md"
       ],
       "blockers": [
         "Final holdout independence is not established: perceptual and filename crop relations need source/provenance review; prior exposure and person overlap are unknown.",
@@ -1417,7 +1497,10 @@
         "services/core-api/skin_product_contract.py",
         "tests/unit/test_skin_product_contract.py",
         "docs/skin/evidence/tone-pigmentation-product-contract-20261023-v1.json",
-        "docs/skin/tone-pigmentation-product-contract-20261023.md"
+        "docs/skin/tone-pigmentation-product-contract-20261023.md",
+        "docs/skin/evidence/camera-triplet-generated-smoke-20261024-v1.json",
+        "docs/skin/evidence/generated-front-roboflow-20261024-v1.json",
+        "docs/skin/generated-camera-triplet-roboflow-review-20261024.md"
       ],
       "blockers": [
         "The merged main branch already has the nine-criterion result path, separate skin type, six regional views, overview, local maps/contours, persistence gate and result UI. The roadmap branch now extends the result contract to eleven appearance headings plus skin type; Post acne and Pigmentation remain explicitly unavailable, not fabricated. Production merge/deployment is not part of this run.",
@@ -1446,6 +1529,19 @@
       "evidence": "docs/skin/evidence/model-acceptance-gate-20261024-v1.json",
       "currentActivationAllowed": false,
       "scope": "new learned skin-model candidates; existing analytic appearance methods unchanged"
+    },
+    "generatedCameraSmoke": {
+      "subjects": 6,
+      "images": 18,
+      "completeTriplets": true,
+      "uniqueBytes": true,
+      "consistentGeometry": true,
+      "captureAndIntegrationSmokeEligible": true,
+      "qualitativeProposalReviewEligible": true,
+      "realCameraAcceptance": false,
+      "expertGroundTruth": false,
+      "precisionRecallF1Eligible": false,
+      "evidence": "docs/skin/evidence/camera-triplet-generated-smoke-20261024-v1.json"
     }
   },
   "nextActions": [
@@ -1455,7 +1551,7 @@
     "Task 08 product semantics are implemented; do not derive Post acne or Pigmentation from the tone proxy and do not rebuild the twelve-heading contract. Improve the localized detector/data problem first, then activate only an accepted immutable model/evidence triple. When accepted local masks exist, exclude their support from the broad tone sampling and validate co-reporting on an independent camera set.",
     "For task 11, use the SHA-pinned positive-only crows_feet review package as the cleaned source baseline; do not repeat split cleanup or train it yet. Establish whether crows_feet absence is an evaluated negative through source protocol/expert review, add reviewed negative and expression/pose coverage without fabricating labels, then form a true group-safe train/validation/locked-test dataset. Separately resolve the exact selected Wrinkles Detector v2 archive; do not substitute wrinkles-79rrf-t7kyp.",
     "The private grouped under-eye project tolgar-sasmaz/attune-skin-under-eye-grouped-research exists but is empty. Reuse upload task sLFwX7CYBVcnnD6iAW5o only if the prepared signed transfer is still valid and permitted; otherwise create one replacement task, not another project. Upload only archive SHA256 41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8, then verify 283/78/38 and 869 polygons before generating/training.",
-    "Use the saved single-call Merve v12 response for threshold analysis; do not repeat inference on the same image. Build a consented labelled multi-camera benchmark before class-specific threshold selection or product promotion. Verify checkpoint/commercial rights. pul is not regional dryness truth.",
+    "Use the saved Merve v12 responses only: the original single face plus the six generated FRONT inputs now have immutable inference receipts, so do not repeat them. At 50%, 207/224 (92.4%) of the generated-set proposals are hidden versus the 8% floor, but correctness and Precision/Recall/F1 remain unknown without expert object-level truth. Next add expert-labelled positives/negatives and consented real-camera subjects, select per-class thresholds on validation, and keep pul separate from regional dryness truth.",
     "Source-pair acquisition is complete for FACEv3/v4,Rednessv2,Drynessv1; do not repeat downloads/audits unchanged. Use the pinned private120pairbundle and persistedfullaudit, with review-manifest provenance. FACEv3 is preferred over augmentedv4. 700Dryness/45Redness images exactly match existing sources; never count these as newly acquired coverage. All source labels and rights acceptance remain pending; no automatic merge or retraining.",
     "The source-bound regional SVG layer, categorical history, retained-photo replay and IndexedDB storage gate are implemented; do not rebuild them. Run the committed app and tests in an environment with frontend dependencies, Python Playwright and Chromium, then replay a consented retained FRONT photo through overview/every region at narrow and wide viewport sizes, verify record selection and incompatible-method exclusion, and capture screenshots. Keep source normal labels behind the empty accepted regional-method registry.",
     "Regional training 3485f8c67f957a1b850d is finished; candidate 2c07ef has complete 63 validation / 30 test mask evaluation and lossless inference receipts. Do not duplicate training, inference or refit thresholds on the exposed source test. Reassemble the two pinned evidence bundles from index files before replay.",
@@ -1702,6 +1798,20 @@
         "ec4db64247c3abaeb60a036e6ba1102f1acabbdd",
         "54694cd088929d982b669fe4db3f048c43f4082a",
         "fc2c64afdcea975ca6d1bc26a77ce8d1550b5b4e"
+      ]
+    },
+    {
+      "date": "2026-10-24",
+      "observedAt": "2026-10-23T23:49:37.220Z",
+      "action": "Refreshed the roadmap branch and all 16 private Roboflow projects. Acne/pigmentation NAS 5b632a5c12b76fcfe703 remains finished with 89 model IDs; regional NAS segmentation 3485f8c67f957a1b850d remains finished with 75 model IDs; under-eye still has no training. No training was started or duplicated. Materialized the user-authorized generated three-pose package without committing image bytes and validated six complete subjects / 18 unique 2048x1529 JPEGs. Added a deterministic privacy-safe manifest gate and four tests. Ran each of the six FRONT images exactly once through public candidate ciltanalizi-rfa8m/12 at 8% confidence; all resolved to immutable package 7ee34fce76456d9ff4cfe6e7049aad1e. Reused those responses for threshold counts: 224 proposals at 8% versus 17 at 50%, so 92.4% are hidden at 50%. Added three evidence-invariant tests. Precision/Recall/F1, threshold calibration, expert truth, real-camera acceptance and production activation remain false; side images were not sent.",
+      "report": "docs/skin/generated-camera-triplet-roboflow-review-20261024.md",
+      "commits": [
+        "0a5835588bd1589f5042cf9be169f54ff2fcc21a",
+        "a386b709365e2e10e8b770abc5cb2a87fa6dd158",
+        "37241cf76ffc95e976c4f7ef7784bbf8f4aa841f",
+        "de559c1e68b179e3f580238f552df6023672f5bf",
+        "7128d0d0b263e3bdcb5587725077ad9a3866cff1",
+        "b8c1341c0058a30e008e16c2d8806ca698fb2a0b"
       ]
     }
   ]
