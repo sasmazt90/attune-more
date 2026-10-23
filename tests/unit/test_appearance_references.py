@@ -7,6 +7,8 @@ def test_first_valid_region_reference_and_individual_deletion(tmp_path):
 const fs=require('fs'),ts=require('typescript'),a=require('assert/strict'),dir=JSON.parse(fs.readFileSync(0,'utf8')).dir;
 for(const n of ['appearanceMeasurements','healthRecords','attuneMode'])fs.writeFileSync(dir+'/'+n+'.js',ts.transpileModule(fs.readFileSync('apps/vehicle-app/src/utils/'+n+'.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText);
 const A=require(dir+'/appearanceMeasurements.js'),H=require(dir+'/healthRecords.js'),map=new Map();
+a(A.isSagAppearanceOnly({components:{appearanceSemantics:A.SAG_APPEARANCE_SEMANTICS,clinicalSeverity:false,elasticity:false,comparisonMode:'same-person-compatible-capture-only'}}));
+a(!A.isSagAppearanceOnly({components:{appearanceSemantics:A.SAG_APPEARANCE_SEMANTICS,clinicalSeverity:false,elasticity:true,comparisonMode:'same-person-compatible-capture-only'}}));
 global.localStorage={getItem:k=>map.get(k)??null,setItem:(k,v)=>map.set(k,String(v)),removeItem:k=>map.delete(k)};
 global.window={dispatchEvent:()=>{},location:{search:''}};Object.defineProperty(global,'navigator',{value:{locks:{request:async(n,fn)=>fn()}}});global.crypto=require('crypto').webcrypto;
 // Explicit isolated consent fixture; never waive the production append guard.
