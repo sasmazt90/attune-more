@@ -15,6 +15,7 @@ Frontend, `sag` ölçümünde bu dört alan eksik veya farklıysa `INVALID_SAG_S
 
 ## Kapsanan akışlar
 
+- Paylaşılan ürün sözleşmesi (ölçüm kullanılamadığında da): `services/core-api/skin_product_contract.py`
 - Bölgesel cheek/chin üretimi: `services/core-api/instant_appearance.py`
 - Ön yüz overview toplaması: `services/core-api/skin_general.py`
 - Normal üründe kapalı araştırma kontur dalı: `services/core-api/contour_appearance.py`
@@ -22,7 +23,7 @@ Frontend, `sag` ölçümünde bu dört alan eksik veya farklıysa `INVALID_SAG_S
 
 ## Doğrulama
 
-Beş değişen Python kaynak/test dosyası derlendi. Overview toplamasında semantik alanların üretildiği ve eksik bölgenin yine bilinmeyen kaldığı çalıştırıldı. Frontend kapısının doğru sözleşmeyi kabul edip `elasticity=true` kaydını reddettiği odaklı davranış kontrolü geçti. Çalışma ortamında TypeScript derleyicisi olmadığı için tam frontend derlemesi bu çalıştırmada tekrarlanmadı.
+Değişen Python kaynak/test dosyaları derlendi ve paylaşılan ürün sözleşmesinin beş davranış kontrolü geçti. Kullanılamayan sarkma satırı da aynı appearance-only metadata’yı taşır. Overview toplamasında semantik alanların üretildiği ve eksik bölgenin yine bilinmeyen kaldığı çalıştırıldı. Frontend kapısının doğru sözleşmeyi kabul edip `elasticity=true` kaydını reddettiği odaklı davranış kontrolü geçti. Çalışma ortamında TypeScript derleyicisi olmadığı için tam frontend derlemesi bu çalıştırmada tekrarlanmadı.
 
 ## Kabul sınırı
 
