@@ -34,9 +34,17 @@ def test_server_browser_and_numeric_history_contract():
         capture_output=True, text=True, timeout=60)
     assert result.returncode == 0, result.stdout + result.stderr
     report = json.loads(result.stdout)
-    assert report['checks'] >= 55 and report['serverFixtures'] == 4
+    assert report['checks'] >= 62 and report['serverFixtures'] == 4
     assert report['result'] == 'pass'
-    assert report['scope'] == 'numeric-contract-converter-and-svg-layer-plan'
+    assert report['scope'] == 'numeric-contract-converter-svg-layer-and-categorical-history'
+
+
+def test_trend_modal_uses_method_compatible_categorical_history():
+    source = (ROOT / 'apps/vehicle-app/src/components/skin/SkinTrendModal.tsx').read_text('utf8')
+    assert 'regionalObservationHistory(records,region.id,id,analysisId)' in source
+    assert 'Durum değişti' in source and 'Durum aynı' in source
+    assert 'farklı yöntem/kanıt kimliği' in source
+    assert 'sayısal şiddet uydurmadan' in source
 
 
 def test_face_panel_renders_only_the_sanitized_layer_plan():
@@ -47,3 +55,4 @@ def test_face_panel_renders_only_the_sanitized_layer_plan():
     assert 'red-hatch' in source
     assert "layer.fill==='lightgrey'?'.20':'.24'" in source
     assert 'sensitivity' not in source[source.index('regionalLayers.map'):source.index("{localMap&&")]
+
