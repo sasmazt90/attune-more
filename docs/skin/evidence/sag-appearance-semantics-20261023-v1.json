@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-23T19:31:30Z",
+  "roadmapTask": "12",
+  "branch": "work/skin-roadmap-20261023",
+  "purpose": "Prevent the current lower-face contour/fold appearance proxy from being represented as elasticity or clinical sagging severity.",
+  "roboflowRefresh": {
+    "projectCount": 16,
+    "acnePigmentation": {
+      "project": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation",
+      "version": 1,
+      "trainingId": "5b632a5c12b76fcfe703",
+      "status": "finished",
+      "modelRecords": 89
+    },
+    "regionalMap": {
+      "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+      "images": 337,
+      "version": 1,
+      "trainingId": "3485f8c67f957a1b850d",
+      "status": "finished",
+      "providerModelRecords": 75,
+      "distinctModelIds": 74
+    },
+    "underEyePilot": {
+      "project": "tolgar-sasmaz/attune-skin-under-eye-pilot",
+      "images": 399,
+      "versions": [],
+      "trainingStatus": "no-version"
+    },
+    "underEyeGrouped": {
+      "project": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+      "images": 0
+    },
+    "newTrainingStarted": false
+  },
+  "semanticContract": {
+    "appearanceSemantics": "visible-lower-face-contour-fold-appearance-v1",
+    "clinicalSeverity": false,
+    "elasticity": false,
+    "comparisonMode": "same-person-compatible-capture-only",
+    "productClaim": "visible lower-face contour/fold appearance only",
+    "forbiddenClaims": [
+      "elasticity",
+      "clinical sagging severity",
+      "tissue volume",
+      "probability"
+    ]
+  },
+  "integration": {
+    "backendRegional": "services/core-api/instant_appearance.py",
+    "backendOverview": "services/core-api/skin_general.py",
+    "researchStaging": "services/core-api/contour_appearance.py",
+    "frontendGate": "apps/vehicle-app/src/utils/appearanceMeasurements.ts",
+    "behaviorTests": [
+      "tests/unit/test_dry_sag_visible_support.py",
+      "tests/unit/test_appearance_references.py"
+    ]
+  },
+  "verification": {
+    "pythonCompile": [
+      "instant_appearance.py",
+      "skin_general.py",
+      "contour_appearance.py",
+      "test_dry_sag_visible_support.py",
+      "test_appearance_references.py"
+    ],
+    "overviewAggregationBehavior": "passed",
+    "frontendSemanticGateBehavior": "passed",
+    "fullTypeScriptCompile": "not-run: TypeScript compiler unavailable in execution environment",
+    "cameraAcceptance": false
+  },
+  "commits": [
+    "4126bfc5bb61c56b7a7f983f46b5f7c9838aa188",
+    "cba6f3b9b1d4066d23c19b75df167fb654e1b65c",
+    "0452c8aa443ccf1fc20e43d39a19053b7286c6c0",
+    "e04ac23227dcb7bb5276fa18c81945e450d1fd01",
+    "14a3173dbd3307b730baf8e49bdf3d1a7cfc3048",
+    "2503d82a2d8d7be89dc7cae2368a9c004e3aacbb"
+  ],
+  "acceptance": {
+    "productSemanticsIntegrated": true,
+    "poseExpressionTruthComplete": false,
+    "independentCameraEvaluationComplete": false,
+    "learnedLocalSegmentationAccepted": false,
+    "roadmapTaskComplete": false
+  }
+}
