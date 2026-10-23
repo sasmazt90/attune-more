@@ -42,6 +42,17 @@
       "resultUI": true,
       "evidence": "docs/skin/evidence/current-product-skin-contract-20261023-v1.json",
       "note": "Roadmap work upgrades evidence and individual methods in an already functioning result flow; it is not a greenfield integration."
+    },
+    "roadmapBranchProductContract": {
+      "appearanceHeadings": 11,
+      "separateSkinType": 1,
+      "totalProductHeadings": 12,
+      "newlyExposedUnavailableHeadings": [
+        "Post acne",
+        "Pigmentation"
+      ],
+      "toneCannotSupplyLocalizedPigmentation": true,
+      "evidence": "docs/skin/evidence/tone-pigmentation-product-contract-20261023-v1.json"
     }
   },
   "mapContract": {
@@ -164,7 +175,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-23",
-      "lastCheckedAt": "2026-10-23T17:31:36Z",
+      "lastCheckedAt": "2026-10-23T18:29:14Z",
       "modelCount": 89,
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
@@ -409,7 +420,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-23T17:31:36Z",
+      "lastCheckedAt": "2026-10-23T18:29:14Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "modelIds": [
@@ -765,7 +776,7 @@
       }
     },
     "concurrentWork": {
-      "observedAt": "2026-10-23T17:31:36Z",
+      "observedAt": "2026-10-23T18:29:14Z",
       "projectsTotal": 16,
       "doNotDuplicate": [
         {
@@ -810,7 +821,7 @@
           }
         }
       ],
-      "note": "All three concurrent comedone/pore runs remain finished. This run refreshed the exact projects and statuses only; it did not repeat training, evaluate/select NAS children or interpret recommendation flags."
+      "note": "All three concurrent comedone/pore runs remain finished. This run refreshed all 16 projects and the exact acne, regional, clean-comedone, grouped-comedone and pore statuses; it did not repeat training, evaluate/select children or interpret recommendation flags."
     }
   },
   "sourceAccess": {
@@ -1253,10 +1264,24 @@
     {
       "id": "08",
       "target": "tone-unevenness",
-      "status": "pending",
+      "status": "semantic_separation_integrated_calibration_camera_pending",
       "work": "Evaluate existing regional tone index; separate broad colour distribution from local Pigmentation detections and avoid duplicate reporting.",
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "services/core-api/skin_product_contract.py",
+        "services/core-api/skin_general.py",
+        "services/core-api/appearance_analysis.py",
+        "apps/vehicle-app/src/utils/skinIndicators.ts",
+        "apps/vehicle-app/src/utils/skinOverview.ts",
+        "tests/unit/test_skin_product_contract.py",
+        "tests/unit/regional_skin_map_frontend.cjs",
+        "docs/skin/evidence/tone-pigmentation-product-contract-20261023-v1.json",
+        "docs/skin/tone-pigmentation-product-contract-20261023.md"
+      ],
+      "blockers": [
+        "The current tone value is a broad regional CIELAB chromatic-variation appearance proxy. It is affected by illumination, skin tone, shadow and facial hair and is not clinical severity or a localized pigmentation detector.",
+        "The work branch exposes Post acne and Pigmentation as separate localized headings with explicit unavailable receipts. Tone cannot populate either heading. The recorded 754885 candidate remains rejected; accepted local-instance masks, independent split proof and real-camera calibration are still required before either heading can show a result.",
+        "No accepted localized pigmentation support exists to exclude from tone sampling yet. The contract marks localizedPigmentationSupportExcluded=false and forbids co-reporting a local result from tone rather than claiming false separation."
+      ]
     },
     {
       "id": "09",
@@ -1334,7 +1359,7 @@
     {
       "id": "13",
       "target": "unified-results-and-trends",
-      "status": "history_status_and_storage_gate_integrated_real_browser_camera_pending",
+      "status": "twelve_headings_history_and_storage_contract_integrated_real_browser_camera_pending",
       "work": "Integrate accepted outputs incrementally into maps/cards/history; explicit unavailable reasons; method/version compatibility for trends; end-to-end camera/API/result/history tests and final acceptance report.",
       "evidence": [
         "docs/skin/regional-evidence-contract-20261023.md",
@@ -1361,10 +1386,14 @@
         "docs/skin/evidence/regional-photo-storage-gate-20261023-v1.json",
         "docs/skin/regional-photo-storage-gate-20261023.md",
         "docs/skin/evidence/regional-history-status-checks-20261023-v1.json",
-        "docs/skin/regional-history-status-20261023.md"
+        "docs/skin/regional-history-status-20261023.md",
+        "services/core-api/skin_product_contract.py",
+        "tests/unit/test_skin_product_contract.py",
+        "docs/skin/evidence/tone-pigmentation-product-contract-20261023-v1.json",
+        "docs/skin/tone-pigmentation-product-contract-20261023.md"
       ],
       "blockers": [
-        "The merged main branch already has the nine-criterion result path, separate skin type, six regional views, overview, local maps/contours, persistence gate and result UI. Roadmap integration means replacing or extending individual methods only after acceptance, not creating a result flow from zero.",
+        "The merged main branch already has the nine-criterion result path, separate skin type, six regional views, overview, local maps/contours, persistence gate and result UI. The roadmap branch now extends the result contract to eleven appearance headings plus skin type; Post acne and Pigmentation remain explicitly unavailable, not fabricated. Production merge/deployment is not part of this run.",
         "Regional summaries now pass strict parsing, source-bound presentation, explicit categorical history availability states, retained-photo replay validation and the same replay gate before IndexedDB write and after read. An unknown, missing or malformed selected record cannot fall back to an older result; method changes are not bridged. Real browser/IndexedDB screenshot replay cannot run in this environment because Python Playwright and a Chromium executable are absent. Full app typecheck, browser/API/history E2E and real-camera acceptance remain pending.",
         "No oil/dry/redness method is activated by synthetic contract, history, replay or storage tests; the accepted-method registry remains authoritative and currently empty."
       ]
@@ -1386,6 +1415,7 @@
     "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety."
   },
   "nextActions": [
+    "Task 08 product semantics are implemented; do not derive Post acne or Pigmentation from the tone proxy and do not rebuild the twelve-heading contract. Improve the localized detector/data problem first, then activate only an accepted immutable model/evidence triple. When accepted local masks exist, exclude their support from the broad tone sampling and validate co-reporting on an independent camera set.",
     "For task 11, use the SHA-pinned positive-only crows_feet review package as the cleaned source baseline; do not repeat split cleanup or train it yet. Establish whether crows_feet absence is an evaluated negative through source protocol/expert review, add reviewed negative and expression/pose coverage without fabricating labels, then form a true group-safe train/validation/locked-test dataset. Separately resolve the exact selected Wrinkles Detector v2 archive; do not substitute wrinkles-79rrf-t7kyp.",
     "The private grouped under-eye project tolgar-sasmaz/attune-skin-under-eye-grouped-research exists but is empty. Reuse upload task sLFwX7CYBVcnnD6iAW5o only if the prepared signed transfer is still valid and permitted; otherwise create one replacement task, not another project. Upload only archive SHA256 41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8, then verify 283/78/38 and 869 polygons before generating/training.",
     "Use the saved single-call Merve v12 response for threshold analysis; do not repeat inference on the same image. Build a consented labelled multi-camera benchmark before class-specific threshold selection or product promotion. Verify checkpoint/commercial rights. pul is not regional dryness truth.",
@@ -1556,6 +1586,27 @@
         "fe1e8079fc7c31de0940c6efbf0bd7de379972b5",
         "5a52f6d8684ba943dac3e427eb38644f97d11632",
         "5d31c5b960f10d94db4d9846f288bf0777c39d51"
+      ]
+    },
+    {
+      "date": "2026-10-23",
+      "observedAt": "2026-10-23T18:29:14Z",
+      "action": "Refreshed the branch, all 16 private Roboflow projects and relevant trainings; all previously observed acne, regional, clean/grouped comedone and pore runs remain finished and were not duplicated. Continued tasks 08/13 in the existing product flow: added the accepted inventory of eleven appearance headings plus separate skin type. Post acne and Pigmentation are localized candidate-count headings with explicit unavailable receipts because their research model is rejected; neither can be derived from the broad regional tone proxy. Tone now carries a semantic separation receipt, while legacy nine-heading records remain readable. Four backend contract tests, one current remote skin_general result construction, remote appearance-analysis syntax/wiring, and 91 frontend contract checks passed. No model/method activation, camera acceptance, production merge or deployment.",
+      "report": "docs/skin/tone-pigmentation-product-contract-20261023.md",
+      "commits": [
+        "15f436bfbe55f36c1bb321facc22b6942513eda2",
+        "f4910091f574c901e4dbdd713b063340e9edc3b2",
+        "05499cde760a24a1a6f3a5299048b852e093ae2e",
+        "ccd08fda09dbfb7f945696b78fdce48b34e51fd1",
+        "d3e8c159fbcf1ddb8d3e04aca96c6e6814ef8bb0",
+        "c98c9adfd2f885ed65e36c8d57511a40bc070929",
+        "0052eb3fa60628a831da1af94ffd27f911dd9e57",
+        "63ad12c0601ca18824b5f209263ec074e2cbb8d8",
+        "7bdea9a76f9f308d9dd8c70641f6af707ce375ac",
+        "db368a64adc4d437c9f6489b20d006ca295b5f47",
+        "57d532eb5ece09c995a6b2aaa46f6cad57fba7ca",
+        "04c5a3dfe4e61c0f427f9009e94d71dacf236871",
+        "c429ceac59eb95fe2246daef8491d73ea2a3d333"
       ]
     }
   ]
