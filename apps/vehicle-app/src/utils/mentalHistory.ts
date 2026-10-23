@@ -1,4 +1,5 @@
 import {canonicalMentalTheme} from '../i18n/mentalThemes';
+import {t,getLanguage,type Language} from '../i18n/core';
 import { appendHealthRecord, readHealthRecords, prepareHealthRecords } from './healthRecords';
 import { STORAGE_KEYS, isMentalSummarySavingAllowed, isMentalTranscriptSavingAllowed } from './attuneMode';
 
@@ -20,8 +21,8 @@ export interface MentalHistoryItem {
 }
 
 const MOOD_LABELS: Record<string, string> = { STRESSED: 'Gergin', TIRED: 'Yorgun', RELAXED: 'Rahat', NEUTRAL: 'Nötr' };
-export function translateMood(text: string): string {
-  return text.replace(/\b(STRESSED|TIRED|RELAXED|NEUTRAL)\b/gi, code => MOOD_LABELS[code.toUpperCase()]);
+export function translateMood(text: string, language: Language = getLanguage()): string {
+  return t(text.replace(/\b(STRESSED|TIRED|RELAXED|NEUTRAL)\b/gi, code => t(MOOD_LABELS[code.toUpperCase()],language)),language);
 }
 
 export function mentalThemeStats(history: MentalHistoryItem[]) {

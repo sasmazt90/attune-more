@@ -75,11 +75,11 @@
   "roboflowProject": "tolgar-sasmaz/attune-skin-findings-boxes-research",
   "version": 1,
   "training": {
-    "started": false,
+    "started": true,
     "attemptedModel": "rfdetr-nas-parent",
     "epochs": 30,
-    "error": "insufficient_train_credits",
-    "supportReference": "34021c1e37090643e30bef0c53b93ed2"
+    "trainingId": "8e239395ebda9996fe0f",
+    "statusAtStart": "running"
   },
   "upload": {
     "uploaded": 927,
@@ -94,9 +94,14 @@
   },
   "runtimeNewModelEnabled": false,
   "audioSideUpdate": {
-    "scriptReady": true,
-    "generated": false,
-    "error": "NoAudioReceived",
-    "localizedEnDePending": true
-  }
+    "regenerationRequested": false,
+    "existingApprovedAudioRetained": true
+  },
+  "monitoring": {
+    "provider": "ChatGPT automations",
+    "frequency": "hourly",
+    "created": true,
+    "githubScheduler": false
+  },
+  "preflightReport": "training-preflight-20261023.json"
 }

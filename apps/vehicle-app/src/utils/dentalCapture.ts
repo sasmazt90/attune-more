@@ -2,9 +2,10 @@ import type { FaceAlignment } from './skinAnalyzer';
 export type DentalPose='FRONT'|'RIGHT'|'LEFT'|'BITE';
 export const DENTAL_POSES:DentalPose[]=['FRONT','RIGHT','LEFT','BITE'];
 // The legacy nose-offset "yaw" was dimensionless. The rigid transform now
-// measures radians: a side view starts at 15 degrees, distinct from the front
+// measures radians: a side view starts at about 23 degrees, distinct from the front
 // band (0.20 rad), with native tooth visibility still required in every view.
-export const DENTAL_SIDE_MIN_RADIANS=Math.PI/12;
+export const DENTAL_SIDE_MIN_RADIANS=.40;
+export const DENTAL_SIDE_MAX_RADIANS=.65;
 export const DENTAL_GUIDANCE:Record<DentalPose,string>={FRONT:'Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün.',RIGHT:'Başınızı kendi sağınıza hafifçe çevirin; ağzınızı rahatça açık tutun.',LEFT:'Başınızı kendi solunuza hafifçe çevirin; ağzınızı rahatça açık tutun.',BITE:'Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın.'};
 export type DentalCapture={sourceType?:'camera'|'upload';photo:string;photoId:string;width:number;height:number;pose:DentalPose;landmarks:{x:number;y:number;z?:number}[];conditions:Record<string,number>};
 /** Dental uses measured rigid head rotation, not expression-dependent nose/chin ratios. */
@@ -13,6 +14,9 @@ export function dentalPose(a:FaceAlignment){
  if(!m||m.length!==16||!m.every(Number.isFinite))return null;
  const scale=Math.hypot(m[0],m[1],m[2]);if(scale<=0)return null;
  return {yaw:Math.atan2(m[8],m[10]),pitch:Math.atan2(-m[9],Math.hypot(m[8],m[10])),roll:Math.atan2(m[1],m[5])};
+}
+export function matchesDentalPose(rotation:ReturnType<typeof dentalPose>,pose:DentalPose):boolean {
+ return !!rotation&&[rotation.yaw,rotation.pitch,rotation.roll].every(Number.isFinite)&&Math.abs(rotation.pitch)<=.22&&Math.abs(rotation.roll)<=.15&&(pose==='RIGHT'?rotation.yaw>=-DENTAL_SIDE_MAX_RADIANS&&rotation.yaw<=-DENTAL_SIDE_MIN_RADIANS:pose==='LEFT'?rotation.yaw>=DENTAL_SIDE_MIN_RADIANS&&rotation.yaw<=DENTAL_SIDE_MAX_RADIANS:Math.abs(rotation.yaw)<=.20);
 }
 export function assessDentalCapture(ctx:CanvasRenderingContext2D,a:FaceAlignment,pose:DentalPose){
  const points=a.landmarks,reasons:string[]=[];if(!points||points.length<468||!a.faceDetected||!a.isMediaPipeActive)return {valid:false,reasons:['Yüz algılanamadı.'],opening:0,visibleFraction:0};
@@ -43,7 +47,7 @@ export function assessDentalCapture(ctx:CanvasRenderingContext2D,a:FaceAlignment
  if(sharp<12)reasons.push('Kamera netliğini kontrol edin.');
  if(glare/Math.max(tooth+glare,1)>.12)reasons.push('Tükürük yansıması veya fazla parlama var.');
  if(tongue/Math.max(total,1)>.7)reasons.push('Dil görünür alanı örtüyor; dişleriniz rahatça görünmeli.');
- const poseValid=rotation&&Math.abs(rotation.pitch)<=.22&&Math.abs(rotation.roll)<=.15&&(pose==='RIGHT'?rotation.yaw>=-.65&&rotation.yaw<=-DENTAL_SIDE_MIN_RADIANS:pose==='LEFT'?rotation.yaw>=DENTAL_SIDE_MIN_RADIANS&&rotation.yaw<=.65:Math.abs(rotation.yaw)<=.20);
+ const poseValid=matchesDentalPose(rotation,pose);
  if(!poseValid)reasons.push(DENTAL_GUIDANCE[pose]);
  return {valid:reasons.length===0,reasons,opening,visibleFraction,enamelAreaFraction:tooth/Math.max(total,1),toothPixels:tooth,mouthPixels:total,supportedColumns,mouthWidth,light:light/Math.max(total,1),sharp,glareFraction:glare/Math.max(tooth+glare,1),tongueFraction:tongue/Math.max(total,1),rotation,sourceWidth:width,sourceHeight:height};
 }

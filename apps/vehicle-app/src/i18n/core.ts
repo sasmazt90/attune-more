@@ -42,12 +42,13 @@ const normalize=(text:string)=>text.normalize('NFC').replace(/\s+/g,' ').trim();
 const messages=Object.values(catalog) as Message[];
 const bySource=new Map(messages.map(message=>[normalize(message.tr),message]));
 const escape=(text:string)=>text.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+const templateLiteral=(text:string)=>escape(text).replace(/^ | $/g,'\\s*');
 const templates=messages.filter(m=>/\{\d+\}/.test(m.tr)).sort((a,b)=>b.tr.replace(/\{\d+\}/g,'').length-a.tr.replace(/\{\d+\}/g,'').length).map(message=>{
   const fields:number[]=[];let pattern='',previous=0;
   for(const match of message.tr.matchAll(/\{(\d+)\}/g)){
-    pattern+=escape(message.tr.slice(previous,match.index))+'(.+?)';fields.push(Number(match[1]));previous=match.index!+match[0].length;
+    pattern+=templateLiteral(message.tr.slice(previous,match.index))+'(.*?)';fields.push(Number(match[1]));previous=match.index!+match[0].length;
   }
-  pattern+=escape(message.tr.slice(previous));
+  pattern+=templateLiteral(message.tr.slice(previous));
   return {message,fields,match:new RegExp('^'+pattern+'$','u')};
 });
 /** Display only. Never use translated strings as policy IDs or rewrite records. */

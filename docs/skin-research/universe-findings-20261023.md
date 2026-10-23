@@ -38,7 +38,7 @@ Sayım birimi fotoğraftır; çok etiketli oldukları için sütun toplamları f
 
 [Özel Roboflow projesi](https://app.roboflow.com/tolgar-sasmaz/attune-skin-findings-boxes-research), sürüm 1 hazır. Aktarım: 927/927 etiketli fotoğraf; 7 fotoğraf için `annotation:trimmed` uyarısı var. Orijinal arşiv korunmuştur; ithal geometri ile kaynak geometrisi eşit kabul edilmemelidir.
 
-30 epoch RF-DETR NAS denemesi başlatılmak istendi. Platform `insufficient_train_credits` döndürdü; **eğitim başlamadı, yeni ağırlık veya başarı sonucu yok**. Epoch sınırı kredi harcama üst sınırı değildir. Yeni kredi kullanılabilir olduğunda önce bu tek araştırma eğitimi, sonra ayrılmış test değerlendirmesi yapılmalı; sonuç görülmeden tekrar eğitim açılmamalıdır.
+Gerçek sürüm dışa aktarımı kaynak pakete karşı yeniden doğrulandı: 927 etiketli / 0 etiketsiz, train 669 / valid 117 / test 141; bölüm değişimi ve bölümler arası kopya/grup çakışması yok. Kutularda en fazla 0,5 piksel yuvarlama farkı var. Kredi satın alımından sonra **tek 30 epoch RF-DETR NAS eğitimi başlatıldı**, training ID `8e239395ebda9996fe0f`, başlangıç durumu `running`. Henüz nihai başarı oranı yok. ChatGPT üzerinden saatlik kısa özet otomasyonu kuruldu. Ayrıntılar: `docs/result-localization-dental-capture-20261023.md`.
 
 ## Uygulama dalındaki değişiklikler
 
@@ -48,7 +48,7 @@ Sayım birimi fotoğraftır; çok etiketli oldukları için sütun toplamları f
 - Kuru mavi, yağlı yeşil, egzama koyu mavi, kızarıklık kırmızı; kenarsız yarı saydam kutu alanları. Noktasal bulgular küçük noktalar; kırışıklıklar yalnız ölçülmüş çizgi desteğinden izlenir. Kaynak fotoğraf/poz/boyut/model özeti eşleşmeyen bulgu çizilmez; göz/dudak dışlama maskesi uygulanır.
 - Yeni kutu göstericisi hazırdır; yeni sınıflara ait eğitim tamamlanmadığı için bu bulguları üreten model veya çalışma zamanı adaptörü etkin değildir. Hastalık etiketleri cilt tipine dönüştürülmedi.
 
-Kontrol: ilgili 53 davranış testi, TypeScript ve üretim derlemesi geçti. Son maske değişikliği ardından odaklı test ve TypeScript tekrar geçti. Tarayıcı görsel kontrolü tamamlanmadı: Chromium indirmesi geçersiz arşiv döndürdü. Türkçe yan dönüş seslerini seçerek güncelleyen komut hazır (`python scripts/build_guidance_cache.py --skin-side-only`), ancak Edge TTS `NoAudioReceived` döndürdüğü için ses dosyaları değiştirilmedi; EN/DE yan dönüş sesleri de bekliyor.
+Kontrol: önceki GitHub çalışmasında 1.419 test ve üretim derlemesi geçti. EN/DE sonuç etiketleri, dinamik sıfır değişim cümleleri ve diş açı sınırı için ek düzeltmeler sonrası 34 ilgili test, TypeScript ve üretim derlemesi başarılı. Fiziksel kamera ve tarayıcı görsel kabulü ayrıca tamamlanmalı. Kullanıcı mevcut sesli yönergelerin kullanılmasını istedi; yeni ses üretimi kaldırıldı, ses dosyaları değiştirilmedi.
 
 ## OEM iddiası için zorunlu kalanlar
 

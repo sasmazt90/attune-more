@@ -1,0 +1,118 @@
+{
+  "passed": true,
+  "preparedArchiveSHA256": "a332904d1f83e361399abbf3466aa5652caffac72e20157d57e41168d7a47dfa",
+  "actualExportSHA256": "38d3b62028d8f48341bdeebca4a97555c2d55e022fe08b0ff3f7ea6608ba0fa6",
+  "splits": {
+    "test": {
+      "images": 141,
+      "annotated": 141,
+      "annotations": 1195,
+      "unannotated": 0
+    },
+    "train": {
+      "images": 669,
+      "annotated": 669,
+      "annotations": 7466,
+      "unannotated": 0
+    },
+    "valid": {
+      "images": 117,
+      "annotated": 117,
+      "annotations": 891,
+      "unannotated": 0
+    }
+  },
+  "classes": {
+    "Genis Gozenek": 307,
+    "Ucuk": 202,
+    "Rozasea": 257,
+    "Egzema": 299,
+    "Siyah Nokta": 2021,
+    "Yagli Cilt": 320,
+    "Kuru Cilt": 515,
+    "Gunes Lekesi": 1468,
+    "Riskli Ben": 150,
+    "Sedef ve Dokuntu": 625,
+    "Akne": 1599,
+    "Beyaz Nokta": 1789
+  },
+  "classPositiveImages": {
+    "Genis Gozenek": {
+      "test": 10,
+      "train": 79,
+      "valid": 8
+    },
+    "Ucuk": {
+      "test": 19,
+      "train": 65,
+      "valid": 15
+    },
+    "Rozasea": {
+      "test": 15,
+      "train": 85,
+      "valid": 15
+    },
+    "Egzema": {
+      "test": 15,
+      "train": 72,
+      "valid": 15
+    },
+    "Siyah Nokta": {
+      "test": 9,
+      "train": 84,
+      "valid": 10
+    },
+    "Yagli Cilt": {
+      "test": 15,
+      "train": 73,
+      "valid": 14
+    },
+    "Kuru Cilt": {
+      "test": 19,
+      "train": 79,
+      "valid": 15
+    },
+    "Gunes Lekesi": {
+      "test": 11,
+      "train": 73,
+      "valid": 14
+    },
+    "Riskli Ben": {
+      "test": 15,
+      "train": 87,
+      "valid": 8
+    },
+    "Sedef ve Dokuntu": {
+      "test": 18,
+      "train": 65,
+      "valid": 10
+    },
+    "Akne": {
+      "test": 17,
+      "train": 109,
+      "valid": 15
+    },
+    "Beyaz Nokta": {
+      "test": 11,
+      "train": 88,
+      "valid": 12
+    }
+  },
+  "exactImageOverlaps": {
+    "test-train": 0,
+    "test-valid": 0,
+    "train-valid": 0
+  },
+  "groupOverlaps": {
+    "test-train": 0,
+    "test-valid": 0,
+    "train-valid": 0
+  },
+  "jpegRecodedImages": 707,
+  "maxMeanAbsolutePixelDifference": 0.2766899212515195,
+  "imagesWithAdjustedBoxGeometry": 336,
+  "maxBoxCoordinateDifferencePixels": 0.5,
+  "boxTolerancePixels": 1.01,
+  "pixelDifferenceLimit": 8,
+  "issues": {}
+}

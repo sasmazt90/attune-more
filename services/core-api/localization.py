@@ -13,11 +13,15 @@ _messages = list(json.loads(_catalog_path.read_text('utf-8')).values())
 _normal = lambda value: ' '.join(unicodedata.normalize('NFC',value).split())
 _by_source = {_normal(row['tr']): row for row in _messages}
 _templates = []
+def _template_literal(value):
+    if not value.strip(' '):
+        return r'\s*' if value else ''
+    return (r'\s*' if value.startswith(' ') else '') + re.escape(value.strip(' ')) + (r'\s*' if value.endswith(' ') else '')
 for _row in _messages:
     if re.search(r'\{\d+\}', _row['tr']):
         _fields = [int(v) for v in re.findall(r'\{(\d+)\}', _row['tr'])]
         _parts = re.split(r'\{\d+\}', _row['tr'])
-        _templates.append((_row, _fields, re.compile('^' + '(.+?)'.join(map(re.escape, _parts)) + '$')))
+        _templates.append((_row, _fields, re.compile('^' + '(.*?)'.join(map(_template_literal, _parts)) + '$')))
 _templates.sort(key=lambda item:len(re.sub(r'\{\d+\}','',item[0]['tr'])),reverse=True)
 
 def current_language():

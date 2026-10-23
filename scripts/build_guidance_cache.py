@@ -15,8 +15,8 @@ TEXTS={
  'care-select':'Seçtiğiniz uzmanı ve saati kontrol edin. Bu adım randevu oluşturmaz.',
  'skin-entry':N['skin']['name']+'. Başınızı rahat tutun; ön, sağ ve sol görüntüyü ekrandaki yönergeyle alacağız.',
  'skin-front':'Gözlüğünüzü çıkarın. Başınız karşıda. Yüzünüz ekranda görünürken kısa süre sabit durun.',
- 'skin-right':'Başınızı kendi sağınıza biraz daha çevirin; kısa süre sabit tutun.',
- 'skin-left':'Başınızı kendi solunuza biraz daha çevirin; kısa süre sabit tutun.',
+ 'skin-right':'Başınızı kendi sağınıza hafifçe çevirin; kısa süre sabit tutun.',
+ 'skin-left':'Başınızı kendi solunuza hafifçe çevirin; kısa süre sabit tutun.',
  'skin-complete':'Tarama tamamlandı. Bölge ve kriter kartını seçerek mevcut görünüm sonucunu inceleyin.',
  'quality-near':'Kaynak görüntüde yüz ayrıntısı yetersiz. Konumunuzu biraz yaklaştırın.',
  'quality-far':'Alın ve çene kadraja sığmalı. Biraz uzaklaşın.',
@@ -43,9 +43,8 @@ TEXTS={
 async def main():
  import sys
  only='skin-neutral' if '--skin-neutral-only' in sys.argv else 'skin-front' if '--skin-glasses-only' in sys.argv else None
- side_only='--skin-side-only' in sys.argv
- selected={k:TEXTS[k] for k in ['skin-right','skin-left']} if side_only else {only:TEXTS[only]} if only else TEXTS
- OUT.mkdir(parents=True,exist_ok=True);previous=json.loads((OUT/'manifest.json').read_text('utf8'));entries=previous['entries'] if only or side_only else {}
+ selected={only:TEXTS[only]} if only else TEXTS
+ OUT.mkdir(parents=True,exist_ok=True);previous=json.loads((OUT/'manifest.json').read_text('utf8'));entries=previous['entries'] if only else {}
  voices=await edge_tts.list_voices()
  for name in ['tr-TR-AhmetNeural','tr-TR-EmelNeural']:
   if not any(v['ShortName']==name for v in voices):raise RuntimeError('EXACT_VOICE_UNAVAILABLE')

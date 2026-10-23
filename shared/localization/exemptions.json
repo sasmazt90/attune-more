@@ -262,5 +262,13 @@
   "e5ab0705e057bec5": {
     "source": "(?:bitte )?(?:ich (?:möchte|will) (?:das )?gespräch(?: jetzt)? beenden|(?:das )?gespräch(?: jetzt)? beenden|beenden sie(?: bitte)? (?:das )?gespräch)",
     "reason": "Internal full-utterance German termination grammar; not displayed or translated."
+  },
+  "89e8b9518d922794": {
+    "source": "camera",
+    "reason": "Browser Permissions API permission name; machine identifier passed to navigator.permissions.query, not display text."
+  },
+  "d7f4d3ccee7acd3d": {
+    "source": "microphone",
+    "reason": "Browser Permissions API permission name; machine identifier passed to navigator.permissions.query, not display text."
   }
 }

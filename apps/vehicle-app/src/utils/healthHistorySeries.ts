@@ -1,4 +1,4 @@
-import {getLocale} from '../i18n/core';
+import {getLocale,t} from '../i18n/core';
 /** Read-only presentation adapters. They never persist or change measurement precision. */
 import type { HealthRecord } from './healthRecords';
 import { HEALTH_MODULE_IDS, type HealthModule } from './healthModules';
@@ -24,7 +24,7 @@ export function recordsInRange(records: HealthRecord[], days: number | null, now
   return days === null ? records : records.filter(r => { const t = historyTime(r); return t !== null && t >= now - days * 86400000 && t <= now; });
 }
 export function formatHistoryValue(value: number, unit: string) {
-  return `${new Intl.NumberFormat(getLocale(), { maximumFractionDigits: unit === '%' ? 0 : 3 }).format(value)}${unit === '%' ? '%' : unit ? ' ' + unit : ''}`;
+  return `${new Intl.NumberFormat(getLocale(), { maximumFractionDigits: unit === '%' ? 0 : 3 }).format(value)}${unit === '%' ? '%' : unit ? ' ' + t(unit) : ''}`;
 }
 export function moduleOverview(module: HealthModule, records: HealthRecord[]): { date: number | null; text: string; count: number } {
   const rows = usableHistory(module, records).filter(r => r.quality !== 'invalid' && r.quality !== 'unreliable' && r.quality?.isValid !== false).slice().sort((a, b) => (historyTime(b) ?? -Infinity) - (historyTime(a) ?? -Infinity));
@@ -35,7 +35,7 @@ export function moduleOverview(module: HealthModule, records: HealthRecord[]): {
   else if (module === 'skin') text = last.analysisMode === 'instant-appearance-v2' ? 'Anlık bölgesel görünüm' : 'Önceki cilt yöntemi';
   else if (module === 'dental') text = `${last.sourceType === 'upload' ? 'Yüklenen fotoğraf' : last.sourceType === 'camera' ? 'Kamera' : 'Kaynak kaydedilmemiş'} · ${Array.isArray(last.measurements) ? last.measurements.length + ' görünüm' : 'ölçüm ayrıntıları'}`;
   else if (module === 'hearing') text = Array.isArray(last.thresholds) ? 'Saf ses · dijital eşikler' : number(last.value) !== null ? `Sayı/gürültü · ${formatHistoryValue(last.value, 'dB SNR')}` : 'Sayı/gürültü · eşik ölçülemedi';
-  else text = `${rows.length} görüşme · ${Array.isArray(last.themes) && last.themes.length ? [...new Set(last.themes)].join(' • ') : 'Tema kaydı yok'}`;
+  else text = `${rows.length} görüşme · ${Array.isArray(last.themes) && last.themes.length ? [...new Set(last.themes)].map(theme=>t(theme)).join(' • ') : 'Tema kaydı yok'}`;
   return { date: historyTime(last), text, count: rows.length };
 }
 
