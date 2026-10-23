@@ -555,7 +555,69 @@
         ]
       }
     },
-    "allProjectsPrivate": true
+    "allProjectsPrivate": true,
+    "externalCandidates": {
+      "merveV12": {
+        "modelId": "ciltanalizi-rfa8m/12",
+        "resolvedModelPackageId": "7ee34fce76456d9ff4cfe6e7049aad1e",
+        "backend": "onnx",
+        "quantization": "fp32",
+        "cameraProbe": {
+          "imageSha256": "e8f3a9f1b46f2452dcd88d42f33d835a67506fd9583a1dd3ad755efd127d4b85",
+          "inferenceId": "05afb3cd-9bd9-4b64-aac3-5d1fb1014fa3",
+          "thresholdFloor": 0.08,
+          "predictionCount": 27,
+          "thresholdSubsets": {
+            "0.08": {
+              "total": 27,
+              "byClass": {
+                "gozenek": 6,
+                "akne": 8,
+                "kirisiklik": 3,
+                "kizariklik": 10
+              }
+            },
+            "0.15": {
+              "total": 17,
+              "byClass": {
+                "gozenek": 6,
+                "akne": 4,
+                "kirisiklik": 3,
+                "kizariklik": 4
+              }
+            },
+            "0.20": {
+              "total": 12,
+              "byClass": {
+                "gozenek": 5,
+                "akne": 2,
+                "kirisiklik": 2,
+                "kizariklik": 3
+              }
+            },
+            "0.30": {
+              "total": 6,
+              "byClass": {
+                "gozenek": 2,
+                "akne": 2,
+                "kirisiklik": 2
+              }
+            },
+            "0.50": {
+              "total": 3,
+              "byClass": {
+                "gozenek": 2,
+                "akne": 1
+              }
+            }
+          },
+          "evidence": "docs/skin/evidence/merve-v12-camera-probe-20261023-v1.json"
+        },
+        "modelAccepted": false,
+        "productActivated": false,
+        "decision": "Research candidate only; multi-image labelled camera benchmark and checkpoint/commercial-rights verification required."
+      }
+    }
   },
   "sourceAccess": {
     "gcs": "gs://attune-more-skin-datasets-tolgar/skin-datasets/",
@@ -1035,6 +1097,7 @@
     "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety."
   },
   "nextActions": [
+    "Use the saved single-call Merve v12 response for threshold analysis; do not repeat inference on the same image. Build a consented labelled multi-camera benchmark before class-specific threshold selection or product promotion. Verify checkpoint/commercial rights. pul is not regional dryness truth.",
     "Source-pair acquisition is complete for FACEv3/v4,Rednessv2,Drynessv1; do not repeat downloads/audits unchanged. Use the pinned private120pairbundle and persistedfullaudit, with review-manifest provenance. FACEv3 is preferred over augmentedv4. 700Dryness/45Redness images exactly match existing sources; never count these as newly acquired coverage. All source labels and rights acceptance remain pending; no automatic merge or retraining.",
     "Continue unblocked source-bound SVG overlay and method-compatible history wiring under the accepted-method gate; under-eye source grouping/review; selected crow's-feet data; sagging and real-camera acceptance. Source normal labels must not bypass the empty accepted regional-method registry.",
     "Regional training 3485f8c67f957a1b850d is finished; candidate 2c07ef has complete 63 validation / 30 test mask evaluation and lossless inference receipts. Do not duplicate training, inference or refit thresholds on the exposed source test. Reassemble the two pinned evidence bundles from index files before replay.",
@@ -1096,6 +1159,12 @@
       "observedAt": "2026-10-23 07:45:35 UTC",
       "action": "Refreshed GitHub state and existing Roboflow projects/training; both prior NAS runs finished. Preserved newly committed regional mask evaluation8d8e635 and did not duplicate inference/training. Retrieved FACEv4,Rednessv2,Drynessv1image-annotation archives, then unaugmentedFACEv3 for specific augmentation gap. Audited only these new source exports, reusing4existing audit manifests:700Dryness/45Redness exact-pixel source overlaps found. Prepared120source-trainimage/annotationpairs preserving bytes,COCOobjects,README,classes and licences; excluded known exact-existing andcross-splitcandidate records. Saved private reviewZIP andfullaudit with durableidentities; committed metadata only,nofacialphotos.10newbehaviouralchecks and all120pair-byte/annotation checks passed. Assistant reviewed24source-classrecords,notexpertapproval. No training,relabeling,splitmutation,productionactivation,merge/deploy or productacceptance.",
       "report": "docs/skin/source-pair-preparation-20261023.md"
+    },
+    {
+      "date": "2026-10-23",
+      "observedAt": "2026-10-23T08:47:50.113Z",
+      "action": "Verified current merged main already produces nine appearance results and audited the active manifest: acne, skin-type and bags learned heads are not accepted; only the whole-face redness learned head is accepted. Ran one authorized hosted probe of public ciltanalizi-rfa8m/12 on the supplied front image at 0.08; resolved immutable package 7ee34fce76456d9ff4cfe6e7049aad1e and inference 05afb3cd-9bd9-4b64-aac3-5d1fb1014fa3. Reused that same response for 0.08/0.15/0.20/0.30/0.50 subsets (27/17/12/6/3 detections), preserved an exact cross-class conflict and observed no pul. Added a reproducible threshold evaluator and three focused tests; 13 relevant tests pass. No training, image commit, model activation, deployment or merge.",
+      "report": "docs/skin/merve-v12-camera-probe-20261023.md"
     }
   ]
 }
