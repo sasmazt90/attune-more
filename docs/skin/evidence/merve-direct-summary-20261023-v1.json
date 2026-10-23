@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "skin-roadmap-coco-audit-v1",
+  "summary": {
+    "images": 3368,
+    "exactDuplicateGroups": 0,
+    "crossSplitExactGroups": 0,
+    "perceptualCandidatePairs": 375,
+    "crossSplitPerceptualCandidatePairs": 74,
+    "filenameCandidateGroups": 933,
+    "crossSplitFilenameCandidateGroups": 39,
+    "geometryIssueCount": 0
+  },
+  "acceptance": {
+    "trainingAuthorizedByThisAudit": false,
+    "personIndependent": false,
+    "lockedTestAccepted": false,
+    "thresholdsSelected": false,
+    "sourceArchivesMutated": false,
+    "expertReviewed": false
+  },
+  "limitations": [
+    "Exact groups establish matching files/pixels, not person identity.",
+    "dHash proximity is a review candidate, never ground truth or an automatic merge.",
+    "Export-name/left-right crop hints are candidates only, not photo or person identities.",
+    "Crops, mirrors, collages and different photos of a person may escape this audit.",
+    "Publisher README licences do not establish individual-photo rights.",
+    "Archive splits do not prove previous review/training exposure is absent.",
+    "No missing annotation is inferred to be normal/negative skin.",
+    "COCO geometric validity does not prove annotation semantics or completeness."
+  ],
+  "source": {
+    "project": "merves-workspace-uxyeb/ciltanalizi-rfa8m",
+    "version": 12,
+    "url": "https://universe.roboflow.com/merves-workspace-uxyeb/ciltanalizi-rfa8m/dataset/12",
+    "license": "CC BY 4.0",
+    "archiveSHA256": "8fdf070c0cae65fd27ce0046c93393e0ac17e5282bf472097453c756481b831e",
+    "historicalArchiveHashMatched": true
+  },
+  "archive": {
+    "source": "merve",
+    "archive": "merve-v12-direct.zip",
+    "archiveSHA256": "8fdf070c0cae65fd27ce0046c93393e0ac17e5282bf472097453c756481b831e",
+    "images": 3368,
+    "splits": {
+      "test": 140,
+      "train": 2949,
+      "valid": 279
+    },
+    "classes": {
+      "akne": {
+        "test": 151,
+        "train": 2337,
+        "valid": 287
+      },
+      "gozenek": {
+        "test": 83,
+        "train": 2130,
+        "valid": 211
+      },
+      "kirisiklik": {
+        "test": 87,
+        "train": 2226,
+        "valid": 200
+      },
+      "kizariklik": {
+        "test": 99,
+        "train": 2152,
+        "valid": 188
+      },
+      "pul": {
+        "test": 89,
+        "train": 2232,
+        "valid": 269
+      }
+    },
+    "geometry": [
+      {
+        "class": "akne",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 2775
+      },
+      {
+        "class": "gozenek",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 2423
+      },
+      {
+        "class": "gozenek",
+        "kind": "polygon",
+        "validBox": true,
+        "validMask": true,
+        "count": 1
+      },
+      {
+        "class": "kirisiklik",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 2513
+      },
+      {
+        "class": "kizariklik",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 2438
+      },
+      {
+        "class": "kizariklik",
+        "kind": "polygon",
+        "validBox": true,
+        "validMask": true,
+        "count": 1
+      },
+      {
+        "class": "pul",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 2590
+      }
+    ]
+  },
+  "processedFilenameCount": 3368,
+  "processingRule": "CLAHE-named source plus prior ledger processed-source declaration and six train examples inspected; not admitted for natural RGB calibration.",
+  "targetSupervision": {
+    "pulBoxes": 2590,
+    "pulPolygons": 0,
+    "normalRegionTruth": false,
+    "regionalDrynessMasks": false
+  },
+  "disposition": {
+    "expertReviewed": false,
+    "modelTrainingLaunched": false,
+    "productCalibrationAllowed": false,
+    "boxLocalizationResearchOnly": true,
+    "originalNaturalSourceRequiredForColourCalibration": true
+  },
+  "fullEvidence": "docs/skin/evidence/merve-direct-audit-20261023-v1.json.gz",
+  "fullEvidenceSHA256": "da8a12a7d447d76680baee6c7facd64e0a48b87c09183224df460de7783e160e"
+}

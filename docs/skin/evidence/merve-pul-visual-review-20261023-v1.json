@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "assistantVisualReviewPerformed": true,
+  "expertReviewed": false,
+  "sourceArchiveSHA256": "8fdf070c0cae65fd27ce0046c93393e0ac17e5282bf472097453c756481b831e",
+  "split": "train",
+  "selectionRule": "First six pul-positive TRAIN filenames ordered by SHA256(filename), before visual review",
+  "examples": [
+    {
+      "imageId": 2611,
+      "filename": "clahed_kering-54-_jpg.rf.586714eac18721718b074ca031af6dc9.jpg",
+      "boxes": 3,
+      "sourceSplit": "train"
+    },
+    {
+      "imageId": 2678,
+      "filename": "clahed_seborrhoeic-dermatitis-0009_jpg.rf.e3e9c471da64b9008f9df43a514a6514.jpg",
+      "boxes": 8,
+      "sourceSplit": "train"
+    },
+    {
+      "imageId": 1201,
+      "filename": "clahed_kering-79-_jpeg.rf.477491e65b9d8340c20273b9e427543b.jpg",
+      "boxes": 7,
+      "sourceSplit": "train"
+    },
+    {
+      "imageId": 674,
+      "filename": "clahed_kering-128-_jpeg.rf.eb65268e9e40003cf1da1a253d631d26.jpg",
+      "boxes": 7,
+      "sourceSplit": "train"
+    },
+    {
+      "imageId": 843,
+      "filename": "clahed_23a01088b97c930c8fa8c6781a4c2f0d_jpg.rf.e436d8f509213e65aeead069f54363ab.jpg",
+      "boxes": 10,
+      "sourceSplit": "train"
+    },
+    {
+      "imageId": 2884,
+      "filename": "clahed_kering-102-_jpg.rf.bec8035d16c510634789f743144dcafc.jpg",
+      "boxes": 9,
+      "sourceSplit": "train"
+    }
+  ],
+  "boardSHA256": "ef1191565328ae8f54f634b407ab0ba1074eba76832d8d3b21314087b48bdbdb",
+  "observations": [
+    "Publisher boxes cover broad overlapping patches and include visibly peeling areas and fine surface texture; these are boxes, not pixel masks.",
+    "Examples include augmented rotations/black borders and source watermark; natural camera-domain calibration and individual-photo rights are not established.",
+    "No relabeling, mask generation, sensitivity conclusion or model training was performed."
+  ]
+}

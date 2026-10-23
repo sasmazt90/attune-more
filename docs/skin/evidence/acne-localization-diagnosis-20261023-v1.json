@@ -1,0 +1,7254 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "validation-localization-taxonomy-v1",
+  "split": "valid",
+  "modelIdentity": {
+    "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--754885",
+    "modelPackageId": "d336c1c2c6c791758326d9cc4f9afecc"
+  },
+  "thresholds": {
+    "Pigmentation": 0.2,
+    "Pimple": 0.3,
+    "Post acne": 0.3
+  },
+  "thresholdsRefitted": false,
+  "images": 165,
+  "imagesAtPredictionCap": 124,
+  "snapshotSHA256": "9fa8d6606c9a50b81468f8c36b60604a722611ee45b4fdaa32b8c931a0c87b7b",
+  "classAgnosticMatrix": {
+    "Pigmentation": {
+      "Pigmentation": 6,
+      "Pimple": 0,
+      "Post acne": 93,
+      "background": 184
+    },
+    "Pimple": {
+      "Pigmentation": 0,
+      "Pimple": 206,
+      "Post acne": 205,
+      "background": 391
+    },
+    "Post acne": {
+      "Pigmentation": 11,
+      "Pimple": 67,
+      "Post acne": 2363,
+      "background": 4379
+    },
+    "background": {
+      "Pigmentation": 502,
+      "Pimple": 339,
+      "Post acne": 3503,
+      "background": 0
+    }
+  },
+  "crossClassMatches": [
+    {
+      "imageId": 0,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6826666666666666,
+      "truthBox": [
+        699,
+        763,
+        22.5,
+        12.5
+      ],
+      "predictedBox": [
+        705.0,
+        763.0,
+        16,
+        12
+      ],
+      "confidence": 0.5565534830093384
+    },
+    {
+      "imageId": 0,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.8081494057724957,
+      "truthBox": [
+        712,
+        820,
+        17.5,
+        15
+      ],
+      "predictedBox": [
+        711.0,
+        821.0,
+        18,
+        15
+      ],
+      "confidence": 0.5025202035903931
+    },
+    {
+      "imageId": 0,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7403846153846154,
+      "truthBox": [
+        897,
+        656,
+        16,
+        13
+      ],
+      "predictedBox": [
+        897.0,
+        658.0,
+        14,
+        11
+      ],
+      "confidence": 0.39774957299232483
+    },
+    {
+      "imageId": 0,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5019607843137255,
+      "truthBox": [
+        750,
+        766,
+        25.5,
+        15
+      ],
+      "predictedBox": [
+        759.0,
+        768.0,
+        16,
+        12
+      ],
+      "confidence": 0.35309037566185
+    },
+    {
+      "imageId": 0,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.514751552795031,
+      "truthBox": [
+        790,
+        662,
+        19.5,
+        8.5
+      ],
+      "predictedBox": [
+        790.0,
+        662.0,
+        23,
+        14
+      ],
+      "confidence": 0.35020819306373596
+    },
+    {
+      "imageId": 1,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5866666666666667,
+      "truthBox": [
+        382,
+        583,
+        18,
+        12.5
+      ],
+      "predictedBox": [
+        387.0,
+        584.0,
+        12,
+        11
+      ],
+      "confidence": 0.42278945446014404
+    },
+    {
+      "imageId": 1,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6185567010309279,
+      "truthBox": [
+        361,
+        584,
+        14,
+        13
+      ],
+      "predictedBox": [
+        360.0,
+        584.0,
+        11,
+        12
+      ],
+      "confidence": 0.4028030037879944
+    },
+    {
+      "imageId": 1,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7549668874172185,
+      "truthBox": [
+        592,
+        351,
+        17.5,
+        9.5
+      ],
+      "predictedBox": [
+        593.0,
+        350.0,
+        15,
+        11
+      ],
+      "confidence": 0.39516541361808777
+    },
+    {
+      "imageId": 1,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6292749658002736,
+      "truthBox": [
+        423,
+        574,
+        11.5,
+        12.5
+      ],
+      "predictedBox": [
+        422.0,
+        573.0,
+        14,
+        11
+      ],
+      "confidence": 0.39506351947784424
+    },
+    {
+      "imageId": 1,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5,
+      "truthBox": [
+        677,
+        328,
+        26,
+        17
+      ],
+      "predictedBox": [
+        679.0,
+        332.0,
+        17,
+        13
+      ],
+      "confidence": 0.34512341022491455
+    },
+    {
+      "imageId": 2,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.55,
+      "truthBox": [
+        724,
+        98,
+        16.5,
+        12
+      ],
+      "predictedBox": [
+        723.0,
+        97.0,
+        24,
+        15
+      ],
+      "confidence": 0.3768591582775116
+    },
+    {
+      "imageId": 3,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6474074074074074,
+      "truthBox": [
+        852,
+        675,
+        30,
+        22.5
+      ],
+      "predictedBox": [
+        854.0,
+        676.0,
+        23,
+        19
+      ],
+      "confidence": 0.40801575779914856
+    },
+    {
+      "imageId": 3,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.756578947368421,
+      "truthBox": [
+        986,
+        821,
+        24.5,
+        18
+      ],
+      "predictedBox": [
+        985.0,
+        822.0,
+        24,
+        15
+      ],
+      "confidence": 0.33183199167251587
+    },
+    {
+      "imageId": 4,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5936395759717314,
+      "truthBox": [
+        1008,
+        992,
+        16.5,
+        10.5
+      ],
+      "predictedBox": [
+        1007.0,
+        990.0,
+        15,
+        11
+      ],
+      "confidence": 0.37187305092811584
+    },
+    {
+      "imageId": 5,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6898444647758463,
+      "truthBox": [
+        446,
+        689,
+        14.5,
+        13.5
+      ],
+      "predictedBox": [
+        444.0,
+        688.0,
+        19,
+        14
+      ],
+      "confidence": 0.4933934211730957
+    },
+    {
+      "imageId": 5,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.7173601147776184,
+      "truthBox": [
+        471,
+        636,
+        21,
+        12.5
+      ],
+      "predictedBox": [
+        470.0,
+        633.0,
+        21,
+        16
+      ],
+      "confidence": 0.44742706418037415
+    },
+    {
+      "imageId": 5,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6838235294117647,
+      "truthBox": [
+        599,
+        751,
+        15.5,
+        15
+      ],
+      "predictedBox": [
+        599.0,
+        751.0,
+        20,
+        17
+      ],
+      "confidence": 0.41454145312309265
+    },
+    {
+      "imageId": 5,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.7083734359961501,
+      "truthBox": [
+        246,
+        728,
+        20.5,
+        11.5
+      ],
+      "predictedBox": [
+        250.0,
+        727.0,
+        16,
+        13
+      ],
+      "confidence": 0.37520644068717957
+    },
+    {
+      "imageId": 5,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.75,
+      "truthBox": [
+        477,
+        862,
+        15,
+        7.5
+      ],
+      "predictedBox": [
+        477.0,
+        861.0,
+        15,
+        10
+      ],
+      "confidence": 0.36645206809043884
+    },
+    {
+      "imageId": 5,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.749438202247191,
+      "truthBox": [
+        478,
+        666,
+        15.5,
+        13.5
+      ],
+      "predictedBox": [
+        479.0,
+        668.0,
+        15,
+        12
+      ],
+      "confidence": 0.31675785779953003
+    },
+    {
+      "imageId": 5,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6451612903225806,
+      "truthBox": [
+        497,
+        607,
+        10,
+        6.5
+      ],
+      "predictedBox": [
+        497.0,
+        605.0,
+        11,
+        8
+      ],
+      "confidence": 0.31490540504455566
+    },
+    {
+      "imageId": 5,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.64,
+      "truthBox": [
+        414,
+        608,
+        14,
+        9.5
+      ],
+      "predictedBox": [
+        414.0,
+        605.0,
+        14,
+        11
+      ],
+      "confidence": 0.3075729012489319
+    },
+    {
+      "imageId": 8,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5625,
+      "truthBox": [
+        516,
+        587,
+        16,
+        11
+      ],
+      "predictedBox": [
+        517.0,
+        587.0,
+        11,
+        9
+      ],
+      "confidence": 0.3851909935474396
+    },
+    {
+      "imageId": 8,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6092184368737475,
+      "truthBox": [
+        383,
+        806,
+        10.5,
+        11.5
+      ],
+      "predictedBox": [
+        384.0,
+        808.0,
+        10,
+        8
+      ],
+      "confidence": 0.37232857942581177
+    },
+    {
+      "imageId": 9,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6923076923076923,
+      "truthBox": [
+        790,
+        729,
+        12,
+        9
+      ],
+      "predictedBox": [
+        789.0,
+        729.0,
+        10,
+        9
+      ],
+      "confidence": 0.4281563460826874
+    },
+    {
+      "imageId": 9,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6579634464751958,
+      "truthBox": [
+        884,
+        761,
+        10.5,
+        7.5
+      ],
+      "predictedBox": [
+        883.0,
+        760.0,
+        10,
+        8
+      ],
+      "confidence": 0.4197280704975128
+    },
+    {
+      "imageId": 9,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7640449438202247,
+      "truthBox": [
+        808,
+        758,
+        12.5,
+        8.5
+      ],
+      "predictedBox": [
+        808.0,
+        758.0,
+        10,
+        9
+      ],
+      "confidence": 0.41698724031448364
+    },
+    {
+      "imageId": 9,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7766990291262136,
+      "truthBox": [
+        877,
+        775,
+        10,
+        9.5
+      ],
+      "predictedBox": [
+        877.0,
+        775.0,
+        11,
+        8
+      ],
+      "confidence": 0.385165274143219
+    },
+    {
+      "imageId": 9,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6121112929623568,
+      "truthBox": [
+        777,
+        709,
+        15.5,
+        9.5
+      ],
+      "predictedBox": [
+        777.0,
+        710.0,
+        11,
+        9
+      ],
+      "confidence": 0.3837055563926697
+    },
+    {
+      "imageId": 9,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5419354838709678,
+      "truthBox": [
+        805,
+        816,
+        11.5,
+        9.5
+      ],
+      "predictedBox": [
+        804.0,
+        816.0,
+        10,
+        7
+      ],
+      "confidence": 0.37876373529434204
+    },
+    {
+      "imageId": 9,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5396825396825397,
+      "truthBox": [
+        766,
+        749,
+        10,
+        9.5
+      ],
+      "predictedBox": [
+        763.0,
+        750.0,
+        11,
+        9
+      ],
+      "confidence": 0.3705139756202698
+    },
+    {
+      "imageId": 9,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7205882352941176,
+      "truthBox": [
+        739,
+        800,
+        8,
+        8.5
+      ],
+      "predictedBox": [
+        739.0,
+        801.0,
+        7,
+        7
+      ],
+      "confidence": 0.34309718012809753
+    },
+    {
+      "imageId": 9,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5217391304347826,
+      "truthBox": [
+        842,
+        694,
+        14,
+        8.5
+      ],
+      "predictedBox": [
+        842.0,
+        691.0,
+        14,
+        9
+      ],
+      "confidence": 0.3274392783641815
+    },
+    {
+      "imageId": 9,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6371681415929203,
+      "truthBox": [
+        752,
+        749,
+        10,
+        9.5
+      ],
+      "predictedBox": [
+        750.0,
+        749.0,
+        10,
+        9
+      ],
+      "confidence": 0.3236573040485382
+    },
+    {
+      "imageId": 12,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5376344086021505,
+      "truthBox": [
+        545,
+        705,
+        13,
+        13.5
+      ],
+      "predictedBox": [
+        541.0,
+        706.0,
+        14,
+        13
+      ],
+      "confidence": 0.3951532244682312
+    },
+    {
+      "imageId": 14,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6208378088077336,
+      "truthBox": [
+        1022,
+        480,
+        24.5,
+        19
+      ],
+      "predictedBox": [
+        1026.0,
+        481.0,
+        17,
+        17
+      ],
+      "confidence": 0.4142988920211792
+    },
+    {
+      "imageId": 14,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6818181818181818,
+      "truthBox": [
+        780,
+        836,
+        16.5,
+        20
+      ],
+      "predictedBox": [
+        780.0,
+        839.0,
+        15,
+        15
+      ],
+      "confidence": 0.41159698367118835
+    },
+    {
+      "imageId": 17,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6484210526315789,
+      "truthBox": [
+        718,
+        787,
+        28.5,
+        12.5
+      ],
+      "predictedBox": [
+        722.0,
+        787.0,
+        21,
+        11
+      ],
+      "confidence": 0.5100724101066589
+    },
+    {
+      "imageId": 17,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.73172723560637,
+      "truthBox": [
+        781,
+        739,
+        39.5,
+        15.5
+      ],
+      "predictedBox": [
+        785.0,
+        740.0,
+        32,
+        14
+      ],
+      "confidence": 0.4916396737098694
+    },
+    {
+      "imageId": 17,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6011500261369577,
+      "truthBox": [
+        965,
+        1051,
+        25.5,
+        16.5
+      ],
+      "predictedBox": [
+        966.0,
+        1055.0,
+        23,
+        15
+      ],
+      "confidence": 0.43689054250717163
+    },
+    {
+      "imageId": 17,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7225806451612903,
+      "truthBox": [
+        593,
+        858,
+        31,
+        17.5
+      ],
+      "predictedBox": [
+        596.0,
+        859.0,
+        28,
+        14
+      ],
+      "confidence": 0.41012266278266907
+    },
+    {
+      "imageId": 17,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5034965034965035,
+      "truthBox": [
+        522,
+        607,
+        26,
+        16.5
+      ],
+      "predictedBox": [
+        523.0,
+        608.0,
+        18,
+        12
+      ],
+      "confidence": 0.3742004930973053
+    },
+    {
+      "imageId": 17,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5793103448275863,
+      "truthBox": [
+        842,
+        615,
+        29,
+        20
+      ],
+      "predictedBox": [
+        846.0,
+        618.0,
+        24,
+        14
+      ],
+      "confidence": 0.3641741871833801
+    },
+    {
+      "imageId": 18,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7407407407407407,
+      "truthBox": [
+        1041,
+        215,
+        34.5,
+        23
+      ],
+      "predictedBox": [
+        1045.0,
+        215.0,
+        32,
+        20
+      ],
+      "confidence": 0.5215597152709961
+    },
+    {
+      "imageId": 18,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7270114942528736,
+      "truthBox": [
+        439,
+        652,
+        29,
+        24
+      ],
+      "predictedBox": [
+        444.0,
+        654.0,
+        23,
+        22
+      ],
+      "confidence": 0.5026893019676208
+    },
+    {
+      "imageId": 18,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5590433482810164,
+      "truthBox": [
+        501,
+        953,
+        27,
+        21
+      ],
+      "predictedBox": [
+        506.0,
+        955.0,
+        28,
+        17
+      ],
+      "confidence": 0.44060268998146057
+    },
+    {
+      "imageId": 18,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5621301775147929,
+      "truthBox": [
+        909,
+        236,
+        20,
+        17.5
+      ],
+      "predictedBox": [
+        910.0,
+        234.0,
+        26,
+        17
+      ],
+      "confidence": 0.4005745053291321
+    },
+    {
+      "imageId": 18,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.72,
+      "truthBox": [
+        1154,
+        301,
+        24,
+        12.5
+      ],
+      "predictedBox": [
+        1158.0,
+        301.0,
+        18,
+        12
+      ],
+      "confidence": 0.3129929006099701
+    },
+    {
+      "imageId": 22,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.8,
+      "truthBox": [
+        869,
+        571,
+        17,
+        10.5
+      ],
+      "predictedBox": [
+        869.0,
+        569.0,
+        17,
+        12
+      ],
+      "confidence": 0.34658384323120117
+    },
+    {
+      "imageId": 23,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.7228571428571429,
+      "truthBox": [
+        442,
+        1064,
+        19.5,
+        11.5
+      ],
+      "predictedBox": [
+        445.0,
+        1064.0,
+        19,
+        12
+      ],
+      "confidence": 0.44019076228141785
+    },
+    {
+      "imageId": 23,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6064356435643564,
+      "truthBox": [
+        477,
+        961,
+        26.5,
+        12.5
+      ],
+      "predictedBox": [
+        479.0,
+        958.0,
+        30,
+        16
+      ],
+      "confidence": 0.42214739322662354
+    },
+    {
+      "imageId": 23,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6970387243735763,
+      "truthBox": [
+        736,
+        792,
+        17.5,
+        11
+      ],
+      "predictedBox": [
+        735.0,
+        794.0,
+        18,
+        10
+      ],
+      "confidence": 0.3539085388183594
+    },
+    {
+      "imageId": 23,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6508108108108108,
+      "truthBox": [
+        541,
+        1043,
+        28.5,
+        15
+      ],
+      "predictedBox": [
+        548.0,
+        1043.0,
+        24,
+        14
+      ],
+      "confidence": 0.3088395595550537
+    },
+    {
+      "imageId": 23,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5902777777777778,
+      "truthBox": [
+        642,
+        757,
+        8.5,
+        5
+      ],
+      "predictedBox": [
+        641.0,
+        757.0,
+        12,
+        6
+      ],
+      "confidence": 0.30327078700065613
+    },
+    {
+      "imageId": 24,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8442211055276382,
+      "truthBox": [
+        633,
+        642,
+        7,
+        12.5
+      ],
+      "predictedBox": [
+        632.0,
+        642.0,
+        8,
+        12
+      ],
+      "confidence": 0.5179112553596497
+    },
+    {
+      "imageId": 24,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6634146341463415,
+      "truthBox": [
+        455,
+        629,
+        7.5,
+        20.5
+      ],
+      "predictedBox": [
+        455.0,
+        632.0,
+        6,
+        17
+      ],
+      "confidence": 0.5030642151832581
+    },
+    {
+      "imageId": 24,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6897689768976898,
+      "truthBox": [
+        740,
+        337,
+        10.5,
+        12
+      ],
+      "predictedBox": [
+        741.0,
+        335.0,
+        10,
+        13
+      ],
+      "confidence": 0.5002801418304443
+    },
+    {
+      "imageId": 24,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6440071556350626,
+      "truthBox": [
+        461,
+        593,
+        6.5,
+        21.5
+      ],
+      "predictedBox": [
+        461.0,
+        599.0,
+        6,
+        15
+      ],
+      "confidence": 0.47631001472473145
+    },
+    {
+      "imageId": 24,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7894736842105263,
+      "truthBox": [
+        469,
+        519,
+        9,
+        16
+      ],
+      "predictedBox": [
+        469.0,
+        520.0,
+        9,
+        18
+      ],
+      "confidence": 0.46824911236763
+    },
+    {
+      "imageId": 24,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7447916666666666,
+      "truthBox": [
+        765,
+        406,
+        6.5,
+        11
+      ],
+      "predictedBox": [
+        765.0,
+        405.0,
+        8,
+        12
+      ],
+      "confidence": 0.4493572413921356
+    },
+    {
+      "imageId": 24,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.56,
+      "truthBox": [
+        517,
+        475,
+        8,
+        13.5
+      ],
+      "predictedBox": [
+        515.0,
+        473.0,
+        9,
+        14
+      ],
+      "confidence": 0.44312772154808044
+    },
+    {
+      "imageId": 24,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.73125,
+      "truthBox": [
+        638,
+        320,
+        10,
+        16
+      ],
+      "predictedBox": [
+        639.0,
+        323.0,
+        9,
+        13
+      ],
+      "confidence": 0.44152143597602844
+    },
+    {
+      "imageId": 24,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6419753086419753,
+      "truthBox": [
+        632,
+        432,
+        10.5,
+        16.5
+      ],
+      "predictedBox": [
+        633.0,
+        431.0,
+        9,
+        14
+      ],
+      "confidence": 0.43522053956985474
+    },
+    {
+      "imageId": 24,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5709219858156028,
+      "truthBox": [
+        488,
+        559,
+        9,
+        14.5
+      ],
+      "predictedBox": [
+        488.0,
+        562.0,
+        7,
+        13
+      ],
+      "confidence": 0.4275626540184021
+    },
+    {
+      "imageId": 24,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.64,
+      "truthBox": [
+        484,
+        751,
+        10.5,
+        12
+      ],
+      "predictedBox": [
+        485.0,
+        749.0,
+        8,
+        15
+      ],
+      "confidence": 0.36677512526512146
+    },
+    {
+      "imageId": 24,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5223880597014925,
+      "truthBox": [
+        649,
+        626,
+        6,
+        10.5
+      ],
+      "predictedBox": [
+        650.0,
+        623.0,
+        6,
+        15
+      ],
+      "confidence": 0.347663015127182
+    },
+    {
+      "imageId": 29,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5629228687415426,
+      "truthBox": [
+        524,
+        869,
+        22.5,
+        15
+      ],
+      "predictedBox": [
+        527.0,
+        867.0,
+        16,
+        15
+      ],
+      "confidence": 0.537188708782196
+    },
+    {
+      "imageId": 29,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6486486486486487,
+      "truthBox": [
+        655,
+        924,
+        18.5,
+        17.5
+      ],
+      "predictedBox": [
+        659.0,
+        925.0,
+        14,
+        15
+      ],
+      "confidence": 0.508942723274231
+    },
+    {
+      "imageId": 29,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6190476190476191,
+      "truthBox": [
+        766,
+        568,
+        18,
+        17.5
+      ],
+      "predictedBox": [
+        769.0,
+        570.0,
+        13,
+        15
+      ],
+      "confidence": 0.4961563050746918
+    },
+    {
+      "imageId": 29,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6483704974271012,
+      "truthBox": [
+        670,
+        611,
+        19,
+        13.5
+      ],
+      "predictedBox": [
+        671.0,
+        611.0,
+        14,
+        16
+      ],
+      "confidence": 0.33696919679641724
+    },
+    {
+      "imageId": 30,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6685393258426966,
+      "truthBox": [
+        764,
+        456,
+        8.5,
+        9
+      ],
+      "predictedBox": [
+        764.0,
+        458.0,
+        9,
+        8
+      ],
+      "confidence": 0.3013833463191986
+    },
+    {
+      "imageId": 32,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5583941605839416,
+      "truthBox": [
+        662,
+        788,
+        11,
+        8.5
+      ],
+      "predictedBox": [
+        664.0,
+        787.0,
+        12,
+        10
+      ],
+      "confidence": 0.3971106708049774
+    },
+    {
+      "imageId": 32,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5476190476190477,
+      "truthBox": [
+        772,
+        768,
+        12.5,
+        10.5
+      ],
+      "predictedBox": [
+        773.0,
+        768.0,
+        15,
+        14
+      ],
+      "confidence": 0.34359121322631836
+    },
+    {
+      "imageId": 33,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5847133757961783,
+      "truthBox": [
+        701,
+        1034,
+        20,
+        13.5
+      ],
+      "predictedBox": [
+        704.0,
+        1032.0,
+        22,
+        16
+      ],
+      "confidence": 0.5523973703384399
+    },
+    {
+      "imageId": 33,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.8215613382899628,
+      "truthBox": [
+        644,
+        1199,
+        18,
+        13.5
+      ],
+      "predictedBox": [
+        645.0,
+        1199.0,
+        19,
+        13
+      ],
+      "confidence": 0.5318840146064758
+    },
+    {
+      "imageId": 33,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5947281713344317,
+      "truthBox": [
+        576,
+        939,
+        22,
+        19
+      ],
+      "predictedBox": [
+        579.0,
+        936.0,
+        25,
+        22
+      ],
+      "confidence": 0.5283119082450867
+    },
+    {
+      "imageId": 33,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5728643216080402,
+      "truthBox": [
+        521,
+        970,
+        21.5,
+        15
+      ],
+      "predictedBox": [
+        517.0,
+        967.0,
+        23,
+        20
+      ],
+      "confidence": 0.5220421552658081
+    },
+    {
+      "imageId": 33,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6341463414634146,
+      "truthBox": [
+        360,
+        872,
+        13,
+        17.5
+      ],
+      "predictedBox": [
+        357.0,
+        871.0,
+        19,
+        18
+      ],
+      "confidence": 0.5158720016479492
+    },
+    {
+      "imageId": 33,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7492401215805471,
+      "truthBox": [
+        690,
+        256,
+        28.5,
+        14.5
+      ],
+      "predictedBox": [
+        693.0,
+        256.0,
+        30,
+        15
+      ],
+      "confidence": 0.494843453168869
+    },
+    {
+      "imageId": 33,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6073752711496746,
+      "truthBox": [
+        617,
+        1168,
+        17,
+        10.5
+      ],
+      "predictedBox": [
+        620.0,
+        1166.0,
+        16,
+        12
+      ],
+      "confidence": 0.4220302700996399
+    },
+    {
+      "imageId": 33,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7754010695187166,
+      "truthBox": [
+        671,
+        330,
+        14.5,
+        10
+      ],
+      "predictedBox": [
+        670.0,
+        329.0,
+        17,
+        11
+      ],
+      "confidence": 0.3743344843387604
+    },
+    {
+      "imageId": 35,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.8305489260143198,
+      "truthBox": [
+        689,
+        622,
+        14.5,
+        13
+      ],
+      "predictedBox": [
+        689.0,
+        623.0,
+        15,
+        13
+      ],
+      "confidence": 0.5016924142837524
+    },
+    {
+      "imageId": 35,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5528455284552846,
+      "truthBox": [
+        590,
+        649,
+        30,
+        20.5
+      ],
+      "predictedBox": [
+        600.0,
+        652.0,
+        20,
+        17
+      ],
+      "confidence": 0.42606234550476074
+    },
+    {
+      "imageId": 35,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.525,
+      "truthBox": [
+        470,
+        697,
+        9,
+        7
+      ],
+      "predictedBox": [
+        467.0,
+        695.0,
+        12,
+        10
+      ],
+      "confidence": 0.4191700220108032
+    },
+    {
+      "imageId": 35,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5842696629213483,
+      "truthBox": [
+        731,
+        547,
+        13,
+        9
+      ],
+      "predictedBox": [
+        730.0,
+        548.0,
+        15,
+        11
+      ],
+      "confidence": 0.4133860468864441
+    },
+    {
+      "imageId": 35,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5813008130081301,
+      "truthBox": [
+        553,
+        281,
+        11,
+        7.5
+      ],
+      "predictedBox": [
+        553.0,
+        282.0,
+        14,
+        8
+      ],
+      "confidence": 0.40400469303131104
+    },
+    {
+      "imageId": 35,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6623376623376623,
+      "truthBox": [
+        570,
+        683,
+        12,
+        8.5
+      ],
+      "predictedBox": [
+        569.0,
+        682.0,
+        14,
+        11
+      ],
+      "confidence": 0.3683808445930481
+    },
+    {
+      "imageId": 35,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6927083333333334,
+      "truthBox": [
+        503,
+        745,
+        9.5,
+        7
+      ],
+      "predictedBox": [
+        503.0,
+        745.0,
+        12,
+        8
+      ],
+      "confidence": 0.3541390001773834
+    },
+    {
+      "imageId": 36,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6365740740740741,
+      "truthBox": [
+        695,
+        126,
+        12.5,
+        11
+      ],
+      "predictedBox": [
+        692.0,
+        125.0,
+        18,
+        12
+      ],
+      "confidence": 0.5236948728561401
+    },
+    {
+      "imageId": 36,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6486486486486487,
+      "truthBox": [
+        947,
+        543,
+        12,
+        13
+      ],
+      "predictedBox": [
+        947.0,
+        541.0,
+        15,
+        14
+      ],
+      "confidence": 0.4817945659160614
+    },
+    {
+      "imageId": 37,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.8666666666666667,
+      "truthBox": [
+        392,
+        646,
+        14,
+        17
+      ],
+      "predictedBox": [
+        391.0,
+        646.0,
+        14,
+        17
+      ],
+      "confidence": 0.4784471392631531
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.68,
+      "truthBox": [
+        759,
+        796,
+        20,
+        20
+      ],
+      "predictedBox": [
+        760.0,
+        797.0,
+        17,
+        16
+      ],
+      "confidence": 0.5558512806892395
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7347826086956522,
+      "truthBox": [
+        812,
+        825,
+        15.5,
+        14
+      ],
+      "predictedBox": [
+        814.0,
+        824.0,
+        13,
+        14
+      ],
+      "confidence": 0.5496635437011719
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6153846153846154,
+      "truthBox": [
+        692,
+        932,
+        18,
+        10
+      ],
+      "predictedBox": [
+        694.0,
+        928.0,
+        16,
+        15
+      ],
+      "confidence": 0.5289429426193237
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8,
+      "truthBox": [
+        750,
+        733,
+        13,
+        12
+      ],
+      "predictedBox": [
+        748.0,
+        732.0,
+        15,
+        13
+      ],
+      "confidence": 0.5116415619850159
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7717041800643086,
+      "truthBox": [
+        552,
+        627,
+        18,
+        15.5
+      ],
+      "predictedBox": [
+        551.0,
+        626.0,
+        17,
+        16
+      ],
+      "confidence": 0.4991046190261841
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.64,
+      "truthBox": [
+        522,
+        688,
+        15,
+        15
+      ],
+      "predictedBox": [
+        522.0,
+        689.0,
+        12,
+        12
+      ],
+      "confidence": 0.49284783005714417
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7309236947791165,
+      "truthBox": [
+        618,
+        588,
+        13.5,
+        11.5
+      ],
+      "predictedBox": [
+        617.0,
+        589.0,
+        14,
+        12
+      ],
+      "confidence": 0.48293232917785645
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5245614035087719,
+      "truthBox": [
+        549,
+        602,
+        12.5,
+        13
+      ],
+      "predictedBox": [
+        550.0,
+        599.0,
+        17,
+        16
+      ],
+      "confidence": 0.47789645195007324
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6976744186046512,
+      "truthBox": [
+        604,
+        566,
+        16.5,
+        12
+      ],
+      "predictedBox": [
+        603.0,
+        566.0,
+        16,
+        15
+      ],
+      "confidence": 0.47226718068122864
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.75,
+      "truthBox": [
+        513,
+        795,
+        10,
+        9
+      ],
+      "predictedBox": [
+        512.0,
+        795.0,
+        12,
+        10
+      ],
+      "confidence": 0.4717181324958801
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8778378378378379,
+      "truthBox": [
+        524,
+        840,
+        29,
+        14.5
+      ],
+      "predictedBox": [
+        525.0,
+        839.0,
+        28,
+        16
+      ],
+      "confidence": 0.4481428563594818
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6559766763848397,
+      "truthBox": [
+        497,
+        710,
+        17.5,
+        16
+      ],
+      "predictedBox": [
+        494.0,
+        709.0,
+        18,
+        16
+      ],
+      "confidence": 0.44473904371261597
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5755555555555556,
+      "truthBox": [
+        546,
+        784,
+        18.5,
+        14
+      ],
+      "predictedBox": [
+        545.0,
+        780.0,
+        25,
+        18
+      ],
+      "confidence": 0.44074639678001404
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.525,
+      "truthBox": [
+        781,
+        920,
+        10.5,
+        10.5
+      ],
+      "predictedBox": [
+        778.0,
+        918.0,
+        15,
+        14
+      ],
+      "confidence": 0.42899492383003235
+    },
+    {
+      "imageId": 45,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6217105263157895,
+      "truthBox": [
+        703,
+        598,
+        11.5,
+        9
+      ],
+      "predictedBox": [
+        704.0,
+        596.0,
+        13,
+        11
+      ],
+      "confidence": 0.4255329668521881
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7083333333333334,
+      "truthBox": [
+        746,
+        536,
+        12.5,
+        8.5
+      ],
+      "predictedBox": [
+        746.0,
+        536.0,
+        15,
+        10
+      ],
+      "confidence": 0.4254188537597656
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7609756097560976,
+      "truthBox": [
+        691,
+        826,
+        13,
+        13
+      ],
+      "predictedBox": [
+        690.0,
+        826.0,
+        16,
+        12
+      ],
+      "confidence": 0.4025574326515198
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8471910112359551,
+      "truthBox": [
+        606,
+        635,
+        14.5,
+        14
+      ],
+      "predictedBox": [
+        605.0,
+        635.0,
+        16,
+        13
+      ],
+      "confidence": 0.40251582860946655
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5728643216080402,
+      "truthBox": [
+        814,
+        1132,
+        19,
+        14
+      ],
+      "predictedBox": [
+        814.0,
+        1129.0,
+        24,
+        15
+      ],
+      "confidence": 0.3951418101787567
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7801268498942917,
+      "truthBox": [
+        673,
+        764,
+        22.5,
+        18
+      ],
+      "predictedBox": [
+        675.0,
+        764.0,
+        23,
+        19
+      ],
+      "confidence": 0.3757452666759491
+    },
+    {
+      "imageId": 45,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.8791208791208791,
+      "truthBox": [
+        529,
+        997,
+        13,
+        10.5
+      ],
+      "predictedBox": [
+        529.0,
+        997.0,
+        12,
+        10
+      ],
+      "confidence": 0.3685438632965088
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8421052631578947,
+      "truthBox": [
+        556,
+        651,
+        17,
+        12
+      ],
+      "predictedBox": [
+        554.0,
+        651.0,
+        18,
+        12
+      ],
+      "confidence": 0.36234715580940247
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6214953271028038,
+      "truthBox": [
+        296,
+        997,
+        13.5,
+        9.5
+      ],
+      "predictedBox": [
+        299.0,
+        995.0,
+        11,
+        12
+      ],
+      "confidence": 0.3453163802623749
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5361930294906166,
+      "truthBox": [
+        855,
+        1139,
+        13.5,
+        9
+      ],
+      "predictedBox": [
+        856.0,
+        1136.0,
+        15,
+        11
+      ],
+      "confidence": 0.3330445885658264
+    },
+    {
+      "imageId": 45,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8148148148148148,
+      "truthBox": [
+        292,
+        1012,
+        11.5,
+        9.5
+      ],
+      "predictedBox": [
+        292.0,
+        1013.0,
+        11,
+        9
+      ],
+      "confidence": 0.3199038803577423
+    },
+    {
+      "imageId": 46,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8380952380952381,
+      "truthBox": [
+        520,
+        1046,
+        12,
+        17.5
+      ],
+      "predictedBox": [
+        520.0,
+        1046.0,
+        11,
+        16
+      ],
+      "confidence": 0.4400270879268646
+    },
+    {
+      "imageId": 47,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5,
+      "truthBox": [
+        537,
+        599,
+        14,
+        10.5
+      ],
+      "predictedBox": [
+        536.0,
+        596.0,
+        21,
+        14
+      ],
+      "confidence": 0.4545564353466034
+    },
+    {
+      "imageId": 47,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.8954081632653061,
+      "truthBox": [
+        595,
+        661,
+        13,
+        13.5
+      ],
+      "predictedBox": [
+        595.0,
+        661.0,
+        14,
+        14
+      ],
+      "confidence": 0.42974939942359924
+    },
+    {
+      "imageId": 47,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5487804878048781,
+      "truthBox": [
+        835,
+        633,
+        11,
+        7.5
+      ],
+      "predictedBox": [
+        837.0,
+        633.0,
+        12,
+        9
+      ],
+      "confidence": 0.4183489978313446
+    },
+    {
+      "imageId": 47,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7555555555555555,
+      "truthBox": [
+        600,
+        978,
+        8,
+        8.5
+      ],
+      "predictedBox": [
+        599.0,
+        978.0,
+        10,
+        9
+      ],
+      "confidence": 0.3336777091026306
+    },
+    {
+      "imageId": 48,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5269423558897243,
+      "truthBox": [
+        519,
+        1012,
+        14.5,
+        14.5
+      ],
+      "predictedBox": [
+        517.0,
+        1009.0,
+        21,
+        19
+      ],
+      "confidence": 0.44462791085243225
+    },
+    {
+      "imageId": 48,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.7340823970037453,
+      "truthBox": [
+        536,
+        1019,
+        29,
+        21
+      ],
+      "predictedBox": [
+        534.0,
+        1017.0,
+        30,
+        26
+      ],
+      "confidence": 0.35908743739128113
+    },
+    {
+      "imageId": 50,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5365853658536586,
+      "truthBox": [
+        289,
+        365,
+        20.5,
+        13
+      ],
+      "predictedBox": [
+        295.0,
+        365.0,
+        13,
+        11
+      ],
+      "confidence": 0.398039847612381
+    },
+    {
+      "imageId": 50,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6523605150214592,
+      "truthBox": [
+        406,
+        803,
+        16.5,
+        9.5
+      ],
+      "predictedBox": [
+        409.0,
+        803.0,
+        12,
+        11
+      ],
+      "confidence": 0.38678842782974243
+    },
+    {
+      "imageId": 50,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5569620253164557,
+      "truthBox": [
+        420,
+        806,
+        13.5,
+        12.5
+      ],
+      "predictedBox": [
+        419.0,
+        809.0,
+        12,
+        9
+      ],
+      "confidence": 0.3784715235233307
+    },
+    {
+      "imageId": 51,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5956175298804781,
+      "truthBox": [
+        126,
+        292,
+        13,
+        12.5
+      ],
+      "predictedBox": [
+        124.0,
+        293.0,
+        17,
+        14
+      ],
+      "confidence": 0.3895767033100128
+    },
+    {
+      "imageId": 52,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5073529411764706,
+      "truthBox": [
+        737,
+        661,
+        11.5,
+        10.5
+      ],
+      "predictedBox": [
+        734.0,
+        660.0,
+        17,
+        14
+      ],
+      "confidence": 0.5361758470535278
+    },
+    {
+      "imageId": 52,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.688858695652174,
+      "truthBox": [
+        489,
+        285,
+        21.5,
+        15
+      ],
+      "predictedBox": [
+        491.0,
+        287.0,
+        23,
+        13
+      ],
+      "confidence": 0.44795098900794983
+    },
+    {
+      "imageId": 52,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6788685524126455,
+      "truthBox": [
+        421,
+        237,
+        19.5,
+        20.5
+      ],
+      "predictedBox": [
+        418.0,
+        240.0,
+        21,
+        17
+      ],
+      "confidence": 0.38402751088142395
+    },
+    {
+      "imageId": 54,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8421052631578947,
+      "truthBox": [
+        525,
+        566,
+        16,
+        18
+      ],
+      "predictedBox": [
+        525.0,
+        566.0,
+        17,
+        16
+      ],
+      "confidence": 0.4834471642971039
+    },
+    {
+      "imageId": 54,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.588957055214724,
+      "truthBox": [
+        793,
+        403,
+        20,
+        14.5
+      ],
+      "predictedBox": [
+        797.0,
+        404.0,
+        19,
+        12
+      ],
+      "confidence": 0.46337559819221497
+    },
+    {
+      "imageId": 54,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6589068825910931,
+      "truthBox": [
+        850,
+        1026,
+        15.5,
+        12.5
+      ],
+      "predictedBox": [
+        849.0,
+        1028.0,
+        18,
+        12
+      ],
+      "confidence": 0.37456434965133667
+    },
+    {
+      "imageId": 54,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.625748502994012,
+      "truthBox": [
+        589,
+        743,
+        11,
+        10.5
+      ],
+      "predictedBox": [
+        589.0,
+        744.0,
+        13,
+        12
+      ],
+      "confidence": 0.3414183557033539
+    },
+    {
+      "imageId": 55,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.855,
+      "truthBox": [
+        640,
+        670,
+        9.5,
+        9
+      ],
+      "predictedBox": [
+        640.0,
+        670.0,
+        10,
+        10
+      ],
+      "confidence": 0.4751889705657959
+    },
+    {
+      "imageId": 55,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.625,
+      "truthBox": [
+        535,
+        650,
+        7,
+        5
+      ],
+      "predictedBox": [
+        535.0,
+        650.0,
+        7,
+        8
+      ],
+      "confidence": 0.4536423981189728
+    },
+    {
+      "imageId": 55,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.63,
+      "truthBox": [
+        634,
+        692,
+        7,
+        9
+      ],
+      "predictedBox": [
+        632.0,
+        692.0,
+        10,
+        10
+      ],
+      "confidence": 0.45014041662216187
+    },
+    {
+      "imageId": 55,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5092592592592593,
+      "truthBox": [
+        547,
+        577,
+        7.5,
+        5.5
+      ],
+      "predictedBox": [
+        547.0,
+        575.0,
+        9,
+        9
+      ],
+      "confidence": 0.44286391139030457
+    },
+    {
+      "imageId": 55,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5444444444444444,
+      "truthBox": [
+        568,
+        700,
+        7,
+        7
+      ],
+      "predictedBox": [
+        567.0,
+        697.0,
+        9,
+        10
+      ],
+      "confidence": 0.4412336051464081
+    },
+    {
+      "imageId": 55,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7679324894514767,
+      "truthBox": [
+        782,
+        645,
+        6.5,
+        7.5
+      ],
+      "predictedBox": [
+        781.0,
+        645.0,
+        8,
+        7
+      ],
+      "confidence": 0.4234217405319214
+    },
+    {
+      "imageId": 55,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7368421052631579,
+      "truthBox": [
+        606,
+        351,
+        8.5,
+        7
+      ],
+      "predictedBox": [
+        607.0,
+        350.0,
+        7,
+        8
+      ],
+      "confidence": 0.40018394589424133
+    },
+    {
+      "imageId": 55,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7161803713527851,
+      "truthBox": [
+        677,
+        296,
+        9.5,
+        8.5
+      ],
+      "predictedBox": [
+        677.0,
+        297.0,
+        9,
+        9
+      ],
+      "confidence": 0.33444488048553467
+    },
+    {
+      "imageId": 55,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.8516129032258064,
+      "truthBox": [
+        570,
+        656,
+        6.5,
+        5.5
+      ],
+      "predictedBox": [
+        570.0,
+        656.0,
+        6,
+        6
+      ],
+      "confidence": 0.3108046352863312
+    },
+    {
+      "imageId": 57,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5548961424332344,
+      "truthBox": [
+        748,
+        415,
+        18,
+        21.5
+      ],
+      "predictedBox": [
+        749.0,
+        420.0,
+        19,
+        21
+      ],
+      "confidence": 0.38560858368873596
+    },
+    {
+      "imageId": 59,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8151351351351351,
+      "truthBox": [
+        368,
+        725,
+        15.5,
+        14.5
+      ],
+      "predictedBox": [
+        369.0,
+        725.0,
+        15,
+        13
+      ],
+      "confidence": 0.48620152473449707
+    },
+    {
+      "imageId": 59,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5591397849462365,
+      "truthBox": [
+        560,
+        945,
+        18,
+        15.5
+      ],
+      "predictedBox": [
+        561.0,
+        947.0,
+        13,
+        12
+      ],
+      "confidence": 0.3770599365234375
+    },
+    {
+      "imageId": 59,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5161290322580645,
+      "truthBox": [
+        568,
+        795,
+        15.5,
+        13.5
+      ],
+      "predictedBox": [
+        570.0,
+        799.0,
+        12,
+        9
+      ],
+      "confidence": 0.3448725938796997
+    },
+    {
+      "imageId": 60,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.7934508816120907,
+      "truthBox": [
+        501,
+        610,
+        21.5,
+        16
+      ],
+      "predictedBox": [
+        499.0,
+        611.0,
+        23,
+        16
+      ],
+      "confidence": 0.5313378572463989
+    },
+    {
+      "imageId": 60,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5910209102091021,
+      "truthBox": [
+        592,
+        582,
+        18.5,
+        15.5
+      ],
+      "predictedBox": [
+        595.0,
+        581.0,
+        20,
+        18
+      ],
+      "confidence": 0.4188094735145569
+    },
+    {
+      "imageId": 60,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6589595375722543,
+      "truthBox": [
+        458,
+        614,
+        14,
+        10.5
+      ],
+      "predictedBox": [
+        460.0,
+        615.0,
+        14,
+        10
+      ],
+      "confidence": 0.3028372824192047
+    },
+    {
+      "imageId": 62,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7196969696969697,
+      "truthBox": [
+        743,
+        732,
+        10,
+        9.5
+      ],
+      "predictedBox": [
+        742.0,
+        732.0,
+        12,
+        11
+      ],
+      "confidence": 0.5517174005508423
+    },
+    {
+      "imageId": 62,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6702127659574468,
+      "truthBox": [
+        705,
+        775,
+        10.5,
+        11.5
+      ],
+      "predictedBox": [
+        703.0,
+        776.0,
+        14,
+        11
+      ],
+      "confidence": 0.5410116910934448
+    },
+    {
+      "imageId": 62,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6511627906976745,
+      "truthBox": [
+        502,
+        643,
+        11.5,
+        8
+      ],
+      "predictedBox": [
+        503.0,
+        642.0,
+        11,
+        11
+      ],
+      "confidence": 0.521504819393158
+    },
+    {
+      "imageId": 62,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5057851239669422,
+      "truthBox": [
+        556,
+        700,
+        11.5,
+        8.5
+      ],
+      "predictedBox": [
+        552.0,
+        699.0,
+        13,
+        10
+      ],
+      "confidence": 0.5097019076347351
+    },
+    {
+      "imageId": 62,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5393258426966292,
+      "truthBox": [
+        416,
+        642,
+        8,
+        7
+      ],
+      "predictedBox": [
+        416.0,
+        639.0,
+        9,
+        9
+      ],
+      "confidence": 0.4092293381690979
+    },
+    {
+      "imageId": 62,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6717171717171717,
+      "truthBox": [
+        883,
+        536,
+        9.5,
+        7
+      ],
+      "predictedBox": [
+        883.0,
+        536.0,
+        11,
+        9
+      ],
+      "confidence": 0.3917297124862671
+    },
+    {
+      "imageId": 62,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.63,
+      "truthBox": [
+        418,
+        617,
+        9,
+        7
+      ],
+      "predictedBox": [
+        417.0,
+        614.0,
+        10,
+        10
+      ],
+      "confidence": 0.3871742784976959
+    },
+    {
+      "imageId": 62,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5617021276595745,
+      "truthBox": [
+        822,
+        640,
+        6.5,
+        5.5
+      ],
+      "predictedBox": [
+        821.0,
+        639.0,
+        7,
+        8
+      ],
+      "confidence": 0.3770371079444885
+    },
+    {
+      "imageId": 62,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5660377358490566,
+      "truthBox": [
+        433,
+        533,
+        7,
+        7.5
+      ],
+      "predictedBox": [
+        430.0,
+        533.0,
+        9,
+        8
+      ],
+      "confidence": 0.30714213848114014
+    },
+    {
+      "imageId": 62,
+      "truth": "Post acne",
+      "predicted": "Pigmentation",
+      "iou": 0.658008658008658,
+      "truthBox": [
+        806,
+        336,
+        11.5,
+        9
+      ],
+      "predictedBox": [
+        808.0,
+        337.0,
+        11,
+        8
+      ],
+      "confidence": 0.2679671049118042
+    },
+    {
+      "imageId": 62,
+      "truth": "Post acne",
+      "predicted": "Pigmentation",
+      "iou": 0.725925925925926,
+      "truthBox": [
+        475,
+        300,
+        7.5,
+        7
+      ],
+      "predictedBox": [
+        474.0,
+        299.0,
+        8,
+        8
+      ],
+      "confidence": 0.2073911726474762
+    },
+    {
+      "imageId": 64,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5604566683964712,
+      "truthBox": [
+        674,
+        788,
+        23.5,
+        16.5
+      ],
+      "predictedBox": [
+        675.0,
+        786.0,
+        26,
+        14
+      ],
+      "confidence": 0.5661529898643494
+    },
+    {
+      "imageId": 64,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6487804878048781,
+      "truthBox": [
+        554,
+        727,
+        22,
+        18
+      ],
+      "predictedBox": [
+        557.0,
+        727.0,
+        20,
+        14
+      ],
+      "confidence": 0.5326367020606995
+    },
+    {
+      "imageId": 64,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7586206896551724,
+      "truthBox": [
+        1083,
+        898,
+        28,
+        16.5
+      ],
+      "predictedBox": [
+        1084.0,
+        897.0,
+        24,
+        19
+      ],
+      "confidence": 0.4192228317260742
+    },
+    {
+      "imageId": 64,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6123188405797102,
+      "truthBox": [
+        869,
+        674,
+        24.5,
+        15
+      ],
+      "predictedBox": [
+        874.0,
+        672.0,
+        20,
+        15
+      ],
+      "confidence": 0.4093208611011505
+    },
+    {
+      "imageId": 65,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.764367816091954,
+      "truthBox": [
+        501,
+        747,
+        10.5,
+        7
+      ],
+      "predictedBox": [
+        502.0,
+        746.0,
+        10,
+        8
+      ],
+      "confidence": 0.37957364320755005
+    },
+    {
+      "imageId": 65,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8125,
+      "truthBox": [
+        656,
+        254,
+        10,
+        6.5
+      ],
+      "predictedBox": [
+        656.0,
+        254.0,
+        10,
+        8
+      ],
+      "confidence": 0.35085397958755493
+    },
+    {
+      "imageId": 65,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6024096385542169,
+      "truthBox": [
+        787,
+        493,
+        11,
+        7.5
+      ],
+      "predictedBox": [
+        784.0,
+        492.0,
+        13,
+        9
+      ],
+      "confidence": 0.3311634659767151
+    },
+    {
+      "imageId": 65,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6643952299829642,
+      "truthBox": [
+        688,
+        149,
+        16.5,
+        8.5
+      ],
+      "predictedBox": [
+        690.0,
+        150.0,
+        13,
+        8
+      ],
+      "confidence": 0.31832993030548096
+    },
+    {
+      "imageId": 65,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.624390243902439,
+      "truthBox": [
+        813,
+        268,
+        8.5,
+        9
+      ],
+      "predictedBox": [
+        811.0,
+        269.0,
+        10,
+        9
+      ],
+      "confidence": 0.30513399839401245
+    },
+    {
+      "imageId": 65,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6804123711340206,
+      "truthBox": [
+        480,
+        250,
+        10.5,
+        6.5
+      ],
+      "predictedBox": [
+        481.0,
+        251.0,
+        9,
+        6
+      ],
+      "confidence": 0.3041238784790039
+    },
+    {
+      "imageId": 65,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6046511627906976,
+      "truthBox": [
+        666,
+        202,
+        10,
+        7.5
+      ],
+      "predictedBox": [
+        668.0,
+        203.0,
+        9,
+        7
+      ],
+      "confidence": 0.3029972314834595
+    },
+    {
+      "imageId": 67,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.567741935483871,
+      "truthBox": [
+        663,
+        528,
+        9,
+        7.5
+      ],
+      "predictedBox": [
+        664.0,
+        530.0,
+        9,
+        6
+      ],
+      "confidence": 0.42410939931869507
+    },
+    {
+      "imageId": 69,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5042016806722689,
+      "truthBox": [
+        380,
+        446,
+        15,
+        9.5
+      ],
+      "predictedBox": [
+        378.0,
+        448.0,
+        14,
+        9
+      ],
+      "confidence": 0.43673089146614075
+    },
+    {
+      "imageId": 69,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7550335570469798,
+      "truthBox": [
+        309,
+        516,
+        23.5,
+        10
+      ],
+      "predictedBox": [
+        310.0,
+        514.0,
+        24,
+        12
+      ],
+      "confidence": 0.43548086285591125
+    },
+    {
+      "imageId": 69,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5931198102016607,
+      "truthBox": [
+        784,
+        507,
+        13.5,
+        14.5
+      ],
+      "predictedBox": [
+        785.0,
+        509.0,
+        14,
+        10
+      ],
+      "confidence": 0.3456670045852661
+    },
+    {
+      "imageId": 70,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.7258225324027916,
+      "truthBox": [
+        751,
+        920,
+        15.5,
+        14.5
+      ],
+      "predictedBox": [
+        749.0,
+        920.0,
+        16,
+        13
+      ],
+      "confidence": 0.4221145808696747
+    },
+    {
+      "imageId": 71,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5160714285714286,
+      "truthBox": [
+        773,
+        336,
+        8.5,
+        8.5
+      ],
+      "predictedBox": [
+        771.0,
+        336.0,
+        14,
+        10
+      ],
+      "confidence": 0.35146310925483704
+    },
+    {
+      "imageId": 72,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6912442396313364,
+      "truthBox": [
+        664,
+        489,
+        11,
+        17
+      ],
+      "predictedBox": [
+        662.0,
+        489.0,
+        12,
+        15
+      ],
+      "confidence": 0.3983069956302643
+    },
+    {
+      "imageId": 74,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7706422018348624,
+      "truthBox": [
+        679,
+        383,
+        8.5,
+        12
+      ],
+      "predictedBox": [
+        680.0,
+        382.0,
+        7,
+        13
+      ],
+      "confidence": 0.4345588684082031
+    },
+    {
+      "imageId": 75,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5949161709031909,
+      "truthBox": [
+        532,
+        1149,
+        33,
+        26.5
+      ],
+      "predictedBox": [
+        534.0,
+        1147.0,
+        25,
+        24
+      ],
+      "confidence": 0.408378005027771
+    },
+    {
+      "imageId": 75,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7620111731843575,
+      "truthBox": [
+        605,
+        233,
+        23,
+        15.5
+      ],
+      "predictedBox": [
+        603.0,
+        233.0,
+        24,
+        18
+      ],
+      "confidence": 0.3964940011501312
+    },
+    {
+      "imageId": 75,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7053903345724907,
+      "truthBox": [
+        463,
+        197,
+        27,
+        19.5
+      ],
+      "predictedBox": [
+        466.0,
+        200.0,
+        23,
+        17
+      ],
+      "confidence": 0.39294636249542236
+    },
+    {
+      "imageId": 76,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6666666666666666,
+      "truthBox": [
+        1070,
+        663,
+        15,
+        15
+      ],
+      "predictedBox": [
+        1065.0,
+        662.0,
+        20,
+        15
+      ],
+      "confidence": 0.4276295006275177
+    },
+    {
+      "imageId": 76,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.532608695652174,
+      "truthBox": [
+        1150,
+        654,
+        16,
+        10.5
+      ],
+      "predictedBox": [
+        1152.0,
+        651.0,
+        17,
+        15
+      ],
+      "confidence": 0.42265987396240234
+    },
+    {
+      "imageId": 78,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.7427466150870407,
+      "truthBox": [
+        585,
+        201,
+        17,
+        14.5
+      ],
+      "predictedBox": [
+        586.0,
+        201.0,
+        17,
+        12
+      ],
+      "confidence": 0.364042192697525
+    },
+    {
+      "imageId": 78,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5576407506702413,
+      "truthBox": [
+        659,
+        240,
+        21,
+        17
+      ],
+      "predictedBox": [
+        664.0,
+        239.0,
+        16,
+        14
+      ],
+      "confidence": 0.3544955253601074
+    },
+    {
+      "imageId": 78,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6666666666666666,
+      "truthBox": [
+        621,
+        276,
+        22.5,
+        11
+      ],
+      "predictedBox": [
+        626.0,
+        276.0,
+        15,
+        11
+      ],
+      "confidence": 0.32914045453071594
+    },
+    {
+      "imageId": 78,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6014319809069213,
+      "truthBox": [
+        638,
+        750,
+        15.5,
+        11
+      ],
+      "predictedBox": [
+        637.0,
+        748.0,
+        15,
+        11
+      ],
+      "confidence": 0.315296471118927
+    },
+    {
+      "imageId": 83,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7392857142857143,
+      "truthBox": [
+        506,
+        383,
+        9,
+        11.5
+      ],
+      "predictedBox": [
+        506.0,
+        381.0,
+        10,
+        14
+      ],
+      "confidence": 0.4514353573322296
+    },
+    {
+      "imageId": 83,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5834502103786816,
+      "truthBox": [
+        509,
+        520,
+        9.5,
+        13.5
+      ],
+      "predictedBox": [
+        506.0,
+        519.0,
+        11,
+        14
+      ],
+      "confidence": 0.42627352476119995
+    },
+    {
+      "imageId": 83,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6412213740458015,
+      "truthBox": [
+        635,
+        569,
+        9.5,
+        16.5
+      ],
+      "predictedBox": [
+        637.0,
+        571.0,
+        8,
+        14
+      ],
+      "confidence": 0.42209210991859436
+    },
+    {
+      "imageId": 86,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.696969696969697,
+      "truthBox": [
+        719,
+        610,
+        20,
+        23
+      ],
+      "predictedBox": [
+        719.0,
+        604.0,
+        22,
+        30
+      ],
+      "confidence": 0.44509220123291016
+    },
+    {
+      "imageId": 86,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6407624633431085,
+      "truthBox": [
+        650,
+        648,
+        9.5,
+        25
+      ],
+      "predictedBox": [
+        650.0,
+        650.0,
+        14,
+        23
+      ],
+      "confidence": 0.33174318075180054
+    },
+    {
+      "imageId": 87,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.54421768707483,
+      "truthBox": [
+        624,
+        466,
+        24.5,
+        12
+      ],
+      "predictedBox": [
+        629.0,
+        467.0,
+        16,
+        10
+      ],
+      "confidence": 0.5198107957839966
+    },
+    {
+      "imageId": 87,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6886543535620053,
+      "truthBox": [
+        873,
+        746,
+        18.5,
+        10
+      ],
+      "predictedBox": [
+        877.0,
+        746.0,
+        15,
+        9
+      ],
+      "confidence": 0.5110515356063843
+    },
+    {
+      "imageId": 87,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7416107382550335,
+      "truthBox": [
+        903,
+        646,
+        15,
+        9.5
+      ],
+      "predictedBox": [
+        903.0,
+        647.0,
+        13,
+        9
+      ],
+      "confidence": 0.5012168884277344
+    },
+    {
+      "imageId": 87,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.703125,
+      "truthBox": [
+        845,
+        753,
+        20,
+        11
+      ],
+      "predictedBox": [
+        841.0,
+        754.0,
+        24,
+        9
+      ],
+      "confidence": 0.4843446910381317
+    },
+    {
+      "imageId": 87,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6956521739130435,
+      "truthBox": [
+        792,
+        788,
+        17,
+        9
+      ],
+      "predictedBox": [
+        791.0,
+        788.0,
+        15,
+        8
+      ],
+      "confidence": 0.34291452169418335
+    },
+    {
+      "imageId": 88,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.52,
+      "truthBox": [
+        658,
+        610,
+        14,
+        8
+      ],
+      "predictedBox": [
+        659.0,
+        608.0,
+        16,
+        12
+      ],
+      "confidence": 0.4878060817718506
+    },
+    {
+      "imageId": 88,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.75,
+      "truthBox": [
+        790,
+        617,
+        14,
+        10
+      ],
+      "predictedBox": [
+        790.0,
+        618.0,
+        14,
+        11
+      ],
+      "confidence": 0.4785526692867279
+    },
+    {
+      "imageId": 88,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5659411011523687,
+      "truthBox": [
+        856,
+        529,
+        15.5,
+        10.5
+      ],
+      "predictedBox": [
+        858.0,
+        531.0,
+        13,
+        11
+      ],
+      "confidence": 0.3687516748905182
+    },
+    {
+      "imageId": 88,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.590339892665474,
+      "truthBox": [
+        848,
+        621,
+        14.5,
+        8.5
+      ],
+      "predictedBox": [
+        850.0,
+        622.0,
+        11,
+        9
+      ],
+      "confidence": 0.35785046219825745
+    },
+    {
+      "imageId": 92,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6315028901734104,
+      "truthBox": [
+        321,
+        664,
+        13.5,
+        9.5
+      ],
+      "predictedBox": [
+        323.0,
+        664.0,
+        14,
+        11
+      ],
+      "confidence": 0.5049589276313782
+    },
+    {
+      "imageId": 92,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5664488017429193,
+      "truthBox": [
+        315,
+        643,
+        18.5,
+        11
+      ],
+      "predictedBox": [
+        319.0,
+        641.0,
+        13,
+        12
+      ],
+      "confidence": 0.4943864047527313
+    },
+    {
+      "imageId": 92,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7890295358649789,
+      "truthBox": [
+        252,
+        705,
+        20,
+        11
+      ],
+      "predictedBox": [
+        253.0,
+        705.0,
+        17,
+        12
+      ],
+      "confidence": 0.48279547691345215
+    },
+    {
+      "imageId": 92,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6842696629213483,
+      "truthBox": [
+        224,
+        633,
+        14.5,
+        11.5
+      ],
+      "predictedBox": [
+        223.0,
+        634.0,
+        16,
+        13
+      ],
+      "confidence": 0.4484511613845825
+    },
+    {
+      "imageId": 92,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6964285714285714,
+      "truthBox": [
+        557,
+        626,
+        16,
+        10.5
+      ],
+      "predictedBox": [
+        557.0,
+        627.0,
+        13,
+        9
+      ],
+      "confidence": 0.4357098340988159
+    },
+    {
+      "imageId": 92,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7586206896551724,
+      "truthBox": [
+        501,
+        558,
+        13.5,
+        9
+      ],
+      "predictedBox": [
+        500.0,
+        558.0,
+        12,
+        9
+      ],
+      "confidence": 0.3912510275840759
+    },
+    {
+      "imageId": 92,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6142506142506142,
+      "truthBox": [
+        526,
+        631,
+        14.5,
+        13
+      ],
+      "predictedBox": [
+        528.0,
+        633.0,
+        14,
+        10
+      ],
+      "confidence": 0.35600975155830383
+    },
+    {
+      "imageId": 93,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8698884758364313,
+      "truthBox": [
+        637,
+        472,
+        18,
+        13.5
+      ],
+      "predictedBox": [
+        636.0,
+        472.0,
+        20,
+        13
+      ],
+      "confidence": 0.5066061615943909
+    },
+    {
+      "imageId": 93,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7160068846815835,
+      "truthBox": [
+        761,
+        541,
+        18.5,
+        15
+      ],
+      "predictedBox": [
+        760.0,
+        542.0,
+        17,
+        13
+      ],
+      "confidence": 0.503396213054657
+    },
+    {
+      "imageId": 93,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7310704960835509,
+      "truthBox": [
+        819,
+        637,
+        16.5,
+        16.5
+      ],
+      "predictedBox": [
+        819.0,
+        636.0,
+        15,
+        15
+      ],
+      "confidence": 0.5023528337478638
+    },
+    {
+      "imageId": 93,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8928571428571429,
+      "truthBox": [
+        855,
+        646,
+        13,
+        12.5
+      ],
+      "predictedBox": [
+        854.0,
+        646.0,
+        14,
+        13
+      ],
+      "confidence": 0.4990565776824951
+    },
+    {
+      "imageId": 93,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5357142857142857,
+      "truthBox": [
+        773,
+        668,
+        16.5,
+        10
+      ],
+      "predictedBox": [
+        771.0,
+        667.0,
+        22,
+        14
+      ],
+      "confidence": 0.45767220854759216
+    },
+    {
+      "imageId": 93,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5517241379310345,
+      "truthBox": [
+        763,
+        1043,
+        11,
+        8.5
+      ],
+      "predictedBox": [
+        761.0,
+        1040.0,
+        14,
+        11
+      ],
+      "confidence": 0.3579314053058624
+    },
+    {
+      "imageId": 94,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5892857142857143,
+      "truthBox": [
+        1069,
+        553,
+        11,
+        12
+      ],
+      "predictedBox": [
+        1066.0,
+        553.0,
+        14,
+        16
+      ],
+      "confidence": 0.42116400599479675
+    },
+    {
+      "imageId": 95,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5180533751962323,
+      "truthBox": [
+        708,
+        513,
+        24.5,
+        13
+      ],
+      "predictedBox": [
+        713.0,
+        513.0,
+        15,
+        11
+      ],
+      "confidence": 0.5111306309700012
+    },
+    {
+      "imageId": 95,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6114649681528662,
+      "truthBox": [
+        692,
+        728,
+        14.5,
+        10
+      ],
+      "predictedBox": [
+        693.0,
+        727.0,
+        12,
+        9
+      ],
+      "confidence": 0.4993361234664917
+    },
+    {
+      "imageId": 95,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7948387096774193,
+      "truthBox": [
+        648,
+        703,
+        15.5,
+        12.5
+      ],
+      "predictedBox": [
+        649.0,
+        703.0,
+        14,
+        11
+      ],
+      "confidence": 0.4991384744644165
+    },
+    {
+      "imageId": 95,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5454545454545454,
+      "truthBox": [
+        785,
+        665,
+        16.5,
+        10
+      ],
+      "predictedBox": [
+        787.0,
+        666.0,
+        10,
+        9
+      ],
+      "confidence": 0.4897679388523102
+    },
+    {
+      "imageId": 95,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6857142857142857,
+      "truthBox": [
+        728,
+        719,
+        12.5,
+        7
+      ],
+      "predictedBox": [
+        730.0,
+        719.0,
+        10,
+        6
+      ],
+      "confidence": 0.4533403515815735
+    },
+    {
+      "imageId": 95,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7142857142857143,
+      "truthBox": [
+        786,
+        704,
+        12,
+        10.5
+      ],
+      "predictedBox": [
+        788.0,
+        705.0,
+        10,
+        9
+      ],
+      "confidence": 0.4429514408111572
+    },
+    {
+      "imageId": 95,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5347222222222222,
+      "truthBox": [
+        767,
+        675,
+        16,
+        9
+      ],
+      "predictedBox": [
+        770.0,
+        675.0,
+        11,
+        7
+      ],
+      "confidence": 0.43808475136756897
+    },
+    {
+      "imageId": 95,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.9174311926605505,
+      "truthBox": [
+        599,
+        747,
+        12.5,
+        10.5
+      ],
+      "predictedBox": [
+        599.0,
+        747.0,
+        13,
+        10
+      ],
+      "confidence": 0.38589027523994446
+    },
+    {
+      "imageId": 95,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6637931034482759,
+      "truthBox": [
+        707,
+        542,
+        15,
+        7
+      ],
+      "predictedBox": [
+        709.0,
+        541.0,
+        11,
+        8
+      ],
+      "confidence": 0.36674949526786804
+    },
+    {
+      "imageId": 95,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5761316872427984,
+      "truthBox": [
+        664,
+        539,
+        13.5,
+        9
+      ],
+      "predictedBox": [
+        665.0,
+        539.0,
+        10,
+        7
+      ],
+      "confidence": 0.3636641800403595
+    },
+    {
+      "imageId": 96,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5578512396694215,
+      "truthBox": [
+        773,
+        680,
+        7.5,
+        9
+      ],
+      "predictedBox": [
+        771.0,
+        678.0,
+        11,
+        11
+      ],
+      "confidence": 0.4578266739845276
+    },
+    {
+      "imageId": 96,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.59375,
+      "truthBox": [
+        821,
+        665,
+        9.5,
+        9
+      ],
+      "predictedBox": [
+        819.0,
+        664.0,
+        12,
+        12
+      ],
+      "confidence": 0.4363488554954529
+    },
+    {
+      "imageId": 98,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5385556915544676,
+      "truthBox": [
+        572,
+        846,
+        28.5,
+        21.5
+      ],
+      "predictedBox": [
+        577.0,
+        849.0,
+        22,
+        15
+      ],
+      "confidence": 0.3601023852825165
+    },
+    {
+      "imageId": 98,
+      "truth": "Post acne",
+      "predicted": "Pigmentation",
+      "iou": 0.5307692307692308,
+      "truthBox": [
+        882,
+        739,
+        32,
+        16
+      ],
+      "predictedBox": [
+        888.0,
+        733.0,
+        23,
+        21
+      ],
+      "confidence": 0.26104775071144104
+    },
+    {
+      "imageId": 100,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7652173913043478,
+      "truthBox": [
+        899,
+        628,
+        10,
+        11.5
+      ],
+      "predictedBox": [
+        900.0,
+        628.0,
+        8,
+        11
+      ],
+      "confidence": 0.39040103554725647
+    },
+    {
+      "imageId": 100,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5217391304347826,
+      "truthBox": [
+        824,
+        625,
+        15,
+        11.5
+      ],
+      "predictedBox": [
+        825.0,
+        626.0,
+        9,
+        10
+      ],
+      "confidence": 0.30810239911079407
+    },
+    {
+      "imageId": 104,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.7254545454545455,
+      "truthBox": [
+        485,
+        1025,
+        22,
+        25
+      ],
+      "predictedBox": [
+        487.0,
+        1027.0,
+        19,
+        21
+      ],
+      "confidence": 0.4566797614097595
+    },
+    {
+      "imageId": 105,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7204030226700252,
+      "truthBox": [
+        567,
+        679,
+        24,
+        16
+      ],
+      "predictedBox": [
+        569.0,
+        680.0,
+        23,
+        13
+      ],
+      "confidence": 0.5469637513160706
+    },
+    {
+      "imageId": 105,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5416666666666666,
+      "truthBox": [
+        440,
+        653,
+        18,
+        14.5
+      ],
+      "predictedBox": [
+        433.0,
+        651.0,
+        27,
+        15
+      ],
+      "confidence": 0.5443859696388245
+    },
+    {
+      "imageId": 105,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5372093023255814,
+      "truthBox": [
+        560,
+        722,
+        22,
+        13.5
+      ],
+      "predictedBox": [
+        561.0,
+        719.0,
+        26,
+        14
+      ],
+      "confidence": 0.5129399299621582
+    },
+    {
+      "imageId": 105,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7368421052631579,
+      "truthBox": [
+        696,
+        499,
+        18,
+        14.5
+      ],
+      "predictedBox": [
+        693.0,
+        498.0,
+        20,
+        15
+      ],
+      "confidence": 0.5104738473892212
+    },
+    {
+      "imageId": 105,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7859154929577464,
+      "truthBox": [
+        577,
+        652,
+        35.5,
+        20
+      ],
+      "predictedBox": [
+        577.0,
+        654.0,
+        31,
+        18
+      ],
+      "confidence": 0.4975900650024414
+    },
+    {
+      "imageId": 105,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7531380753138075,
+      "truthBox": [
+        458,
+        586,
+        19.5,
+        15
+      ],
+      "predictedBox": [
+        455.0,
+        585.0,
+        21,
+        16
+      ],
+      "confidence": 0.4912828803062439
+    },
+    {
+      "imageId": 105,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7070707070707071,
+      "truthBox": [
+        458,
+        630,
+        14,
+        10
+      ],
+      "predictedBox": [
+        454.0,
+        630.0,
+        18,
+        11
+      ],
+      "confidence": 0.48411816358566284
+    },
+    {
+      "imageId": 105,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.592094196804037,
+      "truthBox": [
+        689,
+        653,
+        25,
+        22.5
+      ],
+      "predictedBox": [
+        687.0,
+        656.0,
+        24,
+        16
+      ],
+      "confidence": 0.4627927243709564
+    },
+    {
+      "imageId": 105,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5701357466063348,
+      "truthBox": [
+        501,
+        491,
+        12,
+        10.5
+      ],
+      "predictedBox": [
+        500.0,
+        491.0,
+        17,
+        13
+      ],
+      "confidence": 0.4557293951511383
+    },
+    {
+      "imageId": 105,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5601217656012176,
+      "truthBox": [
+        423,
+        511,
+        19,
+        11.5
+      ],
+      "predictedBox": [
+        418.0,
+        510.0,
+        21,
+        14
+      ],
+      "confidence": 0.4184356927871704
+    },
+    {
+      "imageId": 105,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6226415094339622,
+      "truthBox": [
+        547,
+        587,
+        26.5,
+        14
+      ],
+      "predictedBox": [
+        547.0,
+        588.0,
+        21,
+        11
+      ],
+      "confidence": 0.40172457695007324
+    },
+    {
+      "imageId": 105,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7728337236533958,
+      "truthBox": [
+        495,
+        341,
+        15.5,
+        11
+      ],
+      "predictedBox": [
+        494.0,
+        340.0,
+        16,
+        13
+      ],
+      "confidence": 0.4001973271369934
+    },
+    {
+      "imageId": 105,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6770833333333334,
+      "truthBox": [
+        996,
+        304,
+        16,
+        12
+      ],
+      "predictedBox": [
+        996.0,
+        305.0,
+        13,
+        10
+      ],
+      "confidence": 0.36668816208839417
+    },
+    {
+      "imageId": 105,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5579710144927537,
+      "truthBox": [
+        754,
+        348,
+        17,
+        14
+      ],
+      "predictedBox": [
+        757.0,
+        347.0,
+        16,
+        12
+      ],
+      "confidence": 0.3538272976875305
+    },
+    {
+      "imageId": 105,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7726829268292683,
+      "truthBox": [
+        323,
+        420,
+        20.5,
+        12.5
+      ],
+      "predictedBox": [
+        324.0,
+        421.0,
+        18,
+        11
+      ],
+      "confidence": 0.35343632102012634
+    },
+    {
+      "imageId": 105,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.9125475285171103,
+      "truthBox": [
+        922,
+        357,
+        16,
+        15.5
+      ],
+      "predictedBox": [
+        921.0,
+        357.0,
+        17,
+        15
+      ],
+      "confidence": 0.3355007767677307
+    },
+    {
+      "imageId": 105,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7707509881422925,
+      "truthBox": [
+        848,
+        254,
+        15,
+        16
+      ],
+      "predictedBox": [
+        847.0,
+        256.0,
+        16,
+        13
+      ],
+      "confidence": 0.32489585876464844
+    },
+    {
+      "imageId": 105,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7519788918205804,
+      "truthBox": [
+        350,
+        202,
+        16,
+        9.5
+      ],
+      "predictedBox": [
+        351.0,
+        202.0,
+        18,
+        10
+      ],
+      "confidence": 0.32230502367019653
+    },
+    {
+      "imageId": 105,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6270996640537514,
+      "truthBox": [
+        1016,
+        338,
+        15.5,
+        13.5
+      ],
+      "predictedBox": [
+        1017.0,
+        337.0,
+        14,
+        11
+      ],
+      "confidence": 0.3207223415374756
+    },
+    {
+      "imageId": 105,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6578947368421053,
+      "truthBox": [
+        286,
+        396,
+        18,
+        10
+      ],
+      "predictedBox": [
+        289.0,
+        396.0,
+        18,
+        11
+      ],
+      "confidence": 0.31040966510772705
+    },
+    {
+      "imageId": 105,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5669291338582677,
+      "truthBox": [
+        252,
+        439,
+        16,
+        12.5
+      ],
+      "predictedBox": [
+        250.0,
+        437.0,
+        18,
+        11
+      ],
+      "confidence": 0.30924367904663086
+    },
+    {
+      "imageId": 106,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.658373786407767,
+      "truthBox": [
+        603,
+        425,
+        20.5,
+        18.5
+      ],
+      "predictedBox": [
+        606.0,
+        428.0,
+        19,
+        16
+      ],
+      "confidence": 0.42981138825416565
+    },
+    {
+      "imageId": 106,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6083650190114068,
+      "truthBox": [
+        255,
+        1100,
+        19.5,
+        10
+      ],
+      "predictedBox": [
+        252.0,
+        1099.0,
+        19,
+        12
+      ],
+      "confidence": 0.32933318614959717
+    },
+    {
+      "imageId": 107,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7140151515151515,
+      "truthBox": [
+        733,
+        339,
+        19.5,
+        14.5
+      ],
+      "predictedBox": [
+        731.0,
+        336.0,
+        22,
+        18
+      ],
+      "confidence": 0.5510943531990051
+    },
+    {
+      "imageId": 107,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7752442996742671,
+      "truthBox": [
+        471,
+        830,
+        20,
+        14.5
+      ],
+      "predictedBox": [
+        474.0,
+        829.0,
+        17,
+        15
+      ],
+      "confidence": 0.5001226663589478
+    },
+    {
+      "imageId": 107,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5954514128187457,
+      "truthBox": [
+        433,
+        592,
+        21.5,
+        16.5
+      ],
+      "predictedBox": [
+        436.0,
+        595.0,
+        16,
+        14
+      ],
+      "confidence": 0.49613669514656067
+    },
+    {
+      "imageId": 107,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6358381502890174,
+      "truthBox": [
+        543,
+        164,
+        11,
+        13
+      ],
+      "predictedBox": [
+        541.0,
+        165.0,
+        14,
+        10
+      ],
+      "confidence": 0.37110233306884766
+    },
+    {
+      "imageId": 107,
+      "truth": "Post acne",
+      "predicted": "Pigmentation",
+      "iou": 0.6068965517241379,
+      "truthBox": [
+        448,
+        515,
+        14.5,
+        10
+      ],
+      "predictedBox": [
+        449.0,
+        515.0,
+        11,
+        8
+      ],
+      "confidence": 0.23692509531974792
+    },
+    {
+      "imageId": 113,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7813953488372093,
+      "truthBox": [
+        580,
+        485,
+        12.5,
+        7
+      ],
+      "predictedBox": [
+        579.0,
+        485.0,
+        13,
+        8
+      ],
+      "confidence": 0.4460669755935669
+    },
+    {
+      "imageId": 113,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6346153846153846,
+      "truthBox": [
+        564,
+        468,
+        12,
+        5.5
+      ],
+      "predictedBox": [
+        563.0,
+        466.0,
+        13,
+        8
+      ],
+      "confidence": 0.4067821204662323
+    },
+    {
+      "imageId": 113,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5185185185185185,
+      "truthBox": [
+        548,
+        437,
+        7,
+        4
+      ],
+      "predictedBox": [
+        546.0,
+        436.0,
+        9,
+        6
+      ],
+      "confidence": 0.37838563323020935
+    },
+    {
+      "imageId": 113,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5,
+      "truthBox": [
+        751,
+        648,
+        12,
+        5
+      ],
+      "predictedBox": [
+        751.0,
+        646.0,
+        15,
+        8
+      ],
+      "confidence": 0.3617541790008545
+    },
+    {
+      "imageId": 114,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7566765578635015,
+      "truthBox": [
+        711,
+        700,
+        25.5,
+        16
+      ],
+      "predictedBox": [
+        705.0,
+        700.0,
+        32,
+        15
+      ],
+      "confidence": 0.463629812002182
+    },
+    {
+      "imageId": 114,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7751572327044025,
+      "truthBox": [
+        671,
+        714,
+        30,
+        19.5
+      ],
+      "predictedBox": [
+        672.0,
+        714.0,
+        32,
+        17
+      ],
+      "confidence": 0.44442880153656006
+    },
+    {
+      "imageId": 114,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6735849056603773,
+      "truthBox": [
+        602,
+        418,
+        43,
+        22
+      ],
+      "predictedBox": [
+        600.0,
+        419.0,
+        36,
+        23
+      ],
+      "confidence": 0.36362096667289734
+    },
+    {
+      "imageId": 116,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7083333333333334,
+      "truthBox": [
+        619,
+        572,
+        10,
+        9.5
+      ],
+      "predictedBox": [
+        618.0,
+        573.0,
+        11,
+        10
+      ],
+      "confidence": 0.5271579623222351
+    },
+    {
+      "imageId": 116,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.71875,
+      "truthBox": [
+        810,
+        239,
+        12.5,
+        12
+      ],
+      "predictedBox": [
+        811.0,
+        238.0,
+        12,
+        15
+      ],
+      "confidence": 0.42195266485214233
+    },
+    {
+      "imageId": 116,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5989304812834224,
+      "truthBox": [
+        827,
+        396,
+        9.5,
+        9
+      ],
+      "predictedBox": [
+        827.0,
+        395.0,
+        8,
+        8
+      ],
+      "confidence": 0.3381064534187317
+    },
+    {
+      "imageId": 117,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5851063829787234,
+      "truthBox": [
+        599,
+        825,
+        24,
+        14
+      ],
+      "predictedBox": [
+        601.0,
+        828.0,
+        20,
+        13
+      ],
+      "confidence": 0.5223919153213501
+    },
+    {
+      "imageId": 117,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6415804327375353,
+      "truthBox": [
+        823,
+        833,
+        27,
+        17.5
+      ],
+      "predictedBox": [
+        828.0,
+        835.0,
+        25,
+        16
+      ],
+      "confidence": 0.49197837710380554
+    },
+    {
+      "imageId": 117,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5425531914893617,
+      "truthBox": [
+        394,
+        804,
+        28.5,
+        12
+      ],
+      "predictedBox": [
+        397.0,
+        804.0,
+        17,
+        14
+      ],
+      "confidence": 0.439586877822876
+    },
+    {
+      "imageId": 117,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.554074074074074,
+      "truthBox": [
+        629,
+        785,
+        22.5,
+        15
+      ],
+      "predictedBox": [
+        634.0,
+        789.0,
+        17,
+        11
+      ],
+      "confidence": 0.4220086932182312
+    },
+    {
+      "imageId": 119,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6593406593406593,
+      "truthBox": [
+        843,
+        931,
+        24.5,
+        19.5
+      ],
+      "predictedBox": [
+        844.0,
+        935.0,
+        21,
+        15
+      ],
+      "confidence": 0.5499203205108643
+    },
+    {
+      "imageId": 119,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5705329153605015,
+      "truthBox": [
+        777,
+        1005,
+        29,
+        16.5
+      ],
+      "predictedBox": [
+        781.0,
+        1006.0,
+        21,
+        13
+      ],
+      "confidence": 0.49333319067955017
+    },
+    {
+      "imageId": 119,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6041958041958042,
+      "truthBox": [
+        746,
+        996,
+        27.5,
+        13
+      ],
+      "predictedBox": [
+        749.0,
+        996.0,
+        18,
+        12
+      ],
+      "confidence": 0.4882040321826935
+    },
+    {
+      "imageId": 119,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6985294117647058,
+      "truthBox": [
+        691,
+        980,
+        28.5,
+        12.5
+      ],
+      "predictedBox": [
+        688.0,
+        980.0,
+        34,
+        15
+      ],
+      "confidence": 0.33855682611465454
+    },
+    {
+      "imageId": 120,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5103926096997691,
+      "truthBox": [
+        472,
+        764,
+        20,
+        21
+      ],
+      "predictedBox": [
+        471.0,
+        769.0,
+        18,
+        13
+      ],
+      "confidence": 0.46453967690467834
+    },
+    {
+      "imageId": 120,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7360552041403106,
+      "truthBox": [
+        821,
+        442,
+        23.5,
+        18.5
+      ],
+      "predictedBox": [
+        823.0,
+        443.0,
+        20,
+        16
+      ],
+      "confidence": 0.46331533789634705
+    },
+    {
+      "imageId": 120,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6031746031746031,
+      "truthBox": [
+        534,
+        408,
+        24.5,
+        18
+      ],
+      "predictedBox": [
+        537.0,
+        409.0,
+        19,
+        14
+      ],
+      "confidence": 0.3967333137989044
+    },
+    {
+      "imageId": 120,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.9629629629629629,
+      "truthBox": [
+        587,
+        495,
+        13.5,
+        8
+      ],
+      "predictedBox": [
+        587.0,
+        495.0,
+        13,
+        8
+      ],
+      "confidence": 0.36623141169548035
+    },
+    {
+      "imageId": 120,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7074468085106383,
+      "truthBox": [
+        457,
+        1016,
+        23.5,
+        16
+      ],
+      "predictedBox": [
+        461.0,
+        1018.0,
+        19,
+        14
+      ],
+      "confidence": 0.3659420609474182
+    },
+    {
+      "imageId": 122,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6554621848739496,
+      "truthBox": [
+        602,
+        905,
+        17,
+        10.5
+      ],
+      "predictedBox": [
+        602.0,
+        905.0,
+        13,
+        9
+      ],
+      "confidence": 0.5608258843421936
+    },
+    {
+      "imageId": 122,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6256684491978609,
+      "truthBox": [
+        756,
+        534,
+        17,
+        11
+      ],
+      "predictedBox": [
+        759.0,
+        535.0,
+        13,
+        9
+      ],
+      "confidence": 0.3396720290184021
+    },
+    {
+      "imageId": 125,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.593607305936073,
+      "truthBox": [
+        750,
+        636,
+        31,
+        17
+      ],
+      "predictedBox": [
+        751.0,
+        638.0,
+        26,
+        20
+      ],
+      "confidence": 0.38953420519828796
+    },
+    {
+      "imageId": 129,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5,
+      "truthBox": [
+        820,
+        659,
+        8,
+        5
+      ],
+      "predictedBox": [
+        820.0,
+        657.0,
+        10,
+        8
+      ],
+      "confidence": 0.37960779666900635
+    },
+    {
+      "imageId": 130,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6714801444043321,
+      "truthBox": [
+        973,
+        554,
+        28,
+        16.5
+      ],
+      "predictedBox": [
+        977.0,
+        555.0,
+        29,
+        16
+      ],
+      "confidence": 0.4108642041683197
+    },
+    {
+      "imageId": 130,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5114754098360655,
+      "truthBox": [
+        581,
+        953,
+        36.5,
+        16
+      ],
+      "predictedBox": [
+        585.0,
+        957.0,
+        26,
+        13
+      ],
+      "confidence": 0.3940927982330322
+    },
+    {
+      "imageId": 130,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.7411444141689373,
+      "truthBox": [
+        869,
+        984,
+        17.5,
+        9
+      ],
+      "predictedBox": [
+        868.0,
+        985.0,
+        18,
+        9
+      ],
+      "confidence": 0.3476923704147339
+    },
+    {
+      "imageId": 132,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.7568464730290456,
+      "truthBox": [
+        224,
+        498,
+        38,
+        28
+      ],
+      "predictedBox": [
+        223.0,
+        502.0,
+        39,
+        27
+      ],
+      "confidence": 0.47249892354011536
+    },
+    {
+      "imageId": 132,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5510204081632653,
+      "truthBox": [
+        417,
+        240,
+        14,
+        15.5
+      ],
+      "predictedBox": [
+        414.0,
+        242.0,
+        21,
+        15
+      ],
+      "confidence": 0.41263577342033386
+    },
+    {
+      "imageId": 133,
+      "truth": "Post acne",
+      "predicted": "Pigmentation",
+      "iou": 0.7323568575233023,
+      "truthBox": [
+        741,
+        625,
+        13.5,
+        13.5
+      ],
+      "predictedBox": [
+        742.0,
+        625.0,
+        13,
+        11
+      ],
+      "confidence": 0.21863342821598053
+    },
+    {
+      "imageId": 133,
+      "truth": "Post acne",
+      "predicted": "Pigmentation",
+      "iou": 0.6423487544483986,
+      "truthBox": [
+        474,
+        287,
+        11.5,
+        10.5
+      ],
+      "predictedBox": [
+        476.0,
+        288.0,
+        11,
+        10
+      ],
+      "confidence": 0.2091115415096283
+    },
+    {
+      "imageId": 134,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7397913561847989,
+      "truthBox": [
+        609,
+        666,
+        40.5,
+        20.5
+      ],
+      "predictedBox": [
+        613.0,
+        669.0,
+        37,
+        17
+      ],
+      "confidence": 0.49423515796661377
+    },
+    {
+      "imageId": 134,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5773195876288659,
+      "truthBox": [
+        549,
+        837,
+        18,
+        7
+      ],
+      "predictedBox": [
+        551.0,
+        836.0,
+        18,
+        10
+      ],
+      "confidence": 0.4927641451358795
+    },
+    {
+      "imageId": 134,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6151315789473685,
+      "truthBox": [
+        1103,
+        652,
+        16.5,
+        8.5
+      ],
+      "predictedBox": [
+        1102.0,
+        651.0,
+        19,
+        12
+      ],
+      "confidence": 0.4270525276660919
+    },
+    {
+      "imageId": 134,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5429141716566867,
+      "truthBox": [
+        995,
+        473,
+        19,
+        10.5
+      ],
+      "predictedBox": [
+        998.0,
+        475.0,
+        17,
+        11
+      ],
+      "confidence": 0.39804625511169434
+    },
+    {
+      "imageId": 134,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6421404682274248,
+      "truthBox": [
+        1070,
+        489,
+        16,
+        12
+      ],
+      "predictedBox": [
+        1067.0,
+        489.0,
+        23,
+        13
+      ],
+      "confidence": 0.39448535442352295
+    },
+    {
+      "imageId": 134,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7107843137254902,
+      "truthBox": [
+        1009,
+        464,
+        14.5,
+        7.5
+      ],
+      "predictedBox": [
+        1009.0,
+        464.0,
+        17,
+        9
+      ],
+      "confidence": 0.38921481370925903
+    },
+    {
+      "imageId": 134,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5613305613305614,
+      "truthBox": [
+        852,
+        492,
+        23,
+        8.5
+      ],
+      "predictedBox": [
+        857.0,
+        493.0,
+        18,
+        10
+      ],
+      "confidence": 0.360106885433197
+    },
+    {
+      "imageId": 134,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5528455284552846,
+      "truthBox": [
+        934,
+        468,
+        19,
+        8
+      ],
+      "predictedBox": [
+        936.0,
+        467.0,
+        23,
+        10
+      ],
+      "confidence": 0.3546522855758667
+    },
+    {
+      "imageId": 134,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.576,
+      "truthBox": [
+        882,
+        442,
+        18,
+        8
+      ],
+      "predictedBox": [
+        875.0,
+        441.0,
+        25,
+        10
+      ],
+      "confidence": 0.33664625883102417
+    },
+    {
+      "imageId": 135,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5414012738853503,
+      "truthBox": [
+        707,
+        717,
+        6,
+        8.5
+      ],
+      "predictedBox": [
+        705.0,
+        717.0,
+        7,
+        10
+      ],
+      "confidence": 0.44807904958724976
+    },
+    {
+      "imageId": 135,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6990291262135923,
+      "truthBox": [
+        647,
+        751,
+        7,
+        6.5
+      ],
+      "predictedBox": [
+        648.0,
+        750.0,
+        6,
+        7
+      ],
+      "confidence": 0.393738716840744
+    },
+    {
+      "imageId": 135,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7619047619047619,
+      "truthBox": [
+        744,
+        261,
+        7,
+        10.5
+      ],
+      "predictedBox": [
+        744.0,
+        262.0,
+        7,
+        8
+      ],
+      "confidence": 0.3326156437397003
+    },
+    {
+      "imageId": 135,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6060606060606061,
+      "truthBox": [
+        745,
+        695,
+        7,
+        8
+      ],
+      "predictedBox": [
+        746.0,
+        694.0,
+        5,
+        10
+      ],
+      "confidence": 0.3250032663345337
+    },
+    {
+      "imageId": 135,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.822429906542056,
+      "truthBox": [
+        585,
+        670,
+        5.5,
+        9
+      ],
+      "predictedBox": [
+        585.0,
+        671.0,
+        6,
+        8
+      ],
+      "confidence": 0.3142704963684082
+    },
+    {
+      "imageId": 137,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.8947368421052632,
+      "truthBox": [
+        710,
+        1035,
+        17,
+        12
+      ],
+      "predictedBox": [
+        709.0,
+        1035.0,
+        19,
+        12
+      ],
+      "confidence": 0.4500824511051178
+    },
+    {
+      "imageId": 137,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6360544217687075,
+      "truthBox": [
+        441,
+        1064,
+        17,
+        11
+      ],
+      "predictedBox": [
+        440.0,
+        1063.0,
+        21,
+        14
+      ],
+      "confidence": 0.36621519923210144
+    },
+    {
+      "imageId": 139,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.711864406779661,
+      "truthBox": [
+        660,
+        957,
+        7.5,
+        12
+      ],
+      "predictedBox": [
+        659.0,
+        957.0,
+        8,
+        14
+      ],
+      "confidence": 0.4877341687679291
+    },
+    {
+      "imageId": 139,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7476851851851852,
+      "truthBox": [
+        635,
+        955,
+        8.5,
+        9.5
+      ],
+      "predictedBox": [
+        635.0,
+        954.0,
+        9,
+        12
+      ],
+      "confidence": 0.46976810693740845
+    },
+    {
+      "imageId": 139,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5365853658536586,
+      "truthBox": [
+        636,
+        984,
+        12,
+        10
+      ],
+      "predictedBox": [
+        637.0,
+        980.0,
+        11,
+        12
+      ],
+      "confidence": 0.45713597536087036
+    },
+    {
+      "imageId": 139,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6944908180300501,
+      "truthBox": [
+        644,
+        930,
+        10.5,
+        13.5
+      ],
+      "predictedBox": [
+        646.0,
+        929.0,
+        8,
+        14
+      ],
+      "confidence": 0.4515286684036255
+    },
+    {
+      "imageId": 139,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6336088154269972,
+      "truthBox": [
+        566,
+        187,
+        11,
+        11.5
+      ],
+      "predictedBox": [
+        567.0,
+        184.0,
+        10,
+        17
+      ],
+      "confidence": 0.42110052704811096
+    },
+    {
+      "imageId": 139,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7784431137724551,
+      "truthBox": [
+        522,
+        255,
+        6.5,
+        11
+      ],
+      "predictedBox": [
+        522.0,
+        256.0,
+        7,
+        11
+      ],
+      "confidence": 0.3993662893772125
+    },
+    {
+      "imageId": 139,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5806451612903226,
+      "truthBox": [
+        562,
+        255,
+        5.5,
+        10.5
+      ],
+      "predictedBox": [
+        561.0,
+        253.0,
+        7,
+        11
+      ],
+      "confidence": 0.3573053777217865
+    },
+    {
+      "imageId": 140,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5390713476783692,
+      "truthBox": [
+        473,
+        667,
+        22.5,
+        19
+      ],
+      "predictedBox": [
+        476.0,
+        666.0,
+        14,
+        18
+      ],
+      "confidence": 0.5614026784896851
+    },
+    {
+      "imageId": 140,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5512995896032832,
+      "truthBox": [
+        582,
+        758,
+        18,
+        15.5
+      ],
+      "predictedBox": [
+        587.0,
+        756.0,
+        16,
+        18
+      ],
+      "confidence": 0.5237880945205688
+    },
+    {
+      "imageId": 142,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6706586826347305,
+      "truthBox": [
+        512,
+        713,
+        8.5,
+        9
+      ],
+      "predictedBox": [
+        512.0,
+        712.0,
+        7,
+        9
+      ],
+      "confidence": 0.4633429944515228
+    },
+    {
+      "imageId": 142,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7266483516483516,
+      "truthBox": [
+        608,
+        398,
+        11.5,
+        11.5
+      ],
+      "predictedBox": [
+        606.0,
+        398.0,
+        14,
+        13
+      ],
+      "confidence": 0.4399164319038391
+    },
+    {
+      "imageId": 142,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.5625,
+      "truthBox": [
+        643,
+        375,
+        10,
+        7.5
+      ],
+      "predictedBox": [
+        642.0,
+        372.0,
+        10,
+        10
+      ],
+      "confidence": 0.42954015731811523
+    },
+    {
+      "imageId": 142,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6779661016949152,
+      "truthBox": [
+        661,
+        829,
+        10,
+        11
+      ],
+      "predictedBox": [
+        662.0,
+        828.0,
+        8,
+        11
+      ],
+      "confidence": 0.42554771900177
+    },
+    {
+      "imageId": 142,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6741573033707865,
+      "truthBox": [
+        561,
+        796,
+        8.5,
+        7.5
+      ],
+      "predictedBox": [
+        562.0,
+        796.0,
+        6,
+        8
+      ],
+      "confidence": 0.4064558446407318
+    },
+    {
+      "imageId": 142,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7466666666666667,
+      "truthBox": [
+        511,
+        385,
+        7.5,
+        10
+      ],
+      "predictedBox": [
+        511.0,
+        385.0,
+        7,
+        8
+      ],
+      "confidence": 0.36911383271217346
+    },
+    {
+      "imageId": 142,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7777777777777778,
+      "truthBox": [
+        696,
+        408,
+        9,
+        8
+      ],
+      "predictedBox": [
+        697.0,
+        408.0,
+        7,
+        8
+      ],
+      "confidence": 0.35223352909088135
+    },
+    {
+      "imageId": 142,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6455331412103746,
+      "truthBox": [
+        574,
+        319,
+        10.5,
+        7.5
+      ],
+      "predictedBox": [
+        574.0,
+        318.0,
+        8,
+        8
+      ],
+      "confidence": 0.3150039315223694
+    },
+    {
+      "imageId": 144,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.642023346303502,
+      "truthBox": [
+        661,
+        688,
+        11,
+        18
+      ],
+      "predictedBox": [
+        659.0,
+        691.0,
+        14,
+        16
+      ],
+      "confidence": 0.5669620037078857
+    },
+    {
+      "imageId": 144,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7835455435847208,
+      "truthBox": [
+        680,
+        696,
+        12.5,
+        18.5
+      ],
+      "predictedBox": [
+        680.0,
+        698.0,
+        14,
+        16
+      ],
+      "confidence": 0.4553605318069458
+    },
+    {
+      "imageId": 144,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8013468013468014,
+      "truthBox": [
+        689,
+        676,
+        14,
+        20
+      ],
+      "predictedBox": [
+        689.0,
+        677.0,
+        15,
+        17
+      ],
+      "confidence": 0.4317522644996643
+    },
+    {
+      "imageId": 144,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8809523809523809,
+      "truthBox": [
+        614,
+        761,
+        18.5,
+        23
+      ],
+      "predictedBox": [
+        612.0,
+        761.0,
+        21,
+        23
+      ],
+      "confidence": 0.3916751742362976
+    },
+    {
+      "imageId": 144,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.53125,
+      "truthBox": [
+        643,
+        513,
+        10.5,
+        8.5
+      ],
+      "predictedBox": [
+        643.0,
+        513.0,
+        14,
+        12
+      ],
+      "confidence": 0.38423648476600647
+    },
+    {
+      "imageId": 144,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.837708830548926,
+      "truthBox": [
+        349,
+        813,
+        14,
+        13.5
+      ],
+      "predictedBox": [
+        348.0,
+        813.0,
+        14,
+        14
+      ],
+      "confidence": 0.33469879627227783
+    },
+    {
+      "imageId": 144,
+      "truth": "Post acne",
+      "predicted": "Pigmentation",
+      "iou": 0.6136363636363636,
+      "truthBox": [
+        406,
+        457,
+        9,
+        7.5
+      ],
+      "predictedBox": [
+        405.0,
+        456.0,
+        11,
+        10
+      ],
+      "confidence": 0.23369845747947693
+    },
+    {
+      "imageId": 146,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5806451612903226,
+      "truthBox": [
+        447,
+        915,
+        19,
+        9.5
+      ],
+      "predictedBox": [
+        446.0,
+        913.0,
+        19,
+        15
+      ],
+      "confidence": 0.3579356074333191
+    },
+    {
+      "imageId": 147,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8627450980392157,
+      "truthBox": [
+        298,
+        397,
+        24,
+        17
+      ],
+      "predictedBox": [
+        298.0,
+        398.0,
+        22,
+        16
+      ],
+      "confidence": 0.5488086938858032
+    },
+    {
+      "imageId": 147,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6059016393442623,
+      "truthBox": [
+        348,
+        230,
+        21.5,
+        13.5
+      ],
+      "predictedBox": [
+        346.0,
+        227.0,
+        23,
+        14
+      ],
+      "confidence": 0.5352153778076172
+    },
+    {
+      "imageId": 147,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8649885583524027,
+      "truthBox": [
+        310,
+        427,
+        23.5,
+        13.5
+      ],
+      "predictedBox": [
+        312.0,
+        427.0,
+        21,
+        14
+      ],
+      "confidence": 0.5348460674285889
+    },
+    {
+      "imageId": 147,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7093558282208589,
+      "truthBox": [
+        317,
+        112,
+        19.5,
+        13.5
+      ],
+      "predictedBox": [
+        318.0,
+        113.0,
+        21,
+        14
+      ],
+      "confidence": 0.45654773712158203
+    },
+    {
+      "imageId": 147,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6432748538011696,
+      "truthBox": [
+        379,
+        488,
+        22,
+        15
+      ],
+      "predictedBox": [
+        375.0,
+        486.0,
+        27,
+        19
+      ],
+      "confidence": 0.455044150352478
+    },
+    {
+      "imageId": 147,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.6959247648902821,
+      "truthBox": [
+        1061,
+        758,
+        21.5,
+        21
+      ],
+      "predictedBox": [
+        1064.0,
+        759.0,
+        20,
+        18
+      ],
+      "confidence": 0.43592873215675354
+    },
+    {
+      "imageId": 147,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6578947368421053,
+      "truthBox": [
+        320,
+        302,
+        20,
+        15
+      ],
+      "predictedBox": [
+        316.0,
+        301.0,
+        24,
+        19
+      ],
+      "confidence": 0.4242645502090454
+    },
+    {
+      "imageId": 147,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6943699731903485,
+      "truthBox": [
+        807,
+        895,
+        48,
+        21
+      ],
+      "predictedBox": [
+        817.0,
+        892.0,
+        37,
+        24
+      ],
+      "confidence": 0.423221617937088
+    },
+    {
+      "imageId": 147,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.655045871559633,
+      "truthBox": [
+        730,
+        608,
+        24,
+        17
+      ],
+      "predictedBox": [
+        725.0,
+        607.0,
+        26,
+        19
+      ],
+      "confidence": 0.36447227001190186
+    },
+    {
+      "imageId": 147,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.7346221441124781,
+      "truthBox": [
+        899,
+        840,
+        23,
+        19
+      ],
+      "predictedBox": [
+        896.0,
+        840.0,
+        25,
+        22
+      ],
+      "confidence": 0.32771939039230347
+    },
+    {
+      "imageId": 147,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.8393250183418929,
+      "truthBox": [
+        435,
+        613,
+        27.5,
+        23
+      ],
+      "predictedBox": [
+        434.0,
+        612.0,
+        27,
+        23
+      ],
+      "confidence": 0.31791654229164124
+    },
+    {
+      "imageId": 148,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6756756756756757,
+      "truthBox": [
+        522,
+        398,
+        16,
+        12
+      ],
+      "predictedBox": [
+        522.0,
+        400.0,
+        15,
+        12
+      ],
+      "confidence": 0.3016374111175537
+    },
+    {
+      "imageId": 150,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5852090032154341,
+      "truthBox": [
+        252,
+        897,
+        16.5,
+        11.5
+      ],
+      "predictedBox": [
+        250.0,
+        898.0,
+        15,
+        12
+      ],
+      "confidence": 0.49418777227401733
+    },
+    {
+      "imageId": 151,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7074235807860262,
+      "truthBox": [
+        732,
+        696,
+        9.5,
+        9
+      ],
+      "predictedBox": [
+        731.0,
+        696.0,
+        10,
+        11
+      ],
+      "confidence": 0.5400494337081909
+    },
+    {
+      "imageId": 151,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6246246246246246,
+      "truthBox": [
+        743,
+        720,
+        6.5,
+        8.5
+      ],
+      "predictedBox": [
+        742.0,
+        718.0,
+        8,
+        10
+      ],
+      "confidence": 0.5315475463867188
+    },
+    {
+      "imageId": 151,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.680672268907563,
+      "truthBox": [
+        727,
+        542,
+        11,
+        10
+      ],
+      "predictedBox": [
+        726.0,
+        542.0,
+        10,
+        9
+      ],
+      "confidence": 0.4911264181137085
+    },
+    {
+      "imageId": 151,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5487804878048781,
+      "truthBox": [
+        699,
+        553,
+        12,
+        12
+      ],
+      "predictedBox": [
+        697.0,
+        553.0,
+        11,
+        10
+      ],
+      "confidence": 0.4548041522502899
+    },
+    {
+      "imageId": 151,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5129310344827587,
+      "truthBox": [
+        793,
+        764,
+        9.5,
+        9
+      ],
+      "predictedBox": [
+        794.0,
+        761.0,
+        9,
+        10
+      ],
+      "confidence": 0.32008010149002075
+    },
+    {
+      "imageId": 153,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5061043285238623,
+      "truthBox": [
+        536,
+        492,
+        34,
+        26.5
+      ],
+      "predictedBox": [
+        540.0,
+        492.0,
+        24,
+        19
+      ],
+      "confidence": 0.5511866211891174
+    },
+    {
+      "imageId": 153,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5498652291105122,
+      "truthBox": [
+        619,
+        975,
+        19,
+        17
+      ],
+      "predictedBox": [
+        618.0,
+        973.0,
+        18,
+        14
+      ],
+      "confidence": 0.3154555857181549
+    },
+    {
+      "imageId": 153,
+      "truth": "Post acne",
+      "predicted": "Pigmentation",
+      "iou": 0.7114427860696517,
+      "truthBox": [
+        310,
+        611,
+        12,
+        13.5
+      ],
+      "predictedBox": [
+        308.0,
+        610.0,
+        13,
+        14
+      ],
+      "confidence": 0.20527015626430511
+    },
+    {
+      "imageId": 153,
+      "truth": "Post acne",
+      "predicted": "Pigmentation",
+      "iou": 0.6580645161290323,
+      "truthBox": [
+        367,
+        768,
+        19,
+        19.5
+      ],
+      "predictedBox": [
+        366.0,
+        768.0,
+        16,
+        17
+      ],
+      "confidence": 0.20199452340602875
+    },
+    {
+      "imageId": 153,
+      "truth": "Post acne",
+      "predicted": "Pigmentation",
+      "iou": 0.6626650660264105,
+      "truthBox": [
+        386,
+        981,
+        25.5,
+        24.5
+      ],
+      "predictedBox": [
+        387.0,
+        986.0,
+        23,
+        18
+      ],
+      "confidence": 0.200638085603714
+    },
+    {
+      "imageId": 154,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6865671641791045,
+      "truthBox": [
+        713,
+        543,
+        15,
+        12.5
+      ],
+      "predictedBox": [
+        711.0,
+        544.0,
+        16,
+        13
+      ],
+      "confidence": 0.5223856568336487
+    },
+    {
+      "imageId": 154,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5405405405405406,
+      "truthBox": [
+        820,
+        826,
+        11.5,
+        9
+      ],
+      "predictedBox": [
+        818.0,
+        828.0,
+        12,
+        8
+      ],
+      "confidence": 0.36658889055252075
+    },
+    {
+      "imageId": 155,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5909797822706065,
+      "truthBox": [
+        672,
+        815,
+        10.5,
+        9.5
+      ],
+      "predictedBox": [
+        670.0,
+        815.0,
+        12,
+        13
+      ],
+      "confidence": 0.4465112090110779
+    },
+    {
+      "imageId": 155,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7857142857142857,
+      "truthBox": [
+        701,
+        857,
+        13,
+        11
+      ],
+      "predictedBox": [
+        703.0,
+        856.0,
+        11,
+        12
+      ],
+      "confidence": 0.445322722196579
+    },
+    {
+      "imageId": 155,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.768,
+      "truthBox": [
+        664,
+        854,
+        13,
+        13.5
+      ],
+      "predictedBox": [
+        665.0,
+        853.0,
+        12,
+        13
+      ],
+      "confidence": 0.43522462248802185
+    },
+    {
+      "imageId": 156,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.6785714285714286,
+      "truthBox": [
+        923,
+        822,
+        22.5,
+        19
+      ],
+      "predictedBox": [
+        923.0,
+        822.0,
+        30,
+        21
+      ],
+      "confidence": 0.4214828908443451
+    },
+    {
+      "imageId": 156,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.5,
+      "truthBox": [
+        395,
+        563,
+        16,
+        18
+      ],
+      "predictedBox": [
+        391.0,
+        559.0,
+        19,
+        18
+      ],
+      "confidence": 0.38896849751472473
+    },
+    {
+      "imageId": 157,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5681818181818182,
+      "truthBox": [
+        889,
+        1001,
+        25,
+        16
+      ],
+      "predictedBox": [
+        886.0,
+        996.0,
+        32,
+        22
+      ],
+      "confidence": 0.41602399945259094
+    },
+    {
+      "imageId": 157,
+      "truth": "Post acne",
+      "predicted": "Pigmentation",
+      "iou": 0.59375,
+      "truthBox": [
+        985,
+        743,
+        12,
+        9.5
+      ],
+      "predictedBox": [
+        983.0,
+        743.0,
+        16,
+        12
+      ],
+      "confidence": 0.21030616760253906
+    },
+    {
+      "imageId": 159,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.8084696823869105,
+      "truthBox": [
+        479,
+        87,
+        17.5,
+        14.5
+      ],
+      "predictedBox": [
+        479.0,
+        88.0,
+        18,
+        12
+      ],
+      "confidence": 0.44869357347488403
+    },
+    {
+      "imageId": 159,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.9166666666666666,
+      "truthBox": [
+        214,
+        448,
+        12,
+        9
+      ],
+      "predictedBox": [
+        214.0,
+        448.0,
+        11,
+        9
+      ],
+      "confidence": 0.32753974199295044
+    },
+    {
+      "imageId": 160,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.8839285714285714,
+      "truthBox": [
+        707,
+        874,
+        22,
+        18.5
+      ],
+      "predictedBox": [
+        706.0,
+        873.0,
+        23,
+        19
+      ],
+      "confidence": 0.5437589287757874
+    },
+    {
+      "imageId": 160,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.6131756756756757,
+      "truthBox": [
+        464,
+        971,
+        17.5,
+        11
+      ],
+      "predictedBox": [
+        465.0,
+        969.0,
+        19,
+        15
+      ],
+      "confidence": 0.514699399471283
+    },
+    {
+      "imageId": 160,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.7932692307692307,
+      "truthBox": [
+        274,
+        1061,
+        22,
+        15
+      ],
+      "predictedBox": [
+        272.0,
+        1060.0,
+        26,
+        16
+      ],
+      "confidence": 0.49075043201446533
+    },
+    {
+      "imageId": 163,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.7529130564684793,
+      "truthBox": [
+        407,
+        487,
+        32.5,
+        21.5
+      ],
+      "predictedBox": [
+        408.0,
+        483.0,
+        32,
+        24
+      ],
+      "confidence": 0.4170758128166199
+    },
+    {
+      "imageId": 164,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.5106382978723404,
+      "truthBox": [
+        506,
+        694,
+        28,
+        11
+      ],
+      "predictedBox": [
+        506.0,
+        693.0,
+        21,
+        9
+      ],
+      "confidence": 0.5488996505737305
+    }
+  ],
+  "sourcePixelSizeCounts": {
+    "Pigmentation": {
+      "instances": 283,
+      "minEdgeAtMost8px": 97,
+      "minEdgeAtMost16px": 239,
+      "cocoSmallSourceArea": 275
+    },
+    "Pimple": {
+      "instances": 802,
+      "minEdgeAtMost8px": 221,
+      "minEdgeAtMost16px": 688,
+      "cocoSmallSourceArea": 787
+    },
+    "Post acne": {
+      "instances": 6820,
+      "minEdgeAtMost8px": 2954,
+      "minEdgeAtMost16px": 6052,
+      "cocoSmallSourceArea": 6748
+    }
+  },
+  "sameClassBestOverlapOpportunities": {
+    "Pigmentation": {
+      "atFloorBestIoUAtLeast0.1": 159,
+      "atFloorBestIoUAtLeast0.3": 146,
+      "atFloorBestIoUAtLeast0.5": 110,
+      "atFloorBestIoUAtLeast0.75": 25,
+      "atLockedThresholdBestIoUAtLeast0.1": 48,
+      "atLockedThresholdBestIoUAtLeast0.3": 46,
+      "atLockedThresholdBestIoUAtLeast0.5": 41,
+      "atLockedThresholdBestIoUAtLeast0.75": 11
+    },
+    "Pimple": {
+      "atFloorBestIoUAtLeast0.1": 687,
+      "atFloorBestIoUAtLeast0.3": 622,
+      "atFloorBestIoUAtLeast0.5": 452,
+      "atFloorBestIoUAtLeast0.75": 79,
+      "atLockedThresholdBestIoUAtLeast0.1": 360,
+      "atLockedThresholdBestIoUAtLeast0.3": 324,
+      "atLockedThresholdBestIoUAtLeast0.5": 246,
+      "atLockedThresholdBestIoUAtLeast0.75": 46
+    },
+    "Post acne": {
+      "atFloorBestIoUAtLeast0.1": 6137,
+      "atFloorBestIoUAtLeast0.3": 5257,
+      "atFloorBestIoUAtLeast0.5": 3330,
+      "atFloorBestIoUAtLeast0.75": 523,
+      "atLockedThresholdBestIoUAtLeast0.1": 4025,
+      "atLockedThresholdBestIoUAtLeast0.3": 3570,
+      "atLockedThresholdBestIoUAtLeast0.5": 2392,
+      "atLockedThresholdBestIoUAtLeast0.75": 429
+    }
+  },
+  "crossClassTruthOverlaps": {},
+  "truthOverlapExamples": [],
+  "testSplitTouched": false,
+  "modelAccepted": false,
+  "expertReviewed": false,
+  "limitations": [
+    "Class-agnostic matrix uses confidence-ordered one-to-one matching atIoU0.5; it differs from class-aware operating metrics.",
+    "Best-overlap opportunities allow reused predictions and are not recall or proof of a cause.",
+    "Cross-class truth overlap is a review cue, never evidence that a publisher label is wrong.",
+    "Source pixel size is not model input size; no unsupported training-resolution claim.",
+    "Existing prediction floor/cap and provisional source labels/splits still apply."
+  ]
+}

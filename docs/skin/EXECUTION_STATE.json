@@ -151,7 +151,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-23",
-      "lastCheckedAt": "2026-10-23 05:31:28 UTC",
+      "lastCheckedAt": "2026-10-23 05:42:45 UTC",
       "modelCount": 89,
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
@@ -271,6 +271,22 @@
         "evidence": "docs/skin/evidence/acne-tiling-diagnosis-20261023-v1.json",
         "rawInferenceEvidence": "docs/skin/evidence/acne-tiling-snapshots-20261023-v1.json.gz",
         "decision": "Not accepted; increased recall accompanied by increased false positives, pigmentation still0/62 at fixed threshold. Separate hash-control AP worsens."
+      },
+      "localizationDiagnosis": {
+        "split": "valid",
+        "images": 165,
+        "thresholdsRefitted": false,
+        "testSplitTouched": false,
+        "evidence": "docs/skin/evidence/acne-localization-diagnosis-20261023-v1.json",
+        "classAgnosticMatchingIoU": 0.5,
+        "crossClassMatches": {
+          "Pimple_to_Post_acne": 205,
+          "Pigmentation_to_Post_acne": 93,
+          "Post_acne_to_Pimple": 67,
+          "Post_acne_to_Pigmentation": 11
+        },
+        "expertLabelsChanged": false,
+        "modelAccepted": false
       }
     },
     "acneSourceProject": "tolgar-sasmaz/attune-skin-acne-pilot",
@@ -333,7 +349,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "running",
-      "lastCheckedAt": "2026-10-23 05:33:17 UTC",
+      "lastCheckedAt": "2026-10-23 05:42:45 UTC",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "modelGroup": null,
       "modelIds": [],
@@ -368,7 +384,20 @@
       "clean3-v1.zip",
       "acne-remote-v1.zip"
     ],
-    "scratchPersistence": "Not guaranteed; never rely on these as sole checkpoint or source."
+    "scratchPersistence": "Not guaranteed; never rely on these as sole checkpoint or source.",
+    "merveDirect": {
+      "project": "merves-workspace-uxyeb/ciltanalizi-rfa8m",
+      "version": 12,
+      "archiveSHA256": "8fdf070c0cae65fd27ce0046c93393e0ac17e5282bf472097453c756481b831e",
+      "historicalArchiveHashMatched": true,
+      "images": 3368,
+      "pulBoxes": 2590,
+      "pulPolygons": 0,
+      "allFilenamesCLAHEPrefixed": true,
+      "naturalColourCalibrationAdmitted": false,
+      "sourceReview": "docs/skin/evidence/merve-direct-summary-20261023-v1.json",
+      "expertReviewed": false
+    }
   },
   "sourceMappingEvidence": {
     "files": [
@@ -444,7 +473,11 @@
         "docs/skin/evidence/evaluation-preparation-checks-20261023-v1.json",
         "docs/skin/evidence/regional-mask-comparison-20261023-v1.json",
         "docs/skin/evidence/regional-mask-comparison-details-20261023-v1.json.gz",
-        "docs/skin/evidence/tiling-and-regional-checks-20261023-v1.json"
+        "docs/skin/evidence/tiling-and-regional-checks-20261023-v1.json",
+        "docs/skin/evidence/merve-direct-summary-20261023-v1.json",
+        "docs/skin/evidence/merve-direct-audit-20261023-v1.json.gz",
+        "docs/skin/evidence/merve-pul-visual-review-20261023-v1.json",
+        "docs/skin/evidence/source-and-diagnosis-checks-20261023-v1.json"
       ],
       "blockers": [
         "Final holdout independence is not established: perceptual and filename crop relations need source/provenance review; prior exposure and person overlap are unknown.",
@@ -468,12 +501,16 @@
         "docs/skin/evidence/acne-validation-visual-selection-20261023-v2.json",
         "docs/skin/evidence/acne-tiling-diagnosis-20261023-v1.json",
         "docs/skin/evidence/acne-tiling-snapshots-20261023-v1.json.gz",
-        "scripts/skin-research/evaluate_tiling_experiment.py"
+        "scripts/skin-research/evaluate_tiling_experiment.py",
+        "scripts/skin-research/diagnose_detector_snapshot.py",
+        "docs/skin/evidence/acne-localization-diagnosis-20261023-v1.json",
+        "docs/skin/evidence/acne-confusion-visual-review-20261023-v1.json"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
         "Source holdout independence, expert semantic review, real-camera tests and application integration remain pending. Diagnose tiny-instance resolution, localisation, dense prediction cap and label coverage on validation before targeted changes; do not blindly retrain.",
-        "Validation-only diagnostic:24four-corner crop inferences on6images at fixed original thresholds. Recall increased forPimple andPostacne, false positives also increased; pigmentation0/62. Hash-control AP50declined. Tiling alone not accepted; source taxonomy/coverage and localization require targeted improvement, not broad retraining."
+        "Validation-only diagnostic:24four-corner crop inferences on6images at fixed original thresholds. Recall increased forPimple andPostacne, false positives also increased; pigmentation0/62. Hash-control AP50declined. Tiling alone not accepted; source taxonomy/coverage and localization require targeted improvement, not broad retraining.",
+        "Validation-only class-agnostic one-to-one matching atIoU0.5:205Pimple/93Pigmentation truths matchedPostacne predictions. Source instances are overwhelmingly small, and same-class overlap degrades atIoU0.75. These are classification/localization review cues,notproof labels are wrong; six valid examples visually inspected, no labels changed."
       ]
     },
     {
@@ -492,12 +529,16 @@
         "docs/skin/evidence/acne-validation-visual-selection-20261023-v2.json",
         "docs/skin/evidence/acne-tiling-diagnosis-20261023-v1.json",
         "docs/skin/evidence/acne-tiling-snapshots-20261023-v1.json.gz",
-        "scripts/skin-research/evaluate_tiling_experiment.py"
+        "scripts/skin-research/evaluate_tiling_experiment.py",
+        "scripts/skin-research/diagnose_detector_snapshot.py",
+        "docs/skin/evidence/acne-localization-diagnosis-20261023-v1.json",
+        "docs/skin/evidence/acne-confusion-visual-review-20261023-v1.json"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
         "Source holdout independence, expert semantic review, real-camera tests and application integration remain pending. Diagnose tiny-instance resolution, localisation, dense prediction cap and label coverage on validation before targeted changes; do not blindly retrain.",
-        "Validation-only diagnostic:24four-corner crop inferences on6images at fixed original thresholds. Recall increased forPimple andPostacne, false positives also increased; pigmentation0/62. Hash-control AP50declined. Tiling alone not accepted; source taxonomy/coverage and localization require targeted improvement, not broad retraining."
+        "Validation-only diagnostic:24four-corner crop inferences on6images at fixed original thresholds. Recall increased forPimple andPostacne, false positives also increased; pigmentation0/62. Hash-control AP50declined. Tiling alone not accepted; source taxonomy/coverage and localization require targeted improvement, not broad retraining.",
+        "Validation-only class-agnostic one-to-one matching atIoU0.5:205Pimple/93Pigmentation truths matchedPostacne predictions. Source instances are overwhelmingly small, and same-class overlap degrades atIoU0.75. These are classification/localization review cues,notproof labels are wrong; six valid examples visually inspected, no labels changed."
       ]
     },
     {
@@ -516,12 +557,16 @@
         "docs/skin/evidence/acne-validation-visual-selection-20261023-v2.json",
         "docs/skin/evidence/acne-tiling-diagnosis-20261023-v1.json",
         "docs/skin/evidence/acne-tiling-snapshots-20261023-v1.json.gz",
-        "scripts/skin-research/evaluate_tiling_experiment.py"
+        "scripts/skin-research/evaluate_tiling_experiment.py",
+        "scripts/skin-research/diagnose_detector_snapshot.py",
+        "docs/skin/evidence/acne-localization-diagnosis-20261023-v1.json",
+        "docs/skin/evidence/acne-confusion-visual-review-20261023-v1.json"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
         "Source holdout independence, expert semantic review, real-camera tests and application integration remain pending. Diagnose tiny-instance resolution, localisation, dense prediction cap and label coverage on validation before targeted changes; do not blindly retrain.",
-        "Validation-only diagnostic:24four-corner crop inferences on6images at fixed original thresholds. Recall increased forPimple andPostacne, false positives also increased; pigmentation0/62. Hash-control AP50declined. Tiling alone not accepted; source taxonomy/coverage and localization require targeted improvement, not broad retraining."
+        "Validation-only diagnostic:24four-corner crop inferences on6images at fixed original thresholds. Recall increased forPimple andPostacne, false positives also increased; pigmentation0/62. Hash-control AP50declined. Tiling alone not accepted; source taxonomy/coverage and localization require targeted improvement, not broad retraining.",
+        "Validation-only class-agnostic one-to-one matching atIoU0.5:205Pimple/93Pigmentation truths matchedPostacne predictions. Source instances are overwhelmingly small, and same-class overlap degrades atIoU0.75. These are classification/localization review cues,notproof labels are wrong; six valid examples visually inspected, no labels changed."
       ]
     },
     {
@@ -549,14 +594,18 @@
     {
       "id": "05",
       "target": "regional-dryness-flaking",
-      "status": "source_geometry_audited",
+      "status": "source_supervision_gap_confirmed",
       "work": "Audit Dry-Skin/pul local labels and geometry; prepare local samples; evaluate visible dryness/flaking; blue overlay.",
       "evidence": [
         "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
-        "docs/skin/regional-evidence-contract-20261023.md"
+        "docs/skin/regional-evidence-contract-20261023.md",
+        "docs/skin/evidence/merve-direct-summary-20261023-v1.json",
+        "docs/skin/evidence/merve-direct-audit-20261023-v1.json.gz",
+        "docs/skin/evidence/merve-pul-visual-review-20261023-v1.json"
       ],
       "blockers": [
-        "Clean3 contains only six true dry polygons. v11 oil/redness preparation contains no dryness truth; audit remaining selected dry/flaking source. Do not invent dry masks or normal negatives."
+        "Clean3 supplies only6genuine dry polygons. Direct Mervev12 hash matches original selected archive:2590pul boxes,0pul polygons; all3368filenames CLAHE-prefixed and prior ledger excludes processed positives from natural RGB calibration. SixTRAINexamples reviewed byassistant,notexpert. Boxes must not become blue masks; absence ofpul is not normal truth.",
+        "Research box localization can be studied with grouping and label review, but natural-camera region truth/negative coverage and sufficient dry polygons remain unavailable. Other roadmap work continues."
       ]
     },
     {
@@ -635,8 +684,13 @@
       "target": "crows-feet-and-wrinkles",
       "status": "pending",
       "work": "Start with existing lines/crows-feet criterion; audit Wrinkles Detector/skin_face_detection/Skin v5 labels and geometry; extend other facial wrinkles only where labelled truth supports it; evaluate expression and pose effects.",
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/skin/evidence/merve-direct-summary-20261023-v1.json",
+        "docs/skin/evidence/merve-direct-audit-20261023-v1.json.gz"
+      ],
+      "blockers": [
+        "Mervev12 also contains2513kirisiklik boxes, no wrinkle polygons, processed/augmented source. This does not establish native camera wrinkle segmentation; audit selected wrinkle sources separately."
+      ]
     },
     {
       "id": "12",
@@ -676,10 +730,10 @@
     "modelPolicy": "Do not promote rejected research weights, invent labels/masks, convert boxes to exact masks, or silently report weak/unsupported results as completed. Final deploy/merge follows explicit user scope and repository rules; preserve privacy, consent and existing production safety."
   },
   "nextActions": [
-    "Refresh this GitHub branch and Roboflow. Regional version1 training3485f8c67f957a1b850d is running; poll existing job, never create duplicate upload/version/training. Once finished page NAS children by modelGroup; recommended is not accuracy/hardware winner.",
-    "Regional export verification passes337exact polygon/name/dimension pairs and preserves244/63/30split;316 derived boxes recomputed. Research labels have incomplete negative/normal coverage; no dry truth, expert approval or product regional method. Evaluate segmentation masks perclass on valid, lock thresholds before source test; camera/subject holdout still pending.",
-    "Acne tiling diagnosis completed on6validation images with24actualinferences; do not repeat that bounded experiment or fit against exposedtest. Replay saved bundle. Tiling improvedPimple recall but false positives grew; pigmentation unresolved and controlsAPdeclined. Next inspect confusion/localization/label semantics on selected valid cases and consider targeted higher-resolution training only with justified label/data fixes.",
-    "Continue selected dryness/flaking source audit, independent camera benchmark, under-eye segmentation, wrinkles/sagging, UI coordinate alignment and history integration. Preserve four excluded archives, photo consent and empty accepted-regional-method registry. No complete roadmap acceptance yet."
+    "Refresh this branch and existing regional version 1 training 3485f8c67f957a1b850d. Still running at 05:42:45 UTC; never duplicate it. On completion, page NAS children by modelGroup and evaluate segmentation per class; recommendation flags are not accuracy or hardware winner evidence.",
+    "Acne localization and taxonomy diagnosis is saved for all 165 validation images. Cross-class disagreement, poor tight IoU, tiny instances and the prediction cap remain. Do not call overlap opportunities recall or assistant review expert labels. Review label standards and coverage before another training; do not repeat completed tiling or retune on the exposed test.",
+    "Merve v12 has been audited; its archive SHA256 matches the historical selected file. There are 2,590 pul boxes, zero pul masks and 3,368 CLAHE-prefixed filenames. Do not repeat the download/audit or turn these boxes into blue masks or normal truth. Natural RGB calibration is not admitted; natural source counterparts and true dry masks remain a data gap. Continue other available work.",
+    "Continue the independent real-camera benchmark and consent path, under-eye source grouping and segmentation, selected wrinkle source audit, sagging evaluation, UI coordinate alignment and history integration while regional training runs. Keep the accepted regional-method registry empty until acceptance evidence passes."
   ],
   "executionLog": [
     {
@@ -708,6 +762,12 @@
       "observedAt": "2026-10-23 05:33:17 UTC",
       "action": "Refreshed GitHub and all3private Roboflow projects; confirmed acne finished and regional dataset board337annotated. Generated regionalversion1 without added preprocessing/augmentation, compared all337exact polygon geometries and original splits; separately recorded316derivedbox changes and lossy image reencoding. Started single researchNASsegtraining3485f8c67f957a1b850d after export became ready; running. Executed24actual crop inferences of pinned acne754885 on6validationimages, mapped to full-frame withclass-awareNMS, compared at original locked thresholds and reported selectedfailures/hashcontrols separately. Tiling not accepted; test untouched. Saved raw responses, reproducible preparation/evaluator,115passingchecks. No productactivation/merge/deploy or expertapproval.",
       "report": "docs/skin/regional-training-and-tiling-diagnosis-20261023.md"
+    },
+    {
+      "date": "2026-10-23",
+      "observedAt": "2026-10-23 05:42:45 UTC",
+      "action": "Refreshed all three private project states and existing regional NAS segmentation job 3485f8c67f957a1b850d, still running. Read the selected-source ledger and directly audited all 3,368 Merve v12 images and 12,741 annotations; archive SHA256 matches the original selected file. Found 2,590 pul boxes and zero pul masks; all filenames are CLAHE-prefixed. Preserved 74 cross-split perceptual candidate pairs and 39 filename candidate groups. Inspected six train examples without expert approval or mask fabrication. Added validation-only class-agnostic one-to-one matching and localization diagnosis for all 165 acne validation images from existing pinned predictions; 205 Pimple and 93 Pigmentation truths matched Post acne predictions. Inspected six disagreement examples, changed no labels, and launched no new training or test inference. All 121 checks pass. Saved the full audit, diagnostic matches, code and continuation; no deployment, merge or acceptance claim.",
+      "report": "docs/skin/dryness-source-and-acne-diagnosis-20261023.md"
     }
   ]
 }
