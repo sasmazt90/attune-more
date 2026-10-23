@@ -12,6 +12,11 @@ export type MeasurementReceipt={status?:'measured'|'unavailable';reason?:string|
 export type AppearanceMeasurement=MeasurementReceipt & {id:string;type:MeasurementKind;value:number|null;unit:string;methodVersion:string;modelVersion:string|null;modelHash:string|null;scoreDirection?:'higher-is-more-visible';normalizationVersion?:string;quality:'valid'|'invalid'|'insufficient';uncertainty:string[];region:string;evaluatedArea:Record<string,number>;captureConditions:Record<string,number|string>;limitationCode:string|null;referenceId:string|null;localMap:{key:string;photoId:string;region:string;criterion:string;coordinateSpace:'source-pixels'}|null;components:Record<string,any>};
 export type AppearanceResponse={acneRuntime?:AcneV5Runtime;acneCandidates?:SkinSnapshot['acneCandidates'];general?:{regionalSkinMap?:unknown;skinType:import('./skinOverview').SkinOverview['skinType'];measurements:AppearanceMeasurement[];normalizationVersion:string;modelInputTransform?:Record<string,number|string|boolean>|null;modelInference?:Record<string,Record<string,number|string>>};photoId:string;sourceWidth:number;sourceHeight:number;measurements:Record<string,AppearanceMeasurement[]>;maps:Record<string,SkinLocalMap>;contours:Record<string,{points:{x:number;y:number}[];lines?:{x:number;y:number}[][];features:number[]}>};
 export const APPEARANCE_UNITS:Record<string,string>={'appearance-score-0-100':'%','percent-visible-area':'% görünür alan','candidate-count':'aday','relative-color-index-0-100':'/ 100 · renk farkı','directional-line-index-0-100':'/ 100 · çizgi indeksi','normalized-contour-ratio':'kontur oranı','contour-fold-index-0-100':'/ 100 · görünüm indeksi'};
+export const SAG_APPEARANCE_SEMANTICS='visible-lower-face-contour-fold-appearance-v1';
+export function isSagAppearanceOnly(value:Pick<AppearanceMeasurement,'components'>){
+ const c=value.components||{};
+ return c.appearanceSemantics===SAG_APPEARANCE_SEMANTICS&&c.clinicalSeverity===false&&c.elasticity===false&&c.comparisonMode==='same-person-compatible-capture-only';
+}
 export async function analyzeAppearance(snapshot:SkinSnapshot,qualityValid:boolean,conditions:Record<string,number>,temporal:unknown[],current:()=>boolean):Promise<AppearanceResponse>{
  const hostedConsent=isSkinHostedProcessingAllowed();
  const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),45000);
@@ -33,8 +38,9 @@ export function attachAppearance(indicators:SkinIndicators,result:AppearanceResp
  for(const [region,values] of Object.entries(result.measurements))for(const value of values){
   const target=indicators[region]?.find(row=>row.id===value.id);if(!target)continue;
   if(value.region!==region||!supportedAppearanceMethod(value.id,value.methodVersion)||value.value!==null&&!Number.isFinite(value.value))throw Error('INVALID_MEASUREMENT');
+  if(value.id==='sag'&&!isSagAppearanceOnly(value))throw Error('INVALID_SAG_SEMANTICS');
   target.score=value.value;target.unit=APPEARANCE_UNITS[value.unit]||value.unit;target.method=value.methodVersion;
-  target.reason=value.limitationCode==='REFERENCE_CREATED'?'Kişisel kontur referansı oluşturuldu; sonraki uyumlu taramada değişim karşılaştırılır.':value.value===null?`Bu karede yeterli güvenilir ölçüm yok (${value.limitationCode}).`:'Görünür yüzeyin kozmetik görünüm vekili; hastalık, nem veya klinik şiddet ölçümü değildir.';
+  target.reason=value.limitationCode==='REFERENCE_CREATED'?'Kişisel kontur referansı oluşturuldu; sonraki uyumlu taramada değişim karşılaştırılır.':value.value===null?`Bu karede yeterli güvenilir ölçüm yok (${value.limitationCode}).`:value.id==='sag'?'Görünen alt yüz kontur/kıvrım görünümü; elastikiyet veya klinik sarkma şiddeti değildir.':'Görünür yüzeyin kozmetik görünüm vekili; hastalık, nem veya klinik şiddet ölçümü değildir.';
   target.appearance=value;
   target.measurement={scope:'regional',region,methodVersion:value.methodVersion,modelHash:value.modelHash,unit:value.unit,rawValue:value.value,confidence:null,quality:value.quality,validation:'appearance-proxy',unavailableReason:value.value===null?value.limitationCode:null} as SkinMeasurement;
  }
