@@ -70,6 +70,23 @@ async function load(name) {
   check(() => { const x=clone(p); x.map.regions.forehead.observations.oil.normalizationVersion='other-scale'; assert.equal(R.comparableRegionalObservations(p,x).length,14); });
   check(() => { const x=clone(p); x.map.regions.forehead.observations.oil.validationEvidence='different-evidence'; assert.equal(R.comparableRegionalObservations(p,x).length,14); });
 
+  // Categorical history is anchored to one exact method identity and never
+  // turns positive/negative observations into made-up numeric severity.
+  const record=(id,date,map)=>({id,timestamp:date,general:{regionalSkinMap:map}});
+  const pNegative=clone(p); pNegative.map.regions.forehead.observations.oil.state='negative';
+  pNegative.map.regions.forehead.state='normal'; pNegative.map.regions.forehead.fill=null;
+  pNegative.map.combinationMatched=false;
+  const history=R.regionalObservationHistory([
+    record('one','2026-10-20T10:00:00Z',p),record('two','2026-10-21T10:00:00Z',pNegative),record('three','2026-10-22T10:00:00Z',pNegative)
+  ],'forehead','oil','three');
+  check(() => { assert(history); assert.deepEqual(Array.from(history.points,v=>v.state),['positive','negative','negative']); });
+  check(() => assert.deepEqual(Array.from(history.points,v=>v.changedFromPrevious),[null,true,false]));
+  check(() => assert.equal(Object.values(history.points[0]).some(v=>typeof v==='number'&&v!==history.points[0].time),false));
+  check(() => { const x=clone(p); x.map.regions.forehead.observations.oil.methodVersion='new-method'; const h=R.regionalObservationHistory([record('old','2026-10-20T10:00:00Z',p),record('new','2026-10-21T10:00:00Z',x)],'forehead','oil','new'); assert.equal(h.points.length,1); assert.equal(h.excludedIncompatible,1); });
+  check(() => assert.equal(R.regionalObservationHistory([record('one','bad-date',p)],'forehead','oil'),undefined));
+  check(() => assert.equal(R.regionalObservationHistory([record('one','2026-10-20T10:00:00Z',u)],'forehead','oil'),undefined));
+  check(() => assert.equal(R.regionalObservationHistory([record('one','2026-10-20T10:00:00Z',p)],'periorbital','oil'),undefined));
+
   // Presentation plan remains source-bound and uses only anatomical summaries.
   const all = R.regionalSkinLayers(p,source,'overview',null);
   check(() => assert.equal(all.length,5));
@@ -103,5 +120,6 @@ async function load(name) {
   check(() => { const x=clone(response); x.general.regionalSkinMap.regions.forehead.fill='blue'; assert.equal(overview.overviewFromResponse(x).regionalSkinMap,undefined); });
   check(() => { const x=clone(response); x.photoId='not-a-capture'; assert.equal(overview.overviewFromResponse(x).regionalSkinMap,undefined); });
   check(() => assert.equal(overview.overviewFromResponse({}),undefined));
-  console.log(JSON.stringify({ checks, serverFixtures:4, result:'pass', scope:'numeric-contract-converter-and-svg-layer-plan', modelAcceptance:false, cameraAcceptance:false }));
+  console.log(JSON.stringify({ checks, serverFixtures:4, result:'pass', scope:'numeric-contract-converter-svg-layer-and-categorical-history', modelAcceptance:false, cameraAcceptance:false }));
 })().catch(error => { console.error(error); process.exitCode=1; });
+
