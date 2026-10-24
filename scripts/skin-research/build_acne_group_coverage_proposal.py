@@ -236,12 +236,14 @@ def build_proposal(
                         similarity=round(similarity, 12),
                         automaticEvidence="review_only",
                     )
-                elif (
-                    left["split"] != right["split"]
-                    and similarity >= source_name_cross_split_similarity
-                ):
+                elif similarity >= source_name_cross_split_similarity:
+                    method = (
+                        "normalized_source_name_similarity_cross_split_review"
+                        if left["split"] != right["split"]
+                        else "normalized_source_name_similarity_within_split_review"
+                    )
                     add(
-                        "normalized_source_name_similarity_cross_split_review",
+                        method,
                         (left, right),
                         similarity=round(similarity, 12),
                         automaticEvidence="review_only",
@@ -341,7 +343,10 @@ def build_proposal(
             "normalizedSourceNameSimilarityMinimum": source_name_similarity,
             "normalizedSourceNameCrossSplitReviewMinimum": source_name_cross_split_similarity,
             "normalizedSourceNameCrossSplitReviewMaximumExclusive": source_name_similarity,
+            "normalizedSourceNameWithinSplitReviewMinimum": source_name_cross_split_similarity,
+            "normalizedSourceNameWithinSplitReviewMaximumExclusive": source_name_similarity,
             "crossSplitNameBandIsLeakageReviewOnly": True,
+            "withinSplitNameBandIsCandidateReviewOnly": True,
             "perceptualMatchesAreReviewOnly": True,
         },
         "candidateCountsByMethod": {
@@ -352,6 +357,7 @@ def build_proposal(
                 *(f"directional_crop_phash_{name}" for name in DIRECTIONAL_PHASH_CROPS),
                 "normalized_source_name_similarity",
                 "normalized_source_name_similarity_cross_split_review",
+                "normalized_source_name_similarity_within_split_review",
             )
         },
         "reviewQueue": {

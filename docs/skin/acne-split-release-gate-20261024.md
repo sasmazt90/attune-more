@@ -20,7 +20,7 @@ The replacement split is blocked, and no training is authorized. The gate replay
 | Training authorized | No |
 | Test evaluation authorized | No |
 
-The `0 / 800` group-coverage value does not discard the 33 already confirmed leakage members. The gate now validates the review-incomplete, privacy-safe 800-record grouping proposal and uses its 14 cross-split confirmed groups as stronger current-split leakage evidence. This does not promote the proposal into a reviewed coverage receipt: 748 singleton records still lack provenance/person review, so no replacement split is authorized.
+The `0 / 800` group-coverage value does not discard the 33 already confirmed leakage members. The gate now validates the review-incomplete, privacy-safe 800-record grouping proposal and uses its 14 cross-split confirmed groups as stronger current-split leakage evidence. This does not promote the proposal into a reviewed coverage receipt: 733 singleton records still lack provenance/person review, so no replacement split is authorized.
 
 ## Enforced controls
 
@@ -39,7 +39,7 @@ Even when all five conditions pass, the tool authorizes only deterministic repla
 ## Privacy and verification
 
 - The gate consumes hashed record IDs only; it commits no image bytes, faces, filenames or raw source names.
-- Seven focused release-gate tests and the broader twenty-one-test source/grouping/semantic/gate suite pass.
+- Seven focused release-gate tests and the broader twenty-two-test source/grouping/semantic/gate suite pass.
 - Both scripts compile under Python 3.
 - The real 800-image export replay passed and produced the committed receipt.
 - No Roboflow labels, split, threshold, upload, inference or training state changed.

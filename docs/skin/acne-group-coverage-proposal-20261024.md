@@ -6,16 +6,16 @@ Bound COCO archive SHA-256: `29f40e80c8b1f63d43abbc35d11efdbaac4cf754531af2bee64
 
 ## Outcome
 
-All 800 records are now represented exactly once in a privacy-safe grouping proposal. A private engineering review resolved every pair surfaced by the normalized-source-name similarity, cross-split-only lower name-similarity band, full-image dHash/pHash, central-80%-crop pHash and six directional-crop pHash methods. The proposal preserves the resulting 23 confirmed groups and leaves every other record explicitly unreviewed rather than treating an algorithmic singleton as identity truth.
+All 800 records are now represented exactly once in a privacy-safe grouping proposal. A private engineering review resolved every pair surfaced by the normalized-source-name similarity, lower name-similarity bands, full-image dHash/pHash, central-80%-crop pHash and six directional-crop pHash methods. The proposal preserves the resulting 30 confirmed groups and leaves every other record explicitly unreviewed rather than treating an algorithmic singleton as identity truth.
 
 | Result | Count |
 |---|---:|
 | Dataset records | 800 |
-| Proposal groups | 771 |
-| Confirmed groups | 23 |
-| Records in confirmed groups | 52 |
-| Unreviewed singleton groups | 748 |
-| Unreviewed records | 748 |
+| Proposal groups | 763 |
+| Confirmed groups | 30 |
+| Records in confirmed groups | 67 |
+| Unreviewed singleton groups | 733 |
+| Unreviewed records | 733 |
 | Target splits assigned | 0 |
 
 The proposal is complete as an inventory, not as reviewed person/source truth. It cannot authorize a group-locked split or training.
@@ -30,6 +30,7 @@ The immutable export was scanned across train, validation and test with the same
 | Usable normalized-source-name pairs | 0 |
 | Normalized-source-name similarity pairs (minimum 0.94) | 33 |
 | Cross-split-only name-similarity review pairs (0.90–0.94) | 54 |
+| Within-split name-similarity review pairs (0.90–0.94) | 108 |
 | dHash pairs | 9 |
 | pHash pairs | 13 |
 | Central-80%-crop pHash pairs | 10 |
@@ -39,14 +40,14 @@ The immutable export was scanned across train, validation and test with the same
 | Bottom-80%-crop pHash pairs | 6 |
 | Left-70%-crop pHash pairs | 5 |
 | Right-70%-crop pHash pairs | 4 |
-| Deduplicated pairs | 113 |
-| Confirmed same source/person | 30 |
-| Reviewed different source/person | 83 |
+| Deduplicated pairs | 221 |
+| Confirmed same source/person | 39 |
+| Reviewed different source/person | 182 |
 | Unresolved pairs | 0 |
 | Unresolved cross-split pairs | 0 |
 | Unresolved within-split pairs | 0 |
 
-All similarity remains review-only. Normalized source names are compared in memory at a general minimum sequence-similarity ratio of 0.94 and are never emitted. A second, explicitly leakage-only method examines the lower 0.90–0.94 band only when records occupy different splits; it is not counted as full identity coverage. Private engineering review resolved all 54 lower-band pairs, confirming eight as same-source or same-person series and rejecting 46 as false positives. Across all methods, 30 confirmed pair decisions produce 23 connected groups covering 52 records. The directional image methods use the left, right, top and bottom 80% crops plus the left and right 70% crops at Hamming distance 8. The proposal now establishes 14 cross-split groups covering 33 records; the existing test/validation arrangement is not person-independent. The absence of unresolved pairs at these thresholds does not prove that no other same-person leakage exists. The remaining 748 singleton records still lack reviewed provenance/person coverage.
+All similarity remains review-only. Normalized source names are compared in memory at a general minimum sequence-similarity ratio of 0.94 and are never emitted. The lower 0.90–0.94 band has separate cross-split leakage and within-split candidate-review methods; neither is counted as full identity coverage. Private engineering review resolved all 162 lower-band pairs, confirming 17 as same-source or same-person series and rejecting 145 as false positives. Across all methods, 39 confirmed pair decisions produce 30 connected groups covering 67 records. The directional image methods use the left, right, top and bottom 80% crops plus the left and right 70% crops at Hamming distance 8. The proposal still establishes 14 cross-split groups covering 33 records; the existing test/validation arrangement is not person-independent. The absence of unresolved pairs at these thresholds does not prove that no other same-person leakage exists. The remaining 733 singleton records still lack reviewed provenance/person coverage.
 
 ## Controls and verification
 
@@ -54,8 +55,8 @@ All similarity remains review-only. Normalized source names are compared in memo
 - No image bytes, faces, filenames or raw source names are committed.
 - Confirmed decisions are reused; unresolved similarity never merges records.
 - Every record occurs in exactly one proposal group.
-- The source-name, central-crop and directional-crop methods are deterministic, validate their configuration and remain review-only; they never merge records automatically. The lower name-similarity band is constrained to cross-split leakage review and explicitly carries `coverageEvidence=false`.
-- Twenty-one focused tests pass across source grouping, full-record coverage, semantic review and split release.
+- The source-name, central-crop and directional-crop methods are deterministic, validate their configuration and remain review-only; they never merge records automatically. Both lower name-similarity methods explicitly carry `coverageEvidence=false`.
+- Twenty-two focused tests pass across source grouping, full-record coverage, semantic review and split release.
 - The real 800-image replay, Python compilation and privacy/exact-coverage checks pass.
 - No Roboflow label, split, version, threshold, inference or training state changed.
 
