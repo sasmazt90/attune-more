@@ -48,3 +48,4 @@ Evidence:
 - `docs/skin/evidence/acne-split-release-gate-20261024-v1.json`
 - `docs/skin/evidence/acne-semantic-review-queue-20261024-v1.json`
 - `docs/skin/evidence/acne-semantic-negative-review-20261024-v1.json`
+- `docs/skin/evidence/acne-group-coverage-proposal-20261024-v1.json`
