@@ -22,12 +22,18 @@
       "size": "9x8 grayscale",
       "maxHammingDistance": 8,
       "candidateOnly": true
+    },
+    "perceptualPHash": {
+      "size": "32x32 grayscale DCT; 8x8 low-frequency hash",
+      "maxHammingDistance": 10,
+      "candidateOnly": true
     }
   },
   "candidateCounts": {
     "exact_content": 0,
     "normalized_source_name": 2,
-    "perceptual_dhash": 3
+    "perceptual_dhash": 3,
+    "perceptual_phash": 5
   },
   "reviewCandidates": [
     {
@@ -138,14 +144,219 @@
         "rationale": "The private comparison shows the same source photo/person across train and valid, with crop and watermark differences. This is source-identity review, not lesion-label review.",
         "reviewer": "engineering_visual_review"
       }
+    },
+    {
+      "candidateId": "53aecbd6f8b81254fc9646c0",
+      "method": "perceptual_phash",
+      "members": [
+        {
+          "recordId": "2395f0db9bd64b520f7df3d9",
+          "split": "train"
+        },
+        {
+          "recordId": "d10250db681e641651851b8c",
+          "split": "valid"
+        }
+      ],
+      "hammingDistance": 10,
+      "automaticEvidence": "review_only",
+      "review": {
+        "decision": "same_source_or_person",
+        "rationale": "The private comparison independently confirms the already reviewed train/valid crop and watermark variants are the same source photo/person. This is source-identity review, not lesion-label review.",
+        "reviewer": "engineering_visual_review"
+      }
+    },
+    {
+      "candidateId": "554d29389072a946c8f11e79",
+      "method": "perceptual_phash",
+      "members": [
+        {
+          "recordId": "57c9898c61426d8d48c61b55",
+          "split": "train"
+        },
+        {
+          "recordId": "b08df34a22b0d4f2454e80c5",
+          "split": "valid"
+        }
+      ],
+      "hammingDistance": 10,
+      "automaticEvidence": "review_only",
+      "review": {
+        "decision": "same_source_or_person",
+        "rationale": "The private comparison shows the same person, clothing and studio background in distinct train/valid poses. This is person-identity review, not lesion-label review.",
+        "reviewer": "engineering_visual_review"
+      }
+    },
+    {
+      "candidateId": "5fc584f688968d6ed4b1784b",
+      "method": "perceptual_phash",
+      "members": [
+        {
+          "recordId": "50d22e58c5dd4f0aee74375b",
+          "split": "train"
+        },
+        {
+          "recordId": "6f096faf10a2a3394d1ce9f6",
+          "split": "valid"
+        }
+      ],
+      "hammingDistance": 10,
+      "automaticEvidence": "review_only",
+      "review": {
+        "decision": "same_source_or_person",
+        "rationale": "The private comparison shows the same person and studio series in distinct train/valid poses. This is person-identity review, not lesion-label review.",
+        "reviewer": "engineering_visual_review"
+      }
+    },
+    {
+      "candidateId": "c3a8f6e78946ed21ee68ca92",
+      "method": "perceptual_phash",
+      "members": [
+        {
+          "recordId": "22c6a5521efbf9a05635a374",
+          "split": "train"
+        },
+        {
+          "recordId": "821d27fdc5a5f6120bf0547e",
+          "split": "valid"
+        }
+      ],
+      "hammingDistance": 10,
+      "automaticEvidence": "review_only",
+      "review": {
+        "decision": "same_source_or_person",
+        "rationale": "The private comparison shows the same person, clothing and background in distinct train/valid poses. This is person-identity review, not lesion-label review.",
+        "reviewer": "engineering_visual_review"
+      }
+    },
+    {
+      "candidateId": "de125b5543cd3a26535cc41d",
+      "method": "perceptual_phash",
+      "members": [
+        {
+          "recordId": "678c10ac4edc07c05f2a5260",
+          "split": "train"
+        },
+        {
+          "recordId": "7b38eca144c2bdeeb6a5434e",
+          "split": "valid"
+        }
+      ],
+      "hammingDistance": 6,
+      "automaticEvidence": "review_only",
+      "review": {
+        "decision": "same_source_or_person",
+        "rationale": "The private comparison independently confirms the already reviewed train/valid crop and encoding variants are the same source photo/person. This is source-identity review, not lesion-label review.",
+        "reviewer": "engineering_visual_review"
+      }
     }
   ],
   "reviewSummary": {
-    "sameSource": 2,
+    "sameSourceOrPersonCandidateDecisions": 7,
     "differentSource": 1,
     "unresolved": 2,
     "unresolvedUsableCandidates": 0,
-    "confirmedCrossSplitSourceLeakageGroups": 2
+    "confirmedCrossSplitSourceLeakageGroups": 5
+  },
+  "regroupingPlan": {
+    "confirmedGroups": [
+      {
+        "groupId": "7e570b9abd941fc5f49bc464",
+        "members": [
+          {
+            "recordId": "57c9898c61426d8d48c61b55",
+            "split": "train"
+          },
+          {
+            "recordId": "b08df34a22b0d4f2454e80c5",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "perceptual_phash"
+        ],
+        "requiredAction": "assign_all_members_to_one_split",
+        "targetSplit": null
+      },
+      {
+        "groupId": "87d5754e403701b28011d012",
+        "members": [
+          {
+            "recordId": "2395f0db9bd64b520f7df3d9",
+            "split": "train"
+          },
+          {
+            "recordId": "d10250db681e641651851b8c",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "perceptual_dhash",
+          "perceptual_phash"
+        ],
+        "requiredAction": "assign_all_members_to_one_split",
+        "targetSplit": null
+      },
+      {
+        "groupId": "96c446d900204f72bd9452b4",
+        "members": [
+          {
+            "recordId": "678c10ac4edc07c05f2a5260",
+            "split": "train"
+          },
+          {
+            "recordId": "7b38eca144c2bdeeb6a5434e",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "perceptual_dhash",
+          "perceptual_phash"
+        ],
+        "requiredAction": "assign_all_members_to_one_split",
+        "targetSplit": null
+      },
+      {
+        "groupId": "c4b20ceda5d57c2a9a5f07f4",
+        "members": [
+          {
+            "recordId": "50d22e58c5dd4f0aee74375b",
+            "split": "train"
+          },
+          {
+            "recordId": "6f096faf10a2a3394d1ce9f6",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "perceptual_phash"
+        ],
+        "requiredAction": "assign_all_members_to_one_split",
+        "targetSplit": null
+      },
+      {
+        "groupId": "f4e2af0c162aa3dba4d50b9b",
+        "members": [
+          {
+            "recordId": "22c6a5521efbf9a05635a374",
+            "split": "train"
+          },
+          {
+            "recordId": "821d27fdc5a5f6120bf0547e",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "perceptual_phash"
+        ],
+        "requiredAction": "assign_all_members_to_one_split",
+        "targetSplit": null
+      }
+    ],
+    "targetSplitsAssigned": false,
+    "testSplitMustRemainUntouchedDuringValidationExperiments": true,
+    "readyToGenerateReplacementSplit": false,
+    "blocker": "full person/source group coverage and semantic/negative review are incomplete"
   },
   "decision": {
     "personOrSourceGroupCoverageEstablished": false,

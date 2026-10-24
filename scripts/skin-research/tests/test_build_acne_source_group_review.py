@@ -58,11 +58,17 @@ class AcneSourceGroupReviewTest(unittest.TestCase):
         self.assertEqual(result["dataset"]["images"], 5)
         self.assertEqual(result["candidateCounts"]["exact_content"], 1)
         self.assertGreaterEqual(result["candidateCounts"]["normalized_source_name"], 2)
+        self.assertGreaterEqual(result["candidateCounts"]["perceptual_phash"], 1)
         self.assertNotIn("same-photo", json.dumps(result))
         self.assertFalse(result["privacy"]["containsFilenames"])
         self.assertFalse(result["decision"]["splitIndependenceEstablished"])
         self.assertTrue(result["decision"]["splitIndependenceViolated"])
         self.assertFalse(result["decision"]["trainingAuthorized"])
+        self.assertEqual(
+            result["regroupingPlan"]["confirmedGroups"][0]["requiredAction"],
+            "assign_all_members_to_one_split",
+        )
+        self.assertFalse(result["regroupingPlan"]["targetSplitsAssigned"])
 
     def test_applies_review_decision_only_to_a_known_candidate(self):
         with tempfile.TemporaryDirectory() as folder:
@@ -78,7 +84,7 @@ class AcneSourceGroupReviewTest(unittest.TestCase):
                 "schemaVersion": "source-group-review-decisions-v1",
                 "decisions": [{
                     "candidateId": candidate["candidateId"],
-                    "decision": "different_source",
+                    "decision": "same_source_or_person",
                     "reviewer": "engineering_visual_review",
                     "rationale": "different synthetic source images",
                 }],
@@ -88,7 +94,7 @@ class AcneSourceGroupReviewTest(unittest.TestCase):
             row for row in result["reviewCandidates"]
             if row["candidateId"] == candidate["candidateId"]
         )
-        self.assertEqual(reviewed["review"]["decision"], "different_source")
+        self.assertEqual(reviewed["review"]["decision"], "same_source_or_person")
         self.assertFalse(result["decision"]["personOrSourceGroupCoverageEstablished"])
 
     def test_unknown_decision_and_path_filename_fail_closed(self):

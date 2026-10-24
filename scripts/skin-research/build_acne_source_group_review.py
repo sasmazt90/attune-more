@@ -11,12 +11,14 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import re
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
 from PIL import Image, ImageOps, UnidentifiedImageError
+import numpy as np
 
 
 SPLITS = ("train", "valid", "test")
@@ -24,7 +26,26 @@ CLASSES = ("Pimple", "Post acne", "Pigmentation")
 ARCHIVE_SHA256 = re.compile(r"^[0-9a-f]{64}$")
 RF_SUFFIX = re.compile(r"\.rf\.[0-9a-f]{32}\.[^.]+$", re.IGNORECASE)
 SOURCE_FORMAT_SUFFIX = re.compile(r"_(?:jpg|jpeg|png|webp)$", re.IGNORECASE)
-VALID_DECISIONS = {"same_source", "different_source", "unresolved"}
+VALID_DECISIONS = {
+    "same_source",
+    "same_source_or_person",
+    "different_source",
+    "unresolved",
+}
+PHASH_IMAGE_SIZE = 32
+PHASH_LOW_FREQUENCY_SIZE = 8
+
+
+def dct_matrix(size: int) -> np.ndarray:
+    samples = np.arange(size)
+    frequencies = np.arange(size)[:, None]
+    matrix = np.cos(np.pi * (2 * samples + 1) * frequencies / (2 * size))
+    matrix[0] *= 1 / math.sqrt(size)
+    matrix[1:] *= math.sqrt(2 / size)
+    return matrix
+
+
+PHASH_DCT = dct_matrix(PHASH_IMAGE_SIZE)
 
 
 class ReviewError(ValueError):
@@ -63,6 +84,26 @@ def difference_hash(path: Path) -> int:
             value = (value << 1) | int(
                 pixels[row * 9 + column] > pixels[row * 9 + column + 1]
             )
+    return value
+
+
+def perceptual_hash(path: Path) -> int:
+    try:
+        with Image.open(path) as opened:
+            image = ImageOps.exif_transpose(opened).convert("L").resize(
+                (PHASH_IMAGE_SIZE, PHASH_IMAGE_SIZE), Image.Resampling.LANCZOS
+            )
+            pixels = np.asarray(image, dtype=np.float64)
+    except (OSError, UnidentifiedImageError) as exc:
+        raise ReviewError(f"cannot decode an image in {path.parent.name}") from exc
+    transformed = PHASH_DCT @ pixels @ PHASH_DCT.T
+    low = transformed[
+        :PHASH_LOW_FREQUENCY_SIZE, :PHASH_LOW_FREQUENCY_SIZE
+    ].reshape(-1)
+    median = float(np.median(low[1:]))
+    value = 0
+    for coefficient in low:
+        value = (value << 1) | int(coefficient > median)
     return value
 
 
@@ -108,11 +149,14 @@ def build_review(
     archive_sha256: str,
     decisions_path: Path | None = None,
     dhash_distance: int = 8,
+    phash_distance: int = 10,
 ) -> dict[str, Any]:
     if not ARCHIVE_SHA256.fullmatch(archive_sha256):
         raise ReviewError("archive sha256 must be a lowercase 64-character digest")
     if not 0 <= dhash_distance <= 8:
         raise ReviewError("dHash distance must be between zero and eight")
+    if not 0 <= phash_distance <= 16:
+        raise ReviewError("pHash distance must be between zero and sixteen")
     decisions = load_decisions(decisions_path)
     records: list[dict[str, Any]] = []
 
@@ -153,6 +197,7 @@ def build_review(
                     else "weak_or_degenerate"
                 ),
                 "dHash": difference_hash(image_path),
+                "pHash": perceptual_hash(image_path),
             })
 
     def public_member(record: dict[str, Any]) -> dict[str, str]:
@@ -205,6 +250,17 @@ def build_review(
                     "hammingDistance": distance,
                     "automaticEvidence": "review_only",
                 })
+            phash_hamming = (left["pHash"] ^ right["pHash"]).bit_count()
+            if (phash_hamming <= phash_distance
+                    and left["contentSHA256"] != right["contentSHA256"]):
+                member_ids = [left["recordId"], right["recordId"]]
+                candidates.append({
+                    "candidateId": candidate_id("perceptual_phash", member_ids),
+                    "method": "perceptual_phash",
+                    "members": [public_member(member) for member in sorted((left, right), key=lambda row: row["recordId"])],
+                    "hammingDistance": phash_hamming,
+                    "automaticEvidence": "review_only",
+                })
 
     candidates.sort(key=lambda row: (row["method"], row["candidateId"]))
     known_ids = {row["candidateId"] for row in candidates}
@@ -221,18 +277,40 @@ def build_review(
 
     counts = {
         method: sum(row["method"] == method for row in candidates)
-        for method in ("exact_content", "normalized_source_name", "perceptual_dhash")
+        for method in (
+            "exact_content",
+            "normalized_source_name",
+            "perceptual_dhash",
+            "perceptual_phash",
+        )
     }
     unresolved_usable = sum(
         row["review"]["decision"] == "unresolved"
         and row.get("sourceNameQuality") != "weak_or_degenerate"
         for row in candidates
     )
-    confirmed_leakage = sum(
-        row["method"] == "exact_content"
-        or row["review"]["decision"] == "same_source"
-        for row in candidates
+    confirmed_groups_by_members: dict[tuple[str, ...], dict[str, Any]] = {}
+    for row in candidates:
+        if (row["method"] != "exact_content"
+                and row["review"]["decision"] not in {
+                    "same_source", "same_source_or_person"
+                }):
+            continue
+        member_ids = tuple(sorted(member["recordId"] for member in row["members"]))
+        group = confirmed_groups_by_members.setdefault(member_ids, {
+            "groupId": digest_token("confirmed-source-person-group\0" + "\0".join(member_ids)),
+            "members": sorted(row["members"], key=lambda member: member["recordId"]),
+            "methods": [],
+            "requiredAction": "assign_all_members_to_one_split",
+            "targetSplit": None,
+        })
+        group["methods"].append(row["method"])
+    confirmed_groups = sorted(
+        confirmed_groups_by_members.values(), key=lambda group: group["groupId"]
     )
+    for group in confirmed_groups:
+        group["methods"].sort()
+    confirmed_leakage = len(confirmed_groups)
     return {
         "schemaVersion": "acne-source-group-review-v1",
         "dataset": {
@@ -254,15 +332,30 @@ def build_review(
                 "maxHammingDistance": dhash_distance,
                 "candidateOnly": True,
             },
+            "perceptualPHash": {
+                "size": "32x32 grayscale DCT; 8x8 low-frequency hash",
+                "maxHammingDistance": phash_distance,
+                "candidateOnly": True,
+            },
         },
         "candidateCounts": counts,
         "reviewCandidates": candidates,
         "reviewSummary": {
-            "sameSource": sum(row["review"]["decision"] == "same_source" for row in candidates),
+            "sameSourceOrPersonCandidateDecisions": sum(
+                row["review"]["decision"] in {"same_source", "same_source_or_person"}
+                for row in candidates
+            ),
             "differentSource": sum(row["review"]["decision"] == "different_source" for row in candidates),
             "unresolved": sum(row["review"]["decision"] == "unresolved" for row in candidates),
             "unresolvedUsableCandidates": unresolved_usable,
             "confirmedCrossSplitSourceLeakageGroups": confirmed_leakage,
+        },
+        "regroupingPlan": {
+            "confirmedGroups": confirmed_groups,
+            "targetSplitsAssigned": False,
+            "testSplitMustRemainUntouchedDuringValidationExperiments": True,
+            "readyToGenerateReplacementSplit": False,
+            "blocker": "full person/source group coverage and semantic/negative review are incomplete",
         },
         "decision": {
             "personOrSourceGroupCoverageEstablished": False,
@@ -292,6 +385,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--decisions", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--dhash-distance", type=int, default=8)
+    parser.add_argument("--phash-distance", type=int, default=10)
     args = parser.parse_args(argv)
     try:
         result = build_review(
@@ -299,6 +393,7 @@ def main(argv: list[str] | None = None) -> int:
             args.archive_sha256,
             decisions_path=args.decisions,
             dhash_distance=args.dhash_distance,
+            phash_distance=args.phash_distance,
         )
     except ReviewError as exc:
         print(f"source-group review blocked: {exc}")

@@ -18,6 +18,36 @@
       "decision": "same_source",
       "reviewer": "engineering_visual_review",
       "rationale": "The private comparison shows the same source photo/person across train and valid, with crop and watermark differences. This is source-identity review, not lesion-label review."
+    },
+    {
+      "candidateId": "53aecbd6f8b81254fc9646c0",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison independently confirms the already reviewed train/valid crop and watermark variants are the same source photo/person. This is source-identity review, not lesion-label review."
+    },
+    {
+      "candidateId": "554d29389072a946c8f11e79",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person, clothing and studio background in distinct train/valid poses. This is person-identity review, not lesion-label review."
+    },
+    {
+      "candidateId": "5fc584f688968d6ed4b1784b",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person and studio series in distinct train/valid poses. This is person-identity review, not lesion-label review."
+    },
+    {
+      "candidateId": "c3a8f6e78946ed21ee68ca92",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person, clothing and background in distinct train/valid poses. This is person-identity review, not lesion-label review."
+    },
+    {
+      "candidateId": "de125b5543cd3a26535cc41d",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison independently confirms the already reviewed train/valid crop and encoding variants are the same source photo/person. This is source-identity review, not lesion-label review."
     }
   ]
 }
