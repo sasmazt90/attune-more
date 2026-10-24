@@ -126,7 +126,7 @@ async def skin(request: Request):
             def work():
                 scope.check();eyewear=skin_capture_preflight(value);scope.check()
                 result=analyze_product(value,analyze_skin,scope.check)
-                if value.get('experimentalAcneV5') is True:
+                if value.get('experimentalAcneV5', True) is not False:
                     from acne_v5_product import replace_acne
                     result=replace_acne(result,value,scope.check)
                 from local_skin_type import finalize_product_type

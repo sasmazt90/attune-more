@@ -1,0 +1,1465 @@
+{
+  "workspace": "tolgar-sasmaz",
+  "projectCount": 16,
+  "projects": [
+    {
+      "projectId": "acnes-wscug-bi73e",
+      "name": "acnes",
+      "type": "instance-segmentation",
+      "classes": {
+        "nodule": 312,
+        "papule": 830,
+        "pustule": 642,
+        "whitehead": 231,
+        "blackhead": 252
+      },
+      "images": 1330,
+      "versions": [
+        {
+          "version": "1",
+          "id": "tolgar-sasmaz/acnes-wscug-bi73e/1",
+          "name": "2026-10-23 11:57am",
+          "images": 1330,
+          "splits": {
+            "valid": 268,
+            "test": 136,
+            "train": 926
+          },
+          "preprocessing": {},
+          "augmentation": {},
+          "exports": [
+            "coco-segmentation"
+          ],
+          "modelId": null,
+          "modelEndpoint": null,
+          "modelType": null,
+          "modelMap": null,
+          "modelPrecision": null,
+          "modelRecall": null,
+          "trainStatus": null,
+          "trainResults": null,
+          "trainMetrics": null,
+          "sdkModels": [],
+          "sdkTrainings": [],
+          "weightCheck": {
+            "attempted": false,
+            "exportableLocalWeights": false,
+            "reason": "no-trained-model"
+          },
+          "rawModelKeys": [],
+          "rawTrainKeys": []
+        }
+      ]
+    },
+    {
+      "projectId": "attune-comedones-boxes-grouped-r1",
+      "name": "Attune Comedones Boxes Grouped R1",
+      "type": "object-detection",
+      "classes": {
+        "blackheads": 4823,
+        "acne": 3577,
+        "whiteheads": 6172
+      },
+      "images": 2201,
+      "versions": [
+        {
+          "version": "1",
+          "id": "tolgar-sasmaz/attune-comedones-boxes-grouped-r1/1",
+          "name": "2026-10-23 12:18pm",
+          "images": 2201,
+          "splits": {
+            "valid": 345,
+            "test": 309,
+            "train": 1547
+          },
+          "preprocessing": {},
+          "augmentation": {},
+          "exports": [
+            "coco"
+          ],
+          "modelId": "attune-comedones-boxes-grouped-r1/1",
+          "modelEndpoint": "https://serverless.roboflow.com/attune-comedones-boxes-grouped-r1/1",
+          "modelType": "rfdetr-small",
+          "modelMap": "42.52",
+          "modelPrecision": "49.80",
+          "modelRecall": "45.30",
+          "trainStatus": "finished",
+          "trainResults": {
+            "map": 0.42524952241909164,
+            "precision": 0.498,
+            "recall": 0.453,
+            "test_inference": true,
+            "class_map": {
+              "valid": [
+                {
+                  "class": "acne",
+                  "precision": 0.561,
+                  "recall": 0.643,
+                  "map50": 0.5819541223676705,
+                  "map95": 0.23335010502238268
+                },
+                {
+                  "class": "blackheads",
+                  "precision": 0.471,
+                  "recall": 0.439,
+                  "map50": 0.42040923911272765,
+                  "map95": 0.1408525371392654
+                },
+                {
+                  "class": "whiteheads",
+                  "precision": 0.463,
+                  "recall": 0.278,
+                  "map50": 0.27338520577687675,
+                  "map95": 0.08868831504947364
+                },
+                {
+                  "class": "all",
+                  "precision": 0.498,
+                  "recall": 0.453,
+                  "map50": 0.42524952241909164,
+                  "map95": 0.15429698573704057
+                }
+              ],
+              "test": [
+                {
+                  "class": "acne",
+                  "precision": 0.556,
+                  "recall": 0.669,
+                  "map50": 0.6258972684174793,
+                  "map95": 0.2420680640624048
+                },
+                {
+                  "class": "blackheads",
+                  "precision": 0.518,
+                  "recall": 0.404,
+                  "map50": 0.40331018322561146,
+                  "map95": 0.12770167036043348
+                },
+                {
+                  "class": "whiteheads",
+                  "precision": 0.372,
+                  "recall": 0.257,
+                  "map50": 0.20817361382255847,
+                  "map95": 0.06188339893738959
+                },
+                {
+                  "class": "all",
+                  "precision": 0.482,
+                  "recall": 0.443,
+                  "map50": 0.41246035515521645,
+                  "map95": 0.14388437778674262
+                }
+              ]
+            },
+            "hasRealPrecisionRecall": true,
+            "finished_epochs": 26
+          },
+          "trainMetrics": null,
+          "sdkModels": [
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-boxes-grouped-r1-1-rfdetr-small-t1\",\n  \"model_type\": \"rfdetr-small\",\n  \"metrics\": {\n    \"map50\": 42.52,\n    \"precision\": 49.8,\n    \"recall\": 45.3\n  }\n}"
+          ],
+          "sdkTrainings": [
+            {
+              "status": "finished",
+              "model_type": "rfdetr-small"
+            }
+          ],
+          "weightCheck": {
+            "attempted": true,
+            "exportableLocalWeights": true,
+            "weightsFieldsPresent": {
+              "tfjs": false
+            },
+            "trainStatus": "finished",
+            "modelType": "rfdetr-small",
+            "endpoint": "https://serverless.roboflow.com/attune-comedones-boxes-grouped-r1/1"
+          },
+          "rawModelKeys": [
+            "id",
+            "endpoint",
+            "start",
+            "end",
+            "fromScratch",
+            "tfjs",
+            "oak",
+            "map",
+            "recall",
+            "precision"
+          ],
+          "rawTrainKeys": [
+            "status",
+            "model",
+            "modelType",
+            "checkpoint",
+            "start",
+            "end",
+            "results"
+          ]
+        }
+      ]
+    },
+    {
+      "projectId": "attune-comedones-clean-train-r2",
+      "name": "Attune Comedones Clean Train R2",
+      "type": "object-detection",
+      "classes": {
+        "blackheads": 3551,
+        "acne": 2507,
+        "whiteheads": 4558
+      },
+      "images": 1571,
+      "versions": [
+        {
+          "version": "1",
+          "id": "tolgar-sasmaz/attune-comedones-clean-train-r2/1",
+          "name": "2026-10-23 1:13pm",
+          "images": 1571,
+          "splits": {
+            "valid": 345,
+            "test": 309,
+            "train": 917
+          },
+          "preprocessing": {},
+          "augmentation": {},
+          "exports": [
+            "coco"
+          ],
+          "modelId": null,
+          "modelEndpoint": null,
+          "modelType": null,
+          "modelMap": null,
+          "modelPrecision": null,
+          "modelRecall": null,
+          "trainStatus": null,
+          "trainResults": null,
+          "trainMetrics": null,
+          "sdkModels": [
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--9602f1\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 12.06,\n    \"map5095\": 3.75,\n    \"f1\": 17.7,\n    \"recall\": 25.1,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 1.0690560340881348,\n      \"AI1\": 2.7479519844055176\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"T4:f1\",\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--a768c1\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 18.65,\n    \"map5095\": 5.94,\n    \"f1\": 26.2,\n    \"recall\": 34.7,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 1.0879679918289185,\n      \"AI1\": 2.4109280109405518\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"T4:f1\",\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--a5e262\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 22.7,\n    \"map5095\": 7.92,\n    \"f1\": 31.1,\n    \"recall\": 42.7,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"T4\": 1.1569279432296753,\n      \"AI1\": 3.065984010696411\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"T4:f1\",\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--5f9ce2\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 32.01,\n    \"map5095\": 11.27,\n    \"f1\": 38.1,\n    \"recall\": 53.9,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 1.8978240489959717,\n      \"AI1\": 6.337407827377319\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--ded473\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 33.61,\n    \"map5095\": 11.9,\n    \"f1\": 39.8,\n    \"recall\": 61.3,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 1.9660799503326416,\n      \"AI1\": 6.642159938812256\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--afdb7c\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 35.65,\n    \"map5095\": 12.52,\n    \"f1\": 40.8,\n    \"recall\": 65.2,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 2.5026559829711914,\n      \"AI1\": 8.668688297271729\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--08bf50\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 38.89,\n    \"map5095\": 13.72,\n    \"f1\": 43.8,\n    \"recall\": 71.3,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 3.576927900314331,\n      \"AI1\": 14.600608348846436\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--1bcb67\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 39.87,\n    \"map5095\": 14.3,\n    \"f1\": 44.8,\n    \"recall\": 73.8,\n    \"f1ConfThresh\": 0.32,\n    \"latency\": {\n      \"T4\": 4.376575946807861,\n      \"AI1\": 17.42467212677002\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--6d2bfd\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 40.53,\n    \"map5095\": 14.6,\n    \"f1\": 45.7,\n    \"recall\": 71.6,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 4.601471900939941,\n      \"AI1\": 18.048144340515137\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--2fde64\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 40.84,\n    \"map5095\": 14.81,\n    \"f1\": 46.1,\n    \"recall\": 73.4,\n    \"f1ConfThresh\": 0.32,\n    \"latency\": {\n      \"T4\": 5.142528057098389,\n      \"AI1\": 19.952128410339355\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--31b0d3\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 41.12,\n    \"map5095\": 14.88,\n    \"f1\": 46.3,\n    \"recall\": 72.8,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 5.4055681228637695,\n      \"AI1\": 20.890416145324707\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--fbfbe4\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 42.57,\n    \"map5095\": 15.14,\n    \"f1\": 47.2,\n    \"recall\": 77,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 8.235536098480225,\n      \"AI1\": 30.854559898376465\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--57fa77\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 42.78,\n    \"map5095\": 15.53,\n    \"f1\": 47.7,\n    \"recall\": 75.8,\n    \"f1ConfThresh\": 0.32,\n    \"latency\": {\n      \"T4\": 11.810815811157227,\n      \"AI1\": 42.23023986816406\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--07b475\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 42.92,\n    \"map5095\": 15.53,\n    \"f1\": 47.6,\n    \"recall\": 76,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 11.911199569702148,\n      \"AI1\": 42.717233657836914\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--09eac0\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 44.53,\n    \"map5095\": 15.62,\n    \"f1\": 48,\n    \"recall\": 78.5,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 14.806416034698486,\n      \"AI1\": 55.33559989929199\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"AI1:map_50_95\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--754885\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 44.26,\n    \"map5095\": 15.77,\n    \"f1\": 48.6,\n    \"recall\": 78.8,\n    \"f1ConfThresh\": 0.32,\n    \"latency\": {\n      \"T4\": 18.433232307434082,\n      \"AI1\": 67.5183219909668\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--8916b6\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 26.88,\n    \"map5095\": 9.21,\n    \"f1\": 34.6,\n    \"recall\": 52.5,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 1.6977920532226562,\n      \"AI1\": 4.834543943405151\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--76127f\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 33.74,\n    \"map5095\": 11.88,\n    \"f1\": 39.9,\n    \"recall\": 62.5,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 1.9762879610061646,\n      \"AI1\": 6.692271947860718\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"T4:f1\",\n      \"T4:recall\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--a14667\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 34.81,\n    \"map5095\": 11.87,\n    \"f1\": 40.4,\n    \"recall\": 63,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 2.1035521030426025,\n      \"AI1\": 7.6943359375\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--2ec9f8\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 36.38,\n    \"map5095\": 12.33,\n    \"f1\": 41.7,\n    \"recall\": 61.2,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 2.562175989151001,\n      \"AI1\": 8.777600288391113\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--0f8650\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 36.99,\n    \"map5095\": 12.67,\n    \"f1\": 42.3,\n    \"recall\": 63.9,\n    \"f1ConfThresh\": 0.32,\n    \"latency\": {\n      \"T4\": 2.9327359199523926,\n      \"AI1\": 9.93232011795044\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--2e4c6e\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 39.03,\n    \"map5095\": 13.59,\n    \"f1\": 43.7,\n    \"recall\": 71.7,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 3.631760001182556,\n      \"AI1\": 14.931663990020752\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--56a437\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 39.33,\n    \"map5095\": 13.83,\n    \"f1\": 44.5,\n    \"recall\": 69.4,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 3.7515199184417725,\n      \"AI1\": 14.926784038543701\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--0ff64c\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 39.5,\n    \"map5095\": 13.92,\n    \"f1\": 44.6,\n    \"recall\": 70.9,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 3.8356480598449707,\n      \"AI1\": 15.521056175231934\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--c2ba63\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 40.76,\n    \"map5095\": 14.47,\n    \"f1\": 45,\n    \"recall\": 73.1,\n    \"f1ConfThresh\": 0.33,\n    \"latency\": {\n      \"T4\": 4.900576114654541,\n      \"AI1\": 19.53831958770752\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--f0be75\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 41.34,\n    \"map5095\": 14.66,\n    \"f1\": 45.7,\n    \"recall\": 73.3,\n    \"f1ConfThresh\": 0.32,\n    \"latency\": {\n      \"T4\": 5.657855987548828,\n      \"AI1\": 21.838720321655273\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--5c2679\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 41.39,\n    \"map5095\": 14.75,\n    \"f1\": 46.5,\n    \"recall\": 73.6,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 6.371327877044678,\n      \"AI1\": 24.781999588012695\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--c3ebc8\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 42.34,\n    \"map5095\": 14.98,\n    \"f1\": 47,\n    \"recall\": 74.9,\n    \"f1ConfThresh\": 0.32,\n    \"latency\": {\n      \"T4\": 7.583744049072266,\n      \"AI1\": 26.60414409637451\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--7f6e69\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 43.5,\n    \"map5095\": 15.37,\n    \"f1\": 47.2,\n    \"recall\": 78.4,\n    \"f1ConfThresh\": 0.33,\n    \"latency\": {\n      \"T4\": 10.919936180114746,\n      \"AI1\": 41.885663986206055\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--d757ed\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 43.69,\n    \"map5095\": 15.31,\n    \"f1\": 47.8,\n    \"recall\": 78,\n    \"f1ConfThresh\": 0.34,\n    \"latency\": {\n      \"T4\": 11.345439910888672,\n      \"AI1\": 43.25372886657715\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--7678d4\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 33.39,\n    \"map5095\": 11.77,\n    \"f1\": 40.9,\n    \"recall\": 55.4,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 2.141184091567993,\n      \"AI1\": 7.131919860839844\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--0615c1\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 34.97,\n    \"map5095\": 12.37,\n    \"f1\": 42.4,\n    \"recall\": 59.7,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 2.9818880558013916,\n      \"AI1\": 11.964128017425537\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--96ab8f\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 37.8,\n    \"map5095\": 13.19,\n    \"f1\": 43.6,\n    \"recall\": 70.2,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 3.289088010787964,\n      \"AI1\": 12.809823989868164\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--ffc568\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 39.6,\n    \"map5095\": 14.15,\n    \"f1\": 46,\n    \"recall\": 66.2,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"T4\": 4.442111968994141,\n      \"AI1\": 17.043519973754883\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--a1834b\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 40.41,\n    \"map5095\": 14.48,\n    \"f1\": 46.5,\n    \"recall\": 67.4,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 5.202911853790283,\n      \"AI1\": 19.87387180328369\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--c2e314\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 40.51,\n    \"map5095\": 14.37,\n    \"f1\": 46.7,\n    \"recall\": 73.1,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 5.904799938201904,\n      \"AI1\": 23.35752010345459\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--b98b09\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 39.74,\n    \"map5095\": 13.85,\n    \"f1\": 47.2,\n    \"recall\": 64.3,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"T4\": 7.227007865905762,\n      \"AI1\": 24.94918441772461\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--9cd827\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 41.89,\n    \"map5095\": 14.87,\n    \"f1\": 47.3,\n    \"recall\": 74.8,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 8.254464149475098,\n      \"AI1\": 29.21883201599121\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--3260d4\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 42.8,\n    \"map5095\": 15.28,\n    \"f1\": 48,\n    \"recall\": 76.2,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 11.8187837600708,\n      \"AI1\": 41.702959060668945\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--8527e6\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 44.23,\n    \"map5095\": 15.58,\n    \"f1\": 48.7,\n    \"recall\": 78.3,\n    \"f1ConfThresh\": 0.32,\n    \"latency\": {\n      \"T4\": 18.67905616760254,\n      \"AI1\": 67.98211288452148\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--befd4c\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 18.82,\n    \"map5095\": 5.94,\n    \"f1\": 25.8,\n    \"recall\": 36.2,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 1.0915839672088623,\n      \"AI1\": 2.370672106742859\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:map_50\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--1f6b37\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 29.77,\n    \"map5095\": 10.05,\n    \"f1\": 37,\n    \"recall\": 55.8,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 1.7571840286254883,\n      \"AI1\": 5.094752073287964\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--7bb719\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 34.53,\n    \"map5095\": 11.74,\n    \"f1\": 40.7,\n    \"recall\": 64.5,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 2.1872000694274902,\n      \"AI1\": 8.069983959197998\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--da8569\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 34.37,\n    \"map5095\": 11.73,\n    \"f1\": 40.4,\n    \"recall\": 67,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"T4\": 2.5190720558166504,\n      \"AI1\": 9.092175960540771\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--85b842\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 35.58,\n    \"map5095\": 12.59,\n    \"f1\": 41.6,\n    \"recall\": 69.7,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 2.9422719478607178,\n      \"AI1\": 11.781760215759277\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--3899f8\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 37.42,\n    \"map5095\": 13.12,\n    \"f1\": 42.6,\n    \"recall\": 71.1,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 3.21126389503479,\n      \"AI1\": 13.564559936523438\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--39b7d8\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 37.78,\n    \"map5095\": 13.26,\n    \"f1\": 43.9,\n    \"recall\": 72.6,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 3.6823039054870605,\n      \"AI1\": 15.335951805114746\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--de9071\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 39.03,\n    \"map5095\": 13.86,\n    \"f1\": 44.6,\n    \"recall\": 73.4,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 4.010079860687256,\n      \"AI1\": 16.27575969696045\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--a397e0\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 40.06,\n    \"map5095\": 14.27,\n    \"f1\": 45.2,\n    \"recall\": 74.4,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 4.760928153991699,\n      \"AI1\": 18.803823471069336\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--c9acb5\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 39.93,\n    \"map5095\": 13.86,\n    \"f1\": 44.7,\n    \"recall\": 75.4,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 5.728831768035889,\n      \"AI1\": 20.052288055419922\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--3b0014\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 40.19,\n    \"map5095\": 14.36,\n    \"f1\": 45.5,\n    \"recall\": 75.8,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 6.557200193405151,\n      \"AI1\": 24.156496047973633\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--edd578\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 41.17,\n    \"map5095\": 14.22,\n    \"f1\": 46.3,\n    \"recall\": 77.1,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 7.578752040863037,\n      \"AI1\": 28.461711883544922\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--2df290\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 39.58,\n    \"map5095\": 13.93,\n    \"f1\": 44.1,\n    \"recall\": 78.7,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 9.08454418182373,\n      \"AI1\": 35.32816123962402\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--c53c61\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 41.34,\n    \"map5095\": 14.54,\n    \"f1\": 46.1,\n    \"recall\": 79.1,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 10.004704475402832,\n      \"AI1\": 39.01696014404297\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--f52b6d\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 39.97,\n    \"map5095\": 14.21,\n    \"f1\": 45.3,\n    \"recall\": 79.5,\n    \"f1ConfThresh\": 0.33,\n    \"latency\": {\n      \"T4\": 11.619919776916504,\n      \"AI1\": 44.609201431274414\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--a71fe5\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 39.71,\n    \"map5095\": 13.8,\n    \"f1\": 44.7,\n    \"recall\": 79.8,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 13.36143970489502,\n      \"AI1\": 49.81265640258789\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--886414\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 41.84,\n    \"map5095\": 14.29,\n    \"f1\": 45.9,\n    \"recall\": 80.6,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 17.604032516479492,\n      \"AI1\": 68.22572708129883\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--4f45e1\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 18.8,\n    \"map5095\": 5.93,\n    \"f1\": 25.8,\n    \"recall\": 35.4,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 1.0936319828033447,\n      \"AI1\": 2.368880033493042\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:map_50\",\n      \"AI1:f1\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--e6b4f3\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 22.62,\n    \"map5095\": 7.91,\n    \"f1\": 31.1,\n    \"recall\": 40.4,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"T4\": 1.173248052597046,\n      \"AI1\": 3.0154240131378174\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:map_50\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--423e40\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 31.1,\n    \"map5095\": 10.75,\n    \"f1\": 37.9,\n    \"recall\": 53.5,\n    \"f1ConfThresh\": 0.33,\n    \"latency\": {\n      \"T4\": 1.941375970840454,\n      \"AI1\": 5.414368152618408\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--b8e914\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 32.39,\n    \"map5095\": 11.34,\n    \"f1\": 38.5,\n    \"recall\": 59.7,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 2.0909759998321533,\n      \"AI1\": 5.970896005630493\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--703c39\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 32.42,\n    \"map5095\": 11.35,\n    \"f1\": 38.5,\n    \"recall\": 60.5,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 2.085983991622925,\n      \"AI1\": 5.9825439453125\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--10be07\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 33.63,\n    \"map5095\": 11.91,\n    \"f1\": 39.8,\n    \"recall\": 62,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 1.9821120500564575,\n      \"AI1\": 6.636031866073608\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--2d1afe\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 35.11,\n    \"map5095\": 12.45,\n    \"f1\": 41.2,\n    \"recall\": 61.6,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"T4\": 2.6402881145477295,\n      \"AI1\": 8.35268783569336\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--5adda8\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 35.75,\n    \"map5095\": 12.62,\n    \"f1\": 41.5,\n    \"recall\": 63.9,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"T4\": 2.6052639484405518,\n      \"AI1\": 9.020095825195312\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--4b9d4f\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 37.51,\n    \"map5095\": 13.33,\n    \"f1\": 43.7,\n    \"recall\": 63.5,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 3.7014400959014893,\n      \"AI1\": 11.81604814529419\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--6ce040\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 38.29,\n    \"map5095\": 13.6,\n    \"f1\": 43.9,\n    \"recall\": 66.3,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 4.009984016418457,\n      \"AI1\": 12.751456260681152\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--be40d1\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 41.63,\n    \"map5095\": 14.97,\n    \"f1\": 46.2,\n    \"recall\": 74.7,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 7.675903797149658,\n      \"AI1\": 25.92689609527588\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--504bca\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 26.97,\n    \"map5095\": 9.01,\n    \"f1\": 34.4,\n    \"recall\": 47.1,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"T4\": 1.8674240112304688,\n      \"AI1\": 4.779936075210571\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--069032\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 31.55,\n    \"map5095\": 10.87,\n    \"f1\": 37.9,\n    \"recall\": 60.4,\n    \"f1ConfThresh\": 0.33,\n    \"latency\": {\n      \"T4\": 1.938048005104065,\n      \"AI1\": 5.537951946258545\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--54cb7d\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 36.97,\n    \"map5095\": 12.62,\n    \"f1\": 42.2,\n    \"recall\": 63.8,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 2.815999984741211,\n      \"AI1\": 9.649184226989746\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--e0b4ea\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 38.11,\n    \"map5095\": 13.51,\n    \"f1\": 43.5,\n    \"recall\": 66.5,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 3.911679983139038,\n      \"AI1\": 12.448208332061768\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--71e986\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 40.34,\n    \"map5095\": 14.42,\n    \"f1\": 45.7,\n    \"recall\": 70.3,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 4.5199360847473145,\n      \"AI1\": 17.38972759246826\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--20a7e4\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 40.56,\n    \"map5095\": 14.45,\n    \"f1\": 45.7,\n    \"recall\": 70.6,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 4.771967887878418,\n      \"AI1\": 18.023520469665527\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--6c3b27\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 41.2,\n    \"map5095\": 14.57,\n    \"f1\": 46,\n    \"recall\": 72,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 5.567584037780762,\n      \"AI1\": 21.103328704833984\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--9f1350\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 41.8,\n    \"map5095\": 14.81,\n    \"f1\": 46.7,\n    \"recall\": 75.5,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 7.143424034118652,\n      \"AI1\": 25.12070369720459\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--dc4c3a\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 42.74,\n    \"map5095\": 14.89,\n    \"f1\": 46.9,\n    \"recall\": 76.9,\n    \"f1ConfThresh\": 0.32,\n    \"latency\": {\n      \"T4\": 9.615360260009766,\n      \"AI1\": 36.7587833404541\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--ae28a1\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 18.66,\n    \"map5095\": 5.95,\n    \"f1\": 26.2,\n    \"recall\": 35.1,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 1.0889919996261597,\n      \"AI1\": 2.3988959789276123\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--a83795\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 29.41,\n    \"map5095\": 9.97,\n    \"f1\": 37,\n    \"recall\": 50.3,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 1.754207968711853,\n      \"AI1\": 4.993200063705444\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--c6f1ca\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 31.98,\n    \"map5095\": 10.81,\n    \"f1\": 39.3,\n    \"recall\": 52.2,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 2.3490560054779053,\n      \"AI1\": 6.2051520347595215\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--fb2106\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 36.32,\n    \"map5095\": 12.59,\n    \"f1\": 42,\n    \"recall\": 63.8,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"T4\": 2.705728054046631,\n      \"AI1\": 9.404655933380127\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--a6d5e5\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 38.38,\n    \"map5095\": 13.4,\n    \"f1\": 44.7,\n    \"recall\": 65.2,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 3.9863359928131104,\n      \"AI1\": 14.470671653747559\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--63c5df\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 22.7,\n    \"map5095\": 7.92,\n    \"f1\": 31.1,\n    \"recall\": 42.8,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"T4\": 1.1720960140228271,\n      \"AI1\": 3.066655993461609\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--2bcde2\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 29.9,\n    \"map5095\": 10.4,\n    \"f1\": 37.1,\n    \"recall\": 56.4,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 1.9251840114593506,\n      \"AI1\": 5.469615936279297\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--2f868e\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 36.26,\n    \"map5095\": 12.76,\n    \"f1\": 41.9,\n    \"recall\": 71.9,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 3.4855360984802246,\n      \"AI1\": 14.470560073852539\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--1144a3\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 39.58,\n    \"map5095\": 14.02,\n    \"f1\": 44.2,\n    \"recall\": 75.6,\n    \"f1ConfThresh\": 0.33,\n    \"latency\": {\n      \"T4\": 6.009727954864502,\n      \"AI1\": 20.687567710876465\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--4290bf\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 33.9,\n    \"map5095\": 12.06,\n    \"f1\": 39.7,\n    \"recall\": 61.9,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 2.3215041160583496,\n      \"AI1\": 7.572880029678345\n    }\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--482e07\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 37.75,\n    \"map5095\": 13.25,\n    \"f1\": 43.6,\n    \"recall\": 70,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 3.4751999378204346,\n      \"AI1\": 13.39782428741455\n    }\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--9ae04f\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 38.91,\n    \"map5095\": 14.11,\n    \"f1\": 44.2,\n    \"recall\": 71.7,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 4.36195182800293,\n      \"AI1\": 17.300352096557617\n    }\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--46e50c\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 40.66,\n    \"map5095\": 14.52,\n    \"f1\": 46.1,\n    \"recall\": 74.7,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 6.782895803451538,\n      \"AI1\": 25.08833599090576\n    }\n  }\n}"
+          ],
+          "sdkTrainings": [
+            {
+              "status": "finished",
+              "model_type": "rfdetr-nas-parent"
+            }
+          ],
+          "weightCheck": {
+            "attempted": true,
+            "exportableLocalWeights": false,
+            "weightsFieldsPresent": {},
+            "trainStatus": null,
+            "modelType": null,
+            "endpoint": null
+          },
+          "rawModelKeys": [],
+          "rawTrainKeys": []
+        }
+      ]
+    },
+    {
+      "projectId": "attune-pores-masks-grouped-r1",
+      "name": "Attune Pores Masks Grouped R1",
+      "type": "instance-segmentation",
+      "classes": {
+        "pore": 56888
+      },
+      "images": 1416,
+      "versions": [
+        {
+          "version": "2",
+          "id": "tolgar-sasmaz/attune-pores-masks-grouped-r1/2",
+          "name": "2026-10-23 12:33pm",
+          "images": 1416,
+          "splits": {
+            "valid": 192,
+            "test": 206,
+            "train": 1018
+          },
+          "preprocessing": {},
+          "augmentation": {},
+          "exports": [
+            "coco",
+            "coco-segmentation",
+            "yolov5pytorch"
+          ],
+          "modelId": "attune-pores-masks-grouped-r1/2",
+          "modelEndpoint": "https://serverless.roboflow.com/attune-pores-masks-grouped-r1/2",
+          "modelType": "yolov11s-seg",
+          "modelMap": "27.12",
+          "modelPrecision": null,
+          "modelRecall": null,
+          "trainStatus": "finished",
+          "trainResults": {
+            "map": 0.27124431643015245,
+            "mAP_50_95": 0.08129826537187208,
+            "precision": 0.348,
+            "recall": 0.371,
+            "f1": 0.359,
+            "f1_conf_thresh": 0.12,
+            "test_inference": true,
+            "class_map": {
+              "valid": [
+                {
+                  "class": "all",
+                  "images": 192,
+                  "targets": 7879,
+                  "precision": 0.348,
+                  "recall": 0.371,
+                  "map50": 0.27124431643015245,
+                  "map95": 0.08129826537187208
+                },
+                {
+                  "class": "pore",
+                  "images": 192,
+                  "targets": 7879,
+                  "precision": 0.348,
+                  "recall": 0.371,
+                  "map50": 0.27124431643015245,
+                  "map95": 0.08129826537187208
+                }
+              ],
+              "test": [
+                {
+                  "class": "all",
+                  "images": 206,
+                  "targets": 7450,
+                  "precision": 0.337,
+                  "recall": 0.321,
+                  "map50": 0.25635582109428606,
+                  "map95": 0.08621901995514575
+                },
+                {
+                  "class": "pore",
+                  "images": 206,
+                  "targets": 7450,
+                  "precision": 0.337,
+                  "recall": 0.321,
+                  "map50": 0.25635582109428606,
+                  "map95": 0.08621901995514575
+                }
+              ]
+            },
+            "finished_epochs": 157
+          },
+          "trainMetrics": null,
+          "sdkModels": [
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-pores-masks-grouped-r1-2-yolo11s-seg-t1\",\n  \"model_type\": \"yolo11s-seg\",\n  \"metrics\": {\n    \"map50\": 27.12,\n    \"map5095\": 8.13,\n    \"precision\": 34.8,\n    \"recall\": 37.1,\n    \"f1\": 35.9\n  }\n}"
+          ],
+          "sdkTrainings": [
+            {
+              "status": "finished",
+              "model_type": "yolov11s-seg"
+            }
+          ],
+          "weightCheck": {
+            "attempted": true,
+            "exportableLocalWeights": true,
+            "weightsFieldsPresent": {
+              "tfjs": false
+            },
+            "trainStatus": "finished",
+            "modelType": "yolov11s-seg",
+            "endpoint": "https://serverless.roboflow.com/attune-pores-masks-grouped-r1/2"
+          },
+          "rawModelKeys": [
+            "id",
+            "endpoint",
+            "start",
+            "end",
+            "fromScratch",
+            "tfjs",
+            "oak",
+            "map"
+          ],
+          "rawTrainKeys": [
+            "status",
+            "model",
+            "modelType",
+            "checkpoint",
+            "start",
+            "end",
+            "results"
+          ]
+        },
+        {
+          "version": "1",
+          "id": "tolgar-sasmaz/attune-pores-masks-grouped-r1/1",
+          "name": "2026-10-23 12:26pm",
+          "images": 1416,
+          "splits": {
+            "valid": 192,
+            "test": 206,
+            "train": 1018
+          },
+          "preprocessing": {},
+          "augmentation": {},
+          "exports": [
+            "coco-segmentation"
+          ],
+          "modelId": null,
+          "modelEndpoint": null,
+          "modelType": null,
+          "modelMap": null,
+          "modelPrecision": null,
+          "modelRecall": null,
+          "trainStatus": null,
+          "trainResults": null,
+          "trainMetrics": null,
+          "sdkModels": [],
+          "sdkTrainings": [],
+          "weightCheck": {
+            "attempted": false,
+            "exportableLocalWeights": false,
+            "reason": "no-trained-model"
+          },
+          "rawModelKeys": [],
+          "rawTrainKeys": []
+        }
+      ]
+    },
+    {
+      "projectId": "attune-skin-acne-marks-pigmentation",
+      "name": "Attune Skin - Acne Marks Pigmentation",
+      "type": "object-detection",
+      "classes": {
+        "Pimple": 3640,
+        "Post acne": 32123,
+        "Pigmentation": 1579
+      },
+      "images": 800,
+      "versions": [
+        {
+          "version": "1",
+          "id": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation/1",
+          "name": "2026-10-23 1:43am",
+          "images": 800,
+          "splits": {
+            "valid": 165,
+            "test": 82,
+            "train": 553
+          },
+          "preprocessing": {},
+          "augmentation": {},
+          "exports": [
+            "coco"
+          ],
+          "modelId": null,
+          "modelEndpoint": null,
+          "modelType": null,
+          "modelMap": null,
+          "modelPrecision": null,
+          "modelRecall": null,
+          "trainStatus": null,
+          "trainResults": null,
+          "trainMetrics": null,
+          "sdkModels": [
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9602f1\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 0.22,\n    \"map5095\": 0.11,\n    \"f1\": 0.4,\n    \"recall\": 0.3,\n    \"f1ConfThresh\": 0.12,\n    \"latency\": {\n      \"T4\": 1.0690560340881348,\n      \"AI1\": 2.7479519844055176\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"T4:f1\",\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e65db0\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 0.67,\n    \"map5095\": 0.31,\n    \"f1\": 2.8,\n    \"recall\": 2.9,\n    \"f1ConfThresh\": 0.11,\n    \"latency\": {\n      \"T4\": 1.1568959951400757,\n      \"AI1\": 2.933184027671814\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--5f9ce2\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 3.87,\n    \"map5095\": 0.88,\n    \"f1\": 11.3,\n    \"recall\": 11.2,\n    \"f1ConfThresh\": 0.16,\n    \"latency\": {\n      \"T4\": 1.8978240489959717,\n      \"AI1\": 6.337407827377319\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b8c736\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 6.23,\n    \"map5095\": 1.59,\n    \"f1\": 15.4,\n    \"recall\": 24.3,\n    \"f1ConfThresh\": 0.21,\n    \"latency\": {\n      \"T4\": 2.386176109313965,\n      \"AI1\": 8.715712070465088\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--27d7af\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 8.23,\n    \"map5095\": 2.05,\n    \"f1\": 17.6,\n    \"recall\": 30,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 2.875391960144043,\n      \"AI1\": 11.465456008911133\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--c6c89a\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 9.95,\n    \"map5095\": 2.44,\n    \"f1\": 19.2,\n    \"recall\": 36.2,\n    \"f1ConfThresh\": 0.21,\n    \"latency\": {\n      \"T4\": 3.6433920860290527,\n      \"AI1\": 15.002655982971191\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--2b943f\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 10.93,\n    \"map5095\": 2.87,\n    \"f1\": 20.5,\n    \"recall\": 38.3,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 4.111040115356445,\n      \"AI1\": 16.860095977783203\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:recall\",\n      \"AI1:map_50_95\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b3be78\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 11.15,\n    \"map5095\": 2.89,\n    \"f1\": 20.6,\n    \"recall\": 38,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 4.177919864654541,\n      \"AI1\": 17.360591888427734\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a89c5\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 12.06,\n    \"map5095\": 3.19,\n    \"f1\": 21.4,\n    \"recall\": 39.2,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 5.097472190856934,\n      \"AI1\": 20.442383766174316\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--8413a5\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 12.62,\n    \"map5095\": 3.29,\n    \"f1\": 22.3,\n    \"recall\": 41.6,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 6.116127967834473,\n      \"AI1\": 23.26806354522705\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a2db27\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 13.59,\n    \"map5095\": 3.51,\n    \"f1\": 22.8,\n    \"recall\": 43.1,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"T4\": 7.366176128387451,\n      \"AI1\": 28.11347198486328\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--01a8fb\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 14.67,\n    \"map5095\": 3.8,\n    \"f1\": 22.8,\n    \"recall\": 45,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 8.580031871795654,\n      \"AI1\": 32.35072135925293\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--26492d\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 16.01,\n    \"map5095\": 4.11,\n    \"f1\": 24.3,\n    \"recall\": 45.9,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 9.765279769897461,\n      \"AI1\": 37.26380729675293\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"AI1:map_50_95\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e416fe\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 16,\n    \"map5095\": 4.18,\n    \"f1\": 24.6,\n    \"recall\": 47,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 11.779952049255371,\n      \"AI1\": 43.2606086730957\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--f7adf2\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 16.65,\n    \"map5095\": 4.35,\n    \"f1\": 25.2,\n    \"recall\": 48,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"T4\": 12.226223945617676,\n      \"AI1\": 44.386592864990234\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--7d1d2f\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 16.86,\n    \"map5095\": 4.46,\n    \"f1\": 25.1,\n    \"recall\": 48.1,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"T4\": 13.395744323730469,\n      \"AI1\": 49.610897064208984\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e98277\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 17.35,\n    \"map5095\": 4.47,\n    \"f1\": 25.6,\n    \"recall\": 48.7,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 15.749119758605957,\n      \"AI1\": 58.86863899230957\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--754885\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 17,\n    \"map5095\": 4.51,\n    \"f1\": 25.1,\n    \"recall\": 48.3,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"T4\": 18.433232307434082,\n      \"AI1\": 67.5183219909668\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 0.84,\n    \"map5095\": 0.29,\n    \"f1\": 4.5,\n    \"recall\": 4.9,\n    \"f1ConfThresh\": 0.12,\n    \"latency\": {\n      \"T4\": 1.1569279432296753,\n      \"AI1\": 3.065984010696411\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"T4:f1\",\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--877d54\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 4.25,\n    \"map5095\": 0.98,\n    \"f1\": 11.7,\n    \"recall\": 18.3,\n    \"f1ConfThresh\": 0.18,\n    \"latency\": {\n      \"T4\": 1.9154880046844482,\n      \"AI1\": 6.4105119705200195\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a14667\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 5.27,\n    \"map5095\": 1.27,\n    \"f1\": 14,\n    \"recall\": 20.7,\n    \"f1ConfThresh\": 0.19,\n    \"latency\": {\n      \"T4\": 2.1035521030426025,\n      \"AI1\": 7.6943359375\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--175389\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 8.53,\n    \"map5095\": 2.04,\n    \"f1\": 17.9,\n    \"recall\": 30.8,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 2.9213759899139404,\n      \"AI1\": 11.64844799041748\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--ee03c0\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 10.05,\n    \"map5095\": 2.42,\n    \"f1\": 19.2,\n    \"recall\": 36.5,\n    \"f1ConfThresh\": 0.2,\n    \"latency\": {\n      \"T4\": 3.5532801151275635,\n      \"AI1\": 14.718495845794678\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"T4:recall\",\n      \"AI1:map_50\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--39cac2\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 11.12,\n    \"map5095\": 2.88,\n    \"f1\": 20.6,\n    \"recall\": 37.9,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 4.157055854797363,\n      \"AI1\": 17.13041591644287\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--21ddd6\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 12.05,\n    \"map5095\": 3.01,\n    \"f1\": 21.7,\n    \"recall\": 39.1,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"T4\": 4.681056022644043,\n      \"AI1\": 18.72444725036621\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--653c93\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 12.97,\n    \"map5095\": 3.25,\n    \"f1\": 22.5,\n    \"recall\": 41.4,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 6.285984039306641,\n      \"AI1\": 22.445631980895996\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--53fb1f\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 14.68,\n    \"map5095\": 3.77,\n    \"f1\": 23.4,\n    \"recall\": 45.5,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 8.69753646850586,\n      \"AI1\": 32.83126258850098\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0beb9f\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 15.87,\n    \"map5095\": 4,\n    \"f1\": 24.7,\n    \"recall\": 46.2,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 9.580063819885254,\n      \"AI1\": 36.761024475097656\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b79645\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 16.55,\n    \"map5095\": 4.26,\n    \"f1\": 25.2,\n    \"recall\": 47.4,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 12.056575775146484,\n      \"AI1\": 43.83184051513672\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e65132\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 17.04,\n    \"map5095\": 4.36,\n    \"f1\": 26,\n    \"recall\": 48.3,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 12.545791625976562,\n      \"AI1\": 45.42587089538574\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"T4:f1\",\n      \"AI1:map_50\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--929397\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 17.59,\n    \"map5095\": 4.44,\n    \"f1\": 25.5,\n    \"recall\": 48.2,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"T4\": 18.872496604919434,\n      \"AI1\": 67.13016128540039\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--befd4c\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 0.22,\n    \"map5095\": 0.09,\n    \"f1\": 1.7,\n    \"recall\": 1.8,\n    \"f1ConfThresh\": 0.1,\n    \"latency\": {\n      \"T4\": 1.0915839672088623,\n      \"AI1\": 2.370672106742859\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--c47f7c\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 4.25,\n    \"map5095\": 1.01,\n    \"f1\": 12.5,\n    \"recall\": 15.1,\n    \"f1ConfThresh\": 0.2,\n    \"latency\": {\n      \"T4\": 1.934048056602478,\n      \"AI1\": 6.579920053482056\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9d3303\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 5.17,\n    \"map5095\": 1.25,\n    \"f1\": 14.1,\n    \"recall\": 18.3,\n    \"f1ConfThresh\": 0.19,\n    \"latency\": {\n      \"T4\": 2.1094400882720947,\n      \"AI1\": 7.694095849990845\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--043a26\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 6.46,\n    \"map5095\": 1.65,\n    \"f1\": 16.4,\n    \"recall\": 25,\n    \"f1ConfThresh\": 0.2,\n    \"latency\": {\n      \"T4\": 2.5194239616394043,\n      \"AI1\": 9.190736293792725\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--60d957\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 8.41,\n    \"map5095\": 2.04,\n    \"f1\": 18.4,\n    \"recall\": 29.6,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 2.9818880558013916,\n      \"AI1\": 12.047200202941895\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9d4013\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 8.69,\n    \"map5095\": 2.22,\n    \"f1\": 19.4,\n    \"recall\": 26.6,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 3.7501120567321777,\n      \"AI1\": 14.88646411895752\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--30b614\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 11.11,\n    \"map5095\": 2.8,\n    \"f1\": 21.5,\n    \"recall\": 34.3,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 4.51636815071106,\n      \"AI1\": 18.155871391296387\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4f2240\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 11.75,\n    \"map5095\": 3,\n    \"f1\": 22.2,\n    \"recall\": 36.1,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"T4\": 4.74505615234375,\n      \"AI1\": 18.79599952697754\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--e834ff\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 12.69,\n    \"map5095\": 3.18,\n    \"f1\": 23.6,\n    \"recall\": 41.4,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"T4\": 6.465935945510864,\n      \"AI1\": 24.118720054626465\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3cf7fc\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 14.13,\n    \"map5095\": 3.52,\n    \"f1\": 24.4,\n    \"recall\": 40.3,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"T4\": 8.467967987060547,\n      \"AI1\": 32.080894470214844\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4fdadd\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 15.69,\n    \"map5095\": 3.94,\n    \"f1\": 25,\n    \"recall\": 43.2,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 9.801631927490234,\n      \"AI1\": 37.12316703796387\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0ab37a\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 16.34,\n    \"map5095\": 4.23,\n    \"f1\": 25.7,\n    \"recall\": 43.6,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 12.269775867462158,\n      \"AI1\": 44.22585678100586\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0d8c66\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 15.28,\n    \"map5095\": 3.91,\n    \"f1\": 26.5,\n    \"recall\": 35.3,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"T4\": 19.249664306640625,\n      \"AI1\": 67.41193771362305\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4d4f20\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 3.04,\n    \"map5095\": 0.71,\n    \"f1\": 9.9,\n    \"recall\": 12.6,\n    \"f1ConfThresh\": 0.17,\n    \"latency\": {\n      \"T4\": 1.9062080383300781,\n      \"AI1\": 5.340991973876953\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--7bb719\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 5.54,\n    \"map5095\": 1.35,\n    \"f1\": 14,\n    \"recall\": 21.9,\n    \"f1ConfThresh\": 0.21,\n    \"latency\": {\n      \"T4\": 2.1872000694274902,\n      \"AI1\": 8.069983959197998\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--debb5d\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 8.43,\n    \"map5095\": 2.07,\n    \"f1\": 17.6,\n    \"recall\": 31.2,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 2.9417760372161865,\n      \"AI1\": 11.753151893615723\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b65196\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 9.82,\n    \"map5095\": 2.43,\n    \"f1\": 19,\n    \"recall\": 36.4,\n    \"f1ConfThresh\": 0.21,\n    \"latency\": {\n      \"T4\": 3.526655912399292,\n      \"AI1\": 14.709712028503418\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b93a6e\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 12.08,\n    \"map5095\": 3.19,\n    \"f1\": 21.8,\n    \"recall\": 39.7,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 5.235040187835693,\n      \"AI1\": 20.65392017364502\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--bdb037\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 12.92,\n    \"map5095\": 3.2,\n    \"f1\": 23,\n    \"recall\": 41.9,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"T4\": 6.158704042434692,\n      \"AI1\": 21.938687324523926\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:map_50\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--ae6cec\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 13.16,\n    \"map5095\": 3.34,\n    \"f1\": 23,\n    \"recall\": 42.4,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"T4\": 6.426623821258545,\n      \"AI1\": 22.90670394897461\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:map_50_95\",\n      \"AI1:map_50\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 13.94,\n    \"map5095\": 3.49,\n    \"f1\": 22.6,\n    \"recall\": 44.7,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 7.978224039077759,\n      \"AI1\": 30.60596752166748\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--bd64a4\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 14.77,\n    \"map5095\": 3.78,\n    \"f1\": 23.7,\n    \"recall\": 46.4,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 9.156208038330078,\n      \"AI1\": 35.22873497009277\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--69fae3\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 15.13,\n    \"map5095\": 3.75,\n    \"f1\": 23.9,\n    \"recall\": 46.7,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"T4\": 9.582799911499023,\n      \"AI1\": 36.143280029296875\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:map_50\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--d757ed\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 15.66,\n    \"map5095\": 4.1,\n    \"f1\": 24.1,\n    \"recall\": 47.3,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 11.345439910888672,\n      \"AI1\": 43.25372886657715\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--1758df\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 16.79,\n    \"map5095\": 4.33,\n    \"f1\": 25.6,\n    \"recall\": 48.6,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"T4\": 12.382783889770508,\n      \"AI1\": 44.91958427429199\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3df677\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 16.99,\n    \"map5095\": 4.44,\n    \"f1\": 25,\n    \"recall\": 49.5,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"T4\": 18.648719787597656,\n      \"AI1\": 71.17024230957031\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4f45e1\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 0.22,\n    \"map5095\": 0.09,\n    \"f1\": 1.7,\n    \"recall\": 1.7,\n    \"f1ConfThresh\": 0.1,\n    \"latency\": {\n      \"T4\": 1.0936319828033447,\n      \"AI1\": 2.368880033493042\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:map_50\",\n      \"AI1:f1\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--2e7a49\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 0.66,\n    \"map5095\": 0.4,\n    \"f1\": 0.4,\n    \"recall\": 0.3,\n    \"f1ConfThresh\": 0.11,\n    \"latency\": {\n      \"T4\": 1.2410880327224731,\n      \"AI1\": 3.0162240266799927\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--423e40\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 3.19,\n    \"map5095\": 0.81,\n    \"f1\": 10.3,\n    \"recall\": 10.6,\n    \"f1ConfThresh\": 0.17,\n    \"latency\": {\n      \"T4\": 1.941375970840454,\n      \"AI1\": 5.414368152618408\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:map_50\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--fe9c70\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 4.64,\n    \"map5095\": 1.18,\n    \"f1\": 12.8,\n    \"recall\": 19.3,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 2.187551975250244,\n      \"AI1\": 7.234544038772583\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--38d613\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 6.22,\n    \"map5095\": 1.59,\n    \"f1\": 15.4,\n    \"recall\": 23.8,\n    \"f1ConfThresh\": 0.21,\n    \"latency\": {\n      \"T4\": 2.406719923019409,\n      \"AI1\": 8.703680038452148\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b547fa\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 10.47,\n    \"map5095\": 2.73,\n    \"f1\": 19.9,\n    \"recall\": 33.1,\n    \"f1ConfThresh\": 0.21,\n    \"latency\": {\n      \"T4\": 3.9935998916625977,\n      \"AI1\": 15.713679790496826\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0deb91\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 12.01,\n    \"map5095\": 3.11,\n    \"f1\": 22,\n    \"recall\": 36,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 4.952560186386108,\n      \"AI1\": 19.231359481811523\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--61d871\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 12.29,\n    \"map5095\": 3.19,\n    \"f1\": 22,\n    \"recall\": 38.9,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"T4\": 5.136159896850586,\n      \"AI1\": 20.136303901672363\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--604c1b\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 13.79,\n    \"map5095\": 3.67,\n    \"f1\": 22.4,\n    \"recall\": 43.5,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 8.067071914672852,\n      \"AI1\": 29.34657573699951\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3acf8d\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 15.34,\n    \"map5095\": 3.89,\n    \"f1\": 24.6,\n    \"recall\": 41.3,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"T4\": 9.550511837005615,\n      \"AI1\": 36.34432029724121\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--d672fc\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 17.2,\n    \"map5095\": 4.46,\n    \"f1\": 25.6,\n    \"recall\": 48.6,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"T4\": 15.295696258544922,\n      \"AI1\": 57.7894229888916\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--ae28a1\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 0.31,\n    \"map5095\": 0.09,\n    \"f1\": 1.4,\n    \"recall\": 1.4,\n    \"f1ConfThresh\": 0.1,\n    \"latency\": {\n      \"T4\": 1.0889919996261597,\n      \"AI1\": 2.3988959789276123\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--5d16d3\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 0.71,\n    \"map5095\": 0.11,\n    \"f1\": 1.5,\n    \"recall\": 1.5,\n    \"f1ConfThresh\": 0.11,\n    \"latency\": {\n      \"T4\": 1.2743680477142334,\n      \"AI1\": 2.746000051498413\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--dc0042\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 3.55,\n    \"map5095\": 0.89,\n    \"f1\": 11.4,\n    \"recall\": 16.1,\n    \"f1ConfThresh\": 0.18,\n    \"latency\": {\n      \"T4\": 1.9619200229644775,\n      \"AI1\": 5.535104036331177\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3f0931\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 10.59,\n    \"map5095\": 2.71,\n    \"f1\": 19.8,\n    \"recall\": 33.1,\n    \"f1ConfThresh\": 0.21,\n    \"latency\": {\n      \"T4\": 3.9560000896453857,\n      \"AI1\": 15.770703792572021\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--b7a36c\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 17.2,\n    \"map5095\": 4.3,\n    \"f1\": 25.3,\n    \"recall\": 48.2,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 15.107791900634766,\n      \"AI1\": 57.1319522857666\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--2b3ca7\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 0.84,\n    \"map5095\": 0.29,\n    \"f1\": 4.5,\n    \"recall\": 4.6,\n    \"f1ConfThresh\": 0.12,\n    \"latency\": {\n      \"T4\": 1.1711039543151855,\n      \"AI1\": 3.061360001564026\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--2374c5\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 3.47,\n    \"map5095\": 0.88,\n    \"f1\": 11.4,\n    \"recall\": 15,\n    \"f1ConfThresh\": 0.18,\n    \"latency\": {\n      \"T4\": 1.9107840061187744,\n      \"AI1\": 5.528015851974487\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--94ee50\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 3.69,\n    \"map5095\": 0.92,\n    \"f1\": 12,\n    \"recall\": 14.8,\n    \"f1ConfThresh\": 0.2,\n    \"latency\": {\n      \"T4\": 2.0606720447540283,\n      \"AI1\": 5.959167957305908\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--6ec618\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 7.91,\n    \"map5095\": 1.9,\n    \"f1\": 18.3,\n    \"recall\": 23.7,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 2.981760025024414,\n      \"AI1\": 11.954111576080322\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--1608db\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 10.36,\n    \"map5095\": 2.58,\n    \"f1\": 21.4,\n    \"recall\": 28,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 4.4917120933532715,\n      \"AI1\": 17.983071327209473\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--66b5d1\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 12.05,\n    \"map5095\": 3.07,\n    \"f1\": 23.2,\n    \"recall\": 31.2,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 6.27235221862793,\n      \"AI1\": 21.909232139587402\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--069032\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 3.55,\n    \"map5095\": 0.89,\n    \"f1\": 11.4,\n    \"recall\": 16.2,\n    \"f1ConfThresh\": 0.18,\n    \"latency\": {\n      \"T4\": 1.938048005104065,\n      \"AI1\": 5.537951946258545\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--8dd6a3\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 5.04,\n    \"map5095\": 1.2,\n    \"f1\": 13.5,\n    \"recall\": 20.8,\n    \"f1ConfThresh\": 0.2,\n    \"latency\": {\n      \"T4\": 2.2305920124053955,\n      \"AI1\": 7.3856000900268555\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--13bcb0\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 6.26,\n    \"map5095\": 1.59,\n    \"f1\": 15.6,\n    \"recall\": 24.9,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 2.4379040002822876,\n      \"AI1\": 8.797248363494873\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a72106\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 13.84,\n    \"map5095\": 3.5,\n    \"f1\": 22.7,\n    \"recall\": 45,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 8.65817642211914,\n      \"AI1\": 31.8864803314209\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a428ce\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 17,\n    \"map5095\": 4.37,\n    \"f1\": 25.6,\n    \"recall\": 48.7,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"T4\": 13.719776153564453,\n      \"AI1\": 52.244192123413086\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--94bff1\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 16.66,\n    \"map5095\": 4.3,\n    \"f1\": 25.3,\n    \"recall\": 48.8,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 16.674816131591797,\n      \"AI1\": 60.4129753112793\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4290bf\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 4.4,\n    \"map5095\": 1.01,\n    \"f1\": 12.6,\n    \"recall\": 18.8,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 2.3215041160583496,\n      \"AI1\": 7.572880029678345\n    }\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--482e07\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 8.86,\n    \"map5095\": 2.1,\n    \"f1\": 18.1,\n    \"recall\": 31.2,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 3.4751999378204346,\n      \"AI1\": 13.39782428741455\n    }\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9ae04f\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 10.33,\n    \"map5095\": 2.67,\n    \"f1\": 20,\n    \"recall\": 36.1,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"T4\": 4.36195182800293,\n      \"AI1\": 17.300352096557617\n    }\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--46e50c\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 13.05,\n    \"map5095\": 3.42,\n    \"f1\": 22.6,\n    \"recall\": 42.2,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 6.782895803451538,\n      \"AI1\": 25.08833599090576\n    }\n  }\n}"
+          ],
+          "sdkTrainings": [
+            {
+              "status": "finished",
+              "model_type": "rfdetr-nas-parent"
+            }
+          ],
+          "weightCheck": {
+            "attempted": true,
+            "exportableLocalWeights": false,
+            "weightsFieldsPresent": {},
+            "trainStatus": null,
+            "modelType": null,
+            "endpoint": null
+          },
+          "rawModelKeys": [],
+          "rawTrainKeys": []
+        }
+      ]
+    },
+    {
+      "projectId": "attune-skin-acne-pilot",
+      "name": "Attune Skin - Acne Pilot",
+      "type": "object-detection",
+      "classes": {
+        "Enlarged pores": 1191,
+        "Pimple": 3640,
+        "Pigmentation": 1579,
+        "Post acne": 32123,
+        "Freckles": 853,
+        "Mole": 2082
+      },
+      "images": 800,
+      "versions": []
+    },
+    {
+      "projectId": "attune-skin-findings-boxes-research",
+      "name": "Attune Skin Findings Boxes Research",
+      "type": "object-detection",
+      "classes": {
+        "Gunes Lekesi": 1468,
+        "Yagli Cilt": 320,
+        "Egzema": 299,
+        "Siyah Nokta": 2021,
+        "Genis Gozenek": 307,
+        "Rozasea": 257,
+        "Kuru Cilt": 515,
+        "Beyaz Nokta": 1789,
+        "Riskli Ben": 150,
+        "Sedef ve Dokuntu": 625,
+        "Ucuk": 202,
+        "Akne": 1599
+      },
+      "images": 927,
+      "versions": [
+        {
+          "version": "1",
+          "id": "tolgar-sasmaz/attune-skin-findings-boxes-research/1",
+          "name": "2026-10-23 9:06am",
+          "images": 927,
+          "splits": {
+            "valid": 117,
+            "test": 141,
+            "train": 669
+          },
+          "preprocessing": {},
+          "augmentation": {},
+          "exports": [
+            "coco"
+          ],
+          "modelId": null,
+          "modelEndpoint": null,
+          "modelType": null,
+          "modelMap": null,
+          "modelPrecision": null,
+          "modelRecall": null,
+          "trainStatus": null,
+          "trainResults": null,
+          "trainMetrics": null,
+          "sdkModels": [
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--9602f1\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 9.69,\n    \"map5095\": 4,\n    \"f1\": 15,\n    \"recall\": 26.2,\n    \"f1ConfThresh\": 0.17,\n    \"latency\": {\n      \"AI1\": 2.7479519844055176,\n      \"T4\": 1.0690560340881348\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"T4:f1\",\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--a768c1\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 14.61,\n    \"map5095\": 5.34,\n    \"f1\": 18,\n    \"recall\": 35.5,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"AI1\": 2.4109280109405518,\n      \"T4\": 1.0879679918289185\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--e65db0\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 19.18,\n    \"map5095\": 7.68,\n    \"f1\": 22.6,\n    \"recall\": 40.9,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"AI1\": 2.933184027671814,\n      \"T4\": 1.1568959951400757\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"T4:f1\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--cd4bbb\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 19.25,\n    \"map5095\": 7.69,\n    \"f1\": 22.6,\n    \"recall\": 43.9,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"AI1\": 2.946992039680481,\n      \"T4\": 1.1677759885787964\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--28c412\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 19.58,\n    \"map5095\": 8.1,\n    \"f1\": 23.6,\n    \"recall\": 39,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"AI1\": 3.258496046066284,\n      \"T4\": 1.3804479837417603\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--eeeca6\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 21.14,\n    \"map5095\": 9.08,\n    \"f1\": 26,\n    \"recall\": 50.6,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"AI1\": 4.084431886672974,\n      \"T4\": 1.4888960123062134\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--0d150b\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 21.95,\n    \"map5095\": 10.26,\n    \"f1\": 27.2,\n    \"recall\": 50.6,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"AI1\": 4.8218560218811035,\n      \"T4\": 1.8901760578155518\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--530e44\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 23.84,\n    \"map5095\": 11,\n    \"f1\": 28.5,\n    \"recall\": 51.7,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"AI1\": 5.363968133926392,\n      \"T4\": 1.9629119634628296\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--0e4184\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 25.41,\n    \"map5095\": 12.17,\n    \"f1\": 29.4,\n    \"recall\": 52.5,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"AI1\": 8.044623851776123,\n      \"T4\": 2.3536319732666016\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--fd03f3\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 26.86,\n    \"map5095\": 13.16,\n    \"f1\": 32,\n    \"recall\": 53.5,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"AI1\": 8.387408256530762,\n      \"T4\": 2.527679920196533\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--2d28f0\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 26.93,\n    \"map5095\": 14.13,\n    \"f1\": 30.3,\n    \"recall\": 60,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"AI1\": 9.729968070983887,\n      \"T4\": 2.9573121070861816\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--e41d8e\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 28.4,\n    \"map5095\": 14.63,\n    \"f1\": 32,\n    \"recall\": 60.6,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"AI1\": 15.038896083831787,\n      \"T4\": 3.877824068069458\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--0e5212\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 29.38,\n    \"map5095\": 14.92,\n    \"f1\": 32,\n    \"recall\": 55.1,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"AI1\": 18.927599906921387,\n      \"T4\": 4.779359817504883\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--25efde\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 29.57,\n    \"map5095\": 15.42,\n    \"f1\": 32.6,\n    \"recall\": 54.4,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"AI1\": 19.32087993621826,\n      \"T4\": 4.980735778808594\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--4360cc\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 30.11,\n    \"map5095\": 15.47,\n    \"f1\": 30.9,\n    \"recall\": 69.1,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"AI1\": 21.571807861328125,\n      \"T4\": 5.435391902923584\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"AI1:map_50_95\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--99b42b\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 19.5,\n    \"map5095\": 7.48,\n    \"f1\": 22.2,\n    \"recall\": 39.7,\n    \"f1ConfThresh\": 0.21,\n    \"latency\": {\n      \"AI1\": 3.052367925643921,\n      \"T4\": 1.1978880167007446\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--14fdc8\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 21.74,\n    \"map5095\": 9.12,\n    \"f1\": 26.9,\n    \"recall\": 50.8,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"AI1\": 4.155407905578613,\n      \"T4\": 1.52675199508667\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--d2dbfd\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 24.11,\n    \"map5095\": 9.9,\n    \"f1\": 27.8,\n    \"recall\": 57.8,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"AI1\": 5.185279846191406,\n      \"T4\": 1.839840054512024\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--db706a\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 26.26,\n    \"map5095\": 11.89,\n    \"f1\": 29.6,\n    \"recall\": 50.9,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"AI1\": 7.099423885345459,\n      \"T4\": 2.3071680068969727\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--94ee9b\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 27.7,\n    \"map5095\": 13.17,\n    \"f1\": 32.6,\n    \"recall\": 54,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"AI1\": 7.959104061126709,\n      \"T4\": 2.628592014312744\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"T4:f1\",\n      \"AI1:map_50\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--ccbb27\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 28.01,\n    \"map5095\": 13.2,\n    \"f1\": 30.7,\n    \"recall\": 64.8,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"AI1\": 9.547760009765625,\n      \"T4\": 2.842463970184326\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--d781d5\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 28.33,\n    \"map5095\": 13.61,\n    \"f1\": 30.8,\n    \"recall\": 60.9,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"AI1\": 12.919071674346924,\n      \"T4\": 3.49072003364563\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--d04950\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 28.67,\n    \"map5095\": 14.54,\n    \"f1\": 32.6,\n    \"recall\": 61.2,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"AI1\": 15.373712062835693,\n      \"T4\": 3.946592092514038\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--5e6380\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 29.65,\n    \"map5095\": 14.49,\n    \"f1\": 31.9,\n    \"recall\": 64.9,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"AI1\": 18.06443214416504,\n      \"T4\": 4.6689441204071045\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--69fae3\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 30.23,\n    \"map5095\": 14.61,\n    \"f1\": 30.1,\n    \"recall\": 71.1,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"AI1\": 36.143280029296875,\n      \"T4\": 9.582799911499023\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--ae05fe\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 18.47,\n    \"map5095\": 7.58,\n    \"f1\": 24.6,\n    \"recall\": 45.6,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"AI1\": 3.986176013946533,\n      \"T4\": 1.464576005935669\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--d5b930\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 23.64,\n    \"map5095\": 9.74,\n    \"f1\": 27.8,\n    \"recall\": 48.7,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"AI1\": 5.161920070648193,\n      \"T4\": 1.8333120346069336\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--708634\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 23.8,\n    \"map5095\": 9.55,\n    \"f1\": 29.5,\n    \"recall\": 49.2,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"AI1\": 5.633791923522949,\n      \"T4\": 1.9581120014190674\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--1c0b51\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 23.61,\n    \"map5095\": 10.77,\n    \"f1\": 30.6,\n    \"recall\": 57.3,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"AI1\": 6.042912006378174,\n      \"T4\": 2.263040065765381\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--768617\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 26.08,\n    \"map5095\": 11.84,\n    \"f1\": 31.8,\n    \"recall\": 50.3,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"AI1\": 6.219296216964722,\n      \"T4\": 2.3649919033050537\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--8ea009\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 27.76,\n    \"map5095\": 13.62,\n    \"f1\": 32.8,\n    \"recall\": 53.7,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"AI1\": 13.594511985778809,\n      \"T4\": 4.033696174621582\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--31478e\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 28.46,\n    \"map5095\": 13.84,\n    \"f1\": 33.2,\n    \"recall\": 53.2,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"AI1\": 18.03444766998291,\n      \"T4\": 4.593664169311523\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--a49255\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 29.39,\n    \"map5095\": 14.82,\n    \"f1\": 33.3,\n    \"recall\": 55.5,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"AI1\": 20.821904182434082,\n      \"T4\": 5.943903923034668\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--319ec3\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 29.52,\n    \"map5095\": 15.07,\n    \"f1\": 33.8,\n    \"recall\": 55.2,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"AI1\": 21.276927947998047,\n      \"T4\": 6.268064022064209\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--ae28a1\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 14.64,\n    \"map5095\": 5.34,\n    \"f1\": 18,\n    \"recall\": 37.4,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"AI1\": 2.3988959789276123,\n      \"T4\": 1.0889919996261597\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--a5e262\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 16.43,\n    \"map5095\": 6.64,\n    \"f1\": 21.5,\n    \"recall\": 44,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"AI1\": 3.065984010696411,\n      \"T4\": 1.1569279432296753\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--63c5df\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 16.45,\n    \"map5095\": 6.65,\n    \"f1\": 21.5,\n    \"recall\": 45.2,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"AI1\": 3.066655993461609,\n      \"T4\": 1.1720960140228271\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--6896ec\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 15.08,\n    \"map5095\": 6.82,\n    \"f1\": 20.3,\n    \"recall\": 46.7,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"AI1\": 3.5769439935684204,\n      \"T4\": 1.4097280502319336\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--f68626\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 21.35,\n    \"map5095\": 8.4,\n    \"f1\": 24.5,\n    \"recall\": 55,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"AI1\": 4.500959873199463,\n      \"T4\": 1.6234560012817383\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--80b948\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 21.39,\n    \"map5095\": 8.41,\n    \"f1\": 24.5,\n    \"recall\": 57.3,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"AI1\": 4.5033118724823,\n      \"T4\": 1.6302080154418945\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--1f6b37\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 21.49,\n    \"map5095\": 9.49,\n    \"f1\": 25.9,\n    \"recall\": 59.4,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"AI1\": 5.094752073287964,\n      \"T4\": 1.7571840286254883\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--76127f\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 23.75,\n    \"map5095\": 10.66,\n    \"f1\": 28.7,\n    \"recall\": 62.1,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"AI1\": 6.692271947860718,\n      \"T4\": 1.9762879610061646\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--52c41b\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 24.77,\n    \"map5095\": 10.9,\n    \"f1\": 28.2,\n    \"recall\": 63.9,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"AI1\": 7.696943998336792,\n      \"T4\": 2.1276800632476807\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--629108\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 24.27,\n    \"map5095\": 10.79,\n    \"f1\": 27,\n    \"recall\": 65.2,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"AI1\": 8.388959884643555,\n      \"T4\": 2.2994558811187744\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--787f0a\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 25.86,\n    \"map5095\": 12.56,\n    \"f1\": 29.4,\n    \"recall\": 67,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"AI1\": 9.104112148284912,\n      \"T4\": 2.5967679023742676\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--42d2c6\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 26.06,\n    \"map5095\": 13.36,\n    \"f1\": 29.4,\n    \"recall\": 69.1,\n    \"f1ConfThresh\": 0.32,\n    \"latency\": {\n      \"AI1\": 10.230016231536865,\n      \"T4\": 2.953632116317749\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--099da8\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 27.45,\n    \"map5095\": 13.44,\n    \"f1\": 30.6,\n    \"recall\": 69.8,\n    \"f1ConfThresh\": 0.32,\n    \"latency\": {\n      \"AI1\": 13.908991813659668,\n      \"T4\": 3.628096103668213\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--34d5a2\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 26.96,\n    \"map5095\": 13.36,\n    \"f1\": 29.7,\n    \"recall\": 70.4,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"AI1\": 16.005488395690918,\n      \"T4\": 3.970367908477783\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--6bb422\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 28.25,\n    \"map5095\": 14.32,\n    \"f1\": 29.8,\n    \"recall\": 70.9,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"AI1\": 17.321167945861816,\n      \"T4\": 4.329216003417969\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--146493\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 27.59,\n    \"map5095\": 13.96,\n    \"f1\": 30.6,\n    \"recall\": 71.2,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"AI1\": 20.2490234375,\n      \"T4\": 5.376287937164307\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--2a9dc9\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 28.68,\n    \"map5095\": 14.44,\n    \"f1\": 31,\n    \"recall\": 71.7,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"AI1\": 22.86963176727295,\n      \"T4\": 5.8614561557769775\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--28bea5\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 27.6,\n    \"map5095\": 13.65,\n    \"f1\": 30.1,\n    \"recall\": 71.8,\n    \"f1ConfThresh\": 0.33,\n    \"latency\": {\n      \"AI1\": 29.409343719482422,\n      \"T4\": 8.302592277526855\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--4f45e1\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 13.69,\n    \"map5095\": 5.42,\n    \"f1\": 18.2,\n    \"recall\": 34.8,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"AI1\": 2.368880033493042,\n      \"T4\": 1.0936319828033447\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:map_50\",\n      \"AI1:f1\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--220f9d\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 19.24,\n    \"map5095\": 7.69,\n    \"f1\": 22.6,\n    \"recall\": 43.3,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"AI1\": 2.936959981918335,\n      \"T4\": 1.1757440567016602\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--6cf189\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 20.14,\n    \"map5095\": 8.59,\n    \"f1\": 24.3,\n    \"recall\": 40.7,\n    \"f1ConfThresh\": 0.2,\n    \"latency\": {\n      \"AI1\": 3.716752052307129,\n      \"T4\": 1.6498240232467651\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:map_50\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--c6e01d\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 20.92,\n    \"map5095\": 9.92,\n    \"f1\": 27.3,\n    \"recall\": 44.8,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"AI1\": 4.472480058670044,\n      \"T4\": 1.7785919904708862\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--76cc9c\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 21.28,\n    \"map5095\": 10.22,\n    \"f1\": 27.2,\n    \"recall\": 45.3,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"AI1\": 4.549423933029175,\n      \"T4\": 1.8334399461746216\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--2f6ff0\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 25.03,\n    \"map5095\": 11.86,\n    \"f1\": 30.3,\n    \"recall\": 49.9,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"AI1\": 5.921903848648071,\n      \"T4\": 2.284127950668335\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--a3d97f\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 25.94,\n    \"map5095\": 12.21,\n    \"f1\": 29.9,\n    \"recall\": 51.8,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"AI1\": 6.0609917640686035,\n      \"T4\": 2.405951976776123\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--550908\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 25.21,\n    \"map5095\": 12.42,\n    \"f1\": 29.9,\n    \"recall\": 52,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"AI1\": 6.4205920696258545,\n      \"T4\": 2.502016067504883\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--e83b15\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 26.2,\n    \"map5095\": 13.16,\n    \"f1\": 30.6,\n    \"recall\": 62.6,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"AI1\": 7.824831962585449,\n      \"T4\": 2.8275198936462402\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--7681d6\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 27.8,\n    \"map5095\": 13.49,\n    \"f1\": 31.7,\n    \"recall\": 53.5,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"AI1\": 8.7467679977417,\n      \"T4\": 2.8291521072387695\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--56b39a\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 28.49,\n    \"map5095\": 14.14,\n    \"f1\": 30.7,\n    \"recall\": 65.2,\n    \"f1ConfThresh\": 0.33,\n    \"latency\": {\n      \"AI1\": 14.199391841888428,\n      \"T4\": 3.7813758850097656\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--89b468\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 28.61,\n    \"map5095\": 14.71,\n    \"f1\": 31.5,\n    \"recall\": 56.4,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"AI1\": 17.22366428375244,\n      \"T4\": 4.49945592880249\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--143b05\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 19.58,\n    \"map5095\": 7.49,\n    \"f1\": 22.2,\n    \"recall\": 42.5,\n    \"f1ConfThresh\": 0.21,\n    \"latency\": {\n      \"AI1\": 3.052847981452942,\n      \"T4\": 1.2175359725952148\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--660df9\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 22.48,\n    \"map5095\": 10.31,\n    \"f1\": 27.5,\n    \"recall\": 48.3,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"AI1\": 4.9267518520355225,\n      \"T4\": 1.9440959692001343\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--7b5205\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 28.31,\n    \"map5095\": 13.12,\n    \"f1\": 31.2,\n    \"recall\": 65.4,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"AI1\": 11.681008338928223,\n      \"T4\": 3.2973439693450928\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--ed6403\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 19.1,\n    \"map5095\": 7.66,\n    \"f1\": 22.7,\n    \"recall\": 39,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"AI1\": 2.932080030441284,\n      \"T4\": 1.1679359674453735\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--a8ce00\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 21.48,\n    \"map5095\": 9.04,\n    \"f1\": 26.9,\n    \"recall\": 43.8,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"AI1\": 4.141648054122925,\n      \"T4\": 1.537503957748413\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--82a21d\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 22.79,\n    \"map5095\": 10.27,\n    \"f1\": 29.3,\n    \"recall\": 48.2,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"AI1\": 5.0752480030059814,\n      \"T4\": 2.027872085571289\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--5191e2\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 23,\n    \"map5095\": 10.39,\n    \"f1\": 30.2,\n    \"recall\": 49,\n    \"f1ConfThresh\": 0.21,\n    \"latency\": {\n      \"AI1\": 5.393712043762207,\n      \"T4\": 2.185215950012207\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--befd4c\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 13.73,\n    \"map5095\": 5.42,\n    \"f1\": 18.2,\n    \"recall\": 37.4,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"AI1\": 2.370672106742859,\n      \"T4\": 1.0915839672088623\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--5949e8\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 16.2,\n    \"map5095\": 6.9,\n    \"f1\": 21.4,\n    \"recall\": 47.8,\n    \"f1ConfThresh\": 0.2,\n    \"latency\": {\n      \"AI1\": 3.3130719661712646,\n      \"T4\": 1.4198399782180786\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--6244bf\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 16.85,\n    \"map5095\": 7.58,\n    \"f1\": 22.5,\n    \"recall\": 50.9,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"AI1\": 4.336496114730835,\n      \"T4\": 1.6683199405670166\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--79daef\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 22.12,\n    \"map5095\": 9.38,\n    \"f1\": 26.3,\n    \"recall\": 59.6,\n    \"f1ConfThresh\": 0.34,\n    \"latency\": {\n      \"AI1\": 5.074975967407227,\n      \"T4\": 1.810431957244873\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--2bcde2\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 23.62,\n    \"map5095\": 9.39,\n    \"f1\": 27.1,\n    \"recall\": 61.1,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"AI1\": 5.469615936279297,\n      \"T4\": 1.9251840114593506\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--52cced\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 23.85,\n    \"map5095\": 12.08,\n    \"f1\": 26.8,\n    \"recall\": 64.7,\n    \"f1ConfThresh\": 0.33,\n    \"latency\": {\n      \"AI1\": 6.92574405670166,\n      \"T4\": 2.4273440837860107\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--a185d7\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 25.09,\n    \"map5095\": 12.16,\n    \"f1\": 28.7,\n    \"recall\": 66.3,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"AI1\": 8.103600025177002,\n      \"T4\": 2.497728109359741\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--34adc4\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 26.32,\n    \"map5095\": 13.46,\n    \"f1\": 29.4,\n    \"recall\": 69.5,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"AI1\": 11.761360168457031,\n      \"T4\": 3.4126079082489014\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--03efba\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 27.22,\n    \"map5095\": 13.12,\n    \"f1\": 30.2,\n    \"recall\": 69.8,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"AI1\": 13.233791828155518,\n      \"T4\": 3.6803839206695557\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--4290bf\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 25.46,\n    \"map5095\": 11.76,\n    \"f1\": 28.6,\n    \"recall\": 64.3,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"AI1\": 7.572880029678345,\n      \"T4\": 2.3215041160583496\n    }\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--482e07\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 26.8,\n    \"map5095\": 13.31,\n    \"f1\": 30.3,\n    \"recall\": 66.8,\n    \"f1ConfThresh\": 0.33,\n    \"latency\": {\n      \"AI1\": 13.39782428741455,\n      \"T4\": 3.4751999378204346\n    }\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--9ae04f\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 27.65,\n    \"map5095\": 14.06,\n    \"f1\": 29.9,\n    \"recall\": 68.2,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"AI1\": 17.300352096557617,\n      \"T4\": 4.36195182800293\n    }\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--46e50c\",\n  \"model_type\": \"rfdetr-nas\",\n  \"metrics\": {\n    \"map50\": 28.36,\n    \"map5095\": 14.25,\n    \"f1\": 29.4,\n    \"recall\": 69.7,\n    \"f1ConfThresh\": 0.38,\n    \"latency\": {\n      \"AI1\": 25.08833599090576,\n      \"T4\": 6.782895803451538\n    }\n  }\n}"
+          ],
+          "sdkTrainings": [
+            {
+              "status": "finished",
+              "model_type": "rfdetr-nas-parent"
+            }
+          ],
+          "weightCheck": {
+            "attempted": true,
+            "exportableLocalWeights": false,
+            "weightsFieldsPresent": {},
+            "trainStatus": null,
+            "modelType": null,
+            "endpoint": null
+          },
+          "rawModelKeys": [],
+          "rawTrainKeys": []
+        }
+      ]
+    },
+    {
+      "projectId": "attune-skin-regional-skin-map",
+      "name": "Attune Skin - Regional Skin Map",
+      "type": "instance-segmentation",
+      "classes": {
+        "Oily": 1065,
+        "Redness": 571
+      },
+      "images": 337,
+      "versions": [
+        {
+          "version": "1",
+          "id": "tolgar-sasmaz/attune-skin-regional-skin-map/1",
+          "name": "2026-10-23 5:25am",
+          "images": 337,
+          "splits": {
+            "valid": 63,
+            "test": 30,
+            "train": 244
+          },
+          "preprocessing": {},
+          "augmentation": {},
+          "exports": [
+            "coco",
+            "coco-segmentation"
+          ],
+          "modelId": null,
+          "modelEndpoint": null,
+          "modelType": null,
+          "modelMap": null,
+          "modelPrecision": null,
+          "modelRecall": null,
+          "trainStatus": null,
+          "trainResults": null,
+          "trainMetrics": null,
+          "sdkModels": [
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9602f1\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 18.27,\n    \"map5095\": 6.43,\n    \"f1\": 26.3,\n    \"recall\": 33.8,\n    \"f1ConfThresh\": 0.32,\n    \"latency\": {\n      \"T4\": 1.0690560340881348,\n      \"AI1\": 2.7479519844055176\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"T4:f1\",\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--a768c1\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 25.37,\n    \"map5095\": 8.84,\n    \"f1\": 33.4,\n    \"recall\": 44.7,\n    \"f1ConfThresh\": 0.34,\n    \"latency\": {\n      \"T4\": 1.0879679918289185,\n      \"AI1\": 2.4109280109405518\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"T4:f1\",\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--a5e262\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 28.32,\n    \"map5095\": 10.86,\n    \"f1\": 37.7,\n    \"recall\": 54.8,\n    \"f1ConfThresh\": 0.33,\n    \"latency\": {\n      \"T4\": 1.1569279432296753,\n      \"AI1\": 3.065984010696411\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"T4:f1\",\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--282937\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 28.03,\n    \"map5095\": 11.07,\n    \"f1\": 35.8,\n    \"recall\": 56.6,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 1.2560640573501587,\n      \"AI1\": 2.693343997001648\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--1433b7\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 30.84,\n    \"map5095\": 11.37,\n    \"f1\": 38.7,\n    \"recall\": 61.4,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 1.343616008758545,\n      \"AI1\": 2.9024319648742676\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--4a1d62\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 35.22,\n    \"map5095\": 13.42,\n    \"f1\": 44.4,\n    \"recall\": 65.7,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 1.4428479671478271,\n      \"AI1\": 3.5096960067749023\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"T4:f1\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--8b4ccc\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 37.39,\n    \"map5095\": 14.36,\n    \"f1\": 45.8,\n    \"recall\": 64.7,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 1.6561599969863892,\n      \"AI1\": 3.842288017272949\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--8d4789\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 39.33,\n    \"map5095\": 15.03,\n    \"f1\": 45.4,\n    \"recall\": 66.9,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"T4\": 1.8229119777679443,\n      \"AI1\": 4.820575952529907\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--bcfb37\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 39.74,\n    \"map5095\": 16.52,\n    \"f1\": 44.9,\n    \"recall\": 72.9,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 2.0641279220581055,\n      \"AI1\": 5.668799877166748\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--5894cd\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 43.22,\n    \"map5095\": 17.3,\n    \"f1\": 47.2,\n    \"recall\": 72.1,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 2.290351986885071,\n      \"AI1\": 5.9906721115112305\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e17205\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 45.77,\n    \"map5095\": 18.62,\n    \"f1\": 51.1,\n    \"recall\": 75.1,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 2.476032018661499,\n      \"AI1\": 7.444576025009155\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--fa3729\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 46.9,\n    \"map5095\": 18.78,\n    \"f1\": 53.2,\n    \"recall\": 80.3,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 2.526848077774048,\n      \"AI1\": 7.655551910400391\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e90d5f\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 49.25,\n    \"map5095\": 19.83,\n    \"f1\": 53.2,\n    \"recall\": 75.5,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 2.8769919872283936,\n      \"AI1\": 9.632175922393799\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--3bbf07\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 47.91,\n    \"map5095\": 20.26,\n    \"f1\": 53.2,\n    \"recall\": 81.5,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 3.4693119525909424,\n      \"AI1\": 12.017984390258789\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--7f8328\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 47.86,\n    \"map5095\": 20.42,\n    \"f1\": 53.1,\n    \"recall\": 85.6,\n    \"f1ConfThresh\": 0.36,\n    \"latency\": {\n      \"T4\": 4.0068159103393555,\n      \"AI1\": 16.02785587310791\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--291700\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 49.73,\n    \"map5095\": 20.81,\n    \"f1\": 52.3,\n    \"recall\": 83.1,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 4.404640197753906,\n      \"AI1\": 17.290800094604492\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"T4:map_50\",\n      \"AI1:map_50_95\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c07ef\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 49.62,\n    \"map5095\": 20.96,\n    \"f1\": 54.4,\n    \"recall\": 86.6,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 5.219359874725342,\n      \"AI1\": 20.18900775909424\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50_95\",\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--1a8050\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 34.2,\n    \"map5095\": 12.68,\n    \"f1\": 42.7,\n    \"recall\": 60.3,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"T4\": 1.4213119745254517,\n      \"AI1\": 3.3850879669189453\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--f2f530\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 37.24,\n    \"map5095\": 13.97,\n    \"f1\": 46.6,\n    \"recall\": 63.3,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 1.5689599514007568,\n      \"AI1\": 3.689199924468994\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"T4:f1\",\n      \"AI1:map_50_95\",\n      \"AI1:map_50\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--52e6b1\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 40.48,\n    \"map5095\": 15.1,\n    \"f1\": 46.2,\n    \"recall\": 72.6,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 1.8724160194396973,\n      \"AI1\": 5.012991905212402\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--653a05\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 41.58,\n    \"map5095\": 15.95,\n    \"f1\": 47.9,\n    \"recall\": 73.6,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"T4\": 2.0635199546813965,\n      \"AI1\": 5.44483208656311\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79a02\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 43.21,\n    \"map5095\": 16.7,\n    \"f1\": 50.2,\n    \"recall\": 78.5,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 2.266848087310791,\n      \"AI1\": 7.124495983123779\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--8f22fb\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 46.1,\n    \"map5095\": 17.27,\n    \"f1\": 50.2,\n    \"recall\": 74.2,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"T4\": 2.30947208404541,\n      \"AI1\": 7.034127950668335\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 49.49,\n    \"map5095\": 18.98,\n    \"f1\": 54.2,\n    \"recall\": 81.2,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 2.806175947189331,\n      \"AI1\": 9.30675220489502\n    },\n    \"paretoOptimalFor\": [\n      \"T4:map_50\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--befd4c\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 24.29,\n    \"map5095\": 7.91,\n    \"f1\": 33.8,\n    \"recall\": 44.1,\n    \"f1ConfThresh\": 0.33,\n    \"latency\": {\n      \"T4\": 1.0915839672088623,\n      \"AI1\": 2.370672106742859\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--7d790b\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 40.6,\n    \"map5095\": 15.87,\n    \"f1\": 48.2,\n    \"recall\": 67.7,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 2.075711965560913,\n      \"AI1\": 5.284528017044067\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c50f2\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 45.79,\n    \"map5095\": 18.39,\n    \"f1\": 53.6,\n    \"recall\": 74,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 2.5518081188201904,\n      \"AI1\": 7.792704105377197\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--0089fe\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 46.3,\n    \"map5095\": 18.68,\n    \"f1\": 54.2,\n    \"recall\": 79.2,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 2.5968639850616455,\n      \"AI1\": 7.991568088531494\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9a9e4a\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 47.14,\n    \"map5095\": 19.68,\n    \"f1\": 54.7,\n    \"recall\": 75.7,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"T4\": 4.0082879066467285,\n      \"AI1\": 14.576512336730957\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--3744e3\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 49.18,\n    \"map5095\": 20.27,\n    \"f1\": 54.8,\n    \"recall\": 86.1,\n    \"f1ConfThresh\": 0.32,\n    \"latency\": {\n      \"T4\": 14.69001579284668,\n      \"AI1\": 54.777889251708984\n    },\n    \"paretoOptimalFor\": [\n      \"T4:f1\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--33f994\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 19.16,\n    \"map5095\": 6.6,\n    \"f1\": 28.7,\n    \"recall\": 66.4,\n    \"f1ConfThresh\": 0.25,\n    \"latency\": {\n      \"T4\": 1.363935947418213,\n      \"AI1\": 3.398111939430237\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--b1f634\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 32.44,\n    \"map5095\": 12.62,\n    \"f1\": 40.9,\n    \"recall\": 69.2,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 1.4749759435653687,\n      \"AI1\": 3.7109280824661255\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--b018f1\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 35.69,\n    \"map5095\": 14.14,\n    \"f1\": 40.8,\n    \"recall\": 75.8,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"T4\": 1.8211840391159058,\n      \"AI1\": 5.031728029251099\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--f3096f\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 29.77,\n    \"map5095\": 9.78,\n    \"f1\": 35.9,\n    \"recall\": 83.1,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 2.1507840156555176,\n      \"AI1\": 6.950527906417847\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--fe9c70\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 36.35,\n    \"map5095\": 14.53,\n    \"f1\": 42.8,\n    \"recall\": 84.1,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 2.187551975250244,\n      \"AI1\": 7.234544038772583\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--ee22e2\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 43.47,\n    \"map5095\": 17.02,\n    \"f1\": 49.7,\n    \"recall\": 85.6,\n    \"f1ConfThresh\": 0.34,\n    \"latency\": {\n      \"T4\": 2.5169920921325684,\n      \"AI1\": 8.1778883934021\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--67377e\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 44.5,\n    \"map5095\": 17.63,\n    \"f1\": 50.8,\n    \"recall\": 85.8,\n    \"f1ConfThresh\": 0.33,\n    \"latency\": {\n      \"T4\": 2.74783992767334,\n      \"AI1\": 9.135280132293701\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--f1d99d\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 47.53,\n    \"map5095\": 19.2,\n    \"f1\": 53.1,\n    \"recall\": 86.3,\n    \"f1ConfThresh\": 0.34,\n    \"latency\": {\n      \"T4\": 3.01094388961792,\n      \"AI1\": 10.598015785217285\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--65bf2e\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 46.43,\n    \"map5095\": 19.72,\n    \"f1\": 50.6,\n    \"recall\": 87.3,\n    \"f1ConfThresh\": 0.32,\n    \"latency\": {\n      \"T4\": 3.895296096801758,\n      \"AI1\": 15.876175880432129\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e27951\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 45.76,\n    \"map5095\": 19.48,\n    \"f1\": 50.8,\n    \"recall\": 87.6,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 4.285088062286377,\n      \"AI1\": 15.883376121520996\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--059f87\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 41.73,\n    \"map5095\": 18.18,\n    \"f1\": 47.4,\n    \"recall\": 88.3,\n    \"f1ConfThresh\": 0.33,\n    \"latency\": {\n      \"T4\": 4.845119953155518,\n      \"AI1\": 19.20857524871826\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--126ec4\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 43.31,\n    \"map5095\": 19.19,\n    \"f1\": 49.3,\n    \"recall\": 88.5,\n    \"f1ConfThresh\": 0.32,\n    \"latency\": {\n      \"T4\": 5.16761589050293,\n      \"AI1\": 20.28446388244629\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--0522f2\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 48.09,\n    \"map5095\": 20.4,\n    \"f1\": 51.7,\n    \"recall\": 89,\n    \"f1ConfThresh\": 0.34,\n    \"latency\": {\n      \"T4\": 11.083776473999023,\n      \"AI1\": 42.7691535949707\n    },\n    \"paretoOptimalFor\": [\n      \"T4:recall\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--4f45e1\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 24.29,\n    \"map5095\": 7.91,\n    \"f1\": 33.8,\n    \"recall\": 44.1,\n    \"f1ConfThresh\": 0.33,\n    \"latency\": {\n      \"T4\": 1.0936319828033447,\n      \"AI1\": 2.368880033493042\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:map_50\",\n      \"AI1:f1\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--ae28a1\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 25.37,\n    \"map5095\": 8.84,\n    \"f1\": 33.4,\n    \"recall\": 44.7,\n    \"f1ConfThresh\": 0.34,\n    \"latency\": {\n      \"T4\": 1.0889919996261597,\n      \"AI1\": 2.3988959789276123\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--48ed71\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 27.92,\n    \"map5095\": 10.84,\n    \"f1\": 32.5,\n    \"recall\": 57.1,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 1.2533760070800781,\n      \"AI1\": 2.653887987136841\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e4615a\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 34,\n    \"map5095\": 13,\n    \"f1\": 42.4,\n    \"recall\": 61.1,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 1.4849599599838257,\n      \"AI1\": 3.057055950164795\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:map_50\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--93c184\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 36.89,\n    \"map5095\": 14.82,\n    \"f1\": 44,\n    \"recall\": 67.1,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 1.8186240196228027,\n      \"AI1\": 4.0848000049591064\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--4e8078\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 38.26,\n    \"map5095\": 15.47,\n    \"f1\": 43.3,\n    \"recall\": 70.9,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"T4\": 1.9924800395965576,\n      \"AI1\": 4.495775938034058\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e2fad5\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 41.13,\n    \"map5095\": 17.12,\n    \"f1\": 46.3,\n    \"recall\": 75.9,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 2.2077438831329346,\n      \"AI1\": 5.781280040740967\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--cdb8c8\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 44.4,\n    \"map5095\": 18.17,\n    \"f1\": 50.5,\n    \"recall\": 74.7,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 2.5059518814086914,\n      \"AI1\": 6.546207904815674\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2ae6dc\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 45.54,\n    \"map5095\": 18.56,\n    \"f1\": 52.4,\n    \"recall\": 79.6,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 2.5383200645446777,\n      \"AI1\": 6.767519950866699\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\",\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2f3b44\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 44.56,\n    \"map5095\": 19.05,\n    \"f1\": 50.7,\n    \"recall\": 81,\n    \"f1ConfThresh\": 0.33,\n    \"latency\": {\n      \"T4\": 2.6485118865966797,\n      \"AI1\": 7.211600065231323\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--83e7b7\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 47.02,\n    \"map5095\": 19.47,\n    \"f1\": 51.1,\n    \"recall\": 82.1,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 2.8080639839172363,\n      \"AI1\": 8.83076810836792\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--5ab4fe\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 47.41,\n    \"map5095\": 20.39,\n    \"f1\": 52,\n    \"recall\": 81.6,\n    \"f1ConfThresh\": 0.32,\n    \"latency\": {\n      \"T4\": 3.8389759063720703,\n      \"AI1\": 15.151135921478271\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50_95\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--a8dd23\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 38.51,\n    \"map5095\": 14.41,\n    \"f1\": 45.8,\n    \"recall\": 66.2,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"T4\": 1.7074240446090698,\n      \"AI1\": 3.984560012817383\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--136674\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 41.38,\n    \"map5095\": 15.83,\n    \"f1\": 47.1,\n    \"recall\": 69.3,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 2.0337278842926025,\n      \"AI1\": 5.223152160644531\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2f6ff0\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 43.93,\n    \"map5095\": 16.98,\n    \"f1\": 47.2,\n    \"recall\": 73.2,\n    \"f1ConfThresh\": 0.22,\n    \"latency\": {\n      \"T4\": 2.284127950668335,\n      \"AI1\": 5.921903848648071\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--feef13\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 45.5,\n    \"map5095\": 17.99,\n    \"f1\": 50.3,\n    \"recall\": 74.9,\n    \"f1ConfThresh\": 0.24,\n    \"latency\": {\n      \"T4\": 2.510688066482544,\n      \"AI1\": 6.5337440967559814\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--fc93cc\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 46.63,\n    \"map5095\": 17.72,\n    \"f1\": 50.6,\n    \"recall\": 74.9,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 2.412384033203125,\n      \"AI1\": 7.190415859222412\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--95ac27\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 47.31,\n    \"map5095\": 18.44,\n    \"f1\": 51.4,\n    \"recall\": 79.6,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 2.5620479583740234,\n      \"AI1\": 7.649248123168945\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:map_50\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--fff422\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 44.82,\n    \"map5095\": 17.67,\n    \"f1\": 49.5,\n    \"recall\": 75.1,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 2.425552010536194,\n      \"AI1\": 6.35206413269043\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:f1\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--069a45\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 22.39,\n    \"map5095\": 7.05,\n    \"f1\": 31.8,\n    \"recall\": 54.7,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 1.246880054473877,\n      \"AI1\": 2.5791200399398804\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--5d16d3\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 17.83,\n    \"map5095\": 5.42,\n    \"f1\": 28.7,\n    \"recall\": 58.8,\n    \"f1ConfThresh\": 0.23,\n    \"latency\": {\n      \"T4\": 1.2743680477142334,\n      \"AI1\": 2.746000051498413\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--df8293\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 27.88,\n    \"map5095\": 10.71,\n    \"f1\": 35.3,\n    \"recall\": 63.5,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 1.3766720294952393,\n      \"AI1\": 3.071071982383728\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--454449\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 27.06,\n    \"map5095\": 9.23,\n    \"f1\": 34.8,\n    \"recall\": 69.4,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 1.5953919887542725,\n      \"AI1\": 3.662272095680237\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9c8afa\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 29.03,\n    \"map5095\": 10.07,\n    \"f1\": 37.3,\n    \"recall\": 70.9,\n    \"f1ConfThresh\": 0.29,\n    \"latency\": {\n      \"T4\": 1.6381759643554688,\n      \"AI1\": 3.8394399881362915\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--520b4f\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 37.28,\n    \"map5095\": 15.49,\n    \"f1\": 45,\n    \"recall\": 78.4,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"T4\": 2.036288022994995,\n      \"AI1\": 5.4355199337005615\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--c2a92d\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 38,\n    \"map5095\": 15.64,\n    \"f1\": 44.9,\n    \"recall\": 79.8,\n    \"f1ConfThresh\": 0.27,\n    \"latency\": {\n      \"T4\": 2.0746240615844727,\n      \"AI1\": 5.579904079437256\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--12a75a\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 43.44,\n    \"map5095\": 16.86,\n    \"f1\": 49.5,\n    \"recall\": 85.3,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 2.465791940689087,\n      \"AI1\": 7.989216089248657\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--7086a8\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 44.59,\n    \"map5095\": 18.95,\n    \"f1\": 48.8,\n    \"recall\": 86.6,\n    \"f1ConfThresh\": 0.31,\n    \"latency\": {\n      \"T4\": 3.612544059753418,\n      \"AI1\": 13.92855978012085\n    },\n    \"paretoOptimalFor\": [\n      \"AI1:recall\"\n    ]\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 49.49,\n    \"map5095\": 18.98,\n    \"f1\": 54.2,\n    \"recall\": 81.2,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 2.806175947189331,\n      \"AI1\": 9.30675220489502\n    }\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9af6e4\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 46.56,\n    \"map5095\": 18.67,\n    \"f1\": 50.8,\n    \"recall\": 80.1,\n    \"f1ConfThresh\": 0.28,\n    \"latency\": {\n      \"T4\": 3.41046404838562,\n      \"AI1\": 12.701759815216064\n    }\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--c67d62\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 48.31,\n    \"map5095\": 19.82,\n    \"f1\": 51.9,\n    \"recall\": 84.4,\n    \"f1ConfThresh\": 0.3,\n    \"latency\": {\n      \"T4\": 4.357632160186768,\n      \"AI1\": 17.008719444274902\n    }\n  }\n}",
+            "{\n  \"model_id\": \"tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--259da4\",\n  \"model_type\": \"rfdetr-nas-seg\",\n  \"metrics\": {\n    \"map50\": 48.32,\n    \"map5095\": 20.47,\n    \"f1\": 51,\n    \"recall\": 84.4,\n    \"f1ConfThresh\": 0.26,\n    \"latency\": {\n      \"T4\": 6.277120113372803,\n      \"AI1\": 21.957039833068848\n    }\n  }\n}"
+          ],
+          "sdkTrainings": [
+            {
+              "status": "finished",
+              "model_type": "rfdetr-nas-seg-parent"
+            }
+          ],
+          "weightCheck": {
+            "attempted": true,
+            "exportableLocalWeights": false,
+            "weightsFieldsPresent": {},
+            "trainStatus": null,
+            "modelType": null,
+            "endpoint": null
+          },
+          "rawModelKeys": [],
+          "rawTrainKeys": []
+        }
+      ]
+    },
+    {
+      "projectId": "attune-skin-under-eye-grouped-research",
+      "name": "Attune Skin - Under Eye Grouped Research",
+      "type": "instance-segmentation",
+      "classes": {},
+      "images": 0,
+      "versions": []
+    },
+    {
+      "projectId": "attune-skin-under-eye-pilot",
+      "name": "Attune Skin - Under Eye Pilot",
+      "type": "instance-segmentation",
+      "classes": {
+        "eyebag": 487,
+        "darkcircle": 382
+      },
+      "images": 399,
+      "versions": []
+    },
+    {
+      "projectId": "jerawat-v-hj0qi",
+      "name": "jerawat-v",
+      "type": "object-detection",
+      "classes": {
+        "nodule": 933,
+        "papule": 1630,
+        "pustule": 1014,
+        "blackhead": 4823,
+        "whitehead": 6183
+      },
+      "images": 2202,
+      "versions": [
+        {
+          "version": "1",
+          "id": "tolgar-sasmaz/jerawat-v-hj0qi/1",
+          "name": "2026-10-23 12:08pm",
+          "images": 2202,
+          "splits": {
+            "valid": 185,
+            "test": 91,
+            "train": 1926
+          },
+          "preprocessing": {},
+          "augmentation": {},
+          "exports": [
+            "coco"
+          ],
+          "modelId": null,
+          "modelEndpoint": null,
+          "modelType": null,
+          "modelMap": null,
+          "modelPrecision": null,
+          "modelRecall": null,
+          "trainStatus": null,
+          "trainResults": null,
+          "trainMetrics": null,
+          "sdkModels": [],
+          "sdkTrainings": [],
+          "weightCheck": {
+            "attempted": false,
+            "exportableLocalWeights": false,
+            "reason": "no-trained-model"
+          },
+          "rawModelKeys": [],
+          "rawTrainKeys": []
+        }
+      ]
+    },
+    {
+      "projectId": "lesion-detection-ruc40-qzwqz",
+      "name": "lesion-detection",
+      "type": "object-detection",
+      "classes": {
+        "nevus": 1461,
+        "papule": 5550,
+        "pustule": 1268,
+        "melasma": 3955,
+        "hypertrophic_scar": 774,
+        "closed_comedo": 5877,
+        "atrophic_scar": 8958,
+        "open_comedo": 3297,
+        "other": 428,
+        "nodule": 209
+      },
+      "images": 276,
+      "versions": [
+        {
+          "version": "1",
+          "id": "tolgar-sasmaz/lesion-detection-ruc40-qzwqz/1",
+          "name": "2026-10-23 5:28pm",
+          "images": 276,
+          "splits": {
+            "valid": 27,
+            "test": 14,
+            "train": 235
+          },
+          "preprocessing": {},
+          "augmentation": {},
+          "exports": [
+            "coco"
+          ],
+          "modelId": "lesion-detection-ruc40-qzwqz/1",
+          "modelEndpoint": "https://serverless.roboflow.com/lesion-detection-ruc40-qzwqz/1",
+          "modelType": "rfdetr-large",
+          "modelMap": "36.41",
+          "modelPrecision": "43.10",
+          "modelRecall": "43.70",
+          "trainStatus": "finished",
+          "trainResults": {
+            "map": 0.3640548500228427,
+            "precision": 0.431,
+            "recall": 0.437,
+            "test_inference": true,
+            "class_map": {
+              "valid": [
+                {
+                  "class": "atrophic_scar",
+                  "precision": 0.407,
+                  "recall": 0.484,
+                  "map50": 0.379079529347044,
+                  "map95": 0.1324680288528135
+                },
+                {
+                  "class": "closed_comedo",
+                  "precision": 0.361,
+                  "recall": 0.302,
+                  "map50": 0.21673414387375337,
+                  "map95": 0.06236869368305179
+                },
+                {
+                  "class": "hypertrophic_scar",
+                  "precision": 0.32,
+                  "recall": 0.341,
+                  "map50": 0.23043537165910907,
+                  "map95": 0.0841468551292745
+                },
+                {
+                  "class": "melasma",
+                  "precision": 0.423,
+                  "recall": 0.559,
+                  "map50": 0.43763886567062565,
+                  "map95": 0.1659132655930404
+                },
+                {
+                  "class": "nevus",
+                  "precision": 0.649,
+                  "recall": 0.833,
+                  "map50": 0.7963936353819727,
+                  "map95": 0.35625043179601656
+                },
+                {
+                  "class": "nodule",
+                  "precision": 0.381,
+                  "recall": 0.364,
+                  "map50": 0.32752560970382744,
+                  "map95": 0.1701109396653951
+                },
+                {
+                  "class": "open_comedo",
+                  "precision": 0.438,
+                  "recall": 0.261,
+                  "map50": 0.22239573510908747,
+                  "map95": 0.07871192787826542
+                },
+                {
+                  "class": "other",
+                  "precision": 0.481,
+                  "recall": 0.317,
+                  "map50": 0.30815063995867115,
+                  "map95": 0.11303716658997962
+                },
+                {
+                  "class": "papule",
+                  "precision": 0.443,
+                  "recall": 0.502,
+                  "map50": 0.3683615584597423,
+                  "map95": 0.11512377410135959
+                },
+                {
+                  "class": "pustule",
+                  "precision": 0.404,
+                  "recall": 0.408,
+                  "map50": 0.3538334110645941,
+                  "map95": 0.1299194056187881
+                },
+                {
+                  "class": "all",
+                  "precision": 0.431,
+                  "recall": 0.437,
+                  "map50": 0.3640548500228427,
+                  "map95": 0.14080504889079848
+                }
+              ],
+              "test": [
+                {
+                  "class": "atrophic_scar",
+                  "precision": 0.489,
+                  "recall": 0.533,
+                  "map50": 0.45331651667783973,
+                  "map95": 0.16287905165290942
+                },
+                {
+                  "class": "closed_comedo",
+                  "precision": 0.51,
+                  "recall": 0.383,
+                  "map50": 0.3389689596530824,
+                  "map95": 0.09250989984193406
+                },
+                {
+                  "class": "hypertrophic_scar",
+                  "precision": 0.429,
+                  "recall": 0.12,
+                  "map50": 0.09624979895112294,
+                  "map95": 0.04639403113948063
+                },
+                {
+                  "class": "melasma",
+                  "precision": 0.514,
+                  "recall": 0.503,
+                  "map50": 0.45349211899442327,
+                  "map95": 0.17002685044671487
+                },
+                {
+                  "class": "nevus",
+                  "precision": 0.735,
+                  "recall": 0.847,
+                  "map50": 0.8244215952280687,
+                  "map95": 0.3414298827926666
+                },
+                {
+                  "class": "nodule",
+                  "precision": 0.182,
+                  "recall": 0.4,
+                  "map50": 0.33521923620933525,
+                  "map95": 0.2190947666195191
+                },
+                {
+                  "class": "open_comedo",
+                  "precision": 0.333,
+                  "recall": 0.184,
+                  "map50": 0.17716993065897646,
+                  "map95": 0.05476820810372028
+                },
+                {
+                  "class": "other",
+                  "precision": 0.2,
+                  "recall": 0.033,
+                  "map50": 0.01062106210621062,
+                  "map95": 0.004428442844284428
+                },
+                {
+                  "class": "papule",
+                  "precision": 0.477,
+                  "recall": 0.551,
+                  "map50": 0.44709670624844083,
+                  "map95": 0.13091348976435074
+                },
+                {
+                  "class": "pustule",
+                  "precision": 0.471,
+                  "recall": 0.421,
+                  "map50": 0.39589343838534663,
+                  "map95": 0.1668894991763285
+                },
+                {
+                  "class": "all",
+                  "precision": 0.434,
+                  "recall": 0.398,
+                  "map50": 0.35324493631128473,
+                  "map95": 0.13893341223819086
+                }
+              ]
+            },
+            "hasRealPrecisionRecall": true,
+            "finished_epochs": 72
+          },
+          "trainMetrics": null,
+          "sdkModels": [
+            "{\n  \"model_id\": \"tolgar-sasmaz/lesion-detection-ruc40-qzwqz-1-rfdetr-large-t1\",\n  \"model_type\": \"rfdetr-large\",\n  \"metrics\": {\n    \"map50\": 36.41,\n    \"precision\": 43.1,\n    \"recall\": 43.7\n  }\n}"
+          ],
+          "sdkTrainings": [
+            {
+              "status": "finished",
+              "model_type": "rfdetr-large"
+            }
+          ],
+          "weightCheck": {
+            "attempted": true,
+            "exportableLocalWeights": true,
+            "weightsFieldsPresent": {
+              "tfjs": false
+            },
+            "trainStatus": "finished",
+            "modelType": "rfdetr-large",
+            "endpoint": "https://serverless.roboflow.com/lesion-detection-ruc40-qzwqz/1"
+          },
+          "rawModelKeys": [
+            "id",
+            "endpoint",
+            "start",
+            "end",
+            "fromScratch",
+            "tfjs",
+            "oak",
+            "map",
+            "recall",
+            "precision"
+          ],
+          "rawTrainKeys": [
+            "status",
+            "model",
+            "modelType",
+            "checkpoint",
+            "start",
+            "end",
+            "results"
+          ]
+        }
+      ]
+    },
+    {
+      "projectId": "pores-detection-rqkcb-l6t8k",
+      "name": "Pores Detection",
+      "type": "instance-segmentation",
+      "classes": {
+        "pore": 57902
+      },
+      "images": 1473,
+      "versions": [
+        {
+          "version": "1",
+          "id": "tolgar-sasmaz/pores-detection-rqkcb-l6t8k/1",
+          "name": "2026-10-23 12:08pm",
+          "images": 1473,
+          "splits": {
+            "valid": 147,
+            "test": 147,
+            "train": 1179
+          },
+          "preprocessing": {},
+          "augmentation": {},
+          "exports": [
+            "coco-segmentation"
+          ],
+          "modelId": null,
+          "modelEndpoint": null,
+          "modelType": null,
+          "modelMap": null,
+          "modelPrecision": null,
+          "modelRecall": null,
+          "trainStatus": null,
+          "trainResults": null,
+          "trainMetrics": null,
+          "sdkModels": [],
+          "sdkTrainings": [],
+          "weightCheck": {
+            "attempted": false,
+            "exportableLocalWeights": false,
+            "reason": "no-trained-model"
+          },
+          "rawModelKeys": [],
+          "rawTrainKeys": []
+        }
+      ]
+    },
+    {
+      "projectId": "pores-mm7fn-e4pvz",
+      "name": "pores",
+      "type": "instance-segmentation",
+      "classes": {
+        "pore": 23585
+      },
+      "images": 444,
+      "versions": [
+        {
+          "version": "1",
+          "id": "tolgar-sasmaz/pores-mm7fn-e4pvz/1",
+          "name": "2026-10-23 11:54am",
+          "images": 444,
+          "splits": {
+            "valid": 35,
+            "test": 36,
+            "train": 373
+          },
+          "preprocessing": {},
+          "augmentation": {},
+          "exports": [
+            "coco-segmentation"
+          ],
+          "modelId": null,
+          "modelEndpoint": null,
+          "modelType": null,
+          "modelMap": null,
+          "modelPrecision": null,
+          "modelRecall": null,
+          "trainStatus": null,
+          "trainResults": null,
+          "trainMetrics": null,
+          "sdkModels": [],
+          "sdkTrainings": [],
+          "weightCheck": {
+            "attempted": false,
+            "exportableLocalWeights": false,
+            "reason": "no-trained-model"
+          },
+          "rawModelKeys": [],
+          "rawTrainKeys": []
+        }
+      ]
+    },
+    {
+      "projectId": "skin_face_detection-emora",
+      "name": "skin_face_detection",
+      "type": "instance-segmentation",
+      "classes": {
+        "wrinkle": 18400,
+        "face": 468,
+        "frown": 578,
+        "dark_circle": 160,
+        "forehead": 4037,
+        "nasolabial_fold": 602,
+        "marionette_line": 401,
+        "crows_feet": 875,
+        "tear_through": 648,
+        "vertical_lips_lines": 138,
+        "mental_crease": 79,
+        "acne": 257,
+        "brow_droop": 123,
+        "bunny_line": 149,
+        "nasobi": 2,
+        "fol": 2
+      },
+      "images": 2811,
+      "versions": [
+        {
+          "version": "1",
+          "id": "tolgar-sasmaz/skin_face_detection-emora/1",
+          "name": "2026-10-23 12:18pm",
+          "images": 2811,
+          "splits": {
+            "valid": 564,
+            "test": 278,
+            "train": 1969
+          },
+          "preprocessing": {},
+          "augmentation": {},
+          "exports": [
+            "coco"
+          ],
+          "modelId": null,
+          "modelEndpoint": null,
+          "modelType": null,
+          "modelMap": null,
+          "modelPrecision": null,
+          "modelRecall": null,
+          "trainStatus": null,
+          "trainResults": null,
+          "trainMetrics": null,
+          "sdkModels": [],
+          "sdkTrainings": [],
+          "weightCheck": {
+            "attempted": false,
+            "exportableLocalWeights": false,
+            "reason": "no-trained-model"
+          },
+          "rawModelKeys": [],
+          "rawTrainKeys": []
+        }
+      ]
+    },
+    {
+      "projectId": "wrinkles-79rrf-t7kyp",
+      "name": "wrinkles",
+      "type": "instance-segmentation",
+      "classes": {
+        "wrinkles": 7516
+      },
+      "images": 1558,
+      "versions": [
+        {
+          "version": "1",
+          "id": "tolgar-sasmaz/wrinkles-79rrf-t7kyp/1",
+          "name": "2026-10-23 11:54am",
+          "images": 1558,
+          "splits": {
+            "valid": 243,
+            "test": 148,
+            "train": 1167
+          },
+          "preprocessing": {},
+          "augmentation": {},
+          "exports": [
+            "coco",
+            "coco-segmentation"
+          ],
+          "modelId": null,
+          "modelEndpoint": null,
+          "modelType": null,
+          "modelMap": null,
+          "modelPrecision": null,
+          "modelRecall": null,
+          "trainStatus": null,
+          "trainResults": null,
+          "trainMetrics": null,
+          "sdkModels": [],
+          "sdkTrainings": [],
+          "weightCheck": {
+            "attempted": false,
+            "exportableLocalWeights": false,
+            "reason": "no-trained-model"
+          },
+          "rawModelKeys": [],
+          "rawTrainKeys": []
+        }
+      ]
+    }
+  ]
+}

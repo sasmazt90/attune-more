@@ -35,16 +35,21 @@ def test_blocker_1_and_2_regional_skin_type_rules_and_scenarios_a_to_e():
 
     # 2. Scenario A & B: All regions oil=0, dry=0 without accepted negative-evidence method -> unevaluated, NEVER leaks base ('oily' or 'dry')
     r_zero = {k: _rows(0.0, 0.0) for k in T.REGIONS}
-    res_a = T.regional_decision(_base('oily'), r_zero)
+    res_a = T.regional_decision(_base('oily'), r_zero, accepted_negative_methods=set())
     assert res_a['value'] is None
     assert res_a['quality'] == 'insufficient'
     assert res_a['limitationCode'] == 'NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED'
     assert res_a['displayValue'] == 'Değerlendirilmedi'
     assert all(res_a['decisionTrace']['regions'][k]['state'] == 'unevaluated' for k in T.REGIONS)
 
-    res_b = T.regional_decision(_base('dry'), r_zero)
+    res_b = T.regional_decision(_base('dry'), r_zero, accepted_negative_methods=set())
     assert res_b['value'] is None
     assert res_b['limitationCode'] == 'NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED'
+
+    # With active product operating methods, Scenario A & B both symmetrically return 'normal' (never leaking 'oily' or 'dry')
+    res_a_norm = T.regional_decision(_base('oily'), r_zero)
+    res_b_norm = T.regional_decision(_base('dry'), r_zero)
+    assert res_a_norm['value'] == 'normal' and res_b_norm['value'] == 'normal'
 
     # 3. Scenario E: With accepted negative-evidence methods, tiny 0.01% oil -> symmetric 'normal', NEVER combination
     r_noise = dict(forehead=_rows(0.01, 0), nose=_rows(0.01, 0), chin=_rows(0, 0), leftCheek=_rows(0, 0), rightCheek=_rows(0, 0))
@@ -176,9 +181,10 @@ const demoMod = require('./' + prefix + 'data/skinDemoFixture.ts');
 const { SkinAnalyzer, detectCameraMirrored } = require('./' + prefix + 'utils/skinAnalyzer.ts');
 const { fuseMultiAngleSkinOverview } = require('./' + prefix + 'utils/skinMultiAngle.ts');
 
-// 1. detectCameraMirrored measures actual mirror state instead of hardcoding false:
-assert.equal(detectCameraMirrored(null, null, [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1]), false);
-assert.equal(detectCameraMirrored(null, null, [-1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1]), true);
+// 1. detectCameraMirrored returns true ONLY on explicit canvas mirror transform, otherwise null (driver-level not measured):
+assert.equal(detectCameraMirrored(null, null, [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1]), null);
+assert.equal(detectCameraMirrored(null, null, [-1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1]), null);
+assert.equal(detectCameraMirrored(null, { getTransform: () => ({ a: 1 }) }, null), null);
 assert.equal(detectCameraMirrored(null, { getTransform: () => ({ a: -1 }) }, null), true);
 
 // 2. Redness labels are distinct between whole-face and regional scopes:
@@ -293,3 +299,101 @@ assert(translateText('Sol yanağınızı kameraya göstermek için başınızı 
 '''
     r = subprocess.run(['node', '-e', script], cwd=ROOT, text=True, capture_output=True, encoding='utf8')
     assert r.returncode == 0, r.stdout + r.stderr
+
+
+def test_python_and_typescript_multi_angle_fusion_parity():
+    """Verify that Python `fuse_multi_angle_skin` and TypeScript `fuseMultiAngleSkinOverview`
+    produce 100% identical skinType decisions and regionalSkinMap states across all scenarios.
+    """
+    scenarios = [
+        ('comb_normal_cheeks', dict(forehead=(5.2, 0.2), nose=(6.1, 0.1), chin=(0.4, 0.2), rightCheek=(0.3, 0.2), leftCheek=(0.2, 0.1)), 'oily'),
+        ('comb_dry_cheeks', dict(forehead=(5.2, 0.2), nose=(6.1, 0.1), chin=(3.4, 0.2), rightCheek=(0.2, 4.1), leftCheek=(0.1, 3.8)), 'dry'),
+        ('all_oily', dict(forehead=(5.2, 0.2), nose=(6.1, 0.1), chin=(3.4, 0.2), rightCheek=(4.2, 0.1), leftCheek=(5.1, 0.2)), 'normal'),
+        ('all_dry', dict(forehead=(0.2, 3.5), nose=(0.1, 4.1), chin=(0.2, 3.8), rightCheek=(0.2, 4.1), leftCheek=(0.1, 3.8)), 'oily'),
+        ('all_normal_vit_oily', dict(forehead=(0.2, 0.1), nose=(0.1, 0.1), chin=(0.2, 0.2), rightCheek=(0.2, 0.1), leftCheek=(0.1, 0.2)), 'oily'),
+        ('all_normal_vit_dry', dict(forehead=(0.2, 0.1), nose=(0.1, 0.1), chin=(0.2, 0.2), rightCheek=(0.2, 0.1), leftCheek=(0.1, 0.2)), 'dry'),
+        ('intermediate_band', dict(forehead=(1.5, 0.1), nose=(0.1, 0.1), chin=(0.2, 0.2), rightCheek=(0.2, 0.1), leftCheek=(0.1, 0.2)), 'normal'),
+        ('mixed_pattern', dict(forehead=(5.0, 0.1), nose=(0.1, 3.5), chin=(0.2, 4.2), rightCheek=(0.2, 0.1), leftCheek=(0.1, 3.8)), 'oily'),
+    ]
+
+    py_outputs = {}
+    for name, regs, base_val in scenarios:
+        front = dict(
+            photoId='pid-front',
+            pose='FRONT',
+            general=dict(skinType=_base(base_val)),
+            measurements=dict(
+                forehead=_rows(*regs['forehead'], pose='FRONT', photo_id='pid-front'),
+                nose=_rows(*regs['nose'], pose='FRONT', photo_id='pid-front'),
+                chin=_rows(*regs['chin'], pose='FRONT', photo_id='pid-front'),
+                leftCheek=_rows(9.9, 9.9, pose='FRONT', photo_id='pid-front'),
+                rightCheek=_rows(9.9, 9.9, pose='FRONT', photo_id='pid-front'),
+            ),
+        )
+        left = dict(photoId='pid-left', pose='LEFT', measurements=dict(rightCheek=_rows(*regs['rightCheek'], pose='LEFT', photo_id='pid-left')))
+        right = dict(photoId='pid-right', pose='RIGHT', measurements=dict(leftCheek=_rows(*regs['leftCheek'], pose='RIGHT', photo_id='pid-right')))
+        fused = T.fuse_multi_angle_skin(front, left, right)
+        st = fused['general']['skinType']
+        rm = fused['general']['regionalSkinMap']['regions']
+        py_outputs[name] = dict(
+            value=st['value'],
+            quality=st['quality'],
+            limitationCode=st['limitationCode'],
+            displayValue=st.get('displayValue'),
+            regions={k: dict(state=rm[k]['state'], reason=rm[k]['reason'], sourcePose=rm[k]['sourcePose'], sourcePhotoId=rm[k]['sourcePhotoId']) for k in T.REGIONS},
+        )
+
+    ts_script = f'''
+const assert = require('assert/strict');
+require('./tests/unit/ts_loader.js');
+const {{ fuseMultiAngleSkinOverview }} = require('./apps/vehicle-app/src/utils/skinMultiAngle.ts');
+const scenarios = {json.dumps(scenarios)};
+const pyOutputs = {json.dumps(py_outputs)};
+
+function makeInd(oil, dry, pose, photoId) {{
+  return [
+    {{ id: 'oil', score: oil, appearance: {{ value: oil, quality: 'valid', methodVersion: 'appearance-cv-6', evaluatedArea: {{ sourcePixels: 250, analysisPixels: 250, foreheadSourcePixels: 120, noseSourcePixels: 130 }}, capturePose: pose, photoId }} }},
+    {{ id: 'dry', score: dry, appearance: {{ value: dry, quality: 'valid', methodVersion: 'appearance-native-dry-3', evaluatedArea: {{ sourcePixels: 250, analysisPixels: 250, foreheadSourcePixels: 120, noseSourcePixels: 130 }}, capturePose: pose, photoId }} }},
+  ];
+}}
+
+for (const [name, regs, baseVal] of scenarios) {{
+  const frontGen = {{
+    id: 'overview',
+    skinType: {{ value: null, quality: 'insufficient', methodVersion: 'local-vit+regional-v3', decisionTrace: {{ baseValue: baseVal }} }},
+  }};
+  const indicators = {{
+    forehead: makeInd(regs.forehead[0], regs.forehead[1], 'FRONT', 'pid-front'),
+    nose: makeInd(regs.nose[0], regs.nose[1], 'FRONT', 'pid-front'),
+    chin: makeInd(regs.chin[0], regs.chin[1], 'FRONT', 'pid-front'),
+    rightCheek: makeInd(regs.rightCheek[0], regs.rightCheek[1], 'LEFT', 'pid-left'),
+    leftCheek: makeInd(regs.leftCheek[0], regs.leftCheek[1], 'RIGHT', 'pid-right'),
+  }};
+  const captures = {{
+    FRONT: {{ captureId: 'pid-front', pose: 'FRONT' }},
+    LEFT: {{ captureId: 'pid-left', pose: 'LEFT' }},
+    RIGHT: {{ captureId: 'pid-right', pose: 'RIGHT' }},
+  }};
+  const tsRes = fuseMultiAngleSkinOverview(frontGen, indicators, captures);
+  const expected = pyOutputs[name];
+  assert.equal(tsRes.skinType.value, expected.value, name + ': value mismatch');
+  assert.equal(tsRes.skinType.quality, expected.quality, name + ': quality mismatch');
+  assert.equal(tsRes.skinType.limitationCode, expected.limitationCode, name + ': limitationCode mismatch');
+  assert.equal(tsRes.skinType.displayValue ?? null, expected.displayValue ?? null, name + ': displayValue mismatch');
+  for (const reg of Object.keys(expected.regions)) {{
+    assert.deepEqual(
+      {{
+        state: tsRes.regionalSkinMap.regions[reg].state,
+        reason: tsRes.regionalSkinMap.regions[reg].reason,
+        sourcePose: tsRes.regionalSkinMap.regions[reg].sourcePose,
+        sourcePhotoId: tsRes.regionalSkinMap.regions[reg].sourcePhotoId,
+      }},
+      expected.regions[reg],
+      name + ':' + reg + ' region mismatch'
+    );
+  }}
+}}
+'''
+    r = subprocess.run(['node', '-e', ts_script], cwd=ROOT, text=True, capture_output=True, encoding='utf8')
+    assert r.returncode == 0, r.stdout + r.stderr
+

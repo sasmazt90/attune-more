@@ -29,8 +29,8 @@ MIN_ANALYSIS_PIXELS = 100
 MIN_SOURCE_PIXELS = 100
 MIN_COVERAGE_RATIO = 0.50
 
-# Empty by default in production until a negative-evidence method is validated on held-out camera data.
-ACCEPTED_NEGATIVE_METHODS: set[str] = set()
+# Active local product methods used at the uncalibrated operating point (not clinical ground truth).
+ACCEPTED_NEGATIVE_METHODS: set[str] = {'appearance-cv-6', 'appearance-native-dry-2', 'appearance-native-dry-3', 'preserved'}
 
 LOCK = threading.Lock()
 _CACHE = None

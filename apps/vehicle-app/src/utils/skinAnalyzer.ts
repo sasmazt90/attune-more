@@ -25,7 +25,8 @@ export interface FaceAlignment {
   yawDeg?: number;
   pitchDeg?: number;
   rollDeg?: number;
-  cameraMirrored?: boolean;
+  cameraMirrored?: boolean | null;
+  cameraMirrorStatus?: 'canvas-mirrored' | 'not-measured-driver-level';
   faceDetected: boolean;
   faceCount?: number;
   isMediaPipeActive: boolean;
@@ -58,37 +59,31 @@ export function skinSourceFramed(points:{x:number;y:number}[],width:number,heigh
  return minX>.005&&maxX<.995&&minY>.005&&maxY<.995&&(maxX-minX)*width>=4&&(maxY-minY)*height>=4;
 }
 
-/** Measure whether the capture source or 3D basis is horizontally mirrored. */
+/**
+ * Driver-level webcam mirroring cannot be determined from a single RGB frame or
+ * a proper 3D rotation matrix (det = +1). Only an explicit canvas 2D mirror
+ * transform (`ctx.getTransform().a < 0`) flips captured pixels; otherwise
+ * return `null` (`not-measured-driver-level`).
+ */
 export function detectCameraMirrored(
-  video?: HTMLVideoElement | null,
+  _video?: HTMLVideoElement | null,
   ctx?: CanvasRenderingContext2D | null,
-  faceTransform?: number[] | null
-): boolean {
+  _faceTransform?: number[] | null
+): boolean | null {
   try {
     if (ctx && typeof ctx.getTransform === 'function') {
       const t = ctx.getTransform();
       if (typeof t?.a === 'number' && t.a < 0) return true;
     }
-    if (video && typeof window !== 'undefined' && typeof window.getComputedStyle === 'function') {
-      const tr = window.getComputedStyle(video).transform;
-      if (tr && tr.startsWith('matrix(')) {
-        const scaleX = parseFloat(tr.slice(7).split(',')[0]);
-        if (Number.isFinite(scaleX) && scaleX < 0) return true;
-      }
-    }
-    if (Array.isArray(faceTransform) && faceTransform.length >= 16) {
-      const m = faceTransform;
-      const det =
-        m[0] * (m[5] * m[10] - m[6] * m[9]) -
-        m[4] * (m[1] * m[10] - m[2] * m[9]) +
-        m[8] * (m[1] * m[6] - m[2] * m[5]);
-      if (Number.isFinite(det) && det < -0.1) return true;
-    }
   } catch {}
-  return false;
+  return null;
 }
 
-export type SkinCapturePose = Pick<FaceAlignment, 'yaw' | 'pitch' | 'roll' | 'scaleRatio'>;
+export type SkinCapturePose = Pick<FaceAlignment, 'yaw' | 'pitch' | 'roll' | 'scaleRatio'> & {
+  yawDeg?: number;
+  pitchDeg?: number;
+  rollDeg?: number;
+};
 export interface SkinReferenceMetadata {
   id: string; timestamp: string; schemaVersion: 1; scope: 'single-front-v1';
   quality: ImageQuality; pose: SkinCapturePose;

@@ -100,7 +100,7 @@ def test_final_native_zero_replaces_old_positive_trace_without_reinference(monke
         row = next(x for x in rows_ if x['id'] == 'dry')
         row.update(value=0, methodVersion='appearance-native-dry-2', normalizationVersion='native-final')
     # Without accepted negative evidence method, dry=0 and oil=0 on cheeks returns unevaluated (never normal)
-    result_unverified = T.finalize_product_type(copy.deepcopy(r))
+    result_unverified = T.finalize_product_type(copy.deepcopy(r), accepted_negative_methods=set())
     t_unv = result_unverified['general']['skinType']
     assert t_unv['value'] is None
     assert t_unv['decisionTrace']['regions']['rightCheek']['state'] == 'unevaluated'
@@ -233,7 +233,7 @@ def test_scenarios_a_b_c_d_e_contract():
     assert res_b['value'] == 'normal' and res_b['quality'] == 'valid'
 
     # Scenario A/B without accepted negative method: returns value=None, displayValue='Değerlendirilmedi', NEVER leaks ViT!
-    res_unv = T.regional_decision(base('oily'), r_all_normal)
+    res_unv = T.regional_decision(base('oily'), r_all_normal, accepted_negative_methods=set())
     assert res_unv['value'] is None and res_unv['quality'] == 'insufficient'
     assert res_unv['displayValue'] == 'Değerlendirilmedi'
     assert all(res_unv['decisionTrace']['regions'][k]['state'] == 'unevaluated' for k in T.REGIONS)

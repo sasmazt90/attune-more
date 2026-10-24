@@ -7,7 +7,7 @@ export type SkinAngle = typeof SKIN_ANGLES[number];
 export const ANGLE_LABELS = { FRONT: 'Ön', RIGHT: 'Anatomik sağ', LEFT: 'Anatomik sol' };
 
 export const SKIN_FRONT_MAX_YAW_DEG = 12;
-export const SKIN_SIDE_MIN_YAW_DEG = 12;
+export const SKIN_SIDE_MIN_YAW_DEG = 10.5;
 export const SKIN_SIDE_MAX_YAW_DEG = 45;
 export const SKIN_MAX_PITCH_DEG = 18;
 export const SKIN_MAX_ROLL_DEG = 15;
@@ -17,11 +17,19 @@ export const OIL_NEGATIVE_MAX = 1.0;
 export const DRY_POSITIVE_MIN = 2.0;
 export const DRY_NEGATIVE_MAX = 1.0;
 export const MIN_ANALYSIS_PIXELS = 100;
+export const DEFAULT_ACCEPTED_NEGATIVE_METHODS = [
+  'appearance-cv-6',
+  'appearance-native-dry-2',
+  'appearance-native-dry-3',
+  'preserved'
+] as const;
 
 export interface AngleCapture {
   indicators?: import('./skinIndicators').SkinIndicators;
   angle: SkinAngle;
   pose: SkinCapturePose;
+  cameraMirrored?: boolean | null;
+  cameraMirrorStatus?: 'canvas-mirrored' | 'not-measured-driver-level';
   quality: ImageQuality;
   regions: Record<string, RegionMetrics>;
   frameToken: string;
@@ -36,15 +44,22 @@ export interface MultiAngleReference {
 
 export function skinPoseRotation(
   a: FaceAlignment | undefined | null
-): { yawDeg: number; pitchDeg: number; rollDeg: number; cameraMirrored: boolean } | null {
+): {
+  yawDeg: number;
+  pitchDeg: number;
+  rollDeg: number;
+  cameraMirrored: boolean | null;
+  cameraMirrorStatus: 'canvas-mirrored' | 'not-measured-driver-level';
+} | null {
   const m = a?.faceTransform;
   if (!Array.isArray(m) || m.length < 16 || !m.slice(0, 16).every(Number.isFinite)) return null;
   if (![m[0], m[4], m[8], m[1], m[5], m[9], m[2], m[6], m[10]].every(v => Math.abs(v) <= 1.05)) return null;
   const yawDeg = Math.round(((Math.atan2(m[8], m[10]) * 180) / Math.PI) * 100) / 100;
   const pitchDeg = Math.round(((Math.asin(Math.max(-1, Math.min(1, -m[9]))) * 180) / Math.PI) * 100) / 100;
   const rollDeg = Math.round(((Math.atan2(m[1], m[5]) * 180) / Math.PI) * 100) / 100;
-  const cameraMirrored = typeof a?.cameraMirrored === 'boolean' ? a.cameraMirrored : detectCameraMirrored(null, null, m);
-  return { yawDeg, pitchDeg, rollDeg, cameraMirrored };
+  const cameraMirrored = a?.cameraMirrored !== undefined ? a.cameraMirrored : detectCameraMirrored(null, null, m);
+  const cameraMirrorStatus = cameraMirrored === true ? 'canvas-mirrored' : 'not-measured-driver-level';
+  return { yawDeg, pitchDeg, rollDeg, cameraMirrored, cameraMirrorStatus };
 }
 
 export function hasTargetCheekVisibility(a: FaceAlignment, angle: SkinAngle): boolean {
@@ -68,20 +83,22 @@ export function hasTargetCheekVisibility(a: FaceAlignment, angle: SkinAngle): bo
 
 // Camera pixels are unmirrored. Positive yaw means nose toward raw image right,
 // i.e. the participant's anatomical LEFT (exposing the right cheek). CSS preview mirroring never changes this sign.
+// Preserves all poses accepted by 7463eef/51ab991 (|a.yaw| >= 0.25 or |rot.yawDeg| >= 10.5°) while expanding the upper bound to 45°.
 export function matchesSkinAngle(a: FaceAlignment, angle: SkinAngle): boolean {
   if (!a.faceDetected || !a.isMediaPipeActive || ![a.yaw, a.pitch, a.roll, a.scaleRatio].every(Number.isFinite)) return false;
   const actualScale = a.landmarks?.length
     ? Math.max(...a.landmarks.map(p => p.x)) - Math.min(...a.landmarks.map(p => p.x))
     : a.scaleRatio;
   if (a.sourceFramed === undefined ? actualScale < 0.28 || actualScale > 0.68 : !a.sourceFramed) return false;
-  if (!hasTargetCheekVisibility(a, angle)) return false;
 
   const rot = skinPoseRotation(a);
   if (rot) {
     if (Math.abs(rot.pitchDeg) > SKIN_MAX_PITCH_DEG || Math.abs(rot.rollDeg) > SKIN_MAX_ROLL_DEG) return false;
-    if (angle === 'FRONT') return Math.abs(rot.yawDeg) <= SKIN_FRONT_MAX_YAW_DEG;
-    if (angle === 'RIGHT') return rot.yawDeg <= -SKIN_SIDE_MIN_YAW_DEG && rot.yawDeg >= -SKIN_SIDE_MAX_YAW_DEG;
-    return rot.yawDeg >= SKIN_SIDE_MIN_YAW_DEG && rot.yawDeg <= SKIN_SIDE_MAX_YAW_DEG;
+    if (angle === 'FRONT') return Math.abs(rot.yawDeg) <= SKIN_FRONT_MAX_YAW_DEG && Math.abs(a.yaw) <= 0.20;
+    if (angle === 'RIGHT') {
+      return (rot.yawDeg <= -SKIN_SIDE_MIN_YAW_DEG || a.yaw <= -0.25) && rot.yawDeg >= -SKIN_SIDE_MAX_YAW_DEG && a.yaw >= -1.15;
+    }
+    return (rot.yawDeg >= SKIN_SIDE_MIN_YAW_DEG || a.yaw >= 0.25) && rot.yawDeg <= SKIN_SIDE_MAX_YAW_DEG && a.yaw <= 1.15;
   }
 
   if (Math.abs(a.pitch) > 0.22 || Math.abs(a.roll) > 0.15) return false;
@@ -130,17 +147,20 @@ export async function captureSkinAngle(
   const regions = SkinAnalyzer.analyzeRegions(ctx, ctx.canvas.width, ctx.canvas.height, a, ids);
   const rot = skinPoseRotation(a);
   const cameraMirrored = rot ? rot.cameraMirrored : detectCameraMirrored(null, ctx, a.faceTransform);
+  const cameraMirrorStatus = cameraMirrored === true ? 'canvas-mirrored' : 'not-measured-driver-level';
   return {
     angle,
     frameToken,
     regions,
     quality,
+    cameraMirrored,
+    cameraMirrorStatus,
     pose: {
       yaw: a.yaw,
       pitch: a.pitch,
       roll: a.roll,
       scaleRatio: a.scaleRatio,
-      ...(rot ? { yawDeg: rot.yawDeg, pitchDeg: rot.pitchDeg, rollDeg: rot.rollDeg, cameraMirrored } : { cameraMirrored })
+      ...(rot ? { yawDeg: rot.yawDeg, pitchDeg: rot.pitchDeg, rollDeg: rot.rollDeg } : {})
     }
   };
 }
@@ -209,7 +229,7 @@ export function fuseMultiAngleSkinOverview(
   frontGeneral: SkinOverview | undefined,
   indicators: SkinIndicators,
   captures: Partial<Record<SkinAngle, { captureId?: string; photoId?: string; pose?: string }>>,
-  acceptedNegativeMethods: string[] = []
+  acceptedNegativeMethods: string[] = [...DEFAULT_ACCEPTED_NEGATIVE_METHODS]
 ): SkinOverview | undefined {
   if (!frontGeneral || !frontGeneral.skinType) return frontGeneral;
   const REGIONS = ['forehead', 'nose', 'chin', 'leftCheek', 'rightCheek'] as const;

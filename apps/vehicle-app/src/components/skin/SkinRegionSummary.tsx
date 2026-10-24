@@ -16,6 +16,40 @@ interface SkinRegionSummaryProps {
   onSelectCriterion?:(criterion:string)=>void;
 }
 
+export function criterionModelBadge(
+  id: string,
+  methodVersion?: string | null,
+  modelVersion?: string | null,
+  regionId?: string
+): { code: string; label: string } {
+  const m = methodVersion || '';
+  if (id === 'acne') {
+    if (m.startsWith('appearance-acne-step0-verifier-v5')) {
+      return { code: 'local-onnx-acne-v5', label: 'Yerel ONNX: acne-v5-step0-silu + logreg' };
+    }
+    return { code: 'local-acne-inactive', label: 'Yerel model: acne-v5 (devre dışı)' };
+  }
+  if (id === 'dry') {
+    if (m.startsWith('appearance-native-dry')) {
+      return { code: 'local-onnx-dryness-v3', label: 'Yerel ONNX: dryness-calibrated-v3' };
+    }
+    return { code: 'local-cv-dry', label: 'Yerel Analitik: appearance-cv-6' };
+  }
+  if (id === 'redness') {
+    if (regionId === 'overview' || (modelVersion && modelVersion.includes('ridge'))) {
+      return { code: 'local-onnx-degrees-redness', label: 'Yerel ONNX: skin-focused-degrees + LAB a*' };
+    }
+    return { code: 'local-cv-redness', label: 'Yerel Analitik: LAB a* (appearance-cv-6)' };
+  }
+  if (id === 'oil') return { code: 'local-cv-oil', label: 'Yerel Analitik: parlama alanı (appearance-cv-6)' };
+  if (id === 'lines') return { code: 'local-cv-lines', label: 'Yerel Analitik: sırt iskeleti (appearance-cv-6)' };
+  if (id === 'bags') return { code: 'local-cv-bags', label: 'Yerel Analitik: alt kapak konturu (appearance-cv-6)' };
+  if (id === 'dark') return { code: 'local-cv-dark', label: 'Yerel Analitik: periorbital renk (appearance-cv-6)' };
+  if (id === 'sag') return { code: 'local-cv-sag', label: 'Yerel Analitik: 3B kontur oranı (appearance-cv-6)' };
+  if (id === 'tone') return { code: 'local-cv-tone', label: 'Yerel Analitik: kromatik dağılım (appearance-cv-6)' };
+  return { code: m || 'local-cv', label: 'Yerel Analitik: appearance-cv-6' };
+}
+
 export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
   currentRegion,
   onOpenModal,
@@ -55,9 +89,15 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
         </div>
 
         {currentRegion.id === 'overview' && (
-          <div className="rounded-2xl border border-sky-400/15 bg-slate-900/60 p-4 flex flex-wrap justify-between gap-2" data-skin-type data-skin-type-limitation={currentRegion.skinType?.limitationCode || undefined}>
-            <span className="text-sm text-slate-300">{i18nText("Cilt tipi")}</span>
-            <strong className="text-base text-white">{i18nNode(skinTypeDisplay)}</strong>
+          <div className="rounded-2xl border border-sky-400/15 bg-slate-900/60 p-4 space-y-1.5" data-skin-type data-skin-type-limitation={currentRegion.skinType?.limitationCode || undefined}>
+            <div className="flex flex-wrap justify-between gap-2">
+              <span className="text-sm text-slate-300">{i18nText("Cilt tipi")}</span>
+              <strong className="text-base text-white">{i18nNode(skinTypeDisplay)}</strong>
+            </div>
+            <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400 font-mono" data-skin-type-model={currentRegion.skinType?.methodVersion || 'local-vit+regional-v3'}>
+              <span>{i18nText("Bölgesel Kural + Yerel ONNX (local-vit-dima806)")}</span>
+              <span>{i18nText("Model/vekil tahmini · Klinik tanı değildir")}</span>
+            </div>
           </div>
         )}
         {/* Current source measurements only. */}
@@ -66,8 +106,17 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
             {visibleIndicators.map(indicator=>{
               const geometry=indicator.appearance?.type==='longitudinal_measurement';
               const delta=indicator.referenceDelta===undefined?undefined:Math.round(indicator.referenceDelta*(geometry?1000:1));
-              return <div key={indicator.id} data-skin-indicator={indicator.id} role={onSelectCriterion?'button':undefined} tabIndex={onSelectCriterion?0:undefined} aria-pressed={onSelectCriterion?selectedCriterion===indicator.id:undefined} onClick={()=>onSelectCriterion?.(indicator.id)} onKeyDown={event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();onSelectCriterion?.(indicator.id);}}} className={`rounded-2xl border bg-slate-900/60 p-4 space-y-3 ${selectedCriterion===indicator.id?'border-togg-turquoise ring-1 ring-togg-turquoise/40':'border-sky-400/15'}`}>
-                <div className="text-sm text-slate-300">{i18nNode(indicator.label)}</div>
+              const modelBadge = criterionModelBadge(
+                indicator.id,
+                indicator.appearance?.methodVersion || indicator.measurement?.methodVersion || indicator.method,
+                indicator.appearance?.modelVersion,
+                currentRegion.id
+              );
+              return <div key={indicator.id} data-skin-indicator={indicator.id} data-criterion-model={modelBadge.code} role={onSelectCriterion?'button':undefined} tabIndex={onSelectCriterion?0:undefined} aria-pressed={onSelectCriterion?selectedCriterion===indicator.id:undefined} onClick={()=>onSelectCriterion?.(indicator.id)} onKeyDown={event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();onSelectCriterion?.(indicator.id);}}} className={`rounded-2xl border bg-slate-900/60 p-4 space-y-3 ${selectedCriterion===indicator.id?'border-togg-turquoise ring-1 ring-togg-turquoise/40':'border-sky-400/15'}`}>
+                <div className="space-y-1">
+                  <div className="text-sm text-slate-300">{i18nNode(indicator.label)}</div>
+                  <div className="text-[11px] text-slate-400 font-mono" data-criterion-model-label>{i18nText(modelBadge.label)}</div>
+                </div>
                 <SkinIndicatorValue indicator={indicator}/>
                 {delta!==undefined&&<p className="text-xs text-sky-300">{i18nText("Referansa göre ")}{i18nNode(delta>0?'+':'')}{i18nNode(delta)} {i18nNode(geometry?'× 10⁻³ kontur farkı':indicator.unit)}</p>}
               </div>;

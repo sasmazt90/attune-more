@@ -16,7 +16,7 @@ const {
   DENTAL_SIDE_MAX_DEG,
 } = require('../../apps/vehicle-app/src/utils/dentalCapture.ts');
 
-assert.equal(SKIN_SIDE_MIN_YAW_DEG, 12);
+assert.equal(SKIN_SIDE_MIN_YAW_DEG, 10.5);
 assert.equal(SKIN_SIDE_MAX_YAW_DEG, 45);
 assert.equal(DENTAL_SIDE_MIN_DEG, 15);
 assert.equal(DENTAL_SIDE_MAX_DEG, 45);
@@ -59,18 +59,19 @@ assert.equal(matchesSkinAngle(realGateCheckSide, 'LEFT'), true);
 assert.equal(matchesSkinAngle(realGateCheckSide, 'RIGHT'), false);
 assert.equal(matchesSkinAngle(realGateCheckSide, 'FRONT'), false);
 
-// 3. Previously accepted gentle turns (12.5°–15°) remain accepted, AND wider turns up to 45° are now accepted:
+// 3. Previously accepted gentle turns (10.9°–15°, including 06_usa LEFT 10.9° / 0.30) remain accepted, AND wider turns up to 45° are now accepted:
+assert.equal(matchesSkinAngle({ ...base, yaw: 0.30, faceTransform: makeTransform(10.9) }, 'LEFT'), true);
 assert.equal(matchesSkinAngle({ ...base, yaw: 0.25, faceTransform: makeTransform(12.5) }, 'LEFT'), true);
 assert.equal(matchesSkinAngle({ ...base, yaw: -0.70, faceTransform: makeTransform(-21.6) }, 'RIGHT'), true);
 assert.equal(matchesSkinAngle({ ...base, yaw: 1.05, faceTransform: makeTransform(42.0) }, 'LEFT'), true);
 assert.equal(matchesSkinAngle({ ...base, yaw: -1.05, faceTransform: makeTransform(-42.0) }, 'RIGHT'), true);
 
-// 4. Out-of-bounds (< 12° or > 45°) are rejected with matching '12°–45°' guidance:
+// 4. Out-of-bounds (< 10.5° & < 0.25 or > 45°) are rejected with matching guidance:
 assert.equal(matchesSkinAngle({ ...base, yaw: 0.10, faceTransform: makeTransform(6.0) }, 'LEFT'), false);
 assert.equal(matchesSkinAngle({ ...base, yaw: 1.25, faceTransform: makeTransform(48.0) }, 'LEFT'), false);
 assert(angleGuidance({ ...base, yaw: 1.25, faceTransform: makeTransform(48.0) }, 'LEFT').includes('12°–45°'));
 
-// 5. Dental side pose gate widened to 15°–45° (accepts 16°, 25°, 42°; rejects 10° and 48°):
+// 5. Dental side pose gate widened to 15°–45° (accepts 16°, 25°, 42°; rejects 10° and 48°) and preserves strict pitch (<=0.22) and roll (<=0.15):
 assert.equal(matchesDentalAngle({ ...base, faceTransform: makeTransform(16.0) }, 'LEFT'), true);
 assert.equal(matchesDentalAngle({ ...base, faceTransform: makeTransform(42.0) }, 'LEFT'), true);
 assert.equal(matchesDentalAngle({ ...base, faceTransform: makeTransform(-42.0) }, 'RIGHT'), true);
@@ -86,6 +87,6 @@ console.log(
     dentalRangeDeg: [DENTAL_SIDE_MIN_DEG, DENTAL_SIDE_MAX_DEG],
     sideFrontGateRegression: true,
     rigid3DYawVerified: true,
-    checks: 28,
+    checks: 29,
   })
 );

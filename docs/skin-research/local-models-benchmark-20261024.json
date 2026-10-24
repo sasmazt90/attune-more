@@ -1,0 +1,646 @@
+{
+  "generatedAt": "2026-10-24T19:20:00+02:00",
+  "networkSocketBlocked": true,
+  "blockedNetworkAttemptsDuringRun": 1,
+  "persistedWeightsDirectory": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\e2e-verification-20261024\\models",
+  "persistedRoboflowWeights": [
+    {
+      "modelId": "tolgar-sasmaz/attune-comedones-boxes-grouped-r1/1",
+      "architecture": "rfdetr-small",
+      "license": "Apache-2.0 (rfdetr) + workspace owner weights",
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\e2e-verification-20261024\\models\\attune-comedones-boxes-grouped-r1-v1\\weights.pt",
+      "sizeBytes": 127395111,
+      "sha256": "b7096a9db340769c3e66ceec4cea47fcd6d0890b4259713751c3c97226d38b26",
+      "loadMs": 726.17
+    },
+    {
+      "modelId": "tolgar-sasmaz/lesion-detection-ruc40-qzwqz/1",
+      "architecture": "rfdetr-large",
+      "license": "Apache-2.0 (rfdetr) + workspace owner weights",
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\e2e-verification-20261024\\models\\lesion-detection-ruc40-qzwqz-v1\\weights.pt",
+      "sizeBytes": 134792239,
+      "sha256": "f8ed074ad757729ce7d21ab22209443b91388f483415e8d3f8d892c72f6bd858",
+      "loadMs": 568.11
+    },
+    {
+      "modelId": "tolgar-sasmaz/attune-pores-masks-grouped-r1/2",
+      "architecture": "yolov11s-seg",
+      "license": "AGPL-3.0 (Ultralytics YOLOv11)",
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\e2e-verification-20261024\\models\\attune-pores-masks-grouped-r1-v2\\weights.pt",
+      "sizeBytes": 20533668,
+      "sha256": "702d380a0ac8ce4d973c6a1529a87dd3485287e599cc6cdda081d6c3a35f714a",
+      "loadMs": 63.27
+    }
+  ],
+  "activeProductOnnxModels": [
+    {
+      "criterion": "acne",
+      "modelVersion": "experimental-step0-verifier-v5-local-preview-v1",
+      "methodVersion": "appearance-acne-step0-verifier-v5-2",
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-skin-refinement-worktree\\services\\core-api\\models\\acne-v5-preview\\step0-with-features-stable-silu.onnx",
+      "sizeBytes": 39122518,
+      "sha256": "9c87475d9302aed16f09abedc109211c2ac1b49f22f465f86aab408a5244d0be",
+      "license": "Apache-2.0 (YOLOX step0 + logistic verifier)"
+    },
+    {
+      "criterion": "dry",
+      "modelVersion": "dryness-calibrated-v3",
+      "methodVersion": "appearance-native-dry-3",
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-skin-refinement-worktree\\services\\core-api\\models\\dryness-calibrated-v3\\encoder.onnx",
+      "sizeBytes": 16019972,
+      "sha256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987",
+      "license": "Proprietary in-repo local ONNX"
+    },
+    {
+      "criterion": "redness (whole-face)",
+      "modelVersion": "skin-appearance-photo-ridge-20261010-v1",
+      "methodVersion": "appearance-cv-6",
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-skin-refinement-worktree\\services\\core-api\\models\\skin-focused-degrees.onnx",
+      "sizeBytes": 16037017,
+      "sha256": "65936939048730950c8561f39546d048862ee6ec2efef04878d56d19c1dc0bf3",
+      "license": "Proprietary in-repo local ONNX"
+    },
+    {
+      "criterion": "skinType (auxiliary base)",
+      "modelVersion": "local-vit-dima806-5aace4f-v1",
+      "methodVersion": "local-vit-dima806-5aace4f-v1+tzone-oily-cheeks-dry-or-normal-v3",
+      "path": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-skin-refinement-worktree\\services\\core-api\\models\\skin-type-local-v1\\model.onnx",
+      "sizeBytes": 343341982,
+      "sha256": "99b4c2fa1e9ac013d539f635eb948c5a29f4c5f86f34fe26c380ad308c26c65a",
+      "license": "Apache-2.0 (dima806/skin_types_image_detection)"
+    }
+  ],
+  "benchmarkOnIdenticalImages": [
+    {
+      "imageId": "tolgar_docx_screen1_true_face_286_297_670_693",
+      "imagePath": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\e2e-verification-20261024\\tolgar_docx_screen1_true_face_286_297_670_693.png",
+      "imageKind": "real_application_screenshot_crop_image1_no_mesh",
+      "dimensions": [
+        384,
+        396
+      ],
+      "sha256": "4c99b3b42584d7d48862161a30741ce288dd1e96994d622d69832d8f4428dc4a",
+      "models": {
+        "attune-comedones-boxes-grouped-r1/1 (rfdetr-small)": {
+          "runtime": "local-pytorch-cpu (socket-blocked)",
+          "inferenceMs": 1074.46,
+          "threshold": 0.2,
+          "detectionCount": 7,
+          "detections": [
+            {
+              "classId": 1,
+              "className": "blackheads",
+              "confidence": 0.6103,
+              "xyxy": [
+                80.1,
+                129.5,
+                180.7,
+                203.6
+              ]
+            },
+            {
+              "classId": 1,
+              "className": "blackheads",
+              "confidence": 0.4239,
+              "xyxy": [
+                191.5,
+                130.9,
+                301.4,
+                209.9
+              ]
+            },
+            {
+              "classId": 1,
+              "className": "blackheads",
+              "confidence": 0.35,
+              "xyxy": [
+                141.9,
+                201.0,
+                227.4,
+                258.5
+              ]
+            },
+            {
+              "classId": 1,
+              "className": "blackheads",
+              "confidence": 0.2461,
+              "xyxy": [
+                293.1,
+                206.8,
+                334.3,
+                301.8
+              ]
+            },
+            {
+              "classId": 1,
+              "className": "blackheads",
+              "confidence": 0.2253,
+              "xyxy": [
+                186.2,
+                127.9,
+                307.6,
+                237.7
+              ]
+            },
+            {
+              "classId": 1,
+              "className": "blackheads",
+              "confidence": 0.2185,
+              "xyxy": [
+                97.0,
+                213.5,
+                264.2,
+                355.7
+              ]
+            },
+            {
+              "classId": 1,
+              "className": "blackheads",
+              "confidence": 0.2146,
+              "xyxy": [
+                109.9,
+                245.6,
+                250.0,
+                323.0
+              ]
+            }
+          ]
+        },
+        "lesion-detection-ruc40-qzwqz/1 (rfdetr-large)": {
+          "runtime": "local-pytorch-cpu (socket-blocked)",
+          "inferenceMs": 1660.85,
+          "rawThreshold": 0.15,
+          "rawDetectionCount": 14,
+          "approvedAcneCount": 3,
+          "approvedAcneDetections": [
+            {
+              "classId": 8,
+              "className": "papule",
+              "confidence": 0.4652,
+              "xyxy": [
+                102.4,
+                158.5,
+                162.2,
+                190.7
+              ]
+            },
+            {
+              "classId": 8,
+              "className": "papule",
+              "confidence": 0.432,
+              "xyxy": [
+                215.2,
+                162.0,
+                271.8,
+                192.5
+              ]
+            },
+            {
+              "classId": 8,
+              "className": "papule",
+              "confidence": 0.2883,
+              "xyxy": [
+                116.8,
+                167.6,
+                150.7,
+                185.8
+              ]
+            }
+          ],
+          "excludedNevusScarOtherCount": 0,
+          "excludedNevusScarOtherDetections": []
+        },
+        "attune-pores-masks-grouped-r1/2 (yolov11s-seg)": {
+          "runtime": "local-ultralytics-cpu (socket-blocked)",
+          "inferenceMs": 382.89,
+          "threshold": 0.05,
+          "detectionCount": 0,
+          "detections": []
+        },
+        "acne-v5-step0-silu (onnxruntime-cpu)": {
+          "runtime": "local-onnxruntime-cpu (socket-blocked)",
+          "inferenceMs": 196.53,
+          "centerTileRawAnchorsAt030": 0,
+          "maxAnchorConfidence": 0.0001
+        },
+        "dryness-calibrated-v3 (onnxruntime-cpu)": {
+          "runtime": "local-onnxruntime-cpu (socket-blocked)",
+          "inferenceMs": 19.21,
+          "embeddingDim": 1280,
+          "embeddingL2Norm": 11.9645
+        },
+        "skin-focused-degrees (onnxruntime-cpu)": {
+          "runtime": "local-onnxruntime-cpu (socket-blocked)",
+          "inferenceMs": 31.72,
+          "rawOutput": [
+            0.5381
+          ]
+        },
+        "skin-type-vit-dima806 (onnxruntime-cpu)": {
+          "runtime": "local-onnxruntime-cpu (socket-blocked)",
+          "inferenceMs": 2019.03,
+          "auxiliaryBasePrediction": "oily",
+          "logits": [
+            0.0908,
+            -0.1995,
+            0.1096
+          ]
+        }
+      }
+    },
+    {
+      "imageId": "02_germany_FRONT",
+      "imagePath": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\Attune-V5-6-Person-Replay-20261024\\results\\02_germany\\FRONT\\replay-decoded-source.png",
+      "imageKind": "synthetic_replay_portrait_not_live_camera",
+      "dimensions": [
+        2048,
+        1529
+      ],
+      "sha256": "8025332140bf5f972735979f02ce0d98c5c07c08bde761777f758751a828393d",
+      "models": {
+        "attune-comedones-boxes-grouped-r1/1 (rfdetr-small)": {
+          "runtime": "local-pytorch-cpu (socket-blocked)",
+          "inferenceMs": 397.13,
+          "threshold": 0.2,
+          "detectionCount": 1,
+          "detections": [
+            {
+              "classId": 1,
+              "className": "blackheads",
+              "confidence": 0.8229,
+              "xyxy": [
+                18.3,
+                38.0,
+                2048.0,
+                1529.0
+              ]
+            }
+          ]
+        },
+        "lesion-detection-ruc40-qzwqz/1 (rfdetr-large)": {
+          "runtime": "local-pytorch-cpu (socket-blocked)",
+          "inferenceMs": 882.56,
+          "rawThreshold": 0.15,
+          "rawDetectionCount": 12,
+          "approvedAcneCount": 3,
+          "approvedAcneDetections": [
+            {
+              "classId": 1,
+              "className": "closed_comedo",
+              "confidence": 0.4085,
+              "xyxy": [
+                861.9,
+                1160.0,
+                950.5,
+                1245.7
+              ]
+            },
+            {
+              "classId": 1,
+              "className": "closed_comedo",
+              "confidence": 0.2625,
+              "xyxy": [
+                1157.5,
+                1008.1,
+                1190.3,
+                1030.2
+              ]
+            },
+            {
+              "classId": 1,
+              "className": "closed_comedo",
+              "confidence": 0.2506,
+              "xyxy": [
+                1068.4,
+                1052.8,
+                1095.1,
+                1077.4
+              ]
+            }
+          ],
+          "excludedNevusScarOtherCount": 1,
+          "excludedNevusScarOtherDetections": [
+            {
+              "classId": 7,
+              "className": "other",
+              "confidence": 0.1598,
+              "xyxy": [
+                1068.5,
+                453.8,
+                1086.6,
+                466.6
+              ]
+            }
+          ]
+        },
+        "attune-pores-masks-grouped-r1/2 (yolov11s-seg)": {
+          "runtime": "local-ultralytics-cpu (socket-blocked)",
+          "inferenceMs": 236.26,
+          "threshold": 0.05,
+          "detectionCount": 2,
+          "detections": [
+            {
+              "className": "pore",
+              "confidence": 0.1231,
+              "xyxy": [
+                384.8,
+                719.7,
+                403.6,
+                744.0
+              ]
+            },
+            {
+              "className": "pore",
+              "confidence": 0.0619,
+              "xyxy": [
+                212.7,
+                1066.0,
+                230.1,
+                1086.2
+              ]
+            }
+          ]
+        },
+        "acne-v5-step0-silu (onnxruntime-cpu)": {
+          "runtime": "local-onnxruntime-cpu (socket-blocked)",
+          "inferenceMs": 144.45,
+          "centerTileRawAnchorsAt030": 5,
+          "maxAnchorConfidence": 0.4391
+        },
+        "dryness-calibrated-v3 (onnxruntime-cpu)": {
+          "runtime": "local-onnxruntime-cpu (socket-blocked)",
+          "inferenceMs": 32.07,
+          "embeddingDim": 1280,
+          "embeddingL2Norm": 13.2207
+        },
+        "skin-focused-degrees (onnxruntime-cpu)": {
+          "runtime": "local-onnxruntime-cpu (socket-blocked)",
+          "inferenceMs": 28.42,
+          "rawOutput": [
+            1.7517
+          ]
+        },
+        "skin-type-vit-dima806 (onnxruntime-cpu)": {
+          "runtime": "local-onnxruntime-cpu (socket-blocked)",
+          "inferenceMs": 294.38,
+          "auxiliaryBasePrediction": "oily",
+          "logits": [
+            -0.086,
+            -0.158,
+            0.1734
+          ]
+        }
+      }
+    },
+    {
+      "imageId": "01_england_FRONT",
+      "imagePath": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\Attune-V5-6-Person-Replay-20261024\\results\\01_england\\FRONT\\replay-decoded-source.png",
+      "imageKind": "synthetic_replay_portrait_not_live_camera",
+      "dimensions": [
+        2048,
+        1529
+      ],
+      "sha256": "c4a9b2442a7e56517d55f91091d1aa665f8bf34570154a92e6c0b86ad7082f17",
+      "models": {
+        "attune-comedones-boxes-grouped-r1/1 (rfdetr-small)": {
+          "runtime": "local-pytorch-cpu (socket-blocked)",
+          "inferenceMs": 373.56,
+          "threshold": 0.2,
+          "detectionCount": 2,
+          "detections": [
+            {
+              "classId": 1,
+              "className": "blackheads",
+              "confidence": 0.8588,
+              "xyxy": [
+                140.8,
+                58.5,
+                1932.7,
+                1529.0
+              ]
+            },
+            {
+              "classId": 1,
+              "className": "blackheads",
+              "confidence": 0.2039,
+              "xyxy": [
+                1060.0,
+                543.8,
+                1372.9,
+                776.8
+              ]
+            }
+          ]
+        },
+        "lesion-detection-ruc40-qzwqz/1 (rfdetr-large)": {
+          "runtime": "local-pytorch-cpu (socket-blocked)",
+          "inferenceMs": 762.45,
+          "rawThreshold": 0.15,
+          "rawDetectionCount": 17,
+          "approvedAcneCount": 0,
+          "approvedAcneDetections": [],
+          "excludedNevusScarOtherCount": 14,
+          "excludedNevusScarOtherDetections": [
+            {
+              "classId": 7,
+              "className": "other",
+              "confidence": 0.518,
+              "xyxy": [
+                1281.4,
+                453.8,
+                1300.1,
+                467.4
+              ]
+            },
+            {
+              "classId": 7,
+              "className": "other",
+              "confidence": 0.4915,
+              "xyxy": [
+                1252.2,
+                432.8,
+                1271.1,
+                449.1
+              ]
+            },
+            {
+              "classId": 7,
+              "className": "other",
+              "confidence": 0.4306,
+              "xyxy": [
+                1100.7,
+                414.6,
+                1120.2,
+                429.0
+              ]
+            },
+            {
+              "classId": 7,
+              "className": "other",
+              "confidence": 0.4044,
+              "xyxy": [
+                1225.9,
+                742.8,
+                1244.1,
+                759.1
+              ]
+            },
+            {
+              "classId": 7,
+              "className": "other",
+              "confidence": 0.3577,
+              "xyxy": [
+                1297.6,
+                391.5,
+                1315.7,
+                415.5
+              ]
+            },
+            {
+              "classId": 7,
+              "className": "other",
+              "confidence": 0.2988,
+              "xyxy": [
+                1096.6,
+                355.5,
+                1117.2,
+                372.7
+              ]
+            },
+            {
+              "classId": 7,
+              "className": "other",
+              "confidence": 0.2764,
+              "xyxy": [
+                1264.3,
+                387.7,
+                1287.6,
+                407.0
+              ]
+            },
+            {
+              "classId": 7,
+              "className": "other",
+              "confidence": 0.2353,
+              "xyxy": [
+                852.0,
+                499.2,
+                880.8,
+                518.5
+              ]
+            },
+            {
+              "classId": 7,
+              "className": "other",
+              "confidence": 0.2283,
+              "xyxy": [
+                1130.5,
+                371.1,
+                1152.8,
+                386.4
+              ]
+            },
+            {
+              "classId": 7,
+              "className": "other",
+              "confidence": 0.2136,
+              "xyxy": [
+                1315.1,
+                496.2,
+                1330.3,
+                515.7
+              ]
+            }
+          ]
+        },
+        "attune-pores-masks-grouped-r1/2 (yolov11s-seg)": {
+          "runtime": "local-ultralytics-cpu (socket-blocked)",
+          "inferenceMs": 169.96,
+          "threshold": 0.05,
+          "detectionCount": 5,
+          "detections": [
+            {
+              "className": "pore",
+              "confidence": 0.0925,
+              "xyxy": [
+                1252.1,
+                434.9,
+                1268.1,
+                453.7
+              ]
+            },
+            {
+              "className": "pore",
+              "confidence": 0.0922,
+              "xyxy": [
+                1227.9,
+                738.4,
+                1249.9,
+                759.9
+              ]
+            },
+            {
+              "className": "pore",
+              "confidence": 0.0663,
+              "xyxy": [
+                854.2,
+                495.6,
+                872.6,
+                517.1
+              ]
+            },
+            {
+              "className": "pore",
+              "confidence": 0.0578,
+              "xyxy": [
+                779.3,
+                441.4,
+                796.2,
+                462.6
+              ]
+            },
+            {
+              "className": "pore",
+              "confidence": 0.0536,
+              "xyxy": [
+                1281.6,
+                451.8,
+                1296.2,
+                470.6
+              ]
+            }
+          ]
+        },
+        "acne-v5-step0-silu (onnxruntime-cpu)": {
+          "runtime": "local-onnxruntime-cpu (socket-blocked)",
+          "inferenceMs": 156.3,
+          "centerTileRawAnchorsAt030": 0,
+          "maxAnchorConfidence": 0.0012
+        },
+        "dryness-calibrated-v3 (onnxruntime-cpu)": {
+          "runtime": "local-onnxruntime-cpu (socket-blocked)",
+          "inferenceMs": 30.76,
+          "embeddingDim": 1280,
+          "embeddingL2Norm": 13.8888
+        },
+        "skin-focused-degrees (onnxruntime-cpu)": {
+          "runtime": "local-onnxruntime-cpu (socket-blocked)",
+          "inferenceMs": 47.16,
+          "rawOutput": [
+            2.7083
+          ]
+        },
+        "skin-type-vit-dima806 (onnxruntime-cpu)": {
+          "runtime": "local-onnxruntime-cpu (socket-blocked)",
+          "inferenceMs": 292.2,
+          "auxiliaryBasePrediction": "oily",
+          "logits": [
+            -0.0808,
+            -0.0451,
+            0.1763
+          ]
+        }
+      }
+    }
+  ]
+}

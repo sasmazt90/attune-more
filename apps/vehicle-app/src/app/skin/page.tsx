@@ -271,6 +271,28 @@ export default function SkinPage() {
     return () => { window.removeEventListener('storage', refresh); window.removeEventListener('attune-records', refresh); };
   }, [scanState]);
 
+  useEffect(() => {
+    if (isParked && typeof window !== 'undefined' && window.location.search.includes('view=latest')) {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEYS.LATEST_SKIN);
+        const frames = (window as any).__attuneInitialSnapshots;
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (parsed && parsed.regions) {
+            if (frames) {
+              snapshotFrames.current = frames;
+              snapshotRecord.current = parsed.id;
+              setSnapshots(frames);
+            }
+            setSelectedRegionId(parsed.general ? 'overview' : 'forehead');
+            setAnalysisResult(parsed);
+            setScanState('COMPLETED');
+          }
+        }
+      } catch {}
+    }
+  }, [isParked]);
+
   // Real modda COMPLETED durumu doğrulaması: Kayıtlı gerçek analiz yoksa COMPLETED state'e izin verilmez
   useEffect(() => {
     if (scanState === 'COMPLETED' && !isDemoMode() && !analysisResult) {

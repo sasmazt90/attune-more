@@ -30,7 +30,7 @@ export function dentalPose(a:FaceAlignment){
 }
 export function matchesDentalAngle(a:FaceAlignment,pose:DentalPose):boolean{
  const rotation=dentalPose(a);
- if(!rotation||Math.abs(rotation.pitch)>.28||Math.abs(rotation.roll)>.22)return false;
+ if(!rotation||Math.abs(rotation.pitch)>.22||Math.abs(rotation.roll)>.15)return false;
  if(pose==='RIGHT')return rotation.yaw>=-DENTAL_SIDE_MAX_RADIANS&&rotation.yaw<=-DENTAL_SIDE_MIN_RADIANS;
  if(pose==='LEFT')return rotation.yaw>=DENTAL_SIDE_MIN_RADIANS&&rotation.yaw<=DENTAL_SIDE_MAX_RADIANS;
  return Math.abs(rotation.yaw)<=.21;

@@ -24,7 +24,7 @@ export async function analyzeAppearance(snapshot:SkinSnapshot,qualityValid:boole
   }
   const result:AppearanceResponse=await response.json();
   if(!current()||isSkinHostedProcessingAllowed()!==hostedConsent||result.photoId!==snapshot.photoId||result.sourceWidth!==snapshot.width||result.sourceHeight!==snapshot.height)throw Error('STALE_SOURCE');
-  if(ACNE_V5_PREVIEW)validateAcneV5Response(result);
+  if((ACNE_V5_PREVIEW&&result.acneRuntime)||process.env.NEXT_PUBLIC_ATTUNE_ACNE_V5==='1')validateAcneV5Response(result);
   return result;
  } finally {clearTimeout(timer);clearInterval(stale);}
 }
