@@ -25,15 +25,18 @@ if str(SCRIPT_DIR) not in sys.path:
 from build_acne_source_group_review import (  # noqa: E402
     ARCHIVE_SHA256,
     CLASSES,
+    DIRECTIONAL_PHASH_CROPS,
     SPLITS,
     candidate_id,
     central_perceptual_hash,
     difference_hash,
+    directional_perceptual_hash,
     digest_token,
     load_decisions,
     load_json,
     normalized_source_name,
     perceptual_hash,
+    perceptual_hash_variants,
 )
 
 
@@ -86,6 +89,7 @@ def scan_records(root: Path) -> list[dict[str, Any]]:
             except OSError as exc:
                 raise ProposalError(f"{split} image file is missing") from exc
             source_name = normalized_source_name(file_name)
+            phashes = perceptual_hash_variants(image_path)
             records.append({
                 "recordId": digest_token(split + "\0" + file_name + "\0" + content_sha),
                 "split": split,
@@ -93,8 +97,9 @@ def scan_records(root: Path) -> list[dict[str, Any]]:
                 "sourceNameToken": digest_token(source_name) if source_name else None,
                 "sourceNameUsable": len(source_name) >= 8 and not source_name.isdigit(),
                 "dHash": difference_hash(image_path),
-                "pHash": perceptual_hash(image_path),
-                "centralPHash": central_perceptual_hash(image_path),
+                "pHash": phashes["full"],
+                "centralPHash": phashes["central"],
+                "directionalPHashes": phashes["directional"],
             })
     return records
 
@@ -136,11 +141,13 @@ def build_proposal(
     dhash_distance: int = 8,
     phash_distance: int = 10,
     central_phash_distance: int = 10,
+    directional_phash_distance: int = 8,
 ) -> dict[str, Any]:
     if not ARCHIVE_SHA256.fullmatch(archive_sha256):
         raise ProposalError("archive sha256 must be a lowercase 64-character digest")
     if (not 0 <= dhash_distance <= 8 or not 0 <= phash_distance <= 16
-            or not 0 <= central_phash_distance <= 16):
+            or not 0 <= central_phash_distance <= 16
+            or not 0 <= directional_phash_distance <= 16):
         raise ProposalError("perceptual hash distance is outside the safe range")
     decisions = load_decisions(decisions_path)
     records = scan_records(root)
@@ -195,6 +202,17 @@ def build_proposal(
                     hammingDistance=central_phash_hamming,
                     automaticEvidence="review_only",
                 )
+            for crop_name in DIRECTIONAL_PHASH_CROPS:
+                directional_hamming = (
+                    left["directionalPHashes"][crop_name]
+                    ^ right["directionalPHashes"][crop_name]
+                ).bit_count()
+                if directional_hamming <= directional_phash_distance:
+                    add(
+                        f"directional_crop_phash_{crop_name}", (left, right),
+                        hammingDistance=directional_hamming,
+                        automaticEvidence="review_only",
+                    )
 
     known_ids = {row["candidateId"] for row in candidates}
     unknown_decisions = sorted(set(decisions) - known_ids)
@@ -280,6 +298,10 @@ def build_proposal(
             "perceptualPHashMaxDistance": phash_distance,
             "centralCropPHashFraction": 0.8,
             "centralCropPHashMaxDistance": central_phash_distance,
+            "directionalCropPHashBoxes": {
+                name: list(crop) for name, crop in DIRECTIONAL_PHASH_CROPS.items()
+            },
+            "directionalCropPHashMaxDistance": directional_phash_distance,
             "perceptualMatchesAreReviewOnly": True,
         },
         "candidateCountsByMethod": {
@@ -287,6 +309,7 @@ def build_proposal(
             for method in (
                 "exact_content", "normalized_source_name", "perceptual_dhash",
                 "perceptual_phash", "central_crop_phash",
+                *(f"directional_crop_phash_{name}" for name in DIRECTIONAL_PHASH_CROPS),
             )
         },
         "reviewQueue": {
@@ -334,6 +357,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--dhash-distance", type=int, default=8)
     parser.add_argument("--phash-distance", type=int, default=10)
     parser.add_argument("--central-phash-distance", type=int, default=10)
+    parser.add_argument("--directional-phash-distance", type=int, default=8)
     args = parser.parse_args(argv)
     try:
         result = build_proposal(
@@ -341,6 +365,7 @@ def main(argv: list[str] | None = None) -> int:
             dhash_distance=args.dhash_distance,
             phash_distance=args.phash_distance,
             central_phash_distance=args.central_phash_distance,
+            directional_phash_distance=args.directional_phash_distance,
         )
     except (ProposalError, ValueError) as exc:
         print(f"group coverage proposal blocked: {exc}")

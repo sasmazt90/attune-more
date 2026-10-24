@@ -139,6 +139,31 @@ class AcneSourceGroupReviewTest(unittest.TestCase):
             with self.assertRaisesRegex(acne_source_groups.ReviewError, "crop fraction"):
                 acne_source_groups.perceptual_hash(path, crop_fraction=0.4)
 
+    def test_directional_hash_is_deterministic_and_validates_crop_name(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "portrait.png"
+            image = Image.new("RGB", (24, 20), "white")
+            for x in range(12):
+                for y in range(20):
+                    image.putpixel((x, y), (x * 8, y * 6, 40))
+            image.save(path)
+            first = acne_source_groups.directional_perceptual_hash(path, "left_80")
+            second = acne_source_groups.directional_perceptual_hash(path, "left_80")
+            self.assertEqual(first, second)
+            self.assertNotEqual(
+                first,
+                acne_source_groups.directional_perceptual_hash(path, "right_80"),
+            )
+            variants = acne_source_groups.perceptual_hash_variants(path)
+            self.assertEqual(variants["full"], acne_source_groups.perceptual_hash(path))
+            self.assertEqual(
+                variants["central"],
+                acne_source_groups.central_perceptual_hash(path),
+            )
+            self.assertEqual(variants["directional"]["left_80"], first)
+            with self.assertRaisesRegex(acne_source_groups.ReviewError, "unknown directional"):
+                acne_source_groups.directional_perceptual_hash(path, "diagonal")
+
 
 if __name__ == "__main__":
     unittest.main()

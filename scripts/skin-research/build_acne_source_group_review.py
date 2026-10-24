@@ -34,6 +34,14 @@ VALID_DECISIONS = {
 }
 PHASH_IMAGE_SIZE = 32
 PHASH_LOW_FREQUENCY_SIZE = 8
+DIRECTIONAL_PHASH_CROPS = {
+    "left_80": (0.0, 0.0, 0.8, 1.0),
+    "right_80": (0.2, 0.0, 1.0, 1.0),
+    "top_80": (0.0, 0.0, 1.0, 0.8),
+    "bottom_80": (0.0, 0.2, 1.0, 1.0),
+    "left_70": (0.0, 0.0, 0.7, 1.0),
+    "right_70": (0.3, 0.0, 1.0, 1.0),
+}
 
 
 def dct_matrix(size: int) -> np.ndarray:
@@ -87,6 +95,22 @@ def difference_hash(path: Path) -> int:
     return value
 
 
+def _perceptual_hash_image(image: Image.Image) -> int:
+    image = image.resize(
+        (PHASH_IMAGE_SIZE, PHASH_IMAGE_SIZE), Image.Resampling.LANCZOS
+    )
+    pixels = np.asarray(image, dtype=np.float64)
+    transformed = PHASH_DCT @ pixels @ PHASH_DCT.T
+    low = transformed[
+        :PHASH_LOW_FREQUENCY_SIZE, :PHASH_LOW_FREQUENCY_SIZE
+    ].reshape(-1)
+    median = float(np.median(low[1:]))
+    value = 0
+    for coefficient in low:
+        value = (value << 1) | int(coefficient > median)
+    return value
+
+
 def perceptual_hash(path: Path, crop_fraction: float = 1.0) -> int:
     if not 0.5 <= crop_fraction <= 1.0:
         raise ReviewError("perceptual hash crop fraction must be between 0.5 and 1.0")
@@ -100,26 +124,68 @@ def perceptual_hash(path: Path, crop_fraction: float = 1.0) -> int:
                 left = (width - crop_width) // 2
                 top = (height - crop_height) // 2
                 image = image.crop((left, top, left + crop_width, top + crop_height))
-            image = image.resize(
-                (PHASH_IMAGE_SIZE, PHASH_IMAGE_SIZE), Image.Resampling.LANCZOS
-            )
-            pixels = np.asarray(image, dtype=np.float64)
+            return _perceptual_hash_image(image)
     except (OSError, UnidentifiedImageError) as exc:
         raise ReviewError(f"cannot decode an image in {path.parent.name}") from exc
-    transformed = PHASH_DCT @ pixels @ PHASH_DCT.T
-    low = transformed[
-        :PHASH_LOW_FREQUENCY_SIZE, :PHASH_LOW_FREQUENCY_SIZE
-    ].reshape(-1)
-    median = float(np.median(low[1:]))
-    value = 0
-    for coefficient in low:
-        value = (value << 1) | int(coefficient > median)
-    return value
 
 
 def central_perceptual_hash(path: Path) -> int:
     """Hash the central 80% as a review-only complement to the full image."""
     return perceptual_hash(path, crop_fraction=0.8)
+
+
+def directional_perceptual_hash(path: Path, crop_name: str) -> int:
+    """Hash a deterministic edge-aligned crop for review candidate recall."""
+    crop = DIRECTIONAL_PHASH_CROPS.get(crop_name)
+    if crop is None:
+        raise ReviewError("unknown directional perceptual hash crop")
+    try:
+        with Image.open(path) as opened:
+            image = ImageOps.exif_transpose(opened).convert("L")
+            width, height = image.size
+            left, top, right, bottom = crop
+            image = image.crop((
+                int(width * left),
+                int(height * top),
+                max(8, int(width * right)),
+                max(8, int(height * bottom)),
+            ))
+            return _perceptual_hash_image(image)
+    except (OSError, UnidentifiedImageError) as exc:
+        raise ReviewError(f"cannot decode an image in {path.parent.name}") from exc
+
+
+def perceptual_hash_variants(path: Path) -> dict[str, Any]:
+    """Compute full, central and directional hashes with one image decode."""
+    try:
+        with Image.open(path) as opened:
+            image = ImageOps.exif_transpose(opened).convert("L")
+            width, height = image.size
+            central_width = max(8, int(width * 0.8))
+            central_height = max(8, int(height * 0.8))
+            central_left = (width - central_width) // 2
+            central_top = (height - central_height) // 2
+            directional = {}
+            for crop_name, (left, top, right, bottom) in DIRECTIONAL_PHASH_CROPS.items():
+                cropped = image.crop((
+                    int(width * left),
+                    int(height * top),
+                    max(8, int(width * right)),
+                    max(8, int(height * bottom)),
+                ))
+                directional[crop_name] = _perceptual_hash_image(cropped)
+            return {
+                "full": _perceptual_hash_image(image),
+                "central": _perceptual_hash_image(image.crop((
+                    central_left,
+                    central_top,
+                    central_left + central_width,
+                    central_top + central_height,
+                ))),
+                "directional": directional,
+            }
+    except (OSError, UnidentifiedImageError) as exc:
+        raise ReviewError(f"cannot decode an image in {path.parent.name}") from exc
 
 
 def candidate_id(method: str, member_ids: list[str]) -> str:

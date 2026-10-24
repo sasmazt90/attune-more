@@ -132,6 +132,48 @@
       "decision": "different_source",
       "reviewer": "engineering_visual_review",
       "rationale": "The private comparison confirms the earlier review: these are different people and capture environments, so the central-crop similarity is also a false positive. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "0b06b39b60b3c2915f671858",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows different people in the valid split; the directional-crop similarity is a false positive. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "5edfb20a7a3fdab78dea26bd",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person in a train/valid portrait series despite different clothing and pose. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "e9dea9e5237209b9c42b5585",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person in test and train images, including matching facial structure and distinctive jewelry. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "01682ecbe6e90b08643a2116",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo with a small crop or encoding variation in the train split. This is source review, not lesion-label review."
+    },
+    {
+      "candidateId": "b7e7d22404f9f8b3fe91180c",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person in two train-split captures with consistent facial structure and distinctive jewelry. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "058ac3e61ecd75412df8f7db",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo across train and valid with a small crop or encoding variation. This is source review, not lesion-label review."
+    },
+    {
+      "candidateId": "0aeac5acf28cc9c29bfed998",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person in train and valid images with consistent facial structure, hair and capture environment. This is identity/source review, not lesion-label review."
     }
   ]
 }
