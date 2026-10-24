@@ -10,6 +10,15 @@ from test_local_appearance_health import photo,landmarks
 
 def mesh():return dict(points=[dict(x=20,y=20),dict(x=300,y=20),dict(x=300,y=300),dict(x=20,y=300)],edges=[[0,1],[1,2],[2,3],[3,0]])
 
+def test_missing_measurement_never_becomes_a_valid_zero():
+ assert A.validated_measurement_value(0)==(0.,None)
+ assert A.validated_measurement_value(None)==(None,'MEASUREMENT_UNAVAILABLE')
+ assert A.validated_measurement_value(float('nan'))==(None,'MEASUREMENT_UNAVAILABLE')
+ assert A.validated_measurement_value(12,'DETAIL_MISSING')==(None,'DETAIL_MISSING')
+ source=(ROOT/'services/core-api/appearance_analysis.py').read_text('utf8')
+ assert 'add(criterion,value or 0' not in source
+ assert 'add(criterion,value,INSTANT_UNIT' in source
+
 def test_closed_cells_require_real_convex_boundary_and_match_browser():
  m=mesh();assert A.polygon_mask((320,320),m,1,(0,0)).sum()==0
  assert A.closed_surface_mask((320,320),m,1,(0,0))[100,100]
