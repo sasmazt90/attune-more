@@ -175,7 +175,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-24",
-      "lastCheckedAt": "2026-10-24T08:17:28Z",
+      "lastCheckedAt": "2026-10-24T08:54:00Z",
       "modelCount": 89,
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
@@ -327,7 +327,7 @@
         "invalidGeometry": 0
       },
       "versions": [],
-      "lastCheckedAt": "2026-10-24T08:17:28Z",
+      "lastCheckedAt": "2026-10-24T08:54:00Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -420,7 +420,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-24T08:17:28Z",
+      "lastCheckedAt": "2026-10-24T08:54:00Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "modelIds": [
@@ -850,7 +850,7 @@
       }
     },
     "concurrentWork": {
-      "observedAt": "2026-10-24T08:17:28Z",
+      "observedAt": "2026-10-24T08:54:00Z",
       "projectsTotal": 16,
       "doNotDuplicate": [
         {
@@ -895,7 +895,7 @@
           }
         }
       ],
-      "note": "All 16 private projects were refreshed. Acne/post-acne/pigmentation NAS remains finished with 89 children; regional NAS remains finished with 75 provider records and the regional project reports 337 images; grouped under-eye remains empty. This run did not repeat training, inference, upload or threshold refitting, and did not interpret recommendation flags."
+      "note": "All 16 private projects were refreshed. Acne/post-acne/pigmentation NAS remains finished with 89 children; regional NAS remains finished with 75 provider records and version 1 remains 337 images (244/63/30); grouped under-eye remains empty. This run did not repeat training, inference, upload or threshold refitting, and did not interpret recommendation flags."
     }
   },
   "sourceAccess": {
@@ -1588,7 +1588,10 @@
         "tests/unit/skin_localization_catalog.mjs",
         "tests/unit/test_skin_result_presentation.py",
         "docs/skin/evidence/skin-result-presentation-localization-20261024-v1.json",
-        "docs/skin/skin-result-presentation-localization-20261024.md"
+        "docs/skin/skin-result-presentation-localization-20261024.md",
+        "package.json",
+        ".github/workflows/ci.yml",
+        "docs/skin/evidence/skin-presentation-ci-20261024-v1.json"
       ],
       "blockers": [
         "The merged main branch already has the nine-criterion result path, separate skin type, six regional views, overview, local maps/contours, persistence gate and result UI. The roadmap branch now extends the result contract to eleven appearance headings plus skin type; Post acne and Pigmentation remain explicitly unavailable, not fabricated. Production merge/deployment is not part of this run.",
@@ -1878,16 +1881,38 @@
         "sourceWiring": true,
         "nodeSyntax": true,
         "pythonCompile": true,
-        "fullReactRuntimeExecuted": false
+        "fullReactRuntimeExecuted": false,
+        "ciWired": true
       },
       "blocker": "The repository frontend dependencies are not materialized in this execution environment, so the committed React/server-rendered test still needs execution in the normal repository workspace.",
+      "modelOrThresholdChanged": false,
+      "cameraAccepted": false,
+      "productionMerged": false
+    },
+    "skinPresentationCI": {
+      "observedAt": "2026-10-24T08:54:00Z",
+      "implementationCommit": "88a5f1ab8810ba17a405bacc5ee6cd0b897d85d9",
+      "receipt": "docs/skin/evidence/skin-presentation-ci-20261024-v1.json",
+      "packageScript": "test:skin-presentation",
+      "command": "node tests/unit/skin_localization_catalog.mjs",
+      "workflow": ".github/workflows/ci.yml",
+      "workflowStep": "Run skin presentation localization contract",
+      "localChecks": {
+        "packageJsonParsed": true,
+        "scriptCommandExact": true,
+        "workflowInvocationCount": 1,
+        "workflowOrderingChecked": true,
+        "workflowYamlParsed": true
+      },
+      "githubActionsRunObserved": false,
+      "fullReactRuntimeExecuted": false,
       "modelOrThresholdChanged": false,
       "cameraAccepted": false,
       "productionMerged": false
     }
   },
   "nextActions": [
-    "Run the committed frontend/React localization and result-presentation tests in the normal repository workspace, preserving the display-unit boundary and the new Kuru/Normal/Karma/Sarkma translations; then complete real-browser and consented physical-camera acceptance without changing model thresholds.",
+    "Run the now-wired skin presentation contract through the repository's PR/main CI or a normal dependency-materialized workspace, then complete real-browser and consented physical-camera acceptance. Preserve the display-unit boundary and Kuru/Normal/Karma/Sarkma translations; do not change model thresholds from this presentation-only work.",
     "Preserve the new display-unit boundary: only true supported-area ratios may use a percent meter. Keep color/line/fold/generic indices neutral and bar-free, and do not activate the independent review's cited model thresholds without validation-selected, locked independent-test and real-camera evidence.",
     "Treat the merged nine-criterion plus separate-skin-type flow as the functioning baseline, not as missing output. Preserve the source-bound capability gate and add Post acne/Pigmentation only as additive localized headings after their model/data acceptance gates pass; next execute the existing browser/API/history replay with a consented physical camera capture.",
     "Preserve the fail-closed missing-value boundary: numeric zero is a measurement, but None/non-finite/invalid values are insufficient and must never become normal. Re-run tests/unit/test_dry_sag_visible_support.py in the service image with pytest/OpenCV, then perform consented raw-camera/browser replay; do not treat UI screenshots or screen-cropped Roboflow outputs as camera acceptance, and do not add Sensitive as a Redness synonym.",
@@ -2260,6 +2285,15 @@
       "commits": [
         "4ea09ed368e83bab9c342c7c6715a9e46e40959f",
         "e2916817825cb0803c3359afa7f7d44f2f945a52"
+      ]
+    },
+    {
+      "date": "2026-10-24",
+      "observedAt": "2026-10-24T08:54:00Z",
+      "action": "Read the persistent checkpoint first; refreshed all 16 private Roboflow projects and both existing NAS runs. Acne/post-acne/pigmentation training 5b632a5c12b76fcfe703 remains finished with 89 children, regional training 3485f8c67f957a1b850d remains finished with 75 provider records and version 1 remains 337 images (244/63/30), and grouped under-eye remains empty; no training, inference, upload or threshold refit was started or duplicated. Promoted the dependency-free skin-result localization contract into the root npm scripts and the main CI job, after npm ci and before the deterministic pytest suite. Package JSON parsing, exact command, workflow invocation/order and YAML parsing passed locally. No GitHub Actions run, full React runtime, accuracy, expert truth, physical-camera acceptance, model activation, deployment or production merge is claimed.",
+      "report": "docs/skin/evidence/skin-presentation-ci-20261024-v1.json",
+      "commits": [
+        "88a5f1ab8810ba17a405bacc5ee6cd0b897d85d9"
       ]
     }
   ]
