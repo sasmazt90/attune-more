@@ -62,6 +62,7 @@ jobs:
           scripts/skin-research/tests/test_summarize_current_merged_skin_output.py \
           scripts/skin-research/tests/test_audit_acne_dataset_geometry.py \
           scripts/skin-research/tests/test_build_acne_source_group_review.py \
+          scripts/skin-research/tests/test_check_acne_split_release.py \
           -v -ra
 
   frontend-build:

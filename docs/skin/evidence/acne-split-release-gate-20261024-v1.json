@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "acne-split-release-gate-v1",
+  "dataset": {
+    "archiveSHA256": "29f40e80c8b1f63d43abbc35d11efdbaac4cf754531af2bee64283dde64c34e2",
+    "records": 800,
+    "splits": {
+      "train": 553,
+      "valid": 165,
+      "test": 82
+    }
+  },
+  "currentSplit": {
+    "confirmedCrossSplitSourcePersonGroups": 5,
+    "confirmedLeakageMembers": 10,
+    "independenceEstablished": false
+  },
+  "replacementSplit": {
+    "receiptSupplied": false,
+    "coveredRecords": 0,
+    "missingRecords": 800,
+    "duplicateAssignments": 0,
+    "unknownAssignments": 0,
+    "testRecordsMoved": 0,
+    "complete": false
+  },
+  "semanticNegativeReview": {
+    "receiptSupplied": false,
+    "completeClasses": [],
+    "missingClasses": [
+      "Pimple",
+      "Post acne",
+      "Pigmentation"
+    ],
+    "complete": false
+  },
+  "decision": {
+    "readyToGenerateReplacementSplit": false,
+    "trainingAuthorized": false,
+    "testEvaluationAuthorized": false,
+    "blockedReasons": [
+      "CURRENT_SPLIT_HAS_CONFIRMED_SOURCE_PERSON_LEAKAGE",
+      "FULL_REVIEWED_GROUP_COVERAGE_MISSING",
+      "EXPERT_SEMANTIC_NEGATIVE_REVIEW_MISSING"
+    ],
+    "note": "Even a complete receipt only authorizes deterministic split generation; a generated split must be re-audited before training is authorized."
+  },
+  "privacy": {
+    "containsImageBytes": false,
+    "containsFilenames": false,
+    "containsRawSourceNames": false,
+    "recordIdsAreHashed": true
+  }
+}

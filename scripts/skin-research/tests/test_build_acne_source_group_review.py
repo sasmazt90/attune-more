@@ -56,6 +56,11 @@ class AcneSourceGroupReviewTest(unittest.TestCase):
             self.dataset(root)
             result = acne_source_groups.build_review(root, "a" * 64)
         self.assertEqual(result["dataset"]["images"], 5)
+        self.assertEqual(len(result["recordIndex"]), 5)
+        self.assertEqual(
+            {row["split"] for row in result["recordIndex"]},
+            {"train", "valid", "test"},
+        )
         self.assertEqual(result["candidateCounts"]["exact_content"], 1)
         self.assertGreaterEqual(result["candidateCounts"]["normalized_source_name"], 2)
         self.assertGreaterEqual(result["candidateCounts"]["perceptual_phash"], 1)

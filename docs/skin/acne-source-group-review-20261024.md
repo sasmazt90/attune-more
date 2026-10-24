@@ -27,7 +27,7 @@ The result materially changes the next action: do not retrain or report the curr
 
 All non-exact matches are candidates only. A review decision must bind to the deterministic candidate ID. Unknown decisions fail closed. The committed evidence contains only hashed record IDs and aggregates.
 
-The evidence also emits a deduplicated five-group regrouping plan. Each group contains hashed member IDs and the rule `assign_all_members_to_one_split`; no target split is assigned yet. This makes the confirmed repair actionable without pretending that the remaining 790 images have complete person/source identity.
+The evidence also emits a deduplicated five-group regrouping plan and a privacy-safe index for all 800 hashed records. Each confirmed group contains hashed member IDs and the rule `assign_all_members_to_one_split`; no target split is assigned yet. The index enables a separate fail-closed release gate to prove eventual full coverage without committing filenames or faces. This makes the confirmed repair actionable without pretending that the remaining records have complete person/source identity.
 
 | Check | Result |
 |---|---:|
@@ -59,4 +59,5 @@ Evidence:
 
 - `docs/skin/evidence/acne-source-group-review-20261024-v1.json`
 - `docs/skin/evidence/acne-source-group-review-decisions-20261024-v1.json`
+- `docs/skin/evidence/acne-split-release-gate-20261024-v1.json`
 

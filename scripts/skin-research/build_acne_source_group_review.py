@@ -318,6 +318,10 @@ def build_review(
             "images": len(records),
             "splits": {split: sum(row["split"] == split for row in records) for split in SPLITS},
         },
+        "recordIndex": [
+            public_member(record)
+            for record in sorted(records, key=lambda row: row["recordId"])
+        ],
         "privacy": {
             "containsImageBytes": False,
             "containsFilenames": False,
