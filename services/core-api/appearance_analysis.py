@@ -137,6 +137,26 @@ def row(region, criterion, value, unit, area, conditions, limitation=None, compo
                 limitationCode=limitation, referenceId=None, localMap=None, components=components or {})
 
 
+def validated_measurement_value(value, limitation=None):
+    """Keep an unavailable measurement distinct from a measured zero.
+
+    Upstream analyzers normally return a limitation together with ``None``.
+    This boundary still fails closed if that limitation is accidentally lost,
+    and it rejects non-finite values before they enter history or maps.
+    """
+    if limitation is not None:
+        return None, limitation
+    if value is None or isinstance(value, (bool, np.bool_)):
+        return None, 'MEASUREMENT_UNAVAILABLE'
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError, OverflowError):
+        return None, 'MEASUREMENT_UNAVAILABLE'
+    if not np.isfinite(numeric):
+        return None, 'MEASUREMENT_UNAVAILABLE'
+    return numeric, None
+
+
 def eligible_flake_components(signal,eligible):
     """Recheck actual bright-island support after anatomical/hair exclusions."""
     count,labels,stats,_=cv2.connectedComponentsWithStats(((signal>.04)&eligible).astype(np.uint8))
@@ -441,8 +461,9 @@ def analyze_skin(payload, include_research_features=False):
             return limitation,target_area
         items = []
         def add(criterion, value, unit, signal=None, ceiling=1., limitation=reason, components=None, signal_mask=None,measurement_area=None,map_support=None):
+            value, limitation = validated_measurement_value(value, limitation)
             usable = limitation is None
-            item = row(region, criterion, float(value) if usable else None, unit, measurement_area if measurement_area is not None else area, conditions, limitation, components)
+            item = row(region, criterion, value, unit, measurement_area if measurement_area is not None else area, conditions, limitation, components)
             if criterion=='sag' and components and components.get('formulaVersion'):
                 item['normalizationVersion']=components['formulaVersion']
             items.append(item)
@@ -630,7 +651,7 @@ def analyze_skin(payload, include_research_features=False):
             # Sag has its own lower-face sampling-corridor quality. Capture
             # validity is still required; exposure/visibility stay local per side.
             contour_reason=(('CAPTURE_QUALITY' if not payload.get('qualityValid') else None) or limitation) if criterion in ['sag','bags'] else reason or limitation
-            add(criterion,value or 0,INSTANT_UNIT,signal,limitation=contour_reason,components=components,measurement_area=components.get('measurementROI',area),map_support=contour_support if region in ('rightCheek','leftCheek','chin','periorbital') and not used_bag_mask else None)
+            add(criterion,value,INSTANT_UNIT,signal,limitation=contour_reason,components=components,measurement_area=components.get('measurementROI',area),map_support=contour_support if region in ('rightCheek','leftCheek','chin','periorbital') and not used_bag_mask else None)
             if used_bag_mask and value is not None:
                 items[-1].update(modelVersion=trained_bags['modelVersion'],modelHash=trained_bags['modelHash'],unit='appearance-score-0-100',normalizationVersion='predicted-lower-lid-mask-area-v1')
                 if 'periorbital:bags' in maps:maps['periorbital:bags'].update(mapType='predicted-presence-mask',unit='appearance-score-0-100',method=trained_bags['modelVersion'],modelHash=trained_bags['modelHash'])
