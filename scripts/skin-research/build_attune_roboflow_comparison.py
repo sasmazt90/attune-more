@@ -9,6 +9,7 @@ generated FRONT inputs and the current merged Attune contract are complete.
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import re
 import sys
@@ -234,6 +235,17 @@ def _validate_attune(
         raise ContractError("Attune bundle is not pinned to the current merged product commit")
     if bundle.get("endpoint") != CURRENT_ENDPOINT:
         raise ContractError("Attune bundle endpoint mismatch")
+    provenance = bundle.get("provenance")
+    if not isinstance(provenance, dict):
+        raise ContractError("Attune execution provenance is missing")
+    if provenance.get("sourceType") != "generated-still-image-replay":
+        raise ContractError("Attune evidence is not the declared generated replay")
+    if provenance.get("baseCommit") != CURRENT_PRODUCT_COMMIT:
+        raise ContractError("Attune provenance base commit mismatch")
+    if provenance.get("productOrModelOrThresholdChanges") is not False:
+        raise ContractError("Attune execution changed product/model/threshold behavior")
+    if not SHA256_RE.fullmatch(str(provenance.get("localRevisionSHA256", ""))):
+        raise ContractError("Attune local execution revision is unidentified")
     captures = bundle.get("captures")
     if not isinstance(captures, list) or len(captures) != len(fronts):
         raise ContractError("Attune bundle must contain all six FRONT responses")
@@ -323,6 +335,47 @@ def _markdown(receipt: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def _format_value(row: dict[str, Any]) -> str:
+    if row.get("quality") != "valid":
+        return "—"
+    value = row.get("value")
+    return f"{value:.2f}" if isinstance(value, (int, float)) else "—"
+
+
+def _html(receipt: dict[str, Any]) -> str:
+    criteria_headers = "".join(f"<th>{html.escape(name)}</th>" for name in CURRENT_CRITERIA)
+    attune_rows = []
+    rf_rows = []
+    for item in receipt["subjects"]:
+        subject = html.escape(item["subjectKey"])
+        criteria = "".join(
+            f'<td title="{html.escape(str(item["attune"]["criteria"][name].get("limitationCode") or "valid"))}">'
+            f'{_format_value(item["attune"]["criteria"][name])}</td>'
+            for name in CURRENT_CRITERIA
+        )
+        skin = item["attune"]["skinType"]
+        skin_label = skin.get("value") if skin.get("quality") == "valid" else "—"
+        attune_rows.append(f"<tr><th>{subject}</th>{criteria}<td>{html.escape(str(skin_label))}</td></tr>")
+        threshold_cells = []
+        for threshold in THRESHOLDS:
+            summary = item["roboflow"][str(threshold)]
+            detail = ", ".join(f"{name}: {count}" for name, count in summary["byClass"].items()) or "none"
+            threshold_cells.append(f'<td title="{html.escape(detail)}">{summary["total"]}</td>')
+        rf_rows.append(f"<tr><th>{subject}</th>{''.join(threshold_cells)}</tr>")
+    provenance = receipt["attuneExecutionProvenance"]
+    return f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Attune / Roboflow source-bound comparison</title>
+<style>body{{font:14px system-ui,sans-serif;margin:2rem;color:#172033}}h1,h2{{line-height:1.2}}.note{{max-width:80rem;padding:1rem;background:#f4f6f8;border-left:4px solid #64748b}}.wrap{{overflow:auto;margin:1rem 0 2rem}}table{{border-collapse:collapse;min-width:60rem}}th,td{{border:1px solid #cbd5e1;padding:.5rem;text-align:right;white-space:nowrap}}thead th,tbody th{{background:#f8fafc}}tbody th{{text-align:left}}code{{font-size:.85em}}</style>
+</head><body><h1>Attune / Roboflow source-bound comparison</h1>
+<p class="note"><strong>Not an accuracy score.</strong> These are generated replay images without expert ground truth or physical-camera acceptance. Attune values and Roboflow proposal counts are different outputs and are not directly comparable.</p>
+<p>Attune base commit: <code>{receipt['sourceCommit']}</code><br>Execution revision: <code>{html.escape(str(provenance['localRevisionSHA256']))}</code><br>Endpoint: <code>{html.escape(receipt['endpoint'])}</code></p>
+<h2>Attune current-product outputs</h2><div class="wrap"><table><thead><tr><th>Profile</th>{criteria_headers}<th>skin type</th></tr></thead><tbody>{''.join(attune_rows)}</tbody></table></div>
+<h2>Roboflow proposal counts by confidence floor</h2><div class="wrap"><table><thead><tr><th>Profile</th><th>8%</th><th>15%</th><th>20%</th><th>30%</th><th>50%</th></tr></thead><tbody>{''.join(rf_rows)}</tbody></table></div>
+<p>Hover a Roboflow count to see its class breakdown. A lower confidence floor surfaces more review proposals; it does not make those proposals correct.</p>
+</body></html>"""
+
+
 def build(manifest: dict[str, Any], roboflow: dict[str, Any], attune: dict[str, Any]) -> dict[str, Any]:
     fronts = _front_manifest(manifest)
     rf = _validate_roboflow(roboflow, fronts)
@@ -332,6 +385,7 @@ def build(manifest: dict[str, Any], roboflow: dict[str, Any], attune: dict[str, 
         "comparisonReady": True,
         "sourceCommit": CURRENT_PRODUCT_COMMIT,
         "endpoint": CURRENT_ENDPOINT,
+        "attuneExecutionProvenance": attune["provenance"],
         "subjects": [
             {"subjectKey": key, "attune": current[key], "roboflow": rf[key]}
             for key in sorted(fronts)
@@ -354,6 +408,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--attune", type=Path, required=True)
     parser.add_argument("--output-json", type=Path, required=True)
     parser.add_argument("--output-md", type=Path, required=True)
+    parser.add_argument("--output-html", type=Path)
     args = parser.parse_args(argv)
     try:
         receipt = build(_load(args.manifest), _load(args.roboflow), _load(args.attune))
@@ -364,6 +419,9 @@ def main(argv: list[str] | None = None) -> int:
     args.output_md.parent.mkdir(parents=True, exist_ok=True)
     args.output_json.write_text(json.dumps(receipt, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     args.output_md.write_text(_markdown(receipt), encoding="utf-8")
+    if args.output_html is not None:
+        args.output_html.parent.mkdir(parents=True, exist_ok=True)
+        args.output_html.write_text(_html(receipt), encoding="utf-8")
     return 0
 
 
