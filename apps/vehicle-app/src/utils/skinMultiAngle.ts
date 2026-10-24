@@ -18,7 +18,7 @@ export function matchesSkinAngle(a: FaceAlignment, angle: SkinAngle): boolean {
   if (!a.faceDetected || !a.isMediaPipeActive || ![a.yaw, a.pitch, a.roll, a.scaleRatio].every(Number.isFinite)) return false;
   const actualScale = a.landmarks?.length ? Math.max(...a.landmarks.map(p => p.x)) - Math.min(...a.landmarks.map(p => p.x)) : a.scaleRatio;
   if ((a.sourceFramed===undefined ? actualScale < .28 || actualScale > .68 : !a.sourceFramed) || Math.abs(a.pitch) > .22 || Math.abs(a.roll) > .15) return false;
-  return angle === 'FRONT' ? Math.abs(a.yaw) <= .20 : angle === 'RIGHT' ? a.yaw <= -.28 && a.yaw >= -.65 : a.yaw >= .28 && a.yaw <= .65;
+  return angle === 'FRONT' ? Math.abs(a.yaw) <= .20 : angle === 'RIGHT' ? a.yaw <= -.32 && a.yaw >= -.65 : a.yaw >= .32 && a.yaw <= .65;
 }
 export function angleGuidance(a: FaceAlignment, angle: SkinAngle): string {
   if (!a.faceDetected) return 'Yüz algılanamadı. Kameranın karşısına geçin.';
@@ -28,7 +28,7 @@ export function angleGuidance(a: FaceAlignment, angle: SkinAngle): string {
   if (Math.abs(a.pitch) > .22 || Math.abs(a.roll) > .15) return 'Başınızı dik tutun; yukarı veya aşağı eğmeyin.';
   if (matchesSkinAngle(a, angle)) return 'Poz uygun. Lütfen sabit durun...';
   if (angle === 'FRONT') return 'Doğrudan kameraya bakın.';
-  return angle === 'RIGHT' ? 'Başınızı kendi sağınıza çevirin; çok yan dönmeden sol yanağınızı kameraya gösterin.' : 'Başınızı kendi solunuza çevirin; çok yan dönmeden sağ yanağınızı kameraya gösterin.';
+  return angle === 'RIGHT' ? 'Sol yanağınızı kameraya göstermek için başınızı hafifçe sağa çevirin (25°-40°).' : 'Sağ yanağınızı kameraya göstermek için başınızı hafifçe sola çevirin (25°-40°).';
 }
 export async function captureSkinAngle(ctx: CanvasRenderingContext2D, a: FaceAlignment, quality: ImageQuality, angle: SkinAngle, prior: Partial<Record<SkinAngle, AngleCapture>>): Promise<AngleCapture> {
   if (!matchesSkinAngle(a, angle) || !quality.isValid) throw new Error('INVALID_ANGLE');

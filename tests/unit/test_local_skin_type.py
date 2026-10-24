@@ -104,3 +104,20 @@ def test_normal_endpoint_finalizes_after_all_product_replacements(monkeypatch):
  assert events==['native-dry','acne']
  assert result['general']['skinType']['value']=='oily' and not result['general']['skinType']['decisionTrace']['complete']
  assert result['activeCriterionMethods']['criteria']['type']['overview']['methodVersion'].endswith(T.RULE)
+
+
+def test_combination_includes_chin_oil_in_tzone():
+    r = regions(dry=0)
+    r['chin'] = rows(oil=12, dry=0)
+    res = T.regional_decision(base('normal'), r)
+    assert res['value'] == 'combination'
+    assert res['decisionTrace']['applied'] is True
+    assert res['decisionTrace']['tZone']['valid'] is True
+
+def test_missing_cheek_flags_incomplete_limitation():
+    r = regions(dry=0)
+    r.pop('rightCheek')
+    res = T.regional_decision(base('normal'), r)
+    assert res['value'] == 'normal'
+    assert res['decisionTrace']['limitationCode'] == 'INCOMPLETE_CHEEKS_UNVERIFIED'
+    assert res.get('limitationCode') == 'INCOMPLETE_CHEEKS_UNVERIFIED'

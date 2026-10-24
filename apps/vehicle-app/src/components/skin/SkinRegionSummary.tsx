@@ -36,7 +36,7 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
 
         </div>
 
-        {currentRegion.id === 'overview' && <div className="rounded-2xl border border-sky-400/15 bg-slate-900/60 p-4 flex flex-wrap justify-between gap-2" data-skin-type><span className="text-sm text-slate-300">{i18nText("Cilt tipi")}</span><strong className="text-base text-white">{i18nNode(currentRegion.skinType?.quality === 'valid' && currentRegion.skinType.value ? SKIN_TYPE_LABELS[currentRegion.skinType.value] : '—')}</strong></div>}
+        {currentRegion.id === 'overview' && <div className="rounded-2xl border border-sky-400/15 bg-slate-900/60 p-4 flex flex-wrap justify-between gap-2" data-skin-type><span className="text-sm text-slate-300">{i18nText("Cilt tipi")}</span><strong className="text-base text-white">{i18nNode(currentRegion.skinType?.quality === 'valid' && currentRegion.skinType.value ? SKIN_TYPE_LABELS[currentRegion.skinType.value] : (currentRegion.skinType?.limitationCode === 'INCOMPLETE_CHEEKS_UNVERIFIED' ? i18nText('Belirsiz (Yanak verisi eksik)') : '—'))}</strong></div>}
         {/* Current source measurements only. */}
         {currentRegion.indicators ? <div className="space-y-4" data-skin-indicators>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

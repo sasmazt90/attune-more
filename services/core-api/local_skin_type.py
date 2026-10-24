@@ -79,18 +79,31 @@ def regional_decision(base,measurements):
   value=row.get('value');area=row.get('evaluatedArea',{})
   if row.get('quality')!='valid' or isinstance(value,bool) or not isinstance(value,(int,float)) or not math.isfinite(value) or not 0<=value<=100 or area.get('analysisPixels',0)<100 or area.get('sourcePixels',0)<=0:return None
   return row
- t=observed('nose','oil');forehead=observed('forehead','oil')
+ t=observed('nose','oil');forehead=observed('forehead','oil');chin_oil=observed('chin','oil')
  # The existing nose oil ROI is already forehead union nose: never add the
  # forehead area twice. Require actual visible support in both anatomy parts.
  t_valid=t is not None and forehead is not None and t['evaluatedArea'].get('foreheadSourcePixels',0)>0 and t['evaluatedArea'].get('noseSourcePixels',0)>0
- trace['tZone']=dict(observation=t,inputs={r:input_row(r,'oil') for r in ['nose','forehead']},valid=t_valid,anatomy='existing forehead-union-nose ROI; no duplicate forehead sum')
+ trace['tZone']=dict(observation=t,chinObservation=chin_oil,inputs={r:input_row(r,'oil') for r in ['nose','forehead','chin']},valid=t_valid,anatomy='existing forehead-union-nose-chin ROI; no duplicate forehead sum')
  states=[]
- for region in ['leftCheek','rightCheek','chin']:
+ cheek_complete=True
+ for region in ['leftCheek','rightCheek']:
   oil,dry=observed(region,'oil'),observed(region,'dry')
-  state=None if oil is None or dry is None else 'oily' if oil['value']>0 else 'dry' if dry['value']>0 else 'normal'
+  if oil is None or dry is None:
+   state=None
+   cheek_complete=False
+  else:
+   state='oily' if oil['value']>0 else 'dry' if dry['value']>0 else 'normal'
   trace['regions'][region]=dict(state=state,oil=oil,dry=dry,inputs=dict(oil=input_row(region,'oil'),dry=input_row(region,'dry')));states.append(state)
- complete=t_valid and all(s is not None for s in states)
- matches=complete and t['value']>0 and all(s in ('normal','dry') for s in states)
+ chin_dry=observed('chin','dry')
+ chin_state=None if chin_oil is None or chin_dry is None else 'oily' if chin_oil['value']>0 else 'dry' if chin_dry['value']>0 else 'normal'
+ trace['regions']['chin']=dict(state=chin_state,oil=chin_oil,dry=chin_dry,inputs=dict(oil=input_row('chin','oil'),dry=input_row('chin','dry')))
+ complete=t_valid and cheek_complete and all(s is not None for s in states)
+ t_oily=(t is not None and t.get('value',0)>0) or (chin_oil is not None and chin_oil.get('value',0)>0)
+ cheeks_non_oily=all(s in ('normal','dry') for s in states)
+ matches=complete and t_oily and cheeks_non_oily
+ if not cheek_complete:
+  trace['limitationCode']='INCOMPLETE_CHEEKS_UNVERIFIED'
+  result['limitationCode']='INCOMPLETE_CHEEKS_UNVERIFIED'
  trace.update(complete=complete,combinationMatched=matches,baseValue=base.get('value'),baseConfidence=base.get('confidence'),baseModelHash=base.get('modelHash'))
  usable=base.get('quality')=='valid' and base.get('value') in CLASSES and bool(base.get('modelHash'))
  if usable:
