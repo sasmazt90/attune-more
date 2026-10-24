@@ -135,6 +135,15 @@ class ComparisonContractTest(unittest.TestCase):
         with self.assertRaisesRegex(comparison.ContractError, "photoId mismatch"):
             comparison.build(manifest, roboflow, attune)
 
+    def test_gate_package_alias_and_filename_are_bound_by_hash(self):
+        manifest, roboflow, attune = fixtures()
+        attune["captures"][0]["subjectKey"] = "01_subject"
+        attune["captures"][0]["input"]["filename"] = "01_subject/front.jpg"
+        receipt = comparison.build(manifest, roboflow, attune)
+        first = receipt["subjects"][0]["attune"]
+        self.assertEqual(first["captureLabel"], "01_subject")
+        self.assertEqual(first["captureFilename"], "01_subject/front.jpg")
+
     def test_roboflow_counts_are_recomputed(self):
         manifest, roboflow, attune = fixtures()
         roboflow["calls"][0]["thresholdCounts"]["0.5"]["total"] = 99
