@@ -18,9 +18,13 @@ APPROVED_LESION_THRESHOLDS = {
     'closed_comedo': 0.29,
 }
 OILY_SEG_MIN_CONFIDENCE = 0.45
+_CLIENT_CACHE: dict[str, object] = {}
 
 
 def _get_client(api_key: str):
+    cached = _CLIENT_CACHE.get(api_key)
+    if cached is not None:
+        return cached
     from inference_sdk import InferenceConfiguration, InferenceHTTPClient
     client = InferenceHTTPClient(api_url='https://serverless.roboflow.com', api_key=api_key)
     client.configure(
@@ -30,7 +34,17 @@ def _get_client(api_key: str):
             disable_active_learning=True,
         )
     )
+    _CLIENT_CACHE[api_key] = client
     return client
+
+
+def _prepare_inference_image(bgr: np.ndarray, max_dim: int = 1024) -> tuple[np.ndarray, float]:
+    h, w = bgr.shape[:2]
+    scale = min(1.0, float(max_dim) / float(max(h, w, 1)))
+    if scale < 1.0:
+        resized = cv2.resize(bgr, (max(1, int(round(w * scale))), max(1, int(round(h * scale)))), interpolation=cv2.INTER_AREA)
+        return resized, scale
+    return bgr, 1.0
 
 
 def infer_lesion_large(bgr: np.ndarray, hosted_consent: bool = False) -> dict:
@@ -42,7 +56,8 @@ def infer_lesion_large(bgr: np.ndarray, hosted_consent: bool = False) -> dict:
     t0 = time.perf_counter()
     try:
         client = _get_client(api_key)
-        data = client.infer(bgr, model_id=LESION_LARGE_MODEL_ID)
+        inf_img, rf_scale = _prepare_inference_image(bgr)
+        data = client.infer(inf_img, model_id=LESION_LARGE_MODEL_ID)
         elapsed_ms = round((time.perf_counter() - t0) * 1000.0, 2)
     except Exception:
         return dict(
@@ -61,15 +76,16 @@ def infer_lesion_large(bgr: np.ndarray, hosted_consent: bool = False) -> dict:
     boxes = []
     rejected = []
     h, w = bgr.shape[:2]
+    inv_scale = 1.0 / rf_scale
     for idx, p in enumerate(preds):
         if not isinstance(p, dict):
             continue
         cls_name = str(p.get('class') or '').strip().lower()
         conf = float(p.get('confidence') or 0.0)
-        cx = float(p.get('x') or 0.0)
-        cy = float(p.get('y') or 0.0)
-        bw = float(p.get('width') or 0.0)
-        bh = float(p.get('height') or 0.0)
+        cx = float(p.get('x') or 0.0) * inv_scale
+        cy = float(p.get('y') or 0.0) * inv_scale
+        bw = float(p.get('width') or 0.0) * inv_scale
+        bh = float(p.get('height') or 0.0) * inv_scale
         x1 = max(0.0, cx - bw / 2.0)
         y1 = max(0.0, cy - bh / 2.0)
         x2 = min(float(w), cx + bw / 2.0)
@@ -135,7 +151,8 @@ def infer_regional_oily_seg(
     t0 = time.perf_counter()
     try:
         client = _get_client(api_key)
-        data = client.infer(bgr, model_id=REGIONAL_SEG_MODEL_ID)
+        inf_img, rf_scale = _prepare_inference_image(bgr)
+        data = client.infer(inf_img, model_id=REGIONAL_SEG_MODEL_ID)
         elapsed_ms = round((time.perf_counter() - t0) * 1000.0, 2)
     except Exception:
         return dict(
@@ -153,6 +170,7 @@ def infer_regional_oily_seg(
     x0, y0 = origin
     raw_oily = np.zeros(gray_shape, np.uint8)
     oily_polys = 0
+    inv_rf_scale = 1.0 / rf_scale
     for p in preds:
         if not isinstance(p, dict):
             continue
@@ -161,7 +179,7 @@ def infer_regional_oily_seg(
         pts = p.get('points') or []
         if cls_name == 'oily' and conf >= OILY_SEG_MIN_CONFIDENCE and len(pts) >= 3:
             poly = np.asarray(
-                [[(float(pt['x']) - x0) * scale, (float(pt['y']) - y0) * scale] for pt in pts],
+                [[(float(pt['x']) * inv_rf_scale - x0) * scale, (float(pt['y']) * inv_rf_scale - y0) * scale] for pt in pts],
                 np.int32,
             )
             cv2.fillPoly(raw_oily, [poly], 255)
@@ -182,5 +200,5 @@ def infer_regional_oily_seg(
         modelHash=str(pkg_id),
         inferenceId=data.get('inference_id'),
         inferenceMs=elapsed_ms,
-        minConfidence=OILY_SEG_MIN_CONFIDENCE,
+        threshold=OILY_SEG_MIN_CONFIDENCE,
     )

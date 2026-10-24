@@ -409,10 +409,15 @@ def analyze_skin(payload, include_research_features=False):
     acne_skin=(face_support>0)&(acne_exclusion==0)&~hair&~acne_clipping&(gray>.12)
     rf_oily_receipt=None
     if not include_research_features and payload.get('hostedProcessingConsent') is True and payload.get('qualityValid') is True:
-        if not (trained_acne and trained_acne.get('valid')):
-            rf_lesion=infer_lesion_large(bgr,hosted_consent=True)
-            if rf_lesion.get('valid'):trained_acne=rf_lesion
-        rf_oily=infer_regional_oily_seg(bgr,gray.shape,scale,origin,acne_skin,acne_exclusion,hair,hosted_consent=True)
+        from concurrent.futures import ThreadPoolExecutor
+        need_lesion=not (trained_acne and trained_acne.get('valid'))
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            fut_lesion=pool.submit(infer_lesion_large,bgr,True) if need_lesion else None
+            fut_oily=pool.submit(infer_regional_oily_seg,bgr,gray.shape,scale,origin,acne_skin,acne_exclusion,hair,True)
+            if fut_lesion is not None:
+                rf_lesion=fut_lesion.result()
+                if rf_lesion.get('valid'):trained_acne=rf_lesion
+            rf_oily=fut_oily.result()
         if rf_oily.get('valid'):
             rf_oily_receipt={k:v for k,v in rf_oily.items() if k!='mask'}
             if rf_oily.get('mask') is not None and rf_oily['mask'].any():
