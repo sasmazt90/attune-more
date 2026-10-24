@@ -46,6 +46,11 @@ behavior for a missing Attune subject, decoded-photo identity mismatch,
 tampered Roboflow threshold totals, wrong product commit, and CLI failure with
 no output artifacts. Both changed Python files also compile with `py_compile`.
 
+The gate was additionally replayed against the committed, non-synthetic
+triplet manifest and full Roboflow evidence. It verified six FRONT identities,
+six calls, 224 proposals at 8%, and 17 retained at 50%, recomputing every
+per-image and aggregate count from the stored prediction rows.
+
 ## Remaining acceptance boundary
 
 The six real Attune responses have not been captured. The production UI is a
