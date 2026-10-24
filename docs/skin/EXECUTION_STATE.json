@@ -1145,13 +1145,19 @@
         "docs/skin/evidence/attune-roboflow-source-bound-comparison-20261024-v1.json",
         "docs/skin/attune-roboflow-source-bound-comparison-20261024.md",
         "docs/skin/attune-roboflow-source-bound-comparison-20261024.html",
-        "docs/skin/attune-v5-source-bound-comparison-20261024.md"
+        "docs/skin/attune-v5-source-bound-comparison-20261024.md",
+        "scripts/skin-research/audit_original_photo_model_comparison.py",
+        "tests/unit/test_audit_original_photo_model_comparison.py",
+        "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
+        "docs/skin/evidence/roboflow-live-evaluations-20261024.json",
+        "docs/skin/original-photo-model-comparison-audit-20261024.md"
       ],
       "blockers": [
         "Final holdout independence is not established: perceptual and filename crop relations need source/provenance review; prior exposure and person overlap are unknown.",
         "Direct Clean3 v1 geometry audited: mainly boxes; only 10 oil and 6 dry polygons, no redness polygons. Source geometry is not expert/normal truth; preserve 9 exact cross-split groups and resolve candidate/exposure relations. Other selected regional sources still need audit.",
         "Independent real-camera benchmark and reviewed regional normal truth remain pending.",
-        "The shared gate correctly rejects the current acne/post-acne/pigmentation and regional oil/redness candidates, and the empty grouped under-eye project has no model to evaluate; source/expert/person-independent/camera gaps must be resolved rather than bypassed."
+        "The shared gate correctly rejects the current acne/post-acne/pigmentation and regional oil/redness candidates, and the empty grouped under-eye project has no model to evaluate; source/expert/person-independent/camera gaps must be resolved rather than bypassed.",
+        "The self-contained ten-model comparison is source-bound to the same six generated FRONT JPEGs, not physical-camera captures. Fifteen model/profile pairs hit the 300-prediction cap, so the exploration responses cannot establish complete recall or an operating threshold."
       ]
     },
     {
@@ -1173,13 +1179,19 @@
         "scripts/skin-research/evaluate_tiling_experiment.py",
         "scripts/skin-research/diagnose_detector_snapshot.py",
         "docs/skin/evidence/acne-localization-diagnosis-20261023-v1.json",
-        "docs/skin/evidence/acne-confusion-visual-review-20261023-v1.json"
+        "docs/skin/evidence/acne-confusion-visual-review-20261023-v1.json",
+        "scripts/skin-research/audit_original_photo_model_comparison.py",
+        "tests/unit/test_audit_original_photo_model_comparison.py",
+        "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
+        "docs/skin/evidence/roboflow-live-evaluations-20261024.json",
+        "docs/skin/original-photo-model-comparison-audit-20261024.md"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
         "Source holdout independence, expert semantic review, real-camera tests and application integration remain pending. Diagnose tiny-instance resolution, localisation, dense prediction cap and label coverage on validation before targeted changes; do not blindly retrain.",
         "Validation-only diagnostic:24four-corner crop inferences on6images at fixed original thresholds. Recall increased forPimple andPostacne, false positives also increased; pigmentation0/62. Hash-control AP50declined. Tiling alone not accepted; source taxonomy/coverage and localization require targeted improvement, not broad retraining.",
-        "Validation-only class-agnostic one-to-one matching atIoU0.5:205Pimple/93Pigmentation truths matchedPostacne predictions. Source instances are overwhelmingly small, and same-class overlap degrades atIoU0.75. These are classification/localization review cues,notproof labels are wrong; six valid examples visually inspected, no labels changed."
+        "Validation-only class-agnostic one-to-one matching atIoU0.5:205Pimple/93Pigmentation truths matchedPostacne predictions. Source instances are overwhelmingly small, and same-class overlap degrades atIoU0.75. These are classification/localization review cues,notproof labels are wrong; six valid examples visually inspected, no labels changed.",
+        "Live eval 0xMgfVLFzMyNEOhN1baC binds evaluated child a5e262 to Pimple test precision/recall/F1 0.127/0.075/0.094. The unevaluated displayed 929397 child hits the 300-prediction cap on all six generated profiles. Neither is accepted or integrated."
       ]
     },
     {
@@ -1201,13 +1213,19 @@
         "scripts/skin-research/evaluate_tiling_experiment.py",
         "scripts/skin-research/diagnose_detector_snapshot.py",
         "docs/skin/evidence/acne-localization-diagnosis-20261023-v1.json",
-        "docs/skin/evidence/acne-confusion-visual-review-20261023-v1.json"
+        "docs/skin/evidence/acne-confusion-visual-review-20261023-v1.json",
+        "scripts/skin-research/audit_original_photo_model_comparison.py",
+        "tests/unit/test_audit_original_photo_model_comparison.py",
+        "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
+        "docs/skin/evidence/roboflow-live-evaluations-20261024.json",
+        "docs/skin/original-photo-model-comparison-audit-20261024.md"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
         "Source holdout independence, expert semantic review, real-camera tests and application integration remain pending. Diagnose tiny-instance resolution, localisation, dense prediction cap and label coverage on validation before targeted changes; do not blindly retrain.",
         "Validation-only diagnostic:24four-corner crop inferences on6images at fixed original thresholds. Recall increased forPimple andPostacne, false positives also increased; pigmentation0/62. Hash-control AP50declined. Tiling alone not accepted; source taxonomy/coverage and localization require targeted improvement, not broad retraining.",
-        "Validation-only class-agnostic one-to-one matching atIoU0.5:205Pimple/93Pigmentation truths matchedPostacne predictions. Source instances are overwhelmingly small, and same-class overlap degrades atIoU0.75. These are classification/localization review cues,notproof labels are wrong; six valid examples visually inspected, no labels changed."
+        "Validation-only class-agnostic one-to-one matching atIoU0.5:205Pimple/93Pigmentation truths matchedPostacne predictions. Source instances are overwhelmingly small, and same-class overlap degrades atIoU0.75. These are classification/localization review cues,notproof labels are wrong; six valid examples visually inspected, no labels changed.",
+        "Live eval 0xMgfVLFzMyNEOhN1baC binds evaluated child a5e262 to Post acne test precision/recall/F1 0.133/0.032/0.052. The displayed 929397 child has no bound test evaluation and is capped on every generated profile. Keep the product heading unavailable."
       ]
     },
     {
@@ -1229,13 +1247,19 @@
         "scripts/skin-research/evaluate_tiling_experiment.py",
         "scripts/skin-research/diagnose_detector_snapshot.py",
         "docs/skin/evidence/acne-localization-diagnosis-20261023-v1.json",
-        "docs/skin/evidence/acne-confusion-visual-review-20261023-v1.json"
+        "docs/skin/evidence/acne-confusion-visual-review-20261023-v1.json",
+        "scripts/skin-research/audit_original_photo_model_comparison.py",
+        "tests/unit/test_audit_original_photo_model_comparison.py",
+        "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
+        "docs/skin/evidence/roboflow-live-evaluations-20261024.json",
+        "docs/skin/original-photo-model-comparison-audit-20261024.md"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
         "Source holdout independence, expert semantic review, real-camera tests and application integration remain pending. Diagnose tiny-instance resolution, localisation, dense prediction cap and label coverage on validation before targeted changes; do not blindly retrain.",
         "Validation-only diagnostic:24four-corner crop inferences on6images at fixed original thresholds. Recall increased forPimple andPostacne, false positives also increased; pigmentation0/62. Hash-control AP50declined. Tiling alone not accepted; source taxonomy/coverage and localization require targeted improvement, not broad retraining.",
-        "Validation-only class-agnostic one-to-one matching atIoU0.5:205Pimple/93Pigmentation truths matchedPostacne predictions. Source instances are overwhelmingly small, and same-class overlap degrades atIoU0.75. These are classification/localization review cues,notproof labels are wrong; six valid examples visually inspected, no labels changed."
+        "Validation-only class-agnostic one-to-one matching atIoU0.5:205Pimple/93Pigmentation truths matchedPostacne predictions. Source instances are overwhelmingly small, and same-class overlap degrades atIoU0.75. These are classification/localization review cues,notproof labels are wrong; six valid examples visually inspected, no labels changed.",
+        "Live eval 0xMgfVLFzMyNEOhN1baC binds evaluated child a5e262 to Pigmentation test precision/recall/F1 0.004/0.016/0.007. The displayed 929397 child has no bound test evaluation and is capped on every generated profile. Keep the product heading unavailable."
       ]
     },
     {
@@ -1268,11 +1292,17 @@
         "docs/skin/evidence/source-review-manifest-20261023-v1.json.gz",
         "docs/skin/evidence/source-visual-inspection-20261023-v1.json",
         "docs/skin/evidence/source-review-checks-20261023-v1.json",
-        "docs/skin/source-pair-preparation-20261023.md"
+        "docs/skin/source-pair-preparation-20261023.md",
+        "scripts/skin-research/audit_original_photo_model_comparison.py",
+        "tests/unit/test_audit_original_photo_model_comparison.py",
+        "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
+        "docs/skin/evidence/roboflow-live-evaluations-20261024.json",
+        "docs/skin/original-photo-model-comparison-audit-20261024.md"
       ],
       "blockers": [
         "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
-        "Oily test mask precision/recall 0.649/0.411 and class-union IoU 0.309 require improvement. Redness test mask precision/recall 0.625/0.405, but class-union IoU 0.709 shows that instance subdivision matters; only nine test images have redness annotations. This is promising research evidence, not camera acceptance."
+        "Oily test mask precision/recall 0.649/0.411 and class-union IoU 0.309 require improvement. Redness test mask precision/recall 0.625/0.405, but class-union IoU 0.709 shows that instance subdivision matters; only nine test images have redness annotations. This is promising research evidence, not camera acceptance.",
+        "Live eval DnEj7h84bQauUdGIVrUQ verifies regional child e79545 test F1 0.513 for Oily, but the model has only Oily/Redness classes and no Dry/Normal support. The comparison map is research-only and cannot authorize an oil/skin-type activation."
       ]
     },
     {
@@ -1316,11 +1346,17 @@
         "docs/skin/evidence/source-review-manifest-20261023-v1.json.gz",
         "docs/skin/evidence/source-visual-inspection-20261023-v1.json",
         "docs/skin/evidence/source-review-checks-20261023-v1.json",
-        "docs/skin/source-pair-preparation-20261023.md"
+        "docs/skin/source-pair-preparation-20261023.md",
+        "scripts/skin-research/audit_original_photo_model_comparison.py",
+        "tests/unit/test_audit_original_photo_model_comparison.py",
+        "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
+        "docs/skin/evidence/roboflow-live-evaluations-20261024.json",
+        "docs/skin/original-photo-model-comparison-audit-20261024.md"
       ],
       "blockers": [
         "Validated regional method registry remains empty; unknown is grey, legacy tiny supports cannot force combination. Base three-class model retained. Need regional training/calibration, independent tests and camera evidence before enabling methods; synthetic fixture policies are not product calibration.",
-        "FACEv3normal88sourcepolygons include broad/full-face masks covering eyes in sampled trainexamples.16normal-maskpairs prepared forreview only; no explicit region assessability/normal completeness accepted."
+        "FACEv3normal88sourcepolygons include broad/full-face masks covering eyes in sampled trainexamples.16normal-maskpairs prepared forreview only; no explicit region assessability/normal completeness accepted.",
+        "The comparison's regional child supplies Oily and Redness only. It cannot infer evaluated Dry or Normal, and cannot satisfy the mixed-skin rule. Unknown stays unknown; no whole-face class may be copied to regional truth."
       ]
     },
     {
@@ -1353,11 +1389,17 @@
         "docs/skin/evidence/source-review-manifest-20261023-v1.json.gz",
         "docs/skin/evidence/source-visual-inspection-20261023-v1.json",
         "docs/skin/evidence/source-review-checks-20261023-v1.json",
-        "docs/skin/source-pair-preparation-20261023.md"
+        "docs/skin/source-pair-preparation-20261023.md",
+        "scripts/skin-research/audit_original_photo_model_comparison.py",
+        "tests/unit/test_audit_original_photo_model_comparison.py",
+        "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
+        "docs/skin/evidence/roboflow-live-evaluations-20261024.json",
+        "docs/skin/original-photo-model-comparison-audit-20261024.md"
       ],
       "blockers": [
         "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
-        "Oily test mask precision/recall 0.649/0.411 and class-union IoU 0.309 require improvement. Redness test mask precision/recall 0.625/0.405, but class-union IoU 0.709 shows that instance subdivision matters; only nine test images have redness annotations. This is promising research evidence, not camera acceptance."
+        "Oily test mask precision/recall 0.649/0.411 and class-union IoU 0.309 require improvement. Redness test mask precision/recall 0.625/0.405, but class-union IoU 0.709 shows that instance subdivision matters; only nine test images have redness annotations. This is promising research evidence, not camera acceptance.",
+        "Live eval DnEj7h84bQauUdGIVrUQ verifies regional child e79545 test F1 0.533 for Redness, but the comparison output schema labels its product layer Sensitive. Sensitive is not redness; the accepted independent red contour/hatching contract fails closed."
       ]
     },
     {
@@ -1528,13 +1570,19 @@
         "docs/skin/evidence/attune-roboflow-source-bound-comparison-20261024-v1.json",
         "docs/skin/attune-roboflow-source-bound-comparison-20261024.md",
         "docs/skin/attune-roboflow-source-bound-comparison-20261024.html",
-        "docs/skin/attune-v5-source-bound-comparison-20261024.md"
+        "docs/skin/attune-v5-source-bound-comparison-20261024.md",
+        "scripts/skin-research/audit_original_photo_model_comparison.py",
+        "tests/unit/test_audit_original_photo_model_comparison.py",
+        "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
+        "docs/skin/evidence/roboflow-live-evaluations-20261024.json",
+        "docs/skin/original-photo-model-comparison-audit-20261024.md"
       ],
       "blockers": [
         "The merged main branch already has the nine-criterion result path, separate skin type, six regional views, overview, local maps/contours, persistence gate and result UI. The roadmap branch now extends the result contract to eleven appearance headings plus skin type; Post acne and Pigmentation remain explicitly unavailable, not fabricated. Production merge/deployment is not part of this run.",
         "Regional summaries now pass strict parsing, source-bound presentation, explicit categorical history availability states, retained-photo replay validation and the same replay gate before IndexedDB write and after read. An unknown, missing or malformed selected record cannot fall back to an older result; method changes are not bridged. Real browser/IndexedDB screenshot replay cannot run in this environment because Python Playwright and a Chromium executable are absent. Full app typecheck, browser/API/history E2E and real-camera acceptance remain pending.",
         "No oil/dry/redness method is activated by synthetic contract, history, replay or storage tests; the accepted-method registry remains authoritative and currently empty.",
-        "The six generated FRONT responses are now source-bound to the existing merged result flow and compared with the saved Roboflow proposals. This closes the generated replay comparison input gap only; physical-camera, temporal, expert-label, accuracy, activation, full browser/API/history E2E and production merge/deployment remain pending."
+        "The six generated FRONT responses are now source-bound to the existing merged result flow and compared with the saved Roboflow proposals. This closes the generated replay comparison input gap only; physical-camera, temporal, expert-label, accuracy, activation, full browser/API/history E2E and production merge/deployment remain pending.",
+        "The audited comparison preserves unknown pixels and face bounds but fails product activation: generated replay only, no expert truth, no independent unused final test, 15 capped responses, missing exact evaluations for four displayed NAS selections, and Sensitive/Redness map-contract mismatch."
       ]
     }
   ],
@@ -1639,10 +1687,63 @@
       "receipt": "docs/skin/evidence/attune-roboflow-source-bound-comparison-20261024-v1.json",
       "html": "docs/skin/attune-roboflow-source-bound-comparison-20261024.html",
       "report": "docs/skin/attune-v5-source-bound-comparison-20261024.md"
+    },
+    "originalPhotoModelComparisonAudit": {
+      "gate": "scripts/skin-research/audit_original_photo_model_comparison.py",
+      "tests": "tests/unit/test_audit_original_photo_model_comparison.py",
+      "artifactSHA256": "83def109c93c2ca5b16580cee9f61ddb5ba08dd18f8f86e214aa9bb00139752e",
+      "artifactLibraryFileId": "libfile_2a8c427de6708191945c271e5af6d3a5",
+      "v5SourceArchiveSHA256": "02c49ba5cbda603ddac24a176b42b618f3a913fe2171beb4ab316b7899d70af5",
+      "sourceType": "generated-still-image-replay",
+      "embeddedFrontImagesVerified": 6,
+      "pinnedRoboflowModels": 10,
+      "liveEvaluationIdsVerified": 6,
+      "cappedModelProfilePairs": 15,
+      "capValue": 300,
+      "currentProfilesHaveExpertGroundTruth": false,
+      "independentUnusedFinalTest": false,
+      "regionalMapObservedLabels": [
+        "Dry",
+        "Oily",
+        "Sensitive",
+        "Unknown"
+      ],
+      "regionalMapContractMatches": false,
+      "unknownPixelsPreserved": 2200740,
+      "outsideSkinTintedPixels": 0,
+      "evaluatedAcneMarksChild": {
+        "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262",
+        "evalId": "0xMgfVLFzMyNEOhN1baC",
+        "testF1": {
+          "Pimple": 0.094,
+          "Post acne": 0.052,
+          "Pigmentation": 0.007
+        },
+        "accepted": false
+      },
+      "evaluatedRegionalChild": {
+        "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545",
+        "evalId": "DnEj7h84bQauUdGIVrUQ",
+        "testF1": {
+          "Oily": 0.513,
+          "Redness": 0.533
+        },
+        "supportsDry": false,
+        "supportsNormal": false,
+        "accepted": false
+      },
+      "recommendedFlagInterpretedAsWinner": false,
+      "accuracyMeasured": false,
+      "thresholdSelectionAuthorized": false,
+      "productionActivationAuthorized": false,
+      "receipt": "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
+      "liveEvaluationReceipt": "docs/skin/evidence/roboflow-live-evaluations-20261024.json",
+      "report": "docs/skin/original-photo-model-comparison-audit-20261024.md"
     }
   },
   "nextActions": [
-    "Use the audited ZIP 5096055f1cbd3afb28f4cdc1c2a40584b9c5d8159a6371e0d558f38a2ca90f28 for the next generated replay. Its six FRONT hashes exactly match the saved Roboflow inputs, so do not repeat Roboflow inference. Run those FRONT files through the merged product's full V5 /api/local-health/skin analysis, export all six complete responses, then run build_attune_roboflow_comparison.py; static preflight alone is not the product result.",
+    "Do not integrate acne/post-acne/pigmentation child a5e262: its live exact-ID test F1 is 0.094/0.052/0.007. The displayed 929397 child is also not eligible because the artifact binds no test evaluation to it and every generated FRONT response is capped at 300. Evaluate another child by exact model ID and per-class test evidence before any further inference or integration; do not repeat the six generated profiles.",
+    "Correct the research regional map schema before product use: keep Redness as an independent red contour/hatching layer, never rename it Sensitive, preserve Unknown as light grey, and do not synthesize Dry/Normal or mixed skin from the Oily/Redness-only e79545 model. Obtain reviewed Dry/Normal regional truth and real-camera evidence.",
     "Apply scripts/skin-research/skin_model_acceptance_gate.py to every future learned candidate before changing any accepted manifest or registry. A finished training or recommendation flag is insufficient. Current 754885 acne/post-acne/pigmentation, 2c07ef regional oil/redness and the model-less grouped under-eye path all fail closed; improve the recorded source, per-class, camera and integration gaps, then replay the same receipt.",
     "Task 12 source audit is complete: the 18-criterion ordinal source has elasticity, not sag, and cannot authorize a sag target. Preserve both model-boundary and downstream replacement guards; do not add sag to the generic degree head. Next useful evidence is consented same-person compatible capture pairs, expert localized truth, pose/expression robustness and execution of the focused model-boundary test in the service runtime with OpenCV/ONNX Runtime.",
     "Task 12 appearance-only semantics and the frontend rejection gate are implemented; do not rebuild or rename the contour/fold proxy as elasticity or clinical severity. Next obtain consented same-person compatible capture pairs plus expert localized truth, then evaluate pose/expression robustness before any learned segmentation or directional improvement claim.",
@@ -1954,6 +2055,19 @@
         "5a06d9ccc60fd038e76e72134850b7df955210f5",
         "d362c02568ad3746d7e8d40dd238c61823ab798d",
         "0aacdfdac96a8f43d7ec086e5d64316e3c287c45"
+      ]
+    },
+    {
+      "date": "2026-10-24",
+      "observedAt": "2026-10-24T04:09:48Z",
+      "action": "Read the persistent checkpoint first; confirmed main remains 7463eef112c5a40f7cd01192b6d1f4e9fa6ab285, all 16 private projects remain present, acne NAS 5b632a5c12b76fcfe703 is finished with 89 children and regional NAS 3485f8c67f957a1b850d is finished with 75 records. No training or inference was started or duplicated. Materialized and audited the 46,478,952-byte self-contained ten-model comparison without committing faces, overlays, masks or boxes. All six embedded FRONT JPEG hashes match the prior generated V5 replay, all ten model identities and box bounds pass, but 15 model/profile pairs hit the 300-prediction cap. Refreshed all six evaluation IDs from Roboflow and matched every class metric row to the exact model. Evaluated acne-marks child a5e262 remains unusable (Pimple/Post acne/Pigmentation test F1 0.094/0.052/0.007). Regional child e79545 only supports Oily/Redness (test F1 0.513/0.533), not Dry/Normal; its comparison map incorrectly uses Sensitive rather than the accepted independent Redness layer. Added a fail-closed auditor, four passing audit tests, two privacy-safe receipts and a decision report. Generated replay, expert truth, independent final test, real camera, threshold selection and production activation remain false.",
+      "report": "docs/skin/original-photo-model-comparison-audit-20261024.md",
+      "commits": [
+        "4dcbb0c02e6dc7fbb8b4d6c5d8aa04848a810909",
+        "9d8c72083f955e46355757eb08502425e00605aa",
+        "3b134dab8653eb4e374da41605fb1c7396e2aed0",
+        "4f3f6f97239b1a61c4fed79c4fd885de16a0f312",
+        "94ddddfdf680e7cfade2999ae6bb9262d90b2f60"
       ]
     }
   ]
