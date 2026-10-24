@@ -175,7 +175,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-24",
-      "lastCheckedAt": "2026-10-24T01:56:06Z",
+      "lastCheckedAt": "2026-10-24T02:51:13Z",
       "modelCount": 89,
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
@@ -327,7 +327,7 @@
         "invalidGeometry": 0
       },
       "versions": [],
-      "lastCheckedAt": "2026-10-24T01:56:06Z",
+      "lastCheckedAt": "2026-10-24T02:51:13Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -420,7 +420,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-24T01:56:06Z",
+      "lastCheckedAt": "2026-10-24T02:51:13Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "modelIds": [
@@ -1084,7 +1084,7 @@
     {
       "id": "00",
       "target": "shared-data-and-evaluation",
-      "status": "static_gate_package_audited_real_camera_pending",
+      "status": "generated_full_v5_comparison_complete_real_camera_pending",
       "work": "Build target/source inventory; verify annotation geometry and label meaning; group exact/near duplicate photos across sources; freeze train/validation/test groups; audit source licences; create independent camera benchmark and capture-quality checks. A shared fail-closed learned-model gate now requires immutable identity, reviewed source/split/negative evidence, per-class validation plus locked test, independent product-contract camera evidence and working integration before activation.",
       "evidence": [
         "scripts/skin-research/audit_roadmap_archives.py",
@@ -1138,7 +1138,14 @@
         "scripts/skin-research/audit_gate_pass_camera_package.py",
         "scripts/skin-research/tests/test_audit_gate_pass_camera_package.py",
         "docs/skin/evidence/gate-pass-camera-package-audit-20261024-v1.json",
-        "docs/skin/gate-pass-camera-package-audit-20261024.md"
+        "docs/skin/gate-pass-camera-package-audit-20261024.md",
+        "scripts/skin-research/audit_attune_v5_results_package.py",
+        "scripts/skin-research/tests/test_audit_attune_v5_results_package.py",
+        "docs/skin/evidence/attune-v5-results-package-audit-20261024-v1.json",
+        "docs/skin/evidence/attune-roboflow-source-bound-comparison-20261024-v1.json",
+        "docs/skin/attune-roboflow-source-bound-comparison-20261024.md",
+        "docs/skin/attune-roboflow-source-bound-comparison-20261024.html",
+        "docs/skin/attune-v5-source-bound-comparison-20261024.md"
       ],
       "blockers": [
         "Final holdout independence is not established: perceptual and filename crop relations need source/provenance review; prior exposure and person overlap are unknown.",
@@ -1473,7 +1480,7 @@
     {
       "id": "13",
       "target": "unified-results-and-trends",
-      "status": "twelve_headings_history_and_storage_contract_integrated_real_browser_camera_pending",
+      "status": "twelve_headings_generated_v5_comparison_complete_real_browser_camera_pending",
       "work": "Integrate accepted outputs incrementally into maps/cards/history; explicit unavailable reasons; method/version compatibility for trends; end-to-end camera/API/result/history tests and final acceptance report.",
       "evidence": [
         "docs/skin/regional-evidence-contract-20261023.md",
@@ -1514,13 +1521,20 @@
         "scripts/skin-research/audit_gate_pass_camera_package.py",
         "scripts/skin-research/tests/test_audit_gate_pass_camera_package.py",
         "docs/skin/evidence/gate-pass-camera-package-audit-20261024-v1.json",
-        "docs/skin/gate-pass-camera-package-audit-20261024.md"
+        "docs/skin/gate-pass-camera-package-audit-20261024.md",
+        "scripts/skin-research/audit_attune_v5_results_package.py",
+        "scripts/skin-research/tests/test_audit_attune_v5_results_package.py",
+        "docs/skin/evidence/attune-v5-results-package-audit-20261024-v1.json",
+        "docs/skin/evidence/attune-roboflow-source-bound-comparison-20261024-v1.json",
+        "docs/skin/attune-roboflow-source-bound-comparison-20261024.md",
+        "docs/skin/attune-roboflow-source-bound-comparison-20261024.html",
+        "docs/skin/attune-v5-source-bound-comparison-20261024.md"
       ],
       "blockers": [
         "The merged main branch already has the nine-criterion result path, separate skin type, six regional views, overview, local maps/contours, persistence gate and result UI. The roadmap branch now extends the result contract to eleven appearance headings plus skin type; Post acne and Pigmentation remain explicitly unavailable, not fabricated. Production merge/deployment is not part of this run.",
         "Regional summaries now pass strict parsing, source-bound presentation, explicit categorical history availability states, retained-photo replay validation and the same replay gate before IndexedDB write and after read. An unknown, missing or malformed selected record cannot fall back to an older result; method changes are not bridged. Real browser/IndexedDB screenshot replay cannot run in this environment because Python Playwright and a Chromium executable are absent. Full app typecheck, browser/API/history E2E and real-camera acceptance remain pending.",
         "No oil/dry/redness method is activated by synthetic contract, history, replay or storage tests; the accepted-method registry remains authoritative and currently empty.",
-        "The fail-closed six-subject current-product/Roboflow comparison gate is implemented and now binds renamed gate-package files by FRONT hash. The new package supplies 18/18 static preflight evidence and source-bound photo IDs, but explicitly records fullV5SkinAnalysisCompletedForThisSet=false; export the six complete merged-product FRONT analysis responses before creating the comparison receipt. No substitute values are allowed."
+        "The six generated FRONT responses are now source-bound to the existing merged result flow and compared with the saved Roboflow proposals. This closes the generated replay comparison input gap only; physical-camera, temporal, expert-label, accuracy, activation, full browser/API/history E2E and production merge/deployment remain pending."
       ]
     }
   ],
@@ -1575,6 +1589,26 @@
         "physicalCameraAcceptance": false,
         "temporalStabilityMeasured": false,
         "evidence": "docs/skin/evidence/gate-pass-camera-package-audit-20261024-v1.json"
+      },
+      "latestV5ResultsPackage": {
+        "libraryFileId": "libfile_389b88645f7c8191bb2facb26572b452",
+        "archiveFilename": "Attune_V5_6_Profiles_GATE_PASS_RESULTS_20261024.zip",
+        "archiveSHA256": "02c49ba5cbda603ddac24a176b42b618f3a913fe2171beb4ab316b7899d70af5",
+        "archiveBytes": 523722052,
+        "sourceType": "generated-still-image-replay",
+        "inputArchiveSHA256": "5096055f1cbd3afb28f4cdc1c2a40584b9c5d8159a6371e0d558f38a2ca90f28",
+        "completedInputs": 18,
+        "http200Inputs": 18,
+        "frontResponses": 6,
+        "checksumPayloads": 1310,
+        "baseCommit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+        "localRevisionSHA256": "4dc1f826b3e6a41ede5d29cc58ef953a62fc6c328f55862106fbd7c1927a1d8d",
+        "productOrModelOrThresholdChanges": false,
+        "physicalCameraAcceptance": false,
+        "temporalStabilityMeasured": false,
+        "expertGroundTruth": false,
+        "accuracyMeasured": false,
+        "evidence": "docs/skin/evidence/attune-v5-results-package-audit-20261024-v1.json"
       }
     },
     "generatedCurrentProductComparison": {
@@ -1584,8 +1618,27 @@
       "currentProductCommit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
       "currentProductEndpoint": "/api/local-health/skin",
       "roboflowModelPackage": "7ee34fce76456d9ff4cfe6e7049aad1e",
-      "comparisonReceiptCreated": false,
-      "reason": "The audited gate-pass package contains static preflight/photoId evidence but explicitly does not contain the six full V5 FRONT analysis responses."
+      "comparisonReceiptCreated": true,
+      "reason": "Six complete FRONT responses were audited and joined by exact JPEG SHA-256. This establishes concrete existing-product output and confidence-floor proposal suppression, not accuracy.",
+      "attuneResultArchiveSHA256": "02c49ba5cbda603ddac24a176b42b618f3a913fe2171beb4ab316b7899d70af5",
+      "sourceBoundFrontSubjects": 6,
+      "attuneValidOverviewValues": 51,
+      "attuneOverviewValues": 54,
+      "roboflowProposalTotals": {
+        "0.08": 224,
+        "0.15": 89,
+        "0.2": 62,
+        "0.3": 36,
+        "0.5": 17
+      },
+      "fiftyPercentSuppressedRelativeToEightPercent": 207,
+      "fiftyPercentSuppressedFraction": 0.9241071428571429,
+      "accuracyMeasured": false,
+      "realCameraAcceptance": false,
+      "expertGroundTruth": false,
+      "receipt": "docs/skin/evidence/attune-roboflow-source-bound-comparison-20261024-v1.json",
+      "html": "docs/skin/attune-roboflow-source-bound-comparison-20261024.html",
+      "report": "docs/skin/attune-v5-source-bound-comparison-20261024.md"
     }
   },
   "nextActions": [
@@ -1884,6 +1937,23 @@
         "2d8e411d70a6328ece8f42ed2d0d1c25dfdc6ac2",
         "3268223fceb0e4121ff2574c45ec21892a24a9bb",
         "0207746e6d4e81972aa07c0bd79209140fe55777"
+      ]
+    },
+    {
+      "date": "2026-10-24",
+      "observedAt": "2026-10-24T02:51:13Z",
+      "action": "Read the persistent checkpoint first; confirmed main remains exactly 7463eef112c5a40f7cd01192b6d1f4e9fa6ab285 and refreshed all 16 private Roboflow projects plus the acne and regional NAS runs. Both remain finished with 89 and 75 child records; under-eye remains 399 images with no version. No training or inference was started or duplicated. Materialized the new 523,722,052-byte V5 result ZIP and independently verified ZIP CRC plus 1,310 SHA-256 payload rows, 18/18 HTTP 200 results, exact request/source/photo identity, six complete FRONT contracts, nine existing overview criteria, separate skin type, six regions and maps/contours. The runtime is bound to merged commit 7463eef as base plus separately identified local revision 4dc1f826; it explicitly records no product/model/threshold behavior changes. Joined Attune and previously saved Roboflow evidence by exact FRONT JPEG hash: Attune returned 51/54 available overview values, while Roboflow produced 224 proposals at 8%, 89 at 15%, 62 at 20%, 36 at 30% and 17 at 50%. Thus 50% suppresses 207/224 (92.4%) review proposals relative to 8%, without establishing their correctness. Added a strict package auditor, provenance-bound comparison, standalone HTML table and 10 passing focused tests. Generated replay remains non-expert, non-physical-camera, non-temporal and not an accuracy or activation result.",
+      "report": "docs/skin/attune-v5-source-bound-comparison-20261024.md",
+      "commits": [
+        "5a2f5949f38105a357f9919ac2a09dd37cc33b54",
+        "58c3104c455b44174b0ec1c53b0fbbb1f935a093",
+        "5695fb397267100532067c39f82ae46f02ca1250",
+        "05f261a31383007d0c378a4102567c691fb63172",
+        "7ac5dbe86ac2955b39cd81fb708f1dd5ba104438",
+        "3492fc0f4001be2d6fa3b353512c130475f79684",
+        "5a06d9ccc60fd038e76e72134850b7df955210f5",
+        "d362c02568ad3746d7e8d40dd238c61823ab798d",
+        "0aacdfdac96a8f43d7ec086e5d64316e3c287c45"
       ]
     }
   ]
