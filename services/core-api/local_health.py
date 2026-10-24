@@ -163,6 +163,24 @@ async def skin(request: Request):
         raise HTTPException(422, 'INVALID_LOCAL_GEOMETRY_OR_PHOTO')
 
 
+@router.post('/skin/fuse-multi-angle')
+async def skin_fuse_multi_angle(request: Request):
+    value = await payload(request)
+    from local_skin_type import fuse_multi_angle_skin
+    try:
+        front_res = value.get('front')
+        left_res = value.get('left')
+        right_res = value.get('right')
+        if not isinstance(front_res, dict):
+            raise ValueError('FRONT_REQUIRED')
+        fused = await run_in_threadpool(fuse_multi_angle_skin, front_res, left_res, right_res)
+        if not parked() or await request.is_disconnected():
+            raise HTTPException(409, 'CANCELLED')
+        return fused
+    except (KeyError, ValueError, TypeError):
+        raise HTTPException(422, 'INVALID_MULTI_ANGLE_PAYLOAD') from None
+
+
 async def dental_work(request,work,value):
     """Own one worker until it drains; never return a late successful result."""
     from native_material_budget import NativeRequestBudget,NativeRequestStopped

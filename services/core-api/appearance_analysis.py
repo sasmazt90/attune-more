@@ -407,21 +407,11 @@ def analyze_skin(payload, include_research_features=False):
         poly=np.asarray([[(points[i]['x']*width-x0)*scale,(points[i]['y']*bgr.shape[0]-y0)*scale] for i in indices],np.float32)
         cv2.fillConvexPoly(acne_exclusion,cv2.convexHull(poly).astype(np.int32),255)
     acne_skin=(face_support>0)&(acne_exclusion==0)&~hair&~acne_clipping&(gray>.12)
-    rf_oily_receipt=None
-    if not include_research_features and payload.get('hostedProcessingConsent') is True and payload.get('qualityValid') is True:
-        from concurrent.futures import ThreadPoolExecutor
-        need_lesion=not (trained_acne and trained_acne.get('valid'))
-        with ThreadPoolExecutor(max_workers=2) as pool:
-            fut_lesion=pool.submit(infer_lesion_large,bgr,True) if need_lesion else None
-            fut_oily=pool.submit(infer_regional_oily_seg,bgr,gray.shape,scale,origin,acne_skin,acne_exclusion,hair,True)
-            if fut_lesion is not None:
-                rf_lesion=fut_lesion.result()
-                if rf_lesion.get('valid'):trained_acne=rf_lesion
-            rf_oily=fut_oily.result()
-        if rf_oily.get('valid'):
-            rf_oily_receipt={k:v for k,v in rf_oily.items() if k!='mask'}
-            if rf_oily.get('mask') is not None and rf_oily['mask'].any():
-                shine=np.maximum(shine,rf_oily['mask'].astype(np.float32)*0.65)
+    experimental_research_models=None
+    if not include_research_features and payload.get('experimentalHostedSkinResearch') is True and payload.get('hostedResearchModelConsent') is True and payload.get('qualityValid') is True:
+        rf_lesion=infer_lesion_large(bgr,True,experimental_opt_in=True)
+        rf_oily=infer_regional_oily_seg(bgr,gray.shape,scale,origin,acne_skin,acne_exclusion,hair,True,experimental_opt_in=True)
+        experimental_research_models={'mixedIntoProductMeasurements':False,'lesionLarge':{k:v for k,v in rf_lesion.items() if k!='boxes'},'regionalOilySeg':{k:v for k,v in rf_oily.items() if k!='mask'}}
     accepted_boxes={k:[] for k in masks}
     rejected_boxes=[]
     if trained_acne and trained_acne.get('valid'):
@@ -464,6 +454,8 @@ def analyze_skin(payload, include_research_features=False):
         def add(criterion, value, unit, signal=None, ceiling=1., limitation=reason, components=None, signal_mask=None,measurement_area=None,map_support=None):
             usable = limitation is None
             item = row(region, criterion, float(value) if usable else None, unit, measurement_area if measurement_area is not None else area, conditions, limitation, components)
+            item['photoId'] = source_hash
+            item['capturePose'] = payload.get('pose', 'FRONT')
             if criterion=='sag' and components and components.get('formulaVersion'):
                 item['normalizationVersion']=components['formulaVersion']
             items.append(item)
@@ -668,8 +660,8 @@ def analyze_skin(payload, include_research_features=False):
         all_acne_boxes=[b for r_list in accepted_boxes.values() for b in r_list]
         result['acneCandidates']={**accepted_boxes,'overview':all_acne_boxes}
         result['lesionRuntime']=dict(modelVersion=trained_acne.get('modelVersion'),providerModelId=trained_acne.get('providerModelId'),modelHash=trained_acne.get('modelHash'),acceptedCount=len(all_acne_boxes),rejectedAnatomyOrThresholdCount=len(rejected_boxes)+len(trained_acne.get('rejected',[])),thresholds=trained_acne.get('thresholds'))
-    if rf_oily_receipt:
-        result['oilySegRuntime']=rf_oily_receipt
+    if experimental_research_models:
+        result['experimentalResearchModels']=experimental_research_models
     if payload['pose']=='FRONT':
         union=np.logical_or.reduce(list(masks.values()))&(exclusion==0)&~hair&~clipping&(gray>.12)
         general_tone,general_redness,_=local_color_signals(image,union)

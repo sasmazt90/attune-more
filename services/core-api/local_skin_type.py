@@ -10,22 +10,27 @@ from PIL import Image
 CONFIG = Path(__file__).resolve().parent / 'models' / 'skin-type-local.json'
 CLASSES = ('dry', 'normal', 'oily')
 VERSION = 'local-vit-dima806-5aace4f-v1'
-RULE = 'tzone-oily-cheeks-dry-or-normal-v2'
+RULE = 'tzone-oily-cheeks-dry-or-normal-v3'
 COMB = f'{VERSION}+{RULE}'
 REGIONS = ('forehead', 'nose', 'chin', 'leftCheek', 'rightCheek')
 TZONE_REGIONS = ('forehead', 'nose', 'chin')
 CHEEK_REGIONS = ('leftCheek', 'rightCheek')
 
-# Calibrated regional appearance proxy thresholds (percentage scale 0..100).
-# Positives require >= 2.0% regional proxy signal; non-positive confirmation requires <= 1.0%.
+# Uncalibrated regional appearance proxy thresholds (percentage scale 0..100).
+# Intermediate values (OIL_NEGATIVE_MAX < v < OIL_POSITIVE_MIN) are strictly 'unknown'.
+# Negative evidence ('normal') requires an explicitly accepted negative-evidence method;
+# the default analytic shine proxy ('appearance-cv-6') is NOT accepted as negative evidence.
+THRESHOLD_STATUS = 'uncalibrated-hypothesis'
 OIL_POSITIVE_MIN = 2.0
 OIL_NEGATIVE_MAX = 1.0
 DRY_POSITIVE_MIN = 2.0
 DRY_NEGATIVE_MAX = 1.0
-SENSITIVE_REDNESS_MIN = 18.0
 MIN_ANALYSIS_PIXELS = 100
 MIN_SOURCE_PIXELS = 100
 MIN_COVERAGE_RATIO = 0.50
+
+# Empty by default in production until a negative-evidence method is validated on held-out camera data.
+ACCEPTED_NEGATIVE_METHODS: set[str] = set()
 
 LOCK = threading.Lock()
 _CACHE = None
@@ -169,6 +174,8 @@ def _metric(rows, key: str):
                     methodVersion=r.get('methodVersion'),
                     normalizationVersion=r.get('normalizationVersion'),
                     evaluatedArea=copy.deepcopy(area),
+                    sourcePose=r.get('capturePose') or (r.get('captureConditions') or {}).get('pose'),
+                    sourcePhotoId=r.get('photoId'),
                 )
             return None, dict(
                 value=None,
@@ -181,18 +188,34 @@ def _metric(rows, key: str):
     return None, dict(value=None, quality='insufficient', limitationCode='METRIC_MISSING')
 
 
-def _classify_region_state(oil: float | None, dry: float | None, redness: float | None = None) -> tuple[str | None, str]:
+def _classify_region_state(
+    oil: float | None,
+    dry: float | None,
+    *,
+    negative_evidence_ok: bool = False,
+) -> tuple[str | None, str]:
+    """Classify a single anatomical region from oil and dry measurements only.
+
+    - Redness is never used to infer 'sensitive' skin type.
+    - Values in the intermediate band (1.0 < v < 2.0) return 'unknown'.
+    - Positive oil and positive dry together return 'unknown' (conflicting signal).
+    - 'normal' requires both oil <= 1.0 and dry <= 1.0 AND an accepted negative-evidence method.
+      When no negative-evidence method is accepted, low signal returns 'unevaluated'.
+    """
     if oil is None or dry is None:
         return None, 'MISSING_OIL_OR_DRY_MEASUREMENT'
-    if oil >= OIL_POSITIVE_MIN and oil >= dry:
-        return 'oily', 'OIL_AT_OR_ABOVE_POSITIVE_THRESHOLD'
+    if oil >= OIL_POSITIVE_MIN and dry >= DRY_POSITIVE_MIN:
+        return 'unknown', 'CONFLICTING_OIL_AND_DRY_POSITIVE'
+    if OIL_NEGATIVE_MAX < oil < OIL_POSITIVE_MIN or DRY_NEGATIVE_MAX < dry < DRY_POSITIVE_MIN:
+        return 'unknown', 'INTERMEDIATE_BAND_UNKNOWN'
+    if oil >= OIL_POSITIVE_MIN:
+        return 'oily', 'OIL_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD'
     if dry >= DRY_POSITIVE_MIN:
-        return 'dry', 'DRY_AT_OR_ABOVE_POSITIVE_THRESHOLD'
-    if redness is not None and redness >= SENSITIVE_REDNESS_MIN and oil <= OIL_NEGATIVE_MAX:
-        return 'sensitive', 'REDNESS_AT_OR_ABOVE_SENSITIVE_THRESHOLD'
-    if oil <= OIL_NEGATIVE_MAX and dry <= DRY_NEGATIVE_MAX:
+        return 'dry', 'DRY_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD'
+    # Both oil <= OIL_NEGATIVE_MAX and dry <= DRY_NEGATIVE_MAX
+    if negative_evidence_ok:
         return 'normal', 'CONFIRMED_BELOW_NEGATIVE_THRESHOLDS'
-    return 'normal', 'SUBTHRESHOLD_INTERMEDIATE_SIGNAL'
+    return 'unevaluated', 'NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED'
 
 
 def _input_row(rows, key: str):
@@ -207,7 +230,17 @@ def _input_row(rows, key: str):
     }
 
 
-def regional_decision(base: dict | None, measurements: dict | None) -> dict:
+def regional_decision(
+    base: dict | None,
+    measurements: dict | None,
+    *,
+    accepted_negative_methods: set[str] | None = None,
+) -> dict:
+    """Derive regional and whole-face skin type strictly from regional rules.
+
+    The global ViT prediction (`base`) is retained ONLY in `basePrediction` and
+    `decisionTrace.baseValue` for audit/record purposes and NEVER leaks to `value`.
+    """
     if not isinstance(base, dict):
         return unavailable('SKIN_TYPE_BASE_MISSING')
     if isinstance(base.get('basePrediction'), dict):
@@ -217,102 +250,136 @@ def regional_decision(base: dict | None, measurements: dict | None) -> dict:
     if base.get('quality') != 'valid' or base.get('value') not in ('dry', 'normal', 'oily'):
         return base
 
+    active_neg_methods = ACCEPTED_NEGATIVE_METHODS if accepted_negative_methods is None else set(accepted_negative_methods)
+
     reg = {}
     vals = {}
     for name in REGIONS:
         rows = (measurements or {}).get(name)
         oil, oil_s = _metric(rows, 'oil')
         dry, dry_s = _metric(rows, 'dry')
-        red, red_s = _metric(rows, 'redness')
-        vals[name] = (oil, dry, red)
-        state, reason = _classify_region_state(oil, dry, red)
+        vals[name] = (oil, dry)
+        oil_method = str(oil_s.get('methodVersion') or '')
+        dry_method = str(dry_s.get('methodVersion') or '')
+        neg_ok = bool(oil_method in active_neg_methods and dry_method in active_neg_methods)
+        state, reason = _classify_region_state(oil, dry, negative_evidence_ok=neg_ok)
         reg[name] = dict(
             oil=oil_s if oil is not None else None,
             dry=dry_s if dry is not None else None,
-            redness=red_s if red is not None else None,
             inputs=dict(
                 oil=_input_row(rows, 'oil'),
                 dry=_input_row(rows, 'dry'),
-                redness=_input_row(rows, 'redness'),
             ),
             state=state,
             reason=reason,
+            negativeEvidenceAccepted=neg_ok,
+            sourcePose=oil_s.get('sourcePose') or dry_s.get('sourcePose') or 'FRONT',
+            sourcePhotoId=oil_s.get('sourcePhotoId') or dry_s.get('sourcePhotoId'),
         )
 
-    f_oil, f_dry, _ = vals['forehead']
-    n_oil, n_dry, _ = vals['nose']
-    chin_oil, chin_dry, _ = vals['chin']
-    l_oil, l_dry, _ = vals['leftCheek']
-    r_oil, r_dry, _ = vals['rightCheek']
+    f_oil, f_dry = vals['forehead']
+    n_oil, n_dry = vals['nose']
+    chin_oil, chin_dry = vals['chin']
+    l_oil, l_dry = vals['leftCheek']
+    r_oil, r_dry = vals['rightCheek']
 
-    # T-zone requires all three subregions (forehead, nose, chin) to be measured and valid.
-    t_valid = all(v is not None for v in (f_oil, f_dry, n_oil, n_dry, chin_oil, chin_dry))
+    # T-zone requires all three subregions (forehead, nose, chin) to be measured and valid,
+    # and none of them may be in the indeterminate 'unknown' band.
+    t_measured = all(v is not None for v in (f_oil, f_dry, n_oil, n_dry, chin_oil, chin_dry))
+    t_states = [reg[r_name]['state'] for r_name in TZONE_REGIONS]
+    t_valid = bool(t_measured and all(s in ('oily', 'dry', 'normal', 'unevaluated') for s in t_states))
     t_oily_regions = [
         r_name for r_name in TZONE_REGIONS
-        if vals[r_name][0] is not None and vals[r_name][0] >= OIL_POSITIVE_MIN
+        if reg[r_name]['state'] == 'oily'
     ]
-    # T-zone is oily only if at least 2/3 of (forehead, nose, chin) are oily AND at least one is forehead or nose.
+    # T-zone is oily only if at least 2/3 of (forehead, nose, chin) are 'oily' AND at least one is forehead or nose,
+    # and all three T-zone subregions are measured and not in the indeterminate 'unknown' band.
     t_oily = bool(
         t_valid
         and len(t_oily_regions) >= 2
         and any(r_name in ('forehead', 'nose') for r_name in t_oily_regions)
     )
-    t_oil_mean = round((f_oil + n_oil + chin_oil) / 3.0, 2) if t_valid else None
+    t_oil_mean = round((f_oil + n_oil + chin_oil) / 3.0, 2) if t_measured else None
 
-    cheek_complete = all(v is not None for v in (l_oil, l_dry, r_oil, r_dry))
-    # Non-oily cheeks require both cheeks to be confirmed <= OIL_NEGATIVE_MAX (normal, dry, or sensitive).
+    cheek_measured = all(v is not None for v in (l_oil, l_dry, r_oil, r_dry))
+    cheek_states = [reg['leftCheek']['state'], reg['rightCheek']['state']]
+    cheek_complete = bool(cheek_measured and all(s is not None for s in cheek_states))
+    # Non-oily cheeks require both cheeks to be confirmed 'normal' or 'dry' (never 'unknown' or 'unevaluated' oil).
     cheek_non_oily = bool(
         cheek_complete
         and l_oil <= OIL_NEGATIVE_MAX
         and r_oil <= OIL_NEGATIVE_MAX
-        and reg['leftCheek']['state'] in ('normal', 'dry', 'sensitive')
-        and reg['rightCheek']['state'] in ('normal', 'dry', 'sensitive')
+        and reg['leftCheek']['state'] in ('normal', 'dry')
+        and reg['rightCheek']['state'] in ('normal', 'dry')
+        and (
+            reg['leftCheek']['negativeEvidenceAccepted'] or reg['leftCheek']['state'] == 'dry'
+        )
+        and (
+            reg['rightCheek']['negativeEvidenceAccepted'] or reg['rightCheek']['state'] == 'dry'
+        )
     )
-    complete = bool(t_valid and cheek_complete)
-    comb = bool(complete and t_oily and cheek_non_oily)
+    all_measured = bool(t_measured and cheek_measured)
+    states = [reg[r_name]['state'] for r_name in REGIONS]
+    has_unknown = any(s == 'unknown' for s in states)
+    has_unevaluated = any(s == 'unevaluated' for s in states)
+    complete = bool(all_measured and not has_unknown and not has_unevaluated)
+    comb = bool(all_measured and not has_unknown and t_oily and cheek_non_oily)
 
     base_ver = str(base.get('modelVersion') or base.get('methodVersion') or VERSION).split('+')[0]
-
-    # When regional coverage is incomplete, do NOT leak a global ViT label ('dry'/'normal'/'oily') as verified.
-    if not cheek_complete:
-        incomplete_limitation = 'INCOMPLETE_CHEEKS_UNVERIFIED'
-    elif not t_valid:
-        incomplete_limitation = 'INCOMPLETE_TZONE_UNVERIFIED'
-    else:
-        incomplete_limitation = None
+    ver = f"{base_ver}+{RULE}"
 
     applied = False
-    if not complete:
+    limitation_code = None
+    display_value = None
+
+    if not cheek_measured:
         final_value = None
         final_quality = 'insufficient'
-        final_conf = None
-        ver = f"{base_ver}+{RULE}"
+        limitation_code = 'INCOMPLETE_CHEEKS_UNVERIFIED'
+        display_value = 'Belirsiz (Yanak verisi eksik)'
+    elif not t_measured:
+        final_value = None
+        final_quality = 'insufficient'
+        limitation_code = 'INCOMPLETE_TZONE_UNVERIFIED'
+        display_value = 'Belirsiz (T-bölgesi verisi eksik)'
+    elif has_unknown:
+        final_value = None
+        final_quality = 'insufficient'
+        limitation_code = 'INTERMEDIATE_BAND_UNDETERMINED'
+        display_value = 'Belirlenemedi (Ara sinyal bandı)'
     elif comb:
         final_value = 'combination'
         final_quality = 'valid'
-        final_conf = None
         applied = True
-        ver = f"{base_ver}+{RULE}"
+        limitation_code = 'DERIVED_REGIONAL_RULE_CONFIDENCE_NOT_APPLICABLE'
     else:
-        # All 5 regions are measured and valid, and not combination.
-        states = [reg[r_name]['state'] for r_name in REGIONS]
         oily_count = sum(1 for s in states if s == 'oily')
         dry_count = sum(1 for s in states if s == 'dry')
-        sens_count = sum(1 for s in states if s == 'sensitive')
-        if oily_count >= 3:
+        normal_count = sum(1 for s in states if s == 'normal')
+        if oily_count == len(REGIONS):
             final_value = 'oily'
-        elif dry_count >= 2 and oily_count == 0:
+            final_quality = 'valid'
+            applied = True
+        elif dry_count == len(REGIONS):
             final_value = 'dry'
-        elif sens_count >= 2 and oily_count == 0 and dry_count == 0:
-            final_value = 'sensitive'
-        elif all(s == 'normal' for s in states):
-            # When all 5 regions are confirmed normal, reconcile uncalibrated global 'dry' argmax to 'normal'
-            final_value = 'normal' if base.get('value') == 'dry' else base.get('value')
+            final_quality = 'valid'
+            applied = True
+        elif normal_count == len(REGIONS):
+            final_value = 'normal'
+            final_quality = 'valid'
+            applied = True
+        elif has_unevaluated and oily_count == 0 and dry_count == 0:
+            final_value = None
+            final_quality = 'insufficient'
+            limitation_code = 'NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED'
+            display_value = 'Değerlendirilmedi'
         else:
-            final_value = base.get('value')
-        final_quality = 'valid'
-        final_conf = base.get('confidence') if final_value == base.get('value') else None
-        ver = f"{base_ver}+{RULE}"
+            # Mixed or partial regional pattern (e.g., Scenario D: forehead oily, chin dry).
+            # Never fall back to or leak the global ViT label (`base['value']`).
+            final_value = None
+            final_quality = 'insufficient'
+            limitation_code = 'MIXED_REGIONAL_PATTERN_UNDETERMINED'
+            display_value = 'Karışık desen (Belirlenemedi)'
 
     trace = dict(
         rule=RULE,
@@ -324,27 +391,28 @@ def regional_decision(base: dict | None, measurements: dict | None) -> dict:
         baseConfidence=base.get('confidence'),
         baseModelHash=base.get('modelHash'),
         finalValue=final_value,
+        displayValue=display_value,
         tZoneOily=t_oily,
         tZoneValid=t_valid,
         tZoneOilySubregions=t_oily_regions,
         cheekComplete=cheek_complete,
         cheekNonOily=cheek_non_oily,
-        limitationCode=incomplete_limitation,
+        limitationCode=limitation_code,
         thresholds=dict(
-            status='initial-calibrated-hypothesis-v2',
+            status=THRESHOLD_STATUS,
             oilPositiveMin=OIL_POSITIVE_MIN,
             oilNegativeMax=OIL_NEGATIVE_MAX,
             dryPositiveMin=DRY_POSITIVE_MIN,
             dryNegativeMax=DRY_NEGATIVE_MAX,
-            sensitiveRednessMin=SENSITIVE_REDNESS_MIN,
             minAnalysisPixels=MIN_ANALYSIS_PIXELS,
             tZoneMinOilySubregions=2,
             tZoneRequiresForeheadOrNose=True,
+            negativeEvidenceMethods=sorted(active_neg_methods),
         ),
         tZone=dict(
             valid=t_valid,
             oily=t_oily,
-            state='oily' if t_oily else ('non-oily' if t_valid else 'unknown'),
+            state='oily' if t_oily else ('non-oily' if t_valid and not has_unevaluated else 'unknown'),
             oilyRegions=t_oily_regions,
             oilySubregions=t_oily_regions,
             meanOil=t_oil_mean,
@@ -368,7 +436,9 @@ def regional_decision(base: dict | None, measurements: dict | None) -> dict:
         modelVersion=ver,
         value=final_value,
         quality=final_quality,
-        confidence=final_conf,
+        confidence=None,
+        limitationCode=limitation_code,
+        displayValue=display_value,
         basePrediction=copy.deepcopy(base),
         decisionVersion=RULE,
         decisionTrace=trace,
@@ -380,28 +450,33 @@ def regional_decision(base: dict | None, measurements: dict | None) -> dict:
             'complete': complete,
         },
     )
-    if incomplete_limitation:
-        result['limitationCode'] = incomplete_limitation
-    elif applied:
-        result['limitationCode'] = 'DERIVED_REGIONAL_RULE_CONFIDENCE_NOT_APPLICABLE'
     return result
 
 
-def finalize_product_type(result: dict) -> dict:
+def finalize_product_type(
+    result: dict,
+    *,
+    accepted_negative_methods: set[str] | None = None,
+) -> dict:
     if not isinstance(result, dict):
         return result
     general = result.get('general') or {}
     current = general.get('skinType')
     if isinstance(current, dict) and current.get('inferenceKind') == 'local-onnx':
         base = current.get('basePrediction') if isinstance(current.get('basePrediction'), dict) else current
-        final = regional_decision(base, result.get('measurements'))
+        final = regional_decision(
+            base,
+            result.get('measurements'),
+            accepted_negative_methods=accepted_negative_methods,
+        )
         general['skinType'] = final
         trace = final.get('decisionTrace') if isinstance(final.get('decisionTrace'), dict) else {}
         regional_map = dict(
-            schemaVersion=1,
+            schemaVersion=2,
             methodVersion=final.get('methodVersion'),
             complete=bool(trace.get('complete')),
             limitationCode=trace.get('limitationCode'),
+            displayValue=trace.get('displayValue'),
             thresholds=copy.deepcopy(trace.get('thresholds')),
             tZone=copy.deepcopy(trace.get('tZone')),
             cheeks=copy.deepcopy(trace.get('cheeks')),
@@ -409,9 +484,10 @@ def finalize_product_type(result: dict) -> dict:
                 r_name: dict(
                     state=(trace.get('regions', {}).get(r_name) or {}).get('state') or 'unknown',
                     reason=(trace.get('regions', {}).get(r_name) or {}).get('reason'),
-                    oil=((trace.get('regions', {}).get(r_name) or {}).get('oil') or {}).get('value'),
-                    dry=((trace.get('regions', {}).get(r_name) or {}).get('dry') or {}).get('value'),
-                    redness=((trace.get('regions', {}).get(r_name) or {}).get('redness') or {}).get('value'),
+                    oil=(((trace.get('regions', {}).get(r_name) or {}).get('inputs') or {}).get('oil') or {}).get('value'),
+                    dry=(((trace.get('regions', {}).get(r_name) or {}).get('inputs') or {}).get('dry') or {}).get('value'),
+                    sourcePose=(trace.get('regions', {}).get(r_name) or {}).get('sourcePose') or 'FRONT',
+                    sourcePhotoId=(trace.get('regions', {}).get(r_name) or {}).get('sourcePhotoId'),
                 )
                 for r_name in REGIONS
             },
@@ -420,3 +496,85 @@ def finalize_product_type(result: dict) -> dict:
         result['regionalSkinMap'] = regional_map
     from skin_measurement_contract import attach_result_receipts
     return attach_result_receipts(result)
+
+
+def fuse_multi_angle_skin(
+    front_result: dict,
+    left_result: dict | None = None,
+    right_result: dict | None = None,
+    *,
+    accepted_negative_methods: set[str] | None = None,
+) -> dict:
+    """Fuse FRONT (T-zone + periorbital), LEFT (rightCheek), and RIGHT (leftCheek) results.
+
+    Preserves each region's capturePose ('FRONT', 'LEFT', 'RIGHT') and photoId,
+    updates regional maps/contours/acneCandidates, and recomputes the regional skin map
+    and whole-face skinType decision from the fused 3-angle measurements.
+    """
+    if not isinstance(front_result, dict):
+        raise ValueError('FRONT_RESULT_REQUIRED')
+    fused = copy.deepcopy(front_result)
+    front_pid = fused.get('photoId')
+    measurements = fused.setdefault('measurements', {})
+    maps = fused.setdefault('maps', {})
+    contours = fused.setdefault('contours', {})
+    acne_cands = fused.get('acneCandidates') if isinstance(fused.get('acneCandidates'), dict) else None
+
+    for reg_name in ('forehead', 'nose', 'chin', 'periorbital'):
+        for row in measurements.get(reg_name) or []:
+            if isinstance(row, dict):
+                row['photoId'] = row.get('photoId') or front_pid
+                row['capturePose'] = 'FRONT'
+                row.setdefault('captureConditions', {})['pose'] = 'FRONT'
+
+    captures = {
+        'FRONT': {
+            'captureId': front_pid,
+            'pose': 'FRONT',
+            'sourceWidth': fused.get('sourceWidth'),
+            'sourceHeight': fused.get('sourceHeight'),
+        }
+    }
+
+    side_sources = [
+        ('LEFT', 'rightCheek', left_result),
+        ('RIGHT', 'leftCheek', right_result),
+    ]
+    for pose_name, cheek_region, side_res in side_sources:
+        if not isinstance(side_res, dict):
+            continue
+        side_pid = side_res.get('photoId')
+        captures[pose_name] = {
+            'captureId': side_pid,
+            'pose': pose_name,
+            'sourceWidth': side_res.get('sourceWidth'),
+            'sourceHeight': side_res.get('sourceHeight'),
+        }
+        side_rows = copy.deepcopy((side_res.get('measurements') or {}).get(cheek_region))
+        if isinstance(side_rows, list):
+            for row in side_rows:
+                if isinstance(row, dict):
+                    row['photoId'] = side_pid
+                    row['capturePose'] = pose_name
+                    row.setdefault('captureConditions', {})['pose'] = pose_name
+            measurements[cheek_region] = side_rows
+        for k, v in (side_res.get('maps') or {}).items():
+            if k.startswith(f'{cheek_region}:'):
+                maps[k] = copy.deepcopy(v)
+        if cheek_region in (side_res.get('contours') or {}):
+            contours[cheek_region] = copy.deepcopy(side_res['contours'][cheek_region])
+        if acne_cands is not None and isinstance(side_res.get('acneCandidates'), dict):
+            if cheek_region in side_res['acneCandidates']:
+                acne_cands[cheek_region] = copy.deepcopy(side_res['acneCandidates'][cheek_region])
+
+    if acne_cands is not None:
+        all_boxes = []
+        for reg_name in ('forehead', 'rightCheek', 'leftCheek', 'nose', 'chin'):
+            for b in acne_cands.get(reg_name) or []:
+                all_boxes.append(b)
+        acne_cands['overview'] = all_boxes
+
+    fused['captures'] = captures
+    fused['comparisonScope'] = 'three-angle-v2'
+    return finalize_product_type(fused, accepted_negative_methods=accepted_negative_methods)
+

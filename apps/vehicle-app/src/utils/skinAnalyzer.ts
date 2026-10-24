@@ -58,6 +58,36 @@ export function skinSourceFramed(points:{x:number;y:number}[],width:number,heigh
  return minX>.005&&maxX<.995&&minY>.005&&maxY<.995&&(maxX-minX)*width>=4&&(maxY-minY)*height>=4;
 }
 
+/** Measure whether the capture source or 3D basis is horizontally mirrored. */
+export function detectCameraMirrored(
+  video?: HTMLVideoElement | null,
+  ctx?: CanvasRenderingContext2D | null,
+  faceTransform?: number[] | null
+): boolean {
+  try {
+    if (ctx && typeof ctx.getTransform === 'function') {
+      const t = ctx.getTransform();
+      if (typeof t?.a === 'number' && t.a < 0) return true;
+    }
+    if (video && typeof window !== 'undefined' && typeof window.getComputedStyle === 'function') {
+      const tr = window.getComputedStyle(video).transform;
+      if (tr && tr.startsWith('matrix(')) {
+        const scaleX = parseFloat(tr.slice(7).split(',')[0]);
+        if (Number.isFinite(scaleX) && scaleX < 0) return true;
+      }
+    }
+    if (Array.isArray(faceTransform) && faceTransform.length >= 16) {
+      const m = faceTransform;
+      const det =
+        m[0] * (m[5] * m[10] - m[6] * m[9]) -
+        m[4] * (m[1] * m[10] - m[2] * m[9]) +
+        m[8] * (m[1] * m[6] - m[2] * m[5]);
+      if (Number.isFinite(det) && det < -0.1) return true;
+    }
+  } catch {}
+  return false;
+}
+
 export type SkinCapturePose = Pick<FaceAlignment, 'yaw' | 'pitch' | 'roll' | 'scaleRatio'>;
 export interface SkinReferenceMetadata {
   id: string; timestamp: string; schemaVersion: 1; scope: 'single-front-v1';
@@ -207,7 +237,8 @@ export class SkinAnalyzer {
 
         const lms = result.faceLandmarks[0];
         const alignment = this.calculateAlignmentFromLandmarks(lms, width, height);
-        return { ...alignment, expressionScores:expressionScores(result.faceBlendshapes[0]?.categories), faceTransform:result.facialTransformationMatrixes[0]?.data, faceCount: result.faceLandmarks.length,
+        const ft = result.facialTransformationMatrixes[0]?.data;
+        return { ...alignment, cameraMirrored: detectCameraMirrored(null, ctx, ft), expressionScores:expressionScores(result.faceBlendshapes[0]?.categories), faceTransform:ft, faceCount: result.faceLandmarks.length,
           ...(result.faceLandmarks.length !== 1 ? { faceDetected: false, isAligned: false, guidanceTextTr: 'Kadrajda yalnız bir yüz bulunmalı.' } : {}) };
 
       } catch (e) {

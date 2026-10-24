@@ -1,0 +1,2456 @@
+{
+  "generatedAtUtc": "2026-10-24T14:19:19Z",
+  "sharedOutputDirectories": [
+    "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\attune-skin-refinement-worktree\\docs\\skin-research\\e2e-verification-20261024",
+    "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\e2e-verification-20261024"
+  ],
+  "guarantees": {
+    "zeroExtraInferenceCost": true,
+    "hostedRoboflowInProductPath": false,
+    "sensitivityUserQuestionRemoved": true,
+    "rednessToSensitivityMappingRemoved": true,
+    "globalVitLabelLeakageRemoved": true,
+    "threeAngleFusionActive": true
+  },
+  "tolgarDocxUserScreenshotExtraction": {
+    "tolgar_docx_screen1_crop_analysis": {
+      "provenance": {
+        "sourceDocxMember": "word/media/image1.png",
+        "sourceScreenshotSize": {
+          "width": 1549,
+          "height": 913
+        },
+        "cropBoxXYXY": [
+          42,
+          132,
+          512,
+          718
+        ],
+        "cropPixelSize": {
+          "width": 470,
+          "height": 586
+        },
+        "sha256": "e3bbd11832b784940e43c20dcb67c5a64ea87e260751a0b6322c413fbf7e76a3",
+        "containsExistingUiOverlay": true,
+        "provenanceNote": "Screen 1 (Genel Bakış): contains existing white face mesh overlay from screenshot"
+      },
+      "directLocalVitOnRawCrop": {
+        "value": "normal",
+        "quality": "valid",
+        "confidence": 0.48499015315243454,
+        "methodVersion": "local-vit-dima806-5aace4f-v1",
+        "modelVersion": "local-vit-dima806-5aace4f-v1",
+        "modelHash": "99b4c2fa1e9ac013d539f635eb948c5a29f4c5f86f34fe26c380ad308c26c65a",
+        "limitationCode": null,
+        "inferenceKind": "local-onnx",
+        "inferenceMs": 2720.862100002705,
+        "sourceModel": "dima806/skin_types_image_detection",
+        "classOrder": [
+          "dry",
+          "normal",
+          "oily"
+        ],
+        "logits": [
+          -0.3303893208503723,
+          0.48928362131118774,
+          0.013377498835325241
+        ],
+        "fileHashVerified": true,
+        "sessionLoaded": true
+      },
+      "fullPipelineResult": {
+        "elapsedSeconds": 7.335,
+        "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+        "pose": null,
+        "skinType": {
+          "value": null,
+          "displayValue": "Belirsiz (Yanak verisi eksik)",
+          "baseValue": "normal",
+          "quality": "insufficient",
+          "confidence": null,
+          "limitationCode": "INCOMPLETE_CHEEKS_UNVERIFIED",
+          "methodVersion": "local-vit-dima806-5aace4f-v1+tzone-oily-cheeks-dry-or-normal-v3",
+          "complete": false,
+          "tZoneOily": false,
+          "tZoneValid": false,
+          "cheekComplete": false,
+          "cheekNonOily": false,
+          "thresholds": {
+            "status": "uncalibrated-hypothesis",
+            "oilPositiveMin": 2.0,
+            "oilNegativeMax": 1.0,
+            "dryPositiveMin": 2.0,
+            "dryNegativeMax": 1.0,
+            "minAnalysisPixels": 100,
+            "tZoneMinOilySubregions": 2,
+            "tZoneRequiresForeheadOrNose": true,
+            "negativeEvidenceMethods": []
+          }
+        },
+        "regionalSkinMapRegions": {
+          "forehead": {
+            "state": "dry",
+            "reason": "DRY_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD",
+            "oil": 0.18367006177992987,
+            "dry": 2.728458220483499,
+            "sourcePose": "FRONT",
+            "sourcePhotoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab"
+          },
+          "nose": {
+            "state": "dry",
+            "reason": "DRY_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD",
+            "oil": 0.7521543850600649,
+            "dry": 2.193400461332339,
+            "sourcePose": "FRONT",
+            "sourcePhotoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab"
+          },
+          "chin": {
+            "state": "unknown",
+            "reason": "MISSING_OIL_OR_DRY_MEASUREMENT",
+            "oil": null,
+            "dry": null,
+            "sourcePose": "FRONT",
+            "sourcePhotoId": null
+          },
+          "leftCheek": {
+            "state": "unknown",
+            "reason": "MISSING_OIL_OR_DRY_MEASUREMENT",
+            "oil": null,
+            "dry": null,
+            "sourcePose": "FRONT",
+            "sourcePhotoId": null
+          },
+          "rightCheek": {
+            "state": "unknown",
+            "reason": "MISSING_OIL_OR_DRY_MEASUREMENT",
+            "oil": null,
+            "dry": null,
+            "sourcePose": "FRONT",
+            "sourcePhotoId": null
+          }
+        },
+        "acneCandidates": {},
+        "lineMaps": {},
+        "regionalMeasurements": {
+          "forehead": {
+            "redness": {
+              "value": 4.68,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            },
+            "oil": {
+              "value": 0.18,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            },
+            "acne": {
+              "value": null,
+              "quality": "insufficient",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            },
+            "dry": {
+              "value": 2.73,
+              "quality": "valid",
+              "methodVersion": "appearance-native-dry-3",
+              "limitationCode": null,
+              "photoId": null,
+              "capturePose": null
+            }
+          },
+          "nose": {
+            "redness": {
+              "value": 5.54,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            },
+            "oil": {
+              "value": 0.75,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            },
+            "acne": {
+              "value": null,
+              "quality": "insufficient",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": "INSUFFICIENT_VISIBLE_AREA",
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            },
+            "dry": {
+              "value": 2.19,
+              "quality": "valid",
+              "methodVersion": "appearance-native-dry-3",
+              "limitationCode": null,
+              "photoId": null,
+              "capturePose": null
+            }
+          },
+          "chin": {
+            "redness": {
+              "value": null,
+              "quality": "insufficient",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": "GLARE_OR_EXPOSURE",
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            },
+            "oil": {
+              "value": null,
+              "quality": "insufficient",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": "GLARE_OR_EXPOSURE",
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            },
+            "acne": {
+              "value": null,
+              "quality": "insufficient",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": "INSUFFICIENT_VISIBLE_AREA",
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            },
+            "dry": {
+              "value": null,
+              "quality": "insufficient",
+              "methodVersion": "appearance-native-dry-3",
+              "limitationCode": "INSUFFICIENT_VISIBLE_AREA",
+              "photoId": null,
+              "capturePose": null
+            }
+          },
+          "periorbital": {
+            "dry": {
+              "value": 0.0,
+              "quality": "valid",
+              "methodVersion": "appearance-native-dry-3",
+              "limitationCode": null,
+              "photoId": null,
+              "capturePose": null
+            },
+            "lines": {
+              "value": null,
+              "quality": "insufficient",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": "INSUFFICIENT_VISIBLE_AREA",
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            },
+            "bags": {
+              "value": null,
+              "quality": "insufficient",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": "INSUFFICIENT_SKIN_SUPPORT",
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            }
+          },
+          "rightCheek": {
+            "redness": {
+              "value": null,
+              "quality": "insufficient",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": "GLARE_OR_EXPOSURE",
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            },
+            "oil": {
+              "value": null,
+              "quality": "insufficient",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": "GLARE_OR_EXPOSURE",
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            },
+            "acne": {
+              "value": null,
+              "quality": "insufficient",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": "INSUFFICIENT_VISIBLE_AREA",
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            },
+            "dry": {
+              "value": null,
+              "quality": "insufficient",
+              "methodVersion": "appearance-native-dry-3",
+              "limitationCode": "INSUFFICIENT_VISIBLE_AREA",
+              "photoId": null,
+              "capturePose": null
+            }
+          },
+          "leftCheek": {
+            "redness": {
+              "value": null,
+              "quality": "insufficient",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": "GLARE_OR_EXPOSURE",
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            },
+            "oil": {
+              "value": null,
+              "quality": "insufficient",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": "GLARE_OR_EXPOSURE",
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            },
+            "acne": {
+              "value": null,
+              "quality": "insufficient",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": "INSUFFICIENT_VISIBLE_AREA",
+              "photoId": "d060a8beaeeb62c6ef546693c5cafe07cef26367ab6cc0999a5760a30f94a6ab",
+              "capturePose": "FRONT"
+            },
+            "dry": {
+              "value": null,
+              "quality": "insufficient",
+              "methodVersion": "appearance-native-dry-3",
+              "limitationCode": "INSUFFICIENT_VISIBLE_AREA",
+              "photoId": null,
+              "capturePose": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "functionLevelThreeAnglePipeline": {
+    "note": "Separate 3-angle (FRONT/LEFT/RIGHT) test fixture run on local ONNX models (not mixed with Tolgar-Skin.docx user screenshots)",
+    "02_germany_FRONT": {
+      "elapsedSeconds": 37.628,
+      "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+      "pose": null,
+      "skinType": {
+        "value": null,
+        "displayValue": "Karışık desen (Belirlenemedi)",
+        "baseValue": "dry",
+        "quality": "insufficient",
+        "confidence": null,
+        "limitationCode": "MIXED_REGIONAL_PATTERN_UNDETERMINED",
+        "methodVersion": "local-vit-dima806-5aace4f-v1+tzone-oily-cheeks-dry-or-normal-v3",
+        "complete": false,
+        "tZoneOily": false,
+        "tZoneValid": true,
+        "cheekComplete": true,
+        "cheekNonOily": false,
+        "thresholds": {
+          "status": "uncalibrated-hypothesis",
+          "oilPositiveMin": 2.0,
+          "oilNegativeMax": 1.0,
+          "dryPositiveMin": 2.0,
+          "dryNegativeMax": 1.0,
+          "minAnalysisPixels": 100,
+          "tZoneMinOilySubregions": 2,
+          "tZoneRequiresForeheadOrNose": true,
+          "negativeEvidenceMethods": []
+        }
+      },
+      "regionalSkinMapRegions": {
+        "forehead": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.0,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b"
+        },
+        "nose": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.0,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b"
+        },
+        "chin": {
+          "state": "dry",
+          "reason": "DRY_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD",
+          "oil": 0.0,
+          "dry": 4.323375922260213,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b"
+        },
+        "leftCheek": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.5131410150981875,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b"
+        },
+        "rightCheek": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.3755899754038423,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b"
+        }
+      },
+      "acneCandidates": {},
+      "lineMaps": {},
+      "regionalMeasurements": {
+        "forehead": {
+          "redness": {
+            "value": 3.8,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": null,
+            "capturePose": null
+          }
+        },
+        "nose": {
+          "redness": {
+            "value": 3.53,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": null,
+            "capturePose": null
+          }
+        },
+        "chin": {
+          "redness": {
+            "value": 2.71,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 4.32,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": null,
+            "capturePose": null
+          }
+        },
+        "periorbital": {
+          "dry": {
+            "value": 0.2,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": null,
+            "capturePose": null
+          },
+          "lines": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "bags": {
+            "value": 0.05,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          }
+        },
+        "rightCheek": {
+          "redness": {
+            "value": 4.16,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 0.38,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": null,
+            "capturePose": null
+          }
+        },
+        "leftCheek": {
+          "redness": {
+            "value": 5.59,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 0.51,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": null,
+            "capturePose": null
+          }
+        }
+      }
+    },
+    "02_germany_LEFT": {
+      "elapsedSeconds": 6.417,
+      "photoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+      "pose": null,
+      "skinType": {
+        "value": null,
+        "displayValue": null,
+        "baseValue": null,
+        "quality": null,
+        "confidence": null,
+        "limitationCode": null,
+        "methodVersion": null,
+        "complete": null,
+        "tZoneOily": null,
+        "tZoneValid": null,
+        "cheekComplete": null,
+        "cheekNonOily": null,
+        "thresholds": null
+      },
+      "regionalSkinMapRegions": {},
+      "acneCandidates": {},
+      "lineMaps": {},
+      "regionalMeasurements": {
+        "rightCheek": {
+          "redness": {
+            "value": 3.62,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+            "capturePose": "LEFT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+            "capturePose": "LEFT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+            "capturePose": "LEFT"
+          },
+          "dry": {
+            "value": 1.25,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": null,
+            "capturePose": null
+          }
+        }
+      }
+    },
+    "02_germany_RIGHT": {
+      "elapsedSeconds": 6.938,
+      "photoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486",
+      "pose": null,
+      "skinType": {
+        "value": null,
+        "displayValue": null,
+        "baseValue": null,
+        "quality": null,
+        "confidence": null,
+        "limitationCode": null,
+        "methodVersion": null,
+        "complete": null,
+        "tZoneOily": null,
+        "tZoneValid": null,
+        "cheekComplete": null,
+        "cheekNonOily": null,
+        "thresholds": null
+      },
+      "regionalSkinMapRegions": {},
+      "acneCandidates": {},
+      "lineMaps": {},
+      "regionalMeasurements": {
+        "leftCheek": {
+          "redness": {
+            "value": 5.66,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486",
+            "capturePose": "RIGHT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486",
+            "capturePose": "RIGHT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486",
+            "capturePose": "RIGHT"
+          },
+          "dry": {
+            "value": 0.78,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": null,
+            "capturePose": null
+          }
+        }
+      }
+    },
+    "02_germany_FUSED_3_ANGLE": {
+      "elapsedSeconds": 0.006,
+      "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+      "pose": null,
+      "skinType": {
+        "value": null,
+        "displayValue": "Belirlenemedi (Ara sinyal bandı)",
+        "baseValue": "dry",
+        "quality": "insufficient",
+        "confidence": null,
+        "limitationCode": "INTERMEDIATE_BAND_UNDETERMINED",
+        "methodVersion": "local-vit-dima806-5aace4f-v1+tzone-oily-cheeks-dry-or-normal-v3",
+        "complete": false,
+        "tZoneOily": false,
+        "tZoneValid": true,
+        "cheekComplete": true,
+        "cheekNonOily": false,
+        "thresholds": {
+          "status": "uncalibrated-hypothesis",
+          "oilPositiveMin": 2.0,
+          "oilNegativeMax": 1.0,
+          "dryPositiveMin": 2.0,
+          "dryNegativeMax": 1.0,
+          "minAnalysisPixels": 100,
+          "tZoneMinOilySubregions": 2,
+          "tZoneRequiresForeheadOrNose": true,
+          "negativeEvidenceMethods": []
+        }
+      },
+      "regionalSkinMapRegions": {
+        "forehead": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.0,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b"
+        },
+        "nose": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.0,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b"
+        },
+        "chin": {
+          "state": "dry",
+          "reason": "DRY_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD",
+          "oil": 0.0,
+          "dry": 4.323375922260213,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b"
+        },
+        "leftCheek": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.7844108661547353,
+          "sourcePose": "RIGHT",
+          "sourcePhotoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486"
+        },
+        "rightCheek": {
+          "state": "unknown",
+          "reason": "INTERMEDIATE_BAND_UNKNOWN",
+          "oil": 0.0,
+          "dry": 1.2528790405845445,
+          "sourcePose": "LEFT",
+          "sourcePhotoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2"
+        }
+      },
+      "acneCandidates": {},
+      "lineMaps": {},
+      "regionalMeasurements": {
+        "forehead": {
+          "redness": {
+            "value": 3.8,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          }
+        },
+        "nose": {
+          "redness": {
+            "value": 3.53,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          }
+        },
+        "chin": {
+          "redness": {
+            "value": 2.71,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 4.32,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          }
+        },
+        "periorbital": {
+          "dry": {
+            "value": 0.2,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "lines": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "bags": {
+            "value": 0.05,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          }
+        },
+        "rightCheek": {
+          "redness": {
+            "value": 3.62,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+            "capturePose": "LEFT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+            "capturePose": "LEFT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+            "capturePose": "LEFT"
+          },
+          "dry": {
+            "value": 1.25,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+            "capturePose": "LEFT"
+          }
+        },
+        "leftCheek": {
+          "redness": {
+            "value": 5.66,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486",
+            "capturePose": "RIGHT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486",
+            "capturePose": "RIGHT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486",
+            "capturePose": "RIGHT"
+          },
+          "dry": {
+            "value": 0.78,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486",
+            "capturePose": "RIGHT"
+          }
+        }
+      }
+    },
+    "01_england_MISSING_CHEEK": {
+      "elapsedSeconds": 4.856,
+      "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+      "pose": null,
+      "skinType": {
+        "value": null,
+        "displayValue": "Belirsiz (Yanak verisi eksik)",
+        "baseValue": "oily",
+        "quality": "insufficient",
+        "confidence": null,
+        "limitationCode": "INCOMPLETE_CHEEKS_UNVERIFIED",
+        "methodVersion": "local-vit-dima806-5aace4f-v1+tzone-oily-cheeks-dry-or-normal-v3",
+        "complete": false,
+        "tZoneOily": false,
+        "tZoneValid": true,
+        "cheekComplete": false,
+        "cheekNonOily": false,
+        "thresholds": {
+          "status": "uncalibrated-hypothesis",
+          "oilPositiveMin": 2.0,
+          "oilNegativeMax": 1.0,
+          "dryPositiveMin": 2.0,
+          "dryNegativeMax": 1.0,
+          "minAnalysisPixels": 100,
+          "tZoneMinOilySubregions": 2,
+          "tZoneRequiresForeheadOrNose": true,
+          "negativeEvidenceMethods": []
+        }
+      },
+      "regionalSkinMapRegions": {
+        "forehead": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.1896491490742127,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73"
+        },
+        "nose": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.19096437006884767,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73"
+        },
+        "chin": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.11174144748151969,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73"
+        },
+        "leftCheek": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.023803856224708403,
+          "dry": 0.0,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73"
+        },
+        "rightCheek": {
+          "state": "unknown",
+          "reason": "MISSING_OIL_OR_DRY_MEASUREMENT",
+          "oil": null,
+          "dry": null,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": null
+        }
+      },
+      "acneCandidates": {},
+      "lineMaps": {
+        "periorbital:lines": {
+          "pathCount": 1,
+          "firstPathSource": "skeletonized-highpass-ridge-v1",
+          "firstPathPoints": 2
+        },
+        "overview:lines": {
+          "pathCount": 1,
+          "firstPathSource": "skeletonized-highpass-ridge-v1",
+          "firstPathPoints": 2
+        }
+      },
+      "regionalMeasurements": {
+        "forehead": {
+          "redness": {
+            "value": 1.53,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 0.19,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          }
+        },
+        "nose": {
+          "redness": {
+            "value": 1.48,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 0.19,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          }
+        },
+        "chin": {
+          "redness": {
+            "value": 2.1,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 0.11,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          }
+        },
+        "periorbital": {
+          "dry": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          },
+          "lines": {
+            "value": 0.5,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          },
+          "bags": {
+            "value": 5.09,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          }
+        },
+        "leftCheek": {
+          "redness": {
+            "value": 3.84,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.02,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+            "capturePose": "FRONT"
+          }
+        }
+      }
+    }
+  },
+  "httpLevelEndpointsVerification": {
+    "POST_api_local_health_skin_FRONT": {
+      "elapsedSeconds": 37.961,
+      "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+      "pose": null,
+      "skinType": {
+        "value": null,
+        "displayValue": "Karışık desen (Belirlenemedi)",
+        "baseValue": "dry",
+        "quality": "insufficient",
+        "confidence": null,
+        "limitationCode": "MIXED_REGIONAL_PATTERN_UNDETERMINED",
+        "methodVersion": "local-vit-dima806-5aace4f-v1+tzone-oily-cheeks-dry-or-normal-v3",
+        "complete": false,
+        "tZoneOily": false,
+        "tZoneValid": true,
+        "cheekComplete": true,
+        "cheekNonOily": false,
+        "thresholds": {
+          "status": "uncalibrated-hypothesis",
+          "oilPositiveMin": 2.0,
+          "oilNegativeMax": 1.0,
+          "dryPositiveMin": 2.0,
+          "dryNegativeMax": 1.0,
+          "minAnalysisPixels": 100,
+          "tZoneMinOilySubregions": 2,
+          "tZoneRequiresForeheadOrNose": true,
+          "negativeEvidenceMethods": []
+        }
+      },
+      "regionalSkinMapRegions": {
+        "forehead": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.0,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b"
+        },
+        "nose": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.0,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b"
+        },
+        "chin": {
+          "state": "dry",
+          "reason": "DRY_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD",
+          "oil": 0.0,
+          "dry": 4.323375922260213,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b"
+        },
+        "leftCheek": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.5131410150981875,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b"
+        },
+        "rightCheek": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.3755899754038423,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b"
+        }
+      },
+      "acneCandidates": {},
+      "lineMaps": {},
+      "regionalMeasurements": {
+        "forehead": {
+          "redness": {
+            "value": 3.8,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": null,
+            "capturePose": null
+          }
+        },
+        "nose": {
+          "redness": {
+            "value": 3.53,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": null,
+            "capturePose": null
+          }
+        },
+        "chin": {
+          "redness": {
+            "value": 2.71,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 4.32,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": null,
+            "capturePose": null
+          }
+        },
+        "periorbital": {
+          "dry": {
+            "value": 0.2,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": null,
+            "capturePose": null
+          },
+          "lines": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "bags": {
+            "value": 0.05,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          }
+        },
+        "rightCheek": {
+          "redness": {
+            "value": 4.16,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 0.38,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": null,
+            "capturePose": null
+          }
+        },
+        "leftCheek": {
+          "redness": {
+            "value": 5.59,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 0.51,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": null,
+            "capturePose": null
+          }
+        }
+      }
+    },
+    "POST_api_local_health_skin_LEFT": {
+      "elapsedSeconds": 6.657,
+      "photoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+      "pose": null,
+      "skinType": {
+        "value": null,
+        "displayValue": null,
+        "baseValue": null,
+        "quality": null,
+        "confidence": null,
+        "limitationCode": null,
+        "methodVersion": null,
+        "complete": null,
+        "tZoneOily": null,
+        "tZoneValid": null,
+        "cheekComplete": null,
+        "cheekNonOily": null,
+        "thresholds": null
+      },
+      "regionalSkinMapRegions": {},
+      "acneCandidates": {},
+      "lineMaps": {},
+      "regionalMeasurements": {
+        "rightCheek": {
+          "redness": {
+            "value": 3.62,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+            "capturePose": "LEFT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+            "capturePose": "LEFT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+            "capturePose": "LEFT"
+          },
+          "dry": {
+            "value": 1.25,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": null,
+            "capturePose": null
+          }
+        }
+      }
+    },
+    "POST_api_local_health_skin_RIGHT": {
+      "elapsedSeconds": 7.06,
+      "photoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486",
+      "pose": null,
+      "skinType": {
+        "value": null,
+        "displayValue": null,
+        "baseValue": null,
+        "quality": null,
+        "confidence": null,
+        "limitationCode": null,
+        "methodVersion": null,
+        "complete": null,
+        "tZoneOily": null,
+        "tZoneValid": null,
+        "cheekComplete": null,
+        "cheekNonOily": null,
+        "thresholds": null
+      },
+      "regionalSkinMapRegions": {},
+      "acneCandidates": {},
+      "lineMaps": {},
+      "regionalMeasurements": {
+        "leftCheek": {
+          "redness": {
+            "value": 5.66,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486",
+            "capturePose": "RIGHT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486",
+            "capturePose": "RIGHT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486",
+            "capturePose": "RIGHT"
+          },
+          "dry": {
+            "value": 0.78,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": null,
+            "capturePose": null
+          }
+        }
+      }
+    },
+    "POST_api_local_health_skin_fuse_multi_angle_real": {
+      "elapsedSeconds": 0.059,
+      "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+      "pose": null,
+      "skinType": {
+        "value": null,
+        "displayValue": "Belirlenemedi (Ara sinyal bandı)",
+        "baseValue": "dry",
+        "quality": "insufficient",
+        "confidence": null,
+        "limitationCode": "INTERMEDIATE_BAND_UNDETERMINED",
+        "methodVersion": "local-vit-dima806-5aace4f-v1+tzone-oily-cheeks-dry-or-normal-v3",
+        "complete": false,
+        "tZoneOily": false,
+        "tZoneValid": true,
+        "cheekComplete": true,
+        "cheekNonOily": false,
+        "thresholds": {
+          "status": "uncalibrated-hypothesis",
+          "oilPositiveMin": 2.0,
+          "oilNegativeMax": 1.0,
+          "dryPositiveMin": 2.0,
+          "dryNegativeMax": 1.0,
+          "minAnalysisPixels": 100,
+          "tZoneMinOilySubregions": 2,
+          "tZoneRequiresForeheadOrNose": true,
+          "negativeEvidenceMethods": []
+        }
+      },
+      "regionalSkinMapRegions": {
+        "forehead": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.0,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b"
+        },
+        "nose": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.0,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b"
+        },
+        "chin": {
+          "state": "dry",
+          "reason": "DRY_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD",
+          "oil": 0.0,
+          "dry": 4.323375922260213,
+          "sourcePose": "FRONT",
+          "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b"
+        },
+        "leftCheek": {
+          "state": "unevaluated",
+          "reason": "NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED",
+          "oil": 0.0,
+          "dry": 0.7844108661547353,
+          "sourcePose": "RIGHT",
+          "sourcePhotoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486"
+        },
+        "rightCheek": {
+          "state": "unknown",
+          "reason": "INTERMEDIATE_BAND_UNKNOWN",
+          "oil": 0.0,
+          "dry": 1.2528790405845445,
+          "sourcePose": "LEFT",
+          "sourcePhotoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2"
+        }
+      },
+      "acneCandidates": {},
+      "lineMaps": {},
+      "regionalMeasurements": {
+        "forehead": {
+          "redness": {
+            "value": 3.8,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          }
+        },
+        "nose": {
+          "redness": {
+            "value": 3.53,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          }
+        },
+        "chin": {
+          "redness": {
+            "value": 2.71,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "dry": {
+            "value": 4.32,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          }
+        },
+        "periorbital": {
+          "dry": {
+            "value": 0.2,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "lines": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          },
+          "bags": {
+            "value": 0.05,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+            "capturePose": "FRONT"
+          }
+        },
+        "rightCheek": {
+          "redness": {
+            "value": 3.62,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+            "capturePose": "LEFT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+            "capturePose": "LEFT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+            "capturePose": "LEFT"
+          },
+          "dry": {
+            "value": 1.25,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+            "capturePose": "LEFT"
+          }
+        },
+        "leftCheek": {
+          "redness": {
+            "value": 5.66,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486",
+            "capturePose": "RIGHT"
+          },
+          "oil": {
+            "value": 0.0,
+            "quality": "valid",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": null,
+            "photoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486",
+            "capturePose": "RIGHT"
+          },
+          "acne": {
+            "value": null,
+            "quality": "insufficient",
+            "methodVersion": "appearance-cv-6",
+            "limitationCode": "ACNE_MODEL_NOT_ACCEPTED",
+            "photoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486",
+            "capturePose": "RIGHT"
+          },
+          "dry": {
+            "value": 0.78,
+            "quality": "valid",
+            "methodVersion": "appearance-native-dry-3",
+            "limitationCode": null,
+            "photoId": "ffa653277e4cdedc422af7beabc47fd4a6239dadeeb6c37a62faa70c5320d486",
+            "capturePose": "RIGHT"
+          }
+        }
+      }
+    },
+    "threeAngleSideCaptureSensitivityProof": {
+      "description": "Holding FRONT (front-fixed-photo-001) constant and changing only LEFT (rightCheek) and RIGHT (leftCheek) inputs over HTTP",
+      "variant1_dry_side_cheeks_produces_combination": {
+        "elapsedSeconds": 0.01,
+        "photoId": "front-fixed-photo-001",
+        "pose": null,
+        "skinType": {
+          "value": "combination",
+          "displayValue": null,
+          "baseValue": "dry",
+          "quality": "valid",
+          "confidence": null,
+          "limitationCode": "DERIVED_REGIONAL_RULE_CONFIDENCE_NOT_APPLICABLE",
+          "methodVersion": "local-vit-dima806-5aace4f-v1+tzone-oily-cheeks-dry-or-normal-v3",
+          "complete": true,
+          "tZoneOily": true,
+          "tZoneValid": true,
+          "cheekComplete": true,
+          "cheekNonOily": true,
+          "thresholds": {
+            "status": "uncalibrated-hypothesis",
+            "oilPositiveMin": 2.0,
+            "oilNegativeMax": 1.0,
+            "dryPositiveMin": 2.0,
+            "dryNegativeMax": 1.0,
+            "minAnalysisPixels": 100,
+            "tZoneMinOilySubregions": 2,
+            "tZoneRequiresForeheadOrNose": true,
+            "negativeEvidenceMethods": []
+          }
+        },
+        "regionalSkinMapRegions": {
+          "forehead": {
+            "state": "oily",
+            "reason": "OIL_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD",
+            "oil": 6.4,
+            "dry": 0.2,
+            "sourcePose": "FRONT",
+            "sourcePhotoId": "front-fixed-photo-001"
+          },
+          "nose": {
+            "state": "oily",
+            "reason": "OIL_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD",
+            "oil": 5.8,
+            "dry": 0.2,
+            "sourcePose": "FRONT",
+            "sourcePhotoId": "front-fixed-photo-001"
+          },
+          "chin": {
+            "state": "oily",
+            "reason": "OIL_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD",
+            "oil": 3.2,
+            "dry": 0.2,
+            "sourcePose": "FRONT",
+            "sourcePhotoId": "front-fixed-photo-001"
+          },
+          "leftCheek": {
+            "state": "dry",
+            "reason": "DRY_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD",
+            "oil": 0.1,
+            "dry": 4.3,
+            "sourcePose": "RIGHT",
+            "sourcePhotoId": "right-dry-cheek-photo-102"
+          },
+          "rightCheek": {
+            "state": "dry",
+            "reason": "DRY_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD",
+            "oil": 0.2,
+            "dry": 3.9,
+            "sourcePose": "LEFT",
+            "sourcePhotoId": "left-dry-cheek-photo-101"
+          }
+        },
+        "acneCandidates": {},
+        "lineMaps": {},
+        "regionalMeasurements": {
+          "forehead": {
+            "oil": {
+              "value": 6.4,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "front-fixed-photo-001",
+              "capturePose": "FRONT"
+            },
+            "dry": {
+              "value": 0.2,
+              "quality": "valid",
+              "methodVersion": "appearance-native-dry-2",
+              "limitationCode": null,
+              "photoId": "front-fixed-photo-001",
+              "capturePose": "FRONT"
+            }
+          },
+          "nose": {
+            "oil": {
+              "value": 5.8,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "front-fixed-photo-001",
+              "capturePose": "FRONT"
+            },
+            "dry": {
+              "value": 0.2,
+              "quality": "valid",
+              "methodVersion": "appearance-native-dry-2",
+              "limitationCode": null,
+              "photoId": "front-fixed-photo-001",
+              "capturePose": "FRONT"
+            }
+          },
+          "chin": {
+            "oil": {
+              "value": 3.2,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "front-fixed-photo-001",
+              "capturePose": "FRONT"
+            },
+            "dry": {
+              "value": 0.2,
+              "quality": "valid",
+              "methodVersion": "appearance-native-dry-2",
+              "limitationCode": null,
+              "photoId": "front-fixed-photo-001",
+              "capturePose": "FRONT"
+            }
+          },
+          "periorbital": {
+            "dry": {
+              "value": 0.2,
+              "quality": "valid",
+              "methodVersion": "appearance-native-dry-3",
+              "limitationCode": null,
+              "photoId": "front-fixed-photo-001",
+              "capturePose": "FRONT"
+            },
+            "lines": {
+              "value": 0.0,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+              "capturePose": "FRONT"
+            },
+            "bags": {
+              "value": 0.05,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+              "capturePose": "FRONT"
+            }
+          },
+          "rightCheek": {
+            "oil": {
+              "value": 0.2,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "left-dry-cheek-photo-101",
+              "capturePose": "LEFT"
+            },
+            "dry": {
+              "value": 3.9,
+              "quality": "valid",
+              "methodVersion": "appearance-native-dry-2",
+              "limitationCode": null,
+              "photoId": "left-dry-cheek-photo-101",
+              "capturePose": "LEFT"
+            }
+          },
+          "leftCheek": {
+            "oil": {
+              "value": 0.1,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "right-dry-cheek-photo-102",
+              "capturePose": "RIGHT"
+            },
+            "dry": {
+              "value": 4.3,
+              "quality": "valid",
+              "methodVersion": "appearance-native-dry-2",
+              "limitationCode": null,
+              "photoId": "right-dry-cheek-photo-102",
+              "capturePose": "RIGHT"
+            }
+          }
+        }
+      },
+      "variant2_oily_side_cheeks_produces_oily": {
+        "elapsedSeconds": 0.01,
+        "photoId": "front-fixed-photo-001",
+        "pose": null,
+        "skinType": {
+          "value": "oily",
+          "displayValue": null,
+          "baseValue": "dry",
+          "quality": "valid",
+          "confidence": null,
+          "limitationCode": null,
+          "methodVersion": "local-vit-dima806-5aace4f-v1+tzone-oily-cheeks-dry-or-normal-v3",
+          "complete": true,
+          "tZoneOily": true,
+          "tZoneValid": true,
+          "cheekComplete": true,
+          "cheekNonOily": false,
+          "thresholds": {
+            "status": "uncalibrated-hypothesis",
+            "oilPositiveMin": 2.0,
+            "oilNegativeMax": 1.0,
+            "dryPositiveMin": 2.0,
+            "dryNegativeMax": 1.0,
+            "minAnalysisPixels": 100,
+            "tZoneMinOilySubregions": 2,
+            "tZoneRequiresForeheadOrNose": true,
+            "negativeEvidenceMethods": []
+          }
+        },
+        "regionalSkinMapRegions": {
+          "forehead": {
+            "state": "oily",
+            "reason": "OIL_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD",
+            "oil": 6.4,
+            "dry": 0.2,
+            "sourcePose": "FRONT",
+            "sourcePhotoId": "front-fixed-photo-001"
+          },
+          "nose": {
+            "state": "oily",
+            "reason": "OIL_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD",
+            "oil": 5.8,
+            "dry": 0.2,
+            "sourcePose": "FRONT",
+            "sourcePhotoId": "front-fixed-photo-001"
+          },
+          "chin": {
+            "state": "oily",
+            "reason": "OIL_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD",
+            "oil": 3.2,
+            "dry": 0.2,
+            "sourcePose": "FRONT",
+            "sourcePhotoId": "front-fixed-photo-001"
+          },
+          "leftCheek": {
+            "state": "oily",
+            "reason": "OIL_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD",
+            "oil": 5.7,
+            "dry": 0.1,
+            "sourcePose": "RIGHT",
+            "sourcePhotoId": "right-oily-cheek-photo-202"
+          },
+          "rightCheek": {
+            "state": "oily",
+            "reason": "OIL_AT_OR_ABOVE_UNCALIBRATED_THRESHOLD",
+            "oil": 6.1,
+            "dry": 0.2,
+            "sourcePose": "LEFT",
+            "sourcePhotoId": "left-oily-cheek-photo-201"
+          }
+        },
+        "acneCandidates": {},
+        "lineMaps": {},
+        "regionalMeasurements": {
+          "forehead": {
+            "oil": {
+              "value": 6.4,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "front-fixed-photo-001",
+              "capturePose": "FRONT"
+            },
+            "dry": {
+              "value": 0.2,
+              "quality": "valid",
+              "methodVersion": "appearance-native-dry-2",
+              "limitationCode": null,
+              "photoId": "front-fixed-photo-001",
+              "capturePose": "FRONT"
+            }
+          },
+          "nose": {
+            "oil": {
+              "value": 5.8,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "front-fixed-photo-001",
+              "capturePose": "FRONT"
+            },
+            "dry": {
+              "value": 0.2,
+              "quality": "valid",
+              "methodVersion": "appearance-native-dry-2",
+              "limitationCode": null,
+              "photoId": "front-fixed-photo-001",
+              "capturePose": "FRONT"
+            }
+          },
+          "chin": {
+            "oil": {
+              "value": 3.2,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "front-fixed-photo-001",
+              "capturePose": "FRONT"
+            },
+            "dry": {
+              "value": 0.2,
+              "quality": "valid",
+              "methodVersion": "appearance-native-dry-2",
+              "limitationCode": null,
+              "photoId": "front-fixed-photo-001",
+              "capturePose": "FRONT"
+            }
+          },
+          "periorbital": {
+            "dry": {
+              "value": 0.2,
+              "quality": "valid",
+              "methodVersion": "appearance-native-dry-3",
+              "limitationCode": null,
+              "photoId": "front-fixed-photo-001",
+              "capturePose": "FRONT"
+            },
+            "lines": {
+              "value": 0.0,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+              "capturePose": "FRONT"
+            },
+            "bags": {
+              "value": 0.05,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+              "capturePose": "FRONT"
+            }
+          },
+          "rightCheek": {
+            "oil": {
+              "value": 6.1,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "left-oily-cheek-photo-201",
+              "capturePose": "LEFT"
+            },
+            "dry": {
+              "value": 0.2,
+              "quality": "valid",
+              "methodVersion": "appearance-native-dry-2",
+              "limitationCode": null,
+              "photoId": "left-oily-cheek-photo-201",
+              "capturePose": "LEFT"
+            }
+          },
+          "leftCheek": {
+            "oil": {
+              "value": 5.7,
+              "quality": "valid",
+              "methodVersion": "appearance-cv-6",
+              "limitationCode": null,
+              "photoId": "right-oily-cheek-photo-202",
+              "capturePose": "RIGHT"
+            },
+            "dry": {
+              "value": 0.1,
+              "quality": "valid",
+              "methodVersion": "appearance-native-dry-2",
+              "limitationCode": null,
+              "photoId": "right-oily-cheek-photo-202",
+              "capturePose": "RIGHT"
+            }
+          }
+        }
+      }
+    }
+  },
+  "poseGateOldVsNewComparison": {
+    "skinFrontMaxDeg": 12,
+    "skinSideRangeDeg": [
+      12,
+      45
+    ],
+    "dentalSideRangeDeg": [
+      15,
+      45
+    ],
+    "comparisonRows": [
+      {
+        "label": "0° (Tam karşı / FRONT)",
+        "yawDeg": 0,
+        "noseRatioYaw": 0,
+        "targetAngle": "FRONT",
+        "skinOld7463eef": true,
+        "skinOld51ab991": true,
+        "skinNewCurrent": true,
+        "skinGuidanceTr": "Poz uygun. Lütfen sabit durun...",
+        "dentalOld": true,
+        "dentalNewCurrent": true,
+        "dentalGuidanceTr": "Poz uygun. Lütfen sabit durun..."
+      },
+      {
+        "label": "10° (Hafif dönüş / yan alt sınır altı)",
+        "yawDeg": 10,
+        "noseRatioYaw": 0.18,
+        "targetAngle": "LEFT",
+        "skinOld7463eef": false,
+        "skinOld51ab991": false,
+        "skinNewCurrent": false,
+        "skinGuidanceTr": "Sağ yanağınızı kameraya göstermek için başınızı hafifçe sola çevirin (12°–45°).",
+        "dentalOld": false,
+        "dentalNewCurrent": false,
+        "dentalGuidanceTr": "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+      },
+      {
+        "label": "12.5° (Erken yan dönüş - korunan poz)",
+        "yawDeg": 12.5,
+        "noseRatioYaw": 0.26,
+        "targetAngle": "LEFT",
+        "skinOld7463eef": true,
+        "skinOld51ab991": false,
+        "skinNewCurrent": true,
+        "skinGuidanceTr": "Poz uygun. Lütfen sabit durun...",
+        "dentalOld": false,
+        "dentalNewCurrent": false,
+        "dentalGuidanceTr": "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+      },
+      {
+        "label": "15° (Standart yan başlangıç)",
+        "yawDeg": 15,
+        "noseRatioYaw": 0.32,
+        "targetAngle": "LEFT",
+        "skinOld7463eef": true,
+        "skinOld51ab991": false,
+        "skinNewCurrent": true,
+        "skinGuidanceTr": "Poz uygun. Lütfen sabit durun...",
+        "dentalOld": true,
+        "dentalNewCurrent": true,
+        "dentalGuidanceTr": "Poz uygun. Lütfen sabit durun..."
+      },
+      {
+        "label": "24.2° (Gerçek 01_england LEFT karesi)",
+        "yawDeg": 24.21,
+        "noseRatioYaw": 0.79,
+        "targetAngle": "LEFT",
+        "skinOld7463eef": true,
+        "skinOld51ab991": true,
+        "skinNewCurrent": true,
+        "skinGuidanceTr": "Poz uygun. Lütfen sabit durun...",
+        "dentalOld": true,
+        "dentalNewCurrent": true,
+        "dentalGuidanceTr": "Poz uygun. Lütfen sabit durun..."
+      },
+      {
+        "label": "25.5° (Gerçek 02_germany LEFT karesi, 2D yaw=0.93 > 0.92)",
+        "yawDeg": 25.5,
+        "noseRatioYaw": 0.93,
+        "targetAngle": "LEFT",
+        "skinOld7463eef": false,
+        "skinOld51ab991": true,
+        "skinNewCurrent": true,
+        "skinGuidanceTr": "Poz uygun. Lütfen sabit durun...",
+        "dentalOld": true,
+        "dentalNewCurrent": true,
+        "dentalGuidanceTr": "Poz uygun. Lütfen sabit durun..."
+      },
+      {
+        "label": "34° (Normal yan dönüş)",
+        "yawDeg": 34,
+        "noseRatioYaw": 0.88,
+        "targetAngle": "LEFT",
+        "skinOld7463eef": true,
+        "skinOld51ab991": true,
+        "skinNewCurrent": true,
+        "skinGuidanceTr": "Poz uygun. Lütfen sabit durun...",
+        "dentalOld": true,
+        "dentalNewCurrent": true,
+        "dentalGuidanceTr": "Poz uygun. Lütfen sabit durun..."
+      },
+      {
+        "label": "38° (Genişletilmiş yan dönüş - YENİ KABUL)",
+        "yawDeg": 38,
+        "noseRatioYaw": 0.98,
+        "targetAngle": "LEFT",
+        "skinOld7463eef": false,
+        "skinOld51ab991": false,
+        "skinNewCurrent": true,
+        "skinGuidanceTr": "Poz uygun. Lütfen sabit durun...",
+        "dentalOld": false,
+        "dentalNewCurrent": true,
+        "dentalGuidanceTr": "Poz uygun. Lütfen sabit durun..."
+      },
+      {
+        "label": "42° (Genişletilmiş yan dönüş - YENİ KABUL)",
+        "yawDeg": 42,
+        "noseRatioYaw": 1.06,
+        "targetAngle": "LEFT",
+        "skinOld7463eef": false,
+        "skinOld51ab991": false,
+        "skinNewCurrent": true,
+        "skinGuidanceTr": "Poz uygun. Lütfen sabit durun...",
+        "dentalOld": false,
+        "dentalNewCurrent": true,
+        "dentalGuidanceTr": "Poz uygun. Lütfen sabit durun..."
+      },
+      {
+        "label": "45° (Üst sınır yan dönüş - YENİ KABUL)",
+        "yawDeg": 45,
+        "noseRatioYaw": 1.12,
+        "targetAngle": "LEFT",
+        "skinOld7463eef": false,
+        "skinOld51ab991": false,
+        "skinNewCurrent": true,
+        "skinGuidanceTr": "Poz uygun. Lütfen sabit durun...",
+        "dentalOld": false,
+        "dentalNewCurrent": true,
+        "dentalGuidanceTr": "Poz uygun. Lütfen sabit durun..."
+      },
+      {
+        "label": "48° (Aşırı dönüş > 45° - RED)",
+        "yawDeg": 48,
+        "noseRatioYaw": 1.22,
+        "targetAngle": "LEFT",
+        "skinOld7463eef": false,
+        "skinOld51ab991": false,
+        "skinNewCurrent": false,
+        "skinGuidanceTr": "Başınızı çok fazla çevirdiniz; kameraya biraz geri dönün (12°–45°).",
+        "dentalOld": false,
+        "dentalNewCurrent": false,
+        "dentalGuidanceTr": "Başınızı çok fazla çevirdiniz; dişleriniz görünecek şekilde kameraya biraz geri dönün (15°–45°)."
+      }
+    ]
+  }
+}

@@ -16,7 +16,8 @@ import {
   FaceAlignment,
   ImageQuality,
   RegionMetrics,
-  SkinAnalysisResult
+  SkinAnalysisResult,
+  detectCameraMirrored
 } from '../../utils/skinAnalyzer';
 import {
   SkinRegionId,
@@ -32,7 +33,7 @@ import {saveSkinPhotos} from '../../utils/skinPhotoHistory';
 import { rememberSkinSnapshots } from '../../utils/skinVolatileHistory';
 import { InformationButton } from '../../components/InformationButton';
 import { SkinInference } from '../../utils/skinInference';
-import { SKIN_ANGLES, ANGLE_LABELS, AngleCapture, SkinAngle, MultiAngleReference, matchesSkinAngle, angleGuidance, captureSkinAngle, compareMultiAngle } from '../../utils/skinMultiAngle';
+import { SKIN_ANGLES, ANGLE_LABELS, AngleCapture, SkinAngle, MultiAngleReference, matchesSkinAngle, angleGuidance, captureSkinAngle, compareMultiAngle, fuseMultiAngleSkinOverview } from '../../utils/skinMultiAngle';
 import { SkinSnapshot, snapshotRawSkinFrame as snapshotSkinFrame, snapshotAngleForRegion, assertCompleteFace } from '../../utils/skinSnapshot';
 import { measureSkinIndicators, SKIN_SIGN_CONTRACT, validSkinIndicators } from '../../utils/skinIndicators';
 import {skinTemporalSupport} from '../../utils/skinTemporalSupport';
@@ -513,8 +514,12 @@ export default function SkinPage() {
         clinicalNoteTr: 'Mevcut taramanın bölgesel renk ve görünüm vekilleri. Hastalık tanısı veya kalibre edilmiş klinik şiddet değildir; eski ölçümler yeni yönteme dönüştürülmez.'
       };
       finalResult.analysisId=finalResult.id;
-      finalResult.general=snapshotFrames.current.FRONT?.general ? {...snapshotFrames.current.FRONT.general,analysisId:finalResult.id} : undefined;
       finalResult.captures=Object.fromEntries(Object.entries(snapshotFrames.current).map(([pose,frame])=>[pose,{captureId:frame.photoId!,pose,sourceWidth:frame.width,sourceHeight:frame.height}]));
+      const fusedGeneral=fuseMultiAngleSkinOverview(snapshotFrames.current.FRONT?.general,indicators,finalResult.captures);
+      finalResult.general=fusedGeneral ? {...fusedGeneral,analysisId:finalResult.id} : undefined;
+      for (const frame of Object.values(snapshotFrames.current)) {
+        if (frame && finalResult.general) frame.general = finalResult.general;
+      }
       if (!validSkinIndicators(indicators) || !validSkinOverview(finalResult.general,finalResult.id) || !SkinAnalyzer.canPersistResult(finalResult)) throw new Error('Invalid metrics');
       // Numeric history never contains pixels; photo retention has separate consent.
       resultPersisted.current=storageAllowed();
@@ -610,6 +615,7 @@ export default function SkinPage() {
             if(!analysisCtx)throw Error('CAMERA_ANALYSIS_CANVAS');
             analysisCtx.drawImage(canvas,0,0,w,h);
             curAlign = await inferenceRef.current.assessAlignment(analysisCanvas);
+            curAlign.cameraMirrored = detectCameraMirrored(video, ctx, curAlign.faceTransform);
           } catch {
             if (!cancelled) {
               setErrorMessage('Cilt analiz motoru yanıt vermiyor. Lütfen yeniden deneyin.');

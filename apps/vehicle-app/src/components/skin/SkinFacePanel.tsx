@@ -257,23 +257,24 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                       if (currentRegion.id !== 'overview' && currentRegion.id !== 'nose' && currentRegion.id !== regionId) return null;
                       if (currentRegion.id === 'nose' && !['forehead', 'nose', 'chin'].includes(regionId)) return null;
                       const regEntry = regionalTrace[regionId];
+                      // Side snapshots never paint a FRONT cheek result onto a side photo.
+                      if (snapshot.angle !== 'FRONT' && regEntry?.sourcePose && regEntry.sourcePose !== snapshot.angle) return null;
+                      if (snapshot.angle !== 'FRONT' && regEntry?.sourcePhotoId && snapshot.photoId && regEntry.sourcePhotoId !== snapshot.photoId) return null;
                       const regState = regEntry?.state ?? 'unknown';
                       let fillColor = 'none';
                       if (regState === 'oily') {
                         fillColor = '#22c55e'; // saydam yeşil
                       } else if (regState === 'dry') {
                         fillColor = '#3b82f6'; // saydam mavi
-                      } else if (regState === 'sensitive') {
-                        fillColor = '#f43f72'; // saydam pembe
                       } else if (regState === 'normal') {
                         fillColor = 'none'; // normal = renksiz
                       } else {
-                        fillColor = '#94a3b8'; // ölçülemeyen / eksik bölge = nötr gri
+                        fillColor = '#94a3b8'; // ölçülemeyen / değerlendirilmedi / ara bant = nötr gri
                       }
                       if (fillColor === 'none') return null;
 
                       return (
-                        <g key={regionId} data-skin-type-region={regionId} data-skin-type-state={regState} fill={fillColor}>
+                        <g key={regionId} data-skin-type-region={regionId} data-skin-type-state={regState} data-source-pose={regEntry?.sourcePose || snapshot.angle} data-source-photoid={regEntry?.sourcePhotoId || snapshot.photoId || ''} fill={fillColor}>
                           {meshTriangles(mesh, false, false).map((tri, i) => (
                             <path
                               key={i}

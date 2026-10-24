@@ -30,11 +30,19 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
 
   const skinTypeDisplay = currentRegion.skinType?.quality === 'valid' && currentRegion.skinType.value
     ? SKIN_TYPE_LABELS[currentRegion.skinType.value] || currentRegion.skinType.value
-    : currentRegion.skinType?.limitationCode === 'INCOMPLETE_CHEEKS_UNVERIFIED'
-      ? i18nText('Belirsiz (Yanak verisi eksik)')
-      : currentRegion.skinType?.limitationCode === 'INCOMPLETE_TZONE_UNVERIFIED'
-        ? i18nText('Belirsiz (T-bölgesi verisi eksik)')
-        : '—';
+    : (currentRegion.skinType as any)?.displayValue
+      ? i18nText((currentRegion.skinType as any).displayValue)
+      : currentRegion.skinType?.limitationCode === 'INCOMPLETE_CHEEKS_UNVERIFIED'
+        ? i18nText('Belirsiz (Yanak verisi eksik)')
+        : currentRegion.skinType?.limitationCode === 'INCOMPLETE_TZONE_UNVERIFIED'
+          ? i18nText('Belirsiz (T-bölgesi verisi eksik)')
+          : currentRegion.skinType?.limitationCode === 'INTERMEDIATE_BAND_UNDETERMINED'
+            ? i18nText('Belirlenemedi (Ara sinyal bandı)')
+            : currentRegion.skinType?.limitationCode === 'NEGATIVE_EVIDENCE_METHOD_NOT_ACCEPTED'
+              ? i18nText('Değerlendirilmedi')
+              : currentRegion.skinType?.limitationCode === 'MIXED_REGIONAL_PATTERN_UNDETERMINED'
+                ? i18nText('Karışık desen (Belirlenemedi)')
+                : '—';
 
   return (
     <div className="space-y-5 w-full">
