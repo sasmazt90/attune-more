@@ -1,13 +1,13 @@
 'use client';
 import {useTranslations} from '../../i18n/LanguageProvider';
 
-
 import React from 'react';
 import { SkinRegionData } from '../../data/skinDemoFixture';
 import { SkinSnapshot } from '../../utils/skinSnapshot';
 import { InformationButton } from '../InformationButton';
 import { SkinFacePanel } from './SkinFacePanel';
 import { SkinRegionSummary } from './SkinRegionSummary';
+import { isCriterionApplicableToRegion } from '../../utils/skinIndicators';
 
 interface SkinResultViewProps {
   currentRegion: SkinRegionData;
@@ -34,13 +34,15 @@ export const SkinResultView: React.FC<SkinResultViewProps> = ({
   onNavigateToCare,
   videoRef,
   isLiveVideo = false,
-  isBaseline, comparisonUnavailable, comparisonReasons, baselineTimestamp, baselineId, comparisonScope = 'single-front-v1'
+  isBaseline, comparisonUnavailable
 }) => {
  const {text:i18nText,node:i18nNode}=useTranslations();
-  const [selection,setSelection]=React.useState<{region:string;criterion:string}|null>(null);
-  React.useEffect(()=>setSelection(null),[currentRegion.id,snapshot?.photoId]);
-  const selectedCriterion=selection?.region===currentRegion.id?selection.criterion:null;
-  const selectCriterion=(criterion:string)=>setSelection(selectedCriterion===criterion?null:{region:currentRegion.id,criterion});
+  const [selectedCriterion, setSelectedCriterion] = React.useState<string | null>(null);
+  // Preserve selectedCriterion across region switches whenever the target region supports that criterion.
+  const activeCriterion = selectedCriterion && isCriterionApplicableToRegion(selectedCriterion, currentRegion.id)
+    ? selectedCriterion
+    : null;
+  const selectCriterion = (criterion: string) => setSelectedCriterion(prev => prev === criterion ? null : criterion);
   return (
     <div className="bg-[#0c1424]/90 border border-slate-800/90 rounded-3xl p-5 sm:p-7 shadow-2xl space-y-5 w-full">
       {/* Üst Bilgi Satırı: Başlık, Dinamik Özet Cümlesi, Yasal Rozet */}
@@ -57,7 +59,7 @@ export const SkinResultView: React.FC<SkinResultViewProps> = ({
             <li>{i18nText("Işık, gölge, sakal ve görüntü netliği değerlendirmeyi etkileyebilir. Yeterli görüntü alınamayan değerler — ile gösterilir.")}</li>
             <li>{i18nText("Parlama, pullanma ve sivilce adayları fotoğraftaki görünüm üzerinden değerlendirilir.")}</li>
             <li>{i18nText("Renkli alanlar seçtiğiniz bölge ve kriterin görüntüdeki dağılımını gösterir.")}</li>
-            <li>{i18nText("T-bölgesi alın ve burunu kapsar.")}</li>
+            <li>{i18nText("T-bölgesi alın, burun ve çeneyi kapsar.")}</li>
             <li>{i18nText("Kontur göstergelerinde görüntüde izlenen katlanma ve sınır çizgileri gösterilir.")}</li>
           </ul></InformationButton>
         </div>
@@ -79,17 +81,17 @@ export const SkinResultView: React.FC<SkinResultViewProps> = ({
             onNext={onNext}
             videoRef={videoRef}
             isLiveVideo={isLiveVideo}
-            selectedCriterion={selectedCriterion}
+            selectedCriterion={activeCriterion}
           />
         </div>
 
-        {/* SAĞ KOLON (~55%): Bölge Başlığı + 4 Metrik Çubuğu + 3 İkincil Buton + Ana CTA */}
+        {/* SAĞ KOLON (~55%): Bölge Başlığı + Metrik Kartları + 3 İkincil Buton + Ana CTA */}
         <div className="lg:col-span-7 min-w-0">
           <SkinRegionSummary
             currentRegion={currentRegion}
             onOpenModal={onOpenModal}
             onNavigateToCare={onNavigateToCare}
-            selectedCriterion={selectedCriterion}
+            selectedCriterion={activeCriterion}
             onSelectCriterion={selectCriterion}
           />
         </div>

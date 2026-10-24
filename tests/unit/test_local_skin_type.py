@@ -24,8 +24,10 @@ def test_unknown_region_is_not_normal(failure):
  elif failure=='invalid':r['leftCheek'][0]['quality']='insufficient'
  elif failure=='nan':r['leftCheek'][0]['value']=float('nan')
  else:r['leftCheek'][0]['evaluatedArea']={}
- result=T.regional_decision(base(),r)
- assert result['value']=='normal' and not result['decisionTrace']['complete'] and not result['decisionTrace']['applied']
+ result=T.regional_decision(base('dry'),r)
+ assert result['value'] is None and result['quality']=='insufficient' and result['confidence'] is None
+ assert result['limitationCode']=='INCOMPLETE_CHEEKS_UNVERIFIED'
+ assert not result['decisionTrace']['complete'] and not result['decisionTrace']['applied']
 def test_no_model_is_not_silently_replaced_by_rule():
  assert T.regional_decision(T.unavailable('MISSING'),regions())['value'] is None
 def test_no_input_mutation():
@@ -68,7 +70,9 @@ def test_final_invalid_or_missing_retracts_previously_matched_combination(failur
  if failure=='missing':r['measurements']['leftCheek']=[row for row in r['measurements']['leftCheek'] if row['id']!='dry']
  else:next(row for row in r['measurements']['leftCheek'] if row['id']=='dry').update(value=None,quality='insufficient',methodVersion='appearance-native-dry-2')
  result=T.finalize_product_type(r);t=result['general']['skinType']
- assert t['value']=='oily' and t['confidence']==.8 and not t['decisionTrace']['complete'] and not t['decisionTrace']['applied']
+ assert t['value'] is None and t['quality']=='insufficient' and t['confidence'] is None
+ assert t['limitationCode']=='INCOMPLETE_CHEEKS_UNVERIFIED'
+ assert not t['decisionTrace']['complete'] and not t['decisionTrace']['applied']
  assert t['decisionTrace']['regions']['leftCheek']['state'] is None
  assert t['decisionTrace']['regions']['leftCheek']['inputs']['dry']==(None if failure=='missing' else {k:next(row for row in r['measurements']['leftCheek'] if row['id']=='dry').get(k) for k in ['value','quality','methodVersion','normalizationVersion','evaluatedArea','limitationCode']})
 
@@ -102,22 +106,45 @@ def test_normal_endpoint_finalizes_after_all_product_replacements(monkeypatch):
   L._busy=asyncio.Lock();return await L.skin(Request())
  result=asyncio.run(run())
  assert events==['native-dry','acne']
- assert result['general']['skinType']['value']=='oily' and not result['general']['skinType']['decisionTrace']['complete']
+ assert result['general']['skinType']['value'] is None and result['general']['skinType']['quality']=='insufficient'
+ assert not result['general']['skinType']['decisionTrace']['complete']
  assert result['activeCriterionMethods']['criteria']['type']['overview']['methodVersion'].endswith(T.RULE)
 
 
-def test_combination_includes_chin_oil_in_tzone():
-    r = regions(dry=0)
-    r['chin'] = rows(oil=12, dry=0)
-    res = T.regional_decision(base('normal'), r)
-    assert res['value'] == 'combination'
-    assert res['decisionTrace']['applied'] is True
-    assert res['decisionTrace']['tZone']['valid'] is True
+def test_combination_includes_chin_oil_with_forehead_or_nose_2of3():
+ r = dict(nose=rows(10,0), forehead=rows(0,0), chin=rows(12,0), leftCheek=rows(0.2,0), rightCheek=rows(0.1,0))
+ res = T.regional_decision(base('normal'), r)
+ assert res['value'] == 'combination'
+ assert res['decisionTrace']['applied'] is True
+ assert res['decisionTrace']['tZone']['valid'] is True
+ assert set(res['decisionTrace']['tZone']['oilyRegions']) == {'nose', 'chin'}
 
-def test_missing_cheek_flags_incomplete_limitation():
-    r = regions(dry=0)
-    r.pop('rightCheek')
-    res = T.regional_decision(base('normal'), r)
-    assert res['value'] == 'normal'
-    assert res['decisionTrace']['limitationCode'] == 'INCOMPLETE_CHEEKS_UNVERIFIED'
-    assert res.get('limitationCode') == 'INCOMPLETE_CHEEKS_UNVERIFIED'
+
+def test_chin_only_oil_or_tiny_noise_oil_is_never_combination():
+ # Only chin oily (1/3 of T-zone) -> NOT combination
+ r_chin_only = dict(nose=rows(0,0), forehead=rows(0,0), chin=rows(8.0,0), leftCheek=rows(0,0), rightCheek=rows(0,0))
+ res1 = T.regional_decision(base('normal'), r_chin_only)
+ assert res1['value'] == 'normal'
+ assert res1['decisionTrace']['tZone']['state'] == 'non-oily'
+ # Tiny 0.01% oil on forehead and nose -> NOT combination
+ r_tiny = dict(nose=rows(0.01,0), forehead=rows(0.01,0), chin=rows(0,0), leftCheek=rows(0,0), rightCheek=rows(0,0))
+ res2 = T.regional_decision(base('dry'), r_tiny)
+ assert res2['value'] == 'normal'
+ assert res2['decisionTrace']['tZone']['state'] == 'non-oily'
+ # Missing chin -> T-zone incomplete -> value is None
+ r_no_chin = dict(nose=rows(10,0), forehead=rows(10,0), leftCheek=rows(0,0), rightCheek=rows(0,0))
+ res3 = T.regional_decision(base('normal'), r_no_chin)
+ assert res3['value'] is None and res3['quality'] == 'insufficient'
+ assert res3['limitationCode'] == 'INCOMPLETE_TZONE_UNVERIFIED'
+ assert res3['decisionTrace']['complete'] is False
+
+
+def test_missing_cheek_withholds_value_and_flags_incomplete_limitation():
+ r = regions(dry=0)
+ r.pop('rightCheek')
+ res = T.regional_decision(base('dry'), r)
+ assert res['value'] is None
+ assert res['quality'] == 'insufficient'
+ assert res['confidence'] is None
+ assert res['decisionTrace']['limitationCode'] == 'INCOMPLETE_CHEEKS_UNVERIFIED'
+ assert res.get('limitationCode') == 'INCOMPLETE_CHEEKS_UNVERIFIED'

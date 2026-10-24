@@ -16,6 +16,8 @@ from skin_measurement_contract import attach_result_receipts
 from skimage.feature import local_binary_pattern
 from skimage.filters import gabor
 from acne_box_support import region_envelopes,accepted_boxes as filter_acne_boxes,box_area,VERSION as ACNE_SUPPORT_VERSION
+from skin_display_geometry import measured_line_paths
+from roboflow_skin_models import infer_lesion_large, infer_regional_oily_seg
 from skin_scan_baseline.oiliness import oiliness_map
 from skin_scan_baseline.blemishes import blemish_map
 
@@ -405,9 +407,24 @@ def analyze_skin(payload, include_research_features=False):
         poly=np.asarray([[(points[i]['x']*width-x0)*scale,(points[i]['y']*bgr.shape[0]-y0)*scale] for i in indices],np.float32)
         cv2.fillConvexPoly(acne_exclusion,cv2.convexHull(poly).astype(np.int32),255)
     acne_skin=(face_support>0)&(acne_exclusion==0)&~hair&~acne_clipping&(gray>.12)
+    rf_oily_receipt=None
+    if not include_research_features and payload.get('hostedProcessingConsent') is True and payload.get('qualityValid') is True:
+        if not (trained_acne and trained_acne.get('valid')):
+            rf_lesion=infer_lesion_large(bgr,hosted_consent=True)
+            if rf_lesion.get('valid'):trained_acne=rf_lesion
+        rf_oily=infer_regional_oily_seg(bgr,gray.shape,scale,origin,acne_skin,acne_exclusion,hair,hosted_consent=True)
+        if rf_oily.get('valid'):
+            rf_oily_receipt={k:v for k,v in rf_oily.items() if k!='mask'}
+            if rf_oily.get('mask') is not None and rf_oily['mask'].any():
+                shine=np.maximum(shine,rf_oily['mask'].astype(np.float32)*0.65)
     accepted_boxes={k:[] for k in masks}
+    rejected_boxes=[]
     if trained_acne and trained_acne.get('valid'):
-        assigned_boxes,_=filter_acne_boxes(trained_acne['boxes'],acne_envelopes,acne_skin,hair,acne_exclusion,source_hash,scale,origin)
+        assigned_boxes,rejected_boxes=filter_acne_boxes(trained_acne['boxes'],acne_envelopes,acne_skin,hair,acne_exclusion,source_hash,scale,origin)
+        for reg_name,reg_list in assigned_boxes.items():
+            for b in reg_list:
+                b.update(modelVersion=trained_acne.get('modelVersion'),modelHash=trained_acne.get('modelHash'),pointSource='box_centroid',photoId=source_hash)
+                if trained_acne.get('providerModelId'):b['providerModelId']=trained_acne['providerModelId']
         accepted_boxes.update(assigned_boxes)
     response, maps, contours = {}, {}, {}
     surface_masks={k:closed_surface_mask(gray.shape,m,scale,origin) for k,m in payload['meshes'].items()}
@@ -580,7 +597,11 @@ def analyze_skin(payload, include_research_features=False):
             line_components['samplingSupportVersion']='native-impulse-one-cycle-lines-v1'
             line_components['photometricSamplingVersion']='native-isolated-impulse-median-v1'
             line_components['lineSupportVersion']='connected-local-one-coarsest-period-v1'
+            raw_line_paths=measured_line_paths(rad_sig*dir_gate,known,0.0125) if lines_reason is None else []
+            source_line_paths=[{**lp,'points':[{'x':round(float(pt['x']/scale+x0),1),'y':round(float(pt['y']/scale+y0),1)} for pt in lp['points']]} for lp in raw_line_paths]
+            line_components['linePaths']=source_line_paths
             add('lines',value,'directional-line-index-0-100',line_signal/100,limitation=lines_reason,signal_mask=known,measurement_area=lines_area,components=line_components)
+            if 'periorbital:lines' in maps:maps['periorbital:lines']['linePaths']=source_line_paths
         if region != 'nose':
             contour_support=base&~clipping&(gray>.12)
             contour_gray=gray
@@ -638,6 +659,12 @@ def analyze_skin(payload, include_research_features=False):
         response[region]=items
     result=dict(methodVersion=VERSION,photoId=source_hash,measurements=response,maps=maps,contours=contours,
                 storage='volatile-memory-only',sourceWidth=bgr.shape[1],sourceHeight=bgr.shape[0])
+    if trained_acne and trained_acne.get('valid'):
+        all_acne_boxes=[b for r_list in accepted_boxes.values() for b in r_list]
+        result['acneCandidates']={**accepted_boxes,'overview':all_acne_boxes}
+        result['lesionRuntime']=dict(modelVersion=trained_acne.get('modelVersion'),providerModelId=trained_acne.get('providerModelId'),modelHash=trained_acne.get('modelHash'),acceptedCount=len(all_acne_boxes),rejectedAnatomyOrThresholdCount=len(rejected_boxes)+len(trained_acne.get('rejected',[])),thresholds=trained_acne.get('thresholds'))
+    if rf_oily_receipt:
+        result['oilySegRuntime']=rf_oily_receipt
     if payload['pose']=='FRONT':
         union=np.logical_or.reduce(list(masks.values()))&(exclusion==0)&~hair&~clipping&(gray>.12)
         general_tone,general_redness,_=local_color_signals(image,union)

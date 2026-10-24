@@ -1,13 +1,12 @@
 'use client';
 import {useTranslations} from '../../i18n/LanguageProvider';
 
-
 import React from 'react';
 import { SkinIndicatorValue } from './SkinIndicatorValue';
-import { InformationButton } from '../InformationButton';
 import { TrendingUp, FileText, Lightbulb, ArrowRight } from 'lucide-react';
 import { SkinRegionData } from '../../data/skinDemoFixture';
 import { SKIN_TYPE_LABELS } from '../../utils/skinOverview';
+import { isCriterionApplicableToRegion } from '../../utils/skinIndicators';
 
 interface SkinRegionSummaryProps {
   currentRegion: SkinRegionData;
@@ -24,6 +23,18 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
 }) => {
  const {text:i18nText,node:i18nNode}=useTranslations();
   const { metrics } = currentRegion;
+  const visibleIndicators = React.useMemo(
+    () => currentRegion.indicators?.filter(ind => isCriterionApplicableToRegion(ind.id, currentRegion.id)),
+    [currentRegion.indicators, currentRegion.id]
+  );
+
+  const skinTypeDisplay = currentRegion.skinType?.quality === 'valid' && currentRegion.skinType.value
+    ? SKIN_TYPE_LABELS[currentRegion.skinType.value] || currentRegion.skinType.value
+    : currentRegion.skinType?.limitationCode === 'INCOMPLETE_CHEEKS_UNVERIFIED'
+      ? i18nText('Belirsiz (Yanak verisi eksik)')
+      : currentRegion.skinType?.limitationCode === 'INCOMPLETE_TZONE_UNVERIFIED'
+        ? i18nText('Belirsiz (T-bölgesi verisi eksik)')
+        : '—';
 
   return (
     <div className="space-y-5 w-full">
@@ -33,14 +44,18 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
           <h3 className="text-lg font-bold text-white tracking-wide">
             {i18nNode(currentRegion.nameTr)}
           </h3>
-
         </div>
 
-        {currentRegion.id === 'overview' && <div className="rounded-2xl border border-sky-400/15 bg-slate-900/60 p-4 flex flex-wrap justify-between gap-2" data-skin-type><span className="text-sm text-slate-300">{i18nText("Cilt tipi")}</span><strong className="text-base text-white">{i18nNode(currentRegion.skinType?.quality === 'valid' && currentRegion.skinType.value ? SKIN_TYPE_LABELS[currentRegion.skinType.value] : (currentRegion.skinType?.limitationCode === 'INCOMPLETE_CHEEKS_UNVERIFIED' ? i18nText('Belirsiz (Yanak verisi eksik)') : '—'))}</strong></div>}
+        {currentRegion.id === 'overview' && (
+          <div className="rounded-2xl border border-sky-400/15 bg-slate-900/60 p-4 flex flex-wrap justify-between gap-2" data-skin-type data-skin-type-limitation={currentRegion.skinType?.limitationCode || undefined}>
+            <span className="text-sm text-slate-300">{i18nText("Cilt tipi")}</span>
+            <strong className="text-base text-white">{i18nNode(skinTypeDisplay)}</strong>
+          </div>
+        )}
         {/* Current source measurements only. */}
-        {currentRegion.indicators ? <div className="space-y-4" data-skin-indicators>
+        {visibleIndicators ? <div className="space-y-4" data-skin-indicators>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {currentRegion.indicators.map(indicator=>{
+            {visibleIndicators.map(indicator=>{
               const geometry=indicator.appearance?.type==='longitudinal_measurement';
               const delta=indicator.referenceDelta===undefined?undefined:Math.round(indicator.referenceDelta*(geometry?1000:1));
               return <div key={indicator.id} data-skin-indicator={indicator.id} role={onSelectCriterion?'button':undefined} tabIndex={onSelectCriterion?0:undefined} aria-pressed={onSelectCriterion?selectedCriterion===indicator.id:undefined} onClick={()=>onSelectCriterion?.(indicator.id)} onKeyDown={event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();onSelectCriterion?.(indicator.id);}}} className={`rounded-2xl border bg-slate-900/60 p-4 space-y-3 ${selectedCriterion===indicator.id?'border-togg-turquoise ring-1 ring-togg-turquoise/40':'border-sky-400/15'}`}>
@@ -136,7 +151,6 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
           </div>}
         </div>}
       </div>
-
 
       {/* 3 İkincil Eylem Butonu */}
       <div className="grid grid-cols-3 gap-3 pt-1">

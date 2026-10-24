@@ -5,14 +5,31 @@ import type { SkinIndicator } from '../../utils/skinIndicators';
 import { appearanceColor, skinDisplayKind, SKIN_DISPLAY_DIRECTION } from '../../utils/skinPresentation';
 import { ResultValue } from '../ResultValue';
 
+const UNMEASURABLE_LIMITATION_CODES = new Set([
+  'CAPTURE_QUALITY',
+  'GLARE_OR_EXPOSURE',
+  'INSUFFICIENT_SUPPORT',
+  'INSUFFICIENT_VALID_PIXELS',
+  'INSUFFICIENT_VISIBLE_AREA',
+  'INSUFFICIENT_FRONT_COVERAGE',
+  'INSUFFICIENT_SOURCE_DETAIL',
+  'ANATOMICAL_BAND_NOT_VISIBLE',
+  'LOWER_FACE_NOT_MEASURABLE',
+  'INCOMPLETE_CHEEKS_UNVERIFIED',
+  'INCOMPLETE_TZONE_UNVERIFIED',
+  'HAIR_OR_OCCLUSION_IN_LINE_BAND',
+  'ADJACENT_SKIN_MISSING',
+  'insufficient-valid-source-samples',
+]);
+
 export function SkinIndicatorValue({ indicator, bar = true }: { indicator: SkinIndicator; bar?: boolean }) {
  const {text:i18nText,node:i18nNode}=useTranslations();
   const kind = skinDisplayKind(indicator), baseline = indicator.appearance?.limitationCode === 'REFERENCE_CREATED';
   const limitation = indicator.appearance?.limitationCode || indicator.measurement?.unavailableReason;
   const value = indicator.score;
   if (value === null || !Number.isFinite(value) || baseline) {
-    if (limitation && ['CAPTURE_QUALITY', 'GLARE_OR_EXPOSURE', 'INSUFFICIENT_SUPPORT', 'INSUFFICIENT_VALID_PIXELS', 'INCOMPLETE_CHEEKS_UNVERIFIED'].includes(limitation)) {
-      return <span className="text-sm font-semibold text-amber-300/80">{i18nText("Ölçülemedi")}</span>;
+    if (limitation && UNMEASURABLE_LIMITATION_CODES.has(limitation)) {
+      return <span className="text-sm font-semibold text-amber-300/80" data-limitation-code={limitation}>{i18nText("Ölçülemedi")}</span>;
     }
     return <span className="text-xl font-bold text-slate-300">—</span>;
   }

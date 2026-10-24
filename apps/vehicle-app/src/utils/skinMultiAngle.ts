@@ -12,12 +12,29 @@ export interface MultiAngleReference {
   schemaVersion: 2; scope: 'three-angle-v2'; id: string; timestamp: string;
   captures: Record<SkinAngle, AngleCapture>;
 }
+
+export function skinPoseRotation(a: FaceAlignment | undefined | null): { yawDeg: number; pitchDeg: number; rollDeg: number; cameraMirrored: boolean } | null {
+  const m = a?.faceTransform;
+  if (!Array.isArray(m) || m.length < 16 || !m.slice(0, 16).every(Number.isFinite)) return null;
+  if (![m[0], m[4], m[8], m[1], m[5], m[9], m[2], m[6], m[10]].every(v => Math.abs(v) <= 1.05)) return null;
+  const yawDeg = Math.round((Math.atan2(m[8], m[10]) * 180 / Math.PI) * 100) / 100;
+  const pitchDeg = Math.round((Math.asin(Math.max(-1, Math.min(1, -m[9]))) * 180 / Math.PI) * 100) / 100;
+  const rollDeg = Math.round((Math.atan2(m[1], m[5]) * 180 / Math.PI) * 100) / 100;
+  return { yawDeg, pitchDeg, rollDeg, cameraMirrored: false };
+}
+
 // Camera pixels are unmirrored. Positive yaw means nose toward raw image right,
-// i.e. the participant's anatomical LEFT. CSS preview mirroring never changes this sign.
+// i.e. the participant's anatomical LEFT (exposing the right cheek). CSS preview mirroring never changes this sign.
 export function matchesSkinAngle(a: FaceAlignment, angle: SkinAngle): boolean {
   if (!a.faceDetected || !a.isMediaPipeActive || ![a.yaw, a.pitch, a.roll, a.scaleRatio].every(Number.isFinite)) return false;
   const actualScale = a.landmarks?.length ? Math.max(...a.landmarks.map(p => p.x)) - Math.min(...a.landmarks.map(p => p.x)) : a.scaleRatio;
   if ((a.sourceFramed===undefined ? actualScale < .28 || actualScale > .68 : !a.sourceFramed) || Math.abs(a.pitch) > .22 || Math.abs(a.roll) > .15) return false;
+  const rot = skinPoseRotation(a);
+  if (rot) {
+    if (angle === 'FRONT') return Math.abs(rot.yawDeg) <= 10 && Math.abs(a.yaw) <= .20;
+    if (angle === 'RIGHT') return rot.yawDeg <= -12 && rot.yawDeg >= -38 && a.yaw <= -.28 && a.yaw >= -.92;
+    return rot.yawDeg >= 12 && rot.yawDeg <= 38 && a.yaw >= .28 && a.yaw <= .92;
+  }
   return angle === 'FRONT' ? Math.abs(a.yaw) <= .20 : angle === 'RIGHT' ? a.yaw <= -.32 && a.yaw >= -.65 : a.yaw >= .32 && a.yaw <= .65;
 }
 export function angleGuidance(a: FaceAlignment, angle: SkinAngle): string {
@@ -28,7 +45,11 @@ export function angleGuidance(a: FaceAlignment, angle: SkinAngle): string {
   if (Math.abs(a.pitch) > .22 || Math.abs(a.roll) > .15) return 'Başınızı dik tutun; yukarı veya aşağı eğmeyin.';
   if (matchesSkinAngle(a, angle)) return 'Poz uygun. Lütfen sabit durun...';
   if (angle === 'FRONT') return 'Doğrudan kameraya bakın.';
-  return angle === 'RIGHT' ? 'Sol yanağınızı kameraya göstermek için başınızı hafifçe sağa çevirin (25°-40°).' : 'Sağ yanağınızı kameraya göstermek için başınızı hafifçe sola çevirin (25°-40°).';
+  const rot = skinPoseRotation(a);
+  if ((rot && Math.abs(rot.yawDeg) > 38) || Math.abs(a.yaw) > (rot ? .92 : .65)) {
+    return 'Başınızı çok fazla çevirdiniz; kameraya biraz geri dönün (15°–35°).';
+  }
+  return angle === 'RIGHT' ? 'Sol yanağınızı kameraya göstermek için başınızı hafifçe sağa çevirin (15°–35°).' : 'Sağ yanağınızı kameraya göstermek için başınızı hafifçe sola çevirin (15°–35°).';
 }
 export async function captureSkinAngle(ctx: CanvasRenderingContext2D, a: FaceAlignment, quality: ImageQuality, angle: SkinAngle, prior: Partial<Record<SkinAngle, AngleCapture>>): Promise<AngleCapture> {
   if (!matchesSkinAngle(a, angle) || !quality.isValid) throw new Error('INVALID_ANGLE');
@@ -39,7 +60,20 @@ export async function captureSkinAngle(ctx: CanvasRenderingContext2D, a: FaceAli
   // Side captures only measure the exposed cheek; occluded regions are never inferred.
   const ids = angle === 'FRONT' ? undefined : [angle === 'RIGHT' ? 'leftCheek' : 'rightCheek'];
   const regions = SkinAnalyzer.analyzeRegions(ctx, ctx.canvas.width, ctx.canvas.height, a, ids);
-  return { angle, frameToken, regions, quality, pose: { yaw: a.yaw, pitch: a.pitch, roll: a.roll, scaleRatio: a.scaleRatio } };
+  const rot = skinPoseRotation(a);
+  return {
+    angle,
+    frameToken,
+    regions,
+    quality,
+    pose: {
+      yaw: a.yaw,
+      pitch: a.pitch,
+      roll: a.roll,
+      scaleRatio: a.scaleRatio,
+      ...(rot ? { yawDeg: rot.yawDeg, pitchDeg: rot.pitchDeg, rollDeg: rot.rollDeg, cameraMirrored: rot.cameraMirrored } : { cameraMirrored: false })
+    }
+  };
 }
 export function compareMultiAngle(current: MultiAngleReference, prior: MultiAngleReference | null) {
   const hasReference = prior !== null;

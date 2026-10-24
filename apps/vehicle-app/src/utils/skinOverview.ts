@@ -3,7 +3,7 @@ import type { SkinIndicator } from './skinIndicators';
 import { skinCriterionLabel, SIGN_LABELS } from './skinIndicators';
 import type { AppearanceResponse } from './appearanceMeasurements';
 
-export const SKIN_TYPE_LABELS = { normal: 'Normal', dry: 'Kuru', oily: 'Yağlı', combination: 'Karma' } as const;
+export const SKIN_TYPE_LABELS = { normal: 'Normal', dry: 'Kuru', oily: 'Yağlı', combination: 'Karma', sensitive: 'Hassas' } as const;
 export type SkinTypeId = keyof typeof SKIN_TYPE_LABELS;
 export type SkinViewId = 'overview' | SkinRegionId;
 export const SKIN_VIEW_ORDER: SkinViewId[] = ['overview', ...REGION_ORDER];
@@ -15,7 +15,8 @@ function displayLabels(rows: SkinIndicator[], scope: 'regional'|'whole-face'): S
 }
 export type SkinOverview = {
   schemaVersion: 1; analysisId?: string; captureId: string; pose: 'FRONT';
-  skinType: { value: SkinTypeId | null; quality: 'valid' | 'invalid' | 'insufficient'; confidence: number | null; methodVersion: string; modelHash: string | null; limitationCode: string | null; provider?:string;providerModelId?:string;inferenceKind?:'hosted'|'local-onnx';decisionVersion?:string;sourceModel?:string };
+  skinType: { value: SkinTypeId | null; quality: 'valid' | 'invalid' | 'insufficient'; confidence: number | null; methodVersion: string; modelHash: string | null; limitationCode: string | null; provider?:string;providerModelId?:string;inferenceKind?:'hosted'|'local-onnx';decisionVersion?:string;sourceModel?:string;decisionTrace?:Record<string,any> };
+  regionalSkinMap?: Record<string, any>;
   indicators: SkinIndicator[]; normalizationVersion: string;
   modelInputTransform?:Record<string,number|string|boolean>|null;modelInference?:Record<string,Record<string,number|string>>;
   sourceTransform: { sourceWidth: number; sourceHeight: number; coordinateSpace: 'source-pixels' };
@@ -23,7 +24,9 @@ export type SkinOverview = {
 export function overviewFromResponse(response: AppearanceResponse): SkinOverview | undefined {
   if (!response.general) return;
   return { schemaVersion: 1, captureId: response.photoId, pose: 'FRONT',
-    skinType: response.general.skinType, normalizationVersion: response.general.normalizationVersion,
+    skinType: response.general.skinType,
+    regionalSkinMap: (response.general as any).regionalSkinMap || (response as any).regionalSkinMap,
+    normalizationVersion: response.general.normalizationVersion,
     modelInputTransform:response.general.modelInputTransform,modelInference:response.general.modelInference,
     sourceTransform: { sourceWidth: response.sourceWidth, sourceHeight: response.sourceHeight, coordinateSpace: 'source-pixels' },
     indicators: response.general.measurements.map(value => ({ id: value.id, label: skinCriterionLabel(value.id,'whole-face'), score: value.value,
@@ -53,7 +56,7 @@ export function buildSkinViewModel(id: SkinViewId, result: any, demo = false): S
     const region = buildSkinRegionViewModel(id, result, demo);
     // Historical numeric records can predate schemaVersion 3. Preserve their
     // actual regional rows without inventing an overview or changing units.
-    return { ...region, ...(Array.isArray(result?.indicators?.[id]) ? { indicators: displayLabels(result.indicators[id],'regional') } : {}),
+    return { ...region, skinType: result?.general?.skinType, ...(Array.isArray(result?.indicators?.[id]) ? { indicators: displayLabels(result.indicators[id],'regional') } : {}),
       index: region.index + (result?.general ? 1 : 0), viewTotal: result?.general ? 7 : 6 };
   }
   return { ...SKIN_REGIONS.forehead, id: 'overview', index: 1, viewTotal: 7,
