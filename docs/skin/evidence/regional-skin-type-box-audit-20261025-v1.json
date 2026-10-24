@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "regional-skin-type-box-audit-v1",
+  "observedAt": "2026-10-24T23:19:50Z",
+  "source": {
+    "project": "tolgar-sasmaz/attune-skin-type-regional-r1",
+    "version": 2,
+    "archiveSHA256": "4af7732298a0f54c3e1bd4aa68ca954429c39a19a832331a4ce542ae365fa228",
+    "archiveBytes": 54914366,
+    "exportFormat": "coco",
+    "providerLicense": "CC BY 4.0"
+  },
+  "taskSemantics": {
+    "providerTaskType": "object-detection",
+    "observedGeometry": "bounding_boxes",
+    "targetClasses": [
+      "dry",
+      "oily"
+    ],
+    "normalClassPresent": false,
+    "boxToMaskConversionAllowed": false,
+    "missingAnnotationMeansNormal": false
+  },
+  "inventory": {
+    "images": 1711,
+    "uniqueSourceIds": 990,
+    "augmentationCopiesBeyondUniqueSources": 721,
+    "annotations": 5252,
+    "classAnnotations": {
+      "dry": 3648,
+      "oily": 1604
+    },
+    "nonEmptySegmentations": 0,
+    "imagesWithoutAnnotations": 38,
+    "splits": {
+      "train": {
+        "images": 1442,
+        "uniqueSourceIds": 721,
+        "augmentationCopiesBeyondUniqueSources": 721,
+        "annotations": 4378,
+        "classAnnotations": {
+          "dry": 3058,
+          "oily": 1320
+        },
+        "nonEmptySegmentations": 0,
+        "imagesWithoutAnnotations": 30
+      },
+      "valid": {
+        "images": 150,
+        "uniqueSourceIds": 150,
+        "augmentationCopiesBeyondUniqueSources": 0,
+        "annotations": 474,
+        "classAnnotations": {
+          "dry": 311,
+          "oily": 163
+        },
+        "nonEmptySegmentations": 0,
+        "imagesWithoutAnnotations": 4
+      },
+      "test": {
+        "images": 119,
+        "uniqueSourceIds": 119,
+        "augmentationCopiesBeyondUniqueSources": 0,
+        "annotations": 400,
+        "classAnnotations": {
+          "dry": 279,
+          "oily": 121
+        },
+        "nonEmptySegmentations": 0,
+        "imagesWithoutAnnotations": 4
+      }
+    },
+    "crossSplitSourceIds": {
+      "train-valid": 0,
+      "train-test": 0,
+      "valid-test": 0
+    }
+  },
+  "decision": {
+    "regionalTruthEligible": false,
+    "trainingAuthorized": false,
+    "modelAccepted": false,
+    "productActivationAllowed": false,
+    "reasons": [
+      "BOX_ONLY_GEOMETRY_CANNOT_SERVE_AS_REGIONAL_MASK_TRUTH",
+      "EVALUATED_NORMAL_CLASS_MISSING",
+      "PERSON_INDEPENDENCE_UNESTABLISHED",
+      "EXPERT_LABEL_PROTOCOL_UNVERIFIED",
+      "CAMERA_ACCEPTANCE_MISSING"
+    ]
+  },
+  "verification": {
+    "script": "scripts/skin-research/audit_regional_skin_type_boxes.py",
+    "test": "scripts/skin-research/tests/test_audit_regional_skin_type_boxes.py",
+    "testsPassed": 5,
+    "pythonCompile": true,
+    "imageBytesCommitted": false,
+    "rawFilenamesCommitted": false
+  }
+}
