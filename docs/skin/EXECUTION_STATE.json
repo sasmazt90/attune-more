@@ -415,8 +415,8 @@
           "left70": 5,
           "right70": 4
         },
-        "proposalConfirmedCrossSplitGroups": 14,
-        "proposalConfirmedCrossSplitMembers": 33,
+        "proposalConfirmedCrossSplitGroups": 16,
+        "proposalConfirmedCrossSplitMembers": 37,
         "proposalTestTrainLeakageConfirmed": true
       }
     },
@@ -732,7 +732,84 @@
         ]
       }
     },
-    "allProjectsPrivate": true,
+    "regionalSkinTypeBoxes": {
+      "observedAt": "2026-10-24T23:19:50Z",
+      "project": "tolgar-sasmaz/attune-skin-type-regional-r1",
+      "projectVisibility": "public",
+      "projectSummaryImages": 991,
+      "version": 2,
+      "generatedImages": 1711,
+      "uniqueSourceIds": 990,
+      "splitImages": {
+        "train": 1442,
+        "valid": 150,
+        "test": 119
+      },
+      "splitSourceIds": {
+        "train": 721,
+        "valid": 150,
+        "test": 119
+      },
+      "crossSplitSourceIdOverlap": 0,
+      "personIndependentSplitsEstablished": false,
+      "annotations": 5252,
+      "classes": {
+        "dry": 3648,
+        "oily": 1604
+      },
+      "geometry": {
+        "boundingBoxes": 5252,
+        "nonEmptySegmentations": 0,
+        "regionalMaskTruth": false,
+        "normalTruth": false
+      },
+      "imagesWithoutBoxes": 38,
+      "missingBoxesAreNormal": false,
+      "archiveSha256": "4af7732298a0f54c3e1bd4aa68ca954429c39a19a832331a4ce542ae365fa228",
+      "trainingId": "a9e8b8a021825191cf5b",
+      "trainingStatus": "finished",
+      "modelType": "rfdetr-small",
+      "modelId": "tolgar-sasmaz/attune-skin-type-regional-r1-2-rfdetr-small-t1",
+      "evaluationId": "0CmXsrY0XavjXmUjjhBv",
+      "evaluationStatus": "complete",
+      "overallTest": {
+        "map50": 0.180474,
+        "map50_95": 0.067493,
+        "precision": 0.357,
+        "recall": 0.269,
+        "f1": 0.286,
+        "medianLatencyMs": 16.09
+      },
+      "validationSelectedThreshold": 0.21,
+      "thresholdLockedBeforeTest": false,
+      "testAtThreshold": {
+        "dry": {
+          "precision": 0.199,
+          "recall": 0.233,
+          "f1": 0.215,
+          "map50": 0.145652,
+          "map50_95": 0.056084
+        },
+        "oily": {
+          "precision": 0.198,
+          "recall": 0.471,
+          "f1": 0.279,
+          "map50": 0.215297,
+          "map50_95": 0.078902
+        }
+      },
+      "accepted": false,
+      "activationAllowed": false,
+      "decision": "Research-only: box localization cannot supply regional masks, normal truth or mixed-skin evidence; the exposed test cannot be reused for threshold selection.",
+      "implementationCommit": "8a7f47637ac1fe451c3087fb6b817d761416f45d",
+      "evidence": [
+        "docs/skin/evidence/regional-skin-type-box-audit-20261025-v1.json",
+        "docs/skin/evidence/regional-skin-type-box-model-receipt-20261025-v1.json",
+        "docs/skin/evidence/regional-skin-type-box-model-verdict-20261025-v1.json",
+        "docs/skin/regional-skin-type-box-audit-20261025.md"
+      ]
+    },
+    "allProjectsPrivate": false,
     "externalCandidates": {
       "merveV12": {
         "modelId": "ciltanalizi-rfa8m/12",
@@ -1489,12 +1566,17 @@
         "tests/unit/test_audit_original_photo_model_comparison.py",
         "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
         "docs/skin/evidence/roboflow-live-evaluations-20261024.json",
-        "docs/skin/original-photo-model-comparison-audit-20261024.md"
+        "docs/skin/original-photo-model-comparison-audit-20261024.md",
+        "docs/skin/evidence/regional-skin-type-box-audit-20261025-v1.json",
+        "docs/skin/evidence/regional-skin-type-box-model-receipt-20261025-v1.json",
+        "docs/skin/evidence/regional-skin-type-box-model-verdict-20261025-v1.json",
+        "docs/skin/regional-skin-type-box-audit-20261025.md"
       ],
       "blockers": [
         "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
         "Oily test mask precision/recall 0.649/0.411 and class-union IoU 0.309 require improvement. Redness test mask precision/recall 0.625/0.405, but class-union IoU 0.709 shows that instance subdivision matters; only nine test images have redness annotations. This is promising research evidence, not camera acceptance.",
-        "Live eval DnEj7h84bQauUdGIVrUQ verifies regional child e79545 test F1 0.513 for Oily, but the model has only Oily/Redness classes and no Dry/Normal support. The comparison map is research-only and cannot authorize an oil/skin-type activation."
+        "Live eval DnEj7h84bQauUdGIVrUQ verifies regional child e79545 test F1 0.513 for Oily, but the model has only Oily/Redness classes and no Dry/Normal support. The comparison map is research-only and cannot authorize an oil/skin-type activation.",
+        "External regional-skin-type v2 has dry/oily boxes only, no polygons or normal truth. At the exposed test and threshold 0.21, oily F1 is 0.279; thresholds were not locked before test and the shared acceptance gate rejects activation."
       ]
     },
     {
@@ -1513,12 +1595,17 @@
         "docs/skin/evidence/source-review-manifest-20261023-v1.json.gz",
         "docs/skin/evidence/source-visual-inspection-20261023-v1.json",
         "docs/skin/evidence/source-review-checks-20261023-v1.json",
-        "docs/skin/source-pair-preparation-20261023.md"
+        "docs/skin/source-pair-preparation-20261023.md",
+        "docs/skin/evidence/regional-skin-type-box-audit-20261025-v1.json",
+        "docs/skin/evidence/regional-skin-type-box-model-receipt-20261025-v1.json",
+        "docs/skin/evidence/regional-skin-type-box-model-verdict-20261025-v1.json",
+        "docs/skin/regional-skin-type-box-audit-20261025.md"
       ],
       "blockers": [
         "Clean3 supplies only6genuine dry polygons. Direct Mervev12 hash matches original selected archive:2590pul boxes,0pul polygons; all3368filenames CLAHE-prefixed and prior ledger excludes processed positives from natural RGB calibration. SixTRAINexamples reviewed byassistant,notexpert. Boxes must not become blue masks; absence ofpul is not normal truth.",
         "Research box localization can be studied with grouping and label review, but natural-camera region truth/negative coverage and sufficient dry polygons remain unavailable. Other roadmap work continues.",
-        "New Dryness v1 export has61nonrectangular polygons (47withvalidboxes), plus FACEv3dry48polygons; source labels range from visible peeling to broad/nonfacial/lesion-like regions. 700Dryness images exactly match existing audit pixels. Review-only pairs prepared; no source label accepted as natural-camera dryness/flaking truth."
+        "New Dryness v1 export has61nonrectangular polygons (47withvalidboxes), plus FACEv3dry48polygons; source labels range from visible peeling to broad/nonfacial/lesion-like regions. 700Dryness images exactly match existing audit pixels. Review-only pairs prepared; no source label accepted as natural-camera dryness/flaking truth.",
+        "External regional-skin-type v2 contains 3,648 dry boxes and zero dry polygons. Its exposed-test dry F1 is 0.215 at threshold 0.21; it cannot authorize a blue regional mask or dryness/flaking result."
       ]
     },
     {
@@ -1543,12 +1630,19 @@
         "tests/unit/test_audit_original_photo_model_comparison.py",
         "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
         "docs/skin/evidence/roboflow-live-evaluations-20261024.json",
-        "docs/skin/original-photo-model-comparison-audit-20261024.md"
+        "docs/skin/original-photo-model-comparison-audit-20261024.md",
+        "scripts/skin-research/audit_regional_skin_type_boxes.py",
+        "scripts/skin-research/tests/test_audit_regional_skin_type_boxes.py",
+        "docs/skin/evidence/regional-skin-type-box-audit-20261025-v1.json",
+        "docs/skin/evidence/regional-skin-type-box-model-receipt-20261025-v1.json",
+        "docs/skin/evidence/regional-skin-type-box-model-verdict-20261025-v1.json",
+        "docs/skin/regional-skin-type-box-audit-20261025.md"
       ],
       "blockers": [
         "Validated regional method registry remains empty; unknown is grey, legacy tiny supports cannot force combination. Base three-class model retained. Need regional training/calibration, independent tests and camera evidence before enabling methods; synthetic fixture policies are not product calibration.",
         "FACEv3normal88sourcepolygons include broad/full-face masks covering eyes in sampled trainexamples.16normal-maskpairs prepared forreview only; no explicit region assessability/normal completeness accepted.",
-        "The comparison's regional child supplies Oily and Redness only. It cannot infer evaluated Dry or Normal, and cannot satisfy the mixed-skin rule. Unknown stays unknown; no whole-face class may be copied to regional truth."
+        "The comparison's regional child supplies Oily and Redness only. It cannot infer evaluated Dry or Normal, and cannot satisfy the mixed-skin rule. Unknown stays unknown; no whole-face class may be copied to regional truth.",
+        "External regional-skin-type v2 represents 990 filename-bound source IDs with no cross-split source-ID overlap, but person independence is unestablished. All 5,252 dry/oily labels are boxes, 38 generated images have no boxes, and there is no normal class; neither boxes nor missing labels can become regional normal/dry/oily truth or a mixed-skin decision."
       ]
     },
     {
@@ -2299,6 +2393,7 @@
     }
   },
   "nextActions": [
+    "Keep tolgar-sasmaz/attune-skin-type-regional-r1 v2 research-only and do not retrain or activate it. Its actual COCO export has dry/oily boxes only, zero polygons, no normal class, unestablished person independence and an already exposed test; obtain rights-reviewed expert regional polygons for normal/dry/oily, group-safe splits and an untouched final test before any new training or mixed-skin inference.",
     "For tasks 01–03, all 227 image/name-similarity pairs at the current review thresholds are resolved. Every similarity method, including the central gradient pHash, is candidate-only and does not establish full identity coverage. The proposal now confirms 16 cross-split source/person groups covering 37 records, but 729 singleton records still lack reviewed provenance/person identity; do not treat singleton assignment as truth. Use the separate 81-item semantic queue for expert class/hard-negative policy, preserve all 82 test records, then convert only fully reviewed groups into the group-coverage receipt and re-run the split-release gate before generating any version.",
     "Run the now-wired skin presentation and current-merged capability regressions through PR/main CI or a normal dependency-materialized workspace, then complete real-browser and consented physical-camera acceptance. Preserve the verified working baseline (nine appearance criteria, separate skin type and regional outputs) while Post acne and Pigmentation remain additive gated headings.",
     "Preserve the new display-unit boundary: only true supported-area ratios may use a percent meter. Keep color/line/fold/generic indices neutral and bar-free, and do not activate the independent review's cited model thresholds without validation-selected, locked independent-test and real-camera evidence.",
@@ -2792,6 +2887,15 @@
       "commits": [
         "d70008b699d2c6dc96bd4c37e61f6da54ec4d6f7"
       ]
+    },
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-24T23:19:50Z",
+      "action": "Read the persistent checkpoint first; refreshed all 20 accessible Roboflow projects and preserved existing acne, regional and under-eye jobs without duplication. Detected the externally created tolgar-sasmaz/attune-skin-type-regional-r1 v2 and its finished RF-DETR Small training a9e8b8a021825191cf5b, so no new training was started. Downloaded and SHA-pinned its actual COCO export, then audited geometry and grouping: 1,711 generated images represent 990 source IDs, 5,252 dry/oily annotations are boxes and zero are polygons; 38 generated images have no boxes, which is not normal truth. Filename-bound source IDs do not cross splits, but person independence remains unestablished. Read the completed Roboflow evaluation per class: at validation threshold 0.21, dry test F1 is 0.215 and oily 0.279; source test was already exposed, thresholds were not locked before test, and no normal class, camera or integration evidence exists. Applied the shared acceptance gate; the candidate remains research-only and activationAllowed=false. Five new audit tests, the focused suite, Python compilation, JSON and privacy checks passed. No raw images, filenames or model activation were committed.",
+      "report": "docs/skin/regional-skin-type-box-audit-20261025.md",
+      "commits": [
+        "8a7f47637ac1fe451c3087fb6b817d761416f45d"
+      ]
     }
   ],
   "activityLog": [
@@ -2902,6 +3006,15 @@
       "report": "docs/skin/acne-group-coverage-proposal-20261024.md",
       "commits": [
         "d70008b699d2c6dc96bd4c37e61f6da54ec4d6f7"
+      ]
+    },
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-24T23:19:50Z",
+      "action": "Read the persistent checkpoint first; refreshed all 20 accessible Roboflow projects and preserved existing acne, regional and under-eye jobs without duplication. Detected the externally created tolgar-sasmaz/attune-skin-type-regional-r1 v2 and its finished RF-DETR Small training a9e8b8a021825191cf5b, so no new training was started. Downloaded and SHA-pinned its actual COCO export, then audited geometry and grouping: 1,711 generated images represent 990 source IDs, 5,252 dry/oily annotations are boxes and zero are polygons; 38 generated images have no boxes, which is not normal truth. Filename-bound source IDs do not cross splits, but person independence remains unestablished. Read the completed Roboflow evaluation per class: at validation threshold 0.21, dry test F1 is 0.215 and oily 0.279; source test was already exposed, thresholds were not locked before test, and no normal class, camera or integration evidence exists. Applied the shared acceptance gate; the candidate remains research-only and activationAllowed=false. Five new audit tests, the focused suite, Python compilation, JSON and privacy checks passed. No raw images, filenames or model activation were committed.",
+      "report": "docs/skin/regional-skin-type-box-audit-20261025.md",
+      "commits": [
+        "8a7f47637ac1fe451c3087fb6b817d761416f45d"
       ]
     }
   ]
