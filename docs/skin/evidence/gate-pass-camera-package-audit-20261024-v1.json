@@ -1,0 +1,310 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "libraryFileId": "libfile_9a158253d1788191b8de772e7f339b6b",
+    "archiveFilename": "Attune_6_Profiles_18_Images_GATE_PASS_20261024.zip",
+    "archiveBytes": 25480198,
+    "archiveSHA256": "5096055f1cbd3afb28f4cdc1c2a40584b9c5d8159a6371e0d558f38a2ca90f28",
+    "rawImagesCommitted": false
+  },
+  "integrity": {
+    "zipMembers": 57,
+    "checksumRows": 56,
+    "checksumCoverageComplete": true,
+    "safePaths": true,
+    "uniqueImageBytes": true,
+    "uniquePhotoIds": true,
+    "manifestSHA256": "d83ea9429e1a95fef036e8a51316597181c15504c853ccf49c91e821ab994ed1"
+  },
+  "gate": {
+    "people": 6,
+    "images": 18,
+    "posesPerPerson": [
+      "FRONT",
+      "RIGHT",
+      "LEFT"
+    ],
+    "staticPreflightAccepted": 18,
+    "optimalQuality": 18,
+    "clearCaptureCheck": 18,
+    "landmarksPerImage": 478,
+    "captureCheckVersion": "glasses-free-skin-capture-v1",
+    "captureModelHash": "66f75c686974a04bf956d0ed6411315309afcabd36c400edec743953adafccb9",
+    "dimensions": [
+      {
+        "width": 1451,
+        "height": 1084,
+        "count": 5
+      },
+      {
+        "width": 2048,
+        "height": 1529,
+        "count": 8
+      },
+      {
+        "width": 2400,
+        "height": 1792,
+        "count": 5
+      }
+    ],
+    "formats": {
+      ".jpg": 13,
+      ".png": 5
+    },
+    "sourceKinds": {
+      "assistant_imagegen_revision": 5,
+      "original_package": 8,
+      "user_replacement": 5
+    }
+  },
+  "reuseDecision": {
+    "frontHashSetMatchesSavedRoboflowInputs": true,
+    "frontImages": 6,
+    "repeatRoboflowInferenceRequired": false,
+    "savedRoboflowEvidence": "docs/skin/evidence/generated-front-roboflow-20261024-v1.json"
+  },
+  "acceptance": {
+    "staticGeneratedReplayGate": true,
+    "fullV5SkinAnalysisCompleted": false,
+    "physicalCameraAcceptance": false,
+    "temporalStabilityMeasured": false,
+    "expertGroundTruth": false,
+    "precisionRecallF1Eligible": false
+  },
+  "files": [
+    {
+      "personId": "01_england",
+      "measurementPersonId": "01_england",
+      "pose": "FRONT",
+      "file": "01_england/front.jpg",
+      "sha256": "2945ce637fefa6099fcef31f9ae19a548f7c2cd13dc010eb967267830f429184",
+      "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+      "width": 2048,
+      "height": 1529,
+      "sourceKind": "original_package",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "01_england",
+      "measurementPersonId": "01_england_replacement",
+      "pose": "RIGHT",
+      "file": "01_england/side_1.jpg",
+      "sha256": "773d3f320e45b8a85246e0ca20e31aa3752c8c7a8a593b7dcb50d8f161e3e50a",
+      "photoId": "b9c728e68bd5172f12f231548485be9fd56653d698a4843042b3735be3784160",
+      "width": 2400,
+      "height": 1792,
+      "sourceKind": "user_replacement",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "01_england",
+      "measurementPersonId": "01_england_revised",
+      "pose": "LEFT",
+      "file": "01_england/side_2.png",
+      "sha256": "f62b84b229c60cdaec467b96e21f5b05bc47e22c8c96b15042fc70034fd4f83a",
+      "photoId": "ee74a4b587e800e285d0ba91fa2d97aec3ca3127c4fded2030a3fb476ec428f0",
+      "width": 1451,
+      "height": 1084,
+      "sourceKind": "assistant_imagegen_revision",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "02_germany",
+      "measurementPersonId": "02_germany",
+      "pose": "FRONT",
+      "file": "02_germany/front.jpg",
+      "sha256": "a44fb454da79908755e47dec3bdd027088fda38c4328503fd1dfd517ecfef12f",
+      "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+      "width": 2048,
+      "height": 1529,
+      "sourceKind": "original_package",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "02_germany",
+      "measurementPersonId": "02_germany_replacement",
+      "pose": "RIGHT",
+      "file": "02_germany/side_1.jpg",
+      "sha256": "1925c1811a2388ac55344e410aed561d2a84474b05f2ffbaf52dc37674f32b53",
+      "photoId": "e9e33936e3fb8f7411556bd793595a9f063050f74eb7456442d979ce731ddb64",
+      "width": 2400,
+      "height": 1792,
+      "sourceKind": "user_replacement",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "02_germany",
+      "measurementPersonId": "02_germany_replacement",
+      "pose": "LEFT",
+      "file": "02_germany/side_2.jpg",
+      "sha256": "17da3746011c138b63d8d60f2f51fa4ff970022b79ab9e59a783a49419a7b2d0",
+      "photoId": "02abd4505f2668f142760161bb64382931b5f4668b14d15c0c6265cbc4f2b0be",
+      "width": 2400,
+      "height": 1792,
+      "sourceKind": "user_replacement",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "03_kenya",
+      "measurementPersonId": "03_kenya",
+      "pose": "FRONT",
+      "file": "03_kenya/front.jpg",
+      "sha256": "b95d5cfd087c4248e31aa3463de1f8d64b52302c6ab1e814d9aabe29b08275fb",
+      "photoId": "7ca73025c6f7c07d4f3a58da1bd4cbf8999fcad1b7b44fd37b96fececf22ea1f",
+      "width": 2048,
+      "height": 1529,
+      "sourceKind": "original_package",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "03_kenya",
+      "measurementPersonId": "03_kenya_replacement",
+      "pose": "RIGHT",
+      "file": "03_kenya/side_1.jpg",
+      "sha256": "a932b20cb6ca0439ea709b444db84d99e56cebed159254024fc586e6e1001591",
+      "photoId": "5bdacf88b6c24872ce4058d6d7fc8d2e1662ac5758abd09e4d9a3e8cc5bfd972",
+      "width": 2400,
+      "height": 1792,
+      "sourceKind": "user_replacement",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "03_kenya",
+      "measurementPersonId": "03_kenya_replacement",
+      "pose": "LEFT",
+      "file": "03_kenya/side_2.jpg",
+      "sha256": "acdb06cfec5a68354779ae8e078ca57546ffb308a98ef4c248653bac3f80e0c6",
+      "photoId": "992824b61ab3e447254d7df7423b94b3b71702ab697e74097a486f45aeeb0bf6",
+      "width": 2400,
+      "height": 1792,
+      "sourceKind": "user_replacement",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "04_scotland",
+      "measurementPersonId": "04_scotland",
+      "pose": "FRONT",
+      "file": "04_scotland/front.jpg",
+      "sha256": "334202b493c1e15877f13531919c390fb397dccb137873330d7934073584a8c8",
+      "photoId": "8b693b24213d9b268b371a9f6bc80dba498dcf7e3cf748b791619402035634b3",
+      "width": 2048,
+      "height": 1529,
+      "sourceKind": "original_package",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "04_scotland",
+      "measurementPersonId": "04_scotland",
+      "pose": "RIGHT",
+      "file": "04_scotland/side_1.jpg",
+      "sha256": "1c8ee5bbae6600ea71ba3a2be5f47d4ebd71675a3a64578e205d0c764650c18a",
+      "photoId": "4e6392ad9baf01b1f613f1bc9f4a6a8de890e1b8e262a677cc58458f862ea7a9",
+      "width": 2048,
+      "height": 1529,
+      "sourceKind": "original_package",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "04_scotland",
+      "measurementPersonId": "04_scotland_revised",
+      "pose": "LEFT",
+      "file": "04_scotland/side_2.png",
+      "sha256": "1639292a47302174789d8b36794415f92b652106b09cfd8d83677013d0606ade",
+      "photoId": "51a0347d7d7ec5e13b8fe8483853875ffc2da00a97b18d35cdaa13fd912cdcfd",
+      "width": 1451,
+      "height": 1084,
+      "sourceKind": "assistant_imagegen_revision",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "05_turkey",
+      "measurementPersonId": "05_turkey",
+      "pose": "FRONT",
+      "file": "05_turkey/front.jpg",
+      "sha256": "4efd376516e2bcba8cf737824adfb30508f173e04363fc822bab860a38a80326",
+      "photoId": "ca81128f4b229ad231ec7e04a1e1e81b916d0f7631a9f54b5af5272cbf0c1632",
+      "width": 2048,
+      "height": 1529,
+      "sourceKind": "original_package",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "05_turkey",
+      "measurementPersonId": "05_turkey",
+      "pose": "RIGHT",
+      "file": "05_turkey/side_1.jpg",
+      "sha256": "3c97ccc468c13f86fa8e4e57313ebdebf396973119e7ba4a27111e9ac373b7cc",
+      "photoId": "a585d9be01f778e6612d17e7a8321e13de75f083f65f3ec33de7574869172614",
+      "width": 2048,
+      "height": 1529,
+      "sourceKind": "original_package",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "05_turkey",
+      "measurementPersonId": "05_turkey_revised",
+      "pose": "LEFT",
+      "file": "05_turkey/side_2.png",
+      "sha256": "03753a0ada2fba3f26b04feed6c6303d4b608bba94ebf1374b2ca3fabd21c937",
+      "photoId": "6379f45cc230debe72fa7dafddce46e865d9642107da5232a41d9cfbfb7a4f89",
+      "width": 1451,
+      "height": 1084,
+      "sourceKind": "assistant_imagegen_revision",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "06_usa",
+      "measurementPersonId": "06_usa",
+      "pose": "FRONT",
+      "file": "06_usa/front.jpg",
+      "sha256": "70e4b5c2a6ba874b07f824190f72799506b1c3949161ea1033d9fa95b8254bce",
+      "photoId": "2aa4baefe40f59683868517fa01b5b4994fb9d3220e7fcd5cafc17985312fedc",
+      "width": 2048,
+      "height": 1529,
+      "sourceKind": "original_package",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "06_usa",
+      "measurementPersonId": "06_usa_revised",
+      "pose": "RIGHT",
+      "file": "06_usa/side_1.png",
+      "sha256": "020ea932718a60fe6ae1fd4913b508b468305ced0815ecdb2396779712082c16",
+      "photoId": "99f35bccf80ea51e2ebc382de4ba4bd21aea0df3ec6d408df80974947b13177d",
+      "width": 1451,
+      "height": 1084,
+      "sourceKind": "assistant_imagegen_revision",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    },
+    {
+      "personId": "06_usa",
+      "measurementPersonId": "06_usa_revised",
+      "pose": "LEFT",
+      "file": "06_usa/side_2.png",
+      "sha256": "14b1f5d720040269d66dd6977cb9ee5bea2570577177ad313c61781050b2b06e",
+      "photoId": "1771016dcc0fbffd6ac9653b167ffb87a2e6ce5191fd878af58383b3680a7dbc",
+      "width": 1451,
+      "height": 1084,
+      "sourceKind": "assistant_imagegen_revision",
+      "quality": "OPTIMAL",
+      "captureStatus": "CLEAR"
+    }
+  ]
+}
