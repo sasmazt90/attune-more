@@ -175,7 +175,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-24",
-      "lastCheckedAt": "2026-10-23T23:49:37.220Z",
+      "lastCheckedAt": "2026-10-24T00:35:49Z",
       "modelCount": 89,
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
@@ -327,7 +327,7 @@
         "invalidGeometry": 0
       },
       "versions": [],
-      "lastCheckedAt": "2026-10-23T23:49:37.220Z",
+      "lastCheckedAt": "2026-10-24T00:35:49Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -420,7 +420,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-23T23:49:37.220Z",
+      "lastCheckedAt": "2026-10-24T00:35:49Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "modelIds": [
@@ -1131,7 +1131,10 @@
         "docs/skin/evidence/camera-triplet-generated-smoke-20261024-v1.json",
         "docs/skin/evidence/generated-front-roboflow-20261024-v1.json",
         "tests/unit/test_generated_front_roboflow_evidence.py",
-        "docs/skin/generated-camera-triplet-roboflow-review-20261024.md"
+        "docs/skin/generated-camera-triplet-roboflow-review-20261024.md",
+        "scripts/skin-research/build_attune_roboflow_comparison.py",
+        "scripts/skin-research/tests/test_build_attune_roboflow_comparison.py",
+        "docs/skin/attune-roboflow-source-bound-comparison-gate-20261024.md"
       ],
       "blockers": [
         "Final holdout independence is not established: perceptual and filename crop relations need source/provenance review; prior exposure and person overlap are unknown.",
@@ -1500,12 +1503,16 @@
         "docs/skin/tone-pigmentation-product-contract-20261023.md",
         "docs/skin/evidence/camera-triplet-generated-smoke-20261024-v1.json",
         "docs/skin/evidence/generated-front-roboflow-20261024-v1.json",
-        "docs/skin/generated-camera-triplet-roboflow-review-20261024.md"
+        "docs/skin/generated-camera-triplet-roboflow-review-20261024.md",
+        "scripts/skin-research/build_attune_roboflow_comparison.py",
+        "scripts/skin-research/tests/test_build_attune_roboflow_comparison.py",
+        "docs/skin/attune-roboflow-source-bound-comparison-gate-20261024.md"
       ],
       "blockers": [
         "The merged main branch already has the nine-criterion result path, separate skin type, six regional views, overview, local maps/contours, persistence gate and result UI. The roadmap branch now extends the result contract to eleven appearance headings plus skin type; Post acne and Pigmentation remain explicitly unavailable, not fabricated. Production merge/deployment is not part of this run.",
         "Regional summaries now pass strict parsing, source-bound presentation, explicit categorical history availability states, retained-photo replay validation and the same replay gate before IndexedDB write and after read. An unknown, missing or malformed selected record cannot fall back to an older result; method changes are not bridged. Real browser/IndexedDB screenshot replay cannot run in this environment because Python Playwright and a Chromium executable are absent. Full app typecheck, browser/API/history E2E and real-camera acceptance remain pending.",
-        "No oil/dry/redness method is activated by synthetic contract, history, replay or storage tests; the accepted-method registry remains authoritative and currently empty."
+        "No oil/dry/redness method is activated by synthetic contract, history, replay or storage tests; the accepted-method registry remains authoritative and currently empty.",
+        "A fail-closed six-subject current-product/Roboflow comparison gate is implemented, but no comparison receipt exists yet: the connected Railway account has no Attune service, the product UI is camera/MediaPipe-only, and this scratch runtime lacks the product OpenCV/MediaPipe/ONNX/FastAPI stack. Capture all six source-bound FRONT responses from the pinned merged product commit; do not fabricate or substitute values."
       ]
     }
   ],
@@ -1542,9 +1549,20 @@
       "expertGroundTruth": false,
       "precisionRecallF1Eligible": false,
       "evidence": "docs/skin/evidence/camera-triplet-generated-smoke-20261024-v1.json"
+    },
+    "generatedCurrentProductComparison": {
+      "gate": "scripts/skin-research/build_attune_roboflow_comparison.py",
+      "tests": "scripts/skin-research/tests/test_build_attune_roboflow_comparison.py",
+      "requiredSubjects": 6,
+      "currentProductCommit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+      "currentProductEndpoint": "/api/local-health/skin",
+      "roboflowModelPackage": "7ee34fce76456d9ff4cfe6e7049aad1e",
+      "comparisonReceiptCreated": false,
+      "reason": "Six source-bound Attune FRONT responses are not yet available; fail closed rather than fabricate current-product output."
     }
   },
   "nextActions": [
+    "Use scripts/skin-research/build_attune_roboflow_comparison.py only after capturing all six FRONT responses from merged commit 7463eef112c5a40f7cd01192b6d1f4e9fa6ab285. The tool requires JPEG identity, decoded-RGBA photoId, dimensions, nine criteria, separate skin type, six regions and maps/contours, and recomputes the already saved Roboflow threshold counts. Do not rerun the six Roboflow inferences or produce a comparison from partial/substitute Attune values.",
     "Apply scripts/skin-research/skin_model_acceptance_gate.py to every future learned candidate before changing any accepted manifest or registry. A finished training or recommendation flag is insufficient. Current 754885 acne/post-acne/pigmentation, 2c07ef regional oil/redness and the model-less grouped under-eye path all fail closed; improve the recorded source, per-class, camera and integration gaps, then replay the same receipt.",
     "Task 12 source audit is complete: the 18-criterion ordinal source has elasticity, not sag, and cannot authorize a sag target. Preserve both model-boundary and downstream replacement guards; do not add sag to the generic degree head. Next useful evidence is consented same-person compatible capture pairs, expert localized truth, pose/expression robustness and execution of the focused model-boundary test in the service runtime with OpenCV/ONNX Runtime.",
     "Task 12 appearance-only semantics and the frontend rejection gate are implemented; do not rebuild or rename the contour/fold proxy as elasticity or clinical severity. Next obtain consented same-person compatible capture pairs plus expert localized truth, then evaluate pose/expression robustness before any learned segmentation or directional improvement claim.",
@@ -1813,6 +1831,17 @@
         "7128d0d0b263e3bdcb5587725077ad9a3866cff1",
         "b8c1341c0058a30e008e16c2d8806ca698fb2a0b",
         "6fd34a80a2f6c33d9cec06694b3a11fbd37b9df1"
+      ]
+    },
+    {
+      "date": "2026-10-24",
+      "observedAt": "2026-10-24T00:35:49Z",
+      "action": "Refreshed the roadmap branch, current merged main flow, all 16 private Roboflow projects and relevant trainings. Acne/pigmentation NAS 5b632a5c12b76fcfe703 remains finished with 89 model IDs; regional NAS segmentation 3485f8c67f957a1b850d remains finished with 75 listed records; under-eye remains untrained. No training or inference was started or duplicated. Checked the connected Railway account read-only: its three projects are unrelated and there is no Attune service, so no remote current-product execution or Railway mutation occurred. Added a dependency-free, fail-closed comparison gate for the six generated FRONT subjects. It requires the pinned merged commit/endpoint, JPEG and decoded-RGBA identity, source dimensions, all nine existing criteria, separate skin type, six regional views, maps/contours and recomputed Roboflow per-image/aggregate threshold counts before emitting JSON/Markdown. Six tests and Python compilation pass; missing/mismatched/tampered evidence produces no report. The actual six Attune responses remain unavailable, so no comparison values, accuracy claim, real-camera acceptance, activation, deployment or merge were fabricated.",
+      "report": "docs/skin/attune-roboflow-source-bound-comparison-gate-20261024.md",
+      "commits": [
+        "4837b91202a76903cd56be78d0c9aa273f06b06f",
+        "8c03acfe36a3d4050567c974a8708d00edd08b9f",
+        "dfb4d69f4113f8e9a80aed122c8cf1ac7248d19a"
       ]
     }
   ]
