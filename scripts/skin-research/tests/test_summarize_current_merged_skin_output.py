@@ -7,6 +7,15 @@ from pathlib import Path
 
 
 SCRIPT = Path(__file__).parents[1] / "summarize_current_merged_skin_output.py"
+REPOSITORY = SCRIPT.parents[2]
+COMMITTED_SOURCE = (
+    REPOSITORY / "docs/skin/evidence/"
+    "attune-roboflow-source-bound-comparison-20261024-v1.json"
+)
+COMMITTED_SUMMARY = (
+    REPOSITORY / "docs/skin/evidence/"
+    "current-merged-skin-capability-20261024-v1.json"
+)
 SPEC = importlib.util.spec_from_file_location("merged_skin", SCRIPT)
 merged_skin = importlib.util.module_from_spec(SPEC)
 assert SPEC and SPEC.loader
@@ -47,6 +56,16 @@ def fixture():
 
 
 class CurrentMergedSkinOutputTest(unittest.TestCase):
+    def test_committed_source_replays_to_exact_capability_receipt(self):
+        source = json.loads(COMMITTED_SOURCE.read_text(encoding="utf-8"))
+        expected = json.loads(COMMITTED_SUMMARY.read_text(encoding="utf-8"))
+        result = merged_skin.summarize(source)
+        self.assertEqual(result, expected)
+        self.assertTrue(result["productAlreadyProducesConcreteResults"])
+        self.assertEqual(result["currentMergedBaseline"]["commit"],
+                         merged_skin.CURRENT_PRODUCT_COMMIT)
+        self.assertEqual(result["subjectsWithMaps"], 6)
+
     def test_complete_receipt_proves_existing_concrete_output(self):
         result = merged_skin.summarize(fixture())
         self.assertTrue(result["productAlreadyProducesConcreteResults"])

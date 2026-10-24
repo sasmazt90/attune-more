@@ -58,7 +58,9 @@ jobs:
       env:
         PYTHONPATH: ${{ github.workspace }}/.ci-deps/yolox
       run: |
-        pytest tests/unit -v -ra
+        pytest tests/unit \
+          scripts/skin-research/tests/test_summarize_current_merged_skin_output.py \
+          -v -ra
 
   frontend-build:
     name: Frontend Production Build (Node.js 22.20.0)

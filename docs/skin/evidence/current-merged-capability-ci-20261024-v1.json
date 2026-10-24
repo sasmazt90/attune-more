@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "current-merged-capability-ci-evidence-v1",
+  "observedAt": "2026-10-24T09:54:00Z",
+  "scope": "Protect the verified fact that the pinned merged Attune skin baseline already emits concrete results.",
+  "sourceReceipt": "docs/skin/evidence/attune-roboflow-source-bound-comparison-20261024-v1.json",
+  "expectedReceipt": "docs/skin/evidence/current-merged-skin-capability-20261024-v1.json",
+  "test": "scripts/skin-research/tests/test_summarize_current_merged_skin_output.py",
+  "workflow": ".github/workflows/ci.yml",
+  "checks": {
+    "committedSourceReplayed": true,
+    "generatedSummaryExactlyMatchesCommittedReceipt": true,
+    "pinnedMergedCommitPreserved": true,
+    "subjectsWithConcreteMaps": 6,
+    "testCasesPassed": 6,
+    "unittestRuntimeSeconds": 0.003,
+    "ciYamlParsed": true,
+    "ciIncludesExactTestPath": true
+  },
+  "verifiedBaseline": {
+    "commit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+    "endpoint": "/api/local-health/skin",
+    "subjects": 6,
+    "existingAppearanceCriteria": 9,
+    "validCriterionValues": 51,
+    "separateSkinTypeResults": 6,
+    "regionalInventoriesComplete": 6,
+    "subjectsWithMaps": 6,
+    "subjectsWithContours": 6
+  },
+  "notClaimed": [
+    "model accuracy",
+    "expert ground truth",
+    "physical-camera acceptance",
+    "new learned-model activation",
+    "production behavior change",
+    "production merge or deployment"
+  ],
+  "roboflowRefresh": {
+    "projects": 16,
+    "acneTraining": {
+      "trainingId": "5b632a5c12b76fcfe703",
+      "status": "finished",
+      "modelCount": 89
+    },
+    "regionalTraining": {
+      "trainingId": "3485f8c67f957a1b850d",
+      "status": "finished",
+      "providerRecordCount": 75,
+      "versionImages": 337,
+      "splits": {
+        "train": 244,
+        "valid": 63,
+        "test": 30
+      }
+    },
+    "groupedUnderEyeImages": 0,
+    "trainingOrInferenceStarted": false
+  }
+}
