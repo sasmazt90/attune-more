@@ -1,0 +1,164 @@
+{
+  "schemaVersion": "acne-source-group-review-v1",
+  "dataset": {
+    "archiveSHA256": "29f40e80c8b1f63d43abbc35d11efdbaac4cf754531af2bee64283dde64c34e2",
+    "images": 800,
+    "splits": {
+      "train": 553,
+      "valid": 165,
+      "test": 82
+    }
+  },
+  "privacy": {
+    "containsImageBytes": false,
+    "containsFilenames": false,
+    "containsRawSourceNames": false,
+    "candidateMembersAreHashed": true
+  },
+  "methods": {
+    "exactContentSHA256": true,
+    "normalizedSourceName": "candidate-only; short or numeric keys are weak",
+    "perceptualDHash": {
+      "size": "9x8 grayscale",
+      "maxHammingDistance": 8,
+      "candidateOnly": true
+    }
+  },
+  "candidateCounts": {
+    "exact_content": 0,
+    "normalized_source_name": 2,
+    "perceptual_dhash": 3
+  },
+  "reviewCandidates": [
+    {
+      "candidateId": "03f563f98d7aa61a7b9ad20a",
+      "method": "normalized_source_name",
+      "members": [
+        {
+          "recordId": "208372aa928deecfaae164a2",
+          "split": "test"
+        },
+        {
+          "recordId": "e63e65e16e685d9d3dbe2a0c",
+          "split": "train"
+        },
+        {
+          "recordId": "f78ec752b07d77a779d9a628",
+          "split": "train"
+        }
+      ],
+      "sourceNameQuality": "weak_or_degenerate",
+      "automaticEvidence": "review_only",
+      "review": {
+        "decision": "unresolved",
+        "rationale": "candidate has not been reviewed",
+        "reviewer": "none"
+      }
+    },
+    {
+      "candidateId": "a22b5006f8486619fa9d5d2f",
+      "method": "normalized_source_name",
+      "members": [
+        {
+          "recordId": "005d7c27accdd10990f28349",
+          "split": "valid"
+        },
+        {
+          "recordId": "d8ec143cb59449c077bf085b",
+          "split": "train"
+        }
+      ],
+      "sourceNameQuality": "weak_or_degenerate",
+      "automaticEvidence": "review_only",
+      "review": {
+        "decision": "unresolved",
+        "rationale": "candidate has not been reviewed",
+        "reviewer": "none"
+      }
+    },
+    {
+      "candidateId": "4c2dd8b4c0e4fd63eb411532",
+      "method": "perceptual_dhash",
+      "members": [
+        {
+          "recordId": "5e6da30f8a2d00cc102a16fb",
+          "split": "valid"
+        },
+        {
+          "recordId": "a93f427e65f7f67110f3122b",
+          "split": "test"
+        }
+      ],
+      "hammingDistance": 8,
+      "automaticEvidence": "review_only",
+      "review": {
+        "decision": "different_source",
+        "rationale": "The private comparison shows different people and different capture scenes; low dHash distance is a false positive. This is not expert label review.",
+        "reviewer": "engineering_visual_review"
+      }
+    },
+    {
+      "candidateId": "ea37c83c23b1bd2c2eedd46d",
+      "method": "perceptual_dhash",
+      "members": [
+        {
+          "recordId": "678c10ac4edc07c05f2a5260",
+          "split": "train"
+        },
+        {
+          "recordId": "7b38eca144c2bdeeb6a5434e",
+          "split": "valid"
+        }
+      ],
+      "hammingDistance": 8,
+      "automaticEvidence": "review_only",
+      "review": {
+        "decision": "same_source",
+        "rationale": "The private comparison shows the same person, pose, clothing and background with a small crop/encoding difference across train and valid. This is source-identity review, not lesion-label review.",
+        "reviewer": "engineering_visual_review"
+      }
+    },
+    {
+      "candidateId": "fa3a40f29abc0cb397ee0798",
+      "method": "perceptual_dhash",
+      "members": [
+        {
+          "recordId": "2395f0db9bd64b520f7df3d9",
+          "split": "train"
+        },
+        {
+          "recordId": "d10250db681e641651851b8c",
+          "split": "valid"
+        }
+      ],
+      "hammingDistance": 5,
+      "automaticEvidence": "review_only",
+      "review": {
+        "decision": "same_source",
+        "rationale": "The private comparison shows the same source photo/person across train and valid, with crop and watermark differences. This is source-identity review, not lesion-label review.",
+        "reviewer": "engineering_visual_review"
+      }
+    }
+  ],
+  "reviewSummary": {
+    "sameSource": 2,
+    "differentSource": 1,
+    "unresolved": 2,
+    "unresolvedUsableCandidates": 0,
+    "confirmedCrossSplitSourceLeakageGroups": 2
+  },
+  "decision": {
+    "personOrSourceGroupCoverageEstablished": false,
+    "splitIndependenceEstablished": false,
+    "splitIndependenceViolated": true,
+    "trainingAuthorized": false,
+    "modelAccepted": false,
+    "reason": "CROSS_SPLIT_SOURCE_LEAKAGE_CONFIRMED; REGROUP_BEFORE_RETRAINING",
+    "next": [
+      "resolve usable candidates against the private images",
+      "obtain source/person identifiers or create reviewed source groups",
+      "build a new group-locked split only after semantic and negative review",
+      "keep the existing test split untouched during validation-only resolution experiments"
+    ]
+  }
+}

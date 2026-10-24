@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "source-group-review-decisions-v1",
+  "decisions": [
+    {
+      "candidateId": "4c2dd8b4c0e4fd63eb411532",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows different people and different capture scenes; low dHash distance is a false positive. This is not expert label review."
+    },
+    {
+      "candidateId": "ea37c83c23b1bd2c2eedd46d",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person, pose, clothing and background with a small crop/encoding difference across train and valid. This is source-identity review, not lesion-label review."
+    },
+    {
+      "candidateId": "fa3a40f29abc0cb397ee0798",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo/person across train and valid, with crop and watermark differences. This is source-identity review, not lesion-label review."
+    }
+  ]
+}
