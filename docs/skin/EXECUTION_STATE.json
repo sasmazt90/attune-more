@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "project": "Attune.more skin roadmap",
-  "date": "2026-10-23",
+  "date": "2026-10-24",
   "repository": "sasmazt90/attune-more",
   "branch": "work/skin-roadmap-20261023",
   "authorization": "User explicitly delegated execution of the entire accepted roadmap until completed, with final-only notification. Continue routine reversible preparation, implementation, testing and authorized model training autonomously; disclose a material blocker once. Do not fabricate completion or treat user/model visual review as expert annotation.",
@@ -175,7 +175,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-24",
-      "lastCheckedAt": "2026-10-24T02:51:13Z",
+      "lastCheckedAt": "2026-10-24T04:52:36Z",
       "modelCount": 89,
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
@@ -327,7 +327,7 @@
         "invalidGeometry": 0
       },
       "versions": [],
-      "lastCheckedAt": "2026-10-24T02:51:13Z",
+      "lastCheckedAt": "2026-10-24T04:52:36Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -420,7 +420,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-24T02:51:13Z",
+      "lastCheckedAt": "2026-10-24T04:52:36Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "modelIds": [
@@ -1739,9 +1739,31 @@
       "receipt": "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
       "liveEvaluationReceipt": "docs/skin/evidence/roboflow-live-evaluations-20261024.json",
       "report": "docs/skin/original-photo-model-comparison-audit-20261024.md"
+    },
+    "screenshotEvidenceAudit": {
+      "sourceLibraryFileId": "libfile_b2643531fd28819182f06bf3f733e354",
+      "sourceSHA256": "2e35620fc3531f7014ac7f672534ffe205a36e7412a7d13421f9b941f452956c",
+      "rawDocumentAvailable": false,
+      "rawCameraImagesAvailable": false,
+      "screenshotInferenceIsCameraAcceptance": false,
+      "uiMeshProvenInCapturedPayload": false,
+      "sideMappingBugFound": false,
+      "sensitiveAcceptedAsRedness": false,
+      "disableExistingV5Authorized": false,
+      "missingValueBoundaryHardened": true,
+      "measuredZeroPreserved": true,
+      "missingValueLimitation": "MEASUREMENT_UNAVAILABLE",
+      "pyCompilePassed": true,
+      "exactBoundaryChecksPassed": 4,
+      "sourceWiringChecksPassed": 2,
+      "fullPytestExecuted": false,
+      "fullPytestBlocker": "pytest and OpenCV unavailable in execution environment",
+      "browserCameraAcceptance": false,
+      "report": "docs/skin/tolgar-screenshot-evidence-audit-20261024.md"
     }
   },
   "nextActions": [
+    "Preserve the fail-closed missing-value boundary: numeric zero is a measurement, but None/non-finite/invalid values are insufficient and must never become normal. Re-run tests/unit/test_dry_sag_visible_support.py in the service image with pytest/OpenCV, then perform consented raw-camera/browser replay; do not treat UI screenshots or screen-cropped Roboflow outputs as camera acceptance, and do not add Sensitive as a Redness synonym.",
     "Do not integrate acne/post-acne/pigmentation child a5e262: its live exact-ID test F1 is 0.094/0.052/0.007. The displayed 929397 child is also not eligible because the artifact binds no test evaluation to it and every generated FRONT response is capped at 300. Evaluate another child by exact model ID and per-class test evidence before any further inference or integration; do not repeat the six generated profiles.",
     "Correct the research regional map schema before product use: keep Redness as an independent red contour/hatching layer, never rename it Sensitive, preserve Unknown as light grey, and do not synthesize Dry/Normal or mixed skin from the Oily/Redness-only e79545 model. Obtain reviewed Dry/Normal regional truth and real-camera evidence.",
     "Apply scripts/skin-research/skin_model_acceptance_gate.py to every future learned candidate before changing any accepted manifest or registry. A finished training or recommendation flag is insufficient. Current 754885 acne/post-acne/pigmentation, 2c07ef regional oil/redness and the model-less grouped under-eye path all fail closed; improve the recorded source, per-class, camera and integration gaps, then replay the same receipt.",
@@ -2068,6 +2090,17 @@
         "3b134dab8653eb4e374da41605fb1c7396e2aed0",
         "4f3f6f97239b1a61c4fed79c4fd885de16a0f312",
         "94ddddfdf680e7cfade2999ae6bb9262d90b2f60"
+      ]
+    },
+    {
+      "date": "2026-10-24",
+      "observedAt": "2026-10-24T04:52:36Z",
+      "action": "Read the persistent checkpoint first; refreshed all 16 private Roboflow projects and the acne/regional NAS runs. Acne NAS 5b632a5c12b76fcfe703 remains finished with 89 children and regional NAS 3485f8c67f957a1b850d remains finished with 75 provider records; no training or inference was started or duplicated and no recommendation flag was treated as a winner. Materialized and hashed the new user-authorized screenshot analysis text without committing faces or screenshots. Direct code review rejected unsupported claims that the app sends its SVG mesh to inference or reverses anatomical sides, and preserved the accepted independent Redness contract instead of Sensitive. Fixed a real defensive boundary risk: missing/non-finite regional values can no longer be coerced to valid zero, while a measured zero remains valid and specific upstream limitations are preserved. Python compilation, four exact boundary checks and two source-wiring checks passed. Full pytest/OpenCV and browser/camera replay were unavailable, so no camera acceptance, accuracy, model activation, deployment or merge is claimed.",
+      "report": "docs/skin/tolgar-screenshot-evidence-audit-20261024.md",
+      "commits": [
+        "0231657c77ff16111836b8a08b0d587a40638fff",
+        "e3192858e8ad5b16a39e3a7fbb0f2745ccc14d5b",
+        "f456918567cf2724c0ecab972ccbf0f576bad425"
       ]
     }
   ]
