@@ -145,6 +145,7 @@ def build_proposal(
     central_phash_distance: int = 10,
     directional_phash_distance: int = 8,
     source_name_similarity: float = 0.94,
+    source_name_cross_split_similarity: float = 0.90,
 ) -> dict[str, Any]:
     if not ARCHIVE_SHA256.fullmatch(archive_sha256):
         raise ProposalError("archive sha256 must be a lowercase 64-character digest")
@@ -154,6 +155,10 @@ def build_proposal(
         raise ProposalError("perceptual hash distance is outside the safe range")
     if not 0.8 <= source_name_similarity <= 1.0:
         raise ProposalError("source name similarity must be between 0.8 and 1.0")
+    if not 0.8 <= source_name_cross_split_similarity <= source_name_similarity:
+        raise ProposalError(
+            "cross-split source name similarity must be between 0.8 and the general threshold"
+        )
     decisions = load_decisions(decisions_path)
     records = scan_records(root)
     by_id = {record["recordId"]: record for record in records}
@@ -230,6 +235,17 @@ def build_proposal(
                         "normalized_source_name_similarity", (left, right),
                         similarity=round(similarity, 12),
                         automaticEvidence="review_only",
+                    )
+                elif (
+                    left["split"] != right["split"]
+                    and similarity >= source_name_cross_split_similarity
+                ):
+                    add(
+                        "normalized_source_name_similarity_cross_split_review",
+                        (left, right),
+                        similarity=round(similarity, 12),
+                        automaticEvidence="review_only",
+                        coverageEvidence=False,
                     )
 
     known_ids = {row["candidateId"] for row in candidates}
@@ -323,6 +339,9 @@ def build_proposal(
             },
             "directionalCropPHashMaxDistance": directional_phash_distance,
             "normalizedSourceNameSimilarityMinimum": source_name_similarity,
+            "normalizedSourceNameCrossSplitReviewMinimum": source_name_cross_split_similarity,
+            "normalizedSourceNameCrossSplitReviewMaximumExclusive": source_name_similarity,
+            "crossSplitNameBandIsLeakageReviewOnly": True,
             "perceptualMatchesAreReviewOnly": True,
         },
         "candidateCountsByMethod": {
@@ -332,6 +351,7 @@ def build_proposal(
                 "perceptual_phash", "central_crop_phash",
                 *(f"directional_crop_phash_{name}" for name in DIRECTIONAL_PHASH_CROPS),
                 "normalized_source_name_similarity",
+                "normalized_source_name_similarity_cross_split_review",
             )
         },
         "reviewQueue": {
@@ -381,6 +401,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--central-phash-distance", type=int, default=10)
     parser.add_argument("--directional-phash-distance", type=int, default=8)
     parser.add_argument("--source-name-similarity", type=float, default=0.94)
+    parser.add_argument("--source-name-cross-split-similarity", type=float, default=0.90)
     args = parser.parse_args(argv)
     try:
         result = build_proposal(
@@ -390,6 +411,7 @@ def main(argv: list[str] | None = None) -> int:
             central_phash_distance=args.central_phash_distance,
             directional_phash_distance=args.directional_phash_distance,
             source_name_similarity=args.source_name_similarity,
+            source_name_cross_split_similarity=args.source_name_cross_split_similarity,
         )
     except (ProposalError, ValueError) as exc:
         print(f"group coverage proposal blocked: {exc}")

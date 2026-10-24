@@ -61,6 +61,8 @@ class AcneGroupCoverageProposalTest(unittest.TestCase):
         self.assertFalse(result["decision"]["trainingAuthorized"])
         self.assertEqual(result["methods"]["directionalCropPHashMaxDistance"], 8)
         self.assertEqual(result["methods"]["normalizedSourceNameSimilarityMinimum"], 0.94)
+        self.assertEqual(result["methods"]["normalizedSourceNameCrossSplitReviewMinimum"], 0.90)
+        self.assertTrue(result["methods"]["crossSplitNameBandIsLeakageReviewOnly"])
         self.assertEqual(
             set(result["methods"]["directionalCropPHashBoxes"]),
             set(proposal.DIRECTIONAL_PHASH_CROPS),
@@ -72,6 +74,10 @@ class AcneGroupCoverageProposalTest(unittest.TestCase):
             )
         self.assertIn(
             "normalized_source_name_similarity",
+            result["candidateCountsByMethod"],
+        )
+        self.assertIn(
+            "normalized_source_name_similarity_cross_split_review",
             result["candidateCountsByMethod"],
         )
         self.assertEqual(
@@ -94,6 +100,44 @@ class AcneGroupCoverageProposalTest(unittest.TestCase):
         self.assertEqual(len(result["records"]), 5)
         self.assertEqual(len({row["recordId"] for row in result["records"]}), 5)
         self.assertTrue(all(row["relativePath"].endswith(".jpg") for row in result["records"]))
+
+    def test_lower_similarity_band_is_cross_split_review_only(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            write_split(root, "train", [
+                ("abcdefghijkl_jpg.rf.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.jpg", 20),
+                ("abcdefghijkm_jpg.rf.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.jpg", 80),
+            ])
+            write_split(root, "valid", [
+                ("abcdefghijkn_jpg.rf.cccccccccccccccccccccccccccccccc.jpg", 140),
+            ])
+            write_split(root, "test", [
+                ("unrelated-source_jpg.rf.dddddddddddddddddddddddddddddddd.jpg", 220),
+            ])
+            decisions = root / "decisions.json"
+            decisions.write_text(json.dumps({
+                "schemaVersion": "source-group-review-decisions-v1",
+                "decisions": [],
+            }))
+            result = proposal.build_proposal(
+                root,
+                "e" * 64,
+                decisions,
+                source_name_similarity=0.99,
+                source_name_cross_split_similarity=0.90,
+            )
+        rows = [
+            row for row in result["reviewQueue"]["pairs"]
+            if "normalized_source_name_similarity_cross_split_review" in row["methods"]
+        ]
+        self.assertTrue(rows)
+        self.assertTrue(all(row["crossSplit"] for row in rows))
+        self.assertEqual(
+            result["candidateCountsByMethod"][
+                "normalized_source_name_similarity_cross_split_review"
+            ],
+            len(rows),
+        )
 
     def test_resolved_pair_queue_leaves_only_singleton_identity_review(self):
         with tempfile.TemporaryDirectory() as folder:

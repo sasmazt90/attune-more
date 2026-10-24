@@ -56,6 +56,9 @@
     },
     "directionalCropPHashMaxDistance": 8,
     "normalizedSourceNameSimilarityMinimum": 0.94,
+    "normalizedSourceNameCrossSplitReviewMinimum": 0.9,
+    "normalizedSourceNameCrossSplitReviewMaximumExclusive": 0.94,
+    "crossSplitNameBandIsLeakageReviewOnly": true,
     "perceptualMatchesAreReviewOnly": true
   },
   "candidateCountsByMethod": {
@@ -70,10 +73,63 @@
     "directional_crop_phash_bottom_80": 6,
     "directional_crop_phash_left_70": 5,
     "directional_crop_phash_right_70": 4,
-    "normalized_source_name_similarity": 33
+    "normalized_source_name_similarity": 33,
+    "normalized_source_name_similarity_cross_split_review": 54
   },
   "reviewQueue": {
     "pairs": [
+      {
+        "pairId": "00c80e3490cb01a02b79cab0",
+        "members": [
+          {
+            "recordId": "5adc16a9cc9ef10b435840e1",
+            "split": "valid"
+          },
+          {
+            "recordId": "9c82777e06accb779d5a2d85",
+            "split": "train"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "957a3c0f1846e33339f88d60"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "01b98c6297879b237f604ee5",
+        "members": [
+          {
+            "recordId": "8eee7cf250137f57da273688",
+            "split": "test"
+          },
+          {
+            "recordId": "d00465e3f480579c68495a97",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "255f04064286baadae881ac2"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.933333333333
+        },
+        "status": "confirmed_same_source_or_person",
+        "priority": "cross_split"
+      },
       {
         "pairId": "06a870ea6f8a43d4f94e6064",
         "members": [
@@ -96,6 +152,32 @@
         },
         "similarities": {
           "normalized_source_name_similarity": 0.95652173913
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "0de5bf25d10c66f3013eca17",
+        "members": [
+          {
+            "recordId": "3d58470dedd664850ca38714",
+            "split": "train"
+          },
+          {
+            "recordId": "5adc16a9cc9ef10b435840e1",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "9aeae9426dacbc7a242ef5d2"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
         },
         "status": "reviewed_different_source",
         "priority": "cross_split"
@@ -177,6 +259,110 @@
         "priority": "cross_split"
       },
       {
+        "pairId": "189001b853d0880674c2e160",
+        "members": [
+          {
+            "recordId": "04232b8b542b80312259598d",
+            "split": "valid"
+          },
+          {
+            "recordId": "22c6a5521efbf9a05635a374",
+            "split": "train"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "cd464c6b60b59a1927fe3c0a"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.909090909091
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "20de1c63adce528d6ccb25e8",
+        "members": [
+          {
+            "recordId": "04232b8b542b80312259598d",
+            "split": "valid"
+          },
+          {
+            "recordId": "cacda82e925915bfe1a5e6fb",
+            "split": "test"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "acdef33eb99fd3b65610f24d"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.909090909091
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "2148093ceb65b4606eae2212",
+        "members": [
+          {
+            "recordId": "5adc16a9cc9ef10b435840e1",
+            "split": "valid"
+          },
+          {
+            "recordId": "f2804f083ed871351c76e430",
+            "split": "train"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "d3b4dfed48ecd4bc41d757a1"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "263026d6b08dbe2ccb0d4451",
+        "members": [
+          {
+            "recordId": "b08df34a22b0d4f2454e80c5",
+            "split": "valid"
+          },
+          {
+            "recordId": "dd23efd7eb6b8f1005e356f5",
+            "split": "train"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "11a8fe292956f5a03a41f6d2"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
         "pairId": "2c5a1e811f6a234ae7cbceb7",
         "members": [
           {
@@ -220,6 +406,58 @@
         "priority": "cross_split"
       },
       {
+        "pairId": "2d28176b3547f00c47819681",
+        "members": [
+          {
+            "recordId": "3d58470dedd664850ca38714",
+            "split": "train"
+          },
+          {
+            "recordId": "aba66b3b27e358c49434fd9e",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "d7bd094e23f14c4cb58230d6"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "2e0337625962befda47655e5",
+        "members": [
+          {
+            "recordId": "38f29e1232dae4430dca1ec3",
+            "split": "train"
+          },
+          {
+            "recordId": "5adc16a9cc9ef10b435840e1",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "324f79d55d12297833539ef0"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "confirmed_same_source_or_person",
+        "priority": "cross_split"
+      },
+      {
         "pairId": "2f48681698f229091d1cf78c",
         "members": [
           {
@@ -241,6 +479,162 @@
         },
         "similarities": {
           "normalized_source_name_similarity": 0.95652173913
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "3035c1acb6cc50b50e4f6e16",
+        "members": [
+          {
+            "recordId": "527ecc2a4d2c78dbc554cbd6",
+            "split": "test"
+          },
+          {
+            "recordId": "68ee14c481e327363d89a736",
+            "split": "train"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "a946d68f9e8c23ce0bc25178"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.933333333333
+        },
+        "status": "confirmed_same_source_or_person",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "31aa4001cc9889a9d1941b24",
+        "members": [
+          {
+            "recordId": "38f29e1232dae4430dca1ec3",
+            "split": "train"
+          },
+          {
+            "recordId": "aba66b3b27e358c49434fd9e",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "c26b9b8b6bb609e4cac21492"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "33b8a1d9cc52415271936220",
+        "members": [
+          {
+            "recordId": "30a6118086bc8474eca21516",
+            "split": "valid"
+          },
+          {
+            "recordId": "cacda82e925915bfe1a5e6fb",
+            "split": "test"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "faf036b1f176ac81427bc0fe"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.909090909091
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "34f3721ad262f127e0d3c1ad",
+        "members": [
+          {
+            "recordId": "3b519542379e3f3f51905212",
+            "split": "train"
+          },
+          {
+            "recordId": "5adc16a9cc9ef10b435840e1",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "2484b9b5650422e13b0d9fac"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "35c9fb03b908d46826461eda",
+        "members": [
+          {
+            "recordId": "04232b8b542b80312259598d",
+            "split": "valid"
+          },
+          {
+            "recordId": "f8f26ee871ed9caa8733c387",
+            "split": "test"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "3c6404abae4212a55574da16"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.909090909091
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "38f0a3b5eb76aafa2cbc4227",
+        "members": [
+          {
+            "recordId": "22c6a5521efbf9a05635a374",
+            "split": "train"
+          },
+          {
+            "recordId": "c7093da8da6dd776d636cad8",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "06b9f68418225ad6db4f785a"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.909090909091
         },
         "status": "reviewed_different_source",
         "priority": "cross_split"
@@ -298,6 +692,32 @@
         "priority": "cross_split"
       },
       {
+        "pairId": "4761b32bd0f308e8211014a8",
+        "members": [
+          {
+            "recordId": "4c577eaaf292e703bbcc0e6f",
+            "split": "train"
+          },
+          {
+            "recordId": "c7093da8da6dd776d636cad8",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "bb82292eefba022f49fab1b2"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.909090909091
+        },
+        "status": "confirmed_same_source_or_person",
+        "priority": "cross_split"
+      },
+      {
         "pairId": "48d2ca2c5fe4f229bfb14622",
         "members": [
           {
@@ -319,6 +739,58 @@
         },
         "similarities": {
           "normalized_source_name_similarity": 0.95652173913
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "499d23b4e6e201e919ff906e",
+        "members": [
+          {
+            "recordId": "3e47c31b98c022297e8f163c",
+            "split": "train"
+          },
+          {
+            "recordId": "aba66b3b27e358c49434fd9e",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "16dc4dc9ff773c0ad8d4d4b0"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "4e76838fbbaf6d865d48974f",
+        "members": [
+          {
+            "recordId": "158cfbb124253950a529a14b",
+            "split": "train"
+          },
+          {
+            "recordId": "5adc16a9cc9ef10b435840e1",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "7836b4d5374faa92b8acfbed"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
         },
         "status": "reviewed_different_source",
         "priority": "cross_split"
@@ -401,6 +873,84 @@
         "priority": "cross_split"
       },
       {
+        "pairId": "59913fed60aabe7911934de6",
+        "members": [
+          {
+            "recordId": "2ca89e20f4db3ffeb1b716d4",
+            "split": "train"
+          },
+          {
+            "recordId": "527ecc2a4d2c78dbc554cbd6",
+            "split": "test"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "bcd4f7b36fa78088a90c59df"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.933333333333
+        },
+        "status": "confirmed_same_source_or_person",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "5cd06e417bf1277655f916de",
+        "members": [
+          {
+            "recordId": "3e47c31b98c022297e8f163c",
+            "split": "train"
+          },
+          {
+            "recordId": "5adc16a9cc9ef10b435840e1",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "d6551b88fab1418bc7b886c7"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "64f572a310bf9cac92217669",
+        "members": [
+          {
+            "recordId": "c7093da8da6dd776d636cad8",
+            "split": "valid"
+          },
+          {
+            "recordId": "f8f26ee871ed9caa8733c387",
+            "split": "test"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "2b4730bd9d823646074972c4"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.909090909091
+        },
+        "status": "confirmed_same_source_or_person",
+        "priority": "cross_split"
+      },
+      {
         "pairId": "69f68f79343f84e17b377a19",
         "members": [
           {
@@ -422,6 +972,84 @@
         },
         "similarities": {
           "normalized_source_name_similarity": 0.95652173913
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "6a90b5547455c2be804b929e",
+        "members": [
+          {
+            "recordId": "4e431912a428fe40f725396f",
+            "split": "train"
+          },
+          {
+            "recordId": "aba66b3b27e358c49434fd9e",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "1dbbe2279f28580e85abbe5c"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "6b6a91eab04c5190653c288a",
+        "members": [
+          {
+            "recordId": "04232b8b542b80312259598d",
+            "split": "valid"
+          },
+          {
+            "recordId": "4c577eaaf292e703bbcc0e6f",
+            "split": "train"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "a0ff716d777906ab3eddc32e"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.909090909091
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "6c7ab05c0b7e25b80433d6d3",
+        "members": [
+          {
+            "recordId": "38f29e1232dae4430dca1ec3",
+            "split": "train"
+          },
+          {
+            "recordId": "b08df34a22b0d4f2454e80c5",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "b5b8de4c45504e634d5434f1"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
         },
         "status": "reviewed_different_source",
         "priority": "cross_split"
@@ -478,6 +1106,32 @@
         "priority": "cross_split"
       },
       {
+        "pairId": "6e79c227b333cb027b48aff0",
+        "members": [
+          {
+            "recordId": "4c577eaaf292e703bbcc0e6f",
+            "split": "train"
+          },
+          {
+            "recordId": "f8f26ee871ed9caa8733c387",
+            "split": "test"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "d2389e3ba466b86464c8a628"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.909090909091
+        },
+        "status": "confirmed_same_source_or_person",
+        "priority": "cross_split"
+      },
+      {
         "pairId": "71d47fdbb90665ddfc2021da",
         "members": [
           {
@@ -525,6 +1179,32 @@
         },
         "similarities": {
           "normalized_source_name_similarity": 0.95652173913
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "74970853a0bcdb91e4648064",
+        "members": [
+          {
+            "recordId": "a0ceba3061abc4233982c051",
+            "split": "train"
+          },
+          {
+            "recordId": "b08df34a22b0d4f2454e80c5",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "88b6635d170177dfd94c44b6"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
         },
         "status": "reviewed_different_source",
         "priority": "cross_split"
@@ -606,6 +1286,58 @@
         "priority": "cross_split"
       },
       {
+        "pairId": "8ebd458d0984a7bd93ceac0a",
+        "members": [
+          {
+            "recordId": "5adc16a9cc9ef10b435840e1",
+            "split": "valid"
+          },
+          {
+            "recordId": "8dc788ad65bfee115d36db4d",
+            "split": "train"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "1cb0ca64fd04cac898713e34"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "93f716491efd9bdbfbb8911f",
+        "members": [
+          {
+            "recordId": "13a52db022d38fe37af32b82",
+            "split": "train"
+          },
+          {
+            "recordId": "b08df34a22b0d4f2454e80c5",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "58e5b0874aa19378ea984ca1"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
         "pairId": "9496734766b23cc0df29f608",
         "members": [
           {
@@ -658,6 +1390,32 @@
         "priority": "cross_split"
       },
       {
+        "pairId": "9641810a56df07f4c99d9b46",
+        "members": [
+          {
+            "recordId": "aba66b3b27e358c49434fd9e",
+            "split": "valid"
+          },
+          {
+            "recordId": "f2804f083ed871351c76e430",
+            "split": "train"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "c5e3b538a2522f42e641a97e"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
         "pairId": "973a0b57b5adb906c51a708f",
         "members": [
           {
@@ -683,6 +1441,32 @@
         "priority": "cross_split"
       },
       {
+        "pairId": "9c9c620b999aa1c075271c0e",
+        "members": [
+          {
+            "recordId": "2f048528f26f189fecec492f",
+            "split": "train"
+          },
+          {
+            "recordId": "5adc16a9cc9ef10b435840e1",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "b9419c5f60667a8813bca5d4"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
         "pairId": "9d333d9f12e45d735013160b",
         "members": [
           {
@@ -704,6 +1488,84 @@
         },
         "similarities": {
           "normalized_source_name_similarity": 0.95652173913
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "a12abdc58cd297927cbacac6",
+        "members": [
+          {
+            "recordId": "240b864e40026e93c89b9e73",
+            "split": "train"
+          },
+          {
+            "recordId": "aba66b3b27e358c49434fd9e",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "1656d17986fde766a4559253"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "a87c39102856342672cbc5c3",
+        "members": [
+          {
+            "recordId": "398d465544a6dc7eaec017ed",
+            "split": "train"
+          },
+          {
+            "recordId": "b08df34a22b0d4f2454e80c5",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "7917b6f7e4794453f9981a93"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "a927c917771f8973c8ffafad",
+        "members": [
+          {
+            "recordId": "8dc788ad65bfee115d36db4d",
+            "split": "train"
+          },
+          {
+            "recordId": "aba66b3b27e358c49434fd9e",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "43c786ece6fbefb14de5ee71"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
         },
         "status": "reviewed_different_source",
         "priority": "cross_split"
@@ -760,6 +1622,32 @@
         "priority": "cross_split"
       },
       {
+        "pairId": "b186f1bae44ed0a980a5f26b",
+        "members": [
+          {
+            "recordId": "30a6118086bc8474eca21516",
+            "split": "valid"
+          },
+          {
+            "recordId": "4c577eaaf292e703bbcc0e6f",
+            "split": "train"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "e61fe5839ba1f7be503f31d9"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.909090909091
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
         "pairId": "b33ae58c5b378f946e08b8d9",
         "members": [
           {
@@ -781,6 +1669,110 @@
         },
         "similarities": {
           "normalized_source_name_similarity": 0.95652173913
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "b52a9a5eaf8bc20642767bdb",
+        "members": [
+          {
+            "recordId": "30a6118086bc8474eca21516",
+            "split": "valid"
+          },
+          {
+            "recordId": "f8f26ee871ed9caa8733c387",
+            "split": "test"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "b088fb79ab3a20a9a527be8e"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.909090909091
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "b692a09b1e69c247db9fc22f",
+        "members": [
+          {
+            "recordId": "240b864e40026e93c89b9e73",
+            "split": "train"
+          },
+          {
+            "recordId": "b08df34a22b0d4f2454e80c5",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "d2fb6eb2f95c31b66014d215"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "ba9c67dba0e69ae04b8d1d62",
+        "members": [
+          {
+            "recordId": "522c009d1a92e4c61cd95000",
+            "split": "train"
+          },
+          {
+            "recordId": "aba66b3b27e358c49434fd9e",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "d1b06ed7c4bb4e95801838c0"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "bb8488be9b556d067b16aa18",
+        "members": [
+          {
+            "recordId": "3b519542379e3f3f51905212",
+            "split": "train"
+          },
+          {
+            "recordId": "b08df34a22b0d4f2454e80c5",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "6cccde0f6d9e7663d5cebc47"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
         },
         "status": "reviewed_different_source",
         "priority": "cross_split"
@@ -863,6 +1855,32 @@
         "priority": "cross_split"
       },
       {
+        "pairId": "c3f8f1d48d6c21eb1d0150b5",
+        "members": [
+          {
+            "recordId": "22c6a5521efbf9a05635a374",
+            "split": "train"
+          },
+          {
+            "recordId": "cacda82e925915bfe1a5e6fb",
+            "split": "test"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "a7036f8c009b007f7de25a7d"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.909090909091
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
         "pairId": "c49bd4c6b3611e008a42fc0f",
         "members": [
           {
@@ -906,6 +1924,84 @@
         "priority": "cross_split"
       },
       {
+        "pairId": "c5a4ad8b5c6c7c52c84a550b",
+        "members": [
+          {
+            "recordId": "4e431912a428fe40f725396f",
+            "split": "train"
+          },
+          {
+            "recordId": "5adc16a9cc9ef10b435840e1",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "6df0f35a76ec1c4fec2f935e"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "c8b35c1a2acf85476bf08bdd",
+        "members": [
+          {
+            "recordId": "158cfbb124253950a529a14b",
+            "split": "train"
+          },
+          {
+            "recordId": "b08df34a22b0d4f2454e80c5",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "bddc5f1b111e1d8f6ea0eed4"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "d20f7d1662c0b23adca63055",
+        "members": [
+          {
+            "recordId": "3339b7767ee272d4525f6a43",
+            "split": "train"
+          },
+          {
+            "recordId": "5adc16a9cc9ef10b435840e1",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "f84426b861191c006075b695"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
         "pairId": "d863bed870aeb9990668eb25",
         "members": [
           {
@@ -927,6 +2023,84 @@
         },
         "similarities": {
           "normalized_source_name_similarity": 0.95652173913
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "dc09eb42f76c8ae8d4e80cfd",
+        "members": [
+          {
+            "recordId": "5adc16a9cc9ef10b435840e1",
+            "split": "valid"
+          },
+          {
+            "recordId": "f341e3750e74405530286c17",
+            "split": "train"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "e410df5e4d15c296581fcd5b"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "dc740f64ef6df9cfb9e0bbf4",
+        "members": [
+          {
+            "recordId": "4c577eaaf292e703bbcc0e6f",
+            "split": "train"
+          },
+          {
+            "recordId": "cacda82e925915bfe1a5e6fb",
+            "split": "test"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "21da09dad34ab9d89b3067f1"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.909090909091
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "de5fbdaab169cacf3dc54f9f",
+        "members": [
+          {
+            "recordId": "20ae6ecd2424197360174b8c",
+            "split": "train"
+          },
+          {
+            "recordId": "5adc16a9cc9ef10b435840e1",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "8bb987defbfa7bd90b54c47a"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
         },
         "status": "reviewed_different_source",
         "priority": "cross_split"
@@ -958,6 +2132,58 @@
         "priority": "cross_split"
       },
       {
+        "pairId": "df32f30a1361333f804dba25",
+        "members": [
+          {
+            "recordId": "c7093da8da6dd776d636cad8",
+            "split": "valid"
+          },
+          {
+            "recordId": "cacda82e925915bfe1a5e6fb",
+            "split": "test"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "bd726a8752d6d75c3f5f4515"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.909090909091
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "e6e8962e3989a15e6a92e803",
+        "members": [
+          {
+            "recordId": "158cfbb124253950a529a14b",
+            "split": "train"
+          },
+          {
+            "recordId": "aba66b3b27e358c49434fd9e",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "17792c2cf48742bdd02bfdcd"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
         "pairId": "eca1d7f2065efdb93d2864ac",
         "members": [
           {
@@ -979,6 +2205,188 @@
         },
         "similarities": {
           "normalized_source_name_similarity": 0.95652173913
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "f187c6f8f4342a3d8f85368c",
+        "members": [
+          {
+            "recordId": "22c6a5521efbf9a05635a374",
+            "split": "train"
+          },
+          {
+            "recordId": "30a6118086bc8474eca21516",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "f614a31329ab35f01a5ce48c"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.909090909091
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "f501252b7a7778b75d56a13a",
+        "members": [
+          {
+            "recordId": "3b8fe32fd34487d308d34149",
+            "split": "train"
+          },
+          {
+            "recordId": "fe84ef725d0f3f350f8d1adb",
+            "split": "test"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "a27a4b5a4587c2596238b7f5"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.933333333333
+        },
+        "status": "confirmed_same_source_or_person",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "f98b9eb8e4a2af5652c71e64",
+        "members": [
+          {
+            "recordId": "522c009d1a92e4c61cd95000",
+            "split": "train"
+          },
+          {
+            "recordId": "5adc16a9cc9ef10b435840e1",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "f74cdd0c995c6a1f0dabc840"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "f9abe22196a95d12d1ab5637",
+        "members": [
+          {
+            "recordId": "b08df34a22b0d4f2454e80c5",
+            "split": "valid"
+          },
+          {
+            "recordId": "e32bf7147808f370783565ab",
+            "split": "train"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "e8749e1e9d65ae3f00bffa3d"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "fb902f63a8ede0cd386c98a6",
+        "members": [
+          {
+            "recordId": "20ae6ecd2424197360174b8c",
+            "split": "train"
+          },
+          {
+            "recordId": "aba66b3b27e358c49434fd9e",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "7a90be51d4e31da176f243b5"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "fd39a9b6808e849b33b1f24c",
+        "members": [
+          {
+            "recordId": "20ae6ecd2424197360174b8c",
+            "split": "train"
+          },
+          {
+            "recordId": "b08df34a22b0d4f2454e80c5",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "ca2f1238c853de25a619c0a2"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "fd87702af6054cad66ebac3d",
+        "members": [
+          {
+            "recordId": "22c6a5521efbf9a05635a374",
+            "split": "train"
+          },
+          {
+            "recordId": "f8f26ee871ed9caa8733c387",
+            "split": "test"
+          }
+        ],
+        "methods": [
+          "normalized_source_name_similarity_cross_split_review"
+        ],
+        "distances": {},
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "normalized_source_name_similarity_cross_split_review": "e01b1f832c963749019f4d3f"
+        },
+        "similarities": {
+          "normalized_source_name_similarity_cross_split_review": 0.909090909091
         },
         "status": "reviewed_different_source",
         "priority": "cross_split"
@@ -1691,7 +3099,7 @@
         "priority": "within_split"
       }
     ],
-    "totalPairs": 59,
+    "totalPairs": 113,
     "unresolvedPairs": 0,
     "unresolvedCrossSplitPairs": 0,
     "unresolvedWithinSplitPairs": 0
@@ -2381,6 +3789,21 @@
         "targetSplit": null
       },
       {
+        "groupId": "122201c2c282953a2643df65",
+        "members": [
+          {
+            "recordId": "38f29e1232dae4430dca1ec3",
+            "split": "train"
+          },
+          {
+            "recordId": "5adc16a9cc9ef10b435840e1",
+            "split": "valid"
+          }
+        ],
+        "status": "confirmed_group",
+        "targetSplit": null
+      },
+      {
         "groupId": "12305a505638cdb9c20ebf8b",
         "members": [
           {
@@ -2781,25 +4204,6 @@
         "targetSplit": null
       },
       {
-        "groupId": "1a423c9dbe390e58e45e4166",
-        "members": [
-          {
-            "recordId": "c5b55f44463c47a95d2de84c",
-            "split": "train"
-          },
-          {
-            "recordId": "ee1eafc254d25cf5b7b54073",
-            "split": "train"
-          },
-          {
-            "recordId": "f8f26ee871ed9caa8733c387",
-            "split": "test"
-          }
-        ],
-        "status": "confirmed_group",
-        "targetSplit": null
-      },
-      {
         "groupId": "1a66b7e3fcc4ed9a1456f62a",
         "members": [
           {
@@ -3022,17 +4426,6 @@
           {
             "recordId": "abb4c3e4319aa42b33c2b643",
             "split": "valid"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
-        "groupId": "1f6fb270a0442c9291e59812",
-        "members": [
-          {
-            "recordId": "527ecc2a4d2c78dbc554cbd6",
-            "split": "test"
           }
         ],
         "status": "unreviewed_singleton",
@@ -3263,17 +4656,6 @@
         "targetSplit": null
       },
       {
-        "groupId": "273a060749ca057b29abf8ca",
-        "members": [
-          {
-            "recordId": "2ca89e20f4db3ffeb1b716d4",
-            "split": "train"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
         "groupId": "2747b2d1e9b53938f4c0a0d1",
         "members": [
           {
@@ -3311,17 +4693,6 @@
         "members": [
           {
             "recordId": "20ae6ecd2424197360174b8c",
-            "split": "train"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
-        "groupId": "28b617273e8451bd5e068d9f",
-        "members": [
-          {
-            "recordId": "68ee14c481e327363d89a736",
             "split": "train"
           }
         ],
@@ -4136,6 +5507,33 @@
         "targetSplit": null
       },
       {
+        "groupId": "4421591f77947ec8aa692cf0",
+        "members": [
+          {
+            "recordId": "4c577eaaf292e703bbcc0e6f",
+            "split": "train"
+          },
+          {
+            "recordId": "c5b55f44463c47a95d2de84c",
+            "split": "train"
+          },
+          {
+            "recordId": "c7093da8da6dd776d636cad8",
+            "split": "valid"
+          },
+          {
+            "recordId": "ee1eafc254d25cf5b7b54073",
+            "split": "train"
+          },
+          {
+            "recordId": "f8f26ee871ed9caa8733c387",
+            "split": "test"
+          }
+        ],
+        "status": "confirmed_group",
+        "targetSplit": null
+      },
+      {
         "groupId": "44d383ad6f2a406f59d02195",
         "members": [
           {
@@ -4404,17 +5802,6 @@
         "members": [
           {
             "recordId": "703ca50511d73935a0f7ee7b",
-            "split": "train"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
-        "groupId": "4f4b599d60329140bd12db64",
-        "members": [
-          {
-            "recordId": "4c577eaaf292e703bbcc0e6f",
             "split": "train"
           }
         ],
@@ -4760,6 +6147,21 @@
           }
         ],
         "status": "unreviewed_singleton",
+        "targetSplit": null
+      },
+      {
+        "groupId": "5a6118832003ce378e3609cc",
+        "members": [
+          {
+            "recordId": "8eee7cf250137f57da273688",
+            "split": "test"
+          },
+          {
+            "recordId": "d00465e3f480579c68495a97",
+            "split": "valid"
+          }
+        ],
+        "status": "confirmed_group",
         "targetSplit": null
       },
       {
@@ -5504,6 +6906,25 @@
         "targetSplit": null
       },
       {
+        "groupId": "7390cfe68b1429b476295924",
+        "members": [
+          {
+            "recordId": "2ca89e20f4db3ffeb1b716d4",
+            "split": "train"
+          },
+          {
+            "recordId": "527ecc2a4d2c78dbc554cbd6",
+            "split": "test"
+          },
+          {
+            "recordId": "68ee14c481e327363d89a736",
+            "split": "train"
+          }
+        ],
+        "status": "confirmed_group",
+        "targetSplit": null
+      },
+      {
         "groupId": "747428ab756b73782daa9f3c",
         "members": [
           {
@@ -5531,17 +6952,6 @@
           {
             "recordId": "bd2b8421e464cb6ed7ddc670",
             "split": "train"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
-        "groupId": "751e974342852faa2ed619aa",
-        "members": [
-          {
-            "recordId": "fe84ef725d0f3f350f8d1adb",
-            "split": "test"
           }
         ],
         "status": "unreviewed_singleton",
@@ -6506,6 +7916,21 @@
         "targetSplit": null
       },
       {
+        "groupId": "90a039687bc42f4b2a4c24b5",
+        "members": [
+          {
+            "recordId": "3b8fe32fd34487d308d34149",
+            "split": "train"
+          },
+          {
+            "recordId": "fe84ef725d0f3f350f8d1adb",
+            "split": "test"
+          }
+        ],
+        "status": "confirmed_group",
+        "targetSplit": null
+      },
+      {
         "groupId": "90f26e4fddf49f08e2444602",
         "members": [
           {
@@ -6572,17 +7997,6 @@
         "targetSplit": null
       },
       {
-        "groupId": "92dd20ba7828be1479b777a3",
-        "members": [
-          {
-            "recordId": "5adc16a9cc9ef10b435840e1",
-            "split": "valid"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
         "groupId": "92e596a87e4faec58691e1c5",
         "members": [
           {
@@ -6610,17 +8024,6 @@
           {
             "recordId": "be28228c4c37a0a5e8411452",
             "split": "test"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
-        "groupId": "93c80dee6994b5d0a1ae01a7",
-        "members": [
-          {
-            "recordId": "3b8fe32fd34487d308d34149",
-            "split": "train"
           }
         ],
         "status": "unreviewed_singleton",
@@ -8766,17 +10169,6 @@
         "targetSplit": null
       },
       {
-        "groupId": "d1af04d8408ccb91bb6f149a",
-        "members": [
-          {
-            "recordId": "38f29e1232dae4430dca1ec3",
-            "split": "train"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
         "groupId": "d1b045d9698bbdd33678c18d",
         "members": [
           {
@@ -9075,17 +10467,6 @@
         "targetSplit": null
       },
       {
-        "groupId": "db5a102859aa72e7092c0392",
-        "members": [
-          {
-            "recordId": "d00465e3f480579c68495a97",
-            "split": "valid"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
         "groupId": "db6bfb22059bf115e0cf5088",
         "members": [
           {
@@ -9370,17 +10751,6 @@
           {
             "recordId": "444d7ae50acaa143a39178ac",
             "split": "train"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
-        "groupId": "e60c5789942301f133604ede",
-        "members": [
-          {
-            "recordId": "c7093da8da6dd776d636cad8",
-            "split": "valid"
           }
         ],
         "status": "unreviewed_singleton",
@@ -9744,17 +11114,6 @@
           }
         ],
         "status": "confirmed_group",
-        "targetSplit": null
-      },
-      {
-        "groupId": "efbb7c839674063e2ebfb0ad",
-        "members": [
-          {
-            "recordId": "8eee7cf250137f57da273688",
-            "split": "test"
-          }
-        ],
-        "status": "unreviewed_singleton",
         "targetSplit": null
       },
       {
@@ -10345,11 +11704,11 @@
         "targetSplit": null
       }
     ],
-    "groupsTotal": 778,
-    "confirmedGroups": 19,
-    "unreviewedSingletons": 759,
-    "reviewedRecords": 41,
-    "unreviewedRecords": 759,
+    "groupsTotal": 771,
+    "confirmedGroups": 23,
+    "unreviewedSingletons": 748,
+    "reviewedRecords": 52,
+    "unreviewedRecords": 748,
     "allRecordsRepresentedExactlyOnce": true,
     "targetSplitsAssigned": false,
     "readyForGroupLockedSplit": false
