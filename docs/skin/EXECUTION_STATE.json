@@ -175,7 +175,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-24",
-      "lastCheckedAt": "2026-10-24T09:54:00Z",
+      "lastCheckedAt": "2026-10-24T10:39:00Z",
       "modelCount": 89,
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
@@ -311,6 +311,33 @@
         },
         "expertLabelsChanged": false,
         "modelAccepted": false
+      },
+      "datasetGeometryAudit": {
+        "observedAt": "2026-10-24T10:39:00Z",
+        "project": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation",
+        "version": 1,
+        "exportFormat": "coco",
+        "exportArchiveSHA256": "29f40e80c8b1f63d43abbc35d11efdbaac4cf754531af2bee64283dde64c34e2",
+        "exportArchiveBytes": 103665003,
+        "images": 800,
+        "annotations": 37342,
+        "tinyAreaFractionThreshold": 0.0004,
+        "aggregateTinyFractions": {
+          "Pimple": 0.9423076923076923,
+          "Post acne": 0.9494754537247455,
+          "Pigmentation": 0.9404686510449651
+        },
+        "classRatios": {
+          "postAcneToPimple": 8.825,
+          "postAcneToPigmentation": 20.343888537048766
+        },
+        "exactCrossSplitDuplicateGroups": 0,
+        "personOrSourceGroupIdentityAvailable": false,
+        "splitIndependenceEstablished": false,
+        "trainingAuthorized": false,
+        "modelAccepted": false,
+        "evidence": "docs/skin/evidence/acne-dataset-geometry-audit-20261024-v1.json",
+        "report": "docs/skin/acne-dataset-geometry-audit-20261024.md"
       }
     },
     "acneSourceProject": "tolgar-sasmaz/attune-skin-acne-pilot",
@@ -327,7 +354,7 @@
         "invalidGeometry": 0
       },
       "versions": [],
-      "lastCheckedAt": "2026-10-24T09:54:00Z",
+      "lastCheckedAt": "2026-10-24T10:39:00Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -420,7 +447,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-24T09:54:00Z",
+      "lastCheckedAt": "2026-10-24T10:39:00Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "modelIds": [
@@ -850,7 +877,7 @@
       }
     },
     "concurrentWork": {
-      "observedAt": "2026-10-24T09:54:00Z",
+      "observedAt": "2026-10-24T10:39:00Z",
       "projectsTotal": 16,
       "doNotDuplicate": [
         {
@@ -895,7 +922,7 @@
           }
         }
       ],
-      "note": "All 16 private projects were refreshed. Acne/post-acne/pigmentation NAS remains finished with 89 children; regional NAS remains finished with 75 provider records and version 1 remains 337 images (244/63/30); grouped under-eye remains empty. This run did not repeat training, inference, upload or threshold refitting, and did not interpret recommendation flags."
+      "note": "All 16 private projects were refreshed. Acne/post-acne/pigmentation NAS remains finished with 89 children; regional NAS remains finished with 75 provider records and version 1 remains 337 images (244/63/30); grouped under-eye remains empty. The existing acne COCO export was audited, but no training, inference, upload, label, split or threshold mutation was started."
     }
   },
   "sourceAccess": {
@@ -1188,14 +1215,19 @@
         "tests/unit/test_audit_original_photo_model_comparison.py",
         "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
         "docs/skin/evidence/roboflow-live-evaluations-20261024.json",
-        "docs/skin/original-photo-model-comparison-audit-20261024.md"
+        "docs/skin/original-photo-model-comparison-audit-20261024.md",
+        "scripts/skin-research/audit_acne_dataset_geometry.py",
+        "scripts/skin-research/tests/test_audit_acne_dataset_geometry.py",
+        "docs/skin/evidence/acne-dataset-geometry-audit-20261024-v1.json",
+        "docs/skin/acne-dataset-geometry-audit-20261024.md"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
         "Source holdout independence, expert semantic review, real-camera tests and application integration remain pending. Diagnose tiny-instance resolution, localisation, dense prediction cap and label coverage on validation before targeted changes; do not blindly retrain.",
         "Validation-only diagnostic:24four-corner crop inferences on6images at fixed original thresholds. Recall increased forPimple andPostacne, false positives also increased; pigmentation0/62. Hash-control AP50declined. Tiling alone not accepted; source taxonomy/coverage and localization require targeted improvement, not broad retraining.",
         "Validation-only class-agnostic one-to-one matching atIoU0.5:205Pimple/93Pigmentation truths matchedPostacne predictions. Source instances are overwhelmingly small, and same-class overlap degrades atIoU0.75. These are classification/localization review cues,notproof labels are wrong; six valid examples visually inspected, no labels changed.",
-        "Live eval 0xMgfVLFzMyNEOhN1baC binds evaluated child a5e262 to Pimple test precision/recall/F1 0.127/0.075/0.094. The unevaluated displayed 929397 child hits the 300-prediction cap on all six generated profiles. Neither is accepted or integrated."
+        "Live eval 0xMgfVLFzMyNEOhN1baC binds evaluated child a5e262 to Pimple test precision/recall/F1 0.127/0.075/0.094. The unevaluated displayed 929397 child hits the 300-prediction cap on all six generated profiles. Neither is accepted or integrated.",
+        "Aggregate COCO geometry audit confirms a targeted data/resolution problem: 94.23% Pimple, 94.95% Post acne and 94.05% Pigmentation boxes occupy under 0.04% of the image; Post acne has 8.825x Pimple and 20.344x Pigmentation annotations. Exact cross-split file duplicates are zero, but person/source identity is unavailable, so holdout independence remains unestablished. Do not blindly retrain."
       ]
     },
     {
@@ -1222,14 +1254,19 @@
         "tests/unit/test_audit_original_photo_model_comparison.py",
         "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
         "docs/skin/evidence/roboflow-live-evaluations-20261024.json",
-        "docs/skin/original-photo-model-comparison-audit-20261024.md"
+        "docs/skin/original-photo-model-comparison-audit-20261024.md",
+        "scripts/skin-research/audit_acne_dataset_geometry.py",
+        "scripts/skin-research/tests/test_audit_acne_dataset_geometry.py",
+        "docs/skin/evidence/acne-dataset-geometry-audit-20261024-v1.json",
+        "docs/skin/acne-dataset-geometry-audit-20261024.md"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
         "Source holdout independence, expert semantic review, real-camera tests and application integration remain pending. Diagnose tiny-instance resolution, localisation, dense prediction cap and label coverage on validation before targeted changes; do not blindly retrain.",
         "Validation-only diagnostic:24four-corner crop inferences on6images at fixed original thresholds. Recall increased forPimple andPostacne, false positives also increased; pigmentation0/62. Hash-control AP50declined. Tiling alone not accepted; source taxonomy/coverage and localization require targeted improvement, not broad retraining.",
         "Validation-only class-agnostic one-to-one matching atIoU0.5:205Pimple/93Pigmentation truths matchedPostacne predictions. Source instances are overwhelmingly small, and same-class overlap degrades atIoU0.75. These are classification/localization review cues,notproof labels are wrong; six valid examples visually inspected, no labels changed.",
-        "Live eval 0xMgfVLFzMyNEOhN1baC binds evaluated child a5e262 to Post acne test precision/recall/F1 0.133/0.032/0.052. The displayed 929397 child has no bound test evaluation and is capped on every generated profile. Keep the product heading unavailable."
+        "Live eval 0xMgfVLFzMyNEOhN1baC binds evaluated child a5e262 to Post acne test precision/recall/F1 0.133/0.032/0.052. The displayed 929397 child has no bound test evaluation and is capped on every generated profile. Keep the product heading unavailable.",
+        "Aggregate COCO geometry audit confirms a targeted data/resolution problem: 94.23% Pimple, 94.95% Post acne and 94.05% Pigmentation boxes occupy under 0.04% of the image; Post acne has 8.825x Pimple and 20.344x Pigmentation annotations. Exact cross-split file duplicates are zero, but person/source identity is unavailable, so holdout independence remains unestablished. Do not blindly retrain."
       ]
     },
     {
@@ -1256,14 +1293,19 @@
         "tests/unit/test_audit_original_photo_model_comparison.py",
         "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
         "docs/skin/evidence/roboflow-live-evaluations-20261024.json",
-        "docs/skin/original-photo-model-comparison-audit-20261024.md"
+        "docs/skin/original-photo-model-comparison-audit-20261024.md",
+        "scripts/skin-research/audit_acne_dataset_geometry.py",
+        "scripts/skin-research/tests/test_audit_acne_dataset_geometry.py",
+        "docs/skin/evidence/acne-dataset-geometry-audit-20261024-v1.json",
+        "docs/skin/acne-dataset-geometry-audit-20261024.md"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
         "Source holdout independence, expert semantic review, real-camera tests and application integration remain pending. Diagnose tiny-instance resolution, localisation, dense prediction cap and label coverage on validation before targeted changes; do not blindly retrain.",
         "Validation-only diagnostic:24four-corner crop inferences on6images at fixed original thresholds. Recall increased forPimple andPostacne, false positives also increased; pigmentation0/62. Hash-control AP50declined. Tiling alone not accepted; source taxonomy/coverage and localization require targeted improvement, not broad retraining.",
         "Validation-only class-agnostic one-to-one matching atIoU0.5:205Pimple/93Pigmentation truths matchedPostacne predictions. Source instances are overwhelmingly small, and same-class overlap degrades atIoU0.75. These are classification/localization review cues,notproof labels are wrong; six valid examples visually inspected, no labels changed.",
-        "Live eval 0xMgfVLFzMyNEOhN1baC binds evaluated child a5e262 to Pigmentation test precision/recall/F1 0.004/0.016/0.007. The displayed 929397 child has no bound test evaluation and is capped on every generated profile. Keep the product heading unavailable."
+        "Live eval 0xMgfVLFzMyNEOhN1baC binds evaluated child a5e262 to Pigmentation test precision/recall/F1 0.004/0.016/0.007. The displayed 929397 child has no bound test evaluation and is capped on every generated profile. Keep the product heading unavailable.",
+        "Aggregate COCO geometry audit confirms a targeted data/resolution problem: 94.23% Pimple, 94.95% Post acne and 94.05% Pigmentation boxes occupy under 0.04% of the image; Post acne has 8.825x Pimple and 20.344x Pigmentation annotations. Exact cross-split file duplicates are zero, but person/source identity is unavailable, so holdout independence remains unestablished. Do not blindly retrain."
       ]
     },
     {
@@ -1942,9 +1984,37 @@
       "physicalCameraAccepted": false,
       "modelOrThresholdChanged": false,
       "productionMerged": false
+    },
+    "acneDatasetGeometryAudit": {
+      "observedAt": "2026-10-24T10:39:00Z",
+      "implementationCommit": "c3dc8711450a40ecf991e3553a24e135c868dd50",
+      "evidence": "docs/skin/evidence/acne-dataset-geometry-audit-20261024-v1.json",
+      "report": "docs/skin/acne-dataset-geometry-audit-20261024.md",
+      "source": {
+        "project": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation",
+        "version": 1,
+        "format": "coco",
+        "archiveSHA256": "29f40e80c8b1f63d43abbc35d11efdbaac4cf754531af2bee64283dde64c34e2",
+        "archiveBytes": 103665003
+      },
+      "checks": {
+        "inventoryMatches": true,
+        "geometryValid": true,
+        "exactCrossSplitDuplicateGroups": 0,
+        "sourcePersonGroupsAvailable": false,
+        "testsPassed": 3,
+        "pythonCompile": true,
+        "ciWired": true
+      },
+      "decision": "TARGETED_DATA_RESOLUTION_AND_SOURCE_GROUP_REVIEW_REQUIRED; DO_NOT_BLINDLY_RETRAIN",
+      "trainingAuthorized": false,
+      "modelAccepted": false,
+      "cameraAccepted": false,
+      "productionMerged": false
     }
   },
   "nextActions": [
+    "For tasks 01–03, use the committed geometry audit to build a source/person grouping manifest and expert semantic/negative-coverage review before any new split or training. Then run one validation-only higher-resolution or crop-aware experiment that rebalances Pimple/Pigmentation without fabricated labels; keep the locked test untouched until the design is fixed.",
     "Run the now-wired skin presentation and current-merged capability regressions through PR/main CI or a normal dependency-materialized workspace, then complete real-browser and consented physical-camera acceptance. Preserve the verified working baseline (nine appearance criteria, separate skin type and regional outputs) while Post acne and Pigmentation remain additive gated headings.",
     "Preserve the new display-unit boundary: only true supported-area ratios may use a percent meter. Keep color/line/fold/generic indices neutral and bar-free, and do not activate the independent review's cited model thresholds without validation-selected, locked independent-test and real-camera evidence.",
     "Treat the merged nine-criterion plus separate-skin-type flow as the functioning baseline, not as missing output. Preserve the source-bound capability gate and add Post acne/Pigmentation only as additive localized headings after their model/data acceptance gates pass; next execute the existing browser/API/history replay with a consented physical camera capture.",
@@ -2336,6 +2406,15 @@
       "report": "docs/skin/evidence/current-merged-capability-ci-20261024-v1.json",
       "commits": [
         "bd498f576b5908fce622f77ae2aaf8e1952bee3a"
+      ]
+    },
+    {
+      "date": "2026-10-24",
+      "observedAt": "2026-10-24T10:39:00Z",
+      "action": "Read the persistent checkpoint first; refreshed all 16 private Roboflow projects and both existing NAS runs. Acne/post-acne/pigmentation remains finished with 89 children, regional remains finished with 75 provider records and 337 images, and grouped under-eye remains empty. Used the existing private COCO export only for aggregate analysis; no training, inference, upload, labels, splits or thresholds were changed. Added a deterministic geometry/balance/split-hash audit plus three passing tests and CI wiring. Across 37,342 boxes, 94.23% Pimple, 94.95% Post acne and 94.05% Pigmentation instances occupy under 0.04% of the image; Post acne is 8.825x Pimple and 20.344x Pigmentation. No exact cross-split file duplicate was found, but source/person identity is unavailable, so independence is not established. The decision is targeted source grouping, semantic/negative review and validation-only resolution/crop experiments before any retraining; no model is accepted.",
+      "report": "docs/skin/acne-dataset-geometry-audit-20261024.md",
+      "commits": [
+        "c3dc8711450a40ecf991e3553a24e135c868dd50"
       ]
     }
   ]
