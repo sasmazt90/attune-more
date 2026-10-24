@@ -15,7 +15,7 @@ The replacement split is blocked, and no training is authorized. The gate replay
 | Members in those confirmed leakage groups | 10 |
 | Full reviewed group-coverage receipt | Missing |
 | Records covered by a full group receipt | 0 / 800 |
-| Expert semantic and hard-negative review | Missing for all 3 classes |
+| Expert semantic and hard-negative receipt | Template supplied; completion missing for all 3 classes |
 | Ready to generate a replacement split | No |
 | Training authorized | No |
 | Test evaluation authorized | No |
@@ -46,3 +46,5 @@ Evidence:
 
 - `docs/skin/evidence/acne-source-group-review-20261024-v1.json`
 - `docs/skin/evidence/acne-split-release-gate-20261024-v1.json`
+- `docs/skin/evidence/acne-semantic-review-queue-20261024-v1.json`
+- `docs/skin/evidence/acne-semantic-negative-review-20261024-v1.json`

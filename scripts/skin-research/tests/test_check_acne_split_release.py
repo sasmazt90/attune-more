@@ -41,12 +41,16 @@ def source_review():
 def complete_semantics():
     return {
         "schemaVersion": "acne-semantic-negative-review-v1",
+        "datasetArchiveSHA256": "a" * 64,
+        "reviewPackageCanonicalSHA256": "b" * 64,
+        "reviewer": "expert_review",
         "classes": [{
             "name": name,
             "expertReviewed": True,
             "positiveDefinitionLocked": True,
             "hardNegativePolicyLocked": True,
             "ambiguousCasePolicyLocked": True,
+            "reviewedItemIds": [f"reviewed-{name}"],
         } for name in gate.CLASSES],
     }
 
@@ -101,6 +105,16 @@ class AcneSplitReleaseGateTest(unittest.TestCase):
         value["dataset"]["images"] = 4
         with self.assertRaisesRegex(gate.GateError, "does not cover"):
             gate.build_gate(value)
+
+    def test_semantic_receipt_requires_archive_and_expert_binding(self):
+        semantic = complete_semantics()
+        semantic["datasetArchiveSHA256"] = "f" * 64
+        with self.assertRaisesRegex(gate.GateError, "archive binding"):
+            gate.build_gate(source_review(), semantic_review=semantic)
+        semantic = complete_semantics()
+        semantic["reviewer"] = "engineering_visual_review"
+        result = gate.build_gate(source_review(), semantic_review=semantic)
+        self.assertFalse(result["semanticNegativeReview"]["complete"])
 
 
 if __name__ == "__main__":

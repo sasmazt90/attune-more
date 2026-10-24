@@ -122,7 +122,10 @@ def validate_group_coverage(
     }
 
 
-def validate_semantic_review(receipt: dict[str, Any] | None) -> dict[str, Any]:
+def validate_semantic_review(
+    receipt: dict[str, Any] | None,
+    archive_sha256: str | None,
+) -> dict[str, Any]:
     if receipt is None:
         return {
             "receiptSupplied": False,
@@ -132,6 +135,12 @@ def validate_semantic_review(receipt: dict[str, Any] | None) -> dict[str, Any]:
         }
     if receipt.get("schemaVersion") != "acne-semantic-negative-review-v1":
         raise GateError("semantic review schema is invalid")
+    if receipt.get("datasetArchiveSHA256") != archive_sha256:
+        raise GateError("semantic review archive binding does not match")
+    package_sha = receipt.get("reviewPackageCanonicalSHA256")
+    if (not isinstance(package_sha, str) or len(package_sha) != 64
+            or any(character not in "0123456789abcdef" for character in package_sha)):
+        raise GateError("semantic review package binding is invalid")
     rows = receipt.get("classes")
     if not isinstance(rows, list):
         raise GateError("semantic review classes are missing")
@@ -144,10 +153,14 @@ def validate_semantic_review(receipt: dict[str, Any] | None) -> dict[str, Any]:
         by_name[row["name"]] = row
     complete_classes = sorted(
         name for name, row in by_name.items()
-        if row.get("expertReviewed") is True
+        if receipt.get("reviewer") == "expert_review"
+        and row.get("expertReviewed") is True
         and row.get("positiveDefinitionLocked") is True
         and row.get("hardNegativePolicyLocked") is True
         and row.get("ambiguousCasePolicyLocked") is True
+        and isinstance(row.get("reviewedItemIds"), list)
+        and len(row["reviewedItemIds"]) > 0
+        and all(isinstance(identifier, str) and identifier for identifier in row["reviewedItemIds"])
     )
     missing = [name for name in CLASSES if name not in complete_classes]
     return {
@@ -165,7 +178,9 @@ def build_gate(
 ) -> dict[str, Any]:
     records = require_record_index(source_review)
     grouping = validate_group_coverage(group_coverage, records)
-    semantics = validate_semantic_review(semantic_review)
+    semantics = validate_semantic_review(
+        semantic_review, source_review.get("dataset", {}).get("archiveSHA256")
+    )
     leakage_groups = source_review.get("reviewSummary", {}).get(
         "confirmedCrossSplitSourceLeakageGroups"
     )
