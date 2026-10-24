@@ -110,6 +110,12 @@ def fixtures():
     attune = {
         "sourceCommit": comparison.CURRENT_PRODUCT_COMMIT,
         "endpoint": comparison.CURRENT_ENDPOINT,
+        "provenance": {
+            "sourceType": "generated-still-image-replay",
+            "baseCommit": comparison.CURRENT_PRODUCT_COMMIT,
+            "localRevisionSHA256": sha("c"),
+            "productOrModelOrThresholdChanges": False,
+        },
         "captures": captures,
     }
     return manifest, roboflow, attune
@@ -122,6 +128,7 @@ class ComparisonContractTest(unittest.TestCase):
         self.assertTrue(receipt["comparisonReady"])
         self.assertEqual(len(receipt["subjects"]), 6)
         self.assertFalse(receipt["claims"]["accuracyMeasured"])
+        self.assertIn("Not an accuracy score", comparison._html(receipt))
 
     def test_missing_attune_subject_is_blocked(self):
         manifest, roboflow, attune = fixtures()
@@ -154,6 +161,12 @@ class ComparisonContractTest(unittest.TestCase):
         manifest, roboflow, attune = fixtures()
         attune["sourceCommit"] = sha("0")
         with self.assertRaisesRegex(comparison.ContractError, "current merged product commit"):
+            comparison.build(manifest, roboflow, attune)
+
+    def test_behavior_change_in_execution_is_blocked(self):
+        manifest, roboflow, attune = fixtures()
+        attune["provenance"]["productOrModelOrThresholdChanges"] = True
+        with self.assertRaisesRegex(comparison.ContractError, "changed product/model/threshold"):
             comparison.build(manifest, roboflow, attune)
 
     def test_cli_failure_writes_no_comparison(self):
