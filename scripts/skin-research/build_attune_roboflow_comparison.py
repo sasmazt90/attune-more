@@ -239,22 +239,26 @@ def _validate_attune(
         raise ContractError("Attune bundle must contain all six FRONT responses")
 
     result: dict[str, dict[str, Any]] = {}
+    hash_to_subject = {row["sha256"]: key for key, row in fronts.items()}
     for capture in captures:
         if not isinstance(capture, dict):
             raise ContractError("malformed Attune capture")
-        subject = capture.get("subjectKey")
-        if subject not in fronts or subject in result:
-            raise ContractError("Attune subject is unknown or duplicated")
+        input_row = capture.get("input")
+        if not isinstance(input_row, dict):
+            raise ContractError("Attune input is missing")
+        jpeg_hash = input_row.get("jpegSha256")
+        subject = hash_to_subject.get(jpeg_hash)
+        if subject is None or subject in result:
+            raise ContractError("Attune FRONT hash is unknown or duplicated")
         if capture.get("pose") != "FRONT":
             raise ContractError(f"Attune capture is not FRONT for {subject}")
-        input_row = capture.get("input")
         response = capture.get("response")
-        if not isinstance(input_row, dict) or not isinstance(response, dict):
+        if not isinstance(response, dict):
             raise ContractError(f"Attune input/response missing for {subject}")
         expected = fronts[subject]
-        if input_row.get("filename") != expected["filename"]:
-            raise ContractError(f"Attune filename mismatch for {subject}")
-        if input_row.get("jpegSha256") != expected["sha256"]:
+        if not isinstance(input_row.get("filename"), str):
+            raise ContractError(f"Attune filename missing for {subject}")
+        if jpeg_hash != expected["sha256"]:
             raise ContractError(f"Attune JPEG identity mismatch for {subject}")
         rgba_hash = _sha(input_row.get("decodedRgbaSha256"), f"{subject} decoded RGBA sha256")
         if response.get("photoId") != rgba_hash:
@@ -276,6 +280,8 @@ def _validate_attune(
             raise ContractError(f"Attune FRONT overview missing for {subject}")
         criteria, skin_type = _measurement_summary(general, subject)
         result[subject] = {
+            "captureLabel": capture.get("subjectKey") or capture.get("personId"),
+            "captureFilename": input_row["filename"],
             "photoId": rgba_hash,
             "methodVersion": response.get("methodVersion"),
             "criteria": criteria,
