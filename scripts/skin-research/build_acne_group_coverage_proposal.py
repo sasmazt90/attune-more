@@ -9,6 +9,7 @@ candidates only. The output cannot be used as a training split receipt.
 from __future__ import annotations
 
 import argparse
+import difflib
 import hashlib
 import itertools
 import json
@@ -95,6 +96,7 @@ def scan_records(root: Path) -> list[dict[str, Any]]:
                 "split": split,
                 "contentSHA256": content_sha,
                 "sourceNameToken": digest_token(source_name) if source_name else None,
+                "normalizedSourceName": source_name,
                 "sourceNameUsable": len(source_name) >= 8 and not source_name.isdigit(),
                 "dHash": difference_hash(image_path),
                 "pHash": phashes["full"],
@@ -142,6 +144,7 @@ def build_proposal(
     phash_distance: int = 10,
     central_phash_distance: int = 10,
     directional_phash_distance: int = 8,
+    source_name_similarity: float = 0.94,
 ) -> dict[str, Any]:
     if not ARCHIVE_SHA256.fullmatch(archive_sha256):
         raise ProposalError("archive sha256 must be a lowercase 64-character digest")
@@ -149,6 +152,8 @@ def build_proposal(
             or not 0 <= central_phash_distance <= 16
             or not 0 <= directional_phash_distance <= 16):
         raise ProposalError("perceptual hash distance is outside the safe range")
+    if not 0.8 <= source_name_similarity <= 1.0:
+        raise ProposalError("source name similarity must be between 0.8 and 1.0")
     decisions = load_decisions(decisions_path)
     records = scan_records(root)
     by_id = {record["recordId"]: record for record in records}
@@ -213,6 +218,19 @@ def build_proposal(
                         hammingDistance=directional_hamming,
                         automaticEvidence="review_only",
                     )
+            left_name, right_name = (
+                left["normalizedSourceName"], right["normalizedSourceName"]
+            )
+            if min(len(left_name), len(right_name)) >= 8:
+                similarity = difflib.SequenceMatcher(
+                    None, left_name, right_name, autojunk=False
+                ).ratio()
+                if similarity >= source_name_similarity:
+                    add(
+                        "normalized_source_name_similarity", (left, right),
+                        similarity=round(similarity, 12),
+                        automaticEvidence="review_only",
+                    )
 
     known_ids = {row["candidateId"] for row in candidates}
     unknown_decisions = sorted(set(decisions) - known_ids)
@@ -236,6 +254,8 @@ def build_proposal(
         pair["candidateIdsByMethod"][row["method"]] = row["candidateId"]
         if "hammingDistance" in row:
             pair["distances"][row["method"]] = row["hammingDistance"]
+        if "similarity" in row:
+            pair.setdefault("similarities", {})[row["method"]] = row["similarity"]
         pair["reviewDecisions"].append(row["review"])
         decision = row["review"]["decision"]
         if row["method"] == "exact_content" or decision in {"same_source", "same_source_or_person"}:
@@ -302,6 +322,7 @@ def build_proposal(
                 name: list(crop) for name, crop in DIRECTIONAL_PHASH_CROPS.items()
             },
             "directionalCropPHashMaxDistance": directional_phash_distance,
+            "normalizedSourceNameSimilarityMinimum": source_name_similarity,
             "perceptualMatchesAreReviewOnly": True,
         },
         "candidateCountsByMethod": {
@@ -310,6 +331,7 @@ def build_proposal(
                 "exact_content", "normalized_source_name", "perceptual_dhash",
                 "perceptual_phash", "central_crop_phash",
                 *(f"directional_crop_phash_{name}" for name in DIRECTIONAL_PHASH_CROPS),
+                "normalized_source_name_similarity",
             )
         },
         "reviewQueue": {
@@ -358,6 +380,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--phash-distance", type=int, default=10)
     parser.add_argument("--central-phash-distance", type=int, default=10)
     parser.add_argument("--directional-phash-distance", type=int, default=8)
+    parser.add_argument("--source-name-similarity", type=float, default=0.94)
     args = parser.parse_args(argv)
     try:
         result = build_proposal(
@@ -366,6 +389,7 @@ def main(argv: list[str] | None = None) -> int:
             phash_distance=args.phash_distance,
             central_phash_distance=args.central_phash_distance,
             directional_phash_distance=args.directional_phash_distance,
+            source_name_similarity=args.source_name_similarity,
         )
     except (ProposalError, ValueError) as exc:
         print(f"group coverage proposal blocked: {exc}")

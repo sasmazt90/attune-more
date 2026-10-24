@@ -60,6 +60,7 @@ class AcneGroupCoverageProposalTest(unittest.TestCase):
         self.assertFalse(coverage["readyForGroupLockedSplit"])
         self.assertFalse(result["decision"]["trainingAuthorized"])
         self.assertEqual(result["methods"]["directionalCropPHashMaxDistance"], 8)
+        self.assertEqual(result["methods"]["normalizedSourceNameSimilarityMinimum"], 0.94)
         self.assertEqual(
             set(result["methods"]["directionalCropPHashBoxes"]),
             set(proposal.DIRECTIONAL_PHASH_CROPS),
@@ -69,6 +70,10 @@ class AcneGroupCoverageProposalTest(unittest.TestCase):
                 f"directional_crop_phash_{crop_name}",
                 result["candidateCountsByMethod"],
             )
+        self.assertIn(
+            "normalized_source_name_similarity",
+            result["candidateCountsByMethod"],
+        )
         self.assertEqual(
             result["decision"]["reason"],
             "REVIEW_CANDIDATE_PAIRS_AND_SINGLETON_IDENTITIES_BEFORE_SPLIT",
