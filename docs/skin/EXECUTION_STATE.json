@@ -175,7 +175,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-24",
-      "lastCheckedAt": "2026-10-24T00:35:49Z",
+      "lastCheckedAt": "2026-10-24T01:56:06Z",
       "modelCount": 89,
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
@@ -327,7 +327,7 @@
         "invalidGeometry": 0
       },
       "versions": [],
-      "lastCheckedAt": "2026-10-24T00:35:49Z",
+      "lastCheckedAt": "2026-10-24T01:56:06Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -420,7 +420,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-24T00:35:49Z",
+      "lastCheckedAt": "2026-10-24T01:56:06Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "modelIds": [
@@ -850,7 +850,7 @@
       }
     },
     "concurrentWork": {
-      "observedAt": "2026-10-23T18:29:14Z",
+      "observedAt": "2026-10-24T01:56:06Z",
       "projectsTotal": 16,
       "doNotDuplicate": [
         {
@@ -895,7 +895,7 @@
           }
         }
       ],
-      "note": "All three concurrent comedone/pore runs remain finished. This run refreshed all 16 projects and the exact acne, regional, clean-comedone, grouped-comedone and pore statuses; it did not repeat training, evaluate/select children or interpret recommendation flags."
+      "note": "All five exact acne, regional, clean/grouped comedone and pore trainings remain finished (89, 75, 90, 1 and 1 produced models respectively); under-eye remains 399 images with no version. This run did not repeat training/inference or interpret recommendation flags."
     }
   },
   "sourceAccess": {
@@ -1084,7 +1084,7 @@
     {
       "id": "00",
       "target": "shared-data-and-evaluation",
-      "status": "acceptance_gate_and_generated_camera_smoke_integrated_real_camera_pending",
+      "status": "static_gate_package_audited_real_camera_pending",
       "work": "Build target/source inventory; verify annotation geometry and label meaning; group exact/near duplicate photos across sources; freeze train/validation/test groups; audit source licences; create independent camera benchmark and capture-quality checks. A shared fail-closed learned-model gate now requires immutable identity, reviewed source/split/negative evidence, per-class validation plus locked test, independent product-contract camera evidence and working integration before activation.",
       "evidence": [
         "scripts/skin-research/audit_roadmap_archives.py",
@@ -1134,7 +1134,11 @@
         "docs/skin/generated-camera-triplet-roboflow-review-20261024.md",
         "scripts/skin-research/build_attune_roboflow_comparison.py",
         "scripts/skin-research/tests/test_build_attune_roboflow_comparison.py",
-        "docs/skin/attune-roboflow-source-bound-comparison-gate-20261024.md"
+        "docs/skin/attune-roboflow-source-bound-comparison-gate-20261024.md",
+        "scripts/skin-research/audit_gate_pass_camera_package.py",
+        "scripts/skin-research/tests/test_audit_gate_pass_camera_package.py",
+        "docs/skin/evidence/gate-pass-camera-package-audit-20261024-v1.json",
+        "docs/skin/gate-pass-camera-package-audit-20261024.md"
       ],
       "blockers": [
         "Final holdout independence is not established: perceptual and filename crop relations need source/provenance review; prior exposure and person overlap are unknown.",
@@ -1506,13 +1510,17 @@
         "docs/skin/generated-camera-triplet-roboflow-review-20261024.md",
         "scripts/skin-research/build_attune_roboflow_comparison.py",
         "scripts/skin-research/tests/test_build_attune_roboflow_comparison.py",
-        "docs/skin/attune-roboflow-source-bound-comparison-gate-20261024.md"
+        "docs/skin/attune-roboflow-source-bound-comparison-gate-20261024.md",
+        "scripts/skin-research/audit_gate_pass_camera_package.py",
+        "scripts/skin-research/tests/test_audit_gate_pass_camera_package.py",
+        "docs/skin/evidence/gate-pass-camera-package-audit-20261024-v1.json",
+        "docs/skin/gate-pass-camera-package-audit-20261024.md"
       ],
       "blockers": [
         "The merged main branch already has the nine-criterion result path, separate skin type, six regional views, overview, local maps/contours, persistence gate and result UI. The roadmap branch now extends the result contract to eleven appearance headings plus skin type; Post acne and Pigmentation remain explicitly unavailable, not fabricated. Production merge/deployment is not part of this run.",
         "Regional summaries now pass strict parsing, source-bound presentation, explicit categorical history availability states, retained-photo replay validation and the same replay gate before IndexedDB write and after read. An unknown, missing or malformed selected record cannot fall back to an older result; method changes are not bridged. Real browser/IndexedDB screenshot replay cannot run in this environment because Python Playwright and a Chromium executable are absent. Full app typecheck, browser/API/history E2E and real-camera acceptance remain pending.",
         "No oil/dry/redness method is activated by synthetic contract, history, replay or storage tests; the accepted-method registry remains authoritative and currently empty.",
-        "A fail-closed six-subject current-product/Roboflow comparison gate is implemented, but no comparison receipt exists yet: the connected Railway account has no Attune service, the product UI is camera/MediaPipe-only, and this scratch runtime lacks the product OpenCV/MediaPipe/ONNX/FastAPI stack. Capture all six source-bound FRONT responses from the pinned merged product commit; do not fabricate or substitute values."
+        "The fail-closed six-subject current-product/Roboflow comparison gate is implemented and now binds renamed gate-package files by FRONT hash. The new package supplies 18/18 static preflight evidence and source-bound photo IDs, but explicitly records fullV5SkinAnalysisCompletedForThisSet=false; export the six complete merged-product FRONT analysis responses before creating the comparison receipt. No substitute values are allowed."
       ]
     }
   ],
@@ -1548,7 +1556,26 @@
       "realCameraAcceptance": false,
       "expertGroundTruth": false,
       "precisionRecallF1Eligible": false,
-      "evidence": "docs/skin/evidence/camera-triplet-generated-smoke-20261024-v1.json"
+      "evidence": "docs/skin/evidence/camera-triplet-generated-smoke-20261024-v1.json",
+      "latestGatePassPackage": {
+        "libraryFileId": "libfile_9a158253d1788191b8de772e7f339b6b",
+        "archiveFilename": "Attune_6_Profiles_18_Images_GATE_PASS_20261024.zip",
+        "archiveSHA256": "5096055f1cbd3afb28f4cdc1c2a40584b9c5d8159a6371e0d558f38a2ca90f28",
+        "people": 6,
+        "images": 18,
+        "staticPreflightAccepted": 18,
+        "optimalQuality": 18,
+        "clearCaptureCheck": 18,
+        "uniqueImageBytes": true,
+        "uniquePhotoIds": true,
+        "checksumCoverageComplete": true,
+        "frontHashesMatchSavedRoboflowInputs": true,
+        "repeatRoboflowInferenceRequired": false,
+        "fullV5SkinAnalysisCompleted": false,
+        "physicalCameraAcceptance": false,
+        "temporalStabilityMeasured": false,
+        "evidence": "docs/skin/evidence/gate-pass-camera-package-audit-20261024-v1.json"
+      }
     },
     "generatedCurrentProductComparison": {
       "gate": "scripts/skin-research/build_attune_roboflow_comparison.py",
@@ -1558,11 +1585,11 @@
       "currentProductEndpoint": "/api/local-health/skin",
       "roboflowModelPackage": "7ee34fce76456d9ff4cfe6e7049aad1e",
       "comparisonReceiptCreated": false,
-      "reason": "Six source-bound Attune FRONT responses are not yet available; fail closed rather than fabricate current-product output."
+      "reason": "The audited gate-pass package contains static preflight/photoId evidence but explicitly does not contain the six full V5 FRONT analysis responses."
     }
   },
   "nextActions": [
-    "Use scripts/skin-research/build_attune_roboflow_comparison.py only after capturing all six FRONT responses from merged commit 7463eef112c5a40f7cd01192b6d1f4e9fa6ab285. The tool requires JPEG identity, decoded-RGBA photoId, dimensions, nine criteria, separate skin type, six regions and maps/contours, and recomputes the already saved Roboflow threshold counts. Do not rerun the six Roboflow inferences or produce a comparison from partial/substitute Attune values.",
+    "Use the audited ZIP 5096055f1cbd3afb28f4cdc1c2a40584b9c5d8159a6371e0d558f38a2ca90f28 for the next generated replay. Its six FRONT hashes exactly match the saved Roboflow inputs, so do not repeat Roboflow inference. Run those FRONT files through the merged product's full V5 /api/local-health/skin analysis, export all six complete responses, then run build_attune_roboflow_comparison.py; static preflight alone is not the product result.",
     "Apply scripts/skin-research/skin_model_acceptance_gate.py to every future learned candidate before changing any accepted manifest or registry. A finished training or recommendation flag is insufficient. Current 754885 acne/post-acne/pigmentation, 2c07ef regional oil/redness and the model-less grouped under-eye path all fail closed; improve the recorded source, per-class, camera and integration gaps, then replay the same receipt.",
     "Task 12 source audit is complete: the 18-criterion ordinal source has elasticity, not sag, and cannot authorize a sag target. Preserve both model-boundary and downstream replacement guards; do not add sag to the generic degree head. Next useful evidence is consented same-person compatible capture pairs, expert localized truth, pose/expression robustness and execution of the focused model-boundary test in the service runtime with OpenCV/ONNX Runtime.",
     "Task 12 appearance-only semantics and the frontend rejection gate are implemented; do not rebuild or rename the contour/fold proxy as elasticity or clinical severity. Next obtain consented same-person compatible capture pairs plus expert localized truth, then evaluate pose/expression robustness before any learned segmentation or directional improvement claim.",
@@ -1843,6 +1870,20 @@
         "8c03acfe36a3d4050567c974a8708d00edd08b9f",
         "dfb4d69f4113f8e9a80aed122c8cf1ac7248d19a",
         "229cde695e054964dc93a3f93fcb97dd27ada79e"
+      ]
+    },
+    {
+      "date": "2026-10-24",
+      "observedAt": "2026-10-24T01:56:06Z",
+      "action": "Read the persistent checkpoint first, confirmed main is still exactly 7463eef112c5a40f7cd01192b6d1f4e9fa6ab285 and refreshed all 16 private Roboflow projects plus the five exact training IDs. Acne/regional/clean-comedone/grouped-comedone/pore runs remain finished with 89/75/90/1/1 produced models; under-eye remains 399 images with no version. No training was started or duplicated and no recommendation flag was interpreted. Materialized the user's replacement GATE_PASS ZIP and independently audited all 57 members: 56 checksum rows fully cover non-index members, 18 image hashes and measured photoIds are unique, decoded sizes/formats match, and every pose has 478 landmarks, OPTIMAL quality and CLEAR capture check under one immutable model hash. All six FRONT hashes are identical to the already saved Roboflow inputs, so inference was correctly not repeated. Added the privacy-safe audit receipt and five negative/positive audit tests; updated the comparison gate to bind renamed package files by hash. Twelve focused tests and Python compilation pass. The package explicitly lacks full V5 skin responses and is not physical-camera, temporal, expert-label or accuracy evidence; no comparison result, deployment or merge was fabricated.",
+      "report": "docs/skin/gate-pass-camera-package-audit-20261024.md",
+      "commits": [
+        "bb3a9bb127eb9eb591cc3d9414402ebaf71b5980",
+        "7c12f500b6ad5aed36de0170d29058fd62e673ac",
+        "0a79ae55acbd466b933ff3fb5ce634bf48c879d4",
+        "2d8e411d70a6328ece8f42ed2d0d1c25dfdc6ac2",
+        "3268223fceb0e4121ff2574c45ec21892a24a9bb",
+        "0207746e6d4e81972aa07c0bd79209140fe55777"
       ]
     }
   ]
