@@ -59,7 +59,50 @@ class AcneGroupCoverageProposalTest(unittest.TestCase):
         self.assertEqual(coverage["unreviewedRecords"], 5)
         self.assertFalse(coverage["readyForGroupLockedSplit"])
         self.assertFalse(result["decision"]["trainingAuthorized"])
+        self.assertEqual(
+            result["decision"]["reason"],
+            "REVIEW_CANDIDATE_PAIRS_AND_SINGLETON_IDENTITIES_BEFORE_SPLIT",
+        )
         self.assertNotIn("shared-photo", json.dumps(result))
+        unresolved = [row for row in result["reviewQueue"]["pairs"] if row["status"] == "unresolved"]
+        self.assertTrue(unresolved)
+        for row in unresolved:
+            self.assertEqual(set(row["candidateIdsByMethod"]), set(row["methods"]))
+            self.assertNotIn(".jpg", json.dumps(row))
+
+    def test_private_resolver_is_complete_and_explicitly_local_only(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            self.dataset(root)
+            result = proposal.private_record_resolver(root)
+        self.assertEqual(result["warning"], "PRIVATE_LOCAL_ONLY_DO_NOT_COMMIT")
+        self.assertEqual(len(result["records"]), 5)
+        self.assertEqual(len({row["recordId"] for row in result["records"]}), 5)
+        self.assertTrue(all(row["relativePath"].endswith(".jpg") for row in result["records"]))
+
+    def test_resolved_pair_queue_leaves_only_singleton_identity_review(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            self.dataset(root)
+            decisions = root / "decisions.json"
+            decisions.write_text(json.dumps({"schemaVersion": "source-group-review-decisions-v1", "decisions": []}))
+            first = proposal.build_proposal(root, "d" * 64, decisions)
+            rows = []
+            for pair in first["reviewQueue"]["pairs"]:
+                for candidate_id in pair["candidateIdsByMethod"].values():
+                    rows.append({
+                        "candidateId": candidate_id,
+                        "decision": "different_source",
+                        "reviewer": "engineering_visual_review",
+                        "rationale": "synthetic review",
+                    })
+            decisions.write_text(json.dumps({
+                "schemaVersion": "source-group-review-decisions-v1",
+                "decisions": rows,
+            }))
+            result = proposal.build_proposal(root, "d" * 64, decisions)
+        self.assertEqual(result["reviewQueue"]["unresolvedPairs"], 0)
+        self.assertEqual(result["decision"]["reason"], "REVIEW_SINGLETON_IDENTITIES_BEFORE_SPLIT")
 
     def test_known_same_source_decision_forms_confirmed_group(self):
         with tempfile.TemporaryDirectory() as folder:
@@ -93,6 +136,10 @@ class AcneGroupCoverageProposalTest(unittest.TestCase):
         self.assertEqual(result["coverageProposal"]["confirmedGroups"], 1)
         self.assertEqual(result["coverageProposal"]["reviewedRecords"], 2)
         self.assertEqual(result["coverageProposal"]["unreviewedRecords"], 3)
+        self.assertEqual(
+            result["decision"]["reason"],
+            "REVIEW_CANDIDATE_PAIRS_AND_SINGLETON_IDENTITIES_BEFORE_SPLIT",
+        )
 
     def test_unknown_decision_and_path_escape_fail_closed(self):
         with tempfile.TemporaryDirectory() as folder:

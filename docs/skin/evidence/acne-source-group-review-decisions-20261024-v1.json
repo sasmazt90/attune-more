@@ -48,6 +48,66 @@
       "decision": "same_source_or_person",
       "reviewer": "engineering_visual_review",
       "rationale": "The private comparison independently confirms the already reviewed train/valid crop and encoding variants are the same source photo/person. This is source-identity review, not lesion-label review."
+    },
+    {
+      "candidateId": "67007474e211e8360bbbf0c1",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person, clothing, room and camera framing in two valid-split images. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "489684f93b27a3f5a14c1f37",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows different people, viewpoints and capture scenes in the test split; the perceptual match is a false positive. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "415c174e992a7ce81f897879",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person and studio series with a small pose/expression change in the train split. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f590a551332d24d98f5a5cf0",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows different people and capture environments in the train split; the perceptual match is a false positive. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f8c7227aa3f19fd4efbfb096",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows different people and distinct studio compositions in the train split; the perceptual match is a false positive. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "132b8f841a16899611bab428",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo with a small crop or encoding variation in the train split. This is source review, not lesion-label review."
+    },
+    {
+      "candidateId": "82475c0d9b19b12f801ba49b",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo with a small crop or encoding variation in the train split. This is source review, not lesion-label review."
+    },
+    {
+      "candidateId": "27f0f3261d73384135ba5cab",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo with a small crop or encoding variation in the train split. This is source review, not lesion-label review."
+    },
+    {
+      "candidateId": "e65b24074b490d6884d87d2e",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo already present in another reviewed train-split pair, with a small crop or encoding variation. This is source review, not lesion-label review."
+    },
+    {
+      "candidateId": "a030d454dbf482220071ab73",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo with a small crop or encoding variation in the train split. This is source review, not lesion-label review."
     }
   ]
 }

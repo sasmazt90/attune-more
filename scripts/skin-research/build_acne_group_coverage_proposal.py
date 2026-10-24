@@ -101,6 +101,32 @@ def public_member(record: dict[str, Any]) -> dict[str, str]:
     return {"recordId": record["recordId"], "split": record["split"]}
 
 
+def private_record_resolver(root: Path) -> dict[str, Any]:
+    """Return a local-only record-id resolver; never commit this payload."""
+    records = scan_records(root)
+    resolver: list[dict[str, str]] = []
+    for split in SPLITS:
+        folder = root / split
+        coco = load_json(folder / "_annotations.coco.json")
+        for image in coco["images"]:
+            file_name = image["file_name"]
+            image_path = folder / file_name
+            content_sha = hashlib.sha256(image_path.read_bytes()).hexdigest()
+            record_id = digest_token(split + "\0" + file_name + "\0" + content_sha)
+            resolver.append({
+                "recordId": record_id,
+                "split": split,
+                "relativePath": str(Path(split) / file_name),
+            })
+    if {row["recordId"] for row in resolver} != {row["recordId"] for row in records}:
+        raise ProposalError("private resolver does not match scanned records")
+    return {
+        "schemaVersion": "acne-group-private-resolver-v1",
+        "warning": "PRIVATE_LOCAL_ONLY_DO_NOT_COMMIT",
+        "records": sorted(resolver, key=lambda row: row["recordId"]),
+    }
+
+
 def build_proposal(
     root: Path,
     archive_sha256: str,
@@ -175,8 +201,10 @@ def build_proposal(
             "distances": {},
             "crossSplit": row["crossSplit"],
             "reviewDecisions": [],
+            "candidateIdsByMethod": {},
         })
         pair["methods"].append(row["method"])
+        pair["candidateIdsByMethod"][row["method"]] = row["candidateId"]
         if "hammingDistance" in row:
             pair["distances"][row["method"]] = row["hammingDistance"]
         pair["reviewDecisions"].append(row["review"])
@@ -266,7 +294,10 @@ def build_proposal(
         "decision": {
             "personOrSourceGroupCoverageEstablished": False,
             "trainingAuthorized": False,
-            "reason": "REVIEW_CANDIDATE_PAIRS_AND_SINGLETON_IDENTITIES_BEFORE_SPLIT",
+            "reason": (
+                "REVIEW_CANDIDATE_PAIRS_AND_SINGLETON_IDENTITIES_BEFORE_SPLIT"
+                if unresolved else "REVIEW_SINGLETON_IDENTITIES_BEFORE_SPLIT"
+            ),
         },
         "privacy": {
             "containsImageBytes": False,
@@ -283,6 +314,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--archive-sha256", required=True)
     parser.add_argument("--decisions", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--private-resolver-output", type=Path)
     parser.add_argument("--dhash-distance", type=int, default=8)
     parser.add_argument("--phash-distance", type=int, default=10)
     args = parser.parse_args(argv)
@@ -297,6 +329,12 @@ def main(argv: list[str] | None = None) -> int:
         return 2
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    if args.private_resolver_output:
+        private = private_record_resolver(args.dataset)
+        args.private_resolver_output.parent.mkdir(parents=True, exist_ok=True)
+        args.private_resolver_output.write_text(
+            json.dumps(private, indent=2) + "\n", encoding="utf-8"
+        )
     return 0
 
 
