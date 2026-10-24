@@ -175,7 +175,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-24",
-      "lastCheckedAt": "2026-10-24T14:21:28Z",
+      "lastCheckedAt": "2026-10-24T15:43:12Z",
       "modelCount": 89,
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
@@ -340,7 +340,7 @@
         "report": "docs/skin/acne-dataset-geometry-audit-20261024.md"
       },
       "sourceGroupReview": {
-        "observedAt": "2026-10-24T14:21:28Z",
+        "observedAt": "2026-10-24T15:43:12Z",
         "project": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation",
         "version": 1,
         "exportArchiveSHA256": "29f40e80c8b1f63d43abbc35d11efdbaac4cf754531af2bee64283dde64c34e2",
@@ -376,7 +376,18 @@
         "semanticReviewItems": 81,
         "semanticReviewPoolImages": 718,
         "lockedTestImagesExcludedFromSemanticReview": 82,
-        "pigmentationIsolatedPositiveItems": 0
+        "pigmentationIsolatedPositiveItems": 0,
+        "fullRecordCoverageProposal": "docs/skin/evidence/acne-group-coverage-proposal-20261024-v1.json",
+        "proposalGroups": 795,
+        "proposalConfirmedGroups": 5,
+        "proposalReviewedRecords": 10,
+        "proposalUnreviewedSingletons": 790,
+        "proposalUnreviewedRecords": 790,
+        "proposalAllRecordsRepresentedExactlyOnce": true,
+        "proposalUnresolvedPairs": 10,
+        "proposalUnresolvedCrossSplitPairs": 0,
+        "proposalUnresolvedWithinSplitPairs": 10,
+        "proposalTargetSplitsAssigned": false
       }
     },
     "acneSourceProject": "tolgar-sasmaz/attune-skin-acne-pilot",
@@ -393,7 +404,7 @@
         "invalidGeometry": 0
       },
       "versions": [],
-      "lastCheckedAt": "2026-10-24T14:21:28Z",
+      "lastCheckedAt": "2026-10-24T15:43:12Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -486,7 +497,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-24T14:21:28Z",
+      "lastCheckedAt": "2026-10-24T15:43:12Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "modelIds": [
@@ -1272,7 +1283,11 @@
         "scripts/skin-research/tests/test_build_acne_semantic_review_queue.py",
         "docs/skin/evidence/acne-semantic-review-queue-20261024-v1.json",
         "docs/skin/evidence/acne-semantic-negative-review-20261024-v1.json",
-        "docs/skin/acne-semantic-review-queue-20261024.md"
+        "docs/skin/acne-semantic-review-queue-20261024.md",
+        "scripts/skin-research/build_acne_group_coverage_proposal.py",
+        "scripts/skin-research/tests/test_build_acne_group_coverage_proposal.py",
+        "docs/skin/evidence/acne-group-coverage-proposal-20261024-v1.json",
+        "docs/skin/acne-group-coverage-proposal-20261024.md"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
@@ -1283,7 +1298,8 @@
         "Aggregate COCO geometry audit confirms a targeted data/resolution problem: 94.23% Pimple, 94.95% Post acne and 94.05% Pigmentation boxes occupy under 0.04% of the image; Post acne has 8.825x Pimple and 20.344x Pigmentation annotations. Exact cross-split file duplicates are zero, but person/source identity is unavailable, so holdout independence remains unestablished. Do not blindly retrain.",
         "Dual-method privacy-safe source/person review confirmed five distinct train/validation groups: two crop/encoding or watermark variants and three same-person photo-series pairs. The committed regrouping plan deduplicates method overlap and requires each hashed group to remain in one split, but assigns no target split. The existing split violates source/person independence; full identity coverage plus semantic/negative review is still required before a replacement group-locked split or retraining.",
         "Fail-closed replacement-split gate replayed all 800 hashed records: the current split has five confirmed source/person leakage groups (10 members), but no complete reviewed group-coverage receipt exists (0/800 covered) and expert positive/hard-negative/ambiguous-case policies remain missing for Pimple, Post acne and Pigmentation. Replacement split generation, training and test evaluation remain unauthorized.",
-        "A deterministic expert semantic/hard-negative queue now contains 81 hashed train/validation review items and excludes all 82 locked test images. Pigmentation has no isolated-positive source image in train/validation. The archive-bound expert receipt exists but remains intentionally blank; Pimple, Post acne and Pigmentation definitions, hard negatives and ambiguous cases are not yet expert-locked, so training remains unauthorized."
+        "A deterministic expert semantic/hard-negative queue now contains 81 hashed train/validation review items and excludes all 82 locked test images. Pigmentation has no isolated-positive source image in train/validation. The archive-bound expert receipt exists but remains intentionally blank; Pimple, Post acne and Pigmentation definitions, hard negatives and ambiguous cases are not yet expert-locked, so training remains unauthorized.",
+        "The privacy-safe full-record grouping proposal represents all 800 records exactly once, preserving five confirmed groups (10 reviewed records) and leaving 790 records as explicitly unreviewed singletons. Ten additional unresolved perceptual pairs are all within-split; zero new unresolved cross-split pairs were found at the current thresholds. This is an actionable review queue, not proof of full person/source coverage, and no target split or training is authorized."
       ]
     },
     {
@@ -1328,7 +1344,11 @@
         "scripts/skin-research/tests/test_build_acne_semantic_review_queue.py",
         "docs/skin/evidence/acne-semantic-review-queue-20261024-v1.json",
         "docs/skin/evidence/acne-semantic-negative-review-20261024-v1.json",
-        "docs/skin/acne-semantic-review-queue-20261024.md"
+        "docs/skin/acne-semantic-review-queue-20261024.md",
+        "scripts/skin-research/build_acne_group_coverage_proposal.py",
+        "scripts/skin-research/tests/test_build_acne_group_coverage_proposal.py",
+        "docs/skin/evidence/acne-group-coverage-proposal-20261024-v1.json",
+        "docs/skin/acne-group-coverage-proposal-20261024.md"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
@@ -1339,7 +1359,8 @@
         "Aggregate COCO geometry audit confirms a targeted data/resolution problem: 94.23% Pimple, 94.95% Post acne and 94.05% Pigmentation boxes occupy under 0.04% of the image; Post acne has 8.825x Pimple and 20.344x Pigmentation annotations. Exact cross-split file duplicates are zero, but person/source identity is unavailable, so holdout independence remains unestablished. Do not blindly retrain.",
         "Dual-method privacy-safe source/person review confirmed five distinct train/validation groups: two crop/encoding or watermark variants and three same-person photo-series pairs. The committed regrouping plan deduplicates method overlap and requires each hashed group to remain in one split, but assigns no target split. The existing split violates source/person independence; full identity coverage plus semantic/negative review is still required before a replacement group-locked split or retraining.",
         "Fail-closed replacement-split gate replayed all 800 hashed records: the current split has five confirmed source/person leakage groups (10 members), but no complete reviewed group-coverage receipt exists (0/800 covered) and expert positive/hard-negative/ambiguous-case policies remain missing for Pimple, Post acne and Pigmentation. Replacement split generation, training and test evaluation remain unauthorized.",
-        "A deterministic expert semantic/hard-negative queue now contains 81 hashed train/validation review items and excludes all 82 locked test images. Pigmentation has no isolated-positive source image in train/validation. The archive-bound expert receipt exists but remains intentionally blank; Pimple, Post acne and Pigmentation definitions, hard negatives and ambiguous cases are not yet expert-locked, so training remains unauthorized."
+        "A deterministic expert semantic/hard-negative queue now contains 81 hashed train/validation review items and excludes all 82 locked test images. Pigmentation has no isolated-positive source image in train/validation. The archive-bound expert receipt exists but remains intentionally blank; Pimple, Post acne and Pigmentation definitions, hard negatives and ambiguous cases are not yet expert-locked, so training remains unauthorized.",
+        "The privacy-safe full-record grouping proposal represents all 800 records exactly once, preserving five confirmed groups (10 reviewed records) and leaving 790 records as explicitly unreviewed singletons. Ten additional unresolved perceptual pairs are all within-split; zero new unresolved cross-split pairs were found at the current thresholds. This is an actionable review queue, not proof of full person/source coverage, and no target split or training is authorized."
       ]
     },
     {
@@ -1384,7 +1405,11 @@
         "scripts/skin-research/tests/test_build_acne_semantic_review_queue.py",
         "docs/skin/evidence/acne-semantic-review-queue-20261024-v1.json",
         "docs/skin/evidence/acne-semantic-negative-review-20261024-v1.json",
-        "docs/skin/acne-semantic-review-queue-20261024.md"
+        "docs/skin/acne-semantic-review-queue-20261024.md",
+        "scripts/skin-research/build_acne_group_coverage_proposal.py",
+        "scripts/skin-research/tests/test_build_acne_group_coverage_proposal.py",
+        "docs/skin/evidence/acne-group-coverage-proposal-20261024-v1.json",
+        "docs/skin/acne-group-coverage-proposal-20261024.md"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
@@ -1395,7 +1420,8 @@
         "Aggregate COCO geometry audit confirms a targeted data/resolution problem: 94.23% Pimple, 94.95% Post acne and 94.05% Pigmentation boxes occupy under 0.04% of the image; Post acne has 8.825x Pimple and 20.344x Pigmentation annotations. Exact cross-split file duplicates are zero, but person/source identity is unavailable, so holdout independence remains unestablished. Do not blindly retrain.",
         "Dual-method privacy-safe source/person review confirmed five distinct train/validation groups: two crop/encoding or watermark variants and three same-person photo-series pairs. The committed regrouping plan deduplicates method overlap and requires each hashed group to remain in one split, but assigns no target split. The existing split violates source/person independence; full identity coverage plus semantic/negative review is still required before a replacement group-locked split or retraining.",
         "Fail-closed replacement-split gate replayed all 800 hashed records: the current split has five confirmed source/person leakage groups (10 members), but no complete reviewed group-coverage receipt exists (0/800 covered) and expert positive/hard-negative/ambiguous-case policies remain missing for Pimple, Post acne and Pigmentation. Replacement split generation, training and test evaluation remain unauthorized.",
-        "A deterministic expert semantic/hard-negative queue now contains 81 hashed train/validation review items and excludes all 82 locked test images. Pigmentation has no isolated-positive source image in train/validation. The archive-bound expert receipt exists but remains intentionally blank; Pimple, Post acne and Pigmentation definitions, hard negatives and ambiguous cases are not yet expert-locked, so training remains unauthorized."
+        "A deterministic expert semantic/hard-negative queue now contains 81 hashed train/validation review items and excludes all 82 locked test images. Pigmentation has no isolated-positive source image in train/validation. The archive-bound expert receipt exists but remains intentionally blank; Pimple, Post acne and Pigmentation definitions, hard negatives and ambiguous cases are not yet expert-locked, so training remains unauthorized.",
+        "The privacy-safe full-record grouping proposal represents all 800 records exactly once, preserving five confirmed groups (10 reviewed records) and leaving 790 records as explicitly unreviewed singletons. Ten additional unresolved perceptual pairs are all within-split; zero new unresolved cross-split pairs were found at the current thresholds. This is an actionable review queue, not proof of full person/source coverage, and no target split or training is authorized."
       ]
     },
     {
@@ -2193,10 +2219,40 @@
       "script": "scripts/skin-research/build_acne_semantic_review_queue.py",
       "test": "scripts/skin-research/tests/test_build_acne_semantic_review_queue.py",
       "commit": "4fa9f03a42446edf7bd8c34467f73dd233b0a83f"
+    },
+    "acneGroupCoverageProposal": {
+      "status": "implemented_and_replayed_review_incomplete",
+      "observedAt": "2026-10-24T15:43:12Z",
+      "project": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation",
+      "version": 1,
+      "archiveSHA256": "29f40e80c8b1f63d43abbc35d11efdbaac4cf754531af2bee64283dde64c34e2",
+      "records": 800,
+      "allRecordsRepresentedExactlyOnce": true,
+      "groups": 795,
+      "confirmedGroups": 5,
+      "reviewedRecords": 10,
+      "unreviewedSingletons": 790,
+      "unreviewedRecords": 790,
+      "candidatePairs": 16,
+      "confirmedSameSourceOrPersonPairs": 5,
+      "reviewedDifferentPairs": 1,
+      "unresolvedPairs": 10,
+      "unresolvedCrossSplitPairs": 0,
+      "unresolvedWithinSplitPairs": 10,
+      "targetSplitsAssigned": false,
+      "personOrSourceGroupCoverageEstablished": false,
+      "trainingAuthorized": false,
+      "privacySafe": true,
+      "testsPassed": 14,
+      "evidence": "docs/skin/evidence/acne-group-coverage-proposal-20261024-v1.json",
+      "report": "docs/skin/acne-group-coverage-proposal-20261024.md",
+      "script": "scripts/skin-research/build_acne_group_coverage_proposal.py",
+      "test": "scripts/skin-research/tests/test_build_acne_group_coverage_proposal.py",
+      "commit": "ed80fa96a1430095e5cd4f308eb12e9def9e5aeb"
     }
   },
   "nextActions": [
-    "For tasks 01–03, use the committed 81-item privacy-safe queue and its local regenerable resolver for expert semantic review: lock positive, hard-negative and ambiguous-case policies for Pimple, Post acne and Pigmentation. Pigmentation has no isolated-positive train/validation source example, so add reviewed source coverage rather than fabricating one. In parallel, review all 800 hashed records into source/person groups exactly once while preserving all 82 test records; only then re-run the split-release gate.",
+    "For tasks 01–03, review the ten unresolved within-split pairs in the committed full-record proposal and establish provenance/person identity for the 790 unreviewed singleton records; do not treat singleton assignment as identity truth. Use the separate 81-item semantic queue for expert class/hard-negative policy, preserve all 82 test records, then convert only reviewed groups into the group-coverage receipt and re-run the split-release gate before generating any version.",
     "Run the now-wired skin presentation and current-merged capability regressions through PR/main CI or a normal dependency-materialized workspace, then complete real-browser and consented physical-camera acceptance. Preserve the verified working baseline (nine appearance criteria, separate skin type and regional outputs) while Post acne and Pigmentation remain additive gated headings.",
     "Preserve the new display-unit boundary: only true supported-area ratios may use a percent meter. Keep color/line/fold/generic indices neutral and bar-free, and do not activate the independent review's cited model thresholds without validation-selected, locked independent-test and real-camera evidence.",
     "Treat the merged nine-criterion plus separate-skin-type flow as the functioning baseline, not as missing output. Preserve the source-bound capability gate and add Post acne/Pigmentation only as additive localized headings after their model/data acceptance gates pass; next execute the existing browser/API/history replay with a consented physical camera capture.",
@@ -2616,6 +2672,15 @@
       "commits": [
         "4fa9f03a42446edf7bd8c34467f73dd233b0a83f"
       ]
+    },
+    {
+      "date": "2026-10-24",
+      "observedAt": "2026-10-24T15:43:12Z",
+      "action": "Read the persistent checkpoint first and refreshed all 16 private Roboflow projects plus the existing acne/regional versions and NAS runs. Acne remains finished with 89 children, regional remains finished with 75 provider records, grouped under-eye remains empty, and no training, inference, upload, label, split or threshold mutation was started. Replayed the immutable 800-image export across all splits and created a privacy-safe full-record source/person grouping proposal. Every hashed record appears exactly once: five confirmed groups cover 10 reviewed records, while 790 records remain explicitly unreviewed singletons. Sixteen deduplicated perceptual pairs comprise five confirmed same-source/person pairs, one reviewed different-source pair and ten unresolved within-split pairs; zero new unresolved cross-split pairs appeared at current thresholds. Fourteen focused tests plus Python compilation, JSON/YAML, privacy and exact-coverage checks passed. No singleton is treated as reviewed identity, no target split is assigned and training remains unauthorized.",
+      "report": "docs/skin/acne-group-coverage-proposal-20261024.md",
+      "commits": [
+        "ed80fa96a1430095e5cd4f308eb12e9def9e5aeb"
+      ]
     }
   ],
   "activityLog": [
@@ -2653,6 +2718,15 @@
       "report": "docs/skin/acne-semantic-review-queue-20261024.md",
       "commits": [
         "4fa9f03a42446edf7bd8c34467f73dd233b0a83f"
+      ]
+    },
+    {
+      "date": "2026-10-24",
+      "observedAt": "2026-10-24T15:43:12Z",
+      "action": "Read the persistent checkpoint first and refreshed all 16 private Roboflow projects plus the existing acne/regional versions and NAS runs. Acne remains finished with 89 children, regional remains finished with 75 provider records, grouped under-eye remains empty, and no training, inference, upload, label, split or threshold mutation was started. Replayed the immutable 800-image export across all splits and created a privacy-safe full-record source/person grouping proposal. Every hashed record appears exactly once: five confirmed groups cover 10 reviewed records, while 790 records remain explicitly unreviewed singletons. Sixteen deduplicated perceptual pairs comprise five confirmed same-source/person pairs, one reviewed different-source pair and ten unresolved within-split pairs; zero new unresolved cross-split pairs appeared at current thresholds. Fourteen focused tests plus Python compilation, JSON/YAML, privacy and exact-coverage checks passed. No singleton is treated as reviewed identity, no target split is assigned and training remains unauthorized.",
+      "report": "docs/skin/acne-group-coverage-proposal-20261024.md",
+      "commits": [
+        "ed80fa96a1430095e5cd4f308eb12e9def9e5aeb"
       ]
     }
   ]
