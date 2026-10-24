@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "attune-independent-product-model-review-v1",
+  "observedAt": "2026-10-24T06:42:44Z",
+  "sources": [
+    {
+      "libraryFileId": "libfile_e17145c98d888191b70b45f48e0081c5",
+      "filename": "Attune.more Cilt Analizi — Bağımsız Ürün ve Model Değerlendirmesi.pdf",
+      "sha256": "a34fd92fa154001e13b4bf9060cf86b4b313e4fccf8a262f605eba109866ff55",
+      "pages": 24,
+      "committed": false
+    },
+    {
+      "libraryFileId": "libfile_b8fe3deed26881919a8d5af512a22b00",
+      "filename": "Pasted text(4).txt",
+      "sha256": "6b86f788bcfffaf8efb71add12237dfbcbc20fbd4df0c58482c16e2a008caf17",
+      "committed": false
+    }
+  ],
+  "reviewBoundary": {
+    "rawCameraFramesAvailable": false,
+    "expertGroundTruthAvailable": false,
+    "testedBuildCommitKnown": false,
+    "accuracyMeasured": false,
+    "thresholdsAuthorized": false,
+    "productionActivationAuthorized": false
+  },
+  "appliedFinding": {
+    "finding": "Area ratios, color/line indices, counts and contours must not share one percent traffic-light presentation.",
+    "implementationCommit": "1ef3ba929ba5678a75435e8d0985fac112639978",
+    "implementation": "apps/vehicle-app/src/utils/skinPresentation.ts",
+    "test": "tests/unit/skin_presentation_semantics.mjs",
+    "policy": {
+      "percentBarUnits": [
+        "percent-visible-area",
+        "visible-highlight-area-percent"
+      ],
+      "neutralIndexUnits": [
+        "appearance-score-0-100",
+        "relative-color-index-0-100",
+        "color-index-0-100",
+        "directional-line-index-0-100",
+        "contour-fold-index-0-100"
+      ],
+      "countsAndContoursRemainSeparate": true
+    }
+  },
+  "verification": {
+    "command": "node tests/unit/skin_presentation_semantics.mjs",
+    "passed": true,
+    "assertions": 10,
+    "modelTrainingStarted": false,
+    "modelInferenceStarted": false
+  },
+  "roboflowRefresh": {
+    "projectCount": 16,
+    "acneMarksPigmentationTraining": {
+      "trainingId": "5b632a5c12b76fcfe703",
+      "status": "finished",
+      "modelCount": 89
+    },
+    "regionalMapTraining": {
+      "trainingId": "3485f8c67f957a1b850d",
+      "status": "finished",
+      "modelCount": 75
+    },
+    "regionalMapProjectImages": 337,
+    "groupedUnderEyeProjectImages": 0,
+    "duplicateTrainingAvoided": true
+  }
+}
