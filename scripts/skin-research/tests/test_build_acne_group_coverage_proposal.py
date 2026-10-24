@@ -60,6 +60,8 @@ class AcneGroupCoverageProposalTest(unittest.TestCase):
         self.assertFalse(coverage["readyForGroupLockedSplit"])
         self.assertFalse(result["decision"]["trainingAuthorized"])
         self.assertEqual(result["methods"]["directionalCropPHashMaxDistance"], 8)
+        self.assertEqual(result["methods"]["centralGradientPHashMaxDistance"], 12)
+        self.assertTrue(result["methods"]["centralGradientPHashIsCandidateOnly"])
         self.assertEqual(result["methods"]["normalizedSourceNameSimilarityMinimum"], 0.94)
         self.assertEqual(result["methods"]["normalizedSourceNameCrossSplitReviewMinimum"], 0.90)
         self.assertEqual(result["methods"]["normalizedSourceNameWithinSplitReviewMinimum"], 0.90)
@@ -78,6 +80,7 @@ class AcneGroupCoverageProposalTest(unittest.TestCase):
             "normalized_source_name_similarity",
             result["candidateCountsByMethod"],
         )
+        self.assertIn("central_gradient_phash", result["candidateCountsByMethod"])
         self.assertIn(
             "normalized_source_name_similarity_cross_split_review",
             result["candidateCountsByMethod"],

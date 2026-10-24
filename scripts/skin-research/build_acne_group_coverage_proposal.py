@@ -101,6 +101,7 @@ def scan_records(root: Path) -> list[dict[str, Any]]:
                 "dHash": difference_hash(image_path),
                 "pHash": phashes["full"],
                 "centralPHash": phashes["central"],
+                "centralGradientPHash": phashes["centralGradient"],
                 "directionalPHashes": phashes["directional"],
             })
     return records
@@ -143,6 +144,7 @@ def build_proposal(
     dhash_distance: int = 8,
     phash_distance: int = 10,
     central_phash_distance: int = 10,
+    central_gradient_phash_distance: int = 12,
     directional_phash_distance: int = 8,
     source_name_similarity: float = 0.94,
     source_name_cross_split_similarity: float = 0.90,
@@ -151,6 +153,7 @@ def build_proposal(
         raise ProposalError("archive sha256 must be a lowercase 64-character digest")
     if (not 0 <= dhash_distance <= 8 or not 0 <= phash_distance <= 16
             or not 0 <= central_phash_distance <= 16
+            or not 0 <= central_gradient_phash_distance <= 16
             or not 0 <= directional_phash_distance <= 16):
         raise ProposalError("perceptual hash distance is outside the safe range")
     if not 0.8 <= source_name_similarity <= 1.0:
@@ -210,6 +213,15 @@ def build_proposal(
                 add(
                     "central_crop_phash", (left, right),
                     hammingDistance=central_phash_hamming,
+                    automaticEvidence="review_only",
+                )
+            central_gradient_hamming = (
+                left["centralGradientPHash"] ^ right["centralGradientPHash"]
+            ).bit_count()
+            if central_gradient_hamming <= central_gradient_phash_distance:
+                add(
+                    "central_gradient_phash", (left, right),
+                    hammingDistance=central_gradient_hamming,
                     automaticEvidence="review_only",
                 )
             for crop_name in DIRECTIONAL_PHASH_CROPS:
@@ -336,6 +348,8 @@ def build_proposal(
             "perceptualPHashMaxDistance": phash_distance,
             "centralCropPHashFraction": 0.8,
             "centralCropPHashMaxDistance": central_phash_distance,
+            "centralGradientPHashMaxDistance": central_gradient_phash_distance,
+            "centralGradientPHashIsCandidateOnly": True,
             "directionalCropPHashBoxes": {
                 name: list(crop) for name, crop in DIRECTIONAL_PHASH_CROPS.items()
             },
@@ -354,6 +368,7 @@ def build_proposal(
             for method in (
                 "exact_content", "normalized_source_name", "perceptual_dhash",
                 "perceptual_phash", "central_crop_phash",
+                "central_gradient_phash",
                 *(f"directional_crop_phash_{name}" for name in DIRECTIONAL_PHASH_CROPS),
                 "normalized_source_name_similarity",
                 "normalized_source_name_similarity_cross_split_review",
@@ -405,6 +420,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--dhash-distance", type=int, default=8)
     parser.add_argument("--phash-distance", type=int, default=10)
     parser.add_argument("--central-phash-distance", type=int, default=10)
+    parser.add_argument("--central-gradient-phash-distance", type=int, default=12)
     parser.add_argument("--directional-phash-distance", type=int, default=8)
     parser.add_argument("--source-name-similarity", type=float, default=0.94)
     parser.add_argument("--source-name-cross-split-similarity", type=float, default=0.90)
@@ -415,6 +431,7 @@ def main(argv: list[str] | None = None) -> int:
             dhash_distance=args.dhash_distance,
             phash_distance=args.phash_distance,
             central_phash_distance=args.central_phash_distance,
+            central_gradient_phash_distance=args.central_gradient_phash_distance,
             directional_phash_distance=args.directional_phash_distance,
             source_name_similarity=args.source_name_similarity,
             source_name_cross_split_similarity=args.source_name_cross_split_similarity,

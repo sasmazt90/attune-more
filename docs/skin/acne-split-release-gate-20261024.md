@@ -11,8 +11,8 @@ The replacement split is blocked, and no training is authorized. The gate replay
 | Requirement | Current evidence |
 |---|---:|
 | Dataset records indexed | 800 / 800 |
-| Confirmed cross-split source/person groups | 14 |
-| Members in those confirmed leakage groups | 33 |
+| Confirmed cross-split source/person groups | 16 |
+| Members in those confirmed leakage groups | 37 |
 | Full reviewed group-coverage receipt | Missing |
 | Records covered by a full group receipt | 0 / 800 |
 | Expert semantic and hard-negative receipt | Template supplied; completion missing for all 3 classes |
@@ -20,7 +20,7 @@ The replacement split is blocked, and no training is authorized. The gate replay
 | Training authorized | No |
 | Test evaluation authorized | No |
 
-The `0 / 800` group-coverage value does not discard the 33 already confirmed leakage members. The gate now validates the review-incomplete, privacy-safe 800-record grouping proposal and uses its 14 cross-split confirmed groups as stronger current-split leakage evidence. This does not promote the proposal into a reviewed coverage receipt: 733 singleton records still lack provenance/person review, so no replacement split is authorized.
+The `0 / 800` group-coverage value does not discard the 37 already confirmed leakage members. The gate now validates the review-incomplete, privacy-safe 800-record grouping proposal and uses its 16 cross-split confirmed groups as stronger current-split leakage evidence. This does not promote the proposal into a reviewed coverage receipt: 729 singleton records still lack provenance/person review, so no replacement split is authorized.
 
 ## Enforced controls
 

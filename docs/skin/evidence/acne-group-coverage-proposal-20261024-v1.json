@@ -16,6 +16,8 @@
     "perceptualPHashMaxDistance": 10,
     "centralCropPHashFraction": 0.8,
     "centralCropPHashMaxDistance": 10,
+    "centralGradientPHashMaxDistance": 12,
+    "centralGradientPHashIsCandidateOnly": true,
     "directionalCropPHashBoxes": {
       "left_80": [
         0.0,
@@ -70,6 +72,7 @@
     "perceptual_dhash": 9,
     "perceptual_phash": 13,
     "central_crop_phash": 10,
+    "central_gradient_phash": 13,
     "directional_crop_phash_left_80": 4,
     "directional_crop_phash_right_80": 3,
     "directional_crop_phash_top_80": 8,
@@ -199,13 +202,16 @@
           }
         ],
         "methods": [
+          "central_gradient_phash",
           "directional_crop_phash_right_70"
         ],
         "distances": {
+          "central_gradient_phash": 12,
           "directional_crop_phash_right_70": 6
         },
         "crossSplit": true,
         "candidateIdsByMethod": {
+          "central_gradient_phash": "e14f7c37788871508dc49f67",
           "directional_crop_phash_right_70": "0aeac5acf28cc9c29bfed998"
         },
         "status": "confirmed_same_source_or_person",
@@ -380,6 +386,7 @@
         ],
         "methods": [
           "central_crop_phash",
+          "central_gradient_phash",
           "directional_crop_phash_bottom_80",
           "directional_crop_phash_right_70",
           "directional_crop_phash_right_80",
@@ -391,6 +398,7 @@
           "perceptual_dhash": 8,
           "perceptual_phash": 6,
           "central_crop_phash": 10,
+          "central_gradient_phash": 10,
           "directional_crop_phash_right_80": 8,
           "directional_crop_phash_top_80": 6,
           "directional_crop_phash_bottom_80": 6,
@@ -401,6 +409,7 @@
           "perceptual_dhash": "ea37c83c23b1bd2c2eedd46d",
           "perceptual_phash": "de125b5543cd3a26535cc41d",
           "central_crop_phash": "e186a0db3c3d69870c39ee70",
+          "central_gradient_phash": "04281e0d9e3c0a7bfd36452c",
           "directional_crop_phash_right_80": "b5e0037a25b8e71619ab6c59",
           "directional_crop_phash_top_80": "7327c4d2f21b292afce3a646",
           "directional_crop_phash_bottom_80": "d4369158094efb4f8168e5fd",
@@ -1097,14 +1106,17 @@
           }
         ],
         "methods": [
+          "central_gradient_phash",
           "perceptual_phash"
         ],
         "distances": {
-          "perceptual_phash": 10
+          "perceptual_phash": 10,
+          "central_gradient_phash": 10
         },
         "crossSplit": true,
         "candidateIdsByMethod": {
-          "perceptual_phash": "554d29389072a946c8f11e79"
+          "perceptual_phash": "554d29389072a946c8f11e79",
+          "central_gradient_phash": "14a239c55f8e413af6f9f311"
         },
         "status": "confirmed_same_source_or_person",
         "priority": "cross_split"
@@ -1287,6 +1299,56 @@
           "directional_crop_phash_left_70": "058ac3e61ecd75412df8f7db"
         },
         "status": "confirmed_same_source_or_person",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "876dff34f6d7b5d63848bf95",
+        "members": [
+          {
+            "recordId": "102629d4f18aba2e33497ed1",
+            "split": "test"
+          },
+          {
+            "recordId": "7ba7280f40e69fda49237e56",
+            "split": "train"
+          }
+        ],
+        "methods": [
+          "central_gradient_phash"
+        ],
+        "distances": {
+          "central_gradient_phash": 12
+        },
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "central_gradient_phash": "81060a08ab68674d08e88c89"
+        },
+        "status": "reviewed_different_source",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "8bf540fe8ec5027463d0ab51",
+        "members": [
+          {
+            "recordId": "8e74309ab4a7a60d8c0918c5",
+            "split": "valid"
+          },
+          {
+            "recordId": "916c8c8a640189699343ebc6",
+            "split": "test"
+          }
+        ],
+        "methods": [
+          "central_gradient_phash"
+        ],
+        "distances": {
+          "central_gradient_phash": 12
+        },
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "central_gradient_phash": "fa78804f282aad41de2d1dd5"
+        },
+        "status": "reviewed_different_source",
         "priority": "cross_split"
       },
       {
@@ -1898,6 +1960,7 @@
         ],
         "methods": [
           "central_crop_phash",
+          "central_gradient_phash",
           "directional_crop_phash_bottom_80",
           "directional_crop_phash_left_80",
           "directional_crop_phash_right_70",
@@ -1909,6 +1972,7 @@
           "perceptual_dhash": 5,
           "perceptual_phash": 10,
           "central_crop_phash": 10,
+          "central_gradient_phash": 10,
           "directional_crop_phash_left_80": 8,
           "directional_crop_phash_right_80": 8,
           "directional_crop_phash_bottom_80": 8,
@@ -1919,6 +1983,7 @@
           "perceptual_dhash": "fa3a40f29abc0cb397ee0798",
           "perceptual_phash": "53aecbd6f8b81254fc9646c0",
           "central_crop_phash": "04dddbd7148eab5146977882",
+          "central_gradient_phash": "81f4bc4bb033a697adc14018",
           "directional_crop_phash_left_80": "0330ce106e2b52086e5c91d8",
           "directional_crop_phash_right_80": "852eb3e55bedf2241fc1f4a7",
           "directional_crop_phash_bottom_80": "761ff7d167bba2e4f916b6c6",
@@ -2162,6 +2227,31 @@
         "priority": "cross_split"
       },
       {
+        "pairId": "e33c3377500a53e59c5a2adf",
+        "members": [
+          {
+            "recordId": "4d1f4f1932728015ac5ebecd",
+            "split": "valid"
+          },
+          {
+            "recordId": "fc4e31f4ac6f492848d9c340",
+            "split": "test"
+          }
+        ],
+        "methods": [
+          "central_gradient_phash"
+        ],
+        "distances": {
+          "central_gradient_phash": 12
+        },
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "central_gradient_phash": "9d0eaf839010750c306d3c9f"
+        },
+        "status": "confirmed_same_source_or_person",
+        "priority": "cross_split"
+      },
+      {
         "pairId": "e6e8962e3989a15e6a92e803",
         "members": [
           {
@@ -2261,6 +2351,31 @@
         },
         "similarities": {
           "normalized_source_name_similarity_cross_split_review": 0.933333333333
+        },
+        "status": "confirmed_same_source_or_person",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "f80cce3f381326b334409f18",
+        "members": [
+          {
+            "recordId": "54c925149210c50b55998cdf",
+            "split": "valid"
+          },
+          {
+            "recordId": "894dd3964dde118852c9512e",
+            "split": "test"
+          }
+        ],
+        "methods": [
+          "central_gradient_phash"
+        ],
+        "distances": {
+          "central_gradient_phash": 12
+        },
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "central_gradient_phash": "f20b2d575417b28b163a8f3b"
         },
         "status": "confirmed_same_source_or_person",
         "priority": "cross_split"
@@ -3318,6 +3433,31 @@
         "priority": "within_split"
       },
       {
+        "pairId": "566167c7905b11c7569f8a75",
+        "members": [
+          {
+            "recordId": "86b3517a7569d509332a90c0",
+            "split": "train"
+          },
+          {
+            "recordId": "9b0f183f741bda8a3a1c6a51",
+            "split": "train"
+          }
+        ],
+        "methods": [
+          "central_gradient_phash"
+        ],
+        "distances": {
+          "central_gradient_phash": 12
+        },
+        "crossSplit": false,
+        "candidateIdsByMethod": {
+          "central_gradient_phash": "7b4a2a3ae489c648f6a09f3b"
+        },
+        "status": "reviewed_different_source",
+        "priority": "within_split"
+      },
+      {
         "pairId": "5f934ef8bb2383ff56698341",
         "members": [
           {
@@ -3693,6 +3833,7 @@
         ],
         "methods": [
           "central_crop_phash",
+          "central_gradient_phash",
           "directional_crop_phash_bottom_80",
           "directional_crop_phash_left_70",
           "directional_crop_phash_top_80",
@@ -3703,6 +3844,7 @@
           "perceptual_dhash": 5,
           "perceptual_phash": 6,
           "central_crop_phash": 10,
+          "central_gradient_phash": 10,
           "directional_crop_phash_top_80": 8,
           "directional_crop_phash_bottom_80": 8,
           "directional_crop_phash_left_70": 6
@@ -3712,6 +3854,7 @@
           "perceptual_dhash": "dbdb6f2af8e44fae74240ca7",
           "perceptual_phash": "132b8f841a16899611bab428",
           "central_crop_phash": "b31aeeb781d6a12bd2803648",
+          "central_gradient_phash": "816f48decb98c22335e53a61",
           "directional_crop_phash_top_80": "8764353b401a4e42eb735d7a",
           "directional_crop_phash_bottom_80": "95ffcc009130bd01e1005582",
           "directional_crop_phash_left_70": "ff788cb5d63e5954131a3236"
@@ -3741,6 +3884,31 @@
         },
         "similarities": {
           "normalized_source_name_similarity_within_split_review": 0.916666666667
+        },
+        "status": "reviewed_different_source",
+        "priority": "within_split"
+      },
+      {
+        "pairId": "70af9af92e994270f1148a44",
+        "members": [
+          {
+            "recordId": "62e72b39aacfcc3df26f7a46",
+            "split": "valid"
+          },
+          {
+            "recordId": "8a7abdb38b6a37d2d4b59343",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "central_gradient_phash"
+        ],
+        "distances": {
+          "central_gradient_phash": 12
+        },
+        "crossSplit": false,
+        "candidateIdsByMethod": {
+          "central_gradient_phash": "3d225bf79644c23e585a8fd3"
         },
         "status": "reviewed_different_source",
         "priority": "within_split"
@@ -4459,6 +4627,7 @@
         ],
         "methods": [
           "central_crop_phash",
+          "central_gradient_phash",
           "directional_crop_phash_left_70",
           "directional_crop_phash_left_80",
           "directional_crop_phash_top_80",
@@ -4469,6 +4638,7 @@
           "perceptual_dhash": 7,
           "perceptual_phash": 6,
           "central_crop_phash": 10,
+          "central_gradient_phash": 12,
           "directional_crop_phash_left_80": 8,
           "directional_crop_phash_top_80": 6,
           "directional_crop_phash_left_70": 8
@@ -4478,6 +4648,7 @@
           "perceptual_dhash": "82475c0d9b19b12f801ba49b",
           "perceptual_phash": "d191e83873d35ebcddbb126e",
           "central_crop_phash": "be0bc7802c13c9c8696701b9",
+          "central_gradient_phash": "c0347a9fa3051fdafed107dd",
           "directional_crop_phash_left_80": "a854727efd40208bce7624f7",
           "directional_crop_phash_top_80": "a4038274943d721b3930752f",
           "directional_crop_phash_left_70": "801975ba84634195bcdf5ea5"
@@ -4915,6 +5086,7 @@
         ],
         "methods": [
           "central_crop_phash",
+          "central_gradient_phash",
           "directional_crop_phash_bottom_80",
           "directional_crop_phash_left_70",
           "directional_crop_phash_left_80",
@@ -4927,6 +5099,7 @@
           "perceptual_dhash": 4,
           "perceptual_phash": 4,
           "central_crop_phash": 6,
+          "central_gradient_phash": 8,
           "directional_crop_phash_left_80": 4,
           "directional_crop_phash_right_80": 6,
           "directional_crop_phash_top_80": 8,
@@ -4938,6 +5111,7 @@
           "perceptual_dhash": "874d337259e5370559f36cf8",
           "perceptual_phash": "27f0f3261d73384135ba5cab",
           "central_crop_phash": "165671ea9d64a1c4d51bddf9",
+          "central_gradient_phash": "903b0dea21b886b9f34baf1d",
           "directional_crop_phash_left_80": "09b264d49f97d34d8714e1dc",
           "directional_crop_phash_right_80": "6143e40c2c3954616fb4f669",
           "directional_crop_phash_top_80": "2e1ad0ebf0251a5333060571",
@@ -5911,7 +6085,7 @@
         "priority": "within_split"
       }
     ],
-    "totalPairs": 221,
+    "totalPairs": 227,
     "unresolvedPairs": 0,
     "unresolvedCrossSplitPairs": 0,
     "unresolvedWithinSplitPairs": 0
@@ -5974,17 +6148,6 @@
         "targetSplit": null
       },
       {
-        "groupId": "018d8fcddf2b4f1b4497c12b",
-        "members": [
-          {
-            "recordId": "4d1f4f1932728015ac5ebecd",
-            "split": "valid"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
         "groupId": "02f75b01f7185191e366a482",
         "members": [
           {
@@ -6034,17 +6197,6 @@
           {
             "recordId": "18e636480fe03e73e862b116",
             "split": "train"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
-        "groupId": "03cc76b5ce6f1a84f854d150",
-        "members": [
-          {
-            "recordId": "54c925149210c50b55998cdf",
-            "split": "valid"
           }
         ],
         "status": "unreviewed_singleton",
@@ -8860,17 +9012,6 @@
         "targetSplit": null
       },
       {
-        "groupId": "59fb5504ce735efccd0a06bb",
-        "members": [
-          {
-            "recordId": "fc4e31f4ac6f492848d9c340",
-            "split": "test"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
         "groupId": "5a5c3a178b3aa2259b96f8eb",
         "members": [
           {
@@ -9992,6 +10133,21 @@
           }
         ],
         "status": "unreviewed_singleton",
+        "targetSplit": null
+      },
+      {
+        "groupId": "7ec315a3f0ed75afad38b0d8",
+        "members": [
+          {
+            "recordId": "54c925149210c50b55998cdf",
+            "split": "valid"
+          },
+          {
+            "recordId": "894dd3964dde118852c9512e",
+            "split": "test"
+          }
+        ],
+        "status": "confirmed_group",
         "targetSplit": null
       },
       {
@@ -12359,17 +12515,6 @@
         "targetSplit": null
       },
       {
-        "groupId": "c1143a31ccc705368ba1da2e",
-        "members": [
-          {
-            "recordId": "894dd3964dde118852c9512e",
-            "split": "test"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
         "groupId": "c171635e1ff5d5dea0892029",
         "members": [
           {
@@ -13297,6 +13442,21 @@
           }
         ],
         "status": "unreviewed_singleton",
+        "targetSplit": null
+      },
+      {
+        "groupId": "dd4e9fe4f33f65294fd1d863",
+        "members": [
+          {
+            "recordId": "4d1f4f1932728015ac5ebecd",
+            "split": "valid"
+          },
+          {
+            "recordId": "fc4e31f4ac6f492848d9c340",
+            "split": "test"
+          }
+        ],
+        "status": "confirmed_group",
         "targetSplit": null
       },
       {
@@ -14460,11 +14620,11 @@
         "targetSplit": null
       }
     ],
-    "groupsTotal": 763,
-    "confirmedGroups": 30,
-    "unreviewedSingletons": 733,
-    "reviewedRecords": 67,
-    "unreviewedRecords": 733,
+    "groupsTotal": 761,
+    "confirmedGroups": 32,
+    "unreviewedSingletons": 729,
+    "reviewedRecords": 71,
+    "unreviewedRecords": 729,
     "allRecordsRepresentedExactlyOnce": true,
     "targetSplitsAssigned": false,
     "readyForGroupLockedSplit": false

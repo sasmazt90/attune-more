@@ -111,6 +111,28 @@ def _perceptual_hash_image(image: Image.Image) -> int:
     return value
 
 
+def _gradient_perceptual_hash_image(image: Image.Image) -> int:
+    """Hash low-frequency edge magnitude, independent of image bytes."""
+    image = image.resize(
+        (PHASH_IMAGE_SIZE, PHASH_IMAGE_SIZE), Image.Resampling.LANCZOS
+    )
+    pixels = np.asarray(image, dtype=np.float64)
+    horizontal = np.zeros_like(pixels)
+    vertical = np.zeros_like(pixels)
+    horizontal[:, 1:-1] = pixels[:, 2:] - pixels[:, :-2]
+    vertical[1:-1, :] = pixels[2:, :] - pixels[:-2, :]
+    magnitude = np.hypot(horizontal, vertical)
+    transformed = PHASH_DCT @ magnitude @ PHASH_DCT.T
+    low = transformed[
+        :PHASH_LOW_FREQUENCY_SIZE, :PHASH_LOW_FREQUENCY_SIZE
+    ].reshape(-1)
+    median = float(np.median(low[1:]))
+    value = 0
+    for coefficient in low:
+        value = (value << 1) | int(coefficient > median)
+    return value
+
+
 def perceptual_hash(path: Path, crop_fraction: float = 1.0) -> int:
     if not 0.5 <= crop_fraction <= 1.0:
         raise ReviewError("perceptual hash crop fraction must be between 0.5 and 1.0")
@@ -177,6 +199,12 @@ def perceptual_hash_variants(path: Path) -> dict[str, Any]:
             return {
                 "full": _perceptual_hash_image(image),
                 "central": _perceptual_hash_image(image.crop((
+                    central_left,
+                    central_top,
+                    central_left + central_width,
+                    central_top + central_height,
+                ))),
+                "centralGradient": _gradient_perceptual_hash_image(image.crop((
                     central_left,
                     central_top,
                     central_left + central_width,
