@@ -1,0 +1,99 @@
+{
+  "target": "regional-dry-oily-box-research-only",
+  "observedAt": "2026-10-24T23:19:50Z",
+  "modelIdentity": {
+    "modelId": "tolgar-sasmaz/attune-skin-type-regional-r1-2-rfdetr-small-t1",
+    "immutableId": null,
+    "trainingId": "a9e8b8a021825191cf5b",
+    "modelType": "rfdetr-small",
+    "trainingStatus": "finished"
+  },
+  "provenance": {
+    "sourceArchiveSHA256": "4af7732298a0f54c3e1bd4aa68ca954429c39a19a832331a4ce542ae365fa228",
+    "rightsReviewed": false,
+    "expertLabelProtocolVerified": false,
+    "personIndependentSplits": false,
+    "negativeCoverageReviewed": false,
+    "lockedTestUntouchedDuringSelection": false,
+    "sourceAuditEvidence": "docs/skin/evidence/regional-skin-type-box-audit-20261025-v1.json"
+  },
+  "evaluation": {
+    "evalId": "0CmXsrY0XavjXmUjjhBv",
+    "appUrl": "https://app.roboflow.com/tolgar-sasmaz/attune-skin-type-regional-r1/evaluation/2",
+    "thresholdSelectionSplit": "validation",
+    "thresholdsLockedBeforeTest": false,
+    "qualityGateEvidence": "docs/skin/evidence/regional-skin-type-box-model-receipt-20261025-v1.json",
+    "providerTestSummary": {
+      "map50": 0.18047418250819958,
+      "map50_95": 0.0674928039210555,
+      "precision": 0.357,
+      "recall": 0.269,
+      "f1": 0.286,
+      "medianLatencyMs": 16.09
+    },
+    "classes": {
+      "dry": {
+        "threshold": 0.21,
+        "validation": {
+          "precision": 0.194,
+          "recall": 0.193,
+          "f1": 0.193
+        },
+        "test": {
+          "precision": 0.199,
+          "recall": 0.233,
+          "f1": 0.215
+        },
+        "providerTestMap50": 0.1456515609063064,
+        "providerTestMap50_95": 0.05608373246581222,
+        "passed": false
+      },
+      "oily": {
+        "threshold": 0.21,
+        "validation": {
+          "precision": 0.166,
+          "recall": 0.454,
+          "f1": 0.243
+        },
+        "test": {
+          "precision": 0.198,
+          "recall": 0.471,
+          "f1": 0.279
+        },
+        "providerTestMap50": 0.21529680411009275,
+        "providerTestMap50_95": 0.07890187537629878,
+        "passed": false
+      }
+    },
+    "providerRecommendations": {
+      "confidenceThresholdPercent": 30,
+      "missedDryDetections": 237,
+      "oilyFalsePositives": 96,
+      "oilyTruePositives": 47,
+      "wrongClassOilyAsDry": 1
+    }
+  },
+  "camera": {
+    "independentFromTrainingSources": false,
+    "sameCaptureContractAsProduct": false,
+    "skinToneLightingPoseSlicesReviewed": false,
+    "passed": false,
+    "evidence": "not_available"
+  },
+  "integration": {
+    "api": false,
+    "productContract": false,
+    "unavailableFallback": false,
+    "privacyAndConsent": false,
+    "historyCompatibility": false,
+    "regressionTests": false,
+    "evidence": "not_integrated"
+  },
+  "researchBoundary": {
+    "objectDetectionBoxesOnly": true,
+    "regionalMaskTruth": false,
+    "normalTruth": false,
+    "combinationSkinTruth": false,
+    "productActivationAllowed": false
+  }
+}
