@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "attune-skin-result-presentation-localization-v1",
+  "observedAt": "2026-10-24T08:17:28Z",
+  "implementationCommit": "4ea09ed368e83bab9c342c7c6715a9e46e40959f",
+  "catalogEntries": {
+    "Kuru": {
+      "id": "974b0babfbcba2ec",
+      "en": "Dry",
+      "de": "Trocken"
+    },
+    "Normal": {
+      "id": "a7248eeb45eb1ce2",
+      "en": "Normal",
+      "de": "Normal"
+    },
+    "Karma": {
+      "id": "296e71a396fdd4cf",
+      "en": "Combination",
+      "de": "Mischhaut"
+    },
+    "Sarkma": {
+      "id": "262db38b0fc8fe39",
+      "en": "Sagging",
+      "de": "Erschlaffung"
+    }
+  },
+  "presentationRegression": {
+    "legacyExpectationRemoved": "redness color index renders as percentage meter",
+    "newExpectation": "redness color index is neutral and bar-free; only supported-area oil ratio renders a percentage meter",
+    "meterCountExpected": 1,
+    "updatedTest": "tests/unit/test_skin_result_presentation.py"
+  },
+  "verification": {
+    "stableCatalogHashAndSourceAssertionsPassed": true,
+    "catalogTestSyntaxPassed": true,
+    "pythonPresentationTestCompilePassed": true,
+    "fullReactRuntimeTestExecuted": false,
+    "fullReactRuntimeBlocker": "workspace checkout dependencies were not materialized in this automation runtime"
+  },
+  "scope": {
+    "analysisFormulaChanged": false,
+    "storedMeasurementChanged": false,
+    "modelChanged": false,
+    "thresholdChanged": false,
+    "trainingStarted": false,
+    "inferenceStarted": false
+  }
+}
