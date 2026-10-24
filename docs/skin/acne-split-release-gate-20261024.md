@@ -11,8 +11,8 @@ The replacement split is blocked, and no training is authorized. The gate replay
 | Requirement | Current evidence |
 |---|---:|
 | Dataset records indexed | 800 / 800 |
-| Confirmed cross-split source/person groups | 5 |
-| Members in those confirmed leakage groups | 10 |
+| Confirmed cross-split source/person groups | 9 |
+| Members in those confirmed leakage groups | 19 |
 | Full reviewed group-coverage receipt | Missing |
 | Records covered by a full group receipt | 0 / 800 |
 | Expert semantic and hard-negative receipt | Template supplied; completion missing for all 3 classes |
@@ -20,7 +20,7 @@ The replacement split is blocked, and no training is authorized. The gate replay
 | Training authorized | No |
 | Test evaluation authorized | No |
 
-The `0 / 800` group-coverage value does not discard the ten already confirmed leakage members. It means no complete, reviewed receipt yet assigns every record to exactly one source/person group and a proposed split. Confirmed leakage evidence and full coverage are deliberately tracked as different claims.
+The `0 / 800` group-coverage value does not discard the 19 already confirmed leakage members. The gate now validates the review-incomplete, privacy-safe 800-record grouping proposal and uses its nine cross-split confirmed groups as stronger current-split leakage evidence. This does not promote the proposal into a reviewed coverage receipt: 762 singleton records still lack provenance/person review, so no replacement split is authorized.
 
 ## Enforced controls
 
@@ -32,12 +32,14 @@ The `0 / 800` group-coverage value does not discard the ten already confirmed le
 4. the receipt explicitly locks the existing test set;
 5. an expert locks positive definitions, hard-negative policy and ambiguous-case policy for `Pimple`, `Post acne` and `Pigmentation`.
 
+The optional grouping proposal input is independently checked for archive binding, privacy, split/member consistency and exact one-time coverage before its confirmed cross-split groups may strengthen the leakage count. It cannot satisfy the reviewed group-coverage requirement.
+
 Even when all five conditions pass, the tool authorizes only deterministic replacement-split generation. Training remains unauthorized until the generated split is re-audited. This prevents an incomplete receipt from silently becoming a new training version.
 
 ## Privacy and verification
 
 - The gate consumes hashed record IDs only; it commits no image bytes, faces, filenames or raw source names.
-- Four focused release-gate tests and the existing three source-group tests pass.
+- Seven focused release-gate tests and the broader twenty-test source/grouping/semantic/gate suite pass.
 - Both scripts compile under Python 3.
 - The real 800-image export replay passed and produced the committed receipt.
 - No Roboflow labels, split, threshold, upload, inference or training state changed.

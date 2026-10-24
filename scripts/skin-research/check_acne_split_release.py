@@ -171,15 +171,81 @@ def validate_semantic_review(
     }
 
 
+def validate_grouping_proposal(
+    proposal: dict[str, Any] | None,
+    records: dict[str, str],
+    archive_sha256: str | None,
+) -> dict[str, Any] | None:
+    """Validate a review-incomplete proposal before using its leakage evidence."""
+    if proposal is None:
+        return None
+    if proposal.get("schemaVersion") != "acne-group-coverage-proposal-v1":
+        raise GateError("grouping proposal schema is invalid")
+    dataset = proposal.get("dataset", {})
+    if dataset.get("archiveSHA256") != archive_sha256 or dataset.get("images") != len(records):
+        raise GateError("grouping proposal dataset binding does not match")
+    privacy = proposal.get("privacy", {})
+    if any(privacy.get(key) is not False for key in (
+        "containsImageBytes", "containsFilenames", "containsRawSourceNames"
+    )):
+        raise GateError("grouping proposal is not privacy safe")
+    groups = proposal.get("coverageProposal", {}).get("groups")
+    if not isinstance(groups, list):
+        raise GateError("grouping proposal groups are missing")
+    represented: list[str] = []
+    cross_split_groups = 0
+    cross_split_members = 0
+    for group in groups:
+        if not isinstance(group, dict) or group.get("status") not in {
+            "confirmed_group", "unreviewed_singleton"
+        }:
+            raise GateError("grouping proposal row is invalid")
+        members = group.get("members")
+        if not isinstance(members, list) or not members:
+            raise GateError("grouping proposal members are missing")
+        member_ids: list[str] = []
+        member_splits: set[str] = set()
+        for member in members:
+            if not isinstance(member, dict):
+                raise GateError("grouping proposal member is invalid")
+            record_id, split = member.get("recordId"), member.get("split")
+            if not isinstance(record_id, str) or records.get(record_id) != split:
+                raise GateError("grouping proposal member binding does not match")
+            represented.append(record_id)
+            member_ids.append(record_id)
+            member_splits.add(split)
+        if group["status"] == "confirmed_group" and len(member_splits) > 1:
+            cross_split_groups += 1
+            cross_split_members += len(member_ids)
+    counts = Counter(represented)
+    if set(counts) != set(records) or any(count != 1 for count in counts.values()):
+        raise GateError("grouping proposal does not represent every record exactly once")
+    return {
+        "supplied": True,
+        "recordsRepresented": len(represented),
+        "confirmedCrossSplitSourcePersonGroups": cross_split_groups,
+        "confirmedLeakageMembers": cross_split_members,
+        "personOrSourceGroupCoverageEstablished": proposal.get("decision", {}).get(
+            "personOrSourceGroupCoverageEstablished"
+        ) is True,
+    }
+
+
 def build_gate(
     source_review: dict[str, Any],
     group_coverage: dict[str, Any] | None = None,
     semantic_review: dict[str, Any] | None = None,
+    grouping_proposal: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     records = require_record_index(source_review)
     grouping = validate_group_coverage(group_coverage, records)
     semantics = validate_semantic_review(
         semantic_review, source_review.get("dataset", {}).get("archiveSHA256")
+    )
+    proposal = validate_grouping_proposal(
+        grouping_proposal,
+        records,
+        source_review.get("dataset", {}).get("archiveSHA256"),
     )
     leakage_groups = source_review.get("reviewSummary", {}).get(
         "confirmedCrossSplitSourceLeakageGroups"
@@ -193,6 +259,11 @@ def build_gate(
         for member in group.get("members", [])
         if isinstance(member, dict) and member.get("recordId") in records
     }
+    if proposal is not None:
+        leakage_groups = proposal["confirmedCrossSplitSourcePersonGroups"]
+        confirmed_leakage_members = proposal["confirmedLeakageMembers"]
+    else:
+        confirmed_leakage_members = len(confirmed_members)
     blocked_reasons: list[str] = []
     if leakage_groups:
         blocked_reasons.append("CURRENT_SPLIT_HAS_CONFIRMED_SOURCE_PERSON_LEAKAGE")
@@ -210,7 +281,8 @@ def build_gate(
         },
         "currentSplit": {
             "confirmedCrossSplitSourcePersonGroups": leakage_groups,
-            "confirmedLeakageMembers": len(confirmed_members),
+            "confirmedLeakageMembers": confirmed_leakage_members,
+            "groupingProposal": proposal,
             "independenceEstablished": False,
         },
         "replacementSplit": grouping,
@@ -239,6 +311,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--source-review", type=Path, required=True)
     parser.add_argument("--group-coverage", type=Path)
     parser.add_argument("--semantic-review", type=Path)
+    parser.add_argument("--grouping-proposal", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     try:
@@ -246,6 +319,7 @@ def main(argv: list[str] | None = None) -> int:
             load_json(args.source_review),
             load_json(args.group_coverage) if args.group_coverage else None,
             load_json(args.semantic_review) if args.semantic_review else None,
+            load_json(args.grouping_proposal) if args.grouping_proposal else None,
         )
     except GateError as exc:
         print(f"split release blocked: {exc}")

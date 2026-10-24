@@ -53,7 +53,7 @@ Perceptual similarity remains review-only. The directional methods use the left,
 - Confirmed decisions are reused; unresolved similarity never merges records.
 - Every record occurs in exactly one proposal group.
 - The central and directional crop methods are deterministic, validate their configuration and remain review-only; they never merge records automatically.
-- Eighteen focused tests pass across source grouping, full-record coverage, semantic review and split release.
+- Twenty focused tests pass across source grouping, full-record coverage, semantic review and split release.
 - The real 800-image replay, Python compilation and privacy/exact-coverage checks pass.
 - No Roboflow label, split, version, threshold, inference or training state changed.
 

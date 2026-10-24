@@ -55,6 +55,32 @@ def complete_semantics():
     }
 
 
+def grouping_proposal():
+    return {
+        "schemaVersion": "acne-group-coverage-proposal-v1",
+        "dataset": {"archiveSHA256": "a" * 64, "images": 3},
+        "privacy": {
+            "containsImageBytes": False,
+            "containsFilenames": False,
+            "containsRawSourceNames": False,
+        },
+        "coverageProposal": {"groups": [
+            {
+                "status": "confirmed_group",
+                "members": [
+                    {"recordId": "r1", "split": "train"},
+                    {"recordId": "r3", "split": "test"},
+                ],
+            },
+            {
+                "status": "unreviewed_singleton",
+                "members": [{"recordId": "r2", "split": "valid"}],
+            },
+        ]},
+        "decision": {"personOrSourceGroupCoverageEstablished": False},
+    }
+
+
 class AcneSplitReleaseGateTest(unittest.TestCase):
     def test_current_dataset_fails_closed_without_review_receipts(self):
         result = gate.build_gate(source_review())
@@ -115,6 +141,28 @@ class AcneSplitReleaseGateTest(unittest.TestCase):
         semantic["reviewer"] = "engineering_visual_review"
         result = gate.build_gate(source_review(), semantic_review=semantic)
         self.assertFalse(result["semanticNegativeReview"]["complete"])
+
+    def test_review_incomplete_proposal_can_strengthen_leakage_evidence_only(self):
+        result = gate.build_gate(source_review(), grouping_proposal=grouping_proposal())
+        self.assertEqual(result["currentSplit"]["confirmedCrossSplitSourcePersonGroups"], 1)
+        self.assertEqual(result["currentSplit"]["confirmedLeakageMembers"], 2)
+        self.assertEqual(result["currentSplit"]["groupingProposal"]["recordsRepresented"], 3)
+        self.assertFalse(
+            result["currentSplit"]["groupingProposal"]["personOrSourceGroupCoverageEstablished"]
+        )
+        self.assertFalse(result["decision"]["readyToGenerateReplacementSplit"])
+
+    def test_grouping_proposal_binding_and_exact_coverage_fail_closed(self):
+        proposal = grouping_proposal()
+        proposal["dataset"]["archiveSHA256"] = "f" * 64
+        with self.assertRaisesRegex(gate.GateError, "dataset binding"):
+            gate.build_gate(source_review(), grouping_proposal=proposal)
+        proposal = grouping_proposal()
+        proposal["coverageProposal"]["groups"][1]["members"][0] = {
+            "recordId": "r1", "split": "train"
+        }
+        with self.assertRaisesRegex(gate.GateError, "represent every record"):
+            gate.build_gate(source_review(), grouping_proposal=proposal)
 
 
 if __name__ == "__main__":
