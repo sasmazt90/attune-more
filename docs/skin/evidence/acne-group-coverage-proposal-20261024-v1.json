@@ -14,13 +14,16 @@
     "usableNormalizedSourceName": true,
     "perceptualDHashMaxDistance": 8,
     "perceptualPHashMaxDistance": 10,
+    "centralCropPHashFraction": 0.8,
+    "centralCropPHashMaxDistance": 10,
     "perceptualMatchesAreReviewOnly": true
   },
   "candidateCountsByMethod": {
     "exact_content": 0,
     "normalized_source_name": 0,
     "perceptual_dhash": 9,
-    "perceptual_phash": 13
+    "perceptual_phash": 13,
+    "central_crop_phash": 10
   },
   "reviewQueue": {
     "pairs": [
@@ -62,19 +65,47 @@
           }
         ],
         "methods": [
+          "central_crop_phash",
           "perceptual_dhash",
           "perceptual_phash"
         ],
         "distances": {
           "perceptual_dhash": 8,
-          "perceptual_phash": 6
+          "perceptual_phash": 6,
+          "central_crop_phash": 10
         },
         "crossSplit": true,
         "candidateIdsByMethod": {
           "perceptual_dhash": "ea37c83c23b1bd2c2eedd46d",
-          "perceptual_phash": "de125b5543cd3a26535cc41d"
+          "perceptual_phash": "de125b5543cd3a26535cc41d",
+          "central_crop_phash": "e186a0db3c3d69870c39ee70"
         },
         "status": "confirmed_same_source_or_person",
+        "priority": "cross_split"
+      },
+      {
+        "pairId": "4f84e6ca4b2c554878adc33b",
+        "members": [
+          {
+            "recordId": "112ee26be0a928fc75f55d1a",
+            "split": "train"
+          },
+          {
+            "recordId": "d7a58cc1d02e8c6b14ab4222",
+            "split": "valid"
+          }
+        ],
+        "methods": [
+          "central_crop_phash"
+        ],
+        "distances": {
+          "central_crop_phash": 10
+        },
+        "crossSplit": true,
+        "candidateIdsByMethod": {
+          "central_crop_phash": "2b0f8f866523da279a931ffd"
+        },
+        "status": "reviewed_different_source",
         "priority": "cross_split"
       },
       {
@@ -165,17 +196,20 @@
           }
         ],
         "methods": [
+          "central_crop_phash",
           "perceptual_dhash",
           "perceptual_phash"
         ],
         "distances": {
           "perceptual_dhash": 5,
-          "perceptual_phash": 10
+          "perceptual_phash": 10,
+          "central_crop_phash": 10
         },
         "crossSplit": true,
         "candidateIdsByMethod": {
           "perceptual_dhash": "fa3a40f29abc0cb397ee0798",
-          "perceptual_phash": "53aecbd6f8b81254fc9646c0"
+          "perceptual_phash": "53aecbd6f8b81254fc9646c0",
+          "central_crop_phash": "04dddbd7148eab5146977882"
         },
         "status": "confirmed_same_source_or_person",
         "priority": "cross_split"
@@ -193,17 +227,45 @@
           }
         ],
         "methods": [
+          "central_crop_phash",
           "perceptual_dhash",
           "perceptual_phash"
         ],
         "distances": {
           "perceptual_dhash": 8,
-          "perceptual_phash": 10
+          "perceptual_phash": 10,
+          "central_crop_phash": 10
         },
         "crossSplit": false,
         "candidateIdsByMethod": {
           "perceptual_dhash": "67007474e211e8360bbbf0c1",
-          "perceptual_phash": "7cfb62cd33de19e4a4600042"
+          "perceptual_phash": "7cfb62cd33de19e4a4600042",
+          "central_crop_phash": "529c769c4a54d0ec604e1087"
+        },
+        "status": "confirmed_same_source_or_person",
+        "priority": "within_split"
+      },
+      {
+        "pairId": "11ee8bee9540badbfacc7caf",
+        "members": [
+          {
+            "recordId": "c5b55f44463c47a95d2de84c",
+            "split": "train"
+          },
+          {
+            "recordId": "ee1eafc254d25cf5b7b54073",
+            "split": "train"
+          }
+        ],
+        "methods": [
+          "central_crop_phash"
+        ],
+        "distances": {
+          "central_crop_phash": 8
+        },
+        "crossSplit": false,
+        "candidateIdsByMethod": {
+          "central_crop_phash": "f3cd55fb925daf808ee3d5a4"
         },
         "status": "confirmed_same_source_or_person",
         "priority": "within_split"
@@ -259,6 +321,31 @@
         "priority": "within_split"
       },
       {
+        "pairId": "2b3f5a86240ca9b145c57cbe",
+        "members": [
+          {
+            "recordId": "0b2d01b2aebd1381952eefb2",
+            "split": "train"
+          },
+          {
+            "recordId": "dbbb85fc3fb9bcbcc3a4e298",
+            "split": "train"
+          }
+        ],
+        "methods": [
+          "central_crop_phash"
+        ],
+        "distances": {
+          "central_crop_phash": 10
+        },
+        "crossSplit": false,
+        "candidateIdsByMethod": {
+          "central_crop_phash": "5e908d6f9f7aa4d53f27c3c5"
+        },
+        "status": "confirmed_same_source_or_person",
+        "priority": "within_split"
+      },
+      {
         "pairId": "49a602fd0be6c7763b510228",
         "members": [
           {
@@ -271,14 +358,17 @@
           }
         ],
         "methods": [
+          "central_crop_phash",
           "perceptual_phash"
         ],
         "distances": {
-          "perceptual_phash": 10
+          "perceptual_phash": 10,
+          "central_crop_phash": 10
         },
         "crossSplit": false,
         "candidateIdsByMethod": {
-          "perceptual_phash": "f590a551332d24d98f5a5cf0"
+          "perceptual_phash": "f590a551332d24d98f5a5cf0",
+          "central_crop_phash": "f3244b1e28f5e56acb129017"
         },
         "status": "reviewed_different_source",
         "priority": "within_split"
@@ -321,17 +411,20 @@
           }
         ],
         "methods": [
+          "central_crop_phash",
           "perceptual_dhash",
           "perceptual_phash"
         ],
         "distances": {
           "perceptual_dhash": 5,
-          "perceptual_phash": 6
+          "perceptual_phash": 6,
+          "central_crop_phash": 10
         },
         "crossSplit": false,
         "candidateIdsByMethod": {
           "perceptual_dhash": "dbdb6f2af8e44fae74240ca7",
-          "perceptual_phash": "132b8f841a16899611bab428"
+          "perceptual_phash": "132b8f841a16899611bab428",
+          "central_crop_phash": "b31aeeb781d6a12bd2803648"
         },
         "status": "confirmed_same_source_or_person",
         "priority": "within_split"
@@ -349,17 +442,20 @@
           }
         ],
         "methods": [
+          "central_crop_phash",
           "perceptual_dhash",
           "perceptual_phash"
         ],
         "distances": {
           "perceptual_dhash": 7,
-          "perceptual_phash": 6
+          "perceptual_phash": 6,
+          "central_crop_phash": 10
         },
         "crossSplit": false,
         "candidateIdsByMethod": {
           "perceptual_dhash": "82475c0d9b19b12f801ba49b",
-          "perceptual_phash": "d191e83873d35ebcddbb126e"
+          "perceptual_phash": "d191e83873d35ebcddbb126e",
+          "central_crop_phash": "be0bc7802c13c9c8696701b9"
         },
         "status": "confirmed_same_source_or_person",
         "priority": "within_split"
@@ -377,17 +473,20 @@
           }
         ],
         "methods": [
+          "central_crop_phash",
           "perceptual_dhash",
           "perceptual_phash"
         ],
         "distances": {
           "perceptual_dhash": 4,
-          "perceptual_phash": 4
+          "perceptual_phash": 4,
+          "central_crop_phash": 6
         },
         "crossSplit": false,
         "candidateIdsByMethod": {
           "perceptual_dhash": "874d337259e5370559f36cf8",
-          "perceptual_phash": "27f0f3261d73384135ba5cab"
+          "perceptual_phash": "27f0f3261d73384135ba5cab",
+          "central_crop_phash": "165671ea9d64a1c4d51bddf9"
         },
         "status": "confirmed_same_source_or_person",
         "priority": "within_split"
@@ -443,7 +542,7 @@
         "priority": "within_split"
       }
     ],
-    "totalPairs": 16,
+    "totalPairs": 19,
     "unresolvedPairs": 0,
     "unresolvedCrossSplitPairs": 0,
     "unresolvedWithinSplitPairs": 0
@@ -774,17 +873,6 @@
         "members": [
           {
             "recordId": "c7033c4966689031673a36c9",
-            "split": "train"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
-        "groupId": "097f32774723396b93c22b64",
-        "members": [
-          {
-            "recordId": "0b2d01b2aebd1381952eefb2",
             "split": "train"
           }
         ],
@@ -2470,17 +2558,6 @@
           {
             "recordId": "d60b1e90fef1f43094141d22",
             "split": "test"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
-        "groupId": "3554f1ca3d10753a78d204e9",
-        "members": [
-          {
-            "recordId": "ee1eafc254d25cf5b7b54073",
-            "split": "train"
           }
         ],
         "status": "unreviewed_singleton",
@@ -5612,6 +5689,21 @@
         "targetSplit": null
       },
       {
+        "groupId": "9a0dc16fd15055966773ca4b",
+        "members": [
+          {
+            "recordId": "0b2d01b2aebd1381952eefb2",
+            "split": "train"
+          },
+          {
+            "recordId": "dbbb85fc3fb9bcbcc3a4e298",
+            "split": "train"
+          }
+        ],
+        "status": "confirmed_group",
+        "targetSplit": null
+      },
+      {
         "groupId": "9a572a86582d276a38f3a375",
         "members": [
           {
@@ -5928,6 +6020,21 @@
           }
         ],
         "status": "unreviewed_singleton",
+        "targetSplit": null
+      },
+      {
+        "groupId": "a4252961c7b9018784023b71",
+        "members": [
+          {
+            "recordId": "c5b55f44463c47a95d2de84c",
+            "split": "train"
+          },
+          {
+            "recordId": "ee1eafc254d25cf5b7b54073",
+            "split": "train"
+          }
+        ],
+        "status": "confirmed_group",
         "targetSplit": null
       },
       {
@@ -7211,17 +7318,6 @@
         "members": [
           {
             "recordId": "47981524b50d927663c8553d",
-            "split": "train"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
-        "groupId": "c710ec8e53e8d41a0a0e9618",
-        "members": [
-          {
-            "recordId": "dbbb85fc3fb9bcbcc3a4e298",
             "split": "train"
           }
         ],
@@ -8870,17 +8966,6 @@
         "targetSplit": null
       },
       {
-        "groupId": "f816dbf0aaaed36dd6fa7786",
-        "members": [
-          {
-            "recordId": "c5b55f44463c47a95d2de84c",
-            "split": "train"
-          }
-        ],
-        "status": "unreviewed_singleton",
-        "targetSplit": null
-      },
-      {
         "groupId": "f82e6fa8f01537dd5dacbfe7",
         "members": [
           {
@@ -9167,11 +9252,11 @@
         "targetSplit": null
       }
     ],
-    "groupsTotal": 788,
-    "confirmedGroups": 11,
-    "unreviewedSingletons": 777,
-    "reviewedRecords": 23,
-    "unreviewedRecords": 777,
+    "groupsTotal": 786,
+    "confirmedGroups": 13,
+    "unreviewedSingletons": 773,
+    "reviewedRecords": 27,
+    "unreviewedRecords": 773,
     "allRecordsRepresentedExactlyOnce": true,
     "targetSplitsAssigned": false,
     "readyForGroupLockedSplit": false

@@ -87,10 +87,20 @@ def difference_hash(path: Path) -> int:
     return value
 
 
-def perceptual_hash(path: Path) -> int:
+def perceptual_hash(path: Path, crop_fraction: float = 1.0) -> int:
+    if not 0.5 <= crop_fraction <= 1.0:
+        raise ReviewError("perceptual hash crop fraction must be between 0.5 and 1.0")
     try:
         with Image.open(path) as opened:
-            image = ImageOps.exif_transpose(opened).convert("L").resize(
+            image = ImageOps.exif_transpose(opened).convert("L")
+            if crop_fraction < 1.0:
+                width, height = image.size
+                crop_width = max(8, int(width * crop_fraction))
+                crop_height = max(8, int(height * crop_fraction))
+                left = (width - crop_width) // 2
+                top = (height - crop_height) // 2
+                image = image.crop((left, top, left + crop_width, top + crop_height))
+            image = image.resize(
                 (PHASH_IMAGE_SIZE, PHASH_IMAGE_SIZE), Image.Resampling.LANCZOS
             )
             pixels = np.asarray(image, dtype=np.float64)
@@ -105,6 +115,11 @@ def perceptual_hash(path: Path) -> int:
     for coefficient in low:
         value = (value << 1) | int(coefficient > median)
     return value
+
+
+def central_perceptual_hash(path: Path) -> int:
+    """Hash the central 80% as a review-only complement to the full image."""
+    return perceptual_hash(path, crop_fraction=0.8)
 
 
 def candidate_id(method: str, member_ids: list[str]) -> str:

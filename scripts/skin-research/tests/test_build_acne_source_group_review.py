@@ -125,6 +125,20 @@ class AcneSourceGroupReviewTest(unittest.TestCase):
             with self.assertRaisesRegex(acne_source_groups.ReviewError, "filename"):
                 acne_source_groups.build_review(root, "c" * 64)
 
+    def test_central_hash_is_deterministic_and_validates_fraction(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "portrait.jpg"
+            image = Image.new("RGB", (40, 60), "white")
+            for x in range(12, 28):
+                for y in range(10, 50):
+                    image.putpixel((x, y), (x * 5, y * 3, 20))
+            image.save(path, format="JPEG")
+            first = acne_source_groups.central_perceptual_hash(path)
+            second = acne_source_groups.central_perceptual_hash(path)
+            self.assertEqual(first, second)
+            with self.assertRaisesRegex(acne_source_groups.ReviewError, "crop fraction"):
+                acne_source_groups.perceptual_hash(path, crop_fraction=0.4)
+
 
 if __name__ == "__main__":
     unittest.main()

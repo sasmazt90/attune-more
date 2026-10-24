@@ -27,6 +27,7 @@ from build_acne_source_group_review import (  # noqa: E402
     CLASSES,
     SPLITS,
     candidate_id,
+    central_perceptual_hash,
     difference_hash,
     digest_token,
     load_decisions,
@@ -93,6 +94,7 @@ def scan_records(root: Path) -> list[dict[str, Any]]:
                 "sourceNameUsable": len(source_name) >= 8 and not source_name.isdigit(),
                 "dHash": difference_hash(image_path),
                 "pHash": perceptual_hash(image_path),
+                "centralPHash": central_perceptual_hash(image_path),
             })
     return records
 
@@ -133,10 +135,12 @@ def build_proposal(
     decisions_path: Path,
     dhash_distance: int = 8,
     phash_distance: int = 10,
+    central_phash_distance: int = 10,
 ) -> dict[str, Any]:
     if not ARCHIVE_SHA256.fullmatch(archive_sha256):
         raise ProposalError("archive sha256 must be a lowercase 64-character digest")
-    if not 0 <= dhash_distance <= 8 or not 0 <= phash_distance <= 16:
+    if (not 0 <= dhash_distance <= 8 or not 0 <= phash_distance <= 16
+            or not 0 <= central_phash_distance <= 16):
         raise ProposalError("perceptual hash distance is outside the safe range")
     decisions = load_decisions(decisions_path)
     records = scan_records(root)
@@ -184,6 +188,13 @@ def build_proposal(
             phash_hamming = (left["pHash"] ^ right["pHash"]).bit_count()
             if phash_hamming <= phash_distance:
                 add("perceptual_phash", (left, right), hammingDistance=phash_hamming, automaticEvidence="review_only")
+            central_phash_hamming = (left["centralPHash"] ^ right["centralPHash"]).bit_count()
+            if central_phash_hamming <= central_phash_distance:
+                add(
+                    "central_crop_phash", (left, right),
+                    hammingDistance=central_phash_hamming,
+                    automaticEvidence="review_only",
+                )
 
     known_ids = {row["candidateId"] for row in candidates}
     unknown_decisions = sorted(set(decisions) - known_ids)
@@ -267,11 +278,16 @@ def build_proposal(
             "usableNormalizedSourceName": True,
             "perceptualDHashMaxDistance": dhash_distance,
             "perceptualPHashMaxDistance": phash_distance,
+            "centralCropPHashFraction": 0.8,
+            "centralCropPHashMaxDistance": central_phash_distance,
             "perceptualMatchesAreReviewOnly": True,
         },
         "candidateCountsByMethod": {
             method: counts_by_method[method]
-            for method in ("exact_content", "normalized_source_name", "perceptual_dhash", "perceptual_phash")
+            for method in (
+                "exact_content", "normalized_source_name", "perceptual_dhash",
+                "perceptual_phash", "central_crop_phash",
+            )
         },
         "reviewQueue": {
             "pairs": review_pairs,
@@ -317,12 +333,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--private-resolver-output", type=Path)
     parser.add_argument("--dhash-distance", type=int, default=8)
     parser.add_argument("--phash-distance", type=int, default=10)
+    parser.add_argument("--central-phash-distance", type=int, default=10)
     args = parser.parse_args(argv)
     try:
         result = build_proposal(
             args.dataset, args.archive_sha256, args.decisions,
             dhash_distance=args.dhash_distance,
             phash_distance=args.phash_distance,
+            central_phash_distance=args.central_phash_distance,
         )
     except (ProposalError, ValueError) as exc:
         print(f"group coverage proposal blocked: {exc}")

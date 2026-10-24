@@ -108,6 +108,30 @@
       "decision": "same_source",
       "reviewer": "engineering_visual_review",
       "rationale": "The private comparison shows the same source photo with a small crop or encoding variation in the train split. This is source review, not lesion-label review."
+    },
+    {
+      "candidateId": "2b0f8f866523da279a931ffd",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows different people and capture scenes across train and valid; the central-crop similarity is a false positive. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f3cd55fb925daf808ee3d5a4",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person in a matched clinical-style series with consistent facial structure and framing in the train split. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "5e908d6f9f7aa4d53f27c3c5",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person, background and source watermark in two train-split images. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f3244b1e28f5e56acb129017",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison confirms the earlier review: these are different people and capture environments, so the central-crop similarity is also a false positive. This is identity/source review, not lesion-label review."
     }
   ]
 }
