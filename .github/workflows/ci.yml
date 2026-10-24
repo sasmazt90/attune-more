@@ -60,6 +60,7 @@ jobs:
       run: |
         pytest tests/unit \
           scripts/skin-research/tests/test_summarize_current_merged_skin_output.py \
+          scripts/skin-research/tests/test_audit_acne_dataset_geometry.py \
           -v -ra
 
   frontend-build:
