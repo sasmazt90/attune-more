@@ -1,0 +1,22 @@
+{
+  "blockers": [
+    "camera_calibration_protocol_missing",
+    "illumination_shadow_hair_robustness_missing",
+    "skin_tone_subgroup_calibration_missing",
+    "same_person_repeatability_missing",
+    "untouched_camera_holdout_missing",
+    "working_product_integration_replay_missing"
+  ],
+  "clinicalSeverityClaimAllowed": false,
+  "currentProxyClaim": "broad regional chromatic-variation appearance only",
+  "currentProxyPresentationAllowed": true,
+  "decision": "blocked",
+  "localizedCoReportingAllowed": false,
+  "localizedSupportExcluded": false,
+  "methodVersion": "tone-unevenness-release-gate-v1",
+  "productActivationAllowed": false,
+  "roadmapAccepted": false,
+  "schemaVersion": 1,
+  "toneCanSupplyPigmentation": false,
+  "toneCanSupplyPostAcne": false
+}
