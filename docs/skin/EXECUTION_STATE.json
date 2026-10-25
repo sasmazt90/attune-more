@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-25",
-      "lastCheckedAt": "2026-10-25T12:14:30Z",
+      "lastCheckedAt": "2026-10-25T12:30:37Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -455,7 +455,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-25T12:14:30Z",
+      "lastCheckedAt": "2026-10-25T12:30:37Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -637,7 +637,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-25T12:14:30Z",
+      "lastCheckedAt": "2026-10-25T12:30:37Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -1256,7 +1256,7 @@
       }
     },
     "concurrentWork": {
-      "observedAt": "2026-10-25T12:14:30Z",
+      "observedAt": "2026-10-25T12:30:37Z",
       "projectsTotal": 20,
       "doNotDuplicate": [
         {
@@ -1351,7 +1351,39 @@
           "startedByThisAutomation": false
         }
       ],
-      "note": "All 20 accessible projects and known training lists were refreshed. No training is running and no duplicate was started. Two externally launched wrinkle jobs are now finished and checkpointed: the crows-feet model is rejected for extremely weak per-class validation/test metrics, while the unrelated wrinkles model is diagnostic-only because lineage and split independence fail. The fail-closed wrinkle gate blocks activation and substitution. Grouped under-eye remains empty at created/no progress. No training, cancellation, inference, label, split, upload, version generation, threshold or activation mutation was performed. Last refreshed at 2026-10-25T12:14:30Z."
+      "note": "All 20 accessible projects and exact acne/regional/under-eye/wrinkle training lists were refreshed. No training is running, no duplicate was started, under-eye pilot v2 has no training, and grouped under-eye remains empty with its existing upload task at created/no progress. Added an executable sag release gate that preserves the functioning contour/fold appearance proxy while blocking elasticity, clinical severity, cross-person change and learned-local-model claims until full truth/test/camera/integration evidence passes. No training, cancellation, inference, label, split, upload, version generation, threshold or activation mutation was performed. Last refreshed at 2026-10-25T12:30:37Z."
+    },
+    "saggingAppearance": {
+      "observedAt": "2026-10-25T12:30:37Z",
+      "currentMode": "visible-contour-fold-proxy",
+      "appearanceSemantics": "visible-lower-face-contour-fold-appearance-v1",
+      "comparisonMode": "same-person-compatible-capture-only",
+      "currentProxyPresentationAllowed": true,
+      "clinicalSeverityClaimAllowed": false,
+      "elasticityClaimAllowed": false,
+      "crossPersonComparisonAllowed": false,
+      "sourceContainsSagTarget": false,
+      "nearestNonEquivalentTarget": "elasticity",
+      "sourcePersonIndependent": false,
+      "sourceExpertProtocolVerified": false,
+      "codeBlobs": {
+        "services/core-api/skin_product_contract.py": "f152726978bee2eea36b0563d9ac36cbcf330c7b",
+        "services/core-api/instant_appearance.py": "01526d099dc0614938fc8f7d5d68507c4c7e06ef",
+        "services/core-api/skin_general.py": "ef5869c6801d3845ec8424e17474b3a3e0fd665a",
+        "services/core-api/contour_appearance.py": "748bef67cc59857b2e12e5c48211db973bf29d22",
+        "apps/vehicle-app/src/utils/appearanceMeasurements.ts": "45b056e1aff9ce2fb7791995134ad7b5f4a9a57e"
+      },
+      "gate": {
+        "methodVersion": "sag-appearance-release-gate-v1",
+        "script": "scripts/skin-research/check_sag_release.py",
+        "tests": "scripts/skin-research/tests/test_sag_release.py",
+        "receipt": "docs/skin/evidence/sag-release-receipt-20261025-v1.json",
+        "evidence": "docs/skin/evidence/sag-release-gate-20261025-v1.json",
+        "researchTrainingAuthorized": false,
+        "testEvaluationAuthorized": false,
+        "productActivationAllowed": false,
+        "roadmapAccepted": false
+      }
     }
   },
   "sourceAccess": {
@@ -2238,7 +2270,7 @@
     {
       "id": "12",
       "target": "sagging-appearance",
-      "status": "ordinal_source_audited_model_boundary_blocked_truth_pending",
+      "status": "executable_release_gate_fail_closed_truth_pending",
       "work": "Current cheek/chin contour-fold result remains appearance-only. The 18-criterion ordinal source contains elasticity, not sag; it is not person-independent and lacks accepted expert protocol and camera-domain evidence. The generic whole-face degree boundary now filters any future sag declaration on both success and unavailable-target paths, while the downstream local-result/map replacement guard remains active. Continue pose/expression robustness, same-person capture evaluation and suitable localized truth acquisition.",
       "evidence": [
         "docs/skin/evidence/sag-appearance-semantics-20261023-v1.json",
@@ -2256,13 +2288,18 @@
         "services/core-api/appearance_analysis.py",
         "services/core-api/skin_models.py",
         "docs/skin/evidence/sag-ordinal-source-audit-20261023-v1.json",
-        "docs/skin/sag-ordinal-source-audit-20261023.md"
+        "docs/skin/sag-ordinal-source-audit-20261023.md",
+        "scripts/skin-research/check_sag_release.py",
+        "scripts/skin-research/tests/test_sag_release.py",
+        "docs/skin/evidence/sag-release-receipt-20261025-v1.json",
+        "docs/skin/evidence/sag-release-gate-20261025-v1.json"
       ],
       "blockers": [
         "No accepted independent-camera or expert-reviewed localized sagging truth exists; the current contour/fold index is not elasticity, tissue volume or clinical severity.",
         "Pose/expression robustness and same-person compatible capture pairs remain incomplete, so learned local segmentation and improved/worsened severity language are not accepted.",
         "This execution environment lacks a TypeScript compiler and real-browser camera stack; focused semantic-gate behavior and Python syntax/overview behavior passed, but full app/browser acceptance remains pending.",
-        "The scratch runtime lacks OpenCV and ONNX Runtime, so the changed model boundary was syntax-checked and covered by pure policy/wiring tests but the actual accepted ONNX session was not executed in this run."
+        "The scratch runtime lacks OpenCV and ONNX Runtime, so the changed model boundary was syntax-checked and covered by pure policy/wiring tests but the actual accepted ONNX session was not executed in this run.",
+        "The executable sag release gate confirms the existing contour/fold proxy may remain visible only under its narrow appearance semantics. It blocks learned-model activation, test use and roadmap acceptance until localized expert truth, group independence, pose/expression and same-person capture protocols, validation, an untouched test, independent camera acceptance and working product integration evidence all pass."
       ]
     },
     {
@@ -2866,7 +2903,7 @@
     "Run the now-wired skin presentation and current-merged capability regressions through PR/main CI or a normal dependency-materialized workspace, then complete real-browser and consented physical-camera acceptance. Preserve the verified working baseline (nine appearance criteria, separate skin type and regional outputs) while Post acne and Pigmentation remain additive gated headings.",
     "Preserve the new display-unit boundary: only true supported-area ratios may use a percent meter. Keep color/line/fold/generic indices neutral and bar-free, and do not activate the independent review's cited model thresholds without validation-selected, locked independent-test and real-camera evidence.",
     "Treat the merged nine-criterion plus separate-skin-type flow as the functioning baseline, not as missing output. Preserve the source-bound capability gate and add Post acne/Pigmentation only as additive localized headings after their model/data acceptance gates pass; next execute the existing browser/API/history replay with a consented physical camera capture.",
-    "Preserve the fail-closed missing-value boundary: numeric zero is a measurement, but None/non-finite/invalid values are insufficient and must never become normal. Re-run tests/unit/test_dry_sag_visible_support.py in the service image with pytest/OpenCV, then perform consented raw-camera/browser replay; do not treat UI screenshots or screen-cropped Roboflow outputs as camera acceptance, and do not add Sensitive as a Redness synonym.",
+    "For task 12, replay scripts/skin-research/check_sag_release.py before any source, training, test or activation action. Preserve the current visible contour/fold proxy and same-person-compatible semantics, but do not call it elasticity, clinical severity, a localized learned model or a cross-person change measure. Acquire localized expert truth and group identity, complete pose/expression plus same-person capture protocols, pass validation, reserve and pass an untouched test, then pass independent camera and working-product integration acceptance.",
     "Do not integrate acne/post-acne/pigmentation child a5e262: its live exact-ID test F1 is 0.094/0.052/0.007. The displayed 929397 child is also not eligible because the artifact binds no test evaluation to it and every generated FRONT response is capped at 300. Evaluate another child by exact model ID and per-class test evidence before any further inference or integration; do not repeat the six generated profiles.",
     "Correct the research regional map schema before product use: keep Redness as an independent red contour/hatching layer, never rename it Sensitive, preserve Unknown as light grey, and do not synthesize Dry/Normal or mixed skin from the Oily/Redness-only e79545 model. Obtain reviewed Dry/Normal regional truth and real-camera evidence.",
     "Apply scripts/skin-research/skin_model_acceptance_gate.py to every future learned candidate before changing any accepted manifest or registry. A finished training or recommendation flag is insufficient. Current 754885 acne/post-acne/pigmentation, 2c07ef regional oil/redness and the model-less grouped under-eye path all fail closed; improve the recorded source, per-class, camera and integration gaps, then replay the same receipt.",
@@ -3450,6 +3487,12 @@
       "observedAt": "2026-10-25T12:14:30Z",
       "action": "Read the persistent checkpoint first and refreshed the 20 accessible Roboflow projects without starting duplicate work. Discovered and evaluated two externally launched finished wrinkle trainings. For skin_face_detection-emora, the crows_feet class scored validation/test F1 0.053/0.017 and test mAP50 0.0010; it is rejected. The wrinkles-79rrf-t7kyp model reports higher provider metrics but remains diagnostic-only because it is not the selected source and retains 65 filename plus 202 perceptual cross-split candidates. Added an executable identity-bound, per-class, fail-closed wrinkle release gate and four tests covering current rejection, identity substitution, leakage erasure and a complete synthetic acceptance path. No training, inference, label, split, upload, threshold or activation mutation was performed.",
       "report": "docs/skin/evidence/wrinkle-external-release-gate-20261025-v1.json"
+    },
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T12:30:37Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus exact acne, regional, under-eye and wrinkle training lists. No new job is running and the grouped under-eye upload task remains created with no progress. Re-read and SHA-pinned the five current sag semantic implementation files. Added an executable fail-closed sag release gate that keeps the existing visible lower-face contour/fold proxy available only under same-person-compatible appearance semantics, while blocking elasticity, clinical severity, cross-person comparison, learned localized-model activation and test use until localized expert truth, group independence, pose/expression, validation, untouched test, independent camera and integration evidence all pass. Five focused gate tests plus four wrinkle regression tests passed. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/sag-release-gate-20261025-v1.json"
     }
   ],
   "activityLog": [
@@ -3664,6 +3707,18 @@
         "19c9d726cee6a82d1441aa7007b5948341b67514",
         "82b83d204148deac7c8bd6b7fe8ad61a2f407e9a",
         "9a434266e34bab24d3bd337b364d1521311542ec"
+      ]
+    },
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T12:30:37Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus exact acne, regional, under-eye and wrinkle training lists. No new job is running and the grouped under-eye upload task remains created with no progress. Re-read and SHA-pinned the five current sag semantic implementation files. Added an executable fail-closed sag release gate that keeps the existing visible lower-face contour/fold proxy available only under same-person-compatible appearance semantics, while blocking elasticity, clinical severity, cross-person comparison, learned localized-model activation and test use until localized expert truth, group independence, pose/expression, validation, untouched test, independent camera and integration evidence all pass. Five focused gate tests plus four wrinkle regression tests passed. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/sag-release-gate-20261025-v1.json",
+      "commits": [
+        "4f90861096214d10f1f0218723bd786655084763",
+        "49ee4e67503613b0aaa71058cac043d2257fa107",
+        "0c22af10ed79799ff4b17bd31c5106e55b5fcdbe",
+        "87dace2159eaa23815f606592a7ed041c0db4092"
       ]
     }
   ]
