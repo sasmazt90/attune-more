@@ -11,6 +11,14 @@ export function skinTypeLabel(type: { value?: SkinTypeId | null; quality?: strin
   const base = SKIN_TYPE_LABELS[type.value] || type.value;
   return type.sensitive && type.value !== 'sensitive' ? `${base} ve hassas` : base;
 }
+/** The skin-type name follows the regional paint (product rule) when the regional map is valid; otherwise the
+ * existing whole-face decision is shown unchanged. */
+export function effectiveSkinType(general: any): any {
+  const base = general?.skinType, reg = general?.regionalSkinMap?.skinType;
+  if (!reg || reg.quality !== 'valid' || !reg.value) return base;
+  return { ...(base || {}), value: reg.value, sensitive: !!reg.sensitive, quality: 'valid', confidence: base?.confidence ?? null,
+    decisionVersion: general.regionalSkinMap.classifierVersion || general.regionalSkinMap.version, decisionTrace: { ...(base?.decisionTrace || {}), regions: general.regionalSkinMap.regions } };
+}
 export type SkinViewId = 'overview' | SkinRegionId;
 export const SKIN_VIEW_ORDER: SkinViewId[] = ['overview', ...REGION_ORDER];
 /** Display known criteria from the current UTF-8 dictionary. Never rewrite a
@@ -30,7 +38,7 @@ export type SkinOverview = {
 export function overviewFromResponse(response: AppearanceResponse): SkinOverview | undefined {
   if (!response.general) return;
   return { schemaVersion: 1, captureId: response.photoId, pose: 'FRONT',
-    skinType: response.general.skinType,
+    skinType: effectiveSkinType({ ...response.general, regionalSkinMap: (response.general as any).regionalSkinMap || (response as any).regionalSkinMap }),
     regionalSkinMap: (response.general as any).regionalSkinMap || (response as any).regionalSkinMap,
     normalizationVersion: response.general.normalizationVersion,
     modelInputTransform:response.general.modelInputTransform,modelInference:response.general.modelInference,
@@ -62,11 +70,11 @@ export function buildSkinViewModel(id: SkinViewId, result: any, demo = false): S
     const region = buildSkinRegionViewModel(id, result, demo);
     // Historical numeric records can predate schemaVersion 3. Preserve their
     // actual regional rows without inventing an overview or changing units.
-    return { ...region, skinType: result?.general?.skinType, ...(Array.isArray(result?.indicators?.[id]) ? { indicators: displayLabels(result.indicators[id],'regional') } : {}),
+    return { ...region, skinType: effectiveSkinType(result?.general), ...(Array.isArray(result?.indicators?.[id]) ? { indicators: displayLabels(result.indicators[id],'regional') } : {}),
       index: region.index + (result?.general ? 1 : 0), viewTotal: result?.general ? 7 : 6 };
   }
   return { ...SKIN_REGIONS.forehead, id: 'overview', index: 1, viewTotal: 7,
-    nameTr: 'Genel Bakış', indicators: displayLabels(result?.general?.indicators || [],'whole-face'), skinType: result?.general?.skinType,
+    nameTr: 'Genel Bakış', indicators: displayLabels(result?.general?.indicators || [],'whole-face'), skinType: effectiveSkinType(result?.general),
     badgeText: '', changePct: 0, isAttentionRequired: false, trend: [],
     observation: { headline: 'Genel Bakış', details: 'Bu oturumun ön pozundaki genel cilt görünümü.' } };
 }

@@ -131,6 +131,8 @@ async def skin(request: Request):
                     result=replace_acne(result,value,scope.check)
                 from local_skin_type import finalize_product_type
                 result=finalize_product_type(result)
+                from regional_attach import attach as attach_regional_map
+                result=attach_regional_map(result,value,scope.check)
                 return eyewear,result
             worker=asyncio.create_task(run_in_threadpool(work))
             try:
@@ -174,6 +176,8 @@ async def skin_fuse_multi_angle(request: Request):
         if not isinstance(front_res, dict):
             raise ValueError('FRONT_REQUIRED')
         fused = await run_in_threadpool(fuse_multi_angle_skin, front_res, left_res, right_res)
+        from regional_attach import fuse as fuse_regional_map
+        fused = await run_in_threadpool(fuse_regional_map, fused, front_res, left_res, right_res)
         if not parked() or await request.is_disconnected():
             raise HTTPException(409, 'CANCELLED')
         return fused

@@ -198,6 +198,80 @@ def skin_type_from_regions(regions: dict) -> dict:
         v = 'normal'
     return dict(value=v, quality='valid', sensitive=sensitive, limitationCode=None)
 
+LESION_FINDINGS = {'Akne', 'Siyah Nokta', 'Beyaz Nokta', 'Gunes Lekesi', 'Riskli Ben', 'Ucuk'}
+
+def lesion_mask(dets: dict, cats: dict, shape) -> np.ndarray:
+    """Acne lesions, comedones, spots and moles are not flakes: their boxes are removed from bare skin (as in validation)."""
+    H, W = shape; m = np.zeros((H, W), np.uint8)
+    for mn in ('acnes', 'findings'):
+        for c, s, (x0, y0, x1, y1) in dets.get(mn, []):
+            if s < 0.35 or (x1 - x0) * (y1 - y0) > 0.25 * W * H:
+                continue
+            if mn == 'findings' and cats.get(mn, {}).get(c) not in LESION_FINDINGS:
+                continue
+            m[max(0, int(y0)):int(y1) + 1, max(0, int(x0)):int(x1) + 1] = 1
+    return m
+
+VIEW_OF_POSE = {'FRONT': 'front', 'LEFT': 'pos', 'RIGHT': 'neg'}   # LEFT pose shows the subject's right cheek
+K_REGIONS = ['forehead', 'nose', 'chin', 'rightCheek', 'leftCheek']
+
+def usable(app_region: str, view: str) -> bool:
+    """A cheek is read only from the front or from the side pose that shows it (same rule as training)."""
+    return not ((app_region == 'rightCheek' and view == 'neg') or (app_region == 'leftCheek' and view == 'pos'))
+
+class KClassifier:
+    """In-domain regional classifier (k_classifier.json): DINOv2-small region embedding + evidence/appearance scalars.
+    Paints a colour only above its validated threshold; otherwise the region stays 'unmeasured' (Ölçüm notu)."""
+    def __init__(self, spec: dict, dino_dir: str):
+        import torch
+        from transformers import AutoImageProcessor, AutoModel
+        self.spec = spec; self.torch = torch
+        src = dino_dir if os.path.isdir(dino_dir) else 'facebook/dinov2-small'
+        self.proc = AutoImageProcessor.from_pretrained(src, local_files_only=True)
+        self.dm = AutoModel.from_pretrained(src, local_files_only=True).eval()
+    def embed(self, crops: list) -> np.ndarray:
+        from PIL import Image
+        with self.torch.no_grad():
+            o = self.dm(**self.proc(images=[Image.fromarray(c) for c in crops], return_tensors='pt')).last_hidden_state
+            return self.torch.cat([o[:, 0], o[:, 1:].mean(1)], 1).numpy()
+    def _lin(self, block, x):
+        z = (x - np.asarray(block['mean'])) / np.asarray(block['scale'])
+        return np.asarray(block['coef']) @ z + np.asarray(block['intercept'])
+    def probs(self, emb: np.ndarray, f: dict, app_region: str) -> tuple[dict, float]:
+        sc = np.array([float(f.get(k)) if f.get(k) is not None else 0.0 for k in self.spec['features']['scalars']])
+        x = np.concatenate([emb, sc, np.eye(5)[K_REGIONS.index(app_region)]])
+        s = self._lin(self.spec['type'], x); e = np.exp(s - s.max()); p = e / e.sum()
+        ps = 1 / (1 + math.exp(-float(self._lin(self.spec['sensitive'], x))))
+        return {c: float(v) for c, v in zip(self.spec['classes'], p)}, ps
+
+def region_crops(rgb: np.ndarray, polys: dict, face_w: float) -> dict:
+    """Masked bbox crop of each region on the 400-px-face image, 224x224 (validation recipe)."""
+    sc = 400 / max(face_w, 1); h, w = rgb.shape[:2]; size = (max(1, round(w * sc)), max(1, round(h * sc)))
+    im = cv2.resize(rgb, size, interpolation=cv2.INTER_AREA if sc < 1 else cv2.INTER_CUBIC); out = {}
+    for k, poly in polys.items():
+        m = np.zeros(im.shape[:2], np.uint8); cv2.fillPoly(m, [(poly * sc).astype(np.int32)], 1); m = m > 0
+        if m.sum() < 150:
+            continue
+        ys, xs = np.where(m); y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
+        cr = im[y0:y1, x0:x1].copy(); cr[~m[y0:y1, x0:x1]] = 0
+        out[k] = cv2.resize(cr, (224, 224), interpolation=cv2.INTER_AREA)
+    return out
+
+def decide_from_probs(probs: dict, ps: float, f: dict, tone: str, thr: dict, params: dict, view_count: int = 1) -> dict:
+    best = max(probs, key=probs.get)
+    bare_ok = (f.get('frac_clean') or 0) >= params.get('minCleanFraction', 0.3)
+    if probs[best] >= thr[best] and (best == 'oily' or bare_ok):
+        state, reason = best, None
+    else:
+        state, reason = 'unmeasured', ('BEARD_OR_LINES_COVER_REGION' if not bare_ok and best != 'oily' else 'LOW_CONFIDENCE')
+    sensitive = ps >= thr['sensitive']
+    dark_thr = params.get('sensDarkEvidenceThreshold')
+    if tone == 'dark' and dark_thr is not None:
+        ev = max(float(f.get(k) or 0) for k in ('skinmap_Redness_max', 'findings_Rozasea_max', 'findings_Egzema_max', 'findings_Sedef_ve_Dokuntu_max'))
+        sensitive = sensitive or ev >= dark_thr
+    return dict(state=state, sensitive=bool(sensitive) and state != 'unmeasured', reason=reason,
+                scores={**{k: round(v, 3) for k, v in probs.items()}, 'sensitive': round(ps, 3)}, views=view_count)
+
 _lock = threading.Lock(); _runtime = None
 
 def load_runtime():
@@ -208,10 +282,12 @@ def load_runtime():
             params = json.load(open(os.path.join(MODEL_DIR, 'params.json')))
             import rfdetr
             models = {name: (getattr(rfdetr, spec['arch'])(pretrain_weights=os.path.join(MODEL_DIR, spec['weights'])), spec) for name, spec in params['detectors'].items()}
-            _runtime = dict(params=params, models=models, decider=Decider(params))
+            kpath = os.path.join(MODEL_DIR, 'k_classifier.json')
+            kc = KClassifier(json.load(open(kpath)), os.environ.get('ATTUNE_DINOV2_DIR', os.path.join(MODEL_DIR, 'dinov2-small'))) if os.path.exists(kpath) else None
+            _runtime = dict(params=params, models=models, decider=Decider(params), k=kc)
         return _runtime
 
-def analyze_photo(bgr: np.ndarray, landmarks_norm: list, check=lambda: None) -> dict:
+def analyze_photo(bgr: np.ndarray, landmarks_norm: list, check=lambda: None, pose: str = 'FRONT') -> dict:
     """bgr: source photo; landmarks_norm: 468/478 MediaPipe points normalised to the source frame."""
     from PIL import Image
     rt = load_runtime(); params = rt['params']
@@ -237,11 +313,42 @@ def analyze_photo(bgr: np.ndarray, landmarks_norm: list, check=lambda: None) -> 
     cats = {n: {int(k): v for k, v in spec['classes'].items()} for n, (m, spec) in rt['models'].items() if spec.get('role') != 'wrinkle-mask'}
     sc = 400 / max(face_w, 1)
     ev = model_evidence(dets, cats, polys, (max(1, round(1024 * sc)), max(1, round(1024 * sc))), sc)
-    beard = hair_mask(crop, polys, face_w)
+    beard = hair_mask(crop, polys, face_w) | lesion_mask(dets, cats, (1024, 1024))
     bare, _ = bare_skin_features(rgb, polys, face_w, wrinkle, beard)
     ita = ita_angle(rgb, polys); tone = tone_group(ita)
-    regions = {}
+    view = VIEW_OF_POSE.get(pose, 'front'); regions = {}; raw = {}
+    kc = rt.get('k')
+    if kc is not None:
+        check(); crops = region_crops(rgb, polys, face_w); keys = [rk for rk in FACE if rk in crops and bare.get(rk) is not None]
+        emb = dict(zip(keys, kc.embed([crops[k] for k in keys]))) if keys else {}
     for rk in FACE:
-        f = None if bare.get(rk) is None else {**ev[rk], **bare[rk]}
-        regions[APP_ID[rk]] = rt['decider'].region(f, rk, tone)
-    return dict(version=VERSION, paramsVersion=params.get('version'), tone=dict(ita=round(ita, 1), group=tone), regions=regions)
+        app = APP_ID[rk]; f = None if bare.get(rk) is None else {**ev[rk], **bare[rk], 'ita': ita}
+        if kc is None:
+            regions[app] = rt['decider'].region(f, rk, tone); continue
+        if f is None or rk not in emb or not usable(app, view):
+            regions[app] = dict(state='unmeasured', sensitive=False, reason='INSUFFICIENT_VISIBLE_AREA' if f is None else 'NOT_VISIBLE_IN_THIS_POSE'); continue
+        probs, ps = kc.probs(emb[rk], f, app)
+        raw[app] = dict(probs=probs, sensitive=ps, frac_clean=f.get('frac_clean'), evidence={k: f.get(k) for k in ('skinmap_Redness_max', 'findings_Rozasea_max', 'findings_Egzema_max', 'findings_Sedef_ve_Dokuntu_max')})
+        regions[app] = {**decide_from_probs(probs, ps, f, tone, kc.spec['thresholds']['single'], params), 'sourcePose': pose}
+    return dict(version=VERSION, paramsVersion=params.get('version'), classifierVersion=(kc.spec['version'] if kc else None), pose=pose,
+                tone=dict(ita=round(ita, 1), group=tone), regions=regions, raw=raw, skinType=skin_type_from_regions(regions))
+
+def fuse_maps(maps: dict) -> dict | None:
+    """maps: {'FRONT': map, 'LEFT': map, 'RIGHT': map} from analyze_photo. Averages the classifier probabilities of each
+    region over the poses that show it and applies the validated 3-angle thresholds."""
+    rt = load_runtime(); kc = rt.get('k'); params = rt['params']
+    front = maps.get('FRONT')
+    if kc is None or not front:
+        return front
+    tone = front['tone']['group']; thr = kc.spec['thresholds']['multi']; regions = {}
+    for app in K_REGIONS:
+        src = [(pose, m['raw'][app]) for pose, m in maps.items() if m and app in (m.get('raw') or {})]
+        if not src:
+            regions[app] = front['regions'].get(app) or dict(state='unmeasured', sensitive=False, reason='INSUFFICIENT_VISIBLE_AREA'); continue
+        probs = {c: float(np.mean([r['probs'][c] for _, r in src])) for c in kc.spec['classes']}
+        ps = float(np.mean([r['sensitive'] for _, r in src]))
+        f = {'frac_clean': max(r['frac_clean'] or 0 for _, r in src), **{k: max(float(r['evidence'].get(k) or 0) for _, r in src) for k in src[0][1]['evidence']}}
+        side = [p for p, _ in src if p != 'FRONT']
+        regions[app] = {**decide_from_probs(probs, ps, f, tone, thr, params, len(src)), 'sourcePose': side[0] if app in ('rightCheek', 'leftCheek') and side else 'FRONT'}
+    return dict(version=VERSION, paramsVersion=params.get('version'), classifierVersion=kc.spec['version'], pose='THREE_ANGLE',
+                tone=front['tone'], regions=regions, skinType=skin_type_from_regions(regions))

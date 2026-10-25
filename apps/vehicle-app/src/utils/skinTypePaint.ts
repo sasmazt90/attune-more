@@ -62,7 +62,7 @@ export const PAINT_TAG_ANCHOR: Record<Exclude<PaintRegionId,'periorbital'>, { in
   forehead: { index: 10, dx: 0, dy: -0.02 }, nose: { index: 4, dx: 0, dy: 0.05 },
   rightCheek: { index: 205, dx: -0.12, dy: 0 }, leftCheek: { index: 425, dx: 0.12, dy: 0 }, chin: { index: 152, dx: 0, dy: 0.05 }
 };
-export const PAINT_LABELS: Record<PaintState, string> = { oily: 'Yağlı', dry: 'Kuru', normal: 'Normal', unmeasured: 'Ölçüm notu' };
+export const PAINT_LABELS: Record<PaintState, string> = { oily: 'Yağlı', dry: 'Kuru', normal: 'Normal görünüm', unmeasured: 'Ölçüm notu' };
 /** Centroid of a region outline (source pixels) — used to inset the sensitivity ring. */
 export function paintCentroid(region: PaintRegionId, landmarks: { x: number; y: number }[], width: number, height: number): { x: number; y: number } {
   const ring = PAINT_OUTLINES[region][0].map(p => resolve(landmarks.map(q => ({ x: q.x * width, y: q.y * height })), p));
