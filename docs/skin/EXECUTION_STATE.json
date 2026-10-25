@@ -1999,7 +1999,7 @@
     {
       "id": "05",
       "target": "regional-dryness-flaking",
-      "status": "candidate_masks_prepared_review_pending",
+      "status": "executable_release_gate_fail_closed_expert_truth_pending",
       "work": "Audit Dry-Skin/pul local labels and geometry; prepare local samples; evaluate visible dryness/flaking; blue overlay.",
       "evidence": [
         "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
@@ -2021,7 +2021,11 @@
         "docs/skin/evidence/regional-skin-type-source-group-decisions-20261025-v1.json",
         "docs/skin/evidence/regional-skin-type-source-group-resolution-20261025-v1.json",
         "docs/skin/regional-skin-type-source-group-audit-20261025.md",
-        "docs/skin/evidence/regional-rfdetr-seg-small-t2-diagnosis-20261025-v1.json"
+        "docs/skin/evidence/regional-rfdetr-seg-small-t2-diagnosis-20261025-v1.json",
+        "scripts/skin-research/check_dryness_release.py",
+        "scripts/skin-research/tests/test_dryness_release.py",
+        "docs/skin/evidence/dryness-release-receipt-20261025-v1.json",
+        "docs/skin/evidence/dryness-release-gate-20261025-v1.json"
       ],
       "blockers": [
         "Clean3 supplies only6genuine dry polygons. Direct Mervev12 hash matches original selected archive:2590pul boxes,0pul polygons; all3368filenames CLAHE-prefixed and prior ledger excludes processed positives from natural RGB calibration. SixTRAINexamples reviewed byassistant,notexpert. Boxes must not become blue masks; absence ofpul is not normal truth.",
@@ -2029,7 +2033,8 @@
         "New Dryness v1 export has61nonrectangular polygons (47withvalidboxes), plus FACEv3dry48polygons; source labels range from visible peeling to broad/nonfacial/lesion-like regions. 700Dryness images exactly match existing audit pixels. Review-only pairs prepared; no source label accepted as natural-camera dryness/flaking truth.",
         "External regional-skin-type v2 contains 3,648 dry boxes and zero dry polygons. Its exposed-test dry F1 is 0.215 at threshold 0.21; it cannot authorize a blue regional mask or dryness/flaking result.",
         "The same version has a confirmed train/test source-person leakage group spanning four nominal source IDs and incomplete identity coverage for the remaining 986 sources. Dry test metrics are not independent acceptance evidence.",
-        "The Oily/Redness polygon model diagnosis confirms that this dataset has no Dry truth. It cannot supply the blue dryness layer, and the regional improvement gate deliberately does not permit Dry to be synthesized from absent masks or model predictions."
+        "The Oily/Redness polygon model diagnosis confirms that this dataset has no Dry truth. It cannot supply the blue dryness layer, and the regional improvement gate deliberately does not permit Dry to be synthesized from absent masks or model predictions.",
+        "The executable dryness release gate pins all six source/evidence blobs and currently blocks research training, untouched-test evaluation and product activation. Rights-reviewed natural-camera data, an expert semantic policy separating visible flaking from broad dry, lesion-like and nonfacial regions, expert regional polygons, evaluated negative/normal truth, source/person-group independence, a new untouched final test, an independent camera holdout and working integration evidence are all still false."
       ]
     },
     {
@@ -2892,6 +2897,7 @@
     }
   },
   "nextActions": [
+    "Replay scripts/skin-research/check_dryness_release.py before any task-05 training, final-test use or blue-layer activation. First obtain rights-reviewed natural-camera sources; expert policy separating visible flaking, broad dry, lesion-like and nonfacial labels; expert polygon extents plus evaluated negative/normal truth; source/person-grouped splits; a new untouched final test; an independent product-camera holdout; and working integration evidence. Boxes may support localization research only: never turn them into blue masks, interpret missing labels as Normal, equate generic dryness with visible flaking, or treat a model proposal as expert truth.",
     "Regenerate the source-bound Attune/Roboflow comparison through scripts/skin-research/build_attune_roboflow_comparison.py schema v2 when its private six-subject bundle is available. The executable contract now hard-fails semantic drift: dry blue, oily green, evaluated normal uncolored, unknown light gray/non-normal, and kizariklik only as an independent red Redness contour/hatching proposal layer. Never restore the legacy Sensitive alias or derive Dry/Normal/mixed truth from the Oily/Redness-only model; then complete real-browser and consented physical-camera acceptance.",
     "Use scripts/skin-research/build_regional_mask_expert_protocol.py --template with docs/skin/evidence/regional-mask-expert-review-queue-20261025-v1.json and the private local resolver, then complete all 81 item-bound expert mask-extent, hard-negative, ambiguity and assessability decisions for Oily and Redness. The protocol builder now requires the exact queue SHA256, 40 Oily plus 41 Redness IDs, exact class/split coverage and locked class policies. Keep test excluded, do not commit filenames/images/resolver data, do not interpret absent labels as Normal or negative, and replay the release gate only after regional-mask-expert-protocol-v1 is produced.",
     "Treat docs/skin/evidence/regional-mask-source-group-audit-20261025-v1.json as the frozen provider-export boundary. Geometry is valid and the candidate scan found no exact/tight cross-split image pairs, but all 337 source identities remain unreviewed. Complete the privacy-preserving person/source-group review and produce a replacement group-locked split before satisfying the regional improvement gate; zero candidates must never be interpreted as independence.",
@@ -2923,6 +2929,18 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T15:08:09Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus exact acne, regional, under-eye and wrinkle training lists. No relevant training is running; grouped under-eye upload task sLFwX7CYBVcnnD6iAW5o is still created with no progress, and no duplicate job was started. Re-audited the pinned task-05 sources: Clean3 has 2,117 Dry-Skin boxes but only six valid polygons and nine exact cross-split groups; Merve has 2,590 pul boxes, zero pul polygons and only CLAHE-prefixed images; Dryness v1 has 61 true nonrectangular polygons with heterogeneous broad/nonfacial/lesion-like labels; FACE v3 has 48 dry polygons; regional skin type has 3,648 dry boxes, zero polygons, no Normal class and unresolved source independence. Added an executable fail-closed release gate that pins all six evidence blobs, allows box localization research only and blocks training, untouched-test evaluation and blue-layer activation until expert semantics/polygons, evaluated negatives, group independence, new test, camera and integration evidence pass. Six focused gate tests plus twenty comparison/sag/wrinkle regressions passed. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/dryness-release-gate-20261025-v1.json",
+      "commits": [
+        "7aa35aa0233cf9235a381df3a120b473c9cf2f06",
+        "6ecd1d66f45af6cad9df2d28c87ddbdd7ceb5afc",
+        "72c29430e099c5f344ea247209c44790d5b0b5cd",
+        "f4114f4b897d029a54e1c4e0f5e3b56691b12561"
+      ]
+    },
     {
       "date": "2026-10-25",
       "observedAt": "2026-10-25T14:06:48Z",
@@ -3509,6 +3527,18 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T15:08:09Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus exact acne, regional, under-eye and wrinkle training lists. No relevant training is running; grouped under-eye upload task sLFwX7CYBVcnnD6iAW5o is still created with no progress, and no duplicate job was started. Re-audited the pinned task-05 sources: Clean3 has 2,117 Dry-Skin boxes but only six valid polygons and nine exact cross-split groups; Merve has 2,590 pul boxes, zero pul polygons and only CLAHE-prefixed images; Dryness v1 has 61 true nonrectangular polygons with heterogeneous broad/nonfacial/lesion-like labels; FACE v3 has 48 dry polygons; regional skin type has 3,648 dry boxes, zero polygons, no Normal class and unresolved source independence. Added an executable fail-closed release gate that pins all six evidence blobs, allows box localization research only and blocks training, untouched-test evaluation and blue-layer activation until expert semantics/polygons, evaluated negatives, group independence, new test, camera and integration evidence pass. Six focused gate tests plus twenty comparison/sag/wrinkle regressions passed. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/dryness-release-gate-20261025-v1.json",
+      "commits": [
+        "7aa35aa0233cf9235a381df3a120b473c9cf2f06",
+        "6ecd1d66f45af6cad9df2d28c87ddbdd7ceb5afc",
+        "72c29430e099c5f344ea247209c44790d5b0b5cd",
+        "f4114f4b897d029a54e1c4e0f5e3b56691b12561"
+      ]
+    },
     {
       "date": "2026-10-25",
       "observedAt": "2026-10-25T14:06:48Z",
