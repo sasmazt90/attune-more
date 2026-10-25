@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "acne-improvement-release-gate-v1",
+  "observedAt": "2026-10-25T03:31:48Z",
+  "inputs": {
+    "diagnosis": "docs/skin/evidence/acne-rfdetr-small-t2-diagnosis-20261025-v1.json",
+    "splitGate": "docs/skin/evidence/acne-split-release-gate-20261024-v1.json",
+    "semanticReview": "docs/skin/evidence/acne-semantic-negative-review-20261024-v1.json",
+    "validationExperiment": null,
+    "untouchedFinalTest": null
+  },
+  "modelIdentity": {
+    "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2",
+    "trainingId": "49ee6204cf069198bbfa",
+    "evalId": "7s06OfIzx78XzATqr5oA",
+    "versionNumber": 1,
+    "modelType": "rfdetr-small",
+    "inputWidth": 640,
+    "inputHeight": 640
+  },
+  "checks": {
+    "sourcePersonGroupLockedReplacementSplit": false,
+    "expertSemanticNegativePolicy": false,
+    "validationOnlyOneChangeExperiment": false,
+    "newUntouchedFinalTest": false
+  },
+  "decision": {
+    "trainingAuthorized": false,
+    "testEvaluationAuthorized": false,
+    "activationAllowed": false,
+    "blockedReasons": [
+      "SOURCE_PERSON_GROUP_LOCKED_REPLACEMENT_SPLIT_MISSING",
+      "EXPERT_SEMANTIC_NEGATIVE_POLICY_MISSING",
+      "VALIDATION_ONLY_ONE_CHANGE_EXPERIMENT_MISSING",
+      "NEW_UNTOUCHED_FINAL_TEST_MISSING"
+    ],
+    "note": "Authorization permits one validation-only training experiment. It never permits test evaluation or activation; those require later receipts."
+  }
+}
