@@ -1,0 +1,42 @@
+{
+  "activationBlockers": [
+    "rights_reviewed_regional_sources_missing",
+    "expert_regional_polygon_protocol_missing",
+    "evaluated_normal_negative_truth_missing",
+    "source_person_group_split_independence_missing",
+    "accepted_regional_method_registry_empty",
+    "validation_acceptance_missing",
+    "untouched_final_test_reservation_missing",
+    "untouched_final_test_acceptance_missing",
+    "physical_camera_acceptance_missing",
+    "working_product_integration_acceptance_missing"
+  ],
+  "boxToRegionalTruthAllowed": false,
+  "combinationProductActivationAllowed": false,
+  "combinationRuleImplementationReady": true,
+  "decision": "blocked",
+  "evaluationBlockers": [
+    "rights_reviewed_regional_sources_missing",
+    "expert_regional_polygon_protocol_missing",
+    "evaluated_normal_negative_truth_missing",
+    "source_person_group_split_independence_missing",
+    "accepted_regional_method_registry_empty",
+    "validation_acceptance_missing",
+    "untouched_final_test_reservation_missing"
+  ],
+  "existingGlobalSkinTypeFlowPreserved": true,
+  "finalTestEvaluationAuthorized": false,
+  "methodVersion": "skin-type-combination-release-gate-v1",
+  "missingLabelAsNormalAllowed": false,
+  "researchTrainingAuthorized": false,
+  "roadmapAccepted": false,
+  "schemaVersion": 1,
+  "trainingBlockers": [
+    "rights_reviewed_regional_sources_missing",
+    "expert_regional_polygon_protocol_missing",
+    "evaluated_normal_negative_truth_missing",
+    "source_person_group_split_independence_missing",
+    "accepted_regional_method_registry_empty"
+  ],
+  "wholeFaceToRegionalTruthAllowed": false
+}
