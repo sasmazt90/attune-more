@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-25T12:14:30Z",
+  "project": "tolgar-sasmaz/wrinkles-79rrf-t7kyp",
+  "version": 1,
+  "trainingId": "342657886079e855c017",
+  "trainingStatus": "finished",
+  "trainingCreatedAt": "2026-10-25T00:02:38.036000Z",
+  "modelType": "rfdetr-seg-small",
+  "modelId": "tolgar-sasmaz/wrinkles-79rrf-t7kyp-1-rfdetr-seg-small-t1",
+  "evalId": "vrgoNtXQJSRl0kHo0ahf",
+  "evalStatus": "done",
+  "evalCreatedAt": "2026-10-25T01:36:05.979Z",
+  "dataset": {"images": 1558, "splits": {"train": 1167, "valid": 243, "test": 148}, "wrinklesAnnotations": 7516},
+  "exactSelectedDataset": false,
+  "crossSplitCandidates": {"filename": 65, "perceptual": 202},
+  "perClass": {
+    "valid": {
+      "wrinkles": {"map50": 0.5994696691583155, "map50_95": 0.2105946586582374, "map75": 0.09009791117999257, "precision": 0.779, "recall": 0.611, "f1": 0.685}
+    },
+    "test": {
+      "wrinkles": {"map50": 0.6440890457494266, "map50_95": 0.22789575695408526, "map75": 0.10173694020272453, "precision": 0.811, "recall": 0.658, "f1": 0.727}
+    }
+  },
+  "diagnosticOnly": true,
+  "substitutionAllowed": false,
+  "activationAllowed": false
+}
