@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-25T11:10:02Z",
+  "methodVersion": "current-product-code-contract-recheck-v1",
+  "repository": "sasmazt90/attune-more",
+  "branch": "main",
+  "commit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+  "latestDefaultBranchCommitVerified": true,
+  "allPinnedBlobSHA256Matches": true,
+  "result": {
+    "existingProductResultFlowVerified": true,
+    "backendEndpoint": "/api/local-health/skin",
+    "appearanceCriteria": [
+      "tone",
+      "oil",
+      "redness",
+      "acne",
+      "sag",
+      "dry",
+      "lines",
+      "dark",
+      "bags"
+    ],
+    "separateSkinType": true,
+    "resultUI": true,
+    "regionalResults": true,
+    "overview": true,
+    "localMaps": true,
+    "persistenceGate": true
+  },
+  "files": [
+    {
+      "path": "services/core-api/skin_general.py",
+      "blobSHA": "0fb7ec70c2f80a89651e85692d5d44727c929b87",
+      "match": true
+    },
+    {
+      "path": "services/core-api/appearance_analysis.py",
+      "blobSHA": "c884a051d9ba378df6459e0036ed176f7091bee9",
+      "match": true
+    },
+    {
+      "path": "services/core-api/local_health.py",
+      "blobSHA": "033bdcabcbfde0cf226505b522baee59b9a5b70b",
+      "match": true
+    },
+    {
+      "path": "apps/vehicle-app/src/utils/skinIndicators.ts",
+      "blobSHA": "14ff6c3c1fee82883a6487d214e1694f1cad1aa1",
+      "match": true
+    },
+    {
+      "path": "apps/vehicle-app/src/utils/skinOverview.ts",
+      "blobSHA": "638d87de50030e4a85df5d50a8b002560cf56974",
+      "match": true
+    },
+    {
+      "path": "apps/vehicle-app/src/app/skin/page.tsx",
+      "blobSHA": "90c10337f2cf5ac607b4aa1be39d2cfba6a5e47d",
+      "match": true
+    },
+    {
+      "path": "apps/vehicle-app/src/components/skin/SkinResultView.tsx",
+      "blobSHA": "fb1cde115c990191a84a119cfcbe354827b18fb9",
+      "match": true
+    }
+  ],
+  "interpretation": "The merged product already returns and displays concrete skin results; roadmap work extends and validates the functioning flow."
+}
+
