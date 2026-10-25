@@ -1,0 +1,35 @@
+{
+  "target": "active-acne-post-acne-pigmentation-research-only",
+  "observedAt": "2026-10-25T02:31:12Z",
+  "modelIdentity": {
+    "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2",
+    "immutableId": null,
+    "trainingId": "49ee6204cf069198bbfa",
+    "modelType": "rfdetr-small",
+    "trainingStatus": "finished"
+  },
+  "provenance": {
+    "sourceArchiveSHA256": "29f40e80c8b1f63d43abbc35d11efdbaac4cf754531af2bee64283dde64c34e2",
+    "rightsReviewed": false,
+    "expertLabelProtocolVerified": false,
+    "personIndependentSplits": false,
+    "negativeCoverageReviewed": false,
+    "lockedTestUntouchedDuringSelection": false,
+    "sourceAuditEvidence": "docs/skin/evidence/acne-split-release-gate-20261024-v1.json"
+  },
+  "evaluation": {
+    "evalId": "7s06OfIzx78XzATqr5oA",
+    "appUrl": "https://app.roboflow.com/tolgar-sasmaz/attune-skin-acne-marks-pigmentation/evaluation/1",
+    "thresholdSelectionSplit": "validation",
+    "thresholdsLockedBeforeTest": false,
+    "qualityGateEvidence": "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
+    "providerTestSummary": {"map50": 0.13301487328188502, "map50_95": 0.03422613061721248, "precision": 0.547, "recall": 0.199, "f1": 0.207, "medianLatencyMs": 8.42},
+    "classes": {
+      "Pigmentation": {"threshold": 0.15, "validation": {"precision": 0.115, "recall": 0.081, "f1": 0.095}, "test": {"precision": 0.132, "recall": 0.055, "f1": 0.077}, "providerTestMap50": 0.032430325837992775, "providerTestMap50_95": 0.008183552543335268, "passed": false},
+      "Pimple": {"threshold": 0.35, "validation": {"precision": 0.291, "recall": 0.234, "f1": 0.26}, "test": {"precision": 0.272, "recall": 0.308, "f1": 0.289}, "providerTestMap50": 0.18178170442428168, "providerTestMap50_95": 0.04993333620656488, "passed": false},
+      "Post acne": {"threshold": 0.31, "validation": {"precision": 0.359, "recall": 0.29, "f1": 0.321}, "test": {"precision": 0.34, "recall": 0.305, "f1": 0.322}, "providerTestMap50": 0.1848325895833806, "providerTestMap50_95": 0.04456150310173727, "passed": false}
+    }
+  },
+  "camera": {"independentFromTrainingSources": false, "sameCaptureContractAsProduct": false, "skinToneLightingPoseSlicesReviewed": false, "passed": false, "evidence": "not_available"},
+  "integration": {"api": false, "productContract": false, "unavailableFallback": false, "privacyAndConsent": false, "historyCompatibility": false, "regressionTests": false, "evidence": "not_integrated"}
+}
