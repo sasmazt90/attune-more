@@ -1,0 +1,42 @@
+{
+  "activationBlockers": [
+    "rights_reviewed_natural_camera_sources_missing",
+    "expert_dryness_flaking_semantic_policy_missing",
+    "expert_polygon_extent_review_missing",
+    "evaluated_negative_normal_regions_missing",
+    "source_person_group_split_independence_missing",
+    "untouched_final_test_reservation_missing",
+    "validation_acceptance_missing",
+    "untouched_final_test_acceptance_missing",
+    "physical_camera_acceptance_missing",
+    "working_product_integration_acceptance_missing"
+  ],
+  "blueMaskFromBoxesAllowed": false,
+  "boxLocalizationResearchAllowed": true,
+  "decision": "blocked",
+  "methodVersion": "regional-dryness-release-gate-v1",
+  "missingLabelAsNormalAllowed": false,
+  "processedMerveNaturalColourCalibrationAllowed": false,
+  "productActivationAllowed": false,
+  "researchTrainingAuthorized": false,
+  "roadmapAccepted": false,
+  "schemaVersion": 1,
+  "testBlockers": [
+    "rights_reviewed_natural_camera_sources_missing",
+    "expert_dryness_flaking_semantic_policy_missing",
+    "expert_polygon_extent_review_missing",
+    "evaluated_negative_normal_regions_missing",
+    "source_person_group_split_independence_missing",
+    "untouched_final_test_reservation_missing",
+    "validation_acceptance_missing"
+  ],
+  "testEvaluationAuthorized": false,
+  "trainingBlockers": [
+    "rights_reviewed_natural_camera_sources_missing",
+    "expert_dryness_flaking_semantic_policy_missing",
+    "expert_polygon_extent_review_missing",
+    "evaluated_negative_normal_regions_missing",
+    "source_person_group_split_independence_missing",
+    "untouched_final_test_reservation_missing"
+  ]
+}
