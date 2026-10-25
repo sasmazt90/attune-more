@@ -175,7 +175,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-25",
-      "lastCheckedAt": "2026-10-25T06:09:50Z",
+      "lastCheckedAt": "2026-10-25T06:25:58Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -450,7 +450,7 @@
       "versions": [
         1
       ],
-      "lastCheckedAt": "2026-10-25T06:09:50Z",
+      "lastCheckedAt": "2026-10-25T06:25:58Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -574,7 +574,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-25T06:09:50Z",
+      "lastCheckedAt": "2026-10-25T06:25:58Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -1120,7 +1120,7 @@
       }
     },
     "concurrentWork": {
-      "observedAt": "2026-10-25T06:09:50Z",
+      "observedAt": "2026-10-25T06:25:58Z",
       "projectsTotal": 20,
       "doNotDuplicate": [
         {
@@ -1195,7 +1195,7 @@
           "startedByThisAutomation": false
         }
       ],
-      "note": "All 20 accessible projects were refreshed. Main remains at 7463eef with the functioning skin result flow. The externally started acne 49ee6204cf069198bbfa, regional af287a006e2e428f5ce4 and ungrouped under-eye d194569acd3ebe7cf8b7 trainings are finished and exact-ID evaluations are recorded, but all fail the shared activation gate. The frozen regional provider export was audited without mutation: all 1,636 Oily/Redness annotations are valid polygons and no cross-split exact/tight perceptual candidate was found, but all 337 source identities remain unreviewed, so independence and training authorization remain false. Grouped under-eye remains empty and upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress. No duplicate training, cancellation, inference, label, split, upload or activation mutation was performed. Last refreshed at 2026-10-25T06:09:50Z."
+      "note": "All 20 accessible projects were refreshed. Main remains at 7463eef with the functioning skin result flow. The externally started acne 49ee6204cf069198bbfa, regional af287a006e2e428f5ce4 and ungrouped under-eye d194569acd3ebe7cf8b7 trainings remain finished and exact-ID evaluations are recorded, but all fail the shared activation gate. No new training is running. The frozen regional provider audit is now a mandatory executable input to the improvement-release gate; its valid 1,636 polygons can no longer be skipped, while all 337 unreviewed identities still block a replacement split and training. Grouped under-eye remains empty and upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress. No duplicate training, cancellation, inference, label, split, upload or activation mutation was performed. Last refreshed at 2026-10-25T06:25:58Z."
     }
   },
   "sourceAccess": {
@@ -1497,7 +1497,7 @@
       "The exact external acne and regional jobs, plus the externally trained ungrouped under-eye model, are finished and checkpointed with immutable training/model/evaluation IDs. All three fail the shared acceptance gate; no duplicate training, blind retry or activation is authorized.",
       "The acne provider diagnosis confirms a fourfold input-pixel reduction, severe tiny-instance prevalence and class imbalance, while test diagnostics show 4,896 false positives and 2,604 false negatives at confidence 0.2. The executable improvement gate blocks training until expert semantics, full group-locked replacement data, exactly one validation-only resolution change and a new untouched final holdout all exist.",
       "The regional provider diagnosis confirms weak Oily boundary localization, low-confidence background false positives, zero small-object Redness test-diagnostic mAP50 and a 30-image exposed test below the provider's 50-image minimum. Its executable gate blocks training until source/person grouping, expert mask and negative protocol, one validation-only targeted change, a new untouched 50+ image final test and a separate camera holdout exist.",
-      "The frozen regional COCO export contains 1,636 valid Oily/Redness polygons and no box-only or invalid geometry. The cross-split candidate scan found no exact or tight perceptual matches, but candidate absence is not identity proof: all 337 source IDs remain without complete person/source-group review, so the existing split and exposed test are not independent acceptance evidence."
+      "The frozen regional COCO export contains 1,636 valid Oily/Redness polygons and no box-only or invalid geometry. The cross-split candidate scan found no exact or tight perceptual matches, but candidate absence is not identity proof: all 337 source IDs remain without complete person/source-group review, so the existing split and exposed test are not independent acceptance evidence. The improvement-release gate now requires and validates this exact source/export audit before any training authorization."
       ]
     },
     {
@@ -3201,6 +3201,12 @@
       "observedAt": "2026-10-25T06:09:50Z",
       "action": "Read the persistent checkpoint first; refreshed all 20 accessible Roboflow projects and preserved the functioning main 7463eef baseline without starting duplicate work. Exported the frozen regional v1 COCO package for read-only audit and bound its provider-export SHA256 separately from the original source archive. Verified all 337 images, the 244/63/30 split, and all 1,636 Oily/Redness annotations as valid polygons with no box-only or invalid geometry. The privacy-safe cross-split screen found zero exact normalized-pixel and zero tight dHash+pHash candidates, but deliberately keeps person independence, replacement-split readiness, training authorization and final-test eligibility false because all 337 source identities remain unreviewed. Added a deterministic fail-closed audit plus four tests and kept the private resolver, filenames and image bytes out of Git. No training, inference, label, split, upload, threshold or activation mutation was performed.",
       "report": "docs/skin/regional-mask-source-group-audit-20261025.md"
+    },
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T06:25:58Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus the exact acne, regional and under-eye training lists. No new training is running: the known NAS/external candidates remain finished, grouped under-eye remains empty, and the functioning main 7463eef skin result flow remains the baseline. Converted the frozen regional source/geometry audit from passive evidence into a mandatory executable input of the regional improvement-release gate. The gate now validates both source and provider-export digests, full 337-image/1,636-polygon inventory, zero invalid or box-only geometry, complete record representation, privacy flags and fail-closed decisions. It rejects a missing audit, a committed private resolver and any attempt to pass the source audit as a group-locked replacement split. Fifty-one focused tests, compilation, JSON validation and exact fail-closed gate replay passed. Training, test evaluation and activation remain unauthorized because person grouping, expert mask protocol, a one-change validation experiment and a new 50+ untouched final test plus camera holdout are absent. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/regional-improvement-release-gate-20261025-v1.json"
     }
   ],
   "activityLog": [
@@ -3371,6 +3377,12 @@
       "observedAt": "2026-10-25T06:09:50Z",
       "action": "Read the persistent checkpoint first; refreshed all 20 accessible Roboflow projects and preserved the functioning main 7463eef baseline without starting duplicate work. Exported the frozen regional v1 COCO package for read-only audit and bound its provider-export SHA256 separately from the original source archive. Verified all 337 images, the 244/63/30 split, and all 1,636 Oily/Redness annotations as valid polygons with no box-only or invalid geometry. The privacy-safe cross-split screen found zero exact normalized-pixel and zero tight dHash+pHash candidates, but deliberately keeps person independence, replacement-split readiness, training authorization and final-test eligibility false because all 337 source identities remain unreviewed. Added a deterministic fail-closed audit plus four tests and kept the private resolver, filenames and image bytes out of Git. No training, inference, label, split, upload, threshold or activation mutation was performed.",
       "report": "docs/skin/regional-mask-source-group-audit-20261025.md"
+    },
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T06:25:58Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus the exact acne, regional and under-eye training lists. No new training is running: the known NAS/external candidates remain finished, grouped under-eye remains empty, and the functioning main 7463eef skin result flow remains the baseline. Converted the frozen regional source/geometry audit from passive evidence into a mandatory executable input of the regional improvement-release gate. The gate now validates both source and provider-export digests, full 337-image/1,636-polygon inventory, zero invalid or box-only geometry, complete record representation, privacy flags and fail-closed decisions. It rejects a missing audit, a committed private resolver and any attempt to pass the source audit as a group-locked replacement split. Fifty-one focused tests, compilation, JSON validation and exact fail-closed gate replay passed. Training, test evaluation and activation remain unauthorized because person grouping, expert mask protocol, a one-change validation experiment and a new 50+ untouched final test plus camera holdout are absent. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/regional-improvement-release-gate-20261025-v1.json"
     }
   ]
 }
