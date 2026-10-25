@@ -5,6 +5,12 @@ import type { AppearanceResponse } from './appearanceMeasurements';
 
 export const SKIN_TYPE_LABELS = { normal: 'Normal', dry: 'Kuru', oily: 'Yağlı', combination: 'Karma', sensitive: 'Hassas' } as const;
 export type SkinTypeId = keyof typeof SKIN_TYPE_LABELS;
+/** Regional rule v3: base type (karma/yağlı/kuru/normal) + 've hassas' when any measured region is sensitive. */
+export function skinTypeLabel(type: { value?: SkinTypeId | null; quality?: string; sensitive?: boolean } | undefined): string | null {
+  if (!type || type.quality !== 'valid' || !type.value) return null;
+  const base = SKIN_TYPE_LABELS[type.value] || type.value;
+  return type.sensitive && type.value !== 'sensitive' ? `${base} ve hassas` : base;
+}
 export type SkinViewId = 'overview' | SkinRegionId;
 export const SKIN_VIEW_ORDER: SkinViewId[] = ['overview', ...REGION_ORDER];
 /** Display known criteria from the current UTF-8 dictionary. Never rewrite a
@@ -15,7 +21,7 @@ function displayLabels(rows: SkinIndicator[], scope: 'regional'|'whole-face'): S
 }
 export type SkinOverview = {
   schemaVersion: 1; analysisId?: string; captureId: string; pose: 'FRONT';
-  skinType: { value: SkinTypeId | null; quality: 'valid' | 'invalid' | 'insufficient'; confidence: number | null; methodVersion: string; modelHash: string | null; limitationCode: string | null; provider?:string;providerModelId?:string;inferenceKind?:'hosted'|'local-onnx';decisionVersion?:string;sourceModel?:string;decisionTrace?:Record<string,any> };
+  skinType: { value: SkinTypeId | null; sensitive?: boolean; quality: 'valid' | 'invalid' | 'insufficient'; confidence: number | null; methodVersion: string; modelHash: string | null; limitationCode: string | null; provider?:string;providerModelId?:string;inferenceKind?:'hosted'|'local-onnx';decisionVersion?:string;sourceModel?:string;decisionTrace?:Record<string,any> };
   regionalSkinMap?: Record<string, any>;
   indicators: SkinIndicator[]; normalizationVersion: string;
   modelInputTransform?:Record<string,number|string|boolean>|null;modelInference?:Record<string,Record<string,number|string>>;

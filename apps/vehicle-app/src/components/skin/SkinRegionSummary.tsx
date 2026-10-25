@@ -5,7 +5,7 @@ import React from 'react';
 import { SkinIndicatorValue } from './SkinIndicatorValue';
 import { TrendingUp, FileText, Lightbulb, ArrowRight } from 'lucide-react';
 import { SkinRegionData } from '../../data/skinDemoFixture';
-import { SKIN_TYPE_LABELS } from '../../utils/skinOverview';
+import { SKIN_TYPE_LABELS, skinTypeLabel } from '../../utils/skinOverview';
 import { isCriterionApplicableToRegion } from '../../utils/skinIndicators';
 
 interface SkinRegionSummaryProps {
@@ -62,8 +62,8 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
     [currentRegion.indicators, currentRegion.id]
   );
 
-  const skinTypeDisplay = currentRegion.skinType?.quality === 'valid' && currentRegion.skinType.value
-    ? SKIN_TYPE_LABELS[currentRegion.skinType.value] || currentRegion.skinType.value
+  const skinTypeDisplay = skinTypeLabel(currentRegion.skinType as any)
+    ? skinTypeLabel(currentRegion.skinType as any)!
     : (currentRegion.skinType as any)?.displayValue
       ? i18nText((currentRegion.skinType as any).displayValue)
       : currentRegion.skinType?.limitationCode === 'INCOMPLETE_CHEEKS_UNVERIFIED'

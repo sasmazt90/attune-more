@@ -10,6 +10,7 @@ import { cameraCrop } from '../CameraPreparation';
 import { StablePreviewCrop } from '../../utils/cameraStability';
 import { meshTriangles, closedSurfaceSupportEnabled } from '../../utils/skinSurfaceAnalysis';
 import { skinBoxEnvelope } from '../../utils/skinBoxEnvelope';
+import { paintPath, paintCentroid, faceWidthPx, PAINT_COLORS, PAINT_LABELS, PAINT_TAG_ANCHOR, SENSITIVE_COLOR, type PaintRegionId, type PaintState } from '../../utils/skinTypePaint';
 
 interface SkinFacePanelProps {
   currentRegion: SkinRegionData;
@@ -249,44 +250,82 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                     ))}
                   </g>
                 )}
-                {/* Regional Skin Type Transparent Overlay: strictly driven by per-region state in decisionTrace, never global skinType.value */}
-                {mode === 'result' && !selectedCriterion && snapshot.meshes && regionalTrace && (
-                  <g data-skin-type-overlay opacity="0.26">
-                    {Object.entries(snapshot.meshes).map(([regionId, mesh]) => {
-                      if (regionId === 'periorbital') return null;
-                      if (currentRegion.id !== 'overview' && currentRegion.id !== 'nose' && currentRegion.id !== regionId) return null;
-                      if (currentRegion.id === 'nose' && !['forehead', 'nose', 'chin'].includes(regionId)) return null;
-                      const regEntry = regionalTrace[regionId];
-                      // Side snapshots never paint a FRONT cheek result onto a side photo.
-                      if (snapshot.angle !== 'FRONT' && regEntry?.sourcePose && regEntry.sourcePose !== snapshot.angle) return null;
-                      if (snapshot.angle !== 'FRONT' && regEntry?.sourcePhotoId && snapshot.photoId && regEntry.sourcePhotoId !== snapshot.photoId) return null;
-                      const regState = regEntry?.state ?? 'unknown';
-                      let fillColor = 'none';
-                      if (regState === 'oily') {
-                        fillColor = '#22c55e'; // saydam yeşil
-                      } else if (regState === 'dry') {
-                        fillColor = '#3b82f6'; // saydam mavi
-                      } else if (regState === 'normal') {
-                        fillColor = 'none'; // normal = renksiz
-                      } else {
-                        fillColor = '#94a3b8'; // ölçülemeyen / değerlendirilmedi / ara bant = nötr gri
-                      }
-                      if (fillColor === 'none') return null;
-
-                      return (
-                        <g key={regionId} data-skin-type-region={regionId} data-skin-type-state={regState} data-source-pose={regEntry?.sourcePose || snapshot.angle} data-source-photoid={regEntry?.sourcePhotoId || snapshot.photoId || ''} fill={fillColor}>
-                          {meshTriangles(mesh, false, false).map((tri, i) => (
-                            <path
-                              key={i}
-                              d={tri.map((ptIdx, j) => `${j ? 'L' : 'M'}${mesh.points[ptIdx].x} ${mesh.points[ptIdx].y}`).join('') + 'Z'}
-                              stroke="none"
-                            />
-                          ))}
-                        </g>
-                      );
-                    })}
-                  </g>
-                )}
+                {/* Regional skin-type map, HUD style: thin glowing outline per region, dot-matrix fill that is
+                    brighter at the edge and fades inward, small tags. Unmeasured = grey dashed outline;
+                    sensitive = pink inset dashed ring + sparse pink dots. Never global skinType, never boxes. */}
+                {mode === 'result' && !selectedCriterion && regionalTrace && snapshot.landmarks && snapshot.landmarks.length >= 468 && (() => {
+                  const lmk = snapshot.landmarks!;
+                  const fw = faceWidthPx(lmk, snapshot.width);
+                  const ids: PaintRegionId[] = ['forehead', 'nose', 'rightCheek', 'leftCheek', 'chin', 'periorbital'];
+                  const rows = ids.flatMap(regionId => {
+                    if (currentRegion.id !== 'overview' && currentRegion.id !== 'nose' && currentRegion.id !== regionId) return [];
+                    if (currentRegion.id === 'nose' && !['forehead', 'nose', 'chin'].includes(regionId)) return [];
+                    const regEntry = regionalTrace[regionId];
+                    if (!regEntry) return [];
+                    if (snapshot.angle !== 'FRONT' && regEntry.sourcePose && regEntry.sourcePose !== snapshot.angle) return [];
+                    if (snapshot.angle !== 'FRONT' && regEntry.sourcePhotoId && snapshot.photoId && regEntry.sourcePhotoId !== snapshot.photoId) return [];
+                    const d = paintPath(regionId, lmk, snapshot.width, snapshot.height);
+                    if (!d) return [];
+                    const raw = regEntry.state;
+                    const state: PaintState = raw === 'oily' || raw === 'dry' || raw === 'normal' ? raw : 'unmeasured';
+                    return [{ regionId, d, state, sensitive: state !== 'unmeasured' && regEntry.sensitive === true }];
+                  });
+                  if (!rows.length) return null;
+                  const sw = fw / 260, step = fw / 60, fs = fw / 28;
+                  return (
+                    <g data-skin-type-overlay>
+                      <defs>
+                        <filter id={`${maskId}-hud-glow`} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation={fw / 90} /></filter>
+                        {(['oily', 'dry', 'normal', 'unmeasured'] as PaintState[]).map(st => (
+                          <pattern key={st} id={`${maskId}-hud-dots-${st}`} patternUnits="userSpaceOnUse" width={step} height={step}>
+                            <circle cx={step / 2} cy={step / 2} r={fw / 330} fill={PAINT_COLORS[st]} />
+                          </pattern>
+                        ))}
+                        <pattern id={`${maskId}-hud-dots-sens`} patternUnits="userSpaceOnUse" width={step * 3} height={step * 3}>
+                          <circle cx={step * 1.5} cy={step * 1.5} r={fw / 300} fill={SENSITIVE_COLOR} />
+                        </pattern>
+                        {rows.map(r => <clipPath key={r.regionId} id={`${maskId}-hud-clip-${r.regionId}`}><path d={r.d} clipRule="evenodd" /></clipPath>)}
+                      </defs>
+                      {rows.map(r => {
+                        const c = PAINT_COLORS[r.state], clip = `url(#${maskId}-hud-clip-${r.regionId})`;
+                        const cen = r.sensitive ? paintCentroid(r.regionId, lmk, snapshot.width, snapshot.height) : null;
+                        return (
+                          <g key={r.regionId} data-skin-type-region={r.regionId} data-skin-type-state={r.state} data-skin-type-sensitive={r.sensitive ? 'true' : 'false'}>
+                            <path d={r.d} fill={c} fillOpacity="0.10" fillRule="evenodd" />
+                            {/* edge-bright inner glow: wide blurred stroke kept inside the outline */}
+                            <g clipPath={clip}><path d={r.d} fill="none" stroke={c} strokeWidth={fw / 9} strokeOpacity="0.22" filter={`url(#${maskId}-hud-glow)`} /></g>
+                            <path d={r.d} fill={`url(#${maskId}-hud-dots-${r.state})`} fillRule="evenodd" opacity="0.55" />
+                            {r.state === 'unmeasured'
+                              ? <path data-skin-type-unmeasured={r.regionId} d={r.d} fill="none" stroke={c} strokeWidth={sw} strokeDasharray={`${fw / 40} ${fw / 60}`} strokeLinecap="round" />
+                              : <>
+                                  <path d={r.d} fill="none" stroke={c} strokeWidth={fw / 70} strokeOpacity="0.35" filter={`url(#${maskId}-hud-glow)`} />
+                                  <path d={r.d} fill="none" stroke={c} strokeWidth={sw} strokeLinejoin="round" />
+                                </>}
+                            {r.sensitive && cen && (
+                              <g data-skin-type-sensitive-layer={r.regionId} clipPath={clip}>
+                                <path d={r.d} fill={`url(#${maskId}-hud-dots-sens)`} fillRule="evenodd" opacity="0.9" />
+                                <path d={r.d} fill="none" stroke={SENSITIVE_COLOR} strokeWidth={fw / 300} strokeDasharray={`${fw / 70} ${fw / 90}`}
+                                  transform={`translate(${cen.x} ${cen.y}) scale(0.88) translate(${-cen.x} ${-cen.y})`} />
+                              </g>
+                            )}
+                          </g>
+                        );
+                      })}
+                      {currentRegion.id === 'overview' && rows.filter(r => r.regionId !== 'periorbital').map(r => {
+                        const a = PAINT_TAG_ANCHOR[r.regionId as Exclude<PaintRegionId, 'periorbital'>];
+                        const x = lmk[a.index].x * snapshot.width + a.dx * fw, y = lmk[a.index].y * snapshot.height + a.dy * fw;
+                        const text = i18nText(PAINT_LABELS[r.state]) + (r.sensitive ? ' · ' + i18nText('Hassas') : '');
+                        const tw = text.length * fs * 0.58 + fs * 0.9;
+                        return (
+                          <g key={`tag-${r.regionId}`} data-skin-type-tag={r.regionId}>
+                            <rect x={x - tw / 2} y={y - fs * 0.75} width={tw} height={fs * 1.5} rx={fs * 0.75} fill="#0a1220" fillOpacity="0.68" stroke={PAINT_COLORS[r.state]} strokeOpacity="0.9" strokeWidth={fw / 400} />
+                            <text x={x} y={y + fs * 0.34} textAnchor="middle" fontSize={fs} fill="#ebf2fa" style={{ fontFamily: 'inherit' }}>{text}</text>
+                          </g>
+                        );
+                      })}
+                    </g>
+                  );
+                })()}
                 {selectedCriterion === 'acne' && (
                   <g data-skin-acne-markers clipPath={snapshot.experimentalAcneV5 ? undefined : `url(#${maskId}-region)`}>
                     {(currentRegion.id === 'nose'

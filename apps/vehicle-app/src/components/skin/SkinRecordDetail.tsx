@@ -12,7 +12,7 @@ import {readSkinSnapshots,skinSnapshotVersion,subscribeSkinSnapshots} from '../.
 import {loadSkinPhotos} from '../../utils/skinPhotoHistory';
 import type {SkinSnapshot} from '../../utils/skinSnapshot';
 import type {SkinAngle} from '../../utils/skinMultiAngle';
-import {buildSkinViewModel, type SkinViewId, SKIN_TYPE_LABELS} from '../../utils/skinOverview';
+import {buildSkinViewModel, type SkinViewId, SKIN_TYPE_LABELS, skinTypeLabel} from '../../utils/skinOverview';
 import {isCriterionApplicableToRegion} from '../../utils/skinIndicators';
 
 /** Numeric history is separate from explicitly permitted local source photos. */
@@ -34,8 +34,8 @@ export function SkinRecordDetail({record}:{record:HealthRecord}){
  const previous=()=>{setIndex(v=>(v+regions.length-1)%regions.length);};
  const next=()=>{setIndex(v=>(v+1)%regions.length);};
  const visibleIndicators=(region.indicators||[]).filter(v=>isCriterionApplicableToRegion(v.id,id));
- const skinTypeDisplay=region.skinType?.quality==='valid'&&region.skinType.value
-  ? SKIN_TYPE_LABELS[region.skinType.value]||region.skinType.value
+ const skinTypeDisplay=skinTypeLabel(region.skinType as any)
+  ? skinTypeLabel(region.skinType as any)!
   : region.skinType?.limitationCode==='INCOMPLETE_CHEEKS_UNVERIFIED'
     ? i18nText('Belirsiz (Yanak verisi eksik)')
     : region.skinType?.limitationCode==='INCOMPLETE_TZONE_UNVERIFIED'
