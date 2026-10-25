@@ -19,8 +19,11 @@ EXPECTED_TRAINING_ID = "af287a006e2e428f5ce4"
 EXPECTED_EVAL_ID = "vsQ6klUgSohCdtLwNMJf"
 EXPECTED_ARCHIVE_SHA256 = "a24793ca3490a48088abf47ba89fc9ab94e1c3a12c488ce52915e19b5bdf6fd6"
 EXPECTED_PROVIDER_EXPORT_SHA256 = "ba7aa450ee2e98af35dcb1b60f3f9673fc7a6ef6b7709e7b94e1df1d32bdab3a"
+EXPECTED_REVIEW_QUEUE_SHA256 = "cea2fb24724d89819db49ebd4f78927711c92824d725222b9c7f59cc587d7943"
 EXPECTED_IMAGES = 337
 EXPECTED_ANNOTATIONS = 1636
+EXPECTED_REVIEW_ITEMS = 81
+EXPECTED_REVIEW_CLASS_COUNTS = {"Oily": 40, "Redness": 41}
 CLASSES = ("Oily", "Redness")
 ALLOWED_EXPERIMENT_CHANGES = {
     "face_aligned_higher_effective_resolution",
@@ -145,12 +148,89 @@ def group_split_ready(value: dict[str, Any] | None) -> tuple[bool, str | None]:
     return True, None
 
 
-def mask_protocol_ready(value: dict[str, Any] | None) -> tuple[bool, str | None]:
+def validate_review_queue(value: dict[str, Any]) -> dict[str, set[str]]:
+    if value.get("schemaVersion") != "regional-mask-expert-review-queue-v1":
+        raise GateError("expert review queue schema is invalid")
+    source = value.get("source", {})
+    if (
+        source.get("sourceArchiveSHA256") != EXPECTED_ARCHIVE_SHA256
+        or source.get("providerExportSHA256") != EXPECTED_PROVIDER_EXPORT_SHA256
+        or source.get("versionNumber") != 1
+    ):
+        raise GateError("expert review queue source binding does not match")
+    privacy = value.get("privacy", {})
+    if any(
+        privacy.get(key) is not False
+        for key in (
+            "containsImageBytes",
+            "containsFilenames",
+            "containsRawSourceNames",
+            "containsProviderImageIds",
+            "resolverCommitted",
+        )
+    ):
+        raise GateError("expert review queue is not privacy safe")
+    selection = value.get("selection", {})
+    if (
+        selection.get("allowedSplits") != ["train", "valid"]
+        or selection.get("testImagesRead") != 0
+        or selection.get("testImagesSelected") != 0
+        or selection.get("selectedUniqueImages") != EXPECTED_REVIEW_ITEMS
+    ):
+        raise GateError("expert review queue is not frozen or test isolated")
+    policy = value.get("reviewPolicy", {})
+    if (
+        policy.get("reviewerRequired") != "expert_review"
+        or policy.get("rednessIndependentLayer") is not True
+        or policy.get("missingMaskMeansNormal") is not False
+        or policy.get("missingClassIsNegative") is not False
+        or policy.get("modelPredictionAcceptedAsTruth") is not False
+    ):
+        raise GateError("expert review queue semantic invariants are invalid")
+    items = value.get("items")
+    if not isinstance(items, list) or len(items) != EXPECTED_REVIEW_ITEMS:
+        raise GateError("expert review queue item inventory is invalid")
+    by_class = {name: set() for name in CLASSES}
+    seen: set[str] = set()
+    for row in items:
+        if not isinstance(row, dict):
+            raise GateError("expert review queue item is invalid")
+        item_id = row.get("reviewItemId")
+        name = row.get("className")
+        if (
+            not isinstance(item_id, str)
+            or len(item_id) != 24
+            or item_id in seen
+            or name not in CLASSES
+            or row.get("split") not in {"train", "valid"}
+            or row.get("missingClassIsNegative") is not False
+        ):
+            raise GateError("expert review queue item binding is invalid")
+        seen.add(item_id)
+        by_class[name].add(item_id)
+    if {name: len(ids) for name, ids in by_class.items()} != EXPECTED_REVIEW_CLASS_COUNTS:
+        raise GateError("expert review queue class inventory is invalid")
+    return by_class
+
+
+def mask_protocol_ready(
+    value: dict[str, Any] | None,
+    review_queue: dict[str, Any] | None,
+) -> tuple[bool, str | None]:
     if value is None:
         return False, None
+    if review_queue is None:
+        return False, "EXPERT_REVIEW_QUEUE_MISSING"
+    required_ids = validate_review_queue(review_queue)
     if value.get("schemaVersion") != "regional-mask-expert-protocol-v1":
         raise GateError("mask protocol schema is invalid")
-    if value.get("archiveSHA256") != EXPECTED_ARCHIVE_SHA256:
+    if (
+        value.get("archiveSHA256") != EXPECTED_ARCHIVE_SHA256
+        or value.get("providerExportSHA256") != EXPECTED_PROVIDER_EXPORT_SHA256
+        or value.get("reviewQueueSchemaVersion") != review_queue.get("schemaVersion")
+        or value.get("reviewQueueSHA256") != EXPECTED_REVIEW_QUEUE_SHA256
+        or value.get("reviewQueueItems") != EXPECTED_REVIEW_ITEMS
+    ):
         raise GateError("mask protocol archive binding does not match")
     if value.get("reviewer") != "expert_review":
         return False, "EXPERT_MASK_AND_NEGATIVE_PROTOCOL_MISSING"
@@ -177,7 +257,9 @@ def mask_protocol_ready(value: dict[str, Any] | None) -> tuple[bool, str | None]
         and by_name[name].get("hardNegativePolicyLocked") is True
         and by_name[name].get("ambiguousCasePolicyLocked") is True
         and isinstance(by_name[name].get("reviewedItemIds"), list)
-        and len(by_name[name]["reviewedItemIds"]) > 0
+        and len(by_name[name]["reviewedItemIds"]) == EXPECTED_REVIEW_CLASS_COUNTS[name]
+        and len(set(by_name[name]["reviewedItemIds"])) == len(by_name[name]["reviewedItemIds"])
+        and set(by_name[name]["reviewedItemIds"]) == required_ids[name]
         for name in CLASSES
     )
     return (complete, None if complete else "EXPERT_MASK_AND_NEGATIVE_PROTOCOL_MISSING")
@@ -241,6 +323,7 @@ def build_gate(
     diagnosis: dict[str, Any],
     source_audit: dict[str, Any] | None = None,
     group_split: dict[str, Any] | None = None,
+    review_queue: dict[str, Any] | None = None,
     mask_protocol: dict[str, Any] | None = None,
     experiment: dict[str, Any] | None = None,
     final_test: dict[str, Any] | None = None,
@@ -249,8 +332,11 @@ def build_gate(
     if source_audit is not None:
         validate_source_audit(source_audit)
     source_audit_ok = source_audit is not None
+    if review_queue is not None:
+        validate_review_queue(review_queue)
+    review_queue_ok = review_queue is not None
     group_ok, group_reason = group_split_ready(group_split)
-    protocol_ok, protocol_reason = mask_protocol_ready(mask_protocol)
+    protocol_ok, protocol_reason = mask_protocol_ready(mask_protocol, review_queue)
     experiment_ok, experiment_reason = experiment_ready(experiment)
     final_test_ok, final_test_reason = final_test_ready(final_test, group_split, experiment)
 
@@ -281,6 +367,7 @@ def build_gate(
         "checks": {
             "frozenProviderExportAuditBound": source_audit_ok,
             "sourcePersonGroupLockedReplacementSplit": group_ok,
+            "expertReviewQueueBound": review_queue_ok,
             "expertMaskAndNegativeProtocol": protocol_ok,
             "rednessIndependentLayer": diagnosis["decision"]["rednessIndependentLayer"],
             "validationOnlyOneChangeExperiment": experiment_ok,
@@ -304,6 +391,7 @@ def main() -> int:
     parser.add_argument("--diagnosis", type=Path, required=True)
     parser.add_argument("--source-audit", type=Path)
     parser.add_argument("--group-split", type=Path)
+    parser.add_argument("--review-queue", type=Path)
     parser.add_argument("--mask-protocol", type=Path)
     parser.add_argument("--experiment", type=Path)
     parser.add_argument("--final-test", type=Path)
@@ -314,6 +402,7 @@ def main() -> int:
         load_json(args.diagnosis),
         load_json(args.source_audit) if args.source_audit else None,
         load_json(args.group_split) if args.group_split else None,
+        load_json(args.review_queue) if args.review_queue else None,
         load_json(args.mask_protocol) if args.mask_protocol else None,
         load_json(args.experiment) if args.experiment else None,
         load_json(args.final_test) if args.final_test else None,
