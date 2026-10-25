@@ -1,0 +1,21 @@
+{
+  "target": "under-eye-darkcircle-eyebag-ungrouped-research-only",
+  "observedAt": "2026-10-25T02:31:12Z",
+  "modelIdentity": {"modelId": "tolgar-sasmaz/attune-skin-under-eye-pilot-1-rfdetr-seg-small-t1", "immutableId": null, "trainingId": "d194569acd3ebe7cf8b7", "modelType": "rfdetr-seg-small", "trainingStatus": "finished"},
+  "provenance": {"sourceArchiveSHA256": "3c5f800e2460c6388a3a2755050484b82d619052bedbc6eef153641d8d647b6d", "rightsReviewed": false, "expertLabelProtocolVerified": false, "personIndependentSplits": false, "negativeCoverageReviewed": false, "lockedTestUntouchedDuringSelection": false, "sourceAuditEvidence": "docs/skin/evidence/under-eye-group-split-20261023-v1.json"},
+  "evaluation": {
+    "evalId": "ntJE3M4iMTVBPCg2HwIb",
+    "appUrl": "https://app.roboflow.com/tolgar-sasmaz/attune-skin-under-eye-pilot/evaluation/1",
+    "thresholdSelectionSplit": "validation",
+    "thresholdsLockedBeforeTest": false,
+    "qualityGateEvidence": "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
+    "providerTestSummary": {"map50": 0.6181967578296846, "map50_95": 0.22983355945009085, "precision": 0.683, "recall": 0.56, "f1": 0.615, "medianLatencyMs": 21.8},
+    "classes": {
+      "darkcircle": {"threshold": 0.32, "validation": {"precision": 0.5, "recall": 0.597, "f1": 0.544}, "test": {"precision": 0.5, "recall": 0.61, "f1": 0.549}, "providerTestMap50": 0.6100278019619981, "providerTestMap50_95": 0.22253903692392357, "passed": false},
+      "eyebag": {"threshold": 0.49, "validation": {"precision": 0.75, "recall": 0.6, "f1": 0.667}, "test": {"precision": 0.697, "recall": 0.479, "f1": 0.568}, "providerTestMap50": 0.6263657136973713, "providerTestMap50_95": 0.2371280819762581, "passed": false}
+    }
+  },
+  "camera": {"independentFromTrainingSources": false, "sameCaptureContractAsProduct": false, "skinToneLightingPoseSlicesReviewed": false, "passed": false, "evidence": "not_available"},
+  "integration": {"api": false, "productContract": false, "unavailableFallback": false, "privacyAndConsent": false, "historyCompatibility": false, "regressionTests": false, "evidence": "not_integrated"},
+  "researchBoundary": {"sourceImages": 399, "generatedImages": 952, "remoteSourceSplit": {"train": 279, "valid": 81, "test": 39}, "knownSourcePhotoCrossSplitPairs": 3, "groupedReplacementProjectImages": 0, "productActivationAllowed": false}
+}
