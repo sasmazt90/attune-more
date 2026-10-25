@@ -1,10 +1,12 @@
 {
   "schemaVersion": "regional-mask-improvement-release-gate-v1",
-  "observedAt": "2026-10-25T06:25:58Z",
+  "observedAt": "2026-10-25T08:32:45Z",
   "inputs": {
     "diagnosis": "docs/skin/evidence/regional-rfdetr-seg-small-t2-diagnosis-20261025-v1.json",
     "sourceAudit": "docs/skin/evidence/regional-mask-source-group-audit-20261025-v1.json",
     "groupSplit": null,
+    "expertReviewQueue": "docs/skin/evidence/regional-mask-expert-review-queue-20261025-v1.json",
+    "expertProtocolBuilder": "scripts/skin-research/build_regional_mask_expert_protocol.py",
     "maskProtocol": null,
     "validationExperiment": null,
     "untouchedFinalTest": null
@@ -19,6 +21,7 @@
   "checks": {
     "frozenProviderExportAuditBound": true,
     "sourcePersonGroupLockedReplacementSplit": false,
+    "expertReviewQueueBound": true,
     "expertMaskAndNegativeProtocol": false,
     "rednessIndependentLayer": true,
     "validationOnlyOneChangeExperiment": false,
