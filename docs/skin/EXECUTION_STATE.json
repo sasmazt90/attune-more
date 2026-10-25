@@ -2040,7 +2040,7 @@
     {
       "id": "06",
       "target": "skin-type-and-combination",
-      "status": "implementation_in_progress",
+      "status": "combination_rule_implemented_release_gate_fail_closed",
       "work": "Evaluate existing dry/normal/oily classifier; do not label whole-face classes as regional truth; derive combination from supported oily T-zone and normal/dry outside T-zone; require sufficient coverage and validate this rule.",
       "evidence": [
         "services/core-api/regional_skin_evidence.py",
@@ -2074,14 +2074,19 @@
         "docs/skin/evidence/regional-skin-type-source-group-decisions-20261025-v1.json",
         "docs/skin/evidence/regional-skin-type-source-group-resolution-20261025-v1.json",
         "docs/skin/regional-skin-type-source-group-audit-20261025.md",
-        "docs/skin/evidence/regional-rfdetr-seg-small-t2-diagnosis-20261025-v1.json"
+        "docs/skin/evidence/regional-rfdetr-seg-small-t2-diagnosis-20261025-v1.json",
+        "scripts/skin-research/check_skin_type_combination_release.py",
+        "scripts/skin-research/tests/test_skin_type_combination_release.py",
+        "docs/skin/evidence/skin-type-combination-release-receipt-20261025-v1.json",
+        "docs/skin/evidence/skin-type-combination-release-gate-20261025-v1.json"
       ],
       "blockers": [
         "Validated regional method registry remains empty; unknown is grey, legacy tiny supports cannot force combination. Base three-class model retained. Need regional training/calibration, independent tests and camera evidence before enabling methods; synthetic fixture policies are not product calibration.",
         "FACEv3normal88sourcepolygons include broad/full-face masks covering eyes in sampled trainexamples.16normal-maskpairs prepared forreview only; no explicit region assessability/normal completeness accepted.",
         "The comparison's regional child supplies Oily and Redness only. It cannot infer evaluated Dry or Normal, and cannot satisfy the mixed-skin rule. Unknown stays unknown; no whole-face class may be copied to regional truth.",
         "External regional-skin-type v2 represents 990 filename-bound source IDs with no direct source-ID overlap, but private visual review confirmed one train/test source-person leakage group connecting four nominal IDs; 986 sources remain without complete reviewed identity coverage. All 5,252 dry/oily labels are boxes, 38 generated images have no boxes, and there is no normal class; neither boxes nor missing labels can become regional normal/dry/oily truth or a mixed-skin decision.",
-        "The separately diagnosed Oily/Redness polygon version also has no Dry, evaluated Normal or combination truth. Its output cannot satisfy the mixed-skin rule; independently reviewed Normal/Dry polygons and sufficient T-zone plus outside-T-zone coverage remain mandatory."
+        "The separately diagnosed Oily/Redness polygon version also has no Dry, evaluated Normal or combination truth. Its output cannot satisfy the mixed-skin rule; independently reviewed Normal/Dry polygons and sufficient T-zone plus outside-T-zone coverage remain mandatory.",
+        "The executable task-06 release gate preserves the already functioning global dry/normal/oily result and verifies the roadmap rule uses forehead, nose and chin as T-zone plus both cheeks outside T. It blocks regional training, final-test use and combination activation until rights-reviewed regional polygons, evaluated Normal/negative truth, source/person-group independence, a populated accepted-method registry, validation, a new untouched final test, independent camera acceptance and working integration all pass."
       ]
     },
     {
@@ -2897,6 +2902,7 @@
     }
   },
   "nextActions": [
+    "Replay scripts/skin-research/check_skin_type_combination_release.py before task-06 regional training, final-test use or mixed-skin activation. Preserve the functioning global dry/normal/oily output. For combination, require accepted evidence for oily forehead+nose+chin and supported normal/dry on both cheeks, complete regional coverage, expert polygon and evaluated Normal/negative truth, source/person-group independence, validation, a new untouched final test, independent camera acceptance and working integration. Never copy a whole-face class into regions, turn boxes into masks, treat missing labels as Normal or treat model proposals as expert truth.",
     "Replay scripts/skin-research/check_dryness_release.py before any task-05 training, final-test use or blue-layer activation. First obtain rights-reviewed natural-camera sources; expert policy separating visible flaking, broad dry, lesion-like and nonfacial labels; expert polygon extents plus evaluated negative/normal truth; source/person-grouped splits; a new untouched final test; an independent product-camera holdout; and working integration evidence. Boxes may support localization research only: never turn them into blue masks, interpret missing labels as Normal, equate generic dryness with visible flaking, or treat a model proposal as expert truth.",
     "Regenerate the source-bound Attune/Roboflow comparison through scripts/skin-research/build_attune_roboflow_comparison.py schema v2 when its private six-subject bundle is available. The executable contract now hard-fails semantic drift: dry blue, oily green, evaluated normal uncolored, unknown light gray/non-normal, and kizariklik only as an independent red Redness contour/hatching proposal layer. Never restore the legacy Sensitive alias or derive Dry/Normal/mixed truth from the Oily/Redness-only model; then complete real-browser and consented physical-camera acceptance.",
     "Use scripts/skin-research/build_regional_mask_expert_protocol.py --template with docs/skin/evidence/regional-mask-expert-review-queue-20261025-v1.json and the private local resolver, then complete all 81 item-bound expert mask-extent, hard-negative, ambiguity and assessability decisions for Oily and Redness. The protocol builder now requires the exact queue SHA256, 40 Oily plus 41 Redness IDs, exact class/split coverage and locked class policies. Keep test excluded, do not commit filenames/images/resolver data, do not interpret absent labels as Normal or negative, and replay the release gate only after regional-mask-expert-protocol-v1 is produced.",
@@ -2929,6 +2935,18 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T15:21:13Z",
+      "action": "Read the persistent checkpoint first, refreshed all 20 accessible Roboflow projects and exact acne, regional, under-eye and wrinkle training lists, and polled grouped under-eye upload task sLFwX7CYBVcnnD6iAW5o. Every known training remains finished, under-eye v2 has no training and the upload task remains created with no progress; no duplicate job was started. Directly re-read GitHub main local_skin_type.py and the source-bound current-merged capability receipt: the merged baseline already produces concrete /api/local-health/skin results, nine appearance criteria, separate skin type and complete regional inventories, so that working global flow remains preserved. Re-read the roadmap branch implementation, which correctly defines the T-zone as forehead, nose and chin and both cheeks outside T. Added an executable task-06 release gate binding both code identities, the merged capability baseline, the 1,711-image box source, rejected dry/oily model and confirmed train/test source-person leakage. It blocks regional training, final-test use and combination activation until expert polygon/Normal truth, source independence, accepted methods, validation, new untouched test, camera and integration evidence pass. Seven new gate tests plus seventeen comparison/dryness regressions passed. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/skin-type-combination-release-gate-20261025-v1.json",
+      "commits": [
+        "3f42c31497d1d74fd4fc3385af5998c6525d0f52",
+        "3f6b0a7b94a3aeae6fe4b4d9c46ad28eaf36809d",
+        "076a250cdc6b0c8fe01124f78958b07db0d5784e",
+        "fc767449e4add434095489402881e0c0a486918d"
+      ]
+    },
     {
       "date": "2026-10-25",
       "observedAt": "2026-10-25T15:08:09Z",
@@ -3527,6 +3545,18 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T15:21:13Z",
+      "action": "Read the persistent checkpoint first, refreshed all 20 accessible Roboflow projects and exact acne, regional, under-eye and wrinkle training lists, and polled grouped under-eye upload task sLFwX7CYBVcnnD6iAW5o. Every known training remains finished, under-eye v2 has no training and the upload task remains created with no progress; no duplicate job was started. Directly re-read GitHub main local_skin_type.py and the source-bound current-merged capability receipt: the merged baseline already produces concrete /api/local-health/skin results, nine appearance criteria, separate skin type and complete regional inventories, so that working global flow remains preserved. Re-read the roadmap branch implementation, which correctly defines the T-zone as forehead, nose and chin and both cheeks outside T. Added an executable task-06 release gate binding both code identities, the merged capability baseline, the 1,711-image box source, rejected dry/oily model and confirmed train/test source-person leakage. It blocks regional training, final-test use and combination activation until expert polygon/Normal truth, source independence, accepted methods, validation, new untouched test, camera and integration evidence pass. Seven new gate tests plus seventeen comparison/dryness regressions passed. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/skin-type-combination-release-gate-20261025-v1.json",
+      "commits": [
+        "3f42c31497d1d74fd4fc3385af5998c6525d0f52",
+        "3f6b0a7b94a3aeae6fe4b4d9c46ad28eaf36809d",
+        "076a250cdc6b0c8fe01124f78958b07db0d5784e",
+        "fc767449e4add434095489402881e0c0a486918d"
+      ]
+    },
     {
       "date": "2026-10-25",
       "observedAt": "2026-10-25T15:08:09Z",
