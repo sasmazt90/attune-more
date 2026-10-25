@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-25",
-      "lastCheckedAt": "2026-10-25T11:10:02Z",
+      "lastCheckedAt": "2026-10-25T12:14:30Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -455,7 +455,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-25T11:10:02Z",
+      "lastCheckedAt": "2026-10-25T12:14:30Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -572,7 +572,8 @@
         "testEvaluationAuthorized": false,
         "productActivationAllowed": false,
         "evidence": "docs/skin/evidence/under-eye-grouped-release-gate-20261025-v1.json"
-      }
+      },
+      "lastCheckedDate": "2026-10-25"
     },
     "regionalMap": {
       "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
@@ -636,7 +637,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-25T11:10:02Z",
+      "lastCheckedAt": "2026-10-25T12:14:30Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -857,7 +858,8 @@
           "docs/skin/evidence/regional-mask-inferences-valid-20261023-v1.index.json",
           "docs/skin/evidence/regional-mask-inferences-test-20261023-v1.index.json"
         ]
-      }
+      },
+      "lastCheckedDate": "2026-10-25"
     },
     "regionalSkinTypeBoxes": {
       "observedAt": "2026-10-24T23:19:50Z",
@@ -1096,7 +1098,7 @@
       }
     },
     "wrinkleSources": {
-      "observedAt": "2026-10-23T12:40:37Z",
+      "observedAt": "2026-10-25T12:14:30Z",
       "skinFaceCurrent": {
         "universeSource": "https://universe.roboflow.com/elisabeth-hui/skin_face_detection",
         "forkTaskId": "ECgvbqgBLjG2VCMcjcCb",
@@ -1126,7 +1128,7 @@
         "validCrowsFeetPolygons": 855,
         "invalidCrowsFeetPolygons": 20,
         "crossSplitPositiveSourcePhotoGroupsConfirmed": 2,
-        "trainingStarted": false,
+        "trainingStarted": true,
         "currentSplitsEligibleForHoldout": false,
         "modelAccepted": false,
         "productActivated": false,
@@ -1160,6 +1162,37 @@
           "crossSplitPerceptualCandidatePairsAfter": 0,
           "negativeCompletenessVerified": false,
           "trainingAuthorized": false
+        },
+        "externalTraining": {
+          "trainingId": "d74d5d927dbbe97574bc",
+          "status": "finished",
+          "modelType": "rfdetr-seg-small",
+          "modelId": "tolgar-sasmaz/skin_face_detection-emora-1-rfdetr-seg-small-t1",
+          "createdAt": "2026-10-25T00:19:36.483000Z",
+          "startedByThisAutomation": false,
+          "evaluationId": "g4rZij16YyDRIqJucTKM",
+          "evaluationStatus": "done",
+          "evaluationCreatedAt": "2026-10-25T01:40:17.941Z",
+          "crowsFeetValid": {
+            "map50": 0.005415421147257854,
+            "map50_95": 0.0009904147136091453,
+            "map75": 0,
+            "precision": 0.035,
+            "recall": 0.107,
+            "f1": 0.053
+          },
+          "crowsFeetTest": {
+            "map50": 0.0010211828139297429,
+            "map50_95": 0.0002746943792401853,
+            "map75": 0,
+            "precision": 0.01,
+            "recall": 0.048,
+            "f1": 0.017
+          },
+          "accepted": false,
+          "activationAllowed": false,
+          "receipt": "docs/skin/evidence/skin-face-crows-feet-external-model-receipt-20261025-v1.json",
+          "verdict": "docs/skin/evidence/skin-face-crows-feet-external-model-verdict-20261025-v1.json"
         }
       },
       "unrelatedWorkspaceCandidate": {
@@ -1178,12 +1211,52 @@
         "sourceIdentityMatchesSelectedWrinklesDetectorV2": false,
         "crossSplitFilenameCandidateGroups": 65,
         "crossSplitPerceptualCandidatePairs": 202,
-        "trainingStarted": false,
-        "decision": "Do not train or substitute for the selected 914-image Wrinkles Detector v2 source without lineage resolution and grouped re-splitting."
+        "trainingStarted": true,
+        "decision": "External training is complete but remains diagnostic-only. Do not substitute: this is not the selected 914-image Wrinkles Detector v2 source and known cross-split filename/perceptual candidates invalidate independent acceptance.",
+        "externalTraining": {
+          "trainingId": "342657886079e855c017",
+          "status": "finished",
+          "modelType": "rfdetr-seg-small",
+          "modelId": "tolgar-sasmaz/wrinkles-79rrf-t7kyp-1-rfdetr-seg-small-t1",
+          "createdAt": "2026-10-25T00:02:38.036000Z",
+          "startedByThisAutomation": false,
+          "evaluationId": "vrgoNtXQJSRl0kHo0ahf",
+          "evaluationStatus": "done",
+          "evaluationCreatedAt": "2026-10-25T01:36:05.979Z",
+          "wrinklesValid": {
+            "map50": 0.5994696691583155,
+            "map50_95": 0.2105946586582374,
+            "map75": 0.09009791117999257,
+            "precision": 0.779,
+            "recall": 0.611,
+            "f1": 0.685
+          },
+          "wrinklesTest": {
+            "map50": 0.6440890457494266,
+            "map50_95": 0.22789575695408526,
+            "map75": 0.10173694020272453,
+            "precision": 0.811,
+            "recall": 0.658,
+            "f1": 0.727
+          },
+          "diagnosticOnly": true,
+          "substitutionAllowed": false,
+          "activationAllowed": false,
+          "receipt": "docs/skin/evidence/unrelated-wrinkles-external-model-receipt-20261025-v1.json",
+          "verdict": "docs/skin/evidence/unrelated-wrinkles-external-model-verdict-20261025-v1.json"
+        }
+      },
+      "releaseGate": {
+        "methodVersion": "wrinkle-external-release-gate-v1",
+        "evidence": "docs/skin/evidence/wrinkle-external-release-gate-20261025-v1.json",
+        "script": "scripts/skin-research/check_wrinkle_release.py",
+        "tests": "scripts/skin-research/tests/test_wrinkle_release.py",
+        "productActivationAllowed": false,
+        "roadmapAccepted": false
       }
     },
     "concurrentWork": {
-      "observedAt": "2026-10-25T11:10:02Z",
+      "observedAt": "2026-10-25T12:14:30Z",
       "projectsTotal": 20,
       "doNotDuplicate": [
         {
@@ -1256,9 +1329,29 @@
           "modelId": "tolgar-sasmaz/attune-skin-under-eye-pilot-1-rfdetr-seg-small-t1",
           "createdAt": "2026-10-25T00:27:42.519000Z",
           "startedByThisAutomation": false
+        },
+        {
+          "project": "tolgar-sasmaz/skin_face_detection-emora",
+          "version": 1,
+          "trainingId": "d74d5d927dbbe97574bc",
+          "status": "finished",
+          "modelType": "rfdetr-seg-small",
+          "modelId": "tolgar-sasmaz/skin_face_detection-emora-1-rfdetr-seg-small-t1",
+          "createdAt": "2026-10-25T00:19:36.483000Z",
+          "startedByThisAutomation": false
+        },
+        {
+          "project": "tolgar-sasmaz/wrinkles-79rrf-t7kyp",
+          "version": 1,
+          "trainingId": "342657886079e855c017",
+          "status": "finished",
+          "modelType": "rfdetr-seg-small",
+          "modelId": "tolgar-sasmaz/wrinkles-79rrf-t7kyp-1-rfdetr-seg-small-t1",
+          "createdAt": "2026-10-25T00:02:38.036000Z",
+          "startedByThisAutomation": false
         }
       ],
-      "note": "All 20 accessible projects and exact acne/regional/under-eye/skin-type training lists were refreshed. Main commit 7463eef and all seven pinned product-flow blobs still expose the functioning nine-criterion, separate-skin-type, endpoint, result UI and regional baseline. The known NAS/external candidates remain finished, no new training is running, under-eye pilot v2 has no training, and grouped under-eye remains empty with its existing upload task at created/no progress. The executable grouped under-eye release gate blocks the mismatched candidate archive and all downstream operations. No duplicate training, cancellation, inference, label, split, upload, version generation or activation mutation was performed. Last refreshed at 2026-10-25T11:10:02Z."
+      "note": "All 20 accessible projects and known training lists were refreshed. No training is running and no duplicate was started. Two externally launched wrinkle jobs are now finished and checkpointed: the crows-feet model is rejected for extremely weak per-class validation/test metrics, while the unrelated wrinkles model is diagnostic-only because lineage and split independence fail. The fail-closed wrinkle gate blocks activation and substitution. Grouped under-eye remains empty at created/no progress. No training, cancellation, inference, label, split, upload, version generation, threshold or activation mutation was performed. Last refreshed at 2026-10-25T12:14:30Z."
     }
   },
   "sourceAccess": {
@@ -1517,43 +1610,43 @@
         "apps/vehicle-app/src/utils/skinPresentation.ts",
         "tests/unit/skin_presentation_semantics.mjs",
         "docs/skin/evidence/independent-product-model-review-20261024-v1.json",
-      "docs/skin/independent-product-model-review-20261024.md",
-      "docs/skin/evidence/concurrent-skin-trainings-20261025-v1.json",
-      "scripts/skin-research/audit_regional_skin_type_source_groups.py",
-      "scripts/skin-research/resolve_regional_skin_type_source_groups.py",
-      "scripts/skin-research/tests/test_audit_regional_skin_type_source_groups.py",
-      "scripts/skin-research/tests/test_resolve_regional_skin_type_source_groups.py",
-      "docs/skin/evidence/regional-skin-type-source-group-audit-20261025-v1.json",
-      "docs/skin/evidence/regional-skin-type-source-group-decisions-20261025-v1.json",
-      "docs/skin/evidence/regional-skin-type-source-group-resolution-20261025-v1.json",
-      "docs/skin/regional-skin-type-source-group-audit-20261025.md",
-      "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
-      "docs/skin/evidence/acne-rfdetr-small-t2-model-receipt-20261025-v1.json",
-      "docs/skin/evidence/acne-rfdetr-small-t2-model-verdict-20261025-v1.json",
-      "docs/skin/evidence/regional-rfdetr-seg-small-t2-model-receipt-20261025-v1.json",
-      "docs/skin/evidence/regional-rfdetr-seg-small-t2-model-verdict-20261025-v1.json",
-      "docs/skin/evidence/under-eye-ungrouped-rfdetr-seg-small-t1-model-receipt-20261025-v1.json",
-      "docs/skin/evidence/under-eye-ungrouped-rfdetr-seg-small-t1-model-verdict-20261025-v1.json",
-      "scripts/skin-research/tests/test_provider_finished_training_receipts.py",
-      "docs/skin/evidence/acne-rfdetr-small-t2-diagnosis-20261025-v1.json",
-      "docs/skin/acne-rfdetr-small-t2-diagnosis-20261025.md",
-      "scripts/skin-research/check_acne_improvement_release.py",
-      "scripts/skin-research/tests/test_check_acne_improvement_release.py",
-      "docs/skin/evidence/acne-improvement-release-gate-20261025-v1.json",
-      "docs/skin/evidence/regional-rfdetr-seg-small-t2-diagnosis-20261025-v1.json",
-      "docs/skin/regional-rfdetr-seg-small-t2-diagnosis-20261025.md",
-      "scripts/skin-research/check_regional_improvement_release.py",
-      "scripts/skin-research/tests/test_check_regional_improvement_release.py",
-      "docs/skin/evidence/regional-improvement-release-gate-20261025-v1.json",
-      "scripts/skin-research/audit_regional_mask_source_groups.py",
-      "scripts/skin-research/tests/test_audit_regional_mask_source_groups.py",
-      "docs/skin/evidence/regional-mask-source-group-audit-20261025-v1.json",
-      "docs/skin/regional-mask-source-group-audit-20261025.md",
-      "scripts/skin-research/build_regional_mask_expert_review_queue.py",
-      "scripts/skin-research/tests/test_build_regional_mask_expert_review_queue.py",
-      "docs/skin/evidence/regional-mask-expert-review-queue-20261025-v1.json",
-      "docs/skin/regional-mask-expert-review-queue-20261025.md",
-      "scripts/skin-research/build_regional_mask_expert_protocol.py",
+        "docs/skin/independent-product-model-review-20261024.md",
+        "docs/skin/evidence/concurrent-skin-trainings-20261025-v1.json",
+        "scripts/skin-research/audit_regional_skin_type_source_groups.py",
+        "scripts/skin-research/resolve_regional_skin_type_source_groups.py",
+        "scripts/skin-research/tests/test_audit_regional_skin_type_source_groups.py",
+        "scripts/skin-research/tests/test_resolve_regional_skin_type_source_groups.py",
+        "docs/skin/evidence/regional-skin-type-source-group-audit-20261025-v1.json",
+        "docs/skin/evidence/regional-skin-type-source-group-decisions-20261025-v1.json",
+        "docs/skin/evidence/regional-skin-type-source-group-resolution-20261025-v1.json",
+        "docs/skin/regional-skin-type-source-group-audit-20261025.md",
+        "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
+        "docs/skin/evidence/acne-rfdetr-small-t2-model-receipt-20261025-v1.json",
+        "docs/skin/evidence/acne-rfdetr-small-t2-model-verdict-20261025-v1.json",
+        "docs/skin/evidence/regional-rfdetr-seg-small-t2-model-receipt-20261025-v1.json",
+        "docs/skin/evidence/regional-rfdetr-seg-small-t2-model-verdict-20261025-v1.json",
+        "docs/skin/evidence/under-eye-ungrouped-rfdetr-seg-small-t1-model-receipt-20261025-v1.json",
+        "docs/skin/evidence/under-eye-ungrouped-rfdetr-seg-small-t1-model-verdict-20261025-v1.json",
+        "scripts/skin-research/tests/test_provider_finished_training_receipts.py",
+        "docs/skin/evidence/acne-rfdetr-small-t2-diagnosis-20261025-v1.json",
+        "docs/skin/acne-rfdetr-small-t2-diagnosis-20261025.md",
+        "scripts/skin-research/check_acne_improvement_release.py",
+        "scripts/skin-research/tests/test_check_acne_improvement_release.py",
+        "docs/skin/evidence/acne-improvement-release-gate-20261025-v1.json",
+        "docs/skin/evidence/regional-rfdetr-seg-small-t2-diagnosis-20261025-v1.json",
+        "docs/skin/regional-rfdetr-seg-small-t2-diagnosis-20261025.md",
+        "scripts/skin-research/check_regional_improvement_release.py",
+        "scripts/skin-research/tests/test_check_regional_improvement_release.py",
+        "docs/skin/evidence/regional-improvement-release-gate-20261025-v1.json",
+        "scripts/skin-research/audit_regional_mask_source_groups.py",
+        "scripts/skin-research/tests/test_audit_regional_mask_source_groups.py",
+        "docs/skin/evidence/regional-mask-source-group-audit-20261025-v1.json",
+        "docs/skin/regional-mask-source-group-audit-20261025.md",
+        "scripts/skin-research/build_regional_mask_expert_review_queue.py",
+        "scripts/skin-research/tests/test_build_regional_mask_expert_review_queue.py",
+        "docs/skin/evidence/regional-mask-expert-review-queue-20261025-v1.json",
+        "docs/skin/regional-mask-expert-review-queue-20261025.md",
+        "scripts/skin-research/build_regional_mask_expert_protocol.py",
         "scripts/skin-research/tests/test_build_regional_mask_expert_protocol.py",
         "scripts/skin-research/build_under_eye_grouped_archive.py",
         "scripts/skin-research/tests/test_build_under_eye_grouped_archive.py",
@@ -1570,13 +1663,13 @@
         "Direct Clean3 v1 geometry audited: mainly boxes; only 10 oil and 6 dry polygons, no redness polygons. Source geometry is not expert/normal truth; preserve 9 exact cross-split groups and resolve candidate/exposure relations. Other selected regional sources still need audit.",
         "Independent real-camera benchmark and reviewed regional normal truth remain pending.",
         "The shared gate correctly rejects the current acne/post-acne/pigmentation and regional oil/redness candidates, and the empty grouped under-eye project has no model to evaluate; source/expert/person-independent/camera gaps must be resolved rather than bypassed.",
-      "The self-contained ten-model comparison is source-bound to the same six generated FRONT JPEGs, not physical-camera captures. Fifteen model/profile pairs hit the 300-prediction cap, so the exploration responses cannot establish complete recall or an operating threshold.",
-      "Regional skin-type v2 has a confirmed train/test source-person leakage group connecting four nominal source IDs, while 986 source IDs remain without complete reviewed identity coverage. Its current test cannot serve as an independent final holdout.",
-      "The exact external acne and regional jobs, plus the externally trained ungrouped under-eye model, are finished and checkpointed with immutable training/model/evaluation IDs. All three fail the shared acceptance gate; no duplicate training, blind retry or activation is authorized.",
-      "The acne provider diagnosis confirms a fourfold input-pixel reduction, severe tiny-instance prevalence and class imbalance, while test diagnostics show 4,896 false positives and 2,604 false negatives at confidence 0.2. The executable improvement gate blocks training until expert semantics, full group-locked replacement data, exactly one validation-only resolution change and a new untouched final holdout all exist.",
-      "The regional provider diagnosis confirms weak Oily boundary localization, low-confidence background false positives, zero small-object Redness test-diagnostic mAP50 and a 30-image exposed test below the provider's 50-image minimum. Its executable gate blocks training until source/person grouping, expert mask and negative protocol, one validation-only targeted change, a new untouched 50+ image final test and a separate camera holdout exist.",
-      "The frozen regional COCO export contains 1,636 valid Oily/Redness polygons and no box-only or invalid geometry. The cross-split candidate scan found no exact or tight perceptual matches, but candidate absence is not identity proof: all 337 source IDs remain without complete person/source-group review, so the existing split and exposed test are not independent acceptance evidence. The improvement-release gate now requires and validates this exact source/export audit before any training authorization.",
-      "The expert review queue covers 81 train/validation images and zero test images, but it is preparation rather than expert truth. Expert mask-extent, hard-negative, ambiguity and assessability decisions remain required for both Oily and Redness."
+        "The self-contained ten-model comparison is source-bound to the same six generated FRONT JPEGs, not physical-camera captures. Fifteen model/profile pairs hit the 300-prediction cap, so the exploration responses cannot establish complete recall or an operating threshold.",
+        "Regional skin-type v2 has a confirmed train/test source-person leakage group connecting four nominal source IDs, while 986 source IDs remain without complete reviewed identity coverage. Its current test cannot serve as an independent final holdout.",
+        "The exact external acne and regional jobs, plus the externally trained ungrouped under-eye model, are finished and checkpointed with immutable training/model/evaluation IDs. All three fail the shared acceptance gate; no duplicate training, blind retry or activation is authorized.",
+        "The acne provider diagnosis confirms a fourfold input-pixel reduction, severe tiny-instance prevalence and class imbalance, while test diagnostics show 4,896 false positives and 2,604 false negatives at confidence 0.2. The executable improvement gate blocks training until expert semantics, full group-locked replacement data, exactly one validation-only resolution change and a new untouched final holdout all exist.",
+        "The regional provider diagnosis confirms weak Oily boundary localization, low-confidence background false positives, zero small-object Redness test-diagnostic mAP50 and a 30-image exposed test below the provider's 50-image minimum. Its executable gate blocks training until source/person grouping, expert mask and negative protocol, one validation-only targeted change, a new untouched 50+ image final test and a separate camera holdout exist.",
+        "The frozen regional COCO export contains 1,636 valid Oily/Redness polygons and no box-only or invalid geometry. The cross-split candidate scan found no exact or tight perceptual matches, but candidate absence is not identity proof: all 337 source IDs remain without complete person/source-group review, so the existing split and exposed test are not independent acceptance evidence. The improvement-release gate now requires and validates this exact source/export audit before any training authorization.",
+        "The expert review queue covers 81 train/validation images and zero test images, but it is preparation rather than expert truth. Expert mask-extent, hard-negative, ambiguity and assessability decisions remain required for both Oily and Redness."
       ]
     },
     {
@@ -1834,41 +1927,41 @@
         "docs/skin/evidence/regional-skin-type-box-audit-20261025-v1.json",
         "docs/skin/evidence/regional-skin-type-box-model-receipt-20261025-v1.json",
         "docs/skin/evidence/regional-skin-type-box-model-verdict-20261025-v1.json",
-      "docs/skin/regional-skin-type-box-audit-20261025.md",
-      "docs/skin/evidence/regional-skin-type-source-group-audit-20261025-v1.json",
-      "docs/skin/evidence/regional-skin-type-source-group-decisions-20261025-v1.json",
-      "docs/skin/evidence/regional-skin-type-source-group-resolution-20261025-v1.json",
-      "docs/skin/regional-skin-type-source-group-audit-20261025.md",
-      "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
-      "docs/skin/evidence/regional-rfdetr-seg-small-t2-model-receipt-20261025-v1.json",
-      "docs/skin/evidence/regional-rfdetr-seg-small-t2-model-verdict-20261025-v1.json",
-      "scripts/skin-research/tests/test_provider_finished_training_receipts.py",
-      "docs/skin/evidence/regional-rfdetr-seg-small-t2-diagnosis-20261025-v1.json",
-      "docs/skin/regional-rfdetr-seg-small-t2-diagnosis-20261025.md",
-      "scripts/skin-research/check_regional_improvement_release.py",
-      "scripts/skin-research/tests/test_check_regional_improvement_release.py",
-      "docs/skin/evidence/regional-improvement-release-gate-20261025-v1.json",
-      "scripts/skin-research/audit_regional_mask_source_groups.py",
-      "scripts/skin-research/tests/test_audit_regional_mask_source_groups.py",
-      "docs/skin/evidence/regional-mask-source-group-audit-20261025-v1.json",
-      "docs/skin/regional-mask-source-group-audit-20261025.md",
-      "scripts/skin-research/build_regional_mask_expert_review_queue.py",
-      "scripts/skin-research/tests/test_build_regional_mask_expert_review_queue.py",
-      "docs/skin/evidence/regional-mask-expert-review-queue-20261025-v1.json",
-      "docs/skin/regional-mask-expert-review-queue-20261025.md",
-      "scripts/skin-research/build_regional_mask_expert_protocol.py",
-      "scripts/skin-research/tests/test_build_regional_mask_expert_protocol.py"
+        "docs/skin/regional-skin-type-box-audit-20261025.md",
+        "docs/skin/evidence/regional-skin-type-source-group-audit-20261025-v1.json",
+        "docs/skin/evidence/regional-skin-type-source-group-decisions-20261025-v1.json",
+        "docs/skin/evidence/regional-skin-type-source-group-resolution-20261025-v1.json",
+        "docs/skin/regional-skin-type-source-group-audit-20261025.md",
+        "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
+        "docs/skin/evidence/regional-rfdetr-seg-small-t2-model-receipt-20261025-v1.json",
+        "docs/skin/evidence/regional-rfdetr-seg-small-t2-model-verdict-20261025-v1.json",
+        "scripts/skin-research/tests/test_provider_finished_training_receipts.py",
+        "docs/skin/evidence/regional-rfdetr-seg-small-t2-diagnosis-20261025-v1.json",
+        "docs/skin/regional-rfdetr-seg-small-t2-diagnosis-20261025.md",
+        "scripts/skin-research/check_regional_improvement_release.py",
+        "scripts/skin-research/tests/test_check_regional_improvement_release.py",
+        "docs/skin/evidence/regional-improvement-release-gate-20261025-v1.json",
+        "scripts/skin-research/audit_regional_mask_source_groups.py",
+        "scripts/skin-research/tests/test_audit_regional_mask_source_groups.py",
+        "docs/skin/evidence/regional-mask-source-group-audit-20261025-v1.json",
+        "docs/skin/regional-mask-source-group-audit-20261025.md",
+        "scripts/skin-research/build_regional_mask_expert_review_queue.py",
+        "scripts/skin-research/tests/test_build_regional_mask_expert_review_queue.py",
+        "docs/skin/evidence/regional-mask-expert-review-queue-20261025-v1.json",
+        "docs/skin/regional-mask-expert-review-queue-20261025.md",
+        "scripts/skin-research/build_regional_mask_expert_protocol.py",
+        "scripts/skin-research/tests/test_build_regional_mask_expert_protocol.py"
       ],
       "blockers": [
         "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
         "Oily test mask precision/recall 0.649/0.411 and class-union IoU 0.309 require improvement. Redness test mask precision/recall 0.625/0.405, but class-union IoU 0.709 shows that instance subdivision matters; only nine test images have redness annotations. This is promising research evidence, not camera acceptance.",
         "Live eval DnEj7h84bQauUdGIVrUQ verifies regional child e79545 test F1 0.513 for Oily, but the model has only Oily/Redness classes and no Dry/Normal support. The comparison map is research-only and cannot authorize an oil/skin-type activation.",
-      "External regional-skin-type v2 has dry/oily boxes only, no polygons or normal truth. At the exposed test and threshold 0.21, oily F1 is 0.279; thresholds were not locked before test and the shared acceptance gate rejects activation.",
-      "Privacy-safe visual review confirms one train/test source-person leakage group containing four nominal source IDs. The remaining 986 source IDs still lack complete reviewed person identity coverage; the exposed test is not an independent final holdout.",
-      "Finished RF-DETR Seg Small model tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-seg-small-t2 has validation-selected Oily threshold 0.38 and test precision/recall/F1 0.543/0.422/0.475. Test panels were already exposed, source independence is unknown, and Dry/Normal, camera and integration evidence are missing; no activation or blind retraining.",
-      "Exact evaluation diagnosis shows Oily mAP75 0.028 on validation and 0.040 on diagnostic test, while confidence 0.2 produces 386 validation and 213 diagnostic-test false positives. The fail-closed gate permits no retry until expert mask extent, source/person grouping, a 50+ image untouched final test and an independent camera holdout are locked; then exactly one validation-only localization change is allowed.",
-      "Provider-export geometry is confirmed as 1,636 valid polygons with no box-only annotations. Zero exact/tight cross-split image candidates does not establish independence; all 337 source identities are still unreviewed, so no replacement split or training is authorized.",
-      "A deterministic 81-image train/validation expert queue now samples Oily mask-support and instance-count extremes without touching test. It does not authorize training until an expert returns item-bound mask, negative, ambiguity and assessability decisions."
+        "External regional-skin-type v2 has dry/oily boxes only, no polygons or normal truth. At the exposed test and threshold 0.21, oily F1 is 0.279; thresholds were not locked before test and the shared acceptance gate rejects activation.",
+        "Privacy-safe visual review confirms one train/test source-person leakage group containing four nominal source IDs. The remaining 986 source IDs still lack complete reviewed person identity coverage; the exposed test is not an independent final holdout.",
+        "Finished RF-DETR Seg Small model tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-seg-small-t2 has validation-selected Oily threshold 0.38 and test precision/recall/F1 0.543/0.422/0.475. Test panels were already exposed, source independence is unknown, and Dry/Normal, camera and integration evidence are missing; no activation or blind retraining.",
+        "Exact evaluation diagnosis shows Oily mAP75 0.028 on validation and 0.040 on diagnostic test, while confidence 0.2 produces 386 validation and 213 diagnostic-test false positives. The fail-closed gate permits no retry until expert mask extent, source/person grouping, a 50+ image untouched final test and an independent camera holdout are locked; then exactly one validation-only localization change is allowed.",
+        "Provider-export geometry is confirmed as 1,636 valid polygons with no box-only annotations. Zero exact/tight cross-split image candidates does not establish independence; all 337 source identities are still unreviewed, so no replacement split or training is authorized.",
+        "A deterministic 81-image train/validation expert queue now samples Oily mask-support and instance-count extremes without touching test. It does not authorize training until an expert returns item-bound mask, negative, ambiguity and assessability decisions."
       ]
     },
     {
@@ -1891,20 +1984,20 @@
         "docs/skin/evidence/regional-skin-type-box-audit-20261025-v1.json",
         "docs/skin/evidence/regional-skin-type-box-model-receipt-20261025-v1.json",
         "docs/skin/evidence/regional-skin-type-box-model-verdict-20261025-v1.json",
-      "docs/skin/regional-skin-type-box-audit-20261025.md",
-      "docs/skin/evidence/regional-skin-type-source-group-audit-20261025-v1.json",
-      "docs/skin/evidence/regional-skin-type-source-group-decisions-20261025-v1.json",
-      "docs/skin/evidence/regional-skin-type-source-group-resolution-20261025-v1.json",
-      "docs/skin/regional-skin-type-source-group-audit-20261025.md",
-      "docs/skin/evidence/regional-rfdetr-seg-small-t2-diagnosis-20261025-v1.json"
+        "docs/skin/regional-skin-type-box-audit-20261025.md",
+        "docs/skin/evidence/regional-skin-type-source-group-audit-20261025-v1.json",
+        "docs/skin/evidence/regional-skin-type-source-group-decisions-20261025-v1.json",
+        "docs/skin/evidence/regional-skin-type-source-group-resolution-20261025-v1.json",
+        "docs/skin/regional-skin-type-source-group-audit-20261025.md",
+        "docs/skin/evidence/regional-rfdetr-seg-small-t2-diagnosis-20261025-v1.json"
       ],
       "blockers": [
         "Clean3 supplies only6genuine dry polygons. Direct Mervev12 hash matches original selected archive:2590pul boxes,0pul polygons; all3368filenames CLAHE-prefixed and prior ledger excludes processed positives from natural RGB calibration. SixTRAINexamples reviewed byassistant,notexpert. Boxes must not become blue masks; absence ofpul is not normal truth.",
         "Research box localization can be studied with grouping and label review, but natural-camera region truth/negative coverage and sufficient dry polygons remain unavailable. Other roadmap work continues.",
         "New Dryness v1 export has61nonrectangular polygons (47withvalidboxes), plus FACEv3dry48polygons; source labels range from visible peeling to broad/nonfacial/lesion-like regions. 700Dryness images exactly match existing audit pixels. Review-only pairs prepared; no source label accepted as natural-camera dryness/flaking truth.",
-      "External regional-skin-type v2 contains 3,648 dry boxes and zero dry polygons. Its exposed-test dry F1 is 0.215 at threshold 0.21; it cannot authorize a blue regional mask or dryness/flaking result.",
-      "The same version has a confirmed train/test source-person leakage group spanning four nominal source IDs and incomplete identity coverage for the remaining 986 sources. Dry test metrics are not independent acceptance evidence.",
-      "The Oily/Redness polygon model diagnosis confirms that this dataset has no Dry truth. It cannot supply the blue dryness layer, and the regional improvement gate deliberately does not permit Dry to be synthesized from absent masks or model predictions."
+        "External regional-skin-type v2 contains 3,648 dry boxes and zero dry polygons. Its exposed-test dry F1 is 0.215 at threshold 0.21; it cannot authorize a blue regional mask or dryness/flaking result.",
+        "The same version has a confirmed train/test source-person leakage group spanning four nominal source IDs and incomplete identity coverage for the remaining 986 sources. Dry test metrics are not independent acceptance evidence.",
+        "The Oily/Redness polygon model diagnosis confirms that this dataset has no Dry truth. It cannot supply the blue dryness layer, and the regional improvement gate deliberately does not permit Dry to be synthesized from absent masks or model predictions."
       ]
     },
     {
@@ -1935,23 +2028,23 @@
         "docs/skin/evidence/regional-skin-type-box-audit-20261025-v1.json",
         "docs/skin/evidence/regional-skin-type-box-model-receipt-20261025-v1.json",
         "docs/skin/evidence/regional-skin-type-box-model-verdict-20261025-v1.json",
-      "docs/skin/regional-skin-type-box-audit-20261025.md",
-      "scripts/skin-research/audit_regional_skin_type_source_groups.py",
-      "scripts/skin-research/resolve_regional_skin_type_source_groups.py",
-      "scripts/skin-research/tests/test_audit_regional_skin_type_source_groups.py",
-      "scripts/skin-research/tests/test_resolve_regional_skin_type_source_groups.py",
-      "docs/skin/evidence/regional-skin-type-source-group-audit-20261025-v1.json",
-      "docs/skin/evidence/regional-skin-type-source-group-decisions-20261025-v1.json",
-      "docs/skin/evidence/regional-skin-type-source-group-resolution-20261025-v1.json",
-      "docs/skin/regional-skin-type-source-group-audit-20261025.md",
-      "docs/skin/evidence/regional-rfdetr-seg-small-t2-diagnosis-20261025-v1.json"
+        "docs/skin/regional-skin-type-box-audit-20261025.md",
+        "scripts/skin-research/audit_regional_skin_type_source_groups.py",
+        "scripts/skin-research/resolve_regional_skin_type_source_groups.py",
+        "scripts/skin-research/tests/test_audit_regional_skin_type_source_groups.py",
+        "scripts/skin-research/tests/test_resolve_regional_skin_type_source_groups.py",
+        "docs/skin/evidence/regional-skin-type-source-group-audit-20261025-v1.json",
+        "docs/skin/evidence/regional-skin-type-source-group-decisions-20261025-v1.json",
+        "docs/skin/evidence/regional-skin-type-source-group-resolution-20261025-v1.json",
+        "docs/skin/regional-skin-type-source-group-audit-20261025.md",
+        "docs/skin/evidence/regional-rfdetr-seg-small-t2-diagnosis-20261025-v1.json"
       ],
       "blockers": [
         "Validated regional method registry remains empty; unknown is grey, legacy tiny supports cannot force combination. Base three-class model retained. Need regional training/calibration, independent tests and camera evidence before enabling methods; synthetic fixture policies are not product calibration.",
         "FACEv3normal88sourcepolygons include broad/full-face masks covering eyes in sampled trainexamples.16normal-maskpairs prepared forreview only; no explicit region assessability/normal completeness accepted.",
         "The comparison's regional child supplies Oily and Redness only. It cannot infer evaluated Dry or Normal, and cannot satisfy the mixed-skin rule. Unknown stays unknown; no whole-face class may be copied to regional truth.",
-      "External regional-skin-type v2 represents 990 filename-bound source IDs with no direct source-ID overlap, but private visual review confirmed one train/test source-person leakage group connecting four nominal IDs; 986 sources remain without complete reviewed identity coverage. All 5,252 dry/oily labels are boxes, 38 generated images have no boxes, and there is no normal class; neither boxes nor missing labels can become regional normal/dry/oily truth or a mixed-skin decision.",
-      "The separately diagnosed Oily/Redness polygon version also has no Dry, evaluated Normal or combination truth. Its output cannot satisfy the mixed-skin rule; independently reviewed Normal/Dry polygons and sufficient T-zone plus outside-T-zone coverage remain mandatory."
+        "External regional-skin-type v2 represents 990 filename-bound source IDs with no direct source-ID overlap, but private visual review confirmed one train/test source-person leakage group connecting four nominal IDs; 986 sources remain without complete reviewed identity coverage. All 5,252 dry/oily labels are boxes, 38 generated images have no boxes, and there is no normal class; neither boxes nor missing labels can become regional normal/dry/oily truth or a mixed-skin decision.",
+        "The separately diagnosed Oily/Redness polygon version also has no Dry, evaluated Normal or combination truth. Its output cannot satisfy the mixed-skin rule; independently reviewed Normal/Dry polygons and sufficient T-zone plus outside-T-zone coverage remain mandatory."
       ]
     },
     {
@@ -2006,9 +2099,9 @@
         "scripts/skin-research/build_regional_mask_expert_review_queue.py",
         "scripts/skin-research/tests/test_build_regional_mask_expert_review_queue.py",
         "docs/skin/evidence/regional-mask-expert-review-queue-20261025-v1.json",
-      "docs/skin/regional-mask-expert-review-queue-20261025.md",
-      "scripts/skin-research/build_regional_mask_expert_protocol.py",
-      "scripts/skin-research/tests/test_build_regional_mask_expert_protocol.py"
+        "docs/skin/regional-mask-expert-review-queue-20261025.md",
+        "scripts/skin-research/build_regional_mask_expert_protocol.py",
+        "scripts/skin-research/tests/test_build_regional_mask_expert_protocol.py"
       ],
       "blockers": [
         "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
@@ -2101,7 +2194,7 @@
     {
       "id": "11",
       "target": "crows-feet-and-wrinkles",
-      "status": "positive_review_package_group_safe_negative_policy_pending",
+      "status": "external_models_evaluated_rejected_negative_policy_pending",
       "work": "Start with existing lines/crows-feet criterion; audit Wrinkles Detector/skin_face_detection/Skin v5 labels and geometry; extend other facial wrinkles only where labelled truth supports it; evaluate expression and pose effects.",
       "evidence": [
         "docs/skin/evidence/merve-direct-summary-20261023-v1.json",
@@ -2124,13 +2217,22 @@
         "tests/unit/test_prepare_crows_feet_review_set.py",
         "docs/skin/evidence/crows-feet-positive-review-package-20261023-v1.json",
         "docs/skin/evidence/crows-feet-positive-review-package-audit-20261023-v1.json",
-        "docs/skin/current-product-and-crows-preparation-20261023.md"
+        "docs/skin/current-product-and-crows-preparation-20261023.md",
+        "scripts/skin-research/check_wrinkle_release.py",
+        "scripts/skin-research/tests/test_wrinkle_release.py",
+        "docs/skin/evidence/skin-face-crows-feet-external-model-receipt-20261025-v1.json",
+        "docs/skin/evidence/skin-face-crows-feet-external-model-verdict-20261025-v1.json",
+        "docs/skin/evidence/unrelated-wrinkles-external-model-receipt-20261025-v1.json",
+        "docs/skin/evidence/unrelated-wrinkles-external-model-verdict-20261025-v1.json",
+        "docs/skin/evidence/wrinkle-external-release-gate-20261025-v1.json"
       ],
       "blockers": [
         "Merve v12 contains 2,513 kirisiklik boxes, no wrinkle polygons, and processed/augmented imagery; it is not native-camera wrinkle segmentation truth.",
         "FACE v3 was fully audited and rejected for crow's-feet and generic wrinkle segmentation training because its class mixes 42 rectangle polygons with broad/inconsistent face, cheek and mouth regions.",
         "The skin_face_detection crows_feet positives now have a reproducible review-only package: 855 valid polygons on 166 images, 20 invalid annotations quarantined, 163 source groups assigned without cross-split exact/filename/perceptual candidates. It remains positive-only and trainingAuthorized=false until class absence is established as an evaluated negative and expert semantics, rights, expression/pose and camera coverage are accepted.",
-        "The private 1,558-image wrinkles-79rrf-t7kyp project is not the selected 914-image Wrinkles Detector v2 archive. It has 65 cross-split filename candidate groups and 202 cross-split perceptual candidate pairs and must not be trained or substituted without lineage resolution."
+        "The private 1,558-image wrinkles-79rrf-t7kyp project is not the selected 914-image Wrinkles Detector v2 archive. It has 65 cross-split filename candidate groups and 202 cross-split perceptual candidate pairs and must not be trained or substituted without lineage resolution.",
+        "An external RF-DETR Seg Small run on skin_face_detection-emora finished, but crows_feet validation/test F1 is 0.053/0.017 and test mAP50 is 0.0010. The executable release gate rejects it; no activation or blind retry is allowed before expert evaluated-negative policy, group independence, a new untouched final test, camera acceptance and integration acceptance.",
+        "An external RF-DETR Seg Small run on wrinkles-79rrf-t7kyp reports test F1 0.727, but it remains diagnostic-only because the dataset is not the selected Wrinkles Detector v2 source and has 65 filename plus 202 perceptual cross-split candidates. It cannot substitute for task 11."
       ]
     },
     {
@@ -2771,7 +2873,7 @@
     "Task 12 source audit is complete: the 18-criterion ordinal source has elasticity, not sag, and cannot authorize a sag target. Preserve both model-boundary and downstream replacement guards; do not add sag to the generic degree head. Next useful evidence is consented same-person compatible capture pairs, expert localized truth, pose/expression robustness and execution of the focused model-boundary test in the service runtime with OpenCV/ONNX Runtime.",
     "Task 12 appearance-only semantics and the frontend rejection gate are implemented; do not rebuild or rename the contour/fold proxy as elasticity or clinical severity. Next obtain consented same-person compatible capture pairs plus expert localized truth, then evaluate pose/expression robustness before any learned segmentation or directional improvement claim.",
     "Task 08 product semantics are implemented; do not derive Post acne or Pigmentation from the tone proxy and do not rebuild the twelve-heading contract. Improve the localized detector/data problem first, then activate only an accepted immutable model/evidence triple. When accepted local masks exist, exclude their support from the broad tone sampling and validate co-reporting on an independent camera set.",
-    "For task 11, use the SHA-pinned positive-only crows_feet review package as the cleaned source baseline; do not repeat split cleanup or train it yet. Establish whether crows_feet absence is an evaluated negative through source protocol/expert review, add reviewed negative and expression/pose coverage without fabricating labels, then form a true group-safe train/validation/locked-test dataset. Separately resolve the exact selected Wrinkles Detector v2 archive; do not substitute wrinkles-79rrf-t7kyp.",
+    "For task 11, use scripts/skin-research/check_wrinkle_release.py and the pinned external-model receipts before any training or activation decision. The finished skin_face_detection-emora model is rejected (crows_feet test F1 0.017, mAP50 0.0010); complete expert evaluated-negative/expression/pose/camera policy, group-lock a replacement split and reserve a new untouched final test before one targeted validation experiment. Keep wrinkles-79rrf-t7kyp diagnostic-only and resolve the exact selected Wrinkles Detector v2 source; do not substitute or blind-retrain either model.",
     "The private grouped under-eye project tolgar-sasmaz/attune-skin-under-eye-grouped-research remains empty and upload task sLFwX7CYBVcnnD6iAW5o remains created with no bytes. Augmentation-free provider v2 is now frozen at export SHA256 6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99, and the deterministic builder reproduces 399 images/869 polygons at 283/78/38 without changing image bytes or annotation payloads. Its ZIP SHA256 9ef3c36e16ce5ae84ff52d527f82f15e5f9fcbaf63f0a6f6720388339133d6fc differs from the previously authorized exact SHA256 41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8, so it was not uploaded. Do not create another upload task, upload either archive without the exact pinned policy match, or train the ungrouped version. Replay docs/skin/evidence/under-eye-grouped-release-gate-20261025-v1.json before any upload/version/training action; the current gate blocks all three.",
     "Use the saved Merve v12 responses only: the original single face plus the six generated FRONT inputs now have immutable inference receipts, so do not repeat them. At 50%, 207/224 (92.4%) of the generated-set proposals are hidden versus the 8% floor, but correctness and Precision/Recall/F1 remain unknown without expert object-level truth. Next add expert-labelled positives/negatives and consented real-camera subjects, select per-class thresholds on validation, and keep pul separate from regional dryness truth.",
     "Source-pair acquisition is complete for FACEv3/v4,Rednessv2,Drynessv1; do not repeat downloads/audits unchanged. Use the pinned private120pairbundle and persistedfullaudit, with review-manifest provenance. FACEv3 is preferred over augmentedv4. 700Dryness/45Redness images exactly match existing sources; never count these as newly acquired coverage. All source labels and rights acceptance remain pending; no automatic merge or retraining.",
@@ -3342,6 +3444,12 @@
       "observedAt": "2026-10-25T11:10:02Z",
       "action": "Read the persistent checkpoint first; refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye/skin-type training lists and the existing grouped under-eye upload task. All known trainings remain finished, pilot v2 has no training, grouped under-eye remains empty, and no duplicate job was started. Directly re-read GitHub main: its latest commit remains 7463eef and all seven pinned implementation blobs for the nine appearance criteria, separate skin type, /api/local-health/skin endpoint, overview/local maps, persistence and result UI match the existing product contract exactly. Added an executable fail-closed grouped under-eye release gate. It validates the augmentation-free 399-image/869-polygon provider v2, deterministic 283/78/38 reproduction, three reviewed cross-split groups, four moved records and zero pixel/annotation-payload changes; it separately controls upload, version generation, research training, test evaluation and activation. Current receipts block every operation because the reproduced ZIP SHA differs from the previously authorized exact SHA and the destination project is empty. Four new gate tests passed; no upload, version, training, inference, label, split, threshold or activation mutation was performed.",
       "report": "docs/skin/evidence/under-eye-grouped-release-gate-20261025-v1.json"
+    },
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T12:14:30Z",
+      "action": "Read the persistent checkpoint first and refreshed the 20 accessible Roboflow projects without starting duplicate work. Discovered and evaluated two externally launched finished wrinkle trainings. For skin_face_detection-emora, the crows_feet class scored validation/test F1 0.053/0.017 and test mAP50 0.0010; it is rejected. The wrinkles-79rrf-t7kyp model reports higher provider metrics but remains diagnostic-only because it is not the selected source and retains 65 filename plus 202 perceptual cross-split candidates. Added an executable identity-bound, per-class, fail-closed wrinkle release gate and four tests covering current rejection, identity substitution, leakage erasure and a complete synthetic acceptance path. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/wrinkle-external-release-gate-20261025-v1.json"
     }
   ],
   "activityLog": [
@@ -3542,7 +3650,21 @@
       "observedAt": "2026-10-25T11:10:02Z",
       "action": "Read the persistent checkpoint first; refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye/skin-type training lists and the existing grouped under-eye upload task. All known trainings remain finished, pilot v2 has no training, grouped under-eye remains empty, and no duplicate job was started. Directly re-read GitHub main: its latest commit remains 7463eef and all seven pinned implementation blobs for the nine appearance criteria, separate skin type, /api/local-health/skin endpoint, overview/local maps, persistence and result UI match the existing product contract exactly. Added an executable fail-closed grouped under-eye release gate. It validates the augmentation-free 399-image/869-polygon provider v2, deterministic 283/78/38 reproduction, three reviewed cross-split groups, four moved records and zero pixel/annotation-payload changes; it separately controls upload, version generation, research training, test evaluation and activation. Current receipts block every operation because the reproduced ZIP SHA differs from the previously authorized exact SHA and the destination project is empty. Four new gate tests passed; no upload, version, training, inference, label, split, threshold or activation mutation was performed.",
       "report": "docs/skin/evidence/under-eye-grouped-release-gate-20261025-v1.json"
+    },
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T12:14:30Z",
+      "action": "Read the persistent checkpoint first and refreshed the 20 accessible Roboflow projects without starting duplicate work. Discovered and evaluated two externally launched finished wrinkle trainings. For skin_face_detection-emora, the crows_feet class scored validation/test F1 0.053/0.017 and test mAP50 0.0010; it is rejected. The wrinkles-79rrf-t7kyp model reports higher provider metrics but remains diagnostic-only because it is not the selected source and retains 65 filename plus 202 perceptual cross-split candidates. Added an executable identity-bound, per-class, fail-closed wrinkle release gate and four tests covering current rejection, identity substitution, leakage erasure and a complete synthetic acceptance path. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/wrinkle-external-release-gate-20261025-v1.json",
+      "commits": [
+        "01a472df409ac2679e010e0c9d5b003614bf0e7d",
+        "05d8cc690cd61d4b923222ee350c5bd601f54f4b",
+        "9ade8138c9e18bbc146c004fdeb2559e4b5a51fc",
+        "27fccb3413be587468f6ffab8debe4e3c8ed5c10",
+        "19c9d726cee6a82d1441aa7007b5948341b67514",
+        "82b83d204148deac7c8bd6b7fe8ad61a2f407e9a",
+        "9a434266e34bab24d3bd337b364d1521311542ec"
+      ]
     }
   ]
 }
-
