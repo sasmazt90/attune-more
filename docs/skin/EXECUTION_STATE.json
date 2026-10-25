@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-25",
-      "lastCheckedAt": "2026-10-25T12:30:37Z",
+      "lastCheckedAt": "2026-10-25T20:09:26Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -455,7 +455,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-25T12:30:37Z",
+      "lastCheckedAt": "2026-10-25T20:09:26Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -558,7 +558,7 @@
         "uploadProgress": null,
         "bytesSent": false,
         "trainingStarted": false,
-        "lastObservedAt": "2026-10-25T11:10:02Z",
+        "lastObservedAt": "2026-10-25T20:09:26Z",
         "evidence": "docs/skin/evidence/under-eye-grouped-project-20261023-v1.json"
       },
       "groupedReleaseGate": {
@@ -637,7 +637,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-25T12:30:37Z",
+      "lastCheckedAt": "2026-10-25T20:09:26Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -656,6 +656,15 @@
         "improvementGate": "docs/skin/evidence/regional-improvement-release-gate-20261025-v1.json",
         "trainingAuthorized": false,
         "testEvaluationAuthorized": false
+      },
+      "oilyReleaseGate": {
+        "methodVersion": "regional-oily-appearance-release-gate-v1",
+        "existingAppearanceProxyPreserved": true,
+        "existingConcreteResultFlowPreserved": true,
+        "researchTrainingAuthorized": false,
+        "finalTestEvaluationAuthorized": false,
+        "learnedRegionalMaskActivationAllowed": false,
+        "evidence": "docs/skin/evidence/oily-release-gate-20261025-v1.json"
       },
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "modelIds": [
@@ -1923,7 +1932,7 @@
     {
       "id": "04",
       "target": "regional-oiliness",
-      "status": "pilot_mask_evaluated_improvement_needed",
+      "status": "executable_oily_release_gate_fail_closed_expert_camera_pending",
       "work": "Audit selected Oily/Oily-Skin regional truth; prepare reliable regional samples; evaluate shine/illumination confounders; green overlay from measured regional support.",
       "evidence": [
         "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
@@ -1982,7 +1991,11 @@
         "docs/skin/evidence/regional-mask-expert-review-queue-20261025-v1.json",
         "docs/skin/regional-mask-expert-review-queue-20261025.md",
         "scripts/skin-research/build_regional_mask_expert_protocol.py",
-        "scripts/skin-research/tests/test_build_regional_mask_expert_protocol.py"
+        "scripts/skin-research/tests/test_build_regional_mask_expert_protocol.py",
+        "scripts/skin-research/check_oily_release.py",
+        "scripts/skin-research/tests/test_oily_release.py",
+        "docs/skin/evidence/oily-release-receipt-20261025-v1.json",
+        "docs/skin/evidence/oily-release-gate-20261025-v1.json"
       ],
       "blockers": [
         "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
@@ -1993,7 +2006,8 @@
         "Finished RF-DETR Seg Small model tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-seg-small-t2 has validation-selected Oily threshold 0.38 and test precision/recall/F1 0.543/0.422/0.475. Test panels were already exposed, source independence is unknown, and Dry/Normal, camera and integration evidence are missing; no activation or blind retraining.",
         "Exact evaluation diagnosis shows Oily mAP75 0.028 on validation and 0.040 on diagnostic test, while confidence 0.2 produces 386 validation and 213 diagnostic-test false positives. The fail-closed gate permits no retry until expert mask extent, source/person grouping, a 50+ image untouched final test and an independent camera holdout are locked; then exactly one validation-only localization change is allowed.",
         "Provider-export geometry is confirmed as 1,636 valid polygons with no box-only annotations. Zero exact/tight cross-split image candidates does not establish independence; all 337 source identities are still unreviewed, so no replacement split or training is authorized.",
-        "A deterministic 81-image train/validation expert queue now samples Oily mask-support and instance-count extremes without touching test. It does not authorize training until an expert returns item-bound mask, negative, ambiguity and assessability decisions."
+        "A deterministic 81-image train/validation expert queue now samples Oily mask-support and instance-count extremes without touching test. It does not authorize training until an expert returns item-bound mask, negative, ambiguity and assessability decisions.",
+        "The executable Oily release gate preserves the already functioning concrete oil-appearance result and separate skin type while blocking learned regional-mask activation. Exact af287a diagnostics show validation/test-diagnostic Oily mAP75 0.028/0.040, validation/test false positives 386/213 at confidence 0.2, an exposed 30-image test and no reviewed person groups. Rights, expert extent/negative/assessability, shine-glare-lighting controls, a locked group-independent replacement split, new untouched final test, physical-camera slices, integration and overlap/unavailable controls remain mandatory."
       ]
     },
     {
@@ -2917,6 +2931,7 @@
     }
   },
   "nextActions": [
+    "Replay scripts/skin-research/check_oily_release.py before task-04 retraining, final-test use or learned green regional-mask activation. Preserve the already functioning concrete oil-appearance output and separate skin type. Require measured regional polygon support; never copy whole-face classes into regions, turn boxes into polygons, interpret missing masks as Normal, promote model proposals to expert truth or claim clinical sebum diagnosis. Complete rights review, expert extent/negative/assessability and shine-glare-lighting protocols, full source/person grouping, a locked replacement split, a new untouched final test, independent physical-camera lighting/skin-tone/pose slices, working integration and regional overlap/unavailable controls.",
     "Replay scripts/skin-research/check_unified_skin_result_release.py before declaring task 13 or the roadmap complete. Preserve the verified working /api/local-health/skin baseline, nine appearance criteria plus separate skin type, strict unknown/normal handling, independent Redness and method-bound history. Complete repository CI, real browser/API E2E, IndexedDB write/read replay, a consented physical-camera triplet, expert truth and independent final tests for each activated class, every class-specific release gate, unavailable/overlap controls and method-compatible history acceptance. Generated triplets remain integration smoke only.",
     "Replay scripts/skin-research/check_tone_unevenness_release.py before changing task-08 tone semantics, activating a calibration claim or co-reporting accepted localized pigmentation. Preserve the working broad regional chromatic-variation appearance proxy and keep Post acne/Pigmentation separate and unavailable unless their own accepted detector exists. Complete camera calibration, illumination/shadow/hair robustness, skin-tone subgroup calibration, same-person repeatability, an untouched camera holdout and working-product replay; when accepted local masks exist, exclude their support from tone sampling and pass independent-camera co-reporting.",
     "Replay scripts/skin-research/check_redness_release.py before any task-07 retraining, final-test use or red-layer activation. Complete rights review, the 81-item expert mask/negative/ambiguity/assessability protocol, full source/person grouping, a locked replacement split, a new untouched final test of at least 50 images and a separate camera holdout; then validate small Redness and working overlap/unavailable controls. Keep Redness as an independent #DC2626 contour/hatching layer that can overlap dry/oily; never rename it Sensitive, infer sensitivity, treat missing masks as Normal or promote model proposals to expert truth.",
@@ -2953,6 +2968,18 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T20:09:26Z",
+      "action": "Read the persistent checkpoint first and verified the working branch state. Refreshed all 20 accessible Roboflow projects, exact acne, regional and under-eye training lists, both under-eye versions and grouped upload task sLFwX7CYBVcnnD6iAW5o. All known trainings remain finished, under-eye v2 has no run, grouped under-eye remains empty and the upload task remains created with no progress; no duplicate job was started. Added an executable task-04 Oily release gate binding the exact regional model/evaluation, diagnosis, 337-image/1,636-polygon export, source-group audit, 81-image expert queue, current regional-improvement gate and verified merged product baseline. It explicitly preserves the existing concrete oil-appearance output and separate skin type while blocking learned regional-mask activation: Oily validation/test-diagnostic mAP75 is 0.028/0.040, false positives at confidence 0.2 are 386/213, the 30-image test is exposed and all 337 source identities remain unreviewed. The gate keeps Oily green, requires measured regional support and rejects whole-face replication, box-to-polygon conversion, missing-mask Normal truth, model-as-expert truth and clinical sebum claims. Eight new gate tests plus twenty-eight regional/redness/skin-type/unified regressions passed with exact deterministic replay. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/oily-release-gate-20261025-v1.json",
+      "commits": [
+        "c25c73c612d6d136ee8707e44af859526fe9ee98",
+        "9fdad283dc8d0e1563ad5868522caefacd023e8c",
+        "a81cc26bd949b24b0332f8a82a26204a919bda85",
+        "fc8a1a045a5a8c749be677feb9238bd06062cdce"
+      ]
+    },
     {
       "date": "2026-10-25",
       "observedAt": "2026-10-25T18:37:44Z",
@@ -3599,6 +3626,18 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T20:09:26Z",
+      "action": "Read the persistent checkpoint first and verified the working branch state. Refreshed all 20 accessible Roboflow projects, exact acne, regional and under-eye training lists, both under-eye versions and grouped upload task sLFwX7CYBVcnnD6iAW5o. All known trainings remain finished, under-eye v2 has no run, grouped under-eye remains empty and the upload task remains created with no progress; no duplicate job was started. Added an executable task-04 Oily release gate binding the exact regional model/evaluation, diagnosis, 337-image/1,636-polygon export, source-group audit, 81-image expert queue, current regional-improvement gate and verified merged product baseline. It explicitly preserves the existing concrete oil-appearance output and separate skin type while blocking learned regional-mask activation: Oily validation/test-diagnostic mAP75 is 0.028/0.040, false positives at confidence 0.2 are 386/213, the 30-image test is exposed and all 337 source identities remain unreviewed. The gate keeps Oily green, requires measured regional support and rejects whole-face replication, box-to-polygon conversion, missing-mask Normal truth, model-as-expert truth and clinical sebum claims. Eight new gate tests plus twenty-eight regional/redness/skin-type/unified regressions passed with exact deterministic replay. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/oily-release-gate-20261025-v1.json",
+      "commits": [
+        "c25c73c612d6d136ee8707e44af859526fe9ee98",
+        "9fdad283dc8d0e1563ad5868522caefacd023e8c",
+        "a81cc26bd949b24b0332f8a82a26204a919bda85",
+        "fc8a1a045a5a8c749be677feb9238bd06062cdce"
+      ]
+    },
     {
       "date": "2026-10-25",
       "observedAt": "2026-10-25T18:37:44Z",
