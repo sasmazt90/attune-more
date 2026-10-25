@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-25T18:04:03Z",
+  "contractEvidenceBlob": "2415926f1706a8a8991a5180fe338a01bd1391d8",
+  "codeBlobs": {
+    "services/core-api/skin_product_contract.py": "f152726978bee2eea36b0563d9ac36cbcf330c7b",
+    "services/core-api/skin_general.py": "ef5869c6801d3845ec8424e17474b3a3e0fd665a",
+    "services/core-api/appearance_analysis.py": "1ebb762a76865f4a33f7f0d5aadab36a5115d46e",
+    "apps/vehicle-app/src/utils/skinIndicators.ts": "eeb3599bec0361bcca7298fc277fa53a32fc06d5",
+    "apps/vehicle-app/src/utils/skinOverview.ts": "4d31010f82bfd5c42a49b46c20880630d57079dd"
+  },
+  "semanticContract": {
+    "separationVersion": "tone-localized-pigmentation-separation-v1",
+    "toneMeaning": "broad-regional-chromatic-variation",
+    "clinicalSeverity": false,
+    "localizedPigmentationDetector": false,
+    "toneCanSupplyPostAcne": false,
+    "toneCanSupplyPigmentation": false,
+    "missingLocalizedResultMeansZero": false,
+    "localizedHeadingsSeparate": true,
+    "currentProductIntegrated": true
+  },
+  "candidate": {
+    "mode": "regional-cielab-appearance-proxy",
+    "clinicalClaimsDisabled": true,
+    "localizedHeadingsDerivedFromTone": false,
+    "cameraCalibrationProtocolComplete": false,
+    "illuminationShadowHairRobustnessPassed": false,
+    "skinToneSubgroupCalibrationPassed": false,
+    "samePersonRepeatabilityPassed": false,
+    "untouchedCameraHoldoutPassed": false,
+    "workingProductIntegrationPassed": false,
+    "acceptedLocalizedPigmentationSupportAvailable": false,
+    "localizedSupportExcludedFromToneSampling": false,
+    "coReportingIndependentCameraPassed": false
+  }
+}
