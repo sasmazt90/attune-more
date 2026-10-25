@@ -1,0 +1,24 @@
+{
+  "blockers": [
+    "repository_ci_missing",
+    "real_browser_api_e2e_missing",
+    "indexeddb_write_read_replay_missing",
+    "physical_camera_triplet_missing",
+    "expert_truth_per_activated_method_missing",
+    "independent_final_test_per_activated_class_missing",
+    "class_specific_release_gates_missing",
+    "unavailable_overlap_controls_missing",
+    "method_compatible_history_acceptance_missing"
+  ],
+  "currentIntegratedPresentationAllowed": true,
+  "decision": "blocked",
+  "finalRoadmapAcceptanceAllowed": false,
+  "generatedReplayAccuracyEvidenceAllowed": false,
+  "generatedReplayIntegrationSmokeAllowed": true,
+  "methodVersion": "unified-skin-result-release-gate-v1",
+  "rednessSensitivityAliasAllowed": false,
+  "roadmapAccepted": false,
+  "schemaVersion": 1,
+  "unknownAsNormalAllowed": false,
+  "workingBaselinePreserved": true
+}
