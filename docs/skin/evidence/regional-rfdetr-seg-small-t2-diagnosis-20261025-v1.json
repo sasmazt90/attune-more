@@ -1,0 +1,247 @@
+{
+  "schemaVersion": "regional-mask-model-diagnosis-v1",
+  "observedAt": "2026-10-25T05:09:14Z",
+  "target": "regional-oily-redness-mask-research-only",
+  "privacy": {
+    "containsImageBytes": false,
+    "containsFilenames": false,
+    "containsRawSourceNames": false,
+    "containsProviderImageIds": false
+  },
+  "modelIdentity": {
+    "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-seg-small-t2",
+    "trainingId": "af287a006e2e428f5ce4",
+    "evalId": "vsQ6klUgSohCdtLwNMJf",
+    "versionNumber": 1,
+    "modelType": "rfdetr-seg-small"
+  },
+  "dataset": {
+    "archiveSHA256": "a24793ca3490a48088abf47ba89fc9ab94e1c3a12c488ce52915e19b5bdf6fd6",
+    "images": 337,
+    "labels": 1636,
+    "emptyImages": 0,
+    "splits": {
+      "train": 244,
+      "valid": 63,
+      "test": 30
+    },
+    "splitLabels": {
+      "train": {"Oily": 780, "Redness": 429},
+      "valid": {"Oily": 195, "Redness": 105},
+      "test": {"Oily": 90, "Redness": 37}
+    },
+    "classLabels": {
+      "Oily": 1065,
+      "Redness": 571
+    },
+    "testImagesBelowProviderMinimum": true,
+    "providerMinimumTestImages": 50,
+    "existingTestExposedDuringDiagnosis": true,
+    "sourcePersonIndependenceEstablished": false,
+    "dryTruth": false,
+    "normalTruth": false,
+    "combinationSkinTruth": false
+  },
+  "providerRecommendations": [
+    {
+      "type": "missed_detection",
+      "class": "Oily",
+      "count": 52
+    },
+    {
+      "type": "wrong_class",
+      "class": "Oily",
+      "confusedWith": "Redness",
+      "count": 1
+    },
+    {
+      "type": "dataset_health",
+      "split": "test",
+      "images": 30,
+      "datasetImages": 337,
+      "fraction": 0.089,
+      "minimumImages": 50
+    }
+  ],
+  "metrics": {
+    "validation": {
+      "overall": {
+        "map50": 0.480878255942076,
+        "map50_95": 0.1810611218103249,
+        "map75": 0.10596098536990142
+      },
+      "classes": {
+        "Oily": {
+          "map50": 0.5271301005426603,
+          "map50_95": 0.17019758098493043,
+          "map75": 0.027941856492013268,
+          "precision": 0.651,
+          "recall": 0.508,
+          "f1": 0.571,
+          "validationSelectedThreshold": 0.38
+        },
+        "Redness": {
+          "map50": 0.4346264113414917,
+          "map50_95": 0.19192466263571947,
+          "map75": 0.1839801142477896,
+          "precision": 0.698,
+          "recall": 0.419,
+          "f1": 0.524,
+          "validationSelectedThreshold": 0.39
+        }
+      },
+      "objectSizeMap50": {
+        "small": 0.2083966209383479,
+        "medium": 0.41456848911699545,
+        "large": 0.5794944213405165
+      },
+      "confusionMatrixAtProviderConfidence0_2": {
+        "classes": ["Oily", "Redness", "background"],
+        "matrix": [[129, 0, 66], [0, 60, 45], [270, 116, 0]]
+      },
+      "perImageAggregateAtProviderConfidence0_2": {
+        "images": 63,
+        "truePositives": 189,
+        "falsePositives": 386,
+        "falseNegatives": 111,
+        "precision": 0.3286956522,
+        "recall": 0.63,
+        "f1": 0.432
+      }
+    },
+    "testDiagnosticOnly": {
+      "overall": {
+        "map50": 0.48302417938577025,
+        "map50_95": 0.19854998963754125,
+        "map75": 0.11239462729840914
+      },
+      "validationSelectedThresholdMetrics": {
+        "Oily": {"threshold": 0.38, "precision": 0.543, "recall": 0.422, "f1": 0.475},
+        "Redness": {"threshold": 0.39, "precision": 0.72, "recall": 0.486, "f1": 0.581}
+      },
+      "providerOptimalThresholdMetrics": {
+        "Oily": {
+          "map50": 0.46405553962011065,
+          "map50_95": 0.14165739780209924,
+          "map75": 0.040226982580142956,
+          "precision": 0.49,
+          "recall": 0.522,
+          "f1": 0.505,
+          "threshold": 0.3
+        },
+        "Redness": {
+          "map50": 0.50199281915143,
+          "map50_95": 0.2554425814729832,
+          "map75": 0.18456227201667535,
+          "precision": 0.783,
+          "recall": 0.486,
+          "f1": 0.6,
+          "threshold": 0.43
+        }
+      },
+      "objectSizeMap50": {
+        "small": 0.11985815317853972,
+        "medium": 0.5137879330933774,
+        "large": 0.6409095561972314
+      },
+      "smallObjectClassMap50": {
+        "Redness": 0.0
+      },
+      "confusionMatrixAtProviderConfidence0_2": {
+        "classes": ["Oily", "Redness", "background"],
+        "matrix": [[58, 1, 31], [0, 20, 17], [160, 52, 0]]
+      },
+      "perImageAggregateAtProviderConfidence0_2": {
+        "images": 30,
+        "truePositives": 78,
+        "falsePositives": 213,
+        "falseNegatives": 49,
+        "precision": 0.2680412371,
+        "recall": 0.6141732283,
+        "f1": 0.3732057416
+      },
+      "note": "Provider-optimal test thresholds and per-image test diagnostics are not admissible for selection or final acceptance. The validation-selected thresholds remain the only acceptance thresholds recorded for this exposed version."
+    }
+  },
+  "confirmedEvidence": [
+    "The test split has 30 images, below the provider's absolute minimum recommendation of 50.",
+    "The exposed test split cannot be reused as a new untouched final holdout.",
+    "Oily boundary localization is weak: validation mAP75 is 0.0279 and test-diagnostic mAP75 is 0.0402.",
+    "At confidence 0.2, background false positives dominate both validation and test aggregates.",
+    "Redness has only 571 labels versus 1065 Oily labels, and small-object Redness test-diagnostic mAP50 is zero.",
+    "The dataset has no Dry, evaluated Normal or combination-skin regional truth."
+  ],
+  "rootCauseHypotheses": [
+    {
+      "id": "TEST_TOO_SMALL_EXPOSED_AND_NOT_PERSON_INDEPENDENT",
+      "support": "confirmed_by_provider_and_existing_provenance_receipts",
+      "actionable": true
+    },
+    {
+      "id": "OILY_BOUNDARY_LOCALIZATION_AND_MASK_EXTENT",
+      "support": "localization_failure_confirmed_but_mask_protocol_requires_expert_review",
+      "actionable": true
+    },
+    {
+      "id": "LOW_CONFIDENCE_BACKGROUND_FALSE_POSITIVES_OR_MISSING_MASKS",
+      "support": "false_positives_confirmed_label_completeness_requires_expert_review",
+      "actionable": false
+    },
+    {
+      "id": "SMALL_REDNESS_SUPPORT",
+      "support": "confirmed_by_class_count_and_size_metrics",
+      "actionable": true
+    },
+    {
+      "id": "OILY_REDNESS_TAXONOMY_OVERLAP",
+      "support": "not_supported_by_one_wrong_class_case",
+      "actionable": false
+    },
+    {
+      "id": "DRY_NORMAL_COMBINATION_COVERAGE_MISSING",
+      "support": "confirmed_by_dataset_classes",
+      "actionable": true
+    }
+  ],
+  "targetedImprovementPlan": [
+    {
+      "order": 1,
+      "action": "Keep the model research-only and the accepted regional-method registry empty.",
+      "changesModelOrLabels": false
+    },
+    {
+      "order": 2,
+      "action": "Build a source/person-grouped replacement split with at least 50 untouched final-test images and reserve a separate product-camera holdout before training.",
+      "changesModelOrLabels": false
+    },
+    {
+      "order": 3,
+      "action": "Have an expert review validation-only background false positives, missing-mask candidates and Oily/Redness mask extent; lock the mask and hard-negative protocol.",
+      "changesModelOrLabels": false
+    },
+    {
+      "order": 4,
+      "action": "Run exactly one validation-only change targeting confirmed localization: either face-aligned higher effective resolution or mask-extent standardization.",
+      "changesModelOrLabels": true
+    },
+    {
+      "order": 5,
+      "action": "Acquire separate genuine polygon truth for Dry and evaluated Normal before regional type or combination inference; never convert absent masks or whole-face boxes into Normal.",
+      "changesModelOrLabels": true
+    },
+    {
+      "order": 6,
+      "action": "Preserve Redness as an independent red contour or hatching layer that may overlap oil or dryness; do not rename it Sensitive.",
+      "changesModelOrLabels": false
+    }
+  ],
+  "decision": {
+    "modelAccepted": false,
+    "blindRetrainingAllowed": false,
+    "trainingAuthorized": false,
+    "testEvaluationAuthorized": false,
+    "activationAllowed": false,
+    "rednessIndependentLayer": true,
+    "nextExperimentPolicy": "one_change_validation_only_after_release_gate"
+  }
+}
