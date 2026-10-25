@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-25",
-      "lastCheckedAt": "2026-10-25T20:39:16Z",
+      "lastCheckedAt": "2026-10-25T21:20:03Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -436,6 +436,30 @@
         "proposalConfirmedCrossSplitGroups": 16,
         "proposalConfirmedCrossSplitMembers": 37,
         "proposalTestTrainLeakageConfirmed": true
+      },
+      "perClassReleaseGate": {
+        "observedAt": "2026-10-25T21:20:03Z",
+        "methodVersion": "acne-concerns-per-class-release-gate-v1",
+        "script": "scripts/skin-research/check_acne_concern_release.py",
+        "receipt": "docs/skin/evidence/acne-per-class-release-receipt-20261025-v1.json",
+        "evidence": "docs/skin/evidence/acne-per-class-release-gate-20261025-v1.json",
+        "inputBlobsPinned": 9,
+        "researchTrainingAuthorized": false,
+        "blindRetrainingAllowed": false,
+        "classActivationAllowed": {
+          "Pimple": false,
+          "Post acne": false,
+          "Pigmentation": false
+        },
+        "classesRemainSeparate": true,
+        "workingConcreteAcneResultPreserved": true,
+        "postAcneAndPigmentationRemainExplicitlyUnavailable": true,
+        "toneCannotPopulateLocalizedPigmentation": true,
+        "testCount": 36,
+        "implementationCommit": "1468ba5afddb24c2ea717e4ce785804dc94fb36a",
+        "testCommit": "1eb36c574cd9b49f8622fccc02441b9b758b6075",
+        "receiptCommit": "89eb066ff32b3d842615dc3586bf4fdd15d43b75",
+        "gateCommit": "471f4240a5131eff6543a1d2f68e41d86322a1f4"
       }
     },
     "acneSourceProject": "tolgar-sasmaz/attune-skin-acne-pilot",
@@ -1726,7 +1750,7 @@
     {
       "id": "01",
       "target": "active-acne",
-      "status": "improvement_needed",
+      "status": "per_class_release_gate_fail_closed_expert_group_camera_pending",
       "work": "Evaluate Pimple per class on validation and locked test; choose threshold on validation only; inspect confounders and real-camera examples; integrate accepted detector and count deduplication.",
       "evidence": [
         "docs/skin/evidence/acne-import-provenance-20261023-v2.json",
@@ -1778,7 +1802,11 @@
         "docs/skin/acne-rfdetr-small-t2-diagnosis-20261025.md",
         "scripts/skin-research/check_acne_improvement_release.py",
         "scripts/skin-research/tests/test_check_acne_improvement_release.py",
-        "docs/skin/evidence/acne-improvement-release-gate-20261025-v1.json"
+        "docs/skin/evidence/acne-improvement-release-gate-20261025-v1.json",
+        "scripts/skin-research/check_acne_concern_release.py",
+        "scripts/skin-research/tests/test_acne_concern_release.py",
+        "docs/skin/evidence/acne-per-class-release-receipt-20261025-v1.json",
+        "docs/skin/evidence/acne-per-class-release-gate-20261025-v1.json"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
@@ -1792,13 +1820,14 @@
         "A deterministic expert semantic/hard-negative queue now contains 81 hashed train/validation review items and excludes all 82 locked test images. Pigmentation has no isolated-positive source image in train/validation. The archive-bound expert receipt exists but remains intentionally blank; Pimple, Post acne and Pigmentation definitions, hard negatives and ambiguous cases are not yet expert-locked, so training remains unauthorized.",
         "The privacy-safe full-record grouping proposal represents all 800 records exactly once. General name similarity at 0.94, separate cross-split and within-split 0.90–0.94 review bands, full/crop image hashes and a candidate-only central gradient pHash surfaced 227 deduplicated pairs; private engineering review resolved all as 41 same-source/person and 186 false-positive matches. Thirty-two confirmed groups cover 71 records; 16 groups cross existing splits and cover 37 records. The remaining 729 records are explicitly unreviewed singletons. No similarity method establishes full identity coverage; no target split, version or training is authorized.",
         "Finished RF-DETR Small model tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2 has validation-selected Pimple threshold 0.35 and test precision/recall/F1 0.272/0.308/0.289. Provider test panels were already exposed before this receipt, source/person independence and expert semantics remain unresolved, and camera/integration evidence is absent; the shared gate rejects activation and blind retraining.",
-        "Provider diagnosis records Pimple overconfident false positives (234 FP, 107 TP, 31% precision in the recommendation slice) alongside the confirmed tiny-instance resolution problem. Label completeness and hard-negative coverage remain hypotheses requiring expert review; the new gate permits only one validation-only resolution experiment after all split, semantic and untouched-final-test prerequisites pass."
+        "Provider diagnosis records Pimple overconfident false positives (234 FP, 107 TP, 31% precision in the recommendation slice) alongside the confirmed tiny-instance resolution problem. Label completeness and hard-negative coverage remain hypotheses requiring expert review; the new gate permits only one validation-only resolution experiment after all split, semantic and untouched-final-test prerequisites pass.",
+        "The executable per-class concern gate preserves the already functioning concrete acne result while keeping the rejected learned Pimple detector blocked. Pimple can pass later without promoting Post acne or Pigmentation, but only after rights and expert positive/negative/ambiguity policy, complete person grouping, a verified group-locked split, one validation-only targeted experiment, a new untouched final test, physical-camera skin-tone/lighting/pose slices, integration and unavailable/history/dedup controls. Missing labels are not negatives and model proposals are not expert truth."
       ]
     },
     {
       "id": "02",
       "target": "post-acne-marks",
-      "status": "improvement_needed",
+      "status": "per_class_release_gate_fail_closed_expert_group_camera_pending",
       "work": "Evaluate Post acne separately from active acne and pigmentation; keep label semantics appearance-only and preserve instance boxes.",
       "evidence": [
         "docs/skin/evidence/acne-import-provenance-20261023-v2.json",
@@ -1850,7 +1879,11 @@
         "docs/skin/acne-rfdetr-small-t2-diagnosis-20261025.md",
         "scripts/skin-research/check_acne_improvement_release.py",
         "scripts/skin-research/tests/test_check_acne_improvement_release.py",
-        "docs/skin/evidence/acne-improvement-release-gate-20261025-v1.json"
+        "docs/skin/evidence/acne-improvement-release-gate-20261025-v1.json",
+        "scripts/skin-research/check_acne_concern_release.py",
+        "scripts/skin-research/tests/test_acne_concern_release.py",
+        "docs/skin/evidence/acne-per-class-release-receipt-20261025-v1.json",
+        "docs/skin/evidence/acne-per-class-release-gate-20261025-v1.json"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
@@ -1864,13 +1897,14 @@
         "A deterministic expert semantic/hard-negative queue now contains 81 hashed train/validation review items and excludes all 82 locked test images. Pigmentation has no isolated-positive source image in train/validation. The archive-bound expert receipt exists but remains intentionally blank; Pimple, Post acne and Pigmentation definitions, hard negatives and ambiguous cases are not yet expert-locked, so training remains unauthorized.",
         "The privacy-safe full-record grouping proposal represents all 800 records exactly once. General name similarity at 0.94, separate cross-split and within-split 0.90–0.94 review bands, full/crop image hashes and a candidate-only central gradient pHash surfaced 227 deduplicated pairs; private engineering review resolved all as 41 same-source/person and 186 false-positive matches. Thirty-two confirmed groups cover 71 records; 16 groups cross existing splits and cover 37 records. The remaining 729 records are explicitly unreviewed singletons. No similarity method establishes full identity coverage; no target split, version or training is authorized.",
         "Finished RF-DETR Small model tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2 has validation-selected Post acne threshold 0.31 and test precision/recall/F1 0.340/0.305/0.322. Provider test panels were already exposed before this receipt, source/person independence and expert semantics remain unresolved, and camera/integration evidence is absent; the shared gate rejects activation and blind retraining.",
-        "Provider diagnosis identifies 2,451 missed Post acne detections and 52 Post acne/Pimple wrong-class cases, while Post acne labels outnumber Pimple 8.825x and Pigmentation 20.344x. These are targeted review cues, not expert truth; training stays blocked behind the one-change validation-only improvement gate."
+        "Provider diagnosis identifies 2,451 missed Post acne detections and 52 Post acne/Pimple wrong-class cases, while Post acne labels outnumber Pimple 8.825x and Pigmentation 20.344x. These are targeted review cues, not expert truth; training stays blocked behind the one-change validation-only improvement gate.",
+        "The executable per-class concern gate keeps Post acne separate from active acne and Pigmentation and preserves its explicit unavailable product state. A future Post acne candidate can pass on its own only after its own validation, new untouched final test, physical-camera slices and working integration evidence plus the shared expert/group/rights prerequisites; active-acne success cannot activate this heading."
       ]
     },
     {
       "id": "03",
       "target": "pigmentation",
-      "status": "improvement_needed",
+      "status": "per_class_release_gate_fail_closed_expert_group_camera_pending",
       "work": "Evaluate Pigmentation instances separately from generic tone unevenness, marks, freckles, moles and shadow.",
       "evidence": [
         "docs/skin/evidence/acne-import-provenance-20261023-v2.json",
@@ -1922,7 +1956,11 @@
         "docs/skin/acne-rfdetr-small-t2-diagnosis-20261025.md",
         "scripts/skin-research/check_acne_improvement_release.py",
         "scripts/skin-research/tests/test_check_acne_improvement_release.py",
-        "docs/skin/evidence/acne-improvement-release-gate-20261025-v1.json"
+        "docs/skin/evidence/acne-improvement-release-gate-20261025-v1.json",
+        "scripts/skin-research/check_acne_concern_release.py",
+        "scripts/skin-research/tests/test_acne_concern_release.py",
+        "docs/skin/evidence/acne-per-class-release-receipt-20261025-v1.json",
+        "docs/skin/evidence/acne-per-class-release-gate-20261025-v1.json"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
@@ -1936,7 +1974,8 @@
         "A deterministic expert semantic/hard-negative queue now contains 81 hashed train/validation review items and excludes all 82 locked test images. Pigmentation has no isolated-positive source image in train/validation. The archive-bound expert receipt exists but remains intentionally blank; Pimple, Post acne and Pigmentation definitions, hard negatives and ambiguous cases are not yet expert-locked, so training remains unauthorized.",
         "The privacy-safe full-record grouping proposal represents all 800 records exactly once. General name similarity at 0.94, separate cross-split and within-split 0.90–0.94 review bands, full/crop image hashes and a candidate-only central gradient pHash surfaced 227 deduplicated pairs; private engineering review resolved all as 41 same-source/person and 186 false-positive matches. Thirty-two confirmed groups cover 71 records; 16 groups cross existing splits and cover 37 records. The remaining 729 records are explicitly unreviewed singletons. No similarity method establishes full identity coverage; no target split, version or training is authorized.",
         "Finished RF-DETR Small model tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2 has validation-selected Pigmentation threshold 0.15 and test precision/recall/F1 0.132/0.055/0.077. Provider test panels were already exposed before this receipt, source/person independence and expert semantics remain unresolved, and camera/integration evidence is absent; the shared gate rejects activation and blind retraining.",
-        "Provider diagnosis records very low Pigmentation AP and Pigmentation-to-Post acne confusion signals, but the 4.9% image coverage and missing isolated-positive train/validation examples prevent a semantic conclusion. Expert class boundaries, group-safe data and a new untouched final holdout are required before one validation-only resolution experiment."
+        "Provider diagnosis records very low Pigmentation AP and Pigmentation-to-Post acne confusion signals, but the 4.9% image coverage and missing isolated-positive train/validation examples prevent a semantic conclusion. Expert class boundaries, group-safe data and a new untouched final holdout are required before one validation-only resolution experiment.",
+        "The executable per-class concern gate keeps localized Pigmentation independent from Post acne, freckles, moles, shadow and the broad tone proxy. Tone cannot populate this heading. Pigmentation remains explicitly unavailable until its own expert semantics, group-safe validation, untouched final test, physical-camera skin-tone/lighting/pose slices, integration and unavailable/history/dedup controls pass; success of the other two classes cannot activate it."
       ]
     },
     {
@@ -2951,6 +2990,7 @@
     }
   },
   "nextActions": [
+    "Replay scripts/skin-research/check_acne_concern_release.py before task-01/02/03 retraining, final-test use or learned-model activation. Preserve the functioning concrete acne result, keep Post acne and Pigmentation explicitly unavailable, and permit each class to pass only on its own validation, new untouched final test, physical-camera skin-tone/lighting/pose slices, integration and unavailable/history/dedup evidence. First complete rights review, expert per-class positive/negative/ambiguity policy, full person/source grouping, a verified group-locked replacement split and exactly one validation-only resolution experiment. Never collapse the classes, use missing labels as negatives, treat model proposals as expert truth, infer a medical diagnosis, or populate localized Pigmentation from tone.",
     "Replay scripts/skin-research/check_under_eye_concern_release.py before task-09/10 final-test use or model activation. Keep darkcircle and eyebag as separate classes and product headings; permit either class to pass only on its own validation, new untouched final test, physical-camera skin-tone/lighting/pose slices, integration and unavailable/history evidence. First satisfy the exact grouped archive/import/version gate, rights, expert per-class mask/negative/ambiguity protocol and person-independent split. Never infer medical causes for dark circles, edema/fluid retention for bags, missing-label negatives, or promote the ungrouped model as accepted truth.",
     "Replay scripts/skin-research/check_oily_release.py before task-04 retraining, final-test use or learned green regional-mask activation. Preserve the already functioning concrete oil-appearance output and separate skin type. Require measured regional polygon support; never copy whole-face classes into regions, turn boxes into polygons, interpret missing masks as Normal, promote model proposals to expert truth or claim clinical sebum diagnosis. Complete rights review, expert extent/negative/assessability and shine-glare-lighting protocols, full source/person grouping, a locked replacement split, a new untouched final test, independent physical-camera lighting/skin-tone/pose slices, working integration and regional overlap/unavailable controls.",
     "Replay scripts/skin-research/check_unified_skin_result_release.py before declaring task 13 or the roadmap complete. Preserve the verified working /api/local-health/skin baseline, nine appearance criteria plus separate skin type, strict unknown/normal handling, independent Redness and method-bound history. Complete repository CI, real browser/API E2E, IndexedDB write/read replay, a consented physical-camera triplet, expert truth and independent final tests for each activated class, every class-specific release gate, unavailable/overlap controls and method-compatible history acceptance. Generated triplets remain integration smoke only.",
@@ -2989,6 +3029,18 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T21:20:03Z",
+      "action": "Read the persistent checkpoint first and verified remote blob 1aa564c6ec2f9be8495dba468e7885d482e060b0. Refreshed all 20 accessible Roboflow projects, exact acne, regional and under-eye training lists and grouped under-eye upload task sLFwX7CYBVcnnD6iAW5o. Known trainings remain finished and no duplicate job was started. Added an executable task-01/02/03 per-class release gate binding nine exact evidence blobs and the verified working /api/local-health/skin baseline. It preserves the current concrete acne result and explicit unavailable Post acne/Pigmentation headings while evaluating Pimple, Post acne and Pigmentation separately. Current diagnostic-test F1 values are 0.289, 0.322 and 0.077 respectively; none pass. The gate permits a future class to pass without promoting the others and rejects class collapse, missing-label negatives, tone-derived localized Pigmentation, medical-diagnosis claims and model-as-expert truth. Eight new tests plus twenty-eight split, grouping, semantic, improvement and unified regressions passed with exact deterministic replay. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/acne-per-class-release-gate-20261025-v1.json",
+      "commits": [
+        "1468ba5afddb24c2ea717e4ce785804dc94fb36a",
+        "1eb36c574cd9b49f8622fccc02441b9b758b6075",
+        "89eb066ff32b3d842615dc3586bf4fdd15d43b75",
+        "471f4240a5131eff6543a1d2f68e41d86322a1f4"
+      ]
+    },
     {
       "date": "2026-10-25",
       "observedAt": "2026-10-25T20:39:16Z",
@@ -3659,6 +3711,18 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T21:20:03Z",
+      "action": "Read the persistent checkpoint first and verified remote blob 1aa564c6ec2f9be8495dba468e7885d482e060b0. Refreshed all 20 accessible Roboflow projects, exact acne, regional and under-eye training lists and grouped under-eye upload task sLFwX7CYBVcnnD6iAW5o. Known trainings remain finished and no duplicate job was started. Added an executable task-01/02/03 per-class release gate binding nine exact evidence blobs and the verified working /api/local-health/skin baseline. It preserves the current concrete acne result and explicit unavailable Post acne/Pigmentation headings while evaluating Pimple, Post acne and Pigmentation separately. Current diagnostic-test F1 values are 0.289, 0.322 and 0.077 respectively; none pass. The gate permits a future class to pass without promoting the others and rejects class collapse, missing-label negatives, tone-derived localized Pigmentation, medical-diagnosis claims and model-as-expert truth. Eight new tests plus twenty-eight split, grouping, semantic, improvement and unified regressions passed with exact deterministic replay. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/acne-per-class-release-gate-20261025-v1.json",
+      "commits": [
+        "1468ba5afddb24c2ea717e4ce785804dc94fb36a",
+        "1eb36c574cd9b49f8622fccc02441b9b758b6075",
+        "89eb066ff32b3d842615dc3586bf4fdd15d43b75",
+        "471f4240a5131eff6543a1d2f68e41d86322a1f4"
+      ]
+    },
     {
       "date": "2026-10-25",
       "observedAt": "2026-10-25T20:39:16Z",
