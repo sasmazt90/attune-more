@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "inputBlobs": {
+    "modelReceipt": "f3fc4bb10530393ac5df31d17dba423f5bfb5287",
+    "modelVerdict": "9aed72c0f5a3851c0e6a02f5cd6982739bfaaaaa",
+    "modelDiagnosis": "5a31af138324100bfd10ba9a00da58611d75839b",
+    "sourceGroupAudit": "29314becfb5fd8c6f77e389036e2afa152aa56cb",
+    "expertReviewQueue": "31cc224918c58f07d3185e3aeeff298c4114f004",
+    "unifiedMapContract": "a1f26fa1b754bac84978936ef1a47eba62d5b898",
+    "regionalImplementation": "a8fbfefb613b01162df863614df5a91bf5a6f4f0",
+    "regionalImprovementGate": "a0539e644b302417a64c1336d13117a88caaeee3"
+  },
+  "semanticContract": {
+    "className": "Redness",
+    "productHeading": "kizariklik",
+    "colour": "#DC2626",
+    "style": "contour-or-hatching",
+    "independentLayer": true,
+    "mayOverlapDryOrOily": true,
+    "sensitivityInferred": false,
+    "missingMaskMeansNormal": false,
+    "modelPredictionIsExpertTruth": false
+  },
+  "source": {
+    "sourceArchiveSHA256": "a24793ca3490a48088abf47ba89fc9ab94e1c3a12c488ce52915e19b5bdf6fd6",
+    "providerExportSHA256": "ba7aa450ee2e98af35dcb1b60f3f9673fc7a6ef6b7709e7b94e1df1d32bdab3a",
+    "images": 337,
+    "splits": {"train": 244, "valid": 63, "test": 30},
+    "rednessLabels": {"train": 429, "valid": 105, "test": 37},
+    "polygonAnnotations": 1636,
+    "invalidPolygonAnnotations": 0,
+    "completeReviewedPersonGroups": 0,
+    "unreviewedSourceIds": 337,
+    "testImagesBelowMinimum": true,
+    "testAlreadyExposed": true
+  },
+  "model": {
+    "trainingId": "af287a006e2e428f5ce4",
+    "evalId": "vsQ6klUgSohCdtLwNMJf",
+    "validationSelectedThreshold": 0.39,
+    "validationF1": 0.524,
+    "diagnosticTestF1": 0.581,
+    "diagnosticTestMap75": 0.18456227201667535,
+    "diagnosticSmallObjectMap50": 0.0,
+    "accepted": false
+  },
+  "expertReview": {
+    "queueImages": 81,
+    "rednessTrainItems": 32,
+    "rednessValidItems": 8,
+    "testItems": 0,
+    "expertProtocolComplete": false
+  },
+  "candidate": {
+    "rightsReviewed": false,
+    "expertMaskAndNegativeProtocolComplete": false,
+    "sourcePersonGroupSplitIndependent": false,
+    "replacementSplitLocked": false,
+    "newUntouchedFinalTestReserved": false,
+    "independentCameraHoldoutReserved": false,
+    "validationPassed": false,
+    "newUntouchedFinalTestPassed": false,
+    "physicalCameraHoldoutPassed": false,
+    "workingProductIntegrationPassed": false,
+    "overlapAndUnavailableControlsPassed": false
+  }
+}
