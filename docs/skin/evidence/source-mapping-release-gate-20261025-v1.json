@@ -1,0 +1,22 @@
+{
+  "blockers": [
+    "four_excluded_archive_inventory_not_reconciled",
+    "all_archive_hashes_not_verified",
+    "rights_review_incomplete",
+    "expert_semantics_incomplete",
+    "geometry_audit_incomplete",
+    "source_person_grouping_incomplete",
+    "locked_group_split_missing",
+    "independent_camera_holdout_missing"
+  ],
+  "boxToMaskConversionAllowed": false,
+  "decision": "blocked",
+  "methodVersion": "source-mapping-release-gate-v1",
+  "missingLabelToNormalAllowed": false,
+  "productTruthAuthorized": false,
+  "researchRoutingAllowed": true,
+  "schemaVersion": 1,
+  "sourceMappingsAreExpertTruth": false,
+  "toneToProductPigmentationAllowed": false,
+  "trainingDataReleaseAuthorized": false
+}
