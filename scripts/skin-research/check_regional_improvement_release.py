@@ -18,7 +18,9 @@ EXPECTED_MODEL_ID = "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-seg-sm
 EXPECTED_TRAINING_ID = "af287a006e2e428f5ce4"
 EXPECTED_EVAL_ID = "vsQ6klUgSohCdtLwNMJf"
 EXPECTED_ARCHIVE_SHA256 = "a24793ca3490a48088abf47ba89fc9ab94e1c3a12c488ce52915e19b5bdf6fd6"
+EXPECTED_PROVIDER_EXPORT_SHA256 = "ba7aa450ee2e98af35dcb1b60f3f9673fc7a6ef6b7709e7b94e1df1d32bdab3a"
 EXPECTED_IMAGES = 337
+EXPECTED_ANNOTATIONS = 1636
 CLASSES = ("Oily", "Redness")
 ALLOWED_EXPERIMENT_CHANGES = {
     "face_aligned_higher_effective_resolution",
@@ -74,6 +76,49 @@ def validate_diagnosis(value: dict[str, Any]) -> None:
         raise GateError("diagnosis must preserve rejection and independent Redness semantics")
     if decision.get("nextExperimentPolicy") != "one_change_validation_only_after_release_gate":
         raise GateError("diagnosis experiment policy is invalid")
+
+
+def validate_source_audit(value: dict[str, Any]) -> None:
+    if value.get("schemaVersion") != "regional-mask-source-group-audit-v1":
+        raise GateError("source audit schema is invalid")
+    source = value.get("source", {})
+    if (
+        source.get("sourceArchiveSHA256") != EXPECTED_ARCHIVE_SHA256
+        or source.get("providerExportSHA256") != EXPECTED_PROVIDER_EXPORT_SHA256
+        or source.get("versionNumber") != 1
+    ):
+        raise GateError("source audit archive/export binding does not match")
+    privacy = value.get("privacy", {})
+    required_false = (
+        "containsImageBytes",
+        "containsFilenames",
+        "containsRawSourceNames",
+        "containsProviderImageIds",
+        "resolverCommitted",
+    )
+    if any(privacy.get(key) is not False for key in required_false):
+        raise GateError("source audit is not privacy safe")
+    inventory = value.get("inventory", {})
+    expected_inventory = {
+        "images": EXPECTED_IMAGES,
+        "uniqueSourceIds": EXPECTED_IMAGES,
+        "annotations": EXPECTED_ANNOTATIONS,
+        "polygonAnnotations": EXPECTED_ANNOTATIONS,
+        "nonPolygonAnnotations": 0,
+        "invalidPolygonAnnotations": 0,
+    }
+    if any(inventory.get(key) != expected for key, expected in expected_inventory.items()):
+        raise GateError("source audit inventory or polygon geometry does not match")
+    coverage = value.get("coverage", {})
+    if coverage.get("allRecordsRepresented") is not True:
+        raise GateError("source audit does not represent every source record")
+    decision = value.get("decision", {})
+    if (
+        decision.get("trainingAuthorized") is not False
+        or decision.get("replacementSplitReady") is not False
+        or decision.get("testEligibleForFinalAcceptance") is not False
+    ):
+        raise GateError("source audit must preserve fail-closed decisions")
 
 
 def group_split_ready(value: dict[str, Any] | None) -> tuple[bool, str | None]:
@@ -194,18 +239,24 @@ def final_test_ready(
 
 def build_gate(
     diagnosis: dict[str, Any],
+    source_audit: dict[str, Any] | None = None,
     group_split: dict[str, Any] | None = None,
     mask_protocol: dict[str, Any] | None = None,
     experiment: dict[str, Any] | None = None,
     final_test: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     validate_diagnosis(diagnosis)
+    if source_audit is not None:
+        validate_source_audit(source_audit)
+    source_audit_ok = source_audit is not None
     group_ok, group_reason = group_split_ready(group_split)
     protocol_ok, protocol_reason = mask_protocol_ready(mask_protocol)
     experiment_ok, experiment_reason = experiment_ready(experiment)
     final_test_ok, final_test_reason = final_test_ready(final_test, group_split, experiment)
 
     blockers: list[str] = []
+    if source_audit is None:
+        blockers.append("FROZEN_PROVIDER_EXPORT_AUDIT_MISSING")
     if group_split is None:
         blockers.append("SOURCE_PERSON_GROUP_LOCKED_REPLACEMENT_SPLIT_MISSING")
     elif not group_ok:
@@ -228,6 +279,7 @@ def build_gate(
         "schemaVersion": "regional-mask-improvement-release-gate-v1",
         "modelIdentity": diagnosis["modelIdentity"],
         "checks": {
+            "frozenProviderExportAuditBound": source_audit_ok,
             "sourcePersonGroupLockedReplacementSplit": group_ok,
             "expertMaskAndNegativeProtocol": protocol_ok,
             "rednessIndependentLayer": diagnosis["decision"]["rednessIndependentLayer"],
@@ -250,6 +302,7 @@ def build_gate(
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--diagnosis", type=Path, required=True)
+    parser.add_argument("--source-audit", type=Path)
     parser.add_argument("--group-split", type=Path)
     parser.add_argument("--mask-protocol", type=Path)
     parser.add_argument("--experiment", type=Path)
@@ -259,6 +312,7 @@ def main() -> int:
     args = parser.parse_args()
     result = build_gate(
         load_json(args.diagnosis),
+        load_json(args.source_audit) if args.source_audit else None,
         load_json(args.group_split) if args.group_split else None,
         load_json(args.mask_protocol) if args.mask_protocol else None,
         load_json(args.experiment) if args.experiment else None,
