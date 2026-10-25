@@ -1,0 +1,43 @@
+{
+  "activationBlockers": [
+    "rights_review_missing",
+    "expert_mask_negative_protocol_missing",
+    "source_person_group_split_independence_missing",
+    "replacement_split_missing",
+    "new_untouched_final_test_missing",
+    "independent_camera_holdout_missing",
+    "validation_acceptance_missing",
+    "untouched_final_test_acceptance_missing",
+    "physical_camera_acceptance_missing",
+    "working_product_integration_acceptance_missing",
+    "overlap_unavailable_controls_missing"
+  ],
+  "decision": "blocked",
+  "finalTestEvaluationAuthorized": false,
+  "independentRedLayerRequired": true,
+  "methodVersion": "regional-redness-release-gate-v1",
+  "missingMaskAsNormalAllowed": false,
+  "productActivationAllowed": false,
+  "researchTrainingAuthorized": false,
+  "researchVisualizationAllowed": true,
+  "roadmapAccepted": false,
+  "schemaVersion": 1,
+  "sensitivityInferenceAllowed": false,
+  "testBlockers": [
+    "rights_review_missing",
+    "expert_mask_negative_protocol_missing",
+    "source_person_group_split_independence_missing",
+    "replacement_split_missing",
+    "new_untouched_final_test_missing",
+    "independent_camera_holdout_missing",
+    "validation_acceptance_missing"
+  ],
+  "trainingBlockers": [
+    "rights_review_missing",
+    "expert_mask_negative_protocol_missing",
+    "source_person_group_split_independence_missing",
+    "replacement_split_missing",
+    "new_untouched_final_test_missing",
+    "independent_camera_holdout_missing"
+  ]
+}
