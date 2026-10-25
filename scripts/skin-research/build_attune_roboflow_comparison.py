@@ -9,6 +9,7 @@ generated FRONT inputs and the current merged Attune contract are complete.
 from __future__ import annotations
 
 import argparse
+import copy
 import html
 import json
 import re
@@ -44,9 +45,93 @@ ROBOFLOW_CLASSES = ("akne", "gozenek", "kirisiklik", "kizariklik", "pul")
 ROBOFLOW_PACKAGE = "7ee34fce76456d9ff4cfe6e7049aad1e"
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 
+# This contract is presentation truth, not model truth. It prevents a model
+# class or a missing regional observation from silently changing the accepted
+# product semantics while comparison artifacts are assembled.
+ACCEPTED_MAP_CONTRACT = {
+    "schemaVersion": 1,
+    "regionalStates": {
+        "dry": {"color": "#2563EB", "label": "Dry", "requiresRegionalEvidence": True},
+        "oily": {"color": "#16A34A", "label": "Oily", "requiresRegionalEvidence": True},
+        "normal": {
+            "color": None,
+            "label": "Normal",
+            "requiresEvaluatedRegion": True,
+            "mayBeInferredFromUnknown": False,
+        },
+        "unknown": {
+            "color": "#D1D5DB",
+            "label": "Unknown / not evaluable",
+            "countsAsNormal": False,
+        },
+    },
+    "independentLayers": {
+        "redness": {
+            "color": "#DC2626",
+            "label": "Redness",
+            "render": "contour-or-hatching",
+            "derivedFromSensitivity": False,
+            "mayOverlapRegionalStates": True,
+        }
+    },
+    "mixedSkinType": {
+        "requiresSupportedOilyTZone": True,
+        "requiresSupportedNonTOilyNormalOrDry": True,
+        "requiresSufficientRegionalCoverage": True,
+        "wholeFaceClassReplicationAllowed": False,
+    },
+    "prohibitions": [
+        "detector-box-as-regional-polygon",
+        "model-proposal-as-expert-label",
+        "whole-face-class-copied-to-all-regions",
+        "redness-renamed-to-sensitive",
+        "unknown-treated-as-normal",
+        "dry-normal-or-mixed-derived-from-oily-redness-only-model",
+    ],
+}
+
+PROPOSAL_SEMANTICS = {
+    "akne": {"concern": "active-acne", "role": "review-proposal"},
+    "gozenek": {"concern": "pores", "role": "auxiliary-review-proposal"},
+    "kirisiklik": {"concern": "lines", "role": "review-proposal"},
+    "kizariklik": {
+        "concern": "redness",
+        "role": "review-proposal",
+        "mapLayer": "independentLayers.redness",
+        "sensitivityAliasAllowed": False,
+        "regionalStateTruth": False,
+    },
+    "pul": {"concern": "flakes", "role": "review-proposal", "regionalStateTruth": False},
+}
+
 
 class ContractError(ValueError):
     """Raised when evidence cannot support a comparison."""
+
+
+def _accepted_map_contract() -> dict[str, Any]:
+    """Return a validated copy of the immutable comparison map contract."""
+    contract = copy.deepcopy(ACCEPTED_MAP_CONTRACT)
+    states = contract["regionalStates"]
+    redness = contract["independentLayers"]["redness"]
+    if states["dry"]["color"] != "#2563EB" or states["oily"]["color"] != "#16A34A":
+        raise ContractError("accepted dry/oily map colors changed")
+    if states["normal"]["color"] is not None or states["normal"]["requiresEvaluatedRegion"] is not True:
+        raise ContractError("normal must be evaluated and uncolored")
+    if states["unknown"]["color"] != "#D1D5DB" or states["unknown"]["countsAsNormal"] is not False:
+        raise ContractError("unknown must be light gray and must not count as normal")
+    if (
+        redness["color"] != "#DC2626"
+        or redness["render"] != "contour-or-hatching"
+        or redness["derivedFromSensitivity"] is not False
+        or redness["mayOverlapRegionalStates"] is not True
+    ):
+        raise ContractError("redness must remain an independent red contour/hatching layer")
+    if PROPOSAL_SEMANTICS["kizariklik"].get("concern") != "redness":
+        raise ContractError("kizariklik proposal semantics changed")
+    if PROPOSAL_SEMANTICS["kizariklik"].get("sensitivityAliasAllowed") is not False:
+        raise ContractError("redness cannot be aliased to sensitivity")
+    return contract
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -311,6 +396,7 @@ def _markdown(receipt: dict[str, Any]) -> str:
         "",
         "This receipt compares source-bound outputs; it is not an accuracy score.",
         "Generated images are integration/proposal-review evidence only, not real-camera or expert truth.",
+        "Redness is an independent red contour/hatching layer, never a sensitivity result; unknown regions remain light gray and never count as normal.",
         "",
         "| Subject | Attune valid / 9 | Skin type | Roboflow 8% | Roboflow 50% |",
         "| --- | ---: | --- | ---: | ---: |",
@@ -369,6 +455,7 @@ def _html(receipt: dict[str, Any]) -> str:
 <style>body{{font:14px system-ui,sans-serif;margin:2rem;color:#172033}}h1,h2{{line-height:1.2}}.note{{max-width:80rem;padding:1rem;background:#f4f6f8;border-left:4px solid #64748b}}.wrap{{overflow:auto;margin:1rem 0 2rem}}table{{border-collapse:collapse;min-width:60rem}}th,td{{border:1px solid #cbd5e1;padding:.5rem;text-align:right;white-space:nowrap}}thead th,tbody th{{background:#f8fafc}}tbody th{{text-align:left}}code{{font-size:.85em}}</style>
 </head><body><h1>Attune / Roboflow source-bound comparison</h1>
 <p class="note"><strong>Not an accuracy score.</strong> These are generated replay images without expert ground truth or physical-camera acceptance. Attune values and Roboflow proposal counts are different outputs and are not directly comparable.</p>
+<p class="note"><strong>Map contract.</strong> Redness is an independent red contour/hatching layer, not sensitivity. Unknown/not-evaluable regions are light gray and never normal; dry/normal/mixed truth is not derived from oily/redness-only proposals.</p>
 <p>Attune base commit: <code>{receipt['sourceCommit']}</code><br>Execution revision: <code>{html.escape(str(provenance['localRevisionSHA256']))}</code><br>Endpoint: <code>{html.escape(receipt['endpoint'])}</code></p>
 <h2>Attune current-product outputs</h2><div class="wrap"><table><thead><tr><th>Profile</th>{criteria_headers}<th>skin type</th></tr></thead><tbody>{''.join(attune_rows)}</tbody></table></div>
 <h2>Roboflow proposal counts by confidence floor</h2><div class="wrap"><table><thead><tr><th>Profile</th><th>8%</th><th>15%</th><th>20%</th><th>30%</th><th>50%</th></tr></thead><tbody>{''.join(rf_rows)}</tbody></table></div>
@@ -380,12 +467,15 @@ def build(manifest: dict[str, Any], roboflow: dict[str, Any], attune: dict[str, 
     fronts = _front_manifest(manifest)
     rf = _validate_roboflow(roboflow, fronts)
     current = _validate_attune(attune, fronts)
+    map_contract = _accepted_map_contract()
     return {
-        "schemaVersion": 1,
+        "schemaVersion": 2,
         "comparisonReady": True,
         "sourceCommit": CURRENT_PRODUCT_COMMIT,
         "endpoint": CURRENT_ENDPOINT,
         "attuneExecutionProvenance": attune["provenance"],
+        "mapContract": map_contract,
+        "roboflowProposalSemantics": copy.deepcopy(PROPOSAL_SEMANTICS),
         "subjects": [
             {"subjectKey": key, "attune": current[key], "roboflow": rf[key]}
             for key in sorted(fronts)
@@ -427,3 +517,4 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
