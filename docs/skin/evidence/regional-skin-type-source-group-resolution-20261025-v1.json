@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "regional-skin-type-source-group-resolution-v1",
+  "source": {
+    "archiveSHA256": "4af7732298a0f54c3e1bd4aa68ca954429c39a19a832331a4ce542ae365fa228",
+    "candidateAuditSchema": "regional-skin-type-source-group-audit-v1",
+    "decisionSchema": "regional-skin-type-source-group-decisions-v1"
+  },
+  "review": {
+    "reviewerRole": "engineering_visual_review_not_expert_annotation",
+    "candidateDecisions": 4,
+    "sameSourceOrPersonDecisions": 3,
+    "differentSourceOrPersonDecisions": 1,
+    "allCandidatesResolved": true,
+    "rawImagesCommitted": false,
+    "rawFileNamesCommitted": false
+  },
+  "coverage": {
+    "uniqueSourceIds": 990,
+    "confirmedGroups": 1,
+    "confirmedGroupMembers": 4,
+    "unreviewedSingletonSources": 986,
+    "fullPersonIdentityCoverageEstablished": false,
+    "confirmedCrossSplitGroups": 1
+  },
+  "confirmedGroups": [
+    {
+      "groupId": "1b821600b126d5019eb7887d",
+      "memberSourceIds": [
+        "1002ef3dfdc84ae381ea0016",
+        "572530ecd2287fd5b6f11cac",
+        "93a42c604f4b4a2f2d3e88c2",
+        "d793ca32ae3c1d8431fe6b0e"
+      ],
+      "splitPairs": [
+        "test-train",
+        "train-test"
+      ],
+      "crossSplit": true
+    }
+  ],
+  "decision": {
+    "splitIndependenceEstablished": false,
+    "splitIndependenceViolated": true,
+    "trainingAuthorized": false,
+    "testEligibleForFinalAcceptance": false,
+    "reason": "Confirmed cross-split source/person grouping exists and complete person identity coverage is missing."
+  }
+}
