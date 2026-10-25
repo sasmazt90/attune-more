@@ -2325,7 +2325,7 @@
     {
       "id": "13",
       "target": "unified-results-and-trends",
-      "status": "unified_map_contract_v2_enforced_real_browser_camera_pending",
+      "status": "unified_result_release_gate_fail_closed_browser_camera_pending",
       "work": "Integrate accepted outputs incrementally into maps/cards/history; explicit unavailable reasons; method/version compatibility for trends; end-to-end camera/API/result/history tests and final acceptance report.",
       "evidence": [
         "docs/skin/regional-evidence-contract-20261023.md",
@@ -2393,14 +2393,19 @@
         "docs/skin/evidence/skin-presentation-ci-20261024-v1.json",
         "docs/skin/evidence/current-merged-capability-ci-20261024-v1.json",
         "docs/skin/evidence/current-product-skin-contract-recheck-20261025-v1.json",
-        "docs/skin/evidence/unified-map-contract-correction-20261025-v1.json"
+        "docs/skin/evidence/unified-map-contract-correction-20261025-v1.json",
+        "scripts/skin-research/check_unified_skin_result_release.py",
+        "scripts/skin-research/tests/test_unified_skin_result_release.py",
+        "docs/skin/evidence/unified-skin-result-release-receipt-20261025-v1.json",
+        "docs/skin/evidence/unified-skin-result-release-gate-20261025-v1.json"
       ],
       "blockers": [
         "The merged main branch already has the nine-criterion result path, separate skin type, six regional views, overview, local maps/contours, persistence gate and result UI. The roadmap branch now extends the result contract to eleven appearance headings plus skin type; Post acne and Pigmentation remain explicitly unavailable, not fabricated. Production merge/deployment is not part of this run.",
         "Regional summaries now pass strict parsing, source-bound presentation, explicit categorical history availability states, retained-photo replay validation and the same replay gate before IndexedDB write and after read. An unknown, missing or malformed selected record cannot fall back to an older result; method changes are not bridged. Real browser/IndexedDB screenshot replay cannot run in this environment because Python Playwright and a Chromium executable are absent. Full app typecheck, browser/API/history E2E and real-camera acceptance remain pending.",
         "No oil/dry/redness method is activated by synthetic contract, history, replay or storage tests; the accepted-method registry remains authoritative and currently empty.",
         "The six generated FRONT responses are now source-bound to the existing merged result flow and compared with the saved Roboflow proposals. This closes the generated replay comparison input gap only; physical-camera, temporal, expert-label, accuracy, activation, full browser/API/history E2E and production merge/deployment remain pending.",
-        "The legacy audited comparison preserves unknown pixels and face bounds but still fails product activation: generated replay only, no expert truth, no independent unused final test, 15 capped responses and missing exact evaluations for four displayed NAS selections. Its Sensitive/Redness presentation defect is now quarantined rather than accepted: comparison schema v2 maps kizariklik only to an independent red Redness contour/hatching review layer, keeps Unknown light gray and non-normal, and forbids deriving Dry/Normal/mixed truth from Oily/Redness-only proposals. The private source-bound bundle is not present here, so the historical HTML was not rewritten; regenerated schema-v2 output, full browser/API/history E2E and physical-camera acceptance remain pending."
+        "The legacy audited comparison preserves unknown pixels and face bounds but still fails product activation: generated replay only, no expert truth, no independent unused final test, 15 capped responses and missing exact evaluations for four displayed NAS selections. Its Sensitive/Redness presentation defect is now quarantined rather than accepted: comparison schema v2 maps kizariklik only to an independent red Redness contour/hatching review layer, keeps Unknown light gray and non-normal, and forbids deriving Dry/Normal/mixed truth from Oily/Redness-only proposals. The private source-bound bundle is not present here, so the historical HTML was not rewritten; regenerated schema-v2 output, full browser/API/history E2E and physical-camera acceptance remain pending.",
+        "The executable unified-result gate pins the functioning merged baseline, roadmap map/history code, localization, generated-smoke identity and schema-v2 map correction. It permits current integrated presentation but blocks final acceptance until repository CI, real browser/API E2E, IndexedDB write/read replay, a physical-camera triplet, expert truth and independent final tests for every activated class, all class-specific release gates, unavailable/overlap controls and method-compatible history acceptance pass."
       ]
     }
   ],
@@ -2912,6 +2917,7 @@
     }
   },
   "nextActions": [
+    "Replay scripts/skin-research/check_unified_skin_result_release.py before declaring task 13 or the roadmap complete. Preserve the verified working /api/local-health/skin baseline, nine appearance criteria plus separate skin type, strict unknown/normal handling, independent Redness and method-bound history. Complete repository CI, real browser/API E2E, IndexedDB write/read replay, a consented physical-camera triplet, expert truth and independent final tests for each activated class, every class-specific release gate, unavailable/overlap controls and method-compatible history acceptance. Generated triplets remain integration smoke only.",
     "Replay scripts/skin-research/check_tone_unevenness_release.py before changing task-08 tone semantics, activating a calibration claim or co-reporting accepted localized pigmentation. Preserve the working broad regional chromatic-variation appearance proxy and keep Post acne/Pigmentation separate and unavailable unless their own accepted detector exists. Complete camera calibration, illumination/shadow/hair robustness, skin-tone subgroup calibration, same-person repeatability, an untouched camera holdout and working-product replay; when accepted local masks exist, exclude their support from tone sampling and pass independent-camera co-reporting.",
     "Replay scripts/skin-research/check_redness_release.py before any task-07 retraining, final-test use or red-layer activation. Complete rights review, the 81-item expert mask/negative/ambiguity/assessability protocol, full source/person grouping, a locked replacement split, a new untouched final test of at least 50 images and a separate camera holdout; then validate small Redness and working overlap/unavailable controls. Keep Redness as an independent #DC2626 contour/hatching layer that can overlap dry/oily; never rename it Sensitive, infer sensitivity, treat missing masks as Normal or promote model proposals to expert truth.",
     "Replay scripts/skin-research/check_skin_type_combination_release.py before task-06 regional training, final-test use or mixed-skin activation. Preserve the functioning global dry/normal/oily output. For combination, require accepted evidence for oily forehead+nose+chin and supported normal/dry on both cheeks, complete regional coverage, expert polygon and evaluated Normal/negative truth, source/person-group independence, validation, a new untouched final test, independent camera acceptance and working integration. Never copy a whole-face class into regions, turn boxes into masks, treat missing labels as Normal or treat model proposals as expert truth.",
@@ -2947,6 +2953,18 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T18:37:44Z",
+      "action": "Read the persistent checkpoint first and verified its remote blob exactly against the local working copy. Refreshed all 20 accessible Roboflow projects, exact acne, regional, under-eye and wrinkle training lists, and grouped under-eye upload task sLFwX7CYBVcnnD6iAW5o; all known trainings remain finished, under-eye v2 has no run and the upload task remains created with no progress, so no duplicate job was started. Re-read and SHA-pinned the task-13 result/map/history implementation and six evidence records, including the current merged capability proving that /api/local-health/skin already returns concrete results. Added an executable fail-closed unified-result gate that preserves the working baseline while preventing generated replay from becoming accuracy, expert or physical-camera evidence; it also locks unknown as non-normal, Redness as an independent non-sensitivity layer and history to compatible method identities. Six focused gate tests plus thirty-five task-05/06/07/08/11/12 regressions passed. Final acceptance remains blocked until repository CI, browser/API/IndexedDB E2E, physical camera, expert truth, independent tests, class gates and unavailable/overlap/history controls pass. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/unified-skin-result-release-gate-20261025-v1.json",
+      "commits": [
+        "7eb3a07a37d039757e8a03aec238af95ee36a507",
+        "6468fe564092ba35a8a67106e0084e810fd2f9fd",
+        "7a34bfc1d91f4122c5a5392fd26425b3ff88eb97",
+        "19f44677ef17eea90cb626c52c52ab7e700f2ad9"
+      ]
+    },
     {
       "date": "2026-10-25",
       "observedAt": "2026-10-25T18:04:03Z",
@@ -3581,6 +3599,18 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T18:37:44Z",
+      "action": "Read the persistent checkpoint first and verified its remote blob exactly against the local working copy. Refreshed all 20 accessible Roboflow projects, exact acne, regional, under-eye and wrinkle training lists, and grouped under-eye upload task sLFwX7CYBVcnnD6iAW5o; all known trainings remain finished, under-eye v2 has no run and the upload task remains created with no progress, so no duplicate job was started. Re-read and SHA-pinned the task-13 result/map/history implementation and six evidence records, including the current merged capability proving that /api/local-health/skin already returns concrete results. Added an executable fail-closed unified-result gate that preserves the working baseline while preventing generated replay from becoming accuracy, expert or physical-camera evidence; it also locks unknown as non-normal, Redness as an independent non-sensitivity layer and history to compatible method identities. Six focused gate tests plus thirty-five task-05/06/07/08/11/12 regressions passed. Final acceptance remains blocked until repository CI, browser/API/IndexedDB E2E, physical camera, expert truth, independent tests, class gates and unavailable/overlap/history controls pass. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/unified-skin-result-release-gate-20261025-v1.json",
+      "commits": [
+        "7eb3a07a37d039757e8a03aec238af95ee36a507",
+        "6468fe564092ba35a8a67106e0084e810fd2f9fd",
+        "7a34bfc1d91f4122c5a5392fd26425b3ff88eb97",
+        "19f44677ef17eea90cb626c52c52ab7e700f2ad9"
+      ]
+    },
     {
       "date": "2026-10-25",
       "observedAt": "2026-10-25T18:04:03Z",
