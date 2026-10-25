@@ -10,7 +10,8 @@ import { cameraCrop } from '../CameraPreparation';
 import { StablePreviewCrop } from '../../utils/cameraStability';
 import { meshTriangles, closedSurfaceSupportEnabled } from '../../utils/skinSurfaceAnalysis';
 import { skinBoxEnvelope } from '../../utils/skinBoxEnvelope';
-import { paintPath, paintCentroid, faceWidthPx, PAINT_COLORS, PAINT_LABELS, PAINT_TAG_ANCHOR, SENSITIVE_COLOR, type PaintRegionId, type PaintState } from '../../utils/skinTypePaint';
+import { paintPath, faceWidthPx, PAINT_LABELS, PAINT_TAG_ANCHOR, PAINT_KEYS, paintKey, paintKeyColor, type PaintRegionId, type PaintState } from '../../utils/skinTypePaint';
+import { SkinInconclusiveDialog } from './SkinInconclusiveDialog';
 
 interface SkinFacePanelProps {
   currentRegion: SkinRegionData;
@@ -48,6 +49,7 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
   selectedCriterion
 }) => {
   const { text: i18nText, node: i18nNode } = useTranslations();
+  const [inconclusive, setInconclusive] = useState<{ regionId: string; reason?: string | null } | null>(null);
   const maskId = useId();
   const [videoRatio, setVideoRatio] = useState(4 / 3);
   const previewCrop = React.useRef(new StablePreviewCrop());
@@ -268,7 +270,7 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                     if (!d) return [];
                     const raw = regEntry.state;
                     const state: PaintState = raw === 'oily' || raw === 'dry' || raw === 'normal' ? raw : 'unmeasured';
-                    return [{ regionId, d, state, sensitive: state !== 'unmeasured' && regEntry.sensitive === true }];
+                    return [{ regionId, d, state, sensitive: state !== 'unmeasured' && regEntry.sensitive === true, reason: regEntry.reason as string | null | undefined }];
                   });
                   if (!rows.length) return null;
                   const sw = fw / 260, step = fw / 60, fs = fw / 28;
@@ -276,49 +278,54 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                     <g data-skin-type-overlay>
                       <defs>
                         <filter id={`${maskId}-hud-glow`} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation={fw / 90} /></filter>
-                        {(['oily', 'dry', 'normal', 'unmeasured'] as PaintState[]).map(st => (
-                          <pattern key={st} id={`${maskId}-hud-dots-${st}`} patternUnits="userSpaceOnUse" width={step} height={step}>
-                            <circle cx={step / 2} cy={step / 2} r={fw / 330} fill={PAINT_COLORS[st]} />
+                        {PAINT_KEYS.map(k => (
+                          <pattern key={k} id={`${maskId}-hud-dots-${k}`} patternUnits="userSpaceOnUse" width={step} height={step}>
+                            <circle cx={step / 2} cy={step / 2} r={fw / 330} fill={paintKeyColor(k)} />
                           </pattern>
                         ))}
-                        <pattern id={`${maskId}-hud-dots-sens`} patternUnits="userSpaceOnUse" width={step * 3} height={step * 3}>
-                          <circle cx={step * 1.5} cy={step * 1.5} r={fw / 300} fill={SENSITIVE_COLOR} />
-                        </pattern>
                         {rows.map(r => <clipPath key={r.regionId} id={`${maskId}-hud-clip-${r.regionId}`}><path d={r.d} clipRule="evenodd" /></clipPath>)}
                       </defs>
                       {rows.map(r => {
-                        const c = PAINT_COLORS[r.state], clip = `url(#${maskId}-hud-clip-${r.regionId})`;
-                        const cen = r.sensitive ? paintCentroid(r.regionId, lmk, snapshot.width, snapshot.height) : null;
+                        const k = paintKey(r.state, r.sensitive), c = paintKeyColor(k), clip = `url(#${maskId}-hud-clip-${r.regionId})`;
+                        const open = r.state === 'unmeasured' && r.regionId !== 'periorbital' ? () => setInconclusive({ regionId: r.regionId, reason: r.reason }) : undefined;
                         return (
-                          <g key={r.regionId} data-skin-type-region={r.regionId} data-skin-type-state={r.state} data-skin-type-sensitive={r.sensitive ? 'true' : 'false'}>
+                          <g key={r.regionId} data-skin-type-region={r.regionId} data-skin-type-state={r.state} data-skin-type-sensitive={r.sensitive ? 'true' : 'false'} data-skin-type-color={c}
+                            {...(open ? { role: 'button', tabIndex: 0, 'aria-label': i18nText(`${PAINT_LABELS.unmeasured}: ayrıntılar`), onClick: open, onKeyDown: (e: React.KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } }, style: { cursor: 'pointer', pointerEvents: 'all' as const } } : {})}>
                             <path d={r.d} fill={c} fillOpacity="0.10" fillRule="evenodd" />
                             {/* edge-bright inner glow: wide blurred stroke kept inside the outline */}
                             <g clipPath={clip}><path d={r.d} fill="none" stroke={c} strokeWidth={fw / 9} strokeOpacity="0.22" filter={`url(#${maskId}-hud-glow)`} /></g>
-                            <path d={r.d} fill={`url(#${maskId}-hud-dots-${r.state})`} fillRule="evenodd" opacity="0.55" />
+                            <path d={r.d} fill={`url(#${maskId}-hud-dots-${k})`} fillRule="evenodd" opacity="0.55" />
                             {r.state === 'unmeasured'
                               ? <path data-skin-type-unmeasured={r.regionId} d={r.d} fill="none" stroke={c} strokeWidth={sw} strokeDasharray={`${fw / 40} ${fw / 60}`} strokeLinecap="round" />
                               : <>
                                   <path d={r.d} fill="none" stroke={c} strokeWidth={fw / 70} strokeOpacity="0.35" filter={`url(#${maskId}-hud-glow)`} />
                                   <path d={r.d} fill="none" stroke={c} strokeWidth={sw} strokeLinejoin="round" />
                                 </>}
-                            {r.sensitive && cen && (
-                              <g data-skin-type-sensitive-layer={r.regionId} clipPath={clip}>
-                                <path d={r.d} fill={`url(#${maskId}-hud-dots-sens)`} fillRule="evenodd" opacity="0.9" />
-                                <path d={r.d} fill="none" stroke={SENSITIVE_COLOR} strokeWidth={fw / 300} strokeDasharray={`${fw / 70} ${fw / 90}`}
-                                  transform={`translate(${cen.x} ${cen.y}) scale(0.88) translate(${-cen.x} ${-cen.y})`} />
-                              </g>
-                            )}
                           </g>
                         );
                       })}
                       {currentRegion.id === 'overview' && rows.filter(r => r.regionId !== 'periorbital').map(r => {
                         const a = PAINT_TAG_ANCHOR[r.regionId as Exclude<PaintRegionId, 'periorbital'>];
                         const x = lmk[a.index].x * snapshot.width + a.dx * fw, y = lmk[a.index].y * snapshot.height + a.dy * fw;
+                        const k = paintKey(r.state, r.sensitive), c = paintKeyColor(k);
+                        if (r.state === 'unmeasured') {
+                          // no text on the photo: an info pill in the tag style; the whole region + pill open the details
+                          const rr = fs * 0.85;
+                          return (
+                            <g key={`tag-${r.regionId}`} data-skin-type-tag={r.regionId} data-skin-type-info role="button" tabIndex={0} aria-label={i18nText(`${PAINT_LABELS.unmeasured}: ayrıntılar`)}
+                              onClick={() => setInconclusive({ regionId: r.regionId, reason: r.reason })} style={{ cursor: 'pointer', pointerEvents: 'all' }}
+                              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setInconclusive({ regionId: r.regionId, reason: r.reason }); } }}>
+                              <circle cx={x} cy={y} r={rr} fill="#0a1220" fillOpacity="0.68" stroke={c} strokeOpacity="0.9" strokeWidth={fw / 400} />
+                              <circle cx={x} cy={y - rr * 0.42} r={rr * 0.13} fill="#ebf2fa" />
+                              <rect x={x - rr * 0.1} y={y - rr * 0.18} width={rr * 0.2} height={rr * 0.62} rx={rr * 0.08} fill="#ebf2fa" />
+                            </g>
+                          );
+                        }
                         const text = i18nText(PAINT_LABELS[r.state]) + (r.sensitive ? ' · ' + i18nText('Hassas') : '');
                         const tw = text.length * fs * 0.58 + fs * 0.9;
                         return (
                           <g key={`tag-${r.regionId}`} data-skin-type-tag={r.regionId}>
-                            <rect x={x - tw / 2} y={y - fs * 0.75} width={tw} height={fs * 1.5} rx={fs * 0.75} fill="#0a1220" fillOpacity="0.68" stroke={PAINT_COLORS[r.state]} strokeOpacity="0.9" strokeWidth={fw / 400} />
+                            <rect x={x - tw / 2} y={y - fs * 0.75} width={tw} height={fs * 1.5} rx={fs * 0.75} fill="#0a1220" fillOpacity="0.68" stroke={c} strokeOpacity="0.9" strokeWidth={fw / 400} />
                             <text x={x} y={y + fs * 0.34} textAnchor="middle" fontSize={fs} fill="#ebf2fa" style={{ fontFamily: 'inherit' }}>{text}</text>
                           </g>
                         );
@@ -410,6 +417,7 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
           onNext={onNext}
         />
       )}
+      {inconclusive && <SkinInconclusiveDialog regionId={inconclusive.regionId} reason={inconclusive.reason} onClose={() => setInconclusive(null)} />}
     </div>
   );
 };

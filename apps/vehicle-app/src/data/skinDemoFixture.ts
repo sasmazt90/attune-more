@@ -130,7 +130,7 @@ export const SKIN_REGIONS: Record<SkinRegionId, SkinRegionData> = {
   rightCheek: {
     id: 'rightCheek',
     index: 2,
-    nameTr: 'Sağ Yanak',
+    nameTr: 'Sağ Profil',
     badgeText: '+22%',
     changePct: 22,
     isAttentionRequired: true,
@@ -196,7 +196,7 @@ export const SKIN_REGIONS: Record<SkinRegionId, SkinRegionData> = {
   leftCheek: {
     id: 'leftCheek',
     index: 3,
-    nameTr: 'Sol Yanak',
+    nameTr: 'Sol Profil',
     badgeText: '-3%',
     changePct: -3,
     isAttentionRequired: false,

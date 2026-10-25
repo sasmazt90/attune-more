@@ -7,6 +7,8 @@ import { TrendingUp, FileText, Lightbulb, ArrowRight } from 'lucide-react';
 import { SkinRegionData } from '../../data/skinDemoFixture';
 import { SKIN_TYPE_LABELS, skinTypeLabel } from '../../utils/skinOverview';
 import { isCriterionApplicableToRegion } from '../../utils/skinIndicators';
+import { PAINT_LABELS, PAINT_REGION_NAMES, paintKey, paintKeyColor, type PaintState } from '../../utils/skinTypePaint';
+import { SkinInconclusiveDialog } from './SkinInconclusiveDialog';
 
 interface SkinRegionSummaryProps {
   currentRegion: SkinRegionData;
@@ -56,6 +58,8 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
   onNavigateToCare,selectedCriterion,onSelectCriterion
 }) => {
  const {text:i18nText,node:i18nNode}=useTranslations();
+  const [inconclusive, setInconclusive] = React.useState<{ regionId: string; reason?: string | null } | null>(null);
+  const regional = (currentRegion.skinType as any)?.decisionTrace?.regions as Record<string, any> | undefined;
   const { metrics } = currentRegion;
   const visibleIndicators = React.useMemo(
     () => currentRegion.indicators?.filter(ind => isCriterionApplicableToRegion(ind.id, currentRegion.id)),
@@ -94,8 +98,28 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
               <span className="text-sm text-slate-300">{i18nText("Cilt tipi")}</span>
               <strong className="text-base text-white">{i18nNode(skinTypeDisplay)}</strong>
             </div>
+            {regional && (
+              <ul className="pt-2 space-y-1" data-skin-type-regions>
+                {(['forehead', 'nose', 'chin', 'rightCheek', 'leftCheek'] as const).filter(id => regional[id]).map(id => {
+                  const e = regional[id]; const st: PaintState = ['oily', 'dry', 'normal'].includes(e.state) ? e.state : 'unmeasured';
+                  const sens = st !== 'unmeasured' && e.sensitive === true; const color = paintKeyColor(paintKey(st, sens));
+                  const label = i18nText(PAINT_LABELS[st]) + (sens ? ' · ' + i18nText('Hassas') : '');
+                  return (
+                    <li key={id} className="flex items-center justify-between gap-2 text-sm" data-skin-type-region-row={id} data-state={st}>
+                      <span className="flex items-center gap-2 text-slate-300"><span aria-hidden="true" className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: color }} />{i18nNode(PAINT_REGION_NAMES[id])}</span>
+                      {st === 'unmeasured'
+                        ? <button type="button" onClick={() => setInconclusive({ regionId: id, reason: e.reason })} aria-haspopup="dialog" className="inline-flex min-h-11 items-center gap-2 text-slate-300 underline-offset-2 hover:underline">
+                            {label}<span aria-hidden="true" className="inline-flex w-6 h-6 items-center justify-center rounded-full border border-white/20 text-togg-turquoise">ⓘ</span>
+                          </button>
+                        : <span className="text-white">{label}</span>}
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+            {inconclusive && <SkinInconclusiveDialog regionId={inconclusive.regionId} reason={inconclusive.reason} onClose={() => setInconclusive(null)} />}
             <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400 font-mono" data-skin-type-model={currentRegion.skinType?.methodVersion || 'local-vit+regional-v3'}>
-              <span>{i18nText("Bölgesel Kural + Yerel ONNX (local-vit-dima806)")}</span>
+              <span>{i18nText(regional ? "Bölgesel cilt haritası (yerel model)" : "Bölgesel Kural + Yerel ONNX (local-vit-dima806)")}</span>
               <span>{i18nText("Model/vekil tahmini · Klinik tanı değildir")}</span>
             </div>
           </div>

@@ -23,6 +23,17 @@ export const PAINT_OUTLINES: Record<PaintRegionId, PaintPoint[][]> = {
 };
 export const PAINT_COLORS: Record<PaintState, string> = { oily: '#22c55e', dry: '#3b82f6', normal: '#facc15', unmeasured: '#94a3b8' };
 export const SENSITIVE_COLOR = '#ec4899';
+/** 'X + hassas' has its own single colour, a hue step from its base toward pink (product decision): the region is
+ * never split into a base part and a pink part, so no area reads as 'only sensitive'. */
+export const PAINT_SENSITIVE_COLORS: Record<Exclude<PaintState, 'unmeasured'>, string> = { oily: '#14b8a6', dry: '#6a5af9', normal: '#f97316' };
+export function paintColor(state: PaintState, sensitive: boolean): string {
+  return sensitive && state !== 'unmeasured' ? PAINT_SENSITIVE_COLORS[state] : PAINT_COLORS[state];
+}
+/** Paint/legend identity of a region: base state plus the '+hassas' variant. */
+export type PaintKey = PaintState | 'oily-sensitive' | 'dry-sensitive' | 'normal-sensitive';
+export const paintKey = (state: PaintState, sensitive: boolean): PaintKey => (sensitive && state !== 'unmeasured' ? `${state}-sensitive` as PaintKey : state);
+export const PAINT_KEYS: PaintKey[] = ['oily', 'dry', 'normal', 'unmeasured', 'oily-sensitive', 'dry-sensitive', 'normal-sensitive'];
+export const paintKeyColor = (k: PaintKey): string => k.endsWith('-sensitive') ? PAINT_SENSITIVE_COLORS[k.replace('-sensitive', '') as Exclude<PaintState, 'unmeasured'>] : PAINT_COLORS[k as PaintState];
 
 type P = { x: number; y: number };
 function resolve(lm: P[], p: PaintPoint): P {
@@ -62,7 +73,9 @@ export const PAINT_TAG_ANCHOR: Record<Exclude<PaintRegionId,'periorbital'>, { in
   forehead: { index: 10, dx: 0, dy: -0.02 }, nose: { index: 4, dx: 0, dy: 0.05 },
   rightCheek: { index: 205, dx: -0.12, dy: 0 }, leftCheek: { index: 425, dx: 0.12, dy: 0 }, chin: { index: 152, dx: 0, dy: 0.05 }
 };
-export const PAINT_LABELS: Record<PaintState, string> = { oily: 'Yağlı', dry: 'Kuru', normal: 'Normal görünüm', unmeasured: 'Ölçüm notu' };
+export const PAINT_LABELS: Record<PaintState, string> = { oily: 'Yağlı', dry: 'Kuru', normal: 'Dengeli', unmeasured: 'Kesinleştirilemedi' };
+/** UI names of the regions (cheeks are named by profile side). */
+export const PAINT_REGION_NAMES: Record<Exclude<PaintRegionId, 'periorbital'>, string> = { forehead: 'Alın', nose: 'Burun', chin: 'Çene', rightCheek: 'Sağ profil', leftCheek: 'Sol profil' };
 /** Centroid of a region outline (source pixels) — used to inset the sensitivity ring. */
 export function paintCentroid(region: PaintRegionId, landmarks: { x: number; y: number }[], width: number, height: number): { x: number; y: number } {
   const ring = PAINT_OUTLINES[region][0].map(p => resolve(landmarks.map(q => ({ x: q.x * width, y: q.y * height })), p));

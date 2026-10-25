@@ -836,8 +836,8 @@ export default function SkinPage() {
 
   const getDefaultEngineRegions = (): Record<string, RegionMetrics> => ({
     forehead: { id: 'forehead', nameTr: 'Alın', rednessScore: 32, luminanceScore: 68, textureVariance: 22, changeFromBaselinePct: 4 },
-    rightCheek: { id: 'rightCheek', nameTr: 'Sağ Yanak', rednessScore: 64, luminanceScore: 52, textureVariance: 48, changeFromBaselinePct: 22 },
-    leftCheek: { id: 'leftCheek', nameTr: 'Sol Yanak', rednessScore: 35, luminanceScore: 64, textureVariance: 22, changeFromBaselinePct: -3 },
+    rightCheek: { id: 'rightCheek', nameTr: 'Sağ Profil', rednessScore: 64, luminanceScore: 52, textureVariance: 48, changeFromBaselinePct: 22 },
+    leftCheek: { id: 'leftCheek', nameTr: 'Sol Profil', rednessScore: 35, luminanceScore: 64, textureVariance: 22, changeFromBaselinePct: -3 },
     nose: { id: 'nose', nameTr: 'Burun', rednessScore: 40, luminanceScore: 60, textureVariance: 26, changeFromBaselinePct: 6 },
     chin: { id: 'chin', nameTr: 'Çene', rednessScore: 28, luminanceScore: 65, textureVariance: 16, changeFromBaselinePct: 2 },
     periorbital: { id: 'periorbital', nameTr: 'Göz Çevresi', rednessScore: 30, luminanceScore: 54, textureVariance: 34, changeFromBaselinePct: 8 }
