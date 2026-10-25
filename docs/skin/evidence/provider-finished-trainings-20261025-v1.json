@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-25T02:31:12Z",
+  "repository": {
+    "mainCommit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+    "workBranch": "work/skin-roadmap-20261023",
+    "workCommitBeforeThisReceipt": "ed7a3ed7b338686e89a6e866ea91fb19e1ac9d6b"
+  },
+  "workspace": {
+    "projectCount": 20,
+    "allProjectsPrivateExcept": [
+      "tolgar-sasmaz/attune-skin-type-regional-r1"
+    ],
+    "groupedUnderEyeUploadTask": {
+      "taskId": "sLFwX7CYBVcnnD6iAW5o",
+      "status": "created",
+      "progress": null,
+      "updatedAt": "2026-10-23T10:55:53.477Z"
+    }
+  },
+  "externallyStartedFinishedTrainings": [
+    {
+      "project": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation",
+      "version": 1,
+      "trainingId": "49ee6204cf069198bbfa",
+      "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2",
+      "modelType": "rfdetr-small",
+      "status": "finished",
+      "createdAt": "2026-10-25T00:19:42.805000Z",
+      "finishedAtEpochMs": 1792892417225,
+      "evaluationId": "7s06OfIzx78XzATqr5oA"
+    },
+    {
+      "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+      "version": 1,
+      "trainingId": "af287a006e2e428f5ce4",
+      "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-seg-small-t2",
+      "modelType": "rfdetr-seg-small",
+      "status": "finished",
+      "createdAt": "2026-10-25T00:19:40.265000Z",
+      "finishedAtEpochMs": 1792888685070,
+      "evaluationId": "vsQ6klUgSohCdtLwNMJf"
+    },
+    {
+      "project": "tolgar-sasmaz/attune-skin-under-eye-pilot",
+      "version": 1,
+      "trainingId": "d194569acd3ebe7cf8b7",
+      "modelId": "tolgar-sasmaz/attune-skin-under-eye-pilot-1-rfdetr-seg-small-t1",
+      "modelType": "rfdetr-seg-small",
+      "status": "finished",
+      "createdAt": "2026-10-25T00:27:42.519000Z",
+      "evaluationId": "ntJE3M4iMTVBPCg2HwIb"
+    },
+    {
+      "project": "tolgar-sasmaz/attune-skin-findings-boxes-research",
+      "version": 1,
+      "trainingId": "76f681c0365b84564ca6",
+      "modelId": "tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-small-t2",
+      "modelType": "rfdetr-small",
+      "status": "finished",
+      "createdAt": "2026-10-25T00:40:33.426000Z",
+      "evaluationId": "X8nZ0qo0SoFg80jY4zLE"
+    },
+    {
+      "project": "tolgar-sasmaz/pores-detection-rqkcb-l6t8k",
+      "version": 1,
+      "trainingId": "fede7ab28cd3a70d2d53",
+      "modelId": "tolgar-sasmaz/pores-detection-rqkcb-l6t8k-1-rfdetr-seg-small-t1",
+      "modelType": "rfdetr-seg-small",
+      "status": "finished",
+      "createdAt": "2026-10-25T00:20:05.150000Z",
+      "evaluationId": "wrfrB3Bww1jPelcXkeuT"
+    },
+    {
+      "project": "tolgar-sasmaz/skin_face_detection-emora",
+      "version": 1,
+      "trainingId": "d74d5d927dbbe97574bc",
+      "modelId": "tolgar-sasmaz/skin_face_detection-emora-1-rfdetr-seg-small-t1",
+      "modelType": "rfdetr-seg-small",
+      "status": "finished",
+      "createdAt": "2026-10-25T00:19:36.483000Z",
+      "evaluationId": "g4rZij16YyDRIqJucTKM"
+    },
+    {
+      "project": "tolgar-sasmaz/wrinkles-79rrf-t7kyp",
+      "version": 1,
+      "trainingId": "342657886079e855c017",
+      "modelId": "tolgar-sasmaz/wrinkles-79rrf-t7kyp-1-rfdetr-seg-small-t1",
+      "modelType": "rfdetr-seg-small",
+      "status": "finished",
+      "createdAt": "2026-10-25T00:02:38.036000Z",
+      "evaluationId": "vrgoNtXQJSRl0kHo0ahf"
+    }
+  ],
+  "evaluatedInThisReceipt": {
+    "acneMarksPigmentation": {
+      "trainingId": "49ee6204cf069198bbfa",
+      "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2",
+      "evaluationId": "7s06OfIzx78XzATqr5oA",
+      "testImages": 82,
+      "providerTestSummary": {
+        "map50": 0.13301487328188502,
+        "map50_95": 0.03422613061721248,
+        "precision": 0.547,
+        "recall": 0.199,
+        "f1": 0.207,
+        "medianLatencyMs": 8.42
+      },
+      "validationSelectedTestOperatingPoints": {
+        "Pigmentation": {"threshold": 0.15, "precision": 0.132, "recall": 0.055, "f1": 0.077},
+        "Pimple": {"threshold": 0.35, "precision": 0.272, "recall": 0.308, "f1": 0.289},
+        "Post acne": {"threshold": 0.31, "precision": 0.34, "recall": 0.305, "f1": 0.322}
+      },
+      "decision": "rejected_for_product_activation"
+    },
+    "regionalOilyRedness": {
+      "trainingId": "af287a006e2e428f5ce4",
+      "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-seg-small-t2",
+      "evaluationId": "vsQ6klUgSohCdtLwNMJf",
+      "testImages": 30,
+      "providerTestSummary": {
+        "map50": 0.48302417938577025,
+        "map50_95": 0.19854998963754125,
+        "precision": 0.683,
+        "recall": 0.449,
+        "f1": 0.542,
+        "medianLatencyMs": 15.12
+      },
+      "validationSelectedTestOperatingPoints": {
+        "Oily": {"threshold": 0.38, "precision": 0.543, "recall": 0.422, "f1": 0.475},
+        "Redness": {"threshold": 0.39, "precision": 0.72, "recall": 0.486, "f1": 0.581}
+      },
+      "decision": "research_only_missing_source_independence_dry_normal_camera_and_integration"
+    },
+    "underEyePilotUngrouped": {
+      "trainingId": "d194569acd3ebe7cf8b7",
+      "modelId": "tolgar-sasmaz/attune-skin-under-eye-pilot-1-rfdetr-seg-small-t1",
+      "evaluationId": "ntJE3M4iMTVBPCg2HwIb",
+      "sourceImages": 399,
+      "generatedVersionImages": 952,
+      "generatedSplits": {"train": 832, "valid": 81, "test": 39},
+      "providerTestSummary": {
+        "map50": 0.6181967578296846,
+        "map50_95": 0.22983355945009085,
+        "precision": 0.683,
+        "recall": 0.56,
+        "f1": 0.615,
+        "medianLatencyMs": 21.8
+      },
+      "validationSelectedTestOperatingPoints": {
+        "darkcircle": {"threshold": 0.32, "precision": 0.5, "recall": 0.61, "f1": 0.549},
+        "eyebag": {"threshold": 0.49, "precision": 0.697, "recall": 0.479, "f1": 0.568}
+      },
+      "decision": "research_only_wrong_ungrouped_source_version"
+    }
+  },
+  "testExposure": {
+    "thresholdsChosenFromValidationSweep": true,
+    "thresholdsLockedBeforeThisIndependentTestRead": false,
+    "reason": "Provider test panels and test-optimal thresholds were already exposed before this receipt was frozen; these results are diagnostic and cannot become final untouched-test acceptance evidence."
+  },
+  "actions": {
+    "newTrainingStarted": false,
+    "trainingCancelled": false,
+    "modelActivated": false,
+    "inferenceRun": false,
+    "uploadStarted": false,
+    "duplicateTrainingCreated": false
+  }
+}
