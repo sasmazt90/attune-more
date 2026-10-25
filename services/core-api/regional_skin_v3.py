@@ -257,6 +257,49 @@ def region_crops(rgb: np.ndarray, polys: dict, face_w: float) -> dict:
         out[k] = cv2.resize(cr, (224, 224), interpolation=cv2.INTER_AREA)
     return out
 
+def with_cover(causes: list, decision: dict) -> list:
+    """Beard/lines covering the region is its own cause. If nothing measurable explains the result, both capture causes
+    are offered as the possible ones (the dialog wording says 'possible reason(s)')."""
+    c = list(dict.fromkeys(causes + (['COVER'] if decision.get('reason') == 'BEARD_OR_LINES_COVER_REGION' else [])))
+    return c or ['LIGHTING', 'ANGLE']
+
+def capture_causes(rgb: np.ndarray, polys: dict, P: np.ndarray, pose: str) -> dict:
+    """Per region, which capture problems are actually measurable in this photo (shown to the user only for regions
+    that end up inconclusive):
+      LIGHTING - region much darker/brighter than the face, clipped highlights, or a strong left/right light imbalance;
+      ANGLE    - the head is turned for a front photo, or the region is clearly foreshortened against its counterpart."""
+    L = cv2.cvtColor(rgb, cv2.COLOR_RGB2LAB)[..., 0].astype(np.float32) * 100 / 255
+    masks = {}
+    for k, poly in polys.items():
+        m = np.zeros(L.shape, np.uint8); cv2.fillPoly(m, [poly.astype(np.int32)], 1); masks[k] = m > 0
+    face = np.zeros(L.shape, bool)
+    for k in FACE:
+        face |= masks[k]
+    if face.sum() < 500:
+        return {APP_ID[k]: ['ANGLE'] for k in FACE}
+    fm = float(np.median(L[face]))
+    eye_mid = (P[133] + P[362]) / 2; inner = float(np.linalg.norm(P[133] - P[362])) or 1.0
+    turn = float((P[1][0] - eye_mid[0]) / (0.8 * inner))          # ~0 when facing the camera
+    area = {k: float(masks[k].sum()) for k in FACE}
+    lr = abs(float(np.median(L[masks['cheek_imgL']])) - float(np.median(L[masks['cheek_imgR']]))) if masks['cheek_imgL'].any() and masks['cheek_imgR'].any() else 0.0
+    out = {}
+    for k in FACE:
+        c = []; m = masks[k]
+        if m.sum() >= 150:
+            l = L[m]; d = float(np.median(l)) - fm
+            if abs(d) > 15 or float((l > 96).mean()) > 0.03 or (pose == 'FRONT' and lr > 14 and k.startswith('cheek')):
+                c.append('LIGHTING')
+        if pose == 'FRONT' and abs(turn) > 0.25:
+            c.append('ANGLE')
+        elif k.startswith('cheek'):
+            other = 'cheek_imgR' if k == 'cheek_imgL' else 'cheek_imgL'
+            if pose == 'FRONT' and area[k] < 0.6 * max(area[other], 1):
+                c.append('ANGLE')
+        if m.sum() < 150 and 'ANGLE' not in c:
+            c.append('ANGLE')
+        out[APP_ID[k]] = c
+    return out
+
 def decide_from_probs(probs: dict, ps: float, f: dict, tone: str, thr: dict, params: dict, view_count: int = 1) -> dict:
     best = max(probs, key=probs.get)
     bare_ok = (f.get('frac_clean') or 0) >= params.get('minCleanFraction', 0.3)
@@ -317,6 +360,7 @@ def analyze_photo(bgr: np.ndarray, landmarks_norm: list, check=lambda: None, pos
     bare, _ = bare_skin_features(rgb, polys, face_w, wrinkle, beard)
     ita = ita_angle(rgb, polys); tone = tone_group(ita)
     view = VIEW_OF_POSE.get(pose, 'front'); regions = {}; raw = {}
+    causes = capture_causes(rgb, polys, Pc, pose)
     kc = rt.get('k')
     if kc is not None:
         check(); crops = region_crops(rgb, polys, face_w); keys = [rk for rk in FACE if rk in crops and bare.get(rk) is not None]
@@ -326,10 +370,11 @@ def analyze_photo(bgr: np.ndarray, landmarks_norm: list, check=lambda: None, pos
         if kc is None:
             regions[app] = rt['decider'].region(f, rk, tone); continue
         if f is None or rk not in emb or not usable(app, view):
-            regions[app] = dict(state='unmeasured', sensitive=False, reason='INSUFFICIENT_VISIBLE_AREA' if f is None else 'NOT_VISIBLE_IN_THIS_POSE'); continue
+            regions[app] = dict(state='unmeasured', sensitive=False, reason='INSUFFICIENT_VISIBLE_AREA' if f is None else 'NOT_VISIBLE_IN_THIS_POSE', causes=['ANGLE']); continue
         probs, ps = kc.probs(emb[rk], f, app)
-        raw[app] = dict(probs=probs, sensitive=ps, frac_clean=f.get('frac_clean'), evidence={k: f.get(k) for k in ('skinmap_Redness_max', 'findings_Rozasea_max', 'findings_Egzema_max', 'findings_Sedef_ve_Dokuntu_max')})
-        regions[app] = {**decide_from_probs(probs, ps, f, tone, kc.spec['thresholds']['single'], params), 'sourcePose': pose}
+        raw[app] = dict(probs=probs, sensitive=ps, frac_clean=f.get('frac_clean'), causes=causes.get(app, []), evidence={k: f.get(k) for k in ('skinmap_Redness_max', 'findings_Rozasea_max', 'findings_Egzema_max', 'findings_Sedef_ve_Dokuntu_max')})
+        d = decide_from_probs(probs, ps, f, tone, kc.spec['thresholds']['single'], params)
+        regions[app] = {**d, 'sourcePose': pose, **({'causes': with_cover(causes.get(app, []), d)} if d['state'] == 'unmeasured' else {})}
     return dict(version=VERSION, paramsVersion=params.get('version'), classifierVersion=(kc.spec['version'] if kc else None), pose=pose,
                 tone=dict(ita=round(ita, 1), group=tone), regions=regions, raw=raw, skinType=skin_type_from_regions(regions))
 
@@ -349,6 +394,8 @@ def fuse_maps(maps: dict) -> dict | None:
         ps = float(np.mean([r['sensitive'] for _, r in src]))
         f = {'frac_clean': max(r['frac_clean'] or 0 for _, r in src), **{k: max(float(r['evidence'].get(k) or 0) for _, r in src) for k in src[0][1]['evidence']}}
         side = [p for p, _ in src if p != 'FRONT']
-        regions[app] = {**decide_from_probs(probs, ps, f, tone, thr, params, len(src)), 'sourcePose': side[0] if app in ('rightCheek', 'leftCheek') and side else 'FRONT'}
+        d = decide_from_probs(probs, ps, f, tone, thr, params, len(src))
+        cz = sorted({c for _, r in src for c in (r.get('causes') or [])})
+        regions[app] = {**d, 'sourcePose': side[0] if app in ('rightCheek', 'leftCheek') and side else 'FRONT', **({'causes': with_cover(cz, d)} if d['state'] == 'unmeasured' else {})}
     return dict(version=VERSION, paramsVersion=params.get('version'), classifierVersion=kc.spec['version'], pose='THREE_ANGLE',
                 tone=front['tone'], regions=regions, skinType=skin_type_from_regions(regions))

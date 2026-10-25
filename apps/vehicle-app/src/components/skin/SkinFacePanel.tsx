@@ -49,7 +49,7 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
   selectedCriterion
 }) => {
   const { text: i18nText, node: i18nNode } = useTranslations();
-  const [inconclusive, setInconclusive] = useState<{ regionId: string; reason?: string | null } | null>(null);
+  const [inconclusive, setInconclusive] = useState<{ regionId: string; causes?: string[] | null } | null>(null);
   const maskId = useId();
   const [videoRatio, setVideoRatio] = useState(4 / 3);
   const previewCrop = React.useRef(new StablePreviewCrop());
@@ -270,7 +270,7 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                     if (!d) return [];
                     const raw = regEntry.state;
                     const state: PaintState = raw === 'oily' || raw === 'dry' || raw === 'normal' ? raw : 'unmeasured';
-                    return [{ regionId, d, state, sensitive: state !== 'unmeasured' && regEntry.sensitive === true, reason: regEntry.reason as string | null | undefined }];
+                    return [{ regionId, d, state, sensitive: state !== 'unmeasured' && regEntry.sensitive === true, causes: regEntry.causes as string[] | null | undefined }];
                   });
                   if (!rows.length) return null;
                   const sw = fw / 260, step = fw / 60, fs = fw / 28;
@@ -287,7 +287,7 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                       </defs>
                       {rows.map(r => {
                         const k = paintKey(r.state, r.sensitive), c = paintKeyColor(k), clip = `url(#${maskId}-hud-clip-${r.regionId})`;
-                        const open = r.state === 'unmeasured' && r.regionId !== 'periorbital' ? () => setInconclusive({ regionId: r.regionId, reason: r.reason }) : undefined;
+                        const open = r.state === 'unmeasured' && r.regionId !== 'periorbital' ? () => setInconclusive({ regionId: r.regionId, causes: r.causes }) : undefined;
                         return (
                           <g key={r.regionId} data-skin-type-region={r.regionId} data-skin-type-state={r.state} data-skin-type-sensitive={r.sensitive ? 'true' : 'false'} data-skin-type-color={c}
                             {...(open ? { role: 'button', tabIndex: 0, 'aria-label': i18nText(`${PAINT_LABELS.unmeasured}: ayrıntılar`), onClick: open, onKeyDown: (e: React.KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } }, style: { cursor: 'pointer', pointerEvents: 'all' as const } } : {})}>
@@ -313,8 +313,8 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                           const rr = fs * 0.85;
                           return (
                             <g key={`tag-${r.regionId}`} data-skin-type-tag={r.regionId} data-skin-type-info role="button" tabIndex={0} aria-label={i18nText(`${PAINT_LABELS.unmeasured}: ayrıntılar`)}
-                              onClick={() => setInconclusive({ regionId: r.regionId, reason: r.reason })} style={{ cursor: 'pointer', pointerEvents: 'all' }}
-                              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setInconclusive({ regionId: r.regionId, reason: r.reason }); } }}>
+                              onClick={() => setInconclusive({ regionId: r.regionId, causes: r.causes })} style={{ cursor: 'pointer', pointerEvents: 'all' }}
+                              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setInconclusive({ regionId: r.regionId, causes: r.causes }); } }}>
                               <circle cx={x} cy={y} r={rr} fill="#0a1220" fillOpacity="0.68" stroke={c} strokeOpacity="0.9" strokeWidth={fw / 400} />
                               <circle cx={x} cy={y - rr * 0.42} r={rr * 0.13} fill="#ebf2fa" />
                               <rect x={x - rr * 0.1} y={y - rr * 0.18} width={rr * 0.2} height={rr * 0.62} rx={rr * 0.08} fill="#ebf2fa" />
@@ -417,7 +417,7 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
           onNext={onNext}
         />
       )}
-      {inconclusive && <SkinInconclusiveDialog regionId={inconclusive.regionId} reason={inconclusive.reason} onClose={() => setInconclusive(null)} />}
+      {inconclusive && <SkinInconclusiveDialog regionId={inconclusive.regionId} causes={inconclusive.causes} onClose={() => setInconclusive(null)} />}
     </div>
   );
 };
