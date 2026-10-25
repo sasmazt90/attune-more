@@ -2305,7 +2305,7 @@
     {
       "id": "13",
       "target": "unified-results-and-trends",
-      "status": "twelve_headings_generated_v5_comparison_complete_real_browser_camera_pending",
+      "status": "unified_map_contract_v2_enforced_real_browser_camera_pending",
       "work": "Integrate accepted outputs incrementally into maps/cards/history; explicit unavailable reasons; method/version compatibility for trends; end-to-end camera/API/result/history tests and final acceptance report.",
       "evidence": [
         "docs/skin/regional-evidence-contract-20261023.md",
@@ -2372,14 +2372,15 @@
         ".github/workflows/ci.yml",
         "docs/skin/evidence/skin-presentation-ci-20261024-v1.json",
         "docs/skin/evidence/current-merged-capability-ci-20261024-v1.json",
-        "docs/skin/evidence/current-product-skin-contract-recheck-20261025-v1.json"
+        "docs/skin/evidence/current-product-skin-contract-recheck-20261025-v1.json",
+        "docs/skin/evidence/unified-map-contract-correction-20261025-v1.json"
       ],
       "blockers": [
         "The merged main branch already has the nine-criterion result path, separate skin type, six regional views, overview, local maps/contours, persistence gate and result UI. The roadmap branch now extends the result contract to eleven appearance headings plus skin type; Post acne and Pigmentation remain explicitly unavailable, not fabricated. Production merge/deployment is not part of this run.",
         "Regional summaries now pass strict parsing, source-bound presentation, explicit categorical history availability states, retained-photo replay validation and the same replay gate before IndexedDB write and after read. An unknown, missing or malformed selected record cannot fall back to an older result; method changes are not bridged. Real browser/IndexedDB screenshot replay cannot run in this environment because Python Playwright and a Chromium executable are absent. Full app typecheck, browser/API/history E2E and real-camera acceptance remain pending.",
         "No oil/dry/redness method is activated by synthetic contract, history, replay or storage tests; the accepted-method registry remains authoritative and currently empty.",
         "The six generated FRONT responses are now source-bound to the existing merged result flow and compared with the saved Roboflow proposals. This closes the generated replay comparison input gap only; physical-camera, temporal, expert-label, accuracy, activation, full browser/API/history E2E and production merge/deployment remain pending.",
-        "The audited comparison preserves unknown pixels and face bounds but fails product activation: generated replay only, no expert truth, no independent unused final test, 15 capped responses, missing exact evaluations for four displayed NAS selections, and Sensitive/Redness map-contract mismatch."
+        "The legacy audited comparison preserves unknown pixels and face bounds but still fails product activation: generated replay only, no expert truth, no independent unused final test, 15 capped responses and missing exact evaluations for four displayed NAS selections. Its Sensitive/Redness presentation defect is now quarantined rather than accepted: comparison schema v2 maps kizariklik only to an independent red Redness contour/hatching review layer, keeps Unknown light gray and non-normal, and forbids deriving Dry/Normal/mixed truth from Oily/Redness-only proposals. The private source-bound bundle is not present here, so the historical HTML was not rewritten; regenerated schema-v2 output, full browser/API/history E2E and physical-camera acceptance remain pending."
       ]
     }
   ],
@@ -2891,6 +2892,7 @@
     }
   },
   "nextActions": [
+    "Regenerate the source-bound Attune/Roboflow comparison through scripts/skin-research/build_attune_roboflow_comparison.py schema v2 when its private six-subject bundle is available. The executable contract now hard-fails semantic drift: dry blue, oily green, evaluated normal uncolored, unknown light gray/non-normal, and kizariklik only as an independent red Redness contour/hatching proposal layer. Never restore the legacy Sensitive alias or derive Dry/Normal/mixed truth from the Oily/Redness-only model; then complete real-browser and consented physical-camera acceptance.",
     "Use scripts/skin-research/build_regional_mask_expert_protocol.py --template with docs/skin/evidence/regional-mask-expert-review-queue-20261025-v1.json and the private local resolver, then complete all 81 item-bound expert mask-extent, hard-negative, ambiguity and assessability decisions for Oily and Redness. The protocol builder now requires the exact queue SHA256, 40 Oily plus 41 Redness IDs, exact class/split coverage and locked class policies. Keep test excluded, do not commit filenames/images/resolver data, do not interpret absent labels as Normal or negative, and replay the release gate only after regional-mask-expert-protocol-v1 is produced.",
     "Treat docs/skin/evidence/regional-mask-source-group-audit-20261025-v1.json as the frozen provider-export boundary. Geometry is valid and the candidate scan found no exact/tight cross-split image pairs, but all 337 source identities remain unreviewed. Complete the privacy-preserving person/source-group review and produce a replacement group-locked split before satisfying the regional improvement gate; zero candidates must never be interpreted as independence.",
     "Use docs/skin/evidence/regional-improvement-release-gate-20261025-v1.json before any regional Oily/Redness retry. Complete a source/person-grouped replacement split, expert mask-extent and hard-negative protocol, a new untouched final test of at least 50 images and a separately reserved product-camera holdout. Then permit exactly one validation-only change: face-aligned higher effective resolution or mask-extent standardization. Never tune on the exposed 30-image test, convert missing masks to Normal, collapse Redness into sensitivity, or start blind retraining.",
@@ -2921,6 +2923,17 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T14:06:48Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus exact acne, regional, under-eye and wrinkle training lists. No relevant training is running, pilot v2 still has no training, and grouped under-eye upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress; no duplicate job was started. Traced the task-13 map mismatch to the historical comparison artifact, where the real regional Redness class was presented as Sensitive. Updated the fail-closed comparison builder to schema v2 with the accepted dry-blue, oily-green, evaluated-normal-uncolored, unknown-light-gray/non-normal and independent red Redness contour/hatching contract. It now binds kizariklik only to Redness review proposals, forbids the sensitivity alias, detector-box regional truth, whole-face replication and Dry/Normal/mixed derivation from an Oily/Redness-only model. Eleven comparison tests plus nine sag/wrinkle regressions passed. The legacy artifact remains rejected and was not rewritten without its private source bundle; model accuracy, expert truth, real-camera and production activation remain false. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/unified-map-contract-correction-20261025-v1.json",
+      "commits": [
+        "8c555dc6e9602b055411747ddbb8a10200b7bfbe",
+        "68304ad0b8d971570a3c8544dcf1e203ec4fc176",
+        "8df2098ac77000a0f7c1816f4c03174544ae6f74"
+      ]
+    },
     {
       "date": "2026-10-23",
       "action": "Verified source inventory in current main; checked Roboflow: acne run running, under-eye project 399 images, regional map project empty; created durable execution branch and state."
@@ -3497,6 +3510,17 @@
   ],
   "activityLog": [
     {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T14:06:48Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus exact acne, regional, under-eye and wrinkle training lists. No relevant training is running, pilot v2 still has no training, and grouped under-eye upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress; no duplicate job was started. Traced the task-13 map mismatch to the historical comparison artifact, where the real regional Redness class was presented as Sensitive. Updated the fail-closed comparison builder to schema v2 with the accepted dry-blue, oily-green, evaluated-normal-uncolored, unknown-light-gray/non-normal and independent red Redness contour/hatching contract. It now binds kizariklik only to Redness review proposals, forbids the sensitivity alias, detector-box regional truth, whole-face replication and Dry/Normal/mixed derivation from an Oily/Redness-only model. Eleven comparison tests plus nine sag/wrinkle regressions passed. The legacy artifact remains rejected and was not rewritten without its private source bundle; model accuracy, expert truth, real-camera and production activation remain false. No training, inference, label, split, upload, threshold or activation mutation was performed.",
+      "report": "docs/skin/evidence/unified-map-contract-correction-20261025-v1.json",
+      "commits": [
+        "8c555dc6e9602b055411747ddbb8a10200b7bfbe",
+        "68304ad0b8d971570a3c8544dcf1e203ec4fc176",
+        "8df2098ac77000a0f7c1816f4c03174544ae6f74"
+      ]
+    },
+    {
       "date": "2026-10-24",
       "observedAt": "2026-10-24T11:30:33Z",
       "action": "Read the persistent checkpoint first; refreshed all 16 private Roboflow projects and the acne/regional versions and NAS runs. Both trainings remain finished with 89 and 75 provider records, grouped under-eye remains empty, and no training, inference, upload, label, split or threshold change was started. Reused the immutable 800-image COCO export and added a privacy-safe source-group review gate with three passing tests and CI wiring. Exact SHA review still found no cross-split duplicates, but perceptual candidates plus private engineering inspection confirmed two train/validation source-photo groups: one crop/encoding variant and one crop/watermark variant. The existing split therefore violates source independence and current test metrics cannot be treated as person-independent generalization. No faces, filenames or raw source names were committed; expert lesion semantics and full person/source coverage remain unresolved.",
@@ -3723,3 +3747,4 @@
     }
   ]
 }
+
