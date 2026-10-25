@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "inputBlobs": {
+    "mainLocalSkinType": "8a89c9d89d2bc31cf934e5b2473a455193defa6b",
+    "roadmapLocalSkinType": "806f6f8e236b3689cfd420ec07550813df4a7eff",
+    "roadmapRegionalEvidence": "a8fbfefb613b01162df863614df5a91bf5a6f4f0",
+    "boxAudit": "3c9114c9e7892f6ed03dfffb7eea92ce212bc408",
+    "boxModelReceipt": "7d0817f9df9cb19d38830c7b5288ad7b93d4c934",
+    "boxModelVerdict": "4d875dc9800b5b5f3504d2b27d7b42f873033d09",
+    "sourceGroupResolution": "4aec8f0657b7df8c958711f946baea8fd471bc3c",
+    "currentMergedCapability": "001a343c4ae2537a8b6b9e8ccc2621586ddf014e"
+  },
+  "currentProductBaseline": {
+    "commit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+    "productAlreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "appearanceCriteria": 9,
+    "separateSkinTypeResults": 6,
+    "regionalInventoriesComplete": 6
+  },
+  "roadmapImplementation": {
+    "globalClasses": ["dry", "normal", "oily"],
+    "globalPredictionPreserved": true,
+    "tZone": ["forehead", "nose", "chin"],
+    "outsideTZone": ["leftCheek", "rightCheek"],
+    "combinationRequiresCompleteRegionalEvidence": true,
+    "wholeFaceCopiedToRegionsAllowed": false,
+    "boxesAsRegionalTruthAllowed": false,
+    "missingLabelMeansNormal": false,
+    "modelPredictionIsExpertTruth": false,
+    "normalColour": null,
+    "unknownColour": "#D1D5DB"
+  },
+  "regionalBoxSource": {
+    "archiveSHA256": "4af7732298a0f54c3e1bd4aa68ca954429c39a19a832331a4ce542ae365fa228",
+    "images": 1711,
+    "uniqueSourceIds": 990,
+    "dryBoxes": 3648,
+    "oilyBoxes": 1604,
+    "nonEmptySegmentations": 0,
+    "normalClassPresent": false,
+    "confirmedCrossSplitGroups": 1,
+    "unreviewedSingletonSources": 986,
+    "testEligibleForFinalAcceptance": false
+  },
+  "regionalBoxModel": {
+    "trainingId": "a9e8b8a021825191cf5b",
+    "thresholdsLockedBeforeTest": false,
+    "dryTestF1": 0.215,
+    "oilyTestF1": 0.279,
+    "accepted": false
+  },
+  "candidate": {
+    "rightsReviewedRegionalSources": false,
+    "expertRegionalPolygonProtocolComplete": false,
+    "evaluatedNormalNegativeTruthComplete": false,
+    "sourcePersonGroupSplitIndependent": false,
+    "acceptedMethodRegistryPopulated": false,
+    "validationPassed": false,
+    "untouchedFinalTestReserved": false,
+    "untouchedFinalTestPassed": false,
+    "physicalCameraHoldoutPassed": false,
+    "workingProductIntegrationPassed": false
+  }
+}
