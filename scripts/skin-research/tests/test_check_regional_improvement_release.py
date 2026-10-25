@@ -86,13 +86,64 @@ def source_audit():
     }
 
 
-def mask_protocol(redness_independent=True):
+def review_queue():
+    items = []
+    for name, count in gate.EXPECTED_REVIEW_CLASS_COUNTS.items():
+        for index in range(count):
+            items.append({
+                "reviewItemId": f"{len(items):024x}",
+                "className": name,
+                "split": "train" if index % 2 == 0 else "valid",
+                "missingClassIsNegative": False,
+            })
+    return {
+        "schemaVersion": "regional-mask-expert-review-queue-v1",
+        "source": {
+            "sourceArchiveSHA256": gate.EXPECTED_ARCHIVE_SHA256,
+            "providerExportSHA256": gate.EXPECTED_PROVIDER_EXPORT_SHA256,
+            "versionNumber": 1,
+        },
+        "privacy": {
+            "containsImageBytes": False,
+            "containsFilenames": False,
+            "containsRawSourceNames": False,
+            "containsProviderImageIds": False,
+            "resolverCommitted": False,
+        },
+        "selection": {
+            "allowedSplits": ["train", "valid"],
+            "testImagesRead": 0,
+            "testImagesSelected": 0,
+            "selectedUniqueImages": gate.EXPECTED_REVIEW_ITEMS,
+        },
+        "reviewPolicy": {
+            "reviewerRequired": "expert_review",
+            "rednessIndependentLayer": True,
+            "missingMaskMeansNormal": False,
+            "missingClassIsNegative": False,
+            "modelPredictionAcceptedAsTruth": False,
+        },
+        "items": items,
+    }
+
+
+def mask_protocol(queue=None, redness_independent=True):
+    queue = queue or review_queue()
+    ids = {
+        name: sorted(row["reviewItemId"] for row in queue["items"] if row["className"] == name)
+        for name in gate.CLASSES
+    }
     return {
         "schemaVersion": "regional-mask-expert-protocol-v1",
         "archiveSHA256": gate.EXPECTED_ARCHIVE_SHA256,
+        "providerExportSHA256": gate.EXPECTED_PROVIDER_EXPORT_SHA256,
+        "reviewQueueSchemaVersion": queue["schemaVersion"],
+        "reviewQueueSHA256": gate.EXPECTED_REVIEW_QUEUE_SHA256,
+        "reviewQueueItems": gate.EXPECTED_REVIEW_ITEMS,
         "reviewer": "expert_review",
         "rednessIndependentLayer": redness_independent,
         "missingMaskMeansNormal": False,
+        "missingClassIsNegative": False,
         "modelPredictionAcceptedAsTruth": False,
         "classes": [
             {
@@ -101,7 +152,7 @@ def mask_protocol(redness_independent=True):
                 "maskExtentPolicyLocked": True,
                 "hardNegativePolicyLocked": True,
                 "ambiguousCasePolicyLocked": True,
-                "reviewedItemIds": [f"reviewed-{name}"],
+                "reviewedItemIds": ids[name],
             }
             for name in gate.CLASSES
         ],
@@ -145,7 +196,10 @@ class RegionalImprovementReleaseGateTest(unittest.TestCase):
         root_audit = json.loads(
             (root / "docs/skin/evidence/regional-mask-source-group-audit-20261025-v1.json").read_text()
         )
-        result = gate.build_gate(current, source_audit=root_audit)
+        queue = json.loads(
+            (root / "docs/skin/evidence/regional-mask-expert-review-queue-20261025-v1.json").read_text()
+        )
+        result = gate.build_gate(current, source_audit=root_audit, review_queue=queue)
         self.assertFalse(result["decision"]["trainingAuthorized"])
         self.assertEqual(
             result["decision"]["blockedReasons"],
@@ -158,19 +212,22 @@ class RegionalImprovementReleaseGateTest(unittest.TestCase):
         )
 
     def test_complete_receipts_authorize_one_validation_training_only(self):
+        queue = review_queue()
         result = gate.build_gate(
-            diagnosis(), source_audit(), group_split(), mask_protocol(), experiment(), final_test()
+            diagnosis(), source_audit(), group_split(), queue, mask_protocol(queue), experiment(), final_test()
         )
         self.assertTrue(result["decision"]["trainingAuthorized"])
         self.assertFalse(result["decision"]["testEvaluationAuthorized"])
         self.assertFalse(result["decision"]["activationAllowed"])
 
     def test_multiple_or_untargeted_changes_are_rejected(self):
+        queue = review_queue()
         result = gate.build_gate(
             diagnosis(),
             source_audit(),
             group_split(),
-            mask_protocol(),
+            queue,
+            mask_protocol(queue),
             experiment([
                 {"type": "mask_extent_standardization"},
                 {"type": "augmentation_change"},
@@ -185,7 +242,8 @@ class RegionalImprovementReleaseGateTest(unittest.TestCase):
             diagnosis(),
             source_audit(),
             group_split(),
-            mask_protocol(),
+            queue,
+            mask_protocol(queue),
             experiment([{"type": "augmentation_change"}]),
             final_test(),
         )
@@ -195,11 +253,13 @@ class RegionalImprovementReleaseGateTest(unittest.TestCase):
         )
 
     def test_redness_must_remain_independent(self):
+        queue = review_queue()
         result = gate.build_gate(
             diagnosis(),
             source_audit(),
             group_split(),
-            mask_protocol(redness_independent=False),
+            queue,
+            mask_protocol(queue, redness_independent=False),
             experiment(),
             final_test(),
         )
@@ -211,7 +271,8 @@ class RegionalImprovementReleaseGateTest(unittest.TestCase):
             diagnosis(),
             source_audit(),
             group_split(),
-            mask_protocol(),
+            queue,
+            mask_protocol(queue),
             experiment(redness_independent=False),
             final_test(),
         )
@@ -221,15 +282,17 @@ class RegionalImprovementReleaseGateTest(unittest.TestCase):
         )
 
     def test_small_or_exposed_final_test_is_rejected(self):
+        queue = review_queue()
         result = gate.build_gate(
-            diagnosis(), source_audit(), group_split(), mask_protocol(), experiment(), final_test(images=49)
+            diagnosis(), source_audit(), group_split(), queue, mask_protocol(queue), experiment(), final_test(images=49)
         )
         self.assertIn("FINAL_TEST_BELOW_50_IMAGES", result["decision"]["blockedReasons"])
         result = gate.build_gate(
             diagnosis(),
             source_audit(),
             group_split(),
-            mask_protocol(),
+            queue,
+            mask_protocol(queue),
             experiment(),
             final_test(overlap=1),
         )
@@ -261,6 +324,22 @@ class RegionalImprovementReleaseGateTest(unittest.TestCase):
         value["privacy"]["resolverCommitted"] = True
         with self.assertRaisesRegex(gate.GateError, "privacy safe"):
             gate.build_gate(diagnosis(), value)
+
+    def test_protocol_must_cover_exact_frozen_queue(self):
+        queue = review_queue()
+        value = mask_protocol(queue)
+        value["classes"][0]["reviewedItemIds"][0] = "f" * 24
+        result = gate.build_gate(
+            diagnosis(), source_audit(), group_split(), queue, value, experiment(), final_test()
+        )
+        self.assertIn("EXPERT_MASK_AND_NEGATIVE_PROTOCOL_MISSING", result["decision"]["blockedReasons"])
+
+        value = mask_protocol(queue)
+        value["reviewQueueSHA256"] = "0" * 64
+        with self.assertRaisesRegex(gate.GateError, "binding"):
+            gate.build_gate(
+                diagnosis(), source_audit(), group_split(), queue, value, experiment(), final_test()
+            )
 
 
 if __name__ == "__main__":
