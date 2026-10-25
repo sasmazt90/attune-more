@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "project": "Attune.more skin roadmap",
-  "date": "2026-10-25",
+  "date": "2026-10-26",
   "repository": "sasmazt90/attune-more",
   "branch": "work/skin-roadmap-20261023",
   "authorization": "User explicitly delegated execution of the entire accepted roadmap until completed, with final-only notification. Continue routine reversible preparation, implementation, testing and authorized model training autonomously; disclose a material blocker once. Do not fabricate completion or treat user/model visual review as expert annotation.",
@@ -1455,6 +1455,34 @@
         "receipt": "4dac40cb1bcc0d99e5dc2dff88566b9609070567",
         "gate": "30db08a5d2c3db9bdeb22ea8996c806c8ffcbed6"
       }
+    },
+    "excludedArchiveInventoryGate": {
+      "observedAt": "2026-10-25T23:53:28Z",
+      "methodVersion": "excluded-archive-inventory-reconciliation-v1",
+      "script": "scripts/skin-research/reconcile_excluded_archive_inventory.py",
+      "tests": "scripts/skin-research/tests/test_reconcile_excluded_archive_inventory.py",
+      "receipt": "docs/skin/evidence/excluded-archive-inventory-receipt-20261026-v1.json",
+      "evidence": "docs/skin/evidence/excluded-archive-inventory-gate-20261026-v1.json",
+      "requiredArchiveCount": 4,
+      "mappingScriptReferenceCount": 3,
+      "candidateArchiveCount": 0,
+      "publicNamesOrPathsStored": false,
+      "preservationPolicyEnforced": true,
+      "inventoryReconciled": false,
+      "sourceReleaseContributionAllowed": false,
+      "testCount": 29,
+      "commits": [
+        "7374aefc7a51bb98cf0e7b4f08206cf10b91be7d",
+        "efcb66b605c71d441cd980a79d6dce5cbc8b40ec",
+        "9bb7d26fd307fdee61083ac5ba69c0cac2f04777",
+        "0babd1c353509358fe04889eb51c4b09a6f23417"
+      ],
+      "blobs": {
+        "script": "cb6312a364d2122c92f5d23efa0536ee7690c9b9",
+        "tests": "bebdad51be24193e4f62b30b81a8f46f272f9eb3",
+        "receipt": "8b28cc6a19d8b2f4261196a4787086e5adc251d8",
+        "gate": "fa273b7f51ed7cc025c0bd9ffb288b08ef050bc5"
+      }
     }
   },
   "sourceAccess": {
@@ -1643,7 +1671,7 @@
     {
       "id": "00",
       "target": "shared-data-and-evaluation",
-      "status": "source_mapping_release_gate_fail_closed_rights_expert_group_camera_pending",
+      "status": "excluded_archive_reconciliation_gate_fail_closed_private_inventory_pending",
       "work": "Build target/source inventory; verify annotation geometry and label meaning; group exact/near duplicate photos across sources; freeze train/validation/test groups; audit source licences; create independent camera benchmark and capture-quality checks. A shared fail-closed learned-model gate now requires immutable identity, reviewed source/split/negative evidence, per-class validation plus locked test, independent product-contract camera evidence and working integration before activation.",
       "evidence": [
         "scripts/skin-research/audit_roadmap_archives.py",
@@ -1763,7 +1791,11 @@
         "scripts/skin-research/check_source_mapping_release.py",
         "scripts/skin-research/tests/test_check_source_mapping_release.py",
         "docs/skin/evidence/source-mapping-release-receipt-20261025-v1.json",
-        "docs/skin/evidence/source-mapping-release-gate-20261025-v1.json"
+        "docs/skin/evidence/source-mapping-release-gate-20261025-v1.json",
+        "scripts/skin-research/reconcile_excluded_archive_inventory.py",
+        "scripts/skin-research/tests/test_reconcile_excluded_archive_inventory.py",
+        "docs/skin/evidence/excluded-archive-inventory-receipt-20261026-v1.json",
+        "docs/skin/evidence/excluded-archive-inventory-gate-20261026-v1.json"
       ],
       "blockers": [
         "Final holdout independence is not established. The privacy-safe grouping proposal confirms 16 cross-split source/person groups covering 37 records, including test/train leakage, while 729 singleton records still lack reviewed provenance/person identity. Independent real-camera evidence is also pending.",
@@ -1777,7 +1809,8 @@
         "The regional provider diagnosis confirms weak Oily boundary localization, low-confidence background false positives, zero small-object Redness test-diagnostic mAP50 and a 30-image exposed test below the provider's 50-image minimum. Its executable gate blocks training until source/person grouping, expert mask and negative protocol, one validation-only targeted change, a new untouched 50+ image final test and a separate camera holdout exist.",
         "The frozen regional COCO export contains 1,636 valid Oily/Redness polygons and no box-only or invalid geometry. The cross-split candidate scan found no exact or tight perceptual matches, but candidate absence is not identity proof: all 337 source IDs remain without complete person/source-group review, so the existing split and exposed test are not independent acceptance evidence. The improvement-release gate now requires and validates this exact source/export audit before any training authorization.",
         "The expert review queue covers 81 train/validation images and zero test images, but it is preparation rather than expert truth. Expert mask-extent, hard-negative, ambiguity and assessability decisions remain required for both Oily and Redness.",
-        "The source-mapping release gate binds selected_sources.py and expanded_sources.py to eight exact source/geometry audits and remains fail-closed. Clean3 is dominated by boxes (Dry-Skin 2,117 boxes/6 valid polygons; Oily-Skin 889/10; Skin-Redness 123/0), the acquisition set still has 57 geometry issues plus substantial cross-split candidates, assistant review is not expert truth, rights/person grouping/final split/camera evidence are incomplete, and the mapping script lists only three of the four protected excluded archives. Research routing is allowed; training-data and product-truth release are not."
+        "The source-mapping release gate binds selected_sources.py and expanded_sources.py to eight exact source/geometry audits and remains fail-closed. Clean3 is dominated by boxes (Dry-Skin 2,117 boxes/6 valid polygons; Oily-Skin 889/10; Skin-Redness 123/0), the acquisition set still has 57 geometry issues plus substantial cross-split candidates, assistant review is not expert truth, rights/person grouping/final split/camera evidence are incomplete, and the mapping script lists only three of the four protected excluded archives. Research routing is allowed; training-data and product-truth release are not.",
+        "The privacy-safe excluded-archive reconciler now enforces exactly four unique opaque IDs plus SHA-256 values and hard-fails any public name/path/URL, selected-source hash overlap, access, mutation, upload, training or product-truth use. The public branch intentionally contains zero private inventory entries because only three references are recoverable from current code and the fourth identity/hash is not evidenced. Preservation policy passes, but inventory reconciliation and its source-release contribution remain false until the complete private four-entry inventory is reviewed."
       ]
     },
     {
@@ -3023,6 +3056,7 @@
     }
   },
   "nextActions": [
+    "Run scripts/skin-research/reconcile_excluded_archive_inventory.py only with the private four-entry inventory: four unique opaque IDs and SHA-256 values, no archive names/paths/URLs, zero overlap with selected-source hashes, and explicit false access/mutation/upload/training/product-use flags. Do not access or hash the excluded archives merely to satisfy the gate; use an already authorized private ledger or durable prior hash evidence. Until all four are reviewed, keep inventoryReconciled and sourceReleaseContributionAllowed false.",
     "Replay scripts/skin-research/check_source_mapping_release.py before using selected_sources.py or expanded_sources.py for any training-data or product-truth release. Preserve all four excluded archives and first reconcile the fourth archive outside the mapping-script list, verify every archive hash and right, lock expert per-class semantics, finish geometry plus source/person grouping, create a group-locked train/validation/new-final-test split and reserve an independent camera holdout. Keep boxes and rectangle-polygons out of pixel truth, missing labels out of Normal/negative truth, tone out of localized Pigmentation, pul out of broad regional dryness and model proposals out of expert truth.",
     "Replay scripts/skin-research/check_acne_concern_release.py before task-01/02/03 retraining, final-test use or learned-model activation. Preserve the functioning concrete acne result, keep Post acne and Pigmentation explicitly unavailable, and permit each class to pass only on its own validation, new untouched final test, physical-camera skin-tone/lighting/pose slices, integration and unavailable/history/dedup evidence. First complete rights review, expert per-class positive/negative/ambiguity policy, full person/source grouping, a verified group-locked replacement split and exactly one validation-only resolution experiment. Never collapse the classes, use missing labels as negatives, treat model proposals as expert truth, infer a medical diagnosis, or populate localized Pigmentation from tone.",
     "Replay scripts/skin-research/check_under_eye_concern_release.py before task-09/10 final-test use or model activation. Keep darkcircle and eyebag as separate classes and product headings; permit either class to pass only on its own validation, new untouched final test, physical-camera skin-tone/lighting/pose slices, integration and unavailable/history evidence. First satisfy the exact grouped archive/import/version gate, rights, expert per-class mask/negative/ambiguity protocol and person-independent split. Never infer medical causes for dark circles, edema/fluid retention for bags, missing-label negatives, or promote the ungrouped model as accepted truth.",
@@ -3063,6 +3097,18 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-25T23:53:28Z",
+      "action": "Read the persistent checkpoint first and verified remote blob 1346cac770b296c21193bcd5580adea7ab25c9af. Refreshed all 20 accessible Roboflow projects, exact acne, regional and under-eye training lists and grouped under-eye upload task sLFwX7CYBVcnnD6iAW5o. Known trainings remain finished, grouped under-eye remains empty and its upload task remains created with no progress; no duplicate training, upload, inference or mutation was started. Continued task 00 by adding an executable privacy-safe reconciliation gate for the four user-excluded archives. It accepts only four unique opaque IDs plus SHA-256 values, stores no names/paths/URLs, and hard-rejects selected-source overlap, access, mutation, upload, training use or product-truth use. Current evidence exposes that only three public mapping-script references exist and supplies no authorized private four-entry ledger, so the gate preserves the archives but correctly keeps inventoryReconciled=false and sourceReleaseContributionAllowed=false. Five new tests plus twenty-four source, acne, regional, under-eye and unified regressions passed. No excluded archive was accessed, hashed anew, renamed, moved, uploaded or used.",
+      "report": "docs/skin/evidence/excluded-archive-inventory-gate-20261026-v1.json",
+      "commits": [
+        "7374aefc7a51bb98cf0e7b4f08206cf10b91be7d",
+        "efcb66b605c71d441cd980a79d6dce5cbc8b40ec",
+        "9bb7d26fd307fdee61083ac5ba69c0cac2f04777",
+        "0babd1c353509358fe04889eb51c4b09a6f23417"
+      ]
+    },
     {
       "date": "2026-10-25",
       "observedAt": "2026-10-25T22:59:27Z",
@@ -3757,6 +3803,18 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-25T23:53:28Z",
+      "action": "Read the persistent checkpoint first and verified remote blob 1346cac770b296c21193bcd5580adea7ab25c9af. Refreshed all 20 accessible Roboflow projects, exact acne, regional and under-eye training lists and grouped under-eye upload task sLFwX7CYBVcnnD6iAW5o. Known trainings remain finished, grouped under-eye remains empty and its upload task remains created with no progress; no duplicate training, upload, inference or mutation was started. Continued task 00 by adding an executable privacy-safe reconciliation gate for the four user-excluded archives. It accepts only four unique opaque IDs plus SHA-256 values, stores no names/paths/URLs, and hard-rejects selected-source overlap, access, mutation, upload, training use or product-truth use. Current evidence exposes that only three public mapping-script references exist and supplies no authorized private four-entry ledger, so the gate preserves the archives but correctly keeps inventoryReconciled=false and sourceReleaseContributionAllowed=false. Five new tests plus twenty-four source, acne, regional, under-eye and unified regressions passed. No excluded archive was accessed, hashed anew, renamed, moved, uploaded or used.",
+      "report": "docs/skin/evidence/excluded-archive-inventory-gate-20261026-v1.json",
+      "commits": [
+        "7374aefc7a51bb98cf0e7b4f08206cf10b91be7d",
+        "efcb66b605c71d441cd980a79d6dce5cbc8b40ec",
+        "9bb7d26fd307fdee61083ac5ba69c0cac2f04777",
+        "0babd1c353509358fe04889eb51c4b09a6f23417"
+      ]
+    },
     {
       "date": "2026-10-25",
       "observedAt": "2026-10-25T22:59:27Z",
