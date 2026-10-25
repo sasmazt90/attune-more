@@ -130,6 +130,46 @@ class ComparisonContractTest(unittest.TestCase):
         self.assertFalse(receipt["claims"]["accuracyMeasured"])
         self.assertIn("Not an accuracy score", comparison._html(receipt))
 
+    def test_map_contract_preserves_accepted_colors_and_unknown_semantics(self):
+        manifest, roboflow, attune = fixtures()
+        receipt = comparison.build(manifest, roboflow, attune)
+        states = receipt["mapContract"]["regionalStates"]
+        self.assertEqual(receipt["schemaVersion"], 2)
+        self.assertEqual(states["dry"]["color"], "#2563EB")
+        self.assertEqual(states["oily"]["color"], "#16A34A")
+        self.assertIsNone(states["normal"]["color"])
+        self.assertTrue(states["normal"]["requiresEvaluatedRegion"])
+        self.assertEqual(states["unknown"]["color"], "#D1D5DB")
+        self.assertFalse(states["unknown"]["countsAsNormal"])
+
+    def test_redness_proposal_cannot_become_sensitive_or_regional_truth(self):
+        manifest, roboflow, attune = fixtures()
+        receipt = comparison.build(manifest, roboflow, attune)
+        redness = receipt["mapContract"]["independentLayers"]["redness"]
+        semantics = receipt["roboflowProposalSemantics"]["kizariklik"]
+        self.assertEqual(redness["color"], "#DC2626")
+        self.assertEqual(redness["render"], "contour-or-hatching")
+        self.assertFalse(redness["derivedFromSensitivity"])
+        self.assertTrue(redness["mayOverlapRegionalStates"])
+        self.assertEqual(semantics["concern"], "redness")
+        self.assertFalse(semantics["sensitivityAliasAllowed"])
+        self.assertFalse(semantics["regionalStateTruth"])
+        self.assertNotIn('"sensitive"', json.dumps(receipt).lower())
+        self.assertIn("not sensitivity", comparison._html(receipt))
+
+    def test_mixed_skin_type_requires_regional_support(self):
+        manifest, roboflow, attune = fixtures()
+        receipt = comparison.build(manifest, roboflow, attune)
+        mixed = receipt["mapContract"]["mixedSkinType"]
+        self.assertTrue(mixed["requiresSupportedOilyTZone"])
+        self.assertTrue(mixed["requiresSupportedNonTOilyNormalOrDry"])
+        self.assertTrue(mixed["requiresSufficientRegionalCoverage"])
+        self.assertFalse(mixed["wholeFaceClassReplicationAllowed"])
+        self.assertIn(
+            "dry-normal-or-mixed-derived-from-oily-redness-only-model",
+            receipt["mapContract"]["prohibitions"],
+        )
+
     def test_missing_attune_subject_is_blocked(self):
         manifest, roboflow, attune = fixtures()
         attune["captures"].pop()
@@ -196,3 +236,4 @@ class ComparisonContractTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
