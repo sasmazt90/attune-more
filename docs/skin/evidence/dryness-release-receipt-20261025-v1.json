@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "regional-dryness-release-receipt-v1",
+  "observedAt": "2026-10-25T15:08:09Z",
+  "inputBlobs": {
+    "clean3": "11f300fe126246e65616cc22e7f2a43c0994f0a2",
+    "merve": "0519d6e87d2206f0387f5c69784b42b52b960ca5",
+    "sourceAcquisition": "632ab9084f71f8ea3019ec923f9ffd7bf2b42bf7",
+    "sourceReviewChecks": "7318b1345ba67e606ae6ad4e68fab6d2c662fbdd",
+    "skinTypeBoxes": "3c9114c9e7892f6ed03dfffb7eea92ce212bc408",
+    "skinTypeGroupResolution": "4aec8f0657b7df8c958711f946baea8fd471bc3c"
+  },
+  "sources": {
+    "clean3": {
+      "archiveSHA256": "461c70bb46307273af60334259bec685981e4fb99348fbeb0fc04e6102466fc3",
+      "dryBoxes": 2117,
+      "dryPolygons": 6,
+      "dryPolygonSplits": {"train": 3, "valid": 2, "test": 1},
+      "crossSplitExactGroups": 9,
+      "expertReviewed": false
+    },
+    "merve": {
+      "archiveSHA256": "8fdf070c0cae65fd27ce0046c93393e0ac17e5282bf472097453c756481b831e",
+      "pulBoxes": 2590,
+      "pulPolygons": 0,
+      "processedFilenameCount": 3368,
+      "naturalCameraColourCalibrationAllowed": false,
+      "expertReviewed": false
+    },
+    "drynessV1": {
+      "archiveSHA256": "caa1d873d1c98a507ed37a31c42e2f7a0cd543d494e65d0be1f67f15b5b483f4",
+      "images": 2072,
+      "boxOnlyAnnotations": 6679,
+      "nonRectangularPolygons": 61,
+      "rectanglePolygons": 65,
+      "geometryIssues": 14,
+      "matchedExistingImages": 700,
+      "expertSemanticsReviewed": false
+    },
+    "faceV3": {
+      "archiveSHA256": "7c06f1c48d049c1c419d909d488c6642465f0f57958a42eaa62569527ee3094c",
+      "dryPolygons": 48,
+      "dryRectanglePolygons": 24,
+      "normalPolygons": 88,
+      "expertSemanticsReviewed": false
+    },
+    "skinTypeBoxes": {
+      "archiveSHA256": "4af7732298a0f54c3e1bd4aa68ca954429c39a19a832331a4ce542ae365fa228",
+      "dryBoxes": 3648,
+      "nonEmptySegmentations": 0,
+      "normalClassPresent": false,
+      "missingAnnotationMeansNormal": false,
+      "confirmedCrossSplitPersonGroups": 1,
+      "fullPersonIdentityCoverage": false
+    }
+  },
+  "reviewBundle": {
+    "sha256": "39c5a43b9ae87926b63b19fe5dd139409e55e38d3202affb04884e18daab61ce",
+    "pairs": 120,
+    "drynessMaskPairs": 12,
+    "drynessBoxPairs": 12,
+    "faceDryMaskPairs": 16,
+    "expertReviewed": false,
+    "productAccepted": false
+  },
+  "semanticContract": {
+    "blueOverlayMeaning": "expert-supported-regional-dryness-or-flaking",
+    "boxesAsMasksAllowed": false,
+    "missingLabelMeansNormal": false,
+    "genericDrynessEqualsVisibleFlaking": false,
+    "modelPredictionIsExpertTruth": false,
+    "unknownColour": "#D1D5DB",
+    "dryColour": "#2563EB"
+  },
+  "candidate": {
+    "rightsReviewedNaturalCameraSources": false,
+    "expertSemanticPolicyComplete": false,
+    "expertPolygonExtentReviewComplete": false,
+    "evaluatedNegativeAndNormalRegionsComplete": false,
+    "sourcePersonGroupSplitIndependent": false,
+    "untouchedFinalTestReserved": false,
+    "validationPassed": false,
+    "untouchedFinalTestPassed": false,
+    "physicalCameraHoldoutPassed": false,
+    "workingProductIntegrationPassed": false
+  }
+}
