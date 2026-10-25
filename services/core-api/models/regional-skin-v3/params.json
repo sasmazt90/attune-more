@@ -1,6 +1,7 @@
 {
- "version": "regional-skin-v3-params-20261025",
+ "version": "regional-skin-v3-params-20261025d",
  "minCleanFraction": 0.3,
+ "sensDarkEvidenceThreshold": 0.35,
  "stats": {
   "light": {
    "c_shine": [
@@ -245,6 +246,13 @@
     "fn": 21,
     "n": 329
    }
+  },
+  "scinDarkSensitivity": {
+   "fitzpatrickVtoVI_positives": 19,
+   "recall_at_045": 0.32,
+   "recall_at_035": 0.47,
+   "falseAlarm_testbedDark": 0.09,
+   "falseAlarm_customerProfilesDark": "1/12 images"
   },
   "note": "thresholds chosen on fit split (grouped OOF F1); test reported once; periorbital not validated"
  }

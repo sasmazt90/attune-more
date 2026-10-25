@@ -171,7 +171,15 @@ class Decider:
             state, reason = 'dry', None
         else:
             state, reason = 'normal', None
-        return dict(state=state, sensitive=bool(ps >= T['sens'][tone]), reason=reason, scores=dict(oily=round(po, 3), dry=round(pd, 3), sensitive=round(ps, 3)))
+        sensitive = ps >= T['sens'][tone]
+        # Dark skin (ITA < 10): redness is less visible, so the fused model under-calls sensitivity
+        # (SCIN smartphone photos, Fitzpatrick V-VI: recall 0.32 at the shared threshold). A direct
+        # evidence rule at a lower bar raises recall to 0.47 with ~9% false alarms on dark-skin negatives.
+        dark_thr = self.p.get('sensDarkEvidenceThreshold')
+        if tone == 'dark' and dark_thr is not None:
+            ev = max(float(f.get(k) or 0) for k in ('skinmap_Redness_max', 'findings_Rozasea_max', 'findings_Egzema_max', 'findings_Sedef_ve_Dokuntu_max'))
+            sensitive = sensitive or ev >= dark_thr
+        return dict(state=state, sensitive=bool(sensitive), reason=reason, scores=dict(oily=round(po, 3), dry=round(pd, 3), sensitive=round(ps, 3)))
 
 def skin_type_from_regions(regions: dict) -> dict:
     """Naming rule (product owner): oily somewhere (esp. T-zone) + dry/normal elsewhere -> combination; all oily -> oily;
