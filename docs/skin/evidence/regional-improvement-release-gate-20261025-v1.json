@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "regional-mask-improvement-release-gate-v1",
+  "observedAt": "2026-10-25T05:09:14Z",
+  "inputs": {
+    "diagnosis": "docs/skin/evidence/regional-rfdetr-seg-small-t2-diagnosis-20261025-v1.json",
+    "groupSplit": null,
+    "maskProtocol": null,
+    "validationExperiment": null,
+    "untouchedFinalTest": null
+  },
+  "modelIdentity": {
+    "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-seg-small-t2",
+    "trainingId": "af287a006e2e428f5ce4",
+    "evalId": "vsQ6klUgSohCdtLwNMJf",
+    "versionNumber": 1,
+    "modelType": "rfdetr-seg-small"
+  },
+  "checks": {
+    "sourcePersonGroupLockedReplacementSplit": false,
+    "expertMaskAndNegativeProtocol": false,
+    "rednessIndependentLayer": true,
+    "validationOnlyOneChangeExperiment": false,
+    "newUntouchedFinalTestAtLeast50AndCameraHoldout": false
+  },
+  "decision": {
+    "trainingAuthorized": false,
+    "testEvaluationAuthorized": false,
+    "activationAllowed": false,
+    "blockedReasons": [
+      "SOURCE_PERSON_GROUP_LOCKED_REPLACEMENT_SPLIT_MISSING",
+      "EXPERT_MASK_AND_NEGATIVE_PROTOCOL_MISSING",
+      "VALIDATION_ONLY_ONE_CHANGE_EXPERIMENT_MISSING",
+      "NEW_UNTOUCHED_50_IMAGE_FINAL_TEST_AND_CAMERA_HOLDOUT_MISSING"
+    ],
+    "note": "Authorization permits one validation-only training experiment. It never permits test evaluation or activation; those require later receipts."
+  }
+}
