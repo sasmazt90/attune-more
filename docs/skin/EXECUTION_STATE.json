@@ -175,15 +175,21 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-25",
-      "lastCheckedAt": "2026-10-25T00:23:29Z",
-      "modelCount": 89,
+      "lastCheckedAt": "2026-10-25T02:31:12Z",
+      "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
-        "status": "running",
+        "status": "finished",
         "modelType": "rfdetr-small",
+        "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2",
         "createdAt": "2026-10-25T00:19:42.805000Z",
+        "finishedAtEpochMs": 1792892417225,
         "startedByThisAutomation": false,
-        "duplicateTrainingAllowed": false
+        "duplicateTrainingAllowed": false,
+        "evaluationId": "7s06OfIzx78XzATqr5oA",
+        "accepted": false,
+        "activationAllowed": false,
+        "evidence": "docs/skin/evidence/acne-rfdetr-small-t2-model-verdict-20261025-v1.json"
       },
       "evaluation": {
         "evalId": "0xMgfVLFzMyNEOhN1baC",
@@ -441,8 +447,10 @@
         "eyebagPolygons": 487,
         "invalidGeometry": 0
       },
-      "versions": [],
-      "lastCheckedAt": "2026-10-25T00:23:29Z",
+      "versions": [
+        1
+      ],
+      "lastCheckedAt": "2026-10-25T02:31:12Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -469,6 +477,23 @@
         "cameraAccepted": false,
         "remoteVersionCreated": false,
         "evidence": "docs/skin/evidence/under-eye-group-split-20261023-v1.json"
+      },
+      "externalUngroupedTraining": {
+        "version": 1,
+        "generatedImages": 952,
+        "splits": {
+          "train": 832,
+          "valid": 81,
+          "test": 39
+        },
+        "trainingId": "d194569acd3ebe7cf8b7",
+        "modelId": "tolgar-sasmaz/attune-skin-under-eye-pilot-1-rfdetr-seg-small-t1",
+        "modelType": "rfdetr-seg-small",
+        "status": "finished",
+        "evaluationId": "ntJE3M4iMTVBPCg2HwIb",
+        "accepted": false,
+        "activationAllowed": false,
+        "evidence": "docs/skin/evidence/under-eye-ungrouped-rfdetr-seg-small-t1-model-verdict-20261025-v1.json"
       },
       "groupedResearchProject": {
         "project": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
@@ -535,15 +560,21 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-25T00:23:29Z",
+      "lastCheckedAt": "2026-10-25T02:31:12Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
-        "status": "running",
+        "status": "finished",
         "modelType": "rfdetr-seg-small",
+        "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-seg-small-t2",
         "createdAt": "2026-10-25T00:19:40.265000Z",
+        "finishedAtEpochMs": 1792888685070,
         "startedByThisAutomation": false,
-        "duplicateTrainingAllowed": false
+        "duplicateTrainingAllowed": false,
+        "evaluationId": "vsQ6klUgSohCdtLwNMJf",
+        "accepted": false,
+        "activationAllowed": false,
+        "evidence": "docs/skin/evidence/regional-rfdetr-seg-small-t2-model-verdict-20261025-v1.json"
       },
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "modelIds": [
@@ -1071,7 +1102,7 @@
       }
     },
     "concurrentWork": {
-      "observedAt": "2026-10-25T00:23:29Z",
+      "observedAt": "2026-10-25T02:31:12Z",
       "projectsTotal": 20,
       "doNotDuplicate": [
         {
@@ -1119,8 +1150,9 @@
           "project": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation",
           "version": 1,
           "trainingId": "49ee6204cf069198bbfa",
-          "status": "running",
+          "status": "finished",
           "modelType": "rfdetr-small",
+          "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2",
           "createdAt": "2026-10-25T00:19:42.805000Z",
           "startedByThisAutomation": false
         },
@@ -1128,13 +1160,24 @@
           "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
           "version": 1,
           "trainingId": "af287a006e2e428f5ce4",
-          "status": "running",
+          "status": "finished",
           "modelType": "rfdetr-seg-small",
+          "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-seg-small-t2",
           "createdAt": "2026-10-25T00:19:40.265000Z",
+          "startedByThisAutomation": false
+        },
+        {
+          "project": "tolgar-sasmaz/attune-skin-under-eye-pilot",
+          "version": 1,
+          "trainingId": "d194569acd3ebe7cf8b7",
+          "status": "finished",
+          "modelType": "rfdetr-seg-small",
+          "modelId": "tolgar-sasmaz/attune-skin-under-eye-pilot-1-rfdetr-seg-small-t1",
+          "createdAt": "2026-10-25T00:27:42.519000Z",
           "startedByThisAutomation": false
         }
       ],
-      "note": "All 20 accessible projects were refreshed. Main remains at 7463eef with the functioning skin result flow; the work branch was 17ca0b0 at refresh. Exact running jobs 49ee6204cf069198bbfa and af287a006e2e428f5ce4 were detected on the existing acne and regional versions and preserved without duplication or mutation. Grouped under-eye remains empty and upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress. Last refreshed at 2026-10-25T00:23:29Z."
+      "note": "All 20 accessible projects were refreshed. Main remains at 7463eef with the functioning skin result flow. The externally started acne 49ee6204cf069198bbfa, regional af287a006e2e428f5ce4 and ungrouped under-eye d194569acd3ebe7cf8b7 trainings are finished and exact-ID evaluations are recorded, but all fail the shared activation gate. Grouped under-eye remains empty and upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress. No duplicate training, cancellation, inference, upload or activation was performed. Last refreshed at 2026-10-25T02:31:12Z."
     }
   },
   "sourceAccess": {
@@ -1402,7 +1445,15 @@
       "docs/skin/evidence/regional-skin-type-source-group-audit-20261025-v1.json",
       "docs/skin/evidence/regional-skin-type-source-group-decisions-20261025-v1.json",
       "docs/skin/evidence/regional-skin-type-source-group-resolution-20261025-v1.json",
-      "docs/skin/regional-skin-type-source-group-audit-20261025.md"
+      "docs/skin/regional-skin-type-source-group-audit-20261025.md",
+      "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
+      "docs/skin/evidence/acne-rfdetr-small-t2-model-receipt-20261025-v1.json",
+      "docs/skin/evidence/acne-rfdetr-small-t2-model-verdict-20261025-v1.json",
+      "docs/skin/evidence/regional-rfdetr-seg-small-t2-model-receipt-20261025-v1.json",
+      "docs/skin/evidence/regional-rfdetr-seg-small-t2-model-verdict-20261025-v1.json",
+      "docs/skin/evidence/under-eye-ungrouped-rfdetr-seg-small-t1-model-receipt-20261025-v1.json",
+      "docs/skin/evidence/under-eye-ungrouped-rfdetr-seg-small-t1-model-verdict-20261025-v1.json",
+      "scripts/skin-research/tests/test_provider_finished_training_receipts.py"
       ],
       "blockers": [
         "Final holdout independence is not established. The privacy-safe grouping proposal confirms 16 cross-split source/person groups covering 37 records, including test/train leakage, while 729 singleton records still lack reviewed provenance/person identity. Independent real-camera evidence is also pending.",
@@ -1411,7 +1462,7 @@
         "The shared gate correctly rejects the current acne/post-acne/pigmentation and regional oil/redness candidates, and the empty grouped under-eye project has no model to evaluate; source/expert/person-independent/camera gaps must be resolved rather than bypassed.",
       "The self-contained ten-model comparison is source-bound to the same six generated FRONT JPEGs, not physical-camera captures. Fifteen model/profile pairs hit the 300-prediction cap, so the exploration responses cannot establish complete recall or an operating threshold.",
       "Regional skin-type v2 has a confirmed train/test source-person leakage group connecting four nominal source IDs, while 986 source IDs remain without complete reviewed identity coverage. Its current test cannot serve as an independent final holdout.",
-      "Two exact external jobs are already running on existing versions: acne 49ee6204cf069198bbfa and regional af287a006e2e428f5ce4. Do not duplicate, cancel or promote them merely because training finishes; evaluate exact model IDs through the shared gate."
+      "The exact external acne and regional jobs, plus the externally trained ungrouped under-eye model, are finished and checkpointed with immutable training/model/evaluation IDs. All three fail the shared acceptance gate; no duplicate training, blind retry or activation is authorized."
       ]
     },
     {
@@ -1460,7 +1511,11 @@
         "scripts/skin-research/build_acne_group_coverage_proposal.py",
         "scripts/skin-research/tests/test_build_acne_group_coverage_proposal.py",
         "docs/skin/evidence/acne-group-coverage-proposal-20261024-v1.json",
-        "docs/skin/acne-group-coverage-proposal-20261024.md"
+        "docs/skin/acne-group-coverage-proposal-20261024.md",
+        "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
+        "docs/skin/evidence/acne-rfdetr-small-t2-model-receipt-20261025-v1.json",
+        "docs/skin/evidence/acne-rfdetr-small-t2-model-verdict-20261025-v1.json",
+        "scripts/skin-research/tests/test_provider_finished_training_receipts.py"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
@@ -1472,7 +1527,8 @@
         "Dual-method privacy-safe source/person review confirmed five distinct train/validation groups: two crop/encoding or watermark variants and three same-person photo-series pairs. The committed regrouping plan deduplicates method overlap and requires each hashed group to remain in one split, but assigns no target split. The existing split violates source/person independence; full identity coverage plus semantic/negative review is still required before a replacement group-locked split or retraining.",
         "Fail-closed replacement-split gate replayed all 800 hashed records: the current split has 16 confirmed source/person leakage groups (37 members), but no complete reviewed group-coverage receipt exists (0/800 covered) and expert positive/hard-negative/ambiguous-case policies remain missing for Pimple, Post acne and Pigmentation. Replacement split generation, training and test evaluation remain unauthorized.",
         "A deterministic expert semantic/hard-negative queue now contains 81 hashed train/validation review items and excludes all 82 locked test images. Pigmentation has no isolated-positive source image in train/validation. The archive-bound expert receipt exists but remains intentionally blank; Pimple, Post acne and Pigmentation definitions, hard negatives and ambiguous cases are not yet expert-locked, so training remains unauthorized.",
-        "The privacy-safe full-record grouping proposal represents all 800 records exactly once. General name similarity at 0.94, separate cross-split and within-split 0.90–0.94 review bands, full/crop image hashes and a candidate-only central gradient pHash surfaced 227 deduplicated pairs; private engineering review resolved all as 41 same-source/person and 186 false-positive matches. Thirty-two confirmed groups cover 71 records; 16 groups cross existing splits and cover 37 records. The remaining 729 records are explicitly unreviewed singletons. No similarity method establishes full identity coverage; no target split, version or training is authorized."
+        "The privacy-safe full-record grouping proposal represents all 800 records exactly once. General name similarity at 0.94, separate cross-split and within-split 0.90–0.94 review bands, full/crop image hashes and a candidate-only central gradient pHash surfaced 227 deduplicated pairs; private engineering review resolved all as 41 same-source/person and 186 false-positive matches. Thirty-two confirmed groups cover 71 records; 16 groups cross existing splits and cover 37 records. The remaining 729 records are explicitly unreviewed singletons. No similarity method establishes full identity coverage; no target split, version or training is authorized.",
+        "Finished RF-DETR Small model tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2 has validation-selected Pimple threshold 0.35 and test precision/recall/F1 0.272/0.308/0.289. Provider test panels were already exposed before this receipt, source/person independence and expert semantics remain unresolved, and camera/integration evidence is absent; the shared gate rejects activation and blind retraining."
       ]
     },
     {
@@ -1521,7 +1577,11 @@
         "scripts/skin-research/build_acne_group_coverage_proposal.py",
         "scripts/skin-research/tests/test_build_acne_group_coverage_proposal.py",
         "docs/skin/evidence/acne-group-coverage-proposal-20261024-v1.json",
-        "docs/skin/acne-group-coverage-proposal-20261024.md"
+        "docs/skin/acne-group-coverage-proposal-20261024.md",
+        "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
+        "docs/skin/evidence/acne-rfdetr-small-t2-model-receipt-20261025-v1.json",
+        "docs/skin/evidence/acne-rfdetr-small-t2-model-verdict-20261025-v1.json",
+        "scripts/skin-research/tests/test_provider_finished_training_receipts.py"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
@@ -1533,7 +1593,8 @@
         "Dual-method privacy-safe source/person review confirmed five distinct train/validation groups: two crop/encoding or watermark variants and three same-person photo-series pairs. The committed regrouping plan deduplicates method overlap and requires each hashed group to remain in one split, but assigns no target split. The existing split violates source/person independence; full identity coverage plus semantic/negative review is still required before a replacement group-locked split or retraining.",
         "Fail-closed replacement-split gate replayed all 800 hashed records: the current split has 16 confirmed source/person leakage groups (37 members), but no complete reviewed group-coverage receipt exists (0/800 covered) and expert positive/hard-negative/ambiguous-case policies remain missing for Pimple, Post acne and Pigmentation. Replacement split generation, training and test evaluation remain unauthorized.",
         "A deterministic expert semantic/hard-negative queue now contains 81 hashed train/validation review items and excludes all 82 locked test images. Pigmentation has no isolated-positive source image in train/validation. The archive-bound expert receipt exists but remains intentionally blank; Pimple, Post acne and Pigmentation definitions, hard negatives and ambiguous cases are not yet expert-locked, so training remains unauthorized.",
-        "The privacy-safe full-record grouping proposal represents all 800 records exactly once. General name similarity at 0.94, separate cross-split and within-split 0.90–0.94 review bands, full/crop image hashes and a candidate-only central gradient pHash surfaced 227 deduplicated pairs; private engineering review resolved all as 41 same-source/person and 186 false-positive matches. Thirty-two confirmed groups cover 71 records; 16 groups cross existing splits and cover 37 records. The remaining 729 records are explicitly unreviewed singletons. No similarity method establishes full identity coverage; no target split, version or training is authorized."
+        "The privacy-safe full-record grouping proposal represents all 800 records exactly once. General name similarity at 0.94, separate cross-split and within-split 0.90–0.94 review bands, full/crop image hashes and a candidate-only central gradient pHash surfaced 227 deduplicated pairs; private engineering review resolved all as 41 same-source/person and 186 false-positive matches. Thirty-two confirmed groups cover 71 records; 16 groups cross existing splits and cover 37 records. The remaining 729 records are explicitly unreviewed singletons. No similarity method establishes full identity coverage; no target split, version or training is authorized.",
+        "Finished RF-DETR Small model tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2 has validation-selected Post acne threshold 0.31 and test precision/recall/F1 0.340/0.305/0.322. Provider test panels were already exposed before this receipt, source/person independence and expert semantics remain unresolved, and camera/integration evidence is absent; the shared gate rejects activation and blind retraining."
       ]
     },
     {
@@ -1582,7 +1643,11 @@
         "scripts/skin-research/build_acne_group_coverage_proposal.py",
         "scripts/skin-research/tests/test_build_acne_group_coverage_proposal.py",
         "docs/skin/evidence/acne-group-coverage-proposal-20261024-v1.json",
-        "docs/skin/acne-group-coverage-proposal-20261024.md"
+        "docs/skin/acne-group-coverage-proposal-20261024.md",
+        "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
+        "docs/skin/evidence/acne-rfdetr-small-t2-model-receipt-20261025-v1.json",
+        "docs/skin/evidence/acne-rfdetr-small-t2-model-verdict-20261025-v1.json",
+        "scripts/skin-research/tests/test_provider_finished_training_receipts.py"
       ],
       "blockers": [
         "Finished NAS children include 754885 candidate; 247 real hosted inferences evaluated against frozen original COCO. Validation-only thresholds locked before test; all three classes insufficient. See per-class precision/recall and AP evidence. No model accepted.",
@@ -1594,7 +1659,8 @@
         "Dual-method privacy-safe source/person review confirmed five distinct train/validation groups: two crop/encoding or watermark variants and three same-person photo-series pairs. The committed regrouping plan deduplicates method overlap and requires each hashed group to remain in one split, but assigns no target split. The existing split violates source/person independence; full identity coverage plus semantic/negative review is still required before a replacement group-locked split or retraining.",
         "Fail-closed replacement-split gate replayed all 800 hashed records: the current split has 16 confirmed source/person leakage groups (37 members), but no complete reviewed group-coverage receipt exists (0/800 covered) and expert positive/hard-negative/ambiguous-case policies remain missing for Pimple, Post acne and Pigmentation. Replacement split generation, training and test evaluation remain unauthorized.",
         "A deterministic expert semantic/hard-negative queue now contains 81 hashed train/validation review items and excludes all 82 locked test images. Pigmentation has no isolated-positive source image in train/validation. The archive-bound expert receipt exists but remains intentionally blank; Pimple, Post acne and Pigmentation definitions, hard negatives and ambiguous cases are not yet expert-locked, so training remains unauthorized.",
-        "The privacy-safe full-record grouping proposal represents all 800 records exactly once. General name similarity at 0.94, separate cross-split and within-split 0.90–0.94 review bands, full/crop image hashes and a candidate-only central gradient pHash surfaced 227 deduplicated pairs; private engineering review resolved all as 41 same-source/person and 186 false-positive matches. Thirty-two confirmed groups cover 71 records; 16 groups cross existing splits and cover 37 records. The remaining 729 records are explicitly unreviewed singletons. No similarity method establishes full identity coverage; no target split, version or training is authorized."
+        "The privacy-safe full-record grouping proposal represents all 800 records exactly once. General name similarity at 0.94, separate cross-split and within-split 0.90–0.94 review bands, full/crop image hashes and a candidate-only central gradient pHash surfaced 227 deduplicated pairs; private engineering review resolved all as 41 same-source/person and 186 false-positive matches. Thirty-two confirmed groups cover 71 records; 16 groups cross existing splits and cover 37 records. The remaining 729 records are explicitly unreviewed singletons. No similarity method establishes full identity coverage; no target split, version or training is authorized.",
+        "Finished RF-DETR Small model tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2 has validation-selected Pigmentation threshold 0.15 and test precision/recall/F1 0.132/0.055/0.077. Provider test panels were already exposed before this receipt, source/person independence and expert semantics remain unresolved, and camera/integration evidence is absent; the shared gate rejects activation and blind retraining."
       ]
     },
     {
@@ -1640,14 +1706,19 @@
       "docs/skin/evidence/regional-skin-type-source-group-audit-20261025-v1.json",
       "docs/skin/evidence/regional-skin-type-source-group-decisions-20261025-v1.json",
       "docs/skin/evidence/regional-skin-type-source-group-resolution-20261025-v1.json",
-      "docs/skin/regional-skin-type-source-group-audit-20261025.md"
+      "docs/skin/regional-skin-type-source-group-audit-20261025.md",
+      "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
+      "docs/skin/evidence/regional-rfdetr-seg-small-t2-model-receipt-20261025-v1.json",
+      "docs/skin/evidence/regional-rfdetr-seg-small-t2-model-verdict-20261025-v1.json",
+      "scripts/skin-research/tests/test_provider_finished_training_receipts.py"
       ],
       "blockers": [
         "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
         "Oily test mask precision/recall 0.649/0.411 and class-union IoU 0.309 require improvement. Redness test mask precision/recall 0.625/0.405, but class-union IoU 0.709 shows that instance subdivision matters; only nine test images have redness annotations. This is promising research evidence, not camera acceptance.",
         "Live eval DnEj7h84bQauUdGIVrUQ verifies regional child e79545 test F1 0.513 for Oily, but the model has only Oily/Redness classes and no Dry/Normal support. The comparison map is research-only and cannot authorize an oil/skin-type activation.",
       "External regional-skin-type v2 has dry/oily boxes only, no polygons or normal truth. At the exposed test and threshold 0.21, oily F1 is 0.279; thresholds were not locked before test and the shared acceptance gate rejects activation.",
-      "Privacy-safe visual review confirms one train/test source-person leakage group containing four nominal source IDs. The remaining 986 source IDs still lack complete reviewed person identity coverage; the exposed test is not an independent final holdout."
+      "Privacy-safe visual review confirms one train/test source-person leakage group containing four nominal source IDs. The remaining 986 source IDs still lack complete reviewed person identity coverage; the exposed test is not an independent final holdout.",
+      "Finished RF-DETR Seg Small model tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-seg-small-t2 has validation-selected Oily threshold 0.38 and test precision/recall/F1 0.543/0.422/0.475. Test panels were already exposed, source independence is unknown, and Dry/Normal, camera and integration evidence are missing; no activation or blind retraining."
       ]
     },
     {
@@ -1764,12 +1835,17 @@
         "tests/unit/test_audit_original_photo_model_comparison.py",
         "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
         "docs/skin/evidence/roboflow-live-evaluations-20261024.json",
-        "docs/skin/original-photo-model-comparison-audit-20261024.md"
+        "docs/skin/original-photo-model-comparison-audit-20261024.md",
+        "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
+        "docs/skin/evidence/regional-rfdetr-seg-small-t2-model-receipt-20261025-v1.json",
+        "docs/skin/evidence/regional-rfdetr-seg-small-t2-model-verdict-20261025-v1.json",
+        "scripts/skin-research/tests/test_provider_finished_training_receipts.py"
       ],
       "blockers": [
         "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
         "Oily test mask precision/recall 0.649/0.411 and class-union IoU 0.309 require improvement. Redness test mask precision/recall 0.625/0.405, but class-union IoU 0.709 shows that instance subdivision matters; only nine test images have redness annotations. This is promising research evidence, not camera acceptance.",
-        "Live eval DnEj7h84bQauUdGIVrUQ verifies regional child e79545 test F1 0.533 for Redness, but the comparison output schema labels its product layer Sensitive. Sensitive is not redness; the accepted independent red contour/hatching contract fails closed."
+        "Live eval DnEj7h84bQauUdGIVrUQ verifies regional child e79545 test F1 0.533 for Redness, but the comparison output schema labels its product layer Sensitive. Sensitive is not redness; the accepted independent red contour/hatching contract fails closed.",
+        "Finished RF-DETR Seg Small model tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-seg-small-t2 has validation-selected Redness threshold 0.39 and test precision/recall/F1 0.720/0.486/0.581. Test panels were already exposed, source independence is unknown, and camera/integration evidence are missing; redness remains an independent research layer and is not sensitivity."
       ]
     },
     {
@@ -1797,31 +1873,41 @@
     {
       "id": "09",
       "target": "under-eye-dark-circles",
-      "status": "source_grouped_export_prepared",
+      "status": "ungrouped_external_model_evaluated_grouped_research_pending",
       "work": "Use existing DC EB 2 private project with darkcircle polygons; audit actual masks, group split, train and evaluate segmentation and camera behaviour.",
       "evidence": [
         "docs/skin/evidence/archive-audit-20261023-v2.json",
         "docs/skin/evidence/under-eye-group-split-20261023-v1.json",
         "docs/skin/under-eye-group-split-20261023.md",
-        "docs/skin/evidence/under-eye-grouped-project-20261023-v1.json"
+        "docs/skin/evidence/under-eye-grouped-project-20261023-v1.json",
+        "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
+        "docs/skin/evidence/under-eye-ungrouped-rfdetr-seg-small-t1-model-receipt-20261025-v1.json",
+        "docs/skin/evidence/under-eye-ungrouped-rfdetr-seg-small-t1-model-verdict-20261025-v1.json",
+        "scripts/skin-research/tests/test_provider_finished_training_receipts.py"
       ],
       "blockers": [
-        "The grouped 399-image/869-polygon export is SHA-pinned and a unique private Roboflow research project exists, but the client-side facial-image ZIP transfer was not permitted in this run. The project remains empty, upload task sLFwX7CYBVcnnD6iAW5o has status created with no progress, and no version/training exists. Do not create another project or task; retry only the same verified archive through an explicitly permitted private transfer path."
+        "The grouped 399-image/869-polygon export is SHA-pinned and a unique private Roboflow research project exists, but the client-side facial-image ZIP transfer was not permitted in this run. The project remains empty, upload task sLFwX7CYBVcnnD6iAW5o has status created with no progress, and no version/training exists. Do not create another project or task; retry only the same verified archive through an explicitly permitted private transfer path.",
+        "An external RF-DETR Seg Small model was trained on ungrouped pilot v1 (952 generated images from 399 originals). At validation-selected threshold 0.32, darkcircle test precision/recall/F1 is 0.500/0.610/0.549. The source archive has three known cross-split source-photo pairs, provider test panels were already exposed, and camera/integration evidence is absent; this model is rejected and cannot substitute for the empty grouped project."
       ]
     },
     {
       "id": "10",
       "target": "under-eye-bags",
-      "status": "source_grouped_export_prepared",
+      "status": "ungrouped_external_model_evaluated_grouped_research_pending",
       "work": "Use DC EB 2 eyebag polygons; keep bags and darkcircle separate; evaluate and integrate appearance segmentation.",
       "evidence": [
         "docs/skin/evidence/archive-audit-20261023-v2.json",
         "docs/skin/evidence/under-eye-group-split-20261023-v1.json",
         "docs/skin/under-eye-group-split-20261023.md",
-        "docs/skin/evidence/under-eye-grouped-project-20261023-v1.json"
+        "docs/skin/evidence/under-eye-grouped-project-20261023-v1.json",
+        "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
+        "docs/skin/evidence/under-eye-ungrouped-rfdetr-seg-small-t1-model-receipt-20261025-v1.json",
+        "docs/skin/evidence/under-eye-ungrouped-rfdetr-seg-small-t1-model-verdict-20261025-v1.json",
+        "scripts/skin-research/tests/test_provider_finished_training_receipts.py"
       ],
       "blockers": [
-        "The grouped 399-image/869-polygon export is SHA-pinned and a unique private Roboflow research project exists, but the client-side facial-image ZIP transfer was not permitted in this run. The project remains empty, upload task sLFwX7CYBVcnnD6iAW5o has status created with no progress, and no version/training exists. Do not create another project or task; retry only the same verified archive through an explicitly permitted private transfer path."
+        "The grouped 399-image/869-polygon export is SHA-pinned and a unique private Roboflow research project exists, but the client-side facial-image ZIP transfer was not permitted in this run. The project remains empty, upload task sLFwX7CYBVcnnD6iAW5o has status created with no progress, and no version/training exists. Do not create another project or task; retry only the same verified archive through an explicitly permitted private transfer path.",
+        "An external RF-DETR Seg Small model was trained on ungrouped pilot v1 (952 generated images from 399 originals). At validation-selected threshold 0.49, eyebag test precision/recall/F1 is 0.697/0.479/0.568. The source archive has three known cross-split source-photo pairs, provider test panels were already exposed, and camera/integration evidence is absent; this model is rejected and cannot substitute for the empty grouped project."
       ]
     },
     {
@@ -2477,7 +2563,9 @@
     }
   },
   "nextActions": [
-    "Poll only the exact running jobs 49ee6204cf069198bbfa (acne v1 RF-DETR Small) and af287a006e2e428f5ce4 (regional v1 RF-DETR Seg Small); do not launch replacements, cancel them or infer acceptance from completion. When finished, bind evaluation to exact immutable model IDs and re-run the shared per-class/source/camera/integration gate.",
+    "Do not integrate or retrain the externally finished acne model 49ee6204cf069198bbfa / rfdetr-small-t2. At validation-selected thresholds, test F1 is Pigmentation 0.077, Pimple 0.289 and Post acne 0.322; source/person independence, expert label policy, untouched final test, camera and integration evidence all fail closed. Improve the recorded data and resolution problem before any new version.",
+    "Keep externally finished regional model af287a006e2e428f5ce4 / rfdetr-seg-small-t2 research-only. At validation-selected thresholds, test F1 is Oily 0.475 and Redness 0.581, but the 30-image test was already exposed, source independence is unestablished, and Dry/Normal/combination plus camera/integration evidence are absent. Preserve Redness as an independent red layer and keep the accepted registry empty.",
+    "Keep externally finished under-eye pilot d194569acd3ebe7cf8b7 / rfdetr-seg-small-t1 research-only. Its version has 952 generated images from the ungrouped 399-image source and the source audit already found three cross-split source-photo pairs. At validation-selected thresholds test F1 is darkcircle 0.549 and eyebag 0.568, but this is not person-independent or untouched-final-test evidence. Continue only with the empty grouped research project and SHA-pinned 283/78/38 archive path.",
     "Keep tolgar-sasmaz/attune-skin-type-regional-r1 v2 research-only and do not retrain or activate it. Privacy-safe review confirmed one train/test source-person group spanning four nominal source IDs, while 986 source IDs still lack complete reviewed identity coverage. The export also has dry/oily boxes only, zero polygons, no normal class and an exposed test. Obtain rights-reviewed expert regional polygons for normal/dry/oily, person-grouped splits and a new untouched final test before training or mixed-skin inference.",
     "For tasks 01–03, all 227 image/name-similarity pairs at the current review thresholds are resolved. Every similarity method, including the central gradient pHash, is candidate-only and does not establish full identity coverage. The proposal now confirms 16 cross-split source/person groups covering 37 records, but 729 singleton records still lack reviewed provenance/person identity; do not treat singleton assignment as truth. Use the separate 81-item semantic queue for expert class/hard-negative policy, preserve all 82 test records, then convert only fully reviewed groups into the group-coverage receipt and re-run the split-release gate before generating any version.",
     "Run the now-wired skin presentation and current-merged capability regressions through PR/main CI or a normal dependency-materialized workspace, then complete real-browser and consented physical-camera acceptance. Preserve the verified working baseline (nine appearance criteria, separate skin type and regional outputs) while Post acne and Pigmentation remain additive gated headings.",
@@ -2990,6 +3078,22 @@
       "commits": [
         "162d3d61eb46fc07f9ae5d25cf77381194d8053a"
       ]
+    },
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T02:31:12Z",
+      "action": "Read the persistent checkpoint first; verified GitHub main remains at 7463eef and refreshed all 20 accessible Roboflow projects plus the grouped under-eye upload task. The previously running acne RF-DETR Small 49ee6204cf069198bbfa and regional RF-DETR Seg Small af287a006e2e428f5ce4 jobs are finished, and an external RF-DETR Seg Small model was also trained on the ungrouped under-eye pilot. Recorded exact training, model and evaluation IDs plus validation-selected per-class thresholds and test metrics. All three candidates fail the shared acceptance gate: provider test panels were already exposed before this receipt, provenance/identity gates remain incomplete, per-class quality is insufficient or not independently established, and real-camera plus working-integration evidence is absent. The under-eye model additionally uses the known leaking ungrouped archive while the grouped project remains empty. No duplicate training, upload, cancellation, inference, threshold mutation or activation was started.",
+      "report": "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
+      "commits": [
+        "ab85cd433dcf9dca68b38a082b675cd27020aa80",
+        "5a5b124808bcb8735e01edd664419f13404e8f6a",
+        "2bbf40b773dc8c2b9b842749f9ea99174b3f3193",
+        "de754cf1c629f1522b66a9397d5d8758c4ad22ed",
+        "4155bf25455303743fe8a29fd7ca3da27aaf1c2b",
+        "36c648d14cf43534ac27054a3c3413149dd9c988",
+        "843b43b8555908206759b66e35de693619081424",
+        "ba0ad8537fea489b960478e5055a7f82b91bd459"
+      ]
     }
   ],
   "activityLog": [
@@ -3118,6 +3222,22 @@
       "report": "docs/skin/regional-skin-type-source-group-audit-20261025.md",
       "commits": [
         "162d3d61eb46fc07f9ae5d25cf77381194d8053a"
+      ]
+    },
+    {
+      "date": "2026-10-25",
+      "observedAt": "2026-10-25T02:31:12Z",
+      "action": "Read the persistent checkpoint first; verified GitHub main remains at 7463eef and refreshed all 20 accessible Roboflow projects plus the grouped under-eye upload task. The previously running acne RF-DETR Small 49ee6204cf069198bbfa and regional RF-DETR Seg Small af287a006e2e428f5ce4 jobs are finished, and an external RF-DETR Seg Small model was also trained on the ungrouped under-eye pilot. Recorded exact training, model and evaluation IDs plus validation-selected per-class thresholds and test metrics. All three candidates fail the shared acceptance gate: provider test panels were already exposed before this receipt, provenance/identity gates remain incomplete, per-class quality is insufficient or not independently established, and real-camera plus working-integration evidence is absent. The under-eye model additionally uses the known leaking ungrouped archive while the grouped project remains empty. No duplicate training, upload, cancellation, inference, threshold mutation or activation was started.",
+      "report": "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
+      "commits": [
+        "ab85cd433dcf9dca68b38a082b675cd27020aa80",
+        "5a5b124808bcb8735e01edd664419f13404e8f6a",
+        "2bbf40b773dc8c2b9b842749f9ea99174b3f3193",
+        "de754cf1c629f1522b66a9397d5d8758c4ad22ed",
+        "4155bf25455303743fe8a29fd7ca3da27aaf1c2b",
+        "36c648d14cf43534ac27054a3c3413149dd9c988",
+        "843b43b8555908206759b66e35de693619081424",
+        "ba0ad8537fea489b960478e5055a7f82b91bd459"
       ]
     }
   ]
