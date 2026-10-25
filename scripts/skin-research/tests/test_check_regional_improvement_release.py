@@ -54,6 +54,38 @@ def group_split():
     }
 
 
+def source_audit():
+    return {
+        "schemaVersion": "regional-mask-source-group-audit-v1",
+        "source": {
+            "sourceArchiveSHA256": gate.EXPECTED_ARCHIVE_SHA256,
+            "providerExportSHA256": gate.EXPECTED_PROVIDER_EXPORT_SHA256,
+            "versionNumber": 1,
+        },
+        "privacy": {
+            "containsImageBytes": False,
+            "containsFilenames": False,
+            "containsRawSourceNames": False,
+            "containsProviderImageIds": False,
+            "resolverCommitted": False,
+        },
+        "inventory": {
+            "images": gate.EXPECTED_IMAGES,
+            "uniqueSourceIds": gate.EXPECTED_IMAGES,
+            "annotations": gate.EXPECTED_ANNOTATIONS,
+            "polygonAnnotations": gate.EXPECTED_ANNOTATIONS,
+            "nonPolygonAnnotations": 0,
+            "invalidPolygonAnnotations": 0,
+        },
+        "coverage": {"allRecordsRepresented": True},
+        "decision": {
+            "trainingAuthorized": False,
+            "replacementSplitReady": False,
+            "testEligibleForFinalAcceptance": False,
+        },
+    }
+
+
 def mask_protocol(redness_independent=True):
     return {
         "schemaVersion": "regional-mask-expert-protocol-v1",
@@ -110,7 +142,10 @@ class RegionalImprovementReleaseGateTest(unittest.TestCase):
         current = json.loads(
             (root / "docs/skin/evidence/regional-rfdetr-seg-small-t2-diagnosis-20261025-v1.json").read_text()
         )
-        result = gate.build_gate(current)
+        root_audit = json.loads(
+            (root / "docs/skin/evidence/regional-mask-source-group-audit-20261025-v1.json").read_text()
+        )
+        result = gate.build_gate(current, source_audit=root_audit)
         self.assertFalse(result["decision"]["trainingAuthorized"])
         self.assertEqual(
             result["decision"]["blockedReasons"],
@@ -124,7 +159,7 @@ class RegionalImprovementReleaseGateTest(unittest.TestCase):
 
     def test_complete_receipts_authorize_one_validation_training_only(self):
         result = gate.build_gate(
-            diagnosis(), group_split(), mask_protocol(), experiment(), final_test()
+            diagnosis(), source_audit(), group_split(), mask_protocol(), experiment(), final_test()
         )
         self.assertTrue(result["decision"]["trainingAuthorized"])
         self.assertFalse(result["decision"]["testEvaluationAuthorized"])
@@ -133,6 +168,7 @@ class RegionalImprovementReleaseGateTest(unittest.TestCase):
     def test_multiple_or_untargeted_changes_are_rejected(self):
         result = gate.build_gate(
             diagnosis(),
+            source_audit(),
             group_split(),
             mask_protocol(),
             experiment([
@@ -147,6 +183,7 @@ class RegionalImprovementReleaseGateTest(unittest.TestCase):
         )
         result = gate.build_gate(
             diagnosis(),
+            source_audit(),
             group_split(),
             mask_protocol(),
             experiment([{"type": "augmentation_change"}]),
@@ -160,6 +197,7 @@ class RegionalImprovementReleaseGateTest(unittest.TestCase):
     def test_redness_must_remain_independent(self):
         result = gate.build_gate(
             diagnosis(),
+            source_audit(),
             group_split(),
             mask_protocol(redness_independent=False),
             experiment(),
@@ -171,6 +209,7 @@ class RegionalImprovementReleaseGateTest(unittest.TestCase):
         )
         result = gate.build_gate(
             diagnosis(),
+            source_audit(),
             group_split(),
             mask_protocol(),
             experiment(redness_independent=False),
@@ -183,11 +222,12 @@ class RegionalImprovementReleaseGateTest(unittest.TestCase):
 
     def test_small_or_exposed_final_test_is_rejected(self):
         result = gate.build_gate(
-            diagnosis(), group_split(), mask_protocol(), experiment(), final_test(images=49)
+            diagnosis(), source_audit(), group_split(), mask_protocol(), experiment(), final_test(images=49)
         )
         self.assertIn("FINAL_TEST_BELOW_50_IMAGES", result["decision"]["blockedReasons"])
         result = gate.build_gate(
             diagnosis(),
+            source_audit(),
             group_split(),
             mask_protocol(),
             experiment(),
@@ -207,6 +247,20 @@ class RegionalImprovementReleaseGateTest(unittest.TestCase):
         value["privacy"]["containsFilenames"] = True
         with self.assertRaisesRegex(gate.GateError, "privacy safe"):
             gate.build_gate(value)
+
+    def test_source_audit_is_required_and_cannot_masquerade_as_group_split(self):
+        result = gate.build_gate(diagnosis())
+        self.assertIn(
+            "FROZEN_PROVIDER_EXPORT_AUDIT_MISSING",
+            result["decision"]["blockedReasons"],
+        )
+        with self.assertRaisesRegex(gate.GateError, "group split schema"):
+            gate.build_gate(diagnosis(), source_audit(), source_audit())
+
+        value = source_audit()
+        value["privacy"]["resolverCommitted"] = True
+        with self.assertRaisesRegex(gate.GateError, "privacy safe"):
+            gate.build_gate(diagnosis(), value)
 
 
 if __name__ == "__main__":
