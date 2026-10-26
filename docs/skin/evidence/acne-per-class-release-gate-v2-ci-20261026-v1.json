@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T11:10:07Z",
+  "purpose": "Fail-closed per-class release evidence for Pimple, Post acne and Pigmentation.",
+  "repository": "sasmazt90/attune-more",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "a7a4117c1c36ced28c8ddae08166d2344437bf6f",
+  "methodVersion": "acne-concerns-per-class-release-gate-v2",
+  "baseline": {
+    "concreteProductResultPreserved": true,
+    "endpoint": "/api/local-health/skin",
+    "pimpleHeadingPresent": true,
+    "postAcneExplicitlyUnavailable": true,
+    "pigmentationExplicitlyUnavailable": true
+  },
+  "immutableResearchModel": {
+    "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2",
+    "trainingId": "49ee6204cf069198bbfa",
+    "accepted": false,
+    "activationAllowed": false,
+    "knownNasChildrenAccepted": false
+  },
+  "currentDecision": {
+    "distinctCandidatePresent": false,
+    "researchTrainingAuthorized": false,
+    "blindRetrainingAllowed": false,
+    "finalTestAuthorizedByClass": {
+      "Pimple": false,
+      "Post acne": false,
+      "Pigmentation": false
+    },
+    "productActivationAllowedByClass": {
+      "Pimple": false,
+      "Post acne": false,
+      "Pigmentation": false
+    },
+    "roadmapAccepted": false,
+    "decision": "blocked"
+  },
+  "requiredBeforeTargetedTraining": [
+    "rights review",
+    "expert per-class positive/negative/ambiguity protocol",
+    "complete person/source grouping",
+    "verified group-locked replacement split",
+    "new untouched final test reservation",
+    "independent camera holdout reservation",
+    "one preregistered validation-only change",
+    "quality policy locked before validation"
+  ],
+  "requiredBeforePerClassActivation": [
+    "distinct version-2-or-later candidate and training identity",
+    "training from the group-locked replacement split",
+    "candidate change matches the preregistered experiment",
+    "thresholds locked before the new final test",
+    "class-specific validation and untouched-final-test pass",
+    "physical-camera and skin-tone/lighting/pose slice pass",
+    "working-product integration and unavailable/history/dedup controls"
+  ],
+  "verification": {
+    "localFocusedTests": {
+      "tests": 10,
+      "result": "OK"
+    },
+    "ci": {
+      "runId": 40312602038,
+      "url": "https://github.com/sasmazt90/attune-more/actions/runs/40312602038",
+      "headSha": "a7a4117c1c36ced28c8ddae08166d2344437bf6f",
+      "conclusion": "success",
+      "frontendProductionBuild": "success",
+      "localizationContract": "success",
+      "deterministicUnitSuite": {
+        "passed": 1627,
+        "skipped": 44,
+        "warnings": 2
+      },
+      "completeSkinResearchEvidenceSuite": {
+        "tests": 228,
+        "result": "OK"
+      }
+    }
+  },
+  "evidence": [
+    "scripts/skin-research/check_acne_concern_release.py",
+    "scripts/skin-research/tests/test_acne_concern_release.py",
+    "docs/skin/evidence/acne-per-class-release-receipt-20261026-v2.json",
+    "docs/skin/evidence/acne-per-class-release-gate-20261026-v2.json"
+  ],
+  "privacy": {
+    "privateImagesCommitted": false,
+    "reviewerIdentityCommitted": false,
+    "rawSourceNamesCommitted": false,
+    "excludedArchivesAccessed": false
+  },
+  "mutations": {
+    "trainingStarted": false,
+    "uploadStarted": false,
+    "versionCreated": false,
+    "inferenceStarted": false,
+    "thresholdsChanged": false,
+    "activationChanged": false
+  }
+}
