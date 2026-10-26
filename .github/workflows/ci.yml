@@ -68,6 +68,7 @@ jobs:
           -v -ra
 
     - name: Run complete skin research evidence suite
+      if: always()
       run: python -m unittest discover -s scripts/skin-research/tests -p 'test_*.py'
 
   frontend-build:
