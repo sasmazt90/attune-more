@@ -7,6 +7,7 @@ import yaml
 ROOT = Path(__file__).parents[3]
 WORKFLOW = ROOT / ".github" / "workflows" / "ci.yml"
 COMMAND = "python -m unittest discover -s scripts/skin-research/tests -p 'test_*.py'"
+PYCOCOTOOLS_PIN = "pycocotools==2.0.10"
 
 
 class PhysicalCameraAcceptanceCIWiringTest(unittest.TestCase):
@@ -38,6 +39,11 @@ class PhysicalCameraAcceptanceCIWiringTest(unittest.TestCase):
         self.assertLess(names.index("Set up Python 3.11"), full_index)
         self.assertLess(names.index("Install dependencies"), full_index)
         self.assertLess(names.index("Run deterministic unit test suite"), full_index)
+
+    def test_mask_evaluation_dependency_is_pinned_before_tests(self):
+        install = next(step for step in self.steps if step.get("name") == "Install dependencies")
+        self.assertIn(PYCOCOTOOLS_PIN, install.get("run", ""))
+        self.assertEqual(self.text.count(PYCOCOTOOLS_PIN), 1)
 
     def test_discovery_covers_camera_manifest_truth_metrics_and_acceptance(self):
         required = {
