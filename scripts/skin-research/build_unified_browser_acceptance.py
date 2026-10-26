@@ -30,6 +30,9 @@ CODE_BLOBS = {
     "apps/vehicle-app/src/utils/regionalSkinMap.ts": "258ab2d845b3743ede309938cd14da8831a01046",
     "apps/vehicle-app/src/utils/skinPhotoHistory.ts": "d143cb121cc39149b1ee4d26d4e4bacd9ba0f288",
     "apps/vehicle-app/src/utils/skinOverview.ts": "4d31010f82bfd5c42a49b46c20880630d57079dd",
+    "tests/e2e/current_skin_contract.py": "543914bcc404f7786414937d26c732c867b93bc9",
+    "tests/e2e/current_skin_photo_history.py": "c16a477fa74075bb36b7ca16ff15e48437316132",
+    "tests/e2e/current_skin_photo_wipe_success.py": "b8ce2c6fc55045428463ac31ae6f6540d9090006",
 }
 SHA40 = re.compile(r"^[0-9a-f]{40}$")
 
@@ -117,11 +120,20 @@ def validate_history(proof: dict[str, Any]) -> str:
     scans = proof.get("scans")
     if not isinstance(scans, list) or len(scans) != 3:
         raise EvidenceError("IndexedDB proof must contain three retained scans")
+    record_ids: set[str] = set()
     for scan in scans:
+        record_id = scan.get("id")
+        if not isinstance(record_id, str) or not record_id:
+            raise EvidenceError("retained scan identity missing")
+        record_ids.add(record_id)
         for key in ("sourceByRegion", "shaByRegion", "poseByRegion"):
             value = scan.get(key)
             if not isinstance(value, dict) or set(value) != set(REGIONS):
                 raise EvidenceError(f"retained scan {key} coverage changed")
+            if any(not isinstance(item, str) or not item for item in value.values()):
+                raise EvidenceError(f"retained scan {key} contains an empty identity")
+    if len(record_ids) != 3:
+        raise EvidenceError("IndexedDB proof must contain three distinct retained scans")
     return build
 
 
@@ -146,6 +158,8 @@ def build(args: argparse.Namespace) -> dict[str, dict[str, Any]]:
         raise EvidenceError("repository commit identity missing")
     if not args.browser_run_id:
         raise EvidenceError("browser run identity missing")
+    if not args.history_policy_id:
+        raise EvidenceError("history policy identity missing")
     actions = ci.get("githubActions", {})
     require(actions.get("conclusion"), "success", "repository CI is not green")
     require(actions.get("frontendProductionBuild"), "success", "frontend build is not green")
@@ -157,6 +171,7 @@ def build(args: argparse.Namespace) -> dict[str, dict[str, Any]]:
         "repositoryCommit": args.repository_commit,
         "productBuildId": next(iter(builds)),
         "browserRunId": args.browser_run_id,
+        "historyPolicyId": args.history_policy_id,
         "inputEvidence": {
             "browserProofSha256": browser_sha,
             "historyProofSha256": history_sha,
@@ -186,6 +201,7 @@ def main() -> int:
     parser.add_argument("--ci-evidence", type=Path, required=True)
     parser.add_argument("--repository-commit", required=True)
     parser.add_argument("--browser-run-id", required=True)
+    parser.add_argument("--history-policy-id", required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     args = parser.parse_args()
     evidence = build(args)

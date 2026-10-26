@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "unified-skin-result-identity-binding-v1",
+  "observedAt": "2026-10-26T20:46:46Z",
+  "branch": "work/skin-roadmap-20261023",
+  "changes": {
+    "unifiedGateVersion": "unified-skin-result-release-gate-v3",
+    "browserEvidenceIdentityBound": ["repositoryCommit", "productBuildId", "browserRunId", "historyPolicyId"],
+    "repositoryCiCommitMustMatchCandidate": true,
+    "cameraBenchmarkMustMatchCandidate": true,
+    "independentFinalTestReleaseAndCommitMustMatchCandidate": true,
+    "browserEvidenceProducerBlobsPinned": 3,
+    "threeDistinctRetainedScansRequired": true,
+    "nonemptyRegionIdentitiesRequired": true,
+    "historyPolicyIdentityRequiredByBuilder": true
+  },
+  "verification": {
+    "focusedTests": 26,
+    "completeSkinResearchEvidenceSuite": 290,
+    "pythonCompilation": "PASS",
+    "roadmapAccepted": false
+  },
+  "providerRefresh": {
+    "accessibleProjects": 20,
+    "acneVersion1Images": 800,
+    "acneSplits": {"train": 553, "valid": 165, "test": 82},
+    "acneTrainingsFinished": 2,
+    "regionalVersion1Images": 337,
+    "regionalSplits": {"train": 244, "valid": 63, "test": 30},
+    "regionalTrainingsFinished": 2,
+    "underEyePilotProjectImages": 399,
+    "underEyeVersion1GeneratedImages": 952,
+    "underEyeVersion1TrainingsFinished": 1,
+    "underEyeVersion2Images": 399,
+    "underEyeVersion2Trainings": 0,
+    "groupedUnderEyeImages": 0,
+    "groupedUploadTaskId": "sLFwX7CYBVcnnD6iAW5o",
+    "groupedUploadStatus": "created",
+    "groupedUploadProgress": null,
+    "newTrainingStarted": false,
+    "newUploadStarted": false,
+    "duplicateWorkStarted": false
+  },
+  "currentDecision": {
+    "workingBaselinePreserved": true,
+    "acceptedEndToEndCandidatePresent": false,
+    "allClassReleaseGatesAccepted": false,
+    "physicalCameraBenchmarkAccepted": false,
+    "finalRoadmapAcceptanceAllowed": false
+  }
+}

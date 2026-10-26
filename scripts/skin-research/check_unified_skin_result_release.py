@@ -132,6 +132,7 @@ def _validate_repository_ci(identity: Any, evidence_root: Path) -> dict[str, Any
 def _validate_candidate(
     candidate: dict[str, Any], evidence_root: Path,
     all_class_gates_accepted: bool, physical_camera_accepted: bool,
+    repository_ci: dict[str, Any],
 ) -> tuple[bool, list[str], dict[str, Any] | None]:
     identity_fields = (
         "releaseId", "repositoryCommit", "productBuildId", "browserRunId",
@@ -196,6 +197,21 @@ def _validate_candidate(
     _require(replay.get("mapCardsHistoryPassed"), True, "map/cards/history replay did not pass")
     _require(replay.get("twelveProductHeadingsPassed"), True, "twelve product headings did not pass")
 
+    browser_bound = {
+        "browser/API replay": browser,
+        "IndexedDB history replay": history,
+        "unavailable/overlap controls": controls,
+        "privacy lifecycle": privacy,
+        "working product replay": replay,
+    }
+    for label, payload in browser_bound.items():
+        for field in ("repositoryCommit", "productBuildId", "browserRunId", "historyPolicyId"):
+            _require(payload.get(field), candidate[field], f"{label} {field} identity mismatch")
+    _require(repository_ci.get("headSha"), candidate["repositoryCommit"], "repository CI commit identity mismatch")
+    _require(camera.get("cameraBenchmarkId"), candidate["cameraBenchmarkId"], "physical-camera benchmark identity mismatch")
+    _require(final_tests.get("releaseId"), candidate["releaseId"], "independent final-test release identity mismatch")
+    _require(final_tests.get("repositoryCommit"), candidate["repositoryCommit"], "independent final-test commit identity mismatch")
+
     blockers = []
     if not all_class_gates_accepted:
         blockers.append("all_class_release_gates_not_accepted")
@@ -248,14 +264,14 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     camera_accepted = camera_payload.get("roadmapCameraAcceptanceAllowed") is True
     _require(camera_entry.get("accepted"), camera_accepted, "physical-camera gate acceptance does not match evidence")
     candidate_accepted, candidate_blockers, identity = _validate_candidate(
-        receipt.get("acceptanceCandidate", {}), evidence_root, all_class_gates, camera_accepted
+        receipt.get("acceptanceCandidate", {}), evidence_root, all_class_gates, camera_accepted, repository_ci
     )
     blockers = class_blockers + ([] if camera_accepted else ["physical_camera_benchmark_not_accepted"]) + candidate_blockers
     blockers = list(dict.fromkeys(blockers))
     accepted = candidate_accepted and not blockers
     return {
-        "schemaVersion": 2,
-        "methodVersion": "unified-skin-result-release-gate-v2",
+        "schemaVersion": 3,
+        "methodVersion": "unified-skin-result-release-gate-v3",
         "workingBaselinePreserved": True,
         "currentIntegratedPresentationAllowed": True,
         "generatedReplayIntegrationSmokeAllowed": True,

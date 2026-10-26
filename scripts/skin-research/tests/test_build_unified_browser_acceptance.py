@@ -46,7 +46,11 @@ class UnifiedBrowserAcceptanceTest(unittest.TestCase):
             "unsupportedHeadingsUnavailable": True, "poseMock": False, "qualityOverride": False,
             "pageErrors": [], "runs": [run, run],
         }
-        scan = {key: {region: "opaque" for region in MODULE.REGIONS} for key in ("sourceByRegion", "shaByRegion", "poseByRegion")}
+        scans = []
+        for index in range(3):
+            scan = {key: {region: f"opaque-{index}-{region}" for region in MODULE.REGIONS} for key in ("sourceByRegion", "shaByRegion", "poseByRegion")}
+            scan["id"] = f"scan-{index}"
+            scans.append(scan)
         self.history = {
             "status": "PASS", "methodVersion": "skin-indexeddb-history-replay-v1", "buildId": "build-a",
             "realBrowser": True, "browserEngine": "chromium", "controlledFixture": True,
@@ -54,7 +58,7 @@ class UnifiedBrowserAcceptanceTest(unittest.TestCase):
             "indexedDbWriteReadPassed": True, "relaunchThreeRecords": True,
             "allSixRegionsAndSelectedMaps": True, "twelveProductHeadingsPassed": True,
             "unsupportedHeadingsUnavailable": True, "deleteOne": True, "revokePhotosKeepsNumeric": True,
-            "retentionPassed": True, "deletionPassed": True, "pageErrors": [], "scans": [scan, scan, scan],
+            "retentionPassed": True, "deletionPassed": True, "pageErrors": [], "scans": scans,
         }
         self.privacy = {
             "status": "PASS", "methodVersion": "skin-privacy-lifecycle-browser-v1", "buildId": "build-a",
@@ -81,7 +85,8 @@ class UnifiedBrowserAcceptanceTest(unittest.TestCase):
             history_proof=self.write("history.json", self.history),
             privacy_proof=self.write("privacy.json", self.privacy),
             ci_evidence=self.write("ci.json", self.ci),
-            repository_commit="a" * 40, browser_run_id="browser-run-1", output_dir=self.root / "out",
+            repository_commit="a" * 40, browser_run_id="browser-run-1",
+            history_policy_id="method-compatible-history-v2", output_dir=self.root / "out",
         )
 
     def test_builds_five_privacy_safe_evidence_files(self):
@@ -112,6 +117,17 @@ class UnifiedBrowserAcceptanceTest(unittest.TestCase):
         self.history["scans"][0]["sourceByRegion"].pop("chin")
         with self.assertRaisesRegex(MODULE.EvidenceError, "coverage changed"):
             MODULE.build(self.args())
+
+    def test_rejects_duplicate_retained_scan_identity(self):
+        self.history["scans"][1]["id"] = self.history["scans"][0]["id"]
+        with self.assertRaisesRegex(MODULE.EvidenceError, "three distinct"):
+            MODULE.build(self.args())
+
+    def test_rejects_missing_history_policy_identity(self):
+        args = self.args()
+        args.history_policy_id = ""
+        with self.assertRaisesRegex(MODULE.EvidenceError, "history policy"):
+            MODULE.build(args)
 
 
 if __name__ == "__main__":

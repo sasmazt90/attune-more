@@ -45,7 +45,7 @@ def _install_complete_evidence(receipt, root):
     receipt["physicalCameraGate"]["accepted"] = True
     receipt["repositoryCI"] = _write(root, "repository-ci.json", {
         "githubActions": {
-            "runId": 99, "headSha": "c" * 40, "conclusion": "success",
+            "runId": 99, "headSha": "d" * 40, "conclusion": "success",
             "frontendProductionBuild": "success", "localizationContract": "success",
             "completeSkinResearchEvidenceSuite": {"result": "OK"},
         }
@@ -60,32 +60,51 @@ def _install_complete_evidence(receipt, root):
     candidate["evidence"] = {
         "browserApiReplay": _write(root, "browser.json", {
             "realBrowser": True, "apiE2EPassed": True, "sixRegionalViewsPassed": True,
+            "repositoryCommit": "d" * 40, "productBuildId": "vehicle-app-build-v2",
+            "browserRunId": "browser-run-v2", "historyPolicyId": "method-compatible-history-v2",
         }),
         "indexedDbHistoryReplay": _write(root, "history.json", {
             "indexedDbWriteReadPassed": True, "methodCompatibleHistoryPassed": True,
             "crossMethodBridgeAllowed": False, "malformedRecordFallbackAllowed": False,
+            "repositoryCommit": "d" * 40, "productBuildId": "vehicle-app-build-v2",
+            "browserRunId": "browser-run-v2", "historyPolicyId": "method-compatible-history-v2",
         }),
         "physicalCameraAcceptance": _write(root, "camera.json", {
             "physicalCameraBenchmarkAccepted": True, "consentedPhysicalCaptures": True,
-            "expertTruthPerActivatedClass": True,
+            "expertTruthPerActivatedClass": True, "cameraBenchmarkId": "camera-benchmark-v2",
         }),
         "independentFinalTests": _write(root, "final-tests.json", {
             "perActivatedClassPassed": True, "thresholdSelectionSplit": "validation",
-            "finalTestUsedForSelection": False,
+            "finalTestUsedForSelection": False, "releaseId": "skin-roadmap-release-v2",
+            "repositoryCommit": "d" * 40,
         }),
         "unavailableOverlapControls": _write(root, "controls.json", {
             "unknownCountsAsNormal": False, "rednessIndependentLayer": True,
             "rednessSensitivityAliasAllowed": False, "dryOilyRednessOverlapPassed": True,
             "unsupportedHeadingsUnavailable": True,
+            "repositoryCommit": "d" * 40, "productBuildId": "vehicle-app-build-v2",
+            "browserRunId": "browser-run-v2", "historyPolicyId": "method-compatible-history-v2",
         }),
         "privacyLifecycle": _write(root, "privacy.json", {
             "consentPassed": True, "retentionPassed": True, "deletionPassed": True,
+            "repositoryCommit": "d" * 40, "productBuildId": "vehicle-app-build-v2",
+            "browserRunId": "browser-run-v2", "historyPolicyId": "method-compatible-history-v2",
         }),
         "workingProductReplay": _write(root, "product-replay.json", {
             "endpoint": "/api/local-health/skin", "concreteResultsPassed": True,
             "mapCardsHistoryPassed": True, "twelveProductHeadingsPassed": True,
+            "repositoryCommit": "d" * 40, "productBuildId": "vehicle-app-build-v2",
+            "browserRunId": "browser-run-v2", "historyPolicyId": "method-compatible-history-v2",
         }),
     }
+
+
+def _mutate_candidate_evidence(receipt, root, key, field, value):
+    identity = receipt["acceptanceCandidate"]["evidence"][key]
+    path = root / identity["path"]
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload[field] = value
+    receipt["acceptanceCandidate"]["evidence"][key] = _write(root, path.name, payload)
 
 
 class UnifiedSkinResultReleaseTests(unittest.TestCase):
@@ -192,6 +211,77 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
                     "finalTestUsedForSelection": True,
                 })["sha256"]
                 with self.assertRaisesRegex(module.GateInputError, "cannot select"):
+                    module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_browser_build_identity_must_match_candidate(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                receipt = _receipt()
+                _install_complete_evidence(receipt, root)
+                _mutate_candidate_evidence(receipt, root, "browserApiReplay", "productBuildId", "other-build")
+                with self.assertRaisesRegex(module.GateInputError, "productBuildId identity mismatch"):
+                    module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_history_policy_identity_must_match_across_browser_evidence(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                receipt = _receipt()
+                _install_complete_evidence(receipt, root)
+                _mutate_candidate_evidence(receipt, root, "privacyLifecycle", "historyPolicyId", "other-policy")
+                with self.assertRaisesRegex(module.GateInputError, "historyPolicyId identity mismatch"):
+                    module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_repository_ci_commit_must_match_candidate(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                receipt = _receipt()
+                _install_complete_evidence(receipt, root)
+                receipt["repositoryCI"] = _write(root, "repository-ci.json", {
+                    "githubActions": {
+                        "runId": 99, "headSha": "e" * 40, "conclusion": "success",
+                        "frontendProductionBuild": "success", "localizationContract": "success",
+                        "completeSkinResearchEvidenceSuite": {"result": "OK"},
+                    }
+                })
+                with self.assertRaisesRegex(module.GateInputError, "CI commit identity mismatch"):
+                    module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_camera_benchmark_identity_must_match_candidate(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                receipt = _receipt()
+                _install_complete_evidence(receipt, root)
+                _mutate_candidate_evidence(receipt, root, "physicalCameraAcceptance", "cameraBenchmarkId", "other-camera")
+                with self.assertRaisesRegex(module.GateInputError, "camera benchmark identity mismatch"):
+                    module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_final_test_release_identity_must_match_candidate(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                receipt = _receipt()
+                _install_complete_evidence(receipt, root)
+                _mutate_candidate_evidence(receipt, root, "independentFinalTests", "releaseId", "other-release")
+                with self.assertRaisesRegex(module.GateInputError, "final-test release identity mismatch"):
                     module.evaluate_release(receipt, root)
         finally:
             module.EXPECTED_INPUT_EVIDENCE = original_inputs
