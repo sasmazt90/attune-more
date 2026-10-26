@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "unified-skin-result-identity-binding-ci-v1",
+  "observedAt": "2026-10-26T20:53:16Z",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "74817ff109b84a2ce467f97f810ac12bc8e01cbc",
+  "githubActions": {
+    "runId": 40399015489,
+    "url": "https://github.com/sasmazt90/attune-more/actions/runs/40399015489",
+    "headSha": "74817ff109b84a2ce467f97f810ac12bc8e01cbc",
+    "conclusion": "success",
+    "frontendProductionBuild": "success",
+    "localizationContract": "success",
+    "deterministicUnitSuite": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2
+    },
+    "completeSkinResearchEvidenceSuite": {
+      "tests": 290,
+      "result": "OK"
+    }
+  },
+  "identityBinding": {
+    "crossEvidenceFieldsRequired": [
+      "repositoryCommit",
+      "productBuildId",
+      "browserRunId",
+      "historyPolicyId"
+    ],
+    "repositoryCiCommitBindingRequired": true,
+    "physicalCameraBenchmarkIdentityBindingRequired": true,
+    "independentFinalTestReleaseAndCommitBindingRequired": true
+  },
+  "currentDecision": {
+    "workingBaselinePreserved": true,
+    "acceptedEndToEndCandidatePresent": false,
+    "allClassReleaseGatesAccepted": false,
+    "physicalCameraBenchmarkAccepted": false,
+    "finalRoadmapAcceptanceAllowed": false,
+    "roadmapAccepted": false
+  }
+}
