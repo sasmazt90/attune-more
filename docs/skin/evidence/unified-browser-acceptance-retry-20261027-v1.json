@@ -8,7 +8,8 @@
     "failedCandidateCommit": "6c3e07ce1b696a17686ff75943efeadb35ee8180",
     "retryCandidateCommit": "accd4ca458bb3ea2f5de31af0582a374f950df45",
     "secondRetryCandidateCommit": "85c24fdfca85a068c5bc02c73299e1a68ace7d07",
-    "thirdRetryCandidateCommit": "3ad03c461eea4f08a197fc8c5400f29dea2867d0"
+    "thirdRetryCandidateCommit": "3ad03c461eea4f08a197fc8c5400f29dea2867d0",
+    "fourthRetryCandidateCommit": "695a636c831e57e8a5a6dac1dbe20956b22bedef"
   },
   "failedAttempt": {
     "browserRunId": 40406100671,
@@ -95,9 +96,37 @@
   "thirdRetry": {
     "browserRunId": 40418108255,
     "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40418108255",
-    "statusAtCheckpoint": "in_progress",
+    "statusAtCheckpoint": "completed",
+    "conclusion": "failure",
     "matchingRepositoryCiRunId": 40418108157,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40418108157",
+    "matchingRepositoryCiStatusAtCheckpoint": "completed",
+    "matchingRepositoryCiConclusion": "success",
+    "jobId": 121905403167,
+    "artifactId": 12696245831,
+    "artifactDigest": "sha256:e11be4acb67d2973d6a18603a877157d02ce7960188ba4bc25a31871e785bab2",
+    "completedRuntimeSetup": true,
+    "productionBuildPassed": true,
+    "serversHealthChecked": true,
+    "fixturePrepared": false,
+    "browserTestsExecuted": false,
+    "sanitizedEvidenceProduced": false,
+    "rootCause": "the isolated fixture server loaded the generated analyzer module, whose external jsDelivr MediaPipe import or subsequent same-origin MediaPipe assets returned 404; the dynamic import therefore rejected"
+  },
+  "fourthTargetedFix": {
+    "source": "tests/e2e/prepare_multi_angle_fixture.py",
+    "change": "rewrite the generated analyzer to import the npm-lock-pinned local MediaPipe bundle and serve that bundle plus the repository-pinned WASM and face-landmarker model from the same loopback origin; log any remaining missing fixture path",
+    "pythonCompilePassed": true,
+    "diffCheckPassed": true,
+    "roboflowTrainingChanged": false,
+    "modelOrThresholdChanged": false
+  },
+  "fourthRetry": {
+    "browserRunId": 40418570611,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40418570611",
+    "statusAtCheckpoint": "in_progress",
+    "matchingRepositoryCiRunId": 40418571049,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40418571049",
     "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
     "sanitizedEvidencePending": true
   },
