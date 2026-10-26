@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "title": "Skin roadmap product-regression CI repair",
+  "observedAt": "2026-10-26T09:11:36Z",
+  "repository": "sasmazt90/attune-more",
+  "branch": "work/skin-roadmap-20261023",
+  "functioningMergedBaseline": {
+    "branch": "main",
+    "commit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+    "endpoint": "/api/local-health/skin",
+    "concreteResultsAlreadyAvailable": true,
+    "note": "This repair preserves an already functioning product result flow; it is not evidence of a missing backend or missing output."
+  },
+  "remoteRefresh": {
+    "accessibleProjects": 20,
+    "acne": {
+      "project": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation",
+      "images": 800,
+      "trainingId": "5b632a5c12b76fcfe703",
+      "trainingStatus": "finished",
+      "nasModelCount": 89,
+      "concurrentTrainingId": "49ee6204cf069198bbfa",
+      "concurrentStatus": "finished"
+    },
+    "regional": {
+      "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+      "images": 337,
+      "trainingId": "3485f8c67f957a1b850d",
+      "trainingStatus": "finished",
+      "nasModelCount": 75,
+      "concurrentTrainingId": "af287a006e2e428f5ce4",
+      "concurrentStatus": "finished"
+    },
+    "underEyePilot": {
+      "project": "tolgar-sasmaz/attune-skin-under-eye-pilot",
+      "images": 399,
+      "trainingId": "d194569acd3ebe7cf8b7",
+      "trainingStatus": "finished"
+    },
+    "groupedUnderEye": {
+      "images": 0,
+      "uploadTaskId": "sLFwX7CYBVcnnD6iAW5o",
+      "uploadStatus": "created",
+      "uploadProgress": null
+    },
+    "newTrainingStarted": false,
+    "newUploadStarted": false
+  },
+  "repairedRegressions": [
+    {
+      "test": "tests/unit/test_localization.py::test_catalog_and_actual_frontend_behavior",
+      "change": "Added complete English and German catalog entries for 20 skin roadmap messages while preserving Turkish message IDs.",
+      "commit": "d8dd91392779f6ece2f04198d3406068c9d3445c"
+    },
+    {
+      "test": "tests/unit/test_skin_approved_layout.py::test_existing_layout_styles_and_visible_content_are_preserved",
+      "change": "Preserved the cebb470 layout outside the accepted independent red hatching and asserted its rendered red, rotated and translucent contract.",
+      "commits": [
+        "c8789edf549f23834fbee385a1fbff5a502cfe7b",
+        "1eecc848a1ebb3af3a484c4b56e6f0bdbbeedbd8",
+        "2523f054ce921961bf42c05390dd0d3c9429c66e"
+      ]
+    },
+    {
+      "test": "tests/unit/test_hosted_skin_type_runtime.py::test_degrees_remain_independent_of_hosted_failure",
+      "change": "Bound the fixture to an explicitly accepted degree head with declared and accepted redness output."
+    },
+    {
+      "test": "tests/unit/test_skin_model_boundary.py::test_accepted_degree_load_failure_preserves_unavailable_target",
+      "change": "Bound the accepted target to a declared model output so load failure remains unavailable instead of becoming a substitute score."
+    },
+    {
+      "test": "tests/unit/test_skin_current_persistence.py::test_current_response_and_old_versions_remain_valid",
+      "change": "Preserved visible lower-face contour/fold appearance semantics, non-clinical status and same-person comparison constraints on unavailable early exits."
+    },
+    {
+      "test": "tests/unit/test_skin_photo_history.py::test_explicit_consent_atomic_storage_relaunch_and_revocation",
+      "change": "Added a fail-closed browser-test dependency seam for regional replay without weakening consent, atomicity, integrity, relaunch or deletion assertions."
+    }
+  ],
+  "atomicRuntimeCommit": "e48f283e963722485d12d912239bd3964e5fbdc4",
+  "verification": {
+    "githubActionsRunId": 40297234134,
+    "url": "https://github.com/sasmazt90/attune-more/actions/runs/40297234134",
+    "headSha": "2523f054ce921961bf42c05390dd0d3c9429c66e",
+    "conclusion": "success",
+    "frontendProductionBuild": "success",
+    "localizationContract": "success",
+    "deterministicUnitSuite": {
+      "conclusion": "success",
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2,
+      "durationSeconds": 118.1
+    },
+    "completeSkinResearchEvidenceSuite": {
+      "conclusion": "success",
+      "tests": 222,
+      "durationSeconds": 2.235
+    },
+    "assertionsSkippedOrWeakened": false
+  },
+  "acceptance": {
+    "productRegressionGatePassed": true,
+    "physicalCameraEvidencePresent": false,
+    "roadmapComplete": false,
+    "activationAllowed": false,
+    "next": "Collect consented immutable physical-camera captures and independent adjudicated expert truth, then run the locked per-class localization/capture acceptance and real API/browser/map/history replay."
+  }
+}
