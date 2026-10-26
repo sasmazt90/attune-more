@@ -86,7 +86,7 @@ function Overview({ findings, skinType, selected, onSelect }: {
     </button>
   );
   return (
-    <section className="rounded-[26px] bg-[#0f1724] px-5 pt-5 pb-6 flex flex-col gap-5" data-skin-overview>
+    <section className="rounded-[26px] bg-[#0f1724] px-5 pt-4 pb-5 flex flex-col gap-3" data-skin-overview>
       <div className="flex items-center justify-between gap-3">
         {arrow(-1)}
         <div className="min-w-0 flex flex-col items-center gap-1 text-center">
@@ -97,18 +97,18 @@ function Overview({ findings, skinType, selected, onSelect }: {
       </div>
       {typeName && (
         <button type="button" aria-pressed={selected === null} onClick={() => onSelect(null)} data-skin-type-card
-          className={`min-h-[72px] rounded-[18px] border-2 px-5 flex items-center justify-between gap-3 text-left transition ${selected === null ? 'border-[#00d2eb] bg-[#00d2eb]/10' : 'border-transparent bg-[#131d2b] hover:bg-[#1a2533]'}`}>
+          className={`min-h-[56px] rounded-2xl border-2 px-4 py-2 flex items-center justify-between gap-3 text-left transition ${selected === null ? 'border-[#00d2eb] bg-[#00d2eb]/10' : 'border-transparent bg-[#131d2b] hover:bg-[#1a2533]'}`}>
           <span className="text-[15px] font-semibold text-slate-400">{text('Cilt tipi')}</span>
-          <strong className="text-2xl font-extrabold text-white">{text(typeName)}</strong>
+          <strong className="text-lg font-bold text-white">{text(typeName)}</strong>
         </button>
       )}
-      <div className="flex flex-col gap-3" data-skin-overview-findings={all.length}>
+      <div className="flex flex-col gap-2.5" data-skin-overview-findings={all.length}>
         <div className="flex items-center justify-between gap-3">
           <span className="text-[15px] font-semibold text-slate-400">{text('Bulgular')}</span>
         </div>
         {all.length === 0
           ? <p className="rounded-[18px] bg-[#131d2b] px-4 py-6 text-center text-[17px] text-slate-300">{text('Bu taramada öne çıkan bir bulgu yok.')}</p>
-          : <div className="grid grid-cols-2 gap-3">
+          : <div className="grid grid-cols-2 gap-2.5">
               {shown.map(f => <OverviewFindingCard key={f.id} f={f} on={selected === f.id} onClick={() => onSelect(selected === f.id ? null : f.id)} />)}
             </div>}
       </div>
@@ -127,22 +127,26 @@ function OverviewFindingCard({ f, on, onClick }: { f: SkinFinding; on: boolean; 
     const { index, total } = recommendationBand(f); width = Math.round((index + 1) / total * 100);
     value = `${COUNT_RANGE_LABEL[f.countRange] || f.countRange} ${text(def.unit || '')}`;
   } else value = text('Görüldü');
+  // the value sits above the filled end of the bar (kept inside the card at both ends)
+  const shift = width === null ? '0%' : width < 12 ? '0%' : width > 88 ? '-100%' : '-50%';
   return (
     <button type="button" aria-pressed={on} onClick={onClick} data-skin-overview-finding={f.id}
-      className="min-h-[96px] rounded-[18px] border-2 px-4 py-3 flex flex-col justify-between gap-2.5 text-left transition active:scale-[0.99]"
+      className="min-h-[76px] rounded-2xl border-2 px-4 pt-2 pb-2.5 flex flex-col justify-between gap-0.5 text-left transition active:scale-[0.99]"
       style={{ borderColor: on ? color : 'transparent', background: on ? `${color}1a` : '#131d2b' }}>
-      <span className="flex items-start justify-between gap-2">
-        <span className="flex items-center gap-2 min-w-0">
-          <span aria-hidden="true" className="w-2.5 h-2.5 shrink-0 rounded-full" style={{ background: color }} />
-          <span className="text-base font-bold leading-tight text-white">{text(def.label)}</span>
-        </span>
-        <span className="text-base font-extrabold text-white tabular-nums whitespace-nowrap">{value}</span>
+      <span className="flex items-center gap-2 min-w-0">
+        <span aria-hidden="true" className="w-2.5 h-2.5 shrink-0 rounded-full" style={{ background: color }} />
+        <span className="text-[15px] font-bold leading-tight text-white truncate">{text(def.label)}</span>
       </span>
-      {width !== null && (
-        <span className="block h-2 rounded-full bg-[#1a2533] overflow-hidden" aria-hidden="true">
-          <span className="block h-full rounded-full" style={{ width: `${Math.max(4, width)}%`, background: color }} />
-        </span>
-      )}
+      {width !== null
+        ? <span className="block">
+            <span className="relative block h-5">
+              <span className="absolute bottom-0 whitespace-nowrap text-sm font-extrabold text-white tabular-nums" style={{ left: `${Math.max(4, width)}%`, transform: `translateX(${shift})` }}>{value}</span>
+            </span>
+            <span className="mt-0.5 block h-2 rounded-full bg-[#1a2533]" aria-hidden="true">
+              <span className="block h-full rounded-full" style={{ width: `${Math.max(4, width)}%`, background: color }} />
+            </span>
+          </span>
+        : <span className="text-sm font-semibold text-slate-300">{value}</span>}
     </button>
   );
 }

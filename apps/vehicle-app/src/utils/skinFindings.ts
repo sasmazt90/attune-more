@@ -3,7 +3,8 @@
  * not seen are never listed: recall is below 1 for several findings, so "not seen" is not presented as "absent". */
 export type SkinFindingId =
   | 'acne' | 'acneMarks' | 'mole' | 'spots' | 'melasma' | 'redness' | 'rosacea'
-  | 'foreheadLines' | 'crowsFeet' | 'eyeBags' | 'darkCircles' | 'hoodedEyelids' | 'downturnedCorners' | 'coldSore';
+  | 'foreheadLines' | 'crowsFeet' | 'eyeBags' | 'darkCircles' | 'hoodedEyelids' | 'downturnedCorners' | 'coldSore'
+  | 'eczema' | 'flaking';
 export type SkinFindingRegion = 'forehead' | 'periorbital' | 'nose' | 'rightCheek' | 'leftCheek' | 'chin';
 export type SkinFindingKind = 'count' | 'area' | 'presence';
 export type SkinFindingStatus = 'seen' | 'notSeen' | 'inconclusive';
@@ -25,9 +26,9 @@ export type SkinFindingsResult = { version: string; findings: SkinFinding[] };
 /** One earlier scan, for the history chart. */
 export type SkinFindingsHistoryEntry = { at: string; findings: SkinFinding[] };
 
-export type FindingGroup = 'acne' | 'pigment' | 'redness' | 'lines' | 'eye' | 'lip';
+export type FindingGroup = 'acne' | 'pigment' | 'redness' | 'lines' | 'eye' | 'lip' | 'texture';
 export const FINDING_GROUP_COLORS: Record<FindingGroup, string> = {
-  acne: '#fb923c', pigment: '#fde047', redness: '#f43f5e', lines: '#38bdf8', eye: '#a78bfa', lip: '#f472b6'
+  acne: '#fb923c', pigment: '#fde047', redness: '#f43f5e', lines: '#38bdf8', eye: '#a78bfa', lip: '#f472b6', texture: '#5eead4'
 };
 type Def = { label: string; unit?: string; kind: SkinFindingKind; group: FindingGroup; info: string; expert?: boolean };
 export const FINDING_DEFS: Record<SkinFindingId, Def> = {
@@ -44,6 +45,8 @@ export const FINDING_DEFS: Record<SkinFindingId, Def> = {
   darkCircles: { label: 'Göz altı morluğu', kind: 'presence', group: 'eye', info: 'Göz altında çevreye göre daha koyu renk görünümü.' },
   hoodedEyelids: { label: 'Göz kapağı düşüklüğü', kind: 'presence', group: 'eye', info: 'Üst göz kapağı derisinin kapak çizgisinin üzerine inmiş görünümü.', expert: true },
   downturnedCorners: { label: 'Göz kuyruğu düşüklüğü', kind: 'presence', group: 'eye', info: 'Göz kuyruklarının (dış köşelerin) aşağı doğru eğimli görünümü.' },
+  eczema: { label: 'Egzama veya sedef benzeri görünüm', kind: 'presence', group: 'redness', info: 'Kızarık, kuru ve pullu görünen, sınırları belirgin yamalar.', expert: true },
+  flaking: { label: 'Pullanma', kind: 'presence', group: 'texture', info: 'Cilt yüzeyinde ince, kuru pulcuklar ve pürüzlü doku görünümü.' },
   coldSore: { label: 'Dudakta uçuk', kind: 'presence', group: 'lip', info: 'Dudak kenarında küçük kabarcık veya kabuklanma görünümü.', expert: true },
 };
 
@@ -62,11 +65,11 @@ export const regionView = (r: SkinFindingRegion): FindingViewId => (r === 'nose'
 export const isFindingView = (v: string): v is FindingViewId => (FINDING_VIEWS as string[]).includes(v);
 /** Display order of findings on each page. */
 const VIEW_ORDER: Record<FindingViewId, SkinFindingId[]> = {
-  forehead: ['foreheadLines', 'acne', 'acneMarks', 'redness', 'rosacea', 'spots', 'melasma', 'mole'],
+  forehead: ['foreheadLines', 'acne', 'acneMarks', 'redness', 'rosacea', 'eczema', 'flaking', 'spots', 'melasma', 'mole'],
   periorbital: ['eyeBags', 'darkCircles', 'crowsFeet', 'hoodedEyelids', 'downturnedCorners'],
-  rightCheek: ['acne', 'acneMarks', 'redness', 'rosacea', 'melasma', 'spots', 'mole'],
-  leftCheek: ['acne', 'acneMarks', 'redness', 'rosacea', 'melasma', 'spots', 'mole'],
-  chin: ['coldSore', 'acne', 'acneMarks', 'redness', 'spots', 'mole'],
+  rightCheek: ['acne', 'acneMarks', 'redness', 'rosacea', 'eczema', 'flaking', 'melasma', 'spots', 'mole'],
+  leftCheek: ['acne', 'acneMarks', 'redness', 'rosacea', 'eczema', 'flaking', 'melasma', 'spots', 'mole'],
+  chin: ['coldSore', 'acne', 'acneMarks', 'redness', 'eczema', 'flaking', 'spots', 'mole'],
 };
 export const findingColor = (id: SkinFindingId) => FINDING_GROUP_COLORS[FINDING_DEFS[id].group];
 export const COUNT_RANGE_LABEL: Record<string, string> = {
@@ -88,7 +91,7 @@ export function viewFindings(all: SkinFinding[] | undefined, view: FindingViewId
     }))];
   });
 }
-const OVERVIEW_ORDER: SkinFindingId[] = ['eyeBags', 'darkCircles', 'crowsFeet', 'hoodedEyelids', 'downturnedCorners', 'foreheadLines', 'acne', 'acneMarks', 'redness', 'rosacea', 'melasma', 'spots', 'mole', 'coldSore'];
+const OVERVIEW_ORDER: SkinFindingId[] = ['eyeBags', 'darkCircles', 'crowsFeet', 'hoodedEyelids', 'downturnedCorners', 'foreheadLines', 'acne', 'acneMarks', 'redness', 'rosacea', 'eczema', 'flaking', 'melasma', 'spots', 'mole', 'coldSore'];
 export type OverviewFinding = SkinFinding & { views: FindingViewId[] };
 /** Every seen finding once, across all pages (highest score, largest count range), with the pages it appears on. */
 export function overviewFindings(all: SkinFinding[] | undefined): OverviewFinding[] {
@@ -126,6 +129,7 @@ export const FINDING_ANCHOR: Record<SkinFindingId, Partial<Record<FindingViewId,
   melasma: { forehead: 299, rightCheek: 116, leftCheek: 345 }, mole: { forehead: 297, rightCheek: 207, leftCheek: 427, chin: 194 },
   eyeBags: { periorbital: 145 }, darkCircles: { periorbital: 374 }, crowsFeet: { periorbital: [33, -0.06, 0.012] }, hoodedEyelids: { periorbital: 386 },
   downturnedCorners: { periorbital: [263, 0.015, 0] }, coldSore: { chin: 291 },
+  eczema: { forehead: 104, rightCheek: 147, leftCheek: 376, chin: 208 }, flaking: { forehead: 333, rightCheek: 117, leftCheek: 346, chin: 428 },
 };
 export function anchorPoint(a: FindingAnchor, lm: { x: number; y: number }[], width: number, height: number): { x: number; y: number } {
   const [i, dx, dy] = typeof a === 'number' ? [a, 0, 0] : a, fw = Math.abs(lm[454].x - lm[234].x) * width;

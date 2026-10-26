@@ -94,6 +94,12 @@ const R: Record<SkinFindingId, { upTo?: number[]; bands: RecBand[] }> = {
     {"range": "%61–80", "ingredients": ["Seramid", "Pantenol"], "morning": "Mineral güneş koruyucu", "evening": "Seramidli bakım kremi", "habit": "Dermatoloğa danışın; reçeteli tedaviler uzman kararıyla kullanılır."},
     {"range": "%81–100", "ingredients": [], "habit": "Dermatoloğa başvurun."},
   ] },
+  eczema: { bands: [
+    {"range": "", "ingredients": ["Seramid", "Kolloidal yulaf", "Pantenol"], "morning": "Parfümsüz, seramidli nemlendirici", "evening": "Kolloidal yulaf içeren yatıştırıcı krem", "habit": "Kaşımayın; yüzünüzü ılık suyla ve sabunsuz bir temizleyiciyle yıkayın. Kesin değerlendirme için dermatoloğa danışın."},
+  ] },
+  flaking: { bands: [
+    {"range": "", "ingredients": ["Seramid", "Gliserin", "Skualan", "Üre (%5)"], "morning": "Seramidli nemlendirici ve güneş koruyucu", "evening": "Üre veya gliserin içeren zengin nemlendirici", "habit": "Pulları ovarak veya peelingle gidermeye çalışmayın; kapalı ortamda havayı nemli tutun."},
+  ] },
   coldSore: { bands: [
     {"range": "", "ingredients": ["Asiklovir veya dokosanol içeren uçuk kremi", "Çinko oksit"], "usage": "İlk karıncalanmada başlayın, prospektüsteki sıklıkla sürün", "habit": "Bölgeye dokunmayın; havlu, bardak ve dudak ürünü paylaşmayın. SPF içeren dudak koruyucu güneşin tetiklediği uçukları azaltır. Yaygın, ağrılı veya yılda birkaç kez tekrarlayan uçuklarda doktora başvurun."},
   ] },
