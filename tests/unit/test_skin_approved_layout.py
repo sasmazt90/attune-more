@@ -25,14 +25,26 @@ assert(!resultHtml.includes('data-skin-mesh'));
 const scanHtml=renderToStaticMarkup(React.createElement(FacePanel,{currentRegion:region,snapshot,mode:'scan',onPrev:()=>{},onNext:()=>{},selectedCriterion:null}));
 assert(scanHtml.includes('data-skin-mesh="forehead"'));
 
-// 3. Regional skin-type overlay uses decisionTrace.regions[regionId].state, leaving 'normal' colorless:
+// 3. Regional skin-type paint of the approved result UI (landmark outlines): every measured region is painted with
+// its state colour, including normal ('Dengeli', yellow); a region without a state gets a dashed outline, never a colour.
+const lm=Array.from({length:478},(_,i)=>({x:.3+.4*((i*37)%100)/100,y:.2+.6*((i*61)%100)/100}));
+const snapL={...snapshot,landmarks:lm};
 const regionWithTrace={...region,id:'overview',skinType:{value:'dry',quality:'valid',decisionTrace:{regions:{forehead:{state:'normal'}}}}};
-const traceNormalHtml=renderToStaticMarkup(React.createElement(FacePanel,{currentRegion:regionWithTrace,snapshot,mode:'result',onPrev:()=>{},onNext:()=>{},selectedCriterion:null}));
-assert(!traceNormalHtml.includes('data-skin-type-region="forehead"'));
+const traceNormalHtml=renderToStaticMarkup(React.createElement(FacePanel,{currentRegion:regionWithTrace,snapshot:snapL,mode:'result',onPrev:()=>{},onNext:()=>{},selectedCriterion:null}));
+assert(traceNormalHtml.includes('data-skin-type-region="forehead" data-skin-type-state="normal"'));
+assert(traceNormalHtml.includes('data-skin-type-color="#facc15"'));
 
 const regionWithOilyTrace={...region,id:'overview',skinType:{value:'combination',quality:'valid',decisionTrace:{regions:{forehead:{state:'oily'}}}}};
-const traceOilyHtml=renderToStaticMarkup(React.createElement(FacePanel,{currentRegion:regionWithOilyTrace,snapshot,mode:'result',onPrev:()=>{},onNext:()=>{},selectedCriterion:null}));
-assert(traceOilyHtml.includes('data-skin-type-region="forehead"'));
-assert(traceOilyHtml.includes('fill="#22c55e"'));
+const traceOilyHtml=renderToStaticMarkup(React.createElement(FacePanel,{currentRegion:regionWithOilyTrace,snapshot:snapL,mode:'result',onPrev:()=>{},onNext:()=>{},selectedCriterion:null}));
+assert(traceOilyHtml.includes('data-skin-type-region="forehead" data-skin-type-state="oily"'));
+assert(traceOilyHtml.includes('data-skin-type-color="#22c55e"'));
+
+const regionUnmeasured={...region,id:'overview',skinType:{value:null,quality:'insufficient',decisionTrace:{regions:{forehead:{state:'unmeasured',causes:['ANGLE']}}}}};
+const unmeasuredHtml=renderToStaticMarkup(React.createElement(FacePanel,{currentRegion:regionUnmeasured,snapshot:snapL,mode:'result',onPrev:()=>{},onNext:()=>{},selectedCriterion:null}));
+assert(unmeasuredHtml.includes('data-skin-type-unmeasured="forehead"'));
+assert(unmeasuredHtml.includes('data-skin-type-state="unmeasured"')&&!/data-skin-type-color="#(22c55e|3b82f6|facc15)"/.test(unmeasuredHtml));
+
+// no regional decision: nothing is painted
+assert(!renderToStaticMarkup(React.createElement(FacePanel,{currentRegion:region,snapshot:snapL,mode:'result',onPrev:()=>{},onNext:()=>{},selectedCriterion:null})).includes('data-skin-type-overlay'));
 '''
  r=subprocess.run(['node','-e',"require('./tests/unit/ts_loader.js');\n"+script],cwd=ROOT,text=True,capture_output=True,encoding='utf8');assert r.returncode==0,r.stdout+r.stderr

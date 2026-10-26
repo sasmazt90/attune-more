@@ -262,5 +262,9 @@
   "e5ab0705e057bec5": {
     "source": "(?:bitte )?(?:ich (?:möchte|will) (?:das )?gespräch(?: jetzt)? beenden|(?:das )?gespräch(?: jetzt)? beenden|beenden sie(?: bitte)? (?:das )?gespräch)",
     "reason": "Internal full-utterance German termination grammar; not displayed or translated."
+  },
+  "3a4321586db614e2": {
+    "source": "Ça",
+    "reason": "Turkish weekday abbreviation inside the per-language weekday table (SkinDateRangeDialog); EN/DE use their own tables, never a translated message."
   }
 }

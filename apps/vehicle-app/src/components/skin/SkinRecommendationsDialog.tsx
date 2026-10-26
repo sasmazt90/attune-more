@@ -9,15 +9,15 @@ import { REC_NOTES, recommendationBand } from '../../utils/skinRecommendations';
 export function SkinRecommendationsDialog({ finding, onClose, onExpert }: { finding: SkinFinding; onClose: () => void; onExpert: () => void }) {
   const { text } = useTranslations();
   const def = FINDING_DEFS[finding.id], color = findingColor(finding.id);
-  const { band } = recommendationBand(finding);
-  const range = band.range ? (def.kind === 'count' ? `${band.range} ${text(def.unit || '')}` : band.range) : '';
+  const band = recommendationBand(finding)?.band;
+  const range = band?.range ? (def.kind === 'count' ? `${band.range} ${text(def.unit || '')}` : band.range) : '';
   const note = REC_NOTES[finding.id];
-  const routine = ([['Sabah', band.morning], ['Akşam', band.evening], ['Kullanım', band.usage], ['Alışkanlık', band.habit]] as [string, string | undefined][])
+  const routine = (band ? [['Sabah', band.morning], ['Akşam', band.evening], ['Kullanım', band.usage], ['Alışkanlık', band.habit]] as [string, string | undefined][] : [])
     .filter((r): r is [string, string] => !!r[1]);
   const title = text(def.label);
   return (
     <AccessibleDialog title={title} onClose={onClose} className="w-full max-w-[720px] max-h-[92vh] overflow-y-auto rounded-[28px] bg-[#0f1724] p-7 flex flex-col gap-5 shadow-2xl">
-      <div className="flex items-start justify-between gap-4" data-skin-recommendations={finding.id} data-band={band.range}>
+      <div className="flex items-start justify-between gap-4" data-skin-recommendations={finding.id} data-band={band ? band.range : 'unmeasured'}>
         <div className="flex flex-col gap-1.5">
           <span className="text-[13px] font-bold tracking-[0.08em] uppercase" style={{ color }}>
             {text('Öneriler')}{range && <> · {text(range)}</>}
@@ -27,7 +27,8 @@ export function SkinRecommendationsDialog({ finding, onClose, onExpert }: { find
         <button type="button" aria-label={text('Kapat')} onClick={onClose} className="w-[52px] h-[52px] shrink-0 rounded-2xl bg-[#1a2533] flex items-center justify-center text-slate-100"><X aria-hidden="true" className="w-5 h-5" /></button>
       </div>
       {note && <p className="text-[15px] leading-relaxed text-slate-300">{text(note)}</p>}
-      {band.ingredients.length > 0 && (
+      {!band && <p className="rounded-[18px] bg-[#131d2b] p-4 text-[15px] leading-relaxed text-slate-300" data-skin-rec-unmeasured>{text('Bu taramada belirginlik veya sayı ölçülmediği için düzeye göre öneri gösterilemiyor. Bulgu ile ilgili bir uzmana danışabilirsiniz.')}</p>}
+      {band && band.ingredients.length > 0 && (
         <div className="flex flex-col gap-2.5">
           <span className="text-[15px] font-semibold text-slate-400">{text('Tercih edebileceğiniz içerikler')}</span>
           <ul className="flex flex-wrap gap-2" data-skin-rec-ingredients>

@@ -1,6 +1,6 @@
-/** Validated skin findings (in-domain classifiers, ≥0.80 precision on held-out persons). Only these are shown.
- * A finding is either seen, not seen in this scan, or inconclusive for its region (capture causes). Findings that were
- * not seen are never listed: recall is below 1 for several findings, so "not seen" is not presented as "absent". */
+/** Skin findings of the result screen (server: services/core-api/skin_findings_v1.py). Per region a measured finding
+ * is seen, not seen, or inconclusive (capture causes); findings without a saved, validated model are 'unavailable'
+ * with a reason and never shown as "not seen". Not-seen findings are never listed as "absent" (recall < 1). */
 export type SkinFindingId =
   | 'acne' | 'acneMarks' | 'mole' | 'spots' | 'melasma' | 'redness' | 'rosacea'
   | 'foreheadLines' | 'crowsFeet' | 'eyeBags' | 'darkCircles' | 'hoodedEyelids' | 'downturnedCorners' | 'coldSore'
@@ -8,7 +8,8 @@ export type SkinFindingId =
 export type SkinFindingRegion = 'forehead' | 'periorbital' | 'nose' | 'rightCheek' | 'leftCheek' | 'chin';
 export type SkinFindingKind = 'count' | 'area' | 'presence';
 export type SkinFindingStatus = 'seen' | 'notSeen' | 'inconclusive';
-export type SkinFindingMarker = { x: number; y: number; r?: number };
+/** Source-pixel point on the photo of `pose` (each marker keeps its own pose: never drawn on another photo). */
+export type SkinFindingMarker = { x: number; y: number; r?: number; pose?: 'FRONT' | 'RIGHT' | 'LEFT' };
 export type SkinFinding = {
   id: SkinFindingId; region: SkinFindingRegion; status: SkinFindingStatus;
   /** count findings: shown as a range until point-level counting is validated */
@@ -22,7 +23,14 @@ export type SkinFinding = {
   pose?: 'FRONT' | 'RIGHT' | 'LEFT';
   causes?: string[] | null;
 };
-export type SkinFindingsResult = { version: string; findings: SkinFinding[] };
+/** Why a finding was not measured in this scan (server reason codes). */
+export type SkinFindingUnavailableReason = 'MODEL_NOT_AVAILABLE' | 'NOT_VALIDATED' | 'REQUIRED_POSES_MISSING' | 'MODEL_BUNDLE_UNAVAILABLE' | 'FUSION_FAILED' | string;
+/** general.findings: 'measured' = the listed findings were read (others are in `unavailable`);
+ * 'unavailable' = no finding was measured in this scan (reason). Absent = this record has no findings analysis. */
+export type SkinFindingsResult = {
+  version: string; status?: 'measured' | 'unavailable'; reason?: SkinFindingUnavailableReason; poses?: string[];
+  findings: SkinFinding[]; unavailable?: { id: SkinFindingId; reason: SkinFindingUnavailableReason }[];
+};
 /** One earlier scan, for the history chart. */
 export type SkinFindingsHistoryEntry = { at: string; findings: SkinFinding[] };
 
@@ -76,6 +84,12 @@ export const COUNT_RANGE_LABEL: Record<string, string> = {
   '1-2': '1–2', '3-5': '3–5', '6-10': '6–10', '11-20': '11–20', '20+': '20+', '1-3': '1–3', '4-10': '4–10', '10+': '10+'
 };
 const COUNT_RANK = ['1-2', '1-3', '3-5', '4-10', '6-10', '10+', '11-20', '20+'];
+/** Markers keep the pose of the photo they were measured on. */
+const withPose = (f: SkinFinding): SkinFindingMarker[] => (f.markers || []).map(m => ({ ...m, pose: m.pose || f.pose }));
+/** Markers that belong to the photo of `angle`. A marker whose photo is unknown is never drawn (it could be another pose's). */
+export function markersOnPhoto(f: SkinFinding | undefined, angle: string | undefined): SkinFindingMarker[] {
+  return f && angle ? withPose(f).filter(m => m.pose === angle) : [];
+}
 const max = (a?: number, b?: number) => (a === undefined ? b : b === undefined ? a : Math.max(a, b));
 /** Findings of one status on a page. The same finding in two regions of a page (forehead and nose) is merged:
  * highest score and count range, all markers. */
@@ -90,7 +104,7 @@ export function viewFindings(all: SkinFinding[] | undefined, view: FindingViewId
     return [{ ...same.reduce((a, b) => ({
       ...a, severity: max(a.severity, b.severity), areaPct: max(a.areaPct, b.areaPct),
       countRange: COUNT_RANK.indexOf(b.countRange || '') > COUNT_RANK.indexOf(a.countRange || '') ? b.countRange : a.countRange,
-      markers: [...(a.markers || []), ...(b.markers || [])], causes: [...new Set([...(a.causes || []), ...(b.causes || [])])],
+      markers: [...withPose(a), ...withPose(b)], causes: [...new Set([...(a.causes || []), ...(b.causes || [])])],
     })), ...(redArea !== undefined ? { areaPct: redArea } : {}) }];
   });
 }
@@ -118,10 +132,37 @@ export function inconclusiveFindings(all: SkinFinding[] | undefined, view?: Find
 export function validFindings(value: unknown): value is SkinFindingsResult {
   const v = value as SkinFindingsResult;
   const pct = (x?: number) => x === undefined || (Number.isFinite(x) && x >= 0 && x <= 100);
-  return !!v && typeof v.version === 'string' && Array.isArray(v.findings) && v.findings.every(f =>
-    f && f.id in FINDING_DEFS && ['forehead', 'periorbital', 'nose', 'rightCheek', 'leftCheek', 'chin'].includes(f.region) &&
-    ['seen', 'notSeen', 'inconclusive'].includes(f.status) && pct(f.areaPct) && pct(f.severity));
+  return !!v && typeof v.version === 'string' && Array.isArray(v.findings) && (v.status === undefined || ['measured', 'unavailable'].includes(v.status)) &&
+    (v.unavailable === undefined || (Array.isArray(v.unavailable) && v.unavailable.every(u => u && u.id in FINDING_DEFS && typeof u.reason === 'string'))) &&
+    v.findings.every(f =>
+      f && f.id in FINDING_DEFS && ['forehead', 'periorbital', 'nose', 'rightCheek', 'leftCheek', 'chin'].includes(f.region) &&
+      ['seen', 'notSeen', 'inconclusive'].includes(f.status) && pct(f.areaPct) && pct(f.severity) &&
+      (f.markers === undefined || (Array.isArray(f.markers) && f.markers.every(m => Number.isFinite(m.x) && Number.isFinite(m.y)))));
 }
+/** Client-side record of a findings analysis that did not run (no score, count or marker is produced). */
+export function unavailableFindings(reason: SkinFindingUnavailableReason): SkinFindingsResult {
+  return { version: 'skin-findings-v1-detector', status: 'unavailable', reason, poses: [], findings: [],
+    unavailable: (Object.keys(FINDING_DEFS) as SkinFindingId[]).map(id => ({ id, reason })) };
+}
+/** Analysis state of a scan for the result screen: never shows "nothing found" when nothing was measured. */
+export type FindingsState = { kind: 'missing' } | { kind: 'unavailable'; reason: string } | { kind: 'measured'; result: SkinFindingsResult };
+export function findingsState(value: unknown): FindingsState {
+  if (!validFindings(value)) return { kind: 'missing' };
+  if (value.status === 'unavailable') return { kind: 'unavailable', reason: value.reason || 'UNKNOWN' };
+  return { kind: 'measured', result: value };
+}
+/** Findings of a page that were not measured in this scan (with reason). */
+export function unmeasuredFindings(result: SkinFindingsResult | undefined, view?: FindingViewId): { id: SkinFindingId; reason: string }[] {
+  const rows = result?.unavailable || [];
+  return view ? rows.filter(u => VIEW_ORDER[view].includes(u.id)) : rows;
+}
+export const UNAVAILABLE_REASON_TEXT: Record<string, string> = {
+  MODEL_NOT_AVAILABLE: 'Bu bulgu için doğrulanmış model bu sürümde yok.',
+  NOT_VALIDATED: 'Bu bulgunun ölçümü doğruluk sınırını geçemedi.',
+  REQUIRED_POSES_MISSING: 'Bu bulgu için ön ve iki yan poz gerekir; bu tarama bu pozları içermiyor.',
+  MODEL_BUNDLE_UNAVAILABLE: 'Bulgu modelleri bu cihazda yüklü değil.',
+  FUSION_FAILED: 'Üç pozun birleştirilmesi tamamlanamadı.',
+};
 /** Point the label on the photo points at: a MediaPipe landmark, optionally offset by [dx, dy] face widths
  * (image-left = subject's right). */
 export type FindingAnchor = number | [number, number, number];

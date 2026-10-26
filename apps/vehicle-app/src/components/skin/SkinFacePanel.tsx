@@ -12,7 +12,7 @@ import { meshTriangles, closedSurfaceSupportEnabled } from '../../utils/skinSurf
 import { skinBoxEnvelope } from '../../utils/skinBoxEnvelope';
 import { PAINT_OUTLINES, paintPath, faceWidthPx, PAINT_LABELS, PAINT_TAG_ANCHOR, PAINT_KEYS, paintKey, paintKeyColor, type PaintRegionId, type PaintState } from '../../utils/skinTypePaint';
 import { SkinInconclusiveDialog } from './SkinInconclusiveDialog';
-import { FINDING_DEFS, findingColor, findingAreaPath, isFindingView, viewFindings, type SkinFinding, type SkinFindingId } from '../../utils/skinFindings';
+import { FINDING_DEFS, findingColor, findingAreaPath, isFindingView, markersOnPhoto, viewFindings, type SkinFinding, type SkinFindingId } from '../../utils/skinFindings';
 import { SkinFindingCallouts, type FindingCallout } from './SkinFindingCallouts';
 
 interface SkinFacePanelProps {
@@ -359,13 +359,12 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                   // Overview: every region where the finding was seen; a page: the finding merged over the page's regions.
                   const occ = (findings || []).filter(x => x.id === selectedFinding && x.status === 'seen');
                   const f = currentRegion.id === 'overview'
-                    ? occ.length ? { ...occ[0], pose: undefined, markers: occ.flatMap(o => !o.pose || o.pose === snapshot.angle ? o.markers || [] : []) } : undefined
+                    ? occ.length ? { ...occ[0], pose: undefined, markers: occ.flatMap(o => markersOnPhoto(o, snapshot.angle)) } : undefined
                     : isFindingView(currentRegion.id) ? viewFindings(findings, currentRegion.id).find(x => x.id === selectedFinding) : undefined;
                   if (!f) return null;
                   const regions: PaintRegionId[] = currentRegion.id === 'overview' ? [...new Set(occ.map(o => o.region as PaintRegionId))]
                     : pageOutlines(currentRegion.id).filter(r => occ.some(x => x.region === r) || f.region === r);
                   const color = findingColor(f.id), fw = faceWidthPx(snapshot.landmarks, snapshot.width), kind = FINDING_DEFS[f.id].kind;
-                  const samePhoto = !f.pose || f.pose === snapshot.angle;
                   const area = findingAreaPath(f.id, snapshot.landmarks, snapshot.width, snapshot.height)
                     || regions.map(r => paintPath(r, snapshot.landmarks!, snapshot.width, snapshot.height)).filter(Boolean).join('') || null;
                   const step = fw / 55;
@@ -381,7 +380,7 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                         <path d={area} fill="none" stroke={color} strokeWidth={fw / 70} strokeOpacity="0.35" filter={`url(#${maskId}-f-glow)`} />
                         <path d={area} fill="none" stroke={color} strokeWidth={fw / 180} strokeLinejoin="round" />
                       </>}
-                      {samePhoto && (f.markers || []).map((m, i) => {
+                      {markersOnPhoto(f, snapshot.angle).map((m, i) => {
                         const r = Math.max(m.r || 0, fw / 34);
                         return (
                           <g key={i} data-skin-finding-marker={i}>

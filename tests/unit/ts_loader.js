@@ -11,6 +11,11 @@ Module._resolveFilename=function(request,parent,...rest){
  try{return resolve.call(this,request,parent,...rest);}catch(error){
   if(error.code==='MODULE_NOT_FOUND'&&request.startsWith('./')){
    const actual=path.resolve('apps/vehicle-app/src/utils',request+'.ts');if(fs.existsSync(actual))return actual;
+   // skin components import their sibling components ('./SkinInconclusiveDialog' ...)
+   const sibling=path.resolve('apps/vehicle-app/src/components/skin',request+'.tsx');if(fs.existsSync(sibling))return sibling;
+  }
+  if(error.code==='MODULE_NOT_FOUND'&&request.startsWith('../')&&!request.startsWith('../../')){
+   const shared=path.resolve('apps/vehicle-app/src/components',request.slice(3)+'.tsx');if(fs.existsSync(shared))return shared;
   }
   throw error;
  }

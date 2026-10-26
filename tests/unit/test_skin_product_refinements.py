@@ -285,10 +285,19 @@ const sideSnapshot = {
   exclusions: [],
   exclusionPolygons: [],
   photoId: 'p-left-dry',
+  // approved result UI paints the regions from the MediaPipe landmark outlines of this photo
+  landmarks: Array.from({ length: 478 }, (_, i) => ({ x: .3 + .4 * ((i * 37) % 100) / 100, y: .2 + .6 * ((i * 61) % 100) / 100 })),
 };
-const sideHtml = renderToStaticMarkup(React.createElement(SkinFacePanel, { currentRegion: fusedDryCheeks, snapshot: sideSnapshot, mode: 'result', selectedCriterion: null }));
-assert(sideHtml.includes('data-skin-type-region="rightCheek" data-skin-type-state="dry" data-source-pose="LEFT" data-source-photoid="p-left-dry" fill="#3b82f6"'));
+const overviewOfFused = { ...fusedDryCheeks, id: 'overview' };
+const sideHtml = renderToStaticMarkup(React.createElement(SkinFacePanel, { currentRegion: overviewOfFused, snapshot: sideSnapshot, mode: 'result', selectedCriterion: null }));
+assert(sideHtml.includes('data-skin-type-region="rightCheek" data-skin-type-state="dry"'));
+assert(sideHtml.includes('data-skin-type-color="#3b82f6"'));
 assert(!sideHtml.includes('data-skin-type-region="leftCheek"'));
+// FRONT-sourced regions are never painted on the side photo either
+assert(!sideHtml.includes('data-skin-type-region="forehead"') && !sideHtml.includes('data-skin-type-region="chin"'));
+// a different photo of the same pose does not receive the paint (sourcePhotoId must match)
+const otherPhotoHtml = renderToStaticMarkup(React.createElement(SkinFacePanel, { currentRegion: overviewOfFused, snapshot: { ...sideSnapshot, photoId: 'p-other' }, mode: 'result', selectedCriterion: null }));
+assert(!otherPhotoHtml.includes('data-skin-type-region="rightCheek"'));
 
 // 7. Localization: verify "Karma" and new status/guidance strings in i18n/core.ts and messages.json:
 const { translateText } = require('./' + prefix + 'i18n/core.ts');

@@ -109,11 +109,14 @@ const COUNT_BAND: Record<string, number> = { '1-2': 0, '3-5': 1, '6-10': 2, '11-
 const MOLE_BAND: Record<string, number> = { '1-3': 0, '4-10': 1, '10+': 2 };
 /** The 0–100 value a finding is shown and banded by: the validated visibility score, else the area share. */
 export const findingScore = (f: SkinFinding): number | undefined => f.severity ?? f.areaPct;
-export function recommendationBand(f: SkinFinding): { band: RecBand; index: number; total: number } {
+/** Band of the finding's measured score or count. null when the band depends on a value this scan did not measure:
+ * a missing score or count is never read as the lowest band. Single-band findings do not depend on a value. */
+export function recommendationBand(f: SkinFinding): { band: RecBand; index: number; total: number } | null {
   const r = R[f.id], total = r.bands.length;
-  let index = 0;
-  if (f.id === 'mole') index = MOLE_BAND[f.countRange || ''] ?? 0;
-  else if (f.id === 'acne') index = COUNT_BAND[f.countRange || ''] ?? 0;
-  else if (r.upTo) { const v = findingScore(f); index = v === undefined ? 0 : Math.max(0, r.upTo.findIndex(u => v <= u)); }
-  return { band: r.bands[index], index, total };
+  if (total === 1) return { band: r.bands[0], index: 0, total };
+  let index: number | undefined;
+  if (f.id === 'mole') index = MOLE_BAND[f.countRange || ''];
+  else if (f.id === 'acne') index = COUNT_BAND[f.countRange || ''];
+  else if (r.upTo) { const v = findingScore(f); const i = v === undefined ? -1 : r.upTo.findIndex(u => v <= u); index = i < 0 ? undefined : i; }
+  return index === undefined ? null : { band: r.bands[index], index, total };
 }

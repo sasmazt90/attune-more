@@ -7,7 +7,7 @@ import { SkinSnapshot } from '../../utils/skinSnapshot';
 import { SkinFacePanel } from './SkinFacePanel';
 import { SkinFindingsPanel } from './SkinFindingsPanel';
 import {
-  FINDING_ANCHOR, FINDING_DEFS, anchorPoint, FINDING_VIEW_NAMES, FINDING_VIEW_ORDER, findingColor, isFindingView, overviewFindings, seenCount, viewFindings,
+  FINDING_ANCHOR, FINDING_DEFS, anchorPoint, FINDING_VIEW_NAMES, FINDING_VIEW_ORDER, findingColor, isFindingView, markersOnPhoto, overviewFindings, seenCount, viewFindings,
   type FindingViewId, type SkinFinding, type SkinFindingId, type SkinFindingsHistoryEntry
 } from '../../utils/skinFindings';
 import type { FindingCallout } from './SkinFindingCallouts';
@@ -17,6 +17,8 @@ interface SkinResultViewProps {
   currentRegion: SkinRegionData;
   snapshot?: SkinSnapshot;
   findings?: SkinFinding[];
+  /** general.findings of the record (status / unavailable list) */
+  findingsResult?: unknown;
   /** earlier scans with findings, for the history chart */
   findingsHistory?: SkinFindingsHistoryEntry[];
   /** time of this scan (ISO) */
@@ -42,7 +44,7 @@ const FINDING_VIEWS_OF = (all: SkinFinding[] | undefined, id: SkinFindingId) =>
   (overviewFindings(all).find(f => f.id === id)?.views || []).map(v => ({ v, f: viewFindings(all, v).find(x => x.id === id)! }));
 
 /** Result screen ("face map"): page tabs, the photo with labels pointing at each finding, and the finding card. */
-export const SkinResultView: React.FC<SkinResultViewProps> = ({ currentRegion, snapshot, findings, findingsHistory, scanAt, onSelectView, onRescan, onNavigateToCare, videoRef, isLiveVideo = false }) => {
+export const SkinResultView: React.FC<SkinResultViewProps> = ({ currentRegion, snapshot, findings, findingsResult, findingsHistory, scanAt, onSelectView, onRescan, onNavigateToCare, videoRef, isLiveVideo = false }) => {
   const { text, locale } = useTranslations();
   const view: View = isFindingView(currentRegion.id) ? currentRegion.id : 'overview';
   const at = React.useMemo(() => scanAt || new Date().toISOString(), [scanAt]);
@@ -64,7 +66,7 @@ export const SkinResultView: React.FC<SkinResultViewProps> = ({ currentRegion, s
   const lm = snapshot?.landmarks;
   const anchorOf = (f: SkinFinding, v: FindingViewId) => {
     if (!snapshot || !lm) return null;
-    const marker = f.markers?.[0] && (!f.pose || f.pose === snapshot.angle) ? f.markers[0] : null;
+    const marker = markersOnPhoto(f, snapshot.angle)[0] || null;
     const a = FINDING_ANCHOR[f.id][v];
     return marker ? { x: marker.x, y: marker.y } : a !== undefined ? anchorPoint(a, lm, snapshot.width, snapshot.height) : null;
   };
@@ -116,7 +118,7 @@ export const SkinResultView: React.FC<SkinResultViewProps> = ({ currentRegion, s
             findings={findings} selectedFinding={selected} callouts={callouts} onSelectFinding={onCallout} />
         </div>
         <div className="min-w-0">
-          <SkinFindingsPanel view={view} findings={findings} history={findingsHistory} scanAt={at} skinType={currentRegion.skinType}
+          <SkinFindingsPanel view={view} findings={findings} findingsResult={findingsResult} history={findingsHistory} scanAt={at} skinType={currentRegion.skinType}
             index={Math.min(index, Math.max(0, items.length - 1))} onIndex={setIndex} onGoToView={(v, f) => goTo(v, f)}
             overviewSel={overviewSel} onOverviewSel={setOverviewSel}
             onNavigateToCare={onNavigateToCare} onRescan={onRescan} />

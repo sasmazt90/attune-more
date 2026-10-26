@@ -9,7 +9,7 @@ import { lowerFaceExpressionReason } from '../../utils/skinExpression';
 import {SkinEyewearCheck,SkinEyewearGate,SKIN_CAPTURE_POLICY,type EyewearStatus} from '../../utils/skinEyewear';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { validFindings } from '../../utils/skinFindings';
+import { validFindings, unavailableFindings, type SkinFindingsResult } from '../../utils/skinFindings';
 import { useRouter } from 'next/navigation';
 import { useVehicle } from '../../context/VehicleContext';
 import {
@@ -34,12 +34,12 @@ import {saveSkinPhotos} from '../../utils/skinPhotoHistory';
 import { rememberSkinSnapshots } from '../../utils/skinVolatileHistory';
 import { InformationButton } from '../../components/InformationButton';
 import { SkinInference } from '../../utils/skinInference';
-import { SKIN_ANGLES, ANGLE_LABELS, AngleCapture, SkinAngle, MultiAngleReference, matchesSkinAngle, angleGuidance, captureSkinAngle, compareMultiAngle, fuseMultiAngleSkinOverview } from '../../utils/skinMultiAngle';
+import { SKIN_ANGLES, ANGLE_LABELS, AngleCapture, SkinAngle, MultiAngleReference, matchesSkinAngle, angleGuidance, captureSkinAngle, compareMultiAngle } from '../../utils/skinMultiAngle';
 import { SkinSnapshot, snapshotRawSkinFrame as snapshotSkinFrame, snapshotAngleForRegion, assertCompleteFace } from '../../utils/skinSnapshot';
 import { measureSkinIndicators, SKIN_SIGN_CONTRACT, validSkinIndicators } from '../../utils/skinIndicators';
 import {skinTemporalSupport} from '../../utils/skinTemporalSupport';
-import { analyzeAppearance,attachAppearance } from '../../utils/appearanceMeasurements';
-import { buildSkinViewModel, skinViewOrder, overviewFromResponse, validSkinOverview, type SkinViewId } from '../../utils/skinOverview';
+import { analyzeAppearance,attachAppearance,fuseRegionalOnServer } from '../../utils/appearanceMeasurements';
+import { buildSkinViewModel, skinViewOrder, overviewFromResponse, validSkinOverview, effectiveSkinType, type SkinViewId } from '../../utils/skinOverview';
 import { SkinLocalAnalysis } from '../../utils/skinLocalMaps';
 import { SkinStartView } from '../../components/skin/SkinStartView';
 import { SkinActiveScan } from '../../components/skin/SkinActiveScan';
@@ -538,7 +538,19 @@ export default function SkinPage() {
       };
       finalResult.analysisId=finalResult.id;
       finalResult.captures=Object.fromEntries(Object.entries(snapshotFrames.current).map(([pose,frame])=>[pose,{captureId:frame.photoId!,pose,sourceWidth:frame.width,sourceHeight:frame.height}]));
-      const fusedGeneral=fuseMultiAngleSkinOverview(snapshotFrames.current.FRONT?.general,indicators,finalResult.captures);
+      // Regional map, skin type and findings of a three-angle scan come from the server fusion of the three photos'
+      // regional maps (models + thresholds run only on the server). A failed fusion paints nothing and names no type;
+      // its findings say 'unavailable' (never "nothing found").
+      const front=snapshotFrames.current.FRONT?.general;
+      const poseMaps=Object.fromEntries((['FRONT','LEFT','RIGHT'] as const).map(p=>[p,(snapshotFrames.current as any)[p]?.general?.regionalSkinMap]).filter(([,m])=>m&&typeof m==='object'));
+      let fused:Awaited<ReturnType<typeof fuseRegionalOnServer>>|null=null;
+      if(front&&poseMaps.FRONT){try{fused=await fuseRegionalOnServer(poseMaps,validCapture);}catch{fused=null;}}
+      if(!validCapture())return;
+      const map=fused?.regionalSkinMap||undefined;
+      const findings:SkinFindingsResult=validFindings(fused?.findings)?fused!.findings as SkinFindingsResult:unavailableFindings(poseMaps.FRONT?'FUSION_FAILED':'MODEL_BUNDLE_UNAVAILABLE');
+      const fusedGeneral=front?{...front,regionalSkinMap:map,findings,
+        skinType:map?.skinType?.quality==='valid'?effectiveSkinType({skinType:front.skinType,regionalSkinMap:map})
+          :{...front.skinType,value:null,sensitive:false,quality:'insufficient' as const,confidence:null,limitationCode:map?.skinType?.limitationCode||'REGIONAL_FUSION_UNAVAILABLE'}}:undefined;
       finalResult.general=fusedGeneral ? {...fusedGeneral,analysisId:finalResult.id} : undefined;
       for (const frame of Object.values(snapshotFrames.current)) {
         if (frame && finalResult.general) frame.general = finalResult.general;
@@ -983,7 +995,8 @@ export default function SkinPage() {
         <SkinResultView
           currentRegion={currentRegionData}
           snapshot={snapshots[snapshotAngleForRegion(selectedRegionId, analysisResult?.comparisonScope === 'three-angle-v2')]}
-          findings={(analysisResult as any)?.general?.findings?.findings}
+          findings={validFindings((analysisResult as any)?.general?.findings) ? (analysisResult as any).general.findings.findings : undefined}
+          findingsResult={(analysisResult as any)?.general?.findings}
           findingsHistory={findingsHistory}
           scanAt={(analysisResult as any)?.timestamp}
           onRescan={() => { setMediaStream(null); setIsLiveVideo(false); setScanState('READY'); }}

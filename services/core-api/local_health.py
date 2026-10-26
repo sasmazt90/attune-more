@@ -165,6 +165,24 @@ async def skin(request: Request):
         raise HTTPException(422, 'INVALID_LOCAL_GEOMETRY_OR_PHOTO')
 
 
+@router.post('/skin/regional-fuse')
+async def skin_regional_fuse(request: Request):
+    """Three-angle regional skin map + findings from the per-photo regionalSkinMap objects returned by /skin.
+    Only numbers travel here (no photo); the decision models run on the server, never in the client."""
+    value = await payload(request)
+    from regional_attach import fuse_regional
+    try:
+        maps = value.get('maps')
+        if not isinstance(maps, dict):
+            raise ValueError('MAPS_REQUIRED')
+        out = await run_in_threadpool(fuse_regional, maps)
+        if not parked() or await request.is_disconnected():
+            raise HTTPException(409, 'CANCELLED')
+        return out
+    except (KeyError, ValueError, TypeError):
+        raise HTTPException(422, 'INVALID_REGIONAL_FUSE_PAYLOAD') from None
+
+
 @router.post('/skin/fuse-multi-angle')
 async def skin_fuse_multi_angle(request: Request):
     value = await payload(request)

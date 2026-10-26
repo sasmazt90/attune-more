@@ -8,6 +8,17 @@ export type DateRange = { from: Date; to: Date };
 const WEEKDAYS: Record<string, string[]> = { tr: ['Pt', 'Sa', 'Ça', 'Pe', 'Cu', 'Ct', 'Pz'], en: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'], de: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'] };
 const day = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
 const same = (a: Date, b: Date) => day(a).getTime() === day(b).getTime();
+/** Whole local days: from 00:00 of the first day to the end of the last day (no hours of the previous day). */
+export function inDayRange(at: string | Date, range: DateRange): boolean {
+  const t = new Date(at).getTime(), start = day(range.from).getTime();
+  const end = new Date(range.to.getFullYear(), range.to.getMonth(), range.to.getDate() + 1).getTime();
+  return t >= start && t < end;
+}
+/** Two taps choose a range: the first starts a new range, the second ends it (an earlier day swaps the ends). */
+export function nextRange(from: Date, to: Date | null, d: Date): { from: Date; to: Date | null } {
+  if (to) return { from: d, to: null };
+  return d < from ? { from: d, to: from } : { from, to: d };
+}
 
 /** Date range for the history chart: quick presets and a month calendar (dots mark scan days). */
 export function SkinDateRangeDialog({ scans, value, onApply, onClose }: { scans: string[]; value: DateRange; onApply: (r: DateRange) => void; onClose: () => void }) {
@@ -22,7 +33,7 @@ export function SkinDateRangeDialog({ scans, value, onApply, onClose }: { scans:
     setFrom(day(f)); setTo(today); setMonth(new Date(today.getFullYear(), today.getMonth(), 1));
   };
   const pick = (d: Date) => {
-    if (!to || d < from) { setFrom(d); setTo(null); } else setTo(d);
+    const r = nextRange(from, to, d); setFrom(r.from); setTo(r.to);
   };
   const first = (month.getDay() + 6) % 7, count = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
   const cells: (Date | null)[] = [...Array(first).fill(null), ...Array.from({ length: count }, (_, i) => new Date(month.getFullYear(), month.getMonth(), i + 1))];

@@ -2,6 +2,7 @@ import { REGION_ORDER, SKIN_REGIONS, buildSkinRegionViewModel, type SkinRegionDa
 import type { SkinIndicator } from './skinIndicators';
 import { skinCriterionLabel, SIGN_LABELS } from './skinIndicators';
 import type { AppearanceResponse } from './appearanceMeasurements';
+import { validFindings, type SkinFindingsResult } from './skinFindings';
 
 export const SKIN_TYPE_LABELS = { normal: 'Normal', dry: 'Kuru', oily: 'Yağlı', combination: 'Karma', sensitive: 'Hassas' } as const;
 export type SkinTypeId = keyof typeof SKIN_TYPE_LABELS;
@@ -32,6 +33,8 @@ export type SkinOverview = {
   schemaVersion: 1; analysisId?: string; captureId: string; pose: 'FRONT';
   skinType: { value: SkinTypeId | null; sensitive?: boolean; quality: 'valid' | 'invalid' | 'insufficient'; confidence: number | null; methodVersion: string; modelHash: string | null; limitationCode: string | null; provider?:string;providerModelId?:string;inferenceKind?:'hosted'|'local-onnx';decisionVersion?:string;sourceModel?:string;decisionTrace?:Record<string,any> };
   regionalSkinMap?: Record<string, any>;
+  /** Server findings (skin_findings_v1). Absent = this record has no findings analysis (never read as "nothing found"). */
+  findings?: SkinFindingsResult;
   indicators: SkinIndicator[]; normalizationVersion: string;
   modelInputTransform?:Record<string,number|string|boolean>|null;modelInference?:Record<string,Record<string,number|string>>;
   sourceTransform: { sourceWidth: number; sourceHeight: number; coordinateSpace: 'source-pixels' };
@@ -42,6 +45,7 @@ export function overviewFromResponse(response: AppearanceResponse): SkinOverview
     skinType: effectiveSkinType({ ...response.general, regionalSkinMap: (response.general as any).regionalSkinMap || (response as any).regionalSkinMap }),
     regionalSkinMap: (response.general as any).regionalSkinMap || (response as any).regionalSkinMap,
     normalizationVersion: response.general.normalizationVersion,
+    ...(validFindings((response.general as any).findings) ? { findings: (response.general as any).findings as SkinFindingsResult } : {}),
     modelInputTransform:response.general.modelInputTransform,modelInference:response.general.modelInference,
     sourceTransform: { sourceWidth: response.sourceWidth, sourceHeight: response.sourceHeight, coordinateSpace: 'source-pixels' },
     indicators: response.general.measurements.map(value => ({ id: value.id, label: skinCriterionLabel(value.id,'whole-face'), score: value.value,

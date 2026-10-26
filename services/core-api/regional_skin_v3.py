@@ -375,8 +375,33 @@ def analyze_photo(bgr: np.ndarray, landmarks_norm: list, check=lambda: None, pos
         raw[app] = dict(probs=probs, sensitive=ps, frac_clean=f.get('frac_clean'), causes=causes.get(app, []), evidence={k: f.get(k) for k in ('skinmap_Redness_max', 'findings_Rozasea_max', 'findings_Egzema_max', 'findings_Sedef_ve_Dokuntu_max')})
         d = decide_from_probs(probs, ps, f, tone, kc.spec['thresholds']['single'], params)
         regions[app] = {**d, 'sourcePose': pose, **({'causes': with_cover(causes.get(app, []), d)} if d['state'] == 'unmeasured' else {})}
+    # Detector evidence for the findings layer (skin_findings_v1): same per-region values the research features used,
+    # whether the region is large enough to be read (>= 150 px at the 400 px face scale, as in validation) and visible in
+    # this pose, plus the boxes of box-type findings mapped back to source pixels of THIS photo.
+    import skin_findings_v1 as SF
+    finding_evidence, finding_boxes = SF.evidence_from_detections(ev, dets, cats, polys, sc, view, pose, inv=lambda x, y: ((x / k) + X0, (y / k) + Y0), src_scale=1 / k)
     return dict(version=VERSION, paramsVersion=params.get('version'), classifierVersion=(kc.spec['version'] if kc else None), pose=pose,
-                tone=dict(ita=round(ita, 1), group=tone), regions=regions, raw=raw, skinType=skin_type_from_regions(regions))
+                tone=dict(ita=round(ita, 1), group=tone), regions=regions, raw=raw, skinType=skin_type_from_regions(regions),
+                findingEvidence=finding_evidence, findingBoxes=finding_boxes, models=model_manifest())
+
+def model_manifest() -> dict:
+    """File names + SHA-256 of the loaded bundle (cached), so every result names the exact weights that produced it."""
+    global _manifest
+    if _manifest is None:
+        import hashlib
+        out = {}
+        for name in ('params.json', 'k_classifier.json', 'skinmap.pt', 'findings.pt', 'acnes.pt', 'regional.pt', 'wrinkles.pt'):
+            path = os.path.join(MODEL_DIR, name)
+            if os.path.exists(path):
+                h = hashlib.sha256()
+                with open(path, 'rb') as f:
+                    for chunk in iter(lambda: f.read(1 << 20), b''):
+                        h.update(chunk)
+                out[name] = h.hexdigest()
+        _manifest = out
+    return _manifest
+
+_manifest = None
 
 def fuse_maps(maps: dict) -> dict | None:
     """maps: {'FRONT': map, 'LEFT': map, 'RIGHT': map} from analyze_photo. Averages the classifier probabilities of each
@@ -398,4 +423,4 @@ def fuse_maps(maps: dict) -> dict | None:
         cz = sorted({c for _, r in src for c in (r.get('causes') or [])})
         regions[app] = {**d, 'sourcePose': side[0] if app in ('rightCheek', 'leftCheek') and side else 'FRONT', **({'causes': with_cover(cz, d)} if d['state'] == 'unmeasured' else {})}
     return dict(version=VERSION, paramsVersion=params.get('version'), classifierVersion=kc.spec['version'], pose='THREE_ANGLE',
-                tone=front['tone'], regions=regions, skinType=skin_type_from_regions(regions))
+                tone=front['tone'], regions=regions, skinType=skin_type_from_regions(regions), models=model_manifest())

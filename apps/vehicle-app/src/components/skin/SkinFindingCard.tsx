@@ -7,7 +7,7 @@ import {
   type FindingViewId, type SkinFinding, type SkinFindingsHistoryEntry
 } from '../../utils/skinFindings';
 import { findingScore } from '../../utils/skinRecommendations';
-import { SkinDateRangeDialog, type DateRange } from './SkinDateRangeDialog';
+import { SkinDateRangeDialog, inDayRange, type DateRange } from './SkinDateRangeDialog';
 
 /** One finding of a page: title with arrows to the other findings, what it looks like, its score and its history. */
 export function SkinFindingCard({ view, items, index, onIndex, history, scanAt }: {
@@ -46,7 +46,9 @@ export function SkinFindingCard({ view, items, index, onIndex, history, scanAt }
                 <span className="text-4xl font-extrabold tabular-nums text-white">{COUNT_RANGE_LABEL[f.countRange] || f.countRange}</span>
                 <span className="text-base text-slate-400">{text(def.unit || '')}</span>
               </div>
-            : null}
+            : <p className="text-[15px] leading-snug text-slate-400 text-center" data-skin-finding-unmeasured>
+                {text('Bu taramada görüldü. Belirginlik, alan ve sayı bu sürümde ölçülmüyor.')}
+              </p>}
       {score !== undefined && <History view={view} finding={f} history={history} scanAt={scanAt} color={color} />}
     </section>
   );
@@ -72,7 +74,6 @@ function ScoreBar({ value, color, label, scale }: { value: number; color: string
   );
 }
 
-const DAY = 86400000;
 function History({ view, finding, history, scanAt, color }: { view: FindingViewId; finding: SkinFinding; history?: SkinFindingsHistoryEntry[]; scanAt: string; color: string }) {
   const { text, locale } = useTranslations();
   const all = React.useMemo(() => {
@@ -88,7 +89,7 @@ function History({ view, finding, history, scanAt, color }: { view: FindingViewI
   const [picker, setPicker] = React.useState(false);
   const first = all.length ? new Date(all[0].at) : new Date(scanAt), last = new Date(scanAt);
   const from = range?.from || first, to = range?.to || last;
-  const pts = all.filter(p => { const t = new Date(p.at).getTime(); return t >= from.getTime() - DAY / 2 && t <= to.getTime() + DAY - 1; });
+  const pts = all.filter(p => inDayRange(p.at, { from, to }));
   const fmt = (d: Date, year = false) => d.toLocaleDateString(locale, { day: 'numeric', month: 'short', ...(year ? { year: 'numeric' } : {}) });
   const W = 504, H = 160, X0 = 40, X1 = 480, Y0 = 10, Y1 = 132;
   const x = (i: number) => (pts.length < 2 ? (X0 + X1) / 2 : X0 + (X1 - X0) * i / (pts.length - 1));

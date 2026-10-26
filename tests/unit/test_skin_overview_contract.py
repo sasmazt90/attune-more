@@ -28,7 +28,9 @@ assert.equal(display[0].label,'Sarkma');assert.equal(JSON.stringify(legacy),oldB
 assert.equal(v.buildSkinViewModel('forehead',legacy).indicators[0].score,.02);
 assert.equal(v.skinViewOrder(legacy).length,6);assert.equal(legacy.general,undefined);
 const general={schemaVersion:1,analysisId:'analysis-a',captureId:'a'.repeat(64),pose:'FRONT',normalizationVersion:'fixed-v1',sourceTransform:{sourceWidth:1280,sourceHeight:720,coordinateSpace:'source-pixels'},skinType:{value:null,quality:'insufficient',confidence:null,methodVersion:'unavailable',modelHash:null},indicators:['tone','oil','redness','acne','sag','dry','lines','dark','bags'].map(id=>({id,score:null,measurement:{scope:'whole-face',region:'overview',methodVersion:'source-v1',rawValue:null,quality:'insufficient',unavailableReason:'NO_SUPPORT'}}))};
-const current={...old,id:'analysis-a',general};assert.equal(v.skinViewOrder(current).length,7);assert.equal(v.skinViewOrder(current)[0],'overview');
+const current={...old,id:'analysis-a',general};// approved result UI: overview + five pages (nose belongs to the T-zone page); old records keep their six regions
+assert.deepEqual(v.skinViewOrder(current),['overview','forehead','periorbital','rightCheek','leftCheek','chin']);assert.equal(v.skinViewOrder(current)[0],'overview');
+assert.notDeepEqual(v.skinViewOrder(current),v.skinViewOrder(old));assert(v.skinViewOrder(old).includes('nose')&&!v.skinViewOrder(old).includes('overview'));
 assert.equal(v.buildSkinViewModel('overview',current).index,1);assert.equal(v.buildSkinViewModel('forehead',current).index,2);assert.equal(v.buildSkinViewModel('forehead',old).index,1);
 assert(v.validSkinOverview(general,'analysis-a'));assert(!v.validSkinOverview(general,'analysis-b'));
 general.skinType.value='oily';assert(!v.validSkinOverview(general,'analysis-a'));general.skinType.value=null;

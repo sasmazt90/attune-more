@@ -28,6 +28,21 @@ export async function analyzeAppearance(snapshot:SkinSnapshot,qualityValid:boole
   return result;
  } finally {clearTimeout(timer);clearInterval(stale);}
 }
+export type RegionalFuseResponse={regionalSkinMap:Record<string,any>|null;regionalSkinMapStatus:string;findings:unknown};
+/** Three-angle regional map + findings: the per-photo regionalSkinMap numbers go to the server, which runs the
+ * fusion and the finding decisions (thresholds live only on the server). No photo is sent. */
+export async function fuseRegionalOnServer(maps:Record<string,unknown>,current:()=>boolean):Promise<RegionalFuseResponse>{
+ const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),30000);
+ const stale=setInterval(()=>{if(!current())controller.abort();},100);
+ try {
+  const response=await fetch(`${LOCAL_API_BASE}/api/local-health/skin/regional-fuse`,{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:true,maps})});
+  if(!response.ok)throw Error('REGIONAL_FUSE_FAILED');
+  const result=await response.json();
+  if(!current())throw Error('STALE_SOURCE');
+  if(!result||typeof result!=='object'||typeof result.regionalSkinMapStatus!=='string')throw Error('INVALID_REGIONAL_FUSE_RESPONSE');
+  return result;
+ } finally {clearTimeout(timer);clearInterval(stale);}
+}
 /** Only measurement numbers enter records. Photo, maps and source contours are volatile. */
 export function attachAppearance(indicators:SkinIndicators,result:AppearanceResponse){
  for(const [region,values] of Object.entries(result.measurements))for(const value of values){

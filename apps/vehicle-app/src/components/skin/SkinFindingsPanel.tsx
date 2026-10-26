@@ -3,19 +3,23 @@ import React from 'react';
 import { useTranslations } from '../../i18n/LanguageProvider';
 import { ChevronLeft, ChevronRight, Info } from 'lucide-react';
 import {
-  FINDING_DEFS, FINDING_VIEW_NAMES, COUNT_RANGE_LABEL, findingColor, inconclusiveFindings, overviewFindings, viewFindings, type OverviewFinding,
+  FINDING_DEFS, FINDING_VIEW_NAMES, COUNT_RANGE_LABEL, UNAVAILABLE_REASON_TEXT, findingColor, findingsState, inconclusiveFindings, overviewFindings,
+  unmeasuredFindings, validFindings, viewFindings, type FindingsState, type OverviewFinding,
   type FindingViewId, type SkinFinding, type SkinFindingId, type SkinFindingsHistoryEntry
 } from '../../utils/skinFindings';
 import { skinTypeLabel } from '../../utils/skinOverview';
 import { SkinFindingCard } from './SkinFindingCard';
 import { SkinRecommendationsDialog } from './SkinRecommendationsDialog';
 import { SkinInconclusiveFindingsDialog } from './SkinInconclusiveFindingsDialog';
+import { SkinUnmeasuredFindingsDialog } from './SkinUnmeasuredFindingsDialog';
 import { recommendationBand } from '../../utils/skinRecommendations';
 
 type View = 'overview' | FindingViewId;
 interface Props {
   view: View;
   findings?: SkinFinding[];
+  /** general.findings of the record: separates "not measured" from "measured, nothing seen" */
+  findingsResult?: unknown;
   history?: SkinFindingsHistoryEntry[];
   scanAt: string;
   skinType?: any;
@@ -29,28 +33,39 @@ interface Props {
 }
 
 /** Right column of the result screen: the selected finding's card, the inconclusive note and the two actions. */
-export function SkinFindingsPanel({ view, findings, history, scanAt, skinType, index, onIndex, onNavigateToCare, onRescan, overviewSel, onOverviewSel }: Props) {
+export function SkinFindingsPanel({ view, findings, findingsResult, history, scanAt, skinType, index, onIndex, onNavigateToCare, onRescan, overviewSel, onOverviewSel }: Props) {
   const { text } = useTranslations();
   const [recs, setRecs] = React.useState(false);
   const [unclear, setUnclear] = React.useState(false);
+  const [unmeasuredOpen, setUnmeasuredOpen] = React.useState(false);
+  const state = findingsState(findingsResult);
+  const unmeasured = unmeasuredFindings(validFindings(findingsResult) ? findingsResult : undefined, view === 'overview' ? undefined : view);
   const items = view === 'overview' ? [] : viewFindings(findings, view);
   const current = view === 'overview' ? overviewFindings(findings).find(f => f.id === overviewSel) : items[Math.min(index, items.length - 1)];
   const unsure = inconclusiveFindings(findings, view === 'overview' ? undefined : view);
   return (
     <div className="flex flex-col gap-3 w-full" data-skin-findings-panel={view}>
       {view === 'overview'
-        ? <Overview findings={findings} skinType={skinType} selected={overviewSel} onSelect={onOverviewSel} />
+        ? <Overview findings={findings} state={state} skinType={skinType} selected={overviewSel} onSelect={onOverviewSel} />
         : current
           ? <SkinFindingCard view={view} items={items} index={Math.min(index, items.length - 1)} onIndex={onIndex} history={history} scanAt={scanAt} />
-          : <section className="rounded-[26px] bg-[#0f1724] px-6 py-10 text-center flex flex-col gap-2" data-skin-findings-empty>
+          : <section className="rounded-[26px] bg-[#0f1724] px-6 py-10 text-center flex flex-col gap-2" data-skin-findings-empty={state.kind}>
               <h2 className="text-2xl font-extrabold text-white">{text(FINDING_VIEW_NAMES[view])}</h2>
-              <p className="text-[17px] text-slate-300">{text('Bu taramada bu bölgede öne çıkan bir bulgu yok.')}</p>
+              {emptyText(state, 'page').map(t => <p key={t} className="text-[17px] text-slate-300">{text(t)}</p>)}
             </section>}
 
       {unsure.length > 0 && (
         <button type="button" aria-haspopup="dialog" onClick={() => setUnclear(true)} data-skin-findings-inconclusive={unsure.length}
           className="min-h-[52px] rounded-2xl bg-[#1a1f12] hover:bg-[#232914] px-4 flex items-center justify-between gap-3 text-left">
           <span className="flex items-center gap-2.5 text-base font-bold text-[#f5d97a]"><Info aria-hidden="true" className="w-5 h-5" />{text(`${unsure.length} bulgu kesinleştirilemedi`)}</span>
+          <span className="flex items-center gap-1.5 text-[15px] font-semibold text-slate-100">{text('Ayrıntılar')}<ChevronRight aria-hidden="true" className="w-5 h-5" /></span>
+        </button>
+      )}
+
+      {unmeasured.length > 0 && (
+        <button type="button" aria-haspopup="dialog" onClick={() => setUnmeasuredOpen(true)} data-skin-findings-unmeasured={unmeasured.length}
+          className="min-h-[52px] rounded-2xl bg-[#131d2b] hover:bg-[#1a2533] px-4 flex items-center justify-between gap-3 text-left">
+          <span className="flex items-center gap-2.5 text-base font-bold text-slate-200"><Info aria-hidden="true" className="w-5 h-5 text-slate-400" />{text(`${unmeasured.length} bulgu ölçülemedi`)}</span>
           <span className="flex items-center gap-1.5 text-[15px] font-semibold text-slate-100">{text('Ayrıntılar')}<ChevronRight aria-hidden="true" className="w-5 h-5" /></span>
         </button>
       )}
@@ -64,13 +79,21 @@ export function SkinFindingsPanel({ view, findings, history, scanAt, skinType, i
           className="min-h-[60px] flex-[1.6] rounded-[18px] bg-[#00d2eb] hover:bg-[#00e5ff] text-lg font-extrabold text-slate-950 active:scale-[0.99] transition">{text('Uzman seçenekleri')}</button>
       </div>
       {recs && current && <SkinRecommendationsDialog finding={current} onClose={() => setRecs(false)} onExpert={() => { setRecs(false); onNavigateToCare(); }} />}
+      {unmeasuredOpen && <SkinUnmeasuredFindingsDialog items={unmeasured} onClose={() => setUnmeasuredOpen(false)} />}
       {unclear && <SkinInconclusiveFindingsDialog items={unsure} onClose={() => setUnclear(false)} onRescan={onRescan && (() => { setUnclear(false); onRescan(); })} />}
     </div>
   );
 }
 
-function Overview({ findings, skinType, selected, onSelect }: {
-  findings?: SkinFinding[]; skinType?: any; selected: SkinFindingId | null; onSelect: (id: SkinFindingId | null) => void;
+/** Empty state: "measured, nothing seen" only when the findings were actually measured. */
+function emptyText(state: FindingsState, where: 'page' | 'overview'): string[] {
+  if (state.kind === 'missing') return ['Bu kayıtta bulgu analizi yok; bulgular ölçülmedi.'];
+  if (state.kind === 'unavailable') return ['Bulgular bu taramada ölçülemedi.', ...(UNAVAILABLE_REASON_TEXT[state.reason] ? [UNAVAILABLE_REASON_TEXT[state.reason]] : [])];
+  return [where === 'page' ? 'Ölçülen bulgular bu bölgede görülmedi.' : 'Ölçülen bulgular bu taramada görülmedi.'];
+}
+
+function Overview({ findings, state, skinType, selected, onSelect }: {
+  findings?: SkinFinding[]; state: FindingsState; skinType?: any; selected: SkinFindingId | null; onSelect: (id: SkinFindingId | null) => void;
 }) {
   const { text } = useTranslations();
   const typeName = skinTypeLabel(skinType);
@@ -102,12 +125,12 @@ function Overview({ findings, skinType, selected, onSelect }: {
           <strong className="text-lg font-bold text-white">{text(typeName)}</strong>
         </button>
       )}
-      <div className="flex flex-col gap-2.5" data-skin-overview-findings={all.length}>
+      <div className="flex flex-col gap-2.5" data-skin-overview-findings={all.length} data-skin-findings-state={state.kind}>
         <div className="flex items-center justify-between gap-3">
           <span className="text-[15px] font-semibold text-slate-400">{text('Bulgular')}</span>
         </div>
         {all.length === 0
-          ? <p className="rounded-[18px] bg-[#131d2b] px-4 py-6 text-center text-[17px] text-slate-300">{text('Bu taramada öne çıkan bir bulgu yok.')}</p>
+          ? <div className="rounded-[18px] bg-[#131d2b] px-4 py-6 text-center text-[17px] text-slate-300 flex flex-col gap-1" data-skin-findings-empty={state.kind}>{emptyText(state, 'overview').map(t => <p key={t}>{text(t)}</p>)}</div>
           : <div className="grid grid-cols-2 gap-2.5">
               {shown.map(f => <OverviewFindingCard key={f.id} f={f} on={selected === f.id} onClick={() => onSelect(selected === f.id ? null : f.id)} />)}
             </div>}
@@ -124,7 +147,7 @@ function OverviewFindingCard({ f, on, onClick }: { f: OverviewFinding; on: boole
   let width: number | null = null, value: string;
   if (score !== undefined) { width = Math.round(score); value = text(`%${width}`); }
   else if (def.kind === 'count' && f.countRange) {
-    const { index, total } = recommendationBand(f); width = Math.round((index + 1) / total * 100);
+    const b = recommendationBand(f); width = b ? Math.round((b.index + 1) / b.total * 100) : null;
     value = `${COUNT_RANGE_LABEL[f.countRange] || f.countRange} ${text(def.unit || '')}`;
   } else value = f.views.map(v => text(FINDING_VIEW_NAMES[v])).join(', ');  // no score: where it was seen
   // the value sits above the filled end of the bar (kept inside the card at both ends)
