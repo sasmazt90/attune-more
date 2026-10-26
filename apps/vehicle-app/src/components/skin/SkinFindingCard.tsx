@@ -3,16 +3,18 @@ import React from 'react';
 import { ChevronLeft, ChevronRight, CalendarDays } from 'lucide-react';
 import { useTranslations } from '../../i18n/LanguageProvider';
 import {
-  ACNE_SUBTYPES, FINDING_DEFS, FINDING_VIEW_NAMES, countLabel, countUnit, findingColor, viewFindings,
+  ACNE_SUBTYPES, FINDING_DEFS, type AcneSubtype, FINDING_VIEW_NAMES, countLabel, countUnit, findingColor, viewFindings,
   type FindingViewId, type SkinFinding, type SkinFindingsHistoryEntry
 } from '../../utils/skinFindings';
 import { findingScore } from '../../utils/skinRecommendations';
 import { SkinDateRangeDialog, inDayRange, type DateRange } from './SkinDateRangeDialog';
 
 /** One finding of a page: title with arrows to the other findings, what it looks like, its score and its history. */
-export function SkinFindingCard({ view, items, index, onIndex, history, scanAt }: {
+export function SkinFindingCard({ view, items, index, onIndex, history, scanAt, acneType = null, onAcneType }: {
   view: FindingViewId; items: SkinFinding[]; index: number; onIndex: (i: number) => void;
   history?: SkinFindingsHistoryEntry[]; scanAt: string;
+  /** acne lesion type whose markers alone are drawn on the photo (null = all) */
+  acneType?: AcneSubtype | null; onAcneType?: (t: AcneSubtype | null) => void;
 }) {
   const { text, language, locale } = useTranslations();
   const f = items[index], n = items.length, color = findingColor(f.id), def = FINDING_DEFS[f.id];
@@ -54,31 +56,38 @@ export function SkinFindingCard({ view, items, index, onIndex, history, scanAt }
           {text('Cilt tonunuza göre kırmızılık farkı')}: <strong className="text-white tabular-nums">{f.toneDiff > 0 ? '+' : ''}{language === 'tr' ? f.toneDiff : f.toneDiff.toLocaleString(locale)}</strong>
         </p>
       )}
-      {f.subtypes && <AcneTypes f={f} />}
+      {f.subtypes && <AcneTypes f={f} selected={acneType} onSelect={onAcneType} />}
       {metricOf(f) !== undefined && <History view={view} finding={f} history={history} scanAt={scanAt} color={color} />}
     </section>
   );
 }
 
-/** Collapsible lesion-type breakdown of the acne count (the rows add up to the count shown above). */
-function AcneTypes({ f }: { f: SkinFinding }) {
+/** Collapsible lesion-type breakdown of the acne count (the rows add up to the count shown above). Tapping a type
+ * draws only that type's circles on the photo; tapping the same type again draws all of them again. */
+function AcneTypes({ f, selected, onSelect }: { f: SkinFinding; selected: AcneSubtype | null; onSelect?: (t: AcneSubtype | null) => void }) {
   const { text } = useTranslations();
   const [open, setOpen] = React.useState(false);
   return (
-    <div className="rounded-2xl bg-[#131d2b]" data-skin-acne-subtypes={open ? 'open' : 'closed'}>
+    <div className="rounded-2xl bg-[#131d2b]" data-skin-acne-subtypes={open ? 'open' : 'closed'} data-skin-acne-selected={selected || 'all'}>
       <button type="button" aria-expanded={open} onClick={() => setOpen(!open)}
         className="w-full min-h-[48px] px-4 flex items-center justify-between gap-3 text-[15px] font-semibold text-slate-100">
         {text('Akne türleri')}
         <ChevronRight aria-hidden="true" className={`w-5 h-5 transition-transform ${open ? 'rotate-90' : ''}`} />
       </button>
       {open && (
-        <ul className="flex flex-col gap-1.5 px-4 pb-3">
-          {ACNE_SUBTYPES.map(({ id, label }) => (
-            <li key={id} className="flex items-baseline justify-between gap-3 text-[15px]" data-skin-acne-subtype={id}>
-              <span className="text-slate-300">{text(label)}</span>
-              <span className="font-bold tabular-nums text-white">{f.subtypes![id] || 0}{id === 'unspecified' && f.countAtLeast ? '+' : ''}</span>
-            </li>
-          ))}
+        <ul className="flex flex-col gap-1 px-2 pb-2">
+          {ACNE_SUBTYPES.map(({ id, label }) => {
+            const n = f.subtypes![id] || 0, active = selected === id;
+            return (
+              <li key={id} data-skin-acne-subtype={id}>
+                <button type="button" disabled={!n || !onSelect} aria-pressed={active} onClick={() => onSelect?.(active ? null : id)}
+                  className={`w-full min-h-[44px] px-2 rounded-xl flex items-center justify-between gap-3 text-[15px] text-left transition ${active ? 'bg-[#00d2eb]/15 ring-1 ring-[#00d2eb]' : 'hover:bg-white/[0.05]'} disabled:hover:bg-transparent disabled:cursor-default`}>
+                  <span className={active ? 'text-white font-semibold' : n ? 'text-slate-300' : 'text-slate-500'}>{text(label)}</span>
+                  <span className={`font-bold tabular-nums ${n ? 'text-white' : 'text-slate-500'}`}>{n}{id === 'unspecified' && f.countAtLeast ? '+' : ''}</span>
+                </button>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

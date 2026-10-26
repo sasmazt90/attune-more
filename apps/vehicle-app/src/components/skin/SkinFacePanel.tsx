@@ -12,7 +12,7 @@ import { meshTriangles, closedSurfaceSupportEnabled } from '../../utils/skinSurf
 import { skinBoxEnvelope } from '../../utils/skinBoxEnvelope';
 import { PAINT_OUTLINES, paintPath, faceWidthPx, PAINT_LABELS, PAINT_TAG_ANCHOR, PAINT_KEYS, paintKey, paintKeyColor, type PaintRegionId, type PaintState } from '../../utils/skinTypePaint';
 import { SkinInconclusiveDialog } from './SkinInconclusiveDialog';
-import { FINDING_DEFS, findingColor, findingAreaPath, isFindingView, markersOnPhoto, viewFindings, type SkinFinding, type SkinFindingId } from '../../utils/skinFindings';
+import { FINDING_DEFS, findingColor, findingAreaPath, isFindingView, markerSubtype, markersOnPhoto, viewFindings, type AcneSubtype, type SkinFinding, type SkinFindingId } from '../../utils/skinFindings';
 import { SkinFindingCallouts, type FindingCallout } from './SkinFindingCallouts';
 
 interface SkinFacePanelProps {
@@ -31,6 +31,8 @@ interface SkinFacePanelProps {
   /** labels around the photo that point at each finding; tapping one selects it */
   callouts?: FindingCallout[];
   onSelectFinding?: (key: string) => void;
+  /** acne: draw only the markers of this lesion type (null = all) */
+  markerType?: AcneSubtype | null;
 }
 /** Paint outlines a result page covers: the T-zone page shows forehead and nose together. */
 const PAGE_OUTLINES: Record<string, PaintRegionId[]> = { forehead: ['forehead', 'nose'] };
@@ -60,7 +62,8 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
   findings,
   selectedFinding,
   callouts,
-  onSelectFinding
+  onSelectFinding,
+  markerType = null
 }) => {
   const { text: i18nText, node: i18nNode } = useTranslations();
   const [inconclusive, setInconclusive] = useState<{ regionId: string; causes?: string[] | null } | null>(null);
@@ -380,10 +383,10 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                         <path d={area} fill="none" stroke={color} strokeWidth={fw / 70} strokeOpacity="0.35" filter={`url(#${maskId}-f-glow)`} />
                         <path d={area} fill="none" stroke={color} strokeWidth={fw / 180} strokeLinejoin="round" />
                       </>}
-                      {markersOnPhoto(f, snapshot.angle).map((m, i) => {
+                      {markersOnPhoto(f, snapshot.angle).filter(m => !markerType || markerSubtype(m) === markerType).map((m, i) => {
                         const r = Math.max(m.r || 0, fw / 34);
                         return (
-                          <g key={i} data-skin-finding-marker={i}>
+                          <g key={i} data-skin-finding-marker={i} data-skin-marker-type={f.id === 'acne' ? markerSubtype(m) : undefined}>
                             <circle cx={m.x} cy={m.y} r={r * 1.25} fill="none" stroke={color} strokeWidth={fw / 110} strokeOpacity="0.35" filter={`url(#${maskId}-f-glow)`} />
                             <circle cx={m.x} cy={m.y} r={r} fill="none" stroke={color} strokeWidth={fw / 230} />
                             <circle cx={m.x} cy={m.y} r={fw / 260} fill={color} />

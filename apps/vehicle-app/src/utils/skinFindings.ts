@@ -11,6 +11,8 @@ export type SkinFindingStatus = 'seen' | 'notSeen' | 'inconclusive';
 /** Source-pixel point on the photo of `pose` (each marker keeps its own pose: never drawn on another photo). */
 export type SkinFindingMarker = { x: number; y: number; r?: number; pose?: 'FRONT' | 'RIGHT' | 'LEFT'; type?: AcneSubtype };
 export type AcneSubtype = 'blackhead' | 'whitehead' | 'papule' | 'pustule' | 'nodule' | 'unspecified';
+/** Lesion type of a marker; a box the detector did not type is an unidentified acne type. */
+export const markerSubtype = (m: SkinFindingMarker): AcneSubtype => m.type || 'unspecified';
 export const ACNE_SUBTYPES: { id: AcneSubtype; label: string }[] = [
   { id: 'blackhead', label: 'Siyah nokta (açık komedon)' }, { id: 'whitehead', label: 'Beyaz nokta (kapalı komedon)' },
   { id: 'papule', label: 'Papül' }, { id: 'pustule', label: 'Püstül' }, { id: 'nodule', label: 'Nodül' }, { id: 'unspecified', label: 'Tanımlanamayan akne türü' },

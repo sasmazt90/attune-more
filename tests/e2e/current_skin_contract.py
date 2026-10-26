@@ -94,7 +94,28 @@ def check_result(p, rec, shots, tag, photo=True, frame=lambda: None):
         if photo:   # the photo of the page stays readable next to the labels (no squeezed photo column)
             assert p.locator('[data-face-panel]').bounding_box()['width'] >= 300, (view, p.locator('[data-face-panel]').bounding_box())
         p.screenshot(path=str(OUT / f'{tag}-{view}.png'), full_page=True); shots.append(f'{tag}-{view}.png'); frame(); frame()
+        if photo and 'acne' in want:
+            check_acne_types(p, shots, f'{tag}-{view}', frame)
     p.locator('[data-skin-region-tab="overview"]').click()
+
+
+def check_acne_types(p, shots, tag, frame):
+    """Tapping an acne type draws only that type's circles on the photo; tapping it again draws all of them again."""
+    for _ in range(6):
+        if p.locator('[data-skin-finding-card]').get_attribute('data-skin-finding-card') == 'acne': break
+        p.get_by_role('button', name='Sonraki bulgu').click()
+    drawn = lambda: p.locator('[data-skin-finding-layer="acne"] [data-skin-finding-marker]').evaluate_all('e=>e.map(x=>x.dataset.skinMarkerType)')
+    every = drawn()
+    p.get_by_role('button', name='Akne türleri').click()
+    for row in p.locator('[data-skin-acne-subtype]').all():
+        t = row.get_attribute('data-skin-acne-subtype'); btn = row.locator('button')
+        if btn.is_disabled(): continue
+        btn.click(); frame()
+        assert p.locator('[data-skin-acne-subtypes]').get_attribute('data-skin-acne-selected') == t
+        assert drawn() == [x for x in every if x == t], (t, drawn(), every)
+        p.screenshot(path=str(OUT / f'{tag}-acne-{t}.png'), full_page=True); shots.append(f'{tag}-acne-{t}.png'); frame()
+        btn.click(); frame()   # the same type again: every circle
+        assert drawn() == every and p.locator('[data-skin-acne-subtypes]').get_attribute('data-skin-acne-selected') == 'all'
 
 
 with sync_playwright() as pw:

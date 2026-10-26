@@ -29,11 +29,13 @@ interface Props {
   onNavigateToCare: () => void;
   onRescan?: () => void;
   overviewSel: SkinFindingId | null;
+  acneType?: import('../../utils/skinFindings').AcneSubtype | null;
+  onAcneType?: (t: import('../../utils/skinFindings').AcneSubtype | null) => void;
   onOverviewSel: (id: SkinFindingId | null) => void;
 }
 
 /** Right column of the result screen: the selected finding's card, the inconclusive note and the two actions. */
-export function SkinFindingsPanel({ view, findings, findingsResult, history, scanAt, skinType, index, onIndex, onNavigateToCare, onRescan, overviewSel, onOverviewSel }: Props) {
+export function SkinFindingsPanel({ view, findings, findingsResult, history, scanAt, skinType, index, onIndex, onNavigateToCare, onRescan, overviewSel, onOverviewSel, acneType, onAcneType }: Props) {
   const { text } = useTranslations();
   const [recs, setRecs] = React.useState(false);
   const [unclear, setUnclear] = React.useState(false);
@@ -48,7 +50,7 @@ export function SkinFindingsPanel({ view, findings, findingsResult, history, sca
       {view === 'overview'
         ? <Overview findings={findings} state={state} skinType={skinType} selected={overviewSel} onSelect={onOverviewSel} />
         : current
-          ? <SkinFindingCard view={view} items={items} index={Math.min(index, items.length - 1)} onIndex={onIndex} history={history} scanAt={scanAt} />
+          ? <SkinFindingCard view={view} items={items} index={Math.min(index, items.length - 1)} onIndex={onIndex} history={history} scanAt={scanAt} acneType={acneType} onAcneType={onAcneType} />
           : <section className="rounded-[26px] bg-[#0f1724] px-6 py-10 text-center flex flex-col gap-2" data-skin-findings-empty={state.kind}>
               <h2 className="text-2xl font-extrabold text-white">{text(FINDING_VIEW_NAMES[view])}</h2>
               {emptyText(state, 'page').map(t => <p key={t} className="text-[17px] text-slate-300">{text(t)}</p>)}

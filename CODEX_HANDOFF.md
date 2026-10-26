@@ -76,7 +76,7 @@ Kayıtlı modellerin SHA-256 değerleri:
 | Pullanma | `ecz_flake2.py` (290 kişi) | Ön + 20° | Pul dokusu (c_flake) sırası % | iç içe CV: P 0,92 R 0,78 |
 | Göz altı morluğu | Işık düzeltmeli renk (`eye_grid3.py`) | Ön | Belirginlik % (gömme-only kol, ρ 0,66; araştırmada seçilen kombinasyonun bir girdisi yeniden üretilemedi) | iç içe CV: P 0,89 R 0,46, birebir |
 | Göz kapağı düşüklüğü | Geometri + DINOv2 (`eye_fair3.py`) | Ön | Belirginlik % (ρ 0,69) | P 0,83 R 0,79, birebir |
-| Göz kuyruğu düşüklüğü | Geometri + DINOv2 (`eye_fair3.py`) | Ön | Eğim sırası % (pozitifler arasında; derecelendirmeyle doğrulanmadı, AUC 0,66) | P 0,82 R 0,51. **Kurulu eşik 0,668 araştırma ort. 0,82'den düşük** (§8) |
+| Göz kuyruğu düşüklüğü | Geometri + DINOv2 (`eye_fair3.py`) | Ön | Eğim sırası % (pozitifler arasında; derecelendirmeyle doğrulanmadı, AUC 0,66) | P 0,82 R 0,51. Kurulu eşik 0,668 (araştırma ort. 0,82); **kullanıcı 0,668'i onayladı** (2026-10-26) |
 | Sivilce | Dedektör özellik birleşimi LR (`lesion_eval.py`) | Ön + 20° | Lezyon sayısı + alt türler (siyah nokta, beyaz nokta, papül, püstül, nodül, tanımlanamayan; toplam = toplam) | P 0,86 R 1,00 (6 pozitif), birebir |
 | Kızarıklık | Dedektör LR (`redness_prev.py`) | Ön + 20° | Kızarık alan % + cilde göre ton farkı | P 0,86 R 0,97, birebir (eski belgedeki 0,89/1,00 ~25° satırıydı) |
 | Ben | findings.pt `Riskli Ben` ≥ 0,58 | Ön + 20° | İşaretlenen ben sayısı | P 1,00 R 0,30 |
@@ -135,7 +135,14 @@ Notlar:
 | K-074 | 7 | 4 (kayıp: redness/nose, rosacea/nose, rosacea/rightCheek; fazla: —) | 6 (kayıp: redness/nose; fazla: —) |
 | K-258 | 3 | 4 (kayıp: —; fazla: downturnedCorners/periorbital) | 4 (kayıp: —; fazla: downturnedCorners/periorbital) |
 
-Düzeltme etkiyi azaltıyor ama tamamen gidermiyor (K-074'te 1 kayıp, K-258'de 1 fazla kalıyor). Gerçek kamera ve gerçek kartla denenmedi.
+Düzeltme etkiyi azaltıyor ama tamamen gidermiyor (K-074'te 1 kayıp, K-258'de 1 fazla kalıyor).
+
+**Kullanım şekli (kullanıcı kararı, 2026-10-26):** Araç kamerası profili ve kart kalibrasyonu bir açık iş değil, **OEM'lerle anlaşılan noktada uygulanacak yöntemdir**. Her OEM / araç modeli / kabin kamerası için bir kez yapılır:
+1. OEM, kameranın YUV matrisini ve aralığını (veri sayfası / ISP ayarı) verir.
+2. Kart OEM'in kabininde, kendi ışığında çekilir.
+3. `fit_profile.py` veya servis uç noktası profili üretir; profil araç yazılımıyla dağıtılır (`ATTUNE_CAMERA_PROFILE`).
+
+**Yazılım hazırdır:** ham kare yolu, profil okuma, renk düzeltmesi, kart, uydurma, kalite kapıları ve testler. Gerçek bir OEM kamerasıyla henüz uygulanmadı; bu, OEM anlaşmasıyla gelecek adımdır.
 
 ## 6. Doğrulama
 
@@ -206,12 +213,12 @@ Raporlar:
 
 ## 8. Açık engeller
 
-1. **Eşik ve kamera hattı:** Eşikler araştırma PNG'lerinde seçildi. Ham kare + profil yolu eklendi (§5b); gerçek araç kamerası profili ve kalibrasyonu yapılmadı.
+1. **Eşik ve kamera hattı:** Eşikler araştırma PNG'lerinde seçildi. Ham kare + profil yolu eklendi (§5b). Araç kamerası profili ve kart kalibrasyonu açık iş değildir: OEM ile anlaşma aşamasında, OEM'in kabin kamerası için uygulanacak yöntemdir ve yazılımı hazırdır (§5b).
    - Uygulamanın gönderdiği PNG orijinalden ort. 1,4/255 farklı. PNG kayıpsız olduğundan fark kodlamadan önce oluşuyor; büyük olasılıkla tarayıcının YUV420→RGB dönüşümü (kanıtlanmadı).
    - Etki: K-217 rozasea 0,757 (Python/ffmpeg ile aynı y4m) → 0,48–0,54 (uygulama yolu); eşik 0,69.
    - Eşikler P≥0,8 sınırına yakın olduğundan küçük renk kaymaları kararı çeviriyor.
    - Ölçülen neden: tarayıcının yanlış renk matrisi (§5b). Kullanıcı ham kare (1) ve araç kalibrasyonunu (3) onayladı; ikisi kuruldu. Beyaz denge kilidi, kare ortalama ve eşik yeniden doğrulaması kullanıcı kararıyla yapılmayacak.
-2. **Göz kuyruğu eşiği:** Onaylanan kural kurulu eşiği 0,668 verdi; araştırma ortalaması 0,82. Bu yüzden daha fazla yanlış pozitif beklenir. Eşik değiştirilmedi; karar kullanıcıya bırakıldı.
+2. **Göz kuyruğu eşiği — KARAR VERİLDİ:** Kurulu eşik 0,668 (araştırma ortalaması 0,82). Kullanıcı 2026-10-26'da 0,668'de kalmasını onayladı. Daha yüksek eşiğe göre daha fazla yanlış pozitif beklenmesi bilinen bir ödünleşimdir; açık engel değildir.
 3. **Göz altı morluğu belirginliği:** Araştırmada seçilen model yerine gömme-only kol kullanıldı (ρ 0,75 yerine 0,66).
 4. **mediapipe gereksinimi:** Sunucuda mediapipe yoksa sivilce ve kızarıklık kararları araştırmadan sapabilir (testte 1 eşik geçişi).
 5. **Bağımsız doğrulama yok:** Gerçek fotoğraf, klinik doğrulama ve dermatolog incelemesi yok. Öneri içerikleri de incelenmedi.
@@ -223,7 +230,7 @@ Raporlar:
 11. **Güvenlik açığı:** `npm ci` 1 kritik açık bildiriyor.
 12. **Ortama bağlı test:** `test_hosted_skin_type_runtime` bu dizindeki özel `model.onnx` yüzünden başarısız; temiz klonda geçiyor.
 13. **Tabandan gelen hatalar:** `test_acne_objectness_features` (yolox yok). `test_localization` artık geçiyor (cilt kataloğu kimlikleri düzeltildi).
-16. **Kalibrasyon kartı referansı:** Nominal değerler; basılan kartın ölçülmesi gerekir. Kalibrasyon uç noktası servis bayrağıyla açılır, kimlik doğrulaması yok (servis modu varsayımı).
+16. **Kalibrasyon kartı referansı (OEM uygulamasında):** Nominal değerler; OEM uygulamasında sertifikalı kart değerleri veya ölçülmüş referans kullanılmalı. Kalibrasyon uç noktası servis bayrağıyla açılır, kimlik doğrulaması yok (servis modu varsayımı).
 17. **Ham kare boyutu:** /skin isteği poz başı ~4 MB büyüdü (PNG + NV12). Yerel ağda ölçülmedi; 45 s bütçe içinde kaldı (228 s / 3 poz toplam E2E).
 15. **/skin süre bütçesi:** Sunucu bütçesi 45 s; bu ortamda poz başı ~6–8 s. Yavaş araç donanımında aşılabilir; ölçülmedi.
 14. **Önceki turdaki yanlış bilgi:** K-236 "etiketsiz" diye yazılmıştı; yanlış. K-236'nın uçuk ve yanak sarkması etiketleri var.
