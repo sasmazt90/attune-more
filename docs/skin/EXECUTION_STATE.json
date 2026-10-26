@@ -41,7 +41,7 @@
       "resultPersistenceGate": true,
       "resultUI": true,
       "evidence": "docs/skin/evidence/current-product-skin-contract-20261023-v1.json",
-      "lastRevalidatedAt": "2026-10-26T06:18:59Z",
+      "lastRevalidatedAt": "2026-10-26T06:49:03Z",
       "latestDefaultBranchCommitVerified": true,
       "pinnedBlobMatches": 7,
       "recheckEvidence": "docs/skin/evidence/current-product-skin-contract-recheck-20261025-v1.json",
@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-26",
-      "lastCheckedAt": "2026-10-26T06:18:59Z",
+      "lastCheckedAt": "2026-10-26T06:49:03Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -1672,6 +1672,31 @@
                 "acceptancePolicyTemplate": "69f3a728a479395f6773213d0cf7a6ae2dfe0e16",
                 "productReplayTemplate": "a68fb59d4648e4809065066c33a01a3f9e6887a6",
                 "audit": "e7fb2fdb85ecc2e4c0f20116729d538845166ae6"
+              },
+              "ciIntegration": {
+                "observedAt": "2026-10-26T06:49:03Z",
+                "workflow": ".github/workflows/ci.yml",
+                "stepName": "Run complete skin research evidence suite",
+                "command": "python -m unittest discover -s scripts/skin-research/tests -p 'test_*.py'",
+                "test": "scripts/skin-research/tests/test_ci_physical_camera_acceptance_wiring.py",
+                "audit": "docs/skin/evidence/physical-camera-acceptance-ci-audit-20261026-v1.json",
+                "coversManifestTruthCaptureLocalizationAndAcceptance": true,
+                "localWorkflowYamlParsed": true,
+                "focusedTestsPassed": 4,
+                "fullSkinResearchTestsPassed": 204,
+                "trainingUploadOrInferenceStarted": false,
+                "remoteGithubActionsRunObserved": false,
+                "remoteGithubActionsPassed": false,
+                "commits": [
+                  "e2c0b8527dc92663b7b2c7a2db5e6200826e52f0",
+                  "403fba33f02af755a7962829a56f4c153164c6b1",
+                  "7811b05805616d919a9a5c977ed917089c9f23c7"
+                ],
+                "blobs": {
+                  "workflow": "e71fb26ce9847e5bb88036e7a069ec77b120b5e8",
+                  "test": "955a481f63c20ab98dc74f1b6c5a49d338ac96f8",
+                  "audit": "e0b2091f734c735fa7c5c7dbe16f454d13df735b"
+                }
               }
             }
           }
@@ -2002,7 +2027,10 @@
         "scripts/skin-research/tests/test_check_physical_camera_acceptance.py",
         "docs/skin/evidence/physical-camera-acceptance-policy-template-20261026-v1.json",
         "docs/skin/evidence/physical-camera-product-replay-template-20261026-v1.json",
-        "docs/skin/evidence/physical-camera-acceptance-gate-audit-20261026-v1.json"
+        "docs/skin/evidence/physical-camera-acceptance-gate-audit-20261026-v1.json",
+        ".github/workflows/ci.yml",
+        "scripts/skin-research/tests/test_ci_physical_camera_acceptance_wiring.py",
+        "docs/skin/evidence/physical-camera-acceptance-ci-audit-20261026-v1.json"
       ],
       "blockers": [
         "Final holdout independence is not established. The privacy-safe grouping proposal confirms 16 cross-split source/person groups covering 37 records, including test/train leakage, while 729 singleton records still lack reviewed provenance/person identity. Independent real-camera evidence is also pending.",
@@ -3264,7 +3292,7 @@
     }
   },
   "nextActions": [
-    "When the consented physical-camera manifest, adjudicated expert truth and locked capture/localization receipts exist, run the capture and localization evaluators, then apply scripts/skin-research/check_physical_camera_acceptance.py with a per-class policy locked before camera_final and a real /api/local-health/skin product-replay receipt. Every class and every observed device, lighting, skin-tone and pose slice must pass independently; never use macro averages, recommended flags or finished-training status to hide a weak class. The replay must cover real browser/API, overview and every region, accepted map semantics, unavailable states, retained-photo history write/read, incompatible-method exclusion and privacy retention/deletion before activation.",
+    "Observe the next GitHub Actions run for the newly wired complete skin-research suite; do not treat local success as remote CI evidence. When consented physical-camera manifest, adjudicated expert truth and locked capture/localization receipts exist, run both evaluators and scripts/skin-research/check_physical_camera_acceptance.py with a per-class policy locked before camera_final and a real /api/local-health/skin product replay. Every class and every observed device, lighting, skin-tone and pose slice must pass independently; macro averages, recommended flags and finished-training status cannot hide weak classes.",
     "After a consented physical-camera manifest exists, collect the private matrix defined by docs/skin/evidence/physical-camera-expert-review-input-template-20261026-v1.json and run scripts/skin-research/build_physical_camera_expert_truth.py. Every activated class on every capture needs exactly two independent qualified human reviews; discordant decision or polygon truth needs an independent third expert. Keep positive localized polygons normalized, model proposals hidden, missing truth distinct from evaluated negative, unknown/unassessable distinct from Normal, and Redness independent from sensitivity. Do not commit reviewer identity, image bytes or raw private fields.",
     "For consented physical-camera acceptance, populate the private input shape in docs/skin/evidence/physical-camera-benchmark-manifest-input-template-20261026-v1.json outside Git, then run scripts/skin-research/build_physical_camera_benchmark_manifest.py. The builder accepts only opaque subject/capture/consent/quality references, immutable SHA-256 hashes, exact FRONT/LEFT/RIGHT physical-camera triplets, a passed capture-quality gate and a locked camera_final split unused by training, validation or threshold selection. It rejects paths, names, contact fields, image bytes, generated inputs, predictions and expert labels. Keep expert per-class truth separate and human-authored; the manifest alone does not satisfy camera acceptance.",
     "Replay scripts/skin-research/check_physical_camera_benchmark_release.py before treating any generated or captured image package as roadmap camera acceptance. Preserve the six-subject/18-image generated triplets as integration smoke only. Build the physical final set from consented immutable captures with subject independence from training/validation/threshold selection, expert truth per activated class, evaluated negative/unknown handling, device/lighting/skin-tone/pose and capture-quality slices, locked methods and thresholds, per-class metrics/failures, full /api/local-health/skin browser/map/history replay and privacy retention/deletion evidence.",
@@ -4072,6 +4100,12 @@
       "observedAt": "2026-10-26T06:18:59Z",
       "action": "Read the persistent checkpoint first and re-verified GitHub main commit 7463eef as the already functioning Attune.more baseline with concrete /api/local-health/skin results. Refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye trainings and the existing grouped under-eye upload task; no training is running, all known jobs remain finished, pilot v2 has no training, grouped under-eye remains empty and no duplicate training or upload was started. Added the final fail-closed physical-camera acceptance gate. It binds capture and polygon-localization evaluations to method, threshold and geometry identities, requires a policy locked before camera_final, evaluates every class and every observed device/lighting/skin-tone/pose slice independently, and rejects macro averages, recommendation flags or finished-training status as acceptance. It also requires real physical-camera replay through /api/local-health/skin, real browser, overview/every region, map semantics, unavailable controls, history write/read, incompatible-method exclusion and privacy retention/deletion. Ten focused tests and all 200 skin-research tests passed. No thresholds or real replay evidence were fabricated; camera acceptance and activation remain false until actual consented inputs pass.",
       "report": "docs/skin/evidence/physical-camera-acceptance-gate-audit-20261026-v1.json"
+    },
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T06:49:03Z",
+      "action": "Read the persistent checkpoint first; re-verified GitHub main commit 7463eef as the already functioning concrete-result baseline and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye trainings and the existing grouped upload task. No job is running, all known trainings remain finished, pilot v2 has no training, grouped under-eye remains empty and no duplicate training or upload was started. Integrated the complete skin-research evidence suite into .github/workflows/ci.yml after Python setup, dependency installation and the existing deterministic suite. The new CI step discovers the manifest, expert truth, capture evaluator, polygon-localization evaluator, final class/slice acceptance gate and all other skin research tests without starting training, upload or inference. Added four executable workflow-contract tests; they and all 204 skin-research tests passed locally. Remote GitHub Actions execution and real physical-camera acceptance remain pending.",
+      "report": "docs/skin/evidence/physical-camera-acceptance-ci-audit-20261026-v1.json"
     }
   ],
   "activityLog": [
@@ -4503,6 +4537,17 @@
         "productReplayTemplate": "a68fb59d4648e4809065066c33a01a3f9e6887a6",
         "audit": "e7fb2fdb85ecc2e4c0f20116729d538845166ae6"
       }
+    },
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T06:49:03Z",
+      "action": "Read the persistent checkpoint first; re-verified GitHub main commit 7463eef as the already functioning concrete-result baseline and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye trainings and the existing grouped upload task. No job is running, all known trainings remain finished, pilot v2 has no training, grouped under-eye remains empty and no duplicate training or upload was started. Integrated the complete skin-research evidence suite into .github/workflows/ci.yml after Python setup, dependency installation and the existing deterministic suite. The new CI step discovers the manifest, expert truth, capture evaluator, polygon-localization evaluator, final class/slice acceptance gate and all other skin research tests without starting training, upload or inference. Added four executable workflow-contract tests; they and all 204 skin-research tests passed locally. Remote GitHub Actions execution and real physical-camera acceptance remain pending.",
+      "report": "docs/skin/evidence/physical-camera-acceptance-ci-audit-20261026-v1.json",
+      "commits": [
+        "e2c0b8527dc92663b7b2c7a2db5e6200826e52f0",
+        "403fba33f02af755a7962829a56f4c153164c6b1",
+        "7811b05805616d919a9a5c977ed917089c9f23c7"
+      ]
     }
   ]
 }
