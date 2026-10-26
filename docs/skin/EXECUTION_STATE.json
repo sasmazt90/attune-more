@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-26",
-      "lastCheckedAt": "2026-10-26T11:05:00Z",
+      "lastCheckedAt": "2026-10-26T11:36:00Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -487,7 +487,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-26T11:05:00Z",
+      "lastCheckedAt": "2026-10-26T11:36:00Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -606,14 +606,31 @@
         "evidence": "docs/skin/evidence/under-eye-grouped-release-gate-20261025-v1.json"
       },
       "perClassReleaseGate": {
-        "methodVersion": "under-eye-per-class-release-gate-v1",
-        "classesRemainSeparate": true,
-        "existingConcreteResultFlowPreserved": true,
+        "observedAt": "2026-10-26T11:43:07Z",
+        "methodVersion": "under-eye-per-class-release-gate-v2",
+        "script": "scripts/skin-research/check_under_eye_concern_release.py",
+        "receipt": "docs/skin/evidence/under-eye-per-class-release-receipt-20261026-v2.json",
+        "evidence": "docs/skin/evidence/under-eye-per-class-release-gate-20261026-v2.json",
+        "ciEvidence": "docs/skin/evidence/under-eye-per-class-release-gate-v2-ci-20261026-v1.json",
         "ungroupedModelAccepted": false,
+        "distinctGroupedCandidatePresent": false,
         "researchTrainingAuthorized": false,
-        "darkcircleActivationAllowed": false,
-        "eyebagActivationAllowed": false,
-        "evidence": "docs/skin/evidence/under-eye-per-class-release-gate-20261025-v1.json"
+        "blindRetrainingAllowed": false,
+        "finalTestEvaluationAuthorized": {
+          "darkcircle": false,
+          "eyebag": false
+        },
+        "classActivationAllowed": {
+          "darkcircle": false,
+          "eyebag": false
+        },
+        "roadmapAccepted": false,
+        "classesRemainSeparate": true,
+        "workingConcreteResultFlowPreserved": true,
+        "localFocusedTests": 11,
+        "ciSkinResearchTests": 231,
+        "ciRunId": 40316642225,
+        "implementationCommit": "59e3acffe489556e00a9e8869f0e8ddbffa34e05"
       },
       "lastCheckedDate": "2026-10-26"
     },
@@ -679,7 +696,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-26T11:05:00Z",
+      "lastCheckedAt": "2026-10-26T11:36:00Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -1307,7 +1324,7 @@
       }
     },
     "concurrentWork": {
-      "observedAt": "2026-10-26T11:05:00Z",
+      "observedAt": "2026-10-26T11:36:00Z",
       "projectsTotal": 20,
       "doNotDuplicate": [
         {
@@ -1402,7 +1419,7 @@
           "startedByThisAutomation": false
         }
       ],
-      "note": "All 20 accessible projects and exact acne/regional/under-eye training lists were refreshed. No training is running; known acne, regional and under-eye jobs remain finished; under-eye pilot v2 has no training; grouped under-eye remains empty and upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress. No duplicate training, upload, version, inference, threshold or activation action was started. Last refreshed at 2026-10-26T11:05:00Z."
+      "note": "All 20 accessible projects and exact acne/regional/under-eye training lists were refreshed. No training is running; known acne, regional and under-eye jobs remain finished; under-eye pilot v2 has no training; grouped under-eye remains empty and upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress. No duplicate training, upload, version, inference, threshold or activation action was started. Last refreshed at 2026-10-26T11:36:00Z."
     },
     "saggingAppearance": {
       "observedAt": "2026-10-25T12:30:37Z",
@@ -2610,7 +2627,7 @@
     {
       "id": "09",
       "target": "under-eye-dark-circles",
-      "status": "per_class_release_gate_fail_closed_grouped_camera_pending",
+      "status": "distinct_grouped_candidate_release_gate_v2_fail_closed_expert_camera_pending",
       "work": "Use existing DC EB 2 private project with darkcircle polygons; audit actual masks, group split, train and evaluate segmentation and camera behaviour.",
       "evidence": [
         "docs/skin/evidence/archive-audit-20261023-v2.json",
@@ -2632,7 +2649,10 @@
         "scripts/skin-research/check_under_eye_concern_release.py",
         "scripts/skin-research/tests/test_under_eye_concern_release.py",
         "docs/skin/evidence/under-eye-per-class-release-receipt-20261025-v1.json",
-        "docs/skin/evidence/under-eye-per-class-release-gate-20261025-v1.json"
+        "docs/skin/evidence/under-eye-per-class-release-gate-20261025-v1.json",
+        "docs/skin/evidence/under-eye-per-class-release-receipt-20261026-v2.json",
+        "docs/skin/evidence/under-eye-per-class-release-gate-20261026-v2.json",
+        "docs/skin/evidence/under-eye-per-class-release-gate-v2-ci-20261026-v1.json"
       ],
       "blockers": [
         "The grouped research project remains empty and upload task sLFwX7CYBVcnnD6iAW5o still has no bytes. Augmentation-free pilot v2 and its 399-image/869-polygon COCO export are now SHA-pinned; the deterministic builder reproduces 283/78/38 with zero image-byte or annotation-payload changes. The reproduced ZIP SHA differs from the previously authorized exact archive SHA, so it was not uploaded. Do not create another project/task or bypass the exact-SHA policy. The executable under-eye-grouped-release-gate-v1 now enforces this boundary and keeps upload, version generation, research training, test evaluation and activation false on the current receipts.",
@@ -2643,7 +2663,7 @@
     {
       "id": "10",
       "target": "under-eye-bags",
-      "status": "per_class_release_gate_fail_closed_grouped_camera_pending",
+      "status": "distinct_grouped_candidate_release_gate_v2_fail_closed_expert_camera_pending",
       "work": "Use DC EB 2 eyebag polygons; keep bags and darkcircle separate; evaluate and integrate appearance segmentation.",
       "evidence": [
         "docs/skin/evidence/archive-audit-20261023-v2.json",
@@ -2665,7 +2685,10 @@
         "scripts/skin-research/check_under_eye_concern_release.py",
         "scripts/skin-research/tests/test_under_eye_concern_release.py",
         "docs/skin/evidence/under-eye-per-class-release-receipt-20261025-v1.json",
-        "docs/skin/evidence/under-eye-per-class-release-gate-20261025-v1.json"
+        "docs/skin/evidence/under-eye-per-class-release-gate-20261025-v1.json",
+        "docs/skin/evidence/under-eye-per-class-release-receipt-20261026-v2.json",
+        "docs/skin/evidence/under-eye-per-class-release-gate-20261026-v2.json",
+        "docs/skin/evidence/under-eye-per-class-release-gate-v2-ci-20261026-v1.json"
       ],
       "blockers": [
         "The grouped research project remains empty and upload task sLFwX7CYBVcnnD6iAW5o still has no bytes. Augmentation-free pilot v2 and its 399-image/869-polygon COCO export are now SHA-pinned; the deterministic builder reproduces 283/78/38 with zero image-byte or annotation-payload changes. The reproduced ZIP SHA differs from the previously authorized exact archive SHA, so it was not uploaded. Do not create another project/task or bypass the exact-SHA policy. The executable under-eye-grouped-release-gate-v1 now enforces this boundary and keeps upload, version generation, research training, test evaluation and activation false on the current receipts.",
@@ -3446,6 +3469,44 @@
         }
       },
       "evidence": "docs/skin/evidence/acne-per-class-release-gate-v2-ci-20261026-v1.json"
+    },
+    "underEyePerClassReleaseGateV2": {
+      "methodVersion": "under-eye-per-class-release-gate-v2",
+      "knownUngroupedModelAccepted": false,
+      "distinctGroupedCandidatePresent": false,
+      "researchTrainingAuthorized": false,
+      "finalTestEvaluationAuthorized": {
+        "darkcircle": false,
+        "eyebag": false
+      },
+      "productActivationAllowed": {
+        "darkcircle": false,
+        "eyebag": false
+      },
+      "roadmapAccepted": false,
+      "decision": "blocked",
+      "localFocusedTests": {
+        "tests": 11,
+        "result": "OK"
+      },
+      "ci": {
+        "runId": 40316642225,
+        "url": "https://github.com/sasmazt90/attune-more/actions/runs/40316642225",
+        "headSha": "59e3acffe489556e00a9e8869f0e8ddbffa34e05",
+        "conclusion": "success",
+        "frontendProductionBuild": "success",
+        "localizationContract": "success",
+        "deterministicUnitSuite": {
+          "passed": 1627,
+          "skipped": 44,
+          "warnings": 2
+        },
+        "completeSkinResearchEvidenceSuite": {
+          "tests": 231,
+          "result": "OK"
+        }
+      },
+      "evidence": "docs/skin/evidence/under-eye-per-class-release-gate-v2-ci-20261026-v1.json"
     }
   },
   "nextActions": [
@@ -3456,7 +3517,7 @@
     "Run scripts/skin-research/reconcile_excluded_archive_inventory.py only with the private four-entry inventory: four unique opaque IDs and SHA-256 values, no archive names/paths/URLs, zero overlap with selected-source hashes, and explicit false access/mutation/upload/training/product-use flags. Do not access or hash the excluded archives merely to satisfy the gate; use an already authorized private ledger or durable prior hash evidence. Until all four are reviewed, keep inventoryReconciled and sourceReleaseContributionAllowed false.",
     "Replay scripts/skin-research/check_source_mapping_release.py before using selected_sources.py or expanded_sources.py for any training-data or product-truth release. Preserve all four excluded archives and first reconcile the fourth archive outside the mapping-script list, verify every archive hash and right, lock expert per-class semantics, finish geometry plus source/person grouping, create a group-locked train/validation/new-final-test split and reserve an independent camera holdout. Keep boxes and rectangle-polygons out of pixel truth, missing labels out of Normal/negative truth, tone out of localized Pigmentation, pul out of broad regional dryness and model proposals out of expert truth.",
     "Replay scripts/skin-research/check_acne_concern_release.py v2 before task-01/02/03 targeted training, final-test use or learned-model activation. The gate now requires a distinct model and training identity on a version-2-or-later dataset generated from the verified group-locked replacement split; it permanently rejects relabelling the known small model or evaluated NAS children. Preserve the functioning concrete acne result, keep Post acne and Pigmentation explicitly unavailable, lock exactly one validation-only change and policy before validation, then lock thresholds before the new untouched final test. Permit each class to pass only on its own validation, final test, physical-camera skin-tone/lighting/pose slices, integration and unavailable/history/dedup evidence. Never collapse the classes, use missing labels as negatives, treat model proposals as expert truth, infer a medical diagnosis, or populate localized Pigmentation from tone.",
-    "Replay scripts/skin-research/check_under_eye_concern_release.py before task-09/10 final-test use or model activation. Keep darkcircle and eyebag as separate classes and product headings; permit either class to pass only on its own validation, new untouched final test, physical-camera skin-tone/lighting/pose slices, integration and unavailable/history evidence. First satisfy the exact grouped archive/import/version gate, rights, expert per-class mask/negative/ambiguity protocol and person-independent split. Never infer medical causes for dark circles, edema/fluid retention for bags, missing-label negatives, or promote the ungrouped model as accepted truth.",
+    "Replay scripts/skin-research/check_under_eye_concern_release.py v2 before task-09/10 targeted training, final-test use or model activation. The gate now requires a distinct model and training identity belonging to tolgar-sasmaz/attune-skin-under-eye-grouped-research, trained from the exact authorized augmentation-free grouped archive/version; it permanently rejects relabelling the known ungrouped pilot model. First satisfy exact archive/import/version authorization, rights, expert per-class mask/negative/ambiguity protocol, person-independent grouping, new untouched final test and camera reservations, and a quality policy locked before validation. Lock thresholds before the final test and permit darkcircle or eyebag only on its own validation, final-test, physical-camera slice, integration and unavailable/history evidence. Keep both product headings separate; never infer dark-circle medical causes, edema/fluid retention for bags, missing-label negatives, or model proposals as expert truth.",
     "Replay scripts/skin-research/check_oily_release.py before task-04 retraining, final-test use or learned green regional-mask activation. Preserve the already functioning concrete oil-appearance output and separate skin type. Require measured regional polygon support; never copy whole-face classes into regions, turn boxes into polygons, interpret missing masks as Normal, promote model proposals to expert truth or claim clinical sebum diagnosis. Complete rights review, expert extent/negative/assessability and shine-glare-lighting protocols, full source/person grouping, a locked replacement split, a new untouched final test, independent physical-camera lighting/skin-tone/pose slices, working integration and regional overlap/unavailable controls.",
     "Replay scripts/skin-research/check_unified_skin_result_release.py before declaring task 13 or the roadmap complete. Preserve the verified working /api/local-health/skin baseline, nine appearance criteria plus separate skin type, strict unknown/normal handling, independent Redness and method-bound history. Complete repository CI, real browser/API E2E, IndexedDB write/read replay, a consented physical-camera triplet, expert truth and independent final tests for each activated class, every class-specific release gate, unavailable/overlap controls and method-compatible history acceptance. Generated triplets remain integration smoke only.",
     "Replay scripts/skin-research/check_tone_unevenness_release.py before changing task-08 tone semantics, activating a calibration claim or co-reporting accepted localized pigmentation. Preserve the working broad regional chromatic-variation appearance proxy and keep Post acne/Pigmentation separate and unavailable unless their own accepted detector exists. Complete camera calibration, illumination/shadow/hair robustness, skin-tone subgroup calibration, same-person repeatability, an untouched camera holdout and working-product replay; when accepted local masks exist, exclude their support from tone sampling and pass independent-camera co-reporting.",
@@ -4287,6 +4348,12 @@
       "observedAt": "2026-10-26T11:10:07Z",
       "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye training lists, grouped under-eye project and existing upload task. All known trainings remain finished, under-eye v2 has no training, grouped under-eye remains empty, upload task sLFwX7CYBVcnnD6iAW5o remains created/no-progress, and no duplicate training or upload was started. Repaired a fail-open path for tasks 01-03: the prior acne concern gate could be made ready by changing receipt booleans without proving a distinct candidate, new training identity, version-2-or-later group-locked split, preregistered single change or thresholds locked before the final test. Gate v2 pins the rejected small model and exact per-class metrics, rejects known evaluated NAS children, authorizes only targeted training after expert rights/semantics/grouping/holdout evidence, and permits each class independently only after validation, untouched final test, physical camera, slice, integration and control evidence. Ten focused local tests passed. GitHub Actions run 40312602038 is green: frontend build and localization contract passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 228 tests. No candidate exists and roadmap completion remains false.",
       "report": "docs/skin/evidence/acne-per-class-release-gate-v2-ci-20261026-v1.json"
+    },
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T11:43:07Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye training lists, grouped under-eye project and existing upload task. All known trainings remain finished, under-eye pilot v2 still has no training, grouped under-eye remains empty, upload task sLFwX7CYBVcnnD6iAW5o remains created/no-progress, and no duplicate work was started. Repaired a fail-open path for tasks 09-10: the prior under-eye gate could be made ready by changing receipt booleans without proving a distinct grouped-project candidate, training/version identity, authorized grouped archive, preregistered change or thresholds locked before final test. Gate v2 pins the rejected ungrouped model and exact per-class metrics, requires any future candidate to belong to the frozen grouped research project, authorizes only targeted training after archive/rights/expert/grouping/holdout evidence, and permits darkcircle and eyebag independently only after validation, untouched final test, physical camera, slice, integration and control evidence. Eleven focused local tests passed. GitHub Actions run 40316642225 is green: frontend build and localization contract passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 231 tests. No grouped candidate exists and roadmap completion remains false.",
+      "report": "docs/skin/evidence/under-eye-per-class-release-gate-v2-ci-20261026-v1.json"
     }
   ],
   "activityLog": [
@@ -4828,6 +4895,27 @@
           "deterministicSkipped": 44,
           "deterministicWarnings": 2,
           "skinResearchTests": 228,
+          "frontend": "success",
+          "localization": "success"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T11:43:07Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye training lists, grouped under-eye project and existing upload task. All known trainings remain finished, under-eye pilot v2 still has no training, grouped under-eye remains empty, upload task sLFwX7CYBVcnnD6iAW5o remains created/no-progress, and no duplicate work was started. Repaired a fail-open path for tasks 09-10: the prior under-eye gate could be made ready by changing receipt booleans without proving a distinct grouped-project candidate, training/version identity, authorized grouped archive, preregistered change or thresholds locked before final test. Gate v2 pins the rejected ungrouped model and exact per-class metrics, requires any future candidate to belong to the frozen grouped research project, authorizes only targeted training after archive/rights/expert/grouping/holdout evidence, and permits darkcircle and eyebag independently only after validation, untouched final test, physical camera, slice, integration and control evidence. Eleven focused local tests passed. GitHub Actions run 40316642225 is green: frontend build and localization contract passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 231 tests. No grouped candidate exists and roadmap completion remains false.",
+      "report": "docs/skin/evidence/under-eye-per-class-release-gate-v2-ci-20261026-v1.json",
+      "commits": [
+        "59e3acffe489556e00a9e8869f0e8ddbffa34e05"
+      ],
+      "runs": [
+        {
+          "runId": 40316642225,
+          "conclusion": "success",
+          "deterministicTests": 1627,
+          "deterministicSkipped": 44,
+          "deterministicWarnings": 2,
+          "skinResearchTests": 231,
           "frontend": "success",
           "localization": "success"
         }

@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T11:43:07Z",
+  "purpose": "Fail-closed per-class release evidence for darkcircle and eyebag.",
+  "repository": "sasmazt90/attune-more",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "59e3acffe489556e00a9e8869f0e8ddbffa34e05",
+  "methodVersion": "under-eye-per-class-release-gate-v2",
+  "baseline": {
+    "concreteProductResultPreserved": true,
+    "endpoint": "/api/local-health/skin",
+    "darkHeadingPresent": true,
+    "bagsHeadingPresent": true
+  },
+  "remoteRefresh": {
+    "accessibleProjects": 20,
+    "pilot": {
+      "project": "tolgar-sasmaz/attune-skin-under-eye-pilot",
+      "images": 399,
+      "sourceVersion": 2,
+      "sourceSplits": {
+        "train": 279,
+        "valid": 81,
+        "test": 39
+      },
+      "version2Trainings": 0
+    },
+    "rejectedUngroupedTraining": {
+      "trainingId": "d194569acd3ebe7cf8b7",
+      "status": "finished",
+      "modelId": "tolgar-sasmaz/attune-skin-under-eye-pilot-1-rfdetr-seg-small-t1"
+    },
+    "groupedProject": {
+      "project": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+      "images": 0,
+      "versions": 0
+    },
+    "existingUploadTask": {
+      "taskId": "sLFwX7CYBVcnnD6iAW5o",
+      "status": "created",
+      "progress": null
+    },
+    "duplicateWorkStarted": false
+  },
+  "currentDecision": {
+    "ungroupedModelAccepted": false,
+    "distinctGroupedCandidatePresent": false,
+    "researchTrainingAuthorized": false,
+    "blindRetrainingAllowed": false,
+    "finalTestAuthorizedByClass": {
+      "darkcircle": false,
+      "eyebag": false
+    },
+    "productActivationAllowedByClass": {
+      "darkcircle": false,
+      "eyebag": false
+    },
+    "roadmapAccepted": false,
+    "decision": "blocked"
+  },
+  "requiredBeforeTargetedTraining": [
+    "exact grouped archive authorization",
+    "verified grouped import and augmentation-free version",
+    "rights review",
+    "expert per-class mask/negative/ambiguity protocol",
+    "person-independent grouped split",
+    "new untouched final test reservation",
+    "independent camera holdout reservation",
+    "quality policy locked before validation"
+  ],
+  "requiredBeforePerClassActivation": [
+    "distinct model and training identity in tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+    "training from the authorized grouped archive",
+    "candidate change matches the preregistered experiment",
+    "thresholds locked before final test",
+    "class-specific validation and untouched-final-test pass",
+    "physical-camera and skin-tone/lighting/pose slice pass",
+    "working-product integration and unavailable/history controls"
+  ],
+  "verification": {
+    "localFocusedTests": {
+      "tests": 11,
+      "result": "OK"
+    },
+    "ci": {
+      "runId": 40316642225,
+      "url": "https://github.com/sasmazt90/attune-more/actions/runs/40316642225",
+      "headSha": "59e3acffe489556e00a9e8869f0e8ddbffa34e05",
+      "conclusion": "success",
+      "frontendProductionBuild": "success",
+      "localizationContract": "success",
+      "deterministicUnitSuite": {
+        "passed": 1627,
+        "skipped": 44,
+        "warnings": 2
+      },
+      "completeSkinResearchEvidenceSuite": {
+        "tests": 231,
+        "result": "OK"
+      }
+    }
+  },
+  "evidence": [
+    "scripts/skin-research/check_under_eye_concern_release.py",
+    "scripts/skin-research/tests/test_under_eye_concern_release.py",
+    "docs/skin/evidence/under-eye-per-class-release-receipt-20261026-v2.json",
+    "docs/skin/evidence/under-eye-per-class-release-gate-20261026-v2.json"
+  ],
+  "privacy": {
+    "privateImagesCommitted": false,
+    "reviewerIdentityCommitted": false,
+    "rawSourceNamesCommitted": false,
+    "excludedArchivesAccessed": false
+  },
+  "mutations": {
+    "trainingStarted": false,
+    "uploadStarted": false,
+    "versionCreated": false,
+    "inferenceStarted": false,
+    "thresholdsChanged": false,
+    "activationChanged": false
+  }
+}
