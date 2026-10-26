@@ -18,17 +18,19 @@ if now.day < 8: raise SystemExit('run on day >= 8 of a month (the calendar check
 D = now.day
 def iso(day, hour): return datetime(Y, M, day, hour).astimezone().isoformat()
 UNAV = [{'id': i, 'reason': 'MODEL_NOT_AVAILABLE'} for i in ('acne', 'acneMarks', 'redness', 'eyeBags', 'darkCircles', 'crowsFeet', 'foreheadLines')]
-def record(rid, at, sev, extra=()):
+def record(rid, at, sev, extra=(), acne=None):
     f = [{'id': 'rosacea', 'region': 'nose', 'status': 'seen', 'pose': 'FRONT', 'severity': sev}, *extra]
+    if acne is not None:   # forehead acne count with its lesion types (types add up to the count)
+        f.append({'id': 'acne', 'region': 'forehead', 'status': 'seen', 'pose': 'FRONT', 'count': sum(acne.values()), 'subtypes': acne})
     return {'id': rid, 'timestamp': at, 'schemaVersion': 3, 'regions': {'forehead': {}}, 'comparisonScope': 'three-angle-v2', 'indicators': {},
             'general': {'schemaVersion': 1, 'analysisId': rid, 'pose': 'FRONT', 'indicators': [],
                         'skinType': {'value': 'combination', 'sensitive': False, 'quality': 'valid', 'confidence': None, 'methodVersion': 'sample', 'modelHash': None},
                         'findings': {'version': 'sample-fixture', 'status': 'measured', 'poses': ['FRONT', 'LEFT', 'RIGHT'], 'findings': f, 'unavailable': UNAV}}}
-current = record('sample-now', iso(D, 10), 62, [
+current = record('sample-now', iso(D, 10), 62, acne={'blackhead': 1, 'whitehead': 0, 'papule': 3, 'pustule': 1, 'nodule': 0, 'unspecified': 2}, extra=[
     {'id': 'mole', 'region': 'leftCheek', 'status': 'seen', 'pose': 'RIGHT', 'countRange': '1-3'},
     {'id': 'melasma', 'region': 'rightCheek', 'status': 'seen', 'pose': 'LEFT'},                 # seen, no area measured
     {'id': 'melasma', 'region': 'leftCheek', 'status': 'inconclusive', 'causes': ['ANGLE']}])
-history = [current, record('sample-evening-before', iso(D - 3, 22), 55), record('sample-earlier', iso(D - 7, 10), 40)]
+history = [current, record('sample-evening-before', iso(D - 3, 22), 55, acne={'papule': 4}), record('sample-earlier', iso(D - 7, 10), 40, acne={'papule': 9, 'pustule': 2})]
 
 with sync_playwright() as pw:
     b = pw.chromium.launch(headless=True, **CHANNEL); c = b.new_context(viewport={'width': 1600, 'height': 1000}); p = c.new_page()
@@ -41,7 +43,7 @@ with sync_playwright() as pw:
     p.goto('http://127.0.0.1:3000/skin?view=latest'); expect(p.locator('[data-skin-result]')).to_be_visible(timeout=20000)
     # overview: one card per seen finding, value above the filled end of the bar; inconclusive and unmeasured pills
     cards = p.locator('[data-skin-overview-finding]').evaluate_all('e=>e.map(x=>x.dataset.skinOverviewFinding)')
-    assert cards == ['rosacea', 'melasma', 'mole'], cards
+    assert cards == ['acne', 'rosacea', 'melasma', 'mole'], cards
     assert '%62' in p.locator('[data-skin-overview-finding="rosacea"]').inner_text()
     assert '1–3' in p.locator('[data-skin-overview-finding="mole"]').inner_text()
     assert '%' not in p.locator('[data-skin-overview-finding="melasma"]').inner_text()
@@ -50,12 +52,29 @@ with sync_playwright() as pw:
     p.screenshot(path=str(OUT / 'sample-overview.png'), full_page=True)
     p.locator('[data-skin-overview-finding="rosacea"]').click(); p.screenshot(path=str(OUT / 'sample-overview-rosacea.png'), full_page=True)
     # T-zone page: rosacea card with score and the history chart (3 scans)
+    def card(): return p.locator('[data-skin-finding-card]').get_attribute('data-skin-finding-card')
+    def goto(fid):
+        for _ in range(6):
+            if card() == fid: return
+            p.get_by_role('button', name='Sonraki bulgu').click()
+        raise AssertionError(f'no {fid} card on this page')
     p.locator('[data-skin-region-tab="forehead"]').click()
-    assert p.locator('[data-skin-finding-card]').get_attribute('data-skin-finding-card') == 'rosacea'
+    assert card() in ('acne', 'rosacea'); goto('rosacea')
     assert p.locator('[data-skin-finding-score]').get_attribute('data-skin-finding-score') == '62'
     assert p.locator('[data-skin-finding-history]').get_attribute('data-skin-finding-history') == '3'
     p.screenshot(path=str(OUT / 'sample-tzone.png'), full_page=True)
     p.get_by_role('button', name='Öneriler').click(); expect(p.locator('[data-band]')).to_have_attribute('data-band', '%61–80'); p.keyboard.press('Escape')
+    # acne: count, collapsible lesion types (no total row), count history over dates
+    goto('acne')
+    assert p.locator('[data-skin-finding-count]').get_attribute('data-skin-finding-count') == '7'
+    assert p.locator('[data-skin-acne-subtypes]').get_attribute('data-skin-acne-subtypes') == 'closed' and p.locator('[data-skin-acne-subtype]').count() == 0
+    p.get_by_role('button', name='Akne türleri').click()
+    rows = {r.get_attribute('data-skin-acne-subtype'): int(r.locator('span').nth(1).inner_text()) for r in p.locator('[data-skin-acne-subtype]').all()}
+    assert rows == {'blackhead': 1, 'whitehead': 0, 'papule': 3, 'pustule': 1, 'nodule': 0, 'unspecified': 2} and sum(rows.values()) == 7, rows
+    assert 'Toplam' not in p.locator('[data-skin-acne-subtypes]').inner_text()
+    assert p.locator('[data-skin-finding-history]').get_attribute('data-skin-finding-history') == '3'   # 11, 4, 7 lesions
+    p.screenshot(path=str(OUT / 'sample-tzone-acne.png'), full_page=True)
+    goto('rosacea')
     # date range: change the start, then choose the end (Codex finding 1); whole local days (finding 2)
     def pick(start, end):
         p.locator('[data-skin-history-range]').click(); dlg = p.get_by_role('dialog')

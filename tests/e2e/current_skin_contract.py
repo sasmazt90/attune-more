@@ -39,7 +39,7 @@ def seen_ids(findings, regions=None):
     return sorted({f['id'] for f in findings if f['status'] == 'seen' and (regions is None or f['region'] in regions)})
 
 
-def check_result(p, rec, shots, tag, photo=True):
+def check_result(p, rec, shots, tag, photo=True, frame=lambda: None):
     """The result screen shows exactly what the record carries (approved UI elements only)."""
     general = rec['general']; fr = general['findings']; findings = fr['findings']
     expect(p.locator('[data-skin-result]')).to_be_visible(timeout=20000)
@@ -63,7 +63,7 @@ def check_result(p, rec, shots, tag, photo=True):
         assert p.locator('[data-skin-findings-empty]').get_attribute('data-skin-findings-empty') == ('unavailable' if fr.get('status') == 'unavailable' else 'measured')
     pill = p.locator('[data-skin-findings-unmeasured]')
     assert int(pill.get_attribute('data-skin-findings-unmeasured')) == len(fr.get('unavailable', []))
-    p.screenshot(path=str(OUT / f'{tag}-overview.png'), full_page=True); shots.append(f'{tag}-overview.png')
+    p.screenshot(path=str(OUT / f'{tag}-overview.png'), full_page=True); shots.append(f'{tag}-overview.png'); frame(); frame()
     pill.click()
     expect(p.locator('[data-skin-unmeasured-item]')).to_have_count(len(fr.get('unavailable', [])))
     p.screenshot(path=str(OUT / f'{tag}-unmeasured.png'), full_page=True); shots.append(f'{tag}-unmeasured.png'); p.keyboard.press('Escape')
@@ -93,15 +93,25 @@ def check_result(p, rec, shots, tag, photo=True):
             expect(p.locator('[data-skin-findings-empty]')).to_have_count(1)
         if photo:   # the photo of the page stays readable next to the labels (no squeezed photo column)
             assert p.locator('[data-face-panel]').bounding_box()['width'] >= 300, (view, p.locator('[data-face-panel]').bounding_box())
-        p.screenshot(path=str(OUT / f'{tag}-{view}.png'), full_page=True); shots.append(f'{tag}-{view}.png')
+        p.screenshot(path=str(OUT / f'{tag}-{view}.png'), full_page=True); shots.append(f'{tag}-{view}.png'); frame(); frame()
     p.locator('[data-skin-region-tab="overview"]').click()
 
 
 with sync_playwright() as pw:
     b = pw.chromium.launch(headless=True, args=ARGS, **CHANNEL)
-    # the whole run is recorded as video (camera capture -> analysis -> result screen -> reopened record)
+    # Video of the run. Default: time-lapse (one viewport frame every ~1.5 s, assembled with ffmpeg at the end) because
+    # Playwright's live recording slowed the browser's own capture analysis enough to miss the pose gate on a slow CPU.
+    # --video-full records Playwright's live video instead.
+    FULL = '--video-full' in sys.argv
     c = b.new_context(permissions=['camera'], viewport={'width': 1600, 'height': 1000},
-                      record_video_dir=str(OUT / 'video'), record_video_size={'width': 1600, 'height': 1000})
+                      **(dict(record_video_dir=str(OUT / 'video'), record_video_size={'width': 1600, 'height': 1000}) if FULL else {}))
+    FR = OUT / 'frames'; FR.mkdir(exist_ok=True); frame_no = [0]
+    def frame():
+        if FULL: return
+        try:
+            p.screenshot(path=str(FR / f'{frame_no[0]:05d}.jpg'), type='jpeg', quality=60); frame_no[0] += 1
+        except Exception:
+            pass
     c.add_init_script(HOOK)
     # SKIN_E2E_SAVE_PHOTOS=1 (diagnostics only, fixture photos): keeps the exact photo + landmarks the app sent
     if os.environ.get('SKIN_E2E_SAVE_PHOTOS') == '1': c.add_init_script('window.__savePhotos=true')
@@ -115,7 +125,7 @@ with sync_playwright() as pw:
     p.get_by_role('button', name='Analizi Başlat', exact=True).click()
     deadline = time.monotonic() + float(os.environ.get('SKIN_E2E_TIMEOUT', '420')); trace = []
     while not p.locator('[data-skin-result]').count() and time.monotonic() < deadline:
-        p.wait_for_timeout(3000)
+        p.wait_for_timeout(1500); frame(); p.wait_for_timeout(1500); frame()
         trace.append(p.evaluate('({t:performance.now(),calls:window.skinCalls.map(c=>[c.kind,c.pose||c.poses,c.status]),body:document.body.innerText.slice(0,400)})'))
         (OUT / 'trace.json').write_text(json.dumps(trace, ensure_ascii=False, indent=1), 'utf8')
     if not p.locator('[data-skin-result]').count():
@@ -152,10 +162,10 @@ with sync_playwright() as pw:
         assert rec['general']['skinType']['value'] is None
     assert 'data:image' not in p.evaluate('JSON.stringify(Object.fromEntries(Object.entries(localStorage)))')
     shots = []
-    check_result(p, rec, shots, 'result')
+    check_result(p, rec, shots, 'result', frame=frame)
     # reopen the stored record (normal app route): same measurements on the approved result screen
     p.goto('http://127.0.0.1:3000/skin?view=latest')
-    check_result(p, rec, shots, 'reopened', photo=False)   # numeric record only: photos are kept in memory / with separate consent
+    check_result(p, rec, shots, 'reopened', photo=False, frame=frame)   # numeric record only: photos are kept in memory / with separate consent
     native = None
     if NATIVE:
         from owned_window_capture import capture_owned_window
@@ -173,5 +183,11 @@ with sync_playwright() as pw:
                  modelInference='real (saved models via core-api)', seconds=round(seconds, 1), recordId=rec['id'],
                  findings=rec['general']['findings'], skinType=rec['general']['skinType'].get('value'),
                  nativeZoom=native if NATIVE else 'NOT RUN (--skip-native-zoom)', screenshots=shots, pageErrors=errors)
+    video = None
+    if not FULL and frame_no[0]:
+        import subprocess
+        video = str(OUT / 'run-timelapse.mp4')
+        subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-framerate', '2', '-i', str(FR / '%05d.jpg'), '-vf', 'scale=1280:-2', '-c:v', 'libx264', '-preset', 'veryfast', '-pix_fmt', 'yuv420p', video], check=False)
+    proof['video'] = video or 'playwright live video in video/'
     (OUT / 'proof.json').write_text(json.dumps(proof, ensure_ascii=False, indent=2), 'utf8'); c.close()
 print('PASS: camera fixture -> /skin x3 -> /skin/regional-fuse -> record -> result screen -> reopened record carry the same findings')

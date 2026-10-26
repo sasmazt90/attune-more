@@ -54,23 +54,39 @@ export function SkinFindingCard({ view, items, index, onIndex, history, scanAt }
           {text('Cilt tonunuza göre kırmızılık farkı')}: <strong className="text-white tabular-nums">{f.toneDiff > 0 ? '+' : ''}{f.toneDiff}</strong>
         </p>
       )}
-      {f.subtypes && (
-        <ul className="flex flex-col gap-1.5 rounded-2xl bg-[#131d2b] px-4 py-3" data-skin-acne-subtypes>
+      {f.subtypes && <AcneTypes f={f} />}
+      {metricOf(f) !== undefined && <History view={view} finding={f} history={history} scanAt={scanAt} color={color} />}
+    </section>
+  );
+}
+
+/** Collapsible lesion-type breakdown of the acne count (the rows add up to the count shown above). */
+function AcneTypes({ f }: { f: SkinFinding }) {
+  const { text } = useTranslations();
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div className="rounded-2xl bg-[#131d2b]" data-skin-acne-subtypes={open ? 'open' : 'closed'}>
+      <button type="button" aria-expanded={open} onClick={() => setOpen(!open)}
+        className="w-full min-h-[48px] px-4 flex items-center justify-between gap-3 text-[15px] font-semibold text-slate-100">
+        {text('Akne türleri')}
+        <ChevronRight aria-hidden="true" className={`w-5 h-5 transition-transform ${open ? 'rotate-90' : ''}`} />
+      </button>
+      {open && (
+        <ul className="flex flex-col gap-1.5 px-4 pb-3">
           {ACNE_SUBTYPES.map(({ id, label }) => (
             <li key={id} className="flex items-baseline justify-between gap-3 text-[15px]" data-skin-acne-subtype={id}>
               <span className="text-slate-300">{text(label)}</span>
               <span className="font-bold tabular-nums text-white">{f.subtypes![id] || 0}{id === 'unspecified' && f.countAtLeast ? '+' : ''}</span>
             </li>
           ))}
-          <li className="flex items-baseline justify-between gap-3 border-t border-white/10 pt-1.5 text-[15px] font-bold" data-skin-acne-total={f.count}>
-            <span className="text-white">{text('Toplam')}</span><span className="tabular-nums text-white">{countLabel(f)}</span>
-          </li>
         </ul>
       )}
-      {score !== undefined && <History view={view} finding={f} history={history} scanAt={scanAt} color={color} />}
-    </section>
+    </div>
   );
 }
+
+/** The value a finding's history is drawn with: the lesion count for count findings, else the 0–100 score. */
+const metricOf = (f: SkinFinding): number | undefined => (f.count !== undefined ? f.count : findingScore(f));
 
 function ScoreBar({ value, color, label, scale }: { value: number; color: string; label: string; scale: string[] }) {
   const { text } = useTranslations();
@@ -96,10 +112,10 @@ function History({ view, finding, history, scanAt, color }: { view: FindingViewI
   const { text, locale } = useTranslations();
   const all = React.useMemo(() => {
     const rows = (history || []).flatMap(h => {
-      const m = viewFindings(h.findings, view).find(x => x.id === finding.id), v = m && findingScore(m);
+      const m = viewFindings(h.findings, view).find(x => x.id === finding.id), v = m && metricOf(m);
       return v === undefined ? [] : [{ at: h.at, v }];
     });
-    const now = findingScore(finding);
+    const now = metricOf(finding);
     if (now !== undefined && !rows.some(r => r.at === scanAt)) rows.push({ at: scanAt, v: now });
     return rows.sort((a, b) => a.at.localeCompare(b.at));
   }, [history, view, finding, scanAt]);
@@ -111,7 +127,9 @@ function History({ view, finding, history, scanAt, color }: { view: FindingViewI
   const fmt = (d: Date, year = false) => d.toLocaleDateString(locale, { day: 'numeric', month: 'short', ...(year ? { year: 'numeric' } : {}) });
   const W = 504, H = 160, X0 = 40, X1 = 480, Y0 = 10, Y1 = 132;
   const x = (i: number) => (pts.length < 2 ? (X0 + X1) / 2 : X0 + (X1 - X0) * i / (pts.length - 1));
-  const y = (v: number) => Y1 - (Y1 - Y0) * Math.max(0, Math.min(100, v)) / 100;
+  // counts: axis 0..(largest count rounded up to 10); scores: 0..100
+  const isCount = finding.count !== undefined, top = isCount ? Math.max(10, Math.ceil(Math.max(...all.map(p => p.v), 1) / 10) * 10) : 100;
+  const y = (v: number) => Y1 - (Y1 - Y0) * Math.max(0, Math.min(top, v)) / top;
   const labelEvery = Math.max(1, Math.ceil(pts.length / 6));
   return (
     <div className="flex flex-col gap-2" data-skin-finding-history={pts.length}>
@@ -127,8 +145,8 @@ function History({ view, finding, history, scanAt, color }: { view: FindingViewI
             {text(all.length < 2 ? 'Geçmiş grafiği bir sonraki taramanızdan sonra burada görünür.' : 'Seçilen tarih aralığında yeterli tarama yok.')}
           </p>
         : <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto" role="img"
-            aria-label={text('Belirginlik geçmişi') + ': ' + pts.map(p => `${fmt(new Date(p.at))} %${Math.round(p.v)}`).join(', ')}>
-            {[100, 50, 0].map(v => (
+            aria-label={text(isCount ? 'Sayı geçmişi' : 'Belirginlik geçmişi') + ': ' + pts.map(p => `${fmt(new Date(p.at))} ${isCount ? p.v : `%${Math.round(p.v)}`}`).join(', ')}>
+            {[top, top / 2, 0].map(v => (
               <g key={v}>
                 <line x1={X0} x2={W - 8} y1={y(v)} y2={y(v)} stroke={v ? '#1a2533' : '#26313f'} />
                 <text x={X0 - 8} y={y(v) + 4} textAnchor="end" fontSize="12" fill="#7d8898">{v}</text>
