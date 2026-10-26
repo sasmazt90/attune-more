@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 2,
+  "observedAt": "2026-10-26T11:10:00Z",
+  "inputBlobs": {
+    "modelReceipt": "030a58e09d36e441ce28eb5143ff776f250c5670",
+    "modelVerdict": "97cf68fc45cd5a54755123015ea45d6783f7bde2",
+    "modelDiagnosis": "b74b8edc14e7599907452d2ad8c08ce805601242",
+    "improvementGate": "6ba318be04faca5bc64b0f8ba42da922172750f6",
+    "splitGate": "e70effad23a5994892344ae13126b5049afdacf8",
+    "semanticReview": "2b27d4da61d6d422789c19436133816e1fa859f9",
+    "groupCoverage": "1d63ec4e1369e6f9021c63dde2ab7914e4e2e56d",
+    "mergedProductRecheck": "bbbe61b13145284d675af7e3e66d25ce439a7ba4",
+    "unifiedResultReceipt": "aac52634eaba105cd1ccc86383b7665eca7b53eb"
+  },
+  "semanticContract": {
+    "classes": {"Pimple": "acne", "Post acne": "Post acne", "Pigmentation": "Pigmentation"},
+    "classesRemainSeparate": true,
+    "mayCoexist": true,
+    "missingClassMeansNegative": false,
+    "modelPredictionIsExpertTruth": false,
+    "medicalDiagnosisInferred": false,
+    "postAcneCollapsedIntoActiveAcne": false,
+    "pigmentationPopulatedByToneProxy": false,
+    "pigmentationIncludesFrecklesMolesOrShadowByDefault": false
+  },
+  "workingBaseline": {
+    "productAlreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "acneHeadingPresent": true,
+    "postAcneHeadingExplicitlyUnavailable": true,
+    "pigmentationHeadingExplicitlyUnavailable": true
+  },
+  "source": {
+    "archiveSHA256": "29f40e80c8b1f63d43abbc35d11efdbaac4cf754531af2bee64283dde64c34e2",
+    "images": 800,
+    "labels": 37342,
+    "splits": {"train": 553, "valid": 165, "test": 82},
+    "classLabels": {"Pimple": 3640, "Post acne": 32123, "Pigmentation": 1579},
+    "classImageCoverage": {"Pimple": 0.113, "Post acne": 1.0, "Pigmentation": 0.049},
+    "confirmedCrossSplitGroups": 16,
+    "confirmedCrossSplitMembers": 37,
+    "reviewedGroupRecords": 71,
+    "unreviewedSingletonRecords": 729,
+    "personIndependent": false,
+    "existingTestExposed": true
+  },
+  "researchModel": {
+    "trainingId": "49ee6204cf069198bbfa",
+    "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2",
+    "evalId": "7s06OfIzx78XzATqr5oA",
+    "thresholdsLockedBeforeTest": false,
+    "accepted": false,
+    "classMetrics": {
+      "Pimple": {"threshold": 0.35, "validation": {"precision": 0.291, "recall": 0.234, "f1": 0.26}, "diagnosticTest": {"precision": 0.272, "recall": 0.308, "f1": 0.289}, "providerTestMap50": 0.18178170442428168, "providerTestMap50_95": 0.04993333620656488, "passed": false},
+      "Post acne": {"threshold": 0.31, "validation": {"precision": 0.359, "recall": 0.29, "f1": 0.321}, "diagnosticTest": {"precision": 0.34, "recall": 0.305, "f1": 0.322}, "providerTestMap50": 0.1848325895833806, "providerTestMap50_95": 0.04456150310173727, "passed": false},
+      "Pigmentation": {"threshold": 0.15, "validation": {"precision": 0.115, "recall": 0.081, "f1": 0.095}, "diagnosticTest": {"precision": 0.132, "recall": 0.055, "f1": 0.077}, "providerTestMap50": 0.032430325837992775, "providerTestMap50_95": 0.008183552543335268, "passed": false}
+    }
+  },
+  "candidate": {
+    "mode": "not-trained",
+    "modelId": null,
+    "trainingId": null,
+    "datasetVersion": null,
+    "rightsReviewed": false,
+    "expertPerClassPositiveNegativeAndAmbiguityProtocolComplete": false,
+    "personIndependentGroupingComplete": false,
+    "groupLockedReplacementSplitVerified": false,
+    "newUntouchedFinalTestReserved": false,
+    "independentCameraHoldoutReserved": false,
+    "oneChangeValidationExperimentSpecified": false,
+    "qualityPolicyLockedBeforeValidation": false,
+    "trainedFromGroupLockedReplacementSplit": false,
+    "candidateChangeMatchesPreRegisteredExperiment": false,
+    "thresholdsLockedBeforeFinalTest": false,
+    "classes": {
+      "Pimple": {"validationPassed": false, "newUntouchedFinalTestPassed": false, "physicalCameraHoldoutPassed": false, "skinToneLightingPoseSlicesPassed": false, "workingProductIntegrationPassed": false, "unavailableHistoryAndDedupControlsPassed": false},
+      "Post acne": {"validationPassed": false, "newUntouchedFinalTestPassed": false, "physicalCameraHoldoutPassed": false, "skinToneLightingPoseSlicesPassed": false, "workingProductIntegrationPassed": false, "unavailableHistoryAndDedupControlsPassed": false},
+      "Pigmentation": {"validationPassed": false, "newUntouchedFinalTestPassed": false, "physicalCameraHoldoutPassed": false, "skinToneLightingPoseSlicesPassed": false, "workingProductIntegrationPassed": false, "unavailableHistoryAndDedupControlsPassed": false}
+    }
+  }
+}

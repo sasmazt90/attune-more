@@ -20,6 +20,12 @@ EXPECTED_BLOBS = {
     "mergedProductRecheck": "bbbe61b13145284d675af7e3e66d25ce439a7ba4",
     "unifiedResultReceipt": "aac52634eaba105cd1ccc86383b7665eca7b53eb",
 }
+REJECTED_RESEARCH_MODEL_ID = "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2"
+KNOWN_INELIGIBLE_MODEL_IDS = {
+    REJECTED_RESEARCH_MODEL_ID,
+    "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262",
+    "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--929397",
+}
 
 
 class GateInputError(ValueError):
@@ -31,13 +37,11 @@ def _require(value: Any, expected: Any, message: str) -> None:
         raise GateInputError(message)
 
 
-def _class_decision(shared_blockers: list[str], candidate: dict[str, Any], class_name: str) -> dict[str, Any]:
+def _class_decision(shared_test_blockers: list[str], candidate: dict[str, Any], class_name: str) -> dict[str, Any]:
     class_candidate = candidate.get("classes", {}).get(class_name, {})
-    test_blockers = list(shared_blockers)
+    test_blockers = list(shared_test_blockers)
     if class_candidate.get("validationPassed") is not True:
         test_blockers.append(f"{class_name}_validation_acceptance_missing")
-    test_allowed = not test_blockers
-
     activation_blockers = list(test_blockers)
     for field, suffix in (
         ("newUntouchedFinalTestPassed", "untouched_final_test_acceptance_missing"),
@@ -48,25 +52,43 @@ def _class_decision(shared_blockers: list[str], candidate: dict[str, Any], class
     ):
         if class_candidate.get(field) is not True:
             activation_blockers.append(f"{class_name}_{suffix}")
-    activation_allowed = not activation_blockers
     return {
-        "finalTestEvaluationAuthorized": test_allowed,
-        "productActivationAllowed": activation_allowed,
+        "finalTestEvaluationAuthorized": not test_blockers,
+        "productActivationAllowed": not activation_blockers,
         "testBlockers": test_blockers,
         "activationBlockers": activation_blockers,
-        "decision": "ready" if activation_allowed else "blocked",
+        "decision": "ready" if not activation_blockers else "blocked",
     }
+
+
+def _validate_candidate_identity(candidate: dict[str, Any]) -> tuple[bool, list[str]]:
+    mode = candidate.get("mode")
+    if mode not in {"not-trained", "new-model"}:
+        raise GateInputError("unknown acne candidate mode")
+    model_id = candidate.get("modelId")
+    training_id = candidate.get("trainingId")
+    version = candidate.get("datasetVersion")
+    if mode == "not-trained":
+        if model_id is not None or training_id is not None or version is not None:
+            raise GateInputError("not-trained candidate cannot claim a model identity")
+        return False, ["distinct_new_candidate_model_missing"]
+    if model_id in KNOWN_INELIGIBLE_MODEL_IDS:
+        raise GateInputError("known ineligible model cannot be relabelled as a new candidate")
+    blockers: list[str] = []
+    if not isinstance(model_id, str) or not model_id:
+        blockers.append("distinct_new_candidate_model_missing")
+    if not isinstance(training_id, str) or not training_id:
+        blockers.append("distinct_new_candidate_training_missing")
+    if not isinstance(version, int) or isinstance(version, bool) or version < 2:
+        blockers.append("group_locked_candidate_dataset_version_missing")
+    return not blockers, blockers
 
 
 def evaluate_release(receipt: dict[str, Any]) -> dict[str, Any]:
     _require(receipt.get("inputBlobs"), EXPECTED_BLOBS, "input blobs changed")
 
     contract = receipt.get("semanticContract", {})
-    _require(
-        contract.get("classes"),
-        {"Pimple": "acne", "Post acne": "Post acne", "Pigmentation": "Pigmentation"},
-        "concern headings changed",
-    )
+    _require(contract.get("classes"), {"Pimple": "acne", "Post acne": "Post acne", "Pigmentation": "Pigmentation"}, "concern headings changed")
     _require(contract.get("classesRemainSeparate"), True, "Pimple, Post acne and Pigmentation must remain separate")
     _require(contract.get("mayCoexist"), True, "the three findings may coexist")
     _require(contract.get("missingClassMeansNegative"), False, "missing labels cannot become negative truth")
@@ -99,35 +121,14 @@ def evaluate_release(receipt: dict[str, Any]) -> dict[str, Any]:
 
     model = receipt.get("researchModel", {})
     _require(model.get("trainingId"), "49ee6204cf069198bbfa", "model training identity changed")
-    _require(model.get("modelId"), "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2", "model identity changed")
+    _require(model.get("modelId"), REJECTED_RESEARCH_MODEL_ID, "model identity changed")
     _require(model.get("evalId"), "7s06OfIzx78XzATqr5oA", "evaluation identity changed")
     _require(model.get("thresholdsLockedBeforeTest"), False, "exposed thresholds cannot become pre-locked")
     _require(model.get("accepted"), False, "rejected research model cannot become accepted")
     expected_metrics = {
-        "Pimple": {
-            "threshold": 0.35,
-            "validation": {"precision": 0.291, "recall": 0.234, "f1": 0.26},
-            "diagnosticTest": {"precision": 0.272, "recall": 0.308, "f1": 0.289},
-            "providerTestMap50": 0.18178170442428168,
-            "providerTestMap50_95": 0.04993333620656488,
-            "passed": False,
-        },
-        "Post acne": {
-            "threshold": 0.31,
-            "validation": {"precision": 0.359, "recall": 0.29, "f1": 0.321},
-            "diagnosticTest": {"precision": 0.34, "recall": 0.305, "f1": 0.322},
-            "providerTestMap50": 0.1848325895833806,
-            "providerTestMap50_95": 0.04456150310173727,
-            "passed": False,
-        },
-        "Pigmentation": {
-            "threshold": 0.15,
-            "validation": {"precision": 0.115, "recall": 0.081, "f1": 0.095},
-            "diagnosticTest": {"precision": 0.132, "recall": 0.055, "f1": 0.077},
-            "providerTestMap50": 0.032430325837992775,
-            "providerTestMap50_95": 0.008183552543335268,
-            "passed": False,
-        },
+        "Pimple": {"threshold": 0.35, "validation": {"precision": 0.291, "recall": 0.234, "f1": 0.26}, "diagnosticTest": {"precision": 0.272, "recall": 0.308, "f1": 0.289}, "providerTestMap50": 0.18178170442428168, "providerTestMap50_95": 0.04993333620656488, "passed": False},
+        "Post acne": {"threshold": 0.31, "validation": {"precision": 0.359, "recall": 0.29, "f1": 0.321}, "diagnosticTest": {"precision": 0.34, "recall": 0.305, "f1": 0.322}, "providerTestMap50": 0.1848325895833806, "providerTestMap50_95": 0.04456150310173727, "passed": False},
+        "Pigmentation": {"threshold": 0.15, "validation": {"precision": 0.115, "recall": 0.081, "f1": 0.095}, "diagnosticTest": {"precision": 0.132, "recall": 0.055, "f1": 0.077}, "providerTestMap50": 0.032430325837992775, "providerTestMap50_95": 0.008183552543335268, "passed": False},
     }
     _require(model.get("classMetrics"), expected_metrics, "per-class acne concern metrics changed")
 
@@ -140,25 +141,36 @@ def evaluate_release(receipt: dict[str, Any]) -> dict[str, Any]:
         "newUntouchedFinalTestReserved": "new_untouched_final_test_missing",
         "independentCameraHoldoutReserved": "independent_camera_holdout_missing",
         "oneChangeValidationExperimentSpecified": "one_change_validation_experiment_missing",
+        "qualityPolicyLockedBeforeValidation": "quality_policy_not_locked_before_validation",
     }
-    shared_blockers = [reason for field, reason in shared_requirements.items() if candidate.get(field) is not True]
-    training_allowed = not shared_blockers
-    class_decisions = {
-        class_name: _class_decision(shared_blockers, candidate, class_name)
-        for class_name in ("Pimple", "Post acne", "Pigmentation")
-    }
-    roadmap_accepted = all(item["productActivationAllowed"] for item in class_decisions.values())
+    shared_training_blockers = [reason for field, reason in shared_requirements.items() if candidate.get(field) is not True]
+    distinct_candidate, identity_blockers = _validate_candidate_identity(candidate)
+    shared_test_blockers = list(shared_training_blockers) + identity_blockers
+    if candidate.get("trainedFromGroupLockedReplacementSplit") is not True:
+        shared_test_blockers.append("candidate_not_trained_from_group_locked_split")
+    if candidate.get("candidateChangeMatchesPreRegisteredExperiment") is not True:
+        shared_test_blockers.append("candidate_change_not_pre_registered")
+    if candidate.get("thresholdsLockedBeforeFinalTest") is not True:
+        shared_test_blockers.append("thresholds_not_locked_before_final_test")
+
+    classes = candidate.get("classes")
+    if not isinstance(classes, dict) or set(classes) != {"Pimple", "Post acne", "Pigmentation"}:
+        raise GateInputError("all three per-class candidate records are required")
+    class_decisions = {name: _class_decision(shared_test_blockers, candidate, name) for name in ("Pimple", "Post acne", "Pigmentation")}
+    roadmap_accepted = distinct_candidate and all(item["productActivationAllowed"] for item in class_decisions.values())
     return {
-        "schemaVersion": 1,
-        "methodVersion": "acne-concerns-per-class-release-gate-v1",
+        "schemaVersion": 2,
+        "methodVersion": "acne-concerns-per-class-release-gate-v2",
         "existingConcreteResultFlowPreserved": True,
         "classesRemainSeparate": True,
         "researchModelAccepted": False,
+        "knownNasChildrenAccepted": False,
         "blindRetrainingAllowed": False,
-        "researchTrainingAuthorized": training_allowed,
+        "distinctCandidatePresent": distinct_candidate,
+        "researchTrainingAuthorized": not shared_training_blockers,
         "classDecisions": class_decisions,
         "roadmapAccepted": roadmap_accepted,
-        "sharedTrainingBlockers": shared_blockers,
+        "sharedTrainingBlockers": shared_training_blockers,
         "decision": "ready" if roadmap_accepted else "blocked",
     }
 

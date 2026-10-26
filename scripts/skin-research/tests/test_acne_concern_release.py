@@ -14,15 +14,41 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "acne-per-class-release-receipt-20261025-v1.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "acne-per-class-release-receipt-20261026-v2.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _complete_training_prerequisites(receipt):
+    for field in (
+        "rightsReviewed",
+        "expertPerClassPositiveNegativeAndAmbiguityProtocolComplete",
+        "personIndependentGroupingComplete",
+        "groupLockedReplacementSplitVerified",
+        "newUntouchedFinalTestReserved",
+        "independentCameraHoldoutReserved",
+        "oneChangeValidationExperimentSpecified",
+        "qualityPolicyLockedBeforeValidation",
+    ):
+        receipt["candidate"][field] = True
+
+
+def _install_distinct_candidate(receipt):
+    candidate = receipt["candidate"]
+    candidate["mode"] = "new-model"
+    candidate["modelId"] = "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-2-rfdetr-small-t1"
+    candidate["trainingId"] = "future-training-id"
+    candidate["datasetVersion"] = 2
+    candidate["trainedFromGroupLockedReplacementSplit"] = True
+    candidate["candidateChangeMatchesPreRegisteredExperiment"] = True
+    candidate["thresholdsLockedBeforeFinalTest"] = True
+
+
 class AcneConcernReleaseTests(unittest.TestCase):
-    def test_current_classes_are_independently_blocked(self):
+    def test_current_classes_and_known_models_are_blocked(self):
         result = module.evaluate_release(_receipt())
-        self.assertTrue(result["existingConcreteResultFlowPreserved"])
-        self.assertTrue(result["classesRemainSeparate"])
+        self.assertFalse(result["researchModelAccepted"])
+        self.assertFalse(result["knownNasChildrenAccepted"])
+        self.assertFalse(result["distinctCandidatePresent"])
         self.assertFalse(result["blindRetrainingAllowed"])
         for class_name in ("Pimple", "Post acne", "Pigmentation"):
             self.assertFalse(result["classDecisions"][class_name]["productActivationAllowed"])
@@ -61,38 +87,43 @@ class AcneConcernReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(module.GateInputError, "cannot become person-independent"):
             module.evaluate_release(receipt)
 
-    def test_one_future_class_can_pass_without_promoting_the_others(self):
+    def test_known_rejected_model_cannot_be_relabelled_as_candidate(self):
+        receipt = _receipt()
+        receipt["candidate"].update({
+            "mode": "new-model",
+            "modelId": module.REJECTED_RESEARCH_MODEL_ID,
+            "trainingId": "fake-new-training",
+            "datasetVersion": 2,
+        })
+        with self.assertRaisesRegex(module.GateInputError, "cannot be relabelled"):
+            module.evaluate_release(receipt)
+
+    def test_completed_pre_model_evidence_authorizes_only_targeted_training(self):
+        receipt = _receipt()
+        _complete_training_prerequisites(receipt)
+        result = module.evaluate_release(receipt)
+        self.assertTrue(result["researchTrainingAuthorized"])
+        self.assertFalse(result["distinctCandidatePresent"])
+        self.assertFalse(result["classDecisions"]["Pimple"]["finalTestEvaluationAuthorized"])
+        self.assertFalse(result["roadmapAccepted"])
+
+    def test_one_distinct_future_class_can_pass_without_promoting_others(self):
         receipt = copy.deepcopy(_receipt())
-        for field in (
-            "rightsReviewed",
-            "expertPerClassPositiveNegativeAndAmbiguityProtocolComplete",
-            "personIndependentGroupingComplete",
-            "groupLockedReplacementSplitVerified",
-            "newUntouchedFinalTestReserved",
-            "independentCameraHoldoutReserved",
-            "oneChangeValidationExperimentSpecified",
-        ):
-            receipt["candidate"][field] = True
+        _complete_training_prerequisites(receipt)
+        _install_distinct_candidate(receipt)
         for field in receipt["candidate"]["classes"]["Pimple"]:
             receipt["candidate"]["classes"]["Pimple"][field] = True
         result = module.evaluate_release(receipt)
+        self.assertTrue(result["distinctCandidatePresent"])
         self.assertTrue(result["classDecisions"]["Pimple"]["productActivationAllowed"])
         self.assertFalse(result["classDecisions"]["Post acne"]["productActivationAllowed"])
         self.assertFalse(result["classDecisions"]["Pigmentation"]["productActivationAllowed"])
         self.assertFalse(result["roadmapAccepted"])
 
-    def test_complete_future_candidate_can_pass_all_classes(self):
+    def test_complete_distinct_future_candidate_can_pass_all_classes(self):
         receipt = copy.deepcopy(_receipt())
-        for field in (
-            "rightsReviewed",
-            "expertPerClassPositiveNegativeAndAmbiguityProtocolComplete",
-            "personIndependentGroupingComplete",
-            "groupLockedReplacementSplitVerified",
-            "newUntouchedFinalTestReserved",
-            "independentCameraHoldoutReserved",
-            "oneChangeValidationExperimentSpecified",
-        ):
-            receipt["candidate"][field] = True
+        _complete_training_prerequisites(receipt)
+        _install_distinct_candidate(receipt)
         for class_name in ("Pimple", "Post acne", "Pigmentation"):
             for field in receipt["candidate"]["classes"][class_name]:
                 receipt["candidate"]["classes"][class_name][field] = True
