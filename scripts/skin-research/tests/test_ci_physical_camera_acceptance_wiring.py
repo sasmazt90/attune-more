@@ -16,6 +16,16 @@ class PhysicalCameraAcceptanceCIWiringTest(unittest.TestCase):
         cls.workflow = yaml.safe_load(cls.text)
         cls.steps = cls.workflow["jobs"]["backend-test"]["steps"]
 
+    def test_work_branch_push_runs_the_evidence_suite(self):
+        # PyYAML 1.1 reads the unquoted GitHub Actions `on` key as boolean True.
+        triggers = self.workflow.get("on", self.workflow.get(True))
+        self.assertIsInstance(triggers, dict)
+        self.assertEqual(
+            triggers["push"]["branches"],
+            ["main", "work/skin-roadmap-20261023"],
+        )
+        self.assertEqual(triggers["pull_request"]["branches"], ["main"])
+
     def test_workflow_parses_and_has_one_full_skin_suite_step(self):
         matching = [step for step in self.steps if step.get("name") == "Run complete skin research evidence suite"]
         self.assertEqual(len(matching), 1)
