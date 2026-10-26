@@ -38,14 +38,14 @@ export const FINDING_DEFS: Record<SkinFindingId, Def> = {
   spots: { label: 'Türü belirlenemeyen leke', unit: 'leke', kind: 'count', group: 'pigment', info: 'Ciltte görülen, türü bu taramada ayırt edilemeyen renk farklılıkları.' },
   melasma: { label: 'Melazma', kind: 'area', group: 'pigment', info: 'Yanaklarda simetrik, kahverengi ve sınırları düzensiz renk değişimi görünümü.' },
   redness: { label: 'Kızarıklık', kind: 'area', group: 'redness', info: 'Ciltte yaygın veya bölgesel kızarıklık görünümü.' },
-  rosacea: { label: 'Rozasea benzeri kızarıklık', kind: 'presence', group: 'redness', info: 'Yanak ve burunda kalıcı kızarıklık ve ince damar görünümü.', expert: true },
+  rosacea: { label: 'Rozasea eğilimi', kind: 'presence', group: 'redness', info: 'Yanak ve burunda kalıcı kızarıklık ve ince damar görünümü.', expert: true },
   foreheadLines: { label: 'Alın çizgileri', kind: 'presence', group: 'lines', info: 'Alında yatay ince çizgiler.' },
   crowsFeet: { label: 'Kaz ayakları', kind: 'presence', group: 'lines', info: 'Gözlerin dış köşesinde ince çizgiler.' },
   eyeBags: { label: 'Göz altı torbası', kind: 'presence', group: 'eye', info: 'Alt göz kapağının altında şişkinlik görünümü.' },
   darkCircles: { label: 'Göz altı morluğu', kind: 'presence', group: 'eye', info: 'Göz altında çevreye göre daha koyu renk görünümü.' },
   hoodedEyelids: { label: 'Göz kapağı düşüklüğü', kind: 'presence', group: 'eye', info: 'Üst göz kapağı derisinin kapak çizgisinin üzerine inmiş görünümü.', expert: true },
   downturnedCorners: { label: 'Göz kuyruğu düşüklüğü', kind: 'presence', group: 'eye', info: 'Göz kuyruklarının (dış köşelerin) aşağı doğru eğimli görünümü.' },
-  eczema: { label: 'Egzama veya sedef benzeri görünüm', kind: 'presence', group: 'redness', info: 'Kızarık, kuru ve pullu görünen, sınırları belirgin yamalar.', expert: true },
+  eczema: { label: 'Egzama/sedef eğilimi', kind: 'presence', group: 'redness', info: 'Kızarık, kuru ve pullu görünen, sınırları belirgin yamalar.', expert: true },
   flaking: { label: 'Pullanma', kind: 'presence', group: 'texture', info: 'Cilt yüzeyinde ince, kuru pulcuklar ve pürüzlü doku görünümü.' },
   coldSore: { label: 'Dudakta uçuk', kind: 'presence', group: 'lip', info: 'Dudak kenarında küçük kabarcık veya kabuklanma görünümü.', expert: true },
 };
@@ -84,11 +84,14 @@ export function viewFindings(all: SkinFinding[] | undefined, view: FindingViewId
   return VIEW_ORDER[view].flatMap(id => {
     const same = rows.filter(f => f.id === id);
     if (!same.length) return [];
-    return [same.reduce((a, b) => ({
+    // Rosacea has no score of its own: it shows the measured red area of the same regions.
+    const redArea = id === 'rosacea' && same.every(f => f.severity === undefined && f.areaPct === undefined)
+      ? rows.filter(f => f.id === 'redness' && same.some(r => r.region === f.region)).reduce<number | undefined>((m, f) => max(m, f.areaPct), undefined) : undefined;
+    return [{ ...same.reduce((a, b) => ({
       ...a, severity: max(a.severity, b.severity), areaPct: max(a.areaPct, b.areaPct),
       countRange: COUNT_RANK.indexOf(b.countRange || '') > COUNT_RANK.indexOf(a.countRange || '') ? b.countRange : a.countRange,
       markers: [...(a.markers || []), ...(b.markers || [])], causes: [...new Set([...(a.causes || []), ...(b.causes || [])])],
-    }))];
+    })), ...(redArea !== undefined ? { areaPct: redArea } : {}) }];
   });
 }
 const OVERVIEW_ORDER: SkinFindingId[] = ['eyeBags', 'darkCircles', 'crowsFeet', 'hoodedEyelids', 'downturnedCorners', 'foreheadLines', 'acne', 'acneMarks', 'redness', 'rosacea', 'eczema', 'flaking', 'melasma', 'spots', 'mole', 'coldSore'];

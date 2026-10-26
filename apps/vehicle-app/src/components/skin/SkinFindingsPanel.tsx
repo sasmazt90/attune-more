@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslations } from '../../i18n/LanguageProvider';
 import { ChevronLeft, ChevronRight, Info } from 'lucide-react';
 import {
-  FINDING_DEFS, FINDING_VIEW_NAMES, COUNT_RANGE_LABEL, findingColor, inconclusiveFindings, overviewFindings, viewFindings,
+  FINDING_DEFS, FINDING_VIEW_NAMES, COUNT_RANGE_LABEL, findingColor, inconclusiveFindings, overviewFindings, viewFindings, type OverviewFinding,
   type FindingViewId, type SkinFinding, type SkinFindingId, type SkinFindingsHistoryEntry
 } from '../../utils/skinFindings';
 import { skinTypeLabel } from '../../utils/skinOverview';
@@ -117,7 +117,7 @@ function Overview({ findings, skinType, selected, onSelect }: {
 }
 
 /** Small card of the overview grid: name and a bar for the score, area or count. */
-function OverviewFindingCard({ f, on, onClick }: { f: SkinFinding; on: boolean; onClick: () => void }) {
+function OverviewFindingCard({ f, on, onClick }: { f: OverviewFinding; on: boolean; onClick: () => void }) {
   const { text } = useTranslations();
   const color = findingColor(f.id), def = FINDING_DEFS[f.id];
   const score = f.severity ?? f.areaPct;
@@ -126,7 +126,7 @@ function OverviewFindingCard({ f, on, onClick }: { f: SkinFinding; on: boolean; 
   else if (def.kind === 'count' && f.countRange) {
     const { index, total } = recommendationBand(f); width = Math.round((index + 1) / total * 100);
     value = `${COUNT_RANGE_LABEL[f.countRange] || f.countRange} ${text(def.unit || '')}`;
-  } else value = text('Görüldü');
+  } else value = f.views.map(v => text(FINDING_VIEW_NAMES[v])).join(', ');  // no score: where it was seen
   // the value sits above the filled end of the bar (kept inside the card at both ends)
   const shift = width === null ? '0%' : width < 12 ? '0%' : width > 88 ? '-100%' : '-50%';
   return (
@@ -146,7 +146,7 @@ function OverviewFindingCard({ f, on, onClick }: { f: SkinFinding; on: boolean; 
               <span className="block h-full rounded-full" style={{ width: `${Math.max(4, width)}%`, background: color }} />
             </span>
           </span>
-        : <span className="text-sm font-semibold text-slate-300">{value}</span>}
+        : <span className="text-sm font-semibold text-slate-400 truncate">{value}</span>}
     </button>
   );
 }
