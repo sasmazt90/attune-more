@@ -31,8 +31,20 @@
    "stage": "6-teslim",
    "done": "Commit, bundle, CODEX_HANDOFF.md, ekran görüntüleri hazırlanıyor",
    "blocker": null
+  },
+  {
+   "time": "2026-10-26T14:48:05+01:00",
+   "stage": "6-teslim",
+   "done": "Commit a1d3db4f479a471204e3f42694cbc2d258fddc50; bundle attune-skin-realpath.bundle (SHA-256 ccc5f7a4…2ae9) temiz klonda doğrulandı (bundle verify, HEAD eşleşti, skin birim testleri 177 geçti); CODEX_HANDOFF.md güncel; ekran görüntüleri paketlendi",
+   "blocker": "Push yapılamadı (GitHub erişimi yok); açık engeller CODEX_HANDOFF §8"
+  },
+  {
+   "time": "2026-10-26T16:59:02+01:00",
+   "stage": "e2e-v2",
+   "done": "K-217/K-074/K-258 real camera-path E2E PASS; sample UI PASS (collapsible acne types, count history)",
+   "blocker": "camera-path threshold calibration needs user approval"
   }
  ],
- "updated": "2026-10-26T14:45:48+01:00",
- "stage": "6-teslim"
+ "updated": "2026-10-26T16:59:02+01:00",
+ "stage": "e2e-v2"
 }
