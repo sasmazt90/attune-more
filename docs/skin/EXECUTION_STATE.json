@@ -2773,7 +2773,7 @@
     {
       "id": "12",
       "target": "sagging-appearance",
-      "status": "executable_release_gate_fail_closed_truth_pending",
+      "status": "identity_bound_localized_sag_release_gate_v2_fail_closed_expert_camera_pending",
       "work": "Current cheek/chin contour-fold result remains appearance-only. The 18-criterion ordinal source contains elasticity, not sag; it is not person-independent and lacks accepted expert protocol and camera-domain evidence. The generic whole-face degree boundary now filters any future sag declaration on both success and unavailable-target paths, while the downstream local-result/map replacement guard remains active. Continue pose/expression robustness, same-person capture evaluation and suitable localized truth acquisition.",
       "evidence": [
         "docs/skin/evidence/sag-appearance-semantics-20261023-v1.json",
@@ -2795,14 +2795,17 @@
         "scripts/skin-research/check_sag_release.py",
         "scripts/skin-research/tests/test_sag_release.py",
         "docs/skin/evidence/sag-release-receipt-20261025-v1.json",
-        "docs/skin/evidence/sag-release-gate-20261025-v1.json"
+        "docs/skin/evidence/sag-release-gate-20261025-v1.json",
+        "docs/skin/evidence/sag-release-receipt-20261026-v2.json",
+        "docs/skin/evidence/sag-release-gate-20261026-v2.json",
+        "docs/skin/evidence/sag-release-gate-v2-ci-20261026-v1.json"
       ],
       "blockers": [
         "No accepted independent-camera or expert-reviewed localized sagging truth exists; the current contour/fold index is not elasticity, tissue volume or clinical severity.",
         "Pose/expression robustness and same-person compatible capture pairs remain incomplete, so learned local segmentation and improved/worsened severity language are not accepted.",
         "This execution environment lacks a TypeScript compiler and real-browser camera stack; focused semantic-gate behavior and Python syntax/overview behavior passed, but full app/browser acceptance remains pending.",
         "The scratch runtime lacks OpenCV and ONNX Runtime, so the changed model boundary was syntax-checked and covered by pure policy/wiring tests but the actual accepted ONNX session was not executed in this run.",
-        "The executable sag release gate confirms the existing contour/fold proxy may remain visible only under its narrow appearance semantics. It blocks learned-model activation, test use and roadmap acceptance until localized expert truth, group independence, pose/expression and same-person capture protocols, validation, an untouched test, independent camera acceptance and working product integration evidence all pass."
+        "Release gate v2 closes the mutable-readiness gap while preserving the functioning contour/fold result: a future learned method must bind a distinct method, dataset release, project/version, training, model, capture protocol, locked policy and SHA-256 evidence identity. It requires version 2 or later group-locked expert polygons, validation-only policy selection, an untouched final test, independent physical camera, pose/expression and same-person repeatability, slices, polygon geometry, product replay and unavailable/history controls. Fourteen focused tests, all 270 local skin-research tests and GitHub Actions run 40376357262 passed; no accepted localized candidate exists, so training, final-test use, activation and roadmap completion remain false."
       ]
     },
     {
@@ -3496,6 +3499,39 @@
       },
       "evidence": "docs/skin/evidence/acne-per-class-release-gate-v2-ci-20261026-v1.json"
     },
+    "sagReleaseGateV2": {
+      "methodVersion": "sag-appearance-release-gate-v2",
+      "existingConcreteResultFlowPreserved": true,
+      "currentProxyPresentationAllowed": true,
+      "acceptedLocalizedMethodPresent": false,
+      "researchTrainingAuthorized": false,
+      "finalTestEvaluationAuthorized": false,
+      "localizedSagActivationAllowed": false,
+      "roadmapAccepted": false,
+      "decision": "blocked",
+      "localFocusedTests": {
+        "tests": 14,
+        "result": "OK"
+      },
+      "ci": {
+        "runId": 40376357262,
+        "url": "https://github.com/sasmazt90/attune-more/actions/runs/40376357262",
+        "headSha": "b0e10de2cf4455ea25d370f48d8f995ff6c4be5f",
+        "conclusion": "success",
+        "frontendProductionBuild": "success",
+        "localizationContract": "success",
+        "deterministicUnitSuite": {
+          "passed": 1627,
+          "skipped": 44,
+          "warnings": 2
+        },
+        "completeSkinResearchEvidenceSuite": {
+          "tests": 270,
+          "result": "OK"
+        }
+      },
+      "evidence": "docs/skin/evidence/sag-release-gate-v2-ci-20261026-v1.json"
+    },
     "toneUnevennessReleaseGateV2": {
       "methodVersion": "tone-unevenness-release-gate-v2",
       "existingConcreteResultFlowPreserved": true,
@@ -3728,7 +3764,7 @@
     "Run the now-wired skin presentation and current-merged capability regressions through PR/main CI or a normal dependency-materialized workspace, then complete real-browser and consented physical-camera acceptance. Preserve the verified working baseline (nine appearance criteria, separate skin type and regional outputs) while Post acne and Pigmentation remain additive gated headings.",
     "Preserve the new display-unit boundary: only true supported-area ratios may use a percent meter. Keep color/line/fold/generic indices neutral and bar-free, and do not activate the independent review's cited model thresholds without validation-selected, locked independent-test and real-camera evidence.",
     "Treat the merged nine-criterion plus separate-skin-type flow as the functioning baseline, not as missing output. Preserve the source-bound capability gate and add Post acne/Pigmentation only as additive localized headings after their model/data acceptance gates pass; next execute the existing browser/API/history replay with a consented physical camera capture.",
-    "For task 12, replay scripts/skin-research/check_sag_release.py before any source, training, test or activation action. Preserve the current visible contour/fold proxy and same-person-compatible semantics, but do not call it elasticity, clinical severity, a localized learned model or a cross-person change measure. Acquire localized expert truth and group identity, complete pose/expression plus same-person capture protocols, pass validation, reserve and pass an untouched test, then pass independent camera and working-product integration acceptance.",
+    "For task 12, replay scripts/skin-research/check_sag_release.py v2 before any source, training, final-test use or learned-method activation. Preserve the functioning visible contour/fold proxy and same-person-compatible semantics; do not call it elasticity, clinical severity, a localized learned model or a cross-person change measure. A future candidate must bind a distinct method, dataset release, project version 2 or later, training/model, capture protocol, locked policy and SHA-256 evidence; use adjudicated localized expert polygons, never boxes or proposals as truth. Complete rights/scope, source/person grouping, pose/expression and same-person protocols before training; lock policy on validation before the untouched final test; then pass physical-camera slices, polygon geometry, working-product replay and unknown/unavailable/history controls.",
     "Do not integrate acne/post-acne/pigmentation child a5e262: its live exact-ID test F1 is 0.094/0.052/0.007. The displayed 929397 child is also not eligible because the artifact binds no test evaluation to it and every generated FRONT response is capped at 300. Evaluate another child by exact model ID and per-class test evidence before any further inference or integration; do not repeat the six generated profiles.",
     "Correct the research regional map schema before product use: keep Redness as an independent red contour/hatching layer, never rename it Sensitive, preserve Unknown as light grey, and do not synthesize Dry/Normal or mixed skin from the Oily/Redness-only e79545 model. Obtain reviewed Dry/Normal regional truth and real-camera evidence.",
     "Apply scripts/skin-research/skin_model_acceptance_gate.py to every future learned candidate before changing any accepted manifest or registry. A finished training or recommendation flag is insufficient. Current 754885 acne/post-acne/pigmentation, 2c07ef regional oil/redness and the model-less grouped under-eye path all fail closed; improve the recorded source, per-class, camera and integration gaps, then replay the same receipt.",
@@ -3746,6 +3782,27 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T18:21:05Z",
+      "action": "Read the persistent checkpoint first and preserved main commit 7463eef as the already functioning concrete /api/local-health/skin baseline. Refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye versions and trainings, and grouped upload task sLFwX7CYBVcnnD6iAW5o. Known acne and regional trainings remain finished, under-eye pilot v2 still has no training, grouped under-eye remains empty, the upload task remains created/no-progress, and no duplicate work was started. Repaired a fail-open path for task 12: the prior sag gate could be made ready by changing receipt booleans without a distinct dataset release, project/version, training/model, capture protocol, locked policy or evidence identity. Gate v2 pins the functioning merged contour/fold proxy and exact semantic/camera blobs, preserves it as a visible lower-face appearance result, and requires a distinct version-2-or-later group-locked localized method with adjudicated expert polygons before learned activation. It forbids elasticity or clinical-severity claims, whole-face ordinal replacement, cross-person change, box-as-polygon, model-as-expert-truth and unknown-as-Normal. Fourteen focused tests and all 270 local skin-research tests passed. GitHub Actions run 40376357262 is green: frontend build and localization passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 270 tests. No accepted localized sag candidate exists, so training, final-test use, learned activation and roadmap completion remain false.",
+      "report": "docs/skin/evidence/sag-release-gate-v2-ci-20261026-v1.json",
+      "commits": [
+        "b0e10de2cf4455ea25d370f48d8f995ff6c4be5f"
+      ],
+      "runs": [
+        {
+          "runId": 40376357262,
+          "conclusion": "success",
+          "deterministicTests": 1627,
+          "deterministicSkipped": 44,
+          "deterministicWarnings": 2,
+          "skinResearchTests": 270,
+          "frontend": "success",
+          "localization": "success"
+        }
+      ]
+    },
     {
       "date": "2026-10-26",
       "observedAt": "2026-10-26T16:24:17Z",
@@ -4608,6 +4665,27 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T18:21:05Z",
+      "action": "Read the persistent checkpoint first and preserved main commit 7463eef as the already functioning concrete /api/local-health/skin baseline. Refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye versions and trainings, and grouped upload task sLFwX7CYBVcnnD6iAW5o. Known acne and regional trainings remain finished, under-eye pilot v2 still has no training, grouped under-eye remains empty, the upload task remains created/no-progress, and no duplicate work was started. Repaired a fail-open path for task 12: the prior sag gate could be made ready by changing receipt booleans without a distinct dataset release, project/version, training/model, capture protocol, locked policy or evidence identity. Gate v2 pins the functioning merged contour/fold proxy and exact semantic/camera blobs, preserves it as a visible lower-face appearance result, and requires a distinct version-2-or-later group-locked localized method with adjudicated expert polygons before learned activation. It forbids elasticity or clinical-severity claims, whole-face ordinal replacement, cross-person change, box-as-polygon, model-as-expert-truth and unknown-as-Normal. Fourteen focused tests and all 270 local skin-research tests passed. GitHub Actions run 40376357262 is green: frontend build and localization passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 270 tests. No accepted localized sag candidate exists, so training, final-test use, learned activation and roadmap completion remain false.",
+      "report": "docs/skin/evidence/sag-release-gate-v2-ci-20261026-v1.json",
+      "commits": [
+        "b0e10de2cf4455ea25d370f48d8f995ff6c4be5f"
+      ],
+      "runs": [
+        {
+          "runId": 40376357262,
+          "conclusion": "success",
+          "deterministicTests": 1627,
+          "deterministicSkipped": 44,
+          "deterministicWarnings": 2,
+          "skinResearchTests": 270,
+          "frontend": "success",
+          "localization": "success"
+        }
+      ]
+    },
     {
       "date": "2026-10-26",
       "observedAt": "2026-10-26T16:24:17Z",
