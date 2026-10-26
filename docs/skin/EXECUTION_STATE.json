@@ -2892,7 +2892,8 @@
         "tests/e2e/current_skin_photo_wipe_success.py",
         "scripts/skin-research/build_unified_browser_acceptance.py",
         "scripts/skin-research/tests/test_build_unified_browser_acceptance.py",
-        "docs/skin/evidence/unified-browser-evidence-builder-20261026-v1.json"
+        "docs/skin/evidence/unified-browser-evidence-builder-20261026-v1.json",
+        "docs/skin/evidence/unified-browser-evidence-builder-ci-20261026-v1.json"
       ],
       "blockers": [
         "The merged main branch already has the nine-criterion result path, separate skin type, six regional views, overview, local maps/contours, persistence gate and result UI. The roadmap branch now extends the result contract to eleven appearance headings plus skin type; Post acne and Pigmentation remain explicitly unavailable, not fabricated. Production merge/deployment is not part of this run.",
@@ -3583,7 +3584,24 @@
         "completeSkinResearchEvidenceSuite": 283,
         "executedRealBrowserProofs": false,
         "acceptedBrowserEvidenceProduced": false,
-        "evidence": "docs/skin/evidence/unified-browser-evidence-builder-20261026-v1.json"
+        "ci": {
+          "runId": 40388607949,
+          "url": "https://github.com/sasmazt90/attune-more/actions/runs/40388607949",
+          "headSha": "b8eeb7adc705dc88d99a380e5a27de0c0edcfd47",
+          "conclusion": "success",
+          "frontendProductionBuild": "success",
+          "localizationContract": "success",
+          "deterministicUnitSuite": {
+            "passed": 1627,
+            "skipped": 44,
+            "warnings": 2
+          },
+          "completeSkinResearchEvidenceSuite": {
+            "tests": 283,
+            "result": "OK"
+          }
+        },
+        "evidence": "docs/skin/evidence/unified-browser-evidence-builder-ci-20261026-v1.json"
       },
       "evidence": "docs/skin/evidence/unified-skin-result-release-gate-v2-ci-20261026-v1.json"
     },
@@ -3837,6 +3855,27 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T19:42:59Z",
+      "action": "GitHub Actions run 40388607949 for the unified browser acceptance evidence-builder commit completed successfully. The frontend production build and localization contract passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research evidence suite passed 283 tests. The code and checkpoint are durably bound to commit b8eeb7a. No real-browser or physical-camera run occurred, so browser, class, camera and final roadmap acceptance remain false.",
+      "report": "docs/skin/evidence/unified-browser-evidence-builder-ci-20261026-v1.json",
+      "commits": [
+        "b8eeb7adc705dc88d99a380e5a27de0c0edcfd47"
+      ],
+      "runs": [
+        {
+          "runId": 40388607949,
+          "conclusion": "success",
+          "deterministicTests": 1627,
+          "deterministicSkipped": 44,
+          "deterministicWarnings": 2,
+          "skinResearchTests": 283,
+          "frontend": "success",
+          "localization": "success"
+        }
+      ]
+    },
     {
       "date": "2026-10-26",
       "observedAt": "2026-10-26T19:36:02Z",
@@ -4747,6 +4786,27 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T19:42:59Z",
+      "action": "GitHub Actions run 40388607949 for the unified browser acceptance evidence-builder commit completed successfully. The frontend production build and localization contract passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research evidence suite passed 283 tests. The code and checkpoint are durably bound to commit b8eeb7a. No real-browser or physical-camera run occurred, so browser, class, camera and final roadmap acceptance remain false.",
+      "report": "docs/skin/evidence/unified-browser-evidence-builder-ci-20261026-v1.json",
+      "commits": [
+        "b8eeb7adc705dc88d99a380e5a27de0c0edcfd47"
+      ],
+      "runs": [
+        {
+          "runId": 40388607949,
+          "conclusion": "success",
+          "deterministicTests": 1627,
+          "deterministicSkipped": 44,
+          "deterministicWarnings": 2,
+          "skinResearchTests": 283,
+          "frontend": "success",
+          "localization": "success"
+        }
+      ]
+    },
     {
       "date": "2026-10-26",
       "observedAt": "2026-10-26T19:36:02Z",
