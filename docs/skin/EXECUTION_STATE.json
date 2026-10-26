@@ -2547,7 +2547,7 @@
     {
       "id": "07",
       "target": "regional-redness",
-      "status": "independent_red_layer_release_gate_fail_closed",
+      "status": "distinct_regional_candidate_release_gate_v2_fail_closed_expert_camera_pending",
       "work": "Audit Redness/Skin-Redness local labels; evaluate source score and regional masks; red contour/hatching independent from oil/dry map; do not equate redness with sensitivity.",
       "evidence": [
         "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
@@ -2602,7 +2602,10 @@
         "scripts/skin-research/check_redness_release.py",
         "scripts/skin-research/tests/test_redness_release.py",
         "docs/skin/evidence/redness-release-receipt-20261025-v1.json",
-        "docs/skin/evidence/redness-release-gate-20261025-v1.json"
+        "docs/skin/evidence/redness-release-gate-20261025-v1.json",
+        "docs/skin/evidence/redness-release-receipt-20261026-v2.json",
+        "docs/skin/evidence/redness-release-gate-20261026-v2.json",
+        "docs/skin/evidence/redness-release-gate-v2-ci-20261026-v1.json"
       ],
       "blockers": [
         "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
@@ -2612,7 +2615,8 @@
         "Exact evaluation diagnosis finds only one Oily/Redness wrong-class case, which does not justify collapsing their taxonomies. Redness has 571 labels versus 1,065 Oily labels and zero small-object diagnostic-test mAP50. The release gate requires expert mask/hard-negative review and keeps Redness an independent red contour or hatching layer.",
         "The frozen export has 571 valid Redness polygons, but all 337 source identities remain unreviewed. No exact/tight image candidate is not proof of person independence; the existing split cannot authorize camera acceptance or activation.",
         "The 81-image expert queue includes Redness geometry extremes and the sole train/validation Oily+Redness co-occurrence image while reading zero test images. Redness remains independent; missing labels are not normal or negative truth, and expert decisions are still pending.",
-        "The executable redness release gate pins the exact model, diagnosis, source-group, expert-queue, map-contract and implementation blobs. It preserves Redness as an independent #DC2626 contour/hatching layer that may overlap dry/oily and never implies sensitivity. Current training, final-test evaluation and activation remain blocked by missing rights review, expert mask/negative protocol, complete source/person grouping, a replacement split, a new untouched final test, an independent camera holdout, small-redness acceptance and working overlap/unavailable controls."
+        "The executable redness release gate pins the exact model, diagnosis, source-group, expert-queue, map-contract and implementation blobs. It preserves Redness as an independent #DC2626 contour/hatching layer that may overlap dry/oily and never implies sensitivity. Current training, final-test evaluation and activation remain blocked by missing rights review, expert mask/negative protocol, complete source/person grouping, a replacement split, a new untouched final test, an independent camera holdout, small-redness acceptance and working overlap/unavailable controls.",
+        "Release gate v2 closes the mutable-readiness gap: it pins the rejected version-1 RF-DETR Seg Small identity and metrics, rejects known version-1 NAS identity substitution, and requires a distinct regional-project dataset version 2 or later with a new training/model identity. Targeted training remains blocked until rights, expert mask/negative/ambiguity/assessability, illumination/white-balance/makeup/acne confound policy, person grouping, replacement split, at least 50 new untouched final images, camera reservation and a preregistered single change are complete. Thirteen focused tests, all 255 local skin-research tests and GitHub Actions run 40354186517 passed; no distinct candidate exists and no training, final-test use or red-layer activation is authorized."
       ]
     },
     {
@@ -3488,6 +3492,39 @@
       },
       "evidence": "docs/skin/evidence/acne-per-class-release-gate-v2-ci-20261026-v1.json"
     },
+    "rednessReleaseGateV2": {
+      "methodVersion": "regional-redness-release-gate-v2",
+      "knownResearchSmallModelAccepted": false,
+      "knownVersionOneModelsAccepted": false,
+      "distinctCandidatePresent": false,
+      "researchTrainingAuthorized": false,
+      "finalTestEvaluationAuthorized": false,
+      "learnedRednessLayerActivationAllowed": false,
+      "roadmapAccepted": false,
+      "decision": "blocked",
+      "localFocusedTests": {
+        "tests": 13,
+        "result": "OK"
+      },
+      "ci": {
+        "runId": 40354186517,
+        "url": "https://github.com/sasmazt90/attune-more/actions/runs/40354186517",
+        "headSha": "6d2c84f80c850dfaec459ee10b46db97c7e33218",
+        "conclusion": "success",
+        "frontendProductionBuild": "success",
+        "localizationContract": "success",
+        "deterministicUnitSuite": {
+          "passed": 1627,
+          "skipped": 44,
+          "warnings": 2
+        },
+        "completeSkinResearchEvidenceSuite": {
+          "tests": 255,
+          "result": "OK"
+        }
+      },
+      "evidence": "docs/skin/evidence/redness-release-gate-v2-ci-20261026-v1.json"
+    },
     "oilyReleaseGateV2": {
       "methodVersion": "regional-oily-appearance-release-gate-v2",
       "knownResearchSmallModelAccepted": false,
@@ -3638,7 +3675,7 @@
     "Replay scripts/skin-research/check_oily_release.py before task-04 retraining, final-test use or learned green regional-mask activation. Preserve the already functioning concrete oil-appearance output and separate skin type. Require measured regional polygon support; never copy whole-face classes into regions, turn boxes into polygons, interpret missing masks as Normal, promote model proposals to expert truth or claim clinical sebum diagnosis. Complete rights review, expert extent/negative/assessability and shine-glare-lighting protocols, full source/person grouping, a locked replacement split, a new untouched final test, independent physical-camera lighting/skin-tone/pose slices, working integration and regional overlap/unavailable controls.",
     "Replay scripts/skin-research/check_unified_skin_result_release.py before declaring task 13 or the roadmap complete. Preserve the verified working /api/local-health/skin baseline, nine appearance criteria plus separate skin type, strict unknown/normal handling, independent Redness and method-bound history. Complete repository CI, real browser/API E2E, IndexedDB write/read replay, a consented physical-camera triplet, expert truth and independent final tests for each activated class, every class-specific release gate, unavailable/overlap controls and method-compatible history acceptance. Generated triplets remain integration smoke only.",
     "Replay scripts/skin-research/check_tone_unevenness_release.py before changing task-08 tone semantics, activating a calibration claim or co-reporting accepted localized pigmentation. Preserve the working broad regional chromatic-variation appearance proxy and keep Post acne/Pigmentation separate and unavailable unless their own accepted detector exists. Complete camera calibration, illumination/shadow/hair robustness, skin-tone subgroup calibration, same-person repeatability, an untouched camera holdout and working-product replay; when accepted local masks exist, exclude their support from tone sampling and pass independent-camera co-reporting.",
-    "Replay scripts/skin-research/check_redness_release.py before any task-07 retraining, final-test use or red-layer activation. Complete rights review, the 81-item expert mask/negative/ambiguity/assessability protocol, full source/person grouping, a locked replacement split, a new untouched final test of at least 50 images and a separate camera holdout; then validate small Redness and working overlap/unavailable controls. Keep Redness as an independent #DC2626 contour/hatching layer that can overlap dry/oily; never rename it Sensitive, infer sensitivity, treat missing masks as Normal or promote model proposals to expert truth.",
+    "Replay scripts/skin-research/check_redness_release.py v2 before any task-07 training, final-test use or learned red-layer activation. Complete rights review, the 81-item expert mask/negative/ambiguity/assessability protocol, illumination/white-balance/makeup/acne confound policy, full person grouping, a group-locked replacement split, at least 50 new untouched final images, a separate consented camera holdout and one preregistered validation-only change. Any candidate must belong to tolgar-sasmaz/attune-skin-regional-skin-map version 2 or later with distinct training/model IDs, locked thresholds, verified polygon output and separate Redness metrics. Keep Redness as an independent #DC2626 contour/hatching layer that can overlap dry/oily; never rename it Sensitive, infer sensitivity, treat missing masks as Normal, turn boxes into masks or promote model proposals to expert truth.",
     "Replay scripts/skin-research/check_skin_type_combination_release.py v2 before task-06 regional training, final-test use or mixed-skin activation. Preserve the functioning global dry/normal/oily output. Do not populate the accepted registry through mutable readiness flags: bind an immutable registry ID, SHA-256 evidence and distinct accepted method IDs. For combination, require accepted oily polygon evidence for forehead+nose+chin plus accepted Dry polygons or explicitly evaluated uncoloured Normal on both cheeks. Learned methods must bind the regional project, group-locked dataset version 2 or later, distinct training/model IDs, locked thresholds, validation, untouched final test, independent physical camera, product integration, unavailable/overlap controls and history replay. Never copy a whole-face class into regions, turn boxes into masks, treat missing labels as Normal or treat model proposals as expert truth.",
     "Replay scripts/skin-research/check_dryness_release.py before any task-05 training, final-test use or blue-layer activation. First obtain rights-reviewed natural-camera sources; expert policy separating visible flaking, broad dry, lesion-like and nonfacial labels; expert polygon extents plus evaluated negative/normal truth; source/person-grouped splits; a new untouched final test; an independent product-camera holdout; and working integration evidence. Boxes may support localization research only: never turn them into blue masks, interpret missing labels as Normal, equate generic dryness with visible flaking, or treat a model proposal as expert truth.",
     "Regenerate the source-bound Attune/Roboflow comparison through scripts/skin-research/build_attune_roboflow_comparison.py schema v2 when its private six-subject bundle is available. The executable contract now hard-fails semantic drift: dry blue, oily green, evaluated normal uncolored, unknown light gray/non-normal, and kizariklik only as an independent red Redness contour/hatching proposal layer. Never restore the legacy Sensitive alias or derive Dry/Normal/mixed truth from the Oily/Redness-only model; then complete real-browser and consented physical-camera acceptance.",
@@ -3672,6 +3709,27 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T15:59:58Z",
+      "action": "Read the persistent checkpoint first, preserved main commit 7463eef as the functioning /api/local-health/skin baseline, and refreshed all 20 accessible Roboflow projects plus exact regional, acne and under-eye training/upload state. All known relevant trainings remain finished, the regional project remains version 1 with 337 images and Oily/Redness only, grouped under-eye upload task sLFwX7CYBVcnnD6iAW5o remains created/no-progress, and no duplicate training or upload was started. Repaired a fail-open path for task 07: the prior Redness gate could be made ready through mutable booleans without proving a distinct dataset version, training/model identity, preregistered change, threshold lock, polygon output or separate Redness metrics. Gate v2 pins the rejected version-1 small model and exact metrics, rejects version-1 NAS identity substitution, and requires a group-locked regional-project version 2 or later candidate. It preserves the existing concrete result flow and independent #DC2626 contour/hatching layer, permits dry/oily overlap, and forbids sensitivity inference, box-as-polygon, missing-mask-as-Normal and model-as-expert-truth. Thirteen focused tests and all 255 local skin-research tests passed. GitHub Actions run 40354186517 is green: frontend build and localization passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 255 tests. No distinct candidate exists, so training, final-test use, activation and roadmap completion remain false.",
+      "report": "docs/skin/evidence/redness-release-gate-v2-ci-20261026-v1.json",
+      "commits": [
+        "6d2c84f80c850dfaec459ee10b46db97c7e33218"
+      ],
+      "runs": [
+        {
+          "runId": 40354186517,
+          "conclusion": "success",
+          "deterministicTests": 1627,
+          "deterministicSkipped": 44,
+          "deterministicWarnings": 2,
+          "skinResearchTests": 255,
+          "frontend": "success",
+          "localization": "success"
+        }
+      ]
+    },
     {
       "date": "2026-10-26",
       "observedAt": "2026-10-26T03:46:05Z",
@@ -4492,6 +4550,27 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T15:59:58Z",
+      "action": "Read the persistent checkpoint first, preserved main commit 7463eef as the functioning /api/local-health/skin baseline, and refreshed all 20 accessible Roboflow projects plus exact regional, acne and under-eye training/upload state. All known relevant trainings remain finished, the regional project remains version 1 with 337 images and Oily/Redness only, grouped under-eye upload task sLFwX7CYBVcnnD6iAW5o remains created/no-progress, and no duplicate training or upload was started. Repaired a fail-open path for task 07: the prior Redness gate could be made ready through mutable booleans without proving a distinct dataset version, training/model identity, preregistered change, threshold lock, polygon output or separate Redness metrics. Gate v2 pins the rejected version-1 small model and exact metrics, rejects version-1 NAS identity substitution, and requires a group-locked regional-project version 2 or later candidate. It preserves the existing concrete result flow and independent #DC2626 contour/hatching layer, permits dry/oily overlap, and forbids sensitivity inference, box-as-polygon, missing-mask-as-Normal and model-as-expert-truth. Thirteen focused tests and all 255 local skin-research tests passed. GitHub Actions run 40354186517 is green: frontend build and localization passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 255 tests. No distinct candidate exists, so training, final-test use, activation and roadmap completion remain false.",
+      "report": "docs/skin/evidence/redness-release-gate-v2-ci-20261026-v1.json",
+      "commits": [
+        "6d2c84f80c850dfaec459ee10b46db97c7e33218"
+      ],
+      "runs": [
+        {
+          "runId": 40354186517,
+          "conclusion": "success",
+          "deterministicTests": 1627,
+          "deterministicSkipped": 44,
+          "deterministicWarnings": 2,
+          "skinResearchTests": 255,
+          "frontend": "success",
+          "localization": "success"
+        }
+      ]
+    },
     {
       "date": "2026-10-26",
       "observedAt": "2026-10-26T03:46:05Z",
