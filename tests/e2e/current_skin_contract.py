@@ -52,6 +52,10 @@ def check_result(p, rec, shots, tag, photo=True):
         cards += p.locator('[data-skin-overview-finding]').evaluate_all('els=>els.map(e=>e.dataset.skinOverviewFinding)')
     if pages > 1: p.get_by_role('button', name='Sonraki bulgular').click()
     assert sorted(set(cards)) == seen_ids(findings), (cards, seen_ids(findings))
+    # every seen finding shows a number (score %, area %, count) - never just "seen"
+    for c in set(cards):
+        if p.locator(f'[data-skin-overview-finding="{c}"]').count():
+            assert any(ch.isdigit() for ch in p.locator(f'[data-skin-overview-finding="{c}"]').first.inner_text()), c
     # nothing measured is never presented as a score: no bar/percentage without a value in the record
     if not any('severity' in f or 'areaPct' in f for f in findings):
         assert '%' not in p.locator('[data-skin-overview]').inner_text()
@@ -95,7 +99,9 @@ def check_result(p, rec, shots, tag, photo=True):
 
 with sync_playwright() as pw:
     b = pw.chromium.launch(headless=True, args=ARGS, **CHANNEL)
-    c = b.new_context(permissions=['camera'], viewport={'width': 1600, 'height': 1000})
+    # the whole run is recorded as video (camera capture -> analysis -> result screen -> reopened record)
+    c = b.new_context(permissions=['camera'], viewport={'width': 1600, 'height': 1000},
+                      record_video_dir=str(OUT / 'video'), record_video_size={'width': 1600, 'height': 1000})
     c.add_init_script(HOOK)
     # SKIN_E2E_SAVE_PHOTOS=1 (diagnostics only, fixture photos): keeps the exact photo + landmarks the app sent
     if os.environ.get('SKIN_E2E_SAVE_PHOTOS') == '1': c.add_init_script('window.__savePhotos=true')

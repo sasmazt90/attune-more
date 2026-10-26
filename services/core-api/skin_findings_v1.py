@@ -46,7 +46,7 @@ BOX_CLASSES = {'Riskli Ben': 'mole', 'Ucuk': 'coldSore'}
 # acne lesions counted (research n35 classes of the acne features) and their displayed type
 ACNE_CLASSES = {('findings', 'Akne'): 'unspecified', ('findings', 'Siyah Nokta'): 'blackhead', ('findings', 'Beyaz Nokta'): 'whitehead',
                 ('acnes', 'blackhead'): 'blackhead', ('acnes', 'whitehead'): 'whitehead', ('acnes', 'papule'): 'papule',
-                ('acnes', 'pustule'): 'pustule'}
+                ('acnes', 'pustule'): 'pustule', ('acnes', 'nodule'): 'nodule'}   # nodule: display only (not in the research n35 features)
 LIP = [61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291, 375, 321, 405, 314, 17, 84, 181, 91, 146]
 UNAVAILABLE = {
     'eyeBags': 'MODEL_NOT_AVAILABLE', 'darkCircles': 'MODEL_NOT_AVAILABLE', 'hoodedEyelids': 'MODEL_NOT_AVAILABLE',
@@ -262,11 +262,11 @@ def _attach_count(row: dict, maps: dict, poses: list, fallback_pose: str | None 
         types = {}
         for b in marks:
             types[b.get('type', 'unspecified')] = types.get(b.get('type', 'unspecified'), 0) + 1
-        row['subtypes'] = {k: types.get(k, 0) for k in ('blackhead', 'whitehead', 'papule', 'pustule', 'unspecified')}
+        row['subtypes'] = {k: types.get(k, 0) for k in ('blackhead', 'whitehead', 'papule', 'pustule', 'nodule', 'unspecified')}
     if not marks:   # the decision says it is there, the detector marked no single lesion: at least one
         row['count'] = 1; row['countAtLeast'] = True
         if row['id'] == 'acne':
-            row['subtypes'] = dict(blackhead=0, whitehead=0, papule=0, pustule=0, unspecified=1)
+            row['subtypes'] = dict(blackhead=0, whitehead=0, papule=0, pustule=0, nodule=0, unspecified=1)
 
 
 def _measures_ref(name: str):
