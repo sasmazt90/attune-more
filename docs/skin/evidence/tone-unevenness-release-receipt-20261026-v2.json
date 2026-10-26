@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 2,
+  "observedAt": "2026-10-26T16:18:21Z",
+  "inputBlobs": {
+    "contractEvidence": "2415926f1706a8a8991a5180fe338a01bd1391d8",
+    "currentProductRecheck": "bbbe61b13145284d675af7e3e66d25ce439a7ba4",
+    "cameraManifestBuilder": "455f8dcf377c45a5db2cdb637a81ea6f19fd5688",
+    "cameraExpertTruthBuilder": "77bb863346c69f6838af091339f715f3f04424fd",
+    "cameraPredictionEvaluator": "4ce05c088449adf0d61a801c18c2316787cd926a",
+    "cameraBenchmarkReleaseGate": "53c3710166c2e5e43becd36234e10bafe68ac659"
+  },
+  "codeBlobs": {
+    "services/core-api/skin_product_contract.py": "f152726978bee2eea36b0563d9ac36cbcf330c7b",
+    "services/core-api/skin_general.py": "ef5869c6801d3845ec8424e17474b3a3e0fd665a",
+    "services/core-api/appearance_analysis.py": "1ebb762a76865f4a33f7f0d5aadab36a5115d46e",
+    "apps/vehicle-app/src/utils/skinIndicators.ts": "eeb3599bec0361bcca7298fc277fa53a32fc06d5",
+    "apps/vehicle-app/src/utils/skinOverview.ts": "4d31010f82bfd5c42a49b46c20880630d57079dd"
+  },
+  "currentProductBaseline": {
+    "commit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+    "productAlreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "toneHeadingPresent": true,
+    "regionalResultsPresent": true
+  },
+  "semanticContract": {
+    "separationVersion": "tone-localized-pigmentation-separation-v1",
+    "toneMeaning": "broad-regional-chromatic-variation",
+    "baseMethodId": "regional-cielab-chromatic-variation-v1",
+    "clinicalSeverity": false,
+    "localizedPigmentationDetector": false,
+    "toneCanSupplyPostAcne": false,
+    "toneCanSupplyPigmentation": false,
+    "missingLocalizedResultMeansZero": false,
+    "localizedHeadingsSeparate": true,
+    "unknownOrUnassessableMeansNormal": false
+  },
+  "currentProxy": {
+    "mode": "regional-cielab-appearance-proxy",
+    "methodId": "regional-cielab-chromatic-variation-v1",
+    "clinicalClaimsDisabled": true,
+    "localizedHeadingsDerivedFromTone": false,
+    "calibrationAccepted": false
+  },
+  "preparation": {
+    "cameraCalibrationProtocolComplete": false,
+    "sourcePersonIndependentCalibrationSplit": false,
+    "adjudicatedExpertToneTruthComplete": false,
+    "qualityPolicyLockedBeforeValidation": false,
+    "untouchedPhysicalCameraFinalReserved": false
+  },
+  "candidate": {
+    "mode": "uncalibrated-proxy",
+    "methodId": null,
+    "calibrationReleaseId": null,
+    "cameraBenchmarkId": null,
+    "captureProtocolId": null,
+    "lockedPolicyId": null,
+    "acceptanceEvidence": null,
+    "accepted": false,
+    "truthSource": null,
+    "thresholdSelectionSplit": null,
+    "cameraFinalUsedForSelection": null
+  },
+  "calibrationValidation": {
+    "methodId": null,
+    "illuminationShadowHairWhiteBalanceRobustnessPassed": false,
+    "skinToneSubgroupCalibrationPassed": false,
+    "samePersonRepeatabilityPassed": false,
+    "policyLockedBeforeCameraFinal": false,
+    "untouchedPhysicalCameraFinalPassed": false,
+    "deviceLightingSkinTonePoseSlicesPassed": false,
+    "workingProductIntegrationPassed": false,
+    "unknownUnavailableAndHistoryControlsPassed": false,
+    "acceptanceEvidence": null
+  },
+  "localizedSupport": {
+    "mode": "unavailable",
+    "methodIds": [],
+    "acceptanceEvidence": null,
+    "accepted": false,
+    "excludedFromToneSampling": false,
+    "independentCameraCoReportingPassed": false
+  }
+}
