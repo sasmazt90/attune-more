@@ -11,6 +11,8 @@ import { HealthModuleIcon } from './HealthModuleIcon';
 import { AccessibleDialog } from './AccessibleDialog';
 import { CardCarousel } from './CardCarousel';
 import Link from 'next/link';
+import { skinAverages, formatMetric } from '../utils/skinHistorySummary';
+import { FINDING_DEFS, countUnit } from '../utils/skinFindings';
 
 const datetime = (time: number) => new Date(time).toLocaleString(getLocale(), { dateStyle: 'medium', timeStyle: 'medium' });
 const selectClass = 'min-h-11 w-full rounded-xl border border-white/20 bg-slate-950 px-3 text-sm text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-togg-turquoise';
@@ -110,12 +112,14 @@ export function HealthHistoryOverview({ showStartActions = false, parked = true,
     void refresh(); window.addEventListener('attune-records', refresh); window.addEventListener('storage', refresh);
     return () => { disposed = true; version++; window.removeEventListener('attune-records', refresh); window.removeEventListener('storage', refresh); };
   }, []);
+  const skinAvg = useMemo(() => skinAverages(records.skin as any), [records.skin]);
   const cards: { id: string; content: ReactNode }[] = HEALTH_MODULE_IDS.map(id => {
     const overview = moduleOverview(id, records[id]), selected = module === id;
     return { id, content: <article className={`flex w-full flex-col rounded-2xl border bg-cockpit-surface transition-colors ${selected ? 'border-togg-turquoise' : 'border-white/10 hover:border-white/30'}`}>
       <button type="button" aria-haspopup="dialog" aria-expanded={selected} onClick={() => setModule(id)} className="flex min-h-44 w-full flex-1 flex-col items-start rounded-2xl p-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-togg-turquoise" data-health-module={id}>
         <span className="flex min-w-0 items-start gap-2 text-sm font-bold text-togg-turquoise"><span className="shrink-0 pt-0.5"><HealthModuleIcon module={id}/></span><span>{i18nNode(HEALTH_MODULES[id].name)}</span></span>
-        <span className="mt-3 flex-1 text-sm leading-relaxed text-slate-300">{i18nNode(overview.text)}</span><span className="mt-3 text-xs text-slate-400">{i18nNode(overview.date !== null ? new Date(overview.date).toLocaleDateString(getLocale()) : overview.count ? 'Tarih kaydedilmemiş' : 'Kayıt yok')}</span>
+        {id === 'skin' && skinAvg ? <SkinAverages avg={skinAvg} /> : <>
+        <span className="mt-3 flex-1 text-sm leading-relaxed text-slate-300">{i18nNode(overview.text)}</span><span className="mt-3 text-xs text-slate-400">{i18nNode(overview.date !== null ? new Date(overview.date).toLocaleDateString(getLocale()) : overview.count ? 'Tarih kaydedilmemiş' : 'Kayıt yok')}</span></>}
       </button>
       {showStartActions && <div className="mx-4 mb-4 border-t border-white/10 pt-3">{parked || id === 'mental' ? <Link href={HEALTH_MODULES[id].route} className="inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-togg-turquoise px-3 text-xs font-semibold text-togg-darkBlue focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">{i18nNode(!parked ? 'Görüşmeyi görüntüle' : id === 'mental' ? 'Görüşmeyi başlat' : 'Kontrolü aç')}</Link> : <p className="py-3 text-center text-xs text-slate-500">{i18nText("Park halinde açılır")}</p>}</div>}
     </article> };
@@ -131,4 +135,18 @@ export function HealthHistoryOverview({ showStartActions = false, parked = true,
       </div>
     </AccessibleDialog>}
   </div>;
+}
+
+/** Skin card: average of the last scans with measured findings (counts over every scan that measured them,
+ * scores over the scans where the finding was seen), the most frequent skin type, and the scan count. */
+function SkinAverages({ avg }: { avg: NonNullable<ReturnType<typeof skinAverages>> }) {
+  const { text, locale } = useTranslations();
+  return <span className="mt-2 flex w-full flex-1 flex-col gap-1.5 text-sm" data-skin-averages={avg.scans}>
+    <span className="text-xs text-slate-400">{text(`Son ${avg.scans} taramanın ortalaması`)}</span>
+    {avg.skinType && <span className="flex justify-between gap-3 text-slate-300"><span>{text('Cilt tipi')}</span><strong className="text-white">{text(avg.skinType)}</strong></span>}
+    {avg.rows.filter(r => r.metric !== undefined).slice(0, 3).map(r => <span key={r.id} className="flex justify-between gap-3 text-slate-300"><span className="truncate">{text(r.label)}</span>
+      <strong className="whitespace-nowrap tabular-nums text-white">{r.metric === undefined ? '—' : formatMetric(r, locale)}{r.metric !== undefined && r.kind === 'count' && <> {countUnit(formatMetric(r, locale), FINDING_DEFS[r.id].unit, text)}</>}</strong></span>)}
+    {!avg.rows.some(r => r.metric !== undefined) && <span className="text-slate-300">{text('Bu taramalarda bulgu görülmedi.')}</span>}
+    <span className="mt-auto pt-2 text-xs text-slate-400">{text(`${avg.scans} tarama · son ${new Date(avg.latest).toLocaleDateString(getLocale())}`)}</span>
+  </span>;
 }

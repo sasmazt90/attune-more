@@ -16,6 +16,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path.cwd() / 'tests/e2e'))
 from playwright.sync_api import sync_playwright, expect
 
+# Instrumentation scripts kept as module constants for tests/e2e/current_skin_photo_history.py (reads them with ast).
+INIT = "window.guidanceEvents=[];window.addEventListener('attune-guidance-event',e=>window.guidanceEvents.push({...e.detail,at:performance.now()}));window.workerMessages=[];window.workerTimings=[];window.surfaceRequests=[];window.surfaceResults=[];const post=Worker.prototype.postMessage;Worker.prototype.postMessage=function(m,...args){if(!this.timingObserved){this.timingObserved=true;this.timingRequests=new Map();this.addEventListener('message',({data})=>{const pending=this.timingRequests.get(data.id);if(pending&&!data.phase){window.workerTimings.push({type:pending.type,milliseconds:performance.now()-pending.at,error:!!data.error});this.timingRequests.delete(data.id);}});}if(m.id)this.timingRequests.set(m.id,{type:m.type,at:performance.now()});window.workerMessages.push({type:m.type,at:performance.now()});if(m.pixels&&m.meshes){window.surfaceRequests.push({id:m.id,width:m.width,height:m.height,pose:m.pose,meshes:m.meshes,exclusions:m.exclusions,qualityValid:m.qualityValid});if(!this.surfaceObserved){this.surfaceObserved=true;this.addEventListener('message',({data})=>{if(data.maps)window.surfaceResults.push(data);});}}return post.call(this,m,...args);};"
+APPEARANCE = "window.appearanceResponses=[];window.appearanceRequests=[];const originalFetch=window.fetch;window.fetch=async(...args)=>{if(String(args[0]).endsWith('/api/local-health/skin'))window.appearanceRequests.push(JSON.parse(args[1].body));const response=await originalFetch(...args);if(String(args[0]).endsWith('/api/local-health/skin')&&response.ok)window.appearanceResponses.push(await response.clone().json());return response;};"
+
 OUT = Path(os.environ.get('SKIN_RESULT_AUDIT_DIR', 'audit-results/skin-real-path')); OUT.mkdir(parents=True, exist_ok=True)
 Y4M = Path(os.environ.get('SKIN_E2E_Y4M', 'audit-fixtures/three-angle.y4m')).resolve()
 assert Y4M.exists(), f'missing camera fixture {Y4M}'
@@ -191,6 +195,15 @@ with sync_playwright() as pw:
     # reopen the stored record (normal app route): same measurements on the approved result screen
     p.goto('http://127.0.0.1:3000/skin?view=latest')
     check_result(p, rec, shots, 'reopened', photo=False, frame=frame)   # numeric record only: photos are kept in memory / with separate consent
+    # Sağlık Geçmişim: the new analysis is a table row with its summary; the row opens the compared detail window
+    p.goto('http://127.0.0.1:3000/profile')
+    row = p.locator(f'[data-record-table] [data-record-id="{rec["id"]}"]'); expect(row).to_have_count(1, timeout=20000)
+    if seen_ids(findings := rec['general']['findings']['findings']):
+        expect(row.locator('[data-skin-row-summary]')).to_have_count(1)
+    row.click(); expect(p.get_by_role('dialog').locator(f'[data-skin-record-comparison="{rec["id"]}"]')).to_have_count(1)
+    p.screenshot(path=str(OUT / 'history-detail.png')); shots.append('history-detail.png'); frame()
+    p.get_by_role('dialog').locator('[data-skin-open-result]').click(); expect(p.locator('[data-skin-result]')).to_be_visible(timeout=20000)
+    assert 'view=record' in p.url, p.url
     native = None
     if NATIVE:
         from owned_window_capture import capture_owned_window

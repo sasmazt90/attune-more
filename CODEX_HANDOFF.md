@@ -106,6 +106,29 @@ Notlar:
   - Almanca uzun etiketler kısaltıldı (ör. "Augenpartie", "Weißköpfchen").
 - **Önceki tur düzeltmeleri korundu:** tarih aralığı, tam gün filtresi, işaretlerin kendi pozunda çizilmesi, etiket boşlukları.
 
+## 5c. Sonuç ekranı ve Sağlık Geçmişim (kullanıcı onaylı, 2026-10-26)
+
+**Sonuç ekranı:**
+- Fotoğrafın altında ve çevresinde bulgu etiketi yok. Seçili bulgu fotoğrafın üzerinde işaretlenir: alan boyanır, lezyon için daire çizilir.
+- "Akne türleri" satırları düğmedir. Bir türe dokununca fotoğrafta yalnız o türün daireleri kalır (`data-skin-marker-type`); aynı türe tekrar dokununca hepsi geri gelir.
+- E2E bunu çizilen işaretlerle doğrular.
+
+**Sağlık Geçmişim** (`components/RecordHistory.tsx`, `HealthHistoryOverview.tsx`, `skin/SkinRecordComparison.tsx`, `utils/skinHistorySummary.ts`):
+- **Cilt modül kartı:** son 3 bulgulu taramanın ortalaması.
+  - Sayılar (sivilce, ben): o bulguyu ölçen her taramada ortalanır; ölçüp görmeyen tarama 0 sayılır, ölçülemeyen tarama hesaba katılmaz.
+  - Yüzdeler: bulgunun görüldüğü taramaların ortalaması.
+  - Cilt tipi: en sık görülen.
+- **Kayıt tablosu:** tüm modüllerin tekil analizleri satır satır: Tarih, Saat, Modül, Özet. Cilt özeti: cilt tipi + ilk iki bulgu + "+N bulgu".
+- Satıra dokunmak ayrıntıyı açar. En sağdaki çöp kutusu siler; onay penceresi aynıdır.
+- Erişilebilir adlar ("Sonucu Aç", "… kaydını sil: …") ve `data-record-id` / `data-record-category` korunmuştur.
+- **Cilt ayrıntı penceresi:** her görülen bulgu tek satırda; "Son tarama" değeri ve "Önceki taramaya göre" değişim. Karşılaştırma **bir önceki taramaya** göredir, ortalamaya göre değildir.
+  - Değişim türleri: ↑/↓ fark, "= aynı", "Yeni", "Görülmedi".
+  - Önceki taramada ölçülemeyen bulgu için değişim gösterilmez.
+- **"Sonuç ekranında aç":** `/skin?view=record&id=…` o kaydı tam sonuç ekranında açar.
+  - Fotoğraf: en son tarama için bellekteki fotoğraf. Diğer kayıtlarda, ayrı fotoğraf saklama onayı varsa cihazda saklanan fotoğraf (`loadSkinPhotos`), yoksa fotoğrafsız.
+- Bulgusu olmayan eski cilt kayıtları eski ayrıntı görünümünü (`SkinRecordDetail`) kullanır.
+- **Testler:** `tests/unit/test_skin_history_summary.py`, `tests/e2e/skin_health_history_ui.py` (örnek veri, TR/EN/DE); gerçek kamera E2E'si de yeni kaydı tabloda açar.
+
 ## 5b. Kamera renk yolu ve araç kalibrasyonu (kullanıcı onaylı öneriler 1 ve 3)
 
 **Bulunan neden (ölçüldü):**
@@ -223,7 +246,7 @@ Raporlar:
 4. **mediapipe gereksinimi:** Sunucuda mediapipe yoksa sivilce ve kızarıklık kararları araştırmadan sapabilir (testte 1 eşik geçişi).
 5. **Bağımsız doğrulama yok:** Gerçek fotoğraf, klinik doğrulama ve dermatolog incelemesi yok. Öneri içerikleri de incelenmedi.
 6. **Doğrulanmamış değerler:** Sayımlar, alt türler, alanlar, ton farkı ve sıralar doğrulanmadı. Seçilen bulgu ama işaretlenmeyen lezyon durumunda "1+" gösterilir.
-7. **Sağlık Geçmişim penceresi:** Eski bölge görünümünde; bulguları göstermiyor. Kayıt bulguları taşıyor ve `/skin?view=latest` bunları gösteriyor. Tasarım kararı bekliyor.
+7. **Sağlık Geçmişim — ÇÖZÜLDÜ (kullanıcı onaylı tasarım, 2026-10-26):** bkz. §5c.
 8. **`/skin/regional-fuse` güveni:** İstemcinin gönderdiği poz sayılarına güvenir (imza yok).
 9. **Test edilmeyenler:** Fiziksel kamera, Windows launcher, araç ekranı, erişilebilirlik denetimi ve kullanıcı kabulü.
 10. **Git geçmişi:** `k_classifier.json` (model ağırlığı) Git geçmişinde duruyor.

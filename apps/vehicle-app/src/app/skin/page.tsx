@@ -30,7 +30,7 @@ import {
 } from '../../data/skinDemoFixture';
 import { isDemoMode, STORAGE_KEYS, isCameraAllowed,isSkinHostedProcessingAllowed } from '../../utils/attuneMode';
 import { appendHealthRecord,withRecordsLock } from '../../utils/healthRecords';
-import {saveSkinPhotos} from '../../utils/skinPhotoHistory';
+import {loadSkinPhotos,saveSkinPhotos} from '../../utils/skinPhotoHistory';
 import { rememberSkinSnapshots } from '../../utils/skinVolatileHistory';
 import { InformationButton } from '../../components/InformationButton';
 import { SkinInference } from '../../utils/skinInference';
@@ -274,17 +274,29 @@ export default function SkinPage() {
   }, [scanState]);
 
   useEffect(() => {
-    if (isParked && typeof window !== 'undefined' && window.location.search.includes('view=latest')) {
+    // view=latest: the newest record; view=record&id=…: one record of the history (opened from Sağlık Geçmişim)
+    const query = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+    const recordId = query?.get('view') === 'record' ? query.get('id') : null;
+    if (isParked && typeof window !== 'undefined' && (window.location.search.includes('view=latest') || recordId)) {
       try {
-        const stored = localStorage.getItem(STORAGE_KEYS.LATEST_SKIN);
+        const latest = localStorage.getItem(STORAGE_KEYS.LATEST_SKIN);
+        const fromHistory = recordId ? (JSON.parse(localStorage.getItem(STORAGE_KEYS.SKIN_HISTORY) || '[]') as any[]).find(r => r && r.id === recordId) : null;
+        const stored = recordId ? (fromHistory ? JSON.stringify(fromHistory) : latest && JSON.parse(latest)?.id === recordId ? latest : null) : latest;
         const frames = (window as any).__attuneInitialSnapshots;
         if (stored) {
           const parsed = JSON.parse(stored);
           if (parsed && parsed.regions) {
-            if (frames) {
+            // in-memory photos belong to the newest scan only; other records use the photos kept on this device
+            // (only with the separate photo-storage consent; loadSkinPhotos returns nothing otherwise)
+            if (frames && (!recordId || JSON.parse(latest || 'null')?.id === recordId)) {
               snapshotFrames.current = frames;
               snapshotRecord.current = parsed.id;
               setSnapshots(frames);
+            } else {
+              void loadSkinPhotos(parsed.id).then(saved => {
+                if (!saved || snapshotRecord.current) return;
+                snapshotFrames.current = saved as any; snapshotRecord.current = parsed.id; setSnapshots(saved as any);
+              }).catch(() => {});
             }
             setSelectedRegionId(parsed.general ? 'overview' : 'forehead');
             setAnalysisResult(parsed);
