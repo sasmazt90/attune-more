@@ -2446,7 +2446,7 @@
     {
       "id": "05",
       "target": "regional-dryness-flaking",
-      "status": "executable_release_gate_fail_closed_expert_truth_pending",
+      "status": "distinct_candidate_release_gate_v2_fail_closed_expert_camera_pending",
       "work": "Audit Dry-Skin/pul local labels and geometry; prepare local samples; evaluate visible dryness/flaking; blue overlay.",
       "evidence": [
         "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
@@ -2472,7 +2472,10 @@
         "scripts/skin-research/check_dryness_release.py",
         "scripts/skin-research/tests/test_dryness_release.py",
         "docs/skin/evidence/dryness-release-receipt-20261025-v1.json",
-        "docs/skin/evidence/dryness-release-gate-20261025-v1.json"
+        "docs/skin/evidence/dryness-release-gate-20261025-v1.json",
+        "docs/skin/evidence/dryness-release-receipt-20261026-v2.json",
+        "docs/skin/evidence/dryness-release-gate-20261026-v2.json",
+        "docs/skin/evidence/dryness-release-gate-v2-ci-20261026-v1.json"
       ],
       "blockers": [
         "Clean3 supplies only6genuine dry polygons. Direct Mervev12 hash matches original selected archive:2590pul boxes,0pul polygons; all3368filenames CLAHE-prefixed and prior ledger excludes processed positives from natural RGB calibration. SixTRAINexamples reviewed byassistant,notexpert. Boxes must not become blue masks; absence ofpul is not normal truth.",
@@ -2481,7 +2484,8 @@
         "External regional-skin-type v2 contains 3,648 dry boxes and zero dry polygons. Its exposed-test dry F1 is 0.215 at threshold 0.21; it cannot authorize a blue regional mask or dryness/flaking result.",
         "The same version has a confirmed train/test source-person leakage group spanning four nominal source IDs and incomplete identity coverage for the remaining 986 sources. Dry test metrics are not independent acceptance evidence.",
         "The Oily/Redness polygon model diagnosis confirms that this dataset has no Dry truth. It cannot supply the blue dryness layer, and the regional improvement gate deliberately does not permit Dry to be synthesized from absent masks or model predictions.",
-        "The executable dryness release gate pins all six source/evidence blobs and currently blocks research training, untouched-test evaluation and product activation. Rights-reviewed natural-camera data, an expert semantic policy separating visible flaking from broad dry, lesion-like and nonfacial regions, expert regional polygons, evaluated negative/normal truth, source/person-group independence, a new untouched final test, an independent camera holdout and working integration evidence are all still false."
+        "The executable dryness release gate pins all six source/evidence blobs and currently blocks research training, untouched-test evaluation and product activation. Rights-reviewed natural-camera data, an expert semantic policy separating visible flaking from broad dry, lesion-like and nonfacial regions, expert regional polygons, evaluated negative/normal truth, source/person-group independence, a new untouched final test, an independent camera holdout and working integration evidence are all still false.",
+        "Release gate v2 closes the mutable-candidate identity gap while preserving the already working dry appearance result and separate skin type. The current 337-image regional project remains version 1 with Oily/Redness only and cannot implicitly gain Dry truth; its known version-1 models cannot be relabelled. A future candidate must bind the same regional project, a distinct training/model identity on a group-locked version 2 or later, a preregistered single change, thresholds locked before final test, verified polygon output and separately reported Dry metrics. Thirteen focused tests and GitHub Actions run 40332966937 passed; no training or activation is authorized."
       ]
     },
     {
@@ -3513,6 +3517,38 @@
       },
       "evidence": "docs/skin/evidence/oily-release-gate-v2-ci-20261026-v1.json"
     },
+    "drynessReleaseGateV2": {
+      "methodVersion": "regional-dryness-release-gate-v2",
+      "knownVersionOneModelsAccepted": false,
+      "distinctCandidatePresent": false,
+      "researchTrainingAuthorized": false,
+      "finalTestEvaluationAuthorized": false,
+      "learnedBlueRegionalMaskActivationAllowed": false,
+      "roadmapAccepted": false,
+      "decision": "blocked",
+      "localFocusedTests": {
+        "tests": 13,
+        "result": "OK"
+      },
+      "ci": {
+        "runId": 40332966937,
+        "url": "https://github.com/sasmazt90/attune-more/actions/runs/40332966937",
+        "headSha": "7a421dea643ec04c25db8ae60831debba4c36d09",
+        "conclusion": "success",
+        "frontendProductionBuild": "success",
+        "localizationContract": "success",
+        "deterministicUnitSuite": {
+          "passed": 1627,
+          "skipped": 44,
+          "warnings": 2
+        },
+        "completeSkinResearchEvidenceSuite": {
+          "tests": 244,
+          "result": "OK"
+        }
+      },
+      "evidence": "docs/skin/evidence/dryness-release-gate-v2-ci-20261026-v1.json"
+    },
     "underEyePerClassReleaseGateV2": {
       "methodVersion": "under-eye-per-class-release-gate-v2",
       "knownUngroupedModelAccepted": false,
@@ -4403,6 +4439,12 @@
       "observedAt": "2026-10-26T13:09:26Z",
       "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye training lists and the existing grouped upload task. All known trainings remain finished, under-eye pilot v2 still has no training, grouped under-eye remains empty, upload task sLFwX7CYBVcnnD6iAW5o remains created/no-progress, and no duplicate work was started. Repaired a fail-open path for task 04: the prior Oily gate could be made ready by changing receipt booleans without proving a distinct regional project/version/training/model identity, a preregistered change, thresholds locked before final test or polygon-mask output. Gate v2 pins the rejected RF-DETR Seg Small identity and metrics, rejects version-1 NAS identity substitution, requires a group-locked version 2 or later, and preserves the existing concrete oil-appearance proxy, separate skin type, green measured-support layer, unknown/normal boundary and independent non-sensitivity Redness overlap. Fourteen focused tests and all 237 local skin-research tests passed. GitHub Actions run 40327580317 is green: frontend build and localization contract passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 237 tests. No distinct candidate exists, so training, final-test use, activation and roadmap completion remain false.",
       "report": "docs/skin/evidence/oily-release-gate-v2-ci-20261026-v1.json"
+    },
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T13:46:57Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye training lists, the grouped under-eye project and its existing upload task. All known trainings remain finished, no new training is running, under-eye pilot v2 still has no training, grouped under-eye remains empty, upload task sLFwX7CYBVcnnD6iAW5o remains created/no-progress, and no duplicate work was started. Repaired a fail-open path for task 05: the prior dryness gate could be made ready through mutable booleans without proving a distinct regional dataset version, training/model identity, preregistered change, threshold lock, polygon output or separate Dry metric. Gate v2 preserves the already functioning dry appearance result and separate skin type, pins the current 337-image version-1 regional project as Oily/Redness-only, forbids implicit Dry truth and requires a group-locked version 2 or later candidate with expert semantics/polygons, evaluated negatives/Normal truth, untouched final test and consented camera evidence. Thirteen focused tests and all 244 local skin-research tests passed. GitHub Actions run 40332966937 is green: frontend build and localization contract passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 244 tests. No distinct Dry candidate exists, so training, final-test use, activation and roadmap completion remain false.",
+      "report": "docs/skin/evidence/dryness-release-gate-v2-ci-20261026-v1.json"
     }
   ],
   "activityLog": [
@@ -4986,6 +5028,27 @@
           "deterministicSkipped": 44,
           "deterministicWarnings": 2,
           "skinResearchTests": 237,
+          "frontend": "success",
+          "localization": "success"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T13:46:57Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye training lists, the grouped under-eye project and its existing upload task. All known trainings remain finished, no new training is running, under-eye pilot v2 still has no training, grouped under-eye remains empty, upload task sLFwX7CYBVcnnD6iAW5o remains created/no-progress, and no duplicate work was started. Repaired a fail-open path for task 05: the prior dryness gate could be made ready through mutable booleans without proving a distinct regional dataset version, training/model identity, preregistered change, threshold lock, polygon output or separate Dry metric. Gate v2 preserves the already functioning dry appearance result and separate skin type, pins the current 337-image version-1 regional project as Oily/Redness-only, forbids implicit Dry truth and requires a group-locked version 2 or later candidate with expert semantics/polygons, evaluated negatives/Normal truth, untouched final test and consented camera evidence. Thirteen focused tests and all 244 local skin-research tests passed. GitHub Actions run 40332966937 is green: frontend build and localization contract passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 244 tests. No distinct Dry candidate exists, so training, final-test use, activation and roadmap completion remain false.",
+      "report": "docs/skin/evidence/dryness-release-gate-v2-ci-20261026-v1.json",
+      "commits": [
+        "7a421dea643ec04c25db8ae60831debba4c36d09"
+      ],
+      "runs": [
+        {
+          "runId": 40332966937,
+          "conclusion": "success",
+          "deterministicTests": 1627,
+          "deterministicSkipped": 44,
+          "deterministicWarnings": 2,
+          "skinResearchTests": 244,
           "frontend": "success",
           "localization": "success"
         }
