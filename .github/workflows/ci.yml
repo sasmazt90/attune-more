@@ -3,6 +3,8 @@ name: CI / Submission QA Guard
 on:
   push:
     branches: [ "main", "work/skin-roadmap-20261023" ]
+    paths-ignore:
+      - "docs/skin/**"
   pull_request:
     branches: [ "main" ]
 
