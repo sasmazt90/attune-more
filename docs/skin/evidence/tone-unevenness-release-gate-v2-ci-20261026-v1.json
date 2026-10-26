@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T16:24:17Z",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "3e31c3a085f802fff1d07ab136c7e4d07a54f6bc",
+  "releaseGate": {
+    "methodVersion": "tone-unevenness-release-gate-v2",
+    "decision": "blocked",
+    "existingConcreteResultFlowPreserved": true,
+    "currentProxyPresentationAllowed": true,
+    "acceptedCalibratedMethodPresent": false,
+    "calibrationEvaluationAuthorized": false,
+    "calibratedToneActivationAllowed": false,
+    "localizedCoReportingAllowed": false,
+    "roadmapAccepted": false
+  },
+  "localVerification": {
+    "focusedTests": 12,
+    "completeSkinResearchEvidenceSuite": 261,
+    "result": "OK"
+  },
+  "githubActions": {
+    "runId": 40358359466,
+    "url": "https://github.com/sasmazt90/attune-more/actions/runs/40358359466",
+    "conclusion": "success",
+    "frontendProductionBuild": "success",
+    "localizationContract": "success",
+    "backendJobId": 121696795452,
+    "deterministicUnitSuite": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2
+    },
+    "completeSkinResearchEvidenceSuite": {
+      "tests": 261,
+      "result": "OK"
+    }
+  },
+  "providerRefresh": {
+    "accessibleProjects": 20,
+    "regionalProject": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "regionalImages": 337,
+    "regionalVersion": 1,
+    "knownTrainingsFinished": true,
+    "newTrainingStarted": false,
+    "duplicateWorkStarted": false,
+    "groupedUnderEyeUploadTask": {
+      "taskId": "sLFwX7CYBVcnnD6iAW5o",
+      "status": "created",
+      "progress": null
+    }
+  },
+  "limitations": [
+    "The current regional CIELAB result remains a functioning broad chromatic-variation appearance proxy, not a clinical severity score.",
+    "No identity-bound calibrated tone method, adjudicated physical-camera truth or untouched camera-final acceptance exists.",
+    "Tone cannot populate Post acne or Pigmentation; accepted localized masks must remain separate and be excluded from tone sampling before co-reporting.",
+    "Unknown or unassessable tone evidence is not Normal."
+  ]
+}
