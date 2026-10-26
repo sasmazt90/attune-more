@@ -67,6 +67,9 @@ jobs:
           scripts/skin-research/tests/test_build_acne_group_coverage_proposal.py \
           -v -ra
 
+    - name: Run complete skin research evidence suite
+      run: python -m unittest discover -s scripts/skin-research/tests -p 'test_*.py'
+
   frontend-build:
     name: Frontend Production Build (Node.js 22.20.0)
     runs-on: ubuntu-latest
