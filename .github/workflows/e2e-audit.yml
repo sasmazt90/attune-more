@@ -1,7 +1,7 @@
 name: Attune browser audit
 on:
   push:
-    branches: ['audit/e2e-2026-09-30', 'fix/attune-audit-remediation', 'fix/live-test-followup']
+    branches: ['audit/e2e-2026-09-30', 'fix/attune-audit-remediation', 'fix/live-test-followup', 'work/skin-roadmap-20261023']
   workflow_dispatch:
     inputs:
       expected_source_sha:
@@ -46,11 +46,10 @@ jobs:
           python -m playwright install --with-deps chromium
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg xvfb
-      - name: Build production app and licensed three-pose fixture
+      - name: Build production app
         run: |
           npm run build
           mkdir -p audit-fixtures audit-results/unified-skin-result-browser-acceptance
-          python -u tests/e2e/prepare_multi_angle_fixture.py 2>&1 | tee audit-results/unified-skin-result-browser-acceptance/multi-angle-fixture.log
       - name: Start production app and isolated keyless backend
         run: |
           node node_modules/next/dist/bin/next start apps/vehicle-app --hostname 127.0.0.1 -p 3000 > audit-results/unified-skin-result-browser-acceptance/frontend.log 2>&1 &
@@ -61,6 +60,9 @@ jobs:
           done
           curl -fsS http://127.0.0.1:3000/ >/dev/null
           curl -fsS http://127.0.0.1:8000/api/health >/dev/null
+      - name: Prepare licensed three-pose fixture against the running app
+        run: |
+          python -u tests/e2e/prepare_multi_angle_fixture.py 2>&1 | tee audit-results/unified-skin-result-browser-acceptance/multi-angle-fixture.log
       - name: Run source-bound browser API history and privacy acceptance
         run: |
           xvfb-run -a --server-args="-screen 0 1920x1080x24" python -u tests/e2e/current_skin_contract.py 2>&1 | tee audit-results/unified-skin-result-browser-acceptance/browser-api.log
