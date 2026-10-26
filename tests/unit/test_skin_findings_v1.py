@@ -10,6 +10,14 @@ import regional_attach as RA
 import local_health as health
 
 KEYS = SF.EVIDENCE_KEYS
+import pytest
+
+
+@pytest.fixture(autouse=True)
+def no_bundle(monkeypatch):
+    """Unit tests never depend on a model bundle on this machine (ATTUNE_REGIONAL_V3_DIR); tests that need saved
+    classifiers patch their own specs."""
+    monkeypatch.setattr(SF, '_saved_specs', lambda: {})
 
 
 def region(score=0.0, area=400, usable=True, **over):
@@ -109,3 +117,38 @@ def test_regional_fuse_endpoint(monkeypatch):
     # a photo without finding evidence (bundle missing for that photo) -> required poses missing, never "not seen"
     maps['LEFT'] = {'regions': {}}
     assert post({'processingConsent': True, 'maps': maps}).json()['findings']['reason'] == 'REQUIRED_POSES_MISSING'
+
+
+def test_saved_crop_classifiers_decision_rule(monkeypatch):
+    """findings-v2 (saved DINOv2-crop classifiers): fa4 recipe = max over poses per region; nested-CV recipe = mean over
+    the poses that show the crop; available findings leave the 'unavailable' list; no scores -> inconclusive."""
+    specs = {'eyeBags': dict(id='eyeBags', recipe='fa4', threshold=0.9, regionOf={'under_L': 'periorbital', 'under_R': 'periorbital'}),
+             'eczema': dict(id='eczema', recipe='eczema', threshold=0.8, regionOf={'cheek_L': 'rightCheek', 'cheek_R': 'leftCheek', 'forehead': 'forehead', 'jaw': 'chin'})}
+    monkeypatch.setattr(SF, '_saved_specs', lambda: specs)
+    ev = {r: region() for r in SF.APP_REGIONS}
+    maps = three(dict(evidence=ev), dict(evidence=ev), dict(evidence=ev))
+    maps['FRONT']['findingScores'] = {'eyeBags': {'under_L': 0.5, 'under_R': 0.95}, 'eczema': {'cheek_L': 0.9, 'cheek_R': 0.1, 'forehead': 0.2}}
+    maps['LEFT']['findingScores'] = {'eyeBags': {'under_L': 0.3}, 'eczema': {'cheek_L': 0.6, 'forehead': 0.3}}
+    maps['RIGHT']['findingScores'] = {'eyeBags': {'under_R': 0.2}, 'eczema': {'cheek_R': 0.2, 'forehead': 0.1}}
+    out = SF.findings_from_maps(maps)
+    assert by(out, 'eyeBags', 'periorbital')['status'] == 'seen' and by(out, 'eyeBags', 'periorbital')['pose'] == 'FRONT'
+    # eczema rightCheek: mean(0.9, 0.6) = 0.75 < 0.8, but the person-level max 0.9 >= 0.8 -> the top region is shown
+    assert by(out, 'eczema', 'rightCheek')['status'] == 'seen' and by(out, 'eczema', 'leftCheek')['status'] == 'notSeen'
+    assert by(out, 'eczema', 'chin')['status'] == 'inconclusive'          # no jaw crop score in any photo
+    assert not {'eyeBags', 'eczema'} & {u['id'] for u in out['unavailable']}
+    assert out['version'] == 'skin-findings-v2'
+    missing = SF.findings_from_maps({'FRONT': maps['FRONT']})
+    assert {u['id']: u['reason'] for u in missing['unavailable']}['eyeBags'] == 'REQUIRED_POSES_MISSING'
+
+
+def test_dino_module_probability_matches_sklearn():
+    """skin_findings_dino._prob reproduces a StandardScaler+LogisticRegression fold-ensemble exactly."""
+    import numpy as np, skin_findings_dino as SD
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.pipeline import make_pipeline
+    rng = np.random.default_rng(0); X = rng.normal(size=(60, 8)); y = (X[:, 0] + rng.normal(size=60) > 0)
+    ms = [make_pipeline(StandardScaler(), LogisticRegression(C=0.02, class_weight='balanced')).fit(X[i::2], y[i::2]) for i in (0, 1)]
+    folds = [dict(mean=m[0].mean_.tolist(), scale=m[0].scale_.tolist(), coef=m[1].coef_[0].tolist(), intercept=float(m[1].intercept_[0])) for m in ms]
+    x = rng.normal(size=8)
+    assert abs(SD._prob(folds, x) - np.mean([m.predict_proba(x[None])[0, 1] for m in ms])) < 1e-12

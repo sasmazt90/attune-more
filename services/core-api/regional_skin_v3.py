@@ -380,9 +380,12 @@ def analyze_photo(bgr: np.ndarray, landmarks_norm: list, check=lambda: None, pos
     # this pose, plus the boxes of box-type findings mapped back to source pixels of THIS photo.
     import skin_findings_v1 as SF
     finding_evidence, finding_boxes = SF.evidence_from_detections(ev, dets, cats, polys, sc, view, pose, inv=lambda x, y: ((x / k) + X0, (y / k) + Y0), src_scale=1 / k)
+    # Saved DINOv2-crop finding classifiers (skin_findings_dino): probability per landmark crop of this photo
+    import skin_findings_dino as SD
+    finding_scores = SD.photo_scores(bgr, landmarks_norm, view, kc, MODEL_DIR, check)
     return dict(version=VERSION, paramsVersion=params.get('version'), classifierVersion=(kc.spec['version'] if kc else None), pose=pose,
                 tone=dict(ita=round(ita, 1), group=tone), regions=regions, raw=raw, skinType=skin_type_from_regions(regions),
-                findingEvidence=finding_evidence, findingBoxes=finding_boxes, models=model_manifest())
+                findingEvidence=finding_evidence, findingBoxes=finding_boxes, findingScores=finding_scores, models=model_manifest())
 
 def model_manifest() -> dict:
     """File names + SHA-256 of the loaded bundle (cached), so every result names the exact weights that produced it."""
@@ -398,6 +401,8 @@ def model_manifest() -> dict:
                     for chunk in iter(lambda: f.read(1 << 20), b''):
                         h.update(chunk)
                 out[name] = h.hexdigest()
+        import skin_findings_dino as SD
+        out.update(SD.manifest(MODEL_DIR))
         _manifest = out
     return _manifest
 

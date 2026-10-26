@@ -24,7 +24,7 @@ Region states
 """
 from __future__ import annotations
 
-VERSION = 'skin-findings-v1-detector'
+VERSION = 'skin-findings-v2'
 APP_REGIONS = ('forehead', 'nose', 'rightCheek', 'leftCheek', 'chin')
 CHEEKS = ('rightCheek', 'leftCheek')
 MIN_REGION_PX = 150          # same as the research features (features2.py: region mask >= 150 px at 400 px face width)
@@ -95,15 +95,71 @@ def _unavailable_list(extra_reason: str | None = None) -> list:
     return rows
 
 
+def _model_dir() -> str:
+    import regional_skin_v3 as R
+    return R.MODEL_DIR
+
+
+def _saved_specs() -> dict:
+    """Saved finding classifiers present in the model bundle (findings-v2/*.json). Missing bundle -> {}."""
+    try:
+        import skin_findings_dino as SD
+        return SD.specs(_model_dir())
+    except Exception:  # noqa: BLE001 - absent bundle keeps the findings 'unavailable'
+        return {}
+
+
+def _unavailable(extra_reason: str | None, available: set) -> list:
+    rows = [dict(id=f, reason=r) for f, r in UNAVAILABLE.items() if f not in available]
+    if extra_reason:
+        rows += [dict(id=f, reason=extra_reason) for f in (*DETECTOR_FINDINGS, *sorted(available))]
+    return rows
+
+
+def _dino_rows(fid: str, spec: dict, maps: dict, poses: list) -> list:
+    """Rows of one saved DINOv2-crop finding: region scores from the per-photo crop probabilities (research decision rule)."""
+    thr = float(spec['threshold']); fa4 = spec.get('recipe') == 'fa4'
+    vals = {}   # crop -> [(pose, prob)]
+    for p in poses:
+        for c, v in ((maps[p].get('findingScores') or {}).get(fid) or {}).items():
+            vals.setdefault(c, []).append((p, float(v)))
+    by_region = {}
+    for c, pv in vals.items():
+        reg = spec['regionOf'][c]
+        score = max(v for _, v in pv) if fa4 else sum(v for _, v in pv) / len(pv)
+        best_pose = max(pv, key=lambda t: t[1])[0]
+        cur = by_region.get(reg)
+        if cur is None or score > cur[0]:
+            by_region[reg] = (score, best_pose, sorted({p for p, _ in pv}))
+    regions = sorted(set(spec['regionOf'].values()))
+    rows = []
+    person = max((v for pv in vals.values() for _, v in pv), default=None)
+    for reg in regions:
+        if reg not in by_region:
+            rows.append(dict(id=fid, region=reg, status='inconclusive', causes=['ANGLE'])); continue
+        score, pose, read = by_region[reg]
+        rows.append(dict(id=fid, region=reg, status='seen' if score >= thr else 'notSeen', pose=pose, readFrom=read))
+    # person-level decision (max over crops and poses) is the validated one; if it fires but no region reached the
+    # threshold on its own aggregate, the region holding the maximum is the one shown
+    if person is not None and person >= thr and not any(r['status'] == 'seen' for r in rows):
+        top = max(by_region, key=lambda r: by_region[r][0])
+        for r in rows:
+            if r['region'] == top:
+                r['status'] = 'seen'
+    return rows
+
+
 def findings_from_maps(maps: dict) -> dict:
     """maps: {'FRONT'|'LEFT'|'RIGHT': regional_skin_v3.analyze_photo() output}. Returns general.findings."""
     poses = sorted(p for p, m in maps.items() if isinstance(m, dict) and isinstance(m.get('findingEvidence'), dict))
+    specs = _saved_specs(); available = {f for f in specs if f in UNAVAILABLE}
+    front_models = (maps.get('FRONT') or {}).get('models') or {}
     base = dict(version=VERSION, poses=poses, thresholdSource=THRESHOLD_SOURCE,
-                models={k: v for k, v in ((maps.get('FRONT') or {}).get('models') or {}).items() if k == 'findings.pt'})
+                models={k: v for k, v in front_models.items() if k == 'findings.pt' or k.startswith('findings-v2/')})
     missing = [p for p in REQUIRED_POSES if p not in poses]
     if missing:
         return dict(base, status='unavailable', reason='REQUIRED_POSES_MISSING', missingPoses=missing, findings=[],
-                    unavailable=_unavailable_list('REQUIRED_POSES_MISSING'))
+                    unavailable=_unavailable('REQUIRED_POSES_MISSING', available))
     findings = []
     for fid, d in DETECTOR_FINDINGS.items():
         for app in d['regions']:
@@ -122,4 +178,6 @@ def findings_from_maps(maps: dict) -> dict:
                                   for p in poses for b in (maps[p].get('findingBoxes') or [])
                                   if b['finding'] == fid and b['region'] == app and b['score'] >= d['threshold']]
             findings.append(row)
-    return dict(base, status='measured', findings=findings, unavailable=_unavailable_list())
+    for fid in sorted(available):
+        findings += _dino_rows(fid, specs[fid], maps, poses)
+    return dict(base, status='measured', findings=findings, unavailable=_unavailable(None, available))
