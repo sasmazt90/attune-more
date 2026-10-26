@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T21:39:07Z",
+  "purpose": "checkpoint one source-bound real-Chromium product/API/history/privacy acceptance run without promoting the controlled fixture to physical-camera, expert-truth or accuracy evidence",
+  "repository": {
+    "fullName": "sasmazt90/attune-more",
+    "branch": "work/skin-roadmap-20261023",
+    "candidateCommit": "6c3e07ce1b696a17686ff75943efeadb35ee8180",
+    "workflow": ".github/workflows/e2e-audit.yml"
+  },
+  "runs": {
+    "browserAcceptance": {
+      "runId": 40406100671,
+      "url": "https://github.com/sasmazt90/attune-more/actions/runs/40406100671",
+      "statusAtCheckpoint": "in_progress",
+      "event": "push",
+      "attempt": 1
+    },
+    "matchingRepositoryCI": {
+      "runId": 40406100741,
+      "url": "https://github.com/sasmazt90/attune-more/actions/runs/40406100741",
+      "statusAtCheckpoint": "in_progress",
+      "event": "push",
+      "attempt": 1
+    }
+  },
+  "plannedChecks": [
+    "tests/e2e/current_skin_contract.py",
+    "tests/e2e/current_skin_photo_history.py",
+    "tests/e2e/current_skin_photo_wipe_success.py",
+    "scripts/skin-research/build_unified_browser_acceptance.py"
+  ],
+  "privacy": {
+    "rawSourcePhotosCommitted": false,
+    "rawScanIdentifiersCommitted": false,
+    "rawBrowserProofsCommitted": false,
+    "sanitizedEvidencePending": true
+  },
+  "claims": {
+    "realChromiumExecutionCompleted": false,
+    "controlledFixtureOnly": true,
+    "physicalCameraAcceptance": false,
+    "expertGroundTruth": false,
+    "accuracyMeasured": false,
+    "classReleaseAccepted": false,
+    "roadmapAccepted": false
+  },
+  "roboflowRefresh": {
+    "observedAt": "2026-10-26T21:39:07Z",
+    "accessibleProjects": 20,
+    "acneMarksPigmentation": {
+      "images": 800,
+      "version": 1,
+      "split": {"train": 553, "valid": 165, "test": 82},
+      "nasTrainingId": "5b632a5c12b76fcfe703",
+      "nasStatus": "finished",
+      "smallTrainingId": "49ee6204cf069198bbfa",
+      "smallStatus": "finished"
+    },
+    "regionalSkinMap": {
+      "images": 337,
+      "version": 1,
+      "split": {"train": 244, "valid": 63, "test": 30},
+      "nasTrainingId": "3485f8c67f957a1b850d",
+      "nasStatus": "finished",
+      "smallTrainingId": "af287a006e2e428f5ce4",
+      "smallStatus": "finished"
+    },
+    "underEyePilot": {
+      "sourceImages": 399,
+      "version1GeneratedImages": 952,
+      "trainingId": "d194569acd3ebe7cf8b7",
+      "trainingStatus": "finished",
+      "version2Images": 399,
+      "version2Trainings": 0
+    },
+    "underEyeGrouped": {
+      "images": 0,
+      "uploadTaskId": "sLFwX7CYBVcnnD6iAW5o",
+      "uploadTaskStatus": "created"
+    },
+    "newTrainingStarted": false,
+    "newVersionCreated": false,
+    "newUploadStarted": false,
+    "newInferenceStarted": false
+  }
+}
