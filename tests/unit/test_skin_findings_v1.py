@@ -170,3 +170,18 @@ def test_counts_never_double_count_and_melasma_area():
     # seen by the decision but no single box marked -> "at least one", never 0
     out2 = SF.findings_from_maps(three(dict(evidence={**ev, 'leftCheek': region(findings_Riskli_Ben_max=0.7)}), dict(evidence=ev), dict(evidence=ev)))
     assert by(out2, 'mole', 'leftCheek')['count'] == 1 and by(out2, 'mole', 'leftCheek')['countAtLeast'] is True
+
+
+def test_eye_rows_front_only_and_missing_score(monkeypatch):
+    import skin_findings_eye as SEYE
+    spec = {'darkCircles': dict(id='darkCircles', threshold=0.85), 'downturnedCorners': dict(id='downturnedCorners', threshold=0.67)}
+    monkeypatch.setattr(SF, '_eye_specs', lambda: spec)
+    monkeypatch.setattr(SEYE, 'decide', lambda p, s: 'seen' if p >= s['threshold'] else 'notSeen')
+    ev = {r: region() for r in SF.APP_REGIONS}
+    maps = three(dict(evidence=ev), dict(evidence=ev), dict(evidence=ev))
+    maps['FRONT']['eyeScores'] = {'downturnedCorners': 0.9}; maps['FRONT']['eyeMeasures'] = {'downturnedCorners': 72.0}
+    maps['LEFT']['eyeScores'] = {'darkCircles': 0.99}          # side photos never decide eye findings
+    out = SF.findings_from_maps(maps)
+    assert by(out, 'downturnedCorners', 'periorbital') == dict(id='downturnedCorners', region='periorbital', status='seen', pose='FRONT', readFrom=['FRONT'], severity=72.0)
+    assert by(out, 'darkCircles', 'periorbital')['status'] == 'inconclusive'
+    assert not {'darkCircles', 'downturnedCorners'} & {u['id'] for u in out['unavailable']}

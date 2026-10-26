@@ -384,9 +384,17 @@ def analyze_photo(bgr: np.ndarray, landmarks_norm: list, check=lambda: None, pos
     # Saved DINOv2-crop finding classifiers (skin_findings_dino): probability per landmark crop of this photo
     import skin_findings_dino as SD
     finding_scores, severity_terms = SD.photo_outputs(bgr, landmarks_norm, view, kc, MODEL_DIR, check)
+    # Saved eye-area classifiers (skin_findings_eye; front photo only): probability per finding + geometry value
+    import skin_findings_eye as SEYE
+    check(); eye_scores = SEYE.photo_scores(bgr, landmarks_norm, view, kc, MODEL_DIR) if kc is not None else {}
+    eye_measures = {}
+    if eye_scores.get('downturnedCorners') is not None:
+        v = SEYE.downturned_percentile(bgr, landmarks_norm, MODEL_DIR, view)
+        if v is not None:
+            eye_measures['downturnedCorners'] = round(float(v), 1)
     return dict(version=VERSION, paramsVersion=params.get('version'), classifierVersion=(kc.spec['version'] if kc else None), pose=pose,
                 tone=dict(ita=round(ita, 1), group=tone), regions=regions, raw=raw, skinType=skin_type_from_regions(regions),
-                findingEvidence=finding_evidence, findingBoxes=finding_boxes, findingScores=finding_scores, severityTerms=severity_terms, models=model_manifest())
+                findingEvidence=finding_evidence, findingBoxes=finding_boxes, findingScores=finding_scores, severityTerms=severity_terms, eyeScores={k: round(float(v), 5) for k, v in eye_scores.items()}, eyeMeasures=eye_measures, models=model_manifest())
 
 def model_manifest() -> dict:
     """File names + SHA-256 of the loaded bundle (cached), so every result names the exact weights that produced it."""
@@ -402,8 +410,8 @@ def model_manifest() -> dict:
                     for chunk in iter(lambda: f.read(1 << 20), b''):
                         h.update(chunk)
                 out[name] = h.hexdigest()
-        import skin_findings_dino as SD
-        out.update(SD.manifest(MODEL_DIR))
+        import skin_findings_dino as SD, skin_findings_eye as SEYE
+        out.update(SD.manifest(MODEL_DIR)); out.update(SEYE.manifest(MODEL_DIR))
         _manifest = out
     return _manifest
 

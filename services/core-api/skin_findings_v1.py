@@ -117,6 +117,27 @@ def _model_dir() -> str:
     return R.MODEL_DIR
 
 
+def _eye_specs() -> dict:
+    try:
+        import skin_findings_eye as SEYE
+        return SEYE.specs(_model_dir())
+    except Exception:  # noqa: BLE001
+        return {}
+
+
+def _eye_rows(fid: str, spec: dict, maps: dict) -> list:
+    """Eye-area classifiers decide on the FRONT photo (research recipe); absent score -> inconclusive, never notSeen."""
+    import skin_findings_eye as SEYE
+    p = (maps.get('FRONT', {}).get('eyeScores') or {}).get(fid)
+    if p is None:
+        return [dict(id=fid, region='periorbital', status='inconclusive', causes=['ANGLE'])]
+    row = dict(id=fid, region='periorbital', status=SEYE.decide(float(p), spec), pose='FRONT', readFrom=['FRONT'])
+    v = (maps.get('FRONT', {}).get('eyeMeasures') or {}).get(fid)
+    if row['status'] == 'seen' and v is not None:
+        row['severity'] = v
+    return [row]
+
+
 def _saved_specs() -> dict:
     """Saved finding classifiers present in the model bundle (findings-v2/*.json). Missing bundle -> {}."""
     try:
@@ -228,10 +249,11 @@ def _attach_severity(findings: list, maps: dict, poses: list) -> None:
 def findings_from_maps(maps: dict) -> dict:
     """maps: {'FRONT'|'LEFT'|'RIGHT': regional_skin_v3.analyze_photo() output}. Returns general.findings."""
     poses = sorted(p for p, m in maps.items() if isinstance(m, dict) and isinstance(m.get('findingEvidence'), dict))
-    specs = _saved_specs(); available = {f for f in specs if f in UNAVAILABLE}
+    specs = _saved_specs(); eye = _eye_specs()
+    available = {f for f in (*specs, *eye) if f in UNAVAILABLE}
     front_models = (maps.get('FRONT') or {}).get('models') or {}
     base = dict(version=VERSION, poses=poses, thresholdSource=THRESHOLD_SOURCE,
-                models={k: v for k, v in front_models.items() if k == 'findings.pt' or k.startswith('findings-v2/')})
+                models={k: v for k, v in front_models.items() if k == 'findings.pt' or k.startswith('findings-v2')})
     missing = [p for p in REQUIRED_POSES if p not in poses]
     if missing:
         return dict(base, status='unavailable', reason='REQUIRED_POSES_MISSING', missingPoses=missing, findings=[],
@@ -255,7 +277,7 @@ def findings_from_maps(maps: dict) -> dict:
                 row['areaPct'] = round(100 * float(best.get('findings_Gunes_Lekesi_cov20') or 0.0), 1)
             findings.append(row)
     for fid in sorted(available):
-        findings += _dino_rows(fid, specs[fid], maps, poses)
+        findings += _dino_rows(fid, specs[fid], maps, poses) if fid in specs else _eye_rows(fid, eye[fid], maps)
     _attach_severity(findings, maps, poses)
     _attach_measures(findings, maps, poses)
     return dict(base, status='measured', findings=findings, unavailable=_unavailable(None, available))
