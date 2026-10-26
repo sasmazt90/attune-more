@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "observedAt": "2026-10-26T08:38:59Z",
+  "observedAt": "2026-10-26T08:42:42Z",
   "repository": "sasmazt90/attune-more",
   "branch": "work/skin-roadmap-20261023",
   "purpose": "Run the complete skin research evidence suite on the roadmap branch without masking unrelated repository failures.",
@@ -68,7 +68,11 @@
       "runId": 40293730402,
       "url": "https://github.com/sasmazt90/attune-more/actions/runs/40293730402",
       "headSha": "fef4fc55c972c96b142ff9cb5f1855cf7c02f9aa",
-      "statusAtCheckpoint": "in_progress",
+      "status": "completed",
+      "conclusion": "failure",
+      "frontendConclusion": "success",
+      "deterministicUnitConclusion": "failure",
+      "completeSkinResearchConclusion": "success",
       "purpose": "Verify the documentation-only paths-ignore refinement; no training, upload or inference is started."
     }
   },
