@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T10:21:56Z",
+  "repository": "sasmazt90/attune-more",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "438e297c3c817c66bf9d136f8be26f6ee8a3f8c0",
+  "change": {
+    "methodVersion": "wrinkle-per-class-release-gate-v2",
+    "issue": "The rejected external crows-feet run could previously be made eligible by editing post-hoc receipt flags and metrics.",
+    "fix": [
+      "Freeze the existing crows-feet and unrelated-wrinkle run identities, blob identities, per-class metrics, rejection flags and diagnostic-only semantics.",
+      "Reject relabelling either known external model as a new candidate.",
+      "Require a distinct future candidate plus source rights, expert per-class truth, grouped split, pose/expression protocol, policy locked before validation, untouched final test, physical camera, working product and unavailable/history controls.",
+      "Keep crows_feet primary; optional wrinkle classes are eligible only with explicit label support and pass independently."
+    ]
+  },
+  "currentDecision": {
+    "currentExternalCrowsFeetAccepted": false,
+    "unrelatedWrinkleSubstitutionAllowed": false,
+    "researchTrainingAuthorized": false,
+    "finalTestEvaluationAuthorized": false,
+    "productActivationAllowed": false,
+    "roadmapAccepted": false,
+    "decision": "blocked"
+  },
+  "verification": {
+    "localFocusedTests": {
+      "tests": 8,
+      "result": "OK"
+    },
+    "githubActions": {
+      "runId": 40306306243,
+      "url": "https://github.com/sasmazt90/attune-more/actions/runs/40306306243",
+      "headSha": "438e297c3c817c66bf9d136f8be26f6ee8a3f8c0",
+      "conclusion": "success",
+      "completedAt": "2026-10-26T10:21:56Z",
+      "frontendProductionBuild": "success",
+      "localizationContract": "success",
+      "deterministicUnitSuite": {
+        "passed": 1627,
+        "skipped": 44,
+        "warnings": 2,
+        "durationSeconds": 148.57
+      },
+      "completeSkinResearchEvidenceSuite": {
+        "tests": 226,
+        "result": "OK",
+        "durationSeconds": 2.426
+      }
+    }
+  },
+  "remoteRefresh": {
+    "observedAt": "2026-10-26T10:14:00Z",
+    "projectsTotal": 20,
+    "acne": {
+      "images": 800,
+      "splits": {
+        "train": 553,
+        "valid": 165,
+        "test": 82
+      },
+      "trainings": [
+        "5b632a5c12b76fcfe703:finished",
+        "49ee6204cf069198bbfa:finished"
+      ]
+    },
+    "regional": {
+      "images": 337,
+      "splits": {
+        "train": 244,
+        "valid": 63,
+        "test": 30
+      },
+      "trainings": [
+        "3485f8c67f957a1b850d:finished",
+        "af287a006e2e428f5ce4:finished"
+      ]
+    },
+    "underEye": {
+      "images": 399,
+      "version1Training": "d194569acd3ebe7cf8b7:finished",
+      "version2Trainings": 0
+    },
+    "groupedUnderEye": {
+      "images": 0,
+      "versions": 0,
+      "uploadTaskId": "sLFwX7CYBVcnnD6iAW5o",
+      "uploadStatus": "created",
+      "uploadProgress": null
+    },
+    "duplicateTrainingOrUploadStarted": false
+  },
+  "roadmapComplete": false,
+  "realPhysicalCameraAcceptance": false
+}

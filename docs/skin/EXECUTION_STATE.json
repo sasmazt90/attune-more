@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-26",
-      "lastCheckedAt": "2026-10-26T08:50:00Z",
+      "lastCheckedAt": "2026-10-26T10:14:00Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -479,7 +479,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-26T08:50:00Z",
+      "lastCheckedAt": "2026-10-26T10:14:00Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -582,7 +582,7 @@
         "uploadProgress": null,
         "bytesSent": false,
         "trainingStarted": false,
-        "lastObservedAt": "2026-10-26T08:50:00Z",
+        "lastObservedAt": "2026-10-26T10:14:00Z",
         "evidence": "docs/skin/evidence/under-eye-grouped-project-20261023-v1.json"
       },
       "groupedReleaseGate": {
@@ -671,7 +671,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-26T08:50:00Z",
+      "lastCheckedAt": "2026-10-26T10:14:00Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -1299,7 +1299,7 @@
       }
     },
     "concurrentWork": {
-      "observedAt": "2026-10-26T08:50:00Z",
+      "observedAt": "2026-10-26T10:14:00Z",
       "projectsTotal": 20,
       "doNotDuplicate": [
         {
@@ -1394,7 +1394,7 @@
           "startedByThisAutomation": false
         }
       ],
-      "note": "All 20 accessible projects and exact acne/regional/under-eye training lists were refreshed. No training is running; known acne, regional and under-eye jobs remain finished; under-eye pilot v2 has no training; grouped under-eye remains empty and upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress. No duplicate training, upload, version, inference, threshold or activation action was started. Last refreshed at 2026-10-26T08:50:00Z."
+      "note": "All 20 accessible projects and exact acne/regional/under-eye training lists were refreshed. No training is running; known acne, regional and under-eye jobs remain finished; under-eye pilot v2 has no training; grouped under-eye remains empty and upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress. No duplicate training, upload, version, inference, threshold or activation action was started. Last refreshed at 2026-10-26T10:14:00Z."
     },
     "saggingAppearance": {
       "observedAt": "2026-10-25T12:30:37Z",
@@ -2659,7 +2659,7 @@
     {
       "id": "11",
       "target": "crows-feet-and-wrinkles",
-      "status": "external_models_evaluated_rejected_negative_policy_pending",
+      "status": "executable_per_class_release_gate_v2_fail_closed_expert_group_camera_pending",
       "work": "Start with existing lines/crows-feet criterion; audit Wrinkles Detector/skin_face_detection/Skin v5 labels and geometry; extend other facial wrinkles only where labelled truth supports it; evaluate expression and pose effects.",
       "evidence": [
         "docs/skin/evidence/merve-direct-summary-20261023-v1.json",
@@ -2689,7 +2689,10 @@
         "docs/skin/evidence/skin-face-crows-feet-external-model-verdict-20261025-v1.json",
         "docs/skin/evidence/unrelated-wrinkles-external-model-receipt-20261025-v1.json",
         "docs/skin/evidence/unrelated-wrinkles-external-model-verdict-20261025-v1.json",
-        "docs/skin/evidence/wrinkle-external-release-gate-20261025-v1.json"
+        "docs/skin/evidence/wrinkle-external-release-gate-20261025-v1.json",
+        "docs/skin/evidence/wrinkle-per-class-release-receipt-20261026-v1.json",
+        "docs/skin/evidence/wrinkle-per-class-release-gate-20261026-v1.json",
+        "docs/skin/evidence/wrinkle-per-class-release-ci-20261026-v1.json"
       ],
       "blockers": [
         "Merve v12 contains 2,513 kirisiklik boxes, no wrinkle polygons, and processed/augmented imagery; it is not native-camera wrinkle segmentation truth.",
@@ -2697,7 +2700,8 @@
         "The skin_face_detection crows_feet positives now have a reproducible review-only package: 855 valid polygons on 166 images, 20 invalid annotations quarantined, 163 source groups assigned without cross-split exact/filename/perceptual candidates. It remains positive-only and trainingAuthorized=false until class absence is established as an evaluated negative and expert semantics, rights, expression/pose and camera coverage are accepted.",
         "The private 1,558-image wrinkles-79rrf-t7kyp project is not the selected 914-image Wrinkles Detector v2 archive. It has 65 cross-split filename candidate groups and 202 cross-split perceptual candidate pairs and must not be trained or substituted without lineage resolution.",
         "An external RF-DETR Seg Small run on skin_face_detection-emora finished, but crows_feet validation/test F1 is 0.053/0.017 and test mAP50 is 0.0010. The executable release gate rejects it; no activation or blind retry is allowed before expert evaluated-negative policy, group independence, a new untouched final test, camera acceptance and integration acceptance.",
-        "An external RF-DETR Seg Small run on wrinkles-79rrf-t7kyp reports test F1 0.727, but it remains diagnostic-only because the dataset is not the selected Wrinkles Detector v2 source and has 65 filename plus 202 perceptual cross-split candidates. It cannot substitute for task 11."
+        "An external RF-DETR Seg Small run on wrinkles-79rrf-t7kyp reports test F1 0.727, but it remains diagnostic-only because the dataset is not the selected Wrinkles Detector v2 source and has 65 filename plus 202 perceptual cross-split candidates. It cannot substitute for task 11.",
+        "The v2 gate permanently keeps both known external wrinkle models diagnostic-only. A distinct crows-feet candidate is not yet authorized because selected-source identity/rights, expert per-class positive-negative-ambiguity truth, source/person grouping, pose/expression protocol, locked validation policy, untouched final test, physical-camera acceptance and working-product controls remain incomplete."
       ]
     },
     {
@@ -3349,6 +3353,41 @@
       "realPhysicalCameraAcceptance": false,
       "roadmapComplete": false,
       "evidence": "docs/skin/evidence/product-regression-ci-repair-20261026-v1.json"
+    },
+    "wrinklePerClassReleaseGate": {
+      "methodVersion": "wrinkle-per-class-release-gate-v2",
+      "currentExternalCrowsFeetAccepted": false,
+      "currentExternalCrowsFeetDiagnosticTest": {
+        "f1": 0.017,
+        "map50": 0.0010211828139297429
+      },
+      "unrelatedWrinkleSubstitutionAllowed": false,
+      "researchTrainingAuthorized": false,
+      "productActivationAllowed": false,
+      "roadmapAccepted": false,
+      "decision": "blocked",
+      "localFocusedTests": {
+        "tests": 8,
+        "result": "OK"
+      },
+      "ci": {
+        "runId": 40306306243,
+        "url": "https://github.com/sasmazt90/attune-more/actions/runs/40306306243",
+        "headSha": "438e297c3c817c66bf9d136f8be26f6ee8a3f8c0",
+        "conclusion": "success",
+        "frontendProductionBuild": "success",
+        "localizationContract": "success",
+        "deterministicUnitSuite": {
+          "passed": 1627,
+          "skipped": 44,
+          "warnings": 2
+        },
+        "completeSkinResearchEvidenceSuite": {
+          "tests": 226,
+          "result": "OK"
+        }
+      },
+      "evidence": "docs/skin/evidence/wrinkle-per-class-release-ci-20261026-v1.json"
     }
   },
   "nextActions": [
@@ -3386,7 +3425,7 @@
     "Task 12 source audit is complete: the 18-criterion ordinal source has elasticity, not sag, and cannot authorize a sag target. Preserve both model-boundary and downstream replacement guards; do not add sag to the generic degree head. Next useful evidence is consented same-person compatible capture pairs, expert localized truth, pose/expression robustness and execution of the focused model-boundary test in the service runtime with OpenCV/ONNX Runtime.",
     "Task 12 appearance-only semantics and the frontend rejection gate are implemented; do not rebuild or rename the contour/fold proxy as elasticity or clinical severity. Next obtain consented same-person compatible capture pairs plus expert localized truth, then evaluate pose/expression robustness before any learned segmentation or directional improvement claim.",
     "Task 08 product semantics are implemented; do not derive Post acne or Pigmentation from the tone proxy and do not rebuild the twelve-heading contract. Improve the localized detector/data problem first, then activate only an accepted immutable model/evidence triple. When accepted local masks exist, exclude their support from the broad tone sampling and validate co-reporting on an independent camera set.",
-    "For task 11, use scripts/skin-research/check_wrinkle_release.py and the pinned external-model receipts before any training or activation decision. The finished skin_face_detection-emora model is rejected (crows_feet test F1 0.017, mAP50 0.0010); complete expert evaluated-negative/expression/pose/camera policy, group-lock a replacement split and reserve a new untouched final test before one targeted validation experiment. Keep wrinkles-79rrf-t7kyp diagnostic-only and resolve the exact selected Wrinkles Detector v2 source; do not substitute or blind-retrain either model.",
+    "For task 11, replay scripts/skin-research/check_wrinkle_release.py with the pinned external receipts and docs/skin/evidence/wrinkle-per-class-release-receipt-20261026-v1.json before any training, final-test use or activation. The v2 gate permanently rejects post-hoc rehabilitation of skin_face_detection-emora (crows_feet diagnostic test F1 0.017, mAP50 0.0010), keeps wrinkles-79rrf-t7kyp diagnostic-only, and requires a distinct future candidate. Complete exact selected-source identity and rights, expert per-class positive/negative/ambiguity truth, source/person grouping, pose/expression protocol, policy locked before validation, a new untouched final test, physical-camera acceptance and working-product controls. Keep crows_feet primary; activate any other wrinkle class only when its own labels and every class-specific gate pass.",
     "The private grouped under-eye project tolgar-sasmaz/attune-skin-under-eye-grouped-research remains empty and upload task sLFwX7CYBVcnnD6iAW5o remains created with no bytes. Augmentation-free provider v2 is now frozen at export SHA256 6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99, and the deterministic builder reproduces 399 images/869 polygons at 283/78/38 without changing image bytes or annotation payloads. Its ZIP SHA256 9ef3c36e16ce5ae84ff52d527f82f15e5f9fcbaf63f0a6f6720388339133d6fc differs from the previously authorized exact SHA256 41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8, so it was not uploaded. Do not create another upload task, upload either archive without the exact pinned policy match, or train the ungrouped version. Replay docs/skin/evidence/under-eye-grouped-release-gate-20261025-v1.json before any upload/version/training action; the current gate blocks all three.",
     "Use the saved Merve v12 responses only: the original single face plus the six generated FRONT inputs now have immutable inference receipts, so do not repeat them. At 50%, 207/224 (92.4%) of the generated-set proposals are hidden versus the 8% floor, but correctness and Precision/Recall/F1 remain unknown without expert object-level truth. Next add expert-labelled positives/negatives and consented real-camera subjects, select per-class thresholds on validation, and keep pul separate from regional dryness truth.",
     "Source-pair acquisition is complete for FACEv3/v4,Rednessv2,Drynessv1; do not repeat downloads/audits unchanged. Use the pinned private120pairbundle and persistedfullaudit, with review-manifest provenance. FACEv3 is preferred over augmentedv4. 700Dryness/45Redness images exactly match existing sources; never count these as newly acquired coverage. All source labels and rights acceptance remain pending; no automatic merge or retraining.",
@@ -4178,6 +4217,12 @@
       "observedAt": "2026-10-26T09:11:36Z",
       "action": "Read the persistent checkpoint first; re-verified GitHub main commit 7463eef as the already functioning concrete /api/local-health/skin baseline and refreshed all 20 accessible Roboflow projects plus exact acne/regional/under-eye trainings and the existing grouped upload task. No training is running, all known jobs remain finished, grouped under-eye remains empty, upload task sLFwX7CYBVcnnD6iAW5o remains created/no-progress, and no duplicate training or upload was started. Repaired the six independent product regressions exposed by remote CI without skipping or weakening assertions: 20 skin localization messages now have complete EN/DE catalog entries; the approved layout explicitly preserves the independent red hatch while comparing the rest to the accepted layout; accepted degree fixtures follow the real manifest contract; unavailable sag rows preserve non-clinical appearance-only semantics; and the photo-history browser replay uses a fail-closed regional-map test seam. GitHub Actions run 40297234134 is fully green: frontend production build and localization contract passed, the deterministic suite passed 1,627 tests with 44 environment/fixture skips, and the complete skin-research suite passed all 222 tests. Real consented physical-camera truth and final acceptance remain pending, so activation and roadmap completion remain false.",
       "report": "docs/skin/evidence/product-regression-ci-repair-20261026-v1.json"
+    },
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T10:21:56Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye training lists, grouped under-eye project and existing upload task. All known trainings remain finished, under-eye v2 has no training, grouped under-eye remains empty, upload task sLFwX7CYBVcnnD6iAW5o remains created/no-progress, and no duplicate training or upload was started. Repaired a fail-open path in task 11: the prior wrinkle gate could treat the already rejected external crows-feet model as accepted if its receipt flags and metrics were rewritten post hoc. Gate v2 now pins both external run identities, evidence blobs, per-class metrics and rejection semantics; forbids relabelling either known model as a new candidate; keeps the unrelated wrinkle model diagnostic-only; and permits only a distinct future candidate after expert per-class truth, source/person grouping, pose/expression, pre-locked policy, untouched final test, physical camera, product integration and unavailable/history controls. Crows-feet remains primary and optional wrinkle classes must prove label support and pass separately. Eight focused local tests passed. GitHub Actions run 40306306243 is green: frontend build and localization contract passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 226 tests. Current models remain rejected and roadmap completion remains false.",
+      "report": "docs/skin/evidence/wrinkle-per-class-release-ci-20261026-v1.json"
     }
   ],
   "activityLog": [
@@ -4677,6 +4722,27 @@
           "deterministicSkipped": 44,
           "deterministicWarnings": 2,
           "skinResearchTests": 222,
+          "frontend": "success",
+          "localization": "success"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T10:21:56Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye training lists, grouped under-eye project and existing upload task. All known trainings remain finished, under-eye v2 has no training, grouped under-eye remains empty, upload task sLFwX7CYBVcnnD6iAW5o remains created/no-progress, and no duplicate training or upload was started. Repaired a fail-open path in task 11: the prior wrinkle gate could treat the already rejected external crows-feet model as accepted if its receipt flags and metrics were rewritten post hoc. Gate v2 now pins both external run identities, evidence blobs, per-class metrics and rejection semantics; forbids relabelling either known model as a new candidate; keeps the unrelated wrinkle model diagnostic-only; and permits only a distinct future candidate after expert per-class truth, source/person grouping, pose/expression, pre-locked policy, untouched final test, physical camera, product integration and unavailable/history controls. Crows-feet remains primary and optional wrinkle classes must prove label support and pass separately. Eight focused local tests passed. GitHub Actions run 40306306243 is green: frontend build and localization contract passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 226 tests. Current models remain rejected and roadmap completion remains false.",
+      "report": "docs/skin/evidence/wrinkle-per-class-release-ci-20261026-v1.json",
+      "commits": [
+        "438e297c3c817c66bf9d136f8be26f6ee8a3f8c0"
+      ],
+      "runs": [
+        {
+          "runId": 40306306243,
+          "conclusion": "success",
+          "deterministicTests": 1627,
+          "deterministicSkipped": 44,
+          "deterministicWarnings": 2,
+          "skinResearchTests": 226,
           "frontend": "success",
           "localization": "success"
         }
