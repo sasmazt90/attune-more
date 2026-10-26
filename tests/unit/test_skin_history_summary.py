@@ -40,4 +40,5 @@ assert.equal(H.compareWithPrevious(a,undefined,'tr-TR').rows.every(r=>r.change.k
 // table summary values
 assert.deepEqual(H.findingRows(c).slice(0,2).map(r=>[r.label,H.formatMetric(r,'tr-TR')]),[['Sivilce','7'],['Rozasea eğilimi','%62']]);
 assert.equal(H.skinTypeLabel({general:{skinType:{value:'dry',quality:'insufficient'}}}),null);
+const pct={id:'rosacea',kind:'severity',metric:62};assert.equal(H.formatMetric(pct,'tr-TR'),'%62');assert.equal(H.formatMetric(pct,'en-US'),'62%');assert.equal(H.formatMetric(pct,'de-DE'),'62\u00a0%');
 ''')

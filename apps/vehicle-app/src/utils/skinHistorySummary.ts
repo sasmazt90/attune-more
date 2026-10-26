@@ -39,7 +39,8 @@ function measuredIds(r: SkinRecord): Set<SkinFindingId> {
 export function formatMetric(row: { metric?: number; kind?: MetricKind; atLeast?: boolean; range?: string; id: SkinFindingId }, locale: string): string {
   if (row.metric === undefined) return row.range || '—';
   const n = new Intl.NumberFormat(locale, { maximumFractionDigits: row.kind === 'count' ? 1 : 0 }).format(row.metric);
-  return row.kind === 'count' ? `${n}${row.atLeast ? '+' : ''}` : `%${n}`;
+  // percent sign as each language writes it: TR %62, EN 62%, DE 62 %
+  return row.kind === 'count' ? `${n}${row.atLeast ? '+' : ''}` : locale.startsWith('tr') ? `%${n}` : locale.startsWith('de') ? `${n}\u00a0%` : `${n}%`;
 }
 /** Change of each finding of `current` against the scan just before it. */
 export function compareWithPrevious(current: SkinRecord, previous: SkinRecord | undefined, locale: string): { rows: (FindingRow & { change: Change })[]; gone: (FindingRow & { change: Change })[] } {
