@@ -18,12 +18,12 @@ Yalnızca kanıtlanan kapsam "TAMAM" sayıldı.
 | Branch | `claude/skin-validated-20261025` (main'e merge yok, geçmiş yeniden yazılmadı) |
 | Taban | `babe9b6970b011f65d642600aaa0ca2fd2b7f316` |
 | Teslim commit'i | Teslim mesajındaki tam SHA |
-| Push | Yapılamadı (oturumun GitHub erişimi yok). Teslim **git bundle + SHA-256** ile |
+| Push | Yapılmadı: repo (yeni adı `sasmazt90/attune-more`) herkese açık ve oturumun yazma izni yok. Teslim **git bundle + SHA-256** ile |
 | Model dosyaları | Git'te **değil**: `findings-v2.tar.gz` (model paketine, yani `ATTUNE_REGIONAL_V3_DIR` altına açılır) + önceki 5 RF-DETR ağırlığı + dinov2-small |
 
 ```bash
-sha256sum -c attune-skin-findings-v2.bundle.sha256 && git bundle verify attune-skin-findings-v2.bundle
-git fetch attune-skin-findings-v2.bundle claude/skin-validated-20261025:claude/skin-validated-20261025
+sha256sum -c attune-skin-camera-color.bundle.sha256 && git bundle verify attune-skin-camera-color.bundle
+git fetch attune-skin-camera-color.bundle claude/skin-validated-20261025:claude/skin-validated-20261025
 tar -xzf findings-v2.tar.gz -C "$ATTUNE_REGIONAL_V3_DIR"          # -> $ATTUNE_REGIONAL_V3_DIR/findings-v2/*.json
 ```
 
