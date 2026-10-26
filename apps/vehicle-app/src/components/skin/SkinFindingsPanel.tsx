@@ -75,10 +75,10 @@ function Overview({ findings, skinType, selected, onSelect }: {
   const { text } = useTranslations();
   const typeName = skinTypeLabel(skinType);
   const all = overviewFindings(findings);
-  const PAGE = 6, pages = Math.max(1, Math.ceil(all.length / PAGE));
+  const PAGE = 4, pages = Math.max(1, Math.ceil(all.length / PAGE));
   const [page, setPage] = React.useState(0);
   const shown = all.slice(page * PAGE, page * PAGE + PAGE);
-  // the header arrows slide the findings grid, six cards at a time
+  // the header arrows slide the findings grid, four cards at a time
   const arrow = (d: number) => (
     <button type="button" onClick={() => setPage((page + d + pages) % pages)} disabled={pages < 2} aria-label={text(d < 0 ? 'Önceki bulgular' : 'Sonraki bulgular')}
       className="w-[52px] h-[52px] shrink-0 rounded-2xl bg-[#1a2533] flex items-center justify-center text-slate-100 hover:bg-[#223043] active:scale-95 transition disabled:opacity-30 disabled:pointer-events-none">
@@ -131,16 +131,16 @@ function OverviewFindingCard({ f, on, onClick }: { f: OverviewFinding; on: boole
   const shift = width === null ? '0%' : width < 12 ? '0%' : width > 88 ? '-100%' : '-50%';
   return (
     <button type="button" aria-pressed={on} onClick={onClick} data-skin-overview-finding={f.id}
-      className="min-h-[76px] rounded-2xl border-2 px-4 pt-2 pb-2.5 flex flex-col justify-between gap-0.5 text-left transition active:scale-[0.99]"
+      className="min-h-[96px] rounded-2xl border-2 px-4 pt-3 pb-3.5 flex flex-col justify-between gap-1.5 text-left transition active:scale-[0.99]"
       style={{ borderColor: on ? color : 'transparent', background: on ? `${color}1a` : '#131d2b' }}>
       <span className="flex items-center gap-2 min-w-0">
         <span aria-hidden="true" className="w-2.5 h-2.5 shrink-0 rounded-full" style={{ background: color }} />
-        <span className="text-[15px] font-bold leading-tight text-white truncate">{text(def.label)}</span>
+        <span className="text-base font-bold leading-tight text-white truncate">{text(def.label)}</span>
       </span>
       {width !== null
         ? <span className="block">
-            <span className="relative block h-5">
-              <span className="absolute bottom-0 whitespace-nowrap text-sm font-extrabold text-white tabular-nums" style={{ left: `${Math.max(4, width)}%`, transform: `translateX(${shift})` }}>{value}</span>
+            <span className="relative block h-6">
+              <span className="absolute bottom-0 whitespace-nowrap text-base font-extrabold text-white tabular-nums" style={{ left: `${Math.max(4, width)}%`, transform: `translateX(${shift})` }}>{value}</span>
             </span>
             <span className="mt-0.5 block h-2 rounded-full bg-[#1a2533]" aria-hidden="true">
               <span className="block h-full rounded-full" style={{ width: `${Math.max(4, width)}%`, background: color }} />
