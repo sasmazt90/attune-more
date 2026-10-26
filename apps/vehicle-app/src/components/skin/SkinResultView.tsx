@@ -1,99 +1,102 @@
 'use client';
-import {useTranslations} from '../../i18n/LanguageProvider';
+import { useTranslations } from '../../i18n/LanguageProvider';
 
 import React from 'react';
 import { SkinRegionData } from '../../data/skinDemoFixture';
 import { SkinSnapshot } from '../../utils/skinSnapshot';
-import { InformationButton } from '../InformationButton';
 import { SkinFacePanel } from './SkinFacePanel';
-import { SkinRegionSummary } from './SkinRegionSummary';
-import { isCriterionApplicableToRegion } from '../../utils/skinIndicators';
+import { SkinFindingsPanel } from './SkinFindingsPanel';
+import {
+  FINDING_ANCHOR, FINDING_DEFS, anchorPoint, FINDING_VIEW_NAMES, FINDING_VIEW_ORDER, findingColor, isFindingView, seenCount, viewFindings,
+  type FindingViewId, type SkinFinding, type SkinFindingId, type SkinFindingsHistoryEntry
+} from '../../utils/skinFindings';
+import type { FindingCallout } from './SkinFindingCallouts';
 
+type View = 'overview' | FindingViewId;
 interface SkinResultViewProps {
   currentRegion: SkinRegionData;
   snapshot?: SkinSnapshot;
+  findings?: SkinFinding[];
+  /** earlier scans with findings, for the history chart */
+  findingsHistory?: SkinFindingsHistoryEntry[];
+  /** time of this scan (ISO) */
+  scanAt?: string;
+  onSelectView?: (view: View) => void;
+  onRescan?: () => void;
   onPrev: () => void;
   onNext: () => void;
-  onOpenModal: (modal: 'trend' | 'observation' | 'actions') => void;
+  onOpenModal?: (modal: 'trend' | 'observation' | 'actions') => void;
   onNavigateToCare: () => void;
   videoRef?: React.RefObject<HTMLVideoElement | null>;
   isLiveVideo?: boolean;
   isBaseline?: boolean;
   comparisonUnavailable?: boolean;
-  comparisonReasons?: ('legacy-quality-missing'|'capture-conditions-incompatible')[];
+  comparisonReasons?: ('legacy-quality-missing' | 'capture-conditions-incompatible')[];
   baselineTimestamp?: string;
   baselineId?: string;
   comparisonScope?: 'single-front-v1' | 'three-angle-v2';
 }
 
-export const SkinResultView: React.FC<SkinResultViewProps> = ({
-  currentRegion, snapshot,
-  onPrev,
-  onNext,
-  onOpenModal,
-  onNavigateToCare,
-  videoRef,
-  isLiveVideo = false,
-  isBaseline, comparisonUnavailable
-}) => {
- const {text:i18nText,node:i18nNode}=useTranslations();
-  const [selectedCriterion, setSelectedCriterion] = React.useState<string | null>(null);
-  // Preserve selectedCriterion across region switches whenever the target region supports that criterion.
-  const activeCriterion = selectedCriterion && isCriterionApplicableToRegion(selectedCriterion, currentRegion.id)
-    ? selectedCriterion
-    : null;
-  const selectCriterion = (criterion: string) => setSelectedCriterion(prev => prev === criterion ? null : criterion);
+/** Result screen ("face map"): page tabs, the photo with labels pointing at each finding, and the finding card. */
+export const SkinResultView: React.FC<SkinResultViewProps> = ({ currentRegion, snapshot, findings, findingsHistory, scanAt, onSelectView, onRescan, onNavigateToCare, videoRef, isLiveVideo = false }) => {
+  const { text, locale } = useTranslations();
+  const view: View = isFindingView(currentRegion.id) ? currentRegion.id : 'overview';
+  const at = React.useMemo(() => scanAt || new Date().toISOString(), [scanAt]);
+  const items = view === 'overview' ? [] : viewFindings(findings, view);
+  const [index, setIndex] = React.useState(0);
+  const pending = React.useRef<SkinFindingId | null>(null);
+  React.useEffect(() => {
+    const i = pending.current ? items.findIndex(f => f.id === pending.current) : 0;
+    setIndex(Math.max(0, i)); pending.current = null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view]);
+  const goTo = (target: View, finding?: SkinFindingId) => {
+    if (target === view) { if (finding) setIndex(Math.max(0, items.findIndex(f => f.id === finding))); return; }
+    pending.current = finding || null; onSelectView?.(target);
+  };
+  const selected = items[Math.min(index, items.length - 1)]?.id || null;
+  const lm = snapshot?.landmarks;
+  const callouts: FindingCallout[] = view === 'overview' || !snapshot || !lm || lm.length < 468 ? [] : items.flatMap(f => {
+    const marker = f.markers?.[0] && (!f.pose || f.pose === snapshot.angle) ? f.markers[0] : null;
+    const a = FINDING_ANCHOR[f.id][view];
+    const anchor = marker ? { x: marker.x, y: marker.y } : a !== undefined ? anchorPoint(a, lm, snapshot.width, snapshot.height) : null;
+    return anchor ? [{ id: f.id, label: FINDING_DEFS[f.id].label, color: findingColor(f.id), anchor }] : [];
+  });
+  const when = new Date(at);
   return (
-    <div className="bg-[#0c1424]/90 border border-slate-800/90 rounded-3xl p-5 sm:p-7 shadow-2xl space-y-5 w-full">
-      {/* Üst Bilgi Satırı: Başlık, Dinamik Özet Cümlesi, Yasal Rozet */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/70 pb-4">
-        <div className="space-y-1">
-          <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">{i18nText("Cilt Analizi Tamamlandı ")}</h1>
-          <p className="text-xs sm:text-sm text-slate-300">
-            {i18nNode(currentRegion.indicators ? 'Bölge ve kriter seçerek fotoğrafınızdaki görünümü inceleyin.' : isBaseline ? 'Referans oluşturuldu; sonraki uygun taramalar bununla karşılaştırılacak.' :
-              comparisonUnavailable ? 'Karşılaştırılamadı. Referansınız korundu.' :
-              `${currentRegion.nameTr}: kızarıklık piksel göstergesinde referansa göre ${currentRegion.changePct > 0 ? '+' : ''}${currentRegion.changePct}% değişim.`)}
-          </p>
-          <InformationButton title={i18nText("Referans ve görüntü")}><ul className="list-disc pl-5 space-y-3 text-base leading-relaxed">
-            <li>{i18nText("Skorlar fotoğraftaki görünümün 0–100 ölçeğindeki göstergeleridir; hastalık olasılığı veya klinik şiddet yüzdesi değildir.")}</li>
-            <li>{i18nText("Işık, gölge, sakal ve görüntü netliği değerlendirmeyi etkileyebilir. Yeterli görüntü alınamayan değerler — ile gösterilir.")}</li>
-            <li>{i18nText("Parlama, pullanma ve sivilce adayları fotoğraftaki görünüm üzerinden değerlendirilir.")}</li>
-            <li>{i18nText("Renkli alanlar seçtiğiniz bölge ve kriterin görüntüdeki dağılımını gösterir.")}</li>
-            <li>{i18nText("T-bölgesi alın, burun ve çeneyi kapsar.")}</li>
-            <li>{i18nText("Kontur göstergelerinde görüntüde izlenen katlanma ve sınır çizgileri gösterilir.")}</li>
-          </ul></InformationButton>
+    <div className="w-full flex flex-col gap-5" data-skin-result>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-baseline gap-4">
+          <h1 className="text-[30px] font-extrabold tracking-tight text-white">{text('Cilt analizi')}</h1>
+          <span className="text-base text-slate-400">{when.toLocaleDateString(locale, { day: 'numeric', month: 'long' })} · {when.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })}</span>
         </div>
-
-        <div>
-          <span className="text-[11px] bg-slate-900/80 border border-slate-700/80 text-slate-400 px-3 py-1 rounded-full font-medium whitespace-nowrap">{i18nText("Ön değerlendirme • Tanı değildir ")}</span>
-        </div>
+        <span className="text-[15px] text-slate-300 px-[18px] py-2.5 rounded-full bg-[#0f1724] whitespace-nowrap">{text('Ön değerlendirme · Tanı değildir')}</span>
       </div>
 
-      {/* İKİ KOLON ANA DÜZEN (FIRST VIEWPORT ONLY - NO PAGE SCROLL) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start" data-skin-result-layout>
-        {/* SOL KOLON (~45%): Yüz Portresi + Karusel Okları + Organik Maske Vurgusu + İndikatör */}
-        <div className="lg:col-span-5 min-w-0 flex flex-col items-center">
-          <SkinFacePanel
-            currentRegion={currentRegion}
-            snapshot={snapshot}
-            mode="result"
-            onPrev={onPrev}
-            onNext={onNext}
-            videoRef={videoRef}
-            isLiveVideo={isLiveVideo}
-            selectedCriterion={activeCriterion}
-          />
+      <nav aria-label={text('Bölgeler')} className="max-w-full overflow-x-auto self-start" data-skin-region-tabs>
+        <div className="flex gap-1.5 p-1.5 rounded-[22px] bg-[#0d1520] min-w-max">
+          {FINDING_VIEW_ORDER.map(id => {
+            const active = id === view, n = id === 'overview' ? 0 : seenCount(findings, id);
+            return (
+              <button key={id} type="button" aria-current={active ? 'page' : undefined} onClick={() => goTo(id)} data-skin-region-tab={id}
+                className={`min-h-[52px] px-5 rounded-2xl text-[17px] flex items-center gap-2 transition ${active ? 'bg-[#1a2a3c] text-white font-bold' : 'text-slate-300 font-semibold hover:bg-white/[0.05]'}`}>
+                {text(id === 'overview' ? 'Genel bakış' : FINDING_VIEW_NAMES[id])}
+                {n > 0 && <span className={`min-w-6 h-6 px-1.5 rounded-full text-xs font-bold flex items-center justify-center ${active ? 'bg-[#00d2eb] text-slate-950' : 'bg-white/10 text-white'}`}>{n}</span>}
+              </button>
+            );
+          })}
         </div>
+      </nav>
 
-        {/* SAĞ KOLON (~55%): Bölge Başlığı + Metrik Kartları + 3 İkincil Buton + Ana CTA */}
-        <div className="lg:col-span-7 min-w-0">
-          <SkinRegionSummary
-            currentRegion={currentRegion}
-            onOpenModal={onOpenModal}
-            onNavigateToCare={onNavigateToCare}
-            selectedCriterion={activeCriterion}
-            onSelectCriterion={selectCriterion}
-          />
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)] gap-6 xl:gap-10 items-start" data-skin-result-layout>
+        <div className="min-w-0 flex flex-col items-center">
+          <SkinFacePanel currentRegion={currentRegion} snapshot={snapshot} mode="result" videoRef={videoRef} isLiveVideo={isLiveVideo}
+            findings={findings} selectedFinding={selected} callouts={callouts} onSelectFinding={id => goTo(view, id)} />
+        </div>
+        <div className="min-w-0">
+          <SkinFindingsPanel view={view} findings={findings} history={findingsHistory} scanAt={at} skinType={currentRegion.skinType}
+            index={Math.min(index, Math.max(0, items.length - 1))} onIndex={setIndex} onGoToView={(v, f) => goTo(v, f)}
+            onNavigateToCare={onNavigateToCare} onRescan={onRescan} />
         </div>
       </div>
     </div>

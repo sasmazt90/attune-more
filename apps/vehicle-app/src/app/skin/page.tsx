@@ -9,6 +9,7 @@ import { lowerFaceExpressionReason } from '../../utils/skinExpression';
 import {SkinEyewearCheck,SkinEyewearGate,SKIN_CAPTURE_POLICY,type EyewearStatus} from '../../utils/skinEyewear';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { validFindings } from '../../utils/skinFindings';
 import { useRouter } from 'next/navigation';
 import { useVehicle } from '../../context/VehicleContext';
 import {
@@ -844,6 +845,16 @@ export default function SkinPage() {
   });
 
   // Care modülüne yönlendirme (Dermatoloji el sıkışması)
+  // Earlier scans with validated findings (numeric only, no photos) for the history chart of each finding.
+  const findingsHistory = React.useMemo(() => {
+    if (isDemoMode() || typeof window === 'undefined') return [];
+    try {
+      const rows = JSON.parse(localStorage.getItem(STORAGE_KEYS.SKIN_HISTORY) || '[]');
+      return (Array.isArray(rows) ? rows : []).filter((r: any) => r?.id !== analysisResult?.id && typeof r?.timestamp === 'string' && validFindings(r?.general?.findings))
+        .map((r: any) => ({ at: r.timestamp, findings: r.general.findings.findings }));
+    } catch { return []; }
+  }, [analysisResult?.id]);
+
   const handleNavigateToCare = () => {
     const isDemo = isDemoMode();
     const currentRegion = buildSkinViewModel(selectedRegionId, analysisResult, isDemo);
@@ -972,6 +983,11 @@ export default function SkinPage() {
         <SkinResultView
           currentRegion={currentRegionData}
           snapshot={snapshots[snapshotAngleForRegion(selectedRegionId, analysisResult?.comparisonScope === 'three-angle-v2')]}
+          findings={(analysisResult as any)?.general?.findings?.findings}
+          findingsHistory={findingsHistory}
+          scanAt={(analysisResult as any)?.timestamp}
+          onRescan={() => { setMediaStream(null); setIsLiveVideo(false); setScanState('READY'); }}
+          onSelectView={(view) => setSelectedRegionId(view as SkinViewId)}
           onPrev={handlePrevRegion}
           onNext={handleNextRegion}
           onOpenModal={(modal) => setActiveModal(modal)}

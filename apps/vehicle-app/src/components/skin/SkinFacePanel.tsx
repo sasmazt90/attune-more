@@ -10,8 +10,10 @@ import { cameraCrop } from '../CameraPreparation';
 import { StablePreviewCrop } from '../../utils/cameraStability';
 import { meshTriangles, closedSurfaceSupportEnabled } from '../../utils/skinSurfaceAnalysis';
 import { skinBoxEnvelope } from '../../utils/skinBoxEnvelope';
-import { paintPath, faceWidthPx, PAINT_LABELS, PAINT_TAG_ANCHOR, PAINT_KEYS, paintKey, paintKeyColor, type PaintRegionId, type PaintState } from '../../utils/skinTypePaint';
+import { PAINT_OUTLINES, paintPath, faceWidthPx, PAINT_LABELS, PAINT_TAG_ANCHOR, PAINT_KEYS, paintKey, paintKeyColor, type PaintRegionId, type PaintState } from '../../utils/skinTypePaint';
 import { SkinInconclusiveDialog } from './SkinInconclusiveDialog';
+import { FINDING_DEFS, findingColor, findingAreaPath, isFindingView, viewFindings, type SkinFinding, type SkinFindingId } from '../../utils/skinFindings';
+import { SkinFindingCallouts, type FindingCallout } from './SkinFindingCallouts';
 
 interface SkinFacePanelProps {
   currentRegion: SkinRegionData;
@@ -24,7 +26,15 @@ interface SkinFacePanelProps {
   isLiveVideo?: boolean;
   landmarks?: { x: number; y: number }[];
   selectedCriterion?: string | null;
+  findings?: SkinFinding[];
+  selectedFinding?: SkinFindingId | null;
+  /** labels around the photo that point at each finding; tapping one selects it */
+  callouts?: FindingCallout[];
+  onSelectFinding?: (id: SkinFindingId) => void;
 }
+/** Paint outlines a result page covers: the T-zone page shows forehead and nose together. */
+const PAGE_OUTLINES: Record<string, PaintRegionId[]> = { forehead: ['forehead', 'nose'] };
+const pageOutlines = (id: string): PaintRegionId[] => PAGE_OUTLINES[id] || (id in PAINT_OUTLINES ? [id as PaintRegionId] : []);
 
 function pointInPolygon(x: number, y: number, poly: { x: number; y: number }[]): boolean {
   let inside = false;
@@ -46,7 +56,11 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
   videoRef,
   isLiveVideo = false,
   landmarks,
-  selectedCriterion
+  selectedCriterion,
+  findings,
+  selectedFinding,
+  callouts,
+  onSelectFinding
 }) => {
   const { text: i18nText, node: i18nNode } = useTranslations();
   const [inconclusive, setInconclusive] = useState<{ regionId: string; causes?: string[] | null } | null>(null);
@@ -86,7 +100,12 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
     const targetMeshes = currentRegion.id === 'nose'
       ? ['forehead', 'nose', 'chin'].map(id => snapshot.meshes?.[id]).filter(Boolean)
       : snapshot.meshes?.[currentRegion.id] ? [snapshot.meshes[currentRegion.id]] : [];
-    const pts = targetMeshes.flatMap(m => m!.points || []);
+    let pts = targetMeshes.flatMap(m => m!.points || []);
+    // Frame each result page by its anatomical outline (the same shape that is painted); meshes are the fallback.
+    if (mode === 'result' && snapshot.landmarks && snapshot.landmarks.length >= 468 && pageOutlines(currentRegion.id).length) {
+      const lm = snapshot.landmarks;
+      pts = pageOutlines(currentRegion.id).flatMap(r => PAINT_OUTLINES[r]).flat().filter((p): p is number => typeof p === 'number').map(i => ({ x: lm[i].x * snapshot.width, y: lm[i].y * snapshot.height }));
+    }
     if (pts.length === 0) return base;
 
     let minX = pts[0].x, maxX = pts[0].x, minY = pts[0].y, maxY = pts[0].y;
@@ -98,8 +117,10 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
     }
     const rawW = Math.max(40, maxX - minX);
     const rawH = Math.max(40, maxY - minY);
-    const padX = Math.max(rawW * 0.28, 24);
-    const padY = Math.max(rawH * 0.28, 24);
+    // Wide, shallow regions (eyes, forehead) get a tighter frame so their details stay readable.
+    const padK = ['periorbital', 'forehead'].includes(currentRegion.id) ? 0.06 : 0.28;
+    const padX = Math.max(rawW * padK, 24);
+    const padY = Math.max(rawH * padK, 24);
     const targetAspect = base.width / Math.max(1, base.height);
     let boxW = rawW + padX * 2;
     let boxH = rawH + padY * 2;
@@ -120,7 +141,7 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
       width: Math.round(boxW * 10) / 10,
       height: Math.round(boxH * 10) / 10
     };
-  }, [snapshot, currentRegion.id]);
+  }, [snapshot, currentRegion.id, mode]);
 
   const clipMeshes = snapshot
     ? currentRegion.id === 'overview'
@@ -156,11 +177,12 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
+      <SkinFindingCallouts callouts={mode === 'result' ? callouts : undefined} crop={displayCrop} photoRef={panel} active={selectedFinding || null} onSelect={onSelectFinding}>
       {/* Natural portrait pixels; fixed aspect ratio prevents height jumps across region tabs. */}
       <div
         className={`relative w-full ${isLiveVideo && mode === 'scan' || snapshot ? 'max-w-[480px]' : 'max-w-[360px]'} rounded-2xl overflow-hidden select-none`}
         ref={panel}
-        style={displayCrop ? { aspectRatio: displayCrop.width / displayCrop.height, maxWidth: 400 } : isLiveVideo && mode === 'scan' ? { aspectRatio: videoRatio * crop.width / crop.height, maxWidth: `min(480px,${65 * videoRatio * crop.width / crop.height}vh)` } : undefined}
+        style={displayCrop ? { aspectRatio: displayCrop.width / displayCrop.height, maxWidth: 460 } : isLiveVideo && mode === 'scan' ? { aspectRatio: videoRatio * crop.width / crop.height, maxWidth: `min(480px,${65 * videoRatio * crop.width / crop.height}vh)` } : undefined}
         data-face-panel
         data-preview-crop={isLiveVideo && mode === 'scan' ? JSON.stringify(crop) : snapshot?.previewCrop ? JSON.stringify(snapshot.previewCrop) : undefined}
         data-source-pixel-width={displayCrop?.width}
@@ -255,12 +277,12 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                 {/* Regional skin-type map, HUD style: thin glowing outline per region, dot-matrix fill that is
                     brighter at the edge and fades inward, small tags. Unmeasured = grey dashed outline;
                     sensitive = pink inset dashed ring + sparse pink dots. Never global skinType, never boxes. */}
-                {mode === 'result' && !selectedCriterion && regionalTrace && snapshot.landmarks && snapshot.landmarks.length >= 468 && (() => {
+                {mode === 'result' && !selectedCriterion && !selectedFinding && regionalTrace && snapshot.landmarks && snapshot.landmarks.length >= 468 && (() => {
                   const lmk = snapshot.landmarks!;
                   const fw = faceWidthPx(lmk, snapshot.width);
                   const ids: PaintRegionId[] = ['forehead', 'nose', 'rightCheek', 'leftCheek', 'chin', 'periorbital'];
                   const rows = ids.flatMap(regionId => {
-                    if (currentRegion.id !== 'overview' && currentRegion.id !== 'nose' && currentRegion.id !== regionId) return [];
+                    if (currentRegion.id !== 'overview' && currentRegion.id !== 'nose' && !pageOutlines(currentRegion.id).includes(regionId)) return [];
                     if (currentRegion.id === 'nose' && !['forehead', 'nose', 'chin'].includes(regionId)) return [];
                     const regEntry = regionalTrace[regionId];
                     if (!regEntry) return [];
@@ -327,6 +349,40 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                           <g key={`tag-${r.regionId}`} data-skin-type-tag={r.regionId}>
                             <rect x={x - tw / 2} y={y - fs * 0.75} width={tw} height={fs * 1.5} rx={fs * 0.75} fill="#0a1220" fillOpacity="0.68" stroke={c} strokeOpacity="0.9" strokeWidth={fw / 400} />
                             <text x={x} y={y + fs * 0.34} textAnchor="middle" fontSize={fs} fill="#ebf2fa" style={{ fontFamily: 'inherit' }}>{text}</text>
+                          </g>
+                        );
+                      })}
+                    </g>
+                  );
+                })()}
+                {mode === 'result' && selectedFinding && snapshot.landmarks && snapshot.landmarks.length >= 468 && (() => {
+                  const f = isFindingView(currentRegion.id) ? viewFindings(findings, currentRegion.id).find(x => x.id === selectedFinding) : undefined;
+                  if (!f) return null;
+                  const color = findingColor(f.id), fw = faceWidthPx(snapshot.landmarks, snapshot.width), kind = FINDING_DEFS[f.id].kind;
+                  const samePhoto = !f.pose || f.pose === snapshot.angle;
+                  const area = findingAreaPath(f.id, snapshot.landmarks, snapshot.width, snapshot.height)
+                    || pageOutlines(currentRegion.id).filter(r => findings?.some(x => x.id === f.id && x.status === 'seen' && x.region === r) || f.region === r)
+                      .map(r => paintPath(r, snapshot.landmarks!, snapshot.width, snapshot.height)).filter(Boolean).join('') || null;
+                  const step = fw / 55;
+                  return (
+                    <g data-skin-finding-layer={f.id} pointerEvents="none">
+                      <defs>
+                        <filter id={`${maskId}-f-glow`} x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation={fw / 120} /></filter>
+                        <pattern id={`${maskId}-f-dots`} patternUnits="userSpaceOnUse" width={step} height={step}><circle cx={step / 2} cy={step / 2} r={fw / 300} fill={color} /></pattern>
+                      </defs>
+                      {area && kind !== 'count' && <>
+                        <path d={area} fill={color} fillOpacity={kind === 'area' ? 0.2 : 0.12} fillRule="evenodd" />
+                        <path d={area} fill={`url(#${maskId}-f-dots)`} fillRule="evenodd" opacity="0.6" />
+                        <path d={area} fill="none" stroke={color} strokeWidth={fw / 70} strokeOpacity="0.35" filter={`url(#${maskId}-f-glow)`} />
+                        <path d={area} fill="none" stroke={color} strokeWidth={fw / 180} strokeLinejoin="round" />
+                      </>}
+                      {samePhoto && (f.markers || []).map((m, i) => {
+                        const r = Math.max(m.r || 0, fw / 34);
+                        return (
+                          <g key={i} data-skin-finding-marker={i}>
+                            <circle cx={m.x} cy={m.y} r={r * 1.25} fill="none" stroke={color} strokeWidth={fw / 110} strokeOpacity="0.35" filter={`url(#${maskId}-f-glow)`} />
+                            <circle cx={m.x} cy={m.y} r={r} fill="none" stroke={color} strokeWidth={fw / 230} />
+                            <circle cx={m.x} cy={m.y} r={fw / 260} fill={color} />
                           </g>
                         );
                       })}
@@ -408,6 +464,7 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
           )
         )}
       </div>
+      </SkinFindingCallouts>
 
       {/* Yüzün Altındaki Sayaç ve İndikatör */}
       {mode === 'result' && onPrev && onNext && (

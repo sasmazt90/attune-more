@@ -20,7 +20,8 @@ export function effectiveSkinType(general: any): any {
     decisionVersion: general.regionalSkinMap.classifierVersion || general.regionalSkinMap.version, decisionTrace: { ...(base?.decisionTrace || {}), regions: general.regionalSkinMap.regions } };
 }
 export type SkinViewId = 'overview' | SkinRegionId;
-export const SKIN_VIEW_ORDER: SkinViewId[] = ['overview', ...REGION_ORDER];
+/** Top-down anatomical order of the result pages (tabs and arrows share it). */
+export const SKIN_VIEW_ORDER: SkinViewId[] = ['overview', 'forehead', 'periorbital', 'rightCheek', 'leftCheek', 'chin'];
 /** Display known criteria from the current UTF-8 dictionary. Never rewrite a
  * historical row or attempt a blanket encoding conversion of unknown text. */
 function displayLabels(rows: SkinIndicator[], scope: 'regional'|'whole-face'): SkinIndicator[] {
@@ -71,9 +72,9 @@ export function buildSkinViewModel(id: SkinViewId, result: any, demo = false): S
     // Historical numeric records can predate schemaVersion 3. Preserve their
     // actual regional rows without inventing an overview or changing units.
     return { ...region, skinType: effectiveSkinType(result?.general), ...(Array.isArray(result?.indicators?.[id]) ? { indicators: displayLabels(result.indicators[id],'regional') } : {}),
-      index: region.index + (result?.general ? 1 : 0), viewTotal: result?.general ? 7 : 6 };
+      index: result?.general ? SKIN_VIEW_ORDER.indexOf(id) + 1 : region.index, viewTotal: result?.general ? SKIN_VIEW_ORDER.length : 6 };
   }
-  return { ...SKIN_REGIONS.forehead, id: 'overview', index: 1, viewTotal: 7,
+  return { ...SKIN_REGIONS.forehead, id: 'overview', index: 1, viewTotal: SKIN_VIEW_ORDER.length,
     nameTr: 'Genel Bakış', indicators: displayLabels(result?.general?.indicators || [],'whole-face'), skinType: effectiveSkinType(result?.general),
     badgeText: '', changePct: 0, isAttentionRequired: false, trend: [],
     observation: { headline: 'Genel Bakış', details: 'Bu oturumun ön pozundaki genel cilt görünümü.' } };
