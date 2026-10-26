@@ -123,6 +123,8 @@ Bu bölüm teslim commit'indeki satır numaralarını verir. Codex yeniden incel
 | 2f | Bölge kapsamı | Kapsam = bulgunun her iki kayıtta satırı olan bölgeleri; biri ölçülmemişse `PARTIAL_REGIONS`. Sayfa/genel bakışta ölçülemeyen bölge `incomplete` ile yazılır (`skinFindings.ts:151`); sayılamayan bölge varsa toplam sayı gösterilmez (`:152`) | `…::test_states_scope_versions_and_legacy_counts` |
 | 2g | Tutarlılık | Grafik (`SkinFindingCard.tsx` `History`), modül kartı, tablo, ayrıntı ve öneri aynı `measureOf` / `compareMeasures` kurallarını kullanır | `tests/e2e/skin_health_history_ui.py`, `current_skin_findings_sample_ui.py` |
 | 3 | Yan pozların fotoğrafı saklanmıyor (`INVALID_OVERVIEW_SOURCE`) | `apps/vehicle-app/src/app/skin/page.tsx:572` — genel sonuç yalnız FRONT karesine yazılır, LEFT/RIGHT'tan kaldırılır. `skinPhotoHistory.ts` doğrulamaları değişmedi | `tests/unit/skin_photo_three_pose_storage.cjs` (+ pytest sarmalayıcısı), `tests/e2e/skin_photo_storage.py` (gerçek tarama, IndexedDB) — sonuç §6 |
+| 5 | Kesinleştirilemeyen bulgu geçmişte kayboluyor (sivilce notSeen + rozasea inconclusive → "Bu taramada görülen bulgu yok"; sivilce 3 + rozasea inconclusive → ayrıntıda rozasea yok) | `skinHistorySummary.ts` `compareRecords`: güncel kayıtta `inconclusive` satırı olan her bulgu ayrıntıya girer; daha önce görülmüş olma şartı yok (analiz `unavailable` değilse). `recordSummary` yeni `inconclusive` listesini döndürür ve bu liste doluysa `none-seen` vermez. `RecordHistory.tsx` `SkinRowSummary`: "Rozasea eğilimi · Kesinleştirilemedi" çipi (2'den fazlaysa "N bulgu kesinleştirilemedi"). `SkinRecordComparison.tsx`: kesinleştirilemeyen bulgu varken "görülen bulgu yok" yazılmaz | `test_skin_history_summary.py::test_inconclusive_findings_stay_visible_in_history`, `tests/e2e/skin_history_inconclusive_ui.py` (örnek veri, TR/EN/DE) |
+| 6 | Sunucu 50, istemci 51 (usablePx=40000, affectedPx=10201, intensity=8 → 50,5) | Tek yuvarlama kuralı: `skin_appearance.py` `round_half_up`, `skinAppearance.ts` `roundHalfUp` (§5e). İkisi de 51 verir | `test_skin_history_summary.py::test_appearance_rounding_parity_server_client` (karşı örnek + 10 bölge / 4 havuz Python↔TS birebir eşitlik; kayıt → geçmiş → ekran 51) |
 | 4 | Görünüm skoru | §5e | `…::test_appearance_score_contract_and_comparison`, `test_skin_findings_v1.py::test_appearance_raw_values_shared_mask_and_unavailable` |
 
 ## 5e. Görünüm skoru — hesap sözleşmesi `appearance-v1`
@@ -138,7 +140,8 @@ Bu bölüm teslim commit'indeki satır numaralarını verir. Codex yeniden incel
 - alan = Σ affectedPx / Σ usablePx; yoğunluk = etkilenen piksellerle ağırlıklı ortalama.
 - Bölgesel yüzdeler toplanmaz. Ölçülmeyen bölge varsa sonuç `partial` olur ve karşılaştırılmaz.
 
-**Skor:** `score = round(100 · sqrt(min(1, alan/0,50) · min(1, yoğunluk/16)))`.
+**Skor:** `score = round_half_up(100 · sqrt(min(1, alan/0,50) · min(1, yoğunluk/16)))`.
+- **Yuvarlama (sunucu, kayıt ve ekran aynı):** `round_half_up(x, d) = floor(x·10^d + 0,5) / 10^d`. Python'da `skin_appearance.round_half_up`, TS'de `skinAppearance.roundHalfUp`. Python `round()` (yarımı çifte yuvarlar) ve `Math.round` artık kullanılmaz. `areaPct` ve `intensity` 2 ondalığa aynı kuralla yuvarlanır. Skor saklanan 2 ondalıklı yoğunluktan hesaplanır, böylece her yeniden hesap aynı sayıyı verir. Formül, sabitler, ağırlıklar ve tespit eşikleri değişmedi.
 - Sabit ölçek. Her fotoğrafta yeniden kurulmaz; ilk tarama 100 sayılmaz.
 - Alan veya yoğunluk artarken azalmaz; etkilenen piksel yoksa 0'dır.
 - Sabitler (0,50 ve 16 a*) okunur bir ölçek için seçilmiş mühendislik değerleridir; klinik olarak doğrulanmadı.
@@ -224,6 +227,13 @@ Düzeltme etkiyi azaltıyor ama tamamen gidermiyor (K-074'te 1 kayıp, K-258'de 
 ## 6. Doğrulama
 
 ### 6.0 Codex düzeltme turu (bu teslim) — ayrı ayrı raporlanmıştır
+
+**Ek tur (Codex: kesinleştirilemeyen bulgu + yuvarlama, 2026-10-26)** — test edilen kod bu teslim commit'idir.
+- Birim: `test_skin_history_summary.py` 5/5 (yeni: `test_inconclusive_findings_stay_visible_in_history`, `test_appearance_rounding_parity_server_client`); ilgili set (history, findings_v1, findings_i18n, findings_ui, localization, photo three-pose) 35/35. Tüm `tests/unit`: 1453 geçti, 45 atlandı, 6 başarısız (tabanda da başarısız olan aynı 6: yolox ×5, özel model.onnx ×1).
+- `tsc --noEmit` temiz · `npm run lint` uyarı/hata yok · `npm run build` başarılı · `scripts/localization/check.cjs` failures=[].
+- Örnek veriyle arayüz (model çıktısı değil): `tests/e2e/skin_history_inconclusive_ui.py` (yeni, TR/EN/DE) PASS; `skin_health_history_ui.py` PASS; `current_skin_findings_sample_ui.py` PASS.
+- Gerçek model inference (sahte kamera y4m, K-217 sentetik karakter; fiziksel kamera DEĞİL): `current_skin_contract.py --chromium --software-gpu --skip-native-zoom` PASS. Kayıt = API yanıtı (görünüm alanları dahil); 14 appearance satırının her biri ham değerlerinden aynı skoru veriyor. Windows native zoom adımı çalıştırılmadı.
+- Çalıştırılmayanlar: fiziksel kamera, Windows launcher, araç ekranı (§6.5, §8).
 
 Kanıt dosyaları: `claude-progress/realpath-20261026/codex-fixes-20261026/`. Fotoğraf içermez.
 

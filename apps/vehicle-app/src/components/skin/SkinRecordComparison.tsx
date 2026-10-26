@@ -69,7 +69,7 @@ export function SkinRecordComparison({ record, previous, careHref }: { record: S
             <span role="cell" className="whitespace-nowrap text-right text-[15px] font-bold tabular-nums">{change(r.change, r.now)}</span>
           </div>
         ))}
-        {!rows.length && <p className="border-t border-white/[0.06] px-4 py-4 text-sm text-slate-400">{text(validFindings(res) && res.status !== 'unavailable' && res.findings.some(f => f.status === 'notSeen') ? 'Bu taramada görülen bulgu yok.' : 'Bu taramada bulgular ölçülemedi.')}</p>}
+        {!rows.length && <p className="border-t border-white/[0.06] px-4 py-4 text-sm text-slate-400" data-skin-compare-empty>{text(validFindings(res) && res.status !== 'unavailable' && res.findings.some(f => f.status === 'notSeen') && !res.findings.some(f => f.status === 'inconclusive') ? 'Bu taramada görülen bulgu yok.' : 'Bu taramada bulgular ölçülemedi.')}</p>}
       </div>
       {!!unavailable.length && (
         <div className="rounded-2xl bg-[#0f1724]">

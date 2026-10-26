@@ -117,3 +117,55 @@ console.log(JSON.stringify([[.0,0],[.1,6],[.25,10],[.5,16],[.33,7.5],[.9,40]].ma
     assert r['areaPct'] == 20.0 and r['score'] == SA.score(0.2, 10.0)
     p = SA.pool([SA.region(1000, 200, 10.0), SA.region(3000, 0, 0.0)])
     assert p['areaPct'] == 5.0 and p['intensity'] == 10.0
+
+
+def test_inconclusive_findings_stay_visible_in_history():
+    """Reviewer counter-examples: a finding this scan could not confirm is never hidden behind "no findings seen", and the
+    detail lists it even when no record ever saw it (no "seen before" condition)."""
+    run(PRELUDE + r'''
+const ri=(x={})=>st('rosacea','nose','inconclusive',{causes:['ANGLE'],...x});
+// (a) acne measured absent + rosacea inconclusive -> not "none-seen"; rosacea named as not confirmed
+const a=rec('a','2026-10-21T10:00:00Z',[st('acne','forehead','notSeen'),ri()]);
+let s=H.recordSummary(a,'tr-TR');assert.notEqual(s.state,'none-seen');assert.deepEqual(s.items,[]);assert.deepEqual(s.inconclusive,['rosacea']);
+let rows=H.compareRecords(a,undefined);assert.deepEqual(rows.map(x=>[x.id,x.now.state,x.change.kind]),[['rosacea','inconclusive','none']]);   // no previous record: nothing to compare
+// with a previous record where rosacea was measured absent (never seen): still listed
+const prevNo=rec('p','2026-10-20T10:00:00Z',[st('acne','forehead','notSeen'),st('rosacea','nose','notSeen')]);
+rows=H.compareRecords(a,prevNo);assert.equal(row(rows,'rosacea').now.state,'inconclusive');assert(!['up','down','same','new','gone'].includes(row(rows,'rosacea').change.kind));   // no change is claimed from an unknown state
+// (b) acne seen count 3 + rosacea inconclusive -> summary shows acne 3 and rosacea not confirmed; detail has both
+const b=rec('b','2026-10-22T10:00:00Z',[acne(3),ri()]);
+s=H.recordSummary(b,'tr-TR');assert.equal(s.state,'measured');assert.deepEqual(s.items.map(x=>[x.id,x.value]),[['acne','3']]);assert.deepEqual(s.inconclusive,['rosacea']);
+for(const prev of [undefined,prevNo]){rows=H.compareRecords(b,prev);assert.equal(row(rows,'acne').now.value,3);assert.equal(row(rows,'rosacea').now.state,'inconclusive');}
+// a seen finding is not listed again as inconclusive; an unavailable analysis lists nothing as inconclusive
+s=H.recordSummary(rec('c','2026-10-22T10:00:00Z',[acne(3),st('acne','nose','inconclusive')]),'tr-TR');assert.deepEqual(s.inconclusive,[]);
+assert.deepEqual(H.compareRecords(rec('u','2026-10-22T10:00:00Z',[ri()],{status:'unavailable',reason:'FUSION_FAILED'}),undefined),[]);
+// unchanged: only measured absences -> "none-seen"
+assert.equal(H.recordSummary(rec('n','2026-10-22T10:00:00Z',[st('acne','forehead','notSeen'),st('rosacea','nose','notSeen')]),'tr-TR').state,'none-seen');
+''')
+
+
+def test_appearance_rounding_parity_server_client():
+    """Reviewer counter-example: usablePx=40000, affectedPx=10201, intensity=8 -> 50.5 before rounding. Server (Python),
+    record and screen (TypeScript) must carry the same score: one half-up rule in both."""
+    import skin_appearance as SA
+    cases = [(40000, 10201, 8.0), (1000, 300, 9.6), (1000, 150, 4.8), (3000, 30, 5.0), (987, 123, 7.333), (5000, 4999, 31.2),
+             (1234, 0, 0.0), (77777, 1111, 3.005), (40000, 10201, 8.004), (12000, 2550, 12.345)]
+    pools = [[0, 1], [0, 3, 4], [2, 6, 7], [8, 9]]
+    py_regions = [SA.region(*c) for c in cases]
+    py_pools = [SA.pool([py_regions[i] for i in p]) for p in pools]
+    assert py_regions[0]['score'] == 51
+    out = run(PRELUDE + r'''
+const cases=''' + json.dumps(cases) + r''',pools=''' + json.dumps(pools) + r''';
+// a region as the client receives it from the API (raw values), re-scored and re-pooled on the client
+const reg=([u,a,i])=>{const inten=a?A.roundHalfUp(i,2):0;return {version:'appearance-v1',usablePx:u,affectedPx:a,areaPct:A.roundHalfUp(100*a/u,2),intensity:inten,score:A.appearanceScore(a/u,inten)};};
+assert.equal(A.appearanceScore(10201/40000,8),51);
+const one=A.poolAppearance([reg(cases[0])]);assert.equal(one.score,51);
+// the record -> history -> screen path keeps 51
+const r=rec('x','2026-10-22T10:00:00Z',[st('rosacea','nose','seen',{appearance:reg(cases[0])})]);
+assert.equal(H.measureOf(H.resultOf(r),'rosacea',['nose']).value,51);assert.equal(H.formatValue(H.measureOf(H.resultOf(r),'rosacea',['nose']),'tr-TR'),'51');
+console.log(JSON.stringify({regions:cases.map(reg),pools:pools.map(p=>A.poolAppearance(p.map(i=>reg(cases[i]))))}));
+''')
+    ts = json.loads(out.strip().splitlines()[-1])
+    assert ts['regions'] == py_regions, (ts['regions'], py_regions)
+    assert ts['pools'] == py_pools, (ts['pools'], py_pools)
+    # the half-up rule itself, at exact halves
+    assert [SA.round_half_up(x) for x in (50.5, 49.5, 0.5, 99.5)] == [51, 50, 1, 100]

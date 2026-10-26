@@ -11,7 +11,7 @@ import {ResultValue} from './ResultValue';
 import {SkinRecordDetail} from './skin/SkinRecordDetail';
 import {SkinRecordComparison} from './skin/SkinRecordComparison';
 import {ChevronRight,Trash2} from 'lucide-react';
-import {findingColor,validFindings} from '../utils/skinFindings';
+import {FINDING_DEFS,findingColor,validFindings} from '../utils/skinFindings';
 import {recordSummary,skinTypeLabel} from '../utils/skinHistorySummary';
 import {DentalRecordDetail} from './DentalRecordDetail';
 import {LetterVisionResult} from './LetterVisionResult';
@@ -77,7 +77,9 @@ function SkinRowSummary({record}:{record:HealthRecord}){
   {type&&<span className={chip}>{text(type)}</span>}
   {sum.items.slice(0,2).map(f=><span key={f.id} className={chip}><span className="h-2 w-2 rounded-full" style={{background:findingColor(f.id)}} aria-hidden="true"/>{text(f.label)} {f.value}</span>)}
   {sum.items.length>2&&<span className={chip}>{text(`+${sum.items.length-2} bulgu`)}</span>}
+  {sum.inconclusive.length>0&&sum.inconclusive.length<=2&&sum.inconclusive.map(id=><span key={id} className={chip+' text-amber-200'} data-skin-row-inconclusive={id}>{text(FINDING_DEFS[id].label)} · {text('Kesinleştirilemedi')}</span>)}
+  {sum.inconclusive.length>2&&<span className={chip+' text-amber-200'} data-skin-row-inconclusive={sum.inconclusive.join(',')}>{text(`${sum.inconclusive.length} bulgu kesinleştirilemedi`)}</span>}
   {sum.state==='none-seen'&&<span className={chip}>{text('Bulgu görülmedi')}</span>}
-  {sum.state==='not-measured'&&<span className={chip+' text-amber-200'}>{text('Bulgular ölçülemedi')}</span>}
+  {sum.state==='not-measured'&&!sum.inconclusive.length&&<span className={chip+' text-amber-200'}>{text('Bulgular ölçülemedi')}</span>}
  </span>;
 }

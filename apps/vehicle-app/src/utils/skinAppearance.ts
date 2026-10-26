@@ -14,19 +14,24 @@ export const APPEARANCE_FINDINGS: SkinFindingId[] = ['redness', 'rosacea', 'ecze
 export type Appearance = { version: string; usablePx: number; affectedPx: number; areaPct: number; intensity: number; score: number };
 export type PooledAppearance = Appearance & { partial: boolean; covered: SkinFindingRegion[]; missing: SkinFindingRegion[] };
 
+/** floor(x * 10^d + 0.5) / 10^d — the one rounding rule shared with skin_appearance.py (round_half_up); never
+ * Math.round's or Python round()'s own rules, so server, record and screen carry the same numbers. */
+export function roundHalfUp(x: number, digits = 0): number {
+  const k = 10 ** digits;
+  return Math.floor(x * k + 0.5) / k;
+}
 export function appearanceScore(area: number, intensity: number): number {
   const a = Math.min(1, Math.max(0, area) / AREA_FULL), i = Math.min(1, Math.max(0, intensity) / INTENSITY_FULL);
-  return Math.round(100 * Math.sqrt(a * i));
+  return roundHalfUp(100 * Math.sqrt(a * i));
 }
-/** Python round() is half-to-even; the pooled values are recomputed here, so round half away is close enough for
- * display but the score itself uses the exact ratio (parity test compares the score and the 2-decimal raw values). */
-const r2 = (v: number) => Math.round(v * 100) / 100;
+const r2 = (v: number) => roundHalfUp(v, 2);
 export function poolAppearance(rows: Appearance[]): Appearance | null {
   if (!rows.length || rows.some(r => !r || r.version !== APPEARANCE_VERSION)) return null;
   const usable = rows.reduce((s, r) => s + r.usablePx, 0), affected = rows.reduce((s, r) => s + r.affectedPx, 0);
   if (usable <= 0) return null;
-  const intensity = affected ? rows.reduce((s, r) => s + r.affectedPx * r.intensity, 0) / affected : 0, area = affected / usable;
-  return { version: APPEARANCE_VERSION, usablePx: usable, affectedPx: affected, areaPct: r2(100 * area), intensity: r2(intensity), score: appearanceScore(area, intensity) };
+  // the score uses the stored 2-decimal intensity, exactly as the server does
+  const intensity = affected ? r2(rows.reduce((s, r) => s + r.affectedPx * r.intensity, 0) / affected) : 0, area = affected / usable;
+  return { version: APPEARANCE_VERSION, usablePx: usable, affectedPx: affected, areaPct: r2(100 * area), intensity, score: appearanceScore(area, intensity) };
 }
 const valid = (a: unknown): a is Appearance => {
   const v = a as Appearance;

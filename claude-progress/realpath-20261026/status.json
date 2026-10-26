@@ -55,8 +55,20 @@
    "stage": "codex-fixes",
    "done": "1+ removed (measured 0 / not counted), history states+comparability, 3-pose photo storage, appearance-v1 score (red findings); unit 1450 pass, sample E2E x3, photo E2E (a-d), real camera E2E K-217 PASS",
    "blocker": "melasma/acneMarks: no affected-area mask (score unavailable); pores: no existing measure; physical camera not tested"
+  },
+  {
+   "time": "2026-10-26T23:04:44+01:00",
+   "stage": "codex-round-3: inconclusive history + rounding parity",
+   "done": "fixed, tests/typecheck/lint/build/e2e run",
+   "blocker": "- (physical camera / Windows launcher / vehicle screen still open)"
+  },
+  {
+   "time": "2026-10-26T23:04:48+01:00",
+   "stage": "codex-round-3: inconclusive history + rounding parity",
+   "done": "fixed; unit/typecheck/lint/build/e2e run",
+   "blocker": "physical camera / Windows launcher / vehicle screen still open"
   }
  ],
- "updated": "2026-10-26T22:21:57+01:00",
- "stage": "codex-fixes"
+ "updated": "2026-10-26T23:04:48+01:00",
+ "stage": "codex-round-3: inconclusive history + rounding parity"
 }

@@ -185,6 +185,13 @@ with sync_playwright() as pw:
     assert rec['general']['findings'] == fused['findings']
     assert rec['general']['regionalSkinMap'] == fused['regionalSkinMap']
     assert hist[0]['id'] == rec['id'] and hist[0]['general']['findings'] == fused['findings']
+    # appearance-v1: every stored score re-scores identically from its raw values (one half-up rule; TS parity is
+    # covered by tests/unit/test_skin_history_summary.py::test_appearance_rounding_parity_server_client)
+    sys.path.insert(0, str(Path.cwd() / 'services/core-api')); import skin_appearance as SA
+    app_rows = [f for f in fused['findings']['findings'] if f.get('appearance')]
+    for f in app_rows:
+        a = f['appearance']; assert a == SA.region(a['usablePx'], a['affectedPx'], a['intensity']), f
+    print('appearance rows:', len(app_rows), sorted({(f['id'], f['region'], f['status'], f['appearance']['score']) for f in app_rows}))
     if fused['regionalSkinMap'] and fused['regionalSkinMap']['skinType']['quality'] == 'valid':
         assert rec['general']['skinType']['value'] == fused['regionalSkinMap']['skinType']['value']
     else:

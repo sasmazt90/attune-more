@@ -114,11 +114,13 @@ export function formatValue(m: { kind?: MetricKind; value?: number; atLeast?: bo
 }
 
 export type DetailRow = { id: SkinFindingId; label: string; views: string[]; now: Measure; change: Change };
-/** Detail window: every finding seen now or in the previous record, measured over the regions of either record. */
+/** Detail window: every finding seen now or in the previous record, and every finding this scan could not confirm
+ * (inconclusive) whether or not it was ever seen — measured over the regions of either record. */
 export function compareRecords(current: SkinRecord, previous: SkinRecord | undefined): DetailRow[] {
   const cur = resultOf(current), prev = resultOf(previous);
   const ids = new Set<SkinFindingId>();
   for (const res of [cur, prev]) for (const f of res?.findings || []) if (f.status === 'seen') ids.add(f.id);
+  if (cur?.status !== 'unavailable') for (const f of cur?.findings || []) if (f.status === 'inconclusive' && f.id in FINDING_DEFS) ids.add(f.id);
   const order = overviewFindings((cur?.findings || []).concat((prev?.findings || []).filter(f => !cur?.findings.some(g => g.id === f.id && g.region === f.region)))).map(f => f.id);
   return [...ids].sort((a, b) => order.indexOf(a) - order.indexOf(b)).map(id => {
     const scope = scopeOf(id, [cur, prev]);
@@ -129,12 +131,14 @@ export function compareRecords(current: SkinRecord, previous: SkinRecord | undef
 }
 
 /** Table summary: state of the analysis and its seen findings with their values. */
-export function recordSummary(r: SkinRecord, locale: string): { state: 'measured' | 'none-seen' | 'not-measured'; items: { id: SkinFindingId; label: string; value: string }[] } {
+export function recordSummary(r: SkinRecord, locale: string): { state: 'measured' | 'none-seen' | 'not-measured'; items: { id: SkinFindingId; label: string; value: string }[]; inconclusive: SkinFindingId[] } {
   const res = resultOf(r);
-  if (!res || res.status === 'unavailable') return { state: 'not-measured', items: [] };
+  if (!res || res.status === 'unavailable') return { state: 'not-measured', items: [], inconclusive: [] };
   const seenIds = [...new Set(overviewFindings(res.findings).map(f => f.id))];
-  if (!seenIds.length) return { state: res.findings.some(f => f.status === 'notSeen') ? 'none-seen' : 'not-measured', items: [] };
-  return { state: 'measured', items: seenIds.map(id => { const m = measureOf(res, id, scopeOf(id, [res])); return { id, label: FINDING_DEFS[id].label, value: formatValue(m, locale) }; }) };
+  // findings this scan could not confirm, and not seen anywhere: they are never hidden behind "no findings seen"
+  const inconclusive = [...new Set(res.findings.filter(f => f.status === 'inconclusive' && f.id in FINDING_DEFS && !seenIds.includes(f.id)).map(f => f.id))];
+  if (!seenIds.length) return { state: !inconclusive.length && res.findings.some(f => f.status === 'notSeen') ? 'none-seen' : 'not-measured', items: [], inconclusive };
+  return { state: 'measured', inconclusive, items: seenIds.map(id => { const m = measureOf(res, id, scopeOf(id, [res])); return { id, label: FINDING_DEFS[id].label, value: formatValue(m, locale) }; }) };
 }
 
 /** Module card: the last `n` analysed scans. Per finding, the exact values of the same kind and method as the newest
