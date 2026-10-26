@@ -1,12 +1,13 @@
 {
   "schemaVersion": 1,
   "dateEuropeBerlin": "2026-10-27",
-  "observedAt": "2026-10-26T23:03:56Z",
+  "observedAt": "2026-10-26T23:09:00Z",
   "repository": {
     "fullName": "sasmazt90/attune-more",
     "branch": "work/skin-roadmap-20261023",
     "failedCandidateCommit": "6c3e07ce1b696a17686ff75943efeadb35ee8180",
-    "retryCandidateCommit": "accd4ca458bb3ea2f5de31af0582a374f950df45"
+    "retryCandidateCommit": "accd4ca458bb3ea2f5de31af0582a374f950df45",
+    "secondRetryCandidateCommit": "85c24fdfca85a068c5bc02c73299e1a68ace7d07"
   },
   "failedAttempt": {
     "browserRunId": 40406100671,
@@ -37,9 +38,37 @@
   "retry": {
     "browserRunId": 40417064645,
     "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40417064645",
-    "statusAtCheckpoint": "in_progress",
+    "statusAtCheckpoint": "completed",
+    "conclusion": "failure",
     "matchingRepositoryCiRunId": 40417064657,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40417064657",
+    "matchingRepositoryCiStatusAtCheckpoint": "completed",
+    "matchingRepositoryCiConclusion": "success",
+    "jobId": 121901946512,
+    "artifactId": 12694784601,
+    "artifactDigest": "sha256:40cf91e8106b4b66c5b6408047204236d08078ce784b4da21122b136043272e2",
+    "completedRuntimeSetup": true,
+    "productionBuildPassed": true,
+    "serversHealthChecked": true,
+    "fixturePrepared": false,
+    "browserTestsExecuted": false,
+    "sanitizedEvidenceProduced": false,
+    "rootCause": "the Python fixture routed generated JavaScript modules through Playwright path= values relative to the driver process; the dynamic import was not fulfilled and the production server returned 404 for /skinAnalyzer.js"
+  },
+  "secondTargetedFix": {
+    "source": "tests/e2e/prepare_multi_angle_fixture.py",
+    "change": "serve exact production-origin fixture URLs from Python-owned module text and frame bytes, with an explicit assertion that both generated modules were intercepted",
+    "pythonCompilePassed": true,
+    "diffCheckPassed": true,
+    "roboflowTrainingChanged": false,
+    "modelOrThresholdChanged": false
+  },
+  "secondRetry": {
+    "browserRunId": 40417644901,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40417644901",
+    "statusAtCheckpoint": "in_progress",
+    "matchingRepositoryCiRunId": 40417644963,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40417644963",
     "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
     "sanitizedEvidencePending": true
   },

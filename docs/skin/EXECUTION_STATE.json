@@ -2811,7 +2811,7 @@
     {
       "id": "13",
       "target": "unified-results-and-trends",
-      "status": "real_chromium_acceptance_retry_running_camera_class_acceptance_pending",
+      "status": "real_chromium_acceptance_second_retry_running_camera_class_acceptance_pending",
       "work": "Integrate accepted outputs incrementally into maps/cards/history; explicit unavailable reasons; method/version compatibility for trends; end-to-end camera/API/result/history tests and final acceptance report.",
       "evidence": [
         "docs/skin/regional-evidence-contract-20261023.md",
@@ -3643,12 +3643,12 @@
         "acceptedBrowserEvidenceProduced": false
       },
       "browserAcceptanceJob": {
-        "candidateCommit": "accd4ca458bb3ea2f5de31af0582a374f950df45",
-        "runId": 40417064645,
-        "url": "https://github.com/sasmazt90/attune-more/actions/runs/40417064645",
+        "candidateCommit": "85c24fdfca85a068c5bc02c73299e1a68ace7d07",
+        "runId": 40417644901,
+        "url": "https://github.com/sasmazt90/attune-more/actions/runs/40417644901",
         "status": "in_progress",
-        "matchingRepositoryCiRunId": 40417064657,
-        "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40417064657",
+        "matchingRepositoryCiRunId": 40417644963,
+        "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40417644963",
         "controlledFixtureOnly": true,
         "physicalCameraAcceptance": false,
         "expertGroundTruth": false,
@@ -3666,6 +3666,15 @@
           {
             "candidateCommit": "accd4ca458bb3ea2f5de31af0582a374f950df45",
             "runId": 40417064645,
+            "conclusion": "failure",
+            "productionBuildPassed": true,
+            "serversHealthChecked": true,
+            "browserTestsExecuted": false,
+            "rootCause": "relative Playwright-driver path did not fulfil generated skinAnalyzer.js; production server returned 404"
+          },
+          {
+            "candidateCommit": "85c24fdfca85a068c5bc02c73299e1a68ace7d07",
+            "runId": 40417644901,
             "status": "in_progress"
           }
         ],
@@ -3897,7 +3906,7 @@
     }
   },
   "nextActions": [
-    "Poll corrected GitHub Actions browser run 40417064645 and matching repository CI run 40417064657 for candidate commit accd4ca458bb3ea2f5de31af0582a374f950df45. The first attempt 40406100671 failed before fixture generation because localhost was used before the server started; production build and matching CI passed, so do not repeat that diagnosis or claim browser execution. On retry success, ingest only the five privacy-safe sanitized browser evidence JSON objects, bind their exact commit/build/browser/history identities and replay scripts/skin-research/check_unified_skin_result_release.py v3. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not start duplicate Roboflow work.",
+    "Poll second corrected GitHub Actions browser run 40417644901 and matching repository CI run 40417644963 for candidate commit 85c24fdfca85a068c5bc02c73299e1a68ace7d07. Attempt 40417064645 confirmed the production app/backend startup order and build, then failed before browser tests because relative Playwright-driver paths did not fulfil the generated module request; the fixture now serves exact production-origin URLs from Python-owned bytes and asserts both generated modules were intercepted. On success, ingest only the five privacy-safe sanitized browser evidence JSON objects, bind their exact commit/build/browser/history identities and replay scripts/skin-research/check_unified_skin_result_release.py v3. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not start duplicate Roboflow work.",
     "Preserve green GitHub Actions run 40297234134 and the functioning main /api/local-health/skin result flow. When consented physical-camera manifest, adjudicated expert truth and locked capture/localization receipts exist, run both evaluators and scripts/skin-research/check_physical_camera_acceptance.py with a per-class policy locked before camera_final and a real /api/local-health/skin replay. Do not mark the roadmap complete until every class and real camera/browser/map/history/privacy gate passes.",
     "After a consented physical-camera manifest exists, collect the private matrix defined by docs/skin/evidence/physical-camera-expert-review-input-template-20261026-v1.json and run scripts/skin-research/build_physical_camera_expert_truth.py. Every activated class on every capture needs exactly two independent qualified human reviews; discordant decision or polygon truth needs an independent third expert. Keep positive localized polygons normalized, model proposals hidden, missing truth distinct from evaluated negative, unknown/unassessable distinct from Normal, and Redness independent from sensitivity. Do not commit reviewer identity, image bytes or raw private fields.",
     "For consented physical-camera acceptance, populate the private input shape in docs/skin/evidence/physical-camera-benchmark-manifest-input-template-20261026-v1.json outside Git, then run scripts/skin-research/build_physical_camera_benchmark_manifest.py. The builder accepts only opaque subject/capture/consent/quality references, immutable SHA-256 hashes, exact FRONT/LEFT/RIGHT physical-camera triplets, a passed capture-quality gate and a locked camera_final split unused by training, validation or threshold selection. It rejects paths, names, contact fields, image bytes, generated inputs, predictions and expert labels. Keep expert per-class truth separate and human-authored; the manifest alone does not satisfy camera acceptance.",
@@ -3943,6 +3952,19 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-26T23:09:00Z",
+      "action": "Polled corrected browser run 40417064645 and matching CI 40417064657. CI passed; the browser job passed runtime installation, production build and both server health checks, then failed before browser/API/history/privacy tests because the generated skinAnalyzer.js module was not fulfilled through a relative Playwright-driver path and the production server returned 404. Replaced path-based fixture fulfilment with exact production-origin routes backed by Python-owned module text and frame bytes, plus an assertion that both generated modules were intercepted. Python compile and diff checks passed. Started second corrected browser run 40417644901 and matching CI 40417644963 for candidate 85c24fdf; no Roboflow training, upload, version, inference, model or threshold state changed.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": ["85c24fdfca85a068c5bc02c73299e1a68ace7d07"],
+      "runs": [
+        {"runId": 40417064645, "conclusion": "failure", "browserTestsExecuted": false},
+        {"runId": 40417064657, "conclusion": "success", "kind": "matching_repository_ci"},
+        {"runId": 40417644901, "status": "in_progress", "kind": "second_corrected_real_chromium_controlled_fixture"},
+        {"runId": 40417644963, "status": "in_progress", "kind": "matching_repository_ci"}
+      ]
+    },
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-26T23:03:56Z",
@@ -4928,6 +4950,19 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-26T23:09:00Z",
+      "action": "Polled corrected browser run 40417064645 and matching CI 40417064657. CI passed; the browser job passed runtime installation, production build and both server health checks, then failed before browser/API/history/privacy tests because the generated skinAnalyzer.js module was not fulfilled through a relative Playwright-driver path and the production server returned 404. Replaced path-based fixture fulfilment with exact production-origin routes backed by Python-owned module text and frame bytes, plus an assertion that both generated modules were intercepted. Python compile and diff checks passed. Started second corrected browser run 40417644901 and matching CI 40417644963 for candidate 85c24fdf; no Roboflow training, upload, version, inference, model or threshold state changed.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": ["85c24fdfca85a068c5bc02c73299e1a68ace7d07"],
+      "runs": [
+        {"runId": 40417064645, "conclusion": "failure", "browserTestsExecuted": false},
+        {"runId": 40417064657, "conclusion": "success", "kind": "matching_repository_ci"},
+        {"runId": 40417644901, "status": "in_progress", "kind": "second_corrected_real_chromium_controlled_fixture"},
+        {"runId": 40417644963, "status": "in_progress", "kind": "matching_repository_ci"}
+      ]
+    },
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-26T23:03:56Z",
