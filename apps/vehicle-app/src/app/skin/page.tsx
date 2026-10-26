@@ -49,6 +49,7 @@ import { SkinTrendModal } from '../../components/skin/SkinTrendModal';
 import { SkinObservationModal } from '../../components/skin/SkinObservationModal';
 import { SkinActionsModal } from '../../components/skin/SkinActionsModal';
 import { AlertTriangle, RefreshCw, ShieldAlert } from 'lucide-react';
+import { LatestVideoFrame, rawFrameOf } from '../../utils/skinRawFrame';
 
 export default function SkinPage() {
  const {text:i18nText,node:i18nNode}=useTranslations();
@@ -597,7 +598,7 @@ export default function SkinPage() {
     // Match the working 640-wide acquisition scale without degrading the
     // accepted native photo or using any display crop/zoom in measurement.
     const analysisCanvas=document.createElement('canvas');
-    const eyewearCheck=new SkinEyewearCheck(),eyewearGate=new SkinEyewearGate();
+    const eyewearCheck=new SkinEyewearCheck(),eyewearGate=new SkinEyewearGate(),latestFrame=new LatestVideoFrame();
     setEyewearStatus('PENDING');
     const loop = async () => {
       if (cancelled) return;
@@ -634,6 +635,7 @@ export default function SkinPage() {
         const ctx = canvas.getContext('2d', { willReadFrequently: true });
         if (ctx) {
           ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          latestFrame.replace(video); // the same frame as raw YUV planes (server converts with the camera profile)
 
           // Gerçek hizalama ve kalite değerlendirmesi
           if (!isMediaPipeLoadedRef.current || !inferenceRef.current) {
@@ -728,7 +730,9 @@ export default function SkinPage() {
                     if (cancelled || !parkedRef.current || !isCameraAllowed()) return;
                     const snapshot = snapshotSkinFrame(canvas, curAlign, target);
                     capture.indicators=measureSkinIndicators(ctx,snapshot,curQual);
-                    await addLocalMaps(snapshot,ctx,curQual.isValid,()=>!cancelled&&parkedRef.current&&isCameraAllowed(),capture.frameToken,capture.indicators,{...capture.pose,avgLuminance:curQual.avgLuminance,blurScore:curQual.blurScore});
+                    snapshot.rawFrame=await rawFrameOf(latestFrame.current(),canvas.width,canvas.height);
+                    if (cancelled || !parkedRef.current || !isCameraAllowed()) return;
+                    try { await addLocalMaps(snapshot,ctx,curQual.isValid,()=>!cancelled&&parkedRef.current&&isCameraAllowed(),capture.frameToken,capture.indicators,{...capture.pose,avgLuminance:curQual.avgLuminance,blurScore:curQual.blurScore}); } finally { delete snapshot.rawFrame; }
                     if(cancelled||!parkedRef.current||!isCameraAllowed())return;
                     if(target==='FRONT'){delete capture.indicators.rightCheek;delete capture.indicators.leftCheek;}
                     if (target === 'FRONT') snapshot.rois = snapshot.rois.filter(r => !['rightCheek','leftCheek'].includes(r.id));
@@ -771,7 +775,7 @@ export default function SkinPage() {
 
     schedule();
     return () => {
-      eyewearCheck.cancel();eyewearGate.reset();
+      eyewearCheck.cancel();eyewearGate.reset();latestFrame.close();
       cancelled = true; localAnalysis.current?.cancel();
       if (frameId !== null) cancelAnimationFrame(frameId);
       video.srcObject = null;

@@ -109,6 +109,14 @@ const sumCount = (a?: number, b?: number) => (a === undefined ? b : b === undefi
 export function countLabel(f: SkinFinding): string | null {
   return f.count === undefined ? (f.countRange ? COUNT_RANGE_LABEL[f.countRange] || f.countRange : null) : `${f.count}${f.countAtLeast ? '+' : ''}`;
 }
+/** Unit word shown after a count ("3 sivilce", "1 sivilce"). The unit entries of the catalog are plural in English and
+ * German; "1 <unit>" has its own singular entry. Turkish output is the unit itself. */
+export function countUnit(count: string | null, unit: string | undefined, text: (value: string) => string): string {
+  if (!unit) return '';
+  if (count !== '1') return text(unit);
+  const one = text(`1 ${unit}`);
+  return one.startsWith('1 ') ? one.slice(2) : text(unit);
+}
 const max = (a?: number, b?: number) => (a === undefined ? b : b === undefined ? a : Math.max(a, b));
 /** Findings of one status on a page. The same finding in two regions of a page (forehead and nose) is merged:
  * highest score and count range, all markers. */

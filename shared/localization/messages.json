@@ -2427,12 +2427,12 @@
   "a3592b427213f500": {
     "tr": "Göz çevresi",
     "en": "Eye area",
-    "de": "Augenbereich"
+    "de": "Augenpartie"
   },
   "d0b1923dac19a946": {
     "tr": "Göz Çevresi",
     "en": "Eye area",
-    "de": "Augenbereich"
+    "de": "Augenpartie"
   },
   "a19d283ab3a8fd9a": {
     "tr": "Göz çevresi dinlendirici mola",
@@ -7334,47 +7334,42 @@
     "en": "Chatterbox uses the verified V3 model and official default conditioning; no external voice reference is required. If unavailable, providers do not switch automatically. The test below checks browser speech only.",
     "de": "Chatterbox verwendet das verifizierte V3-Modell und die offizielle Standard-Konditionierung; eine externe Stimmreferenz ist nicht erforderlich. Bei Nichtverfügbarkeit wird der Anbieter nicht automatisch gewechselt. Der folgende Test prüft nur die Browser-Stimme."
   },
-  "skin_type_dry": {
+  "974b0babfbcba2ec": {
     "tr": "Kuru",
     "en": "Dry",
     "de": "Trocken"
   },
-  "skin_type_sensitive": {
-    "tr": "Hassas",
-    "en": "Sensitive",
-    "de": "Empfindlich"
-  },
-  "skin_sign_sag": {
+  "262db38b0fc8fe39": {
     "tr": "Sarkma",
     "en": "Sagging",
     "de": "Erschlaffung"
   },
-  "skin_unmeasurable": {
+  "2d1455a2124f4e47": {
     "tr": "Ölçülemedi",
     "en": "Could not be measured",
     "de": "Nicht messbar"
   },
-  "skin_uncertain_cheeks": {
+  "ff9de0ac66922747": {
     "tr": "Belirsiz (Yanak verisi eksik)",
     "en": "Uncertain (Cheek data incomplete)",
     "de": "Unbestimmt (Wangendaten unvollständig)"
   },
-  "skin_uncertain_tzone": {
+  "b8ff68524775f03c": {
     "tr": "Belirsiz (T-bölgesi verisi eksik)",
     "en": "Uncertain (T-zone data incomplete)",
     "de": "Unbestimmt (T-Zonen-Daten unvollständig)"
   },
-  "skin_region_tzone": {
+  "0e57d16a94ab3c0a": {
     "tr": "T Bölgesi",
     "en": "T-Zone",
     "de": "T-Zone"
   },
-  "skin_redness_global": {
+  "f039c970a524d4e4": {
     "tr": "Genel kızarıklık indeksi",
     "en": "Overall redness index",
     "de": "Allgemeiner Rötungsindex"
   },
-  "skin_redness_regional": {
+  "8cd26186511dc7d4": {
     "tr": "Bölgesel kızarıklık farkı",
     "en": "Regional redness contrast",
     "de": "Regionaler Rötungsunterschied"
@@ -7429,72 +7424,72 @@
     "en": "You turned your head too far; turn slightly back toward the camera so your teeth remain visible (15°–45°).",
     "de": "Sie haben Ihren Kopf zu weit gedreht; drehen Sie sich etwas zurück zur Kamera, damit Ihre Zähne sichtbar bleiben (15°–45°)."
   },
-  "Bölgesel Kural + Yerel ONNX (local-vit-dima806)": {
+  "efd454d073101d5c": {
     "tr": "Bölgesel Kural + Yerel ONNX (local-vit-dima806)",
     "en": "Regional Rule + Local ONNX (local-vit-dima806)",
     "de": "Regionale Regel + Lokales ONNX (local-vit-dima806)"
   },
-  "Model/vekil tahmini · Klinik tanı değildir": {
+  "9ca6d809c1f9e3aa": {
     "tr": "Model/vekil tahmini · Klinik tanı değildir",
     "en": "Model/proxy estimate · Not a clinical diagnosis",
     "de": "Modell-/Proxy-Schätzung · Keine klinische Diagnose"
   },
-  "Yerel ONNX: acne-v5-step0-silu + logreg": {
+  "893c03119ea6e4b7": {
     "tr": "Yerel ONNX: acne-v5-step0-silu + logreg",
     "en": "Local ONNX: acne-v5-step0-silu + logreg",
     "de": "Lokales ONNX: acne-v5-step0-silu + logreg"
   },
-  "Yerel model: acne-v5 (devre dışı)": {
+  "45df6064efc03de2": {
     "tr": "Yerel model: acne-v5 (devre dışı)",
     "en": "Local model: acne-v5 (disabled)",
     "de": "Lokales Modell: acne-v5 (deaktiviert)"
   },
-  "Yerel ONNX: dryness-calibrated-v3": {
+  "798a34bfd6d101ed": {
     "tr": "Yerel ONNX: dryness-calibrated-v3",
     "en": "Local ONNX: dryness-calibrated-v3",
     "de": "Lokales ONNX: dryness-calibrated-v3"
   },
-  "Yerel Analitik: appearance-cv-6": {
+  "c63e607419fadf5e": {
     "tr": "Yerel Analitik: appearance-cv-6",
     "en": "Local Analytic: appearance-cv-6",
     "de": "Lokale Analytik: appearance-cv-6"
   },
-  "Yerel ONNX: skin-focused-degrees + LAB a*": {
+  "791ece2b37f51d27": {
     "tr": "Yerel ONNX: skin-focused-degrees + LAB a*",
     "en": "Local ONNX: skin-focused-degrees + LAB a*",
     "de": "Lokales ONNX: skin-focused-degrees + LAB a*"
   },
-  "Yerel Analitik: LAB a* (appearance-cv-6)": {
+  "93cbee23b372f556": {
     "tr": "Yerel Analitik: LAB a* (appearance-cv-6)",
     "en": "Local Analytic: LAB a* (appearance-cv-6)",
     "de": "Lokale Analytik: LAB a* (appearance-cv-6)"
   },
-  "Yerel Analitik: parlama alanı (appearance-cv-6)": {
+  "bb4117a8b3c086cb": {
     "tr": "Yerel Analitik: parlama alanı (appearance-cv-6)",
     "en": "Local Analytic: shine area (appearance-cv-6)",
     "de": "Lokale Analytik: Glanzbereich (appearance-cv-6)"
   },
-  "Yerel Analitik: sırt iskeleti (appearance-cv-6)": {
+  "7d885a90c72f0148": {
     "tr": "Yerel Analitik: sırt iskeleti (appearance-cv-6)",
     "en": "Local Analytic: ridge skeleton (appearance-cv-6)",
     "de": "Lokale Analytik: Linienskelett (appearance-cv-6)"
   },
-  "Yerel Analitik: alt kapak konturu (appearance-cv-6)": {
+  "b750b71971307224": {
     "tr": "Yerel Analitik: alt kapak konturu (appearance-cv-6)",
     "en": "Local Analytic: lower-lid contour (appearance-cv-6)",
     "de": "Lokale Analytik: Unterlidkontur (appearance-cv-6)"
   },
-  "Yerel Analitik: periorbital renk (appearance-cv-6)": {
+  "3a08468ce177b3f1": {
     "tr": "Yerel Analitik: periorbital renk (appearance-cv-6)",
     "en": "Local Analytic: periorbital color (appearance-cv-6)",
     "de": "Lokale Analytik: Periorbitalfarbe (appearance-cv-6)"
   },
-  "Yerel Analitik: 3B kontur oranı (appearance-cv-6)": {
+  "8068bb29d7254ae5": {
     "tr": "Yerel Analitik: 3B kontur oranı (appearance-cv-6)",
     "en": "Local Analytic: 3D contour ratio (appearance-cv-6)",
     "de": "Lokale Analytik: 3D-Konturverhältnis (appearance-cv-6)"
   },
-  "Yerel Analitik: kromatik dağılım (appearance-cv-6)": {
+  "44539fc676f427d7": {
     "tr": "Yerel Analitik: kromatik dağılım (appearance-cv-6)",
     "en": "Local Analytic: chromatic spread (appearance-cv-6)",
     "de": "Lokale Analytik: Chromatische Streuung (appearance-cv-6)"
@@ -8042,7 +8037,7 @@
   "8b946749ef429509": {
     "tr": "Kapladığı alan",
     "en": "Area covered",
-    "de": "Betroffene Fläche"
+    "de": "Flächenanteil"
   },
   "d320a13654f8093e": {
     "tr": "Geçmiş",
@@ -8092,7 +8087,7 @@
   "08a24723d591db14": {
     "tr": "Uygula",
     "en": "Apply",
-    "de": "Übernehmen"
+    "de": "Anwenden"
   },
   "79cdfa507edfd79b": {
     "tr": "Tercih edebileceğiniz içerikler",
@@ -8147,7 +8142,7 @@
   "25f890e39fd70684": {
     "tr": "Tekrar tara",
     "en": "Scan again",
-    "de": "Erneut scannen"
+    "de": "Neu scannen"
   },
   "0c53d02890b3f68d": {
     "tr": "Bu taramada bu bölgede öne çıkan bir bulgu yok.",
@@ -9132,7 +9127,7 @@
   "d344771b14df41ca": {
     "tr": "Beyaz nokta (kapalı komedon)",
     "en": "Whitehead (closed comedone)",
-    "de": "Weißer Mitesser (geschlossener Komedo)"
+    "de": "Weißköpfchen (geschlossener Komedo)"
   },
   "86a80614f6683a21": {
     "tr": "Bu bulgunun değeri bu taramada hesaplanamadı.",
@@ -9166,7 +9161,7 @@
   },
   "1d170fd80bc52caf": {
     "tr": "uçuk",
-    "en": "cold sore",
+    "en": "cold sores",
     "de": "Lippenherpes"
   },
   "1c7066ce69e3b286": {
@@ -9183,5 +9178,35 @@
     "tr": "Sayı geçmişi",
     "en": "Count history",
     "de": "Anzahlverlauf"
+  },
+  "b93f6d9ad0ee0fe2": {
+    "tr": "1 sivilce",
+    "en": "1 pimple",
+    "de": "1 Pickel"
+  },
+  "5fe002f9e24140f8": {
+    "tr": "1 ben",
+    "en": "1 mole",
+    "de": "1 Muttermal"
+  },
+  "3b5d146cea643a22": {
+    "tr": "1 leke",
+    "en": "1 spot",
+    "de": "1 Fleck"
+  },
+  "4bd1afa9034e68aa": {
+    "tr": "1 uçuk",
+    "en": "1 cold sore",
+    "de": "1 Lippenherpes"
+  },
+  "47c84a20dcd219a1": {
+    "tr": "1 bulgu ölçülemedi",
+    "en": "1 finding could not be measured",
+    "de": "1 Befund konnte nicht gemessen werden"
+  },
+  "06cc6d4197f55049": {
+    "tr": "Renk indeksi / 100",
+    "en": "Color index / 100",
+    "de": "Farbindex / 100"
   }
 }

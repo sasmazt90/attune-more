@@ -30,7 +30,7 @@ const kind=url.endsWith('/api/local-health/skin')?'skin':url.endsWith('/api/loca
 const body=kind&&a[1]&&a[1].body?JSON.parse(a[1].body):null;const r=await of(...a);
 if(kind==='skin'&&window.__savePhotos)(window.skinPhotos=window.skinPhotos||[]).push({pose:body.pose,photo:body.photo,landmarks:body.landmarks});
 if(kind){const j=r.ok?await r.clone().json():null;window.skinCalls.push(kind==='skin'
- ?{kind,status:r.status,pose:body.pose,photoId:body.photoId,noseToImageRight:body.landmarks&&+(body.landmarks[1].x-(body.landmarks[234].x+body.landmarks[454].x)/2).toFixed(3),general:j&&{findings:j.general&&j.general.findings},source:j&&[j.sourceWidth,j.sourceHeight],findingEvidence:j&&j.regionalSkinMap&&j.regionalSkinMap.findingEvidence,regionalSkinMap:j&&j.regionalSkinMap&&{evidence:Object.keys(j.regionalSkinMap.findingEvidence||{}),boxes:(j.regionalSkinMap.findingBoxes||[]).length,models:j.regionalSkinMap.models},status2:j&&j.regionalSkinMapStatus}
+ ?{kind,status:r.status,pose:body.pose,photoId:body.photoId,noseToImageRight:body.landmarks&&+(body.landmarks[1].x-(body.landmarks[234].x+body.landmarks[454].x)/2).toFixed(3),general:j&&{findings:j.general&&j.general.findings},source:j&&[j.sourceWidth,j.sourceHeight],findingEvidence:j&&j.regionalSkinMap&&j.regionalSkinMap.findingEvidence,regionalSkinMap:j&&j.regionalSkinMap&&{evidence:Object.keys(j.regionalSkinMap.findingEvidence||{}),boxes:(j.regionalSkinMap.findingBoxes||[]).length,models:j.regionalSkinMap.models},status2:j&&j.regionalSkinMapStatus,cameraColor:j&&j.cameraColor}
  :{kind,status:r.status,poses:Object.keys(body.maps||{}),response:j});}return r;};"""
 VIEW_REGIONS = {'forehead': ['forehead', 'nose'], 'periorbital': ['periorbital'], 'rightCheek': ['rightCheek'], 'leftCheek': ['leftCheek'], 'chin': ['chin']}
 
@@ -144,6 +144,10 @@ with sync_playwright() as pw:
     for x in skin[-3:]:
         assert x['status2'] == 'OK' and x['regionalSkinMap']['evidence'], x
         assert all(len(h) == 64 for h in x['regionalSkinMap']['models'].values()), x['regionalSkinMap']['models']
+    # colour source: raw YUV frame converted on the server (SKIN_E2E_EXPECT_RAW=1 makes it a requirement)
+    colour = {x['pose']: x.get('cameraColor') for x in skin[-3:]}
+    if os.environ.get('SKIN_E2E_EXPECT_RAW') == '1':
+        assert all(c and c['source'] == 'raw-yuv' for c in colour.values()), colour
     front = next(x for x in skin[-3:] if x['pose'] == 'FRONT')
     assert front['general']['findings']['status'] == 'unavailable' and front['general']['findings']['reason'] == 'REQUIRED_POSES_MISSING'
     # the three-angle result comes from the server fusion, once
@@ -182,7 +186,7 @@ with sync_playwright() as pw:
     proof = dict(status='PASS', camera='fake-device y4m fixture (not a physical camera)', fixture=str(Y4M.name), poseMock=False, qualityOverride=False,
                  modelInference='real (saved models via core-api)', seconds=round(seconds, 1), recordId=rec['id'],
                  findings=rec['general']['findings'], skinType=rec['general']['skinType'].get('value'),
-                 nativeZoom=native if NATIVE else 'NOT RUN (--skip-native-zoom)', screenshots=shots, pageErrors=errors)
+                 nativeZoom=native if NATIVE else 'NOT RUN (--skip-native-zoom)', screenshots=shots, pageErrors=errors, cameraColor=colour)
     video = None
     if not FULL and frame_no[0]:
         import subprocess

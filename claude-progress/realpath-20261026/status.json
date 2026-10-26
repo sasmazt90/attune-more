@@ -43,8 +43,14 @@
    "stage": "e2e-v2",
    "done": "K-217/K-074/K-258 real camera-path E2E PASS; sample UI PASS (collapsible acne types, count history)",
    "blocker": "camera-path threshold calibration needs user approval"
+  },
+  {
+   "time": "2026-10-26T17:36:34+01:00",
+   "stage": "camera-color+i18n",
+   "done": "raw YUV frame + server conversion (camera profile), chart calibration, TR/EN/DE; K-217 raw E2E PASS",
+   "blocker": "real vehicle camera profile/calibration not done"
   }
  ],
- "updated": "2026-10-26T16:59:02+01:00",
- "stage": "e2e-v2"
+ "updated": "2026-10-26T17:36:34+01:00",
+ "stage": "camera-color+i18n"
 }

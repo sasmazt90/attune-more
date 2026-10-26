@@ -6,6 +6,8 @@ import { cameraCrop, type Crop } from './cameraStability';
  * photo store requires explicit photo retention consent. */
 export interface SkinSnapshot {
   experimentalAcneV5?:boolean;
+  /** Raw YUV planes of the captured frame, only while /skin is in flight (never stored). */
+  rawFrame?:import('./skinRawFrame').SkinRawFrame;
   captureFaceCount?:number;
   general?:import('./skinOverview').SkinOverview;
   /** Per-photo regional map from /skin (numbers only: region scores, finding evidence, source-pixel boxes). Side photos have no `general`. */

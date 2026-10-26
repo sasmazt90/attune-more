@@ -3,7 +3,7 @@ import React from 'react';
 import { ChevronLeft, ChevronRight, CalendarDays } from 'lucide-react';
 import { useTranslations } from '../../i18n/LanguageProvider';
 import {
-  ACNE_SUBTYPES, FINDING_DEFS, FINDING_VIEW_NAMES, countLabel, findingColor, viewFindings,
+  ACNE_SUBTYPES, FINDING_DEFS, FINDING_VIEW_NAMES, countLabel, countUnit, findingColor, viewFindings,
   type FindingViewId, type SkinFinding, type SkinFindingsHistoryEntry
 } from '../../utils/skinFindings';
 import { findingScore } from '../../utils/skinRecommendations';
@@ -14,7 +14,7 @@ export function SkinFindingCard({ view, items, index, onIndex, history, scanAt }
   view: FindingViewId; items: SkinFinding[]; index: number; onIndex: (i: number) => void;
   history?: SkinFindingsHistoryEntry[]; scanAt: string;
 }) {
-  const { text } = useTranslations();
+  const { text, language, locale } = useTranslations();
   const f = items[index], n = items.length, color = findingColor(f.id), def = FINDING_DEFS[f.id];
   const score = findingScore(f);
   const step = (d: number) => onIndex((index + d + n) % n);
@@ -44,14 +44,14 @@ export function SkinFindingCard({ view, items, index, onIndex, history, scanAt }
           : countLabel(f) !== null
             ? <div className="flex items-baseline justify-center gap-2" data-skin-finding-count={countLabel(f)}>
                 <span className="text-4xl font-extrabold tabular-nums text-white">{countLabel(f)}</span>
-                <span className="text-base text-slate-400">{text(def.unit || '')}</span>
+                <span className="text-base text-slate-400">{countUnit(countLabel(f), def.unit, text)}</span>
               </div>
             : <p className="text-[15px] leading-snug text-slate-400 text-center" data-skin-finding-unmeasured>
                 {text('Bu bulgunun değeri bu taramada hesaplanamadı.')}
               </p>}
       {f.toneDiff !== undefined && (
         <p className="text-[15px] text-slate-300 text-center" data-skin-finding-tone={f.toneDiff}>
-          {text('Cilt tonunuza göre kırmızılık farkı')}: <strong className="text-white tabular-nums">{f.toneDiff > 0 ? '+' : ''}{f.toneDiff}</strong>
+          {text('Cilt tonunuza göre kırmızılık farkı')}: <strong className="text-white tabular-nums">{f.toneDiff > 0 ? '+' : ''}{language === 'tr' ? f.toneDiff : f.toneDiff.toLocaleString(locale)}</strong>
         </p>
       )}
       {f.subtypes && <AcneTypes f={f} />}
@@ -145,7 +145,7 @@ function History({ view, finding, history, scanAt, color }: { view: FindingViewI
             {text(all.length < 2 ? 'Geçmiş grafiği bir sonraki taramanızdan sonra burada görünür.' : 'Seçilen tarih aralığında yeterli tarama yok.')}
           </p>
         : <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto" role="img"
-            aria-label={text(isCount ? 'Sayı geçmişi' : 'Belirginlik geçmişi') + ': ' + pts.map(p => `${fmt(new Date(p.at))} ${isCount ? p.v : `%${Math.round(p.v)}`}`).join(', ')}>
+            aria-label={text(isCount ? 'Sayı geçmişi' : 'Belirginlik geçmişi') + ': ' + pts.map(p => `${fmt(new Date(p.at))} ${isCount ? p.v : text(`%${Math.round(p.v)}`)}`).join(', ')}>
             {[top, top / 2, 0].map(v => (
               <g key={v}>
                 <line x1={X0} x2={W - 8} y1={y(v)} y2={y(v)} stroke={v ? '#1a2533' : '#26313f'} />

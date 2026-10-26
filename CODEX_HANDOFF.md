@@ -32,6 +32,8 @@ tar -xzf findings-v2.tar.gz -C "$ATTUNE_REGIONAL_V3_DIR"          # -> $ATTUNE_R
 - **mediapipe 0.10.32**: sivilce ve kızarıklıkta araştırmayla birebir bölge sınırları için gerekir. Yoksa istemci noktalarıyla çalışan yedek yola düşer: sapma artar ve kızarıklık ölçüsü üretilmez.
 - scipy, opencv: mevcut.
 
+**Kamera renk profili** (yeni, §5b): `ATTUNE_CAMERA_PROFILE=/yol/profil.json` araç kamerasının YUV matrisini/aralığını ve renk düzeltmesini verir. Tanımlı değilse renk düzeltmesi yapılmaz ve ham kare, karenin kendi etiketiyle çevrilir. E2E için `tests/e2e/fixtures/camera-profile-fixture-bt601.json` (yalnız test kamerası; araç profili değildir).
+
 ## 2. Bu turdaki commit'ler
 
 | Commit | Özet |
@@ -44,7 +46,8 @@ tar -xzf findings-v2.tar.gz -C "$ATTUNE_REGIONAL_V3_DIR"          # -> $ATTUNE_R
 | `8f38ac5` | Sivilce + kızarıklık; sivilce alt türleri; kızarıklık, rozasea ve egzama için alan/ton farkı |
 | `e7f8c01` | Nodül satırı; E2E'ye video kaydı ve "her kartta sayı" kontrolü |
 | `2ff9bd6` | Akne türleri açılır-kapanır bölüm (toplam satırı yok), sayı geçmişi grafiği, time-lapse E2E videosu |
-| (son) | E2E kanıtları, bu belge, ilerleme kaydı |
+| `ed63de9` | findings-v2 devir belgesi ve E2E kanıtları |
+| (son) | Ham kamera karesi + sunucuda renk dönüşümü, araç kamerası renk kalibrasyonu, cilt arayüzü TR/EN/DE |
 
 ## 3. Veri yolu
 
@@ -97,12 +100,48 @@ Notlar:
 - **Geçmiş grafiği:** Sayılan bulgularda (sivilce, ben, uçuk) tarihe göre sayı; diğerlerinde belirginlik %. Tarih aralığı seçicisi her ikisinde çalışır.
 - **Kızarık bölgeler:** "Cilt tonunuza göre kırmızılık farkı" satırı gösterilir.
 - **Öneri bandı:** Sayıdan veya yüzdeden seçilir. Değer yoksa bant seçilmez.
+- **Diller:** Cilt sonuç ekranındaki tüm metinler TR/EN/DE.
+  - `test_localization` geçiyor; `test_skin_findings_i18n.py` her kart, diyalog ve bandı EN/DE çizerek Türkçe kalmadığını denetliyor.
+  - `tests/e2e/skin_i18n_screens.py`: üç dilde ekran görüntüsü, Türkçe satır yok, taşan buton/sekme metni yok.
+  - Almanca uzun etiketler kısaltıldı (ör. "Augenpartie", "Weißköpfchen").
 - **Önceki tur düzeltmeleri korundu:** tarih aralığı, tam gün filtresi, işaretlerin kendi pozunda çizilmesi, etiket boşlukları.
+
+## 5b. Kamera renk yolu ve araç kalibrasyonu (kullanıcı onaylı öneriler 1 ve 3)
+
+**Bulunan neden (ölçüldü):**
+- E2E'nin yazılım GPU'sunda Chrome kamera karesini NV12 olarak veriyor ve **BT.709** diye etiketliyor; test videosu ise BT.601 (OpenCV) ile kodlanmış.
+- Tarayıcı yanlış matrisle çeviriyor: yüzde R/G yaklaşık +2,5/255.
+- Ham karenin Y düzlemi videoyla bayt bayt aynı; BT.601 ile sunucuda çevrilince fark 0,16'ya iniyor.
+- GPU bayrağı olmadan Chrome I420 veriyor (etiketsiz) ve doğru çeviriyor. Yani sorun karenin etiketine bağlı.
+
+**1 — Ham kare** (`utils/skinRawFrame.ts`, `services/core-api/camera_color.py`):
+- Tuvale çizilen karenin aynısı WebCodecs `VideoFrame` ile alınır; I420/NV12 düzlemleri + renk etiketi /skin isteğine `rawFrame` olarak eklenir. Kayda yazılmaz.
+- Sunucu önce PNG kimliğini doğrular, sonra ham kareyi çevirir. Matris önceliği: araç profili → kare etiketi → BT.601 sınırlı aralık. Boyut aynı olmalı.
+- Analiz edilen piksellerin hash'i `cameraColor.analyzedPhotoSHA256`; yanıttaki `photoId` istemcinin kimliği olarak kalır.
+- Tarayıcı ham kare veremezse (WebCodecs yok, GPU dokusu, başka format) eski PNG yolu sürer: `cameraColor.source='browser-rgb'`.
+
+**3 — Araç başına renk kalibrasyonu** (`camera_calibration.py`, `scripts/camera-calibration/`):
+- `make_chart.py`: basılabilir A4 kart (4 ArUco işaret + 24 renk yaması, 300 dpi PNG + PDF).
+- `fit_profile.py` veya servis uç noktası `POST /api/local-health/skin/camera-calibration` (yalnız `ATTUNE_CAMERA_CALIBRATION=1` iken açık): karttan doğrusal ışıkta 3×3 renk matrisi + ofset uydurur.
+- Kalite kapıları (mühendislik seçimi, cilt sonucuyla doğrulanmadı): 4 işaret, ≥20 kullanılabilir yama, ΔE00 ort. ≤3 / maks. ≤8, birini-dışarıda-bırak ort. ≤4. Geçmezse profil yazılmaz.
+- Varsayılan referans renkleri ColorChecker Classic nominal sRGB değerleridir. Ev yazıcısı bunları tam basmaz; üretimde sertifikalı kart değerleri veya spektrofotometreyle ölçülmüş değerler `--reference` ile verilmeli.
+
+**Kalibrasyonun etkisi (sentetik, `check_skin_effect.py`):** Aynı yüz noktalarıyla üç durum: orijinal / simüle kamera renk kayması / kayma + karttan uydurulan düzeltme.
+- Kart üzerinde ΔE00 3.67 → 0.24.
+
+| Kişi | Orijinal görülen | Kaymalı | Düzeltilmiş |
+|---|---|---|---|
+| K-217 | 11 | 7 (kayıp: eyeBags/periorbital, foreheadLines/forehead, rosacea/nose, rosacea/rightCheek; fazla: —) | 11 (kayıp: —; fazla: —) |
+| K-074 | 7 | 4 (kayıp: redness/nose, rosacea/nose, rosacea/rightCheek; fazla: —) | 6 (kayıp: redness/nose; fazla: —) |
+| K-258 | 3 | 4 (kayıp: —; fazla: downturnedCorners/periorbital) | 4 (kayıp: —; fazla: downturnedCorners/periorbital) |
+
+Düzeltme etkiyi azaltıyor ama tamamen gidermiyor (K-074'te 1 kayıp, K-258'de 1 fazla kalıyor). Gerçek kamera ve gerçek kartla denenmedi.
 
 ## 6. Doğrulama
 
 ### 6.1 Otomatik
-- `pytest tests/unit`: 1427 geçti, 45 atlandı, 7–8 başarısız. Başarısızların **hepsi taban `babe9b6`'da da başarısız** (temiz klonda denendi):
+- Bu tur sonu `pytest tests/unit`: 1446 geçti, 45 atlandı, 6 başarısız (yolox ×5, özel model.onnx ×1; tabanda da başarısız). Yeni: `test_camera_color.py` 12, `test_skin_findings_i18n.py`.
+- Önceki tur `pytest tests/unit`: 1427 geçti, 45 atlandı, 7–8 başarısız. Başarısızların **hepsi taban `babe9b6`'da da başarısız** (temiz klonda denendi):
   - `test_acne_objectness_features` ×5: `yolox` modülü yok;
   - `test_hosted_skin_type_runtime`: bu dizindeki özel `model.onnx`;
   - `test_localization`: tabandan gelen eksik mesajlar (bu turda eksik sayısı azaldı, yeni eksik yok);
@@ -126,6 +165,11 @@ Bu test sahte kamera aygıtıyla yapıldı; **fiziksel kamera değildir**. Sente
 | K-217 | PASS | 351 s | sivilce alın 3 papül + burun 1+; kızarıklık sağ %57,5 / +5, sol %38,8 / +3; kaz ayakları %15; uçuk 1+ | spots |
 | K-074 | PASS | 174 s | rozasea burun %29,4 / sağ %36,9 / sol %34,8 (ton +3); kızarıklık iki yanak; göz kuyruğu %60,6 | spots |
 | K-258 | PASS | 223 s | sivilce alın 3 (1 papül, 2 tanımlanamayan) + burun 1+; göz kapağı %0,6 | spots |
+
+**Ham kare yoluyla K-217** (`SKIN_E2E_EXPECT_RAW=1`, fixture profili): **PASS**, 228 s.
+- 3 pozun hepsi `raw-yuv`: NV12, kare etiketi bt709, profil bt601 ile çevrildi; tarayıcı RGB'sinden ortalama fark 0,58–0,62.
+- Görülenler: sivilce alın 3 + burun 1+, kızarıklık sağ %56,7 / +5 ve sol %38,5 / +3, rozasea sağ yanak %56,7 / +5, kaz ayakları %13,3, alın çizgileri %4, uçuk 1+, göz kuyruğu %0.
+- Tarayıcı yoluna göre **alın çizgileri ve rozasea geri geldi**. Torba hâlâ görülmüyor. Göz kuyruğu yeni çıktı, belirginliği %0 (eşik sınırında; §8.2).
 
 Yeni arayüzle (2ff9bd6) K-217 tekrar koşuldu: **PASS**, aynı bulgular ve değerler (`e2e-v2/K-217-newui-*`); süre 954 s, çünkü aynı anda pytest çalışıyordu.
 
@@ -162,11 +206,11 @@ Raporlar:
 
 ## 8. Açık engeller
 
-1. **Eşik ve kamera hattı:** Eşikler araştırma PNG'lerinde seçildi.
+1. **Eşik ve kamera hattı:** Eşikler araştırma PNG'lerinde seçildi. Ham kare + profil yolu eklendi (§5b); gerçek araç kamerası profili ve kalibrasyonu yapılmadı.
    - Uygulamanın gönderdiği PNG orijinalden ort. 1,4/255 farklı. PNG kayıpsız olduğundan fark kodlamadan önce oluşuyor; büyük olasılıkla tarayıcının YUV420→RGB dönüşümü (kanıtlanmadı).
    - Etki: K-217 rozasea 0,757 (Python/ffmpeg ile aynı y4m) → 0,48–0,54 (uygulama yolu); eşik 0,69.
    - Eşikler P≥0,8 sınırına yakın olduğundan küçük renk kaymaları kararı çeviriyor.
-   - Önerilen yön: renk dönüşümünü sunucuda bilinen formülle yapmak (ham kare), beyaz denge/pozlama kilidi, araç başına renk kalibrasyonu, kamera yolu görüntüleriyle eşik doğrulaması. Hiçbiri yapılmadı; kullanıcı onayı gerekir.
+   - Ölçülen neden: tarayıcının yanlış renk matrisi (§5b). Kullanıcı ham kare (1) ve araç kalibrasyonunu (3) onayladı; ikisi kuruldu. Beyaz denge kilidi, kare ortalama ve eşik yeniden doğrulaması kullanıcı kararıyla yapılmayacak.
 2. **Göz kuyruğu eşiği:** Onaylanan kural kurulu eşiği 0,668 verdi; araştırma ortalaması 0,82. Bu yüzden daha fazla yanlış pozitif beklenir. Eşik değiştirilmedi; karar kullanıcıya bırakıldı.
 3. **Göz altı morluğu belirginliği:** Araştırmada seçilen model yerine gömme-only kol kullanıldı (ρ 0,75 yerine 0,66).
 4. **mediapipe gereksinimi:** Sunucuda mediapipe yoksa sivilce ve kızarıklık kararları araştırmadan sapabilir (testte 1 eşik geçişi).
@@ -178,7 +222,9 @@ Raporlar:
 10. **Git geçmişi:** `k_classifier.json` (model ağırlığı) Git geçmişinde duruyor.
 11. **Güvenlik açığı:** `npm ci` 1 kritik açık bildiriyor.
 12. **Ortama bağlı test:** `test_hosted_skin_type_runtime` bu dizindeki özel `model.onnx` yüzünden başarısız; temiz klonda geçiyor.
-13. **Tabandan gelen hatalar:** `test_acne_objectness_features` (yolox yok) ve `test_localization` (tabandaki eski eksik mesajlar).
+13. **Tabandan gelen hatalar:** `test_acne_objectness_features` (yolox yok). `test_localization` artık geçiyor (cilt kataloğu kimlikleri düzeltildi).
+16. **Kalibrasyon kartı referansı:** Nominal değerler; basılan kartın ölçülmesi gerekir. Kalibrasyon uç noktası servis bayrağıyla açılır, kimlik doğrulaması yok (servis modu varsayımı).
+17. **Ham kare boyutu:** /skin isteği poz başı ~4 MB büyüdü (PNG + NV12). Yerel ağda ölçülmedi; 45 s bütçe içinde kaldı (228 s / 3 poz toplam E2E).
 15. **/skin süre bütçesi:** Sunucu bütçesi 45 s; bu ortamda poz başı ~6–8 s. Yavaş araç donanımında aşılabilir; ölçülmedi.
 14. **Önceki turdaki yanlış bilgi:** K-236 "etiketsiz" diye yazılmıştı; yanlış. K-236'nın uçuk ve yanak sarkması etiketleri var.
 
