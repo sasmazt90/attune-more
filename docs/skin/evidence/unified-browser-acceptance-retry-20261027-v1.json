@@ -7,7 +7,8 @@
     "branch": "work/skin-roadmap-20261023",
     "failedCandidateCommit": "6c3e07ce1b696a17686ff75943efeadb35ee8180",
     "retryCandidateCommit": "accd4ca458bb3ea2f5de31af0582a374f950df45",
-    "secondRetryCandidateCommit": "85c24fdfca85a068c5bc02c73299e1a68ace7d07"
+    "secondRetryCandidateCommit": "85c24fdfca85a068c5bc02c73299e1a68ace7d07",
+    "thirdRetryCandidateCommit": "3ad03c461eea4f08a197fc8c5400f29dea2867d0"
   },
   "failedAttempt": {
     "browserRunId": 40406100671,
@@ -66,9 +67,37 @@
   "secondRetry": {
     "browserRunId": 40417644901,
     "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40417644901",
-    "statusAtCheckpoint": "in_progress",
+    "statusAtCheckpoint": "completed",
+    "conclusion": "failure",
     "matchingRepositoryCiRunId": 40417644963,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40417644963",
+    "matchingRepositoryCiStatusAtCheckpoint": "completed",
+    "matchingRepositoryCiConclusion": "success",
+    "jobId": 121903839078,
+    "artifactId": 12694519850,
+    "artifactDigest": "sha256:21d13d61af7a92e675ae555a8ba78d2bf4f3057c5f75394f04173295e815f401",
+    "completedRuntimeSetup": true,
+    "productionBuildPassed": true,
+    "serversHealthChecked": true,
+    "fixturePrepared": false,
+    "browserTestsExecuted": false,
+    "sanitizedEvidenceProduced": false,
+    "rootCause": "Playwright page routing still did not intercept native dynamic module import requests in this runner, even with exact URLs and in-process bytes"
+  },
+  "thirdTargetedFix": {
+    "source": "tests/e2e/prepare_multi_angle_fixture.py",
+    "change": "replace Playwright request interception with an isolated loopback ThreadingHTTPServer that serves the fixture HTML, generated production analyzer modules and licensed video frames from the same origin",
+    "pythonCompilePassed": true,
+    "diffCheckPassed": true,
+    "roboflowTrainingChanged": false,
+    "modelOrThresholdChanged": false
+  },
+  "thirdRetry": {
+    "browserRunId": 40418108255,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40418108255",
+    "statusAtCheckpoint": "in_progress",
+    "matchingRepositoryCiRunId": 40418108157,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40418108157",
     "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
     "sanitizedEvidencePending": true
   },
