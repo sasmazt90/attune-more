@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T04:30:14Z",
+  "status": "implemented_tested_fail_closed_real_camera_inputs_pending",
+  "purpose": "Compute locked per-class and slice-level polygon-union localization diagnostics on independent physical-camera captures without using camera_final to select thresholds or geometry methods.",
+  "implementation": {
+    "script": "scripts/skin-research/evaluate_physical_camera_localization.py",
+    "scriptBlobSha": "a05e1950f58076535bdc1545dbc00d3c357c31f7",
+    "test": "scripts/skin-research/tests/test_evaluate_physical_camera_localization.py",
+    "testBlobSha": "8a4c9fec9b559c3c7b4650d89c9b2cde52b84ecd",
+    "inputTemplate": "docs/skin/evidence/physical-camera-localization-receipt-template-20261026-v1.json",
+    "inputTemplateBlobSha": "24680e71c5dc587fa50ffcca67954297b69555d5",
+    "geometryMethodVersion": "normalized-polygon-union-raster-iou-v1",
+    "rasterResolution": 512
+  },
+  "metrics": {
+    "perClass": [
+      "meanPositiveIoU",
+      "meanPositiveDice",
+      "microPositiveIoU",
+      "microPositiveDice",
+      "negativeFalsePositiveAreaCaptureRate",
+      "availability"
+    ],
+    "slices": [
+      "deviceClass",
+      "lightingBin",
+      "skinToneBin",
+      "pose"
+    ],
+    "failuresRemainClassSpecific": true,
+    "unknownAndUnassessableExcludedNotNegative": true,
+    "unavailableNeverConvertedToNegative": true,
+    "evaluatedNegativeFalsePositiveAreaMeasured": true
+  },
+  "guards": {
+    "physicalCameraOnly": true,
+    "cameraFinalOnly": true,
+    "thresholdsLockedBeforeCameraFinal": true,
+    "geometryLockedBeforeCameraFinal": true,
+    "cameraFinalThresholdSelectionRejected": true,
+    "cameraFinalGeometrySelectionRejected": true,
+    "postLockMutationRejected": true,
+    "boxesAcceptedAsPolygons": false,
+    "positiveGeometrySource": "native-polygon-or-mask",
+    "modelGeometryUsedAsExpertTruth": false,
+    "privatePathsBytesIdentityFieldsRejected": true,
+    "confidenceScoreRetuningFieldsRejected": true
+  },
+  "mapContract": {
+    "dry": "blue",
+    "oily": "green",
+    "redness": "independent red contour-or-hatching; not sensitivity",
+    "normal": "uncoloured only when explicitly evaluated normal",
+    "unknown": "light grey and never normal",
+    "overlapAllowed": true
+  },
+  "verification": {
+    "focusedTestsPassed": 9,
+    "fullSkinResearchTestsPassed": 190,
+    "pythonCompilePassed": true
+  },
+  "providerRefresh": {
+    "projectsAccessible": 20,
+    "acneProjectImages": 800,
+    "acneTrainings": {
+      "5b632a5c12b76fcfe703": "finished",
+      "49ee6204cf069198bbfa": "finished"
+    },
+    "regionalProjectImages": 337,
+    "regionalTrainings": {
+      "3485f8c67f957a1b850d": "finished",
+      "af287a006e2e428f5ce4": "finished"
+    },
+    "underEyePilotImages": 399,
+    "underEyePilotV1Training": {
+      "d194569acd3ebe7cf8b7": "finished"
+    },
+    "underEyePilotV2Trainings": 0,
+    "underEyeGroupedResearchImages": 0,
+    "groupedUploadTask": {
+      "taskId": "sLFwX7CYBVcnnD6iAW5o",
+      "status": "created",
+      "progress": null
+    },
+    "newTrainingStarted": false,
+    "newUploadStarted": false
+  },
+  "acceptance": {
+    "realPhysicalCameraManifestSupplied": false,
+    "adjudicatedExpertTruthSupplied": false,
+    "lockedLocalizationReceiptSupplied": false,
+    "localizationEvaluationRunOnRealCameraData": false,
+    "acceptanceThresholdsApplied": false,
+    "apiBrowserMapHistoryReplayComplete": false,
+    "cameraAccepted": false,
+    "activationAllowed": false,
+    "roadmapComplete": false
+  },
+  "note": "This closes the executable localization-scoring gap only. It does not replace the already functioning merged Attune.more output, and it cannot authorize a learned class until consented physical captures, independent expert truth, locked predictions, class-specific thresholds and product replay all pass."
+}
