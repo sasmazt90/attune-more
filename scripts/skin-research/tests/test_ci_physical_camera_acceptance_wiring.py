@@ -31,6 +31,7 @@ class PhysicalCameraAcceptanceCIWiringTest(unittest.TestCase):
         matching = [step for step in self.steps if step.get("name") == "Run complete skin research evidence suite"]
         self.assertEqual(len(matching), 1)
         self.assertEqual(matching[0].get("run"), COMMAND)
+        self.assertEqual(matching[0].get("if"), "always()")
         self.assertEqual(self.text.count(COMMAND), 1)
 
     def test_full_suite_runs_after_python_and_dependencies(self):
