@@ -717,13 +717,19 @@
         "testEvaluationAuthorized": false
       },
       "oilyReleaseGate": {
-        "methodVersion": "regional-oily-appearance-release-gate-v1",
+        "methodVersion": "regional-oily-appearance-release-gate-v2",
         "existingAppearanceProxyPreserved": true,
         "existingConcreteResultFlowPreserved": true,
+        "rejectedResearchModelAccepted": false,
+        "knownVersionOneModelsAccepted": false,
+        "distinctCandidatePresent": false,
+        "blindRetrainingAllowed": false,
         "researchTrainingAuthorized": false,
         "finalTestEvaluationAuthorized": false,
         "learnedRegionalMaskActivationAllowed": false,
-        "evidence": "docs/skin/evidence/oily-release-gate-20261025-v1.json"
+        "evidence": "docs/skin/evidence/oily-release-gate-20261026-v2.json",
+        "receipt": "docs/skin/evidence/oily-release-receipt-20261026-v2.json",
+        "ciEvidence": "docs/skin/evidence/oily-release-gate-v2-ci-20261026-v1.json"
       },
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "modelIds": [
@@ -2355,7 +2361,7 @@
     {
       "id": "04",
       "target": "regional-oiliness",
-      "status": "executable_oily_release_gate_fail_closed_expert_camera_pending",
+      "status": "distinct_candidate_release_gate_v2_fail_closed_expert_camera_pending",
       "work": "Audit selected Oily/Oily-Skin regional truth; prepare reliable regional samples; evaluate shine/illumination confounders; green overlay from measured regional support.",
       "evidence": [
         "docs/skin/evidence/clean3-source-summary-20261023-v1.json",
@@ -2418,7 +2424,10 @@
         "scripts/skin-research/check_oily_release.py",
         "scripts/skin-research/tests/test_oily_release.py",
         "docs/skin/evidence/oily-release-receipt-20261025-v1.json",
-        "docs/skin/evidence/oily-release-gate-20261025-v1.json"
+        "docs/skin/evidence/oily-release-gate-20261025-v1.json",
+        "docs/skin/evidence/oily-release-receipt-20261026-v2.json",
+        "docs/skin/evidence/oily-release-gate-20261026-v2.json",
+        "docs/skin/evidence/oily-release-gate-v2-ci-20261026-v1.json"
       ],
       "blockers": [
         "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
@@ -2430,7 +2439,8 @@
         "Exact evaluation diagnosis shows Oily mAP75 0.028 on validation and 0.040 on diagnostic test, while confidence 0.2 produces 386 validation and 213 diagnostic-test false positives. The fail-closed gate permits no retry until expert mask extent, source/person grouping, a 50+ image untouched final test and an independent camera holdout are locked; then exactly one validation-only localization change is allowed.",
         "Provider-export geometry is confirmed as 1,636 valid polygons with no box-only annotations. Zero exact/tight cross-split image candidates does not establish independence; all 337 source identities are still unreviewed, so no replacement split or training is authorized.",
         "A deterministic 81-image train/validation expert queue now samples Oily mask-support and instance-count extremes without touching test. It does not authorize training until an expert returns item-bound mask, negative, ambiguity and assessability decisions.",
-        "The executable Oily release gate preserves the already functioning concrete oil-appearance result and separate skin type while blocking learned regional-mask activation. Exact af287a diagnostics show validation/test-diagnostic Oily mAP75 0.028/0.040, validation/test false positives 386/213 at confidence 0.2, an exposed 30-image test and no reviewed person groups. Rights, expert extent/negative/assessability, shine-glare-lighting controls, a locked group-independent replacement split, new untouched final test, physical-camera slices, integration and overlap/unavailable controls remain mandatory."
+        "The executable Oily release gate preserves the already functioning concrete oil-appearance result and separate skin type while blocking learned regional-mask activation. Exact af287a diagnostics show validation/test-diagnostic Oily mAP75 0.028/0.040, validation/test false positives 386/213 at confidence 0.2, an exposed 30-image test and no reviewed person groups. Rights, expert extent/negative/assessability, shine-glare-lighting controls, a locked group-independent replacement split, new untouched final test, physical-camera slices, integration and overlap/unavailable controls remain mandatory.",
+        "Release gate v2 closes the prior identity gap: the rejected small model and every version-1 NAS child cannot be relabelled through mutable candidate flags. A future candidate must bind the frozen regional-mask project, a distinct training/model identity, a group-locked version 2 or later, preregistered single change, thresholds locked before final test and verified instance-segmentation polygon output. Fourteen focused tests and GitHub Actions run 40327580317 passed; no new candidate or training is authorized."
       ]
     },
     {
@@ -3470,6 +3480,39 @@
       },
       "evidence": "docs/skin/evidence/acne-per-class-release-gate-v2-ci-20261026-v1.json"
     },
+    "oilyReleaseGateV2": {
+      "methodVersion": "regional-oily-appearance-release-gate-v2",
+      "knownResearchSmallModelAccepted": false,
+      "knownVersionOneModelsAccepted": false,
+      "distinctCandidatePresent": false,
+      "researchTrainingAuthorized": false,
+      "finalTestEvaluationAuthorized": false,
+      "learnedRegionalMaskActivationAllowed": false,
+      "roadmapAccepted": false,
+      "decision": "blocked",
+      "localFocusedTests": {
+        "tests": 14,
+        "result": "OK"
+      },
+      "ci": {
+        "runId": 40327580317,
+        "url": "https://github.com/sasmazt90/attune-more/actions/runs/40327580317",
+        "headSha": "ce44290d557aac8aa639eb54d19d0f36b47f7dc7",
+        "conclusion": "success",
+        "frontendProductionBuild": "success",
+        "localizationContract": "success",
+        "deterministicUnitSuite": {
+          "passed": 1627,
+          "skipped": 44,
+          "warnings": 2
+        },
+        "completeSkinResearchEvidenceSuite": {
+          "tests": 237,
+          "result": "OK"
+        }
+      },
+      "evidence": "docs/skin/evidence/oily-release-gate-v2-ci-20261026-v1.json"
+    },
     "underEyePerClassReleaseGateV2": {
       "methodVersion": "under-eye-per-class-release-gate-v2",
       "knownUngroupedModelAccepted": false,
@@ -4354,6 +4397,12 @@
       "observedAt": "2026-10-26T11:43:07Z",
       "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye training lists, grouped under-eye project and existing upload task. All known trainings remain finished, under-eye pilot v2 still has no training, grouped under-eye remains empty, upload task sLFwX7CYBVcnnD6iAW5o remains created/no-progress, and no duplicate work was started. Repaired a fail-open path for tasks 09-10: the prior under-eye gate could be made ready by changing receipt booleans without proving a distinct grouped-project candidate, training/version identity, authorized grouped archive, preregistered change or thresholds locked before final test. Gate v2 pins the rejected ungrouped model and exact per-class metrics, requires any future candidate to belong to the frozen grouped research project, authorizes only targeted training after archive/rights/expert/grouping/holdout evidence, and permits darkcircle and eyebag independently only after validation, untouched final test, physical camera, slice, integration and control evidence. Eleven focused local tests passed. GitHub Actions run 40316642225 is green: frontend build and localization contract passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 231 tests. No grouped candidate exists and roadmap completion remains false.",
       "report": "docs/skin/evidence/under-eye-per-class-release-gate-v2-ci-20261026-v1.json"
+    },
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T13:09:26Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye training lists and the existing grouped upload task. All known trainings remain finished, under-eye pilot v2 still has no training, grouped under-eye remains empty, upload task sLFwX7CYBVcnnD6iAW5o remains created/no-progress, and no duplicate work was started. Repaired a fail-open path for task 04: the prior Oily gate could be made ready by changing receipt booleans without proving a distinct regional project/version/training/model identity, a preregistered change, thresholds locked before final test or polygon-mask output. Gate v2 pins the rejected RF-DETR Seg Small identity and metrics, rejects version-1 NAS identity substitution, requires a group-locked version 2 or later, and preserves the existing concrete oil-appearance proxy, separate skin type, green measured-support layer, unknown/normal boundary and independent non-sensitivity Redness overlap. Fourteen focused tests and all 237 local skin-research tests passed. GitHub Actions run 40327580317 is green: frontend build and localization contract passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 237 tests. No distinct candidate exists, so training, final-test use, activation and roadmap completion remain false.",
+      "report": "docs/skin/evidence/oily-release-gate-v2-ci-20261026-v1.json"
     }
   ],
   "activityLog": [
@@ -4916,6 +4965,27 @@
           "deterministicSkipped": 44,
           "deterministicWarnings": 2,
           "skinResearchTests": 231,
+          "frontend": "success",
+          "localization": "success"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T13:09:26Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye training lists and the existing grouped upload task. All known trainings remain finished, under-eye pilot v2 still has no training, grouped under-eye remains empty, upload task sLFwX7CYBVcnnD6iAW5o remains created/no-progress, and no duplicate work was started. Repaired a fail-open path for task 04: the prior Oily gate could be made ready by changing receipt booleans without proving a distinct regional project/version/training/model identity, a preregistered change, thresholds locked before final test or polygon-mask output. Gate v2 pins the rejected RF-DETR Seg Small identity and metrics, rejects version-1 NAS identity substitution, requires a group-locked version 2 or later, and preserves the existing concrete oil-appearance proxy, separate skin type, green measured-support layer, unknown/normal boundary and independent non-sensitivity Redness overlap. Fourteen focused tests and all 237 local skin-research tests passed. GitHub Actions run 40327580317 is green: frontend build and localization contract passed, the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 237 tests. No distinct candidate exists, so training, final-test use, activation and roadmap completion remain false.",
+      "report": "docs/skin/evidence/oily-release-gate-v2-ci-20261026-v1.json",
+      "commits": [
+        "ce44290d557aac8aa639eb54d19d0f36b47f7dc7"
+      ],
+      "runs": [
+        {
+          "runId": 40327580317,
+          "conclusion": "success",
+          "deterministicTests": 1627,
+          "deterministicSkipped": 44,
+          "deterministicWarnings": 2,
+          "skinResearchTests": 237,
           "frontend": "success",
           "localization": "success"
         }
