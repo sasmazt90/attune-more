@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "physical-camera-evaluator-audit-v1",
+  "createdAt": "2026-10-26T03:46:05Z",
+  "workingBaseline": {
+    "productAlreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "existingProductFlowChanged": false
+  },
+  "implementation": {
+    "script": "scripts/skin-research/evaluate_physical_camera_predictions.py",
+    "tests": "scripts/skin-research/tests/test_evaluate_physical_camera_predictions.py",
+    "predictionReceiptTemplate": "docs/skin/evidence/physical-camera-prediction-receipt-template-20261026-v1.json",
+    "cameraManifestMethod": "physical-camera-benchmark-manifest-v1",
+    "expertTruthMethod": "physical-camera-expert-truth-v1",
+    "thresholdsMustBeLockedBeforeCameraFinal": true,
+    "cameraFinalMaySelectThresholds": false,
+    "methodMayMutateAfterLock": false,
+    "metricsPerClass": true,
+    "metricsPerDeviceLightingSkinTonePoseSlice": true,
+    "failureRecordsPerClass": true,
+    "unknownOrUnassessableMayBecomeNegative": false,
+    "unavailableMayBecomeTrueNegative": false,
+    "rawScoresAcceptedForRetuning": false,
+    "localizationMetricsClaimed": false,
+    "productReplayClaimed": false,
+    "activationAllowed": false
+  },
+  "verification": {
+    "newFocusedTestsPassed": 8,
+    "cameraPipelineTestsPassed": 27,
+    "fullSkinResearchTestsPassed": 181,
+    "classSeparationCovered": true,
+    "sliceMetricsCovered": true,
+    "thresholdLeakageCovered": true,
+    "unavailableHandlingCovered": true,
+    "unknownUnassessableExclusionCovered": true,
+    "privateAndRetuningFieldRejectionCovered": true,
+    "mapContractCovered": true
+  },
+  "currentCandidate": {
+    "physicalCameraManifestPresent": false,
+    "expertTruthPresent": false,
+    "lockedPredictionReceiptPresent": false,
+    "evaluationGenerated": false,
+    "physicalCameraAcceptanceClaimed": false,
+    "blockers": [
+      "consented_physical_camera_manifest_missing",
+      "independent_human_expert_truth_missing",
+      "locked_method_camera_predictions_missing"
+    ]
+  },
+  "providerRefresh": {
+    "observedAt": "2026-10-26T03:46:05Z",
+    "projectsAccessible": 20,
+    "acneImages": 800,
+    "regionalImages": 337,
+    "underEyeImages": 399,
+    "acneTrainingsFinished": 2,
+    "regionalTrainingsFinished": 2,
+    "underEyeV1TrainingsFinished": 1,
+    "underEyeV2Trainings": 0,
+    "pendingUploadTask": {"taskId": "sLFwX7CYBVcnnD6iAW5o", "status": "created", "progress": null},
+    "newTrainingStarted": false,
+    "newUploadStarted": false
+  }
+}
