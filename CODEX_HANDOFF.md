@@ -245,6 +245,10 @@ CODEX_HANDOFF.md §3–§8 ve research/skin-findings/export/REPORT_* dosyaların
 4. Üretim özellik eşdeğerliği (parity betikleri) ve mediapipe yokken davranış.
 5. Ekranda değer kuralları: her görülen bulguda sayı/yüzde; sivilce alt türleri toplamı = toplam; uydurma değer yok.
 6. E2E: tests/e2e/current_skin_contract.py (gerçek inference, video) ve current_skin_findings_sample_ui.py (örnek veri) ayrı raporla.
+7. Kamera renk yolu: tests/unit/test_camera_color.py; ATTUNE_CAMERA_PROFILE=tests/e2e/fixtures/camera-profile-fixture-bt601.json ile
+   SKIN_E2E_EXPECT_RAW=1 current_skin_contract.py (her pozda cameraColor.source=raw-yuv); scripts/camera-calibration/check_skin_effect.py.
+   Kalibrasyon uç noktasının ATTUNE_CAMERA_CALIBRATION olmadan 403 verdiğini ve profilin yalnız kapılar geçince yazıldığını doğrula.
+8. Diller: tests/unit/test_skin_findings_i18n.py, tests/unit/test_localization.py, tests/e2e/skin_i18n_screens.py (TR/EN/DE, Türkçe satır ve taşma yok).
 Rapor: Bulgu | Önem | Kabul engeli mi | Dosya:satır | Yeniden üretme | Öneri.
 ```
 
