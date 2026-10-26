@@ -47,7 +47,7 @@ with sync_playwright() as pw:
         dlg = p.get_by_role('dialog'); expect(dlg.locator('[data-skin-record-comparison]')).to_have_count(1)
         assert dlg.locator('[data-skin-compare-with]').get_attribute('data-skin-compare-with') == 'previous'
         ch = {r.get_attribute('data-skin-compare-row'): r.get_attribute('data-skin-compare-change') for r in dlg.locator('[data-skin-compare-row]').all()}
-        assert ch == {'acne': 'up', 'rosacea': 'up', 'melasma': 'new', 'mole': 'new'}, ch   # 4 -> 7, 55 -> 62; melasma/mole measured but not seen before
+        assert ch == {'acne': 'up', 'rosacea': 'up', 'melasma': 'noPrevious', 'mole': 'noPrevious'}, ch   # 4 -> 7, 55 -> 62; no melasma/mole row before = not measured, never 'new'
         if lang == 'tr':
             t = dlg.inner_text()
             assert '↑ 3' in t and 'önceki 4' in t and '↑ 7 puan' in t and 'önceki %55' in t, t

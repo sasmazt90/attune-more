@@ -36,7 +36,8 @@ const finding=(id,region,extra={})=>({id,region,status:'seen',pose:'FRONT',...(F
 const all=F.FINDING_VIEWS.flatMap(v=>ids.filter(id=>F.viewFindings([finding(id,regionOf[v])],v).length).map(id=>finding(id,regionOf[v],
   id==='acne'?{subtypes:{blackhead:1,papule:2},toneDiff:2.5}:id==='redness'?{severity:undefined,areaPct:12,toneDiff:3.1}:{})));
 const result={version:'v',status:'measured',findings:all,unavailable:reasons.map((reason,i)=>({id:ids[i],reason}))};
-const history=[{at:'2026-09-01T10:00:00Z',findings:all},{at:'2026-10-01T10:00:00Z',findings:all}];
+// history entries carry their method version and status: only comparable values are charted (skinHistorySummary)
+const history=[{at:'2026-09-01T10:00:00Z',findings:all,version:'v',status:'measured'},{at:'2026-10-01T10:00:00Z',findings:all,version:'v',status:'measured'}];
 const props={scanAt:'2026-10-26T10:00:00Z',index:0,onIndex:()=>{},onGoToView:()=>{},onNavigateToCare:()=>{},onRescan:()=>{},onOverviewSel:()=>{}};
 add('overview',h(SkinFindingsPanel,{...props,view:'overview',overviewSel:null,findings:all,findingsResult:result}));
 for(const value of Object.keys(O.SKIN_TYPE_LABELS))for(const sensitive of [false,true])
@@ -48,7 +49,7 @@ for(const v of F.FINDING_VIEWS){
   add('none-'+v,h(SkinFindingsPanel,{...props,view:v,overviewSel:null,findings:[],findingsResult:{version:'v',status:'measured',findings:[],unavailable:[]}}));
   add('page-'+v,h(SkinFindingsPanel,{...props,view:v,overviewSel:null,findings:[...all,{id:'mole',region:regionOf[v],status:'inconclusive',causes:['LIGHTING']}],findingsResult:result,history}));
   const items=F.viewFindings(all,v);
-  items.forEach((f,i)=>add('card-'+v+'-'+f.id,h(SkinFindingCard,{view:v,items,index:i,onIndex:()=>{},history,scanAt:props.scanAt})));
+  items.forEach((f,i)=>add('card-'+v+'-'+f.id,h(SkinFindingCard,{view:v,items,index:i,onIndex:()=>{},history,scanAt:props.scanAt,current:result})));
 }
 for(const id of ['overview',...F.FINDING_VIEWS])
   add('result-'+id,h(SkinResultView,{currentRegion:{id,nameTr:'Genel Bakış',indicators:[],skinType:{value:'combination',quality:'valid'}},findings:all,findingsResult:result,findingsHistory:history,scanAt:props.scanAt,onPrev:()=>{},onNext:()=>{},onNavigateToCare:()=>{}}));

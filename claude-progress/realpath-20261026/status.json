@@ -49,8 +49,14 @@
    "stage": "camera-color+i18n",
    "done": "raw YUV frame + server conversion (camera profile), chart calibration, TR/EN/DE; K-217 raw E2E PASS",
    "blocker": "real vehicle camera profile/calibration not done"
+  },
+  {
+   "time": "2026-10-26T22:21:57+01:00",
+   "stage": "codex-fixes",
+   "done": "1+ removed (measured 0 / not counted), history states+comparability, 3-pose photo storage, appearance-v1 score (red findings); unit 1450 pass, sample E2E x3, photo E2E (a-d), real camera E2E K-217 PASS",
+   "blocker": "melasma/acneMarks: no affected-area mask (score unavailable); pores: no existing measure; physical camera not tested"
   }
  ],
- "updated": "2026-10-26T17:36:34+01:00",
- "stage": "camera-color+i18n"
+ "updated": "2026-10-26T22:21:57+01:00",
+ "stage": "codex-fixes"
 }

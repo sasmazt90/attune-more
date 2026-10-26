@@ -106,6 +106,60 @@ Notlar:
   - Almanca uzun etiketler kısaltıldı (ör. "Augenpartie", "Weißköpfchen").
 - **Önceki tur düzeltmeleri korundu:** tarih aralığı, tam gün filtresi, işaretlerin kendi pozunda çizilmesi, etiket boşlukları.
 
+## 5d. Codex düzeltme turu (inceleme: d6474d9) — düzeltmeler, dosya:satır, kanıt
+
+Bu bölüm teslim commit'indeki satır numaralarını verir. Codex yeniden incelemeden kabul sayılmaz.
+
+| # | Codex bulgusu | Düzeltme (dosya:satır) | Test kanıtı |
+|---|---|---|---|
+| 1 | Nokta yoksa otomatik `count=1 / countAtLeast` | `services/core-api/skin_findings_v1.py:269` — sayım yapıldıysa (bölge okunabilir + dedektör kutu listesi var) `count=0`, `countPose`; yapılamadıysa sayı yok, `countUnavailable='COUNT_NOT_RUN'` | `tests/unit/test_skin_findings_v1.py::test_counts_never_double_count_and_melasma_area` (0 / sayılamadı / FRONT'tan sayıldı) |
+| 1b | Eski `countAtLeast` kayıtlarından kesin sonuç | Kayıtlar değişmez. `skinHistorySummary.ts:50` `measureOf` → `exact=false, why=NO_EXACT_COUNT`; karşılaştırma `incomparable`, ortalamaya girmez; `skinRecommendations.ts:123` bant yok (0 sayı da bantsız) | `test_skin_history_summary.py::test_states_scope_versions_and_legacy_counts` |
+| 1c | 8 → 3 kesin fark | `compareMeasures` (`skinHistorySummary.ts:87`) | `…::test_reviewer_counter_examples` (↓ 5, önceki 8) |
+| 2a | Önceki 8, yeni inconclusive → "Görülmedi" | Durumlar ayrıldı: seen / notSeen / inconclusive / unavailable / missing. Yalnız tüm kapsamda `notSeen` = ölçülmüş yokluk → `unknownNow` | `…::test_reviewer_counter_examples` (1) |
+| 2b | Aynı kayıtların ortalaması 4 | `skinAverages` (`skinHistorySummary.ts:142`): bilinmeyen tarama ortalamaya 0 olarak girmez → 8 (1 tarama) | (2) |
+| 2c | Önceki inconclusive, yeni 8 → "Yeni / yoktu" | `noPrevious` → "önceki taramada ölçülemedi" | (3) |
+| 2d | severity 80 / areaPct 20 → "alan %50" | Tür (sayı · görünüm skoru · belirginlik · eski alan %) ve yöntem sürümü aynı olmadıkça karşılaştırma/ortalama yok (`DIFFERENT_MEASURE` / `DIFFERENT_METHOD`) | (4) |
+| 2e | unavailable / FUSION_FAILED / [] → "Bulgu görülmedi" | `recordSummary` (`skinHistorySummary.ts:132`) → `not-measured` ("Bulgular ölçülemedi"); boş `findings` da ölçülmüş yokluk değildir | (5) |
+| 2f | Bölge kapsamı | Kapsam = bulgunun her iki kayıtta satırı olan bölgeleri; biri ölçülmemişse `PARTIAL_REGIONS`. Sayfa/genel bakışta ölçülemeyen bölge `incomplete` ile yazılır (`skinFindings.ts:151`); sayılamayan bölge varsa toplam sayı gösterilmez (`:152`) | `…::test_states_scope_versions_and_legacy_counts` |
+| 2g | Tutarlılık | Grafik (`SkinFindingCard.tsx` `History`), modül kartı, tablo, ayrıntı ve öneri aynı `measureOf` / `compareMeasures` kurallarını kullanır | `tests/e2e/skin_health_history_ui.py`, `current_skin_findings_sample_ui.py` |
+| 3 | Yan pozların fotoğrafı saklanmıyor (`INVALID_OVERVIEW_SOURCE`) | `apps/vehicle-app/src/app/skin/page.tsx:572` — genel sonuç yalnız FRONT karesine yazılır, LEFT/RIGHT'tan kaldırılır. `skinPhotoHistory.ts` doğrulamaları değişmedi | `tests/unit/skin_photo_three_pose_storage.cjs` (+ pytest sarmalayıcısı), `tests/e2e/skin_photo_storage.py` (gerçek tarama, IndexedDB) — sonuç §6 |
+| 4 | Görünüm skoru | §5e | `…::test_appearance_score_contract_and_comparison`, `test_skin_findings_v1.py::test_appearance_raw_values_shared_mask_and_unavailable` |
+
+## 5e. Görünüm skoru — hesap sözleşmesi `appearance-v1`
+
+**Kaynak:** `services/core-api/skin_appearance.py`, istemci kopyası `apps/vehicle-app/src/utils/skinAppearance.ts`. Python ile TS'nin aynı sonucu verdiği (eşlik) testle doğrulanır.
+
+**Girdi:** her bölge tek pozdan alınır (FRONT: alın, burun, çene · LEFT: sağ yanak · RIGHT: sol yanak). Hepsi mevcut ışık düzeltmeli görüntüden (`skin_findings_det.light_redness`) gelir:
+- `usablePx`: bölgenin kullanılabilir cilt pikselleri.
+- `affectedPx`: a* > am + 4 olan pikseller; am = tüm yüzün kullanılabilir cildinin medyan a* değeri, yani referans cilt. Bu gerçek bir piksel maskesidir; tespit kutusu kullanılmaz.
+- `intensity`: etkilenen piksellerde ortalama (a* − am), CIE a* birimi.
+
+**Birleştirme** (sayfa / tüm yüz):
+- alan = Σ affectedPx / Σ usablePx; yoğunluk = etkilenen piksellerle ağırlıklı ortalama.
+- Bölgesel yüzdeler toplanmaz. Ölçülmeyen bölge varsa sonuç `partial` olur ve karşılaştırılmaz.
+
+**Skor:** `score = round(100 · sqrt(min(1, alan/0,50) · min(1, yoğunluk/16)))`.
+- Sabit ölçek. Her fotoğrafta yeniden kurulmaz; ilk tarama 100 sayılmaz.
+- Alan veya yoğunluk artarken azalmaz; etkilenen piksel yoksa 0'dır.
+- Sabitler (0,50 ve 16 a*) okunur bir ölçek için seçilmiş mühendislik değerleridir; klinik olarak doğrulanmadı.
+- Skor tespit olasılığı, etkilenen alan yüzdesi ya da hastalık şiddeti değildir.
+
+**Saklanan alanlar:** her satırda `appearance = {version, usablePx, affectedPx, areaPct, intensity, score}`. Eski `areaPct` ve `toneDiff` aynen korunur; eski skorlar yeni skora dönüştürülmez.
+
+**Bulgu bazında:**
+
+| Bulgu | Durum |
+|---|---|
+| Kızarıklık, rozasea, egzama/sedef | Hesaplanır. Üçü aynı bölgesel kırmızı maskeyi kullanır; satırda `appearanceSharedWith` ve ekranda "Aynı bölgesel kızarıklık ölçümü: …" yazar, bağımsız ölçüm gibi sunulmaz. Değer yoksa `MEASURE_NOT_AVAILABLE`. |
+| Melazma | **unavailable** (`AFFECTED_MASK_NOT_AVAILABLE`). Mevcut çıktı yalnız tespit kutusu kapsamı (`findings_Gunes_Lekesi_cov20`); etkilenen piksel maskesi yok. Kutu alanı "İşaretli leke kutularının kapladığı alan" diye ayrıca gösterilir, etkilenen cilt alanı sayılmaz. **Engel.** |
+| Düz akne izi | **unavailable** (`AFFECTED_MASK_NOT_AVAILABLE`). Akne izi DINOv2 sınıflandırıcı + belirginlik modelidir; maske yok. Mevcut belirginlik çubuğu korunur. **Engel.** |
+| Gözenek | Modelde "Genis Gozenek" sınıfı var, ama uygulamada ve sunucuda kullanılan bir gözenek ölçümü yok (kodda arandı). Talimat gereği dokunulmadı. |
+
+**Ekran:**
+- Bu bulgularda çubuk görünüm skorunu gösterir; ham alan ve renk yoğunluğu ayrı satırdadır.
+- Aynı yöntemle önceki taramaya göre değişim yalnız "Görünüm skoru N puan azaldı." / "… arttı." / "… değişmedi." şeklinde yazılır; göreli yüzde yok.
+- Eski öneri eşikleri yeni skora uygulanmaz: bu bulgularda öneri bandı seçilmez.
+
 ## 5c. Sonuç ekranı ve Sağlık Geçmişim (kullanıcı onaylı, 2026-10-26)
 
 **Sonuç ekranı:**
@@ -168,6 +222,52 @@ Düzeltme etkiyi azaltıyor ama tamamen gidermiyor (K-074'te 1 kayıp, K-258'de 
 **Yazılım hazırdır:** ham kare yolu, profil okuma, renk düzeltmesi, kart, uydurma, kalite kapıları ve testler. Gerçek bir OEM kamerasıyla henüz uygulanmadı; bu, OEM anlaşmasıyla gelecek adımdır.
 
 ## 6. Doğrulama
+
+### 6.0 Codex düzeltme turu (bu teslim) — ayrı ayrı raporlanmıştır
+
+Kanıt dosyaları: `claude-progress/realpath-20261026/codex-fixes-20261026/`. Fotoğraf içermez.
+
+**Otomatik testler:**
+- `pytest tests/unit`: 1450 geçti, 45 atlandı, 6 başarısız. Başarısızların hepsi tabanda da başarısız:
+  - `test_acne_objectness_features` ×5: `yolox` modülü yok;
+  - `test_hosted_skin_type_runtime`: bu dizindeki özel `model.onnx`; temiz klonda geçer.
+- Yeni/güncellenen testler:
+  - `test_skin_history_summary.py`: 3 test; Codex karşı örneklerinin hepsi adıyla.
+  - `test_skin_findings_v1.py`: 10 test; 0 sayım, sayılamadı ve sunucu görünüm skoru.
+  - `skin_photo_three_pose_storage.cjs`: 9/9. Düzeltme öncesi `page.tsx` ile bilerek başarısız olur.
+  - `test_skin_findings_i18n.py`: 5 test. Geçmiş girdileri artık yöntem sürümü taşıdığı için fikstür güncellendi; hiçbir kontrol gevşetilmedi.
+- `tsc --noEmit`: 0 hata. `npm run lint`: temiz. `npm run build`: başarılı. Yerelleştirme kontrolü: PASS.
+
+**Örnek veriyle arayüz** (model çıktısı değil; Chromium):
+- `current_skin_findings_sample_ui.py`: PASS.
+- `skin_health_history_ui.py`: PASS (TR/EN/DE). Melazma ve ben için önceki kayıtta satır yok; değişim "önceki taramada ölçülemedi" olarak gösterilir, "Yeni" denmez.
+- `skin_i18n_screens.py`: PASS (TR/EN/DE).
+
+**Fotoğraf saklama** (`tests/e2e/skin_photo_storage.py`):
+- Gerçek uygulama ve sahte kamera aygıtıyla gerçek tarama; IndexedDB kaydı. Sonuç: (a), (b), (c) ve (d) PASS.
+- Düzeltme öncesi derlemede (a) ve (b) FAIL oluyordu ("Cilt fotoğrafı kaydedilemedi").
+- (d)'deki izin kapalı kontrolü uygulamanın kendi yazma fonksiyonuyla yapıldı; ikinci bir gerçek tarama yapılmadı.
+
+**Gerçek model inference** (`current_skin_contract.py`, K-217, ham kare yolu, fixture renk profili): PASS, 169 s.
+- API → kayıt → sonuç ekranı → yeniden açılan kayıt → Sağlık Geçmişim tablosu ve ayrıntı → "Sonuç ekranında aç" zinciri boyunca kayıt, API'nin birleşik bulgularıyla birebir aynıdır.
+- Görünüm skoru, gerçek çıktı:
+  - Sağ yanak kızarıklık / rozasea: 71 (alan %56,73, yoğunluk +8,07; ortak maske notuyla).
+  - Sol yanak kızarıklık: 57 (%38,45, +6,67).
+- Eski "1+" yerine ölçülmüş 0: burunda sivilce 0 (`countPose` FRONT), uçuk 0.
+
+**Sahte kamera fiziksel kamera değildir.** Fiziksel kamera, araç ekranı ve Windows launcher bu turda da **TEST EDİLMEDİ**.
+
+**Yeniden üretme** (sunucular :8000 ve :3000'de; `ATTUNE_REGIONAL_V3_DIR` model paketi; `ATTUNE_CAMERA_PROFILE=tests/e2e/fixtures/camera-profile-fixture-bt601.json`):
+```
+python3 -m pytest -q tests/unit
+python3 tests/e2e/current_skin_findings_sample_ui.py --chromium
+python3 tests/e2e/skin_health_history_ui.py --chromium
+python3 tests/e2e/skin_i18n_screens.py --chromium
+SKIN_E2E_Y4M=<K-217 y4m> python3 tests/e2e/skin_photo_storage.py
+SKIN_E2E_EXPECT_RAW=1 SKIN_E2E_Y4M=<K-217 y4m> python3 tests/e2e/current_skin_contract.py --chromium --software-gpu --skip-native-zoom
+```
+y4m dosyası `tests/e2e/make_skin_y4m.py FRONT.png SIDE1.png SIDE2.png out.y4m 20 0.34` ile üretilir; fotoğraflar Git'te değildir.
+
 
 ### 6.1 Otomatik
 - Bu tur sonu `pytest tests/unit`: 1446 geçti, 45 atlandı, 6 başarısız (yolox ×5, özel model.onnx ×1; tabanda da başarısız). Yeni: `test_camera_color.py` 12, `test_skin_findings_i18n.py`.
@@ -235,6 +335,14 @@ Raporlar:
 - Sivilce ve kızarıklık: mediapipe ile 0,003 olasılık içinde.
 
 ## 8. Açık engeller
+
+**Bu turdan (Codex düzeltmeleri):**
+- **A. Melazma ve düz akne izi görünüm skoru:** mevcut çıktılarda etkilenen cilt alanını piksel düzeyinde ayıran bir maske yok. Skor `unavailable` (`AFFECTED_MASK_NOT_AVAILABLE`); yeni yöntem veya eğitim yapılmadı.
+- **B. Gözenek:** kullanılan bir ölçüm yok; talimat gereği dokunulmadı.
+- **C. Skor sabitleri:** (0,50 alan · 16 a*) mühendislik seçimidir; klinik veya dermatolog doğrulaması yok. Görünüm skoru için öneri bandı tanımlı değil (eski bantlar uygulanmadı).
+- **D. Ölçülmüş 0 ile "görüldü" çelişkisi:** sınıflandırıcı bulguyu "görüldü" derken sayım 0 olabilir (ör. uçuk 0). Bu durum, doğrulanmamış "1+" yerine gerçek sayımı gösterir.
+- **E. Kabul katmanları:** fiziksel kamera, araç ekranı, Windows launcher, gerçek fotoğraf ve klinik doğrulama yapılmadı. Codex bağımsız incelemesi bekleniyor.
+
 
 1. **Eşik ve kamera hattı:** Eşikler araştırma PNG'lerinde seçildi. Ham kare + profil yolu eklendi (§5b). Araç kamerası profili ve kart kalibrasyonu açık iş değildir: OEM ile anlaşma aşamasında, OEM'in kabin kamerası için uygulanacak yöntemdir ve yazılımı hazırdır (§5b).
    - Uygulamanın gönderdiği PNG orijinalden ort. 1,4/255 farklı. PNG kayıpsız olduğundan fark kodlamadan önce oluşuyor; büyük olasılıkla tarayıcının YUV420→RGB dönüşümü (kanıtlanmadı).

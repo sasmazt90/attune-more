@@ -166,9 +166,12 @@ def _det_rows(det: dict, maps: dict, poses: list) -> tuple[list, dict]:
         for r in SFD.decide(per, list(det.values())):
             row = dict(id=r['id'], region=r['region'], status=r['status'], pose=r['pose'], readFrom=sorted(per))
             if r['id'] == 'redness' and r.get('areaPct') is not None:
-                measures[r['region']] = dict(areaPct=round(float(r['areaPct']), 1), toneDiff=round(float(r['toneDiff']), 1))
+                measures[r['region']] = dict(areaPct=round(float(r['areaPct']), 1), toneDiff=round(float(r['toneDiff']), 1),
+                                             **({'appearance': r['appearance']} if r.get('appearance') else {}))
                 if row['status'] == 'seen':
                     row.update(measures[r['region']])
+                elif r.get('appearance'):   # measured absence keeps its raw values (pooling a page needs every region)
+                    row['appearance'] = r['appearance']
             rows.append(row)
     have = {(r['id'], r['region']) for r in rows}
     for fid, sp in det.items():
@@ -263,10 +266,22 @@ def _attach_count(row: dict, maps: dict, poses: list, fallback_pose: str | None 
         for b in marks:
             types[b.get('type', 'unspecified')] = types.get(b.get('type', 'unspecified'), 0) + 1
         row['subtypes'] = {k: types.get(k, 0) for k in ('blackhead', 'whitehead', 'papule', 'pustule', 'nodule', 'unspecified')}
-    if not marks:   # the decision says it is there, the detector marked no single lesion: at least one
-        row['count'] = 1; row['countAtLeast'] = True
-        if row['id'] == 'acne':
-            row['subtypes'] = dict(blackhead=0, whitehead=0, papule=0, pustule=0, nodule=0, unspecified=1)
+    if not marks:
+        # No marked lesion. A count that was done (the detector ran on a photo where the region is readable) is 0;
+        # if no photo could be counted the count is unknown and no number is produced (never an invented "1+").
+        def counted(p):
+            m = maps.get(p) or {}
+            e = (m.get('findingEvidence') or {}).get(row['region']) or {}
+            return isinstance(m.get('findingBoxes'), list) and bool(e.get('usable'))
+        done = next((p for p in order if p in poses and counted(p)), None)
+        if done:
+            row['count'] = 0; row['countPose'] = done
+            if row['id'] == 'acne':
+                row['subtypes'] = dict(blackhead=0, whitehead=0, papule=0, pustule=0, nodule=0, unspecified=0)
+        else:
+            row.pop('count', None); row['countUnavailable'] = 'COUNT_NOT_RUN'
+    else:
+        row['countPose'] = pose
 
 
 def _measures_ref(name: str):
@@ -276,6 +291,25 @@ def _measures_ref(name: str):
         return json.load(open(path)) if os.path.exists(path) else None
     except Exception:  # noqa: BLE001
         return None
+
+
+def _mark_appearance(findings: list) -> None:
+    """appearance-v1 bookkeeping: red-appearance rows say which findings show the SAME regional measurement (one
+    light-corrected red mask per region, not independent measurements); findings without a real affected mask carry
+    a reason instead of a score."""
+    import skin_appearance as SA
+    for f in findings:
+        if f['status'] != 'seen':
+            continue
+        if f['id'] in SA.FINDINGS:
+            if f.get('appearance'):
+                f['appearanceSource'] = 'region-red-mask'
+                f['appearanceSharedWith'] = sorted(g['id'] for g in findings if g is not f and g['status'] == 'seen'
+                                                   and g['id'] in SA.FINDINGS and g['region'] == f['region'] and g.get('appearance'))
+            else:
+                f['appearanceUnavailable'] = 'MEASURE_NOT_AVAILABLE'
+        elif f['id'] in SA.NO_MASK:
+            f['appearanceUnavailable'] = SA.NO_MASK[f['id']]
 
 
 def _attach_measures(findings: list, maps: dict, poses: list) -> None:
@@ -352,8 +386,11 @@ def findings_from_maps(maps: dict) -> dict:
     for f in findings:   # rosacea and eczema show the light-corrected red area of their region
         if f['status'] == 'seen' and f['id'] in ('rosacea', 'eczema') and f['region'] in measures and 'areaPct' not in f:
             f.update(measures[f['region']])
+        elif f['status'] == 'notSeen' and f['id'] in ('rosacea', 'eczema') and (measures.get(f['region']) or {}).get('appearance'):
+            f['appearance'] = measures[f['region']]['appearance']
         if f['status'] == 'seen' and f['id'] == 'acne':
             _attach_count(f, maps, poses, fallback_pose=f.get('pose'))
+    _mark_appearance(findings)
     _attach_severity(findings, maps, poses)
     _attach_measures(findings, maps, poses)
     return dict(base, status='measured', findings=findings, unavailable=_unavailable(None, available))

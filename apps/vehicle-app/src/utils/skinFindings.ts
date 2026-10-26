@@ -6,6 +6,7 @@ export type SkinFindingId =
   | 'foreheadLines' | 'crowsFeet' | 'eyeBags' | 'darkCircles' | 'hoodedEyelids' | 'downturnedCorners' | 'coldSore'
   | 'eczema' | 'flaking';
 export type SkinFindingRegion = 'forehead' | 'periorbital' | 'nose' | 'rightCheek' | 'leftCheek' | 'chin';
+import { APPEARANCE_FINDINGS, scopedAppearance, type Appearance, type PooledAppearance } from './skinAppearance';
 export type SkinFindingKind = 'count' | 'area' | 'presence';
 export type SkinFindingStatus = 'seen' | 'notSeen' | 'inconclusive';
 /** Source-pixel point on the photo of `pose` (each marker keeps its own pose: never drawn on another photo). */
@@ -34,6 +35,18 @@ export type SkinFinding = {
   areaPct?: number;
   /** validated visibility score, 0–100 (rank among reference faces with this finding) */
   severity?: number;
+  /** appearance-v1 raw values + score of the region (skinAppearance.ts); on a page / the overview: pooled over its regions */
+  appearance?: Appearance | PooledAppearance;
+  /** the regional red mask is shared: these findings show the SAME regional measurement (not independent values) */
+  appearanceSharedWith?: SkinFindingId[];
+  appearanceSource?: string;
+  /** why this finding has no appearance score (e.g. AFFECTED_MASK_NOT_AVAILABLE) */
+  appearanceUnavailable?: string;
+  /** photo the count was done on; countUnavailable = no photo could be counted (no number is shown) */
+  countPose?: 'FRONT' | 'RIGHT' | 'LEFT';
+  countUnavailable?: string;
+  /** page / overview: regions of this finding that were not measured (the value covers the other regions only) */
+  incomplete?: SkinFindingRegion[];
   /** source-pixel markers on the photo of `pose` */
   markers?: SkinFindingMarker[];
   pose?: 'FRONT' | 'RIGHT' | 'LEFT';
@@ -48,7 +61,9 @@ export type SkinFindingsResult = {
   findings: SkinFinding[]; unavailable?: { id: SkinFindingId; reason: SkinFindingUnavailableReason }[];
 };
 /** One earlier scan, for the history chart. */
-export type SkinFindingsHistoryEntry = { at: string; findings: SkinFinding[] };
+/** One earlier scan for the history chart; version/status/unavailable decide what is comparable (skinHistorySummary). */
+export type SkinFindingsHistoryEntry = { at: string; findings: SkinFinding[]; version?: string; status?: 'measured' | 'unavailable'; unavailable?: SkinFindingsResult['unavailable'] };
+export const REGION_NAMES: Record<SkinFindingRegion, string> = { forehead: 'Alın', nose: 'Burun', periorbital: 'Göz çevresi', rightCheek: 'Sağ profil', leftCheek: 'Sol profil', chin: 'Dudak ve çevresi' };
 
 export type FindingGroup = 'acne' | 'pigment' | 'redness' | 'lines' | 'eye' | 'lip' | 'texture';
 export const FINDING_GROUP_COLORS: Record<FindingGroup, string> = {
@@ -86,6 +101,7 @@ export const VIEW_REGIONS: Record<FindingViewId, SkinFindingRegion[]> = {
   forehead: ['forehead', 'nose'], periorbital: ['periorbital'], rightCheek: ['rightCheek'], leftCheek: ['leftCheek'], chin: ['chin']
 };
 export const regionView = (r: SkinFindingRegion): FindingViewId => (r === 'nose' ? 'forehead' : r);
+export const ALL_REGIONS: SkinFindingRegion[] = ['forehead', 'nose', 'periorbital', 'rightCheek', 'leftCheek', 'chin'];
 export const isFindingView = (v: string): v is FindingViewId => (FINDING_VIEWS as string[]).includes(v);
 /** Display order of findings on each page. */
 const VIEW_ORDER: Record<FindingViewId, SkinFindingId[]> = {
@@ -130,13 +146,25 @@ export function viewFindings(all: SkinFinding[] | undefined, view: FindingViewId
     // Rosacea has no score of its own: it shows the measured red area of the same regions.
     const redArea = id === 'rosacea' && same.every(f => f.severity === undefined && f.areaPct === undefined)
       ? rows.filter(f => f.id === 'redness' && same.some(r => r.region === f.region)).reduce<number | undefined>((m, f) => max(m, f.areaPct), undefined) : undefined;
+    const scope = VIEW_REGIONS[view];
+    const rowsAll = (all || []).filter(f => f.id === id && scope.includes(f.region));
+    const incomplete = rowsAll.filter(f => f.status === 'inconclusive').map(f => f.region);
+    const uncounted = same.some(f => FINDING_DEFS[id].kind === 'count' && f.count === undefined && !f.countRange);
+    const appearance = APPEARANCE_FINDINGS.includes(id) ? scopedAppearance(all, id, scope) : null;
+    const extra = {
+      ...(incomplete.length ? { incomplete } : {}),
+      ...(appearance ? { appearance } : {}),
+      ...(uncounted ? { count: undefined, countAtLeast: undefined } : {}),
+      ...(same.every(f => f.appearanceUnavailable) ? { appearanceUnavailable: same[0].appearanceUnavailable } : {}),
+      appearanceSharedWith: [...new Set(same.flatMap(f => f.appearanceSharedWith || []))],
+    };
     return [{ ...same.reduce((a, b) => ({
       ...a, severity: max(a.severity, b.severity), areaPct: max(a.areaPct, b.areaPct),
       countRange: COUNT_RANK.indexOf(b.countRange || '') > COUNT_RANK.indexOf(a.countRange || '') ? b.countRange : a.countRange,
       count: sumCount(a.count, b.count), countAtLeast: !!(a.countAtLeast || b.countAtLeast) || undefined, toneDiff: max(a.toneDiff, b.toneDiff),
       subtypes: sumSubtypes(a.subtypes, b.subtypes),
       markers: [...withPose(a), ...withPose(b)], causes: [...new Set([...(a.causes || []), ...(b.causes || [])])],
-    })), ...(redArea !== undefined ? { areaPct: redArea } : {}) }];
+    })), ...(redArea !== undefined ? { areaPct: redArea } : {}), ...extra }];
   });
 }
 const OVERVIEW_ORDER: SkinFindingId[] = ['eyeBags', 'darkCircles', 'crowsFeet', 'hoodedEyelids', 'downturnedCorners', 'foreheadLines', 'acne', 'acneMarks', 'redness', 'rosacea', 'eczema', 'flaking', 'melasma', 'spots', 'mole', 'coldSore'];
@@ -153,7 +181,12 @@ export function overviewFindings(all: SkinFinding[] | undefined): OverviewFindin
       countRange: same.map(f => f.countRange).filter(Boolean).sort((x, y) => COUNT_RANK.indexOf(y!) - COUNT_RANK.indexOf(x!))[0],
       count: same.reduce<number | undefined>((n, f) => sumCount(n, f.count), undefined), countAtLeast: same.some(f => f.countAtLeast) || undefined,
       toneDiff: same.reduce<number | undefined>((m, f) => max(m, f.toneDiff), undefined),
-      subtypes: same.reduce<SkinFinding['subtypes']>((m, f) => sumSubtypes(m, f.subtypes), undefined) }];
+      subtypes: same.reduce<SkinFinding['subtypes']>((m, f) => sumSubtypes(m, f.subtypes), undefined),
+      ...(same.some(f => FINDING_DEFS[id].kind === 'count' && f.count === undefined && !f.countRange) ? { count: undefined, countAtLeast: undefined } : {}),
+      incomplete: [...new Set([...(all || []).filter(f => f.id === id && f.status === 'inconclusive').map(f => f.region)])],
+      appearance: APPEARANCE_FINDINGS.includes(id) ? scopedAppearance(all, id, ALL_REGIONS) ?? undefined : undefined,
+      appearanceUnavailable: same.every(f => f.appearanceUnavailable) ? same[0].appearanceUnavailable : undefined,
+      appearanceSharedWith: [...new Set(same.flatMap(f => f.appearanceSharedWith || []))] }];
   });
 }
 export function seenCount(all: SkinFinding[] | undefined, view?: FindingViewId): number {

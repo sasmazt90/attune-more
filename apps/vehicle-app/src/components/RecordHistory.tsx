@@ -12,7 +12,7 @@ import {SkinRecordDetail} from './skin/SkinRecordDetail';
 import {SkinRecordComparison} from './skin/SkinRecordComparison';
 import {ChevronRight,Trash2} from 'lucide-react';
 import {findingColor,validFindings} from '../utils/skinFindings';
-import {findingRows,formatMetric,skinTypeLabel} from '../utils/skinHistorySummary';
+import {recordSummary,skinTypeLabel} from '../utils/skinHistorySummary';
 import {DentalRecordDetail} from './DentalRecordDetail';
 import {LetterVisionResult} from './LetterVisionResult';
 import {ContinuousVisionResult,OrientationResult} from './ContinuousVisionResult';
@@ -68,14 +68,16 @@ function RecordDetail({row:{category,record:r},previous}:{row:Row;previous?:Heal
  return <DentalRecordDetail key={r.id} record={r}/>;
 }
 
-/** Table summary of a skin analysis: skin type and the first two findings with their value. */
+/** Table summary of a skin analysis: skin type and the first two findings with their value; an analysis that did not
+ * run says so (never "no findings" without a measured absence). */
 function SkinRowSummary({record}:{record:HealthRecord}){
  const {text,locale}=useTranslations();
- const rows=findingRows(record as any),type=skinTypeLabel(record as any),chip='inline-flex items-center gap-1.5 rounded-full bg-[#131d2b] px-2.5 py-1 text-[13px] text-slate-300';
- return <span className="flex flex-wrap gap-1.5" data-skin-row-summary>
+ const sum=recordSummary(record as any,locale),type=skinTypeLabel(record as any),chip='inline-flex items-center gap-1.5 rounded-full bg-[#131d2b] px-2.5 py-1 text-[13px] text-slate-300';
+ return <span className="flex flex-wrap gap-1.5" data-skin-row-summary={sum.state}>
   {type&&<span className={chip}>{text(type)}</span>}
-  {rows.slice(0,2).map(f=><span key={f.id} className={chip}><span className="h-2 w-2 rounded-full" style={{background:findingColor(f.id)}} aria-hidden="true"/>{text(f.label)} {f.metric===undefined?'':formatMetric(f,locale)}</span>)}
-  {rows.length>2&&<span className={chip}>{text(`+${rows.length-2} bulgu`)}</span>}
-  {!rows.length&&<span className={chip}>{text('Bulgu görülmedi')}</span>}
+  {sum.items.slice(0,2).map(f=><span key={f.id} className={chip}><span className="h-2 w-2 rounded-full" style={{background:findingColor(f.id)}} aria-hidden="true"/>{text(f.label)} {f.value}</span>)}
+  {sum.items.length>2&&<span className={chip}>{text(`+${sum.items.length-2} bulgu`)}</span>}
+  {sum.state==='none-seen'&&<span className={chip}>{text('Bulgu görülmedi')}</span>}
+  {sum.state==='not-measured'&&<span className={chip+' text-amber-200'}>{text('Bulgular ölçülemedi')}</span>}
  </span>;
 }

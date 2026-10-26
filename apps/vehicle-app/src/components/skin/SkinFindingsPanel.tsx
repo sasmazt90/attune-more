@@ -12,7 +12,7 @@ import { SkinFindingCard } from './SkinFindingCard';
 import { SkinRecommendationsDialog } from './SkinRecommendationsDialog';
 import { SkinInconclusiveFindingsDialog } from './SkinInconclusiveFindingsDialog';
 import { SkinUnmeasuredFindingsDialog } from './SkinUnmeasuredFindingsDialog';
-import { recommendationBand } from '../../utils/skinRecommendations';
+import { findingScore, recommendationBand, usesAppearance } from '../../utils/skinRecommendations';
 
 type View = 'overview' | FindingViewId;
 interface Props {
@@ -50,7 +50,7 @@ export function SkinFindingsPanel({ view, findings, findingsResult, history, sca
       {view === 'overview'
         ? <Overview findings={findings} state={state} skinType={skinType} selected={overviewSel} onSelect={onOverviewSel} />
         : current
-          ? <SkinFindingCard view={view} items={items} index={Math.min(index, items.length - 1)} onIndex={onIndex} history={history} scanAt={scanAt} acneType={acneType} onAcneType={onAcneType} />
+          ? <SkinFindingCard view={view} items={items} index={Math.min(index, items.length - 1)} onIndex={onIndex} history={history} scanAt={scanAt} acneType={acneType} onAcneType={onAcneType} current={validFindings(findingsResult) && findingsResult.status !== 'unavailable' ? findingsResult : undefined} />
           : <section className="rounded-[26px] bg-[#0f1724] px-6 py-10 text-center flex flex-col gap-2" data-skin-findings-empty={state.kind}>
               <h2 className="text-2xl font-extrabold text-white">{text(FINDING_VIEW_NAMES[view])}</h2>
               {emptyText(state, 'page').map(t => <p key={t} className="text-[17px] text-slate-300">{text(t)}</p>)}
@@ -145,9 +145,11 @@ function Overview({ findings, state, skinType, selected, onSelect }: {
 function OverviewFindingCard({ f, on, onClick }: { f: OverviewFinding; on: boolean; onClick: () => void }) {
   const { text } = useTranslations();
   const color = findingColor(f.id), def = FINDING_DEFS[f.id];
-  const score = f.severity ?? f.areaPct;
+  const appearance = usesAppearance(f), score = findingScore(f);
   let width: number | null = null, value: string;
-  if (score !== undefined) { width = Math.round(score); value = text(`%${width}`); }
+  // the appearance score is a 0–100 score, not a percentage
+  if (score !== undefined) { width = Math.round(score); value = appearance ? String(width) : text(`%${width}`); }
+  else if (appearance) value = text('Görünüm skoru hesaplanamadı');
   else if (countLabel(f) !== null) {
     const b = recommendationBand(f); width = b ? Math.round((b.index + 1) / b.total * 100) : null;
     value = `${countLabel(f)} ${countUnit(countLabel(f), def.unit, text)}`.trim();

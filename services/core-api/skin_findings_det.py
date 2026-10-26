@@ -215,8 +215,10 @@ def light_redness(crop_bgr: np.ndarray, lms) -> dict:
         m = np.zeros((H, W), np.uint8); cv2.fillPoly(m, [P[v, :2].astype(np.int32)], 1); m = (m > 0) & u
         if m.sum() < 50:
             out[k] = None; continue
-        av = a[m]
-        out[k] = [float(np.median(av)), float(np.percentile(av, 90)), float(np.median(av) - am), float((av > am + 4).mean()), float((av > am + 8).mean()), float(np.median(b[m]))]
+        av = a[m]; hit = av > am + 4
+        # [0..5] research fields (parity-checked); [6..8] appearance-v1 inputs: usable px, affected px, mean a*-am of affected
+        out[k] = [float(np.median(av)), float(np.percentile(av, 90)), float(np.median(av) - am), float(hit.mean()), float((av > am + 8).mean()), float(np.median(b[m])),
+                  int(m.sum()), int(hit.sum()), float((av[hit] - am).mean()) if hit.any() else 0.0]
     return out
 
 
@@ -251,6 +253,11 @@ def redness_measures(extra: dict, view: str) -> dict:
         if v is None or not _usable(rk, view):
             continue
         out[APP[rk]] = {'areaPct': round(100 * v[3], 2), 'toneDiff': round(v[2], 2)}
+        if len(v) >= 9:   # appearance-v1 (skin_appearance): real pixel mask, never a box
+            import skin_appearance as SA
+            app = SA.region(v[6], v[7], v[8])
+            if app:
+                out[APP[rk]]['appearance'] = app
     return out
 
 

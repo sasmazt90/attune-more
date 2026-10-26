@@ -11,7 +11,7 @@ import { HealthModuleIcon } from './HealthModuleIcon';
 import { AccessibleDialog } from './AccessibleDialog';
 import { CardCarousel } from './CardCarousel';
 import Link from 'next/link';
-import { skinAverages, formatMetric } from '../utils/skinHistorySummary';
+import { skinAverages, formatValue } from '../utils/skinHistorySummary';
 import { FINDING_DEFS, countUnit } from '../utils/skinFindings';
 
 const datetime = (time: number) => new Date(time).toLocaleString(getLocale(), { dateStyle: 'medium', timeStyle: 'medium' });
@@ -144,9 +144,10 @@ function SkinAverages({ avg }: { avg: NonNullable<ReturnType<typeof skinAverages
   return <span className="mt-2 flex w-full flex-1 flex-col gap-1.5 text-sm" data-skin-averages={avg.scans}>
     <span className="text-xs text-slate-400">{text(`Son ${avg.scans} taramanın ortalaması`)}</span>
     {avg.skinType && <span className="flex justify-between gap-3 text-slate-300"><span>{text('Cilt tipi')}</span><strong className="text-white">{text(avg.skinType)}</strong></span>}
-    {avg.rows.filter(r => r.metric !== undefined).slice(0, 3).map(r => <span key={r.id} className="flex justify-between gap-3 text-slate-300"><span className="truncate">{text(r.label)}</span>
-      <strong className="whitespace-nowrap tabular-nums text-white">{r.metric === undefined ? '—' : formatMetric(r, locale)}{r.metric !== undefined && r.kind === 'count' && <> {countUnit(formatMetric(r, locale), FINDING_DEFS[r.id].unit, text)}</>}</strong></span>)}
-    {!avg.rows.some(r => r.metric !== undefined) && <span className="text-slate-300">{text('Bu taramalarda bulgu görülmedi.')}</span>}
+    {avg.rows.filter(r => r.value !== undefined).slice(0, 3).map(r => <span key={r.id} className="flex justify-between gap-3 text-slate-300" data-skin-average={r.id} data-skin-average-used={r.used}>
+      <span className="truncate">{text(r.label)}{r.used < avg.scans && <span className="text-xs text-slate-500"> {text(`(${r.used} tarama)`)}</span>}</span>
+      <strong className="whitespace-nowrap tabular-nums text-white">{formatValue(r, locale)}{r.kind === 'count' && <> {countUnit(formatValue(r, locale), FINDING_DEFS[r.id].unit, text)}</>}{r.kind === 'appearance' && <span className="text-xs font-normal text-slate-400"> {text('görünüm skoru')}</span>}</strong></span>)}
+    {!avg.rows.some(r => r.value !== undefined) && <span className="text-slate-300">{text('Bu taramalarda karşılaştırılabilir bulgu değeri yok.')}</span>}
     <span className="mt-auto pt-2 text-xs text-slate-400">{text(`${avg.scans} tarama · son ${new Date(avg.latest).toLocaleDateString(getLocale())}`)}</span>
   </span>;
 }

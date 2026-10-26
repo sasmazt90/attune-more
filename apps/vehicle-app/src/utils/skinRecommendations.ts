@@ -1,3 +1,4 @@
+import { APPEARANCE_FINDINGS } from './skinAppearance';
 /** Ingredient-based suggestions per finding, by visibility score band (no brand names). Source of truth: the
  * "Cilt Bulguları: Belirginliğe Göre Öneriler" doc. Generated from it; keep both in sync. Score findings use five
  * 20-point bands (acne marks and unclassified spots: three), acne and moles use the count range, cold sores one level. */
@@ -108,12 +109,18 @@ const R: Record<SkinFindingId, { upTo?: number[]; bands: RecBand[] }> = {
 const COUNT_BAND: Record<string, number> = { '1-2': 0, '3-5': 1, '6-10': 2, '11-20': 3, '20+': 4, '1-3': 0, '4-10': 2, '10+': 4 };
 const MOLE_BAND: Record<string, number> = { '1-3': 0, '4-10': 1, '10+': 2 };
 /** The 0–100 value a finding is shown and banded by: the validated visibility score, else the area share. */
-export const findingScore = (f: SkinFinding): number | undefined => f.severity ?? f.areaPct;
+/** The 0–100 value of the finding's bar. Red-appearance findings of new records: the appearance score (appearance-v1;
+ * undefined when it could not be computed — never replaced by another measure). Older records keep their own value. */
+export const usesAppearance = (f: SkinFinding): boolean => APPEARANCE_FINDINGS.includes(f.id) && (f.appearance !== undefined || f.appearanceUnavailable !== undefined);
+export const findingScore = (f: SkinFinding): number | undefined => (usesAppearance(f) ? f.appearance?.score : f.severity ?? f.areaPct);
 /** Band of the finding's measured score or count. null when the band depends on a value this scan did not measure:
  * a missing score or count is never read as the lowest band. Single-band findings do not depend on a value. */
 export function recommendationBand(f: SkinFinding): { band: RecBand; index: number; total: number } | null {
   const r = R[f.id], total = r.bands.length;
   if (total === 1) return { band: r.bands[0], index: 0, total };
+  // no band from: a legacy "1+" (no exact count), a count of 0 (no band covers 0), a value that misses regions of the
+  // page, or the new appearance score (the bands were defined for the old area/score scale and are not transferred)
+  if (f.countAtLeast || f.count === 0 || (f.incomplete && f.incomplete.length) || usesAppearance(f)) return null;
   let index: number | undefined;
   if (f.id === 'mole') index = f.count !== undefined ? (f.count <= 3 ? 0 : f.count <= 10 ? 1 : 2) : MOLE_BAND[f.countRange || ''];
   else if (f.id === 'acne') index = f.count !== undefined ? (f.count <= 2 ? 0 : f.count <= 5 ? 1 : f.count <= 10 ? 2 : f.count <= 20 ? 3 : 4) : COUNT_BAND[f.countRange || ''];

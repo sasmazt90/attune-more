@@ -565,8 +565,12 @@ export default function SkinPage() {
         skinType:map?.skinType?.quality==='valid'?effectiveSkinType({skinType:front.skinType,regionalSkinMap:map})
           :{...front.skinType,value:null,sensitive:false,quality:'insufficient' as const,confidence:null,limitationCode:map?.skinType?.limitationCode||'REGIONAL_FUSION_UNAVAILABLE'}}:undefined;
       finalResult.general=fusedGeneral ? {...fusedGeneral,analysisId:finalResult.id} : undefined;
-      for (const frame of Object.values(snapshotFrames.current)) {
-        if (frame && finalResult.general) frame.general = finalResult.general;
+      // The overview's source is the FRONT photo only (captureId/pose/size of that photo). Side photos never
+      // carry it: a LEFT/RIGHT frame with the FRONT overview is rejected by the photo store (INVALID_OVERVIEW_SOURCE).
+      for (const [pose, frame] of Object.entries(snapshotFrames.current)) {
+        if (!frame) continue;
+        if (pose !== 'FRONT') delete frame.general;
+        else if (finalResult.general) frame.general = finalResult.general;
       }
       if (!validSkinIndicators(indicators) || !validSkinOverview(finalResult.general,finalResult.id) || !SkinAnalyzer.canPersistResult(finalResult)) throw new Error('Invalid metrics');
       // Numeric history never contains pixels; photo retention has separate consent.
@@ -879,7 +883,7 @@ export default function SkinPage() {
     try {
       const rows = JSON.parse(localStorage.getItem(STORAGE_KEYS.SKIN_HISTORY) || '[]');
       return (Array.isArray(rows) ? rows : []).filter((r: any) => r?.id !== analysisResult?.id && typeof r?.timestamp === 'string' && validFindings(r?.general?.findings))
-        .map((r: any) => ({ at: r.timestamp, findings: r.general.findings.findings }));
+        .map((r: any) => ({ at: r.timestamp, findings: r.general.findings.findings, version: r.general.findings.version, status: r.general.findings.status, unavailable: r.general.findings.unavailable }));
     } catch { return []; }
   }, [analysisResult?.id]);
 

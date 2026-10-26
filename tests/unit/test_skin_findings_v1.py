@@ -167,9 +167,19 @@ def test_counts_never_double_count_and_melasma_area():
     # the same moles are visible in the front and the right photo: counted once, from the photo facing the cheek (RIGHT)
     assert m['count'] == 1 and [k['pose'] for k in m['markers']] == ['RIGHT']
     assert by(out, 'melasma', 'leftCheek')['areaPct'] == 12.3
-    # seen by the decision but no single box marked -> "at least one", never 0
+    # seen by the decision but the completed count marked no lesion -> 0 (no invented "1+")
     out2 = SF.findings_from_maps(three(dict(evidence={**ev, 'leftCheek': region(findings_Riskli_Ben_max=0.7)}), dict(evidence=ev), dict(evidence=ev)))
-    assert by(out2, 'mole', 'leftCheek')['count'] == 1 and by(out2, 'mole', 'leftCheek')['countAtLeast'] is True
+    m2 = by(out2, 'mole', 'leftCheek')
+    assert m2['count'] == 0 and 'countAtLeast' not in m2 and m2['markers'] == [] and m2['countPose'] == 'RIGHT'
+    # the count could not be done (no detector boxes on any photo) -> no number at all, never a measured 0
+    maps3 = three(dict(evidence={**ev, 'leftCheek': region(findings_Riskli_Ben_max=0.7)}), dict(evidence=ev), dict(evidence=ev))
+    for m in maps3.values(): m['findingBoxes'] = None
+    m3 = by(SF.findings_from_maps(maps3), 'mole', 'leftCheek')
+    assert 'count' not in m3 and 'countAtLeast' not in m3 and m3['countUnavailable'] == 'COUNT_NOT_RUN'
+    # the region is unreadable on every photo -> not counted either
+    maps4 = three(dict(evidence={**ev, 'leftCheek': region(findings_Riskli_Ben_max=0.7)}), dict(evidence={**ev, 'leftCheek': region(usable=False)}), dict(evidence={**ev, 'leftCheek': region(usable=False)}))
+    m4 = by(SF.findings_from_maps(maps4), 'mole', 'leftCheek')
+    assert m4['count'] == 0 and m4['countPose'] == 'FRONT'   # FRONT read the cheek and counted it
 
 
 def test_eye_rows_front_only_and_missing_score(monkeypatch):
@@ -185,3 +195,25 @@ def test_eye_rows_front_only_and_missing_score(monkeypatch):
     assert by(out, 'downturnedCorners', 'periorbital') == dict(id='downturnedCorners', region='periorbital', status='seen', pose='FRONT', readFrom=['FRONT'], severity=72.0)
     assert by(out, 'darkCircles', 'periorbital')['status'] == 'inconclusive'
     assert not {'darkCircles', 'downturnedCorners'} & {u['id'] for u in out['unavailable']}
+
+
+def test_appearance_raw_values_shared_mask_and_unavailable():
+    """appearance-v1 on the server: raw area/intensity from the light-corrected red pixel mask (never a box), the
+    score from them, the shared regional mask said explicitly, and no score where no affected-area mask exists."""
+    import skin_findings_det as SFD, skin_appearance as SA
+    v9 = [10.0, 14.0, 1.5, 0.2, 0.05, 3.0, 1000, 200, 9.0]
+    m = SFD.redness_measures({'lightRedness': {rk: v9 for rk in SFD.FACE}}, 'FRONT')
+    assert m and all(r['appearance'] == SA.region(1000, 200, 9.0) for r in m.values())
+    assert all(r['areaPct'] == 20.0 and r['toneDiff'] == 1.5 for r in m.values())     # existing raw values unchanged
+    m6 = SFD.redness_measures({'lightRedness': {rk: v9[:6] for rk in SFD.FACE}}, 'FRONT')
+    assert m6 and not any('appearance' in r for r in m6.values())                   # older 6-field input: no score invented
+    app = SA.region(1000, 200, 9.0)
+    rows = [dict(id='redness', region='nose', status='seen', appearance=app), dict(id='rosacea', region='nose', status='seen', appearance=app),
+            dict(id='eczema', region='chin', status='seen'), dict(id='melasma', region='leftCheek', status='seen', areaPct=12.0),
+            dict(id='acneMarks', region='chin', status='seen', severity=40.0), dict(id='rosacea', region='chin', status='notSeen', appearance=app)]
+    SF._mark_appearance(rows)
+    assert rows[0]['appearanceSharedWith'] == ['rosacea'] and rows[1]['appearanceSharedWith'] == ['redness']
+    assert rows[2]['appearanceUnavailable'] == 'MEASURE_NOT_AVAILABLE' and 'appearance' not in rows[2]
+    assert rows[3]['appearanceUnavailable'] == 'AFFECTED_MASK_NOT_AVAILABLE' and rows[3]['areaPct'] == 12.0
+    assert rows[4]['appearanceUnavailable'] == 'AFFECTED_MASK_NOT_AVAILABLE' and rows[4]['severity'] == 40.0
+    assert 'appearanceSharedWith' not in rows[5]
