@@ -121,12 +121,12 @@ Python 3.13.17. Tarih: 2026-10-26, 11:46–11:56 Europe/Berlin. Kayıtlar: `clau
 
 | Kontrol | Commit | Sonuç | Kayıt |
 |---|---|---|---|
-| `npm ci` | 1f03332 | Geçti (çıkış 0); **1 kritik güvenlik açığı** bildirimi | `claude-progress/handoff-20261026/checks/01_npm_ci.log` |
-| `npm run typecheck` | 1f03332 | Geçti | `claude-progress/handoff-20261026/checks/02_typecheck.log` |
-| `npm run lint` | 1f03332 | Geçti (uyarı/hata yok) | `claude-progress/handoff-20261026/checks/03_lint.log` |
-| `npm run build` | 1f03332 | Geçti | `claude-progress/handoff-20261026/checks/04_build.log` |
-| `python -m pytest tests/unit -q` | 1f03332 | **Başarısız: 10 başarısız, 1412 geçti, 45 atlandı** (4 dk 35 sn) | `claude-progress/handoff-20261026/checks/05_pytest_unit.log` |
-| Başarısız dosyalar taban commit'te (`babe9b6`, aynı node_modules) | babe9b6 | 6 başarısız, 21 geçti | `claude-progress/handoff-20261026/checks/06_pytest_failed_on_base.log` |
+| `npm ci` | 1f03332 | Geçti (çıkış 0); **1 kritik güvenlik açığı** bildirimi | `claude-progress/handoff-20261026/checks/01_npm_ci.txt` |
+| `npm run typecheck` | 1f03332 | Geçti | `claude-progress/handoff-20261026/checks/02_typecheck.txt` |
+| `npm run lint` | 1f03332 | Geçti (uyarı/hata yok) | `claude-progress/handoff-20261026/checks/03_lint.txt` |
+| `npm run build` | 1f03332 | Geçti | `claude-progress/handoff-20261026/checks/04_build.txt` |
+| `python -m pytest tests/unit -q` | 1f03332 | **Başarısız: 10 başarısız, 1412 geçti, 45 atlandı** (4 dk 35 sn) | `claude-progress/handoff-20261026/checks/05_pytest_unit.txt` |
+| Başarısız dosyalar taban commit'te (`babe9b6`, aynı node_modules) | babe9b6 | 6 başarısız, 21 geçti | `claude-progress/handoff-20261026/checks/06_pytest_failed_on_base.txt` |
 
 Başarısızlıkların ayrımı:
 
@@ -279,7 +279,7 @@ Bunlar denetimden muaf değildir; Codex hata, risk veya kabul engeli olarak rapo
 9. Kullanıcı kabulü yapılmadı.
 10. `k_classifier.json` (model ağırlığı) commit `952e1f8` ile Git geçmişinde. "Model ağırlıklarını Git'e ekleme" kuralıyla çelişiyor; geçmiş yeniden yazılmadı, karar kullanıcıya bırakıldı.
 11. Birim testlerinde bu branch'in getirdiği 4 gerileme ve 2 yeni çeviri hatası var (§3). e2e testleri eski arayüze göre; yeni bileşenlere birim testi yok; erişilebilirlik denetlenmedi.
-12. `npm ci` 1 kritik güvenlik açığı bildiriyor (ayrıntı `claude-progress/handoff-20261026/checks/01_npm_ci.log`; bu teslimde değiştirilmedi).
+12. `npm ci` 1 kritik güvenlik açığı bildiriyor (ayrıntı `claude-progress/handoff-20261026/checks/01_npm_ci.txt`; bu teslimde değiştirilmedi).
 13. Geçmiş grafiği yalnızca `general.findings` içeren eski kayıtlarla çalışır; mevcut kayıtlarda yoktur.
 
 ## 9. Geri dönüş
