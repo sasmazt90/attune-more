@@ -178,8 +178,8 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0d8c66",
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
-      "lastCheckedDate": "2026-10-25",
-      "lastCheckedAt": "2026-10-26T03:46:05Z",
+      "lastCheckedDate": "2026-10-26",
+      "lastCheckedAt": "2026-10-26T04:30:14Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -479,7 +479,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-26T03:46:05Z",
+      "lastCheckedAt": "2026-10-26T04:30:14Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -671,7 +671,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-26T03:46:05Z",
+      "lastCheckedAt": "2026-10-26T04:30:14Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -906,7 +906,7 @@
     },
     "regionalSkinTypeBoxes": {
       "observedAt": "2026-10-24T23:19:50Z",
-      "lastCheckedAt": "2026-10-25T11:10:02Z",
+      "lastCheckedAt": "2026-10-26T04:30:14Z",
       "project": "tolgar-sasmaz/attune-skin-type-regional-r1",
       "projectVisibility": "public",
       "projectSummaryImages": 991,
@@ -1600,6 +1600,46 @@
             "tests": "80aac7bc6aa4010ed91bc44c56e70505f698331d",
             "template": "294eb7d510472f84b2c9fe9e0601cbdb59534eb9",
             "audit": "f807da8024871774227b4c7add057797a954ade2"
+          },
+          "localizationEvaluator": {
+            "observedAt": "2026-10-26T04:30:14Z",
+            "methodVersion": "physical-camera-localization-evaluation-v1",
+            "geometryMethodVersion": "normalized-polygon-union-raster-iou-v1",
+            "rasterResolution": 512,
+            "script": "scripts/skin-research/evaluate_physical_camera_localization.py",
+            "tests": "scripts/skin-research/tests/test_evaluate_physical_camera_localization.py",
+            "localizationReceiptTemplate": "docs/skin/evidence/physical-camera-localization-receipt-template-20261026-v1.json",
+            "audit": "docs/skin/evidence/physical-camera-localization-evaluator-audit-20261026-v1.json",
+            "thresholdsLockedBeforeCameraFinalRequired": true,
+            "geometryLockedBeforeCameraFinalRequired": true,
+            "cameraFinalMaySelectThresholds": false,
+            "cameraFinalMaySelectGeometryMethod": false,
+            "methodOrGeometryMayMutateAfterLock": false,
+            "nativePolygonOrMaskGeometryRequired": true,
+            "boxesAcceptedAsPolygons": false,
+            "modelGeometryMayBecomeExpertTruth": false,
+            "perClassUnionMaskIoUDice": true,
+            "evaluatedNegativeFalsePositiveArea": true,
+            "deviceLightingSkinTonePoseSlices": true,
+            "unknownOrUnassessableMayBecomeNegative": false,
+            "localizationMetricsRunOnRealCameraData": false,
+            "productReplayComputed": false,
+            "acceptanceThresholdsApplied": false,
+            "activationAllowed": false,
+            "focusedTestsPassed": 9,
+            "fullSkinResearchTestsPassed": 190,
+            "commits": [
+              "5ccb025228f53565f36c935a4c5a3364da874f03",
+              "9e951e4198a327c27ef18fd8f67d81c1794a4cc3",
+              "4bbcb09f80cb5a9ba9ff00fd127a8e968e0c60f8",
+              "6af3d20fe1342d5ae0d682db779df57f441f712f"
+            ],
+            "blobs": {
+              "script": "a05e1950f58076535bdc1545dbc00d3c357c31f7",
+              "tests": "8a4c9fec9b559c3c7b4650d89c9b2cde52b84ecd",
+              "template": "24680e71c5dc587fa50ffcca67954297b69555d5",
+              "audit": "e4cb9da0c0b4c44198c6775affe0a5b9412e58b5"
+            }
           }
         }
       }
@@ -1919,7 +1959,11 @@
         "scripts/skin-research/check_physical_camera_benchmark_release.py",
         "scripts/skin-research/tests/test_check_physical_camera_benchmark_release.py",
         "docs/skin/evidence/physical-camera-benchmark-release-receipt-20261026-v1.json",
-        "docs/skin/evidence/physical-camera-benchmark-release-gate-20261026-v1.json"
+        "docs/skin/evidence/physical-camera-benchmark-release-gate-20261026-v1.json",
+        "scripts/skin-research/evaluate_physical_camera_localization.py",
+        "scripts/skin-research/tests/test_evaluate_physical_camera_localization.py",
+        "docs/skin/evidence/physical-camera-localization-receipt-template-20261026-v1.json",
+        "docs/skin/evidence/physical-camera-localization-evaluator-audit-20261026-v1.json"
       ],
       "blockers": [
         "Final holdout independence is not established. The privacy-safe grouping proposal confirms 16 cross-split source/person groups covering 37 records, including test/train leakage, while 729 singleton records still lack reviewed provenance/person identity. Independent real-camera evidence is also pending.",
@@ -3181,7 +3225,7 @@
     }
   },
   "nextActions": [
-    "When the physical-camera manifest, adjudicated expert truth and locked-method prediction receipt exist, run scripts/skin-research/evaluate_physical_camera_predictions.py. Inspect each class independently and the device, lighting, skin-tone and pose slices; do not average away weak classes. Unknown/unassessable truth stays outside negative denominators, unavailable predictions never become true negatives, and camera_final must never select thresholds. This evaluator is capture-level only: complete localization matching, locked acceptance thresholds and API/browser/map/history replay before activation.",
+    "When the consented physical-camera manifest, adjudicated expert truth and both locked capture-level and localization prediction receipts exist, run scripts/skin-research/evaluate_physical_camera_predictions.py and scripts/skin-research/evaluate_physical_camera_localization.py. Inspect every class independently plus device, lighting, skin-tone and pose slices; do not average away weak classes. Unknown/unassessable truth stays outside negative denominators, unavailable predictions never become true negatives, boxes never become polygon truth, and camera_final must select neither thresholds nor geometry methods. Then apply separately locked class acceptance thresholds and complete /api/local-health/skin browser/map/history replay before activation.",
     "After a consented physical-camera manifest exists, collect the private matrix defined by docs/skin/evidence/physical-camera-expert-review-input-template-20261026-v1.json and run scripts/skin-research/build_physical_camera_expert_truth.py. Every activated class on every capture needs exactly two independent qualified human reviews; discordant decision or polygon truth needs an independent third expert. Keep positive localized polygons normalized, model proposals hidden, missing truth distinct from evaluated negative, unknown/unassessable distinct from Normal, and Redness independent from sensitivity. Do not commit reviewer identity, image bytes or raw private fields.",
     "For consented physical-camera acceptance, populate the private input shape in docs/skin/evidence/physical-camera-benchmark-manifest-input-template-20261026-v1.json outside Git, then run scripts/skin-research/build_physical_camera_benchmark_manifest.py. The builder accepts only opaque subject/capture/consent/quality references, immutable SHA-256 hashes, exact FRONT/LEFT/RIGHT physical-camera triplets, a passed capture-quality gate and a locked camera_final split unused by training, validation or threshold selection. It rejects paths, names, contact fields, image bytes, generated inputs, predictions and expert labels. Keep expert per-class truth separate and human-authored; the manifest alone does not satisfy camera acceptance.",
     "Replay scripts/skin-research/check_physical_camera_benchmark_release.py before treating any generated or captured image package as roadmap camera acceptance. Preserve the six-subject/18-image generated triplets as integration smoke only. Build the physical final set from consented immutable captures with subject independence from training/validation/threshold selection, expert truth per activated class, evaluated negative/unknown handling, device/lighting/skin-tone/pose and capture-quality slices, locked methods and thresholds, per-class metrics/failures, full /api/local-health/skin browser/map/history replay and privacy retention/deletion evidence.",
@@ -3977,6 +4021,12 @@
       "observedAt": "2026-10-25T12:30:37Z",
       "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus exact acne, regional, under-eye and wrinkle training lists. No new job is running and the grouped under-eye upload task remains created with no progress. Re-read and SHA-pinned the five current sag semantic implementation files. Added an executable fail-closed sag release gate that keeps the existing visible lower-face contour/fold proxy available only under same-person-compatible appearance semantics, while blocking elasticity, clinical severity, cross-person comparison, learned localized-model activation and test use until localized expert truth, group independence, pose/expression, validation, untouched test, independent camera and integration evidence all pass. Five focused gate tests plus four wrinkle regression tests passed. No training, inference, label, split, upload, threshold or activation mutation was performed.",
       "report": "docs/skin/evidence/sag-release-gate-20261025-v1.json"
+    },
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T04:30:14Z",
+      "action": "Read the persistent checkpoint first and re-verified the already functioning merged Attune.more result contract as the baseline. Refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye training lists and the existing grouped under-eye upload task; no training is running, known jobs remain finished, pilot v2 has no training, the grouped project remains empty and no duplicate training or upload was started. Added a locked physical-camera localization evaluator using a deterministic 512x512 normalized polygon-union raster method. It computes per-class and device/lighting/skin-tone/pose IoU/Dice, availability and evaluated-negative false-positive area; rejects box/bbox geometry, private fields, confidence/score retuning, camera-final threshold or geometry selection, post-lock mutation, incomplete matrices and model geometry as expert truth. Unknown/unassessable stays excluded, Normal requires explicit evaluated truth and Redness remains an independent red layer. Nine focused tests and all 190 skin-research tests passed. Real consented captures, adjudicated expert truth, locked localization predictions, class thresholds and API/browser/map/history replay remain pending, so activation and roadmap completion stay false.",
+      "report": "docs/skin/evidence/physical-camera-localization-evaluator-audit-20261026-v1.json"
     }
   ],
   "activityLog": [
@@ -4383,7 +4433,18 @@
         "0c22af10ed79799ff4b17bd31c5106e55b5fcdbe",
         "87dace2159eaa23815f606592a7ed041c0db4092"
       ]
+    },
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T04:30:14Z",
+      "action": "Read the persistent checkpoint first and re-verified the already functioning merged Attune.more result contract as the baseline. Refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye training lists and the existing grouped under-eye upload task; no training is running, known jobs remain finished, pilot v2 has no training, the grouped project remains empty and no duplicate training or upload was started. Added a locked physical-camera localization evaluator using a deterministic 512x512 normalized polygon-union raster method. It computes per-class and device/lighting/skin-tone/pose IoU/Dice, availability and evaluated-negative false-positive area; rejects box/bbox geometry, private fields, confidence/score retuning, camera-final threshold or geometry selection, post-lock mutation, incomplete matrices and model geometry as expert truth. Unknown/unassessable stays excluded, Normal requires explicit evaluated truth and Redness remains an independent red layer. Nine focused tests and all 190 skin-research tests passed. Real consented captures, adjudicated expert truth, locked localization predictions, class thresholds and API/browser/map/history replay remain pending, so activation and roadmap completion stay false.",
+      "report": "docs/skin/evidence/physical-camera-localization-evaluator-audit-20261026-v1.json",
+      "commits": [
+        "5ccb025228f53565f36c935a4c5a3364da874f03",
+        "9e951e4198a327c27ef18fd8f67d81c1794a4cc3",
+        "4bbcb09f80cb5a9ba9ff00fd127a8e968e0c60f8",
+        "6af3d20fe1342d5ae0d682db779df57f441f712f"
+      ]
     }
   ]
 }
-
