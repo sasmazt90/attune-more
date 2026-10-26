@@ -2,11 +2,13 @@
 Derived fixture is CC BY-SA 4.0, NMu11er, Head Shake (2022). Never use private user frames.
 """
 import hashlib
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 from pathlib import Path
 import re
 import shutil
 import subprocess
+import threading
 import urllib.request
 from playwright.sync_api import sync_playwright
 
@@ -30,34 +32,38 @@ subprocess.run([ffmpeg,'-hide_banner','-loglevel','error','-y','-i',str(video),'
 compiler=r"""const fs=require('fs'),ts=require('typescript');for(const name of ['skinAnalyzer','skinMultiAngle']){let s=ts.transpileModule(fs.readFileSync('apps/vehicle-app/src/utils/'+name+'.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;s=s.replace("from '@mediapipe/tasks-vision'","from 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.0.1/+esm'").replace('./skinAnalyzer','./skinAnalyzer.js');fs.writeFileSync('audit-fixtures/'+name+'.js',s);}"""
 subprocess.run(['node','-e',compiler],check=True)
 selected={};measurements=[]
-with sync_playwright() as pw:
-    b=pw.chromium.launch(headless=True,args=['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
-    p=b.new_page()
-    p.on('console',lambda message:print('MODEL_DIAGNOSTIC',message.text) if message.type in ('error','warning') else None)
-    served=set()
-    def fixture_module(route,name):
-        served.add(name)
-        route.fulfill(status=200,content_type='text/javascript',body=(FIX/name).read_text(encoding='utf-8'))
-    def fixture_frame(route):
-        name='frame-'+route.request.url.rsplit('-',1)[1]+'.jpg'
-        route.fulfill(status=200,content_type='image/jpeg',body=(frames/name).read_bytes())
-    # Fulfil from Python-owned bytes rather than a relative Playwright-driver path.
-    # Exact production-origin URLs also keep the fixture independent of route-glob
-    # and runner working-directory behaviour.
-    p.route('http://localhost:3000/fixture-probe',lambda r:r.fulfill(status=200,content_type='text/html',body='<canvas id="frame" width="640" height="480"></canvas>'))
-    p.route('http://localhost:3000/skinAnalyzer.js',lambda r:fixture_module(r,'skinAnalyzer.js'))
-    p.route('http://localhost:3000/skinMultiAngle.js',lambda r:fixture_module(r,'skinMultiAngle.js'))
-    p.route(re.compile(r'^http://localhost:3000/probe-frame-\d{3}$'),fixture_frame)
-    p.goto('http://localhost:3000/fixture-probe')
-    p.evaluate("async()=>{window.A=(await import('./skinAnalyzer.js')).SkinAnalyzer;window.M=await import('./skinMultiAngle.js');if(!await A.getFaceLandmarker())throw Error('Actual model did not load');}")
-    assert served=={'skinAnalyzer.js','skinMultiAngle.js'},served
-    for index,file in enumerate(sorted(frames.glob('frame-*.jpg')),1):
-        result=p.evaluate('''async(index)=>{const image=new Image();image.src='./probe-frame-'+String(index).padStart(3,'0');await image.decode();const c=document.querySelector('canvas'),ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0,640,480);const a=A.assessAlignment(ctx,640,480),q=A.checkQuality(ctx,640,480,a.faceDetected,a.box);return {pose:{yaw:a.yaw,pitch:a.pitch,roll:a.roll,scaleRatio:a.scaleRatio},quality:q,usedMediaPipe:a.isMediaPipeActive,landmarkCount:a.landmarks?.length||0,matches:M.SKIN_ANGLES.filter(angle=>M.matchesSkinAngle(a,angle))};}''',index)
-        result.update(frame=index,seconds=(index-1)/10);measurements.append(result)
-        if result['quality']['isValid'] and result['usedMediaPipe']:
-            for angle in result['matches']:
-                if angle not in selected:selected[angle]={**result,'file':str(file)}
-    b.close()
+served=set()
+class FixtureHandler(BaseHTTPRequestHandler):
+    def log_message(self,format,*args):pass
+    def do_GET(self):
+        if self.path=='/fixture-probe':
+            content_type='text/html';body=b'<canvas id="frame" width="640" height="480"></canvas>'
+        elif self.path in ('/skinAnalyzer.js','/skinMultiAngle.js'):
+            name=self.path[1:];served.add(name);content_type='text/javascript';body=(FIX/name).read_bytes()
+        elif re.fullmatch(r'/probe-frame-\d{3}',self.path):
+            content_type='image/jpeg';body=(frames/('frame-'+self.path.rsplit('-',1)[1]+'.jpg')).read_bytes()
+        else:
+            self.send_error(404);return
+        self.send_response(200);self.send_header('Content-Type',content_type);self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body)
+server=ThreadingHTTPServer(('127.0.0.1',0),FixtureHandler)
+thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
+try:
+    with sync_playwright() as pw:
+        b=pw.chromium.launch(headless=True,args=['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
+        p=b.new_page();p.on('console',lambda message:print('MODEL_DIAGNOSTIC',message.text) if message.type in ('error','warning') else None)
+        base=f'http://127.0.0.1:{server.server_port}'
+        p.goto(base+'/fixture-probe')
+        p.evaluate("async()=>{window.A=(await import('./skinAnalyzer.js')).SkinAnalyzer;window.M=await import('./skinMultiAngle.js');if(!await A.getFaceLandmarker())throw Error('Actual model did not load');}")
+        assert served=={'skinAnalyzer.js','skinMultiAngle.js'},served
+        for index,file in enumerate(sorted(frames.glob('frame-*.jpg')),1):
+            result=p.evaluate('''async(index)=>{const image=new Image();image.src='./probe-frame-'+String(index).padStart(3,'0');await image.decode();const c=document.querySelector('canvas'),ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0,640,480);const a=A.assessAlignment(ctx,640,480),q=A.checkQuality(ctx,640,480,a.faceDetected,a.box);return {pose:{yaw:a.yaw,pitch:a.pitch,roll:a.roll,scaleRatio:a.scaleRatio},quality:q,usedMediaPipe:a.isMediaPipeActive,landmarkCount:a.landmarks?.length||0,matches:M.SKIN_ANGLES.filter(angle=>M.matchesSkinAngle(a,angle))};}''',index)
+            result.update(frame=index,seconds=(index-1)/10);measurements.append(result)
+            if result['quality']['isValid'] and result['usedMediaPipe']:
+                for angle in result['matches']:
+                    if angle not in selected:selected[angle]={**result,'file':str(file)}
+        b.close()
+finally:
+    server.shutdown();server.server_close();thread.join()
 provenance={'source':SOURCE,'page':PAGE,'license':'CC BY-SA 4.0','licenseUrl':'https://creativecommons.org/licenses/by-sa/4.0/','author':'NMu11er','sourceSha1':SHA1,'changes':['sample genuinely different frames at 10 fps','uniform crop 900x675 at 90,190 and scale 640x480','hold each admitted pose for fifteen seconds in virtual camera'],'poseMock':False,'rotation':False,'qualityThresholdChanged':False,'measurements':measurements,'selected':selected}
 (OUT/'multi-angle-fixture-provenance.json').write_text(json.dumps(provenance,ensure_ascii=False,indent=2),encoding='utf-8')
 assert set(selected)=={'FRONT','RIGHT','LEFT'},'Licensed video did not pass all real pose/quality checks; controlled user capture still needed'

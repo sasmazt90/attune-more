@@ -1,7 +1,7 @@
 name: Attune browser audit
 on:
   push:
-    branches: ['audit/e2e-2026-09-30', 'fix/attune-audit-remediation', 'fix/live-test-followup']
+    branches: ['audit/e2e-2026-09-30', 'fix/attune-audit-remediation', 'fix/live-test-followup', 'work/skin-roadmap-20261023']
   workflow_dispatch:
     inputs:
       expected_source_sha:
