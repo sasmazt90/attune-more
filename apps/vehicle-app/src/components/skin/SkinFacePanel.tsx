@@ -30,7 +30,7 @@ interface SkinFacePanelProps {
   selectedFinding?: SkinFindingId | null;
   /** labels around the photo that point at each finding; tapping one selects it */
   callouts?: FindingCallout[];
-  onSelectFinding?: (id: SkinFindingId) => void;
+  onSelectFinding?: (key: string) => void;
 }
 /** Paint outlines a result page covers: the T-zone page shows forehead and nose together. */
 const PAGE_OUTLINES: Record<string, PaintRegionId[]> = { forehead: ['forehead', 'nose'] };
@@ -356,13 +356,18 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                   );
                 })()}
                 {mode === 'result' && selectedFinding && snapshot.landmarks && snapshot.landmarks.length >= 468 && (() => {
-                  const f = isFindingView(currentRegion.id) ? viewFindings(findings, currentRegion.id).find(x => x.id === selectedFinding) : undefined;
+                  // Overview: every region where the finding was seen; a page: the finding merged over the page's regions.
+                  const occ = (findings || []).filter(x => x.id === selectedFinding && x.status === 'seen');
+                  const f = currentRegion.id === 'overview'
+                    ? occ.length ? { ...occ[0], pose: undefined, markers: occ.flatMap(o => !o.pose || o.pose === snapshot.angle ? o.markers || [] : []) } : undefined
+                    : isFindingView(currentRegion.id) ? viewFindings(findings, currentRegion.id).find(x => x.id === selectedFinding) : undefined;
                   if (!f) return null;
+                  const regions: PaintRegionId[] = currentRegion.id === 'overview' ? [...new Set(occ.map(o => o.region as PaintRegionId))]
+                    : pageOutlines(currentRegion.id).filter(r => occ.some(x => x.region === r) || f.region === r);
                   const color = findingColor(f.id), fw = faceWidthPx(snapshot.landmarks, snapshot.width), kind = FINDING_DEFS[f.id].kind;
                   const samePhoto = !f.pose || f.pose === snapshot.angle;
                   const area = findingAreaPath(f.id, snapshot.landmarks, snapshot.width, snapshot.height)
-                    || pageOutlines(currentRegion.id).filter(r => findings?.some(x => x.id === f.id && x.status === 'seen' && x.region === r) || f.region === r)
-                      .map(r => paintPath(r, snapshot.landmarks!, snapshot.width, snapshot.height)).filter(Boolean).join('') || null;
+                    || regions.map(r => paintPath(r, snapshot.landmarks!, snapshot.width, snapshot.height)).filter(Boolean).join('') || null;
                   const step = fw / 55;
                   return (
                     <g data-skin-finding-layer={f.id} pointerEvents="none">

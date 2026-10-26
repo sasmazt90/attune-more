@@ -88,6 +88,20 @@ export function viewFindings(all: SkinFinding[] | undefined, view: FindingViewId
     }))];
   });
 }
+const OVERVIEW_ORDER: SkinFindingId[] = ['eyeBags', 'darkCircles', 'crowsFeet', 'hoodedEyelids', 'downturnedCorners', 'foreheadLines', 'acne', 'acneMarks', 'redness', 'rosacea', 'melasma', 'spots', 'mole', 'coldSore'];
+export type OverviewFinding = SkinFinding & { views: FindingViewId[] };
+/** Every seen finding once, across all pages (highest score, largest count range), with the pages it appears on. */
+export function overviewFindings(all: SkinFinding[] | undefined): OverviewFinding[] {
+  const per = FINDING_VIEWS.flatMap(v => viewFindings(all, v).map(f => ({ ...f, view: v })));
+  return OVERVIEW_ORDER.flatMap(id => {
+    const same = per.filter(f => f.id === id);
+    if (!same.length) return [];
+    const { view: _v, ...first } = same[0];
+    return [{ ...first, views: same.map(f => f.view), severity: same.reduce<number | undefined>((m, f) => max(m, f.severity), undefined),
+      areaPct: same.reduce<number | undefined>((m, f) => max(m, f.areaPct), undefined),
+      countRange: same.map(f => f.countRange).filter(Boolean).sort((x, y) => COUNT_RANK.indexOf(y!) - COUNT_RANK.indexOf(x!))[0] }];
+  });
+}
 export function seenCount(all: SkinFinding[] | undefined, view?: FindingViewId): number {
   return view ? viewFindings(all, view).length : FINDING_VIEWS.reduce((n, v) => n + viewFindings(all, v).length, 0);
 }

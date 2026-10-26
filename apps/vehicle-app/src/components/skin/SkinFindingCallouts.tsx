@@ -4,7 +4,7 @@ import { useTranslations } from '../../i18n/LanguageProvider';
 import type { SkinFindingId } from '../../utils/skinFindings';
 
 /** A label beside the photo with a leader line to the spot it refers to (source pixels). */
-export type FindingCallout = { id: SkinFindingId; label: string; color: string; anchor: { x: number; y: number } };
+export type FindingCallout = { key: string; id: SkinFindingId; label: string; sub?: string; color: string; anchor: { x: number; y: number }; active?: boolean };
 type Crop = { x: number; y: number; width: number; height: number };
 const GUTTER = 196, PILL_H = 52, GAP = 12;
 
@@ -12,7 +12,7 @@ const GUTTER = 196, PILL_H = 52, GAP = 12;
  * same labels as a row of buttons under the photo. Tapping a label selects that finding. */
 export function SkinFindingCallouts({ callouts, crop, photoRef, active, onSelect, children }: {
   callouts?: FindingCallout[]; crop?: Crop; photoRef: React.RefObject<HTMLDivElement | null>; active: SkinFindingId | null;
-  onSelect?: (id: SkinFindingId) => void; children: React.ReactNode;
+  onSelect?: (key: string) => void; children: React.ReactNode;
 }) {
   const { text } = useTranslations();
   const wrap = React.useRef<HTMLDivElement>(null);
@@ -37,12 +37,12 @@ export function SkinFindingCallouts({ callouts, crop, photoRef, active, onSelect
   const list = callouts || [];
   if (!list.length) return <>{children}</>;
   const pill = (c: FindingCallout, style?: React.CSSProperties, extra = '') => {
-    const on = c.id === active;
+    const on = c.active ?? c.id === active;
     return (
-      <button key={c.id} type="button" aria-pressed={on} onClick={() => onSelect?.(c.id)} data-skin-callout={c.id} style={{ ...style, borderColor: on ? c.color : 'transparent', background: on ? `${c.color}26` : '#121b28' }}
-        className={`min-h-[52px] rounded-full border-2 px-4 flex items-center gap-2.5 text-left text-[15px] leading-tight transition active:scale-[0.98] ${on ? 'text-white font-bold' : 'text-slate-200 font-semibold hover:bg-white/10'} ${extra}`}>
+      <button key={c.key} type="button" aria-pressed={on} onClick={() => onSelect?.(c.key)} data-skin-callout={c.key} style={{ ...style, borderColor: on ? c.color : 'transparent', background: on ? `${c.color}26` : '#121b28' }}
+        className={`min-h-[52px] rounded-full border-2 px-4 flex items-center gap-2.5 text-left text-[15px] leading-tight transition active:scale-[0.98] ${on ? 'text-white font-bold' : 'text-slate-200 font-semibold hover:bg-white/10'} ${c.sub ? 'whitespace-nowrap' : ''} ${extra}`}>
         <span aria-hidden="true" className="w-2.5 h-2.5 shrink-0 rounded-full" style={{ background: c.color, boxShadow: on ? `0 0 10px ${c.color}` : undefined }} />
-        <span>{text(c.label)}</span>
+        <span>{text(c.label)}{c.sub && <span className="ml-1.5 font-semibold text-slate-300 tabular-nums">{text(c.sub)}</span>}</span>
       </button>
     );
   };
@@ -73,17 +73,17 @@ export function SkinFindingCallouts({ callouts, crop, photoRef, active, onSelect
         {wide && box && placed.length > 0 && <>
           <svg aria-hidden="true" className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
             {placed.map(p => {
-              const on = p.c.id === active, cy = p.y + PILL_H / 2;
+              const on = p.c.active ?? p.c.id === active, cy = p.y + PILL_H / 2;
               const ex = p.left ? GUTTER - 8 : box.w - GUTTER + 8, elbow = p.left ? Math.min(p.ax - 18, ex + 40) : Math.max(p.ax + 18, ex - 40);
               return (
-                <g key={p.c.id} opacity={on ? 1 : 0.6}>
+                <g key={p.c.key} opacity={on ? 1 : 0.6}>
                   <polyline points={`${p.ax},${p.ay} ${elbow},${cy} ${ex},${cy}`} fill="none" stroke={p.c.color} strokeWidth={on ? 2.5 : 2} strokeLinejoin="round" />
                   <circle cx={p.ax} cy={p.ay} r={on ? 6 : 5} fill={p.c.color} stroke="#070b12" strokeWidth="1.5" />
                 </g>
               );
             })}
           </svg>
-          {placed.map(p => pill(p.c, { position: 'absolute', top: p.y, ...(p.left ? { right: box.w - GUTTER + 8 } : { left: box.w - GUTTER + 8 }), maxWidth: GUTTER - 16 }))}
+          {placed.map(p => pill(p.c, { position: 'absolute', top: p.y, ...(p.left ? { right: box.w - GUTTER + 8 } : { left: box.w - GUTTER + 8 }), ...(p.c.sub ? {} : { maxWidth: GUTTER - 16 }) }))}
         </>}
       </div>
       {!wide && <div className="flex flex-wrap justify-center gap-2" data-skin-callout-row>{list.map(c => pill(c))}</div>}

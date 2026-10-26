@@ -1,17 +1,16 @@
 'use client';
 import React from 'react';
 import { useTranslations } from '../../i18n/LanguageProvider';
-import { ChevronRight, Info } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Info } from 'lucide-react';
 import {
-  FINDING_DEFS, FINDING_VIEWS, FINDING_VIEW_NAMES, findingColor, inconclusiveFindings, seenCount, viewFindings,
+  FINDING_DEFS, FINDING_VIEW_NAMES, COUNT_RANGE_LABEL, findingColor, inconclusiveFindings, overviewFindings, viewFindings,
   type FindingViewId, type SkinFinding, type SkinFindingId, type SkinFindingsHistoryEntry
 } from '../../utils/skinFindings';
-import { PAINT_LABELS, PAINT_REGION_NAMES, paintKey, paintKeyColor, type PaintState } from '../../utils/skinTypePaint';
 import { skinTypeLabel } from '../../utils/skinOverview';
 import { SkinFindingCard } from './SkinFindingCard';
 import { SkinRecommendationsDialog } from './SkinRecommendationsDialog';
 import { SkinInconclusiveFindingsDialog } from './SkinInconclusiveFindingsDialog';
-import { SkinInconclusiveDialog } from './SkinInconclusiveDialog';
+import { recommendationBand } from '../../utils/skinRecommendations';
 
 type View = 'overview' | FindingViewId;
 interface Props {
@@ -25,20 +24,22 @@ interface Props {
   onGoToView: (view: FindingViewId, finding?: SkinFindingId) => void;
   onNavigateToCare: () => void;
   onRescan?: () => void;
+  overviewSel: SkinFindingId | null;
+  onOverviewSel: (id: SkinFindingId | null) => void;
 }
 
 /** Right column of the result screen: the selected finding's card, the inconclusive note and the two actions. */
-export function SkinFindingsPanel({ view, findings, history, scanAt, skinType, index, onIndex, onGoToView, onNavigateToCare, onRescan }: Props) {
+export function SkinFindingsPanel({ view, findings, history, scanAt, skinType, index, onIndex, onNavigateToCare, onRescan, overviewSel, onOverviewSel }: Props) {
   const { text } = useTranslations();
   const [recs, setRecs] = React.useState(false);
   const [unclear, setUnclear] = React.useState(false);
   const items = view === 'overview' ? [] : viewFindings(findings, view);
-  const current = items[Math.min(index, items.length - 1)];
+  const current = view === 'overview' ? overviewFindings(findings).find(f => f.id === overviewSel) : items[Math.min(index, items.length - 1)];
   const unsure = inconclusiveFindings(findings, view === 'overview' ? undefined : view);
   return (
     <div className="flex flex-col gap-3 w-full" data-skin-findings-panel={view}>
       {view === 'overview'
-        ? <Overview findings={findings} skinType={skinType} onGoToView={onGoToView} />
+        ? <Overview findings={findings} skinType={skinType} selected={overviewSel} onSelect={onOverviewSel} />
         : current
           ? <SkinFindingCard view={view} items={items} index={Math.min(index, items.length - 1)} onIndex={onIndex} history={history} scanAt={scanAt} />
           : <section className="rounded-[26px] bg-[#0f1724] px-6 py-10 text-center flex flex-col gap-2" data-skin-findings-empty>
@@ -68,60 +69,80 @@ export function SkinFindingsPanel({ view, findings, history, scanAt, skinType, i
   );
 }
 
-function Overview({ findings, skinType, onGoToView }: { findings?: SkinFinding[]; skinType?: any; onGoToView: (view: FindingViewId, finding?: SkinFindingId) => void }) {
+function Overview({ findings, skinType, selected, onSelect }: {
+  findings?: SkinFinding[]; skinType?: any; selected: SkinFindingId | null; onSelect: (id: SkinFindingId | null) => void;
+}) {
   const { text } = useTranslations();
-  const [unmeasured, setUnmeasured] = React.useState<{ regionId: string; causes?: string[] | null } | null>(null);
-  const regional = skinType?.decisionTrace?.regions as Record<string, any> | undefined;
   const typeName = skinTypeLabel(skinType);
-  const total = seenCount(findings);
+  const all = overviewFindings(findings);
+  const PAGE = 6, pages = Math.max(1, Math.ceil(all.length / PAGE));
+  const [page, setPage] = React.useState(0);
+  const shown = all.slice(page * PAGE, page * PAGE + PAGE);
+  // the header arrows slide the findings grid, six cards at a time
+  const arrow = (d: number) => (
+    <button type="button" onClick={() => setPage((page + d + pages) % pages)} disabled={pages < 2} aria-label={text(d < 0 ? 'Önceki bulgular' : 'Sonraki bulgular')}
+      className="w-[52px] h-[52px] shrink-0 rounded-2xl bg-[#1a2533] flex items-center justify-center text-slate-100 hover:bg-[#223043] active:scale-95 transition disabled:opacity-30 disabled:pointer-events-none">
+      {d < 0 ? <ChevronLeft aria-hidden="true" className="w-6 h-6" /> : <ChevronRight aria-hidden="true" className="w-6 h-6" />}
+    </button>
+  );
   return (
-    <section className="rounded-[26px] bg-[#0f1724] p-5 flex flex-col gap-5" data-skin-overview>
-      {(typeName || regional) && (
-        <div className="flex flex-col gap-3" data-skin-type>
-          <div className="flex items-baseline justify-between gap-3">
-            <span className="text-[15px] font-semibold text-slate-400">{text('Cilt tipi')}</span>
-            {typeName && <strong className="text-2xl font-extrabold text-white">{text(typeName)}</strong>}
-          </div>
-          {regional && (
-            <ul className="flex flex-wrap gap-2" data-skin-type-regions>
-              {(['forehead', 'nose', 'chin', 'rightCheek', 'leftCheek'] as const).filter(id => regional[id]).map(id => {
-                const e = regional[id]; const st: PaintState = ['oily', 'dry', 'normal'].includes(e.state) ? e.state : 'unmeasured';
-                const sens = st !== 'unmeasured' && e.sensitive === true, color = paintKeyColor(paintKey(st, sens));
-                const body = <><span aria-hidden="true" className="w-2.5 h-2.5 rounded-full" style={{ background: color }} /><span className="text-slate-400">{text(PAINT_REGION_NAMES[id])}</span><span className="text-white font-semibold">{text(PAINT_LABELS[st]) + (sens ? ' · ' + text('Hassas') : '')}</span></>;
-                return (
-                  <li key={id} data-skin-type-region-row={id} data-state={st}>
-                    {st === 'unmeasured'
-                      ? <button type="button" onClick={() => setUnmeasured({ regionId: id, causes: e.causes })} className="min-h-11 inline-flex items-center gap-2 rounded-full border border-dashed border-slate-500/70 px-3.5 text-sm">{body}<Info aria-hidden="true" className="w-4 h-4 text-togg-turquoise" /></button>
-                      : <span className="min-h-11 inline-flex items-center gap-2 rounded-full bg-[#131d2b] px-3.5 text-sm">{body}</span>}
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+    <section className="rounded-[26px] bg-[#0f1724] px-5 pt-5 pb-6 flex flex-col gap-5" data-skin-overview>
+      <div className="flex items-center justify-between gap-3">
+        {arrow(-1)}
+        <div className="min-w-0 flex flex-col items-center gap-1 text-center">
+          {pages > 1 && <span className="text-[13px] font-bold tracking-[0.08em] text-[#00d2eb] tabular-nums" data-skin-overview-page>{page + 1} / {pages}</span>}
+          <h2 className="text-[28px] leading-tight font-extrabold tracking-tight text-white">{text('Genel bakış')}</h2>
         </div>
-      )}
-      <div className="flex flex-col gap-2" data-skin-findings-by-view>
-        <span className="text-[15px] font-semibold text-slate-400">{total ? text(`Bu taramada ${total} bulgu görüldü`) : text('Bu taramada öne çıkan bir bulgu yok')}</span>
-        {FINDING_VIEWS.map(v => {
-          const seen = viewFindings(findings, v);
-          return (
-            <button key={v} type="button" onClick={() => onGoToView(v)} data-skin-findings-view={v}
-              className="min-h-[60px] rounded-[18px] bg-[#131d2b] hover:bg-[#1a2533] active:scale-[0.995] transition px-4 py-2.5 flex items-center gap-3 text-left">
-              <span className="w-40 shrink-0 text-[17px] font-bold text-white">{text(FINDING_VIEW_NAMES[v])}</span>
-              <span className="flex-1 flex flex-wrap gap-1.5">
-                {seen.length === 0 && <span className="text-[15px] text-slate-500">{text('Öne çıkan bulgu yok')}</span>}
-                {seen.map(f => (
-                  <span key={f.id} className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-sm font-semibold" style={{ background: `${findingColor(f.id)}1f`, color: findingColor(f.id) }}>
-                    <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full" style={{ background: findingColor(f.id) }} />{text(FINDING_DEFS[f.id].label)}
-                  </span>
-                ))}
-              </span>
-              <ChevronRight aria-hidden="true" className="w-5 h-5 shrink-0 text-slate-400" />
-            </button>
-          );
-        })}
+        {arrow(1)}
       </div>
-      {unmeasured && <SkinInconclusiveDialog regionId={unmeasured.regionId} causes={unmeasured.causes} onClose={() => setUnmeasured(null)} />}
+      {typeName && (
+        <button type="button" aria-pressed={selected === null} onClick={() => onSelect(null)} data-skin-type-card
+          className={`min-h-[72px] rounded-[18px] border-2 px-5 flex items-center justify-between gap-3 text-left transition ${selected === null ? 'border-[#00d2eb] bg-[#00d2eb]/10' : 'border-transparent bg-[#131d2b] hover:bg-[#1a2533]'}`}>
+          <span className="text-[15px] font-semibold text-slate-400">{text('Cilt tipi')}</span>
+          <strong className="text-2xl font-extrabold text-white">{text(typeName)}</strong>
+        </button>
+      )}
+      <div className="flex flex-col gap-3" data-skin-overview-findings={all.length}>
+        <div className="flex items-center justify-between gap-3">
+          <span className="text-[15px] font-semibold text-slate-400">{text('Bulgular')}</span>
+        </div>
+        {all.length === 0
+          ? <p className="rounded-[18px] bg-[#131d2b] px-4 py-6 text-center text-[17px] text-slate-300">{text('Bu taramada öne çıkan bir bulgu yok.')}</p>
+          : <div className="grid grid-cols-2 gap-3">
+              {shown.map(f => <OverviewFindingCard key={f.id} f={f} on={selected === f.id} onClick={() => onSelect(selected === f.id ? null : f.id)} />)}
+            </div>}
+      </div>
     </section>
+  );
+}
+
+/** Small card of the overview grid: name and a bar for the score, area or count. */
+function OverviewFindingCard({ f, on, onClick }: { f: SkinFinding; on: boolean; onClick: () => void }) {
+  const { text } = useTranslations();
+  const color = findingColor(f.id), def = FINDING_DEFS[f.id];
+  const score = f.severity ?? f.areaPct;
+  let width: number | null = null, value: string;
+  if (score !== undefined) { width = Math.round(score); value = text(`%${width}`); }
+  else if (def.kind === 'count' && f.countRange) {
+    const { index, total } = recommendationBand(f); width = Math.round((index + 1) / total * 100);
+    value = `${COUNT_RANGE_LABEL[f.countRange] || f.countRange} ${text(def.unit || '')}`;
+  } else value = text('Görüldü');
+  return (
+    <button type="button" aria-pressed={on} onClick={onClick} data-skin-overview-finding={f.id}
+      className="min-h-[96px] rounded-[18px] border-2 px-4 py-3 flex flex-col justify-between gap-2.5 text-left transition active:scale-[0.99]"
+      style={{ borderColor: on ? color : 'transparent', background: on ? `${color}1a` : '#131d2b' }}>
+      <span className="flex items-start justify-between gap-2">
+        <span className="flex items-center gap-2 min-w-0">
+          <span aria-hidden="true" className="w-2.5 h-2.5 shrink-0 rounded-full" style={{ background: color }} />
+          <span className="text-base font-bold leading-tight text-white">{text(def.label)}</span>
+        </span>
+        <span className="text-base font-extrabold text-white tabular-nums whitespace-nowrap">{value}</span>
+      </span>
+      {width !== null && (
+        <span className="block h-2 rounded-full bg-[#1a2533] overflow-hidden" aria-hidden="true">
+          <span className="block h-full rounded-full" style={{ width: `${Math.max(4, width)}%`, background: color }} />
+        </span>
+      )}
+    </button>
   );
 }

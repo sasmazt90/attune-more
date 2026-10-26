@@ -7,7 +7,7 @@ import { SkinSnapshot } from '../../utils/skinSnapshot';
 import { SkinFacePanel } from './SkinFacePanel';
 import { SkinFindingsPanel } from './SkinFindingsPanel';
 import {
-  FINDING_ANCHOR, FINDING_DEFS, anchorPoint, FINDING_VIEW_NAMES, FINDING_VIEW_ORDER, findingColor, isFindingView, seenCount, viewFindings,
+  FINDING_ANCHOR, FINDING_DEFS, anchorPoint, FINDING_VIEW_NAMES, FINDING_VIEW_ORDER, findingColor, isFindingView, overviewFindings, seenCount, viewFindings,
   type FindingViewId, type SkinFinding, type SkinFindingId, type SkinFindingsHistoryEntry
 } from '../../utils/skinFindings';
 import type { FindingCallout } from './SkinFindingCallouts';
@@ -37,6 +37,10 @@ interface SkinResultViewProps {
   comparisonScope?: 'single-front-v1' | 'three-angle-v2';
 }
 
+/** Pages a finding was seen on, with the finding as merged on that page. */
+const FINDING_VIEWS_OF = (all: SkinFinding[] | undefined, id: SkinFindingId) =>
+  (overviewFindings(all).find(f => f.id === id)?.views || []).map(v => ({ v, f: viewFindings(all, v).find(x => x.id === id)! }));
+
 /** Result screen ("face map"): page tabs, the photo with labels pointing at each finding, and the finding card. */
 export const SkinResultView: React.FC<SkinResultViewProps> = ({ currentRegion, snapshot, findings, findingsHistory, scanAt, onSelectView, onRescan, onNavigateToCare, videoRef, isLiveVideo = false }) => {
   const { text, locale } = useTranslations();
@@ -44,24 +48,42 @@ export const SkinResultView: React.FC<SkinResultViewProps> = ({ currentRegion, s
   const at = React.useMemo(() => scanAt || new Date().toISOString(), [scanAt]);
   const items = view === 'overview' ? [] : viewFindings(findings, view);
   const [index, setIndex] = React.useState(0);
+  /** Overview: null = skin-type map on the photo, else the finding shown on the whole face */
+  const [overviewSel, setOverviewSel] = React.useState<SkinFindingId | null>(null);
   const pending = React.useRef<SkinFindingId | null>(null);
   React.useEffect(() => {
     const i = pending.current ? items.findIndex(f => f.id === pending.current) : 0;
-    setIndex(Math.max(0, i)); pending.current = null;
+    setIndex(Math.max(0, i)); pending.current = null; setOverviewSel(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view]);
   const goTo = (target: View, finding?: SkinFindingId) => {
     if (target === view) { if (finding) setIndex(Math.max(0, items.findIndex(f => f.id === finding))); return; }
     pending.current = finding || null; onSelectView?.(target);
   };
-  const selected = items[Math.min(index, items.length - 1)]?.id || null;
+  const selected = view === 'overview' ? overviewSel : items[Math.min(index, items.length - 1)]?.id || null;
   const lm = snapshot?.landmarks;
-  const callouts: FindingCallout[] = view === 'overview' || !snapshot || !lm || lm.length < 468 ? [] : items.flatMap(f => {
+  const anchorOf = (f: SkinFinding, v: FindingViewId) => {
+    if (!snapshot || !lm) return null;
     const marker = f.markers?.[0] && (!f.pose || f.pose === snapshot.angle) ? f.markers[0] : null;
-    const a = FINDING_ANCHOR[f.id][view];
-    const anchor = marker ? { x: marker.x, y: marker.y } : a !== undefined ? anchorPoint(a, lm, snapshot.width, snapshot.height) : null;
-    return anchor ? [{ id: f.id, label: FINDING_DEFS[f.id].label, color: findingColor(f.id), anchor }] : [];
-  });
+    const a = FINDING_ANCHOR[f.id][v];
+    return marker ? { x: marker.x, y: marker.y } : a !== undefined ? anchorPoint(a, lm, snapshot.width, snapshot.height) : null;
+  };
+  const valueLabel = (f: SkinFinding) => {
+    const v = f.severity ?? f.areaPct;
+    return v !== undefined ? `%${Math.round(v)}` : undefined;
+  };
+  const ready = !!snapshot && !!lm && lm.length >= 468;
+  // Page: one label per finding. Overview with a finding chosen: one label per page it was seen on (tap = open that page).
+  const callouts: FindingCallout[] = !ready ? [] : view !== 'overview'
+    ? items.flatMap(f => { const anchor = anchorOf(f, view); return anchor ? [{ key: f.id, id: f.id, label: FINDING_DEFS[f.id].label, color: findingColor(f.id), anchor }] : []; })
+    : overviewSel ? FINDING_VIEWS_OF(findings, overviewSel).flatMap(({ v, f }) => {
+        const anchor = anchorOf(f, v);
+        return anchor ? [{ key: v, id: f.id, label: FINDING_VIEW_NAMES[v], sub: valueLabel(f), color: findingColor(f.id), anchor, active: true }] : [];
+      }) : [];
+  const onCallout = (key: string) => {
+    if (view === 'overview') { if (isFindingView(key) && overviewSel) goTo(key, overviewSel); }
+    else goTo(view, key as SkinFindingId);
+  };
   const when = new Date(at);
   return (
     <div className="w-full flex flex-col gap-5" data-skin-result>
@@ -91,11 +113,12 @@ export const SkinResultView: React.FC<SkinResultViewProps> = ({ currentRegion, s
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)] gap-6 xl:gap-10 items-start" data-skin-result-layout>
         <div className="min-w-0 flex flex-col items-center">
           <SkinFacePanel currentRegion={currentRegion} snapshot={snapshot} mode="result" videoRef={videoRef} isLiveVideo={isLiveVideo}
-            findings={findings} selectedFinding={selected} callouts={callouts} onSelectFinding={id => goTo(view, id)} />
+            findings={findings} selectedFinding={selected} callouts={callouts} onSelectFinding={onCallout} />
         </div>
         <div className="min-w-0">
           <SkinFindingsPanel view={view} findings={findings} history={findingsHistory} scanAt={at} skinType={currentRegion.skinType}
             index={Math.min(index, Math.max(0, items.length - 1))} onIndex={setIndex} onGoToView={(v, f) => goTo(v, f)}
+            overviewSel={overviewSel} onOverviewSel={setOverviewSel}
             onNavigateToCare={onNavigateToCare} onRescan={onRescan} />
         </div>
       </div>
