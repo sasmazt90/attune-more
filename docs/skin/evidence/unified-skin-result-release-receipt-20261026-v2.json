@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 2,
+  "observedAt": "2026-10-26T19:31:00Z",
+  "codeBlobs": {
+    "apps/vehicle-app/src/utils/regionalSkinMap.ts": "258ab2d845b3743ede309938cd14da8831a01046",
+    "apps/vehicle-app/src/utils/skinOverview.ts": "4d31010f82bfd5c42a49b46c20880630d57079dd",
+    "apps/vehicle-app/src/utils/skinPhotoHistory.ts": "d143cb121cc39149b1ee4d26d4e4bacd9ba0f288",
+    "apps/vehicle-app/src/components/skin/SkinFacePanel.tsx": "c86d90f41ad1b9c54025e111cd636271c533618a",
+    "apps/vehicle-app/src/components/skin/SkinTrendModal.tsx": "4709e9214cee28bbd2de5bfa9d20261b63f489c3",
+    "shared/localization/messages.json": "71c0f5dc25ac984331559b43a48d9b9da1e1492e",
+    "services/core-api/skin_product_contract.py": "f152726978bee2eea36b0563d9ac36cbcf330c7b"
+  },
+  "inputEvidence": {
+    "currentProductRecheck": {"path": "docs/skin/evidence/current-product-skin-contract-recheck-20261025-v1.json", "sha256": "42b85a7c24591456934823eb443e93e79bce874b2b5a39ef1262f06a9150f850"},
+    "unifiedMapCorrection": {"path": "docs/skin/evidence/unified-map-contract-correction-20261025-v1.json", "sha256": "e2eeb9e5244c5a7bf593072736d0dc345f673bff4e4ddc78ef678ffae91d0de3"},
+    "generatedSmoke": {"path": "docs/skin/evidence/camera-triplet-generated-smoke-20261024-v1.json", "sha256": "104308686d284695f43336bcaf3c04414f68f24bdde8eb9a9eab19ba1f68f46d"}
+  },
+  "workingBaseline": {
+    "commit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+    "productAlreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "headings": ["tone", "oil", "redness", "acne", "sag", "dry", "lines", "dark", "bags", "Post acne", "Pigmentation", "skinType"],
+    "appearanceHeadings": 11,
+    "separateSkinType": true,
+    "regionalResults": true,
+    "overviewMapAndHistory": true
+  },
+  "mapAndHistoryContract": {
+    "dryColour": "#2563EB",
+    "oilyColour": "#16A34A",
+    "rednessColour": "#DC2626",
+    "rednessIndependentLayer": true,
+    "rednessSensitivityAliasAllowed": false,
+    "normalColour": null,
+    "unknownColour": "#D1D5DB",
+    "unknownCountsAsNormal": false,
+    "mixedColoursAllowed": true,
+    "wholeFaceClassReplicationAllowed": false,
+    "boxAsPolygonAllowed": false,
+    "modelPredictionAsExpertTruthAllowed": false,
+    "methodIdentityRequiredForHistory": true
+  },
+  "generatedSmoke": {
+    "declaredGenerated": true,
+    "physicalCameraCapture": false,
+    "expertGroundTruth": false,
+    "accuracyEvidence": false,
+    "integrationSmokeAllowed": true
+  },
+  "repositoryCI": {"path": "docs/skin/evidence/sag-release-gate-v2-ci-20261026-v1.json", "sha256": "2d4f7fce16315c84111d5dfd037784ad4867d97f3cc5bafa935fcb70618f232e"},
+  "classReleaseGates": {
+    "acneConcerns": {
+      "tasks": ["01", "02", "03"],
+      "methodVersion": "acne-concerns-per-class-release-gate-v2",
+      "evidence": {"path": "docs/skin/evidence/acne-per-class-release-gate-20261026-v2.json", "sha256": "8e38942bf5d0c1875ed2fd7319827df85e7f66dc17e65dd23d412972a4838706"},
+      "roadmapAccepted": false
+    },
+    "oily": {
+      "tasks": ["04"],
+      "methodVersion": "regional-oily-appearance-release-gate-v2",
+      "evidence": {"path": "docs/skin/evidence/oily-release-gate-20261026-v2.json", "sha256": "a0467a34070c75fc0eec5c98fac9432e7a548f5cbbdefc28a76880a164a0954b"},
+      "roadmapAccepted": false
+    },
+    "dryness": {
+      "tasks": ["05"],
+      "methodVersion": "regional-dryness-release-gate-v2",
+      "evidence": {"path": "docs/skin/evidence/dryness-release-gate-20261026-v2.json", "sha256": "c5e070e2203594165352def845e85533e302d30ee92a99b95777a6552d41e061"},
+      "roadmapAccepted": false
+    },
+    "skinTypeCombination": {
+      "tasks": ["06"],
+      "methodVersion": "skin-type-combination-release-gate-v2",
+      "evidence": {"path": "docs/skin/evidence/skin-type-combination-release-gate-20261026-v2.json", "sha256": "3fa0eb803e657721fafb184febd7ce2909a586fb8afc0d66794ab21663c01a56"},
+      "roadmapAccepted": false
+    },
+    "redness": {
+      "tasks": ["07"],
+      "methodVersion": "regional-redness-release-gate-v2",
+      "evidence": {"path": "docs/skin/evidence/redness-release-gate-20261026-v2.json", "sha256": "05abf10c24d987f16c064ab02fe1e0b6571b84d17711104b885107ff9609c48b"},
+      "roadmapAccepted": false
+    },
+    "toneUnevenness": {
+      "tasks": ["08"],
+      "methodVersion": "tone-unevenness-release-gate-v2",
+      "evidence": {"path": "docs/skin/evidence/tone-unevenness-release-gate-20261026-v2.json", "sha256": "1a16e5d44db201261b87db60e049d0822eb0a009957389c92c0690488f35158e"},
+      "roadmapAccepted": false
+    },
+    "underEye": {
+      "tasks": ["09", "10"],
+      "methodVersion": "under-eye-per-class-release-gate-v2",
+      "evidence": {"path": "docs/skin/evidence/under-eye-per-class-release-gate-20261026-v2.json", "sha256": "f6ddc59486579f44765ae44b42360671d18f5f4004b837fd1eed93fe8dbfa92d"},
+      "roadmapAccepted": false
+    },
+    "wrinkles": {
+      "tasks": ["11"],
+      "methodVersion": "wrinkle-per-class-release-gate-v2",
+      "evidence": {"path": "docs/skin/evidence/wrinkle-per-class-release-gate-20261026-v1.json", "sha256": "38fbbf6316f65431a214752442221682c02cc07131d3cd754f059fce6f7b0e39"},
+      "roadmapAccepted": false
+    },
+    "sag": {
+      "tasks": ["12"],
+      "methodVersion": "sag-appearance-release-gate-v2",
+      "evidence": {"path": "docs/skin/evidence/sag-release-gate-20261026-v2.json", "sha256": "04e655845a01899ae26cee2893037cf12bb1663cc24a0067030435e8b3813d24"},
+      "roadmapAccepted": false
+    }
+  },
+  "physicalCameraGate": {
+    "methodVersion": "physical-camera-benchmark-release-gate-v1",
+    "evidence": {"path": "docs/skin/evidence/physical-camera-benchmark-release-gate-20261026-v1.json", "sha256": "789ef99243a7df26dd1ae5d9b2dc847d2382198e4edf13c08873574be4d3de44"},
+    "accepted": false
+  },
+  "acceptanceCandidate": {
+    "mode": "no-final-acceptance-candidate",
+    "releaseId": null,
+    "repositoryCommit": null,
+    "productBuildId": null,
+    "browserRunId": null,
+    "cameraBenchmarkId": null,
+    "historyPolicyId": null,
+    "evidence": null
+  }
+}
