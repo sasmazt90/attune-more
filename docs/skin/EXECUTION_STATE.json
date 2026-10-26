@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-25",
-      "lastCheckedAt": "2026-10-26T01:37:18Z",
+      "lastCheckedAt": "2026-10-26T02:23:02Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -479,7 +479,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-26T01:37:18Z",
+      "lastCheckedAt": "2026-10-26T02:23:02Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -671,7 +671,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-26T01:37:18Z",
+      "lastCheckedAt": "2026-10-26T02:23:02Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -1537,6 +1537,38 @@
           "tests": "76a577a93ec81055c0ca7567f92b8cbb4d6b4c5b",
           "template": "3250ccd8c40b0f8b872d66c587fa932204ad03a1",
           "audit": "9f9b40b9d7a03752b0e8e2b1806f17668b6e81f6"
+        },
+        "expertTruthBuilder": {
+          "observedAt": "2026-10-26T02:23:02Z",
+          "methodVersion": "physical-camera-expert-truth-v1",
+          "script": "scripts/skin-research/build_physical_camera_expert_truth.py",
+          "tests": "scripts/skin-research/tests/test_build_physical_camera_expert_truth.py",
+          "privateInputTemplate": "docs/skin/evidence/physical-camera-expert-review-input-template-20261026-v1.json",
+          "audit": "docs/skin/evidence/physical-camera-expert-truth-builder-audit-20261026-v1.json",
+          "twoIndependentHumanReviewsPerCellRequired": true,
+          "thirdIndependentExpertRequiredForDisagreement": true,
+          "missingTruthMayBecomeNegative": false,
+          "unknownMayBecomeNormal": false,
+          "modelProposalMayBecomeExpertTruth": false,
+          "rednessIndependentFromSensitivity": true,
+          "rednessOverlapAllowed": true,
+          "normalRequiresExplicitEvaluatedTruth": true,
+          "expertTruthGenerated": false,
+          "physicalCameraAcceptanceClaimed": false,
+          "cameraFocusedTestsPassed": 19,
+          "fullSkinResearchTestsPassed": 173,
+          "commits": [
+            "4f510f518f026cacd73db1e88ef31bad1069cb67",
+            "ca9312efb4939a1b16930ff7d3a7709c44ef0be3",
+            "3d110d4b0da9639f7b00c9308d287d9047e4f210",
+            "71492cf2de5f9c369af23a6778d0d55b9d89cfd9"
+          ],
+          "blobs": {
+            "script": "77bb863346c69f6838af091339f715f3f04424fd",
+            "tests": "4f4e9bbc77935dc00411d17e9abaf0d671d30468",
+            "template": "513d66eb4887a6f740d23bc1c7c00232c46e1c30",
+            "audit": "9c0e1e5f4608fc02735a3aba8b2e93c4d68f2ab1"
+          }
         }
       }
     }
@@ -3117,6 +3149,7 @@
     }
   },
   "nextActions": [
+    "After a consented physical-camera manifest exists, collect the private matrix defined by docs/skin/evidence/physical-camera-expert-review-input-template-20261026-v1.json and run scripts/skin-research/build_physical_camera_expert_truth.py. Every activated class on every capture needs exactly two independent qualified human reviews; discordant decision or polygon truth needs an independent third expert. Keep positive localized polygons normalized, model proposals hidden, missing truth distinct from evaluated negative, unknown/unassessable distinct from Normal, and Redness independent from sensitivity. Do not commit reviewer identity, image bytes or raw private fields.",
     "For consented physical-camera acceptance, populate the private input shape in docs/skin/evidence/physical-camera-benchmark-manifest-input-template-20261026-v1.json outside Git, then run scripts/skin-research/build_physical_camera_benchmark_manifest.py. The builder accepts only opaque subject/capture/consent/quality references, immutable SHA-256 hashes, exact FRONT/LEFT/RIGHT physical-camera triplets, a passed capture-quality gate and a locked camera_final split unused by training, validation or threshold selection. It rejects paths, names, contact fields, image bytes, generated inputs, predictions and expert labels. Keep expert per-class truth separate and human-authored; the manifest alone does not satisfy camera acceptance.",
     "Replay scripts/skin-research/check_physical_camera_benchmark_release.py before treating any generated or captured image package as roadmap camera acceptance. Preserve the six-subject/18-image generated triplets as integration smoke only. Build the physical final set from consented immutable captures with subject independence from training/validation/threshold selection, expert truth per activated class, evaluated negative/unknown handling, device/lighting/skin-tone/pose and capture-quality slices, locked methods and thresholds, per-class metrics/failures, full /api/local-health/skin browser/map/history replay and privacy retention/deletion evidence.",
     "Run scripts/skin-research/reconcile_excluded_archive_inventory.py only with the private four-entry inventory: four unique opaque IDs and SHA-256 values, no archive names/paths/URLs, zero overlap with selected-source hashes, and explicit false access/mutation/upload/training/product-use flags. Do not access or hash the excluded archives merely to satisfy the gate; use an already authorized private ledger or durable prior hash evidence. Until all four are reviewed, keep inventoryReconciled and sourceReleaseContributionAllowed false.",
@@ -3160,6 +3193,18 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T02:23:02Z",
+      "action": "Read the persistent checkpoint first and verified remote blob fdbd184fb1f0726dfb050c69fd780ad6f0245809. Refreshed all 20 accessible Roboflow projects, exact acne, regional and under-eye training lists, under-eye v1/v2 and grouped upload task sLFwX7CYBVcnnD6iAW5o. Known trainings remain finished, under-eye v2 has no run, grouped under-eye remains empty and the upload task remains created with no progress, so no duplicate training or upload was started. Continued task 00 by implementing an adjudicated physical-camera expert-truth builder. It requires complete capture-by-activated-class coverage, exactly two independent qualified human reviews per cell and an independent third expert for disagreement. It keeps evaluated negative, unknown and unassessable distinct; requires normalized polygons for positive localized truth; preserves explicit Normal-only truth and independent overlapping Redness; and rejects model-visible/non-human reviews, missing-cell-to-negative conversion, private identity/path/contact fields and model outputs. Nineteen camera-focused tests and the full 173-test skin-research suite passed. No expert decision was fabricated, no physical-camera acceptance is claimed and the existing concrete /api/local-health/skin result remains preserved.",
+      "report": "docs/skin/evidence/physical-camera-expert-truth-builder-audit-20261026-v1.json",
+      "commits": [
+        "4f510f518f026cacd73db1e88ef31bad1069cb67",
+        "ca9312efb4939a1b16930ff7d3a7709c44ef0be3",
+        "3d110d4b0da9639f7b00c9308d287d9047e4f210",
+        "71492cf2de5f9c369af23a6778d0d55b9d89cfd9"
+      ]
+    },
     {
       "date": "2026-10-26",
       "observedAt": "2026-10-26T01:37:18Z",
@@ -3890,6 +3935,18 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T02:23:02Z",
+      "action": "Read the persistent checkpoint first and verified remote blob fdbd184fb1f0726dfb050c69fd780ad6f0245809. Refreshed all 20 accessible Roboflow projects, exact acne, regional and under-eye training lists, under-eye v1/v2 and grouped upload task sLFwX7CYBVcnnD6iAW5o. Known trainings remain finished, under-eye v2 has no run, grouped under-eye remains empty and the upload task remains created with no progress, so no duplicate training or upload was started. Continued task 00 by implementing an adjudicated physical-camera expert-truth builder. It requires complete capture-by-activated-class coverage, exactly two independent qualified human reviews per cell and an independent third expert for disagreement. It keeps evaluated negative, unknown and unassessable distinct; requires normalized polygons for positive localized truth; preserves explicit Normal-only truth and independent overlapping Redness; and rejects model-visible/non-human reviews, missing-cell-to-negative conversion, private identity/path/contact fields and model outputs. Nineteen camera-focused tests and the full 173-test skin-research suite passed. No expert decision was fabricated, no physical-camera acceptance is claimed and the existing concrete /api/local-health/skin result remains preserved.",
+      "report": "docs/skin/evidence/physical-camera-expert-truth-builder-audit-20261026-v1.json",
+      "commits": [
+        "4f510f518f026cacd73db1e88ef31bad1069cb67",
+        "ca9312efb4939a1b16930ff7d3a7709c44ef0be3",
+        "3d110d4b0da9639f7b00c9308d287d9047e4f210",
+        "71492cf2de5f9c369af23a6778d0d55b9d89cfd9"
+      ]
+    },
     {
       "date": "2026-10-26",
       "observedAt": "2026-10-26T01:37:18Z",
