@@ -19,6 +19,9 @@ EXPECTED_BLOBS = {
     "mergedProductRecheck": "bbbe61b13145284d675af7e3e66d25ce439a7ba4",
     "unifiedResultReceipt": "aac52634eaba105cd1ccc86383b7665eca7b53eb",
 }
+REJECTED_UNGROUPED_MODEL_ID = "tolgar-sasmaz/attune-skin-under-eye-pilot-1-rfdetr-seg-small-t1"
+EXPECTED_GROUPED_PROJECT_ID = "tolgar-sasmaz/attune-skin-under-eye-grouped-research"
+KNOWN_INELIGIBLE_MODEL_IDS = {REJECTED_UNGROUPED_MODEL_ID}
 
 
 class GateInputError(ValueError):
@@ -57,6 +60,32 @@ def _class_decision(shared_blockers: list[str], candidate: dict[str, Any], class
     }
 
 
+def _validate_candidate_identity(candidate: dict[str, Any]) -> tuple[bool, list[str]]:
+    mode = candidate.get("mode")
+    if mode not in {"not-trained", "new-model"}:
+        raise GateInputError("unknown under-eye candidate mode")
+    project_id = candidate.get("projectId")
+    model_id = candidate.get("modelId")
+    training_id = candidate.get("trainingId")
+    version = candidate.get("datasetVersion")
+    if mode == "not-trained":
+        if project_id is not None or model_id is not None or training_id is not None or version is not None:
+            raise GateInputError("not-trained candidate cannot claim a model identity")
+        return False, ["distinct_grouped_candidate_model_missing"]
+    if model_id in KNOWN_INELIGIBLE_MODEL_IDS:
+        raise GateInputError("known ungrouped model cannot be relabelled as a grouped candidate")
+    if project_id != EXPECTED_GROUPED_PROJECT_ID:
+        raise GateInputError("candidate must belong to the frozen grouped research project")
+    blockers: list[str] = []
+    if not isinstance(model_id, str) or not model_id.startswith(f"{EXPECTED_GROUPED_PROJECT_ID}-"):
+        blockers.append("distinct_grouped_candidate_model_missing")
+    if not isinstance(training_id, str) or not training_id:
+        blockers.append("distinct_grouped_candidate_training_missing")
+    if not isinstance(version, int) or isinstance(version, bool) or version < 1:
+        blockers.append("authorized_grouped_candidate_version_missing")
+    return not blockers, blockers
+
+
 def evaluate_release(receipt: dict[str, Any]) -> dict[str, Any]:
     _require(receipt.get("inputBlobs"), EXPECTED_BLOBS, "input blobs changed")
 
@@ -93,6 +122,7 @@ def evaluate_release(receipt: dict[str, Any]) -> dict[str, Any]:
 
     model = receipt.get("ungroupedModel", {})
     _require(model.get("trainingId"), "d194569acd3ebe7cf8b7", "model training identity changed")
+    _require(model.get("modelId"), REJECTED_UNGROUPED_MODEL_ID, "model identity changed")
     _require(model.get("evalId"), "ntJE3M4iMTVBPCg2HwIb", "model evaluation identity changed")
     _require(model.get("generatedImages"), 952, "ungrouped generated-image inventory changed")
     _require(model.get("thresholdsLockedBeforeTest"), False, "exposed test cannot become pre-locked")
@@ -127,24 +157,37 @@ def evaluate_release(receipt: dict[str, Any]) -> dict[str, Any]:
         "personIndependentGroupedSplitLocked": "person_independent_grouped_split_missing",
         "newUntouchedFinalTestReserved": "new_untouched_final_test_missing",
         "independentCameraHoldoutReserved": "independent_camera_holdout_missing",
+        "qualityPolicyLockedBeforeValidation": "quality_policy_not_locked_before_validation",
     }
-    shared_blockers = [reason for field, reason in shared_requirements.items() if candidate.get(field) is not True]
-    training_allowed = not shared_blockers
+    shared_training_blockers = [reason for field, reason in shared_requirements.items() if candidate.get(field) is not True]
+    distinct_candidate, identity_blockers = _validate_candidate_identity(candidate)
+    shared_test_blockers = list(shared_training_blockers) + identity_blockers
+    if candidate.get("trainedFromAuthorizedGroupedArchive") is not True:
+        shared_test_blockers.append("candidate_not_trained_from_authorized_grouped_archive")
+    if candidate.get("candidateChangeMatchesPreRegisteredExperiment") is not True:
+        shared_test_blockers.append("candidate_change_not_pre_registered")
+    if candidate.get("thresholdsLockedBeforeFinalTest") is not True:
+        shared_test_blockers.append("thresholds_not_locked_before_final_test")
+    classes = candidate.get("classes")
+    if not isinstance(classes, dict) or set(classes) != {"darkcircle", "eyebag"}:
+        raise GateInputError("both per-class candidate records are required")
     class_decisions = {
-        class_name: _class_decision(shared_blockers, candidate, class_name)
+        class_name: _class_decision(shared_test_blockers, candidate, class_name)
         for class_name in ("darkcircle", "eyebag")
     }
-    roadmap_accepted = all(item["productActivationAllowed"] for item in class_decisions.values())
+    roadmap_accepted = distinct_candidate and all(item["productActivationAllowed"] for item in class_decisions.values())
     return {
-        "schemaVersion": 1,
-        "methodVersion": "under-eye-per-class-release-gate-v1",
+        "schemaVersion": 2,
+        "methodVersion": "under-eye-per-class-release-gate-v2",
         "existingConcreteResultFlowPreserved": True,
         "classesRemainSeparate": True,
         "ungroupedModelAccepted": False,
-        "researchTrainingAuthorized": training_allowed,
+        "distinctGroupedCandidatePresent": distinct_candidate,
+        "researchTrainingAuthorized": not shared_training_blockers,
+        "blindRetrainingAllowed": False,
         "classDecisions": class_decisions,
         "roadmapAccepted": roadmap_accepted,
-        "sharedTrainingBlockers": shared_blockers,
+        "sharedTrainingBlockers": shared_training_blockers,
         "decision": "ready" if roadmap_accepted else "blocked",
     }
 

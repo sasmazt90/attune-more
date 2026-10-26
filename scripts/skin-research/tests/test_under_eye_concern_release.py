@@ -14,8 +14,35 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "under-eye-per-class-release-receipt-20261025-v1.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "under-eye-per-class-release-receipt-20261026-v2.json"
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _complete_training_prerequisites(receipt):
+    for field in (
+        "exactArchiveAuthorized",
+        "groupedImportVerified",
+        "augmentationFreeGroupedVersionVerified",
+        "rightsReviewed",
+        "expertPerClassMaskNegativeAndAmbiguityProtocolComplete",
+        "personIndependentGroupedSplitLocked",
+        "newUntouchedFinalTestReserved",
+        "independentCameraHoldoutReserved",
+        "qualityPolicyLockedBeforeValidation",
+    ):
+        receipt["candidate"][field] = True
+
+
+def _install_distinct_candidate(receipt):
+    candidate = receipt["candidate"]
+    candidate["mode"] = "new-model"
+    candidate["projectId"] = module.EXPECTED_GROUPED_PROJECT_ID
+    candidate["modelId"] = f"{module.EXPECTED_GROUPED_PROJECT_ID}-1-rfdetr-seg-small-t1"
+    candidate["trainingId"] = "future-grouped-training-id"
+    candidate["datasetVersion"] = 1
+    candidate["trainedFromAuthorizedGroupedArchive"] = True
+    candidate["candidateChangeMatchesPreRegisteredExperiment"] = True
+    candidate["thresholdsLockedBeforeFinalTest"] = True
 
 
 class UnderEyeConcernReleaseTests(unittest.TestCase):
@@ -24,6 +51,8 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
         self.assertTrue(result["existingConcreteResultFlowPreserved"])
         self.assertTrue(result["classesRemainSeparate"])
         self.assertFalse(result["researchTrainingAuthorized"])
+        self.assertFalse(result["distinctGroupedCandidatePresent"])
+        self.assertFalse(result["blindRetrainingAllowed"])
         self.assertFalse(result["classDecisions"]["darkcircle"]["productActivationAllowed"])
         self.assertFalse(result["classDecisions"]["eyebag"]["productActivationAllowed"])
 
@@ -61,19 +90,42 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(module.GateInputError, "cannot become person-independent"):
             module.evaluate_release(receipt)
 
+    def test_known_ungrouped_model_cannot_be_relabelled_as_grouped_candidate(self):
+        receipt = _receipt()
+        receipt["candidate"].update({
+            "mode": "new-model",
+            "projectId": module.EXPECTED_GROUPED_PROJECT_ID,
+            "modelId": module.REJECTED_UNGROUPED_MODEL_ID,
+            "trainingId": "fake-new-training",
+            "datasetVersion": 1,
+        })
+        with self.assertRaisesRegex(module.GateInputError, "cannot be relabelled"):
+            module.evaluate_release(receipt)
+
+    def test_candidate_must_belong_to_grouped_research_project(self):
+        receipt = _receipt()
+        receipt["candidate"].update({
+            "mode": "new-model",
+            "projectId": "tolgar-sasmaz/attune-skin-under-eye-pilot",
+            "modelId": "tolgar-sasmaz/attune-skin-under-eye-pilot-2-rfdetr-seg-small-t2",
+            "trainingId": "future-training",
+            "datasetVersion": 2,
+        })
+        with self.assertRaisesRegex(module.GateInputError, "grouped research project"):
+            module.evaluate_release(receipt)
+
+    def test_completed_pre_model_evidence_authorizes_only_targeted_training(self):
+        receipt = _receipt()
+        _complete_training_prerequisites(receipt)
+        result = module.evaluate_release(receipt)
+        self.assertTrue(result["researchTrainingAuthorized"])
+        self.assertFalse(result["distinctGroupedCandidatePresent"])
+        self.assertFalse(result["roadmapAccepted"])
+
     def test_one_future_class_can_pass_without_promoting_the_other(self):
         receipt = copy.deepcopy(_receipt())
-        for field in (
-            "exactArchiveAuthorized",
-            "groupedImportVerified",
-            "augmentationFreeGroupedVersionVerified",
-            "rightsReviewed",
-            "expertPerClassMaskNegativeAndAmbiguityProtocolComplete",
-            "personIndependentGroupedSplitLocked",
-            "newUntouchedFinalTestReserved",
-            "independentCameraHoldoutReserved",
-        ):
-            receipt["candidate"][field] = True
+        _complete_training_prerequisites(receipt)
+        _install_distinct_candidate(receipt)
         for field in receipt["candidate"]["classes"]["darkcircle"]:
             receipt["candidate"]["classes"]["darkcircle"][field] = True
         result = module.evaluate_release(receipt)
@@ -83,17 +135,8 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
 
     def test_complete_future_candidate_can_pass_both_classes(self):
         receipt = copy.deepcopy(_receipt())
-        for field in (
-            "exactArchiveAuthorized",
-            "groupedImportVerified",
-            "augmentationFreeGroupedVersionVerified",
-            "rightsReviewed",
-            "expertPerClassMaskNegativeAndAmbiguityProtocolComplete",
-            "personIndependentGroupedSplitLocked",
-            "newUntouchedFinalTestReserved",
-            "independentCameraHoldoutReserved",
-        ):
-            receipt["candidate"][field] = True
+        _complete_training_prerequisites(receipt)
+        _install_distinct_candidate(receipt)
         for class_name in ("darkcircle", "eyebag"):
             for field in receipt["candidate"]["classes"][class_name]:
                 receipt["candidate"]["classes"][class_name][field] = True
