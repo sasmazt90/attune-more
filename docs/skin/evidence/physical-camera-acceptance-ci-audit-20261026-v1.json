@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T06:49:03Z",
+  "status": "implemented_and_locally_verified_remote_ci_run_pending",
+  "purpose": "Run the complete skin research evidence suite in GitHub CI so the physical-camera manifest, expert truth, capture metrics, polygon localization and final acceptance contracts cannot silently regress.",
+  "mergedProductBaseline": {
+    "branch": "main",
+    "commit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+    "endpoint": "/api/local-health/skin",
+    "alreadyProducesConcreteResults": true,
+    "lastReverifiedAt": "2026-10-26T06:49:03Z"
+  },
+  "implementation": {
+    "workflow": ".github/workflows/ci.yml",
+    "workflowBlobSha": "e71fb26ce9847e5bb88036e7a069ec77b120b5e8",
+    "stepName": "Run complete skin research evidence suite",
+    "command": "python -m unittest discover -s scripts/skin-research/tests -p 'test_*.py'",
+    "wiringTest": "scripts/skin-research/tests/test_ci_physical_camera_acceptance_wiring.py",
+    "wiringTestBlobSha": "955a481f63c20ab98dc74f1b6c5a49d338ac96f8"
+  },
+  "coverage": {
+    "manifestBuilder": "test_build_physical_camera_benchmark_manifest.py",
+    "expertTruthBuilder": "test_build_physical_camera_expert_truth.py",
+    "captureEvaluator": "test_evaluate_physical_camera_predictions.py",
+    "localizationEvaluator": "test_evaluate_physical_camera_localization.py",
+    "finalAcceptanceGate": "test_check_physical_camera_acceptance.py",
+    "allSkinResearchTestsDiscovered": true
+  },
+  "verification": {
+    "workflowYamlParsed": true,
+    "fullSuiteStepCount": 1,
+    "stepRunsAfterPythonSetup": true,
+    "stepRunsAfterDependencyInstall": true,
+    "stepRunsAfterExistingDeterministicSuite": true,
+    "focusedWiringTestsPassed": 4,
+    "fullSkinResearchTestsPassed": 204,
+    "trainingStartedByStep": false,
+    "uploadStartedByStep": false,
+    "inferenceStartedByStep": false,
+    "remoteGitHubActionsRunObserved": false
+  },
+  "providerRefresh": {
+    "projectsAccessible": 20,
+    "acneProjectImages": 800,
+    "acneTrainingsFinished": 2,
+    "regionalProjectImages": 337,
+    "regionalTrainingsFinished": 2,
+    "underEyePilotImages": 399,
+    "underEyePilotV1TrainingsFinished": 1,
+    "underEyePilotV2Trainings": 0,
+    "underEyeGroupedResearchImages": 0,
+    "groupedUploadTask": {
+      "taskId": "sLFwX7CYBVcnnD6iAW5o",
+      "status": "created",
+      "progress": null
+    },
+    "newTrainingStarted": false,
+    "newUploadStarted": false
+  },
+  "acceptance": {
+    "ciWiringComplete": true,
+    "remoteCiRunPassed": false,
+    "realPhysicalCameraEvidencePassed": false,
+    "cameraAccepted": false,
+    "activationAllowed": false,
+    "roadmapComplete": false
+  },
+  "note": "This is regression integration for the existing working product and evidence pipeline. A local 204-test pass does not substitute for a remote CI run or real consented physical-camera acceptance."
+}
