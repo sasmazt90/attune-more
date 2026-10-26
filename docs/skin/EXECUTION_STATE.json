@@ -41,7 +41,7 @@
       "resultPersistenceGate": true,
       "resultUI": true,
       "evidence": "docs/skin/evidence/current-product-skin-contract-20261023-v1.json",
-      "lastRevalidatedAt": "2026-10-26T04:30:14Z",
+      "lastRevalidatedAt": "2026-10-26T06:18:59Z",
       "latestDefaultBranchCommitVerified": true,
       "pinnedBlobMatches": 7,
       "recheckEvidence": "docs/skin/evidence/current-product-skin-contract-recheck-20261025-v1.json",
@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-26",
-      "lastCheckedAt": "2026-10-26T04:30:14Z",
+      "lastCheckedAt": "2026-10-26T06:18:59Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -1639,6 +1639,40 @@
               "tests": "8a4c9fec9b559c3c7b4650d89c9b2cde52b84ecd",
               "template": "24680e71c5dc587fa50ffcca67954297b69555d5",
               "audit": "e4cb9da0c0b4c44198c6775affe0a5b9412e58b5"
+            },
+            "acceptanceGate": {
+              "observedAt": "2026-10-26T06:18:59Z",
+              "methodVersion": "physical-camera-acceptance-gate-v1",
+              "script": "scripts/skin-research/check_physical_camera_acceptance.py",
+              "tests": "scripts/skin-research/tests/test_check_physical_camera_acceptance.py",
+              "acceptancePolicyTemplate": "docs/skin/evidence/physical-camera-acceptance-policy-template-20261026-v1.json",
+              "productReplayTemplate": "docs/skin/evidence/physical-camera-product-replay-template-20261026-v1.json",
+              "audit": "docs/skin/evidence/physical-camera-acceptance-gate-audit-20261026-v1.json",
+              "mergedProductBaselineCommit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+              "mergedProductAlreadyProducesConcreteResults": true,
+              "endpoint": "/api/local-health/skin",
+              "policyLockedBeforeCameraFinalRequired": true,
+              "cameraFinalMaySelectPolicy": false,
+              "everyClassMustPassIndependently": true,
+              "everyObservedSliceMustPassIndependently": true,
+              "macroAveragingUsed": false,
+              "recommendedOrFinishedTrainingMayAuthorizeAcceptance": false,
+              "methodThresholdGeometryIdentityBound": true,
+              "realPhysicalCameraProductReplayRequired": true,
+              "apiBrowserMapHistoryReplayRequired": true,
+              "privacyRetentionDeletionEvidenceRequired": true,
+              "acceptanceRunOnRealCameraEvidence": false,
+              "cameraAccepted": false,
+              "activationAllowed": false,
+              "focusedTestsPassed": 10,
+              "fullSkinResearchTestsPassed": 200,
+              "blobs": {
+                "script": "3fcc8c43235c7fee4b9df203839dec6b3ecb097c",
+                "tests": "9d3e2b566faaf3788661fc793df9e90e8a938060",
+                "acceptancePolicyTemplate": "69f3a728a479395f6773213d0cf7a6ae2dfe0e16",
+                "productReplayTemplate": "a68fb59d4648e4809065066c33a01a3f9e6887a6",
+                "audit": "e7fb2fdb85ecc2e4c0f20116729d538845166ae6"
+              }
             }
           }
         }
@@ -1831,7 +1865,7 @@
     {
       "id": "00",
       "target": "shared-data-and-evaluation",
-      "status": "physical_camera_release_gate_fail_closed_consent_truth_slices_integration_pending",
+      "status": "physical_camera_full_gate_implemented_real_evidence_pending",
       "work": "Build target/source inventory; verify annotation geometry and label meaning; group exact/near duplicate photos across sources; freeze train/validation/test groups; audit source licences; create independent camera benchmark and capture-quality checks. A shared fail-closed learned-model gate now requires immutable identity, reviewed source/split/negative evidence, per-class validation plus locked test, independent product-contract camera evidence and working integration before activation.",
       "evidence": [
         "scripts/skin-research/audit_roadmap_archives.py",
@@ -1963,7 +1997,12 @@
         "scripts/skin-research/evaluate_physical_camera_localization.py",
         "scripts/skin-research/tests/test_evaluate_physical_camera_localization.py",
         "docs/skin/evidence/physical-camera-localization-receipt-template-20261026-v1.json",
-        "docs/skin/evidence/physical-camera-localization-evaluator-audit-20261026-v1.json"
+        "docs/skin/evidence/physical-camera-localization-evaluator-audit-20261026-v1.json",
+        "scripts/skin-research/check_physical_camera_acceptance.py",
+        "scripts/skin-research/tests/test_check_physical_camera_acceptance.py",
+        "docs/skin/evidence/physical-camera-acceptance-policy-template-20261026-v1.json",
+        "docs/skin/evidence/physical-camera-product-replay-template-20261026-v1.json",
+        "docs/skin/evidence/physical-camera-acceptance-gate-audit-20261026-v1.json"
       ],
       "blockers": [
         "Final holdout independence is not established. The privacy-safe grouping proposal confirms 16 cross-split source/person groups covering 37 records, including test/train leakage, while 729 singleton records still lack reviewed provenance/person identity. Independent real-camera evidence is also pending.",
@@ -3225,7 +3264,7 @@
     }
   },
   "nextActions": [
-    "When the consented physical-camera manifest, adjudicated expert truth and both locked capture-level and localization prediction receipts exist, run scripts/skin-research/evaluate_physical_camera_predictions.py and scripts/skin-research/evaluate_physical_camera_localization.py. Inspect every class independently plus device, lighting, skin-tone and pose slices; do not average away weak classes. Unknown/unassessable truth stays outside negative denominators, unavailable predictions never become true negatives, boxes never become polygon truth, and camera_final must select neither thresholds nor geometry methods. Then apply separately locked class acceptance thresholds and complete /api/local-health/skin browser/map/history replay before activation.",
+    "When the consented physical-camera manifest, adjudicated expert truth and locked capture/localization receipts exist, run the capture and localization evaluators, then apply scripts/skin-research/check_physical_camera_acceptance.py with a per-class policy locked before camera_final and a real /api/local-health/skin product-replay receipt. Every class and every observed device, lighting, skin-tone and pose slice must pass independently; never use macro averages, recommended flags or finished-training status to hide a weak class. The replay must cover real browser/API, overview and every region, accepted map semantics, unavailable states, retained-photo history write/read, incompatible-method exclusion and privacy retention/deletion before activation.",
     "After a consented physical-camera manifest exists, collect the private matrix defined by docs/skin/evidence/physical-camera-expert-review-input-template-20261026-v1.json and run scripts/skin-research/build_physical_camera_expert_truth.py. Every activated class on every capture needs exactly two independent qualified human reviews; discordant decision or polygon truth needs an independent third expert. Keep positive localized polygons normalized, model proposals hidden, missing truth distinct from evaluated negative, unknown/unassessable distinct from Normal, and Redness independent from sensitivity. Do not commit reviewer identity, image bytes or raw private fields.",
     "For consented physical-camera acceptance, populate the private input shape in docs/skin/evidence/physical-camera-benchmark-manifest-input-template-20261026-v1.json outside Git, then run scripts/skin-research/build_physical_camera_benchmark_manifest.py. The builder accepts only opaque subject/capture/consent/quality references, immutable SHA-256 hashes, exact FRONT/LEFT/RIGHT physical-camera triplets, a passed capture-quality gate and a locked camera_final split unused by training, validation or threshold selection. It rejects paths, names, contact fields, image bytes, generated inputs, predictions and expert labels. Keep expert per-class truth separate and human-authored; the manifest alone does not satisfy camera acceptance.",
     "Replay scripts/skin-research/check_physical_camera_benchmark_release.py before treating any generated or captured image package as roadmap camera acceptance. Preserve the six-subject/18-image generated triplets as integration smoke only. Build the physical final set from consented immutable captures with subject independence from training/validation/threshold selection, expert truth per activated class, evaluated negative/unknown handling, device/lighting/skin-tone/pose and capture-quality slices, locked methods and thresholds, per-class metrics/failures, full /api/local-health/skin browser/map/history replay and privacy retention/deletion evidence.",
@@ -4027,6 +4066,12 @@
       "observedAt": "2026-10-26T04:30:14Z",
       "action": "Read the persistent checkpoint first and re-verified the already functioning merged Attune.more result contract as the baseline. Refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye training lists and the existing grouped under-eye upload task; no training is running, known jobs remain finished, pilot v2 has no training, the grouped project remains empty and no duplicate training or upload was started. Added a locked physical-camera localization evaluator using a deterministic 512x512 normalized polygon-union raster method. It computes per-class and device/lighting/skin-tone/pose IoU/Dice, availability and evaluated-negative false-positive area; rejects box/bbox geometry, private fields, confidence/score retuning, camera-final threshold or geometry selection, post-lock mutation, incomplete matrices and model geometry as expert truth. Unknown/unassessable stays excluded, Normal requires explicit evaluated truth and Redness remains an independent red layer. Nine focused tests and all 190 skin-research tests passed. Real consented captures, adjudicated expert truth, locked localization predictions, class thresholds and API/browser/map/history replay remain pending, so activation and roadmap completion stay false.",
       "report": "docs/skin/evidence/physical-camera-localization-evaluator-audit-20261026-v1.json"
+    },
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T06:18:59Z",
+      "action": "Read the persistent checkpoint first and re-verified GitHub main commit 7463eef as the already functioning Attune.more baseline with concrete /api/local-health/skin results. Refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye trainings and the existing grouped under-eye upload task; no training is running, all known jobs remain finished, pilot v2 has no training, grouped under-eye remains empty and no duplicate training or upload was started. Added the final fail-closed physical-camera acceptance gate. It binds capture and polygon-localization evaluations to method, threshold and geometry identities, requires a policy locked before camera_final, evaluates every class and every observed device/lighting/skin-tone/pose slice independently, and rejects macro averages, recommendation flags or finished-training status as acceptance. It also requires real physical-camera replay through /api/local-health/skin, real browser, overview/every region, map semantics, unavailable controls, history write/read, incompatible-method exclusion and privacy retention/deletion. Ten focused tests and all 200 skin-research tests passed. No thresholds or real replay evidence were fabricated; camera acceptance and activation remain false until actual consented inputs pass.",
+      "report": "docs/skin/evidence/physical-camera-acceptance-gate-audit-20261026-v1.json"
     }
   ],
   "activityLog": [
@@ -4445,6 +4490,19 @@
         "4bbcb09f80cb5a9ba9ff00fd127a8e968e0c60f8",
         "6af3d20fe1342d5ae0d682db779df57f441f712f"
       ]
+    },
+    {
+      "date": "2026-10-26",
+      "observedAt": "2026-10-26T06:18:59Z",
+      "action": "Read the persistent checkpoint first and re-verified GitHub main commit 7463eef as the already functioning Attune.more baseline with concrete /api/local-health/skin results. Refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye trainings and the existing grouped under-eye upload task; no training is running, all known jobs remain finished, pilot v2 has no training, grouped under-eye remains empty and no duplicate training or upload was started. Added the final fail-closed physical-camera acceptance gate. It binds capture and polygon-localization evaluations to method, threshold and geometry identities, requires a policy locked before camera_final, evaluates every class and every observed device/lighting/skin-tone/pose slice independently, and rejects macro averages, recommendation flags or finished-training status as acceptance. It also requires real physical-camera replay through /api/local-health/skin, real browser, overview/every region, map semantics, unavailable controls, history write/read, incompatible-method exclusion and privacy retention/deletion. Ten focused tests and all 200 skin-research tests passed. No thresholds or real replay evidence were fabricated; camera acceptance and activation remain false until actual consented inputs pass.",
+      "report": "docs/skin/evidence/physical-camera-acceptance-gate-audit-20261026-v1.json",
+      "blobs": {
+        "script": "3fcc8c43235c7fee4b9df203839dec6b3ecb097c",
+        "tests": "9d3e2b566faaf3788661fc793df9e90e8a938060",
+        "acceptancePolicyTemplate": "69f3a728a479395f6773213d0cf7a6ae2dfe0e16",
+        "productReplayTemplate": "a68fb59d4648e4809065066c33a01a3f9e6887a6",
+        "audit": "e7fb2fdb85ecc2e4c0f20116729d538845166ae6"
+      }
     }
   ]
 }
