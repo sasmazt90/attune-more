@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T10:20:00Z",
+  "evidenceBlobs": {
+    "crowsFeetExternalReceipt": "2546b986d2675dc9dc78896ff0b8614b86b09351",
+    "unrelatedWrinkleExternalReceipt": "6725340478514cbd58651fa0ed7afc2fe86213b7"
+  },
+  "semanticContract": {
+    "primaryClass": "crows_feet",
+    "otherClassesRequireExplicitLabelSupport": true,
+    "missingLabelMeansNegative": false,
+    "modelPredictionIsExpertTruth": false,
+    "clinicalDiagnosisInferred": false,
+    "unrelatedModelSubstitutionAllowed": false
+  },
+  "workingBaseline": {
+    "productAlreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "linesHeadingPresent": true
+  },
+  "candidate": {
+    "mode": "not-trained",
+    "modelId": null,
+    "knownRejectedModelId": "tolgar-sasmaz/skin_face_detection-emora-1-rfdetr-seg-small-t1",
+    "selectedDatasetIdentityVerified": false,
+    "rightsReviewed": false,
+    "expertPerClassPositiveNegativeAmbiguityProtocolComplete": false,
+    "sourcePersonGroupedSplitLocked": false,
+    "poseExpressionProtocolComplete": false,
+    "newUntouchedFinalTestReserved": false,
+    "independentCameraHoldoutReserved": false,
+    "qualityPolicyLockedBeforeValidation": false,
+    "thresholdsLockedBeforeFinalTest": false,
+    "classes": {
+      "crows_feet": {
+        "labelSupported": true,
+        "validationPassed": false,
+        "newUntouchedFinalTestPassed": false,
+        "physicalCameraHoldoutPassed": false,
+        "skinToneLightingPoseSlicesPassed": false,
+        "workingProductIntegrationPassed": false,
+        "unavailableAndHistoryControlsPassed": false
+      }
+    }
+  }
+}
