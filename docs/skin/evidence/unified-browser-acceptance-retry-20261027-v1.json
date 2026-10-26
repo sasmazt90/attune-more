@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "dateEuropeBerlin": "2026-10-27",
+  "observedAt": "2026-10-26T23:03:56Z",
+  "repository": {
+    "fullName": "sasmazt90/attune-more",
+    "branch": "work/skin-roadmap-20261023",
+    "failedCandidateCommit": "6c3e07ce1b696a17686ff75943efeadb35ee8180",
+    "retryCandidateCommit": "accd4ca458bb3ea2f5de31af0582a374f950df45"
+  },
+  "failedAttempt": {
+    "browserRunId": 40406100671,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40406100671",
+    "conclusion": "failure",
+    "matchingRepositoryCiRunId": 40406100741,
+    "matchingRepositoryCiConclusion": "success",
+    "completedRuntimeSetup": true,
+    "productionBuildPassed": true,
+    "fixturePrepared": false,
+    "browserTestsExecuted": false,
+    "sanitizedEvidenceProduced": false,
+    "rootCause": "prepare_multi_angle_fixture.py navigated to localhost:3000 before the production server step had started, so the dynamically imported skinAnalyzer.js module could not be fetched",
+    "failedStep": "Build production app and licensed three-pose fixture",
+    "jobId": 121864125454,
+    "artifactId": 12692188438,
+    "artifactDigest": "sha256:a01604529fae66415396176993c9a7c7c123bccd33c5ccb81277971c4619bcd1"
+  },
+  "targetedFix": {
+    "workflow": ".github/workflows/e2e-audit.yml",
+    "change": "build the product, start and health-check the production app/backend, then prepare the licensed fixture before running the three browser checks",
+    "localYamlOrderValidated": true,
+    "pythonCompilePassed": true,
+    "focusedTestsPassed": 26,
+    "roboflowTrainingChanged": false,
+    "modelOrThresholdChanged": false
+  },
+  "retry": {
+    "browserRunId": 40417064645,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40417064645",
+    "statusAtCheckpoint": "in_progress",
+    "matchingRepositoryCiRunId": 40417064657,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40417064657",
+    "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
+    "sanitizedEvidencePending": true
+  },
+  "roboflowRefresh": {
+    "accessibleProjects": 20,
+    "acneMarksPigmentation": {
+      "images": 800,
+      "version": 1,
+      "split": {"train": 553, "valid": 165, "test": 82},
+      "classes": {"Pimple": 3640, "Post acne": 32123, "Pigmentation": 1579},
+      "nasTrainingId": "5b632a5c12b76fcfe703",
+      "nasStatus": "finished",
+      "smallTrainingId": "49ee6204cf069198bbfa",
+      "smallStatus": "finished"
+    },
+    "regionalSkinMap": {
+      "images": 337,
+      "version": 1,
+      "split": {"train": 244, "valid": 63, "test": 30},
+      "classes": {"Oily": 1065, "Redness": 571},
+      "nasTrainingId": "3485f8c67f957a1b850d",
+      "nasStatus": "finished",
+      "smallTrainingId": "af287a006e2e428f5ce4",
+      "smallStatus": "finished"
+    },
+    "underEyePilot": {
+      "sourceImages": 399,
+      "version1GeneratedImages": 952,
+      "version1TrainingId": "d194569acd3ebe7cf8b7",
+      "version1TrainingStatus": "finished",
+      "version2Images": 399,
+      "version2Trainings": 0
+    },
+    "underEyeGrouped": {
+      "images": 0,
+      "uploadTaskId": "sLFwX7CYBVcnnD6iAW5o",
+      "uploadTaskStatus": "created",
+      "uploadTaskProgress": null
+    },
+    "newTrainingStarted": false,
+    "newVersionCreated": false,
+    "newUploadStarted": false,
+    "newInferenceStarted": false
+  },
+  "claims": {
+    "controlledFixtureOnly": true,
+    "physicalCameraAcceptance": false,
+    "expertGroundTruth": false,
+    "accuracyMeasured": false,
+    "classReleaseAccepted": false,
+    "roadmapAccepted": false
+  }
+}

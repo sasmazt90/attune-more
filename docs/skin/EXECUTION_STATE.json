@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "project": "Attune.more skin roadmap",
-  "date": "2026-10-26",
+  "date": "2026-10-27",
   "repository": "sasmazt90/attune-more",
   "branch": "work/skin-roadmap-20261023",
   "authorization": "User explicitly delegated execution of the entire accepted roadmap until completed, with final-only notification. Continue routine reversible preparation, implementation, testing and authorized model training autonomously; disclose a material blocker once. Do not fabricate completion or treat user/model visual review as expert annotation.",
@@ -2811,7 +2811,7 @@
     {
       "id": "13",
       "target": "unified-results-and-trends",
-      "status": "real_chromium_acceptance_running_camera_class_acceptance_pending",
+      "status": "real_chromium_acceptance_retry_running_camera_class_acceptance_pending",
       "work": "Integrate accepted outputs incrementally into maps/cards/history; explicit unavailable reasons; method/version compatibility for trends; end-to-end camera/API/result/history tests and final acceptance report.",
       "evidence": [
         "docs/skin/regional-evidence-contract-20261023.md",
@@ -2896,7 +2896,8 @@
         "docs/skin/evidence/unified-browser-evidence-builder-ci-20261026-v1.json",
         "docs/skin/evidence/unified-skin-result-release-gate-20261026-v3.json",
         "docs/skin/evidence/unified-skin-result-identity-binding-20261026-v1.json",
-        "docs/skin/evidence/unified-browser-acceptance-job-20261026-v1.json"
+        "docs/skin/evidence/unified-browser-acceptance-job-20261026-v1.json",
+        "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json"
       ],
       "blockers": [
         "The merged main branch already has the nine-criterion result path, separate skin type, six regional views, overview, local maps/contours, persistence gate and result UI. The roadmap branch now extends the result contract to eleven appearance headings plus skin type; Post acne and Pigmentation remain explicitly unavailable, not fabricated. Production merge/deployment is not part of this run.",
@@ -3642,18 +3643,33 @@
         "acceptedBrowserEvidenceProduced": false
       },
       "browserAcceptanceJob": {
-        "candidateCommit": "6c3e07ce1b696a17686ff75943efeadb35ee8180",
-        "runId": 40406100671,
-        "url": "https://github.com/sasmazt90/attune-more/actions/runs/40406100671",
+        "candidateCommit": "accd4ca458bb3ea2f5de31af0582a374f950df45",
+        "runId": 40417064645,
+        "url": "https://github.com/sasmazt90/attune-more/actions/runs/40417064645",
         "status": "in_progress",
-        "matchingRepositoryCiRunId": 40406100741,
-        "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40406100741",
+        "matchingRepositoryCiRunId": 40417064657,
+        "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40417064657",
         "controlledFixtureOnly": true,
         "physicalCameraAcceptance": false,
         "expertGroundTruth": false,
         "accuracyMeasured": false,
         "sanitizedEvidencePending": true,
-        "evidence": "docs/skin/evidence/unified-browser-acceptance-job-20261026-v1.json"
+        "attempts": [
+          {
+            "candidateCommit": "6c3e07ce1b696a17686ff75943efeadb35ee8180",
+            "runId": 40406100671,
+            "conclusion": "failure",
+            "productionBuildPassed": true,
+            "browserTestsExecuted": false,
+            "rootCause": "fixture tried localhost before the production server started"
+          },
+          {
+            "candidateCommit": "accd4ca458bb3ea2f5de31af0582a374f950df45",
+            "runId": 40417064645,
+            "status": "in_progress"
+          }
+        ],
+        "evidence": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json"
       },
       "ci": {
         "runId": 40399015489,
@@ -3881,7 +3897,7 @@
     }
   },
   "nextActions": [
-    "Poll GitHub Actions run 40406100671 and its matching repository CI run 40406100741 for candidate commit 6c3e07ce1b696a17686ff75943efeadb35ee8180. On success, ingest only the five privacy-safe sanitized browser evidence JSON objects, bind their exact commit/build/browser/history identities, replay scripts/skin-research/check_unified_skin_result_release.py v3 and keep all physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes. On failure, diagnose the exact failed step and make a targeted fix; do not start duplicate Roboflow training, upload, version or inference work.",
+    "Poll corrected GitHub Actions browser run 40417064645 and matching repository CI run 40417064657 for candidate commit accd4ca458bb3ea2f5de31af0582a374f950df45. The first attempt 40406100671 failed before fixture generation because localhost was used before the server started; production build and matching CI passed, so do not repeat that diagnosis or claim browser execution. On retry success, ingest only the five privacy-safe sanitized browser evidence JSON objects, bind their exact commit/build/browser/history identities and replay scripts/skin-research/check_unified_skin_result_release.py v3. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not start duplicate Roboflow work.",
     "Preserve green GitHub Actions run 40297234134 and the functioning main /api/local-health/skin result flow. When consented physical-camera manifest, adjudicated expert truth and locked capture/localization receipts exist, run both evaluators and scripts/skin-research/check_physical_camera_acceptance.py with a per-class policy locked before camera_final and a real /api/local-health/skin replay. Do not mark the roadmap complete until every class and real camera/browser/map/history/privacy gate passes.",
     "After a consented physical-camera manifest exists, collect the private matrix defined by docs/skin/evidence/physical-camera-expert-review-input-template-20261026-v1.json and run scripts/skin-research/build_physical_camera_expert_truth.py. Every activated class on every capture needs exactly two independent qualified human reviews; discordant decision or polygon truth needs an independent third expert. Keep positive localized polygons normalized, model proposals hidden, missing truth distinct from evaluated negative, unknown/unassessable distinct from Normal, and Redness independent from sensitivity. Do not commit reviewer identity, image bytes or raw private fields.",
     "For consented physical-camera acceptance, populate the private input shape in docs/skin/evidence/physical-camera-benchmark-manifest-input-template-20261026-v1.json outside Git, then run scripts/skin-research/build_physical_camera_benchmark_manifest.py. The builder accepts only opaque subject/capture/consent/quality references, immutable SHA-256 hashes, exact FRONT/LEFT/RIGHT physical-camera triplets, a passed capture-quality gate and a locked camera_final split unused by training, validation or threshold selection. It rejects paths, names, contact fields, image bytes, generated inputs, predictions and expert labels. Keep expert per-class truth separate and human-authored; the manifest alone does not satisfy camera acceptance.",
@@ -3927,6 +3943,19 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-26T23:03:56Z",
+      "action": "Refreshed the GitHub checkpoint and all 20 accessible Roboflow projects. Browser run 40406100671 failed after runtime installation and a successful production build, before any browser acceptance test: prepare_multi_angle_fixture.py attempted to fetch skinAnalyzer.js from localhost before the app server existed. Matching repository CI 40406100741 succeeded. Reordered the workflow to build, start and health-check the app/backend, then prepare the licensed fixture and run the exact browser/API/history/privacy tests. YAML order, Python compile and 26 focused gate tests passed. Corrected browser run 40417064645 and matching CI 40417064657 are in progress for candidate accd4ca. No training, version, upload, inference, model, threshold or acceptance state was changed.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": ["accd4ca458bb3ea2f5de31af0582a374f950df45"],
+      "runs": [
+        {"runId": 40406100671, "conclusion": "failure", "browserTestsExecuted": false},
+        {"runId": 40406100741, "conclusion": "success", "kind": "matching_repository_ci"},
+        {"runId": 40417064645, "status": "in_progress", "kind": "corrected_real_chromium_controlled_fixture"},
+        {"runId": 40417064657, "status": "in_progress", "kind": "matching_repository_ci"}
+      ]
+    },
     {
       "date": "2026-10-26",
       "observedAt": "2026-10-26T21:39:07Z",
@@ -4899,6 +4928,19 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-26T23:03:56Z",
+      "action": "Refreshed the GitHub checkpoint and all 20 accessible Roboflow projects. Browser run 40406100671 failed after runtime installation and a successful production build, before any browser acceptance test: prepare_multi_angle_fixture.py attempted to fetch skinAnalyzer.js from localhost before the app server existed. Matching repository CI 40406100741 succeeded. Reordered the workflow to build, start and health-check the app/backend, then prepare the licensed fixture and run the exact browser/API/history/privacy tests. YAML order, Python compile and 26 focused gate tests passed. Corrected browser run 40417064645 and matching CI 40417064657 are in progress for candidate accd4ca. No training, version, upload, inference, model, threshold or acceptance state was changed.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": ["accd4ca458bb3ea2f5de31af0582a374f950df45"],
+      "runs": [
+        {"runId": 40406100671, "conclusion": "failure", "browserTestsExecuted": false},
+        {"runId": 40406100741, "conclusion": "success", "kind": "matching_repository_ci"},
+        {"runId": 40417064645, "status": "in_progress", "kind": "corrected_real_chromium_controlled_fixture"},
+        {"runId": 40417064657, "status": "in_progress", "kind": "matching_repository_ci"}
+      ]
+    },
     {
       "date": "2026-10-26",
       "observedAt": "2026-10-26T21:39:07Z",
