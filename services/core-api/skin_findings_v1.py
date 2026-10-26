@@ -43,6 +43,10 @@ EVIDENCE_KEYS = tuple(sorted({d['key'] for d in DETECTOR_FINDINGS.values()} |
 #  flaking = rank of the bare-skin flake texture (c_flake) among flaking-positive regions of the training characters.
 COUNT_POSE = {'forehead': 'FRONT', 'nose': 'FRONT', 'chin': 'FRONT', 'rightCheek': 'LEFT', 'leftCheek': 'RIGHT'}
 BOX_CLASSES = {'Riskli Ben': 'mole', 'Ucuk': 'coldSore'}
+# acne lesions counted (research n35 classes of the acne features) and their displayed type
+ACNE_CLASSES = {('findings', 'Akne'): 'unspecified', ('findings', 'Siyah Nokta'): 'blackhead', ('findings', 'Beyaz Nokta'): 'whitehead',
+                ('acnes', 'blackhead'): 'blackhead', ('acnes', 'whitehead'): 'whitehead', ('acnes', 'papule'): 'papule',
+                ('acnes', 'pustule'): 'pustule'}
 LIP = [61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291, 375, 321, 405, 314, 17, 84, 181, 91, 146]
 UNAVAILABLE = {
     'eyeBags': 'MODEL_NOT_AVAILABLE', 'darkCircles': 'MODEL_NOT_AVAILABLE', 'hoodedEyelids': 'MODEL_NOT_AVAILABLE',
@@ -102,6 +106,33 @@ def evidence_from_detections(ev: dict, dets: dict, cats: dict, polys: dict, sc: 
             continue
         sx, sy = inv(cx, cy)
         boxes.append(dict(finding=fid, region=reg, pose=pose, x=round(sx, 1), y=round(sy, 1), r=round(max(x1 - x0, y1 - y0) / 2 * src_scale, 1), score=round(float(s), 4)))
+    # acne lesions: boxes >= 0.35 of the acne-type classes of both detectors, one lesion per location (a box whose centre
+    # lies in an already kept higher-score box is the same lesion; a typed class names the lesion over the generic 'Akne')
+    cand = []
+    for mn in ('findings', 'acnes'):
+        cmap = cats.get(mn, {})
+        for c, s, (x0, y0, x1, y1) in dets.get(mn, []):
+            sub = ACNE_CLASSES.get((mn, cmap.get(c)))
+            if sub is None or s < MARKER_MIN_SCORE or (x1 - x0) * (y1 - y0) > 0.8 * 1024 * 1024:
+                continue
+            cand.append([float(s), sub, (x0, y0, x1, y1)])
+    kept = []
+    for s, sub, bx in sorted(cand, key=lambda t: -t[0]):
+        cx, cy = (bx[0] + bx[2]) / 2, (bx[1] + bx[3]) / 2
+        same = next((q for q in kept if q[2][0] <= cx <= q[2][2] and q[2][1] <= cy <= q[2][3]), None)
+        if same is not None:
+            if same[1] == 'unspecified' and sub != 'unspecified':
+                same[1] = sub
+            continue
+        kept.append([s, sub, bx])
+    for s, sub, (x0, y0, x1, y1) in kept:
+        cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+        reg = next((APP_OF[rk] for rk in APP_OF if rk in polys and _point_in(polys[rk], cx, cy)), None)
+        if reg is None or not _usable(reg, view):
+            continue
+        sx, sy = inv(cx, cy)
+        boxes.append(dict(finding='acne', region=reg, pose=pose, type=sub, x=round(sx, 1), y=round(sy, 1),
+                          r=round(max(x1 - x0, y1 - y0) / 2 * src_scale, 1), score=round(float(s), 4)))
     return out, boxes
 
 
@@ -115,6 +146,36 @@ def _unavailable_list(extra_reason: str | None = None) -> list:
 def _model_dir() -> str:
     import regional_skin_v3 as R
     return R.MODEL_DIR
+
+
+def _det_specs() -> dict:
+    try:
+        import skin_findings_det as SFD
+        return SFD.specs(_model_dir())
+    except Exception:  # noqa: BLE001
+        return {}
+
+
+def _det_rows(det: dict, maps: dict, poses: list) -> tuple[list, dict]:
+    """acne + redness rows (research decision rule in skin_findings_det.decide) and the light-corrected redness
+    measures per region ({region: {areaPct, toneDiff}}), which rosacea and eczema also display."""
+    import skin_findings_det as SFD
+    per = {p: maps[p].get('findingDet') for p in poses if isinstance(maps[p].get('findingDet'), dict)}
+    rows, measures = [], {}
+    if len(per) == len(poses):
+        for r in SFD.decide(per, list(det.values())):
+            row = dict(id=r['id'], region=r['region'], status=r['status'], pose=r['pose'], readFrom=sorted(per))
+            if r['id'] == 'redness' and r.get('areaPct') is not None:
+                measures[r['region']] = dict(areaPct=round(float(r['areaPct']), 1), toneDiff=round(float(r['toneDiff']), 1))
+                if row['status'] == 'seen':
+                    row.update(measures[r['region']])
+            rows.append(row)
+    have = {(r['id'], r['region']) for r in rows}
+    for fid, sp in det.items():
+        for reg in sorted(set((sp.get('regionOf') or {}).values()) or APP_REGIONS):
+            if (fid, reg) not in have:
+                rows.append(dict(id=fid, region=reg, status='inconclusive', causes=['ANGLE']))
+    return rows, measures
 
 
 def _eye_specs() -> dict:
@@ -195,10 +256,17 @@ def _attach_count(row: dict, maps: dict, poses: list, fallback_pose: str | None 
     order = [COUNT_POSE.get(row['region'])] + [fallback_pose] + list(poses)
     pose = next((p for p in order if p in poses and boxes(p)), None)
     marks = boxes(pose) if pose else []
-    row['markers'] = [dict(x=b['x'], y=b['y'], r=b['r'], pose=b['pose']) for b in marks]
+    row['markers'] = [dict(x=b['x'], y=b['y'], r=b['r'], pose=b['pose'], **({'type': b['type']} if 'type' in b else {})) for b in marks]
     row['count'] = len(marks)
+    if row['id'] == 'acne':
+        types = {}
+        for b in marks:
+            types[b.get('type', 'unspecified')] = types.get(b.get('type', 'unspecified'), 0) + 1
+        row['subtypes'] = {k: types.get(k, 0) for k in ('blackhead', 'whitehead', 'papule', 'pustule', 'unspecified')}
     if not marks:   # the decision says it is there, the detector marked no single lesion: at least one
         row['count'] = 1; row['countAtLeast'] = True
+        if row['id'] == 'acne':
+            row['subtypes'] = dict(blackhead=0, whitehead=0, papule=0, pustule=0, unspecified=1)
 
 
 def _measures_ref(name: str):
@@ -249,8 +317,8 @@ def _attach_severity(findings: list, maps: dict, poses: list) -> None:
 def findings_from_maps(maps: dict) -> dict:
     """maps: {'FRONT'|'LEFT'|'RIGHT': regional_skin_v3.analyze_photo() output}. Returns general.findings."""
     poses = sorted(p for p, m in maps.items() if isinstance(m, dict) and isinstance(m.get('findingEvidence'), dict))
-    specs = _saved_specs(); eye = _eye_specs()
-    available = {f for f in (*specs, *eye) if f in UNAVAILABLE}
+    specs = _saved_specs(); eye = _eye_specs(); det = _det_specs()
+    available = {f for f in (*specs, *eye, *det) if f in UNAVAILABLE}
     front_models = (maps.get('FRONT') or {}).get('models') or {}
     base = dict(version=VERSION, poses=poses, thresholdSource=THRESHOLD_SOURCE,
                 models={k: v for k, v in front_models.items() if k == 'findings.pt' or k.startswith('findings-v2')})
@@ -276,8 +344,16 @@ def findings_from_maps(maps: dict) -> dict:
             if row['status'] == 'seen' and fid == 'melasma':
                 row['areaPct'] = round(100 * float(best.get('findings_Gunes_Lekesi_cov20') or 0.0), 1)
             findings.append(row)
-    for fid in sorted(available):
+    for fid in sorted(available - set(det)):
         findings += _dino_rows(fid, specs[fid], maps, poses) if fid in specs else _eye_rows(fid, eye[fid], maps)
+    measures = {}
+    if det:
+        rows, measures = _det_rows(det, maps, poses); findings += rows
+    for f in findings:   # rosacea and eczema show the light-corrected red area of their region
+        if f['status'] == 'seen' and f['id'] in ('rosacea', 'eczema') and f['region'] in measures and 'areaPct' not in f:
+            f.update(measures[f['region']])
+        if f['status'] == 'seen' and f['id'] == 'acne':
+            _attach_count(f, maps, poses, fallback_pose=f.get('pose'))
     _attach_severity(findings, maps, poses)
     _attach_measures(findings, maps, poses)
     return dict(base, status='measured', findings=findings, unavailable=_unavailable(None, available))

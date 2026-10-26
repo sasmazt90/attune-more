@@ -76,3 +76,20 @@ const seen=html('overview',{version:'v',status:'measured',findings:[{id:'rosacea
 assert(seen.includes('data-skin-overview-finding="rosacea"')&&seen.includes('data-skin-overview-finding="mole"'));
 assert(!/%\d/.test(seen));assert(!seen.includes('role="meter"'));
 ''')
+
+
+def test_counts_are_shown_as_numbers_and_band_by_count():
+    run(r'''
+const assert=require('assert/strict'),React=require('react'),{renderToStaticMarkup}=require('react-dom/server');
+const F=require('./apps/vehicle-app/src/utils/skinFindings.ts'),Rec=require('./apps/vehicle-app/src/utils/skinRecommendations.ts');
+const {SkinFindingsPanel}=require('./apps/vehicle-app/src/components/skin/SkinFindingsPanel.tsx');
+assert.equal(F.countLabel({id:'mole',region:'leftCheek',status:'seen',count:3}),'3');
+assert.equal(F.countLabel({id:'coldSore',region:'chin',status:'seen',count:1,countAtLeast:true}),'1+');
+// forehead + nose on the T-zone page: counts add up (different regions, never the same lesion)
+const page=F.viewFindings([{id:'acne',region:'forehead',status:'seen',count:2},{id:'acne',region:'nose',status:'seen',count:4}],'forehead')[0];
+assert.equal(page.count,6);assert.equal(Rec.recommendationBand(page).index,2);
+assert.equal(Rec.recommendationBand({id:'mole',region:'leftCheek',status:'seen',count:4}).index,1);
+const html=renderToStaticMarkup(React.createElement(SkinFindingsPanel,{view:'overview',scanAt:'2026-10-26T10:00:00Z',index:0,onIndex:()=>{},onGoToView:()=>{},onNavigateToCare:()=>{},overviewSel:null,onOverviewSel:()=>{},
+  findings:[{id:'coldSore',region:'chin',status:'seen',count:1,countAtLeast:true}],findingsResult:{version:'v',status:'measured',findings:[],unavailable:[]}}));
+assert(html.includes('1+ uçuk'));assert(!/Görüldü|görüldü\./.test(html));
+''')

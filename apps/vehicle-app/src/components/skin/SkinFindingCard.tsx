@@ -3,7 +3,7 @@ import React from 'react';
 import { ChevronLeft, ChevronRight, CalendarDays } from 'lucide-react';
 import { useTranslations } from '../../i18n/LanguageProvider';
 import {
-  FINDING_DEFS, FINDING_VIEW_NAMES, countLabel, findingColor, viewFindings,
+  ACNE_SUBTYPES, FINDING_DEFS, FINDING_VIEW_NAMES, countLabel, findingColor, viewFindings,
   type FindingViewId, type SkinFinding, type SkinFindingsHistoryEntry
 } from '../../utils/skinFindings';
 import { findingScore } from '../../utils/skinRecommendations';
@@ -49,6 +49,24 @@ export function SkinFindingCard({ view, items, index, onIndex, history, scanAt }
             : <p className="text-[15px] leading-snug text-slate-400 text-center" data-skin-finding-unmeasured>
                 {text('Bu bulgunun değeri bu taramada hesaplanamadı.')}
               </p>}
+      {f.toneDiff !== undefined && (
+        <p className="text-[15px] text-slate-300 text-center" data-skin-finding-tone={f.toneDiff}>
+          {text('Cilt tonunuza göre kırmızılık farkı')}: <strong className="text-white tabular-nums">{f.toneDiff > 0 ? '+' : ''}{f.toneDiff}</strong>
+        </p>
+      )}
+      {f.subtypes && (
+        <ul className="flex flex-col gap-1.5 rounded-2xl bg-[#131d2b] px-4 py-3" data-skin-acne-subtypes>
+          {ACNE_SUBTYPES.map(({ id, label }) => (
+            <li key={id} className="flex items-baseline justify-between gap-3 text-[15px]" data-skin-acne-subtype={id}>
+              <span className="text-slate-300">{text(label)}</span>
+              <span className="font-bold tabular-nums text-white">{f.subtypes![id] || 0}{id === 'unspecified' && f.countAtLeast ? '+' : ''}</span>
+            </li>
+          ))}
+          <li className="flex items-baseline justify-between gap-3 border-t border-white/10 pt-1.5 text-[15px] font-bold" data-skin-acne-total={f.count}>
+            <span className="text-white">{text('Toplam')}</span><span className="tabular-nums text-white">{countLabel(f)}</span>
+          </li>
+        </ul>
+      )}
       {score !== undefined && <History view={view} finding={f} history={history} scanAt={scanAt} color={color} />}
     </section>
   );

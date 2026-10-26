@@ -9,7 +9,14 @@ export type SkinFindingRegion = 'forehead' | 'periorbital' | 'nose' | 'rightChee
 export type SkinFindingKind = 'count' | 'area' | 'presence';
 export type SkinFindingStatus = 'seen' | 'notSeen' | 'inconclusive';
 /** Source-pixel point on the photo of `pose` (each marker keeps its own pose: never drawn on another photo). */
-export type SkinFindingMarker = { x: number; y: number; r?: number; pose?: 'FRONT' | 'RIGHT' | 'LEFT' };
+export type SkinFindingMarker = { x: number; y: number; r?: number; pose?: 'FRONT' | 'RIGHT' | 'LEFT'; type?: AcneSubtype };
+export type AcneSubtype = 'blackhead' | 'whitehead' | 'papule' | 'pustule' | 'unspecified';
+export const ACNE_SUBTYPES: { id: AcneSubtype; label: string }[] = [
+  { id: 'blackhead', label: 'Siyah nokta (açık komedon)' }, { id: 'whitehead', label: 'Beyaz nokta (kapalı komedon)' },
+  { id: 'papule', label: 'Papül' }, { id: 'pustule', label: 'Püstül' }, { id: 'unspecified', label: 'Tanımlanamayan akne türü' },
+];
+const sumSubtypes = (a?: SkinFinding['subtypes'], b?: SkinFinding['subtypes']) => (!a ? b : !b ? a
+  : Object.fromEntries(ACNE_SUBTYPES.map(({ id }) => [id, (a[id] || 0) + (b[id] || 0)])) as SkinFinding['subtypes']);
 export type SkinFinding = {
   id: SkinFindingId; region: SkinFindingRegion; status: SkinFindingStatus;
   /** count findings: shown as a range until point-level counting is validated */
@@ -19,6 +26,8 @@ export type SkinFinding = {
   countAtLeast?: boolean;
   /** redness/rosacea: light-corrected a* difference of the region from the person's own skin tone */
   toneDiff?: number;
+  /** acne: marked lesions by type; the types add up to `count` ('unspecified' = acne without a typed class) */
+  subtypes?: Partial<Record<AcneSubtype, number>>;
   /** area findings: share of the region's visible skin, 0–100 */
   areaPct?: number;
   /** validated visibility score, 0–100 (rank among reference faces with this finding) */
@@ -115,6 +124,7 @@ export function viewFindings(all: SkinFinding[] | undefined, view: FindingViewId
       ...a, severity: max(a.severity, b.severity), areaPct: max(a.areaPct, b.areaPct),
       countRange: COUNT_RANK.indexOf(b.countRange || '') > COUNT_RANK.indexOf(a.countRange || '') ? b.countRange : a.countRange,
       count: sumCount(a.count, b.count), countAtLeast: !!(a.countAtLeast || b.countAtLeast) || undefined, toneDiff: max(a.toneDiff, b.toneDiff),
+      subtypes: sumSubtypes(a.subtypes, b.subtypes),
       markers: [...withPose(a), ...withPose(b)], causes: [...new Set([...(a.causes || []), ...(b.causes || [])])],
     })), ...(redArea !== undefined ? { areaPct: redArea } : {}) }];
   });
@@ -132,7 +142,8 @@ export function overviewFindings(all: SkinFinding[] | undefined): OverviewFindin
       areaPct: same.reduce<number | undefined>((m, f) => max(m, f.areaPct), undefined),
       countRange: same.map(f => f.countRange).filter(Boolean).sort((x, y) => COUNT_RANK.indexOf(y!) - COUNT_RANK.indexOf(x!))[0],
       count: same.reduce<number | undefined>((n, f) => sumCount(n, f.count), undefined), countAtLeast: same.some(f => f.countAtLeast) || undefined,
-      toneDiff: same.reduce<number | undefined>((m, f) => max(m, f.toneDiff), undefined) }];
+      toneDiff: same.reduce<number | undefined>((m, f) => max(m, f.toneDiff), undefined),
+      subtypes: same.reduce<SkinFinding['subtypes']>((m, f) => sumSubtypes(m, f.subtypes), undefined) }];
   });
 }
 export function seenCount(all: SkinFinding[] | undefined, view?: FindingViewId): number {

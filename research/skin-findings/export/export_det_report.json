@@ -1,0 +1,178 @@
+{
+ "acne": {
+  "file": "/tmp/claude-0/-home-claude/6c3a640c-814a-5b9e-a7fb-dc8a45e4bc81/scratchpad/rv3model/findings-v2/acne.json",
+  "sha256": "21bf8c718e1642c07da29fc0490c2c7071a5e4dacb1247a12eb6f74b00e0e6d5",
+  "reproduction": {
+   "Ön + 20°": {
+    "mine": {
+     "thr": "0.60",
+     "TP": "6",
+     "FP": "1",
+     "FN": "0",
+     "P": "0.86",
+     "R": "1.00",
+     "F1": "0.92",
+     "AUC": "1.00"
+    },
+    "recorded": {
+     "thr": "0.60",
+     "TP": "6",
+     "FP": "1",
+     "FN": "0",
+     "P": "0.86",
+     "R": "1.00",
+     "F1": "0.92",
+     "AUC": "1.00"
+    },
+    "equal": true
+   },
+   "Ön + ~25°": {
+    "mine": {
+     "thr": "0.83",
+     "TP": "6",
+     "FP": "1",
+     "FN": "0",
+     "P": "0.86",
+     "R": "1.00",
+     "F1": "0.92",
+     "AUC": "0.99"
+    },
+    "recorded": {
+     "thr": "0.83",
+     "TP": "6",
+     "FP": "1",
+     "FN": "0",
+     "P": "0.86",
+     "R": "1.00",
+     "F1": "0.92",
+     "AUC": "0.99"
+    },
+    "equal": true
+   },
+   "Ön + 20° + ~25°": {
+    "mine": {
+     "thr": "0.60",
+     "TP": "6",
+     "FP": "1",
+     "FN": "0",
+     "P": "0.86",
+     "R": "1.00",
+     "F1": "0.92",
+     "AUC": "1.00"
+    },
+    "recorded": {
+     "thr": "0.60",
+     "TP": "6",
+     "FP": "1",
+     "FN": "0",
+     "P": "0.86",
+     "R": "1.00",
+     "F1": "0.92",
+     "AUC": "1.00"
+    },
+    "equal": true
+   }
+  },
+  "selected": "Ön + 20°",
+  "numpyVsSklearnMaxAbsProb": 5.551115123125783e-16,
+  "moduleOnCachedFeatures": {
+   "TP": 6,
+   "FP": 1,
+   "FN": 0,
+   "maxAbsPersonScoreDiff": 1.1102230246251565e-16
+  },
+  "threshold": 0.5992728037208989,
+  "trainPersons": 260,
+  "trainPositives": 46,
+  "testPersons": 80,
+  "testPositives": 6
+ },
+ "redness": {
+  "file": "/tmp/claude-0/-home-claude/6c3a640c-814a-5b9e-a7fb-dc8a45e4bc81/scratchpad/rv3model/findings-v2/redness.json",
+  "sha256": "2b455387db17d89c62ca69926402dae3558c65662769fb7014c72b6dd2ef3fd9",
+  "reproduction": {
+   "Ön + 20°": {
+    "mine": {
+     "thr": "0.54",
+     "TP": "30",
+     "FP": "5",
+     "FN": "1",
+     "P": "0.86",
+     "R": "0.97",
+     "F1": "0.91",
+     "AUC": "0.99"
+    },
+    "recorded": {
+     "thr": "0.54",
+     "TP": "30",
+     "FP": "5",
+     "FN": "1",
+     "P": "0.86",
+     "R": "0.97",
+     "F1": "0.91",
+     "AUC": "0.99"
+    },
+    "equal": true
+   },
+   "Ön + ~25°": {
+    "mine": {
+     "thr": "0.49",
+     "TP": "31",
+     "FP": "6",
+     "FN": "0",
+     "P": "0.84",
+     "R": "1.00",
+     "F1": "0.91",
+     "AUC": "1.00"
+    },
+    "recorded": {
+     "thr": "0.49",
+     "TP": "31",
+     "FP": "6",
+     "FN": "0",
+     "P": "0.84",
+     "R": "1.00",
+     "F1": "0.91",
+     "AUC": "1.00"
+    },
+    "equal": true
+   },
+   "Ön + 20° + ~25°": {
+    "mine": {
+     "thr": "0.54",
+     "TP": "31",
+     "FP": "4",
+     "FN": "0",
+     "P": "0.89",
+     "R": "1.00",
+     "F1": "0.94",
+     "AUC": "1.00"
+    },
+    "recorded": {
+     "thr": "0.54",
+     "TP": "31",
+     "FP": "4",
+     "FN": "0",
+     "P": "0.89",
+     "R": "1.00",
+     "F1": "0.94",
+     "AUC": "1.00"
+    },
+    "equal": true
+   }
+  },
+  "selected": "Ön + 20°",
+  "numpyVsSklearnMaxAbsProb": 3.3306690738754696e-16,
+  "moduleOnCachedFeatures": {
+   "TP": 30,
+   "FP": 5,
+   "FN": 1,
+   "maxAbsPersonScoreDiff": 1.1102230246251565e-16
+  },
+  "threshold": 0.5358476716944756,
+  "trainPersons": 210,
+  "trainPositives": 98,
+  "testPersons": 80,
+  "testPositives": 31
+ }
+}

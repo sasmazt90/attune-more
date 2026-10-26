@@ -378,6 +378,16 @@ def analyze_photo(bgr: np.ndarray, landmarks_norm: list, check=lambda: None, pos
     # Detector evidence for the findings layer (skin_findings_v1): same per-region values the research features used,
     # whether the region is large enough to be read (>= 150 px at the 400 px face scale, as in validation) and visible in
     # this pose, plus the boxes of box-type findings mapped back to source pixels of THIS photo.
+    # Saved detector-feature finding classifiers (skin_findings_det: acne, redness). Research feature recipe: landmarks
+    # re-detected on this 1024 crop (falls back to the client landmarks without mediapipe), research colour features,
+    # light-corrected redness measures (red area / tone difference vs the person's own skin).
+    import skin_findings_det as SFD
+    check()
+    try:
+        det_ev, det_extra, det_src = SFD.photo_inputs(crop, polys, face_w, dets, cats, wrinkle)
+        finding_det = {**SFD.photo_result(det_ev, det_extra, view, MODEL_DIR), 'landmarkSource': det_src}
+    except FileNotFoundError:
+        finding_det = None
     import skin_findings_v1 as SF
     ev_all = {rk: {**ev.get(rk, {}), **(bare.get(rk) or {})} for rk in ev}
     finding_evidence, finding_boxes = SF.evidence_from_detections(ev_all, dets, cats, polys, sc, view, pose, inv=lambda x, y: ((x / k) + X0, (y / k) + Y0), src_scale=1 / k, Pc=Pc)
@@ -394,7 +404,7 @@ def analyze_photo(bgr: np.ndarray, landmarks_norm: list, check=lambda: None, pos
             eye_measures['downturnedCorners'] = round(float(v), 1)
     return dict(version=VERSION, paramsVersion=params.get('version'), classifierVersion=(kc.spec['version'] if kc else None), pose=pose,
                 tone=dict(ita=round(ita, 1), group=tone), regions=regions, raw=raw, skinType=skin_type_from_regions(regions),
-                findingEvidence=finding_evidence, findingBoxes=finding_boxes, findingScores=finding_scores, severityTerms=severity_terms, eyeScores={k: round(float(v), 5) for k, v in eye_scores.items()}, eyeMeasures=eye_measures, models=model_manifest())
+                findingEvidence=finding_evidence, findingBoxes=finding_boxes, findingScores=finding_scores, severityTerms=severity_terms, eyeScores={k: round(float(v), 5) for k, v in eye_scores.items()}, eyeMeasures=eye_measures, findingDet=finding_det, models=model_manifest())
 
 def model_manifest() -> dict:
     """File names + SHA-256 of the loaded bundle (cached), so every result names the exact weights that produced it."""
