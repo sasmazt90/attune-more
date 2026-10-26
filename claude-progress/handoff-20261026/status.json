@@ -1,0 +1,56 @@
+{
+ "runId": "handoff-20261026",
+ "timezone": "Europe/Berlin",
+ "events": [
+  {
+   "time": "2026-10-26T10:31:48+01:00",
+   "stage": "1-repo-dogrulama",
+   "done": "HEAD 6018728, branch claude/skin-validated-20261025, taban babe9b6 (main 7463eef), git status temiz (yalnız izlenmeyen önizleme dosyaları); gizli bilgi taraması: anahtar/.env/fotoğraf yok; k_classifier.json (134 KB LR ağırlıkları) 952e1f8 içinde",
+   "blocker": "GitHub push erişimi bu oturumda reddedildi; repo görünürlüğü doğrulanamadı (.gitignore 'Public Repository' diyor)"
+  },
+  {
+   "time": "2026-10-26T10:31:48+01:00",
+   "stage": "3-arastirma-kodu",
+   "done": "research/skin-findings altına 80 betik, sonuç tabloları, kör derecelendirmeler kopyalandı; değerlendirmeler yeniden çalıştırılıyor",
+   "blocker": null
+  },
+  {
+   "time": "2026-10-26T10:34:23+01:00",
+   "stage": "3-arastirma-kodu",
+   "done": "Yeniden üretim: ben, melazma, rozasea (det_prev.py), kızarıklık (redness_prev.py), sivilce (lesion_eval.py), alın (alin_repro.py), egzama/pullanma (ecz_flake2.py), belirginlik (sev_final.py) kaydedildi; eye_grid3 tekrar çalışıyor",
+   "blocker": null
+  },
+  {
+   "time": "2026-10-26T11:45:28+01:00",
+   "stage": "3-arastirma-kodu",
+   "done": "Yeniden üretim betikleri ve çıktıları research/skin-findings altına eklendi (129 dosya, 1.1 MB); gizli bilgi/görüntü/ağırlık taraması temiz",
+   "blocker": null
+  },
+  {
+   "time": "2026-10-26T11:52:01+01:00",
+   "stage": "4-kontroller",
+   "done": "Temiz checkout 1f03332 (Node 22.20.0/npm 10.9.3): npm ci, typecheck, lint, build EXIT 0; pytest tests/unit sürüyor; disk dolması nedeniyle pip/npm/uv önbellekleri silindi",
+   "blocker": "Push reddedildi -> bundle teslimi; disk doldu (önbellekler temizlendi)"
+  },
+  {
+   "time": "2026-10-26T11:52:01+01:00",
+   "stage": "5-handoff",
+   "done": "CODEX_HANDOFF.md taslağı yazıldı (test sonuçları bekleniyor)",
+   "blocker": null
+  },
+  {
+   "time": "2026-10-26T11:54:41+01:00",
+   "stage": "4-kontroller",
+   "done": "pytest tests/unit: 10 başarısız / 1412 geçti / 45 atlandı; tabanda (babe9b6) aynı dosyalarda 6 başarısız -> 4 gerileme + 2 yeni çeviri hatası bu branch'ten",
+   "blocker": null
+  },
+  {
+   "time": "2026-10-26T11:54:41+01:00",
+   "stage": "5-handoff",
+   "done": "CODEX_HANDOFF.md tamamlandı; kontrol kayıtları ve bu durum dosyası branch'e ekleniyor",
+   "blocker": null
+  }
+ ],
+ "updated": "2026-10-26T11:54:41+01:00",
+ "stage": "5-handoff"
+}
