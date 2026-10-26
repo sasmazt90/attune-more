@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslations } from '../../i18n/LanguageProvider';
 import { ChevronLeft, ChevronRight, Info } from 'lucide-react';
 import {
-  FINDING_DEFS, FINDING_VIEW_NAMES, COUNT_RANGE_LABEL, UNAVAILABLE_REASON_TEXT, findingColor, findingsState, inconclusiveFindings, overviewFindings,
+  FINDING_DEFS, FINDING_VIEW_NAMES, UNAVAILABLE_REASON_TEXT, countLabel, findingColor, findingsState, inconclusiveFindings, overviewFindings,
   unmeasuredFindings, validFindings, viewFindings, type FindingsState, type OverviewFinding,
   type FindingViewId, type SkinFinding, type SkinFindingId, type SkinFindingsHistoryEntry
 } from '../../utils/skinFindings';
@@ -146,9 +146,9 @@ function OverviewFindingCard({ f, on, onClick }: { f: OverviewFinding; on: boole
   const score = f.severity ?? f.areaPct;
   let width: number | null = null, value: string;
   if (score !== undefined) { width = Math.round(score); value = text(`%${width}`); }
-  else if (def.kind === 'count' && f.countRange) {
+  else if (countLabel(f) !== null) {
     const b = recommendationBand(f); width = b ? Math.round((b.index + 1) / b.total * 100) : null;
-    value = `${COUNT_RANGE_LABEL[f.countRange] || f.countRange} ${text(def.unit || '')}`;
+    value = `${countLabel(f)} ${text(def.unit || '')}`.trim();
   } else value = f.views.map(v => text(FINDING_VIEW_NAMES[v])).join(', ');  // no score: where it was seen
   // the value sits above the filled end of the bar (kept inside the card at both ends)
   const shift = width === null ? '0%' : width < 12 ? '0%' : width > 88 ? '-100%' : '-50%';

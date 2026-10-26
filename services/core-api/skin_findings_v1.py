@@ -34,7 +34,16 @@ DETECTOR_FINDINGS = {
     'rosacea': dict(key='findings_Rozasea_max', cls='Rozasea', regions=APP_REGIONS, threshold=0.69, markers=False),
 }
 THRESHOLD_SOURCE = 'research/skin-findings/results/det_prev.md (thr_prev on 260 training persons; findings.pt)'
-EVIDENCE_KEYS = tuple(sorted({d['key'] for d in DETECTOR_FINDINGS.values()}))
+EVIDENCE_KEYS = tuple(sorted({d['key'] for d in DETECTOR_FINDINGS.values()} |
+                             {'findings_Riskli_Ben_n35', 'findings_Ucuk_n35', 'findings_Gunes_Lekesi_cov20', 'c_flake'}))
+# Displayed values (every seen finding shows a number; none of these counts/areas is validated against ground truth):
+#  counts  = boxes the detector marks (score >= 0.35, the research n35 rule), from ONE photo per region so a lesion is
+#            never counted twice: forehead/nose/chin from FRONT, each cheek from the side photo that faces the camera;
+#  melasma = share of the cheek covered by Gunes Lekesi boxes >= 0.2 (research cov20), on the photo that decided;
+#  flaking = rank of the bare-skin flake texture (c_flake) among flaking-positive regions of the training characters.
+COUNT_POSE = {'forehead': 'FRONT', 'nose': 'FRONT', 'chin': 'FRONT', 'rightCheek': 'LEFT', 'leftCheek': 'RIGHT'}
+BOX_CLASSES = {'Riskli Ben': 'mole', 'Ucuk': 'coldSore'}
+LIP = [61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291, 375, 321, 405, 314, 17, 84, 181, 91, 146]
 UNAVAILABLE = {
     'eyeBags': 'MODEL_NOT_AVAILABLE', 'darkCircles': 'MODEL_NOT_AVAILABLE', 'hoodedEyelids': 'MODEL_NOT_AVAILABLE',
     'downturnedCorners': 'MODEL_NOT_AVAILABLE', 'crowsFeet': 'MODEL_NOT_AVAILABLE', 'foreheadLines': 'MODEL_NOT_AVAILABLE',
@@ -61,7 +70,7 @@ def _point_in(poly, x: float, y: float) -> bool:
     return inside
 
 
-def evidence_from_detections(ev: dict, dets: dict, cats: dict, polys: dict, sc: float, view: str, pose: str, inv, src_scale: float):
+def evidence_from_detections(ev: dict, dets: dict, cats: dict, polys: dict, sc: float, view: str, pose: str, inv, src_scale: float, Pc=None):
     """Called by regional_skin_v3.analyze_photo. ev: model_evidence() per research region; polys: 1024-crop polygons;
     inv: crop -> source pixel transform of this photo; src_scale: crop px -> source px."""
     import cv2, numpy as np
@@ -74,13 +83,21 @@ def evidence_from_detections(ev: dict, dets: dict, cats: dict, polys: dict, sc: 
         out[app] = dict(areaPx=round(area), usable=_usable(app, view), **{k: round(float(e.get(k) or 0.0), 4) for k in EVIDENCE_KEYS})
     boxes = []
     names = cats.get('findings', {})
+    lip = None
+    if Pc is not None and len(Pc) > max(LIP):
+        L = np.asarray(Pc)[LIP]; fw = float(np.asarray(Pc)[:, 0].max() - np.asarray(Pc)[:, 0].min()); pad = 0.04 * fw   # research lip crop
+        lip = (L[:, 0].min() - pad, L[:, 1].min() - pad, L[:, 0].max() + pad, L[:, 1].max() + pad)
     for c, s, (x0, y0, x1, y1) in dets.get('findings', []):
-        cname = names.get(c)
-        fid = next((f for f, d in DETECTOR_FINDINGS.items() if d['cls'] == cname and d['markers']), None)
+        fid = BOX_CLASSES.get(names.get(c))
         if fid is None or s < MARKER_MIN_SCORE:
             continue
         cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
-        reg = next((APP_OF[rk] for rk in APP_OF if rk in polys and _point_in(polys[rk], cx, cy)), None)
+        if fid == 'coldSore':
+            if lip is None or not (lip[0] <= cx <= lip[2] and lip[1] <= cy <= lip[3]):
+                continue
+            reg = 'chin'
+        else:
+            reg = next((APP_OF[rk] for rk in APP_OF if rk in polys and _point_in(polys[rk], cx, cy)), None)
         if reg is None or not _usable(reg, view):
             continue
         sx, sy = inv(cx, cy)
@@ -149,6 +166,65 @@ def _dino_rows(fid: str, spec: dict, maps: dict, poses: list) -> list:
     return rows
 
 
+def _attach_count(row: dict, maps: dict, poses: list, fallback_pose: str | None = None) -> None:
+    """count + markers of a seen box-type finding from ONE photo (no double counting across photos): the photo that
+    faces the region (COUNT_POSE); if it marks nothing there, the photo that decided the finding; then any photo."""
+    def boxes(p):
+        return [b for b in (maps.get(p, {}).get('findingBoxes') or []) if b['finding'] == row['id'] and b['region'] == row['region']]
+    order = [COUNT_POSE.get(row['region'])] + [fallback_pose] + list(poses)
+    pose = next((p for p in order if p in poses and boxes(p)), None)
+    marks = boxes(pose) if pose else []
+    row['markers'] = [dict(x=b['x'], y=b['y'], r=b['r'], pose=b['pose']) for b in marks]
+    row['count'] = len(marks)
+    if not marks:   # the decision says it is there, the detector marked no single lesion: at least one
+        row['count'] = 1; row['countAtLeast'] = True
+
+
+def _measures_ref(name: str):
+    try:
+        import json, os
+        path = os.path.join(_model_dir(), 'findings-v2', 'measures', f'{name}.json')
+        return json.load(open(path)) if os.path.exists(path) else None
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def _attach_measures(findings: list, maps: dict, poses: list) -> None:
+    """Values for seen findings without a rated severity model (see the comment at EVIDENCE_KEYS)."""
+    import bisect
+    flake = _measures_ref('flaking')
+    for f in findings:
+        if f['status'] != 'seen':
+            continue
+        if f['id'] == 'coldSore':
+            _attach_count(f, maps, poses)
+        elif f['id'] == 'flaking' and flake and 'severity' not in f:
+            e = (maps.get('FRONT', {}).get('findingEvidence') or {}).get(f['region']) or {}
+            if e.get('c_flake') is not None:
+                ref = flake['reference']; v = float(e['c_flake'])
+                lo, hi = bisect.bisect_left(ref, v), bisect.bisect_right(ref, v)
+                f['severity'] = round(100.0 * (lo + 0.5 * (hi - lo)) / len(ref), 1)
+
+
+def _attach_severity(findings: list, maps: dict, poses: list) -> None:
+    """Belirginlik (0-100) on the seen rows of findings that have a saved severity model and every expected photo row."""
+    try:
+        import skin_findings_severity as SV
+        md = _model_dir()
+    except Exception:  # noqa: BLE001
+        return
+    for fid in {f['id'] for f in findings if f['status'] == 'seen'}:
+        terms = {}
+        for p in poses:
+            terms.update((maps[p].get('severityTerms') or {}).get(fid) or {})
+        v = SV.from_terms(fid, terms, md)
+        if v is None:
+            continue
+        for f in findings:
+            if f['id'] == fid and f['status'] == 'seen':
+                f['severity'] = round(v, 1)
+
+
 def findings_from_maps(maps: dict) -> dict:
     """maps: {'FRONT'|'LEFT'|'RIGHT': regional_skin_v3.analyze_photo() output}. Returns general.findings."""
     poses = sorted(p for p, m in maps.items() if isinstance(m, dict) and isinstance(m.get('findingEvidence'), dict))
@@ -174,10 +250,12 @@ def findings_from_maps(maps: dict) -> dict:
             row = dict(id=fid, region=app, status='seen' if score >= d['threshold'] else 'notSeen', pose=best_pose,
                        readFrom=[p for p, _ in reads])
             if row['status'] == 'seen' and d['markers']:
-                row['markers'] = [dict(x=b['x'], y=b['y'], r=b['r'], pose=b['pose'])
-                                  for p in poses for b in (maps[p].get('findingBoxes') or [])
-                                  if b['finding'] == fid and b['region'] == app and b['score'] >= d['threshold']]
+                _attach_count(row, maps, poses, fallback_pose=best_pose)
+            if row['status'] == 'seen' and fid == 'melasma':
+                row['areaPct'] = round(100 * float(best.get('findings_Gunes_Lekesi_cov20') or 0.0), 1)
             findings.append(row)
     for fid in sorted(available):
         findings += _dino_rows(fid, specs[fid], maps, poses)
+    _attach_severity(findings, maps, poses)
+    _attach_measures(findings, maps, poses)
     return dict(base, status='measured', findings=findings, unavailable=_unavailable(None, available))

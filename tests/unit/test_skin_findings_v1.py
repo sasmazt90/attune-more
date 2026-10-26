@@ -61,8 +61,10 @@ def test_thresholds_regions_and_poses():
     assert by(out, 'rosacea', 'nose')['status'] == 'seen' and by(out, 'rosacea', 'forehead')['status'] == 'notSeen'
     mole_r = by(out, 'mole', 'rightCheek')
     assert mole_r['status'] == 'seen' and mole_r['pose'] == 'LEFT'
-    # only boxes at or above the decision threshold become markers, each with its own photo
-    assert mole_r['markers'] == [dict(x=10.0, y=20.0, r=3.0, pose='LEFT')]
+    # every box the detector marks (score >= 0.35, research n35) on ONE photo (the side facing the cheek) is a marker,
+    # and the displayed count is exactly the number of markers
+    assert mole_r['markers'] == [dict(x=10.0, y=20.0, r=3.0, pose='LEFT'), dict(x=11.0, y=21.0, r=3.0, pose='LEFT')]
+    assert mole_r['count'] == 2 and 'countAtLeast' not in mole_r
     assert by(out, 'mole', 'leftCheek')['status'] == 'notSeen'          # the hidden-cheek 0.99 was not read
     assert by(out, 'melasma', 'leftCheek')['status'] == 'notSeen'       # 0.53 < 0.54
     # no score, area, severity or count is produced by this version
@@ -152,3 +154,19 @@ def test_dino_module_probability_matches_sklearn():
     folds = [dict(mean=m[0].mean_.tolist(), scale=m[0].scale_.tolist(), coef=m[1].coef_[0].tolist(), intercept=float(m[1].intercept_[0])) for m in ms]
     x = rng.normal(size=8)
     assert abs(SD._prob(folds, x) - np.mean([m.predict_proba(x[None])[0, 1] for m in ms])) < 1e-12
+
+
+def test_counts_never_double_count_and_melasma_area():
+    ev = {r: region() for r in SF.APP_REGIONS}
+    box = lambda pose, x: dict(finding='mole', region='leftCheek', pose=pose, x=x, y=1.0, r=2.0, score=0.6)
+    front = dict(evidence={**ev, 'leftCheek': region(findings_Riskli_Ben_max=0.7, findings_Gunes_Lekesi_max=0.6, findings_Gunes_Lekesi_cov20=0.123)},
+                 boxes=[box('FRONT', 1.0), box('FRONT', 2.0), box('FRONT', 3.0)])
+    right = dict(evidence={**ev, 'leftCheek': region(findings_Riskli_Ben_max=0.65)}, boxes=[box('RIGHT', 5.0)])
+    out = SF.findings_from_maps(three(front, dict(evidence=ev), right))
+    m = by(out, 'mole', 'leftCheek')
+    # the same moles are visible in the front and the right photo: counted once, from the photo facing the cheek (RIGHT)
+    assert m['count'] == 1 and [k['pose'] for k in m['markers']] == ['RIGHT']
+    assert by(out, 'melasma', 'leftCheek')['areaPct'] == 12.3
+    # seen by the decision but no single box marked -> "at least one", never 0
+    out2 = SF.findings_from_maps(three(dict(evidence={**ev, 'leftCheek': region(findings_Riskli_Ben_max=0.7)}), dict(evidence=ev), dict(evidence=ev)))
+    assert by(out2, 'mole', 'leftCheek')['count'] == 1 and by(out2, 'mole', 'leftCheek')['countAtLeast'] is True

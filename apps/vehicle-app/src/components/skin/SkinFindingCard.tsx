@@ -3,7 +3,7 @@ import React from 'react';
 import { ChevronLeft, ChevronRight, CalendarDays } from 'lucide-react';
 import { useTranslations } from '../../i18n/LanguageProvider';
 import {
-  FINDING_DEFS, FINDING_VIEW_NAMES, COUNT_RANGE_LABEL, findingColor, viewFindings,
+  FINDING_DEFS, FINDING_VIEW_NAMES, countLabel, findingColor, viewFindings,
   type FindingViewId, type SkinFinding, type SkinFindingsHistoryEntry
 } from '../../utils/skinFindings';
 import { findingScore } from '../../utils/skinRecommendations';
@@ -41,13 +41,13 @@ export function SkinFindingCard({ view, items, index, onIndex, history, scanAt }
         ? <ScoreBar value={f.severity} color={color} label={text('Belirginlik')} scale={[text('Hafif'), text('Orta'), text('Belirgin')]} />
         : f.areaPct !== undefined
           ? <ScoreBar value={f.areaPct} color={color} label={text('Kapladığı alan')} scale={['%0', '%50', '%100'].map(text)} />
-          : def.kind === 'count' && f.countRange
-            ? <div className="flex items-baseline justify-center gap-2" data-skin-finding-count={f.countRange}>
-                <span className="text-4xl font-extrabold tabular-nums text-white">{COUNT_RANGE_LABEL[f.countRange] || f.countRange}</span>
+          : countLabel(f) !== null
+            ? <div className="flex items-baseline justify-center gap-2" data-skin-finding-count={countLabel(f)}>
+                <span className="text-4xl font-extrabold tabular-nums text-white">{countLabel(f)}</span>
                 <span className="text-base text-slate-400">{text(def.unit || '')}</span>
               </div>
             : <p className="text-[15px] leading-snug text-slate-400 text-center" data-skin-finding-unmeasured>
-                {text('Bu taramada görüldü. Belirginlik, alan ve sayı bu sürümde ölçülmüyor.')}
+                {text('Bu bulgunun değeri bu taramada hesaplanamadı.')}
               </p>}
       {score !== undefined && <History view={view} finding={f} history={history} scanAt={scanAt} color={color} />}
     </section>

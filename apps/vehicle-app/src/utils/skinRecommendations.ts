@@ -115,8 +115,8 @@ export function recommendationBand(f: SkinFinding): { band: RecBand; index: numb
   const r = R[f.id], total = r.bands.length;
   if (total === 1) return { band: r.bands[0], index: 0, total };
   let index: number | undefined;
-  if (f.id === 'mole') index = MOLE_BAND[f.countRange || ''];
-  else if (f.id === 'acne') index = COUNT_BAND[f.countRange || ''];
+  if (f.id === 'mole') index = f.count !== undefined ? (f.count <= 3 ? 0 : f.count <= 10 ? 1 : 2) : MOLE_BAND[f.countRange || ''];
+  else if (f.id === 'acne') index = f.count !== undefined ? (f.count <= 2 ? 0 : f.count <= 5 ? 1 : f.count <= 10 ? 2 : f.count <= 20 ? 3 : 4) : COUNT_BAND[f.countRange || ''];
   else if (r.upTo) { const v = findingScore(f); const i = v === undefined ? -1 : r.upTo.findIndex(u => v <= u); index = i < 0 ? undefined : i; }
   return index === undefined ? null : { band: r.bands[index], index, total };
 }

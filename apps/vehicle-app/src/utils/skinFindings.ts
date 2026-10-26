@@ -14,6 +14,11 @@ export type SkinFinding = {
   id: SkinFindingId; region: SkinFindingRegion; status: SkinFindingStatus;
   /** count findings: shown as a range until point-level counting is validated */
   countRange?: string;
+  /** count findings: number of lesions the detector marked (= markers drawn); countAtLeast = decided present, none marked */
+  count?: number;
+  countAtLeast?: boolean;
+  /** redness/rosacea: light-corrected a* difference of the region from the person's own skin tone */
+  toneDiff?: number;
   /** area findings: share of the region's visible skin, 0–100 */
   areaPct?: number;
   /** validated visibility score, 0–100 (rank among reference faces with this finding) */
@@ -55,7 +60,7 @@ export const FINDING_DEFS: Record<SkinFindingId, Def> = {
   downturnedCorners: { label: 'Göz kuyruğu düşüklüğü', kind: 'presence', group: 'eye', info: 'Göz kuyruklarının (dış köşelerin) aşağı doğru eğimli görünümü.' },
   eczema: { label: 'Egzama/sedef eğilimi', kind: 'presence', group: 'redness', info: 'Kızarık, kuru ve pullu görünen, sınırları belirgin yamalar.', expert: true },
   flaking: { label: 'Pullanma', kind: 'presence', group: 'texture', info: 'Cilt yüzeyinde ince, kuru pulcuklar ve pürüzlü doku görünümü.' },
-  coldSore: { label: 'Dudakta uçuk', kind: 'presence', group: 'lip', info: 'Dudak kenarında küçük kabarcık veya kabuklanma görünümü.', expert: true },
+  coldSore: { label: 'Dudakta uçuk', unit: 'uçuk', kind: 'presence', group: 'lip', info: 'Dudak kenarında küçük kabarcık veya kabuklanma görünümü.', expert: true },
 };
 
 /* ---------- result pages: T-zone (forehead + nose), eyes, both profiles, lips ---------- */
@@ -90,6 +95,11 @@ const withPose = (f: SkinFinding): SkinFindingMarker[] => (f.markers || []).map(
 export function markersOnPhoto(f: SkinFinding | undefined, angle: string | undefined): SkinFindingMarker[] {
   return f && angle ? withPose(f).filter(m => m.pose === angle) : [];
 }
+const sumCount = (a?: number, b?: number) => (a === undefined ? b : b === undefined ? a : a + b);
+/** "3 sivilce", "1+ uçuk": the number of marked lesions. */
+export function countLabel(f: SkinFinding): string | null {
+  return f.count === undefined ? (f.countRange ? COUNT_RANGE_LABEL[f.countRange] || f.countRange : null) : `${f.count}${f.countAtLeast ? '+' : ''}`;
+}
 const max = (a?: number, b?: number) => (a === undefined ? b : b === undefined ? a : Math.max(a, b));
 /** Findings of one status on a page. The same finding in two regions of a page (forehead and nose) is merged:
  * highest score and count range, all markers. */
@@ -104,6 +114,7 @@ export function viewFindings(all: SkinFinding[] | undefined, view: FindingViewId
     return [{ ...same.reduce((a, b) => ({
       ...a, severity: max(a.severity, b.severity), areaPct: max(a.areaPct, b.areaPct),
       countRange: COUNT_RANK.indexOf(b.countRange || '') > COUNT_RANK.indexOf(a.countRange || '') ? b.countRange : a.countRange,
+      count: sumCount(a.count, b.count), countAtLeast: !!(a.countAtLeast || b.countAtLeast) || undefined, toneDiff: max(a.toneDiff, b.toneDiff),
       markers: [...withPose(a), ...withPose(b)], causes: [...new Set([...(a.causes || []), ...(b.causes || [])])],
     })), ...(redArea !== undefined ? { areaPct: redArea } : {}) }];
   });
@@ -119,7 +130,9 @@ export function overviewFindings(all: SkinFinding[] | undefined): OverviewFindin
     const { view: _v, ...first } = same[0];
     return [{ ...first, views: same.map(f => f.view), severity: same.reduce<number | undefined>((m, f) => max(m, f.severity), undefined),
       areaPct: same.reduce<number | undefined>((m, f) => max(m, f.areaPct), undefined),
-      countRange: same.map(f => f.countRange).filter(Boolean).sort((x, y) => COUNT_RANK.indexOf(y!) - COUNT_RANK.indexOf(x!))[0] }];
+      countRange: same.map(f => f.countRange).filter(Boolean).sort((x, y) => COUNT_RANK.indexOf(y!) - COUNT_RANK.indexOf(x!))[0],
+      count: same.reduce<number | undefined>((n, f) => sumCount(n, f.count), undefined), countAtLeast: same.some(f => f.countAtLeast) || undefined,
+      toneDiff: same.reduce<number | undefined>((m, f) => max(m, f.toneDiff), undefined) }];
   });
 }
 export function seenCount(all: SkinFinding[] | undefined, view?: FindingViewId): number {
@@ -137,6 +150,7 @@ export function validFindings(value: unknown): value is SkinFindingsResult {
     v.findings.every(f =>
       f && f.id in FINDING_DEFS && ['forehead', 'periorbital', 'nose', 'rightCheek', 'leftCheek', 'chin'].includes(f.region) &&
       ['seen', 'notSeen', 'inconclusive'].includes(f.status) && pct(f.areaPct) && pct(f.severity) &&
+      (f.count === undefined || (Number.isInteger(f.count) && f.count >= 0)) && (f.toneDiff === undefined || Number.isFinite(f.toneDiff)) &&
       (f.markers === undefined || (Array.isArray(f.markers) && f.markers.every(m => Number.isFinite(m.x) && Number.isFinite(m.y)))));
 }
 /** Client-side record of a findings analysis that did not run (no score, count or marker is produced). */
