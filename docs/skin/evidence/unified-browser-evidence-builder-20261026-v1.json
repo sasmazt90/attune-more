@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "unified-browser-evidence-builder-v1",
+  "observedAt": "2026-10-26T19:36:02Z",
+  "branch": "work/skin-roadmap-20261023",
+  "change": {
+    "twelveProductHeadingBrowserContract": true,
+    "appearanceHeadings": 11,
+    "separateSkinType": true,
+    "postAcneUnavailable": true,
+    "pigmentationUnavailable": true,
+    "apiEvidenceStructured": true,
+    "indexedDbEvidenceStructured": true,
+    "privacyLifecycleEvidenceStructured": true,
+    "privacySafeEvidenceBuilder": "scripts/skin-research/build_unified_browser_acceptance.py"
+  },
+  "builderOutputs": [
+    "browser-api-replay.json",
+    "indexeddb-history-replay.json",
+    "privacy-lifecycle.json",
+    "unavailable-overlap-controls.json",
+    "working-product-replay.json"
+  ],
+  "failClosedControls": {
+    "sameBuildIdentityRequired": true,
+    "repositoryCommitRequired": true,
+    "browserRunIdentityRequired": true,
+    "inputSha256Required": true,
+    "implementationGitBlobIdentityRequired": true,
+    "greenRepositoryCiRequired": true,
+    "sixExactRegionsRequired": true,
+    "threeApiPhotoIdsRequired": true,
+    "threeRetainedScansRequired": true,
+    "physicalCameraPromotionRejected": true,
+    "expertTruthPromotionRejected": true,
+    "accuracyPromotionRejected": true,
+    "rawScanOrPhotoIdentifiersEmitted": false
+  },
+  "verification": {
+    "focusedBuilderTests": 5,
+    "completeSkinResearchEvidenceSuite": 283,
+    "pythonCompilation": "PASS",
+    "gitDiffCheck": "PASS"
+  },
+  "browserExecution": {
+    "executedInThisRun": false,
+    "reason": "This workspace has no installed frontend dependency tree, Python Playwright or Chromium executable, and the private three-angle fixture is not committed.",
+    "acceptedBrowserEvidenceProduced": false
+  },
+  "providerRefresh": {
+    "accessibleProjects": 20,
+    "knownAcneTrainingsFinished": true,
+    "knownRegionalTrainingsFinished": true,
+    "knownUnderEyeTrainingFinished": true,
+    "underEyeVersion2Trainings": 0,
+    "groupedUnderEyeImages": 0,
+    "groupedUploadTaskId": "sLFwX7CYBVcnnD6iAW5o",
+    "groupedUploadStatus": "created",
+    "groupedUploadProgress": null,
+    "newTrainingStarted": false,
+    "newUploadStarted": false,
+    "duplicateWorkStarted": false
+  },
+  "roadmapAccepted": false,
+  "remaining": [
+    "Execute the three real-browser proofs against one immutable production build and run the privacy-safe builder.",
+    "Complete every per-class release gate, independent final tests and consented physical-camera expert benchmark before any final roadmap acceptance."
+  ]
+}

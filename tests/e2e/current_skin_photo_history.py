@@ -8,6 +8,7 @@ from PIL import Image
 sys.path.insert(0,str(Path(__file__).parent))
 from owned_window_capture import capture_owned_window
 ROOT=Path.cwd();OUT=ROOT/'audit-results/followup-closure-20261010/photo-history';OUT.mkdir(parents=True,exist_ok=True)
+PRODUCT_APPEARANCE_IDS=['tone','oil','redness','acne','sag','dry','lines','dark','bags','postAcne','pigmentation']
 constants={n.targets[0].id:ast.literal_eval(n.value) for n in ast.parse((ROOT/'tests/e2e/current_skin_contract.py').read_text()).body if isinstance(n,ast.Assign) and isinstance(n.targets[0],ast.Name) and n.targets[0].id in ('INIT','APPEARANCE')}
 def rows(p):return p.evaluate("()=>new Promise((resolve,reject)=>{const q=indexedDB.open('attune-skin-photos');q.onsuccess=()=>{const db=q.result,t=db.transaction('records');const r=t.objectStore('records').getAll();r.onsuccess=()=>resolve(r.result);t.oncomplete=()=>db.close();t.onerror=()=>reject(t.error);};q.onerror=()=>reject(q.error);})")
 def open_record(p,id):
@@ -40,6 +41,8 @@ with tempfile.TemporaryDirectory(prefix='attune-photo-retention-') as profile,sy
   proof=dict(id=record['id'],sourceByRegion={},shaByRegion={},poseByRegion={},storeBytes=entry['bytes'],seconds=time.monotonic()-start)
   assert p.get_by_role('heading',name='Genel Bakış',exact=True).count()==1 and p.locator('[data-skin-mesh]').count()==0
   assert record['general']['captureId']==frames['FRONT']['photoId'] and record['general']['analysisId']==record['id']
+  assert [row['id'] for row in record['general']['indicators']]==PRODUCT_APPEARANCE_IDS
+  assert all(next(row for row in record['general']['indicators'] if row['id']==criterion)['score'] is None for criterion in ('postAcne','pigmentation'))
   proof['overviewCaptureId']=record['general']['captureId']
   p.get_by_role('button',name='Sonraki Bölge',exact=True).click()
   for region in ['forehead','rightCheek','leftCheek','nose','chin','periorbital']:
@@ -54,6 +57,9 @@ with tempfile.TemporaryDirectory(prefix='attune-photo-retention-') as profile,sy
   assert dialog.get_by_role('heading',name='Genel Bakış',exact=True).count()==1
   assert dialog.locator('[data-skin-snapshot]').get_attribute('data-snapshot-photoid')==scan['overviewCaptureId']
   assert dialog.locator('[data-skin-mesh]').count()==0
+  assert dialog.locator('[data-skin-record-indicator]').evaluate_all('(rows)=>rows.map(row=>row.dataset.skinRecordIndicator)')==PRODUCT_APPEARANCE_IDS
+  for criterion in ('postAcne','pigmentation'):
+   card=dialog.locator('[data-skin-record-indicator="'+criterion+'"]');assert card.get_by_text('—',exact=True).count()==1 and card.get_by_role('meter').count()==0
   dialog.get_by_role('button',name='Sonraki Bölge',exact=True).click()
   for region in ['forehead','rightCheek','leftCheek','nose','chin','periorbital']:
    svg=dialog.locator('[data-skin-snapshot]');assert svg.get_attribute('data-snapshot-photoid')==scan['sourceByRegion'][region]
@@ -84,5 +90,5 @@ with tempfile.TemporaryDirectory(prefix='attune-photo-retention-') as profile,sy
  assert p.evaluate('JSON.parse(localStorage.getItem("togg_health_skin_history")).length')==2
  p.goto('http://127.0.0.1:3000/profile');p.locator('[data-record-id="'+scans[1]['id']+'"]').get_by_role('button',name='Sonucu Aç',exact=True).click();dialog=p.get_by_role('dialog',name='Cilt Sağlığı sonucu',exact=True);expect(dialog.get_by_text('Bu kaydın fotoğrafı saklanmamış.',exact=True)).to_be_visible();assert not dialog.locator('[data-skin-snapshot]').count();p.keyboard.press('Escape')
  assert not errors,errors
- (OUT/'proof.json').write_text(json.dumps(dict(status='PASS',buildId=(ROOT/'apps/vehicle-app/.next/BUILD_ID').read_text().strip(),controlledFixture=True,physicalUserAcceptance=False,poseMock=False,qualityOverride=False,scans=scans,relaunchThreeRecords=True,allSixRegionsAndSelectedMaps=True,acneListCardRingsAndFill=candidateChecks,deleteOne=True,revokePhotosKeepsNumeric=True,native200=geometry,pageErrors=errors),ensure_ascii=False,indent=2),'utf8');c.close()
+ (OUT/'proof.json').write_text(json.dumps(dict(status='PASS',methodVersion='skin-indexeddb-history-replay-v1',buildId=(ROOT/'apps/vehicle-app/.next/BUILD_ID').read_text().strip(),realBrowser=True,browserEngine='chromium',controlledFixture=True,physicalUserAcceptance=False,expertGroundTruth=False,accuracyEvidence=False,poseMock=False,qualityOverride=False,scans=scans,indexedDbWriteReadPassed=True,relaunchThreeRecords=True,allSixRegionsAndSelectedMaps=True,twelveProductHeadingsPassed=True,unsupportedHeadingsUnavailable=True,acneListCardRingsAndFill=candidateChecks,deleteOne=True,revokePhotosKeepsNumeric=True,retentionPassed=True,deletionPassed=True,native200=geometry,pageErrors=errors),ensure_ascii=False,indent=2),'utf8');c.close()
 print('PASS: three actual scans, oldest survives relaunch, six source-bound regions/maps, delete/revoke, native 200')

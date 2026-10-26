@@ -11,6 +11,8 @@ from owned_window_capture import capture_owned_window
 OUT=Path(os.environ.get('SKIN_RESULT_AUDIT_DIR','audit-results/feedback-four-modules-20261009/skin'));OUT.mkdir(parents=True,exist_ok=True)
 INIT="window.guidanceEvents=[];window.addEventListener('attune-guidance-event',e=>window.guidanceEvents.push({...e.detail,at:performance.now()}));window.workerMessages=[];window.workerTimings=[];window.surfaceRequests=[];window.surfaceResults=[];const post=Worker.prototype.postMessage;Worker.prototype.postMessage=function(m,...args){if(!this.timingObserved){this.timingObserved=true;this.timingRequests=new Map();this.addEventListener('message',({data})=>{const pending=this.timingRequests.get(data.id);if(pending&&!data.phase){window.workerTimings.push({type:pending.type,milliseconds:performance.now()-pending.at,error:!!data.error});this.timingRequests.delete(data.id);}});}if(m.id)this.timingRequests.set(m.id,{type:m.type,at:performance.now()});window.workerMessages.push({type:m.type,at:performance.now()});if(m.pixels&&m.meshes){window.surfaceRequests.push({id:m.id,width:m.width,height:m.height,pose:m.pose,meshes:m.meshes,exclusions:m.exclusions,qualityValid:m.qualityValid});if(!this.surfaceObserved){this.surfaceObserved=true;this.addEventListener('message',({data})=>{if(data.maps)window.surfaceResults.push(data);});}}return post.call(this,m,...args);};"
 APPEARANCE="window.appearanceResponses=[];window.appearanceRequests=[];const originalFetch=window.fetch;window.fetch=async(...args)=>{if(String(args[0]).endsWith('/api/local-health/skin'))window.appearanceRequests.push(JSON.parse(args[1].body));const response=await originalFetch(...args);if(String(args[0]).endsWith('/api/local-health/skin')&&response.ok)window.appearanceResponses.push(await response.clone().json());return response;};"
+PRODUCT_APPEARANCE_IDS=['tone','oil','redness','acne','sag','dry','lines','dark','bags','postAcne','pigmentation']
+UNAVAILABLE_LOCALIZED={'postAcne':'ACCEPTED_POST_ACNE_LOCAL_DETECTOR_NOT_AVAILABLE','pigmentation':'ACCEPTED_PIGMENTATION_LOCAL_DETECTOR_NOT_AVAILABLE'}
 profile=None;native200=None
 def capture(page,context,path,native=False):
  if not native:page.screenshot(path=str(path),full_page=True);return
@@ -59,7 +61,16 @@ with sync_playwright() as pw:
   assert 'data:image' not in p.evaluate('JSON.stringify(Object.fromEntries(Object.entries(localStorage)))')
   general=value['general'];assert general['analysisId']==value['id'] and general['pose']=='FRONT'
   assert p.get_by_role('heading',name='Genel Bakış',exact=True).count()==1
-  assert p.locator('[data-skin-indicator]').count()==9 and p.locator('[data-skin-type]').count()==1
+  overview_cards=p.locator('[data-skin-indicator]')
+  assert overview_cards.count()==11 and p.locator('[data-skin-type]').count()==1
+  assert overview_cards.evaluate_all('(rows)=>rows.map(row=>row.dataset.skinIndicator)')==PRODUCT_APPEARANCE_IDS
+  assert [row['id'] for row in general['indicators']]==PRODUCT_APPEARANCE_IDS
+  for criterion,reason in UNAVAILABLE_LOCALIZED.items():
+   item=next(row for row in general['indicators'] if row['id']==criterion)
+   assert item['score'] is None and item['appearance']['value'] is None
+   assert item['appearance']['limitationCode']==reason and item['appearance']['components']['localizedInstancesAvailable'] is False
+   card=p.locator('[data-skin-indicator="'+criterion+'"]')
+   assert card.get_by_text('—',exact=True).count()==1 and card.get_by_role('meter').count()==0
   assert p.locator('[data-skin-mesh]').count()==0,'Overview must not stack six meshes'
   assert '1 / 7' in p.locator('[data-skin-navigation]').inner_text()
   overview_svg=p.locator('[data-skin-snapshot]');assert overview_svg.get_attribute('data-snapshot-photoid')==general['captureId']
@@ -164,7 +175,10 @@ with sync_playwright() as pw:
   assert graphs==['forehead','rightCheek','leftCheek','nose','chin','periorbital']
   timings=p.evaluate('window.workerTimings');initializations=[t['milliseconds'] for t in timings if t['type']=='initialize' and not t['error']];frames=[t['milliseconds'] for t in timings if t['type']=='frame' and not t['error']]
   assert initializations and frames
-  runs.append({'seconds':time.monotonic()-start,'result':value,'reference':ref,'sourcePhotoOpaque':True,'graphs':graphs,'cameraWorkerTiming':{'initializeRoundTripMs':initializations,'firstFrameRoundTripMs':frames[0],'medianFrameRoundTripMs':__import__('statistics').median(frames),'measuredFrames':len(frames),'guidanceEvents':p.evaluate('window.guidanceEvents'),'definition':'actual worker request-response; initialization includes assets/runtime readiness; frame includes bitmap IPC/inference/response; no speedup claim'}})
+  api_requests=p.evaluate('window.appearanceRequests');api_responses=p.evaluate('window.appearanceResponses')
+  request_photo_ids={row['photoId'] for row in api_requests};response_photo_ids={row['photoId'] for row in api_responses}
+  assert len(request_photo_ids)==3 and request_photo_ids<=response_photo_ids
+  runs.append({'seconds':time.monotonic()-start,'result':value,'reference':ref,'sourcePhotoOpaque':True,'graphs':graphs,'api':{'endpoint':'/api/local-health/skin','requestCount':len(api_requests),'successfulResponseCount':len(api_responses),'uniqueRequestPhotoIds':len(request_photo_ids),'allRequestsHaveSuccessfulResponse':request_photo_ids<=response_photo_ids},'cameraWorkerTiming':{'initializeRoundTripMs':initializations,'firstFrameRoundTripMs':frames[0],'medianFrameRoundTripMs':__import__('statistics').median(frames),'measuredFrames':len(frames),'guidanceEvents':p.evaluate('window.guidanceEvents'),'definition':'actual worker request-response; initialization includes assets/runtime readiness; frame includes bitmap IPC/inference/response; no speedup claim'}})
   (OUT/f'completed-{n}.json').write_text(json.dumps(runs[-1],ensure_ascii=False,indent=2),'utf8')
   p.get_by_role('button',name='Referans ve görüntü hakkında bilgi').click();dialog=p.get_by_role('dialog');assert dialog.locator('li').count()==6
   assert 'alpha dekupe' not in dialog.inner_text() and 'Eski kayıtların sayısal' not in dialog.inner_text()
@@ -195,7 +209,7 @@ with sync_playwright() as pw:
    dialog.get_by_role('button',name='Sonraki Bölge',exact=True).click()
   p.keyboard.press('Escape');assert 'data:image' not in p.evaluate('JSON.stringify(Object.fromEntries(Object.entries(localStorage)))')
  assert not errors,errors
- proof={'status':'PASS','buildId':Path('apps/vehicle-app/.next/BUILD_ID').read_text().strip(),'controlledFixture':True,'physicalCamera':False,'poseMock':False,'qualityOverride':False,'segmentationRequests':model_requests,'legacyReferencePreserved':True,'sourcePhotoOpaque':True,'faceFraming':True,'integerScores':True,'unavailableBars':False,'native200':native200,'localMaps':'actual CV appearance maps + selected-source geometry; no clinical validation','pageErrors':errors,'runs':runs}
+ proof={'status':'PASS','methodVersion':'skin-browser-api-replay-v1','buildId':Path('apps/vehicle-app/.next/BUILD_ID').read_text().strip(),'realBrowser':True,'browserEngine':'chromium','endpoint':'/api/local-health/skin','controlledFixture':True,'physicalCamera':False,'expertGroundTruth':False,'accuracyEvidence':False,'poseMock':False,'qualityOverride':False,'segmentationRequests':model_requests,'apiE2EPassed':True,'sixRegionalViewsPassed':True,'mapCardsHistoryPassed':True,'twelveProductHeadingsPassed':True,'unsupportedHeadingsUnavailable':True,'legacyReferencePreserved':True,'sourcePhotoOpaque':True,'faceFraming':True,'integerScores':True,'unavailableBars':False,'native200':native200,'localMaps':'actual CV appearance maps + selected-source geometry; no clinical validation','pageErrors':errors,'runs':runs}
  (OUT/'proof.json').write_text(json.dumps(proof,ensure_ascii=False,indent=2),'utf8');c.close()
  if profile:profile.cleanup()
 print('PASS: current photo, actual three fixture poses, six selected meshes, no reference dependency, native 200 layout')
