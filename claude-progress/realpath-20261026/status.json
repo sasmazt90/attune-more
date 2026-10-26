@@ -1,0 +1,38 @@
+{
+ "runId": "realpath-20261026",
+ "timezone": "Europe/Berlin",
+ "events": [
+  {
+   "time": "2026-10-26T13:35:11+01:00",
+   "stage": "1-envanter",
+   "done": "Model/kanıt envanteri kullanıcıya raporlandı (kod değişikliği yok)",
+   "blocker": "LR/Ridge karar ve belirginlik modelleri hiç kaydedilmemiş; yalnız 3 bulgu kayıtlı detektör skoruyla çalışabilir"
+  },
+  {
+   "time": "2026-10-26T13:35:11+01:00",
+   "stage": "2-4-kod",
+   "done": "Sunucu general.findings, /skin/regional-fuse, istemci zinciri, 3 durum ayrımı, Codex'in 4 UI hatası; typecheck/lint/build geçti; yerel commit fd3f183",
+   "blocker": null
+  },
+  {
+   "time": "2026-10-26T13:35:11+01:00",
+   "stage": "5-e2e",
+   "done": "Sahte kamera y4m hazırlanıyor (sentetik K-217 ön/yan), gerçek modellerle E2E başlıyor",
+   "blocker": null
+  },
+  {
+   "time": "2026-10-26T14:45:48+01:00",
+   "stage": "5-dogrulama",
+   "done": "typecheck/lint/build geçti; pytest 1423 geçti/7 başarısız (5 yolox+1 lokalizasyon taban, 1 ortam); örnek veri UI E2E GEÇTİ; gerçek inference E2E K-032, K-074, K-217 GEÇTİ; E2E iki hata buldu ve düzeltildi",
+   "blocker": "K-236 ön poz çekim kapısında kaldı; K-217'de eşik kamera renk hattında kırılgan (0,76→0,54); fiziksel kamera/Windows test edilmedi"
+  },
+  {
+   "time": "2026-10-26T14:45:48+01:00",
+   "stage": "6-teslim",
+   "done": "Commit, bundle, CODEX_HANDOFF.md, ekran görüntüleri hazırlanıyor",
+   "blocker": null
+  }
+ ],
+ "updated": "2026-10-26T14:45:48+01:00",
+ "stage": "6-teslim"
+}

@@ -8,6 +8,8 @@ export interface SkinSnapshot {
   experimentalAcneV5?:boolean;
   captureFaceCount?:number;
   general?:import('./skinOverview').SkinOverview;
+  /** Per-photo regional map from /skin (numbers only: region scores, finding evidence, source-pixel boxes). Side photos have no `general`. */
+  regionalSkinMap?:Record<string,any>;
   dataUrl:string; width:number; height:number; angle:SkinAngle;
   visualError?:string; segmentationMs?:number; maskWidth?:number; maskHeight?:number; meshes:Record<string,SkinMesh>;
   rois:{id:string;nameTr:string;x:number;y:number;w:number;h:number}[];

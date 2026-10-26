@@ -62,7 +62,7 @@ export default function SkinPage() {
     if(indicators&&conditions&&snapshot.landmarks){
       if(!snapshot.photoId){const digest=await crypto.subtle.digest('SHA-256',ctx.getImageData(0,0,snapshot.width,snapshot.height).data);snapshot.photoId=Array.from(new Uint8Array(digest)).map(v=>v.toString(16).padStart(2,'0')).join('');}
       const result=await analyzeAppearance(snapshot,valid,conditions,temporalSupport.current,current);
-      if(current()){attachAppearance(indicators,result);snapshot.experimentalAcneV5=result.acneRuntime?.status==='measured';snapshot.general=overviewFromResponse(result);snapshot.localMaps=result.maps;snapshot.contoursMeasured=result.contours;snapshot.acneCandidates=Object.fromEntries(Object.entries(result.measurements).map(([region,rows])=>[region,rows.find(v=>v.id==='acne'&&v.value!==null)?.components.bounds||[]]));
+      if(current()){attachAppearance(indicators,result);snapshot.experimentalAcneV5=result.acneRuntime?.status==='measured';snapshot.general=overviewFromResponse(result);snapshot.regionalSkinMap=(result as any).regionalSkinMap&&typeof (result as any).regionalSkinMap==='object'?(result as any).regionalSkinMap:undefined;snapshot.localMaps=result.maps;snapshot.contoursMeasured=result.contours;snapshot.acneCandidates=Object.fromEntries(Object.entries(result.measurements).map(([region,rows])=>[region,rows.find(v=>v.id==='acne'&&v.value!==null)?.components.bounds||[]]));
         snapshot.acneCandidates.overview=[...new Map(Object.values(snapshot.acneCandidates).flat().map((box:any)=>[box.candidateId||`${box.x}:${box.y}:${box.width}:${box.height}`,box])).values()];}
     }
   };
@@ -542,7 +542,7 @@ export default function SkinPage() {
       // regional maps (models + thresholds run only on the server). A failed fusion paints nothing and names no type;
       // its findings say 'unavailable' (never "nothing found").
       const front=snapshotFrames.current.FRONT?.general;
-      const poseMaps=Object.fromEntries((['FRONT','LEFT','RIGHT'] as const).map(p=>[p,(snapshotFrames.current as any)[p]?.general?.regionalSkinMap]).filter(([,m])=>m&&typeof m==='object'));
+      const poseMaps=Object.fromEntries((['FRONT','LEFT','RIGHT'] as const).map(p=>[p,snapshotFrames.current[p]?.regionalSkinMap]).filter(([,m])=>m&&typeof m==='object'));
       let fused:Awaited<ReturnType<typeof fuseRegionalOnServer>>|null=null;
       if(front&&poseMaps.FRONT){try{fused=await fuseRegionalOnServer(poseMaps,validCapture);}catch{fused=null;}}
       if(!validCapture())return;

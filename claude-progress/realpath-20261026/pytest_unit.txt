@@ -1,0 +1,796 @@
+.....................FFFFF..........ss.................................. [  4%]
+........................................................................ [  9%]
+................sss..............................................s...... [ 14%]
+........................................................................ [ 19%]
+........................................................................ [ 24%]
+......ssssssssss........................................................ [ 29%]
+........................................................................ [ 34%]
+........................................................................ [ 39%]
+............................................F........................... [ 43%]
+........................................................................ [ 48%]
+...........F............................................................ [ 53%]
+........................................................................ [ 58%]
+........................................................................ [ 63%]
+........................................................................ [ 68%]
+........................................................................ [ 73%]
+........................................................................ [ 78%]
+........................................................................ [ 82%]
+....................................................................s... [ 87%]
+.......s................................................................ [ 92%]
+........................................................................ [ 97%]
+........sssssssssssssssssssssssssss                                      [100%]
+=================================== FAILURES ===================================
+___ ObjectnessFeatures.test_independent_weights_and_double_install_rejected ____
+
+self = <test_acne_objectness_features.ObjectnessFeatures testMethod=test_independent_weights_and_double_install_rejected>
+
+    def setUp(self):
+        import torch
+>       from yolox_p2 import build_yolox_p2_model
+
+tests/unit/test_acne_objectness_features.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    #!/usr/bin/env python3
+    """YOLOX-S with Native P2 Small-Object Branch (Strides [4, 8, 16, 32]).
+    
+    Architecture & Contract:
+    - Backbone: CSPDarknet(depth=0.33, width=0.5), tapping into dark2 (stride 4, 64ch),
+      dark3 (stride 8, 128ch), dark4 (stride 16, 256ch), dark5 (stride 32, 512ch).
+    - FPN / PANet: Real high-resolution P2 branch connected directly to dark2.
+      Top-Down:
+        P5 -> lateral_conv0 -> upsample -> cat(dark4) -> C3_p4
+        P4 -> reduce_conv1  -> upsample -> cat(dark3) -> C3_p3
+        P3 -> reduce_conv2  -> upsample -> cat(dark2) -> C3_p2 (stride 4, 64ch)
+      Bottom-Up:
+        P2 -> bu_conv3 (stride 2) -> cat(fpn_p3) -> C3_n2 (stride 8, 128ch)
+        P3 -> bu_conv2 (stride 2) -> cat(fpn_p4) -> C3_n3 (stride 16, 256ch)
+        P4 -> bu_conv1 (stride 2) -> cat(fpn_p5) -> C3_n4 (stride 32, 512ch)
+      Outputs: (P2, P3, P4, P5) at strides [4, 8, 16, 32].
+    - Head: YOLOXHead with strides=[4, 8, 16, 32] and in_channels=[128, 256, 512, 1024].
+      Width=0.5 scales input channels to [64, 128, 256, 512].
+    - Strict Index-Aligned Baseline Weight Transfer:
+      Baseline Level 0 (P3) -> P2-Model Level 1 (P3)
+      Baseline Level 1 (P4) -> P2-Model Level 2 (P4)
+      Baseline Level 2 (P5) -> P2-Model Level 3 (P5)
+      New Level 0 (P2) is explicitly initialized with prior_prob bias.
+    """
+    
+    import sys
+    import math
+    from pathlib import Path
+    from typing import Dict, List, Tuple, Any
+    import torch
+    import torch.nn as nn
+    from safetensors.torch import load_file
+    
+    ROOT = Path(__file__).resolve().parents[2]
+    LIVE_TEST = ROOT.parent / 'attune-live-test'
+    
+    sys.path.insert(0, str(LIVE_TEST / 'audit-results/combined-health-20261008/yolox/extracted/YOLOX-6ddff4824372906469a7fae2dc3206c7aa4bbaee'))
+    sys.path.insert(0, str(ROOT / 'scripts/skin-research'))
+    
+>   from yolox.models.darknet import CSPDarknet
+E   ModuleNotFoundError: No module named 'yolox'
+
+scripts/skin-research/yolox_p2.py:40: ModuleNotFoundError
+__ ObjectnessFeatures.test_initial_complete_output_parity_and_no_stale_frame ___
+
+self = <test_acne_objectness_features.ObjectnessFeatures testMethod=test_initial_complete_output_parity_and_no_stale_frame>
+
+    def setUp(self):
+        import torch
+>       from yolox_p2 import build_yolox_p2_model
+
+tests/unit/test_acne_objectness_features.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    #!/usr/bin/env python3
+    """YOLOX-S with Native P2 Small-Object Branch (Strides [4, 8, 16, 32]).
+    
+    Architecture & Contract:
+    - Backbone: CSPDarknet(depth=0.33, width=0.5), tapping into dark2 (stride 4, 64ch),
+      dark3 (stride 8, 128ch), dark4 (stride 16, 256ch), dark5 (stride 32, 512ch).
+    - FPN / PANet: Real high-resolution P2 branch connected directly to dark2.
+      Top-Down:
+        P5 -> lateral_conv0 -> upsample -> cat(dark4) -> C3_p4
+        P4 -> reduce_conv1  -> upsample -> cat(dark3) -> C3_p3
+        P3 -> reduce_conv2  -> upsample -> cat(dark2) -> C3_p2 (stride 4, 64ch)
+      Bottom-Up:
+        P2 -> bu_conv3 (stride 2) -> cat(fpn_p3) -> C3_n2 (stride 8, 128ch)
+        P3 -> bu_conv2 (stride 2) -> cat(fpn_p4) -> C3_n3 (stride 16, 256ch)
+        P4 -> bu_conv1 (stride 2) -> cat(fpn_p5) -> C3_n4 (stride 32, 512ch)
+      Outputs: (P2, P3, P4, P5) at strides [4, 8, 16, 32].
+    - Head: YOLOXHead with strides=[4, 8, 16, 32] and in_channels=[128, 256, 512, 1024].
+      Width=0.5 scales input channels to [64, 128, 256, 512].
+    - Strict Index-Aligned Baseline Weight Transfer:
+      Baseline Level 0 (P3) -> P2-Model Level 1 (P3)
+      Baseline Level 1 (P4) -> P2-Model Level 2 (P4)
+      Baseline Level 2 (P5) -> P2-Model Level 3 (P5)
+      New Level 0 (P2) is explicitly initialized with prior_prob bias.
+    """
+    
+    import sys
+    import math
+    from pathlib import Path
+    from typing import Dict, List, Tuple, Any
+    import torch
+    import torch.nn as nn
+    from safetensors.torch import load_file
+    
+    ROOT = Path(__file__).resolve().parents[2]
+    LIVE_TEST = ROOT.parent / 'attune-live-test'
+    
+    sys.path.insert(0, str(LIVE_TEST / 'audit-results/combined-health-20261008/yolox/extracted/YOLOX-6ddff4824372906469a7fae2dc3206c7aa4bbaee'))
+    sys.path.insert(0, str(ROOT / 'scripts/skin-research'))
+    
+>   from yolox.models.darknet import CSPDarknet
+E   ModuleNotFoundError: No module named 'yolox'
+
+scripts/skin-research/yolox_p2.py:40: ModuleNotFoundError
+_ ObjectnessFeatures.test_learning_feature_weights_cannot_change_boxes_or_classes _
+
+self = <test_acne_objectness_features.ObjectnessFeatures testMethod=test_learning_feature_weights_cannot_change_boxes_or_classes>
+
+    def setUp(self):
+        import torch
+>       from yolox_p2 import build_yolox_p2_model
+
+tests/unit/test_acne_objectness_features.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    #!/usr/bin/env python3
+    """YOLOX-S with Native P2 Small-Object Branch (Strides [4, 8, 16, 32]).
+    
+    Architecture & Contract:
+    - Backbone: CSPDarknet(depth=0.33, width=0.5), tapping into dark2 (stride 4, 64ch),
+      dark3 (stride 8, 128ch), dark4 (stride 16, 256ch), dark5 (stride 32, 512ch).
+    - FPN / PANet: Real high-resolution P2 branch connected directly to dark2.
+      Top-Down:
+        P5 -> lateral_conv0 -> upsample -> cat(dark4) -> C3_p4
+        P4 -> reduce_conv1  -> upsample -> cat(dark3) -> C3_p3
+        P3 -> reduce_conv2  -> upsample -> cat(dark2) -> C3_p2 (stride 4, 64ch)
+      Bottom-Up:
+        P2 -> bu_conv3 (stride 2) -> cat(fpn_p3) -> C3_n2 (stride 8, 128ch)
+        P3 -> bu_conv2 (stride 2) -> cat(fpn_p4) -> C3_n3 (stride 16, 256ch)
+        P4 -> bu_conv1 (stride 2) -> cat(fpn_p5) -> C3_n4 (stride 32, 512ch)
+      Outputs: (P2, P3, P4, P5) at strides [4, 8, 16, 32].
+    - Head: YOLOXHead with strides=[4, 8, 16, 32] and in_channels=[128, 256, 512, 1024].
+      Width=0.5 scales input channels to [64, 128, 256, 512].
+    - Strict Index-Aligned Baseline Weight Transfer:
+      Baseline Level 0 (P3) -> P2-Model Level 1 (P3)
+      Baseline Level 1 (P4) -> P2-Model Level 2 (P4)
+      Baseline Level 2 (P5) -> P2-Model Level 3 (P5)
+      New Level 0 (P2) is explicitly initialized with prior_prob bias.
+    """
+    
+    import sys
+    import math
+    from pathlib import Path
+    from typing import Dict, List, Tuple, Any
+    import torch
+    import torch.nn as nn
+    from safetensors.torch import load_file
+    
+    ROOT = Path(__file__).resolve().parents[2]
+    LIVE_TEST = ROOT.parent / 'attune-live-test'
+    
+    sys.path.insert(0, str(LIVE_TEST / 'audit-results/combined-health-20261008/yolox/extracted/YOLOX-6ddff4824372906469a7fae2dc3206c7aa4bbaee'))
+    sys.path.insert(0, str(ROOT / 'scripts/skin-research'))
+    
+>   from yolox.models.darknet import CSPDarknet
+E   ModuleNotFoundError: No module named 'yolox'
+
+scripts/skin-research/yolox_p2.py:40: ModuleNotFoundError
+_ ObjectnessFeatures.test_new_graph_requires_its_own_strict_checkpoint_loader __
+
+self = <test_acne_objectness_features.ObjectnessFeatures testMethod=test_new_graph_requires_its_own_strict_checkpoint_loader>
+
+    def setUp(self):
+        import torch
+>       from yolox_p2 import build_yolox_p2_model
+
+tests/unit/test_acne_objectness_features.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    #!/usr/bin/env python3
+    """YOLOX-S with Native P2 Small-Object Branch (Strides [4, 8, 16, 32]).
+    
+    Architecture & Contract:
+    - Backbone: CSPDarknet(depth=0.33, width=0.5), tapping into dark2 (stride 4, 64ch),
+      dark3 (stride 8, 128ch), dark4 (stride 16, 256ch), dark5 (stride 32, 512ch).
+    - FPN / PANet: Real high-resolution P2 branch connected directly to dark2.
+      Top-Down:
+        P5 -> lateral_conv0 -> upsample -> cat(dark4) -> C3_p4
+        P4 -> reduce_conv1  -> upsample -> cat(dark3) -> C3_p3
+        P3 -> reduce_conv2  -> upsample -> cat(dark2) -> C3_p2 (stride 4, 64ch)
+      Bottom-Up:
+        P2 -> bu_conv3 (stride 2) -> cat(fpn_p3) -> C3_n2 (stride 8, 128ch)
+        P3 -> bu_conv2 (stride 2) -> cat(fpn_p4) -> C3_n3 (stride 16, 256ch)
+        P4 -> bu_conv1 (stride 2) -> cat(fpn_p5) -> C3_n4 (stride 32, 512ch)
+      Outputs: (P2, P3, P4, P5) at strides [4, 8, 16, 32].
+    - Head: YOLOXHead with strides=[4, 8, 16, 32] and in_channels=[128, 256, 512, 1024].
+      Width=0.5 scales input channels to [64, 128, 256, 512].
+    - Strict Index-Aligned Baseline Weight Transfer:
+      Baseline Level 0 (P3) -> P2-Model Level 1 (P3)
+      Baseline Level 1 (P4) -> P2-Model Level 2 (P4)
+      Baseline Level 2 (P5) -> P2-Model Level 3 (P5)
+      New Level 0 (P2) is explicitly initialized with prior_prob bias.
+    """
+    
+    import sys
+    import math
+    from pathlib import Path
+    from typing import Dict, List, Tuple, Any
+    import torch
+    import torch.nn as nn
+    from safetensors.torch import load_file
+    
+    ROOT = Path(__file__).resolve().parents[2]
+    LIVE_TEST = ROOT.parent / 'attune-live-test'
+    
+    sys.path.insert(0, str(LIVE_TEST / 'audit-results/combined-health-20261008/yolox/extracted/YOLOX-6ddff4824372906469a7fae2dc3206c7aa4bbaee'))
+    sys.path.insert(0, str(ROOT / 'scripts/skin-research'))
+    
+>   from yolox.models.darknet import CSPDarknet
+E   ModuleNotFoundError: No module named 'yolox'
+
+scripts/skin-research/yolox_p2.py:40: ModuleNotFoundError
+____________ ObjectnessFeatures.test_trainable_scope_and_frozen_bn _____________
+
+self = <test_acne_objectness_features.ObjectnessFeatures testMethod=test_trainable_scope_and_frozen_bn>
+
+    def setUp(self):
+        import torch
+>       from yolox_p2 import build_yolox_p2_model
+
+tests/unit/test_acne_objectness_features.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    #!/usr/bin/env python3
+    """YOLOX-S with Native P2 Small-Object Branch (Strides [4, 8, 16, 32]).
+    
+    Architecture & Contract:
+    - Backbone: CSPDarknet(depth=0.33, width=0.5), tapping into dark2 (stride 4, 64ch),
+      dark3 (stride 8, 128ch), dark4 (stride 16, 256ch), dark5 (stride 32, 512ch).
+    - FPN / PANet: Real high-resolution P2 branch connected directly to dark2.
+      Top-Down:
+        P5 -> lateral_conv0 -> upsample -> cat(dark4) -> C3_p4
+        P4 -> reduce_conv1  -> upsample -> cat(dark3) -> C3_p3
+        P3 -> reduce_conv2  -> upsample -> cat(dark2) -> C3_p2 (stride 4, 64ch)
+      Bottom-Up:
+        P2 -> bu_conv3 (stride 2) -> cat(fpn_p3) -> C3_n2 (stride 8, 128ch)
+        P3 -> bu_conv2 (stride 2) -> cat(fpn_p4) -> C3_n3 (stride 16, 256ch)
+        P4 -> bu_conv1 (stride 2) -> cat(fpn_p5) -> C3_n4 (stride 32, 512ch)
+      Outputs: (P2, P3, P4, P5) at strides [4, 8, 16, 32].
+    - Head: YOLOXHead with strides=[4, 8, 16, 32] and in_channels=[128, 256, 512, 1024].
+      Width=0.5 scales input channels to [64, 128, 256, 512].
+    - Strict Index-Aligned Baseline Weight Transfer:
+      Baseline Level 0 (P3) -> P2-Model Level 1 (P3)
+      Baseline Level 1 (P4) -> P2-Model Level 2 (P4)
+      Baseline Level 2 (P5) -> P2-Model Level 3 (P5)
+      New Level 0 (P2) is explicitly initialized with prior_prob bias.
+    """
+    
+    import sys
+    import math
+    from pathlib import Path
+    from typing import Dict, List, Tuple, Any
+    import torch
+    import torch.nn as nn
+    from safetensors.torch import load_file
+    
+    ROOT = Path(__file__).resolve().parents[2]
+    LIVE_TEST = ROOT.parent / 'attune-live-test'
+    
+    sys.path.insert(0, str(LIVE_TEST / 'audit-results/combined-health-20261008/yolox/extracted/YOLOX-6ddff4824372906469a7fae2dc3206c7aa4bbaee'))
+    sys.path.insert(0, str(ROOT / 'scripts/skin-research'))
+    
+>   from yolox.models.darknet import CSPDarknet
+E   ModuleNotFoundError: No module named 'yolox'
+
+scripts/skin-research/yolox_p2.py:40: ModuleNotFoundError
+______________ test_degrees_remain_independent_of_hosted_failure _______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fccfbc9dcc0>
+
+    def test_degrees_remain_independent_of_hosted_failure(monkeypatch):
+     import skin_models as M
+     class Session:
+      def run(self,*args):return [np.array([[3.]],np.float32)]
+     monkeypatch.setattr(M,'load',lambda:dict(sessions={'degrees':dict(session=Session(),loadMs=0,metadata=dict(sha256='a'*64,version='preserved',targets=['redness'],acceptedTargets=['redness']),sessionMetadata=dict(modelHash='a'*64,modelVersion='preserved',modelId='degrees:preserved',fileHashVerified=True,sessionLoaded=True))}))
+     monkeypatch.setattr(M,'infer_hosted_type',lambda *args:H.unavailable('HOSTED_TIMEOUT'))
+     p=[dict(x=.2+(i%2)*.6,y=.2+(i%3)*.2) for i in range(468)];result=M.infer(np.zeros((320,320,3),np.uint8),p,True,True)
+>    assert result['degrees']['redness']['value']==60 and result['skinType']['value'] is None
+E    AssertionError: assert (60.0 == 60 and 'normal' is None)
+
+tests/unit/test_hosted_skin_type_runtime.py:73: AssertionError
+__________________ test_catalog_and_actual_frontend_behavior ___________________
+
+    def test_catalog_and_actual_frontend_behavior():
+        for script in [['node','scripts/localization/check.cjs'],['node','tests/unit/localization_runtime.cjs'],['node','tests/unit/system_speech_runtime.cjs']]:
+            result=subprocess.run(script,cwd=ROOT,text=True,capture_output=True,timeout=60)
+>           assert result.returncode==0,result.stdout+result.stderr
+E           AssertionError: {
+E               "status": "FAIL",
+E               "catalogMessages": 1826,
+E               "inventoriedSources": 1713,
+E               "exemptions": 67,
+E               "scope": "Frontend JSX/accessibility/source literals and shared modules/guidance; backend API/mental/care/control plus health-module response/error presentation sources. Dynamic/private/provider text needs runtime review.",
+E               "failures": [
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "b8ff68524775f03c",
+E                   "tr": "Belirsiz (T-bölgesi verisi eksik)",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRecordDetail.tsx",
+E                       "line": 42,
+E                       "kind": "display-literal"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRecordDetail.tsx",
+E                       "line": 42,
+E                       "kind": "StringLiteral"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 76,
+E                       "kind": "display-literal"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 76,
+E                       "kind": "StringLiteral"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/utils/skinMultiAngle.ts",
+E                       "line": 391,
+E                       "kind": "StringLiteral"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "ff9de0ac66922747",
+E                   "tr": "Belirsiz (Yanak verisi eksik)",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRecordDetail.tsx",
+E                       "line": 40,
+E                       "kind": "display-literal"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 74,
+E                       "kind": "display-literal"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "8cd26186511dc7d4",
+E                   "tr": "Bölgesel kızarıklık farkı",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/utils/skinIndicators.ts",
+E                       "line": 10,
+E                       "kind": "StringLiteral"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "efd454d073101d5c",
+E                   "tr": "Bölgesel Kural + Yerel ONNX (local-vit-dima806)",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 122,
+E                       "kind": "display-literal"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 122,
+E                       "kind": "StringLiteral"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "f039c970a524d4e4",
+E                   "tr": "Genel kızarıklık indeksi",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/utils/skinIndicators.ts",
+E                       "line": 10,
+E                       "kind": "StringLiteral"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "9ca6d809c1f9e3aa",
+E                   "tr": "Model/vekil tahmini · Klinik tanı değildir",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 123,
+E                       "kind": "display-literal"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 123,
+E                       "kind": "StringLiteral"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "2d1455a2124f4e47",
+E                   "tr": "Ölçülemedi",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinIndicatorValue.tsx",
+E                       "line": 32,
+E                       "kind": "display-literal"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinIndicatorValue.tsx",
+E                       "line": 32,
+E                       "kind": "StringLiteral"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "0e57d16a94ab3c0a",
+E                   "tr": "T Bölgesi",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/data/skinDemoFixture.ts",
+E                       "line": 265,
+E                       "kind": "display-literal"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/data/skinDemoFixture.ts",
+E                       "line": 265,
+E                       "kind": "StringLiteral"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/data/skinDemoFixture.ts",
+E                       "line": 483,
+E                       "kind": "display-literal"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/data/skinDemoFixture.ts",
+E                       "line": 483,
+E                       "kind": "StringLiteral"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/data/skinDemoFixture.ts",
+E                       "line": 483,
+E                       "kind": "StringLiteral"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "8068bb29d7254ae5",
+E                   "tr": "Yerel Analitik: 3B kontur oranı (appearance-cv-6)",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 50,
+E                       "kind": "display-literal"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 50,
+E                       "kind": "StringLiteral"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "b750b71971307224",
+E                   "tr": "Yerel Analitik: alt kapak konturu (appearance-cv-6)",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 48,
+E                       "kind": "display-literal"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "c63e607419fadf5e",
+E                   "tr": "Yerel Analitik: appearance-cv-6",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 38,
+E                       "kind": "display-literal"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 52,
+E                       "kind": "display-literal"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "44539fc676f427d7",
+E                   "tr": "Yerel Analitik: kromatik dağılım (appearance-cv-6)",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 51,
+E                       "kind": "display-literal"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 51,
+E                       "kind": "StringLiteral"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "93cbee23b372f556",
+E                   "tr": "Yerel Analitik: LAB a* (appearance-cv-6)",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 44,
+E                       "kind": "display-literal"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "bb4117a8b3c086cb",
+E                   "tr": "Yerel Analitik: parlama alanı (appearance-cv-6)",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 46,
+E                       "kind": "display-literal"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 46,
+E                       "kind": "StringLiteral"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "3a08468ce177b3f1",
+E                   "tr": "Yerel Analitik: periorbital renk (appearance-cv-6)",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 49,
+E                       "kind": "display-literal"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "7d885a90c72f0148",
+E                   "tr": "Yerel Analitik: sırt iskeleti (appearance-cv-6)",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 47,
+E                       "kind": "display-literal"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 47,
+E                       "kind": "StringLiteral"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "45df6064efc03de2",
+E                   "tr": "Yerel model: acne-v5 (devre dışı)",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 32,
+E                       "kind": "display-literal"
+E                     },
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 32,
+E                       "kind": "StringLiteral"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "893c03119ea6e4b7",
+E                   "tr": "Yerel ONNX: acne-v5-step0-silu + logreg",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 30,
+E                       "kind": "display-literal"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "798a34bfd6d101ed",
+E                   "tr": "Yerel ONNX: dryness-calibrated-v3",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 36,
+E                       "kind": "display-literal"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Missing message",
+E                   "id": "791ece2b37f51d27",
+E                   "tr": "Yerel ONNX: skin-focused-degrees + LAB a*",
+E                   "references": [
+E                     {
+E                       "file": "apps/vehicle-app/src/components/skin/SkinRegionSummary.tsx",
+E                       "line": 42,
+E                       "kind": "display-literal"
+E                     }
+E                   ]
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "skin_type_dry"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "skin_type_sensitive"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "skin_sign_sag"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "skin_unmeasurable"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "skin_uncertain_cheeks"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "skin_uncertain_tzone"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "skin_region_tzone"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "skin_redness_global"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "skin_redness_regional"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "Bölgesel Kural + Yerel ONNX (local-vit-dima806)"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "Model/vekil tahmini · Klinik tanı değildir"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "Yerel ONNX: acne-v5-step0-silu + logreg"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "Yerel model: acne-v5 (devre dışı)"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "Yerel ONNX: dryness-calibrated-v3"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "Yerel Analitik: appearance-cv-6"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "Yerel ONNX: skin-focused-degrees + LAB a*"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "Yerel Analitik: LAB a* (appearance-cv-6)"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "Yerel Analitik: parlama alanı (appearance-cv-6)"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "Yerel Analitik: sırt iskeleti (appearance-cv-6)"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "Yerel Analitik: alt kapak konturu (appearance-cv-6)"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "Yerel Analitik: periorbital renk (appearance-cv-6)"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "Yerel Analitik: 3B kontur oranı (appearance-cv-6)"
+E                 },
+E                 {
+E                   "reason": "Unstable source ID",
+E                   "id": "Yerel Analitik: kromatik dağılım (appearance-cv-6)"
+E                 }
+E               ]
+E             }
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['node', 'scripts/localization/check.cjs'], returncode=1, stdout='{\n  "status": "FAIL",\n  "cat...: "Unstable source ID",\n      "id": "Yerel Analitik: kromatik dağılım (appearance-cv-6)"\n    }\n  ]\n}\n', stderr='').returncode
+
+tests/unit/test_localization.py:63: AssertionError
+=============================== warnings summary ===============================
+../../../../../../../usr/local/lib/python3.13/site-packages/starlette/testclient.py:53
+  /usr/local/lib/python3.13/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+services/core-api/main.py:158
+  /tmp/claude-0/-home-claude/6c3a640c-814a-5b9e-a7fb-dc8a45e4bc81/scratchpad/repo/claude-skin/services/core-api/main.py:158: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "lastUpdated": datetime.utcnow().isoformat()
+
+tests/unit/test_backend.py::test_health_check
+tests/unit/test_openai_client_lifespan.py::test_app_lifespan_closes_pool_once[False]
+tests/unit/test_openai_client_lifespan.py::test_app_lifespan_closes_pool_once[True]
+  /tmp/claude-0/-home-claude/6c3a640c-814a-5b9e-a7fb-dc8a45e4bc81/scratchpad/repo/claude-skin/services/core-api/main.py:298: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    return {"status": "ok", "timestamp": datetime.utcnow().isoformat(),
+
+tests/unit/test_backend.py::test_vehicle_state_and_toggle
+tests/unit/test_backend.py::test_vehicle_state_and_toggle
+  /tmp/claude-0/-home-claude/6c3a640c-814a-5b9e-a7fb-dc8a45e4bc81/scratchpad/repo/claude-skin/services/core-api/main.py:324: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    vehicle_state["lastUpdated"] = datetime.utcnow().isoformat()
+
+tests/unit/test_individual_deletion.py: 6 warnings
+tests/unit/test_mental_engine.py: 1 warning
+tests/unit/test_privacy_api_regressions.py: 3 warnings
+  /tmp/claude-0/-home-claude/6c3a640c-814a-5b9e-a7fb-dc8a45e4bc81/scratchpad/repo/claude-skin/services/core-api/session_memory.py:147: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "date": datetime.utcnow().isoformat() + "Z",
+
+tests/unit/test_privacy_api_regressions.py::test_backend_wipe_removes_actual_persisted_summaries
+  /tmp/claude-0/-home-claude/6c3a640c-814a-5b9e-a7fb-dc8a45e4bc81/scratchpad/repo/claude-skin/services/core-api/main.py:572: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "timestamp": datetime.utcnow().isoformat()
+
+tests/unit/test_qa_vehicle_read_policy.py: 1 warning
+tests/unit/test_vehicle_safety_api.py: 16 warnings
+tests/unit/test_vision_integration.py: 2 warnings
+  /tmp/claude-0/-home-claude/6c3a640c-814a-5b9e-a7fb-dc8a45e4bc81/scratchpad/repo/claude-skin/services/core-api/main.py:341: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    vehicle_state["lastUpdated"] = datetime.utcnow().isoformat()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/unit/test_acne_objectness_features.py::ObjectnessFeatures::test_independent_weights_and_double_install_rejected
+FAILED tests/unit/test_acne_objectness_features.py::ObjectnessFeatures::test_initial_complete_output_parity_and_no_stale_frame
+FAILED tests/unit/test_acne_objectness_features.py::ObjectnessFeatures::test_learning_feature_weights_cannot_change_boxes_or_classes
+FAILED tests/unit/test_acne_objectness_features.py::ObjectnessFeatures::test_new_graph_requires_its_own_strict_checkpoint_loader
+FAILED tests/unit/test_acne_objectness_features.py::ObjectnessFeatures::test_trainable_scope_and_frozen_bn
+FAILED tests/unit/test_hosted_skin_type_runtime.py::test_degrees_remain_independent_of_hosted_failure
+FAILED tests/unit/test_localization.py::test_catalog_and_actual_frontend_behavior
+7 failed, 1423 passed, 45 skipped, 37 warnings in 206.67s (0:03:26)
+EXIT 1

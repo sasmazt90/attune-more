@@ -6,10 +6,11 @@ import type { SkinFindingId } from '../../utils/skinFindings';
 /** A label beside the photo with a leader line to the spot it refers to (source pixels). */
 export type FindingCallout = { key: string; id: SkinFindingId; label: string; sub?: string; color: string; anchor: { x: number; y: number }; active?: boolean };
 type Crop = { x: number; y: number; width: number; height: number };
-const GUTTER = 196, PILL_H = 52, GAP = 12;
+const GUTTER = 196, PILL_H = 52, GAP = 12, MIN_PHOTO = 360;
 
-/** Wide screens: labels in the gutters left and right of the photo, leader lines to the face. Narrow screens: the
- * same labels as a row of buttons under the photo. Tapping a label selects that finding. */
+/** When the photo column has room for both gutters and a readable photo (>= MIN_PHOTO px): labels in the gutters left
+ * and right of the photo with leader lines. Otherwise (narrow screens, or a narrow photo column): the same labels as a
+ * row of buttons under the photo, so the gutters never squeeze the photo. Tapping a label selects that finding. */
 export function SkinFindingCallouts({ callouts, crop, photoRef, active, onSelect, children }: {
   callouts?: FindingCallout[]; crop?: Crop; photoRef: React.RefObject<HTMLDivElement | null>; active: SkinFindingId | null;
   onSelect?: (key: string) => void; children: React.ReactNode;
@@ -36,6 +37,8 @@ export function SkinFindingCallouts({ callouts, crop, photoRef, active, onSelect
 
   const list = callouts || [];
   if (!list.length) return <>{children}</>;
+  // gutters only when the whole column (w) leaves at least MIN_PHOTO px for the photo between them
+  const gutter = wide && !!box && box.w >= 2 * GUTTER + MIN_PHOTO;
   const pill = (c: FindingCallout, style?: React.CSSProperties, extra = '') => {
     const on = c.active ?? c.id === active;
     return (
@@ -49,7 +52,7 @@ export function SkinFindingCallouts({ callouts, crop, photoRef, active, onSelect
 
   // Gutter layout: project anchors into wrapper pixels, split by side, stack labels without overlap.
   let placed: { c: FindingCallout; ax: number; ay: number; left: boolean; y: number }[] = [];
-  if (wide && box && crop) {
+  if (gutter && box && crop) {
     const pts = list.map(c => ({ c, ax: box.left + (c.anchor.x - crop.x) / crop.width * box.pw, ay: box.top + (c.anchor.y - crop.y) / crop.height * box.ph }));
     const sides = [pts.filter(p => p.ax < box.left + box.pw / 2), pts.filter(p => p.ax >= box.left + box.pw / 2)];
     // keep both sides balanced when one side would crowd
@@ -68,9 +71,9 @@ export function SkinFindingCallouts({ callouts, crop, photoRef, active, onSelect
   }
   return (
     <div className="w-full flex flex-col items-center gap-3" data-skin-callouts>
-      <div ref={wrap} className="relative w-full flex justify-center xl:px-[196px]">
+      <div ref={wrap} className="relative w-full flex justify-center" style={gutter ? { paddingLeft: GUTTER, paddingRight: GUTTER } : undefined} data-skin-callout-layout={gutter ? 'gutter' : 'row'}>
         {children}
-        {wide && box && placed.length > 0 && <>
+        {gutter && box && placed.length > 0 && <>
           <svg aria-hidden="true" className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
             {placed.map(p => {
               const on = p.c.active ?? p.c.id === active, cy = p.y + PILL_H / 2;
@@ -86,7 +89,7 @@ export function SkinFindingCallouts({ callouts, crop, photoRef, active, onSelect
           {placed.map(p => pill(p.c, { position: 'absolute', top: p.y, ...(p.left ? { right: box.w - GUTTER + 8 } : { left: box.w - GUTTER + 8 }), ...(p.c.sub ? {} : { maxWidth: GUTTER - 16 }) }))}
         </>}
       </div>
-      {!wide && <div className="flex flex-wrap justify-center gap-2" data-skin-callout-row>{list.map(c => pill(c))}</div>}
+      {!gutter && <div className="flex flex-wrap justify-center gap-2" data-skin-callout-row>{list.map(c => pill(c))}</div>}
     </div>
   );
 }

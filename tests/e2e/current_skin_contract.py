@@ -1,201 +1,171 @@
-import sys
-from pathlib import Path
-sys.path.insert(0,str(Path.cwd()/'tests/e2e'))
-"""Licensed video fixture, real production MediaPipe, no pose/quality override.
-V3 source pixels, regional graphs, reference separation and responsive screenshots.
+"""Skin result screen on the real data path (approved result UI).
+
+Camera (Chrome fake device fed by a y4m fixture) -> production MediaPipe capture of FRONT/RIGHT/LEFT -> POST
+/api/local-health/skin per photo (saved models) -> POST /api/local-health/skin/regional-fuse -> general.findings ->
+health record -> result screen -> reopened record (/skin?view=latest).
+
+No pose, quality or model result is mocked. The fixture decides what is in the photos; it is NOT a physical camera.
+Requirements: core-api on 127.0.0.1:8000 with the regional model bundle (ATTUNE_REGIONAL_V3_DIR), the built app on
+127.0.0.1:3000, and a three-pose y4m (SKIN_E2E_Y4M, default audit-fixtures/three-angle.y4m: front, then each side).
+
+Flags: --software-gpu (swiftshader), --chromium (bundled Chromium instead of the Chrome channel),
+--skip-native-zoom (skip the Windows native 200% zoom capture; reported as not run in proof.json).
 """
-import json,time,sys,os,math,tempfile
+import json, os, sys, time, math, tempfile
 from pathlib import Path
-from playwright.sync_api import sync_playwright,expect
-from owned_window_capture import capture_owned_window
-OUT=Path(os.environ.get('SKIN_RESULT_AUDIT_DIR','audit-results/feedback-four-modules-20261009/skin'));OUT.mkdir(parents=True,exist_ok=True)
-INIT="window.guidanceEvents=[];window.addEventListener('attune-guidance-event',e=>window.guidanceEvents.push({...e.detail,at:performance.now()}));window.workerMessages=[];window.workerTimings=[];window.surfaceRequests=[];window.surfaceResults=[];const post=Worker.prototype.postMessage;Worker.prototype.postMessage=function(m,...args){if(!this.timingObserved){this.timingObserved=true;this.timingRequests=new Map();this.addEventListener('message',({data})=>{const pending=this.timingRequests.get(data.id);if(pending&&!data.phase){window.workerTimings.push({type:pending.type,milliseconds:performance.now()-pending.at,error:!!data.error});this.timingRequests.delete(data.id);}});}if(m.id)this.timingRequests.set(m.id,{type:m.type,at:performance.now()});window.workerMessages.push({type:m.type,at:performance.now()});if(m.pixels&&m.meshes){window.surfaceRequests.push({id:m.id,width:m.width,height:m.height,pose:m.pose,meshes:m.meshes,exclusions:m.exclusions,qualityValid:m.qualityValid});if(!this.surfaceObserved){this.surfaceObserved=true;this.addEventListener('message',({data})=>{if(data.maps)window.surfaceResults.push(data);});}}return post.call(this,m,...args);};"
-APPEARANCE="window.appearanceResponses=[];window.appearanceRequests=[];const originalFetch=window.fetch;window.fetch=async(...args)=>{if(String(args[0]).endsWith('/api/local-health/skin'))window.appearanceRequests.push(JSON.parse(args[1].body));const response=await originalFetch(...args);if(String(args[0]).endsWith('/api/local-health/skin')&&response.ok)window.appearanceResponses.push(await response.clone().json());return response;};"
-profile=None;native200=None
-def capture(page,context,path,native=False):
- if not native:page.screenshot(path=str(path),full_page=True);return
- return capture_owned_window(page,profile.name,path)
+sys.path.insert(0, str(Path.cwd() / 'tests/e2e'))
+from playwright.sync_api import sync_playwright, expect
+
+OUT = Path(os.environ.get('SKIN_RESULT_AUDIT_DIR', 'audit-results/skin-real-path')); OUT.mkdir(parents=True, exist_ok=True)
+Y4M = Path(os.environ.get('SKIN_E2E_Y4M', 'audit-fixtures/three-angle.y4m')).resolve()
+assert Y4M.exists(), f'missing camera fixture {Y4M}'
+NATIVE = '--skip-native-zoom' not in sys.argv
+CHANNEL = {} if '--chromium' in sys.argv else {'channel': 'chrome'}
+GPU = ['--use-gl=angle', '--use-angle=swiftshader'] if '--software-gpu' in sys.argv else []
+# --use-fake-ui-for-media-stream answers the browser's own camera prompt (the app's consent is clicked below)
+ARGS = ['--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream', '--use-file-for-fake-video-capture=' + str(Y4M), '--enable-unsafe-swiftshader', *GPU]
+# Records every request/response of the skin endpoints (numbers only are kept by the app; photos stay in memory here).
+HOOK = """window.skinCalls=[];const of=window.fetch;window.fetch=async(...a)=>{const url=String(a[0]);
+const kind=url.endsWith('/api/local-health/skin')?'skin':url.endsWith('/api/local-health/skin/regional-fuse')?'fuse':null;
+const body=kind&&a[1]&&a[1].body?JSON.parse(a[1].body):null;const r=await of(...a);
+if(kind==='skin'&&window.__savePhotos)(window.skinPhotos=window.skinPhotos||[]).push({pose:body.pose,photo:body.photo,landmarks:body.landmarks});
+if(kind){const j=r.ok?await r.clone().json():null;window.skinCalls.push(kind==='skin'
+ ?{kind,status:r.status,pose:body.pose,photoId:body.photoId,noseToImageRight:body.landmarks&&+(body.landmarks[1].x-(body.landmarks[234].x+body.landmarks[454].x)/2).toFixed(3),general:j&&{findings:j.general&&j.general.findings},source:j&&[j.sourceWidth,j.sourceHeight],findingEvidence:j&&j.regionalSkinMap&&j.regionalSkinMap.findingEvidence,regionalSkinMap:j&&j.regionalSkinMap&&{evidence:Object.keys(j.regionalSkinMap.findingEvidence||{}),boxes:(j.regionalSkinMap.findingBoxes||[]).length,models:j.regionalSkinMap.models},status2:j&&j.regionalSkinMapStatus}
+ :{kind,status:r.status,poses:Object.keys(body.maps||{}),response:j});}return r;};"""
+VIEW_REGIONS = {'forehead': ['forehead', 'nose'], 'periorbital': ['periorbital'], 'rightCheek': ['rightCheek'], 'leftCheek': ['leftCheek'], 'chin': ['chin']}
+
+
+def seen_ids(findings, regions=None):
+    return sorted({f['id'] for f in findings if f['status'] == 'seen' and (regions is None or f['region'] in regions)})
+
+
+def check_result(p, rec, shots, tag, photo=True):
+    """The result screen shows exactly what the record carries (approved UI elements only)."""
+    general = rec['general']; fr = general['findings']; findings = fr['findings']
+    expect(p.locator('[data-skin-result]')).to_be_visible(timeout=20000)
+    ov = p.locator('[data-skin-overview-findings]')
+    assert ov.get_attribute('data-skin-findings-state') == fr.get('status', 'measured') if fr.get('status') == 'unavailable' else ov.get_attribute('data-skin-findings-state') == 'measured'
+    cards = sorted(p.locator('[data-skin-overview-finding]').evaluate_all('els=>els.map(e=>e.dataset.skinOverviewFinding)'))
+    pages = max(1, math.ceil(len(seen_ids(findings)) / 4))
+    for _ in range(pages - 1):   # the header arrows page the 2x2 grid
+        p.get_by_role('button', name='Sonraki bulgular').click()
+        cards += p.locator('[data-skin-overview-finding]').evaluate_all('els=>els.map(e=>e.dataset.skinOverviewFinding)')
+    if pages > 1: p.get_by_role('button', name='Sonraki bulgular').click()
+    assert sorted(set(cards)) == seen_ids(findings), (cards, seen_ids(findings))
+    # nothing measured is never presented as a score: no bar/percentage without a value in the record
+    if not any('severity' in f or 'areaPct' in f for f in findings):
+        assert '%' not in p.locator('[data-skin-overview]').inner_text()
+    if not cards:
+        assert p.locator('[data-skin-findings-empty]').get_attribute('data-skin-findings-empty') == ('unavailable' if fr.get('status') == 'unavailable' else 'measured')
+    pill = p.locator('[data-skin-findings-unmeasured]')
+    assert int(pill.get_attribute('data-skin-findings-unmeasured')) == len(fr.get('unavailable', []))
+    p.screenshot(path=str(OUT / f'{tag}-overview.png'), full_page=True); shots.append(f'{tag}-overview.png')
+    pill.click()
+    expect(p.locator('[data-skin-unmeasured-item]')).to_have_count(len(fr.get('unavailable', [])))
+    p.screenshot(path=str(OUT / f'{tag}-unmeasured.png'), full_page=True); shots.append(f'{tag}-unmeasured.png'); p.keyboard.press('Escape')
+    for card in cards[:1]:
+        p.locator(f'[data-skin-overview-finding="{card}"]').first.click()
+        if photo: assert p.locator('[data-face-panel]').bounding_box()['width'] >= 300
+        p.screenshot(path=str(OUT / f'{tag}-overview-{card}.png'), full_page=True); shots.append(f'{tag}-overview-{card}.png')
+        p.locator(f'[data-skin-overview-finding="{card}"]').first.click()
+    for view, regions in VIEW_REGIONS.items():
+        tab = p.locator(f'[data-skin-region-tab="{view}"]'); tab.click()
+        want = seen_ids(findings, regions)
+        badge = tab.inner_text().strip().split('\n')[-1]
+        assert (badge.isdigit() and int(badge) == len(want)) or (not want and not badge.isdigit()), (view, badge, want)
+        if want:
+            expect(p.locator('[data-skin-finding-card]')).to_have_count(1)
+            assert p.locator('[data-skin-finding-card]').get_attribute('data-skin-finding-card') in want
+            # mole markers are only drawn on the photo of their own pose
+            if p.locator('[data-skin-finding-card]').get_attribute('data-skin-finding-card') == 'mole':
+                photo_pose = p.locator('[data-face-panel]').evaluate("e=>e.closest('[data-skin-result]')&&document.querySelector('[data-skin-snapshot]')?.getAttribute('data-snapshot-pose')")
+                (OUT / f'{tag}-{view}-marker-pose.json').write_text(json.dumps({'photoPose': photo_pose}), 'utf8')
+            p.get_by_role('button', name='Öneriler').click(); expect(p.locator('[data-skin-recommendations]')).to_have_count(1)
+            # no measured score/count in this model version -> no band is chosen
+            if not any(('severity' in f or 'areaPct' in f or 'countRange' in f) for f in findings):
+                expect(p.locator('[data-skin-rec-unmeasured]')).to_have_count(1)
+            p.screenshot(path=str(OUT / f'{tag}-{view}-recommendations.png'), full_page=True); shots.append(f'{tag}-{view}-recommendations.png'); p.keyboard.press('Escape')
+        else:
+            expect(p.locator('[data-skin-findings-empty]')).to_have_count(1)
+        if photo:   # the photo of the page stays readable next to the labels (no squeezed photo column)
+            assert p.locator('[data-face-panel]').bounding_box()['width'] >= 300, (view, p.locator('[data-face-panel]').bounding_box())
+        p.screenshot(path=str(OUT / f'{tag}-{view}.png'), full_page=True); shots.append(f'{tag}-{view}.png')
+    p.locator('[data-skin-region-tab="overview"]').click()
+
+
 with sync_playwright() as pw:
- gpu=['--use-gl=angle','--use-angle=swiftshader'] if '--software-gpu' in sys.argv else []
- b=pw.chromium.launch(channel='chrome',headless=True,args=['--use-fake-device-for-media-stream','--use-file-for-fake-video-capture='+str(Path('audit-fixtures/three-angle.y4m').resolve()),'--enable-unsafe-swiftshader',*gpu])
- c=b.new_context(permissions=['camera'],viewport={'width':1600,'height':1000})
- c.add_init_script(INIT)
- c.add_init_script(APPEARANCE)
- p=c.new_page();errors=[];console=[];p.on('pageerror',lambda e:errors.append(str(e)));p.on('console',lambda m:console.append({'type':m.type,'text':m.text[:1000]}));model_requests=[];p.on('request',lambda r:model_requests.append(r.url) if 'selfie_multiclass' in r.url else None)
- c.request.post('http://127.0.0.1:8000/api/vehicle/speed',data={'speedKmH':0})
- runs=[]
- for n in range(2):
-  if n==1:
-   saved=c.storage_state();c.close();b.close()
-   profile=tempfile.TemporaryDirectory(prefix='attune-skin-result-zoom-')
-   pref=Path(profile.name)/'Default';pref.mkdir();(pref/'Preferences').write_text(json.dumps({'partition':{'default_zoom_level':{'x':math.log(2)/math.log(1.2)}}}),'utf8')
-   c=pw.chromium.launch_persistent_context(profile.name,channel='chrome',headless=False,no_viewport=True,permissions=['camera'],args=['--window-size=1600,1000','--use-fake-device-for-media-stream','--use-file-for-fake-video-capture='+str(Path('audit-fixtures/three-angle.y4m').resolve()),'--enable-unsafe-swiftshader',*gpu])
-   c.add_init_script(INIT)
-   c.add_init_script(APPEARANCE)
-   storage=saved['origins'][0]['localStorage']
-   c.add_init_script('if(location.origin==="http://127.0.0.1:3000" && !sessionStorage.getItem("restored-fixture-state")){for(const v of '+json.dumps(storage)+')localStorage.setItem(v.name,v.value);sessionStorage.setItem("restored-fixture-state","1");}')
-   p=c.new_page();p.on('pageerror',lambda e:errors.append(str(e)));p.on('request',lambda r:model_requests.append(r.url) if 'selfie_multiclass' in r.url else None)
-  if n==0:
-   p.goto('http://127.0.0.1:3000/privacy');p.get_by_label('Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla').check()
-  p.goto('http://127.0.0.1:3000/skin');start=time.monotonic();p.get_by_role('button',name='Analizi Başlat',exact=True).click()
-  trace=[];deadline=time.monotonic()+270
-  while not p.get_by_text('Cilt Analizi Tamamlandı',exact=True).count() and time.monotonic()<deadline:
-   p.wait_for_timeout(2000)
-   row=p.evaluate('({at:performance.now(),canvas:{...document.querySelector("canvas")?.dataset},guidance:document.querySelector("[data-camera-preparation]")?.innerText,body:document.body.innerText})');trace.append(row)
-   (OUT/f'trace-{n}.json').write_text(json.dumps(trace,ensure_ascii=False,indent=2),'utf8')
-   if not row['guidance'] and ('motoru' in row['body'] or 'başarısız' in row['body']):break
-  if not p.get_by_text('Cilt Analizi Tamamlandı',exact=True).count():
-   p.screenshot(path=str(OUT/f'failure-{n}.png'),full_page=True);(OUT/f'failure-{n}.json').write_text(json.dumps({'console':console,'pageErrors':errors,'body':p.locator('body').inner_text()},ensure_ascii=False,indent=2),'utf8')
-  expect(p.get_by_text('Cilt Analizi Tamamlandı',exact=True)).to_be_visible(timeout=1000)
-  if n==1:
-   native200=p.evaluate('({innerWidth,outerWidth,dpr:devicePixelRatio,cssZoom:getComputedStyle(document.documentElement).zoom})')
-   assert native200['dpr']>=2 and native200['innerWidth']<native200['outerWidth']*.65 and native200['cssZoom']=='1',native200
-  value=p.evaluate('JSON.parse(localStorage.getItem("togg_health_latest_skin"))');ref=p.evaluate('JSON.parse(localStorage.getItem("attune_skin_appearance_reference_v1"))')
-  assert value['schemaVersion']==3 and value['indicatorContract']=='regional-appearance-v4' and value['usedMediaPipe']
-  assert value['isBaseline'] is False and value['analysisMode']=='instant-appearance-v2' and len(value['indicators'])==6
-  assert ref is None, 'Active analysis must not create a personal reference'
-  assert len({v['photoId'] for v in p.evaluate('window.appearanceRequests')[-3:]})==3
-  assert not model_requests and all(m['type'] not in ('initializeSegmentation','segment') for m in p.evaluate('window.workerMessages'))
-  assert 'data:image' not in p.evaluate('JSON.stringify(Object.fromEntries(Object.entries(localStorage)))')
-  general=value['general'];assert general['analysisId']==value['id'] and general['pose']=='FRONT'
-  assert p.get_by_role('heading',name='Genel Bakış',exact=True).count()==1
-  assert p.locator('[data-skin-indicator]').count()==9 and p.locator('[data-skin-type]').count()==1
-  assert p.locator('[data-skin-mesh]').count()==0,'Overview must not stack six meshes'
-  assert '1 / 7' in p.locator('[data-skin-navigation]').inner_text()
-  overview_svg=p.locator('[data-skin-snapshot]');assert overview_svg.get_attribute('data-snapshot-photoid')==general['captureId']
-  overview_source=overview_svg.locator('image').first.get_attribute('href')
-  p.screenshot(path=str(OUT/f'overview-{n}.png'),full_page=True)
-  p.locator('[data-skin-indicator="redness"]').click()
-  assert p.locator('[data-skin-local-fill]').get_attribute('data-map-photo')==general['captureId']
-  assert p.locator('[data-skin-mesh]').count()==0 and overview_svg.locator('image').first.get_attribute('href')==overview_source
-  capture(p,c,OUT/f'overview-map-{n}.png',n==1)
-  p.get_by_role('button',name='Sonraki Bölge',exact=True).click()
-  graphs=[];source_by_region={};photo_by_region={}
-  for i in range(6):
-   svg=p.locator('[data-skin-snapshot]');mesh=p.locator('[data-skin-mesh]');assert mesh.count()==1
-   region=mesh.get_attribute('data-skin-mesh');graphs.append(region);assert mesh.locator('[data-mesh-edge]').count()>0
-   assert svg.locator('clipPath').count()==1 and svg.locator('mask').count()==0
-   width=float(svg.get_attribute('data-snapshot-width'));height=float(svg.get_attribute('data-snapshot-height'))
-   crop=json.loads(p.locator('[data-face-panel]').get_attribute('data-preview-crop'))
-   box=list(map(float,svg.get_attribute('viewBox').split()))
-   expected=[crop['x']*width,crop['y']*height,crop['width']*width,crop['height']*height]
-   assert all(abs(a-b)<.0001 for a,b in zip(box,expected))
-   assert 0<=box[0] and 0<=box[1] and box[0]+box[2]<=width+.0001 and box[1]+box[3]<=height+.0001
-   assert box[2]<width*.9 and box[3]<height*.95, 'Result must use actual face framing'
-   assert p.evaluate("""()=>{const s=document.querySelector('[data-skin-snapshot]'),v=s.viewBox.baseVal,m=s.querySelector('[data-skin-mesh]').getBBox();return m.x>=v.x&&m.y>=v.y&&m.x+m.width<=v.x+v.width&&m.y+m.height<=v.y+v.height;}""")
-   shown=[v.removesuffix('%') for v in p.locator('[data-skin-score]').all_text_contents()]
-   numeric=[v for v in value['indicators'][region] if v['score'] is not None]
-   expected_scores=[]
-   for indicator in numeric:
-    appearance=indicator.get('appearance',{})
-    if appearance.get('type')=='longitudinal_measurement':
-     expected_scores.append('Referans oluşturuldu' if appearance.get('limitationCode')=='REFERENCE_CREATED' else str(math.floor(indicator['score']*1000+.5)))
-    else:expected_scores.append(str(math.floor(indicator['score']+.5)))
-   assert shown==expected_scores,(region,shown,expected_scores)
-   assert p.get_by_role('meter').count()==sum(v.get('appearance',{}).get('type')!='longitudinal_measurement' and v.get('appearance',{}).get('unit')!='candidate-count' for v in numeric)
-   for indicator in value['indicators'][region]:
-    if indicator['score'] is None:assert p.locator('[data-skin-indicator="'+indicator['id']+'"]').get_by_role('meter').count()==0
-   layout=p.locator('[data-skin-result-layout]').bounding_box();photo=p.locator('[data-face-panel]').bounding_box()
-   p.screenshot(path=str(OUT/f'layout-{n}-{region}.png'),full_page=True)
-   assert abs(photo['y']-layout['y'])<=1, ('Photo must align with summary top',n,region,photo,layout)
-
-   alpha=p.evaluate('''async()=>{const image=new Image();image.src=document.querySelector('[data-skin-snapshot] image').getAttribute('href');await image.decode();const canvas=document.createElement('canvas');canvas.width=image.naturalWidth;canvas.height=image.naturalHeight;const ctx=canvas.getContext('2d');ctx.drawImage(image,0,0);const data=ctx.getImageData(0,0,canvas.width,canvas.height).data;let nonopaque=0;for(let i=3;i<data.length;i+=4)if(data[i]!==255)nonopaque++;return {nonopaque,width:canvas.width,height:canvas.height};}''')
-   assert alpha['nonopaque']==0
-   photo_id=svg.get_attribute('data-snapshot-photoid');assert photo_id
-   surface=p.evaluate('(id)=>window.surfaceResults.find(v=>v.photoId===id)',photo_id);assert surface
-   request=p.evaluate('(id)=>window.surfaceRequests.find(v=>v.id===id)',surface['id']);assert request
-   import base64
-   source=svg.locator('image').first.get_attribute('href');source_by_region[region]=source;photo_by_region[region]=photo_id;(OUT/f'source-{n}-{region}.png').write_bytes(base64.b64decode(source.split(',')[1]))
-   (OUT/f'source-{n}-{region}.json').write_text(json.dumps({**request,'region':region,'photoId':photo_id,'localAnalysis':json.loads(svg.get_attribute('data-local-analysis'))}),'utf8')
-   appearance_request=p.evaluate('(id)=>window.appearanceRequests?.find(v=>v.photoId===id)',photo_id)
-   if appearance_request:(OUT/f'appearance-{n}-{region}.json').write_text(json.dumps(appearance_request),'utf8')
-   appearance_response=p.evaluate('(id)=>window.appearanceResponses.find(v=>v.photoId===id)',photo_id);assert appearance_response
-   (OUT/f'appearance-response-{n}-{region}.json').write_text(json.dumps(appearance_response),'utf8')
-   if region!='periorbital':
-    mapping=appearance_response['maps'][region+':redness'];assert mapping['photoId']==photo_id and mapping['region']==region and mapping['pose']==request['pose']
-    # Real user-facing card interaction, no fabricated map or model result.
-    source_before=svg.locator('image').first.get_attribute('href')
-    p.locator('[data-skin-indicator="redness"]').click()
-    fill=p.locator('[data-skin-local-fill]');assert fill.count()==1 and fill.get_attribute('data-skin-local-fill')=='redness' and fill.get_attribute('data-map-photo')==photo_id
-    assert svg.locator('clipPath').count()==1 and svg.locator('mask').count()==1
-    assert svg.evaluate('(s)=>s.querySelector("[data-skin-local-fill]").compareDocumentPosition(s.querySelector("[data-skin-mesh]"))&Node.DOCUMENT_POSITION_FOLLOWING')
-    source_after=svg.locator('image').first.get_attribute('href');assert source_after==source_before
-    raw={**mapping,'rgba':mapping['dataUrl'],'mask':mapping['validMaskUrl']}
-    # Typed arrays cross evaluate as indexed objects; use Object.values below.
-    (OUT/f'map-{n}-{region}.json').write_text(json.dumps(raw),'utf8')
-    capture(p,c,OUT/f'fill-{n}-{region}.png',n==1)
-    raster=p.evaluate('''async()=>{const s=document.querySelector('[data-skin-snapshot]').cloneNode(true);s.querySelector('image').remove();s.querySelector('[data-skin-mesh]').remove();const width=+s.dataset.snapshotWidth,height=+s.dataset.snapshotHeight;s.setAttribute('xmlns','http://www.w3.org/2000/svg');s.setAttribute('viewBox',`0 0 ${width} ${height}`);s.setAttribute('width',width);s.setAttribute('height',height);const u=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(s)],{type:'image/svg+xml'}));try{const i=new Image();i.src=u;await i.decode();const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;canvas.getContext('2d').drawImage(i,0,0);return canvas.toDataURL('image/png');}finally{URL.revokeObjectURL(u);}}''')
-    (OUT/f'rendered-map-{n}-{region}.png').write_bytes(base64.b64decode(raster.split(',')[1]))
-    p.locator('[data-skin-indicator="tone"]').focus();p.keyboard.press('Enter');assert p.locator('[data-skin-local-fill]').get_attribute('data-skin-local-fill')=='tone'
-    if region!='nose':p.locator('[data-skin-indicator="sag"]').click()
-
-   for criterion in ('oil','acne','dry','dark','lines','bags','sag'):
-    card=p.locator('[data-skin-indicator="'+criterion+'"]')
-    if not card.count():continue
-    card.click();expected_map=appearance_response['maps'].get(region+':'+criterion)
-    item=next(v for v in value['indicators'][region] if v['id']==criterion)
-    fill=p.locator('[data-skin-local-fill]')
-    assert fill.count()==int(expected_map is not None and item['score'] is not None),(region,criterion,item)
-    if fill.count():assert fill.get_attribute('data-skin-local-fill')==criterion and fill.get_attribute('data-map-photo')==photo_id
-    if criterion=='acne':
-     row=next(v for v in appearance_response['measurements'][region] if v['id']=='acne');assert p.locator('[data-acne-candidate]').count()==len(row['components'].get('bounds',[]))
-   # Preserve the same initial result view for the visual acceptance evidence.
-   p.locator('[data-skin-indicator]').first.click()
-
-   if region=='nose':assert p.get_by_role('heading',name='T-Bölgesi',exact=True).count()==1 and p.locator('[data-skin-indicator]').count()==5
-   if region=='periorbital':assert p.locator('[data-skin-indicator]').count()==4
-   for indicator in value['indicators'][region]:
-    if indicator.get('appearance'):
-     assert indicator['appearance']['region']==region
-     assert indicator['score']==indicator['appearance']['value']
-     if indicator['score'] is None:assert indicator['appearance']['limitationCode']
-   assert p.locator('[data-skin-navigation]').bounding_box()['y']>=p.locator('[data-face-panel]').bounding_box()['y']+p.locator('[data-face-panel]').bounding_box()['height']-1
-   if n==1:
-    geometry=p.evaluate('({width:innerWidth,scroll:document.documentElement.scrollWidth,photo:document.querySelector("[data-face-panel]").getBoundingClientRect().toJSON(),summary:document.querySelector("[data-skin-indicators]").getBoundingClientRect().toJSON()})')
-    assert geometry['scroll']<=geometry['width'] and geometry['photo']['right']<=geometry['width'] and geometry['summary']['right']<=geometry['width'],geometry
-    p.locator('[data-face-panel]').scroll_into_view_if_needed()
-    physical=capture(p,c,OUT/f'{n}-{region}-native200.png',True)
-    p.locator('[data-skin-indicators]').scroll_into_view_if_needed()
-    score_capture=capture(p,c,OUT/f'{n}-{region}-native200-scores.png',True)
-    (OUT/f'{n}-{region}-native200-geometry.json').write_text(json.dumps({'dom':geometry,'physical':physical,'scoreCapture':score_capture}),'utf8')
-   else:
-    p.screenshot(path=str(OUT/f'{n}-{region}-desktop.png'),full_page=True)
-   p.get_by_role('button',name='Sonraki Bölge',exact=True).click()
-  assert graphs==['forehead','rightCheek','leftCheek','nose','chin','periorbital']
-  timings=p.evaluate('window.workerTimings');initializations=[t['milliseconds'] for t in timings if t['type']=='initialize' and not t['error']];frames=[t['milliseconds'] for t in timings if t['type']=='frame' and not t['error']]
-  assert initializations and frames
-  runs.append({'seconds':time.monotonic()-start,'result':value,'reference':ref,'sourcePhotoOpaque':True,'graphs':graphs,'cameraWorkerTiming':{'initializeRoundTripMs':initializations,'firstFrameRoundTripMs':frames[0],'medianFrameRoundTripMs':__import__('statistics').median(frames),'measuredFrames':len(frames),'guidanceEvents':p.evaluate('window.guidanceEvents'),'definition':'actual worker request-response; initialization includes assets/runtime readiness; frame includes bitmap IPC/inference/response; no speedup claim'}})
-  (OUT/f'completed-{n}.json').write_text(json.dumps(runs[-1],ensure_ascii=False,indent=2),'utf8')
-  p.get_by_role('button',name='Referans ve görüntü hakkında bilgi').click();dialog=p.get_by_role('dialog');assert dialog.locator('li').count()==6
-  assert 'alpha dekupe' not in dialog.inner_text() and 'Eski kayıtların sayısal' not in dialog.inner_text()
-  capture(p,c,OUT/f'reference-info-{n}.png',n==1);p.keyboard.press('Escape')
-  if n==0:
-   p.set_viewport_size({'width':720,'height':900});capture(p,c,OUT/'narrow.png');assert p.evaluate('document.documentElement.scrollWidth<=innerWidth')
-   p.set_viewport_size({'width':1600,'height':1000})
-   # Deliberately unreadable historical keys must not gate the next current-photo scan.
-   legacy_raw='corrupt-old-reference-preserved'
-   p.evaluate('(raw)=>{for(const key of ["togg_health_skin_multi_baseline_v2","attune_skin_appearance_single_reference_v1","togg_health_skin_baseline"])localStorage.setItem(key,raw);}',legacy_raw)
-  else:assert p.evaluate('localStorage.getItem("togg_health_skin_multi_baseline_v2")')==legacy_raw
-  # Client navigation preserves only the in-memory current session frames.
-  p.get_by_role('link',name='Sağlık Geçmişim',exact=True).click();p.locator('[data-record-id="'+value['id']+'"]').get_by_role('button',name='Sonucu Aç',exact=True).click()
-  dialog=p.get_by_role('dialog',name='Cilt Sağlığı sonucu',exact=True)
-  assert dialog.get_by_role('heading',name='Genel Bakış',exact=True).count()==1
-  assert dialog.locator('[data-skin-mesh]').count()==0
-  assert dialog.locator('[data-skin-snapshot]').get_attribute('data-snapshot-photoid')==general['captureId']
-  assert dialog.locator('[data-skin-snapshot] image').first.get_attribute('href')==overview_source
-  dialog.get_by_role('button',name='Sonraki Bölge',exact=True).click()
-  for region in graphs:
-   current=dialog.locator('[data-skin-snapshot]');assert current.get_attribute('data-snapshot-photoid')==photo_by_region[region]
-   assert current.locator('image').first.get_attribute('href')==source_by_region[region]
-   assert dialog.locator('[data-skin-mesh]').get_attribute('data-skin-mesh')==region
-   assert dialog.locator('[data-skin-local-fill]').count()==0
-   card=dialog.locator('[data-skin-record-indicator="'+('dark' if region=='periorbital' else 'redness')+'"]');card.click()
-   if dialog.locator('[data-skin-local-fill]').count():assert dialog.locator('[data-skin-local-fill]').get_attribute('data-map-photo')==photo_by_region[region]
-   if region=='forehead':capture(p,c,OUT/f'history-session-photo-{n}.png',n==1)
-   dialog.get_by_role('button',name='Sonraki Bölge',exact=True).click()
-  p.keyboard.press('Escape');assert 'data:image' not in p.evaluate('JSON.stringify(Object.fromEntries(Object.entries(localStorage)))')
- assert not errors,errors
- proof={'status':'PASS','buildId':Path('apps/vehicle-app/.next/BUILD_ID').read_text().strip(),'controlledFixture':True,'physicalCamera':False,'poseMock':False,'qualityOverride':False,'segmentationRequests':model_requests,'legacyReferencePreserved':True,'sourcePhotoOpaque':True,'faceFraming':True,'integerScores':True,'unavailableBars':False,'native200':native200,'localMaps':'actual CV appearance maps + selected-source geometry; no clinical validation','pageErrors':errors,'runs':runs}
- (OUT/'proof.json').write_text(json.dumps(proof,ensure_ascii=False,indent=2),'utf8');c.close()
- if profile:profile.cleanup()
-print('PASS: current photo, actual three fixture poses, six selected meshes, no reference dependency, native 200 layout')
+    b = pw.chromium.launch(headless=True, args=ARGS, **CHANNEL)
+    c = b.new_context(permissions=['camera'], viewport={'width': 1600, 'height': 1000})
+    c.add_init_script(HOOK)
+    # SKIN_E2E_SAVE_PHOTOS=1 (diagnostics only, fixture photos): keeps the exact photo + landmarks the app sent
+    if os.environ.get('SKIN_E2E_SAVE_PHOTOS') == '1': c.add_init_script('window.__savePhotos=true')
+    p = c.new_page(); errors = []; p.on('pageerror', lambda e: errors.append(str(e)))
+    assert c.request.post('http://127.0.0.1:8000/api/vehicle/speed', data={'speedKmH': 0}).ok
+    p.goto('http://127.0.0.1:3000/privacy'); p.get_by_label('Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla').check()
+    p.goto('http://127.0.0.1:3000/skin')
+    consent = p.get_by_label('Yüz görüntümün ve görünüm göstergelerimin bu cihazda geçici işlenmesine izin veriyorum.')
+    consent.wait_for(timeout=10000); consent.check(); p.get_by_role('button', name='İzin ver ve devam et').click()   # the user's service consent
+    start = time.monotonic()
+    p.get_by_role('button', name='Analizi Başlat', exact=True).click()
+    deadline = time.monotonic() + float(os.environ.get('SKIN_E2E_TIMEOUT', '420')); trace = []
+    while not p.locator('[data-skin-result]').count() and time.monotonic() < deadline:
+        p.wait_for_timeout(3000)
+        trace.append(p.evaluate('({t:performance.now(),calls:window.skinCalls.map(c=>[c.kind,c.pose||c.poses,c.status]),body:document.body.innerText.slice(0,400)})'))
+        (OUT / 'trace.json').write_text(json.dumps(trace, ensure_ascii=False, indent=1), 'utf8')
+    if not p.locator('[data-skin-result]').count():
+        p.screenshot(path=str(OUT / 'failure.png'), full_page=True)
+        raise SystemExit('FAIL: no result screen; see trace.json / failure.png')
+    seconds = time.monotonic() - start
+    if os.environ.get('SKIN_E2E_SAVE_PHOTOS') == '1':
+        import base64
+        for x in p.evaluate('window.skinPhotos||[]'):
+            (OUT / f"sent-{x['pose']}.png").write_bytes(base64.b64decode(x['photo'].split(',')[1]))
+            (OUT / f"sent-{x['pose']}-landmarks.json").write_text(json.dumps(x['landmarks']), 'utf8')
+    calls = p.evaluate('window.skinCalls'); (OUT / 'api-calls.json').write_text(json.dumps(calls, ensure_ascii=False, indent=1), 'utf8')
+    skin = [x for x in calls if x['kind'] == 'skin' and x['status'] == 200]; fuse = [x for x in calls if x['kind'] == 'fuse']
+    # three distinct photos, one per pose, each analysed by the saved models
+    assert sorted(x['pose'] for x in skin[-3:]) == ['FRONT', 'LEFT', 'RIGHT'] and len({x['photoId'] for x in skin[-3:]}) == 3, skin
+    for x in skin[-3:]:
+        assert x['status2'] == 'OK' and x['regionalSkinMap']['evidence'], x
+        assert all(len(h) == 64 for h in x['regionalSkinMap']['models'].values()), x['regionalSkinMap']['models']
+    front = next(x for x in skin[-3:] if x['pose'] == 'FRONT')
+    assert front['general']['findings']['status'] == 'unavailable' and front['general']['findings']['reason'] == 'REQUIRED_POSES_MISSING'
+    # the three-angle result comes from the server fusion, once
+    assert len(fuse) == 1 and fuse[0]['status'] == 200 and sorted(fuse[0]['poses']) == ['FRONT', 'LEFT', 'RIGHT'], fuse
+    fused = fuse[0]['response']; assert fused['findings']['status'] == 'measured'
+    rec = p.evaluate('JSON.parse(localStorage.getItem("togg_health_latest_skin"))')
+    hist = p.evaluate('JSON.parse(localStorage.getItem("togg_health_skin_history"))')
+    assert rec['comparisonScope'] == 'three-angle-v2' and rec['general']['analysisId'] == rec['id']
+    # the record carries exactly the server's findings and regional map (no client rebuild)
+    assert rec['general']['findings'] == fused['findings']
+    assert rec['general']['regionalSkinMap'] == fused['regionalSkinMap']
+    assert hist[0]['id'] == rec['id'] and hist[0]['general']['findings'] == fused['findings']
+    if fused['regionalSkinMap'] and fused['regionalSkinMap']['skinType']['quality'] == 'valid':
+        assert rec['general']['skinType']['value'] == fused['regionalSkinMap']['skinType']['value']
+    else:
+        assert rec['general']['skinType']['value'] is None
+    assert 'data:image' not in p.evaluate('JSON.stringify(Object.fromEntries(Object.entries(localStorage)))')
+    shots = []
+    check_result(p, rec, shots, 'result')
+    # reopen the stored record (normal app route): same measurements on the approved result screen
+    p.goto('http://127.0.0.1:3000/skin?view=latest')
+    check_result(p, rec, shots, 'reopened', photo=False)   # numeric record only: photos are kept in memory / with separate consent
+    native = None
+    if NATIVE:
+        from owned_window_capture import capture_owned_window
+        saved = c.storage_state(); c.close(); b.close()
+        profile = tempfile.TemporaryDirectory(prefix='attune-skin-result-zoom-')
+        pref = Path(profile.name) / 'Default'; pref.mkdir(); (pref / 'Preferences').write_text(json.dumps({'partition': {'default_zoom_level': {'x': math.log(2) / math.log(1.2)}}}), 'utf8')
+        c = pw.chromium.launch_persistent_context(profile.name, headless=False, no_viewport=True, args=['--window-size=1600,1000', *ARGS], **CHANNEL)
+        c.add_init_script('if(location.origin==="http://127.0.0.1:3000"&&!sessionStorage.getItem("r")){for(const v of ' + json.dumps(saved['origins'][0]['localStorage']) + ')localStorage.setItem(v.name,v.value);sessionStorage.setItem("r","1");}')
+        p = c.new_page(); p.goto('http://127.0.0.1:3000/skin?view=latest'); expect(p.locator('[data-skin-result]')).to_be_visible(timeout=20000)
+        native = p.evaluate('({innerWidth,outerWidth,dpr:devicePixelRatio,scroll:document.documentElement.scrollWidth})')
+        assert native['dpr'] >= 2 and native['scroll'] <= native['innerWidth'], native
+        capture_owned_window(p, profile.name, OUT / 'native200-overview.png'); profile.cleanup()
+    assert not errors, errors
+    proof = dict(status='PASS', camera='fake-device y4m fixture (not a physical camera)', fixture=str(Y4M.name), poseMock=False, qualityOverride=False,
+                 modelInference='real (saved models via core-api)', seconds=round(seconds, 1), recordId=rec['id'],
+                 findings=rec['general']['findings'], skinType=rec['general']['skinType'].get('value'),
+                 nativeZoom=native if NATIVE else 'NOT RUN (--skip-native-zoom)', screenshots=shots, pageErrors=errors)
+    (OUT / 'proof.json').write_text(json.dumps(proof, ensure_ascii=False, indent=2), 'utf8'); c.close()
+print('PASS: camera fixture -> /skin x3 -> /skin/regional-fuse -> record -> result screen -> reopened record carry the same findings')
