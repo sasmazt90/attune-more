@@ -31,7 +31,7 @@ def test_cross_tile_nms_deduplicates_same_source_focus():
 
 def test_accepted_degree_load_failure_preserves_unavailable_target(tmp_path,monkeypatch):
     file=tmp_path/'skin-focused.json'
-    file.write_text(json.dumps(dict(models={'degrees':dict(accepted=True,acceptedTargets=['redness'])})))
+    file.write_text(json.dumps(dict(models={'degrees':dict(accepted=True,targets=['redness'],acceptedTargets=['redness'])})))
     monkeypatch.setattr(M,'MANIFEST',file)
     def broken_load():raise RuntimeError('accepted session unavailable')
     monkeypatch.setattr(M,'load',broken_load)

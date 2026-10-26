@@ -17,7 +17,7 @@ def test_explicit_consent_atomic_storage_relaunch_and_revocation(tmp_path):
             c=pw.chromium.launch_persistent_context(str(tmp_path/'browser'),channel='chrome',headless=True)
             c.route('**/*',lambda r:r.fulfill(body='<html>Isolated photo-store unit test</html>',content_type='text/html'))
             p=c.new_page();p.goto('http://localhost:6982/unit')
-            p.evaluate('(js)=>{window.photos={};new Function("exports",js)(photos);}',js)
+            p.evaluate('''(js)=>{window.photos={};const localRequire=id=>{if(id==='./regionalSkinMap')return {retainedRegionalSkinReplay:()=>undefined};throw new Error('Unexpected test import: '+id);};new Function("exports","require",js)(photos,localRequire);}''',js)
             return c,p
         c,p=launch()
         p.evaluate('''()=>{

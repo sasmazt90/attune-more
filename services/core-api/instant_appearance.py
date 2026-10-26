@@ -4,6 +4,7 @@ See docs/skin-appearance-indices-20261011.md. Historical contour_geometry is not
 import cv2
 import numpy as np
 from scipy.ndimage import gaussian_filter1d
+from skin_product_contract import sag_appearance_components
 
 UNIT='contour-fold-index-0-100'
 # All intensities are 0..1; offsets are face-width-normalized pixels.
@@ -127,7 +128,10 @@ def instant_proxy(gray,eligible,points,region,conditions,scale,origin,source_sha
     empty=np.zeros(gray.shape,np.float32)
     formula='contour-fold-lower-chin-observed-runs-v9' if region=='chin' else 'contour-fold-local-support-v5' if region=='periorbital' else 'contour-fold-visible-region-unique-centers-v7'
     if region in ('rightCheek','leftCheek','chin'):formula+='-expression-v3-observed-pose'
-    fail=lambda code:(None,dict(formulaVersion=formula,**({'samplingSupportVersion':'tracked-center-eligible-v1'} if region=='periorbital' else {})),empty,[],code)
+    def failure_components():
+        components=dict(formulaVersion=formula,**({'samplingSupportVersion':'tracked-center-eligible-v1'} if region=='periorbital' else {}))
+        return components if region=='periorbital' else sag_appearance_components(components)
+    fail=lambda code:(None,failure_components(),empty,[],code)
     if region=='forehead':return fail('BROW_FOLD_IS_NOT_LOWER_FACE_SAGGING')
     if eye_width<35:return fail('INSUFFICIENT_NATIVE_DETAIL')
     if abs(conditions.get('yaw',99))>.65 or abs(conditions.get('pitch',99))>.22:return fail('HEAD_ANGLE_UNSUPPORTED')
