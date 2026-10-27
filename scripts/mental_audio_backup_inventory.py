@@ -64,7 +64,17 @@ class Inventory:
         for path in sorted(self.state.glob('pronunciation-progress-*.json')):
             candidates.append(self.item(path,'snapshots/'+path.name))
         for path in sorted((self.state/'outbox').glob('*/*')):
-            if path.is_file():candidates.append(self.item(path,path.parent.name+'/'+path.name))
+            if not path.is_file():continue
+            extra={}
+            if path.parent.name=='closing-validation':extra['repositoryPath']='docs/mental-structured/closing-female-calm-v1/'+path.name
+            targets={'female-calm-v1-manifest-final.json':'apps/vehicle-app/public/audio/mental/v1/female-calm-v1-manifest.json',
+                     'content-final.json':'shared/mental/v1/content.json',
+                     'catalog-validation.json':'docs/mental-structured/catalog-validation.json'}
+            if path.parent.name=='reports' and path.name in targets:extra['repositoryPath']=targets[path.name]
+            candidates.append(self.item(path,path.parent.name+'/'+path.name,**extra))
+        closing=ROOT/'docs/mental-structured/closing-female-calm-v1'
+        for path in sorted(closing.glob('??-closing.wav')):
+            candidates.append(self.item(path,'closing-validation/'+path.name,repositoryPath=str(path.relative_to(ROOT))))
         for entry in manifest['entries']:
             for recording,active in [(r,False) for r in entry.get('supersededRecordings',[])]+[(entry,True)]:
                 if not recording.get('sha256'):continue
