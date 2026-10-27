@@ -20,6 +20,7 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[2]
+EXPECTED_BRANCH = "work/skin-roadmap-20261023"
 EXPECTED_CODE_BLOBS = {
     "apps/vehicle-app/src/utils/regionalSkinMap.ts": "258ab2d845b3743ede309938cd14da8831a01046",
     "apps/vehicle-app/src/utils/skinOverview.ts": "4d31010f82bfd5c42a49b46c20880630d57079dd",
@@ -137,7 +138,13 @@ def _validate_gate_registry(receipt: dict[str, Any], evidence_root: Path) -> tup
 
 def _validate_repository_ci(identity: Any, evidence_root: Path) -> dict[str, Any]:
     payload = _load_evidence(identity, "repository CI", evidence_root)
+    _require(payload.get("schemaVersion"), 1, "repository CI schema changed")
+    _require(payload.get("branch"), EXPECTED_BRANCH, "repository CI branch identity changed")
     actions = payload.get("githubActions", {})
+    _require(
+        payload.get("implementationCommit"), actions.get("headSha"),
+        "repository CI implementation commit does not match workflow head",
+    )
     _require(actions.get("conclusion"), "success", "repository CI is not green")
     _require(actions.get("frontendProductionBuild"), "success", "frontend production build is not green")
     _require(actions.get("localizationContract"), "success", "localization contract is not green")
@@ -290,8 +297,8 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     blockers = list(dict.fromkeys(blockers))
     accepted = candidate_accepted and not blockers
     return {
-        "schemaVersion": 5,
-        "methodVersion": "unified-skin-result-release-gate-v5",
+        "schemaVersion": 6,
+        "methodVersion": "unified-skin-result-release-gate-v6",
         "workingBaselinePreserved": True,
         "currentIntegratedPresentationAllowed": True,
         "generatedReplayIntegrationSmokeAllowed": True,

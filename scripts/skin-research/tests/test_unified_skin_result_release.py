@@ -16,7 +16,7 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v5.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v6.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -44,6 +44,9 @@ def _install_complete_evidence(receipt, root):
     receipt["physicalCameraGate"]["evidence"] = _write(root, "camera-gate-accepted.json", camera)
     receipt["physicalCameraGate"]["accepted"] = True
     receipt["repositoryCI"] = _write(root, "repository-ci.json", {
+        "schemaVersion": 1,
+        "branch": module.EXPECTED_BRANCH,
+        "implementationCommit": "d" * 40,
         "githubActions": {
             "runId": 99, "headSha": "d" * 40, "conclusion": "success",
             "frontendProductionBuild": "success", "localizationContract": "success",
@@ -264,6 +267,9 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
                 receipt = _receipt()
                 _install_complete_evidence(receipt, root)
                 receipt["repositoryCI"] = _write(root, "repository-ci.json", {
+                    "schemaVersion": 1,
+                    "branch": module.EXPECTED_BRANCH,
+                    "implementationCommit": "e" * 40,
                     "githubActions": {
                         "runId": 99, "headSha": "e" * 40, "conclusion": "success",
                         "frontendProductionBuild": "success", "localizationContract": "success",
@@ -271,6 +277,50 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
                     }
                 })
                 with self.assertRaisesRegex(module.GateInputError, "CI commit identity mismatch"):
+                    module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_repository_ci_must_target_working_branch(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                receipt = _receipt()
+                _install_complete_evidence(receipt, root)
+                receipt["repositoryCI"] = _write(root, "repository-ci.json", {
+                    "schemaVersion": 1,
+                    "branch": "main",
+                    "implementationCommit": "d" * 40,
+                    "githubActions": {
+                        "runId": 99, "headSha": "d" * 40, "conclusion": "success",
+                        "frontendProductionBuild": "success", "localizationContract": "success",
+                        "completeSkinResearchEvidenceSuite": {"result": "OK"},
+                    }
+                })
+                with self.assertRaisesRegex(module.GateInputError, "branch identity"):
+                    module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_repository_ci_implementation_commit_must_match_workflow_head(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                receipt = _receipt()
+                _install_complete_evidence(receipt, root)
+                receipt["repositoryCI"] = _write(root, "repository-ci.json", {
+                    "schemaVersion": 1,
+                    "branch": module.EXPECTED_BRANCH,
+                    "implementationCommit": "e" * 40,
+                    "githubActions": {
+                        "runId": 99, "headSha": "d" * 40, "conclusion": "success",
+                        "frontendProductionBuild": "success", "localizationContract": "success",
+                        "completeSkinResearchEvidenceSuite": {"result": "OK"},
+                    }
+                })
+                with self.assertRaisesRegex(module.GateInputError, "does not match workflow head"):
                     module.evaluate_release(receipt, root)
         finally:
             module.EXPECTED_INPUT_EVIDENCE = original_inputs
