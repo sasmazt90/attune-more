@@ -344,7 +344,7 @@ def test_structured_closing_uses_dedicated_female_config_without_changing_legacy
         returncode=None
         async def communicate(self,payload):
             value=json.loads(payload)
-            assert value=={'config':str(female),'language':language,'text':narration}
+            assert value=={'config':str(female),'language':language,'text':narration,'speakerProfile':'female-calm-v1'}
             self.returncode=0;return wav_bytes(),b''
         def kill(self):self.returncode=-9
         async def wait(self):return self.returncode

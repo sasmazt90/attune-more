@@ -12,6 +12,7 @@ import pytest
 ROOT=Path(__file__).resolve().parents[2]
 
 def module(name):
+    if str(ROOT/'scripts') not in sys.path:sys.path.insert(0,str(ROOT/'scripts'))
     spec=importlib.util.spec_from_file_location(name,ROOT/'scripts'/f'{name}.py')
     value=importlib.util.module_from_spec(spec);spec.loader.exec_module(value);return value
 
@@ -108,3 +109,41 @@ def test_model_part_restore_checks_all_hashes_before_reassembly(tmp_path):
     (tmp_path/'part-0').write_bytes(b'corrupt')
     with pytest.raises(ValueError,match='PART_INTEGRITY'):restore.reassemble(manifest,tmp_path,tmp_path/'never-created.zip')
     assert not (tmp_path/'never-created.zip').exists()
+
+
+def test_pronunciation_screen_flags_loss_of_formality_negation_and_time():
+    review=module('validate_mental_audio')
+    assert review.pronunciation('Bugün ne konuşmak istersiniz?','Bugün ne konuşmak istersin?','tr')['formalAddressMissing']
+    assert review.pronunciation('Was hat Ihnen heute geholfen?','Was hat dir heute geholfen?','de')['formalAddressMissing']
+    assert review.pronunciation('What helped you yesterday?','What helped you today?','en')['criticalTokenMissing']
+
+
+@pytest.mark.parametrize('fault',['reference','settings','join'])
+def test_catalog_validation_refuses_changes_to_owner_approved_configuration(fault):
+    finalizer=module('finalize_mental_audio')
+    manifest=json.loads((ROOT/'apps/vehicle-app/public/audio/mental/v1/female-calm-v1-manifest.json').read_text())
+    content=json.loads((ROOT/'shared/mental/v1/content.json').read_text())
+    if fault=='reference':manifest['conditioningSha256']='0'*64
+    if fault=='settings':manifest['generation']={'cfg_weight':.9}
+    if fault=='join':manifest['joinSilenceMs']=250
+    with pytest.raises(ValueError,match='APPROVED_CONFIGURATION'):finalizer.audit(manifest,content,{})
+
+
+def test_failed_unapproved_recording_gets_new_revision_without_overwriting_original(tmp_path):
+    repair=module('repair_mental_audio');batch=module('mental_audio_batch')
+    import hashlib
+    key='v1/en/female-calm-v1/B01/B01-V02';path=tmp_path/'audio/mental'/ (key+'.wav');path.parent.mkdir(parents=True);path.write_bytes(b'UNAPPROVED SYNTHETIC TEST RECORDING')
+    entry={'assetId':key,'audioPath':'/audio/mental/'+key+'.wav','sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
+           'approvalStatus':'synthesized-awaiting-validation','exactScript':'Explicit nonpersonal fixture','language':'en','speakerProfile':'female-calm-v1','contentVersion':'v1'}
+    manifest={'entries':[entry]};report={'issues':[{'assetId':key,'issues':['clipped-samples']}]}
+    revised,plan=repair.plan(manifest,report,{},public=tmp_path)
+    assert revised['entries'][0]['audioPath'].endswith('B01-V02-r1.wav')
+    assert revised['entries'][0]['generationAttempt']==1 and 'sha256' not in revised['entries'][0]
+    assert revised['entries'][0]['supersededRecordings'][0]['sha256']==entry['sha256']
+    assert path.read_bytes()==b'UNAPPROVED SYNTHETIC TEST RECORDING' and manifest['entries'][0]['audioPath'].endswith('B01-V02.wav')
+    assert plan['approvedRecordingsChanged']==0
+    old=batch.recipe(entry,{'revision':'fixture'},'same-reference',{'cfg_weight':0})[0]
+    new=batch.recipe(revised['entries'][0],{'revision':'fixture'},'same-reference',{'cfg_weight':0})[0]
+    assert old['seed']!=new['seed'] and old['generation']==new['generation']
+    entry['approvalStatus']='approved'
+    with pytest.raises(ValueError,match='APPROVED_RECORDING'):repair.plan(manifest,report,{},public=tmp_path)

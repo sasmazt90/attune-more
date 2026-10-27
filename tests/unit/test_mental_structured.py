@@ -183,6 +183,24 @@ def test_catalog_semantic_parity_and_truthful_pending_manifest():
             path=ROOT/'apps/vehicle-app/public'/entry['audioPath'].lstrip('/')
             assert hashlib.sha256(path.read_bytes()).hexdigest()==entry['sha256']
             assert entry['durationMs']>0 and entry['sampleRate']==24000
+    if content()['reviewStatus']=='approved' and all(e['approvalStatus']=='approved' for e in manifest['entries'] if e['language']=='tr'):
+        require_approved_library('tr')
+    else:
+        with pytest.raises(Exception) as caught:require_approved_library('tr')
+        assert caught.value.status_code==503
+
+
+def test_library_gate_refuses_one_unapproved_asset_after_content_review(monkeypatch):
+    import copy
+    import mental_structured
+    library=copy.deepcopy(mental_structured.audio_manifest())
+    for entry in library['entries']:
+        entry['approvalStatus']='approved'
+        entry.setdefault('sha256','a'*64);entry.setdefault('durationMs',1000);entry.setdefault('bytes',48044)
+    next(e for e in library['entries'] if e['language']=='tr')['approvalStatus']='synthesized-awaiting-validation'
+    reviewed={**content(),'reviewStatus':'approved'}
+    monkeypatch.setattr(mental_structured,'content',lambda:reviewed)
+    monkeypatch.setattr(mental_structured,'audio_manifest',lambda:library)
     with pytest.raises(Exception) as caught:require_approved_library('tr')
     assert caught.value.status_code==503
 

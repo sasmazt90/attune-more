@@ -207,9 +207,13 @@ def route(text,language,state=None,control=None,is_driving=False,finish_after_re
     return output
 
 
+def audio_manifest():
+    return json.loads((ROOT/'apps/vehicle-app/public/audio/mental/v1/female-calm-v1-manifest.json').read_text('utf-8'))
+
+
 def require_approved_library(language):
     """No draft/silent dynamic fallback, and no externally supplied asset URLs."""
-    manifest=json.loads((ROOT/'apps/vehicle-app/public/audio/mental/v1/female-calm-v1-manifest.json').read_text('utf-8'))
+    manifest=audio_manifest()
     if content()['reviewStatus']!='approved' or manifest.get('joinApprovalStatus')!='approved':
         raise HTTPException(503,'STRUCTURED_CONTENT_AND_AUDIO_REVIEW_REQUIRED')
     expected={r['audioAssetId']:r for r in content()['rows'] if r['language']==language}

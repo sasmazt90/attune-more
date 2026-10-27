@@ -68,6 +68,9 @@ def test_explicit_v3_conditioning_uses_only_verified_configuration(monkeypatch, 
         if resident:
             boundary.validate_wave(worker.synthesize(payload, runtime))
             assert [c[0] for c in calls]==['load','generate','generate']
+            generation['cfg_weight']=.9
+            with pytest.raises(ValueError,match='BATCH_CONFIGURATION_CHANGED'):worker.synthesize(payload,runtime)
+            assert [c[0] for c in calls]==['load','generate','generate']
     else:
         with pytest.raises(ValueError, match='OFFICIAL_DEFAULT_CONDITIONING_MISSING'):
             worker.synthesize(payload, runtime)
@@ -76,3 +79,9 @@ def test_explicit_v3_conditioning_uses_only_verified_configuration(monkeypatch, 
     assert mapping.hf_hub_download(repo_id='ResembleAI/chatterbox', filename='Cangjie5_TC.json') == str(tmp_path / 'Cangjie5_TC.json')
     with pytest.raises(OSError, match='UNAPPROVED_AUXILIARY'):
         mapping.hf_hub_download(repo_id='another/model', filename='Cangjie5_TC.json')
+
+
+def test_worker_refuses_requested_profile_mismatch_before_model_import(monkeypatch,tmp_path):
+    monkeypatch.setattr(worker,'load_configuration',lambda *a,**kw:({},tmp_path,None,{'id':'official-default'}))
+    with pytest.raises(ValueError,match='REQUESTED_SPEAKER_PROFILE_MISMATCH'):
+        worker.synthesize({'config':'explicit-fixture','language':'en','text':'Nonpersonal closing fixture','speakerProfile':'female-calm-v1'})

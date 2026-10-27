@@ -149,6 +149,7 @@ def load_configuration(config_path, language, verify_models=True):
                 raise ValueError('MODEL_FILE_PATH_MISMATCH')
     if config.get('conditioning') == 'female-calm-v1':
         profile = json.loads(VOICE_PROFILE.read_text('utf-8'))
+        if profile.get('id')!='female-calm-v1':raise ValueError('REFERENCE_PROFILE_ID_MISMATCH')
         reference = verified_file(root, config['referenceAudio'], 2 * 1024 * 1024)
         if config['referenceAudio']['sha256'] != profile['referenceSha256']:
             raise ValueError('REFERENCE_PROFILE_HASH_MISMATCH')
@@ -235,7 +236,7 @@ async def generate(text, language, permitted, disconnected, speaker_profile=None
         process = await asyncio.create_subprocess_exec(executable, str(worker),
             stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.DEVNULL, env=env)
-        payload = json.dumps({'config': path, 'language': language, 'text': text}, ensure_ascii=False).encode()
+        payload = json.dumps({'config': path, 'language': language, 'text': text, **({'speakerProfile':speaker_profile} if speaker_profile else {})}, ensure_ascii=False).encode()
         task = asyncio.create_task(process.communicate(payload))
         started = monotonic()
         while not task.done():

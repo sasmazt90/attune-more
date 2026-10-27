@@ -32,8 +32,10 @@ def synthesize(payload, runtime=None):
 
     progress('verify-assets')
     config, directory, reference, profile = load_configuration(payload['config'], payload['language'], **({'verify_models': False} if runtime and 'model' in runtime else {}))
+    if payload.get('speakerProfile') and payload['speakerProfile']!=profile.get('id'):
+        raise ValueError('REQUESTED_SPEAKER_PROFILE_MISMATCH')
     if runtime is not None:
-        signature = json.dumps(config, sort_keys=True)
+        signature = json.dumps({'config':config,'profile':{key:profile.get(key) for key in ('id','generation','referenceSha256')}},sort_keys=True)
         if runtime.get('signature', signature) != signature:
             raise ValueError('BATCH_CONFIGURATION_CHANGED')
         runtime['signature'] = signature
