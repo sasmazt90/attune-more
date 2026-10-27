@@ -1,0 +1,1753 @@
+{
+  "schemaVersion": "regional-mask-group-locked-split-v1",
+  "source": {
+    "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "sourceVersionNumber": 1,
+    "providerExportSHA256": "ba7aa450ee2e98af35dcb1b60f3f9673fc7a6ef6b7709e7b94e1df1d32bdab3a",
+    "queueItemsSHA256": "f516efb71509111bd55e079bcbb8b2a897e5c00b5c8416668f18af3e247698a5",
+    "reviewDecisionsSHA256": "41702f492a41c72e15764288c9c0da7b9a2c43cb2c619cdb851a5098fc67ced1"
+  },
+  "policy": {
+    "sourcePersonGroupsLocked": true,
+    "targetRecords": {
+      "train": 236,
+      "valid": 50,
+      "final_test": 51
+    },
+    "finalTestMinimumRecords": 50,
+    "finalTestUsedForSelectionOrThresholds": false,
+    "missingLabelTreatedAsNegativeOrNormal": false,
+    "modelPredictionTreatedAsExpertTruth": false,
+    "rednessRemainsIndependentLayer": true
+  },
+  "result": {
+    "records": {
+      "train": 236,
+      "valid": 50,
+      "final_test": 51
+    },
+    "annotationCounts": {
+      "train": {
+        "Oily": 719,
+        "Redness": 394
+      },
+      "valid": {
+        "Oily": 157,
+        "Redness": 110
+      },
+      "final_test": {
+        "Oily": 189,
+        "Redness": 67
+      }
+    },
+    "groups": {
+      "train": 211,
+      "valid": 44,
+      "final_test": 47
+    },
+    "crossSplitGroupCount": 0,
+    "allRecordsAssignedExactlyOnce": true,
+    "replacementSplitReadyForMaterialization": true,
+    "trainingAuthorized": false,
+    "finalTestAuthorized": false,
+    "activationAllowed": false,
+    "remainingBlockers": [
+      "expert_semantic_mask_protocol_not_accepted",
+      "provider_version_2_not_created",
+      "independent_physical_camera_holdout_missing"
+    ]
+  },
+  "privacy": {
+    "containsImageBytes": false,
+    "containsFilenamesOrPaths": false,
+    "containsRawIdentity": false,
+    "identifiersArePseudonymousNotAnonymous": true
+  },
+  "assignments": [
+    {
+      "reviewItemId": "ri-00867244e4d7ceb1423e224b",
+      "sourcePersonGroupId": "sg-7eb18eb394e5d3a2c5a188e0",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-00e595a7e604f006180b4bb2",
+      "sourcePersonGroupId": "sg-eb2934c1ba1804e1b3dcd8ce",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-0171985f19a8768c7e7c73f3",
+      "sourcePersonGroupId": "sg-d422ad8b9d6ecf9775900289",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-01a4c327bc3e17af40d7c859",
+      "sourcePersonGroupId": "sg-0b07d1c337887b4ecd5d12e7",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-023c8cdcf11ccae6f8010ac1",
+      "sourcePersonGroupId": "sg-65a6d9979e3ed8919dac2d8b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-03525d7ddbe3f95b7449d601",
+      "sourcePersonGroupId": "sg-5b72646b4525f25e36046cd3",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-03a49981b7258eebd268a035",
+      "sourcePersonGroupId": "sg-7740d25cc3d04ec8c368d510",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-050f9fac726ce708b57f5963",
+      "sourcePersonGroupId": "sg-414c204d75c15f9d0072a3f3",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-05dc0ff54d9175b15d2fff74",
+      "sourcePersonGroupId": "sg-36787a4dfb81c362301f9402",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-05eccafbbf12d16b3073168d",
+      "sourcePersonGroupId": "sg-d568132b206845da1ec487e1",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-064b201c48b5be676a5aa96f",
+      "sourcePersonGroupId": "sg-0235eb443484064259baeee5",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-0661be0140b6f0ee6334900a",
+      "sourcePersonGroupId": "sg-38fd63d1acae2031804e9360",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-0688c8c1e4b61c783d6acd80",
+      "sourcePersonGroupId": "sg-e11fd849e519de5535524fc4",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-075fbd9eb3ec58b99413f652",
+      "sourcePersonGroupId": "sg-3842804583730b6142efd857",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-096300ba919a676c199b2573",
+      "sourcePersonGroupId": "sg-dde319a9c82c454a52f6a669",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-0aa93b436c03ef1debaefee4",
+      "sourcePersonGroupId": "sg-c036cd1859069f89b9e9fb65",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-0b090d61f1ebaaa26fbb3403",
+      "sourcePersonGroupId": "sg-15c7eebd3e88ee4eb16e03d2",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-0f2675ca7ef9b42ce9be2a35",
+      "sourcePersonGroupId": "sg-9275fd27355c3bcb382a7995",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-0f2e65b37419252ded6e27eb",
+      "sourcePersonGroupId": "sg-448702ce2d00dff0b795963c",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-0ffeee47d302367e2cfcbe8b",
+      "sourcePersonGroupId": "sg-22acea97ad78815a39bcee47",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-103e57f007dc32932b99307f",
+      "sourcePersonGroupId": "sg-8a45002494650fe847066235",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-10930d17c6e26be241dd374d",
+      "sourcePersonGroupId": "sg-01ca1f4a77e4d30453daff2e",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-11e29d8ed8cfbbdeb1b3e116",
+      "sourcePersonGroupId": "sg-8132142653abbaf187b94898",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-128afdedf9ebc86c8cf91607",
+      "sourcePersonGroupId": "sg-107e2367a156a930e451d216",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-12c81f547b16e67e69a211a5",
+      "sourcePersonGroupId": "sg-0e949950cccd21f43bdc4a0c",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-13116d36c658335e7d1f4ab6",
+      "sourcePersonGroupId": "sg-6430271baec98e2b78e24aff",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-131e2409a3b9bb3897eff4c4",
+      "sourcePersonGroupId": "sg-cc79f747f1d18d1f5b1e7ef2",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-13e0d0900c606119a335b6cf",
+      "sourcePersonGroupId": "sg-b70e1400c9309dc80fd0416e",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-144d48b353320c4f2c4336de",
+      "sourcePersonGroupId": "sg-4c1f5de87502c613f45a82ec",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-15e1f3a5a667aac919ed9ccf",
+      "sourcePersonGroupId": "sg-3e433202ca144cd676f0e143",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-162472e8bb603980ca544d5c",
+      "sourcePersonGroupId": "sg-1e1155495533a67a14a04785",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-16359362d004a863e0528fec",
+      "sourcePersonGroupId": "sg-f5f282c7bd1219afb77d5c69",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-16fe30745803d0cda9545fba",
+      "sourcePersonGroupId": "sg-7c76df30aaafaba22f5a9f9c",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-1739bc794a4b55d464cdbddb",
+      "sourcePersonGroupId": "sg-0c418105a74a9b13be799be0",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-173c3efd371856121c87b90f",
+      "sourcePersonGroupId": "sg-a41c301d02f6eed9936181d5",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-194799c0180cba0cb01cd1d7",
+      "sourcePersonGroupId": "sg-0837054eebe0da4344b3b5bb",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-1a91c1cb38fe70d25eaab5b1",
+      "sourcePersonGroupId": "sg-4415676388d284d90c93cb6c",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-1aa2ceb598e2a71be2695854",
+      "sourcePersonGroupId": "sg-8a5b8d311697e95c3d95f471",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-1b9ed055291d8042ae4e1694",
+      "sourcePersonGroupId": "sg-f41ba91da9b544b426b3ea24",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-1c18083f2e9a5c1571592ab0",
+      "sourcePersonGroupId": "sg-0623f0e81498259181135e20",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-1d8def44789ad9efe328e7fe",
+      "sourcePersonGroupId": "sg-f3fc925fd8179d8c73dc1202",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-1dc1e67c7d5aeadb7712cdfa",
+      "sourcePersonGroupId": "sg-db7c5c667d6ad43635e7b999",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-1e8b346c6de23fca844965e2",
+      "sourcePersonGroupId": "sg-c6016aa4ed6e1457ef256e38",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-1f6907f7c69ca029f5b287a8",
+      "sourcePersonGroupId": "sg-d0f33f331d1f627357110896",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-1fd32f865101993caf0cc94f",
+      "sourcePersonGroupId": "sg-7dea69cbcef7b755df18e39d",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-1fe808c6707caa89f48b9958",
+      "sourcePersonGroupId": "sg-46ce790454862cc3c556f0e4",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-20269e10abf95fec7218c2e2",
+      "sourcePersonGroupId": "sg-6636a5bbd2f0dd7fc62d9c0c",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-207f37f2db3995b22e474756",
+      "sourcePersonGroupId": "sg-342d9db61844cccafcea5466",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-20fd3610f329056f2cba82d4",
+      "sourcePersonGroupId": "sg-d496f23f5f7f53bbb5cf5aa6",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-233842e6b270b0ea9c6f5f8b",
+      "sourcePersonGroupId": "sg-d9ee98cabe2afef884c5f42c",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-25495579bb13150bc488cdaa",
+      "sourcePersonGroupId": "sg-cf6fa4329b618ca47bb45c9b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-259f729751fcb51e7170bbca",
+      "sourcePersonGroupId": "sg-bb47117aeac6f8314d87e41b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-25bceaca684c7c2f4f80c6be",
+      "sourcePersonGroupId": "sg-9ed61f6655a095dca929b91d",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-26dc00abbd12e5709469b754",
+      "sourcePersonGroupId": "sg-34d48e9fe8318eb66b9d3405",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-27166a89f1af24e49214a063",
+      "sourcePersonGroupId": "sg-011eaadefa4bd02e660f06e8",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-27211f9183018d5562eb1d53",
+      "sourcePersonGroupId": "sg-3e88421f8085a64a2c52e153",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-2a9d6e536bdee023a3bb0146",
+      "sourcePersonGroupId": "sg-9a86e6b4b115b49ae9f080e0",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-2b078f778fb06976a7efb447",
+      "sourcePersonGroupId": "sg-f7668af58ed1c5c5554b91bf",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-2b2ac28de7fe01b39dce2df5",
+      "sourcePersonGroupId": "sg-23c8186e542c04baa933e3ca",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-2bfc2957fd2fd129aaa947d2",
+      "sourcePersonGroupId": "sg-08175dd80159d5dedb0e692c",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-2cafd637c9218fe78215646a",
+      "sourcePersonGroupId": "sg-dcfa9062af4892945feb300b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-2ce324cc5891d5bebe344c72",
+      "sourcePersonGroupId": "sg-e11fd849e519de5535524fc4",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-30f29888ff54621212f97ded",
+      "sourcePersonGroupId": "sg-75c35473f9e14dc3fcbbf7a3",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-322c349c4a7006de9c6cf132",
+      "sourcePersonGroupId": "sg-4402f2e2627eed1d2e5b1bb5",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-34165013fc69723f9fe946fc",
+      "sourcePersonGroupId": "sg-3d4f09a9acb4d75d57b4c309",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-35e32791e3e7b2bb0d5d0866",
+      "sourcePersonGroupId": "sg-06b2ba845fd628ec617dc9d0",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-3705bbd9086349a378b53d4c",
+      "sourcePersonGroupId": "sg-0cfa852f95a5eaba095a16cf",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-37cbc6f79465daa2710010ca",
+      "sourcePersonGroupId": "sg-8ad7df64fb380cc8a8884619",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-388f637e4b9dcb03a2846919",
+      "sourcePersonGroupId": "sg-91819d8f58310d34acb9be58",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-39ee8dcf5199a0d1e9bb58ac",
+      "sourcePersonGroupId": "sg-506be31dbd3063fb7dfd9529",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-3a0eff14b3923ffed6514d5f",
+      "sourcePersonGroupId": "sg-da93f4066e733c780e092ac6",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-3a37bd151504fe0414a6d3d3",
+      "sourcePersonGroupId": "sg-c29bab2f6f79d3242c08ccce",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-3c7372615da01bdeabe6a73c",
+      "sourcePersonGroupId": "sg-3faa4f290c90170d7e13bce6",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-3d05578ab6321822432ec1b1",
+      "sourcePersonGroupId": "sg-c11bcfb486960eb27fda2853",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-3eaae2911639d20e5340c9f0",
+      "sourcePersonGroupId": "sg-d38cc0a0b099e24bbee49dac",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-3f336d47195cc916adf8b08d",
+      "sourcePersonGroupId": "sg-2420828c0a3092ebf97d24a5",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-3f836ad060442a3310ca10c8",
+      "sourcePersonGroupId": "sg-03b0e4cfd218ddb5b3d5ab0a",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-4008704934c8acede4563160",
+      "sourcePersonGroupId": "sg-c107a1c1b5ea367d2743a143",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-402cbb6b63a32e79314eff93",
+      "sourcePersonGroupId": "sg-4f43841b86b7088a7db4a2a6",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-413808a8ec5ce709b82eb6c2",
+      "sourcePersonGroupId": "sg-226d92a107ac7567cfd7912c",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-417f7bac453a1b9949adfdfd",
+      "sourcePersonGroupId": "sg-9a879fa70fc5cad513a98c3e",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-422cfa9584e577983f784731",
+      "sourcePersonGroupId": "sg-f83d49b6fc8dfaa1a34bd335",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-43ab880a6e81be88ca969b8a",
+      "sourcePersonGroupId": "sg-75820550268c28bc749c80f2",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-44924659bffd3b50d9aa2715",
+      "sourcePersonGroupId": "sg-e41dd9a8d0c0615e7d01c6d8",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-4533fd0350d18bc00f889a5e",
+      "sourcePersonGroupId": "sg-ad1d834182c63c40f53f692f",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-45abb650f6e4762390f43eb6",
+      "sourcePersonGroupId": "sg-c2b6e54beccfcd190a83db80",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-481c31e9564e82633e95b9d2",
+      "sourcePersonGroupId": "sg-fea31e1e3d63d073559b1a16",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-4a43a54debe1a216a4665a6b",
+      "sourcePersonGroupId": "sg-98b432cee7eb8efaeba84490",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-4a7229aa3be391233b30b8bf",
+      "sourcePersonGroupId": "sg-d467edbaa5638d48e1e7e56b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-4ab0edbf5e461b0ebd6ee2f7",
+      "sourcePersonGroupId": "sg-9c98cec9134b806964b6cfe4",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-4b5aea4f39b0ffbb115edcb5",
+      "sourcePersonGroupId": "sg-ebe1b2f6cef0ff4964def7eb",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-4b9144094f387d02480e83b2",
+      "sourcePersonGroupId": "sg-20ae3a84ca1bad475e773344",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-4c56f3b8860d5240708a5ba3",
+      "sourcePersonGroupId": "sg-cc9f25da5fe5fb05e8526a43",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-4e648a581c4dcdfeac557d52",
+      "sourcePersonGroupId": "sg-d723368633076f89a956768b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-4e801aaea99e4563d27a0b42",
+      "sourcePersonGroupId": "sg-cc6bf722322ac42b51156295",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-4fbd1e8653f917d430b572f3",
+      "sourcePersonGroupId": "sg-f654e4c1b1fe92172e3ecd93",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-506f59deb5f0339c21cf852c",
+      "sourcePersonGroupId": "sg-c67b7a939994c2487b1e77e9",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-524a3c54e2623711b9e308be",
+      "sourcePersonGroupId": "sg-cbd583b98af6efa7ba6b9ea5",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-524b120934ff852483b5a902",
+      "sourcePersonGroupId": "sg-bb3f3deeaeca20f5a9b50a2b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-526164afaec61ca963613fba",
+      "sourcePersonGroupId": "sg-df01b76899527c3da02a5d00",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-53145db718966fe4bb2b1e6d",
+      "sourcePersonGroupId": "sg-efc52e08cdf21ac1ad31b929",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-532a4f4d4222ab1b8c15702f",
+      "sourcePersonGroupId": "sg-22c520e968bd253359d39d3e",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-54f7e390bb9a8e477849d162",
+      "sourcePersonGroupId": "sg-1a007b4cdf2c4a3debd5bb8e",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-563f05f991c7b53a9201245e",
+      "sourcePersonGroupId": "sg-21f35a775762a74a9d9671a3",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-57e951b70ff2647e6e866a00",
+      "sourcePersonGroupId": "sg-384fb1812ccf5bc1ec678baf",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-581412956aa76e55401b2be0",
+      "sourcePersonGroupId": "sg-ef549c411f1528d83fa94501",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-58bc71209b09a0a60e5412f7",
+      "sourcePersonGroupId": "sg-53cd7e71a1689b0e83d69c02",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-58c0f128bbb46a0f569a5da9",
+      "sourcePersonGroupId": "sg-79e2e8277086f9e76e1e48cd",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-5915e9ddb4553720012c7d5e",
+      "sourcePersonGroupId": "sg-340e08c2f92d4e094f392b4b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-591a5007bd16ebc4bbae75e5",
+      "sourcePersonGroupId": "sg-478a3fe592c9f9245d5f83cc",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-5976a44b64b71c3ca5845539",
+      "sourcePersonGroupId": "sg-982149577780c2e3695ba546",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-59d2b7b73570602092091b90",
+      "sourcePersonGroupId": "sg-05c190bcac766c3458507940",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-59fa14337a00a20baadbe81e",
+      "sourcePersonGroupId": "sg-6bbaaa75c99ac281bf7b2a7c",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-5a65b512480341e137417abc",
+      "sourcePersonGroupId": "sg-9a2e8c1ffc69d5ab9ea6fd0f",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-5ae76d58c62f9cacc36e2a2c",
+      "sourcePersonGroupId": "sg-8da330426547932b6bd39ff5",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-5b2b5573e2ac9961bc1c559f",
+      "sourcePersonGroupId": "sg-0a84412c18df93cda031a387",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-5ddea51b7a4939bc70f465bd",
+      "sourcePersonGroupId": "sg-2b06b560038f3e3e62107294",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-5e3f0e5ab45dd6a5635aef67",
+      "sourcePersonGroupId": "sg-f3fc925fd8179d8c73dc1202",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-5fc7b02958a532233a20f521",
+      "sourcePersonGroupId": "sg-0ba254c386113b816e707e8c",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-60e6bdf6ec94373890321532",
+      "sourcePersonGroupId": "sg-abc9ce30bdc4316ae4cfd05c",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-60f5b65378c3c562050b1d72",
+      "sourcePersonGroupId": "sg-189573b151863d9a03f22962",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-613803aa8a0b5ef53ebd8dd9",
+      "sourcePersonGroupId": "sg-267135f33c5194b98a1fdf19",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-6200baef02bc030662d4f1c2",
+      "sourcePersonGroupId": "sg-fc03d2acf1ed93db88f67bb3",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-6229aa028b7e384e3902f09b",
+      "sourcePersonGroupId": "sg-d3c0852e09922b2efb90bbd1",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-6233e84d42070d7b98e9712e",
+      "sourcePersonGroupId": "sg-55adbd9ac7bd7eb1bdaada70",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-628a8f7ad1b2bc6f3414974a",
+      "sourcePersonGroupId": "sg-8b5f145b6a6f272eac0c9424",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-640f32886fab0144eec3dbe4",
+      "sourcePersonGroupId": "sg-fd2c9252ddd7228619c0e056",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-64b6b8b32616c29283ecbe3b",
+      "sourcePersonGroupId": "sg-ef549c411f1528d83fa94501",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-64d5b698e4df45489c4c57cd",
+      "sourcePersonGroupId": "sg-5c044b824eefcc36602e58d2",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-65c4025ff898883199a5f238",
+      "sourcePersonGroupId": "sg-85ed51d01ec127b23499d208",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-68b9a9b0274dbda18165a1c5",
+      "sourcePersonGroupId": "sg-4b9934d5b1bb4fe640ca7e51",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-69f20fe8343bb90c8cf2446b",
+      "sourcePersonGroupId": "sg-87dbf2c782046b0ef7d7d890",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-6a2051cd638c15f021dc0249",
+      "sourcePersonGroupId": "sg-d0f170465bdbfea4b3c8bc93",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-6c1005480ad0e64846ca6320",
+      "sourcePersonGroupId": "sg-4962dc5b61b4812a87f4912d",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-6d16a3b87c8468328d693f6a",
+      "sourcePersonGroupId": "sg-b266b80ccba5b68935f46dbf",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-6f6ee32d646314cd5056f52a",
+      "sourcePersonGroupId": "sg-3fe0b1ff6d6cf1e4819c41c6",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-6ff5634daef895eed8b1a209",
+      "sourcePersonGroupId": "sg-6759175aae6f441ba8c0b8b2",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-7069998bcbe4a3eb589fa110",
+      "sourcePersonGroupId": "sg-5072f486367c78ebb673f568",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-70a8b1b1134378693edec4b5",
+      "sourcePersonGroupId": "sg-5a80810a2253754d0fa84802",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-7137661f5de68fdc7a3e6692",
+      "sourcePersonGroupId": "sg-c16ffd106b4439614ca5c9d0",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-7216e8134c906affdc307160",
+      "sourcePersonGroupId": "sg-9cd08520d3752982a960df27",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-725625952ee814c37ad492f0",
+      "sourcePersonGroupId": "sg-21598a0c6af6544005c3cd6e",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-7260262fa22041f3760c17c7",
+      "sourcePersonGroupId": "sg-9a2e8c1ffc69d5ab9ea6fd0f",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-73a73cb8dbbd90adae455289",
+      "sourcePersonGroupId": "sg-693074e1cda8e8099c946bd1",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-7420ac7c80ae3f38f2dfbb3c",
+      "sourcePersonGroupId": "sg-a972e49f3239a2b184019938",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-74a13ddf10d9004d2209d7db",
+      "sourcePersonGroupId": "sg-4f43841b86b7088a7db4a2a6",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-7546fc429f1e10bba1076b8c",
+      "sourcePersonGroupId": "sg-b97845ee7ea8a37b5596e78e",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-75eb2131032f5a98ab47e9e3",
+      "sourcePersonGroupId": "sg-62aed23a25917739343f58b4",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-76a4b1a4d135262a79b6a254",
+      "sourcePersonGroupId": "sg-258581cade3c13d0f3666136",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-77296d6798330e7a20204bac",
+      "sourcePersonGroupId": "sg-486b863dabb179dc15499360",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-7938c52986795cb2471e3b2d",
+      "sourcePersonGroupId": "sg-1aceb36afc5200997b2a503f",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-7a06da6ce59dc6814fcdff4c",
+      "sourcePersonGroupId": "sg-ae1b36dd9516448a81ab5b90",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-7a6138a5f82242796cc7eca7",
+      "sourcePersonGroupId": "sg-ab2f08ce1cd4a43b680313b2",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-7b1a5cc6c5280db551742d77",
+      "sourcePersonGroupId": "sg-840788063bd7723e36f4eb0e",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-7bebb32f300a079ae75fd716",
+      "sourcePersonGroupId": "sg-7d95e3ac7c2763c5ad381921",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-7c02f56195de47ac1adc5c7b",
+      "sourcePersonGroupId": "sg-e6860f34761ccb4fb3b933b4",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-7cfb0605ab7d420a1cd6312e",
+      "sourcePersonGroupId": "sg-73af005f2be0d263a2b74732",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-7e5596ca6e9750459af8222b",
+      "sourcePersonGroupId": "sg-a0c82e6d81799559e2ebfb9f",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-7eae30338bad11016268853d",
+      "sourcePersonGroupId": "sg-7fa1da0da7668e80195fcc34",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-7fb4a1b69e7159a9cdb459ba",
+      "sourcePersonGroupId": "sg-deffe488d01cda49753bc9f5",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-80cd8a9cf58f4fdd0c6a9338",
+      "sourcePersonGroupId": "sg-8e8ada0e0643989c97ef899a",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-819deb9062bbd768f5db3bcc",
+      "sourcePersonGroupId": "sg-b6fb1993a80db00930ff9bbe",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-823cb2c54ddae43ff840c6f1",
+      "sourcePersonGroupId": "sg-4556e8bdf257ec0f1adfaf6f",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-82707bfcbdf13e0095270223",
+      "sourcePersonGroupId": "sg-9275fd27355c3bcb382a7995",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-82ca026d47957fa4dd5ecef5",
+      "sourcePersonGroupId": "sg-02eb529be6b24162a8055d27",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-8305db4f234eeb06e55b6557",
+      "sourcePersonGroupId": "sg-819c280fa296a85f4a565ac9",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-833fe30f42faa7b2b5658c30",
+      "sourcePersonGroupId": "sg-340e08c2f92d4e094f392b4b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-83f85158197afc93f85a450a",
+      "sourcePersonGroupId": "sg-c4692125e403d58e014c2a41",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-84338dcd7884e313cdedfeab",
+      "sourcePersonGroupId": "sg-8a45002494650fe847066235",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-85011429bb3f23e20be232e4",
+      "sourcePersonGroupId": "sg-738735737b005836cc707dd2",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-85d991872e28c9d81aa059bd",
+      "sourcePersonGroupId": "sg-134524e544b16886d8fad5e0",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-860a24bb81cd36e419e862b0",
+      "sourcePersonGroupId": "sg-c2a274a1b852a999f8b4f9b2",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-870b9658fca6eb0f119cbc07",
+      "sourcePersonGroupId": "sg-0b6adbcdbba5c1269b063821",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-8721e36aa632f851e7ba657b",
+      "sourcePersonGroupId": "sg-3b40c003f750f00fcd8d0b60",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-886272eaa30b9368436430ad",
+      "sourcePersonGroupId": "sg-28e520b0e87fbcd9943d0aca",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-88d8e0e6e1372069b0ae3d8c",
+      "sourcePersonGroupId": "sg-c52b69d61881468101226020",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-8b11320b4a2660d21e164037",
+      "sourcePersonGroupId": "sg-30916965dec229573fb940d3",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-8b4bf3085a68ff2409468f44",
+      "sourcePersonGroupId": "sg-0235eb443484064259baeee5",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-8ba62041c035e38475736ac8",
+      "sourcePersonGroupId": "sg-4cef13538e008ac371120a6a",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-8c5219e4c129e8c5f8917424",
+      "sourcePersonGroupId": "sg-9dcfecfeeb6b9bc535e14826",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-8c69511e035934c2b89f4b9c",
+      "sourcePersonGroupId": "sg-1f5560bc2849d5b56d531c34",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-8d3b3b37bbc49e4f86bbb5c9",
+      "sourcePersonGroupId": "sg-1a32af9b3025ae9d934d7d89",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-8d451474c31f6767ddec9782",
+      "sourcePersonGroupId": "sg-3e126636a05a5fdec57ec129",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-8de5bc184c1addecf617fc67",
+      "sourcePersonGroupId": "sg-8af457ee10d1ad51ef105411",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-8e13f6f83386c854e6e9d6b0",
+      "sourcePersonGroupId": "sg-60dc75eae43ce2cfbe228431",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-8e2024268293f5164393e5e9",
+      "sourcePersonGroupId": "sg-e11fd849e519de5535524fc4",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-8e5d85ea7333ec42a6cd8c02",
+      "sourcePersonGroupId": "sg-2018d6a2649dff1207566951",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-8ee0d4811258ecdf58e6f23a",
+      "sourcePersonGroupId": "sg-248659d81ea0919c7d841412",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-8f23e4e4c184588f5d900f3f",
+      "sourcePersonGroupId": "sg-52dbef28e6792ae37fe0e599",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-8f2d7d40a52ae5fe606d2a20",
+      "sourcePersonGroupId": "sg-a04bfadbe0612cfc8f077184",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-8fff01317ff97df829d64bcf",
+      "sourcePersonGroupId": "sg-bf7896e6d770b11352a9980d",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-90784ee3e37e2eb946f0abf3",
+      "sourcePersonGroupId": "sg-c3cecf806f2823f599cf660f",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-909c04ece5c9418958ec3d44",
+      "sourcePersonGroupId": "sg-05b9d0b2afc7a1d6d139d5d0",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-90a8ad4801c4d08a5e26d1dc",
+      "sourcePersonGroupId": "sg-9f99b20299599080d157cfca",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-93134c07f3cc2b441d27fff8",
+      "sourcePersonGroupId": "sg-23c8186e542c04baa933e3ca",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-942ce0558f9644d02e49b150",
+      "sourcePersonGroupId": "sg-da4013b21f28d4b9849065be",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-9497815561dc84fee747f885",
+      "sourcePersonGroupId": "sg-01e8e9eaec325abea85861cc",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-9656284f4a55e6e1784129ef",
+      "sourcePersonGroupId": "sg-feea0c4d789943842f41aa8b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-9683e5bc65bcf3b2dbb2463c",
+      "sourcePersonGroupId": "sg-59a758e78ce04d17f5dbeb42",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-971e27a42567b2b728175cb5",
+      "sourcePersonGroupId": "sg-ad1d834182c63c40f53f692f",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-9731f4847a77db1f4488b811",
+      "sourcePersonGroupId": "sg-a1d34add72981d7bfdeb1b54",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-9875ccfab0ce260b0dba3475",
+      "sourcePersonGroupId": "sg-31297ddbfeb96d6097993b91",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-989ba8eed34e47b360e2bbce",
+      "sourcePersonGroupId": "sg-df848506d77ebb7e978b652a",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-9a4ad9abea2e732d0c294ce5",
+      "sourcePersonGroupId": "sg-70afdf3f24151bbb8508c3c4",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-9ae85d9c5df57ccaf7d0860e",
+      "sourcePersonGroupId": "sg-134524e544b16886d8fad5e0",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-9c385e7bbfea6a7ef63badba",
+      "sourcePersonGroupId": "sg-4884947984adfca99736bc0a",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-9c900868c5d86029b2adef48",
+      "sourcePersonGroupId": "sg-56a4b29786907b55941a9648",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-9ca4ef87d2370c467ec5a628",
+      "sourcePersonGroupId": "sg-dee12cc7bf225f5b8b1157e6",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-9d96f913d29f2a950c46a031",
+      "sourcePersonGroupId": "sg-9cf8fd5839e29b35a81d7e8c",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-9e5d93b313bffcfa252cb409",
+      "sourcePersonGroupId": "sg-316f45d864c5c2eb46cf76d7",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-9f6f001bb10b92c71b3c9169",
+      "sourcePersonGroupId": "sg-9e39fd559eee4cbded780d30",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-9faa0ebd56b9b26621a03c97",
+      "sourcePersonGroupId": "sg-2f3423a44753b5fd9fc3f749",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-9fd0eec0171b88a80a723b81",
+      "sourcePersonGroupId": "sg-fb596fd5b72c8f3c9a677112",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-9fe94b89b20edc02c3574c87",
+      "sourcePersonGroupId": "sg-70314ea482323c62c9d6f688",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-a0bcb0cc3fc7fdcd4f378c4b",
+      "sourcePersonGroupId": "sg-5dfe8966636e717ca596101f",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-a4558eae2568e32965eac3e5",
+      "sourcePersonGroupId": "sg-fce2dae237a7f679259f694b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-a56ad8ac6d5b3b9cc36ea3a9",
+      "sourcePersonGroupId": "sg-a11c1eb9c7a7d06d21e73362",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-a6d129bd318722ef7d9fc010",
+      "sourcePersonGroupId": "sg-44d454cd28cc4990f1a899e3",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-a70078f50efb42b83d3fd70d",
+      "sourcePersonGroupId": "sg-3e433202ca144cd676f0e143",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-a702bad7d5ef589b08c1fee3",
+      "sourcePersonGroupId": "sg-1b68b2cb6fb2e161ef365aff",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-a8bfb8a38ee93b78dcb62731",
+      "sourcePersonGroupId": "sg-99e2bacd056e49d5fa91e9c4",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-a99b08c030e5476ab29ba6a5",
+      "sourcePersonGroupId": "sg-d7bc0c6fde6afc83cbf006e4",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-a9bf8b3bca927570380d39b4",
+      "sourcePersonGroupId": "sg-277a468e5061c7e4e6eefddc",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-aba3e48d048d77bb121cafb3",
+      "sourcePersonGroupId": "sg-ab4282dda89dc8b324210eec",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-ac600f2f173bfcd96d27ba4d",
+      "sourcePersonGroupId": "sg-83292afa1656427b2828a916",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-ac82e741c51a20705fc0190a",
+      "sourcePersonGroupId": "sg-30883127dfdeebfe3c0b7706",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-acd212adbc82274d438a48e5",
+      "sourcePersonGroupId": "sg-208d2911f98ecc1763daceda",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-acdb5f2680f5e225f68a72cf",
+      "sourcePersonGroupId": "sg-bf1d57b232645ef4777ceb22",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-ad60f67b391d7555421c8805",
+      "sourcePersonGroupId": "sg-1aceb36afc5200997b2a503f",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-aef860a2560b1e49604c5d22",
+      "sourcePersonGroupId": "sg-7dd128a1d2d516357f7325a9",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-af55d44646c8b1090ddf6fd5",
+      "sourcePersonGroupId": "sg-3dabbbbdd4c17dc019d5e65e",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-b002606ad8633026f7959d07",
+      "sourcePersonGroupId": "sg-eb2934c1ba1804e1b3dcd8ce",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-b00b6c218f9bc0b30b854db9",
+      "sourcePersonGroupId": "sg-41b54cac5be4ed48562dad8f",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-b06d0f573c1e3df6a39f245e",
+      "sourcePersonGroupId": "sg-d38be4f53cfae40024e98c36",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-b15ad6941761aa758d113d68",
+      "sourcePersonGroupId": "sg-4ef9d3b16b57f32039fcc6fe",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-b25c29496a82bb1eaae9090d",
+      "sourcePersonGroupId": "sg-5c55fd0be0e57ccaedb3536c",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-b3d886fc82f1a6495359e86a",
+      "sourcePersonGroupId": "sg-fae3cc2c253a15690daf6b3b",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-b44401d8a8ff79f442f47893",
+      "sourcePersonGroupId": "sg-f3fc925fd8179d8c73dc1202",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-b49a08bbef77668aa26b3267",
+      "sourcePersonGroupId": "sg-1aceb36afc5200997b2a503f",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-b4f57ba8e9442b1bfd917c61",
+      "sourcePersonGroupId": "sg-cc2873b8877fd098a9687837",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-b72236d94ababf5b87824f88",
+      "sourcePersonGroupId": "sg-447db19302fbf2820290925a",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-b7906efaf5358c61b09d3ba9",
+      "sourcePersonGroupId": "sg-74a394895b3d5a92ef47bcd6",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-b8738732e786acced259b41e",
+      "sourcePersonGroupId": "sg-355ef9a96d1f8984b91351a5",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-b9a38a1aeb0fea2d8cf87e49",
+      "sourcePersonGroupId": "sg-88d1bd52d18d9621a26cb65d",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-ba880d9723d85b2e862d038f",
+      "sourcePersonGroupId": "sg-e1567860262252d1f95bdaac",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-bb53d11ec56483e8fb8bbe1c",
+      "sourcePersonGroupId": "sg-9a16e251e0ef80f9c2a46494",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-bc7780900d1e1a41373dee99",
+      "sourcePersonGroupId": "sg-340e08c2f92d4e094f392b4b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-bcb401ea88cfaa5682162fca",
+      "sourcePersonGroupId": "sg-cac9570558366455667c306d",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-bd2f83e6dcc872d145572d6c",
+      "sourcePersonGroupId": "sg-226d92a107ac7567cfd7912c",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-bde719be5ac1a4e29cddbbd4",
+      "sourcePersonGroupId": "sg-3ae73835974ad930847a0301",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-be1cdf30a36b5c1ab41b0dcb",
+      "sourcePersonGroupId": "sg-31189a542fe7498821daf084",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-be2bfc8f4a015c34ab0f4946",
+      "sourcePersonGroupId": "sg-d0f170465bdbfea4b3c8bc93",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-be2d256a47271cc7c4b5307e",
+      "sourcePersonGroupId": "sg-6e9855466c91209d787511c3",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-bfa7f5990c8e3df0ca40019f",
+      "sourcePersonGroupId": "sg-eb86bd13e06c71f5fc7c688b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-c0f3974ad79990cd660f3696",
+      "sourcePersonGroupId": "sg-c844d7f7184f3315dd5768a4",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-c283adfc5c03446931384210",
+      "sourcePersonGroupId": "sg-bafde00771d283dd3f8d0862",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-c2ddc5abde546de8443eb7b0",
+      "sourcePersonGroupId": "sg-e681d79ce8efb4d4ecaa4e25",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-c4474a4e733e72fb8b44aa5e",
+      "sourcePersonGroupId": "sg-e6c1d59a0fa92a9bcfc075f0",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-c4f5dd0a0bb74a24b346b269",
+      "sourcePersonGroupId": "sg-5e546fa424653b28df659d20",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-c50559c696e980180e7b4dcf",
+      "sourcePersonGroupId": "sg-f4fea2f070a0fd93f83c9e2b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-c88a4db33d64e26191049c80",
+      "sourcePersonGroupId": "sg-b55216257431876eec56c572",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-c9b591a141d1a94076245855",
+      "sourcePersonGroupId": "sg-86a122391ea0efab601056c6",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-c9da50b31725124fbfcd77fd",
+      "sourcePersonGroupId": "sg-cac68c757ac087d7df7e4db2",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-ca74a513a6166cacc02eeebe",
+      "sourcePersonGroupId": "sg-0305a26b8a1bbf93dd2082bd",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-caa947bd89eb1ac4a529dd95",
+      "sourcePersonGroupId": "sg-3cbc56585b5999e8c04d395f",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-cb888af1f35b1d50daf564ce",
+      "sourcePersonGroupId": "sg-c844d7f7184f3315dd5768a4",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-cb8de1330b198aec0cce21b4",
+      "sourcePersonGroupId": "sg-bace5915c9e45cc4311f8f96",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-cbe763b9a6e37afb4c787dd6",
+      "sourcePersonGroupId": "sg-afdd73d594bcef0dbe838c29",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-cc1b8c47fd284032200e1191",
+      "sourcePersonGroupId": "sg-88f2de41af8dff6ad75d7426",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-cdba2c20f88e90c73cf53c0d",
+      "sourcePersonGroupId": "sg-cc2873b8877fd098a9687837",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-ce28b21c5cfda1c82830bd8e",
+      "sourcePersonGroupId": "sg-88610b0dc28aafd1096770b7",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-ceb28e8bb38b9639dcf1e921",
+      "sourcePersonGroupId": "sg-c13818656d083de49575317a",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-cf554e06d978f87d87b29c14",
+      "sourcePersonGroupId": "sg-cee74acd7f2ce5d3264d8071",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-d17ebff2d05f49f796b0996e",
+      "sourcePersonGroupId": "sg-de1aab8bea5ec41f1b8fa70d",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-d17ff36907a6e3284d538693",
+      "sourcePersonGroupId": "sg-82ace0a1c8430f80288cbed8",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-d188a64ff1bd43621f567368",
+      "sourcePersonGroupId": "sg-85dd07b4895146faf04381ff",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-d1ab8d3e7c18b0ba58490139",
+      "sourcePersonGroupId": "sg-3dcbe300b3a2ea4e9f4ee613",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-d34acce6708a4fb32bfc64a3",
+      "sourcePersonGroupId": "sg-4609a2b024d9e385141a7bcd",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-d3d3fdda6ab27858449dee71",
+      "sourcePersonGroupId": "sg-4a8a89969b9260e90529281b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-d4009553f07a803c02dd77bc",
+      "sourcePersonGroupId": "sg-2f3423a44753b5fd9fc3f749",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-d435411fb89a660a8b0e9cdd",
+      "sourcePersonGroupId": "sg-41f7e53a4fd8c944874b93db",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-d58bbefa86a35b23807fbf30",
+      "sourcePersonGroupId": "sg-6ff7af9c1976d4e26a1bc117",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-d6590102d1d2e77a05ed9db4",
+      "sourcePersonGroupId": "sg-db964e71cd1f6d2447602a4c",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-d701a0325edc092e6a3907d9",
+      "sourcePersonGroupId": "sg-820ba023232da0a34c3e4aa6",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-d706aa517a8820c20ad0f863",
+      "sourcePersonGroupId": "sg-59ca4dcc6caa839c382036ca",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-dbd42fb185c43c809638baa4",
+      "sourcePersonGroupId": "sg-888cff0da85e56f6a9b23f48",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-dc6aedea87155167dfdf8412",
+      "sourcePersonGroupId": "sg-7a88cfff28136e34070e4a8e",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-dcb824de9c62d58680a3623e",
+      "sourcePersonGroupId": "sg-de14cabcd9a68189b6ad0d5f",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-ddecd7147e0083eda5d54a42",
+      "sourcePersonGroupId": "sg-572929d725af8d9d2b250976",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-df22d58d70c80e7ba44bfa88",
+      "sourcePersonGroupId": "sg-40c7aabab7b70859ce43c4d8",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-df5e56ba50446aa628d7f50b",
+      "sourcePersonGroupId": "sg-3e4d8b57e4f82f1e93b68844",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-e083eb6e6eea84c21e4d6674",
+      "sourcePersonGroupId": "sg-b533dfb0259aba1f67365069",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-e2040fbff71bb028aa3ea24c",
+      "sourcePersonGroupId": "sg-7fa284502654b7f3fb04dde8",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-e2312a3db966acd1dfb56038",
+      "sourcePersonGroupId": "sg-eeb963ffec887864a94f06ff",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-e2c751c021d20b2ff955391a",
+      "sourcePersonGroupId": "sg-b798f4ac032b5073b5d7950c",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-e3d2c9bdbafac03cefdbca86",
+      "sourcePersonGroupId": "sg-ce3883a55d6c0c7e2a27981c",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-e40ee04934ccb655b5912721",
+      "sourcePersonGroupId": "sg-9b2a91d728dc60deb22e431b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-e4b75d7616f596acdcccd9f4",
+      "sourcePersonGroupId": "sg-03b0e4cfd218ddb5b3d5ab0a",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-e51bcfd3d718d526d11f8ac4",
+      "sourcePersonGroupId": "sg-cc9f25da5fe5fb05e8526a43",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-e6fe5292a11b8a4cf9149141",
+      "sourcePersonGroupId": "sg-414c204d75c15f9d0072a3f3",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-e719d7689d1392be5d0b6879",
+      "sourcePersonGroupId": "sg-942087b3ac1faa677cae788d",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-e773683227cbbd610889ea16",
+      "sourcePersonGroupId": "sg-10005bd07825f6483ec20eb6",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-e90638fb65987ede010161f1",
+      "sourcePersonGroupId": "sg-74763cb69d8f30b81820c892",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-e99c20d9124c71c129f97178",
+      "sourcePersonGroupId": "sg-48b425152a3e73d13315d574",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-ea258e7da7c08db40383f6e4",
+      "sourcePersonGroupId": "sg-067bfabbfd560b4ba3ebecc7",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-eaaaacb9595a088e8ff7a083",
+      "sourcePersonGroupId": "sg-b8ab8da4b4ed770a51d89231",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-eb12b7274016abd7473736df",
+      "sourcePersonGroupId": "sg-6ce70a79c1939d721e127512",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-eb2419fc5c3c6b28d79af170",
+      "sourcePersonGroupId": "sg-33968bda73d2fbee24fe6a36",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-eb395831024fde88fd6c3b8f",
+      "sourcePersonGroupId": "sg-629361b1cad65d9569da40e9",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-eb784f9867486cca053a62ac",
+      "sourcePersonGroupId": "sg-b155947e47ab6e2fed156392",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-ec547f52278a088d0c6e7ada",
+      "sourcePersonGroupId": "sg-d3585ee8cc9b57300f7263e2",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-ecca10b88e821614ffb089fd",
+      "sourcePersonGroupId": "sg-df5a2ee2887e499e1a0ace19",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-ed45a3212601b1de458bbb41",
+      "sourcePersonGroupId": "sg-b7f086846d8cf48bd2a85bc6",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-eda77a3dc95220c93395fbfa",
+      "sourcePersonGroupId": "sg-80785192e7b8d2ad3a7460c2",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-edd506b4e960a5eb82f1cf8b",
+      "sourcePersonGroupId": "sg-f1bf220cf39aeb21b1ad3052",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-ee7c7f91ecd971740a056669",
+      "sourcePersonGroupId": "sg-279b78dd87d8379f8fc3216a",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-f0373f4f82087f3606b4f107",
+      "sourcePersonGroupId": "sg-ceb3be008cfcf585b0478ade",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-f05da3304f548a982fb64010",
+      "sourcePersonGroupId": "sg-a14aa94fb1a4134ee6bfb2a6",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-f0a363d1d1fe641434caa964",
+      "sourcePersonGroupId": "sg-f4fea2f070a0fd93f83c9e2b",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-f0bd03cbea643c569f01df6d",
+      "sourcePersonGroupId": "sg-2484966618821b39edd094fb",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-f280164b61b806bcd15b0a39",
+      "sourcePersonGroupId": "sg-21f35a775762a74a9d9671a3",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-f2b9fefa75ddd8142cfd9bbc",
+      "sourcePersonGroupId": "sg-5e546fa424653b28df659d20",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-f39f956bf5523b0148e264be",
+      "sourcePersonGroupId": "sg-e4f6a549c638279eccc1bdd7",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-f46e588956c9bd6fe30832b8",
+      "sourcePersonGroupId": "sg-1679886515a59b3dd0085144",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-f4a50b269986c6144a99a9c9",
+      "sourcePersonGroupId": "sg-0b2013d0db4824f213469482",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-f4a5b39ebc06e15d0022e2ad",
+      "sourcePersonGroupId": "sg-67cd4c40b909ee31876d3f30",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-f4c14ad5eebb797a68854831",
+      "sourcePersonGroupId": "sg-8af457ee10d1ad51ef105411",
+      "targetSplit": "final_test"
+    },
+    {
+      "reviewItemId": "ri-f4d458c20fbaed132a371409",
+      "sourcePersonGroupId": "sg-e4c5644aff9fc08a1d7f04c0",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-f509c6f9391bd242e80942c3",
+      "sourcePersonGroupId": "sg-4c1f5de87502c613f45a82ec",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-f57a637282d0634c0067c41f",
+      "sourcePersonGroupId": "sg-9cf8fd5839e29b35a81d7e8c",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-f67b8fb517d85ff992237d8f",
+      "sourcePersonGroupId": "sg-930e90e4d51d85f50f0adb79",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-f8750fa126ea86c86f2f6b7e",
+      "sourcePersonGroupId": "sg-a972e49f3239a2b184019938",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-f95794d347276b4877120b1d",
+      "sourcePersonGroupId": "sg-a8b907f5a37d5cfea1f781dd",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-fa1a56e80ff2220ecb35817a",
+      "sourcePersonGroupId": "sg-46d9d441ccb29acc4da7e20c",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-fca83ee6bec996e9e871673b",
+      "sourcePersonGroupId": "sg-1a32af9b3025ae9d934d7d89",
+      "targetSplit": "train"
+    },
+    {
+      "reviewItemId": "ri-fd3156fada2d729438cea43c",
+      "sourcePersonGroupId": "sg-e0442881c62b63eff5df18d4",
+      "targetSplit": "valid"
+    },
+    {
+      "reviewItemId": "ri-fe23c1ae168fbcb26f3f39b7",
+      "sourcePersonGroupId": "sg-99adbf607be797b625ad9d2f",
+      "targetSplit": "final_test"
+    }
+  ]
+}

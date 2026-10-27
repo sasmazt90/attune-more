@@ -1,15 +1,23 @@
 {
   "schemaVersion": "regional-mask-source-person-review-result-v1",
   "queueItemsSHA256": "f516efb71509111bd55e079bcbb8b2a897e5c00b5c8416668f18af3e247698a5",
-  "reviewedRecords": 17,
-  "unreviewedRecords": 320,
-  "personOrSourceCoverageComplete": false,
-  "crossSplitGroupCount": 7,
+  "reviewedRecords": 337,
+  "unreviewedRecords": 0,
+  "personOrSourceCoverageComplete": true,
+  "crossSplitGroupCount": 15,
   "crossSplitGroupIds": [
+    "sg-134524e544b16886d8fad5e0",
+    "sg-1a32af9b3025ae9d934d7d89",
     "sg-1aceb36afc5200997b2a503f",
+    "sg-226d92a107ac7567cfd7912c",
+    "sg-2f3423a44753b5fd9fc3f749",
     "sg-340e08c2f92d4e094f392b4b",
     "sg-4c1f5de87502c613f45a82ec",
+    "sg-5e546fa424653b28df659d20",
     "sg-9275fd27355c3bcb382a7995",
+    "sg-9cf8fd5839e29b35a81d7e8c",
+    "sg-ad1d834182c63c40f53f692f",
+    "sg-d0f170465bdbfea4b3c8bc93",
     "sg-ef549c411f1528d83fa94501",
     "sg-f3fc925fd8179d8c73dc1202",
     "sg-f4fea2f070a0fd93f83c9e2b"
@@ -21,7 +29,6 @@
   "finalTestAuthorized": false,
   "activationAllowed": false,
   "blockers": [
-    "source_person_review_incomplete",
     "current_split_not_person_source_independent",
     "group_locked_replacement_version_missing",
     "expert_semantic_mask_protocol_not_accepted"
