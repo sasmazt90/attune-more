@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "regional-mask-identity-candidate-result-v1",
+  "candidatesSHA256": "55b5e276b9822342824c6734a4ca9c33543336c59d1559b302f7fb818a846573",
+  "reviewedCandidates": 0,
+  "unreviewedCandidates": 48,
+  "decisions": {
+    "different_person_or_source": 0,
+    "same_person_or_source": 0,
+    "uncertain": 0
+  },
+  "candidateReviewComplete": false,
+  "confirmedSamePersonOrSourcePairs": 0,
+  "personOrSourceCoverageComplete": false,
+  "currentSplitIndependent": false,
+  "trainingAuthorized": false,
+  "finalTestAuthorized": false,
+  "activationAllowed": false,
+  "blockers": [
+    "candidate_review_incomplete",
+    "full_337_record_source_person_review_incomplete",
+    "group_locked_replacement_version_missing",
+    "expert_semantic_mask_protocol_not_accepted"
+  ]
+}

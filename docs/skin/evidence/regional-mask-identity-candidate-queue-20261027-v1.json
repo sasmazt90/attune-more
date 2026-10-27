@@ -1,0 +1,1207 @@
+{
+  "schemaVersion": "regional-mask-identity-candidate-queue-v1",
+  "source": {
+    "sourceArchiveSHA256": "a24793ca3490a48088abf47ba89fc9ab94e1c3a12c488ce52915e19b5bdf6fd6",
+    "providerExportSHA256": "ba7aa450ee2e98af35dcb1b60f3f9673fc7a6ef6b7709e7b94e1df1d32bdab3a",
+    "coverageQueueItemsSHA256": "f516efb71509111bd55e079bcbb8b2a897e5c00b5c8416668f18af3e247698a5",
+    "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "versionNumber": 1
+  },
+  "privacy": {
+    "containsImageBytes": false,
+    "containsFilenames": false,
+    "containsRawSourceNames": false,
+    "containsProviderImageIds": false,
+    "privateResolverCommitted": false
+  },
+  "method": {
+    "comparisonScope": "all cross-split image pairs",
+    "cropScales": [
+      1.0,
+      0.8,
+      0.6
+    ],
+    "featureSignals": [
+      "grayscale-dhash-64",
+      "grayscale-phash-63"
+    ],
+    "splitPairQuotas": {
+      "train-valid": 24,
+      "train-test": 16,
+      "valid-test": 8
+    },
+    "maximumCandidateAppearancesPerRecord": 3,
+    "rankingOnly": true,
+    "distanceThresholdEstablishesIdentity": false,
+    "candidateReviewMayEstablishFullCoverage": false
+  },
+  "coverage": {
+    "privateExportRecords": 337,
+    "crossSplitPairsCompared": 24582,
+    "selectedCandidates": 48,
+    "uniqueCandidateRecords": 70,
+    "candidatesSHA256": "55b5e276b9822342824c6734a4ca9c33543336c59d1559b302f7fb818a846573"
+  },
+  "candidates": [
+    {
+      "candidateId": "ic-7e1d979255df2c91ad2be6f5",
+      "leftReviewItemId": "ri-7938c52986795cb2471e3b2d",
+      "rightReviewItemId": "ri-b49a08bbef77668aa26b3267",
+      "splitPair": "train-test",
+      "bestCropScale": "center-0.8",
+      "bestCombinedDistance": 22,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 21,
+          "pHashDistance": 20
+        },
+        "center-0.8": {
+          "dHashDistance": 8,
+          "pHashDistance": 14
+        },
+        "center-1.0": {
+          "dHashDistance": 10,
+          "pHashDistance": 14
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-2aafd2e9ee483ed92553013e",
+      "leftReviewItemId": "ri-144d48b353320c4f2c4336de",
+      "rightReviewItemId": "ri-f509c6f9391bd242e80942c3",
+      "splitPair": "train-test",
+      "bestCropScale": "center-0.8",
+      "bestCombinedDistance": 32,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 13,
+          "pHashDistance": 20
+        },
+        "center-0.8": {
+          "dHashDistance": 8,
+          "pHashDistance": 24
+        },
+        "center-1.0": {
+          "dHashDistance": 14,
+          "pHashDistance": 26
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-02a122258b4f6d80ca4aeb30",
+      "leftReviewItemId": "ri-1d8def44789ad9efe328e7fe",
+      "rightReviewItemId": "ri-5e3f0e5ab45dd6a5635aef67",
+      "splitPair": "train-test",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 33,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 25,
+          "pHashDistance": 12
+        },
+        "center-0.8": {
+          "dHashDistance": 29,
+          "pHashDistance": 16
+        },
+        "center-1.0": {
+          "dHashDistance": 17,
+          "pHashDistance": 16
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-80a88575a23ea26fcbfcf6e9",
+      "leftReviewItemId": "ri-75eb2131032f5a98ab47e9e3",
+      "rightReviewItemId": "ri-c0f3974ad79990cd660f3696",
+      "splitPair": "train-test",
+      "bestCropScale": "center-0.6",
+      "bestCombinedDistance": 33,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 13,
+          "pHashDistance": 20
+        },
+        "center-0.8": {
+          "dHashDistance": 23,
+          "pHashDistance": 28
+        },
+        "center-1.0": {
+          "dHashDistance": 30,
+          "pHashDistance": 32
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-b1641d6dfae764a0c1d1eaee",
+      "leftReviewItemId": "ri-0f2675ca7ef9b42ce9be2a35",
+      "rightReviewItemId": "ri-82707bfcbdf13e0095270223",
+      "splitPair": "train-test",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 33,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 20,
+          "pHashDistance": 30
+        },
+        "center-0.8": {
+          "dHashDistance": 18,
+          "pHashDistance": 28
+        },
+        "center-1.0": {
+          "dHashDistance": 13,
+          "pHashDistance": 20
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-c2847dc4d4b46044cc3275a9",
+      "leftReviewItemId": "ri-1d8def44789ad9efe328e7fe",
+      "rightReviewItemId": "ri-b44401d8a8ff79f442f47893",
+      "splitPair": "train-test",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 33,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 25,
+          "pHashDistance": 12
+        },
+        "center-0.8": {
+          "dHashDistance": 30,
+          "pHashDistance": 16
+        },
+        "center-1.0": {
+          "dHashDistance": 17,
+          "pHashDistance": 16
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-8060a9e326b2cb743bc1a3b4",
+      "leftReviewItemId": "ri-8d451474c31f6767ddec9782",
+      "rightReviewItemId": "ri-c4f5dd0a0bb74a24b346b269",
+      "splitPair": "train-test",
+      "bestCropScale": "center-0.6",
+      "bestCombinedDistance": 34,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 16,
+          "pHashDistance": 18
+        },
+        "center-0.8": {
+          "dHashDistance": 23,
+          "pHashDistance": 24
+        },
+        "center-1.0": {
+          "dHashDistance": 28,
+          "pHashDistance": 30
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-8a4c61608ac8523867959557",
+      "leftReviewItemId": "ri-27211f9183018d5562eb1d53",
+      "rightReviewItemId": "ri-9ae85d9c5df57ccaf7d0860e",
+      "splitPair": "train-test",
+      "bestCropScale": "center-0.6",
+      "bestCombinedDistance": 35,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 15,
+          "pHashDistance": 20
+        },
+        "center-0.8": {
+          "dHashDistance": 16,
+          "pHashDistance": 26
+        },
+        "center-1.0": {
+          "dHashDistance": 21,
+          "pHashDistance": 26
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-1f8469b5763e5fde2382ab9f",
+      "leftReviewItemId": "ri-90a8ad4801c4d08a5e26d1dc",
+      "rightReviewItemId": "ri-9ae85d9c5df57ccaf7d0860e",
+      "splitPair": "train-test",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 37,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 16,
+          "pHashDistance": 26
+        },
+        "center-0.8": {
+          "dHashDistance": 15,
+          "pHashDistance": 30
+        },
+        "center-1.0": {
+          "dHashDistance": 15,
+          "pHashDistance": 22
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-906cfd5f34a4b616e6885c97",
+      "leftReviewItemId": "ri-27211f9183018d5562eb1d53",
+      "rightReviewItemId": "ri-53145db718966fe4bb2b1e6d",
+      "splitPair": "train-test",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 37,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 15,
+          "pHashDistance": 32
+        },
+        "center-0.8": {
+          "dHashDistance": 18,
+          "pHashDistance": 22
+        },
+        "center-1.0": {
+          "dHashDistance": 15,
+          "pHashDistance": 22
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-92bc2463ff3ab86d37899c9a",
+      "leftReviewItemId": "ri-16fe30745803d0cda9545fba",
+      "rightReviewItemId": "ri-caa947bd89eb1ac4a529dd95",
+      "splitPair": "train-test",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 37,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 24,
+          "pHashDistance": 30
+        },
+        "center-0.8": {
+          "dHashDistance": 25,
+          "pHashDistance": 26
+        },
+        "center-1.0": {
+          "dHashDistance": 17,
+          "pHashDistance": 20
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-93d056a358685990d22f6a42",
+      "leftReviewItemId": "ri-5a65b512480341e137417abc",
+      "rightReviewItemId": "ri-75eb2131032f5a98ab47e9e3",
+      "splitPair": "train-test",
+      "bestCropScale": "center-0.6",
+      "bestCombinedDistance": 37,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 9,
+          "pHashDistance": 28
+        },
+        "center-0.8": {
+          "dHashDistance": 22,
+          "pHashDistance": 28
+        },
+        "center-1.0": {
+          "dHashDistance": 32,
+          "pHashDistance": 34
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-f5100cab2169093f810ae888",
+      "leftReviewItemId": "ri-1e8b346c6de23fca844965e2",
+      "rightReviewItemId": "ri-dbd42fb185c43c809638baa4",
+      "splitPair": "train-test",
+      "bestCropScale": "center-0.6",
+      "bestCombinedDistance": 37,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 17,
+          "pHashDistance": 20
+        },
+        "center-0.8": {
+          "dHashDistance": 21,
+          "pHashDistance": 28
+        },
+        "center-1.0": {
+          "dHashDistance": 26,
+          "pHashDistance": 22
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-fa1ab0a1b9009910a83a9ffd",
+      "leftReviewItemId": "ri-194799c0180cba0cb01cd1d7",
+      "rightReviewItemId": "ri-1dc1e67c7d5aeadb7712cdfa",
+      "splitPair": "train-test",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 37,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 26,
+          "pHashDistance": 24
+        },
+        "center-0.8": {
+          "dHashDistance": 25,
+          "pHashDistance": 18
+        },
+        "center-1.0": {
+          "dHashDistance": 17,
+          "pHashDistance": 20
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-881e8be2214ca9fc2feecae3",
+      "leftReviewItemId": "ri-194799c0180cba0cb01cd1d7",
+      "rightReviewItemId": "ri-388f637e4b9dcb03a2846919",
+      "splitPair": "train-test",
+      "bestCropScale": "center-0.6",
+      "bestCombinedDistance": 38,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 20,
+          "pHashDistance": 18
+        },
+        "center-0.8": {
+          "dHashDistance": 19,
+          "pHashDistance": 24
+        },
+        "center-1.0": {
+          "dHashDistance": 18,
+          "pHashDistance": 30
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-deb7efd1a231164233578435",
+      "leftReviewItemId": "ri-7938c52986795cb2471e3b2d",
+      "rightReviewItemId": "ri-ad60f67b391d7555421c8805",
+      "splitPair": "train-test",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 38,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 24,
+          "pHashDistance": 24
+        },
+        "center-0.8": {
+          "dHashDistance": 22,
+          "pHashDistance": 20
+        },
+        "center-1.0": {
+          "dHashDistance": 18,
+          "pHashDistance": 20
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-21aa75f4ba75398bbe3fcc2a",
+      "leftReviewItemId": "ri-5915e9ddb4553720012c7d5e",
+      "rightReviewItemId": "ri-bc7780900d1e1a41373dee99",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 24,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 27,
+          "pHashDistance": 22
+        },
+        "center-0.8": {
+          "dHashDistance": 11,
+          "pHashDistance": 18
+        },
+        "center-1.0": {
+          "dHashDistance": 12,
+          "pHashDistance": 12
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-f85f2f4382b06a672c9ffbaf",
+      "leftReviewItemId": "ri-0688c8c1e4b61c783d6acd80",
+      "rightReviewItemId": "ri-c4474a4e733e72fb8b44aa5e",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-0.8",
+      "bestCombinedDistance": 25,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 9,
+          "pHashDistance": 28
+        },
+        "center-0.8": {
+          "dHashDistance": 5,
+          "pHashDistance": 20
+        },
+        "center-1.0": {
+          "dHashDistance": 13,
+          "pHashDistance": 18
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-a406080553ef463e950d8558",
+      "leftReviewItemId": "ri-581412956aa76e55401b2be0",
+      "rightReviewItemId": "ri-64b6b8b32616c29283ecbe3b",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 26,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 32,
+          "pHashDistance": 20
+        },
+        "center-0.8": {
+          "dHashDistance": 22,
+          "pHashDistance": 14
+        },
+        "center-1.0": {
+          "dHashDistance": 20,
+          "pHashDistance": 6
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-431c845864f4efff55a524dc",
+      "leftReviewItemId": "ri-8e2024268293f5164393e5e9",
+      "rightReviewItemId": "ri-c4474a4e733e72fb8b44aa5e",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-0.8",
+      "bestCombinedDistance": 28,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 15,
+          "pHashDistance": 18
+        },
+        "center-0.8": {
+          "dHashDistance": 8,
+          "pHashDistance": 20
+        },
+        "center-1.0": {
+          "dHashDistance": 12,
+          "pHashDistance": 20
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-8b3eb21268d46c58d7c29fb6",
+      "leftReviewItemId": "ri-c50559c696e980180e7b4dcf",
+      "rightReviewItemId": "ri-f0a363d1d1fe641434caa964",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 29,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 24,
+          "pHashDistance": 20
+        },
+        "center-0.8": {
+          "dHashDistance": 20,
+          "pHashDistance": 16
+        },
+        "center-1.0": {
+          "dHashDistance": 13,
+          "pHashDistance": 16
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-d6833ed9992cf749793632aa",
+      "leftReviewItemId": "ri-833fe30f42faa7b2b5658c30",
+      "rightReviewItemId": "ri-bc7780900d1e1a41373dee99",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 29,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 28,
+          "pHashDistance": 28
+        },
+        "center-0.8": {
+          "dHashDistance": 17,
+          "pHashDistance": 22
+        },
+        "center-1.0": {
+          "dHashDistance": 9,
+          "pHashDistance": 20
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-03ffec53be014fcd58392594",
+      "leftReviewItemId": "ri-8ba62041c035e38475736ac8",
+      "rightReviewItemId": "ri-909c04ece5c9418958ec3d44",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 32,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 29,
+          "pHashDistance": 28
+        },
+        "center-0.8": {
+          "dHashDistance": 18,
+          "pHashDistance": 32
+        },
+        "center-1.0": {
+          "dHashDistance": 18,
+          "pHashDistance": 14
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-527547a4ee808aa776c3fbc0",
+      "leftReviewItemId": "ri-2ce324cc5891d5bebe344c72",
+      "rightReviewItemId": "ri-c4474a4e733e72fb8b44aa5e",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-0.8",
+      "bestCombinedDistance": 32,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 18,
+          "pHashDistance": 20
+        },
+        "center-0.8": {
+          "dHashDistance": 10,
+          "pHashDistance": 22
+        },
+        "center-1.0": {
+          "dHashDistance": 13,
+          "pHashDistance": 20
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-5f035ba90f172bcf97f91ff6",
+      "leftReviewItemId": "ri-725625952ee814c37ad492f0",
+      "rightReviewItemId": "ri-dcb824de9c62d58680a3623e",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-0.8",
+      "bestCombinedDistance": 33,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 21,
+          "pHashDistance": 24
+        },
+        "center-0.8": {
+          "dHashDistance": 15,
+          "pHashDistance": 18
+        },
+        "center-1.0": {
+          "dHashDistance": 20,
+          "pHashDistance": 24
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-8668b4032fda8fa567a5c0df",
+      "leftReviewItemId": "ri-1dc1e67c7d5aeadb7712cdfa",
+      "rightReviewItemId": "ri-f57a637282d0634c0067c41f",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 33,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 29,
+          "pHashDistance": 26
+        },
+        "center-0.8": {
+          "dHashDistance": 20,
+          "pHashDistance": 24
+        },
+        "center-1.0": {
+          "dHashDistance": 13,
+          "pHashDistance": 20
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-7428fe1358bf8644913ba468",
+      "leftReviewItemId": "ri-2b2ac28de7fe01b39dce2df5",
+      "rightReviewItemId": "ri-c2ddc5abde546de8443eb7b0",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-0.8",
+      "bestCombinedDistance": 34,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 23,
+          "pHashDistance": 20
+        },
+        "center-0.8": {
+          "dHashDistance": 18,
+          "pHashDistance": 16
+        },
+        "center-1.0": {
+          "dHashDistance": 16,
+          "pHashDistance": 20
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-91ca7fcc7e4c85d03b02f9f6",
+      "leftReviewItemId": "ri-5fc7b02958a532233a20f521",
+      "rightReviewItemId": "ri-fca83ee6bec996e9e871673b",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-0.6",
+      "bestCombinedDistance": 34,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 16,
+          "pHashDistance": 18
+        },
+        "center-0.8": {
+          "dHashDistance": 24,
+          "pHashDistance": 26
+        },
+        "center-1.0": {
+          "dHashDistance": 23,
+          "pHashDistance": 34
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-ab975594cc3b6339e8bf5ab4",
+      "leftReviewItemId": "ri-15e1f3a5a667aac919ed9ccf",
+      "rightReviewItemId": "ri-725625952ee814c37ad492f0",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-0.8",
+      "bestCombinedDistance": 34,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 26,
+          "pHashDistance": 24
+        },
+        "center-0.8": {
+          "dHashDistance": 16,
+          "pHashDistance": 18
+        },
+        "center-1.0": {
+          "dHashDistance": 19,
+          "pHashDistance": 22
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-e24b2d41d023d455607ec9db",
+      "leftReviewItemId": "ri-90a8ad4801c4d08a5e26d1dc",
+      "rightReviewItemId": "ri-9497815561dc84fee747f885",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 34,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 29,
+          "pHashDistance": 36
+        },
+        "center-0.8": {
+          "dHashDistance": 26,
+          "pHashDistance": 20
+        },
+        "center-1.0": {
+          "dHashDistance": 14,
+          "pHashDistance": 20
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-22059358f6d4cfacb2bd21e9",
+      "leftReviewItemId": "ri-15e1f3a5a667aac919ed9ccf",
+      "rightReviewItemId": "ri-7bebb32f300a079ae75fd716",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-0.8",
+      "bestCombinedDistance": 35,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 26,
+          "pHashDistance": 28
+        },
+        "center-0.8": {
+          "dHashDistance": 17,
+          "pHashDistance": 18
+        },
+        "center-1.0": {
+          "dHashDistance": 22,
+          "pHashDistance": 32
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-882507a9d8cb029ce171d3a1",
+      "leftReviewItemId": "ri-af55d44646c8b1090ddf6fd5",
+      "rightReviewItemId": "ri-eb395831024fde88fd6c3b8f",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-0.8",
+      "bestCombinedDistance": 35,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 25,
+          "pHashDistance": 30
+        },
+        "center-0.8": {
+          "dHashDistance": 15,
+          "pHashDistance": 20
+        },
+        "center-1.0": {
+          "dHashDistance": 15,
+          "pHashDistance": 32
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-a122e440ca19782e83113107",
+      "leftReviewItemId": "ri-57e951b70ff2647e6e866a00",
+      "rightReviewItemId": "ri-909c04ece5c9418958ec3d44",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-0.8",
+      "bestCombinedDistance": 35,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 23,
+          "pHashDistance": 30
+        },
+        "center-0.8": {
+          "dHashDistance": 17,
+          "pHashDistance": 18
+        },
+        "center-1.0": {
+          "dHashDistance": 25,
+          "pHashDistance": 20
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-bc2806529332ca0295b25e9d",
+      "leftReviewItemId": "ri-2cafd637c9218fe78215646a",
+      "rightReviewItemId": "ri-b7906efaf5358c61b09d3ba9",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-0.6",
+      "bestCombinedDistance": 35,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 15,
+          "pHashDistance": 20
+        },
+        "center-0.8": {
+          "dHashDistance": 25,
+          "pHashDistance": 28
+        },
+        "center-1.0": {
+          "dHashDistance": 26,
+          "pHashDistance": 26
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-d9fde2e7e25c0b326f9d6ff4",
+      "leftReviewItemId": "ri-526164afaec61ca963613fba",
+      "rightReviewItemId": "ri-c2ddc5abde546de8443eb7b0",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 35,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 31,
+          "pHashDistance": 32
+        },
+        "center-0.8": {
+          "dHashDistance": 23,
+          "pHashDistance": 30
+        },
+        "center-1.0": {
+          "dHashDistance": 17,
+          "pHashDistance": 18
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-f1b437fc9201cf2ccda5ce9d",
+      "leftReviewItemId": "ri-7260262fa22041f3760c17c7",
+      "rightReviewItemId": "ri-8b11320b4a2660d21e164037",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-0.8",
+      "bestCombinedDistance": 35,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 17,
+          "pHashDistance": 28
+        },
+        "center-0.8": {
+          "dHashDistance": 13,
+          "pHashDistance": 22
+        },
+        "center-1.0": {
+          "dHashDistance": 20,
+          "pHashDistance": 26
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-08b962d3264f2e6da5d67599",
+      "leftReviewItemId": "ri-60f5b65378c3c562050b1d72",
+      "rightReviewItemId": "ri-70a8b1b1134378693edec4b5",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-0.6",
+      "bestCombinedDistance": 36,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 16,
+          "pHashDistance": 20
+        },
+        "center-0.8": {
+          "dHashDistance": 28,
+          "pHashDistance": 36
+        },
+        "center-1.0": {
+          "dHashDistance": 25,
+          "pHashDistance": 28
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-12f8e69c60412d9ac4080c96",
+      "leftReviewItemId": "ri-1fd32f865101993caf0cc94f",
+      "rightReviewItemId": "ri-e3d2c9bdbafac03cefdbca86",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-0.8",
+      "bestCombinedDistance": 36,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 21,
+          "pHashDistance": 32
+        },
+        "center-0.8": {
+          "dHashDistance": 20,
+          "pHashDistance": 16
+        },
+        "center-1.0": {
+          "dHashDistance": 21,
+          "pHashDistance": 24
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-483329f4285561be7ccf2a26",
+      "leftReviewItemId": "ri-524a3c54e2623711b9e308be",
+      "rightReviewItemId": "ri-c2ddc5abde546de8443eb7b0",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-0.8",
+      "bestCombinedDistance": 36,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 27,
+          "pHashDistance": 28
+        },
+        "center-0.8": {
+          "dHashDistance": 16,
+          "pHashDistance": 20
+        },
+        "center-1.0": {
+          "dHashDistance": 22,
+          "pHashDistance": 26
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-999beacecd0d80891c560c17",
+      "leftReviewItemId": "ri-0b090d61f1ebaaa26fbb3403",
+      "rightReviewItemId": "ri-725625952ee814c37ad492f0",
+      "splitPair": "train-valid",
+      "bestCropScale": "center-0.8",
+      "bestCombinedDistance": 36,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 27,
+          "pHashDistance": 28
+        },
+        "center-0.8": {
+          "dHashDistance": 18,
+          "pHashDistance": 18
+        },
+        "center-1.0": {
+          "dHashDistance": 28,
+          "pHashDistance": 32
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-ce3d99c92c51a1329e1b6ccc",
+      "leftReviewItemId": "ri-caa947bd89eb1ac4a529dd95",
+      "rightReviewItemId": "ri-e2040fbff71bb028aa3ea24c",
+      "splitPair": "valid-test",
+      "bestCropScale": "center-0.6",
+      "bestCombinedDistance": 38,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 22,
+          "pHashDistance": 16
+        },
+        "center-0.8": {
+          "dHashDistance": 27,
+          "pHashDistance": 18
+        },
+        "center-1.0": {
+          "dHashDistance": 28,
+          "pHashDistance": 26
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-acd976990e3cc908846d4f89",
+      "leftReviewItemId": "ri-16359362d004a863e0528fec",
+      "rightReviewItemId": "ri-70a8b1b1134378693edec4b5",
+      "splitPair": "valid-test",
+      "bestCropScale": "center-0.6",
+      "bestCombinedDistance": 39,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 21,
+          "pHashDistance": 18
+        },
+        "center-0.8": {
+          "dHashDistance": 25,
+          "pHashDistance": 28
+        },
+        "center-1.0": {
+          "dHashDistance": 28,
+          "pHashDistance": 22
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-3c954670de59b7c2a89c46f7",
+      "leftReviewItemId": "ri-075fbd9eb3ec58b99413f652",
+      "rightReviewItemId": "ri-dcb824de9c62d58680a3623e",
+      "splitPair": "valid-test",
+      "bestCropScale": "center-0.6",
+      "bestCombinedDistance": 40,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 18,
+          "pHashDistance": 22
+        },
+        "center-0.8": {
+          "dHashDistance": 28,
+          "pHashDistance": 24
+        },
+        "center-1.0": {
+          "dHashDistance": 23,
+          "pHashDistance": 18
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-6e8acc26217a9921b48f3a6c",
+      "leftReviewItemId": "ri-bd2f83e6dcc872d145572d6c",
+      "rightReviewItemId": "ri-cbe763b9a6e37afb4c787dd6",
+      "splitPair": "valid-test",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 40,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 26,
+          "pHashDistance": 22
+        },
+        "center-0.8": {
+          "dHashDistance": 26,
+          "pHashDistance": 22
+        },
+        "center-1.0": {
+          "dHashDistance": 20,
+          "pHashDistance": 20
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-ef77f58cfd31edc74afb1932",
+      "leftReviewItemId": "ri-909c04ece5c9418958ec3d44",
+      "rightReviewItemId": "ri-ec547f52278a088d0c6e7ada",
+      "splitPair": "valid-test",
+      "bestCropScale": "center-0.8",
+      "bestCombinedDistance": 40,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 23,
+          "pHashDistance": 36
+        },
+        "center-0.8": {
+          "dHashDistance": 22,
+          "pHashDistance": 18
+        },
+        "center-1.0": {
+          "dHashDistance": 28,
+          "pHashDistance": 32
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-0b445f2f4643145cdc3803ca",
+      "leftReviewItemId": "ri-75eb2131032f5a98ab47e9e3",
+      "rightReviewItemId": "ri-f57a637282d0634c0067c41f",
+      "splitPair": "valid-test",
+      "bestCropScale": "center-0.6",
+      "bestCombinedDistance": 41,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 21,
+          "pHashDistance": 20
+        },
+        "center-0.8": {
+          "dHashDistance": 17,
+          "pHashDistance": 30
+        },
+        "center-1.0": {
+          "dHashDistance": 24,
+          "pHashDistance": 28
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-1c027e4d64843cf111e4f626",
+      "leftReviewItemId": "ri-53145db718966fe4bb2b1e6d",
+      "rightReviewItemId": "ri-8b11320b4a2660d21e164037",
+      "splitPair": "valid-test",
+      "bestCropScale": "center-0.6",
+      "bestCombinedDistance": 41,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 13,
+          "pHashDistance": 28
+        },
+        "center-0.8": {
+          "dHashDistance": 23,
+          "pHashDistance": 32
+        },
+        "center-1.0": {
+          "dHashDistance": 25,
+          "pHashDistance": 28
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    },
+    {
+      "candidateId": "ic-51d554d761765d4439642a85",
+      "leftReviewItemId": "ri-9ae85d9c5df57ccaf7d0860e",
+      "rightReviewItemId": "ri-f4a50b269986c6144a99a9c9",
+      "splitPair": "valid-test",
+      "bestCropScale": "center-1.0",
+      "bestCombinedDistance": 41,
+      "distances": {
+        "center-0.6": {
+          "dHashDistance": 22,
+          "pHashDistance": 34
+        },
+        "center-0.8": {
+          "dHashDistance": 24,
+          "pHashDistance": 26
+        },
+        "center-1.0": {
+          "dHashDistance": 21,
+          "pHashDistance": 20
+        }
+      },
+      "reviewStatus": "unreviewed_candidate",
+      "automaticIdentityDecision": false
+    }
+  ],
+  "decision": {
+    "candidateReviewComplete": false,
+    "personOrSourceCoverageComplete": false,
+    "currentSplitIndependent": false,
+    "trainingAuthorized": false,
+    "finalTestAuthorized": false,
+    "activationAllowed": false
+  }
+}
