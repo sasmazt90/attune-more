@@ -187,8 +187,13 @@ with sync_playwright() as pw:
   assert len(request_photo_ids)==3 and request_photo_ids<=response_photo_ids
   runs.append({'seconds':time.monotonic()-start,'result':value,'reference':ref,'sourcePhotoOpaque':True,'graphs':graphs,'api':{'endpoint':'/api/local-health/skin','requestCount':len(api_requests),'successfulResponseCount':len(api_responses),'uniqueRequestPhotoIds':len(request_photo_ids),'allRequestsHaveSuccessfulResponse':request_photo_ids<=response_photo_ids},'cameraWorkerTiming':{'initializeRoundTripMs':initializations,'firstFrameRoundTripMs':frames[0],'medianFrameRoundTripMs':__import__('statistics').median(frames),'measuredFrames':len(frames),'guidanceEvents':p.evaluate('window.guidanceEvents'),'definition':'actual worker request-response; initialization includes assets/runtime readiness; frame includes bitmap IPC/inference/response; no speedup claim'}})
   (OUT/f'completed-{n}.json').write_text(json.dumps(runs[-1],ensure_ascii=False,indent=2),'utf8')
-  p.get_by_role('button',name='Referans ve görüntü hakkında bilgi').click();dialog=p.get_by_role('dialog');assert dialog.locator('li').count()==6
-  assert 'alpha dekupe' not in dialog.inner_text() and 'Eski kayıtların sayısal' not in dialog.inner_text()
+  p.get_by_role('button',name='Referans ve görüntü hakkında bilgi',exact=True).click()
+  dialog=p.get_by_role('dialog',name='Referans ve görüntü',exact=True);expect(dialog).to_be_visible()
+  guidance=dialog.locator('ul > li');assert guidance.count()==6,guidance.all_inner_texts()
+  guidance_text=dialog.inner_text()
+  assert 'Skorlar fotoğraftaki görünümün 0–100 ölçeğindeki göstergeleridir' in guidance_text
+  assert 'Yeterli görüntü alınamayan değerler — ile gösterilir' in guidance_text
+  assert 'alpha dekupe' not in guidance_text and 'Eski kayıtların sayısal' not in guidance_text
   capture(p,c,OUT/f'reference-info-{n}.png',n==1);p.keyboard.press('Escape')
   if n==0:
    p.set_viewport_size({'width':720,'height':900});capture(p,c,OUT/'narrow.png');assert p.evaluate('document.documentElement.scrollWidth<=innerWidth')
