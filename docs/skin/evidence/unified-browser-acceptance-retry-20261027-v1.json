@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "dateEuropeBerlin": "2026-10-27",
-  "observedAt": "2026-10-27T00:07:58Z",
+  "observedAt": "2026-10-27T00:12:08Z",
   "repository": {
     "fullName": "sasmazt90/attune-more",
     "branch": "work/skin-roadmap-20261023",
@@ -11,7 +11,8 @@
     "thirdRetryCandidateCommit": "3ad03c461eea4f08a197fc8c5400f29dea2867d0",
     "fourthRetryCandidateCommit": "695a636c831e57e8a5a6dac1dbe20956b22bedef",
     "fifthRetryCandidateCommit": "1011814b7cf5ed35ae93158fb174497b1455b285",
-    "sixthRetryCandidateCommit": "04c7497c91886f5acb5eed82561b4c92228dc52f"
+    "sixthRetryCandidateCommit": "04c7497c91886f5acb5eed82561b4c92228dc52f",
+    "seventhRetryCandidateCommit": "64f3eb358a043469356de54c9937885661d21279"
   },
   "failedAttempt": {
     "browserRunId": 40406100671,
@@ -181,10 +182,47 @@
   "sixthRetry": {
     "browserRunId": 40424360084,
     "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40424360084",
-    "statusAtCheckpoint": "in_progress",
+    "statusAtCheckpoint": "completed",
+    "conclusion": "failure",
     "matchingRepositoryCiRunId": 40424360161,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40424360161",
-    "matchingRepositoryCiStatusAtCheckpoint": "queued",
+    "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
+    "jobId": 121926318281,
+    "artifactId": 12699243624,
+    "artifactDigest": "sha256:711b0b4c03bdb02b18770585a133b4fea35629a49c06b32e6e96d23c321fed12",
+    "completedRuntimeSetup": true,
+    "productionBuildPassed": true,
+    "serversHealthChecked": true,
+    "fixturePrepared": true,
+    "licensedDistinctPosesSelected": ["FRONT", "LEFT", "RIGHT"],
+    "realMediaPipeLandmarksPerPose": 478,
+    "browserTestsExecuted": true,
+    "browserApiTestPassed": false,
+    "historyTestExecuted": false,
+    "privacyTestExecuted": false,
+    "sanitizedEvidenceProduced": false,
+    "rootCause": "the browser API test reached the real product but did not complete the newly required skin service-processing consent dialog before looking for the start-analysis button"
+  },
+  "seventhTargetedFix": {
+    "sources": [
+      "tests/e2e/current_skin_contract.py",
+      "tests/e2e/current_skin_photo_history.py",
+      "tests/e2e/current_skin_photo_wipe_success.py"
+    ],
+    "change": "complete the exact user-facing local skin service-processing consent checkbox and continue action in every isolated browser acceptance profile before starting a scan; do not bypass or preseed the consent gate",
+    "pythonCompilePassed": true,
+    "diffCheckPassed": true,
+    "privacyFlowBypassed": false,
+    "roboflowTrainingChanged": false,
+    "modelOrThresholdChanged": false
+  },
+  "seventhRetry": {
+    "browserRunId": 40424850826,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40424850826",
+    "statusAtCheckpoint": "in_progress",
+    "matchingRepositoryCiRunId": 40424850811,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40424850811",
+    "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
     "sanitizedEvidencePending": true
   },
   "roboflowRefresh": {
