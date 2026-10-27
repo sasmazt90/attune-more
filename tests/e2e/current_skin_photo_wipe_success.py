@@ -17,6 +17,10 @@ constants={n.targets[0].id:ast.literal_eval(n.value) for n in ast.parse((ROOT/'t
 def rows(p):return p.evaluate("()=>new Promise((resolve,reject)=>{const q=indexedDB.open('attune-skin-photos');q.onsuccess=()=>{const db=q.result,t=db.transaction('records');const r=t.objectStore('records').getAll();r.onsuccess=()=>resolve(r.result);t.oncomplete=()=>db.close();t.onerror=()=>reject(t.error);};q.onerror=()=>reject(q.error);})")
 def open_record(p,id):
  p.goto('http://127.0.0.1:3000/profile');p.locator('[data-record-id="'+id+'"]').get_by_role('button',name='Sonucu Aç',exact=True).click();dialog=p.get_by_role('dialog',name='Cilt Sağlığı sonucu',exact=True);expect(dialog.locator('[data-skin-snapshot]')).to_be_visible(timeout=15000);return dialog
+def capture_native(page,profile,path):
+ if os.name=='nt':return capture_owned_window(page,profile,path)
+ page.screenshot(path=str(path),full_page=False)
+ return {'ownedWindow':False,'nativeWindowCapture':False,'browserCompositorCapture':True,'platform':os.name,'capture':'Playwright visible browser compositor; not OS-window or physical-camera evidence'}
 # Actual separate ASGI server and filesystem store. The shared service is read-only.
 def api(port,path,payload=None):
  data=json.dumps(payload).encode() if payload is not None else None
@@ -83,7 +87,7 @@ with tempfile.TemporaryDirectory(prefix='attune-photo-retention-') as profile,sy
  stage('retained-result-responsive')
  preferences=Path(profile)/'Default/Preferences';prefs=json.loads(preferences.read_text());prefs.setdefault('partition',{})['default_zoom_level']={'x':math.log(2)/math.log(1.2)};preferences.write_text(json.dumps(prefs),'utf8')
  c=launch(True);c.route(re.compile(r'http://(?:localhost|127\.0\.0\.1):8000/'),lambda route:route.fulfill(response=route.fetch(url=re.sub(r':8000/',':8001/',route.request.url))));p=c.new_page();dialog=open_record(p,scans[0]['id']);geometry=p.evaluate('({innerWidth,outerWidth,dpr:devicePixelRatio,zoom:getComputedStyle(document.documentElement).zoom,scroll:document.documentElement.scrollWidth})');assert geometry['dpr']>=2 and geometry['innerWidth']<geometry['outerWidth']*.65 and geometry['zoom']=='1' and geometry['scroll']<=geometry['innerWidth'],geometry
- capture_owned_window(p,profile,OUT/'result-native200.png');dialog.evaluate('(el)=>el.scrollTop=el.scrollHeight');capture_owned_window(p,profile,OUT/'result-native200-bottom.png');p.keyboard.press('Escape')
+ capture_native(p,profile,OUT/'result-native200.png');dialog.evaluate('(el)=>el.scrollTop=el.scrollHeight');capture_native(p,profile,OUT/'result-native200-bottom.png');p.keyboard.press('Escape')
  stage('native-200-verified')
  # Browser request is forwarded to the real isolated service, with no fabricated response.
  assert len(api(8001,'/api/mental/sessions'))==2
@@ -97,7 +101,7 @@ with tempfile.TemporaryDirectory(prefix='attune-photo-retention-') as profile,sy
  assert p.evaluate('localStorage.getItem("togg_health_skin_history")') is None
  assert p.evaluate('localStorage.getItem("togg_health_latest_skin")') is None
  stage('local-and-backend-wipe-verified')
- p.get_by_text('Tüm yerel veriler başarıyla temizlendi.',exact=True).scroll_into_view_if_needed();capture_owned_window(p,profile,OUT/'wipe-local-and-backend-success.png')
+ p.get_by_text('Tüm yerel veriler başarıyla temizlendi.',exact=True).scroll_into_view_if_needed();capture_native(p,profile,OUT/'wipe-local-and-backend-success.png')
  c.close();c=launch();p=c.new_page();p.goto('http://127.0.0.1:3000/profile');assert not p.locator('[data-record-id]').count();assert not rows(p);assert api(8001,'/api/mental/sessions')==[]
  assert hashlib.sha256(json.dumps(api(8000,'/api/mental/sessions'),sort_keys=True).encode()).hexdigest()==shared_before
  assert not errors,errors

@@ -137,6 +137,8 @@ class UnifiedBrowserAcceptanceTest(unittest.TestCase):
         self.assertNotIn("path: audit-results/unified-skin-result-browser-acceptance/\n", workflow)
         self.assertIn("'physicalCameraCapture':False", privacy)
         self.assertIn("stage('completed','pass')", privacy)
+        self.assertIn("if os.name=='nt':return capture_owned_window(page,profile,path)", privacy)
+        self.assertNotIn(";capture_owned_window(p,profile,OUT/'wipe-local-and-backend-success.png')", privacy)
 
 
 if __name__ == "__main__":
