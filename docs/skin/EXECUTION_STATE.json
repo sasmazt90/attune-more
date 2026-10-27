@@ -665,7 +665,16 @@
         "classesRemainSeparate": true,
         "workingConcreteResultFlowPreserved": true,
         "localFocusedTests": 14,
-        "localSkinResearchTests": 303
+        "localSkinResearchTests": 303,
+        "ci": {
+          "runId": 40475821552,
+          "headSha": "83e324742eb891fc301fc0dcf068f45bf7440dea",
+          "status": "in_progress",
+          "frontendJobId": 122093660325,
+          "frontend": "success",
+          "backendJobId": 122093659997,
+          "backend": "in_progress"
+        }
       },
       "lastCheckedDate": "2026-10-27"
     },
@@ -6693,7 +6702,7 @@
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-27T08:43:08Z",
-      "action": "Read the remote checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye versions and training lists, the grouped under-eye project, model inventory and existing upload task sLFwX7CYBVcnnD6iAW5o. Acne/regional jobs remain finished, under-eye pilot v2 still has no training, the grouped project has no model, and the task remains created/no-progress; no duplicate training, upload, version, inference, threshold or activation work was started. Hardened the task-09/10 per-class gate to v3 by cryptographically binding the frozen 88-item expert review queue, its exact 8bf6b52f...56122 grouped archive, train/valid-only selection and untouched 38-image test boundary. The gate rejects a mutable expert-complete boolean unless an under-eye-expert-semantic-protocol-v1 record covers every exact queue ID for darkcircle and eyebag, locks every per-class policy and preserves all unknown/negative/polygon truth invariants. It also enforces that semantic review alone cannot claim person independence, authorize training/final-test use or activate a model. Fourteen focused tests and all 303 skin-research tests passed. The verified queue is complete as an executable review input, but expert decisions, person independence, rights, exact archive authorization, new final test and physical-camera evidence remain pending; training and roadmap acceptance remain false.",
+      "action": "Read the remote checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye versions and training lists, the grouped under-eye project, model inventory and existing upload task sLFwX7CYBVcnnD6iAW5o. Acne/regional jobs remain finished, under-eye pilot v2 still has no training, the grouped project has no model, and the task remains created/no-progress; no duplicate training, upload, version, inference, threshold or activation work was started. Hardened the task-09/10 per-class gate to v3 by cryptographically binding the frozen 88-item expert review queue, its exact 8bf6b52f...56122 grouped archive, train/valid-only selection and untouched 38-image test boundary. The gate rejects a mutable expert-complete boolean unless an under-eye-expert-semantic-protocol-v1 record covers every exact queue ID for darkcircle and eyebag, locks every per-class policy and preserves all unknown/negative/polygon truth invariants. It also enforces that semantic review alone cannot claim person independence, authorize training/final-test use or activate a model. Fourteen focused tests and all 303 skin-research tests passed locally. Remote commit 83e324742eb891fc301fc0dcf068f45bf7440dea started CI run 40475821552: frontend job 122093660325 passed and backend job 122093659997 remains in progress, so the next execution must continue from that real run instead of starting a duplicate. The verified queue is complete as an executable review input, but expert decisions, person independence, rights, exact archive authorization, new final test and physical-camera evidence remain pending; training and roadmap acceptance remain false.",
       "report": "docs/skin/evidence/under-eye-per-class-release-gate-20261027-v3.json",
       "evidence": [
         "docs/skin/evidence/under-eye-per-class-release-receipt-20261027-v3.json",
@@ -6703,7 +6712,18 @@
         "focused": 14,
         "skinResearch": 303,
         "result": "OK"
-      }
+      },
+      "runs": [
+        {
+          "runId": 40475821552,
+          "headSha": "83e324742eb891fc301fc0dcf068f45bf7440dea",
+          "status": "in_progress",
+          "frontendJobId": 122093660325,
+          "frontend": "success",
+          "backendJobId": 122093659997,
+          "backend": "in_progress"
+        }
+      ]
     }
   ]
 }
