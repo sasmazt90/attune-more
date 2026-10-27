@@ -1,7 +1,7 @@
 name: Attune browser audit
 on:
   push:
-    branches: ['audit/e2e-2026-09-30', 'fix/attune-audit-remediation', 'fix/live-test-followup']
+    branches: ['audit/e2e-2026-09-30', 'fix/attune-audit-remediation', 'fix/live-test-followup', 'work/skin-roadmap-20261023']
   workflow_dispatch:
     inputs:
       expected_source_sha:
@@ -67,7 +67,8 @@ jobs:
         run: |
           xvfb-run -a --server-args="-screen 0 1920x1080x24" python -u tests/e2e/current_skin_contract.py 2>&1 | tee audit-results/unified-skin-result-browser-acceptance/browser-api.log
           xvfb-run -a --server-args="-screen 0 1920x1080x24" python -u tests/e2e/current_skin_photo_history.py 2>&1 | tee audit-results/unified-skin-result-browser-acceptance/history.log
-          xvfb-run -a --server-args="-screen 0 1920x1080x24" python -u tests/e2e/current_skin_photo_wipe_success.py 2>&1 | tee audit-results/unified-skin-result-browser-acceptance/privacy.log
+          ATTUNE_SAFE_STAGE_FILE=audit-results/unified-skin-result-browser-acceptance/sanitized/privacy-runtime-status.json \
+            xvfb-run -a --server-args="-screen 0 1920x1080x24" python -u tests/e2e/current_skin_photo_wipe_success.py 2>&1 | tee audit-results/unified-skin-result-browser-acceptance/privacy.log
       - name: Bind matching repository CI and emit privacy-safe evidence only
         env:
           GH_TOKEN: ${{ github.token }}
@@ -107,7 +108,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: unified-skin-browser-acceptance-${{ github.run_id }}
-          path: audit-results/unified-skin-result-browser-acceptance/
+          path: audit-results/unified-skin-result-browser-acceptance/sanitized/
           retention-days: 14
           if-no-files-found: warn
   drive-metadata-diagnostic:

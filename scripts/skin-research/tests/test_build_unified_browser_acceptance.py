@@ -129,6 +129,15 @@ class UnifiedBrowserAcceptanceTest(unittest.TestCase):
         with self.assertRaisesRegex(MODULE.EvidenceError, "history policy"):
             MODULE.build(args)
 
+    def test_failed_browser_run_artifact_is_sanitized_and_stage_bound(self):
+        workflow = (ROOT / ".github/workflows/e2e-audit.yml").read_text(encoding="utf-8")
+        privacy = (ROOT / "tests/e2e/current_skin_photo_wipe_success.py").read_text(encoding="utf-8")
+        self.assertIn("ATTUNE_SAFE_STAGE_FILE=audit-results/unified-skin-result-browser-acceptance/sanitized/privacy-runtime-status.json", workflow)
+        self.assertIn("path: audit-results/unified-skin-result-browser-acceptance/sanitized/", workflow)
+        self.assertNotIn("path: audit-results/unified-skin-result-browser-acceptance/\n", workflow)
+        self.assertIn("'physicalCameraCapture':False", privacy)
+        self.assertIn("stage('completed','pass')", privacy)
+
 
 if __name__ == "__main__":
     unittest.main()

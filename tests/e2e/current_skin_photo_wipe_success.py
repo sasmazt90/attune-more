@@ -8,6 +8,11 @@ from PIL import Image
 sys.path.insert(0,str(Path(__file__).parent))
 from owned_window_capture import capture_owned_window
 ROOT=Path.cwd();OUT=ROOT/'audit-results/acne-trained-20261010/photo-wipe-success';OUT.mkdir(parents=True,exist_ok=True)
+SAFE_STAGE=Path(os.environ.get('ATTUNE_SAFE_STAGE_FILE',OUT/'sanitized-runtime-status.json'))
+def stage(name,result='running'):
+ SAFE_STAGE.parent.mkdir(parents=True,exist_ok=True)
+ SAFE_STAGE.write_text(json.dumps({'schemaVersion':1,'scenario':'skin-privacy-lifecycle-browser-v1','completedStage':name,'result':result,'controlledFixture':True,'physicalCameraCapture':False,'expertGroundTruth':False,'accuracyEvidence':False},sort_keys=True,indent=2)+'\n','utf8')
+stage('script-started')
 constants={n.targets[0].id:ast.literal_eval(n.value) for n in ast.parse((ROOT/'tests/e2e/current_skin_contract.py').read_text()).body if isinstance(n,ast.Assign) and isinstance(n.targets[0],ast.Name) and n.targets[0].id in ('INIT','APPEARANCE')}
 def rows(p):return p.evaluate("()=>new Promise((resolve,reject)=>{const q=indexedDB.open('attune-skin-photos');q.onsuccess=()=>{const db=q.result,t=db.transaction('records');const r=t.objectStore('records').getAll();r.onsuccess=()=>resolve(r.result);t.oncomplete=()=>db.close();t.onerror=()=>reject(t.error);};q.onerror=()=>reject(q.error);})")
 def open_record(p,id):
@@ -34,6 +39,7 @@ for _ in range(45):
 else:raise RuntimeError('Isolated service did not start')
 for n in range(2):api(8001,'/api/mental/sessions',{'summaryText':f'Isolated wipe fixture {n}','recurringThemes':[],'saveMentalSummaries':True})
 assert len(api(8001,'/api/mental/sessions'))==2
+stage('isolated-backend-seeded')
 with tempfile.TemporaryDirectory(prefix='attune-photo-retention-') as profile,sync_playwright() as pw:
  args=['--use-fake-device-for-media-stream','--use-file-for-fake-video-capture='+str(ROOT/'audit-fixtures/three-angle.y4m'),'--enable-unsafe-swiftshader']
  def launch(headed=False):return pw.chromium.launch_persistent_context(profile,channel='chrome',headless=not headed,no_viewport=headed,viewport=None if headed else {'width':1600,'height':1000},permissions=['camera'],args=args+(['--window-size=1600,1000'] if headed else []))
@@ -70,12 +76,15 @@ with tempfile.TemporaryDirectory(prefix='attune-photo-retention-') as profile,sy
    proof['poseByRegion'][region]='LEFT' if region=='rightCheek' else 'RIGHT' if region=='leftCheek' else 'FRONT'
    p.get_by_role('button',name='Sonraki Bölge',exact=True).click()
   p.screenshot(path=str(OUT/f'scan-{n}.png'),full_page=True);scans.append(proof);print('Actual three-pose scan',n+1,'persisted',entry['bytes'],flush=True)
+ stage('scan-persisted')
  # Current-build retained result: desktop, narrow and native Chrome 200%.
  dialog=open_record(p,scans[0]['id']);p.screenshot(path=str(OUT/'result-desktop.png'),full_page=True);p.keyboard.press('Escape')
  p.set_viewport_size({'width':720,'height':900});dialog=open_record(p,scans[0]['id']);assert p.evaluate('document.documentElement.scrollWidth<=innerWidth');p.screenshot(path=str(OUT/'result-narrow.png'),full_page=True);p.keyboard.press('Escape');c.close()
+ stage('retained-result-responsive')
  preferences=Path(profile)/'Default/Preferences';prefs=json.loads(preferences.read_text());prefs.setdefault('partition',{})['default_zoom_level']={'x':math.log(2)/math.log(1.2)};preferences.write_text(json.dumps(prefs),'utf8')
  c=launch(True);c.route(re.compile(r'http://(?:localhost|127\.0\.0\.1):8000/'),lambda route:route.fulfill(response=route.fetch(url=re.sub(r':8000/',':8001/',route.request.url))));p=c.new_page();dialog=open_record(p,scans[0]['id']);geometry=p.evaluate('({innerWidth,outerWidth,dpr:devicePixelRatio,zoom:getComputedStyle(document.documentElement).zoom,scroll:document.documentElement.scrollWidth})');assert geometry['dpr']>=2 and geometry['innerWidth']<geometry['outerWidth']*.65 and geometry['zoom']=='1' and geometry['scroll']<=geometry['innerWidth'],geometry
  capture_owned_window(p,profile,OUT/'result-native200.png');dialog.evaluate('(el)=>el.scrollTop=el.scrollHeight');capture_owned_window(p,profile,OUT/'result-native200-bottom.png');p.keyboard.press('Escape')
+ stage('native-200-verified')
  # Browser request is forwarded to the real isolated service, with no fabricated response.
  assert len(api(8001,'/api/mental/sessions'))==2
  p.goto('http://127.0.0.1:3000/privacy');p.get_by_role('button',name='TÜM YEREL VERİLERİ SİL',exact=True).click();p.get_by_role('button',name='Evet, Tüm Verileri Sil',exact=True).click()
@@ -87,10 +96,14 @@ with tempfile.TemporaryDirectory(prefix='attune-photo-retention-') as profile,sy
  assert not rows(p)
  assert p.evaluate('localStorage.getItem("togg_health_skin_history")') is None
  assert p.evaluate('localStorage.getItem("togg_health_latest_skin")') is None
+ stage('local-and-backend-wipe-verified')
  p.get_by_text('Tüm yerel veriler başarıyla temizlendi.',exact=True).scroll_into_view_if_needed();capture_owned_window(p,profile,OUT/'wipe-local-and-backend-success.png')
  c.close();c=launch();p=c.new_page();p.goto('http://127.0.0.1:3000/profile');assert not p.locator('[data-record-id]').count();assert not rows(p);assert api(8001,'/api/mental/sessions')==[]
  assert hashlib.sha256(json.dumps(api(8000,'/api/mental/sessions'),sort_keys=True).encode()).hexdigest()==shared_before
  assert not errors,errors
+ stage('relaunch-empty-shared-unchanged')
  (OUT/'proof.json').write_text(json.dumps(dict(status='PASS',methodVersion='skin-privacy-lifecycle-browser-v1',buildId=(ROOT/'apps/vehicle-app/.next/BUILD_ID').read_text().strip(),realBrowser=True,browserEngine='chromium',actualScan=scans[0],explicitPhotoConsent=True,consentPassed=True,retentionPassed=True,localWipeVerified=True,deletionPassed=True,backendForwardedToRealIsolatedService=True,backendWipeAcceptance=True,sharedBackendUnchanged=True,relaunchStillEmpty=True,desktopNarrowVerified=True,native200=geometry,isolatedBackendRecordsBefore=2,isolatedBackendRecordsAfter=0,controlledFixture=True,physicalUserAcceptance=False,expertGroundTruth=False,accuracyEvidence=False),ensure_ascii=False,indent=2),'utf8');c.close()
+stage('privacy-proof-written')
 cleanup();atexit.unregister(cleanup)
+stage('completed','pass')
 print('PASS: real scan and actual isolated backend records removed; relaunch empty; shared backend unchanged')
