@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "evidenceType": "regional-mask-identity-candidate-ci",
+  "observedAt": "2026-10-27T18:31:00Z",
+  "repository": "sasmazt90/attune-more",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "5e2fdaa5e8377cb63a65eb93f95200c70f45a7c9",
+  "implementationTree": "b20b4777ca6eb34767f025501cf26906e1b25717",
+  "workflow": {
+    "id": 362950948,
+    "path": ".github/workflows/ci.yml",
+    "blobSHA": "8041e9040518f0abf500cd744b4ebb3a2d78d374",
+    "runId": 40559852171,
+    "runURL": "https://github.com/sasmazt90/attune-more/actions/runs/40559852171",
+    "status": "completed",
+    "conclusion": "success",
+    "frontendJobId": 122385621851,
+    "frontendConclusion": "success",
+    "backendJobId": 122385622793,
+    "backendConclusion": "success"
+  },
+  "source": {
+    "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "versionNumber": 1,
+    "images": 337,
+    "splits": {
+      "train": 244,
+      "valid": 63,
+      "test": 30
+    },
+    "classes": {
+      "Oily": 1065,
+      "Redness": 571
+    },
+    "sourceArchiveSHA256": "a24793ca3490a48088abf47ba89fc9ab94e1c3a12c488ce52915e19b5bdf6fd6",
+    "providerExportSHA256": "ba7aa450ee2e98af35dcb1b60f3f9673fc7a6ef6b7709e7b94e1df1d32bdab3a"
+  },
+  "implementation": {
+    "builder": {
+      "path": "scripts/skin-research/build_regional_mask_identity_candidates.py",
+      "blobSHA": "b67725ac44639f9fdaa378572f5cfc2045a04684"
+    },
+    "tests": {
+      "path": "scripts/skin-research/tests/test_build_regional_mask_identity_candidates.py",
+      "blobSHA": "0117ec21c794ed40dd9976556f8d490d0eb56d0f"
+    }
+  },
+  "artifacts": {
+    "queue": {
+      "path": "docs/skin/evidence/regional-mask-identity-candidate-queue-20261027-v1.json",
+      "blobSHA": "befe05d890b20ef3a84808327aa7adce94e1e30b",
+      "candidatesSHA256": "55b5e276b9822342824c6734a4ca9c33543336c59d1559b302f7fb818a846573"
+    },
+    "decisionsTemplate": {
+      "path": "docs/skin/evidence/regional-mask-identity-candidate-decisions-template-20261027-v1.json",
+      "blobSHA": "3ec44772dffb2bd18c55e747c495ee55a4bd09f8"
+    },
+    "result": {
+      "path": "docs/skin/evidence/regional-mask-identity-candidate-result-20261027-v1.json",
+      "blobSHA": "54c109c86e96758237c513d63c460c9a42992168"
+    }
+  },
+  "privacy": {
+    "committedImageBytes": false,
+    "committedFilenames": false,
+    "committedRawSourceNames": false,
+    "committedProviderImageIds": false,
+    "privateResolverCommitted": false,
+    "identifiersPseudonymousNotAnonymous": true
+  },
+  "method": {
+    "crossSplitPairsCompared": 24582,
+    "selectedCandidates": 48,
+    "uniqueCandidateRecords": 70,
+    "splitPairQuotas": {
+      "train-valid": 24,
+      "train-test": 16,
+      "valid-test": 8
+    },
+    "rankingSignals": [
+      "grayscale-dhash-64",
+      "grayscale-phash-63"
+    ],
+    "cropScales": [
+      1,
+      0.8,
+      0.6
+    ],
+    "distancesAreIdentityTruth": false,
+    "candidateReviewIsFullCoverage": false
+  },
+  "tests": {
+    "localFocused": {
+      "passed": 4
+    },
+    "repositoryDeterministic": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2
+    },
+    "completeSkinResearch": {
+      "passed": 335
+    }
+  },
+  "decision": {
+    "reviewedCandidates": 0,
+    "unreviewedCandidates": 48,
+    "candidateReviewComplete": false,
+    "personOrSourceCoverageComplete": false,
+    "currentSplitIndependent": false,
+    "replacementSplitReady": false,
+    "trainingAuthorized": false,
+    "finalTestAuthorized": false,
+    "activationAllowed": false,
+    "roadmapComplete": false
+  }
+}

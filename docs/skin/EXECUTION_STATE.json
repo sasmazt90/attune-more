@@ -741,7 +741,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-27T17:45:00Z",
+      "lastCheckedAt": "2026-10-27T18:31:00Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -990,6 +990,28 @@
         "reviewedRecords": 0,
         "unreviewedRecords": 337,
         "queueItemsSHA256": "f516efb71509111bd55e079bcbb8b2a897e5c00b5c8416668f18af3e247698a5",
+        "personOrSourceCoverageComplete": false,
+        "currentSplitIndependent": false,
+        "replacementSplitReady": false,
+        "trainingAuthorized": false,
+        "finalTestAuthorized": false,
+        "activationAllowed": false
+      },
+      "identityCandidateReview": {
+        "observedAt": "2026-10-27T18:31:00Z",
+        "methodVersion": "regional-mask-identity-candidate-review-v1",
+        "builder": "scripts/skin-research/build_regional_mask_identity_candidates.py",
+        "queue": "docs/skin/evidence/regional-mask-identity-candidate-queue-20261027-v1.json",
+        "decisionsTemplate": "docs/skin/evidence/regional-mask-identity-candidate-decisions-template-20261027-v1.json",
+        "result": "docs/skin/evidence/regional-mask-identity-candidate-result-20261027-v1.json",
+        "ciEvidence": "docs/skin/evidence/regional-mask-identity-candidate-ci-20261027-v1.json",
+        "crossSplitPairsCompared": 24582,
+        "selectedCandidates": 48,
+        "uniqueCandidateRecords": 70,
+        "candidatesSHA256": "55b5e276b9822342824c6734a4ca9c33543336c59d1559b302f7fb818a846573",
+        "reviewedCandidates": 0,
+        "unreviewedCandidates": 48,
+        "candidateReviewComplete": false,
         "personOrSourceCoverageComplete": false,
         "currentSplitIndependent": false,
         "replacementSplitReady": false,
@@ -2192,7 +2214,13 @@
         "scripts/skin-research/tests/test_ci_physical_camera_acceptance_wiring.py",
         "docs/skin/evidence/physical-camera-acceptance-ci-audit-20261026-v1.json",
         "docs/skin/evidence/physical-camera-acceptance-ci-remote-run-20261026-v1.json",
-        "docs/skin/evidence/product-regression-ci-repair-20261026-v1.json"
+        "docs/skin/evidence/product-regression-ci-repair-20261026-v1.json",
+        "scripts/skin-research/build_regional_mask_identity_candidates.py",
+        "scripts/skin-research/tests/test_build_regional_mask_identity_candidates.py",
+        "docs/skin/evidence/regional-mask-identity-candidate-queue-20261027-v1.json",
+        "docs/skin/evidence/regional-mask-identity-candidate-decisions-template-20261027-v1.json",
+        "docs/skin/evidence/regional-mask-identity-candidate-result-20261027-v1.json",
+        "docs/skin/evidence/regional-mask-identity-candidate-ci-20261027-v1.json"
       ],
       "blockers": [
         "Final holdout independence is not established. The privacy-safe grouping proposal confirms 16 cross-split source/person groups covering 37 records, including test/train leakage, while 729 singleton records still lack reviewed provenance/person identity. Independent real-camera evidence is also pending.",
@@ -4497,6 +4525,7 @@
     }
   },
   "nextActions": [
+    "Privately inspect all 48 exact regional identity candidate pairs in docs/skin/evidence/regional-mask-identity-candidate-decisions-template-20261027-v1.json using the local-only resolver and authorized visual source/person review. Fold confirmed same-person/source pairs into the complete 337-record source/person coverage review, leave uncertain pairs unmerged, and do not treat distance ranks or a complete candidate review as full coverage. If any confirmed group crosses train/valid/test, build a group-locked version 2 or later with a new untouched final test before training.",
     "Complete docs/skin/evidence/regional-mask-source-person-review-decisions-template-20261027-v1.json only through an authorized private source-identity review covering all 337 exact queue IDs. Assign opaque source/person groups using provider subject identity, source provenance or explicit visual same-person review; do not use Oily/Redness polygons, missing labels, model predictions or absence of perceptual candidates as identity truth. If any reviewed group crosses train/valid/test, build a new group-locked version 2 or later and reserve a new untouched final test before any training. Keep the current version, training, final-test and activation gates false meanwhile.",
     "Replay scripts/skin-research/check_unified_skin_result_release.py v11 for every task-13 decision. Repository CI evidence must use schema v3 and bind exact workflow 362950948 at .github/workflows/ci.yml, its run URL/ID, distinct positive frontend/backend job IDs, branch and implementation commit. Real-browser evidence must separately bind workflow 370615037, positive job/artifact IDs and a sha256 artifact digest. Neither controlled fixture may satisfy physical-camera, expert-truth or accuracy acceptance. Preserve the functioning /api/local-health/skin baseline and all twelve product headings while per-class, consented expert physical-camera, immutable end-to-end and final-roadmap gates remain false.",
     "Use scripts/skin-research/build_under_eye_expert_review.py with docs/skin/evidence/under-eye-expert-review-queue-20261027-v1.json and the private resolver to complete all 88 item-bound expert decisions for darkcircle and eyebag. The queue reads only the 284 train and 77 validation COCO payloads; the 38-image locked test annotations and pixels remain unread and unselected. Lock each class's positive, polygon-extent, hard-negative and ambiguity policies independently. Missing target annotations are candidates, not negatives; source polygons are selection geometry, not expert truth. Even a complete semantic protocol does not authorize training until full person/source identity coverage, rights, an authorized exact archive, a new untouched final test and consented camera reservation also pass.",
@@ -7800,6 +7829,34 @@
           "frontendJobId": 122360575662,
           "frontend": "success",
           "backendJobId": 122360577338,
+          "backend": "success"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T18:31:00Z",
+      "action": "Read the remote checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye version and training state, NAS child inventories and the grouped under-eye upload task. Acne NAS remains finished with 89 children plus the finished small model; regional NAS remains finished with 75 children plus the finished small model; under-eye pilot v2 still has no training; grouped under-eye remains empty with zero models; and upload task sLFwX7CYBVcnnD6iAW5o remains created/no-progress. No duplicate upload, version, training, inference, threshold or activation work was started. Extended the exact 337-record regional source/person coverage work with a privacy-safe candidate queue: all 24,582 cross-split pairs were ranked using full/central grayscale dHash and pHash signals, then 48 diverse private-review candidates spanning 70 records were selected. These distances are review prioritization only, not identity truth; even a complete 48-pair review cannot establish full 337-record coverage or current split independence. Four focused tests passed locally. GitHub Actions run 40559852171 is green: frontend job 122385621851 and backend job 122385622793 passed; the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 335 tests. Candidate review, full coverage, group-locked replacement split, expert semantic mask protocol, untouched final test and consented camera evidence remain pending, so training and roadmap acceptance remain false.",
+      "report": "docs/skin/evidence/regional-mask-identity-candidate-ci-20261027-v1.json",
+      "evidence": [
+        "docs/skin/evidence/regional-mask-identity-candidate-queue-20261027-v1.json",
+        "docs/skin/evidence/regional-mask-identity-candidate-decisions-template-20261027-v1.json",
+        "docs/skin/evidence/regional-mask-identity-candidate-result-20261027-v1.json"
+      ],
+      "tests": {
+        "focused": 4,
+        "skinResearch": 335,
+        "result": "OK"
+      },
+      "runs": [
+        {
+          "runId": 40559852171,
+          "headSha": "5e2fdaa5e8377cb63a65eb93f95200c70f45a7c9",
+          "status": "completed",
+          "conclusion": "success",
+          "frontendJobId": 122385621851,
+          "frontend": "success",
+          "backendJobId": 122385622793,
           "backend": "success"
         }
       ]
