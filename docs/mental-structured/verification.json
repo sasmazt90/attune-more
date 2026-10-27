@@ -6,15 +6,9 @@
   "ownerApprovedJoinedPreviews": 6,
   "catalogExpected": 414,
   "catalogGeneratedAtCheckpoint": 414,
-  "productionInProgress": true,
-  "all414ScriptsUnchangedFromCommit": "17e0921720018dfee9bfac2fb272b50b1f1535c0",
+  "productionInProgress": false,
   "classifierDecision": "Retain existing rule-based classifier; separate-task decision closed by owner; no further benchmarking or integration.",
-  "targetedTests": {
-    "passed": 173,
-    "failed": 0
-  },
   "frontendTypecheck": "passed",
-  "finalFullTestsAndGitHubCI": "pending-complete-production-and-validation",
   "durableBackup": {
     "parentFolderURL": "https://drive.google.com/drive/folders/1FrN4RQz_j6QBmuXJe4RIpJGcQcSUB4sS",
     "versionFolderURL": "https://drive.google.com/drive/folders/16nXYqOOXPPA5GTtmHtPE6QLLsG2q9mGy",
@@ -28,5 +22,68 @@
   "deployed": false,
   "recoveredBeforeResume": 237,
   "initialGenerationComplete": true,
-  "catalogQualityValidation": "pending-secondary-screen-and-bounded-repairs"
+  "catalogQualityValidation": "passed-strict-normalized-exact",
+  "scriptBaselineCommit": "17e0921720018dfee9bfac2fb272b50b1f1535c0",
+  "scriptsUnchangedFromBaseline": 413,
+  "editorialCorrections": [
+    {
+      "assetId": "v1/tr/female-calm-v1/B09/B09-V08",
+      "language": "tr",
+      "questionNodeId": "B09",
+      "variantId": "B09-V08",
+      "revision": 1,
+      "previousExactScript": "Geçmişte böyle bir anı atlatmanıza ne yardımcı oldu?",
+      "exactScript": "Geçmişte benzer bir durumda size ne yardımcı oldu?",
+      "previousScriptSHA256": "8f98b44e33b85fde3721dc8fa98e77185f3f07144b12412b116a9619e09b8acd",
+      "scriptSHA256": "9531390dc6fcfe662c7a964867d70f5cbe443262b165f5f63a309125b770c87d",
+      "reason": "Persistent anı/ana noun-case ambiguity after unchanged-script retakes; clearer equivalent past-coping question.",
+      "objectiveAndTemporalScopePreserved": true,
+      "approvedRecordingsChanged": 0,
+      "speakerConditioningAndSettingsChanged": false
+    }
+  ],
+  "retainedEarlierTakes": 19,
+  "catalogValidationReportSHA256": "26fa0d547da3aa3fead2791020e5b188669a2b0268d851837be3ca68444bffe4",
+  "fullRegression": {
+    "passed": 1820,
+    "skipped": 44,
+    "warnings": 2
+  },
+  "additionalResearchRegression": {
+    "passed": 297
+  },
+  "frontend": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "productionBuild": "passed"
+  },
+  "realClosingProofs": {
+    "languages": [
+      "tr",
+      "en",
+      "de"
+    ],
+    "profileBinding": "verified",
+    "normalizedExactRecognitionInBothRecognizers": true,
+    "clippedSamples": 0,
+    "generationSeconds": [
+      152.929,
+      111.124,
+      125.675
+    ],
+    "workerDeadlineSeconds": 180,
+    "report": "closing-female-calm-v1/verification.json",
+    "independentBiometricIdentityClaim": false
+  },
+  "catalogRecognition": {
+    "normalizedExactMatches": 414,
+    "nonOwnerListenedNonExactAssets": 0,
+    "clippedSamples": 0,
+    "allowedABPairs": 4140,
+    "maximumEffectiveJoinPauseMs": 1160
+  },
+  "githubCI": {
+    "finalHeadMustPass": true,
+    "checksURL": "https://github.com/sasmazt90/attune-more/pull/12/checks"
+  }
 }

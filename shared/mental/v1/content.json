@@ -1,6 +1,6 @@
 {
   "contentVersion": "v1",
-  "reviewStatus": "draft-owner-and-language-review-required",
+  "reviewStatus": "approved",
   "speakerProfile": "female-calm-v1",
   "rows": [
     {
@@ -2396,7 +2396,7 @@
       "psychologicalObjective": "previous-coping",
       "language": "tr",
       "variantId": "B09-V08",
-      "exactText": "Geçmişte böyle bir anı atlatmanıza ne yardımcı oldu?",
+      "exactText": "Geçmişte benzer bir durumda size ne yardımcı oldu?",
       "audioAssetId": "v1/tr/female-calm-v1/B09/B09-V08",
       "speakerProfile": "female-calm-v1",
       "semanticSubtype": "previous-coping",
@@ -2415,7 +2415,8 @@
         "A-V12"
       ],
       "transitionRules": "wellbeing-v1",
-      "contentVersion": "v1"
+      "contentVersion": "v1",
+      "editorialRevision": 1
     },
     {
       "questionNodeId": "B09",
@@ -9889,5 +9890,6 @@
   "compatibilityPolicy": {
     "standaloneStatements": "A phrases are complete, neutral statements; B variants begin a separate question.",
     "openingAndClosure": "Continuation invitations A-V04, A-V07 and A-V11 are excluded from B01 focus and B12 closure."
-  }
+  },
+  "reviewBasis": "engineering/editorial catalog validation and explicit owner production authorization; no independent clinical validation claimed"
 }

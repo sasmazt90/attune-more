@@ -27,7 +27,7 @@ def plan(manifest,report,cache,public=PUBLIC):
         entry=entries[key]
         if entry.get('ownerApprovedAt') or entry['approvalStatus']=='approved':raise ValueError('APPROVED_RECORDING_MUST_NOT_BE_REVISED')
         attempt=entry.get('generationAttempt',0)+1
-        if attempt>3:exhausted.append(key);continue
+        if attempt>4:exhausted.append(key);continue
         original=(public/entry['audioPath'].lstrip('/')).resolve()
         if not original.is_relative_to(public.resolve()) or fingerprint(original)!=entry['sha256']:raise ValueError('ORIGINAL_RECORDING_HASH_MISMATCH')
         new_path='/audio/mental/'+entry['assetId']+f'-r{attempt}.wav'

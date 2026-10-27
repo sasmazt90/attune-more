@@ -122,7 +122,9 @@ class Inventory:
         manifest=load(MANIFEST,{})
         cache=load(self.state.parent/'mental-asr/review-cache.json',{'assets':{}})
         return dict(catalogGenerated=sum(bool(e.get('sha256')) for e in manifest['entries']),expected=414,
-            screened=len(cache['assets']),driveFilesVerified=len(self.inventory['files']),complete=self.inventory.get('complete',False))
+            screened=sum(bool(e.get('sha256')) and cache['assets'].get(e['assetId'],{}).get('sha256')==e['sha256'] for e in manifest['entries']),
+            retainedEarlierTakes=sum(len(e.get('supersededRecordings',[])) for e in manifest['entries']),
+            driveFilesVerified=len(self.inventory['files']),complete=self.inventory.get('complete',False))
 
 
 def main():

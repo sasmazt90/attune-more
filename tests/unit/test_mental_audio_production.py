@@ -92,6 +92,9 @@ def test_backup_restore_verifies_every_file_before_writes_and_never_overwrites(t
     (repo/'public/A.wav').write_bytes(b'existing different bytes')
     with pytest.raises(ValueError,match='NO_OVERWRITE'):restore.restore(inventory,backup,repo,apply=True)
     assert (repo/'public/A.wav').read_bytes()==b'existing different bytes'
+    item['activeForRestore']=False
+    assert restore.restore(inventory,backup,repo,apply=True)['filesWithRestorePaths']==0
+    assert (repo/'public/A.wav').read_bytes()==b'existing different bytes'
     item['backupPath']='../outside.wav'
     with pytest.raises(ValueError,match='OUTSIDE_ROOT'):restore.restore(inventory,backup,repo)
 
@@ -120,6 +123,8 @@ def test_pronunciation_screen_flags_loss_of_formality_negation_and_time():
     assert review.pronunciation('Neyle ilişkilendiriyorsunuz?','Ne ile ilişkilendiriyorsunuz?','tr')['status']=='match'
     assert review.pronunciation('Bu günlük yaşamınızı nasıl etkiliyor?','Bugünlük yaşamınızı nasıl etkiliyor?','tr')['status']=='match'
     assert review.pronunciation('Bugün ne konuşmak istersiniz?','Dün ne konuşmak istersiniz?','tr')['criticalTokenMissing']
+    assert review.pronunciation('Sobald Sie sicher geparkt haben.','Sobald Sie sich hier geparkt haben.','de')['criticalTokenMissing']
+    assert review.pronunciation('Once you are safely parked.','Once you are parked.','en')['criticalTokenMissing']
 
 
 @pytest.mark.parametrize('fault',['reference','settings','join'])
@@ -187,3 +192,54 @@ def test_final_backup_reconciliation_requires_every_hash_receipt_and_current_pre
     rows[0]['sha256']='f'*64
     report=verifier.audit({'files':rows},required,presence,folders)
     assert any(r['issue']=='source-receipt-mismatch' for r in report['issues'])
+
+
+def test_rescoring_preserves_recognized_text_and_pcm_failures():
+    review=module('validate_mental_audio')
+    key='explicit-fixture';transcript='Bugünlük yaşamınızı nasıl etkiliyor?'
+    cache={'assets':{key:{'pronunciationScreen':{'transcript':transcript},'secondaryPronunciationScreen':{'transcript':transcript},
+        'issues':['clipped-samples','pronunciation-screen-review']}}}
+    review.relabel(cache,[{'assetId':key,'language':'tr','exactScript':'Bu günlük yaşamınızı nasıl etkiliyor?'}])
+    row=cache['assets'][key]
+    assert row['pronunciationScreen']['transcript']==transcript
+    assert row['secondaryPronunciationScreen']['status']=='match'
+    assert row['issues']==['clipped-samples']
+
+
+def test_finalized_production_artifact_requires_exact_recognition_for_unlistened_assets():
+    manifest=json.loads((ROOT/'apps/vehicle-app/public/audio/mental/v1/female-calm-v1-manifest.json').read_text())
+    if manifest.get('catalogValidation',{}).get('status')!='passed':return
+    report=json.loads((ROOT/'docs/mental-structured/catalog-validation.json').read_text())
+    assert report['exactRecognitionRequiredForNonOwnerListenedAssets']
+    assert report['nonOwnerListenedNonExactAssets']==0
+    assert report['clippedSamples']==0 and not report['issues']
+
+
+def test_repaired_takes_and_parking_guidance_require_secondary_screen_even_after_primary_match():
+    review=module('validate_mental_audio');clear={'pronunciationScreen':{'status':'match'}}
+    assert not review.needs_secondary({'questionNodeId':'B05'},clear)
+    assert review.needs_secondary({'questionNodeId':'B05','generationAttempt':1},clear)
+    assert review.needs_secondary({'questionNodeId':'D01'},clear)
+    assert review.needs_secondary({'questionNodeId':'B05'},{'pronunciationScreen':{'status':'near-match'}})
+    assert not review.needs_secondary({'questionNodeId':'D01'},{**clear,'secondaryPronunciationScreen':{'status':'match'}})
+
+
+def test_editorial_repair_keeps_objective_formality_and_approved_recordings():
+    import hashlib
+    m=json.loads((ROOT/'apps/vehicle-app/public/audio/mental/v1/female-calm-v1-manifest.json').read_text())
+    rows={r['audioAssetId']:r for r in json.loads((ROOT/'shared/mental/v1/content.json').read_text())['rows']}
+    for correction in m.get('scriptCorrections',[]):
+        e=next(e for e in m['entries'] if e['assetId']==correction['assetId'])
+        assert not e.get('ownerApprovedAt') and correction['approvedRecordingsChanged']==0
+        assert e['exactScript']==rows[e['assetId']]['exactText']==correction['exactScript']
+        assert e['questionNodeId']==correction['questionNodeId']=='B09'
+        assert correction['objectiveAndTemporalScopePreserved'] and not correction['speakerConditioningAndSettingsChanged']
+        assert e['exactScript'].startswith('Geçmişte ') and ' size ' in e['exactScript']
+        assert hashlib.sha256(e['exactScript'].encode()).hexdigest()==correction['scriptSHA256']
+
+
+def test_fourth_repair_is_reproducible_and_retry_budget_stays_finite():
+    batch=module('mental_audio_batch')
+    e={'assetId':'explicit-fixture','exactScript':'Nonpersonal fixture','language':'en','speakerProfile':'female-calm-v1','contentVersion':'v1','generationAttempt':4}
+    assert batch.recipe(e,{'revision':'fixture'},'same-reference')==batch.recipe(e,{'revision':'fixture'},'same-reference')
+    with pytest.raises(ValueError,match='INVALID_GENERATION_ATTEMPT'):batch.recipe({**e,'generationAttempt':5},{'revision':'fixture'},'same-reference')

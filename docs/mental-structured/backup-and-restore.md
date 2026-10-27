@@ -9,7 +9,7 @@ The original workspace was recovered with 237 verified catalog recordings, inclu
 ## Restoring a completed backup
 
 1. Use a Cloud/Linux workspace. Check out the recorded PR commit and download the final inventory and verification report from Drive. Match the inventory hash against the versioned verification record before using it. Retrieve every listed file by its recorded Drive ID, preserving `backupPath` under a separate backup directory.
-2. Audit all bytes before restoring anything. The restore helper checks sizes, hashes, path containment and existing targets. A conflicting target is an error, never an overwrite. Use `--apply` only with the completed, verified final inventory.
+2. Audit all bytes before restoring anything. The restore helper checks sizes, hashes, path containment and existing targets. A conflicting target is an error, never an overwrite. Retired takes remain verified in the downloaded backup directory; entries marked `activeForRestore: false` are excluded from the application restore. Use `--apply` only with the completed, verified final inventory.
 
 ```sh
 python scripts/restore_mental_audio.py --inventory /absolute/backup/backup-inventory.json --backup-root /absolute/backup --repository-root /absolute/repository --runtime-root /absolute/runtime

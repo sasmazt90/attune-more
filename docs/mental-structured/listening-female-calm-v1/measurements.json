@@ -10,14 +10,14 @@
   "generatedSpeechClips": 9,
   "additionalSynthesis": 0,
   "originalComparisonFilesUnchanged": 18,
-  "speakerConsistency": "Not verified. Native-language listening and owner approval pending.",
+  "speakerConsistency": "Owner accepted the nine representative recordings; independent biometric identity verification is not claimed.",
   "limitations": [
     "Same conditioning hash verifies configuration, not perceptual identity.",
     "The upstream encoder is part of the generator, not an independent identity assessor.",
     "Cosines have no calibrated cross-language acceptance threshold for these short samples.",
     "Duration includes pauses; it does not alone establish a calm or slower delivery.",
     "Each asset has a deterministic seed; these are not seed-matched controlled A/B recordings.",
-    "No dynamic closing was synthesized: the authorized cap is nine representative clips."
+    "These diagnostics cover the nine representative recordings; real closing proofs are documented separately."
   ],
   "samples": [
     {

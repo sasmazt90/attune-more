@@ -27,7 +27,7 @@ def audit(manifest,content,cache,public=PUBLIC,root=ROOT):
         or manifest['generation']!=pinned['generation']
         or authorization.get('conditioningSha256')!=manifest['conditioningSha256']
         or authorization.get('generation')!=manifest['generation']):raise ValueError('OWNER_APPROVED_CONFIGURATION_MISMATCH')
-    issues=[];metrics={};screens=Counter();generated=0;owner_listened=0
+    issues=[];metrics={};screens=Counter();generated=0;owner_listened=0;non_owner_non_exact=0
     for baseline in ('female-approved-recordings.json','female-comparison-baseline.json'):
         proof=json.loads((root/'docs/mental-structured'/baseline).read_text())
         for name,sha in proof['sha256'].items():
@@ -60,7 +60,8 @@ def audit(manifest,content,cache,public=PUBLIC,root=ROOT):
             secondary=screen.get('secondaryPronunciationScreen')
             effective=pronunciation(entry['exactScript'],secondary['transcript'],language) if secondary else primary
             screens[effective['status']]+=1
-            if effective['status']=='review-required' and not owner:problems.append('pronunciation-screen-review')
+            if effective['status']!='match' and not owner:
+                non_owner_non_exact+=1;problems.append('pronunciation-screen-review')
         if problems:issues.append({'assetId':key,'issues':problems})
     if owner_listened!=9:raise ValueError('REPRESENTATIVE_APPROVAL_MISMATCH')
     pairs=0;checked_pairs=0;maximum_pause=0
@@ -82,6 +83,9 @@ def audit(manifest,content,cache,public=PUBLIC,root=ROOT):
         'clippedSamples':sum(m['clippedSamples'] for m in metrics.values()),'pronunciationScreenCounts':dict(screens),
         'issues':issues,'readyForProductionValidation':generated==414 and checked_pairs==pairs and not issues,
         'referenceSHA256':manifest['conditioningSha256'],'generation':manifest['generation'],
+        'normalizationPolicy':cache.get('normalizationPolicy','legacy-unlabelled'),
+        'exactRecognitionRequiredForNonOwnerListenedAssets':True,
+        'nonOwnerListenedNonExactAssets':non_owner_non_exact,
         'verifier':cache.get('verifier'),'secondaryVerifier':cache.get('secondaryVerifier'),
         'limitations':['ASR agreement is a pronunciation screen, not native-speaker or prosody certification.',
             'Nine representative recordings and six joins received explicit owner listening approval.',

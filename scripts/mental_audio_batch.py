@@ -36,7 +36,7 @@ def sample_entries(entries):
 
 def recipe(entry,model,conditioning,generation=None,worker_mode=None):
     attempt=entry.get('generationAttempt',0)
-    if type(attempt) is not int or not 0<=attempt<=3:raise ValueError('INVALID_GENERATION_ATTEMPT')
+    if type(attempt) is not int or not 0<=attempt<=4:raise ValueError('INVALID_GENERATION_ATTEMPT')
     seed_id=entry['assetId'] if not attempt else entry['assetId']+':repair:'+str(attempt)
     value={'text':entry['exactScript'],'language':entry['language'],'speakerProfile':entry['speakerProfile'],
            'conditioningSha256':conditioning,'modelRevision':model['revision'],'sourceRevision':SOURCE_REVISION,
@@ -106,7 +106,7 @@ def produce(manifest,selected,config,python,manifest_path=MANIFEST,resident_work
             raise ValueError('CONTENT_MANIFEST_MISMATCH')
         expected_id=f"v1/{entry['language']}/{manifest['speakerProfile']}/{entry['questionNodeId']}/{entry['variantId']}"
         attempt=entry.get('generationAttempt',0)
-        if type(attempt) is not int or not 0<=attempt<=3:raise ValueError('INVALID_GENERATION_ATTEMPT')
+        if type(attempt) is not int or not 0<=attempt<=4:raise ValueError('INVALID_GENERATION_ATTEMPT')
         expected_path='/audio/mental/'+expected_id+(f'-r{attempt}' if attempt else '')+'.wav'
         if entry['speakerProfile']!=manifest['speakerProfile'] or entry['assetId']!=expected_id or entry['audioPath']!=expected_path:
             raise ValueError('PROFILE_ASSET_MISMATCH')

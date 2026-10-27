@@ -29,7 +29,8 @@ def restore(inventory,backup_root,repository_root,runtime_root=None,apply=False)
         if not source.is_file() or source.stat().st_size!=item['bytes'] or digest(source)!=item['sha256']:
             raise ValueError('BACKUP_FILE_INTEGRITY_MISMATCH')
         target=None
-        if item.get('repositoryPath'):target=contained(repository_root,item['repositoryPath'])
+        if item.get('activeForRestore') is False:target=None
+        elif item.get('repositoryPath'):target=contained(repository_root,item['repositoryPath'])
         elif item.get('runtimePath'):
             if runtime_root is None and apply:raise ValueError('RUNTIME_ROOT_REQUIRED')
             if runtime_root is not None:target=contained(runtime_root,item['runtimePath'])

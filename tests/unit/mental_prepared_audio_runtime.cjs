@@ -15,6 +15,9 @@ window.addEventListener('attune-stream-focus',e=>focus.push(e.active));
 async function run(script=text,assets=ids){calls=[];controller=new AbortController();return playPreparedMental(script,assets,controller.signal,()=>true,()=>{},()=>{});}
 (async()=>{
  assert(await run());assert.deepEqual(calls,clips.map(c=>c.audioPath));assert.deepEqual(focus,[true,false]);
+ // A validated new take retains its asset ID but uses a new immutable URL.
+ const originalPath=clips[1].audioPath;clips[1].audioPath=originalPath.replace('.wav','-r1.wav');
+ assert(await run());assert.equal(calls[1],clips[1].audioPath);clips[1].audioPath=originalPath;
  assert.equal(await run('invented script'),false);assert.equal(calls.length,0);
  assert.equal(await run(text,['missing']),false);assert.equal(calls.length,0);
  clips[1].speakerProfile='other';assert.equal(await run(),false);assert.equal(calls.length,0);clips[1].speakerProfile='female-calm-v1';

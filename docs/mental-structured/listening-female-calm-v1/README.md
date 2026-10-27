@@ -10,7 +10,7 @@ Exactly nine speech clips and six lossless joined previews are provided. The [of
 | EN | [A-V01](../../../apps/vehicle-app/public/audio/mental/v1/en/female-calm-v1/A/A-V01.wav) | [B01-V01](../../../apps/vehicle-app/public/audio/mental/v1/en/female-calm-v1/B01/B01-V01.wav) | [B02-V01](../../../apps/vehicle-app/public/audio/mental/v1/en/female-calm-v1/B02/B02-V01.wav) |
 | DE | [A-V01](../../../apps/vehicle-app/public/audio/mental/v1/de/female-calm-v1/A/A-V01.wav) | [B01-V01](../../../apps/vehicle-app/public/audio/mental/v1/de/female-calm-v1/B01/B01-V01.wav) | [B02-V01](../../../apps/vehicle-app/public/audio/mental/v1/de/female-calm-v1/B02/B02-V01.wav) |
 
-The six previews concatenate those PCM bytes with the existing provisional 120 ms join; they create no additional speech.
+The six approved previews concatenate those PCM bytes with the approved 120 ms join; they create no additional speech.
 
 | Language | A + opening focus | A + event emotion |
 | --- | --- | --- | --- |
@@ -24,7 +24,7 @@ The pinned upstream `prepare_conditionals` uses the reference waveform for voice
 
 The intended style is warm, calm, attentive and professionally empathetic. `exaggeration=0.35`, `cfg_weight=0.0`, `temperature=0.8` reduce expression and use upstream’s suggested mitigation for reference-language accent transfer. Upstream associates lower CFG with more deliberate pacing, but has no gender, explicit speech-rate or breathing control. There is no pitch shift, time stretching, artificial breath insertion or post-processing beyond PCM16 encoding; the upstream watermark is retained. Perceived female presentation, warmth, speed, breathing and intonation must be assessed by listening.
 
-All sample texts are identical to the original comparison set. Turkish uses formal verb forms (`istersiniz`, `hissettiniz`); German uses `Sie`. The English reference can influence TR/DE accent even at zero CFG. Please assess pronunciation and naturalness in each language.
+All sample texts are identical to the original comparison set. Turkish uses formal verb forms (`istersiniz`, `hissettiniz`); German uses `Sie`. The owner accepted pronunciation and naturalness of these representative recordings. The English reference can influence TR/DE accent even at zero CFG; the remaining library receives independent pronunciation screening.
 
 ## Measured checks
 
@@ -34,7 +34,7 @@ All nine recordings are mono 24 kHz PCM16 with zero clipped samples. Generation 
 
 The [measurements](measurements.json) report exact durations versus the original recordings and descriptive upstream-encoder cosines for the reference, samples and cross-language question pairs. The [index](index.json) and [manifest](../../../apps/vehicle-app/public/audio/mental/v1/female-calm-v1-manifest.json) record scripts, hashes, metrics and recipes. An uncalibrated cosine, especially from the generator’s own encoder on short clips, is not independent speaker verification. A-V01 acknowledgments are too short to support a reliable identity judgment. **The owner accepted the TR/EN/DE representative recordings and joins. This listening approval is recorded; no independent biometric identity claim is made.**
 
-The dynamic closing API accepts the profile ID and refuses a mismatched reference/settings or absent approval. An omitted profile cannot bypass the female approval gate. Tests verify the same conditioning adapter and hash contract for TR/EN/DE. The structured frontend selection is now `female-calm-v1`, with the legacy/default configuration kept separate. No dynamic closing audio was synthesized because this authorization covers only nine representative clips. Its perceived consistency on a longer personalized summary therefore remains untested. After approval, activation must bind both prepared speech and closing to this profile, followed by an approved closing listening test.
+The dynamic closing API accepts the profile ID and refuses a mismatched reference/settings or absent approval. An omitted profile cannot bypass the female approval gate. The structured frontend selects `female-calm-v1`, with the legacy/default configuration kept separate. [Real TR/EN/DE closing narration proofs](../closing-female-calm-v1/README.md) exercised the authenticated endpoint with synthetic facts and the approved conditioning/settings. All three passed PCM, locale/profile and independent pronunciation checks. Encoder diagnostics remain descriptive; no independent biometric speaker-identity claim is made. The owner-listened nine-clip approval and the engineering closing proofs are recorded separately. No merge or deployment is authorized.
 
 The female CLI requires the recorded owner sample approval and matching full-catalog authorization before `--all`. The owner has now supplied both. Existing consent, crisis, driving, storage, cancellation, mute and audio-disposal protections remain in place.
 

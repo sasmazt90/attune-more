@@ -57,7 +57,9 @@ def pronunciation(expected,recognized,language):
     formal={'de':{'sie','ihnen','ihr','ihre','ihren','ihrer'},'tr':{'siz','sizi','size','sizin','sizden','sizde'}}.get(language,set())
     required={t for t in a if t in formal or (language=='tr' and re.search(r'(?:s[ıiuü]n[ıiuü]z|[td][ıiuü]n[ıiuü]z)$',t))}
     formal_missing=bool(required-set(b))
-    critical={'en':{'not','no','never','today','yesterday'},'de':{'nicht','nie','heute','gestern'},'tr':{'bugün','dün'}}.get(language,set())
+    critical={'en':{'not','no','never','today','yesterday','safe','safely','parked','road'},
+              'de':{'nicht','nie','heute','gestern','sicher','geparkt','strasse'},
+              'tr':{'bugün','dün','güvenli','güvenle','park','yol'}}.get(language,set())
     critical_missing=bool((set(a)&critical)-set(b))
     status='match' if a==b else 'near-match' if cer<=.08 and wer<=.2 and not formal_missing and not critical_missing else 'review-required'
     return {'transcript':recognized.strip(),'wordErrorRate':round(wer,4),'characterErrorRate':round(cer,4),
@@ -128,7 +130,12 @@ def relabel(cache,entries):
         effective=row.get('secondaryPronunciationScreen',row['pronunciationScreen'])
         row['issues']=[issue for issue in row['issues'] if issue!='pronunciation-screen-review']
         if effective['status']=='review-required':row['issues'].append('pronunciation-screen-review')
-    cache['normalizationPolicy']='formal-critical-token-and-orthography-v2'
+    cache['normalizationPolicy']='formal-critical-token-and-orthography-v3'
+
+
+def needs_secondary(entry,row):
+    return bool(row) and not row.get('secondaryPronunciationScreen') and (
+        row['pronunciationScreen']['status']!='match' or bool(entry.get('generationAttempt')) or entry['questionNodeId']=='D01')
 
 
 def scan(cache,recognizer,secondary=False):
@@ -144,7 +151,7 @@ def scan(cache,recognizer,secondary=False):
             script_sha=hashlib.sha256(entry['exactScript'].encode()).hexdigest()
             old=cache['assets'].get(entry['assetId'],{})
             if secondary:
-                if not old or old['pronunciationScreen']['status']=='match' or old.get('secondaryPronunciationScreen'):continue
+                if not needs_secondary(entry,old):continue
                 if old.get('sha256')!=entry['sha256']:raise ValueError('PRIMARY_SCREEN_HASH_CHANGED')
                 screen=pronunciation(entry['exactScript'],recognizer.transcribe(path,language),language)
                 old['secondaryPronunciationScreen']=screen
