@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "assistantVisualReviewPerformed": true,
+  "expertReviewed": false,
+  "split": "valid",
+  "selectionRule": "Two highest-IoU examples per selected directional confusion pair, unique images",
+  "examples": [
+    {
+      "imageId": 159,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.9166666666666666,
+      "truthBox": [
+        214,
+        448,
+        12,
+        9
+      ],
+      "predictedBox": [
+        214.0,
+        448.0,
+        11,
+        9
+      ],
+      "confidence": 0.32753974199295044
+    },
+    {
+      "imageId": 105,
+      "truth": "Pigmentation",
+      "predicted": "Post acne",
+      "iou": 0.9125475285171103,
+      "truthBox": [
+        922,
+        357,
+        16,
+        15.5
+      ],
+      "predictedBox": [
+        921.0,
+        357.0,
+        17,
+        15
+      ],
+      "confidence": 0.3355007767677307
+    },
+    {
+      "imageId": 120,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.9629629629629629,
+      "truthBox": [
+        587,
+        495,
+        13.5,
+        8
+      ],
+      "predictedBox": [
+        587.0,
+        495.0,
+        13,
+        8
+      ],
+      "confidence": 0.36623141169548035
+    },
+    {
+      "imageId": 95,
+      "truth": "Pimple",
+      "predicted": "Post acne",
+      "iou": 0.9174311926605505,
+      "truthBox": [
+        599,
+        747,
+        12.5,
+        10.5
+      ],
+      "predictedBox": [
+        599.0,
+        747.0,
+        13,
+        10
+      ],
+      "confidence": 0.38589027523994446
+    },
+    {
+      "imageId": 47,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.8954081632653061,
+      "truthBox": [
+        595,
+        661,
+        13,
+        13.5
+      ],
+      "predictedBox": [
+        595.0,
+        661.0,
+        14,
+        14
+      ],
+      "confidence": 0.42974939942359924
+    },
+    {
+      "imageId": 137,
+      "truth": "Post acne",
+      "predicted": "Pimple",
+      "iou": 0.8947368421052632,
+      "truthBox": [
+        710,
+        1035,
+        17,
+        12
+      ],
+      "predictedBox": [
+        709.0,
+        1035.0,
+        19,
+        12
+      ],
+      "confidence": 0.4500824511051178
+    }
+  ],
+  "boardSHA256": "98f5aaf8ea3ef063c28734b23f778a31ea613ed85d71b609b6897661ba58dbdd",
+  "observations": [
+    "Prediction and source box align closely in selected examples, while class labels differ. This confirms a location/class disagreement, not which label is correct.",
+    "Tiny low-detail source patches do not establish a reliable active-acne/mark/pigmentation boundary by assistant review.",
+    "No truth labels were changed and no expert judgment was inferred."
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-25T14:06:48Z",
+  "scope": "task-13 unified comparison and map presentation contract",
+  "legacyArtifact": {
+    "name": "Attune_Original_Photo_Model_Comparison_20261023(1).html",
+    "sha256": "83def109c93c2ca5b16580cee9f61ddb5ba08dd18f8f86e214aa9bb00139752e",
+    "auditPath": "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json",
+    "auditBlobSha": "7308f5cc14d5c96fc0baaa4aa521cb2f3a990d03",
+    "detectedDefect": "regional map used Sensitive instead of the model's independent Redness class",
+    "legacyArtifactAccepted": false
+  },
+  "implementation": {
+    "path": "scripts/skin-research/build_attune_roboflow_comparison.py",
+    "receiptSchemaVersion": 2,
+    "rules": {
+      "dry": {"color": "#2563EB", "requiresRegionalEvidence": true},
+      "oily": {"color": "#16A34A", "requiresRegionalEvidence": true},
+      "normal": {"color": null, "requiresEvaluatedRegion": true},
+      "unknown": {"color": "#D1D5DB", "countsAsNormal": false},
+      "redness": {
+        "color": "#DC2626",
+        "render": "contour-or-hatching",
+        "independentLayer": true,
+        "sensitivityAliasAllowed": false,
+        "mayOverlapRegionalStates": true
+      }
+    },
+    "mixedSkinType": {
+      "requiresSupportedOilyTZone": true,
+      "requiresSupportedNonTOilyNormalOrDry": true,
+      "requiresSufficientRegionalCoverage": true,
+      "wholeFaceClassReplicationAllowed": false
+    },
+    "roboflowKizariklikSemantics": {
+      "concern": "redness",
+      "role": "review-proposal",
+      "regionalStateTruth": false,
+      "sensitivityAliasAllowed": false
+    },
+    "prohibitsDryNormalOrMixedFromOilyRednessOnlyModel": true
+  },
+  "providerRefresh": {
+    "projects": 20,
+    "runningRelevantTrainings": 0,
+    "duplicateTrainingStarted": false,
+    "groupedUnderEyeUploadTask": {
+      "taskId": "sLFwX7CYBVcnnD6iAW5o",
+      "status": "created",
+      "progress": null
+    }
+  },
+  "verification": {
+    "command": "python -m unittest scripts/skin-research/tests/test_build_attune_roboflow_comparison.py scripts/skin-research/tests/test_sag_release.py scripts/skin-research/tests/test_wrinkle_release.py",
+    "testsRun": 20,
+    "passed": 20,
+    "failed": 0
+  },
+  "claims": {
+    "comparisonPresentationContractCorrected": true,
+    "legacyComparisonResultRelabeledAsAccepted": false,
+    "modelAccuracyMeasured": false,
+    "expertGroundTruth": false,
+    "physicalCameraAcceptance": false,
+    "productionActivationAuthorized": false,
+    "roadmapComplete": false
+  },
+  "remainingAcceptance": [
+    "regenerate comparison outputs through schema v2 when the source-bound private bundle is available",
+    "evaluate separated final test evidence for each activated class",
+    "complete real browser and physical-camera validation",
+    "activate only models that pass class-specific release gates"
+  ]
+}

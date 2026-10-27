@@ -1,0 +1,48 @@
+{
+  "acceptedMethodIds": [],
+  "acceptedRegistryPresent": false,
+  "activationBlockers": [
+    "accepted_regional_method_registry_empty",
+    "combination_policy_not_locked_before_final_test",
+    "combination_validation_missing",
+    "combination_untouched_final_test_missing",
+    "combination_physical_camera_acceptance_missing",
+    "combination_slice_acceptance_missing",
+    "combination_product_integration_missing",
+    "combination_coverage_overlap_unavailable_controls_missing",
+    "combination_history_write_read_missing"
+  ],
+  "blindRetrainingAllowed": false,
+  "boxToRegionalTruthAllowed": false,
+  "combinationProductActivationAllowed": false,
+  "combinationRuleImplementationReady": true,
+  "decision": "blocked",
+  "existingConcreteResultFlowPreserved": true,
+  "existingGlobalSkinTypeFlowPreserved": true,
+  "finalTestEvaluationAuthorized": false,
+  "knownBoxModelAccepted": false,
+  "knownVersionOneRegionalModelsAccepted": false,
+  "methodVersion": "skin-type-combination-release-gate-v2",
+  "missingLabelAsNormalAllowed": false,
+  "researchTrainingAuthorized": false,
+  "roadmapAccepted": false,
+  "schemaVersion": 2,
+  "testBlockers": [
+    "accepted_regional_method_registry_empty",
+    "combination_policy_not_locked_before_final_test",
+    "combination_validation_missing",
+    "combination_untouched_final_test_missing"
+  ],
+  "trainingBlockers": [
+    "rights_reviewed_regional_sources_missing",
+    "expert_regional_polygon_protocol_missing",
+    "evaluated_normal_negative_truth_missing",
+    "source_person_group_split_independence_missing",
+    "group_locked_replacement_split_missing",
+    "untouched_final_test_reservation_missing",
+    "independent_camera_holdout_missing",
+    "one_change_validation_experiment_missing",
+    "quality_policy_not_locked_before_validation"
+  ],
+  "wholeFaceToRegionalTruthAllowed": false
+}

@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T18:21:05Z",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "b0e10de2cf4455ea25d370f48d8f995ff6c4be5f",
+  "releaseGate": {
+    "methodVersion": "sag-appearance-release-gate-v2",
+    "decision": "blocked",
+    "existingConcreteResultFlowPreserved": true,
+    "currentProxyPresentationAllowed": true,
+    "acceptedLocalizedMethodPresent": false,
+    "researchTrainingAuthorized": false,
+    "finalTestEvaluationAuthorized": false,
+    "localizedSagActivationAllowed": false,
+    "roadmapAccepted": false
+  },
+  "localVerification": {
+    "focusedTests": 14,
+    "completeSkinResearchEvidenceSuite": 270,
+    "result": "OK"
+  },
+  "githubActions": {
+    "runId": 40376357262,
+    "url": "https://github.com/sasmazt90/attune-more/actions/runs/40376357262",
+    "headSha": "b0e10de2cf4455ea25d370f48d8f995ff6c4be5f",
+    "conclusion": "success",
+    "frontendProductionBuild": "success",
+    "frontendJobId": 121760353993,
+    "backendJobId": 121760353524,
+    "localizationContract": "success",
+    "deterministicUnitSuite": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2
+    },
+    "completeSkinResearchEvidenceSuite": {
+      "tests": 270,
+      "result": "OK"
+    }
+  },
+  "providerRefresh": {
+    "accessibleProjects": 20,
+    "acneKnownTrainingsFinished": true,
+    "regionalProject": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "regionalImages": 337,
+    "regionalVersion": 1,
+    "underEyeVersion": 2,
+    "underEyeVersionTrainings": 0,
+    "newTrainingStarted": false,
+    "duplicateWorkStarted": false,
+    "groupedUnderEyeUploadTask": {
+      "taskId": "sLFwX7CYBVcnnD6iAW5o",
+      "status": "created",
+      "progress": null
+    }
+  },
+  "limitations": [
+    "The current result remains a functioning visible lower-face contour/fold appearance proxy, not elasticity or clinical sagging severity.",
+    "No accepted localized expert polygon dataset, distinct learned method, untouched final test or adjudicated physical-camera acceptance exists.",
+    "Whole-face ordinal elasticity cannot replace localized sag truth, boxes cannot be treated as polygons and model proposals are not expert truth.",
+    "Unknown or unassessable evidence is not Normal, and cross-person directional change remains forbidden."
+  ]
+}

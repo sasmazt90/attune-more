@@ -1,0 +1,1360 @@
+{
+  "schemaVersion": "acne-semantic-review-queue-v1",
+  "dataset": {
+    "archiveSHA256": "29f40e80c8b1f63d43abbc35d11efdbaac4cf754531af2bee64283dde64c34e2",
+    "images": 800,
+    "reviewPoolImages": 718,
+    "lockedTestImages": 82,
+    "reviewSplits": [
+      "train",
+      "valid"
+    ],
+    "testSelectedForReview": 0
+  },
+  "classes": [
+    "Pimple",
+    "Post acne",
+    "Pigmentation"
+  ],
+  "purposeLimits": {
+    "positive_tiny": 6,
+    "positive_large": 3,
+    "positive_isolated": 3,
+    "positive_cooccurrence": 4,
+    "hard_negative_other_target": 8,
+    "unlabelled_negative": 4
+  },
+  "countsByClassAndPurpose": {
+    "Pimple": {
+      "positive_tiny": 6,
+      "positive_large": 3,
+      "positive_isolated": 3,
+      "positive_cooccurrence": 4,
+      "hard_negative_other_target": 8,
+      "unlabelled_negative": 4
+    },
+    "Post acne": {
+      "positive_tiny": 6,
+      "positive_large": 3,
+      "positive_isolated": 3,
+      "positive_cooccurrence": 4,
+      "hard_negative_other_target": 8,
+      "unlabelled_negative": 4
+    },
+    "Pigmentation": {
+      "positive_tiny": 6,
+      "positive_large": 3,
+      "positive_isolated": 0,
+      "positive_cooccurrence": 4,
+      "hard_negative_other_target": 8,
+      "unlabelled_negative": 4
+    }
+  },
+  "reviewItems": [
+    {
+      "reviewItemId": "0d95a5abc168523f63417f81",
+      "recordId": "04d72118a85add4d54d52ad2",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "401b4985248c44dbc67874d6",
+      "recordId": "05e7d5cc81829b2aab69f56e",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "59bea2516ea77930875d67f7",
+      "recordId": "005d7c27accdd10990f28349",
+      "split": "valid",
+      "targetClass": "Pigmentation",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "896b9033162f76fe4e1c483a",
+      "recordId": "04548fa2fdaac58580a84c4d",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "d34f84b73f5d5e39af6b52f7",
+      "recordId": "0052b63ca540efddb8d4a9a6",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "e8b0c7f391b1dea96505e8fb",
+      "recordId": "00c9c888267e93ddc1425b6d",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "f3a857363971a5f14d36e1f3",
+      "recordId": "0687d371380d07b14f72536a",
+      "split": "valid",
+      "targetClass": "Pigmentation",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "fffbc41101ca844d5892aef7",
+      "recordId": "053da263ef13e14f56e8fcb1",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "3c29af30b7a82f1ab33f4565",
+      "recordId": "04c86b65d321d62e66afb011",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "positive_cooccurrence",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 7,
+      "targetAreaFraction": {
+        "min": 2.74658203125e-05,
+        "median": 6.34765625e-05,
+        "max": 7.14111328125e-05
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "52f5bc83a4216ba88664cafc",
+      "recordId": "037a75d6dc7dd2fd6e8f0fd6",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "positive_cooccurrence",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 12,
+      "targetAreaFraction": {
+        "min": 8.30078125e-05,
+        "median": 0.000127105712890625,
+        "max": 0.0001922607421875
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "b59bfc2bbedf37ab34fb29b2",
+      "recordId": "05824e960d1633b91f80af7d",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "positive_cooccurrence",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 5,
+      "targetAreaFraction": {
+        "min": 0.0001031494140625,
+        "median": 0.000247802734375,
+        "max": 0.000367431640625
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "fc48bb41407efa4c96e4949e",
+      "recordId": "043001ebb85aa1517e67868e",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "positive_cooccurrence",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 5,
+      "targetAreaFraction": {
+        "min": 8.97216796875e-05,
+        "median": 0.000142822265625,
+        "max": 0.0001708984375
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "47869f7e4f3bff547507231d",
+      "recordId": "ba14f70ad873a1c02977cb4f",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "positive_large",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 3,
+      "targetAreaFraction": {
+        "min": 0.001724700927734375,
+        "median": 0.002190399169921875,
+        "max": 0.00288543701171875
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "5e87832a79a6369c39bad793",
+      "recordId": "6ae10d34907143396bf1bb26",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "positive_large",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 3,
+      "targetAreaFraction": {
+        "min": 0.00033782958984375,
+        "median": 0.000360107421875,
+        "max": 0.00152740478515625
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "a2932475caea0089a22fe2ca",
+      "recordId": "20beece7ed5ff44d57b68162",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "positive_large",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 2,
+      "targetAreaFraction": {
+        "min": 0.0032305908203125,
+        "median": 0.00342803955078125,
+        "max": 0.00362548828125
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "056b60968198d79019d0aeec",
+      "recordId": "3c22c810cb49d642f56978f6",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 23,
+      "targetAreaFraction": {
+        "min": 8.23974609375e-06,
+        "median": 3.96728515625e-05,
+        "max": 0.0002490234375
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "1a2633bfcd9c5a07a8801705",
+      "recordId": "2444d62aa1d7f70d302b404e",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 102,
+      "targetAreaFraction": {
+        "min": 8.23974609375e-06,
+        "median": 3.4027099609375e-05,
+        "max": 0.00074981689453125
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "23d4a5cc71a0972e2923edd2",
+      "recordId": "8cd26f1fdec29325433baf0b",
+      "split": "valid",
+      "targetClass": "Pigmentation",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 21,
+      "targetAreaFraction": {
+        "min": 8.23974609375e-06,
+        "median": 1.46484375e-05,
+        "max": 0.000107269287109375
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "52f5d72d8414c64cb4e52e98",
+      "recordId": "abf52f13b45bf9748734aea6",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 22,
+      "targetAreaFraction": {
+        "min": 1.5106201171875e-05,
+        "median": 6.9122314453125e-05,
+        "max": 0.002241668701171875
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "850e43734272ab19c4ed2d57",
+      "recordId": "6d4bfc95459aad781f1ce61b",
+      "split": "valid",
+      "targetClass": "Pigmentation",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 62,
+      "targetAreaFraction": {
+        "min": 1.068115234375e-05,
+        "median": 0.000105133056640625,
+        "max": 0.000958099365234375
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "cdb73b64c34d64ec7d590f15",
+      "recordId": "5374bef1f27fd040242d1479",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 13,
+      "targetAreaFraction": {
+        "min": 9.765625e-06,
+        "median": 4.5623779296875e-05,
+        "max": 0.00086944580078125
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "2e57ff328ca8f6c77108e071",
+      "recordId": "2528c9245fd791e04a13abf1",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "unlabelled_negative",
+      "presentClasses": [],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "3f7943969c8eb399432f6603",
+      "recordId": "51785d92bf70afa85f9e7f4d",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "unlabelled_negative",
+      "presentClasses": [],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "40dfabd042ab27ae79fc8c9f",
+      "recordId": "27843844c9f12b57a94a9d4d",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "unlabelled_negative",
+      "presentClasses": [],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "50a658ed97d07eda076a8e3a",
+      "recordId": "75f2586fc2662b77fc9fd9a0",
+      "split": "train",
+      "targetClass": "Pigmentation",
+      "purpose": "unlabelled_negative",
+      "presentClasses": [],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "1d4cc89ab19f684540efa8cb",
+      "recordId": "2322cb27053bd126a90a60b8",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pigmentation",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "2a44b564465a5d9c8ecd5087",
+      "recordId": "24787a182b1f94154cae6e7e",
+      "split": "valid",
+      "targetClass": "Pimple",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pigmentation",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "3921e34248f2481f81990788",
+      "recordId": "13a52db022d38fe37af32b82",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pigmentation",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "78d342e4862a6df0b1b92475",
+      "recordId": "2c0b04584f69dce81e055b82",
+      "split": "valid",
+      "targetClass": "Pimple",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pigmentation",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "94359f15a28b3115e152de72",
+      "recordId": "476a52286a133db591d4689b",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pigmentation",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "b83adeafc82e31e6af01ca56",
+      "recordId": "35ee51651e2ad5cd4902324e",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pigmentation",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "e5095918fb034af47794d5b3",
+      "recordId": "54c925149210c50b55998cdf",
+      "split": "valid",
+      "targetClass": "Pimple",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pigmentation",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "fac8c8a0d12cecb73923e9a8",
+      "recordId": "12c37c0c6a9fb5078cf6abc5",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pigmentation",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "1dc1144b4e5c8cca2bf2a9f1",
+      "recordId": "043001ebb85aa1517e67868e",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "positive_cooccurrence",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 8,
+      "targetAreaFraction": {
+        "min": 0.0001483154296875,
+        "median": 0.00025115966796875,
+        "max": 0.0004498291015625
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "5a8bc6e6b9450c82160a9385",
+      "recordId": "04c86b65d321d62e66afb011",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "positive_cooccurrence",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 6,
+      "targetAreaFraction": {
+        "min": 7.415771484375e-05,
+        "median": 8.55255126953125e-05,
+        "max": 0.00011505126953125
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "685029057d877d1ae2951569",
+      "recordId": "037a75d6dc7dd2fd6e8f0fd6",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "positive_cooccurrence",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 1,
+      "targetAreaFraction": {
+        "min": 0.000120849609375,
+        "median": 0.000120849609375,
+        "max": 0.000120849609375
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "98c9f2eb86d123fb7a6df22b",
+      "recordId": "05824e960d1633b91f80af7d",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "positive_cooccurrence",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 5,
+      "targetAreaFraction": {
+        "min": 0.0002386474609375,
+        "median": 0.00025665283203125,
+        "max": 0.00043212890625
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "7ed2f2738567abe08b5493b4",
+      "recordId": "53a7227161168bd62e7ae66d",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "positive_isolated",
+      "presentClasses": [
+        "Pimple"
+      ],
+      "targetAnnotationCount": 5,
+      "targetAreaFraction": {
+        "min": 0.0001812744140625,
+        "median": 0.000241241455078125,
+        "max": 0.000331573486328125
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "d88d29fc076b527c1376eb40",
+      "recordId": "258a7744199f8054838a74e5",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "positive_isolated",
+      "presentClasses": [
+        "Pimple"
+      ],
+      "targetAnnotationCount": 2,
+      "targetAreaFraction": {
+        "min": 5.79833984375e-05,
+        "median": 0.0001212310791015625,
+        "max": 0.000184478759765625
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "f1946783277b42620dd1b403",
+      "recordId": "437dc6d6df187abfcdbfd3c2",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "positive_isolated",
+      "presentClasses": [
+        "Pimple"
+      ],
+      "targetAnnotationCount": 1,
+      "targetAreaFraction": {
+        "min": 0.000523681640625,
+        "median": 0.000523681640625,
+        "max": 0.000523681640625
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "02cd8e3046d982ba41e06878",
+      "recordId": "46ac5a50328d572230382cf4",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "positive_large",
+      "presentClasses": [
+        "Pimple"
+      ],
+      "targetAnnotationCount": 13,
+      "targetAreaFraction": {
+        "min": 0.0005218505859375,
+        "median": 0.00086669921875,
+        "max": 0.00196380615234375
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "4d741e5029a93b46ef531a91",
+      "recordId": "5205826e58775a9808362f2e",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "positive_large",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 4,
+      "targetAreaFraction": {
+        "min": 0.000730133056640625,
+        "median": 0.00082855224609375,
+        "max": 0.00143951416015625
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "54ffb9fbda04cd6e10e8cf14",
+      "recordId": "81e4752b13adc120258f5664",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "positive_large",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 5,
+      "targetAreaFraction": {
+        "min": 0.00041656494140625,
+        "median": 0.000652313232421875,
+        "max": 0.0014404296875
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "0b96e3357d6ff71ec63a1e24",
+      "recordId": "c36068bc51aa8cecb53b2ab7",
+      "split": "valid",
+      "targetClass": "Pimple",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 15,
+      "targetAreaFraction": {
+        "min": 7.62939453125e-07,
+        "median": 0.0007476806640625,
+        "max": 0.00131011962890625
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "29cc444a5c31eb35a275ea91",
+      "recordId": "78df2af61ac89e0ad55a5e62",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 29,
+      "targetAreaFraction": {
+        "min": 7.32421875e-06,
+        "median": 1.28173828125e-05,
+        "max": 2.777099609375e-05
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "726c5d015cb2e49b21e11392",
+      "recordId": "faf461ceebb3c4a1cfce6f23",
+      "split": "valid",
+      "targetClass": "Pimple",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 1,
+      "targetAreaFraction": {
+        "min": 6.40869140625e-06,
+        "median": 6.40869140625e-06,
+        "max": 6.40869140625e-06
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "b142044fde1036b205dff1ef",
+      "recordId": "3c22c810cb49d642f56978f6",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 3,
+      "targetAreaFraction": {
+        "min": 6.866455078125e-06,
+        "median": 2.349853515625e-05,
+        "max": 3.7689208984375e-05
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "c131a018a3ad3a7c8f92f289",
+      "recordId": "bd247417a904527e20eede26",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 3,
+      "targetAreaFraction": {
+        "min": 7.62939453125e-07,
+        "median": 7.14111328125e-05,
+        "max": 0.0001611328125
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "ed66a34593f4e22f47791e32",
+      "recordId": "e394a1946956fdeac96bd375",
+      "split": "valid",
+      "targetClass": "Pimple",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 19,
+      "targetAreaFraction": {
+        "min": 7.476806640625e-06,
+        "median": 4.150390625e-05,
+        "max": 0.00025970458984375
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "231b2615af8027169cff5553",
+      "recordId": "51785d92bf70afa85f9e7f4d",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "unlabelled_negative",
+      "presentClasses": [],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "be7e69042c3b62141eff311b",
+      "recordId": "2528c9245fd791e04a13abf1",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "unlabelled_negative",
+      "presentClasses": [],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "e41aa9c3743b8598c59ef0f2",
+      "recordId": "27843844c9f12b57a94a9d4d",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "unlabelled_negative",
+      "presentClasses": [],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "f06129565a59ae2aaa1926f7",
+      "recordId": "75f2586fc2662b77fc9fd9a0",
+      "split": "train",
+      "targetClass": "Pimple",
+      "purpose": "unlabelled_negative",
+      "presentClasses": [],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "194e34661ff1401336bb74d1",
+      "recordId": "35c51d569e5b98df00db6949",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "821225acc184ba662c007ac4",
+      "recordId": "6db1a7dbc1615d601b759c2c",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "a32b90659777c1d63cd5c932",
+      "recordId": "258a7744199f8054838a74e5",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pimple"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "c37ec3e3973311ffedbf599c",
+      "recordId": "8743203c748b419a72ba9f91",
+      "split": "valid",
+      "targetClass": "Post acne",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "d026bbbcfe6f39c6e2092f62",
+      "recordId": "4f263ae8d6f4fe8f2041fd90",
+      "split": "valid",
+      "targetClass": "Post acne",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "ea57d68329c8ce8e394606af",
+      "recordId": "7c95a435dc5700b4f54d1cfd",
+      "split": "valid",
+      "targetClass": "Post acne",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "f4d97069257cda032936f750",
+      "recordId": "91a85582c6c42b5b100f1f1f",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "f4fc82bdc00a3e6dd575f64e",
+      "recordId": "787d4c0bd721f87239458c24",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "hard_negative_other_target",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple"
+      ],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "2c180753362da3a2637ae599",
+      "recordId": "037a75d6dc7dd2fd6e8f0fd6",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "positive_cooccurrence",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 34,
+      "targetAreaFraction": {
+        "min": 0.0001190185546875,
+        "median": 0.0001953887939453125,
+        "max": 0.00041168212890625
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "3095501ba0f2971e7be5cc79",
+      "recordId": "05824e960d1633b91f80af7d",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "positive_cooccurrence",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 22,
+      "targetAreaFraction": {
+        "min": 0.000128173828125,
+        "median": 0.0002625274658203125,
+        "max": 0.000487518310546875
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "358b3e74a2b31f7b1bff0945",
+      "recordId": "04c86b65d321d62e66afb011",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "positive_cooccurrence",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 5,
+      "targetAreaFraction": {
+        "min": 4.2724609375e-05,
+        "median": 9.1552734375e-05,
+        "max": 0.000108795166015625
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "d955edb5dd6b3619d5922590",
+      "recordId": "043001ebb85aa1517e67868e",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "positive_cooccurrence",
+      "presentClasses": [
+        "Pigmentation",
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 16,
+      "targetAreaFraction": {
+        "min": 0.00010986328125,
+        "median": 0.000208740234375,
+        "max": 0.0005615234375
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "9f6898face41cf1580092a6d",
+      "recordId": "009c0cae3153f526ae7e3a77",
+      "split": "valid",
+      "targetClass": "Post acne",
+      "purpose": "positive_isolated",
+      "presentClasses": [
+        "Post acne"
+      ],
+      "targetAnnotationCount": 13,
+      "targetAreaFraction": {
+        "min": 5.126953125e-05,
+        "median": 0.000231475830078125,
+        "max": 0.000517730712890625
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "bd4a58107c593e18ad9a60fa",
+      "recordId": "03c112ad18a6c96e4555ce36",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "positive_isolated",
+      "presentClasses": [
+        "Post acne"
+      ],
+      "targetAnnotationCount": 85,
+      "targetAreaFraction": {
+        "min": 8.544921875e-06,
+        "median": 3.3721923828125e-05,
+        "max": 0.000208282470703125
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "c13d60a2745f1431971eae9c",
+      "recordId": "0298de5bee4fda240d56b1e5",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "positive_isolated",
+      "presentClasses": [
+        "Post acne"
+      ],
+      "targetAnnotationCount": 22,
+      "targetAreaFraction": {
+        "min": 1.46484375e-05,
+        "median": 2.63214111328125e-05,
+        "max": 5.3558349609375e-05
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "a86eeba42bc5f664910f1543",
+      "recordId": "a8ba7beef37c30e7fcd4cf67",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "positive_large",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 103,
+      "targetAreaFraction": {
+        "min": 3.3721923828125e-05,
+        "median": 0.00026092529296875,
+        "max": 0.00292388916015625
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "ba931503bcd40181ec613433",
+      "recordId": "c36068bc51aa8cecb53b2ab7",
+      "split": "valid",
+      "targetClass": "Post acne",
+      "purpose": "positive_large",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 19,
+      "targetAreaFraction": {
+        "min": 0.00043670654296875,
+        "median": 0.001235809326171875,
+        "max": 0.003189849853515625
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "edfffc4f32f5510af398d016",
+      "recordId": "19f08cc5d3de867a3251d845",
+      "split": "valid",
+      "targetClass": "Post acne",
+      "purpose": "positive_large",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 230,
+      "targetAreaFraction": {
+        "min": 1.190185546875e-05,
+        "median": 8.68988037109375e-05,
+        "max": 0.008345489501953124
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "07fe53fb7a8410c1af7d77fc",
+      "recordId": "3690f5c4e9d3a16a2cc5a1a4",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 82,
+      "targetAreaFraction": {
+        "min": 1.220703125e-06,
+        "median": 0.00013343811035156252,
+        "max": 0.001287384033203125
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "69a2da7363cb509bdc788c19",
+      "recordId": "a7278ab1ad3e679e8c950826",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 55,
+      "targetAreaFraction": {
+        "min": 6.103515625e-07,
+        "median": 0.000113525390625,
+        "max": 0.000644073486328125
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "a0bba42bd43b0661bc8288b4",
+      "recordId": "423589b051cb218fbc722c3a",
+      "split": "valid",
+      "targetClass": "Post acne",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 101,
+      "targetAreaFraction": {
+        "min": 6.103515625e-07,
+        "median": 4.638671875e-05,
+        "max": 0.000243988037109375
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "bc97dde51bca28dde9a05fce",
+      "recordId": "1b588876bb94f53e66015218",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Pimple",
+        "Post acne"
+      ],
+      "targetAnnotationCount": 69,
+      "targetAreaFraction": {
+        "min": 1.52587890625e-07,
+        "median": 6.744384765625e-05,
+        "max": 0.000604248046875
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "ee38e31d21ace59dcc55a241",
+      "recordId": "cd14ad73d98acdece94bebbc",
+      "split": "valid",
+      "targetClass": "Post acne",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Post acne"
+      ],
+      "targetAnnotationCount": 63,
+      "targetAreaFraction": {
+        "min": 2.288818359375e-06,
+        "median": 6.103515625e-06,
+        "max": 2.9296875e-05
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "faf3702d638cb57c1b58c207",
+      "recordId": "ce6835f63c0e9937b5e6f3bc",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "positive_tiny",
+      "presentClasses": [
+        "Post acne"
+      ],
+      "targetAnnotationCount": 36,
+      "targetAreaFraction": {
+        "min": 1.52587890625e-07,
+        "median": 3.631591796875e-05,
+        "max": 0.0001812744140625
+      },
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "3bb9ad6243b59b97ca77a0c4",
+      "recordId": "75f2586fc2662b77fc9fd9a0",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "unlabelled_negative",
+      "presentClasses": [],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "3e532d8c74b62b79937e2f18",
+      "recordId": "2528c9245fd791e04a13abf1",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "unlabelled_negative",
+      "presentClasses": [],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "5338e2591484be74be2288d0",
+      "recordId": "51785d92bf70afa85f9e7f4d",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "unlabelled_negative",
+      "presentClasses": [],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    },
+    {
+      "reviewItemId": "9bc539719a8401eb6892b3d2",
+      "recordId": "27843844c9f12b57a94a9d4d",
+      "split": "train",
+      "targetClass": "Post acne",
+      "purpose": "unlabelled_negative",
+      "presentClasses": [],
+      "targetAnnotationCount": 0,
+      "targetAreaFraction": null,
+      "expertDecision": null
+    }
+  ],
+  "decision": {
+    "expertReviewComplete": false,
+    "positiveDefinitionsLocked": false,
+    "hardNegativePoliciesLocked": false,
+    "ambiguousCasePoliciesLocked": false,
+    "trainingAuthorized": false
+  },
+  "privacy": {
+    "containsImageBytes": false,
+    "containsFilenames": false,
+    "containsRawSourceNames": false,
+    "recordIdsAreHashed": true,
+    "privateResolverCommitted": false
+  }
+}

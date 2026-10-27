@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "physical-camera-benchmark-manifest-builder-audit-v1",
+  "createdAt": "2026-10-26T01:37:18Z",
+  "workingBaseline": {
+    "productAlreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "existingProductFlowChanged": false
+  },
+  "implementation": {
+    "script": "scripts/skin-research/build_physical_camera_benchmark_manifest.py",
+    "tests": "scripts/skin-research/tests/test_build_physical_camera_benchmark_manifest.py",
+    "privateInputTemplate": "docs/skin/evidence/physical-camera-benchmark-manifest-input-template-20261026-v1.json",
+    "inputImagesCommitted": false,
+    "requiresOpaqueReferences": true,
+    "requiresImmutableImageSha256": true,
+    "requiresExactFrontLeftRightTriplets": true,
+    "requiresPhysicalCameraSource": true,
+    "rejectsGeneratedSources": true,
+    "rejectsTrainingValidationThresholdLeakage": true,
+    "rejectsPathsNamesContactFieldsImageBytesPredictionsAndLabels": true,
+    "requiresPassedCaptureQualityGate": true,
+    "expertTruthKeptSeparate": true
+  },
+  "verification": {
+    "focusedTestsPassed": 11,
+    "fullSkinResearchTestsPassed": 165,
+    "privacyLeakageCasesCovered": true,
+    "generatedSourceRejectionCovered": true,
+    "splitLeakageRejectionCovered": true,
+    "duplicateHashRejectionCovered": true,
+    "incompleteTripletRejectionCovered": true
+  },
+  "currentCandidate": {
+    "privatePhysicalCameraIndexPresent": false,
+    "manifestGenerated": false,
+    "physicalCameraAcceptanceClaimed": false,
+    "blocker": "consented_physical_camera_index_missing"
+  },
+  "providerRefresh": {
+    "observedAt": "2026-10-26T01:37:18Z",
+    "projectsAccessible": 20,
+    "acneImages": 800,
+    "regionalImages": 337,
+    "underEyeImages": 399,
+    "acneTrainingsFinished": 2,
+    "regionalTrainingsFinished": 2,
+    "underEyeV1TrainingsFinished": 1,
+    "underEyeV2Trainings": 0,
+    "pendingUploadTask": {
+      "taskId": "sLFwX7CYBVcnnD6iAW5o",
+      "status": "created",
+      "progress": null
+    },
+    "newTrainingStarted": false,
+    "newUploadStarted": false
+  }
+}

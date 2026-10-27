@@ -1,0 +1,20 @@
+# 2026-10-26T11:53:29+01:00 babe9b6970b011f65d642600aaa0ca2fd2b7f316 base (node_modules = temiz checkout'unkiler, lockfile aynı)
+E   ModuleNotFoundError: No module named 'yolox'
+/tmp/claude-0/-home-claude/6c3a640c-814a-5b9e-a7fb-dc8a45e4bc81/scratchpad/base/scripts/skin-research/yolox_p2.py:40: ModuleNotFoundError: No module named 'yolox'
+E   ModuleNotFoundError: No module named 'yolox'
+/tmp/claude-0/-home-claude/6c3a640c-814a-5b9e-a7fb-dc8a45e4bc81/scratchpad/base/scripts/skin-research/yolox_p2.py:40: ModuleNotFoundError: No module named 'yolox'
+E   ModuleNotFoundError: No module named 'yolox'
+/tmp/claude-0/-home-claude/6c3a640c-814a-5b9e-a7fb-dc8a45e4bc81/scratchpad/base/scripts/skin-research/yolox_p2.py:40: ModuleNotFoundError: No module named 'yolox'
+E   ModuleNotFoundError: No module named 'yolox'
+/tmp/claude-0/-home-claude/6c3a640c-814a-5b9e-a7fb-dc8a45e4bc81/scratchpad/base/scripts/skin-research/yolox_p2.py:40: ModuleNotFoundError: No module named 'yolox'
+E   ModuleNotFoundError: No module named 'yolox'
+/tmp/claude-0/-home-claude/6c3a640c-814a-5b9e-a7fb-dc8a45e4bc81/scratchpad/base/scripts/skin-research/yolox_p2.py:40: ModuleNotFoundError: No module named 'yolox'
+E   AssertionError: {
+/tmp/claude-0/-home-claude/6c3a640c-814a-5b9e-a7fb-dc8a45e4bc81/scratchpad/base/tests/unit/test_localization.py:63: AssertionError: {
+FAILED tests/unit/test_acne_objectness_features.py::ObjectnessFeatures::test_independent_weights_and_double_install_rejected
+FAILED tests/unit/test_acne_objectness_features.py::ObjectnessFeatures::test_initial_complete_output_parity_and_no_stale_frame
+FAILED tests/unit/test_acne_objectness_features.py::ObjectnessFeatures::test_learning_feature_weights_cannot_change_boxes_or_classes
+FAILED tests/unit/test_acne_objectness_features.py::ObjectnessFeatures::test_new_graph_requires_its_own_strict_checkpoint_loader
+FAILED tests/unit/test_acne_objectness_features.py::ObjectnessFeatures::test_trainable_scope_and_frozen_bn
+FAILED tests/unit/test_localization.py::test_catalog_and_actual_frontend_behavior
+6 failed, 21 passed, 2 warnings in 9.66s

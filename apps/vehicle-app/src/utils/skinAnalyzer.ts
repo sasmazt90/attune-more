@@ -20,8 +20,13 @@ import { expressionScores } from './skinExpression';
 
 export interface FaceAlignment {
   expressionScores?:Record<string,number>;
-  /** Optional canonical-to-camera pose, column-major MediaPipe matrix. Dental only. */
+  /** Canonical-to-camera pose, column-major MediaPipe 4x4 matrix. */
   faceTransform?:number[];
+  yawDeg?: number;
+  pitchDeg?: number;
+  rollDeg?: number;
+  cameraMirrored?: boolean | null;
+  cameraMirrorStatus?: 'canvas-mirrored' | 'not-measured-driver-level';
   faceDetected: boolean;
   faceCount?: number;
   isMediaPipeActive: boolean;
@@ -54,7 +59,31 @@ export function skinSourceFramed(points:{x:number;y:number}[],width:number,heigh
  return minX>.005&&maxX<.995&&minY>.005&&maxY<.995&&(maxX-minX)*width>=4&&(maxY-minY)*height>=4;
 }
 
-export type SkinCapturePose = Pick<FaceAlignment, 'yaw' | 'pitch' | 'roll' | 'scaleRatio'>;
+/**
+ * Driver-level webcam mirroring cannot be determined from a single RGB frame or
+ * a proper 3D rotation matrix (det = +1). Only an explicit canvas 2D mirror
+ * transform (`ctx.getTransform().a < 0`) flips captured pixels; otherwise
+ * return `null` (`not-measured-driver-level`).
+ */
+export function detectCameraMirrored(
+  _video?: HTMLVideoElement | null,
+  ctx?: CanvasRenderingContext2D | null,
+  _faceTransform?: number[] | null
+): boolean | null {
+  try {
+    if (ctx && typeof ctx.getTransform === 'function') {
+      const t = ctx.getTransform();
+      if (typeof t?.a === 'number' && t.a < 0) return true;
+    }
+  } catch {}
+  return null;
+}
+
+export type SkinCapturePose = Pick<FaceAlignment, 'yaw' | 'pitch' | 'roll' | 'scaleRatio'> & {
+  yawDeg?: number;
+  pitchDeg?: number;
+  rollDeg?: number;
+};
 export interface SkinReferenceMetadata {
   id: string; timestamp: string; schemaVersion: 1; scope: 'single-front-v1';
   quality: ImageQuality; pose: SkinCapturePose;
@@ -203,7 +232,8 @@ export class SkinAnalyzer {
 
         const lms = result.faceLandmarks[0];
         const alignment = this.calculateAlignmentFromLandmarks(lms, width, height);
-        return { ...alignment, expressionScores:expressionScores(result.faceBlendshapes[0]?.categories), faceTransform:result.facialTransformationMatrixes[0]?.data, faceCount: result.faceLandmarks.length,
+        const ft = result.facialTransformationMatrixes[0]?.data;
+        return { ...alignment, cameraMirrored: detectCameraMirrored(null, ctx, ft), expressionScores:expressionScores(result.faceBlendshapes[0]?.categories), faceTransform:ft, faceCount: result.faceLandmarks.length,
           ...(result.faceLandmarks.length !== 1 ? { faceDetected: false, isAligned: false, guidanceTextTr: 'Kadrajda yalnız bir yüz bulunmalı.' } : {}) };
 
       } catch (e) {
@@ -471,18 +501,49 @@ export class SkinAnalyzer {
     const lms = alignment?.landmarks;
     const b = alignment?.box || { x: width * 0.25, y: height * 0.2, width: width * 0.5, height: height * 0.6 };
 
-    // Dışlanacak bölgeler (Gözler ve Dudaklar)
-    const exclusionBoxes: { x: number; y: number; w: number; h: number }[] = [];
+    // Dışlanacak anatomik bölgeler (Gözler, göz kapakları, dudaklar, kaşlar, burun delikleri)
+    // Landmark konturlarından yüz ölçeğine göre dinamik poligon ve kutular üretilir.
+    const exclusionBoxes: { x: number; y: number; w: number; h: number; id?: string }[] = [];
+    const exclusionPolygons: { id: string; points: { x: number; y: number }[] }[] = [];
     if (lms && lms.length >= 400) {
-      // Sol göz
-      const le = lms[LM.LEFT_EYE_INNER];
-      exclusionBoxes.push({ x: le.x * width - 15, y: le.y * height - 10, w: 30, h: 20 });
-      // Sağ göz
-      const re = lms[LM.RIGHT_EYE_INNER];
-      exclusionBoxes.push({ x: re.x * width - 15, y: re.y * height - 10, w: 30, h: 20 });
-      // Dudaklar
-      const lip = lms[LM.LIPS_TOP];
-      exclusionBoxes.push({ x: lip.x * width - 25, y: lip.y * height - 10, w: 50, h: 25 });
+      const eyeSpan = Math.max(
+        Math.hypot((lms[33].x - lms[133].x) * width, (lms[33].y - lms[133].y) * height),
+        Math.hypot((lms[263].x - lms[362].x) * width, (lms[263].y - lms[362].y) * height),
+        12
+      );
+      const contours: { id: string; indices: number[]; padPx: number }[] = [
+        { id: 'rightEye', indices: [33, 7, 163, 144, 145, 153, 154, 155, 133, 173, 157, 158, 159, 160, 161, 246], padPx: Math.max(2, eyeSpan * 0.14) },
+        { id: 'leftEye', indices: [263, 249, 390, 373, 374, 380, 381, 382, 362, 398, 384, 385, 386, 387, 388, 466], padPx: Math.max(2, eyeSpan * 0.14) },
+        { id: 'lips', indices: [61, 146, 91, 181, 84, 17, 314, 405, 321, 375, 291, 409, 270, 269, 267, 0, 37, 39, 40, 185], padPx: Math.max(2, eyeSpan * 0.10) },
+        { id: 'rightBrow', indices: [70, 63, 105, 66, 107, 55, 65, 52], padPx: Math.max(1, eyeSpan * 0.06) },
+        { id: 'leftBrow', indices: [300, 293, 334, 296, 336, 285, 295, 282], padPx: Math.max(1, eyeSpan * 0.06) },
+        { id: 'nostrils', indices: [98, 97, 2, 326, 327, 294], padPx: Math.max(1, eyeSpan * 0.06) }
+      ];
+      for (const c of contours) {
+        const pts = c.indices
+          .map((idx) => lms[idx])
+          .filter(Boolean)
+          .map((pt) => ({ x: pt.x * width, y: pt.y * height }));
+        if (pts.length < 3) continue;
+        const cx = pts.reduce((s, p) => s + p.x, 0) / pts.length;
+        const cy = pts.reduce((s, p) => s + p.y, 0) / pts.length;
+        const expanded = pts.map((p) => {
+          const dx = p.x - cx;
+          const dy = p.y - cy;
+          const len = Math.hypot(dx, dy) || 1;
+          return { x: p.x + (dx / len) * c.padPx, y: p.y + (dy / len) * c.padPx };
+        });
+        exclusionPolygons.push({ id: c.id, points: expanded });
+        const xs = expanded.map((p) => p.x);
+        const ys = expanded.map((p) => p.y);
+        const minX = Math.max(0, Math.min(...xs));
+        const minY = Math.max(0, Math.min(...ys));
+        const maxX = Math.min(width, Math.max(...xs));
+        const maxY = Math.min(height, Math.max(...ys));
+        if (maxX > minX && maxY > minY) {
+          exclusionBoxes.push({ id: c.id, x: minX, y: minY, w: maxX - minX, h: maxY - minY });
+        }
+      }
     }
 
     // 6 ROI Tanımı
@@ -512,7 +573,7 @@ export class SkinAnalyzer {
       { id: 'periorbital', nameTr: 'Göz Çevresi', x: b.x + b.width * 0.2, y: b.y + b.height * 0.28, w: b.width * 0.6, h: b.height * 0.12 }
     ];
 
-    return { roiDefinitions, exclusionBoxes };
+    return { roiDefinitions, exclusionBoxes, exclusionPolygons };
   }
 
   public static analyzeRegions(

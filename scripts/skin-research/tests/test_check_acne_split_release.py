@@ -1,0 +1,169 @@
+import importlib.util
+import unittest
+from pathlib import Path
+
+
+SCRIPT = Path(__file__).parents[1] / "check_acne_split_release.py"
+SPEC = importlib.util.spec_from_file_location("acne_split_release", SCRIPT)
+gate = importlib.util.module_from_spec(SPEC)
+assert SPEC and SPEC.loader
+SPEC.loader.exec_module(gate)
+
+
+def source_review():
+    return {
+        "schemaVersion": "acne-source-group-review-v1",
+        "dataset": {
+            "archiveSHA256": "a" * 64,
+            "images": 3,
+            "splits": {"train": 1, "valid": 1, "test": 1},
+        },
+        "recordIndex": [
+            {"recordId": "r1", "split": "train"},
+            {"recordId": "r2", "split": "valid"},
+            {"recordId": "r3", "split": "test"},
+        ],
+        "privacy": {
+            "containsImageBytes": False,
+            "containsFilenames": False,
+            "containsRawSourceNames": False,
+        },
+        "reviewSummary": {"confirmedCrossSplitSourceLeakageGroups": 1},
+        "regroupingPlan": {"confirmedGroups": [{
+            "members": [
+                {"recordId": "r1", "split": "train"},
+                {"recordId": "r2", "split": "valid"},
+            ]
+        }]},
+    }
+
+
+def complete_semantics():
+    return {
+        "schemaVersion": "acne-semantic-negative-review-v1",
+        "datasetArchiveSHA256": "a" * 64,
+        "reviewPackageCanonicalSHA256": "b" * 64,
+        "reviewer": "expert_review",
+        "classes": [{
+            "name": name,
+            "expertReviewed": True,
+            "positiveDefinitionLocked": True,
+            "hardNegativePolicyLocked": True,
+            "ambiguousCasePolicyLocked": True,
+            "reviewedItemIds": [f"reviewed-{name}"],
+        } for name in gate.CLASSES],
+    }
+
+
+def grouping_proposal():
+    return {
+        "schemaVersion": "acne-group-coverage-proposal-v1",
+        "dataset": {"archiveSHA256": "a" * 64, "images": 3},
+        "privacy": {
+            "containsImageBytes": False,
+            "containsFilenames": False,
+            "containsRawSourceNames": False,
+        },
+        "coverageProposal": {"groups": [
+            {
+                "status": "confirmed_group",
+                "members": [
+                    {"recordId": "r1", "split": "train"},
+                    {"recordId": "r3", "split": "test"},
+                ],
+            },
+            {
+                "status": "unreviewed_singleton",
+                "members": [{"recordId": "r2", "split": "valid"}],
+            },
+        ]},
+        "decision": {"personOrSourceGroupCoverageEstablished": False},
+    }
+
+
+class AcneSplitReleaseGateTest(unittest.TestCase):
+    def test_current_dataset_fails_closed_without_review_receipts(self):
+        result = gate.build_gate(source_review())
+        self.assertFalse(result["decision"]["readyToGenerateReplacementSplit"])
+        self.assertFalse(result["decision"]["trainingAuthorized"])
+        self.assertEqual(result["replacementSplit"]["missingRecords"], 3)
+        self.assertEqual(result["semanticNegativeReview"]["missingClasses"], list(gate.CLASSES))
+        self.assertEqual(result["currentSplit"]["confirmedLeakageMembers"], 2)
+
+    def test_complete_receipts_only_authorize_split_generation(self):
+        groups = {
+            "schemaVersion": "acne-source-person-group-coverage-v1",
+            "reviewer": "engineering_visual_review",
+            "allRecordsReviewed": True,
+            "testSplitPolicy": "locked_existing_test_records",
+            "groups": [
+                {"groupId": "g12", "targetSplit": "train", "members": ["r1", "r2"]},
+                {"groupId": "g3", "targetSplit": "test", "members": ["r3"]},
+            ],
+        }
+        result = gate.build_gate(source_review(), groups, complete_semantics())
+        self.assertTrue(result["decision"]["readyToGenerateReplacementSplit"])
+        self.assertFalse(result["decision"]["trainingAuthorized"])
+        self.assertFalse(result["decision"]["testEvaluationAuthorized"])
+
+    def test_duplicate_or_moved_test_record_blocks_release(self):
+        groups = {
+            "schemaVersion": "acne-source-person-group-coverage-v1",
+            "reviewer": "expert_review",
+            "allRecordsReviewed": True,
+            "testSplitPolicy": "locked_existing_test_records",
+            "groups": [
+                {"groupId": "g1", "targetSplit": "train", "members": ["r1", "r3"]},
+                {"groupId": "g2", "targetSplit": "valid", "members": ["r2", "r2"]},
+            ],
+        }
+        result = gate.build_gate(source_review(), groups, complete_semantics())
+        self.assertFalse(result["decision"]["readyToGenerateReplacementSplit"])
+        self.assertEqual(result["replacementSplit"]["duplicateAssignments"], 1)
+        self.assertEqual(result["replacementSplit"]["testRecordsMoved"], 1)
+
+    def test_privacy_or_index_mismatch_is_rejected(self):
+        value = source_review()
+        value["privacy"]["containsFilenames"] = True
+        with self.assertRaisesRegex(gate.GateError, "privacy safe"):
+            gate.build_gate(value)
+        value = source_review()
+        value["dataset"]["images"] = 4
+        with self.assertRaisesRegex(gate.GateError, "does not cover"):
+            gate.build_gate(value)
+
+    def test_semantic_receipt_requires_archive_and_expert_binding(self):
+        semantic = complete_semantics()
+        semantic["datasetArchiveSHA256"] = "f" * 64
+        with self.assertRaisesRegex(gate.GateError, "archive binding"):
+            gate.build_gate(source_review(), semantic_review=semantic)
+        semantic = complete_semantics()
+        semantic["reviewer"] = "engineering_visual_review"
+        result = gate.build_gate(source_review(), semantic_review=semantic)
+        self.assertFalse(result["semanticNegativeReview"]["complete"])
+
+    def test_review_incomplete_proposal_can_strengthen_leakage_evidence_only(self):
+        result = gate.build_gate(source_review(), grouping_proposal=grouping_proposal())
+        self.assertEqual(result["currentSplit"]["confirmedCrossSplitSourcePersonGroups"], 1)
+        self.assertEqual(result["currentSplit"]["confirmedLeakageMembers"], 2)
+        self.assertEqual(result["currentSplit"]["groupingProposal"]["recordsRepresented"], 3)
+        self.assertFalse(
+            result["currentSplit"]["groupingProposal"]["personOrSourceGroupCoverageEstablished"]
+        )
+        self.assertFalse(result["decision"]["readyToGenerateReplacementSplit"])
+
+    def test_grouping_proposal_binding_and_exact_coverage_fail_closed(self):
+        proposal = grouping_proposal()
+        proposal["dataset"]["archiveSHA256"] = "f" * 64
+        with self.assertRaisesRegex(gate.GateError, "dataset binding"):
+            gate.build_gate(source_review(), grouping_proposal=proposal)
+        proposal = grouping_proposal()
+        proposal["coverageProposal"]["groups"][1]["members"][0] = {
+            "recordId": "r1", "split": "train"
+        }
+        with self.assertRaisesRegex(gate.GateError, "represent every record"):
+            gate.build_gate(source_review(), grouping_proposal=proposal)
+
+
+if __name__ == "__main__":
+    unittest.main()

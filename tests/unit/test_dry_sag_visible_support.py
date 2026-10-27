@@ -10,6 +10,15 @@ from test_local_appearance_health import photo,landmarks
 
 def mesh():return dict(points=[dict(x=20,y=20),dict(x=300,y=20),dict(x=300,y=300),dict(x=20,y=300)],edges=[[0,1],[1,2],[2,3],[3,0]])
 
+def test_missing_measurement_never_becomes_a_valid_zero():
+ assert A.validated_measurement_value(0)==(0.,None)
+ assert A.validated_measurement_value(None)==(None,'MEASUREMENT_UNAVAILABLE')
+ assert A.validated_measurement_value(float('nan'))==(None,'MEASUREMENT_UNAVAILABLE')
+ assert A.validated_measurement_value(12,'DETAIL_MISSING')==(None,'DETAIL_MISSING')
+ source=(ROOT/'services/core-api/appearance_analysis.py').read_text('utf8')
+ assert 'add(criterion,value or 0' not in source
+ assert 'add(criterion,value,INSTANT_UNIT' in source
+
 def test_closed_cells_require_real_convex_boundary_and_match_browser():
  m=mesh();assert A.polygon_mask((320,320),m,1,(0,0)).sum()==0
  assert A.closed_surface_mask((320,320),m,1,(0,0))[100,100]
@@ -37,6 +46,9 @@ def test_overview_unique_centers_and_visible_area_omit_missing_side():
  assert sag['value']==pytest.approx(50) and sag['components']['uniqueObservedCenters']==2
  assert sag['components']['partialCoverage'] and sag['evaluatedArea']['analysisPixels']==25 and sag['evaluatedArea']['sourcePixels']==100
  assert sag['components']['missingRegions']=={'leftCheek':'ANATOMICAL_BAND_NOT_VISIBLE'}
+ assert sag['components']['appearanceSemantics']=='visible-lower-face-contour-fold-appearance-v1'
+ assert sag['components']['clinicalSeverity'] is False and sag['components']['elasticity'] is False
+ assert sag['components']['comparisonMode']=='same-person-compatible-capture-only'
 
 def test_dry_and_sag_history_versions_separate_both_scopes_without_rewrite():
  script=r'''
@@ -76,6 +88,9 @@ def test_ordinary_mentolabial_crease_cannot_supply_lower_chin_index(monkeypatch)
  assert old_crease[4] is None and old_crease[0]==0 and not old_crease[2].any()
  assert actual_lower[4] is None and actual_lower[0]>0 and actual_lower[2].any()
  assert actual_lower[1]['samplingSupportVersion']=='lower-chin-observed-fold-runs-unique-centers-v9'
+ assert actual_lower[1]['appearanceSemantics']=='visible-lower-face-contour-fold-appearance-v1'
+ assert actual_lower[1]['clinicalSeverity'] is False and actual_lower[1]['elasticity'] is False
+ assert actual_lower[1]['comparisonMode']=='same-person-compatible-capture-only'
 
 def test_v7_and_v8_history_and_render_support_remain_distinct():
  script=r'''

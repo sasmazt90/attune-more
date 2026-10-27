@@ -5,6 +5,11 @@ from playwright.sync_api import sync_playwright
 
 ROOT=Path(__file__).resolve().parents[2]
 
+def test_regional_replay_is_validated_before_indexeddb_write_and_after_read():
+    source=(ROOT/'apps/vehicle-app/src/utils/skinPhotoHistory.ts').read_text('utf8')
+    assert "s.general?.regionalSkinMap&&!retainedRegionalSkinReplay(s,'overview')" in source
+    assert source.count('validate(frames)') >= 2
+
 def test_explicit_consent_atomic_storage_relaunch_and_revocation(tmp_path):
     js=subprocess.check_output(['node','-e',"const fs=require('fs'),ts=require('typescript');process.stdout.write(ts.transpileModule(fs.readFileSync('apps/vehicle-app/src/utils/skinPhotoHistory.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText);"],cwd=ROOT,text=True)
     with sync_playwright() as pw:
@@ -12,7 +17,7 @@ def test_explicit_consent_atomic_storage_relaunch_and_revocation(tmp_path):
             c=pw.chromium.launch_persistent_context(str(tmp_path/'browser'),channel='chrome',headless=True)
             c.route('**/*',lambda r:r.fulfill(body='<html>Isolated photo-store unit test</html>',content_type='text/html'))
             p=c.new_page();p.goto('http://localhost:6982/unit')
-            p.evaluate('(js)=>{window.photos={};new Function("exports",js)(photos);}',js)
+            p.evaluate('''(js)=>{window.photos={};const localRequire=id=>{if(id==='./regionalSkinMap')return {retainedRegionalSkinReplay:()=>undefined};throw new Error('Unexpected test import: '+id);};new Function("exports","require",js)(photos,localRequire);}''',js)
             return c,p
         c,p=launch()
         p.evaluate('''()=>{
@@ -50,3 +55,4 @@ def test_explicit_consent_atomic_storage_relaunch_and_revocation(tmp_path):
         p.evaluate("localStorage.setItem(photos.SKIN_PHOTO_PERMISSION,'true')")
         assert p.evaluate("()=>photos.loadSkinPhotos('c')") is None
         c.close()
+

@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-23T16:52:59Z",
+  "scope": "task-13-retained-regional-replay-storage-gate",
+  "implementation": {
+    "storageModule": "skinPhotoHistory",
+    "sharedValidator": "retainedRegionalSkinReplay",
+    "writeBoundary": "validate before IndexedDB serialization and transaction",
+    "readBoundary": "validate after hash verification and typed-array revival; invalid row is deleted",
+    "failureCode": "INVALID_REGIONAL_REPLAY_SOURCE",
+    "appliesWhen": "a retained FRONT photo contains general.regionalSkinMap",
+    "rawPhotoCommitted": false
+  },
+  "commits": {
+    "photoHistory": "a1738e2e3842377f4ddb42c25b3e07362f6795eb",
+    "nodeContract": "f24a5eadc36767f035fc217189c278d6183198ae",
+    "regionalPythonGuard": "c00638d5d055d40d9e2211126b49758a16c13f74",
+    "photoHistoryPythonGuard": "dce9cd4176001df537acb7ae9920c0664da2ca73"
+  },
+  "verification": {
+    "result": "pass",
+    "checks": 82,
+    "serverFixtures": 4,
+    "replayAspectRatios": 3,
+    "tested": [
+      "valid source-bound frame accepted by pure storage validator",
+      "regional map capture mismatch rejected",
+      "negative/out-of-bounds preview crop rejected",
+      "out-of-bounds region mesh rejected",
+      "save and load both call the shared validator",
+      "existing no-consent/no-association/hash-integrity behavior retained by source inspection"
+    ],
+    "fullIndexedDBBrowserTest": {
+      "executedHere": false,
+      "reason": "Python Playwright package and local Chromium executable are absent",
+      "committedTestExtended": true
+    }
+  },
+  "freshRemoteState": {
+    "checkedAt": "2026-10-23T16:52:59Z",
+    "projectsTotal": 15,
+    "acneMarksPigmentationTraining": {"id": "5b632a5c12b76fcfe703", "status": "finished", "modelCount": 89},
+    "comedonesCleanNasTraining": {"id": "c2bcbeca2ab5719224fe", "status": "finished", "modelGroup": "Yr3MKkD8aDu0NIzG9M5F-c2bcbeca2ab5719224fe-rfdetrNasGroup", "modelCount": 90, "action": "not duplicated, evaluated or selected here"},
+    "comedonesGroupedTraining": {"id": "e45fb1f2578bf09750fb", "status": "finished"},
+    "poresGroupedTraining": {"id": "66999f483e520c0353b9", "status": "finished"}
+  },
+  "acceptance": {
+    "modelAccepted": false,
+    "regionalMethodActivated": false,
+    "browserAccepted": false,
+    "cameraAccepted": false,
+    "note": "The persistence boundary is enforced and unit-verified; CI/browser replay and real-camera acceptance remain open."
+  }
+}

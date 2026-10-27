@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-23T18:29:14Z",
+  "scope": "task-08 tone/pigmentation semantics and twelve-heading product contract",
+  "result": "pass",
+  "productHeadings": {
+    "appearance": 11,
+    "separateSkinType": 1,
+    "total": 12,
+    "appearanceIds": [
+      "tone", "oil", "redness", "acne", "sag", "dry", "lines", "dark", "bags",
+      "postAcne", "pigmentation"
+    ]
+  },
+  "separation": {
+    "version": "tone-localized-pigmentation-separation-v1",
+    "toneMeaning": "broad-regional-chromatic-variation",
+    "toneCanSupplyLocalizedPigmentation": false,
+    "localizedHeadingsDerivedFromTone": false,
+    "postAcneStatus": "unavailable-no-accepted-local-detector",
+    "pigmentationStatus": "unavailable-no-accepted-local-detector",
+    "localizedUnit": "candidate-count"
+  },
+  "verification": {
+    "frontendContractChecks": 91,
+    "backendContractTests": 4,
+    "remoteSkinGeneralResponseConstructed": true,
+    "remoteAppearanceAnalysisSyntaxAndWiring": "pass",
+    "legacyNineHeadingOverviewAccepted": true,
+    "newElevenAppearanceHeadingOverviewAccepted": true
+  },
+  "remoteRefresh": {
+    "projectsTotal": 16,
+    "acneTraining": "finished",
+    "regionalTraining": "finished",
+    "cleanComedoneTraining": "finished",
+    "groupedComedoneTraining": "finished",
+    "poresTraining": "finished",
+    "duplicateTrainingStarted": false
+  },
+  "acceptance": {
+    "toneMethodAcceptedAsClinicalOrPigmentationSeverity": false,
+    "postAcneModelAccepted": false,
+    "pigmentationModelAccepted": false,
+    "cameraAcceptance": false,
+    "productionMergeOrDeployment": false
+  }
+}

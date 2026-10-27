@@ -1,0 +1,199 @@
+{
+  "status": "PASS",
+  "camera": "fake-device y4m fixture (not a physical camera)",
+  "fixture": "K-074-1080.y4m",
+  "poseMock": false,
+  "qualityOverride": false,
+  "modelInference": "real (saved models via core-api)",
+  "seconds": 174.9,
+  "recordId": "4f204780-4a2e-4d56-bdf7-7c42fda6883b",
+  "findings": {
+    "version": "skin-findings-v1-detector",
+    "poses": [
+      "FRONT",
+      "LEFT",
+      "RIGHT"
+    ],
+    "thresholdSource": "research/skin-findings/results/det_prev.md (thr_prev on 260 training persons; findings.pt)",
+    "models": {
+      "findings.pt": "c8d94801bf86c65a4ff0c3c1e5ae663aaa4774fdccd4b31d4782aeed33675c99"
+    },
+    "status": "measured",
+    "findings": [
+      {
+        "id": "mole",
+        "region": "rightCheek",
+        "status": "notSeen",
+        "pose": "FRONT",
+        "readFrom": [
+          "FRONT",
+          "LEFT"
+        ]
+      },
+      {
+        "id": "mole",
+        "region": "leftCheek",
+        "status": "notSeen",
+        "pose": "FRONT",
+        "readFrom": [
+          "FRONT",
+          "RIGHT"
+        ]
+      },
+      {
+        "id": "melasma",
+        "region": "rightCheek",
+        "status": "notSeen",
+        "pose": "FRONT",
+        "readFrom": [
+          "FRONT",
+          "LEFT"
+        ]
+      },
+      {
+        "id": "melasma",
+        "region": "leftCheek",
+        "status": "notSeen",
+        "pose": "FRONT",
+        "readFrom": [
+          "FRONT",
+          "RIGHT"
+        ]
+      },
+      {
+        "id": "rosacea",
+        "region": "forehead",
+        "status": "notSeen",
+        "pose": "LEFT",
+        "readFrom": [
+          "FRONT",
+          "LEFT",
+          "RIGHT"
+        ]
+      },
+      {
+        "id": "rosacea",
+        "region": "nose",
+        "status": "seen",
+        "pose": "LEFT",
+        "readFrom": [
+          "FRONT",
+          "LEFT",
+          "RIGHT"
+        ]
+      },
+      {
+        "id": "rosacea",
+        "region": "rightCheek",
+        "status": "seen",
+        "pose": "LEFT",
+        "readFrom": [
+          "FRONT",
+          "LEFT"
+        ]
+      },
+      {
+        "id": "rosacea",
+        "region": "leftCheek",
+        "status": "seen",
+        "pose": "RIGHT",
+        "readFrom": [
+          "FRONT",
+          "RIGHT"
+        ]
+      },
+      {
+        "id": "rosacea",
+        "region": "chin",
+        "status": "notSeen",
+        "pose": "LEFT",
+        "readFrom": [
+          "FRONT",
+          "LEFT",
+          "RIGHT"
+        ]
+      }
+    ],
+    "unavailable": [
+      {
+        "id": "eyeBags",
+        "reason": "MODEL_NOT_AVAILABLE"
+      },
+      {
+        "id": "darkCircles",
+        "reason": "MODEL_NOT_AVAILABLE"
+      },
+      {
+        "id": "hoodedEyelids",
+        "reason": "MODEL_NOT_AVAILABLE"
+      },
+      {
+        "id": "downturnedCorners",
+        "reason": "MODEL_NOT_AVAILABLE"
+      },
+      {
+        "id": "crowsFeet",
+        "reason": "MODEL_NOT_AVAILABLE"
+      },
+      {
+        "id": "foreheadLines",
+        "reason": "MODEL_NOT_AVAILABLE"
+      },
+      {
+        "id": "coldSore",
+        "reason": "MODEL_NOT_AVAILABLE"
+      },
+      {
+        "id": "acneMarks",
+        "reason": "MODEL_NOT_AVAILABLE"
+      },
+      {
+        "id": "acne",
+        "reason": "MODEL_NOT_AVAILABLE"
+      },
+      {
+        "id": "redness",
+        "reason": "MODEL_NOT_AVAILABLE"
+      },
+      {
+        "id": "eczema",
+        "reason": "MODEL_NOT_AVAILABLE"
+      },
+      {
+        "id": "flaking",
+        "reason": "MODEL_NOT_AVAILABLE"
+      },
+      {
+        "id": "spots",
+        "reason": "NOT_VALIDATED"
+      }
+    ]
+  },
+  "skinType": "normal",
+  "nativeZoom": "NOT RUN (--skip-native-zoom)",
+  "screenshots": [
+    "result-overview.png",
+    "result-unmeasured.png",
+    "result-overview-rosacea.png",
+    "result-forehead-recommendations.png",
+    "result-forehead.png",
+    "result-periorbital.png",
+    "result-rightCheek-recommendations.png",
+    "result-rightCheek.png",
+    "result-leftCheek-recommendations.png",
+    "result-leftCheek.png",
+    "result-chin.png",
+    "reopened-overview.png",
+    "reopened-unmeasured.png",
+    "reopened-overview-rosacea.png",
+    "reopened-forehead-recommendations.png",
+    "reopened-forehead.png",
+    "reopened-periorbital.png",
+    "reopened-rightCheek-recommendations.png",
+    "reopened-rightCheek.png",
+    "reopened-leftCheek-recommendations.png",
+    "reopened-leftCheek.png",
+    "reopened-chin.png"
+  ],
+  "pageErrors": []
+}

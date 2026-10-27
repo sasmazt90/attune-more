@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-23T15:14:32Z",
+  "scope": "task-13-method-compatible-categorical-regional-history",
+  "implementation": {
+    "helper": "regionalObservationHistory",
+    "component": "SkinTrendModal",
+    "regions": ["forehead", "nose", "chin", "leftCheek", "rightCheek"],
+    "criteria": ["oil", "dry", "redness"],
+    "states": ["positive", "negative"],
+    "numericSeverityInvented": false,
+    "identityFields": ["methodVersion", "normalizationVersion", "modelHash", "validationEvidence"],
+    "anchorRule": "requested record when valid, otherwise newest valid record",
+    "incompatibleRecords": "excluded and counted; never bridged into the selected series",
+    "unknownObservations": "excluded; never treated as normal or negative",
+    "rawMediaPersisted": false
+  },
+  "commits": {
+    "regionalSkinMap": "5f97b9ed33433d669ccf2ce478d9a11c6505425b",
+    "skinTrendModal": "bfe0e606c25663109139c65e0768a395a3be09e6",
+    "nodeContract": "d6c1f644e9ae90ef14c8863c792d6e0641fc4057",
+    "pythonGuard": "7803f8a943b5d3c6f00374e3d8058f858fc9b770"
+  },
+  "verification": {
+    "command": "python direct invocation of two test functions; pytest package unavailable in scratch runtime",
+    "result": "pass",
+    "checks": 65,
+    "serverFixtures": 4,
+    "scope": "numeric-contract-converter-svg-layer-and-categorical-history",
+    "tested": [
+      "positive-to-negative change",
+      "unchanged categorical state",
+      "method identity exclusion",
+      "bad date exclusion",
+      "unknown observation exclusion",
+      "unsupported region exclusion",
+      "UI copy and adapter wiring"
+    ]
+  },
+  "freshRemoteState": {
+    "checkedAt": "2026-10-23T15:14:32Z",
+    "acneMarksPigmentationTraining": {"id": "5b632a5c12b76fcfe703", "status": "finished"},
+    "comedonesCleanNasTraining": {"id": "c2bcbeca2ab5719224fe", "status": "running", "action": "no duplicate training started"},
+    "comedonesGroupedTraining": {"id": "e45fb1f2578bf09750fb", "status": "finished"},
+    "poresGroupedTraining": {"id": "66999f483e520c0353b9", "status": "finished"}
+  },
+  "acceptance": {
+    "modelAccepted": false,
+    "cameraAccepted": false,
+    "browserReplayCompleted": false,
+    "fullApplicationTypecheckCompleted": false,
+    "note": "This proves the comparison boundary and presentation adapter only. It does not accept any skin method or replace retained-photo/browser and independent camera validation."
+  }
+}

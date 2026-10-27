@@ -1,0 +1,339 @@
+{
+ "cast": {
+  "matrix": [
+   [
+    1.08,
+    0.06,
+    -0.02
+   ],
+   [
+    0.03,
+    0.95,
+    0.04
+   ],
+   [
+    -0.04,
+    0.08,
+    0.86
+   ]
+  ],
+  "gain": 0.92,
+  "offset": [
+   0.004,
+   0.003,
+   0.006
+  ]
+ },
+ "calibration": {
+  "deltaE00Before": {
+   "mean": 3.67,
+   "max": 6.31
+  },
+  "deltaE00After": {
+   "mean": 0.24,
+   "max": 0.64
+  },
+  "leaveOneOutMean": 0.28,
+  "perPatch": {
+   "dark skin": 0.36,
+   "light skin": 0.12,
+   "blue sky": 0.39,
+   "foliage": 0.17,
+   "blue flower": 0.12,
+   "bluish green": 0.24,
+   "orange": 0.24,
+   "purplish blue": 0.04,
+   "moderate red": 0.13,
+   "purple": 0.14,
+   "yellow green": 0.09,
+   "orange yellow": 0.03,
+   "blue": 0.28,
+   "green": 0.16,
+   "red": 0.19,
+   "yellow": 0.1,
+   "magenta": 0.14,
+   "cyan": 0.19,
+   "white 9.5": 0.08,
+   "neutral 8": 0.32,
+   "neutral 6.5": 0.63,
+   "neutral 5": 0.64,
+   "neutral 3.5": 0.61,
+   "black 2": 0.42
+  }
+ },
+ "persons": {
+  "K-217": {
+   "original": {
+    "seen": {
+     "rosacea/nose": {
+      "areaPct": 25.6,
+      "toneDiff": 3.0
+     },
+     "rosacea/rightCheek": {
+      "areaPct": 56.6,
+      "toneDiff": 5.0
+     },
+     "coldSore/chin": {
+      "count": 1
+     },
+     "crowsFeet/periorbital": {
+      "severity": 16.2
+     },
+     "downturnedCorners/periorbital": {
+      "severity": 0.0
+     },
+     "eyeBags/periorbital": {
+      "severity": 16.8
+     },
+     "foreheadLines/forehead": {
+      "severity": 4.3
+     },
+     "acne/forehead": {
+      "count": 3
+     },
+     "acne/nose": {
+      "count": 1
+     },
+     "redness/rightCheek": {
+      "areaPct": 56.6,
+      "toneDiff": 5.0
+     },
+     "redness/leftCheek": {
+      "areaPct": 47.3,
+      "toneDiff": 4.0
+     }
+    },
+    "faceMeanAbsDiffVsOriginal": 0.0
+   },
+   "cast": {
+    "seen": {
+     "coldSore/chin": {
+      "count": 1
+     },
+     "crowsFeet/periorbital": {
+      "severity": 11.4
+     },
+     "downturnedCorners/periorbital": {
+      "severity": 0.0
+     },
+     "acne/forehead": {
+      "count": 3
+     },
+     "acne/nose": {
+      "count": 1
+     },
+     "redness/rightCheek": {
+      "areaPct": 48.3,
+      "toneDiff": 4.0
+     },
+     "redness/leftCheek": {
+      "areaPct": 38.8,
+      "toneDiff": 3.0
+     }
+    },
+    "faceMeanAbsDiffVsOriginal": 4.86,
+    "lost": [
+     "eyeBags/periorbital",
+     "foreheadLines/forehead",
+     "rosacea/nose",
+     "rosacea/rightCheek"
+    ],
+    "added": []
+   },
+   "castCorrected": {
+    "seen": {
+     "rosacea/nose": {
+      "areaPct": 24.6,
+      "toneDiff": 3.0
+     },
+     "rosacea/rightCheek": {
+      "areaPct": 56.9,
+      "toneDiff": 5.0
+     },
+     "coldSore/chin": {
+      "count": 1
+     },
+     "crowsFeet/periorbital": {
+      "severity": 15.0
+     },
+     "downturnedCorners/periorbital": {
+      "severity": 0.0
+     },
+     "eyeBags/periorbital": {
+      "severity": 15.2
+     },
+     "foreheadLines/forehead": {
+      "severity": 4.3
+     },
+     "acne/forehead": {
+      "count": 3
+     },
+     "acne/nose": {
+      "count": 1
+     },
+     "redness/rightCheek": {
+      "areaPct": 56.9,
+      "toneDiff": 5.0
+     },
+     "redness/leftCheek": {
+      "areaPct": 45.6,
+      "toneDiff": 4.0
+     }
+    },
+    "faceMeanAbsDiffVsOriginal": 0.77,
+    "lost": [],
+    "added": []
+   }
+  },
+  "K-074": {
+   "original": {
+    "seen": {
+     "rosacea/nose": {
+      "areaPct": 42.6,
+      "toneDiff": 4.0
+     },
+     "rosacea/rightCheek": {
+      "areaPct": 46.5,
+      "toneDiff": 4.0
+     },
+     "rosacea/leftCheek": {
+      "areaPct": 48.3,
+      "toneDiff": 4.0
+     },
+     "downturnedCorners/periorbital": {
+      "severity": 60.6
+     },
+     "redness/leftCheek": {
+      "areaPct": 48.3,
+      "toneDiff": 4.0
+     },
+     "redness/rightCheek": {
+      "areaPct": 46.5,
+      "toneDiff": 4.0
+     },
+     "redness/nose": {
+      "areaPct": 42.6,
+      "toneDiff": 4.0
+     }
+    },
+    "faceMeanAbsDiffVsOriginal": 0.0
+   },
+   "cast": {
+    "seen": {
+     "rosacea/leftCheek": {
+      "areaPct": 36.1,
+      "toneDiff": 4.0
+     },
+     "downturnedCorners/periorbital": {
+      "severity": 60.6
+     },
+     "redness/leftCheek": {
+      "areaPct": 36.1,
+      "toneDiff": 4.0
+     },
+     "redness/rightCheek": {
+      "areaPct": 35.0,
+      "toneDiff": 3.0
+     }
+    },
+    "faceMeanAbsDiffVsOriginal": 3.95,
+    "lost": [
+     "redness/nose",
+     "rosacea/nose",
+     "rosacea/rightCheek"
+    ],
+    "added": []
+   },
+   "castCorrected": {
+    "seen": {
+     "rosacea/nose": {
+      "areaPct": 44.6,
+      "toneDiff": 4.0
+     },
+     "rosacea/rightCheek": {
+      "areaPct": 48.1,
+      "toneDiff": 4.0
+     },
+     "rosacea/leftCheek": {
+      "areaPct": 50.8,
+      "toneDiff": 5.0
+     },
+     "downturnedCorners/periorbital": {
+      "severity": 60.6
+     },
+     "redness/leftCheek": {
+      "areaPct": 50.8,
+      "toneDiff": 5.0
+     },
+     "redness/rightCheek": {
+      "areaPct": 48.1,
+      "toneDiff": 4.0
+     }
+    },
+    "faceMeanAbsDiffVsOriginal": 0.67,
+    "lost": [
+     "redness/nose"
+    ],
+    "added": []
+   }
+  },
+  "K-258": {
+   "original": {
+    "seen": {
+     "hoodedEyelids/periorbital": {
+      "severity": 1.5
+     },
+     "acne/forehead": {
+      "count": 4
+     },
+     "acne/nose": {
+      "count": 1
+     }
+    },
+    "faceMeanAbsDiffVsOriginal": 0.0
+   },
+   "cast": {
+    "seen": {
+     "downturnedCorners/periorbital": {
+      "severity": 30.3
+     },
+     "hoodedEyelids/periorbital": {
+      "severity": 0.2
+     },
+     "acne/forehead": {
+      "count": 4
+     },
+     "acne/nose": {
+      "count": 1
+     }
+    },
+    "faceMeanAbsDiffVsOriginal": 4.09,
+    "lost": [],
+    "added": [
+     "downturnedCorners/periorbital"
+    ]
+   },
+   "castCorrected": {
+    "seen": {
+     "downturnedCorners/periorbital": {
+      "severity": 30.3
+     },
+     "hoodedEyelids/periorbital": {
+      "severity": 1.8
+     },
+     "acne/forehead": {
+      "count": 4
+     },
+     "acne/nose": {
+      "count": 1
+     }
+    },
+    "faceMeanAbsDiffVsOriginal": 0.63,
+    "lost": [],
+    "added": [
+     "downturnedCorners/periorbital"
+    ]
+   }
+  }
+ }
+}

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-25T12:14:30Z",
+  "receipt": "docs/skin/evidence/skin-face-crows-feet-external-model-receipt-20261025-v1.json",
+  "decision": "rejected_for_product_activation",
+  "reason": "Crows-feet performance is inadequate on both provider validation and test diagnostics; evaluated-negative completeness, source-group independence, an untouched final test, camera acceptance and product integration acceptance are absent.",
+  "test": {"map50": 0.0010211828139297429, "map50_95": 0.0002746943792401853, "precision": 0.01, "recall": 0.048, "f1": 0.017},
+  "blindRetrainingAllowed": false,
+  "targetedNextAction": "Complete expert evaluated-negative/expression/pose protocol and group-locked replacement split before any single controlled experiment.",
+  "activationAllowed": false,
+  "roadmapAccepted": false
+}

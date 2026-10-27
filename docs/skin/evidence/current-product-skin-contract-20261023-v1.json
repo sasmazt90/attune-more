@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-23T12:40:37Z",
+  "methodVersion": "current-product-code-contract-audit-v1",
+  "repository": "sasmazt90/attune-more",
+  "branch": "main",
+  "commit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+  "result": {
+    "existingProductResultFlowVerified": true,
+    "backendEndpoint": "/api/local-health/skin",
+    "criteria": [
+      "tone",
+      "oil",
+      "redness",
+      "acne",
+      "sag",
+      "dry",
+      "lines",
+      "dark",
+      "bags"
+    ],
+    "separateSkinType": true,
+    "regionalViews": [
+      "forehead",
+      "rightCheek",
+      "leftCheek",
+      "nose",
+      "chin",
+      "periorbital"
+    ],
+    "overview": true,
+    "localMaps": true,
+    "resultPersistenceGate": true,
+    "resultUI": true
+  },
+  "implementation": [
+    {
+      "path": "services/core-api/skin_general.py",
+      "blobSHA": "0fb7ec70c2f80a89651e85692d5d44727c929b87",
+      "evidence": "IDS contains all nine current appearance criteria and general_result returns whole-face measurements plus skinType."
+    },
+    {
+      "path": "services/core-api/appearance_analysis.py",
+      "blobSHA": "c884a051d9ba378df6459e0036ed176f7091bee9",
+      "evidence": "analyze_skin produces regional measurements, maps, contours and overview values; acne/dry/oil/eye/line/contour paths are explicit."
+    },
+    {
+      "path": "services/core-api/local_health.py",
+      "blobSHA": "033bdcabcbfde0cf226505b522baee59b9a5b70b",
+      "evidence": "POST /skin executes the local product analysis under park, consent, disconnect, eyewear and bounded-worker controls."
+    },
+    {
+      "path": "apps/vehicle-app/src/utils/skinIndicators.ts",
+      "blobSHA": "14ff6c3c1fee82883a6487d214e1694f1cad1aa1",
+      "evidence": "The UI dictionary and measurement contract expose the same nine criteria and distinguish appearance proxies from independently validated values."
+    },
+    {
+      "path": "apps/vehicle-app/src/utils/skinOverview.ts",
+      "blobSHA": "638d87de50030e4a85df5d50a8b002560cf56974",
+      "evidence": "The overview contract requires all nine criteria and a separate normal/dry/oily/combination skin type."
+    },
+    {
+      "path": "apps/vehicle-app/src/app/skin/page.tsx",
+      "blobSHA": "90c10337f2cf5ac607b4aa1be39d2cfba6a5e47d",
+      "evidence": "The camera flow attaches appearance results, overview, local maps and contours, validates them and persists accepted records."
+    },
+    {
+      "path": "apps/vehicle-app/src/components/skin/SkinResultView.tsx",
+      "blobSHA": "fb1cde115c990191a84a119cfcbe354827b18fb9",
+      "evidence": "The result view supports criterion selection and regional result inspection."
+    }
+  ],
+  "modelStatus": {
+    "skinFocusedManifest": {
+      "path": "services/core-api/models/skin-focused.json",
+      "blobSHA": "bb6970abf979b790fce882d17a3ba1f42bc64bac",
+      "acceptedLearnedHeads": [
+        "whole-face redness degree"
+      ],
+      "notAcceptedLearnedHeads": [
+        "legacy four-class skin type",
+        "legacy acne",
+        "legacy bags"
+      ]
+    },
+    "localSkinType": {
+      "enabled": true,
+      "classes": [
+        "dry",
+        "normal",
+        "oily"
+      ],
+      "combinationRule": "T-zone oily plus complete supported non-T normal/dry observations",
+      "meaning": "visible-support rule; not sebum or hydration ground truth"
+    }
+  },
+  "interpretation": [
+    "The roadmap extends and validates an already functioning result flow; it is not a greenfield integration.",
+    "A visible product score is not automatically an accuracy claim. Several current outputs are analytic appearance proxies and carry limitations in their contract.",
+    "Post acne and Pigmentation remain the two new product headings; source dataset classes are not additional product headings.",
+    "Future model promotion must preserve the current consent, quality, persistence, map and history contracts."
+  ]
+}

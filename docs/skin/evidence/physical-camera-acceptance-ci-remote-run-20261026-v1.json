@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T08:42:42Z",
+  "repository": "sasmazt90/attune-more",
+  "branch": "work/skin-roadmap-20261023",
+  "purpose": "Run the complete skin research evidence suite on the roadmap branch without masking unrelated repository failures.",
+  "changes": {
+    "workflow": ".github/workflows/ci.yml",
+    "workflowBlob": "8041e9040518f0abf500cd744b4ebb3a2d78d374",
+    "workflowCommit": "fef4fc55c972c96b142ff9cb5f1855cf7c02f9aa",
+    "wiringTest": "scripts/skin-research/tests/test_ci_physical_camera_acceptance_wiring.py",
+    "wiringTestBlob": "52ca65cffa6359da2f97a6e46ac0e7bbf725e116",
+    "wiringTestCommit": "9e1a05119900a3bc056534777143911de2b6a9c9",
+    "roadmapBranchPushEnabled": true,
+    "documentationOnlyPushIgnored": true,
+    "completeSkinSuiteRunsAfterEarlierFailure": true,
+    "pycocotoolsPin": "2.0.10"
+  },
+  "localVerification": {
+    "focusedWiringTests": 6,
+    "focusedWiringPassed": true,
+    "completeSkinResearchTests": 206,
+    "completeSkinResearchPassed": true
+  },
+  "remoteVerification": {
+    "acceptedEvidenceRun": {
+      "runId": 40293112075,
+      "url": "https://github.com/sasmazt90/attune-more/actions/runs/40293112075",
+      "headSha": "f3cd41f8c30742c34450a9bdd9d66a1b9b821d73",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "failure",
+      "frontendJob": {
+        "jobId": 121472614644,
+        "conclusion": "success"
+      },
+      "backendJob": {
+        "jobId": 121472615094,
+        "conclusion": "failure"
+      },
+      "completeSkinResearchStep": {
+        "stepNumber": 10,
+        "conclusion": "success",
+        "testsRun": 222,
+        "logResult": "OK"
+      },
+      "deterministicUnitStep": {
+        "stepNumber": 9,
+        "conclusion": "failure",
+        "failures": [
+          "tests/unit/test_hosted_skin_type_runtime.py::test_degrees_remain_independent_of_hosted_failure",
+          "tests/unit/test_localization.py::test_catalog_and_actual_frontend_behavior",
+          "tests/unit/test_skin_approved_layout.py::test_existing_layout_styles_and_visible_content_are_preserved",
+          "tests/unit/test_skin_current_persistence.py::test_current_response_and_old_versions_remain_valid",
+          "tests/unit/test_skin_model_boundary.py::test_accepted_degree_load_failure_preserves_unavailable_target",
+          "tests/unit/test_skin_photo_history.py::test_explicit_consent_atomic_storage_relaunch_and_revocation"
+        ]
+      }
+    },
+    "dependencyDiagnosisRun": {
+      "runId": 40292266993,
+      "url": "https://github.com/sasmazt90/attune-more/actions/runs/40292266993",
+      "status": "completed",
+      "conclusion": "failure",
+      "diagnosis": "pycocotools was missing before pytest collection; fixed by a pinned CI-only research dependency"
+    },
+    "latestConfigurationRun": {
+      "runId": 40293730402,
+      "url": "https://github.com/sasmazt90/attune-more/actions/runs/40293730402",
+      "headSha": "fef4fc55c972c96b142ff9cb5f1855cf7c02f9aa",
+      "status": "completed",
+      "conclusion": "failure",
+      "frontendConclusion": "success",
+      "deterministicUnitConclusion": "failure",
+      "completeSkinResearchConclusion": "success",
+      "purpose": "Verify the documentation-only paths-ignore refinement; no training, upload or inference is started."
+    }
+  },
+  "interpretation": {
+    "remoteSkinSuiteObserved": true,
+    "remoteSkinSuitePassed": true,
+    "overallWorkflowPassed": false,
+    "overallFailureMustNotBeHidden": true,
+    "modelTrainingStarted": false,
+    "datasetUploadStarted": false,
+    "modelInferenceStarted": false,
+    "roadmapComplete": false
+  }
+}

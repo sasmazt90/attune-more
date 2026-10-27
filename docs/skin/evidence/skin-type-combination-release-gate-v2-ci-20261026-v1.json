@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T15:01:00Z",
+  "implementation": {
+    "commit": "66eece9992a1a4ee4928883d55135c8a5eef4f28",
+    "tree": "34a24ee60b6e2957ee852b1e84d8569755c28167",
+    "methodVersion": "skin-type-combination-release-gate-v2",
+    "receipt": "docs/skin/evidence/skin-type-combination-release-receipt-20261026-v2.json",
+    "gate": "docs/skin/evidence/skin-type-combination-release-gate-20261026-v2.json"
+  },
+  "liveRefresh": {
+    "projectsAccessible": 20,
+    "skinTypeBoxProject": {
+      "projectId": "tolgar-sasmaz/attune-skin-type-regional-r1",
+      "projectImages": 991,
+      "version": 2,
+      "versionImages": 1711,
+      "splits": {"train": 1442, "valid": 150, "test": 119},
+      "classes": {"oily": 945, "dry": 2119},
+      "trainingId": "a9e8b8a021825191cf5b",
+      "trainingStatus": "finished",
+      "modelId": "tolgar-sasmaz/attune-skin-type-regional-r1-2-rfdetr-small-t1",
+      "accepted": false
+    },
+    "regionalMaskProject": {
+      "projectId": "tolgar-sasmaz/attune-skin-regional-skin-map",
+      "images": 337,
+      "version": 1,
+      "splits": {"train": 244, "valid": 63, "test": 30},
+      "classes": {"Oily": 1065, "Redness": 571},
+      "trainingIds": ["3485f8c67f957a1b850d", "af287a006e2e428f5ce4"],
+      "trainingStatuses": ["finished", "finished"],
+      "dryTruth": false,
+      "evaluatedNormalTruth": false,
+      "combinationTruth": false
+    },
+    "runningRelevantTrainingFound": false,
+    "newTrainingStarted": false,
+    "duplicateWorkStarted": false
+  },
+  "releaseDecision": {
+    "existingGlobalSkinTypeFlowPreserved": true,
+    "existingConcreteResultFlowPreserved": true,
+    "acceptedRegistryPresent": false,
+    "knownBoxModelAccepted": false,
+    "knownVersionOneRegionalModelsAccepted": false,
+    "researchTrainingAuthorized": false,
+    "finalTestEvaluationAuthorized": false,
+    "combinationProductActivationAllowed": false,
+    "roadmapAccepted": false,
+    "decision": "blocked"
+  },
+  "semanticControls": {
+    "oilyTZone": ["forehead", "nose", "chin"],
+    "outsideTZone": ["leftCheek", "rightCheek"],
+    "outsideSupport": "accepted Dry or explicitly evaluated Normal on both cheeks",
+    "wholeFaceReplicationAllowed": false,
+    "boxesAsRegionalTruthAllowed": false,
+    "missingLabelMeansNormal": false,
+    "modelPredictionIsExpertTruth": false,
+    "dryColour": "#2563EB",
+    "oilyColour": "#16A34A",
+    "normalColour": null,
+    "unknownColour": "#D1D5DB",
+    "rednessIndependentOverlap": true,
+    "rednessMeansSensitivity": false
+  },
+  "tests": {
+    "localFocused": {"tests": 12, "result": "OK"},
+    "localCompleteSkinResearch": {"tests": 249, "result": "OK"},
+    "githubActions": {
+      "runId": 40344231685,
+      "url": "https://github.com/sasmazt90/attune-more/actions/runs/40344231685",
+      "conclusion": "success",
+      "frontendJobId": 121646751492,
+      "frontendProductionBuild": "success",
+      "backendJobId": 121646752495,
+      "localizationContract": "success",
+      "deterministicUnitSuite": {"passed": 1627, "skipped": 44, "warnings": 2, "seconds": 133.38},
+      "completeSkinResearchEvidenceSuite": {"tests": 249, "result": "OK"}
+    }
+  },
+  "limitations": [
+    "The accepted regional method registry is empty; mutable readiness flags alone cannot activate combination.",
+    "The external box model remains rejected because its data has no polygon or Normal truth, has confirmed train/test person leakage and was not threshold-locked before its exposed test.",
+    "The current regional mask project contains Oily and Redness only; it cannot supply Dry, evaluated Normal or combination truth.",
+    "Future accepted methods must bind immutable method/evidence identities, complete regional coverage, group-independent truth, locked thresholds, untouched final test, physical camera, product integration, unavailable/overlap controls and history replay."
+  ]
+}

@@ -13,9 +13,12 @@ import numpy as np
 from skin_general import general_result,oil_region_support,OIL_SAMPLING
 from skin_models import infer as infer_skin_models, infer_acne, infer_bags, session_status
 from skin_measurement_contract import attach_result_receipts
+from skin_product_contract import apply_learned_general_degree, tone_separation_components
 from skimage.feature import local_binary_pattern
 from skimage.filters import gabor
 from acne_box_support import region_envelopes,accepted_boxes as filter_acne_boxes,box_area,VERSION as ACNE_SUPPORT_VERSION
+from skin_display_geometry import measured_line_paths
+from roboflow_skin_models import infer_lesion_large, infer_regional_oily_seg
 from skin_scan_baseline.oiliness import oiliness_map
 from skin_scan_baseline.blemishes import blemish_map
 
@@ -134,6 +137,26 @@ def row(region, criterion, value, unit, area, conditions, limitation=None, compo
                 uncertainty=uncertainty or ['illumination', 'visible-surface-only', 'unvalidated-cosmetic-proxy'],
                 region=region, evaluatedArea=area, captureConditions=conditions,
                 limitationCode=limitation, referenceId=None, localMap=None, components=components or {})
+
+
+def validated_measurement_value(value, limitation=None):
+    """Keep an unavailable measurement distinct from a measured zero.
+
+    Upstream analyzers normally return a limitation together with ``None``.
+    This boundary still fails closed if that limitation is accidentally lost,
+    and it rejects non-finite values before they enter history or maps.
+    """
+    if limitation is not None:
+        return None, limitation
+    if value is None or isinstance(value, (bool, np.bool_)):
+        return None, 'MEASUREMENT_UNAVAILABLE'
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError, OverflowError):
+        return None, 'MEASUREMENT_UNAVAILABLE'
+    if not np.isfinite(numeric):
+        return None, 'MEASUREMENT_UNAVAILABLE'
+    return numeric, None
 
 
 def eligible_flake_components(signal,eligible):
@@ -405,9 +428,19 @@ def analyze_skin(payload, include_research_features=False):
         poly=np.asarray([[(points[i]['x']*width-x0)*scale,(points[i]['y']*bgr.shape[0]-y0)*scale] for i in indices],np.float32)
         cv2.fillConvexPoly(acne_exclusion,cv2.convexHull(poly).astype(np.int32),255)
     acne_skin=(face_support>0)&(acne_exclusion==0)&~hair&~acne_clipping&(gray>.12)
+    experimental_research_models=None
+    if not include_research_features and payload.get('experimentalHostedSkinResearch') is True and payload.get('hostedResearchModelConsent') is True and payload.get('qualityValid') is True:
+        rf_lesion=infer_lesion_large(bgr,True,experimental_opt_in=True)
+        rf_oily=infer_regional_oily_seg(bgr,gray.shape,scale,origin,acne_skin,acne_exclusion,hair,True,experimental_opt_in=True)
+        experimental_research_models={'mixedIntoProductMeasurements':False,'lesionLarge':{k:v for k,v in rf_lesion.items() if k!='boxes'},'regionalOilySeg':{k:v for k,v in rf_oily.items() if k!='mask'}}
     accepted_boxes={k:[] for k in masks}
+    rejected_boxes=[]
     if trained_acne and trained_acne.get('valid'):
-        assigned_boxes,_=filter_acne_boxes(trained_acne['boxes'],acne_envelopes,acne_skin,hair,acne_exclusion,source_hash,scale,origin)
+        assigned_boxes,rejected_boxes=filter_acne_boxes(trained_acne['boxes'],acne_envelopes,acne_skin,hair,acne_exclusion,source_hash,scale,origin)
+        for reg_name,reg_list in assigned_boxes.items():
+            for b in reg_list:
+                b.update(modelVersion=trained_acne.get('modelVersion'),modelHash=trained_acne.get('modelHash'),pointSource='box_centroid',photoId=source_hash)
+                if trained_acne.get('providerModelId'):b['providerModelId']=trained_acne['providerModelId']
         accepted_boxes.update(assigned_boxes)
     response, maps, contours = {}, {}, {}
     surface_masks={k:closed_surface_mask(gray.shape,m,scale,origin) for k,m in payload['meshes'].items()}
@@ -440,8 +473,11 @@ def analyze_skin(payload, include_research_features=False):
             return limitation,target_area
         items = []
         def add(criterion, value, unit, signal=None, ceiling=1., limitation=reason, components=None, signal_mask=None,measurement_area=None,map_support=None):
+            value, limitation = validated_measurement_value(value, limitation)
             usable = limitation is None
-            item = row(region, criterion, float(value) if usable else None, unit, measurement_area if measurement_area is not None else area, conditions, limitation, components)
+            item = row(region, criterion, value, unit, measurement_area if measurement_area is not None else area, conditions, limitation, components)
+            item['photoId'] = source_hash
+            item['capturePose'] = payload.get('pose', 'FRONT')
             if criterion=='sag' and components and components.get('formulaVersion'):
                 item['normalizationVersion']=components['formulaVersion']
             items.append(item)
@@ -456,7 +492,7 @@ def analyze_skin(payload, include_research_features=False):
                         criterion=criterion,coordinateSpace='source-pixels')
         if region != 'periorbital':
             tone,redness,color_components=local_color_signals(image,valid)
-            add('tone',np.mean(tone[valid]) if valid.any() else 0,'relative-color-index-0-100',tone,100,components=color_components)
+            add('tone',np.mean(tone[valid]) if valid.any() else 0,'relative-color-index-0-100',tone,100,components=tone_separation_components(color_components))
             add('redness',np.mean(redness[valid]) if valid.any() else 0,'relative-color-index-0-100',redness,100,components=color_components)
             add('oil', np.mean(shine[valid] > .12)*100 if valid.any() else 0, 'percent-visible-area', shine,
                 components={'localIntensity': float(np.mean(shine[valid])) if valid.any() else None, 'clippedFraction': clipped,
@@ -580,7 +616,11 @@ def analyze_skin(payload, include_research_features=False):
             line_components['samplingSupportVersion']='native-impulse-one-cycle-lines-v1'
             line_components['photometricSamplingVersion']='native-isolated-impulse-median-v1'
             line_components['lineSupportVersion']='connected-local-one-coarsest-period-v1'
+            raw_line_paths=measured_line_paths(rad_sig*dir_gate,known,0.0125) if lines_reason is None else []
+            source_line_paths=[{**lp,'points':[{'x':round(float(pt['x']/scale+x0),1),'y':round(float(pt['y']/scale+y0),1)} for pt in lp['points']]} for lp in raw_line_paths]
+            line_components['linePaths']=source_line_paths
             add('lines',value,'directional-line-index-0-100',line_signal/100,limitation=lines_reason,signal_mask=known,measurement_area=lines_area,components=line_components)
+            if 'periorbital:lines' in maps:maps['periorbital:lines']['linePaths']=source_line_paths
         if region != 'nose':
             contour_support=base&~clipping&(gray>.12)
             contour_gray=gray
@@ -629,7 +669,7 @@ def analyze_skin(payload, include_research_features=False):
             # Sag has its own lower-face sampling-corridor quality. Capture
             # validity is still required; exposure/visibility stay local per side.
             contour_reason=(('CAPTURE_QUALITY' if not payload.get('qualityValid') else None) or limitation) if criterion in ['sag','bags'] else reason or limitation
-            add(criterion,value or 0,INSTANT_UNIT,signal,limitation=contour_reason,components=components,measurement_area=components.get('measurementROI',area),map_support=contour_support if region in ('rightCheek','leftCheek','chin','periorbital') and not used_bag_mask else None)
+            add(criterion,value,INSTANT_UNIT,signal,limitation=contour_reason,components=components,measurement_area=components.get('measurementROI',area),map_support=contour_support if region in ('rightCheek','leftCheek','chin','periorbital') and not used_bag_mask else None)
             if used_bag_mask and value is not None:
                 items[-1].update(modelVersion=trained_bags['modelVersion'],modelHash=trained_bags['modelHash'],unit='appearance-score-0-100',normalizationVersion='predicted-lower-lid-mask-area-v1')
                 if 'periorbital:bags' in maps:maps['periorbital:bags'].update(mapType='predicted-presence-mask',unit='appearance-score-0-100',method=trained_bags['modelVersion'],modelHash=trained_bags['modelHash'])
@@ -638,6 +678,12 @@ def analyze_skin(payload, include_research_features=False):
         response[region]=items
     result=dict(methodVersion=VERSION,photoId=source_hash,measurements=response,maps=maps,contours=contours,
                 storage='volatile-memory-only',sourceWidth=bgr.shape[1],sourceHeight=bgr.shape[0])
+    if trained_acne and trained_acne.get('valid'):
+        all_acne_boxes=[b for r_list in accepted_boxes.values() for b in r_list]
+        result['acneCandidates']={**accepted_boxes,'overview':all_acne_boxes}
+        result['lesionRuntime']=dict(modelVersion=trained_acne.get('modelVersion'),providerModelId=trained_acne.get('providerModelId'),modelHash=trained_acne.get('modelHash'),acceptedCount=len(all_acne_boxes),rejectedAnatomyOrThresholdCount=len(rejected_boxes)+len(trained_acne.get('rejected',[])),thresholds=trained_acne.get('thresholds'))
+    if experimental_research_models:
+        result['experimentalResearchModels']=experimental_research_models
     if payload['pose']=='FRONT':
         union=np.logical_or.reduce(list(masks.values()))&(exclusion==0)&~hair&~clipping&(gray>.12)
         general_tone,general_redness,_=local_color_signals(image,union)
@@ -658,7 +704,8 @@ def analyze_skin(payload, include_research_features=False):
             general_area,conditions,payload.get('qualityValid',False),candidate_coverage=float(np.mean(global_candidates[union])*100) if union.any() else None,normalizations=NORMALIZATION,dry_support=dry_union,sag_support=(sag_samples,sag_measured,scale),analysis_scale=scale)
         for item in result['general']['measurements']:
             item['scoreDirection']='higher-is-more-visible'
-            item['normalizationVersion']=NORMALIZATION[item['id']]+('-expression-v3-observed-pose' if item['id']=='sag' else '')
+            if item['id'] in NORMALIZATION:
+                item['normalizationVersion']=NORMALIZATION[item['id']]+('-expression-v3-observed-pose' if item['id']=='sag' else '')
             if item['id']=='acne' and item['value'] is not None and not include_research_features:
                 measured=[name for name,rows in response.items() if any(r['id']=='acne' and r['quality']=='valid' for r in rows)]
                 support=np.logical_or.reduce([acne_envelopes[name]&acne_skin for name in measured])
@@ -689,8 +736,10 @@ def analyze_skin(payload, include_research_features=False):
                 # candidates. A whole-photo acne grade is not a calibrated
                 # fusion with detection-box coverage and cannot replace it.
                 if degree and item['id']!='acne':
-                    item.update(value=degree['value'],type='trained_prediction',methodVersion=degree['methodVersion'],modelVersion=degree['methodVersion'],modelHash=degree['modelHash'],quality='valid',limitationCode=None,normalizationVersion=degree['normalizationVersion'],uncertainty=['source-label-protocol-unverified','camera-domain-shift'])
-                    item['components'].update(rawGrade=degree['rawGrade'],normalizationVersion=degree['normalizationVersion'],modelScope='whole-face',pixelLocalizationAvailable=False)
+                    # Generic degree heads are whole-photo ordinal outputs. The
+                    # shared contract blocks them from replacing localized sag
+                    # contour/fold evidence or inheriting its analytic map.
+                    apply_learned_general_degree(item,degree)
         if include_research_features:
             # Offline train/validation comparison only. The normal API never
             # requests or persists these alternatives or uses them as scores.
@@ -707,7 +756,7 @@ def analyze_skin(payload, include_research_features=False):
                     maps['overview:'+criterion]=layer
                     measurement['localMap']=dict(key='overview:'+criterion,photoId=source_hash,region='overview',criterion=criterion,coordinateSpace='source-pixels')
         sag_overview=next(r for r in result['general']['measurements'] if r['id']=='sag')
-        if sag_overview['value'] is not None and sag_measured.any():
+        if sag_overview['value'] is not None and sag_measured.any() and sag_overview['components'].get('modelScope')!='whole-face':
             layer=map_result(sag_field,sag_measured,'overview','sag',source_hash,'FRONT',bgr.shape,scale,INSTANT_UNIT,1.,origin)
             if layer:
                 maps['overview:sag']=layer

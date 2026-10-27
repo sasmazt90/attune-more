@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "command": "python -m pytest -q tests/unit/test_regional_skin_evidence.py tests/unit/test_local_skin_type.py tests/unit/test_skin_roadmap_archive_audit.py tests/unit/test_roboflow_export_comparison.py",
+  "tests": 80,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "codeSHA256": {
+    "services/core-api/local_skin_type.py": "f4ece04932162e643fb6b549b0bd15670327e59e2d9db2fd69ab1c98060e4263",
+    "services/core-api/regional_skin_evidence.py": "162bc2eeb215b3318cf1e3e73ef366047ad4321266b1124e2c07c06fa3c13de3",
+    "scripts/skin-research/verify_roboflow_export.py": "eeb87ddb63f50e65a4edc07e4126f07b59c56499013ad40231c8d1fb43d0b54f",
+    "tests/unit/test_local_skin_type.py": "31b100f1de65cd842daefb0a6f367cf1ab5c15634c1310b91b898400574714e8",
+    "tests/unit/test_regional_skin_evidence.py": "43a324c1b7f630159dcee40df4cf4bac31e70a5b2edf90e8710d5ffe914fde6e",
+    "tests/unit/test_roboflow_export_comparison.py": "81f93607602282eb19e1905b28fdf340c9dfdecc00b3b1fe4c12a23895630489"
+  },
+  "modelOrCameraAccuracyProvenByTheseTests": false,
+  "syntheticPoliciesInstalledInProduct": false,
+  "productionDeployPerformed": false
+}

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-25T18:37:44Z",
+  "codeBlobs": {
+    "apps/vehicle-app/src/utils/regionalSkinMap.ts": "258ab2d845b3743ede309938cd14da8831a01046",
+    "apps/vehicle-app/src/utils/skinOverview.ts": "4d31010f82bfd5c42a49b46c20880630d57079dd",
+    "apps/vehicle-app/src/utils/skinPhotoHistory.ts": "d143cb121cc39149b1ee4d26d4e4bacd9ba0f288",
+    "apps/vehicle-app/src/components/skin/SkinFacePanel.tsx": "c86d90f41ad1b9c54025e111cd636271c533618a",
+    "apps/vehicle-app/src/components/skin/SkinTrendModal.tsx": "4709e9214cee28bbd2de5bfa9d20261b63f489c3",
+    "shared/localization/messages.json": "d17c71b2895aa771f1efe5e2c80cd7b784cc3ff2"
+  },
+  "evidenceBlobs": {
+    "mergedCapability": "001a343c4ae2537a8b6b9e8ccc2621586ddf014e",
+    "mergedRecheck": "bbbe61b13145284d675af7e3e66d25ce439a7ba4",
+    "unifiedMapCorrection": "a1f26fa1b754bac84978936ef1a47eba62d5b898",
+    "generatedSmoke": "5b44b0b8c03096c8dab3afa01ae2f5235d65193c",
+    "presentationLocalization": "adaefa02522398ed32eda6f5021075dfd7251cb0",
+    "presentationCi": "3fbf7398944937a361322b51e91062d0a92d7999"
+  },
+  "workingBaseline": {
+    "productAlreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "appearanceCriteria": ["tone", "oil", "redness", "acne", "sag", "dry", "lines", "dark", "bags"],
+    "separateSkinType": true,
+    "regionalResults": true,
+    "overviewAndHistory": true
+  },
+  "mapAndHistoryContract": {
+    "dryColour": "#2563EB",
+    "oilyColour": "#16A34A",
+    "rednessColour": "#DC2626",
+    "rednessIndependentLayer": true,
+    "rednessSensitivityAliasAllowed": false,
+    "normalColour": null,
+    "unknownColour": "#D1D5DB",
+    "unknownCountsAsNormal": false,
+    "methodIdentityRequiredForHistory": true,
+    "malformedSelectedRecordFallsBack": false,
+    "wholeFaceClassReplicationAllowed": false
+  },
+  "generatedSmoke": {
+    "declaredGenerated": true,
+    "realCameraCapture": false,
+    "expertGroundTruth": false,
+    "accuracyEvidence": false
+  },
+  "acceptanceCandidate": {
+    "repositoryCiPassed": false,
+    "realBrowserApiE2EPassed": false,
+    "indexedDbWriteReadReplayPassed": false,
+    "physicalCameraTripletPassed": false,
+    "expertTruthPerActivatedMethodPassed": false,
+    "independentFinalTestPerActivatedClassPassed": false,
+    "classSpecificReleaseGatesPassed": false,
+    "unavailableAndOverlapControlsPassed": false,
+    "methodCompatibleHistoryPassed": false
+  }
+}

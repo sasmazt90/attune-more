@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-23T21:36:29Z",
+  "task": "12-sag-appearance",
+  "decision": "generic-whole-face-ordinal-sag-rejected-at-model-boundary",
+  "sourceAudit": {
+    "archive": "skin-18criteria-v1.zip",
+    "archiveSHA256": "8f2bebd6b97bdd3acd06a42798babbd377b7937db362a734586ff5fb3d0ea4a1",
+    "declaredTargets": [
+      "acne", "blackheads", "whiteheads", "pores", "oil", "irritation",
+      "sensitivity", "redness", "lines", "bags", "dark", "foreheadLines",
+      "elasticity", "dry", "darkSpots", "postAcne", "tone", "freckles"
+    ],
+    "containsSagTarget": false,
+    "nearestButNonEquivalentTarget": "elasticity",
+    "gradeSchema": "spreadsheet columns C..T; valid numeric range 0..5",
+    "expertProtocolVerified": false,
+    "personIndependent": false,
+    "cameraDomainAccepted": false,
+    "interpretation": "The source elasticity grade is not localized lower-face sag truth and cannot authorize a sag product target."
+  },
+  "calibrationAudit": {
+    "eligibleAppearanceIds": [
+      "tone", "oil", "redness", "acne", "dry", "lines", "dark", "bags"
+    ],
+    "sagCalibrated": false,
+    "elasticityCalibrated": false,
+    "testOpenedByThisRun": false
+  },
+  "currentManifest": {
+    "path": "services/core-api/models/skin-focused.json",
+    "blobSHA": "bb6970abf979b790fce882d17a3ba1f42bc64bac",
+    "degreeTargets": ["redness"],
+    "acceptedDegreeTargets": ["redness"],
+    "wholeFaceOnly": true,
+    "localSeverityMap": false,
+    "sourceLabelProtocolVerified": false,
+    "cameraDomainAccepted": false,
+    "sagCurrentlyConfigured": false
+  },
+  "implementedBoundary": {
+    "policy": "generic_degree_target_policy",
+    "blockedTarget": "sag",
+    "reason": "WHOLE_FACE_ORDINAL_SAG_NOT_A_LOCAL_APPEARANCE_TARGET",
+    "invalidManifestReason": "ACCEPTED_TARGET_NOT_IN_MODEL_OUTPUTS",
+    "successPathFiltered": true,
+    "failureUnavailableTargetsFiltered": true,
+    "blockedTargetsExposed": true,
+    "downstreamReplacementGuardPreserved": "WHOLE_FACE_ORDINAL_CANNOT_REPLACE_LOCAL_SAG"
+  },
+  "verification": {
+    "pythonCompile": [
+      "services/core-api/skin_product_contract.py",
+      "services/core-api/skin_models.py",
+      "tests/unit/test_skin_product_contract.py"
+    ],
+    "focusedChecksPassed": 11,
+    "runtimeONNXTestAvailable": false,
+    "runtimeONNXTestBlocker": "cv2 and onnxruntime are absent in the scratch runtime",
+    "staticModelBoundaryWiringChecked": true
+  },
+  "roboflowRefresh": {
+    "privateProjects": 16,
+    "acneTrainingId": "5b632a5c12b76fcfe703",
+    "acneStatus": "finished",
+    "regionalTrainingId": "3485f8c67f957a1b850d",
+    "regionalStatus": "finished",
+    "regionalImages": 337,
+    "underEyePilotImages": 399,
+    "underEyePilotVersion1": false,
+    "groupedUnderEyeImages": 0,
+    "newTrainingStarted": false,
+    "inferenceRun": false
+  },
+  "acceptance": {
+    "ordinalSagAccepted": false,
+    "localizedSagModelAccepted": false,
+    "cameraAccepted": false,
+    "expertTruthAccepted": false,
+    "productActivationChanged": false,
+    "taskComplete": false
+  },
+  "sourceFiles": {
+    "prepare": {
+      "path": "scripts/skin-research/prepare_focused_data.py",
+      "blobSHA": "03c3459addcbde5c0e46924ef013a69111654355"
+    },
+    "calibrate": {
+      "path": "scripts/skin-research/calibrate_focused_appearance.py",
+      "blobSHA": "a48346d0d4100652fc3a964aa28c8a539ddb0b94"
+    },
+    "provenance": {
+      "path": "third-party/skin-focused/provenance.json",
+      "blobSHA": "02fc57ca4f522c46892481211ebcae08f5ae4703"
+    }
+  },
+  "codeCommits": [
+    "e68442475809b907d59148dd6008c333396cf21e",
+    "9999459d6ce07fe13feea4fe6773a710bf14b62c",
+    "27a332107a072554b93f532ec3f2c503f2c2cd2a"
+  ]
+}

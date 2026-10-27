@@ -1,0 +1,1290 @@
+{
+  "schemaVersion": "regional-mask-expert-review-queue-v1",
+  "source": {
+    "sourceArchiveSHA256": "a24793ca3490a48088abf47ba89fc9ab94e1c3a12c488ce52915e19b5bdf6fd6",
+    "providerExportSHA256": "ba7aa450ee2e98af35dcb1b60f3f9673fc7a6ef6b7709e7b94e1df1d32bdab3a",
+    "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "versionNumber": 1
+  },
+  "privacy": {
+    "containsImageBytes": false,
+    "containsFilenames": false,
+    "containsRawSourceNames": false,
+    "containsProviderImageIds": false,
+    "resolverCommitted": false,
+    "identifierMethod": "salted-sha256-prefix-24"
+  },
+  "selection": {
+    "allowedSplits": [
+      "train",
+      "valid"
+    ],
+    "testImagesRead": 0,
+    "testImagesSelected": 0,
+    "targets": {
+      "Oily:train": 32,
+      "Oily:valid": 8,
+      "Redness:train": 32,
+      "Redness:valid": 8
+    },
+    "selectedUniqueImages": 81,
+    "cooccurrenceImagesIncluded": 1,
+    "candidateGeometryOnly": true
+  },
+  "reviewPolicy": {
+    "reviewerRequired": "expert_review",
+    "rednessIndependentLayer": true,
+    "missingMaskMeansNormal": false,
+    "missingClassIsNegative": false,
+    "modelPredictionAcceptedAsTruth": false,
+    "requiredPerClassDecisions": [
+      "mask_extent_correct",
+      "hard_negative_policy",
+      "ambiguous_case_policy",
+      "assessability"
+    ]
+  },
+  "items": [
+    {
+      "reviewItemId": "007d78f212f6d890415ede33",
+      "split": "valid",
+      "className": "Redness",
+      "instances": 2,
+      "areaFraction": 0.33768091,
+      "vertices": 54,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "unique_image_coverage_fill"
+      ]
+    },
+    {
+      "reviewItemId": "01fe172d1129da838124d214",
+      "split": "train",
+      "className": "Oily",
+      "instances": 14,
+      "areaFraction": 0.09851889,
+      "vertices": 197,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "many_instances",
+        "complex_boundaries"
+      ]
+    },
+    {
+      "reviewItemId": "02e021e136397ac39fe460c2",
+      "split": "train",
+      "className": "Redness",
+      "instances": 13,
+      "areaFraction": 0.29642869,
+      "vertices": 285,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "many_instances"
+      ]
+    },
+    {
+      "reviewItemId": "05225d70fbf32fc7d3d0014d",
+      "split": "train",
+      "className": "Oily",
+      "instances": 4,
+      "areaFraction": 0.00497397,
+      "vertices": 52,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "0ec434b5873bc4c810f35ab1",
+      "split": "train",
+      "className": "Redness",
+      "instances": 1,
+      "areaFraction": 0.05957566,
+      "vertices": 93,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "12cbee6837ee6abf74089642",
+      "split": "train",
+      "className": "Oily",
+      "instances": 2,
+      "areaFraction": 0.09942793,
+      "vertices": 28,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "13167ff422285ced964e4d2c",
+      "split": "train",
+      "className": "Oily",
+      "instances": 1,
+      "areaFraction": 0.01472607,
+      "vertices": 16,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "132ecf21d8389ea78c271b21",
+      "split": "train",
+      "className": "Oily",
+      "instances": 4,
+      "areaFraction": 0.36481155,
+      "vertices": 75,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "172fee564199563354aeebf4",
+      "split": "train",
+      "className": "Redness",
+      "instances": 1,
+      "areaFraction": 0.03810629,
+      "vertices": 112,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "19250b84762351f0c954db9d",
+      "split": "valid",
+      "className": "Oily",
+      "instances": 1,
+      "areaFraction": 0.04625085,
+      "vertices": 16,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "20e4473b342cd4a87b0b95b8",
+      "split": "train",
+      "className": "Redness",
+      "instances": 3,
+      "areaFraction": 0.61379268,
+      "vertices": 73,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "22c52c23f3f151fa8062d297",
+      "split": "train",
+      "className": "Oily",
+      "instances": 10,
+      "areaFraction": 0.11101717,
+      "vertices": 164,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "many_instances"
+      ]
+    },
+    {
+      "reviewItemId": "247eeadd9bfb1fa20459a50b",
+      "split": "train",
+      "className": "Oily",
+      "instances": 1,
+      "areaFraction": 0.0140012,
+      "vertices": 16,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "253544797dd71aaa31b6cfdf",
+      "split": "train",
+      "className": "Redness",
+      "instances": 11,
+      "areaFraction": 0.6089624,
+      "vertices": 523,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "complex_boundaries"
+      ]
+    },
+    {
+      "reviewItemId": "2556cf3a312e12d1cc766e1a",
+      "split": "train",
+      "className": "Redness",
+      "instances": 1,
+      "areaFraction": 0.09331055,
+      "vertices": 120,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "2c464b9d3816c0c4092d28f9",
+      "split": "train",
+      "className": "Redness",
+      "instances": 1,
+      "areaFraction": 0.25581046,
+      "vertices": 224,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "2e5f6136c7a9ce5fb1226d7f",
+      "split": "train",
+      "className": "Oily",
+      "instances": 3,
+      "areaFraction": 0.7127135,
+      "vertices": 63,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "2fdc55e573b8b8247dc7002c",
+      "split": "train",
+      "className": "Redness",
+      "instances": 1,
+      "areaFraction": 0.03572862,
+      "vertices": 23,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "32d01f16fdf7e6985d710825",
+      "split": "train",
+      "className": "Oily",
+      "instances": 3,
+      "areaFraction": 0.00882953,
+      "vertices": 41,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "3807ed24a5f15177ca270f3e",
+      "split": "valid",
+      "className": "Redness",
+      "instances": 1,
+      "areaFraction": 0.09345703,
+      "vertices": 69,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "3db5bb78b838317903a3fd51",
+      "split": "train",
+      "className": "Redness",
+      "instances": 14,
+      "areaFraction": 0.30108478,
+      "vertices": 395,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "many_instances"
+      ]
+    },
+    {
+      "reviewItemId": "444494f84cccad0523f1e52f",
+      "split": "train",
+      "className": "Oily",
+      "instances": 11,
+      "areaFraction": 0.18141335,
+      "vertices": 189,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "many_instances",
+        "complex_boundaries"
+      ]
+    },
+    {
+      "reviewItemId": "48248491ea44e7d39792fd02",
+      "split": "train",
+      "className": "Oily",
+      "instances": 9,
+      "areaFraction": 0.05904634,
+      "vertices": 179,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "complex_boundaries"
+      ]
+    },
+    {
+      "reviewItemId": "4e73385eedc3ababe5a312b7",
+      "split": "valid",
+      "className": "Redness",
+      "instances": 8,
+      "areaFraction": 0.41188656,
+      "vertices": 323,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "complex_boundaries"
+      ]
+    },
+    {
+      "reviewItemId": "50786c17390b02cc107e4fa8",
+      "split": "valid",
+      "className": "Redness",
+      "instances": 1,
+      "areaFraction": 0.16864014,
+      "vertices": 175,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "541296304123461b6feb65ac",
+      "split": "train",
+      "className": "Oily",
+      "instances": 2,
+      "areaFraction": 0.00700783,
+      "vertices": 25,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "5997f84b8e651b485b55d117",
+      "split": "train",
+      "className": "Oily",
+      "instances": 2,
+      "areaFraction": 0.00643088,
+      "vertices": 25,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "5dc75da238c272fc84d008fa",
+      "split": "train",
+      "className": "Oily",
+      "instances": 7,
+      "areaFraction": 0.38722078,
+      "vertices": 109,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "5e7da12d060031ef443eff6f",
+      "split": "train",
+      "className": "Redness",
+      "instances": 15,
+      "areaFraction": 0.01609131,
+      "vertices": 181,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support",
+        "many_instances"
+      ]
+    },
+    {
+      "reviewItemId": "619750a02c2dc3f7aa97fc57",
+      "split": "train",
+      "className": "Redness",
+      "instances": 15,
+      "areaFraction": 0.69926277,
+      "vertices": 530,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "complex_boundaries",
+        "broad_mask_support",
+        "many_instances"
+      ]
+    },
+    {
+      "reviewItemId": "6355383d2720a37acc699795",
+      "split": "train",
+      "className": "Oily",
+      "instances": 13,
+      "areaFraction": 0.05845731,
+      "vertices": 228,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "complex_boundaries",
+        "many_instances"
+      ]
+    },
+    {
+      "reviewItemId": "63e2233b918d153ccf68ff5b",
+      "split": "valid",
+      "className": "Oily",
+      "instances": 6,
+      "areaFraction": 0.60350002,
+      "vertices": 90,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "662c52a0ffbc671f7b0e25c7",
+      "split": "train",
+      "className": "Oily",
+      "instances": 1,
+      "areaFraction": 0.00711195,
+      "vertices": 14,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances",
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "6c59b6d8d66fbfa6da9e1906",
+      "split": "train",
+      "className": "Redness",
+      "instances": 4,
+      "areaFraction": 0.63359375,
+      "vertices": 433,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "701afbc0d3877d13eba8c48d",
+      "split": "train",
+      "className": "Redness",
+      "instances": 19,
+      "areaFraction": 0.25253409,
+      "vertices": 340,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "many_instances"
+      ]
+    },
+    {
+      "reviewItemId": "7231f34a581e1c91cd0c85a1",
+      "split": "train",
+      "className": "Redness",
+      "instances": 6,
+      "areaFraction": 0.29269563,
+      "vertices": 503,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "complex_boundaries"
+      ]
+    },
+    {
+      "reviewItemId": "7302a86e5d6ead8e9a0fed5f",
+      "split": "train",
+      "className": "Redness",
+      "instances": 12,
+      "areaFraction": 0.86834268,
+      "vertices": 529,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support",
+        "complex_boundaries"
+      ]
+    },
+    {
+      "reviewItemId": "7427d76025349c337eeb61fd",
+      "split": "valid",
+      "className": "Oily",
+      "instances": 2,
+      "areaFraction": 0.00423702,
+      "vertices": 26,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "782ec0ae2d3254284b124220",
+      "split": "train",
+      "className": "Oily",
+      "instances": 3,
+      "areaFraction": 0.00458269,
+      "vertices": 42,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "796c3b88e1a21cf3513aab2f",
+      "split": "train",
+      "className": "Redness",
+      "instances": 1,
+      "areaFraction": 0.29745047,
+      "vertices": 31,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "79a6dc6e7eb45d63248101fe",
+      "split": "train",
+      "className": "Oily",
+      "instances": 1,
+      "areaFraction": 0.14448999,
+      "vertices": 21,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "8141bf392b97dcd92b88c28b",
+      "split": "valid",
+      "className": "Redness",
+      "instances": 5,
+      "areaFraction": 0.42584233,
+      "vertices": 120,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "88ab39e43400bb2819738823",
+      "split": "train",
+      "className": "Redness",
+      "instances": 1,
+      "areaFraction": 0.02841345,
+      "vertices": 32,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support",
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "9195848a555ef9c0de4e47a5",
+      "split": "train",
+      "className": "Redness",
+      "instances": 1,
+      "areaFraction": 0.41689674,
+      "vertices": 43,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "9ab9af79de75755fb84a3f43",
+      "split": "train",
+      "className": "Redness",
+      "instances": 2,
+      "areaFraction": 0.02047296,
+      "vertices": 36,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "9fb319a0296f5fc039ee67a7",
+      "split": "train",
+      "className": "Redness",
+      "instances": 1,
+      "areaFraction": 0.00711544,
+      "vertices": 14,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "a05fa06cedec73f6c56cbcf7",
+      "split": "valid",
+      "className": "Redness",
+      "instances": 6,
+      "areaFraction": 0.02513922,
+      "vertices": 82,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "a1ddd350aeb7566a68a626c0",
+      "split": "train",
+      "className": "Redness",
+      "instances": 7,
+      "areaFraction": 0.44155518,
+      "vertices": 619,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "complex_boundaries"
+      ]
+    },
+    {
+      "reviewItemId": "a28f112a47c741c53b4ab0bc",
+      "split": "train",
+      "className": "Redness",
+      "instances": 7,
+      "areaFraction": 0.65741265,
+      "vertices": 135,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "b2a17f91f01be22f520399e7",
+      "split": "train",
+      "className": "Oily",
+      "instances": 2,
+      "areaFraction": 0.00310191,
+      "vertices": 26,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "b33a28b490de65ef034391a9",
+      "split": "train",
+      "className": "Redness",
+      "instances": 4,
+      "areaFraction": 0.64290901,
+      "vertices": 80,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "b34eff92b114f5228ef27502",
+      "split": "valid",
+      "className": "Oily",
+      "instances": 1,
+      "areaFraction": 0.02250205,
+      "vertices": 18,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "b54ad57c6acb566ce7b34819",
+      "split": "train",
+      "className": "Oily",
+      "instances": 11,
+      "areaFraction": 0.23053899,
+      "vertices": 147,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "many_instances"
+      ]
+    },
+    {
+      "reviewItemId": "b80262657fb2e1dc08930133",
+      "split": "valid",
+      "className": "Redness",
+      "instances": 10,
+      "areaFraction": 0.45631423,
+      "vertices": 187,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support",
+        "many_instances"
+      ]
+    },
+    {
+      "reviewItemId": "b9208e8eb04b89f5e4493382",
+      "split": "train",
+      "className": "Redness",
+      "instances": 3,
+      "areaFraction": 0.02960362,
+      "vertices": 73,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "bb5e6ecf64d103d30c34d1bb",
+      "split": "train",
+      "className": "Redness",
+      "instances": 14,
+      "areaFraction": 0.38836819,
+      "vertices": 394,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "many_instances"
+      ]
+    },
+    {
+      "reviewItemId": "bc9fb115c65a9e4309652364",
+      "split": "train",
+      "className": "Redness",
+      "instances": 2,
+      "areaFraction": 0.0255983,
+      "vertices": 75,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "bce7df312a7093eea6a8dcc4",
+      "split": "train",
+      "className": "Oily",
+      "instances": 11,
+      "areaFraction": 0.20118095,
+      "vertices": 205,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "complex_boundaries",
+        "many_instances"
+      ]
+    },
+    {
+      "reviewItemId": "c26f0a293215fdb030160c8e",
+      "split": "train",
+      "className": "Oily",
+      "instances": 2,
+      "areaFraction": 0.00559302,
+      "vertices": 28,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "c3e695040f0c38a84faf3c74",
+      "split": "train",
+      "className": "Oily",
+      "instances": 1,
+      "areaFraction": 0.01329822,
+      "vertices": 21,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "c4133120fd49140f7e792dae",
+      "split": "train",
+      "className": "Oily",
+      "instances": 14,
+      "areaFraction": 0.06906577,
+      "vertices": 206,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "many_instances",
+        "complex_boundaries"
+      ]
+    },
+    {
+      "reviewItemId": "c704b08efc85a09a4a8f97a5",
+      "split": "train",
+      "className": "Redness",
+      "instances": 1,
+      "areaFraction": 0.65348288,
+      "vertices": 36,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "ca4912a1137e5e8c547ff600",
+      "split": "valid",
+      "className": "Oily",
+      "instances": 2,
+      "areaFraction": 0.007251,
+      "vertices": 21,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "cb4629587772d43bbbb018b5",
+      "split": "valid",
+      "className": "Redness",
+      "instances": 2,
+      "areaFraction": 0.02278858,
+      "vertices": 51,
+      "sourceClassesPresent": [
+        "Oily",
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "ce67fa44c358651b97c2b564",
+      "split": "train",
+      "className": "Oily",
+      "instances": 5,
+      "areaFraction": 1.11326848,
+      "vertices": 87,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "d4a0a8586492e0c78070f729",
+      "split": "train",
+      "className": "Redness",
+      "instances": 17,
+      "areaFraction": 0.35929004,
+      "vertices": 495,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "many_instances",
+        "complex_boundaries"
+      ]
+    },
+    {
+      "reviewItemId": "d7a941d0cec4d4abc87f3fa0",
+      "split": "train",
+      "className": "Oily",
+      "instances": 1,
+      "areaFraction": 0.01121436,
+      "vertices": 23,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "db6452eb23396ea1a4586493",
+      "split": "train",
+      "className": "Oily",
+      "instances": 7,
+      "areaFraction": 0.57239614,
+      "vertices": 118,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "e114567b8085941c62622c21",
+      "split": "train",
+      "className": "Redness",
+      "instances": 7,
+      "areaFraction": 0.02600364,
+      "vertices": 114,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "e1a044bf24682a3629bdc6c2",
+      "split": "train",
+      "className": "Oily",
+      "instances": 9,
+      "areaFraction": 0.13066458,
+      "vertices": 176,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "complex_boundaries"
+      ]
+    },
+    {
+      "reviewItemId": "e611610aefaf64009361c106",
+      "split": "train",
+      "className": "Oily",
+      "instances": 2,
+      "areaFraction": 0.50882109,
+      "vertices": 39,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "eb85e6b76bc47bf6ee38cb7f",
+      "split": "train",
+      "className": "Redness",
+      "instances": 6,
+      "areaFraction": 0.39261742,
+      "vertices": 476,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "complex_boundaries"
+      ]
+    },
+    {
+      "reviewItemId": "ed393892d1150efc814bf565",
+      "split": "train",
+      "className": "Oily",
+      "instances": 1,
+      "areaFraction": 0.013665,
+      "vertices": 16,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "few_instances"
+      ]
+    },
+    {
+      "reviewItemId": "edb6b97ad1d85f2c55d1cf65",
+      "split": "valid",
+      "className": "Redness",
+      "instances": 10,
+      "areaFraction": 0.35602581,
+      "vertices": 466,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "complex_boundaries",
+        "many_instances"
+      ]
+    },
+    {
+      "reviewItemId": "f187b6ab058c77159b06557f",
+      "split": "train",
+      "className": "Oily",
+      "instances": 2,
+      "areaFraction": 0.53282021,
+      "vertices": 38,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "f1a9a097a5d5133e0a04221c",
+      "split": "valid",
+      "className": "Oily",
+      "instances": 7,
+      "areaFraction": 0.00910365,
+      "vertices": 105,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "f24cd059d6fbcc6d5451a96a",
+      "split": "train",
+      "className": "Redness",
+      "instances": 5,
+      "areaFraction": 0.93087488,
+      "vertices": 91,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "f30cac17b0d16a87f058e2d8",
+      "split": "train",
+      "className": "Oily",
+      "instances": 4,
+      "areaFraction": 1.53314067,
+      "vertices": 95,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "f3c5506cc79e74a2ca7e6111",
+      "split": "valid",
+      "className": "Oily",
+      "instances": 16,
+      "areaFraction": 0.51518835,
+      "vertices": 272,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "many_instances",
+        "complex_boundaries",
+        "broad_mask_support"
+      ]
+    },
+    {
+      "reviewItemId": "f73d1ecbacb1a897c89d4215",
+      "split": "valid",
+      "className": "Oily",
+      "instances": 12,
+      "areaFraction": 0.2695617,
+      "vertices": 190,
+      "sourceClassesPresent": [
+        "Oily"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "many_instances",
+        "complex_boundaries"
+      ]
+    },
+    {
+      "reviewItemId": "f9b7c3c2d9a132581f6128dc",
+      "split": "train",
+      "className": "Redness",
+      "instances": 2,
+      "areaFraction": 0.00781525,
+      "vertices": 30,
+      "sourceClassesPresent": [
+        "Redness"
+      ],
+      "missingClassIsNegative": false,
+      "reviewFocus": [
+        "small_mask_support"
+      ]
+    }
+  ],
+  "decision": {
+    "expertReviewComplete": false,
+    "maskProtocolReady": false,
+    "trainingAuthorized": false,
+    "testEvaluationAuthorized": false,
+    "activationAllowed": false
+  }
+}
+

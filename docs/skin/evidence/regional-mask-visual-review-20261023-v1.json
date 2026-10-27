@@ -1,0 +1,44 @@
+{
+  "modelIdentity": {
+    "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c07ef",
+    "modelPackageId": "e1688c2c8447af39e51ce60dd8c7f1d0"
+  },
+  "selections": [
+    {
+      "label": "Oily",
+      "imageId": 41,
+      "metrics": {
+        "threshold": 0.35,
+        "tp": 2,
+        "fp": 10,
+        "fn": 3,
+        "precision": 0.16666666666666666,
+        "recall": 0.4,
+        "f1": 0.23529411764705882
+      }
+    },
+    {
+      "label": "Redness",
+      "imageId": 35,
+      "metrics": {
+        "threshold": 0.35,
+        "tp": 0,
+        "fp": 4,
+        "fn": 5,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    }
+  ],
+  "selectionRule": "Lowest validation image F1 per class with at least three publisher instances; unique images; thresholds locked .35",
+  "schemaVersion": 1,
+  "assistantVisualReviewPerformed": true,
+  "expertReviewed": false,
+  "boardSHA256": "028c254fe0622fe78cead159ee6aa04d5adf9122d1fc27159bff22751a1cb949",
+  "observations": [
+    "Oily valid41: source labels mark selected face highlights; model also segments chest/clavicle highlights. Incomplete source coverage and face-domain scope affect false-positive interpretation. No post-test clipping or relabeling was applied.",
+    "Redness valid35: publisher splits continuous areas into nested/small instances, while model yields broader continuous masks. Instance granularity changes instance matching, so fixed-threshold class-union overlap is reported separately.",
+    "Neither source polygons nor assistant review establishes normal/dry/sensitivity or independent camera truth."
+  ]
+}

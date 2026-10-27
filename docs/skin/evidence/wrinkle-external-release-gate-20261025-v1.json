@@ -1,0 +1,33 @@
+{
+  "blockers": [
+    "expert_evaluated_negative_protocol_missing",
+    "source_group_split_independence_missing",
+    "untouched_final_test_missing",
+    "independent_camera_holdout_missing",
+    "working_product_integration_evidence_missing",
+    "expert_approved_quality_policy_missing_or_not_met"
+  ],
+  "crowsFeet": {
+    "modelAccepted": false,
+    "test": {"f1": 0.017, "map50": 0.0010211828139297429, "map50_95": 0.0002746943792401853, "map75": 0.0, "precision": 0.01, "recall": 0.048},
+    "valid": {"f1": 0.053, "map50": 0.005415421147257854, "map50_95": 0.0009904147136091453, "map75": 0.0, "precision": 0.035, "recall": 0.107}
+  },
+  "decision": "blocked",
+  "excludedAlternatives": [
+    "unrelated_wrinkle_model_dataset_lineage_mismatch",
+    "unrelated_wrinkle_model_cross_split_leakage_candidates"
+  ],
+  "methodVersion": "wrinkle-external-release-gate-v1",
+  "productActivationAllowed": false,
+  "researchTrainingAuthorized": false,
+  "roadmapAccepted": false,
+  "schemaVersion": 1,
+  "testEvaluationAuthorized": false,
+  "unrelatedWrinkle": {
+    "activationAllowed": false,
+    "diagnosticOnly": true,
+    "substitutionAllowed": false,
+    "test": {"f1": 0.727, "map50": 0.6440890457494266, "map50_95": 0.22789575695408526, "map75": 0.10173694020272453, "precision": 0.811, "recall": 0.658},
+    "valid": {"f1": 0.685, "map50": 0.5994696691583155, "map50_95": 0.2105946586582374, "map75": 0.09009791117999257, "precision": 0.779, "recall": 0.611}
+  }
+}

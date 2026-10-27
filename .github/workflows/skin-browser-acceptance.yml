@@ -1,0 +1,331 @@
+name: Attune browser audit
+on:
+  push:
+    branches: ['audit/e2e-2026-09-30', 'fix/attune-audit-remediation', 'fix/live-test-followup']
+  workflow_dispatch:
+    inputs:
+      expected_source_sha:
+        description: Exact approved SHA, or drive-metadata-only:<SHA> for metadata only; separate approval required
+        type: string
+        required: false
+permissions:
+  actions: read
+  contents: read
+concurrency:
+  group: ${{ startsWith(inputs.expected_source_sha || '', 'drive-metadata-only:') && 'attune-drive-metadata' || 'attune-e2e-audit' }}-${{ github.ref }}
+  cancel-in-progress: ${{ !startsWith(inputs.expected_source_sha || '', 'drive-metadata-only:') }}
+jobs:
+  skin-unified-browser-acceptance:
+    if: github.ref == 'refs/heads/work/skin-roadmap-20261023' || github.ref == 'refs/heads/integrate/skin-cloud-claude-20261027'
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      OPENAI_API_KEY: ''
+      ATTUNE_LOAD_LOCAL_ENV: '0'
+      HF_HUB_OFFLINE: '1'
+      TRANSFORMERS_OFFLINE: '1'
+      ATTUNE_DATA_DIR: ${{ runner.temp }}/attune-skin-isolated-data
+      SKIN_RESULT_AUDIT_DIR: audit-results/unified-skin-result-browser-acceptance/browser
+      SKIN_HISTORY_AUDIT_DIR: audit-results/unified-skin-result-browser-acceptance/history
+      SKIN_PRIVACY_AUDIT_DIR: audit-results/unified-skin-result-browser-acceptance/privacy
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22.20.0'
+          cache: npm
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: services/core-api/requirements.txt
+      - name: Verify authorized private skin runtime before costly setup
+        run: python tests/e2e/skin_bundle_preflight.py
+      - name: Install immutable browser acceptance runtime
+        run: |
+          npm ci
+          python -m pip install -r services/core-api/requirements.txt -r tests/requirements-skin.txt pillow
+          python -m pip install torch==2.9.1 torchvision==0.24.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r tests/requirements-skin-runtime.txt
+          python -m playwright install --with-deps chromium
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg xvfb
+      - name: Build production app
+        run: |
+          npm run build
+          mkdir -p audit-fixtures audit-results/unified-skin-result-browser-acceptance
+      - name: Start production app and isolated keyless backend
+        run: |
+          node node_modules/next/dist/bin/next start apps/vehicle-app --hostname 127.0.0.1 -p 3000 > audit-results/unified-skin-result-browser-acceptance/frontend.log 2>&1 &
+          python tests/e2e/ui_contract_backend.py > audit-results/unified-skin-result-browser-acceptance/backend.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:3000/ >/dev/null && curl -fsS http://127.0.0.1:8000/api/health >/dev/null; then break; fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:3000/ >/dev/null
+          curl -fsS http://127.0.0.1:8000/api/health >/dev/null
+      - name: Prepare licensed three-pose fixture against the running app
+        run: |
+          python -u tests/e2e/prepare_multi_angle_fixture.py 2>&1 | tee audit-results/unified-skin-result-browser-acceptance/multi-angle-fixture.log
+          cp audit-results/FIXTURE-LICENSE.md audit-results/unified-skin-result-browser-acceptance/FIXTURE-LICENSE.md
+      - name: Run source-bound browser API history and privacy acceptance
+        run: |
+          xvfb-run -a --server-args="-screen 0 1920x1080x24" python -u tests/e2e/current_skin_contract.py 2>&1 | tee audit-results/unified-skin-result-browser-acceptance/browser-api.log
+          xvfb-run -a --server-args="-screen 0 1920x1080x24" python -u tests/e2e/current_skin_photo_history.py 2>&1 | tee audit-results/unified-skin-result-browser-acceptance/history.log
+          xvfb-run -a --server-args="-screen 0 1920x1080x24" python -u tests/e2e/current_skin_photo_wipe_success.py 2>&1 | tee audit-results/unified-skin-result-browser-acceptance/privacy.log
+      - name: Bind matching repository CI and emit privacy-safe evidence only
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in $(seq 1 120); do
+            ci_json=$(curl -fsSL -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/ci.yml/runs?head_sha=$GITHUB_SHA&per_page=10")
+            ci_status=$(jq -r '.workflow_runs[0].status // empty' <<<"$ci_json")
+            if [ "$ci_status" = "completed" ]; then break; fi
+            sleep 15
+          done
+          ci_run_id=$(jq -r '.workflow_runs[0].id // empty' <<<"$ci_json")
+          ci_conclusion=$(jq -r '.workflow_runs[0].conclusion // empty' <<<"$ci_json")
+          test -n "$ci_run_id"
+          test "$ci_conclusion" = "success"
+          jobs_json=$(curl -fsSL -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/runs/$ci_run_id/jobs?per_page=100")
+          frontend=$(jq -r '[.jobs[] | select(.name | startswith("Frontend Production Build"))][0].conclusion // empty' <<<"$jobs_json")
+          backend=$(jq -r '[.jobs[] | select(.name | startswith("Backend Unit Tests"))][0].conclusion // empty' <<<"$jobs_json")
+          test "$frontend" = "success"
+          test "$backend" = "success"
+          jq -n --argjson runId "$ci_run_id" --arg headSha "$GITHUB_SHA" --arg url "https://github.com/$GITHUB_REPOSITORY/actions/runs/$ci_run_id" '{githubActions:{runId:$runId,url:$url,headSha:$headSha,conclusion:"success",frontendProductionBuild:"success",backendUnitJob:"success",completeSkinResearchEvidenceSuite:{result:"OK"}}}' > audit-results/unified-skin-result-browser-acceptance/repository-ci.json
+          python scripts/skin-research/build_unified_browser_acceptance.py \
+            --browser-proof audit-results/unified-skin-result-browser-acceptance/browser/proof.json \
+            --history-proof audit-results/unified-skin-result-browser-acceptance/history/proof.json \
+            --privacy-proof audit-results/unified-skin-result-browser-acceptance/privacy/proof.json \
+            --ci-evidence audit-results/unified-skin-result-browser-acceptance/repository-ci.json \
+            --repository-commit "$GITHUB_SHA" \
+            --browser-run-id "github-actions-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" \
+            --history-policy-id method-compatible-history-v2 \
+            --output-dir audit-results/unified-skin-result-browser-acceptance/sanitized
+          for file in audit-results/unified-skin-result-browser-acceptance/sanitized/*.json; do
+            echo "SANITIZED_EVIDENCE_BEGIN $(basename "$file")"
+            cat "$file"
+            echo "SANITIZED_EVIDENCE_END $(basename "$file")"
+          done
+      - name: Upload privacy-safe browser evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: unified-skin-browser-acceptance-${{ github.run_id }}
+          path: audit-results/unified-skin-result-browser-acceptance/
+          retention-days: 1
+          if-no-files-found: warn
+  drive-metadata-diagnostic:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/feature/localization-en-de-tr-20261020' && startsWith(inputs.expected_source_sha || '', 'drive-metadata-only:')
+    uses: ./.github/workflows/drive-metadata-diagnostic.yml
+    with:
+      expected_source_sha: ${{ inputs.expected_source_sha }}
+    secrets:
+      ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON: ${{ secrets.ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON }}
+      # Secret forwarding masks the existing variable before any step can log it.
+      DRIVE_METADATA_FILE_ID: ${{ vars.ATTUNE_AAOS_TTS_BUNDLE_FILE_ID }}
+  # This registered manual entry can select the feature ref without touching main.
+  aaos-emulator:
+    if: github.event_name == 'workflow_dispatch' && contains(fromJSON('["refs/heads/feature/aaos-oem-agnostic-prototype-20261019","refs/heads/feature/localization-en-de-tr-20261020"]'), github.ref) && !startsWith(inputs.expected_source_sha || '', 'drive-metadata-only:')
+    uses: ./.github/workflows/aaos-emulator-validation.yml
+    with:
+      expected_source_sha: ${{ inputs.expected_source_sha || '' }}
+    secrets:
+      ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON: ${{ secrets.ATTUNE_AAOS_DRIVE_SERVICE_ACCOUNT_JSON }}
+  browser-audit:
+    if: ${{ !contains(fromJSON('["refs/heads/feature/aaos-oem-agnostic-prototype-20261019","refs/heads/feature/localization-en-de-tr-20261020","refs/heads/work/skin-roadmap-20261023"]'), github.ref) && !startsWith(inputs.expected_source_sha || '', 'drive-metadata-only:') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      OPENAI_API_KEY: ''
+      ATTUNE_LOAD_LOCAL_ENV: '0'
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22.20.0'
+          cache: npm
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: services/core-api/requirements.txt
+      - name: Install application browsers native audio and diagnostics
+        run: |
+          npm ci
+          python -m pip install -r services/core-api/requirements.txt bandit pillow
+          python -m pip install psutil==7.2.2 safetensors==0.7.0
+          python -m pip install torch==2.9.1 torchvision==0.24.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m playwright install --with-deps chromium
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg espeak-ng xvfb pulseaudio pulseaudio-utils speech-dispatcher speech-dispatcher-espeak-ng libspeechd2
+      - name: TypeScript and original tests
+        run: |
+          mkdir -p audit-results
+          npm run typecheck
+          python -m pytest tests/unit -v --junitxml=audit-results/unit.xml | tee audit-results/unit.log
+          python -m compileall -q services
+          python -m pytest tests/unit/test_crisis_unicode.py tests/unit/test_privacy_api_regressions.py tests/unit/test_vehicle_safety_api.py -v --junitxml=audit-results/focused-safety.xml | tee audit-results/focused-safety.log
+      - name: Lint
+        run: npm run lint 2>&1 | tee audit-results/lint.log
+      - name: Fresh production build
+        run: npm run build 2>&1 | tee audit-results/build.log
+      - name: Security and environment reports
+        run: |
+          set +e
+          status=0
+          npm ls --all --json > audit-results/npm-ls.json
+          if [ "$?" -ne 0 ]; then status=1; fi
+          npm ls next react react-dom postcss glob eslint-config-next --all > audit-results/dependency-versions.txt
+          if [ "$?" -ne 0 ]; then status=1; fi
+          npm audit --json > audit-results/npm-audit.json
+          if [ "$?" -ne 0 ]; then status=1; fi
+          npm audit --omit=dev --json > audit-results/npm-audit-production.json
+          if [ "$?" -ne 0 ]; then status=1; fi
+          python -m bandit -r services -f json -o audit-results/bandit.json || true
+          python -m pip freeze > audit-results/python-freeze.txt
+          test "$status" -eq 0
+      - name: Controlled image and spoken Turkish fixtures plus OS microphone
+        if: ${{ !cancelled() }}
+        run: |
+          mkdir -p audit-fixtures
+          ffmpeg -y -loop 1 -i apps/vehicle-app/public/images/demo-skin-face.jpg -vf 'scale=640:480:force_original_aspect_ratio=decrease,pad=640:480:(ow-iw)/2:(oh-ih)/2,setsar=1' -t 3 -r 15 -pix_fmt yuv420p audit-fixtures/face.y4m
+          python tests/e2e/prepare_skin_fixture.py
+          espeak-ng -v tr -s 135 -w audit-fixtures/speech-original.wav 'Bugün yeni bir kitap okudum. Kendimi iyi hissediyorum.'
+          ffmpeg -y -i audit-fixtures/speech-original.wav -ar 48000 -ac 1 -c:a pcm_s16le audit-fixtures/speech.wav
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=audit_mic
+          pactl load-module module-null-sink sink_name=audit_output
+          pactl load-module module-remap-source master=audit_mic.monitor source_name=audit_input source_properties=device.description=Attune_Audit_Microphone
+          pactl set-default-source audit_input
+          pactl set-default-sink audit_output
+          pactl list short sources > audit-results/pulse-sources.txt
+          pactl list sources > audit-results/pulse-source-details.txt
+          pactl list short sinks > audit-results/pulse-sinks.txt
+          pactl info > audit-results/pulse-info.txt
+          speech-dispatcher --spawn > audit-results/speech-dispatcher.log 2>&1
+          python tests/e2e/native_audio_preflight.py
+      - name: Keyless checked-in live harness entrypoints and both admission gates
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/live_harness_preparation.py 2>&1 | tee audit-results/live-harness-preparation.log
+      - name: Final seven-request admission and clocks, keyless success/failure only
+        if: ${{ !cancelled() }}
+        run: xvfb-run -a python -u tests/e2e/final_provider_preparation.py 2>&1 | tee audit-results/final-provider-preparation.log
+      - name: Original app focused diagnostics with actual MediaPipe and OS audio
+        if: ${{ !cancelled() }}
+        env:
+          PULSE_SOURCE: audit_input
+          PULSE_SINK: audit_output
+          DEBUG: pw:browser
+        run: |
+          node node_modules/next/dist/bin/next start apps/vehicle-app --hostname 127.0.0.1 -p 3000 > audit-results/frontend.log 2>&1 &
+          python tests/e2e/ui_contract_backend.py > audit-results/backend.log 2>&1 &
+          for i in $(seq 1 45); do
+            if curl -fsS http://localhost:3000/ >/dev/null && curl -fsS http://localhost:8000/api/health >/dev/null; then break; fi
+            sleep 1
+          done
+          set +e
+          xvfb-run -a python -u tests/e2e/media_diagnostics.py 2>&1 | tee audit-results/focused.log
+          focused_status=${PIPESTATUS[0]}
+          xvfb-run -a python -u tests/e2e/media_lifecycle_regression.py 2>&1 | tee audit-results/media-regressions.log
+          regression_status=${PIPESTATUS[0]}
+          test "$focused_status" -eq 0 && test "$regression_status" -eq 0
+      - name: Bounded dependency security regressions
+        if: ${{ !cancelled() }}
+        run: node tests/security/dependency-regressions.cjs 2>&1 | tee audit-results/dependency-security.log
+      - name: Licensed three-pose fixture admitted by actual production MediaPipe
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/prepare_multi_angle_fixture.py 2>&1 | tee audit-results/multi-angle-fixture.log
+      - name: Broader E2E with valid real skin flow and native spoken PCM
+        if: ${{ !cancelled() }}
+        env:
+          PULSE_SOURCE: audit_input
+          PULSE_SINK: audit_output
+        run: |
+          xvfb-run -a python -u tests/e2e/runner_v2.py 2>&1 | tee audit-results/broader.log
+      - name: Behavior regressions for remediated product defects
+        if: ${{ !cancelled() }}
+        run: |
+          set +e
+          status=0
+          for phase in crisis privacy vehicle vision mental hydration care skin; do
+            python -u tests/e2e/backlog_regressions.py --phase "$phase" 2>&1 | tee "audit-results/backlog-$phase.log"
+            if [ "${PIPESTATUS[0]}" -ne 0 ]; then status=1; fi
+          done
+          test "$status" -eq 0
+      - name: Controlled skin timing with tracing enabled and disabled
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/skin_timing.py 2>&1 | tee audit-results/skin-timing.log
+      - name: Live-test geometry anatomy reminder and selected print regressions
+        if: ${{ !cancelled() }}
+        run: |
+          python -u tests/e2e/live_followup.py 2>&1 | tee audit-results/live-followup-geometry.log
+          python -u tests/e2e/skin_followup.py 2>&1 | tee audit-results/live-followup-skin.log
+      - name: Conversation lifecycle with keyless generation fixture and real validation/storage
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/mental_lifecycle_followup.py 2>&1 | tee audit-results/mental-lifecycle-followup.log
+      - name: UAT actual UI consent, short modals, waiting faults and responsive routes
+        if: ${{ !cancelled() }}
+        run: |
+          python -u tests/e2e/uat_ux_followup.py 2>&1 | tee audit-results/uat-ux-followup.log
+          python -u tests/e2e/uat_truthfulness_followup.py 2>&1 | tee audit-results/uat-truthfulness-followup.log
+      - name: Live harness rejects unverified source and contaminated input before dispatch
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/live_harness_fail_closed.py 2>&1 | tee audit-results/live-harness-fail-closed.log
+      - name: Keyless generation fixture admitted before unavailable TTS; no live claim
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/live_harness_order_followup.py 2>&1 | tee audit-results/live-harness-order.log
+      - name: Three actual poses and compatible versioned reference
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/skin_multi_angle_followup.py 2>&1 | tee audit-results/skin-multi-angle-followup.log
+      - name: Native-resolution licensed portrait and rejected low-detail regression, actual model and zoom
+        if: ${{ !cancelled() }}
+        run: |
+          python -u tests/e2e/prepare_high_detail_fixture.py 2>&1 | tee audit-results/high-detail-fixture.log
+          xvfb-run -a --server-args="-screen 0 1920x1080x24" python -u tests/e2e/skin_resolution_followup.py 2>&1 | tee audit-results/skin-resolution-high.log
+          xvfb-run -a --server-args="-screen 0 1920x1080x24" python -u tests/e2e/skin_resolution_followup.py --low-quality 2>&1 | tee audit-results/skin-resolution-low.log
+          python -u tests/e2e/prepare_high_detail_fixture.py --digital-source 2>&1 | tee audit-results/digital-detail-fixture.log
+          xvfb-run -a --server-args="-screen 0 1920x1080x24" python -u tests/e2e/skin_resolution_followup.py --digital-source 2>&1 | tee audit-results/skin-resolution-digital.log
+      - name: Explicit pause and clarification without capture or paid generation
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/mental_pause_followup.py 2>&1 | tee audit-results/mental-pause-followup.log
+      - name: Three native Turkish STT turns and MPEG lifecycle with isolated OS PCM
+        if: ${{ !cancelled() }}
+        env:
+          PULSE_SOURCE: audit_input
+          PULSE_SINK: audit_output
+        run: xvfb-run -a python -u tests/e2e/native_three_turn_followup.py 2>&1 | tee audit-results/native-three-turn-followup.log
+      - name: Final service consent and durable per-record deletion
+        if: ${{ !cancelled() }}
+        run: python -u tests/e2e/final_user_flow.py 2>&1 | tee audit-results/final-user-flow.log
+      - name: Spoken letter, separate accuracy, layout and MPEG streaming regressions
+        if: ${{ !cancelled() }}
+        run: |
+          python -u tests/e2e/vision_camera_followup.py 2>&1 | tee audit-results/vision-camera.log
+          python -u tests/e2e/guided_vision_followup.py 2>&1 | tee audit-results/guided-vision.log
+          python -u tests/e2e/continuous_vision_contract.py 2>&1 | tee audit-results/continuous-vision.log
+          python -u tests/e2e/mental_sessions_followup.py 2>&1 | tee audit-results/mental-sessions.log
+          python -u tests/e2e/stream_speech_followup.py 2>&1 | tee audit-results/stream-speech.log
+          python -u tests/e2e/spoken_letter_render_followup.py 2>&1 | tee audit-results/spoken-letter-render.log
+          python -u tests/e2e/product_layout_followup.py 2>&1 | tee audit-results/product-layout.log
+          python -u tests/e2e/uat_visuals.py 2>&1 | tee audit-results/uat-visuals.log
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: attune-browser-audit-${{ github.run_number }}
+          path: audit-results/
+          retention-days: 1
+          if-no-files-found: warn

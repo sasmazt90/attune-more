@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-23T15:45:38Z",
+  "scope": "task-13-source-bound-retained-photo-regional-replay",
+  "implementation": {
+    "helper": "retainedRegionalSkinReplay",
+    "component": "SkinFacePanel",
+    "requiredIdentity": ["photoId", "FRONT pose", "sourceWidth", "sourceHeight", "source-pixels coordinate space"],
+    "requiredPhoto": "retained PNG data URL associated with the health record",
+    "requiredGeometry": ["valid in-bounds display crop", "finite in-bounds mesh points", "mesh points visible inside display crop"],
+    "failureMode": "no regional layer is rendered",
+    "pixelLocalMapPrecedencePreserved": true,
+    "rawPhotoCommitted": false
+  },
+  "commits": {
+    "regionalSkinMap": "2cd5ce52506c26c4371ff564da586ea67cf5470c",
+    "skinFacePanel": "cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5",
+    "nodeContract": "0ab7438cd5c9aeb08007fb279db1087d29cc6ee9",
+    "pythonGuard": "b4c2794c09f3e0979ef48b4550890a12f2eb34c9"
+  },
+  "verification": {
+    "result": "pass",
+    "checks": 78,
+    "serverFixtures": 4,
+    "sourceAspectRatios": ["720x1280", "1280x720", "900x900"],
+    "tested": [
+      "source-bound overview replay",
+      "normalized preview crop converted to source pixels",
+      "uniform source-pixel projection inside each aspect ratio",
+      "wrong capture identity rejection",
+      "out-of-bounds crop rejection",
+      "out-of-bounds mesh rejection",
+      "non-retained remote image rejection",
+      "component uses replay-derived viewBox and source identity"
+    ]
+  },
+  "browserExecution": {
+    "completed": false,
+    "localPlaywright": "library present but Chromium executable absent",
+    "cloudBrowser": "inline/local test page blocked by allowed-protocol security policy",
+    "policyResponse": "no bypass attempted",
+    "acceptanceImpact": "real browser screenshot replay remains pending"
+  },
+  "freshRemoteState": {
+    "checkedAt": "2026-10-23T15:45:38Z",
+    "projectsTotal": 15,
+    "acneMarksPigmentationTraining": {"id": "5b632a5c12b76fcfe703", "status": "finished"},
+    "comedonesCleanNasTraining": {"id": "c2bcbeca2ab5719224fe", "status": "finished", "modelGroup": "Yr3MKkD8aDu0NIzG9M5F-c2bcbeca2ab5719224fe-rfdetrNasGroup", "action": "not duplicated or interpreted here"},
+    "comedonesGroupedTraining": {"id": "e45fb1f2578bf09750fb", "status": "finished"},
+    "poresGroupedTraining": {"id": "66999f483e520c0353b9", "status": "finished"}
+  },
+  "acceptance": {
+    "modelAccepted": false,
+    "regionalMethodActivated": false,
+    "browserAccepted": false,
+    "cameraAccepted": false,
+    "fullApplicationTypecheckCompleted": false,
+    "note": "Executable contract coverage improved, but this is not real-browser or real-camera acceptance."
+  }
+}

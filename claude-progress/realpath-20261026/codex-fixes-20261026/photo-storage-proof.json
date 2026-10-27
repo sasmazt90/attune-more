@@ -1,0 +1,89 @@
+{
+  "status": "PASS",
+  "camera": "fake-device y4m fixture K-217-three-angle.y4m (not a physical camera)",
+  "poseMock": false,
+  "qualityOverride": false,
+  "buildId": "2F-VACgh7YOCe6mHQcW3L",
+  "results": [
+    {
+      "check": "(a) consent on: real scan stores FRONT/LEFT/RIGHT with own photoId=sha256(RGBA)/pose/size",
+      "status": "PASS",
+      "detail": {
+        "recordId": "16e87588-8338-4a96-9f9c-1cb4f3aa1c25",
+        "photoIds": {
+          "FRONT": "8621ffd7e9dbbb2f32341e40f03db7dc64918bc06f081ad815936beb40692e1c",
+          "RIGHT": "f5cabedc46310c7bdf87dff3a9863c2243fd733883fee10428f6770c9d19eedf",
+          "LEFT": "0b5d8028009dca7794ea0c892e9632b716c5fbf8f8728df96cc3c38cbb14baa2"
+        },
+        "bytes": 8842605,
+        "scanSeconds": 188.4
+      }
+    },
+    {
+      "check": "(c-setup) older record B stored through the app's saveSkinPhotos",
+      "status": "PASS",
+      "detail": {
+        "FRONT": "2f00758d8acc8b03e2c5b86c75a3157329ec48485ae15d2b9bd60ada3b590a54",
+        "LEFT": "5949debfbac8ce28d9de5f8a6de8ef310baf1d2ab6ab61f2c40360b6b5b5b88a",
+        "RIGHT": "b3d9944c9d854c976bbee6ee5423906b5e1875439ddb8f4474cc2f06d4f8f8ce"
+      }
+    },
+    {
+      "check": "(b) after relaunch view=latest and view=record&id=A show A's own FRONT/LEFT/RIGHT photos",
+      "status": "PASS",
+      "detail": {
+        "overview": [
+          "8621ffd7e9dbbb2f32341e40f03db7dc64918bc06f081ad815936beb40692e1c",
+          "60c3a568ea627f58861fb2b661b0ad99d467a3fbfab1c5bb33c84953003b8571"
+        ],
+        "rightCheek": [
+          "0b5d8028009dca7794ea0c892e9632b716c5fbf8f8728df96cc3c38cbb14baa2",
+          "2f6c98fce901b7262f48ccb32eb024226f1b65c9cb5ae761e914bda8b689294b"
+        ],
+        "leftCheek": [
+          "f5cabedc46310c7bdf87dff3a9863c2243fd733883fee10428f6770c9d19eedf",
+          "702013f65d6edfd55ce94a9da5e0cd8059b1907e07c0e46b6823b43d5055086f"
+        ]
+      }
+    },
+    {
+      "check": "(c) opening the OLDER record B shows B's photos, never the newest record A's",
+      "status": "PASS",
+      "detail": {
+        "overview": [
+          "2f00758d8acc8b03e2c5b86c75a3157329ec48485ae15d2b9bd60ada3b590a54",
+          "eecb9a8f8e3ac383605c73b2459869451d762c07faf50f923d32d97f85d0e429"
+        ],
+        "rightCheek": [
+          "5949debfbac8ce28d9de5f8a6de8ef310baf1d2ab6ab61f2c40360b6b5b5b88a",
+          "3398f2eae5413afa39fb81638c83c3d0a55ef1c033339dce3999c2864d549b1f"
+        ],
+        "leftCheek": [
+          "b3d9944c9d854c976bbee6ee5423906b5e1875439ddb8f4474cc2f06d4f8f8ce",
+          "a27def43557eac200abf39d7b883573a96644c087d10ae22baf4932cc236d62e"
+        ]
+      }
+    },
+    {
+      "check": "(d) withdrawing photo consent removes all stored photos; nothing is loaded or written while off",
+      "status": "PASS",
+      "detail": {
+        "rowsAfterWithdrawal": []
+      }
+    },
+    {
+      "check": "(d) deleting a record on /profile removes its stored photos; other rows stay",
+      "status": "PASS",
+      "detail": {
+        "before": [
+          "16e87588-8338-4a96-9f9c-1cb4f3aa1c25",
+          "bd7ea039-1839-4a77-bd01-6ede5dd1668b"
+        ],
+        "after": [
+          "16e87588-8338-4a96-9f9c-1cb4f3aa1c25"
+        ]
+      }
+    }
+  ],
+  "pageErrors": []
+}

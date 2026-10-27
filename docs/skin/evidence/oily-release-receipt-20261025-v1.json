@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-25T20:09:26Z",
+  "inputBlobs": {
+    "modelReceipt": "f3fc4bb10530393ac5df31d17dba423f5bfb5287",
+    "modelVerdict": "9aed72c0f5a3851c0e6a02f5cd6982739bfaaaaa",
+    "modelDiagnosis": "5a31af138324100bfd10ba9a00da58611d75839b",
+    "sourceGroupAudit": "29314becfb5fd8c6f77e389036e2afa152aa56cb",
+    "expertReviewQueue": "31cc224918c58f07d3185e3aeeff298c4114f004",
+    "regionalImprovementGate": "b55ef75ba61c6e0f7411aa4c67e7440f9168adc0",
+    "mergedProductRecheck": "bbbe61b13145284d675af7e3e66d25ce439a7ba4",
+    "unifiedResultReceipt": "aac52634eaba105cd1ccc86383b7665eca7b53eb"
+  },
+  "semanticContract": {
+    "className": "Oily",
+    "productHeading": "oil",
+    "colour": "#16A34A",
+    "measuredRegionalSupportRequired": true,
+    "wholeFaceReplicationAllowed": false,
+    "missingMaskMeansNormal": false,
+    "boxAcceptedAsPolygon": false,
+    "modelPredictionIsExpertTruth": false,
+    "clinicalSebumDiagnosis": false,
+    "rednessMayOverlap": true
+  },
+  "workingBaseline": {
+    "productAlreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "oilAppearanceHeadingPresent": true,
+    "separateSkinTypePresent": true,
+    "regionalResultsPresent": true
+  },
+  "source": {
+    "sourceArchiveSHA256": "a24793ca3490a48088abf47ba89fc9ab94e1c3a12c488ce52915e19b5bdf6fd6",
+    "providerExportSHA256": "ba7aa450ee2e98af35dcb1b60f3f9673fc7a6ef6b7709e7b94e1df1d32bdab3a",
+    "images": 337,
+    "splits": {"train": 244, "valid": 63, "test": 30},
+    "oilyLabels": {"train": 780, "valid": 195, "test": 90},
+    "polygonAnnotations": 1636,
+    "invalidPolygonAnnotations": 0,
+    "completeReviewedPersonGroups": 0,
+    "unreviewedSourceIds": 337,
+    "testImagesBelowMinimum": true,
+    "testAlreadyExposed": true,
+    "dryTruth": false,
+    "evaluatedNormalTruth": false
+  },
+  "model": {
+    "trainingId": "af287a006e2e428f5ce4",
+    "evalId": "vsQ6klUgSohCdtLwNMJf",
+    "validationSelectedThreshold": 0.38,
+    "validationF1": 0.571,
+    "diagnosticTestF1": 0.475,
+    "validationMap75": 0.027941856492013268,
+    "diagnosticTestMap75": 0.040226982580142956,
+    "validationFalsePositivesAtPoint2": 386,
+    "diagnosticTestFalsePositivesAtPoint2": 213,
+    "accepted": false
+  },
+  "expertReview": {
+    "queueImages": 81,
+    "oilyTrainItems": 32,
+    "oilyValidItems": 8,
+    "testItems": 0,
+    "expertProtocolComplete": false
+  },
+  "candidate": {
+    "rightsReviewed": false,
+    "expertMaskNegativeAndAssessabilityProtocolComplete": false,
+    "illuminationShineAndGlareProtocolComplete": false,
+    "sourcePersonGroupSplitIndependent": false,
+    "replacementSplitLocked": false,
+    "newUntouchedFinalTestReserved": false,
+    "independentCameraHoldoutReserved": false,
+    "validationPassed": false,
+    "newUntouchedFinalTestPassed": false,
+    "physicalCameraHoldoutPassed": false,
+    "lightingSkinTonePoseSlicesPassed": false,
+    "workingProductIntegrationPassed": false,
+    "regionalCoverageOverlapAndUnavailableControlsPassed": false
+  }
+}

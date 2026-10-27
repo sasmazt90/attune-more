@@ -10,21 +10,41 @@ import {isSkinHostedProcessingAllowed} from './attuneMode';
 export type MeasurementKind='appearance_proxy'|'trained_prediction'|'longitudinal_measurement';
 export type MeasurementReceipt={status?:'measured'|'unavailable';reason?:string|null;coverage?:number|null;calibrationVersion?:string|null;localConfidence?:number|null};
 export type AppearanceMeasurement=MeasurementReceipt & {id:string;type:MeasurementKind;value:number|null;unit:string;methodVersion:string;modelVersion:string|null;modelHash:string|null;scoreDirection?:'higher-is-more-visible';normalizationVersion?:string;quality:'valid'|'invalid'|'insufficient';uncertainty:string[];region:string;evaluatedArea:Record<string,number>;captureConditions:Record<string,number|string>;limitationCode:string|null;referenceId:string|null;localMap:{key:string;photoId:string;region:string;criterion:string;coordinateSpace:'source-pixels'}|null;components:Record<string,any>};
-export type AppearanceResponse={acneRuntime?:AcneV5Runtime;acneCandidates?:SkinSnapshot['acneCandidates'];general?:{skinType:import('./skinOverview').SkinOverview['skinType'];measurements:AppearanceMeasurement[];normalizationVersion:string;modelInputTransform?:Record<string,number|string|boolean>|null;modelInference?:Record<string,Record<string,number|string>>};photoId:string;sourceWidth:number;sourceHeight:number;measurements:Record<string,AppearanceMeasurement[]>;maps:Record<string,SkinLocalMap>;contours:Record<string,{points:{x:number;y:number}[];lines?:{x:number;y:number}[][];features:number[]}>};
+export type AppearanceResponse={acneRuntime?:AcneV5Runtime;acneCandidates?:SkinSnapshot['acneCandidates'];general?:{regionalSkinMap?:unknown;skinType:import('./skinOverview').SkinOverview['skinType'];measurements:AppearanceMeasurement[];normalizationVersion:string;modelInputTransform?:Record<string,number|string|boolean>|null;modelInference?:Record<string,Record<string,number|string>>};photoId:string;sourceWidth:number;sourceHeight:number;measurements:Record<string,AppearanceMeasurement[]>;maps:Record<string,SkinLocalMap>;contours:Record<string,{points:{x:number;y:number}[];lines?:{x:number;y:number}[][];features:number[]}>};
 export const APPEARANCE_UNITS:Record<string,string>={'appearance-score-0-100':'%','percent-visible-area':'% görünür alan','candidate-count':'aday','relative-color-index-0-100':'/ 100 · renk farkı','directional-line-index-0-100':'/ 100 · çizgi indeksi','normalized-contour-ratio':'kontur oranı','contour-fold-index-0-100':'/ 100 · görünüm indeksi'};
+export const SAG_APPEARANCE_SEMANTICS='visible-lower-face-contour-fold-appearance-v1';
+export function isSagAppearanceOnly(value:Pick<AppearanceMeasurement,'components'>){
+ const c=value.components||{};
+ return c.appearanceSemantics===SAG_APPEARANCE_SEMANTICS&&c.clinicalSeverity===false&&c.elasticity===false&&c.comparisonMode==='same-person-compatible-capture-only';
+}
 export async function analyzeAppearance(snapshot:SkinSnapshot,qualityValid:boolean,conditions:Record<string,number>,temporal:unknown[],current:()=>boolean):Promise<AppearanceResponse>{
  const hostedConsent=isSkinHostedProcessingAllowed();
  const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),45000);
  const stale=setInterval(()=>{if(!current()||isSkinHostedProcessingAllowed()!==hostedConsent)controller.abort();},100);
  try {
-  const response=await fetch(`${LOCAL_API_BASE}/api/local-health/skin`,{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({experimentalAcneV5:ACNE_V5_PREVIEW,requestId:crypto.randomUUID(),capturePreflight:{engine:'browser-mediapipe',faceCount:snapshot.captureFaceCount,quality:{isValid:qualityValid,avgLuminance:conditions.avgLuminance,blurScore:conditions.blurScore}},processingConsent:true,hostedProcessingConsent:hostedConsent,photo:snapshot.dataUrl,photoId:snapshot.photoId,pose:snapshot.angle,meshes:snapshot.meshes,exclusions:snapshot.exclusions,landmarks:snapshot.landmarks,expressionObservation:expressionObservation(snapshot.expressionScores,snapshot.photoId),qualityValid,conditions,temporal})});
+  const response=await fetch(`${LOCAL_API_BASE}/api/local-health/skin`,{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({experimentalAcneV5:ACNE_V5_PREVIEW,requestId:crypto.randomUUID(),capturePreflight:{engine:'browser-mediapipe',faceCount:snapshot.captureFaceCount,quality:{isValid:qualityValid,avgLuminance:conditions.avgLuminance,blurScore:conditions.blurScore}},processingConsent:true,hostedProcessingConsent:hostedConsent,photo:snapshot.dataUrl,photoId:snapshot.photoId,rawFrame:snapshot.rawFrame,pose:snapshot.angle,meshes:snapshot.meshes,exclusions:snapshot.exclusions,landmarks:snapshot.landmarks,expressionObservation:expressionObservation(snapshot.expressionScores,snapshot.photoId),qualityValid,conditions,temporal})});
   if(!response.ok){
    const detail=await response.json().catch(()=>({}));
    throw Error(detail.detail==='SKIN_EYEWEAR_PRESENT'?'Cilt analizi için gözlüğünüzü çıkarın.':detail.detail==='SKIN_EYEWEAR_CHECK_UNCERTAIN'?'Göz çevresi yeterince doğrulanamadı; yeniden çekin.':'Yerel görünüm analizi tamamlanamadı.');
   }
   const result:AppearanceResponse=await response.json();
   if(!current()||isSkinHostedProcessingAllowed()!==hostedConsent||result.photoId!==snapshot.photoId||result.sourceWidth!==snapshot.width||result.sourceHeight!==snapshot.height)throw Error('STALE_SOURCE');
-  if(ACNE_V5_PREVIEW)validateAcneV5Response(result);
+  if((ACNE_V5_PREVIEW&&result.acneRuntime)||process.env.NEXT_PUBLIC_ATTUNE_ACNE_V5==='1')validateAcneV5Response(result);
+  return result;
+ } finally {clearTimeout(timer);clearInterval(stale);}
+}
+export type RegionalFuseResponse={regionalSkinMap:Record<string,any>|null;regionalSkinMapStatus:string;findings:unknown};
+/** Three-angle regional map + findings: the per-photo regionalSkinMap numbers go to the server, which runs the
+ * fusion and the finding decisions (thresholds live only on the server). No photo is sent. */
+export async function fuseRegionalOnServer(maps:Record<string,unknown>,current:()=>boolean):Promise<RegionalFuseResponse>{
+ const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),30000);
+ const stale=setInterval(()=>{if(!current())controller.abort();},100);
+ try {
+  const response=await fetch(`${LOCAL_API_BASE}/api/local-health/skin/regional-fuse`,{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:true,maps})});
+  if(!response.ok)throw Error('REGIONAL_FUSE_FAILED');
+  const result=await response.json();
+  if(!current())throw Error('STALE_SOURCE');
+  if(!result||typeof result!=='object'||typeof result.regionalSkinMapStatus!=='string')throw Error('INVALID_REGIONAL_FUSE_RESPONSE');
   return result;
  } finally {clearTimeout(timer);clearInterval(stale);}
 }
@@ -33,8 +53,9 @@ export function attachAppearance(indicators:SkinIndicators,result:AppearanceResp
  for(const [region,values] of Object.entries(result.measurements))for(const value of values){
   const target=indicators[region]?.find(row=>row.id===value.id);if(!target)continue;
   if(value.region!==region||!supportedAppearanceMethod(value.id,value.methodVersion)||value.value!==null&&!Number.isFinite(value.value))throw Error('INVALID_MEASUREMENT');
+  if(value.id==='sag'&&!isSagAppearanceOnly(value))throw Error('INVALID_SAG_SEMANTICS');
   target.score=value.value;target.unit=APPEARANCE_UNITS[value.unit]||value.unit;target.method=value.methodVersion;
-  target.reason=value.limitationCode==='REFERENCE_CREATED'?'Kişisel kontur referansı oluşturuldu; sonraki uyumlu taramada değişim karşılaştırılır.':value.value===null?`Bu karede yeterli güvenilir ölçüm yok (${value.limitationCode}).`:'Görünür yüzeyin kozmetik görünüm vekili; hastalık, nem veya klinik şiddet ölçümü değildir.';
+  target.reason=value.limitationCode==='REFERENCE_CREATED'?'Kişisel kontur referansı oluşturuldu; sonraki uyumlu taramada değişim karşılaştırılır.':value.value===null?`Bu karede yeterli güvenilir ölçüm yok (${value.limitationCode}).`:value.id==='sag'?'Görünen alt yüz kontur/kıvrım görünümü; elastikiyet veya klinik sarkma şiddeti değildir.':'Görünür yüzeyin kozmetik görünüm vekili; hastalık, nem veya klinik şiddet ölçümü değildir.';
   target.appearance=value;
   target.measurement={scope:'regional',region,methodVersion:value.methodVersion,modelHash:value.modelHash,unit:value.unit,rawValue:value.value,confidence:null,quality:value.quality,validation:'appearance-proxy',unavailableReason:value.value===null?value.limitationCode:null} as SkinMeasurement;
  }

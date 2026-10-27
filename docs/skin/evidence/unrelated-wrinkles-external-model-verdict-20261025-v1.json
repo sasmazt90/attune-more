@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-25T12:14:30Z",
+  "receipt": "docs/skin/evidence/unrelated-wrinkles-external-model-receipt-20261025-v1.json",
+  "decision": "diagnostic_only_not_a_substitute",
+  "reason": "This is not the selected 914-image Wrinkles Detector v2 source and has 65 filename plus 202 perceptual cross-split candidates. Its provider metrics cannot establish independent generalization.",
+  "test": {"map50": 0.6440890457494266, "map50_95": 0.22789575695408526, "precision": 0.811, "recall": 0.658, "f1": 0.727},
+  "blindRetrainingAllowed": false,
+  "substitutionAllowed": false,
+  "activationAllowed": false,
+  "roadmapAccepted": false
+}

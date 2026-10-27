@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-23T12:21:00Z",
+  "methodVersion": "skin-face-crows-feet-source-audit-v1",
+  "universeSource": "https://universe.roboflow.com/elisabeth-hui/skin_face_detection",
+  "fork": {
+    "taskId": "ECgvbqgBLjG2VCMcjcCb",
+    "status": "completed",
+    "project": "tolgar-sasmaz/skin_face_detection-emora",
+    "projectUrl": "https://app.roboflow.com/tolgar-sasmaz/skin_face_detection-emora",
+    "version": 1,
+    "versionReady": true,
+    "preprocessing": {},
+    "augmentation": {},
+    "trainingStarted": false
+  },
+  "sourceSnapshot": {
+    "images": 2811,
+    "splits": {
+      "train": 1969,
+      "valid": 564,
+      "test": 278
+    },
+    "projectType": "instance-segmentation",
+    "publisherDeclaredLicense": "CC BY 4.0",
+    "exportArchive": "skin-face-remote-v1.zip",
+    "exportArchiveSHA256": "1271091931876b3fce1a6bc22865cc7ce112c93042bba589be0412d05070b163",
+    "sourceLedgerComparison": {
+      "priorArchive": "skin_face_detection.v1i.coco.zip",
+      "priorArchiveSHA256": "c56937df11bdcce2903afa38ee09225c83e2d8f886e312ede0cc50cf5f397798",
+      "priorImages": 6749,
+      "sameSnapshotClaimed": false,
+      "note": "The current public/forked snapshot differs from the previously selected augmented export; both identities stay separate."
+    }
+  },
+  "classInventory": {
+    "wrinkle": 18400,
+    "face": 468,
+    "frown": 578,
+    "dark_circle": 160,
+    "forehead": 4037,
+    "nasolabial_fold": 602,
+    "marionette_line": 401,
+    "crows_feet": 875,
+    "tear_through": 648,
+    "vertical_lips_lines": 138,
+    "mental_crease": 79,
+    "acne": 257,
+    "brow_droop": 123,
+    "bunny_line": 149,
+    "nasobi": 2,
+    "fol": 2
+  },
+  "crowsFeet": {
+    "annotations": 875,
+    "imagesWithClass": 166,
+    "annotationsBySplit": {
+      "train": 606,
+      "valid": 206,
+      "test": 63
+    },
+    "imagesBySplit": {
+      "train": 119,
+      "valid": 34,
+      "test": 13
+    },
+    "validPolygons": 855,
+    "invalidPolygons": 20,
+    "invalidPolygonImages": 15,
+    "invalidReasons": {
+      "SELF_INTERSECTION": 19,
+      "INVALID_OR_OUT_OF_FRAME": 1
+    },
+    "maskAreaRatio": {
+      "min": 0.000005474095458986028,
+      "p25": 0.00013138496093755947,
+      "median": 0.00022549775878903943,
+      "p75": 0.00037891797241210943,
+      "p90": 0.0005649661730957334,
+      "max": 0.0023658669921875486
+    },
+    "polygonPointCount": {
+      "min": 3,
+      "p25": 7,
+      "median": 9,
+      "p75": 12,
+      "p90": 17,
+      "max": 45
+    },
+    "centroidBins": {
+      "x0-y0": 14,
+      "x0-y1": 335,
+      "x1-y0": 13,
+      "x1-y1": 77,
+      "x1-y2": 1,
+      "x2-y0": 11,
+      "x2-y1": 424
+    }
+  },
+  "splitAudit": {
+    "allProjectImages": {
+      "exactDuplicateGroups": 9,
+      "crossSplitExactGroups": 3,
+      "filenameCandidateGroups": 66,
+      "crossSplitFilenameCandidateGroups": 31,
+      "perceptualCandidatePairs": 161,
+      "crossSplitPerceptualCandidatePairs": 83
+    },
+    "crowsFeetPositiveImages": {
+      "uniqueSourceStemHints": 163,
+      "crossSplitSourceStemGroups": 2,
+      "crossSplitSourceStemImages": 4,
+      "groups": [
+        {
+          "sourceStem": "23725_png_jpg",
+          "splits": ["train", "valid"],
+          "samePhotoVisuallyConfirmed": true
+        },
+        {
+          "sourceStem": "48510_png_jpg",
+          "splits": ["train", "valid"],
+          "samePhotoVisuallyConfirmed": true
+        }
+      ]
+    },
+    "holdoutLocked": false,
+    "trainingAuthorized": false
+  },
+  "acceptance": {
+    "explicitCrowsFeetClass": true,
+    "localizedNonRectangleGeometrySupported": true,
+    "invalidGeometryQuarantined": false,
+    "groupSafeSplit": false,
+    "negativeCompletenessVerified": false,
+    "expressionPoseCoverageAccepted": false,
+    "expertSemanticReview": false,
+    "cameraAccepted": false,
+    "productAccepted": false
+  },
+  "limitations": [
+    "The source has explicit localized crows-feet polygons, but 20 polygons are invalid and must be repaired or excluded before training.",
+    "Existing splits contain confirmed cross-split source-photo leakage and cannot be used as a locked holdout.",
+    "Absence of crows_feet on other source images is not yet verified as an evaluated negative label.",
+    "Publisher-declared dataset licensing does not independently verify every source photo's rights.",
+    "No model training, inference, native camera evaluation or product activation was performed."
+  ]
+}

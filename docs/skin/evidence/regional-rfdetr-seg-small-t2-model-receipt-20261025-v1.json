@@ -1,0 +1,21 @@
+{
+  "target": "regional-oily-redness-mask-research-only",
+  "observedAt": "2026-10-25T02:31:12Z",
+  "modelIdentity": {"modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-seg-small-t2", "immutableId": null, "trainingId": "af287a006e2e428f5ce4", "modelType": "rfdetr-seg-small", "trainingStatus": "finished"},
+  "provenance": {"sourceArchiveSHA256": "a24793ca3490a48088abf47ba89fc9ab94e1c3a12c488ce52915e19b5bdf6fd6", "rightsReviewed": false, "expertLabelProtocolVerified": false, "personIndependentSplits": false, "negativeCoverageReviewed": false, "lockedTestUntouchedDuringSelection": false, "sourceAuditEvidence": "docs/skin/evidence/v11-polygon-preparation-20261023-v1.json"},
+  "evaluation": {
+    "evalId": "vsQ6klUgSohCdtLwNMJf",
+    "appUrl": "https://app.roboflow.com/tolgar-sasmaz/attune-skin-regional-skin-map/evaluation/1",
+    "thresholdSelectionSplit": "validation",
+    "thresholdsLockedBeforeTest": false,
+    "qualityGateEvidence": "docs/skin/evidence/provider-finished-trainings-20261025-v1.json",
+    "providerTestSummary": {"map50": 0.48302417938577025, "map50_95": 0.19854998963754125, "precision": 0.683, "recall": 0.449, "f1": 0.542, "medianLatencyMs": 15.12},
+    "classes": {
+      "Oily": {"threshold": 0.38, "validation": {"precision": 0.651, "recall": 0.508, "f1": 0.571}, "test": {"precision": 0.543, "recall": 0.422, "f1": 0.475}, "providerTestMap50": 0.46405553962011065, "providerTestMap50_95": 0.14165739780209924, "passed": false},
+      "Redness": {"threshold": 0.39, "validation": {"precision": 0.698, "recall": 0.419, "f1": 0.524}, "test": {"precision": 0.72, "recall": 0.486, "f1": 0.581}, "providerTestMap50": 0.50199281915143, "providerTestMap50_95": 0.2554425814729832, "passed": false}
+    }
+  },
+  "camera": {"independentFromTrainingSources": false, "sameCaptureContractAsProduct": false, "skinToneLightingPoseSlicesReviewed": false, "passed": false, "evidence": "not_available"},
+  "integration": {"api": false, "productContract": false, "unavailableFallback": false, "privacyAndConsent": false, "historyCompatibility": false, "regressionTests": false, "evidence": "not_integrated"},
+  "researchBoundary": {"classes": ["Oily", "Redness"], "dryTruth": false, "normalTruth": false, "combinationSkinTruth": false, "rednessIsIndependentOverlay": true, "productActivationAllowed": false}
+}

@@ -1,0 +1,244 @@
+{
+  "schemaVersion": "acne-model-diagnosis-v1",
+  "observedAt": "2026-10-25T03:31:48Z",
+  "target": "active-acne-post-acne-pigmentation-research-only",
+  "privacy": {
+    "containsImageBytes": false,
+    "containsFilenames": false,
+    "containsRawSourceNames": false,
+    "containsProviderImageIds": false
+  },
+  "modelIdentity": {
+    "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2",
+    "trainingId": "49ee6204cf069198bbfa",
+    "evalId": "7s06OfIzx78XzATqr5oA",
+    "versionNumber": 1,
+    "modelType": "rfdetr-small",
+    "inputWidth": 640,
+    "inputHeight": 640
+  },
+  "dataset": {
+    "archiveSHA256": "29f40e80c8b1f63d43abbc35d11efdbaac4cf754531af2bee64283dde64c34e2",
+    "images": 800,
+    "labels": 37342,
+    "emptyImages": 11,
+    "splits": {
+      "train": 553,
+      "valid": 165,
+      "test": 82
+    },
+    "classLabels": {
+      "Post acne": 32123,
+      "Pimple": 3640,
+      "Pigmentation": 1579
+    },
+    "classImageCoverage": {
+      "Post acne": 1.0,
+      "Pimple": 0.113,
+      "Pigmentation": 0.049
+    },
+    "medianSourceResolution": [1280, 1280],
+    "modelInputPixelRatio": 4.0,
+    "existingTestExposedDuringDiagnosis": true,
+    "sourcePersonIndependenceEstablished": false
+  },
+  "providerRecommendations": [
+    {
+      "type": "missed_detection",
+      "class": "Post acne",
+      "count": 2451
+    },
+    {
+      "type": "wrong_class",
+      "class": "Post acne",
+      "confusedWith": "Pimple",
+      "count": 52
+    },
+    {
+      "type": "overconfident_false_positive",
+      "class": "Pimple",
+      "precision": 0.31,
+      "falsePositives": 234,
+      "truePositives": 107
+    },
+    {
+      "type": "input_resolution",
+      "sourceMedian": [1280, 1280],
+      "modelInput": [640, 640],
+      "pixelRatio": 4.0,
+      "medianLatencyMs": 8.4,
+      "sampleCount": 82
+    }
+  ],
+  "metrics": {
+    "validation": {
+      "overall": {
+        "map50": 0.11947243,
+        "map50_95": 0.03226527,
+        "map75": 0.0084505
+      },
+      "classes": {
+        "Pigmentation": {
+          "map50": 0.03995995,
+          "map50_95": 0.01402296,
+          "map75": 0.00579752,
+          "precision": 0.115,
+          "recall": 0.081,
+          "f1": 0.095,
+          "validationSelectedThreshold": 0.15
+        },
+        "Pimple": {
+          "map50": 0.13632048,
+          "map50_95": 0.03349071,
+          "map75": 0.00550036,
+          "precision": 0.291,
+          "recall": 0.234,
+          "f1": 0.26,
+          "validationSelectedThreshold": 0.35
+        },
+        "Post acne": {
+          "map50": 0.18213685,
+          "map50_95": 0.04928214,
+          "map75": 0.01405363,
+          "precision": 0.359,
+          "recall": 0.29,
+          "f1": 0.321,
+          "validationSelectedThreshold": 0.31
+        }
+      },
+      "objectSizeMap50": {
+        "small": 0.12036679,
+        "medium": 0.08412079,
+        "large": 0.0
+      },
+      "confusionMatrixAtProviderConfidence0_2": {
+        "classes": ["Pigmentation", "Pimple", "Post acne", "background"],
+        "matrix": [[14, 8, 82, 179], [0, 280, 62, 460], [2, 30, 2290, 4498], [71, 1775, 6558, 0]]
+      }
+    },
+    "testDiagnosticOnly": {
+      "overall": {
+        "map50": 0.13301487,
+        "map50_95": 0.03422613,
+        "map75": 0.00479562
+      },
+      "providerOptimalThresholdMetrics": {
+        "Pigmentation": {
+          "map50": 0.03243033,
+          "map50_95": 0.00818355,
+          "map75": 0.00222458,
+          "precision": 0.108,
+          "recall": 0.077,
+          "f1": 0.089,
+          "threshold": 0.13
+        },
+        "Pimple": {
+          "map50": 0.1817817,
+          "map50_95": 0.04993334,
+          "map75": 0.00795943,
+          "precision": 0.319,
+          "recall": 0.274,
+          "f1": 0.295,
+          "threshold": 0.39
+        },
+        "Post acne": {
+          "map50": 0.18483259,
+          "map50_95": 0.0445615,
+          "map75": 0.00420285,
+          "precision": 0.34,
+          "recall": 0.305,
+          "f1": 0.322,
+          "threshold": 0.31
+        }
+      },
+      "objectSizeMap50": {
+        "small": 0.13312156,
+        "medium": 0.22098107,
+        "large": null
+      },
+      "confusionMatrixAtProviderConfidence0_2": {
+        "classes": ["Pigmentation", "Pimple", "Post acne", "background"],
+        "matrix": [[4, 2, 60, 117], [0, 147, 30, 170], [1, 19, 1263, 2205], [17, 1001, 3766, 0]]
+      },
+      "perImageAggregateAtProviderConfidence0_2": {
+        "images": 82,
+        "truePositives": 1414,
+        "falsePositives": 4896,
+        "falseNegatives": 2604,
+        "zeroTruthImages": 2,
+        "precision": 0.2241,
+        "recall": 0.3519,
+        "f1": 0.2738
+      },
+      "note": "Provider-selected test thresholds and test image aggregates are diagnostic only and are not admissible for selection or final acceptance."
+    }
+  },
+  "confirmedEvidence": [
+    "Approximately 94 percent of every class occupies under 0.04 percent of source image area.",
+    "The provider reports a fourfold source-to-input pixel reduction.",
+    "Post acne labels outnumber Pimple by 8.825x and Pigmentation by 20.344x.",
+    "The existing test was exposed and the current split has confirmed source/person leakage."
+  ],
+  "rootCauseHypotheses": [
+    {
+      "id": "TINY_INSTANCE_RESOLUTION_AND_LOCALIZATION",
+      "support": "confirmed_by_provider_and_geometry_audit",
+      "actionable": true
+    },
+    {
+      "id": "CLASS_IMBALANCE",
+      "support": "confirmed_by_dataset_counts",
+      "actionable": true
+    },
+    {
+      "id": "PIMPLE_LABEL_COMPLETENESS_OR_HARD_NEGATIVE_GAPS",
+      "support": "diagnostic_hypothesis_requires_expert_review",
+      "actionable": false
+    },
+    {
+      "id": "PIGMENTATION_POST_ACNE_AND_POST_ACNE_PIMPLE_SEMANTIC_OVERLAP",
+      "support": "diagnostic_hypothesis_requires_expert_review",
+      "actionable": false
+    },
+    {
+      "id": "HOLDOUT_LEAKAGE_AND_TEST_EXPOSURE",
+      "support": "confirmed_by_split_gate",
+      "actionable": true
+    }
+  ],
+  "targetedImprovementPlan": [
+    {
+      "order": 1,
+      "action": "Complete the existing 81-item expert semantic and hard-negative review and lock positive, negative and ambiguous policies for every class.",
+      "changesModelOrLabels": false
+    },
+    {
+      "order": 2,
+      "action": "Review validation-only missed detections, background false positives and class-confusion cases; preserve the exposed test as diagnostic-only.",
+      "changesModelOrLabels": false
+    },
+    {
+      "order": 3,
+      "action": "Finish source/person grouping for all 800 records and create a fully group-locked replacement split with a new untouched final holdout.",
+      "changesModelOrLabels": false
+    },
+    {
+      "order": 4,
+      "action": "Run exactly one validation-only resolution experiment: face-aligned single ROI or higher effective resolution. Do not repeat arbitrary four-corner tiling, which previously increased false positives and reduced hash-control AP50.",
+      "changesModelOrLabels": true
+    },
+    {
+      "order": 5,
+      "action": "Evaluate the frozen winner once on the new untouched final holdout, then on independent product-camera samples before integration.",
+      "changesModelOrLabels": false
+    }
+  ],
+  "decision": {
+    "modelAccepted": false,
+    "blindRetrainingAllowed": false,
+    "trainingAuthorized": false,
+    "testEvaluationAuthorized": false,
+    "activationAllowed": false,
+    "nextExperimentPolicy": "one_change_validation_only_after_release_gate"
+  }
+}

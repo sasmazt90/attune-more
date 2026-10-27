@@ -1,0 +1,467 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "source": "Dryness",
+      "archive": "dryness-v1.zip",
+      "archiveSHA256": "caa1d873d1c98a507ed37a31c42e2f7a0cd543d494e65d0be1f67f15b5b483f4",
+      "images": 2072,
+      "splits": {
+        "test": 197,
+        "train": 1486,
+        "valid": 389
+      },
+      "classes": {
+        "Dryness": {
+          "test": 703,
+          "train": 4620,
+          "valid": 1482
+        }
+      },
+      "geometry": [
+        {
+          "class": "Dryness",
+          "kind": "box",
+          "validBox": true,
+          "validMask": false,
+          "count": 6679
+        },
+        {
+          "class": "Dryness",
+          "kind": "polygon",
+          "validBox": false,
+          "validMask": true,
+          "count": 14
+        },
+        {
+          "class": "Dryness",
+          "kind": "polygon",
+          "validBox": true,
+          "validMask": true,
+          "count": 47
+        },
+        {
+          "class": "Dryness",
+          "kind": "rectangle-polygon",
+          "validBox": true,
+          "validMask": false,
+          "count": 65
+        }
+      ],
+      "readmes": {
+        "README.roboflow.txt": "\nDryness - v1 2025-05-21 7:08pm\n==============================\n\nThis dataset was exported via roboflow.com on April 12, 2026 at 12:39 PM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 2072 images.\nDryness are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Stretch)\n\nNo image augmentation techniques were applied.\n\n\n",
+        "README.dataset.txt": "# Dryness > 2025-05-21 7:08pm\nhttps://universe.roboflow.com/skinanalysisv22025/dryness-q1yyf\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n"
+      },
+      "geometryIssueCount": 14,
+      "matchedExistingImages": 700,
+      "matchedExistingSources": {
+        "clean3": 705,
+        "v11": 7
+      }
+    },
+    {
+      "source": "FACE",
+      "archive": "face-v3.zip",
+      "archiveSHA256": "7c06f1c48d049c1c419d909d488c6642465f0f57958a42eaa62569527ee3094c",
+      "images": 408,
+      "splits": {
+        "test": 40,
+        "train": 286,
+        "valid": 82
+      },
+      "classes": {
+        "acne": {
+          "test": 72,
+          "train": 296,
+          "valid": 69
+        },
+        "dry": {
+          "test": 5,
+          "train": 47,
+          "valid": 20
+        },
+        "normal": {
+          "test": 7,
+          "train": 77,
+          "valid": 17
+        },
+        "oily": {
+          "test": 9,
+          "train": 106,
+          "valid": 25
+        },
+        "wrinkles": {
+          "test": 11,
+          "train": 99,
+          "valid": 28
+        }
+      },
+      "geometry": [
+        {
+          "class": "acne",
+          "kind": "polygon",
+          "validBox": true,
+          "validMask": true,
+          "count": 22
+        },
+        {
+          "class": "acne",
+          "kind": "rectangle-polygon",
+          "validBox": false,
+          "validMask": false,
+          "count": 10
+        },
+        {
+          "class": "acne",
+          "kind": "rectangle-polygon",
+          "validBox": true,
+          "validMask": false,
+          "count": 405
+        },
+        {
+          "class": "dry",
+          "kind": "polygon",
+          "validBox": false,
+          "validMask": true,
+          "count": 9
+        },
+        {
+          "class": "dry",
+          "kind": "polygon",
+          "validBox": true,
+          "validMask": true,
+          "count": 39
+        },
+        {
+          "class": "dry",
+          "kind": "rectangle-polygon",
+          "validBox": true,
+          "validMask": false,
+          "count": 24
+        },
+        {
+          "class": "normal",
+          "kind": "polygon",
+          "validBox": false,
+          "validMask": true,
+          "count": 2
+        },
+        {
+          "class": "normal",
+          "kind": "polygon",
+          "validBox": true,
+          "validMask": true,
+          "count": 86
+        },
+        {
+          "class": "normal",
+          "kind": "rectangle-polygon",
+          "validBox": true,
+          "validMask": false,
+          "count": 13
+        },
+        {
+          "class": "oily",
+          "kind": "polygon",
+          "validBox": false,
+          "validMask": true,
+          "count": 13
+        },
+        {
+          "class": "oily",
+          "kind": "polygon",
+          "validBox": true,
+          "validMask": true,
+          "count": 85
+        },
+        {
+          "class": "oily",
+          "kind": "rectangle-polygon",
+          "validBox": true,
+          "validMask": false,
+          "count": 42
+        },
+        {
+          "class": "wrinkles",
+          "kind": "polygon",
+          "validBox": false,
+          "validMask": true,
+          "count": 5
+        },
+        {
+          "class": "wrinkles",
+          "kind": "polygon",
+          "validBox": true,
+          "validMask": true,
+          "count": 91
+        },
+        {
+          "class": "wrinkles",
+          "kind": "rectangle-polygon",
+          "validBox": true,
+          "validMask": false,
+          "count": 42
+        }
+      ],
+      "readmes": {
+        "README.dataset.txt": "# FACE > 2024-06-25 1:20pm\nhttps://universe.roboflow.com/datasetbola/face-a7el6\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+        "README.roboflow.txt": "\nFACE - v3 2024-06-25 1:20pm\n==============================\n\nThis dataset was exported via roboflow.com on June 27, 2024 at 2:21 AM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 408 images.\nJerawat are annotated in COCO Segmentation format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Stretch)\n\nNo image augmentation techniques were applied.\n\n\n"
+      },
+      "geometryIssueCount": 39,
+      "matchedExistingImages": 0,
+      "matchedExistingSources": {}
+    },
+    {
+      "source": "Redness",
+      "archive": "redness-v2.zip",
+      "archiveSHA256": "cc4e1b59a4c02b209fbab5f27251ca9c47998581670e39e9b4116a57ecb65863",
+      "images": 1746,
+      "splits": {
+        "test": 46,
+        "train": 1588,
+        "valid": 112
+      },
+      "classes": {
+        "redness": {
+          "test": 83,
+          "train": 2914,
+          "valid": 220
+        }
+      },
+      "geometry": [
+        {
+          "class": "redness",
+          "kind": "polygon",
+          "validBox": false,
+          "validMask": true,
+          "count": 4
+        },
+        {
+          "class": "redness",
+          "kind": "polygon",
+          "validBox": true,
+          "validMask": true,
+          "count": 2146
+        },
+        {
+          "class": "redness",
+          "kind": "rectangle-polygon",
+          "validBox": true,
+          "validMask": false,
+          "count": 1067
+        }
+      ],
+      "readmes": {
+        "README.dataset.txt": "# Redness > 2025-09-10 5:43pm\nhttps://universe.roboflow.com/model-cn9k6/redness-ik5oe\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+        "README.roboflow.txt": "\nRedness - v2 2025-09-10 5:43pm\n==============================\n\nThis dataset was exported via roboflow.com on September 10, 2025 at 9:47 AM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 1746 images.\nRedness are annotated in COCO Segmentation format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Stretch)\n\nThe following augmentation was applied to create 2 versions of each source image:\n* Random brigthness adjustment of between -25 and +25 percent\n* Salt and pepper noise was applied to 0.93 percent of pixels\n\n\n"
+      },
+      "geometryIssueCount": 4,
+      "matchedExistingImages": 45,
+      "matchedExistingSources": {
+        "v11": 45,
+        "clean3": 2
+      }
+    }
+  ],
+  "preferredSummary": {
+    "images": 4226,
+    "exactDuplicateGroups": 144,
+    "crossSplitExactGroups": 57,
+    "perceptualCandidatePairs": 5816,
+    "crossSplitPerceptualCandidatePairs": 1301,
+    "filenameCandidateGroups": 701,
+    "crossSplitFilenameCandidateGroups": 286,
+    "geometryIssueCount": 57
+  },
+  "FACEv4Comparison": {
+    "source": "FACE",
+    "archive": "face-v4.zip",
+    "archiveSHA256": "9b4f36a773f831dd4eedacc07c1e3526b8672e71c681d1acf243500dc84b4831",
+    "images": 931,
+    "splits": {
+      "test": 38,
+      "train": 812,
+      "valid": 81
+    },
+    "classes": {
+      "acne": {
+        "test": 23,
+        "train": 1028,
+        "valid": 69
+      },
+      "dry": {
+        "test": 8,
+        "train": 118,
+        "valid": 19
+      },
+      "normal": {
+        "test": 8,
+        "train": 212,
+        "valid": 17
+      },
+      "oily": {
+        "test": 12,
+        "train": 298,
+        "valid": 24
+      },
+      "wrinkles": {
+        "test": 8,
+        "train": 288,
+        "valid": 28
+      }
+    },
+    "geometry": [
+      {
+        "class": "acne",
+        "kind": "polygon",
+        "validBox": false,
+        "validMask": true,
+        "count": 2
+      },
+      {
+        "class": "acne",
+        "kind": "polygon",
+        "validBox": true,
+        "validMask": true,
+        "count": 40
+      },
+      {
+        "class": "acne",
+        "kind": "rectangle-polygon",
+        "validBox": false,
+        "validMask": false,
+        "count": 16
+      },
+      {
+        "class": "acne",
+        "kind": "rectangle-polygon",
+        "validBox": true,
+        "validMask": false,
+        "count": 1062
+      },
+      {
+        "class": "dry",
+        "kind": "polygon",
+        "validBox": false,
+        "validMask": true,
+        "count": 22
+      },
+      {
+        "class": "dry",
+        "kind": "polygon",
+        "validBox": true,
+        "validMask": true,
+        "count": 80
+      },
+      {
+        "class": "dry",
+        "kind": "rectangle-polygon",
+        "validBox": true,
+        "validMask": false,
+        "count": 43
+      },
+      {
+        "class": "normal",
+        "kind": "polygon",
+        "validBox": false,
+        "validMask": true,
+        "count": 7
+      },
+      {
+        "class": "normal",
+        "kind": "polygon",
+        "validBox": true,
+        "validMask": true,
+        "count": 199
+      },
+      {
+        "class": "normal",
+        "kind": "rectangle-polygon",
+        "validBox": false,
+        "validMask": false,
+        "count": 1
+      },
+      {
+        "class": "normal",
+        "kind": "rectangle-polygon",
+        "validBox": true,
+        "validMask": false,
+        "count": 30
+      },
+      {
+        "class": "oily",
+        "kind": "polygon",
+        "validBox": false,
+        "validMask": true,
+        "count": 15
+      },
+      {
+        "class": "oily",
+        "kind": "polygon",
+        "validBox": true,
+        "validMask": true,
+        "count": 215
+      },
+      {
+        "class": "oily",
+        "kind": "rectangle-polygon",
+        "validBox": true,
+        "validMask": false,
+        "count": 104
+      },
+      {
+        "class": "wrinkles",
+        "kind": "polygon",
+        "validBox": false,
+        "validMask": true,
+        "count": 10
+      },
+      {
+        "class": "wrinkles",
+        "kind": "polygon",
+        "validBox": true,
+        "validMask": true,
+        "count": 223
+      },
+      {
+        "class": "wrinkles",
+        "kind": "rectangle-polygon",
+        "validBox": true,
+        "validMask": false,
+        "count": 91
+      }
+    ],
+    "readmes": {
+      "README.dataset.txt": "# FACE > 2024-06-27 2:04pm\nhttps://universe.roboflow.com/datasetbola/face-a7el6\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+      "README.roboflow.txt": "\nFACE - v4 2024-06-27 2:04pm\n==============================\n\nThis dataset was exported via roboflow.com on August 4, 2024 at 6:13 AM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 931 images.\nJerawat are annotated in COCO Segmentation format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n* Resize to 640x640 (Stretch)\n\nThe following augmentation was applied to create 3 versions of each source image:\n\nThe following transformations were applied to the bounding boxes of each image:\n* Equal probability of one of the following 90-degree rotations: none, clockwise, counter-clockwise\n\n\n"
+    }
+  },
+  "bundle": {
+    "library_file_id": "libfile_9abd3a46c4d48191baf5bc096a0bb680",
+    "filename": "Attune_skin_source_review_pairs_20261023_v2.zip",
+    "sha256": "39c5a43b9ae87926b63b19fe5dd139409e55e38d3202affb04884e18daab61ce",
+    "bytes": 5164859,
+    "pairs": 120
+  },
+  "selectionCounts": {
+    "FACE:dry:mask": 16,
+    "FACE:oily:mask": 16,
+    "FACE:normal:mask": 16,
+    "FACE:wrinkles:mask": 16,
+    "Redness:redness:mask": 32,
+    "Dryness:Dryness:mask": 12,
+    "Dryness:Dryness:box": 12
+  },
+  "shortfalls": [],
+  "reviewStatus": "pending; assistant source inspection is not expert approval",
+  "trainingLaunched": false,
+  "commercialTrainingAccepted": false,
+  "currentSourceProjectMetadataWarning": "projects_get/versions_get echoed current workspace for external project slugs; versions_export resolved canonical external workspace/project correctly. Canonical export identity is used.",
+  "fullAudit": {
+    "library_file_id": "libfile_59f1bfe9a41c81919835afe73ce3b948",
+    "filename": "source-candidates-audit-20261023-v1.json.gz",
+    "sha256": "1a533883e7080c1f2e258133cb92d986bbe464630696e8a6dc20bc65535ffee9",
+    "bytes": 859122,
+    "replay": "Existing audit_roadmap_archives.py on the three SHA256-pinned source exports; no need to repeat absent source drift."
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T13:46:57Z",
+  "repository": "sasmazt90/attune-more",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "7a421dea643ec04c25db8ae60831debba4c36d09",
+  "methodVersion": "regional-dryness-release-gate-v2",
+  "workingProductBaseline": {
+    "alreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "existingDryAppearanceProxyPreserved": true,
+    "separateSkinTypePreserved": true
+  },
+  "remoteRefresh": {
+    "accessibleProjects": 20,
+    "regionalProject": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "images": 337,
+    "version": 1,
+    "classes": {
+      "Oily": 1065,
+      "Redness": 571
+    },
+    "dryClassPresent": false,
+    "trainings": [
+      {
+        "trainingId": "3485f8c67f957a1b850d",
+        "modelType": "rfdetr-nas-seg-parent",
+        "status": "finished"
+      },
+      {
+        "trainingId": "af287a006e2e428f5ce4",
+        "modelType": "rfdetr-seg-small",
+        "status": "finished"
+      }
+    ],
+    "runningTrainingFound": false,
+    "duplicateTrainingStarted": false
+  },
+  "releaseDecision": {
+    "knownVersionOneModelsAccepted": false,
+    "distinctCandidatePresent": false,
+    "researchTrainingAuthorized": false,
+    "finalTestEvaluationAuthorized": false,
+    "learnedBlueRegionalMaskActivationAllowed": false,
+    "roadmapAccepted": false,
+    "decision": "blocked"
+  },
+  "controls": {
+    "blueOnlyForExpertSupportedRegionalDrynessOrFlaking": true,
+    "boxesAcceptedAsMasks": false,
+    "missingLabelAcceptedAsNormal": false,
+    "genericDrynessEqualsVisibleFlaking": false,
+    "modelPredictionAcceptedAsExpertTruth": false,
+    "processedMerveNaturalColourCalibrationAllowed": false,
+    "candidateProjectVersionTrainingAndModelIdentityRequired": true,
+    "groupLockedVersionTwoOrLaterRequired": true,
+    "preRegisteredSingleChangeRequired": true,
+    "thresholdsLockedBeforeFinalTestRequired": true,
+    "polygonMaskOutputVerificationRequired": true,
+    "dryClassMetricRequiredSeparately": true
+  },
+  "tests": {
+    "localFocused": {
+      "tests": 13,
+      "result": "OK"
+    },
+    "localCompleteSkinResearch": {
+      "tests": 244,
+      "result": "OK"
+    },
+    "githubActions": {
+      "runId": 40332966937,
+      "url": "https://github.com/sasmazt90/attune-more/actions/runs/40332966937",
+      "conclusion": "success",
+      "frontendJobId": 121606909146,
+      "frontendProductionBuild": "success",
+      "backendJobId": 121606908775,
+      "localizationContract": "success",
+      "deterministicUnitSuite": {
+        "passed": 1627,
+        "skipped": 44,
+        "warnings": 2
+      },
+      "completeSkinResearchEvidenceSuite": {
+        "tests": 244,
+        "result": "OK"
+      }
+    }
+  },
+  "remainingRequirements": [
+    "rights-reviewed natural-camera sources and expert semantic policy separating visible flaking, broad dry, lesion-like and nonfacial regions",
+    "expert regional polygon extents plus evaluated negative and Normal truth",
+    "complete person/source grouping and group-locked replacement split",
+    "new untouched final test and independent consented physical-camera holdout",
+    "distinct version-2-or-later regional instance-segmentation candidate from a preregistered single change",
+    "separate Dry validation, final-test and camera slice metrics plus working product integration, overlap and unavailable controls"
+  ]
+}

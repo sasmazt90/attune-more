@@ -6,6 +6,24 @@ ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'services/core-api'))
 from skin_general import general_result
 
+def test_regional_decision_uses_its_own_verified_model_identity_without_legacy_vit():
+    script=r'''
+require('./tests/unit/ts_loader');const assert=require('assert'),v=require('./apps/vehicle-app/src/utils/skinOverview');
+const base={value:null,quality:'insufficient',confidence:null,methodVersion:'legacy',modelHash:null,limitationCode:'LOCAL_TYPE_UNAVAILABLE',status:'unavailable',reason:'LOCAL_TYPE_UNAVAILABLE'};
+const map={version:'regional-skin-v3',classifierVersion:'saved-classifier-v1',skinType:{value:'normal',quality:'valid',sensitive:false},regions:{},models:Object.fromEntries(['params.json','k_classifier.json','skinmap.pt','findings.pt','acnes.pt','regional.pt','wrinkles.pt'].map(n=>[n,'a'.repeat(64)]))};
+const before=JSON.stringify(base),type=v.effectiveSkinType({skinType:base,findingsRegionalMap:map});
+assert.equal(type.modelHash,map.models['k_classifier.json']);assert.equal(type.methodVersion,map.classifierVersion);
+assert.equal(type.inferenceKind,'local-regional-bundle');assert.equal(type.status,'measured');assert.equal(type.limitationCode,null);
+assert.equal(type.value,'normal');assert.equal(type.confidence,null);assert.equal(JSON.stringify(base),before);
+const general={schemaVersion:1,analysisId:'scan',captureId:'a'.repeat(64),pose:'FRONT',skinType:type,findingsRegionalMap:map,normalizationVersion:'test-only',sourceTransform:{sourceWidth:640,sourceHeight:480,coordinateSpace:'source-pixels'},indicators:['tone','oil','redness','acne','sag','dry','lines','dark','bags'].map(id=>({id,score:null,measurement:{scope:'whole-face',region:'overview',methodVersion:'test-only',quality:'insufficient',unavailableReason:'NOT_MEASURED'}}))};
+assert(v.validSkinOverview(general,'scan'));
+for(const edit of [g=>g.skinType.modelHash='b'.repeat(64),g=>delete g.findingsRegionalMap.models['acnes.pt'],g=>g.skinType.methodVersion='different',g=>g.findingsRegionalMap.skinType.value='oily']){const g=structuredClone(general);edit(g);assert(!v.validSkinOverview(g,'scan'));}
+assert.equal(v.effectiveSkinType({skinType:base}),base);
+assert.equal(v.effectiveSkinType({skinType:type,findingsRegionalMap:map}).basePrediction,base);
+'''
+    result=subprocess.run(['node','-e',script],cwd=ROOT,text=True,capture_output=True,timeout=30)
+    assert result.returncode==0,result.stdout+result.stderr
+
 def test_union_score_not_average_of_overlapping_region_scores():
     valid=np.ones((20,20),bool);masks={k:valid for k in ['forehead','rightCheek','leftCheek','chin','nose']}
     tone=np.zeros((20,20),np.float32);tone[:10]=20
@@ -28,7 +46,9 @@ assert.equal(display[0].label,'Sarkma');assert.equal(JSON.stringify(legacy),oldB
 assert.equal(v.buildSkinViewModel('forehead',legacy).indicators[0].score,.02);
 assert.equal(v.skinViewOrder(legacy).length,6);assert.equal(legacy.general,undefined);
 const general={schemaVersion:1,analysisId:'analysis-a',captureId:'a'.repeat(64),pose:'FRONT',normalizationVersion:'fixed-v1',sourceTransform:{sourceWidth:1280,sourceHeight:720,coordinateSpace:'source-pixels'},skinType:{value:null,quality:'insufficient',confidence:null,methodVersion:'unavailable',modelHash:null},indicators:['tone','oil','redness','acne','sag','dry','lines','dark','bags'].map(id=>({id,score:null,measurement:{scope:'whole-face',region:'overview',methodVersion:'source-v1',rawValue:null,quality:'insufficient',unavailableReason:'NO_SUPPORT'}}))};
-const current={...old,id:'analysis-a',general};assert.equal(v.skinViewOrder(current).length,7);assert.equal(v.skinViewOrder(current)[0],'overview');
+const current={...old,id:'analysis-a',general};// approved result UI: overview + five pages (nose belongs to the T-zone page); old records keep their six regions
+assert.deepEqual(v.skinViewOrder(current),['overview','forehead','periorbital','rightCheek','leftCheek','chin']);assert.equal(v.skinViewOrder(current)[0],'overview');
+assert.notDeepEqual(v.skinViewOrder(current),v.skinViewOrder(old));assert(v.skinViewOrder(old).includes('nose')&&!v.skinViewOrder(old).includes('overview'));
 assert.equal(v.buildSkinViewModel('overview',current).index,1);assert.equal(v.buildSkinViewModel('forehead',current).index,2);assert.equal(v.buildSkinViewModel('forehead',old).index,1);
 assert(v.validSkinOverview(general,'analysis-a'));assert(!v.validSkinOverview(general,'analysis-b'));
 general.skinType.value='oily';assert(!v.validSkinOverview(general,'analysis-a'));general.skinType.value=null;

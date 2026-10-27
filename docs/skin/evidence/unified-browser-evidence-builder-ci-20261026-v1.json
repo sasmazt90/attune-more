@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "unified-browser-evidence-builder-ci-v1",
+  "observedAt": "2026-10-26T19:42:59Z",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "b8eeb7adc705dc88d99a380e5a27de0c0edcfd47",
+  "githubActions": {
+    "runId": 40388607949,
+    "url": "https://github.com/sasmazt90/attune-more/actions/runs/40388607949",
+    "headSha": "b8eeb7adc705dc88d99a380e5a27de0c0edcfd47",
+    "conclusion": "success",
+    "frontendProductionBuild": "success",
+    "localizationContract": "success",
+    "deterministicUnitSuite": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2
+    },
+    "completeSkinResearchEvidenceSuite": {
+      "tests": 283,
+      "result": "OK"
+    }
+  },
+  "browserEvidence": {
+    "builderReady": true,
+    "realBrowserExecuted": false,
+    "acceptedBrowserEvidenceProduced": false,
+    "physicalCameraAccepted": false,
+    "expertGroundTruthAccepted": false,
+    "accuracyAccepted": false
+  },
+  "roadmapAccepted": false
+}

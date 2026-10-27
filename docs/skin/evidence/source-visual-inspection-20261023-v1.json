@@ -1,0 +1,1834 @@
+{
+  "reviewer": "assistant visual inspection, not expert annotation",
+  "sourceTrainOnly": true,
+  "testImagesRendered": false,
+  "selectedRecords": [
+    {
+      "index": 0,
+      "archive": "face-v3.zip",
+      "label": "dry",
+      "image": {
+        "id": 77,
+        "license": 1,
+        "file_name": "dry_skin_52_jpg.rf.08a0ec7efd94cbb8f71a276b498dfd0a.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2024-06-27T02:21:29+00:00",
+        "extra": {
+          "user_tags": [
+            "acne",
+            "wrinkle",
+            "dry",
+            "normal",
+            "oily"
+          ]
+        }
+      },
+      "annotations": [
+        {
+          "id": 178,
+          "image_id": 77,
+          "category_id": 2,
+          "bbox": [
+            14,
+            291,
+            303.893,
+            268.485
+          ],
+          "area": 81590.665,
+          "segmentation": [
+            [
+              240.361,
+              559.151,
+              309.67,
+              451.083,
+              317.667,
+              357.691,
+              157.723,
+              347.018,
+              48.667,
+              290.667,
+              13.774,
+              360.359,
+              72.42,
+              460.422,
+              240.361,
+              559.151
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "d376a8b6126cdcd57e42057cfe1275d72a099978d72b25d772bf4bbd684900c4"
+    },
+    {
+      "index": 1,
+      "archive": "face-v3.zip",
+      "label": "dry",
+      "image": {
+        "id": 159,
+        "license": 1,
+        "file_name": "dry_skin_55_jpg.rf.3f0ae03428ae5a6515ea95fba72d1b0d.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2024-06-27T02:21:29+00:00",
+        "extra": {
+          "user_tags": [
+            "acne",
+            "wrinkle",
+            "dry",
+            "normal",
+            "oily"
+          ]
+        }
+      },
+      "annotations": [
+        {
+          "id": 336,
+          "image_id": 159,
+          "category_id": 2,
+          "bbox": [
+            0,
+            0,
+            640,
+            640
+          ],
+          "area": 409600,
+          "segmentation": [
+            [
+              195.044,
+              0,
+              168.386,
+              117.54,
+              0.667,
+              130.667,
+              0,
+              261.631,
+              137.73,
+              277.641,
+              191.045,
+              337.678,
+              236.362,
+              473.764,
+              188.379,
+              592.506,
+              255.022,
+              640,
+              434.959,
+              640,
+              356.32,
+              509.787,
+              414.966,
+              387.043,
+              410.968,
+              319,
+              472.279,
+              245.62,
+              640,
+              258.962,
+              640,
+              214.934,
+              538.923,
+              146.892,
+              488.274,
+              0,
+              195.044,
+              0
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "6df2fef86369cbe63d421714a6d5836d0baa8c7a5a5bc3f5c651c81a587f48f8"
+    },
+    {
+      "index": 2,
+      "archive": "face-v3.zip",
+      "label": "dry",
+      "image": {
+        "id": 229,
+        "license": 1,
+        "file_name": "dry_skin_5_jpg.rf.932766d4d781808a0038cd40f2ad38b8.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2024-06-27T02:21:29+00:00",
+        "extra": {
+          "user_tags": [
+            "acne",
+            "wrinkle",
+            "dry",
+            "normal",
+            "oily"
+          ]
+        }
+      },
+      "annotations": [
+        {
+          "id": 498,
+          "image_id": 229,
+          "category_id": 2,
+          "bbox": [
+            163,
+            392,
+            416.242,
+            247.62
+          ],
+          "area": 103070.034,
+          "segmentation": [
+            [
+              320.333,
+              640,
+              433.626,
+              621.858,
+              497.604,
+              553.815,
+              578.909,
+              463.091,
+              510.933,
+              392.38,
+              402.971,
+              431.071,
+              259.021,
+              440.41,
+              162.667,
+              530.667,
+              240.361,
+              640,
+              320.333,
+              640
+            ]
+          ],
+          "iscrowd": 0
+        },
+        {
+          "id": 499,
+          "image_id": 229,
+          "category_id": 2,
+          "bbox": [
+            393,
+            63,
+            192.906,
+            257.496
+          ],
+          "area": 49672.541,
+          "segmentation": [
+            [
+              585.573,
+              112.203,
+              478.944,
+              62.839,
+              392.667,
+              238.667,
+              437.625,
+              320.334,
+              500.27,
+              241.618,
+              573.577,
+              238.95,
+              585.573,
+              112.203
+            ]
+          ],
+          "iscrowd": 0
+        },
+        {
+          "id": 500,
+          "image_id": 229,
+          "category_id": 2,
+          "bbox": [
+            165,
+            0,
+            142.338,
+            117.54
+          ],
+          "area": 16730.321,
+          "segmentation": [
+            [
+              276.348,
+              69.509,
+              307.004,
+              65.507,
+              251.024,
+              25.482,
+              164.667,
+              0,
+              172.385,
+              85.52,
+              229.698,
+              117.54,
+              229.698,
+              88.188,
+              276.348,
+              69.509
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "afef9f4e66acace411df4a286e2c3a3e629053b62890ef64c44fb70ecfa142ec"
+    },
+    {
+      "index": 3,
+      "archive": "face-v3.zip",
+      "label": "oily",
+      "image": {
+        "id": 77,
+        "license": 1,
+        "file_name": "dry_skin_52_jpg.rf.08a0ec7efd94cbb8f71a276b498dfd0a.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2024-06-27T02:21:29+00:00",
+        "extra": {
+          "user_tags": [
+            "acne",
+            "wrinkle",
+            "dry",
+            "normal",
+            "oily"
+          ]
+        }
+      },
+      "annotations": [
+        {
+          "id": 181,
+          "image_id": 77,
+          "category_id": 4,
+          "bbox": [
+            352,
+            399,
+            141.284,
+            204.129
+          ],
+          "area": 28840.055,
+          "segmentation": [
+            [
+              493.605,
+              472.43,
+              464.282,
+              400.385,
+              376.313,
+              399.05,
+              368.667,
+              474.667,
+              352.322,
+              557.817,
+              424.296,
+              603.179,
+              478.944,
+              561.82,
+              493.605,
+              472.43
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "d376a8b6126cdcd57e42057cfe1275d72a099978d72b25d772bf4bbd684900c4"
+    },
+    {
+      "index": 4,
+      "archive": "face-v3.zip",
+      "label": "oily",
+      "image": {
+        "id": 62,
+        "license": 1,
+        "file_name": "oily_skin_51_jpg.rf.e88dedf02d4e8e707f1a93821f642050.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2024-06-27T02:21:29+00:00",
+        "extra": {
+          "user_tags": [
+            "acne",
+            "wrinkle",
+            "dry",
+            "normal",
+            "oily"
+          ]
+        }
+      },
+      "annotations": [
+        {
+          "id": 153,
+          "image_id": 62,
+          "category_id": 4,
+          "bbox": [
+            34,
+            0,
+            593.125,
+            640
+          ],
+          "area": 379600.01,
+          "segmentation": [
+            [
+              616.229,
+              620.523,
+              626.892,
+              0,
+              36.667,
+              62.667,
+              33.767,
+              640,
+              196.376,
+              529.8,
+              425.629,
+              603.179,
+              616.229,
+              620.523
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "386a7ceaf2a9b5339dc82d87fa86b45e132d267d0a3aad5b6a141a534d89d826"
+    },
+    {
+      "index": 5,
+      "archive": "face-v3.zip",
+      "label": "oily",
+      "image": {
+        "id": 217,
+        "license": 1,
+        "file_name": "oily_skin_16_jpg.rf.8b4480a8bbde6d93a1178c1de79663ff.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2024-06-27T02:21:29+00:00",
+        "extra": {
+          "user_tags": [
+            "acne",
+            "wrinkle",
+            "dry",
+            "normal",
+            "oily"
+          ]
+        }
+      },
+      "annotations": [
+        {
+          "id": 474,
+          "image_id": 217,
+          "category_id": 4,
+          "bbox": [
+            10,
+            0,
+            630.225,
+            628.528
+          ],
+          "area": 396114.139,
+          "segmentation": [
+            [
+              626.892,
+              497.779,
+              640,
+              0,
+              44.667,
+              18.667,
+              9.775,
+              447.081,
+              135.065,
+              628.528,
+              326.997,
+              621.858,
+              626.892,
+              497.779
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "49b4938192c019a8a15a93c6168fdbe03338e5c01c568c155bfd110625d7f666"
+    },
+    {
+      "index": 6,
+      "archive": "face-v3.zip",
+      "label": "normal",
+      "image": {
+        "id": 17,
+        "license": 1,
+        "file_name": "normal_skin_65_jpg.rf.c4f1e2c7c268b36858e2a58ad15f8be7.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2024-06-27T02:21:29+00:00",
+        "extra": {
+          "user_tags": [
+            "acne",
+            "wrinkle",
+            "dry",
+            "normal",
+            "oily"
+          ]
+        }
+      },
+      "annotations": [
+        {
+          "id": 36,
+          "image_id": 17,
+          "category_id": 3,
+          "bbox": [
+            66,
+            0,
+            425.184,
+            584.501
+          ],
+          "area": 248520.326,
+          "segmentation": [
+            [
+              121.736,
+              0,
+              79.084,
+              40.158,
+              81.75,
+              89.522,
+              65.756,
+              160.233,
+              88.414,
+              222.939,
+              95.079,
+              288.314,
+              92.413,
+              349.686,
+              107.074,
+              416.395,
+              135.065,
+              488.44,
+              164.388,
+              553.815,
+              172.385,
+              568.491,
+              225.699,
+              584.501,
+              305.671,
+              564.488,
+              412.3,
+              491.108,
+              490.94,
+              369.699,
+              489.607,
+              244.286,
+              366.983,
+              105.532,
+              364.317,
+              0,
+              121.736,
+              0
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "78453abea4cefb584a73e929ef22d54d8dbb92026c3b1c17071bac7793026fa6"
+    },
+    {
+      "index": 7,
+      "archive": "face-v3.zip",
+      "label": "normal",
+      "image": {
+        "id": 20,
+        "license": 1,
+        "file_name": "dry_skin_42_jpg.rf.cf14e79eddd451e417f5e0f67805ea1a.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2024-06-27T02:21:29+00:00",
+        "extra": {
+          "user_tags": [
+            "acne",
+            "wrinkle",
+            "dry",
+            "normal",
+            "oily"
+          ]
+        }
+      },
+      "annotations": [
+        {
+          "id": 49,
+          "image_id": 20,
+          "category_id": 3,
+          "bbox": [
+            0,
+            140,
+            212.371,
+            460.29
+          ],
+          "area": 97752.118,
+          "segmentation": [
+            [
+              0,
+              584.501,
+              113.739,
+              600.511,
+              212.371,
+              563.154,
+              160.389,
+              285.646,
+              192.378,
+              140.221,
+              0,
+              192.667,
+              0,
+              584.501
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "c909605421a3da4e4a26ec2e742de1d07bcf156294930dae1bb58b926e0b77c7"
+    },
+    {
+      "index": 8,
+      "archive": "face-v3.zip",
+      "label": "normal",
+      "image": {
+        "id": 157,
+        "license": 1,
+        "file_name": "normal_skin_36_jpg.rf.5125c29989fa029fa58c8318989c2fb9.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2024-06-27T02:21:29+00:00",
+        "extra": {
+          "user_tags": [
+            "acne",
+            "wrinkle",
+            "dry",
+            "normal",
+            "oily"
+          ]
+        }
+      },
+      "annotations": [
+        {
+          "id": 333,
+          "image_id": 157,
+          "category_id": 3,
+          "bbox": [
+            199,
+            176,
+            215.924,
+            293.518
+          ],
+          "area": 63377.679,
+          "segmentation": [
+            [
+              303.006,
+              469.762,
+              354.987,
+              453.752,
+              388.309,
+              391.045,
+              414.966,
+              305.658,
+              382.978,
+              252.291,
+              340.326,
+              197.59,
+              291.01,
+              176.243,
+              252.667,
+              184.667,
+              199.042,
+              250.957,
+              217.702,
+              365.696,
+              245.692,
+              440.41,
+              303.006,
+              469.762
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "069e0619d67855df62738b04385c524038c5f42ef69caf0583c98006b7e51d01"
+    },
+    {
+      "index": 9,
+      "archive": "face-v3.zip",
+      "label": "wrinkles",
+      "image": {
+        "id": 77,
+        "license": 1,
+        "file_name": "dry_skin_52_jpg.rf.08a0ec7efd94cbb8f71a276b498dfd0a.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2024-06-27T02:21:29+00:00",
+        "extra": {
+          "user_tags": [
+            "acne",
+            "wrinkle",
+            "dry",
+            "normal",
+            "oily"
+          ]
+        }
+      },
+      "annotations": [
+        {
+          "id": 179,
+          "image_id": 77,
+          "category_id": 5,
+          "bbox": [
+            463,
+            210,
+            129.571,
+            181.448
+          ],
+          "area": 23510.287,
+          "segmentation": [
+            [
+              561.581,
+              298.987,
+              565.58,
+              237.615,
+              541.588,
+              209.598,
+              462.667,
+              218.667,
+              468.281,
+              301.656,
+              544.254,
+              391.045,
+              592.237,
+              361.694,
+              561.581,
+              298.987
+            ]
+          ],
+          "iscrowd": 0
+        },
+        {
+          "id": 180,
+          "image_id": 77,
+          "category_id": 5,
+          "bbox": [
+            233,
+            210,
+            132.984,
+            130.749
+          ],
+          "area": 17387.483,
+          "segmentation": [
+            [
+              340.326,
+              209.598,
+              232.667,
+              248.667,
+              241.694,
+              340.347,
+              328.33,
+              335.01,
+              365.65,
+              264.299,
+              340.326,
+              209.598
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "d376a8b6126cdcd57e42057cfe1275d72a099978d72b25d772bf4bbd684900c4"
+    },
+    {
+      "index": 10,
+      "archive": "face-v3.zip",
+      "label": "wrinkles",
+      "image": {
+        "id": 17,
+        "license": 1,
+        "file_name": "normal_skin_65_jpg.rf.c4f1e2c7c268b36858e2a58ad15f8be7.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2024-06-27T02:21:29+00:00",
+        "extra": {
+          "user_tags": [
+            "acne",
+            "wrinkle",
+            "dry",
+            "normal",
+            "oily"
+          ]
+        }
+      },
+      "annotations": [
+        {
+          "id": 37,
+          "image_id": 17,
+          "category_id": 5,
+          "bbox": [
+            191,
+            235,
+            77.306,
+            76.048
+          ],
+          "area": 5878.967,
+          "segmentation": [
+            [
+              221.701,
+              272.304,
+              205.706,
+              234.947,
+              191.045,
+              257.628,
+              216.369,
+              306.992,
+              268.351,
+              310.995,
+              257.688,
+              292.317,
+              221.701,
+              272.304
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "78453abea4cefb584a73e929ef22d54d8dbb92026c3b1c17071bac7793026fa6"
+    },
+    {
+      "index": 11,
+      "archive": "face-v3.zip",
+      "label": "wrinkles",
+      "image": {
+        "id": 20,
+        "license": 1,
+        "file_name": "dry_skin_42_jpg.rf.cf14e79eddd451e417f5e0f67805ea1a.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2024-06-27T02:21:29+00:00",
+        "extra": {
+          "user_tags": [
+            "acne",
+            "wrinkle",
+            "dry",
+            "normal",
+            "oily"
+          ]
+        }
+      },
+      "annotations": [
+        {
+          "id": 47,
+          "image_id": 20,
+          "category_id": 5,
+          "bbox": [
+            0,
+            0,
+            277.681,
+            154.667
+          ],
+          "area": 42948.016,
+          "segmentation": [
+            [
+              125.735,
+              0,
+              37.765,
+              26.816,
+              0,
+              33.487,
+              0,
+              154.667,
+              127.067,
+              88.188,
+              208.372,
+              56.168,
+              277.681,
+              0,
+              125.735,
+              0
+            ]
+          ],
+          "iscrowd": 0
+        },
+        {
+          "id": 48,
+          "image_id": 20,
+          "category_id": 5,
+          "bbox": [
+            179,
+            58,
+            161.277,
+            356.224
+          ],
+          "area": 57450.667,
+          "segmentation": [
+            [
+              228.365,
+              355.023,
+              292.343,
+              256.294,
+              340.326,
+              149.56,
+              340.326,
+              57.502,
+              262.667,
+              174.667,
+              215.037,
+              253.625,
+              179.049,
+              351.02,
+              201.708,
+              413.726,
+              228.365,
+              355.023
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "c909605421a3da4e4a26ec2e742de1d07bcf156294930dae1bb58b926e0b77c7"
+    },
+    {
+      "index": 0,
+      "archive": "redness-v2.zip",
+      "label": "redness",
+      "image": {
+        "id": 719,
+        "license": 1,
+        "file_name": "587845d8-redness-390_jpg.rf.484aac3fbf495e70f3a450504b7cf736.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2025-09-10T09:47:14+00:00",
+        "extra": {
+          "name": "587845d8-redness-390_jpg"
+        }
+      },
+      "annotations": [
+        {
+          "id": 1288,
+          "image_id": 719,
+          "category_id": 1,
+          "bbox": [
+            62,
+            255,
+            141.274,
+            173.511
+          ],
+          "area": 24512.593,
+          "segmentation": [
+            [
+              201.007,
+              279.704,
+              160.237,
+              261.689,
+              63.526,
+              255.052,
+              61.63,
+              324.267,
+              81.541,
+              390.637,
+              147.911,
+              428.563,
+              202.904,
+              347.97,
+              201.007,
+              279.704
+            ]
+          ],
+          "iscrowd": 0
+        },
+        {
+          "id": 1289,
+          "image_id": 719,
+          "category_id": 1,
+          "bbox": [
+            404,
+            229,
+            158.341,
+            146.963
+          ],
+          "area": 23270.268,
+          "segmentation": [
+            [
+              467.437,
+              237.985,
+              415.289,
+              233.244,
+              403.911,
+              228.504,
+              422.874,
+              299.615,
+              463.644,
+              375.467,
+              520.533,
+              372.622,
+              538.548,
+              306.252,
+              562.252,
+              256,
+              467.437,
+              237.985
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "1a687c2fa46859672063df2dd54d36414e242d25a7bbea8980dad90dd98e3f1e"
+    },
+    {
+      "index": 1,
+      "archive": "redness-v2.zip",
+      "label": "redness",
+      "image": {
+        "id": 682,
+        "license": 1,
+        "file_name": "248d3475-redness-158_jpg.rf.6b6193137e715c081ebbe5040dbe5748.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2025-09-10T09:47:14+00:00",
+        "extra": {
+          "name": "248d3475-redness-158_jpg"
+        }
+      },
+      "annotations": [
+        {
+          "id": 1221,
+          "image_id": 682,
+          "category_id": 1,
+          "bbox": [
+            149,
+            106,
+            350.815,
+            310.044
+          ],
+          "area": 108768.086,
+          "segmentation": [
+            [
+              348.919,
+              389.689,
+              494.933,
+              284.444,
+              499.674,
+              165.926,
+              465.541,
+              106.193,
+              284.444,
+              134.637,
+              150.756,
+              204.8,
+              148.859,
+              346.074,
+              201.956,
+              416.237,
+              348.919,
+              389.689
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "28beb2423fbca9c723c763e85b7c7c4228bf7b1b74a40ed8bcae3dec2ca27eb3"
+    },
+    {
+      "index": 2,
+      "archive": "redness-v2.zip",
+      "label": "redness",
+      "image": {
+        "id": 1223,
+        "license": 1,
+        "file_name": "24c26375-redness-489_jpg.rf.034a71c62cc7bdf88031835fae9fc57f.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2025-09-10T09:47:14+00:00",
+        "extra": {
+          "name": "24c26375-redness-489_jpg"
+        }
+      },
+      "annotations": [
+        {
+          "id": 2259,
+          "image_id": 1223,
+          "category_id": 1,
+          "bbox": [
+            191,
+            124,
+            245.57,
+            218.074
+          ],
+          "area": 53552.432,
+          "segmentation": [
+            [
+              293.926,
+              342.281,
+              367.881,
+              295.822,
+              424.77,
+              274.963,
+              436.148,
+              219.97,
+              416.237,
+              135.585,
+              356.504,
+              124.207,
+              276.859,
+              128.948,
+              221.867,
+              147.911,
+              190.578,
+              198.163,
+              212.385,
+              265.481,
+              242.726,
+              330.904,
+              293.926,
+              342.281
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "e28d2291c86ea5ce65c8d935edb32a0ee2d4d6f8b2f897d3fa9ffb367e13411e"
+    },
+    {
+      "index": 3,
+      "archive": "redness-v2.zip",
+      "label": "redness",
+      "image": {
+        "id": 1062,
+        "license": 1,
+        "file_name": "aca75f72-redness-262_jpg.rf.4a9a169ed07add88e4a92a6f17197d5b.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2025-09-10T09:47:14+00:00",
+        "extra": {
+          "name": "aca75f72-redness-262_jpg"
+        }
+      },
+      "annotations": [
+        {
+          "id": 1958,
+          "image_id": 1062,
+          "category_id": 1,
+          "bbox": [
+            397,
+            308,
+            72.059,
+            78.696
+          ],
+          "area": 5670.755,
+          "segmentation": [
+            [
+              408.652,
+              378.311,
+              452.267,
+              386.844,
+              469.333,
+              330.904,
+              439.941,
+              312.889,
+              397.274,
+              308.148,
+              408.652,
+              378.311
+            ]
+          ],
+          "iscrowd": 0
+        },
+        {
+          "id": 1959,
+          "image_id": 1062,
+          "category_id": 1,
+          "bbox": [
+            277,
+            420,
+            93.867,
+            28.444
+          ],
+          "area": 2669.953,
+          "segmentation": [
+            [
+              276.859,
+              420.03,
+              301.511,
+              447.526,
+              351.763,
+              448.474,
+              370.726,
+              433.304,
+              332.8,
+              422.874,
+              276.859,
+              420.03
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "05d9129d0b4b0683914fce98ee9108bc95ccf4036576928918156cc2fc205b6a"
+    },
+    {
+      "index": 4,
+      "archive": "redness-v2.zip",
+      "label": "redness",
+      "image": {
+        "id": 212,
+        "license": 1,
+        "file_name": "_1892688412_jpg.rf.18b2f9bc9877f99de12a724f24e74467.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2025-09-10T09:47:14+00:00",
+        "extra": {
+          "name": "_1892688412_jpg"
+        }
+      },
+      "annotations": [
+        {
+          "id": 391,
+          "image_id": 212,
+          "category_id": 1,
+          "bbox": [
+            207,
+            317,
+            168.5,
+            166
+          ],
+          "area": 27971,
+          "segmentation": [
+            [
+              207,
+              483,
+              375.5,
+              483,
+              375.5,
+              317,
+              207,
+              317,
+              207,
+              483
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "1ddd154b20de74823c2d0b6015e018c9e069a0094344acd45980dc23cd693a89"
+    },
+    {
+      "index": 5,
+      "archive": "redness-v2.zip",
+      "label": "redness",
+      "image": {
+        "id": 15,
+        "license": 1,
+        "file_name": "da-mat-bi-do-rat-va-ngua-600x400_jpg.rf.cc94aafb39cc05b307388b521ed021f2.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2025-09-10T09:47:14+00:00",
+        "extra": {
+          "name": "da-mat-bi-do-rat-va-ngua-600x400_jpg"
+        }
+      },
+      "annotations": [
+        {
+          "id": 28,
+          "image_id": 15,
+          "category_id": 1,
+          "bbox": [
+            98,
+            78,
+            297.5,
+            433
+          ],
+          "area": 128817.5,
+          "segmentation": [
+            [
+              395.5,
+              78,
+              98,
+              78,
+              98,
+              511,
+              395.5,
+              511,
+              395.5,
+              78
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "94ed36aac0df94a48dba8b9a4370c942fbf43ab26b432aa0587fbf2c1aaa6af5"
+    },
+    {
+      "index": 6,
+      "archive": "dryness-v1.zip",
+      "label": "Dryness",
+      "image": {
+        "id": 79,
+        "license": 1,
+        "file_name": "dry_skin_38_jpg.rf.22ffeec541214b938bd73d581dcc8e1d.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2026-04-12T12:39:23+00:00",
+        "extra": {
+          "user_tags": [
+            "acne",
+            "wrinkle",
+            "dry",
+            "normal",
+            "oily"
+          ],
+          "name": "dry_skin_38.jpg"
+        }
+      },
+      "annotations": [
+        {
+          "id": 260,
+          "image_id": 79,
+          "category_id": 1,
+          "bbox": [
+            433,
+            290,
+            206.5,
+            344.428
+          ],
+          "area": 71124.382,
+          "segmentation": [
+            [
+              484.109,
+              449.673,
+              432.5,
+              630.59,
+              588.468,
+              634,
+              639,
+              634,
+              639,
+              578.83,
+              625.392,
+              531.057,
+              597.402,
+              452.341,
+              588.072,
+              289.572,
+              505.434,
+              289.572,
+              484.109,
+              449.673
+            ]
+          ],
+          "iscrowd": 0
+        },
+        {
+          "id": 261,
+          "image_id": 79,
+          "category_id": 1,
+          "bbox": [
+            188,
+            404,
+            196.155,
+            236.068
+          ],
+          "area": 46305.919,
+          "segmentation": [
+            [
+              384,
+              640,
+              384,
+              600.954,
+              374.093,
+              477.24,
+              363.42,
+              419.927,
+              187.845,
+              403.932,
+              187.845,
+              593.199,
+              200.894,
+              640,
+              384,
+              640
+            ]
+          ],
+          "iscrowd": 0
+        },
+        {
+          "id": 262,
+          "image_id": 79,
+          "category_id": 1,
+          "bbox": [
+            439,
+            133,
+            164.384,
+            105.533
+          ],
+          "area": 17347.937,
+          "segmentation": [
+            [
+              592.399,
+              239,
+              603,
+              178.867,
+              603,
+              145.365,
+              473.562,
+              133.467,
+              438.616,
+              140.583,
+              438.908,
+              226.859,
+              532.208,
+              232.195,
+              583.192,
+              239,
+              592.399,
+              239
+            ]
+          ],
+          "iscrowd": 0
+        },
+        {
+          "id": 263,
+          "image_id": 79,
+          "category_id": 1,
+          "bbox": [
+            101,
+            496,
+            44.77,
+            18.805
+          ],
+          "area": 841.9,
+          "segmentation": [
+            [
+              101.23,
+              514.805,
+              146,
+              514.805,
+              146,
+              496,
+              101.23,
+              496,
+              101.23,
+              514.805
+            ]
+          ],
+          "iscrowd": 0
+        },
+        {
+          "id": 264,
+          "image_id": 79,
+          "category_id": 1,
+          "bbox": [
+            108,
+            541,
+            20.635,
+            21.425
+          ],
+          "area": 442.105,
+          "segmentation": [
+            [
+              108.365,
+              540.575,
+              108.365,
+              562,
+              129,
+              562,
+              129,
+              540.575,
+              108.365,
+              540.575
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "1519401797746a36d1bba6ca33171716a77a006cced9fc9f70b06045dcecd43d"
+    },
+    {
+      "index": 7,
+      "archive": "dryness-v1.zip",
+      "label": "Dryness",
+      "image": {
+        "id": 157,
+        "license": 1,
+        "file_name": "dry-skin_15_jpeg_jpg.rf.a6dac84f462092b7d7650ef08e04c3d8.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2026-04-12T12:39:23+00:00",
+        "extra": {
+          "name": "dry-skin_15_jpeg.jpg"
+        }
+      },
+      "annotations": [
+        {
+          "id": 479,
+          "image_id": 157,
+          "category_id": 1,
+          "bbox": [
+            439,
+            6,
+            84.225,
+            106.253
+          ],
+          "area": 8949.2,
+          "segmentation": [
+            [
+              439.34,
+              101.242,
+              519.89,
+              112.238,
+              523.566,
+              5.984,
+              477.682,
+              26.734,
+              439.34,
+              101.242
+            ]
+          ],
+          "iscrowd": 0
+        },
+        {
+          "id": 480,
+          "image_id": 157,
+          "category_id": 1,
+          "bbox": [
+            233,
+            141,
+            177.878,
+            447.754
+          ],
+          "area": 79645.755,
+          "segmentation": [
+            [
+              321.327,
+              476.048,
+              410.581,
+              325.146,
+              389.839,
+              228.002,
+              376.338,
+              140.528,
+              250.93,
+              429.834,
+              232.703,
+              504.343,
+              281.729,
+              588.282,
+              321.327,
+              476.048
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "fc7db22cb88a93bf5aea4ee59f8a6d49b3beda6dc2f4a8cd613f4849b581d606"
+    },
+    {
+      "index": 8,
+      "archive": "dryness-v1.zip",
+      "label": "Dryness",
+      "image": {
+        "id": 113,
+        "license": 1,
+        "file_name": "dry_skin_48_jpg.rf.aded0560f47e88346a5d28c9f297c069.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2026-04-12T12:39:23+00:00",
+        "extra": {
+          "user_tags": [
+            "acne",
+            "wrinkle",
+            "dry",
+            "normal",
+            "oily"
+          ],
+          "name": "dry_skin_48.jpg"
+        }
+      },
+      "annotations": [
+        {
+          "id": 366,
+          "image_id": 113,
+          "category_id": 1,
+          "bbox": [
+            91,
+            0,
+            548.92,
+            633.865
+          ],
+          "area": 347941.176,
+          "segmentation": [
+            [
+              176.667,
+              0,
+              148.393,
+              134.884,
+              91.08,
+              258.962,
+              135.065,
+              435.073,
+              224.366,
+              609.85,
+              346.99,
+              633.865,
+              394.973,
+              508.453,
+              333.661,
+              383.04,
+              460.284,
+              375.035,
+              524.261,
+              286.98,
+              580.241,
+              284.311,
+              574.91,
+              221.605,
+              640,
+              128.213,
+              514.931,
+              141.555,
+              365.65,
+              220.271,
+              268.351,
+              184.248,
+              267.018,
+              73.512,
+              253.69,
+              0,
+              176.667,
+              0
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "a5a1173fea1add317b42b9618e05413f5279cc14dba7ffd84506f310498ef20f"
+    },
+    {
+      "index": 9,
+      "archive": "dryness-v1.zip",
+      "label": "Dryness",
+      "image": {
+        "id": 264,
+        "license": 1,
+        "file_name": "dry21_jpg.rf.f8f037860b7346d040bba819652abe91.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2026-04-12T12:39:23+00:00",
+        "extra": {
+          "name": "dry21.jpg"
+        }
+      },
+      "annotations": [
+        {
+          "id": 795,
+          "image_id": 264,
+          "category_id": 1,
+          "bbox": [
+            10,
+            1,
+            628.456,
+            614.234
+          ],
+          "area": 386018.948,
+          "segmentation": [
+            [
+              638.668,
+              615.283,
+              635.811,
+              328.235,
+              621.528,
+              6.764,
+              307.3,
+              1.049,
+              135.903,
+              68.201,
+              10.212,
+              158.213,
+              14.497,
+              462.537,
+              171.611,
+              606.711,
+              461.557,
+              513.842,
+              638.668,
+              615.283
+            ]
+          ],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "65fd42ec65f38df4b7bc615dc9362b593dd32d7d57ad03192603e54d37e5574c"
+    },
+    {
+      "index": 10,
+      "archive": "dryness-v1.zip",
+      "label": "Dryness",
+      "image": {
+        "id": 198,
+        "license": 1,
+        "file_name": "images-2020-04-26T194335-499_jpg.rf.7854534e4ea4e1f87bf0a75b6906ed3a.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2026-04-12T12:39:23+00:00",
+        "extra": {
+          "name": "images-2020-04-26T194335-499.jpg"
+        }
+      },
+      "annotations": [
+        {
+          "id": 589,
+          "image_id": 198,
+          "category_id": 1,
+          "bbox": [
+            211,
+            174,
+            181.5,
+            410.5
+          ],
+          "area": 74505.75,
+          "segmentation": [],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "b194b79343c8e67b3fa673827b1dc5e1e18040d0c6bc95f7f579054a22380259"
+    },
+    {
+      "index": 11,
+      "archive": "dryness-v1.zip",
+      "label": "Dryness",
+      "image": {
+        "id": 655,
+        "license": 1,
+        "file_name": "berminyak__-7-_jpg.rf.d12cfa08543f2eaa3899c9818edcb49b.jpg",
+        "height": 640,
+        "width": 640,
+        "date_captured": "2026-04-12T12:39:23+00:00",
+        "extra": {
+          "name": "berminyak__-7-.jpg"
+        }
+      },
+      "annotations": [
+        {
+          "id": 2051,
+          "image_id": 655,
+          "category_id": 1,
+          "bbox": [
+            279,
+            176,
+            94,
+            140
+          ],
+          "area": 13160,
+          "segmentation": [],
+          "iscrowd": 0
+        },
+        {
+          "id": 2052,
+          "image_id": 655,
+          "category_id": 1,
+          "bbox": [
+            450,
+            326,
+            190,
+            210
+          ],
+          "area": 39900,
+          "segmentation": [],
+          "iscrowd": 0
+        },
+        {
+          "id": 2053,
+          "image_id": 655,
+          "category_id": 1,
+          "bbox": [
+            204,
+            84,
+            136,
+            326
+          ],
+          "area": 44336,
+          "segmentation": [],
+          "iscrowd": 0
+        },
+        {
+          "id": 2054,
+          "image_id": 655,
+          "category_id": 1,
+          "bbox": [
+            71,
+            213,
+            233,
+            293
+          ],
+          "area": 68269,
+          "segmentation": [],
+          "iscrowd": 0
+        },
+        {
+          "id": 2055,
+          "image_id": 655,
+          "category_id": 1,
+          "bbox": [
+            430,
+            110,
+            210,
+            237
+          ],
+          "area": 49770,
+          "segmentation": [],
+          "iscrowd": 0
+        },
+        {
+          "id": 2056,
+          "image_id": 655,
+          "category_id": 1,
+          "bbox": [
+            316,
+            383,
+            157,
+            173
+          ],
+          "area": 27161,
+          "segmentation": [],
+          "iscrowd": 0
+        },
+        {
+          "id": 2057,
+          "image_id": 655,
+          "category_id": 1,
+          "bbox": [
+            74,
+            51,
+            162,
+            194
+          ],
+          "area": 31428,
+          "segmentation": [],
+          "iscrowd": 0
+        },
+        {
+          "id": 2058,
+          "image_id": 655,
+          "category_id": 1,
+          "bbox": [
+            57,
+            500,
+            206,
+            140
+          ],
+          "area": 28840,
+          "segmentation": [],
+          "iscrowd": 0
+        }
+      ],
+      "sha256": "0b63defb7cb3a00d2af06ffca34f38e2ac4a1c7d705e8de536a8efd240928f44"
+    }
+  ],
+  "observations": {
+    "FACE": [
+      "Multiple source polygons localize cheek, nose and forehead regions; this is not exclusively whole-face classification.",
+      "Some masks broadly follow anatomy rather than confirmed affected boundaries. Normal masks include eyes/eyebrows in sampled full-face examples.",
+      "Sampled wrinkles masks sometimes cover broad under-eye/cheek areas with no independently verified visible crease.",
+      "Version3 has no platform augmentation; source edits/cosmetics/lighting are still possible.",
+      "Version4 bounding-box 90-degree augmentation visibly creates rearranged face patches; prefer version3 for review."
+    ],
+    "Redness": [
+      "Some source polygons broadly cover red cheeks; other records contain only rectangular supervision.",
+      "Version2 train colour/noise/saturation augmentation and visible pasted or rearranged crops are present; not admitted for natural-camera colour calibration.",
+      "Sampled low-light example has small cheek/chin polygons; affected-area completeness remains unknown."
+    ],
+    "Dryness": [
+      "Source labels span broad facial regions, nonfacial body parts, peeling/flaking patches and lesion-like box targets; appearance semantics are inconsistent.",
+      "The export contains61valid nonrectangular polygons, not zero;14have invalid boxes and47have valid boxes. No mask may be inferred from the6679box-only records.",
+      "Some broad masks do not independently establish visible flaking. Do not merge the generic Dryness label with confirmed facial flaking."
+    ]
+  },
+  "reviewDecision": "Use paired samples for source-annotation review only; no model training, semantic label approval, regional normal truth, natural-colour calibration, product activation or commercial clearance established."
+}

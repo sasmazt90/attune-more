@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "sourceArchive": "smartskincare.zip",
+  "sourceSHA256": "c6bb5101b0a2c84a388cffc486262985d10b61d9f418f70c64e6eb166eea9bd6",
+  "filteredArchive": "acne-three-class.zip",
+  "filteredSHA256": "f916c38991cb524be2a90b785345deffc2f153b2df807ab770121b623b5b8a2f",
+  "imageFiles": 800,
+  "allImageBytesIdentical": true,
+  "splits": [
+    {
+      "split": "test",
+      "images": 82,
+      "retainedAnnotations": 4018,
+      "imageRecordsIdentical": true,
+      "retainedAnnotationsIdentical": true
+    },
+    {
+      "split": "train",
+      "images": 553,
+      "retainedAnnotations": 25419,
+      "imageRecordsIdentical": true,
+      "retainedAnnotationsIdentical": true
+    },
+    {
+      "split": "valid",
+      "images": 165,
+      "retainedAnnotations": 7905,
+      "imageRecordsIdentical": true,
+      "retainedAnnotationsIdentical": true
+    }
+  ],
+  "keptClasses": [
+    "Pigmentation",
+    "Pimple",
+    "Post acne"
+  ],
+  "removedConfounderAnnotations": {
+    "Freckles": 853,
+    "Enlarged pores": 1191,
+    "Mole": 2082
+  },
+  "confounderSourcePreserved": true,
+  "trainingVersionByteIdentityVerified": false,
+  "note": "Verifies local import archive derivation. Original confounder annotations remain available for evaluation. Remote generated training preprocessing and image identity still need export verification."
+}

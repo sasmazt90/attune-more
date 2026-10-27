@@ -14,6 +14,7 @@
     "lint": "npm --workspace=apps/vehicle-app run lint",
     "typecheck": "npm --workspace=apps/vehicle-app run typecheck",
     "test:backend": "pytest tests/unit -v",
+    "test:skin-presentation": "node tests/unit/skin_localization_catalog.mjs",
     "preinstall": "node scripts/tooling/verify_package_manager.cjs"
   },
   "keywords": [

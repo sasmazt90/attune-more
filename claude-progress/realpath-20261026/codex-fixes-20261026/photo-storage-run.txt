@@ -1,0 +1,8 @@
+PASS (a) consent on: real scan stores FRONT/LEFT/RIGHT with own photoId=sha256(RGBA)/pose/size
+PASS (c-setup) older record B stored through the app's saveSkinPhotos
+PASS (b) after relaunch view=latest and view=record&id=A show A's own FRONT/LEFT/RIGHT photos
+PASS (c) opening the OLDER record B shows B's photos, never the newest record A's
+PASS (d) withdrawing photo consent removes all stored photos; nothing is loaded or written while off
+PASS (d) deleting a record on /profile removes its stored photos; other rows stay
+{"status": "PASS", "failed": [], "proof": "/tmp/claude-0/-home-claude/6c3a640c-814a-5b9e-a7fb-dc8a45e4bc81/scratchpad/repo/claude-skin/audit-results/skin-photo-storage/proof.json"}
+photo exit 0

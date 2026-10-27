@@ -1,0 +1,195 @@
+{
+  "schemaVersion": "acne-dataset-geometry-audit-v1",
+  "dataset": {
+    "images": 800,
+    "annotations": 37342,
+    "classes": [
+      "Pimple",
+      "Post acne",
+      "Pigmentation"
+    ],
+    "splits": {
+      "train": {
+        "images": 553,
+        "annotations": 25419,
+        "annotationsByClass": {
+          "Pimple": 2491,
+          "Post acne": 21815,
+          "Pigmentation": 1113
+        },
+        "imagesWithClass": {
+          "Pimple": 412,
+          "Post acne": 534,
+          "Pigmentation": 163
+        },
+        "cooccurrenceImages": {
+          "Pigmentation + Pimple": 4,
+          "Pigmentation + Pimple + Post acne": 144,
+          "Pigmentation + Post acne": 15,
+          "Pimple": 7,
+          "Pimple + Post acne": 257,
+          "Post acne": 118,
+          "unlabelled": 8
+        },
+        "areaFractionByClass": {
+          "Pimple": {
+            "median": 0.000115814208984375,
+            "p90": 0.0003216552734375,
+            "tinyCount": 2335,
+            "tinyFraction": 0.9373745483741469
+          },
+          "Post acne": {
+            "median": 8.7738037109375e-05,
+            "p90": 0.0003076171875,
+            "tinyCount": 20549,
+            "tinyFraction": 0.9419665367866147
+          },
+          "Pigmentation": {
+            "median": 0.0001141357421875,
+            "p90": 0.0003009033203125,
+            "tinyCount": 1061,
+            "tinyFraction": 0.9532794249775381
+          }
+        }
+      },
+      "valid": {
+        "images": 165,
+        "annotations": 7905,
+        "annotationsByClass": {
+          "Pimple": 802,
+          "Post acne": 6820,
+          "Pigmentation": 283
+        },
+        "imagesWithClass": {
+          "Pimple": 115,
+          "Post acne": 160,
+          "Pigmentation": 43
+        },
+        "cooccurrenceImages": {
+          "Pigmentation + Pimple": 3,
+          "Pigmentation + Pimple + Post acne": 33,
+          "Pigmentation + Post acne": 7,
+          "Pimple": 1,
+          "Pimple + Post acne": 78,
+          "Post acne": 42,
+          "unlabelled": 1
+        },
+        "areaFractionByClass": {
+          "Pimple": {
+            "median": 8.9874267578125e-05,
+            "p90": 0.00025665283203125,
+            "tinyCount": 769,
+            "tinyFraction": 0.9588528678304239
+          },
+          "Post acne": {
+            "median": 7.01904296875e-05,
+            "p90": 0.000240325927734375,
+            "tinyCount": 6600,
+            "tinyFraction": 0.967741935483871
+          },
+          "Pigmentation": {
+            "median": 0.0001025390625,
+            "p90": 0.00034210205078125,
+            "tinyCount": 261,
+            "tinyFraction": 0.9222614840989399
+          }
+        }
+      },
+      "test": {
+        "images": 82,
+        "annotations": 4018,
+        "annotationsByClass": {
+          "Pimple": 347,
+          "Post acne": 3488,
+          "Pigmentation": 183
+        },
+        "imagesWithClass": {
+          "Pimple": 58,
+          "Post acne": 79,
+          "Pigmentation": 22
+        },
+        "cooccurrenceImages": {
+          "Pigmentation + Pimple + Post acne": 16,
+          "Pigmentation + Post acne": 6,
+          "Pimple": 1,
+          "Pimple + Post acne": 41,
+          "Post acne": 16,
+          "unlabelled": 2
+        },
+        "areaFractionByClass": {
+          "Pimple": {
+            "median": 0.000120849609375,
+            "p90": 0.0003118896484375,
+            "tinyCount": 326,
+            "tinyFraction": 0.9394812680115274
+          },
+          "Post acne": {
+            "median": 9.5367431640625e-05,
+            "p90": 0.00026275634765625,
+            "tinyCount": 3351,
+            "tinyFraction": 0.9607224770642202
+          },
+          "Pigmentation": {
+            "median": 0.000144195556640625,
+            "p90": 0.00041748046875,
+            "tinyCount": 163,
+            "tinyFraction": 0.8907103825136612
+          }
+        }
+      }
+    }
+  },
+  "geometry": {
+    "tinyAreaFractionThreshold": 0.0004,
+    "aggregateByClass": {
+      "Pimple": {
+        "annotations": 3640,
+        "medianAreaFraction": 0.00011077880859375,
+        "p10AreaFraction": 3.7689208984375e-05,
+        "p90AreaFraction": 0.00030731201171875,
+        "tinyCount": 3430,
+        "tinyFraction": 0.9423076923076923
+      },
+      "Post acne": {
+        "annotations": 32123,
+        "medianAreaFraction": 8.4075927734375e-05,
+        "p10AreaFraction": 1.983642578125e-05,
+        "p90AreaFraction": 0.0002880859375,
+        "tinyCount": 30500,
+        "tinyFraction": 0.9494754537247455
+      },
+      "Pigmentation": {
+        "annotations": 1579,
+        "medianAreaFraction": 0.0001153564453125,
+        "p10AreaFraction": 3.631591796875e-05,
+        "p90AreaFraction": 0.000319061279296875,
+        "tinyCount": 1485,
+        "tinyFraction": 0.9404686510449651
+      }
+    }
+  },
+  "balance": {
+    "largestClass": "Post acne",
+    "smallestClass": "Pigmentation",
+    "largestToSmallestAnnotationRatio": 20.343888537048766,
+    "postAcneToPimpleRatio": 8.825,
+    "postAcneToPigmentationRatio": 20.343888537048766
+  },
+  "splitIdentity": {
+    "exactCrossSplitDuplicateGroups": 0,
+    "exactCrossSplitDuplicateSHA256": [],
+    "personOrSourceGroupIdentityAvailable": false,
+    "independenceEstablished": false
+  },
+  "decision": {
+    "trainingAuthorized": false,
+    "modelAccepted": false,
+    "reason": "TARGETED_DATA_RESOLUTION_AND_SOURCE_GROUP_REVIEW_REQUIRED; DO_NOT_BLINDLY_RETRAIN",
+    "next": [
+      "review class semantics and negative coverage with experts",
+      "create source/person groups before a new locked split",
+      "test higher-resolution or crop-aware training on validation only",
+      "rebalance Pigmentation and Pimple without fabricating labels"
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T19:22:39Z",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "934dc460524eb0497c48180f5dbde415cf9db9b4",
+  "releaseGate": {
+    "methodVersion": "unified-skin-result-release-gate-v2",
+    "decision": "blocked",
+    "workingBaselinePreserved": true,
+    "currentIntegratedPresentationAllowed": true,
+    "allClassReleaseGatesAccepted": false,
+    "physicalCameraBenchmarkAccepted": false,
+    "acceptedEndToEndCandidatePresent": false,
+    "finalRoadmapAcceptanceAllowed": false,
+    "roadmapAccepted": false
+  },
+  "localVerification": {
+    "focusedTests": 14,
+    "completeSkinResearchEvidenceSuite": 278,
+    "result": "OK"
+  },
+  "githubActions": {
+    "runId": 40385603251,
+    "url": "https://github.com/sasmazt90/attune-more/actions/runs/40385603251",
+    "headSha": "934dc460524eb0497c48180f5dbde415cf9db9b4",
+    "conclusion": "success",
+    "frontendProductionBuild": "success",
+    "frontendJobId": 121792912852,
+    "backendJobId": 121792913347,
+    "localizationContract": "success",
+    "deterministicUnitSuite": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2
+    },
+    "completeSkinResearchEvidenceSuite": {
+      "tests": 278,
+      "result": "OK"
+    }
+  },
+  "providerRefresh": {
+    "accessibleProjects": 20,
+    "acneKnownTrainingsFinished": true,
+    "regionalKnownTrainingsFinished": true,
+    "underEyeVersion": 2,
+    "underEyeVersionTrainings": 0,
+    "newTrainingStarted": false,
+    "duplicateWorkStarted": false,
+    "groupedUnderEyeProjectImages": 0,
+    "groupedUnderEyeUploadTask": {
+      "taskId": "sLFwX7CYBVcnnD6iAW5o",
+      "status": "created",
+      "progress": null
+    }
+  },
+  "limitations": [
+    "The merged product already produces concrete results; this gate does not remove or relabel that working baseline.",
+    "All current per-class roadmap release gates remain evidence-bound and not accepted; no rejected model was promoted.",
+    "The physical-camera benchmark remains unaccepted and generated smoke remains integration-only, not expert, metric or camera evidence.",
+    "No identity-bound real-browser/API/IndexedDB, independent final-test, privacy-lifecycle and working-product acceptance bundle exists, so final roadmap acceptance remains blocked."
+  ]
+}

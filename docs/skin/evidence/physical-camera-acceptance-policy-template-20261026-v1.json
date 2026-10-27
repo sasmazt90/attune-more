@@ -1,0 +1,14 @@
+{
+  "methodVersion": "physical-camera-acceptance-policy-v1",
+  "policyRef": "policy_REPLACE_WITH_OPAQUE_16_TO_64_HEX_ID",
+  "lockedBeforeCameraFinal": true,
+  "cameraFinalUsedForPolicySelection": false,
+  "policyMutatedAfterLock": false,
+  "appliesToMethodRef": "method_REPLACE_WITH_OPAQUE_16_TO_64_HEX_ID",
+  "appliesToMethodVersion": "REPLACE_WITH_LOCKED_METHOD_VERSION",
+  "thresholdLockRef": "thresholds_REPLACE_WITH_OPAQUE_16_TO_64_HEX_ID",
+  "geometryLockRef": "geometry_REPLACE_WITH_OPAQUE_16_TO_64_HEX_ID",
+  "applyPerClassWithoutMacroAveraging": true,
+  "applySameMinimumsToEveryObservedSlice": true,
+  "classes": []
+}

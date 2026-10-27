@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 2,
+  "observedAt": "2026-10-26T18:12:34Z",
+  "inputBlobs": {
+    "sagAppearanceSemantics": "6a09dea4c2d66c683ea3b9185f0780a7708e6827",
+    "ordinalLocalSeparation": "0bd86545886e87c515be73b46775b9b32c7dde66",
+    "ordinalSourceAudit": "2a50defa37e8708b656db624e7dbed787b531cb3",
+    "currentProductRecheck": "bbbe61b13145284d675af7e3e66d25ce439a7ba4",
+    "cameraManifestBuilder": "455f8dcf377c45a5db2cdb637a81ea6f19fd5688",
+    "cameraExpertTruthBuilder": "77bb863346c69f6838af091339f715f3f04424fd",
+    "cameraPredictionEvaluator": "4ce05c088449adf0d61a801c18c2316787cd926a",
+    "cameraLocalizationEvaluator": "a05e1950f58076535bdc1545dbc00d3c357c31f7",
+    "cameraBenchmarkReleaseGate": "53c3710166c2e5e43becd36234e10bafe68ac659"
+  },
+  "codeBlobs": {
+    "services/core-api/skin_product_contract.py": "f152726978bee2eea36b0563d9ac36cbcf330c7b",
+    "services/core-api/instant_appearance.py": "fcbf26c8685123177fde7516ca113ee2d87c116f",
+    "services/core-api/skin_general.py": "ef5869c6801d3845ec8424e17474b3a3e0fd665a",
+    "services/core-api/contour_appearance.py": "748bef67cc59857b2e12e5c48211db973bf29d22",
+    "apps/vehicle-app/src/utils/appearanceMeasurements.ts": "45b056e1aff9ce2fb7791995134ad7b5f4a9a57e"
+  },
+  "currentProductBaseline": {
+    "commit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+    "productAlreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "sagHeadingPresent": true,
+    "regionalResultsPresent": true
+  },
+  "sourceAudit": {
+    "archiveSHA256": "8f2bebd6b97bdd3acd06a42798babbd377b7937db362a734586ff5fb3d0ea4a1",
+    "containsSagTarget": false,
+    "nearestButNonEquivalentTarget": "elasticity",
+    "personIndependent": false,
+    "expertProtocolVerified": false,
+    "cameraDomainAccepted": false
+  },
+  "semanticContract": {
+    "appearanceSemantics": "visible-lower-face-contour-fold-appearance-v1",
+    "baseMethodId": "analytic-lower-face-contour-fold-v1",
+    "comparisonMode": "same-person-compatible-capture-only",
+    "clinicalSeverity": false,
+    "elasticity": false,
+    "crossPersonComparison": false,
+    "wholeFaceOrdinalReplacementAllowed": false,
+    "wholeFaceBlockReason": "WHOLE_FACE_ORDINAL_CANNOT_REPLACE_LOCAL_SAG",
+    "unknownOrUnassessableMeansNormal": false
+  },
+  "currentProxy": {
+    "mode": "visible-contour-fold-proxy",
+    "methodId": "analytic-lower-face-contour-fold-v1",
+    "productSemanticsIntegrated": true,
+    "clinicalClaimsDisabled": true,
+    "elasticityClaimsDisabled": true,
+    "acceptedAsLocalizedLearnedMethod": false
+  },
+  "preparation": {
+    "sourceRightsAndScopeReviewed": false,
+    "localizedExpertPolygonProtocolComplete": false,
+    "sourcePersonGroupSplitIndependent": false,
+    "poseExpressionProtocolComplete": false,
+    "samePersonCaptureProtocolComplete": false,
+    "qualityPolicyLockedBeforeValidation": false,
+    "untouchedFinalTestReserved": false,
+    "physicalCameraHoldoutReserved": false
+  },
+  "candidate": {
+    "mode": "no-localized-candidate",
+    "methodId": null,
+    "datasetReleaseId": null,
+    "projectId": null,
+    "datasetVersion": null,
+    "trainingId": null,
+    "modelId": null,
+    "captureProtocolId": null,
+    "lockedPolicyId": null,
+    "acceptanceEvidence": null,
+    "accepted": false,
+    "truthSource": null,
+    "outputGeometry": null,
+    "thresholdSelectionSplit": null,
+    "finalTestUsedForSelection": null,
+    "clinicalClaimsDisabled": true,
+    "elasticityClaimsDisabled": true
+  },
+  "validation": {
+    "methodId": null,
+    "projectId": null,
+    "datasetVersion": null,
+    "trainingId": null,
+    "modelId": null,
+    "validationPerClassPassed": false,
+    "policyLockedBeforeFinalTest": false,
+    "untouchedFinalTestPassed": false,
+    "independentPhysicalCameraPassed": false,
+    "poseExpressionRobustnessPassed": false,
+    "samePersonRepeatabilityPassed": false,
+    "deviceLightingSkinTonePoseSlicesPassed": false,
+    "localizedPolygonGeometryPassed": false,
+    "workingProductIntegrationPassed": false,
+    "unknownUnavailableAndHistoryControlsPassed": false,
+    "acceptanceEvidence": null
+  }
+}

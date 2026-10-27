@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "physical-camera-expert-truth-builder-audit-v1",
+  "createdAt": "2026-10-26T02:23:02Z",
+  "workingBaseline": {
+    "productAlreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "existingProductFlowChanged": false
+  },
+  "implementation": {
+    "script": "scripts/skin-research/build_physical_camera_expert_truth.py",
+    "tests": "scripts/skin-research/tests/test_build_physical_camera_expert_truth.py",
+    "privateInputTemplate": "docs/skin/evidence/physical-camera-expert-review-input-template-20261026-v1.json",
+    "cameraManifestMethod": "physical-camera-benchmark-manifest-v1",
+    "requiresTwoIndependentHumanReviewsPerCaptureClass": true,
+    "requiresThirdIndependentExpertForDisagreement": true,
+    "requiresExplicitMatrixCoverage": true,
+    "missingTruthMayBecomeNegative": false,
+    "unknownMayBecomeNormal": false,
+    "modelProposalMayBecomeExpertTruth": false,
+    "positiveLocalizedTruthRequiresNormalizedPolygon": true,
+    "rednessIndependentFromSensitivity": true,
+    "rednessOverlapAllowed": true,
+    "normalRequiresExplicitEvaluatedTruth": true,
+    "privateIdentityOrImageDataCommitted": false
+  },
+  "verification": {
+    "newFocusedTestsPassed": 8,
+    "cameraFocusedTestsPassed": 19,
+    "fullSkinResearchTestsPassed": 173,
+    "missingCellRejectionCovered": true,
+    "reviewerIndependenceCovered": true,
+    "modelBlindingCovered": true,
+    "geometryValidationCovered": true,
+    "adjudicationCovered": true,
+    "unknownUnassessableNegativeSeparationCovered": true,
+    "privateFieldRejectionCovered": true
+  },
+  "currentCandidate": {
+    "physicalCameraManifestPresent": false,
+    "privateExpertReviewsPresent": false,
+    "expertTruthGenerated": false,
+    "physicalCameraAcceptanceClaimed": false,
+    "blockers": [
+      "consented_physical_camera_manifest_missing",
+      "independent_human_expert_reviews_missing"
+    ]
+  },
+  "providerRefresh": {
+    "observedAt": "2026-10-26T02:23:02Z",
+    "projectsAccessible": 20,
+    "acneImages": 800,
+    "regionalImages": 337,
+    "underEyeImages": 399,
+    "acneTrainingsFinished": 2,
+    "regionalTrainingsFinished": 2,
+    "underEyeV1TrainingsFinished": 1,
+    "underEyeV2Trainings": 0,
+    "pendingUploadTask": {
+      "taskId": "sLFwX7CYBVcnnD6iAW5o",
+      "status": "created",
+      "progress": null
+    },
+    "newTrainingStarted": false,
+    "newUploadStarted": false
+  }
+}

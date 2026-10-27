@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "regional-mask-source-group-audit-v1",
+  "source": {
+    "sourceArchiveSHA256": "a24793ca3490a48088abf47ba89fc9ab94e1c3a12c488ce52915e19b5bdf6fd6",
+    "providerExportSHA256": "ba7aa450ee2e98af35dcb1b60f3f9673fc7a6ef6b7709e7b94e1df1d32bdab3a",
+    "providerExportFormat": "coco",
+    "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "versionNumber": 1
+  },
+  "privacy": {
+    "containsImageBytes": false,
+    "containsFilenames": false,
+    "containsRawSourceNames": false,
+    "containsProviderImageIds": false,
+    "resolverCommitted": false,
+    "identifierMethod": "salted-sha256-prefix-24"
+  },
+  "inventory": {
+    "images": 337,
+    "uniqueSourceIds": 337,
+    "sourceIdsCrossingSplits": 0,
+    "crossSplitPerceptualCandidates": 0,
+    "exactNormalizedPixelCandidates": 0,
+    "annotations": 1636,
+    "polygonAnnotations": 1636,
+    "nonPolygonAnnotations": 0,
+    "invalidPolygonAnnotations": 0,
+    "splits": {
+      "train": 244,
+      "valid": 63,
+      "test": 30
+    },
+    "splitLabels": {
+      "train": {
+        "Oily": 780,
+        "Redness": 429
+      },
+      "valid": {
+        "Oily": 195,
+        "Redness": 105
+      },
+      "test": {
+        "Oily": 90,
+        "Redness": 37
+      }
+    },
+    "classLabels": {
+      "Oily": 1065,
+      "Redness": 571
+    }
+  },
+  "method": {
+    "comparisonScope": "cross-split source pairs only",
+    "dHashBits": 64,
+    "dHashMaximumDistance": 8,
+    "pHashBits": 63,
+    "pHashMaximumDistance": 12,
+    "perceptualRule": "dHash and pHash thresholds must both pass",
+    "candidateOnly": true
+  },
+  "candidates": [],
+  "coverage": {
+    "completeReviewedPersonOrSourceGroups": 0,
+    "unreviewedSourceIds": 337,
+    "allRecordsRepresented": true
+  },
+  "decision": {
+    "personIndependenceEstablished": false,
+    "replacementSplitReady": false,
+    "trainingAuthorized": false,
+    "testEligibleForFinalAcceptance": false,
+    "reason": "ZERO_PERCEPTUAL_CANDIDATES_DOES_NOT_ESTABLISH_PERSON_IDENTITY_COVERAGE"
+  }
+}

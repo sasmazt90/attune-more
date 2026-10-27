@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "status": "verified-concrete-output",
+  "productAlreadyProducesConcreteResults": true,
+  "currentMergedBaseline": {
+    "commit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+    "endpoint": "/api/local-health/skin"
+  },
+  "subjects": 6,
+  "criterionInventory": [
+    "tone",
+    "oil",
+    "redness",
+    "acne",
+    "sag",
+    "dry",
+    "lines",
+    "dark",
+    "bags"
+  ],
+  "criterionSlots": 54,
+  "validCriterionValues": 51,
+  "validByCriterion": {
+    "tone": 5,
+    "oil": 5,
+    "redness": 5,
+    "acne": 6,
+    "sag": 6,
+    "dry": 6,
+    "lines": 6,
+    "dark": 6,
+    "bags": 6
+  },
+  "separateSkinTypeResults": 6,
+  "validSkinTypeResults": 6,
+  "regionalInventoriesComplete": 6,
+  "regions": [
+    "forehead",
+    "rightCheek",
+    "leftCheek",
+    "nose",
+    "chin",
+    "periorbital"
+  ],
+  "subjectsWithMaps": 6,
+  "subjectsWithContours": 6,
+  "subjectSummary": [
+    {
+      "subjectKey": "1.England",
+      "validCriteria": 9,
+      "criterionSlots": 9,
+      "skinTypeQuality": "valid",
+      "mapCount": 33,
+      "contourCount": 2
+    },
+    {
+      "subjectKey": "2.Germany",
+      "validCriteria": 9,
+      "criterionSlots": 9,
+      "skinTypeQuality": "valid",
+      "mapCount": 33,
+      "contourCount": 2
+    },
+    {
+      "subjectKey": "3.Kenya",
+      "validCriteria": 9,
+      "criterionSlots": 9,
+      "skinTypeQuality": "valid",
+      "mapCount": 34,
+      "contourCount": 2
+    },
+    {
+      "subjectKey": "4.Scotland",
+      "validCriteria": 9,
+      "criterionSlots": 9,
+      "skinTypeQuality": "valid",
+      "mapCount": 33,
+      "contourCount": 2
+    },
+    {
+      "subjectKey": "5.Turkey",
+      "validCriteria": 9,
+      "criterionSlots": 9,
+      "skinTypeQuality": "valid",
+      "mapCount": 33,
+      "contourCount": 3
+    },
+    {
+      "subjectKey": "6.usa",
+      "validCriteria": 6,
+      "criterionSlots": 9,
+      "skinTypeQuality": "valid",
+      "mapCount": 22,
+      "contourCount": 2
+    }
+  ],
+  "claims": {
+    "accuracyMeasured": false,
+    "expertGroundTruth": false,
+    "physicalCameraAcceptance": false,
+    "newLearnedModelActivated": false,
+    "productionBehaviorChanged": false
+  }
+}

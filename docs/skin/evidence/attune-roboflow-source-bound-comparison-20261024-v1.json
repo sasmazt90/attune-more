@@ -1,0 +1,755 @@
+{
+  "schemaVersion": 1,
+  "comparisonReady": true,
+  "sourceCommit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+  "endpoint": "/api/local-health/skin",
+  "attuneExecutionProvenance": {
+    "sourceType": "generated-still-image-replay",
+    "baseCommit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+    "gitCheckoutPresent": false,
+    "localRevision": "posttest-ui-speech-20261022",
+    "localRevisionSHA256": "4dc1f826b3e6a41ede5d29cc58ef953a62fc6c328f55862106fbd7c1927a1d8d",
+    "productOrModelOrThresholdChanges": false
+  },
+  "subjects": [
+    {
+      "subjectKey": "1.England",
+      "attune": {
+        "captureLabel": "01_england",
+        "captureFilename": "01_england/front.jpg",
+        "photoId": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+        "methodVersion": "appearance-cv-6",
+        "criteria": {
+          "tone": {
+            "quality": "valid",
+            "value": 2.9302642345428467,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "oil": {
+            "quality": "valid",
+            "value": 0.0028837558035585548,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "redness": {
+            "quality": "valid",
+            "value": 61.763668060302734,
+            "limitationCode": null,
+            "methodVersion": "skin-appearance-photo-ridge-20261010-v1"
+          },
+          "acne": {
+            "quality": "valid",
+            "value": 0.0,
+            "limitationCode": null,
+            "methodVersion": "appearance-acne-step0-verifier-v5-2"
+          },
+          "sag": {
+            "quality": "valid",
+            "value": 0.03459654458933436,
+            "limitationCode": null,
+            "methodVersion": "front-lower-face-unique-centers-v1"
+          },
+          "dry": {
+            "quality": "valid",
+            "value": 0.8222734566942617,
+            "limitationCode": null,
+            "methodVersion": "appearance-native-dry-3"
+          },
+          "lines": {
+            "quality": "valid",
+            "value": 0.5032185912132263,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "dark": {
+            "quality": "valid",
+            "value": 1.0904319286346436,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "bags": {
+            "quality": "valid",
+            "value": 5.094310064547851,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          }
+        },
+        "skinType": {
+          "quality": "valid",
+          "value": "oily",
+          "confidence": 0.3988829124991643,
+          "limitationCode": null,
+          "methodVersion": "local-vit-dima806-5aace4f-v1+combination-regional-user-v2-final-product-visible-support-v1"
+        },
+        "regionalInventory": [
+          "forehead",
+          "rightCheek",
+          "leftCheek",
+          "nose",
+          "chin",
+          "periorbital"
+        ],
+        "mapCount": 33,
+        "contourCount": 2
+      },
+      "roboflow": {
+        "0.08": {
+          "total": 19,
+          "byClass": {
+            "gozenek": 6,
+            "kirisiklik": 13
+          }
+        },
+        "0.15": {
+          "total": 12,
+          "byClass": {
+            "gozenek": 3,
+            "kirisiklik": 9
+          }
+        },
+        "0.2": {
+          "total": 11,
+          "byClass": {
+            "gozenek": 3,
+            "kirisiklik": 8
+          }
+        },
+        "0.3": {
+          "total": 8,
+          "byClass": {
+            "gozenek": 2,
+            "kirisiklik": 6
+          }
+        },
+        "0.5": {
+          "total": 5,
+          "byClass": {
+            "kirisiklik": 5
+          }
+        }
+      }
+    },
+    {
+      "subjectKey": "2.Germany",
+      "attune": {
+        "captureLabel": "02_germany",
+        "captureFilename": "02_germany/front.jpg",
+        "photoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+        "methodVersion": "appearance-cv-6",
+        "criteria": {
+          "tone": {
+            "quality": "valid",
+            "value": 4.066529750823975,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "oil": {
+            "quality": "valid",
+            "value": 0.0,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "redness": {
+            "quality": "valid",
+            "value": 48.15645217895508,
+            "limitationCode": null,
+            "methodVersion": "skin-appearance-photo-ridge-20261010-v1"
+          },
+          "acne": {
+            "quality": "valid",
+            "value": 0.6100646612313748,
+            "limitationCode": null,
+            "methodVersion": "appearance-acne-step0-verifier-v5-2"
+          },
+          "sag": {
+            "quality": "valid",
+            "value": 0.5516710436808168,
+            "limitationCode": null,
+            "methodVersion": "front-lower-face-unique-centers-v1"
+          },
+          "dry": {
+            "quality": "valid",
+            "value": 1.0081924008111995,
+            "limitationCode": null,
+            "methodVersion": "appearance-native-dry-3"
+          },
+          "lines": {
+            "quality": "valid",
+            "value": 0.0,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "dark": {
+            "quality": "valid",
+            "value": 3.1803534030914307,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "bags": {
+            "quality": "valid",
+            "value": 0.05034954483562615,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          }
+        },
+        "skinType": {
+          "quality": "valid",
+          "value": "dry",
+          "confidence": 0.4202145822977453,
+          "limitationCode": null,
+          "methodVersion": "local-vit-dima806-5aace4f-v1+combination-regional-user-v2-final-product-visible-support-v1"
+        },
+        "regionalInventory": [
+          "forehead",
+          "rightCheek",
+          "leftCheek",
+          "nose",
+          "chin",
+          "periorbital"
+        ],
+        "mapCount": 33,
+        "contourCount": 2
+      },
+      "roboflow": {
+        "0.08": {
+          "total": 40,
+          "byClass": {
+            "akne": 5,
+            "gozenek": 12,
+            "kirisiklik": 2,
+            "kizariklik": 21
+          }
+        },
+        "0.15": {
+          "total": 18,
+          "byClass": {
+            "akne": 4,
+            "gozenek": 3,
+            "kizariklik": 11
+          }
+        },
+        "0.2": {
+          "total": 12,
+          "byClass": {
+            "akne": 2,
+            "gozenek": 1,
+            "kizariklik": 9
+          }
+        },
+        "0.3": {
+          "total": 4,
+          "byClass": {
+            "kizariklik": 4
+          }
+        },
+        "0.5": {
+          "total": 1,
+          "byClass": {
+            "kizariklik": 1
+          }
+        }
+      }
+    },
+    {
+      "subjectKey": "3.Kenya",
+      "attune": {
+        "captureLabel": "03_kenya",
+        "captureFilename": "03_kenya/front.jpg",
+        "photoId": "7ca73025c6f7c07d4f3a58da1bd4cbf8999fcad1b7b44fd37b96fececf22ea1f",
+        "methodVersion": "appearance-cv-6",
+        "criteria": {
+          "tone": {
+            "quality": "valid",
+            "value": 3.3521385192871094,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "oil": {
+            "quality": "valid",
+            "value": 0.0,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "redness": {
+            "quality": "valid",
+            "value": 20.456045150756836,
+            "limitationCode": null,
+            "methodVersion": "skin-appearance-photo-ridge-20261010-v1"
+          },
+          "acne": {
+            "quality": "valid",
+            "value": 0.07167934464599181,
+            "limitationCode": null,
+            "methodVersion": "appearance-acne-step0-verifier-v5-2"
+          },
+          "sag": {
+            "quality": "valid",
+            "value": 0.18296644363872117,
+            "limitationCode": null,
+            "methodVersion": "front-lower-face-unique-centers-v1"
+          },
+          "dry": {
+            "quality": "valid",
+            "value": 3.2375478927203063,
+            "limitationCode": null,
+            "methodVersion": "appearance-native-dry-3"
+          },
+          "lines": {
+            "quality": "valid",
+            "value": 3.291865587234497,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "dark": {
+            "quality": "valid",
+            "value": 4.773775100708008,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "bags": {
+            "quality": "valid",
+            "value": 3.242652955426214,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          }
+        },
+        "skinType": {
+          "quality": "valid",
+          "value": "oily",
+          "confidence": 0.37513751477071655,
+          "limitationCode": null,
+          "methodVersion": "local-vit-dima806-5aace4f-v1+combination-regional-user-v2-final-product-visible-support-v1"
+        },
+        "regionalInventory": [
+          "forehead",
+          "rightCheek",
+          "leftCheek",
+          "nose",
+          "chin",
+          "periorbital"
+        ],
+        "mapCount": 34,
+        "contourCount": 2
+      },
+      "roboflow": {
+        "0.08": {
+          "total": 24,
+          "byClass": {
+            "akne": 3,
+            "gozenek": 8,
+            "kirisiklik": 13
+          }
+        },
+        "0.15": {
+          "total": 3,
+          "byClass": {
+            "gozenek": 2,
+            "kirisiklik": 1
+          }
+        },
+        "0.2": {
+          "total": 3,
+          "byClass": {
+            "gozenek": 2,
+            "kirisiklik": 1
+          }
+        },
+        "0.3": {
+          "total": 2,
+          "byClass": {
+            "gozenek": 2
+          }
+        },
+        "0.5": {
+          "total": 1,
+          "byClass": {
+            "gozenek": 1
+          }
+        }
+      }
+    },
+    {
+      "subjectKey": "4.Scotland",
+      "attune": {
+        "captureLabel": "04_scotland",
+        "captureFilename": "04_scotland/front.jpg",
+        "photoId": "8b693b24213d9b268b371a9f6bc80dba498dcf7e3cf748b791619402035634b3",
+        "methodVersion": "appearance-cv-6",
+        "criteria": {
+          "tone": {
+            "quality": "valid",
+            "value": 3.513833999633789,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "oil": {
+            "quality": "valid",
+            "value": 0.0,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "redness": {
+            "quality": "valid",
+            "value": 64.37237548828125,
+            "limitationCode": null,
+            "methodVersion": "skin-appearance-photo-ridge-20261010-v1"
+          },
+          "acne": {
+            "quality": "valid",
+            "value": 0.06509897701607546,
+            "limitationCode": null,
+            "methodVersion": "appearance-acne-step0-verifier-v5-2"
+          },
+          "sag": {
+            "quality": "valid",
+            "value": 3.0983191966028003,
+            "limitationCode": null,
+            "methodVersion": "front-lower-face-unique-centers-v1"
+          },
+          "dry": {
+            "quality": "valid",
+            "value": 7.499173823378079,
+            "limitationCode": null,
+            "methodVersion": "appearance-native-dry-3"
+          },
+          "lines": {
+            "quality": "valid",
+            "value": 0.16724051535129547,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "dark": {
+            "quality": "valid",
+            "value": 0.9910945892333984,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "bags": {
+            "quality": "valid",
+            "value": 0.488777593394237,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          }
+        },
+        "skinType": {
+          "quality": "valid",
+          "value": "dry",
+          "confidence": 0.4188314482456612,
+          "limitationCode": null,
+          "methodVersion": "local-vit-dima806-5aace4f-v1+combination-regional-user-v2-final-product-visible-support-v1"
+        },
+        "regionalInventory": [
+          "forehead",
+          "rightCheek",
+          "leftCheek",
+          "nose",
+          "chin",
+          "periorbital"
+        ],
+        "mapCount": 33,
+        "contourCount": 2
+      },
+      "roboflow": {
+        "0.08": {
+          "total": 40,
+          "byClass": {
+            "akne": 6,
+            "gozenek": 3,
+            "kirisiklik": 7,
+            "kizariklik": 19,
+            "pul": 5
+          }
+        },
+        "0.15": {
+          "total": 15,
+          "byClass": {
+            "akne": 2,
+            "kirisiklik": 3,
+            "kizariklik": 9,
+            "pul": 1
+          }
+        },
+        "0.2": {
+          "total": 10,
+          "byClass": {
+            "kirisiklik": 3,
+            "kizariklik": 6,
+            "pul": 1
+          }
+        },
+        "0.3": {
+          "total": 5,
+          "byClass": {
+            "kirisiklik": 3,
+            "kizariklik": 1,
+            "pul": 1
+          }
+        },
+        "0.5": {
+          "total": 2,
+          "byClass": {
+            "kirisiklik": 2
+          }
+        }
+      }
+    },
+    {
+      "subjectKey": "5.Turkey",
+      "attune": {
+        "captureLabel": "05_turkey",
+        "captureFilename": "05_turkey/front.jpg",
+        "photoId": "ca81128f4b229ad231ec7e04a1e1e81b916d0f7631a9f54b5af5272cbf0c1632",
+        "methodVersion": "appearance-cv-6",
+        "criteria": {
+          "tone": {
+            "quality": "valid",
+            "value": 3.770367383956909,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "oil": {
+            "quality": "valid",
+            "value": 0.003278366062354523,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "redness": {
+            "quality": "valid",
+            "value": 51.62162399291992,
+            "limitationCode": null,
+            "methodVersion": "skin-appearance-photo-ridge-20261010-v1"
+          },
+          "acne": {
+            "quality": "valid",
+            "value": 0.0,
+            "limitationCode": null,
+            "methodVersion": "appearance-acne-step0-verifier-v5-2"
+          },
+          "sag": {
+            "quality": "valid",
+            "value": 1.3287653474048116,
+            "limitationCode": null,
+            "methodVersion": "front-lower-face-unique-centers-v1"
+          },
+          "dry": {
+            "quality": "valid",
+            "value": 0.8064724718200206,
+            "limitationCode": null,
+            "methodVersion": "appearance-native-dry-3"
+          },
+          "lines": {
+            "quality": "valid",
+            "value": 3.5375261306762695,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "dark": {
+            "quality": "valid",
+            "value": 3.4013400077819824,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "bags": {
+            "quality": "valid",
+            "value": 7.103260979056358,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          }
+        },
+        "skinType": {
+          "quality": "valid",
+          "value": "dry",
+          "confidence": 0.39909360640056624,
+          "limitationCode": null,
+          "methodVersion": "local-vit-dima806-5aace4f-v1+combination-regional-user-v2-final-product-visible-support-v1"
+        },
+        "regionalInventory": [
+          "forehead",
+          "rightCheek",
+          "leftCheek",
+          "nose",
+          "chin",
+          "periorbital"
+        ],
+        "mapCount": 33,
+        "contourCount": 3
+      },
+      "roboflow": {
+        "0.08": {
+          "total": 29,
+          "byClass": {
+            "gozenek": 5,
+            "kirisiklik": 16,
+            "kizariklik": 8
+          }
+        },
+        "0.15": {
+          "total": 16,
+          "byClass": {
+            "gozenek": 3,
+            "kirisiklik": 10,
+            "kizariklik": 3
+          }
+        },
+        "0.2": {
+          "total": 10,
+          "byClass": {
+            "gozenek": 2,
+            "kirisiklik": 7,
+            "kizariklik": 1
+          }
+        },
+        "0.3": {
+          "total": 8,
+          "byClass": {
+            "gozenek": 2,
+            "kirisiklik": 6
+          }
+        },
+        "0.5": {
+          "total": 5,
+          "byClass": {
+            "gozenek": 1,
+            "kirisiklik": 4
+          }
+        }
+      }
+    },
+    {
+      "subjectKey": "6.usa",
+      "attune": {
+        "captureLabel": "06_usa",
+        "captureFilename": "06_usa/front.jpg",
+        "photoId": "2aa4baefe40f59683868517fa01b5b4994fb9d3220e7fcd5cafc17985312fedc",
+        "methodVersion": "appearance-cv-6",
+        "criteria": {
+          "tone": {
+            "quality": "insufficient",
+            "value": null,
+            "limitationCode": "INSUFFICIENT_FRONT_COVERAGE",
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "oil": {
+            "quality": "insufficient",
+            "value": null,
+            "limitationCode": "GLARE_OR_EXPOSURE",
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "redness": {
+            "quality": "insufficient",
+            "value": null,
+            "limitationCode": "INSUFFICIENT_FRONT_COVERAGE",
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "acne": {
+            "quality": "valid",
+            "value": 3.6028094918289675,
+            "limitationCode": null,
+            "methodVersion": "appearance-acne-step0-verifier-v5-2"
+          },
+          "sag": {
+            "quality": "valid",
+            "value": 0.020677886289205367,
+            "limitationCode": null,
+            "methodVersion": "front-lower-face-unique-centers-v1"
+          },
+          "dry": {
+            "quality": "valid",
+            "value": 1.0058921960399512,
+            "limitationCode": null,
+            "methodVersion": "appearance-native-dry-3"
+          },
+          "lines": {
+            "quality": "valid",
+            "value": 0.0,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "dark": {
+            "quality": "valid",
+            "value": 2.832467555999756,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          },
+          "bags": {
+            "quality": "valid",
+            "value": 0.20671115210764887,
+            "limitationCode": null,
+            "methodVersion": "front-appearance-union-v3-local-target-coverage"
+          }
+        },
+        "skinType": {
+          "quality": "valid",
+          "value": "oily",
+          "confidence": 0.45054658612255005,
+          "limitationCode": null,
+          "methodVersion": "local-vit-dima806-5aace4f-v1+combination-regional-user-v2-final-product-visible-support-v1"
+        },
+        "regionalInventory": [
+          "forehead",
+          "rightCheek",
+          "leftCheek",
+          "nose",
+          "chin",
+          "periorbital"
+        ],
+        "mapCount": 22,
+        "contourCount": 2
+      },
+      "roboflow": {
+        "0.08": {
+          "total": 72,
+          "byClass": {
+            "akne": 25,
+            "gozenek": 11,
+            "kirisiklik": 4,
+            "kizariklik": 32
+          }
+        },
+        "0.15": {
+          "total": 25,
+          "byClass": {
+            "akne": 12,
+            "gozenek": 6,
+            "kirisiklik": 2,
+            "kizariklik": 5
+          }
+        },
+        "0.2": {
+          "total": 16,
+          "byClass": {
+            "akne": 7,
+            "gozenek": 3,
+            "kirisiklik": 2,
+            "kizariklik": 4
+          }
+        },
+        "0.3": {
+          "total": 9,
+          "byClass": {
+            "akne": 3,
+            "gozenek": 2,
+            "kirisiklik": 2,
+            "kizariklik": 2
+          }
+        },
+        "0.5": {
+          "total": 3,
+          "byClass": {
+            "gozenek": 1,
+            "kirisiklik": 2
+          }
+        }
+      }
+    }
+  ],
+  "claims": {
+    "accuracyMeasured": false,
+    "expertGroundTruth": false,
+    "realCameraAcceptance": false,
+    "thresholdCalibrationAuthorized": false,
+    "productionActivationAuthorized": false,
+    "crossSystemScoresDirectlyComparable": false
+  }
+}

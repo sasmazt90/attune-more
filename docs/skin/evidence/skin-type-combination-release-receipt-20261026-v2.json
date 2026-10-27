@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 2,
+  "observedAt": "2026-10-26T14:55:00Z",
+  "inputBlobs": {
+    "mainLocalSkinType": "8a89c9d89d2bc31cf934e5b2473a455193defa6b",
+    "roadmapLocalSkinType": "806f6f8e236b3689cfd420ec07550813df4a7eff",
+    "roadmapRegionalEvidence": "a8fbfefb613b01162df863614df5a91bf5a6f4f0",
+    "boxAudit": "3c9114c9e7892f6ed03dfffb7eea92ce212bc408",
+    "boxModelReceipt": "7d0817f9df9cb19d38830c7b5288ad7b93d4c934",
+    "boxModelVerdict": "4d875dc9800b5b5f3504d2b27d7b42f873033d09",
+    "sourceGroupResolution": "4aec8f0657b7df8c958711f946baea8fd471bc3c",
+    "currentMergedCapability": "001a343c4ae2537a8b6b9e8ccc2621586ddf014e",
+    "oilyReleaseReceiptV2": "bf6f62b5a0c0cb03df484df24ce81ef46432de0a",
+    "oilyReleaseGateV2": "0a8f8219af4bac33f2b9c35dca1d5d95f7cc969d",
+    "drynessReleaseReceiptV2": "155351f3f6741ab91eeab1b8b20e59411933f9df",
+    "drynessReleaseGateV2": "32b114c674ad47abeb8ed52eb5da96db64f8a694"
+  },
+  "currentProductBaseline": {
+    "commit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+    "productAlreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "globalSkinTypePreserved": true,
+    "regionalResultsPresent": true
+  },
+  "combinationContract": {
+    "tZone": ["forehead", "nose", "chin"],
+    "outsideTZone": ["leftCheek", "rightCheek"],
+    "requiresOilyAllTZoneRegions": true,
+    "requiresDryOrNormalBothCheeks": true,
+    "wholeFaceCopiedToRegionsAllowed": false,
+    "boxesAsRegionalTruthAllowed": false,
+    "missingLabelMeansNormal": false,
+    "modelPredictionIsExpertTruth": false,
+    "dryColour": "#2563EB",
+    "oilyColour": "#16A34A",
+    "normalColour": null,
+    "unknownColour": "#D1D5DB",
+    "rednessIndependentOverlapAllowed": true,
+    "rednessMeansSensitivity": false
+  },
+  "rejectedBoxSource": {
+    "archiveSHA256": "4af7732298a0f54c3e1bd4aa68ca954429c39a19a832331a4ce542ae365fa228",
+    "projectId": "tolgar-sasmaz/attune-skin-type-regional-r1",
+    "projectImages": 991,
+    "version": 2,
+    "versionImages": 1711,
+    "splits": {"train": 1442, "valid": 150, "test": 119},
+    "uniqueSourceIds": 990,
+    "dryBoxes": 3648,
+    "oilyBoxes": 1604,
+    "nonEmptySegmentations": 0,
+    "normalClassPresent": false,
+    "confirmedCrossSplitGroups": 1,
+    "unreviewedSingletonSources": 986,
+    "testEligibleForFinalAcceptance": false
+  },
+  "rejectedBoxModel": {
+    "trainingId": "a9e8b8a021825191cf5b",
+    "modelId": "tolgar-sasmaz/attune-skin-type-regional-r1-2-rfdetr-small-t1",
+    "status": "finished",
+    "dryTestF1": 0.215,
+    "oilyTestF1": 0.279,
+    "thresholdsLockedBeforeTest": false,
+    "accepted": false
+  },
+  "currentRegionalMaskProject": {
+    "projectId": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "images": 337,
+    "latestVersion": 1,
+    "splits": {"train": 244, "valid": 63, "test": 30},
+    "classes": {"Oily": 1065, "Redness": 571},
+    "knownTrainingIds": ["3485f8c67f957a1b850d", "af287a006e2e428f5ce4"],
+    "dryTruth": false,
+    "evaluatedNormalTruth": false,
+    "combinationTruth": false,
+    "runningTrainingFound": false
+  },
+  "preparation": {
+    "rightsReviewedRegionalSources": false,
+    "expertRegionalPolygonProtocolComplete": false,
+    "evaluatedNormalNegativeTruthComplete": false,
+    "sourcePersonGroupSplitIndependent": false,
+    "groupLockedReplacementSplitVerified": false,
+    "newUntouchedFinalTestReserved": false,
+    "independentCameraHoldoutReserved": false,
+    "oneChangeValidationExperimentSpecified": false,
+    "qualityPolicyLockedBeforeValidation": false
+  },
+  "candidate": {
+    "mode": "not-populated",
+    "registryId": null,
+    "registryEvidence": null,
+    "methods": []
+  },
+  "combinationValidation": {
+    "methodIds": [],
+    "policyLockedBeforeFinalTest": false,
+    "validationPassed": false,
+    "untouchedFinalTestPassed": false,
+    "physicalCameraPassed": false,
+    "lightingSkinTonePoseSlicesPassed": false,
+    "workingProductIntegrationPassed": false,
+    "coverageOverlapAndUnavailableControlsPassed": false,
+    "historyWriteReadPassed": false,
+    "acceptanceEvidence": null
+  }
+}

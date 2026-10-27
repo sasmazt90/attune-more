@@ -1,0 +1,40 @@
+{
+  "acceptedCalibratedMethodId": null,
+  "acceptedCalibratedMethodPresent": false,
+  "activationBlockers": [
+    "camera_calibration_protocol_missing",
+    "calibration_source_person_independence_missing",
+    "adjudicated_tone_truth_missing",
+    "quality_policy_not_locked_before_validation",
+    "untouched_physical_camera_final_missing",
+    "accepted_calibrated_tone_method_missing",
+    "illumination_shadow_hair_white_balance_robustness_missing",
+    "skin_tone_subgroup_calibration_missing",
+    "same_person_repeatability_missing",
+    "policy_not_locked_before_camera_final",
+    "untouched_physical_camera_final_acceptance_missing",
+    "tone_camera_slices_missing",
+    "working_product_integration_replay_missing",
+    "tone_unknown_unavailable_history_controls_missing"
+  ],
+  "calibratedToneActivationAllowed": false,
+  "calibrationEvaluationAuthorized": false,
+  "clinicalSeverityClaimAllowed": false,
+  "currentProxyClaim": "broad regional chromatic-variation appearance only",
+  "currentProxyPresentationAllowed": true,
+  "decision": "blocked",
+  "existingConcreteResultFlowPreserved": true,
+  "localizedCoReportingAllowed": false,
+  "methodVersion": "tone-unevenness-release-gate-v2",
+  "preparationBlockers": [
+    "camera_calibration_protocol_missing",
+    "calibration_source_person_independence_missing",
+    "adjudicated_tone_truth_missing",
+    "quality_policy_not_locked_before_validation",
+    "untouched_physical_camera_final_missing"
+  ],
+  "roadmapAccepted": false,
+  "schemaVersion": 2,
+  "toneCanSupplyPigmentation": false,
+  "toneCanSupplyPostAcne": false
+}

@@ -1,0 +1,258 @@
+{
+ "generated": "2026-10-26",
+ "models": [
+  {
+   "name": "attune-skin-findings-boxes-research-v1-small",
+   "file": "weights.pt",
+   "runtimeName": "findings.pt",
+   "version": "1-small",
+   "sizeBytes": 127525031,
+   "sha256": "c8d94801bf86c65a4ff0c3c1e5ae663aaa4774fdccd4b31d4782aeed33675c99",
+   "location": "Yalnızca Claude Cloud oturum konteyneri (geçici; oturum bitince silinir). Codex erişemez. Yol: scratchpad/weights/attune-skin-findings-boxes-research-v1-small/weights.pt. Kaynak: Roboflow (dl_weights.py ile indirildi).",
+   "usedBy": "Bulgu dedektörü (Akne, Egzema, Güneş Lekesi, Kuru Cilt, Riskli Ben, Rozasea, Sedef ve Döküntü, Uçuk, Yağlı Cilt …): melazma, ben, rozasea, kızarıklık/sivilce birleşimi, bölgesel cilt tipi kanıtı",
+   "requiredForSelectedFindings": true,
+   "runtime": "rfdetr 1.11.2 (Apache-2.0), torch 2.14.1, Python 3.13",
+   "license": "Roboflow çalışma alanı \"tolgar-sasmaz\" eğitimi; RF-DETR kodu Apache-2.0; eğitim verisi lisansları DOĞRULANMADI (bazı kaynaklar Roboflow Universe)"
+  },
+  {
+   "name": "attune-skin-regional-skin-map-v1-small",
+   "file": "weights.pt",
+   "runtimeName": "skinmap.pt",
+   "version": "1-small",
+   "sizeBytes": 133802451,
+   "sha256": "bc4e8aab0866ece0048a7306284e1bf26ef5ba31bf56ba8834ff2e2494d2a4a5",
+   "location": "Yalnızca Claude Cloud oturum konteyneri (geçici; oturum bitince silinir). Codex erişemez. Yol: scratchpad/weights/attune-skin-regional-skin-map-v1-small/weights.pt. Kaynak: Roboflow (dl_weights.py ile indirildi).",
+   "usedBy": "Bölgesel harita (Oily, Redness): kızarıklık birleşimi, bölgesel cilt tipi",
+   "requiredForSelectedFindings": true,
+   "runtime": "rfdetr 1.11.2 (Apache-2.0), torch 2.14.1, Python 3.13",
+   "license": "Roboflow çalışma alanı \"tolgar-sasmaz\" eğitimi; RF-DETR kodu Apache-2.0; eğitim verisi lisansları DOĞRULANMADI (bazı kaynaklar Roboflow Universe)"
+  },
+  {
+   "name": "acnes-wscug-bi73e-v1-small",
+   "file": "weights.pt",
+   "runtimeName": "acnes.pt",
+   "version": "1-small",
+   "sizeBytes": 133845459,
+   "sha256": "5db24d92049c0d335665a883ebd83dda115608a63594ccd2c336f504060abe15",
+   "location": "Yalnızca Claude Cloud oturum konteyneri (geçici; oturum bitince silinir). Codex erişemez. Yol: scratchpad/weights/acnes-wscug-bi73e-v1-small/weights.pt. Kaynak: Roboflow (dl_weights.py ile indirildi).",
+   "usedBy": "Akne alt tipleri (papule, pustule, nodule …): sivilce birleşimi",
+   "requiredForSelectedFindings": true,
+   "runtime": "rfdetr 1.11.2 (Apache-2.0), torch 2.14.1, Python 3.13",
+   "license": "Roboflow çalışma alanı \"tolgar-sasmaz\" eğitimi; RF-DETR kodu Apache-2.0; eğitim verisi lisansları DOĞRULANMADI (bazı kaynaklar Roboflow Universe)"
+  },
+  {
+   "name": "regional-r1-v2",
+   "file": "weights.pt",
+   "runtimeName": "regional.pt",
+   "version": "2",
+   "sizeBytes": 127380775,
+   "sha256": "b23cd0ed5a18caa679a5a77607e855ef263483f712edd34d4ddeb215ce557365",
+   "location": "Yalnızca Claude Cloud oturum konteyneri (geçici; oturum bitince silinir). Codex erişemez. Yol: scratchpad/weights/regional-r1-v2/weights.pt. Kaynak: Roboflow (dl_weights.py ile indirildi).",
+   "usedBy": "Bölgesel kuru/yağlı dedektörü: bölgesel cilt tipi",
+   "requiredForSelectedFindings": true,
+   "runtime": "rfdetr 1.11.2 (Apache-2.0), torch 2.14.1, Python 3.13",
+   "license": "Roboflow çalışma alanı \"tolgar-sasmaz\" eğitimi; RF-DETR kodu Apache-2.0; eğitim verisi lisansları DOĞRULANMADI (bazı kaynaklar Roboflow Universe)"
+  },
+  {
+   "name": "wrinkles-79rrf-t7kyp-v1-small",
+   "file": "weights.pt",
+   "runtimeName": "wrinkles.pt",
+   "version": "1-small",
+   "sizeBytes": 133788115,
+   "sha256": "ba5c527859c1cb59ff6244b674eee1caca07984c28b8b4426ce8c1acb412f7b2",
+   "location": "Yalnızca Claude Cloud oturum konteyneri (geçici; oturum bitince silinir). Codex erişemez. Yol: scratchpad/weights/wrinkles-79rrf-t7kyp-v1-small/weights.pt. Kaynak: Roboflow (dl_weights.py ile indirildi).",
+   "usedBy": "Kırışıklık maskesi: özellik çıkarımı (features2)",
+   "requiredForSelectedFindings": true,
+   "runtime": "rfdetr 1.11.2 (Apache-2.0), torch 2.14.1, Python 3.13",
+   "license": "Roboflow çalışma alanı \"tolgar-sasmaz\" eğitimi; RF-DETR kodu Apache-2.0; eğitim verisi lisansları DOĞRULANMADI (bazı kaynaklar Roboflow Universe)"
+  },
+  {
+   "name": "attune-skin-under-eye-pilot-v1-small",
+   "file": "weights.pt",
+   "runtimeName": null,
+   "version": "1-small",
+   "sizeBytes": 135068499,
+   "sha256": "14271559fde92ec9af3a705361df9e20c310f6c6ba9b752c9c51aa8b8686d7e8",
+   "location": "Yalnızca Claude Cloud oturum konteyneri (geçici; oturum bitince silinir). Codex erişemez. Yol: scratchpad/weights/attune-skin-under-eye-pilot-v1-small/weights.pt. Kaynak: Roboflow (dl_weights.py ile indirildi).",
+   "usedBy": "Keşif (extra_models.py); seçilen yöntemlerde kullanılmıyor",
+   "requiredForSelectedFindings": false,
+   "runtime": "rfdetr 1.11.2 (Apache-2.0), torch 2.14.1, Python 3.13",
+   "license": "Roboflow çalışma alanı \"tolgar-sasmaz\" eğitimi; RF-DETR kodu Apache-2.0; eğitim verisi lisansları DOĞRULANMADI (bazı kaynaklar Roboflow Universe)"
+  },
+  {
+   "name": "attune-skin-acne-marks-pigmentation-v1-small",
+   "file": "weights.pt",
+   "runtimeName": null,
+   "version": "1-small",
+   "sizeBytes": 132605415,
+   "sha256": "c6d6d657a018a1d0a3cfd60d055eceb785f32f98593690159c61f0c5c3007355",
+   "location": "Yalnızca Claude Cloud oturum konteyneri (geçici; oturum bitince silinir). Codex erişemez. Yol: scratchpad/weights/attune-skin-acne-marks-pigmentation-v1-small/weights.pt. Kaynak: Roboflow (dl_weights.py ile indirildi).",
+   "usedBy": "Keşif (extra_models.py); seçilen yöntemlerde kullanılmıyor",
+   "requiredForSelectedFindings": false,
+   "runtime": "rfdetr 1.11.2 (Apache-2.0), torch 2.14.1, Python 3.13",
+   "license": "Roboflow çalışma alanı \"tolgar-sasmaz\" eğitimi; RF-DETR kodu Apache-2.0; eğitim verisi lisansları DOĞRULANMADI (bazı kaynaklar Roboflow Universe)"
+  },
+  {
+   "name": "comedones",
+   "file": "weights.pt",
+   "runtimeName": null,
+   "version": "bilinmiyor",
+   "sizeBytes": 127395111,
+   "sha256": "b7096a9db340769c3e66ceec4cea47fcd6d0890b4259713751c3c97226d38b26",
+   "location": "Yalnızca Claude Cloud oturum konteyneri (geçici; oturum bitince silinir). Codex erişemez. Yol: scratchpad/weights/comedones/weights.pt. Kaynak: Roboflow (dl_weights.py ile indirildi).",
+   "usedBy": "Keşif; kullanılmıyor",
+   "requiredForSelectedFindings": false,
+   "runtime": "rfdetr 1.11.2 (Apache-2.0), torch 2.14.1, Python 3.13",
+   "license": "Roboflow çalışma alanı \"tolgar-sasmaz\" eğitimi; RF-DETR kodu Apache-2.0; eğitim verisi lisansları DOĞRULANMADI (bazı kaynaklar Roboflow Universe)"
+  },
+  {
+   "name": "lesion",
+   "file": "weights.pt",
+   "runtimeName": null,
+   "version": "bilinmiyor",
+   "sizeBytes": 134792239,
+   "sha256": "f8ed074ad757729ce7d21ab22209443b91388f483415e8d3f8d892c72f6bd858",
+   "location": "Yalnızca Claude Cloud oturum konteyneri (geçici; oturum bitince silinir). Codex erişemez. Yol: scratchpad/weights/lesion/weights.pt. Kaynak: Roboflow (dl_weights.py ile indirildi).",
+   "usedBy": "Keşif; kullanılmıyor",
+   "requiredForSelectedFindings": false,
+   "runtime": "rfdetr 1.11.2 (Apache-2.0), torch 2.14.1, Python 3.13",
+   "license": "Roboflow çalışma alanı \"tolgar-sasmaz\" eğitimi; RF-DETR kodu Apache-2.0; eğitim verisi lisansları DOĞRULANMADI (bazı kaynaklar Roboflow Universe)"
+  },
+  {
+   "name": "pores-detection-rqkcb-l6t8k-v1-small",
+   "file": "weights.pt",
+   "runtimeName": null,
+   "version": "1-small",
+   "sizeBytes": 135068499,
+   "sha256": "2ea884aaa71efe8b0a303996365daba904c1cb865098715ae49e930c12b429d5",
+   "location": "Yalnızca Claude Cloud oturum konteyneri (geçici; oturum bitince silinir). Codex erişemez. Yol: scratchpad/weights/pores-detection-rqkcb-l6t8k-v1-small/weights.pt. Kaynak: Roboflow (dl_weights.py ile indirildi).",
+   "usedBy": "Keşif; kullanılmıyor",
+   "requiredForSelectedFindings": false,
+   "runtime": "rfdetr 1.11.2 (Apache-2.0), torch 2.14.1, Python 3.13",
+   "license": "Roboflow çalışma alanı \"tolgar-sasmaz\" eğitimi; RF-DETR kodu Apache-2.0; eğitim verisi lisansları DOĞRULANMADI (bazı kaynaklar Roboflow Universe)"
+  },
+  {
+   "name": "skin_face_detection-emora-v1-small",
+   "file": "weights.pt",
+   "runtimeName": null,
+   "version": "1-small",
+   "sizeBytes": 134004051,
+   "sha256": "d7e4d73da62717822ab7f82b9f048efb1180e96d341885facaedf08c90fbfaf1",
+   "location": "Yalnızca Claude Cloud oturum konteyneri (geçici; oturum bitince silinir). Codex erişemez. Yol: scratchpad/weights/skin_face_detection-emora-v1-small/weights.pt. Kaynak: Roboflow (dl_weights.py ile indirildi).",
+   "usedBy": "Keşif; kullanılmıyor",
+   "requiredForSelectedFindings": false,
+   "runtime": "rfdetr 1.11.2 (Apache-2.0), torch 2.14.1, Python 3.13",
+   "license": "Roboflow çalışma alanı \"tolgar-sasmaz\" eğitimi; RF-DETR kodu Apache-2.0; eğitim verisi lisansları DOĞRULANMADI (bazı kaynaklar Roboflow Universe)"
+  },
+  {
+   "name": "facebook/dinov2-small",
+   "file": "model.safetensors",
+   "version": "HF revision ed25f3a31f01632728cabb09d1542f84ab7b0056",
+   "sizeBytes": 88249960,
+   "sha256": "ae1e99fcefd534ed978cdeb8326f08030c96e28b7a81ffcbc98a857c84d14be1",
+   "location": "Hugging Face Hub (herkese açık) + konteyner HF önbelleği; uygulama ATTUNE_DINOV2_DIR ile yerel klasör bekler (local_files_only=True)",
+   "usedBy": "Bölge kırpıntısı gömmeleri (CLS + ortalama yama, 768 boyut): torba, uçuk, kaz ayakları, alın çizgileri, akne izi, göz kapağı/kuyruğu, egzama/sedef, pullanma, belirginlik skorları, k_classifier",
+   "requiredForSelectedFindings": true,
+   "runtime": "transformers 5.20.2, torch 2.14.1",
+   "license": "Apache-2.0"
+  },
+  {
+   "name": "facebook/dinov2-small",
+   "file": "config.json",
+   "version": "HF revision ed25f3a31f01632728cabb09d1542f84ab7b0056",
+   "sizeBytes": 547,
+   "sha256": "1809f83e3bdb1609a501a610ad4a742f4fd8ae44d72ca4aa0df52d1f2ac8628d",
+   "location": "Hugging Face Hub (herkese açık) + konteyner HF önbelleği; uygulama ATTUNE_DINOV2_DIR ile yerel klasör bekler (local_files_only=True)",
+   "usedBy": "Bölge kırpıntısı gömmeleri (CLS + ortalama yama, 768 boyut): torba, uçuk, kaz ayakları, alın çizgileri, akne izi, göz kapağı/kuyruğu, egzama/sedef, pullanma, belirginlik skorları, k_classifier",
+   "requiredForSelectedFindings": true,
+   "runtime": "transformers 5.20.2, torch 2.14.1",
+   "license": "Apache-2.0"
+  },
+  {
+   "name": "facebook/dinov2-small",
+   "file": "preprocessor_config.json",
+   "version": "HF revision ed25f3a31f01632728cabb09d1542f84ab7b0056",
+   "sizeBytes": 436,
+   "sha256": "14e780d86fa1861f8751f868d7f45425b5feb55c38ca26f152ca5097ab30f828",
+   "location": "Hugging Face Hub (herkese açık) + konteyner HF önbelleği; uygulama ATTUNE_DINOV2_DIR ile yerel klasör bekler (local_files_only=True)",
+   "usedBy": "Bölge kırpıntısı gömmeleri (CLS + ortalama yama, 768 boyut): torba, uçuk, kaz ayakları, alın çizgileri, akne izi, göz kapağı/kuyruğu, egzama/sedef, pullanma, belirginlik skorları, k_classifier",
+   "requiredForSelectedFindings": true,
+   "runtime": "transformers 5.20.2, torch 2.14.1",
+   "license": "Apache-2.0"
+  },
+  {
+   "name": "face_landmarker.task",
+   "file": "apps/vehicle-app/public/mediapipe/models/face_landmarker.task",
+   "version": "repo",
+   "sizeBytes": 3758596,
+   "sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+   "location": "Repo içinde: apps/vehicle-app/public/mediapipe/models/face_landmarker.task",
+   "usedBy": "Yüz noktaları (478): tüm kırpıntılar, geometri, fotoğraf etiketleri",
+   "requiredForSelectedFindings": true,
+   "runtime": "Python 3 / tarayıcı",
+   "license": "Apache-2.0 (Google MediaPipe)"
+  },
+  {
+   "name": "k_classifier.json",
+   "file": "services/core-api/models/regional-skin-v3/k_classifier.json",
+   "version": "repo",
+   "sizeBytes": 133992,
+   "sha256": "a7ab0b05686d4d9664c115fa324589e492fc7e8829e4f9ef4488354b25688a54",
+   "location": "Repo içinde: services/core-api/models/regional-skin-v3/k_classifier.json",
+   "usedBy": "Bölgesel cilt tipi sınıflandırıcısı (lojistik regresyon katsayıları, DINOv2 + skaler özellikler); 952e1f8 ile Git geçmişinde",
+   "requiredForSelectedFindings": true,
+   "runtime": "Python 3 / tarayıcı",
+   "license": "Proje (UNLICENSED); sentetik karakterlerle Claude tarafından eğitildi"
+  },
+  {
+   "name": "params.json",
+   "file": "services/core-api/models/regional-skin-v3/params.json",
+   "version": "repo",
+   "sizeBytes": 4474,
+   "sha256": "5d1dc44de3fb4e3b150151eb642d0c152aa2fdc0161d4d7acbcc78f2847cd330",
+   "location": "Repo içinde: services/core-api/models/regional-skin-v3/params.json",
+   "usedBy": "Bölgesel cilt tipi eşikleri ve dedektör dosya eşlemesi",
+   "requiredForSelectedFindings": true,
+   "runtime": "Python 3 / tarayıcı",
+   "license": "Proje (UNLICENSED)"
+  },
+  {
+   "name": "Bulgu sınıflandırıcıları (LR, bulgu başına) ve belirginlik regresörleri (Ridge)",
+   "file": null,
+   "sizeBytes": null,
+   "sha256": null,
+   "location": "YOK: dışa aktarılmadı. Betikler her çalıştırmada sentetik veri + gömme önbelleğinden yeniden eğitiyor (fa4.py, eye_grid3.py, redness_eval.py, lesion_eval.py, det_fair.py, ecz_flake2.py, sev_final.py).",
+   "usedBy": "Seçilen tüm bulgu kararları ve belirginlik skoru",
+   "requiredForSelectedFindings": true,
+   "runtime": "scikit-learn 1.9.1",
+   "license": "Proje",
+   "blocker": true
+  }
+ ],
+ "datasets": [
+  {
+   "name": "Sentetik karakter seti (340 onaylı karakter × ön, 20° sol, 20° sağ; 80 kişide ~25° ek pozlar)",
+   "location": "Yalnızca Claude Cloud oturum konteyneri (geçici; oturum bitince silinir). Codex erişemez. scratchpad/gen/approved (2.5 GB), gen/side32 + gen/side28 (~400 MB), gen/state.json (etiketler)",
+   "origin": "OpenAI görüntü API ile üretildi (gen/attune_gen.py); kişisel veri değil",
+   "transfer": "Henüz aktarılmadı; özel aktarım yöntemi gerekli"
+  },
+  {
+   "name": "Gömme ve özellik önbellekleri",
+   "location": "Yalnızca Claude Cloud oturum konteyneri (geçici; oturum bitince silinir). Codex erişemez. scratchpad/rf/*.npz, rf/feats*.json (~400 MB)",
+   "origin": "Betik çıktısı",
+   "transfer": "Yeniden üretilebilir (veri seti + ağırlıklar ile)"
+  },
+  {
+   "name": "Kör belirginlik derecelendirmeleri (Claude, 1–3)",
+   "location": "Repo: research/skin-findings/ratings/ (ratings.json, key.json)",
+   "origin": "Claude; dermatolog etiketi DEĞİL",
+   "transfer": "Teslimde"
+  },
+  {
+   "name": "SCIN (Google, gerçek akıllı telefon fotoğrafları, dermatolog etiketli) alt kümesi",
+   "location": "Yalnızca Claude Cloud oturum konteyneri (geçici; oturum bitince silinir). Codex erişemez. scratchpad/scin (186 MB)",
+   "origin": "Herkese açık SCIN veri seti",
+   "transfer": "Kaynaktan indirilebilir"
+  }
+ ]
+}

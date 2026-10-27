@@ -130,7 +130,7 @@ export const SKIN_REGIONS: Record<SkinRegionId, SkinRegionData> = {
   rightCheek: {
     id: 'rightCheek',
     index: 2,
-    nameTr: 'Sağ Yanak',
+    nameTr: 'Sağ Profil',
     badgeText: '+22%',
     changePct: 22,
     isAttentionRequired: true,
@@ -196,7 +196,7 @@ export const SKIN_REGIONS: Record<SkinRegionId, SkinRegionData> = {
   leftCheek: {
     id: 'leftCheek',
     index: 3,
-    nameTr: 'Sol Yanak',
+    nameTr: 'Sol Profil',
     badgeText: '-3%',
     changePct: -3,
     isAttentionRequired: false,
@@ -262,7 +262,7 @@ export const SKIN_REGIONS: Record<SkinRegionId, SkinRegionData> = {
   nose: {
     id: 'nose',
     index: 4,
-    nameTr: 'Burun',
+    nameTr: 'T Bölgesi',
     badgeText: '+6%',
     changePct: 6,
     isAttentionRequired: false,
@@ -480,7 +480,7 @@ export function buildSkinRegionViewModel(
   isDemo: boolean = false
 ): SkinRegionData {
   const base = getRegionData(regionId);
-  if(analysisResult?.schemaVersion===3)return {...base,nameTr:regionId==='nose'?'T-Bölgesi':base.nameTr,indicators:analysisResult.indicators?.[regionId]||[],badgeText:analysisResult.isBaseline?'Yeni ölçüm referansı':'Yeni değerlendirme',trend:[],changePct:0,isAttentionRequired:false,observation:{headline:`${regionId==='nose'?'T-Bölgesi':base.nameTr} — görsel değerlendirme`,details:analysisResult.indicators?.[regionId]?.some((row:import('../utils/skinIndicators').SkinIndicator)=>row.appearance)?'Kabul edilen gerçek fotoğrafta mevcut görüntünün bölgesel görünüm adayları hesaplandı. Bunlar tanı, cilt nemi veya klinik şiddet değildir. Kalite yetersizse o ölçüm gösterilmez.':'Renk indeksleri yalnız kabul edilmiş fotoğrafta ölçülür. Boş göstergeler için doğrulanmış yöntem yoktur. Eski parlaklık/doku skorları bu başlıklara dönüştürülmez.'}};
+  if(analysisResult?.schemaVersion===3)return {...base,nameTr:regionId==='nose'?'T Bölgesi':base.nameTr,indicators:analysisResult.indicators?.[regionId]||[],badgeText:analysisResult.isBaseline?'Yeni ölçüm referansı':'Yeni değerlendirme',trend:[],changePct:0,isAttentionRequired:false,observation:{headline:`${regionId==='nose'?'T Bölgesi':base.nameTr} — görsel değerlendirme`,details:analysisResult.indicators?.[regionId]?.some((row:import('../utils/skinIndicators').SkinIndicator)=>row.appearance)?'Kabul edilen gerçek fotoğrafta mevcut görüntünün bölgesel görünüm adayları hesaplandı. Bunlar tanı, cilt nemi veya klinik şiddet değildir. Kalite yetersizse o ölçüm gösterilmez.':'Renk indeksleri yalnız kabul edilmiş fotoğrafta ölçülür. Boş göstergeler için doğrulanmış yöntem yoktur. Eski parlaklık/doku skorları bu başlıklara dönüştürülmez.'}};
   if (isDemo) {
     return base;
   }

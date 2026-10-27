@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T15:59:58Z",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "6d2c84f80c850dfaec459ee10b46db97c7e33218",
+  "releaseGate": {
+    "methodVersion": "regional-redness-release-gate-v2",
+    "decision": "blocked",
+    "distinctCandidatePresent": false,
+    "researchTrainingAuthorized": false,
+    "finalTestEvaluationAuthorized": false,
+    "learnedRednessLayerActivationAllowed": false,
+    "roadmapAccepted": false
+  },
+  "localVerification": {
+    "focusedTests": 13,
+    "completeSkinResearchEvidenceSuite": 255,
+    "result": "OK"
+  },
+  "githubActions": {
+    "runId": 40354186517,
+    "url": "https://github.com/sasmazt90/attune-more/actions/runs/40354186517",
+    "conclusion": "success",
+    "frontendProductionBuild": "success",
+    "localizationContract": "success",
+    "backendJobId": 121682080607,
+    "deterministicUnitSuite": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2
+    },
+    "completeSkinResearchEvidenceSuite": {
+      "tests": 255,
+      "result": "OK"
+    }
+  },
+  "providerRefresh": {
+    "accessibleProjects": 20,
+    "regionalProject": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "regionalImages": 337,
+    "regionalVersion": 1,
+    "regionalClasses": {
+      "Oily": 1065,
+      "Redness": 571
+    },
+    "knownTrainingsFinished": true,
+    "newTrainingStarted": false,
+    "duplicateWorkStarted": false,
+    "groupedUnderEyeUploadTask": {
+      "taskId": "sLFwX7CYBVcnnD6iAW5o",
+      "status": "created",
+      "progress": null
+    }
+  },
+  "limitations": [
+    "The current version-1 small and NAS models remain research-only; the source test was exposed and has only 30 images.",
+    "All 337 source identities remain unreviewed and the expert mask/negative/ambiguity/assessability protocol is incomplete.",
+    "No distinct group-locked dataset version 2 or later candidate, new untouched final test of at least 50 images, or consented physical-camera holdout exists.",
+    "Redness remains an independent #DC2626 contour-or-hatching appearance layer and never implies sensitivity."
+  ]
+}

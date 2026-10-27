@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-23T12:53:54+02:00",
+  "project": {
+    "id": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+    "url": "https://app.roboflow.com/tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+    "type": "instance-segmentation",
+    "public": false,
+    "annotationGroup": "attune-undereye-grouped-20261023-r1",
+    "images": 0,
+    "splits": {
+      "train": 0,
+      "valid": 0,
+      "test": 0
+    },
+    "versions": []
+  },
+  "preparedArchive": {
+    "sha256": "41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8",
+    "expectedImages": 399,
+    "expectedAnnotations": 869,
+    "expectedSplits": {
+      "train": 283,
+      "valid": 78,
+      "test": 38
+    }
+  },
+  "upload": {
+    "taskId": "sLFwX7CYBVcnnD6iAW5o",
+    "status": "created",
+    "progress": null,
+    "bytesSent": false,
+    "imagesUploaded": 0,
+    "reason": "Client-side transfer of the private facial-image ZIP was not permitted in this run. No alternate upload path was attempted."
+  },
+  "training": {
+    "versionCreated": false,
+    "trainingStarted": false,
+    "modelAccepted": false
+  }
+}

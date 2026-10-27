@@ -1,0 +1,754 @@
+{
+  "schemaVersion": 1,
+  "artifact": {
+    "name": "Attune_Original_Photo_Model_Comparison_20261023(1).html",
+    "sha256": "83def109c93c2ca5b16580cee9f61ddb5ba08dd18f8f86e214aa9bb00139752e",
+    "bytes": 46478952,
+    "libraryFileId": "libfile_2a8c427de6708191945c271e5af6d3a5"
+  },
+  "source": {
+    "v5ResultArchiveSha256": "02c49ba5cbda603ddac24a176b42b618f3a913fe2171beb4ab316b7899d70af5",
+    "sourceType": "generated-still-image-replay",
+    "frontProfiles": 6,
+    "frontHashesMatchAuditedV5Package": true,
+    "physicalCameraAcceptance": false,
+    "expertGroundTruth": false
+  },
+  "integrity": {
+    "embeddedImagesVerified": 6,
+    "modelIdentitiesPinned": 10,
+    "boundingBoxesValid": true,
+    "classesBoundToModels": true,
+    "skinMapPixelConservation": true,
+    "outsideSkinTintedPixels": 0
+  },
+  "exploration": {
+    "inferenceFloor": 0.05,
+    "displayThresholdPercentages": [
+      7,
+      11,
+      30,
+      33,
+      50
+    ],
+    "models": [
+      {
+        "key": "m1",
+        "modelId": "tolgar-sasmaz/attune-comedones-boxes-grouped-r1-1-rfdetr-small-t1",
+        "project": "attune-comedones-boxes-grouped-r1",
+        "version": 1,
+        "architecture": "rfdetr-small",
+        "classes": [
+          "Acne",
+          "Blackheads",
+          "Whiteheads"
+        ],
+        "evaluationId": "fWaeZp06Wry5DwIQgdhP",
+        "metricSplits": [
+          "test"
+        ],
+        "testMetrics": [
+          {
+            "class": "Acne",
+            "precision": 0.643,
+            "recall": 0.602,
+            "f1": 0.622,
+            "threshold": 0.39
+          },
+          {
+            "class": "Blackheads",
+            "precision": 0.57,
+            "recall": 0.376,
+            "f1": 0.453,
+            "threshold": 0.35
+          },
+          {
+            "class": "Whiteheads",
+            "precision": 0.347,
+            "recall": 0.282,
+            "f1": 0.311,
+            "threshold": 0.3
+          }
+        ],
+        "predictionCountAtExplorationFloor": 93,
+        "predictionCountsByClass": {
+          "Acne": 66,
+          "Blackheads": 24,
+          "Whiteheads": 3
+        },
+        "cappedProfiles": []
+      },
+      {
+        "key": "m10",
+        "modelId": "tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--d2dbfd",
+        "project": "attune-skin-findings-boxes-research",
+        "version": 1,
+        "architecture": "rfdetr-nas",
+        "classes": [
+          "Acne",
+          "Blackheads",
+          "Dry",
+          "Eczema",
+          "Enlarged Pore",
+          "Oily",
+          "Riskli Ben",
+          "Rosacea",
+          "Sedef ve Dokuntu",
+          "Sun Spot",
+          "Ucuk",
+          "Whiteheads"
+        ],
+        "evaluationId": "mBRU5bZ7iiMWLY0OvJlC",
+        "metricSplits": [
+          "test"
+        ],
+        "testMetrics": [
+          {
+            "class": "Acne",
+            "precision": 0.233,
+            "recall": 0.285,
+            "f1": 0.257,
+            "threshold": 0.32
+          },
+          {
+            "class": "Whiteheads",
+            "precision": 0.366,
+            "recall": 0.247,
+            "f1": 0.295,
+            "threshold": 0.23
+          },
+          {
+            "class": "Eczema",
+            "precision": 0.263,
+            "recall": 0.233,
+            "f1": 0.247,
+            "threshold": 0.28
+          },
+          {
+            "class": "Enlarged Pore",
+            "precision": 0.333,
+            "recall": 0.174,
+            "f1": 0.229,
+            "threshold": 0.25
+          },
+          {
+            "class": "Sun Spot",
+            "precision": 0.187,
+            "recall": 0.295,
+            "f1": 0.229,
+            "threshold": 0.19
+          },
+          {
+            "class": "Dry",
+            "precision": 0.204,
+            "recall": 0.244,
+            "f1": 0.222,
+            "threshold": 0.22
+          },
+          {
+            "class": "Riskli Ben",
+            "precision": 0.867,
+            "recall": 0.765,
+            "f1": 0.812,
+            "threshold": 0.46
+          },
+          {
+            "class": "Rosacea",
+            "precision": 0.667,
+            "recall": 0.64,
+            "f1": 0.653,
+            "threshold": 0.42
+          },
+          {
+            "class": "Sedef ve Dokuntu",
+            "precision": 0.206,
+            "recall": 0.317,
+            "f1": 0.25,
+            "threshold": 0.16
+          },
+          {
+            "class": "Blackheads",
+            "precision": 0.315,
+            "recall": 0.174,
+            "f1": 0.224,
+            "threshold": 0.28
+          },
+          {
+            "class": "Ucuk",
+            "precision": 0.65,
+            "recall": 0.406,
+            "f1": 0.5,
+            "threshold": 0.47
+          },
+          {
+            "class": "Oily",
+            "precision": 0.561,
+            "recall": 0.329,
+            "f1": 0.414,
+            "threshold": 0.34
+          }
+        ],
+        "predictionCountAtExplorationFloor": 676,
+        "predictionCountsByClass": {
+          "Acne": 232,
+          "Blackheads": 56,
+          "Dry": 53,
+          "Eczema": 1,
+          "Enlarged Pore": 37,
+          "Oily": 28,
+          "Riskli Ben": 41,
+          "Rosacea": 40,
+          "Sedef ve Dokuntu": 20,
+          "Sun Spot": 126,
+          "Ucuk": 4,
+          "Whiteheads": 38
+        },
+        "cappedProfiles": []
+      },
+      {
+        "key": "m2",
+        "modelId": "tolgar-sasmaz/attune-comedones-clean-train-r2-1-rfdetr-nas-t1--09eac0",
+        "project": "attune-comedones-clean-train-r2",
+        "version": 1,
+        "architecture": "rfdetr-nas",
+        "classes": [
+          "Acne",
+          "Blackheads",
+          "Whiteheads"
+        ],
+        "evaluationId": null,
+        "metricSplits": [
+          "none"
+        ],
+        "testMetrics": [],
+        "predictionCountAtExplorationFloor": 117,
+        "predictionCountsByClass": {
+          "Acne": 65,
+          "Blackheads": 51,
+          "Whiteheads": 1
+        },
+        "cappedProfiles": []
+      },
+      {
+        "key": "m3",
+        "modelId": "tolgar-sasmaz/lesion-detection-ruc40-qzwqz-1-rfdetr-large-t1",
+        "project": "lesion-detection-ruc40-qzwqz",
+        "version": 1,
+        "architecture": "rfdetr-large",
+        "classes": [
+          "Atrophic Scar",
+          "Closed Comedo",
+          "Hypertrophic Scar",
+          "Melasma",
+          "Nevus",
+          "Nodule",
+          "Open Comedo",
+          "Other",
+          "Papule",
+          "Pustule"
+        ],
+        "evaluationId": "z6yYG9f1SZdIVTpHg5F4",
+        "metricSplits": [
+          "test"
+        ],
+        "testMetrics": [
+          {
+            "class": "Atrophic Scar",
+            "precision": 0.555,
+            "recall": 0.504,
+            "f1": 0.529,
+            "threshold": 0.35
+          },
+          {
+            "class": "Closed Comedo",
+            "precision": 0.508,
+            "recall": 0.38,
+            "f1": 0.435,
+            "threshold": 0.32
+          },
+          {
+            "class": "Hypertrophic Scar",
+            "precision": 0.213,
+            "recall": 0.133,
+            "f1": 0.164,
+            "threshold": 0.21
+          },
+          {
+            "class": "Melasma",
+            "precision": 0.537,
+            "recall": 0.584,
+            "f1": 0.56,
+            "threshold": 0.32
+          },
+          {
+            "class": "Nevus",
+            "precision": 0.797,
+            "recall": 0.819,
+            "f1": 0.808,
+            "threshold": 0.36
+          },
+          {
+            "class": "Nodule",
+            "precision": 0.231,
+            "recall": 0.6,
+            "f1": 0.333,
+            "threshold": 0.25
+          },
+          {
+            "class": "Open Comedo",
+            "precision": 0.309,
+            "recall": 0.254,
+            "f1": 0.279,
+            "threshold": 0.29
+          },
+          {
+            "class": "Other",
+            "precision": 1,
+            "recall": 0.033,
+            "f1": 0.065,
+            "threshold": 0.5
+          },
+          {
+            "class": "Papule",
+            "precision": 0.571,
+            "recall": 0.51,
+            "f1": 0.539,
+            "threshold": 0.38
+          },
+          {
+            "class": "Pustule",
+            "precision": 0.467,
+            "recall": 0.368,
+            "f1": 0.412,
+            "threshold": 0.39
+          }
+        ],
+        "predictionCountAtExplorationFloor": 1800,
+        "predictionCountsByClass": {
+          "Atrophic Scar": 713,
+          "Closed Comedo": 242,
+          "Hypertrophic Scar": 11,
+          "Melasma": 24,
+          "Nevus": 97,
+          "Nodule": 1,
+          "Open Comedo": 429,
+          "Other": 145,
+          "Papule": 80,
+          "Pustule": 58
+        },
+        "cappedProfiles": [
+          "01_england",
+          "02_germany",
+          "03_kenya",
+          "04_scotland",
+          "05_turkey",
+          "06_usa"
+        ]
+      },
+      {
+        "key": "m4",
+        "modelId": "tolgar-sasmaz/attune-pores-masks-grouped-r1-2-yolo11s-seg-t1",
+        "project": "attune-pores-masks-grouped-r1",
+        "version": 2,
+        "architecture": "yolov11s-seg",
+        "classes": [
+          "Pore"
+        ],
+        "evaluationId": "iZxmjSZlllrZ91SPQUAs",
+        "metricSplits": [
+          "test"
+        ],
+        "testMetrics": [
+          {
+            "class": "Pore",
+            "precision": 0.331,
+            "recall": 0.296,
+            "f1": 0.313,
+            "threshold": 0.12
+          }
+        ],
+        "predictionCountAtExplorationFloor": 14,
+        "predictionCountsByClass": {
+          "Pore": 14
+        },
+        "cappedProfiles": []
+      },
+      {
+        "key": "m5",
+        "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--291700",
+        "project": "attune-skin-regional-skin-map",
+        "version": 1,
+        "architecture": "rfdetr-nas-seg",
+        "classes": [
+          "Oily",
+          "Redness"
+        ],
+        "evaluationId": null,
+        "metricSplits": [
+          "none"
+        ],
+        "testMetrics": [],
+        "predictionCountAtExplorationFloor": 474,
+        "predictionCountsByClass": {
+          "Oily": 324,
+          "Redness": 150
+        },
+        "cappedProfiles": []
+      },
+      {
+        "key": "m6",
+        "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545",
+        "project": "attune-skin-regional-skin-map",
+        "version": 1,
+        "architecture": "rfdetr-nas-seg",
+        "classes": [
+          "Oily",
+          "Redness"
+        ],
+        "evaluationId": "DnEj7h84bQauUdGIVrUQ",
+        "metricSplits": [
+          "test"
+        ],
+        "testMetrics": [
+          {
+            "class": "Oily",
+            "precision": 0.586,
+            "recall": 0.456,
+            "f1": 0.513,
+            "threshold": 0.3
+          },
+          {
+            "class": "Redness",
+            "precision": 0.696,
+            "recall": 0.432,
+            "f1": 0.533,
+            "threshold": 0.28
+          }
+        ],
+        "predictionCountAtExplorationFloor": 434,
+        "predictionCountsByClass": {
+          "Oily": 259,
+          "Redness": 175
+        },
+        "cappedProfiles": []
+      },
+      {
+        "key": "m7",
+        "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--929397",
+        "project": "attune-skin-acne-marks-pigmentation",
+        "version": 1,
+        "architecture": "rfdetr-nas",
+        "classes": [
+          "Acne",
+          "Pigmentation",
+          "Post Acne"
+        ],
+        "evaluationId": null,
+        "metricSplits": [
+          "none"
+        ],
+        "testMetrics": [],
+        "predictionCountAtExplorationFloor": 1800,
+        "predictionCountsByClass": {
+          "Acne": 478,
+          "Pigmentation": 175,
+          "Post Acne": 1147
+        },
+        "cappedProfiles": [
+          "01_england",
+          "02_germany",
+          "03_kenya",
+          "04_scotland",
+          "05_turkey",
+          "06_usa"
+        ]
+      },
+      {
+        "key": "m8",
+        "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262",
+        "project": "attune-skin-acne-marks-pigmentation",
+        "version": 1,
+        "architecture": "rfdetr-nas",
+        "classes": [
+          "Acne",
+          "Pigmentation",
+          "Post Acne"
+        ],
+        "evaluationId": "0xMgfVLFzMyNEOhN1baC",
+        "metricSplits": [
+          "test"
+        ],
+        "testMetrics": [
+          {
+            "class": "Pigmentation",
+            "precision": 0.004,
+            "recall": 0.016,
+            "f1": 0.007,
+            "threshold": 0.08
+          },
+          {
+            "class": "Acne",
+            "precision": 0.127,
+            "recall": 0.075,
+            "f1": 0.094,
+            "threshold": 0.19
+          },
+          {
+            "class": "Post Acne",
+            "precision": 0.133,
+            "recall": 0.032,
+            "f1": 0.052,
+            "threshold": 0.16
+          }
+        ],
+        "predictionCountAtExplorationFloor": 301,
+        "predictionCountsByClass": {
+          "Acne": 92,
+          "Pigmentation": 63,
+          "Post Acne": 146
+        },
+        "cappedProfiles": []
+      },
+      {
+        "key": "m9",
+        "modelId": "tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--69fae3",
+        "project": "attune-skin-findings-boxes-research",
+        "version": 1,
+        "architecture": "rfdetr-nas",
+        "classes": [
+          "Acne",
+          "Whiteheads",
+          "Eczema",
+          "Enlarged Pore",
+          "Sun Spot",
+          "Dry",
+          "Riskli Ben",
+          "Rosacea",
+          "Sedef ve Dokuntu",
+          "Blackheads",
+          "Ucuk",
+          "Oily"
+        ],
+        "evaluationId": null,
+        "metricSplits": [
+          "none"
+        ],
+        "testMetrics": [],
+        "predictionCountAtExplorationFloor": 1454,
+        "predictionCountsByClass": {
+          "Acne": 137,
+          "Blackheads": 157,
+          "Dry": 183,
+          "Eczema": 23,
+          "Enlarged Pore": 195,
+          "Oily": 81,
+          "Riskli Ben": 57,
+          "Rosacea": 65,
+          "Sedef ve Dokuntu": 34,
+          "Sun Spot": 396,
+          "Ucuk": 3,
+          "Whiteheads": 123
+        },
+        "cappedProfiles": [
+          "01_england",
+          "03_kenya",
+          "06_usa"
+        ]
+      }
+    ],
+    "cappedProfileModelPairs": 15,
+    "capValue": 300,
+    "completeRecallClaimAllowed": false
+  },
+  "regionalMap": {
+    "acceptedContract": {
+      "Dry": "blue",
+      "Oily": "green",
+      "Redness": "independent red contour/hatch",
+      "Normal": "uncolored only when evaluated",
+      "Unknown": "light gray and never normal"
+    },
+    "observedLabels": [
+      "Dry",
+      "Oily",
+      "Sensitive",
+      "Unknown"
+    ],
+    "unknownPixels": 2200740,
+    "unknownPreserved": true,
+    "contractMatches": false,
+    "sensitiveMayStandInForRedness": false
+  },
+  "evaluation": {
+    "metricRowsBoundToExactModelId": true,
+    "v5RowsWithoutIndependentTest": 1,
+    "independentUnusedFinalTest": false,
+    "currentProfilesHaveGroundTruth": false,
+    "accuracyMeasuredOnCurrentProfiles": false,
+    "thresholdSelectionAuthorized": false,
+    "productionActivationAuthorized": false
+  },
+  "photos": [
+    {
+      "profile": "01_england",
+      "jpegSha256": "2945ce637fefa6099fcef31f9ae19a548f7c2cd13dc010eb967267830f429184",
+      "decodedRgbaSha256": "817fbb60fdd162891c084182d884c16948de9319aad0462eaf59fcacaa7b6a73",
+      "embeddedImageVerified": true,
+      "predictionCounts": {
+        "m1": 10,
+        "m10": 153,
+        "m2": 2,
+        "m3": 300,
+        "m4": 0,
+        "m5": 87,
+        "m6": 92,
+        "m7": 300,
+        "m8": 70,
+        "m9": 300
+      },
+      "skinMapTotals": {
+        "Dry": 0,
+        "Oily": 13410,
+        "Sensitive": 0,
+        "Unknown": 407098
+      },
+      "skinMapPixelConservation": true
+    },
+    {
+      "profile": "02_germany",
+      "jpegSha256": "a44fb454da79908755e47dec3bdd027088fda38c4328503fd1dfd517ecfef12f",
+      "decodedRgbaSha256": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+      "embeddedImageVerified": true,
+      "predictionCounts": {
+        "m1": 4,
+        "m10": 126,
+        "m2": 4,
+        "m3": 300,
+        "m4": 0,
+        "m5": 56,
+        "m6": 61,
+        "m7": 300,
+        "m8": 58,
+        "m9": 229
+      },
+      "skinMapTotals": {
+        "Dry": 0,
+        "Oily": 0,
+        "Sensitive": 0,
+        "Unknown": 373805
+      },
+      "skinMapPixelConservation": true
+    },
+    {
+      "profile": "03_kenya",
+      "jpegSha256": "b95d5cfd087c4248e31aa3463de1f8d64b52302c6ab1e814d9aabe29b08275fb",
+      "decodedRgbaSha256": "7ca73025c6f7c07d4f3a58da1bd4cbf8999fcad1b7b44fd37b96fececf22ea1f",
+      "embeddedImageVerified": true,
+      "predictionCounts": {
+        "m1": 2,
+        "m10": 16,
+        "m2": 2,
+        "m3": 300,
+        "m4": 0,
+        "m5": 79,
+        "m6": 65,
+        "m7": 300,
+        "m8": 14,
+        "m9": 300
+      },
+      "skinMapTotals": {
+        "Dry": 0,
+        "Oily": 15616,
+        "Sensitive": 0,
+        "Unknown": 348541
+      },
+      "skinMapPixelConservation": true
+    },
+    {
+      "profile": "04_scotland",
+      "jpegSha256": "334202b493c1e15877f13531919c390fb397dccb137873330d7934073584a8c8",
+      "decodedRgbaSha256": "8b693b24213d9b268b371a9f6bc80dba498dcf7e3cf748b791619402035634b3",
+      "embeddedImageVerified": true,
+      "predictionCounts": {
+        "m1": 18,
+        "m10": 120,
+        "m2": 12,
+        "m3": 300,
+        "m4": 0,
+        "m5": 65,
+        "m6": 84,
+        "m7": 300,
+        "m8": 40,
+        "m9": 189
+      },
+      "skinMapTotals": {
+        "Dry": 0,
+        "Oily": 866,
+        "Sensitive": 0,
+        "Unknown": 406115
+      },
+      "skinMapPixelConservation": true
+    },
+    {
+      "profile": "05_turkey",
+      "jpegSha256": "4efd376516e2bcba8cf737824adfb30508f173e04363fc822bab860a38a80326",
+      "decodedRgbaSha256": "ca81128f4b229ad231ec7e04a1e1e81b916d0f7631a9f54b5af5272cbf0c1632",
+      "embeddedImageVerified": true,
+      "predictionCounts": {
+        "m1": 13,
+        "m10": 73,
+        "m2": 8,
+        "m3": 300,
+        "m4": 1,
+        "m5": 100,
+        "m6": 46,
+        "m7": 300,
+        "m8": 42,
+        "m9": 136
+      },
+      "skinMapTotals": {
+        "Dry": 0,
+        "Oily": 0,
+        "Sensitive": 0,
+        "Unknown": 328687
+      },
+      "skinMapPixelConservation": true
+    },
+    {
+      "profile": "06_usa",
+      "jpegSha256": "70e4b5c2a6ba874b07f824190f72799506b1c3949161ea1033d9fa95b8254bce",
+      "decodedRgbaSha256": "2aa4baefe40f59683868517fa01b5b4994fb9d3220e7fcd5cafc17985312fedc",
+      "embeddedImageVerified": true,
+      "predictionCounts": {
+        "m1": 46,
+        "m10": 188,
+        "m2": 89,
+        "m3": 300,
+        "m4": 13,
+        "m5": 87,
+        "m6": 86,
+        "m7": 300,
+        "m8": 77,
+        "m9": 300
+      },
+      "skinMapTotals": {
+        "Dry": 0,
+        "Oily": 11672,
+        "Sensitive": 0,
+        "Unknown": 336494
+      },
+      "skinMapPixelConservation": true
+    }
+  ],
+  "acceptance": {
+    "passed": false,
+    "blockers": [
+      "source_is_generated_still_image_replay_not_physical_camera",
+      "current_six_profiles_have_no_expert_ground_truth",
+      "no_independent_unused_final_test_metric_artifact",
+      "exploration_inference_hit_300_prediction_cap",
+      "regional_map_uses_sensitive_label_instead_of_independent_redness_layer",
+      "some_selected_nas_variants_have_no_bound_test_evaluation"
+    ]
+  }
+}

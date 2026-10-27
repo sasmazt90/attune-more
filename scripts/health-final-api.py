@@ -2,7 +2,10 @@
 import os,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-os.environ.update(ATTUNE_LOAD_LOCAL_ENV='0',ATTUNE_EXPERIMENTAL_ACNE_V5='1',ATTUNE_TRUSTED_ORIGINS='http://127.0.0.1:3311',ATTUNE_DATA_DIR=str(ROOT.parent/'cdc-progress/health-final-technical-closeout-20261017/backend-data'))
+os.environ.setdefault('ATTUNE_LOAD_LOCAL_ENV','0')
+os.environ.setdefault('ATTUNE_EXPERIMENTAL_ACNE_V5','0')
+os.environ.setdefault('ATTUNE_TRUSTED_ORIGINS','http://127.0.0.1:3311')
+os.environ.setdefault('ATTUNE_DATA_DIR',str(ROOT.parent/'cdc-progress/health-final-technical-closeout-20261017/backend-data'))
 sys.path.insert(0,str(ROOT/'services/core-api'))
 sys.path.insert(0,str(ROOT/'.runtime/edge-tts'))
 if __name__=='__main__':

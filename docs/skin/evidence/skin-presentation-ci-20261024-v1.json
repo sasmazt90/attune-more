@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "skin-presentation-ci-evidence-v1",
+  "observedAt": "2026-10-24T08:54:00Z",
+  "scope": "Make the dependency-free skin-result localization contract part of the repository CI path.",
+  "changes": {
+    "packageScript": {
+      "name": "test:skin-presentation",
+      "command": "node tests/unit/skin_localization_catalog.mjs"
+    },
+    "workflow": ".github/workflows/ci.yml",
+    "workflowStep": "Run skin presentation localization contract",
+    "runsAfter": "npm ci",
+    "runsBefore": "pytest tests/unit -v -ra"
+  },
+  "localChecks": {
+    "packageJsonParsed": true,
+    "scriptCommandExact": true,
+    "workflowInvocationCount": 1,
+    "workflowOrderingChecked": true,
+    "workflowYamlParsed": true
+  },
+  "notClaimed": [
+    "GitHub Actions run completed",
+    "full React runtime executed in this workspace",
+    "model accuracy",
+    "expert truth",
+    "physical-camera acceptance",
+    "model or threshold activation",
+    "production merge or deployment"
+  ],
+  "roboflowRefresh": {
+    "projects": 16,
+    "acneTraining": {
+      "trainingId": "5b632a5c12b76fcfe703",
+      "status": "finished",
+      "modelCount": 89
+    },
+    "regionalTraining": {
+      "trainingId": "3485f8c67f957a1b850d",
+      "status": "finished",
+      "providerRecordCount": 75,
+      "versionImages": 337
+    },
+    "groupedUnderEyeImages": 0,
+    "trainingOrInferenceStarted": false
+  }
+}

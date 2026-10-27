@@ -1,0 +1,114 @@
+{
+  "classDecisions": {
+    "crows_feet": {
+      "activationBlockers": [
+        "selected_dataset_identity_missing",
+        "rights_review_missing",
+        "expert_per_class_protocol_missing",
+        "source_person_grouped_split_missing",
+        "pose_expression_protocol_missing",
+        "new_untouched_final_test_missing",
+        "independent_camera_holdout_missing",
+        "quality_policy_not_locked_before_validation",
+        "distinct_new_candidate_model_missing",
+        "thresholds_not_locked_before_final_test",
+        "crows_feet_validation_acceptance_missing",
+        "crows_feet_untouched_final_test_acceptance_missing",
+        "crows_feet_physical_camera_acceptance_missing",
+        "crows_feet_skin_tone_lighting_pose_slices_missing",
+        "crows_feet_working_product_integration_acceptance_missing",
+        "crows_feet_unavailable_history_controls_missing"
+      ],
+      "decision": "blocked",
+      "finalTestEvaluationAuthorized": false,
+      "labelSupported": true,
+      "productActivationAllowed": false,
+      "testBlockers": [
+        "selected_dataset_identity_missing",
+        "rights_review_missing",
+        "expert_per_class_protocol_missing",
+        "source_person_grouped_split_missing",
+        "pose_expression_protocol_missing",
+        "new_untouched_final_test_missing",
+        "independent_camera_holdout_missing",
+        "quality_policy_not_locked_before_validation",
+        "distinct_new_candidate_model_missing",
+        "thresholds_not_locked_before_final_test",
+        "crows_feet_validation_acceptance_missing"
+      ]
+    }
+  },
+  "currentExternalCrowsFeet": {
+    "diagnosticOnly": true,
+    "metrics": {
+      "test": {
+        "f1": 0.017,
+        "map50": 0.0010211828139297429,
+        "map50_95": 0.0002746943792401853,
+        "map75": 0.0,
+        "precision": 0.01,
+        "recall": 0.048
+      },
+      "valid": {
+        "f1": 0.053,
+        "map50": 0.005415421147257854,
+        "map50_95": 0.0009904147136091453,
+        "map75": 0.0,
+        "precision": 0.035,
+        "recall": 0.107
+      }
+    },
+    "modelAccepted": false
+  },
+  "decision": "blocked",
+  "excludedOptionalClasses": [
+    "bunny_line",
+    "forehead",
+    "frown",
+    "marionette_line",
+    "mental_crease",
+    "nasolabial_fold",
+    "vertical_lips_lines"
+  ],
+  "existingConcreteResultFlowPreserved": true,
+  "methodVersion": "wrinkle-per-class-release-gate-v2",
+  "researchTrainingAuthorized": false,
+  "researchTrainingBlockers": [
+    "selected_dataset_identity_missing",
+    "rights_review_missing",
+    "expert_per_class_protocol_missing",
+    "source_person_grouped_split_missing",
+    "pose_expression_protocol_missing",
+    "new_untouched_final_test_missing",
+    "independent_camera_holdout_missing",
+    "quality_policy_not_locked_before_validation"
+  ],
+  "roadmapAccepted": false,
+  "schemaVersion": 2,
+  "supportedClasses": [
+    "crows_feet"
+  ],
+  "unrelatedWrinkle": {
+    "activationAllowed": false,
+    "diagnosticOnly": true,
+    "metrics": {
+      "test": {
+        "f1": 0.727,
+        "map50": 0.6440890457494266,
+        "map50_95": 0.22789575695408526,
+        "map75": 0.10173694020272453,
+        "precision": 0.811,
+        "recall": 0.658
+      },
+      "valid": {
+        "f1": 0.685,
+        "map50": 0.5994696691583155,
+        "map50_95": 0.2105946586582374,
+        "map75": 0.09009791117999257,
+        "precision": 0.779,
+        "recall": 0.611
+      }
+    },
+    "substitutionAllowed": false
+  }
+}

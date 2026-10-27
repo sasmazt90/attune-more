@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-23T22:53:19Z",
+  "localDate": "2026-10-24",
+  "gateVersion": "skin-model-acceptance-gate-v1",
+  "purpose": "Prevent a finished training or partial metric receipt from becoming product acceptance without source, split, per-class, camera and integration evidence.",
+  "candidates": {
+    "acneMarksPigmentation": {
+      "receipt": {
+        "target": "active-acne-post-acne-pigmentation",
+        "modelIdentity": {
+          "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--754885",
+          "immutableId": "d336c1c2c6c791758326d9cc4f9afecc"
+        },
+        "provenance": {
+          "sourceArchiveSHA256": "29f40e80c8b1f63d43abbc35d11efdbaac4cf754531af2bee64283dde64c34e2",
+          "rightsReviewed": false,
+          "expertLabelProtocolVerified": false,
+          "personIndependentSplits": false,
+          "negativeCoverageReviewed": false,
+          "lockedTestUntouchedDuringSelection": true
+        },
+        "evaluation": {
+          "thresholdSelectionSplit": "validation",
+          "thresholdsLockedBeforeTest": true,
+          "qualityGateEvidence": "docs/skin/evidence/acne-best-test-20261023-v1.json",
+          "classes": {
+            "Pigmentation": {
+              "threshold": 0.2,
+              "validation": {"precision": 0.0789980732, "recall": 0.1448763251, "f1": 0.102244389},
+              "test": {"precision": 0.1435406699, "recall": 0.1639344262, "f1": 0.1530612245},
+              "passed": false
+            },
+            "Pimple": {
+              "threshold": 0.3,
+              "validation": {"precision": 0.4019607843, "recall": 0.3067331671, "f1": 0.3479490806},
+              "test": {"precision": 0.357827476, "recall": 0.3227665706, "f1": 0.3393939394},
+              "passed": false
+            },
+            "Post acne": {
+              "threshold": 0.3,
+              "validation": {"precision": 0.3880597015, "recall": 0.3507331378, "f1": 0.3684534812},
+              "test": {"precision": 0.3889512058, "recall": 0.3976490826, "f1": 0.3932520556},
+              "passed": false
+            }
+          }
+        },
+        "camera": {
+          "independentFromTrainingSources": false,
+          "sameCaptureContractAsProduct": false,
+          "skinToneLightingPoseSlicesReviewed": false,
+          "passed": false,
+          "evidence": ""
+        },
+        "integration": {
+          "api": false,
+          "productContract": true,
+          "unavailableFallback": true,
+          "privacyAndConsent": true,
+          "historyCompatibility": true,
+          "regressionTests": true,
+          "evidence": "docs/skin/tone-pigmentation-product-contract-20261023.md"
+        }
+      },
+      "verdict": {
+        "accepted": false,
+        "activationAllowed": false,
+        "reasons": [
+          "PROVENANCE_RIGHTSREVIEWED_REQUIRED",
+          "PROVENANCE_EXPERTLABELPROTOCOLVERIFIED_REQUIRED",
+          "PROVENANCE_PERSONINDEPENDENTSPLITS_REQUIRED",
+          "PROVENANCE_NEGATIVECOVERAGEREVIEWED_REQUIRED",
+          "CLASS_Pigmentation_QUALITY_GATE_FAILED",
+          "CLASS_Pimple_QUALITY_GATE_FAILED",
+          "CLASS_Post acne_QUALITY_GATE_FAILED",
+          "CAMERA_INDEPENDENTFROMTRAININGSOURCES_REQUIRED",
+          "CAMERA_SAMECAPTURECONTRACTASPRODUCT_REQUIRED",
+          "CAMERA_SKINTONELIGHTINGPOSESLICESREVIEWED_REQUIRED",
+          "CAMERA_PASSED_REQUIRED",
+          "CAMERA_EVIDENCE_MISSING",
+          "INTEGRATION_API_REQUIRED"
+        ]
+      }
+    },
+    "regionalOilRedness": {
+      "receipt": {
+        "target": "regional-oiliness-redness",
+        "modelIdentity": {
+          "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c07ef",
+          "immutableId": "e1688c2c8447af39e51ce60dd8c7f1d0"
+        },
+        "provenance": {
+          "sourceArchiveSHA256": "e470c5f1a9b4bdaadd87a9ba9b714175bc62ab0a7e0b10d10b4880a72889aa40",
+          "rightsReviewed": false,
+          "expertLabelProtocolVerified": false,
+          "personIndependentSplits": false,
+          "negativeCoverageReviewed": false,
+          "lockedTestUntouchedDuringSelection": true
+        },
+        "evaluation": {
+          "thresholdSelectionSplit": "validation",
+          "thresholdsLockedBeforeTest": true,
+          "qualityGateEvidence": "docs/skin/evidence/regional-mask-test-20261023-v1.json",
+          "classes": {
+            "Oily": {
+              "threshold": 0.35,
+              "validation": {"precision": 0.625, "recall": 0.4871794872, "f1": 0.5475504323},
+              "test": {"precision": 0.649122807, "recall": 0.4111111111, "f1": 0.5034013605},
+              "passed": false
+            },
+            "Redness": {
+              "threshold": 0.35,
+              "validation": {"precision": 0.7333333333, "recall": 0.419047619, "f1": 0.5333333333},
+              "test": {"precision": 0.625, "recall": 0.4054054054, "f1": 0.4918032787},
+              "passed": false
+            }
+          }
+        },
+        "camera": {
+          "independentFromTrainingSources": false,
+          "sameCaptureContractAsProduct": false,
+          "skinToneLightingPoseSlicesReviewed": false,
+          "passed": false,
+          "evidence": ""
+        },
+        "integration": {
+          "api": false,
+          "productContract": true,
+          "unavailableFallback": true,
+          "privacyAndConsent": true,
+          "historyCompatibility": true,
+          "regressionTests": true,
+          "evidence": "docs/skin/regional-map-svg-layer-20261023.md"
+        }
+      },
+      "verdict": {
+        "accepted": false,
+        "activationAllowed": false,
+        "reasons": [
+          "PROVENANCE_RIGHTSREVIEWED_REQUIRED",
+          "PROVENANCE_EXPERTLABELPROTOCOLVERIFIED_REQUIRED",
+          "PROVENANCE_PERSONINDEPENDENTSPLITS_REQUIRED",
+          "PROVENANCE_NEGATIVECOVERAGEREVIEWED_REQUIRED",
+          "CLASS_Oily_QUALITY_GATE_FAILED",
+          "CLASS_Redness_QUALITY_GATE_FAILED",
+          "CAMERA_INDEPENDENTFROMTRAININGSOURCES_REQUIRED",
+          "CAMERA_SAMECAPTURECONTRACTASPRODUCT_REQUIRED",
+          "CAMERA_SKINTONELIGHTINGPOSESLICESREVIEWED_REQUIRED",
+          "CAMERA_PASSED_REQUIRED",
+          "CAMERA_EVIDENCE_MISSING",
+          "INTEGRATION_API_REQUIRED"
+        ]
+      }
+    },
+    "underEye": {
+      "receiptState": {
+        "target": "under-eye-dark-circles-bags",
+        "sourceArchiveSHA256": "41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8",
+        "modelIdentity": null,
+        "remoteImages": 0,
+        "version": null,
+        "training": null
+      },
+      "verdict": {
+        "accepted": false,
+        "activationAllowed": false,
+        "primaryReasons": [
+          "MODEL_ID_MISSING",
+          "PER_CLASS_EVALUATION_MISSING",
+          "CAMERA_EVIDENCE_MISSING",
+          "INTEGRATION_EVIDENCE_MISSING"
+        ]
+      }
+    }
+  },
+  "roboflowRefresh": {
+    "privateProjects": 16,
+    "acneTrainingId": "5b632a5c12b76fcfe703",
+    "acneStatus": "finished",
+    "acneModelCount": 89,
+    "regionalTrainingId": "3485f8c67f957a1b850d",
+    "regionalStatus": "finished",
+    "regionalModelRecords": 75,
+    "regionalImages": 337,
+    "underEyePilotImages": 399,
+    "underEyePilotVersion1": false,
+    "groupedUnderEyeImages": 0,
+    "newTrainingStarted": false,
+    "inferenceRun": false
+  },
+  "verification": {
+    "pythonCompile": true,
+    "focusedChecksPassed": 4,
+    "candidateVerdictsReplayed": true,
+    "modelActivationChanged": false
+  },
+  "codeCommits": [
+    "f1a4fe1b07e2ed97b4c74b8c60ff69520f8e64e3",
+    "ec4db64247c3abaeb60a036e6ba1102f1acabbdd"
+  ]
+}

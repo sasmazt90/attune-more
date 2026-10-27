@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "roboflow-coco-export-comparison-v1",
+  "localArchive": "v11-oil-redness-pilot.zip",
+  "localArchiveSHA256": "a24793ca3490a48088abf47ba89fc9ab94e1c3a12c488ce52915e19b5bdf6fd6",
+  "remoteArchive": "regional-remote-v1.zip",
+  "remoteArchiveSHA256": "e470c5f1a9b4bdaadd87a9ba9b714175bc62ab0a7e0b10d10b4880a72889aa40",
+  "geometryPolicy": "segmentation",
+  "matchingPolicy": "Unique original-name/dimensions/exact labelled segmentation geometry; no rounding",
+  "pairedImages": 337,
+  "metadataAndGeometryMatched": true,
+  "fullGeometryUnchanged": false,
+  "changedBoxGeometryImages": 316,
+  "splitsUnchanged": true,
+  "allDimensionsVerified": true,
+  "encodedIdenticalImages": 181,
+  "decodedIdenticalImages": 182,
+  "exactPhotoIdentityVerified": false,
+  "lockedTestAccepted": false,
+  "photoRightsVerified": false,
+  "limitations": [
+    "Lossy pixel differences are measured, never declared exact photo identity.",
+    "Matching metadata does not establish prior exposure or person independence.",
+    "No split, annotation or source archive is changed."
+  ],
+  "missingImages": 0,
+  "extraImages": 0,
+  "ambiguousGroups": 0,
+  "perImageEvidence": "docs/skin/evidence/regional-mask-comparison-details-20261023-v1.json.gz",
+  "perImageEvidenceSHA256": "b6a38025898db1b70fd757f8704ea57733673df843803c559de58633edbccb7f"
+}

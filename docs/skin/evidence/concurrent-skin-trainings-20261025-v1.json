@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "concurrent-skin-trainings-v1",
+  "observedAt": "2026-10-25T00:23:29Z",
+  "workspaceProjectsObserved": 20,
+  "trainings": [
+    {
+      "project": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation",
+      "version": 1,
+      "trainingId": "49ee6204cf069198bbfa",
+      "modelType": "rfdetr-small",
+      "status": "running",
+      "createdAt": "2026-10-25T00:19:42.805000Z",
+      "modelCount": 0,
+      "startedByThisAutomation": false
+    },
+    {
+      "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+      "version": 1,
+      "trainingId": "af287a006e2e428f5ce4",
+      "modelType": "rfdetr-seg-small",
+      "status": "running",
+      "createdAt": "2026-10-25T00:19:40.265000Z",
+      "modelCount": 0,
+      "startedByThisAutomation": false
+    }
+  ],
+  "action": {
+    "duplicateTrainingStarted": false,
+    "existingTrainingCancelledOrMutated": false,
+    "nextCheck": "Poll these exact training IDs; do not launch replacements while either is active."
+  }
+}

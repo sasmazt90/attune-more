@@ -1,0 +1,25 @@
+{
+  "blockers": [
+    "localized_learned_model_missing",
+    "localized_expert_truth_missing",
+    "source_group_split_independence_missing",
+    "pose_expression_protocol_missing",
+    "same_person_capture_protocol_missing",
+    "validation_acceptance_missing",
+    "untouched_test_acceptance_missing",
+    "independent_camera_acceptance_missing",
+    "working_product_integration_acceptance_missing"
+  ],
+  "clinicalSeverityClaimAllowed": false,
+  "crossPersonComparisonAllowed": false,
+  "currentProxyClaim": "visible lower-face contour/fold appearance only",
+  "currentProxyPresentationAllowed": true,
+  "decision": "blocked",
+  "elasticityClaimAllowed": false,
+  "methodVersion": "sag-appearance-release-gate-v1",
+  "productActivationAllowed": false,
+  "researchTrainingAuthorized": false,
+  "roadmapAccepted": false,
+  "schemaVersion": 1,
+  "testEvaluationAuthorized": false
+}

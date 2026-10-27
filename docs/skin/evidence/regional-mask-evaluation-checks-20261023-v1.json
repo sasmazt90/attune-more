@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "tests": 145,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "codeSHA256": {
+    "scripts/skin-research/evaluate_segmentation_snapshot.py": "279133c6c355a66c00550d4272a5c7802d5608c8a8d30f741d80e21809bf991a",
+    "scripts/skin-research/reassemble_evidence_bundle.py": "f3892208c2694a72622e6d64b0e76177537a0425bfedcba7aaa36185e0ddda52",
+    "tests/unit/test_segmentation_snapshot_evaluation.py": "f3f818bbc7dfd7af0308b60bd2ddf94fa179303b0e39ddc5e4df42654451b05d",
+    "tests/unit/test_evidence_bundle_reassembly.py": "0257a1bce2234b806f989cc174740b4c565f11319ef162e777084b23fc90c416"
+  },
+  "sourceArchiveSHA256": "e470c5f1a9b4bdaadd87a9ba9b714175bc62ab0a7e0b10d10b4880a72889aa40",
+  "bundleReassemblyByteIdentical": true,
+  "retainedSuccessfulInferences": 93,
+  "totalInferenceRequests": 101,
+  "incompleteLocalWritesDetectedBeforeEvaluation": 8,
+  "replacementRequestsSameModelInputAndConfiguration": 8,
+  "notModelOrCameraAcceptance": true
+}

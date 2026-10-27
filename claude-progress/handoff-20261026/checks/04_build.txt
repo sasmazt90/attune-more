@@ -1,0 +1,49 @@
+# 2026-10-26T11:47:04+01:00 1f033329abdb38cab3b57837e7949a81d8588fa9 :: npm run build
+
+> attune-more@0.1.0 build
+> npm --workspace=apps/vehicle-app run build
+
+
+> vehicle-app@0.1.0 build
+> node ../../scripts/tooling/run_tool.cjs build
+
+[tooling] Non-Windows Next pass-through; Windows Job protection is NOT applied.
+   ▲ Next.js 15.5.27
+
+   Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOSPC: no space left on device, write
+ ✓ Compiled successfully in 17.5s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/14) ...
+   Generating static pages (3/14) 
+   Generating static pages (6/14) 
+   Generating static pages (10/14) 
+ ✓ Generating static pages (14/14)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                    2.72 kB         265 kB
+├ ○ /_not-found                            988 B         104 kB
+├ ƒ /api/mental-neural-speech              130 B         103 kB
+├ ○ /care                                8.62 kB         237 kB
+├ ○ /dental                              8.63 kB         397 kB
+├ ○ /hearing                               15 kB         398 kB
+├ ƒ /localized-manifest                    130 B         103 kB
+├ ○ /manifest.webmanifest                  130 B         103 kB
+├ ○ /mental                              16.1 kB         404 kB
+├ ○ /privacy                             8.53 kB         244 kB
+├ ○ /profile                             5.88 kB         368 kB
+├ ○ /skin                                34.3 kB         410 kB
+└ ○ /vision                              14.2 kB         397 kB
++ First Load JS shared by all             103 kB
+  ├ chunks/18-25b11e3a132b87ef.js        46.5 kB
+  ├ chunks/87c73c54-24122e7b92478d00.js  54.2 kB
+  └ other shared chunks (total)          2.04 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+EXIT 0

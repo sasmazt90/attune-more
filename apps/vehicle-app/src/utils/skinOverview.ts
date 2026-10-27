@@ -2,11 +2,43 @@ import { REGION_ORDER, SKIN_REGIONS, buildSkinRegionViewModel, type SkinRegionDa
 import type { SkinIndicator } from './skinIndicators';
 import { skinCriterionLabel, SIGN_LABELS } from './skinIndicators';
 import type { AppearanceResponse } from './appearanceMeasurements';
+import { validFindings, type SkinFindingsResult } from './skinFindings';
+import { bindRegionalSkinMap, validBoundRegionalSkinMap, type BoundRegionalSkinMap } from './regionalSkinMap';
+export const PRODUCT_APPEARANCE_IDS = ['tone','oil','redness','acne','sag','dry','lines','dark','bags','postAcne','pigmentation'] as const;
 
-export const SKIN_TYPE_LABELS = { normal: 'Normal', dry: 'Kuru', oily: 'Yağlı', combination: 'Karma' } as const;
+export const SKIN_TYPE_LABELS = { normal: 'Normal', dry: 'Kuru', oily: 'Yağlı', combination: 'Karma', sensitive: 'Hassas' } as const;
 export type SkinTypeId = keyof typeof SKIN_TYPE_LABELS;
+/** Regional rule v3: base type (karma/yağlı/kuru/normal) + 've hassas' when any measured region is sensitive. */
+export function skinTypeLabel(type: { value?: SkinTypeId | null; quality?: string; sensitive?: boolean } | undefined): string | null {
+  if (!type || type.quality !== 'valid' || !type.value) return null;
+  const base = SKIN_TYPE_LABELS[type.value] || type.value;
+  return type.sensitive && type.value !== 'sensitive' ? `${base} ve hassas` : base;
+}
+/** The skin-type name follows the regional paint (product rule) when the regional map is valid; otherwise the
+ * existing whole-face decision is shown unchanged. */
+export function effectiveSkinType(general: any): any {
+  const base = general?.skinType, modelMap = general?.findingsRegionalMap || general?.regionalSkinMap, reg = modelMap?.skinType;
+  if (!reg || reg.quality !== 'valid' || !reg.value) return base;
+  // This decision came from the saved regional classifier, not the legacy ViT.
+  // Never retain the legacy model's unavailable status/hash for a new result.
+  if (modelMap.version === 'regional-skin-v3' && modelMap.classifierVersion && regionalModelIdentity(modelMap)) {
+    return {value:reg.value,sensitive:!!reg.sensitive,quality:'valid',confidence:null,
+      methodVersion:modelMap.classifierVersion,modelVersion:modelMap.classifierVersion,
+      modelHash:modelMap.models['k_classifier.json'],inferenceKind:'local-regional-bundle',
+      sourceModel:modelMap.version,limitationCode:null,status:'measured',reason:null,
+      decisionVersion:modelMap.classifierVersion,
+      decisionTrace:{regions:modelMap.regions,modelHashes:modelMap.models},basePrediction:base?.basePrediction||base};
+  }
+  return { ...(base || {}), value: reg.value, sensitive: !!reg.sensitive, quality: 'valid', confidence: base?.confidence ?? null,
+    decisionVersion: modelMap.classifierVersion || modelMap.version, decisionTrace: { ...(base?.decisionTrace || {}), regions: modelMap.regions } };
+}
+function regionalModelIdentity(map: any): boolean {
+  return ['params.json','k_classifier.json','skinmap.pt','findings.pt','acnes.pt','regional.pt','wrinkles.pt']
+    .every(name=>typeof map?.models?.[name]==='string'&&/^[a-f0-9]{64}$/.test(map.models[name]));
+}
 export type SkinViewId = 'overview' | SkinRegionId;
-export const SKIN_VIEW_ORDER: SkinViewId[] = ['overview', ...REGION_ORDER];
+/** Top-down anatomical order of the result pages (tabs and arrows share it). */
+export const SKIN_VIEW_ORDER: SkinViewId[] = ['overview', 'forehead', 'periorbital', 'rightCheek', 'leftCheek', 'chin'];
 /** Display known criteria from the current UTF-8 dictionary. Never rewrite a
  * historical row or attempt a blanket encoding conversion of unknown text. */
 function displayLabels(rows: SkinIndicator[], scope: 'regional'|'whole-face'): SkinIndicator[] {
@@ -15,15 +47,28 @@ function displayLabels(rows: SkinIndicator[], scope: 'regional'|'whole-face'): S
 }
 export type SkinOverview = {
   schemaVersion: 1; analysisId?: string; captureId: string; pose: 'FRONT';
-  skinType: { value: SkinTypeId | null; quality: 'valid' | 'invalid' | 'insufficient'; confidence: number | null; methodVersion: string; modelHash: string | null; limitationCode: string | null; provider?:string;providerModelId?:string;inferenceKind?:'hosted'|'local-onnx';decisionVersion?:string;sourceModel?:string };
+  skinType: { value: SkinTypeId | null; sensitive?: boolean; quality: 'valid' | 'invalid' | 'insufficient'; confidence: number | null; methodVersion: string; modelHash: string | null; limitationCode: string | null; provider?:string;providerModelId?:string;inferenceKind?:'hosted'|'local-onnx'|'local-regional-bundle';decisionVersion?:string;sourceModel?:string;decisionTrace?:Record<string,any> };
+  regionalSkinMap?: BoundRegionalSkinMap;
+  /** Saved findings-model output; never admitted as a calibrated Cloud evidence summary. */
+  findingsRegionalMap?: Record<string, any>;
+  /** Server findings (skin_findings_v1). Absent = this record has no findings analysis (never read as "nothing found"). */
+  findings?: SkinFindingsResult;
   indicators: SkinIndicator[]; normalizationVersion: string;
   modelInputTransform?:Record<string,number|string|boolean>|null;modelInference?:Record<string,Record<string,number|string>>;
   sourceTransform: { sourceWidth: number; sourceHeight: number; coordinateSpace: 'source-pixels' };
 };
 export function overviewFromResponse(response: AppearanceResponse): SkinOverview | undefined {
   if (!response.general) return;
+  const regionalSkinMap = bindRegionalSkinMap((response.general as any).acceptedRegionalSkinMap || response.general.regionalSkinMap, {
+    captureId: response.photoId, pose: 'FRONT', sourceWidth: response.sourceWidth,
+    sourceHeight: response.sourceHeight, coordinateSpace: 'source-pixels'
+  });
   return { schemaVersion: 1, captureId: response.photoId, pose: 'FRONT',
-    skinType: response.general.skinType, normalizationVersion: response.general.normalizationVersion,
+    skinType: effectiveSkinType({ ...response.general, regionalSkinMap: (response.general as any).regionalSkinMap || (response as any).regionalSkinMap }),
+    ...(regionalSkinMap ? {regionalSkinMap} : {}),
+    findingsRegionalMap: (response.general as any).regionalSkinMap?.version !== 'regional-skin-evidence-v1' ? (response.general as any).regionalSkinMap || (response as any).regionalSkinMap : undefined,
+    normalizationVersion: response.general.normalizationVersion,
+    ...(validFindings((response.general as any).findings) ? { findings: (response.general as any).findings as SkinFindingsResult } : {}),
     modelInputTransform:response.general.modelInputTransform,modelInference:response.general.modelInference,
     sourceTransform: { sourceWidth: response.sourceWidth, sourceHeight: response.sourceHeight, coordinateSpace: 'source-pixels' },
     indicators: response.general.measurements.map(value => ({ id: value.id, label: skinCriterionLabel(value.id,'whole-face'), score: value.value,
@@ -32,16 +77,25 @@ export function overviewFromResponse(response: AppearanceResponse): SkinOverview
 }
 export function validSkinOverview(value: SkinOverview | undefined, analysisId:string): boolean {
   if (!value || value.schemaVersion!==1 || value.analysisId!==analysisId || value.pose!=='FRONT' || !/^[a-f0-9]{64}$/.test(value.captureId)) return false;
-  const type=value.skinType,ids=['tone','oil','redness','acne','sag','dry','lines','dark','bags'];
+  if (value.regionalSkinMap !== undefined && !validBoundRegionalSkinMap(value.regionalSkinMap, {
+    captureId: value.captureId, pose: value.pose, ...value.sourceTransform
+  })) return false;
+  const type=value.skinType,legacyIds=PRODUCT_APPEARANCE_IDS.slice(0,9);
+  const hasLocalizedHeadings=value.indicators.some(row=>row.id==='postAcne'||row.id==='pigmentation');
+  const ids=hasLocalizedHeadings?PRODUCT_APPEARANCE_IDS:legacyIds;
   if(!type||!['valid','invalid','insufficient'].includes(type.quality)||type.value!==null&&!(type.value in SKIN_TYPE_LABELS)||type.confidence!==null&&(!Number.isFinite(type.confidence)||type.confidence<0||type.confidence>1))return false;
   const hosted=type.inferenceKind==='hosted'&&type.provider==='roboflow'&&type.providerModelId==='skin-type-axavj/1'&&type.methodVersion==='hosted-roboflow-skin-type-axavj/1'&&type.modelHash===null;
+  if(type.inferenceKind==='local-regional-bundle'){
+    const map=value.findingsRegionalMap;
+    if(!regionalModelIdentity(map)||map?.version!=='regional-skin-v3'||type.methodVersion!==map.classifierVersion||type.modelHash!==map.models['k_classifier.json']||type.sourceModel!==map.version||type.value!==map.skinType?.value||map.skinType?.quality!=='valid')return false;
+  }
   if(type.quality==='valid'?(type.value===null||!type.modelHash&&!hosted):type.value!==null)return false;
   return !!value.normalizationVersion && value.sourceTransform.coordinateSpace==='source-pixels' && value.sourceTransform.sourceWidth>=16 && value.sourceTransform.sourceHeight>=16 &&
     value.indicators.length===ids.length && ids.every(id=>{
       const rows=value.indicators.filter(r=>r.id===id);if(rows.length!==1)return false;
       const row=rows[0],m=row.measurement;
       return !!m && m.scope==='whole-face' && m.region==='overview' && !!m.methodVersion &&
-        (row.score===null?m.quality!=='valid'&&!!m.unavailableReason:Number.isFinite(row.score)&&row.score>=0&&row.score<=100&&m.quality==='valid'&&m.rawValue===row.score);
+        (row.score===null?m.quality!=='valid'&&!!m.unavailableReason:Number.isFinite(row.score)&&row.score>=0&&(m.unit==='candidate-count'?Number.isInteger(row.score):row.score<=100)&&m.quality==='valid'&&m.rawValue===row.score);
     });
 }
 /** Older six-region records do not acquire invented overview measurements. */
@@ -53,11 +107,11 @@ export function buildSkinViewModel(id: SkinViewId, result: any, demo = false): S
     const region = buildSkinRegionViewModel(id, result, demo);
     // Historical numeric records can predate schemaVersion 3. Preserve their
     // actual regional rows without inventing an overview or changing units.
-    return { ...region, ...(Array.isArray(result?.indicators?.[id]) ? { indicators: displayLabels(result.indicators[id],'regional') } : {}),
-      index: region.index + (result?.general ? 1 : 0), viewTotal: result?.general ? 7 : 6 };
+    return { ...region, skinType: effectiveSkinType(result?.general), ...(Array.isArray(result?.indicators?.[id]) ? { indicators: displayLabels(result.indicators[id],'regional') } : {}),
+      index: result?.general ? SKIN_VIEW_ORDER.indexOf(id) + 1 : region.index, viewTotal: result?.general ? SKIN_VIEW_ORDER.length : 6 };
   }
-  return { ...SKIN_REGIONS.forehead, id: 'overview', index: 1, viewTotal: 7,
-    nameTr: 'Genel Bakış', indicators: displayLabels(result?.general?.indicators || [],'whole-face'), skinType: result?.general?.skinType,
+  return { ...SKIN_REGIONS.forehead, id: 'overview', index: 1, viewTotal: SKIN_VIEW_ORDER.length,
+    nameTr: 'Genel Bakış', indicators: displayLabels(result?.general?.indicators || [],'whole-face'), skinType: effectiveSkinType(result?.general),
     badgeText: '', changePct: 0, isAttentionRequired: false, trend: [],
     observation: { headline: 'Genel Bakış', details: 'Bu oturumun ön pozundaki genel cilt görünümü.' } };
 }

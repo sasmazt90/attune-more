@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-23T14:10:38Z",
+  "methodVersion": "regional-skin-svg-layer-contract-v1",
+  "scope": "numeric regional summary to source-bound anatomical SVG presentation plan",
+  "checks": 58,
+  "serverFixtures": 4,
+  "result": "pass",
+  "renderingContract": {
+    "dry": "blue anatomical-region fill",
+    "oily": "green anatomical-region fill",
+    "normal": "uncoloured only when oil and dry were both evaluated negative",
+    "unknown": "light-grey anatomical-region fill; never normal",
+    "redness": "independent red hatching and contour; never sensitivity",
+    "overlap": "redness may coexist with dry, oily or unknown",
+    "geometry": "existing MediaPipe anatomical region meshes; not a model-predicted pixel mask"
+  },
+  "guards": {
+    "captureIdBound": true,
+    "poseBound": "FRONT",
+    "sourceDimensionsBound": true,
+    "coordinateSpaceBound": "source-pixels",
+    "unsupportedCriterionProducesNoLayer": true,
+    "periorbitalProducesNoRegionalTypeLayer": true,
+    "pixelLocalMapTakesPriority": true,
+    "unknownDoesNotBecomeNormal": true,
+    "sensitivityInferred": false
+  },
+  "files": [
+    "apps/vehicle-app/src/utils/regionalSkinMap.ts",
+    "apps/vehicle-app/src/components/skin/SkinFacePanel.tsx",
+    "tests/unit/regional_skin_map_frontend.cjs",
+    "tests/unit/test_regional_map_frontend_contract.py"
+  ],
+  "testCommand": "node --no-warnings --experimental-vm-modules tests/unit/regional_skin_map_frontend.cjs (with four actual Python server-builder fixtures)",
+  "testEnvironment": {
+    "fullAppTypecheck": "not run; node_modules absent in scratch",
+    "pythonTestRunner": "test functions executed directly because pytest is absent in this runtime"
+  },
+  "acceptance": {
+    "contractAndLayerPlan": true,
+    "modelAccepted": false,
+    "cameraAccepted": false,
+    "pixelAlignmentAccepted": false,
+    "productionMerged": false
+  },
+  "limitations": [
+    "Synthetic policies exercise protocol and rendering decisions only; they do not accept an oil, dry or redness method.",
+    "The overlay uses anatomical region summaries and does not claim lesion/pixel boundaries.",
+    "Browser screenshot, retained-photo replay, real-camera slices and full application typecheck remain pending."
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "blockers": [
+    "consented_physical_captures_missing",
+    "immutable_capture_hashes_missing",
+    "subject_independence_missing",
+    "camera_final_set_not_locked",
+    "expert_truth_per_activated_class_missing",
+    "evaluated_negative_unknown_policy_missing",
+    "camera_slice_coverage_missing",
+    "capture_quality_gate_evidence_missing",
+    "locked_threshold_method_identity_missing",
+    "per_class_camera_metrics_missing",
+    "working_product_camera_replay_missing",
+    "camera_privacy_lifecycle_missing"
+  ],
+  "decision": "blocked",
+  "generatedAccuracyEvidenceAllowed": false,
+  "generatedIntegrationSmokeAllowed": true,
+  "generatedPhysicalCameraAcceptanceAllowed": false,
+  "methodVersion": "physical-camera-benchmark-release-gate-v1",
+  "physicalCameraBenchmarkAccepted": false,
+  "roadmapCameraAcceptanceAllowed": false,
+  "schemaVersion": 1,
+  "workingBaselinePreserved": true
+}

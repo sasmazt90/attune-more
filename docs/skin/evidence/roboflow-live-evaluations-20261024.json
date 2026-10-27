@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-24",
+  "source": "Roboflow model evaluation API; read-only refresh",
+  "split": "test",
+  "evaluations": [
+    {
+      "key": "m1",
+      "evalId": "fWaeZp06Wry5DwIQgdhP",
+      "modelId": "tolgar-sasmaz/attune-comedones-boxes-grouped-r1-1-rfdetr-small-t1",
+      "status": "done",
+      "summary": {"mAP": 0.40817135201774263, "precision": 0.508, "recall": 0.422, "f1": 0.452, "medianLatencyMs": 4.8},
+      "classes": [
+        {"className": "acne", "precision": 0.643, "recall": 0.602, "f1": 0.622, "optimalThreshold": 0.39},
+        {"className": "blackheads", "precision": 0.57, "recall": 0.376, "f1": 0.453, "optimalThreshold": 0.35},
+        {"className": "whiteheads", "precision": 0.347, "recall": 0.282, "f1": 0.311, "optimalThreshold": 0.3}
+      ]
+    },
+    {
+      "key": "m3",
+      "evalId": "z6yYG9f1SZdIVTpHg5F4",
+      "modelId": "tolgar-sasmaz/lesion-detection-ruc40-qzwqz-1-rfdetr-large-t1",
+      "status": "done",
+      "summary": {"mAP": 0.3518140173230924, "precision": 0.434, "recall": 0.395, "f1": 0.395, "medianLatencyMs": 76.19},
+      "classes": [
+        {"className": "atrophic_scar", "precision": 0.555, "recall": 0.504, "f1": 0.529, "optimalThreshold": 0.35},
+        {"className": "closed_comedo", "precision": 0.508, "recall": 0.38, "f1": 0.435, "optimalThreshold": 0.32},
+        {"className": "hypertrophic_scar", "precision": 0.213, "recall": 0.133, "f1": 0.164, "optimalThreshold": 0.21},
+        {"className": "melasma", "precision": 0.537, "recall": 0.584, "f1": 0.56, "optimalThreshold": 0.32},
+        {"className": "nevus", "precision": 0.797, "recall": 0.819, "f1": 0.808, "optimalThreshold": 0.36},
+        {"className": "nodule", "precision": 0.231, "recall": 0.6, "f1": 0.333, "optimalThreshold": 0.25},
+        {"className": "open_comedo", "precision": 0.309, "recall": 0.254, "f1": 0.279, "optimalThreshold": 0.29},
+        {"className": "other", "precision": 1.0, "recall": 0.033, "f1": 0.065, "optimalThreshold": 0.5},
+        {"className": "papule", "precision": 0.571, "recall": 0.51, "f1": 0.539, "optimalThreshold": 0.38},
+        {"className": "pustule", "precision": 0.467, "recall": 0.368, "f1": 0.412, "optimalThreshold": 0.39}
+      ]
+    },
+    {
+      "key": "m4",
+      "evalId": "iZxmjSZlllrZ91SPQUAs",
+      "modelId": "tolgar-sasmaz/attune-pores-masks-grouped-r1-2-yolo11s-seg-t1",
+      "status": "done",
+      "summary": {"mAP": 0.20910097065958477, "precision": 0.331, "recall": 0.296, "f1": 0.313, "medianLatencyMs": 11.6},
+      "classes": [
+        {"className": "pore", "precision": 0.331, "recall": 0.296, "f1": 0.313, "optimalThreshold": 0.12}
+      ]
+    },
+    {
+      "key": "m6",
+      "evalId": "DnEj7h84bQauUdGIVrUQ",
+      "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545",
+      "status": "done",
+      "summary": {"mAP": 0.4710081051584446, "precision": 0.613, "recall": 0.461, "f1": 0.521, "medianLatencyMs": 11.47},
+      "classes": [
+        {"className": "Oily", "precision": 0.586, "recall": 0.456, "f1": 0.513, "optimalThreshold": 0.3},
+        {"className": "Redness", "precision": 0.696, "recall": 0.432, "f1": 0.533, "optimalThreshold": 0.28}
+      ]
+    },
+    {
+      "key": "m8",
+      "evalId": "0xMgfVLFzMyNEOhN1baC",
+      "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262",
+      "status": "done",
+      "summary": {"mAP": 0.01633573039355655, "precision": 0.096, "recall": 0.035, "f1": 0.048, "medianLatencyMs": 7.63},
+      "classes": [
+        {"className": "Pigmentation", "precision": 0.004, "recall": 0.016, "f1": 0.007, "optimalThreshold": 0.08},
+        {"className": "Pimple", "precision": 0.127, "recall": 0.075, "f1": 0.094, "optimalThreshold": 0.19},
+        {"className": "Post acne", "precision": 0.133, "recall": 0.032, "f1": 0.052, "optimalThreshold": 0.16}
+      ]
+    },
+    {
+      "key": "m10",
+      "evalId": "mBRU5bZ7iiMWLY0OvJlC",
+      "modelId": "tolgar-sasmaz/attune-skin-findings-boxes-research-1-rfdetr-nas-t1--d2dbfd",
+      "status": "done",
+      "summary": {"mAP": 0.2767668828756048, "precision": 0.38, "recall": 0.316, "f1": 0.324, "medianLatencyMs": 6.21},
+      "classes": [
+        {"className": "Akne", "precision": 0.233, "recall": 0.285, "f1": 0.257, "optimalThreshold": 0.32},
+        {"className": "Beyaz Nokta", "precision": 0.366, "recall": 0.247, "f1": 0.295, "optimalThreshold": 0.23},
+        {"className": "Egzema", "precision": 0.263, "recall": 0.233, "f1": 0.247, "optimalThreshold": 0.28},
+        {"className": "Genis Gozenek", "precision": 0.333, "recall": 0.174, "f1": 0.229, "optimalThreshold": 0.25},
+        {"className": "Gunes Lekesi", "precision": 0.187, "recall": 0.295, "f1": 0.229, "optimalThreshold": 0.19},
+        {"className": "Kuru Cilt", "precision": 0.204, "recall": 0.244, "f1": 0.222, "optimalThreshold": 0.22},
+        {"className": "Riskli Ben", "precision": 0.867, "recall": 0.765, "f1": 0.812, "optimalThreshold": 0.46},
+        {"className": "Rozasea", "precision": 0.667, "recall": 0.64, "f1": 0.653, "optimalThreshold": 0.42},
+        {"className": "Sedef ve Dokuntu", "precision": 0.206, "recall": 0.317, "f1": 0.25, "optimalThreshold": 0.16},
+        {"className": "Siyah Nokta", "precision": 0.315, "recall": 0.174, "f1": 0.224, "optimalThreshold": 0.28},
+        {"className": "Ucuk", "precision": 0.65, "recall": 0.406, "f1": 0.5, "optimalThreshold": 0.47},
+        {"className": "Yagli Cilt", "precision": 0.561, "recall": 0.329, "f1": 0.414, "optimalThreshold": 0.34}
+      ]
+    }
+  ],
+  "interpretation": {
+    "recommendedFlagIsNotAcceptedAsBestAccuracyOrHardwareWinner": true,
+    "htmlMetricRowsMatchedLiveEvaluationIds": true,
+    "modelSelectionAuthorized": false,
+    "productionActivationAuthorized": false
+  }
+}

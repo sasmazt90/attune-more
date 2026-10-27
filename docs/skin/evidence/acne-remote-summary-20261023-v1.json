@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "roboflow-coco-export-comparison-v1",
+  "localArchive": "acne-three-class.zip",
+  "localArchiveSHA256": "f916c38991cb524be2a90b785345deffc2f153b2df807ab770121b623b5b8a2f",
+  "remoteArchive": "acne-remote-v1.zip",
+  "remoteArchiveSHA256": "29f40e80c8b1f63d43abbc35d11efdbaac4cf754531af2bee64283dde64c34e2",
+  "matchingPolicy": "Unique original-name/dimensions/full labelled geometry; exact numeric values, no rounding",
+  "pairedImages": 800,
+  "missing": [],
+  "extra": [],
+  "ambiguous": [],
+  "metadataAndGeometryMatched": true,
+  "splitsUnchanged": true,
+  "allDimensionsVerified": true,
+  "encodedIdenticalImages": 3,
+  "decodedIdenticalImages": 16,
+  "exactPhotoIdentityVerified": false,
+  "lockedTestAccepted": false,
+  "photoRightsVerified": false,
+  "limitations": [
+    "Lossy pixel differences are measured, never declared exact photo identity.",
+    "Matching metadata does not establish prior exposure or person independence.",
+    "No split, annotation or source archive is changed."
+  ],
+  "version": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation/1",
+  "preprocessing": {},
+  "augmentation": {},
+  "fullComparisonSHA256": "37595617b3b3c74b2ffca75fab96d2506c243a743b2ce2577935dcd239016b11",
+  "meanAbsoluteChannelErrorSummary": {
+    "min": 0.0,
+    "max": 0.35169148763020835,
+    "median": 0.0008598836263020834
+  },
+  "remoteGeometrySummary": {
+    "images": 800,
+    "exactDuplicateGroups": 0,
+    "crossSplitExactGroups": 0,
+    "perceptualCandidatePairs": 4,
+    "crossSplitPerceptualCandidatePairs": 2,
+    "filenameCandidateGroups": 0,
+    "crossSplitFilenameCandidateGroups": 0,
+    "geometryIssueCount": 0
+  },
+  "remoteArchiveMetadata": {
+    "source": "remote",
+    "archive": "acne-remote-v1.zip",
+    "archiveSHA256": "29f40e80c8b1f63d43abbc35d11efdbaac4cf754531af2bee64283dde64c34e2",
+    "images": 800,
+    "splits": {
+      "test": 82,
+      "train": 553,
+      "valid": 165
+    },
+    "classes": {
+      "Pigmentation": {
+        "test": 183,
+        "train": 1113,
+        "valid": 283
+      },
+      "Pimple": {
+        "test": 347,
+        "train": 2491,
+        "valid": 802
+      },
+      "Post acne": {
+        "test": 3488,
+        "train": 21815,
+        "valid": 6820
+      }
+    },
+    "geometry": [
+      {
+        "class": "Pigmentation",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 1579
+      },
+      {
+        "class": "Pimple",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 3640
+      },
+      {
+        "class": "Post acne",
+        "kind": "box",
+        "validBox": true,
+        "validMask": false,
+        "count": 32123
+      }
+    ],
+    "issues": [],
+    "readmes": {
+      "README.roboflow.txt": "\nAttune Skin - Acne Marks Pigmentation - v1 2026-10-23 1:43am\n==============================\n\nThis dataset was exported via roboflow.com on October 23, 2026 at 1:43 AM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 800 images.\nAttune-acne-marks-pigment-training-20261023 are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n\nNo image augmentation techniques were applied.\n\n\n"
+    }
+  },
+  "reproduce": "python scripts/skin-research/verify_roboflow_export.py --local acne-three-class.zip --remote acne-remote-v1.zip --output fresh-comparison.json",
+  "conclusion": "800 unique name/dimension/full-geometry pairings; identical splits. Transport pixels mostly differ; exact photo byte identity is not asserted. Existing source quarantine remains in force despite fewer remote perceptual candidates."
+}

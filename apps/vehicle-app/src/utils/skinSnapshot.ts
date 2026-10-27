@@ -6,12 +6,17 @@ import { cameraCrop, type Crop } from './cameraStability';
  * photo store requires explicit photo retention consent. */
 export interface SkinSnapshot {
   experimentalAcneV5?:boolean;
+  /** Raw YUV planes of the captured frame, only while /skin is in flight (never stored). */
+  rawFrame?:import('./skinRawFrame').SkinRawFrame;
   captureFaceCount?:number;
   general?:import('./skinOverview').SkinOverview;
+  /** Per-photo regional map from /skin (numbers only: region scores, finding evidence, source-pixel boxes). Side photos have no `general`. */
+  regionalSkinMap?:Record<string,any>;
   dataUrl:string; width:number; height:number; angle:SkinAngle;
   visualError?:string; segmentationMs?:number; maskWidth?:number; maskHeight?:number; meshes:Record<string,SkinMesh>;
   rois:{id:string;nameTr:string;x:number;y:number;w:number;h:number}[];
-  exclusions:{x:number;y:number;w:number;h:number}[];
+  exclusions:{x:number;y:number;w:number;h:number;id?:string}[];
+  exclusionPolygons?:{id:string;points:{x:number;y:number}[]}[];
   faceContour:{x:number;y:number}[];
   contours:Record<string,{x:number;y:number}[]>;
   crop:{x:number;y:number;width:number;height:number};
@@ -22,7 +27,7 @@ export interface SkinSnapshot {
   landmarks?:{x:number;y:number;z?:number}[];
   contoursMeasured?:Record<string,{points:{x:number;y:number}[];lines?:{x:number;y:number}[][];features:number[]}>;
   localMaps?:Record<string,import('./skinLocalMaps').SkinLocalMap>;
-  acneCandidates?:Record<string,{x:number;y:number;width:number;height:number;areaPixels?:number}[]>;
+  acneCandidates?:Record<string,{x:number;y:number;width:number;height:number;areaPixels?:number;canonicalClass?:string;confidence?:number;candidateId?:string;pointSource?:'box_centroid'|'lesion_center';photoId?:string;modelVersion?:string;providerModelId?:string}[]>;
   localAnalysis?:{loadMs:number;analysisMs:number;allocatedBytes:number};
 }
 // Anatomical indices in the unmirrored accepted MediaPipe frame. Sampling ROIs
@@ -37,7 +42,7 @@ export const SKIN_CONTOURS:Record<string,number[]>={
   chin:[61,146,91,181,84,17,314,405,321,375,291,422,424,418,421,200,201,194,204,202,61,176,148,152,377,400,378,149,176]
 };
 export function snapshotSkinFrame(canvas:HTMLCanvasElement, alignment:FaceAlignment, angle:SkinAngle, segmentation?:HeadSegmentation):SkinSnapshot {
-  const {roiDefinitions,exclusionBoxes}=SkinAnalyzer.regionGeometry(canvas.width,canvas.height,alignment);
+  const {roiDefinitions,exclusionBoxes,exclusionPolygons}=SkinAnalyzer.regionGeometry(canvas.width,canvas.height,alignment);
   const allowed=angle==='FRONT'?['forehead','nose','chin','periorbital','rightCheek','leftCheek']:[angle==='RIGHT'?'leftCheek':'rightCheek'];
   const rois=roiDefinitions.filter(r=>allowed.includes(r.id)).map(r=>{
     const x=Math.max(0,Math.ceil(r.x)),y=Math.max(0,Math.ceil(r.y));
@@ -50,7 +55,7 @@ export function snapshotSkinFrame(canvas:HTMLCanvasElement, alignment:FaceAlignm
   const faceContour=points(FACE_OUTLINE);
   assertCompleteFace(alignment,canvas.width,canvas.height);
   const meshes=Object.fromEntries(allowed.map(id=>[id,supportedSkinMesh(buildSkinMesh(id,landmarks,canvas.width,canvas.height),landmarks,canvas.width,canvas.height)]));
-  const metadata={width:canvas.width,height:canvas.height,angle,rois,exclusions:exclusionBoxes,faceContour,meshes,contours:Object.fromEntries(Object.entries(SKIN_CONTOURS).map(([id,indices])=>[id,points(indices)]))};
+  const metadata={width:canvas.width,height:canvas.height,angle,rois,exclusions:exclusionBoxes,exclusionPolygons,faceContour,meshes,contours:Object.fromEntries(Object.entries(SKIN_CONTOURS).map(([id,indices])=>[id,points(indices)]))};
   // Legacy explicit matte API, retained for compatibility and historical tests.
   // The current product exclusively calls snapshotRawSkinFrame below.
   if(!segmentation)return {...metadata,dataUrl:'',crop:{x:0,y:0,width:canvas.width,height:canvas.height},visualError:'Arka plan ayrıştırılamadı. Sayısal sonuçlar korundu; yeni taramayla görüntüyü tekrar alabilirsiniz.'};

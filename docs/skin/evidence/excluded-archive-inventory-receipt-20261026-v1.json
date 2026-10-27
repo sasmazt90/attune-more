@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "excluded-archive-inventory-receipt-v1",
+  "createdAt": "2026-10-25T23:53:28Z",
+  "inputBlobs": {
+    "scripts/skin-research/selected_sources.py": "cfd24d16f86f3437dd3b1d925053cc7ebe543399",
+    "scripts/skin-research/expanded_sources.py": "8771f1aed674f1c7f554dcb6fa539b20c7696f38",
+    "scripts/skin-research/audit_roadmap_archives.py": "1881a2eeda8601f9412b11f030cd91ad795c8c3d",
+    "docs/skin/evidence/archive-audit-20261023-v2.json": "3ed68674ccbab66cd7e7116c2f553535e4312a42",
+    "docs/skin/archive-audit-20261023.md": "1a353acfbdda52416c69c0c3f63a9f1ac224b73e",
+    "docs/skin/evidence/source-mapping-release-receipt-20261025-v1.json": "4dac40cb1bcc0d99e5dc2dff88566b9609070567",
+    "docs/skin/evidence/source-mapping-release-gate-20261025-v1.json": "30db08a5d2c3db9bdeb22ea8996c806c8ffcbed6"
+  },
+  "policy": {
+    "requiredArchiveCount": 4,
+    "publicNamesOrPathsAllowed": false,
+    "archiveAccessAllowed": false,
+    "archiveMutationAllowed": false,
+    "uploadAllowed": false,
+    "trainingUseAllowed": false,
+    "productTruthUseAllowed": false
+  },
+  "publicReference": {
+    "mappingScriptReferenceCount": 3,
+    "requiredArchiveCount": 4,
+    "publicReferenceIsCompleteInventory": false
+  },
+  "privateInventoryCandidate": {
+    "entries": [],
+    "selectedSourceHashOverlap": [],
+    "completePrivateInventoryReviewed": false
+  }
+}

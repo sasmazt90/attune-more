@@ -1,0 +1,325 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "pinned-coco-instance-mask-evaluation-v1",
+  "split": "test",
+  "modelIdentity": {
+    "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c07ef",
+    "modelPackageId": "e1688c2c8447af39e51ce60dd8c7f1d0"
+  },
+  "sourceArchiveSHA256": "e470c5f1a9b4bdaadd87a9ba9b714175bc62ab0a7e0b10d10b4880a72889aa40",
+  "snapshotSHA256": "b36d2c07ccc998e5b79095564bd20b8a1fc2e9a706d8e9a4fab123f88c8cf9e6",
+  "images": 30,
+  "operatingPoints": {
+    "Oily": {
+      "threshold": 0.35,
+      "tp": 37,
+      "fp": 20,
+      "fn": 53,
+      "precision": 0.6491228070175439,
+      "recall": 0.4111111111111111,
+      "f1": 0.5034013605442177,
+      "groundTruthCount": 90
+    },
+    "Redness": {
+      "threshold": 0.35,
+      "tp": 15,
+      "fp": 9,
+      "fn": 22,
+      "precision": 0.625,
+      "recall": 0.40540540540540543,
+      "f1": 0.4918032786885246,
+      "groundTruthCount": 37
+    }
+  },
+  "thresholdSelectionSplit": "valid",
+  "lockedThresholds": {
+    "Oily": 0.35,
+    "Redness": 0.35
+  },
+  "coco": [
+    {
+      "maxDetectionsPerImage": 100,
+      "map50": 0.461349099750096,
+      "map50_95": 0.18973477814702222,
+      "perClass": {
+        "Oily": {
+          "map50": 0.4806006565466834,
+          "map50_95": 0.15117252544717238
+        },
+        "Redness": {
+          "map50": 0.4420975429535087,
+          "map50_95": 0.22829703084687206
+        }
+      }
+    },
+    {
+      "maxDetectionsPerImage": 300,
+      "map50": 0.4635148884645329,
+      "map50_95": 0.19032638986524852,
+      "perClass": {
+        "Oily": {
+          "map50": 0.48231771589719,
+          "map50_95": 0.1519599393580695
+        },
+        "Redness": {
+          "map50": 0.4447120610318757,
+          "map50_95": 0.2286928403724275
+        }
+      }
+    }
+  ],
+  "imageReceipts": [
+    {
+      "imageId": 0,
+      "inferenceId": "85cd190b-7781-4124-971e-cd7354a4665d",
+      "predictionCount": 171,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "41961a3c7cc68a108f23c6df7b1fc9c93719381c05768b0a4ec6c6f6c74f672d",
+      "rawJSONSHA256": "6b51359c6fdd64278f6e6379bd750c3bb9b1f91f9533d99059b234b3d2a7b341"
+    },
+    {
+      "imageId": 1,
+      "inferenceId": "518ce295-f7a1-4c2a-be95-5bc1661aa396",
+      "predictionCount": 129,
+      "emptyPredictedMasks": 1,
+      "imageSHA256": "09c017719c8a25013e601919a4dcb785fcfd93bc3c1d23b89f722ab080159788",
+      "rawJSONSHA256": "2e37a859ea60ff2fc1ecf626046ef35295f811c63fb54d4095f077bb5677ffee"
+    },
+    {
+      "imageId": 10,
+      "inferenceId": "a1338a6a-c742-4189-9c6a-a38aaa45538b",
+      "predictionCount": 98,
+      "emptyPredictedMasks": 8,
+      "imageSHA256": "a3c2f529653a3922041ca6da1816f95928f8de5be02ad5179157e67d6cc25fb0",
+      "rawJSONSHA256": "010968fa032d6a5bfaf57681baca0ef4819e7002f9c79d9c34dfa2e9b4702182"
+    },
+    {
+      "imageId": 11,
+      "inferenceId": "a26417d5-b04f-46c4-97e8-fb1cdd415da6",
+      "predictionCount": 146,
+      "emptyPredictedMasks": 2,
+      "imageSHA256": "97374fb7bf7cadedce9a55069f4ce706c20a933aec8e451ec4101ee19e32b793",
+      "rawJSONSHA256": "dc22497bb6d3de6d89cbd0573b47e67c4503106dda35b082666b3b815d106d0b"
+    },
+    {
+      "imageId": 12,
+      "inferenceId": "3f72e360-a42f-4ee9-8b83-c07c27a5c949",
+      "predictionCount": 115,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "356e5f56f705873dbec27ba518521ba4b70dfd2dacd0faef8d3e347b95f3b909",
+      "rawJSONSHA256": "d5b2d4113276e489d00947a1d76602bea599be37d08c2d6da70fc1e8d415f0c3"
+    },
+    {
+      "imageId": 13,
+      "inferenceId": "c9d6709d-1fcd-4b79-99ed-60de81345abd",
+      "predictionCount": 134,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "6f8dff86ec731379609fe8d1538cfe54ee39c5cd3de286c5a92d731bff44f374",
+      "rawJSONSHA256": "09ac756ea870d2dfcc6a8a8f674ec8c72bb1d66237642625faefd8e5442ad455"
+    },
+    {
+      "imageId": 14,
+      "inferenceId": "74f7abde-563f-4815-a4fe-bbac76d1ca20",
+      "predictionCount": 179,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "b6a68dc7c0ba5695ce85334a4004847a1b52b8cfcded3dc3736df637d2573cdf",
+      "rawJSONSHA256": "505d63f5e6a02805c31d9af59656a337e99073057e4e8e5e1845b8601b78d1a8"
+    },
+    {
+      "imageId": 15,
+      "inferenceId": "eb1d25d5-2bde-4853-a7ea-c6ef14b8105d",
+      "predictionCount": 12,
+      "emptyPredictedMasks": 1,
+      "imageSHA256": "d72da46adf9915a3a142b7b7e00b91646e3e8d6d5292367bcee4ffa4dc087670",
+      "rawJSONSHA256": "9dbf2352a40616f3bb7409ebcf80ec67ba6e7fdf6b18516b961bed8359402aae"
+    },
+    {
+      "imageId": 16,
+      "inferenceId": "44e186b7-afae-4fe8-af3f-16fb2b70625c",
+      "predictionCount": 115,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "6c0cf611b28a19d4e6f594e05a5e395bd6ff6c1a14fcd3520ad5e7caaf1f7376",
+      "rawJSONSHA256": "dd3ebadd501aa29b720bb8f9f976c7fe676fd389d6888b8b7c8d2f41cd375756"
+    },
+    {
+      "imageId": 17,
+      "inferenceId": "52f1a4bf-c38f-4d45-8751-e5bc4e02d3c1",
+      "predictionCount": 185,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "eb66b3d4967e0898dc2afb6dbcfe26f1a0242521254cefb4d6eb4c7274ad9390",
+      "rawJSONSHA256": "8886246a46dc9960dc27acdd53699e034d8c914ae151874e548ae71caddf99a1"
+    },
+    {
+      "imageId": 18,
+      "inferenceId": "5e258809-c253-4d37-94b3-f6cd6740903c",
+      "predictionCount": 67,
+      "emptyPredictedMasks": 4,
+      "imageSHA256": "01b07fb21c76066edb013301f8298af6a9fbd0af7e2514199dc971042e653fea",
+      "rawJSONSHA256": "b07b4c2085045c2e4b900dde8384a3469a8c9fb25de39eac6a4eb34d3e482438"
+    },
+    {
+      "imageId": 19,
+      "inferenceId": "39f11a8d-d65a-475f-9070-1af1cec573f4",
+      "predictionCount": 133,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "e493ef25cfb4db7d71bd1836fc94ccb1a0f0419fc02c938e8f3eaaa582be5407",
+      "rawJSONSHA256": "01962fbe5369a089df3b47d0a432aee99960abf56def92f9b9f3065c9668f7b0"
+    },
+    {
+      "imageId": 2,
+      "inferenceId": "6e0b8f0c-c62e-4a48-b4e3-1bc901b2f3a9",
+      "predictionCount": 189,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "ee8bb5eadee2aa3c381432c98fe84383f8f976fbe0c23fc748104f8ded02ac94",
+      "rawJSONSHA256": "6692bb9216c84373b38c2a1c9b451ce918517f3af2cc8fdd4fac0ef568902d6d"
+    },
+    {
+      "imageId": 20,
+      "inferenceId": "7ff95e9a-7070-4e09-a53b-601af26f6495",
+      "predictionCount": 78,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "9400c04422d73ef225a05be72f143133dffeaf4dc75ba3b3bd57ff93f5067ce5",
+      "rawJSONSHA256": "3f553b9ba5e68337e01c41592eddb24263d9987bdf6099317966e10b80b324cb"
+    },
+    {
+      "imageId": 21,
+      "inferenceId": "be9f5658-ccc5-4ad0-9349-ddeefd1cb6af",
+      "predictionCount": 162,
+      "emptyPredictedMasks": 1,
+      "imageSHA256": "36d155a74213ea078fdca59474561123fd5a0969a80f9c7506e166c9777759a6",
+      "rawJSONSHA256": "905ded13291f931540224520d6f77e4219e6cbf83c3e33bec9a8fb3945958180"
+    },
+    {
+      "imageId": 22,
+      "inferenceId": "ab1c7581-fcbf-433a-b571-1e7ee9a8a30b",
+      "predictionCount": 202,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "b1e2b43955dc253ef127a7ec60c4180855dd7dae7426fd03f52aedb72e1ce247",
+      "rawJSONSHA256": "642fa55742964e06dfda3f2ac82a4d5051a0efe09219eb0eb5534b141e3b5b05"
+    },
+    {
+      "imageId": 23,
+      "inferenceId": "979ddc35-4268-4273-9aae-18847d88880a",
+      "predictionCount": 13,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "4330bc1a4c378c7c3b4612ee5481cd8d83d303a93e780381fdd8ef62f8bb57ad",
+      "rawJSONSHA256": "5f9ff9e2d63ff17d2a0be03226fb590b51f6de7c9ad7de503c4fed91fee0f2dd"
+    },
+    {
+      "imageId": 24,
+      "inferenceId": "3fc2dacb-341c-48e6-95b6-8818e1eef944",
+      "predictionCount": 34,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "717bd54d08d4efb2db0bc7723ca898b309c0d31a74c1876c3c098828b9fac14b",
+      "rawJSONSHA256": "4f0f346d78a38b0a482a2ea1af601362e72bee82c336bc79e4d8a06f988a2eb5"
+    },
+    {
+      "imageId": 25,
+      "inferenceId": "645f0d0e-9427-4741-b98a-a6554959048a",
+      "predictionCount": 205,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "9374aca8348bca38fd01165a9be5d533e5f9c3ffbdbbe65a429ba0df6f8c2aef",
+      "rawJSONSHA256": "713b3e7afde58e8a43211851a7aae2c5153cdb81a7547a3fc5ec1733b9d2c232"
+    },
+    {
+      "imageId": 26,
+      "inferenceId": "9f6c1070-2550-4044-b253-0ba2bb7aef9e",
+      "predictionCount": 82,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "cc014e2c937d4b02579ec3bc718053b26aa086598a96d2a7e550a674de982653",
+      "rawJSONSHA256": "dfee3fdd79d6e09f13a747c0febd9da6ca093ec9411960706076a7e29def2645"
+    },
+    {
+      "imageId": 27,
+      "inferenceId": "f184fc60-c3ba-4b17-9f21-40cebef98bc8",
+      "predictionCount": 156,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "cb0b99e0b46b499acdfd059eb3ab21a4e057fcf528d3f9dc0bafddb15c395bb3",
+      "rawJSONSHA256": "f8ebe98b8c0ba0b6ad11389cfce24175c17f8442145dff452972725c10f67a26"
+    },
+    {
+      "imageId": 28,
+      "inferenceId": "7fb1dfac-7212-4275-b2f9-7a6796fbeb02",
+      "predictionCount": 206,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "83328760408aae1de9ce793dd58183fb8abc462c53cdae4b1dc10e7a54b36adc",
+      "rawJSONSHA256": "66b4aec5730d1be9fdcfbba06c2bee1fd6457daf1f46b9e2dae0ca6afd5bfa91"
+    },
+    {
+      "imageId": 29,
+      "inferenceId": "2f1281fa-ecbb-42d1-a348-7710164a5b46",
+      "predictionCount": 204,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "b7dbe1c63b860d1d6380b2a332954b1d0f534c968aaa9ece2c49462cb6063d24",
+      "rawJSONSHA256": "c1a6497ff35dd1516317b090f07c320e2293b94119dec512655ddab69899ef95"
+    },
+    {
+      "imageId": 3,
+      "inferenceId": "63eedca9-469f-4ef4-b63a-f2063b379e60",
+      "predictionCount": 130,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "f44eee0188ac6033e113a8626946175d3105dc18e45f60e16f1d7ab4e5d323f5",
+      "rawJSONSHA256": "8e5b164bc2c24c588600b938d481c97abb1dbf3c07a64cdb0e4b447cb6306b41"
+    },
+    {
+      "imageId": 4,
+      "inferenceId": "ff61faf3-2285-411e-b77e-a1a525873d1a",
+      "predictionCount": 166,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "4a93ff3ec5b3c2303518a106facce9cad403f6ce2dc53310a83d943f8e32deb0",
+      "rawJSONSHA256": "b17fc00034f8b169dbab4b46264b4d95185a173b9360be1fd53389802d95e15a"
+    },
+    {
+      "imageId": 5,
+      "inferenceId": "2dad588c-c54e-45e1-add4-b41565dd0dd6",
+      "predictionCount": 167,
+      "emptyPredictedMasks": 1,
+      "imageSHA256": "7fc029c65ca847deae2d41313d5b8b884635cf30a77aa510d5decd21f4e60f78",
+      "rawJSONSHA256": "88fb36270e09617f36725f187530e07754b5e22075fd8355e69d2a786792971c"
+    },
+    {
+      "imageId": 6,
+      "inferenceId": "2504e21f-d5ae-454d-a0d7-543fe1a937f1",
+      "predictionCount": 202,
+      "emptyPredictedMasks": 0,
+      "imageSHA256": "f6f4f568727158df31a2df708292d85b1ae9484193c9ae7b2e2138020561735d",
+      "rawJSONSHA256": "d24b9f3930473e77405cf6d67e8e7157afc0192d3e48d8431fb258e6de3ce758"
+    },
+    {
+      "imageId": 7,
+      "inferenceId": "3b2e37cd-0b3c-49b4-8a8a-57eac4fcf22a",
+      "predictionCount": 63,
+      "emptyPredictedMasks": 2,
+      "imageSHA256": "e01bb6b54de795450e3f1f8061593e8f4a1c0559f8aa2200da92d55f37fa8697",
+      "rawJSONSHA256": "7a19734db5763c015734998d5fa01a06a1d8d415880a855ba13f4c4906bef158"
+    },
+    {
+      "imageId": 8,
+      "inferenceId": "183853b2-7e39-4101-9954-f576f7b9efd7",
+      "predictionCount": 113,
+      "emptyPredictedMasks": 1,
+      "imageSHA256": "969827b60c3475bbdd419256f50da5460370989fb96174c5d5dec32a4b51e417",
+      "rawJSONSHA256": "1a1ec563efc44f1ee1be57d8cb7bdccc47975c04df761851dab84ee1fb29bd66"
+    },
+    {
+      "imageId": 9,
+      "inferenceId": "23ddca73-4026-4f71-9600-68155208f523",
+      "predictionCount": 210,
+      "emptyPredictedMasks": 8,
+      "imageSHA256": "9d1a5fdfb34c1f355b226bd63b241280878bab8f219db1d8ab1e0188407c73a1",
+      "rawJSONSHA256": "f9f64502d29948c412e3f1d3e0b1b3740beb2074507d2b41cb3921b15f069ea4"
+    }
+  ],
+  "evaluationGeometry": "instance-polygons-not-boxes",
+  "evaluationAreaPolicy": "Derived from polygon raster only; source archive unchanged",
+  "emptyPredictedMasks": 29,
+  "predictionRasterPolicy": "Unmodified finite in-frame model contours rasterized by COCO. Empty masks count as unmatched predictions; no box fallback or contour repair.",
+  "modelAccepted": false,
+  "cameraAccepted": false,
+  "normalRegionsInferred": false,
+  "limitations": [
+    "Incomplete publisher annotations can count unlabelled real appearance as false positives.",
+    "Mask matching does not establish normal/dry/sensitivity truth or anatomical regional coverage.",
+    "Existing source split and subject-independence limitations remain; synthetic tests validate tooling only."
+  ]
+}

@@ -1,0 +1,7 @@
+torba    tek ölçü en iyi: profil düz. |rho|=0.55 | DINOv2 gömme: +0.58 (+0.52..+0.62) | gömme+ölçüler: +0.57 (+0.53..+0.61)
+morluk   tek ölçü en iyi: DINOv2 |rho|=0.51 | DINOv2 gömme: +0.66 (+0.61..+0.71) | gömme+ölçüler: +0.75 (+0.72..+0.78)
+kapak    tek ölçü en iyi: aperture |rho|=0.39 | DINOv2 gömme: +0.69 (+0.65..+0.73) | gömme+ölçüler: +0.68 (+0.65..+0.72)
+kaz      tek ölçü en iyi: DINOv2 |rho|=0.48 | DINOv2 gömme: +0.67 (+0.61..+0.72) | gömme+ölçüler: +0.68 (+0.64..+0.72)
+alin     tek ölçü en iyi: fore_h_p90 |rho|=0.24 | DINOv2 gömme: +0.60 (+0.55..+0.66) | gömme+ölçüler: +0.58 (+0.48..+0.65)
+akneizi  tek ölçü en iyi: DINOv2 |rho|=0.40 | DINOv2 gömme: +0.41 (+0.33..+0.50) | gömme+ölçüler: +0.42 (+0.34..+0.52)
+ucuk     tek ölçü en iyi: DINOv2 |rho|=0.32 | DINOv2 gömme: -0.07 (-0.23..+0.09) | gömme+ölçüler: +0.14 (+0.05..+0.25)

@@ -1,0 +1,1102 @@
+[
+ {
+  "kind": "skin",
+  "status": 200,
+  "pose": "FRONT",
+  "photoId": "e3aa14d83003d01649ebcb5c1148731840dfca77cd24c7c613fb2a2298d74399",
+  "noseToImageRight": 0.001,
+  "general": {
+   "findings": {
+    "version": "skin-findings-v2",
+    "poses": [
+     "FRONT"
+    ],
+    "thresholdSource": "research/skin-findings/results/det_prev.md (thr_prev on 260 training persons; findings.pt)",
+    "models": {
+     "findings.pt": "c8d94801bf86c65a4ff0c3c1e5ae663aaa4774fdccd4b31d4782aeed33675c99",
+     "findings-v2/acne.json": "21bf8c718e1642c07da29fc0490c2c7071a5e4dacb1247a12eb6f74b00e0e6d5",
+     "findings-v2/acneMarks.json": "beb5ad94d93dced59ddbcb31cb6e6d701923d8fa2adcf5fe2646116b6ce79e20",
+     "findings-v2/coldSore.json": "a271536005a1a481586d307ebd3d5991ee87b71a60af4ffd17bf653a716b847b",
+     "findings-v2/crowsFeet.json": "04a54cafe125a00ec8a37c7c84134714d249312c31d5a892ee82b7992e8117ea",
+     "findings-v2/darkCircles.json": "03a1e3eb584399791e578eae8ee35cc682901310aa63d5afa12cc0a1ea2b286c",
+     "findings-v2/downturnedCorners.json": "dec94ef7cd89d6badce52cb59e496f168e66cc4c1ccdfbd5f3ad12be7a468360",
+     "findings-v2/eczema.json": "f4c54d2e68867d15afdfea67d1618bc5fce602819da41f851d332dace409ee9b",
+     "findings-v2/eyeBags.json": "90e8d9455c127987b45cc4dfa1fcd4338af9dc0876341203cbab72157712baa5",
+     "findings-v2/flaking.json": "6affd88f675776d11224894f87961e353f80d2b34913991ca5a19e4d6c1d736e",
+     "findings-v2/foreheadLines.json": "db0705de20fc604c5f94f1b44ece292f7895b89a2d220068639f89b19b6bce36",
+     "findings-v2/hoodedEyelids.json": "647141640b5c2cb5cb68e5557e0c43af723b2659777087b2824978c568c3607f",
+     "findings-v2/measures/flaking.json": "04bcd877729994ba24cd56a5ed2e8d697bc5553b406123cb928473dd72739a14",
+     "findings-v2/redness.json": "2b455387db17d89c62ca69926402dae3558c65662769fb7014c72b6dd2ef3fd9",
+     "findings-v2/severity/acneMarks.json": "c6a9088c5f0dfa85eae5daa5087c0393fe63abf56718732244757150e9b5a4da",
+     "findings-v2/severity/crowsFeet.json": "bb44af67b2db8b2490694ed10fda6911888e588f6de556ca6899a6121cc126de",
+     "findings-v2/severity/darkCircles.json": "144531cf334f751e8a1c548552cdfb71c96c332bd513af44ca28c259ddf08b23",
+     "findings-v2/severity/eyeBags.json": "b140e5a91eeb185d8febb71328d03a2c9e43148cce29d2f8f36b02bd2ba4b692",
+     "findings-v2/severity/foreheadLines.json": "239300f8168979be8c16b5bdbf4e63a28c1686a9095f3861d68fa161fa1676ec",
+     "findings-v2/severity/hoodedEyelids.json": "346cc675ea0c910d760ef71a5acc8464521b11402b3a74195880f417140ef603",
+     "findings-v2/severity_geo/downturnedCorners.json": "50d0784310a69304360292cae474056e446fc7922abdb8a7ffac7091401e03b4"
+    },
+    "status": "unavailable",
+    "reason": "REQUIRED_POSES_MISSING",
+    "missingPoses": [
+     "LEFT",
+     "RIGHT"
+    ],
+    "findings": [],
+    "unavailable": [
+     {
+      "id": "spots",
+      "reason": "NOT_VALIDATED"
+     },
+     {
+      "id": "mole",
+      "reason": "REQUIRED_POSES_MISSING"
+     },
+     {
+      "id": "melasma",
+      "reason": "REQUIRED_POSES_MISSING"
+     },
+     {
+      "id": "rosacea",
+      "reason": "REQUIRED_POSES_MISSING"
+     },
+     {
+      "id": "acne",
+      "reason": "REQUIRED_POSES_MISSING"
+     },
+     {
+      "id": "acneMarks",
+      "reason": "REQUIRED_POSES_MISSING"
+     },
+     {
+      "id": "coldSore",
+      "reason": "REQUIRED_POSES_MISSING"
+     },
+     {
+      "id": "crowsFeet",
+      "reason": "REQUIRED_POSES_MISSING"
+     },
+     {
+      "id": "darkCircles",
+      "reason": "REQUIRED_POSES_MISSING"
+     },
+     {
+      "id": "downturnedCorners",
+      "reason": "REQUIRED_POSES_MISSING"
+     },
+     {
+      "id": "eczema",
+      "reason": "REQUIRED_POSES_MISSING"
+     },
+     {
+      "id": "eyeBags",
+      "reason": "REQUIRED_POSES_MISSING"
+     },
+     {
+      "id": "flaking",
+      "reason": "REQUIRED_POSES_MISSING"
+     },
+     {
+      "id": "foreheadLines",
+      "reason": "REQUIRED_POSES_MISSING"
+     },
+     {
+      "id": "hoodedEyelids",
+      "reason": "REQUIRED_POSES_MISSING"
+     },
+     {
+      "id": "redness",
+      "reason": "REQUIRED_POSES_MISSING"
+     }
+    ]
+   }
+  },
+  "source": [
+   1920,
+   1080
+  ],
+  "findingEvidence": {
+   "forehead": {
+    "areaPx": 27243,
+    "usable": true,
+    "c_flake": 0.0121,
+    "findings_Gunes_Lekesi_cov20": 0,
+    "findings_Gunes_Lekesi_max": 0,
+    "findings_Riskli_Ben_max": 0.1967,
+    "findings_Riskli_Ben_n35": 0,
+    "findings_Rozasea_max": 0.0909,
+    "findings_Ucuk_n35": 0
+   },
+   "nose": {
+    "areaPx": 11647,
+    "usable": true,
+    "c_flake": 0.0046,
+    "findings_Gunes_Lekesi_cov20": 0,
+    "findings_Gunes_Lekesi_max": 0.0516,
+    "findings_Riskli_Ben_max": 0.096,
+    "findings_Riskli_Ben_n35": 0,
+    "findings_Rozasea_max": 0.0543,
+    "findings_Ucuk_n35": 0
+   },
+   "rightCheek": {
+    "areaPx": 12332,
+    "usable": true,
+    "c_flake": 0.0003,
+    "findings_Gunes_Lekesi_cov20": 0,
+    "findings_Gunes_Lekesi_max": 0,
+    "findings_Riskli_Ben_max": 0,
+    "findings_Riskli_Ben_n35": 0,
+    "findings_Rozasea_max": 0.7581,
+    "findings_Ucuk_n35": 0
+   },
+   "leftCheek": {
+    "areaPx": 11665,
+    "usable": true,
+    "c_flake": 0.0003,
+    "findings_Gunes_Lekesi_cov20": 0,
+    "findings_Gunes_Lekesi_max": 0,
+    "findings_Riskli_Ben_max": 0,
+    "findings_Riskli_Ben_n35": 0,
+    "findings_Rozasea_max": 0.6552,
+    "findings_Ucuk_n35": 0
+   },
+   "chin": {
+    "areaPx": 10385,
+    "usable": true,
+    "c_flake": 0,
+    "findings_Gunes_Lekesi_cov20": 0,
+    "findings_Gunes_Lekesi_max": 0,
+    "findings_Riskli_Ben_max": 0,
+    "findings_Riskli_Ben_n35": 0,
+    "findings_Rozasea_max": 0,
+    "findings_Ucuk_n35": 0
+   }
+  },
+  "regionalSkinMap": {
+   "evidence": [
+    "forehead",
+    "nose",
+    "rightCheek",
+    "leftCheek",
+    "chin"
+   ],
+   "boxes": 3,
+   "models": {
+    "params.json": "5d1dc44de3fb4e3b150151eb642d0c152aa2fdc0161d4d7acbcc78f2847cd330",
+    "k_classifier.json": "a7ab0b05686d4d9664c115fa324589e492fc7e8829e4f9ef4488354b25688a54",
+    "skinmap.pt": "bc4e8aab0866ece0048a7306284e1bf26ef5ba31bf56ba8834ff2e2494d2a4a5",
+    "findings.pt": "c8d94801bf86c65a4ff0c3c1e5ae663aaa4774fdccd4b31d4782aeed33675c99",
+    "acnes.pt": "5db24d92049c0d335665a883ebd83dda115608a63594ccd2c336f504060abe15",
+    "regional.pt": "b23cd0ed5a18caa679a5a77607e855ef263483f712edd34d4ddeb215ce557365",
+    "wrinkles.pt": "ba5c527859c1cb59ff6244b674eee1caca07984c28b8b4426ce8c1acb412f7b2",
+    "findings-v2/acne.json": "21bf8c718e1642c07da29fc0490c2c7071a5e4dacb1247a12eb6f74b00e0e6d5",
+    "findings-v2/acneMarks.json": "beb5ad94d93dced59ddbcb31cb6e6d701923d8fa2adcf5fe2646116b6ce79e20",
+    "findings-v2/coldSore.json": "a271536005a1a481586d307ebd3d5991ee87b71a60af4ffd17bf653a716b847b",
+    "findings-v2/crowsFeet.json": "04a54cafe125a00ec8a37c7c84134714d249312c31d5a892ee82b7992e8117ea",
+    "findings-v2/darkCircles.json": "03a1e3eb584399791e578eae8ee35cc682901310aa63d5afa12cc0a1ea2b286c",
+    "findings-v2/downturnedCorners.json": "dec94ef7cd89d6badce52cb59e496f168e66cc4c1ccdfbd5f3ad12be7a468360",
+    "findings-v2/eczema.json": "f4c54d2e68867d15afdfea67d1618bc5fce602819da41f851d332dace409ee9b",
+    "findings-v2/eyeBags.json": "90e8d9455c127987b45cc4dfa1fcd4338af9dc0876341203cbab72157712baa5",
+    "findings-v2/flaking.json": "6affd88f675776d11224894f87961e353f80d2b34913991ca5a19e4d6c1d736e",
+    "findings-v2/foreheadLines.json": "db0705de20fc604c5f94f1b44ece292f7895b89a2d220068639f89b19b6bce36",
+    "findings-v2/hoodedEyelids.json": "647141640b5c2cb5cb68e5557e0c43af723b2659777087b2824978c568c3607f",
+    "findings-v2/measures/flaking.json": "04bcd877729994ba24cd56a5ed2e8d697bc5553b406123cb928473dd72739a14",
+    "findings-v2/redness.json": "2b455387db17d89c62ca69926402dae3558c65662769fb7014c72b6dd2ef3fd9",
+    "findings-v2/severity/acneMarks.json": "c6a9088c5f0dfa85eae5daa5087c0393fe63abf56718732244757150e9b5a4da",
+    "findings-v2/severity/crowsFeet.json": "bb44af67b2db8b2490694ed10fda6911888e588f6de556ca6899a6121cc126de",
+    "findings-v2/severity/darkCircles.json": "144531cf334f751e8a1c548552cdfb71c96c332bd513af44ca28c259ddf08b23",
+    "findings-v2/severity/eyeBags.json": "b140e5a91eeb185d8febb71328d03a2c9e43148cce29d2f8f36b02bd2ba4b692",
+    "findings-v2/severity/foreheadLines.json": "239300f8168979be8c16b5bdbf4e63a28c1686a9095f3861d68fa161fa1676ec",
+    "findings-v2/severity/hoodedEyelids.json": "346cc675ea0c910d760ef71a5acc8464521b11402b3a74195880f417140ef603",
+    "findings-v2/severity_geo/downturnedCorners.json": "50d0784310a69304360292cae474056e446fc7922abdb8a7ffac7091401e03b4"
+   }
+  },
+  "status2": "OK",
+  "cameraColor": {
+   "source": "raw-yuv",
+   "format": "NV12",
+   "frameTag": {
+    "matrix": "bt709",
+    "fullRange": false,
+    "primaries": "bt709",
+    "transfer": "bt709"
+   },
+   "matrix": "bt601",
+   "fullRange": false,
+   "matrixSource": "camera-profile",
+   "browserMeanAbsDiff": 0.578,
+   "profileId": "e2e-fixture-y4m-bt601-limited",
+   "profileSHA256": "526ea25c977de9cc75e93c7c55fec06a575ad90d9831d3a1bd3de906b31e0ddf",
+   "colorCorrection": null,
+   "analyzedPhotoSHA256": "9d63cd85454f1c4dad2eabf354b0e6ff36b806edb8be35365ae5000dee568f34"
+  }
+ },
+ {
+  "kind": "skin",
+  "status": 200,
+  "pose": "RIGHT",
+  "photoId": "8e5db85e1133abd7925ee6495e21315f8fbb33c7c71f09d02c6804167dd10396",
+  "noseToImageRight": -0.093,
+  "general": {
+   "findings": null
+  },
+  "source": [
+   1920,
+   1080
+  ],
+  "findingEvidence": {
+   "forehead": {
+    "areaPx": 25679,
+    "usable": true,
+    "c_flake": 0.0263,
+    "findings_Gunes_Lekesi_cov20": 0,
+    "findings_Gunes_Lekesi_max": 0.0552,
+    "findings_Riskli_Ben_max": 0.348,
+    "findings_Riskli_Ben_n35": 0,
+    "findings_Rozasea_max": 0.2227,
+    "findings_Ucuk_n35": 0
+   },
+   "nose": {
+    "areaPx": 11302,
+    "usable": true,
+    "c_flake": 0.0098,
+    "findings_Gunes_Lekesi_cov20": 0,
+    "findings_Gunes_Lekesi_max": 0,
+    "findings_Riskli_Ben_max": 0.0905,
+    "findings_Riskli_Ben_n35": 0,
+    "findings_Rozasea_max": 0.0581,
+    "findings_Ucuk_n35": 0
+   },
+   "rightCheek": {
+    "areaPx": 6950,
+    "usable": false,
+    "c_flake": 0.001,
+    "findings_Gunes_Lekesi_cov20": 0,
+    "findings_Gunes_Lekesi_max": 0,
+    "findings_Riskli_Ben_max": 0,
+    "findings_Riskli_Ben_n35": 0,
+    "findings_Rozasea_max": 0.7486,
+    "findings_Ucuk_n35": 0
+   },
+   "leftCheek": {
+    "areaPx": 17440,
+    "usable": true,
+    "c_flake": 0.0026,
+    "findings_Gunes_Lekesi_cov20": 0,
+    "findings_Gunes_Lekesi_max": 0,
+    "findings_Riskli_Ben_max": 0,
+    "findings_Riskli_Ben_n35": 0,
+    "findings_Rozasea_max": 0.6896,
+    "findings_Ucuk_n35": 0
+   },
+   "chin": {
+    "areaPx": 10193,
+    "usable": true,
+    "c_flake": 0.0002,
+    "findings_Gunes_Lekesi_cov20": 0,
+    "findings_Gunes_Lekesi_max": 0,
+    "findings_Riskli_Ben_max": 0,
+    "findings_Riskli_Ben_n35": 0,
+    "findings_Rozasea_max": 0.0501,
+    "findings_Ucuk_n35": 0
+   }
+  },
+  "regionalSkinMap": {
+   "evidence": [
+    "forehead",
+    "nose",
+    "rightCheek",
+    "leftCheek",
+    "chin"
+   ],
+   "boxes": 3,
+   "models": {
+    "params.json": "5d1dc44de3fb4e3b150151eb642d0c152aa2fdc0161d4d7acbcc78f2847cd330",
+    "k_classifier.json": "a7ab0b05686d4d9664c115fa324589e492fc7e8829e4f9ef4488354b25688a54",
+    "skinmap.pt": "bc4e8aab0866ece0048a7306284e1bf26ef5ba31bf56ba8834ff2e2494d2a4a5",
+    "findings.pt": "c8d94801bf86c65a4ff0c3c1e5ae663aaa4774fdccd4b31d4782aeed33675c99",
+    "acnes.pt": "5db24d92049c0d335665a883ebd83dda115608a63594ccd2c336f504060abe15",
+    "regional.pt": "b23cd0ed5a18caa679a5a77607e855ef263483f712edd34d4ddeb215ce557365",
+    "wrinkles.pt": "ba5c527859c1cb59ff6244b674eee1caca07984c28b8b4426ce8c1acb412f7b2",
+    "findings-v2/acne.json": "21bf8c718e1642c07da29fc0490c2c7071a5e4dacb1247a12eb6f74b00e0e6d5",
+    "findings-v2/acneMarks.json": "beb5ad94d93dced59ddbcb31cb6e6d701923d8fa2adcf5fe2646116b6ce79e20",
+    "findings-v2/coldSore.json": "a271536005a1a481586d307ebd3d5991ee87b71a60af4ffd17bf653a716b847b",
+    "findings-v2/crowsFeet.json": "04a54cafe125a00ec8a37c7c84134714d249312c31d5a892ee82b7992e8117ea",
+    "findings-v2/darkCircles.json": "03a1e3eb584399791e578eae8ee35cc682901310aa63d5afa12cc0a1ea2b286c",
+    "findings-v2/downturnedCorners.json": "dec94ef7cd89d6badce52cb59e496f168e66cc4c1ccdfbd5f3ad12be7a468360",
+    "findings-v2/eczema.json": "f4c54d2e68867d15afdfea67d1618bc5fce602819da41f851d332dace409ee9b",
+    "findings-v2/eyeBags.json": "90e8d9455c127987b45cc4dfa1fcd4338af9dc0876341203cbab72157712baa5",
+    "findings-v2/flaking.json": "6affd88f675776d11224894f87961e353f80d2b34913991ca5a19e4d6c1d736e",
+    "findings-v2/foreheadLines.json": "db0705de20fc604c5f94f1b44ece292f7895b89a2d220068639f89b19b6bce36",
+    "findings-v2/hoodedEyelids.json": "647141640b5c2cb5cb68e5557e0c43af723b2659777087b2824978c568c3607f",
+    "findings-v2/measures/flaking.json": "04bcd877729994ba24cd56a5ed2e8d697bc5553b406123cb928473dd72739a14",
+    "findings-v2/redness.json": "2b455387db17d89c62ca69926402dae3558c65662769fb7014c72b6dd2ef3fd9",
+    "findings-v2/severity/acneMarks.json": "c6a9088c5f0dfa85eae5daa5087c0393fe63abf56718732244757150e9b5a4da",
+    "findings-v2/severity/crowsFeet.json": "bb44af67b2db8b2490694ed10fda6911888e588f6de556ca6899a6121cc126de",
+    "findings-v2/severity/darkCircles.json": "144531cf334f751e8a1c548552cdfb71c96c332bd513af44ca28c259ddf08b23",
+    "findings-v2/severity/eyeBags.json": "b140e5a91eeb185d8febb71328d03a2c9e43148cce29d2f8f36b02bd2ba4b692",
+    "findings-v2/severity/foreheadLines.json": "239300f8168979be8c16b5bdbf4e63a28c1686a9095f3861d68fa161fa1676ec",
+    "findings-v2/severity/hoodedEyelids.json": "346cc675ea0c910d760ef71a5acc8464521b11402b3a74195880f417140ef603",
+    "findings-v2/severity_geo/downturnedCorners.json": "50d0784310a69304360292cae474056e446fc7922abdb8a7ffac7091401e03b4"
+   }
+  },
+  "status2": "OK",
+  "cameraColor": {
+   "source": "raw-yuv",
+   "format": "NV12",
+   "frameTag": {
+    "matrix": "bt709",
+    "fullRange": false,
+    "primaries": "bt709",
+    "transfer": "bt709"
+   },
+   "matrix": "bt601",
+   "fullRange": false,
+   "matrixSource": "camera-profile",
+   "browserMeanAbsDiff": 0.622,
+   "profileId": "e2e-fixture-y4m-bt601-limited",
+   "profileSHA256": "526ea25c977de9cc75e93c7c55fec06a575ad90d9831d3a1bd3de906b31e0ddf",
+   "colorCorrection": null,
+   "analyzedPhotoSHA256": "6156357fda76317d56066b43737a23fa41a48110f8b3c7d32cf8fa176a1e08e0"
+  }
+ },
+ {
+  "kind": "skin",
+  "status": 200,
+  "pose": "LEFT",
+  "photoId": "0b4c658e089457a89935417268f399c3814e2a96b24c9868d56f4245ccf99ce9",
+  "noseToImageRight": 0.102,
+  "general": {
+   "findings": null
+  },
+  "source": [
+   1920,
+   1080
+  ],
+  "findingEvidence": {
+   "forehead": {
+    "areaPx": 25585,
+    "usable": true,
+    "c_flake": 0.0227,
+    "findings_Gunes_Lekesi_cov20": 0,
+    "findings_Gunes_Lekesi_max": 0,
+    "findings_Riskli_Ben_max": 0.068,
+    "findings_Riskli_Ben_n35": 0,
+    "findings_Rozasea_max": 0.1158,
+    "findings_Ucuk_n35": 0
+   },
+   "nose": {
+    "areaPx": 10979,
+    "usable": true,
+    "c_flake": 0.0112,
+    "findings_Gunes_Lekesi_cov20": 0,
+    "findings_Gunes_Lekesi_max": 0.0683,
+    "findings_Riskli_Ben_max": 0.0883,
+    "findings_Riskli_Ben_n35": 0,
+    "findings_Rozasea_max": 0.138,
+    "findings_Ucuk_n35": 0
+   },
+   "rightCheek": {
+    "areaPx": 18091,
+    "usable": true,
+    "c_flake": 0.0032,
+    "findings_Gunes_Lekesi_cov20": 0,
+    "findings_Gunes_Lekesi_max": 0,
+    "findings_Riskli_Ben_max": 0,
+    "findings_Riskli_Ben_n35": 0,
+    "findings_Rozasea_max": 0.7729,
+    "findings_Ucuk_n35": 0
+   },
+   "leftCheek": {
+    "areaPx": 5898,
+    "usable": false,
+    "c_flake": 0.0082,
+    "findings_Gunes_Lekesi_cov20": 0,
+    "findings_Gunes_Lekesi_max": 0.0666,
+    "findings_Riskli_Ben_max": 0,
+    "findings_Riskli_Ben_n35": 0,
+    "findings_Rozasea_max": 0.6993,
+    "findings_Ucuk_n35": 0
+   },
+   "chin": {
+    "areaPx": 9532,
+    "usable": true,
+    "c_flake": 0,
+    "findings_Gunes_Lekesi_cov20": 0,
+    "findings_Gunes_Lekesi_max": 0,
+    "findings_Riskli_Ben_max": 0,
+    "findings_Riskli_Ben_n35": 0,
+    "findings_Rozasea_max": 0.073,
+    "findings_Ucuk_n35": 0
+   }
+  },
+  "regionalSkinMap": {
+   "evidence": [
+    "forehead",
+    "nose",
+    "rightCheek",
+    "leftCheek",
+    "chin"
+   ],
+   "boxes": 3,
+   "models": {
+    "params.json": "5d1dc44de3fb4e3b150151eb642d0c152aa2fdc0161d4d7acbcc78f2847cd330",
+    "k_classifier.json": "a7ab0b05686d4d9664c115fa324589e492fc7e8829e4f9ef4488354b25688a54",
+    "skinmap.pt": "bc4e8aab0866ece0048a7306284e1bf26ef5ba31bf56ba8834ff2e2494d2a4a5",
+    "findings.pt": "c8d94801bf86c65a4ff0c3c1e5ae663aaa4774fdccd4b31d4782aeed33675c99",
+    "acnes.pt": "5db24d92049c0d335665a883ebd83dda115608a63594ccd2c336f504060abe15",
+    "regional.pt": "b23cd0ed5a18caa679a5a77607e855ef263483f712edd34d4ddeb215ce557365",
+    "wrinkles.pt": "ba5c527859c1cb59ff6244b674eee1caca07984c28b8b4426ce8c1acb412f7b2",
+    "findings-v2/acne.json": "21bf8c718e1642c07da29fc0490c2c7071a5e4dacb1247a12eb6f74b00e0e6d5",
+    "findings-v2/acneMarks.json": "beb5ad94d93dced59ddbcb31cb6e6d701923d8fa2adcf5fe2646116b6ce79e20",
+    "findings-v2/coldSore.json": "a271536005a1a481586d307ebd3d5991ee87b71a60af4ffd17bf653a716b847b",
+    "findings-v2/crowsFeet.json": "04a54cafe125a00ec8a37c7c84134714d249312c31d5a892ee82b7992e8117ea",
+    "findings-v2/darkCircles.json": "03a1e3eb584399791e578eae8ee35cc682901310aa63d5afa12cc0a1ea2b286c",
+    "findings-v2/downturnedCorners.json": "dec94ef7cd89d6badce52cb59e496f168e66cc4c1ccdfbd5f3ad12be7a468360",
+    "findings-v2/eczema.json": "f4c54d2e68867d15afdfea67d1618bc5fce602819da41f851d332dace409ee9b",
+    "findings-v2/eyeBags.json": "90e8d9455c127987b45cc4dfa1fcd4338af9dc0876341203cbab72157712baa5",
+    "findings-v2/flaking.json": "6affd88f675776d11224894f87961e353f80d2b34913991ca5a19e4d6c1d736e",
+    "findings-v2/foreheadLines.json": "db0705de20fc604c5f94f1b44ece292f7895b89a2d220068639f89b19b6bce36",
+    "findings-v2/hoodedEyelids.json": "647141640b5c2cb5cb68e5557e0c43af723b2659777087b2824978c568c3607f",
+    "findings-v2/measures/flaking.json": "04bcd877729994ba24cd56a5ed2e8d697bc5553b406123cb928473dd72739a14",
+    "findings-v2/redness.json": "2b455387db17d89c62ca69926402dae3558c65662769fb7014c72b6dd2ef3fd9",
+    "findings-v2/severity/acneMarks.json": "c6a9088c5f0dfa85eae5daa5087c0393fe63abf56718732244757150e9b5a4da",
+    "findings-v2/severity/crowsFeet.json": "bb44af67b2db8b2490694ed10fda6911888e588f6de556ca6899a6121cc126de",
+    "findings-v2/severity/darkCircles.json": "144531cf334f751e8a1c548552cdfb71c96c332bd513af44ca28c259ddf08b23",
+    "findings-v2/severity/eyeBags.json": "b140e5a91eeb185d8febb71328d03a2c9e43148cce29d2f8f36b02bd2ba4b692",
+    "findings-v2/severity/foreheadLines.json": "239300f8168979be8c16b5bdbf4e63a28c1686a9095f3861d68fa161fa1676ec",
+    "findings-v2/severity/hoodedEyelids.json": "346cc675ea0c910d760ef71a5acc8464521b11402b3a74195880f417140ef603",
+    "findings-v2/severity_geo/downturnedCorners.json": "50d0784310a69304360292cae474056e446fc7922abdb8a7ffac7091401e03b4"
+   }
+  },
+  "status2": "OK",
+  "cameraColor": {
+   "source": "raw-yuv",
+   "format": "NV12",
+   "frameTag": {
+    "matrix": "bt709",
+    "fullRange": false,
+    "primaries": "bt709",
+    "transfer": "bt709"
+   },
+   "matrix": "bt601",
+   "fullRange": false,
+   "matrixSource": "camera-profile",
+   "browserMeanAbsDiff": 0.599,
+   "profileId": "e2e-fixture-y4m-bt601-limited",
+   "profileSHA256": "526ea25c977de9cc75e93c7c55fec06a575ad90d9831d3a1bd3de906b31e0ddf",
+   "colorCorrection": null,
+   "analyzedPhotoSHA256": "3db2b848facfcaf52bd93e197c0cb8d61b35ec576d2e8aad0b8239d6b44860e2"
+  }
+ },
+ {
+  "kind": "fuse",
+  "status": 200,
+  "poses": [
+   "FRONT",
+   "LEFT",
+   "RIGHT"
+  ],
+  "response": {
+   "regionalSkinMap": {
+    "version": "regional-skin-v3",
+    "paramsVersion": "regional-skin-v3-params-20261025e",
+    "classifierVersion": "k-regional-20261025f",
+    "pose": "THREE_ANGLE",
+    "tone": {
+     "ita": 74,
+     "group": "light"
+    },
+    "regions": {
+     "forehead": {
+      "state": "oily",
+      "sensitive": false,
+      "reason": null,
+      "scores": {
+       "dry": 0,
+       "normal": 0.001,
+       "oily": 0.999,
+       "sensitive": 0.004
+      },
+      "views": 3,
+      "sourcePose": "FRONT"
+     },
+     "nose": {
+      "state": "oily",
+      "sensitive": false,
+      "reason": null,
+      "scores": {
+       "dry": 0.012,
+       "normal": 0.019,
+       "oily": 0.969,
+       "sensitive": 0.127
+      },
+      "views": 3,
+      "sourcePose": "FRONT"
+     },
+     "chin": {
+      "state": "normal",
+      "sensitive": false,
+      "reason": null,
+      "scores": {
+       "dry": 0.005,
+       "normal": 0.984,
+       "oily": 0.011,
+       "sensitive": 0.016
+      },
+      "views": 3,
+      "sourcePose": "FRONT"
+     },
+     "rightCheek": {
+      "state": "dry",
+      "sensitive": true,
+      "reason": null,
+      "scores": {
+       "dry": 0.996,
+       "normal": 0.003,
+       "oily": 0.001,
+       "sensitive": 0.984
+      },
+      "views": 2,
+      "sourcePose": "LEFT"
+     },
+     "leftCheek": {
+      "state": "unmeasured",
+      "sensitive": false,
+      "reason": "LOW_CONFIDENCE",
+      "scores": {
+       "dry": 0.595,
+       "normal": 0.382,
+       "oily": 0.024,
+       "sensitive": 0.976
+      },
+      "views": 2,
+      "sourcePose": "RIGHT",
+      "causes": [
+       "LIGHTING",
+       "ANGLE"
+      ]
+     }
+    },
+    "skinType": {
+     "value": "combination",
+     "quality": "valid",
+     "sensitive": true,
+     "limitationCode": null
+    },
+    "models": {
+     "params.json": "5d1dc44de3fb4e3b150151eb642d0c152aa2fdc0161d4d7acbcc78f2847cd330",
+     "k_classifier.json": "a7ab0b05686d4d9664c115fa324589e492fc7e8829e4f9ef4488354b25688a54",
+     "skinmap.pt": "bc4e8aab0866ece0048a7306284e1bf26ef5ba31bf56ba8834ff2e2494d2a4a5",
+     "findings.pt": "c8d94801bf86c65a4ff0c3c1e5ae663aaa4774fdccd4b31d4782aeed33675c99",
+     "acnes.pt": "5db24d92049c0d335665a883ebd83dda115608a63594ccd2c336f504060abe15",
+     "regional.pt": "b23cd0ed5a18caa679a5a77607e855ef263483f712edd34d4ddeb215ce557365",
+     "wrinkles.pt": "ba5c527859c1cb59ff6244b674eee1caca07984c28b8b4426ce8c1acb412f7b2",
+     "findings-v2/acne.json": "21bf8c718e1642c07da29fc0490c2c7071a5e4dacb1247a12eb6f74b00e0e6d5",
+     "findings-v2/acneMarks.json": "beb5ad94d93dced59ddbcb31cb6e6d701923d8fa2adcf5fe2646116b6ce79e20",
+     "findings-v2/coldSore.json": "a271536005a1a481586d307ebd3d5991ee87b71a60af4ffd17bf653a716b847b",
+     "findings-v2/crowsFeet.json": "04a54cafe125a00ec8a37c7c84134714d249312c31d5a892ee82b7992e8117ea",
+     "findings-v2/darkCircles.json": "03a1e3eb584399791e578eae8ee35cc682901310aa63d5afa12cc0a1ea2b286c",
+     "findings-v2/downturnedCorners.json": "dec94ef7cd89d6badce52cb59e496f168e66cc4c1ccdfbd5f3ad12be7a468360",
+     "findings-v2/eczema.json": "f4c54d2e68867d15afdfea67d1618bc5fce602819da41f851d332dace409ee9b",
+     "findings-v2/eyeBags.json": "90e8d9455c127987b45cc4dfa1fcd4338af9dc0876341203cbab72157712baa5",
+     "findings-v2/flaking.json": "6affd88f675776d11224894f87961e353f80d2b34913991ca5a19e4d6c1d736e",
+     "findings-v2/foreheadLines.json": "db0705de20fc604c5f94f1b44ece292f7895b89a2d220068639f89b19b6bce36",
+     "findings-v2/hoodedEyelids.json": "647141640b5c2cb5cb68e5557e0c43af723b2659777087b2824978c568c3607f",
+     "findings-v2/measures/flaking.json": "04bcd877729994ba24cd56a5ed2e8d697bc5553b406123cb928473dd72739a14",
+     "findings-v2/redness.json": "2b455387db17d89c62ca69926402dae3558c65662769fb7014c72b6dd2ef3fd9",
+     "findings-v2/severity/acneMarks.json": "c6a9088c5f0dfa85eae5daa5087c0393fe63abf56718732244757150e9b5a4da",
+     "findings-v2/severity/crowsFeet.json": "bb44af67b2db8b2490694ed10fda6911888e588f6de556ca6899a6121cc126de",
+     "findings-v2/severity/darkCircles.json": "144531cf334f751e8a1c548552cdfb71c96c332bd513af44ca28c259ddf08b23",
+     "findings-v2/severity/eyeBags.json": "b140e5a91eeb185d8febb71328d03a2c9e43148cce29d2f8f36b02bd2ba4b692",
+     "findings-v2/severity/foreheadLines.json": "239300f8168979be8c16b5bdbf4e63a28c1686a9095f3861d68fa161fa1676ec",
+     "findings-v2/severity/hoodedEyelids.json": "346cc675ea0c910d760ef71a5acc8464521b11402b3a74195880f417140ef603",
+     "findings-v2/severity_geo/downturnedCorners.json": "50d0784310a69304360292cae474056e446fc7922abdb8a7ffac7091401e03b4"
+    }
+   },
+   "regionalSkinMapStatus": "OK",
+   "findings": {
+    "version": "skin-findings-v2",
+    "poses": [
+     "FRONT",
+     "LEFT",
+     "RIGHT"
+    ],
+    "thresholdSource": "research/skin-findings/results/det_prev.md (thr_prev on 260 training persons; findings.pt)",
+    "models": {
+     "findings.pt": "c8d94801bf86c65a4ff0c3c1e5ae663aaa4774fdccd4b31d4782aeed33675c99",
+     "findings-v2/acne.json": "21bf8c718e1642c07da29fc0490c2c7071a5e4dacb1247a12eb6f74b00e0e6d5",
+     "findings-v2/acneMarks.json": "beb5ad94d93dced59ddbcb31cb6e6d701923d8fa2adcf5fe2646116b6ce79e20",
+     "findings-v2/coldSore.json": "a271536005a1a481586d307ebd3d5991ee87b71a60af4ffd17bf653a716b847b",
+     "findings-v2/crowsFeet.json": "04a54cafe125a00ec8a37c7c84134714d249312c31d5a892ee82b7992e8117ea",
+     "findings-v2/darkCircles.json": "03a1e3eb584399791e578eae8ee35cc682901310aa63d5afa12cc0a1ea2b286c",
+     "findings-v2/downturnedCorners.json": "dec94ef7cd89d6badce52cb59e496f168e66cc4c1ccdfbd5f3ad12be7a468360",
+     "findings-v2/eczema.json": "f4c54d2e68867d15afdfea67d1618bc5fce602819da41f851d332dace409ee9b",
+     "findings-v2/eyeBags.json": "90e8d9455c127987b45cc4dfa1fcd4338af9dc0876341203cbab72157712baa5",
+     "findings-v2/flaking.json": "6affd88f675776d11224894f87961e353f80d2b34913991ca5a19e4d6c1d736e",
+     "findings-v2/foreheadLines.json": "db0705de20fc604c5f94f1b44ece292f7895b89a2d220068639f89b19b6bce36",
+     "findings-v2/hoodedEyelids.json": "647141640b5c2cb5cb68e5557e0c43af723b2659777087b2824978c568c3607f",
+     "findings-v2/measures/flaking.json": "04bcd877729994ba24cd56a5ed2e8d697bc5553b406123cb928473dd72739a14",
+     "findings-v2/redness.json": "2b455387db17d89c62ca69926402dae3558c65662769fb7014c72b6dd2ef3fd9",
+     "findings-v2/severity/acneMarks.json": "c6a9088c5f0dfa85eae5daa5087c0393fe63abf56718732244757150e9b5a4da",
+     "findings-v2/severity/crowsFeet.json": "bb44af67b2db8b2490694ed10fda6911888e588f6de556ca6899a6121cc126de",
+     "findings-v2/severity/darkCircles.json": "144531cf334f751e8a1c548552cdfb71c96c332bd513af44ca28c259ddf08b23",
+     "findings-v2/severity/eyeBags.json": "b140e5a91eeb185d8febb71328d03a2c9e43148cce29d2f8f36b02bd2ba4b692",
+     "findings-v2/severity/foreheadLines.json": "239300f8168979be8c16b5bdbf4e63a28c1686a9095f3861d68fa161fa1676ec",
+     "findings-v2/severity/hoodedEyelids.json": "346cc675ea0c910d760ef71a5acc8464521b11402b3a74195880f417140ef603",
+     "findings-v2/severity_geo/downturnedCorners.json": "50d0784310a69304360292cae474056e446fc7922abdb8a7ffac7091401e03b4"
+    },
+    "status": "measured",
+    "findings": [
+     {
+      "id": "mole",
+      "region": "rightCheek",
+      "status": "notSeen",
+      "pose": "FRONT",
+      "readFrom": [
+       "FRONT",
+       "LEFT"
+      ]
+     },
+     {
+      "id": "mole",
+      "region": "leftCheek",
+      "status": "notSeen",
+      "pose": "FRONT",
+      "readFrom": [
+       "FRONT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "melasma",
+      "region": "rightCheek",
+      "status": "notSeen",
+      "pose": "FRONT",
+      "readFrom": [
+       "FRONT",
+       "LEFT"
+      ]
+     },
+     {
+      "id": "melasma",
+      "region": "leftCheek",
+      "status": "notSeen",
+      "pose": "FRONT",
+      "readFrom": [
+       "FRONT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "rosacea",
+      "region": "forehead",
+      "status": "notSeen",
+      "pose": "RIGHT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "rosacea",
+      "region": "nose",
+      "status": "notSeen",
+      "pose": "LEFT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "rosacea",
+      "region": "rightCheek",
+      "status": "seen",
+      "pose": "LEFT",
+      "readFrom": [
+       "FRONT",
+       "LEFT"
+      ],
+      "areaPct": 56.7,
+      "toneDiff": 5
+     },
+     {
+      "id": "rosacea",
+      "region": "leftCheek",
+      "status": "notSeen",
+      "pose": "RIGHT",
+      "readFrom": [
+       "FRONT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "rosacea",
+      "region": "chin",
+      "status": "notSeen",
+      "pose": "LEFT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "acneMarks",
+      "region": "chin",
+      "status": "notSeen",
+      "pose": "LEFT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "acneMarks",
+      "region": "leftCheek",
+      "status": "notSeen",
+      "pose": "RIGHT",
+      "readFrom": [
+       "FRONT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "acneMarks",
+      "region": "rightCheek",
+      "status": "notSeen",
+      "pose": "FRONT",
+      "readFrom": [
+       "FRONT",
+       "LEFT"
+      ]
+     },
+     {
+      "id": "coldSore",
+      "region": "chin",
+      "status": "seen",
+      "pose": "FRONT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ],
+      "markers": [],
+      "count": 1,
+      "countAtLeast": true
+     },
+     {
+      "id": "crowsFeet",
+      "region": "periorbital",
+      "status": "seen",
+      "pose": "FRONT",
+      "readFrom": [
+       "FRONT",
+       "RIGHT"
+      ],
+      "severity": 13.3
+     },
+     {
+      "id": "darkCircles",
+      "region": "periorbital",
+      "status": "notSeen",
+      "pose": "FRONT",
+      "readFrom": [
+       "FRONT"
+      ]
+     },
+     {
+      "id": "downturnedCorners",
+      "region": "periorbital",
+      "status": "seen",
+      "pose": "FRONT",
+      "readFrom": [
+       "FRONT"
+      ],
+      "severity": 0
+     },
+     {
+      "id": "eczema",
+      "region": "chin",
+      "status": "notSeen",
+      "pose": "LEFT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "eczema",
+      "region": "forehead",
+      "status": "notSeen",
+      "pose": "RIGHT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "eczema",
+      "region": "leftCheek",
+      "status": "notSeen",
+      "pose": "RIGHT",
+      "readFrom": [
+       "FRONT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "eczema",
+      "region": "rightCheek",
+      "status": "notSeen",
+      "pose": "LEFT",
+      "readFrom": [
+       "FRONT",
+       "LEFT"
+      ]
+     },
+     {
+      "id": "eyeBags",
+      "region": "periorbital",
+      "status": "notSeen",
+      "pose": "FRONT",
+      "readFrom": [
+       "FRONT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "flaking",
+      "region": "chin",
+      "status": "notSeen",
+      "pose": "RIGHT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "flaking",
+      "region": "forehead",
+      "status": "notSeen",
+      "pose": "RIGHT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "flaking",
+      "region": "leftCheek",
+      "status": "notSeen",
+      "pose": "RIGHT",
+      "readFrom": [
+       "FRONT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "flaking",
+      "region": "rightCheek",
+      "status": "notSeen",
+      "pose": "LEFT",
+      "readFrom": [
+       "FRONT",
+       "LEFT"
+      ]
+     },
+     {
+      "id": "foreheadLines",
+      "region": "forehead",
+      "status": "seen",
+      "pose": "RIGHT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ],
+      "severity": 4
+     },
+     {
+      "id": "hoodedEyelids",
+      "region": "periorbital",
+      "status": "notSeen",
+      "pose": "FRONT",
+      "readFrom": [
+       "FRONT"
+      ]
+     },
+     {
+      "id": "acne",
+      "region": "forehead",
+      "status": "seen",
+      "pose": "FRONT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ],
+      "markers": [
+       {
+        "x": 1106,
+        "y": 201.3,
+        "r": 25.6,
+        "pose": "FRONT",
+        "type": "papule"
+       },
+       {
+        "x": 1026.8,
+        "y": 158.2,
+        "r": 22.6,
+        "pose": "FRONT",
+        "type": "papule"
+       },
+       {
+        "x": 1049.9,
+        "y": 218.8,
+        "r": 8.7,
+        "pose": "FRONT",
+        "type": "papule"
+       }
+      ],
+      "count": 3,
+      "subtypes": {
+       "blackhead": 0,
+       "whitehead": 0,
+       "papule": 3,
+       "pustule": 0,
+       "nodule": 0,
+       "unspecified": 0
+      }
+     },
+     {
+      "id": "acne",
+      "region": "nose",
+      "status": "seen",
+      "pose": "RIGHT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ],
+      "markers": [],
+      "count": 1,
+      "subtypes": {
+       "blackhead": 0,
+       "whitehead": 0,
+       "papule": 0,
+       "pustule": 0,
+       "nodule": 0,
+       "unspecified": 1
+      },
+      "countAtLeast": true
+     },
+     {
+      "id": "acne",
+      "region": "leftCheek",
+      "status": "notSeen",
+      "pose": "RIGHT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "acne",
+      "region": "rightCheek",
+      "status": "notSeen",
+      "pose": "FRONT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "acne",
+      "region": "chin",
+      "status": "notSeen",
+      "pose": "LEFT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "redness",
+      "region": "rightCheek",
+      "status": "seen",
+      "pose": "FRONT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ],
+      "areaPct": 56.7,
+      "toneDiff": 5
+     },
+     {
+      "id": "redness",
+      "region": "leftCheek",
+      "status": "seen",
+      "pose": "RIGHT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ],
+      "areaPct": 38.5,
+      "toneDiff": 3
+     },
+     {
+      "id": "redness",
+      "region": "nose",
+      "status": "notSeen",
+      "pose": "LEFT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "redness",
+      "region": "chin",
+      "status": "notSeen",
+      "pose": "LEFT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ]
+     },
+     {
+      "id": "redness",
+      "region": "forehead",
+      "status": "notSeen",
+      "pose": "RIGHT",
+      "readFrom": [
+       "FRONT",
+       "LEFT",
+       "RIGHT"
+      ]
+     }
+    ],
+    "unavailable": [
+     {
+      "id": "spots",
+      "reason": "NOT_VALIDATED"
+     }
+    ]
+   }
+  }
+ }
+]

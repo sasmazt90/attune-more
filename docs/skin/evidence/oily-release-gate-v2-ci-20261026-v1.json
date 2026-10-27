@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T13:09:26Z",
+  "repository": "sasmazt90/attune-more",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "ce44290d557aac8aa639eb54d19d0f36b47f7dc7",
+  "methodVersion": "regional-oily-appearance-release-gate-v2",
+  "workingProductBaseline": {
+    "alreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "existingOilAppearanceProxyPreserved": true,
+    "separateSkinTypePreserved": true
+  },
+  "remoteRefresh": {
+    "accessibleProjects": 20,
+    "regionalProject": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "images": 337,
+    "version": 1,
+    "trainings": [
+      {"trainingId": "3485f8c67f957a1b850d", "modelType": "rfdetr-nas-seg-parent", "status": "finished"},
+      {"trainingId": "af287a006e2e428f5ce4", "modelType": "rfdetr-seg-small", "status": "finished"}
+    ],
+    "runningTrainingFound": false,
+    "duplicateTrainingStarted": false
+  },
+  "releaseDecision": {
+    "rejectedResearchModelAccepted": false,
+    "knownVersionOneModelsAccepted": false,
+    "distinctCandidatePresent": false,
+    "researchTrainingAuthorized": false,
+    "finalTestEvaluationAuthorized": false,
+    "learnedRegionalMaskActivationAllowed": false,
+    "roadmapAccepted": false,
+    "decision": "blocked"
+  },
+  "controls": {
+    "greenOnlyForMeasuredOilyRegionalSupport": true,
+    "wholeFaceReplicationAllowed": false,
+    "missingMaskAsNormalAllowed": false,
+    "boxAcceptedAsPolygon": false,
+    "modelPredictionIsExpertTruth": false,
+    "rednessIndependentOverlayRequired": true,
+    "rednessMeansSensitivity": false,
+    "candidateProjectVersionTrainingAndModelIdentityRequired": true,
+    "groupLockedVersionTwoOrLaterRequired": true,
+    "preRegisteredSingleChangeRequired": true,
+    "thresholdsLockedBeforeFinalTestRequired": true,
+    "polygonMaskOutputVerificationRequired": true
+  },
+  "tests": {
+    "localFocused": {"tests": 14, "result": "OK"},
+    "localCompleteSkinResearch": {"tests": 237, "result": "OK"},
+    "githubActions": {
+      "runId": 40327580317,
+      "url": "https://github.com/sasmazt90/attune-more/actions/runs/40327580317",
+      "conclusion": "success",
+      "frontendJobId": 121588173858,
+      "frontendProductionBuild": "success",
+      "backendJobId": 121588173056,
+      "localizationContract": "success",
+      "deterministicUnitSuite": {"passed": 1627, "skipped": 44, "warnings": 2},
+      "completeSkinResearchEvidenceSuite": {"tests": 237, "result": "OK"}
+    }
+  },
+  "remainingRequirements": [
+    "rights-reviewed expert Oily mask extent, negative, ambiguity and assessability truth",
+    "illumination, shine and glare protocol",
+    "complete person/source grouping and group-locked replacement split",
+    "new untouched final test and independent consented physical-camera holdout",
+    "distinct version-2-or-later candidate from a preregistered single change",
+    "validation, final test, camera slice, product integration, overlap and unavailable controls"
+  ]
+}

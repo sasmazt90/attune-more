@@ -1,0 +1,66 @@
+{
+  "modelIdentity": {
+    "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--754885",
+    "modelPackageId": "d336c1c2c6c791758326d9cc4f9afecc"
+  },
+  "split": "valid",
+  "selections": [
+    {
+      "label": "Pigmentation",
+      "imageId": 26,
+      "filename": "0jbzg48prt791_jpg.rf.b7f1e1b4d9335e10ca0f9649de8d29e1.jpg",
+      "metrics": {
+        "threshold": 0.2,
+        "tp": 0,
+        "fp": 3,
+        "fn": 62,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "selection": "lowest per-image F1 among validation images with >=5 publisher instances; no repeated image"
+    },
+    {
+      "label": "Pimple",
+      "imageId": 144,
+      "filename": "20182905151201_0_jpg.rf.f440f9c26f9def9e54cfc2965472434c.jpg",
+      "metrics": {
+        "threshold": 0.3,
+        "tp": 0,
+        "fp": 1,
+        "fn": 19,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "selection": "lowest per-image F1 among validation images with >=5 publisher instances; no repeated image"
+    },
+    {
+      "label": "Post acne",
+      "imageId": 19,
+      "filename": "q3q8pymp6x291_jpg.rf.b252f753083f3aa5df90999518ef1454.jpg",
+      "metrics": {
+        "threshold": 0.3,
+        "tp": 0,
+        "fp": 18,
+        "fn": 63,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "selection": "lowest per-image F1 among validation images with >=5 publisher instances; no repeated image"
+    }
+  ],
+  "labelSemanticsExpertVerified": false,
+  "requiresVisualReview": true,
+  "drawingLibrary": "supervision 0.31.1",
+  "assistantVisualReviewPerformed": true,
+  "expertReviewed": false,
+  "boardSHA256": "92374d7a915390aa2dee5aaebdd4e08d0f79678d58653e2f04bb1cb6bb251903",
+  "findings": [
+    "Selected Pigmentation failure: many tiny publisher boxes on jaw/neck missed; three wrong facial predictions.",
+    "Selected Pimple failure: tiny cheek/chin publisher instances missed, one false positive.",
+    "Selected Post acne failure: location/extent mismatch with dense small jaw/chin boxes.",
+    "Visual appearance alone does not establish expert semantics. Resolution, dense-object limits, annotation coverage and localisation require targeted validation-only investigation."
+  ]
+}

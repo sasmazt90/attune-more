@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "tests": 115,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "codeSHA256": {
+    "scripts/skin-research/verify_roboflow_export.py": "c1065ce5d594069adf126e07f7784ef831da15e2f9898cac5232c863834255b7",
+    "scripts/skin-research/detector_tiling.py": "828273b175b749f66522878e85f08d7ddc4feb39ebf3078f23228c0bec36a375",
+    "scripts/skin-research/prepare_tiling_experiment.py": "bdbd06d8c4e7a90bd3d6dc5afed9210728608e45b3420ea7939be421917edaa4",
+    "scripts/skin-research/evaluate_tiling_experiment.py": "d4cdf787c647264bd4d35b784b94992aacf9c209ddf0080b756fe547f9558ca3",
+    "tests/unit/test_roboflow_export_comparison.py": "af250b80df8f5df244a6590d668a2a7806555795da675c1a0817bd4de1a8cb66",
+    "tests/unit/test_detector_tiling.py": "f7e9dacc83d4a75b4613a21ee2dac6cd5c0ab630ce2a2b591981d45653d1b7ff",
+    "tests/unit/test_tiling_experiment_replay.py": "b4ab8d90c39e329699c86dc32ed667027b89dfbf3d51826ae12da11025d1945b"
+  },
+  "payloadReproduction": {
+    "total": 24,
+    "matching": 24,
+    "JPEGquality": 95,
+    "PillowVersion": "12.3.0"
+  },
+  "notCameraOrModelAcceptance": true
+}

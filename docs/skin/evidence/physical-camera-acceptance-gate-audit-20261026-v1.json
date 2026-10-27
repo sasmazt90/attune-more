@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-26T06:18:59Z",
+  "status": "implemented_tested_fail_closed_real_camera_evidence_pending",
+  "purpose": "Bind locked capture and localization metrics to class-specific thresholds, every observed camera slice and the existing Attune.more API/browser/map/history flow without macro averaging.",
+  "mergedProductBaseline": {
+    "verified": true,
+    "branch": "main",
+    "commit": "7463eef112c5a40f7cd01192b6d1f4e9fa6ab285",
+    "endpoint": "/api/local-health/skin",
+    "alreadyProducesConcreteResults": true,
+    "appearanceCriteria": 9,
+    "separateSkinType": true,
+    "treatedAsGreenfield": false
+  },
+  "implementation": {
+    "script": "scripts/skin-research/check_physical_camera_acceptance.py",
+    "scriptBlobSha": "3fcc8c43235c7fee4b9df203839dec6b3ecb097c",
+    "test": "scripts/skin-research/tests/test_check_physical_camera_acceptance.py",
+    "testBlobSha": "9d3e2b566faaf3788661fc793df9e90e8a938060",
+    "acceptancePolicyTemplate": "docs/skin/evidence/physical-camera-acceptance-policy-template-20261026-v1.json",
+    "acceptancePolicyTemplateBlobSha": "69f3a728a479395f6773213d0cf7a6ae2dfe0e16",
+    "productReplayTemplate": "docs/skin/evidence/physical-camera-product-replay-template-20261026-v1.json",
+    "productReplayTemplateBlobSha": "a68fb59d4648e4809065066c33a01a3f9e6887a6"
+  },
+  "guards": {
+    "policyLockedBeforeCameraFinal": true,
+    "cameraFinalMaySelectPolicy": false,
+    "policyMayMutateAfterLock": false,
+    "methodThresholdAndGeometryIdentityBound": true,
+    "everyClassMustPassIndependently": true,
+    "everyObservedDeviceLightingSkinTonePoseSliceMustPass": true,
+    "macroAveragingAccepted": false,
+    "recommendedFlagAccepted": false,
+    "finishedTrainingAcceptedAsQuality": false,
+    "localizedClassesRequireIoUAndDice": true,
+    "evaluatedNegativeFalsePositiveAreaBounded": true,
+    "boxesAcceptedAsPolygons": false,
+    "realPhysicalCameraReplayRequired": true,
+    "realBrowserRequired": true,
+    "apiOverviewEveryRegionMapHistoryReplayRequired": true,
+    "methodIncompatibleHistoryMustBeExcluded": true,
+    "unavailableStateMustPass": true,
+    "privacyRetentionDeletionEvidenceRequired": true
+  },
+  "mapContract": {
+    "dry": "blue",
+    "oily": "green",
+    "redness": "red independent contour or hatching; never sensitivity",
+    "normal": "uncoloured only when explicitly evaluated",
+    "unknown": "light grey and never normal",
+    "overlapAllowed": true
+  },
+  "verification": {
+    "focusedTestsPassed": 10,
+    "fullSkinResearchTestsPassed": 200,
+    "pythonCompilePassed": true,
+    "templateJsonValidationPassed": true
+  },
+  "providerRefresh": {
+    "projectsAccessible": 20,
+    "acneProjectImages": 800,
+    "acneTrainings": {
+      "5b632a5c12b76fcfe703": "finished",
+      "49ee6204cf069198bbfa": "finished"
+    },
+    "regionalProjectImages": 337,
+    "regionalTrainings": {
+      "3485f8c67f957a1b850d": "finished",
+      "af287a006e2e428f5ce4": "finished"
+    },
+    "underEyePilotImages": 399,
+    "underEyePilotV1Training": {
+      "d194569acd3ebe7cf8b7": "finished"
+    },
+    "underEyePilotV2Trainings": 0,
+    "underEyeGroupedResearchImages": 0,
+    "groupedUploadTask": {
+      "taskId": "sLFwX7CYBVcnnD6iAW5o",
+      "status": "created",
+      "progress": null
+    },
+    "newTrainingStarted": false,
+    "newUploadStarted": false
+  },
+  "currentDecision": {
+    "realCaptureEvaluationSupplied": false,
+    "realLocalizationEvaluationSupplied": false,
+    "lockedAcceptancePolicySupplied": false,
+    "realProductReplaySupplied": false,
+    "cameraAccepted": false,
+    "activationAllowed": false,
+    "roadmapComplete": false
+  },
+  "note": "The gate is executable but deliberately does not invent threshold values or replay evidence. It preserves the already working merged product and activates a class only after real independent camera evidence passes its own locked policy and product replay."
+}

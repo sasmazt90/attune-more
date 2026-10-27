@@ -1,0 +1,1427 @@
+{
+  "schemaVersion": "source-group-review-decisions-v1",
+  "decisions": [
+    {
+      "candidateId": "4c2dd8b4c0e4fd63eb411532",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows different people and different capture scenes; low dHash distance is a false positive. This is not expert label review."
+    },
+    {
+      "candidateId": "ea37c83c23b1bd2c2eedd46d",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person, pose, clothing and background with a small crop/encoding difference across train and valid. This is source-identity review, not lesion-label review."
+    },
+    {
+      "candidateId": "fa3a40f29abc0cb397ee0798",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo/person across train and valid, with crop and watermark differences. This is source-identity review, not lesion-label review."
+    },
+    {
+      "candidateId": "53aecbd6f8b81254fc9646c0",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison independently confirms the already reviewed train/valid crop and watermark variants are the same source photo/person. This is source-identity review, not lesion-label review."
+    },
+    {
+      "candidateId": "554d29389072a946c8f11e79",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person, clothing and studio background in distinct train/valid poses. This is person-identity review, not lesion-label review."
+    },
+    {
+      "candidateId": "5fc584f688968d6ed4b1784b",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person and studio series in distinct train/valid poses. This is person-identity review, not lesion-label review."
+    },
+    {
+      "candidateId": "c3a8f6e78946ed21ee68ca92",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person, clothing and background in distinct train/valid poses. This is person-identity review, not lesion-label review."
+    },
+    {
+      "candidateId": "de125b5543cd3a26535cc41d",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison independently confirms the already reviewed train/valid crop and encoding variants are the same source photo/person. This is source-identity review, not lesion-label review."
+    },
+    {
+      "candidateId": "67007474e211e8360bbbf0c1",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person, clothing, room and camera framing in two valid-split images. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "489684f93b27a3f5a14c1f37",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows different people, viewpoints and capture scenes in the test split; the perceptual match is a false positive. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "415c174e992a7ce81f897879",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person and studio series with a small pose/expression change in the train split. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f590a551332d24d98f5a5cf0",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows different people and capture environments in the train split; the perceptual match is a false positive. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f8c7227aa3f19fd4efbfb096",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows different people and distinct studio compositions in the train split; the perceptual match is a false positive. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "132b8f841a16899611bab428",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo with a small crop or encoding variation in the train split. This is source review, not lesion-label review."
+    },
+    {
+      "candidateId": "82475c0d9b19b12f801ba49b",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo with a small crop or encoding variation in the train split. This is source review, not lesion-label review."
+    },
+    {
+      "candidateId": "27f0f3261d73384135ba5cab",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo with a small crop or encoding variation in the train split. This is source review, not lesion-label review."
+    },
+    {
+      "candidateId": "e65b24074b490d6884d87d2e",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo already present in another reviewed train-split pair, with a small crop or encoding variation. This is source review, not lesion-label review."
+    },
+    {
+      "candidateId": "a030d454dbf482220071ab73",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo with a small crop or encoding variation in the train split. This is source review, not lesion-label review."
+    },
+    {
+      "candidateId": "2b0f8f866523da279a931ffd",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows different people and capture scenes across train and valid; the central-crop similarity is a false positive. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f3cd55fb925daf808ee3d5a4",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person in a matched clinical-style series with consistent facial structure and framing in the train split. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "5e908d6f9f7aa4d53f27c3c5",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person, background and source watermark in two train-split images. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f3244b1e28f5e56acb129017",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison confirms the earlier review: these are different people and capture environments, so the central-crop similarity is also a false positive. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "0b06b39b60b3c2915f671858",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows different people in the valid split; the directional-crop similarity is a false positive. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "5edfb20a7a3fdab78dea26bd",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person in a train/valid portrait series despite different clothing and pose. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "e9dea9e5237209b9c42b5585",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person in test and train images, including matching facial structure and distinctive jewelry. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "01682ecbe6e90b08643a2116",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo with a small crop or encoding variation in the train split. This is source review, not lesion-label review."
+    },
+    {
+      "candidateId": "b7e7d22404f9f8b3fe91180c",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person in two train-split captures with consistent facial structure and distinctive jewelry. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "058ac3e61ecd75412df8f7db",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo across train and valid with a small crop or encoding variation. This is source review, not lesion-label review."
+    },
+    {
+      "candidateId": "0aeac5acf28cc9c29bfed998",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person in train and valid images with consistent facial structure, hair and capture environment. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "ac8368e5e14b9098652fae34",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same person/source series. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "02284bc507ccf8cdf806dee2",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "84fbbb68406a23b90bfbb138",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "2933b9509cf635e07ba6fd8f",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "0e31457cc3a14eb449326dfc",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "4bd9629758362e6586b6c9c8",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "73c9082a4a51759ddd5f70e5",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "c6c949a8c4255f15cd5c7ddb",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "9f19ad741b2c074f146a6e5e",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "c5d7948c183b19c8f9e48637",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "374afb9b278e823fc7997c2c",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "24f7340e69e23975a1df991c",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "93dae6249cc2e337016db233",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "6f7a2e005cfa4113ff67c447",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "e0644783045bcbe6ee59389f",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "03637a934b71bb01eed1fdad",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "496a45af4ef71d96bfdaa7d3",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "1350124e8e06907c4d18251f",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "a3ed271f144e2427f4af7f28",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "7c2f027b2095e4aa58d8e6b2",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "c435ddac86be991b90d6ee23",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "7fc2751c2a0e18e950405d4b",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "1eded6a1a7a32804cbd80805",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "1bac59c5d5173fc28f00f3d5",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "85726bcf758c40c2cc90addf",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "9ab12d546fbf7f93f1566bb7",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "71dcb53d9673b8dfcdf01c70",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f06638f368c32290c29171fe",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "004a0e0ad61463ee779b9839",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "3d67234ca08f917d7b47d1f9",
+      "decision": "same_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison shows the same source photo. This is source review, not lesion-label review."
+    },
+    {
+      "candidateId": "20eb9b4437d997d7a60b91ec",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "800d4d6de969ced8b6c7c2db",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "716dfd66c33a22813d0bd00d",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "bcd4f7b36fa78088a90c59df",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "a27a4b5a4587c2596238b7f5",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "a946d68f9e8c23ce0bc25178",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "255f04064286baadae881ac2",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "58e5b0874aa19378ea984ca1",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "7836b4d5374faa92b8acfbed",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "17792c2cf48742bdd02bfdcd",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "bddc5f1b111e1d8f6ea0eed4",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "8bb987defbfa7bd90b54c47a",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "7a90be51d4e31da176f243b5",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "ca2f1238c853de25a619c0a2",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "1656d17986fde766a4559253",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "d2fb6eb2f95c31b66014d215",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "b9419c5f60667a8813bca5d4",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f84426b861191c006075b695",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "324f79d55d12297833539ef0",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "c26b9b8b6bb609e4cac21492",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "b5b8de4c45504e634d5434f1",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "7917b6f7e4794453f9981a93",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "2484b9b5650422e13b0d9fac",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "6cccde0f6d9e7663d5cebc47",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "9aeae9426dacbc7a242ef5d2",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "d7bd094e23f14c4cb58230d6",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "d6551b88fab1418bc7b886c7",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "16dc4dc9ff773c0ad8d4d4b0",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "6df0f35a76ec1c4fec2f935e",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "1dbbe2279f28580e85abbe5c",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f74cdd0c995c6a1f0dabc840",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "d1b06ed7c4bb4e95801838c0",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "1cb0ca64fd04cac898713e34",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "957a3c0f1846e33339f88d60",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "d3b4dfed48ecd4bc41d757a1",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "e410df5e4d15c296581fcd5b",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "43c786ece6fbefb14de5ee71",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "88b6635d170177dfd94c44b6",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "c5e3b538a2522f42e641a97e",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "11a8fe292956f5a03a41f6d2",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "e8749e1e9d65ae3f00bffa3d",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "cd464c6b60b59a1927fe3c0a",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "a0ff716d777906ab3eddc32e",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "acdef33eb99fd3b65610f24d",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "3c6404abae4212a55574da16",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f614a31329ab35f01a5ce48c",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "06b9f68418225ad6db4f785a",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "a7036f8c009b007f7de25a7d",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "e01b1f832c963749019f4d3f",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "e61fe5839ba1f7be503f31d9",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "faf036b1f176ac81427bc0fe",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "b088fb79ab3a20a9a527be8e",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "bb82292eefba022f49fab1b2",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "21da09dad34ab9d89b3067f1",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "d2389e3ba466b86464c8a628",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "bd726a8752d6d75c3f5f4515",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "2b4730bd9d823646074972c4",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "38ee80dfe4f8279bcc5727ef",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "56829a6f9748e5fb031752ff",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "5a550b49aedc18fcf681376a",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "b1aea9265c9e13383d7cb670",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "0074bb513fff11aabcf2a8a6",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f948735c1671f97cd1c0dbe5",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "0e661e05f22ae1948510407b",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "e6647e428f2ac71c0f2aace2",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "4f3bfed00845e175c0f3638e",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "eebdeb72841d17225f18d184",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "42cb0b28dc58be63533facf6",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "5695366b0a054e750b4461c0",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "e076507f488f4a2cd27c75e4",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "a48e6902ddea55a5998ae0cc",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "1e3ce2fd13e7f3f88420d982",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f2e37d1bbe5aa27256aed63b",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "8a399ce99759db8934f3455e",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "21eb4f68be433c1c6b497867",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "7433caa1299669af506c2cf6",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "075fb71a310d6dd55e12479d",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "ac0139606a00671e856a73c5",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "a2c2805517dd1acc314dbd4c",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "aa3fa5854260ec005d96406b",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f626176ee79ce233fbeb887e",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "5ff9c6c8d0f6e5edda521db0",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "e97d3b97067e47daf62fb06e",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "c6351d78cdc050596b9329f2",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "35486dc4c90e01dcafa2d5fd",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "4fe805369741af74b54ffaaf",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "1272aeede9d8e08535584e63",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "76978b7155bcd99318031a3f",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "68cd246896cde9099049f515",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f24afad21d62b64272a1ea09",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "26bc13b38d39238cba87649e",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "8c825dcb8951f6bc89b59031",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "e3897a94dd51e396155303c8",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "4f60a1c48fcfcc95e0eafa3a",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "511a897c792f68ec2ac38e76",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "d13f32bd2b5bfd69067ce40c",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "2320993e3c2549f8acb76f04",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "97f680f4e08ddff89ec8f82a",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f34f5c1c06edcdea8f3d5b31",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "1743926641514fdfddf33144",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "819d73c3efab14e129d14abc",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "984538b71299fd95c0d55f1a",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "9efd4527a332c0b8e7e5870d",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "112e2abe17f160ea046b87e7",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "08236583d21d2a903c54d1df",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "d8b1940cd05aeb1eb45999f9",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "0fcbe32f75b57c250801285c",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "328c996f9a1a3d98e5bba1e3",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "8c21653fc92e529b6cd9ee96",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "e082079a4b23bcf9cb736069",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "be08303c122c27a17a577d25",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "749e00be674f21c9b1b4c6f7",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "cf831329f08ebd879691cd57",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "4e5b6015dd3c76cd3c0334d6",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "27228f81ca9fc2a6a7163a91",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "c08f41308a66f40625683087",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f5295da4551af76807b797cd",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "41ce4299e8f2fd2a5feb0a05",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "60bccb7816438f55537e5b4b",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "c01e93ff09c06a8827be8697",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "3b3d0df367ea9910f1d8275a",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "ba6ab8e34c4d549c01192ec2",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "ada060bf9c2de45f093cfd33",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "b855c6ab2019a7233cb6b13a",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f63a1bd4e2d84999e6bf05d4",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "64beff74bdec15fdaf8539dc",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "c77a15943966e15bf9c405d6",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "589f7294d8b260218e2d358e",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "d06815558c3788ed88f3d746",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "913f05bcf57897b115f2bf1d",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "5c46f4cbeea89b7a8b254b61",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "d0760db01fa505e046bcf99a",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "d1d9ed401dfecfc9cf1d2051",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "9f4f117acc5f4e777c878359",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "dd3404627fc4ccc7c03b7a94",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "2ee21f8d18e6e40e4aff9b82",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "3c619ab03fb4b412a821814f",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "bd6b03d9a4554e8227e5c75f",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "67ad4e1255a75fe157073757",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "b2fd76fc7342ab8ef6609089",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "cf204af9637c6f65d5391f7b",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "131439a6b713d6c82e4e9326",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "c5dcf97c4879a314146f0d27",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f63ca0722a378d1082733753",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "1606e1da7f3bf14d037ff88c",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "3a9c33441da965d7252739b4",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "e5df733513652cbc6e54c1fb",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "dfd86962142270a941a2b2d9",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "14e9e5feda07f2fd3e5cd461",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "715cf6e35da732655c72e586",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "60813fc042913b6f2e6e3b62",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "ddf9bfe2a30cb7503b436fdb",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "83ecb784515850d638e71561",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "02c0d536d2325e58e87e80a0",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "a2e00f101e6292e532faa51b",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "156f29c2871c36d220dffaec",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "34e0f45c2c07cf75ee52dd25",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "5de33dab1f9163e5f1980775",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "9a844b99b1f260613d771daa",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "fe2084671bad9019df75cde5",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "dfae50ebc2347be837d7c394",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "fdaeb1c23fd0268e679e9b36",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "404eccbd6d5e334be6b5cbfe",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "97b845e453559b2823bfb9d2",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "7e4420aecb6bf9bb6ead85ee",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "81060a08ab68674d08e88c89",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "fa78804f282aad41de2d1dd5",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "9d0eaf839010750c306d3c9f",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "f20b2d575417b28b163a8f3b",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "7b4a2a3ae489c648f6a09f3b",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "3d225bf79644c23e585a8fd3",
+      "decision": "different_source",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison does not support a shared person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "e14f7c37788871508dc49f67",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "04281e0d9e3c0a7bfd36452c",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "14a239c55f8e413af6f9f311",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "81f4bc4bb033a697adc14018",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "816f48decb98c22335e53a61",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "c0347a9fa3051fdafed107dd",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    },
+    {
+      "candidateId": "903b0dea21b886b9f34baf1d",
+      "decision": "same_source_or_person",
+      "reviewer": "engineering_visual_review",
+      "rationale": "The private comparison supports the same person or source. This is identity/source review, not lesion-label review."
+    }
+  ]
+}
