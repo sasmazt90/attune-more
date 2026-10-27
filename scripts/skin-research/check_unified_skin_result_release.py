@@ -21,6 +21,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 EXPECTED_BRANCH = "work/skin-roadmap-20261023"
+EXPECTED_REPOSITORY_CI_SCHEMA = 2
 EXPECTED_CODE_BLOBS = {
     "apps/vehicle-app/src/utils/regionalSkinMap.ts": "258ab2d845b3743ede309938cd14da8831a01046",
     "apps/vehicle-app/src/utils/skinOverview.ts": "4d31010f82bfd5c42a49b46c20880630d57079dd",
@@ -138,7 +139,7 @@ def _validate_gate_registry(receipt: dict[str, Any], evidence_root: Path) -> tup
 
 def _validate_repository_ci(identity: Any, evidence_root: Path) -> dict[str, Any]:
     payload = _load_evidence(identity, "repository CI", evidence_root)
-    _require(payload.get("schemaVersion"), 1, "repository CI schema changed")
+    _require(payload.get("schemaVersion"), EXPECTED_REPOSITORY_CI_SCHEMA, "repository CI schema changed")
     _require(payload.get("branch"), EXPECTED_BRANCH, "repository CI branch identity changed")
     actions = payload.get("githubActions", {})
     _require(
@@ -151,6 +152,18 @@ def _validate_repository_ci(identity: Any, evidence_root: Path) -> dict[str, Any
     _require(actions.get("completeSkinResearchEvidenceSuite", {}).get("result"), "OK", "skin evidence suite is not green")
     browser = payload.get("browserAcceptance", {})
     _require(browser.get("conclusion"), "success", "browser acceptance CI is not green")
+    _require(browser.get("branch"), EXPECTED_BRANCH, "browser acceptance branch identity changed")
+    _require(
+        browser.get("headSha"), payload.get("implementationCommit"),
+        "browser acceptance commit does not match repository CI implementation commit",
+    )
+    artifact_run = browser.get("artifactWorkflowRun", {})
+    _require(artifact_run.get("runId"), browser.get("runId"), "browser artifact workflow run identity changed")
+    _require(artifact_run.get("branch"), EXPECTED_BRANCH, "browser artifact branch identity changed")
+    _require(
+        artifact_run.get("headSha"), payload.get("implementationCommit"),
+        "browser artifact commit does not match repository CI implementation commit",
+    )
     _require(browser.get("sanitizedEvidenceOnly"), True, "browser acceptance artifact is not sanitized evidence")
     _require(browser.get("realBrowser"), True, "browser acceptance did not use a real browser")
     _require(browser.get("apiHistoryPrivacyPassed"), True, "browser API/history/privacy acceptance is not green")
@@ -163,6 +176,7 @@ def _validate_repository_ci(identity: Any, evidence_root: Path) -> dict[str, Any
         "headSha": actions.get("headSha"),
         "conclusion": "success",
         "browserAcceptanceRunId": browser.get("runId"),
+        "browserAcceptanceHeadSha": browser.get("headSha"),
         "browserControlledFixture": True,
     }
 
@@ -312,8 +326,8 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     blockers = list(dict.fromkeys(blockers))
     accepted = candidate_accepted and not blockers
     return {
-        "schemaVersion": 7,
-        "methodVersion": "unified-skin-result-release-gate-v7",
+        "schemaVersion": 8,
+        "methodVersion": "unified-skin-result-release-gate-v8",
         "workingBaselinePreserved": True,
         "currentIntegratedPresentationAllowed": True,
         "generatedReplayIntegrationSmokeAllowed": True,

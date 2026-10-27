@@ -16,7 +16,7 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v7.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v8.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -44,7 +44,7 @@ def _install_complete_evidence(receipt, root):
     receipt["physicalCameraGate"]["evidence"] = _write(root, "camera-gate-accepted.json", camera)
     receipt["physicalCameraGate"]["accepted"] = True
     receipt["repositoryCI"] = _write(root, "repository-ci.json", {
-        "schemaVersion": 1,
+        "schemaVersion": module.EXPECTED_REPOSITORY_CI_SCHEMA,
         "branch": module.EXPECTED_BRANCH,
         "implementationCommit": "d" * 40,
         "githubActions": {
@@ -54,6 +54,10 @@ def _install_complete_evidence(receipt, root):
         },
         "browserAcceptance": {
             "runId": 98, "conclusion": "success", "sanitizedEvidenceOnly": True,
+            "branch": module.EXPECTED_BRANCH, "headSha": "d" * 40,
+            "artifactWorkflowRun": {
+                "runId": 98, "branch": module.EXPECTED_BRANCH, "headSha": "d" * 40,
+            },
             "realBrowser": True, "apiHistoryPrivacyPassed": True,
             "controlledFixture": True, "physicalCameraCapture": False,
             "expertGroundTruth": False, "accuracyEvidence": False,
@@ -282,7 +286,7 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
                 receipt = _receipt()
                 _install_complete_evidence(receipt, root)
                 receipt["repositoryCI"] = _write(root, "repository-ci.json", {
-                    "schemaVersion": 1,
+                    "schemaVersion": module.EXPECTED_REPOSITORY_CI_SCHEMA,
                     "branch": module.EXPECTED_BRANCH,
                     "implementationCommit": "e" * 40,
                     "githubActions": {
@@ -292,6 +296,10 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
                     },
                     "browserAcceptance": {
                         "runId": 98, "conclusion": "success", "sanitizedEvidenceOnly": True,
+                        "branch": module.EXPECTED_BRANCH, "headSha": "e" * 40,
+                        "artifactWorkflowRun": {
+                            "runId": 98, "branch": module.EXPECTED_BRANCH, "headSha": "e" * 40,
+                        },
                         "realBrowser": True, "apiHistoryPrivacyPassed": True,
                         "controlledFixture": True, "physicalCameraCapture": False,
                         "expertGroundTruth": False, "accuracyEvidence": False,
@@ -324,6 +332,64 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
                 _install_complete_evidence(receipt, root)
                 _mutate_repository_ci(receipt, root, "implementationCommit", "e" * 40)
                 with self.assertRaisesRegex(module.GateInputError, "does not match workflow head"):
+                    module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_repository_ci_stale_schema_is_rejected(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                receipt = _receipt()
+                _install_complete_evidence(receipt, root)
+                _mutate_repository_ci(receipt, root, "schemaVersion", 1)
+                with self.assertRaisesRegex(module.GateInputError, "schema changed"):
+                    module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_browser_acceptance_commit_must_match_repository_ci(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                receipt = _receipt()
+                _install_complete_evidence(receipt, root)
+                _mutate_repository_ci(receipt, root, "headSha", "e" * 40, "browserAcceptance")
+                with self.assertRaisesRegex(module.GateInputError, "browser acceptance commit"):
+                    module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_browser_artifact_commit_must_match_repository_ci(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                receipt = _receipt()
+                _install_complete_evidence(receipt, root)
+                artifact_run = {
+                    "runId": 98, "branch": module.EXPECTED_BRANCH, "headSha": "e" * 40,
+                }
+                _mutate_repository_ci(receipt, root, "artifactWorkflowRun", artifact_run, "browserAcceptance")
+                with self.assertRaisesRegex(module.GateInputError, "browser artifact commit"):
+                    module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_browser_artifact_workflow_run_must_match_browser_run(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                receipt = _receipt()
+                _install_complete_evidence(receipt, root)
+                artifact_run = {
+                    "runId": 97, "branch": module.EXPECTED_BRANCH, "headSha": "d" * 40,
+                }
+                _mutate_repository_ci(receipt, root, "artifactWorkflowRun", artifact_run, "browserAcceptance")
+                with self.assertRaisesRegex(module.GateInputError, "workflow run identity"):
                     module.evaluate_release(receipt, root)
         finally:
             module.EXPECTED_INPUT_EVIDENCE = original_inputs
