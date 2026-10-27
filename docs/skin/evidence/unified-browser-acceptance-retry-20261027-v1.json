@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "dateEuropeBerlin": "2026-10-27",
-  "observedAt": "2026-10-27T01:11:19Z",
+  "observedAt": "2026-10-27T01:45:48Z",
   "repository": {
     "fullName": "sasmazt90/attune-more",
     "branch": "work/skin-roadmap-20261023",
@@ -20,7 +20,8 @@
     "twelfthRetryCandidateCommit": "8ff12cf01671503687818c2f4490932fb6e8d249",
     "thirteenthRetryCandidateCommit": "7637df44af88dc049f9847cc7b6eb186e94b5d00",
     "fourteenthRetryCandidateCommit": "839578267bef08bb559f57421cc350c74d511f23",
-    "fifteenthRetryCandidateCommit": "3fb4bc0980da14b693b1096dd6454f68f7c8c0db"
+    "fifteenthRetryCandidateCommit": "3fb4bc0980da14b693b1096dd6454f68f7c8c0db",
+    "sixteenthRetryCandidateCommit": "cc474f13935d231ec761e9154d2d62dab21ecffb"
   },
   "failedAttempt": {
     "browserRunId": 40406100671,
@@ -521,9 +522,45 @@
   "fifteenthRetry": {
     "browserRunId": 40431048235,
     "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40431048235",
-    "statusAtCheckpoint": "in_progress",
+    "statusAtCheckpoint": "completed",
+    "conclusion": "failure",
+    "jobId": 121948502940,
     "matchingRepositoryCiRunId": 40431048296,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40431048296",
+    "matchingRepositoryCiStatusAtCheckpoint": "completed",
+    "matchingRepositoryCiConclusion": "success",
+    "artifactId": 12702770225,
+    "artifactDigest": "sha256:adb94b0f400b5b0004bc136f219a5f032fa80f740816ed8463f3b8764dcaa26d",
+    "completedRuntimeSetup": true,
+    "productionBuildPassed": true,
+    "serversHealthChecked": true,
+    "fixturePrepared": true,
+    "licensedDistinctPosesSelected": ["FRONT", "LEFT", "RIGHT"],
+    "realMediaPipeLandmarksPerPose": 478,
+    "browserTestsExecuted": true,
+    "sanitizedEvidenceProduced": false,
+    "rootCause": "the licensed fixture probe admitted all three poses with the production MediaPipe model on SwiftShader, but the browser contract used the runner's different default GPU path; face-landmarker output disappeared and the UI correctly rejected the geometric fallback as too close. This is controlled-runner backend divergence, not a product threshold, pose or physical-camera failure"
+  },
+  "sixteenthTargetedFix": {
+    "sources": [
+      "tests/e2e/current_skin_contract.py",
+      "scripts/skin-research/build_unified_browser_acceptance.py"
+    ],
+    "change": "run the controlled browser contract on the same deterministic SwiftShader backend as the licensed-frame admission probe, keep the production model/source pixels and every pose/quality threshold unchanged, emit a privacy-safe final canvas/guidance diagnostic on failure, and repin the strict implementation blob",
+    "poseOrQualityOverrideAdded": false,
+    "productThresholdChanged": false,
+    "modelChanged": false,
+    "unitTestsPassed": 7,
+    "pythonCompilePassed": true,
+    "diffCheckPassed": true,
+    "roboflowTrainingChanged": false
+  },
+  "sixteenthRetry": {
+    "browserRunId": 40434448416,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40434448416",
+    "statusAtCheckpoint": "in_progress",
+    "matchingRepositoryCiRunId": 40434448396,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40434448396",
     "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
     "sanitizedEvidencePending": true
   },

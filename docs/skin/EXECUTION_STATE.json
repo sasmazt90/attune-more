@@ -178,8 +178,8 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--0d8c66",
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
-      "lastCheckedDate": "2026-10-26",
-      "lastCheckedAt": "2026-10-26T20:46:46Z",
+      "lastCheckedDate": "2026-10-27",
+      "lastCheckedAt": "2026-10-27T01:45:48Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -487,7 +487,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-26T20:46:46Z",
+      "lastCheckedAt": "2026-10-27T01:45:48Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -696,7 +696,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-26T20:46:46Z",
+      "lastCheckedAt": "2026-10-27T01:45:48Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -933,7 +933,7 @@
           "docs/skin/evidence/regional-mask-inferences-test-20261023-v1.index.json"
         ]
       },
-      "lastCheckedDate": "2026-10-26"
+      "lastCheckedDate": "2026-10-27"
     },
     "regionalSkinTypeBoxes": {
       "observedAt": "2026-10-24T23:19:50Z",
@@ -1425,7 +1425,7 @@
           "startedByThisAutomation": false
         }
       ],
-      "note": "All 20 accessible projects and exact acne/regional/under-eye training lists were refreshed. No training is running; known acne, regional and under-eye jobs remain finished; under-eye pilot v2 has no training; grouped under-eye remains empty and upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress. No duplicate training, upload, version, inference, threshold or activation action was started. Last refreshed at 2026-10-26T20:46:46Z."
+      "note": "All 20 accessible projects and exact acne/regional/under-eye training lists were refreshed. No training is running; known acne and regional jobs remain finished; under-eye pilot v2 has no training; grouped under-eye remains empty and upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress. No duplicate training, upload, version, inference, threshold or activation action was started. Last refreshed at 2026-10-27T01:45:48Z."
     },
     "saggingAppearance": {
       "observedAt": "2026-10-25T12:30:37Z",
@@ -2811,7 +2811,7 @@
     {
       "id": "13",
       "target": "unified-results-and-trends",
-      "status": "real_chromium_acceptance_fifteenth_retry_running_camera_class_acceptance_pending",
+      "status": "real_chromium_acceptance_sixteenth_retry_running_camera_class_acceptance_pending",
       "work": "Integrate accepted outputs incrementally into maps/cards/history; explicit unavailable reasons; method/version compatibility for trends; end-to-end camera/API/result/history tests and final acceptance report.",
       "evidence": [
         "docs/skin/regional-evidence-contract-20261023.md",
@@ -3953,7 +3953,7 @@
     }
   },
   "nextActions": [
-    "Poll fifteenth corrected GitHub Actions browser run 40431048235 and matching repository CI run 40431048296 for candidate commit 3fb4bc0980da14b693b1096dd6454f68f7c8c0db. Fourteenth attempt 40430237275 fully passed the current-photo real-Chromium contract, its native-200 layout and three actual history scans with persisted records, then exposed the same Windows-only capture helper in the history native-200 evidence path. The corrected history scenario preserves real HWND capture on Windows, truthfully labels non-Windows Playwright compositor output as neither OS-window nor physical-camera evidence, and records the capture basis in proof.json; no product output, pose/quality check, model or threshold changed. On success, ingest only the five privacy-safe sanitized browser evidence JSON objects, bind their exact commit/build/browser/history identities and replay scripts/skin-research/check_unified_skin_result_release.py v3. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not start duplicate Roboflow work.",
+    "Poll sixteenth corrected GitHub Actions browser run 40434448416 and matching repository CI run 40434448396 for candidate commit cc474f13935d231ec761e9154d2d62dab21ecffb. Fifteenth attempt 40431048235 prepared the licensed FRONT/LEFT/RIGHT fixture with 478 real MediaPipe landmarks per pose, but its browser contract used a different runner GPU path, lost model output and correctly rejected the geometric fallback as too close. The corrected controlled test uses the same deterministic SwiftShader backend as fixture admission, keeps source pixels, production model and every pose/quality threshold unchanged, and emits a privacy-safe final canvas/guidance diagnostic on failure. On success, ingest only the five privacy-safe sanitized browser evidence JSON objects, bind their exact commit/build/browser/history identities and replay scripts/skin-research/check_unified_skin_result_release.py v3. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not start duplicate Roboflow work.",
     "Preserve green GitHub Actions run 40297234134 and the functioning main /api/local-health/skin result flow. When consented physical-camera manifest, adjudicated expert truth and locked capture/localization receipts exist, run both evaluators and scripts/skin-research/check_physical_camera_acceptance.py with a per-class policy locked before camera_final and a real /api/local-health/skin replay. Do not mark the roadmap complete until every class and real camera/browser/map/history/privacy gate passes.",
     "After a consented physical-camera manifest exists, collect the private matrix defined by docs/skin/evidence/physical-camera-expert-review-input-template-20261026-v1.json and run scripts/skin-research/build_physical_camera_expert_truth.py. Every activated class on every capture needs exactly two independent qualified human reviews; discordant decision or polygon truth needs an independent third expert. Keep positive localized polygons normalized, model proposals hidden, missing truth distinct from evaluated negative, unknown/unassessable distinct from Normal, and Redness independent from sensitivity. Do not commit reviewer identity, image bytes or raw private fields.",
     "For consented physical-camera acceptance, populate the private input shape in docs/skin/evidence/physical-camera-benchmark-manifest-input-template-20261026-v1.json outside Git, then run scripts/skin-research/build_physical_camera_benchmark_manifest.py. The builder accepts only opaque subject/capture/consent/quality references, immutable SHA-256 hashes, exact FRONT/LEFT/RIGHT physical-camera triplets, a passed capture-quality gate and a locked camera_final split unused by training, validation or threshold selection. It rejects paths, names, contact fields, image bytes, generated inputs, predictions and expert labels. Keep expert per-class truth separate and human-authored; the manifest alone does not satisfy camera acceptance.",
@@ -3999,6 +3999,39 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T01:45:48Z",
+      "action": "Read the remote checkpoint first and preserved the functioning concrete /api/local-health/skin baseline. Refreshed all 20 accessible Roboflow projects plus exact acne, regional and under-eye versions/trainings and grouped upload task sLFwX7CYBVcnnD6iAW5o: acne and regional NAS/small runs remain finished, regional has 337 images rather than the stale zero-image starting note, under-eye pilot v2 has 399 images and no training, grouped under-eye remains empty and its upload task remains created/no-progress. No duplicate training, version, upload, inference, model, threshold or activation mutation was started. Fifteenth browser run 40431048235 failed after its licensed fixture probe admitted FRONT/LEFT/RIGHT with 478 actual MediaPipe landmarks because the browser contract used a different runner GPU path, lost face-landmarker output and correctly rejected the geometric fallback as too close; job 121948502940 produced artifact 12702770225 with digest sha256:adb94b0f400b5b0004bc136f219a5f032fa80f740816ed8463f3b8764dcaa26d, while matching CI 40431048296 succeeded. The targeted fix pins the controlled browser contract to the probe's deterministic SwiftShader backend, changes no model/source pixel/pose/quality threshold, adds a privacy-safe final diagnostic and repins the evidence builder. Seven focused tests, Python compile and diff checks passed. Sixteenth browser run 40434448416 and matching CI 40434448396 are in progress for candidate cc474f13.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": [
+        "cc474f13935d231ec761e9154d2d62dab21ecffb"
+      ],
+      "runs": [
+        {
+          "runId": 40431048235,
+          "conclusion": "failure",
+          "jobId": 121948502940,
+          "artifactId": 12702770225,
+          "fixtureRealMediaPipeLandmarksPerPose": 478
+        },
+        {
+          "runId": 40431048296,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40434448416,
+          "status": "in_progress",
+          "kind": "sixteenth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40434448396,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
+      ]
+    },
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-27T01:11:19Z",
@@ -5250,6 +5283,39 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T01:45:48Z",
+      "action": "Read the remote checkpoint first and preserved the functioning concrete /api/local-health/skin baseline. Refreshed all 20 accessible Roboflow projects plus exact acne, regional and under-eye versions/trainings and grouped upload task sLFwX7CYBVcnnD6iAW5o: acne and regional NAS/small runs remain finished, regional has 337 images rather than the stale zero-image starting note, under-eye pilot v2 has 399 images and no training, grouped under-eye remains empty and its upload task remains created/no-progress. No duplicate training, version, upload, inference, model, threshold or activation mutation was started. Fifteenth browser run 40431048235 failed after its licensed fixture probe admitted FRONT/LEFT/RIGHT with 478 actual MediaPipe landmarks because the browser contract used a different runner GPU path, lost face-landmarker output and correctly rejected the geometric fallback as too close; job 121948502940 produced artifact 12702770225 with digest sha256:adb94b0f400b5b0004bc136f219a5f032fa80f740816ed8463f3b8764dcaa26d, while matching CI 40431048296 succeeded. The targeted fix pins the controlled browser contract to the probe's deterministic SwiftShader backend, changes no model/source pixel/pose/quality threshold, adds a privacy-safe final diagnostic and repins the evidence builder. Seven focused tests, Python compile and diff checks passed. Sixteenth browser run 40434448416 and matching CI 40434448396 are in progress for candidate cc474f13.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": [
+        "cc474f13935d231ec761e9154d2d62dab21ecffb"
+      ],
+      "runs": [
+        {
+          "runId": 40431048235,
+          "conclusion": "failure",
+          "jobId": 121948502940,
+          "artifactId": 12702770225,
+          "fixtureRealMediaPipeLandmarksPerPose": 478
+        },
+        {
+          "runId": 40431048296,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40434448416,
+          "status": "in_progress",
+          "kind": "sixteenth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40434448396,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
+      ]
+    },
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-27T01:11:19Z",
