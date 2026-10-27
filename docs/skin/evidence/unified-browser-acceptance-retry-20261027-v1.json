@@ -9,7 +9,8 @@
     "retryCandidateCommit": "accd4ca458bb3ea2f5de31af0582a374f950df45",
     "secondRetryCandidateCommit": "85c24fdfca85a068c5bc02c73299e1a68ace7d07",
     "thirdRetryCandidateCommit": "3ad03c461eea4f08a197fc8c5400f29dea2867d0",
-    "fourthRetryCandidateCommit": "695a636c831e57e8a5a6dac1dbe20956b22bedef"
+    "fourthRetryCandidateCommit": "695a636c831e57e8a5a6dac1dbe20956b22bedef",
+    "fifthRetryCandidateCommit": "1011814b7cf5ed35ae93158fb174497b1455b285"
   },
   "failedAttempt": {
     "browserRunId": 40406100671,
@@ -124,10 +125,38 @@
   "fourthRetry": {
     "browserRunId": 40418570611,
     "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40418570611",
-    "statusAtCheckpoint": "in_progress",
+    "statusAtCheckpoint": "completed",
+    "conclusion": "failure",
     "matchingRepositoryCiRunId": 40418571049,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40418571049",
-    "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
+    "matchingRepositoryCiStatusAtCheckpoint": "completed",
+    "matchingRepositoryCiConclusion": "success",
+    "jobId": 121906927122,
+    "artifactId": 12698326120,
+    "artifactDigest": "sha256:b74e0f41252836645015d7aa703c887e381861cded819e3bea7a298037153d05",
+    "completedRuntimeSetup": true,
+    "productionBuildPassed": true,
+    "serversHealthChecked": true,
+    "fixturePrepared": false,
+    "browserTestsExecuted": false,
+    "sanitizedEvidenceProduced": false,
+    "rootCause": "the pinned MediaPipe bundle and repository assets loaded, then the generated analyzer requested its uncompiled transitive dependency /skinExpression and the fixture server correctly returned 404"
+  },
+  "fifthTargetedFix": {
+    "source": "tests/e2e/prepare_multi_angle_fixture.py",
+    "change": "compile and serve skinExpression.js, rewrite its extension in skinAnalyzer.js and fail before browser launch if any generated relative module dependency is missing",
+    "pythonCompilePassed": true,
+    "diffCheckPassed": true,
+    "roboflowTrainingChanged": false,
+    "modelOrThresholdChanged": false
+  },
+  "fifthRetry": {
+    "browserRunId": 40423925409,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40423925409",
+    "statusAtCheckpoint": "in_progress",
+    "matchingRepositoryCiRunId": 40423925423,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40423925423",
+    "matchingRepositoryCiStatusAtCheckpoint": "queued",
     "sanitizedEvidencePending": true
   },
   "roboflowRefresh": {

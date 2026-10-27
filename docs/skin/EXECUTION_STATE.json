@@ -2811,7 +2811,7 @@
     {
       "id": "13",
       "target": "unified-results-and-trends",
-      "status": "real_chromium_acceptance_fourth_retry_running_camera_class_acceptance_pending",
+      "status": "real_chromium_acceptance_fifth_retry_running_camera_class_acceptance_pending",
       "work": "Integrate accepted outputs incrementally into maps/cards/history; explicit unavailable reasons; method/version compatibility for trends; end-to-end camera/API/result/history tests and final acceptance report.",
       "evidence": [
         "docs/skin/regional-evidence-contract-20261023.md",
@@ -3643,12 +3643,12 @@
         "acceptedBrowserEvidenceProduced": false
       },
       "browserAcceptanceJob": {
-        "candidateCommit": "695a636c831e57e8a5a6dac1dbe20956b22bedef",
-        "runId": 40418570611,
-        "url": "https://github.com/sasmazt90/attune-more/actions/runs/40418570611",
+        "candidateCommit": "1011814b7cf5ed35ae93158fb174497b1455b285",
+        "runId": 40423925409,
+        "url": "https://github.com/sasmazt90/attune-more/actions/runs/40423925409",
         "status": "in_progress",
-        "matchingRepositoryCiRunId": 40418571049,
-        "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40418571049",
+        "matchingRepositoryCiRunId": 40423925423,
+        "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40423925423",
         "controlledFixtureOnly": true,
         "physicalCameraAcceptance": false,
         "expertGroundTruth": false,
@@ -3693,6 +3693,15 @@
           {
             "candidateCommit": "695a636c831e57e8a5a6dac1dbe20956b22bedef",
             "runId": 40418570611,
+            "conclusion": "failure",
+            "productionBuildPassed": true,
+            "serversHealthChecked": true,
+            "browserTestsExecuted": false,
+            "rootCause": "generated analyzer requested missing transitive fixture dependency /skinExpression"
+          },
+          {
+            "candidateCommit": "1011814b7cf5ed35ae93158fb174497b1455b285",
+            "runId": 40423925409,
             "status": "in_progress"
           }
         ],
@@ -3924,7 +3933,7 @@
     }
   },
   "nextActions": [
-    "Poll fourth corrected GitHub Actions browser run 40418570611 and matching repository CI run 40418571049 for candidate commit 695a636c831e57e8a5a6dac1dbe20956b22bedef. Attempt 40418108255 proved the isolated loopback fixture path was active and exposed the next missing MediaPipe runtime dependency. The generated analyzer now imports the npm-lock-pinned local MediaPipe bundle, while that bundle, repository-pinned WASM and face-landmarker model are served from the same fixture origin with explicit missing-path diagnostics. The production app/backend remain health-checked and subsequent browser/API/history/privacy tests still run against them. On success, ingest only the five privacy-safe sanitized browser evidence JSON objects, bind their exact commit/build/browser/history identities and replay scripts/skin-research/check_unified_skin_result_release.py v3. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not start duplicate Roboflow work.",
+    "Poll fifth corrected GitHub Actions browser run 40423925409 and matching repository CI run 40423925423 for candidate commit 1011814b7cf5ed35ae93158fb174497b1455b285. Attempt 40418570611 loaded the pinned MediaPipe bundle and repository assets, then exposed the exact missing transitive module /skinExpression. The fixture now compiles and serves skinExpression.js, rewrites the import extension and fails before browser launch if any generated relative dependency is absent. The production app/backend remain health-checked and subsequent browser/API/history/privacy tests still run against them. On success, ingest only the five privacy-safe sanitized browser evidence JSON objects, bind their exact commit/build/browser/history identities and replay scripts/skin-research/check_unified_skin_result_release.py v3. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not start duplicate Roboflow work.",
     "Preserve green GitHub Actions run 40297234134 and the functioning main /api/local-health/skin result flow. When consented physical-camera manifest, adjudicated expert truth and locked capture/localization receipts exist, run both evaluators and scripts/skin-research/check_physical_camera_acceptance.py with a per-class policy locked before camera_final and a real /api/local-health/skin replay. Do not mark the roadmap complete until every class and real camera/browser/map/history/privacy gate passes.",
     "After a consented physical-camera manifest exists, collect the private matrix defined by docs/skin/evidence/physical-camera-expert-review-input-template-20261026-v1.json and run scripts/skin-research/build_physical_camera_expert_truth.py. Every activated class on every capture needs exactly two independent qualified human reviews; discordant decision or polygon truth needs an independent third expert. Keep positive localized polygons normalized, model proposals hidden, missing truth distinct from evaluated negative, unknown/unassessable distinct from Normal, and Redness independent from sensitivity. Do not commit reviewer identity, image bytes or raw private fields.",
     "For consented physical-camera acceptance, populate the private input shape in docs/skin/evidence/physical-camera-benchmark-manifest-input-template-20261026-v1.json outside Git, then run scripts/skin-research/build_physical_camera_benchmark_manifest.py. The builder accepts only opaque subject/capture/consent/quality references, immutable SHA-256 hashes, exact FRONT/LEFT/RIGHT physical-camera triplets, a passed capture-quality gate and a locked camera_final split unused by training, validation or threshold selection. It rejects paths, names, contact fields, image bytes, generated inputs, predictions and expert labels. Keep expert per-class truth separate and human-authored; the manifest alone does not satisfy camera acceptance.",
@@ -3970,6 +3979,19 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T00:05:00Z",
+      "action": "Refreshed the remote checkpoint, GitHub jobs and all 20 accessible Roboflow projects. Browser run 40418570611 passed runtime installation, production build, app/backend health checks and loading of the pinned MediaPipe runtime/assets, then failed before browser/API/history/privacy tests on the exact missing generated dependency /skinExpression. Matching CI 40418571049 passed. Added skinExpression.js to the controlled fixture compiler/server, rewrote the relative import extension and added a generated-dependency preflight. Python compile and diff checks passed. Fifth browser run 40423925409 is in progress and matching CI 40423925423 is queued for candidate 1011814b. No Roboflow training, version, upload, inference, model or threshold state changed.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": ["1011814b7cf5ed35ae93158fb174497b1455b285"],
+      "runs": [
+        {"runId": 40418570611, "conclusion": "failure", "browserTestsExecuted": false},
+        {"runId": 40418571049, "conclusion": "success", "kind": "matching_repository_ci"},
+        {"runId": 40423925409, "status": "in_progress", "kind": "fifth_corrected_real_chromium_controlled_fixture"},
+        {"runId": 40423925423, "status": "queued", "kind": "matching_repository_ci"}
+      ]
+    },
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-26T23:16:00Z",
@@ -4994,6 +5016,19 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T00:05:00Z",
+      "action": "Refreshed the remote checkpoint, GitHub jobs and all 20 accessible Roboflow projects. Browser run 40418570611 passed runtime installation, production build, app/backend health checks and loading of the pinned MediaPipe runtime/assets, then failed before browser/API/history/privacy tests on the exact missing generated dependency /skinExpression. Matching CI 40418571049 passed. Added skinExpression.js to the controlled fixture compiler/server, rewrote the relative import extension and added a generated-dependency preflight. Python compile and diff checks passed. Fifth browser run 40423925409 is in progress and matching CI 40423925423 is queued for candidate 1011814b. No Roboflow training, version, upload, inference, model or threshold state changed.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": ["1011814b7cf5ed35ae93158fb174497b1455b285"],
+      "runs": [
+        {"runId": 40418570611, "conclusion": "failure", "browserTestsExecuted": false},
+        {"runId": 40418571049, "conclusion": "success", "kind": "matching_repository_ci"},
+        {"runId": 40423925409, "status": "in_progress", "kind": "fifth_corrected_real_chromium_controlled_fixture"},
+        {"runId": 40423925423, "status": "queued", "kind": "matching_repository_ci"}
+      ]
+    },
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-26T23:16:00Z",
