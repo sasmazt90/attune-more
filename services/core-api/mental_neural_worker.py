@@ -12,7 +12,7 @@ from time import monotonic
 from mental_neural_tts import load_configuration, MAX_SECONDS, verify_runtime_source
 
 
-def synthesize(payload):
+def synthesize(payload, runtime=None):
     started = monotonic()
     phases = []
 
@@ -31,7 +31,14 @@ def synthesize(payload):
         Path(path).write_text(json.dumps(phases), encoding='utf-8')
 
     progress('verify-assets')
-    config, directory, _, _ = load_configuration(payload['config'], payload['language'])
+    config, directory, reference, profile = load_configuration(payload['config'], payload['language'], **({'verify_models': False} if runtime and 'model' in runtime else {}))
+    if payload.get('speakerProfile') and payload['speakerProfile']!=profile.get('id'):
+        raise ValueError('REQUESTED_SPEAKER_PROFILE_MISMATCH')
+    if runtime is not None:
+        signature = json.dumps({'config':config,'profile':{key:profile.get(key) for key in ('id','generation','referenceSha256')}},sort_keys=True)
+        if runtime.get('signature', signature) != signature:
+            raise ValueError('BATCH_CONFIGURATION_CHANGED')
+        runtime['signature'] = signature
     text = payload['text']
     if not isinstance(text, str) or not text.strip() or len(text) > 4096:
         raise ValueError('INVALID_TEXT')
@@ -49,6 +56,11 @@ def synthesize(payload):
     progress('import-runtime')
     import torch
     import numpy as np
+    if 'seed' in payload:
+        seed=payload['seed']
+        if type(seed) is not int or not 0<=seed<=2**32-1:raise ValueError('INVALID_SEED')
+        import random
+        random.seed(seed);np.random.seed(seed);torch.manual_seed(seed)
     from chatterbox.mtl_tts import ChatterboxMultilingualTTS
     from chatterbox.models.tokenizers import tokenizer as tokenizer_module
     def local_mapping(*args, **kwargs):
@@ -61,13 +73,23 @@ def synthesize(payload):
     if device not in ('cpu', 'cuda'):
         raise ValueError('UNSUPPORTED_DEVICE')
     progress('load-model')
-    model = ChatterboxMultilingualTTS.from_local(str(directory), device, t3_model='v3')
-    # Keep the official internal default conditioning and upstream watermark.
+    if runtime is not None and 'model' in runtime:
+        model = runtime['model']
+    else:
+        model = ChatterboxMultilingualTTS.from_local(str(directory), device, t3_model='v3')
+        if runtime is not None:runtime['model'] = model
+    if runtime is not None and 'seed' in payload:
+        # Resident jobs seed after construction, independent of worker/order.
+        # Existing one-shot recipes and all approved bytes remain unchanged.
+        random.seed(seed);np.random.seed(seed);torch.manual_seed(seed)
+    # The review profile uses the upstream reference-audio API. Default calls
+    # retain the original internal conditioning; all calls retain the watermark.
     if model.conds is None:
         raise ValueError('OFFICIAL_DEFAULT_CONDITIONING_MISSING')
     progress('inference')
+    options = {} if reference is None else {'audio_prompt_path': str(reference), **profile['generation']}
     with torch.inference_mode():
-        audio = model.generate(text, language_id=payload['language'])
+        audio = model.generate(text, language_id=payload['language'], **options)
     progress('encode-wav')
     samples = audio.detach().cpu().numpy().reshape(-1)
     if model.sr != 24000 or not 0 < len(samples) <= model.sr * MAX_SECONDS or not np.isfinite(samples).all():

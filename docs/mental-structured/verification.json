@@ -1,0 +1,173 @@
+{
+  "schema": "structured-mental-validation-v2",
+  "selectedStructuredProfile": "female-calm-v1",
+  "defaultExperience": "legacy-unmodified",
+  "ownerApprovedRepresentativeClips": 9,
+  "ownerApprovedJoinedPreviews": 6,
+  "catalogExpected": 414,
+  "catalogGeneratedAtCheckpoint": 414,
+  "productionInProgress": false,
+  "classifierDecision": "Retain existing rule-based classifier; separate-task decision closed by owner; no further benchmarking or integration.",
+  "frontendTypecheck": "passed",
+  "durableBackup": {
+    "parentFolderURL": "https://drive.google.com/drive/folders/1FrN4RQz_j6QBmuXJe4RIpJGcQcSUB4sS",
+    "versionFolderURL": "https://drive.google.com/drive/folders/16nXYqOOXPPA5GTtmHtPE6QLLsG2q9mGy",
+    "complete": true,
+    "verification": "All526 payloads and all5rootcontrols independently retrieved and SHA256/size matched; fresh leaf/root listings fully reconciled; zero missing or untracked files.",
+    "verifiedFilesAtResume": 100,
+    "payloadFiles": 526,
+    "rootControlFiles": 5,
+    "totalDriveFiles": 531,
+    "payloadBytes": 84059161,
+    "totalBytesIncludingControls": 84865530,
+    "payloadWAVs": 458,
+    "sourceImplementationCommit": "c2b94a1fee326d6c04e21a965e13d2bba637d4a9",
+    "inventory": {
+      "fileName": "backup-inventory.json",
+      "bytes": 467443,
+      "sha256": "c0397ed3bfd2cdeb4208810a07c0a8c135c240edad420a1c35b848db037eef9e",
+      "driveFileId": "1wp2Hu6Oez_kB97q9Siox411d-a1BU_6h",
+      "driveURL": "https://drive.google.com/file/d/1wp2Hu6Oez_kB97q9Siox411d-a1BU_6h/view?usp=drivesdk",
+      "retrievalVerified": true,
+      "verifiedAt": "2026-10-27T22:43:48.049200+00:00",
+      "verifiedBy": "independent-Drive-download-SHA256"
+    },
+    "verificationReceipt": {
+      "fileName": "backup-verification.json",
+      "bytes": 6380,
+      "sha256": "ed5193041a4916b6f56b7d2a1849c3c2efa9114279d3b16a0c6515b9649924ca",
+      "driveFileId": "1NMLhq0IzxD0OfpMiqAB6ovXYS4wcaHXy",
+      "driveURL": "https://drive.google.com/file/d/1NMLhq0IzxD0OfpMiqAB6ovXYS4wcaHXy/view?usp=drivesdk",
+      "retrievalVerified": true,
+      "verifiedAt": "2026-10-27T22:45:09.944536+00:00",
+      "verifiedBy": "independent-Drive-download-SHA256"
+    },
+    "controlFiles": [
+      {
+        "fileName": "backup-inventory.json",
+        "bytes": 467443,
+        "sha256": "c0397ed3bfd2cdeb4208810a07c0a8c135c240edad420a1c35b848db037eef9e",
+        "driveFileId": "1wp2Hu6Oez_kB97q9Siox411d-a1BU_6h",
+        "driveURL": "https://drive.google.com/file/d/1wp2Hu6Oez_kB97q9Siox411d-a1BU_6h/view?usp=drivesdk",
+        "retrievalVerified": true,
+        "verifiedAt": "2026-10-27T22:43:48.049200+00:00",
+        "verifiedBy": "independent-Drive-download-SHA256",
+        "backupPath": "backup-inventory.json"
+      },
+      {
+        "fileName": "backup-reconciliation.json",
+        "bytes": 551,
+        "sha256": "13b10b0bf2aaccbaefa562e7f7e9cab5971627d85a59e1a39cfcbbf278abeb27",
+        "driveFileId": "1mtNN1M5ouT2Ix8Rn6vD4diOsPLvjTQza",
+        "driveURL": "https://drive.google.com/file/d/1mtNN1M5ouT2Ix8Rn6vD4diOsPLvjTQza/view?usp=drivesdk",
+        "retrievalVerified": true,
+        "verifiedAt": "2026-10-27T22:41:52.441535+00:00",
+        "verifiedBy": "independent-Drive-download-SHA256",
+        "backupPath": "backup-reconciliation.json"
+      },
+      {
+        "fileName": "backup-verification.json",
+        "bytes": 6380,
+        "sha256": "ed5193041a4916b6f56b7d2a1849c3c2efa9114279d3b16a0c6515b9649924ca",
+        "driveFileId": "1NMLhq0IzxD0OfpMiqAB6ovXYS4wcaHXy",
+        "driveURL": "https://drive.google.com/file/d/1NMLhq0IzxD0OfpMiqAB6ovXYS4wcaHXy/view?usp=drivesdk",
+        "retrievalVerified": true,
+        "verifiedAt": "2026-10-27T22:45:09.944536+00:00",
+        "verifiedBy": "independent-Drive-download-SHA256",
+        "backupPath": "backup-verification.json"
+      },
+      {
+        "fileName": "drive-presence.json",
+        "bytes": 207593,
+        "sha256": "3cafc2daf91374b292cd94c70e56767adfb725de0a891a6d9526247a7a5829de",
+        "driveFileId": "14jT_XvKLI7Zfa8j-pT6Rv8ifw5CW5i1A",
+        "driveURL": "https://drive.google.com/file/d/14jT_XvKLI7Zfa8j-pT6Rv8ifw5CW5i1A/view?usp=drivesdk",
+        "retrievalVerified": true,
+        "verifiedAt": "2026-10-27T22:41:41.649905+00:00",
+        "verifiedBy": "independent-Drive-download-SHA256",
+        "backupPath": "drive-presence.json"
+      },
+      {
+        "fileName": "required-files.json",
+        "bytes": 124402,
+        "sha256": "85db289d1092cee8f2f39131e3650ec512f7dcac34ddb473849142efc3876521",
+        "driveFileId": "1LPVIodnmVjX3nqktCl6fs0v3bzAEYrcN",
+        "driveURL": "https://drive.google.com/file/d/1LPVIodnmVjX3nqktCl6fs0v3bzAEYrcN/view?usp=drivesdk",
+        "retrievalVerified": true,
+        "verifiedAt": "2026-10-27T22:41:30.905090+00:00",
+        "verifiedBy": "independent-Drive-download-SHA256",
+        "backupPath": "required-files.json"
+      }
+    ]
+  },
+  "modelRuntimeReference": "pinned-runtime.json",
+  "physicalAudioAcceptance": "not-performed-in-Cloud",
+  "merged": false,
+  "deployed": false,
+  "recoveredBeforeResume": 237,
+  "initialGenerationComplete": true,
+  "catalogQualityValidation": "passed-strict-normalized-exact",
+  "scriptBaselineCommit": "17e0921720018dfee9bfac2fb272b50b1f1535c0",
+  "scriptsUnchangedFromBaseline": 413,
+  "editorialCorrections": [
+    {
+      "assetId": "v1/tr/female-calm-v1/B09/B09-V08",
+      "language": "tr",
+      "questionNodeId": "B09",
+      "variantId": "B09-V08",
+      "revision": 1,
+      "previousExactScript": "Geçmişte böyle bir anı atlatmanıza ne yardımcı oldu?",
+      "exactScript": "Geçmişte benzer bir durumda size ne yardımcı oldu?",
+      "previousScriptSHA256": "8f98b44e33b85fde3721dc8fa98e77185f3f07144b12412b116a9619e09b8acd",
+      "scriptSHA256": "9531390dc6fcfe662c7a964867d70f5cbe443262b165f5f63a309125b770c87d",
+      "reason": "Persistent anı/ana noun-case ambiguity after unchanged-script retakes; clearer equivalent past-coping question.",
+      "objectiveAndTemporalScopePreserved": true,
+      "approvedRecordingsChanged": 0,
+      "speakerConditioningAndSettingsChanged": false
+    }
+  ],
+  "retainedEarlierTakes": 19,
+  "catalogValidationReportSHA256": "26fa0d547da3aa3fead2791020e5b188669a2b0268d851837be3ca68444bffe4",
+  "fullRegression": {
+    "passed": 1820,
+    "skipped": 44,
+    "warnings": 2
+  },
+  "additionalResearchRegression": {
+    "passed": 297
+  },
+  "frontend": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "productionBuild": "passed"
+  },
+  "realClosingProofs": {
+    "languages": [
+      "tr",
+      "en",
+      "de"
+    ],
+    "profileBinding": "verified",
+    "normalizedExactRecognitionInBothRecognizers": true,
+    "clippedSamples": 0,
+    "generationSeconds": [
+      152.929,
+      111.124,
+      125.675
+    ],
+    "workerDeadlineSeconds": 180,
+    "report": "closing-female-calm-v1/verification.json",
+    "independentBiometricIdentityClaim": false
+  },
+  "catalogRecognition": {
+    "normalizedExactMatches": 414,
+    "nonOwnerListenedNonExactAssets": 0,
+    "clippedSamples": 0,
+    "allowedABPairs": 4140,
+    "maximumEffectiveJoinPauseMs": 1160
+  },
+  "githubCI": {
+    "finalHeadMustPass": true,
+    "checksURL": "https://github.com/sasmazt90/attune-more/pull/12/checks"
+  }
+}

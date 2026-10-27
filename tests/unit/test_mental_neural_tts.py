@@ -238,3 +238,125 @@ def test_extended_budget_still_kills_reaps_and_redacts(monkeypatch, tmp_path, ca
 def test_invalid_timing_data_never_enters_logs(tmp_path, row):
     path = tmp_path / 'progress.json'; path.write_text(json.dumps([row]))
     assert neural.worker_progress(path) == []
+
+
+@pytest.mark.parametrize('fault', [None, 'hash', 'profileHash', 'outside', 'symlink', 'rate', 'short', 'truncated', 'missing'])
+@pytest.mark.parametrize('language', ['tr', 'en', 'de'])
+def test_reference_profile_validates_bytes_format_and_containment(configuration, monkeypatch, tmp_path, fault, language):
+    path, config = configuration
+    ref = tmp_path / 'reference.wav'
+    out = io.BytesIO()
+    with wave.open(out, 'wb') as w:
+        w.setnchannels(1); w.setsampwidth(2); w.setframerate(24000 if fault == 'rate' else 22050)
+        w.writeframes(b'\x10\x00' * (2205 if fault == 'short' else 22050 * 6))
+    ref.write_bytes(out.getvalue()[:-200] if fault == 'truncated' else out.getvalue())
+    fingerprint = hashlib.sha256(ref.read_bytes()).hexdigest()
+    profile = {'id': 'female-calm-v1', 'referenceSha256': fingerprint,
+               'generation': {'exaggeration': .35, 'cfg_weight': 0., 'temperature': .8}}
+    if fault == 'profileHash': profile['referenceSha256'] = '0' * 64
+    registry = tmp_path / 'profile.json'; registry.write_text(json.dumps(profile))
+    monkeypatch.setattr(neural, 'VOICE_PROFILE', registry)
+    config.update(conditioning='female-calm-v1', referenceAudio={'path': 'reference.wav', 'sha256': fingerprint})
+    if fault == 'hash': ref.write_bytes(b'changed')
+    if fault in ('outside', 'symlink'):
+        outside = tmp_path.parent / (tmp_path.name + '-outside.wav'); outside.write_bytes(ref.read_bytes())
+        if fault == 'outside': config['referenceAudio']['path'] = str(outside)
+        else: ref.unlink(); ref.symlink_to(outside)
+    if fault == 'missing': ref.unlink()
+    path.write_text(json.dumps(config))
+    if fault:
+        with pytest.raises((ValueError, OSError, EOFError)): neural.load_configuration(path, language)
+    else:
+        loaded = neural.load_configuration(path, language)
+        assert loaded[2] == ref and loaded[3]['id'] == 'female-calm-v1'
+        assert loaded[3]['generation'] == profile['generation']
+        # Client-style configuration cannot silently override the pinned recipe.
+        config['generation'] = {'cfg_weight': .9}; path.write_text(json.dumps(config))
+        assert neural.load_configuration(path, language)[3]['generation'] == profile['generation']
+
+
+@pytest.mark.parametrize('language', ['tr', 'en', 'de'])
+@pytest.mark.parametrize('fault', [None, 'approval', 'entryApproval', 'profile', 'reference', 'settings'])
+def test_dynamic_closing_requires_exact_reviewed_profile_and_explicit_approval(monkeypatch, tmp_path, language, fault):
+    import mental_audio_identity as identity
+    from fastapi import HTTPException
+    target = tmp_path / 'apps/vehicle-app/public/audio/mental/v1'
+    target.mkdir(parents=True)
+    reference = tmp_path / 'fixture.wav'; reference.write_bytes(b'EXPLICIT NON-NEURAL TEST FIXTURE')
+    fingerprint = hashlib.sha256(reference.read_bytes()).hexdigest()
+    generation = {'exaggeration': .35, 'cfg_weight': 0., 'temperature': .8}
+    manifest = {'speakerProfile': 'female-calm-v1', 'conditioningSha256': fingerprint,
+                'generation': generation, 'sampleApproval': {'ownerApprovedAt': 'SYNTHETIC TEST APPROVAL ONLY'},
+                'entries': [{'approvalStatus': 'approved', 'language': lang, 'questionNodeId': node, 'variantId': node+'-V01'} for lang in ('tr','en','de') for node in ('A','B01','B02')]}
+    if fault == 'approval': manifest['sampleApproval']['ownerApprovedAt'] = None
+    if fault == 'entryApproval': manifest['entries'][0]['approvalStatus'] = 'synthesized-awaiting-listening-review'
+    if fault == 'profile': manifest['speakerProfile'] = 'official-default'
+    if fault == 'reference': manifest['conditioningSha256'] = '0' * 64
+    if fault == 'settings': manifest['generation'] = {'cfg_weight': .9}
+    (target / 'female-calm-v1-manifest.json').write_text(json.dumps(manifest))
+    monkeypatch.setattr(identity, 'ROOT', tmp_path)
+    monkeypatch.setenv('ATTUNE_MENTAL_TTS_CONFIG', 'explicit-fixture')
+    monkeypatch.setattr(identity, 'load_configuration', lambda *a: ({}, tmp_path, reference,
+        {'id': 'female-calm-v1', 'generation': generation}))
+    if fault:
+        with pytest.raises(HTTPException) as caught: identity.verify_speaker(language, 'female-calm-v1')
+        assert caught.value.status_code == 503
+    else: identity.verify_speaker(language, 'female-calm-v1')
+    # A request naming the old speaker can never consume the new conditioning.
+    with pytest.raises(HTTPException): identity.verify_speaker(language, 'official-default')
+
+
+def test_omitting_profile_cannot_activate_unapproved_female_voice(monkeypatch, tmp_path):
+    import mental_audio_identity as identity
+    config = tmp_path / 'config.json'; config.write_text('{"conditioning":"female-calm-v1"}')
+    monkeypatch.setenv('ATTUNE_MENTAL_TTS_CONFIG', str(config))
+    calls = []
+    def deny(language, profile):
+        calls.append((language, profile)); raise HTTPException(503, 'STRUCTURED_SPEAKER_UNAVAILABLE')
+    async def never(*args, **kwargs):
+        raise AssertionError('Unapproved female voice must not launch a process')
+    monkeypatch.setattr(identity, 'verify_speaker', deny)
+    monkeypatch.setattr(neural.asyncio, 'create_subprocess_exec', never)
+    async def disconnected(): return False
+    with pytest.raises(HTTPException):
+        asyncio.run(neural.generate('Explicit nonpersonal closing fixture', 'de', lambda: True, disconnected))
+    assert calls == [('de', 'female-calm-v1')] and not neural._busy
+
+
+@pytest.mark.parametrize('language',['tr','en','de'])
+def test_structured_closing_uses_dedicated_female_config_without_changing_legacy(monkeypatch,tmp_path,language):
+    """Actual API/observer/worker transport; synthetic PCM, never voice evidence."""
+    import mental_audio_identity as identity
+    legacy=tmp_path/'legacy.json';legacy.write_text('{}')
+    female=tmp_path/'female.json';female.write_text('{}')
+    monkeypatch.setenv('ATTUNE_MENTAL_TTS_CONFIG',str(legacy))
+    monkeypatch.setenv('ATTUNE_MENTAL_TTS_FEMALE_CONFIG',str(female))
+    monkeypatch.setenv('ATTUNE_MENTAL_TTS_TOKEN','f'*40)
+    assert neural.configuration_path()==str(legacy)
+    assert neural.configuration_path('female-calm-v1')==str(female)
+    checks=[]
+    monkeypatch.setattr(identity,'verify_speaker',lambda lang,profile:checks.append((lang,profile)))
+    for key,value in [('driverAuthenticated',True),('vehicleMoving',False),('vehicleParked',True)]:monkeypatch.setitem(main.vehicle_state,key,value)
+    narration={'tr':'İş baskısını ve yürüyüşün size iyi geldiğini anlattınız.',
+               'en':'You described work pressure and said walking helps you.',
+               'de':'Sie haben Arbeitsdruck beschrieben und gesagt, dass Spaziergänge Ihnen helfen.'}[language]
+    class Process:
+        returncode=None
+        async def communicate(self,payload):
+            value=json.loads(payload)
+            assert value=={'config':str(female),'language':language,'text':narration,'speakerProfile':'female-calm-v1'}
+            self.returncode=0;return wav_bytes(),b''
+        def kill(self):self.returncode=-9
+        async def wait(self):return self.returncode
+    async def spawn(*a,**kw):
+        assert 'ATTUNE_MENTAL_TTS_TOKEN' not in kw['env']
+        return Process()
+    monkeypatch.setattr(neural.asyncio,'create_subprocess_exec',spawn)
+    with TestClient(main.app) as client:
+        response=client.post('/api/mental/neural-speech?language='+language,
+            json={'text':narration,'language':language,'speechConsent':True,'speakerProfile':'female-calm-v1'},
+            headers={'Authorization':'Bearer '+'f'*40})
+    assert response.status_code==200 and response.content==wav_bytes()
+    assert response.headers['x-tts-speaker-profile']=='female-calm-v1'
+    assert response.headers['cache-control']=='no-store'
+    assert checks==[(language,'female-calm-v1')]

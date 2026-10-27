@@ -1,0 +1,73 @@
+{
+  "schema": "mental-audio-catalog-validation-v1",
+  "profile": "female-calm-v1",
+  "expectedAssets": 414,
+  "generatedAssets": 414,
+  "byLanguage": {
+    "tr": 138,
+    "en": 138,
+    "de": 138
+  },
+  "ownerListenedRepresentativeAssets": 9,
+  "joinSilenceMs": 120,
+  "allowedABPairs": 4140,
+  "audioVerifiedABPairs": 4140,
+  "maximumEffectiveJoinPauseMs": 1160,
+  "clippedSamples": 0,
+  "pronunciationScreenCounts": {
+    "match": 414
+  },
+  "issues": [],
+  "readyForProductionValidation": true,
+  "referenceSHA256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+  "generation": {
+    "exaggeration": 0.35,
+    "cfg_weight": 0.0,
+    "temperature": 0.8
+  },
+  "normalizationPolicy": "formal-critical-token-and-orthography-v3",
+  "exactRecognitionRequiredForNonOwnerListenedAssets": true,
+  "nonOwnerListenedNonExactAssets": 0,
+  "verifier": {
+    "repository": "k2-fsa/sherpa-onnx",
+    "releaseURL": "https://github.com/k2-fsa/sherpa-onnx/releases/tag/asr-models",
+    "archive": "sherpa-onnx-whisper-small.tar.bz2",
+    "archiveSHA256": "486a46afbb7ba798507190ffe02fea2dd726049af212e774537efac6afb210a6",
+    "checksumSHA256": "4e34edcb64434bcf533afaee9dcc14b5b2f9c277ed3a745f263e79a4464b28d0",
+    "recognizerVersion": "1.12.26",
+    "modelDirectory": "sherpa-onnx-whisper-small",
+    "files": {
+      "small-encoder.int8.onnx": "4cbe7b22fa9026b843b60a68640c747de05bafb1a11b57edc0e66c232d9f33a9",
+      "small-decoder.int8.onnx": "acad50b5c782696e91b55914cc5ab4f756f1532f76e22aa6fc615f39fb69a8ee",
+      "small-tokens.txt": "b34b360dbb493e781e479794586d661700670d65564001f23024971d1f2fa126"
+    },
+    "purpose": "offline pronunciation screening only; does not alter TTS",
+    "paidServices": false
+  },
+  "secondaryVerifier": {
+    "repository": "k2-fsa/sherpa-onnx",
+    "releaseURL": "https://github.com/k2-fsa/sherpa-onnx/releases/tag/asr-models",
+    "archive": "sherpa-onnx-whisper-large-v3.tar.bz2",
+    "archiveSHA256": "2d0e134b3b5fc4a0533baf24a0c9d473b629aa47f030af0a165a05f461df7a03",
+    "checksumSHA256": "4e34edcb64434bcf533afaee9dcc14b5b2f9c277ed3a745f263e79a4464b28d0",
+    "recognizerVersion": "1.12.26",
+    "modelDirectory": "sherpa-onnx-whisper-large-v3",
+    "encoderFile": "large-v3-encoder.int8.onnx",
+    "decoderFile": "large-v3-decoder.int8.onnx",
+    "tokensFile": "large-v3-tokens.txt",
+    "files": {
+      "large-v3-encoder.int8.onnx": "d531cf17248acc43e8c09b472a0877055e770877857a5332fc1304b36534ec85",
+      "large-v3-decoder.int8.onnx": "ebc6bfd88e162a46cb3edee8a7e727e1dcbc65cabecb19e2573695e4d495e1af",
+      "large-v3-tokens.txt": "b34b360dbb493e781e479794586d661700670d65564001f23024971d1f2fa126"
+    },
+    "purpose": "Secondary offline screening of uncertain pronunciation readings only; no TTS replacement",
+    "paidServices": false
+  },
+  "limitations": [
+    "ASR agreement is a pronunciation screen, not native-speaker or prosody certification.",
+    "Nine representative recordings and six joins received explicit owner listening approval.",
+    "Remaining assets use owner-authorized routine production validation; individual owner listening is not claimed.",
+    "Physical vehicle acceptance is outside Cloud regression tests."
+  ],
+  "validatedAt": "2026-10-27T22:18:06.097213+00:00"
+}

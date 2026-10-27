@@ -15,10 +15,14 @@ import mental_neural_tts as boundary
 
 @pytest.mark.parametrize('language', ['tr', 'en', 'de'])
 @pytest.mark.parametrize('has_conditioning', [True, False])
-def test_explicit_v3_default_conditioning_without_external_reference(monkeypatch, tmp_path, language, has_conditioning):
+@pytest.mark.parametrize('reference_profile', [False, True])
+@pytest.mark.parametrize('resident', [False, True])
+def test_explicit_v3_conditioning_uses_only_verified_configuration(monkeypatch, tmp_path, language, has_conditioning, reference_profile, resident):
     progress = tmp_path / 'worker-timing.json'
     monkeypatch.setenv('ATTUNE_MENTAL_TTS_PROGRESS', str(progress))
-    monkeypatch.setattr(worker, 'load_configuration', lambda *a: ({'device': 'cpu'}, tmp_path, None, {}))
+    reference = tmp_path / 'authorized-fixture.wav' if reference_profile else None
+    generation = {'exaggeration': .35, 'cfg_weight': 0., 'temperature': .8}
+    monkeypatch.setattr(worker, 'load_configuration', lambda *a, **kw: ({'device': 'cpu'}, tmp_path, reference, {'generation': generation}))
     monkeypatch.setattr(worker, 'verify_runtime_source', lambda: {'fixture': 'explicit fake ML source'})
     versions = {'torch': '2.6.0+cpu', 'torchaudio': '2.6.0+cpu', 'transformers': '5.2.0', 'safetensors': '0.5.3'}
     monkeypatch.setattr(worker, 'version', versions.__getitem__)
@@ -53,17 +57,31 @@ def test_explicit_v3_default_conditioning_without_external_reference(monkeypatch
                          ('chatterbox.models.tokenizers', tokenizers)]:
         monkeypatch.setitem(sys.modules, name, module)
     payload = {'config': 'fixture', 'language': language, 'text': 'Explicit nonpersonal ML fixture'}
+    runtime = {} if resident else None
     if has_conditioning:
-        boundary.validate_wave(worker.synthesize(payload))
-        assert calls[1] == ('generate', (payload['text'],), {'language_id': language})
+        boundary.validate_wave(worker.synthesize(payload, runtime))
+        options = {'audio_prompt_path': str(reference), **generation} if reference_profile else {}
+        assert calls[1] == ('generate', (payload['text'],), {'language_id': language, **options})
         rows = boundary.worker_progress(progress)
         assert [row['phase'] for row in rows] == list(boundary.WORKER_PHASES)
         assert payload['text'] not in progress.read_text()
+        if resident:
+            boundary.validate_wave(worker.synthesize(payload, runtime))
+            assert [c[0] for c in calls]==['load','generate','generate']
+            generation['cfg_weight']=.9
+            with pytest.raises(ValueError,match='BATCH_CONFIGURATION_CHANGED'):worker.synthesize(payload,runtime)
+            assert [c[0] for c in calls]==['load','generate','generate']
     else:
         with pytest.raises(ValueError, match='OFFICIAL_DEFAULT_CONDITIONING_MISSING'):
-            worker.synthesize(payload)
+            worker.synthesize(payload, runtime)
         assert len(calls) == 1
     assert calls[0] == ('load', (str(tmp_path), 'cpu'), {'t3_model': 'v3'})
     assert mapping.hf_hub_download(repo_id='ResembleAI/chatterbox', filename='Cangjie5_TC.json') == str(tmp_path / 'Cangjie5_TC.json')
     with pytest.raises(OSError, match='UNAPPROVED_AUXILIARY'):
         mapping.hf_hub_download(repo_id='another/model', filename='Cangjie5_TC.json')
+
+
+def test_worker_refuses_requested_profile_mismatch_before_model_import(monkeypatch,tmp_path):
+    monkeypatch.setattr(worker,'load_configuration',lambda *a,**kw:({},tmp_path,None,{'id':'official-default'}))
+    with pytest.raises(ValueError,match='REQUESTED_SPEAKER_PROFILE_MISMATCH'):
+        worker.synthesize({'config':'explicit-fixture','language':'en','text':'Nonpersonal closing fixture','speakerProfile':'female-calm-v1'})
