@@ -105,3 +105,19 @@ def test_upload_quality_keeps_no_pose_rule():
     import inspect
     import dental_upload
     assert 'pose_check=False' in inspect.getsource(dental_upload.upload_roi)
+
+
+def test_dental_route_accepts_skipped_poses_in_order_only():
+    from local_health import valid_dental_poses
+    for ok in (['FRONT', 'RIGHT', 'LEFT', 'BITE'], ['FRONT', 'RIGHT', 'LEFT'], ['FRONT', 'LEFT', 'BITE'], ['RIGHT'], ['BITE']):
+        assert valid_dental_poses(ok), ok
+    for bad in ([], ['RIGHT', 'FRONT'], ['FRONT', 'FRONT'], ['FRONT', 'UP'], None):
+        assert not valid_dental_poses(bad or []), bad
+
+
+def test_gate_scale_uses_anatomical_mouth_width():
+    # A 35° head turn shortens the projected corner distance; depth restores it.
+    pts = [{'x': 0., 'y': 0., 'z': 0.} for _ in range(478)]
+    pts[78] = {'x': .45, 'y': .5, 'z': 0.}; pts[308] = {'x': .48, 'y': .5, 'z': .021}
+    projected = .03 * 1920; anatomical = d.anatomical_mouth_width(pts, (1080, 1920))
+    assert projected < d.DENTAL_GATES['minMouthWidthPx'] <= anatomical

@@ -7,10 +7,23 @@ export const DENTAL_POSES:DentalPose[]=['FRONT','RIGHT','LEFT','BITE'];
 // so users turning their head further right/left are accepted while native
 // tooth visibility, sharpness, lighting and glare gates remain enforced.
 export const DENTAL_FRONT_MAX_DEG=12;
-export const DENTAL_SIDE_MIN_DEG=15;
+// MediaPipe's rigid yaw under-reads natural head turns (a visibly ~30° turn of
+// a public test portrait reads 17°), so the side range starts where FRONT
+// ends: no dead zone between 12° and 15° in which no pose can be captured.
+export const DENTAL_SIDE_MIN_DEG=12;
 export const DENTAL_SIDE_MAX_DEG=45;
 export const DENTAL_SIDE_MIN_RADIANS=(DENTAL_SIDE_MIN_DEG*Math.PI)/180;
 export const DENTAL_SIDE_MAX_RADIANS=(DENTAL_SIDE_MAX_DEG*Math.PI)/180;
+/** In-vehicle capture limits (same values in dental_analysis.DENTAL_GATES).
+ * - pitch/roll: a cabin camera sits above/beside the eye line and people tilt
+ *   their head when turning; 24°/15° instead of 12.6°/8.6°. Tooth visibility,
+ *   sharpness, light and glare are still measured on the frame itself.
+ * - lip opening: thin lips can show the teeth with a small lip gap; FRONT and
+ *   side views need parted lips (>=0.06) and the enamel-visibility gate below,
+ *   instead of a wide (0.12) mouth opening the user would have to force.
+ * - enamel amount is relative to the measured mouth width; image scale is
+ *   handled once by the minimum mouth width, not by an absolute pixel floor. */
+export const DENTAL_GATES={maxPitchRad:.42,maxRollRad:.26,minLipOpening:.06,minMouthWidthPx:65,minEnamelPerMouthWidth2:.008,minEnamelColumnFraction:.30,version:'vehicle-capture-v2'} as const;
 export const DENTAL_GUIDANCE:Record<DentalPose,string>={FRONT:'Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün.',RIGHT:'Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun.',LEFT:'Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun.',BITE:'Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın.'};
 export type DentalCapture={sourceType?:'camera'|'upload';photo:string;photoId:string;width:number;height:number;pose:DentalPose;landmarks:{x:number;y:number;z?:number}[];conditions:Record<string,number>};
 /** Dental uses measured rigid head rotation, not expression-dependent nose/chin ratios. */
@@ -30,10 +43,10 @@ export function dentalPose(a:FaceAlignment){
 }
 export function matchesDentalAngle(a:FaceAlignment,pose:DentalPose):boolean{
  const rotation=dentalPose(a);
- if(!rotation||Math.abs(rotation.pitch)>.22||Math.abs(rotation.roll)>.15)return false;
+ if(!rotation||Math.abs(rotation.pitch)>DENTAL_GATES.maxPitchRad||Math.abs(rotation.roll)>DENTAL_GATES.maxRollRad)return false;
  if(pose==='RIGHT')return rotation.yaw>=-DENTAL_SIDE_MAX_RADIANS&&rotation.yaw<=-DENTAL_SIDE_MIN_RADIANS;
  if(pose==='LEFT')return rotation.yaw>=DENTAL_SIDE_MIN_RADIANS&&rotation.yaw<=DENTAL_SIDE_MAX_RADIANS;
- return Math.abs(rotation.yaw)<=.21;
+ return Math.abs(rotation.yaw)<=(DENTAL_FRONT_MAX_DEG*Math.PI)/180;
 }
 export function dentalGuidance(a:FaceAlignment,pose:DentalPose):string{
  const rotation=dentalPose(a);
@@ -46,6 +59,9 @@ export function dentalGuidance(a:FaceAlignment,pose:DentalPose):string{
 export function assessDentalCapture(ctx:CanvasRenderingContext2D,a:FaceAlignment,pose:DentalPose){
  const points=a.landmarks,reasons:string[]=[];if(!points||points.length<468||!a.faceDetected||!a.isMediaPipeActive)return {valid:false,reasons:['Yüz algılanamadı.'],opening:0,visibleFraction:0};
  const width=ctx.canvas.width,height=ctx.canvas.height,p=points.map(v=>({x:v.x*width,y:v.y*height}));
+ // Scale gate on the anatomical (3-D) mouth width: a turned head shortens the
+ // projected width without the teeth getting any smaller in the photo.
+ const anatomicalMouthWidth=Math.hypot(p[78].x-p[308].x,p[78].y-p[308].y,((points[78].z??0)-(points[308].z??0))*width);
  const mouthWidth=Math.hypot(p[78].x-p[308].x,p[78].y-p[308].y),opening=Math.hypot(p[13].x-p[14].x,p[13].y-p[14].y)/Math.max(mouthWidth,1);
  const indices=[78,81,82,13,312,311,308,402,317,14,87,178];
  const path=new Path2D();indices.forEach((index,i)=>i?path.lineTo(p[index].x,p[index].y):path.moveTo(p[index].x,p[index].y));path.closePath();
@@ -64,13 +80,13 @@ export function assessDentalCapture(ctx:CanvasRenderingContext2D,a:FaceAlignment
  // actual lip aperture, independently of its vertical opening.
  const supportedColumns=Array.from(columns).filter(n=>n>=Math.max(2,mouthWidth*.015)).length;
  const visibleFraction=supportedColumns/Math.max(mouthWidth,1),sharp=gradient/Math.max(comparisons,1),rotation=dentalPose(a);
- if(mouthWidth<65)reasons.push('Ön dişleriniz daha belirgin görünmeli.');
- if(pose!=='BITE'&&opening<.12)reasons.push('Ağzınızı rahatça açın.');
+ if(anatomicalMouthWidth<DENTAL_GATES.minMouthWidthPx)reasons.push('Ön dişleriniz daha belirgin görünmeli.');
+ if(pose!=='BITE'&&opening<DENTAL_GATES.minLipOpening)reasons.push('Ağzınızı rahatça açın.');
  // Lip aperture cannot tell a wide bite smile from an open mouth; the BITE
  // step requires visible upper/lower incisal contact (same rule as backend).
  const contact=incisalContact(valid,toothMask,x1-x0,y1-y0,x0,y0,p,mouthWidth);
  if(pose==='BITE'&&!contact.confirmed)reasons.push('Dişlerinizi hafifçe birleştirin; ön dişleriniz birbirine değsin.');
- if(tooth<Math.max(150,mouthWidth*mouthWidth*.008)||visibleFraction<.30)reasons.push(light/Math.max(total,1)<90?'Ön dişlerinize ışık gelsin; ağzınızı rahatça açık tutun.':'Ön dişleriniz dudak ve dil tarafından örtülmeden görünsün.');
+ if(tooth<mouthWidth*mouthWidth*DENTAL_GATES.minEnamelPerMouthWidth2||visibleFraction<DENTAL_GATES.minEnamelColumnFraction)reasons.push(light/Math.max(total,1)<90?'Ön dişlerinize ışık gelsin; ağzınızı rahatça açık tutun.':'Ön dişleriniz dudak ve dil tarafından örtülmeden görünsün.');
  if(light/Math.max(total,1)<45||light/Math.max(total,1)>230)reasons.push('Dişlerin ışığını düzenleyin.');
  if(sharp<12)reasons.push('Kamera netliğini kontrol edin.');
  if(glare/Math.max(tooth+glare,1)>.12)reasons.push('Tükürük yansıması veya fazla parlama var.');
@@ -79,7 +95,7 @@ export function assessDentalCapture(ctx:CanvasRenderingContext2D,a:FaceAlignment
  if(!poseValid){
   reasons.push(dentalGuidance(a,pose));
  }
- return {valid:reasons.length===0,reasons,opening,contact,visibleFraction,enamelAreaFraction:tooth/Math.max(total,1),toothPixels:tooth,mouthPixels:total,supportedColumns,mouthWidth,light:light/Math.max(total,1),sharp,glareFraction:glare/Math.max(tooth+glare,1),tongueFraction:tongue/Math.max(total,1),rotation,sourceWidth:width,sourceHeight:height};
+ return {valid:reasons.length===0,reasons,gateVersion:DENTAL_GATES.version,opening,contact,anatomicalMouthWidth,visibleFraction,enamelAreaFraction:tooth/Math.max(total,1),toothPixels:tooth,mouthPixels:total,supportedColumns,mouthWidth,light:light/Math.max(total,1),sharp,glareFraction:glare/Math.max(tooth+glare,1),tongueFraction:tongue/Math.max(total,1),rotation,sourceWidth:width,sourceHeight:height};
 }
 /** Mirrors dental_analysis.incisal_contact (backend re-validates every frame). */
 export const DENTAL_BITE_CONTACT={centralHalfWidth:.25,maxGapRatio:.04,minContactColumns:.60,minEnamelColumns:.50,version:'incisal-contact-v1'} as const;

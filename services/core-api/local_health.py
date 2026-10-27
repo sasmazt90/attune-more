@@ -237,6 +237,14 @@ async def skin_fuse_multi_angle(request: Request):
         raise HTTPException(422, 'INVALID_MULTI_ANGLE_PAYLOAD') from None
 
 
+DENTAL_POSE_ORDER=('FRONT','RIGHT','LEFT','BITE')
+
+
+def valid_dental_poses(poses):
+    """Non-empty, unique, in capture order; skipped poses are simply absent."""
+    return bool(poses) and all(p in DENTAL_POSE_ORDER for p in poses) and len(set(poses))==len(poses) and list(poses)==sorted(poses,key=DENTAL_POSE_ORDER.index)
+
+
 async def dental_work(request,work,value):
     """Own one worker until it drains; never return a late successful result."""
     from native_material_budget import NativeRequestBudget,NativeRequestStopped
@@ -268,9 +276,9 @@ async def dental(request: Request):
         raise HTTPException(429, 'LOCAL_ANALYSIS_BUSY')
     from dental_analysis import analyze_dental,DentalModelError
     try:
-        # BITE may be skipped by the user (e.g. contact cannot be shown); it is
-        # then reported as a missing view, never as a measured/healthy bite.
-        if not isinstance(value.get('captures'),list) or [c.get('pose') for c in value['captures']] not in (['FRONT','RIGHT','LEFT','BITE'],['FRONT','RIGHT','LEFT']):raise ValueError()
+        # A pose the user cannot show may be skipped; it is then reported as a
+        # missing view, never as measured/healthy. Order is fixed, at least one view.
+        if not isinstance(value.get('captures'),list) or not valid_dental_poses([c.get('pose') for c in value['captures']]):raise ValueError()
         for capture in value['captures']:
             landmarks(capture.get('landmarks'))
             if capture.get('pose') not in ('FRONT','RIGHT','LEFT','BITE'):raise ValueError()

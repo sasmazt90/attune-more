@@ -1,4 +1,4 @@
-# Codex devri — Diş Sağlığı (2026-10-27)
+# Codex devri — Diş Sağlığı (2026-10-27, tur 2)
 
 Bu belge, `fix/dental-flow-ui-20261027` dalındaki Diş Sağlığı çalışmasının bağımsız
 Codex incelemesi içindir. **Nihai kabul verilmemiştir**; kabul, Codex incelemesi ve
@@ -38,8 +38,8 @@ fiziksel kamera/AAOS testinden sonra kullanıcıya aittir.
 | 3 | Tek görünüm backend'de ölçülemezse (`quality.valid=false`) istemci tüm 4 pozu “Diş sonucu ve kaynak geometrisi doğrulanamadı” ile atıyor | `validateDentalView` ölçülemeyen görünümü katı şekilde (null değer, işaret yok, gerekçe zorunlu) kabul eder; UI “Ölçülemedi” + gerekçe + yeniden tarama daveti; hiç ölçülen görünüm yoksa hata | Gerçek backend yanıtıyla düğüm testinde önce `REJECTED`, sonra kabul. `dental_bite_contact_parity.cjs` (eski doğrulayıcıyla başarısız olduğu doğrulandı). E2E `partial-response`. |
 | 4 | Aynı kare iki poza atanabiliyor (görüntü donması/döngü) → tarama sonunda 422 `DUPLICATE_CAPTURE` | İstemci aynı `photoId`'yi ikinci poza eklemez, beklemeyi sürdürür | İlk bulut E2E'de FRONT ve BITE aynı `photoId` → 422 (kayıt: `claude-progress/dental-20261027/e2e`). Düzeltme sonrası tüm koşularda 4 farklı `photoId`. |
 | 5 | Tutma süresi tek bir başarısız karede sıfırlanıyor; ayrıca anlık kare yakalanıyor | Tek geçici kare toleransı (`DENTAL_HOLD_GRACE_FRAMES=1`; hareket/yüz kaybı her zaman sıfırlar); tutma süresince **tamamen geçerli** en net kare (kendi landmark'larıyla) kaydedilir | Sentetik “her 4. kare bulanık” kapanış: main 3 sıfırlama, ~7.7 s; dal 0 sıfırlama, ~4.2 s. Statik pozlarda tutma→yakalama süresi değişmedi (~1.6–2.2 s). |
-| 6 | Kapanış gösterilemeyen kullanıcı (ör. ön açık kapanış) için çıkış yok | BITE adımında 20 s sonra “Kapanış görünümünü atla”; backend 3 pozu (`FRONT,RIGHT,LEFT`) kabul eder, `missingViews:['BITE']`; dizilim “Kapanış görünümü alınmadı” (sağlıklı/0 değil) | E2E `skip-bite`: 3 görünüm, kayıt + geçmiş BITE “Alınmadı”. |
-| 7 | Atla düğmesi ile döngü yarışı: kapanan yüz modeli “Yüz modeli yanıt vermedi” hatası verip analizi iptal ediyordu (yalnız yeni düğmede) | Döngü `skipped` bayrağını kontrol eder | E2E `skip-bite` ilk koşu hata, düzeltme sonrası 200. |
+| 6 | Kapanış gösterilemeyen kullanıcı (ör. ön açık kapanış) için çıkış yok | (Tur 2'de #17 ile genelleştirildi: her pozda 15 s.) BITE adımında 20 s sonra “Kapanış görünümünü atla”; backend 3 pozu (`FRONT,RIGHT,LEFT`) kabul eder, `missingViews:['BITE']`; dizilim “Kapanış görünümü alınmadı” (sağlıklı/0 değil) | E2E `skip-bite`: 3 görünüm, kayıt + geçmiş BITE “Alınmadı”. |
+| 7 | Atla düğmesi ile döngü yarışı: kapanan yüz modeli “Yüz modeli yanıt vermedi” hatası verip analizi iptal ediyordu (yalnız yeni düğmede) | Döngü `skipped` bayrağını kontrol eder (tur 2: oturum mührü, #10) | E2E `skip-bite` ilk koşu hata, düzeltme sonrası 200. |
 | 8 | Sonuç ekranı tüm yüzü gösterdiği için işaretler okunmuyor; FRONT/yan pozlarda dizilim yokken “konturlar ayrılamadı” deniyordu | Backend her kamera görünümüne `quality.roi` (iç ağız sınırı) ekler; UI aynı fotoğrafı bu bölgeye kırpar, işaretler kaynak pikselde kalır; yan pozlarda “Kapanış görünümünde ölçülür” | `data-dental-crop`, `data-dental-photo` E2E kontrolleri; geçmişte fotoğraf kimliği kayıtla eşleşiyor. |
 | 9 | “Diş taşı birikimi” etiketi doğrulanmamış renk sezgiselini diş taşı gibi sunuyor | Etiket “Birikim görünümü” (bilgi metni: diş taşı tanısı değildir). `test_dental_adult_scope.py` sabitlenmiş etiket güncellendi | **Kullanıcı onayı gerekir** (tek satır geri alınabilir: `DENTAL_ACCUMULATION_LABEL`). |
 
@@ -47,9 +47,34 @@ Yeniden üretilip **hata bulunmayan** yaşam döngüsü durumları (önceki kodd
 durumundan çıkış, kamera izni geri çekme, işleme izni geri çekme (izin kapısı sayfayı
 kaldırıyor), kayıt/silme (sayısal kayıt + IndexedDB fotoğrafı birlikte silindi).
 
+## 2b. Tur 2 — Codex bulguları ve araç içi çekim (hata → düzeltme → test)
+
+| # | Hata (önce yeniden üretildi) | Düzeltme | Test / kanıt |
+|---|---|---|---|
+| 10 | **Codex P2 — atla yarışı:** `captureDental` beklerken “Atla” → önce 3 pozla, sonra tamamlanan BITE ile 4 pozla ikinci analiz | `utils/dentalCaptureSession.ts`: kaynak listesinin tek sahibi; liste bir kez mühürlenir, analiz mühürlü ve dondurulmuş kopyayı kullanır (`analyze(run,sources)`); mühürden sonra biten çekim `closed` döner, listeye giremez, ikinci analiz başlatamaz | Birim: `tests/unit/dental_capture_session.cjs` (gecikmeli `captureDental`). Tarayıcı: `dental_cloud_flow.cjs skip-race` — `crypto.subtle.digest` BITE çekiminde bekletilir, bu sırada “Atla” basılır. **903567a derlemesi: FAIL** (istekler `[F,R,L]` + `[F,R,L,B]`, biri 429); **bu dal: PASS** (tek istek `[F,R,L]`). |
+| 11 | **Codex P2 — kayıt hatası görünmüyor:** yalnız “kaydedil/saklanamadı” içeren mesajlar görünürdü | Ayrı `saveNote` durumu; her kayıt hatası görünür `role=alert` ile gösterilir. Fotoğraf izni açıkken fotoğraf saklanmadıysa “fotoğraf saklanamadı” (sessiz “yalnız sayısal” değil) | E2E `DENTAL_FAULT=block-photo-store`: uygulama hatayı gösterir, test **exit 1** ile başarısız olur. |
+| 12 | E2E betiği bekleme hatasını yutuyor, `historyPhotoCheck` ve tarayıcı hatalarını yalnız kaydediyordu | Senaryo tablosu + assertion'lar; herhangi bir başarısızlıkta exit 1: istek sayısı/pozlar, benzersiz foto, API durumu, yanıt görünümü↔kendi fotoğrafı, `missingViews`, ekrandaki ölçülen sayısı, her slaytın görüntüsü = analiz edilen yakalama, kayıt kimliği, fotoğraf izni (izin açıkken IDB'de kayıt anahtarı zorunlu), geçmişte kendi fotoğrafı/hiç fotoğraf, silme, iptal/park/izin geri çekme, beklenmeyen konsol/sayfa hatası | Kasıtlı hatalar: `block-photo-store` ve `swap-photo-id` → ikisi de **exit 1**. İlk koşuda betik kendi yükleme beklentisindeki eksikliği de yakaladı (düzeltildi, yeniden koşuldu). |
+| 13 | **Araç içi yanlış ret — ince dudak/doğal gülümseme:** dişler görünürken FRONT “Ağzınızı rahatça açın” (dudak açıklığı 0.10 < 0.12) | `DENTAL_GATES.minLipOpening=0.06` (dudaklar ayrık); asıl ölçüt mine görünürlüğü kapısı (değişmedi: sütunların ≥%30'u, mine ≥ 0.008·w²) | Kapı laboratuvarı + `dental-natural-public.y4m`: **903567a FRONT'ta 150 s takılı kaldı (FAIL)**, bu dal 4/4 pozu tamamladı, backend 4/4 geçerli. |
+| 14 | **Araç içi yanlış ret — yana dönünce:** baş dönerken doğal yatıklık (roll 12–13°) ve kameranın göz hizası dışında olması (pitch 17–21°) poz kapısında red | Pitch ≤ 24°, roll ≤ 15° (önce 12.6°/8.6°); yan poz 12°'den başlar (FRONT ≤12° ile arada ölü bölge yok; MediaPipe yaw'ı görünür ~30° dönüşü 17° okuyor) | `tests/unit/dental_vehicle_gates.cjs` (eski kodda başarısız), `test_acne_pose_contract.cjs` diş satırları güncellendi. |
+| 15 | **Ölçek:** sabit 150 piksel mine alt sınırı küçük görüntüde dişleri “örtülü” sayıyor; yan pozda 2B ağız genişliği kısaldığı için “daha belirgin görünmeli” | Mine miktarı ağız genişliğine göreli; ölçek kapısı (≥65 px) landmark derinliğiyle **anatomik (3B) ağız genişliği** üzerinden — istemci ve backend aynı | `test_gate_scale_uses_anatomical_mouth_width`; kapı laboratuvarı. |
+| 16 | Backend yeniden doğrulaması, istemcinin kabul ettiği düşük çözünürlüklü ince-dudak karelerini 3×3 morfolojik açma yüzünden “dişler görünmüyor” sayıyordu (görünüm “Ölçülemedi” olurdu) | Backend kapısı istemciyle aynı piksel sınıflamasını kullanır (`gate_enamel`); analiz maskeleri değişmedi | Kapı laboratuvarı: istemci kabullerinde backend uyumu 81/85 → **85/85**. |
+| 17 | Alınamayan görünüm kullanıcıyı sonsuz döngüde tutuyordu (yalnız BITE atlanabiliyordu) | Her pozda 15 s sonra “Bu görünümü atla”; atlanan poz `missingViews` ile “Alınmadı” taşınır; tüm pozlar atlanırsa sonuç yok, hata + yeniden tarama. Backend sıralı, boş olmayan her alt kümeyi kabul eder (`valid_dental_poses`) | E2E `skip-side` (RIGHT atlandı → `[F,L,B]`, geçmişte RIGHT “Alınmadı”), `skip-bite`; birim: oturum ve rota testleri. |
+
+**Kapı laboratuvarı** (`scripts/dental_gate_lab/`, sonuç `claude-progress/dental-20261027/round2/gate-lab-report.json`):
+10 Wikimedia portresi + 4 sentetik portre, araç kamerası ölçeği varsayımıyla yeniden çerçevelendi
+(1920×1080'de yüz %16/22/30, 1280×720'de %14/18/24; yalnız ölçek/kaydırma). Uygulamanın gerçek
+istemci kapısı Chromium'da çalıştırıldı (landmark'lar uygulamanın `face_landmarker.task` modeliyle,
+Python çalışma zamanında).
+- Beklenen pozların kabulü: **49/102 → 85/102**; açık ağzın kapanış sayılması **0 → 0**; istemcinin kabul ettiği karelerde backend uyumu **85/85**.
+- Hâlâ reddedilenler: parlak stüdyo ışığında kırpılmış mine (`SALIVA_OR_GLARE`, kapı değiştirilmedi), landmark'ı dişlerin dışına düşen bir yüz (doğru red), 1280×720'de yüz %14 iken ağız <65 px (ölçek yetersiz), >45° dönüş.
+- Bu kareler araç kamerasıyla çekilmemiştir; **fiziksel kamera kanıtı değildir**. Ölçek oranları varsayımdır.
+- Kapı düzeltmeleri modelin ön/yan görünümlerdeki düşük başarısını (D kesinlik 0.54 / duyarlılık 0.34) **çözmez**; yalnız çekimin alınabilmesini sağlar.
+
+Yönlendirme metinleri ve sesleri değiştirilmedi (önceden kaydedilmiş seslerle uyum); yeni kapılar bu yönergelere uyan kullanıcıyı (rahat açık ağız veya dişleri gösteren gülümseme) kabul eder. Ayna, retraktör, yardımcı kişi, aşırı yaklaşma veya ağzı zorlama istenmez.
+
 ## 3. Raporlar (ayrı ayrı)
 
-### 3a. Örnek/sentetik veriyle arayüz ve akış testi
+### 3a. Örnek/sentetik veriyle ve sanal kamerayla arayüz/akış testi
 - Girdiler kullanıcı tarafından sentetik olarak işaretli; klinik kanıt değildir.
 - Kamera: `--use-file-for-fake-video-capture` ile y4m (1920×1080, 3 fps), gerçek MediaPipe yüz modeli ve gerçek kalite/poz/sabitlik kapıları. Not: dosya adları kamera perspektifinde; `dental_left_full` uygulamanın anatomik **sağ** pozunu, `dental_right_full` anatomik **sol** pozu karşılıyor.
 - Sonuç: FRONT→RIGHT→LEFT→BITE 4/4 yakalandı; kaydet → geçmişten aç (kendi fotoğrafları, `photoId` eşleşmesi) → sil (kayıt 0, IDB anahtarı yok) PASS.
@@ -72,33 +97,39 @@ kaldırıyor), kayıt/silme (sayısal kayıt + IndexedDB fotoğrafı birlikte si
 - Yükleme yolu 194/347 fotoğrafı reddetti (TONGUE_OCCLUSION 125, BLURRY 64, …); reddedilen fotoğraf sonuç üretmez, negatif sayılmaz. Tüm test D'lerine göre duyarlılık 0.39.
 - Sınırlamalar korunur: hasta bağımsızlığı doğrulanmadı (`patientIndependent=false`), etiketsiz görüntüler hariç → sağlıklı özgüllüğü ölçülmedi, klinik doğrulama yok.
 
-### 3c. Gerçek modelle API ve kayıt/geçmiş E2E (temiz süreç)
-- `next build` + `next start` (3310), temiz `ATTUNE_DATA_DIR` ile `uvicorn main:app` (8310), anahtar/ücretli servis yok.
-- Matris ve sonuçları: `claude-progress/dental-20261027/e2e/summary.json`.
+### 3c. Gerçek modelle API ve kayıt/geçmiş E2E (temiz süreç, tur 2)
+- `next build` + `next start` (3310), temiz `ATTUNE_DATA_DIR` ile `uvicorn main:app` (8310), anahtar/ücretli servis yok. Karşılaştırma için 903567a derlemesi 3311'de.
+- Sonuçlar: `claude-progress/dental-20261027/round2/e2e-results.json`, `e2e-matrix.log`.
 
-| Senaryo | Girdi | Sonuç |
-|---|---|---|
-| Kamera 4 poz + kaydet + geçmişten aç + sil | `dental-ordered.y4m` | API 200, 4/4 ölçüldü, kayıt fotoğrafları `photoId` ile eşleşti, silmede kayıt 0 / IDB anahtarı 0 — PASS |
-| Fotoğraf saklama izni kapalı | aynı | Yalnız sayısal kayıt; geçmişte 4 görünüm de “Bu kayıtta fotoğraf saklanmadı” (canlı tarama fotoğrafı gösterilmedi) — PASS |
-| Kapanış gösterilemiyor → atla | `dental-no-bite.y4m` (BITE adımında yalnız açık ağız) | Açık ağız kapanış sayılmadı; 20 s sonra atla; API 200 (3 görünüm); geçmişte BITE “Alınmadı” — PASS |
-| Bir görünüm ölçülemedi | gerçek yanıt, BITE backend'in yetersiz şekline çevrildi | 3 ölçüldü + 1 “Ölçülemedi” (gerekçe + yeniden tarama daveti), kayıt/geçmiş korunur — PASS |
-| Park durumundan çıkış (tarama sırasında) | — | Kamera durdu, istek yok, “Diş taraması yalnız PARK durumunda yapılır.” — PASS |
-| Kamera izni geri çekme | — | Kamera durdu, istek yok — PASS |
-| İşleme izni geri çekme | — | İzin kapısı sayfayı kaldırdı, kamera durdu, istek yok — PASS |
-| Yükleme: yakın çekim ön/sağ/sol, portre, EXIF(6), okluzal | 6 dosya | 200, kırpma doğru kaynakta, EXIF yönü doğru, kayıt/geçmiş/silme — PASS |
-| Yükleme: dişsiz negatif | `negative_6.jpg` | 422 `TEETH_NOT_VISIBLE_OR_NON_COLOR_IMAGE`, sonuç yok — PASS |
-| Yükleme: yakın çekim kapanış | `dental_front_bite.jpg` | 422 `TONGUE_OCCLUSION` — **yanlış red (açık bulgu 3)** |
+| Senaryo | Girdi | Beklenen | Sonuç |
+|---|---|---|---|
+| camera | `dental-ordered.y4m` (sentetik) | 4 poz, foto izni açık → foto saklanır, geçmişte kendi fotoğrafı, silme | PASS (31 kontrol) |
+| no-photo-permission | aynı | yalnız sayısal, IDB'de anahtar yok, geçmişte fotoğraf yok | PASS |
+| skip-bite | `dental-no-bite.y4m` | açık ağız kapanış sayılmaz; atla → `[F,R,L]`, BITE alınmadı | PASS |
+| skip-side | `dental-no-right.y4m` | RIGHT atla → `[F,L,B]`, RIGHT alınmadı | PASS |
+| skip-race | `dental-skip-race.y4m` + gecikmeli digest | tek analiz `[F,R,L]` | **903567a: FAIL**, bu dal: PASS |
+| partial-response | gerçek yanıt, BITE yetersiz | 3 ölçüldü, BITE ölçülemedi, işaret yok | PASS |
+| cancel / park-change / revoke-camera / revoke-consent | — | istek yok, kamera durur | PASS ×4 |
+| upload ×8 | yakın çekim ön/sağ/sol, portre, EXIF(6), okluzal, 2 Wikimedia portresi | 200, kaydet/geçmiş/sil | PASS ×8 |
+| upload negatif | `negative_6.jpg` | 422 `TEETH_NOT_VISIBLE_OR_NON_COLOR_IMAGE` | PASS |
+| upload yakın çekim kapanış | `dental_front_bite.jpg` | 422 `TONGUE_OCCLUSION` (**bilinen yanlış red**, açık bulgu 3) | mevcut davranış |
+| doğal pozlar (gerçek kişi portreleri, sanal kamera) | `dental-natural-public.y4m` | 4 poz | **903567a: FAIL (FRONT'ta takılı)**, bu dal: PASS |
+| kasıtlı hata | `block-photo-store`, `swap-photo-id` | test başarısız olmalı | exit 1 ×2 ✔ |
 
 ### 3d. Fiziksel kamera ve AAOS/araç testi
-**Yapılmadı.** Cloud'da fiziksel kamera ve AAOS emülatörü çalıştırılmadı. Kapanış kapısının gerçek
-kullanıcıdaki süresi ve `incisal-contact-v1` eşiği (0.04, %60) gerçek kamerayla doğrulanmalıdır.
+**Yapılmadı.** Cloud'da fiziksel kamera ve AAOS emülatörü çalıştırılmadı. Gerçek araç kamerasının çözünürlüğü,
+montaj açısı ve ışığıyla `vehicle-capture-v2` sınırları (pitch 24°, roll 15°, yan 12–45°, dudak 0.06, 3B ağız ≥65 px),
+`incisal-contact-v1` eşiği (0.04, %60), atlama süresi (15 s) ve toplam tarama süresi doğrulanmalıdır.
+Denenmeyen anatomiler: sakal/bıyık, diş teli, eksik/protez diş, belirgin kapanış bozukluğu, çocuk; bunlar doğrulanmış sayılmaz.
 
 ## 4. Açık hatalar, model sınırları, doğrulanmamış katmanlar
 1. **Model sınırı (engel):** ürünün kamera görünümlerinde D kesinlik 0.54 / duyarlılık 0.34 (n=31 görüntü, 38 lezyon). Yeniden eğitim başlatılmadı; kullanıcı kararı gerekir.
 2. Birikim görünümü ve dizilim metrikleri etiketli veriyle doğrulanmadı; sentetik düz dişlerde dizilim 25°/39° gibi yüksek dağılım verdi.
 3. Yükleme yolunda TONGUE_OCCLUSION, yüz landmark'ı olmayan yakın çekimlerde dudakları dil sayıyor (`dental_front_bite.jpg` yakın çekimi reddedildi). Kapı gevşetilmedi; ayrı karar/çalışma gerekir.
 4. Yükleme kapısı BLURRY (Laplasyen < 12) yüksek çözünürlüklü profesyonel fotoğrafların bir kısmını reddediyor (çözünürlüğe bağlı ölçüm). Değiştirilmedi.
-5. Önceden var olan ve bu dalda değişmeyen başarısız testler (main'de de başarısız): `pytest tests/unit` 12 başarısız + 9 hata (torch/pycocotools gerektiren cilt/akne araştırma testleri), 6 `.cjs` cilt/paylaşım testi. Diş testleri 46/46 geçti.
+5. Önceden var olan ve bu dalda değişmeyen başarısız testler (main'de de başarısız): `pytest tests/unit` 12 başarısız + 9 hata (torch/pycocotools gerektiren cilt/akne araştırma testleri), 6 `.cjs` cilt/paylaşım testi. Diş testleri 48/48 + 3 `.cjs` geçti.
+8. Kırpılmış (aşırı parlak) minede `SALIVA_OR_GLARE` reddi (kapı laboratuvarında 1 portre) — kapı değiştirilmedi; fiziksel kamerada güneşli kabinde gözlenmeli.
+9. MediaPipe Python ve WASM çalışma zamanları arasında landmark farkı olabilir; kapı laboratuvarı Python landmark'ları kullanır, sanal kamera E2E'leri WASM'ı.
 6. `tests/e2e/dental_*.js|py` eski Windows kanıt yollarına bağlı; Cloud'da çalıştırılamadı. Yerine `tests/e2e/dental_cloud_flow.cjs`.
 7. `components/DentalSourceView.tsx` artık kullanılmıyor; eski kapanış doğrulayıcısı (`scripts/verify_dental_closeout.py`) dosya listesine bağlı olduğu için silinmedi.
 
@@ -108,14 +139,18 @@ kullanıcıdaki süresi ve `incisal-contact-v1` eşiği (0.04, %60) gerçek kame
 npm ci && pip install -r services/core-api/requirements.txt
 python -m pytest tests/unit/test_dental_*.py -q
 node tests/unit/dental_bite_contact_parity.cjs
+node tests/unit/dental_capture_session.cjs && node tests/unit/dental_vehicle_gates.cjs
 npm run typecheck && npm run lint && npm run build
 ATTUNE_TOOL_PYTHON=python3 node scripts/localization/check.cjs
 # Model doğruluğu (özel veri Git dışında):
 python scripts/dental_heldout_product_eval.py --data-root <özel-kök> \
   --split <özel-kök>/training/dataset-split.json --out heldout-product-eval.json
 # E2E (backend 8310 + next start 3310 çalışırken):
-node tests/e2e/dental_cloud_flow.cjs <fikstür.y4m> <çıktı-klasörü> camera|skip-bite|partial-response|park-change|revoke-camera|revoke-consent|no-photo-permission
-node tests/e2e/dental_cloud_flow.cjs - <çıktı> upload:<foto.jpg>
+# (her başarısızlıkta exit 1)
+node tests/e2e/dental_cloud_flow.cjs <fikstür.y4m> <çıktı> camera|no-photo-permission|skip-bite|skip-side|skip-race|partial-response|cancel|park-change|revoke-camera|revoke-consent
+DENTAL_EXPECT=200 node tests/e2e/dental_cloud_flow.cjs - <çıktı> upload:<foto>
+DENTAL_FAULT=block-photo-store node tests/e2e/dental_cloud_flow.cjs <fikstür.y4m> <çıktı> camera   # beklenen: exit 1
+# Kapı laboratuvarı: scripts/dental_gate_lab/README.md
 ```
 
 ## 6. Kullanılan girdiler ve hash'ler

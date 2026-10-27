@@ -1,7 +1,7 @@
 {
  "runId": "dental-20261027",
  "timezone": "Europe/Berlin",
- "updated": "2026-10-27T10:54:21+01:00",
+ "updated": "2026-10-27T13:56:19+01:00",
  "branch": "fix/dental-flow-ui-20261027",
  "base": "def0bef883d869700d610cc8d5de17e543b7032d",
  "acceptance": "NOT ACCEPTED — awaiting independent Codex review, physical camera and AAOS test",
@@ -11,14 +11,19 @@
   "bugs 1-9 reproduced then fixed (see CODEX_DENTAL_HANDOFF.md section 2)",
   "UI rebuilt in approved Hearing/Skin language: journey, tabs, per-view carousel, layer toggles, measurement note, TR/EN/DE",
   "cloud E2E: camera 4-pose, skip-bite, partial view, save/reopen/delete, no photo permission, park change, camera and consent withdrawal, uploads incl. EXIF/negative",
-  "typecheck, lint, build, localization check, dental unit tests"
+  "typecheck, lint, build, localization check, dental unit tests",
+  "round 2: Codex P2 skip race fixed (sealed immutable sources) + browser regression with delayed captureDental (903567a FAIL, branch PASS)",
+  "round 2: Codex P2 save failures always visible; permitted-but-unstored photos reported as failure",
+  "round 2: E2E harness asserts and exits non-zero; injected faults block-photo-store and swap-photo-id fail",
+  "round 2: in-car capture gates vehicle-capture-v2 (lip gap, pitch/roll, yaw dead zone, anatomical scale, backend parity), skip any pose",
+  "round 2: gate lab 49/102 -> 85/102 expected poses accepted, 0 open-mouth bites, backend agreement 85/85"
  ],
  "next": [
-  "Codex independent review of PR",
-  "physical camera + AAOS validation of incisal-contact-v1 gate and timing",
+  "Codex re-review of PR #10",
+  "physical camera + AAOS validation of vehicle-capture-v2 and incisal-contact-v1",
   "user decision: model accuracy on frontal/lateral views (retraining not started)",
-  "user decision: accumulation label/visibility",
-  "follow-up: upload TONGUE_OCCLUSION/BLURRY false rejections (not changed)"
+  "user decision: accumulation label",
+  "follow-up: upload TONGUE_OCCLUSION/BLURRY false rejections, clipped-enamel glare"
  ],
  "blockers": [
   "Model D precision 0.54 / recall 0.34 on frontal+lateral held-out views (n=31 images); retraining needs user approval",
@@ -57,13 +62,26 @@
    "note": "per-image SHA-256 in model/heldout-product-eval.json perImage[].sha256; all matched dataset-split.json"
   },
   "cameraFixtures(cloud-only, not in Git)": {
-   "dental-four-poses-15s.y4m": "7c57db7e4883c8693e76cb3a134a5683e1cb47dc7d9253faacf4734881ca76d3",
    "dental-no-bite.y4m": "bb97289e8b7ee96ea11c6f896d4095f7cfec3775e84b293084f95fa6b9a19f3c",
+   "dental-no-right.y4m": "fcdd51e2bdade36cd633509734132442f6828dc3e35d01682b94549b9aebfb23",
    "dental-ordered.y4m": "01852ab4534ff70ab5dcc7a8b9e8f5b269a671abd0f94f22e62a028202c88cd8",
-   "dental-bite-jitter.y4m": "75307577b2d18d7bc36fc7458e67cde03659662dcf13ed277660b966f1f053ff"
+   "dental-skip-race.y4m": "2dbe00851c87476f262f07eb2233d5b6704f5c2f40672f50f46d8c8bdbc13bc2",
+   "dental-natural-public.y4m": "aa7f119e438671e9c8c09a62bdffdf4c56384b28881e2b0078e242606f287684"
   },
   "transferZip": {
    "TOGG/cdc-progress/dental-cloud-transfer-20261027/dental-test-transfer.zip": "7ddebfcb0fb0ad08f271191f12288e3f251892e12fedf97baedb976aef2b1460"
+  },
+  "publicPortraits(followup-closure-20261010/dental-sources, Wikimedia Commons)": {
+   "0-native.png": "069ee3aed7f161225f3b3a01b739a29d9d524033ee204ea3471ebadda473baa9",
+   "1-native.png": "2657a3c533abb38ecd0211e16df64317d189cbe4d718fe10f9a8b15293b29322",
+   "2-native.png": "fc24f76e252b75317a5be40beff05e1642a10e57711ea2dae76da87d37a525c5",
+   "3-native.png": "b83c1b76122c2d2263017b81c2cb01d5a340b4f0dfdc8840fa6e2c348af9b11b",
+   "4-native.png": "9a442f778c714abba9080a0e16c3be2d5b1fdd3a75bcc1b3eac53a3f8fb7ab81",
+   "5-native.png": "98c7570ba4fb6cc7b81af24be24c46da5f7bd261b4d43f24e87cca4fcdf2f650",
+   "6-native.png": "8d6c3f9ee9664c85f9bbead49061060cc4b88f71a8af17a0b521c9a8b2565acc",
+   "7-native.png": "86058bbfa8e597edcd470ef319790b5e71532afa76681b490a14f46ea0756705",
+   "8-native.png": "62129ceeab14afb53fc0b4fbb5945c6c58f42af56a72db75f1d1dde8b5cb73df",
+   "9-native.png": "f3324e4834c89d9c9c45b5678a29e3eb5e030653f97858e2331b765ed782dee7"
   }
  },
  "events": [
@@ -102,6 +120,13 @@
    "time": "2026-10-27T10:54:21+01:00",
    "stage": "evidence-refresh",
    "done": "status/evidence regenerated from cloud runs"
+  },
+  {
+   "time": "2026-10-27T13:56:19+01:00",
+   "stage": "round2",
+   "done": "skip race, save errors, assertive E2E, vehicle capture gates, skip any pose; E2E matrix PASS, faults exit 1, natural-pose fixture old FAIL/new PASS",
+   "blocker": "physical camera/AAOS not tested; model frontal/lateral accuracy unchanged"
   }
- ]
+ ],
+ "round": 2
 }

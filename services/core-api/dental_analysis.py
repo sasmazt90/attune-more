@@ -38,6 +38,12 @@ def adult_product_result(result):
     return result
 
 
+def anatomical_mouth_width(points,shape):
+    """Mouth corner distance including landmark depth (z is in image-width units)."""
+    a,b=points[78],points[308]
+    return float(np.sqrt(((a['x']-b['x'])*shape[1])**2+((a['y']-b['y'])*shape[0])**2+((a.get('z',0)-b.get('z',0))*shape[1])**2))
+
+
 def mouth_geometry(points,shape):
     if len(points)<468:raise ValueError('LANDMARKS_MISSING')
     p=np.array([[v['x']*shape[1],v['y']*shape[0]] for v in points],np.float32)
@@ -65,6 +71,10 @@ def dental_pixels(image,mouth,native_capture=False):
     return tooth,glare,gum,tongue,gray
 
 
+# Same values as DENTAL_GATES in apps/vehicle-app/src/utils/dentalCapture.ts.
+# Scale is gated once by mouth width; enamel amount is relative to it, and a
+# small lip gap is enough when the enamel-visibility gate itself passes.
+DENTAL_GATES={'minLipOpening':.06,'minMouthWidthPx':65,'minEnamelPerMouthWidth2':.008,'minEnamelColumnFraction':.30,'version':'vehicle-capture-v2'}
 BITE_CONTACT={'centralHalfWidth':.25,'maxGapRatio':.04,'minContactColumns':.60,'minEnamelColumns':.50,'version':'incisal-contact-v1'}
 
 
@@ -93,29 +103,43 @@ def incisal_contact(tooth,mouth,p,width):
                 confirmed=bool(total and enamel_fraction>=BITE_CONTACT['minEnamelColumns'] and contact_fraction>=BITE_CONTACT['minContactColumns']))
 
 
+def gate_enamel(image,mouth):
+    """Per-pixel enamel classification of the live capture gate (dentalCapture.ts),
+    without the 3x3 opening used for analysis masks: at in-car image scales a
+    thin-lip enamel band is only a few pixels high and the opening erased it,
+    so the backend re-validation rejected frames the client had accepted."""
+    f=image.astype(np.float32);b,g,r=f[:,:,0],f[:,:,1],f[:,:,2]
+    v=np.maximum(np.maximum(r,g),b);sat=np.where(v>0,(v-np.minimum(np.minimum(r,g),b))/np.maximum(v,1),0)
+    lum=.299*r+.587*g+.114*b;pink=(sat>60/255)&(r>g*1.10)&(g-b<v*.08)
+    enamel=mouth&(v>100)&(sat<.58)&(lum>90)&(r<g*1.25)&(g>b*.85)&~pink
+    return enamel&~((v>=250)&(sat<.08))
+
+
 def dental_quality(image,points,bite=False,pose_check=True):
     mouth,width,opening,p=mouth_geometry(points,image.shape)
     tooth,glare,gum,tongue,gray=dental_pixels(image,mouth,native_capture=True)
-    count=int(tooth.sum());area=int(mouth.sum());area_fraction=count/max(area,1)
-    columns=int(np.sum(tooth.sum(axis=0)>=max(2,width*.015)));fraction=columns/max(width,1)
+    visible=gate_enamel(image,mouth)
+    count=int(visible.sum());area=int(mouth.sum());area_fraction=count/max(area,1)
+    columns=int(np.sum(visible.sum(axis=0)>=max(2,width*.015)));fraction=columns/max(width,1)
     # The same native inner-mouth neighbourhood as the live capture gate.
     # Rectangular crop/background edges must not supply artificial sharpness.
     interior=cv2.erode(mouth.astype(np.uint8),np.array([[0,1,0],[1,1,1],[0,1,0]],np.uint8),borderType=cv2.BORDER_CONSTANT,borderValue=0)>0
     lap=cv2.Laplacian(gray,cv2.CV_32F)
     sharp=float(np.mean(lap[interior]**2)) if interior.any() else 0
     light=float(gray[mouth].mean()) if area else 0
-    reasons=[];contact=incisal_contact(tooth,mouth,p,width)
-    if width<65:reasons.append('INSUFFICIENT_TOOTH_DETAIL')
-    if pose_check and not bite and opening<.12:reasons.append('MOUTH_CLOSED')
+    reasons=[];contact=incisal_contact(visible,mouth,p,width)
+    anatomical=anatomical_mouth_width(points,image.shape)
+    if anatomical<DENTAL_GATES['minMouthWidthPx']:reasons.append('INSUFFICIENT_TOOTH_DETAIL')
+    if pose_check and not bite and opening<DENTAL_GATES['minLipOpening']:reasons.append('MOUTH_CLOSED')
     if pose_check and bite and not contact['confirmed']:reasons.append('NATURAL_BITE_REQUIRED')
-    if count<max(150,width*width*.008) or fraction<.30:reasons.append('TEETH_NOT_VISIBLE')
+    if count<width*width*DENTAL_GATES['minEnamelPerMouthWidth2'] or fraction<DENTAL_GATES['minEnamelColumnFraction']:reasons.append('TEETH_NOT_VISIBLE')
     if light<45 or light>230:reasons.append('LIGHT_INVALID')
     if sharp<12:reasons.append('BLURRY')
     if glare.sum()/max(count+glare.sum(),1)>.12:reasons.append('SALIVA_OR_GLARE')
     if tongue.sum()/max(area,1)>.7:reasons.append('TONGUE_OCCLUSION')
     ys,xs=np.where(mouth)
     roi=dict(x=int(xs.min()),y=int(ys.min()),width=int(xs.max()-xs.min()+1),height=int(ys.max()-ys.min()+1)) if len(xs) else None
-    return dict(valid=not reasons,reasons=reasons,mouthOpeningRatio=opening,mouthWidthPixels=width,incisalContact=contact,roi=roi,
+    return dict(valid=not reasons,reasons=reasons,gateVersion=DENTAL_GATES['version'],anatomicalMouthWidthPixels=anatomical,mouthOpeningRatio=opening,mouthWidthPixels=width,incisalContact=contact,roi=roi,
                 visibleToothPixels=count,toothFraction=fraction,enamelAreaFraction=area_fraction,supportedEnamelColumns=columns,sharpness=sharp,light=light,clippedPixels=int(glare.sum()))
 
 
