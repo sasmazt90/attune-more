@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "regional-mask-source-person-review-result-v1",
+  "queueItemsSHA256": "f516efb71509111bd55e079bcbb8b2a897e5c00b5c8416668f18af3e247698a5",
+  "reviewedRecords": 0,
+  "unreviewedRecords": 337,
+  "personOrSourceCoverageComplete": false,
+  "crossSplitGroupCount": 0,
+  "crossSplitGroupIds": [],
+  "currentSplitIndependent": false,
+  "replacementSplitRequired": false,
+  "replacementSplitReady": false,
+  "trainingAuthorized": false,
+  "finalTestAuthorized": false,
+  "activationAllowed": false,
+  "blockers": [
+    "source_person_review_incomplete",
+    "current_split_not_person_source_independent",
+    "group_locked_replacement_version_missing",
+    "expert_semantic_mask_protocol_not_accepted"
+  ]
+}
