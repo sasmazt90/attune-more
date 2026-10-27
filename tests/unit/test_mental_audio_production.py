@@ -141,6 +141,8 @@ def test_failed_unapproved_recording_gets_new_revision_without_overwriting_origi
     assert revised['entries'][0]['audioPath'].endswith('B01-V02-r1.wav')
     assert revised['entries'][0]['generationAttempt']==1 and 'sha256' not in revised['entries'][0]
     assert revised['entries'][0]['supersededRecordings'][0]['sha256']==entry['sha256']
+    assert 'pronunciationEvidence' not in revised['entries'][0]['supersededRecordings'][0]
+    assert len(revised['entries'][0]['supersededRecordings'][0]['pronunciationEvidenceSHA256'])==64
     assert path.read_bytes()==b'UNAPPROVED SYNTHETIC TEST RECORDING' and manifest['entries'][0]['audioPath'].endswith('B01-V02.wav')
     assert plan['approvedRecordingsChanged']==0
     old=batch.recipe(entry,{'revision':'fixture'},'same-reference',{'cfg_weight':0})[0]

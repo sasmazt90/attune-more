@@ -6,6 +6,7 @@ Run only after initial production and pronunciation screening have finished.
 """
 import argparse
 import copy
+import hashlib
 import json
 from pathlib import Path
 from mental_audio_batch import authorize_full_production, PUBLIC, MANIFEST
@@ -33,7 +34,10 @@ def plan(manifest,report,cache,public=PUBLIC):
         target=(public/new_path.lstrip('/')).resolve()
         if not target.is_relative_to(public.resolve()) or target.exists():raise ValueError('REVISION_PATH_UNAVAILABLE_NO_OVERWRITE')
         history={name:copy.deepcopy(entry[name]) for name in ('audioPath','sha256','bytes','durationMs','recipe','recipeSha256','qualityMetrics','productionTelemetry') if name in entry}
-        history.update(reasons=sorted(reasons),pronunciationEvidence=copy.deepcopy(cache.get('assets',{}).get(key,{})))
+        evidence=cache.get('assets',{}).get(key,{})
+        # Full screening transcripts stay in the archived Drive report/cache.
+        history.update(reasons=sorted(reasons),pronunciationEvidenceSHA256=hashlib.sha256(
+            json.dumps(evidence,sort_keys=True,ensure_ascii=False).encode()).hexdigest())
         entry.setdefault('supersededRecordings',[]).append(history)
         for name in ('sha256','bytes','durationMs','sampleRate','recipe','recipeSha256','qualityMetrics','productionTelemetry','validatedAt'):entry.pop(name,None)
         entry.update(audioPath=new_path,generationAttempt=attempt,approvalStatus='pending-generation')
