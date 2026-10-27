@@ -4239,7 +4239,13 @@
         "backend": "success"
       },
       "ci": {
-        "status": "awaiting_push"
+        "runId": 40512982566,
+        "headSha": "6e2b2b881ffd1a64cbacd48f0129ce43747796b7",
+        "status": "queued",
+        "frontendJobId": 122219264147,
+        "frontend": "queued",
+        "backendJobId": 122219264420,
+        "backend": "queued"
       }
     }
   },
@@ -4323,6 +4329,15 @@
           "conclusion": "success",
           "jobId": 122031134314,
           "artifactId": 12712804062
+        },
+        {
+          "runId": 40512982566,
+          "headSha": "6e2b2b881ffd1a64cbacd48f0129ce43747796b7",
+          "status": "queued",
+          "frontendJobId": 122219264147,
+          "frontend": "queued",
+          "backendJobId": 122219264420,
+          "backend": "queued"
         }
       ]
     },
