@@ -22,7 +22,7 @@ store=tempfile.TemporaryDirectory(prefix='attune-wipe-store-')
 env={**os.environ,'ATTUNE_DATA_DIR':store.name,'ATTUNE_LOAD_LOCAL_ENV':'0','PYTHONPATH':str(ROOT/'.runtime/security-20261008')+os.pathsep+str(ROOT/'services/core-api')}
 env.pop('OPENAI_API_KEY',None)
 log=(OUT/'isolated-backend.log').open('w',encoding='utf8')
-server=subprocess.Popen([sys.executable,'-X','utf8','-m','uvicorn','main:app','--host','127.0.0.1','--port','8001'],cwd=ROOT/'services/core-api',env=env,stdout=log,stderr=log,creationflags=subprocess.CREATE_NO_WINDOW)
+server=subprocess.Popen([sys.executable,'-X','utf8','-m','uvicorn','main:app','--host','127.0.0.1','--port','8001'],cwd=ROOT/'services/core-api',env=env,stdout=log,stderr=log,creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
 def cleanup():
  if server.poll() is None:server.terminate();server.wait(timeout=15)
  log.close();store.cleanup()
