@@ -107,7 +107,10 @@ with sync_playwright() as pw:
      expected_scores.append('Referans oluşturuldu' if appearance.get('limitationCode')=='REFERENCE_CREATED' else str(math.floor(indicator['score']*1000+.5)))
     else:expected_scores.append(str(math.floor(indicator['score']+.5)))
    assert shown==expected_scores,(region,shown,expected_scores)
-   assert p.get_by_role('meter').count()==sum(v.get('appearance',{}).get('type')!='longitudinal_measurement' and v.get('appearance',{}).get('unit')!='candidate-count' for v in numeric)
+   # Only a true supported-area ratio may render a percent meter. Generic,
+   # color, line and fold indices stay neutral numeric values.
+   percent_units={'percent-visible-area','visible-highlight-area-percent'}
+   assert p.get_by_role('meter').count()==sum(v.get('appearance',{}).get('unit') in percent_units for v in numeric)
    for indicator in value['indicators'][region]:
     if indicator['score'] is None:assert p.locator('[data-skin-indicator="'+indicator['id']+'"]').get_by_role('meter').count()==0
    layout=p.locator('[data-skin-result-layout]').bounding_box();photo=p.locator('[data-face-panel]').bounding_box()
