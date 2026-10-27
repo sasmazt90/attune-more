@@ -4083,7 +4083,16 @@
         "result": "OK"
       },
       "receipt": "docs/skin/evidence/unified-skin-result-release-receipt-20261027-v5.json",
-      "evidence": "docs/skin/evidence/unified-skin-result-release-gate-20261027-v5.json"
+      "evidence": "docs/skin/evidence/unified-skin-result-release-gate-20261027-v5.json",
+      "ci": {
+        "runId": 40489319708,
+        "headSha": "bc3de65e5617c6f31c4921e972cdfd8e464f65c5",
+        "status": "in_progress",
+        "frontendJobId": 122138965666,
+        "frontend": "in_progress",
+        "backendJobId": 122138965353,
+        "backend": "queued"
+      }
     }
   },
   "nextActions": [
@@ -4157,6 +4166,15 @@
           "frontend": "success",
           "backendJobId": 122109317369,
           "backend": "success"
+        },
+        {
+          "runId": 40489319708,
+          "headSha": "bc3de65e5617c6f31c4921e972cdfd8e464f65c5",
+          "status": "in_progress",
+          "frontendJobId": 122138965666,
+          "frontend": "in_progress",
+          "backendJobId": 122138965353,
+          "backend": "queued"
         }
       ]
     },
