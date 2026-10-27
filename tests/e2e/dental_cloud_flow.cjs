@@ -9,7 +9,8 @@
 //   scenarios: camera | no-photo-permission | skip-bite | skip-side | skip-race |
 //              partial-response | cancel | park-change | revoke-camera |
 //              revoke-consent | upload:<file>   (uploads: DENTAL_EXPECT=200|422:<detail>)
-//   DENTAL_FAULT=block-photo-store|swap-photo-id  injects a defect; the run must FAIL.
+//   DENTAL_FAULT=block-photo-store|swap-photo-id|keep-delete-backup  injects a defect; the run must FAIL.
+//   DENTAL_SECOND_UPLOAD=<photo>  a second real record (upload) that deletion must preserve (required for 'camera').
 const {chromium}=require('playwright');
 const fs=require('fs'),path=require('path');
 const [,,fixture,out,scenario='camera']=process.argv;
@@ -51,6 +52,10 @@ const eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
    // skip button is visible, so "skip" can be pressed while a BITE capture is pending.
    const digest=crypto.subtle.digest.bind(crypto.subtle);window.__capture={pending:false,release:null,delayed:0};
    crypto.subtle.digest=async(alg,data)=>{const big=(data?.byteLength||0)>1e6;if(big&&document.querySelector('[data-dental-skip-bite]')&&!__capture.delayed){__capture.delayed++;__capture.pending=true;await new Promise(r=>{__capture.release=r;});__capture.pending=false;}return digest(alg,data);};
+  }
+  if(fault==='keep-delete-backup'){
+   // Only the transient delete backup survives: every other step of deletion completes.
+   const del=IDBObjectStore.prototype.delete;IDBObjectStore.prototype.delete=function(key){if(typeof key==='string'&&key.startsWith('delete-backup:'))return this.get(key);return del.call(this,key);};
   }
   if(fault==='block-photo-store'){const open=indexedDB.open.bind(indexedDB);indexedDB.open=(name,...rest)=>{if(name==='attune-dental-photos'){const req=open('__blocked__'+Date.now(),1);req.addEventListener('upgradeneeded',()=>req.transaction.abort());return req;}return open(name,...rest);};}
  },{fault:FAULT,race:!!spec.race});
@@ -204,12 +209,55 @@ const eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
      for(const m of record.measurements){const h=hist.find(x=>x.pose===m.pose);check(h&&(spec.photos?h.photo===m.photoId:h.photo===null),`history ${m.pose} shows ${spec.photos?'its own photo':'no photo'}`,h);}
      for(const pose of spec.missing||[])check(hist.find(x=>x.pose===pose)?.status==='missing','history keeps '+pose+' as not taken');
      await page.getByRole('button',{name:'Sonuç penceresini kapat'}).click();
+     // A second, independent record that deleting the first one must not touch.
+     const secondUpload=process.env.DENTAL_SECOND_UPLOAD||'';let other=null;
+     if(scenario==='camera')check(!!secondUpload,'DENTAL_SECOND_UPLOAD provided for the preservation check');
+     if(secondUpload){
+      await page.locator('input[type=file]').setInputFiles(secondUpload);
+      await page.locator('[data-dental-result]').waitFor({timeout:120000});
+      await page.getByRole('checkbox',{name:/Sayısal sonucu yerel geçmişime kaydet/}).check();
+      await page.getByRole('button',{name:'Sonucu kaydet'}).click();
+      await page.locator('[data-dental-save-status]').waitFor({timeout:30000});
+      const rows=await page.evaluate(()=>JSON.parse(localStorage.getItem('attune_dental_history_v1')||'[]'));
+      other=rows.find(r=>r.id!==record.id)||null;
+      check(rows.length===2&&other,'second independent record saved',rows.length);
+      if(spec.photos)check(other&&(await idbKeys()).includes(other.id),'second record photo stored',await idbKeys());
+      await page.getByRole('button',{name:'Geçici görüntüleri temizle'}).click();
+     }
+     // Delete the first record and wait for the real operation to finish:
+     // UI outcome + photo-delete journal and record transaction journal cleared.
+     // Observe the operation: transient backups and every status text shown (the shared
+     // history list may clear its notice on refresh, so the notice is not the completion signal).
+     const watch=page.evaluate(async id=>{const seen=new Set(),notices=new Set();const t=performance.now();let started=false;while(performance.now()-t<25000){const db=await new Promise(r=>{const q=indexedDB.open('attune-dental-photos',1);q.onsuccess=()=>r(q.result);q.onerror=()=>r(null);});if(db){const keys=await new Promise(r=>{const g=db.transaction('records','readonly').objectStore('records').getAllKeys();g.onsuccess=()=>r(g.result);g.onerror=()=>r([]);});db.close();keys.filter(k=>String(k).startsWith('delete-backup:')).forEach(k=>seen.add(k));}document.querySelectorAll('[data-record-history] [role=status]').forEach(e=>e.textContent&&notices.add(e.textContent));const gone=!JSON.parse(localStorage.getItem('attune_dental_history_v1')||'[]').some(r=>r.id===id);if(!gone)started=true;if(started&&gone&&!localStorage.getItem('attune_dental_photo_delete_v1')&&!localStorage.getItem('attune_health_transaction_v1')){await new Promise(r=>setTimeout(r,300));document.querySelectorAll('[data-record-history] [role=status]').forEach(e=>e.textContent&&notices.add(e.textContent));break;}await new Promise(r=>setTimeout(r,20));}return {backups:[...seen],notices:[...notices]};},record.id);
      await page.locator(`[data-record-id="${record.id}"] button[aria-label^="Diş Sağlığı kaydını sil"]`).click();
      await page.getByRole('button',{name:'Evet, sil'}).click();
-     await page.waitForFunction(()=>JSON.parse(localStorage.getItem('attune_dental_history_v1')||'[]').length===0,null,{timeout:15000}).catch(()=>{});
-     const afterRecords=await page.evaluate(()=>JSON.parse(localStorage.getItem('attune_dental_history_v1')||'[]').length),afterKeys=await idbKeys();
-     report.afterDelete={records:afterRecords,photoKeys:afterKeys};
-     check(afterRecords===0&&!afterKeys.includes(record.id),'delete removes record and its photos',report.afterDelete);
+     const observed=await watch,backupSeenDuringDelete=observed.backups;   // a transient backup during the operation is expected
+     // Completion = record gone and both journals cleared; the photo journal is removed only
+     // after the backup-delete transaction has completed (deleteDentalPhotosWithRecords).
+     const outcome=await page.waitForFunction(id=>!JSON.parse(localStorage.getItem('attune_dental_history_v1')||'[]').some(r=>r.id===id)&&!localStorage.getItem('attune_dental_photo_delete_v1')&&!localStorage.getItem('attune_health_transaction_v1'),record.id,{timeout:30000}).then(()=>true,()=>false);
+     check(outcome,'delete operation completed (record gone, journals cleared)');
+     const notice=observed.notices.join(' | ');
+     check(!/silinemedi/.test(notice),'no deletion failure reported (transient in-progress notices allowed)',notice);
+     const after=await page.evaluate(()=>({rows:JSON.parse(localStorage.getItem('attune_dental_history_v1')||'[]').map(r=>r.id),pending:localStorage.getItem('attune_dental_photo_delete_v1'),journal:localStorage.getItem('attune_health_transaction_v1')}));
+     const afterKeys=await idbKeys();
+     report.afterDelete={notice,rows:after.rows,photoKeys:afterKeys,pending:after.pending,journal:after.journal,backupSeenDuringDelete};
+     check(!after.rows.includes(record.id),'numeric record deleted',after.rows);
+     check(!afterKeys.includes(record.id),'record photos deleted',afterKeys);
+     check(!afterKeys.includes('delete-backup:'+record.id),'delete backup removed',afterKeys);
+     check(!afterKeys.some(k=>String(k).startsWith('delete-backup:')),'no delete backup left at all',afterKeys);
+     check(after.pending===null,'photo-delete journal cleared',after.pending);
+     check(after.journal===null,'record transaction journal cleared',after.journal);
+     if(other){
+      check(eq(after.rows,[other.id]),'other record preserved',after.rows);
+      if(spec.photos)check(afterKeys.includes(other.id),'other record photos preserved',afterKeys);
+      // The preserved record still opens with its own photo.
+      await page.locator(`[data-record-id="${other.id}"] button[aria-label="Sonucu Aç"]`).click();
+      const d2=page.locator('[data-dental-record-carousel]');await d2.waitFor({timeout:15000});await page.waitForTimeout(2000);
+      await d2.getByRole('button',{name:'Görünümler',exact:true}).click();
+      const shown=await d2.locator('[data-dental-slide]').first().evaluate(e=>e.querySelector('[data-dental-photo]')?.getAttribute('data-dental-photo')||null);
+      check(shown===(spec.photos?other.measurements[0].photoId:null),'preserved record still shows its own photo (or none without permission)',shown);
+      await page.getByRole('button',{name:'Sonuç penceresini kapat'}).click();
+     }
     }
    }
   }

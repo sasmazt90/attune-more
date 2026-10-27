@@ -1,4 +1,4 @@
-# Codex devri — Diş Sağlığı (2026-10-27, tur 2)
+# Codex devri — Diş Sağlığı (2026-10-27, tur 3)
 
 Bu belge, `fix/dental-flow-ui-20261027` dalındaki Diş Sağlığı çalışmasının bağımsız
 Codex incelemesi içindir. **Nihai kabul verilmemiştir**; kabul, Codex incelemesi ve
@@ -71,6 +71,17 @@ Python çalışma zamanında).
 - Kapı düzeltmeleri modelin ön/yan görünümlerdeki düşük başarısını (D kesinlik 0.54 / duyarlılık 0.34) **çözmez**; yalnız çekimin alınabilmesini sağlar.
 
 Yönlendirme metinleri ve sesleri değiştirilmedi (önceden kaydedilmiş seslerle uyum); yeni kapılar bu yönergelere uyan kullanıcıyı (rahat açık ağız veya dişleri gösteren gülümseme) kabul eder. Ayna, retraktör, yardımcı kişi, aşırı yaklaşma veya ağzı zorlama istenmez.
+
+## 2c. Tur 3 — silme testi eksikliği (Codex)
+
+| # | Eksik | Düzeltme | Kanıt |
+|---|---|---|---|
+| 18 | E2E, sayısal kayıt ve asıl fotoğraf anahtarı silinince başarılı sayıyordu; `delete-backup:<recordId>` yedeğinin ve silme günlüklerinin temizlenmesini beklemiyor/denetlemiyordu | Test gerçek işlemin bitmesini bekler: kayıt geçmişten çıkmış **ve** `attune_dental_photo_delete_v1` (fotoğraf silme günlüğü; yedek silme işlemi bittikten sonra kaldırılır) **ve** `attune_health_transaction_v1` temiz. Sonra: sayısal kayıt yok, asıl fotoğraf yok, `delete-backup:<id>` yok, hiçbir `delete-backup:*` yok, iki günlük `null`, “silinemedi” hatası yok. `camera` senaryosunda ikinci bağımsız kayıt (gerçek yükleme) zorunlu: kaydı ve fotoğrafı korunur, geçmişten kendi fotoğrafıyla açılır. İşlem sırasında görülen geçici yedek yalnız kaydedilir (`backupSeenDuringDelete`), hata sayılmaz. | Olumlu: `camera` PASS (44 kontrol; yedek işlem sırasında görüldü, sonunda yok; diğer kayıt+fotoğraf korundu), `no-photo-permission`, `skip-bite`, `partial-response`, `upload` PASS. **Olumsuz:** `DENTAL_FAULT=keep-delete-backup` (yalnız `delete-backup:*` silmesi atlanır, geri kalan her adım tamamlanır) → **exit 1**, yalnız “delete backup removed / no delete backup left” başarısız. `block-photo-store` → exit 1. Kanıt: `claude-progress/dental-20261027/round3/`. |
+
+Uygulama kodu ve silme/kurtarma davranışı değişmedi (yalnız test). Gözlem (değiştirilmedi, ortak bileşen):
+paylaşılan `RecordHistory` listesi silmeden sonra yenilenirken başarı mesajını temizleyebiliyor
+(`no-photo-permission` koşusunda “Kayıt kalıcı olarak silindi.” görülmedi); bu yüzden test tamamlanmayı
+mesajdan değil depolama durumundan doğrular.
 
 ## 3. Raporlar (ayrı ayrı)
 
@@ -149,7 +160,9 @@ python scripts/dental_heldout_product_eval.py --data-root <özel-kök> \
 # (her başarısızlıkta exit 1)
 node tests/e2e/dental_cloud_flow.cjs <fikstür.y4m> <çıktı> camera|no-photo-permission|skip-bite|skip-side|skip-race|partial-response|cancel|park-change|revoke-camera|revoke-consent
 DENTAL_EXPECT=200 node tests/e2e/dental_cloud_flow.cjs - <çıktı> upload:<foto>
-DENTAL_FAULT=block-photo-store node tests/e2e/dental_cloud_flow.cjs <fikstür.y4m> <çıktı> camera   # beklenen: exit 1
+DENTAL_SECOND_UPLOAD=<foto> node tests/e2e/dental_cloud_flow.cjs <fikstür.y4m> <çıktı> camera   # beklenen: exit 0
+DENTAL_FAULT=keep-delete-backup DENTAL_SECOND_UPLOAD=<foto> node tests/e2e/dental_cloud_flow.cjs <fikstür.y4m> <çıktı> camera   # beklenen: exit 1
+DENTAL_FAULT=block-photo-store DENTAL_SECOND_UPLOAD=<foto> node tests/e2e/dental_cloud_flow.cjs <fikstür.y4m> <çıktı> camera   # beklenen: exit 1
 # Kapı laboratuvarı: scripts/dental_gate_lab/README.md
 ```
 
