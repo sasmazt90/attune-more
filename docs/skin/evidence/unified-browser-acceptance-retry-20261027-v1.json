@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "dateEuropeBerlin": "2026-10-27",
-  "observedAt": "2026-10-26T23:09:00Z",
+  "observedAt": "2026-10-27T00:07:58Z",
   "repository": {
     "fullName": "sasmazt90/attune-more",
     "branch": "work/skin-roadmap-20261023",
@@ -10,7 +10,8 @@
     "secondRetryCandidateCommit": "85c24fdfca85a068c5bc02c73299e1a68ace7d07",
     "thirdRetryCandidateCommit": "3ad03c461eea4f08a197fc8c5400f29dea2867d0",
     "fourthRetryCandidateCommit": "695a636c831e57e8a5a6dac1dbe20956b22bedef",
-    "fifthRetryCandidateCommit": "1011814b7cf5ed35ae93158fb174497b1455b285"
+    "fifthRetryCandidateCommit": "1011814b7cf5ed35ae93158fb174497b1455b285",
+    "sixthRetryCandidateCommit": "04c7497c91886f5acb5eed82561b4c92228dc52f"
   },
   "failedAttempt": {
     "browserRunId": 40406100671,
@@ -153,9 +154,36 @@
   "fifthRetry": {
     "browserRunId": 40423925409,
     "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40423925409",
-    "statusAtCheckpoint": "in_progress",
+    "statusAtCheckpoint": "completed",
+    "conclusion": "failure",
     "matchingRepositoryCiRunId": 40423925423,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40423925423",
+    "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
+    "jobId": 121924871077,
+    "artifactId": 12697984531,
+    "artifactDigest": "sha256:dd6efa4ba33993deca2899756eb82e57913c4a4e3a140b38b5de3b7fb62d36cb",
+    "completedRuntimeSetup": true,
+    "productionBuildPassed": true,
+    "serversHealthChecked": true,
+    "fixturePrepared": false,
+    "browserTestsExecuted": false,
+    "sanitizedEvidenceProduced": false,
+    "rootCause": "the generated-dependency preflight incorrectly required the intentionally root-served MediaPipe bundle import ./tasks-vision.mjs to exist inside audit-fixtures instead of validating node_modules/@mediapipe/tasks-vision/vision_bundle.mjs"
+  },
+  "sixthTargetedFix": {
+    "source": "tests/e2e/prepare_multi_angle_fixture.py",
+    "change": "validate the generated ./tasks-vision.mjs import against the npm-lock-pinned source file that the fixture server actually serves while retaining strict local checks for generated skin modules",
+    "pythonCompilePassed": true,
+    "diffCheckPassed": true,
+    "roboflowTrainingChanged": false,
+    "modelOrThresholdChanged": false
+  },
+  "sixthRetry": {
+    "browserRunId": 40424360084,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40424360084",
+    "statusAtCheckpoint": "in_progress",
+    "matchingRepositoryCiRunId": 40424360161,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40424360161",
     "matchingRepositoryCiStatusAtCheckpoint": "queued",
     "sanitizedEvidencePending": true
   },
