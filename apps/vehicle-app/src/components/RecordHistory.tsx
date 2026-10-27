@@ -7,12 +7,13 @@ import Link from 'next/link';
 import {useEffect,useRef,useState} from 'react';
 import {AccessibleDialog} from './AccessibleDialog';
 import {InformationButton} from './InformationButton';
-import {ResultValue} from './ResultValue';
 import {SkinRecordDetail} from './skin/SkinRecordDetail';
 import {SkinRecordComparison} from './skin/SkinRecordComparison';
 import {ChevronRight,Trash2} from 'lucide-react';
 import {FINDING_DEFS,findingColor,validFindings} from '../utils/skinFindings';
 import {recordSummary,skinTypeLabel} from '../utils/skinHistorySummary';
+import {HearingStoredResult} from './hearing/HearingStoredResult';
+import {previousHearingRecord} from '../utils/hearingResults';
 import {DentalRecordDetail} from './DentalRecordDetail';
 import {LetterVisionResult} from './LetterVisionResult';
 import {ContinuousVisionResult,OrientationResult} from './ContinuousVisionResult';
@@ -39,7 +40,7 @@ export function RecordHistory({category='all',parked}:{category?:HealthCategory|
   <p className="text-sm text-slate-400">{i18nNode(loading?'Kayıtlar hazırlanıyor…':list.length+' kayıt')}</p>
   {notice&&<p role="status" className="text-sm text-amber-200">{i18nNode(notice)}</p>}
   {!loading&&!list.length&&<p className="text-sm text-slate-400">{i18nText("Henüz kayıt yok.")}</p>}
-  {!!list.length&&<div className="overflow-x-auto"><table className="w-full min-w-[720px] border-collapse text-[15px]" data-record-table>
+  {!!list.length&&<div className="relative overflow-x-auto"><table className="w-full min-w-[720px] border-collapse text-[15px]" data-record-table>
    <thead><tr className="text-left text-[13px] text-slate-400 border-b border-white/10"><th className="py-2.5 px-3 font-semibold">{i18nText("Tarih")}</th><th className="py-2.5 px-3 font-semibold">{i18nText("Saat")}</th><th className="py-2.5 px-3 font-semibold">{i18nText("Modül")}</th><th className="py-2.5 px-3 font-semibold">{i18nText("Özet")}</th><th className="py-2.5 px-1 w-12"><span className="sr-only">{i18nText("Sonucu Aç")}</span></th><th className="py-2.5 px-3 w-16 text-right font-semibold">{i18nText("Sil")}</th></tr></thead>
    <tbody>{list.map(v=>{const t=Date.parse(v.record.timestamp||v.record.date||v.record.completedAt||'');const open=()=>{if(parked&&!busy)setViewed(v);};return <tr key={v.category+v.record.id} data-record-id={v.record.id} data-record-category={v.category} onClick={open} className={`border-b border-white/[0.06] align-middle ${parked&&!busy?'cursor-pointer hover:bg-white/[0.03]':''}`}>
     <td className="py-3.5 px-3 whitespace-nowrap tabular-nums">{Number.isFinite(t)?new Date(t).toLocaleDateString(getLocale()):i18nNode(recordDate(v.record))}</td>
@@ -51,7 +52,7 @@ export function RecordHistory({category='all',parked}:{category?:HealthCategory|
    </tr>;})}</tbody></table></div>}
   {viewed&&<AccessibleDialog title={i18nText(RECORD_LABELS[viewed.category]+' sonucu')} onClose={()=>{setViewed(null);}} className="w-full max-w-3xl rounded-2xl border border-white/20 bg-cockpit-surface p-5 space-y-4">
    <div className="flex items-start justify-between gap-3"><div><div className="flex items-center gap-3"><h2 className="text-lg font-bold">{i18nNode(RECORD_LABELS[viewed.category])}</h2>{viewed.category==='vision'&&<InformationButton title={i18nText("Görme görevi ve hizmet bilgisi")}><p>{i18nText("Bu görev klinik görme keskinliği veya göz numarası ölçmez. Kamera pikselleri ve göz başlangıcı yalnız cihaz belleğinde değerlendirilir. Görüntü aynasızdır; sağ ve sol, kendi anatomik gözünüzdür. Mutlak uzaklık ölçülmez.")}</p></InformationButton>}{viewed.category!=='vision'&&<InformationButton title={i18nText("Kayıt bilgisi")}><ul className="list-disc pl-5 space-y-3"><li>{i18nText("Yalnız bu oturumda kaydedilen sayısal sonuçlar gösterilir.")}</li><li>{i18nNode(viewed.category==='dental'?'Diş fotoğrafı yalnız ayrı saklama izniyle bu cihazda tutulur.':'Fotoğraf ve ham ses geçmişe eklenmez.')}</li>{viewed.category==='dental'&&<li>{i18nText("Kaynak: ")}{i18nNode(viewed.record.sourceType==='upload'?'Yüklenen tek fotoğraf':'Kamera')}</li>}</ul></InformationButton>}</div><time className="text-sm text-slate-400">{i18nNode(recordDate(viewed.record))}</time></div><button className={button} aria-label={i18nText("Sonuç penceresini kapat")} onClick={()=>{setViewed(null);}}>✕</button></div>
-   <RecordDetail key={viewed.record.id} row={viewed} previous={viewed.category==='skin'?rows.filter(x=>x.category==='skin'&&validFindings(x.record.general?.findings)&&Date.parse(x.record.timestamp||'')<Date.parse(viewed.record.timestamp||'')).sort((a,b)=>Date.parse(b.record.timestamp||'')-Date.parse(a.record.timestamp||''))[0]?.record:undefined}/>
+   <RecordDetail key={viewed.record.id} row={viewed} previous={viewed.category==='hearing'?previousHearingRecord(viewed.record,rows.filter(x=>x.category==='hearing').map(x=>x.record)):viewed.category==='skin'?rows.filter(x=>x.category==='skin'&&validFindings(x.record.general?.findings)&&Date.parse(x.record.timestamp||'')<Date.parse(viewed.record.timestamp||'')).sort((a,b)=>Date.parse(b.record.timestamp||'')-Date.parse(a.record.timestamp||''))[0]?.record:undefined}/>
 
    {!(viewed.category==='skin'&&validFindings(viewed.record.general?.findings))&&<Link className={button+' inline-flex items-center'} href={careHref(viewed.category,undefined,viewed.record.id)}>{i18nText("Uzman seçenekleri")}</Link>}
   </AccessibleDialog>}
@@ -64,7 +65,7 @@ function RecordDetail({row:{category,record:r},previous}:{row:Row;previous?:Heal
  if(category==='mental')return <div className="space-y-4"><p className="text-sm">{i18nText("Başlangıç: ")}{i18nNode(r.startedAt?new Date(r.startedAt).toLocaleString(getLocale()):'Başlangıç zamanı kaydedilmemiş.')}{i18nText(" · Bitiş: ")}{i18nNode(r.completedAt?new Date(r.completedAt).toLocaleString(getLocale()):'Bitiş zamanı kaydedilmemiş.')}</p><div data-session-transcript className="space-y-3">{r.transcriptConsented&&Array.isArray(r.transcript)?r.transcript.filter((m:any)=>['USER','AI'].includes(m.sender)&&typeof m.text==='string').map((m:any,i:number)=><article key={i} data-session-author={m.sender} className="p-3 rounded-xl border border-white/10"><p className="text-xs text-slate-400">{i18nNode(m.sender==='USER'?'Siz':PRODUCT_NAME)}</p><p className="text-sm whitespace-pre-line break-words">{spokenText(m.text)}</p></article>):<p className="text-sm text-slate-400">{i18nText("Bu kayıtta konuşma dökümü bulunmuyor.")}</p>}</div><h3>{i18nText("Özet")}</h3><p className="text-sm whitespace-pre-line break-words" data-summary-provider={r.providerType}>{spokenText(translateMood(r.summaryText||'Özet bulunmuyor.'))}</p></div>;
  if(category==='skin'&&validFindings(r.general?.findings))return <SkinRecordComparison record={r as any} previous={previous as any} careHref={careHref('skin',undefined,r.id)}/>;
  if(category==='skin')return r.indicators?<SkinRecordDetail key={r.id} record={r}/>:<p>{i18nNode(r.clinicalNoteTr||'Bu kayıtta bölge ölçümü yok.')}</p>;
- if(category==='hearing')return r.thresholds?<div className="grid sm:grid-cols-2 gap-3">{r.thresholds.map((t:any,i:number)=><p key={i} className="text-sm">{i18nNode(t.ear==='left'?'Sol':'Sağ')} · {i18nNode(t.frequency)}{i18nText(" Hz")}{i18nNode(t.repeat?' tekrar':'')}: {t.value===null?i18nText('Eşik bulunamadı'):<>{i18nNode(t.value)}{i18nText(' dBFS peak')}</>}</p>)}</div>:<div><p>{i18nNode(r.validTrials)}{i18nText(" geçerli üçlü · ")}{i18nNode((Number.isFinite(r.digitAccuracy)?Math.round(r.digitAccuracy*100):'—'))}{i18nText("% doğru sayı")}</p><ResultValue value={r.value} status={r.value===null?'Kararlı eşik bulunamadı':undefined} unit="dB SNR"/></div>;
+ if(category==='hearing')return <HearingStoredResult record={r} previous={previous}/>;
  return <DentalRecordDetail key={r.id} record={r}/>;
 }
 
