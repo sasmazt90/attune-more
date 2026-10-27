@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "dateEuropeBerlin": "2026-10-27",
-  "observedAt": "2026-10-27T00:43:00Z",
+  "observedAt": "2026-10-27T00:48:00Z",
   "repository": {
     "fullName": "sasmazt90/attune-more",
     "branch": "work/skin-roadmap-20261023",
@@ -16,7 +16,8 @@
     "eighthRetryCandidateCommit": "0ea4be18ee96106ef67505fdc3928876b1cbb10e",
     "ninthRetryCandidateCommit": "8df6e54331d3ca0f1b6fd72860830cf4dadd0142",
     "tenthRetryCandidateCommit": "9b9c8880591adcc63d64422319eac9f6335e213b",
-    "eleventhRetryCandidateCommit": "b3757fa540dec4f8c7b6772d297a5244b60d398b"
+    "eleventhRetryCandidateCommit": "b3757fa540dec4f8c7b6772d297a5244b60d398b",
+    "twelfthRetryCandidateCommit": "8ff12cf01671503687818c2f4490932fb6e8d249"
   },
   "failedAttempt": {
     "browserRunId": 40406100671,
@@ -361,9 +362,46 @@
   "eleventhRetry": {
     "browserRunId": 40428065279,
     "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40428065279",
-    "statusAtCheckpoint": "in_progress",
+    "statusAtCheckpoint": "completed",
+    "conclusion": "failure",
+    "jobId": 121938701396,
     "matchingRepositoryCiRunId": 40428065285,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40428065285",
+    "matchingRepositoryCiStatusAtCheckpoint": "completed",
+    "matchingRepositoryCiConclusion": "success",
+    "artifactId": 12701310043,
+    "artifactDigest": "sha256:9e5ea11868cdea9901866ace8c7d685f65918331116687b722b7d530ccfa7aea",
+    "completedRuntimeSetup": true,
+    "productionBuildPassed": true,
+    "serversHealthChecked": true,
+    "fixturePrepared": true,
+    "licensedDistinctPosesSelected": ["FRONT", "LEFT", "RIGHT"],
+    "realMediaPipeLandmarksPerPose": 478,
+    "consentFlowCompleted": true,
+    "browserTestsExecuted": true,
+    "referenceGuidanceDialogPassed": true,
+    "browserApiAnalysisCompleted": true,
+    "sanitizedEvidenceProduced": false,
+    "rootCause": "after client navigation the test synchronously counted the Genel Bakış heading before React had rendered the visible Cilt Sağlığı sonucu history dialog"
+  },
+  "twelfthTargetedFix": {
+    "sources": [
+      "tests/e2e/current_skin_contract.py",
+      "scripts/skin-research/build_unified_browser_acceptance.py"
+    ],
+    "change": "wait for the exact accessible Cilt Sağlığı sonucu dialog and its Genel Bakış heading to be visible before asserting the history replay, and repin the strict implementation blob",
+    "unitTestsPassed": 7,
+    "pythonCompilePassed": true,
+    "diffCheckPassed": true,
+    "roboflowTrainingChanged": false,
+    "modelOrThresholdChanged": false
+  },
+  "twelfthRetry": {
+    "browserRunId": 40428581126,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40428581126",
+    "statusAtCheckpoint": "in_progress",
+    "matchingRepositoryCiRunId": 40428581112,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40428581112",
     "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
     "sanitizedEvidencePending": true
   },
