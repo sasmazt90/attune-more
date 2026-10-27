@@ -4002,7 +4002,7 @@
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-27T02:26:31Z",
-      "action": "Read the remote checkpoint first and preserved the functioning concrete /api/local-health/skin baseline. Refreshed all 20 accessible Roboflow projects plus exact acne, regional and under-eye versions/trainings and grouped upload task sLFwX7CYBVcnnD6iAW5o: acne and regional NAS/small runs remain finished, regional remains 337 images, under-eye pilot v2 remains 399 images with no training, grouped under-eye remains empty and its upload task remains created/no-progress. No duplicate training, version, upload, inference, model, threshold or activation mutation was started. Sixteenth browser run 40434448416 failed only in the current-photo capture loop while real MediaPipe stayed active with 478 landmarks and OPTIMAL quality: the 15-second pose transport supplied four of 15 required consecutive accepted cycles before advancing and resetting progress. Job 121959650624 produced artifact 12704623098 with digest sha256:01b8f6f0dc394876e4fe622d01c3b7c739aca52333c018f5a61abd627311dd20; matching CI 40434448396 succeeded. The targeted fix extends only the licensed fixture pose hold from 15 to 75 seconds and explicitly keeps every model, source pixel, pose, quality, eyewear and consecutive-frame gate unchanged. Python compile, duration-contract and diff checks passed. Seventeenth browser run 40438401632 and matching CI 40438401465 are queued for candidate 7b9dd968.",
+      "action": "Read the remote checkpoint first and preserved the functioning concrete /api/local-health/skin baseline. Refreshed all 20 accessible Roboflow projects plus exact acne, regional and under-eye versions/trainings and grouped upload task sLFwX7CYBVcnnD6iAW5o: acne and regional NAS/small runs remain finished, regional remains 337 images, under-eye pilot v2 remains 399 images with no training, grouped under-eye remains empty and its upload task remains created/no-progress. No duplicate training, version, upload, inference, model, threshold or activation mutation was started. Sixteenth browser run 40434448416 failed only in the current-photo capture loop while real MediaPipe stayed active with 478 landmarks and OPTIMAL quality: the 15-second pose transport supplied four of 15 required consecutive accepted cycles before advancing and resetting progress. Job 121959650624 produced artifact 12704623098 with digest sha256:01b8f6f0dc394876e4fe622d01c3b7c739aca52333c018f5a61abd627311dd20; matching CI 40434448396 succeeded. The targeted fix extends only the licensed fixture pose hold from 15 to 75 seconds and explicitly keeps every model, source pixel, pose, quality, eyewear and consecutive-frame gate unchanged. Python compile, duration-contract and diff checks passed. Seventeenth browser run 40438401632 (job 121972573365) and matching CI 40438401465 are in progress for candidate 7b9dd968.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
       "commits": [
         "7b9dd9682ff4309dfd2b58f465d78fac37e96873"
@@ -4023,12 +4023,13 @@
         },
         {
           "runId": 40438401632,
-          "status": "queued",
+          "status": "in_progress",
+          "jobId": 121972573365,
           "kind": "seventeenth_corrected_real_chromium_controlled_fixture"
         },
         {
           "runId": 40438401465,
-          "status": "queued",
+          "status": "in_progress",
           "kind": "matching_repository_ci"
         }
       ]
@@ -5320,7 +5321,7 @@
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-27T02:26:31Z",
-      "action": "Read the remote checkpoint first and preserved the functioning concrete /api/local-health/skin baseline. Refreshed all 20 accessible Roboflow projects plus exact acne, regional and under-eye versions/trainings and grouped upload task sLFwX7CYBVcnnD6iAW5o: acne and regional NAS/small runs remain finished, regional remains 337 images, under-eye pilot v2 remains 399 images with no training, grouped under-eye remains empty and its upload task remains created/no-progress. No duplicate training, version, upload, inference, model, threshold or activation mutation was started. Sixteenth browser run 40434448416 failed only in the current-photo capture loop while real MediaPipe stayed active with 478 landmarks and OPTIMAL quality: the 15-second pose transport supplied four of 15 required consecutive accepted cycles before advancing and resetting progress. Job 121959650624 produced artifact 12704623098 with digest sha256:01b8f6f0dc394876e4fe622d01c3b7c739aca52333c018f5a61abd627311dd20; matching CI 40434448396 succeeded. The targeted fix extends only the licensed fixture pose hold from 15 to 75 seconds and explicitly keeps every model, source pixel, pose, quality, eyewear and consecutive-frame gate unchanged. Python compile, duration-contract and diff checks passed. Seventeenth browser run 40438401632 and matching CI 40438401465 are queued for candidate 7b9dd968.",
+      "action": "Read the remote checkpoint first and preserved the functioning concrete /api/local-health/skin baseline. Refreshed all 20 accessible Roboflow projects plus exact acne, regional and under-eye versions/trainings and grouped upload task sLFwX7CYBVcnnD6iAW5o: acne and regional NAS/small runs remain finished, regional remains 337 images, under-eye pilot v2 remains 399 images with no training, grouped under-eye remains empty and its upload task remains created/no-progress. No duplicate training, version, upload, inference, model, threshold or activation mutation was started. Sixteenth browser run 40434448416 failed only in the current-photo capture loop while real MediaPipe stayed active with 478 landmarks and OPTIMAL quality: the 15-second pose transport supplied four of 15 required consecutive accepted cycles before advancing and resetting progress. Job 121959650624 produced artifact 12704623098 with digest sha256:01b8f6f0dc394876e4fe622d01c3b7c739aca52333c018f5a61abd627311dd20; matching CI 40434448396 succeeded. The targeted fix extends only the licensed fixture pose hold from 15 to 75 seconds and explicitly keeps every model, source pixel, pose, quality, eyewear and consecutive-frame gate unchanged. Python compile, duration-contract and diff checks passed. Seventeenth browser run 40438401632 (job 121972573365) and matching CI 40438401465 are in progress for candidate 7b9dd968.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
       "commits": [
         "7b9dd9682ff4309dfd2b58f465d78fac37e96873"
@@ -5341,12 +5342,13 @@
         },
         {
           "runId": 40438401632,
-          "status": "queued",
+          "status": "in_progress",
+          "jobId": 121972573365,
           "kind": "seventeenth_corrected_real_chromium_controlled_fixture"
         },
         {
           "runId": 40438401465,
-          "status": "queued",
+          "status": "in_progress",
           "kind": "matching_repository_ci"
         }
       ]
