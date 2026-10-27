@@ -43,7 +43,11 @@ with tempfile.TemporaryDirectory(prefix='attune-photo-retention-') as profile,sy
  p.get_by_label('Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla').check();photo.click();expect(photo).to_be_checked();p.screenshot(path=str(OUT/'explicit-photo-consent.png'),full_page=True)
  scans=[]
  for n in range(1):
-  p.goto('http://127.0.0.1:3000/skin');p.get_by_role('button',name='Analizi Başlat',exact=True).click();start=time.monotonic();trace=[]
+  p.goto('http://127.0.0.1:3000/skin')
+  consent=p.get_by_label('Yüz görüntümün ve görünüm göstergelerimin bu cihazda geçici işlenmesine izin veriyorum.',exact=True)
+  if consent.count():
+   consent.check();p.get_by_role('button',name='İzin ver ve devam et',exact=True).click()
+  p.get_by_role('button',name='Analizi Başlat',exact=True).click();start=time.monotonic();trace=[]
   while not p.get_by_text('Cilt Analizi Tamamlandı',exact=True).count() and time.monotonic()-start<300:
    p.wait_for_timeout(2000);trace.append(p.evaluate('({body:document.body.innerText,canvas:{...document.querySelector("canvas")?.dataset}})'));(OUT/f'trace-{n}.json').write_text(json.dumps(trace,ensure_ascii=False),'utf8')
   expect(p.get_by_text('Cilt Analizi Tamamlandı',exact=True)).to_be_visible(timeout=1000)

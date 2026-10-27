@@ -39,7 +39,11 @@ with sync_playwright() as pw:
    p=c.new_page();p.on('pageerror',lambda e:errors.append(str(e)));p.on('request',lambda r:model_requests.append(r.url) if 'selfie_multiclass' in r.url else None)
   if n==0:
    p.goto('http://127.0.0.1:3000/privacy');p.get_by_label('Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla').check()
-  p.goto('http://127.0.0.1:3000/skin');start=time.monotonic();p.get_by_role('button',name='Analizi Başlat',exact=True).click()
+  p.goto('http://127.0.0.1:3000/skin')
+  consent=p.get_by_label('Yüz görüntümün ve görünüm göstergelerimin bu cihazda geçici işlenmesine izin veriyorum.',exact=True)
+  if consent.count():
+   consent.check();p.get_by_role('button',name='İzin ver ve devam et',exact=True).click()
+  start=time.monotonic();p.get_by_role('button',name='Analizi Başlat',exact=True).click()
   trace=[];deadline=time.monotonic()+270
   while not p.get_by_text('Cilt Analizi Tamamlandı',exact=True).count() and time.monotonic()<deadline:
    p.wait_for_timeout(2000)

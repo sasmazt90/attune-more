@@ -26,7 +26,11 @@ with tempfile.TemporaryDirectory(prefix='attune-photo-retention-') as profile,sy
    # Reopen the owned browser so the finite photographic camera fixture starts
    # from its first frame. This also verifies persistence between real scans.
    c.close();c=launch();c.add_init_script(constants['INIT']);c.add_init_script(constants['APPEARANCE']);p=c.new_page();p.on('pageerror',lambda e:errors.append(str(e)))
-  p.goto('http://127.0.0.1:3000/skin');p.get_by_role('button',name='Analizi Başlat',exact=True).click();start=time.monotonic();trace=[]
+  p.goto('http://127.0.0.1:3000/skin')
+  consent=p.get_by_label('Yüz görüntümün ve görünüm göstergelerimin bu cihazda geçici işlenmesine izin veriyorum.',exact=True)
+  if consent.count():
+   consent.check();p.get_by_role('button',name='İzin ver ve devam et',exact=True).click()
+  p.get_by_role('button',name='Analizi Başlat',exact=True).click();start=time.monotonic();trace=[]
   while not p.get_by_text('Cilt Analizi Tamamlandı',exact=True).count() and time.monotonic()-start<300:
    p.wait_for_timeout(2000);trace.append(p.evaluate('({body:document.body.innerText,canvas:{...document.querySelector("canvas")?.dataset}})'));(OUT/f'trace-{n}.json').write_text(json.dumps(trace,ensure_ascii=False),'utf8')
   expect(p.get_by_text('Cilt Analizi Tamamlandı',exact=True)).to_be_visible(timeout=1000)
