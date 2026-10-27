@@ -1,0 +1,21 @@
+{
+  "activationAllowed": false,
+  "blockers": [
+    "provider_version_2_missing",
+    "mutable_provider_project_drifted_from_group_locked_candidate",
+    "post_upload_records_require_quarantine_or_verified_version_exclusion",
+    "rights_review_missing",
+    "expert_semantic_mask_protocol_not_accepted",
+    "independent_physical_camera_holdout_missing"
+  ],
+  "decision": "blocked",
+  "finalTestAuthorized": false,
+  "groupLockedManifestVerified": true,
+  "methodVersion": "regional-provider-dataset-release-gate-v2",
+  "mutableProjectDriftDetected": true,
+  "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+  "providerVersionReady": false,
+  "roadmapAccepted": false,
+  "schemaVersion": 2,
+  "trainingAuthorized": false
+}

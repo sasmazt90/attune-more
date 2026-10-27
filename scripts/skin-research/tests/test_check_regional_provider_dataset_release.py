@@ -1,5 +1,8 @@
 import copy
+import hashlib
 import importlib.util
+import json
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -37,7 +40,10 @@ def receipt():
             "annotations": {"Oily": 308, "Redness": 327},
         },
         "groupLockedManifest": {
+            "path": MODULE.MANIFEST_PATH,
             "blobSHA": MODULE.MANIFEST_BLOB_SHA,
+            "sha256": MODULE.MANIFEST_FILE_SHA256,
+            "assignmentsSHA256": MODULE.ASSIGNMENTS_SHA256,
             "queueItemsSHA256": MODULE.QUEUE_SHA256,
             "reviewDecisionsSHA256": MODULE.DECISIONS_SHA256,
             "records": MODULE.TARGET_SPLITS,
@@ -54,24 +60,69 @@ def receipt():
     }
 
 
-def exact_candidate():
+def exact_audit():
+    return {
+        "schemaVersion": MODULE.AUDIT_SCHEMA,
+        "project": MODULE.PROJECT_ID,
+        "projectType": MODULE.PROJECT_TYPE,
+        "public": False,
+        "versionNumber": 2,
+        "images": MODULE.TARGET_IMAGES,
+        "splits": MODULE.TARGET_SPLITS,
+        "annotations": MODULE.TARGET_ANNOTATIONS,
+        "classTotals": MODULE.TARGET_CLASS_TOTALS,
+        "manifestFileSHA256": MODULE.MANIFEST_FILE_SHA256,
+        "assignmentsSHA256": MODULE.ASSIGNMENTS_SHA256,
+        "recordIdentityBasis": "image-content-sha256",
+        "exportArchiveSHA256": "1" * 64,
+        "splitImageContentSetSHA256": {
+            "train": "2" * 64,
+            "valid": "3" * 64,
+            "test": "4" * 64,
+        },
+        "splitRecordAnnotationSetSHA256": {
+            "train": "5" * 64,
+            "valid": "6" * 64,
+            "test": "7" * 64,
+        },
+        "allProviderRecordsMatchedManifestOnce": True,
+        "unexpectedProviderRecords": 0,
+        "missingManifestRecords": 0,
+        "crossSplitContentHashCount": 0,
+        "sourcePersonCoverageComplete": True,
+        "crossSplitGroupCount": 0,
+        "finalTestUsedForSelectionOrThresholds": False,
+        "containsFilenamesOrProviderImageIds": False,
+    }
+
+
+def exact_candidate(identity):
     return {
         "versionNumber": 2,
         "images": MODULE.TARGET_IMAGES,
         "splits": MODULE.TARGET_SPLITS,
         "annotations": MODULE.TARGET_ANNOTATIONS,
         "classTotals": MODULE.TARGET_CLASS_TOTALS,
-        "manifestBlobSHA": MODULE.MANIFEST_BLOB_SHA,
-        "queueItemsSHA256": MODULE.QUEUE_SHA256,
-        "reviewDecisionsSHA256": MODULE.DECISIONS_SHA256,
-        "sourcePersonCoverageComplete": True,
-        "crossSplitGroupCount": 0,
-        "allRecordsAssignedExactlyOnce": True,
-        "finalTestUsedForSelectionOrThresholds": False,
+        "exportAudit": identity,
     }
 
 
 class RegionalProviderDatasetReleaseTests(unittest.TestCase):
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.root = Path(self.temporary.name)
+        audit_path = self.root / "docs/skin/evidence/provider-v2-audit.json"
+        audit_path.parent.mkdir(parents=True)
+        audit_path.write_text(json.dumps(exact_audit(), sort_keys=True) + "\n", encoding="utf-8")
+        self.audit_path = audit_path
+        self.audit_identity = {
+            "path": "docs/skin/evidence/provider-v2-audit.json",
+            "sha256": hashlib.sha256(audit_path.read_bytes()).hexdigest(),
+        }
+
+    def tearDown(self):
+        self.temporary.cleanup()
+
     def test_observed_provider_drift_blocks_training(self):
         result = MODULE.evaluate_release(receipt())
         self.assertTrue(result["mutableProjectDriftDetected"])
@@ -82,13 +133,13 @@ class RegionalProviderDatasetReleaseTests(unittest.TestCase):
 
     def test_exact_immutable_v2_and_prerequisites_allow_one_training(self):
         value = receipt()
-        value["candidateVersion"] = exact_candidate()
+        value["candidateVersion"] = exact_candidate(self.audit_identity)
         value["releasePrerequisites"] = {
             "rightsReviewed": True,
             "expertSemanticMaskProtocolAccepted": True,
             "independentPhysicalCameraHoldoutReserved": True,
         }
-        result = MODULE.evaluate_release(value)
+        result = MODULE.evaluate_release(value, self.root)
         self.assertTrue(result["providerVersionReady"])
         self.assertTrue(result["trainingAuthorized"])
         self.assertFalse(result["finalTestAuthorized"])
@@ -96,19 +147,45 @@ class RegionalProviderDatasetReleaseTests(unittest.TestCase):
 
     def test_version_one_cannot_be_relabelled_as_replacement(self):
         value = receipt()
-        value["candidateVersion"] = exact_candidate()
+        value["candidateVersion"] = exact_candidate(self.audit_identity)
         value["candidateVersion"]["versionNumber"] = 1
-        result = MODULE.evaluate_release(value)
+        result = MODULE.evaluate_release(value, self.root)
         self.assertFalse(result["providerVersionReady"])
         self.assertIn("provider_version_2_missing", result["blockers"])
 
     def test_wrong_candidate_split_fails_closed(self):
         value = receipt()
-        value["candidateVersion"] = exact_candidate()
+        value["candidateVersion"] = exact_candidate(self.audit_identity)
         value["candidateVersion"]["splits"] = {"train": 237, "valid": 50, "test": 50}
-        result = MODULE.evaluate_release(value)
+        result = MODULE.evaluate_release(value, self.root)
         self.assertFalse(result["providerVersionReady"])
         self.assertIn("exact_group_locked_provider_version_unconfirmed", result["blockers"])
+
+    def test_declarative_candidate_without_export_audit_fails_closed(self):
+        value = receipt()
+        value["candidateVersion"] = exact_candidate(None)
+        with self.assertRaisesRegex(MODULE.GateInputError, "evidence identity missing"):
+            MODULE.evaluate_release(value, self.root)
+
+    def test_export_audit_digest_mismatch_fails_closed(self):
+        value = receipt()
+        identity = dict(self.audit_identity)
+        identity["sha256"] = "f" * 64
+        value["candidateVersion"] = exact_candidate(identity)
+        with self.assertRaisesRegex(MODULE.GateInputError, "digest mismatch"):
+            MODULE.evaluate_release(value, self.root)
+
+    def test_export_audit_record_identity_mismatch_blocks(self):
+        audit = exact_audit()
+        audit["missingManifestRecords"] = 1
+        self.audit_path.write_text(json.dumps(audit, sort_keys=True) + "\n", encoding="utf-8")
+        identity = dict(self.audit_identity)
+        identity["sha256"] = hashlib.sha256(self.audit_path.read_bytes()).hexdigest()
+        value = receipt()
+        value["candidateVersion"] = exact_candidate(identity)
+        result = MODULE.evaluate_release(value, self.root)
+        self.assertFalse(result["providerVersionReady"])
+        self.assertIn("provider_export_audit_mismatch", result["blockers"])
 
     def test_project_growth_must_match_uploaded_records(self):
         value = receipt()

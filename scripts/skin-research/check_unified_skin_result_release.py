@@ -21,7 +21,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 EXPECTED_BRANCH = "work/skin-roadmap-20261023"
-EXPECTED_RECEIPT_SCHEMA = 12
+EXPECTED_RECEIPT_SCHEMA = 13
 EXPECTED_REPOSITORY_CI_SCHEMA = 3
 EXPECTED_REPOSITORY_CI_WORKFLOW_ID = 362950948
 EXPECTED_REPOSITORY_CI_WORKFLOW_PATH = ".github/workflows/ci.yml"
@@ -73,7 +73,7 @@ EXPECTED_GATE_METHODS = {
     "sag": "sag-appearance-release-gate-v2",
 }
 EXPECTED_PHYSICAL_CAMERA_GATE_METHOD = "physical-camera-benchmark-release-gate-v2"
-EXPECTED_REGIONAL_PROVIDER_DATASET_GATE_METHOD = "regional-provider-dataset-release-gate-v1"
+EXPECTED_REGIONAL_PROVIDER_DATASET_GATE_METHOD = "regional-provider-dataset-release-gate-v2"
 EXPECTED_HEADINGS = [
     "tone", "oil", "redness", "acne", "sag", "dry", "lines", "dark", "bags",
     "Post acne", "Pigmentation", "skinType",
@@ -450,8 +450,8 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     blockers = list(dict.fromkeys(blockers))
     accepted = regional_provider_ready and candidate_accepted and not blockers
     return {
-        "schemaVersion": 12,
-        "methodVersion": "unified-skin-result-release-gate-v12",
+        "schemaVersion": 13,
+        "methodVersion": "unified-skin-result-release-gate-v13",
         "workingBaselinePreserved": True,
         "currentIntegratedPresentationAllowed": True,
         "generatedReplayIntegrationSmokeAllowed": True,

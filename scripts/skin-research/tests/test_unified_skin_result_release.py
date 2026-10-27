@@ -16,7 +16,7 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v12.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261028-v13.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 
