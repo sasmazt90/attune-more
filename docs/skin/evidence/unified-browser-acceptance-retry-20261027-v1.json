@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "dateEuropeBerlin": "2026-10-27",
-  "observedAt": "2026-10-27T05:19:00Z",
+  "observedAt": "2026-10-27T05:40:00Z",
   "repository": {
     "fullName": "sasmazt90/attune-more",
     "branch": "work/skin-roadmap-20261023",
@@ -25,7 +25,8 @@
     "seventeenthRetryCandidateCommit": "7b9dd9682ff4309dfd2b58f465d78fac37e96873",
     "eighteenthRetryCandidateCommit": "cb05f3bbd242673bb58711540a79eb896ae58f83",
     "nineteenthRetryCandidateCommit": "8b49a6137aef25cc24a097144c2d3d5e9be7d8da",
-    "twentiethRetryCandidateCommit": "a056341489f0a45f1b8da8677981b466c8a63c34"
+    "twentiethRetryCandidateCommit": "a056341489f0a45f1b8da8677981b466c8a63c34",
+    "twentyFirstRetryCandidateCommit": "94065c2031963fb984849f7be70aa7a4239dfa86"
   },
   "failedAttempt": {
     "browserRunId": 40406100671,
@@ -719,11 +720,55 @@
     "candidateCommit": "a056341489f0a45f1b8da8677981b466c8a63c34",
     "browserRunId": 40454569315,
     "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40454569315",
-    "statusAtCheckpoint": "in_progress",
+    "statusAtCheckpoint": "completed",
+    "conclusion": "failure",
+    "jobId": 122024781999,
     "matchingRepositoryCiRunId": 40454569183,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40454569183",
-    "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
-    "sanitizedStageEvidencePending": true
+    "matchingRepositoryCiStatusAtCheckpoint": "completed",
+    "matchingRepositoryCiConclusion": "success",
+    "productionBuildPassed": true,
+    "fixturePrepared": true,
+    "artifactId": 12712466863,
+    "artifactDigest": "sha256:2d9c8cc79593fa9762aaed0f093b00260f186bf2a0dc8972ab6b0065337ef2ed",
+    "artifactFiles": ["privacy-runtime-status.json"],
+    "rawLogsUploaded": false,
+    "sanitizedStageEvidence": {
+      "completedStage": "retained-result-responsive",
+      "result": "running",
+      "controlledFixture": true,
+      "physicalCameraCapture": false,
+      "expertGroundTruth": false,
+      "accuracyEvidence": false
+    },
+    "rootCause": "The privacy scenario completed the real scan plus retained desktop and narrow result replay, then stopped in the native-200 section. The preceding history scenario completed the same headed Chrome launch and native-200 geometry on Linux, while privacy alone called the Windows-only capture_owned_window helper unconditionally. That helper asserts os.name == nt, so the Linux runner failed before the native-200-complete stage. This is a test-harness platform guard defect, not a product, model, threshold, persistence or physical-camera failure."
+  },
+  "twentyFirstTargetedFix": {
+    "sources": [
+      "tests/e2e/current_skin_photo_wipe_success.py",
+      "scripts/skin-research/build_unified_browser_acceptance.py",
+      "scripts/skin-research/tests/test_build_unified_browser_acceptance.py"
+    ],
+    "change": "match the already passing history harness: use verified owned OS-window capture only on Windows and a labelled visible browser-compositor capture on Linux, without resizing, retouching or claiming OS-window/physical-camera evidence; repin the reviewed harness blob",
+    "privacyFlowBypassed": false,
+    "nativeZoomGeometryStillRequired": true,
+    "productCodeChanged": false,
+    "modelOrThresholdChanged": false,
+    "pythonCompilePassed": true,
+    "focusedUnitTestsPassed": 8,
+    "platformCaptureContractPassed": true,
+    "diffCheckPassed": true,
+    "roboflowTrainingChanged": false
+  },
+  "twentyFirstRetry": {
+    "candidateCommit": "94065c2031963fb984849f7be70aa7a4239dfa86",
+    "browserRunId": 40456553840,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40456553840",
+    "statusAtCheckpoint": "queued",
+    "matchingRepositoryCiRunId": 40456553849,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40456553849",
+    "matchingRepositoryCiStatusAtCheckpoint": "queued",
+    "sanitizedEvidencePending": true
   },
   "roboflowRefresh": {
     "accessibleProjects": 20,
