@@ -65,6 +65,7 @@ EXPECTED_GATE_METHODS = {
     "wrinkles": "wrinkle-per-class-release-gate-v2",
     "sag": "sag-appearance-release-gate-v2",
 }
+EXPECTED_PHYSICAL_CAMERA_GATE_METHOD = "physical-camera-benchmark-release-gate-v1"
 EXPECTED_HEADINGS = [
     "tone", "oil", "redness", "acne", "sag", "dry", "lines", "dark", "bags",
     "Post acne", "Pigmentation", "skinType",
@@ -274,6 +275,10 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     repository_ci = _validate_repository_ci(receipt.get("repositoryCI"), evidence_root)
     all_class_gates, class_blockers, gate_summary = _validate_gate_registry(receipt, evidence_root)
     camera_entry = receipt.get("physicalCameraGate", {})
+    _require(
+        camera_entry.get("methodVersion"), EXPECTED_PHYSICAL_CAMERA_GATE_METHOD,
+        "physical-camera release gate is not the current expected method",
+    )
     camera_payload = _load_evidence(camera_entry.get("evidence"), "physical-camera release gate", evidence_root)
     _require(camera_payload.get("methodVersion"), camera_entry.get("methodVersion"), "physical-camera gate method identity changed")
     camera_accepted = camera_payload.get("roadmapCameraAcceptanceAllowed") is True
@@ -285,8 +290,8 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     blockers = list(dict.fromkeys(blockers))
     accepted = candidate_accepted and not blockers
     return {
-        "schemaVersion": 4,
-        "methodVersion": "unified-skin-result-release-gate-v4",
+        "schemaVersion": 5,
+        "methodVersion": "unified-skin-result-release-gate-v5",
         "workingBaselinePreserved": True,
         "currentIntegratedPresentationAllowed": True,
         "generatedReplayIntegrationSmokeAllowed": True,

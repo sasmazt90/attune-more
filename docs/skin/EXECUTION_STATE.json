@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-27",
-      "lastCheckedAt": "2026-10-27T09:21:40Z",
+      "lastCheckedAt": "2026-10-27T10:31:31Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -487,7 +487,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-27T09:21:40Z",
+      "lastCheckedAt": "2026-10-27T10:31:31Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -741,7 +741,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-27T09:21:40Z",
+      "lastCheckedAt": "2026-10-27T10:31:31Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -982,7 +982,7 @@
     },
     "regionalSkinTypeBoxes": {
       "observedAt": "2026-10-24T23:19:50Z",
-      "lastCheckedAt": "2026-10-27T09:21:40Z",
+      "lastCheckedAt": "2026-10-27T10:31:31Z",
       "project": "tolgar-sasmaz/attune-skin-type-regional-r1",
       "projectVisibility": "public",
       "projectSummaryImages": 991,
@@ -3845,11 +3845,12 @@
       "ci": {
         "runId": 40480506595,
         "headSha": "2db598de6c1bc80a21cfb824622abdeba203e058",
-        "status": "in_progress",
+        "status": "completed",
+        "conclusion": "success",
         "frontendJobId": 122109317903,
-        "frontend": "in_progress",
+        "frontend": "success",
         "backendJobId": 122109317369,
-        "backend": "in_progress"
+        "backend": "success"
       },
       "receipt": "docs/skin/evidence/unified-skin-result-release-receipt-20261027-v4.json",
       "evidence": "docs/skin/evidence/unified-skin-result-release-gate-20261027-v4.json"
@@ -4056,10 +4057,37 @@
         }
       },
       "evidence": "docs/skin/evidence/under-eye-per-class-release-gate-v2-ci-20261026-v1.json"
+    },
+    "unifiedSkinResultReleaseGateV5": {
+      "observedAt": "2026-10-27T10:31:31Z",
+      "methodVersion": "unified-skin-result-release-gate-v5",
+      "workingBaselinePreserved": true,
+      "currentIntegratedPresentationAllowed": true,
+      "generatedReplayIntegrationSmokeAllowed": true,
+      "generatedReplayAccuracyEvidenceAllowed": false,
+      "expectedClassGateMethodsPinned": true,
+      "expectedPhysicalCameraGateMethod": "physical-camera-benchmark-release-gate-v1",
+      "stalePhysicalCameraMethodsAllowed": false,
+      "allClassReleaseGatesAccepted": false,
+      "physicalCameraBenchmarkAccepted": false,
+      "acceptedEndToEndCandidatePresent": false,
+      "finalRoadmapAcceptanceAllowed": false,
+      "roadmapAccepted": false,
+      "decision": "blocked",
+      "localFocusedTests": {
+        "tests": 22,
+        "result": "OK"
+      },
+      "completeSkinResearchEvidenceSuite": {
+        "tests": 306,
+        "result": "OK"
+      },
+      "receipt": "docs/skin/evidence/unified-skin-result-release-receipt-20261027-v5.json",
+      "evidence": "docs/skin/evidence/unified-skin-result-release-gate-20261027-v5.json"
     }
   },
   "nextActions": [
-    "Replay scripts/skin-research/check_unified_skin_result_release.py v4 for every task-13 decision. The gate now pins the exact current method version for every class registry entry and requires under-eye-per-class-release-gate-v3; never reintroduce a self-consistent but stale v2 receipt/evidence pair. Preserve the functioning /api/local-health/skin baseline and all twelve product headings while every per-class, consented expert physical-camera, immutable end-to-end and final-roadmap gate remains false.",
+    "Replay scripts/skin-research/check_unified_skin_result_release.py v5 for every task-13 decision. The gate pins both the exact current class-gate registry and physical-camera-benchmark-release-gate-v1; never reintroduce a self-consistent stale or arbitrary physical-camera method. Preserve the functioning /api/local-health/skin baseline and all twelve product headings while every per-class, consented expert physical-camera, immutable end-to-end and final-roadmap gate remains false.",
     "Use scripts/skin-research/build_under_eye_expert_review.py with docs/skin/evidence/under-eye-expert-review-queue-20261027-v1.json and the private resolver to complete all 88 item-bound expert decisions for darkcircle and eyebag. The queue reads only the 284 train and 77 validation COCO payloads; the 38-image locked test annotations and pixels remain unread and unselected. Lock each class's positive, polygon-extent, hard-negative and ambiguity policies independently. Missing target annotations are candidates, not negatives; source polygons are selection geometry, not expert truth. Even a complete semantic protocol does not authorize training until full person/source identity coverage, rights, an authorized exact archive, a new untouched final test and consented camera reservation also pass.",
     "Preserve passed real-Chromium controlled-fixture run 40456553840 and matching repository CI run 40456553849. The six sanitized artifacts bind one immutable build and prove API, six-region map, IndexedDB history, native-200 geometry, consent, retention and deletion integration only; they explicitly do not prove physical-camera capture, expert truth or accuracy. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not repeat the browser run or start duplicate Roboflow work.",
     "Preserve green GitHub Actions run 40297234134 and the functioning main /api/local-health/skin result flow. When consented physical-camera manifest, adjudicated expert truth and locked capture/localization receipts exist, run both evaluators and scripts/skin-research/check_physical_camera_acceptance.py with a per-class policy locked before camera_final and a real /api/local-health/skin replay. Do not mark the roadmap complete until every class and real camera/browser/map/history/privacy gate passes.",
@@ -4107,6 +4135,31 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb, history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a and passed controlled-fixture real-Chromium run 40456553840. Browser integration acceptance is complete for the controlled fixture; consented physical-camera, adjudicated expert truth, per-class accuracy and final-roadmap acceptance remain pending."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T10:31:31Z",
+      "action": "Read the remote checkpoint first and completed saved CI run 40480506595: frontend job 122109317903 and backend job 122109317369 both passed. Refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye trainings, the empty grouped under-eye project, model inventory and existing upload task sLFwX7CYBVcnnD6iAW5o. Acne and regional NAS/small jobs remain finished, under-eye pilot v2 still has no training, the grouped project has no model, and the existing upload task remains created/no-progress; no duplicate training, upload, version, inference, threshold or activation work was started. Hardened task-13 unified release gate to v5 by pinning physical-camera-benchmark-release-gate-v1 before loading its SHA-256-bound evidence. A self-consistent stale or arbitrary camera-gate receipt/evidence pair can no longer re-enter the unified decision. The functioning /api/local-health/skin baseline, twelve product headings, map/history and controlled-fixture browser acceptance remain preserved. Twenty-two focused tests and all 306 skin-research tests passed. All class gates, consented expert physical-camera acceptance and the immutable end-to-end candidate remain false.",
+      "report": "docs/skin/evidence/unified-skin-result-release-gate-20261027-v5.json",
+      "evidence": [
+        "docs/skin/evidence/unified-skin-result-release-receipt-20261027-v5.json"
+      ],
+      "tests": {
+        "focused": 22,
+        "skinResearch": 306,
+        "result": "OK"
+      },
+      "runs": [
+        {
+          "runId": 40480506595,
+          "headSha": "2db598de6c1bc80a21cfb824622abdeba203e058",
+          "conclusion": "success",
+          "frontendJobId": 122109317903,
+          "frontend": "success",
+          "backendJobId": 122109317369,
+          "backend": "success"
+        }
+      ]
+    },
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-27T03:48:58Z",
@@ -4435,12 +4488,31 @@
       "observedAt": "2026-10-27T00:12:08Z",
       "action": "Browser run 40424360084 passed immutable runtime installation, production build, app/backend health checks and the full licensed three-pose fixture. Real MediaPipe selected distinct FRONT/LEFT/RIGHT frames with 478 landmarks per pose and valid quality, then the actual browser/API acceptance test ran and failed before scan start because it had not completed the newly required local skin service-processing consent dialog. Job 121926318281 produced artifact 12699243624 with digest sha256:711b0b4c03bdb02b18770585a133b4fea35629a49c06b32e6e96d23c321fed12. Updated all three isolated browser acceptance scenarios to exercise the exact user-facing consent checkbox and continue action without bypassing the privacy flow. Python compile and diff checks passed. Seventh browser run 40424850826 and matching CI 40424850811 are in progress for candidate 64f3eb35. No Roboflow training, version, upload, inference, model or threshold state changed.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
-      "commits": ["64f3eb358a043469356de54c9937885661d21279"],
+      "commits": [
+        "64f3eb358a043469356de54c9937885661d21279"
+      ],
       "runs": [
-        {"runId": 40424360084, "conclusion": "failure", "fixturePrepared": true, "browserTestsExecuted": true},
-        {"runId": 40424360161, "status": "in_progress", "kind": "matching_repository_ci"},
-        {"runId": 40424850826, "status": "in_progress", "kind": "seventh_corrected_real_chromium_controlled_fixture"},
-        {"runId": 40424850811, "status": "in_progress", "kind": "matching_repository_ci"}
+        {
+          "runId": 40424360084,
+          "conclusion": "failure",
+          "fixturePrepared": true,
+          "browserTestsExecuted": true
+        },
+        {
+          "runId": 40424360161,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40424850826,
+          "status": "in_progress",
+          "kind": "seventh_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40424850811,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
       ]
     },
     {
@@ -4448,12 +4520,30 @@
       "observedAt": "2026-10-27T00:07:58Z",
       "action": "Browser run 40423925409 passed immutable runtime installation, production build and app/backend health checks, then failed before browser launch because the generated-dependency preflight incorrectly required the intentionally root-served MediaPipe import ./tasks-vision.mjs to exist inside audit-fixtures. The failure produced job 121924871077 and artifact 12697984531 with digest sha256:dd6efa4ba33993deca2899756eb82e57913c4a4e3a140b38b5de3b7fb62d36cb; no browser/API/history/privacy acceptance test ran. Updated the preflight to validate the npm-lock-pinned source file actually served by the fixture and kept strict local generated-module checks. Python compile and diff checks passed. Sixth browser run 40424360084 is in progress and matching CI 40424360161 is queued for candidate 04c7497c. No Roboflow training, version, upload, inference, model or threshold state changed.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
-      "commits": ["04c7497c91886f5acb5eed82561b4c92228dc52f"],
+      "commits": [
+        "04c7497c91886f5acb5eed82561b4c92228dc52f"
+      ],
       "runs": [
-        {"runId": 40423925409, "conclusion": "failure", "browserTestsExecuted": false},
-        {"runId": 40423925423, "status": "in_progress", "kind": "matching_repository_ci"},
-        {"runId": 40424360084, "status": "in_progress", "kind": "sixth_corrected_real_chromium_controlled_fixture"},
-        {"runId": 40424360161, "status": "queued", "kind": "matching_repository_ci"}
+        {
+          "runId": 40423925409,
+          "conclusion": "failure",
+          "browserTestsExecuted": false
+        },
+        {
+          "runId": 40423925423,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40424360084,
+          "status": "in_progress",
+          "kind": "sixth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40424360161,
+          "status": "queued",
+          "kind": "matching_repository_ci"
+        }
       ]
     },
     {
@@ -4461,12 +4551,30 @@
       "observedAt": "2026-10-27T00:05:00Z",
       "action": "Refreshed the remote checkpoint, GitHub jobs and all 20 accessible Roboflow projects. Browser run 40418570611 passed runtime installation, production build, app/backend health checks and loading of the pinned MediaPipe runtime/assets, then failed before browser/API/history/privacy tests on the exact missing generated dependency /skinExpression. Matching CI 40418571049 passed. Added skinExpression.js to the controlled fixture compiler/server, rewrote the relative import extension and added a generated-dependency preflight. Python compile and diff checks passed. Fifth browser run 40423925409 is in progress and matching CI 40423925423 is queued for candidate 1011814b. No Roboflow training, version, upload, inference, model or threshold state changed.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
-      "commits": ["1011814b7cf5ed35ae93158fb174497b1455b285"],
+      "commits": [
+        "1011814b7cf5ed35ae93158fb174497b1455b285"
+      ],
       "runs": [
-        {"runId": 40418570611, "conclusion": "failure", "browserTestsExecuted": false},
-        {"runId": 40418571049, "conclusion": "success", "kind": "matching_repository_ci"},
-        {"runId": 40423925409, "status": "in_progress", "kind": "fifth_corrected_real_chromium_controlled_fixture"},
-        {"runId": 40423925423, "status": "queued", "kind": "matching_repository_ci"}
+        {
+          "runId": 40418570611,
+          "conclusion": "failure",
+          "browserTestsExecuted": false
+        },
+        {
+          "runId": 40418571049,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40423925409,
+          "status": "in_progress",
+          "kind": "fifth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40423925423,
+          "status": "queued",
+          "kind": "matching_repository_ci"
+        }
       ]
     },
     {
@@ -4474,12 +4582,30 @@
       "observedAt": "2026-10-26T23:16:00Z",
       "action": "Browser run 40418108255 passed runtime installation, production build and server health checks. Its isolated loopback fixture server exposed the next concrete dependency failure: the generated analyzer still relied on an external MediaPipe module or unserved same-origin runtime asset, so no browser/API/history/privacy acceptance tests ran. Matching CI 40418108157 passed. Rewrote the fixture analyzer import to the npm-lock-pinned local MediaPipe bundle and served that bundle plus repository-pinned WASM/model files from the same origin with missing-path diagnostics. Fourth browser run 40418570611 and matching CI 40418571049 are in progress for candidate 695a636c. No Roboflow training, upload, version, inference, model or threshold state changed.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
-      "commits": ["695a636c831e57e8a5a6dac1dbe20956b22bedef"],
+      "commits": [
+        "695a636c831e57e8a5a6dac1dbe20956b22bedef"
+      ],
       "runs": [
-        {"runId": 40418108255, "conclusion": "failure", "browserTestsExecuted": false},
-        {"runId": 40418108157, "conclusion": "success", "kind": "matching_repository_ci"},
-        {"runId": 40418570611, "status": "in_progress", "kind": "fourth_corrected_real_chromium_controlled_fixture"},
-        {"runId": 40418571049, "status": "in_progress", "kind": "matching_repository_ci"}
+        {
+          "runId": 40418108255,
+          "conclusion": "failure",
+          "browserTestsExecuted": false
+        },
+        {
+          "runId": 40418108157,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40418570611,
+          "status": "in_progress",
+          "kind": "fourth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40418571049,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
       ]
     },
     {
@@ -4487,12 +4613,30 @@
       "observedAt": "2026-10-26T23:12:00Z",
       "action": "Browser run 40417644901 passed runtime installation, production build and both server health checks, then confirmed that Playwright page routing did not intercept the generated dynamic module request on this runner; no browser/API/history/privacy acceptance tests ran. Matching CI 40417644963 passed. Replaced request interception with an isolated loopback HTTP server serving same-origin fixture HTML, generated production analyzer modules and licensed video frames. Python compile and diff checks passed. Third corrected browser run 40418108255 and matching CI 40418108157 are in progress for candidate 3ad03c46. No Roboflow training, upload, version, inference, model or threshold state changed.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
-      "commits": ["3ad03c461eea4f08a197fc8c5400f29dea2867d0"],
+      "commits": [
+        "3ad03c461eea4f08a197fc8c5400f29dea2867d0"
+      ],
       "runs": [
-        {"runId": 40417644901, "conclusion": "failure", "browserTestsExecuted": false},
-        {"runId": 40417644963, "conclusion": "success", "kind": "matching_repository_ci"},
-        {"runId": 40418108255, "status": "in_progress", "kind": "third_corrected_real_chromium_controlled_fixture"},
-        {"runId": 40418108157, "status": "in_progress", "kind": "matching_repository_ci"}
+        {
+          "runId": 40417644901,
+          "conclusion": "failure",
+          "browserTestsExecuted": false
+        },
+        {
+          "runId": 40417644963,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40418108255,
+          "status": "in_progress",
+          "kind": "third_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40418108157,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
       ]
     },
     {
@@ -4500,12 +4644,30 @@
       "observedAt": "2026-10-26T23:09:00Z",
       "action": "Polled corrected browser run 40417064645 and matching CI 40417064657. CI passed; the browser job passed runtime installation, production build and both server health checks, then failed before browser/API/history/privacy tests because the generated skinAnalyzer.js module was not fulfilled through a relative Playwright-driver path and the production server returned 404. Replaced path-based fixture fulfilment with exact production-origin routes backed by Python-owned module text and frame bytes, plus an assertion that both generated modules were intercepted. Python compile and diff checks passed. Started second corrected browser run 40417644901 and matching CI 40417644963 for candidate 85c24fdf; no Roboflow training, upload, version, inference, model or threshold state changed.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
-      "commits": ["85c24fdfca85a068c5bc02c73299e1a68ace7d07"],
+      "commits": [
+        "85c24fdfca85a068c5bc02c73299e1a68ace7d07"
+      ],
       "runs": [
-        {"runId": 40417064645, "conclusion": "failure", "browserTestsExecuted": false},
-        {"runId": 40417064657, "conclusion": "success", "kind": "matching_repository_ci"},
-        {"runId": 40417644901, "status": "in_progress", "kind": "second_corrected_real_chromium_controlled_fixture"},
-        {"runId": 40417644963, "status": "in_progress", "kind": "matching_repository_ci"}
+        {
+          "runId": 40417064645,
+          "conclusion": "failure",
+          "browserTestsExecuted": false
+        },
+        {
+          "runId": 40417064657,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40417644901,
+          "status": "in_progress",
+          "kind": "second_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40417644963,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
       ]
     },
     {
@@ -4513,12 +4675,30 @@
       "observedAt": "2026-10-26T23:03:56Z",
       "action": "Refreshed the GitHub checkpoint and all 20 accessible Roboflow projects. Browser run 40406100671 failed after runtime installation and a successful production build, before any browser acceptance test: prepare_multi_angle_fixture.py attempted to fetch skinAnalyzer.js from localhost before the app server existed. Matching repository CI 40406100741 succeeded. Reordered the workflow to build, start and health-check the app/backend, then prepare the licensed fixture and run the exact browser/API/history/privacy tests. YAML order, Python compile and 26 focused gate tests passed. Corrected browser run 40417064645 and matching CI 40417064657 are in progress for candidate accd4ca. No training, version, upload, inference, model, threshold or acceptance state was changed.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
-      "commits": ["accd4ca458bb3ea2f5de31af0582a374f950df45"],
+      "commits": [
+        "accd4ca458bb3ea2f5de31af0582a374f950df45"
+      ],
       "runs": [
-        {"runId": 40406100671, "conclusion": "failure", "browserTestsExecuted": false},
-        {"runId": 40406100741, "conclusion": "success", "kind": "matching_repository_ci"},
-        {"runId": 40417064645, "status": "in_progress", "kind": "corrected_real_chromium_controlled_fixture"},
-        {"runId": 40417064657, "status": "in_progress", "kind": "matching_repository_ci"}
+        {
+          "runId": 40406100671,
+          "conclusion": "failure",
+          "browserTestsExecuted": false
+        },
+        {
+          "runId": 40406100741,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40417064645,
+          "status": "in_progress",
+          "kind": "corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40417064657,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
       ]
     },
     {
@@ -4531,8 +4711,16 @@
         "6c3e07ce1b696a17686ff75943efeadb35ee8180"
       ],
       "runs": [
-        {"runId": 40406100671, "status": "in_progress", "kind": "real_chromium_controlled_fixture"},
-        {"runId": 40406100741, "status": "in_progress", "kind": "matching_repository_ci"}
+        {
+          "runId": 40406100671,
+          "status": "in_progress",
+          "kind": "real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40406100741,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
       ]
     },
     {
@@ -5821,12 +6009,31 @@
       "observedAt": "2026-10-27T00:12:08Z",
       "action": "Browser run 40424360084 passed immutable runtime installation, production build, app/backend health checks and the full licensed three-pose fixture. Real MediaPipe selected distinct FRONT/LEFT/RIGHT frames with 478 landmarks per pose and valid quality, then the actual browser/API acceptance test ran and failed before scan start because it had not completed the newly required local skin service-processing consent dialog. Job 121926318281 produced artifact 12699243624 with digest sha256:711b0b4c03bdb02b18770585a133b4fea35629a49c06b32e6e96d23c321fed12. Updated all three isolated browser acceptance scenarios to exercise the exact user-facing consent checkbox and continue action without bypassing the privacy flow. Python compile and diff checks passed. Seventh browser run 40424850826 and matching CI 40424850811 are in progress for candidate 64f3eb35. No Roboflow training, version, upload, inference, model or threshold state changed.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
-      "commits": ["64f3eb358a043469356de54c9937885661d21279"],
+      "commits": [
+        "64f3eb358a043469356de54c9937885661d21279"
+      ],
       "runs": [
-        {"runId": 40424360084, "conclusion": "failure", "fixturePrepared": true, "browserTestsExecuted": true},
-        {"runId": 40424360161, "status": "in_progress", "kind": "matching_repository_ci"},
-        {"runId": 40424850826, "status": "in_progress", "kind": "seventh_corrected_real_chromium_controlled_fixture"},
-        {"runId": 40424850811, "status": "in_progress", "kind": "matching_repository_ci"}
+        {
+          "runId": 40424360084,
+          "conclusion": "failure",
+          "fixturePrepared": true,
+          "browserTestsExecuted": true
+        },
+        {
+          "runId": 40424360161,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40424850826,
+          "status": "in_progress",
+          "kind": "seventh_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40424850811,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
       ]
     },
     {
@@ -5834,12 +6041,30 @@
       "observedAt": "2026-10-27T00:07:58Z",
       "action": "Browser run 40423925409 passed immutable runtime installation, production build and app/backend health checks, then failed before browser launch because the generated-dependency preflight incorrectly required the intentionally root-served MediaPipe import ./tasks-vision.mjs to exist inside audit-fixtures. The failure produced job 121924871077 and artifact 12697984531 with digest sha256:dd6efa4ba33993deca2899756eb82e57913c4a4e3a140b38b5de3b7fb62d36cb; no browser/API/history/privacy acceptance test ran. Updated the preflight to validate the npm-lock-pinned source file actually served by the fixture and kept strict local generated-module checks. Python compile and diff checks passed. Sixth browser run 40424360084 is in progress and matching CI 40424360161 is queued for candidate 04c7497c. No Roboflow training, version, upload, inference, model or threshold state changed.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
-      "commits": ["04c7497c91886f5acb5eed82561b4c92228dc52f"],
+      "commits": [
+        "04c7497c91886f5acb5eed82561b4c92228dc52f"
+      ],
       "runs": [
-        {"runId": 40423925409, "conclusion": "failure", "browserTestsExecuted": false},
-        {"runId": 40423925423, "status": "in_progress", "kind": "matching_repository_ci"},
-        {"runId": 40424360084, "status": "in_progress", "kind": "sixth_corrected_real_chromium_controlled_fixture"},
-        {"runId": 40424360161, "status": "queued", "kind": "matching_repository_ci"}
+        {
+          "runId": 40423925409,
+          "conclusion": "failure",
+          "browserTestsExecuted": false
+        },
+        {
+          "runId": 40423925423,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40424360084,
+          "status": "in_progress",
+          "kind": "sixth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40424360161,
+          "status": "queued",
+          "kind": "matching_repository_ci"
+        }
       ]
     },
     {
@@ -5847,12 +6072,30 @@
       "observedAt": "2026-10-27T00:05:00Z",
       "action": "Refreshed the remote checkpoint, GitHub jobs and all 20 accessible Roboflow projects. Browser run 40418570611 passed runtime installation, production build, app/backend health checks and loading of the pinned MediaPipe runtime/assets, then failed before browser/API/history/privacy tests on the exact missing generated dependency /skinExpression. Matching CI 40418571049 passed. Added skinExpression.js to the controlled fixture compiler/server, rewrote the relative import extension and added a generated-dependency preflight. Python compile and diff checks passed. Fifth browser run 40423925409 is in progress and matching CI 40423925423 is queued for candidate 1011814b. No Roboflow training, version, upload, inference, model or threshold state changed.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
-      "commits": ["1011814b7cf5ed35ae93158fb174497b1455b285"],
+      "commits": [
+        "1011814b7cf5ed35ae93158fb174497b1455b285"
+      ],
       "runs": [
-        {"runId": 40418570611, "conclusion": "failure", "browserTestsExecuted": false},
-        {"runId": 40418571049, "conclusion": "success", "kind": "matching_repository_ci"},
-        {"runId": 40423925409, "status": "in_progress", "kind": "fifth_corrected_real_chromium_controlled_fixture"},
-        {"runId": 40423925423, "status": "queued", "kind": "matching_repository_ci"}
+        {
+          "runId": 40418570611,
+          "conclusion": "failure",
+          "browserTestsExecuted": false
+        },
+        {
+          "runId": 40418571049,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40423925409,
+          "status": "in_progress",
+          "kind": "fifth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40423925423,
+          "status": "queued",
+          "kind": "matching_repository_ci"
+        }
       ]
     },
     {
@@ -5860,12 +6103,30 @@
       "observedAt": "2026-10-26T23:16:00Z",
       "action": "Browser run 40418108255 passed runtime installation, production build and server health checks. Its isolated loopback fixture server exposed the next concrete dependency failure: the generated analyzer still relied on an external MediaPipe module or unserved same-origin runtime asset, so no browser/API/history/privacy acceptance tests ran. Matching CI 40418108157 passed. Rewrote the fixture analyzer import to the npm-lock-pinned local MediaPipe bundle and served that bundle plus repository-pinned WASM/model files from the same origin with missing-path diagnostics. Fourth browser run 40418570611 and matching CI 40418571049 are in progress for candidate 695a636c. No Roboflow training, upload, version, inference, model or threshold state changed.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
-      "commits": ["695a636c831e57e8a5a6dac1dbe20956b22bedef"],
+      "commits": [
+        "695a636c831e57e8a5a6dac1dbe20956b22bedef"
+      ],
       "runs": [
-        {"runId": 40418108255, "conclusion": "failure", "browserTestsExecuted": false},
-        {"runId": 40418108157, "conclusion": "success", "kind": "matching_repository_ci"},
-        {"runId": 40418570611, "status": "in_progress", "kind": "fourth_corrected_real_chromium_controlled_fixture"},
-        {"runId": 40418571049, "status": "in_progress", "kind": "matching_repository_ci"}
+        {
+          "runId": 40418108255,
+          "conclusion": "failure",
+          "browserTestsExecuted": false
+        },
+        {
+          "runId": 40418108157,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40418570611,
+          "status": "in_progress",
+          "kind": "fourth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40418571049,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
       ]
     },
     {
@@ -5873,12 +6134,30 @@
       "observedAt": "2026-10-26T23:12:00Z",
       "action": "Browser run 40417644901 passed runtime installation, production build and both server health checks, then confirmed that Playwright page routing did not intercept the generated dynamic module request on this runner; no browser/API/history/privacy acceptance tests ran. Matching CI 40417644963 passed. Replaced request interception with an isolated loopback HTTP server serving same-origin fixture HTML, generated production analyzer modules and licensed video frames. Python compile and diff checks passed. Third corrected browser run 40418108255 and matching CI 40418108157 are in progress for candidate 3ad03c46. No Roboflow training, upload, version, inference, model or threshold state changed.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
-      "commits": ["3ad03c461eea4f08a197fc8c5400f29dea2867d0"],
+      "commits": [
+        "3ad03c461eea4f08a197fc8c5400f29dea2867d0"
+      ],
       "runs": [
-        {"runId": 40417644901, "conclusion": "failure", "browserTestsExecuted": false},
-        {"runId": 40417644963, "conclusion": "success", "kind": "matching_repository_ci"},
-        {"runId": 40418108255, "status": "in_progress", "kind": "third_corrected_real_chromium_controlled_fixture"},
-        {"runId": 40418108157, "status": "in_progress", "kind": "matching_repository_ci"}
+        {
+          "runId": 40417644901,
+          "conclusion": "failure",
+          "browserTestsExecuted": false
+        },
+        {
+          "runId": 40417644963,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40418108255,
+          "status": "in_progress",
+          "kind": "third_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40418108157,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
       ]
     },
     {
@@ -5886,12 +6165,30 @@
       "observedAt": "2026-10-26T23:09:00Z",
       "action": "Polled corrected browser run 40417064645 and matching CI 40417064657. CI passed; the browser job passed runtime installation, production build and both server health checks, then failed before browser/API/history/privacy tests because the generated skinAnalyzer.js module was not fulfilled through a relative Playwright-driver path and the production server returned 404. Replaced path-based fixture fulfilment with exact production-origin routes backed by Python-owned module text and frame bytes, plus an assertion that both generated modules were intercepted. Python compile and diff checks passed. Started second corrected browser run 40417644901 and matching CI 40417644963 for candidate 85c24fdf; no Roboflow training, upload, version, inference, model or threshold state changed.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
-      "commits": ["85c24fdfca85a068c5bc02c73299e1a68ace7d07"],
+      "commits": [
+        "85c24fdfca85a068c5bc02c73299e1a68ace7d07"
+      ],
       "runs": [
-        {"runId": 40417064645, "conclusion": "failure", "browserTestsExecuted": false},
-        {"runId": 40417064657, "conclusion": "success", "kind": "matching_repository_ci"},
-        {"runId": 40417644901, "status": "in_progress", "kind": "second_corrected_real_chromium_controlled_fixture"},
-        {"runId": 40417644963, "status": "in_progress", "kind": "matching_repository_ci"}
+        {
+          "runId": 40417064645,
+          "conclusion": "failure",
+          "browserTestsExecuted": false
+        },
+        {
+          "runId": 40417064657,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40417644901,
+          "status": "in_progress",
+          "kind": "second_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40417644963,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
       ]
     },
     {
@@ -5899,12 +6196,30 @@
       "observedAt": "2026-10-26T23:03:56Z",
       "action": "Refreshed the GitHub checkpoint and all 20 accessible Roboflow projects. Browser run 40406100671 failed after runtime installation and a successful production build, before any browser acceptance test: prepare_multi_angle_fixture.py attempted to fetch skinAnalyzer.js from localhost before the app server existed. Matching repository CI 40406100741 succeeded. Reordered the workflow to build, start and health-check the app/backend, then prepare the licensed fixture and run the exact browser/API/history/privacy tests. YAML order, Python compile and 26 focused gate tests passed. Corrected browser run 40417064645 and matching CI 40417064657 are in progress for candidate accd4ca. No training, version, upload, inference, model, threshold or acceptance state was changed.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
-      "commits": ["accd4ca458bb3ea2f5de31af0582a374f950df45"],
+      "commits": [
+        "accd4ca458bb3ea2f5de31af0582a374f950df45"
+      ],
       "runs": [
-        {"runId": 40406100671, "conclusion": "failure", "browserTestsExecuted": false},
-        {"runId": 40406100741, "conclusion": "success", "kind": "matching_repository_ci"},
-        {"runId": 40417064645, "status": "in_progress", "kind": "corrected_real_chromium_controlled_fixture"},
-        {"runId": 40417064657, "status": "in_progress", "kind": "matching_repository_ci"}
+        {
+          "runId": 40406100671,
+          "conclusion": "failure",
+          "browserTestsExecuted": false
+        },
+        {
+          "runId": 40406100741,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40417064645,
+          "status": "in_progress",
+          "kind": "corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40417064657,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
       ]
     },
     {
@@ -5917,8 +6232,16 @@
         "6c3e07ce1b696a17686ff75943efeadb35ee8180"
       ],
       "runs": [
-        {"runId": 40406100671, "status": "in_progress", "kind": "real_chromium_controlled_fixture"},
-        {"runId": 40406100741, "status": "in_progress", "kind": "matching_repository_ci"}
+        {
+          "runId": 40406100671,
+          "status": "in_progress",
+          "kind": "real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40406100741,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
       ]
     },
     {

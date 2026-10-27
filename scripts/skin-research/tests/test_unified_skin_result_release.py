@@ -16,7 +16,7 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v4.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v5.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -143,6 +143,12 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
 
     def test_expected_gate_method_registry_covers_every_task_registry_entry(self):
         self.assertEqual(set(module.EXPECTED_GATE_METHODS), set(module.EXPECTED_GATE_TASKS))
+
+    def test_stale_physical_camera_gate_cannot_reenter_unified_registry(self):
+        receipt = _receipt()
+        receipt["physicalCameraGate"]["methodVersion"] = "physical-camera-benchmark-release-gate-v0"
+        with self.assertRaisesRegex(module.GateInputError, "current expected method"):
+            module.evaluate_release(receipt)
 
     def test_evidence_digest_mismatch_is_rejected(self):
         receipt = _receipt()
