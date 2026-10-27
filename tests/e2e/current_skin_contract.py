@@ -19,7 +19,12 @@ def capture(page,context,path,native=False):
  page.screenshot(path=str(path),full_page=not native)
  if native:return {'ownedWindow':False,'nativeWindowCapture':False,'browserCompositorCapture':True,'platform':os.name,'capture':'Playwright visible browser compositor; not OS-window or physical-camera evidence'}
 with sync_playwright() as pw:
- gpu=['--use-gl=angle','--use-angle=swiftshader'] if '--software-gpu' in sys.argv else []
+ # The licensed-frame admission probe above this test uses SwiftShader. Keep
+ # the browser acceptance on the same deterministic GPU backend so a runner's
+ # host GPU cannot make the face landmarker disappear and silently exercise
+ # the geometric fallback instead. This changes neither the model, pose gates,
+ # quality gates nor source pixels.
+ gpu=['--use-gl=angle','--use-angle=swiftshader']
  b=pw.chromium.launch(channel='chrome',headless=True,args=['--use-fake-device-for-media-stream','--use-file-for-fake-video-capture='+str(Path('audit-fixtures/three-angle.y4m').resolve()),'--enable-unsafe-swiftshader',*gpu])
  c=b.new_context(permissions=['camera'],viewport={'width':1600,'height':1000})
  c.add_init_script(INIT)
@@ -57,6 +62,8 @@ with sync_playwright() as pw:
    if not row['guidance'] and ('motoru' in row['body'] or 'başarısız' in row['body']):break
   if not p.get_by_text('Cilt Analizi Tamamlandı',exact=True).count():
    p.screenshot(path=str(OUT/f'failure-{n}.png'),full_page=True);(OUT/f'failure-{n}.json').write_text(json.dumps({'console':console,'pageErrors':errors,'body':p.locator('body').inner_text()},ensure_ascii=False,indent=2),'utf8')
+   last=trace[-1] if trace else {'canvas':{},'guidance':None}
+   print('CAPTURE_DIAGNOSTIC',json.dumps({'run':n,'canvas':last.get('canvas',{}),'guidance':last.get('guidance'),'pageErrors':errors},ensure_ascii=False),flush=True)
   expect(p.get_by_text('Cilt Analizi Tamamlandı',exact=True)).to_be_visible(timeout=1000)
   if n==1:
    native200=p.evaluate('({innerWidth,outerWidth,dpr:devicePixelRatio,cssZoom:getComputedStyle(document.documentElement).zoom})')
