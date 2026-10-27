@@ -147,3 +147,22 @@ def test_failed_unapproved_recording_gets_new_revision_without_overwriting_origi
     assert old['seed']!=new['seed'] and old['generation']==new['generation']
     entry['approvalStatus']='approved'
     with pytest.raises(ValueError,match='APPROVED_RECORDING'):repair.plan(manifest,report,{},public=tmp_path)
+
+
+def test_backup_receipt_requires_independent_matching_bytes_and_reuses_upload_id(tmp_path):
+    backup=module('mental_audio_backup_inventory')
+    state=tmp_path/'state';state.mkdir()
+    (state/'folders.json').write_text('{}')
+    inventory=backup.Inventory(state)
+    source=tmp_path/'recording.wav';source.write_bytes(b'nonpersonal audio test fixture')
+    readback=tmp_path/'download.wav';readback.write_bytes(b'corrupted readback')
+    item=dict(sourcePath=str(source),readbackPath=str(readback),backupPath='catalog/en/fixture.wav',
+              bytes=source.stat().st_size,sha256=backup.digest(source),driveFileId='existing-drive-id',driveURL='fixture')
+    inventory.uploaded(item)
+    assert backup.Inventory(state).pending[item['backupPath']]['driveFileId']=='existing-drive-id'
+    with pytest.raises(ValueError,match='READBACK_SHA256'):inventory.receipt(item)
+    assert not inventory.inventory['files']
+    readback.write_bytes(source.read_bytes());inventory.receipt(item)
+    assert inventory.inventory['files'][0]['retrievalVerified']
+    assert not inventory.inventory['complete']
+    with pytest.raises(ValueError,match='DUPLICATE_UPLOAD_ID'):inventory.uploaded({**item,'driveFileId':'different-id'})

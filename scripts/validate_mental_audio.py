@@ -150,7 +150,13 @@ def main():
     parser.add_argument('--cache',type=Path,required=True);parser.add_argument('--watch',action='store_true')
     parser.add_argument('--provenance',default='provenance.json');parser.add_argument('--threads',type=int,choices=(1,2,4),default=1)
     parser.add_argument('--secondary',action='store_true',help='Recheck only uncertain primary readings; run after the primary watcher finishes.')
-    args=parser.parse_args();recognizer=Recognizer(args.asr_root,args.provenance,args.threads)
+    args=parser.parse_args()
+    if args.secondary:
+        prior=json.loads(args.cache.read_text())
+        current=json.loads(MANIFEST.read_text())['entries']
+        if len(current)!=414 or any(not e.get('sha256') or prior['assets'].get(e['assetId'],{}).get('sha256')!=e['sha256'] for e in current):
+            raise ValueError('PRIMARY_SCREENING_MUST_FINISH_BEFORE_SECONDARY')
+    recognizer=Recognizer(args.asr_root,args.provenance,args.threads)
     cache=json.loads(args.cache.read_text()) if args.cache.exists() else {'schema':'mental-audio-screen-v1','assets':{},'verifier':recognizer.provenance,
         'limitations':['Independent ASR screening does not certify native pronunciation or natural prosody.','Near matches remain distinguishable from exact recognition.','Owner approval of the nine representative clips is preserved.']}
     if args.secondary:

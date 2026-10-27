@@ -5,7 +5,7 @@
   "ownerApprovedRepresentativeClips": 9,
   "ownerApprovedJoinedPreviews": 6,
   "catalogExpected": 414,
-  "catalogGeneratedAtCheckpoint": 93,
+  "catalogGeneratedAtCheckpoint": 239,
   "productionInProgress": true,
   "all414ScriptsUnchangedFromCommit": "17e0921720018dfee9bfac2fb272b50b1f1535c0",
   "classifierDecision": "Retain existing rule-based classifier; separate-task decision closed by owner; no further benchmarking or integration.",
@@ -19,10 +19,12 @@
     "parentFolderURL": "https://drive.google.com/drive/folders/1FrN4RQz_j6QBmuXJe4RIpJGcQcSUB4sS",
     "versionFolderURL": "https://drive.google.com/drive/folders/16nXYqOOXPPA5GTtmHtPE6QLLsG2q9mGy",
     "complete": false,
-    "verification": "per-file independent Drive retrieval and SHA-256; final inventory pending"
+    "verification": "per-file independent Drive retrieval and SHA-256; final inventory pending",
+    "verifiedFilesAtResume": 100
   },
   "modelRuntimeReference": "pinned-runtime.json",
   "physicalAudioAcceptance": "not-performed-in-Cloud",
   "merged": false,
-  "deployed": false
+  "deployed": false,
+  "recoveredBeforeResume": 237
 }
