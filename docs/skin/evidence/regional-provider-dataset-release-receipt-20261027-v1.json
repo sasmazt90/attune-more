@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "regional-provider-dataset-release-receipt-v1",
+  "observedAt": "2026-10-27T21:39:20Z",
+  "providerProject": {
+    "id": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "type": "instance-segmentation",
+    "public": false,
+    "images": 476,
+    "unannotatedCounter": 139,
+    "splits": {
+      "train": 334,
+      "valid": 85,
+      "test": 57
+    },
+    "classes": {
+      "Oily": 1373,
+      "Redness": 898
+    },
+    "versions": [
+      {
+        "versionNumber": 1,
+        "images": 337,
+        "splits": {
+          "train": 244,
+          "valid": 63,
+          "test": 30
+        }
+      }
+    ]
+  },
+  "upload": {
+    "taskId": "RzTdxfpBr9REzkke1mPp",
+    "status": "completed",
+    "uploaded": 139,
+    "duplicates": 198,
+    "annotated": 337,
+    "errors": 0,
+    "warnings": 0,
+    "failedChunks": 0
+  },
+  "postUploadRecords": {
+    "records": 139,
+    "splits": {
+      "train": 90,
+      "valid": 22,
+      "test": 27
+    },
+    "annotations": {
+      "Oily": 308,
+      "Redness": 327
+    },
+    "allCarryExistingQuarantineTags": true,
+    "containsFilenamesOrProviderImageIds": false
+  },
+  "groupLockedManifest": {
+    "path": "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json",
+    "blobSHA": "088c38a2e8802fedc14486cf0b873225774b82f4",
+    "queueItemsSHA256": "f516efb71509111bd55e079bcbb8b2a897e5c00b5c8416668f18af3e247698a5",
+    "reviewDecisionsSHA256": "41702f492a41c72e15764288c9c0da7b9a2c43cb2c619cdb851a5098fc67ced1",
+    "records": {
+      "train": 236,
+      "valid": 50,
+      "test": 51
+    },
+    "annotations": {
+      "train": {
+        "Oily": 719,
+        "Redness": 394
+      },
+      "valid": {
+        "Oily": 157,
+        "Redness": 110
+      },
+      "test": {
+        "Oily": 189,
+        "Redness": 67
+      }
+    },
+    "crossSplitGroupCount": 0,
+    "allRecordsAssignedExactlyOnce": true
+  },
+  "candidateVersion": null,
+  "releasePrerequisites": {
+    "rightsReviewed": false,
+    "expertSemanticMaskProtocolAccepted": false,
+    "independentPhysicalCameraHoldoutReserved": false
+  },
+  "attestations": {
+    "mutableProjectIsNotAnImmutableVersion": true,
+    "uploadCompletionAloneDoesNotAuthorizeTraining": true,
+    "noProviderVersionCreated": true,
+    "noTrainingStarted": true,
+    "noImageBytesOrPrivateResolversCommitted": true
+  }
+}
