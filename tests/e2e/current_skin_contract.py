@@ -32,7 +32,11 @@ with sync_playwright() as pw:
    saved=c.storage_state();c.close();b.close()
    profile=tempfile.TemporaryDirectory(prefix='attune-skin-result-zoom-')
    pref=Path(profile.name)/'Default';pref.mkdir();(pref/'Preferences').write_text(json.dumps({'partition':{'default_zoom_level':{'x':math.log(2)/math.log(1.2)}}}),'utf8')
-   c=pw.chromium.launch_persistent_context(profile.name,channel='chrome',headless=False,no_viewport=True,permissions=['camera'],args=['--window-size=1600,1000','--use-fake-device-for-media-stream','--use-file-for-fake-video-capture='+str(Path('audit-fixtures/three-angle.y4m').resolve()),'--enable-unsafe-swiftshader',*gpu])
+   # At native 200% browser zoom, request twice the desktop pixel dimensions so
+   # the fake camera keeps the same CSS capture surface as the n=0 run. A
+   # 1600x1000 native window halves the surface and crops this fixed fixture,
+   # changing the measured face scale instead of testing only UI zoom/layout.
+   c=pw.chromium.launch_persistent_context(profile.name,channel='chrome',headless=False,no_viewport=True,permissions=['camera'],args=['--window-size=3200,2000','--use-fake-device-for-media-stream','--use-file-for-fake-video-capture='+str(Path('audit-fixtures/three-angle.y4m').resolve()),'--enable-unsafe-swiftshader',*gpu])
    c.add_init_script(INIT)
    c.add_init_script(APPEARANCE)
    storage=saved['origins'][0]['localStorage']
