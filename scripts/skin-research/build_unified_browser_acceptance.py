@@ -31,7 +31,7 @@ CODE_BLOBS = {
     "apps/vehicle-app/src/utils/skinPhotoHistory.ts": "d143cb121cc39149b1ee4d26d4e4bacd9ba0f288",
     "apps/vehicle-app/src/utils/skinOverview.ts": "4d31010f82bfd5c42a49b46c20880630d57079dd",
     "tests/e2e/current_skin_contract.py": "5a0415136953c79b15c8fe3c98eca3f6d1961e37",
-    "tests/e2e/current_skin_photo_history.py": "6013d03bd877ca916dce136ac1c1488c6b879fdd",
+    "tests/e2e/current_skin_photo_history.py": "565fee1a15f72f10cbf82911147ea2c6ee4ffd8e",
     "tests/e2e/current_skin_photo_wipe_success.py": "bfff1ce02f70ba9caa959dcbb0c4cfe9b3ad7b3f",
 }
 SHA40 = re.compile(r"^[0-9a-f]{40}$")

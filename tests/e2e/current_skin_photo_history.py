@@ -1,7 +1,7 @@
 """Production source/photo persistence, actual licensed video and MediaPipe.
 Isolated browser profile; never creates fixture records in the user's profile.
 """
-import ast,base64,json,time,tempfile,math,hashlib,sys,io
+import ast,base64,json,time,tempfile,math,hashlib,sys,io,os
 from pathlib import Path
 from playwright.sync_api import sync_playwright,expect
 from PIL import Image
@@ -13,6 +13,10 @@ constants={n.targets[0].id:ast.literal_eval(n.value) for n in ast.parse((ROOT/'t
 def rows(p):return p.evaluate("()=>new Promise((resolve,reject)=>{const q=indexedDB.open('attune-skin-photos');q.onsuccess=()=>{const db=q.result,t=db.transaction('records');const r=t.objectStore('records').getAll();r.onsuccess=()=>resolve(r.result);t.oncomplete=()=>db.close();t.onerror=()=>reject(t.error);};q.onerror=()=>reject(q.error);})")
 def open_record(p,id):
  p.goto('http://127.0.0.1:3000/profile');p.locator('[data-record-id="'+id+'"]').get_by_role('button',name='Sonucu Aç',exact=True).click();dialog=p.get_by_role('dialog',name='Cilt Sağlığı sonucu',exact=True);expect(dialog.locator('[data-skin-snapshot]')).to_be_visible(timeout=15000);return dialog
+def capture_native(page,profile,path):
+ if os.name=='nt':return capture_owned_window(page,profile,path)
+ page.screenshot(path=str(path),full_page=False)
+ return {'ownedWindow':False,'nativeWindowCapture':False,'browserCompositorCapture':True,'platform':os.name,'capture':'Playwright visible browser compositor; not OS-window or physical-camera evidence'}
 with tempfile.TemporaryDirectory(prefix='attune-photo-retention-') as profile,sync_playwright() as pw:
  args=['--use-fake-device-for-media-stream','--use-file-for-fake-video-capture='+str(ROOT/'audit-fixtures/three-angle.y4m'),'--enable-unsafe-swiftshader']
  def launch(headed=False):return pw.chromium.launch_persistent_context(profile,channel='chrome',headless=not headed,no_viewport=headed,viewport=None if headed else {'width':1600,'height':1000},permissions=['camera'],args=args+(['--window-size=1600,1000'] if headed else []))
@@ -87,12 +91,12 @@ with tempfile.TemporaryDirectory(prefix='attune-photo-retention-') as profile,sy
  p.set_viewport_size({'width':720,'height':900});dialog=open_record(p,scans[0]['id']);p.screenshot(path=str(OUT/'history-narrow.png'),full_page=True);assert p.evaluate('document.documentElement.scrollWidth<=innerWidth');p.keyboard.press('Escape');c.close()
  preferences=Path(profile)/'Default/Preferences';prefs=json.loads(preferences.read_text());prefs.setdefault('partition',{})['default_zoom_level']={'x':math.log(2)/math.log(1.2)};preferences.write_text(json.dumps(prefs),'utf8')
  c=launch(True);p=c.new_page();dialog=open_record(p,scans[0]['id']);geometry=p.evaluate('({innerWidth,outerWidth,dpr:devicePixelRatio,zoom:getComputedStyle(document.documentElement).zoom,scroll:document.documentElement.scrollWidth})');assert geometry['dpr']>=2 and geometry['innerWidth']<geometry['outerWidth']*.65 and geometry['zoom']=='1' and geometry['scroll']<=geometry['innerWidth'],geometry
- capture_owned_window(p,profile,OUT/'history-native200.png');dialog.evaluate('(el)=>el.scrollTop=el.scrollHeight');capture_owned_window(p,profile,OUT/'history-native200-bottom.png');p.keyboard.press('Escape')
+ native_top=capture_native(p,profile,OUT/'history-native200.png');dialog.evaluate('(el)=>el.scrollTop=el.scrollHeight');native_bottom=capture_native(p,profile,OUT/'history-native200-bottom.png');p.keyboard.press('Escape')
  # Real delete UI removes the same source/maps store entry, leaving other rows intact.
  row=p.locator('[data-record-id="'+scans[0]['id']+'"]');row.locator('button').filter(has_text='Sil').click();p.get_by_role('button',name='Evet, sil',exact=True).click();expect(row).to_have_count(0);assert {r['id'] for r in rows(p)}=={s['id'] for s in scans[1:]}
  p.goto('http://127.0.0.1:3000/privacy');p.get_by_label('Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla').click();expect(p.get_by_label('Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla')).not_to_be_checked();p.wait_for_timeout(500);assert not rows(p)
  assert p.evaluate('JSON.parse(localStorage.getItem("togg_health_skin_history")).length')==2
  p.goto('http://127.0.0.1:3000/profile');p.locator('[data-record-id="'+scans[1]['id']+'"]').get_by_role('button',name='Sonucu Aç',exact=True).click();dialog=p.get_by_role('dialog',name='Cilt Sağlığı sonucu',exact=True);expect(dialog.get_by_text('Bu kaydın fotoğrafı saklanmamış.',exact=True)).to_be_visible();assert not dialog.locator('[data-skin-snapshot]').count();p.keyboard.press('Escape')
  assert not errors,errors
- (OUT/'proof.json').write_text(json.dumps(dict(status='PASS',methodVersion='skin-indexeddb-history-replay-v1',buildId=(ROOT/'apps/vehicle-app/.next/BUILD_ID').read_text().strip(),realBrowser=True,browserEngine='chromium',controlledFixture=True,physicalUserAcceptance=False,expertGroundTruth=False,accuracyEvidence=False,poseMock=False,qualityOverride=False,scans=scans,indexedDbWriteReadPassed=True,relaunchThreeRecords=True,allSixRegionsAndSelectedMaps=True,twelveProductHeadingsPassed=True,unsupportedHeadingsUnavailable=True,acneListCardRingsAndFill=candidateChecks,deleteOne=True,revokePhotosKeepsNumeric=True,retentionPassed=True,deletionPassed=True,native200=geometry,pageErrors=errors),ensure_ascii=False,indent=2),'utf8');c.close()
+ (OUT/'proof.json').write_text(json.dumps(dict(status='PASS',methodVersion='skin-indexeddb-history-replay-v1',buildId=(ROOT/'apps/vehicle-app/.next/BUILD_ID').read_text().strip(),realBrowser=True,browserEngine='chromium',controlledFixture=True,physicalUserAcceptance=False,expertGroundTruth=False,accuracyEvidence=False,poseMock=False,qualityOverride=False,scans=scans,indexedDbWriteReadPassed=True,relaunchThreeRecords=True,allSixRegionsAndSelectedMaps=True,twelveProductHeadingsPassed=True,unsupportedHeadingsUnavailable=True,acneListCardRingsAndFill=candidateChecks,deleteOne=True,revokePhotosKeepsNumeric=True,retentionPassed=True,deletionPassed=True,native200=geometry,native200Capture={'top':native_top,'bottom':native_bottom},pageErrors=errors),ensure_ascii=False,indent=2),'utf8');c.close()
 print('PASS: three actual scans, oldest survives relaunch, six source-bound regions/maps, delete/revoke, native 200')
