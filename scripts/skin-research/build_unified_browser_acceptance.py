@@ -30,7 +30,7 @@ CODE_BLOBS = {
     "apps/vehicle-app/src/utils/regionalSkinMap.ts": "258ab2d845b3743ede309938cd14da8831a01046",
     "apps/vehicle-app/src/utils/skinPhotoHistory.ts": "d143cb121cc39149b1ee4d26d4e4bacd9ba0f288",
     "apps/vehicle-app/src/utils/skinOverview.ts": "4d31010f82bfd5c42a49b46c20880630d57079dd",
-    "tests/e2e/current_skin_contract.py": "5660228b385623d161b1987743512048750346f8",
+    "tests/e2e/current_skin_contract.py": "f5972cd646c3f08e5b2889c09538b0b7376b8bf1",
     "tests/e2e/current_skin_photo_history.py": "6013d03bd877ca916dce136ac1c1488c6b879fdd",
     "tests/e2e/current_skin_photo_wipe_success.py": "bfff1ce02f70ba9caa959dcbb0c4cfe9b3ad7b3f",
 }

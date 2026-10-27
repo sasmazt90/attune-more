@@ -205,7 +205,7 @@ with sync_playwright() as pw:
   # Client navigation preserves only the in-memory current session frames.
   p.get_by_role('link',name='Sağlık Geçmişim',exact=True).click();p.locator('[data-record-id="'+value['id']+'"]').get_by_role('button',name='Sonucu Aç',exact=True).click()
   dialog=p.get_by_role('dialog',name='Cilt Sağlığı sonucu',exact=True)
-  assert dialog.get_by_role('heading',name='Genel Bakış',exact=True).count()==1
+  expect(dialog).to_be_visible();expect(dialog.get_by_role('heading',name='Genel Bakış',exact=True)).to_be_visible()
   assert dialog.locator('[data-skin-mesh]').count()==0
   assert dialog.locator('[data-skin-snapshot]').get_attribute('data-snapshot-photoid')==general['captureId']
   assert dialog.locator('[data-skin-snapshot] image').first.get_attribute('href')==overview_source
