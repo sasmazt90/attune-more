@@ -17,6 +17,14 @@ PAGE='https://commons.wikimedia.org/wiki/File:Head_Shake.webm'
 SHA1='fb35a2ecbf0771ab818c2ca336142c30b515a414'
 FIX=Path('audit-fixtures');FIX.mkdir(exist_ok=True)
 OUT=Path('audit-results');OUT.mkdir(exist_ok=True)
+# Hosted runners can spend roughly four seconds per accepted camera frame once
+# the real MediaPipe inference and the real local eyewear-policy request are in
+# the loop.  Production deliberately requires 15 consecutive accepted frames.
+# Hold each licensed pose long enough for that unchanged gate even on the slow
+# runner; changing the fixture transport duration must never relax the model,
+# pose, quality, eyewear or consecutive-frame requirements.
+POSE_HOLD_SECONDS=75
+FIXTURE_SECONDS=POSE_HOLD_SECONDS*3
 (OUT/'FIXTURE-LICENSE.md').write_text(Path('docs/test-fixture-provenance.md').read_text(encoding='utf-8-sig'),encoding='utf-8')
 video=FIX/'head-shake.webm'
 if not video.exists():
@@ -75,10 +83,10 @@ try:
         b.close()
 finally:
     server.shutdown();server.server_close();thread.join()
-provenance={'source':SOURCE,'page':PAGE,'license':'CC BY-SA 4.0','licenseUrl':'https://creativecommons.org/licenses/by-sa/4.0/','author':'NMu11er','sourceSha1':SHA1,'changes':['sample genuinely different frames at 10 fps','uniform crop 900x675 at 90,190 and scale 640x480','hold each admitted pose for fifteen seconds in virtual camera'],'poseMock':False,'rotation':False,'qualityThresholdChanged':False,'measurements':measurements,'selected':selected}
+provenance={'source':SOURCE,'page':PAGE,'license':'CC BY-SA 4.0','licenseUrl':'https://creativecommons.org/licenses/by-sa/4.0/','author':'NMu11er','sourceSha1':SHA1,'changes':['sample genuinely different frames at 10 fps','uniform crop 900x675 at 90,190 and scale 640x480',f'hold each admitted pose for {POSE_HOLD_SECONDS} seconds in virtual camera so the unchanged 15-frame gate can complete on a slow hosted runner'],'poseMock':False,'rotation':False,'qualityThresholdChanged':False,'captureGateChanged':False,'poseHoldSeconds':POSE_HOLD_SECONDS,'measurements':measurements,'selected':selected}
 (OUT/'multi-angle-fixture-provenance.json').write_text(json.dumps(provenance,ensure_ascii=False,indent=2),encoding='utf-8')
 assert set(selected)=={'FRONT','RIGHT','LEFT'},'Licensed video did not pass all real pose/quality checks; controlled user capture still needed'
 assert len({r['frame'] for r in selected.values()})==3,'Same frame cannot stand for multiple angles'
-concat=FIX/'three-angle-concat.txt';concat.write_text(''.join("file '"+str(Path(selected[a]['file']).resolve()).replace('\\','/')+"'\nduration 15\n" for a in ['FRONT','RIGHT','LEFT'])+"file '"+str(Path(selected['LEFT']['file']).resolve()).replace('\\','/')+"'\n",encoding='utf-8')
-subprocess.run([ffmpeg,'-hide_banner','-loglevel','error','-y','-f','concat','-safe','0','-i',str(concat),'-vf','fps=15,setsar=1','-t','45','-pix_fmt','yuv420p',str(FIX/'three-angle.y4m')],check=True)
+concat=FIX/'three-angle-concat.txt';concat.write_text(''.join("file '"+str(Path(selected[a]['file']).resolve()).replace('\\','/')+f"'\nduration {POSE_HOLD_SECONDS}\n" for a in ['FRONT','RIGHT','LEFT'])+"file '"+str(Path(selected['LEFT']['file']).resolve()).replace('\\','/')+"'\n",encoding='utf-8')
+subprocess.run([ffmpeg,'-hide_banner','-loglevel','error','-y','-f','concat','-safe','0','-i',str(concat),'-vf','fps=15,setsar=1','-t',str(FIXTURE_SECONDS),'-pix_fmt','yuv420p',str(FIX/'three-angle.y4m')],check=True)
 print(json.dumps({'sourceSha1':SHA1,'selected':selected},ensure_ascii=False))

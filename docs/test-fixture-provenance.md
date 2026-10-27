@@ -6,7 +6,11 @@ https://commons.wikimedia.org/wiki/File:Head_Shake.webm
 https://creativecommons.org/licenses/by-sa/4.0/
 
 Changes: uniformly crop the source to 900x675 at x90/y190, scale to 640x480,
-select three genuinely different source frames, and hold each frame for 15 seconds.
+select three genuinely different source frames, and hold each frame for 75 seconds.
+The longer transport hold is only runner-latency headroom for the unchanged
+15-consecutive-frame, pose, quality, and eyewear gates; it is not a capture-gate
+override and does not turn this controlled virtual camera into physical-camera
+or accuracy evidence.
 No rotation, texture enhancement, landmark replacement or pose mocking is used.
 The source SHA-1 is pinned to `fb35a2ecbf0771ab818c2ca336142c30b515a414`.
 
