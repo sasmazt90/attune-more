@@ -57,7 +57,8 @@ def audit(manifest,content,cache,public=PUBLIC,root=ROOT):
             problems.append('pronunciation-screen-pending')
         else:
             primary=pronunciation(entry['exactScript'],screen['pronunciationScreen']['transcript'],language)
-            effective=screen.get('secondaryPronunciationScreen',primary)
+            secondary=screen.get('secondaryPronunciationScreen')
+            effective=pronunciation(entry['exactScript'],secondary['transcript'],language) if secondary else primary
             screens[effective['status']]+=1
             if effective['status']=='review-required' and not owner:problems.append('pronunciation-screen-review')
         if problems:issues.append({'assetId':key,'issues':problems})

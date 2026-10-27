@@ -117,6 +117,9 @@ def test_pronunciation_screen_flags_loss_of_formality_negation_and_time():
     assert review.pronunciation('Bugün ne konuşmak istersiniz?','Bugün ne konuşmak istersin?','tr')['formalAddressMissing']
     assert review.pronunciation('Was hat Ihnen heute geholfen?','Was hat dir heute geholfen?','de')['formalAddressMissing']
     assert review.pronunciation('What helped you yesterday?','What helped you today?','en')['criticalTokenMissing']
+    assert review.pronunciation('Neyle ilişkilendiriyorsunuz?','Ne ile ilişkilendiriyorsunuz?','tr')['status']=='match'
+    assert review.pronunciation('Bu günlük yaşamınızı nasıl etkiliyor?','Bugünlük yaşamınızı nasıl etkiliyor?','tr')['status']=='match'
+    assert review.pronunciation('Bugün ne konuşmak istersiniz?','Dün ne konuşmak istersiniz?','tr')['criticalTokenMissing']
 
 
 @pytest.mark.parametrize('fault',['reference','settings','join'])

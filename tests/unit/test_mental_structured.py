@@ -279,6 +279,8 @@ def test_one_analysis_no_rewrite_and_uninvented_history(monkeypatch):
     assert len(calls)==1 and result['metrics']['analysisOpenAICalls']==1
     assert result['relatedSessionIds']==['permitted'] and result['recurringThemes']==['iş yaşamı']
     assert 'spokenSummary' in calls[0]['messages'][-1]['content']
+    assert 'at most 12 words and 100 characters' in calls[0]['messages'][-1]['content']
+    assert 'keep full detail in summaryText' in calls[0]['messages'][-1]['content']
     result=validate_analysis(analysis_fixture(),[],no_advice=True)
     assert not result['recommendations'] and not result['relatedSessionIds'] and not result['recurringThemes']
     with pytest.raises(ValueError):validate_analysis({**analysis_fixture(),'spokenSummary':''},[])

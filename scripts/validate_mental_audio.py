@@ -30,6 +30,11 @@ def normalize(text,language):
     text=unicodedata.normalize('NFC',text)
     if language=='tr':text=text.replace('I','ı').replace('İ','i')
     text=text.casefold().replace('i\u0307','i').replace('’',"'")
+    if language=='tr':
+        # Conventional contraction and a homophonous word-boundary ambiguity.
+        # Preserve raw transcripts and never conflate bugün with dün.
+        text=re.sub(r'\bneyle\b','ne ile',text)
+        text=re.sub(r'\bbugünlük\b','bu günlük',text)
     if language=='en':
         for a,b in [("what's",'what is'),("you're",'you are'),("don't",'do not'),("can't",'cannot')]:text=text.replace(a,b)
         text=re.sub(r'\balright\b','all right',text)
@@ -113,6 +118,19 @@ def atomic_json(path,value):
     temporary.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n');temporary.replace(path)
 
 
+def relabel(cache,entries):
+    """Apply current orthography/formality rules without repeating inference."""
+    by_id={e['assetId']:e for e in entries}
+    for key,row in cache['assets'].items():
+        entry=by_id[key]
+        for name in ('pronunciationScreen','secondaryPronunciationScreen'):
+            if name in row:row[name]=pronunciation(entry['exactScript'],row[name]['transcript'],entry['language'])
+        effective=row.get('secondaryPronunciationScreen',row['pronunciationScreen'])
+        row['issues']=[issue for issue in row['issues'] if issue!='pronunciation-screen-review']
+        if effective['status']=='review-required':row['issues'].append('pronunciation-screen-review')
+    cache['normalizationPolicy']='formal-critical-token-and-orthography-v2'
+
+
 def scan(cache,recognizer,secondary=False):
     manifest=json.loads(MANIFEST.read_text());rows=json.loads((ROOT/'shared/mental/v1/content.json').read_text())['rows']
     expected={r['audioAssetId']:r for r in rows}
@@ -151,7 +169,11 @@ def main():
     parser.add_argument('--cache',type=Path,required=True);parser.add_argument('--watch',action='store_true')
     parser.add_argument('--provenance',default='provenance.json');parser.add_argument('--threads',type=int,choices=(1,2,4),default=1)
     parser.add_argument('--secondary',action='store_true',help='Recheck only uncertain primary readings; run after the primary watcher finishes.')
+    parser.add_argument('--rescore-only',action='store_true',help='After recognizers exit, relabel preserved transcripts without inference.')
     args=parser.parse_args()
+    if args.rescore_only:
+        cache=json.loads(args.cache.read_text());relabel(cache,json.loads(MANIFEST.read_text())['entries']);atomic_json(args.cache,cache)
+        print(json.dumps({'rescoreOnly':True,'assets':len(cache['assets']),'normalizationPolicy':cache['normalizationPolicy']}));return
     if args.secondary:
         prior=json.loads(args.cache.read_text())
         current=json.loads(MANIFEST.read_text())['entries']
@@ -164,11 +186,7 @@ def main():
         cache['secondaryVerifier']=recognizer.provenance
         # Preserve recognized text while applying the current formal-address
         # and negation/temporal policy to earlier primary screenings.
-        entries={e['assetId']:e for e in json.loads(MANIFEST.read_text())['entries']}
-        for key,row in cache['assets'].items():
-            entry=entries[key];row['pronunciationScreen']=pronunciation(entry['exactScript'],row['pronunciationScreen']['transcript'],entry['language'])
-            row['issues']=[issue for issue in row['issues'] if issue!='pronunciation-screen-review']
-            if row['pronunciationScreen']['status']=='review-required':row['issues'].append('pronunciation-screen-review')
+        relabel(cache,json.loads(MANIFEST.read_text())['entries'])
     while True:
         for asset in scan(cache,recognizer,args.secondary):
             atomic_json(args.cache,cache)

@@ -40,6 +40,8 @@ def generate(config,python,output):
         'limitations':['Matching conditioning/settings verifies the selected configuration, not independent biometric identity.',
             'Pronunciation and descriptive speaker-encoder results are recorded separately.'], 'recordings':[]}
     os.environ['ATTUNE_MENTAL_TTS_FEMALE_CONFIG']=str(config.resolve())
+    os.environ.setdefault('HF_HOME',str(config.resolve().parent/'hf-cache'))
+    os.environ.setdefault('PKUSEG_HOME',str(config.resolve().parent/'pkuseg-cache'))
     # Preserve the venv launcher path: resolving its symlink loses pyvenv.cfg.
     os.environ['ATTUNE_MENTAL_TTS_PYTHON']=str(python.absolute())
     os.environ['ATTUNE_MENTAL_TTS_TOKEN']=secrets.token_urlsafe(40)
@@ -100,6 +102,8 @@ def encoder_diagnostics(config,output):
     """Descriptive comparison with the pinned generator's encoder; no threshold."""
     from mental_neural_tts import load_configuration,verify_runtime_source
     _,directory,reference,profile=load_configuration(config,'en');source=verify_runtime_source()
+    os.environ.setdefault('HF_HOME',str(config.resolve().parent/'hf-cache'))
+    os.environ['HF_HUB_OFFLINE']='1'
     import socket
     def offline(*a,**kw):raise OSError('CLOSING_REVIEW_NETWORK_DISABLED')
     socket.socket.connect=socket.socket.connect_ex=socket.socket.sendto=offline

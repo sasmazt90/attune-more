@@ -1,0 +1,264 @@
+{
+  "schema": "mental-real-closing-validation-v1",
+  "profile": "female-calm-v1",
+  "facts": "Synthetic nonpersonal scenario: work pressure, sleep and helpful short walks.",
+  "endpoint": "/api/mental/neural-speech",
+  "inference": "real-pinned-official-Chatterbox-V3",
+  "seedPolicy": "live-endpoint-upstream-default",
+  "privateUserTranscripts": false,
+  "limitations": [
+    "Matching conditioning/settings verifies the selected configuration, not independent biometric identity.",
+    "Pronunciation and descriptive speaker-encoder results are recorded separately."
+  ],
+  "recordings": [
+    {
+      "language": "tr",
+      "text": "İş baskısını ve uykunuzu konuştuk. Kısa yürüyüşlerin size iyi geldiğini söylediniz. Kendinize zaman ayırabilirsiniz.",
+      "file": "tr-closing.wav",
+      "sha256": "4533c7f8b0ef3d5cec253b214a75d2bf0fc77f30690b0d5b00b4ed4870b57f14",
+      "textSHA256": "5b958e6aa25a4ee334d21248cfc2bb6a5175993a33b1c46b965957b572a946c5",
+      "metrics": {
+        "durationMs": 9640,
+        "sampleRate": 24000,
+        "bytes": 462764,
+        "peak": 0.885650634765625,
+        "rms": 0.09703811242552543,
+        "clippedSamples": 0,
+        "leadingSilenceMs": 100,
+        "trailingSilenceMs": 480
+      },
+      "issues": [],
+      "elapsedSeconds": 152.929,
+      "responseHeaders": {
+        "x-tts-source": "chatterbox-multilingual-v3",
+        "x-tts-speaker-profile": "female-calm-v1",
+        "x-tts-locale": "tr-TR",
+        "cache-control": "no-store"
+      },
+      "conditioningSHA256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+      "generation": {
+        "exaggeration": 0.35,
+        "cfg_weight": 0.0,
+        "temperature": 0.8
+      },
+      "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+      "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+      "descriptiveEncoderComparison": {
+        "referenceCosine": 0.93175,
+        "approvedQuestionCosines": [
+          {
+            "assetId": "v1/tr/female-calm-v1/B01/B01-V01",
+            "cosine": 0.914973
+          },
+          {
+            "assetId": "v1/tr/female-calm-v1/B02/B02-V01",
+            "cosine": 0.902548
+          }
+        ]
+      },
+      "pronunciationScreen": {
+        "transcript": "işbazgısını ve uykunuzu konuştuk. Kısa yürüyüşlerin size iyi geldiğini söylediniz, kendinize zaman ayırabilirsiniz.",
+        "wordErrorRate": 0.1429,
+        "characterErrorRate": 0.0265,
+        "status": "near-match",
+        "formalAddressMissing": false,
+        "criticalTokenMissing": false
+      },
+      "secondaryPronunciationScreen": {
+        "transcript": "İş baskısını ve uykunuzu konuştuk. Kısa yürüyüşlerin size iyi geldiğini söylediniz, kendinize zaman ayırabilirsiniz.",
+        "wordErrorRate": 0.0,
+        "characterErrorRate": 0.0,
+        "status": "match",
+        "formalAddressMissing": false,
+        "criticalTokenMissing": false
+      }
+    },
+    {
+      "language": "en",
+      "text": "We discussed work pressure and sleep. You said short walks help. You can give yourself time.",
+      "file": "en-closing.wav",
+      "sha256": "f556f8dda1d16f749f7d66fc4c3cd229b958043949c2626e70ea553abb448a14",
+      "textSHA256": "88fa7e06c84b43252a0f2ebae2f71aa7bd16bb61e533bf81bb7f58374db74db8",
+      "metrics": {
+        "durationMs": 6800,
+        "sampleRate": 24000,
+        "bytes": 326444,
+        "peak": 0.6763916015625,
+        "rms": 0.08103778671412795,
+        "clippedSamples": 0,
+        "leadingSilenceMs": 100,
+        "trailingSilenceMs": 540
+      },
+      "issues": [],
+      "elapsedSeconds": 111.124,
+      "responseHeaders": {
+        "x-tts-source": "chatterbox-multilingual-v3",
+        "x-tts-speaker-profile": "female-calm-v1",
+        "x-tts-locale": "en-US",
+        "cache-control": "no-store"
+      },
+      "conditioningSHA256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+      "generation": {
+        "exaggeration": 0.35,
+        "cfg_weight": 0.0,
+        "temperature": 0.8
+      },
+      "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+      "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+      "descriptiveEncoderComparison": {
+        "referenceCosine": 0.935521,
+        "approvedQuestionCosines": [
+          {
+            "assetId": "v1/en/female-calm-v1/B01/B01-V01",
+            "cosine": 0.864477
+          },
+          {
+            "assetId": "v1/en/female-calm-v1/B02/B02-V01",
+            "cosine": 0.850293
+          }
+        ]
+      },
+      "pronunciationScreen": {
+        "transcript": "We discussed work pressure and sleep. You said short walks help. You can give yourself time.",
+        "wordErrorRate": 0.0,
+        "characterErrorRate": 0.0,
+        "status": "match",
+        "formalAddressMissing": false,
+        "criticalTokenMissing": false
+      },
+      "secondaryPronunciationScreen": {
+        "transcript": "We discussed work pressure and sleep. You said short walks help. You can give yourself time.",
+        "wordErrorRate": 0.0,
+        "characterErrorRate": 0.0,
+        "status": "match",
+        "formalAddressMissing": false,
+        "criticalTokenMissing": false
+      }
+    },
+    {
+      "language": "de",
+      "text": "Wir haben über Arbeitsdruck und Schlaf gesprochen. Kurze Spaziergänge helfen Ihnen. Sie dürfen sich Zeit nehmen.",
+      "file": "de-closing.wav",
+      "sha256": "e3d6f29c8f6c5476f0a06f2c739084f0317fb19214e4115a575003dd17714b81",
+      "textSHA256": "4b373d911eeca0f944a7cd4d332be17f92385fa7943b5bc0884ee4d2656e15da",
+      "metrics": {
+        "durationMs": 8200,
+        "sampleRate": 24000,
+        "bytes": 393644,
+        "peak": 0.7607421875,
+        "rms": 0.08523020713568641,
+        "clippedSamples": 0,
+        "leadingSilenceMs": 100,
+        "trailingSilenceMs": 540
+      },
+      "issues": [],
+      "elapsedSeconds": 125.675,
+      "responseHeaders": {
+        "x-tts-source": "chatterbox-multilingual-v3",
+        "x-tts-speaker-profile": "female-calm-v1",
+        "x-tts-locale": "de-DE",
+        "cache-control": "no-store"
+      },
+      "conditioningSHA256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+      "generation": {
+        "exaggeration": 0.35,
+        "cfg_weight": 0.0,
+        "temperature": 0.8
+      },
+      "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+      "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+      "descriptiveEncoderComparison": {
+        "referenceCosine": 0.927671,
+        "approvedQuestionCosines": [
+          {
+            "assetId": "v1/de/female-calm-v1/B01/B01-V01",
+            "cosine": 0.894649
+          },
+          {
+            "assetId": "v1/de/female-calm-v1/B02/B02-V01",
+            "cosine": 0.920552
+          }
+        ]
+      },
+      "pronunciationScreen": {
+        "transcript": "Wir haben über Arbeitsdruck und Schlaf gesprochen. Kurze Spaziergänge helfen Ihnen. Sie dürfen sich Zeit nehmen.",
+        "wordErrorRate": 0.0,
+        "characterErrorRate": 0.0,
+        "status": "match",
+        "formalAddressMissing": false,
+        "criticalTokenMissing": false
+      },
+      "secondaryPronunciationScreen": {
+        "transcript": "Wir haben über Arbeitsdruck und Schlaf gesprochen. Kurze Spaziergänge helfen Ihnen. Sie dürfen sich Zeit nehmen.",
+        "wordErrorRate": 0.0,
+        "characterErrorRate": 0.0,
+        "status": "match",
+        "formalAddressMissing": false,
+        "criticalTokenMissing": false
+      }
+    }
+  ],
+  "encoderDiagnostics": {
+    "encoderSHA256": "4b16d836bc598509860f6fa068165a8bb5e9ac84f05582dfcf278a5a372879f1",
+    "source": {
+      "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+      "version": "0.1.7",
+      "filesVerified": 50
+    },
+    "crossLanguageClosingCosines": [
+      {
+        "left": "tr",
+        "right": "en",
+        "cosine": 0.90766
+      },
+      {
+        "left": "tr",
+        "right": "de",
+        "cosine": 0.944073
+      },
+      {
+        "left": "en",
+        "right": "de",
+        "cosine": 0.921336
+      }
+    ],
+    "interpretation": "Descriptive only: generator-owned encoder, no calibrated identity threshold or independent biometric claim."
+  },
+  "pronunciationScreenVerifier": {
+    "repository": "k2-fsa/sherpa-onnx",
+    "releaseURL": "https://github.com/k2-fsa/sherpa-onnx/releases/tag/asr-models",
+    "archive": "sherpa-onnx-whisper-small.tar.bz2",
+    "archiveSHA256": "486a46afbb7ba798507190ffe02fea2dd726049af212e774537efac6afb210a6",
+    "checksumSHA256": "4e34edcb64434bcf533afaee9dcc14b5b2f9c277ed3a745f263e79a4464b28d0",
+    "recognizerVersion": "1.12.26",
+    "modelDirectory": "sherpa-onnx-whisper-small",
+    "files": {
+      "small-encoder.int8.onnx": "4cbe7b22fa9026b843b60a68640c747de05bafb1a11b57edc0e66c232d9f33a9",
+      "small-decoder.int8.onnx": "acad50b5c782696e91b55914cc5ab4f756f1532f76e22aa6fc615f39fb69a8ee",
+      "small-tokens.txt": "b34b360dbb493e781e479794586d661700670d65564001f23024971d1f2fa126"
+    },
+    "purpose": "offline pronunciation screening only; does not alter TTS",
+    "paidServices": false
+  },
+  "secondaryPronunciationScreenVerifier": {
+    "repository": "k2-fsa/sherpa-onnx",
+    "releaseURL": "https://github.com/k2-fsa/sherpa-onnx/releases/tag/asr-models",
+    "archive": "sherpa-onnx-whisper-large-v3.tar.bz2",
+    "archiveSHA256": "2d0e134b3b5fc4a0533baf24a0c9d473b629aa47f030af0a165a05f461df7a03",
+    "checksumSHA256": "4e34edcb64434bcf533afaee9dcc14b5b2f9c277ed3a745f263e79a4464b28d0",
+    "recognizerVersion": "1.12.26",
+    "modelDirectory": "sherpa-onnx-whisper-large-v3",
+    "encoderFile": "large-v3-encoder.int8.onnx",
+    "decoderFile": "large-v3-decoder.int8.onnx",
+    "tokensFile": "large-v3-tokens.txt",
+    "files": {
+      "large-v3-encoder.int8.onnx": "d531cf17248acc43e8c09b472a0877055e770877857a5332fc1304b36534ec85",
+      "large-v3-decoder.int8.onnx": "ebc6bfd88e162a46cb3edee8a7e727e1dcbc65cabecb19e2573695e4d495e1af",
+      "large-v3-tokens.txt": "b34b360dbb493e781e479794586d661700670d65564001f23024971d1f2fa126"
+    },
+    "purpose": "Secondary offline screening of uncertain pronunciation readings only; no TTS replacement",
+    "paidServices": false
+  },
+  "configurationBindingVerified": true,
+  "pronunciationScreenPassed": true
+}
