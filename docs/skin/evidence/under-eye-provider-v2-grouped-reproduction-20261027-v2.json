@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "under-eye-grouped-archive-v2",
+  "sourceArchiveSHA256": "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99",
+  "outputArchiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
+  "outputArchiveBytes": 15086760,
+  "source": {
+    "images": 399,
+    "annotations": 869,
+    "splits": {
+      "train": 279,
+      "valid": 81,
+      "test": 39
+    },
+    "classCounts": {
+      "darkcircle": 382,
+      "eyebag": 487
+    }
+  },
+  "output": {
+    "images": 399,
+    "annotations": 869,
+    "splits": {
+      "train": 284,
+      "valid": 77,
+      "test": 38
+    },
+    "classCounts": {
+      "darkcircle": 382,
+      "eyebag": 487
+    }
+  },
+  "reviewedCrossSplitGroups": 4,
+  "movedImages": 5,
+  "imageBytesChanged": 0,
+  "annotationPayloadsChanged": 0,
+  "personIndependent": false,
+  "expertReviewed": false,
+  "trainingAuthorized": false,
+  "activationAllowed": false,
+  "limitations": [
+    "Grouping covers only four assistant-reviewed same-source-photo groups.",
+    "The split is not person-independent and is not an independent camera cohort.",
+    "The new output SHA256 is not the previously authorized archive SHA256.",
+    "This receipt does not authorize upload, training, activation or roadmap acceptance."
+  ]
+}

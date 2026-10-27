@@ -1,0 +1,29 @@
+{
+  "archiveUploadAuthorized": false,
+  "authorizedArchiveSHA256": "41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8",
+  "blockers": [
+    "candidate_archive_sha256_does_not_match_authorized_archive",
+    "grouped_project_is_empty",
+    "existing_upload_task_has_no_processed_bytes",
+    "grouped_import_counts_and_splits_not_verified",
+    "augmentation_free_grouped_version_not_verified",
+    "independent_camera_holdout_missing",
+    "working_product_integration_evidence_missing"
+  ],
+  "candidateArchiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
+  "decision": "blocked",
+  "exactArchiveAuthorized": false,
+  "existingUploadTaskReusable": true,
+  "methodVersion": "under-eye-grouped-release-gate-v2",
+  "productActivationAllowed": false,
+  "researchTrainingAuthorized": false,
+  "roadmapAccepted": false,
+  "schemaVersion": 1,
+  "testEvaluationAuthorized": false,
+  "versionGenerationAuthorized": false,
+  "observedAt": "2026-10-27T07:30:00Z",
+  "inputs": {
+    "reproduction": "docs/skin/evidence/under-eye-provider-v2-grouped-reproduction-20261027-v2.json",
+    "remoteState": "docs/skin/evidence/under-eye-provider-state-20261025-v2.json"
+  }
+}

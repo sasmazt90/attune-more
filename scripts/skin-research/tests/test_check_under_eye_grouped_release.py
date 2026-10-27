@@ -13,11 +13,11 @@ SPEC.loader.exec_module(MODULE)
 
 def reproduction(sha="a" * 64):
     return {
-        "methodVersion": "under-eye-grouped-archive-v1",
+        "methodVersion": "under-eye-grouped-archive-v2",
         "source": dict(MODULE.EXPECTED_SOURCE),
         "output": dict(MODULE.EXPECTED_GROUPED),
-        "reviewedCrossSplitGroups": 3,
-        "movedImages": 4,
+        "reviewedCrossSplitGroups": 4,
+        "movedImages": 5,
         "imageBytesChanged": 0,
         "annotationPayloadsChanged": 0,
         "outputArchiveSHA256": sha,
@@ -72,7 +72,7 @@ class UnderEyeGroupedReleaseGateTest(unittest.TestCase):
             "importedDataset": dict(MODULE.EXPECTED_GROUPED),
             "generatedVersion": {
                 "ready": True,
-                "splits": {"train": 283, "valid": 78, "test": 38},
+                "splits": {"train": 284, "valid": 77, "test": 38},
                 "augmentation": {},
             },
         }

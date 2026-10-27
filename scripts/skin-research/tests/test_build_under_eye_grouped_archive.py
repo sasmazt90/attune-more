@@ -126,6 +126,24 @@ class BuildUnderEyeGroupedArchiveTest(unittest.TestCase):
         with self.assertRaisesRegex(MODULE.ArchiveValidationError, "invalid polygon"):
             MODULE.build_grouped_archive(invalid, review, self.tmp_path / "out.zip", expected=EXPECTED)
 
+    def test_accepts_privacy_safe_image_sha_groups(self):
+        source, _ = _fixture(self.tmp_path)
+        with zipfile.ZipFile(source) as archive:
+            members = [
+                "train/abc-pair_left.jpg.rf.aaaaaaaaaaaaaaaa.jpg",
+                "valid/abc-pair_right.jpg.rf.bbbbbbbbbbbbbbbb.jpg",
+            ]
+            image_sha = [MODULE._sha256_bytes(archive.read(member)) for member in members]
+        review = self.tmp_path / "sha-review.json"
+        review.write_text(json.dumps({
+            "reviewedImageSHA256Groups": [{"imageSHA256": image_sha}]
+        }))
+        receipt = MODULE.build_grouped_archive(
+            source, review, self.tmp_path / "sha-out.zip", expected=EXPECTED
+        )
+        self.assertEqual(receipt["reviewedCrossSplitGroups"], 1)
+        self.assertEqual(receipt["output"]["splits"], {"train": 2, "valid": 0, "test": 1})
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -25,7 +25,7 @@ EXPECTED_SOURCE = {
 EXPECTED_GROUPED = {
     "images": 399,
     "annotations": 869,
-    "splits": {"train": 283, "valid": 78, "test": 38},
+    "splits": {"train": 284, "valid": 77, "test": 38},
     "classCounts": {"darkcircle": 382, "eyebag": 487},
 }
 
@@ -47,11 +47,11 @@ def evaluate_release(
 ) -> dict[str, Any]:
     """Return operation-level authorization without mutating either system."""
 
-    if reproduction.get("methodVersion") != "under-eye-grouped-archive-v1":
+    if reproduction.get("methodVersion") != "under-eye-grouped-archive-v2":
         raise GateInputError("unexpected reproduction method")
     _exact_mapping(reproduction.get("source"), EXPECTED_SOURCE, "source export")
     _exact_mapping(reproduction.get("output"), EXPECTED_GROUPED, "grouped output")
-    if reproduction.get("reviewedCrossSplitGroups") != 3 or reproduction.get("movedImages") != 4:
+    if reproduction.get("reviewedCrossSplitGroups") != 4 or reproduction.get("movedImages") != 5:
         raise GateInputError("reviewed source-photo grouping contract changed")
     if reproduction.get("imageBytesChanged") != 0:
         raise GateInputError("image bytes changed")
@@ -120,7 +120,7 @@ def evaluate_release(
 
     return {
         "schemaVersion": 1,
-        "methodVersion": "under-eye-grouped-release-gate-v1",
+        "methodVersion": "under-eye-grouped-release-gate-v2",
         "authorizedArchiveSHA256": authorized_archive_sha256,
         "candidateArchiveSHA256": candidate_sha,
         "exactArchiveAuthorized": exact_archive_authorized,

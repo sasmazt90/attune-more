@@ -32,9 +32,9 @@ PRODUCTION_EXPECTED = {
     "annotations": 869,
     "splits": {"train": 279, "valid": 81, "test": 39},
     "classes": {"darkcircle": 382, "eyebag": 487},
-    "reviewed_cross_split_pairs": 3,
-    "moved_images": 4,
-    "output_splits": {"train": 283, "valid": 78, "test": 38},
+    "reviewed_cross_split_pairs": 4,
+    "moved_images": 5,
+    "output_splits": {"train": 284, "valid": 77, "test": 38},
 }
 
 
@@ -102,7 +102,9 @@ def _load_source(
     return datasets, images, extras
 
 
-def _reviewed_groups(review: dict[str, Any]) -> list[set[str]]:
+def _reviewed_groups(
+    review: dict[str, Any], image_sha_to_canonical: dict[str, str]
+) -> list[set[str]]:
     groups: list[set[str]] = []
     for item in review.get("reviewedSourcePhotoPairs", []):
         if item.get("crossSplit") is not True:
@@ -113,6 +115,19 @@ def _reviewed_groups(review: dict[str, Any]) -> list[set[str]]:
         canonical = {_canonical_name(str(member)) for member in members}
         if len(canonical) != len(members):
             raise ArchiveValidationError("duplicate member in reviewed group")
+        groups.append(canonical)
+    for item in review.get("reviewedImageSHA256Groups", []):
+        members = item.get("imageSHA256")
+        if not isinstance(members, list) or len(members) < 2:
+            raise ArchiveValidationError("reviewed SHA256 group needs at least two members")
+        if len(set(members)) != len(members):
+            raise ArchiveValidationError("duplicate member in reviewed SHA256 group")
+        try:
+            canonical = {image_sha_to_canonical[str(member)] for member in members}
+        except KeyError as exc:
+            raise ArchiveValidationError("reviewed SHA256 member not present in provider export") from exc
+        if len(canonical) != len(members):
+            raise ArchiveValidationError("reviewed SHA256 group resolves to duplicate images")
         groups.append(canonical)
     if not groups:
         raise ArchiveValidationError("no reviewed cross-split source-photo groups")
@@ -146,10 +161,6 @@ def build_grouped_archive(
 
     datasets, image_bytes, extras = _load_source(source_path)
     review = json.loads(review_path.read_text(encoding="utf-8"))
-    groups = _reviewed_groups(review)
-    if len(groups) != expected["reviewed_cross_split_pairs"]:
-        raise ArchiveValidationError("unexpected reviewed cross-split group count")
-
     category_maps: dict[str, dict[int, str]] = {}
     source_records: list[dict[str, Any]] = []
     class_counts: Counter[str] = Counter()
@@ -198,6 +209,15 @@ def build_grouped_archive(
         raise ArchiveValidationError("source class counts differ from the pinned contract")
 
     by_canonical = {record["canonical"]: record for record in source_records}
+    image_sha_to_canonical: dict[str, str] = {}
+    for record in source_records:
+        image_sha = _sha256_bytes(record["bytes"])
+        if image_sha in image_sha_to_canonical:
+            raise ArchiveValidationError("duplicate image bytes require explicit disambiguation")
+        image_sha_to_canonical[image_sha] = record["canonical"]
+    groups = _reviewed_groups(review, image_sha_to_canonical)
+    if len(groups) != expected["reviewed_cross_split_pairs"]:
+        raise ArchiveValidationError("unexpected reviewed cross-split group count")
     moved: set[str] = set()
     for group in groups:
         missing = group - set(by_canonical)
@@ -271,7 +291,7 @@ def build_grouped_archive(
 
     return {
         "schemaVersion": 1,
-        "methodVersion": "under-eye-grouped-archive-v1",
+        "methodVersion": "under-eye-grouped-archive-v2",
         "sourceArchiveSHA256": source_sha,
         "outputArchiveSHA256": _sha256_file(output_path),
         "outputArchiveBytes": output_path.stat().st_size,
@@ -296,7 +316,7 @@ def build_grouped_archive(
         "trainingAuthorized": False,
         "activationAllowed": False,
         "limitations": [
-            "Grouping covers only three manually reviewed source-photo pairs.",
+            "Grouping covers only four assistant-reviewed source-photo pairs.",
             "The split is not person-independent and is not an independent camera cohort.",
             "This receipt does not authorize upload, training, activation, or roadmap acceptance.",
         ],

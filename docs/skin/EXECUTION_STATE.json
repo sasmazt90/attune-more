@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-27",
-      "lastCheckedAt": "2026-10-27T06:00:00Z",
+      "lastCheckedAt": "2026-10-27T07:30:00Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -487,7 +487,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-27T06:00:00Z",
+      "lastCheckedAt": "2026-10-27T07:30:00Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -512,40 +512,41 @@
         "exportArchiveSHA256": "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99",
         "trainingStarted": false,
         "activationAllowed": false,
-        "evidence": "docs/skin/evidence/under-eye-provider-v2-grouped-reproduction-20261025-v1.json",
+        "evidence": "docs/skin/evidence/under-eye-provider-v2-grouped-reproduction-20261027-v2.json",
         "providerStateEvidence": "docs/skin/evidence/under-eye-provider-state-20261025-v2.json"
       },
       "groupedSource": {
-        "methodVersion": "under-eye-source-photo-split-v1",
-        "sourceArchiveSHA256": "3c5f800e2460c6388a3a2755050484b82d619052bedbc6eef153641d8d647b6d",
-        "derivedArchiveSHA256": "41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8",
+        "methodVersion": "under-eye-source-photo-review-v2",
+        "sourceArchiveSHA256": "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99",
+        "derivedArchiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
         "images": 399,
         "annotations": 869,
         "splits": {
-          "train": 283,
-          "valid": 78,
+          "train": 284,
+          "valid": 77,
           "test": 38
         },
-        "reviewedSourcePhotoPairs": 8,
-        "crossSplitSourcePhotoPairs": 3,
-        "recordsMovedToTrain": 4,
+        "reviewedSourcePhotoPairs": 4,
+        "crossSplitSourcePhotoPairs": 4,
+        "recordsMovedToTrain": 5,
         "explicitPairCrossSplitAfterBuild": 0,
         "geometryIssuesAfterBuild": 0,
         "personIndependent": false,
         "expertReviewed": false,
         "cameraAccepted": false,
         "remoteVersionCreated": false,
-        "evidence": "docs/skin/evidence/under-eye-group-split-20261023-v1.json",
+        "evidence": "docs/skin/evidence/under-eye-source-photo-review-20261027-v2.json",
+        "fullCrossSplitAudit": "docs/skin/evidence/under-eye-source-group-audit-20261027-v1.json",
         "providerReproduction": {
-          "methodVersion": "under-eye-grouped-archive-v1",
+          "methodVersion": "under-eye-grouped-archive-v2",
           "providerVersion": 2,
           "sourceExportSHA256": "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99",
-          "derivedArchiveSHA256": "9ef3c36e16ce5ae84ff52d527f82f15e5f9fcbaf63f0a6f6720388339133d6fc",
+          "derivedArchiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
           "images": 399,
           "annotations": 869,
           "splits": {
-            "train": 283,
-            "valid": 78,
+            "train": 284,
+            "valid": 77,
             "test": 38
           },
           "imageBytesChanged": 0,
@@ -553,7 +554,7 @@
           "matchesPreviouslyAuthorizedSHA256": false,
           "uploadAttempted": false,
           "trainingAuthorized": false,
-          "evidence": "docs/skin/evidence/under-eye-provider-v2-grouped-reproduction-20261025-v1.json"
+          "evidence": "docs/skin/evidence/under-eye-provider-v2-grouped-reproduction-20261027-v2.json"
         }
       },
       "externalUngroupedTraining": {
@@ -590,20 +591,22 @@
         "uploadProgress": null,
         "bytesSent": false,
         "trainingStarted": false,
-        "lastObservedAt": "2026-10-27T02:26:31Z",
+        "lastObservedAt": "2026-10-27T07:30:00Z",
         "evidence": "docs/skin/evidence/under-eye-grouped-project-20261023-v1.json"
       },
       "groupedReleaseGate": {
-        "methodVersion": "under-eye-grouped-release-gate-v1",
+        "methodVersion": "under-eye-grouped-release-gate-v2",
         "authorizedArchiveSHA256": "41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8",
-        "candidateArchiveSHA256": "9ef3c36e16ce5ae84ff52d527f82f15e5f9fcbaf63f0a6f6720388339133d6fc",
+        "candidateArchiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
+        "latestCandidateArchiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
+        "latestCandidateReleaseGateReplayed": true,
         "existingUploadTaskReusable": true,
         "archiveUploadAuthorized": false,
         "versionGenerationAuthorized": false,
         "researchTrainingAuthorized": false,
         "testEvaluationAuthorized": false,
         "productActivationAllowed": false,
-        "evidence": "docs/skin/evidence/under-eye-grouped-release-gate-20261025-v1.json"
+        "evidence": "docs/skin/evidence/under-eye-grouped-release-gate-20261027-v2.json"
       },
       "perClassReleaseGate": {
         "observedAt": "2026-10-26T11:43:07Z",
@@ -696,7 +699,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-27T06:00:00Z",
+      "lastCheckedAt": "2026-10-27T07:30:00Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -937,7 +940,7 @@
     },
     "regionalSkinTypeBoxes": {
       "observedAt": "2026-10-24T23:19:50Z",
-      "lastCheckedAt": "2026-10-26T04:30:14Z",
+      "lastCheckedAt": "2026-10-27T07:30:00Z",
       "project": "tolgar-sasmaz/attune-skin-type-regional-r1",
       "projectVisibility": "public",
       "projectSummaryImages": 991,
@@ -2066,6 +2069,11 @@
         "scripts/skin-research/tests/test_build_regional_mask_expert_protocol.py",
         "scripts/skin-research/build_under_eye_grouped_archive.py",
         "scripts/skin-research/tests/test_build_under_eye_grouped_archive.py",
+        "scripts/skin-research/audit_under_eye_source_groups.py",
+        "scripts/skin-research/tests/test_audit_under_eye_source_groups.py",
+        "docs/skin/evidence/under-eye-source-group-audit-20261027-v1.json",
+        "docs/skin/evidence/under-eye-source-photo-review-20261027-v2.json",
+        "docs/skin/evidence/under-eye-provider-v2-grouped-reproduction-20261027-v2.json",
         "docs/skin/evidence/under-eye-provider-v2-grouped-reproduction-20261025-v1.json",
         "docs/skin/under-eye-provider-v2-grouped-reproduction-20261025.md",
         "docs/skin/evidence/current-product-skin-contract-recheck-20261025-v1.json",
@@ -2073,6 +2081,9 @@
         "scripts/skin-research/check_under_eye_grouped_release.py",
         "scripts/skin-research/tests/test_check_under_eye_grouped_release.py",
         "docs/skin/evidence/under-eye-grouped-release-gate-20261025-v1.json",
+        "docs/skin/evidence/under-eye-grouped-release-gate-20261027-v2.json",
+        "docs/skin/evidence/under-eye-grouped-release-gate-20261027-v2.json",
+        "docs/skin/evidence/under-eye-grouped-release-gate-20261027-v2.json",
         "scripts/skin-research/check_source_mapping_release.py",
         "scripts/skin-research/tests/test_check_source_mapping_release.py",
         "docs/skin/evidence/source-mapping-release-receipt-20261025-v1.json",
@@ -2666,6 +2677,11 @@
         "scripts/skin-research/tests/test_provider_finished_training_receipts.py",
         "scripts/skin-research/build_under_eye_grouped_archive.py",
         "scripts/skin-research/tests/test_build_under_eye_grouped_archive.py",
+        "scripts/skin-research/audit_under_eye_source_groups.py",
+        "scripts/skin-research/tests/test_audit_under_eye_source_groups.py",
+        "docs/skin/evidence/under-eye-source-group-audit-20261027-v1.json",
+        "docs/skin/evidence/under-eye-source-photo-review-20261027-v2.json",
+        "docs/skin/evidence/under-eye-provider-v2-grouped-reproduction-20261027-v2.json",
         "docs/skin/evidence/under-eye-provider-v2-grouped-reproduction-20261025-v1.json",
         "docs/skin/under-eye-provider-v2-grouped-reproduction-20261025.md",
         "docs/skin/evidence/under-eye-provider-state-20261025-v2.json",
@@ -2681,8 +2697,8 @@
         "docs/skin/evidence/under-eye-per-class-release-gate-v2-ci-20261026-v1.json"
       ],
       "blockers": [
-        "The grouped research project remains empty and upload task sLFwX7CYBVcnnD6iAW5o still has no bytes. Augmentation-free pilot v2 and its 399-image/869-polygon COCO export are now SHA-pinned; the deterministic builder reproduces 283/78/38 with zero image-byte or annotation-payload changes. The reproduced ZIP SHA differs from the previously authorized exact archive SHA, so it was not uploaded. Do not create another project/task or bypass the exact-SHA policy. The executable under-eye-grouped-release-gate-v1 now enforces this boundary and keeps upload, version generation, research training, test evaluation and activation false on the current receipts.",
-        "An external RF-DETR Seg Small model was trained on ungrouped pilot v1 (952 generated images from 399 originals). At validation-selected threshold 0.32, darkcircle test precision/recall/F1 is 0.500/0.610/0.549. The source archive has three known cross-split source-photo pairs, provider test panels were already exposed, and camera/integration evidence is absent; this model is rejected and cannot substitute for the empty grouped project.",
+        "The grouped research project remains empty and upload task sLFwX7CYBVcnnD6iAW5o still has no bytes. A full 36,639-pair cross-split audit plus private review of the nearest 20 candidates found one additional same-source-photo train/validation pair beyond the three filename-supported groups. The privacy-safe v2 review now covers four groups, and the deterministic builder preserves all 399 images/869 polygons while producing 284/77/38 at SHA256 8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122. This still does not establish person independence, and the new ZIP is not the previously authorized exact archive; it was not uploaded. Grouped release gate v2 was replayed and blocks upload, version generation, research training, test evaluation and activation. Do not create another project/task or bypass the exact-SHA policy.",
+        "An external RF-DETR Seg Small model was trained on ungrouped pilot v1 (952 generated images from 399 originals). At validation-selected threshold 0.32, darkcircle test precision/recall/F1 is 0.500/0.610/0.549. The full audit now confirms four known cross-split source-photo groups, provider test panels were already exposed, and camera/integration evidence is absent; this model is rejected and cannot substitute for the empty grouped project.",
         "The executable per-class under-eye gate preserves the functioning dark appearance heading but keeps darkcircle independently blocked. It forbids collapsing darkcircle with eyebag, interpreting missing labels as negatives, inferring a medical cause, or promoting model proposals to expert truth. Exact grouped import/version authorization, rights, expert per-class truth, person-independent splits, a new untouched final test, physical-camera skin-tone/lighting/pose slices, integration and unavailable/history controls remain required."
       ]
     },
@@ -2702,6 +2718,11 @@
         "scripts/skin-research/tests/test_provider_finished_training_receipts.py",
         "scripts/skin-research/build_under_eye_grouped_archive.py",
         "scripts/skin-research/tests/test_build_under_eye_grouped_archive.py",
+        "scripts/skin-research/audit_under_eye_source_groups.py",
+        "scripts/skin-research/tests/test_audit_under_eye_source_groups.py",
+        "docs/skin/evidence/under-eye-source-group-audit-20261027-v1.json",
+        "docs/skin/evidence/under-eye-source-photo-review-20261027-v2.json",
+        "docs/skin/evidence/under-eye-provider-v2-grouped-reproduction-20261027-v2.json",
         "docs/skin/evidence/under-eye-provider-v2-grouped-reproduction-20261025-v1.json",
         "docs/skin/under-eye-provider-v2-grouped-reproduction-20261025.md",
         "docs/skin/evidence/under-eye-provider-state-20261025-v2.json",
@@ -2717,8 +2738,8 @@
         "docs/skin/evidence/under-eye-per-class-release-gate-v2-ci-20261026-v1.json"
       ],
       "blockers": [
-        "The grouped research project remains empty and upload task sLFwX7CYBVcnnD6iAW5o still has no bytes. Augmentation-free pilot v2 and its 399-image/869-polygon COCO export are now SHA-pinned; the deterministic builder reproduces 283/78/38 with zero image-byte or annotation-payload changes. The reproduced ZIP SHA differs from the previously authorized exact archive SHA, so it was not uploaded. Do not create another project/task or bypass the exact-SHA policy. The executable under-eye-grouped-release-gate-v1 now enforces this boundary and keeps upload, version generation, research training, test evaluation and activation false on the current receipts.",
-        "An external RF-DETR Seg Small model was trained on ungrouped pilot v1 (952 generated images from 399 originals). At validation-selected threshold 0.49, eyebag test precision/recall/F1 is 0.697/0.479/0.568. The source archive has three known cross-split source-photo pairs, provider test panels were already exposed, and camera/integration evidence is absent; this model is rejected and cannot substitute for the empty grouped project.",
+        "The grouped research project remains empty and upload task sLFwX7CYBVcnnD6iAW5o still has no bytes. A full 36,639-pair cross-split audit plus private review of the nearest 20 candidates found one additional same-source-photo train/validation pair beyond the three filename-supported groups. The privacy-safe v2 review now covers four groups, and the deterministic builder preserves all 399 images/869 polygons while producing 284/77/38 at SHA256 8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122. This still does not establish person independence, and the new ZIP is not the previously authorized exact archive; it was not uploaded. Grouped release gate v2 was replayed and blocks upload, version generation, research training, test evaluation and activation. Do not create another project/task or bypass the exact-SHA policy.",
+        "An external RF-DETR Seg Small model was trained on ungrouped pilot v1 (952 generated images from 399 originals). At validation-selected threshold 0.49, eyebag test precision/recall/F1 is 0.697/0.479/0.568. The full audit now confirms four known cross-split source-photo groups, provider test panels were already exposed, and camera/integration evidence is absent; this model is rejected and cannot substitute for the empty grouped project.",
         "The executable per-class under-eye gate preserves the functioning bags appearance heading but keeps eyebag independently blocked. It forbids collapsing eyebag with darkcircle, interpreting missing labels as negatives, implying edema/fluid retention, or promoting model proposals to expert truth. Exact grouped import/version authorization, rights, expert per-class truth, person-independent splits, a new untouched final test, physical-camera skin-tone/lighting/pose slices, integration and unavailable/history controls remain required."
       ]
     },
@@ -3960,7 +3981,7 @@
     }
   },
   "nextActions": [
-    "Poll twenty-first GitHub Actions browser run 40456553840 and matching repository CI run 40456553849 for candidate commit 94065c2031963fb984849f7be70aa7a4239dfa86. Twentieth run 40454569315 produced only privacy-runtime-status.json and proved the privacy scenario completed the real scan and retained desktop/narrow replay before the native-200 section. The already passing history scenario uses the same headed Chrome geometry but guards Windows-only owned-window capture; privacy called that Windows helper unconditionally on Linux. The targeted fix uses the existing labelled Linux browser-compositor fallback, retains native zoom geometry assertions, changes no product code/model/threshold/acceptance rule and cannot be promoted to physical-camera evidence. On success, ingest only the five sanitized acceptance JSON files, bind exact commit/build/browser/history identities and replay scripts/skin-research/check_unified_skin_result_release.py v3. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not start duplicate Roboflow work.",
+    "Preserve passed real-Chromium controlled-fixture run 40456553840 and matching repository CI run 40456553849. The six sanitized artifacts bind one immutable build and prove API, six-region map, IndexedDB history, native-200 geometry, consent, retention and deletion integration only; they explicitly do not prove physical-camera capture, expert truth or accuracy. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not repeat the browser run or start duplicate Roboflow work.",
     "Preserve green GitHub Actions run 40297234134 and the functioning main /api/local-health/skin result flow. When consented physical-camera manifest, adjudicated expert truth and locked capture/localization receipts exist, run both evaluators and scripts/skin-research/check_physical_camera_acceptance.py with a per-class policy locked before camera_final and a real /api/local-health/skin replay. Do not mark the roadmap complete until every class and real camera/browser/map/history/privacy gate passes.",
     "After a consented physical-camera manifest exists, collect the private matrix defined by docs/skin/evidence/physical-camera-expert-review-input-template-20261026-v1.json and run scripts/skin-research/build_physical_camera_expert_truth.py. Every activated class on every capture needs exactly two independent qualified human reviews; discordant decision or polygon truth needs an independent third expert. Keep positive localized polygons normalized, model proposals hidden, missing truth distinct from evaluated negative, unknown/unassessable distinct from Normal, and Redness independent from sensitivity. Do not commit reviewer identity, image bytes or raw private fields.",
     "For consented physical-camera acceptance, populate the private input shape in docs/skin/evidence/physical-camera-benchmark-manifest-input-template-20261026-v1.json outside Git, then run scripts/skin-research/build_physical_camera_benchmark_manifest.py. The builder accepts only opaque subject/capture/consent/quality references, immutable SHA-256 hashes, exact FRONT/LEFT/RIGHT physical-camera triplets, a passed capture-quality gate and a locked camera_final split unused by training, validation or threshold selection. It rejects paths, names, contact fields, image bytes, generated inputs, predictions and expert labels. Keep expert per-class truth separate and human-authored; the manifest alone does not satisfy camera acceptance.",
@@ -3982,7 +4003,7 @@
     "Use docs/skin/evidence/acne-improvement-release-gate-20261025-v1.json as the fail-closed guard for the next acne experiment. Complete the 81-item expert semantic/hard-negative review, full 800-record source/person grouping, a re-audited group-locked replacement split and a new untouched final holdout first. Then propose exactly one validation-only change: face-aligned single ROI or higher effective resolution. Do not repeat arbitrary four-corner tiling, tune on the exposed test, start blind retraining or activate the rejected model.",
     "Do not integrate or retrain the externally finished acne model 49ee6204cf069198bbfa / rfdetr-small-t2. At validation-selected thresholds, test F1 is Pigmentation 0.077, Pimple 0.289 and Post acne 0.322; source/person independence, expert label policy, untouched final test, camera and integration evidence all fail closed. Improve the recorded data and resolution problem before any new version.",
     "Keep externally finished regional model af287a006e2e428f5ce4 / rfdetr-seg-small-t2 research-only. At validation-selected thresholds, test F1 is Oily 0.475 and Redness 0.581, but the 30-image test was already exposed, source independence is unestablished, and Dry/Normal/combination plus camera/integration evidence are absent. Preserve Redness as an independent red layer and keep the accepted registry empty.",
-    "Keep externally finished under-eye pilot d194569acd3ebe7cf8b7 / rfdetr-seg-small-t1 research-only. Its version has 952 generated images from the ungrouped 399-image source and the source audit already found three cross-split source-photo pairs. At validation-selected thresholds test F1 is darkcircle 0.549 and eyebag 0.568, but this is not person-independent or untouched-final-test evidence. Continue only with the empty grouped research project and SHA-pinned 283/78/38 archive path.",
+    "Keep externally finished under-eye pilot d194569acd3ebe7cf8b7 / rfdetr-seg-small-t1 research-only. Its version has 952 generated images from the ungrouped 399-image source and the full audit now confirms four cross-split same-source-photo groups. At validation-selected thresholds test F1 is darkcircle 0.549 and eyebag 0.568, but this is not person-independent or untouched-final-test evidence. Continue only with the empty grouped research project and the privacy-safe v2 284/77/38 candidate path after its exact release gate is updated and replayed.",
     "Keep tolgar-sasmaz/attune-skin-type-regional-r1 v2 research-only and do not retrain or activate it. Privacy-safe review confirmed one train/test source-person group spanning four nominal source IDs, while 986 source IDs still lack complete reviewed identity coverage. The export also has dry/oily boxes only, zero polygons, no normal class and an exposed test. Obtain rights-reviewed expert regional polygons for normal/dry/oily, person-grouped splits and a new untouched final test before training or mixed-skin inference.",
     "For tasks 01–03, all 227 image/name-similarity pairs at the current review thresholds are resolved. Every similarity method, including the central gradient pHash, is candidate-only and does not establish full identity coverage. The proposal now confirms 16 cross-split source/person groups covering 37 records, but 729 singleton records still lack reviewed provenance/person identity; do not treat singleton assignment as truth. Use the separate 81-item semantic queue for expert class/hard-negative policy, preserve all 82 test records, then convert only fully reviewed groups into the group-coverage receipt and re-run the split-release gate before generating any version.",
     "Run the now-wired skin presentation and current-merged capability regressions through PR/main CI or a normal dependency-materialized workspace, then complete real-browser and consented physical-camera acceptance. Preserve the verified working baseline (nine appearance criteria, separate skin type and regional outputs) while Post acne and Pigmentation remain additive gated headings.",
@@ -3996,14 +4017,14 @@
     "Task 12 appearance-only semantics and the frontend rejection gate are implemented; do not rebuild or rename the contour/fold proxy as elasticity or clinical severity. Next obtain consented same-person compatible capture pairs plus expert localized truth, then evaluate pose/expression robustness before any learned segmentation or directional improvement claim.",
     "Task 08 product semantics are implemented; do not derive Post acne or Pigmentation from the tone proxy and do not rebuild the twelve-heading contract. Improve the localized detector/data problem first, then activate only an accepted immutable model/evidence triple. When accepted local masks exist, exclude their support from the broad tone sampling and validate co-reporting on an independent camera set.",
     "For task 11, replay scripts/skin-research/check_wrinkle_release.py with the pinned external receipts and docs/skin/evidence/wrinkle-per-class-release-receipt-20261026-v1.json before any training, final-test use or activation. The v2 gate permanently rejects post-hoc rehabilitation of skin_face_detection-emora (crows_feet diagnostic test F1 0.017, mAP50 0.0010), keeps wrinkles-79rrf-t7kyp diagnostic-only, and requires a distinct future candidate. Complete exact selected-source identity and rights, expert per-class positive/negative/ambiguity truth, source/person grouping, pose/expression protocol, policy locked before validation, a new untouched final test, physical-camera acceptance and working-product controls. Keep crows_feet primary; activate any other wrinkle class only when its own labels and every class-specific gate pass.",
-    "The private grouped under-eye project tolgar-sasmaz/attune-skin-under-eye-grouped-research remains empty and upload task sLFwX7CYBVcnnD6iAW5o remains created with no bytes. Augmentation-free provider v2 is now frozen at export SHA256 6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99, and the deterministic builder reproduces 399 images/869 polygons at 283/78/38 without changing image bytes or annotation payloads. Its ZIP SHA256 9ef3c36e16ce5ae84ff52d527f82f15e5f9fcbaf63f0a6f6720388339133d6fc differs from the previously authorized exact SHA256 41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8, so it was not uploaded. Do not create another upload task, upload either archive without the exact pinned policy match, or train the ungrouped version. Replay docs/skin/evidence/under-eye-grouped-release-gate-20261025-v1.json before any upload/version/training action; the current gate blocks all three.",
+    "The private grouped under-eye project tolgar-sasmaz/attune-skin-under-eye-grouped-research remains empty and upload task sLFwX7CYBVcnnD6iAW5o remains created with no bytes. The full 36,639-pair cross-split audit and private review of its nearest 20 candidates confirmed one additional same-source-photo group, for four reviewed groups total. The privacy-safe v2 builder preserves all 399 images/869 polygons and now produces 284/77/38 at SHA256 8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122 with zero image-byte or annotation-payload changes. Grouped release gate v2 was replayed and blocks the candidate because it is not person-independent and does not match the previously authorized exact archive SHA; nothing was uploaded. Do not create another upload task or train the ungrouped version. Obtain full person/source review, rights, expert per-class truth, a new untouched final test and consented camera reservations before seeking a new exact upload authorization.",
     "Use the saved Merve v12 responses only: the original single face plus the six generated FRONT inputs now have immutable inference receipts, so do not repeat them. At 50%, 207/224 (92.4%) of the generated-set proposals are hidden versus the 8% floor, but correctness and Precision/Recall/F1 remain unknown without expert object-level truth. Next add expert-labelled positives/negatives and consented real-camera subjects, select per-class thresholds on validation, and keep pul separate from regional dryness truth.",
     "Source-pair acquisition is complete for FACEv3/v4,Rednessv2,Drynessv1; do not repeat downloads/audits unchanged. Use the pinned private120pairbundle and persistedfullaudit, with review-manifest provenance. FACEv3 is preferred over augmentedv4. 700Dryness/45Redness images exactly match existing sources; never count these as newly acquired coverage. All source labels and rights acceptance remain pending; no automatic merge or retraining.",
     "The source-bound regional SVG layer, categorical history, retained-photo replay and IndexedDB storage gate are implemented; do not rebuild them. Run the committed app and tests in an environment with frontend dependencies, Python Playwright and Chromium, then replay a consented retained FRONT photo through overview/every region at narrow and wide viewport sizes, verify record selection and incompatible-method exclusion, and capture screenshots. Keep source normal labels behind the empty accepted regional-method registry.",
     "Regional training 3485f8c67f957a1b850d is finished; candidate 2c07ef has complete 63 validation / 30 test mask evaluation and lossless inference receipts. Do not duplicate training, inference or refit thresholds on the exposed source test. Reassemble the two pinned evidence bundles from index files before replay.",
     "Roboflow reports 75 group records but only 74 distinct model IDs; duplicate e79545 has conflicting candidate/baseline metadata. Preserve raw records and compare by immutable model package. Evaluated 2c07ef resolves to e1688c2c8447af39e51ce60dd8c7f1d0; no recommendation/hardware winner claim.",
     "Improve oil source coverage and anatomical face scope on validation before a targeted data or model change. Redness union overlap is promising but requires independent camera calibration and reviewed negative/normal support. Do not clip test masks post hoc or turn missing masks into normal skin. Keep accepted-regional-method registry empty.",
-    "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
+    "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb, history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a and passed controlled-fixture real-Chromium run 40456553840. Browser integration acceptance is complete for the controlled fixture; consented physical-camera, adjudicated expert truth, per-class accuracy and final-roadmap acceptance remain pending."
   ],
   "executionLog": [
     {
@@ -6605,6 +6626,22 @@
           "backend": "success"
         }
       ]
+    },
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T07:30:00Z",
+      "action": "Read the persistent checkpoint first from remote blob a8ff0bdd2626cbd54c7110a247e14f11123890fd and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye versions and trainings, the empty grouped under-eye project and upload task sLFwX7CYBVcnnD6iAW5o. Known acne/regional trainings remain finished, under-eye pilot v2 still has no training, the grouped project remains empty and the existing task remains created/no-progress; no duplicate training, upload, version, inference or threshold mutation was started. Re-exported the exact augmentation-free provider v2 COCO archive and verified its pinned SHA256 6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99. A new privacy-safe full audit compared all 36,639 cross-split image pairs: zero exact-byte, normalized-pixel or tight dHash+pHash matches, but private review of the nearest 20 candidates confirmed one additional same-source-photo train/validation pair that the filename rule missed. Replaced raw-name grouping input with four content-SHA-bound reviewed groups and rebuilt deterministically to 284/77/38 at SHA256 8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122, preserving all 399 images, 869 polygons, image bytes and annotation payloads. Grouped release gate v2 was replayed and blocks the new candidate because it is not person-independent and does not match the previously authorized archive SHA; nothing was uploaded and no training was started. Thirteen focused tests and all 296 skin-research tests passed.",
+      "report": "docs/skin/evidence/under-eye-source-group-audit-20261027-v1.json",
+      "evidence": [
+        "docs/skin/evidence/under-eye-source-photo-review-20261027-v2.json",
+        "docs/skin/evidence/under-eye-provider-v2-grouped-reproduction-20261027-v2.json",
+        "docs/skin/evidence/under-eye-grouped-release-gate-20261027-v2.json"
+      ],
+      "tests": {
+        "focused": 13,
+        "skinResearch": 296,
+        "result": "OK"
+      }
     }
   ]
 }

@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "under-eye-source-group-audit-v1",
+  "source": {
+    "archiveSHA256": "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99",
+    "exportFormat": "coco"
+  },
+  "privacy": {
+    "rawFileNamesPersisted": false,
+    "rawSourceNamesPersisted": false,
+    "rawImagesPersisted": false,
+    "privateResolverCommitted": false,
+    "identifierMethod": "salted-sha256-prefix-24"
+  },
+  "inventory": {
+    "images": 399,
+    "splits": {
+      "train": 279,
+      "valid": 81,
+      "test": 39
+    },
+    "crossSplitRecordComparisons": 36639,
+    "explicitCompleteSourcePhotoPairs": 8,
+    "explicitCrossSplitSourcePhotoPairs": 3,
+    "exactByteMatches": 0,
+    "exactNormalizedPixelMatches": 0,
+    "tightPerceptualThresholdMatches": 0
+  },
+  "method": {
+    "comparisonScope": "all cross-split image pairs",
+    "dHashBits": 64,
+    "dHashMaximumDistance": 8,
+    "pHashBits": 63,
+    "pHashMaximumDistance": 12,
+    "perceptualRule": "dHash and pHash thresholds must both pass",
+    "rankedReviewQueueSize": 20,
+    "candidateOnly": true
+  },
+  "privateReview": {
+    "reviewerType": "assistant_visual_review_not_expert",
+    "rankedCandidatesReviewed": 20,
+    "additionalSameSourcePhotoGroupsConfirmed": 1,
+    "otherCandidatesConfirmedSameSourcePhoto": 0,
+    "reviewReceipt": "docs/skin/evidence/under-eye-source-photo-review-20261027-v2.json"
+  },
+  "decision": {
+    "knownCrossSplitSourcePhotoGroups": 4,
+    "knownLeakageCanBeRegrouped": true,
+    "personIndependenceEstablished": false,
+    "trainingAuthorized": false,
+    "testEligibleForFinalAcceptance": false,
+    "reason": "The full image-pair scan found an additional same-source-photo group, but source-photo grouping and perceptual review cannot establish complete person identity coverage."
+  },
+  "limitations": [
+    "Zero exact or tight perceptual matches does not prove person independence.",
+    "Different photos of the same person can remain across splits.",
+    "Assistant visual review is not expert semantic or clinical review.",
+    "The source test is exposed and is not an independent Attune camera benchmark.",
+    "This audit does not authorize upload, training, activation or roadmap acceptance."
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "under-eye-source-photo-review-v2",
+  "sourceArchiveSHA256": "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99",
+  "reviewedImageSHA256Groups": [
+    {
+      "groupId": "under-eye-source-photo-01",
+      "imageSHA256": [
+        "1ce43452d99aac41e4aa6d6648da778d7fdc4deaea408028d179252021dedb65",
+        "c65a2dfbd2f2ce8d8320786f608835bcf79904a49d6a013f7d9f58c99dd53dc7"
+      ],
+      "sourceSplits": ["train", "valid"],
+      "reviewDecision": "same_source_photo"
+    },
+    {
+      "groupId": "under-eye-source-photo-02",
+      "imageSHA256": [
+        "da019568d48c458d0ae186a2d749505b36e6977a23e243ef193ab0a7edc0e5f7",
+        "88c5639fe8613642947d0922f0efecc574027305f4b82383c4079c474e0a1d27"
+      ],
+      "sourceSplits": ["train", "valid"],
+      "reviewDecision": "same_source_photo"
+    },
+    {
+      "groupId": "under-eye-source-photo-03",
+      "imageSHA256": [
+        "5a4781ad1c168337e325c2d479ec12259877d6405567cc7b5bb1cae67c31c704",
+        "50171f1ec6aff53ba694dac2e7f16efdaafbed430320f1be072070291ed9d6eb"
+      ],
+      "sourceSplits": ["valid", "test"],
+      "reviewDecision": "same_source_photo"
+    },
+    {
+      "groupId": "under-eye-source-photo-04",
+      "imageSHA256": [
+        "956ef7836fa44fef1a26560b190e1c0445899c6aba65b927c0dbac989fd1240a",
+        "d7b656de3310c46767797e73253c0f25e495c5869bfb639a4d3cf7447e748e54"
+      ],
+      "sourceSplits": ["train", "valid"],
+      "reviewDecision": "same_source_photo"
+    }
+  ],
+  "review": {
+    "reviewerType": "assistant_visual_review_not_expert",
+    "newCandidateSource": "all_cross_split_ranked_perceptual_audit",
+    "rankedCandidatesReviewed": 20,
+    "newSameSourcePhotoGroups": 1,
+    "rawFileNamesPersisted": false,
+    "rawImagesPersisted": false
+  },
+  "decision": {
+    "reviewedGroupsMayBeMovedWhollyToTrain": true,
+    "personIndependent": false,
+    "expertReviewed": false,
+    "trainingAuthorized": false,
+    "activationAllowed": false
+  },
+  "limitations": [
+    "The four groups cover only visually confirmed same-source-photo crops.",
+    "The review does not establish that different photos show different people.",
+    "The source test is exposed and is not an independent Attune camera benchmark.",
+    "This receipt does not authorize upload, training, activation or roadmap acceptance."
+  ]
+}
