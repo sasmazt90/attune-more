@@ -10,6 +10,9 @@ import { buildHistorySeries, emptyHistoryRecords, formatHistoryValue, historyTim
 import { HealthModuleIcon } from './HealthModuleIcon';
 import { AccessibleDialog } from './AccessibleDialog';
 import { CardCarousel } from './CardCarousel';
+import {HearingHistoryCards} from './hearing/HearingHistoryCards';
+import {HearingStoredResult} from './hearing/HearingStoredResult';
+import {previousHearingRecord} from '../utils/hearingResults';
 import Link from 'next/link';
 import { skinAverages, formatValue } from '../utils/skinHistorySummary';
 import { FINDING_DEFS, countUnit } from '../utils/skinFindings';
@@ -112,6 +115,9 @@ export function HealthHistoryOverview({ showStartActions = false, parked = true,
     void refresh(); window.addEventListener('attune-records', refresh); window.addEventListener('storage', refresh);
     return () => { disposed = true; version++; window.removeEventListener('attune-records', refresh); window.removeEventListener('storage', refresh); };
   }, []);
+  const [hearingId,setHearingId]=useState<string|null>(null);
+  const hearingRecord=records.hearing.find(r=>r.id===hearingId);
+  useEffect(()=>{if(hearingId&&(!parked||!records.hearing.some(r=>r.id===hearingId)))setHearingId(null);},[hearingId,parked,records.hearing]);
   const skinAvg = useMemo(() => skinAverages(records.skin as any), [records.skin]);
   const cards: { id: string; content: ReactNode }[] = HEALTH_MODULE_IDS.map(id => {
     const overview = moduleOverview(id, records[id]), selected = module === id;
@@ -121,6 +127,7 @@ export function HealthHistoryOverview({ showStartActions = false, parked = true,
         {id === 'skin' && skinAvg ? <SkinAverages avg={skinAvg} /> : <>
         <span className="mt-3 flex-1 text-sm leading-relaxed text-slate-300">{i18nNode(overview.text)}</span><span className="mt-3 text-xs text-slate-400">{i18nNode(overview.date !== null ? new Date(overview.date).toLocaleDateString(getLocale()) : overview.count ? 'Tarih kaydedilmemiş' : 'Kayıt yok')}</span></>}
       </button>
+      {id==='hearing'&&records.hearing.length>0&&<HearingHistoryCards records={records.hearing} parked={parked} onOpen={setHearingId}/>}
       {showStartActions && <div className="mx-4 mb-4 border-t border-white/10 pt-3">{parked || id === 'mental' ? <Link href={HEALTH_MODULES[id].route} className="inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-togg-turquoise px-3 text-xs font-semibold text-togg-darkBlue focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">{i18nNode(!parked ? 'Görüşmeyi görüntüle' : id === 'mental' ? 'Görüşmeyi başlat' : 'Kontrolü aç')}</Link> : <p className="py-3 text-center text-xs text-slate-500">{i18nText("Park halinde açılır")}</p>}</div>}
     </article> };
   });
@@ -128,6 +135,7 @@ export function HealthHistoryOverview({ showStartActions = false, parked = true,
   return <div data-health-history className="min-w-0">
     <CardCarousel label="Sağlık modülleri" items={cards}/>
     {error && <p role="alert" className="mt-3 text-sm text-amber-300">{i18nText("Bazı kayıtlar okunamadı; mevcut veriler değiştirilmedi.")}</p>}
+    {hearingRecord&&parked&&<AccessibleDialog title={i18nText('İşitme sonucu')} onClose={()=>setHearingId(null)} className="w-full max-w-4xl rounded-2xl border border-white/20 bg-cockpit-surface p-5 space-y-4"><div className="flex items-center justify-between gap-3"><div><h2>{i18nText('İşitme sonucu')}</h2>{historyTime(hearingRecord)!==null&&<time className="text-xs text-slate-400">{datetime(historyTime(hearingRecord)!)}</time>}</div><button type="button" className="min-h-11 min-w-11 rounded-xl border border-white/20" aria-label={i18nText('Sonuç penceresini kapat')} onClick={()=>setHearingId(null)}>✕</button></div><HearingStoredResult key={hearingRecord.id} record={hearingRecord} previous={previousHearingRecord(hearingRecord,records.hearing)}/></AccessibleDialog>}
     {module && <AccessibleDialog title={i18nText(`${HEALTH_MODULES[module].name} geçmiş grafikleri`)} onClose={() => setModule(null)} className="w-full max-w-4xl rounded-2xl border border-white/20 bg-cockpit-surface p-4 space-y-3">
       <div data-health-history className="space-y-3">
         <div className="flex items-center justify-between gap-3"><label className="min-w-0 text-xs text-slate-400">{i18nText("Sağlık modülü")}<select className={selectClass} value={module} onChange={e => setModule(e.target.value as HealthModule)}>{HEALTH_MODULE_IDS.map(id => <option key={id} value={id}>{i18nNode(HEALTH_MODULES[id].name)}</option>)}</select></label><button type="button" aria-label={i18nText("Grafik penceresini kapat")} onClick={() => setModule(null)} className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 text-slate-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-togg-turquoise">✕</button></div>
