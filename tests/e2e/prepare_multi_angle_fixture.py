@@ -33,7 +33,8 @@ compiler=r"""const fs=require('fs'),ts=require('typescript');for(const name of [
 subprocess.run(['node','-e',compiler],check=True)
 for module in FIX.glob('skin*.js'):
     for dependency in re.findall(r"from\s+['\"](\./[^'\"]+)['\"]",module.read_text(encoding='utf-8')):
-        assert (FIX/dependency.removeprefix('./')).is_file(),f'{module.name}: missing generated dependency {dependency}'
+        target=Path('node_modules/@mediapipe/tasks-vision/vision_bundle.mjs') if dependency=='./tasks-vision.mjs' else FIX/dependency.removeprefix('./')
+        assert target.is_file(),f'{module.name}: missing fixture dependency {dependency} at {target}'
 selected={};measurements=[]
 PUBLIC=Path('apps/vehicle-app/public').resolve()
 served=set()
