@@ -4175,7 +4175,13 @@
         "backend": "success"
       },
       "ci": {
-        "status": "awaiting_push"
+        "runId": 40509865453,
+        "headSha": "107bf2c347e0b07712f6694fa30e32c70ab59a9f",
+        "status": "in_progress",
+        "frontendJobId": 122208602145,
+        "frontend": "queued",
+        "backendJobId": 122208602616,
+        "backend": "in_progress"
       }
     }
   },
@@ -4250,6 +4256,15 @@
           "frontend": "success",
           "backendJobId": 122179747082,
           "backend": "success"
+        },
+        {
+          "runId": 40509865453,
+          "headSha": "107bf2c347e0b07712f6694fa30e32c70ab59a9f",
+          "status": "in_progress",
+          "frontendJobId": 122208602145,
+          "frontend": "queued",
+          "backendJobId": 122208602616,
+          "backend": "in_progress"
         }
       ]
     },
