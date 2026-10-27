@@ -32,6 +32,7 @@ def normalize(text,language):
     text=text.casefold().replace('i\u0307','i').replace('’',"'")
     if language=='en':
         for a,b in [("what's",'what is'),("you're",'you are'),("don't",'do not'),("can't",'cannot')]:text=text.replace(a,b)
+        text=re.sub(r'\balright\b','all right',text)
     tokens=re.findall(r'\w+',text)
     return ['okay' if language=='en' and t=='ok' else t for t in tokens]
 
@@ -166,7 +167,8 @@ def main():
         entries={e['assetId']:e for e in json.loads(MANIFEST.read_text())['entries']}
         for key,row in cache['assets'].items():
             entry=entries[key];row['pronunciationScreen']=pronunciation(entry['exactScript'],row['pronunciationScreen']['transcript'],entry['language'])
-            if row['pronunciationScreen']['status']=='review-required' and 'pronunciation-screen-review' not in row['issues']:row['issues'].append('pronunciation-screen-review')
+            row['issues']=[issue for issue in row['issues'] if issue!='pronunciation-screen-review']
+            if row['pronunciationScreen']['status']=='review-required':row['issues'].append('pronunciation-screen-review')
     while True:
         for asset in scan(cache,recognizer,args.secondary):
             atomic_json(args.cache,cache)

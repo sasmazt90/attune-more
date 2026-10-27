@@ -42,6 +42,18 @@ class Inventory:
                     bytes=path.stat().st_size,sha256=digest(path),**extra)
 
     def queue(self,limit):
+        manifest=load(MANIFEST,{})
+        generated=sum(bool(e.get('sha256')) for e in manifest['entries'])
+        cache=load(self.state.parent/'mental-asr/review-cache.json',{'assets':{}})
+        # Immutable snapshots survive interruptions between production checkpoints.
+        snapshots=self.state/'outbox/snapshots';snapshots.mkdir(parents=True,exist_ok=True)
+        for label,count,value in [('catalog',generated,manifest),('pronunciation',len(cache['assets']),cache)]:
+            marker='last'+label.title()+'SnapshotBucket';bucket=count//25
+            if bucket>self.inventory.get(marker,-1):
+                path=snapshots/f'{label}-progress-{count:04d}.json'
+                if not path.exists():write(path,value)
+                self.inventory[marker]=bucket
+        write(self.path,self.inventory)
         candidates=[]
         # Recover every earlier transfer source and pending ID before new work.
         for item in self.pending.values():
@@ -53,7 +65,6 @@ class Inventory:
             candidates.append(self.item(path,'snapshots/'+path.name))
         for path in sorted((self.state/'outbox').glob('*/*')):
             if path.is_file():candidates.append(self.item(path,path.parent.name+'/'+path.name))
-        manifest=load(MANIFEST,{})
         for entry in manifest['entries']:
             for recording,active in [(r,False) for r in entry.get('supersededRecordings',[])]+[(entry,True)]:
                 if not recording.get('sha256'):continue

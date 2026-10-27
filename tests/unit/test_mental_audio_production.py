@@ -40,6 +40,7 @@ def test_owner_approved_recordings_and_original_comparison_remain_immutable():
 def test_pronunciation_screen_retains_formal_address_and_does_not_certify_prosody():
     review=module('validate_mental_audio')
     assert review.pronunciation('Okay.','OK!','en')['status']=='match'
+    assert review.pronunciation('All right.','Alright.','en')['status']=='match'
     assert review.pronunciation('Nasıl hissettiniz?','NASIL HİSSETTİNİZ?','tr')['status']=='match'
     assert review.pronunciation('Wie fühlen Sie sich?','Wie fühlen sich?','de')['status']=='review-required'
     assert review.pronunciation('How did you feel?','How did you sleep?','en')['status']=='review-required'
