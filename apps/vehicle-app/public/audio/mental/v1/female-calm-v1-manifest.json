@@ -16758,7 +16758,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B07/B07-V08",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3360,
+      "sampleRate": 24000,
+      "bytes": 161324,
+      "sha256": "cefffe3d2f4cdb274753a71f2fe09361127651acf9a576c2c6977b9022ac8df4",
+      "recipeSha256": "ec30f4132b214a3785abff60e3f9e3845cc685bf8c6c852162782d876c0c57b3",
+      "recipe": {
+        "text": "Was ändert das an Ihrem täglichen Leben?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3296029602,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3360,
+        "sampleRate": 24000,
+        "bytes": 161324,
+        "peak": 0.630340576171875,
+        "rms": 0.08575575288647473,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 54.573,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B07/B07-V09",
@@ -16771,7 +16804,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B07/B07-V09",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4760,
+      "sampleRate": 24000,
+      "bytes": 228524,
+      "sha256": "68e7e0073ee6de8a1afcd362c1b31487d2b3e5e0b934e0ae0276a0909ffb6087",
+      "recipeSha256": "a291ef395f8c67ee062047381e41755e074958d301c808137463ee15e06335d4",
+      "recipe": {
+        "text": "Wie wirkt sich das darauf aus, einen normalen Tag zu bewältigen?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1516371083,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4760,
+        "sampleRate": 24000,
+        "bytes": 228524,
+        "peak": 0.813232421875,
+        "rms": 0.09792987619784597,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 70.547,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B07/B07-V10",
@@ -16784,7 +16850,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B07/B07-V10",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3640,
+      "sampleRate": 24000,
+      "bytes": 174764,
+      "sha256": "2b750268fe5a40ddb1968930248dd8ae6f5a04b2e0bf580c74ca847b976f36e4",
+      "recipeSha256": "738e547df0c93a9f1a453f0ec379b00229704b206d970ff100f488e2f3ce975f",
+      "recipe": {
+        "text": "Welcher Teil Ihres Alltags wird davon beeinflusst?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2977772588,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3640,
+        "sampleRate": 24000,
+        "bytes": 174764,
+        "peak": 0.670166015625,
+        "rms": 0.08633094627472436,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 62.59,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B08/B08-V01",
@@ -16797,7 +16896,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B08/B08-V01",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3200,
+      "sampleRate": 24000,
+      "bytes": 153644,
+      "sha256": "6abc79b75b9b047eff932a7324e636329df4c9dcb901578a8ca87c5eee9f6ac4",
+      "recipeSha256": "c0d4739bfa45111d9324132039299c2b3a944c0aa51071c35882492a095e72ca",
+      "recipe": {
+        "text": "Was tun Sie gewöhnlich, wenn dieses Gefühl aufkommt?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3303653860,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3200,
+        "sampleRate": 24000,
+        "bytes": 153644,
+        "peak": 0.55780029296875,
+        "rms": 0.07439854623720352,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 58.405,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B08/B08-V02",
@@ -16810,7 +16942,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B08/B08-V02",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3120,
+      "sampleRate": 24000,
+      "bytes": 149804,
+      "sha256": "7caedbed99a752b74230edfcbf9648b6b550ce815cb8e8e79866e308a90b459a",
+      "recipeSha256": "49e9a14910f4f80487284313cc332a3e2c41ad52896b0d565c475fdb5f16d5f9",
+      "recipe": {
+        "text": "Wie reagieren Sie meist, wenn Sie sich so fühlen?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3451192298,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3120,
+        "sampleRate": 24000,
+        "bytes": 149804,
+        "peak": 0.6240234375,
+        "rms": 0.0679074202163584,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 59.804,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B08/B08-V03",
@@ -16823,7 +16988,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B08/B08-V03",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3720,
+      "sampleRate": 24000,
+      "bytes": 178604,
+      "sha256": "82f7a78b18b15847b36c4723cba9241e7a77986b89fc49d02c824428712064b4",
+      "recipeSha256": "b7912ea8f45f6f8ad7ea51df9e6e0fad97f8d3421055f7f8eb2335dd447e1502",
+      "recipe": {
+        "text": "Was ist Ihre übliche Reaktion auf dieses Gefühl?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 863975050,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3720,
+        "sampleRate": 24000,
+        "bytes": 178604,
+        "peak": 0.719482421875,
+        "rms": 0.0705487494359288,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 65.813,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B08/B08-V04",
@@ -16836,7 +17034,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B08/B08-V04",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 2120,
+      "sampleRate": 24000,
+      "bytes": 101804,
+      "sha256": "30d7cb59861aff26c76d92da437ed540819ac5df966cc89a4ad970558c8e51b5",
+      "recipeSha256": "95eeb1d2ee4674da903a650172a8a4225ed1256c0512c3fc5ebc2b442be060c6",
+      "recipe": {
+        "text": "Was tun Sie dann gewöhnlich?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3354865689,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 2120,
+        "sampleRate": 24000,
+        "bytes": 101804,
+        "peak": 0.60858154296875,
+        "rms": 0.07106493399306475,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 46.732,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B08/B08-V05",
@@ -16849,7 +17080,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B08/B08-V05",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3920,
+      "sampleRate": 24000,
+      "bytes": 188204,
+      "sha256": "c02b0a9f45ccf8bc2a33e2cc95677d66c49d38f2b52166511df4f2a62f2bb7bf",
+      "recipeSha256": "47efcffb037bbb24f29521fa3d499de3ab587c31770634b72f0170de8af4da63",
+      "recipe": {
+        "text": "Wie verhalten Sie sich, wenn dieses Gefühl auftritt?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2821795630,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3920,
+        "sampleRate": 24000,
+        "bytes": 188204,
+        "peak": 0.56097412109375,
+        "rms": 0.07818269631983217,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 67.035,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B08/B08-V06",
@@ -16862,7 +17126,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B08/B08-V06",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4000,
+      "sampleRate": 24000,
+      "bytes": 192044,
+      "sha256": "9106287787015c684ececf5e8018e8fa2ccc2021fcf743de0e60492ab5fa4b5b",
+      "recipeSha256": "0d4e9c8267972452225787136f582cd0e7a4433cb9d621ee984e3f9bfa02294d",
+      "recipe": {
+        "text": "Wie sieht Ihre Reaktion in solchen Momenten meist aus?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3520642908,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4000,
+        "sampleRate": 24000,
+        "bytes": 192044,
+        "peak": 0.448883056640625,
+        "rms": 0.07482926927059488,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 64.148,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B08/B08-V07",
@@ -16875,7 +17172,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B08/B08-V07",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4440,
+      "sampleRate": 24000,
+      "bytes": 213164,
+      "sha256": "47b6b33fec515b088ccdc5fc5137744fee3c9e2e9e2d5e21257a7e6ce91efee7",
+      "recipeSha256": "9d3d041667092106ea543e283fc1404145dbd85eb9b9836010a5eeeb3bbb5d6d",
+      "recipe": {
+        "text": "Was machen Sie in der Regel als Reaktion auf dieses Gefühl?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2938034042,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4440,
+        "sampleRate": 24000,
+        "bytes": 213164,
+        "peak": 0.576995849609375,
+        "rms": 0.08817690995637145,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 67.765,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B08/B08-V08",
@@ -16888,7 +17218,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B08/B08-V08",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3520,
+      "sampleRate": 24000,
+      "bytes": 169004,
+      "sha256": "9af5fc4b2cc06ac3508f81b003af289febe693b808537d98a50eafbe7f4fa78f",
+      "recipeSha256": "5955366c4814b4290994ed2bf50be869b475d48eb58f152ebffe781a2bd516ac",
+      "recipe": {
+        "text": "Wie reagieren Sie üblicherweise in diesen Momenten?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2432341725,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3520,
+        "sampleRate": 24000,
+        "bytes": 169004,
+        "peak": 0.630340576171875,
+        "rms": 0.08262542188906902,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 60.014,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B08/B08-V09",
@@ -16901,7 +17264,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B08/B08-V09",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 2760,
+      "sampleRate": 24000,
+      "bytes": 132524,
+      "sha256": "b80859a5fb55d6be26920aaaafd4ccae2ee54376bb09d0bda2c4f2f50807abf1",
+      "recipeSha256": "3d1f877906317883acca9eea36d382037b2e5f51e5975b9b50bc9386ed82140f",
+      "recipe": {
+        "text": "Welche eigenen Handlungen bemerken Sie dann?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3162925402,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 2760,
+        "sampleRate": 24000,
+        "bytes": 132524,
+        "peak": 0.69427490234375,
+        "rms": 0.08061589758175883,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 54.98,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B08/B08-V10",
@@ -16914,7 +17310,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B08/B08-V10",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3840,
+      "sampleRate": 24000,
+      "bytes": 184364,
+      "sha256": "096ab75d8db14f49e07b949c36f5705998fc41d6da0e109e93fc13a2c253604d",
+      "recipeSha256": "ee667f9ac23887ea7a21c04a220ebf52b1c44ca4b6105087db69d02f93d6d94c",
+      "recipe": {
+        "text": "Was geschieht in Ihrem Verhalten, wenn Sie sich so fühlen?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2899883004,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3840,
+        "sampleRate": 24000,
+        "bytes": 184364,
+        "peak": 0.486297607421875,
+        "rms": 0.06840026544493279,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 63.296,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B09/B09-V01",
@@ -16927,7 +17356,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B09/B09-V01",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3880,
+      "sampleRate": 24000,
+      "bytes": 186284,
+      "sha256": "f3e9f099741b0027df8a73cc391027765cbde5a1602f75cc23a74a5fa18cc6b4",
+      "recipeSha256": "4099356c9b6f355dd113c228bfdc204af9e67d2cbb269e7349341dbc9f89ef80",
+      "recipe": {
+        "text": "Was hat Ihnen in ähnlichen Situationen früher geholfen?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1350836321,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3880,
+        "sampleRate": 24000,
+        "bytes": 186284,
+        "peak": 0.627349853515625,
+        "rms": 0.07858729966336749,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 64.945,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B09/B09-V02",
@@ -16940,7 +17402,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B09/B09-V02",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4400,
+      "sampleRate": 24000,
+      "bytes": 211244,
+      "sha256": "b95ae9024997d461ddf152739f5d4684799bf524c682f847683f38569d894b2b",
+      "recipeSha256": "1647d363dffcafe8e40fba18c9bdd7c8668c4637e329ee2ec8519ac4b5da2d82",
+      "recipe": {
+        "text": "Hat Ihnen bei etwas Ähnlichem schon einmal etwas geholfen?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2430134848,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4400,
+        "sampleRate": 24000,
+        "bytes": 211244,
+        "peak": 0.594329833984375,
+        "rms": 0.07216897907379699,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 69.944,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B09/B09-V03",
@@ -16953,7 +17448,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B09/B09-V03",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4400,
+      "sampleRate": 24000,
+      "bytes": 211244,
+      "sha256": "fae17168a0f8e9497a229e663d4efabb8b83fd868dcd2747b30f21fca7ab0152",
+      "recipeSha256": "7e1a4391d3488f27f2d68828f16e116f2b5f9ef2f051b22d165ae663058b0cdd",
+      "recipe": {
+        "text": "Was war für Sie früher in ähnlichen Momenten hilfreich?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 4117591241,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4400,
+        "sampleRate": 24000,
+        "bytes": 211244,
+        "peak": 0.73577880859375,
+        "rms": 0.07921275090057754,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 69.615,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B09/B09-V04",
@@ -16966,7 +17494,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B09/B09-V04",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3400,
+      "sampleRate": 24000,
+      "bytes": 163244,
+      "sha256": "9f765a7804c2e956b3c14d4e1608c73349066f91e101a15fa9c6f5b6474a0734",
+      "recipeSha256": "f64ab3f061cd69038febba88d4f5b81aa61aea0adc74ee319f7403d787778cee",
+      "recipe": {
+        "text": "Was hat früher in solchen Situationen geholfen?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1920167836,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3400,
+        "sampleRate": 24000,
+        "bytes": 163244,
+        "peak": 0.51531982421875,
+        "rms": 0.07650006064929074,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 58.397,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B09/B09-V05",
@@ -16979,7 +17540,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B09/B09-V05",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4320,
+      "sampleRate": 24000,
+      "bytes": 207404,
+      "sha256": "137ea9292fd0156b4fb26c5e6e1a94fb31a7033acdf91f22b88330c7b8a9cf20",
+      "recipeSha256": "eae9f2b23d5099c390a7d23a0f874441d059f1b397c502bfa1cfeffcab63850c",
+      "recipe": {
+        "text": "Was hat ähnliche Situationen schon einmal leichter gemacht?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3074448244,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4320,
+        "sampleRate": 24000,
+        "bytes": 207404,
+        "peak": 0.648345947265625,
+        "rms": 0.07476731328303803,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 71.357,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B09/B09-V06",
@@ -16992,7 +17586,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B09/B09-V06",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3960,
+      "sampleRate": 24000,
+      "bytes": 190124,
+      "sha256": "119048aad3839ee622dd014c4dce77658ce8175ab07dcbb503c504fac0b72136",
+      "recipeSha256": "b6bc4e732ed01595ed7e1df9de188d2af7149532f7ac2c6d05911daa394adb55",
+      "recipe": {
+        "text": "Welche Unterstützung hat bei ähnlichen Erfahrungen geholfen?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 4254088482,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3960,
+        "sampleRate": 24000,
+        "bytes": 190124,
+        "peak": 0.86187744140625,
+        "rms": 0.08674258713752285,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 64.498,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B09/B09-V07",
@@ -17005,7 +17632,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B09/B09-V07",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4000,
+      "sampleRate": 24000,
+      "bytes": 192044,
+      "sha256": "6d1b68e058fc07c1ca15064f6a1e977578a643be6146dad7b17fdb2b27b5f1d8",
+      "recipeSha256": "378dd73e071daa26c020014d89e329bcd92439feafc35382c22783ac65f24093",
+      "recipe": {
+        "text": "Was haben Sie unter ähnlichen Umständen als hilfreich erlebt?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3685880683,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4000,
+        "sampleRate": 24000,
+        "bytes": 192044,
+        "peak": 0.86004638671875,
+        "rms": 0.09061013235805147,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 63.379,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B09/B09-V08",
@@ -17018,7 +17678,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B09/B09-V08",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3640,
+      "sampleRate": 24000,
+      "bytes": 174764,
+      "sha256": "6c0de1e4d5e9af22b8a32bf9572ac0c4602de89c5cf0cf683b8ebac46abcea10",
+      "recipeSha256": "03052f61b85365b0b232745314895e88c41b2a9fd611ff11da5816d310c82758",
+      "recipe": {
+        "text": "Was hat Ihnen früher durch solche Momente geholfen?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 562602093,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3640,
+        "sampleRate": 24000,
+        "bytes": 174764,
+        "peak": 0.644683837890625,
+        "rms": 0.08924274925956781,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 60.325,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B09/B09-V09",
@@ -17031,7 +17724,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B09/B09-V09",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3600,
+      "sampleRate": 24000,
+      "bytes": 172844,
+      "sha256": "8c85dced0bbd7edc72790b61a85c5ed03451a883aa9147d7e336a467d1fc4cfe",
+      "recipeSha256": "b890675dda0c6e1862c5b51654bd7405ca5349b1e0590241b51a333fe1cfc08d",
+      "recipe": {
+        "text": "Was hat für Sie in einer ähnlichen Situation funktioniert?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1455255477,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3600,
+        "sampleRate": 24000,
+        "bytes": 172844,
+        "peak": 0.786590576171875,
+        "rms": 0.08103541957083119,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 64.359,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B09/B09-V10",
@@ -17044,7 +17770,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B09/B09-V10",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3520,
+      "sampleRate": 24000,
+      "bytes": 169004,
+      "sha256": "f3bac32a4fd141e9e5909795c8d153a365c6c84fbc1c6750351487ebc7cf9040",
+      "recipeSha256": "44067e42b8b4ab07b869bca1b3aa1848d3aa6a56fc13a1b606c6ab69fe7ea3d9",
+      "recipe": {
+        "text": "Was hat Ihnen, wenn überhaupt, damals geholfen?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2606005338,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3520,
+        "sampleRate": 24000,
+        "bytes": 169004,
+        "peak": 0.848968505859375,
+        "rms": 0.09148970207221983,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 58.529,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B10/B10-V01",
@@ -17057,7 +17816,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B10/B10-V01",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3680,
+      "sampleRate": 24000,
+      "bytes": 176684,
+      "sha256": "b4284d313e837315e2f12af456ad9049f5eedecf1ec77b0cd178fb860450e587",
+      "recipeSha256": "2f4355919e8e43435b8513e2b42b6e164f083cae4c312881f3123d9a6c127400",
+      "recipe": {
+        "text": "Was brauchen Sie Ihrem Gefühl nach gerade am meisten?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3967790501,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3680,
+        "sampleRate": 24000,
+        "bytes": 176684,
+        "peak": 0.6070556640625,
+        "rms": 0.08592871236423244,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 59.11,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B10/B10-V02",
@@ -17070,7 +17862,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B10/B10-V02",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3200,
+      "sampleRate": 24000,
+      "bytes": 153644,
+      "sha256": "391c994ea3eae019d50646b2bccd5e2e82a6088b7a5bf25ce008a51d7e2282a0",
+      "recipeSha256": "cbb008d89ab8a4b84757cfa5db511be1143d53e780b3f6379995b2be9f673fdb",
+      "recipe": {
+        "text": "Was erscheint Ihnen im Moment am nötigsten?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 689763941,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3200,
+        "sampleRate": 24000,
+        "bytes": 153644,
+        "peak": 0.819000244140625,
+        "rms": 0.08090713654165278,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 53.553,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B10/B10-V03",
@@ -17083,7 +17908,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B10/B10-V03",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 2880,
+      "sampleRate": 24000,
+      "bytes": 138284,
+      "sha256": "68d0f616413f6f9836e12b095eb99d283d1991d2b20001721db079d3cff387d9",
+      "recipeSha256": "467ba0529fc6de07c969a834b52f2e69c458b8690c1d55ad907375be41ec4e60",
+      "recipe": {
+        "text": "Was würde Ihrem Bedürfnis gerade entsprechen?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3452163713,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 2880,
+        "sampleRate": 24000,
+        "bytes": 138284,
+        "peak": 0.731475830078125,
+        "rms": 0.08477715295945419,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 55.138,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B10/B10-V04",
@@ -17096,7 +17954,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B10/B10-V04",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3080,
+      "sampleRate": 24000,
+      "bytes": 147884,
+      "sha256": "231c320cb325e7afb939a400a638931f78f0aba98461aafb4cfe23173df18882",
+      "recipeSha256": "11addc7ba38d11a3072a60e351bf5e6af065230fedba746386f082e6cd37bd3f",
+      "recipe": {
+        "text": "Welche Unterstützung wünschen Sie sich gerade?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1942053219,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3080,
+        "sampleRate": 24000,
+        "bytes": 147884,
+        "peak": 0.39410400390625,
+        "rms": 0.06013672610638456,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 58.906,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B10/B10-V05",
@@ -17109,7 +18000,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B10/B10-V05",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3320,
+      "sampleRate": 24000,
+      "bytes": 159404,
+      "sha256": "32b40ee71c3c2c5734683e6071be2d2cd92264f6d27d5028c1b9d95ab329ea0a",
+      "recipeSha256": "eae9cf72e303e8d29fc5c74b732481a98f50eb8c334af16793986f6b8660c123",
+      "recipe": {
+        "text": "Was wünschen Sie sich an diesem Punkt am meisten für sich?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 4076507792,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3320,
+        "sampleRate": 24000,
+        "bytes": 159404,
+        "peak": 0.611724853515625,
+        "rms": 0.06521561059610456,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 59.094,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B10/B10-V06",
@@ -17122,7 +18046,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B10/B10-V06",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 2720,
+      "sampleRate": 24000,
+      "bytes": 130604,
+      "sha256": "fae4d0285e442fd8293183381e849d32fca7b39c241078681aaa0936f50e7686",
+      "recipeSha256": "7751e101b43a42b5316e242ce0a7d190b5a1f446f13adca81725f3db698c03db",
+      "recipe": {
+        "text": "Was wäre Ihnen gerade wichtig zu haben?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1268671028,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 2720,
+        "sampleRate": 24000,
+        "bytes": 130604,
+        "peak": 0.54779052734375,
+        "rms": 0.08673040191375268,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 51.236,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B10/B10-V07",
@@ -17135,7 +18092,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B10/B10-V07",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4120,
+      "sampleRate": 24000,
+      "bytes": 197804,
+      "sha256": "10e1ca6cb07155eae71571b131b5119b7edcf4ba316114808d7c4919286d415a",
+      "recipeSha256": "8697fb16973d1302ebd442c1a1610c4a6b1435e6e99d4ff89c40d94773dfe02e",
+      "recipe": {
+        "text": "Welches Bedürfnis steht für Sie gerade im Vordergrund?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1183548446,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4120,
+        "sampleRate": 24000,
+        "bytes": 197804,
+        "peak": 0.848968505859375,
+        "rms": 0.09098139888604051,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 64.966,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B10/B10-V08",
@@ -17148,7 +18138,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B10/B10-V08",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 2560,
+      "sampleRate": 24000,
+      "bytes": 122924,
+      "sha256": "c4b6e062e862081801e54c3672af1ab83adbe03894173497fe4bc8192125b41b",
+      "recipeSha256": "d3f97cadb1a4c65925ff15cf0d85e8b48c17123a77542d0847e550b4b4a314a1",
+      "recipe": {
+        "text": "Wovon wünschen Sie sich gerade mehr?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 356254633,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 2560,
+        "sampleRate": 24000,
+        "bytes": 122924,
+        "peak": 0.665313720703125,
+        "rms": 0.0897704782678125,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 46.556,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B10/B10-V09",
@@ -17161,7 +18184,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B10/B10-V09",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3040,
+      "sampleRate": 24000,
+      "bytes": 145964,
+      "sha256": "1c60fde360d3a5bcaa63c0c1bd30d33bb320953afe3cf3a576771bb321636a48",
+      "recipeSha256": "4e05935b4349ad210b5fb66ac121228a163664d48623bff5f2f11a29ebd81f1c",
+      "recipe": {
+        "text": "Was würden Sie sich gerade besonders wünschen?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2416285766,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3040,
+        "sampleRate": 24000,
+        "bytes": 145964,
+        "peak": 0.84722900390625,
+        "rms": 0.08441378093706321,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 54.24,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B10/B10-V10",
@@ -17174,7 +18230,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/de/official-default/B10/B10-V10",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4040,
+      "sampleRate": 24000,
+      "bytes": 193964,
+      "sha256": "11042663d0311c6de73c83a7ee69dfa53085f259857fa1bdb2d67171ca5f9612",
+      "recipeSha256": "d11d4633a1b72ecf6d13272db3c43b53e3c1cb335247e0ff8117c56735086412",
+      "recipe": {
+        "text": "Was würde sich in diesem Moment unterstützend anfühlen?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3775518333,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4040,
+        "sampleRate": 24000,
+        "bytes": 193964,
+        "peak": 0.669158935546875,
+        "rms": 0.07134657461532659,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 66.41,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/de/female-calm-v1/B11/B11-V01",
