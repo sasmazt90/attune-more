@@ -2811,7 +2811,7 @@
     {
       "id": "13",
       "target": "unified-results-and-trends",
-      "status": "real_chromium_acceptance_thirteenth_retry_running_camera_class_acceptance_pending",
+      "status": "real_chromium_acceptance_fourteenth_retry_running_camera_class_acceptance_pending",
       "work": "Integrate accepted outputs incrementally into maps/cards/history; explicit unavailable reasons; method/version compatibility for trends; end-to-end camera/API/result/history tests and final acceptance report.",
       "evidence": [
         "docs/skin/regional-evidence-contract-20261023.md",
@@ -3953,7 +3953,7 @@
     }
   },
   "nextActions": [
-    "Poll thirteenth corrected GitHub Actions browser run 40429166994 and matching repository CI run 40429166903 for candidate commit 7637df44af88dc049f9847cc7b6eb186e94b5d00. Twelfth attempt 40428581126 passed immutable runtime installation, production build, app/backend health checks, the complete licensed FRONT/LEFT/RIGHT real-MediaPipe fixture, consent, full analysis, reference guidance, history wait and the n=0 native-viewport path, then exposed a Linux portability failure when the n=1 path unconditionally called the Windows-only owned-window capture helper. The corrected scenario preserves real HWND capture on Windows and truthfully labels non-Windows Playwright compositor capture as neither OS-window nor physical-camera evidence; no product output, model or threshold changed. On success, ingest only the five privacy-safe sanitized browser evidence JSON objects, bind their exact commit/build/browser/history identities and replay scripts/skin-research/check_unified_skin_result_release.py v3. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not start duplicate Roboflow work.",
+    "Poll fourteenth corrected GitHub Actions browser run 40430237275 and matching repository CI run 40430237266 for candidate commit 839578267bef08bb559f57421cc350c74d511f23. Thirteenth attempt 40429166994 passed immutable runtime installation, production build, app/backend health checks, the complete licensed FRONT/LEFT/RIGHT real-MediaPipe fixture and the non-Windows capture portability point. Its native-200 pass then showed a fixture-only geometry coupling: a 1600x1000 native window at 200% zoom halved the CSS camera surface, cropped the fixed video and legitimately held the product in its recede guidance state. The corrected scenario requests 3200x2000 so the 200% pass keeps the baseline 1600x1000 CSS capture surface; production pose/quality checks remain active, with no override, output, model or threshold change. On success, ingest only the five privacy-safe sanitized browser evidence JSON objects, bind their exact commit/build/browser/history identities and replay scripts/skin-research/check_unified_skin_result_release.py v3. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not start duplicate Roboflow work.",
     "Preserve green GitHub Actions run 40297234134 and the functioning main /api/local-health/skin result flow. When consented physical-camera manifest, adjudicated expert truth and locked capture/localization receipts exist, run both evaluators and scripts/skin-research/check_physical_camera_acceptance.py with a per-class policy locked before camera_final and a real /api/local-health/skin replay. Do not mark the roadmap complete until every class and real camera/browser/map/history/privacy gate passes.",
     "After a consented physical-camera manifest exists, collect the private matrix defined by docs/skin/evidence/physical-camera-expert-review-input-template-20261026-v1.json and run scripts/skin-research/build_physical_camera_expert_truth.py. Every activated class on every capture needs exactly two independent qualified human reviews; discordant decision or polygon truth needs an independent third expert. Keep positive localized polygons normalized, model proposals hidden, missing truth distinct from evaluated negative, unknown/unassessable distinct from Normal, and Redness independent from sensitivity. Do not commit reviewer identity, image bytes or raw private fields.",
     "For consented physical-camera acceptance, populate the private input shape in docs/skin/evidence/physical-camera-benchmark-manifest-input-template-20261026-v1.json outside Git, then run scripts/skin-research/build_physical_camera_benchmark_manifest.py. The builder accepts only opaque subject/capture/consent/quality references, immutable SHA-256 hashes, exact FRONT/LEFT/RIGHT physical-camera triplets, a passed capture-quality gate and a locked camera_final split unused by training, validation or threshold selection. It rejects paths, names, contact fields, image bytes, generated inputs, predictions and expert labels. Keep expert per-class truth separate and human-authored; the manifest alone does not satisfy camera acceptance.",
@@ -3999,6 +3999,38 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T01:03:24Z",
+      "action": "Thirteenth browser run 40429166994 passed immutable runtime installation, production build, app/backend health checks, the licensed FRONT/LEFT/RIGHT fixture with 478 real MediaPipe landmarks per pose and the prior non-Windows capture portability point. Its n=1 native-200 pass then remained in the product's legitimate recede guidance until timeout because a 1600x1000 native window at 200% zoom halved the CSS camera surface and cropped the fixed fixture. Job 121942364928 produced artifact 12700464729 with digest sha256:a79bc777fafc2caf421a569d7cd0260658a7e70cfac1b97e2f1dcea1ec4f1b1e; matching CI 40429166903 succeeded. The targeted fix requests a 3200x2000 native window so the 200% pass preserves the baseline 1600x1000 CSS capture surface; product pose/quality checks remain active and no override was added. Seven focused tests, Python compile and diff checks passed. Fourteenth browser run 40430237275 and matching CI 40430237266 are in progress for candidate 83957826. No Roboflow training, version, upload, inference, model or threshold state changed.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": [
+        "839578267bef08bb559f57421cc350c74d511f23"
+      ],
+      "runs": [
+        {
+          "runId": 40429166994,
+          "conclusion": "failure",
+          "jobId": 121942364928,
+          "artifactId": 12700464729
+        },
+        {
+          "runId": 40429166903,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40430237275,
+          "status": "in_progress",
+          "kind": "fourteenth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40430237266,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
+      ]
+    },
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-27T00:53:24Z",
@@ -5184,6 +5216,38 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T01:03:24Z",
+      "action": "Thirteenth browser run 40429166994 passed immutable runtime installation, production build, app/backend health checks, the licensed FRONT/LEFT/RIGHT fixture with 478 real MediaPipe landmarks per pose and the prior non-Windows capture portability point. Its n=1 native-200 pass then remained in the product's legitimate recede guidance until timeout because a 1600x1000 native window at 200% zoom halved the CSS camera surface and cropped the fixed fixture. Job 121942364928 produced artifact 12700464729 with digest sha256:a79bc777fafc2caf421a569d7cd0260658a7e70cfac1b97e2f1dcea1ec4f1b1e; matching CI 40429166903 succeeded. The targeted fix requests a 3200x2000 native window so the 200% pass preserves the baseline 1600x1000 CSS capture surface; product pose/quality checks remain active and no override was added. Seven focused tests, Python compile and diff checks passed. Fourteenth browser run 40430237275 and matching CI 40430237266 are in progress for candidate 83957826. No Roboflow training, version, upload, inference, model or threshold state changed.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": [
+        "839578267bef08bb559f57421cc350c74d511f23"
+      ],
+      "runs": [
+        {
+          "runId": 40429166994,
+          "conclusion": "failure",
+          "jobId": 121942364928,
+          "artifactId": 12700464729
+        },
+        {
+          "runId": 40429166903,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40430237275,
+          "status": "in_progress",
+          "kind": "fourteenth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40430237266,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
+      ]
+    },
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-27T00:53:24Z",

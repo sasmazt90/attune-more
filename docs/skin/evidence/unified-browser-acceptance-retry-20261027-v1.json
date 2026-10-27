@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "dateEuropeBerlin": "2026-10-27",
-  "observedAt": "2026-10-27T00:53:24Z",
+  "observedAt": "2026-10-27T01:03:24Z",
   "repository": {
     "fullName": "sasmazt90/attune-more",
     "branch": "work/skin-roadmap-20261023",
@@ -18,7 +18,8 @@
     "tenthRetryCandidateCommit": "9b9c8880591adcc63d64422319eac9f6335e213b",
     "eleventhRetryCandidateCommit": "b3757fa540dec4f8c7b6772d297a5244b60d398b",
     "twelfthRetryCandidateCommit": "8ff12cf01671503687818c2f4490932fb6e8d249",
-    "thirteenthRetryCandidateCommit": "7637df44af88dc049f9847cc7b6eb186e94b5d00"
+    "thirteenthRetryCandidateCommit": "7637df44af88dc049f9847cc7b6eb186e94b5d00",
+    "fourteenthRetryCandidateCommit": "839578267bef08bb559f57421cc350c74d511f23"
   },
   "failedAttempt": {
     "browserRunId": 40406100671,
@@ -442,9 +443,47 @@
   "thirteenthRetry": {
     "browserRunId": 40429166994,
     "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40429166994",
-    "statusAtCheckpoint": "in_progress",
+    "statusAtCheckpoint": "completed",
+    "conclusion": "failure",
+    "jobId": 121942364928,
     "matchingRepositoryCiRunId": 40429166903,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40429166903",
+    "matchingRepositoryCiStatusAtCheckpoint": "completed",
+    "matchingRepositoryCiConclusion": "success",
+    "artifactId": 12700464729,
+    "artifactDigest": "sha256:a79bc777fafc2caf421a569d7cd0260658a7e70cfac1b97e2f1dcea1ec4f1b1e",
+    "completedRuntimeSetup": true,
+    "productionBuildPassed": true,
+    "serversHealthChecked": true,
+    "fixturePrepared": true,
+    "licensedDistinctPosesSelected": ["FRONT", "LEFT", "RIGHT"],
+    "realMediaPipeLandmarksPerPose": 478,
+    "nonWindowsCapturePortabilityFailureResolved": true,
+    "browserTestsExecuted": true,
+    "nativeViewportOneAnalysisStarted": true,
+    "sanitizedEvidenceProduced": false,
+    "rootCause": "at native 200% zoom the 1600x1000 native browser window yielded roughly half the CSS capture surface; that cropped the fixed camera fixture, drove the product into the legitimate recede guidance state and prevented analysis completion. This is fixture geometry coupling, not a product result or physical-camera failure"
+  },
+  "fourteenthTargetedFix": {
+    "sources": [
+      "tests/e2e/current_skin_contract.py",
+      "scripts/skin-research/build_unified_browser_acceptance.py"
+    ],
+    "change": "request a 3200x2000 native window for the 200% zoom pass so its CSS camera surface matches the 1600x1000 baseline; preserve all production pose and quality checks without overrides and repin the strict implementation blob",
+    "poseOrQualityOverrideAdded": false,
+    "productThresholdChanged": false,
+    "unitTestsPassed": 7,
+    "pythonCompilePassed": true,
+    "diffCheckPassed": true,
+    "roboflowTrainingChanged": false,
+    "modelOrThresholdChanged": false
+  },
+  "fourteenthRetry": {
+    "browserRunId": 40430237275,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40430237275",
+    "statusAtCheckpoint": "in_progress",
+    "matchingRepositoryCiRunId": 40430237266,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40430237266",
     "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
     "sanitizedEvidencePending": true
   },
