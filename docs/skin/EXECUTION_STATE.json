@@ -3842,6 +3842,15 @@
         "tests": 305,
         "result": "OK"
       },
+      "ci": {
+        "runId": 40480506595,
+        "headSha": "2db598de6c1bc80a21cfb824622abdeba203e058",
+        "status": "in_progress",
+        "frontendJobId": 122109317903,
+        "frontend": "in_progress",
+        "backendJobId": 122109317369,
+        "backend": "in_progress"
+      },
       "receipt": "docs/skin/evidence/unified-skin-result-release-receipt-20261027-v4.json",
       "evidence": "docs/skin/evidence/unified-skin-result-release-gate-20261027-v4.json"
     },
@@ -6778,6 +6787,15 @@
           "frontend": "success",
           "backendJobId": 122093659997,
           "backend": "success"
+        },
+        {
+          "runId": 40480506595,
+          "headSha": "2db598de6c1bc80a21cfb824622abdeba203e058",
+          "status": "in_progress",
+          "frontendJobId": 122109317903,
+          "frontend": "in_progress",
+          "backendJobId": 122109317369,
+          "backend": "in_progress"
         }
       ]
     }
