@@ -2811,7 +2811,7 @@
     {
       "id": "13",
       "target": "unified-results-and-trends",
-      "status": "real_chromium_acceptance_twelfth_retry_running_camera_class_acceptance_pending",
+      "status": "real_chromium_acceptance_thirteenth_retry_running_camera_class_acceptance_pending",
       "work": "Integrate accepted outputs incrementally into maps/cards/history; explicit unavailable reasons; method/version compatibility for trends; end-to-end camera/API/result/history tests and final acceptance report.",
       "evidence": [
         "docs/skin/regional-evidence-contract-20261023.md",
@@ -3953,7 +3953,7 @@
     }
   },
   "nextActions": [
-    "Poll twelfth corrected GitHub Actions browser run 40428581126 and matching repository CI run 40428581112 for candidate commit 8ff12cf01671503687818c2f4490932fb6e8d249. Eleventh attempt 40428065279 passed immutable runtime installation, production build, app/backend health checks, the complete licensed FRONT/LEFT/RIGHT real-MediaPipe fixture, consent, full analysis and the corrected reference-guidance dialog, then exposed a synchronous history-dialog assertion immediately after client navigation. The corrected scenario waits for the exact accessible Cilt Sağlığı sonucu dialog and its Genel Bakış heading before replaying source-bound photos and maps; no product output, model or threshold changed. On success, ingest only the five privacy-safe sanitized browser evidence JSON objects, bind their exact commit/build/browser/history identities and replay scripts/skin-research/check_unified_skin_result_release.py v3. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not start duplicate Roboflow work.",
+    "Poll thirteenth corrected GitHub Actions browser run 40429166994 and matching repository CI run 40429166903 for candidate commit 7637df44af88dc049f9847cc7b6eb186e94b5d00. Twelfth attempt 40428581126 passed immutable runtime installation, production build, app/backend health checks, the complete licensed FRONT/LEFT/RIGHT real-MediaPipe fixture, consent, full analysis, reference guidance, history wait and the n=0 native-viewport path, then exposed a Linux portability failure when the n=1 path unconditionally called the Windows-only owned-window capture helper. The corrected scenario preserves real HWND capture on Windows and truthfully labels non-Windows Playwright compositor capture as neither OS-window nor physical-camera evidence; no product output, model or threshold changed. On success, ingest only the five privacy-safe sanitized browser evidence JSON objects, bind their exact commit/build/browser/history identities and replay scripts/skin-research/check_unified_skin_result_release.py v3. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not start duplicate Roboflow work.",
     "Preserve green GitHub Actions run 40297234134 and the functioning main /api/local-health/skin result flow. When consented physical-camera manifest, adjudicated expert truth and locked capture/localization receipts exist, run both evaluators and scripts/skin-research/check_physical_camera_acceptance.py with a per-class policy locked before camera_final and a real /api/local-health/skin replay. Do not mark the roadmap complete until every class and real camera/browser/map/history/privacy gate passes.",
     "After a consented physical-camera manifest exists, collect the private matrix defined by docs/skin/evidence/physical-camera-expert-review-input-template-20261026-v1.json and run scripts/skin-research/build_physical_camera_expert_truth.py. Every activated class on every capture needs exactly two independent qualified human reviews; discordant decision or polygon truth needs an independent third expert. Keep positive localized polygons normalized, model proposals hidden, missing truth distinct from evaluated negative, unknown/unassessable distinct from Normal, and Redness independent from sensitivity. Do not commit reviewer identity, image bytes or raw private fields.",
     "For consented physical-camera acceptance, populate the private input shape in docs/skin/evidence/physical-camera-benchmark-manifest-input-template-20261026-v1.json outside Git, then run scripts/skin-research/build_physical_camera_benchmark_manifest.py. The builder accepts only opaque subject/capture/consent/quality references, immutable SHA-256 hashes, exact FRONT/LEFT/RIGHT physical-camera triplets, a passed capture-quality gate and a locked camera_final split unused by training, validation or threshold selection. It rejects paths, names, contact fields, image bytes, generated inputs, predictions and expert labels. Keep expert per-class truth separate and human-authored; the manifest alone does not satisfy camera acceptance.",
@@ -3999,6 +3999,38 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T00:53:24Z",
+      "action": "Twelfth browser run 40428581126 passed immutable runtime installation, production build, app/backend health checks, the licensed FRONT/LEFT/RIGHT fixture with 478 real MediaPipe landmarks per pose, consent, product analysis, reference guidance, the exact history-dialog wait and the n=0 native-viewport path. It then failed in the n=1 path because the Linux GitHub runner unconditionally called the Windows-only owned-window capture helper; job 121940422295 produced artifact 12701202101 with digest sha256:9d8409b8364cc8cbd13623e2aeb2d955f9352f4ba433099197aaefc878fef380, while matching CI 40428581112 succeeded. Split capture by platform: Windows retains real owned-window capture; non-Windows uses the visible Playwright browser compositor and records that it is not OS-window or physical-camera evidence. Seven focused tests, Python compile and diff checks passed. Thirteenth browser run 40429166994 and matching CI 40429166903 are in progress for candidate 7637df44. No Roboflow training, version, upload, inference, model or threshold state changed.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": [
+        "7637df44af88dc049f9847cc7b6eb186e94b5d00"
+      ],
+      "runs": [
+        {
+          "runId": 40428581126,
+          "conclusion": "failure",
+          "jobId": 121940422295,
+          "artifactId": 12701202101
+        },
+        {
+          "runId": 40428581112,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40429166994,
+          "status": "in_progress",
+          "kind": "thirteenth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40429166903,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
+      ]
+    },
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-27T00:31:54Z",
@@ -5152,6 +5184,38 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T00:53:24Z",
+      "action": "Twelfth browser run 40428581126 passed immutable runtime installation, production build, app/backend health checks, the licensed FRONT/LEFT/RIGHT fixture with 478 real MediaPipe landmarks per pose, consent, product analysis, reference guidance, the exact history-dialog wait and the n=0 native-viewport path. It then failed in the n=1 path because the Linux GitHub runner unconditionally called the Windows-only owned-window capture helper; job 121940422295 produced artifact 12701202101 with digest sha256:9d8409b8364cc8cbd13623e2aeb2d955f9352f4ba433099197aaefc878fef380, while matching CI 40428581112 succeeded. Split capture by platform: Windows retains real owned-window capture; non-Windows uses the visible Playwright browser compositor and records that it is not OS-window or physical-camera evidence. Seven focused tests, Python compile and diff checks passed. Thirteenth browser run 40429166994 and matching CI 40429166903 are in progress for candidate 7637df44. No Roboflow training, version, upload, inference, model or threshold state changed.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": [
+        "7637df44af88dc049f9847cc7b6eb186e94b5d00"
+      ],
+      "runs": [
+        {
+          "runId": 40428581126,
+          "conclusion": "failure",
+          "jobId": 121940422295,
+          "artifactId": 12701202101
+        },
+        {
+          "runId": 40428581112,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40429166994,
+          "status": "in_progress",
+          "kind": "thirteenth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40429166903,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
+      ]
+    },
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-27T00:31:54Z",

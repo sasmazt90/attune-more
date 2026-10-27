@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "dateEuropeBerlin": "2026-10-27",
-  "observedAt": "2026-10-27T00:48:00Z",
+  "observedAt": "2026-10-27T00:53:24Z",
   "repository": {
     "fullName": "sasmazt90/attune-more",
     "branch": "work/skin-roadmap-20261023",
@@ -17,7 +17,8 @@
     "ninthRetryCandidateCommit": "8df6e54331d3ca0f1b6fd72860830cf4dadd0142",
     "tenthRetryCandidateCommit": "9b9c8880591adcc63d64422319eac9f6335e213b",
     "eleventhRetryCandidateCommit": "b3757fa540dec4f8c7b6772d297a5244b60d398b",
-    "twelfthRetryCandidateCommit": "8ff12cf01671503687818c2f4490932fb6e8d249"
+    "twelfthRetryCandidateCommit": "8ff12cf01671503687818c2f4490932fb6e8d249",
+    "thirteenthRetryCandidateCommit": "7637df44af88dc049f9847cc7b6eb186e94b5d00"
   },
   "failedAttempt": {
     "browserRunId": 40406100671,
@@ -399,9 +400,51 @@
   "twelfthRetry": {
     "browserRunId": 40428581126,
     "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40428581126",
-    "statusAtCheckpoint": "in_progress",
+    "statusAtCheckpoint": "completed",
+    "conclusion": "failure",
+    "jobId": 121940422295,
     "matchingRepositoryCiRunId": 40428581112,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40428581112",
+    "matchingRepositoryCiStatusAtCheckpoint": "completed",
+    "matchingRepositoryCiConclusion": "success",
+    "artifactId": 12701202101,
+    "artifactDigest": "sha256:9d8409b8364cc8cbd13623e2aeb2d955f9352f4ba433099197aaefc878fef380",
+    "completedRuntimeSetup": true,
+    "productionBuildPassed": true,
+    "serversHealthChecked": true,
+    "fixturePrepared": true,
+    "licensedDistinctPosesSelected": ["FRONT", "LEFT", "RIGHT"],
+    "realMediaPipeLandmarksPerPose": 478,
+    "consentFlowCompleted": true,
+    "browserTestsExecuted": true,
+    "referenceGuidanceDialogPassed": true,
+    "historyDialogWaitPassed": true,
+    "browserApiAnalysisCompleted": true,
+    "nativeViewportZeroEvidenceCompleted": true,
+    "nativeViewportOneAnalysisStarted": true,
+    "sanitizedEvidenceProduced": false,
+    "rootCause": "the n=1 native-viewport evidence path unconditionally called the Windows-only owned-window capture helper on the Linux GitHub runner; this was a capture portability failure, not OS-window or physical-camera evidence"
+  },
+  "thirteenthTargetedFix": {
+    "sources": [
+      "tests/e2e/current_skin_contract.py",
+      "scripts/skin-research/build_unified_browser_acceptance.py"
+    ],
+    "change": "retain native owned-window capture on Windows, use the visible Playwright browser compositor on non-Windows runners, and label the latter explicitly as neither OS-window nor physical-camera evidence; repin the strict implementation blob",
+    "windowsOwnedWindowCapturePreserved": true,
+    "nonWindowsBrowserCompositorTruthfullyLabeled": true,
+    "unitTestsPassed": 7,
+    "pythonCompilePassed": true,
+    "diffCheckPassed": true,
+    "roboflowTrainingChanged": false,
+    "modelOrThresholdChanged": false
+  },
+  "thirteenthRetry": {
+    "browserRunId": 40429166994,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40429166994",
+    "statusAtCheckpoint": "in_progress",
+    "matchingRepositoryCiRunId": 40429166903,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40429166903",
     "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
     "sanitizedEvidencePending": true
   },
