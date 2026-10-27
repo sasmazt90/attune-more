@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "dateEuropeBerlin": "2026-10-27",
-  "observedAt": "2026-10-27T00:31:54Z",
+  "observedAt": "2026-10-27T00:43:00Z",
   "repository": {
     "fullName": "sasmazt90/attune-more",
     "branch": "work/skin-roadmap-20261023",
@@ -15,7 +15,8 @@
     "seventhRetryCandidateCommit": "64f3eb358a043469356de54c9937885661d21279",
     "eighthRetryCandidateCommit": "0ea4be18ee96106ef67505fdc3928876b1cbb10e",
     "ninthRetryCandidateCommit": "8df6e54331d3ca0f1b6fd72860830cf4dadd0142",
-    "tenthRetryCandidateCommit": "9b9c8880591adcc63d64422319eac9f6335e213b"
+    "tenthRetryCandidateCommit": "9b9c8880591adcc63d64422319eac9f6335e213b",
+    "eleventhRetryCandidateCommit": "b3757fa540dec4f8c7b6772d297a5244b60d398b"
   },
   "failedAttempt": {
     "browserRunId": 40406100671,
@@ -324,13 +325,46 @@
   "tenthRetry": {
     "browserRunId": 40426307814,
     "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40426307814",
-    "statusAtCheckpoint": "in_progress",
+    "statusAtCheckpoint": "completed",
+    "conclusion": "failure",
     "jobId": 121932817235,
-    "activeStepAtCheckpoint": "Install immutable browser acceptance runtime",
     "matchingRepositoryCiRunId": 40426307799,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40426307799",
     "matchingRepositoryCiStatusAtCheckpoint": "completed",
     "matchingRepositoryCiConclusion": "success",
+    "artifactId": 12700033991,
+    "artifactDigest": "sha256:e95db6393250e720f2f6e54f83ddcd9440f517c7e562f6ac25a84527c77a0495",
+    "completedRuntimeSetup": true,
+    "productionBuildPassed": true,
+    "serversHealthChecked": true,
+    "fixturePrepared": true,
+    "licensedDistinctPosesSelected": ["FRONT", "LEFT", "RIGHT"],
+    "realMediaPipeLandmarksPerPose": 478,
+    "consentFlowCompleted": true,
+    "browserTestsExecuted": true,
+    "browserApiAnalysisCompleted": true,
+    "sanitizedEvidenceProduced": false,
+    "rootCause": "the result guidance assertion used the broad page-level dialog locator, so its li count was not scoped to the visible named reference-information dialog even though the product dialog owns six direct guidance items"
+  },
+  "eleventhTargetedFix": {
+    "sources": [
+      "tests/e2e/current_skin_contract.py",
+      "scripts/skin-research/build_unified_browser_acceptance.py"
+    ],
+    "change": "select the exact visible Referans ve görüntü dialog, count only its direct ul > li guidance items, assert the non-clinical score and unavailable-value semantics, and repin the strict implementation blob",
+    "unitTestsPassed": 7,
+    "pythonCompilePassed": true,
+    "diffCheckPassed": true,
+    "roboflowTrainingChanged": false,
+    "modelOrThresholdChanged": false
+  },
+  "eleventhRetry": {
+    "browserRunId": 40428065279,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40428065279",
+    "statusAtCheckpoint": "in_progress",
+    "matchingRepositoryCiRunId": 40428065285,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40428065285",
+    "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
     "sanitizedEvidencePending": true
   },
   "roboflowRefresh": {
