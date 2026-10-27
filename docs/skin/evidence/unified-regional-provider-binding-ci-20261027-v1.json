@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "evidenceType": "unified-regional-provider-binding-ci",
+  "observedAt": "2026-10-27T22:55:27Z",
+  "repository": "sasmazt90/attune-more",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "bb05f3cc934b137ec79046fa8fb613933d8dda64",
+  "implementationTree": "f95fce6db7905094bdb8cfd934304ef29e5687d4",
+  "workflow": {
+    "id": 362950948,
+    "path": ".github/workflows/ci.yml",
+    "blobSHA": "8041e9040518f0abf500cd744b4ebb3a2d78d374",
+    "runId": 40597958152,
+    "runURL": "https://github.com/sasmazt90/attune-more/actions/runs/40597958152",
+    "status": "completed",
+    "conclusion": "success",
+    "frontendJobId": 122518572169,
+    "frontendConclusion": "success",
+    "backendJobId": 122518572024,
+    "backendConclusion": "success"
+  },
+  "roboflowRefresh": {
+    "accessibleProjects": 20,
+    "acne": {
+      "project": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation",
+      "images": 800,
+      "versions": [1],
+      "modelsTotal": 90,
+      "trainings": [
+        {"trainingId": "5b632a5c12b76fcfe703", "status": "finished", "modelType": "rfdetr-nas-parent"},
+        {"trainingId": "49ee6204cf069198bbfa", "status": "finished", "modelType": "rfdetr-small"}
+      ]
+    },
+    "regional": {
+      "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+      "mutableImages": 476,
+      "mutableSplits": {"train": 334, "valid": 85, "test": 57},
+      "immutableVersions": [
+        {"versionNumber": 1, "images": 337, "splits": {"train": 244, "valid": 63, "test": 30}}
+      ],
+      "modelsTotal": 76,
+      "trainings": [
+        {"trainingId": "3485f8c67f957a1b850d", "status": "finished", "modelType": "rfdetr-nas-seg-parent"},
+        {"trainingId": "af287a006e2e428f5ce4", "status": "finished", "modelType": "rfdetr-seg-small"}
+      ],
+      "providerVersion2Present": false
+    },
+    "underEye": {
+      "project": "tolgar-sasmaz/attune-skin-under-eye-pilot",
+      "version": 2,
+      "images": 399,
+      "modelsTotal": 0,
+      "trainings": []
+    },
+    "groupedUnderEye": {
+      "project": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+      "images": 0,
+      "versions": [],
+      "uploadTaskId": "sLFwX7CYBVcnnD6iAW5o",
+      "uploadStatus": "created"
+    },
+    "duplicateVersionStarted": false,
+    "duplicateTrainingStarted": false,
+    "duplicateInferenceStarted": false
+  },
+  "implementation": {
+    "script": {
+      "path": "scripts/skin-research/check_unified_skin_result_release.py",
+      "blobSHA": "37296fcb9085a033e6bdfe5e234176c5cf61203f"
+    },
+    "tests": {
+      "path": "scripts/skin-research/tests/test_unified_skin_result_release.py",
+      "blobSHA": "1838dbe78a97b4de352760c742d2c009394b499e"
+    },
+    "receipt": {
+      "path": "docs/skin/evidence/unified-skin-result-release-receipt-20261027-v12.json",
+      "blobSHA": "e112d62de2f37d6720f630ea41efa8f11955987e"
+    },
+    "result": {
+      "path": "docs/skin/evidence/unified-skin-result-release-gate-20261027-v12.json",
+      "blobSHA": "da20fd50979ac1fc29d38198e3c28c45c3786c49"
+    },
+    "regionalProviderGate": {
+      "path": "docs/skin/evidence/regional-provider-dataset-release-gate-20261027-v1.json",
+      "sha256": "86969743774a72317e27a346af43242b8a38d673ef80070083c1e83dcc42b053"
+    }
+  },
+  "tests": {
+    "localFocused": {"passed": 42},
+    "localSkinResearch": {"passed": 347},
+    "repositoryDeterministic": {"passed": 1627, "skipped": 44, "warnings": 2},
+    "completeSkinResearch": {"passed": 347},
+    "localizationContract": "passed"
+  },
+  "decision": {
+    "regionalProviderDatasetBoundToUnifiedGate": true,
+    "mutableReceiptBooleansMayBypassProviderEvidence": false,
+    "staleProviderGateMayReenter": false,
+    "regionalProviderDatasetReady": false,
+    "finalRoadmapAcceptanceAllowed": false,
+    "roadmapComplete": false
+  },
+  "privacy": {
+    "committedImageBytes": false,
+    "committedFilenamesOrPaths": false,
+    "committedProviderImageIds": false,
+    "committedRawIdentity": false,
+    "privateResolversCommitted": false
+  }
+}
