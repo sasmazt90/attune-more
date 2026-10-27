@@ -20,15 +20,72 @@
     "all_class_release_gates_not_accepted"
   ],
   "classReleaseGates": {
-    "acneConcerns": {"methodVersion": "acne-concerns-per-class-release-gate-v2", "roadmapAccepted": false, "tasks": ["01", "02", "03"]},
-    "dryness": {"methodVersion": "regional-dryness-release-gate-v2", "roadmapAccepted": false, "tasks": ["05"]},
-    "oily": {"methodVersion": "regional-oily-appearance-release-gate-v2", "roadmapAccepted": false, "tasks": ["04"]},
-    "redness": {"methodVersion": "regional-redness-release-gate-v2", "roadmapAccepted": false, "tasks": ["07"]},
-    "sag": {"methodVersion": "sag-appearance-release-gate-v2", "roadmapAccepted": false, "tasks": ["12"]},
-    "skinTypeCombination": {"methodVersion": "skin-type-combination-release-gate-v2", "roadmapAccepted": false, "tasks": ["06"]},
-    "toneUnevenness": {"methodVersion": "tone-unevenness-release-gate-v2", "roadmapAccepted": false, "tasks": ["08"]},
-    "underEye": {"methodVersion": "under-eye-per-class-release-gate-v2", "roadmapAccepted": false, "tasks": ["09", "10"]},
-    "wrinkles": {"methodVersion": "wrinkle-per-class-release-gate-v2", "roadmapAccepted": false, "tasks": ["11"]}
+    "acneConcerns": {
+      "methodVersion": "acne-concerns-per-class-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "01",
+        "02",
+        "03"
+      ]
+    },
+    "dryness": {
+      "methodVersion": "regional-dryness-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "05"
+      ]
+    },
+    "oily": {
+      "methodVersion": "regional-oily-appearance-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "04"
+      ]
+    },
+    "redness": {
+      "methodVersion": "regional-redness-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "07"
+      ]
+    },
+    "sag": {
+      "methodVersion": "sag-appearance-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "12"
+      ]
+    },
+    "skinTypeCombination": {
+      "methodVersion": "skin-type-combination-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "06"
+      ]
+    },
+    "toneUnevenness": {
+      "methodVersion": "tone-unevenness-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "08"
+      ]
+    },
+    "underEye": {
+      "methodVersion": "under-eye-per-class-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "09",
+        "10"
+      ]
+    },
+    "wrinkles": {
+      "methodVersion": "wrinkle-per-class-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "11"
+      ]
+    }
   },
   "currentIntegratedPresentationAllowed": true,
   "decision": "blocked",
@@ -37,7 +94,11 @@
   "generatedReplayIntegrationSmokeAllowed": true,
   "methodVersion": "unified-skin-result-release-gate-v3",
   "physicalCameraBenchmarkAccepted": false,
-  "repositoryCI": {"conclusion": "success", "headSha": "b0e10de2cf4455ea25d370f48d8f995ff6c4be5f", "runId": 40376357262},
+  "repositoryCI": {
+    "conclusion": "success",
+    "headSha": "94065c2031963fb984849f7be70aa7a4239dfa86",
+    "runId": 40456553849
+  },
   "roadmapAccepted": false,
   "schemaVersion": 3,
   "workingBaselinePreserved": true

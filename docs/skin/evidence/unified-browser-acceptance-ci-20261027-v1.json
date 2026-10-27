@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-27T06:00:00Z",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "94065c2031963fb984849f7be70aa7a4239dfa86",
+  "githubActions": {
+    "runId": 40456553849,
+    "url": "https://github.com/sasmazt90/attune-more/actions/runs/40456553849",
+    "headSha": "94065c2031963fb984849f7be70aa7a4239dfa86",
+    "conclusion": "success",
+    "frontendProductionBuild": "success",
+    "frontendJobId": 122031134359,
+    "backendJobId": 122031134701,
+    "localizationContract": "success",
+    "deterministicUnitSuite": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2
+    },
+    "completeSkinResearchEvidenceSuite": {
+      "tests": 290,
+      "result": "OK"
+    }
+  },
+  "browserAcceptance": {
+    "runId": 40456553840,
+    "url": "https://github.com/sasmazt90/attune-more/actions/runs/40456553840",
+    "jobId": 122031134314,
+    "conclusion": "success",
+    "artifactId": 12712804062,
+    "artifactDigest": "sha256:fa908e2462267e159c22b1883e3068abed28c21aeae29c9ae2f1422354f8e481",
+    "sanitizedEvidenceOnly": true,
+    "realBrowser": true,
+    "apiHistoryPrivacyPassed": true,
+    "controlledFixture": true,
+    "physicalCameraCapture": false,
+    "expertGroundTruth": false,
+    "accuracyEvidence": false
+  },
+  "providerRefresh": {
+    "accessibleProjects": 20,
+    "acneKnownTrainingsFinished": true,
+    "regionalKnownTrainingsFinished": true,
+    "underEyeVersion": 2,
+    "underEyeVersionTrainings": 0,
+    "newTrainingStarted": false,
+    "duplicateWorkStarted": false,
+    "groupedUnderEyeUploadTask": {
+      "taskId": "sLFwX7CYBVcnnD6iAW5o",
+      "status": "created",
+      "progress": null
+    }
+  }
+}
