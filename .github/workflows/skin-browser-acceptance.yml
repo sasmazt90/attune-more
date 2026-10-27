@@ -25,7 +25,6 @@ jobs:
       ATTUNE_LOAD_LOCAL_ENV: '0'
       HF_HUB_OFFLINE: '1'
       TRANSFORMERS_OFFLINE: '1'
-      ATTUNE_DATA_DIR: ${{ runner.temp }}/attune-skin-isolated-data
       SKIN_RESULT_AUDIT_DIR: audit-results/unified-skin-result-browser-acceptance/browser
       SKIN_HISTORY_AUDIT_DIR: audit-results/unified-skin-result-browser-acceptance/history
       SKIN_PRIVACY_AUDIT_DIR: audit-results/unified-skin-result-browser-acceptance/privacy
@@ -36,6 +35,10 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
+      - name: Initialize isolated backend data directory
+        run: |
+          install -d -m 700 "$RUNNER_TEMP/attune-skin-isolated-data"
+          printf 'ATTUNE_DATA_DIR=%s/attune-skin-isolated-data\n' "$RUNNER_TEMP" >> "$GITHUB_ENV"
       - uses: actions/setup-node@v5
         with:
           node-version: '22.20.0'
