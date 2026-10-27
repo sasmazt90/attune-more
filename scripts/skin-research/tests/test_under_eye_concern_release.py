@@ -14,8 +14,42 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "under-eye-per-class-release-receipt-20261026-v2.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "under-eye-per-class-release-receipt-20261027-v3.json"
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _queue():
+    path = ROOT / "docs" / "skin" / "evidence" / "under-eye-expert-review-queue-20261027-v1.json"
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _complete_protocol(queue):
+    return {
+        "schemaVersion": "under-eye-expert-semantic-protocol-v1",
+        "candidateArchiveSHA256": module.EXPECTED_GROUPED_ARCHIVE_SHA256,
+        "reviewQueueCanonicalSHA256": module.EXPECTED_REVIEW_QUEUE_CANONICAL_SHA256,
+        "reviewerRole": "expert_review",
+        "classes": [{
+            "name": name,
+            "expertReviewed": True,
+            "positiveDefinitionLocked": True,
+            "maskExtentPolicyLocked": True,
+            "hardNegativePolicyLocked": True,
+            "ambiguousCasePolicyLocked": True,
+            "reviewedItemIds": sorted(
+                row["reviewItemId"] for row in queue["items"] if row["targetClass"] == name
+            ),
+        } for name in ("darkcircle", "eyebag")],
+        "semanticInvariants": queue["reviewPolicy"],
+        "decision": {
+            "expertReviewComplete": True,
+            "semanticProtocolReady": True,
+            "personIndependentSplitReady": False,
+            "trainingAuthorized": False,
+            "testEvaluationAuthorized": False,
+            "activationAllowed": False,
+        },
+    }
 
 
 def _complete_training_prerequisites(receipt):
@@ -47,9 +81,11 @@ def _install_distinct_candidate(receipt):
 
 class UnderEyeConcernReleaseTests(unittest.TestCase):
     def test_current_classes_are_independently_blocked(self):
-        result = module.evaluate_release(_receipt())
+        result = module.evaluate_release(_receipt(), _queue())
         self.assertTrue(result["existingConcreteResultFlowPreserved"])
         self.assertTrue(result["classesRemainSeparate"])
+        self.assertTrue(result["expertReviewQueueVerified"])
+        self.assertFalse(result["expertSemanticProtocolVerified"])
         self.assertFalse(result["researchTrainingAuthorized"])
         self.assertFalse(result["distinctGroupedCandidatePresent"])
         self.assertFalse(result["blindRetrainingAllowed"])
@@ -117,7 +153,8 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
     def test_completed_pre_model_evidence_authorizes_only_targeted_training(self):
         receipt = _receipt()
         _complete_training_prerequisites(receipt)
-        result = module.evaluate_release(receipt)
+        queue = _queue()
+        result = module.evaluate_release(receipt, queue, _complete_protocol(queue))
         self.assertTrue(result["researchTrainingAuthorized"])
         self.assertFalse(result["distinctGroupedCandidatePresent"])
         self.assertFalse(result["roadmapAccepted"])
@@ -128,7 +165,8 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
         _install_distinct_candidate(receipt)
         for field in receipt["candidate"]["classes"]["darkcircle"]:
             receipt["candidate"]["classes"]["darkcircle"][field] = True
-        result = module.evaluate_release(receipt)
+        queue = _queue()
+        result = module.evaluate_release(receipt, queue, _complete_protocol(queue))
         self.assertTrue(result["classDecisions"]["darkcircle"]["productActivationAllowed"])
         self.assertFalse(result["classDecisions"]["eyebag"]["productActivationAllowed"])
         self.assertFalse(result["roadmapAccepted"])
@@ -140,10 +178,32 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
         for class_name in ("darkcircle", "eyebag"):
             for field in receipt["candidate"]["classes"][class_name]:
                 receipt["candidate"]["classes"][class_name][field] = True
-        result = module.evaluate_release(receipt)
+        queue = _queue()
+        result = module.evaluate_release(receipt, queue, _complete_protocol(queue))
         self.assertTrue(result["researchTrainingAuthorized"])
         self.assertTrue(result["roadmapAccepted"])
         self.assertEqual(result["decision"], "ready")
+
+    def test_boolean_protocol_claim_without_bound_protocol_is_rejected(self):
+        receipt = _receipt()
+        receipt["candidate"]["expertPerClassMaskNegativeAndAmbiguityProtocolComplete"] = True
+        with self.assertRaisesRegex(module.GateInputError, "not bound"):
+            module.evaluate_release(receipt, _queue())
+
+    def test_review_queue_tampering_is_rejected(self):
+        queue = _queue()
+        queue["dataset"]["testSelectedForReview"] = 1
+        with self.assertRaisesRegex(module.GateInputError, "queue content changed"):
+            module.evaluate_release(_receipt(), queue)
+
+    def test_protocol_must_cover_every_frozen_queue_item(self):
+        receipt = _receipt()
+        receipt["candidate"]["expertPerClassMaskNegativeAndAmbiguityProtocolComplete"] = True
+        queue = _queue()
+        protocol = _complete_protocol(queue)
+        protocol["classes"][0]["reviewedItemIds"].pop()
+        with self.assertRaisesRegex(module.GateInputError, "cover the frozen queue"):
+            module.evaluate_release(receipt, queue, protocol)
 
 
 if __name__ == "__main__":

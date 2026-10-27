@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-27",
-      "lastCheckedAt": "2026-10-27T07:43:33Z",
+      "lastCheckedAt": "2026-10-27T08:43:08Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -487,7 +487,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-27T07:43:33Z",
+      "lastCheckedAt": "2026-10-27T08:43:08Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -641,12 +641,14 @@
         "activationAllowed": false
       },
       "perClassReleaseGate": {
-        "observedAt": "2026-10-26T11:43:07Z",
-        "methodVersion": "under-eye-per-class-release-gate-v2",
+        "observedAt": "2026-10-27T08:43:08Z",
+        "methodVersion": "under-eye-per-class-release-gate-v3",
         "script": "scripts/skin-research/check_under_eye_concern_release.py",
-        "receipt": "docs/skin/evidence/under-eye-per-class-release-receipt-20261026-v2.json",
-        "evidence": "docs/skin/evidence/under-eye-per-class-release-gate-20261026-v2.json",
-        "ciEvidence": "docs/skin/evidence/under-eye-per-class-release-gate-v2-ci-20261026-v1.json",
+        "receipt": "docs/skin/evidence/under-eye-per-class-release-receipt-20261027-v3.json",
+        "evidence": "docs/skin/evidence/under-eye-per-class-release-gate-20261027-v3.json",
+        "reviewQueue": "docs/skin/evidence/under-eye-expert-review-queue-20261027-v1.json",
+        "reviewQueueVerified": true,
+        "expertSemanticProtocolVerified": false,
         "ungroupedModelAccepted": false,
         "distinctGroupedCandidatePresent": false,
         "researchTrainingAuthorized": false,
@@ -662,10 +664,8 @@
         "roadmapAccepted": false,
         "classesRemainSeparate": true,
         "workingConcreteResultFlowPreserved": true,
-        "localFocusedTests": 11,
-        "ciSkinResearchTests": 231,
-        "ciRunId": 40316642225,
-        "implementationCommit": "59e3acffe489556e00a9e8869f0e8ddbffa34e05"
+        "localFocusedTests": 14,
+        "localSkinResearchTests": 303
       },
       "lastCheckedDate": "2026-10-27"
     },
@@ -731,7 +731,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-27T07:43:33Z",
+      "lastCheckedAt": "2026-10-27T08:43:08Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -972,7 +972,7 @@
     },
     "regionalSkinTypeBoxes": {
       "observedAt": "2026-10-24T23:19:50Z",
-      "lastCheckedAt": "2026-10-27T07:43:33Z",
+      "lastCheckedAt": "2026-10-27T08:43:08Z",
       "project": "tolgar-sasmaz/attune-skin-type-regional-r1",
       "projectVisibility": "public",
       "projectSummaryImages": 991,
@@ -4022,7 +4022,7 @@
     "Run scripts/skin-research/reconcile_excluded_archive_inventory.py only with the private four-entry inventory: four unique opaque IDs and SHA-256 values, no archive names/paths/URLs, zero overlap with selected-source hashes, and explicit false access/mutation/upload/training/product-use flags. Do not access or hash the excluded archives merely to satisfy the gate; use an already authorized private ledger or durable prior hash evidence. Until all four are reviewed, keep inventoryReconciled and sourceReleaseContributionAllowed false.",
     "Replay scripts/skin-research/check_source_mapping_release.py before using selected_sources.py or expanded_sources.py for any training-data or product-truth release. Preserve all four excluded archives and first reconcile the fourth archive outside the mapping-script list, verify every archive hash and right, lock expert per-class semantics, finish geometry plus source/person grouping, create a group-locked train/validation/new-final-test split and reserve an independent camera holdout. Keep boxes and rectangle-polygons out of pixel truth, missing labels out of Normal/negative truth, tone out of localized Pigmentation, pul out of broad regional dryness and model proposals out of expert truth.",
     "Replay scripts/skin-research/check_acne_concern_release.py v2 before task-01/02/03 targeted training, final-test use or learned-model activation. The gate now requires a distinct model and training identity on a version-2-or-later dataset generated from the verified group-locked replacement split; it permanently rejects relabelling the known small model or evaluated NAS children. Preserve the functioning concrete acne result, keep Post acne and Pigmentation explicitly unavailable, lock exactly one validation-only change and policy before validation, then lock thresholds before the new untouched final test. Permit each class to pass only on its own validation, final test, physical-camera skin-tone/lighting/pose slices, integration and unavailable/history/dedup evidence. Never collapse the classes, use missing labels as negatives, treat model proposals as expert truth, infer a medical diagnosis, or populate localized Pigmentation from tone.",
-    "Replay scripts/skin-research/check_under_eye_concern_release.py v2 before task-09/10 targeted training, final-test use or model activation. The gate now requires a distinct model and training identity belonging to tolgar-sasmaz/attune-skin-under-eye-grouped-research, trained from the exact authorized augmentation-free grouped archive/version; it permanently rejects relabelling the known ungrouped pilot model. First satisfy exact archive/import/version authorization, rights, expert per-class mask/negative/ambiguity protocol, person-independent grouping, new untouched final test and camera reservations, and a quality policy locked before validation. Lock thresholds before the final test and permit darkcircle or eyebag only on its own validation, final-test, physical-camera slice, integration and unavailable/history evidence. Keep both product headings separate; never infer dark-circle medical causes, edema/fluid retention for bags, missing-label negatives, or model proposals as expert truth.",
+    "Replay scripts/skin-research/check_under_eye_concern_release.py v3 with the exact --review-queue before task-09/10 targeted training, final-test use or model activation. The gate pins queue canonical SHA256 8784366d14ac86d6472f87c4f14ae7940e5c9344f2cfceeb30ef24b3f116c38d and grouped archive SHA256 8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122; a mutable completion boolean cannot substitute for the complete expert protocol covering all 88 frozen items. A future protocol must bind both classes independently and still cannot authorize training by itself. Also require exact archive/import/version authorization, rights, person-independent grouping, a new untouched final test and camera reservations, and a quality policy locked before validation. Any future model must have a distinct grouped-project training/version identity; lock thresholds before final test and permit darkcircle or eyebag only on its own validation, final-test, physical-camera slice, integration and unavailable/history evidence. Keep both product headings separate; never infer dark-circle medical causes, edema/fluid retention for bags, missing-label negatives, or model/source proposals as expert truth.",
     "Replay scripts/skin-research/check_oily_release.py before task-04 retraining, final-test use or learned green regional-mask activation. Preserve the already functioning concrete oil-appearance output and separate skin type. Require measured regional polygon support; never copy whole-face classes into regions, turn boxes into polygons, interpret missing masks as Normal, promote model proposals to expert truth or claim clinical sebum diagnosis. Complete rights review, expert extent/negative/assessability and shine-glare-lighting protocols, full source/person grouping, a locked replacement split, a new untouched final test, independent physical-camera lighting/skin-tone/pose slices, working integration and regional overlap/unavailable controls.",
     "Run tests/e2e/current_skin_contract.py, tests/e2e/current_skin_photo_history.py and tests/e2e/current_skin_photo_wipe_success.py against one immutable build with real Chromium, then feed their private raw proofs plus green repository CI, repository commit, browser run identity and an explicit --history-policy-id to scripts/skin-research/build_unified_browser_acceptance.py. Keep raw scans, source photo IDs and private browser artifacts outside Git; commit only the builder's five sanitized evidence files. The controlled fixture proves browser integration only and must never be promoted to physical-camera, expert-truth or accuracy evidence. Then replay scripts/skin-research/check_unified_skin_result_release.py v3: every sanitized browser artifact must bind the same commit/build/browser/history identities, CI must target that commit, the camera benchmark ID must match, and independent final tests must bind the same release and commit. Keep task 13 blocked until every class gate, validation-locked untouched final test, consented expert physical-camera gate, map/unavailable/overlap control, privacy lifecycle and working product replay is accepted. Preserve the functioning /api/local-health/skin baseline and all twelve product headings; Post acne and Pigmentation remain explicitly unavailable until independently accepted.",
     "Replay scripts/skin-research/check_tone_unevenness_release.py v2 before changing task-08 tone semantics, activating a calibrated method or co-reporting accepted localized pigmentation. Preserve the functioning regional CIELAB broad chromatic-variation appearance proxy and the existing /api/local-health/skin result; it is not clinical severity. First complete the camera calibration protocol, source/person-independent calibration split, adjudicated expert tone truth, policy lock and untouched physical camera-final reservation. Acceptance must bind a distinct calibrated method ID, calibration release, camera benchmark, capture protocol, locked policy and SHA-256 evidence, then pass robustness, skin-tone subgroup, same-person repeatability, camera slices, product replay and unknown/unavailable/history controls. Keep Post acne/Pigmentation separate; when accepted local masks exist, exclude their support from tone sampling and pass independent-camera co-reporting.",
@@ -6687,6 +6687,21 @@
       "tests": {
         "focused": 4,
         "skinResearch": 300,
+        "result": "OK"
+      }
+    },
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T08:43:08Z",
+      "action": "Read the remote checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye versions and training lists, the grouped under-eye project, model inventory and existing upload task sLFwX7CYBVcnnD6iAW5o. Acne/regional jobs remain finished, under-eye pilot v2 still has no training, the grouped project has no model, and the task remains created/no-progress; no duplicate training, upload, version, inference, threshold or activation work was started. Hardened the task-09/10 per-class gate to v3 by cryptographically binding the frozen 88-item expert review queue, its exact 8bf6b52f...56122 grouped archive, train/valid-only selection and untouched 38-image test boundary. The gate rejects a mutable expert-complete boolean unless an under-eye-expert-semantic-protocol-v1 record covers every exact queue ID for darkcircle and eyebag, locks every per-class policy and preserves all unknown/negative/polygon truth invariants. It also enforces that semantic review alone cannot claim person independence, authorize training/final-test use or activate a model. Fourteen focused tests and all 303 skin-research tests passed. The verified queue is complete as an executable review input, but expert decisions, person independence, rights, exact archive authorization, new final test and physical-camera evidence remain pending; training and roadmap acceptance remain false.",
+      "report": "docs/skin/evidence/under-eye-per-class-release-gate-20261027-v3.json",
+      "evidence": [
+        "docs/skin/evidence/under-eye-per-class-release-receipt-20261027-v3.json",
+        "docs/skin/evidence/under-eye-expert-review-queue-20261027-v1.json"
+      ],
+      "tests": {
+        "focused": 14,
+        "skinResearch": 303,
         "result": "OK"
       }
     }

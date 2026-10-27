@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 3,
+  "observedAt": "2026-10-27T08:43:08Z",
+  "inputBlobs": {
+    "ungroupedModelReceipt": "6b50743ad404024ab33a6dfb536424de9324e5bb",
+    "ungroupedModelVerdict": "437c97d23f6163ecc12c40dc52e4f12d60a840d9",
+    "sourceGroupSplit": "1e6ab8d942de0b50e54016ff24518cf7dc3ca3b6",
+    "providerGroupedReproduction": "b835168ebee70699236c4748fa8fc39e4c5168ba",
+    "providerState": "7bf6041f507f616d8e4d7ef3bc77b6f054a4a67f",
+    "groupedReleaseGate": "d0b3062be1c9a946740bcc7bd2a42da1c21c92b2",
+    "mergedProductRecheck": "bbbe61b13145284d675af7e3e66d25ce439a7ba4",
+    "unifiedResultReceipt": "aac52634eaba105cd1ccc86383b7665eca7b53eb",
+    "expertReviewQueue": "bf4e5ab3e8d8462894b91133b514e968b238a448",
+    "expertReviewDecisionsTemplate": "169b32cf4e83359dbb2ed5a72430999768819be1"
+  },
+  "semanticContract": {
+    "classes": {"darkcircle": "dark", "eyebag": "bags"},
+    "classesRemainSeparate": true,
+    "mayCoexist": true,
+    "missingClassMeansNegative": false,
+    "modelPredictionIsExpertTruth": false,
+    "darkcircleMedicalCauseInferred": false,
+    "eyebagEdemaOrFluidRetentionInferred": false
+  },
+  "workingBaseline": {
+    "productAlreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "darkHeadingPresent": true,
+    "bagsHeadingPresent": true
+  },
+  "source": {
+    "providerSourceVersion": 2,
+    "images": 399,
+    "classCounts": {"darkcircle": 382, "eyebag": 487},
+    "sourceSplits": {"train": 279, "valid": 81, "test": 39},
+    "groupedSplits": {"train": 283, "valid": 78, "test": 38},
+    "reviewedCrossSplitGroups": 3,
+    "movedImages": 4,
+    "imageBytesChanged": 0,
+    "annotationPayloadsChanged": 0,
+    "personIndependent": false,
+    "groupedProjectImages": 0,
+    "uploadStatus": "created",
+    "uploadProgress": null,
+    "candidateArchiveMatchesAuthorizedArchive": false
+  },
+  "ungroupedModel": {
+    "trainingId": "d194569acd3ebe7cf8b7",
+    "modelId": "tolgar-sasmaz/attune-skin-under-eye-pilot-1-rfdetr-seg-small-t1",
+    "evalId": "ntJE3M4iMTVBPCg2HwIb",
+    "generatedImages": 952,
+    "thresholdsLockedBeforeTest": false,
+    "accepted": false,
+    "classMetrics": {
+      "darkcircle": {
+        "threshold": 0.32,
+        "validation": {"precision": 0.5, "recall": 0.597, "f1": 0.544},
+        "diagnosticTest": {"precision": 0.5, "recall": 0.61, "f1": 0.549},
+        "providerTestMap50": 0.6100278019619981,
+        "providerTestMap50_95": 0.22253903692392357,
+        "passed": false
+      },
+      "eyebag": {
+        "threshold": 0.49,
+        "validation": {"precision": 0.75, "recall": 0.6, "f1": 0.667},
+        "diagnosticTest": {"precision": 0.697, "recall": 0.479, "f1": 0.568},
+        "providerTestMap50": 0.6263657136973713,
+        "providerTestMap50_95": 0.2371280819762581,
+        "passed": false
+      }
+    }
+  },
+  "candidate": {
+    "mode": "not-trained",
+    "projectId": null,
+    "modelId": null,
+    "trainingId": null,
+    "datasetVersion": null,
+    "exactArchiveAuthorized": false,
+    "groupedImportVerified": false,
+    "augmentationFreeGroupedVersionVerified": false,
+    "rightsReviewed": false,
+    "expertPerClassMaskNegativeAndAmbiguityProtocolComplete": false,
+    "personIndependentGroupedSplitLocked": false,
+    "newUntouchedFinalTestReserved": false,
+    "independentCameraHoldoutReserved": false,
+    "qualityPolicyLockedBeforeValidation": false,
+    "trainedFromAuthorizedGroupedArchive": false,
+    "candidateChangeMatchesPreRegisteredExperiment": false,
+    "thresholdsLockedBeforeFinalTest": false,
+    "classes": {
+      "darkcircle": {
+        "validationPassed": false,
+        "newUntouchedFinalTestPassed": false,
+        "physicalCameraHoldoutPassed": false,
+        "skinToneLightingPoseSlicesPassed": false,
+        "workingProductIntegrationPassed": false,
+        "unavailableAndHistoryControlsPassed": false
+      },
+      "eyebag": {
+        "validationPassed": false,
+        "newUntouchedFinalTestPassed": false,
+        "physicalCameraHoldoutPassed": false,
+        "skinToneLightingPoseSlicesPassed": false,
+        "workingProductIntegrationPassed": false,
+        "unavailableAndHistoryControlsPassed": false
+      }
+    }
+  }
+}

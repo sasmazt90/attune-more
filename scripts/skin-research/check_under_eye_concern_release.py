@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -18,10 +19,14 @@ EXPECTED_BLOBS = {
     "groupedReleaseGate": "d0b3062be1c9a946740bcc7bd2a42da1c21c92b2",
     "mergedProductRecheck": "bbbe61b13145284d675af7e3e66d25ce439a7ba4",
     "unifiedResultReceipt": "aac52634eaba105cd1ccc86383b7665eca7b53eb",
+    "expertReviewQueue": "bf4e5ab3e8d8462894b91133b514e968b238a448",
+    "expertReviewDecisionsTemplate": "169b32cf4e83359dbb2ed5a72430999768819be1",
 }
 REJECTED_UNGROUPED_MODEL_ID = "tolgar-sasmaz/attune-skin-under-eye-pilot-1-rfdetr-seg-small-t1"
 EXPECTED_GROUPED_PROJECT_ID = "tolgar-sasmaz/attune-skin-under-eye-grouped-research"
 KNOWN_INELIGIBLE_MODEL_IDS = {REJECTED_UNGROUPED_MODEL_ID}
+EXPECTED_GROUPED_ARCHIVE_SHA256 = "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122"
+EXPECTED_REVIEW_QUEUE_CANONICAL_SHA256 = "8784366d14ac86d6472f87c4f14ae7940e5c9344f2cfceeb30ef24b3f116c38d"
 
 
 class GateInputError(ValueError):
@@ -31,6 +36,78 @@ class GateInputError(ValueError):
 def _require(value: Any, expected: Any, message: str) -> None:
     if value != expected:
         raise GateInputError(message)
+
+
+def _canonical_sha(value: Any) -> str:
+    payload = json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
+    return hashlib.sha256(payload).hexdigest()
+
+
+def _validate_review_queue(queue: dict[str, Any] | None) -> bool:
+    if queue is None:
+        return False
+    _require(queue.get("schemaVersion"), "under-eye-expert-review-queue-v1", "expert review queue schema changed")
+    _require(_canonical_sha(queue), EXPECTED_REVIEW_QUEUE_CANONICAL_SHA256, "expert review queue content changed")
+    dataset = queue.get("dataset", {})
+    _require(dataset.get("candidateArchiveSHA256"), EXPECTED_GROUPED_ARCHIVE_SHA256, "expert review archive changed")
+    _require(dataset.get("project"), EXPECTED_GROUPED_PROJECT_ID, "expert review project changed")
+    _require(dataset.get("reviewSplits"), ["train", "valid"], "expert review splits changed")
+    _require(dataset.get("lockedTestImages"), 38, "locked expert-review test inventory changed")
+    _require(dataset.get("testAnnotationPayloadRead"), False, "locked test annotations cannot be read for expert review")
+    _require(dataset.get("testImageBytesRead"), False, "locked test images cannot be read for expert review")
+    _require(dataset.get("testSelectedForReview"), 0, "locked test cannot enter expert review selection")
+    _require(dataset.get("personIndependent"), False, "review queue cannot claim person independence")
+    _require(queue.get("classes"), ["darkcircle", "eyebag"], "expert review classes changed")
+    selection = queue.get("selection", {})
+    _require(selection.get("items"), 88, "expert review item inventory changed")
+    _require(selection.get("uniqueImages"), 59, "expert review image inventory changed")
+    _require(selection.get("candidateGeometryOnly"), True, "source candidates cannot become expert truth")
+    policy = queue.get("reviewPolicy", {})
+    _require(policy.get("expertReviewerRequired"), True, "expert reviewer requirement changed")
+    _require(policy.get("darkCircleAndEyeBagIndependent"), True, "under-eye class review cannot be collapsed")
+    _require(policy.get("missingTargetAnnotationIsNegative"), False, "missing labels cannot become negatives")
+    _require(policy.get("sourceAnnotationIsExpertTruth"), False, "source proposals cannot become expert truth")
+    _require(policy.get("modelPredictionAcceptedAsTruth"), False, "model proposals cannot become expert truth")
+    _require(policy.get("boxAcceptedAsPolygon"), False, "boxes cannot become expert polygons")
+    _require(policy.get("ambiguousOrUnassessableBecomesNormal"), False, "unknown review items cannot become normal")
+    return True
+
+
+def _validate_expert_protocol(queue: dict[str, Any], protocol: dict[str, Any] | None) -> bool:
+    if protocol is None:
+        return False
+    _require(protocol.get("schemaVersion"), "under-eye-expert-semantic-protocol-v1", "expert protocol schema changed")
+    _require(protocol.get("candidateArchiveSHA256"), EXPECTED_GROUPED_ARCHIVE_SHA256, "expert protocol archive changed")
+    _require(protocol.get("reviewQueueCanonicalSHA256"), EXPECTED_REVIEW_QUEUE_CANONICAL_SHA256, "expert protocol queue binding changed")
+    _require(protocol.get("reviewerRole"), "expert_review", "expert reviewer confirmation is missing")
+    _require(protocol.get("semanticInvariants"), queue.get("reviewPolicy"), "expert protocol semantic invariants changed")
+    queue_by_class = {
+        name: sorted(row["reviewItemId"] for row in queue["items"] if row.get("targetClass") == name)
+        for name in ("darkcircle", "eyebag")
+    }
+    classes = protocol.get("classes")
+    if not isinstance(classes, list) or len(classes) != 2:
+        raise GateInputError("expert protocol per-class inventory is incomplete")
+    seen: set[str] = set()
+    for row in classes:
+        if not isinstance(row, dict) or row.get("name") not in queue_by_class or row["name"] in seen:
+            raise GateInputError("expert protocol per-class record is invalid")
+        if not all(row.get(field) is True for field in (
+            "expertReviewed", "positiveDefinitionLocked", "maskExtentPolicyLocked",
+            "hardNegativePolicyLocked", "ambiguousCasePolicyLocked",
+        )):
+            raise GateInputError("expert protocol class policy is incomplete")
+        _require(sorted(row.get("reviewedItemIds", [])), queue_by_class[row["name"]], "expert protocol does not cover the frozen queue")
+        seen.add(row["name"])
+    _require(seen, {"darkcircle", "eyebag"}, "expert protocol classes are incomplete")
+    decision = protocol.get("decision", {})
+    _require(decision.get("expertReviewComplete"), True, "expert review is incomplete")
+    _require(decision.get("semanticProtocolReady"), True, "expert semantic protocol is incomplete")
+    _require(decision.get("personIndependentSplitReady"), False, "semantic review cannot claim person independence")
+    _require(decision.get("trainingAuthorized"), False, "semantic review alone cannot authorize training")
+    _require(decision.get("testEvaluationAuthorized"), False, "semantic review alone cannot authorize final-test use")
+    _require(decision.get("activationAllowed"), False, "semantic review alone cannot authorize activation")
+    return True
 
 
 def _class_decision(shared_blockers: list[str], candidate: dict[str, Any], class_name: str) -> dict[str, Any]:
@@ -86,7 +163,11 @@ def _validate_candidate_identity(candidate: dict[str, Any]) -> tuple[bool, list[
     return not blockers, blockers
 
 
-def evaluate_release(receipt: dict[str, Any]) -> dict[str, Any]:
+def evaluate_release(
+    receipt: dict[str, Any],
+    review_queue: dict[str, Any] | None = None,
+    expert_protocol: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     _require(receipt.get("inputBlobs"), EXPECTED_BLOBS, "input blobs changed")
 
     contract = receipt.get("semanticContract", {})
@@ -147,19 +228,27 @@ def evaluate_release(receipt: dict[str, Any]) -> dict[str, Any]:
     }
     _require(model.get("classMetrics"), expected_metrics, "per-class under-eye metrics changed")
 
+    queue_verified = _validate_review_queue(review_queue)
+    protocol_verified = queue_verified and _validate_expert_protocol(review_queue, expert_protocol)
+
     candidate = receipt.get("candidate", {})
+    if candidate.get("expertPerClassMaskNegativeAndAmbiguityProtocolComplete") is not protocol_verified:
+        raise GateInputError("expert protocol claim is not bound to the frozen queue and protocol")
     shared_requirements = {
         "exactArchiveAuthorized": "exact_archive_authorization_missing",
         "groupedImportVerified": "grouped_import_verification_missing",
         "augmentationFreeGroupedVersionVerified": "grouped_version_verification_missing",
         "rightsReviewed": "rights_review_missing",
-        "expertPerClassMaskNegativeAndAmbiguityProtocolComplete": "expert_per_class_protocol_missing",
         "personIndependentGroupedSplitLocked": "person_independent_grouped_split_missing",
         "newUntouchedFinalTestReserved": "new_untouched_final_test_missing",
         "independentCameraHoldoutReserved": "independent_camera_holdout_missing",
         "qualityPolicyLockedBeforeValidation": "quality_policy_not_locked_before_validation",
     }
     shared_training_blockers = [reason for field, reason in shared_requirements.items() if candidate.get(field) is not True]
+    if not queue_verified:
+        shared_training_blockers.append("expert_review_queue_verification_missing")
+    if not protocol_verified:
+        shared_training_blockers.append("expert_per_class_protocol_missing")
     distinct_candidate, identity_blockers = _validate_candidate_identity(candidate)
     shared_test_blockers = list(shared_training_blockers) + identity_blockers
     if candidate.get("trainedFromAuthorizedGroupedArchive") is not True:
@@ -177,13 +266,15 @@ def evaluate_release(receipt: dict[str, Any]) -> dict[str, Any]:
     }
     roadmap_accepted = distinct_candidate and all(item["productActivationAllowed"] for item in class_decisions.values())
     return {
-        "schemaVersion": 2,
-        "methodVersion": "under-eye-per-class-release-gate-v2",
+        "schemaVersion": 3,
+        "methodVersion": "under-eye-per-class-release-gate-v3",
         "existingConcreteResultFlowPreserved": True,
         "classesRemainSeparate": True,
         "ungroupedModelAccepted": False,
         "distinctGroupedCandidatePresent": distinct_candidate,
         "researchTrainingAuthorized": not shared_training_blockers,
+        "expertReviewQueueVerified": queue_verified,
+        "expertSemanticProtocolVerified": protocol_verified,
         "blindRetrainingAllowed": False,
         "classDecisions": class_decisions,
         "roadmapAccepted": roadmap_accepted,
@@ -195,9 +286,15 @@ def evaluate_release(receipt: dict[str, Any]) -> dict[str, Any]:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--receipt", type=Path, required=True)
+    parser.add_argument("--review-queue", type=Path, required=True)
+    parser.add_argument("--expert-protocol", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    result = evaluate_release(json.loads(args.receipt.read_text(encoding="utf-8")))
+    result = evaluate_release(
+        json.loads(args.receipt.read_text(encoding="utf-8")),
+        json.loads(args.review_queue.read_text(encoding="utf-8")),
+        json.loads(args.expert_protocol.read_text(encoding="utf-8")) if args.expert_protocol else None,
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return 0
