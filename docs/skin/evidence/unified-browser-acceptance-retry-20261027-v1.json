@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "dateEuropeBerlin": "2026-10-27",
-  "observedAt": "2026-10-27T01:45:48Z",
+  "observedAt": "2026-10-27T02:26:31Z",
   "repository": {
     "fullName": "sasmazt90/attune-more",
     "branch": "work/skin-roadmap-20261023",
@@ -21,7 +21,8 @@
     "thirteenthRetryCandidateCommit": "7637df44af88dc049f9847cc7b6eb186e94b5d00",
     "fourteenthRetryCandidateCommit": "839578267bef08bb559f57421cc350c74d511f23",
     "fifteenthRetryCandidateCommit": "3fb4bc0980da14b693b1096dd6454f68f7c8c0db",
-    "sixteenthRetryCandidateCommit": "cc474f13935d231ec761e9154d2d62dab21ecffb"
+    "sixteenthRetryCandidateCommit": "cc474f13935d231ec761e9154d2d62dab21ecffb",
+    "seventeenthRetryCandidateCommit": "7b9dd9682ff4309dfd2b58f465d78fac37e96873"
   },
   "failedAttempt": {
     "browserRunId": 40406100671,
@@ -558,10 +559,62 @@
   "sixteenthRetry": {
     "browserRunId": 40434448416,
     "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40434448416",
-    "statusAtCheckpoint": "in_progress",
+    "statusAtCheckpoint": "completed",
+    "conclusion": "failure",
+    "jobId": 121959650624,
     "matchingRepositoryCiRunId": 40434448396,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40434448396",
-    "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
+    "matchingRepositoryCiStatusAtCheckpoint": "completed",
+    "matchingRepositoryCiConclusion": "success",
+    "artifactId": 12704623098,
+    "artifactDigest": "sha256:01b8f6f0dc394876e4fe622d01c3b7c739aca52333c018f5a61abd627311dd20",
+    "completedRuntimeSetup": true,
+    "productionBuildPassed": true,
+    "serversHealthChecked": true,
+    "fixturePrepared": true,
+    "licensedDistinctPosesSelected": [
+      "FRONT",
+      "LEFT",
+      "RIGHT"
+    ],
+    "realMediaPipeLandmarksPerPose": 478,
+    "browserTestsExecuted": true,
+    "sanitizedEvidenceProduced": false,
+    "diagnostic": {
+      "mediapipeReady": true,
+      "mediapipeActive": true,
+      "faceDetected": true,
+      "landmarkCount": 478,
+      "qualityStatus": "OPTIMAL",
+      "targetAngle": "FRONT",
+      "observedYaw": 0.34,
+      "scanProgressPercent": 27
+    },
+    "rootCause": "the controlled camera fixture held each pose for 15 seconds, but the hosted runner completed only four of the unchanged 15 consecutive accepted-frame cycles before the fixture advanced to the next real pose; progress therefore reset on every pose transition. This is fixture transport timing under real MediaPipe plus eyewear-policy API latency, not a product threshold, model, source-pixel or physical-camera failure"
+  },
+  "seventeenthTargetedFix": {
+    "sources": [
+      "tests/e2e/prepare_multi_angle_fixture.py",
+      "docs/test-fixture-provenance.md"
+    ],
+    "change": "hold each of the three licensed, production-MediaPipe-admitted poses for 75 seconds so the unchanged 15-consecutive-frame, pose, quality and eyewear gates can complete on the measured slow hosted runner; record the transport duration and explicitly record that no capture gate changed",
+    "poseHoldSeconds": 75,
+    "captureGateChanged": false,
+    "poseOrQualityOverrideAdded": false,
+    "productThresholdChanged": false,
+    "modelChanged": false,
+    "pythonCompilePassed": true,
+    "durationContractCheckPassed": true,
+    "diffCheckPassed": true,
+    "roboflowTrainingChanged": false
+  },
+  "seventeenthRetry": {
+    "browserRunId": 40438401632,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40438401632",
+    "statusAtCheckpoint": "queued",
+    "matchingRepositoryCiRunId": 40438401465,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40438401465",
+    "matchingRepositoryCiStatusAtCheckpoint": "queued",
     "sanitizedEvidencePending": true
   },
   "roboflowRefresh": {
