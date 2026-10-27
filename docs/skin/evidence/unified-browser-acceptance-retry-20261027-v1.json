@@ -649,7 +649,9 @@
   "eighteenthRetry": {
     "browserRunId": 40445764859,
     "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40445764859",
-    "statusAtCheckpoint": "in_progress",
+    "statusAtCheckpoint": "completed",
+    "conclusion": "cancelled",
+    "cancelledBySupersedingRetry": true,
     "matchingRepositoryCiRunId": 40445764784,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40445764784",
     "matchingRepositoryCiStatusAtCheckpoint": "completed",
