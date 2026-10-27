@@ -22,6 +22,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 EXPECTED_BRANCH = "work/skin-roadmap-20261023"
 EXPECTED_REPOSITORY_CI_SCHEMA = 2
+EXPECTED_BROWSER_WORKFLOW_ID = 370615037
+EXPECTED_BROWSER_WORKFLOW_PATH = ".github/workflows/e2e-audit.yml"
 EXPECTED_CODE_BLOBS = {
     "apps/vehicle-app/src/utils/regionalSkinMap.ts": "258ab2d845b3743ede309938cd14da8831a01046",
     "apps/vehicle-app/src/utils/skinOverview.ts": "4d31010f82bfd5c42a49b46c20880630d57079dd",
@@ -73,6 +75,7 @@ EXPECTED_HEADINGS = [
     "Post acne", "Pigmentation", "skinType",
 ]
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
+ARTIFACT_SHA256 = re.compile(r"^sha256:[0-9a-f]{64}$")
 
 
 class GateInputError(ValueError):
@@ -82,6 +85,12 @@ class GateInputError(ValueError):
 def _require(value: Any, expected: Any, message: str) -> None:
     if value != expected:
         raise GateInputError(message)
+
+
+def _require_positive_int(value: Any, message: str) -> int:
+    if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+        raise GateInputError(message)
+    return value
 
 
 def _load_evidence(identity: Any, label: str, evidence_root: Path) -> dict[str, Any]:
@@ -157,7 +166,26 @@ def _validate_repository_ci(identity: Any, evidence_root: Path) -> dict[str, Any
         browser.get("headSha"), payload.get("implementationCommit"),
         "browser acceptance commit does not match repository CI implementation commit",
     )
+    _require(
+        browser.get("workflowId"), EXPECTED_BROWSER_WORKFLOW_ID,
+        "browser acceptance workflow identity changed",
+    )
+    _require(
+        browser.get("workflowPath"), EXPECTED_BROWSER_WORKFLOW_PATH,
+        "browser acceptance workflow path changed",
+    )
+    browser_job_id = _require_positive_int(
+        browser.get("jobId"), "browser acceptance job identity missing",
+    )
+    artifact_id = _require_positive_int(
+        browser.get("artifactId"), "browser acceptance artifact identity missing",
+    )
+    artifact_digest = browser.get("artifactDigest")
+    if not isinstance(artifact_digest, str) or ARTIFACT_SHA256.fullmatch(artifact_digest) is None:
+        raise GateInputError("browser acceptance artifact digest invalid")
     artifact_run = browser.get("artifactWorkflowRun", {})
+    if not isinstance(artifact_run, dict) or set(artifact_run) != {"runId", "branch", "headSha"}:
+        raise GateInputError("browser artifact workflow identity is incomplete")
     _require(artifact_run.get("runId"), browser.get("runId"), "browser artifact workflow run identity changed")
     _require(artifact_run.get("branch"), EXPECTED_BRANCH, "browser artifact branch identity changed")
     _require(
@@ -176,7 +204,12 @@ def _validate_repository_ci(identity: Any, evidence_root: Path) -> dict[str, Any
         "headSha": actions.get("headSha"),
         "conclusion": "success",
         "browserAcceptanceRunId": browser.get("runId"),
+        "browserAcceptanceJobId": browser_job_id,
         "browserAcceptanceHeadSha": browser.get("headSha"),
+        "browserAcceptanceWorkflowId": browser.get("workflowId"),
+        "browserAcceptanceWorkflowPath": browser.get("workflowPath"),
+        "browserAcceptanceArtifactId": artifact_id,
+        "browserAcceptanceArtifactDigest": artifact_digest,
         "browserControlledFixture": True,
     }
 
@@ -326,8 +359,8 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     blockers = list(dict.fromkeys(blockers))
     accepted = candidate_accepted and not blockers
     return {
-        "schemaVersion": 8,
-        "methodVersion": "unified-skin-result-release-gate-v8",
+        "schemaVersion": 9,
+        "methodVersion": "unified-skin-result-release-gate-v9",
         "workingBaselinePreserved": True,
         "currentIntegratedPresentationAllowed": True,
         "generatedReplayIntegrationSmokeAllowed": True,

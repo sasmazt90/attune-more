@@ -16,7 +16,7 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v8.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v9.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -55,6 +55,10 @@ def _install_complete_evidence(receipt, root):
         "browserAcceptance": {
             "runId": 98, "conclusion": "success", "sanitizedEvidenceOnly": True,
             "branch": module.EXPECTED_BRANCH, "headSha": "d" * 40,
+            "workflowId": module.EXPECTED_BROWSER_WORKFLOW_ID,
+            "workflowPath": module.EXPECTED_BROWSER_WORKFLOW_PATH,
+            "jobId": 97, "artifactId": 96,
+            "artifactDigest": "sha256:" + "a" * 64,
             "artifactWorkflowRun": {
                 "runId": 98, "branch": module.EXPECTED_BRANCH, "headSha": "d" * 40,
             },
@@ -297,6 +301,10 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
                     "browserAcceptance": {
                         "runId": 98, "conclusion": "success", "sanitizedEvidenceOnly": True,
                         "branch": module.EXPECTED_BRANCH, "headSha": "e" * 40,
+                        "workflowId": module.EXPECTED_BROWSER_WORKFLOW_ID,
+                        "workflowPath": module.EXPECTED_BROWSER_WORKFLOW_PATH,
+                        "jobId": 97, "artifactId": 96,
+                        "artifactDigest": "sha256:" + "a" * 64,
                         "artifactWorkflowRun": {
                             "runId": 98, "branch": module.EXPECTED_BRANCH, "headSha": "e" * 40,
                         },
@@ -390,6 +398,67 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
                 }
                 _mutate_repository_ci(receipt, root, "artifactWorkflowRun", artifact_run, "browserAcceptance")
                 with self.assertRaisesRegex(module.GateInputError, "workflow run identity"):
+                    module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_browser_acceptance_must_use_pinned_workflow(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            for field, value in (
+                ("workflowId", module.EXPECTED_BROWSER_WORKFLOW_ID + 1),
+                ("workflowPath", ".github/workflows/other.yml"),
+            ):
+                with self.subTest(field=field), tempfile.TemporaryDirectory() as directory:
+                    root = Path(directory)
+                    receipt = _receipt()
+                    _install_complete_evidence(receipt, root)
+                    _mutate_repository_ci(receipt, root, field, value, "browserAcceptance")
+                    with self.assertRaisesRegex(module.GateInputError, "workflow"):
+                        module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_browser_acceptance_requires_positive_job_and_artifact_ids(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            for field, value in (("jobId", 0), ("artifactId", False)):
+                with self.subTest(field=field), tempfile.TemporaryDirectory() as directory:
+                    root = Path(directory)
+                    receipt = _receipt()
+                    _install_complete_evidence(receipt, root)
+                    _mutate_repository_ci(receipt, root, field, value, "browserAcceptance")
+                    with self.assertRaisesRegex(module.GateInputError, "identity missing"):
+                        module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_browser_acceptance_requires_sha256_artifact_digest(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                receipt = _receipt()
+                _install_complete_evidence(receipt, root)
+                _mutate_repository_ci(receipt, root, "artifactDigest", "sha256:not-a-digest", "browserAcceptance")
+                with self.assertRaisesRegex(module.GateInputError, "artifact digest invalid"):
+                    module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_browser_artifact_workflow_identity_rejects_extra_or_missing_fields(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                receipt = _receipt()
+                _install_complete_evidence(receipt, root)
+                artifact_run = {
+                    "runId": 98, "branch": module.EXPECTED_BRANCH,
+                    "headSha": "d" * 40, "mutableNote": "unbound",
+                }
+                _mutate_repository_ci(receipt, root, "artifactWorkflowRun", artifact_run, "browserAcceptance")
+                with self.assertRaisesRegex(module.GateInputError, "identity is incomplete"):
                     module.evaluate_release(receipt, root)
         finally:
             module.EXPECTED_INPUT_EVIDENCE = original_inputs
