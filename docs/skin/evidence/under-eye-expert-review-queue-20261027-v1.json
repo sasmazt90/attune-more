@@ -1,0 +1,1813 @@
+{
+  "classes": [
+    "darkcircle",
+    "eyebag"
+  ],
+  "dataset": {
+    "candidateArchiveAuthorizedForUpload": false,
+    "candidateArchiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
+    "lockedTestImages": 38,
+    "personIndependent": false,
+    "project": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+    "reviewImageBytesReadForPrivateIdentifiers": true,
+    "reviewPoolImages": 361,
+    "reviewSplits": [
+      "train",
+      "valid"
+    ],
+    "testAnnotationPayloadRead": false,
+    "testImageBytesRead": false,
+    "testSelectedForReview": 0
+  },
+  "decision": {
+    "activationAllowed": false,
+    "classPoliciesLocked": false,
+    "expertReviewComplete": false,
+    "personIndependentSplitReady": false,
+    "testEvaluationAuthorized": false,
+    "trainingAuthorized": false
+  },
+  "items": [
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "74be7168d9bbe9cfa9d9d6d2",
+      "reviewFocus": [
+        "broad_mask_support"
+      ],
+      "reviewItemId": "164b4255d5057c5afc8eb4e5",
+      "selectionAreaFraction": 0.03940848,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 14,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "00db310346cd1237740635c8",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "2396cbe627bd1001bc936d13",
+      "selectionAreaFraction": 0.00162306,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 11,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "232f13259cf78c9feb69d588",
+      "reviewFocus": [
+        "many_instances"
+      ],
+      "reviewItemId": "3b500968d61551132e376f2c",
+      "selectionAreaFraction": 0.00055039,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 4,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 31,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "04777d817e3f75650476d8e1",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "465b319dbc5632481c662f63",
+      "selectionAreaFraction": 0.0169878,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 16,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "497e2354dbca7953281bebfa",
+      "reviewFocus": [
+        "broad_mask_support"
+      ],
+      "reviewItemId": "916f3b712051e791315815f6",
+      "selectionAreaFraction": 0.06981822,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 13,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "edba85f9066cdef94b3ac709",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "a9395f91e3e5d67659843ff0",
+      "selectionAreaFraction": 8.666e-05,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 21,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "b820525a6ebf23c0b9178a11",
+      "reviewFocus": [
+        "complex_boundaries"
+      ],
+      "reviewItemId": "bb1b108efde5f441278c6aaf",
+      "selectionAreaFraction": 0.00223794,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 34,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "ba93ee79d6b6bcc6e3f5fe90",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "ebf43bc9667ab10aff32606f",
+      "selectionAreaFraction": 0.00016422,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 19,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "0318bc8d7028abb226e4bebd",
+      "reviewFocus": [
+        "many_instances"
+      ],
+      "reviewItemId": "01df46d298f596f58ddd543a",
+      "selectionAreaFraction": 0.01173078,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 23,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "387815b5b9d44949cd9844cd",
+      "reviewFocus": [
+        "complex_boundaries"
+      ],
+      "reviewItemId": "0260dace6896054f8dfb212f",
+      "selectionAreaFraction": 0.00751227,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 29,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "14fcb4cc11a147e9dbcca227",
+      "reviewFocus": [
+        "broad_mask_support"
+      ],
+      "reviewItemId": "03eac1f98cdb0c10ab99fea1",
+      "selectionAreaFraction": 0.08008942,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 26,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "5d1248b2d9c9bc180a0004b8",
+      "reviewFocus": [
+        "many_instances",
+        "complex_boundaries"
+      ],
+      "reviewItemId": "0b864b7454cf3ae90c058d41",
+      "selectionAreaFraction": 0.00062502,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 4,
+      "selectionKind": "source_positive",
+      "selectionVertices": 41,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "ef2c30a212da8f24e0c5f01a",
+      "reviewFocus": [
+        "broad_mask_support"
+      ],
+      "reviewItemId": "182b203dc8d30035961dbbd5",
+      "selectionAreaFraction": 0.08501762,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 26,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "82a2f96af72900c912c899aa",
+      "reviewFocus": [
+        "broad_mask_support"
+      ],
+      "reviewItemId": "18f92bb120be8d19ce2b2814",
+      "selectionAreaFraction": 0.08030581,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 14,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "002ff65ec42b81621e6981ad",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "3ed36eacd49e6e84d925bc23",
+      "selectionAreaFraction": 0.00919428,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 12,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "8aa26d1a50fadb287c9e2af7",
+      "reviewFocus": [
+        "broad_mask_support"
+      ],
+      "reviewItemId": "4a25a642fc63206e3e2be7bf",
+      "selectionAreaFraction": 0.08847404,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 21,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "02a9e716db0adecc91d81622",
+      "reviewFocus": [
+        "many_instances"
+      ],
+      "reviewItemId": "53cc8386ca158e36102b80de",
+      "selectionAreaFraction": 0.00995756,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 22,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "12325f28ef96e80d36f24ffb",
+      "reviewFocus": [
+        "complex_boundaries"
+      ],
+      "reviewItemId": "575c3799746637b4046a5863",
+      "selectionAreaFraction": 0.00366915,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 35,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "4ea1a1680ce7e7ae657884f4",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "5a147f1003d1940a0e8a23d9",
+      "selectionAreaFraction": 0.0001702,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 6,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "0c23be9e5a8adc55a683ae7f",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "6351d7dbc6e74c68f32ffd98",
+      "selectionAreaFraction": 0.00050777,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 9,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "094861fb4c8716678990a3e1",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "72ec4d7ce1058bcef47399a5",
+      "selectionAreaFraction": 0.00773549,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 11,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "8cb445705387aa77cc44e1bb",
+      "reviewFocus": [
+        "complex_boundaries"
+      ],
+      "reviewItemId": "7d439caae6531609fbb11b05",
+      "selectionAreaFraction": 0.01434579,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 31,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "0fbec6f47efbd34cf1329d07",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "91b92b197296b325fd0b7d7d",
+      "selectionAreaFraction": 0.00082808,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 13,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "3c7344e1e9142213fb3ac39f",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "94c07b3a93b70b5130dfa564",
+      "selectionAreaFraction": 0.00014036,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 9,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "33f41ae833aa10b949766fc1",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "97e8509af292286524ce0f96",
+      "selectionAreaFraction": 0.00049339,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 7,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "9e66e4d0c3546e09a4670f40",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "9a85f6c30be2a54f587aa4b1",
+      "selectionAreaFraction": 0.00031932,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 15,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "fd006b1fdd7fd689393eecb6",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "a4c6af38556b1bf35069c29e",
+      "selectionAreaFraction": 0.00024398,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 12,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "0a986e4572241b37ec8b9e6e",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "a6b1eeb362a7c147baa396ac",
+      "selectionAreaFraction": 0.0049943,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 11,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "5d07c75a6f7c04ad9e0b13e5",
+      "reviewFocus": [
+        "broad_mask_support",
+        "complex_boundaries"
+      ],
+      "reviewItemId": "a711e2053f6e8415ec0a2336",
+      "selectionAreaFraction": 0.11895251,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 32,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "003fef5fce903ea932834e84",
+      "reviewFocus": [
+        "many_instances"
+      ],
+      "reviewItemId": "b4054b8f48c95c41e25f45cc",
+      "selectionAreaFraction": 0.00495819,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 19,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "042e562b8929c5e77529b0a3",
+      "reviewFocus": [
+        "many_instances"
+      ],
+      "reviewItemId": "d9be3a8934e7bfc735007229",
+      "selectionAreaFraction": 0.00056498,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 22,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "3f27c52dda7db9ed80b6ebc4",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "e00d861464e5551cff71a3fb",
+      "selectionAreaFraction": 0.00049866,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 16,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "082eb866f6809a5dfc4e2e7b",
+      "reviewFocus": [
+        "many_instances"
+      ],
+      "reviewItemId": "130a9d65760a6ac9e3c7025c",
+      "selectionAreaFraction": 0.00181803,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 28,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "valid",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "0f6c52db446237419fe01906",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "1c009b17f200cb24e069454a",
+      "selectionAreaFraction": 0.0203812,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 13,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "valid",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "7a482adb376ce08715f48e7b",
+      "reviewFocus": [
+        "broad_mask_support"
+      ],
+      "reviewItemId": "ad7b0643dc3fa77ecb141e01",
+      "selectionAreaFraction": 0.02933873,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 15,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "valid",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "2f99c47c11520dae7ac7e526",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "f2e15b2d405ee529092d4f45",
+      "selectionAreaFraction": 0.00016483,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 20,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "valid",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "1a4c927ef1b31816f9ba8718",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "29deca6862329447f2872b68",
+      "selectionAreaFraction": 0.03421535,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 16,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "valid",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "f744a42c22ce21da5105cb91",
+      "reviewFocus": [
+        "broad_mask_support"
+      ],
+      "reviewItemId": "51442b8287bb3735e2814c0b",
+      "selectionAreaFraction": 0.07527629,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 25,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "valid",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "4609bb04c1672029a84d992a",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "5f6e440e615bcffce65ccaf2",
+      "selectionAreaFraction": 7.21e-05,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 17,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "valid",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "16d16392469ca234884f8d84",
+      "reviewFocus": [
+        "many_instances"
+      ],
+      "reviewItemId": "66c1159840edc4e5562ed303",
+      "selectionAreaFraction": 0.00109091,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 20,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "valid",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "1aca2d65b1f2e201172b576a",
+      "reviewFocus": [
+        "broad_mask_support",
+        "few_instances"
+      ],
+      "reviewItemId": "9cf5c3f1fc223348695a8c01",
+      "selectionAreaFraction": 0.10381613,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 10,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "valid",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "1059111755ee19d52b6b7d38",
+      "reviewFocus": [
+        "many_instances"
+      ],
+      "reviewItemId": "b8d883a34ceadff05538506c",
+      "selectionAreaFraction": 0.00072416,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 22,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "valid",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "699bb4ce9bfa25c2b597f85c",
+      "reviewFocus": [
+        "complex_boundaries"
+      ],
+      "reviewItemId": "e2237af846c5def22c532f7d",
+      "selectionAreaFraction": 0.00914317,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 27,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "valid",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "bdedcdf652af6f38008e9502",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "fc6d594cd9fcb0109e24b7a1",
+      "selectionAreaFraction": 0.00029221,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 17,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "valid",
+      "targetClass": "darkcircle"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "8aa26d1a50fadb287c9e2af7",
+      "reviewFocus": [
+        "broad_mask_support"
+      ],
+      "reviewItemId": "0c63a2edb73c9f5ca36ceeef",
+      "selectionAreaFraction": 0.08847404,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 21,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "02a9e716db0adecc91d81622",
+      "reviewFocus": [
+        "many_instances"
+      ],
+      "reviewItemId": "5736efd4f8975585ed138838",
+      "selectionAreaFraction": 0.00995756,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 22,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "3c7344e1e9142213fb3ac39f",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "766aed1defb00f6282603eae",
+      "selectionAreaFraction": 0.00014036,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 9,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "002ff65ec42b81621e6981ad",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "9d0fcdfb66c404eaf26091fe",
+      "selectionAreaFraction": 0.00919428,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 12,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "003fef5fce903ea932834e84",
+      "reviewFocus": [
+        "many_instances"
+      ],
+      "reviewItemId": "c765f33ee82875c62bd8a106",
+      "selectionAreaFraction": 0.00495819,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 19,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "9e66e4d0c3546e09a4670f40",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "d942e8aae74391038cd8ed67",
+      "selectionAreaFraction": 0.00031932,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 15,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "5d07c75a6f7c04ad9e0b13e5",
+      "reviewFocus": [
+        "broad_mask_support",
+        "complex_boundaries"
+      ],
+      "reviewItemId": "eba516e1866ad1e5c8da67b5",
+      "selectionAreaFraction": 0.11895251,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 32,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "0a986e4572241b37ec8b9e6e",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "f190ec4c91f611f772087ab3",
+      "selectionAreaFraction": 0.0049943,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 11,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "3f27c52dda7db9ed80b6ebc4",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "007c3a860ab10f5e06113bd4",
+      "selectionAreaFraction": 0.00016677,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 10,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "31afe8334f4886e2bbafa8c4",
+      "reviewFocus": [
+        "many_instances"
+      ],
+      "reviewItemId": "034268418320936ccf8b5b5c",
+      "selectionAreaFraction": 0.00141208,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 3,
+      "selectionKind": "source_positive",
+      "selectionVertices": 29,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "05995d685b38f4610c612610",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "059442697a35470717da0873",
+      "selectionAreaFraction": 0.03090786,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 16,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "07b6d7711599ce506592ebb1",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "21930dafb711112093e35ec3",
+      "selectionAreaFraction": 0.01665754,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 11,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "b820525a6ebf23c0b9178a11",
+      "reviewFocus": [
+        "complex_boundaries"
+      ],
+      "reviewItemId": "3319829273962fbf3abb67e6",
+      "selectionAreaFraction": 0.00223794,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 34,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "0b304846078486354fa8819e",
+      "reviewFocus": [
+        "broad_mask_support"
+      ],
+      "reviewItemId": "42063cd0790adf5dc32a5bde",
+      "selectionAreaFraction": 0.03558925,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 28,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "00db310346cd1237740635c8",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "5d4eea9eb401832b79d169ae",
+      "selectionAreaFraction": 0.00162306,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 11,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "232f13259cf78c9feb69d588",
+      "reviewFocus": [
+        "many_instances"
+      ],
+      "reviewItemId": "5e4c0f92a2ee2caac9ec5895",
+      "selectionAreaFraction": 0.00055039,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 4,
+      "selectionKind": "source_positive",
+      "selectionVertices": 31,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "74be7168d9bbe9cfa9d9d6d2",
+      "reviewFocus": [
+        "broad_mask_support"
+      ],
+      "reviewItemId": "5eb0a1de7b94a8e126be09f4",
+      "selectionAreaFraction": 0.03940848,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 14,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "4ea1a1680ce7e7ae657884f4",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "63d5158c26e6eaa41b4cb893",
+      "selectionAreaFraction": 0.00012614,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 10,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "43c4e750f3b12283affb834d",
+      "reviewFocus": [
+        "complex_boundaries",
+        "broad_mask_support"
+      ],
+      "reviewItemId": "699728c3ac6a0a8742c126fd",
+      "selectionAreaFraction": 0.03432991,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 33,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "04777d817e3f75650476d8e1",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "73ae6d084ba77f234ad63459",
+      "selectionAreaFraction": 0.0169878,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 16,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "60ed6619d47aaa4043426c2c",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "7e12caf6acea4e2ea3589bad",
+      "selectionAreaFraction": 0.00018172,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 17,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "ba93ee79d6b6bcc6e3f5fe90",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "8aaf2811ac607d90b7d84d36",
+      "selectionAreaFraction": 0.00016422,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 19,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "497e2354dbca7953281bebfa",
+      "reviewFocus": [
+        "broad_mask_support"
+      ],
+      "reviewItemId": "93a42942744387cf7180a8bd",
+      "selectionAreaFraction": 0.06981822,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 13,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "10e8c5c5c8b6643c2ea121b9",
+      "reviewFocus": [
+        "many_instances",
+        "complex_boundaries"
+      ],
+      "reviewItemId": "aa2a2e04c6a7609cf6d310b9",
+      "selectionAreaFraction": 0.00129311,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 4,
+      "selectionKind": "source_positive",
+      "selectionVertices": 39,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "0e36a90ec3f9248b80273247",
+      "reviewFocus": [
+        "broad_mask_support"
+      ],
+      "reviewItemId": "afd08be26ee23fde37d8f6d4",
+      "selectionAreaFraction": 0.03712716,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 14,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "781f952ce4195d5f48572f40",
+      "reviewFocus": [
+        "complex_boundaries"
+      ],
+      "reviewItemId": "c9618b1bcf9ff75b004b0a9a",
+      "selectionAreaFraction": 0.01090627,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 34,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "edba85f9066cdef94b3ac709",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "da6135264c48f279fd1405fe",
+      "selectionAreaFraction": 8.666e-05,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 21,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "094861fb4c8716678990a3e1",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "dea68e5db6372ab06e1ce08c",
+      "selectionAreaFraction": 0.00491692,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 12,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "0318bc8d7028abb226e4bebd",
+      "reviewFocus": [
+        "many_instances"
+      ],
+      "reviewItemId": "e11989a5fa44560494861d0e",
+      "selectionAreaFraction": 0.0088256,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 21,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "c4ac7e520aa46e6a960fffec",
+      "reviewFocus": [
+        "complex_boundaries"
+      ],
+      "reviewItemId": "e19daedaa19a24945f3fcb23",
+      "selectionAreaFraction": 0.00772111,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 33,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "35b5b7287ec99bb7e2b5c9af",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "ea13ffa506510bcdad2a2001",
+      "selectionAreaFraction": 0.00017045,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 23,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "01cfaed011eb0503ab896542",
+      "reviewFocus": [
+        "many_instances"
+      ],
+      "reviewItemId": "ef155204ef28fc13a6af2bf5",
+      "selectionAreaFraction": 0.00166328,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 23,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "train",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "6b57cda3e02d316a81b9dec7",
+      "reviewFocus": [
+        "broad_mask_support"
+      ],
+      "reviewItemId": "197b748f5263000d01a56018",
+      "selectionAreaFraction": 0.0549235,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 13,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "valid",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "4609bb04c1672029a84d992a",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "1d2290807428c75259fd74a3",
+      "selectionAreaFraction": 7.21e-05,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 17,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "valid",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "1059111755ee19d52b6b7d38",
+      "reviewFocus": [
+        "many_instances"
+      ],
+      "reviewItemId": "45e76b4d66d773b272a10b11",
+      "selectionAreaFraction": 0.00072416,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 2,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 22,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "valid",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "1a4c927ef1b31816f9ba8718",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "f6691d6ab4982db473b1d033",
+      "selectionAreaFraction": 0.03421535,
+      "selectionGeometryClass": "darkcircle",
+      "selectionInstances": 1,
+      "selectionKind": "candidate_hard_negative",
+      "selectionVertices": 16,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle"
+      ],
+      "split": "valid",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "2f99c47c11520dae7ac7e526",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "0083a8713ef67b269da8f874",
+      "selectionAreaFraction": 0.00016483,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 20,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "valid",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "7a482adb376ce08715f48e7b",
+      "reviewFocus": [
+        "broad_mask_support"
+      ],
+      "reviewItemId": "34dec1316f02857bb8be4b2b",
+      "selectionAreaFraction": 0.02933873,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 15,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "valid",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "082eb866f6809a5dfc4e2e7b",
+      "reviewFocus": [
+        "many_instances"
+      ],
+      "reviewItemId": "4470b5edead1eb58f4df8853",
+      "selectionAreaFraction": 0.00181803,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 28,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "valid",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "ff91f1cd86d9eff7cf0e34c3",
+      "reviewFocus": [
+        "small_mask_support"
+      ],
+      "reviewItemId": "5b7575811fdb3373b767f73e",
+      "selectionAreaFraction": 0.00027879,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 14,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "valid",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "1aca2d65b1f2e201172b576a",
+      "reviewFocus": [
+        "broad_mask_support"
+      ],
+      "reviewItemId": "5b767658fa92f1fa91eb226f",
+      "selectionAreaFraction": 0.03356453,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 11,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "valid",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "61520a31b4e81a3beb6b76a3",
+      "reviewFocus": [
+        "complex_boundaries"
+      ],
+      "reviewItemId": "bdb82644b4a5bc51f4d9a79c",
+      "selectionAreaFraction": 0.00155061,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 2,
+      "selectionKind": "source_positive",
+      "selectionVertices": 32,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "valid",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "0f6c52db446237419fe01906",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "d4c8900667ce7fa54241201d",
+      "selectionAreaFraction": 0.0203812,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 13,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "eyebag"
+      ],
+      "split": "valid",
+      "targetClass": "eyebag"
+    },
+    {
+      "missingTargetAnnotationIsNegative": false,
+      "recordId": "16d16392469ca234884f8d84",
+      "reviewFocus": [
+        "few_instances"
+      ],
+      "reviewItemId": "d5a3cbef83e1ee5f63891309",
+      "selectionAreaFraction": 0.00037111,
+      "selectionGeometryClass": "eyebag",
+      "selectionInstances": 1,
+      "selectionKind": "source_positive",
+      "selectionVertices": 11,
+      "sourceAnnotationIsExpertTruth": false,
+      "sourceClassesPresent": [
+        "darkcircle",
+        "eyebag"
+      ],
+      "split": "valid",
+      "targetClass": "eyebag"
+    }
+  ],
+  "privacy": {
+    "containsFilenames": false,
+    "containsImageBytes": false,
+    "containsProviderImageIds": false,
+    "containsRawSourceNames": false,
+    "identifierMethod": "salted-sha256-prefix-24",
+    "privateResolverCommitted": false
+  },
+  "reviewGeometryAudit": {
+    "train": {
+      "annotations": 632,
+      "classCounts": {
+        "darkcircle": 271,
+        "eyebag": 361
+      },
+      "geometry": {
+        "darkcircle": {
+          "degeneratePolygons": 0,
+          "outsidePoints": 0,
+          "polygons": 271,
+          "vertices": 2874
+        },
+        "eyebag": {
+          "degeneratePolygons": 0,
+          "outsidePoints": 0,
+          "polygons": 361,
+          "vertices": 4144
+        }
+      },
+      "images": 284
+    },
+    "valid": {
+      "annotations": 149,
+      "classCounts": {
+        "darkcircle": 70,
+        "eyebag": 79
+      },
+      "geometry": {
+        "darkcircle": {
+          "degeneratePolygons": 0,
+          "outsidePoints": 0,
+          "polygons": 70,
+          "vertices": 706
+        },
+        "eyebag": {
+          "degeneratePolygons": 0,
+          "outsidePoints": 0,
+          "polygons": 79,
+          "vertices": 925
+        }
+      },
+      "images": 77
+    }
+  },
+  "reviewPolicy": {
+    "ambiguousOrUnassessableBecomesNormal": false,
+    "boxAcceptedAsPolygon": false,
+    "darkCircleAndEyeBagIndependent": true,
+    "expertReviewerRequired": true,
+    "missingTargetAnnotationIsNegative": false,
+    "modelPredictionAcceptedAsTruth": false,
+    "sourceAnnotationIsExpertTruth": false
+  },
+  "schemaVersion": "under-eye-expert-review-queue-v1",
+  "selection": {
+    "candidateGeometryOnly": true,
+    "items": 88,
+    "uniqueImages": 59
+  },
+  "selectionTargets": {
+    "darkcircle:train:candidate_hard_negative": 8,
+    "darkcircle:train:source_positive": 24,
+    "darkcircle:valid:candidate_hard_negative": 4,
+    "darkcircle:valid:source_positive": 8,
+    "eyebag:train:candidate_hard_negative": 8,
+    "eyebag:train:source_positive": 24,
+    "eyebag:valid:candidate_hard_negative": 4,
+    "eyebag:valid:source_positive": 8
+  }
+}

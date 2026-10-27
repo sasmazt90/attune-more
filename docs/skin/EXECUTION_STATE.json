@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-27",
-      "lastCheckedAt": "2026-10-27T07:30:00Z",
+      "lastCheckedAt": "2026-10-27T07:43:33Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -487,7 +487,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-27T07:30:00Z",
+      "lastCheckedAt": "2026-10-27T07:43:33Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -591,7 +591,7 @@
         "uploadProgress": null,
         "bytesSent": false,
         "trainingStarted": false,
-        "lastObservedAt": "2026-10-27T07:30:00Z",
+        "lastObservedAt": "2026-10-27T07:43:33Z",
         "evidence": "docs/skin/evidence/under-eye-grouped-project-20261023-v1.json"
       },
       "groupedReleaseGate": {
@@ -607,6 +607,38 @@
         "testEvaluationAuthorized": false,
         "productActivationAllowed": false,
         "evidence": "docs/skin/evidence/under-eye-grouped-release-gate-20261027-v2.json"
+      },
+      "expertSemanticReview": {
+        "observedAt": "2026-10-27T07:43:33Z",
+        "methodVersion": "under-eye-expert-review-queue-v1",
+        "script": "scripts/skin-research/build_under_eye_expert_review.py",
+        "candidateArchiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
+        "reviewQueue": "docs/skin/evidence/under-eye-expert-review-queue-20261027-v1.json",
+        "reviewQueueFileSHA256": "7e9c1706259a122225d67e08cf051aca11be18347dbc57ec86c8a78738f3790e",
+        "reviewQueueCanonicalSHA256": "8784366d14ac86d6472f87c4f14ae7940e5c9344f2cfceeb30ef24b3f116c38d",
+        "decisionTemplate": "docs/skin/evidence/under-eye-expert-review-decisions-template-20261027-v1.json",
+        "decisionTemplateSHA256": "bf50e8075f99eb636f841b600149f5babab7eef19559345c63ce751cfe8a3740",
+        "reviewPoolImages": 361,
+        "lockedTestImages": 38,
+        "testAnnotationPayloadRead": false,
+        "testImageBytesRead": false,
+        "testSelectedForReview": 0,
+        "reviewItems": 88,
+        "uniqueReviewImages": 59,
+        "reviewGeometry": {
+          "annotations": 781,
+          "polygons": 781,
+          "vertices": 8649,
+          "outsidePoints": 0,
+          "degeneratePolygons": 0
+        },
+        "sourceAnnotationIsExpertTruth": false,
+        "missingTargetAnnotationIsNegative": false,
+        "expertReviewComplete": false,
+        "personIndependentSplitReady": false,
+        "trainingAuthorized": false,
+        "testEvaluationAuthorized": false,
+        "activationAllowed": false
       },
       "perClassReleaseGate": {
         "observedAt": "2026-10-26T11:43:07Z",
@@ -635,7 +667,7 @@
         "ciRunId": 40316642225,
         "implementationCommit": "59e3acffe489556e00a9e8869f0e8ddbffa34e05"
       },
-      "lastCheckedDate": "2026-10-26"
+      "lastCheckedDate": "2026-10-27"
     },
     "regionalMap": {
       "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
@@ -699,7 +731,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-27T07:30:00Z",
+      "lastCheckedAt": "2026-10-27T07:43:33Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -940,7 +972,7 @@
     },
     "regionalSkinTypeBoxes": {
       "observedAt": "2026-10-24T23:19:50Z",
-      "lastCheckedAt": "2026-10-27T07:30:00Z",
+      "lastCheckedAt": "2026-10-27T07:43:33Z",
       "project": "tolgar-sasmaz/attune-skin-type-regional-r1",
       "projectVisibility": "public",
       "projectSummaryImages": 991,
@@ -3981,6 +4013,7 @@
     }
   },
   "nextActions": [
+    "Use scripts/skin-research/build_under_eye_expert_review.py with docs/skin/evidence/under-eye-expert-review-queue-20261027-v1.json and the private resolver to complete all 88 item-bound expert decisions for darkcircle and eyebag. The queue reads only the 284 train and 77 validation COCO payloads; the 38-image locked test annotations and pixels remain unread and unselected. Lock each class's positive, polygon-extent, hard-negative and ambiguity policies independently. Missing target annotations are candidates, not negatives; source polygons are selection geometry, not expert truth. Even a complete semantic protocol does not authorize training until full person/source identity coverage, rights, an authorized exact archive, a new untouched final test and consented camera reservation also pass.",
     "Preserve passed real-Chromium controlled-fixture run 40456553840 and matching repository CI run 40456553849. The six sanitized artifacts bind one immutable build and prove API, six-region map, IndexedDB history, native-200 geometry, consent, retention and deletion integration only; they explicitly do not prove physical-camera capture, expert truth or accuracy. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not repeat the browser run or start duplicate Roboflow work.",
     "Preserve green GitHub Actions run 40297234134 and the functioning main /api/local-health/skin result flow. When consented physical-camera manifest, adjudicated expert truth and locked capture/localization receipts exist, run both evaluators and scripts/skin-research/check_physical_camera_acceptance.py with a per-class policy locked before camera_final and a real /api/local-health/skin replay. Do not mark the roadmap complete until every class and real camera/browser/map/history/privacy gate passes.",
     "After a consented physical-camera manifest exists, collect the private matrix defined by docs/skin/evidence/physical-camera-expert-review-input-template-20261026-v1.json and run scripts/skin-research/build_physical_camera_expert_truth.py. Every activated class on every capture needs exactly two independent qualified human reviews; discordant decision or polygon truth needs an independent third expert. Keep positive localized polygons normalized, model proposals hidden, missing truth distinct from evaluated negative, unknown/unassessable distinct from Normal, and Redness independent from sensitivity. Do not commit reviewer identity, image bytes or raw private fields.",
@@ -6640,6 +6673,20 @@
       "tests": {
         "focused": 13,
         "skinResearch": 296,
+        "result": "OK"
+      }
+    },
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T07:43:33Z",
+      "action": "Read the remote checkpoint first and refreshed all 20 accessible Roboflow projects plus exact acne, regional and under-eye version/training state and grouped upload task sLFwX7CYBVcnnD6iAW5o. Acne and regional NAS/small jobs remain finished, under-eye pilot v2 still has no training, the grouped project remains empty and the task remains created/no-progress; no upload, version, training, inference, threshold or activation mutation was started. Added a deterministic privacy-safe under-eye expert review builder bound to grouped candidate SHA256 8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122. It reads only 284 train plus 77 validation records, never reads or selects the 38-image locked test payload, audits all 781 review-split polygons/8,649 vertices with zero out-of-bounds or degenerate geometry, and selects 88 darkcircle/eyebag positive and candidate-hard-negative items across 59 images. The separate fail-closed decision template requires exact queue binding, complete expert item coverage and independent per-class positive/mask/hard-negative/ambiguity policies; missing labels remain unknown candidates and source annotations remain non-expert selection geometry. Four focused tests and all 300 skin-research tests passed. Expert review, full person/source identity, rights, exact archive authorization, new final test and physical-camera evidence remain pending, so training and roadmap acceptance remain false.",
+      "report": "docs/skin/evidence/under-eye-expert-review-queue-20261027-v1.json",
+      "evidence": [
+        "docs/skin/evidence/under-eye-expert-review-decisions-template-20261027-v1.json"
+      ],
+      "tests": {
+        "focused": 4,
+        "skinResearch": 300,
         "result": "OK"
       }
     }
